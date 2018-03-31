@@ -2,9 +2,21 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
+import styled from 'styled-components'
 
 import Header from '../components/Header'
-import './index.css'
+
+import { injectGlobalStyles } from '../components/shared/global'
+import { color } from '../components/shared/styles'
+
+injectGlobalStyles()
+
+const Sidebar = styled.div`
+  background: ${color.secondary};
+`
+const Content = styled.div`
+  background: ${color.primary};
+`
 
 const TemplateWrapper = ({ data, children }) => (
   <div>
@@ -17,6 +29,8 @@ const TemplateWrapper = ({ data, children }) => (
     />
     <Header title={data.site.siteMetadata.title} />
 
+    <Sidebar>Sidebar</Sidebar>
+    <Content>Content</Content>
     {data.allMarkdownRemark.edges.map(({ node }) => (
       <Link key={node.id} to={node.fields.slug}>
         {node.frontmatter.title}
