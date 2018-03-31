@@ -1,20 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
+import Link from 'gatsby-link'
 
 import Header from '../components/Header'
 import './index.css'
 
-const TemplateWrapper = ({ children }) => (
+const TemplateWrapper = ({ data, children }) => (
   <div>
     <Helmet
-      title="Gatsby Default Starter"
+      title={data.site.siteMetadata.title}
       meta={[
         { name: 'description', content: 'Sample' },
         { name: 'keywords', content: 'sample, something' },
       ]}
     />
-    <Header />
+    <Header title={data.site.siteMetadata.title} />
+
+    {data.allMarkdownRemark.edges.map(({ node }) => (
+      <Link key={node.id} to={node.fileAbsolutePath}>
+        {node.frontmatter.title}
+      </Link>
+    ))}
+
     <div
       style={{
         margin: '0 auto',
@@ -33,3 +41,25 @@ TemplateWrapper.propTypes = {
 }
 
 export default TemplateWrapper
+
+export const query = graphql`
+  query TemplateWrapper {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+
+    allMarkdownRemark(sort: { fields: [fileAbsolutePath] }) {
+      edges {
+        node {
+          id
+          fileAbsolutePath
+          frontmatter {
+            title
+          }
+        }
+      }
+    }
+  }
+`
