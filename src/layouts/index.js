@@ -18,7 +18,7 @@ const TemplateWrapper = ({ data, children }) => (
     <Header title={data.site.siteMetadata.title} />
 
     {data.allMarkdownRemark.edges.map(({ node }) => (
-      <Link key={node.id} to={node.fileAbsolutePath}>
+      <Link key={node.id} to={node.fields.slug}>
         {node.frontmatter.title}
       </Link>
     ))}
@@ -54,7 +54,9 @@ export const query = graphql`
       edges {
         node {
           id
-          fileAbsolutePath
+          fields {
+            slug
+          }
           frontmatter {
             title
           }
