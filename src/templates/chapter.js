@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import Highlight from '../components/Highlight'
 
 export default ({ data }) => {
   const post = data.markdownRemark
@@ -7,7 +8,7 @@ export default ({ data }) => {
     <div>
       catsdocs
       <h1>{post.frontmatter.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.html }} />
+      <Highlight>{post.html}</Highlight>
     </div>
   )
 }
