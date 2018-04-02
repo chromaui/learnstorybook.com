@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'gatsby-link'
 import styled, { css } from 'styled-components'
 
-import { typography, spacing, pageMargins, breakpoint } from '../shared/styles'
+import { typography, spacing, pageMargins, breakpoint } from './shared/styles'
 
 const LogotypeWrapper = styled.a`
   svg {
@@ -125,9 +125,15 @@ const Header = ({ title, ...props }) => (
           </NavLink>
         </NavItem>
         <NavItem showDesktop>
-          <NavLink tertiary href="https://blog.hichroma.com/" target="_blank">
-            Blog
-          </NavLink>
+          <a
+            className="github-button"
+            href="https://github.com/hichroma/learnstorybook.com"
+            data-size="large"
+            data-show-count="true"
+            aria-label="Star hichroma/learnstorybook.com on GitHub"
+          >
+            Star
+          </a>
         </NavItem>
       </NavGroup>
     </Nav>
