@@ -147,7 +147,7 @@ const FAQLayout = styled.div`
   }
 `
 
-const IndexPage = () => (
+const IndexPage = ({ data }) => (
   <div>
     <Wrapper>
       <Content>
@@ -159,7 +159,7 @@ const IndexPage = () => (
           </Desc>
 
           <Actions>
-            <Link isGatsby to="/setup">
+            <Link isGatsby to={data.site.siteMetadata.toc[0]}>
               <Button inverse>Get started</Button>
             </Link>
             <Link
@@ -266,3 +266,13 @@ const IndexPage = () => (
 )
 
 export default IndexPage
+
+export const query = graphql`
+  query IndexQuery {
+    site {
+      siteMetadata {
+        toc
+      }
+    }
+  }
+`
