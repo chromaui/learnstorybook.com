@@ -41,40 +41,34 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 Above we we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
 
-Below we build out task’s four test states in the story file:
+Below we build out task’s three test states in the story file:
 
 ```javascript
 import React from 'react';
-import { storiesOf, action } from '@storybooks/storybook';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
-function buildStory(attrs) {
-  const task = {
+export function createTask(attrs) {
+  return {
     id: Math.round(Math.random() * 1000000).toString(),
     title: 'Test Task',
-    subtitle: 'on Test Board',
-    url: 'http://test.url',
     state: 'TASK_INBOX',
     updatedAt: Date.now(),
     ...attrs,
   };
-  const onPinTask = action('onPinTask');
-  const onSnoozeTask = action('onSnoozeTask');
-
-  return <Task {...{ task, onPinTask, onSnoozeTask }} />;
 }
 
+export const actions = {
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
+};
+
 storiesOf('Task', module)
-  .addDecorator(story => (
-    <div className="list-items" style={{ background: 'white' }}>
-      {story()}
-    </div>
-  ))
-  .add('inbox task', () => buildStory({ state: 'TASK_INBOX' }))
-  .add('snoozed task', () => buildStory({ state: 'TASK_SNOOZED' }))
-  .add('pinned task', () => buildStory({ state: 'TASK_PINNED' }))
-  .add('archived task', () => buildStory({ state: 'TASK_ARCHIVED' }));
+  .add('default', () => <Task task={createTask({ state: 'TASK_INBOX' })} {...actions} />)
+  .add('pinned', () => <Task task={createTask({ state: 'TASK_PINNED' })} {...actions} />)
+  .add('archived', () => <Task task={createTask({ state: 'TASK_ARCHIVED' })} {...actions} />);
 ```
 
 There are two basic levels of organization in Storybook. The component and it’s child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -89,9 +83,13 @@ To initiate Storybook we first call the `storiesOf()` function to register the c
 
 `action()` allows us to create a callback that appears in the _actions_ panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-After that, we call `add()` once for each of our test states to generate a story. We pass a function that returns a rendered element (i.e. a component class with a set of props) in a given state.
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and use React's `{...actions}` props expansion to pass them all at once. (`<Task {..actions}>` is equivalent to `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`).
 
-Finally, we’ll reuse a `buildStory` helper to generate stories in a consistent way.
+Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in later stories, as we'll see later.
+
+To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+
+When creating a story we use a helper function (`createTask()`) to build out the shape of the task the component expects. This is typically modelled off what the true data looks like. Again, `export`-ing this function will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
 <b>Actions</b> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `actions()` to stub them in. 
