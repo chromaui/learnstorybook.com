@@ -10,11 +10,11 @@ Last chapter we built our first component, this chapter extends what we learned 
 
 Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: `TaskList` with default items and `TaskList` with both default and pinned items.
 
-![default and pinned tasks](/static/tasklist-states-1.png)
+![default and pinned tasks](/tasklist-states-1.png)
 
 Since `Task` data can be sent asynchronously, we _also_ need a loading state to render in the absence of a connection. In addition, an empty state is required when there are no tasks.
 
-![empty and loading tasks](/static/tasklist-states-2.png)
+![empty and loading tasks](/tasklist-states-2.png)
 
 ## Get setup
 
@@ -85,7 +85,7 @@ storiesOf('TaskList', module)
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/static/inprogress-tasklist-states.mp4"
+    src="/inprogress-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -139,7 +139,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/static/finished-tasklist-states.mp4"
+    src="/finished-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>

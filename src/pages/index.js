@@ -210,7 +210,7 @@ const IndexPage = () => (
 
       <Question>What you'll build</Question>
       <Answer>
-        <img src="/static/ss-browserchrome-taskbox-learnstorybook.png" />
+        <img src="/ss-browserchrome-taskbox-learnstorybook.png" />
         <p>
           Taskbox, a task management UI (similar to Asana), complete with
           multiple item types and states. We’ll go from building simple UI

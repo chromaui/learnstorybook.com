@@ -8,7 +8,7 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 ## Task
 
-![Task component in three states](/static/task-states-learnstorybook.png)
+![Task component in three states](/task-states-learnstorybook.png)
 
 `Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task (and a link out), and a “pin” button, allowing us move tasks up and down the list. Putting this together, we’ll need these props:
 
@@ -122,7 +122,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/static/inprogress-task-states.mp4"
+    src="/inprogress-task-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -188,7 +188,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/static/finished-task-states.mp4"
+    src="/finished-task-states.mp4"
     type="video/mp4"
   />
 </video>

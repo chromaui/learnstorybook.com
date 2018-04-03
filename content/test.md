@@ -20,7 +20,7 @@ Visual regression tests are designed to catch changes in appearance. They work b
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
-    src="/static/visual-regression-testing.mp4"
+    src="/visual-regression-testing.mp4"
     type="video/mp4"
   />
 </video>
@@ -49,7 +49,7 @@ Then login to Chromatic to get a unique app code.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
-    src="/static/chromatic-setup-learnstorybook.mp4"
+    src="/chromatic-setup-learnstorybook.mp4"
     type="video/mp4"
   />
 </video>
@@ -66,15 +66,15 @@ Run the test command in the command line to setup visual regression tests for St
 
 Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.
 
-![Chromatic baselines](/static/chromatic-baselines.png)
+![Chromatic baselines](/chromatic-baselines.png)
 
 ## Catch a UI change
 
 Visual regression testing relies on comparing images of the new rendered UI code to the baseline images. If a UI change is caught you get notified. See how it works by tweaking the background of the `Task` component:
 
-![code change](/static/chromatic-change-to-task-component.png)
+![code change](/chromatic-change-to-task-component.png)
 
-![task background change](/static/chromatic-task-change.png)
+![task background change](/chromatic-task-change.png)
 
 This yields a new background color for the item. Use the test command from earlier to run another Chromatic test.
 
@@ -84,11 +84,11 @@ This yields a new background color for the item. Use the test command from earli
 
 Follow the link to the web UI where you’ll see changes.
 
-![UI changes in Chromatic](/static/chromatic-catch-changes.png)
+![UI changes in Chromatic](/chromatic-catch-changes.png)
 
 There are a lot of changes because `Task` is a child of `TaskList` and `Inbox`! The component hierarchy means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
 
-![UI minor tweaks major regressions](/static/minor-major-regressions.gif)
+![UI minor tweaks major regressions](/minor-major-regressions.gif)
 
 ## Review changes
 
@@ -98,7 +98,7 @@ If a change is intentional you need to update the baseline so that future tests 
 
 <video autoPlay muted playsInline controls style="width:480px; margin: 0 auto;">
   <source
-    src="/static/website-workflow-review-merge-optimized.mp4"
+    src="/website-workflow-review-merge-optimized.mp4"
     type="video/mp4"
   />
 </video>
@@ -109,8 +109,8 @@ Since modern apps are constructed from components, it’s important that we test
 
 When we’ve finished reviewing we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs.
 
-![Changes ready to be merged](/static/chromatic-review-finished.png)
+![Changes ready to be merged](/chromatic-review-finished.png)
 
 Storybook helps you **build** components; testing helps you **maintain** them. The four types of UI testing are covered in this tutorial are visual, snapshot, unit, and visual regression testing. You can automate the last three by adding them to your CI script. This helps you ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
 
-![Visual regression testing workflow](/static/cdd-review-workflow.png)
+![Visual regression testing workflow](/cdd-review-workflow.png)

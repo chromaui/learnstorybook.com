@@ -26,7 +26,7 @@ However, for the `InboxScreen` we have a problem in that although the `InboxScre
 
 We would have an issue because the `TaskList` would have no Redux store to connect to. (You also would encounter similar problems when trying to test the `InboxScreen` with a unit test).
 
-![Broken inbox](/static/broken-inboxscreen.png)
+![Broken inbox](/broken-inboxscreen.png)
 
 One solution to this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
 
@@ -204,7 +204,7 @@ Again, the component isn’t too complicated, and we are careful to deal with al
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/static/finished-inboxscreen-states.mp4"
+    src="/finished-inboxscreen-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -219,7 +219,7 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
 
 <video autoPlay muted playsInline controls style="width:480px; height:auto; margin: 0 auto;">
   <source
-    src="/static/component-driven-development-optimized.mp4"
+    src="/component-driven-development-optimized.mp4"
     type="video/mp4"
   />
 </video>
