@@ -105,7 +105,7 @@ const NavWrapper = styled.nav`
   }
 `
 
-const Header = ({ title, ...props }) => (
+const Header = ({ title, githubUrl, ...props }) => (
   <NavWrapper {...props}>
     <Nav>
       <NavGroup>
@@ -127,7 +127,7 @@ const Header = ({ title, ...props }) => (
         <NavItem showDesktop>
           <a
             className="github-button"
-            href="https://github.com/hichroma/learnstorybook.com"
+            href={githubUrl}
             data-size="large"
             data-show-count="true"
             aria-label="Star hichroma/learnstorybook.com on GitHub"

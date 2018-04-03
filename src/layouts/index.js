@@ -22,7 +22,10 @@ const TemplateWrapper = ({ data, children }) => (
       <script async defer src="https://buttons.github.io/buttons.js" />
     </Helmet>
     {location.pathname !== '/' && (
-      <Header title={data.site.siteMetadata.title} />
+      <Header
+        title={data.site.siteMetadata.title}
+        githubUrl={data.site.siteMetadata.githubUrl}
+      />
     )}
 
     <div>{children()}</div>
@@ -41,6 +44,7 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        githubUrl
       }
     }
   }

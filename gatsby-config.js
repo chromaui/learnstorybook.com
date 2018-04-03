@@ -13,6 +13,7 @@ module.exports = {
       '/conclusion/',
       '/contribute/',
     ],
+    githubUrl: 'https://github.com/hichroma/learnstorybook.com',
   },
   plugins: [
     'gatsby-plugin-react-helmet',

@@ -133,6 +133,12 @@ export default ({ data }) => {
     return { slug, title: tocTitle || title }
   })
 
+  const { githubUrl } = data.site.siteMetadata
+  const githubFileUrl = `${githubUrl}/blob/master/content/${post.fields.slug.replace(
+    /\//g,
+    ''
+  )}.md`
+
   return (
     <DocsWrapper>
       <Sidebar>
@@ -153,6 +159,7 @@ export default ({ data }) => {
         </DocsList>
       </Sidebar>
       <Content>
+        <a href={githubFileUrl}>Edit on GitHub</a>
         <Highlight>{post.html}</Highlight>
       </Content>
     </DocsWrapper>
@@ -166,10 +173,14 @@ export const query = graphql`
       frontmatter {
         title
       }
+      fields {
+        slug
+      }
     }
     site {
       siteMetadata {
         toc
+        githubUrl
       }
     }
     allMarkdownRemark {
