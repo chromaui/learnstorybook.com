@@ -14,10 +14,7 @@ const TemplateWrapper = ({ data, children }) => (
   <div>
     <Helmet
       title={data.site.siteMetadata.title}
-      meta={[
-        { name: 'description', content: 'Sample' },
-        { name: 'keywords', content: 'sample, something' },
-      ]}
+      meta={[{ name: 'keywords', content: 'sample, something' }]}
     >
       <script async defer src="https://buttons.github.io/buttons.js" />
     </Helmet>

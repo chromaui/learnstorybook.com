@@ -1,5 +1,6 @@
 ---
 title: Introduction
+description: "Some stuff about the introduction"
 ---
 
 # Get started

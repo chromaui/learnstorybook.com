@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import Helmet from 'react-helmet'
+
 import Highlight from '../components/Highlight'
 import Link from '../components/Link'
 
@@ -145,6 +147,10 @@ export default ({ data }) => {
 
   return (
     <DocsWrapper>
+      <Helmet
+        title={post.frontmatter.title}
+        meta={[{ name: 'description', content: post.frontmatter.description }]}
+      />
       <Sidebar>
         <Heading>Table of Contents</Heading>
         <DocsList>
@@ -181,6 +187,7 @@ export const query = graphql`
       html
       frontmatter {
         title
+        description
       }
       fields {
         slug
