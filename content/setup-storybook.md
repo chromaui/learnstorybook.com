@@ -1,5 +1,6 @@
 ---
 title: "Setup Storybook and add assets"
+tocTitle: "Setup Storybook"
 ---
 
 # Setup Storybook and add assets

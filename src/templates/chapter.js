@@ -117,24 +117,36 @@ const DocsWrapper = styled.div`
 
 export default ({ data }) => {
   const post = data.markdownRemark
+
+  const tocEntries = data.site.siteMetadata.toc.map(slug => {
+    const node = data.allMarkdownRemark.edges
+      .map(e => e.node)
+      .find(({ fields }) => fields.slug === slug)
+
+    if (!node) {
+      throw new Error(
+        `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
+      )
+    }
+    const { tocTitle, title } = node.frontmatter
+
+    return { slug, title: tocTitle || title }
+  })
+
   return (
     <DocsWrapper>
       <Sidebar>
         <Heading>Table of Contents</Heading>
         <DocsList>
-          {data.allMarkdownRemark.edges.map(({ node }) => (
-            <DocsItem key={node.id}>
+          {tocEntries.map(({ slug, title }) => (
+            <DocsItem key={slug}>
               <Link
                 isGatsby
                 strict
-                className={
-                  location.pathname !== node.fields.slug
-                    ? 'tertiary'
-                    : 'selected'
-                }
-                to={node.fields.slug}
+                className={location.pathname !== slug ? 'tertiary' : 'selected'}
+                to={slug}
               >
-                {node.frontmatter.title}
+                {title}
               </Link>
             </DocsItem>
           ))}
@@ -155,15 +167,20 @@ export const query = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [fileAbsolutePath] }) {
+    site {
+      siteMetadata {
+        toc
+      }
+    }
+    allMarkdownRemark {
       edges {
         node {
-          id
+          frontmatter {
+            tocTitle
+            title
+          }
           fields {
             slug
-          }
-          frontmatter {
-            title
           }
         }
       }

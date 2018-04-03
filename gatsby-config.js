@@ -1,6 +1,18 @@
 module.exports = {
   siteMetadata: {
     title: 'Learn Storybook',
+    toc: [
+      '/introduction/',
+      '/setup-storybook/',
+      '/simple-component/',
+      '/composite-component/',
+      '/container-component/',
+      '/test/',
+      '/screen/',
+      '/deploy/',
+      '/conclusion/',
+      '/contribute/',
+    ],
   },
   plugins: [
     'gatsby-plugin-react-helmet',
