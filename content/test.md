@@ -42,7 +42,18 @@ yarn add react-chromatic
 Import Chromatic in your storybook config file.
 
 ```javascript
-@import ...
+import { configure } from '@storybook/react';
+import 'react-chromatic/storybook-addon';
+
+import '../src/index.css';
+
+const req = require.context('../src/components', true, /\.stories\.js$/);
+
+function loadStories() {
+  req.keys().forEach(filename => req(filename));
+}
+
+configure(loadStories, module);
 ```
 
 Then login to Chromatic to get a unique app code.
