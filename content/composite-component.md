@@ -219,7 +219,24 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 
 Create a test file called `Task.test.js`. Here we’ll build out our tests that make assertions about the output.
 
-...code
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TaskList from './TaskList';
+import { withPinnedTasks } from './TaskList.stories';
+
+it('renders pinned tasks at the start of the list', () => {
+  const div = document.createElement('div');
+  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
+  ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div);
+
+  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
+  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
+  expect(lastTaskInput).not.toBe(null);
+
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
 
 Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
 
