@@ -2,11 +2,10 @@ module.exports = {
   siteMetadata: {
     title: 'Learn Storybook',
     toc: [
-      '/introduction/',
-      '/setup-storybook/',
+      '/setup/',
       '/simple-component/',
       '/composite-component/',
-      '/container-component/',
+      '/data/',
       '/screen/',
       '/test/',
       '/deploy/',
@@ -26,5 +25,6 @@ module.exports = {
     },
     `gatsby-transformer-remark`,
     `gatsby-plugin-styled-components`,
+    `gatsby-plugin-sitemap`,
   ],
 }

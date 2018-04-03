@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled, { css } from 'styled-components'
 import { darken } from 'polished'
-import { color, typography } from './shared/styles'
+import { color, typography, breakpoint } from './shared/styles'
 
 const Text = styled.span`
   display: inline-block;
@@ -29,8 +29,14 @@ const ButtonWrapper = styled.button`
   margin: 0;
   background: transparent;
 
-  padding: ${props => props.small ? '8px 16px' : '20px 30px'};
-  font-size: ${props => props.small ? typography.size.s1 : typography.size.m1}px;
+
+  padding: 16px 25px;
+  font-size: ${typography.size.s3}px;
+  @media (min-width: ${breakpoint  * 2}px) {
+    padding: ${props => props.small ? '16px 25px' : '20px 30px'};
+    font-size: ${props => props.small ? typography.size.s3 : typography.size.m1}px;
+  }
+
   font-weight: ${typography.weight.extrabold};
   line-height: 1;
 
@@ -182,7 +188,14 @@ const ButtonWrapper = styled.button`
 
 const ButtonLink = ButtonWrapper.withComponent('a')
 
-function Button({ children, ...props }) {
+function Button({ isLink, children, ...props }) {
+  if (isLink) {
+    return (
+      <ButtonLink {...props}>
+        <Text>{children}</Text>
+      </ButtonLink>
+    )
+  }
   return (
     <ButtonWrapper {...props}>
       <Text>{children}</Text>

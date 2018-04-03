@@ -2,28 +2,26 @@ import React from 'react'
 import Link from 'gatsby-link'
 import styled, { css } from 'styled-components'
 
+import Logo from './Logo'
 import { typography, spacing, pageMargins, breakpoint } from './shared/styles'
 
-const LogotypeWrapper = styled.a`
-  svg {
+const LogoWrapper = styled(Logo)`
+  height: 18px;
+  width: auto;
+
+  @media (min-width: ${breakpoint}px) {
     height: 22px;
-    width: auto;
-    margin-top: 14px;
-    @media (min-width: ${breakpoint}px) {
-      height: 26px;
-      margin-top: 10px;
-    }
+  }
 
-    display: block;
+  display: block;
 
-    transition: all 150ms ease-out;
+  transition: all 150ms ease-out;
+  transform: translate3d(0, 0, 0);
+  &:hover {
+    transform: translate3d(0, -1px, 0);
+  }
+  &:active {
     transform: translate3d(0, 0, 0);
-    &:hover {
-      transform: translate3d(0, -1px, 0);
-    }
-    &:active {
-      transform: translate3d(0, 0, 0);
-    }
   }
 `
 
@@ -53,15 +51,16 @@ const Menu = styled(Link)`
 
 // prettier-ignore
 const NavItem = styled.div`
-  display: inline-block;
+  display: inline-flex;
   line-height: 3rem;
   height: 3rem;
   vertical-align: top;
+  align-items: center;
 
   ${props => props.showDesktop && css`
     display: none;
     @media (min-width: ${breakpoint}px) {
-      display: inline-block;
+      display: inline-flex;
     }
   `}
 
@@ -105,39 +104,31 @@ const NavWrapper = styled.nav`
   }
 `
 
-const Header = ({ title, githubUrl, ...props }) => (
-  <NavWrapper {...props}>
-    <Nav>
-      <NavGroup>
-        <NavItem>
-          <NavLink to="/">{title}</NavLink>
-        </NavItem>
-      </NavGroup>
-      <NavGroup right>
-        <NavItem showDesktop>
-          <NavLink tertiary href="/pricing">
-            Pricing
-          </NavLink>
-        </NavItem>
-        <NavItem showDesktop>
-          <NavLink tertiary href="http://docs.chromaticqa.com/">
-            Docs
-          </NavLink>
-        </NavItem>
-        <NavItem showDesktop>
-          <a
-            className="github-button"
-            href={githubUrl}
-            data-size="large"
-            data-show-count="true"
-            aria-label="Star hichroma/learnstorybook.com on GitHub"
-          >
-            Star
-          </a>
-        </NavItem>
-      </NavGroup>
-    </Nav>
-  </NavWrapper>
-)
-
-export default Header
+export default function Header({ title, githubUrl, inverse, ...props }) {
+  return (
+    <NavWrapper {...props}>
+      <Nav>
+        <NavGroup>
+          <NavItem>
+            <NavLink to="/">
+              <LogoWrapper inverse={inverse} />
+            </NavLink>
+          </NavItem>
+        </NavGroup>
+        <NavGroup right>
+          <NavItem>
+            <a
+              className="github-button"
+              href={githubUrl}
+              data-size="large"
+              data-show-count="true"
+              aria-label="Star hichroma/learnstorybook.com on GitHub"
+            >
+              Star
+            </a>
+          </NavItem>
+        </NavGroup>
+      </Nav>
+    </NavWrapper>
+  )
+}

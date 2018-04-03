@@ -1,5 +1,7 @@
 ---
 title: "Assemble a composite component"
+tocTitle: "Composite component"
+description: "Assemble a composite component out of simpler components"
 ---
 
 # Assemble a composite component
@@ -8,7 +10,7 @@ Last chapter we built our first component, this chapter extends what we learned 
 
 ## Tasklist
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: `TaskList` with default items and `TaskList` with both default and pinned items.
+Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
 
 ![default and pinned tasks](/tasklist-states-1.png)
 
@@ -23,42 +25,42 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```javascript
-import React from 'react';
+import React from 'react'
 
-import Task from './Task';
+import Task from './Task'
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
     onArchiveTask,
-  };
+  }
 
   if (loading) {
-    return <div className="list-items">loading</div>;
+    return <div className="list-items">loading</div>
   }
 
   if (tasks.length === 0) {
-    return <div className="list-items">empty</div>;
+    return <div className="list-items">empty</div>
   }
 
   return (
     <div className="list-items">
       {tasks.map(task => <Task key={task.id} task={task} {...events} />)}
     </div>
-  );
+  )
 }
 
-export default TaskList;
+export default TaskList
 ```
 
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from 'react'
+import { storiesOf } from '@storybook/react'
 
-import TaskList from './TaskList';
-import { createTask, actions } from './Task.stories';
+import TaskList from './TaskList'
+import { createTask, actions } from './Task.stories'
 
 export const defaultTasks = [
   createTask({ state: 'TASK_INBOX' }),
@@ -67,7 +69,7 @@ export const defaultTasks = [
   createTask({ state: 'TASK_INBOX' }),
   createTask({ state: 'TASK_INBOX' }),
   createTask({ state: 'TASK_INBOX' }),
-];
+]
 
 export const withPinnedTasks = [
   createTask({ title: 'Task 1', state: 'TASK_INBOX' }),
@@ -76,14 +78,16 @@ export const withPinnedTasks = [
   createTask({ title: 'Task 4', state: 'TASK_INBOX' }),
   createTask({ title: 'Task 5', state: 'TASK_INBOX' }),
   createTask({ title: 'Task 6 (pinned)', state: 'TASK_PINNED' }),
-];
+]
 
 storiesOf('TaskList', module)
   .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
   .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
+  .add('withPinnedTasks', () => (
+    <TaskList tasks={withPinnedTasks} {...actions} />
+  ))
   .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <TaskList tasks={[]} {...actions} />);
+  .add('empty', () => <TaskList tasks={[]} {...actions} />)
 ```
 
 `addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
@@ -106,15 +110,15 @@ storiesOf('TaskList', module)
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic; in most cases we wouldn’t create a new component just to add a wrapper. But the real complexity of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
 ```javascript
-import React from 'react';
+import React from 'react'
 
-import Task from './Task';
+import Task from './Task'
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
     onArchiveTask,
-  };
+  }
 
   const LoadingRow = (
     <div className="loading-item">
@@ -123,7 +127,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
         <span>Loading</span> <span>cool</span> <span>state</span>
       </span>
     </div>
-  );
+  )
 
   if (loading) {
     return (
@@ -135,7 +139,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
         {LoadingRow}
         {LoadingRow}
       </div>
-    );
+    )
   }
 
   if (tasks.length === 0) {
@@ -147,22 +151,22 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
           <div className="subtitle-message">Sit back and relax</div>
         </div>
       </div>
-    );
+    )
   }
 
   const tasksInOrder = [
     ...tasks.filter(t => t.state === 'TASK_PINNED'),
     ...tasks.filter(t => t.state !== 'TASK_PINNED'),
-  ];
+  ]
 
   return (
     <div className="list-items">
       {tasksInOrder.map(task => <Task key={task.id} task={task} {...events} />)}
     </div>
-  );
+  )
 }
 
-export default TaskList;
+export default TaskList
 ```
 
 The added markup results in the following UI:
@@ -220,22 +224,24 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `Task.test.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import TaskList from './TaskList';
-import { withPinnedTasks } from './TaskList.stories';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import TaskList from './TaskList'
+import { withPinnedTasks } from './TaskList.stories'
 
 it('renders pinned tasks at the start of the list', () => {
-  const div = document.createElement('div');
-  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div);
+  const div = document.createElement('div')
+  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() }
+  ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div)
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
-  expect(lastTaskInput).not.toBe(null);
+  const lastTaskInput = div.querySelector(
+    '.list-item:nth-child(1) input[value="Task 6 (pinned)"]'
+  )
+  expect(lastTaskInput).not.toBe(null)
 
-  ReactDOM.unmountComponentAtNode(div);
-});
+  ReactDOM.unmountComponentAtNode(div)
+})
 ```
 
 Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.

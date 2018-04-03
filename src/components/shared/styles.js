@@ -5,6 +5,9 @@ export const color = {
   primary: '#1EA7FD',
   secondary: '#FC521F',
   tertiary: '#DDDDDD',
+  ancillary: '#3C7384',
+
+  app: '#f6f9fc',
 
   // Grayscale
   lightest: '#FFFFFF',
@@ -75,7 +78,8 @@ export const pageMargins = css`
 `
 
 export const formatting = css`
-  line-height: 1.5;
+  line-height: 1.65;
+  font-size: 18px;
 
   h1,
   h2,
@@ -89,11 +93,11 @@ export const formatting = css`
   }
 
   h2:not(:first-child) {
-    margin-top: 2rem;
+    margin-top: 2em;
   }
 
   hr {
-    margin: 3rem 0;
+    margin: 3em 0;
   }
 
   hr + * {
@@ -103,34 +107,33 @@ export const formatting = css`
   h1 {
     font-size: ${typography.size.l1}px;
     font-weight: ${typography.weight.extrabold};
-
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5em;
   }
 
   h2 {
-    font-size: ${typography.size.m1}px;
+    font-size: ${typography.size.m2}px;
     font-weight: ${typography.weight.extrabold};
     line-height: ${typography.size.m3}px;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5em;
   }
 
   h3 {
-    font-size: ${typography.size.s3}px;
-    font-weight: ${typography.weight.bold};
+    font-size: ${typography.size.m1}px;
+    font-weight: ${typography.weight.extrabold};
     line-height: 28px;
     color: ${color.darkest};
-    margin: 1.5rem 0 0rem;
+    margin: 2em 0 0.5em;
   }
 
   h4 {
     font-size: ${typography.size.s3}px;
     font-weight: ${typography.weight.bold};
     color: ${color.dark};
-    margin: 1.5rem 0 0rem;
+    margin: 1.5em 0 0em;
   }
 
   p {
-    margin: 1.5rem 0;
+    margin: 1.5em 0;
     position: relative;
 
     &:first-of-type:not(:only-of-type) {
@@ -144,12 +147,12 @@ export const formatting = css`
   ol,
   ul {
     list-style-position: outside;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 1em;
+    margin-top: 1em;
     padding-left: 30px;
 
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.5em;
     }
   }
 
@@ -185,7 +188,7 @@ export const formatting = css`
 
   figure {
     clear: both;
-    margin: 1rem 0;
+    margin: 1em 0;
 
     figcaption {
       font-size: ${typography.size.s1}px;
@@ -212,16 +215,16 @@ export const formatting = css`
 
     &.aligncenter {
       display: block;
-      margin-bottom: 1rem;
+      margin-bottom: 1em;
       margin-left: auto;
       margin-right: auto;
-      margin-top: 1rem;
+      margin-top: 1em;
     }
   }
   .aside {
-    font-size: ${typography.size.s2}px;
+    font-size: ${typography.size.s3}px;
     color: ${color.dark};
-    background: #ffffe4;
+    background: #fffad7;
     border-radius: 4px;
     padding: 1em;
   }
@@ -231,7 +234,7 @@ export const formatting = css`
     padding: 0;
     border-collapse: collapse;
     width: 100%;
-    margin: 2rem 0;
+    margin: 2em 0;
   }
   table tr {
     border-top: 1px solid ${color.mediumlight};
@@ -248,13 +251,13 @@ export const formatting = css`
     border-radius: 3px 3px 0 0;
     text-align: left;
     margin: 0;
-    padding: 0.5rem 0.75rem;
+    padding: 0.5em 0.75em;
   }
   table tr td {
     border: 1px solid #ddd;
     text-align: left;
     margin: 0;
-    padding: 0.5rem 1rem;
+    padding: 0.5em 1em;
   }
 
   table tr th :first-child,
@@ -276,25 +279,26 @@ export const formatting = css`
   video {
     max-width: 100%;
     display: block;
-    margin: 1.5rem 0;
+    margin: 2em 0;
   }
 
   ${'' /* Tweak Prism styling */};
   *:not(pre) > code[class*='language-'],
   pre[class*='language-'] {
     background: ${color.lighter};
+    margin: 2em 0;
   }
 
   code[class*='language-'],
   pre[class*='language-'] {
-    font-size: ${typography.size.s2}px;
+    font-size: ${typography.size.s3}px;
   }
 
   code {
-    font-size: ${typography.size.s3 - 1}px;
+    font-size: 17px;
   }
 
   .aside code {
-    font-size: ${typography.size.s2 - 1}px;
+    font-size: 15px;
   }
 `

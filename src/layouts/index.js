@@ -2,13 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 import Header from '../components/Header.js'
 import Footer from '../components/Footer.js'
 
 import { injectGlobalStyles } from '../components/shared/global'
 injectGlobalStyles()
+
+const HeaderWrapper = styled(Header)`
+  ${props =>
+    props.home &&
+    css`
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+    `};
+`
 
 const TemplateWrapper = ({ data, children }) => (
   <div>
@@ -18,12 +29,13 @@ const TemplateWrapper = ({ data, children }) => (
     >
       <script async defer src="https://buttons.github.io/buttons.js" />
     </Helmet>
-    {location.pathname !== '/' && (
-      <Header
-        title={data.site.siteMetadata.title}
-        githubUrl={data.site.siteMetadata.githubUrl}
-      />
-    )}
+
+    <HeaderWrapper
+      title={data.site.siteMetadata.title}
+      githubUrl={data.site.siteMetadata.githubUrl}
+      inverse={location.pathname === '/'}
+      home={location.pathname === '/'}
+    />
 
     <div>{children()}</div>
     <Footer />

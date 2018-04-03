@@ -1,5 +1,7 @@
 ---
 title: "Build a simple component"
+tocTitle: "Simple component"
+description: "Build a simple component in isolation"
 ---
 
 # Build a simple component
@@ -28,14 +30,18 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
-import React from 'react';
+import React from 'react'
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}) {
   return (
     <div className="list-item">
       <input type="text" value={title} readOnly={true} />
     </div>
-  );
+  )
 }
 ```
 
@@ -44,11 +50,11 @@ Above we we render straightforward markup for `Task` based on the existing HTML 
 Below we build out task’s three test states in the story file:
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import React from 'react'
+import { storiesOf } from '@storybook/react'
+import { action } from '@storybook/addon-actions'
 
-import Task from './Task';
+import Task from './Task'
 
 export function createTask(attrs) {
   return {
@@ -57,18 +63,24 @@ export function createTask(attrs) {
     state: 'TASK_INBOX',
     updatedAt: Date.now(),
     ...attrs,
-  };
+  }
 }
 
 export const actions = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
-};
+}
 
 storiesOf('Task', module)
-  .add('default', () => <Task task={createTask({ state: 'TASK_INBOX' })} {...actions} />)
-  .add('pinned', () => <Task task={createTask({ state: 'TASK_PINNED' })} {...actions} />)
-  .add('archived', () => <Task task={createTask({ state: 'TASK_ARCHIVED' })} {...actions} />);
+  .add('default', () => (
+    <Task task={createTask({ state: 'TASK_INBOX' })} {...actions} />
+  ))
+  .add('pinned', () => (
+    <Task task={createTask({ state: 'TASK_PINNED' })} {...actions} />
+  ))
+  .add('archived', () => (
+    <Task task={createTask({ state: 'TASK_ARCHIVED' })} {...actions} />
+  ))
 ```
 
 There are two basic levels of organization in Storybook. The component and it’s child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -92,7 +104,7 @@ To define our stories, we call `add()` once for each of our test states to gener
 When creating a story we use a helper function (`createTask()`) to build out the shape of the task the component expects. This is typically modelled off what the true data looks like. Again, `export`-ing this function will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
-<b>Actions</b> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `actions()` to stub them in. 
+<b>Actions</b> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `actions()` to stub them in.
 </div>
 
 ## Config
@@ -100,16 +112,16 @@ When creating a story we use a helper function (`createTask()`) to build out the
 We also have to make one small change to the Storybook setup so it notices our `.story.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that mirrors the `.test.js` naming scheme favoured by CRA for automated tests.
 
 ```javascript
-import { configure } from '@storybooks/storybook';
-import '../src/index.css';
+import { configure } from '@storybooks/storybook'
+import '../src/index.css'
 
-const req = require.context('../src', true, /.story.js$/);
+const req = require.context('../src', true, /.story.js$/)
 
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach(filename => req(filename))
 }
 
-configure(loadStories, module);
+configure(loadStories, module)
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
@@ -128,9 +140,13 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```javascript
-import React from 'react';
+import React from 'react'
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}) {
   return (
     <div className={`list-item ${state}`}>
       <label className="checkbox">
@@ -143,7 +159,12 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
       <div className="title">
-        <input type="text" value={title} readOnly={true} placeholder="Input title" />
+        <input
+          type="text"
+          value={title}
+          readOnly={true}
+          placeholder="Input title"
+        />
       </div>
 
       <div className="actions" onClick={event => event.stopPropagation()}>
@@ -154,7 +175,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         )}
       </div>
     </div>
-  );
+  )
 }
 ```
 
@@ -221,8 +242,8 @@ yarn add --dev @storybook/addon-storyshots react-test-renderer
 Then create an `src/storybook.test.js` file with the following in it:
 
 ```javascript
-import initStoryshots from '@storybook/addon-storyshots';
-initStoryshots();
+import initStoryshots from '@storybook/addon-storyshots'
+initStoryshots()
 ```
 
 Once the above is done, we can run yarn test and see the following output:

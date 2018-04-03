@@ -1,9 +1,10 @@
 ---
-title: "Setup Storybook and add assets"
-tocTitle: "Setup Storybook"
+title: "Setup Storybook"
+tocTitle: "Setup"
+description: "Setup Storybook in your development environment"
 ---
 
-# Setup Storybook and add assets
+# Setup Storybook
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app.
 

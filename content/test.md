@@ -1,5 +1,6 @@
 ---
-title: "Test UI components"
+title: "Testing"
+description: "Learn the ways to test UI components"
 ---
 
 # Test UI components
@@ -33,30 +34,52 @@ There are a number of tools for visual regression testing. For professional team
 
 Chromatic is a hassle-free Storybook addon for visual regression testing and review in the cloud. Since it’s a paid service (with a free trial), it may not be for everyone. However, it’s an instructive example of a production visual regression testing workflow and you can try it out for free. Let’s have a look.
 
-First add the package as a dependency.
+### Initiate Git
+
+First you want to setup Git for your project in the local directory. Chromatic uses Git history to keep track of your UI components.
+
+```bash
+$ git init
+```
+
+Next add files to the first commit.
+
+```bash
+$ git add .
+```
+
+Now commit the files.
+
+```bash
+$ git commit -m "taskbox UI"
+```
+
+### Get Chromatic
+
+Add the package as a dependency.
 
 ```bash
 yarn add react-chromatic
 ```
 
-Import Chromatic in your storybook config file.
+Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
-import { configure } from '@storybook/react';
-import 'react-chromatic/storybook-addon';
+import { configure } from '@storybook/react'
+import 'react-chromatic/storybook-addon'
 
-import '../src/index.css';
+import '../src/index.css'
 
-const req = require.context('../src/components', true, /\.stories\.js$/);
+const req = require.context('../src/components', true, /\.stories\.js$/)
 
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach(filename => req(filename))
 }
 
-configure(loadStories, module);
+configure(loadStories, module)
 ```
 
-Then login to Chromatic to get a unique app code.
+Then [login to Chromatic](https://www.chromaticqa.com/start?invite-token=dnjk1zik&utm_source=https%3A%2F%2Flearnstorybook.com&utm_medium=tutorial&utm_campaign=learnstorybook) to get a unique app code.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -65,14 +88,14 @@ Then login to Chromatic to get a unique app code.
   />
 </video>
 
-Run the test command in the command line to setup visual regression tests for Storybook.
+Run the test command in the command line to setup visual regression tests for Storybook. Don't foget to add your unique app code in place of `<app-code>`.
 
 ```bash
 ./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
 ```
 
 <div class="aside">
-<code>--do-not-start</code> is an option that tells Chromatic not to try and start Storybook. Use this if you already have Storybook running on localhost. If Storybook is not running in the command line, omit this.
+<code>--do-not-start</code> is an option that tells Chromatic not to try and start Storybook. Use this if you already have Storybook running on localhost. If Storybook is not running in the command line omit <code>--do-not-start</code>.
 </div>
 
 Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.
@@ -85,9 +108,11 @@ Visual regression testing relies on comparing images of the new rendered UI code
 
 ![code change](/chromatic-change-to-task-component.png)
 
+This yields a new background color for the item.
+
 ![task background change](/chromatic-task-change.png)
 
-This yields a new background color for the item. Use the test command from earlier to run another Chromatic test.
+Use the test command from earlier to run another Chromatic test.
 
 ```bash
 ./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
@@ -97,7 +122,7 @@ Follow the link to the web UI where you’ll see changes.
 
 ![UI changes in Chromatic](/chromatic-catch-changes.png)
 
-There are a lot of changes because `Task` is a child of `TaskList` and `Inbox`! The component hierarchy means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
+There are a lot of changes! The component hierarchy where `Task` is a child of `TaskList` and `Inbox` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
 
 ![UI minor tweaks major regressions](/minor-major-regressions.gif)
 
@@ -107,7 +132,7 @@ Visual regression testing ensures components dont change by accident. But it’s
 
 If a change is intentional you need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
 
-<video autoPlay muted playsInline controls style="width:480px; margin: 0 auto;">
+<video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
     src="/website-workflow-review-merge-optimized.mp4"
     type="video/mp4"

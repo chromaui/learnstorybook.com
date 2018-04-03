@@ -1,5 +1,7 @@
 ---
 title: "Deploy Storybook"
+tocTitle: "Deploy"
+description: "Deploy Storybook online with Github and Netlify"
 ---
 
 # Deploy Storybook
@@ -75,11 +77,13 @@ If you use CI at your company, add a deploy script to your config that uploads <
 </div>
 
 Create an account on Netlify and click to “create site”.
+
 ![Netlify create site](/netlify-create-site.png)
 
 Next click the Github button to connect Netlify to Github. This allows it to access our remote Taskbox repo.
 
 Now select the taskbox Github repo from the list of options.
+
 ![Netlify connect to repo](/netlify-account-picker.png)
 
 Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Dir type `storybook-static`. Build type `yarn build-storybook`.

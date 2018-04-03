@@ -14,13 +14,13 @@ import {
 const Text = styled.div`
   font-weight: ${typography.weight.extrabold};
 
-  font-size: ${typography.size.m1}px;
-  line-height: ${typography.size.m2}px;
+  font-size: ${typography.size.m3}px;
+  line-height: ${typography.size.m3}px;
   margin-bottom: 1.5rem;
 
   @media (min-width: ${breakpoint * 1}px) {
-    font-size: ${typography.size.m2}px;
-    line-height: ${typography.size.m3}px;
+    font-size: ${typography.size.l1}px;
+    line-height: ${typography.size.l1}px;
     margin-bottom: 0;
   }
 `

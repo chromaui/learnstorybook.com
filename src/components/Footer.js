@@ -1,20 +1,28 @@
 import React from 'react'
-import Link from 'gatsby-link'
+
 import styled, { css } from 'styled-components'
 
-import { typography, spacing, pageMargins, breakpoint } from './shared/styles'
+import Link from './Link'
+import { color, typography, pageMargins, breakpoint } from './shared/styles'
 
 const FooterWrapper = styled.footer`
   ${pageMargins};
-  padding-top: 12px;
-  @media (min-width: ${breakpoint}px) {
-    padding-top: 36px;
-  }
+  text-align: center;
+  padding: 3rem 0;
+  color: ${color.dark};
+`
+
+const FooterLink = styled(Link)`
+  font-weight: ${typography.weight.bold};
 `
 
 const Footer = ({ ...props }) => (
   <FooterWrapper {...props}>
-    Made by Chroma and the Storybook community
+    Made by{' '}
+    <FooterLink href="https://blog.hichroma.com" target="_blank">
+      Chroma
+    </FooterLink>{' '}
+    and the Storybook community
   </FooterWrapper>
 )
 
