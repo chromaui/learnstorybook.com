@@ -198,8 +198,8 @@ const IndexPage = () => (
       <Answer>
         <p>
           Storybook is the most popular UI component development tool for React,
-          Vue, and Angular. It helps you “develop and design UI components
-          outside your app in an isolated environment”. Professional developers
+          Vue, and Angular. It helps you *develop and design UI components
+          outside your app in an isolated environment*. Professional developers
           use it to build faster, more durable, and documented UIs.
         </p>
         <p>
