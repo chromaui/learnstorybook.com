@@ -28,18 +28,14 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
-import React from 'react'
+import React from 'react';
 
-export default function Task({
-  task: { id, title, url, state, subtitle },
-  onSnoozeTask,
-  onPinTask,
-}) {
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className="list-item">
       <input type="text" value={title} readOnly={true} />
     </div>
-  )
+  );
 }
 ```
 
@@ -48,10 +44,10 @@ Above we we render straightforward markup for `Task` based on the existing HTML 
 Below we build out task’s four test states in the story file:
 
 ```javascript
-import React from 'react'
-import { storiesOf, action } from '@storybooks/storybook'
+import React from 'react';
+import { storiesOf, action } from '@storybooks/storybook';
 
-import Task from './Task'
+import Task from './Task';
 
 function buildStory(attrs) {
   const task = {
@@ -62,11 +58,11 @@ function buildStory(attrs) {
     state: 'TASK_INBOX',
     updatedAt: Date.now(),
     ...attrs,
-  }
-  const onPinTask = action('onPinTask')
-  const onSnoozeTask = action('onSnoozeTask')
+  };
+  const onPinTask = action('onPinTask');
+  const onSnoozeTask = action('onSnoozeTask');
 
-  return <Task {...{ task, onPinTask, onSnoozeTask }} />
+  return <Task {...{ task, onPinTask, onSnoozeTask }} />;
 }
 
 storiesOf('Task', module)
@@ -78,7 +74,7 @@ storiesOf('Task', module)
   .add('inbox task', () => buildStory({ state: 'TASK_INBOX' }))
   .add('snoozed task', () => buildStory({ state: 'TASK_SNOOZED' }))
   .add('pinned task', () => buildStory({ state: 'TASK_PINNED' }))
-  .add('archived task', () => buildStory({ state: 'TASK_ARCHIVED' }))
+  .add('archived task', () => buildStory({ state: 'TASK_ARCHIVED' }));
 ```
 
 There are two basic levels of organization in Storybook. The component and it’s child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -106,16 +102,16 @@ Finally, we’ll reuse a `buildStory` helper to generate stories in a consistent
 We also have to make one small change to the Storybook setup so it notices our `.story.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that mirrors the `.test.js` naming scheme favoured by CRA for automated tests.
 
 ```javascript
-import { configure } from '@storybooks/storybook'
-import '../src/index.css'
+import { configure } from '@storybooks/storybook';
+import '../src/index.css';
 
-const req = require.context('../src', true, /.story.js$/)
+const req = require.context('../src', true, /.story.js$/);
 
 function loadStories() {
-  req.keys().forEach(filename => req(filename))
+  req.keys().forEach(filename => req(filename));
 }
 
-configure(loadStories, module)
+configure(loadStories, module);
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
@@ -134,13 +130,13 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```javascript
-import React from 'react'
+import React from 'react';
 
 const alignStyles = {
   fontSize: '14px',
   lineHeight: '1.5rem',
   padding: '0.75em 0.25em',
-}
+};
 
 export default function Task({
   task: { id, title, url, state, subtitle },
@@ -165,9 +161,7 @@ export default function Task({
         placeholder="Input title"
         onClick={() => open(url, '_new')}
       />
-      {subtitle && (
-        <p style={{ flex: 1, color: '#666', ...alignStyles }}>{subtitle}</p>
-      )}
+      {subtitle && <p style={{ flex: 1, color: '#666', ...alignStyles }}>{subtitle}</p>}
       {state !== 'TASK_SNOOZED' &&
         state !== 'TASK_ARCHIVED' && (
           <a style={alignStyles} onClick={() => onSnoozeTask(id)}>
@@ -180,7 +174,7 @@ export default function Task({
         </a>
       )}
     </div>
-  )
+  );
 }
 ```
 
@@ -248,8 +242,8 @@ yarn add --dev @storybook/addon-storyshots react-test-renderer
 Then create an `src/storybook.test.js` file with the following in it:
 
 ```javascript
-import initStoryshots from '@storybook/addon-storyshots'
-initStoryshots()
+import initStoryshots from '@storybook/addon-storyshots';
+initStoryshots();
 ```
 
 Once the above is done, we can run yarn test and see the following output:
