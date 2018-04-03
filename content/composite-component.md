@@ -107,41 +107,60 @@ Our component is still rough but now we have an idea of the stories to work towa
 
 ```javascript
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Task from './Task';
 
-function TaskList(
-  { tasks, onSnoozeTask, onPinTask, onArchiveTask },
-) {
+function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
-    onSnoozeTask,
     onPinTask,
     onArchiveTask,
   };
 
-if(loading) { return(
-    ...
-  );}
+  const LoadingRow = (
+    <div className="loading-item">
+      <span className="glow-checkbox" />
+      <span className="glow-text">
+        <span>Loading</span> <span>cool</span> <span>state</span>
+      </span>
+    </div>
+  );
 
-if(tasks.length === 0) { return(
-    ...
-  );}
+  if (loading) {
+    return (
+      <div className="list-items">
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+      </div>
+    );
+  }
+
+  if (tasks.length === 0) {
+    return (
+      <div className="list-items">
+        <div className="wrapper-message">
+          <span className="icon-check" />
+          <div className="title-message">You have no tasks</div>
+          <div className="subtitle-message">Sit back and relax</div>
+        </div>
+      </div>
+    );
+  }
+
+  const tasksInOrder = [
+    ...tasks.filter(t => t.state === 'TASK_PINNED'),
+    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+  ];
 
   return (
     <div className="list-items">
-      {tasks.map(task => <Task key={task.id} task={task} {...events} />)}
+      {tasksInOrder.map(task => <Task key={task.id} task={task} {...events} />)}
     </div>
   );
 }
-
-
-TaskList.propTypes = {
-  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  onSnoozeTask: PropTypes.func,
-  onPinTask: PropTypes.func,
-  onArchiveTask: PropTypes.func,
-};
 
 export default TaskList;
 ```
@@ -171,10 +190,14 @@ function TaskList() {
 
 
 TaskList.propTypes = {
+  loading: PropTypes.bool,
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  onSnoozeTask: PropTypes.func,
-  onPinTask: PropTypes.func,
-  onArchiveTask: PropTypes.func,
+  onPinTask: PropTypes.func.isRequired,
+  onArchiveTask: PropTypes.func.isRequired,
+};
+
+TaskList.defaultProps = {
+  loading: false,
 };
 
 export default TaskList;
