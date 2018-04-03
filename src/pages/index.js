@@ -172,7 +172,7 @@ const IndexPage = () => (
         </Pitch>
 
         <FigureWrapper>
-          <img src="static/storybook-hero.svg" />
+          <img src="/storybook-hero.svg" />
         </FigureWrapper>
       </Content>
     </Wrapper>
