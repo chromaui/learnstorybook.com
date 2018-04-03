@@ -118,7 +118,8 @@ const DocsWrapper = styled.div`
 export default ({ data }) => {
   const post = data.markdownRemark
 
-  const tocEntries = data.site.siteMetadata.toc.map(slug => {
+  const { toc } = data.site.siteMetadata
+  const tocEntries = toc.map(slug => {
     const node = data.allMarkdownRemark.edges
       .map(e => e.node)
       .find(({ fields }) => fields.slug === slug)
@@ -133,11 +134,14 @@ export default ({ data }) => {
     return { slug, title: tocTitle || title }
   })
 
+  const { slug } = post.fields
   const { githubUrl } = data.site.siteMetadata
-  const githubFileUrl = `${githubUrl}/blob/master/content/${post.fields.slug.replace(
+  const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(
     /\//g,
     ''
   )}.md`
+
+  const nextEntry = tocEntries[toc.indexOf(slug) + 1]
 
   return (
     <DocsWrapper>
@@ -160,6 +164,11 @@ export default ({ data }) => {
       </Sidebar>
       <Content>
         <a href={githubFileUrl}>Edit on GitHub</a>
+        {nextEntry && (
+          <Link isGatsby to={nextEntry.slug}>
+            Next: {nextEntry.title}
+          </Link>
+        )}
         <Highlight>{post.html}</Highlight>
       </Content>
     </DocsWrapper>
