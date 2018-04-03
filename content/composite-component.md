@@ -23,56 +23,67 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```javascript
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
 
-import Task from './Task'
+import Task from './Task';
 
-function TaskList({ tasks, onSnoozeTask, onPinTask, onArchiveTask }) {
+function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
-    onSnoozeTask,
     onPinTask,
     onArchiveTask,
+  };
+
+  if (loading) {
+    return <div className="list-items">loading</div>;
+  }
+
+  if (tasks.length === 0) {
+    return <div className="list-items">empty</div>;
   }
 
   return (
     <div className="list-items">
       {tasks.map(task => <Task key={task.id} task={task} {...events} />)}
     </div>
-  )
+  );
 }
 
-export default TaskList
+export default TaskList;
 ```
 
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 import React from 'react';
-import { storiesOf, action } from '@kadira/storybook';
+import { storiesOf } from '@storybook/react';
 
 import TaskList from './TaskList';
-import { TASK_STATES } from '../utils/schema';
-import { buildTask } from '../utils/test-helpers';
+import { createTask, actions } from './Task.stories';
 
-function buildStory(tasks) {
-  const onPinTask = action('onPinTask');
-  const onArchiveTask = action('onArchiveTask');
-  const onUpdateTaskTitle = action('onUpdateTaskTitle');
+export const defaultTasks = [
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+];
 
-  return (
-    <TaskList
-      {...{ tasks, onPinTask, onSnoozeTask, onArchiveTask, onUpdateTaskTitle }}
-    />
-  );
-}
+export const withPinnedTasks = [
+  createTask({ title: 'Task 1', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 2', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 3', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 4', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 5', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 6 (pinned)', state: 'TASK_PINNED' }),
+];
 
 storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ background: 'white' }}>{story()}</div>)
-  .add('default', () => ...)
-  .add('w/ pinned tasks', () => ...)
-  .add('loading', () => ...)
-  .add('empty', () => ...);
+  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
+  .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
+  .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
+  .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
+  .add('empty', () => <TaskList tasks={[]} {...actions} />);
 ```
 
 `addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
@@ -81,7 +92,7 @@ storiesOf('TaskList', module)
 <b>Decorators</b> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
-`buildStory()` is a helper function that generates the `TaskList` component and populates it with `Task` item variations. Now check Storybook for the new `TaskList` stories.
+`createTask()` is a helper function that generates shape of a Task that we created and exported from the `Task.stories.js` file. Similar `actions` defined the actions (mocked callbacks) that a `Task` component expects. Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
