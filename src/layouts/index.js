@@ -21,7 +21,7 @@ const HeaderWrapper = styled(Header)`
     `};
 `;
 
-const TemplateWrapper = ({ data, children }) => (
+const TemplateWrapper = ({ data, children, location }) => (
   <div>
     <Helmet
       title={data.site.siteMetadata.title}
