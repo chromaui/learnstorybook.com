@@ -1,6 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: 'Learn Storybook',
+    description:
+      'Learn Storybook to create bulletproof UI components as you build an app UI from scratch.',
+    permalink: 'https://learnstorybook.com',
     toc: [
       '/setup/',
       '/simple-component/',

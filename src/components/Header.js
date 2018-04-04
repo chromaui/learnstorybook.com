@@ -6,7 +6,7 @@ import Logo from './Logo'
 import { typography, spacing, pageMargins, breakpoint } from './shared/styles'
 
 const LogoWrapper = styled(Logo)`
-  height: 18px;
+  height: 20px;
   width: auto;
 
   @media (min-width: ${breakpoint}px) {

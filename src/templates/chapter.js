@@ -49,8 +49,9 @@ const Sidebar = styled.div`
 
   @media (max-width: ${breakpoint - 1}px) {
     flex: none;
-    margin: 1rem 0 0.5rem;
+    margin: 1rem 0 2rem;
     width: 100%;
+    border-bottom: 1px solid ${color.mediumlight};
   }
 
   ${DocsList} {
@@ -80,7 +81,7 @@ const Sidebar = styled.div`
 
       li {
         display: inline-block;
-        margin-right: 10px;
+        margin-right: 15px;
       }
     }
 
@@ -161,7 +162,10 @@ const Tweet = styled.div`
 
 const TweetMessage = styled.div`
   font-weight: ${typography.weight.extrabold};
-  font-size: ${typography.size.m2}px;
+  font-size: ${typography.size.s3}px;
+  @media screen and (min-width: ${breakpoint}px) {
+    font-size: ${typography.size.m1}px;
+  }
   line-height: 1.2;
   color: ${color.mediumdark};
 `
@@ -224,7 +228,7 @@ export default ({ data }) => {
   return (
     <DocsWrapper>
       <Helmet
-        title={post.frontmatter.title}
+        title={post.frontmatter.title + ` | ` + data.site.siteMetadata.title}
         meta={[{ name: 'description', content: post.frontmatter.description }]}
       />
       <Sidebar>
@@ -250,7 +254,7 @@ export default ({ data }) => {
         </Markdown>
         <TweetWrapper
           target="_blank"
-          href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20a%20awesome%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=hi_chroma"
+          href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20an%20awesome%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=hi_chroma"
         >
           <TweetMessage>
             <svg viewBox="0 0 16 16">
@@ -260,7 +264,7 @@ export default ({ data }) => {
               />
             </svg>
             <Tweet>
-              Tweet "I’m learning Storybook! It’s a awesome dev tool for UI
+              Tweet "I’m learning Storybook! It’s an awesome dev tool for UI
               components."
             </Tweet>
           </TweetMessage>
@@ -313,6 +317,7 @@ export const query = graphql`
     }
     site {
       siteMetadata {
+        title
         toc
         githubUrl
       }

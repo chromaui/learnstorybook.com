@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { darken } from 'polished'
 
 import {
   color,
@@ -76,8 +77,8 @@ const Content = styled.div`
   padding-bottom: 5rem;
 
   @media (min-width: ${breakpoint}px) {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding-top: 7rem;
+    padding-bottom: 5rem;
     flex-direction: row;
     text-align: left;
     display: flex;
@@ -146,6 +147,15 @@ const FAQLayout = styled.div`
   }
 `
 
+const ClickIntercept = styled(Link)`
+  position: absolute;
+  cursor: pointer;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+`
+
 const ChapterTitle = styled.div`
   font-size: ${typography.size.m1}px;
   font-weight: ${typography.weight.extrabold};
@@ -162,6 +172,11 @@ const Chapter = styled.li`
   border-radius: 4px;
   margin-bottom: 0.5rem;
   padding: 20px 30px;
+  position: relative;
+
+  &:hover {
+    background: ${darken(0.02, color.app)};
+  }
 
   &:before {
     float: left;
@@ -286,10 +301,9 @@ export default ({ data }) => {
           <Chapters>
             {tocEntries.map(({ slug, title, description }) => (
               <Chapter key={slug}>
-                <Link isGatsby className={`primary`} to={slug}>
-                  <ChapterTitle>{title}</ChapterTitle>
-                  <ChapterDesc>{description}</ChapterDesc>
-                </Link>
+                <ClickIntercept isGatsby className={`primary`} to={slug} />
+                <ChapterTitle>{title}</ChapterTitle>
+                <ChapterDesc>{description}</ChapterDesc>
               </Chapter>
             ))}
           </Chapters>

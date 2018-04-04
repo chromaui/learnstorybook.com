@@ -25,9 +25,34 @@ const TemplateWrapper = ({ data, children }) => (
   <div>
     <Helmet
       title={data.site.siteMetadata.title}
-      meta={[{ name: 'keywords', content: 'sample, something' }]}
+      // meta={[
+      //   {
+      //     name: 'description',
+      //     content: data.site.siteMetadata.description,
+      //   },
+      // ]}
     >
       <script async defer src="https://buttons.github.io/buttons.js" />
+      <link
+        rel="shortcut icon"
+        type="image/png"
+        href="/icon-learnstorybook.png"
+        sizes="16x16 32x32 64x64"
+      />
+
+      <meta property="og:image" content="/opengraph-cover.png" />
+      <meta name="twitter:image" content="/opengraph-cover.png" />
+      <meta property="og:url" content={data.site.siteMetadata.permalink} />
+      <meta property="og:title" content={data.site.siteMetadata.title} />
+      <meta
+        property="og:description"
+        content={data.site.siteMetadata.description}
+      />
+      <meta name="twitter:title" content={data.site.siteMetadata.title} />
+      <meta
+        name="twitter:description"
+        content={data.site.siteMetadata.description}
+      />
     </Helmet>
 
     <HeaderWrapper
@@ -53,7 +78,9 @@ export const query = graphql`
     site {
       siteMetadata {
         title
+        description
         githubUrl
+        permalink
       }
     }
   }
