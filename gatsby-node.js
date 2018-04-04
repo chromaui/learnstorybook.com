@@ -1,22 +1,23 @@
-const path = require('path')
-const { createFilePath } = require(`gatsby-source-filesystem`)
+const path = require('path');
+
+const { createFilePath } = require(`gatsby-source-filesystem`);
 
 exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
   if (node.internal.type === `MarkdownRemark`) {
-    const { createNodeField } = boundActionCreators
+    const { createNodeField } = boundActionCreators;
     const slug = createFilePath({
       node,
       getNode,
       basePath: `content`,
-    })
-    createNodeField({ node, name: `slug`, value: slug })
+    });
+    createNodeField({ node, name: `slug`, value: slug });
   }
-}
+};
 
 exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators
+  const { createPage } = boundActionCreators;
 
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     graphql(`
       {
         allMarkdownRemark {
@@ -38,9 +39,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             // Data passed to context is available in page queries as GraphQL variables.
             slug: node.fields.slug,
           },
-        })
-      })
-      resolve()
-    })
-  })
-}
+        });
+      });
+      resolve();
+    });
+  });
+};
