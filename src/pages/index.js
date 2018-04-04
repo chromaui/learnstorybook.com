@@ -19,10 +19,10 @@ import CTA from '../components/CTA';
 const Title = styled.h1`
   color: ${color.lightest};
   font-weight: ${typography.weight.extrabold};
-
   font-size: ${typography.size.l2}px;
   line-height: 1;
   margin-bottom: 0.2em;
+  text-shadow: rgba(0, 135, 220, 0.3) 0 1px 5px;
 
   @media (min-width: ${breakpoint * 1}px) {
     font-size: 56px;
@@ -35,10 +35,10 @@ const Title = styled.h1`
 
 const Desc = styled.div`
   color: ${color.lightest};
-
   font-size: ${typography.size.m1}px;
   line-height: 1.4;
   margin-bottom: 1em;
+  text-shadow: rgba(0, 135, 220, 0.3) 0 1px 5px;
 
   @media (min-width: ${breakpoint * 1}px) {
     font-size: ${typography.size.m2}px;
