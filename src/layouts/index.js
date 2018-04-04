@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import Link from 'gatsby-link';
-import styled, { css } from 'styled-components';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Helmet from 'react-helmet'
+import Link from 'gatsby-link'
+import styled, { css } from 'styled-components'
 
-import Header from '../components/Header.js';
-import Footer from '../components/Footer.js';
+import Header from '../components/Header.js'
+import Footer from '../components/Footer.js'
 
-import { injectGlobalStyles } from '../components/shared/global';
-injectGlobalStyles();
+import { injectGlobalStyles } from '../components/shared/global'
+injectGlobalStyles()
 
 const HeaderWrapper = styled(Header)`
   ${props =>
@@ -43,9 +43,15 @@ const TemplateWrapper = ({ data, children }) => (
       <meta name="twitter:image" content="/opengraph-cover.png" />
       <meta property="og:url" content={data.site.siteMetadata.permalink} />
       <meta property="og:title" content={data.site.siteMetadata.title} />
-      <meta property="og:description" content={data.site.siteMetadata.description} />
+      <meta
+        property="og:description"
+        content={data.site.siteMetadata.description}
+      />
       <meta name="twitter:title" content={data.site.siteMetadata.title} />
-      <meta name="twitter:description" content={data.site.siteMetadata.description} />
+      <meta
+        name="twitter:description"
+        content={data.site.siteMetadata.description}
+      />
     </Helmet>
 
     <HeaderWrapper
@@ -62,11 +68,7 @@ const TemplateWrapper = ({ data, children }) => (
 
 TemplateWrapper.propTypes = {
   children: PropTypes.func,
-<<<<<<< Updated upstream
-};
-=======
 }
->>>>>>> Stashed changes
 
 export default TemplateWrapper
 
