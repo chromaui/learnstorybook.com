@@ -1,14 +1,14 @@
-import React from "react";
-import styled from "styled-components";
-import { darken } from "polished";
-import Helmet from "react-helmet";
+import React from 'react'
+import styled from 'styled-components'
+import { darken } from 'polished'
+import Helmet from 'react-helmet'
 
-import Highlight from "../components/Highlight";
-import Link from "../components/Link";
-import CTA from "../components/CTA";
-import Button from "../components/Button";
+import Highlight from '../components/Highlight'
+import Link from '../components/Link'
+import CTA from '../components/CTA'
+import Button from '../components/Button'
 
-import Subheading from "../components/Subheading";
+import Subheading from '../components/Subheading'
 
 import {
   color,
@@ -16,8 +16,8 @@ import {
   spacing,
   typography,
   pageMargins,
-  breakpoint
-} from "../components/shared/styles";
+  breakpoint,
+} from '../components/shared/styles'
 
 const Heading = styled(Subheading)`
   display: block;
@@ -29,19 +29,19 @@ const Heading = styled(Subheading)`
   @media (min-width: ${breakpoint * 1}px) {
     margin-bottom: 1rem;
   }
-`;
+`
 
 const DocsItem = styled.li`
   a.selected {
     font-weight: ${typography.weight.extrabold};
   }
-`;
+`
 
 const DocsList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0 0 2rem;
-`;
+`
 
 const Sidebar = styled.div`
   flex: 0 1 240px;
@@ -71,7 +71,7 @@ const Sidebar = styled.div`
         width: auto;
         height: auto;
         border-left: 1px solid ${color.light};
-        content: "";
+        content: '';
         z-index: 0;
       }
     }
@@ -87,14 +87,15 @@ const Sidebar = styled.div`
 
     a {
       line-height: 1rem;
-      padding: 10px 0;
+      padding: 8px 0;
+      line-height: 1.5;
       position: relative;
       z-index: 1;
 
       @media screen and (min-width: ${breakpoint}px) {
         &:after {
           position: absolute;
-          top: 14px;
+          top: 15px;
           right: auto;
           bottom: auto;
           left: -23px;
@@ -106,7 +107,7 @@ const Sidebar = styled.div`
           width: 8px;
           border-radius: 1em;
           text-decoration: none !important;
-          content: "";
+          content: '';
         }
 
         &.selected:after {
@@ -115,11 +116,11 @@ const Sidebar = styled.div`
       }
     }
   }
-`;
+`
 
 const Markdown = styled.div`
   margin-bottom: 3rem;
-`;
+`
 
 const Content = styled.div`
   ${formatting};
@@ -127,7 +128,7 @@ const Content = styled.div`
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-`;
+`
 
 const DocsWrapper = styled.div`
   ${pageMargins};
@@ -139,26 +140,26 @@ const DocsWrapper = styled.div`
     padding-top: 4rem;
     padding-bottom: 3rem;
   }
-`;
+`
 
 const NextChapterSubtitle = styled.div`
   display: block;
   margin-top: 0.25rem;
   font-size: 18px;
   font-weight: ${typography.weight.regular};
-`;
+`
 
 const GithubLink = styled(Link)`
   font-weight: ${typography.weight.bold};
-`;
+`
 const GithubLinkWrapper = styled.div`
   margin-top: 3rem;
   text-align: center;
-`;
+`
 
 const Tweet = styled.div`
   overflow: hidden;
-`;
+`
 
 const TweetMessage = styled.div`
   font-weight: ${typography.weight.extrabold};
@@ -168,7 +169,7 @@ const TweetMessage = styled.div`
   }
   line-height: 1.2;
   color: ${color.mediumdark};
-`;
+`
 
 const TweetWrapper = styled.a`
   background: ${color.app};
@@ -195,42 +196,42 @@ const TweetWrapper = styled.a`
       fill: ${color.primary};
     }
   }
-`;
+`
 
 export default ({ data, location }) => {
-  const post = data.markdownRemark;
-  const { commit, title, description } = post.frontmatter;
+  const post = data.markdownRemark
+  const { commit, title, description } = post.frontmatter
 
-  const { toc } = data.site.siteMetadata;
+  const { toc } = data.site.siteMetadata
   const tocEntries = toc.map(slug => {
     const node = data.allMarkdownRemark.edges
       .map(e => e.node)
-      .find(({ fields }) => fields.slug === slug);
+      .find(({ fields }) => fields.slug === slug)
 
     if (!node) {
       throw new Error(
         `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
-      );
+      )
     }
-    const { tocTitle, title, description } = node.frontmatter;
+    const { tocTitle, title, description } = node.frontmatter
 
-    return { slug, title: tocTitle || title, description };
-  });
+    return { slug, title: tocTitle || title, description }
+  })
 
-  const { slug } = post.fields;
-  const { githubUrl, codeGithubUrl } = data.site.siteMetadata;
+  const { slug } = post.fields
+  const { githubUrl, codeGithubUrl } = data.site.siteMetadata
   const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(
     /\//g,
-    ""
-  )}.md`;
+    ''
+  )}.md`
 
-  const nextEntry = tocEntries[toc.indexOf(slug) + 1];
+  const nextEntry = tocEntries[toc.indexOf(slug) + 1]
 
   return (
     <DocsWrapper>
       <Helmet
         title={title + ` | ` + data.site.siteMetadata.title}
-        meta={[{ name: "description", content: description }]}
+        meta={[{ name: 'description', content: description }]}
       />
       <Sidebar>
         <Heading>Table of Contents</Heading>
@@ -240,7 +241,7 @@ export default ({ data, location }) => {
               <Link
                 isGatsby
                 strict
-                className={location.pathname !== slug ? "tertiary" : "selected"}
+                className={location.pathname !== slug ? 'tertiary' : 'selected'}
                 to={slug}
               >
                 {title}
@@ -258,7 +259,7 @@ export default ({ data, location }) => {
           <div>
             <h2>Code</h2>
             <p>
-              Want to see a working version of this chapter? Checkout out{" "}
+              Want to see a working version of this chapter? Checkout out{' '}
               <a href={`${codeGithubUrl}/commit/${commit}`}>{commit}</a> on
               GitHub.
             </p>
@@ -313,8 +314,8 @@ export default ({ data, location }) => {
         </GithubLinkWrapper>
       </Content>
     </DocsWrapper>
-  );
-};
+  )
+}
 
 export const query = graphql`
   query BlogPostQuery($slug: String!) {
@@ -352,4 +353,4 @@ export const query = graphql`
       }
     }
   }
-`;
+`

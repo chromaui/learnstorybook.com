@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { darken } from "polished";
+import React from 'react'
+import styled from 'styled-components'
+import { darken } from 'polished'
 
 import {
   color,
@@ -8,13 +8,13 @@ import {
   spacing,
   pageMargins,
   pageMargin,
-  breakpoint
-} from "../components/shared/styles";
+  breakpoint,
+} from '../components/shared/styles'
 
-import Hero from "../components/Hero";
-import Link from "../components/Link";
-import Button from "../components/Button";
-import CTA from "../components/CTA";
+import Hero from '../components/Hero'
+import Link from '../components/Link'
+import Button from '../components/Button'
+import CTA from '../components/CTA'
 
 const Title = styled.h1`
   color: ${color.lightest};
@@ -29,9 +29,9 @@ const Title = styled.h1`
   }
 
   @media (min-width: ${breakpoint * 2}px) {
-    font-size: 96px;
+    font-size: 88px;
   }
-`;
+`
 
 const Desc = styled.div`
   color: ${color.lightest};
@@ -45,15 +45,15 @@ const Desc = styled.div`
   }
 
   @media (min-width: ${breakpoint * 2}px) {
-    font-size: ${typography.size.l1}px;
+    font-size: ${typography.size.m3}px;
   }
-`;
+`
 
 const Actions = styled.div`
   > * {
     margin-right: 20px;
   }
-`;
+`
 
 const Pitch = styled.div`
   position: relative;
@@ -64,7 +64,7 @@ const Pitch = styled.div`
     flex: 0 1 55%;
     padding-right: 3rem;
   }
-`;
+`
 
 const Content = styled.div`
   ${pageMargins};
@@ -85,7 +85,7 @@ const Content = styled.div`
     align-items: center;
     flex: 1;
   }
-`;
+`
 
 const FigureWrapper = styled.div`
   flex: 1;
@@ -99,7 +99,7 @@ const FigureWrapper = styled.div`
       width: 100%;
     }
   }
-`;
+`
 
 const Wrapper = styled.div`
   background-color: #26c6da;
@@ -110,12 +110,12 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
   }
-`;
+`
 
 const Question = styled.h3`
   font-size: ${typography.size.m3}px;
   font-weight: ${typography.weight.extrabold};
-`;
+`
 
 const Answer = styled.div`
   margin-bottom: 3rem;
@@ -135,7 +135,7 @@ const Answer = styled.div`
     max-width: 100%;
     display: block;
   }
-`;
+`
 
 const FAQLayout = styled.div`
   padding: 4rem ${spacing.padding.medium}px 1rem;
@@ -145,7 +145,7 @@ const FAQLayout = styled.div`
   @media (min-width: ${breakpoint * 2}px) {
     margin: 0 ${pageMargin * 4}%;
   }
-`;
+`
 
 const ClickIntercept = styled(Link)`
   position: absolute;
@@ -154,18 +154,24 @@ const ClickIntercept = styled(Link)`
   right: 0;
   top: 0;
   bottom: 0;
-`;
+`
 
 const ChapterTitle = styled.div`
   font-size: ${typography.size.m1}px;
   font-weight: ${typography.weight.extrabold};
   line-height: 1;
+  margin-top: 0.25rem;
   margin-bottom: 0.5rem;
-`;
+`
 const ChapterDesc = styled.div`
-  line-height: 1;
+  line-height: 1.5;
   color: ${color.dark};
-`;
+`
+
+const ChapterMeta = styled.div`
+  display: block;
+  overflow: hidden;
+`
 
 const Chapter = styled.li`
   background: ${color.app};
@@ -186,39 +192,35 @@ const Chapter = styled.li`
     font-size: ${typography.size.m3}px;
     line-height: 40px;
     font-weight: ${typography.weight.bold};
-    color: ${color.medium};
+    color: ${color.mediumdark};
     margin-right: 30px;
+    margin-top: 8px;
   }
-
-  a {
-    display: block;
-    overflow: hidden;
-  }
-`;
+`
 const Chapters = styled.ol`
   list-style: none;
   margin: 0;
   padding: 1rem 0;
   counter-reset: counter;
-`;
+`
 
 export default ({ data }) => {
   const tocEntries = data.site.siteMetadata.toc.map(slug => {
     const node = data.allMarkdownRemark.edges
       .map(e => e.node)
-      .find(({ fields }) => fields.slug === slug);
+      .find(({ fields }) => fields.slug === slug)
 
     if (!node) {
       throw new Error(
         `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
-      );
+      )
     }
-    const { tocTitle, title, description } = node.frontmatter;
+    const { tocTitle, title, description } = node.frontmatter
 
-    return { slug, title: tocTitle || title, description };
-  });
+    return { slug, title: tocTitle || title, description }
+  })
 
-  const { githubUrl } = data.site.siteMetadata;
+  const { githubUrl } = data.site.siteMetadata
 
   return (
     <div>
@@ -269,7 +271,7 @@ export default ({ data }) => {
         <Answer>
           <p>
             Storybook is the most popular UI component development tool for
-            React, Vue, and Angular. It helps you{" "}
+            React, Vue, and Angular. It helps you{' '}
             <strong>
               develop and design UI components outside your app in an isolated
               environment
@@ -302,8 +304,10 @@ export default ({ data }) => {
             {tocEntries.map(({ slug, title, description }) => (
               <Chapter key={slug}>
                 <ClickIntercept isGatsby className={`primary`} to={slug} />
-                <ChapterTitle>{title}</ChapterTitle>
-                <ChapterDesc>{description}</ChapterDesc>
+                <ChapterMeta>
+                  <ChapterTitle>{title}</ChapterTitle>
+                  <ChapterDesc>{description}</ChapterDesc>
+                </ChapterMeta>
               </Chapter>
             ))}
           </Chapters>
@@ -318,14 +322,14 @@ export default ({ data }) => {
           </p>
           <p>
             We assume that you’re familiar with basic JavaScript, components,
-            and web development. If you already use Storybook, checkout the{" "}
+            and web development. If you already use Storybook, checkout the{' '}
             <Link href="https://storybook.js.org/basics/introduction/">
               official docs
-            </Link>{" "}
-            for API documentation or visit{" "}
+            </Link>{' '}
+            for API documentation or visit{' '}
             <Link href="https://blog.hichroma.com/" target="_blank">
               Chroma on Medium
-            </Link>{" "}
+            </Link>{' '}
             for more resources like this.
           </p>
         </Answer>
@@ -340,8 +344,8 @@ export default ({ data }) => {
         />
       </FAQLayout>
     </div>
-  );
-};
+  )
+}
 
 export const query = graphql`
   query IndexQuery {
@@ -365,4 +369,4 @@ export const query = graphql`
       }
     }
   }
-`;
+`
