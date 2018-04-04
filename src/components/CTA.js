@@ -1,15 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 
-import {
-  color,
-  spacing,
-  typography,
-  pageMargin,
-  pageMargins,
-  breakpoint
-} from "./shared/styles";
+import { color, spacing, typography, breakpoint } from './shared/styles';
 
 const Text = styled.div`
   font-weight: ${typography.weight.extrabold};
@@ -70,10 +63,10 @@ export default function CTA({ text, action, ...props }) {
 
 CTA.propTypes = {
   text: PropTypes.node,
-  action: PropTypes.node
+  action: PropTypes.node,
 };
 
 CTA.defaultProps = {
   text: null,
-  action: null
+  action: null,
 };

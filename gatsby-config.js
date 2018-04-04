@@ -5,7 +5,7 @@ module.exports = {
       'Learn Storybook to create bulletproof UI components as you build an app UI from scratch.',
     permalink: 'https://learnstorybook.com',
     toc: [
-      '/setup/',
+      '/get-started/',
       '/simple-component/',
       '/composite-component/',
       '/data/',
@@ -32,4 +32,4 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
   ],
-}
+};

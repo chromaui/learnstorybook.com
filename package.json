@@ -13,6 +13,7 @@
     "gatsby-transformer-remark": "^1.7.39",
     "polished": "^1.9.2",
     "prismjs": "^1.13.0",
+    "prop-types": "^15.6.1",
     "react": "^15.6.0",
     "react-github-button": "^0.1.11",
     "react-helmet": "^5.2.0",

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Link from 'gatsby-link';
 import styled, { css } from 'styled-components';
 import GitHubButton from 'react-github-button';
@@ -28,28 +29,9 @@ const LogoWrapper = styled(Logo)`
   }
 `;
 
-const AuthWrapper = styled.div`
-  margin-top: 4px;
-  text-align: left;
-  line-height: 0;
-`;
-
 const NavLink = styled(Link)`
   font-size: ${typography.size.s2}px;
   font-weight: ${typography.weight.extrabold};
-`;
-
-const Menu = styled(Link)`
-  width: 3rem;
-  border: none !important;
-  text-decoration: none !important;
-  text-align: right;
-  svg {
-    vertical-align: top;
-    height: 1rem;
-    width: 1rem;
-    margin: 0;
-  }
 `;
 
 // prettier-ignore
@@ -107,7 +89,7 @@ const NavWrapper = styled.nav`
   }
 `;
 
-export default function Header({ title, githubUrl, inverse, ...props }) {
+export default function Header({ githubUrl, inverse, ...props }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
     <NavWrapper {...props}>
@@ -128,3 +110,13 @@ export default function Header({ title, githubUrl, inverse, ...props }) {
     </NavWrapper>
   );
 }
+
+Header.propTypes = {
+  githubUrl: PropTypes.string,
+  inverse: PropTypes.bool,
+};
+
+Header.defaultProps = {
+  githubUrl: null,
+  inverse: false,
+};
