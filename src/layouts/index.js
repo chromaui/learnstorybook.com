@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
@@ -10,19 +9,6 @@ import Footer from '../components/Footer.js';
 
 import { injectGlobalStyles } from '../components/shared/global';
 injectGlobalStyles();
-=======
-import React from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
-import Link from 'gatsby-link'
-import styled, { css } from 'styled-components'
-
-import Header from '../components/Header.js'
-import Footer from '../components/Footer.js'
-
-import { injectGlobalStyles } from '../components/shared/global'
-injectGlobalStyles()
->>>>>>> Stashed changes
 
 const HeaderWrapper = styled(Header)`
   ${props =>
