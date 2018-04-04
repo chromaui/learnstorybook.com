@@ -1,14 +1,14 @@
-import React from 'react';
-import styled from 'styled-components';
-import { darken } from 'polished';
-import Helmet from 'react-helmet';
+import React from "react";
+import styled from "styled-components";
+import { darken } from "polished";
+import Helmet from "react-helmet";
 
-import Highlight from '../components/Highlight';
-import Link from '../components/Link';
-import CTA from '../components/CTA';
-import Button from '../components/Button';
+import Highlight from "../components/Highlight";
+import Link from "../components/Link";
+import CTA from "../components/CTA";
+import Button from "../components/Button";
 
-import Subheading from '../components/Subheading';
+import Subheading from "../components/Subheading";
 
 import {
   color,
@@ -16,8 +16,8 @@ import {
   spacing,
   typography,
   pageMargins,
-  breakpoint,
-} from '../components/shared/styles';
+  breakpoint
+} from "../components/shared/styles";
 
 const Heading = styled(Subheading)`
   display: block;
@@ -71,7 +71,7 @@ const Sidebar = styled.div`
         width: auto;
         height: auto;
         border-left: 1px solid ${color.light};
-        content: '';
+        content: "";
         z-index: 0;
       }
     }
@@ -106,7 +106,7 @@ const Sidebar = styled.div`
           width: 8px;
           border-radius: 1em;
           text-decoration: none !important;
-          content: '';
+          content: "";
         }
 
         &.selected:after {
@@ -219,7 +219,10 @@ export default ({ data, location }) => {
 
   const { slug } = post.fields;
   const { githubUrl, codeGithubUrl } = data.site.siteMetadata;
-  const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(/\//g, '')}.md`;
+  const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(
+    /\//g,
+    ""
+  )}.md`;
 
   const nextEntry = tocEntries[toc.indexOf(slug) + 1];
 
@@ -227,7 +230,7 @@ export default ({ data, location }) => {
     <DocsWrapper>
       <Helmet
         title={title + ` | ` + data.site.siteMetadata.title}
-        meta={[{ name: 'description', content: description }]}
+        meta={[{ name: "description", content: description }]}
       />
       <Sidebar>
         <Heading>Table of Contents</Heading>
@@ -237,7 +240,7 @@ export default ({ data, location }) => {
               <Link
                 isGatsby
                 strict
-                className={location.pathname !== slug ? 'tertiary' : 'selected'}
+                className={location.pathname !== slug ? "tertiary" : "selected"}
                 to={slug}
               >
                 {title}
@@ -255,8 +258,9 @@ export default ({ data, location }) => {
           <div>
             <h2>Code</h2>
             <p>
-              Want to see a working version of this chapter? Checkout out{' '}
-              <a href={`${codeGithubUrl}/commit/${commit}`}>{commit}</a> on GitHub.
+              Want to see a working version of this chapter? Checkout out{" "}
+              <a href={`${codeGithubUrl}/commit/${commit}`}>{commit}</a> on
+              GitHub.
             </p>
           </div>
         )}
@@ -273,7 +277,8 @@ export default ({ data, location }) => {
               />
             </svg>
             <Tweet>
-              Tweet "I’m learning Storybook! It’s an awesome dev tool for UI components."
+              Tweet "I’m learning Storybook! It’s an awesome dev tool for UI
+              components."
             </Tweet>
           </TweetMessage>
         </TweetWrapper>
@@ -283,7 +288,9 @@ export default ({ data, location }) => {
             text={
               <div>
                 {nextEntry.title}
-                <NextChapterSubtitle>{nextEntry.description}</NextChapterSubtitle>
+                <NextChapterSubtitle>
+                  {nextEntry.description}
+                </NextChapterSubtitle>
               </div>
             }
             action={
@@ -296,7 +303,11 @@ export default ({ data, location }) => {
           />
         )}
         <GithubLinkWrapper>
-          <GithubLink className="secondary" href={githubFileUrl} target="_blank">
+          <GithubLink
+            className="secondary"
+            href={githubFileUrl}
+            target="_blank"
+          >
             ✍️ Edit on GitHub
           </GithubLink>
         </GithubLinkWrapper>

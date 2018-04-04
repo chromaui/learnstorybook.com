@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
-import Link from 'gatsby-link';
-import styled, { css } from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import Helmet from "react-helmet";
+import Link from "gatsby-link";
+import styled, { css } from "styled-components";
 
-import Header from '../components/Header.js';
-import Footer from '../components/Footer.js';
+import Header from "../components/Header.js";
+import Footer from "../components/Footer.js";
 
-import { injectGlobalStyles } from '../components/shared/global';
+import { injectGlobalStyles } from "../components/shared/global";
 injectGlobalStyles();
 
 const HeaderWrapper = styled(Header)`
@@ -44,16 +44,22 @@ const TemplateWrapper = ({ data, location, children }) => (
       <meta name="twitter:image" content="/opengraph-cover.png" />
       <meta property="og:url" content={data.site.siteMetadata.permalink} />
       <meta property="og:title" content={data.site.siteMetadata.title} />
-      <meta property="og:description" content={data.site.siteMetadata.description} />
+      <meta
+        property="og:description"
+        content={data.site.siteMetadata.description}
+      />
       <meta name="twitter:title" content={data.site.siteMetadata.title} />
-      <meta name="twitter:description" content={data.site.siteMetadata.description} />
+      <meta
+        name="twitter:description"
+        content={data.site.siteMetadata.description}
+      />
     </Helmet>
 
     <HeaderWrapper
       title={data.site.siteMetadata.title}
       githubUrl={data.site.siteMetadata.githubUrl}
-      inverse={location.pathname === '/'}
-      home={location.pathname === '/'}
+      inverse={location.pathname === "/"}
+      home={location.pathname === "/"}
     />
 
     <div>{children()}</div>
@@ -62,7 +68,7 @@ const TemplateWrapper = ({ data, location, children }) => (
 );
 
 TemplateWrapper.propTypes = {
-  children: PropTypes.func,
+  children: PropTypes.func
 };
 
 export default TemplateWrapper;

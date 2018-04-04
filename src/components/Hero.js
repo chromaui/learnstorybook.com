@@ -1,19 +1,19 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled, { keyframes } from 'styled-components'
-import { color } from './shared/styles'
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { keyframes } from "styled-components";
+import { color } from "./shared/styles";
 
 const float = keyframes`
   from { transform: translate(0,  0px); }
   65%  { transform: translate(0, 4px); }
   to   { transform: translate(0, -0px); }
-`
+`;
 
 const Svg = styled.svg`
   display: inline-block;
   vertical-align: middle;
   animation: ${float} 2s ease-in-out infinite;
-`
+`;
 
 function Hero({ ...props }) {
   return (
@@ -48,7 +48,7 @@ function Hero({ ...props }) {
         className="sheet"
       />
     </Svg>
-  )
+  );
 }
 
-export default Hero
+export default Hero;

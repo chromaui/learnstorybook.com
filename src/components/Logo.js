@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { color } from './shared/styles'
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { color } from "./shared/styles";
 
 const Svg = styled.svg`
   display: inline-block;
@@ -14,7 +14,7 @@ const Svg = styled.svg`
   .learnstorybook-logo {
     fill: ${props => (props.inverse ? color.lightest : color.primary)};
   }
-`
+`;
 
 function Logo({ inverse, ...props }) {
   return (
@@ -40,15 +40,15 @@ function Logo({ inverse, ...props }) {
         />
       </g>
     </Svg>
-  )
+  );
 }
 
 Logo.propTypes = {
-  inverse: PropTypes.bool.isRequired,
-}
+  inverse: PropTypes.bool.isRequired
+};
 
 Logo.defaultProps = {
-  inverse: false,
-}
+  inverse: false
+};
 
-export default Logo
+export default Logo;

@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
-import { darken } from 'polished'
-import { color, typography, breakpoint } from './shared/styles'
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import { darken } from "polished";
+import { color, typography, breakpoint } from "./shared/styles";
 
 const Text = styled.span`
   display: inline-block;
   vertical-align: top;
-`
+`;
 
 // prettier-ignore
 const ButtonWrapper = styled.button`
@@ -186,7 +186,7 @@ const ButtonWrapper = styled.button`
 
 `;
 
-const ButtonLink = ButtonWrapper.withComponent('a')
+const ButtonLink = ButtonWrapper.withComponent("a");
 
 function Button({ isLink, children, ...props }) {
   if (isLink) {
@@ -194,22 +194,22 @@ function Button({ isLink, children, ...props }) {
       <ButtonLink {...props}>
         <Text>{children}</Text>
       </ButtonLink>
-    )
+    );
   }
   return (
     <ButtonWrapper {...props}>
       <Text>{children}</Text>
     </ButtonWrapper>
-  )
+  );
 }
 
 Button.propTypes = {
   isLink: PropTypes.bool,
-  children: PropTypes.node.isRequired,
-}
+  children: PropTypes.node.isRequired
+};
 
 Button.defaultProps = {
-  isLink: false,
-}
+  isLink: false
+};
 
-export default Button
+export default Button;

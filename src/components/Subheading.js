@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { typography } from './shared/styles'
+import React from "react";
+import styled from "styled-components";
+import { typography } from "./shared/styles";
 
 // prettier-ignore
 const Heading = styled.span`
@@ -10,6 +10,6 @@ const Heading = styled.span`
   font-size: ${typography.size.s2 - 1}px;
 `;
 
-const Subheading = props => <Heading {...props} />
+const Subheading = props => <Heading {...props} />;
 
-export default Subheading
+export default Subheading;

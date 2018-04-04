@@ -1,5 +1,5 @@
-import { injectGlobal, css } from 'styled-components'
-import { background, color, typography } from './styles'
+import { injectGlobal, css } from "styled-components";
+import { background, color, typography } from "./styles";
 
 export const bodyStyles = css`
   font-family: ${typography.type.primary};
@@ -87,7 +87,7 @@ export const bodyStyles = css`
     border-radius: 3px;
     margin: 1rem 0;
   }
-`
+`;
 
 export function injectGlobalStyles() {
   // eslint-disable-next-line no-unused-expressions
@@ -101,5 +101,5 @@ export function injectGlobalStyles() {
       overflow-y: auto;
       overflow-x: hidden;
     }
-  `
+  `;
 }

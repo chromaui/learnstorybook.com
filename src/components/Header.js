@@ -1,9 +1,9 @@
-import React from 'react'
-import Link from 'gatsby-link'
-import styled, { css } from 'styled-components'
+import React from "react";
+import Link from "gatsby-link";
+import styled, { css } from "styled-components";
 
-import Logo from './Logo'
-import { typography, spacing, pageMargins, breakpoint } from './shared/styles'
+import Logo from "./Logo";
+import { typography, spacing, pageMargins, breakpoint } from "./shared/styles";
 
 const LogoWrapper = styled(Logo)`
   height: 20px;
@@ -23,18 +23,18 @@ const LogoWrapper = styled(Logo)`
   &:active {
     transform: translate3d(0, 0, 0);
   }
-`
+`;
 
 const AuthWrapper = styled.div`
   margin-top: 4px;
   text-align: left;
   line-height: 0;
-`
+`;
 
 const NavLink = styled(Link)`
   font-size: ${typography.size.s2}px;
   font-weight: ${typography.weight.extrabold};
-`
+`;
 
 const Menu = styled(Link)`
   width: 3rem;
@@ -47,7 +47,7 @@ const Menu = styled(Link)`
     width: 1rem;
     margin: 0;
   }
-`
+`;
 
 // prettier-ignore
 const NavItem = styled.div`
@@ -102,7 +102,7 @@ const NavWrapper = styled.nav`
   @media (min-width: ${breakpoint}px) {
     padding-top: 36px;
   }
-`
+`;
 
 export default function Header({ title, githubUrl, inverse, ...props }) {
   return (
@@ -130,5 +130,5 @@ export default function Header({ title, githubUrl, inverse, ...props }) {
         </NavGroup>
       </Nav>
     </NavWrapper>
-  )
+  );
 }

@@ -1,6 +1,6 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 import {
   color,
@@ -8,8 +8,8 @@ import {
   typography,
   pageMargin,
   pageMargins,
-  breakpoint,
-} from './shared/styles'
+  breakpoint
+} from "./shared/styles";
 
 const Text = styled.div`
   font-weight: ${typography.weight.extrabold};
@@ -23,8 +23,8 @@ const Text = styled.div`
     line-height: ${typography.size.l1}px;
     margin-bottom: 0;
   }
-`
-const Action = styled.div``
+`;
+const Action = styled.div``;
 
 const Inner = styled.div`
   display: flex;
@@ -50,12 +50,12 @@ const Inner = styled.div`
       flex: 0 0 auto;
     }
   }
-`
+`;
 
 const Wrapper = styled.div`
   border-top: 1px solid ${color.mediumlight};
   border-bottom: 1px solid ${color.mediumlight};
-`
+`;
 
 export default function CTA({ text, action, ...props }) {
   return (
@@ -65,15 +65,15 @@ export default function CTA({ text, action, ...props }) {
         <Action>{action}</Action>
       </Inner>
     </Wrapper>
-  )
+  );
 }
 
 CTA.propTypes = {
   text: PropTypes.node,
-  action: PropTypes.node,
-}
+  action: PropTypes.node
+};
 
 CTA.defaultProps = {
   text: null,
-  action: null,
-}
+  action: null
+};

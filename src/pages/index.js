@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { darken } from 'polished';
+import React from "react";
+import styled from "styled-components";
+import { darken } from "polished";
 
 import {
   color,
@@ -8,13 +8,13 @@ import {
   spacing,
   pageMargins,
   pageMargin,
-  breakpoint,
-} from '../components/shared/styles';
+  breakpoint
+} from "../components/shared/styles";
 
-import Hero from '../components/Hero';
-import Link from '../components/Link';
-import Button from '../components/Button';
-import CTA from '../components/CTA';
+import Hero from "../components/Hero";
+import Link from "../components/Link";
+import Button from "../components/Button";
+import CTA from "../components/CTA";
 
 const Title = styled.h1`
   color: ${color.lightest};
@@ -227,15 +227,18 @@ export default ({ data }) => {
           <Pitch>
             <Title>Storybook Tutorial</Title>
             <Desc>
-              Learn Storybook to create bulletproof UI components as you build an app UI from
-              scratch.
+              Learn Storybook to create bulletproof UI components as you build
+              an app UI from scratch.
             </Desc>
 
             <Actions>
               <Link isGatsby to={data.site.siteMetadata.toc[0]}>
                 <Button inverse>Get started</Button>
               </Link>
-              <Link href="https://GitHub.com/hichroma/learnstorybook.com" target="_blank">
+              <Link
+                href="https://GitHub.com/hichroma/learnstorybook.com"
+                target="_blank"
+              >
                 <Button outline>View on Github</Button>
               </Link>
             </Actions>
@@ -250,29 +253,31 @@ export default ({ data }) => {
         <Question>Why a Storybook tutorial?</Question>
         <Answer>
           <p>
-            LearnStorybook.com aims to teach tried-and-true patterns for component development using
-            Storybook. You'll walk through essential UI component techniques while building a UI
-            from scratch.
+            LearnStorybook.com aims to teach tried-and-true patterns for
+            component development using Storybook. You'll walk through essential
+            UI component techniques while building a UI from scratch.
           </p>
           <p>
-            The info here is sourced from professional teams, core maintainers, and the awesome
-            Storybook community. Rather than trying to cover every edge case (which can take
-            forever!) the tutorial recommends best practice.
+            The info here is sourced from professional teams, core maintainers,
+            and the awesome Storybook community. Rather than trying to cover
+            every edge case (which can take forever!) the tutorial recommends
+            best practice.
           </p>
         </Answer>
 
         <Question>What is Storybook?</Question>
         <Answer>
           <p>
-            Storybook is the most popular UI component development tool for React, Vue, and Angular.
-            It helps you{' '}
+            Storybook is the most popular UI component development tool for
+            React, Vue, and Angular. It helps you{" "}
             <strong>
-              develop and design UI components outside your app in an isolated environment
+              develop and design UI components outside your app in an isolated
+              environment
             </strong>.
           </p>
           <p>
-            Professional developers at Airbnb, Dropbox, and Lonely Planet use Storybook to build
-            durable documented UIs faster.
+            Professional developers at Airbnb, Dropbox, and Lonely Planet use
+            Storybook to build durable documented UIs faster.
           </p>
         </Answer>
 
@@ -280,13 +285,14 @@ export default ({ data }) => {
         <Answer>
           <img src="/ss-browserchrome-taskbox-learnstorybook.png" />
           <p>
-            Taskbox, a task management UI (similar to Asana), complete with multiple item types and
-            states. We’ll go from building simple UI components to assembling screens. Each chapter
-            illustrates a different aspect of developing UIs with Storybook.
+            Taskbox, a task management UI (similar to Asana), complete with
+            multiple item types and states. We’ll go from building simple UI
+            components to assembling screens. Each chapter illustrates a
+            different aspect of developing UIs with Storybook.
           </p>
           <p>
-            At the end of each chapter you'll get a handy link to the commit to help you stay in
-            sync.
+            At the end of each chapter you'll get a handy link to the commit to
+            help you stay in sync.
           </p>
         </Answer>
 
@@ -305,18 +311,21 @@ export default ({ data }) => {
         <Question>Who's this for?</Question>
         <Answer>
           <p>
-            This tutorial is for developers of all skill levels that are new to Storybook. If you
-            follow along, you’ll be able to grasp the core concepts of isolated UI component
-            development and build a full UI in Storybook without issue.
+            This tutorial is for developers of all skill levels that are new to
+            Storybook. If you follow along, you’ll be able to grasp the core
+            concepts of isolated UI component development and build a full UI in
+            Storybook without issue.
           </p>
           <p>
-            We assume that you’re familiar with basic JavaScript, components, and web development.
-            If you already use Storybook, checkout the{' '}
-            <Link href="https://storybook.js.org/basics/introduction/">official docs</Link> for API
-            documentation or visit{' '}
+            We assume that you’re familiar with basic JavaScript, components,
+            and web development. If you already use Storybook, checkout the{" "}
+            <Link href="https://storybook.js.org/basics/introduction/">
+              official docs
+            </Link>{" "}
+            for API documentation or visit{" "}
             <Link href="https://blog.hichroma.com/" target="_blank">
               Chroma on Medium
-            </Link>{' '}
+            </Link>{" "}
             for more resources like this.
           </p>
         </Answer>

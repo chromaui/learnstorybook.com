@@ -1,9 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import styled, { css } from 'styled-components'
-import { darken } from 'polished'
-import { color } from './shared/styles'
-import GatsbyLink from 'gatsby-link'
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
+import { darken } from "polished";
+import { color } from "./shared/styles";
+import GatsbyLink from "gatsby-link";
 
 // prettier-ignore
 const LinkWrapper = styled.a`
@@ -92,23 +92,23 @@ const LinkWrapper = styled.a`
 	}
 `;
 
-const LinkGatsby = LinkWrapper.withComponent(GatsbyLink)
+const LinkGatsby = LinkWrapper.withComponent(GatsbyLink);
 
 function Link({ isGatsby, ...props }) {
   if (isGatsby) {
-    return <LinkGatsby isButton {...props} />
+    return <LinkGatsby isButton {...props} />;
   }
-  return <LinkWrapper {...props} />
+  return <LinkWrapper {...props} />;
 }
 
 Link.propTypes = {
   isGatsby: PropTypes.bool,
-  children: PropTypes.node,
-}
+  children: PropTypes.node
+};
 
 Link.defaultProps = {
   isGatsby: false,
-  children: null,
-}
+  children: null
+};
 
-export default Link
+export default Link;
