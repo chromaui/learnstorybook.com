@@ -26,7 +26,7 @@ To deploy Storybook we first need to export it as a static web app. This functio
 }
 ```
 
-Now when you run Storybook via `npm run storybook`, it will output a static Storybook in the storybook-static directory.
+Now when you run Storybook via `npm run storybook`, it will output a static Storybook in the `storybook-static` directory.
 
 ## Continuous deploy
 
@@ -76,7 +76,7 @@ Netlify has a continuous deployment service built in which will allow us to depl
 If you use CI at your company, add a deploy script to your config that uploads <code>storybook-static</code> to a static hosting service like S3.
 </div>
 
-Create an account on Netlify and click to “create site”.
+[Create an account on Netlify](https://app.netlify.com/start) and click to “create site”.
 
 ![Netlify create site](/netlify-create-site.png)
 
@@ -90,10 +90,12 @@ Configure Netlify by highlighting which build command to run in its CI and which
 
 ![Netlify settings](/netlify-settings.png)
 
-Click “build your site” to build and deploy the code on the master branch of taskbox.
+Click “build your site” to build and deploy the code on the `master` branch of taskbox.
 
 Finally, navigate to Taskbox’ Storybook online.
 
 ![Netlify Storybook deploy](/netlify-storybook-deploy.png)
 
-We finished setting up continuous deployment of Storybook! Now we can share our stories with colleagues via a link. This is helpful for visual review as part of the standard app development process or simply to show off work 💅.
+We finished setting up continuous deployment of Storybook! Now we can share our stories with colleagues via a link.
+
+This is helpful for visual review as part of the standard app development process or simply to show off work 💅.
