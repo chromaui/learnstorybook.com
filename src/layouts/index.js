@@ -46,6 +46,8 @@ const TemplateWrapper = ({ data, children }) => (
       <meta property="og:description" content={data.site.siteMetadata.description} />
       <meta name="twitter:title" content={data.site.siteMetadata.title} />
       <meta name="twitter:description" content={data.site.siteMetadata.description} />
+
+      <meta name="google-site-verification" content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY" />
     </Helmet>
 
     <HeaderWrapper
