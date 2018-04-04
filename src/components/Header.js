@@ -1,9 +1,12 @@
-import React from "react";
-import Link from "gatsby-link";
-import styled, { css } from "styled-components";
+import React from 'react';
+import Link from 'gatsby-link';
+import styled, { css } from 'styled-components';
+import GitHubButton from 'react-github-button';
 
-import Logo from "./Logo";
-import { typography, spacing, pageMargins, breakpoint } from "./shared/styles";
+import 'react-github-button/assets/style.css';
+
+import Logo from './Logo';
+import { typography, spacing, pageMargins, breakpoint } from './shared/styles';
 
 const LogoWrapper = styled(Logo)`
   height: 20px;
@@ -105,6 +108,7 @@ const NavWrapper = styled.nav`
 `;
 
 export default function Header({ title, githubUrl, inverse, ...props }) {
+  const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
     <NavWrapper {...props}>
       <Nav>
@@ -117,15 +121,7 @@ export default function Header({ title, githubUrl, inverse, ...props }) {
         </NavGroup>
         <NavGroup right>
           <NavItem>
-            <a
-              className="github-button"
-              href={githubUrl}
-              data-size="large"
-              data-show-count="true"
-              aria-label="Star hichroma/learnstorybook.com on GitHub"
-            >
-              Star
-            </a>
+            <GitHubButton type="stargazers" size="large" namespace={namespace} repo={repo} />
           </NavItem>
         </NavGroup>
       </Nav>
