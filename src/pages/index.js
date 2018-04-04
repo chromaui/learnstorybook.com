@@ -270,8 +270,16 @@ export default ({ data }) => {
         <Question>What is Storybook?</Question>
         <Answer>
           <p>
-            Storybook is the most popular UI component development tool for React, Vue, and Angular.
-            It helps you{' '}
+            <Link
+              className="primary"
+              href="https://storybook.js.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Storybook
+            </Link>{' '}
+            is the most popular UI component development tool for React, Vue, and Angular. It helps
+            you{' '}
             <strong>
               develop and design UI components outside your app in an isolated environment
             </strong>.

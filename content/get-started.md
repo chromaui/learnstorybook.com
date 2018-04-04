@@ -1,7 +1,7 @@
 ---
 title: "Get started"
 tocTitle: "Get started"
-description: "Get started with Storybook in your development environment"
+description: "Setup Storybook in your development environment"
 commit: 30939d5
 ---
 

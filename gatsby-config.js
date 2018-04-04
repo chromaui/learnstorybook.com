@@ -2,7 +2,7 @@ module.exports = {
   siteMetadata: {
     title: 'Learn Storybook',
     description:
-      'Learn Storybook to create bulletproof UI components as you build an app UI from scratch.',
+      'Learn how to create bulletproof UI components as you build an app UI from scratch in Storybook.',
     permalink: 'https://learnstorybook.com',
     toc: [
       '/get-started/',
