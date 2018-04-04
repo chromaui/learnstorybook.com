@@ -95,7 +95,7 @@ To define our stories, we call `add()` once for each of our test states to gener
 When creating a story we use a helper function (`createTask()`) to build out the shape of the task the component expects. This is typically modelled off what the true data looks like. Again, `export`-ing this function will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
-<b>Actions</b> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `actions()` to stub them in.
+<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
 </div>
 
 ## Config
