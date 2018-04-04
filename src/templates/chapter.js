@@ -197,7 +197,7 @@ const TweetWrapper = styled.a`
   }
 `;
 
-export default ({ data }) => {
+export default ({ data, location }) => {
   const post = data.markdownRemark;
   const { commit, title, description } = post.frontmatter;
 

@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import { darken } from 'polished'
+import React from 'react';
+import styled from 'styled-components';
+import { darken } from 'polished';
 
 import {
   color,
@@ -9,12 +9,12 @@ import {
   pageMargins,
   pageMargin,
   breakpoint,
-} from '../components/shared/styles'
+} from '../components/shared/styles';
 
-import Hero from '../components/Hero'
-import Link from '../components/Link'
-import Button from '../components/Button'
-import CTA from '../components/CTA'
+import Hero from '../components/Hero';
+import Link from '../components/Link';
+import Button from '../components/Button';
+import CTA from '../components/CTA';
 
 const Title = styled.h1`
   color: ${color.lightest};
@@ -31,7 +31,7 @@ const Title = styled.h1`
   @media (min-width: ${breakpoint * 2}px) {
     font-size: 96px;
   }
-`
+`;
 
 const Desc = styled.div`
   color: ${color.lightest};
@@ -47,13 +47,13 @@ const Desc = styled.div`
   @media (min-width: ${breakpoint * 2}px) {
     font-size: ${typography.size.l1}px;
   }
-`
+`;
 
 const Actions = styled.div`
   > * {
     margin-right: 20px;
   }
-`
+`;
 
 const Pitch = styled.div`
   position: relative;
@@ -64,7 +64,7 @@ const Pitch = styled.div`
     flex: 0 1 55%;
     padding-right: 3rem;
   }
-`
+`;
 
 const Content = styled.div`
   ${pageMargins};
@@ -85,7 +85,7 @@ const Content = styled.div`
     align-items: center;
     flex: 1;
   }
-`
+`;
 
 const FigureWrapper = styled.div`
   flex: 1;
@@ -99,7 +99,7 @@ const FigureWrapper = styled.div`
       width: 100%;
     }
   }
-`
+`;
 
 const Wrapper = styled.div`
   background-color: #26c6da;
@@ -110,12 +110,12 @@ const Wrapper = styled.div`
     display: flex;
     align-items: center;
   }
-`
+`;
 
 const Question = styled.h3`
   font-size: ${typography.size.m3}px;
   font-weight: ${typography.weight.extrabold};
-`
+`;
 
 const Answer = styled.div`
   margin-bottom: 3rem;
@@ -135,7 +135,7 @@ const Answer = styled.div`
     max-width: 100%;
     display: block;
   }
-`
+`;
 
 const FAQLayout = styled.div`
   padding: 4rem ${spacing.padding.medium}px 1rem;
@@ -145,7 +145,7 @@ const FAQLayout = styled.div`
   @media (min-width: ${breakpoint * 2}px) {
     margin: 0 ${pageMargin * 4}%;
   }
-`
+`;
 
 const ClickIntercept = styled(Link)`
   position: absolute;
@@ -154,18 +154,18 @@ const ClickIntercept = styled(Link)`
   right: 0;
   top: 0;
   bottom: 0;
-`
+`;
 
 const ChapterTitle = styled.div`
   font-size: ${typography.size.m1}px;
   font-weight: ${typography.weight.extrabold};
   line-height: 1;
   margin-bottom: 0.5rem;
-`
+`;
 const ChapterDesc = styled.div`
   line-height: 1;
   color: ${color.dark};
-`
+`;
 
 const Chapter = styled.li`
   background: ${color.app};
@@ -194,31 +194,31 @@ const Chapter = styled.li`
     display: block;
     overflow: hidden;
   }
-`
+`;
 const Chapters = styled.ol`
   list-style: none;
   margin: 0;
   padding: 1rem 0;
   counter-reset: counter;
-`
+`;
 
 export default ({ data }) => {
   const tocEntries = data.site.siteMetadata.toc.map(slug => {
     const node = data.allMarkdownRemark.edges
       .map(e => e.node)
-      .find(({ fields }) => fields.slug === slug)
+      .find(({ fields }) => fields.slug === slug);
 
     if (!node) {
       throw new Error(
         `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
-      )
+      );
     }
-    const { tocTitle, title, description } = node.frontmatter
+    const { tocTitle, title, description } = node.frontmatter;
 
-    return { slug, title: tocTitle || title, description }
-  })
+    return { slug, title: tocTitle || title, description };
+  });
 
-  const { githubUrl } = data.site.siteMetadata
+  const { githubUrl } = data.site.siteMetadata;
 
   return (
     <div>
@@ -227,18 +227,15 @@ export default ({ data }) => {
           <Pitch>
             <Title>Storybook Tutorial</Title>
             <Desc>
-              Learn Storybook to create bulletproof UI components as you build
-              an app UI from scratch.
+              Learn Storybook to create bulletproof UI components as you build an app UI from
+              scratch.
             </Desc>
 
             <Actions>
               <Link isGatsby to={data.site.siteMetadata.toc[0]}>
                 <Button inverse>Get started</Button>
               </Link>
-              <Link
-                href="https://GitHub.com/hichroma/learnstorybook.com"
-                target="_blank"
-              >
+              <Link href="https://GitHub.com/hichroma/learnstorybook.com" target="_blank">
                 <Button outline>View on Github</Button>
               </Link>
             </Actions>
@@ -253,31 +250,29 @@ export default ({ data }) => {
         <Question>Why a Storybook tutorial?</Question>
         <Answer>
           <p>
-            LearnStorybook.com aims to teach tried-and-true patterns for
-            component development using Storybook. You'll walk through essential
-            UI component techniques while building a UI from scratch.
+            LearnStorybook.com aims to teach tried-and-true patterns for component development using
+            Storybook. You'll walk through essential UI component techniques while building a UI
+            from scratch.
           </p>
           <p>
-            The info here is sourced from professional teams, core maintainers,
-            and the awesome Storybook community. Rather than trying to cover
-            every edge case (which can take forever!) the tutorial recommends
-            best practice.
+            The info here is sourced from professional teams, core maintainers, and the awesome
+            Storybook community. Rather than trying to cover every edge case (which can take
+            forever!) the tutorial recommends best practice.
           </p>
         </Answer>
 
         <Question>What is Storybook?</Question>
         <Answer>
           <p>
-            Storybook is the most popular UI component development tool for
-            React, Vue, and Angular. It helps you{' '}
+            Storybook is the most popular UI component development tool for React, Vue, and Angular.
+            It helps you{' '}
             <strong>
-              develop and design UI components outside your app in an isolated
-              environment
+              develop and design UI components outside your app in an isolated environment
             </strong>.
           </p>
           <p>
-            Professional developers at Airbnb, Dropbox, and Lonely Planet use
-            Storybook to build durable documented UIs faster.
+            Professional developers at Airbnb, Dropbox, and Lonely Planet use Storybook to build
+            durable documented UIs faster.
           </p>
         </Answer>
 
@@ -285,14 +280,13 @@ export default ({ data }) => {
         <Answer>
           <img src="/ss-browserchrome-taskbox-learnstorybook.png" />
           <p>
-            Taskbox, a task management UI (similar to Asana), complete with
-            multiple item types and states. We’ll go from building simple UI
-            components to assembling screens. Each chapter illustrates a
-            different aspect of developing UIs with Storybook.
+            Taskbox, a task management UI (similar to Asana), complete with multiple item types and
+            states. We’ll go from building simple UI components to assembling screens. Each chapter
+            illustrates a different aspect of developing UIs with Storybook.
           </p>
           <p>
-            At the end of each chapter you'll get a handy link to the commit to
-            help you stay in sync.
+            At the end of each chapter you'll get a handy link to the commit to help you stay in
+            sync.
           </p>
         </Answer>
 
@@ -311,18 +305,15 @@ export default ({ data }) => {
         <Question>Who's this for?</Question>
         <Answer>
           <p>
-            This tutorial is for developers of all skill levels that are new to
-            Storybook. If you follow along, you’ll be able to grasp the core
-            concepts of isolated UI component development and build a full UI in
-            Storybook without issue.
+            This tutorial is for developers of all skill levels that are new to Storybook. If you
+            follow along, you’ll be able to grasp the core concepts of isolated UI component
+            development and build a full UI in Storybook without issue.
           </p>
           <p>
-            We assume that you’re familiar with basic JavaScript, components,
-            and web development. If you already use Storybook, checkout the{' '}
-            <Link href="https://storybook.js.org/basics/introduction/">
-              official docs
-            </Link>{' '}
-            for API documentation or visit{' '}
+            We assume that you’re familiar with basic JavaScript, components, and web development.
+            If you already use Storybook, checkout the{' '}
+            <Link href="https://storybook.js.org/basics/introduction/">official docs</Link> for API
+            documentation or visit{' '}
             <Link href="https://blog.hichroma.com/" target="_blank">
               Chroma on Medium
             </Link>{' '}
@@ -340,8 +331,8 @@ export default ({ data }) => {
         />
       </FAQLayout>
     </div>
-  )
-}
+  );
+};
 
 export const query = graphql`
   query IndexQuery {
@@ -365,4 +356,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

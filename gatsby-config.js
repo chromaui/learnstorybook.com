@@ -15,6 +15,7 @@ module.exports = {
       '/conclusion/',
       '/contribute/',
     ],
+    siteUrl: 'https://learnstorybook.com',
     githubUrl: 'https://github.com/hichroma/learnstorybook.com',
     codeGithubUrl: 'https://github.com/hichroma/learnstorybook-code',
   },
