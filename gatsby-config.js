@@ -32,22 +32,9 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
     {
-      resolve: `gatsby-plugin-segment-js`,
+      resolve: 'gatsby-plugin-segment',
       options: {
-        // your segment write key for your production environment
-        // when process.env.NODE_ENV === 'production'
-        // required; non-empty string
-        prodKey: `JXEYLKE1T9ptsDlNqeNIMdoOy1Ept8CB`,
-
-        // if you have a development env for your segment account, paste that key here
-        // when process.env.NODE_ENV === 'development'
-        // optional; non-empty string
-        devKey: null,
-
-        // whether you want to include analytics.page()
-        // optional; boolean that defaults to true
-        // if false, then don't forget to manually add it to your codebase manually!
-        trackPage: true,
+        writeKey: 'JXEYLKE1T9ptsDlNqeNIMdoOy1Ept8CB',
       },
     },
   ],
