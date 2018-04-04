@@ -2,6 +2,7 @@
 title: "Setup Storybook"
 tocTitle: "Setup"
 description: "Setup Storybook in your development environment"
+commit: 30939d5
 ---
 
 # Setup Storybook

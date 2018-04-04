@@ -16,6 +16,7 @@ module.exports = {
       '/contribute/',
     ],
     githubUrl: 'https://github.com/hichroma/learnstorybook.com',
+    codeGithubUrl: 'https://github.com/hichroma/learnstorybook-code',
   },
   plugins: [
     'gatsby-plugin-react-helmet',
@@ -30,4 +31,4 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
   ],
-}
+};

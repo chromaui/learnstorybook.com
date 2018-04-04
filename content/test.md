@@ -1,6 +1,7 @@
 ---
 title: "Testing"
 description: "Learn the ways to test UI components"
+commit: 62d823a
 ---
 
 # Test UI components
@@ -65,18 +66,18 @@ yarn add react-chromatic
 Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
-import { configure } from '@storybook/react'
-import 'react-chromatic/storybook-addon'
+import { configure } from '@storybook/react';
+import 'react-chromatic/storybook-addon';
 
-import '../src/index.css'
+import '../src/index.css';
 
-const req = require.context('../src/components', true, /\.stories\.js$/)
+const req = require.context('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
-  req.keys().forEach(filename => req(filename))
+  req.keys().forEach(filename => req(filename));
 }
 
-configure(loadStories, module)
+configure(loadStories, module);
 ```
 
 Then [login to Chromatic](https://www.chromaticqa.com/start?invite-token=dnjk1zik&utm_source=https%3A%2F%2Flearnstorybook.com&utm_medium=tutorial&utm_campaign=learnstorybook) to get a unique app code.

@@ -1,14 +1,14 @@
-import React from 'react'
-import styled from 'styled-components'
-import { darken } from 'polished'
-import Helmet from 'react-helmet'
+import React from 'react';
+import styled from 'styled-components';
+import { darken } from 'polished';
+import Helmet from 'react-helmet';
 
-import Highlight from '../components/Highlight'
-import Link from '../components/Link'
-import CTA from '../components/CTA'
-import Button from '../components/Button'
+import Highlight from '../components/Highlight';
+import Link from '../components/Link';
+import CTA from '../components/CTA';
+import Button from '../components/Button';
 
-import Subheading from '../components/Subheading'
+import Subheading from '../components/Subheading';
 
 import {
   color,
@@ -17,7 +17,7 @@ import {
   typography,
   pageMargins,
   breakpoint,
-} from '../components/shared/styles'
+} from '../components/shared/styles';
 
 const Heading = styled(Subheading)`
   display: block;
@@ -29,19 +29,19 @@ const Heading = styled(Subheading)`
   @media (min-width: ${breakpoint * 1}px) {
     margin-bottom: 1rem;
   }
-`
+`;
 
 const DocsItem = styled.li`
   a.selected {
     font-weight: ${typography.weight.extrabold};
   }
-`
+`;
 
 const DocsList = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0 0 2rem;
-`
+`;
 
 const Sidebar = styled.div`
   flex: 0 1 240px;
@@ -115,11 +115,11 @@ const Sidebar = styled.div`
       }
     }
   }
-`
+`;
 
 const Markdown = styled.div`
   margin-bottom: 3rem;
-`
+`;
 
 const Content = styled.div`
   ${formatting};
@@ -127,7 +127,7 @@ const Content = styled.div`
   width: 100%;
   max-width: 800px;
   margin: 0 auto;
-`
+`;
 
 const DocsWrapper = styled.div`
   ${pageMargins};
@@ -139,26 +139,26 @@ const DocsWrapper = styled.div`
     padding-top: 4rem;
     padding-bottom: 3rem;
   }
-`
+`;
 
 const NextChapterSubtitle = styled.div`
   display: block;
   margin-top: 0.25rem;
   font-size: 18px;
   font-weight: ${typography.weight.regular};
-`
+`;
 
 const GithubLink = styled(Link)`
   font-weight: ${typography.weight.bold};
-`
+`;
 const GithubLinkWrapper = styled.div`
   margin-top: 3rem;
   text-align: center;
-`
+`;
 
 const Tweet = styled.div`
   overflow: hidden;
-`
+`;
 
 const TweetMessage = styled.div`
   font-weight: ${typography.weight.extrabold};
@@ -168,7 +168,7 @@ const TweetMessage = styled.div`
   }
   line-height: 1.2;
   color: ${color.mediumdark};
-`
+`;
 
 const TweetWrapper = styled.a`
   background: ${color.app};
@@ -195,41 +195,39 @@ const TweetWrapper = styled.a`
       fill: ${color.primary};
     }
   }
-`
+`;
 
 export default ({ data }) => {
-  const post = data.markdownRemark
+  const post = data.markdownRemark;
+  const { commit, title, description } = post.frontmatter;
 
-  const { toc } = data.site.siteMetadata
+  const { toc } = data.site.siteMetadata;
   const tocEntries = toc.map(slug => {
     const node = data.allMarkdownRemark.edges
       .map(e => e.node)
-      .find(({ fields }) => fields.slug === slug)
+      .find(({ fields }) => fields.slug === slug);
 
     if (!node) {
       throw new Error(
         `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
-      )
+      );
     }
-    const { tocTitle, title, description } = node.frontmatter
+    const { tocTitle, title, description } = node.frontmatter;
 
-    return { slug, title: tocTitle || title, description }
-  })
+    return { slug, title: tocTitle || title, description };
+  });
 
-  const { slug } = post.fields
-  const { githubUrl } = data.site.siteMetadata
-  const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(
-    /\//g,
-    ''
-  )}.md`
+  const { slug } = post.fields;
+  const { githubUrl, codeGithubUrl } = data.site.siteMetadata;
+  const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(/\//g, '')}.md`;
 
-  const nextEntry = tocEntries[toc.indexOf(slug) + 1]
+  const nextEntry = tocEntries[toc.indexOf(slug) + 1];
 
   return (
     <DocsWrapper>
       <Helmet
-        title={post.frontmatter.title + ` | ` + data.site.siteMetadata.title}
-        meta={[{ name: 'description', content: post.frontmatter.description }]}
+        title={title + ` | ` + data.site.siteMetadata.title}
+        meta={[{ name: 'description', content: description }]}
       />
       <Sidebar>
         <Heading>Table of Contents</Heading>
@@ -252,6 +250,17 @@ export default ({ data }) => {
         <Markdown>
           <Highlight>{post.html}</Highlight>
         </Markdown>
+
+        {commit && (
+          <div>
+            <h2>Code</h2>
+            <p>
+              Want to see a working version of this chapter? Checkout out{' '}
+              <a href={`${codeGithubUrl}/commit/${commit}`}>{commit}</a> on GitHub.
+            </p>
+          </div>
+        )}
+
         <TweetWrapper
           target="_blank"
           href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20an%20awesome%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=hi_chroma"
@@ -264,8 +273,7 @@ export default ({ data }) => {
               />
             </svg>
             <Tweet>
-              Tweet "I’m learning Storybook! It’s an awesome dev tool for UI
-              components."
+              Tweet "I’m learning Storybook! It’s an awesome dev tool for UI components."
             </Tweet>
           </TweetMessage>
         </TweetWrapper>
@@ -275,9 +283,7 @@ export default ({ data }) => {
             text={
               <div>
                 {nextEntry.title}
-                <NextChapterSubtitle>
-                  {nextEntry.description}
-                </NextChapterSubtitle>
+                <NextChapterSubtitle>{nextEntry.description}</NextChapterSubtitle>
               </div>
             }
             action={
@@ -290,18 +296,14 @@ export default ({ data }) => {
           />
         )}
         <GithubLinkWrapper>
-          <GithubLink
-            className="secondary"
-            href={githubFileUrl}
-            target="_blank"
-          >
+          <GithubLink className="secondary" href={githubFileUrl} target="_blank">
             ✍️ Edit on GitHub
           </GithubLink>
         </GithubLinkWrapper>
       </Content>
     </DocsWrapper>
-  )
-}
+  );
+};
 
 export const query = graphql`
   query BlogPostQuery($slug: String!) {
@@ -310,6 +312,7 @@ export const query = graphql`
       frontmatter {
         title
         description
+        commit
       }
       fields {
         slug
@@ -320,6 +323,7 @@ export const query = graphql`
         title
         toc
         githubUrl
+        codeGithubUrl
       }
     }
     allMarkdownRemark {
@@ -337,4 +341,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

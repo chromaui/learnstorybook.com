@@ -2,6 +2,7 @@
 title: "Construct a screen"
 tocTitle: "Screens"
 description: "Construct a screen out of components"
+commit: 29d462e
 ---
 
 # Construct a screen
@@ -15,11 +16,11 @@ In this chapter we continue to increase the sophistication by combining componen
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and catching errors:
 
 ```javascript
-import React from 'react'
-import PropTypes from 'prop-types'
-import { compose, withState, lifecycle } from 'recompose'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { compose, withState, lifecycle } from 'recompose';
 
-import TaskList from './TaskList'
+import TaskList from './TaskList';
 
 function InboxScreen({ error }) {
   if (error) {
@@ -31,7 +32,7 @@ function InboxScreen({ error }) {
           <div className="subtitle-message">Something went wrong</div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -43,21 +44,21 @@ function InboxScreen({ error }) {
       </nav>
       <TaskList />
     </div>
-  )
+  );
 }
 
 InboxScreen.propTypes = {
   error: PropTypes.object,
-}
+};
 
 export default compose(
   withState('error', 'setError', null),
   lifecycle({
     componentDidCatch(error, errorInfo) {
-      this.props.setError(errorInfo)
+      this.props.setError(errorInfo);
     },
   })
-)(InboxScreen)
+)(InboxScreen);
 ```
 
 However, where things get interesting is in rendering the story in Storybook.
@@ -67,12 +68,12 @@ As we saw previously, the `TaskList` component is a _container_ that renders the
 However, for the `InboxScreen` we have a problem in that although the `InboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `InboxScreen` has been polluted by “container-ness”. If we were to render the `InboxScreen` directly in Storybook, like so:
 
 ```javascript
-import React from 'react'
-import { storiesOf } from '@storybook/react'
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import InboxScreen from './InboxScreen'
+import InboxScreen from './InboxScreen';
 
-storiesOf('InboxScreen', module).add('default', () => <InboxScreen />)
+storiesOf('InboxScreen', module).add('default', () => <InboxScreen />);
 ```
 
 We would have an issue because the `TaskList` would have no Redux store to connect to. (You also would encounter similar problems when trying to test the `InboxScreen` with a unit test).
@@ -92,28 +93,28 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 
 ```javascript
-import React from 'react'
-import { storiesOf } from '@storybook/react'
-import { action } from '@storybook/addon-actions'
-import { Provider } from 'react-redux'
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { Provider } from 'react-redux';
 
-import InboxScreen from './InboxScreen'
-import { defaultTasks } from './TaskList.stories'
+import InboxScreen from './InboxScreen';
+import { defaultTasks } from './TaskList.stories';
 
 // A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
       tasks: defaultTasks,
-    }
+    };
   },
   subscribe: () => 0,
   dispatch: action('dispatch'),
-}
+};
 
 storiesOf('InboxScreen', module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('default', () => <InboxScreen />)
+  .add('default', () => <InboxScreen />);
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Redux](https://github.com/orta/react-storybooks-relay-container) and others.
@@ -127,10 +128,10 @@ Now that the nested container component renders properly, we’ll flesh out the 
 Start by building a set of stories for the different states a user could be in looking at on the `InboxScreen`:
 
 ```javascript
-import React from 'react'
-import { storiesOf, action } from '@kadira/storybook'
+import React from 'react';
+import { storiesOf, action } from '@kadira/storybook';
 
-import Inbox from './Inbox'
+import Inbox from './Inbox';
 
 function buildTask(attrs) {
   return {
@@ -140,32 +141,30 @@ function buildTask(attrs) {
     url: 'http://test.url',
     updatedAt: Date.now(),
     ...attrs,
-  }
+  };
 }
 
 const pinnedTasks = [
   buildTask({ state: 'TASK_PINNED' }),
   buildTask({ state: 'TASK_PINNED' }),
   buildTask({ state: 'TASK_PINNED' }),
-]
+];
 const inboxTasks = [
   buildTask({ state: 'TASK_INBOX' }),
   buildTask({ state: 'TASK_INBOX' }),
   buildTask({ state: 'TASK_INBOX' }),
-]
+];
 
-const onSnoozeTask = action('onSnoozeTask')
-const onPinTask = action('onPinTask')
-const events = { onSnoozeTask, onPinTask }
+const onSnoozeTask = action('onSnoozeTask');
+const onPinTask = action('onPinTask');
+const events = { onSnoozeTask, onPinTask };
 
 storiesOf('Inbox', module)
   .addDecorator(story => <div id="content-container">{story()}</div>)
   .add('loading', () => <Inbox loading={true} />)
   .add('error', () => <Inbox error={new Error('Foobar')} />)
   .add('no tasks', () => <Inbox pinnedTasks={[]} inboxTasks={[]} {...events} />)
-  .add('no pinned tasks', () => (
-    <Inbox pinnedTasks={[]} {...{ inboxTasks, ...events }} />
-  ))
+  .add('no pinned tasks', () => <Inbox pinnedTasks={[]} {...{ inboxTasks, ...events }} />)
   .add('no inbox tasks', () => (
     <Inbox
       inboxTasks={[]}
@@ -183,7 +182,7 @@ storiesOf('Inbox', module)
         ...events,
       }}
     />
-  ))
+  ));
 ```
 
 This isn’t particularly different to how the `Task` and `TaskList` stories were constructed. We already built `TaskList` stories to cope with more “imperfect” states for `loading` and `empty`. We should represent them here as well. `InboxScreen` also has an `error` state that accounts for web server errors.
@@ -191,36 +190,29 @@ This isn’t particularly different to how the `Task` and `TaskList` stories wer
 Once we've built out those stories, use them to build out the component:
 
 ```javascript
-import React, { PropTypes } from 'react'
-import { propType } from 'graphql-anywhere'
+import React, { PropTypes } from 'react';
+import { propType } from 'graphql-anywhere';
 
-import TaskList from '../components/TaskList'
+import TaskList from '../components/TaskList';
 
-const Inbox = ({
-  loading,
-  error,
-  inboxTasks,
-  pinnedTasks,
-  onSnoozeTask,
-  onPinTask,
-}) => {
-  let title
-  let lists = []
+const Inbox = ({ loading, error, inboxTasks, pinnedTasks, onSnoozeTask, onPinTask }) => {
+  let title;
+  let lists = [];
 
   const events = {
     onSnoozeTask,
     onPinTask,
-  }
+  };
 
   if (loading) {
-    title = 'Get the task, put in box'
+    title = 'Get the task, put in box';
   } else if (error) {
-    title = error.toString()
+    title = error.toString();
   } else {
     if (pinnedTasks.length === 0 && inboxTasks.length === 0) {
-      title = 'No Tasks'
+      title = 'No Tasks';
     } else {
-      title = 'Taskbox'
+      title = 'Taskbox';
 
       if (pinnedTasks.length > 0) {
         lists = lists.concat([
@@ -228,7 +220,7 @@ const Inbox = ({
             Important
           </h4>,
           <TaskList key="pinned-tasks" tasks={pinnedTasks} {...events} />,
-        ])
+        ]);
       }
 
       if (inboxTasks.length > 0) {
@@ -237,7 +229,7 @@ const Inbox = ({
             Tasks
           </h4>,
           <TaskList key="inbox-tasks" tasks={inboxTasks} {...events} />,
-        ])
+        ]);
       }
     }
   }
@@ -250,16 +242,13 @@ const Inbox = ({
         </h3>
       </nav>
       {lists && (
-        <div
-          className="content-scrollable list-items"
-          style={{ paddingTop: '48px' }}
-        >
+        <div className="content-scrollable list-items" style={{ paddingTop: '48px' }}>
           {lists}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 Inbox.propTypes = {
   loading: PropTypes.bool,
@@ -268,9 +257,9 @@ Inbox.propTypes = {
   pinnedTasks: PropTypes.arrayOf(propType(TaskList.fragments.task)),
   onSnoozeTask: PropTypes.func,
   onPinTask: PropTypes.func,
-}
+};
 
-export default Inbox
+export default Inbox;
 ```
 
 Again, the component isn’t too complicated, and we are careful to deal with all of the different states outlined in our stories. Cycling through states in Storybook makes it easy to test we’ve done this correctly:
