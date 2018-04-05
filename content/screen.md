@@ -2,7 +2,7 @@
 title: "Construct a screen"
 tocTitle: "Screens"
 description: "Construct a screen out of components"
-commit: 54f2bde
+commit: 22a1898
 ---
 
 # Construct a screen
@@ -94,7 +94,7 @@ import { PureInboxScreen } from './InboxScreen';
 
 storiesOf('InboxScreen', module)
   .add('default', () => <PureInboxScreen />)
-  .add('withError', () => <PureInboxScreen error="Something" />);
+  .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
 We see that although the `withError` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
@@ -136,7 +136,7 @@ const store = {
 storiesOf('InboxScreen', module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
   .add('default', () => <PureInboxScreen />)
-  .add('withError', () => <PureInboxScreen error="Something" />);
+  .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Redux](https://github.com/orta/react-storybooks-relay-container) and others.
