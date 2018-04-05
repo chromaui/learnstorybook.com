@@ -1,6 +1,6 @@
 # Learn Storybook
 
-Learn Storybook aims to teach tried-and-true patterns for component development using Storybook. You’ll walk through essential UI component techniques while building a UI from scratch.
+Learn Storybook teaches you Storybook by building a UI from scratch. We walk through core concepts from building and testing to deployment. This tutorial is intended to get you up to speed on Storybook best practices in a fast and approachable way.
 
 ## Contribute
 
@@ -19,3 +19,9 @@ You'll build Taskbox UI as part of the tutorial. Find the finished code below wi
 ## Who made LearnStorybook.com?
 
 The text, code, and production were contributed by [Chroma](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)
+
+## Contributors
+
+* [Tom Coleman @tmeasday](https://twitter.com/tmeasday)
+* [Dominic Nguyen @domyen](https://twitter.com/domyen)
+* You? [Become an OSS contrbutor](https://www.learnstorybook.com/contribute/)
