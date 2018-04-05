@@ -6,9 +6,13 @@ Learn Storybook aims to teach tried-and-true patterns for component development 
 
 Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/hichroma/learnstorybook.com/issues) for discussion.
 
+You'll find the chapters in the [`/content`](https://github.com/hichroma/learnstorybook.com/tree/master/content) directory.
+
 ## Example app code
 
-You'll build this UI as part of the tutorial. Find the finished code below with commits synced to the chapters.
+![Taskbox UI](https://raw.githubusercontent.com/hichroma/learnstorybook.com/master/static/ss-browserchrome-taskbox-learnstorybook.png)
+
+You'll build Taskbox UI as part of the tutorial. Find the finished code below with commits synced to the chapters.
 
 [📕 **Github repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
 
