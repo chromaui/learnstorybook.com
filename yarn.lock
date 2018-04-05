@@ -78,6 +78,28 @@
     lodash "^4.2.0"
     to-fast-properties "^2.0.0"
 
+"@ndhoule/each@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@ndhoule/each/-/each-2.0.1.tgz#bbed372a603e0713a3193c706a73ddebc5b426a9"
+  dependencies:
+    "@ndhoule/keys" "^2.0.0"
+
+"@ndhoule/keys@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ndhoule/keys/-/keys-2.0.0.tgz#3d64ae677c65a261747bf3a457c62eb292a4e0ce"
+
+"@ndhoule/map@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@ndhoule/map/-/map-2.0.1.tgz#f5ca0a47424ea67f46e2a6d499b9e9bc886aefa8"
+  dependencies:
+    "@ndhoule/each" "^2.0.1"
+
+"@segment/snippet@^4.0.1":
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/@segment/snippet/-/snippet-4.1.1.tgz#96b4e0c47e97821bbc4db88fd788822a49b77a0f"
+  dependencies:
+    "@ndhoule/map" "^2.0.1"
+
 "@types/configstore@^2.1.1":
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/@types/configstore/-/configstore-2.1.1.tgz#cd1e8553633ad3185c3f2f239ecff5d2643e92b6"
@@ -3733,6 +3755,12 @@ gatsby-plugin-react-helmet@^2.0.8:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-react-helmet/-/gatsby-plugin-react-helmet-2.0.8.tgz#26928bfd38f6828f479d76393839523ddf85b005"
   dependencies:
     babel-runtime "^6.26.0"
+
+gatsby-plugin-segment@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-segment/-/gatsby-plugin-segment-1.0.2.tgz#6b014ed477b675486a445155384afe168f3e4bbe"
+  dependencies:
+    "@segment/snippet" "^4.0.1"
 
 gatsby-plugin-sitemap@^1.2.20:
   version "1.2.20"
