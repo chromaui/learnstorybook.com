@@ -28,13 +28,11 @@ import { createStore } from 'redux';
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
-  SNOOZE_TASK: 'SNOOZE_TASK',
 };
 
 // The action creators are how you bundle actions with the data required to execute them
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
-export const snoozeTask = id => ({ type: actions.SNOOZE_TASK, id });
 
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
@@ -50,14 +48,11 @@ function taskStateReducer(taskState) {
 
 // The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {
-  console.log(state, action);
   switch (action.type) {
     case actions.ARCHIVE_TASK:
       return taskStateReducer('TASK_ARCHIVED')(state, action);
     case actions.PIN_TASK:
       return taskStateReducer('TASK_PINNED')(state, action);
-    case actions.SNOOZE_TASK:
-      return taskStateReducer('TASK_SNOOZED')(state, action);
     default:
       return state;
   }

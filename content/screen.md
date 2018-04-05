@@ -13,16 +13,16 @@ In this chapter we continue to increase the sophistication by combining componen
 
 ## Nested container components
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and catching errors:
+As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server):
 
 ```javascript
 import React from 'react';
 import PropTypes from 'prop-types';
-import { compose, withState, lifecycle } from 'recompose';
+import { connect } from 'react-redux';
 
 import TaskList from './TaskList';
 
-function InboxScreen({ error }) {
+export function PureInboxScreen({ error }) {
   if (error) {
     return (
       <div className="page lists-show">
@@ -47,36 +47,57 @@ function InboxScreen({ error }) {
   );
 }
 
-InboxScreen.propTypes = {
-  error: PropTypes.object,
+PureInboxScreen.propTypes = {
+  error: PropTypes.string,
 };
 
-export default compose(
-  withState('error', 'setError', null),
-  lifecycle({
-    componentDidCatch(error, errorInfo) {
-      this.props.setError(errorInfo);
-    },
-  })
-)(InboxScreen);
+PureInboxScreen.defaultProps = {
+  error: null,
+};
+
+export default connect(({ error }) => ({ error }))(PureInboxScreen);
+```
+
+We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+
+```javascript
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './lib/redux';
+
+import InboxScreen from './components/InboxScreen';
+
+class App extends Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <InboxScreen />
+      </Provider>
+    );
+  }
+}
+
+export default App;
 ```
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is a _container_ that renders the `PureTaskList` presentational component. When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList`.
+As we saw previously, the `TaskList` component is a _container_ that renders the `PureTaskList` presentational component. When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList`. We'll do something similar and render the `PureInboxScreen` in storybook.
 
-However, for the `InboxScreen` we have a problem in that although the `InboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `InboxScreen` has been polluted by “container-ness”. If we were to render the `InboxScreen` directly in Storybook, like so:
+However, for the `PureInboxScreen` we have a problem in that although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories:
 
 ```javascript
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import InboxScreen from './InboxScreen';
+import { PureInboxScreen } from './InboxScreen';
 
-storiesOf('InboxScreen', module).add('default', () => <InboxScreen />);
+storiesOf('InboxScreen', module)
+  .add('default', () => <PureInboxScreen />)
+  .add('withError', () => <PureInboxScreen error="Something" />);
 ```
 
-We would have an issue because the `TaskList` would have no Redux store to connect to. (You also would encounter similar problems when trying to test the `InboxScreen` with a unit test).
+We see that although the `withError` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
 
 ![Broken inbox](/broken-inboxscreen.png)
 
@@ -98,7 +119,7 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
 
-import InboxScreen from './InboxScreen';
+import { PureInboxScreen } from './InboxScreen';
 import { defaultTasks } from './TaskList.stories';
 
 // A super-simple mock of a redux store
@@ -114,7 +135,8 @@ const store = {
 
 storiesOf('InboxScreen', module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('default', () => <InboxScreen />);
+  .add('default', () => <PureInboxScreen />)
+  .add('withError', () => <PureInboxScreen error="Something" />);
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Redux](https://github.com/orta/react-storybooks-relay-container) and others.
