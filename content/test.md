@@ -29,11 +29,11 @@ Visual regression tests are designed to catch changes in appearance. They work b
 
 Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
 
-There are a number of tools for visual regression testing. For professional teams we recommend [Chromatic](https://www.chromaticqa.com/), an addon made by Storybook maintainers that runs tests in the cloud.
+There are a number of tools for visual regression testing. For professional teams we recommend [**Chromatic**](https://www.chromaticqa.com/), an addon made by Storybook maintainers that runs tests in the cloud.
 
 ## Setup visual regression testing
 
-Chromatic is a hassle-free Storybook addon for visual regression testing and review in the cloud. Since it’s a paid service (with a free trial), it may not be for everyone. However, it’s an instructive example of a production visual regression testing workflow and you can try it out for free. Let’s have a look.
+Chromatic is a hassle-free Storybook addon for visual regression testing and review in the cloud. Since it’s a paid service (with a free trial), it may not be for everyone. However, Chromatic is an instructive example of a production visual testing workflow that we'll try out for free. Let’s have a look.
 
 ### Initiate Git
 
@@ -80,9 +80,9 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Then [login to Chromatic](https://www.chromaticqa.com/start?invite-token=dnjk1zik&utm_source=https%3A%2F%2Flearnstorybook.com&utm_medium=tutorial&utm_campaign=learnstorybook) to get a unique app code.
+Then [login to Chromatic](https://bit.ly/2Is93Ez) with your Github account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
 
-<video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
     src="/chromatic-setup-learnstorybook.mp4"
     type="video/mp4"
@@ -96,7 +96,7 @@ Run the test command in the command line to setup visual regression tests for St
 ```
 
 <div class="aside">
-<code>--do-not-start</code> is an option that tells Chromatic not to try and start Storybook. Use this if you already have Storybook running on localhost. If Storybook is not running in the command line omit <code>--do-not-start</code>.
+<code>--do-not-start</code> is an option that tells Chromatic not to start Storybook. Use this if you already have Storybook running. If not omit <code>--do-not-start</code>.
 </div>
 
 Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.

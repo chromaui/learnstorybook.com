@@ -5,7 +5,7 @@ description: "Help share Storybook with the world"
 
 # Contribute
 
-Contributions to LearnStorybook.com are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/hichroma/learnstorybook.com/issues) for discussion.
+Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/hichroma/learnstorybook.com/issues) for discussion.
 
 ## Vue and Angular editions
 

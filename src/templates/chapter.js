@@ -14,7 +14,6 @@ import IconCommit from '../components/IconCommit';
 import {
   color,
   formatting,
-  spacing,
   typography,
   pageMargins,
   breakpoint,
@@ -148,8 +147,9 @@ const DocsWrapper = styled.div`
 
 const NextChapterSubtitle = styled.div`
   display: block;
-  margin-top: 0.25rem;
+  margin-top: 0.5rem;
   font-size: 18px;
+  line-height: 1.65;
   font-weight: ${typography.weight.regular};
 `;
 
@@ -190,9 +190,12 @@ const CTAWrapper = styled.a`
     background: ${darken(0.02, color.app)};
   }
 
+  ${CTAMessage} {
+    flex: 1;
+  }
+
   svg {
-    float: left;
-    width: 40px;
+    flex: 0 1 40px;
     height: 40px;
     margin-left: 10px;
     margin-right: 30px;
@@ -268,11 +271,11 @@ export default ({ data, location }) => {
 
         <CTAWrapper
           target="_blank"
-          href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20an%20awesome%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=hi_chroma"
+          href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20an%20great%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=hi_chroma"
         >
           <LogoTwitter />
           <CTAMessage>
-            Tweet "I&rsquo;m learning Storybook! It’s an awesome dev tool for UI components."
+            Tweet "I&rsquo;m learning Storybook! It’s an great dev tool for UI components."
           </CTAMessage>
         </CTAWrapper>
 

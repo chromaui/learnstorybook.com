@@ -299,8 +299,10 @@ export default ({ data }) => {
             illustrates a different aspect of developing UIs with Storybook.
           </p>
           <p>
-            At the end of each chapter you&rsquo;ll get a handy link to the commit to help you stay
-            in sync.
+            <span role="img" aria-label="book">
+              📖
+            </span>{' '}
+            Each chapter is linked to a <b>working commit</b> to help you stay in sync.
           </p>
         </Answer>
 
@@ -337,8 +339,18 @@ export default ({ data }) => {
           </p>
         </Answer>
 
+        <Question>How long does it take?</Question>
+        <Answer>
+          <p>
+            Developer time is precious. This tutorial covers the key parts of Storybook to get you
+            started as quickly as possible. Finish it in less than two hours. If you&rsquo;re an
+            experienced developer even shorter. Our aim is to be the most efficient way to onboard
+            to Storybook.
+          </p>
+        </Answer>
+
         <CTA
-          text={`Let's learn Storybook`}
+          text={`Let's learn Storybook!`}
           action={
             <Link isGatsby to={data.site.siteMetadata.toc[0]}>
               <Button primary>Start tutorial</Button>

@@ -16,8 +16,6 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 `Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task (and a link out), and a “pin” button, allowing us move tasks up and down the list. Putting this together, we’ll need these props:
 
 * `title` – a string describing the task
-* `subtitle` – a string describing the context of the task in the external system
-* `url` – a link to the external resource (clicking on the task will take us there).
 * `state` - which list is the task currently in and is it checked off?
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
@@ -84,9 +82,9 @@ There are two basic levels of organization in Storybook. The component and it’
 
 To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
 
-`action()` allows us to create a callback that appears in the _actions_ panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and use React's `{...actions}` props expansion to pass them all at once. (`<Task {..actions}>` is equivalent to `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`).
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and use React's `{...actions}` props expansion to pass them all at once. `<Task {..actions}>` is equivalent to `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
 
 Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in later stories, as we'll see later.
 
@@ -228,8 +226,8 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-Once the above is done, we can run yarn test and see the following output:
+Once the above is done, we can run `yarn test` and see the following output:
 
-[image testrunner]
+![Task test runner](/task-testrunner.png)
 
 We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.

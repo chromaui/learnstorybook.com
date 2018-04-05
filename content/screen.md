@@ -82,7 +82,7 @@ export default App;
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is a _container_ that renders the `PureTaskList` presentational component. When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList`. We'll do something similar and render the `PureInboxScreen` in storybook.
+As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList`. We'll do something similar and render the `PureInboxScreen` in storybook.
 
 However, for the `PureInboxScreen` we have a problem in that although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories:
 
@@ -97,16 +97,16 @@ storiesOf('InboxScreen', module)
   .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
-We see that although the `withError` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
 
 ![Broken inbox](/broken-inboxscreen.png)
 
-One solution to this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
+One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
 
-However, developers will inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
+However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="www.chromaticqa.com">Chromatic</a> alongside 660+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://chromaticqa.com">Chromatic</a> alongside 670+ stories.
 </div>
 
 ## Supplying context with decorators
@@ -139,7 +139,7 @@ storiesOf('InboxScreen', module)
   .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
-Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Redux](https://github.com/orta/react-storybooks-relay-container) and others.
+Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
 
@@ -155,7 +155,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 
 We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
 
-<video autoPlay muted playsInline controls style="width:480px; height:auto; margin: 0 auto;">
+<video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
     src="/component-driven-development-optimized.mp4"
     type="video/mp4"
@@ -164,4 +164,4 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
 
 [**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
-We’re not done yet. A developers job doesn’t end when the UI is built. You also need to ensure that UI remains durable over time.
+We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.

@@ -1,26 +1,15 @@
-# gatsby-starter-default
-The default Gatsby starter.
+# Learn Storybook
 
-For an overview of the project structure please refer to the [Gatsby documentation - Building with Components](https://www.gatsbyjs.org/docs/building-with-components/).
+Learn Storybook aims to teach tried-and-true patterns for component development using Storybook. You’ll walk through essential UI component techniques while building a UI from scratch.
 
-## Install
+# Contribute
 
-Make sure that you have the Gatsby CLI program installed:
-```sh
-npm install --global gatsby-cli
-```
+Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/hichroma/learnstorybook.com/issues) for discussion.
 
-And run from your CLI:
-```sh
-gatsby new gatsby-example-site
-```
+# Example app code
 
-Then you can run it by:
-```sh
-cd gatsby-example-site
-npm run develop
-```
+[📕 **Github repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
 
-## Deploy
+## Who made LearnStorybook.com?
 
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+The text, code, and production were contributed by [Chroma](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)

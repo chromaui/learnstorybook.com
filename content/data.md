@@ -143,3 +143,10 @@ storiesOf('TaskList', module)
   .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
   .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
 ```
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/finished-tasklist-states.mp4"
+    type="video/mp4"
+  />
+</video>

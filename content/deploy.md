@@ -34,7 +34,7 @@ We want to share the latest version of components whenever we push code. To do t
 
 ### Github
 
-First you want to setup Git for your project in the local directory.
+First you want to setup Git for your project in the local directory. If you're following along from the previous testing chapter jump to setting up a repository on Github.
 
 ```bash
 $ git init
@@ -86,16 +86,16 @@ Now select the taskbox Github repo from the list of options.
 
 ![Netlify connect to repo](/netlify-account-picker.png)
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Dir type `storybook-static`. Build type `yarn build-storybook`.
+Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `yarn build-storybook`.
 
 ![Netlify settings](/netlify-settings.png)
 
-Click “build your site” to build and deploy the code on the `master` branch of taskbox.
+Submit the form to build and deploy the code on the `master` branch of taskbox.
 
-Finally, navigate to Taskbox’ Storybook online.
+When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online.
 
 ![Netlify Storybook deploy](/netlify-storybook-deploy.png)
 
-We finished setting up continuous deployment of Storybook! Now we can share our stories with colleagues via a link.
+We finished setting up continuous deployment of your Storybook! Now we can share our stories with teammates via a link.
 
 This is helpful for visual review as part of the standard app development process or simply to show off work 💅.
