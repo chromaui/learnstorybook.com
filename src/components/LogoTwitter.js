@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { color } from './shared/styles';
 
 const Svg = styled.svg`
   display: inline-block;
   vertical-align: middle;
 
   path {
-    fill: ${color.primary};
+    fill: #2aa3ef;
   }
 `;
 

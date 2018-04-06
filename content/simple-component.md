@@ -74,11 +74,10 @@ storiesOf('Task', module)
 
 There are two basic levels of organization in Storybook. The component and it’s child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
-| **Component** |
-| ------------- |
-| Story         |
-| Story         |
-| Story         |
+* **Component**
+  * Story
+  * Story
+  * Story
 
 To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
 

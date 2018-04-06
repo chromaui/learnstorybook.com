@@ -153,6 +153,11 @@ export const formatting = css`
     li {
       margin-bottom: 0.5em;
     }
+
+    ul,
+    ol {
+      margin: 0.5em 0;
+    }
   }
 
   ol {

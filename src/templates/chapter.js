@@ -289,7 +289,7 @@ export default ({ data, location }) => {
             }
             action={
               <Link isGatsby to={nextEntry.slug}>
-                <Button small tertiary>
+                <Button small primary>
                   Next chapter
                 </Button>
               </Link>

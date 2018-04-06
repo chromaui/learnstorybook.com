@@ -258,7 +258,7 @@ export default ({ data }) => {
           <p>
             The info here is sourced from professional teams, core maintainers, and the awesome
             Storybook community. Rather than trying to cover every edge case (which can take
-            forever!) the tutorial recommends best practice.
+            forever!) this tutorial recommends best practices.
           </p>
         </Answer>
 
