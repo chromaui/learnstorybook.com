@@ -86,7 +86,7 @@ To initiate Storybook we first call the `storiesOf()` function to register the c
 
 As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and use React's `{...actions}` props expansion to pass them all at once. `<Task {..actions}>` is equivalent to `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
 
-Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in later stories, as we'll see later.
+Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 

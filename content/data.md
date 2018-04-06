@@ -13,7 +13,7 @@ This tutorial doesn’t focus on the particulars of building an app so we won’
 
 ## Container components
 
-Our `TaskList` component as currently written is “presentational” (see [blog](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
 This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
@@ -107,7 +107,7 @@ export default connect(
 )(PureTaskList);
 ```
 
-At this stage our Storybook tests will have stopped working, as the TaskList no longer takes any props, but instead connects to the store and sets the props for the `PureTaskList` component it wraps.
+At this stage our Storybook tests will have stopped working, as the `TaskList` is now a container, and no longer expects any props, instead it connects to the store and sets the props on the `PureTaskList` component it wraps.
 
 However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component-- in our Storybook stories:
 
