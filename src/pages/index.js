@@ -237,7 +237,7 @@ export default ({ data }) => {
                 <Button inverse>Get started</Button>
               </Link>
               <Link href="https://GitHub.com/hichroma/learnstorybook.com" target="_blank">
-                <Button outline>View on Github</Button>
+                <Button outline>View on GitHub</Button>
               </Link>
             </Actions>
           </Pitch>

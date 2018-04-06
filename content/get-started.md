@@ -53,7 +53,7 @@ Taskbox reuses design elements from the GraphQL and React Tutorial [example app]
 ![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-If you want to modify the styling, the source LESS files are provided in the Github repo.
+If you want to modify the styling, the source LESS files are provided in the GitHub repo.
 </div>
 
 ## Add assets

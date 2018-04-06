@@ -14,7 +14,7 @@ You'll find the chapters in the [`/content`](https://github.com/hichroma/learnst
 
 You'll build Taskbox UI as part of the tutorial. Find the finished code below with commits synced to the chapters.
 
-[📕 **Github repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
+[📕 **GitHub repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
 
 ## Who made LearnStorybook.com?
 

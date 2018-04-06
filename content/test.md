@@ -80,7 +80,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Then [login to Chromatic](https://bit.ly/2Is93Ez) with your Github account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
+Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source

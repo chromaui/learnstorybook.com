@@ -1,7 +1,7 @@
 ---
 title: "Deploy Storybook"
 tocTitle: "Deploy"
-description: "Deploy Storybook online with Github and Netlify"
+description: "Deploy Storybook online with GitHub and Netlify"
 ---
 
 # Deploy Storybook
@@ -30,11 +30,11 @@ Now when you run Storybook via `npm run storybook`, it will output a static Stor
 
 ## Continuous deploy
 
-We want to share the latest version of components whenever we push code. To do this we need to continuous deploy Storybook. We’ll rely on Github and Netlify to deploy our static site. We’re using the Netlify free plan.
+We want to share the latest version of components whenever we push code. To do this we need to continuous deploy Storybook. We’ll rely on GitHub and Netlify to deploy our static site. We’re using the Netlify free plan.
 
-### Github
+### GitHub
 
-First you want to setup Git for your project in the local directory. If you're following along from the previous testing chapter jump to setting up a repository on Github.
+First you want to setup Git for your project in the local directory. If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
 
 ```bash
 $ git init
@@ -52,9 +52,9 @@ Now commit the files.
 $ git commit -m "taskbox UI"
 ```
 
-Go to Github and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
+Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
 
-![Github setup](/github-create-taskbox.png)
+![GitHub setup](/github-create-taskbox.png)
 
 In the new repo setup copy the origin URL of the repo and add it to your git project with this command:
 
@@ -62,7 +62,7 @@ In the new repo setup copy the origin URL of the repo and add it to your git pro
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-Finally push the repo to Github
+Finally push the repo to GitHub
 
 ```bash
 $ git push -u origin master
@@ -80,9 +80,9 @@ If you use CI at your company, add a deploy script to your config that uploads <
 
 ![Netlify create site](/netlify-create-site.png)
 
-Next click the Github button to connect Netlify to Github. This allows it to access our remote Taskbox repo.
+Next click the GitHub button to connect Netlify to GitHub. This allows it to access our remote Taskbox repo.
 
-Now select the taskbox Github repo from the list of options.
+Now select the taskbox GitHub repo from the list of options.
 
 ![Netlify connect to repo](/netlify-account-picker.png)
 

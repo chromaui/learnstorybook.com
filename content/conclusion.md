@@ -7,7 +7,7 @@ description: "Put all your knowledge together and learn more Storybook technique
 
 Congratulations you created your first UI in Storybook! Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following the code your repo should look like this:
 
-[📕 **Github repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
+[📕 **GitHub repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
 
 Storybook is a powerful tool with a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how straightforward it is to build durable UIs.
 
