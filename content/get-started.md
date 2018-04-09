@@ -1,17 +1,17 @@
 ---
 title: "Get started"
 tocTitle: "Get started"
-description: "Setup Storybook in your development environment"
+description: "Setup React Storybook in your development environment"
 commit: 30939d5
 ---
 
 # Get started
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app.
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions for Vue and Angular are coming soon.
 
 ![Storybook and your app](/storybook-relationship.jpg)
 
-## Setup Storybook
+## Setup React Storybook
 
 We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Create React App](https://github.com/facebook/create-react-app) (CRA) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
 

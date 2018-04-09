@@ -253,12 +253,12 @@ export default ({ data }) => {
           <p>
             Learn Storybook aims to teach tried-and-true patterns for component development using
             Storybook. You&rsquo;ll walk through essential UI component techniques while building a
-            UI from scratch.
+            UI from scratch in React (Vue and Angular coming soon).
           </p>
           <p>
             The info here is sourced from professional teams, core maintainers, and the awesome
-            Storybook community. Rather than trying to cover every edge case (which can take
-            forever!) this tutorial recommends best practices.
+            Storybook community. Rather than trying to cover every edge case –which can take
+            forever!– this tutorial recommends best practices.
           </p>
         </Answer>
 
