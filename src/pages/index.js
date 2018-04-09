@@ -258,7 +258,15 @@ export default ({ data }) => {
           <p>
             The info here is sourced from professional teams, core maintainers, and the awesome
             Storybook community. Rather than trying to cover every edge case –which can take
-            forever!– this tutorial recommends best practices.
+            forever!– this tutorial recommends best practices.{' '}
+            <Link
+              className="primary"
+              href="https://blog.hichroma.com/introducing-learnstorybook-com-2a43cd33edf5"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Read the announcement »
+            </Link>
           </p>
         </Answer>
 
