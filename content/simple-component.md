@@ -97,10 +97,10 @@ When creating a story we use a helper function (`createTask()`) to build out the
 
 ## Config
 
-We also have to make one small change to the Storybook setup so it notices our `.story.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that mirrors the `.test.js` naming scheme favoured by CRA for automated tests.
+We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.story.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that mirrors the `.test.js` naming scheme favoured by CRA for automated tests.
 
 ```javascript
-import { configure } from '@storybooks/storybook';
+import { configure } from '@storybook/react';
 import '../src/index.css';
 
 const req = require.context('../src', true, /.story.js$/);
