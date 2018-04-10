@@ -16,15 +16,12 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Create React App](https://github.com/facebook/create-react-app) (CRA) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
 
 ```bash
-# If you haven't already got some tools we need, install from npm
-npm install --global create-react-app @storybook/cli yarn
-
 # Create our application:
-create-react-app taskbox
+npx create-react-app taskbox
 cd taskbox
 
 # Add Storybook:
-getstorybook
+npx -p @storybook/cli getstorybook
 ```
 
 We can quickly check the various environments of our application are working properly:
