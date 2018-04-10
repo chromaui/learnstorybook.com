@@ -78,8 +78,8 @@ const Content = styled.div`
   padding-bottom: 5rem;
 
   @media (min-width: ${breakpoint}px) {
-    padding-top: 7rem;
-    padding-bottom: 5rem;
+    padding-top: 10rem;
+    padding-bottom: 8rem;
     flex-direction: row;
     text-align: left;
     display: flex;
