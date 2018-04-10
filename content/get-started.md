@@ -17,7 +17,7 @@ We’ll need to follow a few steps to get the build process set up in your envir
 
 ```bash
 # If you haven't already got some tools we need, install from npm
-npm install --global create-react-app getstorybook yarn
+npm install --global create-react-app @storybook/cli yarn
 
 # Create our application:
 create-react-app tasklist
