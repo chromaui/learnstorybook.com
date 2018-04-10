@@ -20,8 +20,8 @@ We’ll need to follow a few steps to get the build process set up in your envir
 npm install --global create-react-app @storybook/cli yarn
 
 # Create our application:
-create-react-app tasklist
-cd tasklist
+create-react-app taskbox
+cd taskbox
 
 # Add Storybook:
 getstorybook
