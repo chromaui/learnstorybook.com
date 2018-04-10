@@ -48,7 +48,7 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply compile the LESS to a single CSS file and include it in our app. Copy and paste [this compiled CSS](https://gist.github.com/tmeasday/a2658f7c37ab93dfc03e688c0febdae0) into the src/index.css file per CRA’s convention.
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply compile the LESS to a single CSS file and include it in our app. Copy and paste [this compiled CSS](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) into the src/index.css file per CRA’s convention.
 
 ![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -58,4 +58,4 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-We also need to add the font and icon [directories](https://github.com/hichroma/learnstorybook-code/) to the public/ folder. After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+We also need to add the font and icon [directories](https://github.com/hichroma/learnstorybook-code/tree/master/public) to the `public/` folder. After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
