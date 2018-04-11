@@ -8,6 +8,8 @@ Contributions to Learn Storybook are encouraged! If it’s something small like 
 
 You'll find the chapters in the [`/content`](https://github.com/hichroma/learnstorybook.com/tree/master/content) directory.
 
+We need help translating Learn Storybook to new languages. [Find out more »](https://github.com/hichroma/learnstorybook.com/issues/3)
+
 ## Example app code
 
 ![Taskbox UI](https://raw.githubusercontent.com/hichroma/learnstorybook.com/master/static/ss-browserchrome-taskbox-learnstorybook.png)
