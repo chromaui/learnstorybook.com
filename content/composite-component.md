@@ -61,7 +61,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import TaskList from './TaskList';
-import { createTask, actions } from './Task.stories';
+import { createTask, actions } from './Task.story';
 
 export const defaultTasks = [
   createTask({ state: 'TASK_INBOX' }),
