@@ -24,7 +24,7 @@ cd taskbox
 npx -p @storybook/cli getstorybook
 ```
 
-We can quickly check the various environments of our application are working properly:
+We can quickly check that the various environments of our application are working properly:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
