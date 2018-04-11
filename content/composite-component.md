@@ -230,7 +230,7 @@ Create a test file called `Task.test.js`. Here we’ll build out our tests that 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TaskList from './TaskList';
-import { withPinnedTasks } from './TaskList.stories';
+import { withPinnedTasks } from './TaskList.story';
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
