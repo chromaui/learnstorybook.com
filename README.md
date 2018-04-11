@@ -30,4 +30,4 @@ Install packages and run with `yarn develop`.
 
 * [Tom Coleman @tmeasday](https://twitter.com/tmeasday)
 * [Dominic Nguyen @domyen](https://twitter.com/domyen)
-* You? [Become an OSS contrbutor](https://www.learnstorybook.com/contribute/)
+* You? [Become an OSS contributor](https://www.learnstorybook.com/contribute/)
