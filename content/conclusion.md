@@ -5,9 +5,11 @@ description: "Put all your knowledge together and learn more Storybook technique
 
 # Conclusion
 
-Congratulations you created your first UI in Storybook! Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following the code your repo should look like this:
+Congratulations you created your first UI in Storybook! Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following, your repo and deployed Storybook should look like this:
 
 [📕 **GitHub repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
+<br/>
+[🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.com/)
 
 Storybook is a powerful tool for React, Vue, and Angular with a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
 
