@@ -40,9 +40,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-Above we we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
+Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
 
-Below we build out task’s three test states in the story file:
+Below we build out Task’s three test states in the story file:
 
 ```javascript
 import React from 'react';
@@ -72,7 +72,7 @@ storiesOf('Task', module)
   .add('archived', () => <Task task={createTask({ state: 'TASK_ARCHIVED' })} {...actions} />);
 ```
 
-There are two basic levels of organization in Storybook. The component and it’s child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 * **Component**
   * Story
@@ -89,7 +89,7 @@ Another nice thing about bundling the `actions` that a component needs is that y
 
 To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
-When creating a story we use a helper function (`createTask()`) to build out the shape of the task the component expects. This is typically modelled off what the true data looks like. Again, `export`-ing this function will enable us to reuse it in later stories, as we'll see.
+When creating a story we use a helper function (`createTask()`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this function will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.

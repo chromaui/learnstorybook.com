@@ -82,9 +82,9 @@ export default App;
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) of the context or service it requires.
+As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
 
-When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the cotnainer. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories:
 
@@ -113,7 +113,7 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 
 ## Supplying context with decorators
 
-The good news is it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
+The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 
 ```javascript
 import React from 'react';
