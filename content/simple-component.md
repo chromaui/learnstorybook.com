@@ -24,7 +24,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 ## Get setup
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.js` and `src/components/Task.story.js`.
+First, let’s create the task component and its accompanying story file: `src/components/Task.js` and `src/components/Task.stories.js`.
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
@@ -97,13 +97,13 @@ When creating a story we use a helper function (`createTask()`) to build out the
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.story.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that mirrors the `.test.js` naming scheme favoured by CRA for automated tests.
+We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA for automated tests.
 
 ```javascript
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
-const req = require.context('../src', true, /.story.js$/);
+const req = require.context('../src', true, /.stories.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
