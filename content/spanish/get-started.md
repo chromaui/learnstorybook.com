@@ -5,54 +5,54 @@ description: "Setup React Storybook in your development environment"
 commit: 30939d5
 ---
 
-# Get started
+# Empezando
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions for Vue and Angular are coming soon.
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; otras ediciones para Vue y Angular vendrán pronto.
 
 ![Storybook and your app](/storybook-relationship.jpg)
 
-## Setup React Storybook
+## Configurando React Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Create React App](https://github.com/facebook/create-react-app) (CRA) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestro entorno. Para iniciar, vamos a usar [Create React App](https://github.com/facebook/create-react-app) (CRA) para configurar nuestro sistema de build, y añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para testear nuestra aplicación creada. Vamos a ejecutar los siguientes comandos:
 
 ```bash
-# Create our application:
+# Crea nuestra aplicación:
 npx create-react-app taskbox
 cd taskbox
 
-# Add Storybook:
+# Añade Storybook:
 npx -p @storybook/cli getstorybook
 ```
 
-We can quickly check that the various environments of our application are working properly:
+Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 
 ```bash
-# Run the test runner (Jest) in a terminal:
+# Corre el test de prueba (Jest) en una terminal:
 yarn test
 
-# Start the component explorer on port 9009:
+# Inicia el explorador de componentes en el puerto 9009:
 yarn run storybook
 
-# Run the frontend app proper on port 3000:
+# Ejecuta el frontend de la aplicación en el puerto 3000:
 yarn start
 ```
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
+Nuestras tres modalidades del frontend de la aplicación: test automatizado (Jest), desarrollo de componentes (Storybook) y la propia aplicación.
 
-![3 modalities](/app-three-modalities.png)
+![3 modalidades](/app-three-modalities.png)
 
-Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
+Dependiendo de en qué parte de la aplicación estés trabajando, es posible que quieras ejecutar uno o más de estos simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
 
-## Reuse CSS
+## Reusa CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply compile the LESS to a single CSS file and include it in our app. Copy and paste [this compiled CSS](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) into the src/index.css file per CRA’s convention.
+Taskbox reutiliza elementos de diseño del Tutorial de GraphQL y React [aplicación de ejemplo](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos el LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) dentro del archivo src/index.css según la convención de CRA.
 
-![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
+![Buzón de tareas UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo.
-</div>
+Si deseas modificar los estilos, los archivos fuente de LESS son proporcionados en el repositorio de GitHub.</div>
 
-## Add assets
+## Añade recursos
 
-We also need to add the font and icon [directories](https://github.com/hichroma/learnstorybook-code/tree/master/public) to the `public/` folder. After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+También necesitamos añadir la fuente y el icono [directorios](https://github.com/hichroma/learnstorybook-code/tree/master/public) a la carpeta `public/`.
+Después de añadir los estilos y recursos, la aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. Comenzamos con la construcción de nuestro primer componente!
