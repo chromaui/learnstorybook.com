@@ -51,15 +51,11 @@ import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
-export function createTask(attrs) {
-  return {
-    id: Math.round(Math.random() * 1000000).toString(),
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: Date.now(),
-    ...attrs,
-  };
-}
+export const task = {
+  title: 'Test Task',
+  state: 'TASK_INBOX',
+  updatedAt: new Date(2018, 0, 1, 9, 0),
+};
 
 export const actions = {
   onPinTask: action('onPinTask'),
@@ -67,9 +63,9 @@ export const actions = {
 };
 
 storiesOf('Task', module)
-  .add('default', () => <Task task={createTask({ state: 'TASK_INBOX' })} {...actions} />)
-  .add('pinned', () => <Task task={createTask({ state: 'TASK_PINNED' })} {...actions} />)
-  .add('archived', () => <Task task={createTask({ state: 'TASK_ARCHIVED' })} {...actions} />);
+  .add('default', () => <Task task={task} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
 There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -211,6 +207,10 @@ Storybook gave us a great way to visually test our application during constructi
 ### Snapshot testing
 
 Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+
+<div class="aside">
+Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+</div>
 
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
