@@ -60,8 +60,7 @@ Next create `Tasklist`’s test states in the story file.
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
-import TaskList from './TaskList';
-import { task, createTask, actions } from './Task.stories';
+import { task, actions } from './Task.stories';
 
 export const defaultTasks = [
   { ...task, id: '1', title: 'Task 1', },

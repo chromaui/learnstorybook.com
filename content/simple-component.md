@@ -52,6 +52,7 @@ import { action } from '@storybook/addon-actions';
 import Task from './Task';
 
 export const task = {
+  id: '1',
   title: 'Test Task',
   state: 'TASK_INBOX',
   updatedAt: new Date(2018, 0, 1, 9, 0),
@@ -85,7 +86,7 @@ Another nice thing about bundling the `actions` that a component needs is that y
 
 To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
-When creating a story we use a helper function (`createTask()`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this function will enable us to reuse it in later stories, as we'll see.
+When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.

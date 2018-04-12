@@ -116,24 +116,20 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import { PureTaskList } from './TaskList';
-import { createTask, actions } from './Task.stories';
+import { task, actions } from './Task.stories';
 
 export const defaultTasks = [
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
 
 export const withPinnedTasks = [
-  createTask({ title: 'Task 1', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 2', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 3', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 4', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 5', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 6 (pinned)', state: 'TASK_PINNED' }),
+  ...defaultTasks.slice(0, 5),
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
 storiesOf('TaskList', module)
@@ -150,3 +146,18 @@ storiesOf('TaskList', module)
     type="video/mp4"
   />
 </video>
+
+Similarly, we need to use `PureTaskList` in our Jest test:
+
+```js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { PureTaskList } from './TaskList';
+
+it('renders when empty', () => {
+  const div = document.createElement('div');
+  const events = { onSnoozeTask: jest.fn(), onPinTask: jest.fn(), onArchiveTask: jest.fn() };
+  ReactDOM.render(<PureTaskList tasks={[]} {...events} />, div);
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
