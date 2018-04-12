@@ -9,22 +9,22 @@ commit: b3488c2
 
 Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e). Es un proceso que construye UIs de “abajo hacia arriba” empezando con los componentes y terminando con las vistas. CDD te ayuda a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
 
-## Task
+## Task - Tarea
 
 ![Task component in three states](/task-states-learnstorybook.png)
 
-`Task` es el componente principal en nuestra app. Cada task se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o no marcado), información sobre la task y un botón “pin” que nos permite mover la task hacia arriba y hacia abajo en la lista. Poniendo esto en conjunto, necesitaremos estas propiedades -props- :
+`Task` (o Tarea) es el componente principal en nuestra app. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o no marcado), información sobre la tarea y un botón “pin” que nos permite mover la tarea hacia arriba y hacia abajo en la lista de tareas. Poniendo esto en conjunto, necesitaremos estas propiedades -props- :
 
-* `title` – un string que describe la task
-* `state` - en que lista se encuentra la task actualmente y, está marcado el checkbox?
+* `title` – un string que describe la tarea
+* `state` - en que lista se encuentra la tarea actualmente? y, está marcado el checkbox?
 
-A medida que comenzamos a construir `Task`, primero escribimos nuestros tests para los estados que corresponden a los distintos tipos de bosquejos de task que definimos anteriormente. Luego, utilizamos Storybook para crear el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
+A medida que comenzamos a construir `Task`, primero escribimos nuestros tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
 Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) al que podemos llamar “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
 
 ## Ajustes iniciales
 
-Primero, vamos a crear el componente Task y el archivo de historias de storybook que lo acompañan: `src/components/Task.js` y `src/components/Task.stories.js`.
+Primero, vamos a crear el componente Task y el archivo de historias de storybook que lo acompaña: `src/components/Task.js` y `src/components/Task.stories.js`.
 
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea -task- (para moverla entre las listas):
 
@@ -81,7 +81,7 @@ Existen dos niveles básicos de organización en Storybook. El componente y sus 
 
 Para iniciar Storybook, primero invocamos a la función `storiesOf()` para registrar el componente. Agregamos un nombre para mostrar el componente, que se muestra en la barra lateral de la aplicación Storybook.
 
-`action()` nos permite crear un callback que aparecerá en el panel **actions** de la UI de Storybook cuando lo cliqueamos. Entonces, cuando construimos un botón pin, podremos determinar en la UI de prueba si un click en el botón es exitoso o no.
+`action()` nos permite crear un callback que aparecerá en el panel **actions** de la UI de Storybook cuando es cliqueado. Entonces, cuando construyamos un botón pin, podremos determinar en la UI de prueba si un click en el botón es exitoso o no.
 
 Como necesitamos pasarle el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente agruparlas en una sola variable `actions` y utilizar `{...actions}`, la expansión de propiedades de React, para pasarlas todas a la vez. `<Task {..actions}>` es equivalente a `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
 
@@ -169,7 +169,7 @@ El maquetado adicional de arriba, combinado con el CSS que hemos importado antes
 
 ## Especificar los requerimientos de datos
 
-Es una buena práctica en React utilizar `propTypes` para especificar la forma de los datos que espera recibir un componente. No sólo se auto documenta, sino que también ayuda a detectar problemas de antemano.
+Es una buena práctica en React utilizar `propTypes` para especificar la forma de los datos que espera recibir un componente. No sólo se auto documenta, sino que también ayuda a detectar problemas rápidamente.
 
 ```javascript
 import React from 'react';
@@ -210,7 +210,7 @@ Storybook nos dio una excelente manera de probar visualmente nuestra aplicación
 
 ### Pruebas de instantáneas
 
-La prueba de instantáneas se refiere a la práctica de registrar la salida "conocida como buena" de un componente para una entrada dada y luego en el futuro marcar el componente siempre que la salida cambie. Esto complementa a Storybook, porque es una manera rápida de ver la nueva versión de un componente y verificar los cambios.
+La prueba de instantáneas se refiere a la práctica de registrar la salida "correcta" de un componente para una entrada dada y luego en el futuro marcar el componente siempre que la salida cambie. Esto complementa a Storybook, porque es una manera rápida de ver la nueva versión de un componente y verificar los cambios.
 
 Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Usalo agregando una dependencia en modo desarrollo en el paquete:
 
