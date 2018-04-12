@@ -2,7 +2,7 @@
 title: "Construct a screen"
 tocTitle: "Screens"
 description: "Construct a screen out of components"
-commit: 22a1898
+commit: 721d0b7
 ---
 
 # Construct a screen

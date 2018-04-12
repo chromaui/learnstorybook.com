@@ -2,7 +2,7 @@
 title: "Assemble a composite component"
 tocTitle: "Composite component"
 description: "Assemble a composite component out of simpler components"
-commit: f1d2297
+commit: 0bf3c0e
 ---
 
 # Assemble a composite component
@@ -63,12 +63,12 @@ import { storiesOf } from '@storybook/react';
 import { task, actions } from './Task.stories';
 
 export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1', },
-  { ...task, id: '2', title: 'Task 2', },
-  { ...task, id: '3', title: 'Task 3', },
-  { ...task, id: '4', title: 'Task 4', },
-  { ...task, id: '5', title: 'Task 5', },
-  { ...task, id: '6', title: 'Task 6', },
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
 
 export const withPinnedTasks = [

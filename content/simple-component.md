@@ -2,7 +2,7 @@
 title: "Build a simple component"
 tocTitle: "Simple component"
 description: "Build a simple component in isolation"
-commit: b3488c2
+commit: 131aade
 ---
 
 # Build a simple component
