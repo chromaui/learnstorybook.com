@@ -39,8 +39,8 @@ const TemplateWrapper = ({ data, children, location }) => (
         sizes="16x16 32x32 64x64"
       />
 
-      <meta property="og:image" content="/opengraph-cover.png" />
-      <meta name="twitter:image" content="/opengraph-cover.png" />
+      <meta property="og:image" content="/opengraph-cover.jpg" />
+      <meta name="twitter:image" content="/opengraph-cover.jpg" />
       <meta property="og:url" content={data.site.siteMetadata.permalink} />
       <meta property="og:title" content={data.site.siteMetadata.title} />
       <meta property="og:description" content={data.site.siteMetadata.description} />
