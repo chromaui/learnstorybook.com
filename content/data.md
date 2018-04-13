@@ -17,7 +17,7 @@ Our `TaskList` component as currently written is “presentational” (see [this
 
 This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` (intentionally kept simple):
+First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
 
 ```javascript
 // A simple redux store/actions/reducer implementation.
@@ -71,7 +71,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in
+Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
 ```javascript
 import React from 'react';
@@ -79,7 +79,7 @@ import PropTypes from 'prop-types';
 
 import Task from './Task';
 import { connect } from 'react-redux';
-import { archiveTask, pinTask, snoozeTask } from '../lib/redux';
+import { archiveTask, pinTask } from '../lib/redux';
 
 export function PureTaskList({ tasks, onPinTask, onArchiveTask }) {
   /* previous implementation of TaskList */
