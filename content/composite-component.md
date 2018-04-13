@@ -60,6 +60,7 @@ Next create `Tasklist`’s test states in the story file.
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
+import TaskList from './TaskList';
 import { task, actions } from './Task.stories';
 
 export const defaultTasks = [
@@ -219,7 +220,7 @@ In our case, we want our `TaskList` to render any pinned tasks **before** unpinn
 
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
-Create a test file called `Task.test.js`. Here we’ll build out our tests that make assertions about the output.
+Create a test file called `TaskList.test.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
 import React from 'react';
