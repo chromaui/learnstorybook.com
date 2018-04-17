@@ -1,29 +1,29 @@
 ---
-title: "Assemble a composite component"
-tocTitle: "Composite component"
-description: "Assemble a composite component out of simpler components"
+title: "Ensamblar un componente compuesto"
+tocTitle: "Componente Compuesto"
+description: "Ensamblar un componente compuesto a partir de componentes simples"
 commit: f1d2297
 ---
 
-# Assemble a composite component
+# Ensamblar un componente compuesto
 
-Last chapter we built our first component; this chapter extends what we learned to build TaskList, a list of Tasks. Let’s combine components together and see what happens when more complexity is introduced.
+En el último capítulo construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir TaskList, una lista de Tareas. Combinemos componentes juntos y veamos qué sucede cuando se añade más complejidad.
 
-## Tasklist
+## Lista de Tareas
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
+Taskbox enfatiza las tareas ancladas colocándolas por encima de las tareas predeterminadas. Esto produce dos variaciones de `TaskList` para las que necesita crear historias: ítems por defecto y ítems por defecto y anclados.
 
 ![default and pinned tasks](/tasklist-states-1.png)
 
-Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, an empty state is required when there are no tasks.
+Dado que los datos de `Tareas` pueden enviarse asincrónicamente, **también** necesitamos un estado de carga para renderizar en ausencia de alguna conexión. Además, también se requiere un estado vacío para cuando no hay tareas.
 
 ![empty and loading tasks](/tasklist-states-2.png)
 
-## Get setup
+## Empezar la configuración
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.js` and `src/components/TaskList.stories.js`.
+Un componente compuesto no es muy diferente de los componentes básicos que contiene. Crea un componente `TaskList` y un archivo de historia que lo acompañe: `src/components/TaskList.js` y `src/components/TaskList.stories.js`.
 
-Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
+Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Tareas` de antes y pasarle los atributos y acciones como inputs.
 
 ```javascript
 import React from 'react';
@@ -54,7 +54,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-Next create `Tasklist`’s test states in the story file.
+A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
 
 ```javascript
 import React from 'react';
@@ -89,15 +89,15 @@ storiesOf('TaskList', module)
   .add('empty', () => <TaskList tasks={[]} {...actions} />);
 ```
 
-`addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
+`addDecorator()` nos permite añadir algo de "contexto" a la representación de cada tarea. En este caso añadimos relleno alrededor de la lista para que sea más fácil de verificar visualmente.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador para añadir estilo. También se pueden utilizar para envolver historias en "proveedores", es decir, componentes de la librebría que establecen el contexto de React. 
 </div>
 
-`createTask()` is a helper function that generates shape of a Task that we created and exported from the `Task.stories.js` file. Similarly, `actions` exported from `Task.stories.js` defined the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`createTask()` es una función de ayuda que genera la forma de una Tarea que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, las `acciones` exportadas de `Task.stories.js` definieron las acciones (comunmente llamadas mockeadas) que espera un componente `Task`, el cual también necesita la `TaskList`. 
 
-Now check Storybook for the new `TaskList` stories.
+Ahora revise Storybook para ver las nuevas historias de la lista de tareas.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -106,9 +106,9 @@ Now check Storybook for the new `TaskList` stories.
   />
 </video>
 
-## Build out the states
+## Construir los estados
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de las historias en las que trabajar. Podrías estar pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón, en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **complejidad real** del componente `TaskList` se revela en los casos `withPinnedTasks`, `loading`, y `empty`.
 
 ```javascript
 import React from 'react';
@@ -170,7 +170,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-The added markup results in the following UI:
+El marcado añadido da como resultado la siguiente interfaz de usuario:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -179,11 +179,11 @@ The added markup results in the following UI:
   />
 </video>
 
-Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
+Observa la posición del elemento anclado en la lista. Queremos que el elemento anclado se muestre en la parte superior de la lista para que sea prioritario para nuestros usuarios.
 
-## Data requirements and props
+## Requisitos de data y props
 
-As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
+A medida que el componente crece, también lo hacen los inputs requeridos de `TaskList`. Define las props requeridas de `TaskList`. Debido a que `Task` es un componente hijo, asegúrate de proporcionar los datos en la forma correcta para renderizarlos. Para ahorrar tiempo y dolores de cabeza, reutiliza los propTypes que definiste en `Tareas` anteriormente.
 
 ```javascript
 import React from 'react';
@@ -208,23 +208,23 @@ TaskList.defaultProps = {
 export default TaskList;
 ```
 
-## Automated testing
+## Pruebas automatizadas
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer such as [Enyzme](http://airbnb.io/enzyme/).
+En el capítulo anterior aprendimos a capturar historias de prueba utilizando Storyshots. Con el componente `Task` no había mucha complejidad para probar más allá de que se mostrara correctamente. Dado que `TaskList` añade otra capa de complejidad, queremos verificar que ciertas entradas produzcan ciertas salidas de una manera adecuada con pruebas automáticas. Para hacer esto crearemos test unitarios utilizando [Jest](https://facebook.github.io/jest/) junto con un renderizador de prueba como [Enzyme](http://airbnb.io/enzyme/).
 
 ![Jest logo](/logo-jest.png)
 
-### Unit tests with Jest
+### Test unitarios con Jest
 
-Storybook stories paired with manual visual tests and snapshot tests (see above) go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
+Las historias de Storybook combinadas con pruebas visuales manuales y pruebas de instantáneas (ver arriba) ayudan mucho a evitar errores de interfaz de usuario. Si las historias cubren una amplia variedad de casos de uso de los componentes, y utilizamos herramientas que aseguran que un humano compruebe cualquier cambio en la historia, los errores son mucho menos probables.
 
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
+Sin embargo, a veces el diablo está en los detalles. Se necesita un framework de pruebas que sea explícito sobre esos detalles. Lo que nos lleva a hacer pruebas unitarias.
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`withPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+En nuestro caso, queremos que nuestra `TaskList` muestre cualquier tarea anclada **antes de** las tareas no ancladas que sea pasada en la prop `tasks`. Aunque tenemos una historia (`withPinnedTasks`) para probar este escenario exacto; puede ser ambiguo para un revisor humano que si el componente **stop** ordena las tareas de esta manera, es un error. Ciertamente no gritará **"¡Mal!"** para el ojo casual.
 
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
+Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes de la salida.
 
-Create a test file called `Task.test.js`. Here we’ll build out our tests that make assertions about the output.
+Crea un archivo de prueba llamado `Task.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
 ```javascript
 import React from 'react';
@@ -237,7 +237,7 @@ it('renders pinned tasks at the start of the list', () => {
   const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
   ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div);
 
-  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
+  // Esperamos que la tarea titulada "Tarea 6 (anclada)" se ejecute primero, no al final.
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 
@@ -247,6 +247,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![TaskList test runner](/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
+Nota que hemos sido capaces de reutilizar la lista de tareas `withPinnedTasks' tanto en la prueba de la historia como en el test unitario; de esta manera podemos continuar aprovechando un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de más y más maneras.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+Note también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de la `Tarea` cambie --quizás usando un nombre de clase diferente o un "área de texto" en lugar de un "input"-- la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales, de instantáneas y de regresión visual (mira el [capitulo sobre las pruebas](/test/)) siempre que te sea posible.
