@@ -37,7 +37,7 @@ yarn run storybook
 yarn start
 ```
 <div class="aside">
-NOTE: If `yarn test` throws an error, you may need to install `watchman` as advised in [this issue](https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884
+NOTE: If `yarn test` throws an error, you may need to install `watchman` as advised in [this issue](https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884)
 </div>
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
