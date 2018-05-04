@@ -107,7 +107,7 @@ export default connect(
 )(PureTaskList);
 ```
 
-En esta etapa, nuestras pruebas de Storybook habrán dejado de funcionar, ya que la `TaskList` ahora es un contenedor y ya no espera ningún props pasado como parámetro, sino que se conecta a la store y establece los props en el componente` PureTaskList` que envuelve.
+En esta etapa, nuestras pruebas de Storybook habrán dejado de funcionar, ya que la `TaskList` ahora es un contenedor y ya no espera ningún props pasado como parámetro, sino que se conecta a la store y establece los props en el componente `PureTaskList` que envuelve.
 
 Sin embargo, podemos resolver este problema fácilmente  renderizando `PureTaskList` --el componente de presentación-- en nuestras historias de Storybook:
 
