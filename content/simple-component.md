@@ -13,7 +13,7 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 ![Task component in three states](/task-states-learnstorybook.png)
 
-`Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us move tasks up and down the list. Putting this together, we’ll need these props:
+`Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
 * `title` – a string describing the task
 * `state` - which list is the task currently in and is it checked off?
