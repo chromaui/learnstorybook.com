@@ -71,7 +71,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Luego actualizaremos lo exportado por defecto en el componente `TaskList` para conectarlo al Store Redux y renderizar las tareas en las que estamos interesados
+Luego actualizaremos lo exportado por defecto en el componente `TaskList` para conectarlo al Store de Redux y renderizar las tareas en las que estamos interesados
 
 ```javascript
 import React from 'react';
