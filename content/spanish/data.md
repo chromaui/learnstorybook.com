@@ -15,7 +15,7 @@ Este tutorial no se centra en los detalles de la construcción de una aplicació
 
 Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (ver [artículo en blog](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) en el sentido que no se comunica con nada externo a su implementación. Para pasarle datos, necesitamos un "contenedor".
 
-Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de React para almacenar datos, para crear un modelo simple de datos para la aplicación. De todos modos, el patrón que utilizaremos también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
+Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de React para almacenar datos, que nos permite crear un modelo simple de datos para la aplicación. De todos modos, el patrón que utilizaremos también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
 Primero construiremos un simple store Redux que responde a acciones que cambian el estado de una tarea, en un archivo llamado `lib/redux.js` (intencionalmente lo mantenemos simple):
 
@@ -71,7 +71,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Luego actualizaremos lo exportado por defecto en el componente `TaskList` para conectarlo al store Redux y renderizar las tareas en las que estamos interesados
+Luego actualizaremos lo exportado por defecto en el componente `TaskList` para conectarlo al Store Redux y renderizar las tareas en las que estamos interesados
 
 ```javascript
 import React from 'react';
