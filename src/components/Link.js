@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { darken } from 'polished';
-import { color } from './shared/styles';
 import GatsbyLink from 'gatsby-link';
+import { color } from './shared/styles';
 
 // prettier-ignore
 const LinkWrapper = styled.a`
@@ -13,6 +13,7 @@ const LinkWrapper = styled.a`
 
   color: ${color.primary};
   > svg path { fill: ${color.primary}; }
+
   &:hover, &:focus {
     cursor: pointer;
     transform: translate3d(0,-1px,0);
@@ -27,12 +28,12 @@ const LinkWrapper = styled.a`
 
   > svg {
     display: inline-block;
-    height: .85em;
-    width: .85em;
+    height: 1em;
+    width: 1em;
     vertical-align: text-top;
     position: relative;
-    bottom: -.225em;
-    margin-right: .25em;
+    bottom: -.125em;
+    margin-right: .4em;
   }
 
 
