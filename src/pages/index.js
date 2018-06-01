@@ -15,6 +15,7 @@ import Hero from '../components/Hero';
 import Link from '../components/Link';
 import Button from '../components/Button';
 import CTA from '../components/CTA';
+import Subheading from '../components/Subheading';
 
 const Title = styled.h1`
   color: ${color.lightest};
@@ -25,11 +26,11 @@ const Title = styled.h1`
   text-shadow: rgba(0, 135, 220, 0.3) 0 1px 5px;
 
   @media (min-width: ${breakpoint * 1}px) {
-    font-size: 56px;
+    font-size: 48px;
   }
 
   @media (min-width: ${breakpoint * 2}px) {
-    font-size: 88px;
+    font-size: 72px;
   }
 `;
 
@@ -47,6 +48,12 @@ const Desc = styled.div`
   @media (min-width: ${breakpoint * 2}px) {
     font-size: ${typography.size.m3}px;
   }
+`;
+
+const ActionHeading = styled(Subheading)`
+  display: block;
+  color: ${color.lighter};
+  margin-bottom: 1rem;
 `;
 
 const Actions = styled.div`
@@ -226,18 +233,28 @@ export default ({ data }) => {
       <Wrapper>
         <Content>
           <Pitch>
-            <Title>Storybook Tutorial</Title>
+            <Title>Storybook tutorial</Title>
             <Desc>
               Learn Storybook to create bulletproof UI components as you build an app UI from
               scratch.
             </Desc>
 
+            <ActionHeading>Get Started</ActionHeading>
             <Actions>
               <Link isGatsby to={data.site.siteMetadata.toc[0]}>
-                <Button inverse>Get started</Button>
+                <Button inverse small>
+                  React tutorial
+                </Button>
+              </Link>
+              <Link isGatsby to={data.site.siteMetadata.toc[0]}>
+                <Button inverse small>
+                  Vue tutorial
+                </Button>
               </Link>
               <Link href="https://GitHub.com/hichroma/learnstorybook.com" target="_blank">
-                <Button outline>View on GitHub</Button>
+                <Button outline small>
+                  GitHub
+                </Button>
               </Link>
             </Actions>
           </Pitch>
