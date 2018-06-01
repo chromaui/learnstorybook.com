@@ -1,7 +1,7 @@
 ---
-title: "Get started"
-tocTitle: "Get started"
-description: "Setup React Storybook in your development environment"
+title: "Empezando"
+tocTitle: "Empezando"
+description: "Configurar React Storybook en tu entorno de desarrollo"
 commit: 30939d5
 ---
 

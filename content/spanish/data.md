@@ -1,23 +1,23 @@
 ---
-title: "Wire in data"
-tocTitle: "Data"
-description: "Learn how to wire in data to your UI component"
+title: "Introducir datos"
+tocTitle: "Datos"
+description: "Aprende como introducir datos a tus componentes UI"
 commit: ea58e96
 ---
 
-# Wire in data
+# Introducir datos
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+Hasta ahora hemos creado componentes aislados sin estado, muy útiles para Storybook, pero finalmente no son útiles hasta que les proporcionemos algunos datos en nuestra aplicación.
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+Este tutorial no se centra en los detalles de la construcción de una aplicación, por lo que no profundizaremos en esos detalles aquí. Pero nos tomaremos un momento para observar un patrón común para introducir datos con componentes contenedores.
 
-## Container components
+## Componentes contenedores
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (ver [artículo en blog](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) en el sentido que no se comunica con nada externo a su implementación. Para pasarle datos, necesitamos un "contenedor".
 
-This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de React para almacenar datos, que nos permite crear un modelo simple de datos para la aplicación. De todos modos, el patrón que utilizaremos también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` (intentionally kept simple):
+Primero construiremos un simple store Redux que responde a acciones que cambian el estado de una tarea, en un archivo llamado `lib/redux.js` (intencionalmente lo mantenemos simple):
 
 ```javascript
 // A simple redux store/actions/reducer implementation.
@@ -71,7 +71,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in
+Luego actualizaremos lo exportado por defecto en el componente `TaskList` para conectarlo al Store de Redux y renderizar las tareas en las que estamos interesados
 
 ```javascript
 import React from 'react';
@@ -107,9 +107,10 @@ export default connect(
 )(PureTaskList);
 ```
 
-At this stage our Storybook tests will have stopped working, as the `TaskList` is now a container, and no longer expects any props, instead it connects to the store and sets the props on the `PureTaskList` component it wraps.
+En esta etapa, nuestras pruebas de Storybook habrán dejado de funcionar, ya que la `TaskList` ahora es un contenedor y ya no espera ningún props pasado como parámetro, sino que se conecta a la store y establece los props en el componente `PureTaskList` que envuelve.
 
-However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component-- in our Storybook stories:
+Sin embargo, podemos resolver este problema fácilmente  renderizando `PureTaskList` --el componente de presentación-- en nuestras historias de Storybook:
+
 
 ```javascript
 import React from 'react';
