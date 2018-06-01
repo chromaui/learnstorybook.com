@@ -1,19 +1,19 @@
 ---
-title: "Construct a screen"
-tocTitle: "Screens"
-description: "Construct a screen out of components"
+title: "Construir una pantalla"
+tocTitle: "Pantallas"
+description: "Construir una pantalla con componentes"
 commit: 22a1898
 ---
 
-# Construct a screen
+# Construir una pantalla
 
-We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+Nos hemos concentrado en crear interfaces de usuario de abajo hacia arriba; comenzando por lo pequeño y añadiendo complejidad. Esto nos ha permitido desarrollar cada componente de forma aislada, determinar los datos que necesita y jugar con ellos en Storybook. Todo sin necesidad de levantar un servidor o construir pantallas!
 
-In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+En este capítulo continuaremos aumentando la sofisticación combinando componentes en una pantalla y desarrollando esa pantalla en Storybook.
 
-## Nested container components
+## Componentes de contenedor anidados
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server):
+Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Redux) en alguna maqueta y sacando un campo `error` de primer nivel de redux (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor):
 
 ```javascript
 import React from 'react';
@@ -29,7 +29,7 @@ export function PureInboxScreen({ error }) {
         <div className="wrapper-message">
           <span className="icon-face-sad" />
           <div className="title-message">Oh no!</div>
-          <div className="subtitle-message">Something went wrong</div>
+          <div className="subtitle-message">Algo va mal</div>
         </div>
       </div>
     );
@@ -58,7 +58,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+También cambiamos el componente `App` para renderizar la pantalla de la bandeja de entrada `InboxScreen` (eventualmente usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
 
 ```javascript
 import React, { Component } from 'react';
@@ -80,13 +80,15 @@ class App extends Component {
 export default App;
 ```
 
-However, where things get interesting is in rendering the story in Storybook.
+Sin embargo, donde las cosas se ponen interesantes es en la representación de la historia en Storybook.
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
+Como vimos anteriormente, el componente `TaskList` es un **contenedor** que renderiza el componente de presentación `PureTaskList`. Por definición, los componentes de un contenedor no pueden simplemente hacer render de forma aislada; esperan que se les pase algún contexto o que se conecten a un servicio. Lo que esto significa es que para hacer render de un contenedor en Storybook, debemos mockearlo (es decir, proporcionar una versión ficticia) del contexto o servicio que requiere.
 
 When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este problema simplemente renderizando la `PureTaskList` y evadiendo el contenedor. Haremos algo similar y renderizaremos la `PureInboxScreen` en Storybook también.
 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories:
+Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Así que cuando preparamos nuestras historias:
 
 ```javascript
 import React from 'react';
@@ -100,6 +102,7 @@ storiesOf('InboxScreen', module)
 ```
 
 We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+Vemos que aunque la historia de `error` funciona bien, tenemos un problema en la historia `default`, porque la `TaskList` no tiene una store de Redux a la que conectarse. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario).
 
 ![Broken inbox](/broken-inboxscreen.png)
 
