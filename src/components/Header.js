@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'gatsby-link';
+import GatsbyLink from 'gatsby-link';
 import styled, { css } from 'styled-components';
 import GitHubButton from 'react-github-button';
 
 import 'react-github-button/assets/style.css';
 
 import Logo from './Logo';
+import Link from './Link';
+import Icon from './Icon';
 import { typography, spacing, pageMargins, breakpoint } from './shared/styles';
 
 const LogoWrapper = styled(Logo)`
@@ -30,7 +32,7 @@ const LogoWrapper = styled(Logo)`
 `;
 
 const NavLink = styled(Link)`
-  font-size: ${typography.size.s2}px;
+  font-size: ${typography.size.s3}px;
   font-weight: ${typography.weight.extrabold};
 `;
 
@@ -89,6 +91,18 @@ const NavWrapper = styled.nav`
   }
 `;
 
+const GitHubWrapper = styled.div`
+  ${'' /* Overrides to make a medium sized button */};
+  .github-btn {
+    font: bold 14px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: auto;
+    .gh-btn,
+    .gh-count {
+      padding: 4px 8px;
+    }
+  }
+`;
+
 export default function Header({ githubUrl, inverse, ...props }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
@@ -96,14 +110,40 @@ export default function Header({ githubUrl, inverse, ...props }) {
       <Nav>
         <NavGroup>
           <NavItem>
-            <NavLink to="/">
+            <GatsbyLink to="/">
               <LogoWrapper inverse={inverse} />
-            </NavLink>
+            </GatsbyLink>
           </NavItem>
         </NavGroup>
         <NavGroup right>
+          {/* TODO:
+            - Hide these links on the homepage
+            - Add Tooltip component to switch between view layers/languages
+            - React
+              - React
+              - Vue
+              - Add yours? (/contribute)
+            - English
+              - English
+              - Spanish
+              - Help translate (/contribute)
+          */}
+          <NavItem showDesktop>
+            <NavLink className={inverse ? 'inverse' : 'tertiary'}>
+              <Icon icon="switchalt" />
+              React
+            </NavLink>
+          </NavItem>
+          <NavItem showDesktop>
+            <NavLink className={inverse ? 'inverse' : 'tertiary'}>
+              <Icon icon="comment" />
+              English
+            </NavLink>
+          </NavItem>
           <NavItem>
-            <GitHubButton type="stargazers" size="large" namespace={namespace} repo={repo} />
+            <GitHubWrapper>
+              <GitHubButton type="stargazers" namespace={namespace} repo={repo} />
+            </GitHubWrapper>
           </NavItem>
         </NavGroup>
       </Nav>
