@@ -1,32 +1,33 @@
 ---
 title: "Conclusion"
-description: "Put all your knowledge together and learn more Storybook techniques"
+description: "Pon todo tu conocimiento junto y aprende más técnicas de Storybook"
 ---
 
 # Conclusion
 
-Congratulations! You created your first UI in Storybook. Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following, your repo and deployed Storybook should look like this:
+Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. En el camino, aprendiste a construir, componer, probar e implementar componentes de interfaz de usuario. Si lo has estado siguiendo, tu repositorio y Storybook desplegado debería verse así:
 
-[📕 **GitHub repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
+[📕 **Repositorio de GitHub: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
 <br/>
-[🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.com/)
+[🌎 **Storybook Desplegado**](https://clever-banach-415c03.netlify.com/)
 
 Storybook is a powerful tool for React, Vue, and Angular. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
+Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una próspera comunidad de desarrolladores y una gran cantidad de complementos. Esta introducción nos lleva superficialmente a lo que es posible. Estamos seguros de que una vez que adoptes Storybook, quedarás impresionado por lo productivo que es crear interfaces de usuario duraderas.
 
-## Learn more
+## Aprende más
 
-Want to dive deeper? Here are helpful resources.
+Quieres bucear más profundo? Aquí algunos recursos útiles:
 
-* [**Official Storybook documentation**](https://storybook.js.org/basics/introduction/) has API documentation, community links, and the addon gallery.
+* [**Documentación oficial de Storybook**](https://storybook.js.org/basics/introduction/) tiene la documentación del API, links comunitarios y una galería de complementos.
 
-* **The Delightful Storybook Workflow** (coming soon!) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, and Apollo GraphQL.
+* **El delicioso flujo de trabajo de Storybook** (Próximamente!) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Squarespace, Major League Soccer y Apollo GraphQL.
 
-* [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) dives deep into using Storybook to visual test components. Free 31-page ebook.
+* [**Manual de pruebas visuales**](https://www.chromaticqa.com/book/visual-testing-handbook) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
 
-## Who made LearnStorybook.com?
+## Quién hizo LearnStorybook.com?
 
-The text, code, and production were contributed by [Chroma](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+El texto, código, y producción fueron contribuidos por [Chroma](http://blog.hichroma.com/). Los tutoriales fueron inspirados por la popular [serie de tutoriales GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858) de Chroma.
 
-Want more tutorials and articles like this? Sign up to the Chroma mailing list.
+Quieres más tutoriales y artículos como este? Regístratate a la lista de correo de Chroma.
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:30px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
