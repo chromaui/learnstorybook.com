@@ -1,18 +1,18 @@
 ---
-title: "Contribute"
-description: "Help share Storybook with the world"
+title: "Contribuir"
+description: "Ayuda a compartir Storybook con el mundo"
 ---
 
-# Contribute
+# Contribuir
 
-Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/hichroma/learnstorybook.com/issues) for discussion.
+Contribuciones para aprender Storybook son bienvenidas! Si se trata de algo pequeño como gramática o puntuación, abre un pull request. Si es un cambio más grande, [agrega un issue](https://github.com/hichroma/learnstorybook.com/issues) para discutirlo.
 
-## Vue and Angular editions
+## Ediciones de Vue y Angular
 
-We’re looking for assistance updating our React/Redux example code to Vue and Angular. Comment on the [Vue](https://github.com/hichroma/learnstorybook.com/issues/1) or [Angular](https://github.com/hichroma/learnstorybook.com/issues/2) GitHub issue.
+Estamos buscando ayuda para actualizar nuestro código de ejemplo de React/Redux a Vue y Angular. Comenta en el issue sobre [Vue](https://github.com/hichroma/learnstorybook.com/issues/1) o sobre [Angular](https://github.com/hichroma/learnstorybook.com/issues/2).
 
 ![Vue and Angular contributors wanted](/logos-angular-vue.png)
 
-## Translations
+## Traducciones
 
-Our goal is to make Storybook approachable to all people. Help translate this tutorial into other languages. We’re especially open to Chinese and Spanish translations. Comment on the [issue here](https://github.com/hichroma/learnstorybook.com/issues/3).
+Nuestro objetivo es hacer que Storybook sea accesible a todas las personas. Ayuda a traducir este tutorial a otros idiomas. Estamos especialmente abiertos a traducciones al chino y al español. Comenta en [este issue](https://github.com/hichroma/learnstorybook.com/issues/3) si deseas ayudar.
