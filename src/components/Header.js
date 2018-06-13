@@ -9,7 +9,8 @@ import 'react-github-button/assets/style.css';
 import Logo from './Logo';
 import Link from './Link';
 import Icon from './Icon';
-import { typography, spacing, pageMargins, breakpoint } from './shared/styles';
+import WithTooltip from './WithTooltip';
+import { color, typography, spacing, pageMargins, breakpoint } from './shared/styles';
 
 const LogoWrapper = styled(Logo)`
   height: 20px;
@@ -75,12 +76,11 @@ const NavGroup = styled.div`
   }
 `;
 
-// prettier-ignore
 const Nav = styled.div`
   height: 3rem;
   position: relative;
   text-align: center;
-	z-index: 3;
+  z-index: 3;
 `;
 
 const NavWrapper = styled.nav`
@@ -89,6 +89,47 @@ const NavWrapper = styled.nav`
   @media (min-width: ${breakpoint}px) {
     padding-top: 36px;
   }
+`;
+
+const TooltipList = styled.div`
+  width: 200px;
+`;
+
+const TooltipItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  padding: 15px 15px;
+
+  &:not(:first-child) {
+    border-top: 1px solid ${color.mediumlight};
+  }
+`;
+
+const ViewLayerImage = styled.img`
+  width: 1rem;
+  height: 1rem;
+  margin-right: 8px;
+`;
+
+const Meta = styled.div``;
+
+const Title = styled.div`
+  font-weight: ${typography.weight.extrabold};
+  font-size: ${typography.size.s2}px;
+  line-height: 1;
+  margin-bottom: 6px;
+`;
+
+const Detail = styled.div`
+  font-size: ${typography.size.s1}px;
+  line-height: 1;
+`;
+
+const LanguageLink = styled(Link)`
+  text-decoration: underline;
+  margin-right: 10px;
 `;
 
 const GitHubWrapper = styled.div`
@@ -116,29 +157,49 @@ export default function Header({ githubUrl, inverse, ...props }) {
           </NavItem>
         </NavGroup>
         <NavGroup right>
-          {/* TODO:
-            - Hide these links on the homepage
-            - Add Tooltip component to switch between view layers/languages
-            - React
-              - React
-              - Vue
-              - Add yours? (/contribute)
-            - English
-              - English
-              - Spanish
-              - Help translate (/contribute)
-          */}
           <NavItem showDesktop>
-            <NavLink className={inverse ? 'inverse' : 'tertiary'}>
-              <Icon icon="switchalt" />
-              React
-            </NavLink>
-          </NavItem>
-          <NavItem showDesktop>
-            <NavLink className={inverse ? 'inverse' : 'tertiary'}>
-              <Icon icon="comment" />
-              English
-            </NavLink>
+            <WithTooltip
+              placement="top"
+              mode="click"
+              startOpen
+              tooltip={
+                <TooltipList>
+                  <TooltipItem>
+                    <ViewLayerImage src="/logo-react.svg" alt="React" />
+                    <Meta>
+                      <Title>React</Title>
+                      <Detail>
+                        <LanguageLink className="tertiary">English</LanguageLink>
+                        <LanguageLink className="tertiary">Español</LanguageLink>
+                      </Detail>
+                    </Meta>
+                  </TooltipItem>
+                  <TooltipItem>
+                    <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
+                    <Meta>
+                      <Title>Vue</Title>
+                      <Detail>
+                        <LanguageLink className="tertiary">English</LanguageLink>
+                      </Detail>
+                    </Meta>
+                  </TooltipItem>
+                  <TooltipItem>
+                    <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                    <Meta>
+                      <Title>Angular</Title>
+                      <Detail>
+                        <LanguageLink className="tertiary">Contributors wanted</LanguageLink>
+                      </Detail>
+                    </Meta>
+                  </TooltipItem>
+                </TooltipList>
+              }
+            >
+              <NavLink className={inverse ? 'inverse' : 'tertiary'}>
+                <Icon icon="switchalt" />
+                React
+              </NavLink>
+            </WithTooltip>
           </NavItem>
           <NavItem>
             <GitHubWrapper>
