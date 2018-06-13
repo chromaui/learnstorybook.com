@@ -10,7 +10,23 @@ exports.onCreateNode = ({ node, getNode, boundActionCreators }) => {
       getNode,
       basePath: `content`,
     });
+
+    // slug starts and ends with '/' so parts[0] and parts[-1] will be empty
+    const parts = slug.split('/').filter(p => !!p);
+
+    if (parts.length > 2) {
+      throw new Error(`Unexpected node path of length > 2: ${slug}`);
+    }
+
+    let chapterSlug = parts[0];
+    let language = 'english';
+    if (parts.length > 1) {
+      [language, chapterSlug] = parts;
+    }
+
     createNodeField({ node, name: `slug`, value: slug });
+    createNodeField({ node, name: `language`, value: language });
+    createNodeField({ node, name: `chapterSlug`, value: chapterSlug });
   }
 };
 
@@ -25,6 +41,8 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             node {
               fields {
                 slug
+                language
+                chapterSlug
               }
             }
           }
@@ -32,12 +50,15 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       }
     `).then(result => {
       result.data.allMarkdownRemark.edges.forEach(({ node }) => {
+        const { slug, language, chapterSlug } = node.fields;
         createPage({
-          path: node.fields.slug,
+          path: slug,
           component: path.resolve(`./src/templates/chapter.js`),
           context: {
             // Data passed to context is available in page queries as GraphQL variables.
-            slug: node.fields.slug,
+            slug,
+            language,
+            chapterSlug,
           },
         });
       });

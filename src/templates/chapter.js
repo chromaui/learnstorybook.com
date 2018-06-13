@@ -206,15 +206,16 @@ const Pagination = styled(CTA)`
   margin-top: 3rem;
 `;
 
-export default ({ data, location }) => {
-  const post = data.markdownRemark;
-  const { commit, title, description } = post.frontmatter;
-
-  const { toc } = data.site.siteMetadata;
+export default ({
+  data: {
+    currentPage,
+    pages,
+    site: { siteMetadata: { title: siteTitle, toc, githubUrl, codeGithubUrl } },
+  },
+  location,
+}) => {
   const tocEntries = toc.map(slug => {
-    const node = data.allMarkdownRemark.edges
-      .map(e => e.node)
-      .find(({ fields }) => fields.slug === slug);
+    const node = pages.edges.map(e => e.node).find(({ fields }) => fields.chapterSlug === slug);
 
     if (!node) {
       throw new Error(
@@ -223,33 +224,36 @@ export default ({ data, location }) => {
     }
     const { tocTitle, title, description } = node.frontmatter;
 
-    return { slug, title: tocTitle || title, description };
+    return { slug: node.fields.slug, title: tocTitle || title, description };
   });
 
-  const { slug } = post.fields;
-  const { githubUrl, codeGithubUrl } = data.site.siteMetadata;
+  const {
+    frontmatter: { commit, title, description },
+    fields: { slug, chapterSlug },
+  } = currentPage;
   const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(/\//g, '')}.md`;
 
-  const nextEntry = tocEntries[toc.indexOf(slug) + 1];
+  const nextEntry = tocEntries[toc.indexOf(chapterSlug) + 1];
+  console.log(nextEntry);
 
   return (
     <DocsWrapper>
       <Helmet
-        title={`${title} | ${data.site.siteMetadata.title}`}
+        title={`${title} | ${siteTitle}`}
         meta={[{ name: 'description', content: description }]}
       />
       <Sidebar>
         <Heading>Table of Contents</Heading>
         <DocsList>
-          {tocEntries.map(({ slug, title }) => (
-            <DocsItem key={slug}>
+          {tocEntries.map(entry => (
+            <DocsItem key={entry.slug}>
               <Link
                 isGatsby
                 strict
-                className={location.pathname !== slug ? 'tertiary' : 'selected'}
-                to={slug}
+                className={slug !== entry.slug ? 'tertiary' : 'selected'}
+                to={entry.slug}
               >
-                {title}
+                {entry.title}
               </Link>
             </DocsItem>
           ))}
@@ -257,7 +261,7 @@ export default ({ data, location }) => {
       </Sidebar>
       <Content>
         <Markdown>
-          <Highlight>{post.html}</Highlight>
+          <Highlight>{currentPage.html}</Highlight>
         </Markdown>
 
         {commit && (
@@ -310,8 +314,8 @@ export default ({ data, location }) => {
 };
 
 export const query = graphql`
-  query BlogPostQuery($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query PageQuery($language: String!, $slug: String!) {
+    currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
         title
@@ -320,6 +324,7 @@ export const query = graphql`
       }
       fields {
         slug
+        chapterSlug
       }
     }
     site {
@@ -330,7 +335,7 @@ export const query = graphql`
         codeGithubUrl
       }
     }
-    allMarkdownRemark {
+    pages: allMarkdownRemark(filter: { fields: { language: { eq: $language } } }) {
       edges {
         node {
           frontmatter {
@@ -340,6 +345,7 @@ export const query = graphql`
           }
           fields {
             slug
+            chapterSlug
           }
         }
       }
