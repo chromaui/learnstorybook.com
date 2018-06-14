@@ -27,11 +27,11 @@ const Title = styled.h1`
   text-shadow: rgba(0, 135, 220, 0.3) 0 1px 5px;
 
   @media (min-width: ${breakpoint * 1}px) {
-    font-size: 48px;
+    font-size: 40px;
   }
 
   @media (min-width: ${breakpoint * 2}px) {
-    font-size: 72px;
+    font-size: 64px;
   }
 `;
 
@@ -228,8 +228,8 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
           <Pitch>
             <Title>Storybook tutorial</Title>
             <Desc>
-              Learn Storybook to create bulletproof UI components as you build an app UI from
-              scratch.
+              Learn Storybook to create bulletproof UI components, along the way you&rsquo;ll build
+              an app UI from scratch.
             </Desc>
 
             <ActionHeading>Get Started</ActionHeading>
@@ -239,7 +239,7 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
               </Link>
 
               <Button inverse disabled>
-                Vue (coming soon)
+                Vue (in progress)
               </Button>
 
               <Link href="https://GitHub.com/hichroma/learnstorybook.com" target="_blank">
