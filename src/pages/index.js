@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
@@ -222,7 +222,7 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
   const firstChapter = toc[0];
 
   return (
-    <div>
+    <Fragment>
       <Wrapper>
         <Content>
           <Pitch>
@@ -372,7 +372,7 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
           }
         />
       </FAQLayout>
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled, { css } from 'styled-components';
@@ -26,7 +26,7 @@ const TemplateWrapper = ({
   location: { pathname },
   children,
 }) => (
-  <div>
+  <Fragment>
     <Helmet title={title} meta={[{ name: 'description', content: description }]}>
       <link
         rel="shortcut icon"
@@ -54,9 +54,9 @@ const TemplateWrapper = ({
       firstChapter={toc[0]}
     />
 
-    <div>{children()}</div>
+    {children()}
     <Footer />
-  </div>
+  </Fragment>
 );
 
 TemplateWrapper.propTypes = {
