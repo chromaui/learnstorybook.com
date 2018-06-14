@@ -191,8 +191,11 @@ export default function Header({ githubUrl, inverse, firstChapter, ...props }) {
                     <Meta>
                       <Title>Vue</Title>
                       <Detail>
-                        <LanguageLink className="tertiary" isGatsby to={`/vue/en/${firstChapter}/`}>
+                        {/* <LanguageLink className="tertiary" isGatsby to={`/vue/en/${firstChapter}/`}>
                           English
+                        </LanguageLink> */}
+                        <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
+                          Contributors wanted
                         </LanguageLink>
                       </Detail>
                     </Meta>
@@ -202,7 +205,9 @@ export default function Header({ githubUrl, inverse, firstChapter, ...props }) {
                     <Meta>
                       <Title>Angular</Title>
                       <Detail>
-                        <LanguageLink className="tertiary">Contributors wanted</LanguageLink>
+                        <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
+                          Contributors wanted
+                        </LanguageLink>
                       </Detail>
                     </Meta>
                   </TooltipItem>
