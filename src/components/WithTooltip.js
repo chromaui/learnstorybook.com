@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { render, unmountComponentAtNode } from 'react-dom';
+import {
+  unmountComponentAtNode,
+  unstable_renderSubtreeIntoContainer as renderSubtreeIntoContainer,
+} from 'react-dom';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -184,7 +187,7 @@ class WithTooltip extends Component {
         </Manager>
       );
 
-      render(managerElement, this.popper);
+      renderSubtreeIntoContainer(this, managerElement, this.popper);
     } else {
       unmountComponentAtNode(this.popper);
     }

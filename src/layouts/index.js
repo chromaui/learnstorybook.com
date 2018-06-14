@@ -21,17 +21,13 @@ const HeaderWrapper = styled(Header)`
     `};
 `;
 
-const TemplateWrapper = ({ data, children, location }) => (
+const TemplateWrapper = ({
+  data: { site: { siteMetadata: { title, permalink, description, githubUrl, toc } } },
+  location: { pathname },
+  children,
+}) => (
   <div>
-    <Helmet
-      title={data.site.siteMetadata.title}
-      meta={[
-        {
-          name: 'description',
-          content: data.site.siteMetadata.description,
-        },
-      ]}
-    >
+    <Helmet title={title} meta={[{ name: 'description', content: description }]}>
       <link
         rel="shortcut icon"
         type="image/png"
@@ -41,20 +37,21 @@ const TemplateWrapper = ({ data, children, location }) => (
 
       <meta property="og:image" content="/opengraph-cover.jpg" />
       <meta name="twitter:image" content="/opengraph-cover.jpg" />
-      <meta property="og:url" content={data.site.siteMetadata.permalink} />
-      <meta property="og:title" content={data.site.siteMetadata.title} />
-      <meta property="og:description" content={data.site.siteMetadata.description} />
-      <meta name="twitter:title" content={data.site.siteMetadata.title} />
-      <meta name="twitter:description" content={data.site.siteMetadata.description} />
+      <meta property="og:url" content={permalink} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
 
       <meta name="google-site-verification" content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY" />
     </Helmet>
 
     <HeaderWrapper
-      title={data.site.siteMetadata.title}
-      githubUrl={data.site.siteMetadata.githubUrl}
-      inverse={location.pathname === '/'}
-      home={location.pathname === '/'}
+      title={title}
+      githubUrl={githubUrl}
+      inverse={pathname === '/'}
+      home={pathname === '/'}
+      firstChapter={toc[0]}
     />
 
     <div>{children()}</div>
@@ -76,6 +73,7 @@ export const query = graphql`
         description
         githubUrl
         permalink
+        toc
       }
     }
   }

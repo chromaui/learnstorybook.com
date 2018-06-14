@@ -144,7 +144,7 @@ const GitHubWrapper = styled.div`
   }
 `;
 
-export default function Header({ githubUrl, inverse, ...props }) {
+export default function Header({ githubUrl, inverse, firstChapter, ...props }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
     <NavWrapper {...props}>
@@ -161,7 +161,7 @@ export default function Header({ githubUrl, inverse, ...props }) {
             <WithTooltip
               placement="top"
               mode="click"
-              startOpen
+              closeOnClick
               tooltip={
                 <TooltipList>
                   <TooltipItem>
@@ -169,8 +169,20 @@ export default function Header({ githubUrl, inverse, ...props }) {
                     <Meta>
                       <Title>React</Title>
                       <Detail>
-                        <LanguageLink className="tertiary">English</LanguageLink>
-                        <LanguageLink className="tertiary">Español</LanguageLink>
+                        <LanguageLink
+                          className="tertiary"
+                          isGatsby
+                          to={`/react/en/${firstChapter}/`}
+                        >
+                          English
+                        </LanguageLink>
+                        <LanguageLink
+                          className="tertiary"
+                          isGatsby
+                          to={`/react/es/${firstChapter}/`}
+                        >
+                          Español
+                        </LanguageLink>
                       </Detail>
                     </Meta>
                   </TooltipItem>
@@ -179,7 +191,9 @@ export default function Header({ githubUrl, inverse, ...props }) {
                     <Meta>
                       <Title>Vue</Title>
                       <Detail>
-                        <LanguageLink className="tertiary">English</LanguageLink>
+                        <LanguageLink className="tertiary" isGatsby to={`/vue/en/${firstChapter}/`}>
+                          English
+                        </LanguageLink>
                       </Detail>
                     </Meta>
                   </TooltipItem>
@@ -215,6 +229,7 @@ export default function Header({ githubUrl, inverse, ...props }) {
 Header.propTypes = {
   githubUrl: PropTypes.string,
   inverse: PropTypes.bool,
+  firstChapter: PropTypes.string.isRequired,
 };
 
 Header.defaultProps = {
