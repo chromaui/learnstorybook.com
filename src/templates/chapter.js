@@ -215,7 +215,7 @@ export default ({
   location,
 }) => {
   const tocEntries = toc.map(slug => {
-    const node = pages.edges.map(e => e.node).find(({ fields }) => fields.chapterSlug === slug);
+    const node = pages.edges.map(e => e.node).find(({ fields }) => fields.chapter === slug);
 
     if (!node) {
       throw new Error(
@@ -227,14 +227,10 @@ export default ({
     return { slug: node.fields.slug, title: tocTitle || title, description };
   });
 
-  const {
-    frontmatter: { commit, title, description },
-    fields: { slug, chapterSlug },
-  } = currentPage;
+  const { frontmatter: { commit, title, description }, fields: { slug, chapter } } = currentPage;
   const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(/\//g, '')}.md`;
 
-  const nextEntry = tocEntries[toc.indexOf(chapterSlug) + 1];
-  console.log(nextEntry);
+  const nextEntry = tocEntries[toc.indexOf(chapter) + 1];
 
   return (
     <DocsWrapper>
@@ -314,7 +310,7 @@ export default ({
 };
 
 export const query = graphql`
-  query PageQuery($language: String!, $slug: String!) {
+  query PageQuery($framework: String!, $language: String!, $slug: String!) {
     currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
@@ -324,7 +320,7 @@ export const query = graphql`
       }
       fields {
         slug
-        chapterSlug
+        chapter
       }
     }
     site {
@@ -335,7 +331,9 @@ export const query = graphql`
         codeGithubUrl
       }
     }
-    pages: allMarkdownRemark(filter: { fields: { language: { eq: $language } } }) {
+    pages: allMarkdownRemark(
+      filter: { fields: { framework: { eq: $framework }, language: { eq: $language } } }
+    ) {
       edges {
         node {
           frontmatter {
@@ -345,7 +343,7 @@ export const query = graphql`
           }
           fields {
             slug
-            chapterSlug
+            chapter
           }
         }
       }
