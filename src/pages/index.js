@@ -235,19 +235,15 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             <ActionHeading>Get Started</ActionHeading>
             <Actions>
               <Link isGatsby to={`/react/en/${firstChapter}`}>
-                <Button inverse small>
-                  React tutorial
-                </Button>
+                <Button inverse>React</Button>
               </Link>
-              <Link isGatsby to={`/vue/en/${firstChapter}`}>
-                <Button inverse small>
-                  Vue tutorial
-                </Button>
-              </Link>
+
+              <Button inverse disabled>
+                Vue (coming soon)
+              </Button>
+
               <Link href="https://GitHub.com/hichroma/learnstorybook.com" target="_blank">
-                <Button outline small>
-                  GitHub
-                </Button>
+                <Button outline>GitHub</Button>
               </Link>
             </Actions>
           </Pitch>

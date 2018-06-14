@@ -1,5 +1,4 @@
-import * as styles from "./shared/styles";
-import * as global from "./shared/global";
-//import * as icons from './shared/icons';
+import * as styles from './shared/styles';
+import * as global from './shared/global';
 
 export { styles, global };
