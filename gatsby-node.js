@@ -45,14 +45,18 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             }
           }
         }
+        site {
+          siteMetadata {
+            defaultTranslation
+          }
+        }
       }
-    `).then(({ data: { pages: { edges } } }) => {
+    `).then(({ data: { pages: { edges }, site: { siteMetadata: { defaultTranslation } } } }) => {
       edges.forEach(({ node }) => {
         const { slug, framework, language, chapter } = node.fields;
 
-        // FIXME: don't hardcode this
-        if (framework === 'react' && language === 'en') {
-          // Redirect the old URL format (/get-started)
+        if (`${framework}/${language}` === defaultTranslation) {
+          // Redirect the old URL format (/get-started) to our slug
           createRedirect({
             fromPath: `/${chapter}/`,
             isPermanent: true,

@@ -10,6 +10,7 @@ import Button from '../components/Button';
 import Subheading from '../components/Subheading';
 import LogoTwitter from '../components/LogoTwitter';
 import IconCommit from '../components/IconCommit';
+import tocEntries from '../lib/tocEntries';
 
 import {
   color,
@@ -214,23 +215,11 @@ export default ({
   },
   location,
 }) => {
-  const tocEntries = toc.map(slug => {
-    const node = pages.edges.map(e => e.node).find(({ fields }) => fields.chapter === slug);
-
-    if (!node) {
-      throw new Error(
-        `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
-      );
-    }
-    const { tocTitle, title, description } = node.frontmatter;
-
-    return { slug: node.fields.slug, title: tocTitle || title, description };
-  });
-
+  const entries = tocEntries(toc, pages);
   const { frontmatter: { commit, title, description }, fields: { slug, chapter } } = currentPage;
   const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(/\//g, '')}.md`;
 
-  const nextEntry = tocEntries[toc.indexOf(chapter) + 1];
+  const nextEntry = entries[toc.indexOf(chapter) + 1];
 
   return (
     <DocsWrapper>
@@ -241,7 +230,7 @@ export default ({
       <Sidebar>
         <Heading>Table of Contents</Heading>
         <DocsList>
-          {tocEntries.map(entry => (
+          {entries.map(entry => (
             <DocsItem key={entry.slug}>
               <Link
                 isGatsby

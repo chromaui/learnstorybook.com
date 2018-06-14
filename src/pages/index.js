@@ -16,6 +16,7 @@ import Link from '../components/Link';
 import Button from '../components/Button';
 import CTA from '../components/CTA';
 import Subheading from '../components/Subheading';
+import tocEntries from '../lib/tocEntries';
 
 const Title = styled.h1`
   color: ${color.lightest};
@@ -212,21 +213,13 @@ const Chapters = styled.ol`
   counter-reset: counter;
 `;
 
-export default ({ data }) => {
-  const tocEntries = data.site.siteMetadata.toc.map(slug => {
-    const node = data.allMarkdownRemark.edges
-      .map(e => e.node)
-      .find(({ fields }) => fields.slug === slug);
+export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, pages } }) => {
+  const defaultPages = {
+    edges: pages.edges.filter(e => e.node.fields.slug.match(defaultTranslation)),
+  };
 
-    if (!node) {
-      throw new Error(
-        `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
-      );
-    }
-    const { tocTitle, title, description } = node.frontmatter;
-
-    return { slug, title: tocTitle || title, description };
-  });
+  const entries = tocEntries(toc, defaultPages);
+  const firstChapter = toc[0];
 
   return (
     <div>
@@ -241,12 +234,12 @@ export default ({ data }) => {
 
             <ActionHeading>Get Started</ActionHeading>
             <Actions>
-              <Link isGatsby to={data.site.siteMetadata.toc[0]}>
+              <Link isGatsby to={`/react/en/${firstChapter}`}>
                 <Button inverse small>
                   React tutorial
                 </Button>
               </Link>
-              <Link isGatsby to={data.site.siteMetadata.toc[0]}>
+              <Link isGatsby to={`/vue/en/${firstChapter}`}>
                 <Button inverse small>
                   Vue tutorial
                 </Button>
@@ -334,7 +327,7 @@ export default ({ data }) => {
         <Question>What&rsquo;s inside</Question>
         <Answer>
           <Chapters>
-            {tocEntries.map(({ slug, title, description }) => (
+            {entries.map(({ slug, title, description }) => (
               <Chapter key={slug}>
                 <ClickIntercept isGatsby className="primary" to={slug} />
                 <ChapterMeta>
@@ -377,7 +370,7 @@ export default ({ data }) => {
         <CTA
           text={`Let's learn Storybook!`}
           action={
-            <Link isGatsby to={data.site.siteMetadata.toc[0]}>
+            <Link isGatsby to={`/react/en/${firstChapter}`}>
               <Button primary>Start tutorial</Button>
             </Link>
           }
@@ -392,9 +385,10 @@ export const query = graphql`
     site {
       siteMetadata {
         toc
+        defaultTranslation
       }
     }
-    allMarkdownRemark {
+    pages: allMarkdownRemark {
       edges {
         node {
           frontmatter {
@@ -404,6 +398,7 @@ export const query = graphql`
           }
           fields {
             slug
+            chapter
           }
         }
       }
