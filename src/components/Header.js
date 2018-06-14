@@ -144,7 +144,7 @@ const GitHubWrapper = styled.div`
   }
 `;
 
-export default function Header({ githubUrl, inverse, firstChapter, ...props }) {
+export default function Header({ githubUrl, inverse, firstChapter, isHome, ...props }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
     <NavWrapper {...props}>
@@ -157,69 +157,72 @@ export default function Header({ githubUrl, inverse, firstChapter, ...props }) {
           </NavItem>
         </NavGroup>
         <NavGroup right>
-          <NavItem showDesktop>
-            <WithTooltip
-              placement="top"
-              mode="click"
-              closeOnClick
-              tooltip={
-                <TooltipList>
-                  <TooltipItem>
-                    <ViewLayerImage src="/logo-react.svg" alt="React" />
-                    <Meta>
-                      <Title>React</Title>
-                      <Detail>
-                        <LanguageLink
-                          className="tertiary"
-                          isGatsby
-                          to={`/react/en/${firstChapter}/`}
-                        >
-                          English
-                        </LanguageLink>
-                        <LanguageLink
-                          className="tertiary"
-                          isGatsby
-                          to={`/react/es/${firstChapter}/`}
-                        >
-                          Español
-                        </LanguageLink>
-                      </Detail>
-                    </Meta>
-                  </TooltipItem>
-                  <TooltipItem>
-                    <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
-                    <Meta>
-                      <Title>Vue</Title>
-                      <Detail>
-                        {/* <LanguageLink className="tertiary" isGatsby to={`/vue/en/${firstChapter}/`}>
+          {!isHome && (
+            <NavItem showDesktop>
+              <WithTooltip
+                placement="top"
+                mode="click"
+                closeOnClick
+                tooltip={
+                  <TooltipList>
+                    <TooltipItem>
+                      <ViewLayerImage src="/logo-react.svg" alt="React" />
+                      <Meta>
+                        <Title>React</Title>
+                        <Detail>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/en/${firstChapter}/`}
+                          >
+                            English
+                          </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/es/${firstChapter}/`}
+                          >
+                            Español
+                          </LanguageLink>
+                        </Detail>
+                      </Meta>
+                    </TooltipItem>
+                    <TooltipItem>
+                      <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
+                      <Meta>
+                        <Title>Vue</Title>
+                        <Detail>
+                          {/* <LanguageLink className="tertiary" isGatsby to={`/vue/en/${firstChapter}/`}>
                           English
                         </LanguageLink> */}
-                        <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
-                          Contributors wanted
-                        </LanguageLink>
-                      </Detail>
-                    </Meta>
-                  </TooltipItem>
-                  <TooltipItem>
-                    <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
-                    <Meta>
-                      <Title>Angular</Title>
-                      <Detail>
-                        <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
-                          Contributors wanted
-                        </LanguageLink>
-                      </Detail>
-                    </Meta>
-                  </TooltipItem>
-                </TooltipList>
-              }
-            >
-              <NavLink className={inverse ? 'inverse' : 'tertiary'}>
-                <Icon icon="switchalt" />
-                React
-              </NavLink>
-            </WithTooltip>
-          </NavItem>
+                          <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
+                            Contributors wanted
+                          </LanguageLink>
+                        </Detail>
+                      </Meta>
+                    </TooltipItem>
+                    <TooltipItem>
+                      <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                      <Meta>
+                        <Title>Angular</Title>
+                        <Detail>
+                          <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
+                            Contributors wanted
+                          </LanguageLink>
+                        </Detail>
+                      </Meta>
+                    </TooltipItem>
+                  </TooltipList>
+                }
+              >
+                <NavLink className={inverse ? 'inverse' : 'tertiary'}>
+                  <Icon icon="switchalt" />
+                  React
+                </NavLink>
+              </WithTooltip>
+            </NavItem>
+          )}
+
           <NavItem>
             <GitHubWrapper>
               <GitHubButton type="stargazers" namespace={namespace} repo={repo} />
@@ -235,9 +238,11 @@ Header.propTypes = {
   githubUrl: PropTypes.string,
   inverse: PropTypes.bool,
   firstChapter: PropTypes.string.isRequired,
+  isHome: PropTypes.bool,
 };
 
 Header.defaultProps = {
   githubUrl: null,
   inverse: false,
+  isHome: null,
 };

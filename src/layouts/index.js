@@ -12,7 +12,7 @@ injectGlobalStyles();
 
 const HeaderWrapper = styled(Header)`
   ${props =>
-    props.home &&
+    props.isHome &&
     css`
       position: absolute;
       left: 0;
@@ -50,7 +50,7 @@ const TemplateWrapper = ({
       title={title}
       githubUrl={githubUrl}
       inverse={pathname === '/'}
-      home={pathname === '/'}
+      isHome={pathname === '/'}
       firstChapter={toc[0]}
     />
 
