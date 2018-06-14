@@ -91,7 +91,7 @@ class WithTooltip extends Component {
     }
   }
 
-  onHideIfOutsideTooltipOrCloseOnClick() {
+  onHideIfOutsideTooltipOrCloseOnClick(event) {
     if (this.state.hidden) {
       return;
     }
@@ -99,7 +99,7 @@ class WithTooltip extends Component {
     if (this.props.closeOnClick) {
       this.onHide();
     } else {
-      this.onHideIfOutsideTooltip();
+      this.onHideIfOutsideTooltip(event);
     }
   }
 
