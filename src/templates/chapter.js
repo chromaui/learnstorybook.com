@@ -211,22 +211,40 @@ export default ({
   data: {
     currentPage,
     pages,
-    site: { siteMetadata: { title: siteTitle, toc, githubUrl, codeGithubUrl } },
+    site: { siteMetadata: { title: siteTitle, toc, githubUrl, codeGithubUrl, siteUrl } },
   },
   location,
 }) => {
   const entries = tocEntries(toc, pages);
-  const { frontmatter: { commit, title, description }, fields: { slug, chapter } } = currentPage;
+  const {
+    frontmatter: { commit, title, description },
+    fields: { slug, chapter, framework, language },
+  } = currentPage;
   const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(/\//g, '')}.md`;
 
   const nextEntry = entries[toc.indexOf(chapter) + 1];
+
+  // This is not optimized.
+  let altLangUrl;
+  if (language === 'es') {
+    altLangUrl = 'en';
+  } else if (language === 'en') {
+    altLangUrl = 'es';
+  }
 
   return (
     <DocsWrapper>
       <Helmet
         title={`${title} | ${siteTitle}`}
         meta={[{ name: 'description', content: description }]}
-      />
+      >
+        <link
+          // TODO: map every language supported and generate an alt URL for each
+          rel="alternate"
+          hrefLang={altLangUrl}
+          href={`${siteUrl}/${framework}/${altLangUrl}/${chapter}`}
+        />
+      </Helmet>
       <Sidebar>
         <Heading>Table of Contents</Heading>
         <DocsList>
@@ -310,6 +328,8 @@ export const query = graphql`
       fields {
         slug
         chapter
+        framework
+        language
       }
     }
     site {
@@ -318,6 +338,7 @@ export const query = graphql`
         toc
         githubUrl
         codeGithubUrl
+        siteUrl
       }
     }
     pages: allMarkdownRemark(
