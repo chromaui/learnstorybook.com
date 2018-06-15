@@ -211,7 +211,7 @@ export default ({
   data: {
     currentPage,
     pages,
-    site: { siteMetadata: { title: siteTitle, toc, githubUrl, codeGithubUrl, siteUrl } },
+    site: { siteMetadata: { title: siteTitle, toc, languages, githubUrl, codeGithubUrl, siteUrl } },
   },
   location,
 }) => {
@@ -224,13 +224,7 @@ export default ({
 
   const nextEntry = entries[toc.indexOf(chapter) + 1];
 
-  // This is not optimized.
-  let altLangUrl;
-  if (language === 'es') {
-    altLangUrl = 'en';
-  } else if (language === 'en') {
-    altLangUrl = 'es';
-  }
+  const otherLanguages = languages.filter(l => l !== language);
 
   return (
     <DocsWrapper>
@@ -238,12 +232,14 @@ export default ({
         title={`${title} | ${siteTitle}`}
         meta={[{ name: 'description', content: description }]}
       >
-        <link
-          // TODO: map every language supported and generate an alt URL for each
-          rel="alternate"
-          hrefLang={altLangUrl}
-          href={`${siteUrl}/${framework}/${altLangUrl}/${chapter}`}
-        />
+        {otherLanguages.map(otherLanguage => (
+          <link
+            key={otherLanguage}
+            rel="alternate"
+            hrefLang={otherLanguage}
+            href={`/${framework}/${otherLanguage}/${chapter}`}
+          />
+        ))}
       </Helmet>
       <Sidebar>
         <Heading>Table of Contents</Heading>
@@ -336,6 +332,7 @@ export const query = graphql`
       siteMetadata {
         title
         toc
+        languages
         githubUrl
         codeGithubUrl
         siteUrl
