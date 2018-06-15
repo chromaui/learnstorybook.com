@@ -237,7 +237,7 @@ export default ({
             key={otherLanguage}
             rel="alternate"
             hrefLang={otherLanguage}
-            href={`/${framework}/${otherLanguage}/${chapter}`}
+            href={`${siteUrl}/${framework}/${otherLanguage}/${chapter}`}
           />
         ))}
       </Helmet>
