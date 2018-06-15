@@ -11,7 +11,6 @@ Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. En el camino
 <br/>
 [🌎 **Storybook Desplegado**](https://clever-banach-415c03.netlify.com/)
 
-Storybook is a powerful tool for React, Vue, and Angular. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
 Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una próspera comunidad de desarrolladores y una gran cantidad de complementos. Esta introducción nos lleva superficialmente a lo que es posible. Estamos seguros de que una vez que adoptes Storybook, quedarás impresionado por lo productivo que es crear interfaces de usuario duraderas.
 
 ## Aprende más
