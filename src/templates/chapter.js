@@ -220,7 +220,7 @@ export default ({
     frontmatter: { commit, title, description },
     fields: { slug, chapter, framework, language },
   } = currentPage;
-  const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(/\//g, '')}.md`;
+  const githubFileUrl = `${githubUrl}/blob/master/content${slug.replace(/\/$/, '')}.md`;
 
   const nextEntry = entries[toc.indexOf(chapter) + 1];
 
