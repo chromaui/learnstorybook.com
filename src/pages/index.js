@@ -26,28 +26,24 @@ const Title = styled.h1`
   margin-bottom: 0.2em;
   text-shadow: rgba(0, 135, 220, 0.3) 0 1px 5px;
 
-  @media (min-width: ${breakpoint * 1}px) {
-    font-size: 40px;
-  }
-
-  @media (min-width: ${breakpoint * 2}px) {
-    font-size: 64px;
+  @media (min-width: ${breakpoint * 1.5}px) {
+    font-size: ${typography.size.l3}px;
   }
 `;
 
 const Desc = styled.div`
   color: ${color.lightest};
-  font-size: ${typography.size.m1}px;
+  font-size: ${typography.size.s3}px;
   line-height: 1.4;
   margin-bottom: 1em;
   text-shadow: rgba(0, 135, 220, 0.3) 0 1px 5px;
 
   @media (min-width: ${breakpoint * 1}px) {
-    font-size: ${typography.size.m2}px;
+    font-size: ${typography.size.m1}px;
   }
 
   @media (min-width: ${breakpoint * 2}px) {
-    font-size: ${typography.size.m3}px;
+    font-size: ${typography.size.m2}px;
   }
 `;
 
@@ -57,10 +53,25 @@ const ActionHeading = styled(Subheading)`
   margin-bottom: 1rem;
 `;
 
+const ViewLayerImage = styled.img`
+  width: 1rem;
+  height: 1rem;
+  margin-right: 6px;
+  display: inline-block;
+  vertical-align: top;
+`;
+
 const Actions = styled.div`
-  > * {
-    margin-right: 20px;
+  > *:not(:only-child) {
+    margin: 0 10px
     margin-bottom: 12px;
+    @media (min-width: ${breakpoint * 1}px) {
+      margin-left: 0;
+      margin-right: 20px;
+    }
+  }
+  &:not(:last-child) {
+    margin-bottom: 1rem;
   }
 `;
 
@@ -69,7 +80,7 @@ const Pitch = styled.div`
   z-index: 1;
   flex: 1;
 
-  @media (min-width: ${breakpoint}px) {
+  @media (min-width: ${breakpoint * 1.5}px) {
     flex: 0 1 55%;
     padding-right: 3rem;
   }
@@ -85,7 +96,7 @@ const Content = styled.div`
   padding-top: 5rem;
   padding-bottom: 5rem;
 
-  @media (min-width: ${breakpoint}px) {
+  @media (min-width: ${breakpoint * 1.5}px) {
     padding-top: 10rem;
     padding-bottom: 8rem;
     flex-direction: row;
@@ -104,7 +115,7 @@ const FigureWrapper = styled.div`
     height: auto;
     margin: 0 auto;
     width: 80%;
-    @media (min-width: ${breakpoint}px) {
+    @media (min-width: ${breakpoint * 1.5}px) {
       width: 100%;
     }
   }
@@ -114,8 +125,8 @@ const Wrapper = styled.div`
   background-color: #26c6da;
   background-image: linear-gradient(14deg, #26c6db 0%, #2694db 100%);
 
-  @media (min-width: ${breakpoint}px) {
-    min-height: 75vh;
+  @media (min-width: ${breakpoint * 1.5}px) {
+    min-height: 70vh;
     display: flex;
     align-items: center;
   }
@@ -226,25 +237,30 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
       <Wrapper>
         <Content>
           <Pitch>
-            <Title>Storybook tutorial</Title>
+            <Title>Storybook Tutorial</Title>
             <Desc>
               Learn Storybook to create bulletproof UI components, along the way you&rsquo;ll build
               an app UI from scratch.
             </Desc>
 
-            <ActionHeading>Get Started</ActionHeading>
+            <ActionHeading>React</ActionHeading>
             <Actions>
               <Link isGatsby to={`/react/en/${firstChapter}`}>
-                <Button inverse>React</Button>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />English
+                </Button>
               </Link>
-
+              <Link isGatsby to={`/react/es/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />Español
+                </Button>
+              </Link>
+            </Actions>
+            <ActionHeading>Vue</ActionHeading>
+            <Actions>
               <Button inverse disabled>
-                Vue (in progress)
+                <ViewLayerImage src="/logo-vue.svg" alt="Vue" />In progress
               </Button>
-
-              <Link href="https://GitHub.com/hichroma/learnstorybook.com" target="_blank">
-                <Button outline>GitHub</Button>
-              </Link>
             </Actions>
           </Pitch>
 
