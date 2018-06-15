@@ -199,8 +199,11 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                           {/* <LanguageLink className="tertiary" isGatsby to={`/vue/en/${firstChapter}/`}>
                           English
                         </LanguageLink> */}
-                          <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
-                            Contributors wanted
+                          <LanguageLink
+                            className="tertiary"
+                            href="https://github.com/hichroma/learnstorybook.com/issues/1"
+                          >
+                            In progress
                           </LanguageLink>
                         </Detail>
                       </Meta>
