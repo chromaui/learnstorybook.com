@@ -10,6 +10,7 @@ import Button from '../components/Button';
 import Subheading from '../components/Subheading';
 import LogoTwitter from '../components/LogoTwitter';
 import IconCommit from '../components/IconCommit';
+import tocEntries from '../lib/tocEntries';
 
 import {
   color,
@@ -206,50 +207,52 @@ const Pagination = styled(CTA)`
   margin-top: 3rem;
 `;
 
-export default ({ data, location }) => {
-  const post = data.markdownRemark;
-  const { commit, title, description } = post.frontmatter;
+export default ({
+  data: {
+    currentPage,
+    pages,
+    site: { siteMetadata: { title: siteTitle, toc, languages, githubUrl, codeGithubUrl, siteUrl } },
+  },
+  location,
+}) => {
+  const entries = tocEntries(toc, pages);
+  const {
+    frontmatter: { commit, title, description },
+    fields: { slug, chapter, framework, language },
+  } = currentPage;
+  const githubFileUrl = `${githubUrl}/blob/master/content${slug.replace(/\/$/, '')}.md`;
 
-  const { toc } = data.site.siteMetadata;
-  const tocEntries = toc.map(slug => {
-    const node = data.allMarkdownRemark.edges
-      .map(e => e.node)
-      .find(({ fields }) => fields.slug === slug);
+  const nextEntry = entries[toc.indexOf(chapter) + 1];
 
-    if (!node) {
-      throw new Error(
-        `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
-      );
-    }
-    const { tocTitle, title, description } = node.frontmatter;
-
-    return { slug, title: tocTitle || title, description };
-  });
-
-  const { slug } = post.fields;
-  const { githubUrl, codeGithubUrl } = data.site.siteMetadata;
-  const githubFileUrl = `${githubUrl}/blob/master/content/${slug.replace(/\//g, '')}.md`;
-
-  const nextEntry = tocEntries[toc.indexOf(slug) + 1];
+  const otherLanguages = languages.filter(l => l !== language);
 
   return (
     <DocsWrapper>
       <Helmet
-        title={`${title} | ${data.site.siteMetadata.title}`}
+        title={`${title} | ${siteTitle}`}
         meta={[{ name: 'description', content: description }]}
-      />
+      >
+        {otherLanguages.map(otherLanguage => (
+          <link
+            key={otherLanguage}
+            rel="alternate"
+            hrefLang={otherLanguage}
+            href={`${siteUrl}/${framework}/${otherLanguage}/${chapter}`}
+          />
+        ))}
+      </Helmet>
       <Sidebar>
         <Heading>Table of Contents</Heading>
         <DocsList>
-          {tocEntries.map(({ slug, title }) => (
-            <DocsItem key={slug}>
+          {entries.map(entry => (
+            <DocsItem key={entry.slug}>
               <Link
                 isGatsby
                 strict
-                className={location.pathname !== slug ? 'tertiary' : 'selected'}
-                to={slug}
+                className={slug !== entry.slug ? 'tertiary' : 'selected'}
+                to={entry.slug}
               >
-                {title}
+                {entry.title}
               </Link>
             </DocsItem>
           ))}
@@ -257,7 +260,7 @@ export default ({ data, location }) => {
       </Sidebar>
       <Content>
         <Markdown>
-          <Highlight>{post.html}</Highlight>
+          <Highlight>{currentPage.html}</Highlight>
         </Markdown>
 
         {commit && (
@@ -310,8 +313,8 @@ export default ({ data, location }) => {
 };
 
 export const query = graphql`
-  query BlogPostQuery($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
+  query PageQuery($framework: String!, $language: String!, $slug: String!) {
+    currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
         title
@@ -320,17 +323,24 @@ export const query = graphql`
       }
       fields {
         slug
+        chapter
+        framework
+        language
       }
     }
     site {
       siteMetadata {
         title
         toc
+        languages
         githubUrl
         codeGithubUrl
+        siteUrl
       }
     }
-    allMarkdownRemark {
+    pages: allMarkdownRemark(
+      filter: { fields: { framework: { eq: $framework }, language: { eq: $language } } }
+    ) {
       edges {
         node {
           frontmatter {
@@ -340,6 +350,7 @@ export const query = graphql`
           }
           fields {
             slug
+            chapter
           }
         }
       }

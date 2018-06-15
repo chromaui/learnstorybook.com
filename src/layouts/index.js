@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled, { css } from 'styled-components';
@@ -12,7 +12,7 @@ injectGlobalStyles();
 
 const HeaderWrapper = styled(Header)`
   ${props =>
-    props.home &&
+    props.isHome &&
     css`
       position: absolute;
       left: 0;
@@ -21,17 +21,13 @@ const HeaderWrapper = styled(Header)`
     `};
 `;
 
-const TemplateWrapper = ({ data, children, location }) => (
-  <div>
-    <Helmet
-      title={data.site.siteMetadata.title}
-      meta={[
-        {
-          name: 'description',
-          content: data.site.siteMetadata.description,
-        },
-      ]}
-    >
+const TemplateWrapper = ({
+  data: { site: { siteMetadata: { title, permalink, description, githubUrl, toc } } },
+  location: { pathname },
+  children,
+}) => (
+  <Fragment>
+    <Helmet title={title} meta={[{ name: 'description', content: description }]}>
       <link
         rel="shortcut icon"
         type="image/png"
@@ -41,29 +37,32 @@ const TemplateWrapper = ({ data, children, location }) => (
 
       <meta property="og:image" content="/opengraph-cover.jpg" />
       <meta name="twitter:image" content="/opengraph-cover.jpg" />
-      <meta property="og:url" content={data.site.siteMetadata.permalink} />
-      <meta property="og:title" content={data.site.siteMetadata.title} />
-      <meta property="og:description" content={data.site.siteMetadata.description} />
-      <meta name="twitter:title" content={data.site.siteMetadata.title} />
-      <meta name="twitter:description" content={data.site.siteMetadata.description} />
+      <meta property="og:url" content={permalink} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
 
       <meta name="google-site-verification" content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY" />
     </Helmet>
 
+    {/* Would love to get framework from graphql variables but they are not set for the homepage */}
     <HeaderWrapper
-      title={data.site.siteMetadata.title}
-      githubUrl={data.site.siteMetadata.githubUrl}
-      inverse={location.pathname === '/'}
-      home={location.pathname === '/'}
+      title={title}
+      githubUrl={githubUrl}
+      inverse={pathname === '/'}
+      isHome={pathname === '/'}
+      framework={pathname.split('/')[1]}
+      firstChapter={toc[0]}
     />
 
-    <div>{children()}</div>
+    {children()}
     <Footer />
-  </div>
+  </Fragment>
 );
 
 TemplateWrapper.propTypes = {
-  children: PropTypes.func,
+  children: PropTypes.func.isRequired,
 };
 
 export default TemplateWrapper;
@@ -76,6 +75,7 @@ export const query = graphql`
         description
         githubUrl
         permalink
+        toc
       }
     }
   }

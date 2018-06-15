@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'gatsby-link';
+import GatsbyLink from 'gatsby-link';
 import styled, { css } from 'styled-components';
 import GitHubButton from 'react-github-button';
 
 import 'react-github-button/assets/style.css';
 
 import Logo from './Logo';
-import { typography, spacing, pageMargins, breakpoint } from './shared/styles';
+import Link from './Link';
+import Icon from './Icon';
+import WithTooltip from './WithTooltip';
+import { color, typography, spacing, pageMargins, breakpoint } from './shared/styles';
 
 const LogoWrapper = styled(Logo)`
   height: 20px;
@@ -30,7 +33,7 @@ const LogoWrapper = styled(Logo)`
 `;
 
 const NavLink = styled(Link)`
-  font-size: ${typography.size.s2}px;
+  font-size: ${typography.size.s3}px;
   font-weight: ${typography.weight.extrabold};
 `;
 
@@ -73,12 +76,11 @@ const NavGroup = styled.div`
   }
 `;
 
-// prettier-ignore
 const Nav = styled.div`
   height: 3rem;
   position: relative;
   text-align: center;
-	z-index: 3;
+  z-index: 3;
 `;
 
 const NavWrapper = styled.nav`
@@ -89,21 +91,146 @@ const NavWrapper = styled.nav`
   }
 `;
 
-export default function Header({ githubUrl, inverse, ...props }) {
+const TooltipList = styled.div`
+  width: 200px;
+`;
+
+const TooltipItem = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
+  padding: 15px 15px;
+
+  &:not(:first-child) {
+    border-top: 1px solid ${color.mediumlight};
+  }
+`;
+
+const ViewLayerImage = styled.img`
+  width: 1rem;
+  height: 1rem;
+  margin-right: 8px;
+`;
+
+const Meta = styled.div``;
+
+const Title = styled.div`
+  font-weight: ${typography.weight.extrabold};
+  font-size: ${typography.size.s2}px;
+  line-height: 1;
+  margin-bottom: 6px;
+`;
+
+const Detail = styled.div`
+  font-size: ${typography.size.s1}px;
+  line-height: 1;
+`;
+
+const LanguageLink = styled(Link)`
+  text-decoration: underline;
+  margin-right: 10px;
+`;
+
+const GitHubWrapper = styled.div`
+  ${'' /* Overrides to make a medium sized button */};
+  .github-btn {
+    font: bold 14px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    height: auto;
+    .gh-btn,
+    .gh-count {
+      padding: 4px 8px;
+    }
+  }
+`;
+
+function capitalize([first, ...rest]) {
+  return [first.toUpperCase(), ...rest];
+}
+
+export default function Header({ githubUrl, inverse, framework, firstChapter, isHome, ...props }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
     <NavWrapper {...props}>
       <Nav>
         <NavGroup>
           <NavItem>
-            <NavLink to="/">
+            <GatsbyLink to="/">
               <LogoWrapper inverse={inverse} />
-            </NavLink>
+            </GatsbyLink>
           </NavItem>
         </NavGroup>
         <NavGroup right>
+          {!isHome && (
+            <NavItem showDesktop>
+              <WithTooltip
+                placement="top"
+                mode="click"
+                closeOnClick
+                tooltip={
+                  <TooltipList>
+                    <TooltipItem>
+                      <ViewLayerImage src="/logo-react.svg" alt="React" />
+                      <Meta>
+                        <Title>React</Title>
+                        <Detail>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/en/${firstChapter}/`}
+                          >
+                            English
+                          </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/es/${firstChapter}/`}
+                          >
+                            Español
+                          </LanguageLink>
+                        </Detail>
+                      </Meta>
+                    </TooltipItem>
+                    <TooltipItem>
+                      <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
+                      <Meta>
+                        <Title>Vue</Title>
+                        <Detail>
+                          {/* <LanguageLink className="tertiary" isGatsby to={`/vue/en/${firstChapter}/`}>
+                          English
+                        </LanguageLink> */}
+                          <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
+                            Contributors wanted
+                          </LanguageLink>
+                        </Detail>
+                      </Meta>
+                    </TooltipItem>
+                    <TooltipItem>
+                      <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                      <Meta>
+                        <Title>Angular</Title>
+                        <Detail>
+                          <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
+                            Contributors wanted
+                          </LanguageLink>
+                        </Detail>
+                      </Meta>
+                    </TooltipItem>
+                  </TooltipList>
+                }
+              >
+                <NavLink className={inverse ? 'inverse' : 'tertiary'}>
+                  <Icon icon="switchalt" />
+                  {capitalize(framework)}
+                </NavLink>
+              </WithTooltip>
+            </NavItem>
+          )}
+
           <NavItem>
-            <GitHubButton type="stargazers" size="large" namespace={namespace} repo={repo} />
+            <GitHubWrapper>
+              <GitHubButton type="stargazers" namespace={namespace} repo={repo} />
+            </GitHubWrapper>
           </NavItem>
         </NavGroup>
       </Nav>
@@ -114,9 +241,14 @@ export default function Header({ githubUrl, inverse, ...props }) {
 Header.propTypes = {
   githubUrl: PropTypes.string,
   inverse: PropTypes.bool,
+  framework: PropTypes.string,
+  firstChapter: PropTypes.string.isRequired,
+  isHome: PropTypes.bool,
 };
 
 Header.defaultProps = {
   githubUrl: null,
   inverse: false,
+  framework: 'react',
+  isHome: null,
 };

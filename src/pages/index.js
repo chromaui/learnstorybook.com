@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
@@ -15,6 +15,8 @@ import Hero from '../components/Hero';
 import Link from '../components/Link';
 import Button from '../components/Button';
 import CTA from '../components/CTA';
+import Subheading from '../components/Subheading';
+import tocEntries from '../lib/tocEntries';
 
 const Title = styled.h1`
   color: ${color.lightest};
@@ -25,11 +27,11 @@ const Title = styled.h1`
   text-shadow: rgba(0, 135, 220, 0.3) 0 1px 5px;
 
   @media (min-width: ${breakpoint * 1}px) {
-    font-size: 56px;
+    font-size: 40px;
   }
 
   @media (min-width: ${breakpoint * 2}px) {
-    font-size: 88px;
+    font-size: 64px;
   }
 `;
 
@@ -47,6 +49,12 @@ const Desc = styled.div`
   @media (min-width: ${breakpoint * 2}px) {
     font-size: ${typography.size.m3}px;
   }
+`;
+
+const ActionHeading = styled(Subheading)`
+  display: block;
+  color: ${color.lighter};
+  margin-bottom: 1rem;
 `;
 
 const Actions = styled.div`
@@ -205,39 +213,37 @@ const Chapters = styled.ol`
   counter-reset: counter;
 `;
 
-export default ({ data }) => {
-  const tocEntries = data.site.siteMetadata.toc.map(slug => {
-    const node = data.allMarkdownRemark.edges
-      .map(e => e.node)
-      .find(({ fields }) => fields.slug === slug);
+export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, pages } }) => {
+  const defaultPages = {
+    edges: pages.edges.filter(e => e.node.fields.slug.match(defaultTranslation)),
+  };
 
-    if (!node) {
-      throw new Error(
-        `Didn't find chapter for slug:"${slug}" -- is the config's TOC in sync with the chapters?`
-      );
-    }
-    const { tocTitle, title, description } = node.frontmatter;
-
-    return { slug, title: tocTitle || title, description };
-  });
+  const entries = tocEntries(toc, defaultPages);
+  const firstChapter = toc[0];
 
   return (
-    <div>
+    <Fragment>
       <Wrapper>
         <Content>
           <Pitch>
-            <Title>Storybook Tutorial</Title>
+            <Title>Storybook tutorial</Title>
             <Desc>
-              Learn Storybook to create bulletproof UI components as you build an app UI from
-              scratch.
+              Learn Storybook to create bulletproof UI components, along the way you&rsquo;ll build
+              an app UI from scratch.
             </Desc>
 
+            <ActionHeading>Get Started</ActionHeading>
             <Actions>
-              <Link isGatsby to={data.site.siteMetadata.toc[0]}>
-                <Button inverse>Get started</Button>
+              <Link isGatsby to={`/react/en/${firstChapter}`}>
+                <Button inverse>React</Button>
               </Link>
+
+              <Button inverse disabled>
+                Vue (in progress)
+              </Button>
+
               <Link href="https://GitHub.com/hichroma/learnstorybook.com" target="_blank">
-                <Button outline>View on GitHub</Button>
+                <Button outline>GitHub</Button>
               </Link>
             </Actions>
           </Pitch>
@@ -317,7 +323,7 @@ export default ({ data }) => {
         <Question>What&rsquo;s inside</Question>
         <Answer>
           <Chapters>
-            {tocEntries.map(({ slug, title, description }) => (
+            {entries.map(({ slug, title, description }) => (
               <Chapter key={slug}>
                 <ClickIntercept isGatsby className="primary" to={slug} />
                 <ChapterMeta>
@@ -360,13 +366,13 @@ export default ({ data }) => {
         <CTA
           text={`Let's learn Storybook!`}
           action={
-            <Link isGatsby to={data.site.siteMetadata.toc[0]}>
+            <Link isGatsby to={`/react/en/${firstChapter}`}>
               <Button primary>Start tutorial</Button>
             </Link>
           }
         />
       </FAQLayout>
-    </div>
+    </Fragment>
   );
 };
 
@@ -375,9 +381,10 @@ export const query = graphql`
     site {
       siteMetadata {
         toc
+        defaultTranslation
       }
     }
-    allMarkdownRemark {
+    pages: allMarkdownRemark {
       edges {
         node {
           frontmatter {
@@ -387,6 +394,7 @@ export const query = graphql`
           }
           fields {
             slug
+            chapter
           }
         }
       }
