@@ -258,9 +258,11 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             </Actions>
             <ActionHeading>Vue</ActionHeading>
             <Actions>
-              <Button inverse disabled>
-                <ViewLayerImage src="/logo-vue.svg" alt="Vue" />In progress
-              </Button>
+              <Link href="https://github.com/hichroma/learnstorybook.com/issues/1" target="_blank">
+                <Button inverse>
+                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />In progress
+                </Button>
+              </Link>
             </Actions>
           </Pitch>
 
