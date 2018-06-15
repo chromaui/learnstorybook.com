@@ -46,11 +46,13 @@ const TemplateWrapper = ({
       <meta name="google-site-verification" content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY" />
     </Helmet>
 
+    {/* Would love to get framework from graphql variables but they are not set for the homepage */}
     <HeaderWrapper
       title={title}
       githubUrl={githubUrl}
       inverse={pathname === '/'}
       isHome={pathname === '/'}
+      framework={pathname.split('/')[1]}
       firstChapter={toc[0]}
     />
 
