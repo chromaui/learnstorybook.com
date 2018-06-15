@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
-import { darken } from "polished";
-import { color, typography, breakpoint } from "./shared/styles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled, { css } from 'styled-components';
+import { darken } from 'polished';
+import { color, typography } from './shared/styles';
 
 const Text = styled.span`
   display: inline-block;
@@ -30,12 +30,8 @@ const ButtonWrapper = styled.button`
   background: transparent;
 
 
-  padding: 16px 25px;
-  font-size: ${typography.size.s3}px;
-  @media (min-width: ${breakpoint  * 2}px) {
-    padding: ${props => props.small ? '16px 25px' : '20px 30px'};
-    font-size: ${props => props.small ? typography.size.s3 : typography.size.m1}px;
-  }
+  padding: ${props => props.small ? '8px 16px' : '13px 20px'};
+  font-size: ${props => props.small ? typography.size.s2 : typography.size.s3}px;
 
   font-weight: ${typography.weight.extrabold};
   line-height: 1;
@@ -186,7 +182,7 @@ const ButtonWrapper = styled.button`
 
 `;
 
-const ButtonLink = ButtonWrapper.withComponent("a");
+const ButtonLink = ButtonWrapper.withComponent('a');
 
 function Button({ isLink, children, ...props }) {
   if (isLink) {
@@ -205,11 +201,11 @@ function Button({ isLink, children, ...props }) {
 
 Button.propTypes = {
   isLink: PropTypes.bool,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 Button.defaultProps = {
-  isLink: false
+  isLink: false,
 };
 
 export default Button;
