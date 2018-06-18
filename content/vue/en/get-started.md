@@ -1,23 +1,23 @@
 ---
 title: "Get started"
 tocTitle: "Get started"
-description: "Setup React Storybook in your development environment"
-commit: a439924
+description: "Setup Vue Storybook in your development environment"
+commit: 30939d5
 ---
 
 # Get started
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [Vue](/vue/en/getstarted), with Angular coming soon.
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Vue; other editions exist for [React](/react/en/getstarted), with Angular coming soon.
 
 ![Storybook and your app](/storybook-relationship.jpg)
 
-## Setup React Storybook
+## Setup Vue Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Create React App](https://github.com/facebook/create-react-app) (CRA) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to the [Vue CLI](https://cli.vuejs.org) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
 
 ```bash
-# Create our application:
-npx create-react-app taskbox
+# Create our application, using a preset that contains jest:
+npx -p @vue/cli vue create --preset hichroma/vue-preset-learnstorybook taskbox
 cd taskbox
 
 # Add Storybook:
@@ -28,13 +28,13 @@ We can quickly check that the various environments of our application are workin
 
 ```bash
 # Run the test runner (Jest) in a terminal:
-yarn test
+yarn test:unit
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn run storybook
 
-# Run the frontend app proper on port 3000:
-yarn start
+# Run the frontend app proper on port 8080:
+yarn serve
 ```
 
 <div class="aside">
