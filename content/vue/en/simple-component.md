@@ -24,20 +24,26 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 ## Get setup
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.js` and `src/components/Task.stories.js`.
+First, let’s create the task component and its accompanying story file: `src/components/Task.vue` and `src/components/Task.stories.js`.
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
-import React from 'react';
+<template>
+  <div class="list-item">
+    <input type="text" :readonly="true" :value="this.task.title" />
+  </div>  
+</template>
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
-  return (
-    <div className="list-item">
-      <input type="text" value={title} readOnly={true} />
-    </div>
-  );
-}
+<script>
+export default {
+  name: 'task',
+  props: {
+    task: Object,
+    required: true,
+  },
+};
+</script>
 ```
 
 Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
@@ -45,8 +51,7 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
@@ -58,15 +63,36 @@ export const task = {
   updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
-export const actions = {
+export const methods = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
 storiesOf('Task', module)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+  .add('default', () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      data: () => ({ task }),
+      methods,
+    };
+  })
+  .add('pinned', () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      data: () => ({ task: { ...task, state: 'TASK_PINNED' } }),
+      methods,
+    };
+  })
+  .add('archived', () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      data: () => ({ task: { ...task, state: 'TASK_ARCHIVED' } }),
+      methods,
+    };
+  });
 ```
 
 There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -80,11 +106,11 @@ To initiate Storybook we first call the `storiesOf()` function to register the c
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and use React's `{...actions}` props expansion to pass them all at once. `<Task {...actions}>` is equivalent to `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `methods` variable and use pass them into our story defintion each time (where they are accessed via the `methods` property).
 
-Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+Another nice thing about bundling the `methodds` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a set of properties that define the story -- in this case a `template` string for the story alongside the `components`, `data` and `methods` that template consumes.
 
 When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
@@ -98,10 +124,10 @@ We also have to make one small change to the Storybook configuration setup (`.st
 
 ```javascript
 import { configure } from '@storybook/react';
+
 import '../src/index.css';
 
 const req = require.context('../src', true, /.stories.js$/);
-
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
