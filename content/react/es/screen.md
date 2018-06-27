@@ -58,7 +58,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-También cambiamos el componente `App` para renderizar la pantalla de la bandeja de entrada `InboxScreen` (eventualmente usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
+También cambiamos el componente `App` para renderizar la pantalla de la bandeja de entrada `InboxScreen` (normalmente usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
 
 ```javascript
 import React, { Component } from 'react';
@@ -84,10 +84,8 @@ Sin embargo, donde las cosas se ponen interesantes es en la representación de l
 
 Como vimos anteriormente, el componente `TaskList` es un **contenedor** que renderiza el componente de presentación `PureTaskList`. Por definición, los componentes de un contenedor no pueden simplemente hacer render de forma aislada; esperan que se les pase algún contexto o que se conecten a un servicio. Lo que esto significa es que para hacer render de un contenedor en Storybook, debemos mockearlo (es decir, proporcionar una versión ficticia) del contexto o servicio que requiere.
 
-When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este problema simplemente renderizando la `PureTaskList` y evadiendo el contenedor. Haremos algo similar y renderizaremos la `PureInboxScreen` en Storybook también.
 
-However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories:
 Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Así que cuando preparamos nuestras historias:
 
 ```javascript
@@ -166,6 +164,6 @@ Empezamos desde abajo con `Task`, luego progresamos a `TaskList`, ahora estamos 
   />
 </video>
 
-[**Desarrollo basado en componentes**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles permutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
+[**El desarrollo basado en componentes**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
 
 Aún no hemos terminado, el trabajo no termina cuando se construye la interfaz de usuario. También tenemos que asegurarnos de que siga siendo duradero a lo largo del tiempo.
