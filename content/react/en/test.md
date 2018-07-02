@@ -1,7 +1,7 @@
 ---
 title: "Testing"
 description: "Learn the ways to test UI components"
-commit: 25dda9c
+commit: 342bce5
 ---
 
 # Test UI components

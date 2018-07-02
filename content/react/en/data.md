@@ -2,7 +2,7 @@
 title: "Wire in data"
 tocTitle: "Data"
 description: "Learn how to wire in data to your UI component"
-commit: b9ff338
+commit: dd04879
 ---
 
 # Wire in data
