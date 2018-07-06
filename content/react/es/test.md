@@ -60,14 +60,14 @@ $ git commit -m "taskbox UI"
 Agregando el paquete como una dependencia.
 
 ```bash
-yarn add react-chromatic
+yarn add storybook-chromatic
 ```
 
 Importa Chromatic en tu archivo `.storybook/config.js`.
 
 ```javascript
 import { configure } from '@storybook/react';
-import 'react-chromatic/storybook-addon';
+import 'storybook-chromatic/storybook-addon';
 
 import '../src/index.css';
 
@@ -80,7 +80,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Entonces [logueate en Chromatic](https://bit.ly/2Is93Ez) con tú cuenta de GitHub (Chromatic solo te pedirá algunos permisos simples). Crea un proyecto con nombre "taskbox" y copia tu `app-code` único.
+Entonces [logueate en Chromatic](https://chromaticqa.com/start) con tú cuenta de GitHub (Chromatic solo te pedirá algunos permisos simples). Crea un proyecto con nombre "taskbox" y copia tu `app-code` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
