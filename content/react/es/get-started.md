@@ -45,14 +45,14 @@ Dependiendo de en qué parte de la aplicación estés trabajando, es posible que
 
 ## Reusa CSS
 
-Taskbox reutiliza elementos de diseño del Tutorial de GraphQL y React [aplicación de ejemplo](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos el LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) dentro del archivo src/index.css según la convención de CRA.
+Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos nuestros archivos LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) dentro del archivo src/index.css según la convención de CRA.
 
 ![Buzón de tareas UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-Si deseas modificar los estilos, los archivos fuente de LESS son proporcionados en el repositorio de GitHub.</div>
+Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son proporcionados en el mismo repositorio de GitHub.</div>
 
 ## Añade recursos
 
-También necesitamos añadir la fuente y el icono [directorios](https://github.com/hichroma/learnstorybook-code/tree/master/public) a la carpeta `public/`.
-Después de añadir los estilos y recursos, la aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. Comenzamos con la construcción de nuestro primer componente!
+También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/hichroma/learnstorybook-code/tree/master/public) a la carpeta `public/`.
+Después de añadir los estilos y recursos, nuestra aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. Comenzamos con la construcción de nuestro primer componente!

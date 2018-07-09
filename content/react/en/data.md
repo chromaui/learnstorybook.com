@@ -2,7 +2,7 @@
 title: "Wire in data"
 tocTitle: "Data"
 description: "Learn how to wire in data to your UI component"
-commit: b9ff338
+commit: dd04879
 ---
 
 # Wire in data
@@ -81,7 +81,7 @@ import Task from './Task';
 import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
-export function PureTaskList({ tasks, onPinTask, onArchiveTask }) {
+export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   /* previous implementation of TaskList */
 }
 
@@ -153,11 +153,17 @@ Similarly, we need to use `PureTaskList` in our Jest test:
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { PureTaskList } from './TaskList';
+import { withPinnedTasks } from './TaskList.stories';
 
-it('renders when empty', () => {
+it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  const events = { onSnoozeTask: jest.fn(), onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<PureTaskList tasks={[]} {...events} />, div);
+  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
+  ReactDOM.render(<PureTaskList tasks={withPinnedTasks} {...events} />, div);
+
+  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
+  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
+  expect(lastTaskInput).not.toBe(null);
+
   ReactDOM.unmountComponentAtNode(div);
 });
 ```

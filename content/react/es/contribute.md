@@ -15,4 +15,4 @@ Estamos buscando ayuda para actualizar nuestro código de ejemplo de React/Redux
 
 ## Traducciones
 
-Nuestro objetivo es hacer que Storybook sea accesible a todas las personas. Ayuda a traducir este tutorial a otros idiomas. Estamos especialmente abiertos a traducciones al chino y al español. Comenta en [este issue](https://github.com/hichroma/learnstorybook.com/issues/3) si deseas ayudar.
+Nuestro objetivo es hacer que Storybook sea accesible a todas las personas. Ayuda a traducir este tutorial a otros idiomas. Estamos especialmente abiertos a traducciones al chino y al japonés. Comenta en [este issue](https://github.com/hichroma/learnstorybook.com/issues/3) si deseas ayudar.
