@@ -11,6 +11,7 @@ module.exports = {
       'data',
       'screen',
       'test',
+      'addons',
       'deploy',
       'conclusion',
       'contribute',
