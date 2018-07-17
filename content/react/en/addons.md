@@ -102,6 +102,12 @@ Now that we know how that edge case behaves, you can decide how to handle it:
 
 - Many more options...
 
+## Improve Regression Testing
+
+Depending on your Storybook workflow, if you've found an edge-case and have done something to resolve the issue, it may be in your best interest
+to write a fixed story for that situation. This will increase your regression testing and clearly outline the limits of the component(s) to your
+storybook audience.
+
 ### Merge Changes
 
 Don't forget to merge your changes with git!
