@@ -10,6 +10,20 @@ You'll find the chapters in the [`/content`](https://github.com/hichroma/learnst
 
 We need help translating Learn Storybook to new languages. [Find out more »](https://github.com/hichroma/learnstorybook.com/issues/3)
 
+If you want to add a new chapter, create an identically named file in `content/react/en` and in `content/react/es`. If you are unable to write in one of the required languages, simply add
+
+```
+---
+title: "[Title-cased Filename]"
+tocTitle: "[Headline on page]"
+description: "[A general description of what you're learning about on this page.]"
+---
+
+Coming Soon
+```
+
+to that localized file, and a translator will assist in finishing out the PR when possible. Once the content is created, add the file name to the toc array in `gatsby-config.js`
+
 ## Example app code
 
 ![Taskbox UI](https://raw.githubusercontent.com/hichroma/learnstorybook.com/master/static/ss-browserchrome-taskbox-learnstorybook.png)
