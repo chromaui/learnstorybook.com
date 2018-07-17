@@ -37,8 +37,8 @@ yarn run storybook
 yarn start
 ```
 <div class="aside">
-  NOTE: If <code>yarn test</code> throws an error, you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
-</div>
+  NOTE: If <code>yarn test</code> throws an error, you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>. If you are on High Sierra, use <code>sudo chown -R $(whoami) $(brew --prefix)/* </code>, as referenced <a href="https://github.com/Homebrew/brew/issues/3228">here</a>.
+  </div>
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
 
