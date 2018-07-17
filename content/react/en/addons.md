@@ -15,14 +15,7 @@ everybody in your team. If you've been following along with this tutorial linear
 😍 You can seen the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
 </div>
 
-We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/v3.3.15/addons/knobs).
-
-<div class="aside">
-<strong>⚠ Version 3.3.15 of Knobs ⚠</strong>
-<br/>
-If you'd like to see a different version of the addon, please select from this
-<a href="https://github.com/storybooks/storybook/tags">list of tags</a>. If you want to try a different version, please be wary when following further instructions that you're not referencing a new or deprecated feature.
-</div>
+We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
 
 ## Setting Up Knobs
 
@@ -35,7 +28,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 First, we will need to install all the necessary dependencies.
 
 ```bash
-yarn add @storybook/addon-knobs@3.3.15
+yarn add @storybook/addon-knobs
 ```
 
 Register Knobs in your `.storybook/addons.js` file.
@@ -67,7 +60,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
-Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDectorator()` function:
+Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
 
 ```javascript
 storiesOf('Task', module)
@@ -87,7 +80,7 @@ storiesOf('Task', module)
   .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
-As documented [here](https://github.com/storybooks/storybook/tree/v3.3.15/addons/knobs#object), the `object` knob type accepts a label and a default object as paramters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
+As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as paramters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
 
 ## Addons Evolve Your Storybook's Scope
 
