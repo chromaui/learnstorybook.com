@@ -2,7 +2,7 @@
 title: "Assemble a composite component"
 tocTitle: "Composite component"
 description: "Assemble a composite component out of simpler components"
-commit: 5776042
+commit: '5776042'
 ---
 
 # Assemble a composite component
