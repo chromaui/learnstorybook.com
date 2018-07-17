@@ -1,7 +1,7 @@
 ---
 title: "Addons"
 tocTitle: "Addons"
-description: "Learn how to integrate and use a very popular addon"
+description: "Learn how to integrate and use addons using a popular example"
 ---
 
 # Addons
@@ -88,9 +88,7 @@ Not only does your Storybook instance serve as a wonderful [CDD environment](htt
 
 ## Find Edge-Cases
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventating UI Engineers can now push their component to the limit! As an example, what happens to `Task` if our list item has *MASSIVE* string?
-
-[I hope it doesn't bre-](/Users/kyleholmberg/PersonalProjects/learn_storybook/static/addon-knobs-demo-edge-case.png)
+Additionally, with easy access to editing passed data to a component, QA Engineers or preventating UI Engineers can now push their component to the limit! As an example, what happens to `Task` if our list item has *MASSIVE* string? [I hope it doesn't bre-](/addon-knobs-demo-edge-case.png) (NOTE: The far right content is cut-off).
 
 Now that we know how that edge case behaves, you can decide how to handle it:
 
