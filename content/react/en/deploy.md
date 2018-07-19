@@ -21,12 +21,12 @@ To deploy Storybook we first need to export it as a static web app. This functio
 ```javascript
 {
   "scripts": {
-    "storybook": "build-storybook -c .storybook -o .storybook-static"
+    "build-storybook": "build-storybook -c .storybook -o .storybook-static"
   }
 }
 ```
 
-Now when you run Storybook via `npm run storybook`, it will output a static Storybook in the `storybook-static` directory.
+Now when you build Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
 
 ## Continuous deploy
 
