@@ -32,4 +32,5 @@ Install packages and run with `yarn develop`.
 * [Dominic Nguyen @domyen](https://twitter.com/domyen)
 * [Carlos Iván Suarez @icarlossz](https://twitter.com/icarlossz)
 * [Luciano M. Guasco @luchux](https://twitter.com/luchux)
+* [yobrave](https://github.com/chinanf-boy)
 * You? [Become an OSS contributor](https://www.learnstorybook.com/contribute/)
