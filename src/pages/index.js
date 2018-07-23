@@ -264,7 +264,12 @@ export default ({
               </Link>
               <Link isGatsby to={`/react/zh-CN/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />中文^.^
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />简体中文
+                </Button>
+              </Link>
+              <Link isGatsby to={`/react/zh-TW/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />繁體中文
                 </Button>
               </Link>
             </Actions>

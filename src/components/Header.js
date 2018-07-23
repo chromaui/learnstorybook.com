@@ -191,9 +191,16 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                           <LanguageLink
                             className="tertiary"
                             isGatsby
-                            to={`/react/zh/${firstChapter}/`}
+                            to={`/react/zh-CN/${firstChapter}/`}
                           >
-                            中文
+                            简体中文
+                          </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/zh-TW/${firstChapter}/`}
+                          >
+                            繁體中文
                           </LanguageLink>
                         </Detail>
                       </Meta>
