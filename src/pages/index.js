@@ -255,6 +255,11 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
                   <ViewLayerImage src="/logo-react.svg" alt="React" />Español
                 </Button>
               </Link>
+              <Link isGatsby to={`/react/zh/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />中文^.^
+                </Button>
+              </Link>
             </Actions>
             <ActionHeading>Vue</ActionHeading>
             <Actions>
