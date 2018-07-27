@@ -9,6 +9,7 @@ Contributions to Learn Storybook are encouraged! If it’s something small like 
 You'll find the chapters in the [`/content`](https://github.com/hichroma/learnstorybook.com/tree/master/content) directory.
 
 We need help translating Learn Storybook to new languages. [Find out more »](https://github.com/hichroma/learnstorybook.com/issues/3)
+Traditional Chinese translation is converted from Simplified Chinese using [OpenCC](https://github.com/BYVoid/OpenCC). Please help us correct any idiomatic errors.
 
 ## Example app code
 

@@ -224,7 +224,14 @@ const Chapters = styled.ol`
   counter-reset: counter;
 `;
 
-export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, pages } }) => {
+export default ({
+  data: {
+    site: {
+      siteMetadata: { toc, defaultTranslation },
+    },
+    pages,
+  },
+}) => {
   const defaultPages = {
     edges: pages.edges.filter(e => e.node.fields.slug.match(defaultTranslation)),
   };
@@ -255,9 +262,14 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
                   <ViewLayerImage src="/logo-react.svg" alt="React" />Español
                 </Button>
               </Link>
-              <Link isGatsby to={`/react/zh/${firstChapter}`}>
+              <Link isGatsby to={`/react/zh-CN/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />中文^.^
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />简体中文
+                </Button>
+              </Link>
+              <Link isGatsby to={`/react/zh-TW/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />繁體中文
                 </Button>
               </Link>
             </Actions>
