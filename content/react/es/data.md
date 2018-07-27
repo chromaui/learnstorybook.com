@@ -17,6 +17,12 @@ Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (v
 
 Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de React para almacenar datos, que básicamente nos permite crear un modelo simple de datos para la aplicación. De todos modos, el patrón que utilizaremos también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
+Agrega una nueva dependencia en `package.json` con:
+
+```bash
+yarn add react-redux
+```
+
 Primero construiremos un simple store Redux que responde a acciones que cambian el estado de una tarea, en un archivo llamado `lib/redux.js`, (intencionalmente lo mantendremos simple):
 
 ```javascript
