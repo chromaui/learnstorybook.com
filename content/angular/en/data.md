@@ -15,7 +15,7 @@ This tutorial doesn’t focus on the particulars of building an app so we won’
 
 Our `TaskListComponent` as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-This example uses [ngxs](https://ngxs.gitbook.io/ngxs/), a library that embraces Redux/ngrx principles but focuses on reducing boilerplate and provides a more *angular-y* way of managing state, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [ngrx/store](https://github.com/ngrx/platform).
+This example uses [ngxs](https://ngxs.gitbook.io/ngxs/), a library that embraces Redux/ngrx principles but focuses on reducing boilerplate and provides a more _angular-y_ way of managing state, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [ngrx/store](https://github.com/ngrx/platform).
 
 First we’ll construct a simple state container that responds to actions that change the state of tasks, in a file called `src/tasks/state/task.state.ts` (intentionally kept simple):
 
@@ -102,7 +102,7 @@ export class TasksState {
 }
 ```
 
-Then we’ll need to wire up the `NgxsModule` two our root and feature Angular modules. First go to `src/tasks/task.module.ts`
+Then we’ll need to wire up the `NgxsModule` to our root and feature Angular modules. First go to `src/tasks/task.module.ts`
 
 ```typescript
 import { NgModule } from '@angular/core';

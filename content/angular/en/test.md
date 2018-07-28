@@ -66,12 +66,14 @@ yarn add storybook-chromatic
 Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
-import { configure } from '@storybook/react';
+import {
+  configure
+} from '@storybook/angular';
 import 'storybook-chromatic/storybook-addon';
+import '../src/styles.less';
 
-import '../src/index.css';
-
-const req = require.context('../src/components', true, /\.stories\.js$/);
+// automatically import all files ending in *.stories.ts
+const req = require.context('../src/', true, /.stories.ts$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

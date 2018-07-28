@@ -7,7 +7,7 @@ commit: '5776042'
 
 # Assemble a composite component
 
-Last chapter we built our first component; this chapter extends what we learned to build TaskListComponent, a list of Tasks. Let’s combine components together and see what happens when more complexity is introduced.
+Last chapter we built our first component; this chapter extends what we learned to build TaskListComponent, a list of TaskComponents. Let’s combine components together and see what happens when more complexity is introduced.
 
 ## TasklistComponent
 
@@ -53,7 +53,6 @@ export class TaskListComponent implements OnInit {
 
   ngOnInit() {}
 }
-
 ```
 
 Next create `Tasklist`’s test states in the story file.
@@ -136,7 +135,6 @@ storiesOf('TaskList', module)
       props,
     };
   });
-
 ```
 
 `addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add the module metadata so we can use all the Angular components inside out stories.
@@ -160,8 +158,8 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskListComponent` is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
-```javascript
-iimport { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+```typescript
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from './task.model';
 
 @Component({
@@ -258,11 +256,13 @@ describe('TaskList component', () => {
   let component: TaskListComponent;
   let fixture: ComponentFixture<TaskListComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [TaskComponent, TaskListComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [TaskComponent, TaskListComponent],
+      }).compileComponents();
+    }),
+  );
 
   it('renders pinned tasks at the start of the list', () => {
     fixture = TestBed.createComponent(TaskListComponent);
@@ -278,11 +278,10 @@ describe('TaskList component', () => {
     expect(lastTaskInput.nativeElement.id).toEqual('6');
   });
 });
-
 ```
 
 ![TaskList test runner](/tasklist-testrunner.png)
 
 Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `TaskComponent` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.

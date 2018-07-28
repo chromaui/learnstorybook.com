@@ -112,7 +112,7 @@ storiesOf('InboxScreen', module)
     };
   });
 ```
-We see that although the `default` story works just fine (because we have default data in our store), we have an issue in the `error` story, because the `error` field is connected to the store itself and we can't just modify it from outside. We need to dispatch and action on the store. 
+We see that although the `default` story works just fine (because we have default data in our store), we have an issue in the `error` story, because the `error` field is connected to the store itself and we can't just modify it from outside. We need to dispatch an action on the store. 
 
 ![Broken inbox](/broken-inboxscreen.png)
 

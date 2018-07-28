@@ -36,6 +36,7 @@ yarn run storybook
 # Run the frontend app proper on port 4200:
 yarn start
 ```
+
 <div class="aside">
   NOTE: If <code>yarn test</code> throws an error, you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
 </div>
@@ -48,7 +49,7 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply compile include the LESS files in our app and import them inside `styles.less`.
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply include the LESS files in our app and import them inside `styles.less`.
 
 ![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
