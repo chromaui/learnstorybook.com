@@ -21,7 +21,7 @@ Para desplegar Storybook primero necesitamos exportarlo como una aplicación web
 ```javascript
 {
   "scripts": {
-    "storybook": "build-storybook -c .storybook -o .storybook-static"
+    "storybook": "build-storybook -c .storybook"
   }
 }
 ```
@@ -40,7 +40,7 @@ Primero debes configurar Git para tu proyecto en el directorio local. Si estás 
 $ git init
 ```
 
-Agrega archivos al primer commit. 
+Agrega archivos al primer commit.
 
 ```bash
 $ git add .

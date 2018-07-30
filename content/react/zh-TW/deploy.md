@@ -20,7 +20,7 @@ description: "使用 GitHub 和 Netlify 发布 Storybook网站 "
 ```javascript
 {
   "scripts": {
-    "build-storybook": "build-storybook -c .storybook -o .storybook-static"
+    "build-storybook": "build-storybook -c .storybook"
   }
 }
 ```
