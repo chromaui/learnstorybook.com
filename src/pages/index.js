@@ -269,6 +269,19 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
                 </Button>
               </Link>
             </Actions>
+            <ActionHeading>Angular</ActionHeading>
+            <Actions>
+              <Link isGatsby to={`/angular/en/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />English
+                </Button>
+              </Link>
+              <Link isGatsby to={`/angular/es/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />Español
+                </Button>
+              </Link>
+            </Actions>
           </Pitch>
 
           <FigureWrapper>
