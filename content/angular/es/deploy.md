@@ -21,7 +21,7 @@ Para desplegar Storybook primero necesitamos exportarlo como una aplicación web
 ```javascript
 {
   "scripts": {
-    "storybook": "build-storybook -c .storybook -o .storybook-static"
+    "storybook": "build-storybook -c .storybook"
   }
 }
 ```
