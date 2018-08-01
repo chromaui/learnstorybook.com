@@ -1,12 +1,12 @@
-import Prism from "prismjs";
-import PropTypes from "prop-types";
-import React from "react";
-import ReactDOM from "react-dom";
-import loadLanguages from "prismjs/components/index.js";
+import Prism from 'prismjs';
+import PropTypes from 'prop-types';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import loadLanguages from 'prismjs/components/index.js';
 
-import "prismjs/themes/prism.css";
+import 'prismjs/themes/prism.css';
 
-loadLanguages(["bash"]);
+loadLanguages(['bash', 'typescript', 'json']);
 
 class Highlight extends React.Component {
   componentDidMount() {
@@ -30,7 +30,7 @@ class Highlight extends React.Component {
 }
 
 Highlight.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default Highlight;
