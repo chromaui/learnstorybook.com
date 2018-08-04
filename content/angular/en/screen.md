@@ -13,9 +13,7 @@ In this chapter we continue to increase the sophistication by combining componen
 
 ## Container components
 
-Let's start by refactoring our app a bit, we'll need to create two folders: `containers` and `components`. After that, let's move both `task.component.ts` and `task-list.component.ts` (with their corresponding `.stories.ts` file) inside the latter. After that, update any references in the imports.
-
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskListComponent` in some layout and pulling a top-level `error` and `entities` fields out of our store. Create `inbox-screen.component.ts` in your `src/tasks/containers` folder:
+As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskListComponent` (which supplies its own data via ngxs) in some layout and pulling a top-level `error` field out of our store (let's assume we'll set that field if we have some problem connecting to our server). Create `inbox-screen.component.ts` in your `src/tasks/containers` folder:
 
 ```typescript
 import { Component, OnInit, Input } from '@angular/core';
@@ -26,6 +24,26 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'inbox-screen',
+  template: `
+    <pure-inbox-screen [error]="error$ | async"></pure-inbox-screen>
+  `,
+})
+export class InboxScreenComponent implements OnInit {
+  @Select(TasksState.getError) error$: Observable<any>;
+
+  constructor() {}
+
+  ngOnInit() {}
+}
+```
+
+Then, we need to create the `PureInboxScreenComponent` inside the `src/tasks/components` folder:
+
+```typescript
+import { Component, OnInit, Input } from '@angular/core';
+
+@Component({
+  selector: 'pure-inbox-screen',
   template: `
     <div *ngIf="error" class="page lists-show">
       <div class="wrapper-message">
@@ -41,29 +59,20 @@ import { Observable } from 'rxjs';
           <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <task-list [tasks]="tasks$ | async" (onArchiveTask)="archiveTask($event)" (onPinTask)="pinTask($event)"></task-list>
+      <task-list></task-list>
     </div>
   `,
 })
-export class InboxScreenComponent implements OnInit {
-  @Input() error: any = null;
-  @Select(TasksState.getAllTasks) tasks$: Observable<Task[]>;
+export class PureInboxScreenComponent implements OnInit {
+  @Input() error: any;
 
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit() {}
-
-  archiveTask(id) {
-    this.store.dispatch(new ArchiveTask(id));
-  }
-
-  pinTask(id) {
-    this.store.dispatch(new PinTask(id));
-  }
 }
 ```
 
-We also change the `AppComponent` to render the `InboxScreenComponent` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+We also need to change the `AppComponent` to render the `InboxScreenComponent` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```typescript
 import { Component } from '@angular/core';
@@ -81,26 +90,21 @@ export class AppComponent {
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `InboxScreenComponent` is a **container** that renders the `TaskListComponent` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
+As we saw previously, the `TaskListComponent` component is a **container** that renders the `PureTaskListComponent` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
 
-However, for the `InboxScreenComponent` we have a problem because it depends on the store. Luckily, Storybook for Angular provides the `moduleMetadata` decorator that allows us to configure the underlying module:
+When placing the `TaskListComponent` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskListComponent` and avoiding the container. We'll do something similar and create and render the `PureInboxScreen` in Storybook also.
+
+However, for the `PureInboxScreenComponent` we have a problem because although the `PureInboxScreenComponent` itself is presentational, its child, the `TaskListComponent`, is not. In a sense the `PureInboxScreenComponent` has been polluted by “container-ness”. So when we setup our stories in `inbox-screen.stories.ts`:
 
 ```typescript
 import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState, ErrorFromServer } from '../state/task.state';
 import { TaskModule } from '../task.module';
 
-import { Component } from '@angular/core';
-
 storiesOf('InboxScreen', module)
-  .addDecorator(
-    moduleMetadata({
-      declarations: [],
-      imports: [TaskModule, NgxsModule.forRoot([TasksState])],
-      providers: [Store],
-    }),
-  )
+  moduleMetadata({
+    imports: [TaskModule],
+    providers: [],
+  }),
   .add('default', () => {
     return {
       template: `<inbox-screen></inbox-screen>`,
@@ -108,11 +112,15 @@ storiesOf('InboxScreen', module)
   })
   .add('error', () => {
     return {
-      template: `<inbox-screen></inbox-screen>`,
+      template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
+      props: {
+        error: 'Something!',
+      },
     };
   });
 ```
-We see that although the `default` story works just fine (because we have default data in our store), we have an issue in the `error` story, because the `error` field is connected to the store itself and we can't just modify it from outside. We need to dispatch an action on the store. 
+
+We see that our stories are broken now. This is due to the fact that both depend on our store and, even though, we're using a "pure" component for the error both stories still need the context.
 
 ![Broken inbox](/broken-inboxscreen.png)
 
@@ -126,7 +134,7 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 
 ## Supplying context with decorators
 
-The easiest way to do this is to create a wrapper component and include it in the declarations of the module. By doing so, the instances of the providers we've configured are also available in out host component's constructor. This will allow us to dispatch an action that will create an error inside the store:
+The easiest way to do this is to supply the `Store` to our module and initialise the state as if this were a full app:
 
 ```typescript
 import { storiesOf, moduleMetadata } from '@storybook/angular';
@@ -136,19 +144,9 @@ import { TaskModule } from '../task.module';
 
 import { Component } from '@angular/core';
 
-@Component({
-  template: `<inbox-screen></inbox-screen>`,
-})
-class HostDispatchErrorComponent {
-  constructor(store: Store) {
-    store.dispatch(new ErrorFromServer('Error'));
-  }
-}
-
 storiesOf('InboxScreen', module)
   .addDecorator(
     moduleMetadata({
-      declarations: [HostDispatchErrorComponent],
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
       providers: [Store],
     }),
@@ -160,11 +158,15 @@ storiesOf('InboxScreen', module)
   })
   .add('error', () => {
     return {
-      component: HostDispatchErrorComponent,
+      template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
+      props: {
+        error: 'Something!',
+      },
     };
   });
 ```
-In Storybook for Angular we have two ways of providing stories: as a reference via the `component` field or as a `template`. In this case we use the former since it allow us to 'plug' inside the module and interact with the injected instance of the store.
+
+Similar approaches exist to provide mocked context for other data libraries, such as [ngxs](https://ngxs.gitbook.io/ngxs/).
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
 
