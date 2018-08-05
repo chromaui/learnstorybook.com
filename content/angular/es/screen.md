@@ -13,8 +13,6 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 
 ## Componentes "contenedores"
 
-Empecemos por cambiar ligeramente la estructura de nuestra aplicación, necesitaremos crear dos directorios `containers` y `components`. Una vez que los hayamos creado, procederemos a mover `task.component.ts` y `task-list.component.ts` (y sus archivos`.stories.ts` correspondientes) dentro de `components`. Una vez hecho esto, recuerda actualizar las referencias a estos componentes (`import`).
-
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo un `TaskListComponent` y sacando un campo `error` de nuestro contenedor de estado. Ahora crearemos `inbox-screen.component.ts` dentro de `src/tasks/containers`:
 
 ```typescript
@@ -27,7 +25,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'inbox-screen',
   template: `
-    <div *ngIf="error" class="page lists-show">
+    <div *ngIf="error$ | async" class="page lists-show">
       <div class="wrapper-message">
         <span class="icon-face-sad"></span>
         <div class="title-message">Oh no!</div>
@@ -35,31 +33,22 @@ import { Observable } from 'rxjs';
       </div>
     </div>
 
-    <div *ngIf="!error" class="page lists-show">
+    <div *ngIf="!(error$ | async)" class="page lists-show">
       <nav>
         <h1 class="title-page">
           <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <task-list [tasks]="tasks$ | async" (onArchiveTask)="archiveTask($event)" (onPinTask)="pinTask($event)"></task-list>
+      <task-list></task-list>
     </div>
   `,
 })
 export class InboxScreenComponent implements OnInit {
-  @Input() error: any = null;
-  @Select(TasksState.getAllTasks) tasks$: Observable<Task[]>;
+  @Select(TasksState.getError) error$: Observable<any>;
 
   constructor(private store: Store) {}
 
   ngOnInit() {}
-
-  archiveTask(id) {
-    this.store.dispatch(new ArchiveTask(id));
-  }
-
-  pinTask(id) {
-    this.store.dispatch(new PinTask(id));
-  }
 }
 ```
 

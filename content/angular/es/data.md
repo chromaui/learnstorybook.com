@@ -17,7 +17,9 @@ Nuestro `TaskListComponent` es un componente “presentacional” (ver [este pos
 
 Este ejemplo utiliza [ngxs](https://ngxs.gitbook.io/ngxs/), una librería que respeta los principios de Redux/ngrx pero se enfoca en reducir el código repetitivo mientras provee una manera sencilla y más cercana a Angular y sus principios de OOP (programación orientada a objetos) para manejar el estado de la aplicación. Aún así, este patrón aplica para otras librerías como [ngrx/store](https://github.com/ngrx/platform).
 
-Inicialmente construiremos un contenedor de estado simple que responde a las acciones que cambian el estado de las tareas en un archivo llamado `src/tasks/state/task.state.ts` (mantenemos esta implementación sencilla intencionalmente):
+Empecemos por cambiar ligeramente la estructura de nuestra aplicación, necesitaremos crear dos directorios `containers` y `components`. Una vez que los hayamos creado, procederemos a mover `task.component.ts` y `task-list.component.ts` (y sus archivos`.stories.ts` correspondientes) dentro de `components`. Una vez hecho esto, recuerda actualizar las referencias a estos componentes (`import`).
+
+Después construiremos un contenedor de estado simple que responde a las acciones que cambian el estado de las tareas en un archivo llamado `src/tasks/state/task.state.ts` (mantenemos esta implementación sencilla intencionalmente):
 
 ```typescript
 import { State, Selector, Action, StateContext } from '@ngxs/store';
@@ -141,4 +143,165 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-En el siguiente capítulo conectaremos nuestro contenedor de estado con un nuevo componente "contenedor".
+Ahora procederemos a convertir nuestro `TaskListComponent` en un contenedor. Esto significa que obtendrá la lista de tareas directamente desde nuestro contenedor de estado. Para lograr esto, necesitaremos crear `src/tasks/containers/task-list.component.ts` y añadir el siguiente código:
+
+```typescript
+import { Component, OnInit, Input } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
+import { Task } from '../task.model';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'task-list',
+  template: `
+    <pure-task-list [tasks]="tasks$ | async" (onArchiveTask)="archiveTask($event)" (onPinTask)="pinTask($event)"></pure-task-list>
+  `,
+})
+export class TaskListComponent implements OnInit {
+  @Select(TasksState.getAllTasks) tasks$: Observable<Task[]>;
+
+  constructor(private store: Store) {}
+
+  ngOnInit() {}
+
+  archiveTask(id) {
+    this.store.dispatch(new ArchiveTask(id));
+  }
+
+  pinTask(id) {
+    this.store.dispatch(new PinTask(id));
+  }
+}
+```
+
+Como puedes notar, hemos cambiado el nombre de nuestro `TaskListComponent` que se encontraba en `src/tasks/components/task-list.component.ts` a `src/tasks/components/pure-task-list.component.ts`. También hemos cambiado su selector de `task-list` a `pure-task-list` y el nombre de la clase que define al componente de `TaskListComponent` a `PureTaskListComponent`. Estos cambios se deben, primordialmente, a que queremos separar claramente el componente: ahora tenemos un componente puro que recibe una lista de tareas, algunos eventos y renderiza un resultado y un componente contenedor que depende de nuestro contenedor de estado para obetener los datos que necesita pasarle al componente puro. No olvides cambiar el nombre de `task-list.stories.ts`.
+
+En este momento, nuestras historias han dejado de funcionar pues el `TaskListComponent` ahora es un contenedor y no espera ninguna propiedad. Por el contrario, se conecta directamente a nuestro contenedor de estado y le pasa las propiedades al `PureTaskListComponent` que envuelve.
+
+Afortunadamente podemos resolver esto de manera sencilla: utilizaremos nuestro `PureTaskListComponent` (en lugar de `TaskListComponent`) en las historias:
+
+```typescript
+import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
+
+import { TaskComponent } from './task.component';
+import { PureTaskListComponent } from './pure-task-list.component';
+import { task, actions } from './task.stories';
+
+export const defaultTasks = [
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
+];
+
+export const withPinnedTasks = [
+  ...defaultTasks.slice(0, 5),
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+];
+
+const props = {
+  tasks: defaultTasks,
+  onPinTask: actions.onPinTask,
+  onArchiveTask: actions.onArchiveTask,
+};
+
+storiesOf('TaskList', module)
+  .addDecorator(
+    moduleMetadata({
+      declarations: [PureTaskListComponent, TaskComponent],
+      imports: [CommonModule],
+    }),
+  )
+  .add('default', () => {
+    return {
+      template: `
+        <div style="padding: 3rem">
+          <pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></pure-task-list>
+        </div>
+      `,
+      props,
+    };
+  })
+  .add('withPinnedTasks', () => {
+    return {
+      template: `
+        <div style="padding: 3rem">
+          <pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></pure-task-list>
+        </div>
+      `,
+      props: {
+        ...props,
+        tasks: withPinnedTasks,
+      },
+    };
+  })
+  .add('loading', () => {
+    return {
+      template: `
+        <div style="padding: 3rem">
+          <pure-task-list [tasks]="[]" loading="true" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></pure-task-list>
+        </div>
+      `,
+      props,
+    };
+  })
+  .add('empty', () => {
+    return {
+      template: `
+        <div style="padding: 3rem">
+          <pure-task-list [tasks]="[]" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></pure-task-list>
+        </div>
+      `,
+      props,
+    };
+  });
+```
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/finished-tasklist-states.mp4"
+    type="video/mp4"
+  />
+</video>
+
+De la misma forma, necesitamos cambiar nuestras pruebas para que utilicen `PureTaskListComponent`:
+
+```typescript
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { PureTaskListComponent } from './pure-task-list.component';
+import { TaskComponent } from './task.component';
+
+import { withPinnedTasks } from './pure-task-list.stories';
+import { By } from '@angular/platform-browser';
+
+describe('TaskList component', () => {
+  let component: PureTaskListComponent;
+  let fixture: ComponentFixture<PureTaskListComponent>;
+
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [TaskComponent, PureTaskListComponent],
+      }).compileComponents();
+    }),
+  );
+
+  it('renders pinned tasks at the start of the list', () => {
+    fixture = TestBed.createComponent(PureTaskListComponent);
+    component = fixture.componentInstance;
+    component.tasks = withPinnedTasks;
+
+    fixture.detectChanges();
+    const lastTaskInput = fixture.debugElement.query(
+      By.css('.list-item:nth-child(1)'),
+    );
+
+    // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
+    expect(lastTaskInput.nativeElement.id).toEqual('6');
+  });
+});
+```
