@@ -227,8 +227,19 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                       <Meta>
                         <Title>Angular</Title>
                         <Detail>
-                          <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
-                            Contributors wanted
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/angular/en/${firstChapter}/`}
+                          >
+                            English
+                          </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/angular/es/${firstChapter}/`}
+                          >
+                            Español
                           </LanguageLink>
                         </Detail>
                       </Meta>
