@@ -142,8 +142,6 @@ import { Store, NgxsModule } from '@ngxs/store';
 import { TasksState, ErrorFromServer } from '../state/task.state';
 import { TaskModule } from '../task.module';
 
-import { Component } from '@angular/core';
-
 storiesOf('InboxScreen', module)
   .addDecorator(
     moduleMetadata({
@@ -177,6 +175,60 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
     type="video/mp4"
   />
 </video>
+
+## Alternative method
+
+You may be asking yourself why we created a new `PureInboxScreenComponent` just to test the `error` field. The short answer is that we wanted to show a pattern that's fairly common: nested container components. In this case, our `TaskListComponent` was connected to the store and it was contained inside the `InboxScreenComponent` which was also connected to the store (to get the `error`). We added the `PureInboxScreenComponent` to showcase how you could split components into their pure and connected parts and test them separately.
+
+This is a very simple example so adding these pure components might seem like an overkill. In Storybook for Angular there's another way of writing stories for the `InboxScreenComponent`:
+
+```typescript
+import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { Store, NgxsModule } from '@ngxs/store';
+import { TasksState, ErrorFromServer } from '../state/task.state';
+import { TaskModule } from '../task.module';
+
+import { Component } from '@angular/core';
+
+@Component({
+  template: `<inbox-screen></inbox-screen>`,
+})
+class HostDispatchErrorComponent {
+  constructor(store: Store) {
+    store.dispatch(new ErrorFromServer('Error'));
+  }
+}
+
+storiesOf('InboxScreen', module)
+  .addDecorator(
+    moduleMetadata({
+      declarations: [HostDispatchErrorComponent],
+      imports: [TaskModule, NgxsModule.forRoot([TasksState])],
+      providers: [Store],
+    }),
+  )
+  .add('default', () => {
+    return {
+      template: `<inbox-screen></inbox-screen>`,
+    };
+  })
+  .add('error', () => {
+    return {
+      template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
+      props: {
+        error: 'Something!',
+      },
+    };
+  })
+  .add('Connected Error', () => {
+    return {
+      component: HostDispatchErrorComponent,
+    };
+  });
+```
+As you can see, we've created a new wrapper component that includes our `InboxScreenComponent` directly. Inside its constructor we make use of Angular's dependency injection mechanism to access the `Store` instance and dispatch an error action. This results in the `error` being added to the store and, as a consequence, our `InboxScreenComponent properly renders the error state.
+
+You might be wondering why we're using `component` instead of `template` to define our story. It turns out Storybook for Angular allows both methods and the `component` one does exactly what we need: it allow us to provide a reference to a component class and it will boostrap it as a component inside the module and render it. As a side effect, since this component is now part of our module it has access to all the providers and imported modules.
 
 ## Component-Driven Development
 
