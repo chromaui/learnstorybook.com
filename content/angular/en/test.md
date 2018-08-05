@@ -1,7 +1,7 @@
 ---
 title: "Testing"
 description: "Learn the ways to test UI components"
-commit: 342bce5
+commit: 8fdc779
 ---
 
 # Test UI components
@@ -66,9 +66,7 @@ yarn add storybook-chromatic
 Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
-import {
-  configure
-} from '@storybook/angular';
+import { configure } from '@storybook/angular';
 import 'storybook-chromatic/storybook-addon';
 import '../src/styles.less';
 

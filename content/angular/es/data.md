@@ -2,7 +2,7 @@
 title: "Introducir datos"
 tocTitle: "Datos"
 description: "Aprende como introducir datos a tus componentes interfaz gráfica"
-commit: ea58e96
+commit: 34f1938
 ---
 
 # Introducir datos

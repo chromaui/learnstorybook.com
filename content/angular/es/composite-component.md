@@ -2,7 +2,7 @@
 title: "Ensambla un componente compuesto"
 tocTitle: "Componente Compuesto"
 description: "Ensambla un componente compuesto a partir de componentes simples"
-commit: f1d2297
+commit: d3abd86
 ---
 
 # Ensambla un componente compuesto

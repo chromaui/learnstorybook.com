@@ -2,7 +2,7 @@
 title: "Get started"
 tocTitle: "Get started"
 description: "Setup Angular Storybook in your development environment"
-commit: 30939d5
+commit: 0818d47
 ---
 
 # Get started

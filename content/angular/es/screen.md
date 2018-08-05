@@ -2,7 +2,7 @@
 title: "Construir una pantalla"
 tocTitle: "Pantallas"
 description: "Construir una pantalla utilizando componentes"
-commit: 22a1898
+commit: deff6cb
 ---
 
 # Construir una pantalla

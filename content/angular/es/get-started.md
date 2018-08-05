@@ -2,7 +2,7 @@
 title: "Empezando"
 tocTitle: "Empezando"
 description: "Configurar Angular Storybook en tu entorno de desarrollo"
-commit: 30939d5
+commit: 0818d47
 ---
 
 # Empezando

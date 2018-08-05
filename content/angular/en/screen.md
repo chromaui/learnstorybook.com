@@ -2,7 +2,7 @@
 title: "Construct a screen"
 tocTitle: "Screens"
 description: "Construct a screen out of components"
-commit: 9ead5d8
+commit: deff6cb
 ---
 
 # Construct a screen
@@ -226,6 +226,7 @@ storiesOf('InboxScreen', module)
     };
   });
 ```
+
 As you can see, we've created a new wrapper component that includes our `InboxScreenComponent` directly. Inside its constructor we make use of Angular's dependency injection mechanism to access the `Store` instance and dispatch an error action. This results in the `error` being added to the store and, as a consequence, our `InboxScreenComponent properly renders the error state.
 
 You might be wondering why we're using `component` instead of `template` to define our story. It turns out Storybook for Angular allows both methods and the `component` one does exactly what we need: it allow us to provide a reference to a component class and it will boostrap it as a component inside the module and render it. As a side effect, since this component is now part of our module it has access to all the providers and imported modules.
