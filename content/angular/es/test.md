@@ -1,7 +1,7 @@
 ---
 title: "Testing"
 description: "Aprende las formas de probar los componentes de la interfaz gráfica"
-commit: bd69176
+commit: 8fdc779
 ---
 
 # Testear Componentes interfaz gráfica
