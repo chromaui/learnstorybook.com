@@ -28,7 +28,7 @@ First, let’s create the task component and its accompanying story file: `src/c
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```javascript
+```html
 <template>
   <div class="list-item">
     <input type="text" :readonly="true" :value="this.task.title" />
@@ -108,7 +108,7 @@ To initiate Storybook we first call the `storiesOf()` function to register the c
 
 As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `methods` variable and use pass them into our story defintion each time (where they are accessed via the `methods` property).
 
-Another nice thing about bundling the `methodds` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+Another nice thing about bundling the `methods` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a set of properties that define the story -- in this case a `template` string for the story alongside the `components`, `data` and `methods` that template consumes.
 
@@ -150,35 +150,54 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```javascript
-import React from 'react';
-
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
-  return (
-    <div className={`list-item ${state}`}>
-      <label className="checkbox">
-        <input
-          type="checkbox"
-          defaultChecked={state === 'TASK_ARCHIVED'}
-          disabled={true}
-          name="checked"
-        />
-        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
-      </label>
-      <div className="title">
-        <input type="text" value={title} readOnly={true} placeholder="Input title" />
-      </div>
-
-      <div className="actions" onClick={event => event.stopPropagation()}>
-        {state !== 'TASK_ARCHIVED' && (
-          <a onClick={() => onPinTask(id)}>
-            <span className={`icon-star`} />
-          </a>
-        )}
-      </div>
+```html
+<template>
+  <div :class="taskClass">
+    <label class="checkbox">
+      <input
+        type="checkbox"
+        :checked="isChecked"
+        :disabled="true"
+        name="checked"
+      />
+      <span class="checkbox-custom" @click="archive"/>
+    </label>
+    <div class="title">
+      <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
     </div>
-  );
-}
+    <div class="actions">
+      <a @click="pin" v-if="!isChecked">
+        <span class="icon-star"/>
+      </a>
+    </div>
+  </div>  
+</template>
+
+<script>
+export default {
+  name: 'task',
+  props: {
+    task: Object,
+    required: true,
+  },
+  methods: {
+    archive() {
+      this.archiveTask(this.task.id);
+    },
+    pin() {
+      this.pinTask(this.task.id);
+    },
+  },
+  computed: {
+    taskClass() {
+      return `list-item ${this.task.state}`;
+    },
+    isChecked() {
+      return this.task.state === 'TASK_ARCHIVED';
+    },
+  },
+};
+</script>
 ```
 
 The additional markup from above combined with the CSS we imported earlier yields the following UI:
@@ -192,27 +211,16 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 ## Specify data requirements
 
-It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
+It’s best practice to use `props` in Vue to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
 ```javascript
-import React from 'react';
-import PropTypes from 'prop-types';
-
-function Task() {
-  ...
-}
-
-Task.propTypes = {
-  task: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired,
-  }),
-  onArchiveTask: PropTypes.func,
-  onPinTask: PropTypes.func,
+export default {
+  name: 'task',
+  props: {
+    task: Object,
+    required: true,
+  },
 };
-
-export default Task;
 ```
 
 Now a warning in development will appear if the Task component is misused.
@@ -242,7 +250,7 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots react-test-renderer
+yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor
 ```
 
 Then create an `src/storybook.test.js` file with the following in it:
@@ -252,7 +260,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-Once the above is done, we can run `yarn test` and see the following output:
+Once the above is done, we can run `yarn test:unit` and see the following output:
 
 ![Task test runner](/task-testrunner.png)
 

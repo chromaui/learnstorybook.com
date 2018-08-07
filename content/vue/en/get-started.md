@@ -7,7 +7,7 @@ commit: 30939d5
 
 # Get started
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Vue; other editions exist for [React](/react/en/getstarted), with Angular coming soon.
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Vue; other editions exist for [React](/react/en/get-started) and [Angular](/angular/en/get-started).
 
 ![Storybook and your app](/storybook-relationship.jpg)
 
