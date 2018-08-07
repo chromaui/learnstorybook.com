@@ -21,49 +21,63 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ## Get setup
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.js` and `src/components/TaskList.stories.js`.
+A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.vue` and `src/components/TaskList.stories.js`.
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```javascript
-import React from 'react';
-
-import Task from './Task';
-
-function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  const events = {
-    onPinTask,
-    onArchiveTask,
-  };
-
-  if (loading) {
-    return <div className="list-items">loading</div>;
-  }
-
-  if (tasks.length === 0) {
-    return <div className="list-items">empty</div>;
-  }
-
-  return (
-    <div className="list-items">
-      {tasks.map(task => <Task key={task.id} task={task} {...events} />)}
+```html
+<template>
+  <div>
+    <div class="list-items" v-if="loading"> loading </div>
+    <div class="list-items" v-if="noTasks && !this.loading">empty </div>
+    <div class="list-items" v-if="showTasks">
+      <task v-for="(task, index) in tasks" :key="index" :task="task"
+        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
     </div>
-  );
-}
+  </div>
+</template>
 
-export default TaskList;
+<script>
+import Task from '@/components/Task';
+export default {
+  name: 'task-list',
+  props: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    tasks: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
+  components: {
+    Task,
+  },
+  computed: {
+    noTasks() {
+      return this.tasks.length === 0;
+    },
+    showTasks() {
+      return !this.loading && !this.noTasks;
+    },
+  },
+};
+</script>
 ```
 
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import { storiesOf } from '@storybook/vue';
+import { task } from './Task.stories';
 
 import TaskList from './TaskList';
-import { task, actions } from './Task.stories';
+import { methods } from './Task.stories';
 
-export const defaultTasks = [
+export const defaultTaskList = [
   { ...task, id: '1', title: 'Task 1' },
   { ...task, id: '2', title: 'Task 2' },
   { ...task, id: '3', title: 'Task 3' },
@@ -73,22 +87,50 @@ export const defaultTasks = [
 ];
 
 export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
+  ...defaultTaskList.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
+const paddedList = () => {
+  return {
+    template: '<div style="padding: 3rem;"><story/></div>',
+  };
+};
+
 storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
-  .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
-  .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <TaskList tasks={[]} {...actions} />);
+  .addDecorator(paddedList)
+  .add('default', () => ({
+    components: { TaskList },
+    template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+    data: () => ({
+      tasks: defaultTaskList,
+    }),
+    methods,
+  }))
+  .add('withPinnedTasks', () => ({
+    components: { TaskList },
+    template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+    data: () => ({
+      tasks: withPinnedTasks,
+    }),
+    methods,
+  }))
+  .add('loading', () => ({
+    components: { TaskList },
+    template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+    methods,
+  }))
+  .add('empty', () => ({
+    components: { TaskList },
+    template: `<task-list  @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+    methods,
+  }));
 ```
 
 `addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to add other context to components, as we'll see later.
 </div>
 
 `task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actions` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
@@ -106,64 +148,64 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
-```javascript
-import React from 'react';
-
-import Task from './Task';
-
-function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  const events = {
-    onPinTask,
-    onArchiveTask,
-  };
-
-  const LoadingRow = (
-    <div className="loading-item">
-      <span className="glow-checkbox" />
-      <span className="glow-text">
+```html
+<template>
+  <div>
+    <div class="loading-item" v-if="loading" v-for="(n, index) in 5" :key="index">
+      <span class="glow-checkbox" />
+      <span class="glow-text">
         <span>Loading</span> <span>cool</span> <span>state</span>
       </span>
     </div>
-  );
-
-  if (loading) {
-    return (
-      <div className="list-items">
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
+    <div class="list-items" v-if="noTasks && !this.loading">
+      <div class="wrapper-message">
+        <span class="icon-check" />
+        <div class="title-message">You have no tasks</div>
+        <div class="subtitle-message">Sit back and relax</div>
       </div>
-    );
-  }
-
-  if (tasks.length === 0) {
-    return (
-      <div className="list-items">
-        <div className="wrapper-message">
-          <span className="icon-check" />
-          <div className="title-message">You have no tasks</div>
-          <div className="subtitle-message">Sit back and relax</div>
-        </div>
-      </div>
-    );
-  }
-
-  const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
-  ];
-
-  return (
-    <div className="list-items">
-      {tasksInOrder.map(task => <Task key={task.id} task={task} {...events} />)}
     </div>
-  );
-}
+    <div class="list-items" v-if="showTasks">
+      <task v-for="(task, index) in tasksInOrder" :key="index" :task="task"
+        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+    </div>
+  </div>
+</template>
 
-export default TaskList;
+<script>
+import Task from '@/components/Task';
+export default {
+  name: 'pure-task-list',
+  props: {
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+    tasks: {
+      type: Array,
+      default() {
+        return [];
+      },
+    },
+  },
+  components: {
+    Task,
+  },
+  computed: {
+    noTasks() {
+      return this.tasks.length === 0;
+    },
+    showTasks() {
+      return !this.loading && !this.noTasks;
+    },
+    tasksInOrder() {
+      return [
+        ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
+        ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
+      ];
+    },
+  },
+};
+</script>
 ```
 
 The added markup results in the following UI:
@@ -176,33 +218,6 @@ The added markup results in the following UI:
 </video>
 
 Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
-
-## Data requirements and props
-
-As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
-
-```javascript
-import React from 'react';
-import PropTypes from 'prop-types';
-
-function TaskList() {
-  ...
-}
-
-
-TaskList.propTypes = {
-  loading: PropTypes.bool,
-  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  onPinTask: PropTypes.func.isRequired,
-  onArchiveTask: PropTypes.func.isRequired,
-};
-
-TaskList.defaultProps = {
-  loading: false,
-};
-
-export default TaskList;
-```
 
 ## Automated testing
 
@@ -220,7 +235,7 @@ In our case, we want our `TaskList` to render any pinned tasks **before** unpinn
 
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
-Create a test file called `TaskList.test.js`. Here we’ll build out our tests that make assertions about the output.
+Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
 import React from 'react';

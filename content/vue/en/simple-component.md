@@ -160,13 +160,13 @@ The component is still basic at the moment. First write the code that achieves t
         :disabled="true"
         name="checked"
       />
-      <span class="checkbox-custom" @click="archive"/>
+      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)"/>
     </label>
     <div class="title">
       <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
     </div>
     <div class="actions">
-      <a @click="pin" v-if="!isChecked">
+      <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
         <span class="icon-star"/>
       </a>
     </div>
@@ -179,14 +179,6 @@ export default {
   props: {
     task: Object,
     required: true,
-  },
-  methods: {
-    archive() {
-      this.archiveTask(this.task.id);
-    },
-    pin() {
-      this.pinTask(this.task.id);
-    },
   },
   computed: {
     taskClass() {
@@ -208,26 +200,6 @@ The additional markup from above combined with the CSS we imported earlier yield
     type="video/mp4"
   />
 </video>
-
-## Specify data requirements
-
-It’s best practice to use `props` in Vue to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
-
-```javascript
-export default {
-  name: 'task',
-  props: {
-    task: Object,
-    required: true,
-  },
-};
-```
-
-Now a warning in development will appear if the Task component is misused.
-
-<div class="aside">
-An alternative way to achieve the same purpose is to use a JavaScript type system like TypeScript to create a type for the component properties.
-</div>
 
 ## Component built!
 
