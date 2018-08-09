@@ -113,9 +113,9 @@ However, for the `PureInboxScreen` we have a problem because although the `PureI
 
 ```javascript
 import { storiesOf } from '@storybook/vue';
-import InboxScreen from './InboxScreen';
+import PureInboxScreen from './PureInboxScreen';
 
-storiesOf('InboxScreen', module)
+storiesOf('PureInboxScreen', module)
   .add('default', () => {
     return {
       components: { PureInboxScreen },
@@ -132,7 +132,7 @@ storiesOf('InboxScreen', module)
 
 We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Vuex store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
 
-![Broken inbox](/broken-inboxscreen.png)
+![Broken inbox](/broken-inboxscreen-vue.png)
 
 One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
 
@@ -170,7 +170,7 @@ export const store = new Vuex.Store({
   },
 });
 
-storiesOf('InboxScreen', module)
+storiesOf('PureInboxScreen', module)
   .add('default', () => {
     return {
       components: { PureInboxScreen },
