@@ -26,36 +26,36 @@ yarn add vuex
 Then we’ll construct a simple Vuex store that responds to actions that change the state of tasks, in a file called `src/store.js` (intentionally kept simple):
 
 ```javascript
-import Vue from 'vue';
-import Vuex from 'vuex';
+import Vue from "vue";
+import Vuex from "vuex";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     tasks: [
-      { id: '1', title: 'Something', state: 'TASK_INBOX' },
-      { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-      { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-      { id: '4', title: 'Something again', state: 'TASK_INBOX' },
-    ],
+      { id: "1", title: "Something", state: "TASK_INBOX" },
+      { id: "2", title: "Something more", state: "TASK_INBOX" },
+      { id: "3", title: "Something else", state: "TASK_INBOX" },
+      { id: "4", title: "Something again", state: "TASK_INBOX" }
+    ]
   },
   mutations: {
     ARCHIVE_TASK(state, id) {
-      state.tasks.find(task => task.id === id).state = 'TASK_ARCHIVED';
+      state.tasks.find(task => task.id === id).state = "TASK_ARCHIVED";
     },
     PIN_TASK(state, id) {
-      state.tasks.find(task => task.id === id).state = 'TASK_PINNED';
-    },
+      state.tasks.find(task => task.id === id).state = "TASK_PINNED";
+    }
   },
   actions: {
     archiveTask({ commit }, id) {
-      commit('ARCHIVE_TASK', id);
+      commit("ARCHIVE_TASK", id);
     },
     pinTask({ commit }, id) {
-      commit('PIN_TASK', id);
-    },
-  },
+      commit("PIN_TASK", id);
+    }
+  }
 });
 ```
 

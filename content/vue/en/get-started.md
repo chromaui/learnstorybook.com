@@ -59,4 +59,16 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-We also need to add the font and icon [directories](https://github.com/hichroma/learnstorybook-code/tree/master/public) to the `public/` folder. After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+We also need to add the font and icon [directories](https://github.com/hichroma/learnstorybook-code/tree/master/public) to the `public/` folder.
+
+We also need to update our storybook script to serve the `public` directory (in `package.json`):
+
+```json
+{
+  "scripts": {
+    "storybook": "start-storybook -p 6006 -s public"
+  }
+}
+```
+
+After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
