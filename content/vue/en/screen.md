@@ -13,71 +13,94 @@ In this chapter we continue to increase the sophistication by combining componen
 
 ## Nested container components
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.js` in your `components` folder:
+As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` container component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components` folder:
 
-```javascript
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import TaskList from './TaskList';
-
-export function PureInboxScreen({ error }) {
-  if (error) {
-    return (
-      <div className="page lists-show">
-        <div className="wrapper-message">
-          <span className="icon-face-sad" />
-          <div className="title-message">Oh no!</div>
-          <div className="subtitle-message">Something went wrong</div>
-        </div>
+```html
+<template>
+  <div>
+    <div class="page lists-show" v-if="error">
+      <div class="wrapper-message">
+        <span class="icon-face-sad" />
+        <div class="title-message">Oh no!</div>
+        <div class="subtitle-message">Something went wrong</div>
       </div>
-    );
-  }
-
-  return (
-    <div className="page lists-show">
+    </div>
+    <div class="page lists-show" v-else>
       <nav>
-        <h1 className="title-page">
-          <span className="title-wrapper">Taskbox</span>
+        <h1 class="title-page">
+          <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <TaskList />
+      <task-list/>
     </div>
-  );
-}
+  </div>
+</template>
 
-PureInboxScreen.propTypes = {
-  error: PropTypes.string,
+<script>
+import TaskList from "@/containers/TaskList.vue";
+
+export default {
+  name: "pure-inbox-screen",
+  props: {
+    error: {
+      type: Boolean,
+      default: false
+    }
+  },
+  components: {
+    TaskList
+  }
 };
+</script>
+```
 
-PureInboxScreen.defaultProps = {
-  error: null,
+Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `src/containers`:
+
+```html
+<template>
+  <div>
+    <pure-inbox-screen :error="error"/>
+  </div>
+</template>
+
+<script>
+import PureInboxScreen from "@/components/PureInboxScreen";
+import { mapState } from "vuex";
+
+export default {
+  name: "inbox-screen",
+  components: {
+    PureInboxScreen
+  },
+  computed: {
+    ...mapState(["error"])
+  }
 };
-
-export default connect(({ error }) => ({ error }))(PureInboxScreen);
+</script>
 ```
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```javascript
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import store from './lib/redux';
+```html
+<template>
+  <div id="app">
+    <inbox-screen/>
+  </div>
+</template>
 
-import InboxScreen from './components/InboxScreen';
+<script>
+import store from "./store";
+import InboxScreen from "@/containers/InboxScreen.vue";
+import "../src/index.css";
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <InboxScreen />
-      </Provider>
-    );
+export default {
+  name: "app",
+  store,
+  components: {
+    InboxScreen
   }
-}
-
-export default App;
+};
+</script>
 ```
 
 However, where things get interesting is in rendering the story in Storybook.
@@ -86,20 +109,28 @@ As we saw previously, the `TaskList` component is a **container** that renders t
 
 When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
-However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `InboxScreen.stories.js`:
+However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-
-import { PureInboxScreen } from './InboxScreen';
+import { storiesOf } from '@storybook/vue';
+import InboxScreen from './InboxScreen';
 
 storiesOf('InboxScreen', module)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+  .add('default', () => {
+    return {
+      components: { PureInboxScreen },
+      template: `<pure-inbox-screen/>`,
+    };
+  })
+  .add('error', () => {
+    return {
+      components: { PureInboxScreen },
+      template: `<pure-inbox-screen :error="true"/>`,
+    };
+  });
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Vuex store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
 
 ![Broken inbox](/broken-inboxscreen.png)
 
@@ -111,34 +142,48 @@ However, developers **will** inevitably need to render containers further down t
 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://chromaticqa.com">Chromatic</a> alongside 670+ stories.
 </div>
 
-## Supplying context with decorators
+## Supplying context to stories
 
-The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
+The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can create a new store in our story file and pass it in as the context of the story:
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { Provider } from 'react-redux';
+import { storiesOf } from '@storybook/vue';
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-import { PureInboxScreen } from './InboxScreen';
-import { defaultTasks } from './TaskList.stories';
+import { defaultTaskList } from './PureTaskList.stories';
+import PureInboxScreen from './PureInboxScreen.vue';
 
-// A super-simple mock of a redux store
-const store = {
-  getState: () => {
-    return {
-      tasks: defaultTasks,
-    };
+Vue.use(Vuex);
+export const store = new Vuex.Store({
+  state: {
+    tasks: defaultTaskList,
   },
-  subscribe: () => 0,
-  dispatch: action('dispatch'),
-};
+  actions: {
+    pinTask(context, id) {
+      action('pinTask')(id);
+    },
+    archiveTask(context, id) {
+      action('archiveTask')(id);
+    },
+  },
+});
 
 storiesOf('InboxScreen', module)
-  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+  .add('default', () => {
+    return {
+      components: { PureInboxScreen },
+      template: `<pure-inbox-screen/>`,
+      store,
+    };
+  })
+  .add('error', () => {
+    return {
+      components: { PureInboxScreen },
+      template: `<pure-inbox-screen :error="true"/>`,
+    };
+  });
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
