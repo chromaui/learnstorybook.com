@@ -60,19 +60,18 @@ $ git commit -m "taskbox UI"
 Add the package as a dependency.
 
 ```bash
-yarn add react-chromatic
+yarn add --dev storybook-chromatic
 ```
 
 Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
-import { configure } from '@storybook/react';
-import 'react-chromatic/storybook-addon';
+import { configure } from '@storybook/vue';
+import 'storybook-chromatic';
 
 import '../src/index.css';
 
-const req = require.context('../src/components', true, /\.stories\.js$/);
-
+const req = require.context('../src', true, /.stories.js$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
@@ -92,7 +91,7 @@ Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chro
 Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code> --do-not-start
 ```
 
 <div class="aside">
