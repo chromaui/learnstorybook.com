@@ -97,32 +97,32 @@ const paddedList = () => {
   };
 };
 
-storiesOf('PureTaskList', module)
+storiesOf('TaskList', module)
   .addDecorator(paddedList)
   .add('default', () => ({
-    components: { PureTaskList },
-    template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+    components: { TaskList },
+    template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
     data: () => ({
       tasks: defaultTaskList,
     }),
     methods,
   }))
   .add('withPinnedTasks', () => ({
-    components: { PureTaskList },
-    template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+    components: { TaskList },
+    template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
     data: () => ({
       tasks: withPinnedTasks,
     }),
     methods,
   }))
   .add('loading', () => ({
-    components: { PureTaskList },
-    template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+    components: { TaskList },
+    template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
     methods,
   }))
   .add('empty', () => ({
-    components: { PureTaskList },
-    template: `<pure-task-list  @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+    components: { TaskList },
+    template: `<task-list  @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
     methods,
   }));
 ```
@@ -174,7 +174,7 @@ Our component is still rough but now we have an idea of the stories to work towa
 <script>
 import Task from "@/components/Task";
 export default {
-  name: "pure-task-list",
+  name: "task-list",
   props: {
     loading: {
       type: Boolean,
@@ -253,6 +253,7 @@ it("renders pinned tasks at the start of the list", () => {
 
   // We expect the pinned task to be rendered first, not at the end
   expect(lastTaskInput).not.toBe(null);
+});
 ```
 
 ![TaskList test runner](/tasklist-testrunner.png)
