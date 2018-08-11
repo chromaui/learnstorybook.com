@@ -51,46 +51,46 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
-import { storiesOf } from "@storybook/vue";
-import { action } from "@storybook/addon-actions";
+import { storiesOf } from '@storybook/vue';
+import { action } from '@storybook/addon-actions';
 
-import Task from "./Task";
+import Task from './Task';
 
 export const task = {
-  id: "1",
-  title: "Test Task",
-  state: "TASK_INBOX",
-  updatedAt: new Date(2018, 0, 1, 9, 0)
+  id: '1',
+  title: 'Test Task',
+  state: 'TASK_INBOX',
+  updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
 export const methods = {
-  onPinTask: action("onPinTask"),
-  onArchiveTask: action("onArchiveTask")
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf("Task", module)
-  .add("default", () => {
+storiesOf('Task', module)
+  .add('default', () => {
     return {
       components: { Task },
       template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
       data: () => ({ task }),
-      methods
+      methods,
     };
   })
-  .add("pinned", () => {
+  .add('pinned', () => {
     return {
       components: { Task },
       template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_PINNED" } }),
-      methods
+      data: () => ({ task: { ...task, state: 'TASK_PINNED' } }),
+      methods,
     };
   })
-  .add("archived", () => {
+  .add('archived', () => {
     return {
       components: { Task },
       template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_ARCHIVED" } }),
-      methods
+      data: () => ({ task: { ...task, state: 'TASK_ARCHIVED' } }),
+      methods,
     };
   });
 ```
@@ -120,14 +120,14 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA for automated tests.
+We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.spec.js` naming scheme favoured by the Vue CLI for automated tests.
 
 ```javascript
-import { configure } from "@storybook/vue";
+import { configure } from '@storybook/vue';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = require.context("../src", true, /.stories.js$/);
+const req = require.context('../src', true, /.stories.js$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
@@ -213,7 +213,7 @@ Storybook gave us a great way to visually test our application during constructi
 
 ### Snapshot testing
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because Storybook is a quick way to view the new version of a component and visualize the changes.
 
 <div class="aside">
 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
@@ -228,8 +228,14 @@ yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor
 Then create an `src/storybook.test.js` file with the following in it:
 
 ```javascript
-import initStoryshots from "@storybook/addon-storyshots";
+import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
+```
+
+We also need to add a line to our `jest.config.js`:
+
+```js
+  transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 ```
 
 Once the above is done, we can run `yarn test:unit` and see the following output:
