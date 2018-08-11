@@ -71,59 +71,59 @@ export default {
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-import { storiesOf } from "@storybook/vue";
-import { task } from "./Task.stories";
+import { storiesOf } from '@storybook/vue';
+import { task } from './Task.stories';
 
-import PureTaskList from "./PureTaskList";
-import { methods } from "./Task.stories";
+import PureTaskList from './PureTaskList';
+import { methods } from './Task.stories';
 
 export const defaultTaskList = [
-  { ...task, id: "1", title: "Task 1" },
-  { ...task, id: "2", title: "Task 2" },
-  { ...task, id: "3", title: "Task 3" },
-  { ...task, id: "4", title: "Task 4" },
-  { ...task, id: "5", title: "Task 5" },
-  { ...task, id: "6", title: "Task 6" }
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
 
 export const withPinnedTasks = [
   ...defaultTaskList.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
 const paddedList = () => {
   return {
-    template: '<div style="padding: 3rem;"><story/></div>'
+    template: '<div style="padding: 3rem;"><story/></div>',
   };
 };
 
-storiesOf("PureTaskList", module)
+storiesOf('PureTaskList', module)
   .addDecorator(paddedList)
-  .add("default", () => ({
+  .add('default', () => ({
     components: { PureTaskList },
     template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
     data: () => ({
-      tasks: defaultTaskList
+      tasks: defaultTaskList,
     }),
-    methods
+    methods,
   }))
-  .add("withPinnedTasks", () => ({
+  .add('withPinnedTasks', () => ({
     components: { PureTaskList },
     template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
     data: () => ({
-      tasks: withPinnedTasks
+      tasks: withPinnedTasks,
     }),
-    methods
+    methods,
   }))
-  .add("loading", () => ({
+  .add('loading', () => ({
     components: { PureTaskList },
     template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods
+    methods,
   }))
-  .add("empty", () => ({
+  .add('empty', () => ({
     components: { PureTaskList },
     template: `<pure-task-list  @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods
+    methods,
   }));
 ```
 
@@ -238,26 +238,25 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import TaskList from './TaskList';
-import { withPinnedTasks } from './TaskList.stories';
+import Vue from "vue";
+import TaskList from "../../src/components/TaskList.vue";
+import { withPinnedTasks } from "../../src/components/TaskList.stories";
 
-it('renders pinned tasks at the start of the list', () => {
-  const div = document.createElement('div');
-  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div);
+it("renders pinned tasks at the start of the list", () => {
+  const Constructor = Vue.extend(TaskList);
+  const vm = new Constructor({
+    propsData: { tasks: withPinnedTasks }
+  }).$mount();
+  const lastTaskInput = vm.$el.querySelector(
+    ".list-item:nth-child(1).TASK_PINNED"
+  );
 
-  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
+  // We expect the pinned task to be rendered first, not at the end
   expect(lastTaskInput).not.toBe(null);
-
-  ReactDOM.unmountComponentAtNode(div);
-});
 ```
 
 ![TaskList test runner](/tasklist-testrunner.png)
 
 Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
