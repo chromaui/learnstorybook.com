@@ -2,7 +2,7 @@
 title: "Get started"
 tocTitle: "Get started"
 description: "Setup Vue Storybook in your development environment"
-commit: 30939d5
+commit: d1c4858
 ---
 
 # Get started

@@ -2,7 +2,7 @@
 title: "Assemble a composite component"
 tocTitle: "Composite component"
 description: "Assemble a composite component out of simpler components"
-commit: 0bf3c0e
+commit: c72f06f
 ---
 
 # Assemble a composite component
@@ -238,18 +238,16 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
-import Vue from "vue";
-import TaskList from "../../src/components/TaskList.vue";
-import { withPinnedTasks } from "../../src/components/TaskList.stories";
+import Vue from 'vue';
+import TaskList from '../../src/components/TaskList.vue';
+import { withPinnedTasks } from '../../src/components/TaskList.stories';
 
-it("renders pinned tasks at the start of the list", () => {
+it('renders pinned tasks at the start of the list', () => {
   const Constructor = Vue.extend(TaskList);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasks }
+    propsData: { tasks: withPinnedTasks },
   }).$mount();
-  const lastTaskInput = vm.$el.querySelector(
-    ".list-item:nth-child(1).TASK_PINNED"
-  );
+  const lastTaskInput = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
   // We expect the pinned task to be rendered first, not at the end
   expect(lastTaskInput).not.toBe(null);
