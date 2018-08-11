@@ -6,7 +6,7 @@ import loadLanguages from "prismjs/components/index.js";
 
 import "prismjs/themes/prism.css";
 
-loadLanguages(["bash"]);
+loadLanguages(["bash", "json"]);
 
 class Highlight extends React.Component {
   componentDidMount() {
