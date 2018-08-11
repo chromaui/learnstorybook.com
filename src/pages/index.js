@@ -224,14 +224,7 @@ const Chapters = styled.ol`
   counter-reset: counter;
 `;
 
-export default ({
-  data: {
-    site: {
-      siteMetadata: { toc, defaultTranslation },
-    },
-    pages,
-  },
-}) => {
+export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, pages } }) => {
   const defaultPages = {
     edges: pages.edges.filter(e => e.node.fields.slug.match(defaultTranslation)),
   };
@@ -273,14 +266,6 @@ export default ({
                 </Button>
               </Link>
             </Actions>
-            <ActionHeading>Vue</ActionHeading>
-            <Actions>
-              <Link href="https://github.com/hichroma/learnstorybook.com/issues/1" target="_blank">
-                <Button inverse>
-                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />In progress
-                </Button>
-              </Link>
-            </Actions>
             <ActionHeading>Angular</ActionHeading>
             <Actions>
               <Link isGatsby to={`/angular/en/${firstChapter}`}>
@@ -291,6 +276,14 @@ export default ({
               <Link isGatsby to={`/angular/es/${firstChapter}`}>
                 <Button inverse>
                   <ViewLayerImage src="/logo-angular.svg" alt="Angular" />Español
+                </Button>
+              </Link>
+            </Actions>
+            <ActionHeading>Vue</ActionHeading>
+            <Actions>
+              <Link isGatsby to={`/vue/en/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />English
                 </Button>
               </Link>
             </Actions>
