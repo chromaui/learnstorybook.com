@@ -21,7 +21,7 @@ Para desplegar Storybook primero necesitamos exportarlo como una aplicación web
 ```javascript
 {
   "scripts": {
-    "storybook": "build-storybook -c .storybook -o .storybook-static"
+    "storybook": "build-storybook -c .storybook"
   }
 }
 ```
@@ -40,7 +40,7 @@ Primero debes configurar Git para tu proyecto en el directorio local. Si estás 
 $ git init
 ```
 
-Agrega archivos al primer commit. 
+Agrega archivos al primer commit.
 
 ```bash
 $ git add .
@@ -76,7 +76,7 @@ Netlify tiene incorporado un servicio de despliegue continuo que nos permitirá 
 Si usas CI en tu empresa, añade un script de implementación a tu configuración que suba <code>storybook-static</code> a un servicio de alojamiento de estáticos como S3.
 </div>
 
-[Crear una cuenta en Netlify](https://app.netlify.com/start) y click en “crear sitio”.
+[Crea una cuenta en Netlify](https://app.netlify.com/start) y da click en “crear sitio”.
 
 ![Crear sitio en Netlify](/netlify-create-site.png)
 
@@ -86,11 +86,11 @@ Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
 
 ![Conectar un repositorio en Netlify](/netlify-account-picker.png)
 
-Configure Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `master`. El directorio es `storybook-static`. Corra el comando `yarn build-storybook`.
+Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `master`. El directorio es `storybook-static`. Ejecuta el comando `yarn build-storybook`.
 
 ![Ajustes Netlify](/netlify-settings.png)
 
-Envíe el formulario para construir e implementar el código en la rama `master` del taskbox.
+Ahora envía el formulario para construir e implementar el código en la rama `master` del taskbox.
 
 Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
 
@@ -98,4 +98,4 @@ Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace
 
 Terminamos de configurar el despliegue continuo de tu Storybook! Ahora podemos compartir nuestras historias con nuestros compañeros de equipo a través de un enlace.
 
-Esto es útil para la revisión visual como parte del proceso de desarrollo de aplicaciones estándar o simplemente para mostrar nuestro trabajo.💅
+Esto es útil para la revisión visual como parte del proceso de desarrollo de aplicaciones estándar o simplemente para mostrar nuestro trabajo💅.

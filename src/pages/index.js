@@ -224,7 +224,14 @@ const Chapters = styled.ol`
   counter-reset: counter;
 `;
 
-export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, pages } }) => {
+export default ({
+  data: {
+    site: {
+      siteMetadata: { toc, defaultTranslation },
+    },
+    pages,
+  },
+}) => {
   const defaultPages = {
     edges: pages.edges.filter(e => e.node.fields.slug.match(defaultTranslation)),
   };
@@ -255,12 +262,35 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
                   <ViewLayerImage src="/logo-react.svg" alt="React" />Español
                 </Button>
               </Link>
+              <Link isGatsby to={`/react/zh-CN/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />简体中文
+                </Button>
+              </Link>
+              <Link isGatsby to={`/react/zh-TW/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />繁體中文
+                </Button>
+              </Link>
             </Actions>
             <ActionHeading>Vue</ActionHeading>
             <Actions>
               <Link href="https://github.com/hichroma/learnstorybook.com/issues/1" target="_blank">
                 <Button inverse>
                   <ViewLayerImage src="/logo-vue.svg" alt="Vue" />In progress
+                </Button>
+              </Link>
+            </Actions>
+            <ActionHeading>Angular</ActionHeading>
+            <Actions>
+              <Link isGatsby to={`/angular/en/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />English
+                </Button>
+              </Link>
+              <Link isGatsby to={`/angular/es/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />Español
                 </Button>
               </Link>
             </Actions>

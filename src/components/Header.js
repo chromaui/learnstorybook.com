@@ -188,6 +188,20 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                           >
                             Español
                           </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/zh-CN/${firstChapter}/`}
+                          >
+                            简体中文
+                          </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/zh-TW/${firstChapter}/`}
+                          >
+                            繁體中文
+                          </LanguageLink>
                         </Detail>
                       </Meta>
                     </TooltipItem>
@@ -213,8 +227,19 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                       <Meta>
                         <Title>Angular</Title>
                         <Detail>
-                          <LanguageLink className="tertiary" isGatsby to="/react/en/contribute">
-                            Contributors wanted
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/angular/en/${firstChapter}/`}
+                          >
+                            English
+                          </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/angular/es/${firstChapter}/`}
+                          >
+                            Español
                           </LanguageLink>
                         </Detail>
                       </Meta>

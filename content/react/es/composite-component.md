@@ -222,7 +222,7 @@ Sin embargo, a veces el diablo está en los detalles. Se necesita un framework d
 
 En nuestro caso, queremos que nuestra `TaskList` muestre cualquier tarea anclada **antes de** las tareas no ancladas que sean pasadas en la prop `tasks`. Aunque tenemos una historia (`withPinnedTasks`) para probar este escenario exacto; puede ser ambiguo para un revisor humano que si el componente **no** ordena las tareas de esta manera, es un error. Ciertamente no gritará **"¡Mal!"** para el ojo casual.
 
-Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes de la salida.
+Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes del resultado.
 
 Crea un archivo de prueba llamado `Task.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
@@ -249,4 +249,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 Nota que hemos sido capaces de reutilizar la lista de tareas `withPinnedTasks` tanto en la prueba de la historia como en el test unitario; de esta manera podemos continuar aprovechando un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de más y más maneras.
 
-Note también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de la `Tarea` cambie --quizás usando un nombre de clase diferente o un "área de texto" en lugar de un "input" en el etiquetado-- la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales, de instantáneas y de regresión visual (mira el [capitulo sobre las pruebas](/test/)) siempre que te sea posible.
+Note también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de la `Tarea` cambie --quizás usando un nombre de clase diferente o un "área de texto" en lugar de un "input" en el etiquetado-- la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales, de instantáneas y de regresión visual (mira el [capitulo sobre las pruebas](/test/)) siempre que te sea posible.

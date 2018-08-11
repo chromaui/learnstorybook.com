@@ -27,16 +27,18 @@ const TemplateWrapper = ({
   children,
 }) => (
   <Fragment>
-    <Helmet title={title} meta={[{ name: 'description', content: description }]}>
+    <Helmet>
       <link
         rel="shortcut icon"
         type="image/png"
         href="/icon-learnstorybook.png"
         sizes="16x16 32x32 64x64"
       />
+      <title>{title}</title>
+      <meta name="description" content={description} />
 
-      <meta property="og:image" content="/opengraph-cover.jpg" />
-      <meta name="twitter:image" content="/opengraph-cover.jpg" />
+      <meta property="og:image" content="https://www.learnstorybook.com/opengraph-cover.jpg" />
+      <meta name="twitter:image" content="https://www.learnstorybook.com/opengraph-cover.jpg" />
       <meta property="og:url" content={permalink} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />

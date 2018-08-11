@@ -29,7 +29,7 @@ Las pruebas de regresión visual están diseñadas para detectar cambios en la a
 
 Storybook es una herramienta fantástica para las pruebas de regresión visual porque cada historia es esencialmente una especificación del test. Cada vez que escribimos o actualizamos una historia recibimos una especificación gratis!
 
-Existen varias herramientas para la prueba de regresión visual. Para equipos profesionales recomendamos [**Chromatic**](https://www.chromaticqa.com/), un addon hecho por las personas de Storybook que ejecuta pruebas en la nube.
+Existen varias herramientas para la prueba de regresión visual. Para equipos profesionales recomendamos [**Chromatic**](https://www.chromaticqa.com/), un complemento hecho por las personas de Storybook que ejecuta pruebas en la nube.
 
 ## Configurar pruebas de regresión visual
 
@@ -37,7 +37,7 @@ Chromatic es un complemento de Storybook para pruebas de regresión visual y rev
 
 ### Iniciando Git
 
-Primero tienes configurar Git para tu proyecto en el directorio local. Chromatic usa el historial de Git para hacer un seguimiento de los componentes de tu interfaz de usuario.
+Primero tienes que configurar Git para tu proyecto en el directorio local. Chromatic usa el historial de Git para hacer un seguimiento de los componentes de tu interfaz de usuario.
 
 ```bash
 $ git init
@@ -60,14 +60,14 @@ $ git commit -m "taskbox UI"
 Agregando el paquete como una dependencia.
 
 ```bash
-yarn add react-chromatic
+yarn add storybook-chromatic
 ```
 
 Importa Chromatic en tu archivo `.storybook/config.js`.
 
 ```javascript
 import { configure } from '@storybook/react';
-import 'react-chromatic/storybook-addon';
+import 'storybook-chromatic/storybook-addon';
 
 import '../src/index.css';
 
@@ -80,7 +80,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Entonces [logueate en Chromatic](https://bit.ly/2Is93Ez) con tú cuenta de GitHub (Chromatic solo te pedirá algunos permisos simples). Crea un proyecto con nombre "taskbox" y copia tu `app-code` único.
+Ahora [logueate en Chromatic](https://chromaticqa.com/start) con tú cuenta de GitHub (Chromatic solo te pedirá algunos permisos simples). Crea un proyecto con nombre "taskbox" y copia tu `app-code` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
