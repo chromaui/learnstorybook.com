@@ -76,7 +76,7 @@ yarn serve
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
 
-![3 modalities](/app-three-modalities.png)
+![3 modalities](/app-three-modalities-vue.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 
