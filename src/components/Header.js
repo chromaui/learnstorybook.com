@@ -100,7 +100,7 @@ const TooltipItem = styled.div`
   flex-direction: row;
   align-items: flex-start;
 
-  padding: 15px 15px;
+  padding: 15px 15px 5px;
 
   &:not(:first-child) {
     border-top: 1px solid ${color.mediumlight};
@@ -130,6 +130,7 @@ const Detail = styled.div`
 const LanguageLink = styled(Link)`
   text-decoration: underline;
   margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 const GitHubWrapper = styled.div`
@@ -205,23 +206,7 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                         </Detail>
                       </Meta>
                     </TooltipItem>
-                    <TooltipItem>
-                      <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
-                      <Meta>
-                        <Title>Vue</Title>
-                        <Detail>
-                          {/* <LanguageLink className="tertiary" isGatsby to={`/vue/en/${firstChapter}/`}>
-                          English
-                        </LanguageLink> */}
-                          <LanguageLink
-                            className="tertiary"
-                            href="https://github.com/hichroma/learnstorybook.com/issues/1"
-                          >
-                            In progress
-                          </LanguageLink>
-                        </Detail>
-                      </Meta>
-                    </TooltipItem>
+
                     <TooltipItem>
                       <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
                       <Meta>
@@ -240,6 +225,21 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                             to={`/angular/es/${firstChapter}/`}
                           >
                             Español
+                          </LanguageLink>
+                        </Detail>
+                      </Meta>
+                    </TooltipItem>
+                    <TooltipItem>
+                      <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
+                      <Meta>
+                        <Title>Vue</Title>
+                        <Detail>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/vue/en/${firstChapter}/`}
+                          >
+                            English
                           </LanguageLink>
                         </Detail>
                       </Meta>

@@ -2,12 +2,12 @@
 title: "Get started"
 tocTitle: "Get started"
 description: "Setup React Storybook in your development environment"
-commit: 30939d5
+commit: a439924
 ---
 
 # Get started
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions for Vue and Angular are coming soon.
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [Vue](/vue/en/get-started) and [Angular](/angular/en/getstarted).
 
 ![Storybook and your app](/storybook-relationship.jpg)
 
@@ -36,6 +36,7 @@ yarn run storybook
 # Run the frontend app proper on port 3000:
 yarn start
 ```
+
 <div class="aside">
   NOTE: If <code>yarn test</code> throws an error, you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
 </div>
