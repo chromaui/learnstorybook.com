@@ -100,7 +100,7 @@ const TooltipItem = styled.div`
   flex-direction: row;
   align-items: flex-start;
 
-  padding: 15px 15px;
+  padding: 15px 15px 5px;
 
   &:not(:first-child) {
     border-top: 1px solid ${color.mediumlight};
@@ -130,6 +130,7 @@ const Detail = styled.div`
 const LanguageLink = styled(Link)`
   text-decoration: underline;
   margin-right: 10px;
+  margin-bottom: 10px;
 `;
 
 const GitHubWrapper = styled.div`
