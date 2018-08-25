@@ -74,7 +74,7 @@ Next create `Tasklist`’s test states in the story file.
 import { storiesOf } from '@storybook/vue';
 import { task } from './Task.stories';
 
-import PureTaskList from './PureTaskList';
+import TaskList from './TaskList';
 import { methods } from './Task.stories';
 
 export const defaultTaskList = [
