@@ -86,21 +86,47 @@ As documented [here](https://github.com/storybooks/storybook/tree/master/addons/
 
 Not only does your Storybook instance serve as a wonderful [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
 
-## Find Edge-Cases
+## Using Knobs To Find Edge-Cases
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventating UI Engineers can now push their component to the limit! As an example, what happens to `Task` if our list item has *MASSIVE* string? [I hope it doesn't bre-](/addon-knobs-demo-edge-case.png) (NOTE: The far right content is cut-off).
+Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has _MASSIVE_ string? [Oh no!](/addon-knobs-demo-edge-case.png) 😥 (NOTE: The far right content is cut-off).
 
-Now that we know how that edge case behaves, you can decide how to handle it:
+Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
 
-*Options*:
+```javascript
+// This is the input for our task title. In practice we would probably update the styles for this element
+// but for this tutorial, let's fix the problem with an inline style:
+<input
+  type="text"
+  value={title}
+  readOnly={true}
+  placeholder="Input title"
+  style={{ 'text-overflow': 'ellipsis' }}
+/>
+```
 
-- Leave it alone - business requirements don't dictate the need to handle massively large task names.
+[That's better.](/addon-knobs-demo-edge-case-resolved.png) 👍
 
-- Add `text-overflow: ellipsis;` to the `.list-item input[type="text"]` stylesheet and indicate the presence of hidden text to a user.
+## Adding A New Story To Avoid Regressions
 
-- Remove the height constaint from a `Task` component, and let text overflow vertically.
+Of course we can always reproduce this problem by entering the same input into the knobs, but it's better to write a fixed story for this input. This will increase your regression testing and clearly outline the limits of the component(s) to the rest of your team.
 
-- Many more options...
+Let's add a story for the long text case in Task.stories.js:
+
+```javascript
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+
+storiesOf('Task', module)
+  .add('default', () => <Task task={task} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />)
+  .add('long title', () => <Task task={{ ...task, title: longTitle }} {...actions} />);
+```
+
+Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
+
+[Here it is in Storybook.](/addon-knobs-demo-edge-case-in-storybook.png)
+
+Of course if we are using [visual regression testing](/test) we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ## Improve Regression Testing
 
@@ -111,3 +137,7 @@ storybook audience.
 ### Merge Changes
 
 Don't forget to merge your changes with git!
+
+## Sharing Addons With The Team
+
+Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
