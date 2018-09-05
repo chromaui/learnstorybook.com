@@ -89,7 +89,7 @@ Not only does your Storybook instance serve as a wonderful [CDD environment](htt
 
 ## Using Knobs To Find Edge-Cases
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has _MASSIVE_ string? [Oh no!](/addon-knobs-demo-edge-case.png) 😥 (NOTE: The far right content is cut-off).
+Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string? [Oh no! The far right content is cut-off!](/addon-knobs-demo-edge-case.png) 😥
 
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
 
@@ -127,7 +127,7 @@ Now we've added the story, we can reproduce this edge-case with ease whenever we
 
 [Here it is in Storybook.](/addon-knobs-demo-edge-case-in-storybook.png)
 
-Of course if we are using [visual regression testing](/test) we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are using [visual regression testing](/test), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ### Merge Changes
 
