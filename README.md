@@ -51,4 +51,5 @@ Install packages and run with `yarn develop`.
 * [Daniel Duan](https://twitter.com/danduan)
 * [Carlos Vega](https://twitter.com/__el_Negro)
 * [Matt Rothenberg](https://twitter.com/mattrothenberg)
+* [Kyle Holmberg](https://twitter.com/kylemh_)
 * You? [Become an OSS contributor](https://www.learnstorybook.com/contribute/)
