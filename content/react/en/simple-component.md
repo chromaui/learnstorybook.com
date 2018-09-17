@@ -226,13 +226,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-We also need to make a small tweak to our `jest.config.js`, adding the line:
-
-```js
-  transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
-```
-
-Once the above is done, we can run `yarn test:unit` and see the following output:
+Once the above is done, we can run `yarn test` and see the following output:
 
 ![Task test runner](/task-testrunner.png)
 
