@@ -71,7 +71,7 @@ yarn serve
 ```
 
 <div class="aside">
-  NOTE: If <code>yarn test</code> throws an error, you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
+  NOTE: If <code>yarn test</code> throws an error, you may not have <a href="https://yarnpkg.com/lang/en/docs/install/">yarn installed</a> or you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
 </div>
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
