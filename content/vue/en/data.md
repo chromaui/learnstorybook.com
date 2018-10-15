@@ -2,7 +2,7 @@
 title: "Wire in data"
 tocTitle: "Data"
 description: "Learn how to wire in data to your UI component"
-commit: 660b02e
+commit: 28bc240
 ---
 
 # Wire in data
@@ -83,7 +83,23 @@ export default {
 </script>
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList` (renaming the component to `pure-task-list`), and wrap it with a container in `src/containers/TaskList.vue`:
+Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `pure-task-list`), and wrap it with a container.
+
+In `src/containers/PureTaskList.vue`:
+
+```html
+/* This file moved from TaskList.vue */
+<template>/* as before */
+
+<script>
+import Task from "@/components/Task";
+export default {
+  name: "pure-task-list",
+  ...
+}
+```
+
+In `src/containers/TaskList.vue`:
 
 ```html
 <template>
@@ -177,14 +193,18 @@ storiesOf('PureTaskList', module)
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { PureTaskList } from './TaskList';
+import Vue from 'vue';
+import PureTaskList from '../../src/components/PureTaskList.vue';
+import { withPinnedTasks } from '../../src/components/PureTaskList.stories';
 
-it('renders when empty', () => {
-  const div = document.createElement('div');
-  const events = { onSnoozeTask: jest.fn(), onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<PureTaskList tasks={[]} {...events} />, div);
-  ReactDOM.unmountComponentAtNode(div);
+it('renders pinned tasks at the start of the list', () => {
+  const Constructor = Vue.extend(PureTaskList);
+  const vm = new Constructor({
+    propsData: { tasks: withPinnedTasks },
+  }).$mount();
+  const lastTaskInput = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
+
+  // We expect the pinned task to be rendered first, not at the end
+  expect(lastTaskInput).not.toBe(null);
 });
 ```
