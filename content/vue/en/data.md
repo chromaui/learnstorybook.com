@@ -85,7 +85,7 @@ export default {
 
 Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `pure-task-list`), and wrap it with a container.
 
-In `src/containers/PureTaskList.vue`:
+In `src/components/PureTaskList.vue`:
 
 ```html
 /* This file moved from TaskList.vue */
