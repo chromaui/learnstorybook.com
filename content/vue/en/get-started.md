@@ -13,7 +13,7 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 
 ## Setup Vue Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to the [Vue CLI](https://cli.vuejs.org) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use the [Vue CLI](https://cli.vuejs.org) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
 
 ```bash
 # Create our application, using a preset that contains jest:
