@@ -222,20 +222,32 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor
+yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
 ```
 
 Then create an `tests/unit/storybook.spec.js` file with the following in it:
 
 ```javascript
+import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
 import initStoryshots from '@storybook/addon-storyshots';
+
+registerRequireContextHook();
 initStoryshots();
 ```
 
-We also need to add a line to our `jest.config.js`:
+We need to add a line to our `jest.config.js`:
 
 ```js
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+```
+
+Finally, we need to make a tweak to our `babel.config.js`:
+
+```js
+module.exports = api => ({
+  presets: ['@vue/app'],
+  ...(api.env('test') && { plugins: ['require-context-hook'] }),
+});
 ```
 
 Once the above is done, we can run `yarn test:unit` and see the following output:
