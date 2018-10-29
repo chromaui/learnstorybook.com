@@ -22,7 +22,7 @@ npx create-react-app taskbox
 cd taskbox
 
 # 加入 Storybook:
-npx -p @storybook/cli getstorybook
+npx -p @storybook/cli sb init
 ```
 
 我們可以快速檢查,我們的應用程式的各種命令是否正常工作:

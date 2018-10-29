@@ -35,18 +35,12 @@ There are a number of tools for visual regression testing. For professional team
 
 Chromatic is a hassle-free Storybook addon for visual regression testing and review in the cloud. Since it’s a paid service (with a free trial), it may not be for everyone. However, Chromatic is an instructive example of a production visual testing workflow that we'll try out for free. Let’s have a look.
 
-### Initiate Git
+### Bring git up to date
 
-First you want to setup Git for your project in the local directory. Chromatic uses Git history to keep track of your UI components.
-
-```bash
-$ git init
-```
-
-Next add files to the first commit.
+Create React App has created a git repo for your project; let's check in the changes we have made:
 
 ```bash
-$ git add .
+$ git add -A
 ```
 
 Now commit the files.
@@ -92,7 +86,7 @@ Then [login to Chromatic](https://chromaticqa.com/start) with your GitHub accoun
 Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code> --do-not-start
 ```
 
 <div class="aside">
