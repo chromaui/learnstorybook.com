@@ -35,7 +35,7 @@ You'll build Taskbox UI as part of the tutorial. Find the finished code below wi
 
 ## Who made LearnStorybook.com?
 
-The text, code, and production were contributed by [Chroma](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)
+The text, code, and production were contributed by [Chroma](https://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)
 
 ## Develop
 
