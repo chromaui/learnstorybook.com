@@ -13,7 +13,7 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 
 ## Setup Vue Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to the [Vue CLI](https://cli.vuejs.org) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use the [Vue CLI](https://cli.vuejs.org) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
 
 ```bash
 # Create our application, using a preset that contains jest:
@@ -21,40 +21,7 @@ npx -p @vue/cli vue create --preset hichroma/vue-preset-learnstorybook taskbox
 cd taskbox
 
 # Add Storybook:
-npx -p @storybook/cli getstorybook
-```
-
-### Make some adjustments
-
-We need to make a couple of small adjustments to storybook's config to ensure that it works well with our Vue CLI application. First, let's merge the `babel.config.js` that Vue CLI created with the `.babelrc` that storybook created. We'll remove the `babel.config.js` and change `.babelrc` to:
-
-```json
-{
-  "presets": ["@vue/app"]
-}
-```
-
-Also, we'll add a `.storybook/webpack.config.js` to ensure that Storybook understands a couple of Vue webpack conventions:
-
-```js
-const VueLoaderPlugin = require('vue-loader/lib/plugin');
-const path = require('path');
-
-module.exports = (storybookBaseConfig, configType) => {
-  storybookBaseConfig.plugins.push(new VueLoaderPlugin());
-  storybookBaseConfig.module.rules.push({
-    test: /\.css$/,
-    use: ['vue-style-loader', 'css-loader'],
-  });
-  storybookBaseConfig.resolve = {
-    extensions: ['.js', '.vue', '.json'],
-    alias: {
-      vue$: 'vue/dist/vue.esm.js',
-      '@': path.join(__dirname, '..', 'src'),
-    },
-  };
-  return storybookBaseConfig;
-};
+npx -p @storybook/cli sb init
 ```
 
 We can quickly check that the various environments of our application are working properly:
@@ -71,7 +38,7 @@ yarn serve
 ```
 
 <div class="aside">
-  NOTE: If <code>yarn test</code> throws an error, you may not have <a href="https://yarnpkg.com/lang/en/docs/install/">yarn installed</a> or you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
+  NOTE: If <code>yarn test:unit</code> throws an error, you may not have <a href="https://yarnpkg.com/lang/en/docs/install/">yarn installed</a> or you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
 </div>
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
@@ -82,7 +49,7 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply compile the LESS to a single CSS file and include it in our app. Copy and paste [this compiled CSS](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) into the src/index.css file per CRA’s convention.
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply compile the LESS to a single CSS file and include it in our app. Copy and paste [this compiled CSS](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) into the src/index.css file.
 
 ![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
 

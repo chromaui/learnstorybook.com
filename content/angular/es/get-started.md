@@ -21,7 +21,7 @@ npx ng new taskbox --style less
 cd taskbox
 
 # Añade Storybook:
-npx -p @storybook/cli getstorybook
+npx -p @storybook/cli sb init
 ```
 
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:

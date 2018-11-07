@@ -4,11 +4,12 @@ Learn Storybook teaches you Storybook by building a UI from scratch. We walk thr
 
 ## Contribute
 
-Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/hichroma/learnstorybook.com/issues) for discussion.
+Contributions to Lear
+n Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion.
 
-You'll find the chapters in the [`/content`](https://github.com/hichroma/learnstorybook.com/tree/master/content) directory.
+You'll find the chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory.
 
-We need help translating Learn Storybook to new languages. [Find out more »](https://github.com/hichroma/learnstorybook.com/issues/3)
+We need help translating Learn Storybook to new languages. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3)
 Traditional Chinese translation is converted from Simplified Chinese using [OpenCC](https://github.com/BYVoid/OpenCC). Please help us correct any idiomatic errors.
 
 If you want to add a new chapter, create an identically named file in `content/react/en` and in `content/react/es`. If you are unable to write in one of the required languages, simply add
@@ -27,15 +28,15 @@ to that localized file, and a translator will assist in finishing out the PR whe
 
 ## Example app code
 
-![Taskbox UI](https://raw.githubusercontent.com/hichroma/learnstorybook.com/master/static/ss-browserchrome-taskbox-learnstorybook.png)
+![Taskbox UI](https://raw.githubusercontent.com/chromaui/learnstorybook.com/master/static/ss-browserchrome-taskbox-learnstorybook.png)
 
 You'll build Taskbox UI as part of the tutorial. Find the finished code below with commits synced to the chapters.
 
-[📕 **GitHub repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
+[📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 
 ## Who made LearnStorybook.com?
 
-The text, code, and production were contributed by [Chroma](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)
+The text, code, and production were contributed by [Chroma](https://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)
 
 ## Develop
 

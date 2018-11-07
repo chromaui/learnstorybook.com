@@ -207,6 +207,10 @@ Storybook gave us a great way to visually test our application during constructi
 
 ### Snapshot testing
 
+<div class="aside">
+⚠️ Storyshots (storybook's snapshot testing addon) doesn't currently work with Create React App as it requires a custom Babel config for testing. We are currently working on a fix.
+</div>
+
 Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
 
 <div class="aside">

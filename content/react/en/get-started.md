@@ -21,7 +21,7 @@ npx create-react-app taskbox
 cd taskbox
 
 # Add Storybook:
-npx -p @storybook/cli getstorybook
+npx -p @storybook/cli sb init
 ```
 
 We can quickly check that the various environments of our application are working properly:
