@@ -4,8 +4,7 @@ Learn Storybook teaches you Storybook by building a UI from scratch. We walk thr
 
 ## Contribute
 
-Contributions to Lear
-n Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion.
+Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion.
 
 You'll find the chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory.
 
