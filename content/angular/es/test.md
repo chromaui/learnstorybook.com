@@ -80,7 +80,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Ahora [logueate en Chromatic](https://chromaticqa.com/start) con tu cuenta de GitHub (Chromatic solo te pedirá algunos permisos básicos). Crea un proyecto con nombre "taskbox" y copia tu `app-code` único.
+Ahora [logueate en Chromatic](https://www.chromaticqa.com/start) con tu cuenta de GitHub (Chromatic solo te pedirá algunos permisos básicos). Crea un proyecto con nombre "taskbox" y copia tu `app-code` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source

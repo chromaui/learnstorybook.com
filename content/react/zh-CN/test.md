@@ -79,7 +79,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-然后[登录Chromatic](https://chromaticqa.com/start)使用您的GitHub帐户 (Chromatic仅要求轻量级权限) . 创建名为"taskbox"的项目并复制您的唯一项目`app-code`. 
+然后[登录Chromatic](https://www.chromaticqa.com/start)使用您的GitHub帐户 (Chromatic仅要求轻量级权限) . 创建名为"taskbox"的项目并复制您的唯一项目`app-code`. 
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source

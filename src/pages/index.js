@@ -300,7 +300,7 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
           <p>
             Learn Storybook aims to teach tried-and-true patterns for component development using
             Storybook. You&rsquo;ll walk through essential UI component techniques while building a
-            UI from scratch in React (Vue and Angular coming soon).
+            UI from scratch in React, Vue, or Angular.
           </p>
           <p>
             The info here is sourced from professional teams, core maintainers, and the awesome
