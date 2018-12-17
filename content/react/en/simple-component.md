@@ -207,10 +207,6 @@ Storybook gave us a great way to visually test our application during constructi
 
 ### Snapshot testing
 
-<div class="aside">
-⚠️ Storyshots (storybook's snapshot testing addon) doesn't currently work with Create React App as it requires a custom Babel config for testing. We are currently working on a fix.
-</div>
-
 Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
 
 <div class="aside">
@@ -220,7 +216,7 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots react-test-renderer
+yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.macro
 ```
 
 Then create an `src/storybook.test.js` file with the following in it:
@@ -229,6 +225,26 @@ Then create an `src/storybook.test.js` file with the following in it:
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
+
+You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Update `.storybook/config.js` to have:
+
+```js
+import { configure } from '@storybook/react';
+import 'react-chromatic/storybook-addon';
+import requireContext from 'require-context.macro';
+
+import '../src/index.css';
+
+const req = requireContext('../src/components', true, /\.stories\.js$/);
+
+function loadStories() {
+  req.keys().forEach(filename => req(filename));
+}
+
+configure(loadStories, module);
+```
+
+(Notice we've replaced `require.context` with a call to `requireContext` required from the macro).
 
 Once the above is done, we can run `yarn test` and see the following output:
 
