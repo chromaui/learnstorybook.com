@@ -244,7 +244,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-(Notice we've replaced `require.context` with a call to `requireContext` required from the macro).
+(Notice we've replaced `require.context` with a call to `requireContext` imported from the macro).
 
 Once the above is done, we can run `yarn test` and see the following output:
 
