@@ -67,7 +67,7 @@ Importa Chromatic en tu archivo `.storybook/config.js`.
 
 ```javascript
 import { configure } from '@storybook/react';
-import 'storybook-chromatic/storybook-addon';
+import 'storybook-chromatic';
 
 import '../src/index.css';
 

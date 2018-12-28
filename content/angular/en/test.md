@@ -67,7 +67,7 @@ Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
 import { configure } from '@storybook/angular';
-import 'storybook-chromatic/storybook-addon';
+import 'storybook-chromatic';
 import '../src/styles.less';
 
 // automatically import all files ending in *.stories.ts
