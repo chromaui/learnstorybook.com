@@ -230,7 +230,6 @@ You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plug
 
 ```js
 import { configure } from '@storybook/react';
-import 'react-chromatic/storybook-addon';
 import requireContext from 'require-context.macro';
 
 import '../src/index.css';
