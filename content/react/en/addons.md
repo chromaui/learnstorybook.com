@@ -8,7 +8,7 @@ commit: "f4d933"
 # Addons
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/test).
+everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](test).
 
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
