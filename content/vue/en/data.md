@@ -124,7 +124,7 @@ export default {
 </script>
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. We can ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
 import { storiesOf } from '@storybook/vue';

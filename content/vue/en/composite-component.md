@@ -133,7 +133,7 @@ storiesOf('TaskList', module)
 <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to add other context to components, as we'll see later.
 </div>
 
-`task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actions` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `methods` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -153,11 +153,11 @@ Our component is still rough but now we have an idea of the stories to work towa
   <div>
     <div v-if="loading">
       <div class="loading-item" v-for="(n, index) in 5" :key="index">
-      <span class="glow-checkbox" />
-      <span class="glow-text">
-        <span>Loading</span> <span>cool</span> <span>state</span>
-      </span>
-    </div>
+        <span class="glow-checkbox" />
+        <span class="glow-text">
+          <span>Loading</span> <span>cool</span> <span>state</span>
+        </span>
+      </div>
     </div>
     <div class="list-items" v-if="noTasks && !this.loading">
       <div class="wrapper-message">
