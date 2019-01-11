@@ -21,7 +21,7 @@ To deploy Storybook we first need to export it as a static web app. This functio
 ```javascript
 {
   "scripts": {
-    "storybook": "build-storybook -c .storybook -o .storybook-static"
+    "build-storybook": "build-storybook -c .storybook -s public -o storybook-static"
   }
 }
 ```
