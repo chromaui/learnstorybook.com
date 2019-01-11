@@ -79,7 +79,7 @@ export default {
 </script>
 ```
 
-We also change the `App` component to render the `InboxScreen` component (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```html
 <template>
