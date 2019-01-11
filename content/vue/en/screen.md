@@ -37,7 +37,7 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 </template>
 
 <script>
-import TaskList from "@/containers/TaskList.vue";
+import TaskList from "./TaskList.vue";
 
 export default {
   name: "pure-inbox-screen",
@@ -64,7 +64,7 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 </template>
 
 <script>
-import PureInboxScreen from "@/components/PureInboxScreen";
+import PureInboxScreen from "./PureInboxScreen";
 import { mapState } from "vuex";
 
 export default {
@@ -90,7 +90,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 
 <script>
 import store from "./store";
-import InboxScreen from "@/containers/InboxScreen.vue";
+import InboxScreen from "./components/InboxScreen.vue";
 import "../src/index.css";
 
 export default {

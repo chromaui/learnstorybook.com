@@ -38,7 +38,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 </template>
 
 <script>
-import Task from "@/components/Task";
+import Task from "./Task";
 export default {
   name: "task-list",
   props: {
@@ -151,11 +151,13 @@ Our component is still rough but now we have an idea of the stories to work towa
 ```html
 <template>
   <div>
-    <div class="loading-item" v-if="loading" v-for="(n, index) in 5" :key="index">
+    <div v-if="loading">
+      <div class="loading-item" v-for="(n, index) in 5" :key="index">
       <span class="glow-checkbox" />
       <span class="glow-text">
         <span>Loading</span> <span>cool</span> <span>state</span>
       </span>
+    </div>
     </div>
     <div class="list-items" v-if="noTasks && !this.loading">
       <div class="wrapper-message">
@@ -172,7 +174,7 @@ Our component is still rough but now we have an idea of the stories to work towa
 </template>
 
 <script>
-import Task from "@/components/Task";
+import Task from "./Task";
 export default {
   name: "task-list",
   props: {
