@@ -265,6 +265,11 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
                   <ViewLayerImage src="/logo-react.svg" alt="React" />繁體中文
                 </Button>
               </Link>
+              <Link isGatsby to={`react/pt/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />Português
+                </Button>
+              </Link>
             </Actions>
             <ActionHeading>Angular</ActionHeading>
             <Actions>
