@@ -70,7 +70,7 @@ In our top-level app component (`src/App.vue`) we can wire the store into our co
 
 <script>
 import store from "./store";
-import TaskList from "./containers/TaskList.vue";
+import TaskList from "./components/TaskList.vue";
 import "../src/index.css";
 
 export default {
@@ -85,21 +85,21 @@ export default {
 
 Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `pure-task-list`), and wrap it with a container.
 
-In `src/containers/PureTaskList.vue`:
+In `src/components/PureTaskList.vue`:
 
 ```html
 /* This file moved from TaskList.vue */
 <template>/* as before */
 
 <script>
-import Task from "@/components/Task";
+import Task from "./Task";
 export default {
   name: "pure-task-list",
   ...
 }
 ```
 
-In `src/containers/TaskList.vue`:
+In `src/components/TaskList.vue`:
 
 ```html
 <template>
@@ -109,7 +109,7 @@ In `src/containers/TaskList.vue`:
 </template>
 
 <script>
-import PureTaskList from "@/components/PureTaskList";
+import PureTaskList from "./PureTaskList";
 import { mapState } from "vuex";
 
 export default {
@@ -124,7 +124,7 @@ export default {
 </script>
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. We can ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
 import { storiesOf } from '@storybook/vue';

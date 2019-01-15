@@ -39,8 +39,10 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 export default {
   name: "task",
   props: {
-    task: Object,
-    required: true
+    task: {
+      type: Object,
+      required: true
+    }
   }
 };
 </script>
@@ -177,8 +179,10 @@ The component is still basic at the moment. First write the code that achieves t
 export default {
   name: "task",
   props: {
-    task: Object,
-    required: true
+    task: {
+      type: Object,
+      required: true
+    }
   },
   computed: {
     taskClass() {
@@ -225,7 +229,7 @@ With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/
 yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
 ```
 
-Then create an `tests/unit/storybook.spec.js` file with the following in it:
+Then create a `tests/unit/storybook.spec.js` file with the following in it:
 
 ```javascript
 import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
