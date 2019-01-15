@@ -265,6 +265,11 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
                   <ViewLayerImage src="/logo-react.svg" alt="React" />繁體中文
                 </Button>
               </Link>
+              <Link isGatsby to={`react/pt/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />Português
+                </Button>
+              </Link>
             </Actions>
             <ActionHeading>Angular</ActionHeading>
             <Actions>
@@ -300,7 +305,7 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
           <p>
             Learn Storybook aims to teach tried-and-true patterns for component development using
             Storybook. You&rsquo;ll walk through essential UI component techniques while building a
-            UI from scratch in React (Vue and Angular coming soon).
+            UI from scratch in React, Vue, or Angular.
           </p>
           <p>
             The info here is sourced from professional teams, core maintainers, and the awesome

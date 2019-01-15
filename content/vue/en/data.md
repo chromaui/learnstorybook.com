@@ -2,7 +2,7 @@
 title: "Wire in data"
 tocTitle: "Data"
 description: "Learn how to wire in data to your UI component"
-commit: 660b02e
+commit: 28bc240
 ---
 
 # Wire in data
@@ -70,7 +70,7 @@ In our top-level app component (`src/App.vue`) we can wire the store into our co
 
 <script>
 import store from "./store";
-import TaskList from "./containers/TaskList.vue";
+import TaskList from "./components/TaskList.vue";
 import "../src/index.css";
 
 export default {
@@ -83,7 +83,23 @@ export default {
 </script>
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList` (renaming the component to `pure-task-list`), and wrap it with a container in `src/containers/TaskList.vue`:
+Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `pure-task-list`), and wrap it with a container.
+
+In `src/components/PureTaskList.vue`:
+
+```html
+/* This file moved from TaskList.vue */
+<template>/* as before */
+
+<script>
+import Task from "./Task";
+export default {
+  name: "pure-task-list",
+  ...
+}
+```
+
+In `src/components/TaskList.vue`:
 
 ```html
 <template>
@@ -93,7 +109,7 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 </template>
 
 <script>
-import PureTaskList from "@/components/PureTaskList";
+import PureTaskList from "./PureTaskList";
 import { mapState } from "vuex";
 
 export default {
@@ -108,7 +124,7 @@ export default {
 </script>
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. We can ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
 import { storiesOf } from '@storybook/vue';
@@ -177,14 +193,18 @@ storiesOf('PureTaskList', module)
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { PureTaskList } from './TaskList';
+import Vue from 'vue';
+import PureTaskList from '../../src/components/PureTaskList.vue';
+import { withPinnedTasks } from '../../src/components/PureTaskList.stories';
 
-it('renders when empty', () => {
-  const div = document.createElement('div');
-  const events = { onSnoozeTask: jest.fn(), onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<PureTaskList tasks={[]} {...events} />, div);
-  ReactDOM.unmountComponentAtNode(div);
+it('renders pinned tasks at the start of the list', () => {
+  const Constructor = Vue.extend(PureTaskList);
+  const vm = new Constructor({
+    propsData: { tasks: withPinnedTasks },
+  }).$mount();
+  const lastTaskInput = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
+
+  // We expect the pinned task to be rendered first, not at the end
+  expect(lastTaskInput).not.toBe(null);
 });
 ```

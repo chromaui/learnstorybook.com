@@ -199,7 +199,7 @@ An alternative way to achieve the same purpose is to use a JavaScript type syste
 
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
-As you can see, getting started building components in in isolation is easy and fast. We can expect to produce a higher-quality UI with less bugs and more polish because it’s possible to dig in and test every possible state.
+As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with less bugs and more polish because it’s possible to dig in and test every possible state.
 
 ## Automated Testing
 
@@ -216,7 +216,7 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots react-test-renderer
+yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.macro
 ```
 
 Then create an `src/storybook.test.js` file with the following in it:
@@ -226,13 +226,26 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-We also need to make a small tweak to our `jest.config.js`, adding the line:
+You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Update `.storybook/config.js` to have:
 
 ```js
-  transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+import { configure } from '@storybook/react';
+import requireContext from 'require-context.macro';
+
+import '../src/index.css';
+
+const req = requireContext('../src/components', true, /\.stories\.js$/);
+
+function loadStories() {
+  req.keys().forEach(filename => req(filename));
+}
+
+configure(loadStories, module);
 ```
 
-Once the above is done, we can run `yarn test:unit` and see the following output:
+(Notice we've replaced `require.context` with a call to `requireContext` imported from the macro).
+
+Once the above is done, we can run `yarn test` and see the following output:
 
 ![Task test runner](/task-testrunner.png)
 

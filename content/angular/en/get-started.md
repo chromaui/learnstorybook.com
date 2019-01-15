@@ -17,11 +17,11 @@ We’ll need to follow a few steps to get the build process set up in your envir
 
 ```bash
 # Create our application (using less as the style pre processor):
-npx ng new taskbox --style less
+npx -p @angular/cli ng new taskbox --style less
 cd taskbox
 
 # Add Storybook:
-npx -p @storybook/cli getstorybook
+npx -p @storybook/cli sb init
 ```
 
 We can quickly check that the various environments of our application are working properly:

@@ -66,7 +66,7 @@ yarn add storybook-chromatic
 
 ```javascript
 import { configure } from '@storybook/react';
-import 'storybook-chromatic/storybook-addon';
+import 'storybook-chromatic';
 
 import '../src/index.css';
 
@@ -79,7 +79,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-然後[登入Chromatic](https://chromaticqa.com/start)使用您的GitHub帳戶 (Chromatic僅要求輕量級許可權) . 建立名為"taskbox"的專案並複製您的唯一專案`app-code`.
+然後[登入Chromatic](https://www.chromaticqa.com/start)使用您的GitHub帳戶 (Chromatic僅要求輕量級許可權) . 建立名為"taskbox"的專案並複製您的唯一專案`app-code`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source

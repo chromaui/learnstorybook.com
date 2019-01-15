@@ -2,7 +2,7 @@
 title: "Construct a screen"
 tocTitle: "Screens"
 description: "Construct a screen out of components"
-commit: f971616
+commit: b62db62
 ---
 
 # Construct a screen
@@ -13,7 +13,7 @@ In this chapter we continue to increase the sophistication by combining componen
 
 ## Nested container components
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` container component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components` folder:
+As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` container component (which supplies its own data via Vuex) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
 
 ```html
 <template>
@@ -37,7 +37,7 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 </template>
 
 <script>
-import TaskList from "@/containers/TaskList.vue";
+import TaskList from "./TaskList.vue";
 
 export default {
   name: "pure-inbox-screen",
@@ -54,7 +54,7 @@ export default {
 </script>
 ```
 
-Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `src/containers`:
+Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `src/components/InboxScreen.vue`:
 
 ```html
 <template>
@@ -64,7 +64,7 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 </template>
 
 <script>
-import PureInboxScreen from "@/components/PureInboxScreen";
+import PureInboxScreen from "./PureInboxScreen";
 import { mapState } from "vuex";
 
 export default {
@@ -90,7 +90,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 
 <script>
 import store from "./store";
-import InboxScreen from "@/containers/InboxScreen.vue";
+import InboxScreen from "./components/InboxScreen.vue";
 import "../src/index.css";
 
 export default {
@@ -139,7 +139,7 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://chromaticqa.com">Chromatic</a> alongside 670+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 670+ stories.
 </div>
 
 ## Supplying context to stories

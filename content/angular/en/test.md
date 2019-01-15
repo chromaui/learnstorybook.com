@@ -67,7 +67,7 @@ Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
 import { configure } from '@storybook/angular';
-import 'storybook-chromatic/storybook-addon';
+import 'storybook-chromatic';
 import '../src/styles.less';
 
 // automatically import all files ending in *.stories.ts
@@ -80,7 +80,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Then [login to Chromatic](https://chromaticqa.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
+Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
