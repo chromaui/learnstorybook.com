@@ -42,8 +42,8 @@ export class PinTask {
   constructor(public payload: string) {}
 }
 
-// The initial state of our store when the app loads.
-// Usually you would fetch this from a server
+// O estado inicial da loja quando a aplicação é inicializada
+// Por norma este valor iria ser obtido do servidor
 const defaultTasks = {
   1: { id: '1', title: 'Something', state: 'TASK_INBOX' },
   2: { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -298,8 +298,7 @@ describe('TaskList component', () => {
     const lastTaskInput = fixture.debugElement.query(
       By.css('.list-item:nth-child(1)'),
     );
-
-    // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
+    // Pretende-se que a tarefa denominada "Task 6 (pinned), seja renderizada em primeiro lugar não no fim
     expect(lastTaskInput.nativeElement.id).toEqual('6');
   });
 });
