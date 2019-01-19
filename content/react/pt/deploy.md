@@ -12,7 +12,7 @@ Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessá
     <strong>Foram seguidos os passos para implementar os teste com Chromatic, tal como mencionado anteriormente?</strong>
     <br/>
     Então as estórias já se encontram implementadas!🎉 O Chromatic indexa-as e segue-as ao longo das ramificações feitas e dos commits
-    Pode saltar-se este capítulo e seguir para <a href="/conclusion">conclusão</a>.
+    Pode saltar-se este capítulo e seguir para <a href="/react/pt/conclusion">conclusão</a>.
 </div>
 
 ## Exportação sob a forma de uma app estática
