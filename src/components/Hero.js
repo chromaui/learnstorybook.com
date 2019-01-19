@@ -1,7 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled, { keyframes } from "styled-components";
-import { color } from "./shared/styles";
+import React from 'react';
+import styled, { keyframes } from 'styled-components';
 
 const float = keyframes`
   from { transform: translate(0,  0px); }
@@ -30,12 +28,7 @@ function Hero({ ...props }) {
         d="M307.394 296.096L105.57 346.411 44.613 101.896 246.435 51.58z"
         className="sheet"
       />
-      <path
-        opacity=".3"
-        fill="#FFF"
-        d="M100 44h208v252H100z"
-        className="sheet"
-      />
+      <path opacity=".3" fill="#FFF" d="M100 44h208v252H100z" className="sheet" />
       <path
         opacity=".9"
         fill="#FFF"
