@@ -203,6 +203,13 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                           >
                             繁體中文
                           </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/pt/${firstChapter}/`}
+                          >
+                            Português
+                          </LanguageLink>
                         </Detail>
                       </Meta>
                     </TooltipItem>
@@ -225,6 +232,13 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                             to={`/angular/es/${firstChapter}/`}
                           >
                             Español
+                          </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/angular/pt/${firstChapter}/`}
+                          >
+                            Português
                           </LanguageLink>
                         </Detail>
                       </Meta>
