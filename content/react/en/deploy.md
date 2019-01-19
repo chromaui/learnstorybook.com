@@ -11,7 +11,7 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 <div class="aside">
 <strong>Did you setup Chromatic testing earlier?</strong>
 <br/>
-🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/conclusion">conclusion</a>.
+🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/react/en/conclusion">conclusion</a>.
 </div>
 
 ## Exporting as a static app

@@ -10,7 +10,7 @@ description: "使用 GitHub 和 Netlify 发布 Storybook网站 "
 <div class="aside">
 <strong>您之前是否安装过Chromatic 测试？?</strong>
 <br/>
-🎉 你的故事已经部署好了！ Chromatic 在线安全地为您的故事编制索引，并在分支和提交中跟踪它们。 跳过这一章，然后转到 <a href="/conclusion">总结</a>.
+🎉 你的故事已经部署好了！ Chromatic 在线安全地为您的故事编制索引，并在分支和提交中跟踪它们。 跳过这一章，然后转到 <a href="/react/zh-TW/conclusion">总结</a>.
 </div>
 
 ## 导出为静态应用程序
