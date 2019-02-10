@@ -296,6 +296,11 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
                   <ViewLayerImage src="/logo-vue.svg" alt="Vue" />English
                 </Button>
               </Link>
+              <Link isGatsby to={`/vue/pt/${firstChapter}`}>
+                <Button inverse>
+                  <ViewLayerImage src="/logo-vue.svg" alt="Vue"/>Português
+                </Button>
+              </Link>
             </Actions>
           </Pitch>
 
