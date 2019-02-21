@@ -46,7 +46,6 @@ import '@storybook/addon-links/register';
 
 E já está! É tempo de usar o extra numa estória.
 
-
 ### Utilização
 
 Vamos usar o objecto knob no componente `Task`.
@@ -101,7 +100,7 @@ Devido a facilidade com que é possível testar inputs diferentes podemos descob
   value={title}
   readOnly={true}
   placeholder="Input title"
-  style={{ 'text-overflow': 'ellipsis' }}
+  style={{ textOverflow: 'ellipsis' }}
 />
 ```
 
@@ -109,8 +108,8 @@ Devido a facilidade com que é possível testar inputs diferentes podemos descob
 
 ## Criação de uma nova estória para evitar regressões
 
-Claro que podemos sempre reproduzir este problema através da introdução do mesmo input no objeto knob, mas é melhor escrever uma estória adicional para este input. 
-Isto irá expandir os testes de regressão e delinear com maior facilidade quais são os limites do componente(s) aos restantes elementos da equipa. 
+Claro que podemos sempre reproduzir este problema através da introdução do mesmo input no objeto knob, mas é melhor escrever uma estória adicional para este input.
+Isto irá expandir os testes de regressão e delinear com maior facilidade quais são os limites do componente(s) aos restantes elementos da equipa.
 
 Vamos então adicionar uma estória para o caso da ocorrência de um texto grande no ficheiro Task.stories.js
 
@@ -131,11 +130,10 @@ Agora que foi adicionada a estória, podemos reproduzir este caso extremo com re
 Se estiverem a ser usados [testes de regressão visual](/test), iremos ser informados se a nossa solução eliptica for quebrada.
 Tais casos extremos considerados obscuros têm tendência a ser esquecidos!
 
-
 ## Fusão das alterações
 
 Não esquecer de fundir as alterações com o git!
 
 ## Partilha de extras com a equipa
 
-Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser dificil para estes executarem o storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso! 
+Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser dificil para estes executarem o storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!

@@ -103,7 +103,7 @@ Thanks to quickly being able to try different inputs to a component we can find 
   value={title}
   readOnly={true}
   placeholder="Input title"
-  style={{ 'text-overflow': 'ellipsis' }}
+  style={{ textOverflow: 'ellipsis' }}
 />
 ```
 
