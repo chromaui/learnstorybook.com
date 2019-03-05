@@ -2,6 +2,7 @@
 title: "Introdução"
 tocTitle: "Introdução"
 description: "Configuração do React Storybook no ambiente de desenvolvimento"
+commit: ebe2ae2
 ---
 
 # Introdução

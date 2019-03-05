@@ -2,6 +2,7 @@
 title: "Construção de um ecrã"
 tocTitle: "Ecrãs"
 description: "Construção de um ecrã a partir de componentes"
+commit: e56e345
 ---
 
 ## Construção de um ecrã

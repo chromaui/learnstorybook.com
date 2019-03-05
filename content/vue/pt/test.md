@@ -92,7 +92,7 @@ configure(loadStories, module);
 Executa-se o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `app-code` fornecido ao invés de `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -109,7 +109,6 @@ Os testes de regressão visual dependem da comparação de imagens do novo códi
 
 ![alteração código](/chromatic-change-to-task-component.png)
 
-
 O que irá gerar uma nova cor de fundo para o item.
 
 ![alteração da cor de fundo da tarefa](/chromatic-task-change.png)
@@ -117,7 +116,7 @@ O que irá gerar uma nova cor de fundo para o item.
 Usando agora o comando de testes, para efectuar um outro teste com o Chromatic.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 Ao abrir-se o link, irão ser apresentadas a alterações.

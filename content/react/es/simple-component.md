@@ -2,7 +2,7 @@
 title: "Construye un componente simple"
 tocTitle: "Componente Simple"
 description: "Construye un componente simple en aislamiento"
-commit: b3488c2
+commit: 403f19a
 ---
 
 # Construye un componente simple

@@ -2,6 +2,7 @@
 title: "Construção de um componente siples"
 tocTitle: "Componente simples"
 description: "Construção de um componente simples isolado"
+commit: 403f19a
 ---
 
 ## Construção de um componente simples

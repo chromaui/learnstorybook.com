@@ -2,6 +2,7 @@
 title: "Ligação de dados"
 tocTitle: "Dados"
 description: "Aprendizagem da metodologia de ligação de dados ao componente interface utilizador"
+commit: 9c50472
 ---
 
 ## Ligação de dados

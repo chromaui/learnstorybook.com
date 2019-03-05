@@ -2,7 +2,7 @@
 title: "組裝複合元件"
 tocTitle: "合成元件"
 description: "使用更簡單的元件 組裝複合元件"
-commit: '5776042'
+commit: '8db511e'
 ---
 # 組裝複合元件
 

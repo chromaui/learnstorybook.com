@@ -2,7 +2,7 @@
 title: "接连data"
 tocTitle: "Data"
 description: "了解如何将数据连接到UI组件"
-commit: dd04879
+commit: 9c50472
 ---
 # 连线数据
 

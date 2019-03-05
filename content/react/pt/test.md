@@ -1,6 +1,7 @@
 ---
 title: "Testes"
 description: "Aprendizagem das formas de teste dos componentes interface utilizador"
+commit: 78a45d1
 ---
 
 # Teste de componentes de interface de utilizador
@@ -87,7 +88,7 @@ configure(loadStories, module);
 Executa-se o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `app-code` fornecido ao invés de `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -111,7 +112,7 @@ O que irá gerar uma nova cor de fundo para o item.
 Usando agora o comando de testes, para efectuar um outro teste com o Chromatic.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 Ao abrir-se o link, irão ser apresentadas a alterações.

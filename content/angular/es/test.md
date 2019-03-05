@@ -92,7 +92,7 @@ Ahora [logueate en Chromatic](https://www.chromaticqa.com/start) con tu cuenta d
 Ejecuta el comando de prueba en la línea de comandos para configurar las pruebas de regresión visual para Storybook. No olvides añadir tu código de aplicación único en el `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -116,7 +116,7 @@ Esto produce un nuevo color de fondo para la tarea.
 Usa el comando de prueba anterior para ejecutar Chromatic de nuevo.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 Sigue el enlace a la interfaz de usuario web donde verás los cambios.

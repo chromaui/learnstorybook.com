@@ -2,6 +2,7 @@
 title: "Extras"
 tocTitle: "Extras"
 description: "Aprender a integrar e usar extras com recurso a um exemplo popular"
+commit: "dac373a"
 ---
 
 # Extras

@@ -2,7 +2,7 @@
 title: "构建一个简单的组件"
 tocTitle: "简单 组件"
 description: "单独构建一个简单的组件"
-commit: 131aade
+commit: 403f19a
 ---
 # 构建一个简单的组件
 

@@ -2,7 +2,7 @@
 title: "Empezando"
 tocTitle: "Empezando"
 description: "Configurar React Storybook en tu entorno de desarrollo"
-commit: 30939d5
+commit: ebe2ae2
 ---
 
 # Empezando
