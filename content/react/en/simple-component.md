@@ -111,7 +111,7 @@ configure(loadStories, module);
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
-<video autoPlay muted playsInline controls >
+<video autoPlay muted playsInline loop>
   <source
     src="/inprogress-task-states.mp4"
     type="video/mp4"

@@ -66,11 +66,12 @@ yarn add storybook-chromatic
 
 ```javascript
 import { configure } from '@storybook/react';
-import 'storybook-chromatic';
+import requireContext from 'require-context.macro';
+import 'react-chromatic/storybook-addon';
 
 import '../src/index.css';
 
-const req = require.context('../src/components', true, /\.stories\.js$/);
+const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

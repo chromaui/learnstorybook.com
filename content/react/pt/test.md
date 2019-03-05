@@ -30,7 +30,6 @@ O Storybook é uma ferramenta fantástica para este tipo de testes, por que cada
 
 Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromaticqa.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efectua testes na núvem.
 
-
 ## Configuração de testes de regressão visual
 
 O Chromatic é um extra sem complicações para este tipo de testes. Visto que é um serviço pago (mas com o período de testes grátis), logo poderá não ser para toda a gente. No entanto este é um exemplo de uma ferramenta ao nível profissional que irá usada gratuitamente.
@@ -62,11 +61,12 @@ O Chromatic é importado para o ficheiro `.storybook/config.js`.
 
 ```javascript
 import { configure } from '@storybook/react';
-import 'storybook-chromatic';
+import requireContext from 'require-context.macro';
+import 'react-chromatic/storybook-addon';
 
 import '../src/index.css';
 
-const req = require.context('../src/components', true, /\.stories\.js$/);
+const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -137,7 +137,6 @@ Se uma alteração é intencional, é necessária a atualização da linha de ba
 </video>
 
 Visto que as aplicações modernas são construidas a partir de componentes, é importante testar ao nível destes. Ao efectuar-se isto ajuda a identificar a principal causa da alteração, ou seja o componente ao invés de reagir aos sintomas de uma alteração, ecrãs ou componentes compostos.
-
 
 ## Fusão de alterações
 

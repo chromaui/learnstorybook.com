@@ -2,7 +2,7 @@
 title: "Addons"
 tocTitle: "Addons"
 description: "Learn how to integrate and use addons using a popular example"
-commit: "f4d933"
+commit: "dac373a"
 ---
 
 # Addons
@@ -22,7 +22,12 @@ We could write forever about configuring and using addons for all of your partic
 
 Knobs is an amazing resource for designers and developers to experiment and play with components in a controlled environment without the need to code! You essentially provide dynamically defined fields with which a user manipulates the props being passed to the components in yours stories. Here's what we're going to implement...
 
-![Knobs in action](/addon-knobs-demo.gif)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/addon-knobs-demo.mp4"
+    type="video/mp4"
+  />
+</video>
 
 ### Installation
 
@@ -91,7 +96,9 @@ Not only does your Storybook instance serve as a wonderful [CDD environment](htt
 
 ## Using Knobs To Find Edge-Cases
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string? [Oh no! The far right content is cut-off!](/addon-knobs-demo-edge-case.png) 😥
+Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string?
+
+![Oh no! The far right content is cut-off!](/addon-knobs-demo-edge-case.png) 😥
 
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
 
@@ -107,7 +114,7 @@ Thanks to quickly being able to try different inputs to a component we can find 
 />
 ```
 
-[That's better.](/addon-knobs-demo-edge-case-resolved.png) 👍
+![That's better.](/addon-knobs-demo-edge-case-resolved.png) 👍
 
 ## Adding A New Story To Avoid Regressions
 
@@ -127,7 +134,7 @@ storiesOf('Task', module)
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
 
-[Here it is in Storybook.](/addon-knobs-demo-edge-case-in-storybook.png)
+![Here it is in Storybook.](/addon-knobs-demo-edge-case-in-storybook.png)
 
 If we are using [visual regression testing](/test), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 

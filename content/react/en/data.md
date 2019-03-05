@@ -2,7 +2,7 @@
 title: "Wire in data"
 tocTitle: "Data"
 description: "Learn how to wire in data to your UI component"
-commit: dd04879
+commit: 9c50472
 ---
 
 # Wire in data
@@ -20,7 +20,7 @@ This example uses [Redux](https://redux.js.org/), the most popular React library
 Add a new dependency on `package.json` with:
 
 ```bash
-yarn add react-redux
+yarn add react-redux redux
 ```
 
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):

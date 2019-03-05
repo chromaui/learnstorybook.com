@@ -2,7 +2,7 @@
 title: "Construct a screen"
 tocTitle: "Screens"
 description: "Construct a screen out of components"
-commit: 9ead5d8
+commit: e56e345
 ---
 
 # Construct a screen
@@ -108,7 +108,7 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 670+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context with decorators
