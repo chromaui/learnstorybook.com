@@ -2,7 +2,7 @@
 title: "Assemble a composite component"
 tocTitle: "Composite component"
 description: "Assemble a composite component out of simpler components"
-commit: '5776042'
+commit: '8db511e'
 ---
 
 # Assemble a composite component
@@ -220,7 +220,7 @@ In our case, we want our `TaskList` to render any pinned tasks **before** unpinn
 
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
-Create a test file called `TaskList.test.js`. Here we’ll build out our tests that make assertions about the output.
+Create a test file called `src/components/TaskList.test.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
 import React from 'react';
