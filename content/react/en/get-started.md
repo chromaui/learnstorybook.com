@@ -2,7 +2,7 @@
 title: "Get started"
 tocTitle: "Get started"
 description: "Setup React Storybook in your development environment"
-commit: 980cd53
+commit: ebe2ae2
 ---
 
 # Get started
