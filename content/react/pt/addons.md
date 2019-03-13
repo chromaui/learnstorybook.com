@@ -7,7 +7,7 @@ commit: "dac373a"
 
 # Extras
 
-Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/introduction/) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/test).
+Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/introduction/) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](https://www.learnstorybook.com/react/pt/test/).
 
 <div class="aside">
     <strong>Á procura de uma lista de extras?</strong>
@@ -128,7 +128,7 @@ Agora que foi adicionada a estória, podemos reproduzir este caso extremo com re
 
 [Aqui está ele no Storybook](/addon-knobs-demo-edge-case-in-storybook.png)
 
-Se estiverem a ser usados [testes de regressão visual](/test), iremos ser informados se a nossa solução eliptica for quebrada.
+Se estiverem a ser usados [testes de regressão visual](https://www.learnstorybook.com/react/pt/test/), iremos ser informados se a nossa solução eliptica for quebrada.
 Tais casos extremos considerados obscuros têm tendência a ser esquecidos!
 
 ## Fusão das alterações
