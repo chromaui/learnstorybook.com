@@ -77,6 +77,23 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
+We have to wrap our App with `Provider`, so the data from the redux store is available inside the components. We'll import the `Provider` from the `react-redux` and the `store` from `lib/redux.js` and wrap our `<App/>` in the `index.js` with `Provider`:
+
+```javascript
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import { Provider } from "react-redux";
+import store from "./lib/redux";
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
+```
+
 Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
 ```javascript
