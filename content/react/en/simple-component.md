@@ -219,7 +219,7 @@ With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/
 yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.macro
 ```
 
-Then create an `src/storybook.test.js` file with the following in it:
+Then create an `src/storyshots.test.js` file with the following in it:
 
 ```javascript
 import initStoryshots from '@storybook/addon-storyshots';
