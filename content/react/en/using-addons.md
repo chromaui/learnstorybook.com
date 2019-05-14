@@ -1,11 +1,11 @@
 ---
-title: "Addons"
-tocTitle: "Addons"
+title: "Using addons"
+tocTitle: "Using addons"
 description: "Learn how to integrate and use addons using a popular example"
 commit: "dac373a"
 ---
 
-# Addons
+# Using addons
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
 everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/react/en/test/).
