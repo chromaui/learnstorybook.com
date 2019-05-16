@@ -413,3 +413,17 @@ You can:
 - run tests
 
 And much more!
+
+# Dev Kits
+
+To help you write addons, the Storybook team has developed `dev-kits`. 
+
+These packages are like little starter-sets for you to start developing your own addon.
+The addon we just created is based on the `addon-parameters` dev-kit.
+
+You can find the dev-kits here:
+https://github.com/storybooks/storybook/tree/a3e3149fe99f03ac35a738c35729ccbcef922ab1/dev-kits
+
+More dev-kits will become available in the future.
+
+
