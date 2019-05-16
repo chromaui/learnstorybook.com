@@ -284,7 +284,7 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add -D @storybook/addon-storyshots identity-object-proxy jest jest-preset-angular
+yarn add -D @storybook/addon-storyshots identity-obj-proxy jest jest-preset-angular
 ```
 
 Then create an `src/storybook.test.ts` file with the following in it:
