@@ -247,27 +247,32 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             <Actions>
               <Link isGatsby to={`/react/en/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />English
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  English
                 </Button>
               </Link>
               <Link isGatsby to={`/react/es/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />Español
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  Español
                 </Button>
               </Link>
               <Link isGatsby to={`/react/zh-CN/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />简体中文
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  简体中文
                 </Button>
               </Link>
               <Link isGatsby to={`/react/zh-TW/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />繁體中文
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  繁體中文
                 </Button>
               </Link>
               <Link isGatsby to={`react/pt/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />Português
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  Português
                 </Button>
               </Link>
             </Actions>
@@ -275,17 +280,20 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             <Actions>
               <Link isGatsby to={`/angular/en/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />English
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                  English
                 </Button>
               </Link>
               <Link isGatsby to={`/angular/es/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />Español
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                  Español
                 </Button>
               </Link>
               <Link isGatsby to={`/angular/pt/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />Português
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                  Português
                 </Button>
               </Link>
             </Actions>
@@ -293,12 +301,14 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             <Actions>
               <Link isGatsby to={`/vue/en/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />English
+                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
+                  English
                 </Button>
               </Link>
               <Link isGatsby to={`/vue/pt/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-vue.svg" alt="Vue"/>Português
+                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
+                  Português
                 </Button>
               </Link>
             </Actions>
@@ -352,7 +362,8 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             you{' '}
             <strong>
               develop and design UI components outside your app in an isolated environment
-            </strong>.
+            </strong>
+            .
           </p>
           <p>
             Professional developers at Airbnb, Dropbox, and Lonely Planet use Storybook to build
