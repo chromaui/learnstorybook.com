@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
@@ -224,7 +225,14 @@ const Chapters = styled.ol`
   counter-reset: counter;
 `;
 
-export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, pages } }) => {
+const Pages = ({
+  data: {
+    site: {
+      siteMetadata: { toc, defaultTranslation },
+    },
+    pages,
+  },
+}) => {
   const defaultPages = {
     edges: pages.edges.filter(e => e.node.fields.slug.match(defaultTranslation)),
   };
@@ -442,6 +450,36 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
     </Fragment>
   );
 };
+
+Pages.propTypes = {
+  data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        defaultTranslation: PropTypes.string.isRequired,
+        toc: PropTypes.arrayOf(PropTypes.string),
+      }).isRequired,
+    }).isRequired,
+    pages: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            frontmatter: PropTypes.shape({
+              description: PropTypes.string,
+              title: PropTypes.string.isRequired,
+              tocTitle: PropTypes.string,
+            }).isRequired,
+            fields: PropTypes.shape({
+              chapter: PropTypes.string.isRequired,
+              slug: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default Pages;
 
 export const query = graphql`
   query IndexQuery {

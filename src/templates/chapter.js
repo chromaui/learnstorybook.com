@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import Helmet from 'react-helmet';
@@ -157,6 +158,7 @@ const NextChapterSubtitle = styled.div`
 const GithubLink = styled(Link)`
   font-weight: ${typography.weight.bold};
 `;
+
 const GithubLinkWrapper = styled.div`
   margin-top: 3rem;
   text-align: center;
@@ -207,13 +209,14 @@ const Pagination = styled(CTA)`
   margin-top: 3rem;
 `;
 
-export default ({
+const Chapter = ({
   data: {
     currentPage,
     pages,
-    site: { siteMetadata: { title: siteTitle, toc, languages, githubUrl, codeGithubUrl, siteUrl } },
+    site: {
+      siteMetadata: { title: siteTitle, toc, languages, githubUrl, codeGithubUrl, siteUrl },
+    },
   },
-  location,
 }) => {
   const entries = tocEntries(toc, pages);
   const {
@@ -278,7 +281,7 @@ export default ({
         >
           <LogoTwitter />
           <CTAMessage>
-            Tweet "I&rsquo;m learning Storybook! It’s a great dev tool for UI components."
+            Tweet {'"I’m learning Storybook! It’s a great dev tool for UI components."'}
           </CTAMessage>
         </CTAWrapper>
 
@@ -309,6 +312,52 @@ export default ({
     </DocsWrapper>
   );
 };
+
+Chapter.propTypes = {
+  data: PropTypes.shape({
+    currentPage: PropTypes.shape({
+      fields: PropTypes.shape({
+        slug: PropTypes.string.isRequired,
+        chapter: PropTypes.string.isRequired,
+        framework: PropTypes.string.isRequired,
+        language: PropTypes.string.isRequired,
+      }).isRequired,
+      frontmatter: PropTypes.shape({
+        commit: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
+    pages: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            frontmatter: PropTypes.shape({
+              tocTitle: PropTypes.string,
+              title: PropTypes.string,
+              description: PropTypes.string,
+            }).isRequired,
+            fields: PropTypes.shape({
+              slug: PropTypes.string.isRequired,
+              chapter: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }),
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        permalink: PropTypes.string,
+        description: PropTypes.string,
+        githubUrl: PropTypes.string.isRequired,
+        toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default Chapter;
 
 export const query = graphql`
   query PageQuery($framework: String!, $language: String!, $slug: String!) {

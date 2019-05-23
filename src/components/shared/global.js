@@ -1,5 +1,5 @@
 import { injectGlobal, css } from 'styled-components';
-import { background, color, typography } from './styles';
+import { color, typography } from './styles';
 
 export const bodyStyles = css`
   font-family: ${typography.type.primary};
