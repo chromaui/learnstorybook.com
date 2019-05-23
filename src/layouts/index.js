@@ -22,7 +22,11 @@ const HeaderWrapper = styled(Header)`
 `;
 
 const TemplateWrapper = ({
-  data: { site: { siteMetadata: { title, permalink, description, githubUrl, toc } } },
+  data: {
+    site: {
+      siteMetadata: { title, permalink, description, githubUrl, toc },
+    },
+  },
   location: { pathname },
   children,
 }) => (
@@ -65,6 +69,20 @@ const TemplateWrapper = ({
 
 TemplateWrapper.propTypes = {
   children: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        permalink: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        githubUrl: PropTypes.string.isRequired,
+        toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default TemplateWrapper;

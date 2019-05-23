@@ -16,7 +16,7 @@ module.exports = {
       'conclusion',
       'contribute',
     ],
-    languages: ['en', 'es', 'zh-CN', 'zh-TW','pt'],
+    languages: ['en', 'es', 'zh-CN', 'zh-TW', 'pt'],
     defaultTranslation: 'react/en',
     siteUrl: 'https://learnstorybook.com',
     githubUrl: 'https://github.com/hichroma/learnstorybook.com',
