@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
@@ -63,9 +64,8 @@ const ViewLayerImage = styled.img`
 `;
 
 const Actions = styled.div`
-  > *:not(:only-child) {
-    margin: 0 10px
-    margin-bottom: 12px;
+  a {
+    margin: 0 10px 12px;
     @media (min-width: ${breakpoint * 1}px) {
       margin-left: 0;
       margin-right: 20px;
@@ -241,7 +241,7 @@ const Pages = ({
   const firstChapter = toc[0];
 
   return (
-    <Fragment>
+    <>
       <Wrapper>
         <Content>
           <Pitch>
@@ -277,7 +277,7 @@ const Pages = ({
                   繁體中文
                 </Button>
               </Link>
-              <Link isGatsby to={`react/pt/${firstChapter}`}>
+              <Link isGatsby to={`/react/pt/${firstChapter}`}>
                 <Button inverse>
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   Português
@@ -447,7 +447,7 @@ const Pages = ({
           }
         />
       </FAQLayout>
-    </Fragment>
+    </>
   );
 };
 

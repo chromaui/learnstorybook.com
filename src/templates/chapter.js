@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import Helmet from 'react-helmet';
@@ -251,7 +252,6 @@ const Chapter = ({
             <DocsItem key={entry.slug}>
               <Link
                 isGatsby
-                strict
                 className={slug !== entry.slug ? 'tertiary' : 'selected'}
                 to={entry.slug}
               >

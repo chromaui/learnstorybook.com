@@ -23,6 +23,7 @@ module.exports = {
     codeGithubUrl: 'https://github.com/hichroma/learnstorybook-code',
   },
   plugins: [
+    `gatsby-plugin-layout`,
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
