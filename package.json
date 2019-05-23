@@ -30,7 +30,7 @@
     "build": "gatsby build",
     "develop": "gatsby develop",
     "dev": "yarn develop",
-    "format": "prettier --write 'src/**/*.js'",
+    "format": "prettier-eslint --write 'src/**/*.js'",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -44,8 +44,8 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
-    "prettier": "^1.11.1",
-    "prettier-eslint": "^8.8.1",
+    "prettier": "^1.17.1",
+    "prettier-eslint": "^8.8.2",
     "prettier-eslint-cli": "^4.7.1"
   }
 }
