@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { styles } from '@storybook/design-system';
 
-import { color, spacing, typography, breakpoint } from './shared/styles';
+const { color, spacing, typography, breakpoint } = styles;
 
 const Text = styled.div`
-  font-weight: ${typography.weight.extrabold};
+  font-weight: ${typography.weight.black};
 
   font-size: ${typography.size.m3}px;
   line-height: ${typography.size.m3}px;

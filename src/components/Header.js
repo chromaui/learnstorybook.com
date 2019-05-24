@@ -1,20 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link as GatsbyLink } from 'gatsby';
 import styled, { css } from 'styled-components';
 import GitHubButton from 'react-github-button';
+import { Icon, Link, styles, WithTooltip } from '@storybook/design-system';
 
 import 'react-github-button/assets/style.css';
 
+import GatsbyLink from './GatsbyLink';
 import Logo from './Logo';
-import Link from './Link';
-import Icon from './Icon';
-import WithTooltip from './WithTooltip';
-import { color, typography, spacing, pageMargins, breakpoint } from './shared/styles';
+
+const { color, typography, spacing, pageMargins, breakpoint } = styles;
 
 const LogoWrapper = styled(Logo)`
-  height: 20px;
-  width: auto;
+  && {
+    height: 22px;
+    width: auto;
+  }
 
   @media (min-width: ${breakpoint}px) {
     height: 22px;
@@ -34,7 +35,7 @@ const LogoWrapper = styled(Logo)`
 
 const NavLink = styled(Link)`
   font-size: ${typography.size.s3}px;
-  font-weight: ${typography.weight.extrabold};
+  font-weight: ${typography.weight.black};
 `;
 
 // prettier-ignore
@@ -116,7 +117,7 @@ const ViewLayerImage = styled.img`
 const Meta = styled.div``;
 
 const Title = styled.div`
-  font-weight: ${typography.weight.extrabold};
+  font-weight: ${typography.weight.black};
   font-size: ${typography.size.s2}px;
   line-height: 1;
   margin-bottom: 6px;
@@ -127,10 +128,12 @@ const Detail = styled.div`
   line-height: 1;
 `;
 
-const LanguageLink = styled(Link)`
-  text-decoration: underline;
-  margin-right: 10px;
-  margin-bottom: 10px;
+const LanguageLink = styled(GatsbyLink).attrs({ tertiary: true })`
+  && {
+    text-decoration: underline;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
 `;
 
 const GitHubWrapper = styled.div`
@@ -156,9 +159,9 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
       <Nav>
         <NavGroup>
           <NavItem>
-            <GatsbyLink to="/">
+            <Link to="/" LinkWrapper={GatsbyLink}>
               <LogoWrapper inverse={inverse} />
-            </GatsbyLink>
+            </Link>
           </NavItem>
         </NavGroup>
         <NavGroup right>
@@ -166,7 +169,7 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
             <NavItem showDesktop>
               <WithTooltip
                 placement="top"
-                mode="click"
+                trigger="click"
                 closeOnClick
                 tooltip={
                   <TooltipList>
@@ -175,41 +178,11 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                       <Meta>
                         <Title>React</Title>
                         <Detail>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/en/${firstChapter}/`}
-                          >
-                            English
-                          </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/es/${firstChapter}/`}
-                          >
-                            Español
-                          </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/zh-CN/${firstChapter}/`}
-                          >
-                            简体中文
-                          </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/zh-TW/${firstChapter}/`}
-                          >
-                            繁體中文
-                          </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/pt/${firstChapter}/`}
-                          >
-                            Português
-                          </LanguageLink>
+                          <LanguageLink to={`/react/en/${firstChapter}/`}>English</LanguageLink>
+                          <LanguageLink to={`/react/es/${firstChapter}/`}>Español</LanguageLink>
+                          <LanguageLink to={`/react/zh-CN/${firstChapter}/`}>简体中文</LanguageLink>
+                          <LanguageLink to={`/react/zh-TW/${firstChapter}/`}>繁體中文</LanguageLink>
+                          <LanguageLink to={`/react/pt/${firstChapter}/`}>Português</LanguageLink>
                         </Detail>
                       </Meta>
                     </TooltipItem>
@@ -219,27 +192,9 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                       <Meta>
                         <Title>Angular</Title>
                         <Detail>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/angular/en/${firstChapter}/`}
-                          >
-                            English
-                          </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/angular/es/${firstChapter}/`}
-                          >
-                            Español
-                          </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/angular/pt/${firstChapter}/`}
-                          >
-                            Português
-                          </LanguageLink>
+                          <LanguageLink to={`/angular/en/${firstChapter}/`}>English</LanguageLink>
+                          <LanguageLink to={`/angular/es/${firstChapter}/`}>Español</LanguageLink>
+                          <LanguageLink to={`/angular/pt/${firstChapter}/`}>Português</LanguageLink>
                         </Detail>
                       </Meta>
                     </TooltipItem>
@@ -248,27 +203,15 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                       <Meta>
                         <Title>Vue</Title>
                         <Detail>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/vue/en/${firstChapter}/`}
-                          >
-                            English
-                          </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/vue/pt/${firstChapter}/`}
-                          >
-                            Português
-                          </LanguageLink>
+                          <LanguageLink to={`/vue/en/${firstChapter}/`}>English</LanguageLink>
+                          <LanguageLink to={`/vue/pt/${firstChapter}/`}>Português</LanguageLink>
                         </Detail>
                       </Meta>
                     </TooltipItem>
                   </TooltipList>
                 }
               >
-                <NavLink className={inverse ? 'inverse' : 'tertiary'}>
+                <NavLink {...(inverse ? { inverse: true } : { tertiary: true })}>
                   <Icon icon="switchalt" />
                   {capitalize(framework)}
                 </NavLink>

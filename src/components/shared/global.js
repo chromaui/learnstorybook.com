@@ -1,5 +1,7 @@
-import { injectGlobal, css } from 'styled-components';
-import { color, typography } from './styles';
+import { createGlobalStyle, css } from 'styled-components';
+import { styles } from '@storybook/design-system';
+
+const { color, typography } = styles;
 
 export const bodyStyles = css`
   font-family: ${typography.type.primary};
@@ -89,17 +91,11 @@ export const bodyStyles = css`
   }
 `;
 
-export function injectGlobalStyles() {
-  // eslint-disable-next-line no-unused-expressions
-  injectGlobal`
-    @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800');
-    body {
-      ${bodyStyles}
-
-      background-color: ${color.empty};
-      margin: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-  `;
-}
+export const GlobalStyle = createGlobalStyle`
+  body {
+    ${bodyStyles}
+    margin: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+`;
