@@ -2,19 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
 import Helmet from 'react-helmet';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-import { injectGlobalStyles } from '../components/shared/global';
-
-injectGlobalStyles();
+import { GlobalStyle } from '../components/shared/global';
 
 const HeaderWrapper = styled(Header)`
   ${props =>
     props.isHome &&
-    css`
+    `
       position: absolute;
       left: 0;
       right: 0;
@@ -45,6 +43,8 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
       },
     }) => (
       <>
+        <GlobalStyle />
+
         <Helmet>
           <link
             rel="shortcut icon"

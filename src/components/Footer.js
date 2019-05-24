@@ -1,10 +1,11 @@
 import React from 'react';
 
 import styled from 'styled-components';
+import { Link, styles } from '@storybook/design-system';
 
-import Link from './Link';
 import LogoChroma from './LogoChroma';
-import { color, typography, pageMargins } from './shared/styles';
+
+const { color, typography, pageMargins } = styles;
 
 const FooterWrapper = styled.footer`
   ${pageMargins};
@@ -30,7 +31,7 @@ const Footer = ({ ...props }) => (
     </a>
     <br />
     Made by{' '}
-    <FooterLink className="secondary" href="https://blog.hichroma.com" target="_blank">
+    <FooterLink secondary href="https://blog.hichroma.com" target="_blank">
       Chroma
     </FooterLink>{' '}
     and the awesome Storybook community

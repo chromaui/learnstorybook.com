@@ -4,23 +4,16 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import Helmet from 'react-helmet';
+import { Button, Icon, Link, Subheading, styles } from '@storybook/design-system';
 
+import GatsbyLink from '../components/GatsbyLink';
 import Highlight from '../components/Highlight';
-import Link from '../components/Link';
 import CTA from '../components/CTA';
-import Button from '../components/Button';
-import Subheading from '../components/Subheading';
-import LogoTwitter from '../components/LogoTwitter';
-import IconCommit from '../components/IconCommit';
 import tocEntries from '../lib/tocEntries';
 
-import {
-  color,
-  formatting,
-  typography,
-  pageMargins,
-  breakpoint,
-} from '../components/shared/styles';
+import formatting from '../components/shared/formatting';
+
+const { background, color, pageMargins, breakpoint, typography } = styles;
 
 const Heading = styled(Subheading)`
   display: block;
@@ -35,8 +28,33 @@ const Heading = styled(Subheading)`
 `;
 
 const DocsItem = styled.li`
-  a.selected {
-    font-weight: ${typography.weight.extrabold};
+  a {
+    line-height: 1rem;
+    padding: 8px 0;
+    line-height: 1.5;
+    position: relative;
+    z-index: 1;
+    ${props => props.isActive && `font-weight: ${typography.weight.black};`}
+
+    @media screen and (min-width: ${breakpoint}px) {
+      &:after {
+        position: absolute;
+        top: 15px;
+        right: auto;
+        bottom: auto;
+        left: -23px;
+        width: auto;
+        height: auto;
+        background: ${color.mediumlight};
+        box-shadow: white 0 0 0 4px;
+        height: 8px;
+        width: 8px;
+        border-radius: 1em;
+        text-decoration: none !important;
+        content: '';
+        ${props => props.isActive && `background: ${color.primary};`}
+      }
+    }
   }
 `;
 
@@ -85,37 +103,6 @@ const Sidebar = styled.div`
       li {
         display: inline-block;
         margin-right: 15px;
-      }
-    }
-
-    a {
-      line-height: 1rem;
-      padding: 8px 0;
-      line-height: 1.5;
-      position: relative;
-      z-index: 1;
-
-      @media screen and (min-width: ${breakpoint}px) {
-        &:after {
-          position: absolute;
-          top: 15px;
-          right: auto;
-          bottom: auto;
-          left: -23px;
-          width: auto;
-          height: auto;
-          background: ${color.mediumlight};
-          box-shadow: white 0 0 0 4px;
-          height: 8px;
-          width: 8px;
-          border-radius: 1em;
-          text-decoration: none !important;
-          content: '';
-        }
-
-        &.selected:after {
-          background: ${color.primary};
-        }
       }
     }
   }
@@ -170,7 +157,7 @@ const CTAMessage = styled.div`
 `;
 
 const CTAWrapper = styled.a`
-  font-weight: ${typography.weight.extrabold};
+  font-weight: ${typography.weight.black};
   font-size: ${typography.size.s3}px;
   @media screen and (min-width: ${breakpoint}px) {
     font-size: ${typography.size.m1}px;
@@ -191,7 +178,7 @@ const CTAWrapper = styled.a`
   align-items: center;
 
   &:hover {
-    background: ${darken(0.02, color.app)};
+    background: ${darken(0.02, background.app)};
   }
 
   ${CTAMessage} {
@@ -248,17 +235,17 @@ const Chapter = ({
       <Sidebar>
         <Heading>Table of Contents</Heading>
         <DocsList>
-          {entries.map(entry => (
-            <DocsItem key={entry.slug}>
-              <Link
-                isGatsby
-                className={slug !== entry.slug ? 'tertiary' : 'selected'}
-                to={entry.slug}
-              >
-                {entry.title}
-              </Link>
-            </DocsItem>
-          ))}
+          {entries.map(entry => {
+            const isActive = slug === entry.slug;
+
+            return (
+              <DocsItem key={entry.slug} isActive={isActive}>
+                <Link LinkWrapper={GatsbyLink} to={entry.slug} tertiary={!isActive}>
+                  {entry.title}
+                </Link>
+              </DocsItem>
+            );
+          })}
         </DocsList>
       </Sidebar>
       <Content>
@@ -268,7 +255,7 @@ const Chapter = ({
 
         {commit && (
           <CTAWrapper target="_blank" href={`${codeGithubUrl}/commit/${commit}`}>
-            <IconCommit />
+            <Icon icon="document" />
             <CTAMessage>
               Keep your code in sync with this chapter. View {commit} on GitHub.
             </CTAMessage>
@@ -279,7 +266,7 @@ const Chapter = ({
           target="_blank"
           href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20a%20great%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=chromaui"
         >
-          <LogoTwitter />
+          <Icon icon="twitter" />
           <CTAMessage>
             Tweet {'"I’m learning Storybook! It’s a great dev tool for UI components."'}
           </CTAMessage>
@@ -294,14 +281,14 @@ const Chapter = ({
               </div>
             }
             action={
-              <Link isGatsby to={nextEntry.slug}>
-                <Button primary>Next chapter</Button>
-              </Link>
+              <GatsbyLink to={nextEntry.slug}>
+                <Button appearance="secondary">Next chapter</Button>
+              </GatsbyLink>
             }
           />
         )}
         <GithubLinkWrapper>
-          <GithubLink className="secondary" href={githubFileUrl} target="_blank">
+          <GithubLink secondary href={githubFileUrl} target="_blank">
             <span role="img" aria-label="write">
               ✍️
             </span>{' '}
