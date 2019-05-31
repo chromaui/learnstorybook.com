@@ -101,6 +101,8 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA for automated tests.
 
 ```javascript
+// .storybook/config.js
+
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
