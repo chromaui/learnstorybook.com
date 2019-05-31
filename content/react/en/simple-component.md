@@ -177,6 +177,8 @@ The additional markup from above combined with the CSS we imported earlier yield
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
