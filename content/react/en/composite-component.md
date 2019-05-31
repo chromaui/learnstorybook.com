@@ -231,6 +231,8 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `src/components/TaskList.test.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
+// src/components/TaskList.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TaskList from './TaskList';
