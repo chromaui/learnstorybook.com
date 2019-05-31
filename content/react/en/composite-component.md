@@ -26,6 +26,8 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 
 import Task from './Task';
