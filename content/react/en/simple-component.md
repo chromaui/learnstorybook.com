@@ -241,6 +241,8 @@ initStoryshots();
 You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Update `.storybook/config.js` to have:
 
 ```js
+// .storybook/config.js
+
 import { configure } from '@storybook/react';
 import requireContext from 'require-context.macro';
 
