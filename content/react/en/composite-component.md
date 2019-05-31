@@ -59,6 +59,8 @@ export default TaskList;
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
+// src/components/TaskList.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
