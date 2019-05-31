@@ -47,6 +47,8 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
+//src/components/Task.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
