@@ -29,6 +29,8 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
