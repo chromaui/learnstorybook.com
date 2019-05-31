@@ -232,6 +232,8 @@ yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.m
 Then create an `src/storybook.test.js` file with the following in it:
 
 ```javascript
+// src/storybook.test.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
