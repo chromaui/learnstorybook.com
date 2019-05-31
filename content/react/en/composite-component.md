@@ -111,6 +111,8 @@ Now check Storybook for the new `TaskList` stories.
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 
 import Task from './Task';
