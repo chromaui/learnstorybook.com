@@ -82,6 +82,8 @@ export default createStore(reducer, { tasks: defaultTasks });
 Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
