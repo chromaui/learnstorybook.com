@@ -26,6 +26,8 @@ yarn add react-redux redux
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
 
 ```javascript
+// src/lib/redux.js
+
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
