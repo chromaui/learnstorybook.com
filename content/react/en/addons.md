@@ -73,6 +73,8 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
 
 ```javascript
+/// src/components/Task.stories.js
+
 storiesOf('Task', module)
   .addDecorator(withKnobs)
   .add(/*...*/);
