@@ -63,6 +63,8 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```javascript
+// src/App.js
+
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
