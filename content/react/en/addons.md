@@ -62,7 +62,7 @@ Let's use the object knob type in the `Task` component.
 First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
 
 ```javascript
-/// src/components/Task.stories.js
+// src/components/Task.stories.js
 
 import React from 'react';
 import { storiesOf } from '@storybook/react';
@@ -73,7 +73,7 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
 
 ```javascript
-/// src/components/Task.stories.js
+// src/components/Task.stories.js
 
 storiesOf('Task', module)
   .addDecorator(withKnobs)
@@ -83,7 +83,7 @@ storiesOf('Task', module)
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
-/// src/components/Task.stories.js
+// src/components/Task.stories.js
 
 storiesOf('Task', module)
   .addDecorator(withKnobs)
@@ -133,7 +133,7 @@ Of course we can always reproduce this problem by entering the same input into t
 Let's add a story for the long text case in Task.stories.js:
 
 ```javascript
-/// src/components/Task.stories.js
+// src/components/Task.stories.js
 
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
