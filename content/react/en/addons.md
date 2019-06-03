@@ -111,6 +111,8 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
 
 ```javascript
+// src/components/Task.js
+
 // This is the input for our task title. In practice we would probably update the styles for this element
 // but for this tutorial, let's fix the problem with an inline style:
 <input
