@@ -93,6 +93,8 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `InboxScreen.stories.js`:
 
 ```javascript
+// src/components/InboxScreen.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
