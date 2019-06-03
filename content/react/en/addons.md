@@ -62,6 +62,8 @@ Let's use the object knob type in the `Task` component.
 First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
 
 ```javascript
+/// src/components/Task.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
