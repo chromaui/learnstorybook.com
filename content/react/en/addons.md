@@ -83,6 +83,8 @@ storiesOf('Task', module)
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
+/// src/components/Task.stories.js
+
 storiesOf('Task', module)
   .addDecorator(withKnobs)
   .add('default', () => {
