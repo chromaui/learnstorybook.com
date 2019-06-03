@@ -122,6 +122,8 @@ At this stage our Storybook tests will have stopped working, as the `TaskList` i
 However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component-- in our Storybook stories:
 
 ```javascript
+// src/components/TaskList.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
