@@ -122,6 +122,8 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 
 ```javascript
+// src/components/InboxScreen.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
