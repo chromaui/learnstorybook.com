@@ -162,6 +162,8 @@ storiesOf('TaskList', module)
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
+// src/components/TaskList.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { PureTaskList } from './TaskList';
