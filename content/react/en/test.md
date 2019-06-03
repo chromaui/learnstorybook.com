@@ -60,6 +60,8 @@ yarn add storybook-chromatic
 Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
+// .storybook/config.js
+
 import { configure } from '@storybook/react';
 import requireContext from 'require-context.macro';
 import 'react-chromatic/storybook-addon';
