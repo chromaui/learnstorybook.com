@@ -172,8 +172,8 @@ It’s best practice to use `propTypes` in React to specify the shape of data th
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Task() {
-  ...
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+  // ...
 }
 
 Task.propTypes = {
@@ -185,8 +185,6 @@ Task.propTypes = {
   onArchiveTask: PropTypes.func,
   onPinTask: PropTypes.func,
 };
-
-export default Task;
 ```
 
 Now a warning in development will appear if the Task component is misused.
