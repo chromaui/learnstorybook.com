@@ -1,6 +1,8 @@
+import React from 'react';
 import { addDecorator, addParameters, configure } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
 import { styles } from '@storybook/design-system';
+import { GlobalStyle } from '../src/components/shared/global';
 
 addParameters({
   options: { panelPosition: 'bottom' },
@@ -9,7 +11,7 @@ addParameters({
       {
         name: 'Design system breakpoint',
         styles: {
-          width: `${styles.breakpoint}px`,
+          width: `${styles.breakpoint - 1}px`,
           height: '768px',
         },
       },
@@ -41,3 +43,10 @@ function loadStories() {
 configure(loadStories, module);
 
 addDecorator(withA11y);
+
+addDecorator(story => (
+  <>
+    <GlobalStyle />
+    {story()}
+  </>
+));
