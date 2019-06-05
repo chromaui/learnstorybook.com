@@ -211,7 +211,7 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                   </TooltipList>
                 }
               >
-                <NavLink {...(inverse ? { inverse: true } : { tertiary: true })}>
+                <NavLink inverse={inverse} tertiary={!inverse}>
                   <Icon icon="switchalt" />
                   {capitalize(framework)}
                 </NavLink>
