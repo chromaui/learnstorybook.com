@@ -28,13 +28,23 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
+    "build-storybook": "build-storybook",
     "dev": "gatsby develop",
     "format": "prettier-eslint --write '**/*.js'",
     "lint": "eslint .",
+    "storybook": "start-storybook -p 6006",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@storybook/addon-a11y": "^5.1.1",
+    "@storybook/addon-actions": "^5.1.1",
+    "@storybook/addon-links": "^5.1.1",
+    "@storybook/addon-viewport": "^5.1.1",
+    "@storybook/addons": "^5.1.1",
+    "@storybook/react": "^5.1.1",
     "babel-eslint": "^8.2.2",
+    "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",
