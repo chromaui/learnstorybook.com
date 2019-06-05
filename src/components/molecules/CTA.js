@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
 
-const { color, spacing, typography, breakpoint } = styles;
+const { color, typography, breakpoint } = styles;
 
 const Wrapper = styled.div`
   border-top: 1px solid ${color.mediumlight};
