@@ -10,21 +10,21 @@ const Svg = styled.svg`
   vertical-align: middle;
 
   .learnstorybook-text {
-    fill: ${props => (props.inverse ? color.lightest : color.darker)};
+    fill: ${props => (props.isInverted ? color.lightest : color.darker)};
   }
 
   .learnstorybook-logo {
-    fill: ${props => (props.inverse ? color.lightest : color.primary)};
+    fill: ${props => (props.isInverted ? color.lightest : color.primary)};
   }
 `;
 
-function Logo({ inverse, ...props }) {
+function Logo({ isInverted, ...props }) {
   return (
     <Svg
       width="231px"
       height="25px"
       viewBox="0 0 231 25"
-      inverse={inverse}
+      isInverted={isInverted}
       {...props}
       alt="Learn Storybook"
     >
@@ -43,11 +43,11 @@ function Logo({ inverse, ...props }) {
 }
 
 Logo.propTypes = {
-  inverse: PropTypes.bool,
+  isInverted: PropTypes.bool,
 };
 
 Logo.defaultProps = {
-  inverse: false,
+  isInverted: false,
 };
 
 export default Logo;

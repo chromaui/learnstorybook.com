@@ -26,7 +26,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-layout',
       options: {
-        component: require.resolve(`./src/templates/app.js`),
+        component: require.resolve(`./src/templates/App.js`),
       },
     },
     'gatsby-plugin-react-helmet',

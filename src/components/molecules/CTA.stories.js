@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
-import { Button, Link, styles } from '@storybook/design-system';
+import { Button, styles } from '@storybook/design-system';
 import CTA from './CTA';
 
 const Wrapper = styled.div`

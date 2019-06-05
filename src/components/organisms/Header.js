@@ -152,7 +152,14 @@ function capitalize([first, ...rest]) {
   return [first.toUpperCase(), ...rest];
 }
 
-export default function Header({ githubUrl, inverse, framework, firstChapter, isHome, ...props }) {
+export default function Header({
+  githubUrl,
+  isInverted,
+  framework,
+  firstChapter,
+  isHome,
+  ...props
+}) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
     <NavWrapper {...props}>
@@ -160,7 +167,7 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
         <NavGroup>
           <NavItem>
             <Link to="/" LinkWrapper={GatsbyLink}>
-              <LogoWrapper inverse={inverse} />
+              <LogoWrapper isInverted={isInverted} />
             </Link>
           </NavItem>
         </NavGroup>
@@ -211,7 +218,7 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                   </TooltipList>
                 }
               >
-                <NavLink inverse={inverse} tertiary={!inverse}>
+                <NavLink inverse={isInverted} tertiary={!isInverted}>
                   <Icon icon="switchalt" />
                   {capitalize(framework)}
                 </NavLink>
@@ -232,7 +239,7 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
 
 Header.propTypes = {
   githubUrl: PropTypes.string,
-  inverse: PropTypes.bool,
+  isInverted: PropTypes.bool,
   framework: PropTypes.string,
   firstChapter: PropTypes.string.isRequired,
   isHome: PropTypes.bool,
@@ -240,7 +247,7 @@ Header.propTypes = {
 
 Header.defaultProps = {
   githubUrl: null,
-  inverse: false,
+  isInverted: false,
   framework: 'react',
   isHome: null,
 };

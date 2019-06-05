@@ -1,6 +1,7 @@
 import React from 'react';
 import { addDecorator, addParameters, configure } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
+import { action } from '@storybook/addon-actions';
 import { styles } from '@storybook/design-system';
 import { GlobalStyle } from '../src/styles/global';
 import 'storybook-chromatic';
