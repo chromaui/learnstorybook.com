@@ -3,26 +3,18 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
+import { Button, Link, Subheading, styles } from '@storybook/design-system';
 
-import {
-  color,
-  typography,
-  spacing,
-  pageMargins,
-  pageMargin,
-  breakpoint,
-} from '../components/shared/styles';
-
+import GatsbyLink from '../components/GatsbyLink';
 import Hero from '../components/Hero';
-import Link from '../components/Link';
-import Button from '../components/Button';
 import CTA from '../components/CTA';
-import Subheading from '../components/Subheading';
 import tocEntries from '../lib/tocEntries';
+
+const { background, color, typography, spacing, pageMargins, pageMargin, breakpoint } = styles;
 
 const Title = styled.h1`
   color: ${color.lightest};
-  font-weight: ${typography.weight.extrabold};
+  font-weight: ${typography.weight.black};
   font-size: ${typography.size.l2}px;
   line-height: 1;
   margin-bottom: 0.2em;
@@ -64,7 +56,7 @@ const ViewLayerImage = styled.img`
 `;
 
 const Actions = styled.div`
-  a {
+  button {
     margin: 0 10px 12px;
     @media (min-width: ${breakpoint * 1}px) {
       margin-left: 0;
@@ -135,7 +127,7 @@ const Wrapper = styled.div`
 
 const Question = styled.h3`
   font-size: ${typography.size.m3}px;
-  font-weight: ${typography.weight.extrabold};
+  font-weight: ${typography.weight.black};
 `;
 
 const Answer = styled.div`
@@ -168,7 +160,7 @@ const FAQLayout = styled.div`
   }
 `;
 
-const ClickIntercept = styled(Link)`
+const ClickIntercept = styled(GatsbyLink)`
   position: absolute;
   cursor: pointer;
   left: 0;
@@ -179,11 +171,12 @@ const ClickIntercept = styled(Link)`
 
 const ChapterTitle = styled.div`
   font-size: ${typography.size.m1}px;
-  font-weight: ${typography.weight.extrabold};
+  font-weight: ${typography.weight.black};
   line-height: 1;
   margin-top: 0.25rem;
   margin-bottom: 0.5rem;
 `;
+
 const ChapterDesc = styled.div`
   line-height: 1.5;
   color: ${color.dark};
@@ -195,14 +188,14 @@ const ChapterMeta = styled.div`
 `;
 
 const Chapter = styled.li`
-  background: ${color.app};
+  background: ${background.app};
   border-radius: 4px;
   margin-bottom: 0.5rem;
   padding: 20px 30px;
   position: relative;
 
   &:hover {
-    background: ${darken(0.02, color.app)};
+    background: ${darken(0.02, background.app)};
   }
 
   &:before {
@@ -218,6 +211,7 @@ const Chapter = styled.li`
     margin-top: 8px;
   }
 `;
+
 const Chapters = styled.ol`
   list-style: none;
   margin: 0;
@@ -253,72 +247,72 @@ const Pages = ({
 
             <ActionHeading>React</ActionHeading>
             <Actions>
-              <Link isGatsby to={`/react/en/${firstChapter}`}>
-                <Button inverse>
+              <GatsbyLink to={`/react/en/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   English
                 </Button>
-              </Link>
-              <Link isGatsby to={`/react/es/${firstChapter}`}>
-                <Button inverse>
+              </GatsbyLink>
+              <GatsbyLink to={`/react/es/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   Español
                 </Button>
-              </Link>
-              <Link isGatsby to={`/react/zh-CN/${firstChapter}`}>
-                <Button inverse>
+              </GatsbyLink>
+              <GatsbyLink to={`/react/zh-CN/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   简体中文
                 </Button>
-              </Link>
-              <Link isGatsby to={`/react/zh-TW/${firstChapter}`}>
-                <Button inverse>
+              </GatsbyLink>
+              <GatsbyLink to={`/react/zh-TW/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   繁體中文
                 </Button>
-              </Link>
-              <Link isGatsby to={`/react/pt/${firstChapter}`}>
-                <Button inverse>
+              </GatsbyLink>
+              <GatsbyLink to={`/react/pt/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   Português
                 </Button>
-              </Link>
+              </GatsbyLink>
             </Actions>
             <ActionHeading>Angular</ActionHeading>
             <Actions>
-              <Link isGatsby to={`/angular/en/${firstChapter}`}>
-                <Button inverse>
+              <GatsbyLink to={`/angular/en/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
                   English
                 </Button>
-              </Link>
-              <Link isGatsby to={`/angular/es/${firstChapter}`}>
-                <Button inverse>
+              </GatsbyLink>
+              <GatsbyLink to={`/angular/es/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
                   Español
                 </Button>
-              </Link>
-              <Link isGatsby to={`/angular/pt/${firstChapter}`}>
-                <Button inverse>
+              </GatsbyLink>
+              <GatsbyLink to={`/angular/pt/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
                   Português
                 </Button>
-              </Link>
+              </GatsbyLink>
             </Actions>
             <ActionHeading>Vue</ActionHeading>
             <Actions>
-              <Link isGatsby to={`/vue/en/${firstChapter}`}>
-                <Button inverse>
+              <GatsbyLink to={`/vue/en/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
                   English
                 </Button>
-              </Link>
-              <Link isGatsby to={`/vue/pt/${firstChapter}`}>
-                <Button inverse>
+              </GatsbyLink>
+              <GatsbyLink to={`/vue/pt/${firstChapter}`}>
+                <Button>
                   <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
                   Português
                 </Button>
-              </Link>
+              </GatsbyLink>
             </Actions>
           </Pitch>
 
@@ -400,7 +394,7 @@ const Pages = ({
           <Chapters>
             {entries.map(({ slug, title, description }) => (
               <Chapter key={slug}>
-                <ClickIntercept isGatsby className="primary" to={slug} />
+                <ClickIntercept className="primary" to={slug} />
                 <ChapterMeta>
                   <ChapterTitle>{title}</ChapterTitle>
                   <ChapterDesc>{description}</ChapterDesc>
@@ -441,9 +435,9 @@ const Pages = ({
         <CTA
           text={`Let's learn Storybook!`}
           action={
-            <Link isGatsby to={`/react/en/${firstChapter}`}>
-              <Button primary>Start tutorial</Button>
-            </Link>
+            <GatsbyLink to={`/react/en/${firstChapter}`}>
+              <Button appearance="secondary">Start tutorial</Button>
+            </GatsbyLink>
           }
         />
       </FAQLayout>

@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { color } from './shared/styles';
+import { styles } from '@storybook/design-system';
+
+const { color } = styles;
 
 const Svg = styled.svg`
   display: inline-block;
