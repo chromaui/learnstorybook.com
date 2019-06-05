@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link, styles } from '@storybook/design-system';
 
-import LogoChroma from './LogoChroma';
+import LogoChroma from '../atoms/LogoChroma';
 
 const { color, typography, pageMargins } = styles;
 

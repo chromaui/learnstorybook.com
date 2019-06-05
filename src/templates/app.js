@@ -4,10 +4,10 @@ import { graphql, StaticQuery } from 'gatsby';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+import Header from '../components/organisms/Header';
+import Footer from '../components/organisms/Footer';
 
-import { GlobalStyle } from '../components/shared/global';
+import { GlobalStyle } from '../styles/global';
 
 const HeaderWrapper = styled(Header)`
   ${props =>

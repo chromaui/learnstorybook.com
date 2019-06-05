@@ -23,7 +23,12 @@ module.exports = {
     codeGithubUrl: 'https://github.com/chromaui/learnstorybook-code',
   },
   plugins: [
-    `gatsby-plugin-layout`,
+    {
+      resolve: 'gatsby-plugin-layout',
+      options: {
+        component: require.resolve(`./src/templates/app.js`),
+      },
+    },
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
