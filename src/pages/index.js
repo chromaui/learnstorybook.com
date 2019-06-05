@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { darken } from 'polished';
 import { Button, Link, Subheading, styles } from '@storybook/design-system';
 
-import GatsbyLink from '../components/GatsbyLink';
-import Hero from '../components/Hero';
-import CTA from '../components/CTA';
+import GatsbyLink from '../components/atoms/GatsbyLink';
+import Hero from '../components/molecules/Hero';
+import CTA from '../components/molecules/CTA';
 import tocEntries from '../lib/tocEntries';
 
 const { background, color, typography, spacing, pageMargins, pageMargin, breakpoint } = styles;

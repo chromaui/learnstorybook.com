@@ -1,8 +1,9 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { addDecorator, addParameters, configure } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
 import { styles } from '@storybook/design-system';
-import { GlobalStyle } from '../src/components/shared/global';
+import { GlobalStyle } from '../src/styles/global';
 
 addParameters({
   options: { panelPosition: 'bottom' },
@@ -47,6 +48,14 @@ addDecorator(withA11y);
 addDecorator(story => (
   <>
     <GlobalStyle />
+
+    <Helmet>
+      <link
+        href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800&display=swap"
+        rel="stylesheet"
+      />
+    </Helmet>
+
     {story()}
   </>
 ));

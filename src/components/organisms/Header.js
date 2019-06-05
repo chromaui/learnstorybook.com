@@ -6,8 +6,8 @@ import { Icon, Link, styles, WithTooltip } from '@storybook/design-system';
 
 import 'react-github-button/assets/style.css';
 
-import GatsbyLink from './GatsbyLink';
-import Logo from './Logo';
+import GatsbyLink from '../atoms/GatsbyLink';
+import Logo from '../atoms/Logo';
 
 const { color, typography, spacing, pageMargins, breakpoint } = styles;
 

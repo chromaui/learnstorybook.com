@@ -6,12 +6,12 @@ import { darken } from 'polished';
 import Helmet from 'react-helmet';
 import { Button, Icon, Link, Subheading, styles } from '@storybook/design-system';
 
-import GatsbyLink from '../components/GatsbyLink';
-import Highlight from '../components/Highlight';
-import CTA from '../components/CTA';
+import Highlight from '../components/atoms/Highlight';
+import GatsbyLink from '../components/atoms/GatsbyLink';
+import CTA from '../components/molecules/CTA';
 import tocEntries from '../lib/tocEntries';
 
-import formatting from '../components/shared/formatting';
+import formatting from '../styles/formatting';
 
 const { background, color, pageMargins, breakpoint, typography } = styles;
 
