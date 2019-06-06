@@ -82,6 +82,7 @@ const BoxLinkIcon = styled(Icon)`
     width: 24px;
     height: 24px;
     margin-right: ${styles.spacing.padding.medium}px;
+    bottom: 0;
   }
 `;
 
