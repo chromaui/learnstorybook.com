@@ -73,7 +73,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
         <HeaderWrapper
           title={title}
           githubUrl={githubUrl}
-          inverse={pathname === '/'}
+          isInverted={pathname === '/'}
           isHome={pathname === '/'}
           framework={pathname.split('/')[1]}
           firstChapter={toc[0]}
