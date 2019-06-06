@@ -157,7 +157,7 @@ export default function Header({
   isInverted,
   framework,
   firstChapter,
-  isHome,
+  withNav,
   ...props
 }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
@@ -172,7 +172,7 @@ export default function Header({
           </NavItem>
         </NavGroup>
         <NavGroup right>
-          {!isHome && (
+          {withNav && (
             <NavItem showDesktop>
               <WithTooltip
                 placement="top"
@@ -242,12 +242,12 @@ Header.propTypes = {
   isInverted: PropTypes.bool,
   framework: PropTypes.string,
   firstChapter: PropTypes.string.isRequired,
-  isHome: PropTypes.bool,
+  withNav: PropTypes.bool,
 };
 
 Header.defaultProps = {
   githubUrl: null,
   isInverted: false,
   framework: 'react',
-  isHome: null,
+  withNav: null,
 };

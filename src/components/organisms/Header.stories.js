@@ -15,8 +15,14 @@ const props = {
 
 storiesOf('Organisms|Header', module)
   .add('default', () => <Header {...props} />)
-  .add('home', () => (
+  .add('with nav', () => <Header withNav {...props} />)
+  .add('inverted', () => (
     <BlueBackground>
-      <Header isInverted isHome {...props} />
+      <Header isInverted {...props} />
+    </BlueBackground>
+  ))
+  .add('inverted with nav', () => (
+    <BlueBackground>
+      <Header isInverted withNav {...props} />
     </BlueBackground>
   ));

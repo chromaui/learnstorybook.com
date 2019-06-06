@@ -4,65 +4,17 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import Helmet from 'react-helmet';
-import { Button, Icon, Link, Subheading, styles } from '@storybook/design-system';
+import { Button, Icon, Link, styles } from '@storybook/design-system';
 
 import Highlight from '../components/atoms/Highlight';
 import GatsbyLink from '../components/atoms/GatsbyLink';
 import CTA from '../components/molecules/CTA';
+import TableOfContents from '../components/molecules/TableOfContents';
 import tocEntries from '../lib/tocEntries';
 
 import formatting from '../styles/formatting';
 
 const { background, color, pageMargins, breakpoint, typography } = styles;
-
-const Heading = styled(Subheading)`
-  display: block;
-  font-size: ${typography.size.s1}px;
-  line-height: 1rem;
-  color: ${color.medium};
-
-  margin-bottom: 0.5rem;
-  @media (min-width: ${breakpoint * 1}px) {
-    margin-bottom: 1rem;
-  }
-`;
-
-const DocsItem = styled.li`
-  a {
-    line-height: 1rem;
-    padding: 8px 0;
-    line-height: 1.5;
-    position: relative;
-    z-index: 1;
-    ${props => props.isActive && `font-weight: ${typography.weight.black};`}
-
-    @media screen and (min-width: ${breakpoint}px) {
-      &:after {
-        position: absolute;
-        top: 15px;
-        right: auto;
-        bottom: auto;
-        left: -23px;
-        width: auto;
-        height: auto;
-        background: ${color.mediumlight};
-        box-shadow: white 0 0 0 4px;
-        height: 8px;
-        width: 8px;
-        border-radius: 1em;
-        text-decoration: none !important;
-        content: '';
-        ${props => props.isActive && `background: ${color.primary};`}
-      }
-    }
-  }
-`;
-
-const DocsList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin: 0 0 2rem;
-`;
 
 const Sidebar = styled.div`
   flex: 0 1 240px;
@@ -74,41 +26,9 @@ const Sidebar = styled.div`
     width: 100%;
     border-bottom: 1px solid ${color.mediumlight};
   }
-
-  ${DocsList} {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 0 0;
-    position: relative;
-
-    @media screen and (min-width: ${breakpoint}px) {
-      margin: 0 0 2rem 24px;
-      &:after {
-        position: absolute;
-        top: 12px;
-        right: auto;
-        bottom: 12px;
-        left: -20px;
-        width: auto;
-        height: auto;
-        border-left: 1px solid ${color.light};
-        content: '';
-        z-index: 0;
-      }
-    }
-
-    @media (max-width: ${breakpoint - 1}px) {
-      margin-bottom: 1rem;
-
-      li {
-        display: inline-block;
-        margin-right: 15px;
-      }
-    }
-  }
 `;
 
-const Markdown = styled.div`
+const HighlightWrapper = styled(Highlight)`
   margin-bottom: 3rem;
 `;
 
@@ -154,16 +74,13 @@ const GithubLinkWrapper = styled.div`
 
 const CTAMessage = styled.div`
   overflow: hidden;
+  flex: 1;
 `;
 
 const CTAWrapper = styled.a`
   font-weight: ${typography.weight.black};
   font-size: ${typography.size.s3}px;
-  @media screen and (min-width: ${breakpoint}px) {
-    font-size: ${typography.size.m1}px;
-  }
   line-height: 1.2;
-
   background: ${color.app};
   color: ${color.dark};
   border-radius: 4px;
@@ -173,7 +90,6 @@ const CTAWrapper = styled.a`
   transition: all 150ms ease-out;
   text-decoration: none;
   overflow: hidden;
-
   display: flex;
   align-items: center;
 
@@ -181,8 +97,8 @@ const CTAWrapper = styled.a`
     background: ${darken(0.02, background.app)};
   }
 
-  ${CTAMessage} {
-    flex: 1;
+  @media screen and (min-width: ${breakpoint}px) {
+    font-size: ${typography.size.m1}px;
   }
 
   svg {
@@ -232,26 +148,13 @@ const Chapter = ({
           />
         ))}
       </Helmet>
-      <Sidebar>
-        <Heading>Table of Contents</Heading>
-        <DocsList>
-          {entries.map(entry => {
-            const isActive = slug === entry.slug;
 
-            return (
-              <DocsItem key={entry.slug} isActive={isActive}>
-                <Link LinkWrapper={GatsbyLink} to={entry.slug} tertiary={!isActive}>
-                  {entry.title}
-                </Link>
-              </DocsItem>
-            );
-          })}
-        </DocsList>
+      <Sidebar>
+        <TableOfContents entries={entries} currentPageSlug={slug} />
       </Sidebar>
+
       <Content>
-        <Markdown>
-          <Highlight>{currentPage.html}</Highlight>
-        </Markdown>
+        <HighlightWrapper>{currentPage.html}</HighlightWrapper>
 
         {commit && (
           <CTAWrapper target="_blank" href={`${codeGithubUrl}/commit/${commit}`}>
@@ -287,6 +190,7 @@ const Chapter = ({
             }
           />
         )}
+
         <GithubLinkWrapper>
           <GithubLink secondary href={githubFileUrl} target="_blank">
             <span role="img" aria-label="write">
