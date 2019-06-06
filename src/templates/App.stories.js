@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
-import App from './App';
+import App from './app';
 
 const Children = styled.div`
   display: flex;
