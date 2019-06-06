@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
