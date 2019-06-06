@@ -18,7 +18,6 @@ storiesOf('Molecules|CTA', module)
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('all', () => (
     <>
-      <CTA text="Get started with our thing today but no actions!" />
       <CTA text="Get started with our thing today!" action={ctaAction} />
 
       <CTA

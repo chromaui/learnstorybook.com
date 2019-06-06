@@ -56,21 +56,14 @@ const DocsWrapper = styled.div`
   }
 `;
 
-const NextChapterSubtitle = styled.div`
-  display: block;
-  margin-top: 0.5rem;
-  font-size: 18px;
-  line-height: 1.65;
-  font-weight: ${typography.weight.regular};
+const GithubLinkWrapper = styled.div`
+  margin-top: 3rem;
+  text-align: center;
 `;
 
 const GithubLink = styled(Link)`
   font-weight: ${typography.weight.bold};
-`;
-
-const GithubLinkWrapper = styled.div`
-  margin-top: 3rem;
-  text-align: center;
+  font-size: ${typography.size.s2}px;
 `;
 
 const CTAMessage = styled.div`
@@ -204,11 +197,11 @@ const Chapter = ({
         )}
 
         <GithubLinkWrapper>
-          <GithubLink secondary href={githubFileUrl} target="_blank">
+          <GithubLink tertiary href={githubFileUrl} target="_blank">
             <span role="img" aria-label="write">
               ✍️
             </span>{' '}
-            Edit on GitHub
+            Edit on GitHub – PRs welcome!
           </GithubLink>
         </GithubLinkWrapper>
       </Content>

@@ -51,13 +51,8 @@ const CTA = ({ text, action, ...rest }) => (
 );
 
 CTA.propTypes = {
-  text: PropTypes.node,
-  action: PropTypes.node,
-};
-
-CTA.defaultProps = {
-  text: null,
-  action: null,
+  text: PropTypes.node.isRequired,
+  action: PropTypes.node.isRequired,
 };
 
 export default CTA;
