@@ -33,7 +33,7 @@
     "dev": "gatsby develop",
     "format": "prettier-eslint --write '**/*.js'",
     "lint": "eslint .",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -s ./static -p 6006",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

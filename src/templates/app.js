@@ -11,7 +11,7 @@ import { GlobalStyle } from '../styles/global';
 
 const HeaderWrapper = styled(Header)`
   ${props =>
-    props.isHome &&
+    !props.withNav &&
     `
       position: absolute;
       left: 0;
@@ -74,7 +74,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           title={title}
           githubUrl={githubUrl}
           isInverted={pathname === '/'}
-          isHome={pathname === '/'}
+          withNav={pathname !== '/' && pathname !== '/404.html'}
           framework={pathname.split('/')[1]}
           firstChapter={toc[0]}
         />
