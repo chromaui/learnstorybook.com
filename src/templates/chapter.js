@@ -3,10 +3,9 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Helmet from 'react-helmet';
-import { Button, Icon, Link, styles, Subheading } from '@storybook/design-system';
+import { Button, Highlight, Icon, Link, styles, Subheading } from '@storybook/design-system';
 
 import BoxLink from '../components/atoms/BoxLink';
-import Highlight from '../components/atoms/Highlight';
 import GatsbyLink from '../components/atoms/GatsbyLink';
 import ShadowBoxCTA from '../components/molecules/ShadowBoxCTA';
 import TableOfContents from '../components/molecules/TableOfContents';
