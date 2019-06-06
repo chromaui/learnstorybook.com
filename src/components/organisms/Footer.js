@@ -29,10 +29,6 @@ const FooterLogoBlock = styled.div`
   ${props => !props.isFirst && `margin-top: 38px;`}
 `;
 
-const FooterLink = styled(Link)`
-  font-weight: ${typography.weight.bold};
-`;
-
 const LogoMessage = styled.div`
   margin-top: 14px;
 `;
@@ -50,8 +46,6 @@ const LogoChromaWrapper = styled(LogoChroma)`
     width: auto;
   }
 `;
-
-const linkProps = { target: '_blank' };
 
 const Footer = ({ ...props }) => (
   <FooterWrapper {...props}>
