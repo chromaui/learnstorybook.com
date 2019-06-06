@@ -5,13 +5,17 @@ import { Link, styles } from '@storybook/design-system';
 
 import LogoChroma from '../atoms/LogoChroma';
 
-const { color, typography, pageMargins } = styles;
+const { background, color, typography, pageMargins } = styles;
 
 const FooterWrapper = styled.footer`
-  ${pageMargins};
-  text-align: center;
-  padding: 3rem 0;
+  background: ${background.app};
+  padding: 52px 0;
   color: ${color.mediumdark};
+  border-top: 1px solid ${color.mediumlight};
+`;
+
+const FooterContent = styled.div`
+  ${pageMargins}
 `;
 
 const FooterLink = styled(Link)`
@@ -26,15 +30,17 @@ const Logo = styled(LogoChroma)`
 
 const Footer = ({ ...props }) => (
   <FooterWrapper {...props}>
-    <a href="https://blog.hichroma.com" target="_blank" rel="noopener noreferrer">
-      <Logo />
-    </a>
-    <br />
-    Made by{' '}
-    <FooterLink secondary href="https://blog.hichroma.com" target="_blank">
-      Chroma
-    </FooterLink>{' '}
-    and the awesome Storybook community
+    <FooterContent>
+      <a href="https://blog.hichroma.com" target="_blank" rel="noopener noreferrer">
+        <Logo />
+      </a>
+      <br />
+      Made by{' '}
+      <FooterLink secondary href="https://blog.hichroma.com" target="_blank">
+        Chroma
+      </FooterLink>{' '}
+      and the awesome Storybook community
+    </FooterContent>
   </FooterWrapper>
 );
 
