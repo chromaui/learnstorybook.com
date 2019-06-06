@@ -36,7 +36,7 @@ const BoxLink = ({ isInternal, to, ...rest }) =>
 
 BoxLink.propTypes = {
   isInternal: PropTypes.bool,
-  to: PropTypes.bool.isRequired,
+  to: PropTypes.string.isRequired,
 };
 
 BoxLink.defaultProps = {
