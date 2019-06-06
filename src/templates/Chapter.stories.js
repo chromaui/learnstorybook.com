@@ -2,7 +2,7 @@
 /* eslint-disable import/extensions */
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Chapter from './Chapter';
+import Chapter from './chapter';
 
 const buildPageNode = id => ({
   html: '<div>The page HTML</div>',
