@@ -77,7 +77,7 @@ const ListItem = styled.li`
       border-radius: 1em;
       text-decoration: none !important;
       content: '';
-      ${props => props.isActive && `background: ${color.primary};`}
+      ${props => props.isActive && `background: ${color.secondary};`}
     }
   }
 `;
