@@ -4,11 +4,12 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import Helmet from 'react-helmet';
-import { Button, Icon, Link, styles } from '@storybook/design-system';
+import { Button, Icon, Link, styles, Subheading } from '@storybook/design-system';
 
 import Highlight from '../components/atoms/Highlight';
 import GatsbyLink from '../components/atoms/GatsbyLink';
 import CTA from '../components/molecules/CTA';
+import ShadowBoxCTA from '../components/molecules/ShadowBoxCTA';
 import TableOfContents from '../components/molecules/TableOfContents';
 import tocEntries from '../lib/tocEntries';
 
@@ -109,8 +110,19 @@ const CTAWrapper = styled.a`
   }
 `;
 
-const Pagination = styled(CTA)`
-  margin-top: 3rem;
+const Pagination = styled.div`
+  margin-top: 48px;
+`;
+
+const PaginationSubheading = styled(Subheading)`
+  color: ${color.mediumdark};
+  font-size: ${typography.size.s2}px;
+  letter-spacing: 6px;
+  line-height: 20px;
+`;
+
+const PaginationShadowBoxCTA = styled(ShadowBoxCTA)`
+  margin-top: 17px;
 `;
 
 const Chapter = ({
@@ -176,19 +188,19 @@ const Chapter = ({
         </CTAWrapper>
 
         {nextEntry && (
-          <Pagination
-            text={
-              <div>
-                {nextEntry.title}
-                <NextChapterSubtitle>{nextEntry.description}</NextChapterSubtitle>
-              </div>
-            }
-            action={
-              <GatsbyLink to={nextEntry.slug}>
-                <Button appearance="secondary">Next chapter</Button>
-              </GatsbyLink>
-            }
-          />
+          <Pagination>
+            <PaginationSubheading>Next Chapter</PaginationSubheading>
+
+            <PaginationShadowBoxCTA
+              action={
+                <GatsbyLink to={nextEntry.slug}>
+                  <Button appearance="secondary">Next chapter</Button>
+                </GatsbyLink>
+              }
+              headingText={nextEntry.title}
+              messageText={nextEntry.description}
+            />
+          </Pagination>
         )}
 
         <GithubLinkWrapper>
