@@ -1475,13 +1475,14 @@
     webpack-dev-middleware "^3.7.0"
     webpack-hot-middleware "^2.25.0"
 
-"@storybook/design-system@^0.0.17":
-  version "0.0.17"
-  resolved "https://registry.npmjs.org/@storybook/design-system/-/design-system-0.0.17.tgz#6e0fe8729e210514622ec5038bf4834ea69d8757"
-  integrity sha512-YK3UwvhjS+ygfckHP865fCw6VFjU7Qeap8/38enHmMAnmn1e+8O8tVDsI/NWhUnbWVTa9kitk2O/yDJ+k8Yw8Q==
+"@storybook/design-system@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.npmjs.org/@storybook/design-system/-/design-system-0.0.19.tgz#6df4e7da2647197174496f075bfe6190fd2f3601"
+  integrity sha512-L83r3CgM6UOKAxtXy74Lp+AMwg3ipwVKIn5p4Qz0Wr9oxQS7ddw7dP19VH3faKIY9z2UGrKPDBAxe+rfoR/KgQ==
   dependencies:
     global "^4.3.2"
     polished "^3.3.0"
+    prismjs "1.13.0"
     react-helmet "^5.2.1"
     react-lazyload "^2.5.0"
     react-modal "^3.8.1"
@@ -10723,9 +10724,10 @@ pretty-hrtime@^1.0.3:
   resolved "https://registry.npmjs.org/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-prismjs@^1.13.0:
+prismjs@1.13.0, prismjs@^1.13.0:
   version "1.13.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.13.0.tgz#edcc14a90bbd72a03e5ffd2bab81a04c79a607a6"
+  resolved "https://registry.npmjs.org/prismjs/-/prismjs-1.13.0.tgz#edcc14a90bbd72a03e5ffd2bab81a04c79a607a6"
+  integrity sha512-0/1Fiyg3MCzepo6t6Wzx2Ef4nftGKeQIv+Z6LO38RcYJN5QV2ePHh8W41ZkFn57B++6BnglF6fCiJ9b80YlzkQ==
   optionalDependencies:
     clipboard "^2.0.0"
 

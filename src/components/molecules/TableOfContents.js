@@ -1,22 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { styles, Subheading, Link } from '@storybook/design-system';
+import { styles, Link } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
 
 const { breakpoint, color, typography } = styles;
-
-const Heading = styled(Subheading)`
-  display: block;
-  font-size: ${typography.size.s1}px;
-  line-height: 1rem;
-  color: ${color.medium};
-  margin-bottom: 0.5rem;
-
-  @media (min-width: ${breakpoint * 1}px) {
-    margin-bottom: 1rem;
-  }
-`;
 
 const List = styled.ul`
   list-style: none;
@@ -38,7 +26,7 @@ const List = styled.ul`
       left: -20px;
       width: auto;
       height: auto;
-      border-left: 1px solid ${color.light};
+      border-left: 1px solid ${color.mediumlight};
       content: '';
       z-index: 0;
     }
@@ -70,7 +58,7 @@ const ListItem = styled.li`
       left: -23px;
       width: auto;
       height: auto;
-      background: ${color.mediumlight};
+      background: ${color.medium};
       box-shadow: white 0 0 0 4px;
       height: 8px;
       width: 8px;
@@ -82,24 +70,20 @@ const ListItem = styled.li`
   }
 `;
 
-const TableOfContents = ({ currentPageSlug, entries }) => (
-  <>
-    <Heading>Table of Contents</Heading>
+const TableOfContents = ({ currentPageSlug, entries, ...rest }) => (
+  <List {...rest}>
+    {entries.map(entry => {
+      const isActive = currentPageSlug === entry.slug;
 
-    <List>
-      {entries.map(entry => {
-        const isActive = currentPageSlug === entry.slug;
-
-        return (
-          <ListItem key={entry.slug} isActive={isActive}>
-            <Link LinkWrapper={GatsbyLink} to={entry.slug} tertiary={!isActive}>
-              {entry.title}
-            </Link>
-          </ListItem>
-        );
-      })}
-    </List>
-  </>
+      return (
+        <ListItem key={entry.slug} isActive={isActive}>
+          <Link LinkWrapper={GatsbyLink} to={entry.slug} tertiary={!isActive}>
+            {entry.title}
+          </Link>
+        </ListItem>
+      );
+    })}
+  </List>
 );
 
 TableOfContents.propTypes = {
@@ -108,8 +92,8 @@ TableOfContents.propTypes = {
     PropTypes.shape({
       slug: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
-    })
-  ),
+    }).isRequired
+  ).isRequired,
 };
 
 export default TableOfContents;

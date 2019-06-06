@@ -13,23 +13,19 @@ const { color, typography, spacing, pageMargins, breakpoint } = styles;
 
 const LogoWrapper = styled(Logo)`
   && {
-    height: 22px;
+    height: 28px;
     width: auto;
-  }
-
-  @media (min-width: ${breakpoint}px) {
-    height: 22px;
-  }
-
-  display: block;
-
-  transition: all 150ms ease-out;
-  transform: translate3d(0, 0, 0);
-  &:hover {
-    transform: translate3d(0, -1px, 0);
-  }
-  &:active {
+    display: block;
+    transition: all 150ms ease-out;
     transform: translate3d(0, 0, 0);
+
+    &:hover {
+      transform: translate3d(0, -1px, 0);
+    }
+
+    &:active {
+      transform: translate3d(0, 0, 0);
+    }
   }
 `;
 
