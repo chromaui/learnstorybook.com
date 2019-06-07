@@ -67,11 +67,11 @@ const ChapterWrapper = styled.div`
   ${pageMargins};
   display: flex;
   flex-direction: column;
+  padding-bottom: 3rem;
 
   @media screen and (min-width: ${breakpoint}px) {
     flex-direction: row;
     padding-top: 4rem;
-    padding-bottom: 3rem;
   }
 `;
 

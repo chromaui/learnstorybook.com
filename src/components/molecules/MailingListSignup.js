@@ -20,14 +20,15 @@ const SendButton = styled(Button)`
   border-bottom-right-radius: 4px;
 `;
 
-const MailingListFormUI = ({ handleBlur, handleChange, isSubmitting, value }) => (
-  <MailingListFormUIWrapper>
+const MailingListFormUI = ({ handleBlur, handleChange, isSubmitting, value, ...rest }) => (
+  <MailingListFormUIWrapper {...rest}>
     <EmailInput
       id="email"
       icon="email"
       type="email"
       name="email"
       value={value}
+      placeholder="Your email"
       onChange={handleChange}
       onBlur={handleBlur}
       autoCapitalize="off"
@@ -73,7 +74,7 @@ const validateForm = values => {
 const listUrl =
   'https://hichroma.us15.list-manage.com/subscribe/post?u=0cd563f2d5b0ef7aa4471c045&amp;id=17ebbc4cc4';
 
-const MailingListSignup = () => {
+const MailingListSignup = props => {
   const [hasSubmitted, setSubmitStatus] = useState(false);
   const onSubmitForm = async values => {
     const data = {
@@ -91,7 +92,7 @@ const MailingListSignup = () => {
 
   if (hasSubmitted) {
     return (
-      <MailingListConfirm>
+      <MailingListConfirm {...props}>
         <b>
           <span role="img" aria-label="thumbs up">
             👍
@@ -111,6 +112,7 @@ const MailingListSignup = () => {
             handleChange={handleChange}
             handleBlur={handleBlur}
             isSubmitting={isSubmitting}
+            {...props}
           />
         </form>
       )}
