@@ -13,8 +13,8 @@ Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Componen
 
 `TaskComponent` (o Tarea) es el componente principal de nuestra aplicación. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o sin marcar), información sobre la tarea y un botón “pin” que nos permite fijar dicha tarea en la parte superior de la lista. Con estas especificaciones en mente, necesitaremos las siguientes propiedades propiedades (props):
 
-- `title` – una cadena de caracteres que describe la tarea
-- `state` - ¿en qué lista se encuentra la tarea actualmente? y, ¿está marcado el checkbox?
+* `title` – una cadena de caracteres que describe la tarea
+* `state` - ¿en qué lista se encuentra la tarea actualmente? y, ¿está marcado el checkbox?
 
 Para construir nuestro `TaskComponent`, primero escribiremos tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizaremos Storybook para construir el componente en aislamiento utilizando únicamente datos de prueba. Vamos a “testear visualmente” la apariencia del componente dependiendo de cada estado.
 
@@ -27,15 +27,15 @@ Primero, vamos a crear el componente que describe una Tarea (`TaskComponent`) y 
 Comenzaremos con una implementación básica del `TaskComponent`, en la que simplemente recibiremos los atributos que componen una tarea (titulo y estado de la misma) y las dos acciones que puedes realizar: moverla entre las listas y fijarla.
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: "task-item",
+  selector: 'task-item',
   template: `
     <div class="list-item">
       <input type="text" [value]="task.title" readonly="true" />
     </div>
-  `
+  `,
 })
 export class TaskComponent implements OnInit {
   title: string;
@@ -54,67 +54,67 @@ Arriba, renderizamos directamente nuestro `TaskComponent` basándonos en la estr
 A continuación creamos los tres estados de prueba del componente dentro del archivo de historia:
 
 ```typescript
-import { storiesOf, moduleMetadata } from "@storybook/angular";
-import { action } from "@storybook/addon-actions";
+import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { action } from '@storybook/addon-actions';
 
-import { TaskComponent } from "./task.component";
+import { TaskComponent } from './task.component';
 
 export const task = {
-  id: "1",
-  title: "Test Task",
-  state: "TASK_INBOX",
-  updatedAt: new Date(2018, 0, 1, 9, 0)
+  id: '1',
+  title: 'Test Task',
+  state: 'TASK_INBOX',
+  updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
 export const actions = {
-  onPinTask: action("onPinTask"),
-  onArchiveTask: action("onArchiveTask")
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf("Task", module)
+storiesOf('Task', module)
   .addDecorator(
     moduleMetadata({
-      declarations: [TaskComponent]
-    })
+      declarations: [TaskComponent],
+    }),
   )
-  .add("default", () => {
+  .add('default', () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
         task,
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask
-      }
+        onArchiveTask: actions.onArchiveTask,
+      },
     };
   })
-  .add("pinned", () => {
+  .add('pinned', () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
-        task: { ...task, state: "TASK_PINNED" },
+        task: { ...task, state: 'TASK_PINNED' },
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask
-      }
+        onArchiveTask: actions.onArchiveTask,
+      },
     };
   })
-  .add("archived", () => {
+  .add('archived', () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
-        task: { ...task, state: "TASK_ARCHIVED" },
+        task: { ...task, state: 'TASK_ARCHIVED' },
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask
-      }
+        onArchiveTask: actions.onArchiveTask,
+      },
     };
   });
 ```
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Puedes pensar en cada historia como una permutación del componente (todos lo estados posibles que puede tener, basándose en las las entradas que se le pueden proporcionar). Puedes crear tantas historias por componente como sean necesarias.
 
-- **Component**
-  - Story
-  - Story
-  - Story
+* **Component**
+  * Story
+  * Story
+  * Story
 
 Para iniciar Storybook, primero invocamos a la función `storiesOf()` que registra el componente. Agregamos un nombre para el componente que se muestra en la barra lateral de la aplicación Storybook.
 
@@ -135,9 +135,9 @@ Las <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>A
 También necesitamos hacer un pequeño cambio en la configuración de Storybook (`.storybook/config.js`) para que tenga en cuenta nuestros archivos `.stories.ts` y use nuestro archivo LESS. Por defecto, Storybook busca historias en el directorio `/stories`; este tutorial usa un esquema de nombres que es similar al esquema de nombres `.tipo.extensión` preferido cuando se desarrollan aplicaciones con Angular.
 
 ```typescript
-import { configure } from "@storybook/angular";
+import { configure } from '@storybook/angular';
 
-import "../src/styles.less";
+import '../src/styles.less';
 
 // automatically import all files ending in *.stories.ts
 const req = require.context('../src/', true, /\.stories.ts$/);
@@ -152,18 +152,18 @@ configure(loadStories, module);
 Para que sea posible importar directamente nuestro archivo LESS necesitamos añadir una configuración expecial de Webpack. Basta con crear un archivo `webpack.config.js` dentro del directorio `.storybook` y pegar el siguiente código:
 
 ```javascript
-const path = require("path");
+const path = require('path');
 
 module.exports = {
   module: {
     rules: [
       {
         test: /\.less$/,
-        loaders: ["style-loader", "css-loader", "less-loader"],
-        include: path.resolve(__dirname, "../")
-      }
-    ]
-  }
+        loaders: ['style-loader', 'css-loader', 'less-loader'],
+        include: path.resolve(__dirname, '../'),
+      },
+    ],
+  },
 };
 ```
 
@@ -189,11 +189,11 @@ Ahora que hemos configurado Storybook, importado los estilos y los casos de prue
 Con el siguiente código, lograremos que nuestro componente (que aún es básico) se vea como deseamos:
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { Task } from "./task.model";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Task } from './task.model';
 
 @Component({
-  selector: "task-item",
+  selector: 'task-item',
   template: `
     <div class="list-item {{ task?.state }}">
       <label class="checkbox">
@@ -206,21 +206,16 @@ import { Task } from "./task.model";
         <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
       </label>
       <div class="title">
-        <input
-          type="text"
-          [value]="task?.title"
-          readonly="true"
-          placeholder="Input title"
-        />
+        <input type="text" [value]="task?.title" readonly="true" placeholder="Input title" />
       </div>
 
       <div class="actions">
-        <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-          <span class="icon-star"></span>
-        </a>
+          <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
+            <span class="icon-star"></span>
+          </a>
       </div>
     </div>
-  `
+  `,
 })
 export class TaskComponent implements OnInit {
   title: string;
@@ -290,15 +285,15 @@ yarn add -D @storybook/addon-storyshots identity-object-proxy jest jest-preset-a
 Luego crea un archivo `src/storybook.test.ts` con el siguiente contenido:
 
 ```typescript
-import * as path from "path";
+import * as path from 'path';
 import initStoryshots, {
-  multiSnapshotWithOptions
-} from "@storybook/addon-storyshots";
+  multiSnapshotWithOptions,
+} from '@storybook/addon-storyshots';
 
 initStoryshots({
-  framework: "angular",
-  configPath: path.join(__dirname, "../.storybook"),
-  test: multiSnapshotWithOptions()
+  framework: 'angular',
+  configPath: path.join(__dirname, '../.storybook'),
+  test: multiSnapshotWithOptions(),
 });
 ```
 
@@ -309,24 +304,24 @@ const mock = () => {
   let storage = {};
   return {
     getItem: key => (key in storage ? storage[key] : null),
-    setItem: (key, value) => (storage[key] = value || ""),
+    setItem: (key, value) => (storage[key] = value || ''),
     removeItem: key => delete storage[key],
-    clear: () => (storage = {})
+    clear: () => (storage = {}),
   };
 };
 
-Object.defineProperty(window, "localStorage", { value: mock() });
-Object.defineProperty(window, "sessionStorage", { value: mock() });
-Object.defineProperty(window, "getComputedStyle", {
-  value: () => ["-webkit-appearance"]
+Object.defineProperty(window, 'localStorage', { value: mock() });
+Object.defineProperty(window, 'sessionStorage', { value: mock() });
+Object.defineProperty(window, 'getComputedStyle', {
+  value: () => ['-webkit-appearance'],
 });
 ```
 
 y `setup.ts`:
 
 ```typescript
-import "jest-preset-angular";
-import "./globalMocks";
+import 'jest-preset-angular';
+import './globalMocks';
 ```
 
 Adicionalmente, añade un nuevo campo al `package.json`,

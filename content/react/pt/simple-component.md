@@ -11,12 +11,12 @@ Iremos construir o interface de utilizador de acordo com a metodologia de [Desen
 
 ![Componente Task ao longo de três estados](/task-states-learnstorybook.png)
 
-`Task` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra.
-O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista.
+`Task` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra. 
+O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista. 
 Para que seja possível implementar isto serão necessárias os seguintes adereços (props):
 
-- `title` - uma cadeia de caracteres que descreve a tarefa
-- `state` - qual a lista em que a tarefa se encontra e se está confirmada?
+* `title` - uma cadeia de caracteres que descreve a tarefa
+* `state` - qual a lista em que a tarefa se encontra e se está confirmada?
 
 Á medida que construimos a `Task`, é necessário definir os três estados que correspondem os três tipos de tarefa delineados acima.
 Em seguida usa-se o Storybook para construir este componente isolado, usando dados predefinidos. Irá "testar-se visualmente" a aparência do componente para cada estado á medida que prosseguimos.
@@ -31,13 +31,9 @@ Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o aco
 Iremos iniciar por uma implementação básica da `Task`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
 
 ```javascript
-import React from "react";
+import React from 'react';
 
-export default function Task({
-  task: { id, title, state },
-  onArchiveTask,
-  onPinTask
-}) {
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className="list-item">
       <input type="text" value={title} readOnly={true} />
@@ -45,46 +41,41 @@ export default function Task({
   );
 }
 ```
-
 O bloco de código acima, quando renderizado, não é nada mais nada menos que a estrutura HTML da `Task` na aplicação Todos.
 
 Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
 
 ```javascript
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
-import Task from "./Task";
+import Task from './Task';
 
 export const task = {
-  id: "1",
-  title: "Test Task",
-  state: "TASK_INBOX",
-  updatedAt: new Date(2018, 0, 1, 9, 0)
+  id: '1',
+  title: 'Test Task',
+  state: 'TASK_INBOX',
+  updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
 export const actions = {
-  onPinTask: action("onPinTask"),
-  onArchiveTask: action("onArchiveTask")
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf("Task", module)
-  .add("default", () => <Task task={task} {...actions} />)
-  .add("pinned", () => (
-    <Task task={{ ...task, state: "TASK_PINNED" }} {...actions} />
-  ))
-  .add("archived", () => (
-    <Task task={{ ...task, state: "TASK_ARCHIVED" }} {...actions} />
-  ));
+storiesOf('Task', module)
+  .add('default', () => <Task task={task} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
 Existem dois tipos de organização com Storybook. O componente em si e as estórias associadas. É preferível pensar em cada estória como uma permutação de um componente. Como tal podem existir tantas estórias, tantas as que forem necessárias.
 
-- **Component**
-  - Story
-  - Story
-  - Story
+* **Component**
+  * Story
+  * Story
+  * Story
 
 Ao ser invocada a função `storiesOf()`, está a registar-se o componente, e com isto o processo de arranque do Storybook. É adicionado um nome, nome esse que será usado na barra lateral da aplicação Storybook para identificar o componente.
 
@@ -109,8 +100,8 @@ Será necessária uma alteração minúscula ao ficheiro de configuração do St
 Por norma o Storybook pesquisa numa pasta denominada `/stories` para conter as estórias; este tutorial usa uma nomenclatura similar a `.test.js`, cuja qual favorecida pelo CRA para testes automatizados.
 
 ```javascript
-import { configure } from "@storybook/react";
-import "../src/index.css";
+import { configure } from '@storybook/react';
+import '../src/index.css';
 
 const req = require.context('../src', true, /\.stories.js$/);
 
@@ -129,6 +120,7 @@ Após esta alteração, ao ser reiniciado o servidor Storybook, deverá produzir
     type="video/mp4"
   />
 </video>
+
 
 ## Especificação de requisitos de dados
 
@@ -189,19 +181,19 @@ yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.m
 Quando esta operação terminar, será necessário criar o ficheiro `src/storybook.test.js` com o seguinte conteúdo:
 
 ```javascript
-import initStoryshots from "@storybook/addon-storyshots";
+import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
 Será necessário usar uma [macro babel](https://github.com/kentcdodds/babel-plugin-macros), de forma a garantir que `require.context` seja executado pelo Jest (o nosso contexto de testes), para isso atualiza-se o conteúdo do ficheiro `.storybook/config.js` (de forma a que o webpack faça a sua magia):
 
 ```js
-import { configure } from "@storybook/react";
-import requireContext from "require-context.macro";
+import { configure } from '@storybook/react';
+import requireContext from 'require-context.macro';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = requireContext("../src/components", true, /\.stories\.js$/);
+const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

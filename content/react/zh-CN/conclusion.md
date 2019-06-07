@@ -1,5 +1,6 @@
 ---
-title: "总结"
+title: "结论"
+tocTitle: "总结"
 description: "把所有的知识汇总以下，学习更多的 storybook 技巧"
 ---
 

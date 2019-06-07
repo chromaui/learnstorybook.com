@@ -15,11 +15,11 @@ Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una 
 
 Quieres bucear más profundo? Aquí algunos recursos útiles:
 
-- [**Documentación oficial de Storybook**](https://storybook.js.org/basics/introduction/) tiene la documentación del API, links comunitarios y una galería de complementos.
+* [**Documentación oficial de Storybook**](https://storybook.js.org/basics/introduction/) tiene la documentación del API, links comunitarios y una galería de complementos.
 
-- **El delicioso flujo de trabajo de Storybook** (Próximamente!) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Squarespace, Major League Soccer y Apollo GraphQL.
+* **El delicioso flujo de trabajo de Storybook** (Próximamente!) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Squarespace, Major League Soccer y Apollo GraphQL.
 
-- [**Manual de pruebas visuales**](https://www.chromaticqa.com/book/visual-testing-handbook) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
+* [**Manual de pruebas visuales**](https://www.chromaticqa.com/book/visual-testing-handbook) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
 
 ## Quién hizo LearnStorybook.com?
 

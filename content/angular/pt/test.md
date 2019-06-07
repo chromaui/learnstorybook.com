@@ -6,9 +6,9 @@ description: "Aprendizagem das formas de teste dos componentes interface utiliza
 
 Qualquer tutorial de Storybook não estaria completo sem serem mencionados os testes. Estes são essenciais na criação de interfaces de utilizador de alta qualidade. Nos sistemas modulares, ajustes minúsculos poderão levar a regressões gigantescas. Até agora foram descritos três tipos de testes:
 
-- **Testes visuais** dependem do programador para olhar para o componente manualmente e verificar se está tudo de acordo. Ajudam a manter um nível de coerência em termos de aparência á medida que é construído.
-- **Testes snapshot** com o extra Storyshots é capturado o markup renderizado do componente. Ajudam a ficar a par das alterações no markup que causam erros de renderização e avisos.
-- **Unit tests** com Jest é verificado que o output de um determinado componente mantém-se idêntico dado um input fixo. São óptimos para efectuar testes das qualidades funcionais de um componente.
+* **Testes visuais** dependem do programador para olhar para o componente manualmente e verificar se está tudo de acordo. Ajudam a manter um nível de coerência em termos de aparência á medida que é construído.
+* **Testes snapshot** com o extra Storyshots é capturado o markup renderizado do componente. Ajudam a ficar a par das alterações no markup que causam erros de renderização e avisos.
+* **Unit tests** com Jest é verificado que o output de um determinado componente mantém-se idêntico dado um input fixo. São óptimos para efectuar testes das qualidades funcionais de um componente.
 
 ## "Mas aparenta ser correcto"?
 
@@ -66,12 +66,12 @@ yarn add storybook-chromatic
 O Chromatic é importado no ficheiro `.storybook/config.js`.
 
 ```javascript
-import { configure } from "@storybook/angular";
-import "storybook-chromatic";
-import "../src/styles.less";
+import { configure } from '@storybook/angular';
+import 'storybook-chromatic';
+import '../src/styles.less';
 
 // automatically import all files ending in *.stories.ts
-const req = require.context("../src/", true, /.stories.ts$/);
+const req = require.context('../src/', true, /.stories.ts$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

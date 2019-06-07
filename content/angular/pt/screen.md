@@ -14,17 +14,17 @@ Neste capitulo, irá ser acrescida um pouco mais a sofisticação, através da c
 Visto que a aplicação é deveras simples, o ecrã a ser construído é bastante trivial, simplesmente envolvendo o componente `TaskListComponent` (que fornece os seus dados via ngxs), a um qualquer layout e extraindo o campo de topo `erro` oriundo do loja(assumindo que este irá ser definido caso exista algum problema na ligação ao servidor). Dentro da pasta `src/tasks/containers` vai ser adicionado o ficheiro `inbox-screen.component.ts`:
 
 ```typescript
-import { Component, OnInit, Input } from "@angular/core";
-import { Select, Store } from "@ngxs/store";
-import { TasksState, ArchiveTask, PinTask } from "../state/task.state";
-import { Task } from "../task.model";
-import { Observable } from "rxjs";
+import { Component, OnInit, Input } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
+import { Task } from '../task.model';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: "inbox-screen",
+  selector: 'inbox-screen',
   template: `
     <pure-inbox-screen [error]="error$ | async"></pure-inbox-screen>
-  `
+  `,
 })
 export class InboxScreenComponent implements OnInit {
   @Select(TasksState.getError) error$: Observable<any>;
@@ -34,14 +34,13 @@ export class InboxScreenComponent implements OnInit {
   ngOnInit() {}
 }
 ```
-
 Em seguida vai ser necessária a criação do componente `PureInboxScreenComponent` dentro da pasta `src/tasks/components` com o seguinte código:
 
 ```typescript
-import { Component, OnInit, Input } from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: "pure-inbox-screen",
+  selector: 'pure-inbox-screen',
   template: `
     <div *ngIf="error" class="page lists-show">
       <div class="wrapper-message">
@@ -59,7 +58,7 @@ import { Component, OnInit, Input } from "@angular/core";
       </nav>
       <task-list></task-list>
     </div>
-  `
+  `,
 })
 export class PureInboxScreenComponent implements OnInit {
   @Input() error: any;
@@ -73,16 +72,16 @@ export class PureInboxScreenComponent implements OnInit {
 Vai ser necessário alterar o `AppComponent` de forma a ser possível renderizar o `InboxScreenComponent` (eventualmente iria ser usado um roteador para escolher o ecrã apropriado, mas não e necessário preocupar-se com isso agora):
 
 ```typescript
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  selector: "app-root",
+  selector: 'app-root',
   template: `
     <inbox-screen></inbox-screen>
-  `
+  `,
 })
 export class AppComponent {
-  title = "app";
+  title = 'app';
 }
 ```
 
@@ -118,7 +117,6 @@ storiesOf('InboxScreen', module)
     };
   });
 ```
-
 Pode verificar-se agora existem problemas com as estórias. Isto deve-se ao facto que ambas dependem da loja e apesar de se estar a usar um componente "puro" para o estado erro, ambas ainda precisam do contexto.
 
 ![Inbox quebrada](/broken-inboxscreen.png)
@@ -136,29 +134,29 @@ No entanto, algum programador **irá querer** renderizar contentores num nível 
 A forma mais fácil de se atingir isto consiste em fornecer a `Store` ao módulo e inicializar o estado, partindo do pressuposto que é uma aplicação completa:
 
 ```typescript
-import { storiesOf, moduleMetadata } from "@storybook/angular";
-import { Store, NgxsModule } from "@ngxs/store";
-import { TasksState, ErrorFromServer } from "../state/task.state";
-import { TaskModule } from "../task.module";
+import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { Store, NgxsModule } from '@ngxs/store';
+import { TasksState, ErrorFromServer } from '../state/task.state';
+import { TaskModule } from '../task.module';
 
-storiesOf("InboxScreen", module)
+storiesOf('InboxScreen', module)
   .addDecorator(
     moduleMetadata({
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
-      providers: [Store]
-    })
+      providers: [Store],
+    }),
   )
-  .add("default", () => {
+  .add('default', () => {
     return {
-      template: `<inbox-screen></inbox-screen>`
+      template: `<inbox-screen></inbox-screen>`,
     };
   })
-  .add("error", () => {
+  .add('error', () => {
     return {
       template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
       props: {
-        error: "Something!"
-      }
+        error: 'Something!',
+      },
     };
   });
 ```
@@ -182,48 +180,46 @@ Poderá estar a perguntar-se porque foi criado o novo `PureInboxScreenComponent`
 Este é um exemplo extremamente simples e como tal adicionar estes componentes puros poderá sugerir algo excessivo. Mas com o Storybook para Angular existe uma outra forma de escrever estórias para o `InboxScreenComponent`:
 
 ```typescript
-import { storiesOf, moduleMetadata } from "@storybook/angular";
-import { Store, NgxsModule } from "@ngxs/store";
-import { TasksState, ErrorFromServer } from "../state/task.state";
-import { TaskModule } from "../task.module";
+import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { Store, NgxsModule } from '@ngxs/store';
+import { TasksState, ErrorFromServer } from '../state/task.state';
+import { TaskModule } from '../task.module';
 
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
 @Component({
-  template: `
-    <inbox-screen></inbox-screen>
-  `
+  template: `<inbox-screen></inbox-screen>`,
 })
 class HostDispatchErrorComponent {
   constructor(store: Store) {
-    store.dispatch(new ErrorFromServer("Error"));
+    store.dispatch(new ErrorFromServer('Error'));
   }
 }
 
-storiesOf("InboxScreen", module)
+storiesOf('InboxScreen', module)
   .addDecorator(
     moduleMetadata({
       declarations: [HostDispatchErrorComponent],
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
-      providers: [Store]
-    })
+      providers: [Store],
+    }),
   )
-  .add("default", () => {
+  .add('default', () => {
     return {
-      template: `<inbox-screen></inbox-screen>`
+      template: `<inbox-screen></inbox-screen>`,
     };
   })
-  .add("error", () => {
+  .add('error', () => {
     return {
       template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
       props: {
-        error: "Something!"
-      }
+        error: 'Something!',
+      },
     };
   })
-  .add("Connected Error", () => {
+  .add('Connected Error', () => {
     return {
-      component: HostDispatchErrorComponent
+      component: HostDispatchErrorComponent,
     };
   });
 ```

@@ -20,12 +20,12 @@ Let's start by refactoring our app a bit, we'll need to create two folders: `con
 After that we’ll construct a simple state container that responds to actions that change the state of tasks, in a file called `src/tasks/state/task.state.ts` (intentionally kept simple):
 
 ```typescript
-import { State, Selector, Action, StateContext } from "@ngxs/store";
-import { Task } from "../task.model";
+import { State, Selector, Action, StateContext } from '@ngxs/store';
+import { Task } from '../task.model';
 
 export const actions = {
-  ARCHIVE_TASK: "ARCHIVE_TASK",
-  PIN_TASK: "PIN_TASK"
+  ARCHIVE_TASK: 'ARCHIVE_TASK',
+  PIN_TASK: 'PIN_TASK',
 };
 
 export class ArchiveTask {
@@ -43,10 +43,10 @@ export class PinTask {
 // The initial state of our store when the app loads.
 // Usually you would fetch this from a server
 const defaultTasks = {
-  1: { id: "1", title: "Something", state: "TASK_INBOX" },
-  2: { id: "2", title: "Something more", state: "TASK_INBOX" },
-  3: { id: "3", title: "Something else", state: "TASK_INBOX" },
-  4: { id: "4", title: "Something again", state: "TASK_INBOX" }
+  1: { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  2: { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  3: { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  4: { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 };
 
 export class TaskStateModel {
@@ -54,10 +54,10 @@ export class TaskStateModel {
 }
 
 @State<TaskStateModel>({
-  name: "tasks",
+  name: 'tasks',
   defaults: {
-    entities: defaultTasks
-  }
+    entities: defaultTasks,
+  },
 })
 export class TasksState {
   @Selector()
@@ -69,34 +69,34 @@ export class TasksState {
   @Action(PinTask)
   pinTask(
     { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: PinTask
+    { payload }: PinTask,
   ) {
     const state = getState().entities;
 
     const entities = {
       ...state,
-      [payload]: { ...state[payload], state: "TASK_PINNED" }
+      [payload]: { ...state[payload], state: 'TASK_PINNED' },
     };
 
     patchState({
-      entities
+      entities,
     });
   }
 
   @Action(ArchiveTask)
   archiveTask(
     { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: ArchiveTask
+    { payload }: ArchiveTask,
   ) {
     const state = getState().entities;
 
     const entities = {
       ...state,
-      [payload]: { ...state[payload], state: "TASK_ARCHIVED" }
+      [payload]: { ...state[payload], state: 'TASK_ARCHIVED' },
     };
 
     patchState({
-      entities
+      entities,
     });
   }
 }
@@ -105,19 +105,19 @@ export class TasksState {
 Then we’ll need to wire up the `NgxsModule` to our root and feature Angular modules. First go to `src/tasks/task.module.ts`
 
 ```typescript
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { NgxsModule } from "@ngxs/store";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { NgxsModule } from '@ngxs/store';
 
-import { TaskComponent } from "./task.component";
-import { TaskListComponent } from "./task-list.component";
-import { TasksState } from "./state/task.state";
+import { TaskComponent } from './task.component';
+import { TaskListComponent } from './task-list.component';
+import { TasksState } from './state/task.state';
 
 @NgModule({
   imports: [CommonModule, NgxsModule.forFeature([TasksState])],
   exports: [TaskComponent, TaskListComponent],
   declarations: [TaskComponent, TaskListComponent],
-  providers: []
+  providers: [],
 })
 export class TaskModule {}
 ```
@@ -125,18 +125,18 @@ export class TaskModule {}
 then head over to `src/app.module.ts`
 
 ```typescript
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { TaskModule } from "./tasks/task.module";
-import { NgxsModule } from "@ngxs/store";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { TaskModule } from './tasks/task.module';
+import { NgxsModule } from '@ngxs/store';
 
-import { AppComponent } from "./app.component";
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, TaskModule, NgxsModule.forRoot([])],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -144,21 +144,17 @@ export class AppModule {}
 Now, we will convert our existing `TaskListComponent` to a container meaning it will get the tasks from our recently created store. In order to achieve that we need to create a new `src/tasks/containers/task-list.component.ts` and add the following code:
 
 ```typescript
-import { Component, OnInit, Input } from "@angular/core";
-import { Select, Store } from "@ngxs/store";
-import { TasksState, ArchiveTask, PinTask } from "../state/task.state";
-import { Task } from "../task.model";
-import { Observable } from "rxjs";
+import { Component, OnInit, Input } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
+import { Task } from '../task.model';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: "task-list",
+  selector: 'task-list',
   template: `
-    <pure-task-list
-      [tasks]="tasks$ | async"
-      (onArchiveTask)="archiveTask($event)"
-      (onPinTask)="pinTask($event)"
-    ></pure-task-list>
-  `
+    <pure-task-list [tasks]="tasks$ | async" (onArchiveTask)="archiveTask($event)" (onPinTask)="pinTask($event)"></pure-task-list>
+  `,
 })
 export class TaskListComponent implements OnInit {
   @Select(TasksState.getAllTasks) tasks$: Observable<Task[]>;
@@ -184,51 +180,51 @@ At this stage our Storybook tests will have stopped working, as the `TaskListCom
 However, we can easily solve this problem by simply rendering the `PureTaskListComponent` --the presentational component-- in our Storybook stories:
 
 ```typescript
-import { storiesOf, moduleMetadata } from "@storybook/angular";
-import { CommonModule } from "@angular/common";
+import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { CommonModule } from '@angular/common';
 
-import { TaskComponent } from "./task.component";
-import { PureTaskListComponent } from "./pure-task-list.component";
-import { task, actions } from "./task.stories";
+import { TaskComponent } from './task.component';
+import { PureTaskListComponent } from './pure-task-list.component';
+import { task, actions } from './task.stories';
 
 export const defaultTasks = [
-  { ...task, id: "1", title: "Task 1" },
-  { ...task, id: "2", title: "Task 2" },
-  { ...task, id: "3", title: "Task 3" },
-  { ...task, id: "4", title: "Task 4" },
-  { ...task, id: "5", title: "Task 5" },
-  { ...task, id: "6", title: "Task 6" }
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
 
 export const withPinnedTasks = [
   ...defaultTasks.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
 const props = {
   tasks: defaultTasks,
   onPinTask: actions.onPinTask,
-  onArchiveTask: actions.onArchiveTask
+  onArchiveTask: actions.onArchiveTask,
 };
 
-storiesOf("TaskList", module)
+storiesOf('TaskList', module)
   .addDecorator(
     moduleMetadata({
       declarations: [PureTaskListComponent, TaskComponent],
-      imports: [CommonModule]
-    })
+      imports: [CommonModule],
+    }),
   )
-  .add("default", () => {
+  .add('default', () => {
     return {
       template: `
         <div style="padding: 3rem">
           <pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></pure-task-list>
         </div>
       `,
-      props
+      props,
     };
   })
-  .add("withPinnedTasks", () => {
+  .add('withPinnedTasks', () => {
     return {
       template: `
         <div style="padding: 3rem">
@@ -237,28 +233,28 @@ storiesOf("TaskList", module)
       `,
       props: {
         ...props,
-        tasks: withPinnedTasks
-      }
+        tasks: withPinnedTasks,
+      },
     };
   })
-  .add("loading", () => {
+  .add('loading', () => {
     return {
       template: `
         <div style="padding: 3rem">
           <pure-task-list [tasks]="[]" loading="true" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></pure-task-list>
         </div>
       `,
-      props
+      props,
     };
   })
-  .add("empty", () => {
+  .add('empty', () => {
     return {
       template: `
         <div style="padding: 3rem">
           <pure-task-list [tasks]="[]" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></pure-task-list>
         </div>
       `,
-      props
+      props,
     };
   });
 ```
@@ -273,35 +269,37 @@ storiesOf("TaskList", module)
 Similarly, we need to use `PureTaskListComponent` in our test:
 
 ```typescript
-import { TestBed, async, ComponentFixture } from "@angular/core/testing";
-import { PureTaskListComponent } from "./pure-task-list.component";
-import { TaskComponent } from "./task.component";
+import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { PureTaskListComponent } from './pure-task-list.component';
+import { TaskComponent } from './task.component';
 
-import { withPinnedTasks } from "./pure-task-list.stories";
-import { By } from "@angular/platform-browser";
+import { withPinnedTasks } from './pure-task-list.stories';
+import { By } from '@angular/platform-browser';
 
-describe("TaskList component", () => {
+describe('TaskList component', () => {
   let component: PureTaskListComponent;
   let fixture: ComponentFixture<PureTaskListComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [TaskComponent, PureTaskListComponent]
-    }).compileComponents();
-  }));
+  beforeEach(
+    async(() => {
+      TestBed.configureTestingModule({
+        declarations: [TaskComponent, PureTaskListComponent],
+      }).compileComponents();
+    }),
+  );
 
-  it("renders pinned tasks at the start of the list", () => {
+  it('renders pinned tasks at the start of the list', () => {
     fixture = TestBed.createComponent(PureTaskListComponent);
     component = fixture.componentInstance;
     component.tasks = withPinnedTasks;
 
     fixture.detectChanges();
     const lastTaskInput = fixture.debugElement.query(
-      By.css(".list-item:nth-child(1)")
+      By.css('.list-item:nth-child(1)'),
     );
 
     // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-    expect(lastTaskInput.nativeElement.id).toEqual("6");
+    expect(lastTaskInput.nativeElement.id).toEqual('6');
   });
 });
 ```

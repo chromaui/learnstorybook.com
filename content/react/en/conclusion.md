@@ -15,11 +15,11 @@ Storybook is a powerful tool for React, Vue, and Angular. It has a thriving deve
 
 Want to dive deeper? Here are helpful resources.
 
-- [**Official Storybook documentation**](https://storybook.js.org/basics/introduction/) has API documentation, community links, and the addon gallery.
+* [**Official Storybook documentation**](https://storybook.js.org/basics/introduction/) has API documentation, community links, and the addon gallery.
 
-- [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
+* [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) dives deep into using Storybook to visual test components. Free 31-page ebook.
+* [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
 ## Who made LearnStorybook.com?
 

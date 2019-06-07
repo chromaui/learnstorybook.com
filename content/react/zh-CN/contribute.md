@@ -1,6 +1,7 @@
 ---
-title: "帮助我们"
-description: "帮助 我们与世界分享 Storybook "
+title: "帮忙帮忙"
+tocTitle: "帮助我们"
+description: "帮助 我们与世界分享 Storybook"
 ---
 
 鼓励学习 Storybook 的贡献! 如果它像 语法或标点符号 那样小,请打开拉取请求. 如果这是一个更大的变化,[添加一个问题](https://github.com/chromaui/learnstorybook.com/issues)讨论.
