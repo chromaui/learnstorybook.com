@@ -12,8 +12,9 @@ const buildPageNode = id => ({
   fields: {
     slug: `page-chapter-${id}`,
     chapter: `page-chapter-${id}`,
-    framework: 'current-page-framework',
+    framework: 'framework',
     language: 'current-page-language',
+    prettyLanguage: 'Pretty Language',
   },
 });
 
