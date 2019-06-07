@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
 
-const { color, typography, breakpoint } = styles;
+const { typography, breakpoint } = styles;
 
 const Wrapper = styled.div`
-  border-top: 1px solid ${color.mediumlight};
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   text-align: center;
-  padding: 58px;
+  padding: 58px 0;
 
   @media (min-width: ${breakpoint * 1}px) {
     text-align: left;
@@ -39,7 +38,7 @@ const Action = styled.div`
   @media (min-width: ${breakpoint * 1}px) {
     flex: 0 0 auto;
     margin-top: 0;
-    padding-left: 60px;
+    padding-left: 70px;
   }
 `;
 

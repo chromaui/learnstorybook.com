@@ -160,6 +160,16 @@ const FAQLayout = styled.div`
   }
 `;
 
+const CTALineBreak = styled.div`
+  height: 1px;
+  background: ${color.mediumlight};
+
+  @media (min-width: ${breakpoint}px) {
+    margin-left: -56px;
+    margin-right: -56px;
+  }
+`;
+
 const ClickIntercept = styled(GatsbyLink)`
   position: absolute;
   cursor: pointer;
@@ -432,11 +442,13 @@ const Pages = ({
           </p>
         </Answer>
 
+        <CTALineBreak />
+
         <CTA
-          text={`Let's learn Storybook!`}
+          text="Learn to build UIs with components and libraries now"
           action={
             <GatsbyLink to={`/react/en/${firstChapter}`}>
-              <Button appearance="secondary">Start tutorial</Button>
+              <Button appearance="secondary">Get started</Button>
             </GatsbyLink>
           }
         />
