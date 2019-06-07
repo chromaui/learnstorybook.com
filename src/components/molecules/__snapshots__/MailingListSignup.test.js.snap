@@ -1,0 +1,739 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MailingListSignup it handles submission 1`] = `
+<MailingListSignup>
+  <Formik
+    enableReinitialize={false}
+    isInitialValid={false}
+    onSubmit={[Function]}
+    validate={[Function]}
+    validateOnBlur={true}
+    validateOnChange={true}
+  >
+    <form
+      onSubmit={[Function]}
+    >
+      <MailingListFormUI
+        handleBlur={[Function]}
+        handleChange={[Function]}
+        isSubmitting={false}
+        value=":email"
+      >
+        <styled.div>
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-gGBfsJ",
+                  "isStatic": true,
+                  "lastClassName": "fOWLxk",
+                  "rules": Array [
+                    "
+  display: flex;
+  flex-direction: row;
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-gGBfsJ",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+          >
+            <div
+              className="sc-gGBfsJ fOWLxk"
+            >
+              <Styled(Input)
+                appearance="secondary"
+                autoCapitalize="off"
+                autoCorrect="off"
+                icon="email"
+                id="email"
+                label={null}
+                name="email"
+                onBlur={[Function]}
+                onChange={[Function]}
+                type="email"
+                value=":email"
+              >
+                <StyledComponent
+                  appearance="secondary"
+                  autoCapitalize="off"
+                  autoCorrect="off"
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-jnlKLf",
+                        "isStatic": true,
+                        "lastClassName": "byOYnB",
+                        "rules": Array [
+                          "
+  flex: 1;
+",
+                        ],
+                      },
+                      "displayName": "Styled(Input)",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-jnlKLf",
+                      "target": [Function],
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  icon="email"
+                  id="email"
+                  label={null}
+                  name="email"
+                  onBlur={[Function]}
+                  onChange={[Function]}
+                  type="email"
+                  value=":email"
+                >
+                  <Input
+                    appearance="secondary"
+                    autoCapitalize="off"
+                    autoCorrect="off"
+                    className="sc-jnlKLf byOYnB"
+                    error={null}
+                    focused={false}
+                    icon="email"
+                    id="email"
+                    label={null}
+                    lastErrorValue={null}
+                    name="email"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    orientation="vertical"
+                    type="email"
+                    value=":email"
+                  >
+                    <styled.div
+                      className="sc-jnlKLf byOYnB"
+                      orientation="vertical"
+                    >
+                      <StyledComponent
+                        className="sc-jnlKLf byOYnB"
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-kkGfuU",
+                              "isStatic": false,
+                              "lastClassName": "fnoVsJ",
+                              "rules": Array [
+                                "
+  ",
+                                [Function],
+                                "
+",
+                              ],
+                            },
+                            "displayName": "styled.div",
+                            "foldedComponentIds": Array [],
+                            "render": [Function],
+                            "styledComponentId": "sc-kkGfuU",
+                            "target": "div",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={null}
+                        orientation="vertical"
+                      >
+                        <div
+                          className="sc-jnlKLf byOYnB sc-kkGfuU fnoVsJ"
+                          orientation="vertical"
+                        >
+                          <styled.div
+                            appearance="secondary"
+                            data-error={null}
+                            error={null}
+                            focused={false}
+                            icon="email"
+                          >
+                            <StyledComponent
+                              appearance="secondary"
+                              data-error={null}
+                              error={null}
+                              focused={false}
+                              forwardedComponent={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "attrs": Array [],
+                                  "componentStyle": ComponentStyle {
+                                    "componentId": "sc-kEYyzF",
+                                    "isStatic": false,
+                                    "lastClassName": "bHJDED",
+                                    "rules": Array [
+                                      "
+  display: inline-block;
+  position: relative;
+  vertical-align: top;
+  width: 100%;
+
+  ",
+                                      ".sc-hMqMXs",
+                                      " {
+    background: ",
+                                      "#FFFFFF",
+                                      ";
+    border-radius: 0;
+    color: ",
+                                      "#333333",
+                                      ";
+    font-family: ",
+                                      [Function],
+                                      ";
+    font-size: ",
+                                      [Function],
+                                      "px;
+    line-height: 20px;
+    padding: .715em 1em; //40
+
+    &:focus { box-shadow: ",
+                                      "#FF4785",
+                                      " 0 0 0 1px inset; }
+
+    ",
+                                      [Function],
+                                      "
+
+    ",
+                                      [Function],
+                                      "
+
+    ",
+                                      [Function],
+                                      "
+
+    ",
+                                      [Function],
+                                      "
+  }
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    right: 1px;
+    margin-left: 1px;
+    transform: translate3d(100%, -50%, 0);
+    transition: all 200ms ease-out;
+    font-family: ",
+                                      [Function],
+                                      " ;
+    font-size: ",
+                                      "12",
+                                      "px;
+    content: attr(data-error);
+    line-height: 1em;
+    opacity: 0;
+    padding: .25em 1.25em .25em .5em;
+    pointer-events: none;
+    z-index: 1;
+
+    background: ",
+                                      [Function],
+                                      ";
+    color: ",
+                                      "#FF4400",
+                                      ";
+
+    ",
+                                      [Function],
+                                      "
+    ",
+                                      [Function],
+                                      "
+  }
+
+  ",
+                                      [Function],
+                                      "
+
+  ",
+                                      [Function],
+                                      "
+",
+                                    ],
+                                  },
+                                  "displayName": "styled.div",
+                                  "foldedComponentIds": Array [],
+                                  "render": [Function],
+                                  "styledComponentId": "sc-kEYyzF",
+                                  "target": "div",
+                                  "toString": [Function],
+                                  "warnTooManyClasses": [Function],
+                                  "withComponent": [Function],
+                                }
+                              }
+                              forwardedRef={null}
+                              icon="email"
+                            >
+                              <div
+                                className="sc-kEYyzF bHJDED"
+                                data-error={null}
+                              >
+                                <styled.input
+                                  autoCapitalize="off"
+                                  autoCorrect="off"
+                                  id="email"
+                                  name="email"
+                                  onBlur={[Function]}
+                                  onChange={[Function]}
+                                  type="email"
+                                  value=":email"
+                                >
+                                  <StyledComponent
+                                    autoCapitalize="off"
+                                    autoCorrect="off"
+                                    forwardedComponent={
+                                      Object {
+                                        "$$typeof": Symbol(react.forward_ref),
+                                        "attrs": Array [
+                                          Object {
+                                            "type": "text",
+                                          },
+                                        ],
+                                        "componentStyle": ComponentStyle {
+                                          "componentId": "sc-hMqMXs",
+                                          "isStatic": true,
+                                          "lastClassName": "clpAmc",
+                                          "rules": Array [
+                                            "
+  ::placeholder {
+    color: ",
+                                            "#999999",
+                                            ";
+    font-weight: ",
+                                            "700",
+                                            ";
+  }
+  appearance: none;
+  border:none;
+  box-sizing: border-box;
+  display: block;
+  outline: none;
+  width: 100%;
+  margin: 0;
+
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: .5;
+  }
+
+  &:-webkit-autofill { -webkit-box-shadow: 0 0 0 3em ",
+                                            "#FFFFFF",
+                                            " inset; }
+",
+                                          ],
+                                        },
+                                        "displayName": "styled.input",
+                                        "foldedComponentIds": Array [],
+                                        "render": [Function],
+                                        "styledComponentId": "sc-hMqMXs",
+                                        "target": "input",
+                                        "toString": [Function],
+                                        "warnTooManyClasses": [Function],
+                                        "withComponent": [Function],
+                                      }
+                                    }
+                                    forwardedRef={null}
+                                    id="email"
+                                    name="email"
+                                    onBlur={[Function]}
+                                    onChange={[Function]}
+                                    type="email"
+                                    value=":email"
+                                  >
+                                    <input
+                                      autoCapitalize="off"
+                                      autoCorrect="off"
+                                      className="sc-hMqMXs clpAmc"
+                                      id="email"
+                                      name="email"
+                                      onBlur={[Function]}
+                                      onChange={[Function]}
+                                      type="email"
+                                      value=":email"
+                                    />
+                                  </StyledComponent>
+                                </styled.input>
+                                <Icon
+                                  block={false}
+                                  icon="email"
+                                >
+                                  <styled.svg
+                                    block={false}
+                                    height="20px"
+                                    viewBox="0 0 1024 1024"
+                                    width="20px"
+                                  >
+                                    <StyledComponent
+                                      block={false}
+                                      forwardedComponent={
+                                        Object {
+                                          "$$typeof": Symbol(react.forward_ref),
+                                          "attrs": Array [],
+                                          "componentStyle": ComponentStyle {
+                                            "componentId": "sc-bdVaJa",
+                                            "isStatic": false,
+                                            "lastClassName": "erzNjr",
+                                            "rules": Array [
+                                              "
+  display: ",
+                                              [Function],
+                                              ";
+  vertical-align: middle;
+
+  shape-rendering: inherit;
+  transform: translate3d(0, 0, 0);
+",
+                                            ],
+                                          },
+                                          "displayName": "styled.svg",
+                                          "foldedComponentIds": Array [],
+                                          "render": [Function],
+                                          "styledComponentId": "sc-bdVaJa",
+                                          "target": "svg",
+                                          "toString": [Function],
+                                          "warnTooManyClasses": [Function],
+                                          "withComponent": [Function],
+                                        }
+                                      }
+                                      forwardedRef={null}
+                                      height="20px"
+                                      viewBox="0 0 1024 1024"
+                                      width="20px"
+                                    >
+                                      <svg
+                                        className="sc-bdVaJa erzNjr"
+                                        height="20px"
+                                        viewBox="0 0 1024 1024"
+                                        width="20px"
+                                      >
+                                        <styled.path
+                                          d="M960.032 268.004c0.748-10.040-2.246-20.364-9.226-28.684-5.984-7.132-13.938-11.62-22.394-13.394-0.13-0.026-0.268-0.066-0.396-0.092-1.082-0.22-2.172-0.376-3.272-0.5-0.25-0.032-0.492-0.080-0.742-0.102-1.028-0.096-2.052-0.136-3.090-0.156-0.292-0.002-0.582-0.042-0.876-0.042h-816.008c-21.416 0-38.848 16.844-39.898 38-0.034 0.628-0.092 1.256-0.096 1.89 0 0.034-0.006 0.074-0.006 0.114 0 0.050 0.008 0.102 0.008 0.152v495.692c0 0.054-0.008 0.106-0.008 0.156 0 22.090 17.91 40 40 40h816.004c13.808 0 25.98-6.996 33.17-17.636 0.1-0.148 0.182-0.312 0.28-0.458 0.606-0.93 1.196-1.868 1.722-2.84 0.046-0.082 0.080-0.172 0.124-0.258 2.992-5.604 4.704-12.008 4.704-18.804v0 0-493.038zM144.032 350.156l339.946 281.188c6.568 6.434 14.918 10.168 23.564 11.122 0.16 0.024 0.32 0.050 0.48 0.066 0.838 0.082 1.676 0.114 2.518 0.14 0.496 0.020 0.994 0.058 1.492 0.058s0.996-0.042 1.492-0.058c0.842-0.028 1.68-0.058 2.518-0.14 0.16-0.016 0.32-0.042 0.48-0.066 8.646-0.958 16.996-4.688 23.564-11.122l339.946-281.206v370.894h-736v-370.876zM215.066 305.030h593.91l-296.946 245.422-296.964-245.422z"
+                                        >
+                                          <StyledComponent
+                                            d="M960.032 268.004c0.748-10.040-2.246-20.364-9.226-28.684-5.984-7.132-13.938-11.62-22.394-13.394-0.13-0.026-0.268-0.066-0.396-0.092-1.082-0.22-2.172-0.376-3.272-0.5-0.25-0.032-0.492-0.080-0.742-0.102-1.028-0.096-2.052-0.136-3.090-0.156-0.292-0.002-0.582-0.042-0.876-0.042h-816.008c-21.416 0-38.848 16.844-39.898 38-0.034 0.628-0.092 1.256-0.096 1.89 0 0.034-0.006 0.074-0.006 0.114 0 0.050 0.008 0.102 0.008 0.152v495.692c0 0.054-0.008 0.106-0.008 0.156 0 22.090 17.91 40 40 40h816.004c13.808 0 25.98-6.996 33.17-17.636 0.1-0.148 0.182-0.312 0.28-0.458 0.606-0.93 1.196-1.868 1.722-2.84 0.046-0.082 0.080-0.172 0.124-0.258 2.992-5.604 4.704-12.008 4.704-18.804v0 0-493.038zM144.032 350.156l339.946 281.188c6.568 6.434 14.918 10.168 23.564 11.122 0.16 0.024 0.32 0.050 0.48 0.066 0.838 0.082 1.676 0.114 2.518 0.14 0.496 0.020 0.994 0.058 1.492 0.058s0.996-0.042 1.492-0.058c0.842-0.028 1.68-0.058 2.518-0.14 0.16-0.016 0.32-0.042 0.48-0.066 8.646-0.958 16.996-4.688 23.564-11.122l339.946-281.206v370.894h-736v-370.876zM215.066 305.030h593.91l-296.946 245.422-296.964-245.422z"
+                                            forwardedComponent={
+                                              Object {
+                                                "$$typeof": Symbol(react.forward_ref),
+                                                "attrs": Array [],
+                                                "componentStyle": ComponentStyle {
+                                                  "componentId": "sc-bwzfXH",
+                                                  "isStatic": true,
+                                                  "lastClassName": "jvzEsx",
+                                                  "rules": Array [
+                                                    "
+  fill: currentColor;
+",
+                                                  ],
+                                                },
+                                                "displayName": "styled.path",
+                                                "foldedComponentIds": Array [],
+                                                "render": [Function],
+                                                "styledComponentId": "sc-bwzfXH",
+                                                "target": "path",
+                                                "toString": [Function],
+                                                "warnTooManyClasses": [Function],
+                                                "withComponent": [Function],
+                                              }
+                                            }
+                                            forwardedRef={null}
+                                          >
+                                            <path
+                                              className="sc-bwzfXH jvzEsx"
+                                              d="M960.032 268.004c0.748-10.040-2.246-20.364-9.226-28.684-5.984-7.132-13.938-11.62-22.394-13.394-0.13-0.026-0.268-0.066-0.396-0.092-1.082-0.22-2.172-0.376-3.272-0.5-0.25-0.032-0.492-0.080-0.742-0.102-1.028-0.096-2.052-0.136-3.090-0.156-0.292-0.002-0.582-0.042-0.876-0.042h-816.008c-21.416 0-38.848 16.844-39.898 38-0.034 0.628-0.092 1.256-0.096 1.89 0 0.034-0.006 0.074-0.006 0.114 0 0.050 0.008 0.102 0.008 0.152v495.692c0 0.054-0.008 0.106-0.008 0.156 0 22.090 17.91 40 40 40h816.004c13.808 0 25.98-6.996 33.17-17.636 0.1-0.148 0.182-0.312 0.28-0.458 0.606-0.93 1.196-1.868 1.722-2.84 0.046-0.082 0.080-0.172 0.124-0.258 2.992-5.604 4.704-12.008 4.704-18.804v0 0-493.038zM144.032 350.156l339.946 281.188c6.568 6.434 14.918 10.168 23.564 11.122 0.16 0.024 0.32 0.050 0.48 0.066 0.838 0.082 1.676 0.114 2.518 0.14 0.496 0.020 0.994 0.058 1.492 0.058s0.996-0.042 1.492-0.058c0.842-0.028 1.68-0.058 2.518-0.14 0.16-0.016 0.32-0.042 0.48-0.066 8.646-0.958 16.996-4.688 23.564-11.122l339.946-281.206v370.894h-736v-370.876zM215.066 305.030h593.91l-296.946 245.422-296.964-245.422z"
+                                            />
+                                          </StyledComponent>
+                                        </styled.path>
+                                      </svg>
+                                    </StyledComponent>
+                                  </styled.svg>
+                                </Icon>
+                              </div>
+                            </StyledComponent>
+                          </styled.div>
+                        </div>
+                      </StyledComponent>
+                    </styled.div>
+                  </Input>
+                </StyledComponent>
+              </Styled(Input)>
+              <Styled(Button)
+                appearance="secondary"
+                isUnclickable={false}
+                type="submit"
+              >
+                <StyledComponent
+                  appearance="secondary"
+                  forwardedComponent={
+                    Object {
+                      "$$typeof": Symbol(react.forward_ref),
+                      "attrs": Array [],
+                      "componentStyle": ComponentStyle {
+                        "componentId": "sc-fYxtnH",
+                        "isStatic": true,
+                        "lastClassName": "ixexLQ",
+                        "rules": Array [
+                          "
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+",
+                        ],
+                      },
+                      "displayName": "Styled(Button)",
+                      "foldedComponentIds": Array [],
+                      "render": [Function],
+                      "styledComponentId": "sc-fYxtnH",
+                      "target": [Function],
+                      "toString": [Function],
+                      "warnTooManyClasses": [Function],
+                      "withComponent": [Function],
+                    }
+                  }
+                  forwardedRef={null}
+                  isUnclickable={false}
+                  type="submit"
+                >
+                  <Button
+                    appearance="secondary"
+                    className="sc-fYxtnH ixexLQ"
+                    containsIcon={false}
+                    isDisabled={false}
+                    isLink={false}
+                    isLoading={false}
+                    isUnclickable={false}
+                    loadingText={null}
+                    size="medium"
+                    type="submit"
+                  >
+                    <styled.button
+                      appearance="secondary"
+                      className="sc-fYxtnH ixexLQ"
+                      containsIcon={false}
+                      disabled={false}
+                      isLoading={false}
+                      isUnclickable={false}
+                      size="medium"
+                      type="submit"
+                    >
+                      <StyledComponent
+                        appearance="secondary"
+                        className="sc-fYxtnH ixexLQ"
+                        containsIcon={false}
+                        disabled={false}
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-jzJRlG",
+                              "isStatic": false,
+                              "lastClassName": "kACCYv",
+                              "rules": Array [
+                                "
+  border: 0;
+  border-radius: 3em;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  padding: ",
+                                [Function],
+                                ";
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transition: all 150ms ease-out;
+  transform: translate3d(0,0,0);
+  vertical-align: top;
+  white-space: nowrap;
+  user-select: none;
+  opacity: 1;
+  margin: 0;
+  background: transparent;
+
+
+  font-size: ",
+                                [Function],
+                                "px;
+  font-weight: ",
+                                "700",
+                                ";
+  line-height: 1;
+
+  ",
+                                [Function],
+                                "
+
+  ",
+                                ".sc-jTzLTM",
+                                " {
+    transform: scale3d(1,1,1) translate3d(0,0,0);
+    transition: transform 700ms ",
+                                "cubic-bezier(0.175, 0.885, 0.335, 1.05)",
+                                ";
+    opacity: 1;
+  }
+
+  ",
+                                ".sc-fjdhpX",
+                                " {
+    transform: translate3d(0, 100%, 0);
+  }
+
+  svg {
+    height: ",
+                                [Function],
+                                "px;
+    width: ",
+                                [Function],
+                                "px;
+    vertical-align: top;
+    margin-right: ",
+                                [Function],
+                                "px;
+    margin-top: ",
+                                [Function],
+                                "px;
+    margin-bottom: ",
+                                [Function],
+                                "px;
+
+    /* Necessary for js mouse events to not glitch out when hovering on svgs */
+    pointer-events: none;
+  }
+
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                ";
+
+    ",
+                                [Function],
+                                ";
+
+    ",
+                                [Function],
+                                ";
+
+",
+                              ],
+                            },
+                            "displayName": "styled.button",
+                            "foldedComponentIds": Array [],
+                            "render": [Function],
+                            "styledComponentId": "sc-jzJRlG",
+                            "target": "button",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={null}
+                        isLoading={false}
+                        isUnclickable={false}
+                        size="medium"
+                        type="submit"
+                      >
+                        <button
+                          className="sc-fYxtnH ixexLQ sc-jzJRlG kACCYv"
+                          disabled={false}
+                          size="medium"
+                          type="submit"
+                        >
+                          <styled.span>
+                            <StyledComponent
+                              forwardedComponent={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "attrs": Array [],
+                                  "componentStyle": ComponentStyle {
+                                    "componentId": "sc-jTzLTM",
+                                    "isStatic": true,
+                                    "lastClassName": "eQqnBw",
+                                    "rules": Array [
+                                      "
+  display: inline-block;
+  vertical-align: top;
+",
+                                    ],
+                                  },
+                                  "displayName": "styled.span",
+                                  "foldedComponentIds": Array [],
+                                  "render": [Function],
+                                  "styledComponentId": "sc-jTzLTM",
+                                  "target": "span",
+                                  "toString": [Function],
+                                  "warnTooManyClasses": [Function],
+                                  "withComponent": [Function],
+                                }
+                              }
+                              forwardedRef={null}
+                            >
+                              <span
+                                className="sc-jTzLTM eQqnBw"
+                              >
+                                Send
+                              </span>
+                            </StyledComponent>
+                          </styled.span>
+                        </button>
+                      </StyledComponent>
+                    </styled.button>
+                  </Button>
+                </StyledComponent>
+              </Styled(Button)>
+            </div>
+          </StyledComponent>
+        </styled.div>
+      </MailingListFormUI>
+    </form>
+  </Formik>
+</MailingListSignup>
+`;

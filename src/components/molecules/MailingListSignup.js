@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Formik } from 'formik';
-import { Button, Input } from '@storybook/design-system';
+import { Button, Input, styles } from '@storybook/design-system';
 
 const MailingListFormUIWrapper = styled.div`
   display: flex;
@@ -53,6 +53,15 @@ MailingListFormUI.defaultProps = {
   value: '',
 };
 
+const MailingListConfirm = styled.div`
+  font-size: ${styles.typography.size.s2}px;
+  background: ${styles.background.positive};
+  line-height: 20px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 4px;
+`;
+
 const validateForm = values => {
   if (!values.email) {
     return { email: 'Required' };
@@ -64,31 +73,49 @@ const validateForm = values => {
 const listUrl =
   'https://hichroma.us15.list-manage.com/subscribe/post?u=0cd563f2d5b0ef7aa4471c045&amp;id=17ebbc4cc4';
 
-const onSubmitForm = async values => {
-  const data = {
-    MERGE0: values.email,
+const MailingListSignup = () => {
+  const [hasSubmitted, setSubmitStatus] = useState(false);
+  const onSubmitForm = async values => {
+    const data = {
+      MERGE0: values.email,
+    };
+
+    await fetch(listUrl, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      mode: 'no-cors',
+    });
+
+    setSubmitStatus(true);
   };
 
-  fetch(listUrl, {
-    method: 'POST',
-    body: JSON.stringify(data),
-    mode: 'no-cors',
-  });
-};
+  if (hasSubmitted) {
+    return (
+      <MailingListConfirm>
+        <b>
+          <span role="img" aria-label="thumbs up">
+            👍
+          </span>{' '}
+          Thanks, you&rsquo;re all signed up!
+        </b>
+      </MailingListConfirm>
+    );
+  }
 
-const MailingListSignup = () => (
-  <Formik validate={validateForm} onSubmit={onSubmitForm}>
-    {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-      <form onSubmit={handleSubmit}>
-        <MailingListFormUI
-          value={values.email}
-          handleChange={handleChange}
-          handleBlur={handleBlur}
-          isSubmitting={isSubmitting}
-        />
-      </form>
-    )}
-  </Formik>
-);
+  return (
+    <Formik validate={validateForm} onSubmit={onSubmitForm}>
+      {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+        <form onSubmit={handleSubmit}>
+          <MailingListFormUI
+            value={values.email}
+            handleChange={handleChange}
+            handleBlur={handleBlur}
+            isSubmitting={isSubmitting}
+          />
+        </form>
+      )}
+    </Formik>
+  );
+};
 
 export default MailingListSignup;
