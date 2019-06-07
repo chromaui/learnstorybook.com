@@ -30,19 +30,11 @@ const formatting = css`
     margin-top: 0 !important;
   }
 
-  h1 {
-    font-size: ${typography.size.l1}px;
-    font-weight: ${typography.weight.black};
-    margin-bottom: 0.5em;
-    letter-spacing: -0.33px;
-    line-height: 40px;
-  }
-
   h2 {
     font-size: ${typography.size.m1}px;
     font-weight: ${typography.weight.black};
     line-height: ${typography.size.m3}px;
-    letter-spacing: -0.8px;
+    letter-spacing: -0.6px;
     margin-bottom: 0.5em;
   }
 
@@ -231,7 +223,7 @@ const formatting = css`
   }
 
   code {
-    font-size: 17px;
+    font-size: ${typography.size.s3 - 1}px;
   }
 
   .aside code {

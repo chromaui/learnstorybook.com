@@ -128,6 +128,21 @@ const GithubLink = styled(Link)`
   font-size: ${typography.size.s2}px;
 `;
 
+const Title = styled.div`
+  font-size: ${typography.size.l1}px;
+  font-weight: ${typography.weight.black};
+  margin-bottom: 8px;
+  letter-spacing: -0.33px;
+  line-height: 40px;
+`;
+
+const Description = styled.div`
+  font-size: ${typography.size.m2}px;
+  letter-spacing: -0.37px;
+  line-height: 26px;
+  margin-bottom: 28px;
+`;
+
 const Chapter = ({
   data: {
     currentPage,
@@ -169,6 +184,8 @@ const Chapter = ({
       </Sidebar>
 
       <Content>
+        <Title>{title}</Title>
+        <Description>{description}</Description>
         <HighlightWrapper>{currentPage.html}</HighlightWrapper>
 
         <BoxLinksWrapper withMultiple={!!commit}>

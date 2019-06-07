@@ -5,8 +5,6 @@ description: "Setup React Storybook in your development environment"
 commit: ebe2ae2
 ---
 
-# Get started
-
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [Vue](/vue/en/get-started) and [Angular](/angular/en/getstarted).
 
 ![Storybook and your app](/storybook-relationship.jpg)

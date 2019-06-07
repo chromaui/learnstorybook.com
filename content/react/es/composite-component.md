@@ -5,8 +5,6 @@ description: "Ensamblar un componente compuesto a partir de componentes simples"
 commit: 8db511e
 ---
 
-# Ensamblar un componente compuesto
-
 En el último capítulo construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir TaskList, una lista de Tareas. Combinemos componentes en conjunto y veamos qué sucede cuando se añade más complejidad.
 
 ## Lista de Tareas
@@ -26,14 +24,14 @@ Un componente compuesto no es muy diferente de los componentes básicos que cont
 Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Tareas` del capítulo anterior y pasarle los atributos y acciones como entrada.
 
 ```javascript
-import React from 'react';
+import React from "react";
 
-import Task from './Task';
+import Task from "./Task";
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
-    onArchiveTask,
+    onArchiveTask
   };
 
   if (loading) {
@@ -46,7 +44,9 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => <Task key={task.id} task={task} {...events} />)}
+      {tasks.map(task => (
+        <Task key={task.id} task={task} {...events} />
+      ))}
     </div>
   );
 }
@@ -57,36 +57,38 @@ export default TaskList;
 A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import TaskList from './TaskList';
-import { createTask, actions } from './Task.stories';
+import TaskList from "./TaskList";
+import { createTask, actions } from "./Task.stories";
 
 export const defaultTasks = [
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: "TASK_INBOX" }),
+  createTask({ state: "TASK_INBOX" }),
+  createTask({ state: "TASK_INBOX" }),
+  createTask({ state: "TASK_INBOX" }),
+  createTask({ state: "TASK_INBOX" }),
+  createTask({ state: "TASK_INBOX" })
 ];
 
 export const withPinnedTasks = [
-  createTask({ title: 'Task 1', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 2', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 3', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 4', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 5', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 6 (pinned)', state: 'TASK_PINNED' }),
+  createTask({ title: "Task 1", state: "TASK_INBOX" }),
+  createTask({ title: "Task 2", state: "TASK_INBOX" }),
+  createTask({ title: "Task 3", state: "TASK_INBOX" }),
+  createTask({ title: "Task 4", state: "TASK_INBOX" }),
+  createTask({ title: "Task 5", state: "TASK_INBOX" }),
+  createTask({ title: "Task 6 (pinned)", state: "TASK_PINNED" })
 ];
 
-storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
-  .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
-  .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <TaskList tasks={[]} {...actions} />);
+storiesOf("TaskList", module)
+  .addDecorator(story => <div style={{ padding: "3rem" }}>{story()}</div>)
+  .add("default", () => <TaskList tasks={defaultTasks} {...actions} />)
+  .add("withPinnedTasks", () => (
+    <TaskList tasks={withPinnedTasks} {...actions} />
+  ))
+  .add("loading", () => <TaskList loading tasks={[]} {...actions} />)
+  .add("empty", () => <TaskList tasks={[]} {...actions} />);
 ```
 
 `addDecorator()` nos permite añadir algún "contexto" al renderizado de cada tarea. En este caso añadimos relleno alrededor de la lista para que sea más fácil de verificar visualmente.
@@ -111,14 +113,14 @@ Ahora revise Storybook para ver las nuevas historias de la lista de tareas.
 Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de las historias en las que trabajaremos. Podrías estar pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón, en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **complejidad real** del componente `TaskList` se revela en los casos extremos `withPinnedTasks`, `loading`, y `empty`.
 
 ```javascript
-import React from 'react';
+import React from "react";
 
-import Task from './Task';
+import Task from "./Task";
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
-    onArchiveTask,
+    onArchiveTask
   };
 
   const LoadingRow = (
@@ -156,13 +158,15 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter(t => t.state === "TASK_PINNED"),
+    ...tasks.filter(t => t.state !== "TASK_PINNED")
   ];
 
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => <Task key={task.id} task={task} {...events} />)}
+      {tasksInOrder.map(task => (
+        <Task key={task.id} task={task} {...events} />
+      ))}
     </div>
   );
 }
@@ -227,18 +231,20 @@ Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la hi
 Crea un archivo de prueba llamado `Task.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import TaskList from './TaskList';
-import { withPinnedTasks } from './TaskList.stories';
+import React from "react";
+import ReactDOM from "react-dom";
+import TaskList from "./TaskList";
+import { withPinnedTasks } from "./TaskList.stories";
 
-it('renders pinned tasks at the start of the list', () => {
-  const div = document.createElement('div');
+it("renders pinned tasks at the start of the list", () => {
+  const div = document.createElement("div");
   const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
   ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div);
 
   // Esperamos que la tarea titulada "Tarea 6 (anclada)" se ejecute primero, no al final.
-  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
+  const lastTaskInput = div.querySelector(
+    '.list-item:nth-child(1) input[value="Task 6 (pinned)"]'
+  );
   expect(lastTaskInput).not.toBe(null);
 
   ReactDOM.unmountComponentAtNode(div);

@@ -5,8 +5,6 @@ description: "Build a simple component in isolation"
 commit: 1a14919
 ---
 
-# Build a simple component
-
 We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
@@ -15,8 +13,8 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 `TaskComponent` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
-* `title` – a string describing the task
-* `state` - which list is the task currently in and is it checked off?
+- `title` – a string describing the task
+- `state` - which list is the task currently in and is it checked off?
 
 As we start to build `TaskComponent`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
@@ -29,15 +27,15 @@ First, let’s create the task component and its accompanying story file: `src/t
 We’ll begin with a basic implementation of the `TaskComponent`, simply taking in the inputs we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-  selector: 'task-item',
+  selector: "task-item",
   template: `
     <div class="list-item">
       <input type="text" [value]="task.title" readonly="true" />
     </div>
-  `,
+  `
 })
 export class TaskComponent implements OnInit {
   title: string;
@@ -49,7 +47,6 @@ export class TaskComponent implements OnInit {
 
   ngOnInit() {}
 }
-
 ```
 
 Above, we render straightforward markup for `TaskComponent` based on the existing HTML structure of the Todos app.
@@ -57,68 +54,67 @@ Above, we render straightforward markup for `TaskComponent` based on the existin
 Below we build out Task’s three test states in the story file:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
+import { storiesOf, moduleMetadata } from "@storybook/angular";
+import { action } from "@storybook/addon-actions";
 
-import { TaskComponent } from './task.component';
+import { TaskComponent } from "./task.component";
 
 export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+  id: "1",
+  title: "Test Task",
+  state: "TASK_INBOX",
+  updatedAt: new Date(2018, 0, 1, 9, 0)
 };
 
 export const actions = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+  onPinTask: action("onPinTask"),
+  onArchiveTask: action("onArchiveTask")
 };
 
-storiesOf('Task', module)
+storiesOf("Task", module)
   .addDecorator(
     moduleMetadata({
-      declarations: [TaskComponent],
-    }),
+      declarations: [TaskComponent]
+    })
   )
-  .add('default', () => {
+  .add("default", () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
         task,
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
+        onArchiveTask: actions.onArchiveTask
+      }
     };
   })
-  .add('pinned', () => {
+  .add("pinned", () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
-        task: { ...task, state: 'TASK_PINNED' },
+        task: { ...task, state: "TASK_PINNED" },
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
+        onArchiveTask: actions.onArchiveTask
+      }
     };
   })
-  .add('archived', () => {
+  .add("archived", () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
-        task: { ...task, state: 'TASK_ARCHIVED' },
+        task: { ...task, state: "TASK_ARCHIVED" },
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
+        onArchiveTask: actions.onArchiveTask
+      }
     };
   });
-
 ```
 
 There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
 
@@ -139,21 +135,18 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.ts` files and uses our LESS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.type.extension` naming scheme favoured when developing Angular apps.
 
 ```typescript
-import {
-  configure
-} from '@storybook/angular';
+import { configure } from "@storybook/angular";
 
-import '../src/styles.less';
+import "../src/styles.less";
 
 // automatically import all files ending in *.stories.ts
-const req = require.context('../src/', true, /.stories.ts$/);
+const req = require.context("../src/", true, /.stories.ts$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
 configure(loadStories, module);
-
 ```
 
 In order to support that LESS import we'll need to play around a bit with webpack. Just create a `webpack.config.js` file inside the `.storybook` folder and paste the following:
@@ -163,15 +156,17 @@ const path = require("path");
 
 module.exports = {
   module: {
-    rules: [{
-      test: /\.less$/,
-      loaders: ["style-loader", "css-loader", "less-loader"],
-      include: path.resolve(__dirname, "../")
-    }]
+    rules: [
+      {
+        test: /\.less$/,
+        loaders: ["style-loader", "css-loader", "less-loader"],
+        include: path.resolve(__dirname, "../")
+      }
+    ]
   }
 };
-
 ```
+
 You'll also need to install the corresponding loaders:
 
 ```
@@ -194,11 +189,11 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from './task.model';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Task } from "./task.model";
 
 @Component({
-  selector: 'task-item',
+  selector: "task-item",
   template: `
     <div class="list-item {{ task?.state }}">
       <label class="checkbox">
@@ -211,16 +206,21 @@ import { Task } from './task.model';
         <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
       </label>
       <div class="title">
-        <input type="text" [value]="task?.title" readonly="true" placeholder="Input title" />
+        <input
+          type="text"
+          [value]="task?.title"
+          readonly="true"
+          placeholder="Input title"
+        />
       </div>
 
       <div class="actions">
-          <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-            <span class="icon-star"></span>
-          </a>
+        <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
+          <span class="icon-star"></span>
+        </a>
       </div>
     </div>
-  `,
+  `
 })
 export class TaskComponent implements OnInit {
   title: string;
@@ -290,45 +290,45 @@ yarn add -D @storybook/addon-storyshots identity-obj-proxy jest jest-preset-angu
 Then create an `src/storybook.test.ts` file with the following in it:
 
 ```typescript
-import * as path from 'path';
+import * as path from "path";
 import initStoryshots, {
-  multiSnapshotWithOptions,
-} from '@storybook/addon-storyshots';
+  multiSnapshotWithOptions
+} from "@storybook/addon-storyshots";
 
 initStoryshots({
-  framework: 'angular',
-  configPath: path.join(__dirname, '../.storybook'),
-  test: multiSnapshotWithOptions(),
+  framework: "angular",
+  configPath: path.join(__dirname, "../.storybook"),
+  test: multiSnapshotWithOptions()
 });
-
 ```
-After that, create a `src/jest-config` folder with two files inside, `globalMocks.ts`: 
+
+After that, create a `src/jest-config` folder with two files inside, `globalMocks.ts`:
 
 ```typescript
 const mock = () => {
   let storage = {};
   return {
     getItem: key => (key in storage ? storage[key] : null),
-    setItem: (key, value) => (storage[key] = value || ''),
+    setItem: (key, value) => (storage[key] = value || ""),
     removeItem: key => delete storage[key],
-    clear: () => (storage = {}),
+    clear: () => (storage = {})
   };
 };
 
-Object.defineProperty(window, 'localStorage', { value: mock() });
-Object.defineProperty(window, 'sessionStorage', { value: mock() });
-Object.defineProperty(window, 'getComputedStyle', {
-  value: () => ['-webkit-appearance'],
+Object.defineProperty(window, "localStorage", { value: mock() });
+Object.defineProperty(window, "sessionStorage", { value: mock() });
+Object.defineProperty(window, "getComputedStyle", {
+  value: () => ["-webkit-appearance"]
 });
-
 ```
+
 and `setup.ts`:
 
 ```typescript
-import 'jest-preset-angular';
-import './globalMocks';
-
+import "jest-preset-angular";
+import "./globalMocks";
 ```
+
 Then we need to add a new field to our `package.json`,
 
 ```json
@@ -355,16 +355,18 @@ Then we need to add a new field to our `package.json`,
       "\\.(css|less)$": "identity-obj-proxy"
     }
   },
-  ```
+```
+
 a couple of new scripts to run `jest`
 
-  ```json
-  "scripts": {
-    ...
-    "jest": "jest",
-    "jest:watch": "jest --watch"
-  }
-  ```
+```json
+"scripts": {
+  ...
+  "jest": "jest",
+  "jest:watch": "jest --watch"
+}
+```
+
 and update `src/tsconfig.app.json` to exclude `.test.ts` files
 
 ```json

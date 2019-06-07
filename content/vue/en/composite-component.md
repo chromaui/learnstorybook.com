@@ -5,8 +5,6 @@ description: "Assemble a composite component out of simpler components"
 commit: c72f06f
 ---
 
-# Assemble a composite component
-
 Last chapter we built our first component; this chapter extends what we learned to build TaskList, a list of Tasks. Let’s combine components together and see what happens when more complexity is introduced.
 
 ## Tasklist
@@ -28,102 +26,107 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 ```html
 <template>
   <div>
-    <div class="list-items" v-if="loading"> loading </div>
-    <div class="list-items" v-if="noTasks && !this.loading">empty </div>
+    <div class="list-items" v-if="loading">loading</div>
+    <div class="list-items" v-if="noTasks && !this.loading">empty</div>
     <div class="list-items" v-if="showTasks">
-      <task v-for="(task, index) in tasks" :key="index" :task="task"
-        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+      <task
+        v-for="(task, index) in tasks"
+        :key="index"
+        :task="task"
+        @archiveTask="$emit('archiveTask', $event)"
+        @pinTask="$emit('pinTask', $event)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "task-list",
-  props: {
-    loading: {
-      type: Boolean,
-      default: false
+  import Task from "./Task";
+  export default {
+    name: "task-list",
+    props: {
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      tasks: {
+        type: Array,
+        default() {
+          return [];
+        }
+      }
     },
-    tasks: {
-      type: Array,
-      default() {
-        return [];
+    components: {
+      Task
+    },
+    computed: {
+      noTasks() {
+        return this.tasks.length === 0;
+      },
+      showTasks() {
+        return !this.loading && !this.noTasks;
       }
     }
-  },
-  components: {
-    Task
-  },
-  computed: {
-    noTasks() {
-      return this.tasks.length === 0;
-    },
-    showTasks() {
-      return !this.loading && !this.noTasks;
-    }
-  }
-};
+  };
 </script>
 ```
 
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import { task } from './Task.stories';
+import { storiesOf } from "@storybook/vue";
+import { task } from "./Task.stories";
 
-import TaskList from './TaskList';
-import { methods } from './Task.stories';
+import TaskList from "./TaskList";
+import { methods } from "./Task.stories";
 
 export const defaultTaskList = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
+  { ...task, id: "1", title: "Task 1" },
+  { ...task, id: "2", title: "Task 2" },
+  { ...task, id: "3", title: "Task 3" },
+  { ...task, id: "4", title: "Task 4" },
+  { ...task, id: "5", title: "Task 5" },
+  { ...task, id: "6", title: "Task 6" }
 ];
 
 export const withPinnedTasks = [
   ...defaultTaskList.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
 ];
 
 const paddedList = () => {
   return {
-    template: '<div style="padding: 3rem;"><story/></div>',
+    template: '<div style="padding: 3rem;"><story/></div>'
   };
 };
 
-storiesOf('TaskList', module)
+storiesOf("TaskList", module)
   .addDecorator(paddedList)
-  .add('default', () => ({
+  .add("default", () => ({
     components: { TaskList },
     template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
     data: () => ({
-      tasks: defaultTaskList,
+      tasks: defaultTaskList
     }),
-    methods,
+    methods
   }))
-  .add('withPinnedTasks', () => ({
+  .add("withPinnedTasks", () => ({
     components: { TaskList },
     template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
     data: () => ({
-      tasks: withPinnedTasks,
+      tasks: withPinnedTasks
     }),
-    methods,
+    methods
   }))
-  .add('loading', () => ({
+  .add("loading", () => ({
     components: { TaskList },
     template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods,
+    methods
   }))
-  .add('empty', () => ({
+  .add("empty", () => ({
     components: { TaskList },
     template: `<task-list  @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods,
+    methods
   }));
 ```
 
@@ -167,46 +170,51 @@ Our component is still rough but now we have an idea of the stories to work towa
       </div>
     </div>
     <div class="list-items" v-if="showTasks">
-      <task v-for="(task, index) in tasksInOrder" :key="index" :task="task"
-        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+      <task
+        v-for="(task, index) in tasksInOrder"
+        :key="index"
+        :task="task"
+        @archiveTask="$emit('archiveTask', $event)"
+        @pinTask="$emit('pinTask', $event)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "task-list",
-  props: {
-    loading: {
-      type: Boolean,
-      default: false
+  import Task from "./Task";
+  export default {
+    name: "task-list",
+    props: {
+      loading: {
+        type: Boolean,
+        default: false
+      },
+      tasks: {
+        type: Array,
+        default() {
+          return [];
+        }
+      }
     },
-    tasks: {
-      type: Array,
-      default() {
-        return [];
+    components: {
+      Task
+    },
+    computed: {
+      noTasks() {
+        return this.tasks.length === 0;
+      },
+      showTasks() {
+        return !this.loading && !this.noTasks;
+      },
+      tasksInOrder() {
+        return [
+          ...this.tasks.filter(t => t.state === "TASK_PINNED"),
+          ...this.tasks.filter(t => t.state !== "TASK_PINNED")
+        ];
       }
     }
-  },
-  components: {
-    Task
-  },
-  computed: {
-    noTasks() {
-      return this.tasks.length === 0;
-    },
-    showTasks() {
-      return !this.loading && !this.noTasks;
-    },
-    tasksInOrder() {
-      return [
-        ...this.tasks.filter(t => t.state === "TASK_PINNED"),
-        ...this.tasks.filter(t => t.state !== "TASK_PINNED")
-      ];
-    }
-  }
-};
+  };
 </script>
 ```
 
@@ -240,16 +248,18 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
-import Vue from 'vue';
-import TaskList from '../../src/components/TaskList.vue';
-import { withPinnedTasks } from '../../src/components/TaskList.stories';
+import Vue from "vue";
+import TaskList from "../../src/components/TaskList.vue";
+import { withPinnedTasks } from "../../src/components/TaskList.stories";
 
-it('renders pinned tasks at the start of the list', () => {
+it("renders pinned tasks at the start of the list", () => {
   const Constructor = Vue.extend(TaskList);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasks },
+    propsData: { tasks: withPinnedTasks }
   }).$mount();
-  const lastTaskInput = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
+  const lastTaskInput = vm.$el.querySelector(
+    ".list-item:nth-child(1).TASK_PINNED"
+  );
 
   // We expect the pinned task to be rendered first, not at the end
   expect(lastTaskInput).not.toBe(null);

@@ -4,8 +4,6 @@ tocTitle: "Ecrãs"
 description: "Construção de um ecrã a partir de componentes"
 ---
 
-## Construção de um ecrã
-
 Tem sido focada a construção de interfaces de utilizador da base para o topo.
 Começando de forma simples e sendo adicionada complexidade á medida que a aplicação é desenvolvida. Com isto permitiu que cada componente fosse desenvolvido de forma isolada, definindo quais os requisitos de dados e "brincar" com ele em Storybook. Isto tudo sem a necessidade de instanciar um servidor ou ser necessária a construção de ecrãs!
 
@@ -31,26 +29,26 @@ Visto que a aplicação é deveras simples, o ecrã a ser construído é bastant
           <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <task-list/>
+      <task-list />
     </div>
   </div>
 </template>
 
 <script>
-import TaskList from "./TaskList.vue";
+  import TaskList from "./TaskList.vue";
 
-export default {
-  name: "pure-inbox-screen",
-  props: {
-    error: {
-      type: Boolean,
-      default: false
+  export default {
+    name: "pure-inbox-screen",
+    props: {
+      error: {
+        type: Boolean,
+        default: false
+      }
+    },
+    components: {
+      TaskList
     }
-  },
-  components: {
-    TaskList
-  }
-};
+  };
 </script>
 ```
 
@@ -59,23 +57,23 @@ Em seguida, podemos criar um contentor, que mais uma vez obtém os dados vindos 
 ```html
 <template>
   <div>
-    <pure-inbox-screen :error="error"/>
+    <pure-inbox-screen :error="error" />
   </div>
 </template>
 
 <script>
-import PureInboxScreen from "./PureInboxScreen";
-import { mapState } from "vuex";
+  import PureInboxScreen from "./PureInboxScreen";
+  import { mapState } from "vuex";
 
-export default {
-  name: "inbox-screen",
-  components: {
-    PureInboxScreen
-  },
-  computed: {
-    ...mapState(["error"])
-  }
-};
+  export default {
+    name: "inbox-screen",
+    components: {
+      PureInboxScreen
+    },
+    computed: {
+      ...mapState(["error"])
+    }
+  };
 </script>
 ```
 
@@ -84,22 +82,22 @@ Vai ser necessário alterar o componente `App` de forma a ser possível renderiz
 ```html
 <template>
   <div id="app">
-    <inbox-screen/>
+    <inbox-screen />
   </div>
 </template>
 
 <script>
-import store from "./store";
-import InboxScreen from "./components/InboxScreen.vue";
-import "../src/index.css";
+  import store from "./store";
+  import InboxScreen from "./components/InboxScreen.vue";
+  import "../src/index.css";
 
-export default {
-  name: "app",
-  store,
-  components: {
-    InboxScreen
-  }
-};
+  export default {
+    name: "app",
+    store,
+    components: {
+      InboxScreen
+    }
+  };
 </script>
 ```
 
@@ -113,20 +111,20 @@ Irá ser feito algo similar para o `PureInboxScreen` no Storybook também.
 No entanto para o `PureInboxScreen` existe um problema, isto porque apesar deste ser de apresentação, o seu "filho", ou seja a `TaskList` não o é. De certa forma o `PureInboxScreen` foi poluído pelo "container-ness". Com isto as estórias no ficheiro `src/components/PureInboxScreen.stories.js` terão que ser definidas da seguinte forma:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import PureInboxScreen from './PureInboxScreen';
+import { storiesOf } from "@storybook/vue";
+import PureInboxScreen from "./PureInboxScreen";
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
+storiesOf("PureInboxScreen", module)
+  .add("default", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
+      template: `<pure-inbox-screen/>`
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
+      template: `<pure-inbox-screen :error="true"/>`
     };
   });
 ```
@@ -148,41 +146,41 @@ No entanto, algum programador **irá querer** renderizar contentores num nível 
 As boas noticias é que é extremamente fácil fornecer uma loja Vuex ao componente `PureInboxScreen` numa estória! Pode ser criada uma nova loja no ficheiro de estória e esta ser fornecida como contexto da estória:
 
 ```javascript
-import { action } from '@storybook/addon-actions';
-import { storiesOf } from '@storybook/vue';
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { action } from "@storybook/addon-actions";
+import { storiesOf } from "@storybook/vue";
+import Vue from "vue";
+import Vuex from "vuex";
 
-import { defaultTaskList } from './PureTaskList.stories';
-import PureInboxScreen from './PureInboxScreen.vue';
+import { defaultTaskList } from "./PureTaskList.stories";
+import PureInboxScreen from "./PureInboxScreen.vue";
 
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
-    tasks: defaultTaskList,
+    tasks: defaultTaskList
   },
   actions: {
     pinTask(context, id) {
-      action('pinTask')(id);
+      action("pinTask")(id);
     },
     archiveTask(context, id) {
-      action('archiveTask')(id);
-    },
-  },
+      action("archiveTask")(id);
+    }
+  }
 });
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
+storiesOf("PureInboxScreen", module)
+  .add("default", () => {
     return {
       components: { PureInboxScreen },
       template: `<pure-inbox-screen/>`,
-      store,
+      store
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
+      template: `<pure-inbox-screen :error="true"/>`
     };
   });
 ```

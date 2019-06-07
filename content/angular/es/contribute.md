@@ -3,8 +3,6 @@ title: "Contribuir"
 description: "Ayuda a compartir Storybook con el mundo"
 ---
 
-# Contribuir
-
 ¡Las contribuciones para Aprender Storybook son bienvenidas! Si se trata de algo pequeño como gramática o puntuación, abre un pull request. Si es un cambio más grande, [agrega un issue](https://github.com/hichroma/learnstorybook.com/issues) para discutirlo.
 
 ## Ediciones de Vue

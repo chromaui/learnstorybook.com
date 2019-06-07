@@ -1,16 +1,14 @@
 ---
-title: "测试"
+title: "测试 UI 组件"
 description: "了解测试UI组件的方法"
 commit: 78a45d1
 ---
 
-# 测试 UI 组件
-
 Storybook 教程没有测试是不完整的. 测试对于创建高质量的 UI 至关重要. 在模块化系统中,微小的调整可能导致重大的回溯. 到目前为止,我们遇到了三种类型的测试
 
-* **视觉测试** 依赖开发人员手动查看组件以验证其正确性. 它们帮助我们在构建时检查组件的外观.
-* **快照测试** 使用 Storyshots 捕获组件的渲染标记. 它们可以帮助我们及时了解导致 渲染错误和警告的标记更改.
-* **单元测试** 使用 Jest 验证 在给定固定输入的情况下 组件的输出保持不变. 它们非常适合测试组件的功能质量.
+- **视觉测试** 依赖开发人员手动查看组件以验证其正确性. 它们帮助我们在构建时检查组件的外观.
+- **快照测试** 使用 Storyshots 捕获组件的渲染标记. 它们可以帮助我们及时了解导致 渲染错误和警告的标记更改.
+- **单元测试** 使用 Jest 验证 在给定固定输入的情况下 组件的输出保持不变. 它们非常适合测试组件的功能质量.
 
 ## "但看起来不错吗?"
 
@@ -66,13 +64,13 @@ yarn add storybook-chromatic
 导入 Chromatic 到你的`.storybook/config.js`文件.
 
 ```javascript
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'react-chromatic/storybook-addon';
+import { configure } from "@storybook/react";
+import requireContext from "require-context.macro";
+import "react-chromatic/storybook-addon";
 
-import '../src/index.css';
+import "../src/index.css";
 
-const req = requireContext('../src/components', true, /\.stories\.js$/);
+const req = requireContext("../src/components", true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

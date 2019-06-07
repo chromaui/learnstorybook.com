@@ -5,8 +5,6 @@ description: "Construct a screen out of components"
 commit: deff6cb
 ---
 
-# Construct a screen
-
 We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
 
 In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
@@ -16,17 +14,17 @@ In this chapter we continue to increase the sophistication by combining componen
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskListComponent` (which supplies its own data via ngxs) in some layout and pulling a top-level `error` field out of our store (let's assume we'll set that field if we have some problem connecting to our server). Create `inbox-screen.component.ts` in your `src/tasks/containers` folder:
 
 ```typescript
-import { Component, OnInit, Input } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
-import { Task } from '../task.model';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from "@angular/core";
+import { Select, Store } from "@ngxs/store";
+import { TasksState, ArchiveTask, PinTask } from "../state/task.state";
+import { Task } from "../task.model";
+import { Observable } from "rxjs";
 
 @Component({
-  selector: 'inbox-screen',
+  selector: "inbox-screen",
   template: `
     <pure-inbox-screen [error]="error$ | async"></pure-inbox-screen>
-  `,
+  `
 })
 export class InboxScreenComponent implements OnInit {
   @Select(TasksState.getError) error$: Observable<any>;
@@ -40,10 +38,10 @@ export class InboxScreenComponent implements OnInit {
 Then, we need to create the `PureInboxScreenComponent` inside the `src/tasks/components` folder:
 
 ```typescript
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from "@angular/core";
 
 @Component({
-  selector: 'pure-inbox-screen',
+  selector: "pure-inbox-screen",
   template: `
     <div *ngIf="error" class="page lists-show">
       <div class="wrapper-message">
@@ -61,7 +59,7 @@ import { Component, OnInit, Input } from '@angular/core';
       </nav>
       <task-list></task-list>
     </div>
-  `,
+  `
 })
 export class PureInboxScreenComponent implements OnInit {
   @Input() error: any;
@@ -75,16 +73,16 @@ export class PureInboxScreenComponent implements OnInit {
 We also need to change the `AppComponent` to render the `InboxScreenComponent` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `
     <inbox-screen></inbox-screen>
-  `,
+  `
 })
 export class AppComponent {
-  title = 'app';
+  title = "app";
 }
 ```
 
@@ -137,29 +135,29 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The easiest way to do this is to supply the `Store` to our module and initialise the state as if this were a full app:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState, ErrorFromServer } from '../state/task.state';
-import { TaskModule } from '../task.module';
+import { storiesOf, moduleMetadata } from "@storybook/angular";
+import { Store, NgxsModule } from "@ngxs/store";
+import { TasksState, ErrorFromServer } from "../state/task.state";
+import { TaskModule } from "../task.module";
 
-storiesOf('InboxScreen', module)
+storiesOf("InboxScreen", module)
   .addDecorator(
     moduleMetadata({
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
-      providers: [Store],
-    }),
+      providers: [Store]
+    })
   )
-  .add('default', () => {
+  .add("default", () => {
     return {
-      template: `<inbox-screen></inbox-screen>`,
+      template: `<inbox-screen></inbox-screen>`
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
       template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
       props: {
-        error: 'Something!',
-      },
+        error: "Something!"
+      }
     };
   });
 ```
@@ -183,46 +181,48 @@ You may be asking yourself why we created a new `PureInboxScreenComponent` just 
 This is a very simple example so adding these pure components might seem like an overkill. In Storybook for Angular there's another way of writing stories for the `InboxScreenComponent`:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState, ErrorFromServer } from '../state/task.state';
-import { TaskModule } from '../task.module';
+import { storiesOf, moduleMetadata } from "@storybook/angular";
+import { Store, NgxsModule } from "@ngxs/store";
+import { TasksState, ErrorFromServer } from "../state/task.state";
+import { TaskModule } from "../task.module";
 
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  template: `<inbox-screen></inbox-screen>`,
+  template: `
+    <inbox-screen></inbox-screen>
+  `
 })
 class HostDispatchErrorComponent {
   constructor(store: Store) {
-    store.dispatch(new ErrorFromServer('Error'));
+    store.dispatch(new ErrorFromServer("Error"));
   }
 }
 
-storiesOf('InboxScreen', module)
+storiesOf("InboxScreen", module)
   .addDecorator(
     moduleMetadata({
       declarations: [HostDispatchErrorComponent],
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
-      providers: [Store],
-    }),
+      providers: [Store]
+    })
   )
-  .add('default', () => {
+  .add("default", () => {
     return {
-      template: `<inbox-screen></inbox-screen>`,
+      template: `<inbox-screen></inbox-screen>`
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
       template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
       props: {
-        error: 'Something!',
-      },
+        error: "Something!"
+      }
     };
   })
-  .add('Connected Error', () => {
+  .add("Connected Error", () => {
     return {
-      component: HostDispatchErrorComponent,
+      component: HostDispatchErrorComponent
     };
   });
 ```
