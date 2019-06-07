@@ -28,7 +28,6 @@ const query = graphql`
         description
         githubUrl
         permalink
-        toc
       }
     }
   }
@@ -39,7 +38,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
     query={query}
     render={({
       site: {
-        siteMetadata: { title, permalink, description, githubUrl, toc },
+        siteMetadata: { title, permalink, description, githubUrl },
       },
     }) => (
       <>
@@ -75,8 +74,6 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           githubUrl={githubUrl}
           isInverted={pathname === '/'}
           withNav={pathname !== '/' && pathname !== '/404.html'}
-          framework={pathname.split('/')[1]}
-          firstChapter={toc[0]}
         />
 
         {children}
