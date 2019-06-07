@@ -1,10 +1,8 @@
 ---
-title: "Introdução"
+title: "Storybook para o Angular tutorial"
 tocTitle: "Introdução"
 description: "Configuração do Angular Storybook no ambiente de desenvolvimento"
 ---
-
-# Storybook para o Angular tutorial
 
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
@@ -16,7 +14,7 @@ Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started),
 ## Configuração de Storybook com Angular
 
 Irão ser necessárias algumas etapas adicionais de forma a ser possível configurar o processo de compilação no nosso ambiente de desenvolvimento.
-Para começar queremos usar o pacote [@angular/cli](https://cli.angular.io/) para configurar o nosso ambiente local e ativar o modo de testes com [Storybook](https://storybook.js.org/) e 
+Para começar queremos usar o pacote [@angular/cli](https://cli.angular.io/) para configurar o nosso ambiente local e ativar o modo de testes com [Storybook](https://storybook.js.org/) e
 [Jest](https://facebook.github.io/jest/) na nossa aplicação.
 
 Para tal vamos executar os seguintes comandos:
@@ -63,6 +61,6 @@ A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
 
 ## Adicionar recursos
 
-Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/chromaui/learnstorybook-code/tree/master/public) á pasta `assets/`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha. 
+Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/chromaui/learnstorybook-code/tree/master/public) á pasta `assets/`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha.
 Mas isto é de esperar, visto que não iremos trabalhar na aplicação agora.
 Iremos então iniciar o desenvolvimento do nosso primeiro componente!

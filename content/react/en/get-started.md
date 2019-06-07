@@ -1,11 +1,9 @@
 ---
-title: "Get started"
+title: "Storybook for React tutorial"
 tocTitle: "Get started"
 description: "Setup React Storybook in your development environment"
 commit: ebe2ae2
 ---
-
-# Storybook for React tutorial
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [Vue](/vue/en/get-started) and [Angular](/angular/en/get-started).
 

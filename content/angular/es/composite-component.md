@@ -5,8 +5,6 @@ description: "Ensambla un componente compuesto a partir de componentes simples"
 commit: d3abd86
 ---
 
-# Ensambla un componente compuesto
-
 En el capítulo anterior construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir `TaskListComponent`, una lista de Tareas. Combinemos varios componentes y veamos qué sucede cuando se añade más complejidad a la ecuación.
 
 ## Lista de Tareas
@@ -26,11 +24,11 @@ Un componente compuesto no es muy diferente de los componentes básicos que cont
 Comienza con una implementación aproximada del `TaskListComponent`. Necesitarás utilizar el `TaskComponent` del capítulo anterior y pasarle los atributos y acciones como entradas y eventos.
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from './task.model';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Task } from "./task.model";
 
 @Component({
-  selector: 'task-list',
+  selector: "task-list",
   template: `
     <div class="list-items">
       <task-item
@@ -41,7 +39,7 @@ import { Task } from './task.model';
       >
       </task-item>
     </div>
-  `,
+  `
 })
 export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
@@ -58,51 +56,51 @@ export class TaskListComponent implements OnInit {
 A continuación, crea los estados de prueba de `TasklistComponent` en el archivo de historia.
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { CommonModule } from '@angular/common';
+import { storiesOf, moduleMetadata } from "@storybook/angular";
+import { CommonModule } from "@angular/common";
 
-import { TaskComponent } from './task.component';
-import { TaskListComponent } from './task-list.component';
-import { task, actions } from './task.stories';
+import { TaskComponent } from "./task.component";
+import { TaskListComponent } from "./task-list.component";
+import { task, actions } from "./task.stories";
 
 export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
+  { ...task, id: "1", title: "Task 1" },
+  { ...task, id: "2", title: "Task 2" },
+  { ...task, id: "3", title: "Task 3" },
+  { ...task, id: "4", title: "Task 4" },
+  { ...task, id: "5", title: "Task 5" },
+  { ...task, id: "6", title: "Task 6" }
 ];
 
 export const withPinnedTasks = [
   ...defaultTasks.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
 ];
 
 const props = {
   tasks: defaultTasks,
   onPinTask: actions.onPinTask,
-  onArchiveTask: actions.onArchiveTask,
+  onArchiveTask: actions.onArchiveTask
 };
 
-storiesOf('TaskList', module)
+storiesOf("TaskList", module)
   .addDecorator(
     moduleMetadata({
       declarations: [TaskListComponent, TaskComponent],
-      imports: [CommonModule],
-    }),
+      imports: [CommonModule]
+    })
   )
-  .add('default', () => {
+  .add("default", () => {
     return {
       template: `
         <div style="padding: 3rem">
           <task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></task-list>
         </div>
       `,
-      props,
+      props
     };
   })
-  .add('withPinnedTasks', () => {
+  .add("withPinnedTasks", () => {
     return {
       template: `
         <div style="padding: 3rem">
@@ -111,28 +109,28 @@ storiesOf('TaskList', module)
       `,
       props: {
         ...props,
-        tasks: withPinnedTasks,
-      },
+        tasks: withPinnedTasks
+      }
     };
   })
-  .add('loading', () => {
+  .add("loading", () => {
     return {
       template: `
         <div style="padding: 3rem">
           <task-list [tasks]="[]" loading="true" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></task-list>
         </div>
       `,
-      props,
+      props
     };
   })
-  .add('empty', () => {
+  .add("empty", () => {
     return {
       template: `
         <div style="padding: 3rem">
           <task-list [tasks]="[]" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></task-list>
         </div>
       `,
-      props,
+      props
     };
   });
 ```
@@ -159,11 +157,11 @@ Una vez hecho esto, podemos revisar Storybook y encontraremos las nuevas histori
 Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de las historias en las que trabajaremos. Podrías estar pensando que el envoltorio de `.list-items` es demasiado simple. Tienes razón, en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio: la **complejidad real** del `TaskListComponent` se revela en los casos extremos `withPinnedTasks`, `loading`, y `empty`.
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from './task.model';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Task } from "./task.model";
 
 @Component({
-  selector: 'task-list',
+  selector: "task-list",
   template: `
     <div class="list-items">
       <task-item
@@ -174,14 +172,17 @@ import { Task } from './task.model';
       >
       </task-item>
 
-      <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
+      <div
+        *ngIf="tasksInOrder.length === 0 && !loading"
+        class="wrapper-message"
+      >
         <span class="icon-check"></span>
         <div class="title-message">You have no tasks</div>
         <div class="subtitle-message">Sit back and relax</div>
       </div>
 
       <div *ngIf="loading">
-        <div *ngFor="let i of [1,2,3,4,5,6]" class="loading-item">
+        <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
           <span class="glow-checkbox"></span>
           <span class="glow-text">
             <span>Loading</span> <span>cool</span> <span>state</span>
@@ -189,7 +190,7 @@ import { Task } from './task.model';
         </div>
       </div>
     </div>
-  `,
+  `
 })
 export class TaskListComponent implements OnInit {
   tasksInOrder: Task[] = [];
@@ -200,8 +201,8 @@ export class TaskListComponent implements OnInit {
   @Input()
   set tasks(arr: Task[]) {
     this.tasksInOrder = [
-      ...arr.filter(t => t.state === 'TASK_PINNED'),
-      ...arr.filter(t => t.state !== 'TASK_PINNED'),
+      ...arr.filter(t => t.state === "TASK_PINNED"),
+      ...arr.filter(t => t.state !== "TASK_PINNED")
     ];
   }
 
@@ -245,37 +246,35 @@ Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la hi
 Crea un archivo de prueba llamado `task-list.component.spec.ts`. Aquí vamos a escribir nuestras pruebas que, básicamente, constituyen un conjunto de validaciones sobre el resultado.
 
 ```typescript
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
-import { TaskListComponent } from './task-list.component';
-import { TaskComponent } from './task.component';
+import { TestBed, async, ComponentFixture } from "@angular/core/testing";
+import { TaskListComponent } from "./task-list.component";
+import { TaskComponent } from "./task.component";
 
-import { withPinnedTasks } from './task-list.stories';
-import { By } from '@angular/platform-browser';
+import { withPinnedTasks } from "./task-list.stories";
+import { By } from "@angular/platform-browser";
 
-describe('TaskList component', () => {
+describe("TaskList component", () => {
   let component: TaskListComponent;
   let fixture: ComponentFixture<TaskListComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [TaskComponent, TaskListComponent],
-      }).compileComponents();
-    }),
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [TaskComponent, TaskListComponent]
+    }).compileComponents();
+  }));
 
-  it('renders pinned tasks at the start of the list', () => {
+  it("renders pinned tasks at the start of the list", () => {
     fixture = TestBed.createComponent(TaskListComponent);
     component = fixture.componentInstance;
     component.tasks = withPinnedTasks;
 
     fixture.detectChanges();
     const lastTaskInput = fixture.debugElement.query(
-      By.css('.list-item:nth-child(1)'),
+      By.css(".list-item:nth-child(1)")
     );
 
     // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-    expect(lastTaskInput.nativeElement.id).toEqual('6');
+    expect(lastTaskInput.nativeElement.id).toEqual("6");
   });
 });
 ```

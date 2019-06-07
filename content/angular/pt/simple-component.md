@@ -4,20 +4,18 @@ tocTitle: "Componente simples"
 description: "Construção de um componente simples isolado"
 ---
 
-## Construção de um componente simples
-
 Iremos construir o interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC(CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
 
 ## Tarefa
 
 ![Componente Task ao longo de três estados](/task-states-learnstorybook.png)
 
-`TaskComponent` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra. 
-O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista. 
+`TaskComponent` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra.
+O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista.
 Para que seja possível implementar isto serão necessárias os seguintes adereços (props):
 
-* `title` - uma cadeia de caracteres que descreve a tarefa
-* `state` - qual a lista em que a tarefa se encontra e se está confirmada?
+- `title` - uma cadeia de caracteres que descreve a tarefa
+- `state` - qual a lista em que a tarefa se encontra e se está confirmada?
 
 Á medida que construimos a `TaskComponent`, é necessário definir os três estados que correspondem os três tipos de tarefa delineados acima.
 Em seguida usa-se o Storybook para construir este componente isolado, usando dados predefinidos. Irá "testar-se visualmente" a aparência do componente para cada estado á medida que prosseguimos.
@@ -32,15 +30,15 @@ Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o aco
 Iremos iniciar por uma implementação básica da `TaskComponent`, que recebe os valores de entrada conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 
 @Component({
-  selector: 'task-item',
+  selector: "task-item",
   template: `
     <div class="list-item">
       <input type="text" [value]="task.title" readonly="true" />
     </div>
-  `,
+  `
 })
 export class TaskComponent implements OnInit {
   title: string;
@@ -52,7 +50,6 @@ export class TaskComponent implements OnInit {
 
   ngOnInit() {}
 }
-
 ```
 
 O bloco de código acima, quando renderizado, não é nada mais nada menos que a estrutura HTML da `TaskComponent` na aplicação Todos.
@@ -60,68 +57,67 @@ O bloco de código acima, quando renderizado, não é nada mais nada menos que a
 Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { action } from '@storybook/addon-actions';
+import { storiesOf, moduleMetadata } from "@storybook/angular";
+import { action } from "@storybook/addon-actions";
 
-import { TaskComponent } from './task.component';
+import { TaskComponent } from "./task.component";
 
 export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+  id: "1",
+  title: "Test Task",
+  state: "TASK_INBOX",
+  updatedAt: new Date(2018, 0, 1, 9, 0)
 };
 
 export const actions = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+  onPinTask: action("onPinTask"),
+  onArchiveTask: action("onArchiveTask")
 };
 
-storiesOf('Task', module)
+storiesOf("Task", module)
   .addDecorator(
     moduleMetadata({
-      declarations: [TaskComponent],
-    }),
+      declarations: [TaskComponent]
+    })
   )
-  .add('default', () => {
+  .add("default", () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
         task,
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
+        onArchiveTask: actions.onArchiveTask
+      }
     };
   })
-  .add('pinned', () => {
+  .add("pinned", () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
-        task: { ...task, state: 'TASK_PINNED' },
+        task: { ...task, state: "TASK_PINNED" },
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
+        onArchiveTask: actions.onArchiveTask
+      }
     };
   })
-  .add('archived', () => {
+  .add("archived", () => {
     return {
       template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
       props: {
-        task: { ...task, state: 'TASK_ARCHIVED' },
+        task: { ...task, state: "TASK_ARCHIVED" },
         onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
+        onArchiveTask: actions.onArchiveTask
+      }
     };
   });
-
 ```
 
 Existem dois tipos de organização com Storybook. O componente em si e as estórias associadas. É preferível pensar em cada estória como uma permutação de um componente. Como tal podem existir tantas estórias, tantas as que forem necessárias.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 Ao ser invocada a função `storiesOf()`, está a registar-se o componente, e com isto o processo de arranque do Storybook. É adicionado um nome, nome esse que será usado na barra lateral da aplicação Storybook para identificar o componente.
 
@@ -143,11 +139,9 @@ Será necessária uma alteração minúscula ao ficheiro de configuração do St
 Por norma o Storybook pesquisa numa pasta denominada `/stories` para conter as estórias; este tutorial usa uma nomenclatura similar a `.type.extension`, cuja qual favorecida quando se está a desenvolver uma aplicação Angular.
 
 ```typescript
-import {
-  configure
-} from '@storybook/angular';
+import { configure } from "@storybook/angular";
 
-import '../src/styles.less';
+import "../src/styles.less";
 
 // automatically import all files ending in *.stories.ts
 const req = require.context('../src/', true, /\.stories.ts$/);
@@ -157,7 +151,6 @@ function loadStories() {
 }
 
 configure(loadStories, module);
-
 ```
 
 De forma a que seja possível o suporte ao conteúdo do ficheiro LESS definido acima, será necessário uma pequena modificação no webpack. Para tal será necessário criar um ficheiro denominado `webpack.config.js` dentro da pasta `.storybook` com o seguinte conteúdo:
@@ -167,14 +160,15 @@ const path = require("path");
 
 module.exports = {
   module: {
-    rules: [{
-      test: /\.less$/,
-      loaders: ["style-loader", "css-loader", "less-loader"],
-      include: path.resolve(__dirname, "../")
-    }]
+    rules: [
+      {
+        test: /\.less$/,
+        loaders: ["style-loader", "css-loader", "less-loader"],
+        include: path.resolve(__dirname, "../")
+      }
+    ]
   }
 };
-
 ```
 
 Assim como os loaders necessários terão que ser adicionados, através do seguinte comando:
@@ -182,6 +176,7 @@ Assim como os loaders necessários terão que ser adicionados, através do segui
 ```
 yarn add -D less-loader css-loader style-loader
 ```
+
 Assim que esta operação for concluída, ao reiniciar o servidor Storybook, deverá produzir os casos de teste que foram definidos para o componente TaskComponent:
 
 <video autoPlay muted playsInline controls >
@@ -198,11 +193,11 @@ Neste momento já possuímos o Storybook configurado, os elementos de estilo imp
 O componente neste momento ainda é bastante básico. Primeiro irá ser definido o código necessário para atingir o design definido, sem que se entre em grande detalhe:
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from './task.model';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { Task } from "./task.model";
 
 @Component({
-  selector: 'task-item',
+  selector: "task-item",
   template: `
     <div class="list-item {{ task?.state }}">
       <label class="checkbox">
@@ -215,16 +210,21 @@ import { Task } from './task.model';
         <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
       </label>
       <div class="title">
-        <input type="text" [value]="task?.title" readonly="true" placeholder="Input title" />
+        <input
+          type="text"
+          [value]="task?.title"
+          readonly="true"
+          placeholder="Input title"
+        />
       </div>
 
       <div class="actions">
-          <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-            <span class="icon-star"></span>
-          </a>
+        <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
+          <span class="icon-star"></span>
+        </a>
       </div>
     </div>
-  `,
+  `
 })
 export class TaskComponent implements OnInit {
   title: string;
@@ -266,6 +266,7 @@ export interface Task {
   state: string;
 }
 ```
+
 ## Componente construido!
 
 Foi construído com sucesso, sem ser necessário qualquer tipo de servidor, ou que seja necessário executar a aplicação frontend. O próximo passo é construir os restantes componentes da Taskbox um por um de forma similar.
@@ -294,17 +295,16 @@ yarn add -D @storybook/addon-storyshots identity-object-proxy jest jest-preset-a
 Em seguida é criado o ficheiro `src/storybook.test.ts` com o conteúdo:
 
 ```typescript
-import * as path from 'path';
+import * as path from "path";
 import initStoryshots, {
-  multiSnapshotWithOptions,
-} from '@storybook/addon-storyshots';
+  multiSnapshotWithOptions
+} from "@storybook/addon-storyshots";
 
 initStoryshots({
-  framework: 'angular',
-  configPath: path.join(__dirname, '../.storybook'),
-  test: multiSnapshotWithOptions(),
+  framework: "angular",
+  configPath: path.join(__dirname, "../.storybook"),
+  test: multiSnapshotWithOptions()
 });
-
 ```
 
 Quando este processo estiver concluído, será necessário criar uma pasta denominada `jest-config` dentro da pasta `src`, com dois ficheiros dentro desta, `globalMocks.ts` com o conteúdo:
@@ -314,28 +314,27 @@ const mock = () => {
   let storage = {};
   return {
     getItem: key => (key in storage ? storage[key] : null),
-    setItem: (key, value) => (storage[key] = value || ''),
+    setItem: (key, value) => (storage[key] = value || ""),
     removeItem: key => delete storage[key],
-    clear: () => (storage = {}),
+    clear: () => (storage = {})
   };
 };
 
-Object.defineProperty(window, 'localStorage', { value: mock() });
-Object.defineProperty(window, 'sessionStorage', { value: mock() });
-Object.defineProperty(window, 'getComputedStyle', {
-  value: () => ['-webkit-appearance'],
+Object.defineProperty(window, "localStorage", { value: mock() });
+Object.defineProperty(window, "sessionStorage", { value: mock() });
+Object.defineProperty(window, "getComputedStyle", {
+  value: () => ["-webkit-appearance"]
 });
-
 ```
+
 e o ficheiro `setup.ts`, com o seguinte conteúdo:
 
 ```typescript
-import 'jest-preset-angular';
-import './globalMocks';
-
+import "jest-preset-angular";
+import "./globalMocks";
 ```
-Em seguida será necessário adicionar um novo campo ao ficheiro`package.json`,
 
+Em seguida será necessário adicionar um novo campo ao ficheiro`package.json`,
 
 ```json
 "jest": {
@@ -361,7 +360,7 @@ Em seguida será necessário adicionar um novo campo ao ficheiro`package.json`,
       "\\.(css|less)$": "identity-obj-proxy"
     }
   },
-  ```
+```
 
 Além disto, serão necessários alguns scripts novos para que o `jest` possa ser executado:
 

@@ -5,8 +5,6 @@ description: "Construye un componente simple en aislamiento"
 commit: 403f19a
 ---
 
-# Construye un componente simple
-
 Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
 
 ## Task - Tarea
@@ -15,8 +13,8 @@ Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Devel
 
 `Task` (o Tarea) es el componente principal en nuestra app. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o no marcado), información sobre la tarea y un botón “pin” que nos permite mover la tarea hacia arriba o abajo en la lista de tareas. Poniendo esto en conjunto, necesitaremos estas propiedades -props- :
 
-* `title` – un string que describe la tarea
-* `state` - en que lista se encuentra la tarea actualmente? y, está marcado el checkbox?
+- `title` – un string que describe la tarea
+- `state` - en que lista se encuentra la tarea actualmente? y, está marcado el checkbox?
 
 A medida que comencemos a construir `Task`, primero escribiremos nuestros tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
@@ -29,9 +27,13 @@ Primero, vamos a crear el componente Task y el archivo de historias de storybook
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
 ```javascript
-import React from 'react';
+import React from "react";
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask
+}) {
   return (
     <div className="list-item">
       <input type="text" value={title} readOnly={true} />
@@ -45,39 +47,45 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 
-import Task from './Task';
+import Task from "./Task";
 
 export function createTask(attrs) {
   return {
     id: Math.round(Math.random() * 1000000).toString(),
-    title: 'Test Task',
-    state: 'TASK_INBOX',
+    title: "Test Task",
+    state: "TASK_INBOX",
     updatedAt: Date.now(),
-    ...attrs,
+    ...attrs
   };
 }
 
 export const actions = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+  onPinTask: action("onPinTask"),
+  onArchiveTask: action("onArchiveTask")
 };
 
-storiesOf('Task', module)
-  .add('default', () => <Task task={createTask({ state: 'TASK_INBOX' })} {...actions} />)
-  .add('pinned', () => <Task task={createTask({ state: 'TASK_PINNED' })} {...actions} />)
-  .add('archived', () => <Task task={createTask({ state: 'TASK_ARCHIVED' })} {...actions} />);
+storiesOf("Task", module)
+  .add("default", () => (
+    <Task task={createTask({ state: "TASK_INBOX" })} {...actions} />
+  ))
+  .add("pinned", () => (
+    <Task task={createTask({ state: "TASK_PINNED" })} {...actions} />
+  ))
+  .add("archived", () => (
+    <Task task={createTask({ state: "TASK_ARCHIVED" })} {...actions} />
+  ));
 ```
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Piensa en cada historia como una permutación posible del componente. Puedes tener tantas historias por componente como se necesite.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 Para iniciar Storybook, primero invocamos a la función `storiesOf()` para registrar el componente. Agregamos un nombre para mostrar el componente, que se muestra en la barra lateral de la aplicación Storybook.
 
@@ -100,8 +108,8 @@ Las <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>A
 También necesitamos hacer un pequeño cambio en la configuración de Storybook (`.storybook/config.js`) para que tenga en cuenta nuestros archivos `.stories.js` y use nuestro archivo CSS. Por defecto, Storybook busca historias en el directorio `/stories`; este tutorial usa un esquema de nombres que es similar al esquema de nombres `.test.js` preferido por CRA para pruebas -tests- automatizadas.
 
 ```javascript
-import { configure } from '@storybook/react';
-import '../src/index.css';
+import { configure } from "@storybook/react";
+import "../src/index.css";
 
 const req = require.context('../src', true, /\.stories.js$/);
 
@@ -128,26 +136,35 @@ Ahora tenemos configurado Storybook, los estilos importados y los casos de prueb
 El componente todavía es básico. Primero escribiremos el código que se aproxima al diseño sin entrar en demasiados detalles:
 
 ```javascript
-import React from 'react';
+import React from "react";
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask
+}) {
   return (
     <div className={`list-item ${state}`}>
       <label className="checkbox">
         <input
           type="checkbox"
-          defaultChecked={state === 'TASK_ARCHIVED'}
+          defaultChecked={state === "TASK_ARCHIVED"}
           disabled={true}
           name="checked"
         />
         <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
       <div className="title">
-        <input type="text" value={title} readOnly={true} placeholder="Input title" />
+        <input
+          type="text"
+          value={title}
+          readOnly={true}
+          placeholder="Input title"
+        />
       </div>
 
       <div className="actions" onClick={event => event.stopPropagation()}>
-        {state !== 'TASK_ARCHIVED' && (
+        {state !== "TASK_ARCHIVED" && (
           <a onClick={() => onPinTask(id)}>
             <span className={`icon-star`} />
           </a>
@@ -192,7 +209,7 @@ Task.propTypes = {
 export default Task;
 ```
 
-Ahora aparecerá una advertencia en modo desarrollo si el componente Task  se utiliza incorrectamente.
+Ahora aparecerá una advertencia en modo desarrollo si el componente Task se utiliza incorrectamente.
 
 <div class="aside">
 Una forma alternativa de lograr el mismo propósito es utilizando un sistema de tipos de JavaScript como TypeScript, para crear un tipo para las propiedades del componente.
@@ -221,7 +238,7 @@ yarn add --dev @storybook/addon-storyshots react-test-renderer
 Luego crea un archivo `src/storybook.test.js` con el siguiente contenido:
 
 ```javascript
-import initStoryshots from '@storybook/addon-storyshots';
+import initStoryshots from "@storybook/addon-storyshots";
 initStoryshots();
 ```
 

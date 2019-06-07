@@ -1,16 +1,15 @@
 ---
-title: "Testing"
+title: "Test UI components"
+tocTitle: "Testing"
 description: "Learn the ways to test UI components"
 commit: 8fdc779
 ---
 
-# Test UI components
-
 No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
 
-* **Visual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
-* **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
-* **Unit tests** with Jest verify that the output of a component remains the same given an fixed input. They’re great for testing the functional qualities of a component.
+- **Visual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
+- **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
+- **Unit tests** with Jest verify that the output of a component remains the same given an fixed input. They’re great for testing the functional qualities of a component.
 
 ## “But does it look right?”
 
@@ -66,12 +65,12 @@ yarn add storybook-chromatic
 Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
-import { configure } from '@storybook/angular';
-import 'storybook-chromatic';
-import '../src/styles.less';
+import { configure } from "@storybook/angular";
+import "storybook-chromatic";
+import "../src/styles.less";
 
 // automatically import all files ending in *.stories.ts
-const req = require.context('../src/', true, /.stories.ts$/);
+const req = require.context("../src/", true, /.stories.ts$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

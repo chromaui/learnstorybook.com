@@ -1,11 +1,9 @@
 ---
-title: "Introdução"
+title: "Storybook para o React tutorial"
 tocTitle: "Introdução"
 description: "Configuração do React Storybook no ambiente de desenvolvimento"
 commit: ebe2ae2
 ---
-
-# Storybook para o React tutorial
 
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
@@ -17,7 +15,7 @@ Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started),
 ## Configuração de Storybook com React
 
 Irão ser necessárias algumas etapas adicionais de forma a ser possível configurar o processo de compilação no nosso ambiente de desenvolvimento.
-Para começar queremos usar o pacote [Create React App](https://github.com/facebook/create-react-app) ou como é vulgarmente conhecido (CRA), para configurar o nosso ambiente local e ativar o modo de testes com [Storybook](https://storybook.js.org/) e 
+Para começar queremos usar o pacote [Create React App](https://github.com/facebook/create-react-app) ou como é vulgarmente conhecido (CRA), para configurar o nosso ambiente local e ativar o modo de testes com [Storybook](https://storybook.js.org/) e
 [Jest](https://facebook.github.io/jest/) na nossa aplicação.
 
 Para tal vamos executar os seguintes comandos:
@@ -52,14 +50,13 @@ Sendo estes os seguintes: testes automáticos (Jest), desenvolvimento de compone
 
 ![3 modalidades](/app-three-modalities.png)
 
-
 Dependendo de qual parte da aplicação que estamos a trabalhar, podemos querer executar um ou mais simultâneamente.
 Visto que neste caso, o foco é a criação de um componente de interface de utilizador simples, iremos cingir-nos somente á execução de Storybook.
 
 ## Reutilização CSS
 
 A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
-[Tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), como tal não será necessária a criação de CSS neste tutorial. 
+[Tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), como tal não será necessária a criação de CSS neste tutorial.
 
 Com isto o conteúdo do ficheiro LESS será compilado num único ficheiro CSS e incluido na aplicação.
 
@@ -73,6 +70,6 @@ O CSS compilado encontra-se disponível [aqui](https://github.com/chromaui/learn
 
 ## Adicionar recursos
 
-Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/chromaui/learnstorybook-code/tree/master/public) á pasta `public`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha. 
+Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/chromaui/learnstorybook-code/tree/master/public) á pasta `public`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha.
 Mas isto é de esperar, visto que não iremos trabalhar na aplicação agora.
 Iremos então iniciar o desenvolvimento do nosso primeiro componente!

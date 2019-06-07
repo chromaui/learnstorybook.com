@@ -4,8 +4,6 @@ tocTitle: "Desplegar"
 description: "Desplegar Storybook online con GitHub y Netlify"
 ---
 
-# Desplegar Storybook
-
 En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. Es probable que quieras compartir ese Storybook con tu equipo, especialmente con los miembros no técnicos. Afortunadamente, es fácil desplegar Storybook en línea.
 
 <div class="aside">

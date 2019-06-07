@@ -5,8 +5,6 @@ description: "Construct a screen out of components"
 commit: b62db62
 ---
 
-# Construct a screen
-
 We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
 
 In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
@@ -31,26 +29,26 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
           <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <task-list/>
+      <task-list />
     </div>
   </div>
 </template>
 
 <script>
-import TaskList from "./TaskList.vue";
+  import TaskList from "./TaskList.vue";
 
-export default {
-  name: "pure-inbox-screen",
-  props: {
-    error: {
-      type: Boolean,
-      default: false
+  export default {
+    name: "pure-inbox-screen",
+    props: {
+      error: {
+        type: Boolean,
+        default: false
+      }
+    },
+    components: {
+      TaskList
     }
-  },
-  components: {
-    TaskList
-  }
-};
+  };
 </script>
 ```
 
@@ -59,23 +57,23 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 ```html
 <template>
   <div>
-    <pure-inbox-screen :error="error"/>
+    <pure-inbox-screen :error="error" />
   </div>
 </template>
 
 <script>
-import PureInboxScreen from "./PureInboxScreen";
-import { mapState } from "vuex";
+  import PureInboxScreen from "./PureInboxScreen";
+  import { mapState } from "vuex";
 
-export default {
-  name: "inbox-screen",
-  components: {
-    PureInboxScreen
-  },
-  computed: {
-    ...mapState(["error"])
-  }
-};
+  export default {
+    name: "inbox-screen",
+    components: {
+      PureInboxScreen
+    },
+    computed: {
+      ...mapState(["error"])
+    }
+  };
 </script>
 ```
 
@@ -84,22 +82,22 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 ```html
 <template>
   <div id="app">
-    <inbox-screen/>
+    <inbox-screen />
   </div>
 </template>
 
 <script>
-import store from "./store";
-import InboxScreen from "./components/InboxScreen.vue";
-import "../src/index.css";
+  import store from "./store";
+  import InboxScreen from "./components/InboxScreen.vue";
+  import "../src/index.css";
 
-export default {
-  name: "app",
-  store,
-  components: {
-    InboxScreen
-  }
-};
+  export default {
+    name: "app",
+    store,
+    components: {
+      InboxScreen
+    }
+  };
 </script>
 ```
 
@@ -112,20 +110,20 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import PureInboxScreen from './PureInboxScreen';
+import { storiesOf } from "@storybook/vue";
+import PureInboxScreen from "./PureInboxScreen";
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
+storiesOf("PureInboxScreen", module)
+  .add("default", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
+      template: `<pure-inbox-screen/>`
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
+      template: `<pure-inbox-screen :error="true"/>`
     };
   });
 ```
@@ -147,41 +145,41 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can create a new store in our story file and pass it in as the context of the story:
 
 ```javascript
-import { action } from '@storybook/addon-actions';
-import { storiesOf } from '@storybook/vue';
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { action } from "@storybook/addon-actions";
+import { storiesOf } from "@storybook/vue";
+import Vue from "vue";
+import Vuex from "vuex";
 
-import { defaultTaskList } from './PureTaskList.stories';
-import PureInboxScreen from './PureInboxScreen.vue';
+import { defaultTaskList } from "./PureTaskList.stories";
+import PureInboxScreen from "./PureInboxScreen.vue";
 
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
-    tasks: defaultTaskList,
+    tasks: defaultTaskList
   },
   actions: {
     pinTask(context, id) {
-      action('pinTask')(id);
+      action("pinTask")(id);
     },
     archiveTask(context, id) {
-      action('archiveTask')(id);
-    },
-  },
+      action("archiveTask")(id);
+    }
+  }
 });
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
+storiesOf("PureInboxScreen", module)
+  .add("default", () => {
     return {
       components: { PureInboxScreen },
       template: `<pure-inbox-screen/>`,
-      store,
+      store
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
+      template: `<pure-inbox-screen :error="true"/>`
     };
   });
 ```

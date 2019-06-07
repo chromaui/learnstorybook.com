@@ -1,10 +1,8 @@
 ---
-title: "Introdução"
+title: "Storybook para o Vue tutorial"
 tocTitle: "Introdução"
 description: "Configuração do Vue Storybook no ambiente de desenvolvimento"
 ---
-
-# Storybook para o Vue tutorial
 
 Storybook funciona em paralelo à aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
@@ -16,7 +14,7 @@ Encontram-se disponíveis outras edições quer para [React](/react/pt/get-start
 ## Configuração de Storybook com Vue
 
 Irão ser necessárias algumas etapas adicionais de forma a ser possível configurar o processo de compilação no nosso ambiente de desenvolvimento.
-Para começar queremos usar o pacote  [Vue CLI](https://cli.vuejs.org) para configurar o nosso ambiente local e ativar o modo de testes com [Storybook](https://storybook.js.org/) e 
+Para começar queremos usar o pacote [Vue CLI](https://cli.vuejs.org) para configurar o nosso ambiente local e ativar o modo de testes com [Storybook](https://storybook.js.org/) e
 [Jest](https://facebook.github.io/jest/) na nossa aplicação.
 
 ```bash
@@ -27,6 +25,7 @@ cd taskbox
 # Add Storybook:
 npx -p @storybook/cli sb init
 ```
+
 Podemos rapidamente verificar que os vários ecossistemas da nossa aplicação estão a funcionar corretamente através de:
 
 ```bash
@@ -39,6 +38,7 @@ yarn run storybook
 # Run the frontend app proper on port 8080:
 yarn serve
 ```
+
 <div class="aside">
   Nota: Se <code>yarn test:unit</code>, emitir num erro, poderá ser devido ao facto que o yarn não esteja <a href="https://yarnpkg.com/lang/en/docs/install/">instalado</a>, ou então será necessário instalar o pacote <code>watchman</code>, tal como recomendado neste <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">problema</a>
 </div>
@@ -51,13 +51,13 @@ Dependendo de qual parte da aplicação que estamos a trabalhar, podemos querer 
 Visto que neste caso, o foco é a criação de um componente de interface de utilizador simples, iremos cingir-nos somente á execução de Storybook.
 
 A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
-[Tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), como tal não será necessária a criação de CSS neste tutorial. 
+[Tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), como tal não será necessária a criação de CSS neste tutorial.
 
 O CSS compilado encontra-se disponível [aqui](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) e deverá ser adicionado ao seguinte ficheiro `src/index.css` e em seguida importado para a aplicação através da edição do elemento `<style>` no ficheiro `src/App.vue`, de forma a que seja idêntico a:
 
 ```html
 <style>
-@import './index.css';
+  @import "./index.css";
 </style>
 ```
 
@@ -81,6 +81,6 @@ O script para executar o storybook (que se encontra no ficheiro `package.json`) 
 }
 ```
 
- Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha. 
+Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha.
 Mas isto é de esperar, visto que não iremos trabalhar na aplicação agora.
 Iremos então iniciar o desenvolvimento do nosso primeiro componente!

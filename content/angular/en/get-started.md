@@ -1,11 +1,9 @@
 ---
-title: "Get started"
+title: "Storybook for Angular tutorial"
 tocTitle: "Get started"
 description: "Setup Angular Storybook in your development environment"
 commit: 0818d47
 ---
-
-# Storybook for Angular tutorial
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular.
 

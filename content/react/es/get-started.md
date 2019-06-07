@@ -1,11 +1,9 @@
 ---
-title: "Empezando"
+title: "Storybook para React tutorial"
 tocTitle: "Empezando"
 description: "Configurar React Storybook en tu entorno de desarrollo"
 commit: ebe2ae2
 ---
-
-# Storybook para React tutorial
 
 Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; otras ediciones para Vue y Angular vendrán pronto.
 

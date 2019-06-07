@@ -9,7 +9,7 @@ As contribuições são encorajadas para Learn Storybook! Se for algo pequeno, t
 
 O Learn Storybook foi criado e tem sido mantido pela comunidade, como tal precisamos da ajuda de todos para o manter atualizado e garantir que as arestas existentes sejam polidas ao longo do tempo. Toda a ajuda é bem vinda!
 
-## Traduções 
+## Traduções
 
-O nosso objetivo é tornar o Storybook algo acessível a todos. Ajudem na tradução deste tutorial para outras línguas. Estamos particularmente recetivos a traduções em Chinês e Espanhol. 
+O nosso objetivo é tornar o Storybook algo acessível a todos. Ajudem na tradução deste tutorial para outras línguas. Estamos particularmente recetivos a traduções em Chinês e Espanhol.
 Comentem na [questão](https://github.com/chromaui/learnstorybook.com/issues/3).
