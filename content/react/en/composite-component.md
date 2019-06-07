@@ -2,7 +2,7 @@
 title: "Assemble a composite component"
 tocTitle: "Composite component"
 description: "Assemble a composite component out of simpler components"
-commit: "8db511e"
+commit: '8db511e'
 ---
 
 Last chapter we built our first component; this chapter extends what we learned to build TaskList, a list of Tasks. Let’s combine components together and see what happens when more complexity is introduced.
@@ -24,14 +24,14 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```javascript
-import React from "react";
+import React from 'react';
 
-import Task from "./Task";
+import Task from './Task';
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
-    onArchiveTask
+    onArchiveTask,
   };
 
   if (loading) {
@@ -44,9 +44,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
-        <Task key={task.id} task={task} {...events} />
-      ))}
+      {tasks.map(task => <Task key={task.id} task={task} {...events} />)}
     </div>
   );
 }
@@ -57,34 +55,32 @@ export default TaskList;
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import TaskList from "./TaskList";
-import { task, actions } from "./Task.stories";
+import TaskList from './TaskList';
+import { task, actions } from './Task.stories';
 
 export const defaultTasks = [
-  { ...task, id: "1", title: "Task 1" },
-  { ...task, id: "2", title: "Task 2" },
-  { ...task, id: "3", title: "Task 3" },
-  { ...task, id: "4", title: "Task 4" },
-  { ...task, id: "5", title: "Task 5" },
-  { ...task, id: "6", title: "Task 6" }
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
 
 export const withPinnedTasks = [
   ...defaultTasks.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-storiesOf("TaskList", module)
-  .addDecorator(story => <div style={{ padding: "3rem" }}>{story()}</div>)
-  .add("default", () => <TaskList tasks={defaultTasks} {...actions} />)
-  .add("withPinnedTasks", () => (
-    <TaskList tasks={withPinnedTasks} {...actions} />
-  ))
-  .add("loading", () => <TaskList loading tasks={[]} {...actions} />)
-  .add("empty", () => <TaskList tasks={[]} {...actions} />);
+storiesOf('TaskList', module)
+  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
+  .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
+  .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
+  .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
+  .add('empty', () => <TaskList tasks={[]} {...actions} />);
 ```
 
 `addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
@@ -109,14 +105,14 @@ Now check Storybook for the new `TaskList` stories.
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
 ```javascript
-import React from "react";
+import React from 'react';
 
-import Task from "./Task";
+import Task from './Task';
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
-    onArchiveTask
+    onArchiveTask,
   };
 
   const LoadingRow = (
@@ -154,15 +150,13 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === "TASK_PINNED"),
-    ...tasks.filter(t => t.state !== "TASK_PINNED")
+    ...tasks.filter(t => t.state === 'TASK_PINNED'),
+    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
   ];
 
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => (
-        <Task key={task.id} task={task} {...events} />
-      ))}
+      {tasksInOrder.map(task => <Task key={task.id} task={task} {...events} />)}
     </div>
   );
 }
@@ -227,20 +221,18 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `src/components/TaskList.test.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
-import React from "react";
-import ReactDOM from "react-dom";
-import TaskList from "./TaskList";
-import { withPinnedTasks } from "./TaskList.stories";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TaskList from './TaskList';
+import { withPinnedTasks } from './TaskList.stories';
 
-it("renders pinned tasks at the start of the list", () => {
-  const div = document.createElement("div");
+it('renders pinned tasks at the start of the list', () => {
+  const div = document.createElement('div');
   const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
   ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-  const lastTaskInput = div.querySelector(
-    '.list-item:nth-child(1) input[value="Task 6 (pinned)"]'
-  );
+  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 
   ReactDOM.unmountComponentAtNode(div);

@@ -26,12 +26,12 @@ Primero construiremos un simple store Redux que responde a acciones que cambian 
 ```javascript
 // Una implementación simple de los store/actions/reducer de Redux.
 // Una verdadera aplicación sería más compleja y se dividiría en diferentes archivos.
-import { createStore } from "redux";
+import { createStore } from 'redux';
 
 // Las acciones son los "nombres" de los cambios que pueden ocurrir en el store.
 export const actions = {
-  ARCHIVE_TASK: "ARCHIVE_TASK",
-  PIN_TASK: "PIN_TASK"
+  ARCHIVE_TASK: 'ARCHIVE_TASK',
+  PIN_TASK: 'PIN_TASK',
 };
 
 // Los creadores de acciones son la forma en que se agrupan las acciones con los datos necesarios para ejecutarlas.
@@ -43,9 +43,9 @@ function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(task =>
-        task.id === action.id ? { ...task, state: taskState } : task
-      )
+      tasks: state.tasks.map(
+        task => (task.id === action.id ? { ...task, state: taskState } : task)
+      ),
     };
   };
 }
@@ -54,9 +54,9 @@ function taskStateReducer(taskState) {
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
-      return taskStateReducer("TASK_ARCHIVED")(state, action);
+      return taskStateReducer('TASK_ARCHIVED')(state, action);
     case actions.PIN_TASK:
-      return taskStateReducer("TASK_PINNED")(state, action);
+      return taskStateReducer('TASK_PINNED')(state, action);
     default:
       return state;
   }
@@ -65,10 +65,10 @@ export const reducer = (state, action) => {
 // El estado inicial de nuestro store cuando la app carga.
 // Usualmente obtendrías esto de un servidor.
 const defaultTasks = [
-  { id: "1", title: "Something", state: "TASK_INBOX" },
-  { id: "2", title: "Something more", state: "TASK_INBOX" },
-  { id: "3", title: "Something else", state: "TASK_INBOX" },
-  { id: "4", title: "Something again", state: "TASK_INBOX" }
+  { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
 // Exportamos el store de redux construido.
@@ -78,12 +78,12 @@ export default createStore(reducer, { tasks: defaultTasks });
 Luego actualizaremos lo exportado por defecto en el componente `TaskList` para conectarlo al Store de Redux y renderizar las tareas en las que estamos interesados.
 
 ```javascript
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Task from "./Task";
-import { connect } from "react-redux";
-import { archiveTask, pinTask, snoozeTask } from "../lib/redux";
+import Task from './Task';
+import { connect } from 'react-redux';
+import { archiveTask, pinTask, snoozeTask } from '../lib/redux';
 
 export function PureTaskList({ tasks, onPinTask, onArchiveTask }) {
   /* antigua implementación de TaskList */
@@ -93,22 +93,20 @@ PureTaskList.propTypes = {
   loading: PropTypes.bool,
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
   onPinTask: PropTypes.func.isRequired,
-  onArchiveTask: PropTypes.func.isRequired
+  onArchiveTask: PropTypes.func.isRequired,
 };
 
 PureTaskList.defaultProps = {
-  loading: false
+  loading: false,
 };
 
 export default connect(
   ({ tasks }) => ({
-    tasks: tasks.filter(
-      t => t.state === "TASK_INBOX" || t.state === "TASK_PINNED"
-    )
+    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
   }),
   dispatch => ({
     onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id))
+    onPinTask: id => dispatch(pinTask(id)),
   })
 )(PureTaskList);
 ```
@@ -117,39 +115,38 @@ En esta etapa, nuestras pruebas de Storybook habrán dejado de funcionar, ya que
 
 Sin embargo, podemos resolver este problema fácilmente renderizando `PureTaskList` --el componente de presentación-- en nuestras historias de Storybook:
 
-```javascript
-import React from "react";
-import { storiesOf } from "@storybook/react";
 
-import { PureTaskList } from "./TaskList";
-import { createTask, actions } from "./Task.stories";
+```javascript
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+
+import { PureTaskList } from './TaskList';
+import { createTask, actions } from './Task.stories';
 
 export const defaultTasks = [
-  createTask({ state: "TASK_INBOX" }),
-  createTask({ state: "TASK_INBOX" }),
-  createTask({ state: "TASK_INBOX" }),
-  createTask({ state: "TASK_INBOX" }),
-  createTask({ state: "TASK_INBOX" }),
-  createTask({ state: "TASK_INBOX" })
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
+  createTask({ state: 'TASK_INBOX' }),
 ];
 
 export const withPinnedTasks = [
-  createTask({ title: "Task 1", state: "TASK_INBOX" }),
-  createTask({ title: "Task 2", state: "TASK_INBOX" }),
-  createTask({ title: "Task 3", state: "TASK_INBOX" }),
-  createTask({ title: "Task 4", state: "TASK_INBOX" }),
-  createTask({ title: "Task 5", state: "TASK_INBOX" }),
-  createTask({ title: "Task 6 (pinned)", state: "TASK_PINNED" })
+  createTask({ title: 'Task 1', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 2', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 3', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 4', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 5', state: 'TASK_INBOX' }),
+  createTask({ title: 'Task 6 (pinned)', state: 'TASK_PINNED' }),
 ];
 
-storiesOf("TaskList", module)
-  .addDecorator(story => <div style={{ padding: "3rem" }}>{story()}</div>)
-  .add("default", () => <PureTaskList tasks={defaultTasks} {...actions} />)
-  .add("withPinnedTasks", () => (
-    <PureTaskList tasks={withPinnedTasks} {...actions} />
-  ))
-  .add("loading", () => <PureTaskList loading tasks={[]} {...actions} />)
-  .add("empty", () => <PureTaskList tasks={[]} {...actions} />);
+storiesOf('TaskList', module)
+  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
+  .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
+  .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
+  .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
+  .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
 ```
 
 <video autoPlay muted playsInline loop>

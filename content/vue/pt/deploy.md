@@ -33,41 +33,41 @@ Pretende-se que seja partilhada a última versão dos componentes á medida que 
 
 ### GitHub
 
-Primeiro, será necessário configurar o Git localmente. Se este tutorial estiver a ser seguido, poderá saltar-se para a configuração de um repositório no GitHub.
+Primeiro, será necessário configurar o Git localmente. Se este tutorial estiver a ser seguido, poderá saltar-se para a configuração de um repositório no GitHub. 
 
-```bash
-$ git init
+```bash 
+$ git init 
 ```
 
-Adicionam-se os ficheiros ao primeiro commit.
+Adicionam-se os ficheiros ao primeiro commit. 
 
-```bash
-$ git add .
+```bash 
+$ git add . 
 ```
 
-Agora pode ser feito o commit dos ficheiros.
+Agora pode ser feito o commit dos ficheiros. 
 
-```bash
-$ git commit -m "taskbox UI";
-```
+```bash 
+$ git commit -m "taskbox UI"; 
+``` 
 
-Navegue até ao GitHub e configure [aqui](https://github.com/new) um repositório. E vai ser atribuído o nome “taskbox”.
+Navegue até ao GitHub e configure [aqui](https://github.com/new) um repositório. E vai ser atribuído o nome “taskbox”. 
 
 ![Configuração GitHub](/github-create-taskbox.png)
 
-No novo repositório de código, copia-se o URL original deste, e adicionado ao projeto com o seguinte comando:
+No novo repositório de código, copia-se o URL original deste, e adicionado ao projeto com o seguinte comando: 
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
-```
+```bash 
+$ git remote add origin https://github.com/<your username>/taskbox.git 
+``` 
 
-Finalmente injeta-se o repositório no GitHub
+Finalmente injeta-se o repositório no GitHub 
 
-```bash
-$ git push -u origin master
-```
+```bash 
+$ git push -u origin master 
+``` 
 
-### Netlify
+### Netlify 
 
 O Netlify possui um serviço de implementação continua, o que permite a implementação do Storybook sem ser necessária a configuração de uma IC (CI na forma nativa) própria.
 
@@ -75,11 +75,11 @@ O Netlify possui um serviço de implementação continua, o que permite a implem
     Se for usado um IC (CI na forma nativa) na empresa, é necessário adicionar um script de implementação para que seja feito o upload da pasta <code>storybook-static</code> para um serviço de hospedagem estático, tal como o S3. 
 </div>
 
-[Criação da conta no Netlify](https://app.netlify.com/start), em seguida “create site”.
+[Criação da conta no Netlify](https://app.netlify.com/start), em seguida “create site”. 
 
 ![Criação Site Netlify](/netlify-create-site.png)
 
-Em seguida click no botão GitHub para ser feita a ligação do Netlify ao GitHub. O que permite o acesso ao repositorio remoto Taskbox.
+Em seguida click no botão GitHub para ser feita a ligação do Netlify ao GitHub. O que permite o acesso ao repositorio remoto Taskbox. 
 
 Seguida da seleção do repositório da lista de opções.
 
@@ -89,12 +89,12 @@ Seguida da seleção do repositório da lista de opções.
 
 ![Configurações Netlify](/netlify-settings.png)
 
-Em seguida é feita a submissão do formulário, para compilar o código no ramo `master` do repositório taskbox.
+Em seguida é feita a submissão do formulário, para compilar o código no ramo `master` do repositório taskbox. 
 
-Quando isto terminar, é apresentada uma mensagem de confirmação no Netlify, juntamente com um link para o Storybook da Taskbox online. Se o tutorial estiver a ser seguido o Storybook estará online [tal como](https://clever-banach-415c03.netlify.com/).
+Quando isto terminar, é apresentada uma mensagem de confirmação no Netlify, juntamente com um link para o Storybook da Taskbox online. Se o tutorial estiver a ser seguido o Storybook estará online [tal como](https://clever-banach-415c03.netlify.com/). 
 
 ![Implementação Storybook Netlify](/netlify-storybook-deploy.png)
 
-Com isto terminou a implementação continua do Storybook! Pode ser agora partilhado através de um link.
+Com isto terminou a implementação continua do Storybook! Pode ser agora partilhado através de um link. 
 
 Isto é bastante útil, para a revisão visual, como parte do processo por defeito de desenvolvimento, ou para ser possível gabar o nosso trabalho 💅.

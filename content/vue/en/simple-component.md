@@ -13,8 +13,8 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 `Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+* `title` – a string describing the task
+* `state` - which list is the task currently in and is it checked off?
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
@@ -30,19 +30,19 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 <template>
   <div class="list-item">
     <input type="text" :readonly="true" :value="this.task.title" />
-  </div>
+  </div>  
 </template>
 
 <script>
-  export default {
-    name: "task",
-    props: {
-      task: {
-        type: Object,
-        required: true
-      }
+export default {
+  name: "task",
+  props: {
+    task: {
+      type: Object,
+      required: true
     }
-  };
+  }
+};
 </script>
 ```
 
@@ -51,56 +51,56 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
-import { storiesOf } from "@storybook/vue";
-import { action } from "@storybook/addon-actions";
+import { storiesOf } from '@storybook/vue';
+import { action } from '@storybook/addon-actions';
 
-import Task from "./Task";
+import Task from './Task';
 
 export const task = {
-  id: "1",
-  title: "Test Task",
-  state: "TASK_INBOX",
-  updatedAt: new Date(2018, 0, 1, 9, 0)
+  id: '1',
+  title: 'Test Task',
+  state: 'TASK_INBOX',
+  updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
 export const methods = {
-  onPinTask: action("onPinTask"),
-  onArchiveTask: action("onArchiveTask")
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf("Task", module)
-  .add("default", () => {
+storiesOf('Task', module)
+  .add('default', () => {
     return {
       components: { Task },
       template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
       data: () => ({ task }),
-      methods
+      methods,
     };
   })
-  .add("pinned", () => {
+  .add('pinned', () => {
     return {
       components: { Task },
       template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_PINNED" } }),
-      methods
+      data: () => ({ task: { ...task, state: 'TASK_PINNED' } }),
+      methods,
     };
   })
-  .add("archived", () => {
+  .add('archived', () => {
     return {
       components: { Task },
       template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_ARCHIVED" } }),
-      methods
+      data: () => ({ task: { ...task, state: 'TASK_ARCHIVED' } }),
+      methods,
     };
   });
 ```
 
 There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
-- **Component**
-  - Story
-  - Story
-  - Story
+* **Component**
+  * Story
+  * Story
+  * Story
 
 To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
 
@@ -123,11 +123,11 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.spec.js` naming scheme favoured by the Vue CLI for automated tests.
 
 ```javascript
-import { configure } from "@storybook/vue";
+import { configure } from '@storybook/vue';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = require.context("../src", true, /.stories.js$/);
+const req = require.context('../src', true, /.stories.js$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
@@ -160,42 +160,37 @@ The component is still basic at the moment. First write the code that achieves t
         :disabled="true"
         name="checked"
       />
-      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)" />
+      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)"/>
     </label>
     <div class="title">
-      <input
-        type="text"
-        :readonly="true"
-        :value="this.task.title"
-        placeholder="Input title"
-      />
+      <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
     </div>
     <div class="actions">
       <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
-        <span class="icon-star" />
+        <span class="icon-star"/>
       </a>
     </div>
-  </div>
+  </div>  
 </template>
 
 <script>
-  export default {
-    name: "task",
-    props: {
-      task: {
-        type: Object,
-        required: true
-      }
-    },
-    computed: {
-      taskClass() {
-        return `list-item ${this.task.state}`;
-      },
-      isChecked() {
-        return this.task.state === "TASK_ARCHIVED";
-      }
+export default {
+  name: "task",
+  props: {
+    task: {
+      type: Object,
+      required: true
     }
-  };
+  },
+  computed: {
+    taskClass() {
+      return `list-item ${this.task.state}`;
+    },
+    isChecked() {
+      return this.task.state === "TASK_ARCHIVED";
+    }
+  }
+};
 </script>
 ```
 
@@ -235,8 +230,8 @@ yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-re
 Then create a `tests/unit/storybook.spec.js` file with the following in it:
 
 ```javascript
-import registerRequireContextHook from "babel-plugin-require-context-hook/register";
-import initStoryshots from "@storybook/addon-storyshots";
+import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
+import initStoryshots from '@storybook/addon-storyshots';
 
 registerRequireContextHook();
 initStoryshots();
@@ -252,8 +247,8 @@ Finally, we need to make a tweak to our `babel.config.js`:
 
 ```js
 module.exports = api => ({
-  presets: ["@vue/app"],
-  ...(api.env("test") && { plugins: ["require-context-hook"] })
+  presets: ['@vue/app'],
+  ...(api.env('test') && { plugins: ['require-context-hook'] }),
 });
 ```
 

@@ -13,8 +13,8 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 `Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+* `title` – a string describing the task
+* `state` - which list is the task currently in and is it checked off?
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
@@ -27,13 +27,9 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
-import React from "react";
+import React from 'react';
 
-export default function Task({
-  task: { id, title, state },
-  onArchiveTask,
-  onPinTask
-}) {
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className="list-item">
       <input type="text" value={title} readOnly={true} />
@@ -47,40 +43,36 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 
-import Task from "./Task";
+import Task from './Task';
 
 export const task = {
-  id: "1",
-  title: "Test Task",
-  state: "TASK_INBOX",
-  updatedAt: new Date(2018, 0, 1, 9, 0)
+  id: '1',
+  title: 'Test Task',
+  state: 'TASK_INBOX',
+  updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
 export const actions = {
-  onPinTask: action("onPinTask"),
-  onArchiveTask: action("onArchiveTask")
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf("Task", module)
-  .add("default", () => <Task task={task} {...actions} />)
-  .add("pinned", () => (
-    <Task task={{ ...task, state: "TASK_PINNED" }} {...actions} />
-  ))
-  .add("archived", () => (
-    <Task task={{ ...task, state: "TASK_ARCHIVED" }} {...actions} />
-  ));
+storiesOf('Task', module)
+  .add('default', () => <Task task={task} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
 There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
-- **Component**
-  - Story
-  - Story
-  - Story
+* **Component**
+  * Story
+  * Story
+  * Story
 
 To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
 
@@ -103,10 +95,10 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA for automated tests.
 
 ```javascript
-import { configure } from "@storybook/react";
-import "../src/index.css";
+import { configure } from '@storybook/react';
+import '../src/index.css';
 
-const req = require.context("../src", true, /.stories.js$/);
+const req = require.context('../src', true, /.stories.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -131,35 +123,26 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```javascript
-import React from "react";
+import React from 'react';
 
-export default function Task({
-  task: { id, title, state },
-  onArchiveTask,
-  onPinTask
-}) {
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
       <label className="checkbox">
         <input
           type="checkbox"
-          defaultChecked={state === "TASK_ARCHIVED"}
+          defaultChecked={state === 'TASK_ARCHIVED'}
           disabled={true}
           name="checked"
         />
         <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
       <div className="title">
-        <input
-          type="text"
-          value={title}
-          readOnly={true}
-          placeholder="Input title"
-        />
+        <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
       <div className="actions" onClick={event => event.stopPropagation()}>
-        {state !== "TASK_ARCHIVED" && (
+        {state !== 'TASK_ARCHIVED' && (
           <a onClick={() => onPinTask(id)}>
             <span className={`icon-star`} />
           </a>
@@ -184,14 +167,10 @@ The additional markup from above combined with the CSS we imported earlier yield
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
 ```javascript
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Task({
-  task: { id, title, state },
-  onArchiveTask,
-  onPinTask
-}) {
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   // ...
 }
 
@@ -199,10 +178,10 @@ Task.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired
+    state: PropTypes.string.isRequired,
   }),
   onArchiveTask: PropTypes.func,
-  onPinTask: PropTypes.func
+  onPinTask: PropTypes.func,
 };
 ```
 
@@ -239,19 +218,19 @@ yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.m
 Then create an `src/storybook.test.js` file with the following in it:
 
 ```javascript
-import initStoryshots from "@storybook/addon-storyshots";
+import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
 You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Update `.storybook/config.js` to have:
 
 ```js
-import { configure } from "@storybook/react";
-import requireContext from "require-context.macro";
+import { configure } from '@storybook/react';
+import requireContext from 'require-context.macro';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = requireContext("../src/components", true, /\.stories\.js$/);
+const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

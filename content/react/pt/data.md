@@ -28,12 +28,12 @@ Irá ser construída (intencionalmente definida de forma simples) uma loja Redux
 ```javascript
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
-import { createStore } from "redux";
+import { createStore } from 'redux';
 
 // The actions are the "names" of the changes that can happen to the store
 export const actions = {
-  ARCHIVE_TASK: "ARCHIVE_TASK",
-  PIN_TASK: "PIN_TASK"
+  ARCHIVE_TASK: 'ARCHIVE_TASK',
+  PIN_TASK: 'PIN_TASK',
 };
 
 // The action creators are how you bundle actions with the data required to execute them
@@ -45,9 +45,9 @@ function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(task =>
-        task.id === action.id ? { ...task, state: taskState } : task
-      )
+      tasks: state.tasks.map(
+        task => (task.id === action.id ? { ...task, state: taskState } : task)
+      ),
     };
   };
 }
@@ -56,9 +56,9 @@ function taskStateReducer(taskState) {
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
-      return taskStateReducer("TASK_ARCHIVED")(state, action);
+      return taskStateReducer('TASK_ARCHIVED')(state, action);
     case actions.PIN_TASK:
-      return taskStateReducer("TASK_PINNED")(state, action);
+      return taskStateReducer('TASK_PINNED')(state, action);
     default:
       return state;
   }
@@ -67,10 +67,10 @@ export const reducer = (state, action) => {
 // The initial state of our store when the app loads.
 // Usually you would fetch this from a server
 const defaultTasks = [
-  { id: "1", title: "Something", state: "TASK_INBOX" },
-  { id: "2", title: "Something more", state: "TASK_INBOX" },
-  { id: "3", title: "Something else", state: "TASK_INBOX" },
-  { id: "4", title: "Something again", state: "TASK_INBOX" }
+  { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
 // We export the constructed redux store
@@ -80,12 +80,12 @@ export default createStore(reducer, { tasks: defaultTasks });
 Em seguida o componente `TaskList` vai ser atualizado de forma que possa conectar á loja Redux e renderizar as tarefas que pretendemos:
 
 ```javascript
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Task from "./Task";
-import { connect } from "react-redux";
-import { archiveTask, pinTask } from "../lib/redux";
+import Task from './Task';
+import { connect } from 'react-redux';
+import { archiveTask, pinTask } from '../lib/redux';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   /* previous implementation of TaskList */
@@ -95,22 +95,20 @@ PureTaskList.propTypes = {
   loading: PropTypes.bool,
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
   onPinTask: PropTypes.func.isRequired,
-  onArchiveTask: PropTypes.func.isRequired
+  onArchiveTask: PropTypes.func.isRequired,
 };
 
 PureTaskList.defaultProps = {
-  loading: false
+  loading: false,
 };
 
 export default connect(
   ({ tasks }) => ({
-    tasks: tasks.filter(
-      t => t.state === "TASK_INBOX" || t.state === "TASK_PINNED"
-    )
+    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
   }),
   dispatch => ({
     onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id))
+    onPinTask: id => dispatch(pinTask(id)),
   })
 )(PureTaskList);
 ```
@@ -120,34 +118,32 @@ Nesta altura os testes com Storybook terão deixado de funcionar, visto que `Tas
 No entanto este problema pode ser resolvido com relativa facilidade, ao renderizar-se o componente de apresentação `PureTaskList` nas estórias do Storybook:
 
 ```javascript
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import { PureTaskList } from "./TaskList";
-import { task, actions } from "./Task.stories";
+import { PureTaskList } from './TaskList';
+import { task, actions } from './Task.stories';
 
 export const defaultTasks = [
-  { ...task, id: "1", title: "Task 1" },
-  { ...task, id: "2", title: "Task 2" },
-  { ...task, id: "3", title: "Task 3" },
-  { ...task, id: "4", title: "Task 4" },
-  { ...task, id: "5", title: "Task 5" },
-  { ...task, id: "6", title: "Task 6" }
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
 
 export const withPinnedTasks = [
   ...defaultTasks.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-storiesOf("TaskList", module)
-  .addDecorator(story => <div style={{ padding: "3rem" }}>{story()}</div>)
-  .add("default", () => <PureTaskList tasks={defaultTasks} {...actions} />)
-  .add("withPinnedTasks", () => (
-    <PureTaskList tasks={withPinnedTasks} {...actions} />
-  ))
-  .add("loading", () => <PureTaskList loading tasks={[]} {...actions} />)
-  .add("empty", () => <PureTaskList tasks={[]} {...actions} />);
+storiesOf('TaskList', module)
+  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
+  .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
+  .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
+  .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
+  .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
 ```
 
 <video autoPlay muted playsInline loop>
@@ -160,20 +156,18 @@ storiesOf("TaskList", module)
 Similarmente, será usado o `PureTaskList` nos testes com Jest:
 
 ```js
-import React from "react";
-import ReactDOM from "react-dom";
-import { PureTaskList } from "./TaskList";
-import { withPinnedTasks } from "./TaskList.stories";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { PureTaskList } from './TaskList';
+import { withPinnedTasks } from './TaskList.stories';
 
-it("renders pinned tasks at the start of the list", () => {
-  const div = document.createElement("div");
+it('renders pinned tasks at the start of the list', () => {
+  const div = document.createElement('div');
   const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
   ReactDOM.render(<PureTaskList tasks={withPinnedTasks} {...events} />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-  const lastTaskInput = div.querySelector(
-    '.list-item:nth-child(1) input[value="Task 6 (pinned)"]'
-  );
+  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 
   ReactDOM.unmountComponentAtNode(div);
