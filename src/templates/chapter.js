@@ -4,13 +4,12 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import Helmet from 'react-helmet';
 import { Button, Highlight, Icon, Link, styles, Subheading } from '@storybook/design-system';
-
 import BoxLink from '../components/atoms/BoxLink';
 import GatsbyLink from '../components/atoms/GatsbyLink';
+import LanguageMenu from '../components/molecules/LanguageMenu';
 import ShadowBoxCTA from '../components/molecules/ShadowBoxCTA';
 import TableOfContents from '../components/molecules/TableOfContents';
 import tocEntries from '../lib/tocEntries';
-
 import formatting from '../styles/formatting';
 
 const { color, pageMargins, breakpoint, spacing, typography } = styles;
@@ -25,6 +24,19 @@ const Sidebar = styled.div`
     width: 100%;
     border-bottom: 1px solid ${color.mediumlight};
   }
+`;
+
+const SidebarHeading = styled.div`
+  color: ${color.darkest};
+  font-size: ${typography.size.s3};
+  font-weight: ${typography.weight.bold};
+  letter-spacing: -0.14px;
+  line-height: 20px;
+  margin-bottom: 12px;
+`;
+
+const TableOfContentsWrapper = styled(TableOfContents)`
+  margin-top: ${spacing.padding.medium}px;
 `;
 
 const HighlightWrapper = styled(Highlight)`
@@ -155,7 +167,7 @@ const Chapter = ({
   const entries = tocEntries(toc, pages);
   const {
     frontmatter: { commit, title, description },
-    fields: { slug, chapter, framework, language },
+    fields: { slug, chapter, framework, language, prettyLanguage },
   } = currentPage;
   const githubFileUrl = `${githubUrl}/blob/master/content${slug.replace(/\/$/, '')}.md`;
 
@@ -180,7 +192,14 @@ const Chapter = ({
       </Helmet>
 
       <Sidebar>
-        <TableOfContents entries={entries} currentPageSlug={slug} />
+        <SidebarHeading>Visual Testing Handbook</SidebarHeading>
+        <LanguageMenu
+          currentFramework={framework}
+          currentPrettyLanguage={prettyLanguage}
+          firstChapter={toc[0]}
+        />
+
+        <TableOfContentsWrapper entries={entries} currentPageSlug={slug} />
       </Sidebar>
 
       <Content>
@@ -301,6 +320,7 @@ export const query = graphql`
         chapter
         framework
         language
+        prettyLanguage
       }
     }
     site {

@@ -2,6 +2,14 @@ const path = require('path');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
+const prettyLanguageMap = {
+  en: 'English',
+  es: 'Español',
+  'zh-CN': '简体中文',
+  'zh-TW': '繁體中文',
+  pt: 'Português',
+};
+
 exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `MarkdownRemark`) {
     const { createNodeField } = actions;
@@ -23,6 +31,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({ node, name: `slug`, value: slug });
     createNodeField({ node, name: `framework`, value: framework });
     createNodeField({ node, name: `language`, value: language });
+    createNodeField({ node, name: `prettyLanguage`, value: prettyLanguageMap[language] });
     createNodeField({ node, name: `chapter`, value: chapter });
   }
 };
@@ -40,6 +49,7 @@ exports.createPages = ({ graphql, actions }) => {
                 slug
                 framework
                 language
+                prettyLanguage
                 chapter
               }
             }

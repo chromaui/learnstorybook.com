@@ -21,6 +21,8 @@ const FooterWrapper = styled.footer`
 const FooterContent = styled.div`
   ${pageMargins}
   display: flex;
+  width: 100%;
+  justify-content: center;
 `;
 
 const FooterBlock = styled.div`

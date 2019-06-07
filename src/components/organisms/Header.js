@@ -2,14 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import GitHubButton from 'react-github-button';
-import { Icon, Link, styles, WithTooltip } from '@storybook/design-system';
-
 import 'react-github-button/assets/style.css';
-
+import { Link, styles } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
 import Logo from '../atoms/Logo';
 
-const { color, typography, spacing, pageMargins, breakpoint } = styles;
+const { spacing, pageMargins, breakpoint } = styles;
 
 const LogoWrapper = styled(Logo)`
   && {
@@ -27,11 +25,6 @@ const LogoWrapper = styled(Logo)`
       transform: translate3d(0, 0, 0);
     }
   }
-`;
-
-const NavLink = styled(Link)`
-  font-size: ${typography.size.s3}px;
-  font-weight: ${typography.weight.black};
 `;
 
 // prettier-ignore
@@ -88,51 +81,9 @@ const NavWrapper = styled.nav`
   }
 `;
 
-const TooltipList = styled.div`
-  width: 200px;
-`;
-
-const TooltipItem = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-
-  padding: 15px 15px 5px;
-
-  &:not(:first-child) {
-    border-top: 1px solid ${color.mediumlight};
-  }
-`;
-
-const ViewLayerImage = styled.img`
-  width: 1rem;
-  height: 1rem;
-  margin-right: 8px;
-`;
-
-const Meta = styled.div``;
-
-const Title = styled.div`
-  font-weight: ${typography.weight.black};
-  font-size: ${typography.size.s2}px;
-  line-height: 1;
-  margin-bottom: 6px;
-`;
-
-const Detail = styled.div`
-  font-size: ${typography.size.s1}px;
-  line-height: 1;
-`;
-
-const LanguageLink = styled(GatsbyLink).attrs({ tertiary: true })`
-  && {
-    text-decoration: underline;
-    margin-right: 10px;
-    margin-bottom: 10px;
-  }
-`;
-
 const GitHubWrapper = styled.div`
+  transform: scale(0.84);
+
   ${'' /* Overrides to make a medium sized button */};
   .github-btn {
     font: bold 14px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -144,18 +95,7 @@ const GitHubWrapper = styled.div`
   }
 `;
 
-function capitalize([first, ...rest]) {
-  return [first.toUpperCase(), ...rest];
-}
-
-export default function Header({
-  githubUrl,
-  isInverted,
-  framework,
-  firstChapter,
-  withNav,
-  ...props
-}) {
+export default function Header({ githubUrl, isInverted, ...props }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
     <NavWrapper {...props}>
@@ -168,60 +108,6 @@ export default function Header({
           </NavItem>
         </NavGroup>
         <NavGroup right>
-          {withNav && (
-            <NavItem showDesktop>
-              <WithTooltip
-                placement="top"
-                trigger="click"
-                closeOnClick
-                tooltip={
-                  <TooltipList>
-                    <TooltipItem>
-                      <ViewLayerImage src="/logo-react.svg" alt="React" />
-                      <Meta>
-                        <Title>React</Title>
-                        <Detail>
-                          <LanguageLink to={`/react/en/${firstChapter}/`}>English</LanguageLink>
-                          <LanguageLink to={`/react/es/${firstChapter}/`}>Español</LanguageLink>
-                          <LanguageLink to={`/react/zh-CN/${firstChapter}/`}>简体中文</LanguageLink>
-                          <LanguageLink to={`/react/zh-TW/${firstChapter}/`}>繁體中文</LanguageLink>
-                          <LanguageLink to={`/react/pt/${firstChapter}/`}>Português</LanguageLink>
-                        </Detail>
-                      </Meta>
-                    </TooltipItem>
-
-                    <TooltipItem>
-                      <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
-                      <Meta>
-                        <Title>Angular</Title>
-                        <Detail>
-                          <LanguageLink to={`/angular/en/${firstChapter}/`}>English</LanguageLink>
-                          <LanguageLink to={`/angular/es/${firstChapter}/`}>Español</LanguageLink>
-                          <LanguageLink to={`/angular/pt/${firstChapter}/`}>Português</LanguageLink>
-                        </Detail>
-                      </Meta>
-                    </TooltipItem>
-                    <TooltipItem>
-                      <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
-                      <Meta>
-                        <Title>Vue</Title>
-                        <Detail>
-                          <LanguageLink to={`/vue/en/${firstChapter}/`}>English</LanguageLink>
-                          <LanguageLink to={`/vue/pt/${firstChapter}/`}>Português</LanguageLink>
-                        </Detail>
-                      </Meta>
-                    </TooltipItem>
-                  </TooltipList>
-                }
-              >
-                <NavLink inverse={isInverted} tertiary={!isInverted}>
-                  <Icon icon="switchalt" />
-                  {capitalize(framework)}
-                </NavLink>
-              </WithTooltip>
-            </NavItem>
-          )}
-
           <NavItem>
             <GitHubWrapper>
               <GitHubButton type="stargazers" namespace={namespace} repo={repo} />
@@ -236,14 +122,9 @@ export default function Header({
 Header.propTypes = {
   githubUrl: PropTypes.string,
   isInverted: PropTypes.bool,
-  framework: PropTypes.string,
-  firstChapter: PropTypes.string.isRequired,
-  withNav: PropTypes.bool,
 };
 
 Header.defaultProps = {
   githubUrl: null,
   isInverted: false,
-  framework: 'react',
-  withNav: null,
 };
