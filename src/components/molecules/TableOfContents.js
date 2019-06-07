@@ -43,7 +43,7 @@ const ListItem = styled.li`
     line-height: 1.5;
     position: relative;
     z-index: 1;
-    ${props => props.isActive && `font-weight: ${typography.weight.black};`}
+    ${props => props.isActive && `font-weight: ${typography.weight.bold};`}
   }
 
   @media screen and (min-width: ${breakpoint}px) {

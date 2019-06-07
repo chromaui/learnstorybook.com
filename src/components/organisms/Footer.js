@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, styles } from '@storybook/design-system';
+import { Link, styles, Subheading } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
 import Logo from '../atoms/Logo';
 import LogoChroma from '../atoms/LogoChroma';
+import MailingListSignup from '../molecules/MailingListSignup';
 
-const { background, color, typography, pageMargins } = styles;
+const { background, color, typography, pageMargins, spacing } = styles;
 
 const FooterWrapper = styled.footer`
   background: ${background.app};
@@ -19,17 +20,23 @@ const FooterWrapper = styled.footer`
 
 const FooterContent = styled.div`
   ${pageMargins}
+  display: flex;
 `;
 
 const FooterBlock = styled.div`
   width: auto;
+  ${props =>
+    props.withRightSpacing &&
+    `
+    margin-right: ${spacing.padding.medium}px;
+  `}
 `;
 
 const FooterLogoBlock = styled.div`
   ${props => !props.isFirst && `margin-top: 38px;`}
 `;
 
-const LogoMessage = styled.div`
+const Message = styled.div`
   margin-top: 14px;
 `;
 
@@ -47,18 +54,26 @@ const LogoChromaWrapper = styled(LogoChroma)`
   }
 `;
 
+const SubheadingWrapper = styled(Subheading)`
+  color: ${color.mediumdark};
+`;
+
+const MailingListSignupWrapper = styled(MailingListSignup)`
+  margin-top: 16px;
+`;
+
 const Footer = ({ ...props }) => (
   <FooterWrapper {...props}>
     <FooterContent>
-      <FooterBlock>
+      <FooterBlock withRightSpacing>
         <FooterLogoBlock isFirst>
           <GatsbyLink to="/">
             <LogoWrapper />
           </GatsbyLink>
 
-          <LogoMessage>
+          <Message>
             In depth guides written by Storybook maintainers for professional developers.
-          </LogoMessage>
+          </Message>
         </FooterLogoBlock>
 
         <FooterLogoBlock>
@@ -66,8 +81,18 @@ const Footer = ({ ...props }) => (
             <LogoChromaWrapper />
           </Link>
 
-          <LogoMessage>Made by Chroma and the amazing Storybook community.</LogoMessage>
+          <Message>Made by Chroma and the amazing Storybook community.</Message>
         </FooterLogoBlock>
+      </FooterBlock>
+
+      <FooterBlock>
+        <SubheadingWrapper>Subscribe</SubheadingWrapper>
+
+        <Message>
+          Join the Chroma mailing list to get free tutorials, guides, and resources emailed to you.
+        </Message>
+
+        <MailingListSignupWrapper />
       </FooterBlock>
     </FooterContent>
   </FooterWrapper>

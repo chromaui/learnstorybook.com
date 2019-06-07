@@ -75,8 +75,7 @@ export const bodyStyles = css`
     padding-left: 2px;
     padding-right: 2px;
     vertical-align: baseline;
-
-    color: ${color.ancillary};
+    color: rgb(60, 115, 132);
   }
 
   pre {

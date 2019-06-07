@@ -12,7 +12,7 @@ export default function HTML(props) {
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         {props.headComponents}
         <link
-          href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800&display=swap"
+          href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,900&display=swap"
           rel="stylesheet"
         />
       </head>

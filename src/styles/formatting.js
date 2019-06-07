@@ -4,8 +4,8 @@ import { styles } from '@storybook/design-system';
 const { color, typography } = styles;
 
 const formatting = css`
-  line-height: 1.65;
-  font-size: 18px;
+  line-height: 26px;
+  font-size: ${typography.size.s3};
 
   h1,
   h2,
@@ -34,12 +34,15 @@ const formatting = css`
     font-size: ${typography.size.l1}px;
     font-weight: ${typography.weight.black};
     margin-bottom: 0.5em;
+    letter-spacing: -0.33px;
+    line-height: 40px;
   }
 
   h2 {
-    font-size: ${typography.size.m2}px;
+    font-size: ${typography.size.m1}px;
     font-weight: ${typography.weight.black};
     line-height: ${typography.size.m3}px;
+    letter-spacing: -0.8px;
     margin-bottom: 0.5em;
   }
 
@@ -61,6 +64,7 @@ const formatting = css`
   p {
     margin: 1.5em 0;
     position: relative;
+    letter-spacing: -0.37px;
 
     &:first-of-type:not(:only-of-type) {
       margin-top: 0;
@@ -97,7 +101,7 @@ const formatting = css`
   p a,
   li a,
   .aside a {
-    color: ${color.primary};
+    color: ${color.secondary};
     transition: all 250ms ease-out;
     display: inline-block;
     text-decoration: none;
@@ -113,7 +117,7 @@ const formatting = css`
     }
 
     &:visited {
-      color: ${color.primary};
+      color: ${color.secondary};
     }
   }
 
@@ -223,7 +227,7 @@ const formatting = css`
 
   code[class*='language-'],
   pre[class*='language-'] {
-    font-size: ${typography.size.s3}px;
+    font-size: ${typography.size.s2}px;
   }
 
   code {
