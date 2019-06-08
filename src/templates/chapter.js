@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import startCase from 'lodash/startCase';
+import { graphql } from 'gatsby';
 import { Button, Highlight, Icon, Link, styles, Subheading } from '@storybook/design-system';
 import BoxLink from '../components/atoms/BoxLink';
 import GatsbyLink from '../components/atoms/GatsbyLink';
@@ -263,5 +264,51 @@ Chapter.defaultProps = {
   commit: null,
   languageMenu: null,
 };
+
+export const currentPageFragment = graphql`
+  fragment CurrentPageFragment on MarkdownRemark {
+    html
+    frontmatter {
+      title
+      description
+      commit
+    }
+    fields {
+      guide
+      slug
+      chapter
+      framework
+      language
+      languageName
+    }
+  }
+`;
+
+export const siteMetadataFragment = graphql`
+  fragment SiteMetadataFragment on Site {
+    siteMetadata {
+      title
+      toc
+      languages
+      githubUrl
+      codeGithubUrl
+      siteUrl
+    }
+  }
+`;
+
+export const otherPagesFragment = graphql`
+  fragment OtherPagesFragment on MarkdownRemark {
+    frontmatter {
+      tocTitle
+      title
+      description
+    }
+    fields {
+      slug
+      chapter
+    }
+  }
+`;
 
 export default Chapter;
