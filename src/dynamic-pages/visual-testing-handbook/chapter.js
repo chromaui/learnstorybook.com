@@ -63,11 +63,11 @@ const VisualTestingHandbookChapter = ({
                   <div>
                     <Title>React</Title>
                     <Detail>
-                      <Link to={`/react/en/${firstChapter}/`}>English</Link>
-                      <Link to={`/react/es/${firstChapter}/`}>Español</Link>
-                      <Link to={`/react/zh-CN/${firstChapter}/`}>简体中文</Link>
-                      <Link to={`/react/zh-TW/${firstChapter}/`}>繁體中文</Link>
-                      <Link to={`/react/pt/${firstChapter}/`}>Português</Link>
+                      <Link to={`${guide}/react/en/${firstChapter}/`}>English</Link>
+                      <Link to={`${guide}/react/es/${firstChapter}/`}>Español</Link>
+                      <Link to={`${guide}/react/zh-CN/${firstChapter}/`}>简体中文</Link>
+                      <Link to={`${guide}/react/zh-TW/${firstChapter}/`}>繁體中文</Link>
+                      <Link to={`${guide}/react/pt/${firstChapter}/`}>Português</Link>
                     </Detail>
                   </div>
                 </Item>
@@ -77,9 +77,9 @@ const VisualTestingHandbookChapter = ({
                   <div>
                     <Title>Angular</Title>
                     <Detail>
-                      <Link to={`/angular/en/${firstChapter}/`}>English</Link>
-                      <Link to={`/angular/es/${firstChapter}/`}>Español</Link>
-                      <Link to={`/angular/pt/${firstChapter}/`}>Português</Link>
+                      <Link to={`${guide}/angular/en/${firstChapter}/`}>English</Link>
+                      <Link to={`${guide}/angular/es/${firstChapter}/`}>Español</Link>
+                      <Link to={`${guide}/angular/pt/${firstChapter}/`}>Português</Link>
                     </Detail>
                   </div>
                 </Item>
@@ -88,8 +88,8 @@ const VisualTestingHandbookChapter = ({
                   <div>
                     <Title>Vue</Title>
                     <Detail>
-                      <Link to={`/vue/en/${firstChapter}/`}>English</Link>
-                      <Link to={`/vue/pt/${firstChapter}/`}>Português</Link>
+                      <Link to={`${guide}/vue/en/${firstChapter}/`}>English</Link>
+                      <Link to={`${guide}/vue/pt/${firstChapter}/`}>Português</Link>
                     </Detail>
                   </div>
                 </Item>
@@ -152,45 +152,17 @@ export default VisualTestingHandbookChapter;
 export const query = graphql`
   query PageQuery($framework: String!, $language: String!, $slug: String!) {
     currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
-      html
-      frontmatter {
-        title
-        description
-        commit
-      }
-      fields {
-        guide
-        slug
-        chapter
-        framework
-        language
-        languageName
-      }
+      ...CurrentPageFragment
     }
     site {
-      siteMetadata {
-        title
-        toc
-        languages
-        githubUrl
-        codeGithubUrl
-        siteUrl
-      }
+      ...SiteMetadataFragment
     }
     pages: allMarkdownRemark(
       filter: { fields: { framework: { eq: $framework }, language: { eq: $language } } }
     ) {
       edges {
         node {
-          frontmatter {
-            tocTitle
-            title
-            description
-          }
-          fields {
-            slug
-            chapter
-          }
+          ...OtherPagesFragment
         }
       }
     }
