@@ -9,4 +9,21 @@ const Wrapper = styled.div`
 
 storiesOf('Molecules|LanguageMenu', module)
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
-  .add('default', () => <LanguageMenu currentLanguageName="English" />);
+  .add('default', () => (
+    <LanguageMenu
+      buttonContent="English"
+      renderItems={({ Item, Image, Title, Detail, Link }) => (
+        <>
+          <Item>
+            <Image src="/logo-react.svg" alt="React" />
+            <div>
+              <Title>React</Title>
+              <Detail>
+                <Link to="/">English</Link>
+              </Detail>
+            </div>
+          </Item>
+        </>
+      )}
+    />
+  ));

@@ -10,7 +10,7 @@ const TooltipList = styled.div`
   width: 200px;
 `;
 
-const TooltipItem = styled.div`
+const Item = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
@@ -21,7 +21,7 @@ const TooltipItem = styled.div`
   }
 `;
 
-const ViewLayerImage = styled.img`
+const Image = styled.img`
   width: 1rem;
   height: 1rem;
   margin-right: 8px;
@@ -39,7 +39,7 @@ const Detail = styled.div`
   line-height: 14px;
 `;
 
-const LanguageLink = styled(GatsbyLink).attrs({ tertiary: true })`
+const Link = styled(GatsbyLink).attrs({ tertiary: true })`
   && {
     text-decoration: underline;
     margin-right: 10px;
@@ -61,50 +61,12 @@ const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
   }
 `;
 
-const LanguageMenu = ({ buttonContent, firstChapter }) => (
+const LanguageMenu = ({ buttonContent, renderItems }) => (
   <WithTooltip
     placement="top"
     trigger="click"
     closeOnClick
-    tooltip={
-      <TooltipList>
-        <TooltipItem>
-          <ViewLayerImage src="/logo-react.svg" alt="React" />
-          <div>
-            <Title>React</Title>
-            <Detail>
-              <LanguageLink to={`/react/en/${firstChapter}/`}>English</LanguageLink>
-              <LanguageLink to={`/react/es/${firstChapter}/`}>Español</LanguageLink>
-              <LanguageLink to={`/react/zh-CN/${firstChapter}/`}>简体中文</LanguageLink>
-              <LanguageLink to={`/react/zh-TW/${firstChapter}/`}>繁體中文</LanguageLink>
-              <LanguageLink to={`/react/pt/${firstChapter}/`}>Português</LanguageLink>
-            </Detail>
-          </div>
-        </TooltipItem>
-
-        <TooltipItem>
-          <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
-          <div>
-            <Title>Angular</Title>
-            <Detail>
-              <LanguageLink to={`/angular/en/${firstChapter}/`}>English</LanguageLink>
-              <LanguageLink to={`/angular/es/${firstChapter}/`}>Español</LanguageLink>
-              <LanguageLink to={`/angular/pt/${firstChapter}/`}>Português</LanguageLink>
-            </Detail>
-          </div>
-        </TooltipItem>
-        <TooltipItem>
-          <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
-          <div>
-            <Title>Vue</Title>
-            <Detail>
-              <LanguageLink to={`/vue/en/${firstChapter}/`}>English</LanguageLink>
-              <LanguageLink to={`/vue/pt/${firstChapter}/`}>Português</LanguageLink>
-            </Detail>
-          </div>
-        </TooltipItem>
-      </TooltipList>
-    }
+    tooltip={<TooltipList>{renderItems({ Item, Title, Image, Detail, Link })}</TooltipList>}
   >
     <Button appearance="outline" size="small">
       <ButtonContent>
@@ -117,7 +79,7 @@ const LanguageMenu = ({ buttonContent, firstChapter }) => (
 
 LanguageMenu.propTypes = {
   buttonContent: PropTypes.string.isRequired,
-  firstChapter: PropTypes.string.isRequired,
+  renderItems: PropTypes.func.isRequired,
 };
 
 export default LanguageMenu;
