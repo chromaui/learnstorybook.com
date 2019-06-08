@@ -14,7 +14,7 @@ const buildPageNode = id => ({
     chapter: `page-chapter-${id}`,
     framework: 'framework',
     language: 'current-page-language',
-    prettyLanguage: 'Pretty Language',
+    languageName: 'Language Name',
   },
 });
 
