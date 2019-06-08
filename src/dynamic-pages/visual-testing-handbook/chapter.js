@@ -24,6 +24,7 @@ const VisualTestingHandbookChapter = ({
   const otherLanguages = languages.filter(l => l !== language);
   const entries = tocEntries(toc, pages);
   const nextEntry = entries[toc.indexOf(chapter) + 1];
+  const firstChapter = toc[0];
 
   return (
     <>
@@ -47,16 +48,55 @@ const VisualTestingHandbookChapter = ({
         slug={slug}
         description={description}
         githubUrl={githubUrl}
+        codeGithubUrl={codeGithubUrl}
         entries={entries}
         nextEntry={nextEntry}
         commit={commit}
         html={html}
-        languageMenu={(
+        languageMenu={
           <LanguageMenu
             buttonContent={`${startCase(framework)} - ${languageName}`}
-            firstChapter={toc[0]}
+            renderItems={({ Item, Title, Image, Detail, Link }) => (
+              <>
+                <Item>
+                  <Image src="/logo-react.svg" alt="React" />
+                  <div>
+                    <Title>React</Title>
+                    <Detail>
+                      <Link to={`/react/en/${firstChapter}/`}>English</Link>
+                      <Link to={`/react/es/${firstChapter}/`}>Español</Link>
+                      <Link to={`/react/zh-CN/${firstChapter}/`}>简体中文</Link>
+                      <Link to={`/react/zh-TW/${firstChapter}/`}>繁體中文</Link>
+                      <Link to={`/react/pt/${firstChapter}/`}>Português</Link>
+                    </Detail>
+                  </div>
+                </Item>
+
+                <Item>
+                  <Image src="/logo-angular.svg" alt="Angular" />
+                  <div>
+                    <Title>Angular</Title>
+                    <Detail>
+                      <Link to={`/angular/en/${firstChapter}/`}>English</Link>
+                      <Link to={`/angular/es/${firstChapter}/`}>Español</Link>
+                      <Link to={`/angular/pt/${firstChapter}/`}>Português</Link>
+                    </Detail>
+                  </div>
+                </Item>
+                <Item>
+                  <Image src="/logo-vue.svg" alt="Vue" />
+                  <div>
+                    <Title>Vue</Title>
+                    <Detail>
+                      <Link to={`/vue/en/${firstChapter}/`}>English</Link>
+                      <Link to={`/vue/pt/${firstChapter}/`}>Português</Link>
+                    </Detail>
+                  </div>
+                </Item>
+              </>
+            )}
           />
-        )}
+        }
       />
     </>
   );
@@ -66,6 +106,7 @@ VisualTestingHandbookChapter.propTypes = {
   data: PropTypes.shape({
     currentPage: PropTypes.shape({
       fields: PropTypes.shape({
+        guide: PropTypes.string.isRequired,
         slug: PropTypes.string.isRequired,
         chapter: PropTypes.string.isRequired,
         framework: PropTypes.string.isRequired,

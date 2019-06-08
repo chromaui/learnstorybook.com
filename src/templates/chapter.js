@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
 import styled from 'styled-components';
-import Helmet from 'react-helmet';
 import startCase from 'lodash/startCase';
 import { Button, Highlight, Icon, Link, styles, Subheading } from '@storybook/design-system';
 import BoxLink from '../components/atoms/BoxLink';
 import GatsbyLink from '../components/atoms/GatsbyLink';
 import ShadowBoxCTA from '../components/molecules/ShadowBoxCTA';
 import TableOfContents from '../components/molecules/TableOfContents';
-import tocEntries from '../lib/tocEntries';
 import formatting from '../styles/formatting';
 
 const { color, pageMargins, breakpoint, spacing, typography } = styles;
@@ -239,47 +236,32 @@ const Chapter = ({
 };
 
 Chapter.propTypes = {
-  data: PropTypes.shape({
-    currentPage: PropTypes.shape({
-      fields: PropTypes.shape({
-        slug: PropTypes.string.isRequired,
-        chapter: PropTypes.string.isRequired,
-        framework: PropTypes.string.isRequired,
-        language: PropTypes.string.isRequired,
-      }).isRequired,
-      frontmatter: PropTypes.shape({
-        commit: PropTypes.string,
-        title: PropTypes.string,
-        description: PropTypes.string,
-      }).isRequired,
-    }).isRequired,
-    pages: PropTypes.shape({
-      edges: PropTypes.arrayOf(
-        PropTypes.shape({
-          node: PropTypes.shape({
-            frontmatter: PropTypes.shape({
-              tocTitle: PropTypes.string,
-              title: PropTypes.string,
-              description: PropTypes.string,
-            }).isRequired,
-            fields: PropTypes.shape({
-              slug: PropTypes.string.isRequired,
-              chapter: PropTypes.string.isRequired,
-            }).isRequired,
-          }).isRequired,
-        }).isRequired
-      ).isRequired,
-    }),
-    site: PropTypes.shape({
-      siteMetadata: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        permalink: PropTypes.string,
-        description: PropTypes.string,
-        githubUrl: PropTypes.string.isRequired,
-        toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-      }).isRequired,
-    }).isRequired,
-  }).isRequired,
+  guide: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  githubUrl: PropTypes.string.isRequired,
+  codeGithubUrl: PropTypes.string.isRequired,
+  html: PropTypes.string.isRequired,
+  entries: PropTypes.arrayOf(
+    PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+  nextEntry: PropTypes.shape({
+    description: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+  }),
+  commit: PropTypes.string,
+  languageMenu: PropTypes.node,
+};
+
+Chapter.defaultProps = {
+  nextEntry: null,
+  commit: null,
+  languageMenu: null,
 };
 
 export default Chapter;
