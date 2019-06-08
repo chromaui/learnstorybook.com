@@ -2,7 +2,7 @@ const path = require('path');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
-const prettyLanguageMap = {
+const languageNameMap = {
   en: 'English',
   es: 'Español',
   'zh-CN': '简体中文',
@@ -22,16 +22,17 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     // slug starts and ends with '/' so parts[0] and parts[-1] will be empty
     const parts = slug.split('/').filter(p => !!p);
 
-    if (parts.length !== 3) {
+    if (parts.length !== 4) {
       throw new Error(`Unexpected node path of length !== 3: ${slug}`);
     }
 
-    const [framework, language, chapter] = parts;
+    const [guide, framework, language, chapter] = parts;
 
+    createNodeField({ node, name: `guide`, value: guide });
     createNodeField({ node, name: `slug`, value: slug });
     createNodeField({ node, name: `framework`, value: framework });
     createNodeField({ node, name: `language`, value: language });
-    createNodeField({ node, name: `prettyLanguage`, value: prettyLanguageMap[language] });
+    createNodeField({ node, name: `languageName`, value: languageNameMap[language] });
     createNodeField({ node, name: `chapter`, value: chapter });
   }
 };
@@ -49,7 +50,7 @@ exports.createPages = ({ graphql, actions }) => {
                 slug
                 framework
                 language
-                prettyLanguage
+                languageName
                 chapter
               }
             }
@@ -77,7 +78,7 @@ exports.createPages = ({ graphql, actions }) => {
 
         createPage({
           path: slug,
-          component: path.resolve(`./src/templates/chapter.js`),
+          component: path.resolve(`./src/dynamic-pages/visual-testing-handbook/chapter.js`),
           context: {
             // Data passed to context is available in page queries as GraphQL variables.
             slug,

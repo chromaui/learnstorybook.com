@@ -9,4 +9,4 @@ const Wrapper = styled.div`
 
 storiesOf('Molecules|LanguageMenu', module)
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
-  .add('default', () => <LanguageMenu currentPrettyLanguage="English" />);
+  .add('default', () => <LanguageMenu currentLanguageName="English" />);

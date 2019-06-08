@@ -14,7 +14,6 @@ const TooltipItem = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-
   padding: 14px 14px 5px;
 
   &:not(:first-child) {
@@ -62,11 +61,7 @@ const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
   }
 `;
 
-function capitalize([first, ...rest]) {
-  return [first.toUpperCase(), ...rest];
-}
-
-const LanguageMenu = ({ currentFramework, currentPrettyLanguage, firstChapter }) => (
+const LanguageMenu = ({ buttonContent, firstChapter }) => (
   <WithTooltip
     placement="top"
     trigger="click"
@@ -113,7 +108,7 @@ const LanguageMenu = ({ currentFramework, currentPrettyLanguage, firstChapter })
   >
     <Button appearance="outline" size="small">
       <ButtonContent>
-        {capitalize(currentFramework)} - {currentPrettyLanguage}
+        {buttonContent}
         <ChevronDownIcon />
       </ButtonContent>
     </Button>
@@ -121,13 +116,8 @@ const LanguageMenu = ({ currentFramework, currentPrettyLanguage, firstChapter })
 );
 
 LanguageMenu.propTypes = {
+  buttonContent: PropTypes.string.isRequired,
   firstChapter: PropTypes.string.isRequired,
-  currentFramework: PropTypes.string,
-  currentPrettyLanguage: PropTypes.string.isRequired,
-};
-
-LanguageMenu.defaultProps = {
-  currentFramework: 'react',
 };
 
 export default LanguageMenu;
