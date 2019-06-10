@@ -1,47 +1,41 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Chapter from './chapter';
-
-const buildPageNode = id => ({
-  html: '<div>The page HTML</div>',
-  frontmatter: {
-    title: `Chapter ${id}`,
-    description: `Chapter ${id} description`,
-    commit: 'CurrentPageCommit',
-  },
-  fields: {
-    slug: `page-chapter-${id}`,
-    chapter: `page-chapter-${id}`,
-    framework: 'framework',
-    language: 'current-page-language',
-    languageName: 'Language Name',
-  },
-});
+import LanguageMenu from '../components/molecules/LanguageMenu';
 
 const props = {
-  data: {
-    currentPage: buildPageNode('1'),
-    site: {
-      siteMetadata: {
-        title: 'SiteTitle',
-        toc: ['page-chapter-1', 'page-chapter-2'],
-        languages: ['en'],
-        githubUrl: 'SiteGithubUrl',
-        codeGithubUrl: 'SiteCodeGithubUrl',
-        siteUrl: 'SiteSiteUrl',
-      },
+  guide: 'sample-guide',
+  title: 'Chapter Title',
+  slug: 'chapter-slug',
+  description: 'A good chapter',
+  githubUrl: 'https://github.com',
+  codeGithubUrl: 'https://github.com',
+  html: '<div>The html</div>',
+  entries: [
+    {
+      slug: 'chapter-slug',
+      title: 'Chapter Title',
     },
-    pages: {
-      edges: [
-        {
-          node: buildPageNode('1'),
-        },
-        {
-          node: buildPageNode('2'),
-        },
-      ],
-    },
-  },
+  ],
+  nextEntry: null,
+  commit: '123456789',
+  languageMenu: (
+    <LanguageMenu
+      buttonContent="The button"
+      renderItems={({ Item, Title, Detail, Link }) => (
+        <Item>
+          <div>
+            <Title>React</Title>
+            <Detail>
+              <Link to="/en/">English</Link>
+              <Link to="/es/">Español</Link>
+              <Link to="/pt/">Português</Link>
+            </Detail>
+          </div>
+        </Item>
+      )}
+    />
+  ),
 };
 
 storiesOf('Templates|Chapter', module).add('default', () => <Chapter {...props} />);

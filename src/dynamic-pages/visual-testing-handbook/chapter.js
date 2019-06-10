@@ -150,7 +150,7 @@ VisualTestingHandbookChapter.propTypes = {
 export default VisualTestingHandbookChapter;
 
 export const query = graphql`
-  query PageQuery($framework: String!, $language: String!, $slug: String!) {
+  query PageQuery($framework: String!, $language: String!, $slug: String!, $guide: String!) {
     currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
       ...CurrentPageFragment
     }
@@ -158,7 +158,13 @@ export const query = graphql`
       ...SiteMetadataFragment
     }
     pages: allMarkdownRemark(
-      filter: { fields: { framework: { eq: $framework }, language: { eq: $language } } }
+      filter: {
+        fields: {
+          framework: { eq: $framework }
+          language: { eq: $language }
+          guide: { eq: $guide }
+        }
+      }
     ) {
       edges {
         node {

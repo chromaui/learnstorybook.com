@@ -9,4 +9,4 @@ const Wrapper = styled.div`
 
 storiesOf('Atoms|BoxLink', module)
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
-  .add('default', () => <BoxLink>BoxLink content</BoxLink>);
+  .add('default', () => <BoxLink to="/">BoxLink content</BoxLink>);
