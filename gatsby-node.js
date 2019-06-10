@@ -47,6 +47,7 @@ exports.createPages = ({ graphql, actions }) => {
           edges {
             node {
               fields {
+                guide
                 slug
                 framework
                 language
@@ -64,7 +65,7 @@ exports.createPages = ({ graphql, actions }) => {
       }
     `).then(({ data: { pages: { edges }, site: { siteMetadata: { defaultTranslation } } } }) => {
       edges.forEach(({ node }) => {
-        const { slug, framework, language, chapter } = node.fields;
+        const { guide, slug, framework, language, chapter } = node.fields;
 
         if (`${framework}/${language}` === defaultTranslation) {
           // Redirect the old URL format (/get-started) to our slug
@@ -81,6 +82,7 @@ exports.createPages = ({ graphql, actions }) => {
           component: path.resolve(`./src/dynamic-pages/visual-testing-handbook/chapter.js`),
           context: {
             // Data passed to context is available in page queries as GraphQL variables.
+            guide,
             slug,
             framework,
             language,
