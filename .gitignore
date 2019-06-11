@@ -6,3 +6,6 @@ yarn-error.log
 
 # Build directory
 /public
+
+# Mac Finder file
+.DS_Store

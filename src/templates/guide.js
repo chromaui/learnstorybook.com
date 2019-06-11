@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
 import { graphql } from 'gatsby';
-import GuideHero from '../components/molecules/GuideHero';
+import GuideHero from '../components/organisms/GuideHero';
 import { guideFormatting } from '../styles/formatting';
 
 const { pageMargins } = styles;
@@ -29,6 +29,8 @@ const Guide = ({ data }) => {
 
       <GuideHero
         description={currentPage.frontmatter.description}
+        imagePath={currentPage.frontmatter.imagePath}
+        languages={currentPage.frontmatter.languages.split(', ')}
         title={currentPage.frontmatter.title}
         themeColor={currentPage.frontmatter.themeColor}
       />
@@ -44,6 +46,8 @@ Guide.propTypes = {
       html: PropTypes.string.isRequired,
       frontmatter: PropTypes.shape({
         description: PropTypes.string.isRequired,
+        imagePath: PropTypes.string.isRequired,
+        languages: PropTypes.string.isRequired,
         themeColor: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
       }).isRequired,
@@ -68,9 +72,11 @@ export const query = graphql`
     currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
-        title
         description
+        languages
+        title
         themeColor
+        imagePath
       }
     }
   }

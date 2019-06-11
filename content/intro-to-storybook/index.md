@@ -5,6 +5,7 @@ overview: "UIs are more complex, multi-state, and personalized than ever. This y
 themeColor: "purple"
 toc: "get-started, simple-component, composite-component, data, screen, test, addons, deploy, conclusion, contribute"
 languages: "en, es, zh-CN, zh-TW, pt"
+imagePath: "/books.svg"
 ---
 
 # What you'll build
