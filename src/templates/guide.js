@@ -1,24 +1,78 @@
+/* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
 import { graphql } from 'gatsby';
+import BoxLink from '../components/atoms/BoxLink';
 import GuideHero from '../components/organisms/GuideHero';
 import { guideFormatting } from '../styles/formatting';
+import tocEntries from '../lib/tocEntries';
 
-const { pageMargins } = styles;
+const { color, pageMargins, typography } = styles;
 
 const Content = styled.div`
   ${guideFormatting}
   ${pageMargins}
+  padding-top: 66px;
+  padding-bottom: 66px;
+  display: flex;
 `;
+
+const Overview = styled.div`
+  margin-right: 84px;
+`;
+
+const BoxLinkWrapper = styled(BoxLink).attrs({ isInternal: true })`
+  padding: 20px 28px;
+  margin-bottom: 10px;
+  letter-spacing: -0.26px;
+  line-height: 20px;
+
+  &&,
+  &&:hover,
+  &&:focus {
+    color: ${color.darkest};
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+`;
+
+const Chapter = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ChapterNumber = styled.div`
+  font-weight: ${typography.weight.black};
+  font-size: ${typography.size.m1}px;
+  letter-spacing: -0.33px;
+  line-height: 24px;
+  color: ${color.mediumdark};
+  margin-right: 26px;
+`;
+
+const ChapterTitle = styled.div`
+  font-weight: ${typography.weight.bold};
+`;
+
+const ChapterDescription = styled.div`
+  font-size: ${typography.size.s2}px;
+`;
+
+const Detail = styled.div``;
 
 const Guide = ({ data }) => {
   const {
     currentPage,
+    pages,
     site: { siteMetadata },
   } = data;
+  const tocList = currentPage.frontmatter.toc.split(', ');
+  const entries = tocEntries(tocList, pages);
 
   return (
     <>
@@ -35,7 +89,29 @@ const Guide = ({ data }) => {
         themeColor={currentPage.frontmatter.themeColor}
       />
 
-      <Content dangerouslySetInnerHTML={{ __html: currentPage.html }} />
+      <Content>
+        <Overview>
+          <h1>Overview</h1>
+          <p>{currentPage.frontmatter.overview}</p>
+
+          {entries.map((entry, index) => (
+            <BoxLinkWrapper to={entry.slug} key={entry.slug}>
+              <Chapter>
+                <ChapterNumber>{index + 1}</ChapterNumber>
+
+                <div>
+                  <ChapterTitle>{entry.tocTitle || entry.title}</ChapterTitle>
+                  <ChapterDescription>{entry.description}</ChapterDescription>
+                </div>
+              </Chapter>
+            </BoxLinkWrapper>
+          ))}
+        </Overview>
+
+        <Detail>
+          <div dangerouslySetInnerHTML={{ __html: currentPage.html }} />
+        </Detail>
+      </Content>
     </>
   );
 };
@@ -49,8 +125,23 @@ Guide.propTypes = {
         imagePath: PropTypes.string.isRequired,
         languages: PropTypes.string.isRequired,
         themeColor: PropTypes.string.isRequired,
+        toc: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
+        overview: PropTypes.string.isRequired,
       }).isRequired,
+    }).isRequired,
+    pages: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            frontmatter: PropTypes.shape({
+              title: PropTypes.string.isRequired,
+              tocTitle: PropTypes.string,
+              description: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
     }).isRequired,
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
@@ -63,7 +154,7 @@ Guide.propTypes = {
 export default Guide;
 
 export const query = graphql`
-  query GuideQuery($slug: String!) {
+  query GuideQuery($slug: String!, $guide: String!) {
     site {
       siteMetadata {
         title
@@ -73,10 +164,35 @@ export const query = graphql`
       html
       frontmatter {
         description
+        imagePath
         languages
         title
         themeColor
-        imagePath
+        toc
+        overview
+      }
+    }
+    pages: allMarkdownRemark(
+      filter: {
+        fields: {
+          isDefaultTranslation: { eq: true }
+          guide: { eq: $guide }
+          pageType: { eq: "chapter" }
+        }
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            title
+            tocTitle
+            description
+          }
+          fields {
+            slug
+            chapter
+          }
+        }
       }
     }
   }

@@ -10,4 +10,22 @@ imagePath: "/books.svg"
 
 # What you'll build
 
+<div class="badge-box">
+  <div class="badge">
+    <img src="/logo-react.svg"> React
+  </div>
+
+  <div class="badge">
+    <img src="/logo-vue.svg"> Vue
+  </div>
+
+  <div class="badge">
+    <img src="/logo-angular.svg"> Angular
+  </div>
+</div>
+
+![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
+
 Taskbox, a task management UI (similar to Asana), complete with multiple item types and states. We'll go from building simple UI components to assembling screens. Each chapter illustrates a different aspect of developing UIs with Storybook.
+
+📖 Each chapter is linked to a working commit to help you stay in sync.
