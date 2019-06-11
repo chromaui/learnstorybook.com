@@ -2,14 +2,6 @@ const path = require('path');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
-const languageNameMap = {
-  en: 'English',
-  es: 'Español',
-  'zh-CN': '简体中文',
-  'zh-TW': '繁體中文',
-  pt: 'Português',
-};
-
 // slug starts and ends with '/' so parts[0] and parts[-1] will be empty
 const getSlugParts = slug => slug.split('/').filter(p => !!p);
 
@@ -32,7 +24,6 @@ const onCreateChapterNode = ({ actions, node, slug }) => {
   createNodeField({ node, name: 'slug', value: slug });
   createNodeField({ node, name: 'framework', value: framework });
   createNodeField({ node, name: 'language', value: language });
-  createNodeField({ node, name: 'languageName', value: languageNameMap[language] });
   createNodeField({ node, name: 'chapter', value: chapter });
   createNodeField({ node, name: 'pageType', value: 'chapter' });
 };
@@ -109,7 +100,6 @@ exports.createPages = ({ graphql, actions }) => {
                 slug
                 framework
                 language
-                languageName
                 chapter
                 pageType
               }
