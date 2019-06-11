@@ -1,13 +1,52 @@
 import { css } from 'styled-components';
 import { styles } from '@storybook/design-system';
 
-const { color, typography } = styles;
+const { background, color, typography } = styles;
 
 export const guideFormatting = css`
   h1 {
     font-size: ${typography.size.m2}px;
     font-weight: ${typography.weight.black};
     line-height: 36px;
+  }
+
+  p {
+    letter-spacing: -0.33px;
+    line-height: 26px;
+  }
+
+  img {
+    display: block;
+    padding: 0;
+    max-width: 100%;
+    position: relative;
+    vertical-align: top;
+    margin: 0 auto;
+  }
+
+  .badge-box {
+    margin-top: 18px;
+    margin-bottom: 24px;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    background: ${background.app};
+    border-radius: 4px;
+    padding: 3px 20px;
+    font-size: ${typography.size.s2}px;
+    line-height: 24px;
+    margin-right: 10px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    img {
+      width: 16px;
+      margin-right: 6px;
+    }
   }
 `;
 

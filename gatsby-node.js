@@ -2,6 +2,9 @@ const path = require('path');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
+const defaultLanguage = 'en';
+const defaultFramework = 'react';
+
 // slug starts and ends with '/' so parts[0] and parts[-1] will be empty
 const getSlugParts = slug => slug.split('/').filter(p => !!p);
 
@@ -25,6 +28,7 @@ const onCreateNonFrameworkChapterNode = ({ actions, node, slug }) => {
   createNodeField({ node, name: 'language', value: language });
   createNodeField({ node, name: 'chapter', value: chapter });
   createNodeField({ node, name: 'pageType', value: 'chapter' });
+  createNodeField({ node, name: 'isDefaultTranslation', value: language === defaultLanguage });
 };
 
 const onCreateFrameworkChapterNode = ({ actions, node, slug }) => {
@@ -38,6 +42,11 @@ const onCreateFrameworkChapterNode = ({ actions, node, slug }) => {
   createNodeField({ node, name: 'language', value: language });
   createNodeField({ node, name: 'chapter', value: chapter });
   createNodeField({ node, name: 'pageType', value: 'chapter' });
+  createNodeField({
+    node,
+    name: 'isDefaultTranslation',
+    value: language === defaultLanguage && framework === defaultFramework,
+  });
 };
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
@@ -71,7 +80,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 };
 
 const createChapterPage = ({ createPage, node }) => {
-  const { guide, slug, framework, language, chapter, pageType } = node.fields;
+  const { guide, slug, framework, language, chapter, pageType, isDefaultTranslation } = node.fields;
 
   createPage({
     path: slug,
@@ -84,6 +93,7 @@ const createChapterPage = ({ createPage, node }) => {
       language,
       chapter,
       pageType,
+      isDefaultTranslation,
     },
   });
 };
