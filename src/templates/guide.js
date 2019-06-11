@@ -10,18 +10,31 @@ import GuideHero from '../components/organisms/GuideHero';
 import { guideFormatting } from '../styles/formatting';
 import tocEntries from '../lib/tocEntries';
 
-const { color, pageMargins, typography } = styles;
+const { breakpoint, color, pageMargins, typography } = styles;
 
 const Content = styled.div`
   ${guideFormatting}
   ${pageMargins}
   padding-top: 66px;
   padding-bottom: 66px;
-  display: flex;
+
+  @media (min-width: ${breakpoint * 1.5}px) {
+    display: flex;
+  }
 `;
 
 const Overview = styled.div`
-  margin-right: 84px;
+  @media (min-width: ${breakpoint * 1.5}px) {
+    margin-right: 84px;
+  }
+`;
+
+const Detail = styled.div`
+  margin-top: 66px;
+
+  @media (min-width: ${breakpoint * 1.5}px) {
+    margin-top: 0;
+  }
 `;
 
 const BoxLinkWrapper = styled(BoxLink).attrs({ isInternal: true })`
@@ -62,8 +75,6 @@ const ChapterTitle = styled.div`
 const ChapterDescription = styled.div`
   font-size: ${typography.size.s2}px;
 `;
-
-const Detail = styled.div``;
 
 const Guide = ({ data }) => {
   const {
