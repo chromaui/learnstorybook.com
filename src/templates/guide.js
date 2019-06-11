@@ -4,7 +4,7 @@ import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
 import { graphql } from 'gatsby';
-import Hero from '../components/molecules/Hero';
+import GuideHero from '../components/molecules/GuideHero';
 import { guideFormatting } from '../styles/formatting';
 
 const { pageMargins } = styles;
@@ -27,7 +27,7 @@ const Guide = ({ data }) => {
         meta={[{ name: 'description', content: currentPage.frontmatter.description }]}
       />
 
-      <Hero
+      <GuideHero
         description={currentPage.frontmatter.description}
         title={currentPage.frontmatter.title}
         themeColor={currentPage.frontmatter.themeColor}
