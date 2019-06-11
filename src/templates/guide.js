@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import { styles } from '@storybook/design-system';
+import { styles, Subheading } from '@storybook/design-system';
 import { graphql } from 'gatsby';
 import BoxLink from '../components/atoms/BoxLink';
 import GuideHero from '../components/organisms/GuideHero';
@@ -27,6 +27,18 @@ const Overview = styled.div`
   @media (min-width: ${breakpoint * 1.5}px) {
     margin-right: 84px;
   }
+`;
+
+const SubheadingWrapper = styled(Subheading)`
+  color: ${color.mediumdark};
+  letter-spacing: 6px;
+  line-height: 20px;
+  display: block;
+`;
+
+const TocSubheading = styled(SubheadingWrapper)`
+  margin-top: 48px;
+  margin-bottom: 20px;
 `;
 
 const Detail = styled.div`
@@ -94,6 +106,7 @@ const Guide = ({ data }) => {
 
       <GuideHero
         description={currentPage.frontmatter.description}
+        contributorCount={34}
         imagePath={currentPage.frontmatter.imagePath}
         languages={currentPage.frontmatter.languages.split(', ')}
         title={currentPage.frontmatter.title}
@@ -104,6 +117,8 @@ const Guide = ({ data }) => {
         <Overview>
           <h1>Overview</h1>
           <p>{currentPage.frontmatter.overview}</p>
+
+          <TocSubheading>Table of Contents</TocSubheading>
 
           {entries.map((entry, index) => (
             <BoxLinkWrapper to={entry.slug} key={entry.slug}>

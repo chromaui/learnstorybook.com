@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, Link, styles } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
+import Stat from '../atoms/Stat';
 import getLanguageName from '../../lib/getLanguageName';
 
 const { breakpoint, color, pageMargins, spacing, typography } = styles;
@@ -87,6 +88,10 @@ const LanguagesLabel = styled.span`
   font-weight: ${typography.weight.bold};
 `;
 
+const StatWrapper = styled(Stat)`
+  margin-top: 32px;
+`;
+
 const Figure = styled.div`
   flex: 1;
 
@@ -102,7 +107,15 @@ const Figure = styled.div`
   }
 `;
 
-const GuideHero = ({ description, imagePath, languages, themeColor, title, ...rest }) => {
+const GuideHero = ({
+  contributorCount,
+  description,
+  imagePath,
+  languages,
+  themeColor,
+  title,
+  ...rest
+}) => {
   const languageList = languages.map(language => getLanguageName(language)).join(', ');
 
   return (
@@ -120,6 +133,8 @@ const GuideHero = ({ description, imagePath, languages, themeColor, title, ...re
             <LanguagesLabel>Languages: </LanguagesLabel>
             {languageList}
           </Languages>
+
+          {contributorCount && <StatWrapper value={contributorCount} label="Contributors" />}
         </Pitch>
 
         <Figure>
@@ -131,11 +146,16 @@ const GuideHero = ({ description, imagePath, languages, themeColor, title, ...re
 };
 
 GuideHero.propTypes = {
+  contributorCount: PropTypes.number,
   description: PropTypes.string.isRequired,
   imagePath: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   themeColor: PropTypes.oneOf(Object.keys(color)).isRequired,
   title: PropTypes.string.isRequired,
+};
+
+GuideHero.defaultProps = {
+  contributorCount: null,
 };
 
 export default GuideHero;
