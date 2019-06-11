@@ -141,7 +141,7 @@ const Guide = ({ data }) => {
               </SubheadingWrapper>
 
               {currentPage.frontmatter.authors.map(author => (
-                <User {...author} />
+                <User {...author} key={author.name} />
               ))}
             </>
           )}
