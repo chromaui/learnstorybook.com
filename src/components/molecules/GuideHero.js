@@ -11,13 +11,13 @@ const Svg = styled.svg`
   vertical-align: middle;
 `;
 
-const HeroWrapper = styled.div`
+const GuideHeroWrapper = styled.div`
   background: ${props => color[props.themeColor]};
   padding-top: 242px;
   padding-bottom: 178px;
 `;
 
-const HeroContent = styled.div`
+const GuideHeroContent = styled.div`
   ${pageMargins}
   display: flex;
 `;
@@ -74,9 +74,9 @@ const Figure = styled.div`
   }
 `;
 
-const Hero = ({ description, themeColor, title, ...rest }) => (
-  <HeroWrapper themeColor={themeColor} {...rest}>
-    <HeroContent>
+const GuideHero = ({ description, themeColor, title, ...rest }) => (
+  <GuideHeroWrapper themeColor={themeColor} {...rest}>
+    <GuideHeroContent>
       <Pitch>
         <PitchTitle>{title}</PitchTitle>
         <PitchDescription>{description}</PitchDescription>
@@ -114,14 +114,14 @@ const Hero = ({ description, themeColor, title, ...rest }) => (
           />
         </Svg>
       </Figure>
-    </HeroContent>
-  </HeroWrapper>
+    </GuideHeroContent>
+  </GuideHeroWrapper>
 );
 
-Hero.propTypes = {
+GuideHero.propTypes = {
   description: PropTypes.string.isRequired,
   themeColor: PropTypes.oneOf(Object.keys(color)).isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default Hero;
+export default GuideHero;
