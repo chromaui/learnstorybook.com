@@ -21,8 +21,8 @@ const Label = styled.div`
   margin-top: 5px;
 `;
 
-const Stat = ({ label, value }) => (
-  <StatWrapper>
+const Stat = ({ label, value, ...rest }) => (
+  <StatWrapper {...rest}>
     <Value>{value}</Value>
     <Label>{label}</Label>
   </StatWrapper>
