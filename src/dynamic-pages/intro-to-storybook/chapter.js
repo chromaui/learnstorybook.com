@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import startCase from 'lodash/startCase';
 import LanguageMenu from '../../components/molecules/LanguageMenu';
 import Chapter, { chapterDataPropTypes } from '../../templates/chapter';
+import getLanguageName from '../../lib/getLanguageName';
 import tocEntries from '../../lib/tocEntries';
 
 const VisualTestingHandbookChapter = ({
@@ -22,7 +23,7 @@ const VisualTestingHandbookChapter = ({
   const {
     html,
     frontmatter: { commit, title, description },
-    fields: { guide, slug, chapter, framework, language, languageName },
+    fields: { guide, slug, chapter, framework, language },
   } = currentPage;
   const otherLanguages = languages.split(', ').filter(l => l !== language);
   const entries = tocEntries(tocList, pages);
@@ -58,7 +59,7 @@ const VisualTestingHandbookChapter = ({
         html={html}
         languageMenu={
           <LanguageMenu
-            buttonContent={`${startCase(framework)} - ${languageName}`}
+            buttonContent={`${startCase(framework)} - ${getLanguageName(language)}`}
             renderItems={({ Item, Title, Image, Detail, Link }) => (
               <>
                 <Item>

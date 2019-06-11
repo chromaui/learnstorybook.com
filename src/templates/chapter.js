@@ -291,7 +291,6 @@ export const chapterCurrentPageFragment = graphql`
       chapter
       framework
       language
-      languageName
     }
   }
 `;
