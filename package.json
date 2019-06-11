@@ -27,7 +27,8 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "yarn derp && gatsby build",
+    "derp": "./scripts/github.sh",
     "develop": "gatsby develop",
     "dev": "yarn develop",
     "format": "prettier-eslint --write '**/*.js'",
