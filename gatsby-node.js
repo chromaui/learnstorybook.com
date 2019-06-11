@@ -15,7 +15,19 @@ const onCreateGuideNode = ({ actions, node, slug }) => {
   createNodeField({ node, name: 'pageType', value: 'guide' });
 };
 
-const onCreateChapterNode = ({ actions, node, slug }) => {
+const onCreateNonFrameworkChapterNode = ({ actions, node, slug }) => {
+  const { createNodeField } = actions;
+  const parts = getSlugParts(slug);
+  const [guide, language, chapter] = parts;
+
+  createNodeField({ node, name: 'guide', value: guide });
+  createNodeField({ node, name: 'slug', value: slug });
+  createNodeField({ node, name: 'language', value: language });
+  createNodeField({ node, name: 'chapter', value: chapter });
+  createNodeField({ node, name: 'pageType', value: 'chapter' });
+};
+
+const onCreateFrameworkChapterNode = ({ actions, node, slug }) => {
   const { createNodeField } = actions;
   const parts = getSlugParts(slug);
   const [guide, framework, language, chapter] = parts;
@@ -44,8 +56,13 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       return;
     }
 
+    if (parts.length === 3) {
+      onCreateNonFrameworkChapterNode({ actions, node, slug });
+      return;
+    }
+
     if (parts.length === 4) {
-      onCreateChapterNode({ actions, node, slug });
+      onCreateFrameworkChapterNode({ actions, node, slug });
       return;
     }
 
