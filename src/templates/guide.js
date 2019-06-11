@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { styles, Subheading } from '@storybook/design-system';
 import { graphql } from 'gatsby';
 import BoxLink from '../components/atoms/BoxLink';
+import User from '../components/molecules/User';
 import GuideHero from '../components/organisms/GuideHero';
 import { guideFormatting } from '../styles/formatting';
 import tocEntries from '../lib/tocEntries';
@@ -34,9 +35,6 @@ const SubheadingWrapper = styled(Subheading)`
   letter-spacing: 6px;
   line-height: 20px;
   display: block;
-`;
-
-const TocSubheading = styled(SubheadingWrapper)`
   margin-top: 48px;
   margin-bottom: 20px;
 `;
@@ -118,7 +116,7 @@ const Guide = ({ data }) => {
           <h1>Overview</h1>
           <p>{currentPage.frontmatter.overview}</p>
 
-          <TocSubheading>Table of Contents</TocSubheading>
+          <SubheadingWrapper>Table of Contents</SubheadingWrapper>
 
           {entries.map((entry, index) => (
             <BoxLinkWrapper to={entry.slug} key={entry.slug}>
@@ -136,6 +134,18 @@ const Guide = ({ data }) => {
 
         <Detail>
           <div dangerouslySetInnerHTML={{ __html: currentPage.html }} />
+
+          {currentPage.frontmatter.authors && (
+            <>
+              <SubheadingWrapper>
+                {currentPage.frontmatter.authors.length === 1 ? 'Author' : 'Authors'}
+              </SubheadingWrapper>
+
+              {currentPage.frontmatter.authors.map(author => (
+                <User {...author} />
+              ))}
+            </>
+          )}
         </Detail>
       </Content>
     </>
@@ -147,6 +157,13 @@ Guide.propTypes = {
     currentPage: PropTypes.shape({
       html: PropTypes.string.isRequired,
       frontmatter: PropTypes.shape({
+        authors: PropTypes.arrayOf(
+          PropTypes.shape({
+            name: PropTypes.string.isRequired,
+            detail: PropTypes.string.isRequired,
+            src: PropTypes.string.isRequired,
+          }).isRequired
+        ),
         contributorCount: PropTypes.string,
         description: PropTypes.string.isRequired,
         imagePath: PropTypes.string.isRequired,
@@ -190,6 +207,11 @@ export const query = graphql`
     currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
+        authors {
+          name
+          src
+          detail
+        }
         contributorCount
         description
         imagePath

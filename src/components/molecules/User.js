@@ -27,10 +27,11 @@ const Detail = styled.div`
   font-size: ${typography.size.s2}px;
   letter-spacing: -0.25px;
   line-height: 18px;
+  margin-top: 3px;
 `;
 
-const User = ({ detail, name, src }) => (
-  <UserWrapper>
+const User = ({ detail, name, src, ...rest }) => (
+  <UserWrapper {...rest}>
     <Avatar size="large" src={src} />
 
     <Text>
