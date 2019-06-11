@@ -8,7 +8,7 @@ import BoxLink from '../components/atoms/BoxLink';
 import GatsbyLink from '../components/atoms/GatsbyLink';
 import ShadowBoxCTA from '../components/molecules/ShadowBoxCTA';
 import TableOfContents from '../components/molecules/TableOfContents';
-import formatting from '../styles/formatting';
+import { chapterFormatting } from '../styles/formatting';
 
 const { color, pageMargins, breakpoint, spacing, typography } = styles;
 
@@ -24,13 +24,21 @@ const Sidebar = styled.div`
   }
 `;
 
-const SidebarHeading = styled.div`
-  color: ${color.darkest};
-  font-size: ${typography.size.s3};
-  font-weight: ${typography.weight.bold};
-  letter-spacing: -0.14px;
-  line-height: 20px;
-  margin-bottom: 12px;
+const SidebarBackIcon = styled(Icon).attrs({ icon: 'arrowleft' })`
+  && {
+    width: 14px;
+  }
+`;
+
+const GuideLink = styled(Link)`
+  && {
+    color: ${color.darkest};
+    font-size: ${typography.size.s3};
+    font-weight: ${typography.weight.bold};
+    letter-spacing: -0.14px;
+    line-height: 20px;
+    margin-bottom: 12px;
+  }
 `;
 
 const TableOfContentsWrapper = styled(TableOfContents)`
@@ -63,7 +71,7 @@ const BoxLinksWrapper = styled.div`
 `;
 
 const Content = styled.div`
-  ${formatting};
+  ${chapterFormatting};
   flex: 1;
   width: 100%;
   max-width: 800px;
@@ -78,10 +86,11 @@ const ChapterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding-bottom: 3rem;
+  padding-top: 4rem;
 
   @media screen and (min-width: ${breakpoint}px) {
     flex-direction: row;
-    padding-top: 4rem;
+    padding-top: 165px;
   }
 `;
 
@@ -171,7 +180,10 @@ const Chapter = ({
   return (
     <ChapterWrapper>
       <Sidebar>
-        <SidebarHeading>{startCase(guide)}</SidebarHeading>
+        <GuideLink LinkWrapper={GatsbyLink} tertiary to={`/${guide}`}>
+          <SidebarBackIcon icon="arrowleft" />
+          {startCase(guide)}
+        </GuideLink>
 
         {languageMenu}
 
@@ -265,8 +277,8 @@ Chapter.defaultProps = {
   languageMenu: null,
 };
 
-export const currentPageFragment = graphql`
-  fragment CurrentPageFragment on MarkdownRemark {
+export const chapterCurrentPageFragment = graphql`
+  fragment ChapterCurrentPageFragment on MarkdownRemark {
     html
     frontmatter {
       title
@@ -284,12 +296,19 @@ export const currentPageFragment = graphql`
   }
 `;
 
-export const siteMetadataFragment = graphql`
-  fragment SiteMetadataFragment on Site {
-    siteMetadata {
-      title
+export const chapterGuidePageFragment = graphql`
+  fragment ChapterGuidePageFragment on MarkdownRemark {
+    frontmatter {
       toc
       languages
+    }
+  }
+`;
+
+export const chapterSiteMetadataFragment = graphql`
+  fragment ChapterSiteMetadataFragment on Site {
+    siteMetadata {
+      title
       githubUrl
       codeGithubUrl
       siteUrl
@@ -297,8 +316,8 @@ export const siteMetadataFragment = graphql`
   }
 `;
 
-export const otherPagesFragment = graphql`
-  fragment OtherPagesFragment on MarkdownRemark {
+export const chapterOtherPagesFragment = graphql`
+  fragment ChapterOtherPagesFragment on MarkdownRemark {
     frontmatter {
       tocTitle
       title
@@ -310,5 +329,55 @@ export const otherPagesFragment = graphql`
     }
   }
 `;
+
+export const chapterDataPropTypes = {
+  data: PropTypes.shape({
+    currentPage: PropTypes.shape({
+      fields: PropTypes.shape({
+        guide: PropTypes.string.isRequired,
+        slug: PropTypes.string.isRequired,
+        chapter: PropTypes.string.isRequired,
+        framework: PropTypes.string.isRequired,
+        language: PropTypes.string.isRequired,
+      }).isRequired,
+      frontmatter: PropTypes.shape({
+        commit: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string,
+      }).isRequired,
+    }).isRequired,
+    currentGuide: PropTypes.shape({
+      frontmatter: PropTypes.shape({
+        toc: PropTypes.string.isRequired,
+        languages: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+    pages: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            frontmatter: PropTypes.shape({
+              tocTitle: PropTypes.string,
+              title: PropTypes.string,
+              description: PropTypes.string,
+            }).isRequired,
+            fields: PropTypes.shape({
+              slug: PropTypes.string.isRequired,
+              chapter: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }),
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        permalink: PropTypes.string,
+        description: PropTypes.string,
+        githubUrl: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default Chapter;

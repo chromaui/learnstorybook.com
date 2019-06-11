@@ -2,23 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
-
 import Header from '../components/organisms/Header';
 import Footer from '../components/organisms/Footer';
-
 import { GlobalStyle } from '../styles/global';
-
-const HeaderWrapper = styled(Header)`
-  ${props =>
-    !props.withNav &&
-    `
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-    `};
-`;
 
 const query = graphql`
   query TemplateWrapper {
@@ -32,6 +18,12 @@ const query = graphql`
     }
   }
 `;
+
+const getHeaderInvertedState = pathname => {
+  const pathParts = pathname.split('/').filter(p => !!p);
+  // This will need to get "smarter" if the hierarchy of pages/guides changes.
+  return pathParts.length === 1;
+};
 
 const TemplateWrapper = ({ location: { pathname }, children }) => (
   <StaticQuery
@@ -68,13 +60,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           />
         </Helmet>
 
-        {/* Would love to get framework from graphql variables but they are not set for the homepage */}
-        <HeaderWrapper
-          title={title}
-          githubUrl={githubUrl}
-          isInverted={pathname === '/'}
-          withNav={pathname !== '/' && pathname !== '/404.html'}
-        />
+        <Header title={title} githubUrl={githubUrl} isInverted={getHeaderInvertedState(pathname)} />
 
         {children}
         <Footer />
