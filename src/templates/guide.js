@@ -92,8 +92,7 @@ const Guide = ({ data }) => {
     pages,
     site: { siteMetadata },
   } = data;
-  const tocList = currentPage.frontmatter.toc.split(', ');
-  const entries = tocEntries(tocList, pages);
+  const entries = tocEntries(currentPage.frontmatter.toc, pages);
 
   return (
     <>
@@ -106,7 +105,7 @@ const Guide = ({ data }) => {
         description={currentPage.frontmatter.description}
         contributorCount={currentPage.frontmatter.contributorCount}
         imagePath={currentPage.frontmatter.imagePath}
-        languages={currentPage.frontmatter.languages.split(', ')}
+        languages={currentPage.frontmatter.languages}
         title={currentPage.frontmatter.title}
         themeColor={currentPage.frontmatter.themeColor}
       />
@@ -167,9 +166,9 @@ Guide.propTypes = {
         contributorCount: PropTypes.string,
         description: PropTypes.string.isRequired,
         imagePath: PropTypes.string.isRequired,
-        languages: PropTypes.string.isRequired,
+        languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
         themeColor: PropTypes.string.isRequired,
-        toc: PropTypes.string.isRequired,
+        toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
         title: PropTypes.string.isRequired,
         overview: PropTypes.string.isRequired,
       }).isRequired,

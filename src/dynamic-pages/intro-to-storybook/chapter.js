@@ -19,16 +19,15 @@ const VisualTestingHandbookChapter = ({
     },
   },
 }) => {
-  const tocList = toc.split(', ');
   const {
     html,
     frontmatter: { commit, title, description },
     fields: { guide, slug, chapter, framework, language },
   } = currentPage;
-  const otherLanguages = languages.split(', ').filter(l => l !== language);
-  const entries = tocEntries(tocList, pages);
-  const nextEntry = entries[tocList.indexOf(chapter) + 1];
-  const firstChapter = tocList[0];
+  const otherLanguages = languages.filter(l => l !== language);
+  const entries = tocEntries(toc, pages);
+  const nextEntry = entries[toc.indexOf(chapter) + 1];
+  const firstChapter = toc[0];
 
   return (
     <>

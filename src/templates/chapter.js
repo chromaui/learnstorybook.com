@@ -347,8 +347,8 @@ export const chapterDataPropTypes = {
     }).isRequired,
     currentGuide: PropTypes.shape({
       frontmatter: PropTypes.shape({
-        toc: PropTypes.string.isRequired,
-        languages: PropTypes.string.isRequired,
+        toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+        languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
       }).isRequired,
     }).isRequired,
     pages: PropTypes.shape({
