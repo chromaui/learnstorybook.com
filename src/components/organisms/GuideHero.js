@@ -146,7 +146,7 @@ const GuideHero = ({
 };
 
 GuideHero.propTypes = {
-  contributorCount: PropTypes.number,
+  contributorCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   description: PropTypes.string.isRequired,
   imagePath: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,

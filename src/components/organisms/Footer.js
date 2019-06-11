@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link, styles, Subheading } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
@@ -6,7 +7,7 @@ import Logo from '../atoms/Logo';
 import LogoChroma from '../atoms/LogoChroma';
 import MailingListSignup from '../molecules/MailingListSignup';
 
-const { background, color, typography, pageMargins, spacing } = styles;
+const { background, breakpoint, color, typography, pageMargins } = styles;
 
 const FooterWrapper = styled.footer`
   background: ${background.app};
@@ -23,23 +24,49 @@ const FooterContent = styled.div`
   display: flex;
   width: 100%;
   justify-content: center;
+  flex-direction: column;
+
+  @media (min-width: ${breakpoint * 1.5}px) {
+    flex-direction: row;
+  }
 `;
 
 const FooterBlock = styled.div`
   width: auto;
   ${props =>
-    props.withRightSpacing &&
+    !props.isLast &&
     `
-    margin-right: ${spacing.padding.medium}px;
+    margin-bottom: 52px;
   `}
+
+  @media (min-width: ${breakpoint * 1.5}px) {
+    ${props =>
+      !props.isLast &&
+      `
+      margin-bottom: 0;
+      margin-right: 52px;
+    `}
+  }
+`;
+
+const FooterGuideBlock = styled(FooterBlock)`
+  min-width: 210px;
 `;
 
 const FooterLogoBlock = styled.div`
   ${props => !props.isFirst && `margin-top: 38px;`}
 `;
 
-const Message = styled.div`
+const FooterBlockContent = styled.div`
   margin-top: 14px;
+`;
+
+const FooterBlockLink = styled(Link)`
+  && {
+    display: block;
+    color: ${color.darker};
+    margin-top: 12px;
+  }
 `;
 
 const LogoWrapper = styled(Logo)`
@@ -64,18 +91,18 @@ const MailingListSignupWrapper = styled(MailingListSignup)`
   margin-top: 16px;
 `;
 
-const Footer = ({ ...props }) => (
+const Footer = ({ guides, ...props }) => (
   <FooterWrapper {...props}>
     <FooterContent>
-      <FooterBlock withRightSpacing>
+      <FooterBlock>
         <FooterLogoBlock isFirst>
           <GatsbyLink to="/">
             <LogoWrapper />
           </GatsbyLink>
 
-          <Message>
+          <FooterBlockContent>
             In depth guides written by Storybook maintainers for professional developers.
-          </Message>
+          </FooterBlockContent>
         </FooterLogoBlock>
 
         <FooterLogoBlock>
@@ -83,21 +110,57 @@ const Footer = ({ ...props }) => (
             <LogoChromaWrapper />
           </Link>
 
-          <Message>Made by Chroma and the amazing Storybook community.</Message>
+          <FooterBlockContent>
+            Made by Chroma and the amazing Storybook community.
+          </FooterBlockContent>
         </FooterLogoBlock>
       </FooterBlock>
 
-      <FooterBlock>
+      <FooterGuideBlock>
+        <SubheadingWrapper>Guides</SubheadingWrapper>
+
+        <FooterBlockContent>
+          {guides.edges.map(({ node: guideNode }) => (
+            <FooterBlockLink
+              tertiary
+              LinkWrapper={GatsbyLink}
+              to={guideNode.fields.slug}
+              key={guideNode.frontmatter.title}
+            >
+              {guideNode.frontmatter.title}
+            </FooterBlockLink>
+          ))}
+        </FooterBlockContent>
+      </FooterGuideBlock>
+
+      <FooterBlock isLast>
         <SubheadingWrapper>Subscribe</SubheadingWrapper>
 
-        <Message>
+        <FooterBlockContent>
           Join the Chroma mailing list to get free tutorials, guides, and resources emailed to you.
-        </Message>
+        </FooterBlockContent>
 
         <MailingListSignupWrapper />
       </FooterBlock>
     </FooterContent>
   </FooterWrapper>
 );
+
+Footer.propTypes = {
+  guides: PropTypes.shape({
+    edges: PropTypes.arrayOf(
+      PropTypes.shape({
+        node: PropTypes.shape({
+          frontmatter: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+          }).isRequired,
+          fields: PropTypes.shape({
+            slug: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired,
+      }).isRequired
+    ),
+  }).isRequired,
+};
 
 export default Footer;

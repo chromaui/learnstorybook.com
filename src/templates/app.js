@@ -16,6 +16,18 @@ const query = graphql`
         permalink
       }
     }
+    guides: allMarkdownRemark(filter: { fields: { pageType: { eq: "guide" } } }) {
+      edges {
+        node {
+          frontmatter {
+            title
+          }
+          fields {
+            slug
+          }
+        }
+      }
+    }
   }
 `;
 
@@ -29,6 +41,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
   <StaticQuery
     query={query}
     render={({
+      guides,
       site: {
         siteMetadata: { title, permalink, description, githubUrl },
       },
@@ -63,7 +76,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
         <Header title={title} githubUrl={githubUrl} isInverted={getHeaderInvertedState(pathname)} />
 
         {children}
-        <Footer />
+        <Footer guides={guides} />
       </>
     )}
   />
