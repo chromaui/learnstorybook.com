@@ -3,7 +3,15 @@ import { styles } from '@storybook/design-system';
 
 const { color, typography } = styles;
 
-const formatting = css`
+export const guideFormatting = css`
+  h1 {
+    font-size: ${typography.size.m2}px;
+    font-weight: ${typography.weight.black};
+    line-height: 36px;
+  }
+`;
+
+export const chapterFormatting = css`
   line-height: 26px;
   font-size: ${typography.size.s3};
 
@@ -230,5 +238,3 @@ const formatting = css`
     font-size: 15px;
   }
 `;
-
-export default formatting;

@@ -75,6 +75,10 @@ const Nav = styled.div`
 
 const NavWrapper = styled.nav`
   ${pageMargins};
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
   padding-top: 12px;
   @media (min-width: ${breakpoint}px) {
     padding-top: 36px;

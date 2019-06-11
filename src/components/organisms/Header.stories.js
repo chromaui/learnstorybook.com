@@ -6,6 +6,7 @@ import Header from './Header';
 const BlueBackground = styled.div`
   padding: 20px;
   background-image: linear-gradient(14deg, #26c6db 0%, #2694db 100%);
+  height: 120px;
 `;
 
 const props = {
