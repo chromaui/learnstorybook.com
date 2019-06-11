@@ -106,7 +106,7 @@ const Guide = ({ data }) => {
 
       <GuideHero
         description={currentPage.frontmatter.description}
-        contributorCount={34}
+        contributorCount={currentPage.frontmatter.contributorCount}
         imagePath={currentPage.frontmatter.imagePath}
         languages={currentPage.frontmatter.languages.split(', ')}
         title={currentPage.frontmatter.title}
@@ -147,6 +147,7 @@ Guide.propTypes = {
     currentPage: PropTypes.shape({
       html: PropTypes.string.isRequired,
       frontmatter: PropTypes.shape({
+        contributorCount: PropTypes.string,
         description: PropTypes.string.isRequired,
         imagePath: PropTypes.string.isRequired,
         languages: PropTypes.string.isRequired,
@@ -189,6 +190,7 @@ export const query = graphql`
     currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
       html
       frontmatter {
+        contributorCount
         description
         imagePath
         languages

@@ -6,6 +6,7 @@ themeColor: "purple"
 toc: "get-started, simple-component, composite-component, data, screen, test, addons, deploy, conclusion, contribute"
 languages: "en, es, zh-CN, zh-TW, pt"
 imagePath: "/books.svg"
+contributorCount: "34+"
 ---
 
 # What you'll build
