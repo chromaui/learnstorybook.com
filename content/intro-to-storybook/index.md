@@ -7,6 +7,14 @@ toc: "get-started, simple-component, composite-component, data, screen, test, ad
 languages: "en, es, zh-CN, zh-TW, pt"
 imagePath: "/books.svg"
 contributorCount: "34+"
+authors:
+  [
+    {
+      src: "https://avatars2.githubusercontent.com/u/263385",
+      name: "Dominic Nguyen",
+      detail: "Storybook designer",
+    },
+  ]
 ---
 
 # What you'll build
