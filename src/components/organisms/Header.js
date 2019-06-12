@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
-import { styles } from '@storybook/design-system';
+import { styles, WithTooltip } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
 import Logo from '../atoms/Logo';
 
-const { spacing, pageMargins, breakpoint } = styles;
+const { color, spacing, pageMargins, breakpoint, typography } = styles;
 
 const LogoWrapper = styled(Logo)`
   && {
@@ -30,33 +30,37 @@ const LogoWrapper = styled(Logo)`
 // prettier-ignore
 const NavItem = styled.div`
   display: inline-flex;
-  line-height: 3rem;
   height: 3rem;
   vertical-align: top;
   align-items: center;
+  font-size: ${typography.size.s2}px;
+  font-weight: ${typography.weight.bold};
+  line-height: 19px;
+  color: ${props => props.isInverted ? color.lightest : color.darkest};
 
-  ${props => props.showDesktop && css`
+  ${props => props.showDesktop && `
     display: none;
     @media (min-width: ${breakpoint}px) {
       display: inline-flex;
     }
   `}
 
-  ${props => props.showMobile && css`
+  ${props => props.showMobile && `
     @media (min-width: ${breakpoint}px) {
       display: none;
     }
   `}
 `;
 
-// prettier-ignore
 const NavGroup = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
 
-  ${props => props.right && css`
+  ${props =>
+    props.withRightAlignment &&
+    `
     left: auto;
     right: 0;
   `}
@@ -99,20 +103,85 @@ const GitHubWrapper = styled.div`
   }
 `;
 
-export default function Header({ githubUrl, isInverted, ...props }) {
+const TooltipList = styled.div`
+  width: 300px;
+  border-radius: 4px;
+  overflow: hidden;
+`;
+
+const TooltipItem = styled.div`
+  padding: 15px;
+
+  &:not(:first-child) {
+    border-top: 1px solid ${color.mediumlight};
+  }
+`;
+
+const TooltipLink = styled(GatsbyLink)`
+  width: 100%;
+
+  &&,
+  &&:hover {
+    transform: none;
+  }
+
+  &&:hover {
+    background: #e3f3ff;
+  }
+`;
+
+const TooltipTitle = styled.div`
+  font-weight: ${typography.weight.bold};
+  font-size: ${typography.size.s1}px;
+  color: ${color.darkest};
+  line-height: 14px;
+`;
+
+const TooltipDetail = styled.div`
+  font-size: ${typography.size.s1}px;
+  color: ${color.dark};
+  line-height: 14px;
+`;
+
+export default function Header({ guides, githubUrl, isInverted, ...props }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
     <NavWrapper {...props}>
       <Nav>
         <NavGroup>
-          <NavItem>
+          <NavItem isInverted={isInverted}>
             <GatsbyLink to="/">
               <LogoWrapper isInverted={isInverted} />
             </GatsbyLink>
           </NavItem>
         </NavGroup>
-        <NavGroup right>
-          <NavItem>
+
+        <NavGroup withRightAlignment>
+          <NavItem isInverted={isInverted} showDesktop>
+            <WithTooltip
+              placement="bottom"
+              trigger="click"
+              closeOnClick
+              tooltip={
+                <TooltipList>
+                  {guides.edges.map(({ node: guideNode }) => (
+                    <Fragment key={guideNode.fields.slug}>
+                      <TooltipLink to={guideNode.fields.slug}>
+                        <TooltipItem>
+                          <TooltipTitle>{guideNode.frontmatter.title}</TooltipTitle>
+                          <TooltipDetail>{guideNode.frontmatter.description}</TooltipDetail>
+                        </TooltipItem>
+                      </TooltipLink>
+                    </Fragment>
+                  ))}
+                </TooltipList>
+              }
+            >
+              Guides
+            </WithTooltip>
+          </NavItem>
+
+          <NavItem isInverted={isInverted}>
             <GitHubWrapper>
               <GitHubButton type="stargazers" namespace={namespace} repo={repo} />
             </GitHubWrapper>
@@ -125,6 +194,21 @@ export default function Header({ githubUrl, isInverted, ...props }) {
 
 Header.propTypes = {
   githubUrl: PropTypes.string,
+  guides: PropTypes.shape({
+    edges: PropTypes.arrayOf(
+      PropTypes.shape({
+        node: PropTypes.shape({
+          frontmatter: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            description: PropTypes.string.isRequired,
+          }).isRequired,
+          fields: PropTypes.shape({
+            slug: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired,
+      }).isRequired
+    ),
+  }).isRequired,
   isInverted: PropTypes.bool,
 };
 

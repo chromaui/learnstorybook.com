@@ -63,7 +63,7 @@ const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
 
 const LanguageMenu = ({ buttonContent, renderItems }) => (
   <WithTooltip
-    placement="top"
+    placement="bottom"
     trigger="click"
     closeOnClick
     tooltip={<TooltipList>{renderItems({ Item, Title, Image, Detail, Link })}</TooltipList>}

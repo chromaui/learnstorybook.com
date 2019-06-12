@@ -21,6 +21,7 @@ const query = graphql`
         node {
           frontmatter {
             title
+            description
           }
           fields {
             slug
@@ -73,7 +74,11 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           />
         </Helmet>
 
-        <Header title={title} githubUrl={githubUrl} isInverted={getHeaderInvertedState(pathname)} />
+        <Header
+          guides={guides}
+          githubUrl={githubUrl}
+          isInverted={getHeaderInvertedState(pathname)}
+        />
 
         {children}
         <Footer guides={guides} />
