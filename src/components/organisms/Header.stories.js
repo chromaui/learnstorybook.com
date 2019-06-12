@@ -12,6 +12,21 @@ const BlueBackground = styled.div`
 const props = {
   firstChapter: 'get-started',
   githubUrl: 'https://github.com/chromaui/learnstorybook.com',
+  guides: {
+    edges: [
+      {
+        node: {
+          frontmatter: {
+            title: 'Guide title',
+            description: 'Guide description',
+          },
+          fields: {
+            slug: 'guide-slug',
+          },
+        },
+      },
+    ],
+  },
 };
 
 storiesOf('Organisms|Header', module)
