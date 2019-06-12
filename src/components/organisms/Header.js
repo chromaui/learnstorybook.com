@@ -118,7 +118,10 @@ const TooltipItem = styled.div`
 `;
 
 const TooltipLink = styled(GatsbyLink)`
-  width: 100%;
+  && {
+    width: 100%;
+    transition: background 150ms ease-out;
+  }
 
   &&,
   &&:hover {
