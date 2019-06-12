@@ -1,8 +1,8 @@
 ---
 title: "Intro to Storybook"
 description: "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch."
-heroDescription: "🚫 HERO DESCRIPTION PLACEHOLDER -- CHANGE ME 🚫"
-overview: "UIs are more complex, multi-state, and personalized than ever. This yields thousands of app permutations users can encounter. UI components help manage that complexity. This book talks about how testing those components helps ensure that your app looks and feels great every release."
+heroDescription: "🚫 INTRO TO STORYBOOK HERO DESCRIPTION PLACEHOLDER -- CHANGE ME 🚫"
+overview: "🚫 INTRO TO STORYBOOK OVERVIEW PLACEHOLDER -- CHANGE ME 🚫"
 themeColor: "purple"
 toc:
   [
