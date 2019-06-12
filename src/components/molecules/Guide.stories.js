@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import Guide from './Guide';
 
 const props = {
+  chapterCount: 10,
   themeColor: 'purple',
   title: 'Intro to Storybook',
   description:
