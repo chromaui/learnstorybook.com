@@ -102,7 +102,8 @@ const Guide = ({ data }) => {
       />
 
       <GuideHero
-        description={currentPage.frontmatter.description}
+        ctaHref={entries[0].slug}
+        description={currentPage.frontmatter.heroDescription}
         contributorCount={currentPage.frontmatter.contributorCount}
         imagePath={currentPage.frontmatter.imagePath}
         languages={currentPage.frontmatter.languages}
@@ -213,6 +214,7 @@ export const query = graphql`
         }
         contributorCount
         description
+        heroDescription
         imagePath
         languages
         title
