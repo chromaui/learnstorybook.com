@@ -4,21 +4,51 @@ import Chapter from './chapter';
 import LanguageMenu from '../components/molecules/LanguageMenu';
 
 const props = {
-  guide: 'sample-guide',
-  title: 'Chapter Title',
-  slug: 'chapter-slug',
-  description: 'A good chapter',
-  githubUrl: 'https://github.com',
-  codeGithubUrl: 'https://github.com',
-  html: '<div>The html</div>',
-  entries: [
-    {
-      slug: 'chapter-slug',
-      title: 'Chapter Title',
+  data: {
+    currentPage: {
+      html: '<div>The html</div>',
+      frontmatter: {
+        commit: '123456789',
+        title: 'Chapter Title',
+        description: 'A good chapter',
+      },
+      fields: {
+        chapter: 'chapter-1',
+        guide: 'sample-guide',
+        language: 'en',
+        slug: '/chapter-slug',
+      },
     },
-  ],
-  nextEntry: null,
-  commit: '123456789',
+    currentGuide: {
+      frontmatter: {
+        languages: ['en'],
+        toc: ['chapter-1', 'chapter-2'],
+      },
+    },
+    site: {
+      siteMetadata: {
+        githubUrl: 'https://github.com',
+        codeGithubUrl: 'https://github.com',
+        title: 'Learn Storybook',
+      },
+    },
+    pages: {
+      edges: [
+        {
+          node: {
+            frontmatter: {
+              title: 'Chapter 1',
+              description: 'Chapter 1 description',
+            },
+            fields: {
+              slug: '/chapter-slug',
+              chapter: 'chapter-1',
+            },
+          },
+        },
+      ],
+    },
+  },
   languageMenu: (
     <LanguageMenu
       buttonContent="The button"
