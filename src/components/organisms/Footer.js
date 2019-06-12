@@ -61,7 +61,7 @@ const FooterBlockContent = styled.div`
   margin-top: 14px;
 `;
 
-const FooterBlockLink = styled(Link)`
+const FooterBlockLink = styled(GatsbyLink)`
   && {
     display: block;
     color: ${color.darker};
@@ -121,12 +121,7 @@ const Footer = ({ guides, ...props }) => (
 
         <FooterBlockContent>
           {guides.edges.map(({ node: guideNode }) => (
-            <FooterBlockLink
-              tertiary
-              LinkWrapper={GatsbyLink}
-              to={guideNode.fields.slug}
-              key={guideNode.frontmatter.title}
-            >
+            <FooterBlockLink tertiary to={guideNode.fields.slug} key={guideNode.frontmatter.title}>
               {guideNode.frontmatter.title}
             </FooterBlockLink>
           ))}

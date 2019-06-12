@@ -31,7 +31,7 @@ const SidebarBackIcon = styled(Icon).attrs({ icon: 'arrowleft' })`
   }
 `;
 
-const GuideLink = styled(Link)`
+const GuideLink = styled(GatsbyLink)`
   && {
     color: ${color.darkest};
     font-size: ${typography.size.s3};
@@ -187,7 +187,7 @@ const Chapter = ({
   return (
     <ChapterWrapper>
       <Sidebar>
-        <GuideLink LinkWrapper={GatsbyLink} tertiary to={`/${guide}`}>
+        <GuideLink tertiary to={`/${guide}`}>
           <SidebarBackIcon icon="arrowleft" />
           {startCase(guide)}
         </GuideLink>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Button, Link, styles } from '@storybook/design-system';
+import { Button, styles } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
 import Stat from '../atoms/Stat';
 import getLanguageName from '../../lib/getLanguageName';
@@ -125,9 +125,9 @@ const GuideHero = ({
           <PitchTitle>{title}</PitchTitle>
           <PitchDescription>{description}</PitchDescription>
 
-          <Link to="/intro-to-storybook/react/en/get-started/" LinkWrapper={GatsbyLink}>
+          <GatsbyLink to="/intro-to-storybook/react/en/get-started/">
             <GetStartedButton appearance="secondary">Get started</GetStartedButton>
-          </Link>
+          </GatsbyLink>
 
           <Languages>
             <LanguagesLabel>Languages: </LanguagesLabel>

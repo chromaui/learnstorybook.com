@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
-import { Link, styles } from '@storybook/design-system';
+import { styles } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
 import Logo from '../atoms/Logo';
 
@@ -106,9 +106,9 @@ export default function Header({ githubUrl, isInverted, ...props }) {
       <Nav>
         <NavGroup>
           <NavItem>
-            <Link to="/" LinkWrapper={GatsbyLink}>
+            <GatsbyLink to="/">
               <LogoWrapper isInverted={isInverted} />
-            </Link>
+            </GatsbyLink>
           </NavItem>
         </NavGroup>
         <NavGroup right>

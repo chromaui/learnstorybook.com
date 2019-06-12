@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { styles, Link } from '@storybook/design-system';
+import { styles } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
 
 const { breakpoint, color, typography } = styles;
@@ -77,9 +77,9 @@ const TableOfContents = ({ currentPageSlug, entries, ...rest }) => (
 
       return (
         <ListItem key={entry.slug} isActive={isActive}>
-          <Link LinkWrapper={GatsbyLink} to={entry.slug} tertiary={!isActive}>
+          <GatsbyLink to={entry.slug} tertiary={!isActive}>
             {entry.title}
-          </Link>
+          </GatsbyLink>
         </ListItem>
       );
     })}
