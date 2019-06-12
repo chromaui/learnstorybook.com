@@ -109,6 +109,7 @@ const Figure = styled.div`
 
 const GuideHero = ({
   contributorCount,
+  ctaHref,
   description,
   imagePath,
   languages,
@@ -125,7 +126,7 @@ const GuideHero = ({
           <PitchTitle>{title}</PitchTitle>
           <PitchDescription>{description}</PitchDescription>
 
-          <GatsbyLink to="/intro-to-storybook/react/en/get-started/">
+          <GatsbyLink to={ctaHref}>
             <GetStartedButton appearance="secondary">Get started</GetStartedButton>
           </GatsbyLink>
 
@@ -147,6 +148,7 @@ const GuideHero = ({
 
 GuideHero.propTypes = {
   contributorCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  ctaHref: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   imagePath: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
