@@ -46,6 +46,18 @@ const props = {
             },
           },
         },
+        {
+          node: {
+            frontmatter: {
+              title: 'Chapter 2',
+              description: 'Chapter 2 description',
+            },
+            fields: {
+              slug: '/chapter-2-slug',
+              chapter: 'chapter-2',
+            },
+          },
+        },
       ],
     },
   },
