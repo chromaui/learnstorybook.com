@@ -11,7 +11,7 @@ import GuideHero from '../components/organisms/GuideHero';
 import { guideFormatting } from '../styles/formatting';
 import tocEntries from '../lib/tocEntries';
 
-const { breakpoint, color, pageMargins, typography } = styles;
+const { breakpoint, color, pageMargins, spacing, typography } = styles;
 
 const Content = styled.div`
   ${guideFormatting}
@@ -44,6 +44,22 @@ const Detail = styled.div`
 
   @media (min-width: ${breakpoint * 1.5}px) {
     margin-top: 0;
+  }
+`;
+
+const CommunityDetail = styled.div`
+  @media (min-width: ${breakpoint}px) {
+    display: flex;
+  }
+`;
+
+const CommunityDetailItem = styled.div`
+  @media (min-width: ${breakpoint}px) {
+    flex: 0 0 50%;
+
+    &:first-of-type {
+      margin-right: 40px;
+    }
   }
 `;
 
@@ -86,6 +102,14 @@ const ChapterDescription = styled.div`
   font-size: ${typography.size.s2}px;
 `;
 
+const UserWrapper = styled(User)`
+  margin-top: ${spacing.padding.medium}px;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+`;
+
 const Guide = ({ data }) => {
   const {
     currentPage,
@@ -102,9 +126,9 @@ const Guide = ({ data }) => {
       />
 
       <GuideHero
+        contributorCount={currentPage.frontmatter.contributorCount}
         ctaHref={entries[0].slug}
         description={currentPage.frontmatter.heroDescription}
-        contributorCount={currentPage.frontmatter.contributorCount}
         imagePath={currentPage.frontmatter.imagePath}
         languages={currentPage.frontmatter.languages}
         title={currentPage.frontmatter.title}
@@ -135,17 +159,33 @@ const Guide = ({ data }) => {
         <Detail>
           <div dangerouslySetInnerHTML={{ __html: currentPage.html }} />
 
-          {currentPage.frontmatter.authors && (
-            <>
-              <SubheadingWrapper>
-                {currentPage.frontmatter.authors.length === 1 ? 'Author' : 'Authors'}
-              </SubheadingWrapper>
+          <CommunityDetail>
+            {currentPage.frontmatter.authors && (
+              <CommunityDetailItem>
+                <SubheadingWrapper>
+                  {currentPage.frontmatter.authors.length === 1 ? 'Author' : 'Authors'}
+                </SubheadingWrapper>
 
-              {currentPage.frontmatter.authors.map(author => (
-                <User {...author} key={author.name} />
-              ))}
-            </>
-          )}
+                {currentPage.frontmatter.authors.map(author => (
+                  <UserWrapper {...author} key={author.name} />
+                ))}
+              </CommunityDetailItem>
+            )}
+
+            {currentPage.frontmatter.contributors && (
+              <CommunityDetailItem>
+                <SubheadingWrapper>
+                  {currentPage.frontmatter.contributors.length === 1
+                    ? 'Contributor'
+                    : 'Contributors'}
+                </SubheadingWrapper>
+
+                {currentPage.frontmatter.contributors.map(contributor => (
+                  <UserWrapper {...contributor} key={contributor.name} />
+                ))}
+              </CommunityDetailItem>
+            )}
+          </CommunityDetail>
         </Detail>
       </Content>
     </>
@@ -208,6 +248,11 @@ export const query = graphql`
       html
       frontmatter {
         authors {
+          name
+          src
+          detail
+        }
+        contributors {
           name
           src
           detail

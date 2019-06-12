@@ -1,7 +1,7 @@
 ---
 title: "Intro to Storybook"
 description: "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch."
-heroDescription: "<<HERO DESCRIPTION PLACEHOLDER>>"
+heroDescription: "🚫 HERO DESCRIPTION PLACEHOLDER -- CHANGE ME 🚫"
 overview: "UIs are more complex, multi-state, and personalized than ever. This yields thousands of app permutations users can encounter. UI components help manage that complexity. This book talks about how testing those components helps ensure that your app looks and feels great every release."
 themeColor: "purple"
 toc:
@@ -26,6 +26,19 @@ authors:
       src: "https://avatars2.githubusercontent.com/u/263385",
       name: "Dominic Nguyen",
       detail: "Storybook designer",
+    },
+  ]
+contributors:
+  [
+    {
+      src: "https://avatars2.githubusercontent.com/u/9523719",
+      name: "Kyle Holmberg",
+      detail: "Software Engineer",
+    },
+    {
+      src: "https://avatars2.githubusercontent.com/u/6795688",
+      name: "Erik Nguyen",
+      detail: "Software Engineer",
     },
   ]
 ---
