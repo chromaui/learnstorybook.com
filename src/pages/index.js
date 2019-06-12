@@ -1,11 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, styles } from '@storybook/design-system';
+import IconLearnStorybook from '../components/atoms/IconLearnStorybook';
 import GatsbyLink from '../components/atoms/GatsbyLink';
 import CTA from '../components/molecules/CTA';
 import Guide from '../components/molecules/Guide';
 
 const { color, typography, spacing, pageMargins, pageMargin, breakpoint } = styles;
+
+const Background = styled.div`
+  background: url(bg-dots.svg);
+  background-repeat: repeat-x;
+  background-position-y: 80px;
+`;
 
 const Pitch = styled.div`
   text-align: center;
@@ -21,6 +29,7 @@ const PitchTitle = styled.h1`
   font-size: ${typography.size.l1}px;
   letter-spacing: -0.33px;
   line-height: 38px;
+  margin-top: 18px;
 
   @media (min-width: ${breakpoint * 1.5}px) {
     font-size: 36px;
@@ -106,29 +115,34 @@ const Index = ({ data }) => {
 
   return (
     <>
-      <Pitch>
-        <PitchTitle>Learn to develop UIs with components and design systems</PitchTitle>
+      <Background>
+        <Pitch>
+          <IconLearnStorybook />
 
-        <PitchDescription>
-          Free in-depth guides for professional frontend developers. Made by Storybook maintainers.
-        </PitchDescription>
-      </Pitch>
+          <PitchTitle>Learn to develop UIs with components and design systems</PitchTitle>
 
-      <PageMargins>
-        <Guides>
-          {data.guides.edges.map(({ node: guideNode }) => (
-            <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-              <Guide
-                chapterCount={chapterCountByGuide[guideNode.fields.guide]}
-                description={guideNode.frontmatter.description}
-                imagePath={guideNode.frontmatter.imagePath}
-                themeColor={guideNode.frontmatter.themeColor}
-                title={guideNode.frontmatter.title}
-              />
-            </GatsbyLink>
-          ))}
-        </Guides>
-      </PageMargins>
+          <PitchDescription>
+            Free in-depth guides for professional frontend developers. Made by Storybook
+            maintainers.
+          </PitchDescription>
+        </Pitch>
+
+        <PageMargins>
+          <Guides>
+            {data.guides.edges.map(({ node: guideNode }) => (
+              <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+                <Guide
+                  chapterCount={chapterCountByGuide[guideNode.fields.guide]}
+                  description={guideNode.frontmatter.description}
+                  imagePath={guideNode.frontmatter.imagePath}
+                  themeColor={guideNode.frontmatter.themeColor}
+                  title={guideNode.frontmatter.title}
+                />
+              </GatsbyLink>
+            ))}
+          </Guides>
+        </PageMargins>
+      </Background>
 
       <FAQLayout>
         <CTALineBreak />
@@ -144,6 +158,40 @@ const Index = ({ data }) => {
       </FAQLayout>
     </>
   );
+};
+
+Index.propTypes = {
+  data: PropTypes.shape({
+    guides: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            frontmatter: PropTypes.shape({
+              description: PropTypes.string.isRequired,
+              imagePath: PropTypes.string.isRequired,
+              themeColor: PropTypes.string.isRequired,
+              title: PropTypes.string.isRequired,
+            }).isRequired,
+            fields: PropTypes.shape({
+              guide: PropTypes.string.isRequired,
+              slug: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }).isRequired,
+    chapters: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            fields: PropTypes.shape({
+              guide: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default Index;
