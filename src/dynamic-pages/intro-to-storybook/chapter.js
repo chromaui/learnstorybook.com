@@ -5,57 +5,37 @@ import startCase from 'lodash/startCase';
 import LanguageMenu from '../../components/molecules/LanguageMenu';
 import Chapter, { chapterDataPropTypes } from '../../templates/chapter';
 import getLanguageName from '../../lib/getLanguageName';
-import tocEntries from '../../lib/tocEntries';
 
-const VisualTestingHandbookChapter = ({
-  data: {
-    currentPage,
-    currentGuide: {
-      frontmatter: { toc, languages },
-    },
-    pages,
-    site: {
-      siteMetadata: { title: siteTitle, githubUrl, codeGithubUrl, siteUrl },
-    },
-  },
-}) => {
+const VisualTestingHandbookChapter = ({ data }) => {
   const {
-    html,
-    frontmatter: { commit, title, description },
-    fields: { guide, slug, chapter, framework, language },
-  } = currentPage;
-  const otherLanguages = languages.filter(l => l !== language);
-  const entries = tocEntries(toc, pages);
-  const nextEntry = entries[toc.indexOf(chapter) + 1];
-  const firstChapter = toc[0];
+    currentPage: {
+      fields: { chapter, framework, guide, language },
+      frontmatter: { title: currentPageTitle, description: currentPageDescription },
+    },
+    currentGuide,
+    site: { siteMetadata },
+  } = data;
+  const otherLanguages = currentGuide.frontmatter.languages.filter(l => l !== language);
+  const firstChapter = currentGuide.frontmatter.toc[0];
 
   return (
     <>
       <Helmet
-        title={`${title} | ${siteTitle}`}
-        meta={[{ name: 'description', content: description }]}
+        title={`${currentPageTitle} | ${siteMetadata.title}`}
+        meta={[{ name: 'description', content: currentPageDescription }]}
       >
         {otherLanguages.map(otherLanguage => (
           <link
             key={otherLanguage}
             rel="alternate"
             hrefLang={otherLanguage}
-            href={`${siteUrl}/${framework}/${otherLanguage}/${chapter}`}
+            href={`${siteMetadata.siteUrl}/${framework}/${otherLanguage}/${chapter}`}
           />
         ))}
       </Helmet>
 
       <Chapter
-        guide={guide}
-        title={title}
-        slug={slug}
-        description={description}
-        githubUrl={githubUrl}
-        codeGithubUrl={codeGithubUrl}
-        entries={entries}
-        nextEntry={nextEntry}
-        commit={commit}
-        html={html}
+        data={data}
         languageMenu={
           <LanguageMenu
             buttonContent={`${startCase(framework)} - ${getLanguageName(language)}`}
