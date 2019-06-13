@@ -26,7 +26,7 @@ const FooterContent = styled.div`
   justify-content: center;
   flex-direction: column;
 
-  @media (min-width: ${breakpoint * 1.5}px) {
+  @media (min-width: ${breakpoint * 1.75}px) {
     flex-direction: row;
   }
 `;
@@ -39,7 +39,7 @@ const FooterBlock = styled.div`
     margin-bottom: 52px;
   `}
 
-  @media (min-width: ${breakpoint * 1.5}px) {
+  @media (min-width: ${breakpoint * 1.75}px) {
     ${props =>
       !props.isLast &&
       `

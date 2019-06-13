@@ -63,6 +63,10 @@ const MailingListConfirm = styled.div`
   border-radius: 4px;
 `;
 
+const FormWrapper = styled.form`
+  max-width: 300px;
+`;
+
 const validateForm = values => {
   if (!values.email) {
     return { email: 'Required' };
@@ -106,7 +110,7 @@ const MailingListSignup = props => {
   return (
     <Formik validate={validateForm} onSubmit={onSubmitForm}>
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-        <form onSubmit={handleSubmit}>
+        <FormWrapper onSubmit={handleSubmit}>
           <MailingListFormUI
             value={values.email}
             handleChange={handleChange}
@@ -114,7 +118,7 @@ const MailingListSignup = props => {
             isSubmitting={isSubmitting}
             {...props}
           />
-        </form>
+        </FormWrapper>
       )}
     </Formik>
   );
