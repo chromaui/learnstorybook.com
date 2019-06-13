@@ -46,7 +46,7 @@ const User = ({ detail, name, src, ...rest }) => (
 );
 
 User.propTypes = {
-  detail: PropTypes.string.isRequired,
+  detail: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,
   name: PropTypes.string.isRequired,
   src: PropTypes.string.isRequired,
 };

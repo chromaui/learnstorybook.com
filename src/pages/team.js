@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar, Link, styles, Subheading } from '@storybook/design-system';
+import User from '../components/molecules/User';
 
 const { color, spacing, typography } = styles;
 
@@ -27,6 +28,10 @@ const Heading = styled.div`
 const SubheadingWrapper = styled(Subheading)`
   color: ${color.dark};
   font-size: 15px;
+`;
+
+const SubheadingMessage = styled.div`
+  margin-top: 16px;
 `;
 
 const Editors = styled.div`
@@ -56,6 +61,69 @@ const EditorName = styled.span`
 const EditorDescription = styled.div`
   flex: 1;
 `;
+
+const Contributors = styled.div`
+  margin-top: 80px;
+`;
+
+const ContributorsList = styled.div`
+  margin-top: ${spacing.padding.large}px;
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Contributor = styled.div`
+  flex: 0 0 50%;
+
+  &:nth-child(n + 3) {
+    margin-top: ${spacing.padding.medium}px;
+  }
+`;
+
+const ContributorUser = styled(User)`
+  align-items: center;
+
+  > :first-child {
+    height: 48px;
+    width: 48px;
+    line-height: 48px;
+  }
+`;
+
+const TwitterLink = props => <Link target="_blank" tertiary {...props} />;
+
+const contributors = [
+  {
+    src: 'https://avatars2.githubusercontent.com/u/263385',
+    name: 'Dominic Nguyen',
+    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/263386',
+    name: 'Dominic Nguyen',
+    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/263387',
+    name: 'Dominic Nguyen',
+    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/263388',
+    name: 'Dominic Nguyen',
+    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/263389',
+    name: 'Dominic Nguyen',
+    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/263390',
+    name: 'Dominic Nguyen',
+    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+  },
+];
 
 const Team = () => (
   <TeamWrapper>
@@ -106,6 +174,23 @@ const Team = () => (
           </EditorDescription>
         </Editor>
       </Editors>
+
+      <Contributors>
+        <SubheadingWrapper>Contributors</SubheadingWrapper>
+
+        <SubheadingMessage>
+          Amazing contributors from around the world help draft, edit, and localize our free guides.
+          They ensure Learn Storybook provides a quality learning experience for every developer.
+        </SubheadingMessage>
+
+        <ContributorsList>
+          {contributors.map(contributor => (
+            <Contributor key={contributor.src}>
+              <ContributorUser {...contributor} />
+            </Contributor>
+          ))}
+        </ContributorsList>
+      </Contributors>
     </Content>
   </TeamWrapper>
 );
