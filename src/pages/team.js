@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar, Link, styles, Subheading } from '@storybook/design-system';
+import BoxLink from '../components/atoms/BoxLink';
+import ShadowBox from '../components/atoms/ShadowBox';
 import User from '../components/molecules/User';
 
 const { color, spacing, typography } = styles;
@@ -34,8 +36,8 @@ const SubheadingMessage = styled.div`
   margin-top: 16px;
 `;
 
-const Editors = styled.div`
-  margin-top: 48px;
+const Section = styled.div`
+  margin-top: ${props => (props.isFirst ? 48 : 80)}px;
 `;
 
 const Editor = styled.div`
@@ -62,10 +64,6 @@ const EditorDescription = styled.div`
   flex: 1;
 `;
 
-const Contributors = styled.div`
-  margin-top: 80px;
-`;
-
 const ContributorsList = styled.div`
   margin-top: ${spacing.padding.large}px;
   display: flex;
@@ -87,6 +85,47 @@ const ContributorUser = styled(User)`
     height: 48px;
     width: 48px;
     line-height: 48px;
+  }
+`;
+
+const ChromaShadowBox = styled(ShadowBox)`
+  margin-top: 24px;
+  padding: 40px;
+  display: flex;
+
+  a {
+    margin-right: 24px;
+  }
+
+  img {
+    width: 60px;
+    height: 60px;
+  }
+`;
+
+const Bold = styled.span`
+  font-weight: ${typography.weight.bold};
+`;
+
+const Sponsors = styled.div`
+  margin-top: 26px;
+  display: flex;
+`;
+
+const SponsorBoxLink = styled(BoxLink)`
+  && {
+    width: calc(33% - 10px);
+    margin-right: ${spacing.padding.medium}px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 180px;
+    font-weight: ${typography.weight.bold};
+    font-size: ${typography.size.s2}px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -130,7 +169,7 @@ const Team = () => (
     <Content>
       <Heading>Meet the team</Heading>
 
-      <Editors>
+      <Section>
         <SubheadingWrapper>Editors</SubheadingWrapper>
 
         <Editor isFirst>
@@ -173,9 +212,9 @@ const Team = () => (
             </div>
           </EditorDescription>
         </Editor>
-      </Editors>
+      </Section>
 
-      <Contributors>
+      <Section>
         <SubheadingWrapper>Contributors</SubheadingWrapper>
 
         <SubheadingMessage>
@@ -190,7 +229,41 @@ const Team = () => (
             </Contributor>
           ))}
         </ContributorsList>
-      </Contributors>
+      </Section>
+
+      <Section>
+        <SubheadingWrapper>Made by</SubheadingWrapper>
+
+        <ChromaShadowBox>
+          <Link target="_blank" href="https://hichroma.com/">
+            <img alt="Chroma, the Storybook company" src="/icon-chroma.svg" />
+          </Link>
+
+          <div>
+            <Bold>Chroma is the Storybook company</Bold> run by core maintainers. We help devs learn
+            Component-Driven Development and create frontend tools like Chromatic and Storybook
+            Loop.{' '}
+          </div>
+        </ChromaShadowBox>
+      </Section>
+
+      <Section>
+        <SubheadingWrapper>Sponsors</SubheadingWrapper>
+
+        <SubheadingMessage>
+          Website updates and new guides are made possible with the help of sponsors.
+        </SubheadingMessage>
+
+        <Sponsors>
+          <SponsorBoxLink to="https://www.invisionapp.com/design-system-manager">
+            <img alt="InVision" src="/logo-invision.svg" />
+          </SponsorBoxLink>
+
+          <SponsorBoxLink>
+            <Link href="#">Sponsor us</Link>
+          </SponsorBoxLink>
+        </Sponsors>
+      </Section>
     </Content>
   </TeamWrapper>
 );
