@@ -26,7 +26,7 @@ authors:
     {
       src: "https://avatars2.githubusercontent.com/u/263385",
       name: "Dominic Nguyen",
-      detail: "Storybook designer",
+      detail: "Storybook design",
     },
   ]
 contributors:
@@ -34,12 +34,12 @@ contributors:
     {
       src: "https://avatars2.githubusercontent.com/u/9523719",
       name: "Kyle Holmberg",
-      detail: "Software Engineer",
+      detail: "Software engineer",
     },
     {
       src: "https://avatars2.githubusercontent.com/u/6795688",
       name: "Erik Nguyen",
-      detail: "Software Engineer",
+      detail: "Software engineer",
     },
   ]
 ---

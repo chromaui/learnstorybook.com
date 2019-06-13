@@ -29,45 +29,6 @@ const Logos = styled.div`
   }
 `;
 
-const logos = [
-  {
-    src: '/logo-meteor.svg',
-    alt: 'Meteor',
-  },
-  {
-    src: '/logo-apollo.svg',
-    alt: 'Apollo',
-  },
-  {
-    src: '/logo-invision.svg',
-    alt: 'Invision',
-  },
-  {
-    src: '/logo-meteor.svg',
-    alt: 'Meteor',
-  },
-  {
-    src: '/logo-apollo.svg',
-    alt: 'Apollo',
-  },
-  {
-    src: '/logo-invision.svg',
-    alt: 'Invision',
-  },
-  {
-    src: '/logo-meteor.svg',
-    alt: 'Meteor',
-  },
-  {
-    src: '/logo-apollo.svg',
-    alt: 'Apollo',
-  },
-  {
-    src: '/logo-invision.svg',
-    alt: 'Invision',
-  },
-];
-
 const Testimonials = styled.div`
   margin-top: 40px;
 
@@ -107,13 +68,28 @@ const UserWrapper = styled(User)`
   }
 `;
 
+const logos = [
+  {
+    src: '/logo-meteor.svg',
+    alt: 'Meteor',
+  },
+  {
+    src: '/logo-apollo.svg',
+    alt: 'Apollo',
+  },
+  {
+    src: '/logo-invision.svg',
+    alt: 'Invision',
+  },
+];
+
 const SocialValidation = props => (
   <SocialValidationWrapper {...props}>
     <Heading>+50,000 readers so far</Heading>
 
     <Logos>
       {logos.map(logo => (
-        <img src={logo.src} alt={logo.alt} />
+        <img key={logo.src} src={logo.src} alt={logo.alt} />
       ))}
     </Logos>
 
