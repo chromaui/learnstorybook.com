@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
+import pluralize from 'pluralize';
 import { styles, Subheading } from '@storybook/design-system';
 import { graphql } from 'gatsby';
 import BoxLink from '../components/atoms/BoxLink';
@@ -165,7 +166,7 @@ const Guide = ({ data }) => {
             {currentPage.frontmatter.authors && (
               <CommunityDetailItem>
                 <SubheadingWrapper>
-                  {currentPage.frontmatter.authors.length === 1 ? 'Author' : 'Authors'}
+                  {pluralize('Author', currentPage.frontmatter.authors.length)}
                 </SubheadingWrapper>
 
                 {currentPage.frontmatter.authors.map(author => (
@@ -177,9 +178,7 @@ const Guide = ({ data }) => {
             {currentPage.frontmatter.contributors && (
               <CommunityDetailItem>
                 <SubheadingWrapper>
-                  {currentPage.frontmatter.contributors.length === 1
-                    ? 'Contributor'
-                    : 'Contributors'}
+                  {pluralize('Contributor', currentPage.frontmatter.contributors.length)}
                 </SubheadingWrapper>
 
                 {currentPage.frontmatter.contributors.map(contributor => (
