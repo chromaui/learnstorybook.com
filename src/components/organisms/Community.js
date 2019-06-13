@@ -45,14 +45,27 @@ const Logos = styled.div`
   margin-top: 54px;
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: -10px;
+
+  @media (min-width: 440px) {
+    justify-content: flex-start;
+    margin-bottom: 0;
+  }
 `;
 
 const LogoImage = styled.img`
   height: ${props => props.height};
-  margin-right: 28px;
+  margin: 10px;
 
-  &:last-of-type {
-    margin-right: 0;
+  @media (min-width: 440px) {
+    margin: 0;
+    margin-right: 28px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 `;
 
