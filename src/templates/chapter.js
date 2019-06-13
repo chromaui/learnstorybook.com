@@ -192,7 +192,7 @@ const Chapter = ({
           {startCase(guide)}
         </GuideLink>
 
-        {languageMenu}
+        <div>{languageMenu}</div>
 
         <TableOfContentsWrapper entries={entries} currentPageSlug={slug} />
       </Sidebar>

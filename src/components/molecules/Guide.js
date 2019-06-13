@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import pluralize from 'pluralize';
 import { styles, Subheading } from '@storybook/design-system';
 
-const { color, spacing, typography } = styles;
+const { breakpoint, color, spacing, typography } = styles;
 
 const GuideWrapper = styled.div`
   background: ${props => color[props.themeColor]};
@@ -13,8 +14,17 @@ const GuideWrapper = styled.div`
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   text-align: left;
   height: 400px;
+
+  @media (min-width: ${breakpoint}px) {
+    height: 450px;
+  }
+
+  @media (min-width: ${breakpoint * 1.25}px) {
+    height: 400px;
+  }
 `;
 
 const GuideTitle = styled.div`
@@ -29,6 +39,7 @@ const GuideDescription = styled.div`
 `;
 
 const GuideChapterCount = styled(Subheading)`
+  display: block;
   margin-top: ${spacing.padding.small}px;
   font-size: ${typography.size.s1}px;
   opacity: 0.5;
@@ -42,9 +53,12 @@ const GuideImage = styled.img`
 
 const Guide = ({ chapterCount, description, imagePath, themeColor, title }) => (
   <GuideWrapper themeColor={themeColor}>
-    <GuideTitle>{title}</GuideTitle>
-    <GuideDescription>{description}</GuideDescription>
-    <GuideChapterCount>{chapterCount} Chapters</GuideChapterCount>
+    <div>
+      <GuideTitle>{title}</GuideTitle>
+      <GuideDescription>{description}</GuideDescription>
+      <GuideChapterCount>{pluralize('Chapter', chapterCount, true)}</GuideChapterCount>
+    </div>
+
     <GuideImage src={imagePath} alt={title} />
   </GuideWrapper>
 );
