@@ -85,7 +85,7 @@ const logos = [
 
 const SocialValidation = props => (
   <SocialValidationWrapper {...props}>
-    <Heading>+50,000 readers so far</Heading>
+    <Heading>+70,000 readers so far</Heading>
 
     <Logos>
       {logos.map(logo => (
