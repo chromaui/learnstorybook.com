@@ -11,6 +11,7 @@ import SiteStat from '../components/atoms/SiteStat';
 import CTA from '../components/molecules/CTA';
 import Guide from '../components/molecules/Guide';
 import SocialValidation from '../components/organisms/SocialValidation';
+import Community from '../components/organisms/Community';
 
 const { background, color, typography, spacing, pageMargins, pageMargin, breakpoint } = styles;
 
@@ -173,7 +174,7 @@ const SocialValidationWrapper = styled(SocialValidation)`
 `;
 
 const BottomSection = styled.div`
-  padding: 4rem ${spacing.padding.medium}px 1rem;
+  padding: 84px ${spacing.padding.medium}px 1rem;
 
   @media (min-width: ${breakpoint * 1}px) {
     margin: 0 ${pageMargin * 3}%;
@@ -184,7 +185,14 @@ const BottomSection = styled.div`
   }
 `;
 
+const SocialValidationLineBreak = styled.div`
+  height: 1px;
+  background: ${color.mediumlight};
+  margin-top: 84px;
+`;
+
 const CTALineBreak = styled.div`
+  margin-top: 64px;
   height: 1px;
   background: ${color.mediumlight};
 
@@ -295,7 +303,11 @@ const Index = ({ data }) => {
 
       <SocialValidationWrapper />
 
+      <SocialValidationLineBreak />
+
       <BottomSection>
+        <Community />
+
         <CTALineBreak />
 
         <CTA
