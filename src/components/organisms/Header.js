@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
-import { styles, WithTooltip } from '@storybook/design-system';
+import { Link, styles, WithTooltip } from '@storybook/design-system';
 import GatsbyLink from '../atoms/GatsbyLink';
 import Logo from '../atoms/Logo';
 
@@ -51,7 +51,7 @@ const NavItem = styled.div`
   `}
 `;
 
-const NavLink = styled(GatsbyLink)`
+const NavTextLink = styled(GatsbyLink)`
   && {
     color: ${props => (props.inverse ? color.lightest : color.darkest)};
   }
@@ -187,16 +187,16 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
                 </TooltipList>
               }
             >
-              <NavLink inverse={isInverted} tertiary onClick={preventDefault}>
+              <NavTextLink as={Link} inverse={isInverted} tertiary onClick={preventDefault}>
                 Guides
-              </NavLink>
+              </NavTextLink>
             </WithTooltip>
           </NavItem>
 
           <NavItem isInverted={isInverted} showDesktop>
-            <NavLink tertiary inverse={isInverted} to="/team">
+            <NavTextLink tertiary inverse={isInverted} to="/team">
               Team
-            </NavLink>
+            </NavTextLink>
           </NavItem>
 
           <NavItem isInverted={isInverted}>

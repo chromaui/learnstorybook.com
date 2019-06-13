@@ -35,7 +35,7 @@ const query = graphql`
 const getHeaderInvertedState = pathname => {
   const pathParts = pathname.split('/').filter(p => !!p);
   // This will need to get "smarter" if the hierarchy of pages/guides changes.
-  return pathParts.length === 1;
+  return pathParts.length === 1 && pathParts[0] !== 'team';
 };
 
 const TemplateWrapper = ({ location: { pathname }, children }) => (

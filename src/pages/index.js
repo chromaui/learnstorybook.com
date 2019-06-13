@@ -26,7 +26,6 @@ const Pitch = styled.div`
   text-align: center;
   max-width: 608px;
   margin: 0 auto;
-  text-align: center;
   padding: 145px 20px 64px;
 `;
 
