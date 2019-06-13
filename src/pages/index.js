@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
+import pluralize from 'pluralize';
 import { Button, styles } from '@storybook/design-system';
 import IconLearnStorybook from '../components/atoms/IconLearnStorybook';
 import GatsbyLink from '../components/atoms/GatsbyLink';
+import SiteStat from '../components/atoms/SiteStat';
 import CTA from '../components/molecules/CTA';
 import Guide from '../components/molecules/Guide';
 
@@ -52,7 +54,6 @@ const PitchDescription = styled.div`
 
 const PageMargins = styled.div`
   ${pageMargins}
-  padding: 0;
 `;
 
 const Guides = styled.div`
@@ -66,16 +67,43 @@ const Guides = styled.div`
   }
 
   > * {
-    max-width: calc(100% - 50px);
-    margin: 25px;
+    max-width: 100%;
+    margin: 25px 0;
 
-    @media (min-width: 550px) {
+    @media (min-width: ${breakpoint}px) {
       max-width: calc(50% - 50px);
+      margin: 25px;
     }
 
     @media (min-width: ${breakpoint * 1.75}px) {
       max-width: calc(33% - 50px);
     }
+  }
+`;
+
+const SiteStats = styled.div`
+  margin-top: 66px;
+
+  @media (min-width: ${breakpoint * 1.25}px) {
+    display: flex;
+  }
+`;
+
+const SiteStatWrapper = styled.div`
+  position: relative;
+  margin-top: ${spacing.padding.large}px;
+
+  @media (min-width: ${breakpoint * 1.25}px) {
+    margin-right: 66px;
+    margin-top: 0;
+  }
+
+  @media (min-width: ${breakpoint * 1.75}px) {
+    margin-right: 97px;
+  }
+
+  &:last-of-type {
+    margin-right: 0;
   }
 `;
 
@@ -103,14 +131,19 @@ const CTALineBreak = styled.div`
 
 const getChapterCountByGuide = chaptersEdges =>
   chaptersEdges.reduce((acc, { node: { fields: { guide } } }) => {
-    if (acc[guide]) {
-      acc[guide] += 1;
+    const chapterCountByGuide = { ...acc };
+
+    if (chapterCountByGuide[guide]) {
+      chapterCountByGuide[guide] += 1;
     } else {
-      acc[guide] = 1;
+      chapterCountByGuide[guide] = 1;
     }
 
-    return acc;
+    return chapterCountByGuide;
   }, {});
+
+const getGuideEditionCount = guidesEdges =>
+  guidesEdges.reduce((acc, guideEdge) => acc + guideEdge.node.frontmatter.editionCount, 0);
 
 const Index = ({ data }) => {
   const chapterCountByGuide = getChapterCountByGuide(data.chapters.edges);
@@ -143,6 +176,29 @@ const Index = ({ data }) => {
               </GatsbyLink>
             ))}
           </Guides>
+
+          <SiteStats>
+            <SiteStatWrapper>
+              <SiteStat
+                heading={pluralize('guide', data.guides.edges.length, true)}
+                message="Professional walkthroughs made for frontend devs. Updated all the time."
+              />
+            </SiteStatWrapper>
+
+            <SiteStatWrapper>
+              <SiteStat
+                heading={pluralize('chapter', data.chapters.edges.length, true)}
+                message="With code snippets, sample repos, icons, and production assets."
+              />
+            </SiteStatWrapper>
+
+            <SiteStatWrapper>
+              <SiteStat
+                heading={pluralize('edition', getGuideEditionCount(data.guides.edges), true)}
+                message="Support for React, Vue, and Angular. Translated into Spanish, Chinese, and more."
+              />
+            </SiteStatWrapper>
+          </SiteStats>
         </PageMargins>
       </Background>
 
@@ -170,6 +226,7 @@ Index.propTypes = {
           node: PropTypes.shape({
             frontmatter: PropTypes.shape({
               description: PropTypes.string.isRequired,
+              editionCount: PropTypes.number.isRequired,
               imagePath: PropTypes.string.isRequired,
               themeColor: PropTypes.string.isRequired,
               title: PropTypes.string.isRequired,
@@ -205,6 +262,7 @@ export const query = graphql`
         node {
           frontmatter {
             description
+            editionCount
             imagePath
             themeColor
             title

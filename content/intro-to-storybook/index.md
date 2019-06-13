@@ -19,6 +19,7 @@ toc:
   ]
 languages: ["en", "es", "zh-CN", "zh-TW", "pt"]
 imagePath: "/books.svg"
+editionCount: 10
 contributorCount: "34+"
 authors:
   [
