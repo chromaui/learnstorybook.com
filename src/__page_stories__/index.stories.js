@@ -10,6 +10,7 @@ const props = {
           node: {
             frontmatter: {
               description: 'This is the guide description that explains what you find in the guide',
+              editionCount: 2,
               imagePath: '/books.svg',
               themeColor: 'purple',
               title: 'Guide title',

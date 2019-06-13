@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -10,7 +11,7 @@ import SiteStat from '../components/atoms/SiteStat';
 import CTA from '../components/molecules/CTA';
 import Guide from '../components/molecules/Guide';
 
-const { color, typography, spacing, pageMargins, pageMargin, breakpoint } = styles;
+const { background, color, typography, spacing, pageMargins, pageMargin, breakpoint } = styles;
 
 // The background image only loads on the first render. Passing the time forces it to update.
 const Background = styled.div`
@@ -107,7 +108,50 @@ const SiteStatWrapper = styled.div`
   }
 `;
 
-const FAQLayout = styled.div`
+const Banner = styled.div`
+  background: ${background.app};
+  border-top: 1px solid ${color.medium};
+  border-bottom: 1px solid ${color.medium};
+  padding: 60px 0;
+  margin-top: 80px;
+`;
+
+const BannerContent = styled.div`
+  text-align: center;
+
+  @media (min-width: ${breakpoint * 1.5}px) {
+    text-align: left;
+    display: flex;
+    align-items: center;
+  }
+
+  video {
+    width: 327px;
+    max-width: 100%;
+    margin-top: ${spacing.padding.large}px;
+
+    @media (min-width: ${breakpoint * 1.5}px) {
+      width: 327px;
+      margin-left: 160px;
+    }
+  }
+`;
+
+const BannerHeading = styled.div`
+  font-size: ${typography.size.m2}px;
+  font-weight: ${typography.weight.black};
+  letter-spacing: -0.28px;
+  line-height: 36px;
+`;
+
+const BannerText = styled.div`
+  font-size: ${typography.size.s3}px;
+  letter-spacing: -0.33px;
+  line-height: 26px;
+  margin-top: 8px;
+`;
+
+const BottomSection = styled.div`
   padding: 4rem ${spacing.padding.medium}px 1rem;
 
   @media (min-width: ${breakpoint * 1}px) {
@@ -202,7 +246,31 @@ const Index = ({ data }) => {
         </PageMargins>
       </Background>
 
-      <FAQLayout>
+      <Banner>
+        <PageMargins>
+          <BannerContent>
+            <div>
+              <BannerHeading>What is Learn Storybook?</BannerHeading>
+              <BannerText>
+                Learn Storybook teaches tried-and-true development techniques for UI components. The
+                best practices here are sourced from professional teams, Storybook maintainers, and
+                the awesome community. We value your time. Our guides cover essential learnings and
+                timesaving tactics that make you more productive at Component-Driven Development
+                immediately. No filler.
+              </BannerText>
+            </div>
+
+            <video autoPlay muted playsInline loop>
+              <source
+                src="/learnstorybook-componentdrivendevelopment-optimized.mp4"
+                type="video/mp4"
+              />
+            </video>
+          </BannerContent>
+        </PageMargins>
+      </Banner>
+
+      <BottomSection>
         <CTALineBreak />
 
         <CTA
@@ -213,7 +281,7 @@ const Index = ({ data }) => {
             </GatsbyLink>
           }
         />
-      </FAQLayout>
+      </BottomSection>
     </>
   );
 };
