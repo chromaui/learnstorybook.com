@@ -36,7 +36,6 @@ const NavItem = styled.div`
   font-size: ${typography.size.s2}px;
   font-weight: ${typography.weight.bold};
   line-height: 19px;
-  color: ${props => props.isInverted ? color.lightest : color.darkest};
 
   ${props => props.showDesktop && `
     display: none;
@@ -50,6 +49,12 @@ const NavItem = styled.div`
       display: none;
     }
   `}
+`;
+
+const NavLink = styled(GatsbyLink)`
+  && {
+    color: ${props => (props.inverse ? color.lightest : color.darkest)};
+  }
 `;
 
 const NavGroup = styled.div`
@@ -146,6 +151,8 @@ const TooltipDetail = styled.div`
   line-height: 14px;
 `;
 
+const preventDefault = e => e.preventDefault();
+
 export default function Header({ guides, githubUrl, isInverted, ...props }) {
   const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
   return (
@@ -180,8 +187,16 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
                 </TooltipList>
               }
             >
-              Guides
+              <NavLink inverse={isInverted} tertiary onClick={preventDefault}>
+                Guides
+              </NavLink>
             </WithTooltip>
+          </NavItem>
+
+          <NavItem isInverted={isInverted} showDesktop>
+            <NavLink tertiary inverse={isInverted} to="/team">
+              Team
+            </NavLink>
           </NavItem>
 
           <NavItem isInverted={isInverted}>
