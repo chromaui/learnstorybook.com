@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { Avatar, styles } from '@storybook/design-system';
 import User from '../molecules/User';
 
-const { breakpoint, typography } = styles;
+const { spacing, typography } = styles;
+
+const smallBreakpoint = 440;
 
 const Section = styled.div`
   ${props =>
@@ -34,11 +36,21 @@ const GuidanceUsers = styled.div`
 `;
 
 const GuidanceUser = styled(User)`
-  ${props =>
-    props.withRightSpacing &&
-    `
-    margin-right: 60px;
-  `}
+  width: 100%;
+  margin-top: ${spacing.padding.medium}px;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  @media (min-width: ${smallBreakpoint}px) {
+    width: auto;
+    ${props =>
+      !props.isLast &&
+      `
+      margin-right: 60px;
+    `}
+  }
 `;
 
 const Logos = styled.div`
@@ -46,11 +58,11 @@ const Logos = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
+  margin-left: -10px;
   margin-bottom: -10px;
 
-  @media (min-width: 440px) {
-    justify-content: flex-start;
+  @media (min-width: ${smallBreakpoint}px) {
+    margin-left: 0;
     margin-bottom: 0;
   }
 `;
@@ -59,7 +71,7 @@ const LogoImage = styled.img`
   height: ${props => props.height};
   margin: 10px;
 
-  @media (min-width: 440px) {
+  @media (min-width: ${smallBreakpoint}px) {
     margin: 0;
     margin-right: 28px;
 
@@ -75,11 +87,6 @@ const CommunityAvatars = styled.div`
   margin-right: -10px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-
-  @media (min-width: ${breakpoint}px) {
-    justify-content: flex-start;
-  }
 `;
 
 const AvatarWrapper = styled(Avatar).attrs({ size: 'large' })`
@@ -132,12 +139,12 @@ const Community = () => {
 
         <GuidanceUsers>
           <GuidanceUser
-            withRightSpacing
             src="https://avatars2.githubusercontent.com/u/263385"
             name="Dominic Nguyen"
             detail="Storybook Design"
           />
           <GuidanceUser
+            isLast
             src="https://avatars2.githubusercontent.com/u/132554"
             name="Tom Coleman"
             detail="Storybook core"
