@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Avatar, styles } from '@storybook/design-system';
 import User from '../molecules/User';
 
-const { typography } = styles;
+const { breakpoint, typography } = styles;
 
 const Section = styled.div`
   ${props =>
@@ -60,6 +60,13 @@ const CommunityAvatars = styled.div`
   margin-top: 24px;
   margin-left: -10px;
   margin-right: -10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  @media (min-width: ${breakpoint}px) {
+    justify-content: flex-start;
+  }
 `;
 
 const AvatarWrapper = styled(Avatar).attrs({ size: 'large' })`
