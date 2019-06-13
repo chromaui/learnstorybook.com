@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   text-align: center;
   padding: 58px 0;
 
-  @media (min-width: ${breakpoint * 1}px) {
+  @media (min-width: ${breakpoint * 1.5}px) {
     text-align: left;
   }
 `;
@@ -22,7 +22,8 @@ const Text = styled.div`
   font-size: ${typography.size.m2}px;
   line-height: 28px;
   flex: 0 1 100%;
-  @media (min-width: ${breakpoint * 1}px) {
+
+  @media (min-width: ${breakpoint * 1.5}px) {
     flex: 1;
   }
 `;
@@ -35,7 +36,7 @@ const Action = styled.div`
     padding: 13px 60px;
   }
 
-  @media (min-width: ${breakpoint * 1}px) {
+  @media (min-width: ${breakpoint * 1.5}px) {
     flex: 0 0 auto;
     margin-top: 0;
     padding-left: 70px;

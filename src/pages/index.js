@@ -10,11 +10,12 @@ import GatsbyLink from '../components/atoms/GatsbyLink';
 import SiteStat from '../components/atoms/SiteStat';
 import CTA from '../components/molecules/CTA';
 import Guide from '../components/molecules/Guide';
+import SocialValidation from '../components/organisms/SocialValidation';
 
 const { background, color, typography, spacing, pageMargins, pageMargin, breakpoint } = styles;
 
 // The background image only loads on the first render. Passing the time forces it to update.
-const Background = styled.div`
+const DotBackground = styled.div`
   background: url('bg-dots.svg?t=${props => props.time}');
   background-repeat: repeat-x;
   background-position-y: 80px;
@@ -108,6 +109,22 @@ const SiteStatWrapper = styled.div`
   }
 `;
 
+const AndCountingImage = styled.img.attrs({ src: '/lsb-andcounting.svg' })`
+  position: absolute;
+  top: 0;
+  left: ${props => (props.withMultipleGuides ? 120 : 108)}px;
+
+  @media (min-width: ${breakpoint * 1.25}px) {
+    width: 90px;
+    top: 5px;
+  }
+
+  @media (min-width: ${breakpoint * 1.75}px) {
+    width: auto;
+    top: 0;
+  }
+`;
+
 const Banner = styled.div`
   background: ${background.app};
   border-top: 1px solid ${color.medium};
@@ -149,6 +166,10 @@ const BannerText = styled.div`
   letter-spacing: -0.33px;
   line-height: 26px;
   margin-top: 8px;
+`;
+
+const SocialValidationWrapper = styled(SocialValidation)`
+  margin-top: 80px;
 `;
 
 const BottomSection = styled.div`
@@ -194,7 +215,7 @@ const Index = ({ data }) => {
 
   return (
     <>
-      <Background time={Date.now()}>
+      <DotBackground time={Date.now()}>
         <Pitch>
           <IconLearnStorybook />
 
@@ -227,6 +248,8 @@ const Index = ({ data }) => {
                 heading={pluralize('guide', data.guides.edges.length, true)}
                 message="Professional walkthroughs made for frontend devs. Updated all the time."
               />
+
+              <AndCountingImage withMultipleGuides={data.guides.edges.length > 1} />
             </SiteStatWrapper>
 
             <SiteStatWrapper>
@@ -244,7 +267,7 @@ const Index = ({ data }) => {
             </SiteStatWrapper>
           </SiteStats>
         </PageMargins>
-      </Background>
+      </DotBackground>
 
       <Banner>
         <PageMargins>
@@ -269,6 +292,8 @@ const Index = ({ data }) => {
           </BannerContent>
         </PageMargins>
       </Banner>
+
+      <SocialValidationWrapper />
 
       <BottomSection>
         <CTALineBreak />
