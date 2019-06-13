@@ -50,7 +50,7 @@ const FooterBlock = styled.div`
 `;
 
 const FooterGuideBlock = styled(FooterBlock)`
-  min-width: 210px;
+  min-width: 158px;
 `;
 
 const FooterLogoBlock = styled.div`
@@ -59,6 +59,8 @@ const FooterLogoBlock = styled.div`
 
 const FooterBlockContent = styled.div`
   margin-top: 14px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const FooterBlockLink = styled(GatsbyLink)`
@@ -125,6 +127,20 @@ const Footer = ({ guides, ...props }) => (
               {guideNode.frontmatter.title}
             </FooterBlockLink>
           ))}
+        </FooterBlockContent>
+      </FooterGuideBlock>
+
+      <FooterGuideBlock>
+        <SubheadingWrapper>About</SubheadingWrapper>
+
+        <FooterBlockContent>
+          <FooterBlockLink tertiary to="/team">
+            Team
+          </FooterBlockLink>
+
+          <FooterBlockLink as={Link} href="mailto:friends@hichroma.com" tertiary>
+            Contact us
+          </FooterBlockLink>
         </FooterBlockContent>
       </FooterGuideBlock>
 
