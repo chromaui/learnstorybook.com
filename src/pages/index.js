@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { graphql } from 'gatsby';
 import { Button, styles } from '@storybook/design-system';
 import IconLearnStorybook from '../components/atoms/IconLearnStorybook';
 import GatsbyLink from '../components/atoms/GatsbyLink';
@@ -9,8 +10,9 @@ import Guide from '../components/molecules/Guide';
 
 const { color, typography, spacing, pageMargins, pageMargin, breakpoint } = styles;
 
+// The background image only loads on the first render. Passing the time forces it to update.
 const Background = styled.div`
-  background: url(bg-dots.svg);
+  background: url('bg-dots.svg?t=${props => props.time}');
   background-repeat: repeat-x;
   background-position-y: 80px;
 `;
@@ -18,9 +20,9 @@ const Background = styled.div`
 const Pitch = styled.div`
   text-align: center;
   max-width: 608px;
-  margin: 145px auto 64px;
+  margin: 0 auto;
   text-align: center;
-  padding: 0 20px;
+  padding: 145px 20px 64px;
 `;
 
 const PitchTitle = styled.h1`
@@ -115,7 +117,7 @@ const Index = ({ data }) => {
 
   return (
     <>
-      <Background>
+      <Background time={Date.now()}>
         <Pitch>
           <IconLearnStorybook />
 
