@@ -26,6 +26,8 @@ yarn add react-redux redux
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
 
 ```javascript
+// src/lib/redux.js
+
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -80,6 +82,8 @@ export default createStore(reducer, { tasks: defaultTasks });
 Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -118,6 +122,8 @@ At this stage our Storybook tests will have stopped working, as the `TaskList` i
 However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component-- in our Storybook stories:
 
 ```javascript
+// src/components/TaskList.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -156,6 +162,8 @@ storiesOf('TaskList', module)
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
+// src/components/TaskList.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { PureTaskList } from './TaskList';

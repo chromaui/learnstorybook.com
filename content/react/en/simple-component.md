@@ -29,6 +29,8 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -45,6 +47,8 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
+// src/components/Task.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -97,6 +101,8 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA for automated tests.
 
 ```javascript
+// .storybook/config.js
+
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
@@ -125,6 +131,8 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -169,6 +177,8 @@ The additional markup from above combined with the CSS we imported earlier yield
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -220,6 +230,8 @@ yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.m
 Then create an `src/storybook.test.js` file with the following in it:
 
 ```javascript
+// src/storybook.test.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
@@ -227,6 +239,8 @@ initStoryshots();
 You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Update `.storybook/config.js` to have:
 
 ```js
+// .storybook/config.js
+
 import { configure } from '@storybook/react';
 import requireContext from 'require-context.macro';
 
