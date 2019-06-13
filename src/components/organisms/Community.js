@@ -118,9 +118,9 @@ const Community = () => {
             detail="Storybook Design"
           />
           <GuidanceUser
-            src="https://avatars2.githubusercontent.com/u/263385"
-            name="Dominic Nguyen"
-            detail="Storybook Design"
+            src="https://avatars2.githubusercontent.com/u/132554"
+            name="Tom Coleman"
+            detail="Storybook core"
           />
         </GuidanceUsers>
 
