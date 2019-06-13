@@ -248,6 +248,66 @@ const Index = ({ data }) => {
                 />
               </GatsbyLink>
             ))}
+
+            {data.guides.edges.map(({ node: guideNode }) => (
+              <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+                <Guide
+                  chapterCount={chapterCountByGuide[guideNode.fields.guide]}
+                  description={guideNode.frontmatter.description}
+                  imagePath={guideNode.frontmatter.imagePath}
+                  themeColor="green"
+                  title={guideNode.frontmatter.title}
+                />
+              </GatsbyLink>
+            ))}
+
+            {data.guides.edges.map(({ node: guideNode }) => (
+              <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+                <Guide
+                  chapterCount={chapterCountByGuide[guideNode.fields.guide]}
+                  description={guideNode.frontmatter.description}
+                  imagePath={guideNode.frontmatter.imagePath}
+                  themeColor="secondary"
+                  title={guideNode.frontmatter.title}
+                />
+              </GatsbyLink>
+            ))}
+
+            {data.guides.edges.map(({ node: guideNode }) => (
+              <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+                <Guide
+                  chapterCount={chapterCountByGuide[guideNode.fields.guide]}
+                  description={guideNode.frontmatter.description}
+                  imagePath={guideNode.frontmatter.imagePath}
+                  themeColor="seafoam"
+                  title={guideNode.frontmatter.title}
+                />
+              </GatsbyLink>
+            ))}
+
+            {data.guides.edges.map(({ node: guideNode }) => (
+              <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+                <Guide
+                  chapterCount={chapterCountByGuide[guideNode.fields.guide]}
+                  description={guideNode.frontmatter.description}
+                  imagePath={guideNode.frontmatter.imagePath}
+                  themeColor="primary"
+                  title={guideNode.frontmatter.title}
+                />
+              </GatsbyLink>
+            ))}
+
+            {data.guides.edges.map(({ node: guideNode }) => (
+              <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+                <Guide
+                  chapterCount={chapterCountByGuide[guideNode.fields.guide]}
+                  description={guideNode.frontmatter.description}
+                  imagePath={guideNode.frontmatter.imagePath}
+                  themeColor="gold"
+                  title={guideNode.frontmatter.title}
+                />
+              </GatsbyLink>
+            ))}
           </Guides>
 
           <SiteStats>
