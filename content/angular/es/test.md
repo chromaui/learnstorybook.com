@@ -144,7 +144,7 @@ Dado que las aplicaciones modernas se construyen a partir de componentes, es imp
 
 ## Fusionando cambios
 
-Cuando hayamos terminado de revisar los cambios, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `papayawhip` entonces acepta los cambios, si no, vuelve al estado anterior.
+Cuando hayamos terminado de revisar los cambios, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `red` entonces acepta los cambios, si no, vuelve al estado anterior.
 
 ![Changes ready to be merged](/chromatic-review-finished.png)
 

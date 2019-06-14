@@ -145,7 +145,7 @@ configure(loadStories, module);
 
 ## 合并更改
 
-当我们完成审核后,我们已准备好自信地合并 UI 更改 - 知道更新不会意外地引入错误. 如果你喜欢新的`papayawhip`背景色,然后接受更改,如果不需要恢复到以前的状态.
+当我们完成审核后,我们已准备好自信地合并 UI 更改 - 知道更新不会意外地引入错误. 如果你喜欢新的`red`背景色,然后接受更改,如果不需要恢复到以前的状态.
 
 ![Changes ready to be merged](/chromatic-review-finished.png)
 
