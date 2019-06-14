@@ -6,7 +6,7 @@
 /vue/* /intro-to-storybook/vue/:splat 301
 
 # Before frameworks and translations were added, chapters sat at the root
-/getting-started /react/en/getting-started 301
+/get-started /react/en/get-started 301
 /simple-component /react/en/simple-component 301
 /composite-component /react/en/composite-component 301
 /data /react/en/data 301
