@@ -176,11 +176,11 @@ const Chapter = ({
     site: {
       siteMetadata: { githubUrl, codeGithubUrl },
     },
-    pages,
+    tocPages,
   },
   languageMenu,
 }) => {
-  const entries = tocEntries(toc, pages);
+  const entries = tocEntries(toc, tocPages);
   const nextEntry = entries[toc.indexOf(chapter) + 1];
   const githubFileUrl = `${githubUrl}/blob/master/content${slug.replace(/\/$/, '')}.md`;
 
@@ -277,7 +277,7 @@ export const chapterDataPropTypes = {
         languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
       }).isRequired,
     }).isRequired,
-    pages: PropTypes.shape({
+    tocPages: PropTypes.shape({
       edges: PropTypes.arrayOf(
         PropTypes.shape({
           node: PropTypes.shape({
@@ -288,6 +288,25 @@ export const chapterDataPropTypes = {
             }).isRequired,
             fields: PropTypes.shape({
               slug: PropTypes.string.isRequired,
+              framework: PropTypes.string,
+              chapter: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }),
+    translationPages: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            frontmatter: PropTypes.shape({
+              tocTitle: PropTypes.string,
+              title: PropTypes.string,
+              description: PropTypes.string,
+            }).isRequired,
+            fields: PropTypes.shape({
+              slug: PropTypes.string.isRequired,
+              framework: PropTypes.string,
               chapter: PropTypes.string.isRequired,
             }).isRequired,
           }).isRequired,
@@ -361,6 +380,7 @@ export const chapterOtherPagesFragment = graphql`
     }
     fields {
       slug
+      framework
       chapter
     }
   }

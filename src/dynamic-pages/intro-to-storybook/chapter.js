@@ -6,6 +6,27 @@ import LanguageMenu from '../../components/molecules/LanguageMenu';
 import Chapter, { chapterDataPropTypes } from '../../templates/chapter';
 import getLanguageName from '../../lib/getLanguageName';
 
+const getChapterInOtherLanguage = (
+  framework,
+  language,
+  guide,
+  currentChapter,
+  firstChapter,
+  translationPages
+) => {
+  const expectedSlug = `/${guide}/${framework}/${language}/${currentChapter}/`;
+  const chapterInOtherLanguage = translationPages.edges.find(
+    ({ node: { fields } }) =>
+      fields.slug === `/${guide}/${framework}/${language}/${currentChapter}/`
+  );
+
+  if (chapterInOtherLanguage) {
+    return expectedSlug;
+  }
+
+  return `/${guide}/${framework}/${language}/${firstChapter}/`;
+};
+
 const VisualTestingHandbookChapter = ({ data }) => {
   const {
     currentPage: {
@@ -14,9 +35,11 @@ const VisualTestingHandbookChapter = ({ data }) => {
     },
     currentGuide,
     site: { siteMetadata },
+    translationPages,
   } = data;
   const otherLanguages = currentGuide.frontmatter.languages.filter(l => l !== language);
   const firstChapter = currentGuide.frontmatter.toc[0];
+  const sharedLinkArgs = [guide, chapter, firstChapter, translationPages];
 
   return (
     <>
@@ -46,11 +69,21 @@ const VisualTestingHandbookChapter = ({ data }) => {
                   <div>
                     <Title>React</Title>
                     <Detail>
-                      <Link to={`/${guide}/react/en/${firstChapter}/`}>English</Link>
-                      <Link to={`/${guide}/react/es/${firstChapter}/`}>Español</Link>
-                      <Link to={`/${guide}/react/zh-CN/${firstChapter}/`}>简体中文</Link>
-                      <Link to={`/${guide}/react/zh-TW/${firstChapter}/`}>繁體中文</Link>
-                      <Link to={`/${guide}/react/pt/${firstChapter}/`}>Português</Link>
+                      <Link to={getChapterInOtherLanguage('react', 'en', ...sharedLinkArgs)}>
+                        English
+                      </Link>
+                      <Link to={getChapterInOtherLanguage('react', 'es', ...sharedLinkArgs)}>
+                        Español
+                      </Link>
+                      <Link to={getChapterInOtherLanguage('react', 'zh-CN', ...sharedLinkArgs)}>
+                        简体中文
+                      </Link>
+                      <Link to={getChapterInOtherLanguage('react', 'zh-TW', ...sharedLinkArgs)}>
+                        繁體中文
+                      </Link>
+                      <Link to={getChapterInOtherLanguage('react', 'pt', ...sharedLinkArgs)}>
+                        Português
+                      </Link>
                     </Detail>
                   </div>
                 </Item>
@@ -60,9 +93,15 @@ const VisualTestingHandbookChapter = ({ data }) => {
                   <div>
                     <Title>Angular</Title>
                     <Detail>
-                      <Link to={`/${guide}/angular/en/${firstChapter}/`}>English</Link>
-                      <Link to={`/${guide}/angular/es/${firstChapter}/`}>Español</Link>
-                      <Link to={`/${guide}/angular/pt/${firstChapter}/`}>Português</Link>
+                      <Link to={getChapterInOtherLanguage('angular', 'en', ...sharedLinkArgs)}>
+                        English
+                      </Link>
+                      <Link to={getChapterInOtherLanguage('angular', 'es', ...sharedLinkArgs)}>
+                        Español
+                      </Link>
+                      <Link to={getChapterInOtherLanguage('angular', 'pt', ...sharedLinkArgs)}>
+                        Português
+                      </Link>
                     </Detail>
                   </div>
                 </Item>
@@ -71,8 +110,12 @@ const VisualTestingHandbookChapter = ({ data }) => {
                   <div>
                     <Title>Vue</Title>
                     <Detail>
-                      <Link to={`/${guide}/vue/en/${firstChapter}/`}>English</Link>
-                      <Link to={`/${guide}/vue/pt/${firstChapter}/`}>Português</Link>
+                      <Link to={getChapterInOtherLanguage('vue', 'en', ...sharedLinkArgs)}>
+                        English
+                      </Link>
+                      <Link to={getChapterInOtherLanguage('vue', 'pt', ...sharedLinkArgs)}>
+                        Português
+                      </Link>
                     </Detail>
                   </div>
                 </Item>
@@ -102,7 +145,7 @@ export const query = graphql`
     site {
       ...ChapterSiteMetadataFragment
     }
-    pages: allMarkdownRemark(
+    tocPages: allMarkdownRemark(
       filter: {
         fields: {
           framework: { eq: $framework }
@@ -111,6 +154,15 @@ export const query = graphql`
           pageType: { eq: "chapter" }
         }
       }
+    ) {
+      edges {
+        node {
+          ...ChapterOtherPagesFragment
+        }
+      }
+    }
+    translationPages: allMarkdownRemark(
+      filter: { fields: { guide: { eq: $guide }, pageType: { eq: "chapter" } } }
     ) {
       edges {
         node {
