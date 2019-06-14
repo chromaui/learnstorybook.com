@@ -32,7 +32,7 @@ const props = {
         title: 'Learn Storybook',
       },
     },
-    pages: {
+    tocPages: {
       edges: [
         {
           node: {
