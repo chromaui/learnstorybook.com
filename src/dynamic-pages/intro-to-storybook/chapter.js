@@ -62,11 +62,11 @@ const VisualTestingHandbookChapter = ({ data }) => {
         languageMenu={
           <LanguageMenu
             buttonContent={`${startCase(framework)} - ${getLanguageName(language)}`}
-            renderItems={({ Item, Title, Image, Detail, Link }) => (
+            renderItems={({ Item, ItemContent, Title, Image, Detail, Link }) => (
               <>
                 <Item>
                   <Image src="/logo-react.svg" alt="React" />
-                  <div>
+                  <ItemContent>
                     <Title>React</Title>
                     <Detail>
                       <Link to={getChapterInOtherLanguage('react', 'en', ...sharedLinkArgs)}>
@@ -85,12 +85,12 @@ const VisualTestingHandbookChapter = ({ data }) => {
                         Português
                       </Link>
                     </Detail>
-                  </div>
+                  </ItemContent>
                 </Item>
 
                 <Item>
                   <Image src="/logo-angular.svg" alt="Angular" />
-                  <div>
+                  <ItemContent>
                     <Title>Angular</Title>
                     <Detail>
                       <Link to={getChapterInOtherLanguage('angular', 'en', ...sharedLinkArgs)}>
@@ -103,11 +103,11 @@ const VisualTestingHandbookChapter = ({ data }) => {
                         Português
                       </Link>
                     </Detail>
-                  </div>
+                  </ItemContent>
                 </Item>
                 <Item>
                   <Image src="/logo-vue.svg" alt="Vue" />
-                  <div>
+                  <ItemContent>
                     <Title>Vue</Title>
                     <Detail>
                       <Link to={getChapterInOtherLanguage('vue', 'en', ...sharedLinkArgs)}>
@@ -117,7 +117,7 @@ const VisualTestingHandbookChapter = ({ data }) => {
                         Português
                       </Link>
                     </Detail>
-                  </div>
+                  </ItemContent>
                 </Item>
               </>
             )}

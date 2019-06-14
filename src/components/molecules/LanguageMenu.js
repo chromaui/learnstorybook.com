@@ -21,6 +21,10 @@ const Item = styled.div`
   }
 `;
 
+const ItemContent = styled.div`
+  flex: 1;
+`;
+
 const Image = styled.img`
   width: 1rem;
   height: 1rem;
@@ -66,7 +70,9 @@ const LanguageMenu = ({ buttonContent, renderItems }) => (
     placement="bottom"
     trigger="click"
     closeOnClick
-    tooltip={<TooltipList>{renderItems({ Item, Title, Image, Detail, Link })}</TooltipList>}
+    tooltip={
+      <TooltipList>{renderItems({ Item, ItemContent, Title, Image, Detail, Link })}</TooltipList>
+    }
   >
     <Button appearance="outline" size="small">
       <ButtonContent>
