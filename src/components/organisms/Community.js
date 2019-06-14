@@ -45,6 +45,8 @@ const GuidanceUser = styled(User)`
 
   @media (min-width: ${smallBreakpoint}px) {
     width: auto;
+    margin-top: 0;
+
     ${props =>
       !props.isLast &&
       `
