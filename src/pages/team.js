@@ -5,7 +5,7 @@ import BoxLink from '../components/atoms/BoxLink';
 import ShadowBox from '../components/atoms/ShadowBox';
 import User from '../components/molecules/User';
 
-const { color, spacing, typography } = styles;
+const { breakpoint, color, spacing, typography } = styles;
 
 const TeamWrapper = styled.div`
   max-width: 608px;
@@ -49,6 +49,7 @@ const EditorAvatar = styled(Avatar)`
   height: 80px;
   width: 80px;
   line-height: 80px;
+  min-width: 80px;
   margin-right: ${spacing.padding.large}px;
 `;
 
@@ -71,10 +72,18 @@ const ContributorsList = styled.div`
 `;
 
 const Contributor = styled.div`
-  flex: 0 0 50%;
+  flex: 0 0 100%;
 
-  &:nth-child(n + 3) {
+  &:nth-child(n + 2) {
     margin-top: ${spacing.padding.medium}px;
+  }
+
+  @media (min-width: 440px) {
+    flex: 0 0 50%;
+
+    &:nth-child(n + 3) {
+      margin-top: ${spacing.padding.medium}px;
+    }
   }
 `;
 
@@ -85,6 +94,8 @@ const ContributorUser = styled(User)`
     height: 48px;
     width: 48px;
     line-height: 48px;
+    min-width: 48px;
+    align-self: flex-start;
   }
 `;
 
@@ -114,18 +125,36 @@ const Sponsors = styled.div`
 
 const SponsorBoxLink = styled(BoxLink)`
   && {
+    height: 120px;
     width: calc(33% - 10px);
     margin-right: ${spacing.padding.medium}px;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 180px;
     font-weight: ${typography.weight.bold};
     font-size: ${typography.size.s2}px;
 
     &:last-of-type {
       margin-right: 0;
     }
+
+    img {
+      max-width: 76%;
+    }
+
+    @media (min-width: ${breakpoint}px) {
+      height: 180px;
+      max-width: none;
+
+      img {
+        max-width: initial;
+      }
+    }
+  }
+
+  span {
+    display: flex;
+    justify-content: center;
   }
 `;
 
@@ -259,8 +288,10 @@ const Team = () => (
             <img alt="InVision" src="/logo-invision.svg" />
           </SponsorBoxLink>
 
-          <SponsorBoxLink>
-            <Link href="#">Sponsor us</Link>
+          <SponsorBoxLink to="#">
+            <Link as="span" href="#">
+              Sponsor us
+            </Link>
           </SponsorBoxLink>
         </Sponsors>
       </Section>
