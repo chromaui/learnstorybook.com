@@ -101,16 +101,29 @@ const ContributorUser = styled(User)`
 
 const ChromaShadowBox = styled(ShadowBox)`
   margin-top: 24px;
-  padding: 40px;
+  padding: 20px;
   display: flex;
 
   a {
-    margin-right: 24px;
+    margin-right: 16px;
   }
 
   img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
+  }
+
+  @media (min-width: ${breakpoint}px) {
+    padding: 40px;
+
+    a {
+      margin-right: 24px;
+    }
+
+    img {
+      width: 60px;
+      height: 60px;
+    }
   }
 `;
 
