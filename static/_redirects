@@ -1,0 +1,6 @@
+# See https://www.netlify.com/docs/redirects/
+
+# The old intro guide paths were not namespaced
+/react/* /intro-to-storybook/react/:splat 301
+/angular/* /intro-to-storybook/angular/:splat 301
+/vue/* /intro-to-storybook/vue/:splat 301
