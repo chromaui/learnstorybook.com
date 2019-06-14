@@ -8,7 +8,7 @@ const BlueBackground = styled.div`
   background-image: linear-gradient(14deg, #26c6db 0%, #2694db 100%);
 `;
 
-storiesOf('Atoms|Logo', module)
+storiesOf('Basics|Logo', module)
   .add('default', () => <Logo />)
   .add('inverted', () => (
     <BlueBackground>

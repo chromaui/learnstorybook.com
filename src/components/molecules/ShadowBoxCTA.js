@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
-import ShadowBox from '../atoms/ShadowBox';
+import ShadowBox from '../basics/ShadowBox';
 
 const { breakpoint, spacing, typography } = styles;
 

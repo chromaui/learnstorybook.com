@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import pluralize from 'pluralize';
 import { styles, Subheading } from '@storybook/design-system';
 import { graphql } from 'gatsby';
-import BoxLink from '../components/atoms/BoxLink';
+import BoxLink from '../components/basics/BoxLink';
 import User from '../components/molecules/User';
 import GuideHero from '../components/organisms/GuideHero';
 import { guideFormatting } from '../styles/formatting';

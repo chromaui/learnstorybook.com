@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, styles } from '@storybook/design-system';
-import GatsbyLink from '../atoms/GatsbyLink';
-import Stat from '../atoms/Stat';
+import GatsbyLink from '../basics/GatsbyLink';
+import Stat from '../basics/Stat';
 import getLanguageName from '../../lib/getLanguageName';
 
 const { breakpoint, color, pageMargins, spacing, typography } = styles;

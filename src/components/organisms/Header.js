@@ -12,8 +12,8 @@ import {
   TooltipLinkList,
   WithTooltip,
 } from '@storybook/design-system';
-import GatsbyLink from '../atoms/GatsbyLink';
-import Logo from '../atoms/Logo';
+import GatsbyLink from '../basics/GatsbyLink';
+import Logo from '../basics/Logo';
 
 const { color, spacing, pageMargins, breakpoint, typography } = styles;
 

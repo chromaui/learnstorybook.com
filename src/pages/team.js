@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar, Link, styles, Subheading } from '@storybook/design-system';
-import BoxLink from '../components/atoms/BoxLink';
-import ShadowBox from '../components/atoms/ShadowBox';
+import BoxLink from '../components/basics/BoxLink';
+import ShadowBox from '../components/basics/ShadowBox';
 import User from '../components/molecules/User';
 
 const { breakpoint, color, spacing, typography } = styles;

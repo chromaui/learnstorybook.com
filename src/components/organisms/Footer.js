@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link, styles, Subheading } from '@storybook/design-system';
-import GatsbyLink from '../atoms/GatsbyLink';
-import Logo from '../atoms/Logo';
-import LogoChroma from '../atoms/LogoChroma';
+import GatsbyLink from '../basics/GatsbyLink';
+import Logo from '../basics/Logo';
+import LogoChroma from '../basics/LogoChroma';
 import MailingListSignup from '../molecules/MailingListSignup';
 
 const { background, breakpoint, color, typography, pageMargins } = styles;
