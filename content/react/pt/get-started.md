@@ -63,7 +63,7 @@ A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
 
 Com isto o conteúdo do ficheiro LESS será compilado num único ficheiro CSS e incluido na aplicação.
 
-O CSS compilado encontra-se disponível [aqui](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) e pela convenção CRA(Create React App) será necessário copiar seu conteúdo para o seguinte ficheiro src/index.css.
+O CSS compilado encontra-se disponível [aqui](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) e pela convenção CRA(Create React App) será necessário copiar seu conteúdo para o seguinte ficheiro src/index.css.
 
 ![Interface Utilizador Taskbox](/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -73,6 +73,6 @@ O CSS compilado encontra-se disponível [aqui](https://github.com/hichroma/learn
 
 ## Adicionar recursos
 
-Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/hichroma/learnstorybook-code/tree/master/public) á pasta `public`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha. 
+Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/chromaui/learnstorybook-code/tree/master/public) á pasta `public`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha. 
 Mas isto é de esperar, visto que não iremos trabalhar na aplicação agora.
 Iremos então iniciar o desenvolvimento do nosso primeiro componente!

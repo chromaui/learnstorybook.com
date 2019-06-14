@@ -53,7 +53,7 @@ Visto que neste caso, o foco é a criação de um componente de interface de uti
 A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
 [Tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), como tal não será necessária a criação de CSS neste tutorial. 
 
-O CSS compilado encontra-se disponível [aqui](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) e deverá ser adicionado ao seguinte ficheiro `src/index.css` e em seguida importado para a aplicação através da edição do elemento `<style>` no ficheiro `src/App.vue`, de forma a que seja idêntico a:
+O CSS compilado encontra-se disponível [aqui](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) e deverá ser adicionado ao seguinte ficheiro `src/index.css` e em seguida importado para a aplicação através da edição do elemento `<style>` no ficheiro `src/App.vue`, de forma a que seja idêntico a:
 
 ```html
 <style>
@@ -69,7 +69,7 @@ O CSS compilado encontra-se disponível [aqui](https://github.com/hichroma/learn
 
 ## Adicionar recursos
 
-Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/hichroma/learnstorybook-code/tree/master/public) á pasta `public`.
+Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/chromaui/learnstorybook-code/tree/master/public) á pasta `public`.
 
 O script para executar o storybook (que se encontra no ficheiro `package.json`) também terá que ser alterado, de forma a que a pasta `public` possa ser servida:
 

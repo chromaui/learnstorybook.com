@@ -7,7 +7,7 @@ description: "Put all your knowledge together and learn more Storybook technique
 
 Congratulations! You created your first UI in Storybook. Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following, your repo and deployed Storybook should look like this:
 
-[📕 **GitHub repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
+[📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
 [🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.com/)
 
