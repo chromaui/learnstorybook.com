@@ -187,7 +187,7 @@ const MobileMenu = styled.div`
 
 const TooltipLinkListLinkWrapper = ({ isExternal, to, ...rest }) => {
   if (isExternal) {
-    return <Link {...rest} href={to} />;
+    return <a {...rest} href={to} />;
   }
 
   return <GatsbyLinkWithoutEffects {...rest} to={to} />;
