@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import pluralize from 'pluralize';
@@ -53,43 +53,56 @@ const AndCountingImage = styled.img.attrs({ src: '/lsb-andcounting.svg' })`
   }
 `;
 
-const getGuideEditionCount = guidesEdges =>
-  guidesEdges.reduce((acc, guideEdge) => acc + guideEdge.node.frontmatter.editionCount, 0);
+const getGuideEditions = allEditionsChaptersEdges =>
+  allEditionsChaptersEdges.reduce((uniqueEditionsSet, chapterEdge) => {
+    const slugParts = chapterEdge.node.fields.slug.split('/').filter(part => !!part);
+    const slugPartsWithoutPage = slugParts.slice(0, -1);
+    const editionId = slugPartsWithoutPage.join('/');
 
-const SiteStats = ({ chapterCount, guidesEdges }) => (
-  <SiteStatsWrapper>
-    <SiteStatWrapper>
-      <SiteStat
-        heading={pluralize('guide', guidesEdges.length, true)}
-        message="Professional walkthroughs made for frontend devs. Updated all the time."
-      />
+    return uniqueEditionsSet.add(editionId);
+  }, new Set());
 
-      <AndCountingImage withMultipleGuides={guidesEdges.length > 1} />
-    </SiteStatWrapper>
+const SiteStats = ({ allEditionsChaptersEdges, chapterCount, guideCount }) => {
+  const uniqueEditionsSet = useMemo(() => getGuideEditions(allEditionsChaptersEdges), [
+    allEditionsChaptersEdges,
+  ]);
 
-    <SiteStatWrapper>
-      <SiteStat
-        heading={pluralize('chapter', chapterCount, true)}
-        message="With code snippets, sample repos, icons, and production assets."
-      />
-    </SiteStatWrapper>
+  return (
+    <SiteStatsWrapper>
+      <SiteStatWrapper>
+        <SiteStat
+          heading={pluralize('guide', guideCount, true)}
+          message="Professional walkthroughs made for frontend devs. Updated all the time."
+        />
 
-    <SiteStatWrapper>
-      <SiteStat
-        heading={pluralize('edition', getGuideEditionCount(guidesEdges), true)}
-        message="Support for React, Vue, and Angular. Translated into Spanish, Chinese, and more."
-      />
-    </SiteStatWrapper>
-  </SiteStatsWrapper>
-);
+        <AndCountingImage withMultipleGuides={guideCount > 1} />
+      </SiteStatWrapper>
+
+      <SiteStatWrapper>
+        <SiteStat
+          heading={pluralize('chapter', chapterCount, true)}
+          message="With code snippets, sample repos, icons, and production assets."
+        />
+      </SiteStatWrapper>
+
+      <SiteStatWrapper>
+        <SiteStat
+          heading={pluralize('edition', uniqueEditionsSet.size, true)}
+          message="Support for React, Vue, and Angular. Translated into Spanish, Chinese, and more."
+        />
+      </SiteStatWrapper>
+    </SiteStatsWrapper>
+  );
+};
 
 SiteStats.propTypes = {
   chapterCount: PropTypes.number.isRequired,
-  guidesEdges: PropTypes.arrayOf(
+  guideCount: PropTypes.number.isRequired,
+  allEditionsChaptersEdges: PropTypes.arrayOf(
     PropTypes.shape({
       node: PropTypes.shape({
-        frontmatter: PropTypes.shape({
-          editionCount: PropTypes.number.isRequired,
+        fields: PropTypes.shape({
+          slug: PropTypes.string.isRequired,
         }).isRequired,
       }).isRequired,
     }).isRequired

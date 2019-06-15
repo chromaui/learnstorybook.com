@@ -4,11 +4,26 @@ import SiteStats from './SiteStats';
 
 const props = {
   chapterCount: 5,
-  guidesEdges: [
+  guideCount: 9,
+  allEditionsChaptersEdges: [
     {
       node: {
-        frontmatter: {
-          editionCount: 10,
+        fields: {
+          slug: '/guide/edition/page',
+        },
+      },
+    },
+    {
+      node: {
+        fields: {
+          slug: '/guide/edition/page2',
+        },
+      },
+    },
+    {
+      node: {
+        fields: {
+          slug: '/guide/edition2/page',
         },
       },
     },

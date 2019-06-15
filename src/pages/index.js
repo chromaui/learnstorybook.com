@@ -12,7 +12,6 @@ export const query = graphql`
         node {
           frontmatter {
             description
-            editionCount
             imagePath
             themeColor
             title
@@ -31,6 +30,15 @@ export const query = graphql`
         node {
           fields {
             guide
+          }
+        }
+      }
+    }
+    allEditionsChapters: allMarkdownRemark(filter: { fields: { pageType: { eq: "chapter" } } }) {
+      edges {
+        node {
+          fields {
+            slug
           }
         }
       }

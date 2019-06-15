@@ -54,7 +54,11 @@ const IndexScreen = ({ data }) => (
     <DotBackground time={Date.now()}>
       <Pitch />
       <Guides chaptersEdges={data.chapters.edges} guidesEdges={data.guides.edges} />
-      <SiteStats chapterCount={data.chapters.edges.length} guidesEdges={data.guides.edges} />
+      <SiteStats
+        allEditionsChaptersEdges={data.allEditionsChapters.edges}
+        chapterCount={data.chapters.edges.length}
+        guideCount={data.guides.edges.length}
+      />
     </DotBackground>
 
     <WhatIsLSB />
@@ -80,10 +84,13 @@ const IndexScreen = ({ data }) => (
 
 IndexScreen.propTypes = {
   data: PropTypes.shape({
-    guides: PropTypes.shape({
+    allEditionsChapters: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
     }).isRequired,
     chapters: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
+    }).isRequired,
+    guides: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
     }).isRequired,
   }).isRequired,

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { styles } from '@storybook/design-system';
@@ -50,7 +50,7 @@ const getChapterCountByGuide = chaptersEdges =>
   }, {});
 
 const Guides = ({ chaptersEdges, guidesEdges }) => {
-  const chapterCountByGuide = getChapterCountByGuide(chaptersEdges);
+  const chapterCountByGuide = useMemo(() => getChapterCountByGuide(chaptersEdges), [chaptersEdges]);
 
   return (
     <GuidesWrapper>
