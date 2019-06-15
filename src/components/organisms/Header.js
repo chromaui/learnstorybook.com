@@ -107,7 +107,7 @@ const Nav = styled.div`
 `;
 
 const NavWrapper = styled.nav`
-  ${pageMargins};
+  ${pageMargins}
   position: absolute;
   left: 0;
   right: 0;
@@ -137,7 +137,7 @@ const TooltipList = styled.div`
   border-radius: 4px;
   overflow: hidden;
 
-  @media (min-width: ${breakpoint}px) {
+  @media (min-width: ${navBreakpoint}px) {
     width: 302px;
   }
 `;

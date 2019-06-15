@@ -7,7 +7,7 @@ import GatsbyLink from './GatsbyLink';
 const boxLinkStyles = `
   && {
     display: block;
-    background: #ffffff;
+    background: ${styles.color.lightest};
     border: 1px solid ${styles.color.medium};
     border-radius: 4px;
     transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
