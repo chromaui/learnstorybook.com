@@ -1,23 +1,17 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
-import pluralize from 'pluralize';
 import { Button, styles } from '@storybook/design-system';
 import SiteStats from './SiteStats';
-import IconLearnStorybook from '../../basics/IconLearnStorybook';
 import GatsbyLink from '../../basics/GatsbyLink';
-import SiteStat from '../../basics/SiteStat';
 import CTA from '../../molecules/CTA';
-import Guide from '../../molecules/Guide';
 import SocialValidation from '../../organisms/SocialValidation';
 import Community from '../../organisms/Community';
 import Guides from './Guides';
 import Pitch from './Pitch';
 import WhatIsLSB from './WhatIsLSB';
 
-const { background, color, typography, spacing, pageMargin, breakpoint } = styles;
+const { breakpoint, color, pageMargin } = styles;
 
 // The background image only loads on the first render. Passing the time forces it to update.
 const DotBackground = styled.div`
@@ -35,7 +29,7 @@ const SocialValidationWrapper = styled(SocialValidation)`
 `;
 
 const BottomSection = styled.div`
-  padding: 84px ${spacing.padding.medium}px 1rem;
+  padding: 84px 20px 1rem;
 
   @media (min-width: ${breakpoint * 1}px) {
     margin: 0 ${pageMargin * 3}%;
