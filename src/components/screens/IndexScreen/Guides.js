@@ -36,6 +36,12 @@ const Content = styled.div`
   }
 `;
 
+const GuideLink = styled(GatsbyLink)`
+  &&:hover {
+    transform: translateY(-3px);
+  }
+`;
+
 const getChapterCountByGuide = chaptersEdges =>
   chaptersEdges.reduce((acc, { node: { fields: { guide } } }) => {
     const chapterCountByGuide = { ...acc };
@@ -56,7 +62,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
     <GuidesWrapper>
       <Content>
         {guidesEdges.map(({ node: guideNode }) => (
-          <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
@@ -64,11 +70,11 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               themeColor={guideNode.frontmatter.themeColor}
               title={guideNode.frontmatter.title}
             />
-          </GatsbyLink>
+          </GuideLink>
         ))}
 
         {guidesEdges.map(({ node: guideNode }) => (
-          <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
@@ -76,11 +82,11 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               themeColor="#66BF3C"
               title={guideNode.frontmatter.title}
             />
-          </GatsbyLink>
+          </GuideLink>
         ))}
 
         {guidesEdges.map(({ node: guideNode }) => (
-          <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
@@ -88,11 +94,11 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               themeColor="#1EA7FD"
               title={guideNode.frontmatter.title}
             />
-          </GatsbyLink>
+          </GuideLink>
         ))}
 
         {guidesEdges.map(({ node: guideNode }) => (
-          <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
@@ -100,11 +106,11 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               themeColor="#37D5D3"
               title={guideNode.frontmatter.title}
             />
-          </GatsbyLink>
+          </GuideLink>
         ))}
 
         {guidesEdges.map(({ node: guideNode }) => (
-          <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
@@ -112,11 +118,11 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               themeColor="#FF4785"
               title={guideNode.frontmatter.title}
             />
-          </GatsbyLink>
+          </GuideLink>
         ))}
 
         {guidesEdges.map(({ node: guideNode }) => (
-          <GatsbyLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
@@ -124,7 +130,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               themeColor="#FFAE00"
               title={guideNode.frontmatter.title}
             />
-          </GatsbyLink>
+          </GuideLink>
         ))}
       </Content>
     </GuidesWrapper>
