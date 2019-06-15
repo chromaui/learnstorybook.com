@@ -6,6 +6,6 @@ const languageNameMap = {
   pt: 'Português',
 };
 
-const getLanguageName = language => languageNameMap[language];
+const getLanguageName = language => languageNameMap[language] || language;
 
 export default getLanguageName;
