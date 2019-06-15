@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Index from '../pages/index';
+import IndexScreen from './index';
 
 const props = {
   data: {
@@ -44,4 +44,4 @@ const props = {
   },
 };
 
-storiesOf('Pages|Index', module).add('default', () => <Index {...props} />);
+storiesOf('Screens|IndexScreen/index', module).add('default', () => <IndexScreen {...props} />);
