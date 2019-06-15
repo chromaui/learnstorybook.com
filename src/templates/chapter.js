@@ -243,7 +243,7 @@ const Chapter = ({
         )}
 
         <GithubLinkWrapper>
-          <GithubLink tertiary href={githubFileUrl} target="_blank">
+          <GithubLink tertiary href={githubFileUrl} target="_blank" rel="noopener">
             <span role="img" aria-label="write">
               ✍️
             </span>{' '}

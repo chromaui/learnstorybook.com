@@ -27,7 +27,7 @@ const InternalBoxLink = styled(GatsbyLink)`
   ${boxLinkStyles}
 `;
 
-const ExternalBoxLink = styled(Link).attrs({ target: '_blank' })`
+const ExternalBoxLink = styled(Link).attrs({ target: '_blank', rel: 'noopener' })`
   ${boxLinkStyles}
 `;
 

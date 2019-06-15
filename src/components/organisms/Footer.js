@@ -108,7 +108,7 @@ const Footer = ({ guides, ...props }) => (
         </FooterLogoBlock>
 
         <FooterLogoBlock>
-          <Link target="_blank" href="https://hichroma.com/">
+          <Link target="_blank" rel="noopener" href="https://hichroma.com/">
             <LogoChromaWrapper />
           </Link>
 

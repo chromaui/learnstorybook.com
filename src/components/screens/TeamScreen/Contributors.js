@@ -42,7 +42,7 @@ const ContributorUser = styled(User)`
   }
 `;
 
-const TwitterLink = props => <Link target="_blank" tertiary {...props} />;
+const TwitterLink = props => <Link target="_blank" rel="noopener" tertiary {...props} />;
 
 const contributors = [
   {

@@ -43,7 +43,7 @@ const MadeByChroma = () => (
     <Subheading>Made by</Subheading>
 
     <ChromaShadowBox>
-      <Link target="_blank" href="https://hichroma.com/">
+      <Link target="_blank" rel="noopener" href="https://hichroma.com/">
         <img alt="Chroma, the Storybook company" src="/icon-chroma.svg" />
       </Link>
 

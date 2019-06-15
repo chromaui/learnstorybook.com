@@ -242,6 +242,7 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
               title: 'Storybook',
               href: 'https://storybook.js.org/',
               target: '_blank',
+              rel: 'noopener',
               isExternal: true,
             },
           ]}
@@ -284,6 +285,7 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
               inverse={isInverted}
               href="https://storybook.js.org/"
               target="_blank"
+              rel="noopener"
             >
               Storybook
             </NavTextLink>

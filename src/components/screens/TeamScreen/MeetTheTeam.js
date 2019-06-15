@@ -52,7 +52,7 @@ const MeetTheTeam = () => (
         <div>
           <EditorName>Dominic Nguyen</EditorName>
 
-          <Link secondary target="_blank" href="https://twitter.com/domyen">
+          <Link secondary target="_blank" rel="noopener" href="https://twitter.com/domyen">
             @domyen
           </Link>
         </div>
@@ -72,7 +72,7 @@ const MeetTheTeam = () => (
         <div>
           <EditorName>Tom Coleman</EditorName>
 
-          <Link secondary target="_blank" href="https://twitter.com/tmeasday">
+          <Link secondary target="_blank" rel="noopener" href="https://twitter.com/tmeasday">
             @tmeasday
           </Link>
         </div>
