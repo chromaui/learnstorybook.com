@@ -4,6 +4,24 @@ import IndexScreen from './index';
 
 const props = {
   data: {
+    allEditionsChapters: {
+      edges: [
+        {
+          node: {
+            fields: {
+              slug: '/guide',
+            },
+          },
+        },
+        {
+          node: {
+            fields: {
+              slug: '/en/guide',
+            },
+          },
+        },
+      ],
+    },
     guides: {
       edges: [
         {
