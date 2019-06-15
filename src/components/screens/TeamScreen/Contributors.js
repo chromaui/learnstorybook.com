@@ -24,6 +24,10 @@ const Contributor = styled.div`
   @media (min-width: 440px) {
     flex: 0 0 50%;
 
+    &:nth-child(n + 2) {
+      margin-top: 0;
+    }
+
     &:nth-child(n + 3) {
       margin-top: 20px;
     }
@@ -46,34 +50,36 @@ const TwitterLink = props => <Link target="_blank" rel="noopener" tertiary {...p
 
 const contributors = [
   {
-    src: 'https://avatars2.githubusercontent.com/u/263385',
-    name: 'Dominic Nguyen',
-    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+    src: 'https://avatars2.githubusercontent.com/u/14339707',
+    name: 'Calaway',
+    detail: <TwitterLink href="https://github.com/calaway">@calaway</TwitterLink>,
   },
   {
-    src: 'https://avatars2.githubusercontent.com/u/263386',
-    name: 'Dominic Nguyen',
-    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+    src: 'https://avatars2.githubusercontent.com/u/5649014',
+    name: 'Carlos Sz',
+    detail: <TwitterLink href="https://github.com/icarlossz">@icarlossz</TwitterLink>,
   },
   {
-    src: 'https://avatars2.githubusercontent.com/u/263387',
-    name: 'Dominic Nguyen',
-    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+    src: 'https://avatars2.githubusercontent.com/u/9523719',
+    name: 'Kyle Holmberg',
+    detail: <TwitterLink href="https://github.com/kylemh">@kylemh</TwitterLink>,
   },
   {
-    src: 'https://avatars2.githubusercontent.com/u/263388',
-    name: 'Dominic Nguyen',
-    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+    src: 'https://avatars2.githubusercontent.com/u/1593752',
+    name: 'Carlos Vega',
+    detail: <TwitterLink href="https://github.com/alterx">@alterx</TwitterLink>,
   },
   {
-    src: 'https://avatars2.githubusercontent.com/u/263389',
-    name: 'Dominic Nguyen',
-    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+    src: 'https://avatars2.githubusercontent.com/u/1475656',
+    name: 'Luciano Guasco',
+    detail: <TwitterLink href="https://github.com/luchux">@luchux</TwitterLink>,
   },
   {
-    src: 'https://avatars2.githubusercontent.com/u/263390',
-    name: 'Dominic Nguyen',
-    detail: <TwitterLink href="https://twitter.com/domyen">@domyen</TwitterLink>,
+    src: 'https://avatars2.githubusercontent.com/u/480640',
+    name: 'Alejandro Iglesias',
+    detail: (
+      <TwitterLink href="https://github.com/alejandroiglesias">@alejandroiglesias</TwitterLink>
+    ),
   },
 ];
 
