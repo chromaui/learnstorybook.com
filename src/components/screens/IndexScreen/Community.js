@@ -168,7 +168,7 @@ PureCommunity.propTypes = {
   contributors: PropTypes.arrayOf(
     PropTypes.shape({
       avatar_url: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
     })
   ),
 };

@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { PureCommunity } from './Community';
 
 const contributors = [...Array(30)].map((_, index) => ({
-  id: `id-${index}`,
+  id: index,
   avatar_url: 'https://avatars2.githubusercontent.com/u/263385',
 }));
 
