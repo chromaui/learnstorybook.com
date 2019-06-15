@@ -4,7 +4,7 @@ import Guide from './Guide';
 
 const props = {
   chapterCount: 10,
-  themeColor: 'purple',
+  themeColor: '#6F2CAC',
   title: 'Intro to Storybook',
   description:
     "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch.",

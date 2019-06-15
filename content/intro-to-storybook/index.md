@@ -3,7 +3,7 @@ title: "Intro to Storybook"
 description: "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch."
 heroDescription: "🚫 INTRO TO STORYBOOK HERO DESCRIPTION PLACEHOLDER -- CHANGE ME 🚫"
 overview: "🚫 INTRO TO STORYBOOK OVERVIEW PLACEHOLDER -- CHANGE ME 🚫"
-themeColor: "purple"
+themeColor: "#6F2CAC"
 toc:
   [
     "get-started",

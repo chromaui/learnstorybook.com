@@ -22,7 +22,7 @@ const props = {
         frontmatter: {
           description: 'The guide description',
           imagePath: '/books.svg',
-          themeColor: 'purple',
+          themeColor: '#6F2CAC',
           title: 'Guide Title',
         },
       },

@@ -9,7 +9,7 @@ import getLanguageName from '../../lib/getLanguageName';
 const { breakpoint, color, pageMargins, spacing, typography } = styles;
 
 const GuideHeroWrapper = styled.div`
-  background: ${props => color[props.themeColor]};
+  background: ${props => props.themeColor};
   padding-bottom: 80px;
   padding-top: 120px;
   padding-left: ${spacing.padding.medium}px;
@@ -152,7 +152,7 @@ GuideHero.propTypes = {
   description: PropTypes.string.isRequired,
   imagePath: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-  themeColor: PropTypes.oneOf(Object.keys(color)).isRequired,
+  themeColor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 

@@ -7,7 +7,7 @@ import { styles, Subheading } from '@storybook/design-system';
 const { breakpoint, color, spacing, typography } = styles;
 
 const GuideWrapper = styled.div`
-  background: ${props => color[props.themeColor]};
+  background: ${props => props.themeColor};
   color: ${color.lightest};
   padding: 40px;
   border-radius: 8px;
@@ -67,7 +67,7 @@ Guide.propTypes = {
   chapterCount: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
   imagePath: PropTypes.string.isRequired,
-  themeColor: PropTypes.oneOf(Object.keys(color)).isRequired,
+  themeColor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
 

@@ -73,7 +73,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
               imagePath={guideNode.frontmatter.imagePath}
-              themeColor="green"
+              themeColor="#66BF3C"
               title={guideNode.frontmatter.title}
             />
           </GatsbyLink>
@@ -85,7 +85,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
               imagePath={guideNode.frontmatter.imagePath}
-              themeColor="secondary"
+              themeColor="#1EA7FD"
               title={guideNode.frontmatter.title}
             />
           </GatsbyLink>
@@ -97,7 +97,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
               imagePath={guideNode.frontmatter.imagePath}
-              themeColor="seafoam"
+              themeColor="#37D5D3"
               title={guideNode.frontmatter.title}
             />
           </GatsbyLink>
@@ -109,7 +109,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
               imagePath={guideNode.frontmatter.imagePath}
-              themeColor="primary"
+              themeColor="#FF4785"
               title={guideNode.frontmatter.title}
             />
           </GatsbyLink>
@@ -121,7 +121,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
               imagePath={guideNode.frontmatter.imagePath}
-              themeColor="gold"
+              themeColor="#FFAE00"
               title={guideNode.frontmatter.title}
             />
           </GatsbyLink>
