@@ -132,6 +132,7 @@ const Guide = ({ data }) => {
         contributorCount={currentPage.frontmatter.contributorCount}
         ctaHref={entries[0].slug}
         description={currentPage.frontmatter.heroDescription}
+        heroAnimationName={currentPage.frontmatter.heroAnimationName}
         imagePath={currentPage.frontmatter.imagePath}
         languages={currentPage.frontmatter.languages}
         title={currentPage.frontmatter.title}
@@ -207,6 +208,8 @@ Guide.propTypes = {
         ),
         contributorCount: PropTypes.string,
         description: PropTypes.string.isRequired,
+        heroAnimationName: PropTypes.string,
+        heroDescription: PropTypes.string.isRequired,
         imagePath: PropTypes.string.isRequired,
         languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
         themeColor: PropTypes.string.isRequired,
@@ -260,6 +263,7 @@ export const query = graphql`
         }
         contributorCount
         description
+        heroAnimationName
         heroDescription
         imagePath
         languages

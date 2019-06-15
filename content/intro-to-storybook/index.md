@@ -4,6 +4,7 @@ description: "Learn to create bulletproof UI components, along the way you'll bu
 heroDescription: "🚫 INTRO TO STORYBOOK HERO DESCRIPTION PLACEHOLDER -- CHANGE ME 🚫"
 overview: "🚫 INTRO TO STORYBOOK OVERVIEW PLACEHOLDER -- CHANGE ME 🚫"
 themeColor: "#6F2CAC"
+heroAnimationName: "float"
 toc:
   [
     "get-started",

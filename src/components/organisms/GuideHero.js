@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Button, styles } from '@storybook/design-system';
 import GatsbyLink from '../basics/GatsbyLink';
 import Stat from '../basics/Stat';
 import getLanguageName from '../../lib/getLanguageName';
+import * as animations from '../../styles/animations';
 
 const { breakpoint, color, pageMargins, spacing, typography } = styles;
 
@@ -107,7 +108,17 @@ const Figure = styled.div`
   }
 `;
 
+const GuideImage = styled.img`
+  ${props =>
+    props.heroAnimationName &&
+    animations[props.heroAnimationName] &&
+    css`
+      ${animations[props.heroAnimationName]}
+    `}
+`;
+
 const GuideHero = ({
+  heroAnimationName,
   contributorCount,
   ctaHref,
   description,
@@ -139,7 +150,7 @@ const GuideHero = ({
         </Pitch>
 
         <Figure>
-          <img alt={title} src={imagePath} />
+          <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
         </Figure>
       </GuideHeroContent>
     </GuideHeroWrapper>
@@ -150,6 +161,7 @@ GuideHero.propTypes = {
   contributorCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   ctaHref: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  heroAnimationName: PropTypes.string,
   imagePath: PropTypes.string.isRequired,
   languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   themeColor: PropTypes.string.isRequired,
@@ -158,6 +170,7 @@ GuideHero.propTypes = {
 
 GuideHero.defaultProps = {
   contributorCount: null,
+  heroAnimationName: null,
 };
 
 export default GuideHero;
