@@ -187,6 +187,7 @@ const MobileMenu = styled.div`
 
 const TooltipLinkListLinkWrapper = ({ isExternal, to, ...rest }) => {
   if (isExternal) {
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a {...rest} href={to} />;
   }
 

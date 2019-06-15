@@ -62,10 +62,10 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 ```javascript
 // src/components/Task.stories.js
 
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import { withKnobs, object } from "@storybook/addon-knobs/react";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
@@ -73,7 +73,7 @@ Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addD
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf("Task", module)
+storiesOf('Task', module)
   .addDecorator(withKnobs)
   .add(/*...*/);
 ```
@@ -83,17 +83,13 @@ Lastly, integrate the `object` knob type within the "default" story:
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf("Task", module)
+storiesOf('Task', module)
   .addDecorator(withKnobs)
-  .add("default", () => {
-    return <Task task={object("task", { ...task })} {...actions} />;
+  .add('default', () => {
+    return <Task task={object('task', { ...task })} {...actions} />;
   })
-  .add("pinned", () => (
-    <Task task={{ ...task, state: "TASK_PINNED" }} {...actions} />
-  ))
-  .add("archived", () => (
-    <Task task={{ ...task, state: "TASK_ARCHIVED" }} {...actions} />
-  ));
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -122,7 +118,7 @@ Thanks to quickly being able to try different inputs to a component we can find 
   value={title}
   readOnly={true}
   placeholder="Input title"
-  style={{ textOverflow: "ellipsis" }}
+  style={{ textOverflow: 'ellipsis' }}
 />
 ```
 
@@ -139,17 +135,11 @@ Let's add a story for the long text case in Task.stories.js:
 
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
-storiesOf("Task", module)
-  .add("default", () => <Task task={task} {...actions} />)
-  .add("pinned", () => (
-    <Task task={{ ...task, state: "TASK_PINNED" }} {...actions} />
-  ))
-  .add("archived", () => (
-    <Task task={{ ...task, state: "TASK_ARCHIVED" }} {...actions} />
-  ))
-  .add("long title", () => (
-    <Task task={{ ...task, title: longTitle }} {...actions} />
-  ));
+storiesOf('Task', module)
+  .add('default', () => <Task task={task} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />)
+  .add('long title', () => <Task task={{ ...task, title: longTitle }} {...actions} />);
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:

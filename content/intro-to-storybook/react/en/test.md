@@ -7,9 +7,9 @@ commit: 78a45d1
 
 No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
 
-- **Visual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
-- **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
-- **Unit tests** with Jest verify that the output of a component remains the same given an fixed input. They’re great for testing the functional qualities of a component.
+* **Visual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
+* **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
+* **Unit tests** with Jest verify that the output of a component remains the same given an fixed input. They’re great for testing the functional qualities of a component.
 
 ## “But does it look right?”
 
@@ -65,9 +65,9 @@ import { configure } from "@storybook/react";
 import requireContext from "require-context.macro";
 import "storybook-chromatic";
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = requireContext("../src/components", true, /\.stories\.js$/);
+const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

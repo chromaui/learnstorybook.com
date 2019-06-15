@@ -5,13 +5,13 @@ description: "在你的開發環境下, 設定 React Storybook "
 commit: ebe2ae2
 ---
 
-Storybook 是在開發模式下 與 您的應用程式一起執行的. 它可以幫助您構建 UI 元件,並與 應用程式的 業務邏輯和上下文 隔離開來. 本期"學習 Storybook"適用於 **React**; `Vue和Angular`版本即將推出.
+ Storybook 是在開發模式下 與 您的應用程式一起執行的. 它可以幫助您構建UI元件,並與 應用程式的 業務邏輯和上下文 隔離開來. 本期"學習 Storybook"適用於 **React**; `Vue和Angular`版本即將推出.
 
 ![Storybook and your app](/storybook-relationship.jpg)
 
 > 整個頁面 -> 拿出各種元件 -> 分隔出 **每個元件** /`元件組合`用來測試與文件說明
 
-## 設定 React Storybook
+## 設定React Storybook
 
 我們需要按照幾個步驟設定 Storybook 環境. 首先,我們想要使用[Create React App](https://github.com/facebook/create-react-app) (**CRA**) 快速設定我們的環境,並啟用[Storybook](https://storybook.js.org/)和[ jest-笑話 ](https://facebook.github.io/jest/)測試我們建立的應用. 讓我們執行以下命令:
 
@@ -45,11 +45,11 @@ yarn start
 
 ![3 modalities](/app-three-modalities.png)
 
-根據您正在處理的應用程式的哪個部分,您可能希望同時執行其中一個或多個. 由於我們目前的重點是建立單個 UI 元件,因此我們將堅持執行 Storybook.
+根據您正在處理的應用程式的哪個部分,您可能希望同時執行其中一個或多個. 由於我們目前的重點是建立單個UI元件,因此我們將堅持執行 Storybook.
 
-## 重用 CSS
+## 重用CSS
 
-本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例應用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的設計元素,所以我們不需要在本教程中編寫 CSS. 我們只需將 LESS 編譯為單個 CSS 檔案, 並將其包含在我們的應用程式中. 複製和貼上[這個編譯的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根據 **CRA**的規則 進入 **src/index.css** 檔案.
+本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial示例應用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的設計元素,所以我們不需要在本教程中編寫CSS. 我們只需將 LESS編譯為單個CSS檔案, 並將其包含在我們的應用程式中. 複製和貼上[這個編譯的CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根據 **CRA**的規則 進入 **src/index.css** 檔案.
 
 ![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
