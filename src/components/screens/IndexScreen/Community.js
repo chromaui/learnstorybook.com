@@ -115,7 +115,7 @@ const logos = [
   },
 ];
 
-const PureCommunity = ({ contributors = [] }) => (
+const PureCommunity = ({ contributors }) => (
   <div>
     <Section isFirst>
       <Heading>Expert frontend guidance</Heading>
@@ -169,8 +169,12 @@ PureCommunity.propTypes = {
     PropTypes.shape({
       avatar_url: PropTypes.string.isRequired,
       id: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
+    })
+  ),
+};
+
+PureCommunity.defaultProps = {
+  contributors: [],
 };
 
 const contributorsUrl = 'https://api.github.com/repos/chromaui/learnstorybook.com/contributors';
