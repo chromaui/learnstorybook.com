@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Avatar, styles } from '@storybook/design-system';
-import User from '../molecules/User';
+import User from '../../molecules/User';
 
 const { spacing, typography } = styles;
 
@@ -114,6 +115,64 @@ const logos = [
   },
 ];
 
+const PureCommunity = ({ contributors = [] }) => (
+  <div>
+    <Section isFirst>
+      <Heading>Expert frontend guidance</Heading>
+
+      <Text>
+        Learn Storybook was created by active Storybook maintainers who also helped build Apollo and
+        Meteor. Tens of thousands of frontend developers use their work to build apps for millions
+        of people.
+      </Text>
+
+      <GuidanceUsers>
+        <GuidanceUser
+          src="https://avatars2.githubusercontent.com/u/263385"
+          name="Dominic Nguyen"
+          detail="Storybook Design"
+        />
+        <GuidanceUser
+          isLast
+          src="https://avatars2.githubusercontent.com/u/132554"
+          name="Tom Coleman"
+          detail="Storybook core"
+        />
+      </GuidanceUsers>
+
+      <Logos>
+        {logos.map(logo => (
+          <LogoImage key={logo.src} src={logo.src} alt={logo.alt} height={logo.height} />
+        ))}
+      </Logos>
+    </Section>
+
+    <Section>
+      <Heading>Updated all the time</Heading>
+
+      <Text>
+        Our amazing community of learners help update, localize, and suggest new guide topics. That
+        means Learn Storybook stays up to date with industry best practices.
+      </Text>
+
+      <CommunityAvatars>
+        {contributors.map(contributor => (
+          <AvatarWrapper key={contributor.id} src={contributor.avatar_url} />
+        ))}
+      </CommunityAvatars>
+    </Section>
+  </div>
+);
+
+PureCommunity.propTypes = {
+  contributors: PropTypes.arrayOf(
+    PropTypes.shape({
+      avatar_url: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+    }).isRequired
+  ).isRequired,
+};
+
 const contributorsUrl = 'https://api.github.com/repos/chromaui/learnstorybook.com/contributors';
 
 const Community = () => {
@@ -128,54 +187,9 @@ const Community = () => {
     fetchGithubContributors();
   }, []);
 
-  return (
-    <div>
-      <Section isFirst>
-        <Heading>Expert frontend guidance</Heading>
-
-        <Text>
-          Learn Storybook was created by active Storybook maintainers who also helped build Apollo
-          and Meteor. Tens of thousands of frontend developers use their work to build apps for
-          millions of people.
-        </Text>
-
-        <GuidanceUsers>
-          <GuidanceUser
-            src="https://avatars2.githubusercontent.com/u/263385"
-            name="Dominic Nguyen"
-            detail="Storybook Design"
-          />
-          <GuidanceUser
-            isLast
-            src="https://avatars2.githubusercontent.com/u/132554"
-            name="Tom Coleman"
-            detail="Storybook core"
-          />
-        </GuidanceUsers>
-
-        <Logos>
-          {logos.map(logo => (
-            <LogoImage key={logo.src} src={logo.src} alt={logo.alt} height={logo.height} />
-          ))}
-        </Logos>
-      </Section>
-
-      <Section>
-        <Heading>Updated all the time</Heading>
-
-        <Text>
-          Our amazing community of learners help update, localize, and suggest new guide topics.
-          That means Learn Storybook stays up to date with industry best practices.
-        </Text>
-
-        <CommunityAvatars>
-          {contributors.map(contributor => (
-            <AvatarWrapper key={contributor.id} src={contributor.avatar_url} />
-          ))}
-        </CommunityAvatars>
-      </Section>
-    </div>
-  );
+  return <PureCommunity contributors={contributors} />;
 };
+
+export { PureCommunity };
 
 export default Community;

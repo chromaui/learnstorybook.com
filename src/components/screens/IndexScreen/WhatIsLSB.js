@@ -10,6 +10,7 @@ const WhatIsLSBWrapper = styled.div`
   border-top: 1px solid ${color.medium};
   border-bottom: 1px solid ${color.medium};
   padding: 60px 0;
+  margin-top: 80px;
 `;
 
 const Content = styled.div`
@@ -48,8 +49,8 @@ const BannerText = styled.div`
   margin-top: 8px;
 `;
 
-const WhatIsLSB = props => (
-  <WhatIsLSBWrapper {...props}>
+const WhatIsLSB = () => (
+  <WhatIsLSBWrapper>
     <Content>
       <div>
         <BannerHeading>What is Learn Storybook?</BannerHeading>

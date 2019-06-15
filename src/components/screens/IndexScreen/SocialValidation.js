@@ -1,12 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
-import User from '../molecules/User';
+import User from '../../molecules/User';
 
 const { breakpoint, pageMargins, typography } = styles;
 
 const SocialValidationWrapper = styled.div`
   ${pageMargins}
+
+  && {
+    margin-top: 80px;
+  }
 `;
 
 const Heading = styled.div`
@@ -83,8 +87,8 @@ const logos = [
   },
 ];
 
-const SocialValidation = props => (
-  <SocialValidationWrapper {...props}>
+const SocialValidation = () => (
+  <SocialValidationWrapper>
     <Heading>+70,000 readers so far</Heading>
 
     <Logos>

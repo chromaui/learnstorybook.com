@@ -5,10 +5,10 @@ import { Button, styles } from '@storybook/design-system';
 import SiteStats from './SiteStats';
 import GatsbyLink from '../../basics/GatsbyLink';
 import CTA from '../../molecules/CTA';
-import SocialValidation from '../../organisms/SocialValidation';
-import Community from '../../organisms/Community';
+import Community from './Community';
 import Guides from './Guides';
 import Pitch from './Pitch';
+import SocialValidation from './SocialValidation';
 import WhatIsLSB from './WhatIsLSB';
 
 const { breakpoint, color, pageMargin } = styles;
@@ -18,14 +18,6 @@ const DotBackground = styled.div`
   background: url('bg-dots.svg?t=${props => props.time}');
   background-repeat: repeat-x;
   background-position-y: 80px;
-`;
-
-const WhatIsLSBWrapper = styled(WhatIsLSB)`
-  margin-top: 80px;
-`;
-
-const SocialValidationWrapper = styled(SocialValidation)`
-  margin-top: 80px;
 `;
 
 const BottomSection = styled.div`
@@ -65,8 +57,8 @@ const IndexScreen = ({ data }) => (
       <SiteStats chapterCount={data.chapters.edges.length} guidesEdges={data.guides.edges} />
     </DotBackground>
 
-    <WhatIsLSBWrapper />
-    <SocialValidationWrapper />
+    <WhatIsLSB />
+    <SocialValidation />
     <SocialValidationLineBreak />
 
     <BottomSection>
