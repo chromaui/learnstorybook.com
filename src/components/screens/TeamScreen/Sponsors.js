@@ -50,6 +50,13 @@ const SponsorBoxLink = styled(BoxLink)`
   }
 `;
 
+const SponsorUsLink = styled(Link)`
+  &,
+  &:hover {
+    transform: none;
+  }
+`;
+
 const Sponsors = () => (
   <>
     <Subheading>Sponsors</Subheading>
@@ -59,14 +66,12 @@ const Sponsors = () => (
     </SubheadingMessage>
 
     <SponsorsList>
-      <SponsorBoxLink to="https://www.invisionapp.com/design-system-manager">
+      <SponsorBoxLink to="https://www.invisionapp.com/design-forward-fund">
         <img alt="InVision" src="/logo-invision.svg" />
       </SponsorBoxLink>
 
-      <SponsorBoxLink to="#">
-        <Link as="span" href="#">
-          Sponsor us
-        </Link>
+      <SponsorBoxLink to="mailto:friends@hichroma.com">
+        <SponsorUsLink as="span">Sponsor us</SponsorUsLink>
       </SponsorBoxLink>
     </SponsorsList>
   </>
