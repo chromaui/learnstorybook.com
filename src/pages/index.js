@@ -12,9 +12,9 @@ export const query = graphql`
         node {
           frontmatter {
             description
-            imagePath
-            themeColor
             title
+            themeColor
+            thumbImagePath
           }
           fields {
             guide

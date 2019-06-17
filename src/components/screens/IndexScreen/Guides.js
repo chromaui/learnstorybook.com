@@ -66,7 +66,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.imagePath}
+              imagePath={guideNode.frontmatter.thumbImagePath}
               themeColor={guideNode.frontmatter.themeColor}
               title={guideNode.frontmatter.title}
             />
@@ -78,7 +78,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.imagePath}
+              imagePath={guideNode.frontmatter.thumbImagePath}
               themeColor="#66BF3C"
               title={guideNode.frontmatter.title}
             />
@@ -90,7 +90,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.imagePath}
+              imagePath={guideNode.frontmatter.thumbImagePath}
               themeColor="#1EA7FD"
               title={guideNode.frontmatter.title}
             />
@@ -102,7 +102,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.imagePath}
+              imagePath={guideNode.frontmatter.thumbImagePath}
               themeColor="#37D5D3"
               title={guideNode.frontmatter.title}
             />
@@ -114,7 +114,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.imagePath}
+              imagePath={guideNode.frontmatter.thumbImagePath}
               themeColor="#FF4785"
               title={guideNode.frontmatter.title}
             />
@@ -126,7 +126,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.imagePath}
+              imagePath={guideNode.frontmatter.thumbImagePath}
               themeColor="#FFAE00"
               title={guideNode.frontmatter.title}
             />
@@ -156,9 +156,9 @@ Guides.propTypes = {
         }).isRequired,
         frontmatter: PropTypes.shape({
           description: PropTypes.string.isRequired,
-          imagePath: PropTypes.string.isRequired,
-          themeColor: PropTypes.string.isRequired,
           title: PropTypes.string.isRequired,
+          themeColor: PropTypes.string.isRequired,
+          thumbImagePath: PropTypes.string.isRequired,
         }).isRequired,
       }).isRequired,
     }).isRequired

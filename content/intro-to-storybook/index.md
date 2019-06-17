@@ -19,7 +19,8 @@ toc:
     "contribute",
   ]
 languages: ["en", "es", "zh-CN", "zh-TW", "pt"]
-imagePath: "/books.svg"
+coverImagePath: "/guide-cover/intro.svg"
+thumbImagePath: "/guide-thumb/intro.svg"
 contributorCount: "+34"
 authors:
   [

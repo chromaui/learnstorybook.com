@@ -21,9 +21,9 @@ const props = {
         },
         frontmatter: {
           description: 'The guide description',
-          imagePath: '/books.svg',
-          themeColor: '#6F2CAC',
           title: 'Guide Title',
+          themeColor: '#6F2CAC',
+          thumbImagePath: '/guide-thumb/intro.svg',
         },
       },
     },

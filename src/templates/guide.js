@@ -133,7 +133,7 @@ const Guide = ({ data }) => {
         ctaHref={entries[0].slug}
         description={currentPage.frontmatter.heroDescription}
         heroAnimationName={currentPage.frontmatter.heroAnimationName}
-        imagePath={currentPage.frontmatter.imagePath}
+        imagePath={currentPage.frontmatter.coverImagePath}
         languages={currentPage.frontmatter.languages}
         title={currentPage.frontmatter.title}
         themeColor={currentPage.frontmatter.themeColor}
@@ -207,10 +207,10 @@ Guide.propTypes = {
           }).isRequired
         ),
         contributorCount: PropTypes.string,
+        coverImagePath: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         heroAnimationName: PropTypes.string,
         heroDescription: PropTypes.string.isRequired,
-        imagePath: PropTypes.string.isRequired,
         languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
         themeColor: PropTypes.string.isRequired,
         toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -262,10 +262,10 @@ export const query = graphql`
           detail
         }
         contributorCount
+        coverImagePath
         description
         heroAnimationName
         heroDescription
-        imagePath
         languages
         title
         themeColor

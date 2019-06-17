@@ -8,7 +8,7 @@ const props = {
   title: 'Intro to Storybook',
   description:
     "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch.",
-  imagePath: '/books.svg',
+  imagePath: '/guide-thumb/intro.svg',
 };
 
 storiesOf('Screens|IndexScreen/Guide', module).add('default', () => <Guide {...props} />);

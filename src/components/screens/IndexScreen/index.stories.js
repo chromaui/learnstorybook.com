@@ -28,9 +28,9 @@ const props = {
           node: {
             frontmatter: {
               description: 'This is the guide description that explains what you find in the guide',
-              imagePath: '/books.svg',
-              themeColor: '#6F2CAC',
               title: 'Guide title',
+              themeColor: '#6F2CAC',
+              thumbImagePath: '/guide-thumb/intro.svg',
             },
             fields: {
               guide: 'guide',
