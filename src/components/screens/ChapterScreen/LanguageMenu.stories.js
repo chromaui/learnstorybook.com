@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-storiesOf('Molecules|LanguageMenu', module)
+storiesOf('Screens|ChapterScreen/LanguageMenu', module)
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('default', () => (
     <LanguageMenu

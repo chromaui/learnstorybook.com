@@ -2,8 +2,8 @@ import React from 'react';
 import { graphql } from 'gatsby';
 import Helmet from 'react-helmet';
 import startCase from 'lodash/startCase';
-import LanguageMenu from '../../components/molecules/LanguageMenu';
-import Chapter, { chapterDataPropTypes } from '../../templates/chapter';
+import LanguageMenu from '../../components/screens/ChapterScreen/LanguageMenu';
+import ChapterScreen, { chapterDataPropTypes } from '../../components/screens/ChapterScreen';
 import getLanguageName from '../../lib/getLanguageName';
 
 const getChapterInOtherLanguage = (
@@ -57,7 +57,7 @@ const VisualTestingHandbookChapter = ({ data }) => {
         ))}
       </Helmet>
 
-      <Chapter
+      <ChapterScreen
         data={data}
         languageMenu={
           <LanguageMenu

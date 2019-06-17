@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
-import GatsbyLink from '../basics/GatsbyLink';
+import GatsbyLink from '../../basics/GatsbyLink';
 
 const { breakpoint, color, typography } = styles;
 

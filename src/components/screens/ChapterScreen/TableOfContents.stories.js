@@ -9,6 +9,6 @@ const entries = [
   { slug: 'slug-2', title: 'Chapter 2' },
 ];
 
-storiesOf('Molecules|TableOfContents', module).add('default', () => (
+storiesOf('Screens|ChapterScreen/TableOfContents', module).add('default', () => (
   <TableOfContents currentPageSlug={currentPageSlug} entries={entries} />
 ));

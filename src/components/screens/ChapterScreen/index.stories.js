@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import Chapter from './chapter';
-import LanguageMenu from '../components/molecules/LanguageMenu';
+import Chapter from './index';
+import LanguageMenu from '../ChapterScreen/LanguageMenu';
 
 const props = {
   data: {
@@ -80,4 +80,4 @@ const props = {
   ),
 };
 
-storiesOf('Templates|Chapter', module).add('default', () => <Chapter {...props} />);
+storiesOf('Screens|ChapterScreen/index', module).add('default', () => <Chapter {...props} />);

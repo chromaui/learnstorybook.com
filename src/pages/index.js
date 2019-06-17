@@ -1,4 +1,5 @@
 import React from 'react';
+import { graphql } from 'gatsby';
 import IndexScreen from '../components/screens/IndexScreen';
 
 const Index = props => <IndexScreen {...props} />;
