@@ -1,10 +1,10 @@
 ---
 title: "Introdução"
 tocTitle: "Introdução"
-description: "Configuração do React Storybook no ambiente de desenvolvimento"
+description: "Configuração do Vue Storybook no ambiente de desenvolvimento"
 ---
 
-# Introdução
+# Storybook para o Vue tutorial
 
 Storybook funciona em paralelo à aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.

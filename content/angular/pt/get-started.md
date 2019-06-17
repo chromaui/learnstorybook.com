@@ -4,7 +4,7 @@ tocTitle: "Introdução"
 description: "Configuração do Angular Storybook no ambiente de desenvolvimento"
 ---
 
-# Introdução
+# Storybook para o Angular tutorial
 
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.

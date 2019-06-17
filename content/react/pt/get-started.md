@@ -5,7 +5,7 @@ description: "Configuração do React Storybook no ambiente de desenvolvimento"
 commit: ebe2ae2
 ---
 
-# Introdução
+# Storybook para o React tutorial
 
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
