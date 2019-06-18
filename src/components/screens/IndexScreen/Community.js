@@ -194,7 +194,7 @@ const Community = () => {
     }
 
     if (sessionStorage.getItem(sessionStorageKey)) {
-      // Use the cached
+      // Use the cached version of contributors
       setContributors(JSON.parse(sessionStorage.getItem(sessionStorageKey)));
       return;
     }
