@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import pluralize from 'pluralize';
 import { styles } from '@storybook/design-system';
-import SiteStat from '../../basics/SiteStat';
+import SiteStat from './SiteStat';
 
 const { breakpoint, pageMargins } = styles;
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import SiteStat from './SiteStat';
 
-storiesOf('Basics|SiteStat', module)
+storiesOf('Screens|IndexScreen/SiteStat', module)
   .addParameters({ component: SiteStat })
   .add('default', () => (
     <SiteStat
