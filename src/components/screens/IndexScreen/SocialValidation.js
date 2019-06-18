@@ -99,12 +99,13 @@ const SocialValidation = () => (
 
     <Testimonials>
       <Testimonial>
-        Just deleted all component snapshot tests from our React component library—in favour of
-        Chromatic[@chromaui] screenshot tests.
+        Storybook is such a pivotal tool not just for communicating a component to your fellow
+        developers, but also to keep your whole team comfortable with the app at an atomic level.
+        You need to learn how to use it - this is the place to learn.
         <UserWrapper
-          src="https://avatars2.githubusercontent.com/u/263385"
-          name="Dominic Nguyen"
-          detail="Professional rapper"
+          src="https://avatars2.githubusercontent.com/u/9523719"
+          name="Kyle Holmberg"
+          detail="Nike"
         />
       </Testimonial>
 
