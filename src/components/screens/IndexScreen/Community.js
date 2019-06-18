@@ -178,6 +178,7 @@ PureCommunity.defaultProps = {
 };
 
 const contributorsUrl = 'https://api.github.com/repos/chromaui/learnstorybook.com/contributors';
+const sessionStorageKey = 'lsbGithubContributors';
 
 const Community = () => {
   const [contributors, setContributors] = useState([]);
@@ -188,7 +189,14 @@ const Community = () => {
       if (response.message) {
         return; // Likely an error
       }
+      sessionStorage.setItem(sessionStorageKey, JSON.stringify(response));
       setContributors(response);
+    }
+
+    if (sessionStorage.getItem(sessionStorageKey)) {
+      // Use the cached
+      setContributors(JSON.parse(sessionStorage.getItem(sessionStorageKey)));
+      return;
     }
 
     fetchGithubContributors();
