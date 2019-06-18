@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { StaticQuery, graphql } from 'gatsby';
 import { Button, styles } from '@storybook/design-system';
 import SiteStats from './SiteStats';
 import GatsbyLink from '../../basics/GatsbyLink';
@@ -49,7 +50,7 @@ const CTALineBreak = styled.div`
   }
 `;
 
-const IndexScreen = ({ data }) => (
+const PureIndexScreen = ({ data }) => (
   <>
     <DotBackground time={Date.now()}>
       <Pitch />
@@ -82,7 +83,7 @@ const IndexScreen = ({ data }) => (
   </>
 );
 
-IndexScreen.propTypes = {
+PureIndexScreen.propTypes = {
   data: PropTypes.shape({
     allEditionsChapters: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
@@ -95,5 +96,53 @@ IndexScreen.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
+const IndexScreen = props => (
+  <StaticQuery
+    query={graphql`
+      query IndexQuery {
+        guides: allMarkdownRemark(filter: { fields: { pageType: { eq: "guide" } } }) {
+          edges {
+            node {
+              frontmatter {
+                description
+                title
+                themeColor
+                thumbImagePath
+              }
+              fields {
+                guide
+                slug
+              }
+            }
+          }
+        }
+        chapters: allMarkdownRemark(
+          filter: { fields: { pageType: { eq: "chapter" }, isDefaultTranslation: { eq: true } } }
+        ) {
+          edges {
+            node {
+              fields {
+                guide
+              }
+            }
+          }
+        }
+        allEditionsChapters: allMarkdownRemark(
+          filter: { fields: { pageType: { eq: "chapter" } } }
+        ) {
+          edges {
+            node {
+              fields {
+                slug
+              }
+            }
+          }
+        }
+      }
+    `}
+    render={data => <PureIndexScreen data={data} {...props} />}
+  />
+);
 
 export default IndexScreen;
