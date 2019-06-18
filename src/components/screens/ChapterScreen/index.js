@@ -117,11 +117,11 @@ Chapter.propTypes = {
         title: PropTypes.string,
         description: PropTypes.string,
       }).isRequired,
+      html: PropTypes.string.isRequired,
     }).isRequired,
     currentGuide: PropTypes.shape({
       frontmatter: PropTypes.shape({
         toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-        languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
       }).isRequired,
     }).isRequired,
     tocPages: PropTypes.shape({
@@ -153,7 +153,6 @@ Chapter.propTypes = {
             }).isRequired,
             fields: PropTypes.shape({
               slug: PropTypes.string.isRequired,
-              framework: PropTypes.string,
               chapter: PropTypes.string.isRequired,
             }).isRequired,
           }).isRequired,
@@ -162,9 +161,7 @@ Chapter.propTypes = {
     }),
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        permalink: PropTypes.string,
-        description: PropTypes.string,
+        codeGithubUrl: PropTypes.string.isRequired,
         githubUrl: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
