@@ -22,7 +22,7 @@ const LogoWrapper = styled(Logo)`
     height: 22px;
     width: auto;
     display: block;
-    transition: all 150ms ease-out;
+    transition: transform 150ms ease-out;
     transform: translate3d(0, 0, 0);
     margin-top: -6px;
 

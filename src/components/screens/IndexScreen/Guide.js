@@ -45,10 +45,17 @@ const GuideChapterCount = styled(Subheading)`
   opacity: 0.5;
 `;
 
+const GuideImageWrapper = styled.div`
+  height: 170px;
+  display: flex;
+  align-items: center;
+`;
+
 const GuideImage = styled.img`
   margin: ${spacing.padding.medium}px auto 0;
   width: fit-content;
   max-width: 100%;
+  max-height: 170px;
 `;
 
 const Guide = ({ chapterCount, description, imagePath, themeColor, title }) => (
@@ -59,7 +66,9 @@ const Guide = ({ chapterCount, description, imagePath, themeColor, title }) => (
       <GuideChapterCount>{pluralize('Chapter', chapterCount, true)}</GuideChapterCount>
     </div>
 
-    <GuideImage src={imagePath} alt={title} />
+    <GuideImageWrapper>
+      <GuideImage src={imagePath} alt={title} />
+    </GuideImageWrapper>
   </GuideWrapper>
 );
 

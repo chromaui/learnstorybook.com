@@ -185,6 +185,9 @@ const Community = () => {
   useEffect(() => {
     async function fetchGithubContributors() {
       const response = await fetch(contributorsUrl).then(res => res.json());
+      if (response.message) {
+        return; // Likely an error
+      }
       setContributors(response);
     }
 
