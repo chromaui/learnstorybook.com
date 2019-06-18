@@ -39,17 +39,17 @@ The text, code, and production were contributed by [Chroma](https://blog.hichrom
 
 ## Develop
 
-Install packages and run with `yarn develop`.
+Install packages and run with `yarn dev`.
 
 ## Contributors
 
-* [Tom Coleman @tmeasday](https://twitter.com/tmeasday)
-* [Dominic Nguyen @domyen](https://twitter.com/domyen)
-* [Carlos Iván Suarez @icarlossz](https://twitter.com/icarlossz)
-* [Luciano M. Guasco @luchux](https://twitter.com/luchux)
-* [yobrave](https://github.com/chinanf-boy)
-* [Daniel Duan](https://twitter.com/danduan)
-* [Carlos Vega](https://twitter.com/__el_Negro)
-* [Matt Rothenberg](https://twitter.com/mattrothenberg)
-* [Kyle Holmberg](https://twitter.com/kylemh_)
-* You? [Become an OSS contributor](https://www.learnstorybook.com/contribute/)
+- [Tom Coleman @tmeasday](https://twitter.com/tmeasday)
+- [Dominic Nguyen @domyen](https://twitter.com/domyen)
+- [Carlos Iván Suarez @icarlossz](https://twitter.com/icarlossz)
+- [Luciano M. Guasco @luchux](https://twitter.com/luchux)
+- [yobrave](https://github.com/chinanf-boy)
+- [Daniel Duan](https://twitter.com/danduan)
+- [Carlos Vega](https://twitter.com/__el_Negro)
+- [Matt Rothenberg](https://twitter.com/mattrothenberg)
+- [Kyle Holmberg](https://twitter.com/kylemh_)
+- You? [Become an OSS contributor](https://www.learnstorybook.com/intro-to-storybook/react/en/contribute/)

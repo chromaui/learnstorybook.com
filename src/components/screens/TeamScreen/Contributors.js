@@ -46,40 +46,48 @@ const ContributorUser = styled(User)`
   }
 `;
 
-const TwitterLink = props => <Link target="_blank" rel="noopener" tertiary {...props} />;
+const SocialLink = props => <Link target="_blank" rel="noopener" tertiary {...props} />;
 
 const contributors = [
   {
-    src: 'https://avatars2.githubusercontent.com/u/14339707',
-    name: 'Calaway',
-    detail: <TwitterLink href="https://github.com/calaway">@calaway</TwitterLink>,
-  },
-  {
-    src: 'https://avatars2.githubusercontent.com/u/5649014',
-    name: 'Carlos Sz',
-    detail: <TwitterLink href="https://github.com/icarlossz">@icarlossz</TwitterLink>,
-  },
-  {
-    src: 'https://avatars2.githubusercontent.com/u/9523719',
-    name: 'Kyle Holmberg',
-    detail: <TwitterLink href="https://github.com/kylemh">@kylemh</TwitterLink>,
+    src: 'https://avatars2.githubusercontent.com/u/22988955',
+    name: 'jonniebigodes',
+    detail: <SocialLink href="https://github.com/jonniebigodes">@jonniebigodes</SocialLink>,
   },
   {
     src: 'https://avatars2.githubusercontent.com/u/1593752',
     name: 'Carlos Vega',
-    detail: <TwitterLink href="https://github.com/alterx">@alterx</TwitterLink>,
+    detail: <SocialLink href="https://twitter.com/__el_Negro">@__el_Negro</SocialLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/1474548',
+    name: 'Daniel Duan',
+    detail: <SocialLink href="https://twitter.com/danduan">@danduan</SocialLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/20272484',
+    name: 'chinanf-boy',
+    detail: <SocialLink href="https://github.com/chinanf-boy">@chinanf-boy</SocialLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/5649014',
+    name: 'Carlos Iván Suarez',
+    detail: <SocialLink href="https://twitter.com/icarlossz">@icarlossz</SocialLink>,
+  },
+  {
+    src: 'https://avatars2.githubusercontent.com/u/9523719',
+    name: 'Kyle Holmberg',
+    detail: <SocialLink href="https://twitter.com/kylemh_">@kylemh_</SocialLink>,
   },
   {
     src: 'https://avatars2.githubusercontent.com/u/1475656',
-    name: 'Luciano Guasco',
-    detail: <TwitterLink href="https://github.com/luchux">@luchux</TwitterLink>,
+    name: 'Luciano M. Guasco',
+    detail: <SocialLink href="https://twitter.com/luchux">@luchux</SocialLink>,
   },
   {
-    src: 'https://avatars2.githubusercontent.com/u/480640',
-    name: 'Alejandro Iglesias',
-    detail: (
-      <TwitterLink href="https://github.com/alejandroiglesias">@alejandroiglesias</TwitterLink>
-    ),
+    src: 'https://avatars2.githubusercontent.com/u/3035355',
+    name: 'Kyle Suss',
+    detail: <SocialLink href="https://github.com/kylesuss">@kylesuss</SocialLink>,
   },
 ];
 
