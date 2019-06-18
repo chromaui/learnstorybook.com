@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Button, styles, Subheading } from '@storybook/design-system';
 import GatsbyLink from '../../basics/GatsbyLink';
-import ShadowBoxCTA from '../../molecules/ShadowBoxCTA';
+import ShadowBoxCTA from '../../composite/ShadowBoxCTA';
 
 const { color, typography } = styles;
 

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Button, styles } from '@storybook/design-system';
 import SiteStats from './SiteStats';
 import GatsbyLink from '../../basics/GatsbyLink';
-import CTA from '../../molecules/CTA';
+import CTA from '../../composite/CTA';
 import Community from './Community';
 import Guides from './Guides';
 import Pitch from './Pitch';

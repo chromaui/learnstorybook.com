@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from '@storybook/design-system';
-import User from '../../molecules/User';
+import User from '../../composite/User';
 import Subheading from './Subheading';
 
 const SubheadingMessage = styled.div`

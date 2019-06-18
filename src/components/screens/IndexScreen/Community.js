@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Avatar, styles } from '@storybook/design-system';
-import User from '../../molecules/User';
+import User from '../../composite/User';
 
 const { spacing, typography } = styles;
 

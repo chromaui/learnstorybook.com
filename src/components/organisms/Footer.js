@@ -5,7 +5,7 @@ import { Link, styles, Subheading } from '@storybook/design-system';
 import GatsbyLink from '../basics/GatsbyLink';
 import Logo from '../basics/Logo';
 import LogoChroma from '../basics/LogoChroma';
-import MailingListSignup from '../molecules/MailingListSignup';
+import MailingListSignup from '../composite/MailingListSignup';
 
 const { background, breakpoint, color, typography, pageMargins } = styles;
 

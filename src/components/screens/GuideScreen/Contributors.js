@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import pluralize from 'pluralize';
 import { styles } from '@storybook/design-system';
 import Subheading from './SubHeading';
-import User from '../../molecules/User';
+import User from '../../composite/User';
 
 const { breakpoint } = styles;
 
