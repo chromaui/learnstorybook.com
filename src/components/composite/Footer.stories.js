@@ -19,4 +19,4 @@ const guides = {
   ],
 };
 
-storiesOf('Organisms|Footer', module).add('default', () => <Footer guides={guides} />);
+storiesOf('Composite|Footer', module).add('default', () => <Footer guides={guides} />);

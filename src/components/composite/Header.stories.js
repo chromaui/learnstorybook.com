@@ -29,7 +29,7 @@ const props = {
   },
 };
 
-storiesOf('Organisms|Header', module)
+storiesOf('Composite|Header', module)
   .add('default', () => <Header {...props} />)
   .add('inverted', () => (
     <BlueBackground>

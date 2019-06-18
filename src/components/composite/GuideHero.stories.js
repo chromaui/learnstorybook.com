@@ -12,6 +12,6 @@ const props = {
   title: 'Visual Testing Handbook',
 };
 
-storiesOf('Organisms|GuideHero', module)
+storiesOf('Composite|GuideHero', module)
   .add('default', () => <GuideHero {...props} />)
   .add('with contributor count', () => <GuideHero {...props} contributorCount="34+" />);

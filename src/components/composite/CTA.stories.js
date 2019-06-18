@@ -14,7 +14,7 @@ const Wrapper = styled.div`
 
 const ctaAction = <Button appearance="secondary">Get started</Button>;
 
-storiesOf('Molecules|CTA', module)
+storiesOf('Composite|CTA', module)
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('all', () => (
     <>

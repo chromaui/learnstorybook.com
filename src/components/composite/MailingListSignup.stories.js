@@ -7,6 +7,6 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-storiesOf('Molecules|MailingListSignup', module)
+storiesOf('Composite|MailingListSignup', module)
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('default', () => <MailingListSignup />);
