@@ -84,7 +84,7 @@ const createChapterPage = ({ createPage, node }) => {
 
   createPage({
     path: slug,
-    component: path.resolve(`./src/dynamic-pages/${guide}/chapter.js`),
+    component: path.resolve(`./src/components/screens/ChapterScreen/index.js`),
     context: {
       // Data passed to context is available in page queries as GraphQL variables.
       guide,

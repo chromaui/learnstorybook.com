@@ -60,7 +60,7 @@ const Chapter = ({
     currentPage: {
       html,
       frontmatter: { commit, title, description },
-      fields: { guide, slug, chapter },
+      fields: { framework, guide, language, slug, chapter },
     },
     currentGuide: {
       frontmatter: { toc },
@@ -69,16 +69,26 @@ const Chapter = ({
       siteMetadata: { githubUrl, codeGithubUrl },
     },
     tocPages,
+    translationPages,
   },
-  languageMenu,
 }) => {
   const entries = tocEntries(toc, tocPages);
   const nextEntry = entries[toc.indexOf(chapter) + 1];
+  const firstChapter = toc[0];
   const githubFileUrl = `${githubUrl}/blob/master/content${slug.replace(/\/$/, '')}.md`;
 
   return (
     <ChapterWrapper>
-      <Sidebar entries={entries} guide={guide} languageMenu={languageMenu} slug={slug} />
+      <Sidebar
+        chapter={chapter}
+        entries={entries}
+        firstChapter={firstChapter}
+        framework={framework}
+        guide={guide}
+        language={language}
+        slug={slug}
+        translationPages={translationPages}
+      />
 
       <Content>
         <Title>{title}</Title>
@@ -92,7 +102,7 @@ const Chapter = ({
   );
 };
 
-export const chapterDataPropTypes = {
+Chapter.propTypes = {
   data: PropTypes.shape({
     currentPage: PropTypes.shape({
       fields: PropTypes.shape({
@@ -161,66 +171,82 @@ export const chapterDataPropTypes = {
   }).isRequired,
 };
 
-Chapter.propTypes = {
-  ...chapterDataPropTypes,
-  languageMenu: PropTypes.node,
-};
-
-Chapter.defaultProps = {
-  languageMenu: null,
-};
-
-export const chapterCurrentPageFragment = graphql`
-  fragment ChapterCurrentPageFragment on MarkdownRemark {
-    html
-    frontmatter {
-      title
-      description
-      commit
-    }
-    fields {
-      guide
-      slug
-      chapter
-      framework
-      language
-    }
-  }
-`;
-
-export const chapterGuidePageFragment = graphql`
-  fragment ChapterGuidePageFragment on MarkdownRemark {
-    frontmatter {
-      toc
-      languages
-    }
-  }
-`;
-
-export const chapterSiteMetadataFragment = graphql`
-  fragment ChapterSiteMetadataFragment on Site {
-    siteMetadata {
-      title
-      githubUrl
-      codeGithubUrl
-      siteUrl
-    }
-  }
-`;
-
-export const chapterOtherPagesFragment = graphql`
-  fragment ChapterOtherPagesFragment on MarkdownRemark {
-    frontmatter {
-      tocTitle
-      title
-      description
-    }
-    fields {
-      slug
-      framework
-      chapter
-    }
-  }
-`;
-
 export default Chapter;
+
+export const query = graphql`
+  query ChapterQuery($framework: String, $language: String, $slug: String!, $guide: String!) {
+    currentPage: markdownRemark(fields: { slug: { eq: $slug } }) {
+      html
+      frontmatter {
+        title
+        description
+        commit
+      }
+      fields {
+        guide
+        slug
+        chapter
+        framework
+        language
+      }
+    }
+    currentGuide: markdownRemark(fields: { guide: { eq: $guide }, pageType: { eq: "guide" } }) {
+      frontmatter {
+        toc
+        languages
+      }
+    }
+    site {
+      siteMetadata {
+        title
+        githubUrl
+        codeGithubUrl
+        siteUrl
+      }
+    }
+    tocPages: allMarkdownRemark(
+      filter: {
+        fields: {
+          framework: { eq: $framework }
+          language: { eq: $language }
+          guide: { eq: $guide }
+          pageType: { eq: "chapter" }
+        }
+      }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            tocTitle
+            title
+            description
+          }
+          fields {
+            slug
+            framework
+            chapter
+          }
+        }
+      }
+    }
+    translationPages: allMarkdownRemark(
+      filter: { fields: { guide: { eq: $guide }, pageType: { eq: "chapter" } } }
+    ) {
+      edges {
+        node {
+          frontmatter {
+            tocTitle
+            title
+            description
+          }
+          fields {
+            slug
+            framework
+            chapter
+            language
+          }
+        }
+      }
+    }
+  }
+`;

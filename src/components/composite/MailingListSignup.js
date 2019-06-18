@@ -33,8 +33,9 @@ const MailingListFormUI = ({ handleBlur, handleChange, isSubmitting, value, ...r
       onBlur={handleBlur}
       autoCapitalize="off"
       autoCorrect="off"
-      label={null}
       appearance="secondary"
+      label="Your email"
+      hideLabel
     />
 
     <SendButton appearance="secondary" type="submit" isUnclickable={isSubmitting}>

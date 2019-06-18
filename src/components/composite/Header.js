@@ -307,9 +307,9 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
 
           <MobileMenuNavItem showMobile>
             <WithTooltip placement="top" trigger="click" tooltip={mobileMenu} closeOnClick>
-              <NavTextLinkInternal tertiary inverse={isInverted} onClick={preventDefault}>
+              <NavTextLinkExternal tertiary inverse={isInverted} onClick={preventDefault}>
                 <Icon icon="menu" />
-              </NavTextLinkInternal>
+              </NavTextLinkExternal>
             </WithTooltip>
           </MobileMenuNavItem>
 

@@ -5,6 +5,7 @@ import { Icon, styles } from '@storybook/design-system';
 import startCase from 'lodash/startCase';
 import GatsbyLink from '../../basics/GatsbyLink';
 import TableOfContents from './TableOfContents';
+import LanguageMenu from './LanguageMenu';
 
 const { breakpoint, color, typography } = styles;
 
@@ -41,28 +42,49 @@ const TableOfContentsWrapper = styled(TableOfContents)`
   margin-top: 20px;
 `;
 
-const Sidebar = ({ entries, guide, languageMenu, slug }) => (
+const Sidebar = ({
+  chapter,
+  entries,
+  firstChapter,
+  framework,
+  guide,
+  language,
+  slug,
+  translationPages,
+}) => (
   <SidebarWrapper>
     <GuideLink tertiary to={`/${guide}`}>
       <SidebarBackIcon icon="arrowleft" />
       {startCase(guide)}
     </GuideLink>
 
-    <div>{languageMenu}</div>
-
+    <LanguageMenu
+      chapter={chapter}
+      guide={guide}
+      firstChapter={firstChapter}
+      framework={framework}
+      language={language}
+      translationPages={translationPages}
+    />
     <TableOfContentsWrapper entries={entries} currentPageSlug={slug} />
   </SidebarWrapper>
 );
 
 Sidebar.propTypes = {
+  chapter: PropTypes.string.isRequired,
   entries: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
+  firstChapter: PropTypes.string.isRequired,
+  framework: PropTypes.string,
   guide: PropTypes.string.isRequired,
-  languageMenu: PropTypes.node,
+  language: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
+  translationPages: PropTypes.shape({
+    edges: PropTypes.arrayOf(PropTypes.any).isRequired,
+  }).isRequired,
 };
 
 Sidebar.defaultProps = {
-  languageMenu: null,
+  framework: PropTypes.string,
 };
 
 export default Sidebar;
