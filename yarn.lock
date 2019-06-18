@@ -1475,10 +1475,10 @@
     webpack-dev-middleware "^3.7.0"
     webpack-hot-middleware "^2.25.0"
 
-"@storybook/design-system@^0.0.22":
-  version "0.0.22"
-  resolved "https://registry.yarnpkg.com/@storybook/design-system/-/design-system-0.0.22.tgz#4e6f3f436240e4179add7615806dd098dd0e0295"
-  integrity sha512-Xge6aQP2by+rpYc4jyzKg1Sgg9tLds6JwCaujo/qgJ6bOGKPjBEwdR0nYAytsQbJipT3yEMI0Ut6LH2PqY6RNA==
+"@storybook/design-system@^0.0.23":
+  version "0.0.23"
+  resolved "https://registry.yarnpkg.com/@storybook/design-system/-/design-system-0.0.23.tgz#771adbaab9c77d4655336c04aa3f03c3425d57e9"
+  integrity sha512-8je2vEBbkMsgMqoCx/561hB3qkZDxR6DW7cLwQ4qcBjbHg0H+bx0EvF3VVH83Swc3rjDdVmMat1i1MM7lJh2MA==
   dependencies:
     global "^4.3.2"
     polished "^3.3.0"
