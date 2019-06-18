@@ -2,11 +2,11 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import sortBy from 'lodash/sortBy';
-import { Button, Icon, styles, TooltipLinkList, WithTooltip } from '@storybook/design-system';
+import { Button, Icon, Link, styles, TooltipLinkList, WithTooltip } from '@storybook/design-system';
 import getLanguageName from '../../../../lib/getLanguageName';
 import GatsbyLink from '../../../basics/GatsbyLink';
 
-const { typography } = styles;
+const { color, typography } = styles;
 
 const ButtonContent = styled.div`
   display: flex;
@@ -15,6 +15,14 @@ const ButtonContent = styled.div`
 `;
 
 const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
+  && {
+    width: 8px;
+    height: 8px;
+    margin-left: 5px;
+  }
+`;
+
+const ArrowRightIcon = styled(Icon).attrs({ icon: 'arrowright' })`
   && {
     width: 8px;
     height: 8px;
@@ -37,7 +45,31 @@ const LinkWrapper = styled(GatsbyLink)`
   }
 `;
 
-const TooltipLinkWrapper = props => <LinkWrapper {...props} />;
+const ExternalLink = styled(Link)`
+  && {
+    * {
+      color: ${color.secondary};
+    }
+
+    &:hover {
+      transform: none;
+    }
+  }
+`;
+
+const TooltipLinkWrapper = ({ isExternal, to, ...rest }) => {
+  if (isExternal) {
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    return <ExternalLink {...rest} href={to} />;
+  }
+
+  return <LinkWrapper {...rest} to={to} />;
+};
+
+TooltipLinkWrapper.propTypes = {
+  isExternal: PropTypes.bool.isRequired,
+  to: PropTypes.string.isRequired,
+};
 
 const getTranslationLanguages = translationPages =>
   translationPages.edges.reduce(
@@ -64,11 +96,31 @@ const getChapterInOtherLanguage = (
   return `/${guide}/${language}/${firstChapter}/`;
 };
 
+const contributeUrl = 'https://github.com/chromaui/learnstorybook.com/#contribute';
+
 const NonFrameworkMenu = ({ chapter, firstChapter, guide, language, translationPages }) => {
   const translationLanguages = useMemo(() => getTranslationLanguages(translationPages), [
     translationPages,
   ]);
   const sortedLanguages = sortBy(Array.from(translationLanguages), languageName => languageName);
+
+  if (sortedLanguages.length < 2) {
+    return (
+      <Button
+        appearance="outline"
+        size="small"
+        isLink
+        href={contributeUrl}
+        target="_blank"
+        rel="noopener"
+      >
+        <ButtonContent>
+          Help us translate
+          <ArrowRightIcon />
+        </ButtonContent>
+      </Button>
+    );
+  }
 
   return (
     <WithTooltip
@@ -78,16 +130,25 @@ const NonFrameworkMenu = ({ chapter, firstChapter, guide, language, translationP
       tooltip={
         <TooltipList>
           <TooltipLinkList
-            links={sortedLanguages.map(translationLanguage => ({
-              title: getLanguageName(translationLanguage),
-              href: getChapterInOtherLanguage(
-                translationLanguage,
-                guide,
-                chapter,
-                firstChapter,
-                translationPages
-              ),
-            }))}
+            links={[
+              ...sortedLanguages.map(translationLanguage => ({
+                title: getLanguageName(translationLanguage),
+                href: getChapterInOtherLanguage(
+                  translationLanguage,
+                  guide,
+                  chapter,
+                  firstChapter,
+                  translationPages
+                ),
+              })),
+              {
+                title: 'Help us translate',
+                href: contributeUrl,
+                target: '_blank',
+                rel: 'noopener',
+                isExternal: true,
+              },
+            ]}
             LinkWrapper={TooltipLinkWrapper}
           />
         </TooltipList>

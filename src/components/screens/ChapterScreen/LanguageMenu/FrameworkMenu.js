@@ -16,10 +16,17 @@ const TooltipList = styled.div`
 const Item = styled.div`
   position: relative;
   padding-left: 22px;
-  margin-bottom: -9px;
 
   &:not(:first-child) {
     border-top: 1px solid ${color.mediumlight};
+  }
+
+  &:not(:last-child) {
+    margin-bottom: -9px;
+  }
+
+  .help-translate-link {
+    margin-left: -22px;
   }
 
   div {
@@ -50,6 +57,14 @@ const ButtonContent = styled.div`
 `;
 
 const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
+  && {
+    width: 8px;
+    height: 8px;
+    margin-left: 5px;
+  }
+`;
+
+const ArrowRightIcon = styled(Icon).attrs({ icon: 'arrowright' })`
   && {
     width: 8px;
     height: 8px;
@@ -100,6 +115,8 @@ const getTranslationPagesByFramework = translationPages =>
     return pagesByFramework;
   }, {});
 
+const contributeUrl = 'https://github.com/chromaui/learnstorybook.com/#contribute';
+
 const FrameworkMenu = ({ chapter, firstChapter, framework, guide, language, translationPages }) => {
   const translationPagesByFramework = useMemo(
     () => getTranslationPagesByFramework(translationPages),
@@ -110,6 +127,29 @@ const FrameworkMenu = ({ chapter, firstChapter, framework, guide, language, tran
     frameworkName => frameworkName
   );
 
+  if (
+    // There is only one framework
+    Object.keys(translationPagesByFramework).length < 2 &&
+    // and that framework only has one translation
+    Object.keys(translationPagesByFramework[framework]).length < 2
+  ) {
+    return (
+      <Button
+        appearance="outline"
+        size="small"
+        isLink
+        href={contributeUrl}
+        target="_blank"
+        rel="noopener"
+      >
+        <ButtonContent>
+          Help us translate
+          <ArrowRightIcon />
+        </ButtonContent>
+      </Button>
+    );
+  }
+
   return (
     <WithTooltip
       placement="bottom"
@@ -117,7 +157,8 @@ const FrameworkMenu = ({ chapter, firstChapter, framework, guide, language, tran
       closeOnClick
       tooltip={
         <TooltipList>
-          {frameworks.map(translationFramework => {
+          {frameworks.map((translationFramework, frameworkIndex) => {
+            const isLastFramework = frameworkIndex + 1 === frameworks.length;
             const translationLanguages = sortBy(
               Object.keys(translationPagesByFramework[translationFramework]),
               languageName => languageName
@@ -150,6 +191,19 @@ const FrameworkMenu = ({ chapter, firstChapter, framework, guide, language, tran
                         </Link>
                       ))}
                     </>
+                  }
+                  links={
+                    isLastFramework
+                      ? [
+                          {
+                            title: 'Help us translate',
+                            href: contributeUrl,
+                            target: '_blank',
+                            rel: 'noopener',
+                            className: 'help-translate-link',
+                          },
+                        ]
+                      : null
                   }
                 />
               </Item>

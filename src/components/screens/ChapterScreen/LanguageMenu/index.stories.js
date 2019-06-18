@@ -10,7 +10,7 @@ const Wrapper = styled.div`
 storiesOf('Screens|ChapterScreen/LanguageMenu', module)
   .addParameters({ component: LanguageMenu })
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
-  .add('for framework guide', () => (
+  .add('w/ framework, 1 translation', () => (
     <LanguageMenu
       framework="react"
       chapter="chapter"
@@ -32,7 +32,38 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
       }}
     />
   ))
-  .add('for non-framework guide', () => (
+  .add('w/ framework, 2 translations', () => (
+    <LanguageMenu
+      framework="react"
+      chapter="chapter"
+      firstChapter="get-started"
+      guide="guide"
+      language="en"
+      translationPages={{
+        edges: [
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+        ],
+      }}
+    />
+  ))
+  .add('no framework, 1 translation', () => (
     <LanguageMenu
       chapter="chapter"
       firstChapter="get-started"
@@ -48,10 +79,22 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
               },
             },
           },
+        ],
+      }}
+    />
+  ))
+  .add('no framework, 2 translations', () => (
+    <LanguageMenu
+      chapter="chapter"
+      firstChapter="get-started"
+      guide="guide"
+      language="en"
+      translationPages={{
+        edges: [
           {
             node: {
               fields: {
-                language: 'es',
+                language: 'en',
                 slug: '/chapter',
               },
             },

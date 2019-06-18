@@ -100,7 +100,7 @@ Guide.propTypes = {
           }).isRequired
         ),
         contributorCount: PropTypes.string,
-        coverImagePath: PropTypes.string.isRequired,
+        coverImagePath: PropTypes.string,
         description: PropTypes.string.isRequired,
         heroAnimationName: PropTypes.string,
         heroDescription: PropTypes.string.isRequired,

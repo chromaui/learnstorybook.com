@@ -158,7 +158,7 @@ Guides.propTypes = {
           description: PropTypes.string.isRequired,
           title: PropTypes.string.isRequired,
           themeColor: PropTypes.string.isRequired,
-          thumbImagePath: PropTypes.string.isRequired,
+          thumbImagePath: PropTypes.string,
         }).isRequired,
       }).isRequired,
     }).isRequired

@@ -159,7 +159,9 @@ const Hero = ({
         </Pitch>
 
         <Figure>
-          <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
+          {imagePath && (
+            <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
+          )}
         </Figure>
       </HeroContent>
     </HeroWrapper>
@@ -171,7 +173,7 @@ Hero.propTypes = {
   ctaHref: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   heroAnimationName: PropTypes.string,
-  imagePath: PropTypes.string.isRequired,
+  imagePath: PropTypes.string,
   languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   themeColor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
@@ -180,6 +182,7 @@ Hero.propTypes = {
 Hero.defaultProps = {
   contributorCount: null,
   heroAnimationName: null,
+  imagePath: null,
 };
 
 export default Hero;

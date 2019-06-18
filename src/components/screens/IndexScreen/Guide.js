@@ -66,18 +66,20 @@ const Guide = ({ chapterCount, description, imagePath, themeColor, title }) => (
       <GuideChapterCount>{pluralize('Chapter', chapterCount, true)}</GuideChapterCount>
     </div>
 
-    <GuideImageWrapper>
-      <GuideImage src={imagePath} alt={title} />
-    </GuideImageWrapper>
+    <GuideImageWrapper>{imagePath && <GuideImage src={imagePath} alt={title} />}</GuideImageWrapper>
   </GuideWrapper>
 );
 
 Guide.propTypes = {
   chapterCount: PropTypes.number.isRequired,
   description: PropTypes.string.isRequired,
-  imagePath: PropTypes.string.isRequired,
+  imagePath: PropTypes.string,
   themeColor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
+};
+
+Guide.defaultProps = {
+  imagePath: null,
 };
 
 export default Guide;
