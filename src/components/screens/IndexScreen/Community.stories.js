@@ -7,6 +7,6 @@ const contributors = [...Array(30)].map((_, index) => ({
   avatar_url: 'https://avatars2.githubusercontent.com/u/263385',
 }));
 
-storiesOf('Screens|IndexScreen/Community', module).add('default', () => (
-  <PureCommunity contributors={contributors} />
-));
+storiesOf('Screens|IndexScreen/Community', module)
+  .addParameters({ component: PureCommunity })
+  .add('default', () => <PureCommunity contributors={contributors} />);

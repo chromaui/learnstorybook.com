@@ -8,5 +8,6 @@ const Wrapper = styled.div`
 `;
 
 storiesOf('Basics|BoxLink', module)
+  .addParameters({ component: BoxLink })
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('default', () => <BoxLink to="/">BoxLink content</BoxLink>);

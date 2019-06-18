@@ -19,6 +19,6 @@ const props = {
   ],
 };
 
-storiesOf('Screens|GuideScreen/Contributors', module).add('default', () => (
-  <Contributors {...props} />
-));
+storiesOf('Screens|GuideScreen/Contributors', module)
+  .addParameters({ component: Contributors })
+  .add('default', () => <Contributors {...props} />);

@@ -15,6 +15,6 @@ const entries = [
   },
 ];
 
-storiesOf('Screens|GuideScreen/TableOfContents', module).add('default', () => (
-  <TableOfContents entries={entries} />
-));
+storiesOf('Screens|GuideScreen/TableOfContents', module)
+  .addParameters({ component: TableOfContents })
+  .add('default', () => <TableOfContents entries={entries} />);

@@ -58,14 +58,17 @@ const Sidebar = ({
       {startCase(guide)}
     </GuideLink>
 
-    <LanguageMenu
-      chapter={chapter}
-      guide={guide}
-      firstChapter={firstChapter}
-      framework={framework}
-      language={language}
-      translationPages={translationPages}
-    />
+    <div>
+      <LanguageMenu
+        chapter={chapter}
+        guide={guide}
+        firstChapter={firstChapter}
+        framework={framework}
+        language={language}
+        translationPages={translationPages}
+      />
+    </div>
+
     <TableOfContentsWrapper entries={entries} currentPageSlug={slug} />
   </SidebarWrapper>
 );

@@ -15,4 +15,6 @@ const props = {
   location: { pathname: '' },
 };
 
-storiesOf('Composite|AppLayout', module).add('default', () => <AppLayout {...props} />);
+storiesOf('Composite|AppLayout', module)
+  .addParameters({ component: AppLayout })
+  .add('default', () => <AppLayout {...props} />);

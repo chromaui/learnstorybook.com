@@ -9,6 +9,7 @@ const BlueBackground = styled.div`
 `;
 
 storiesOf('Basics|Logo', module)
+  .addParameters({ component: Logo })
   .add('default', () => <Logo />)
   .add('inverted', () => (
     <BlueBackground>

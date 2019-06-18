@@ -11,4 +11,6 @@ const props = {
   imagePath: '/guide-thumb/intro.svg',
 };
 
-storiesOf('Screens|IndexScreen/Guide', module).add('default', () => <Guide {...props} />);
+storiesOf('Screens|IndexScreen/Guide', module)
+  .addParameters({ component: Guide })
+  .add('default', () => <Guide {...props} />);

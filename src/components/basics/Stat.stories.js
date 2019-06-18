@@ -10,5 +10,6 @@ const Wrapper = styled.div`
 `;
 
 storiesOf('Basics|Stat', module)
+  .addParameters({ component: Stat })
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('default', () => <Stat value="6" label="Contributors" />);

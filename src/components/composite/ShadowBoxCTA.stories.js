@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 const ctaAction = <Button appearance="secondary">Continue</Button>;
 
 storiesOf('Composite|ShadowBoxCTA', module)
+  .addParameters({ component: ShadowBoxCTA })
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('default', () => (
     <ShadowBoxCTA

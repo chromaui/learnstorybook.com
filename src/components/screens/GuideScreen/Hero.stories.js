@@ -13,5 +13,6 @@ const props = {
 };
 
 storiesOf('Screens|GuideScreen/Hero', module)
+  .addParameters({ component: Hero })
   .add('default', () => <Hero {...props} />)
   .add('with contributor count', () => <Hero {...props} contributorCount="34+" />);

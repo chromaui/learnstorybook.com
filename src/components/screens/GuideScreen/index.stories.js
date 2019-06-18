@@ -74,4 +74,6 @@ const props = {
   },
 };
 
-storiesOf('Screens|GuideScreen/index', module).add('default', () => <GuideScreen {...props} />);
+storiesOf('Screens|GuideScreen/index', module)
+  .addParameters({ component: GuideScreen })
+  .add('default', () => <GuideScreen {...props} />);

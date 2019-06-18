@@ -9,5 +9,6 @@ const nextEntry = {
 };
 
 storiesOf('Screens|ChapterScreen/Pagination', module)
+  .addParameters({ component: Pagination })
   .add('without nextEntry', () => <Pagination />)
   .add('with nextEntry', () => <Pagination nextEntry={nextEntry} />);

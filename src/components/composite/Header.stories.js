@@ -30,6 +30,7 @@ const props = {
 };
 
 storiesOf('Composite|Header', module)
+  .addParameters({ component: Header })
   .add('default', () => <Header {...props} />)
   .add('inverted', () => (
     <BlueBackground>

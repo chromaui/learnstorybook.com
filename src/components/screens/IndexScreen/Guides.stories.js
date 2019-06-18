@@ -30,4 +30,6 @@ const props = {
   ],
 };
 
-storiesOf('Screens|IndexScreen/Guides', module).add('default', () => <Guides {...props} />);
+storiesOf('Screens|IndexScreen/Guides', module)
+  .addParameters({ component: Guides })
+  .add('default', () => <Guides {...props} />);

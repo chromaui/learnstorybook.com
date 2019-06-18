@@ -30,4 +30,6 @@ const props = {
   ],
 };
 
-storiesOf('Screens|IndexScreen/SiteStats', module).add('default', () => <SiteStats {...props} />);
+storiesOf('Screens|IndexScreen/SiteStats', module)
+  .addParameters({ component: SiteStats })
+  .add('default', () => <SiteStats {...props} />);

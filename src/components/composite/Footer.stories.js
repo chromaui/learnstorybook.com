@@ -19,4 +19,6 @@ const guides = {
   ],
 };
 
-storiesOf('Composite|Footer', module).add('default', () => <Footer guides={guides} />);
+storiesOf('Composite|Footer', module)
+  .addParameters({ component: Footer })
+  .add('default', () => <Footer guides={guides} />);

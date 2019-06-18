@@ -9,6 +9,6 @@ const entries = [
   { slug: 'slug-2', title: 'Chapter 2' },
 ];
 
-storiesOf('Screens|ChapterScreen/TableOfContents', module).add('default', () => (
-  <TableOfContents currentPageSlug={currentPageSlug} entries={entries} />
-));
+storiesOf('Screens|ChapterScreen/TableOfContents', module)
+  .addParameters({ component: TableOfContents })
+  .add('default', () => <TableOfContents currentPageSlug={currentPageSlug} entries={entries} />);

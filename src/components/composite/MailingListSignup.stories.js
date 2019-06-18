@@ -8,5 +8,6 @@ const Wrapper = styled.div`
 `;
 
 storiesOf('Composite|MailingListSignup', module)
+  .addParameters({ component: MailingListSignup })
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('default', () => <MailingListSignup />);

@@ -8,6 +8,7 @@ const Wrapper = styled.div`
 `;
 
 storiesOf('Screens|ChapterScreen/LanguageMenu', module)
+  .addParameters({ component: LanguageMenu })
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('for framework guide', () => (
     <LanguageMenu

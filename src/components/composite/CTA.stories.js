@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 const ctaAction = <Button appearance="secondary">Get started</Button>;
 
 storiesOf('Composite|CTA', module)
+  .addParameters({ component: CTA })
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('all', () => (
     <>

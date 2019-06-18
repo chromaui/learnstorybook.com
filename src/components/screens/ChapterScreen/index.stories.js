@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Chapter from './index';
-import LanguageMenu from '../ChapterScreen/LanguageMenu';
 
 const props = {
   data: {
@@ -14,6 +13,7 @@ const props = {
       },
       fields: {
         chapter: 'chapter-1',
+        framework: 'react',
         guide: 'sample-guide',
         language: 'en',
         slug: '/chapter-slug',
@@ -60,24 +60,41 @@ const props = {
         },
       ],
     },
+    translationPages: {
+      edges: [
+        {
+          node: {
+            frontmatter: {
+              title: 'Chapter 1',
+              description: 'Chapter 1 description',
+            },
+            fields: {
+              framework: 'react',
+              slug: '/chapter-slug',
+              chapter: 'chapter-1',
+              language: 'en',
+            },
+          },
+        },
+        {
+          node: {
+            frontmatter: {
+              title: 'Chapter 2',
+              description: 'Chapter 2 description',
+            },
+            fields: {
+              framework: 'react',
+              slug: '/chapter-2-slug',
+              chapter: 'chapter-2',
+              language: 'en',
+            },
+          },
+        },
+      ],
+    },
   },
-  languageMenu: (
-    <LanguageMenu
-      buttonContent="The button"
-      renderItems={({ Item, Title, Detail, Link }) => (
-        <Item>
-          <div>
-            <Title>React</Title>
-            <Detail>
-              <Link to="/en/">English</Link>
-              <Link to="/es/">Español</Link>
-              <Link to="/pt/">Português</Link>
-            </Detail>
-          </div>
-        </Item>
-      )}
-    />
-  ),
 };
 
-storiesOf('Screens|ChapterScreen/index', module).add('default', () => <Chapter {...props} />);
+storiesOf('Screens|ChapterScreen/index', module)
+  .addParameters({ component: Chapter })
+  .add('default', () => <Chapter {...props} />);
