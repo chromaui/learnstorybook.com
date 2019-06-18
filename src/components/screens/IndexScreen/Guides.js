@@ -78,7 +78,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.thumbImagePath}
+              imagePath="/guide-thumb/cdd.svg"
               themeColor="#66BF3C"
               title={guideNode.frontmatter.title}
             />
@@ -90,7 +90,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.thumbImagePath}
+              imagePath="/guide-thumb/design-system.svg"
               themeColor="#1EA7FD"
               title={guideNode.frontmatter.title}
             />
@@ -102,7 +102,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.thumbImagePath}
+              imagePath="/guide-thumb/master.svg"
               themeColor="#37D5D3"
               title={guideNode.frontmatter.title}
             />
@@ -114,7 +114,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.thumbImagePath}
+              imagePath="/guide-thumb/production.svg"
               themeColor="#FF4785"
               title={guideNode.frontmatter.title}
             />
@@ -126,7 +126,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             <Guide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
-              imagePath={guideNode.frontmatter.thumbImagePath}
+              imagePath="/guide-thumb/visual-testing.svg"
               themeColor="#FFAE00"
               title={guideNode.frontmatter.title}
             />
