@@ -31,4 +31,40 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
         ],
       }}
     />
+  ))
+  .add('for non-framework guide', () => (
+    <LanguageMenu
+      chapter="chapter"
+      firstChapter="get-started"
+      guide="guide"
+      language="en"
+      translationPages={{
+        edges: [
+          {
+            node: {
+              fields: {
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                language: 'pt',
+                slug: '/chapter',
+              },
+            },
+          },
+        ],
+      }}
+    />
   ));

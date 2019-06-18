@@ -67,8 +67,7 @@ const getChapterInOtherLanguage = (
 ) => {
   const expectedSlug = `/${guide}/${framework}/${language}/${currentChapter}/`;
   const chapterInOtherLanguage = translationPages.edges.find(
-    ({ node: { fields } }) =>
-      fields.slug === `/${guide}/${framework}/${language}/${currentChapter}/`
+    ({ node: { fields } }) => fields.slug === expectedSlug
   );
 
   if (chapterInOtherLanguage) {
@@ -110,7 +109,6 @@ const FrameworkMenu = ({ chapter, firstChapter, framework, guide, language, tran
     Object.keys(translationPagesByFramework),
     frameworkName => frameworkName
   );
-  const sharedLinkArgs = [guide, chapter, firstChapter, translationPages];
 
   return (
     <WithTooltip
@@ -142,7 +140,10 @@ const FrameworkMenu = ({ chapter, firstChapter, framework, guide, language, tran
                           to={getChapterInOtherLanguage(
                             translationFramework,
                             translationLanguage,
-                            ...sharedLinkArgs
+                            guide,
+                            chapter,
+                            firstChapter,
+                            translationPages
                           )}
                         >
                           {getLanguageName(translationLanguage)}
