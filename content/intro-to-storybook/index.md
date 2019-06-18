@@ -33,13 +33,18 @@ authors:
 contributors:
   [
     {
-      src: "https://avatars2.githubusercontent.com/u/9523719",
-      name: "Kyle Holmberg",
+      src: "https://avatars2.githubusercontent.com/u/22988955",
+      name: "jonniebigodes",
       detail: "Software engineer",
     },
     {
-      src: "https://avatars2.githubusercontent.com/u/6795688",
-      name: "Erik Nguyen",
+      src: "https://avatars2.githubusercontent.com/u/1593752",
+      name: "Carlos Vega",
+      detail: "Software engineer",
+    },
+    {
+      src: "https://avatars2.githubusercontent.com/u/5649014",
+      name: "Carlos Iván Suarez",
       detail: "Software engineer",
     },
   ]
