@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
-import App from './app';
+import AppLayout from './AppLayout';
 
 const Children = styled.div`
   display: flex;
@@ -15,4 +15,4 @@ const props = {
   location: { pathname: '' },
 };
 
-storiesOf('Templates|App', module).add('default', () => <App {...props} />);
+storiesOf('Composite|AppLayout', module).add('default', () => <AppLayout {...props} />);

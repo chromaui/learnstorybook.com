@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
 import Helmet from 'react-helmet';
-import Header from '../components/composite/Header';
-import Footer from '../components/composite/Footer';
-import { GlobalStyle } from '../styles/global';
+import Header from './Header';
+import Footer from './Footer';
+import { GlobalStyle } from '../../styles/global';
 
 const query = graphql`
   query TemplateWrapper {
