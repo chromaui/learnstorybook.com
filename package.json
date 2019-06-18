@@ -30,7 +30,7 @@
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
-    "build-storybook": "build-storybook",
+    "build-storybook": "build-storybook -s ./static",
     "chromatic": "CHROMATIC_APP_CODE=92d6oc1qsrc chromatic test",
     "dev": "gatsby develop",
     "format": "prettier-eslint --write '**/*.js'",
