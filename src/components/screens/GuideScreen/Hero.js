@@ -10,9 +10,12 @@ import * as animations from '../../../styles/animations';
 const { breakpoint, color, pageMargins, spacing, typography } = styles;
 
 const HeroWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: ${props => props.themeColor};
   padding-bottom: 80px;
-  padding-top: 120px;
+  padding-top: 66px;
   padding-left: ${spacing.padding.medium}px;
   padding-right: ${spacing.padding.medium}px;
 
@@ -21,6 +24,7 @@ const HeroWrapper = styled.div`
     padding-bottom: 178px;
     padding-left: 0;
     padding-right: 0;
+    min-height: 70vh;
   }
 `;
 
@@ -96,14 +100,19 @@ const StatWrapper = styled(Stat)`
 const Figure = styled.div`
   flex: 1;
 
+  @media (min-width: ${breakpoint * 1.5}px) {
+    height: 480px;
+  }
+
   img {
     display: block;
     height: auto;
     margin: 0 auto;
-    width: 80%;
+    max-width: 80%;
+    max-height: 480px;
 
     @media (min-width: ${breakpoint * 1.5}px) {
-      width: 100%;
+      max-width: 100%;
     }
   }
 `;

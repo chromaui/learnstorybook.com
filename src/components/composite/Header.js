@@ -99,6 +99,10 @@ const MobileMenuNavItem = styled(NavItem)`
   margin-right: 10px;
 `;
 
+const GithubNavItem = styled(NavItem)`
+  width: 109px;
+`;
+
 const Nav = styled.div`
   height: 3rem;
   position: relative;
@@ -299,11 +303,11 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
             </WithTooltip>
           </MobileMenuNavItem>
 
-          <NavItem isInverted={isInverted}>
+          <GithubNavItem isInverted={isInverted}>
             <GitHubWrapper>
               <GitHubButton type="stargazers" namespace={namespace} repo={repo} />
             </GitHubWrapper>
-          </NavItem>
+          </GithubNavItem>
         </NavGroup>
       </Nav>
     </NavWrapper>
