@@ -61,4 +61,6 @@ const props = {
   },
 };
 
-storiesOf('Screens|IndexScreen/index', module).add('default', () => <IndexScreen {...props} />);
+storiesOf('Screens|IndexScreen/index', module).add('default', () => <IndexScreen {...props} />, {
+  chromatic: { disable: true },
+});
