@@ -65,13 +65,24 @@ const NavItem = styled.div`
   `}
 `;
 
-const NavTextLink = styled(GatsbyLink)`
+const NavTextLinkInternal = styled(GatsbyLink)`
   && {
     color: ${props => (props.inverse ? color.lightest : color.darkest)};
 
     svg {
       margin-right: 0;
+
+      path {
+        fill: ${props => (props.inverse ? color.lightest : color.darkest)};
+      }
     }
+  }
+`;
+
+const NavTextLinkExternal = styled(Link)`
+  && {
+    color: ${props => (props.inverse ? color.lightest : color.darkest)};
+    transition: transform 150ms ease-out;
   }
 `;
 
@@ -270,21 +281,20 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
         <NavGroup withRightAlignment>
           <NavItem isInverted={isInverted} showDesktop>
             <WithTooltip placement="bottom" trigger="click" closeOnClick tooltip={guideList}>
-              <NavTextLink as={Link} inverse={isInverted} tertiary onClick={preventDefault}>
+              <NavTextLinkExternal inverse={isInverted} tertiary onClick={preventDefault}>
                 Guides
-              </NavTextLink>
+              </NavTextLinkExternal>
             </WithTooltip>
           </NavItem>
 
           <NavItem isInverted={isInverted} showDesktop>
-            <NavTextLink tertiary inverse={isInverted} to="/team">
+            <NavTextLinkInternal tertiary inverse={isInverted} to="/team">
               Team
-            </NavTextLink>
+            </NavTextLinkInternal>
           </NavItem>
 
           <NavItem isInverted={isInverted} showDesktop>
-            <NavTextLink
-              as={Link}
+            <NavTextLinkExternal
               tertiary
               inverse={isInverted}
               href="https://storybook.js.org/"
@@ -292,14 +302,14 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
               rel="noopener"
             >
               Storybook
-            </NavTextLink>
+            </NavTextLinkExternal>
           </NavItem>
 
           <MobileMenuNavItem showMobile>
             <WithTooltip placement="top" trigger="click" tooltip={mobileMenu} closeOnClick>
-              <NavTextLink as={Link} tertiary inverse={isInverted} onClick={preventDefault}>
+              <NavTextLinkInternal tertiary inverse={isInverted} onClick={preventDefault}>
                 <Icon icon="menu" />
-              </NavTextLink>
+              </NavTextLinkInternal>
             </WithTooltip>
           </MobileMenuNavItem>
 
