@@ -8,7 +8,7 @@ description: "Configuração do Angular Storybook no ambiente de desenvolvimento
 
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
-Esta edição de Aprendizagem de Storybook é destinada para React.
+Esta edição de Aprendizagem de Storybook é destinada para Angular.
 Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started), quer para [React](/react/pt/get-started).
 
 ![Storybook e a aplicação](/storybook-relationship.jpg)
