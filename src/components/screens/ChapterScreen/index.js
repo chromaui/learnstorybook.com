@@ -196,7 +196,6 @@ export const query = graphql`
         codeGithubUrl
         toc
         title
-        languages
       }
     }
     site {
