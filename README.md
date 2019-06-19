@@ -76,7 +76,7 @@ _If you are writing a new chapter for a language that already exists, skip to st
 
 `/content/:guide/:framework?/:language/:chapter.md`
 
-4. Update the guide's `toc` frontmatter. Each time you add a new chapter, make sure to go back and update the guide's `toc`in order to populate the Table of Contents as well as control the order of the chapters. Using the name of the file that you just created, go back to the guide frontmatter and add the `toc`:
+4. Update the guide's `toc` frontmatter. Each time you add a new chapter, make sure to go back and update the guide's `toc` in order to populate the Table of Contents as well as control the order of the chapters. Using the name of the file that you just created in step 3, go back to the guide frontmatter and update the `toc`:
 
 ```
 toc: [":chapter"]
