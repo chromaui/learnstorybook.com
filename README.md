@@ -6,7 +6,7 @@ Learn Storybook teaches you how to use Storybook and Component-Driven Developmen
 
 Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started.
 
-You'll find the guides and chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory. Content on the site is organized at the guide level. Within the `/content` directory, you'll find directories for the current guides that are offered on the site. Within each guide directory, you can see the chapters that make up that guide.
+You'll find the guides and chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory. Content is organized at the guide level. Within the `/content` directory, you'll find directories for the current guides that are offered. Within each guide directory, you can see the chapters that make up that guide.
 
 We need help translating Learn Storybook to new languages. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3)
 Traditional Chinese translation is converted from Simplified Chinese using [OpenCC](https://github.com/BYVoid/OpenCC). Please help us correct any idiomatic errors.
@@ -34,15 +34,17 @@ Install packages and run with `yarn dev`.
 
 ## Adding new content
 
+Thanks for taking the time to contribute and add content to Learn Storybook! The tutorials below reference file paths often which will be represented in a format like this:
+
+`/content/:guide/:framework?/:language/:chapter.md`
+
+File parts that are prefixed with a colon (`:`) are meant to be dynamic names that are chosen by you! `:guide` becomes `intro-to-storybook` or whatever you decide to use for your content. If a file part is followed by a question mark (`?`), then it is optional.
+
 ### Add a guide
 
-Do you like writing content for developers and have an idea for a new guide for Storybook users? That's great! Adding a new guide to the site can be done in a few steps.
+1. Within the `/content` directory, add a directory for your new guide: `/content/:guide`. The name you choose for the directory will be used as the slug for the directory on [learnstorybook.com](https://www.learnstorybook.com/).
 
-Suppose your new guide will be called `mastering-storybook`.
-
-1. Within the `/content` directory, add a directory for your new guide: `/content/mastering-storybook`. The name you choose for the directory will be used as the slug for the directory on [learnstorybook.com](https://www.learnstorybook.com/).
-
-2. Add a new file, `index.md`, to your newly created directory: `/content/mastering-storybook/index.md`. This file will contain the content and metadata for your guide that will populate the site. Using [`intro-to-storybook`'s `index.md`](https://github.com/chromaui/learnstorybook.com/tree/master/content/intro-to-storybook/index.md) as an example, populate the following required frontmatter fields with meaningful content about your guide:
+2. Add a new file, `index.md`, to your newly created directory: `/content/:guide/index.md`. This file will contain the content and metadata for your guide that will populate the site. Using [`intro-to-storybook`'s `index.md`](https://github.com/chromaui/learnstorybook.com/tree/master/content/intro-to-storybook/index.md) as an example, populate the following required frontmatter fields with meaningful content about your guide:
 
 ```
 ---
@@ -60,13 +62,13 @@ themeColor:
 
 ### Add a chapter
 
-If you are translating a chapter to a language that already exists in another language, skip to step 2.
+_If you are translating a chapter to a language that already exists in a different language, skip to step 2._
 
-If you are writing a new chapter for a language that already exists in a guide, skip to step 3.
+_If you are writing a new chapter for a language that already exists in a guide, skip to step 3._
 
 1. Decide if your guide should be organized by framework. Will the examples and messaging be specific to the reader's framework of choice? If so, add an additional directory for the framework: `/content/mastering-storybook/:framework` (`react`, `angular`, `vue`, etc.). If not, carry on to the next step -- you will put your translation directories and chapters inside the `mastering-storybook` directory.
 
-2. Add a directory for the language that you will use to write your first chapter. The naming of this language is important and should mirror what has been used in other guides for similar translations. Additionally, [a helper](https://github.com/chromaui/learnstorybook.com/tree/master/src/lib/getLanguageName.js) is used across the app to transform the language into a human readable name, so make sure to update that helper if you are adding a language which has not yet been used.
+2. Add a directory for the language that you will use to write your chapter. The naming of this language is important and should mirror what has been used in other guides for similar translations. Additionally, [a helper](https://github.com/chromaui/learnstorybook.com/tree/master/src/lib/getLanguageName.js) is used across the app to transform the language into a human readable name, so make sure to update that helper if you are adding a language which has not yet been used.
    Know of a better way to convert this language to something more readable? [Start an issue](https://github.com/chromaui/learnstorybook.com/issues) and let us know your idea.
 
 3. Add a new file for the chapter that you are going to write:
