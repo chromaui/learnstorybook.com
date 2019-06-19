@@ -38,7 +38,7 @@ Thanks for taking the time to contribute and add content to Learn Storybook! The
 
 `/content/:guide/:framework?/:language/:chapter.md`
 
-File parts that are prefixed with a colon (`:`) are meant to be dynamic names that are chosen by you. `:guide` becomes `intro-to-storybook` or whatever you decide to use for your content. If a file part is followed by a question mark (`?`), then it is optional.
+Path parts that are prefixed with a colon (`:`) are meant to be dynamic names that are chosen by you. `:guide` becomes `intro-to-storybook` or whatever you decide to use for your content. If a path part is followed by a question mark (`?`), then it is optional.
 
 ### Add a guide
 
@@ -68,7 +68,7 @@ _If you are translating a chapter that already exists in a different language, s
 
 _If you are writing a new chapter for a language that already exists, skip to step 3._
 
-1. Decide if your guide should be organized by framework. Will the examples and messaging be specific to the reader's framework of choice? If so, add an additional directory for the framework: `/content/:guide/:framework` (`react`, `angular`, `vue`, etc.). If not, carry on to the next step -- you will put your translation directories and chapters inside the `/content/:guide` directory.
+1. Decide if your guide should be organized by framework. Will the examples and messaging be specific to the reader's framework of choice? If so, add an additional directory for the framework: `/content/:guide/:framework`. If not, carry on to the next step -- you will put your translation directories and chapters inside the `/content/:guide` directory.
 
 2. Add a directory for the language that you will use to write your chapter. The naming of this language directory is important and should mirror what has been used in other guides for similar translations. Additionally, [a helper](https://github.com/chromaui/learnstorybook.com/tree/master/src/lib/getLanguageName.js) is used across the app to transform the language into a human readable name, so make sure to update that helper if you are adding a language which has not yet been used. Know of a better way to convert this language into something more readable? [Start an issue](https://github.com/chromaui/learnstorybook.com/issues) and let us know your idea.
 
@@ -76,13 +76,11 @@ _If you are writing a new chapter for a language that already exists, skip to st
 
 `/content/:guide/:framework?/:language/:chapter.md`
 
-4. Using the name of the file that you just created, go back to the guide frontmatter and add the `toc`:
+4. Update the guide's `toc` frontmatter. Each time you add a new chapter, make sure to go back and update the guide's `toc`in order to populate the Table of Contents as well as control the order of the chapters. Using the name of the file that you just created, go back to the guide frontmatter and add the `toc`:
 
 ```
 toc: [":chapter"]
 ```
-
-This is necessary for building the table of contents for your guide. Each time you add a new chapter, make sure to go back and update the guide's `toc`in order to populate the Table of Contents as well as control the order of the chapters.
 
 5. Populate the [chapter frontmatter](#chapter-frontmatter).
 
