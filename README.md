@@ -60,6 +60,8 @@ themeColor:
 
 4. Populate the guide content in markdown underneath the frontmatter. This content shows up on the guide page after the table of contents. You can insert images, call out frameworks, or provide details about the project contained within the guide.
 
+5. Visit your guide at `http://localhost:8000/:guide`
+
 ### Add a chapter
 
 _If you are translating a chapter to a language that already exists in a different language, skip to step 2._
@@ -86,6 +88,8 @@ This is necessary for building the table of contents for your guide. After you a
 5. Populate the [chapter frontmatter](#chapter-frontmatter).
 
 6. Populate the chapter content in markdown underneath the frontmatter.
+
+7. Visit your chapter at `http://localhost:8000/:guide/:chapter` or by going to `http://localhost:8000/:guide/` and subsequently navigating to your chapter from the Table of Contents.
 
 ### Guide frontmatter
 
