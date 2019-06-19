@@ -7,17 +7,21 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
+const sharedProps = {
+  chapter: 'chapter',
+  contributeUrl: '/contribute',
+  firstChapter: 'get-started',
+  guide: 'guide',
+  language: 'en',
+};
+
 storiesOf('Screens|ChapterScreen/LanguageMenu', module)
   .addParameters({ component: LanguageMenu })
   .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('w/ framework, 1 translation', () => (
     <LanguageMenu
+      {...sharedProps}
       framework="react"
-      chapter="chapter"
-      contributeUrl="/contribute"
-      firstChapter="get-started"
-      guide="guide"
-      language="en"
       translationPages={{
         edges: [
           {
@@ -35,12 +39,8 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
   ))
   .add('w/ framework, 2 translations', () => (
     <LanguageMenu
+      {...sharedProps}
       framework="react"
-      chapter="chapter"
-      contributeUrl="/contribute"
-      firstChapter="get-started"
-      guide="guide"
-      language="en"
       translationPages={{
         edges: [
           {
@@ -67,11 +67,7 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
   ))
   .add('no framework, 1 translation', () => (
     <LanguageMenu
-      chapter="chapter"
-      contributeUrl="/contribute"
-      firstChapter="get-started"
-      guide="guide"
-      language="en"
+      {...sharedProps}
       translationPages={{
         edges: [
           {
@@ -88,11 +84,7 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
   ))
   .add('no framework, 2 translations', () => (
     <LanguageMenu
-      chapter="chapter"
-      contributeUrl="/contribute"
-      firstChapter="get-started"
-      guide="guide"
-      language="en"
+      {...sharedProps}
       translationPages={{
         edges: [
           {
