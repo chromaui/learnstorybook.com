@@ -21,14 +21,15 @@ const props = {
     },
     currentGuide: {
       frontmatter: {
+        codeGithubUrl: 'https://github.com',
         languages: ['en'],
+        title: 'Guide Title',
         toc: ['chapter-1', 'chapter-2'],
       },
     },
     site: {
       siteMetadata: {
         githubUrl: 'https://github.com',
-        codeGithubUrl: 'https://github.com',
         contributeUrl: 'https://github.com',
         title: 'Learn Storybook',
       },

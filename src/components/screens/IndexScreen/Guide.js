@@ -63,7 +63,10 @@ const Guide = ({ chapterCount, description, imagePath, themeColor, title }) => (
     <div>
       <GuideTitle>{title}</GuideTitle>
       <GuideDescription>{description}</GuideDescription>
-      <GuideChapterCount>{pluralize('Chapter', chapterCount, true)}</GuideChapterCount>
+
+      {chapterCount && (
+        <GuideChapterCount>{pluralize('Chapter', chapterCount, true)}</GuideChapterCount>
+      )}
     </div>
 
     <GuideImageWrapper>{imagePath && <GuideImage src={imagePath} alt={title} />}</GuideImageWrapper>
@@ -71,7 +74,7 @@ const Guide = ({ chapterCount, description, imagePath, themeColor, title }) => (
 );
 
 Guide.propTypes = {
-  chapterCount: PropTypes.number.isRequired,
+  chapterCount: PropTypes.number,
   description: PropTypes.string.isRequired,
   imagePath: PropTypes.string,
   themeColor: PropTypes.string.isRequired,
@@ -79,6 +82,7 @@ Guide.propTypes = {
 };
 
 Guide.defaultProps = {
+  chapterCount: null,
   imagePath: null,
 };
 

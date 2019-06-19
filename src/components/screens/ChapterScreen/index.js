@@ -63,10 +63,10 @@ const Chapter = ({
       fields: { framework, guide, language, slug, chapter },
     },
     currentGuide: {
-      frontmatter: { toc },
+      frontmatter: { codeGithubUrl, title: currentGuideTitle, toc },
     },
     site: {
-      siteMetadata: { githubUrl, codeGithubUrl, contributeUrl },
+      siteMetadata: { githubUrl, contributeUrl },
     },
     tocPages,
     translationPages,
@@ -86,6 +86,7 @@ const Chapter = ({
         firstChapter={firstChapter}
         framework={framework}
         guide={guide}
+        guideTitle={currentGuideTitle}
         language={language}
         slug={slug}
         translationPages={translationPages}
@@ -122,6 +123,8 @@ Chapter.propTypes = {
     }).isRequired,
     currentGuide: PropTypes.shape({
       frontmatter: PropTypes.shape({
+        codeGithubUrl: PropTypes.string,
+        title: PropTypes.string.isRequired,
         toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
       }).isRequired,
     }).isRequired,
@@ -162,7 +165,6 @@ Chapter.propTypes = {
     }),
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
-        codeGithubUrl: PropTypes.string.isRequired,
         contributeUrl: PropTypes.string.isRequired,
         githubUrl: PropTypes.string.isRequired,
       }).isRequired,
@@ -191,7 +193,9 @@ export const query = graphql`
     }
     currentGuide: markdownRemark(fields: { guide: { eq: $guide }, pageType: { eq: "guide" } }) {
       frontmatter {
+        codeGithubUrl
         toc
+        title
         languages
       }
     }
@@ -199,7 +203,6 @@ export const query = graphql`
       siteMetadata {
         title
         githubUrl
-        codeGithubUrl
         contributeUrl
         siteUrl
       }

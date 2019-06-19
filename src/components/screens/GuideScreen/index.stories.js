@@ -71,6 +71,24 @@ const props = {
         },
       ],
     },
+    translationPages: {
+      edges: [
+        {
+          node: {
+            fields: {
+              language: 'en',
+            },
+          },
+        },
+        {
+          node: {
+            fields: {
+              language: 'es',
+            },
+          },
+        },
+      ],
+    },
   },
 };
 

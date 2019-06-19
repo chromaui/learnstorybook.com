@@ -19,6 +19,7 @@ storiesOf('Screens|ChapterScreen/Sidebar', module)
       firstChapter="get-started"
       framework="react"
       guide="guide"
+      guideTitle="Guide Title"
       language="en"
       slug={currentPageSlug}
       translationPages={{

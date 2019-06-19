@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Icon, styles } from '@storybook/design-system';
-import startCase from 'lodash/startCase';
 import GatsbyLink from '../../basics/GatsbyLink';
 import TableOfContents from './TableOfContents';
 import LanguageMenu from './LanguageMenu';
@@ -49,6 +48,7 @@ const Sidebar = ({
   firstChapter,
   framework,
   guide,
+  guideTitle,
   language,
   slug,
   translationPages,
@@ -56,7 +56,7 @@ const Sidebar = ({
   <SidebarWrapper>
     <GuideLink tertiary to={`/${guide}`}>
       <SidebarBackIcon icon="arrowleft" />
-      {startCase(guide)}
+      {guideTitle}
     </GuideLink>
 
     <div>
@@ -82,6 +82,7 @@ Sidebar.propTypes = {
   firstChapter: PropTypes.string.isRequired,
   framework: PropTypes.string,
   guide: PropTypes.string.isRequired,
+  guideTitle: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
   translationPages: PropTypes.shape({

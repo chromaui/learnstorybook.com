@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import isNil from 'lodash/isNil';
 import { Icon, styles } from '@storybook/design-system';
 import BoxLink from '../../basics/BoxLink';
 
@@ -55,38 +56,43 @@ const BoxLinkMessage = styled.div`
   }
 `;
 
-const ChapterLinks = ({ codeGithubUrl, commit }) => (
-  <BoxLinksWrapper withMultiple={!!commit}>
-    {commit && (
-      <BoxLink to={`${codeGithubUrl}/commit/${commit}`}>
+const ChapterLinks = ({ codeGithubUrl, commit }) => {
+  const withCommitLink = !isNil(codeGithubUrl) && !isNil(commit);
+
+  return (
+    <BoxLinksWrapper withMultiple={withCommitLink}>
+      {withCommitLink && (
+        <BoxLink to={`${codeGithubUrl}/commit/${commit}`}>
+          <BoxLinkContent>
+            <BoxLinkIcon icon="repository" />
+
+            <BoxLinkMessage>
+              Keep your code in sync with this chapter. View {commit} on GitHub.
+            </BoxLinkMessage>
+          </BoxLinkContent>
+        </BoxLink>
+      )}
+
+      <BoxLink to="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20a%20great%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=chromaui">
         <BoxLinkContent>
-          <BoxLinkIcon icon="repository" />
+          <BoxLinkIcon icon="twitter" />
 
           <BoxLinkMessage>
-            Keep your code in sync with this chapter. View {commit} on GitHub.
+            Is this free guide helping you? Tweet to give kudos and help other devs find it.
           </BoxLinkMessage>
         </BoxLinkContent>
       </BoxLink>
-    )}
-
-    <BoxLink to="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20a%20great%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=chromaui">
-      <BoxLinkContent>
-        <BoxLinkIcon icon="twitter" />
-
-        <BoxLinkMessage>
-          Is this free guide helping you? Tweet to give kudos and help other devs find it.
-        </BoxLinkMessage>
-      </BoxLinkContent>
-    </BoxLink>
-  </BoxLinksWrapper>
-);
+    </BoxLinksWrapper>
+  );
+};
 
 ChapterLinks.propTypes = {
-  codeGithubUrl: PropTypes.string.isRequired,
+  codeGithubUrl: PropTypes.string,
   commit: PropTypes.string,
 };
 
 ChapterLinks.defaultProps = {
+  codeGithubUrl: null,
   commit: null,
 };
 

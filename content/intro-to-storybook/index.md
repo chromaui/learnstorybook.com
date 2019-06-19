@@ -4,6 +4,7 @@ description: "Learn to create bulletproof UI components, along the way you'll bu
 heroDescription: "🚫 INTRO TO STORYBOOK HERO DESCRIPTION PLACEHOLDER -- CHANGE ME 🚫"
 overview: "🚫 INTRO TO STORYBOOK OVERVIEW PLACEHOLDER -- CHANGE ME 🚫"
 themeColor: "#6F2CAC"
+codeGithubUrl: "https://github.com/chromaui/learnstorybook-code"
 heroAnimationName: "float"
 toc:
   [
@@ -18,7 +19,6 @@ toc:
     "conclusion",
     "contribute",
   ]
-languages: ["en", "es", "zh-CN", "zh-TW", "pt"]
 coverImagePath: "/guide-cover/intro.svg"
 thumbImagePath: "/guide-thumb/intro.svg"
 contributorCount: "+34"

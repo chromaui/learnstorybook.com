@@ -144,16 +144,21 @@ const Hero = ({
       <HeroContent>
         <Pitch>
           <PitchTitle>{title}</PitchTitle>
-          <PitchDescription>{description}</PitchDescription>
 
-          <GatsbyLink to={ctaHref}>
-            <GetStartedButton appearance="secondary">Get started</GetStartedButton>
-          </GatsbyLink>
+          {description && <PitchDescription>{description}</PitchDescription>}
 
-          <Languages>
-            <LanguagesLabel>Languages: </LanguagesLabel>
-            {languageList}
-          </Languages>
+          {ctaHref && (
+            <GatsbyLink to={ctaHref}>
+              <GetStartedButton appearance="secondary">Get started</GetStartedButton>
+            </GatsbyLink>
+          )}
+
+          {languageList.length > 0 && (
+            <Languages>
+              <LanguagesLabel>Languages: </LanguagesLabel>
+              {languageList}
+            </Languages>
+          )}
 
           {contributorCount && <StatWrapper value={contributorCount} label="Contributors" />}
         </Pitch>
@@ -170,8 +175,8 @@ const Hero = ({
 
 Hero.propTypes = {
   contributorCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  ctaHref: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  ctaHref: PropTypes.string,
+  description: PropTypes.string,
   heroAnimationName: PropTypes.string,
   imagePath: PropTypes.string,
   languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -181,6 +186,8 @@ Hero.propTypes = {
 
 Hero.defaultProps = {
   contributorCount: null,
+  ctaHref: null,
+  description: null,
   heroAnimationName: null,
   imagePath: null,
 };
