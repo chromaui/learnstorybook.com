@@ -64,13 +64,13 @@ themeColor:
 
 ### Add a chapter
 
-_If you are translating a chapter to a language that already exists in a different language, skip to step 2._
+_If you are translating a chapter that already exists in a different language, skip to step 2._
 
-_If you are writing a new chapter for a language that already exists in a guide, skip to step 3._
+_If you are writing a new chapter for a language that already exists, skip to step 3._
 
-1. Decide if your guide should be organized by framework. Will the examples and messaging be specific to the reader's framework of choice? If so, add an additional directory for the framework: `/content/mastering-storybook/:framework` (`react`, `angular`, `vue`, etc.). If not, carry on to the next step -- you will put your translation directories and chapters inside the `mastering-storybook` directory.
+1. Decide if your guide should be organized by framework. Will the examples and messaging be specific to the reader's framework of choice? If so, add an additional directory for the framework: `/content/:guide/:framework` (`react`, `angular`, `vue`, etc.). If not, carry on to the next step -- you will put your translation directories and chapters inside the `/content/:guide` directory.
 
-2. Add a directory for the language that you will use to write your chapter. The naming of this language is important and should mirror what has been used in other guides for similar translations. Additionally, [a helper](https://github.com/chromaui/learnstorybook.com/tree/master/src/lib/getLanguageName.js) is used across the app to transform the language into a human readable name, so make sure to update that helper if you are adding a language which has not yet been used.
+2. Add a directory for the language that you will use to write your chapter. The naming of this language directory is important and should mirror what has been used in other guides for similar translations. Additionally, [a helper](https://github.com/chromaui/learnstorybook.com/tree/master/src/lib/getLanguageName.js) is used across the app to transform the language into a human readable name, so make sure to update that helper if you are adding a language which has not yet been used.
    Know of a better way to convert this language to something more readable? [Start an issue](https://github.com/chromaui/learnstorybook.com/issues) and let us know your idea.
 
 3. Add a new file for the chapter that you are going to write:
@@ -93,7 +93,11 @@ This is necessary for building the table of contents for your guide. After you a
 
 ### Guide frontmatter
 
+---
+
 **Required**
+
+---
 
 #### `title`
 
@@ -119,7 +123,11 @@ A named color, hex, rgba value, etc. Basically anything you can use in the `colo
 
 A list and the corresponding order of the chapters in the guide. Short for "Table of Contents". List items should map to the file name of the chapter.
 
+---
+
 **Suggested**
+
+---
 
 #### `codeGithubUrl`
 
@@ -173,7 +181,11 @@ An animation to use on the guide's hero image which corresponds with a named exp
 
 ### Chapter frontmatter
 
+---
+
 **Required**
+
+---
 
 #### `title`
 
@@ -187,7 +199,11 @@ Specify a different title to only be used for the Table of Contents sections.
 
 A brief description of the chapter. Shown underneath the chapter title on the chapter page as well as in the Table of Contents on the guide page.
 
+---
+
 **Suggested**
+
+---
 
 #### `commit`
 
