@@ -96,9 +96,14 @@ const getChapterInOtherLanguage = (
   return `/${guide}/${language}/${firstChapter}/`;
 };
 
-const contributeUrl = 'https://github.com/chromaui/learnstorybook.com/#contribute';
-
-const NonFrameworkMenu = ({ chapter, firstChapter, guide, language, translationPages }) => {
+const NonFrameworkMenu = ({
+  chapter,
+  contributeUrl,
+  firstChapter,
+  guide,
+  language,
+  translationPages,
+}) => {
   const translationLanguages = useMemo(() => getTranslationLanguages(translationPages), [
     translationPages,
   ]);
@@ -166,6 +171,7 @@ const NonFrameworkMenu = ({ chapter, firstChapter, guide, language, translationP
 
 NonFrameworkMenu.propTypes = {
   chapter: PropTypes.string.isRequired,
+  contributeUrl: PropTypes.string.isRequired,
   firstChapter: PropTypes.string.isRequired,
   guide: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,

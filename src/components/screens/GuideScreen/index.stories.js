@@ -35,7 +35,7 @@ const props = {
         chapter: '/chapter-slug',
         guide: 'sample-guide',
         language: 'en',
-        slug: 'chapter-slug',
+        slug: '/chapter-slug',
       },
     },
     site: {
@@ -52,7 +52,7 @@ const props = {
               description: 'Chapter 1 description',
             },
             fields: {
-              slug: 'chapter-slug',
+              slug: '/chapter-slug',
               chapter: 'chapter-slug',
             },
           },
@@ -64,7 +64,7 @@ const props = {
               description: 'Chapter 2 description',
             },
             fields: {
-              slug: 'chapter-2-slug',
+              slug: '/chapter-2-slug',
               chapter: 'chapter-2-slug',
             },
           },

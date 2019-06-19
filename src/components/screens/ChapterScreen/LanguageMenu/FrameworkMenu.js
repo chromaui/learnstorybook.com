@@ -115,9 +115,15 @@ const getTranslationPagesByFramework = translationPages =>
     return pagesByFramework;
   }, {});
 
-const contributeUrl = 'https://github.com/chromaui/learnstorybook.com/#contribute';
-
-const FrameworkMenu = ({ chapter, firstChapter, framework, guide, language, translationPages }) => {
+const FrameworkMenu = ({
+  chapter,
+  contributeUrl,
+  firstChapter,
+  framework,
+  guide,
+  language,
+  translationPages,
+}) => {
   const translationPagesByFramework = useMemo(
     () => getTranslationPagesByFramework(translationPages),
     [translationPages]
@@ -224,6 +230,7 @@ const FrameworkMenu = ({ chapter, firstChapter, framework, guide, language, tran
 
 FrameworkMenu.propTypes = {
   chapter: PropTypes.string.isRequired,
+  contributeUrl: PropTypes.string.isRequired,
   firstChapter: PropTypes.string.isRequired,
   framework: PropTypes.string.isRequired,
   guide: PropTypes.string.isRequired,

@@ -44,6 +44,7 @@ const TableOfContentsWrapper = styled(TableOfContents)`
 
 const Sidebar = ({
   chapter,
+  contributeUrl,
   entries,
   firstChapter,
   framework,
@@ -61,6 +62,7 @@ const Sidebar = ({
     <div>
       <LanguageMenu
         chapter={chapter}
+        contributeUrl={contributeUrl}
         guide={guide}
         firstChapter={firstChapter}
         framework={framework}
@@ -75,6 +77,7 @@ const Sidebar = ({
 
 Sidebar.propTypes = {
   chapter: PropTypes.string.isRequired,
+  contributeUrl: PropTypes.string.isRequired,
   entries: PropTypes.arrayOf(PropTypes.any.isRequired).isRequired,
   firstChapter: PropTypes.string.isRequired,
   framework: PropTypes.string,

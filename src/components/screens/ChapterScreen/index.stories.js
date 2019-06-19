@@ -29,6 +29,7 @@ const props = {
       siteMetadata: {
         githubUrl: 'https://github.com',
         codeGithubUrl: 'https://github.com',
+        contributeUrl: 'https://github.com',
         title: 'Learn Storybook',
       },
     },

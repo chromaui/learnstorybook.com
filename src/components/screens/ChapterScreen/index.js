@@ -66,7 +66,7 @@ const Chapter = ({
       frontmatter: { toc },
     },
     site: {
-      siteMetadata: { githubUrl, codeGithubUrl },
+      siteMetadata: { githubUrl, codeGithubUrl, contributeUrl },
     },
     tocPages,
     translationPages,
@@ -81,6 +81,7 @@ const Chapter = ({
     <ChapterWrapper>
       <Sidebar
         chapter={chapter}
+        contributeUrl={contributeUrl}
         entries={entries}
         firstChapter={firstChapter}
         framework={framework}
@@ -162,6 +163,7 @@ Chapter.propTypes = {
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
         codeGithubUrl: PropTypes.string.isRequired,
+        contributeUrl: PropTypes.string.isRequired,
         githubUrl: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
@@ -198,6 +200,7 @@ export const query = graphql`
         title
         githubUrl
         codeGithubUrl
+        contributeUrl
         siteUrl
       }
     }

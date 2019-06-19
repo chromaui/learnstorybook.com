@@ -2,11 +2,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import Sidebar from './Sidebar';
 
-const currentPageSlug = 'slug-1';
+const currentPageSlug = '/slug-1';
 
 const entries = [
   { slug: currentPageSlug, title: 'Chapter 1' },
-  { slug: 'slug-2', title: 'Chapter 2' },
+  { slug: '/slug-2', title: 'Chapter 2' },
 ];
 
 storiesOf('Screens|ChapterScreen/Sidebar', module)
@@ -14,6 +14,8 @@ storiesOf('Screens|ChapterScreen/Sidebar', module)
   .add('default', () => (
     <Sidebar
       entries={entries}
+      chapter="chapter"
+      contributeUrl="/contribute"
       firstChapter="get-started"
       framework="react"
       guide="guide"

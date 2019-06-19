@@ -14,6 +14,7 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
     <LanguageMenu
       framework="react"
       chapter="chapter"
+      contributeUrl="/contribute"
       firstChapter="get-started"
       guide="guide"
       language="en"
@@ -36,6 +37,7 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
     <LanguageMenu
       framework="react"
       chapter="chapter"
+      contributeUrl="/contribute"
       firstChapter="get-started"
       guide="guide"
       language="en"
@@ -66,6 +68,7 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
   .add('no framework, 1 translation', () => (
     <LanguageMenu
       chapter="chapter"
+      contributeUrl="/contribute"
       firstChapter="get-started"
       guide="guide"
       language="en"
@@ -86,6 +89,7 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
   .add('no framework, 2 translations', () => (
     <LanguageMenu
       chapter="chapter"
+      contributeUrl="/contribute"
       firstChapter="get-started"
       guide="guide"
       language="en"

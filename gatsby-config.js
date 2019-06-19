@@ -7,6 +7,7 @@ module.exports = {
     siteUrl: 'https://learnstorybook.com',
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     codeGithubUrl: 'https://github.com/chromaui/learnstorybook-code',
+    contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
   },
   plugins: [
     {
