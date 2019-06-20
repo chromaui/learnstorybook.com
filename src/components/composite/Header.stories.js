@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import Header from './Header';
 
+// The github follower count could change, hide it
+const Wrapper = styled.div`
+  #github-nav-item {
+    display: none;
+  }
+`;
+
 const BlueBackground = styled.div`
   padding: 20px;
   background-image: linear-gradient(14deg, #26c6db 0%, #2694db 100%);
@@ -31,6 +38,7 @@ const props = {
 
 storiesOf('Composite|Header', module)
   .addParameters({ component: Header })
+  .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('default', () => <Header {...props} />)
   .add('inverted', () => (
     <BlueBackground>
