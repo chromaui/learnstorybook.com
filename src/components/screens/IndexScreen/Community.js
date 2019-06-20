@@ -155,7 +155,7 @@ const PureCommunity = ({ contributors }) => (
         means Learn Storybook stays up to date with industry best practices.
       </Text>
 
-      <CommunityAvatars>
+      <CommunityAvatars className="chromatic-ignore">
         {contributors.map(contributor => (
           <AvatarWrapper key={contributor.id} src={contributor.avatar_url} />
         ))}
