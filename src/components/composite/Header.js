@@ -158,6 +158,7 @@ const TooltipList = styled.div`
 const TooltipLinkListWrapper = styled.div`
   padding: 8px 5px;
   color: ${color.darkest};
+  white-space: normal;
 `;
 
 const TooltipLinkListSubtitle = styled.span`
