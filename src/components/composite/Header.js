@@ -199,7 +199,7 @@ const MobileMenu = styled.div`
   }
 `;
 
-const TooltipLinkListLinkWrapper = ({ isExternal, to, ...rest }) => {
+const TooltipLinkListLinkWrapper = ({ active, loading, isExternal, to, ...rest }) => {
   if (isExternal) {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a {...rest} href={to} />;
@@ -211,6 +211,9 @@ const TooltipLinkListLinkWrapper = ({ isExternal, to, ...rest }) => {
 TooltipLinkListLinkWrapper.propTypes = {
   isExternal: PropTypes.bool,
   to: PropTypes.string.isRequired,
+  // These are coming from the design system
+  active: PropTypes.bool.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 TooltipLinkListLinkWrapper.defaultProps = {
