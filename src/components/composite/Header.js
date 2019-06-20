@@ -80,10 +80,8 @@ const NavTextLinkInternal = styled(GatsbyLink)`
 `;
 
 const NavTextLinkExternal = styled(Link)`
-  && {
-    color: ${props => (props.inverse ? color.lightest : color.darkest)};
-    transition: transform 150ms ease-out;
-  }
+  color: ${props => (props.inverse ? color.lightest : color.darkest)};
+  transition: transform 150ms ease-out;
 `;
 
 const NavGroup = styled.div`
