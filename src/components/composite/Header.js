@@ -315,7 +315,7 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
             </WithTooltip>
           </MobileMenuNavItem>
 
-          <GithubNavItem id="github-nav-item" isInverted={isInverted}>
+          <GithubNavItem className="chromatic-ignore" isInverted={isInverted}>
             <GitHubWrapper>
               <GitHubButton type="stargazers" namespace={namespace} repo={repo} />
             </GitHubWrapper>

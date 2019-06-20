@@ -3,13 +3,6 @@ import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import AppLayout from './AppLayout';
 
-// The github follower count could change, hide it
-const Wrapper = styled.div`
-  #github-nav-item {
-    display: none;
-  }
-`;
-
 const Children = styled.div`
   display: flex;
   align-items: center;
@@ -24,5 +17,4 @@ const props = {
 
 storiesOf('Composite|AppLayout', module)
   .addParameters({ component: AppLayout })
-  .addDecorator(story => <Wrapper>{story()}</Wrapper>)
   .add('default', () => <AppLayout {...props} />);
