@@ -103,7 +103,7 @@ const Contributors = () => (
     <ContributorsList>
       {contributors.map(contributor => (
         <Contributor key={contributor.src}>
-          <ContributorUser {...contributor} />
+          <ContributorUser {...contributor} className="chromatic-ignore" />
         </Contributor>
       ))}
     </ContributorsList>
