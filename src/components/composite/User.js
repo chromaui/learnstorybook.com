@@ -32,6 +32,7 @@ const Detail = styled.div`
   letter-spacing: -0.25px;
   line-height: 16px;
   margin-top: 3px;
+  text-align: left;
 `;
 
 const User = ({ detail, name, src, ...rest }) => (
