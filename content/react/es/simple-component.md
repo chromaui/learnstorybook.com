@@ -103,7 +103,7 @@ También necesitamos hacer un pequeño cambio en la configuración de Storybook 
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
-const req = require.context('../src', true, /.stories.js$/);
+const req = require.context('../src', true, /\.stories.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
