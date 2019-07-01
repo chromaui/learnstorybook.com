@@ -199,25 +199,23 @@ const MobileMenu = styled.div`
   }
 `;
 
-const TooltipLinkListLinkWrapper = ({ active, loading, isExternal, to, ...rest }) => {
-  if (isExternal) {
+const TooltipLinkListLinkWrapper = ({ href, to, ...rest }) => {
+  if (href) {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a {...rest} href={to} />;
+    return <a {...rest} href={href} />;
   }
 
   return <GatsbyLinkWithoutEffects {...rest} to={to} />;
 };
 
 TooltipLinkListLinkWrapper.propTypes = {
-  isExternal: PropTypes.bool,
-  to: PropTypes.string.isRequired,
-  // These are coming from the design system
-  active: PropTypes.bool.isRequired,
-  loading: PropTypes.bool.isRequired,
+  href: PropTypes.string,
+  to: PropTypes.string,
 };
 
 TooltipLinkListLinkWrapper.defaultProps = {
-  isExternal: false,
+  href: null,
+  to: null,
 };
 
 const preventDefault = e => e.preventDefault();
@@ -235,7 +233,7 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
               <TooltipLinkListSubtitle>{guideNode.frontmatter.description}</TooltipLinkListSubtitle>
             </TooltipLinkListWrapper>
           ),
-          href: guideNode.fields.slug,
+          to: guideNode.fields.slug,
         }))}
         LinkWrapper={TooltipLinkListLinkWrapper}
       />
@@ -254,13 +252,12 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
 
         <TooltipLinkList
           links={[
-            { title: 'Team', href: '/team' },
+            { title: 'Team', to: '/team' },
             {
               title: 'Storybook',
               href: 'https://storybook.js.org/',
               target: '_blank',
               rel: 'noopener',
-              isExternal: true,
             },
           ]}
           LinkWrapper={TooltipLinkListLinkWrapper}

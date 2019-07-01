@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Tom Coleman <tom@hichroma.com>, Dominic Nguyen <dom@hichroma.com>",
   "dependencies": {
-    "@storybook/design-system": "^0.0.27",
+    "@storybook/design-system": "^0.0.36",
     "formik": "^1.5.7",
     "gatsby": "^2.7.1",
     "gatsby-plugin-layout": "^1.0.15",
