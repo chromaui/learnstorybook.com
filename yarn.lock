@@ -1475,12 +1475,13 @@
     webpack-dev-middleware "^3.7.0"
     webpack-hot-middleware "^2.25.0"
 
-"@storybook/design-system@^0.0.39":
-  version "0.0.39"
-  resolved "https://registry.yarnpkg.com/@storybook/design-system/-/design-system-0.0.39.tgz#e23676dc5f04a692183eb876a279b5c16ff67683"
-  integrity sha512-3J4dNvypR3sDxMBd4N1CVp+Oes6KrgJL5fipBAtZOWgZ2PLvH+RoXtYsLwpitEd9xrewjgEuh3P41AVAl5W8tQ==
+"@storybook/design-system@^0.0.40":
+  version "0.0.40"
+  resolved "https://registry.yarnpkg.com/@storybook/design-system/-/design-system-0.0.40.tgz#4b0e2c5953bead2d761250dabca920777d03ece5"
+  integrity sha512-HyWMyqflJome+z5/yh3AyJM8isc0n5wVyD8aTMVX0xiWzswvI3V54l0tMPw5VszswyIdlevjyrJx/htX3mW1FA==
   dependencies:
     global "^4.3.2"
+    keycode "^2.2.0"
     polished "^3.3.0"
     prismjs "1.13.0"
     react-helmet "^5.2.1"
@@ -1489,6 +1490,7 @@
     react-popper-tooltip "^2.8.2"
     recompose "^0.30.0"
     styled-components "^4.1.2"
+    uuid "^3.3.2"
     validatorjs "^3.15.1"
 
 "@storybook/node-logger@5.1.1":
@@ -8387,6 +8389,11 @@ kebab-hash@^0.1.2:
   integrity sha512-BTZpq3xgISmQmAVzkISy4eUutsUA7s4IEFlCwOBJjvSFOwyR7I+fza+tBc/rzYWK/NrmFHjfU1IhO3lu29Ib/w==
   dependencies:
     lodash.kebabcase "^4.1.1"
+
+keycode@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/keycode/-/keycode-2.2.0.tgz#3d0af56dc7b8b8e5cba8d0a97f107204eec22b04"
+  integrity sha1-PQr1bce4uOXLqNCpfxByBO7CKwQ=
 
 keyv@3.0.0:
   version "3.0.0"
