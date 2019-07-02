@@ -106,6 +106,10 @@ const NavGroup = styled.div`
 const MobileMenuNavItem = styled(NavItem)`
   order: 1;
   margin-right: 10px;
+
+  > span: focus {
+    outline: none;
+  }
 `;
 
 const GithubNavItem = styled(NavItem)`
@@ -305,7 +309,13 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
           </NavItem>
 
           <MobileMenuNavItem showMobile>
-            <WithTooltip placement="top" trigger="click" tooltip={mobileMenu} closeOnClick>
+            <WithTooltip
+              tagName="span"
+              placement="top"
+              trigger="click"
+              tooltip={mobileMenu}
+              closeOnClick
+            >
               <NavTextLinkExternal tertiary inverse={isInverted} onClick={preventDefault}>
                 <Icon icon="menu" />
               </NavTextLinkExternal>
