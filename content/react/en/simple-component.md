@@ -245,6 +245,8 @@ yarn add --dev babel-plugin-macros
 And enable it by adding a `.babelrc` file in the root folder of your app (same level as `package.json`)
 
 ```json
+// .babelrc
+
 {
   "plugins": ["macros"]
 }
