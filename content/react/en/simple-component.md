@@ -236,7 +236,21 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Update `.storybook/config.js` to have:
+You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Install it with:
+
+```bash
+yarn add --dev babel-plugin-macros
+```
+
+And enable it by adding a `.babelrc` file in the root folder of your app (same level as `package.json`)
+
+```json
+{
+  "plugins": ["macros"]
+}
+```
+
+Then update `.storybook/config.js` to have:
 
 ```js
 // .storybook/config.js
