@@ -14,7 +14,7 @@ commit: ebe2ae2
 
 ## 设置React Storybook
 
-我们需要按照几个步骤设置 Storybook 环境. 首先,我们想要使用[Create React App](https://github.com/facebook/create-react-app) (**CRA**) 快速设置我们的环境,并启用[Storybook](https://storybook.js.org/)和[ jest-笑话 ](https://facebook.github.io/jest/)测试我们创建的应用. 让我们运行以下命令: 
+我们需要按照几个步骤设置 Storybook 环境. 首先,我们想要使用[Create React App](https://github.com/facebook/create-react-app) (**CRA**) 快速设置我们的环境,并启用[Storybook](https://storybook.js.org/)和[ jest ](https://facebook.github.io/jest/)测试我们创建的应用. 让我们运行以下命令: 
 
 ```bash
 # 创建应用:
