@@ -52,7 +52,7 @@ function taskStateReducer(taskState) {
       ),
     };
   };
-}
+};
 
 // The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {
