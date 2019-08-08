@@ -30,7 +30,7 @@ const Footer = ({ ...props }) => (
     </a>
     <br />
     Made by{' '}
-    <FooterLink className="secondary" href="https://blog.hichroma.com" target="_blank">
+    <FooterLink secondary href="https://blog.hichroma.com" target="_blank">
       Chroma
     </FooterLink>{' '}
     and the awesome Storybook community

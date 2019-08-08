@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
+import { Button } from '@storybook/design-system';
 
 import {
   color,
@@ -15,7 +16,6 @@ import {
 
 import Hero from '../components/Hero';
 import Link from '../components/Link';
-import Button from '../components/Button';
 import CTA from '../components/CTA';
 import Subheading from '../components/Subheading';
 import tocEntries from '../lib/tocEntries';
@@ -254,31 +254,31 @@ const Pages = ({
             <ActionHeading>React</ActionHeading>
             <Actions>
               <Link isGatsby to={`/react/en/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   English
                 </Button>
               </Link>
               <Link isGatsby to={`/react/es/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   Español
                 </Button>
               </Link>
               <Link isGatsby to={`/react/zh-CN/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   简体中文
                 </Button>
               </Link>
               <Link isGatsby to={`/react/zh-TW/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   繁體中文
                 </Button>
               </Link>
               <Link isGatsby to={`/react/pt/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-react.svg" alt="React" />
                   Português
                 </Button>
@@ -287,19 +287,19 @@ const Pages = ({
             <ActionHeading>Angular</ActionHeading>
             <Actions>
               <Link isGatsby to={`/angular/en/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
                   English
                 </Button>
               </Link>
               <Link isGatsby to={`/angular/es/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
                   Español
                 </Button>
               </Link>
               <Link isGatsby to={`/angular/pt/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
                   Português
                 </Button>
@@ -308,13 +308,13 @@ const Pages = ({
             <ActionHeading>Vue</ActionHeading>
             <Actions>
               <Link isGatsby to={`/vue/en/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
                   English
                 </Button>
               </Link>
               <Link isGatsby to={`/vue/pt/${firstChapter}`}>
-                <Button inverse>
+                <Button appearance="outline">
                   <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
                   Português
                 </Button>
@@ -340,7 +340,6 @@ const Pages = ({
             Storybook community. Rather than trying to cover every edge case –which can take
             forever!– this tutorial recommends best practices.{' '}
             <Link
-              className="primary"
               href="https://blog.hichroma.com/introducing-learnstorybook-com-2a43cd33edf5"
               target="_blank"
               rel="noopener noreferrer"
@@ -358,12 +357,7 @@ const Pages = ({
         <Question>What is Storybook?</Question>
         <Answer>
           <p>
-            <Link
-              className="primary"
-              href="https://storybook.js.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <Link href="https://storybook.js.org/" target="_blank" rel="noopener noreferrer">
               Storybook
             </Link>{' '}
             is the most popular UI component development tool for React, Vue, and Angular. It helps
@@ -400,7 +394,7 @@ const Pages = ({
           <Chapters>
             {entries.map(({ slug, title, description }) => (
               <Chapter key={slug}>
-                <ClickIntercept isGatsby className="primary" to={slug} />
+                <ClickIntercept isGatsby to={slug} />
                 <ChapterMeta>
                   <ChapterTitle>{title}</ChapterTitle>
                   <ChapterDesc>{description}</ChapterDesc>
@@ -442,7 +436,7 @@ const Pages = ({
           text={`Let's learn Storybook!`}
           action={
             <Link isGatsby to={`/react/en/${firstChapter}`}>
-              <Button primary>Start tutorial</Button>
+              <Button appearance="primary">Start tutorial</Button>
             </Link>
           }
         />

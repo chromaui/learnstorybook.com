@@ -175,39 +175,19 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                       <Meta>
                         <Title>React</Title>
                         <Detail>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/en/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/react/en/${firstChapter}/`}>
                             English
                           </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/es/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/react/es/${firstChapter}/`}>
                             Español
                           </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/zh-CN/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/react/zh-CN/${firstChapter}/`}>
                             简体中文
                           </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/zh-TW/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/react/zh-TW/${firstChapter}/`}>
                             繁體中文
                           </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/react/pt/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/react/pt/${firstChapter}/`}>
                             Português
                           </LanguageLink>
                         </Detail>
@@ -219,25 +199,13 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                       <Meta>
                         <Title>Angular</Title>
                         <Detail>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/angular/en/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/angular/en/${firstChapter}/`}>
                             English
                           </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/angular/es/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/angular/es/${firstChapter}/`}>
                             Español
                           </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/angular/pt/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/angular/pt/${firstChapter}/`}>
                             Português
                           </LanguageLink>
                         </Detail>
@@ -248,18 +216,10 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                       <Meta>
                         <Title>Vue</Title>
                         <Detail>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/vue/en/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/vue/en/${firstChapter}/`}>
                             English
                           </LanguageLink>
-                          <LanguageLink
-                            className="tertiary"
-                            isGatsby
-                            to={`/vue/pt/${firstChapter}/`}
-                          >
+                          <LanguageLink isGatsby tertiary to={`/vue/pt/${firstChapter}/`}>
                             Português
                           </LanguageLink>
                         </Detail>
@@ -268,7 +228,7 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                   </TooltipList>
                 }
               >
-                <NavLink className={inverse ? 'inverse' : 'tertiary'}>
+                <NavLink tertiary={!inverse}>
                   <Icon icon="switchalt" />
                   {capitalize(framework)}
                 </NavLink>

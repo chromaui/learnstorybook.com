@@ -4,11 +4,10 @@ import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
 import Helmet from 'react-helmet';
+import { Button, Highlight } from '@storybook/design-system';
 
-import Highlight from '../components/Highlight';
 import Link from '../components/Link';
 import CTA from '../components/CTA';
-import Button from '../components/Button';
 import Subheading from '../components/Subheading';
 import LogoTwitter from '../components/LogoTwitter';
 import IconCommit from '../components/IconCommit';
@@ -252,7 +251,8 @@ const Chapter = ({
             <DocsItem key={entry.slug}>
               <Link
                 isGatsby
-                className={slug !== entry.slug ? 'tertiary' : 'selected'}
+                className={slug === entry.slug && 'selected'}
+                tertiary={slug !== entry.slug}
                 to={entry.slug}
               >
                 {entry.title}
@@ -295,13 +295,13 @@ const Chapter = ({
             }
             action={
               <Link isGatsby to={nextEntry.slug}>
-                <Button primary>Next chapter</Button>
+                <Button appearance="secondary">Next chapter</Button>
               </Link>
             }
           />
         )}
         <GithubLinkWrapper>
-          <GithubLink className="secondary" href={githubFileUrl} target="_blank">
+          <GithubLink secondary href={githubFileUrl} target="_blank">
             <span role="img" aria-label="write">
               ✍️
             </span>{' '}
