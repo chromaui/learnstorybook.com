@@ -50,7 +50,7 @@ function taskStateReducer(taskState) {
       ),
     };
   };
-}
+};
 
 // El reducer describe como los contenidos del store cambian por cada acción.
 export const reducer = (state, action) => {
