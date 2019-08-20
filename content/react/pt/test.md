@@ -61,9 +61,9 @@ yarn add storybook-chromatic
 O Chromatic é importado para o ficheiro `.storybook/config.js`.
 
 ```javascript
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'react-chromatic/storybook-addon';
+import { configure } from "@storybook/react";
+import requireContext from "require-context.macro";
+import "storybook-chromatic";
 
 import "../src/index.css";
 

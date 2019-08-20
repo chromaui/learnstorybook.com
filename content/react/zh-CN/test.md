@@ -66,9 +66,9 @@ yarn add storybook-chromatic
 导入 Chromatic 到你的`.storybook/config.js`文件.
 
 ```javascript
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'react-chromatic/storybook-addon';
+import { configure } from "@storybook/react";
+import requireContext from "require-context.macro";
+import "storybook-chromatic";
 
 import "../src/index.css";
 
