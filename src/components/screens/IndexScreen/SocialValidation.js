@@ -105,7 +105,7 @@ const SocialValidation = () => (
         <UserWrapper
           src="https://avatars2.githubusercontent.com/u/9523719"
           name="Kyle Holmberg"
-          detail="Nike"
+          detail="Acorns"
         />
       </Testimonial>
 
