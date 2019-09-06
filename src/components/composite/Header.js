@@ -107,7 +107,7 @@ const MobileMenuNavItem = styled(NavItem)`
   order: 1;
   margin-right: 10px;
 
-  > span: focus {
+  >span: focus {
     outline: none;
   }
 `;
