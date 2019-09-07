@@ -109,7 +109,7 @@ import { AddonPanel } from '@storybook/components';
 // this is often placed in a constants.js file
 const ADDON_ID = 'storybook/parameter';
 const PANEL_ID = `${ADDON_ID}/panel`;
-const PARAM_KEY = `parameter`;
+const PARAM_KEY = `assets`;
 
 // this is often placed in a panel.js file
 const Content = () => {
@@ -153,7 +153,7 @@ import { styled } from '@storybook/theming';
 import { ActionBar } from '@storybook/components';
 
 const ADDON_ID = 'storybook/parameter';
-const PARAM_KEY = `parameter`;
+const PARAM_KEY = `assets`;
 
 const getUrl = (input) => {
   return typeof input === 'string' ? input : input.url;
