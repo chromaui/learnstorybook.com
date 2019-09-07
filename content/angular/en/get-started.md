@@ -5,7 +5,7 @@ description: "Setup Angular Storybook in your development environment"
 commit: 0818d47
 ---
 
-# Get started
+# Storybook for Angular tutorial
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular.
 
@@ -59,4 +59,4 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-We also need to add the font and icon [directories](https://github.com/hichroma/learnstorybook-code/tree/master/public) to the `assets/` folder. After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+We also need to add the font and icon [directories](https://github.com/chromaui/learnstorybook-code/tree/master/public) to the `assets/` folder. After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!

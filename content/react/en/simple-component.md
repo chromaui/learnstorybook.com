@@ -2,7 +2,7 @@
 title: "Build a simple component"
 tocTitle: "Simple component"
 description: "Build a simple component in isolation"
-commit: 131aade
+commit: 403f19a
 ---
 
 # Build a simple component
@@ -18,7 +18,7 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 * `title` – a string describing the task
 * `state` - which list is the task currently in and is it checked off?
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
+As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
 This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
 
@@ -29,6 +29,8 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -45,6 +47,8 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
+// src/components/Task.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -69,7 +73,7 @@ storiesOf('Task', module)
   .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
-There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 * **Component**
   * Story
@@ -97,10 +101,12 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA for automated tests.
 
 ```javascript
+// .storybook/config.js
+
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
-const req = require.context('../src', true, /.stories.js$/);
+const req = require.context('../src', true, /\.stories.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -111,7 +117,7 @@ configure(loadStories, module);
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
-<video autoPlay muted playsInline controls >
+<video autoPlay muted playsInline loop>
   <source
     src="/inprogress-task-states.mp4"
     type="video/mp4"
@@ -125,6 +131,8 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -169,11 +177,13 @@ The additional markup from above combined with the CSS we imported earlier yield
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Task() {
-  ...
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+  // ...
 }
 
 Task.propTypes = {
@@ -185,8 +195,6 @@ Task.propTypes = {
   onArchiveTask: PropTypes.func,
   onPinTask: PropTypes.func,
 };
-
-export default Task;
 ```
 
 Now a warning in development will appear if the Task component is misused.
@@ -199,17 +207,13 @@ An alternative way to achieve the same purpose is to use a JavaScript type syste
 
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
-As you can see, getting started building components in in isolation is easy and fast. We can expect to produce a higher-quality UI with less bugs and more polish because it’s possible to dig in and test every possible state.
+As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
 
 ## Automated Testing
 
 Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
 
 ### Snapshot testing
-
-<div class="aside">
-⚠️ Storyshots (storybook's snapshot testing addon) doesn't currently work with Create React App as it requires a custom Babel config for testing. We are currently working on a fix.
-</div>
 
 Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
 
@@ -220,15 +224,54 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots react-test-renderer
+yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.macro
 ```
 
 Then create an `src/storybook.test.js` file with the following in it:
 
 ```javascript
+// src/storybook.test.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
+
+You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Install it with:
+
+```bash
+yarn add --dev babel-plugin-macros
+```
+
+And enable it by adding a `.babelrc` file in the root folder of your app (same level as `package.json`)
+
+```json
+// .babelrc
+
+{
+  "plugins": ["macros"]
+}
+```
+
+Then update `.storybook/config.js` to have:
+
+```js
+// .storybook/config.js
+
+import { configure } from '@storybook/react';
+import requireContext from 'require-context.macro';
+
+import '../src/index.css';
+
+const req = requireContext('../src/components', true, /\.stories\.js$/);
+
+function loadStories() {
+  req.keys().forEach(filename => req(filename));
+}
+
+configure(loadStories, module);
+```
+
+(Notice we've replaced `require.context` with a call to `requireContext` imported from the macro).
 
 Once the above is done, we can run `yarn test` and see the following output:
 

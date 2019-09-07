@@ -67,7 +67,7 @@ Importa Chromatic en tu archivo `.storybook/config.js`.
 
 ```javascript
 import { configure } from '@storybook/angular';
-import 'storybook-chromatic/storybook-addon';
+import 'storybook-chromatic';
 import '../src/styles.less';
 
 // automatically import all files ending in *.stories.ts
@@ -92,7 +92,7 @@ Ahora [logueate en Chromatic](https://www.chromaticqa.com/start) con tu cuenta d
 Ejecuta el comando de prueba en la línea de comandos para configurar las pruebas de regresión visual para Storybook. No olvides añadir tu código de aplicación único en el `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -116,7 +116,7 @@ Esto produce un nuevo color de fondo para la tarea.
 Usa el comando de prueba anterior para ejecutar Chromatic de nuevo.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 Sigue el enlace a la interfaz de usuario web donde verás los cambios.
@@ -144,7 +144,7 @@ Dado que las aplicaciones modernas se construyen a partir de componentes, es imp
 
 ## Fusionando cambios
 
-Cuando hayamos terminado de revisar los cambios, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `papayawhip` entonces acepta los cambios, si no, vuelve al estado anterior.
+Cuando hayamos terminado de revisar los cambios, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `red` entonces acepta los cambios, si no, vuelve al estado anterior.
 
 ![Changes ready to be merged](/chromatic-review-finished.png)
 

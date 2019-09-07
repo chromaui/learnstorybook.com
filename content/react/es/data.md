@@ -2,7 +2,7 @@
 title: "Introducir datos"
 tocTitle: "Datos"
 description: "Aprende como introducir datos a tus componentes UI"
-commit: ea58e96
+commit: 9c50472
 ---
 
 # Introducir datos
@@ -50,7 +50,7 @@ function taskStateReducer(taskState) {
       ),
     };
   };
-}
+};
 
 // El reducer describe como los contenidos del store cambian por cada acción.
 export const reducer = (state, action) => {

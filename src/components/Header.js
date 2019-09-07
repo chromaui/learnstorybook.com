@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import GatsbyLink from 'gatsby-link';
+import { Link as GatsbyLink } from 'gatsby';
 import styled, { css } from 'styled-components';
 import GitHubButton from 'react-github-button';
 
@@ -203,6 +203,13 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                           >
                             繁體中文
                           </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/react/pt/${firstChapter}/`}
+                          >
+                            Português
+                          </LanguageLink>
                         </Detail>
                       </Meta>
                     </TooltipItem>
@@ -226,6 +233,13 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                           >
                             Español
                           </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/angular/pt/${firstChapter}/`}
+                          >
+                            Português
+                          </LanguageLink>
                         </Detail>
                       </Meta>
                     </TooltipItem>
@@ -240,6 +254,13 @@ export default function Header({ githubUrl, inverse, framework, firstChapter, is
                             to={`/vue/en/${firstChapter}/`}
                           >
                             English
+                          </LanguageLink>
+                          <LanguageLink
+                            className="tertiary"
+                            isGatsby
+                            to={`/vue/pt/${firstChapter}/`}
+                          >
+                            Português
                           </LanguageLink>
                         </Detail>
                       </Meta>

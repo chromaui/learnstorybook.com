@@ -39,8 +39,10 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 export default {
   name: "task",
   props: {
-    task: Object,
-    required: true
+    task: {
+      type: Object,
+      required: true
+    }
   }
 };
 </script>
@@ -95,7 +97,7 @@ storiesOf('Task', module)
   });
 ```
 
-There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 * **Component**
   * Story
@@ -127,7 +129,7 @@ import { configure } from '@storybook/vue';
 
 import '../src/index.css';
 
-const req = require.context('../src', true, /.stories.js$/);
+const req = require.context('../src', true, /\.stories.js$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
@@ -177,8 +179,10 @@ The component is still basic at the moment. First write the code that achieves t
 export default {
   name: "task",
   props: {
-    task: Object,
-    required: true
+    task: {
+      type: Object,
+      required: true
+    }
   },
   computed: {
     taskClass() {
@@ -205,7 +209,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
-As you can see, getting started building components in in isolation is easy and fast. We can expect to produce a higher-quality UI with less bugs and more polish because it’s possible to dig in and test every possible state.
+As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
 
 ## Automated Testing
 
@@ -225,7 +229,7 @@ With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/
 yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
 ```
 
-Then create an `tests/unit/storybook.spec.js` file with the following in it:
+Then create a `tests/unit/storybook.spec.js` file with the following in it:
 
 ```javascript
 import registerRequireContextHook from 'babel-plugin-require-context-hook/register';

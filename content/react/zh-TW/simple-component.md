@@ -2,7 +2,7 @@
 title: "構建一個簡單的元件"
 tocTitle: "簡單 元件"
 description: "單獨構建一個簡單的元件"
-commit: 131aade
+commit: 403f19a
 ---
 # 構建一個簡單的元件
 
@@ -107,7 +107,7 @@ Storybook中有兩個基本的組織級別.
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
-const req = require.context('../src', true, /.stories.js$/);
+const req = require.context('../src', true, /\.stories.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

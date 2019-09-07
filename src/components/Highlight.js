@@ -2,7 +2,7 @@ import Prism from 'prismjs';
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import loadLanguages from 'prismjs/components/index.js';
+import loadLanguages from 'prismjs/components/index';
 
 import 'prismjs/themes/prism.css';
 

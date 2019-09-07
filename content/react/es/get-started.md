@@ -2,10 +2,10 @@
 title: "Empezando"
 tocTitle: "Empezando"
 description: "Configurar React Storybook en tu entorno de desarrollo"
-commit: 30939d5
+commit: ebe2ae2
 ---
 
-# Empezando
+# Storybook para React tutorial
 
 Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; otras ediciones para Vue y Angular vendrán pronto.
 
@@ -45,7 +45,7 @@ Dependiendo de en qué parte de la aplicación estés trabajando, es posible que
 
 ## Reusa CSS
 
-Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos nuestros archivos LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css) dentro del archivo src/index.css según la convención de CRA.
+Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos nuestros archivos LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo src/index.css según la convención de CRA.
 
 ![Buzón de tareas UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -54,5 +54,5 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 ## Añade recursos
 
-También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/hichroma/learnstorybook-code/tree/master/public) a la carpeta `public/`.
+También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/public) a la carpeta `public/`.
 Después de añadir los estilos y recursos, nuestra aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. Comenzamos con la construcción de nuestro primer componente!

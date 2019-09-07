@@ -2,7 +2,7 @@
 title: "構建一個頁面"
 tocTitle: "頁面"
 description: "用元件構建一個頁面"
-commit: 9ead5d8
+commit: e56e345
 ---
 # 構建一個頁面
 

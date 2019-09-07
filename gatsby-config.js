@@ -16,13 +16,14 @@ module.exports = {
       'conclusion',
       'contribute',
     ],
-    languages: ['en', 'es', 'zh-CN', 'zh-TW'],
+    languages: ['en', 'es', 'zh-CN', 'zh-TW', 'pt'],
     defaultTranslation: 'react/en',
     siteUrl: 'https://learnstorybook.com',
-    githubUrl: 'https://github.com/hichroma/learnstorybook.com',
-    codeGithubUrl: 'https://github.com/hichroma/learnstorybook-code',
+    githubUrl: 'https://github.com/chromaui/learnstorybook.com',
+    codeGithubUrl: 'https://github.com/chromaui/learnstorybook-code',
   },
   plugins: [
+    `gatsby-plugin-layout`,
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,

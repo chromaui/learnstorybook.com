@@ -2,7 +2,7 @@
 title: "组装复合组件"
 tocTitle: "合成组件"
 description: "使用更简单的组件 组装复合组件"
-commit: '5776042'
+commit: '8db511e'
 ---
 # 组装复合组件
 

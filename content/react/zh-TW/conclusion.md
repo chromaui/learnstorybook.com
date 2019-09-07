@@ -6,7 +6,7 @@ description: "把所有的知識彙總以下，學習更多的 storybook 技巧"
 
 恭喜! 您在Storybook中建立了第一個UI. 在此過程中,您學習瞭如何構建,組合,測試和部署UI元件. 如果您一直關注,您的 repo和部署的Storybook 應如下所示:
 
-[📕**GitHub回購: hichroma / learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
+[📕**GitHub回購: hichroma / learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
 [🌎**部署 Storybook**](https://clever-banach-415c03.netlify.com/)
 

@@ -11,7 +11,7 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 <div class="aside">
 <strong>Did you setup Chromatic testing earlier?</strong>
 <br/>
-🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/conclusion">conclusion</a>.
+🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/react/en/conclusion">conclusion</a>.
 </div>
 
 ## Exporting as a static app
@@ -19,6 +19,8 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook, we just need to activate it by adding a script to `package.json`.
 
 ```javascript
+// package.json
+
 {
   "scripts": {
     "build-storybook": "build-storybook -c .storybook"

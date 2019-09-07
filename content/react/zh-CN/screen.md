@@ -2,7 +2,7 @@
 title: "构建一个页面"
 tocTitle: "页面"
 description: "用组件构建一个页面"
-commit: 9ead5d8
+commit: e56e345
 ---
 # 构建一个页面
 

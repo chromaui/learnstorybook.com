@@ -2,7 +2,7 @@
 title: "開始吧"
 tocTitle: "從頭開始"
 description: "在你的開發環境下, 設定 React Storybook "
-commit: 30939d5
+commit: ebe2ae2
 ---
 # 開始吧
 
@@ -50,7 +50,7 @@ yarn start
 
 ## 重用CSS
 
-本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial示例應用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的設計元素,所以我們不需要在本教程中編寫CSS. 我們只需將 LESS編譯為單個CSS檔案, 並將其包含在我們的應用程式中. 複製和貼上[這個編譯的CSS](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css)根據 **CRA**的規則 進入 **src/index.css** 檔案.
+本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial示例應用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的設計元素,所以我們不需要在本教程中編寫CSS. 我們只需將 LESS編譯為單個CSS檔案, 並將其包含在我們的應用程式中. 複製和貼上[這個編譯的CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根據 **CRA**的規則 進入 **src/index.css** 檔案.
 
 ![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -60,4 +60,4 @@ yarn start
 
 ## 新增資源
 
-我們還需要新增 字型和圖示[資料夾](https://github.com/hichroma/learnstorybook-code/tree/master/public)到了`public/`資料夾. 新增 樣式和靜態資源 後,應用程式會奇奇怪怪的. 沒關係. 因為我們還沒有開發應用程式. 現在我們開始構建我們的第一個元件!
+我們還需要新增 字型和圖示[資料夾](https://github.com/chromaui/learnstorybook-code/tree/master/public)到了`public/`資料夾. 新增 樣式和靜態資源 後,應用程式會奇奇怪怪的. 沒關係. 因為我們還沒有開發應用程式. 現在我們開始構建我們的第一個元件!

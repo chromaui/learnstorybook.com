@@ -1,16 +1,16 @@
 ---
 title: "Testing"
 description: "Aprende las formas de hacer test a los componentes de la UI"
-commit: bd69176
+commit: 78a45d1
 ---
 
 # Testear Componentes UI
 
 Ningún tutorial de Storybook estaría completo sin hacer test. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:
 
-* **Pruebas visuales** confían en que los desarrolladores examinen manualmente un componente para verificar que esté correcto. Nos ayudan a comprobar la aparencia de un componente a medida que lo construimos.
-* **Pruebas instantáneas** con Storyshots captura el marcado del renderizado de un componente. Nos ayudan a mantenernos al tanto de los cambios de marcado que causan errores de renderizado y advertencias en los componentes.
-* **Pruebas unitarias** con Jest verifica que la salida de un componente permanezca igual a una entrada fija dada. Son ideales para probar las cualidades funcionales de un componente.
+- **Pruebas visuales** confían en que los desarrolladores examinen manualmente un componente para verificar que esté correcto. Nos ayudan a comprobar la aparencia de un componente a medida que lo construimos.
+- **Pruebas instantáneas** con Storyshots captura el marcado del renderizado de un componente. Nos ayudan a mantenernos al tanto de los cambios de marcado que causan errores de renderizado y advertencias en los componentes.
+- **Pruebas unitarias** con Jest verifica que la salida de un componente permanezca igual a una entrada fija dada. Son ideales para probar las cualidades funcionales de un componente.
 
 ## "¿Pero se ve bien?"
 
@@ -66,12 +66,13 @@ yarn add storybook-chromatic
 Importa Chromatic en tu archivo `.storybook/config.js`.
 
 ```javascript
-import { configure } from '@storybook/react';
-import 'storybook-chromatic/storybook-addon';
+import { configure } from "@storybook/react";
+import requireContext from "require-context.macro";
+import "storybook-chromatic";
 
-import '../src/index.css';
+import "../src/index.css";
 
-const req = require.context('../src/components', true, /\.stories\.js$/);
+const req = requireContext("../src/components", true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -92,7 +93,7 @@ Ahora [logueate en Chromatic](https://www.chromaticqa.com/start) con tú cuenta 
 Ejecuta el comando de prueba en la línea de comandos para configurar las pruebas de regresión visual para Storybook. No olvides añadir tu código de aplicación único en el `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -116,7 +117,7 @@ Esto produce un nuevo color de fondo para el artículo.
 Usa el comando de prueba anterior para ejecutar otra prueba cromática.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 Sigue el enlace a la interfaz de usuario web donde verá los cambios.
@@ -144,7 +145,7 @@ Dado que las aplicaciones modernas se construyen a partir de componentes, es imp
 
 ## Fusionando cambios
 
-Cuando hayamos terminado de revisar, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario con confianza, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `papayawhip` entonces acepta los cambios, si no, vuelve al estado anterior.
+Cuando hayamos terminado de revisar, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario con confianza, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `red` entonces acepta los cambios, si no, vuelve al estado anterior.
 
 ![Changes ready to be merged](/chromatic-review-finished.png)
 

@@ -91,7 +91,7 @@ Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chro
 Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -115,7 +115,7 @@ This yields a new background color for the item.
 Use the test command from earlier to run another Chromatic test.
 
 ```bash
-./node_modules/.bin/chromatic test --storybook-addon --app-code=<app-code> --do-not-start
+./node_modules/.bin/chromatic test --app-code=<app-code>
 ```
 
 Follow the link to the web UI where you’ll see changes.
@@ -143,7 +143,7 @@ Since modern apps are constructed from components, it’s important that we test
 
 ## Merge changes
 
-When we’ve finished reviewing we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs. If you like the new `papayawhip` background then accept the changes, if not revert to the previous state.
+When we’ve finished reviewing we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs. If you like the new `red` background then accept the changes, if not revert to the previous state.
 
 ![Changes ready to be merged](/chromatic-review-finished.png)
 

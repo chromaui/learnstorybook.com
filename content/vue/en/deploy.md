@@ -11,7 +11,7 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 <div class="aside">
 <strong>Did you setup Chromatic testing earlier?</strong>
 <br/>
-🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/conclusion">conclusion</a>.
+🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/vue/en/conclusion">conclusion</a>.
 </div>
 
 ## Exporting as a static app
@@ -21,12 +21,12 @@ To deploy Storybook we first need to export it as a static web app. This functio
 ```javascript
 {
   "scripts": {
-    "storybook": "build-storybook -c .storybook -o .storybook-static"
+    "build-storybook": "build-storybook -c .storybook -s public -o storybook-static"
   }
 }
 ```
 
-Now when you run Storybook via `npm run storybook`, it will output a static Storybook in the `storybook-static` directory.
+Now when you run Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
 
 ## Continuous deploy
 

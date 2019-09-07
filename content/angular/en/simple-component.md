@@ -113,7 +113,7 @@ storiesOf('Task', module)
 
 ```
 
-There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 * **Component**
   * Story
@@ -146,7 +146,7 @@ import {
 import '../src/styles.less';
 
 // automatically import all files ending in *.stories.ts
-const req = require.context('../src/', true, /.stories.ts$/);
+const req = require.context('../src/', true, /\.stories.ts$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -267,7 +267,7 @@ export interface Task {
 
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with less bugs and more polish because it’s possible to dig in and test every possible state.
+As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
 
 ## Automated Testing
 
@@ -284,7 +284,7 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add -D @storybook/addon-storyshots identity-object-proxy jest jest-preset-angular
+yarn add -D @storybook/addon-storyshots identity-obj-proxy jest jest-preset-angular
 ```
 
 Then create an `src/storybook.test.ts` file with the following in it:
