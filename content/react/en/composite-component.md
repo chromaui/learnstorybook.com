@@ -193,6 +193,8 @@ As the component grows, so too do input requirements. Define the prop requiremen
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Task from './Task';
+
 function TaskList() {
   ...
 }
