@@ -119,7 +119,7 @@ export default connect(
 
 At this stage our Storybook tests will have stopped working, as the `TaskList` is now a container, and no longer expects any props, instead it connects to the store and sets the props on the `PureTaskList` component it wraps.
 
-However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component-- in our Storybook stories:
+However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
 
 ```javascript
 // src/components/TaskList.stories.js
@@ -151,10 +151,6 @@ storiesOf('TaskList', module)
   .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
   .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
 ```
-
-<div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
-</div>
 
 <video autoPlay muted playsInline loop>
   <source
