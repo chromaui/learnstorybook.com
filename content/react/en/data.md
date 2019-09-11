@@ -152,6 +152,10 @@ storiesOf('TaskList', module)
   .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
 ```
 
+<div class="aside">
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+</div>
+
 <video autoPlay muted playsInline loop>
   <source
     src="/finished-tasklist-states.mp4"
