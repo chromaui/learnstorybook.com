@@ -11,7 +11,7 @@ const { color, typography } = styles;
 const ButtonContent = styled.div`
   display: flex;
   align-items: center;
-  font-weight: ${typography.weight.black};
+  font-weight: ${typography.weight.extrabold};
 `;
 
 const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`

@@ -87,6 +87,7 @@ const LogoChromaWrapper = styled(LogoChroma)`
 
 const SubheadingWrapper = styled(Subheading)`
   color: ${color.mediumdark};
+  font-size: ${typography.size.s1}px;
 `;
 
 const MailingListSignupWrapper = styled(MailingListSignup)`

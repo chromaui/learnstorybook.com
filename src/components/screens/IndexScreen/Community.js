@@ -18,7 +18,7 @@ const Section = styled.div`
 
 const Heading = styled.div`
   font-size: ${typography.size.m2}px;
-  font-weight: ${typography.weight.bold};
+  font-weight: ${typography.weight.extrabold};
   letter-spacing: -0.23px;
   line-height: 28px;
 `;

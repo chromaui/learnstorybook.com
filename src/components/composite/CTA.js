@@ -18,7 +18,7 @@ const Wrapper = styled.div`
 `;
 
 const Text = styled.div`
-  font-weight: ${typography.weight.black};
+  font-weight: ${typography.weight.extrabold};
   font-size: ${typography.size.m2}px;
   line-height: 28px;
   flex: 0 1 100%;
