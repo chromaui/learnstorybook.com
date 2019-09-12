@@ -1475,23 +1475,19 @@
     webpack-dev-middleware "^3.7.0"
     webpack-hot-middleware "^2.25.0"
 
-"@storybook/design-system@^0.0.41":
-  version "0.0.41"
-  resolved "https://registry.yarnpkg.com/@storybook/design-system/-/design-system-0.0.41.tgz#0777f3d1afcb4024abc4994e283a93e8577a40ea"
-  integrity sha512-ERjGjeBaB/VVgydQ5S6npb6/76DCF1ry04GV3CjWfeOfwYfHummf8TjY2Q50maCmdfU/F5SAiy3EoZ48kftU/A==
+"@storybook/design-system@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@storybook/design-system/-/design-system-1.0.0.tgz#8cd1f3f2aca534be67a9bc53139f464cbc8a4bfb"
+  integrity sha512-FdkJ/XuwIlwRp/C7fLJjySulHK5VRfoDttcKEi9EEJftzgSz9WnQpnyOeEiU5dDVUunlHDQ3gBUM3R+YKqFB5g==
   dependencies:
-    global "^4.3.2"
     keycode "^2.2.0"
     polished "^3.3.0"
     prismjs "1.13.0"
-    react-helmet "^5.2.1"
-    react-lazyload "^2.5.0"
     react-modal "^3.8.1"
     react-popper-tooltip "^2.8.2"
     recompose "^0.30.0"
     styled-components "^4.1.2"
     uuid "^3.3.2"
-    validatorjs "^3.15.1"
 
 "@storybook/node-logger@5.1.1":
   version "5.1.1"
@@ -11237,11 +11233,6 @@ react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.6:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
-react-lazyload@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/react-lazyload/-/react-lazyload-2.5.0.tgz#7ed20bf0408dc684c10e808060e51d904cc0ab8d"
-  integrity sha512-RkEwpJDqEUVkXodxBXAI/UDyGYUBTZCU9kdG0Lwmg8BIv8zDvP+exFwUzc7wP4HX6n33CCsz+cjG2FpwdRoxpw==
-
 react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
@@ -13728,11 +13719,6 @@ validate-npm-package-license@^3.0.1:
   dependencies:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
-
-validatorjs@^3.15.1:
-  version "3.15.1"
-  resolved "https://registry.yarnpkg.com/validatorjs/-/validatorjs-3.15.1.tgz#e674b6330c1432913a81128cdb7ff679463d4d2d"
-  integrity sha512-9hJWC4sYaEjf3a6MPKrERzRU69btS/pDy+t5IX8pRFqkI8UI2qj8nR3n2XlVzxRZMQGrf6HrtfDkoRcJavkLlg==
 
 vary@^1, vary@~1.1.2:
   version "1.1.2"
