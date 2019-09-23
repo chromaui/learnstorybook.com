@@ -29,21 +29,28 @@ The way we'll be attaching the list of assets to stories is via parameters.
 This is what it will look like when someone is adding design assets to their story:
 
 ```js
-import { storiesOf } from '@storybook/react';
 import Component from './component';
 
-storiesOf('Component')
-  .addParameters({ assets: ['path/to/asset.png']})
-  .add('variant', () => <Component />);
+export default {
+  title: 'Component',
+  component: Component,
+  parameters: {
+    assets: ['path/to/asset.png'],
+  },
+};
+
+export const variant = () => <Component />;
 ```
 
 With our public API defined, let's start writing the addon to make this appear in storybook's UI.
 
 ## Writing the addon
 
-Let's create a new file: `./storybook/addons/design-assets.js`. (you may have to create the `addons` folder).
+Let's create a new file: `.storybook/addons/design-assets.js`. (you may have to create the `addons` folder).
 
-Note: At some point in the future we should move this addon into it's own package, let's focus on writing the addon and making it work first.
+> **Note:**
+> We're making this addon for storybook inside the storybook config folder which is `.storybook` by default.
+> At some point in the future we should move this addon into it's own package, let's focus on writing the addon and making it work first.
 
 Within this new file we're going to import some dependencies we're going to need. You may also need to install these using `npm` or `yarn`.
 
@@ -74,6 +81,12 @@ addons.register('my/design-assets', () => {
 });
 ```
 
+Storybook won't auto-load the file we just created, we need to add a reference to `.storybook/addons/design-assets.js` to the file registering all addons.
+The file where this happens is `.storybook/addons.js`. so add this line to that file:
+
+```js
+import './addons/design-assets';
+```
 
 When we start storybook now, we should actually see a panel added to the UI.
 Storybook allows you to not just add panels, but a list of types of UI.
