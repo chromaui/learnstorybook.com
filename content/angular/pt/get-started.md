@@ -4,11 +4,11 @@ tocTitle: "Introdução"
 description: "Configuração do Angular Storybook no ambiente de desenvolvimento"
 ---
 
-# Introdução
+# Storybook para o Angular tutorial
 
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
-Esta edição de Aprendizagem de Storybook é destinada para React.
+Esta edição de Aprendizagem de Storybook é destinada para Angular.
 Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started), quer para [React](/react/pt/get-started).
 
 ![Storybook e a aplicação](/storybook-relationship.jpg)
@@ -43,10 +43,6 @@ yarn run storybook
 yarn start
 ```
 
-<div class="aside">
-  Nota: Se <code>yarn test</code> emitir um erro, será necessário instalar o pacote <code>watchman</code>, tal como recomendado neste <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">problema</a>
-</div>
-
 Sendo estes os seguintes: testes automáticos (Jest), desenvolvimento de componentes (Storybook) e a aplicação em si.
 
 ![3 modalidades](/app-three-modalities.png)
@@ -67,6 +63,6 @@ A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
 
 ## Adicionar recursos
 
-Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/hichroma/learnstorybook-code/tree/master/public) á pasta `assets/`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha. 
+Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/chromaui/learnstorybook-code/tree/master/public) á pasta `assets/`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha. 
 Mas isto é de esperar, visto que não iremos trabalhar na aplicação agora.
 Iremos então iniciar o desenvolvimento do nosso primeiro componente!

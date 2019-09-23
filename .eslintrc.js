@@ -3,9 +3,20 @@ module.exports = {
   extends: ['airbnb', 'prettier', 'plugin:jest/recommended'],
   plugins: ['prettier', 'jest'],
   env: {
+    'browser': true,
     'jest/globals': true,
   },
+  globals: {
+    'graphql': 'readonly',
+  },
   rules: {
+    'jsx-a11y/anchor-is-valid': [
+      'error',
+      {
+        'components': ['GatsbyLink'],
+        'specialLink': ['to'],
+      },
+    ],
     'prettier/prettier': [
       'warn',
       {

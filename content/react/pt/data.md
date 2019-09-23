@@ -38,7 +38,7 @@ export const actions = {
   PIN_TASK: 'PIN_TASK',
 };
 
-// The action creators are how you bundle actions with the data required to execute them
+// The action creators bundle actions with the data required to execute them
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
@@ -52,7 +52,7 @@ function taskStateReducer(taskState) {
       ),
     };
   };
-}
+};
 
 // The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {

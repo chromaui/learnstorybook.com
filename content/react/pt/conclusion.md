@@ -8,7 +8,7 @@ description: "Fusão de todo o conhecimento adquirido e aprendizagem de técnica
 Parabéns! Acabaste de criar o teu primeiro interface de utilizador com Storybook. Durante esta jornada aprendeste como construir, compor, testar e implementar componentes de interface de utilizador.
 Se estiveste a seguir o tutorial, o repositório e o Storybook implementado irá ser idêntico a este:
 
-[📕 **GitHub repo: hichroma/learnstorybook-code**](https://github.com/hichroma/learnstorybook-code)
+[📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
 [🌎 **Storybook implementado**](https://clever-banach-415c03.netlify.com/)
 

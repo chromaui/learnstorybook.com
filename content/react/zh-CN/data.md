@@ -44,7 +44,7 @@ function taskStateReducer(taskState) {
       ),
     };
   };
-}
+};
 
 // reducer描述了 Store 中每个 action 如何改变内容
 

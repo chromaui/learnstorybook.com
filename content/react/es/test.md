@@ -8,9 +8,9 @@ commit: 78a45d1
 
 Ningún tutorial de Storybook estaría completo sin hacer test. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:
 
-* **Pruebas visuales** confían en que los desarrolladores examinen manualmente un componente para verificar que esté correcto. Nos ayudan a comprobar la aparencia de un componente a medida que lo construimos.
-* **Pruebas instantáneas** con Storyshots captura el marcado del renderizado de un componente. Nos ayudan a mantenernos al tanto de los cambios de marcado que causan errores de renderizado y advertencias en los componentes.
-* **Pruebas unitarias** con Jest verifica que la salida de un componente permanezca igual a una entrada fija dada. Son ideales para probar las cualidades funcionales de un componente.
+- **Pruebas visuales** confían en que los desarrolladores examinen manualmente un componente para verificar que esté correcto. Nos ayudan a comprobar la aparencia de un componente a medida que lo construimos.
+- **Pruebas instantáneas** con Storyshots captura el marcado del renderizado de un componente. Nos ayudan a mantenernos al tanto de los cambios de marcado que causan errores de renderizado y advertencias en los componentes.
+- **Pruebas unitarias** con Jest verifica que la salida de un componente permanezca igual a una entrada fija dada. Son ideales para probar las cualidades funcionales de un componente.
 
 ## "¿Pero se ve bien?"
 
@@ -66,13 +66,13 @@ yarn add storybook-chromatic
 Importa Chromatic en tu archivo `.storybook/config.js`.
 
 ```javascript
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'react-chromatic/storybook-addon';
+import { configure } from "@storybook/react";
+import requireContext from "require-context.macro";
+import "storybook-chromatic";
 
-import '../src/index.css';
+import "../src/index.css";
 
-const req = requireContext('../src/components', true, /\.stories\.js$/);
+const req = requireContext("../src/components", true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -145,7 +145,7 @@ Dado que las aplicaciones modernas se construyen a partir de componentes, es imp
 
 ## Fusionando cambios
 
-Cuando hayamos terminado de revisar, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario con confianza, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `papayawhip` entonces acepta los cambios, si no, vuelve al estado anterior.
+Cuando hayamos terminado de revisar, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario con confianza, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `red` entonces acepta los cambios, si no, vuelve al estado anterior.
 
 ![Changes ready to be merged](/chromatic-review-finished.png)
 

@@ -26,6 +26,8 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 
 import Task from './Task';
@@ -57,6 +59,8 @@ export default TaskList;
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
+// src/components/TaskList.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -107,6 +111,8 @@ Now check Storybook for the new `TaskList` stories.
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 
 import Task from './Task';
@@ -182,8 +188,12 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import Task from './Task';
 
 function TaskList() {
   ...
@@ -216,13 +226,15 @@ Storybook stories paired with manual visual tests and snapshot tests (see above)
 
 However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`withPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`withPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
 
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
-Create a test file called `src/components/TaskList.test.js`. Here we’ll build out our tests that make assertions about the output.
+Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
 
 ```javascript
+// src/components/TaskList.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TaskList from './TaskList';
@@ -243,6 +255,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![TaskList test runner](/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
+Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.

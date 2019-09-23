@@ -146,7 +146,7 @@ Visto que as aplicações modernas são construidas a partir de componentes, é 
 
 ## Fusão de alterações
 
-Assim que for terminada a revisão, será possível fundir as alterações com confiança, sabendo que as atualizações não introduzem acidentalmente problemas ou erros. Se o novo fundo `papayawhip` for aceitável, terão que ser aceites as alterações, caso contrário, será necessário reverter para o estado anterior.
+Assim que for terminada a revisão, será possível fundir as alterações com confiança, sabendo que as atualizações não introduzem acidentalmente problemas ou erros. Se o novo fundo `red` for aceitável, terão que ser aceites as alterações, caso contrário, será necessário reverter para o estado anterior.
 
 ![Alterações prontas para serem fundidas](/chromatic-review-finished.png)
 

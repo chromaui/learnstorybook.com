@@ -97,7 +97,7 @@ storiesOf('Task', module)
   });
 ```
 
-There are two basic levels of organization in Storybook. The component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 * **Component**
   * Story
@@ -129,7 +129,7 @@ import { configure } from '@storybook/vue';
 
 import '../src/index.css';
 
-const req = require.context('../src', true, /.stories.js$/);
+const req = require.context('../src', true, /\.stories.js$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
@@ -209,7 +209,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with less bugs and more polish because it’s possible to dig in and test every possible state.
+As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
 
 ## Automated Testing
 

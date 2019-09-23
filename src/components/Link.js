@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { darken } from 'polished';
-import GatsbyLink from 'gatsby-link';
+import { Link as GatsbyLink } from 'gatsby';
 import { color } from './shared/styles';
 
 // prettier-ignore

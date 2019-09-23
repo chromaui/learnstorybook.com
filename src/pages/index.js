@@ -1,4 +1,6 @@
-import React, { Fragment } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
 import styled from 'styled-components';
 import { darken } from 'polished';
 
@@ -62,9 +64,8 @@ const ViewLayerImage = styled.img`
 `;
 
 const Actions = styled.div`
-  > *:not(:only-child) {
-    margin: 0 10px
-    margin-bottom: 12px;
+  a {
+    margin: 0 10px 12px;
     @media (min-width: ${breakpoint * 1}px) {
       margin-left: 0;
       margin-right: 20px;
@@ -224,7 +225,14 @@ const Chapters = styled.ol`
   counter-reset: counter;
 `;
 
-export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, pages } }) => {
+const Pages = ({
+  data: {
+    site: {
+      siteMetadata: { toc, defaultTranslation },
+    },
+    pages,
+  },
+}) => {
   const defaultPages = {
     edges: pages.edges.filter(e => e.node.fields.slug.match(defaultTranslation)),
   };
@@ -233,7 +241,7 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
   const firstChapter = toc[0];
 
   return (
-    <Fragment>
+    <>
       <Wrapper>
         <Content>
           <Pitch>
@@ -247,27 +255,32 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             <Actions>
               <Link isGatsby to={`/react/en/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />English
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  English
                 </Button>
               </Link>
               <Link isGatsby to={`/react/es/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />Español
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  Español
                 </Button>
               </Link>
               <Link isGatsby to={`/react/zh-CN/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />简体中文
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  简体中文
                 </Button>
               </Link>
               <Link isGatsby to={`/react/zh-TW/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />繁體中文
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  繁體中文
                 </Button>
               </Link>
-              <Link isGatsby to={`react/pt/${firstChapter}`}>
+              <Link isGatsby to={`/react/pt/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-react.svg" alt="React" />Português
+                  <ViewLayerImage src="/logo-react.svg" alt="React" />
+                  Português
                 </Button>
               </Link>
             </Actions>
@@ -275,17 +288,20 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             <Actions>
               <Link isGatsby to={`/angular/en/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />English
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                  English
                 </Button>
               </Link>
               <Link isGatsby to={`/angular/es/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />Español
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                  Español
                 </Button>
               </Link>
               <Link isGatsby to={`/angular/pt/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />Português
+                  <ViewLayerImage src="/logo-angular.svg" alt="Angular" />
+                  Português
                 </Button>
               </Link>
             </Actions>
@@ -293,12 +309,14 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             <Actions>
               <Link isGatsby to={`/vue/en/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />English
+                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
+                  English
                 </Button>
               </Link>
               <Link isGatsby to={`/vue/pt/${firstChapter}`}>
                 <Button inverse>
-                  <ViewLayerImage src="/logo-vue.svg" alt="Vue"/>Português
+                  <ViewLayerImage src="/logo-vue.svg" alt="Vue" />
+                  Português
                 </Button>
               </Link>
             </Actions>
@@ -352,7 +370,8 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
             you{' '}
             <strong>
               develop and design UI components outside your app in an isolated environment
-            </strong>.
+            </strong>
+            .
           </p>
           <p>
             Professional developers at Airbnb, Dropbox, and Lonely Planet use Storybook to build
@@ -428,9 +447,39 @@ export default ({ data: { site: { siteMetadata: { toc, defaultTranslation } }, p
           }
         />
       </FAQLayout>
-    </Fragment>
+    </>
   );
 };
+
+Pages.propTypes = {
+  data: PropTypes.shape({
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        defaultTranslation: PropTypes.string.isRequired,
+        toc: PropTypes.arrayOf(PropTypes.string),
+      }).isRequired,
+    }).isRequired,
+    pages: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            frontmatter: PropTypes.shape({
+              description: PropTypes.string,
+              title: PropTypes.string.isRequired,
+              tocTitle: PropTypes.string,
+            }).isRequired,
+            fields: PropTypes.shape({
+              chapter: PropTypes.string.isRequired,
+              slug: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        }).isRequired
+      ).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default Pages;
 
 export const query = graphql`
   query IndexQuery {

@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { typography } from "./shared/styles";
+import React from 'react';
+import styled from 'styled-components';
+import { typography } from './shared/styles';
 
 // prettier-ignore
 const Heading = styled.span`

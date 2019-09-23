@@ -8,9 +8,9 @@ commit: 78a45d1
 
 Storybook 教程沒有測試是不完整的. 測試對於建立高質量的 UI 至關重要. 在模組化系統中,微小的調整可能導致重大的回溯. 到目前為止,我們遇到了三種類型的測試
 
-* **視覺測試** 依賴開發人員手動檢視元件以驗證其正確性. 它們幫助我們在構建時檢查元件的外觀.
-* **快照測試** 使用 Storyshots 捕獲元件的渲染標記. 它們可以幫助我們及時瞭解導致 渲染錯誤和警告的標記更改.
-* **單元測試** 使用 Jest 驗證 在給定固定輸入的情況下 元件的輸出保持不變. 它們非常適合測試元件的功能質量.
+- **視覺測試** 依賴開發人員手動檢視元件以驗證其正確性. 它們幫助我們在構建時檢查元件的外觀.
+- **快照測試** 使用 Storyshots 捕獲元件的渲染標記. 它們可以幫助我們及時瞭解導致 渲染錯誤和警告的標記更改.
+- **單元測試** 使用 Jest 驗證 在給定固定輸入的情況下 元件的輸出保持不變. 它們非常適合測試元件的功能質量.
 
 ## "但看起來不錯嗎?"
 
@@ -66,13 +66,13 @@ yarn add storybook-chromatic
 匯入 Chromatic 到你的`.storybook/config.js`檔案.
 
 ```javascript
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'react-chromatic/storybook-addon';
+import { configure } from "@storybook/react";
+import requireContext from "require-context.macro";
+import "storybook-chromatic";
 
-import '../src/index.css';
+import "../src/index.css";
 
-const req = requireContext('../src/components', true, /\.stories\.js$/);
+const req = requireContext("../src/components", true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -145,7 +145,7 @@ configure(loadStories, module);
 
 ## 合併更改
 
-當我們完成稽核後,我們已準備好自信地合併 UI 更改 - 知道更新不會意外地引入錯誤. 如果你喜歡新的`papayawhip`背景色,然後接受更改,如果不需要恢復到以前的狀態.
+當我們完成稽核後,我們已準備好自信地合併 UI 更改 - 知道更新不會意外地引入錯誤. 如果你喜歡新的`red`背景色,然後接受更改,如果不需要恢復到以前的狀態.
 
 ![Changes ready to be merged](/chromatic-review-finished.png)
 

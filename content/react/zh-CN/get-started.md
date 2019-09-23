@@ -14,7 +14,7 @@ commit: ebe2ae2
 
 ## 设置React Storybook
 
-我们需要按照几个步骤设置 Storybook 环境. 首先,我们想要使用[Create React App](https://github.com/facebook/create-react-app) (**CRA**) 快速设置我们的环境,并启用[Storybook](https://storybook.js.org/)和[ jest-笑话 ](https://facebook.github.io/jest/)测试我们创建的应用. 让我们运行以下命令: 
+我们需要按照几个步骤设置 Storybook 环境. 首先,我们想要使用[Create React App](https://github.com/facebook/create-react-app) (**CRA**) 快速设置我们的环境,并启用[Storybook](https://storybook.js.org/)和[ jest ](https://facebook.github.io/jest/)测试我们创建的应用. 让我们运行以下命令: 
 
 ```bash
 # 创建应用:
@@ -50,7 +50,7 @@ yarn start
 
 ## 重用CSS
 
-本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial示例应用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的设计元素,所以我们不需要在本教程中编写CSS. 我们只需将 LESS编译为单个CSS文件, 并将其包含在我们的应用程序中. 复制和粘贴[这个编译的CSS](https://github.com/hichroma/learnstorybook-code/blob/master/src/index.css)根据 **CRA**的规则 进入 **src/index.css** 文件. 
+本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial示例应用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的设计元素,所以我们不需要在本教程中编写CSS. 我们只需将 LESS编译为单个CSS文件, 并将其包含在我们的应用程序中. 复制和粘贴[这个编译的CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根据 **CRA**的规则 进入 **src/index.css** 文件. 
 
 ![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -60,4 +60,4 @@ yarn start
 
 ## 添加资源
 
-我们还需要添加 字体和图标[文件夹](https://github.com/hichroma/learnstorybook-code/tree/master/public)到了`public/`文件夹. 添加 样式和静态资源 后,应用程序会奇奇怪怪的. 没关系. 因为我们还没有开发应用程序. 现在我们开始构建我们的第一个组件!
+我们还需要添加 字体和图标[文件夹](https://github.com/chromaui/learnstorybook-code/tree/master/public)到了`public/`文件夹. 添加 样式和静态资源 后,应用程序会奇奇怪怪的. 没关系. 因为我们还没有开发应用程序. 现在我们开始构建我们的第一个组件!

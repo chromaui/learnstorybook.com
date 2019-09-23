@@ -40,6 +40,8 @@ yarn add @storybook/addon-knobs
 Register Knobs in your `.storybook/addons.js` file.
 
 ```javascript
+// .storybook/addons.js
+
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
 import '@storybook/addon-links/register';
@@ -60,6 +62,8 @@ Let's use the object knob type in the `Task` component.
 First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
 
 ```javascript
+// src/components/Task.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -69,6 +73,8 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
 
 ```javascript
+// src/components/Task.stories.js
+
 storiesOf('Task', module)
   .addDecorator(withKnobs)
   .add(/*...*/);
@@ -77,6 +83,8 @@ storiesOf('Task', module)
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
+// src/components/Task.stories.js
+
 storiesOf('Task', module)
   .addDecorator(withKnobs)
   .add('default', () => {
@@ -103,6 +111,8 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
 
 ```javascript
+// src/components/Task.js
+
 // This is the input for our task title. In practice we would probably update the styles for this element
 // but for this tutorial, let's fix the problem with an inline style:
 <input
@@ -123,6 +133,8 @@ Of course we can always reproduce this problem by entering the same input into t
 Let's add a story for the long text case in Task.stories.js:
 
 ```javascript
+// src/components/Task.stories.js
+
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
 storiesOf('Task', module)
