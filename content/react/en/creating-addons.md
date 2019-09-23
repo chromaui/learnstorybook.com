@@ -417,13 +417,13 @@ This is an example of an addon that uses parameters and displays it in a panel, 
 With these principles you're able to display you custom UI in a variety of places in the storybook UI.
 
 You can:
-- add buttons in the storybook toolbar
-- communicate through the channel with the iframe
-- send commands and results
-- perform analysis on the html/css outputted by your component
-- wrap components, re-render with new data
-- fire DOM events, make DOM changes
-- run tests
+- [add buttons in the storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
+- [communicate through the channel with the iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
+- [send commands and results](https://github.com/storybookjs/storybook/tree/next/addons/events)
+- [perform analysis on the html/css outputted by your component](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
+- [wrap components, re-render with new data](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
+- [fire DOM events, make DOM changes](https://github.com/storybookjs/storybook/tree/next/addons/events)
+- [run tests](https://github.com/storybookjs/storybook/tree/next/addons/jest)
 
 And much more!
 
@@ -435,7 +435,7 @@ These packages are like little starter-sets for you to start developing your own
 The addon we just created is based on the `addon-parameters` dev-kit.
 
 You can find the dev-kits here:
-https://github.com/storybooks/storybook/tree/a3e3149fe99f03ac35a738c35729ccbcef922ab1/dev-kits
+https://github.com/storybookjs/storybook/tree/next/dev-kits
 
 More dev-kits will become available in the future.
 
