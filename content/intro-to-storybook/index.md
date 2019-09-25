@@ -21,7 +21,7 @@ toc:
   ]
 coverImagePath: "/guide-cover/intro.svg"
 thumbImagePath: "/guide-thumb/intro.svg"
-contributorCount: "+34"
+contributorCount: "+42"
 authors:
   [
     {
@@ -65,7 +65,7 @@ contributors:
   ]
 ---
 
-# What you'll build
+<h2>What you'll build</h2>
 
 <div class="badge-box">
   <div class="badge">
