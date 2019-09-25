@@ -6,7 +6,14 @@ overview: "Visual tests capture an image of every UI component in a consistent b
 themeColor: "#4AC013"
 codeGithubUrl: "https://github.com/chromaui/learnstorybook-code"
 heroAnimationName: null
-toc: ["get-started", "simple-component"]
+toc:
+  [
+    "introduction",
+    "component-explorers",
+    "visual-test-driven-development",
+    "tutorial",
+    "automate",
+  ]
 coverImagePath: "/guide-cover/visual-testing.svg"
 thumbImagePath: "/guide-thumb/visual-testing.svg"
 contributorCount: "+2"
