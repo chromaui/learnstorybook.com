@@ -83,7 +83,7 @@ const Guide = ({ data }) => {
   } = data;
   const entries = toc && toc.length > 0 ? tocEntries(toc, pages) : [];
   const languages = Array.from(getTranslationLanguages(translationPages));
-
+  console.log(pages)
   return (
     <>
       <Helmet
