@@ -55,17 +55,18 @@ const Pitch = styled.div`
   }
 `;
 
-const PitchTitle = styled.div`
-  font-size: 36px;
+const PitchTitle = styled.h1`
+  font-size: ${typography.size.l2}px;
   font-weight: ${typography.weight.black};
-  letter-spacing: -0.37px;
+
   line-height: 40px;
 `;
 
 const PitchDescription = styled.div`
-  margin-top: 17px;
-  letter-spacing: -0.33px;
-  line-height: 26px;
+  font-size: ${typography.size.m1}px;
+  line-height: 36px;
+
+  margin-top: 1rem;
 `;
 
 const GetStartedButton = styled(Button)`
@@ -84,9 +85,8 @@ const GetStartedButton = styled(Button)`
 const Languages = styled.div`
   color: ${color.lightest};
   font-size: ${typography.size.s1}px;
-  letter-spacing: -0.25px;
   line-height: 16px;
-  margin-top: 11px;
+  margin-top: 1rem;
 `;
 
 const LanguagesLabel = styled.span`

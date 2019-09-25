@@ -12,7 +12,7 @@ import TableOfContents from './TableOfContents';
 import { guideFormatting } from '../../../styles/formatting';
 import tocEntries from '../../../lib/tocEntries';
 
-const { breakpoint, pageMargins } = styles;
+const { breakpoint, pageMargins, typography } = styles;
 
 const Content = styled.div`
   ${guideFormatting}
@@ -32,8 +32,20 @@ const Overview = styled.div`
   }
 `;
 
+const OverviewTitle = styled.h2`
+  font-size: ${typography.size.m2}px;
+  font-weight: ${typography.weight.black};
+`;
+
+const OverviewDesc = styled.p``;
+
 const Detail = styled.div`
   margin-top: 66px;
+
+  h2 {
+    font-size: ${typography.size.m2}px;
+    font-weight: ${typography.weight.black};
+  }
 
   @media (min-width: ${breakpoint * 1.5}px) {
     margin-top: 0;
@@ -94,8 +106,8 @@ const Guide = ({ data }) => {
         <Overview>
           {overview && (
             <>
-              <h1>Overview</h1>
-              <p>{overview}</p>
+              <OverviewTitle>Overview</OverviewTitle>
+              <OverviewDesc>{overview}</OverviewDesc>
             </>
           )}
 

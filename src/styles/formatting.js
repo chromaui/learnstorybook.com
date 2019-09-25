@@ -12,7 +12,7 @@ export const guideFormatting = css`
 
   p {
     letter-spacing: -0.33px;
-    line-height: 26px;
+    line-height: 28px;
   }
 
   img {
@@ -20,7 +20,6 @@ export const guideFormatting = css`
     padding: 0;
     max-width: 100%;
     position: relative;
-    vertical-align: top;
     margin: 0 auto;
   }
 

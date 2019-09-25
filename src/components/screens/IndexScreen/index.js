@@ -18,7 +18,7 @@ const { breakpoint, color, pageMargin } = styles;
 const DotBackground = styled.div`
   background: url('bg-dots.svg?t=${props => props.time}');
   background-repeat: repeat-x;
-  background-position-y: 80px;
+  background-position-y: 20vh;
 `;
 
 const BottomSection = styled.div`

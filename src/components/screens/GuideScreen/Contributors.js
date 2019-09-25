@@ -44,7 +44,7 @@ const Contributors = ({ authors, contributors }) => (
       </CommunityDetailItem>
     )}
 
-    {contributors && (
+    {contributors && contributors.length > 0 && (
       <CommunityDetailItem>
         <Subheading>{pluralize('Contributor', contributors.length)}</Subheading>
 

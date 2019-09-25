@@ -9,7 +9,6 @@ const { color, typography } = styles;
 
 const BoxLinkWrapper = styled(BoxLink).attrs({ isInternal: true })`
   padding: 20px 28px;
-  margin-bottom: 10px;
   letter-spacing: -0.26px;
   line-height: 20px;
 
@@ -17,10 +16,6 @@ const BoxLinkWrapper = styled(BoxLink).attrs({ isInternal: true })`
   &&:hover,
   &&:focus {
     color: ${color.darkest};
-  }
-
-  &:last-of-type {
-    margin-bottom: 0;
   }
 `;
 
@@ -46,22 +41,41 @@ const ChapterDescription = styled.div`
   font-size: ${typography.size.s2}px;
 `;
 
+const ChapterItem = styled.li`
+  list-style-type: none;
+  margin-bottom: 10px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+`;
+
+const ChapterList = styled.ol`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+`;
+
 const TableOfContents = ({ entries }) => (
   <>
     <Subheading>Table of Contents</Subheading>
 
-    {entries.map((entry, index) => (
-      <BoxLinkWrapper to={entry.slug} key={entry.slug}>
-        <Chapter>
-          <ChapterNumber>{index + 1}</ChapterNumber>
+    <ChapterList>
+      {entries.map((entry, index) => (
+        <ChapterItem>
+          <BoxLinkWrapper to={entry.slug} key={entry.slug}>
+            <Chapter>
+              <ChapterNumber>{index + 1}</ChapterNumber>
 
-          <div>
-            <ChapterTitle>{entry.tocTitle || entry.title}</ChapterTitle>
-            <ChapterDescription>{entry.description}</ChapterDescription>
-          </div>
-        </Chapter>
-      </BoxLinkWrapper>
-    ))}
+              <div>
+                <ChapterTitle>{entry.tocTitle || entry.title}</ChapterTitle>
+                <ChapterDescription>{entry.description}</ChapterDescription>
+              </div>
+            </Chapter>
+          </BoxLinkWrapper>
+        </ChapterItem>
+      ))}
+    </ChapterList>
   </>
 );
 
