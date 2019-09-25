@@ -1,8 +1,8 @@
 ---
 title: "Intro to Storybook"
 description: "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch."
-heroDescription: "🚫 INTRO TO STORYBOOK HERO DESCRIPTION PLACEHOLDER -- CHANGE ME 🚫"
-overview: "🚫 INTRO TO STORYBOOK OVERVIEW PLACEHOLDER -- CHANGE ME 🚫"
+heroDescription: "Storybook is the most popular UI component development tool for React, Vue, and Angular. It helps you develop and design UI components outside your app in an isolated environment. Learn Storybook to create bulletproof UI components, along the way you’ll build an app UI from scratch."
+overview: "Intro to Storybook teaches tried-and-true patterns for component development using Storybook. You’ll walk through essential UI component techniques while building a UI from scratch in React, Vue, or Angular. The info here is sourced from professional teams, core maintainers, and the awesome Storybook community. Professional developers at Airbnb, Dropbox, and Lonely Planet use Storybook to build durable documented UIs faster."
 themeColor: "#6F2CAC"
 codeGithubUrl: "https://github.com/chromaui/learnstorybook-code"
 heroAnimationName: "float"
@@ -25,27 +25,42 @@ contributorCount: "+34"
 authors:
   [
     {
+      src: "https://avatars2.githubusercontent.com/u/132554",
+      name: "Tom Coleman",
+      detail: "Storybook core maintainer",
+    },
+    {
       src: "https://avatars2.githubusercontent.com/u/263385",
       name: "Dominic Nguyen",
-      detail: "Storybook design",
+      detail: "Storybook designer",
     },
   ]
 contributors:
   [
     {
       src: "https://avatars2.githubusercontent.com/u/22988955",
-      name: "jonniebigodes",
+      name: "Jonnie Bigodes",
       detail: "Software engineer",
     },
     {
       src: "https://avatars2.githubusercontent.com/u/1593752",
       name: "Carlos Vega",
-      detail: "Software engineer",
+      detail: "Engineer",
     },
     {
       src: "https://avatars2.githubusercontent.com/u/5649014",
       name: "Carlos Iván Suarez",
-      detail: "Software engineer",
+      detail: "Frontend engineer",
+    },
+    {
+      src: "https://avatars2.githubusercontent.com/u/9523719",
+      name: "Kyle Holmberg",
+      detail: "Engineer at Acorns",
+    },
+    {
+      src: "https://avatars2.githubusercontent.com/u/1474548",
+      name: "Daniel Duan",
+      detail: "Engineer at Squarespace",
     },
   ]
 ---
