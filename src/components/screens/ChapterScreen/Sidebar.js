@@ -23,7 +23,7 @@ const SidebarWrapper = styled.div`
 const GuideLink = styled(GatsbyLink)`
   && {
     color: ${color.darkest};
-    font-size: ${typography.size.s3};
+    font-size: ${typography.size.s3}px;
     font-weight: ${typography.weight.bold};
     line-height: 20px;
     margin-bottom: 12px;

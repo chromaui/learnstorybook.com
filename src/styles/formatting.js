@@ -52,7 +52,7 @@ export const guideFormatting = css`
 
 export const chapterFormatting = css`
   line-height: 28px;
-  font-size: ${typography.size.s3};
+  font-size: ${typography.size.s3}px;
 
   h1,
   h2,
@@ -276,5 +276,11 @@ export const chapterFormatting = css`
 
   .aside code {
     font-size: 15px;
+  }
+
+  blockquote {
+    font-size: ${typography.size.m1}px;
+    color: ${color.mediumdark};
+    line-height: 40px;
   }
 `;
