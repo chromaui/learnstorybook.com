@@ -39,7 +39,7 @@ contributors:
   [
     {
       src: "https://avatars2.githubusercontent.com/u/22988955",
-      name: "Jonnie Bigodes",
+      name: "João Cardoso",
       detail: "Engineer",
     },
     {

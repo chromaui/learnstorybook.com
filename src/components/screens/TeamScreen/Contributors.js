@@ -51,7 +51,7 @@ const SocialLink = props => <Link target="_blank" rel="noopener" tertiary {...pr
 const contributors = [
   {
     src: 'https://avatars2.githubusercontent.com/u/22988955',
-    name: 'jonniebigodes',
+    name: 'João Cardoso',
     detail: <SocialLink href="https://github.com/jonniebigodes">@jonniebigodes</SocialLink>,
   },
   {
