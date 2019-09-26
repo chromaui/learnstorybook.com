@@ -38,13 +38,11 @@ const Content = styled.div`
 const BannerHeading = styled.div`
   font-size: ${typography.size.m2}px;
   font-weight: ${typography.weight.black};
-  letter-spacing: -0.28px;
   line-height: 36px;
 `;
 
 const BannerText = styled.div`
   font-size: ${typography.size.s3}px;
-  letter-spacing: -0.33px;
   line-height: 26px;
   margin-top: 8px;
 `;

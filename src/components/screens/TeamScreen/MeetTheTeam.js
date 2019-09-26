@@ -8,7 +8,6 @@ const { typography } = styles;
 const Heading = styled.div`
   font-size: 36px;
   font-weight: ${typography.weight.black};
-  letter-spacing: -0.36px;
   line-height: 40px;
   text-align: center;
   margin-bottom: 48px;
@@ -30,7 +29,6 @@ const EditorAvatar = styled(Avatar)`
 const EditorName = styled.span`
   font-size: ${typography.size.s3}px;
   font-weight: ${typography.weight.black};
-  letter-spacing: -0.28px;
   line-height: 36px;
   margin-right: 4px;
 `;

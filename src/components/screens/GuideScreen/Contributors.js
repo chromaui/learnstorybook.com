@@ -46,7 +46,7 @@ const Contributors = ({ authors, contributors }) => (
 
     {contributors && contributors.length > 0 && (
       <CommunityDetailItem>
-        <Subheading>{pluralize('Contributor', contributors.length)}</Subheading>
+        <Subheading>Reviewed by</Subheading>
 
         {contributors.map(contributor => (
           <UserWrapper {...contributor} key={contributor.name} />

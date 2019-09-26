@@ -11,7 +11,6 @@ export const guideFormatting = css`
   }
 
   p {
-    letter-spacing: -0.33px;
     line-height: 28px;
   }
 
@@ -30,13 +29,15 @@ export const guideFormatting = css`
 
   .badge {
     display: inline-flex;
+    vertical-align: top;
+    margin-bottom: 10px;
     align-items: center;
     background: ${background.app};
     border-radius: 4px;
     padding: 3px 20px;
     font-size: ${typography.size.s2}px;
     line-height: 24px;
-    margin-right: 10px;
+    margin-right: 6px;
 
     &:last-of-type {
       margin-right: 0;
@@ -50,7 +51,7 @@ export const guideFormatting = css`
 `;
 
 export const chapterFormatting = css`
-  line-height: 26px;
+  line-height: 28px;
   font-size: ${typography.size.s3};
 
   h1,
@@ -77,10 +78,9 @@ export const chapterFormatting = css`
   }
 
   h2 {
-    font-size: ${typography.size.m1}px;
+    font-size: ${typography.size.m2}px;
     font-weight: ${typography.weight.black};
     line-height: ${typography.size.m3}px;
-    letter-spacing: -0.6px;
     margin-bottom: 0.5em;
   }
 
@@ -94,15 +94,13 @@ export const chapterFormatting = css`
 
   h4 {
     font-size: ${typography.size.s3}px;
-    font-weight: ${typography.weight.bold};
-    color: ${color.dark};
-    margin: 1.5em 0 0em;
+    font-weight: ${typography.weight.extrabold};
+    margin: 1.5em 0 0.5em;
   }
 
   p {
     margin: 1.5em 0;
     position: relative;
-    letter-spacing: -0.37px;
 
     &:first-of-type:not(:only-of-type) {
       margin-top: 0;
@@ -120,7 +118,7 @@ export const chapterFormatting = css`
     padding-left: 30px;
 
     li {
-      margin-bottom: 0.5em;
+      margin-bottom: 0.25em;
     }
 
     ul,
@@ -197,9 +195,13 @@ export const chapterFormatting = css`
   .aside {
     font-size: ${typography.size.s3}px;
     color: ${color.dark};
-    background: #fffad7;
+    background: #f8fafc;
     border-radius: 4px;
     padding: 20px;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   /* Tables based on GH markdown format */

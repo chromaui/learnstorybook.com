@@ -5,7 +5,6 @@ const { color } = styles;
 
 const SubheadingWrapper = styled(Subheading)`
   color: ${color.mediumdark};
-  letter-spacing: 6px;
   line-height: 20px;
   display: block;
   margin-top: 48px;

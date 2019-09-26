@@ -107,7 +107,7 @@ const MobileMenuNavItem = styled(NavItem)`
   order: 1;
   margin-right: 10px;
 
-  >span: focus {
+  > span:focus {
     outline: none;
   }
 `;
@@ -285,7 +285,7 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
           <NavItem isInverted={isInverted} showDesktop>
             <WithTooltip placement="bottom" trigger="click" closeOnClick tooltip={guideList}>
               <NavTextLinkExternal inverse={isInverted} tertiary onClick={preventDefault}>
-                Guides
+                Guides <Icon icon="arrowdown" />
               </NavTextLinkExternal>
             </WithTooltip>
           </NavItem>

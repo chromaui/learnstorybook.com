@@ -16,7 +16,6 @@ const TeamWrapper = styled.div`
 
 const Content = styled.div`
   font-size: ${typography.size.s3}px;
-  letter-spacing: -0.36px;
   line-height: 24px;
 `;
 

@@ -1,35 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link, styles } from '@storybook/design-system';
+import { styles } from '@storybook/design-system';
 import Subheading from './Subheading';
 import ShadowBox from '../../basics/ShadowBox';
 
-const { breakpoint, typography } = styles;
+const { breakpoint, color, typography } = styles;
 
 const ChromaShadowBox = styled(ShadowBox)`
   margin-top: 24px;
   padding: 20px;
-  display: flex;
 
-  a {
-    margin-right: 16px;
+  display: flex;
+  text-decoration: none;
+  color: ${color.darkest};
+
+  transition: transform 150ms ease-out;
+
+  &:hover {
+    transform: translate3d(0, -3px, 0);
+  }
+
+  &:active {
+    transform: translate3d(0, 0, 0);
   }
 
   img {
+    display: block;
     width: 50px;
     height: 50px;
+    margin-right: 16px;
   }
 
   @media (min-width: ${breakpoint}px) {
     padding: 40px;
 
     a {
-      margin-right: 24px;
     }
 
     img {
       width: 60px;
       height: 60px;
+      margin-right: 24px;
     }
   }
 `;
@@ -42,14 +53,11 @@ const MadeByChroma = () => (
   <>
     <Subheading>Made by</Subheading>
 
-    <ChromaShadowBox>
-      <Link target="_blank" rel="noopener" href="https://hichroma.com/">
-        <img alt="Chroma, the Storybook company" src="/icon-chroma.svg" />
-      </Link>
-
+    <ChromaShadowBox as="a" target="_blank" rel="noopener noreferrer" href="https://hichroma.com/">
+      <img alt="Chroma, the Storybook company" src="/icon-chroma.svg" />
       <div>
         <Bold>Chroma is the Storybook company</Bold> run by core maintainers. We help devs learn
-        Component-Driven Development and create frontend tools like Chromatic and Storybook Loop.{' '}
+        Component-Driven Development and build time-saving tools like Chromatic.{' '}
       </div>
     </ChromaShadowBox>
   </>

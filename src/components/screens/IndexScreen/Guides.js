@@ -72,66 +72,6 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
             />
           </GuideLink>
         ))}
-
-        {guidesEdges.map(({ node: guideNode }) => (
-          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-            <Guide
-              chapterCount={chapterCountByGuide[guideNode.fields.guide]}
-              description={guideNode.frontmatter.description}
-              imagePath="/guide-thumb/cdd.svg"
-              themeColor="#66BF3C"
-              title={guideNode.frontmatter.title}
-            />
-          </GuideLink>
-        ))}
-
-        {guidesEdges.map(({ node: guideNode }) => (
-          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-            <Guide
-              chapterCount={chapterCountByGuide[guideNode.fields.guide]}
-              description={guideNode.frontmatter.description}
-              imagePath="/guide-thumb/design-system.svg"
-              themeColor="#1EA7FD"
-              title={guideNode.frontmatter.title}
-            />
-          </GuideLink>
-        ))}
-
-        {guidesEdges.map(({ node: guideNode }) => (
-          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-            <Guide
-              chapterCount={chapterCountByGuide[guideNode.fields.guide]}
-              description={guideNode.frontmatter.description}
-              imagePath="/guide-thumb/master.svg"
-              themeColor="#37D5D3"
-              title={guideNode.frontmatter.title}
-            />
-          </GuideLink>
-        ))}
-
-        {guidesEdges.map(({ node: guideNode }) => (
-          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-            <Guide
-              chapterCount={chapterCountByGuide[guideNode.fields.guide]}
-              description={guideNode.frontmatter.description}
-              imagePath="/guide-thumb/production.svg"
-              themeColor="#FF4785"
-              title={guideNode.frontmatter.title}
-            />
-          </GuideLink>
-        ))}
-
-        {guidesEdges.map(({ node: guideNode }) => (
-          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-            <Guide
-              chapterCount={chapterCountByGuide[guideNode.fields.guide]}
-              description={guideNode.frontmatter.description}
-              imagePath="/guide-thumb/visual-testing.svg"
-              themeColor="#FFAE00"
-              title={guideNode.frontmatter.title}
-            />
-          </GuideLink>
-        ))}
       </Content>
     </GuidesWrapper>
   );

@@ -47,6 +47,10 @@ const Detail = styled.div`
     font-weight: ${typography.weight.black};
   }
 
+  code {
+    font-size: ${typography.size.s3 - 1}px;
+  }
+
   @media (min-width: ${breakpoint * 1.5}px) {
     margin-top: 0;
     width: 50%;

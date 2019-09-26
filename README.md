@@ -8,7 +8,8 @@ Contributions to Learn Storybook are encouraged! If it’s something small like 
 
 You'll find the guides and chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory. Content is organized at the guide level. Within the `/content` directory, you'll find directories for the current guides that are offered. Within each guide directory, you can see the chapters that make up that guide.
 
-We need help translating Learn Storybook to new languages. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3)
+We love translations of our guides to new languages. That helps the Storybook community learn in the language they're most comfortable with. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3)
+
 Traditional Chinese translation is converted from Simplified Chinese using [OpenCC](https://github.com/BYVoid/OpenCC). Please help us correct any idiomatic errors.
 
 ## Who made LearnStorybook.com?

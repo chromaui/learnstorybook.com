@@ -25,7 +25,6 @@ const GuideLink = styled(GatsbyLink)`
     color: ${color.darkest};
     font-size: ${typography.size.s3};
     font-weight: ${typography.weight.bold};
-    letter-spacing: -0.14px;
     line-height: 20px;
     margin-bottom: 12px;
   }

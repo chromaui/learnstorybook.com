@@ -16,7 +16,6 @@ const SocialValidationWrapper = styled.div`
 const Heading = styled.div`
   font-size: 36px;
   font-weight: ${typography.weight.black};
-  letter-spacing: -0.33px;
   line-height: 36px;
   text-align: center;
 `;
@@ -89,7 +88,7 @@ const logos = [
 
 const SocialValidation = () => (
   <SocialValidationWrapper>
-    <Heading>+70,000 readers so far</Heading>
+    <Heading>+100,000 readers so far</Heading>
 
     <Logos>
       {logos.map(logo => (

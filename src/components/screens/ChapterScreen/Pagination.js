@@ -14,7 +14,6 @@ const PaginationWrapper = styled.div`
 const PaginationSubheading = styled(Subheading)`
   color: ${color.mediumdark};
   font-size: ${typography.size.s2}px;
-  letter-spacing: 6px;
   line-height: 20px;
 `;
 

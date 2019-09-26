@@ -40,17 +40,15 @@ const ChapterWrapper = styled.div`
   }
 `;
 
-const Title = styled.div`
+const Title = styled.h1`
   font-size: ${typography.size.l1}px;
   font-weight: ${typography.weight.black};
-  margin-bottom: 8px;
-  letter-spacing: -0.33px;
+  margin-bottom: 12px;
   line-height: 40px;
 `;
 
 const Description = styled.div`
   font-size: ${typography.size.m2}px;
-  letter-spacing: -0.37px;
   line-height: 26px;
   margin-bottom: 28px;
 `;

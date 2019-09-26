@@ -5,7 +5,7 @@ const { color } = styles;
 
 const SubheadingWrapper = styled(Subheading)`
   color: ${color.dark};
-  font-size: 15px;
+  font-size: 14px;
 `;
 
 export default SubheadingWrapper;

@@ -9,14 +9,12 @@ const Heading = styled.div`
   font-size: ${typography.size.m3}px;
   font-weight: ${typography.weight.black};
   color: ${color.primary};
-  letter-spacing: -0.28px;
   line-height: 36px;
 `;
 
 const Message = styled.div`
   font-size: ${typography.size.s3}px;
   color: ${color.dark};
-  letter-spacing: -0.33px;
   line-height: 26px;
   margin-top: 6px;
 `;

@@ -9,7 +9,6 @@ const { color, typography } = styles;
 
 const BoxLinkWrapper = styled(BoxLink).attrs({ isInternal: true })`
   padding: 20px 28px;
-  letter-spacing: -0.26px;
   line-height: 20px;
 
   &&,
@@ -27,7 +26,6 @@ const Chapter = styled.div`
 const ChapterNumber = styled.div`
   font-weight: ${typography.weight.black};
   font-size: ${typography.size.m1}px;
-  letter-spacing: -0.33px;
   line-height: 24px;
   color: ${color.mediumdark};
   margin-right: 26px;

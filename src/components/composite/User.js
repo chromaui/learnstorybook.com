@@ -21,7 +21,6 @@ const Name = styled.div`
   color: ${color.darkest};
   font-size: ${typography.size.s3}px;
   font-weight: ${typography.weight.bold};
-  letter-spacing: -0.33px;
   line-height: 20px;
   hyphens: auto;
 `;
@@ -29,7 +28,6 @@ const Name = styled.div`
 const Detail = styled.div`
   color: #586368;
   font-size: ${typography.size.s2}px;
-  letter-spacing: -0.25px;
   line-height: 16px;
   margin-top: 3px;
   text-align: left;

@@ -19,13 +19,11 @@ const Section = styled.div`
 const Heading = styled.div`
   font-size: ${typography.size.m2}px;
   font-weight: ${typography.weight.extrabold};
-  letter-spacing: -0.23px;
   line-height: 28px;
 `;
 
 const Text = styled.div`
   font-size: ${typography.size.s3}px;
-  letter-spacing: -0.33px;
   line-height: 26px;
   margin-top: 12px;
 `;
@@ -56,34 +54,6 @@ const GuidanceUser = styled(User)`
   }
 `;
 
-const Logos = styled.div`
-  margin-top: 54px;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-left: -10px;
-  margin-bottom: -10px;
-
-  @media (min-width: ${smallBreakpoint}px) {
-    margin-left: 0;
-    margin-bottom: 0;
-  }
-`;
-
-const LogoImage = styled.img`
-  height: ${props => props.height};
-  margin: 10px;
-
-  @media (min-width: ${smallBreakpoint}px) {
-    margin: 0;
-    margin-right: 28px;
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-`;
-
 const CommunityAvatars = styled.div`
   margin-top: 24px;
   margin-left: -10px;
@@ -96,24 +66,6 @@ const AvatarWrapper = styled(Avatar).attrs({ size: 'large' })`
   min-width: 40px;
   margin: 10px;
 `;
-
-const logos = [
-  {
-    src: '/logo-storybook.svg',
-    alt: 'Storybook',
-    height: '25px',
-  },
-  {
-    src: '/logo-apollo.svg',
-    alt: 'Apollo',
-    height: '34px',
-  },
-  {
-    src: '/logo-meteor.svg',
-    alt: 'Meteor',
-    height: '41px',
-  },
-];
 
 const PureCommunity = ({ contributors }) => (
   <div>
@@ -130,21 +82,20 @@ const PureCommunity = ({ contributors }) => (
         <GuidanceUser
           src="https://avatars2.githubusercontent.com/u/263385"
           name="Dominic Nguyen"
-          detail="Storybook Design"
+          detail="Storybook design"
         />
         <GuidanceUser
-          isLast
           src="https://avatars2.githubusercontent.com/u/132554"
           name="Tom Coleman"
           detail="Storybook core"
         />
+        <GuidanceUser
+          isLast
+          src="https://avatars2.githubusercontent.com/u/3035355"
+          name="Kyle Suss"
+          detail="Storybook maintainer"
+        />
       </GuidanceUsers>
-
-      <Logos>
-        {logos.map(logo => (
-          <LogoImage key={logo.src} src={logo.src} alt={logo.alt} height={logo.height} />
-        ))}
-      </Logos>
     </Section>
 
     <Section>

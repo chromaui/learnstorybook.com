@@ -31,7 +31,6 @@ const GuideTitle = styled.div`
   font-size: ${typography.size.m1}px;
   font-weight: ${typography.weight.black};
   line-height: ${typography.size.m3}px;
-  letter-spacing: -0.4px;
 `;
 
 const GuideDescription = styled.div`

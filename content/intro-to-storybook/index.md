@@ -27,12 +27,12 @@ authors:
     {
       src: "https://avatars2.githubusercontent.com/u/132554",
       name: "Tom Coleman",
-      detail: "Storybook core maintainer",
+      detail: "Storybook core",
     },
     {
       src: "https://avatars2.githubusercontent.com/u/263385",
       name: "Dominic Nguyen",
-      detail: "Storybook designer",
+      detail: "Storybook design",
     },
   ]
 contributors:
@@ -40,7 +40,7 @@ contributors:
     {
       src: "https://avatars2.githubusercontent.com/u/22988955",
       name: "Jonnie Bigodes",
-      detail: "Software engineer",
+      detail: "Engineer",
     },
     {
       src: "https://avatars2.githubusercontent.com/u/1593752",
@@ -50,7 +50,7 @@ contributors:
     {
       src: "https://avatars2.githubusercontent.com/u/5649014",
       name: "Carlos Iván Suarez",
-      detail: "Frontend engineer",
+      detail: "Engineer",
     },
     {
       src: "https://avatars2.githubusercontent.com/u/9523719",
