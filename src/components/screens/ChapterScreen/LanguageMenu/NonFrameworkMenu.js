@@ -119,10 +119,7 @@ const NonFrameworkMenu = ({
         target="_blank"
         rel="noopener"
       >
-        <ButtonContent>
-          Help us translate
-          <ArrowRightIcon />
-        </ButtonContent>
+        <ButtonContent>Help us translate</ButtonContent>
       </Button>
     );
   }

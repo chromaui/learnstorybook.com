@@ -22,9 +22,8 @@ const SidebarWrapper = styled.div`
 
 const GuideLink = styled(GatsbyLink)`
   && {
-    color: ${color.darkest};
-    font-size: ${typography.size.s3}px;
-    font-weight: ${typography.weight.bold};
+    color: ${color.mediumdark};
+    font-size: ${typography.size.s2}px;
     line-height: 20px;
     margin-bottom: 12px;
   }
@@ -32,7 +31,8 @@ const GuideLink = styled(GatsbyLink)`
 
 const SidebarBackIcon = styled(Icon).attrs({ icon: 'arrowleft' })`
   && {
-    width: 14px;
+    width: 12px;
+    margin-left: -12px;
   }
 `;
 
