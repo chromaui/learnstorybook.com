@@ -90,10 +90,14 @@ const Guide = ({ data }) => {
 
   return (
     <>
-      <Helmet
-        title={`${title} | ${siteMetadata.title}`}
-        meta={[{ name: 'description', content: description }]}
-      />
+      <Helmet>
+        <title>{`${title} | ${siteMetadata.title}`}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+      </Helmet>
 
       <Hero
         contributorCount={contributorCount}
