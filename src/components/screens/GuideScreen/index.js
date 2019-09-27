@@ -80,7 +80,7 @@ const Guide = ({ data }) => {
         toc,
         overview,
       },
-      fields: { permalink },
+      fields: { guide, permalink },
     },
     pages,
     site: { siteMetadata },
@@ -94,16 +94,21 @@ const Guide = ({ data }) => {
       <Helmet>
         <title>{`${title} | ${siteMetadata.title}`}</title>
         <meta name="description" content={description} />
+
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={permalink} />
+        <meta
+          property="og:image"
+          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+        />
+
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        {/* TODO change the image path to reflect directory structure
-        /book-title/opengraph-cover.jpg
-        */}
-        <meta property="og:image" content="https://www.learnstorybook.com/opengraph-cover.jpg" />
-        <meta name="twitter:image" content="https://www.learnstorybook.com/opengraph-cover.jpg" />
+        <meta
+          name="twitter:image"
+          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+        />
       </Helmet>
 
       <Hero
@@ -177,6 +182,7 @@ Guide.propTypes = {
     }).isRequired,
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
+        permalink: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
@@ -189,6 +195,7 @@ export const query = graphql`
   query GuideQuery($slug: String!, $guide: String!) {
     site {
       siteMetadata {
+        permalink
         title
       }
     }
@@ -216,6 +223,7 @@ export const query = graphql`
         overview
       }
       fields {
+        guide
         permalink
       }
     }

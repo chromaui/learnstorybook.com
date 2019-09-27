@@ -82,11 +82,21 @@ const Chapter = ({
       <Helmet>
         <title>{`${title} | ${siteMetadata.title}`}</title>
         <meta name="description" content={description} />
+
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={permalink} />
+        <meta
+          property="og:image"
+          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+        />
+
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
+        <meta
+          name="twitter:image"
+          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+        />
       </Helmet>
 
       <Sidebar
@@ -178,6 +188,7 @@ Chapter.propTypes = {
       siteMetadata: PropTypes.shape({
         contributeUrl: PropTypes.string.isRequired,
         githubUrl: PropTypes.string.isRequired,
+        permalink: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
@@ -216,6 +227,7 @@ export const query = graphql`
         title
         githubUrl
         contributeUrl
+        permalink
         siteUrl
       }
     }
