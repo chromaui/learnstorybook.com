@@ -36,9 +36,18 @@ const Content = styled.div`
   }
 `;
 
+const StyledGuide = styled(Guide)``;
+
 const GuideLink = styled(GatsbyLink)`
+  ${StyledGuide} {
+    box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
+  }
   &&:hover {
     transform: translateY(-3px);
+
+    ${StyledGuide} {
+      box-shadow: 0 7px 15px 0 rgba(0, 0, 0, 0.15);
+    }
   }
 `;
 
@@ -63,7 +72,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
       <Content>
         {guidesEdges.map(({ node: guideNode }) => (
           <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-            <Guide
+            <StyledGuide
               chapterCount={chapterCountByGuide[guideNode.fields.guide]}
               description={guideNode.frontmatter.description}
               imagePath={guideNode.frontmatter.thumbImagePath}

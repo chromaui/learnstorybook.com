@@ -12,7 +12,6 @@ const GuideWrapper = styled.span`
   color: ${color.lightest};
   padding: 40px;
   border-radius: 8px;
-  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -66,8 +65,8 @@ const StyledIcon = styled(Icon)`
   bottom: -0.25em !important;
 `;
 
-const Guide = ({ chapterCount, description, imagePath, themeColor, title }) => (
-  <GuideWrapper themeColor={themeColor}>
+const Guide = ({ chapterCount, description, imagePath, themeColor, title, ...props }) => (
+  <GuideWrapper themeColor={themeColor} {...props}>
     <div>
       <GuideTitle>
         {title} <StyledIcon icon="arrowrightalt" />
