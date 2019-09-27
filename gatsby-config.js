@@ -1,7 +1,5 @@
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
-const permalink = isDeployPreview
-  ? `${process.env.DEPLOY_PRIME_URL}`
-  : 'https://learnstorybook.com';
+const permalink = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://learnstorybook.com';
 
 module.exports = {
   siteMetadata: {
