@@ -15,7 +15,7 @@ import {
 import GatsbyLink from '../basics/GatsbyLink';
 import Logo from '../basics/Logo';
 
-const { color, spacing, pageMargins, breakpoint, typography } = styles;
+const { color, pageMargins, breakpoint, typography } = styles;
 
 const LogoWrapper = styled(Logo)`
   && {
@@ -41,7 +41,7 @@ const LogoWrapper = styled(Logo)`
 `;
 
 const navBreakpoint = breakpoint * 1.2;
-// prettier-ignore
+
 const NavItem = styled.div`
   display: inline-flex;
   height: 3rem;
@@ -51,14 +51,18 @@ const NavItem = styled.div`
   font-weight: ${typography.weight.bold};
   line-height: 19px;
 
-  ${props => props.showDesktop && `
+  ${props =>
+    props.showDesktop &&
+    `
     display: none;
     @media (min-width: ${navBreakpoint}px) {
       display: inline-flex;
     }
   `}
 
-  ${props => props.showMobile && `
+  ${props =>
+    props.showMobile &&
+    `
     @media (min-width: ${navBreakpoint}px) {
       display: none;
     }
@@ -99,7 +103,7 @@ const NavGroup = styled.div`
   `}
 
   ${NavItem} + ${NavItem} {
-    margin-left: ${spacing.padding.large}px;
+    margin-left: 20px;
   }
 `;
 
@@ -155,7 +159,7 @@ const TooltipList = styled.div`
   overflow: hidden;
 
   @media (min-width: ${navBreakpoint}px) {
-    width: 302px;
+    width: 300px;
   }
 `;
 
@@ -301,7 +305,6 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
               tertiary
               inverse={isInverted}
               href="https://storybook.js.org/"
-              target="_blank"
               rel="noopener"
             >
               Storybook

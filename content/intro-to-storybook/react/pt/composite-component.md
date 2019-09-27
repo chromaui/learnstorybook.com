@@ -98,7 +98,7 @@ Pode agora verificar-se o Storybook com as estórias novas associadas á `Taskli
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>

@@ -147,7 +147,7 @@ Una vez hecho esto, podemos revisar Storybook y encontraremos las nuevas histori
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>

@@ -7,7 +7,7 @@ commit: 0818d47
 
 Storybook se ejecuta en conjunto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz gráfica aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Angular.
 
-![Storybook and your app](/storybook-relationship.jpg)
+![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Configurando Angular Storybook
 
@@ -37,7 +37,7 @@ yarn start
 
 Las tres modalidades de nuestra aplicación son: test automatizado (Jest), desarrollo de componentes (Storybook) y la propia aplicación.
 
-![3 modalidades](/app-three-modalities.png)
+![3 modalidades](/intro-to-storybook/app-three-modalities.png)
 
 Dependiendo de la parte de la aplicación en la que estés trabajando, es posible que quieras ejecutar una o varias de ellas simultáneamente. Dado que nuestro objetivo es crear un componente de interfaz gráfica en completo aislamiento del resto de la aplicación, utilizaremos Storybook.
 
@@ -45,7 +45,7 @@ Dependiendo de la parte de la aplicación en la que estés trabajando, es posibl
 
 Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente incluiremos nuestros archivos LESS y los importaremos dentro de `styles.less`.
 
-![Interfaz gráfica del Buzón de tareas](/ss-browserchrome-taskbox-learnstorybook.png)
+![Interfaz gráfica del Buzón de tareas](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
 Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS se encuentran en el mismo repositorio de GitHub.</div>

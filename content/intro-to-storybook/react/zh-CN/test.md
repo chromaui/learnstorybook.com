@@ -7,9 +7,9 @@ commit: 78a45d1
 
 Storybook 教程没有测试是不完整的. 测试对于创建高质量的 UI 至关重要. 在模块化系统中,微小的调整可能导致重大的回溯. 到目前为止,我们遇到了三种类型的测试
 
-* **视觉测试** 依赖开发人员手动查看组件以验证其正确性. 它们帮助我们在构建时检查组件的外观.
-* **快照测试** 使用 Storyshots 捕获组件的渲染标记. 它们可以帮助我们及时了解导致 渲染错误和警告的标记更改.
-* **单元测试** 使用 Jest 验证 在给定固定输入的情况下 组件的输出保持不变. 它们非常适合测试组件的功能质量.
+- **视觉测试** 依赖开发人员手动查看组件以验证其正确性. 它们帮助我们在构建时检查组件的外观.
+- **快照测试** 使用 Storyshots 捕获组件的渲染标记. 它们可以帮助我们及时了解导致 渲染错误和警告的标记更改.
+- **单元测试** 使用 Jest 验证 在给定固定输入的情况下 组件的输出保持不变. 它们非常适合测试组件的功能质量.
 
 ## "但看起来不错吗?"
 
@@ -69,9 +69,9 @@ import { configure } from "@storybook/react";
 import requireContext from "require-context.macro";
 import "storybook-chromatic";
 
-import '../src/index.css';
+import "../src/index.css";
 
-const req = requireContext('../src/components', true, /\.stories\.js$/);
+const req = requireContext("../src/components", true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -125,7 +125,7 @@ configure(loadStories, module);
 
 有很多变化! 组件层次结构表明 `Task`是`TaskList`的孩子和`Inbox`意味着一个小小的调整滚雪球成为主要的回溯. 这种情况正是开发人员除了其他测试方法之外,还需要视觉回溯测试的原因.
 
-![UI minor tweaks major regressions](/minor-major-regressions.gif)
+![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
 ## 查看更改
 

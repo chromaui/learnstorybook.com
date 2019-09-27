@@ -71,7 +71,11 @@ const PitchDescription = styled.div`
 
 const GetStartedButton = styled(Button)`
   margin-top: 24px;
-  width: 193px;
+  font-size: ${typography.size.s3}px;
+  font-weight: ${typography.weight.black};
+  padding-top: 16px;
+  padding-bottom: 16px;
+  width: 180px;
 
   &,
   &:hover,
@@ -149,7 +153,7 @@ const Hero = ({
 
           {ctaHref && (
             <GatsbyLink to={ctaHref}>
-              <GetStartedButton appearance="secondary">Get started</GetStartedButton>
+              <GetStartedButton>Get started</GetStartedButton>
             </GatsbyLink>
           )}
 

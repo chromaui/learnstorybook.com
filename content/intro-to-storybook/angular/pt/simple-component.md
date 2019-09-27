@@ -184,7 +184,7 @@ Assim que esta operação for concluída, ao reiniciar o servidor Storybook, dev
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/inprogress-task-states.mp4"
+    src="/intro-to-storybook//inprogress-task-states.mp4"
     type="video/mp4"
   />
 </video>

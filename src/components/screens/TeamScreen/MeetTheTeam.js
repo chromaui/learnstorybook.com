@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Avatar, Link, styles } from '@storybook/design-system';
 import Subheading from './Subheading';
 
-const { typography } = styles;
+const { breakpoint, typography } = styles;
 
 const Heading = styled.div`
   font-size: 36px;
@@ -19,11 +19,16 @@ const Editor = styled.div`
 `;
 
 const EditorAvatar = styled(Avatar)`
-  height: 80px;
-  width: 80px;
-  line-height: 80px;
-  min-width: 80px;
-  margin-right: 30px;
+  height: 48px;
+  width: 48px;
+  margin-right: 20px;
+  margin-top: 8px;
+
+  @media (min-width: ${breakpoint}px) {
+    height: 80px;
+    width: 80px;
+    margin-right: 30px;
+  }
 `;
 
 const EditorName = styled.span`
@@ -47,19 +52,14 @@ const MeetTheTeam = () => (
       <EditorAvatar src="https://avatars2.githubusercontent.com/u/263385" size="large" />
 
       <EditorDescription>
-        <div>
-          <EditorName>Dominic Nguyen</EditorName>
-
-          <Link secondary target="_blank" rel="noopener" href="https://twitter.com/domyen">
-            @domyen
-          </Link>
-        </div>
-
-        <div>
-          Dominic is the designer of Storybook. He focuses on dev workflow and community. He helped
-          launch Apollo GraphQL and maintain Meteor. Find him writing about Component-Driven
-          Development and frontend infrastructure.
-        </div>
+        <EditorName>Dominic Nguyen</EditorName>
+        <Link secondary target="_blank" rel="noopener" href="https://twitter.com/domyen">
+          @domyen
+        </Link>
+        <br />
+        Dominic is the designer of Storybook. He focuses on dev workflow and community. He helped
+        launch Apollo GraphQL and maintain Meteor. Find him writing about Component-Driven
+        Development and frontend infrastructure.
       </EditorDescription>
     </Editor>
 

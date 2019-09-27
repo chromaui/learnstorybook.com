@@ -9,7 +9,7 @@ Ajuda na construção de componentes de interface de utilizador isolados de qual
 Esta edição de Aprendizagem de Storybook é destinada para Angular.
 Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started), quer para [React](/react/pt/get-started).
 
-![Storybook e a aplicação](/storybook-relationship.jpg)
+![Storybook e a aplicação](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Configuração de Storybook com Angular
 
@@ -43,7 +43,7 @@ yarn start
 
 Sendo estes os seguintes: testes automáticos (Jest), desenvolvimento de componentes (Storybook) e a aplicação em si.
 
-![3 modalidades](/app-three-modalities.png)
+![3 modalidades](/intro-to-storybook/app-three-modalities.png)
 
 Dependendo de qual parte da aplicação que estamos a trabalhar, podemos querer executar um ou mais simultâneamente.
 Visto que neste caso, o foco é a criação de um componente de interface de utilizador simples, iremos cingir-nos somente á execução de Storybook.
@@ -53,7 +53,7 @@ Visto que neste caso, o foco é a criação de um componente de interface de uti
 A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
 [Tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), como tal, não será necessária a criação de CSS neste tutorial. Somente serão incluídos os ficheiros LESS na aplicação, sendo posteriormente importados dentro do ficheiro `styles.less`.
 
-![Interface Utilizador Taskbox](/ss-browserchrome-taskbox-learnstorybook.png)
+![Interface Utilizador Taskbox](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
   Se for necessária alguma alteração aos elementos de estilo, os ficheiros LESS originais encontram-se disponíveis no repositório Github.

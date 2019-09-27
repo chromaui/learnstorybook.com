@@ -12,14 +12,14 @@ import Sponsors from './Sponsors';
 const { typography } = styles;
 
 const TeamWrapper = styled.div`
-  max-width: 608px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 156px 20px 90px;
+  padding: 160px 20px 90px;
 `;
 
 const Content = styled.div`
   font-size: ${typography.size.s3}px;
-  line-height: 24px;
+  line-height: 28px;
 `;
 
 const Section = styled.div`

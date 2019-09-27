@@ -117,7 +117,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/inprogress-task-states.mp4"
+    src="/intro-to-storybook//inprogress-task-states.mp4"
     type="video/mp4"
   />
 </video>

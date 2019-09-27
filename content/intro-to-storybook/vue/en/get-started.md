@@ -7,7 +7,7 @@ commit: d1c4858
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Vue; other editions exist for [React](/react/en/get-started) and [Angular](/angular/en/get-started).
 
-![Storybook and your app](/storybook-relationship.jpg)
+![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Setup Vue Storybook
 
@@ -41,7 +41,7 @@ yarn serve
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
 
-![3 modalities](/app-three-modalities-vue.png)
+![3 modalities](/intro-to-storybook/app-three-modalities-vue.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 
@@ -51,11 +51,11 @@ Taskbox reuses design elements from the GraphQL and React Tutorial [example app]
 
 ```html
 <style>
-@import './index.css';
+  @import "./index.css";
 </style>
 ```
 
-![Taskbox UI](/ss-browserchrome-taskbox-learnstorybook.png)
+![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
 If you want to modify the styling, the source LESS files are provided in the GitHub repo.

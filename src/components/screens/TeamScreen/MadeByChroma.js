@@ -11,10 +11,11 @@ const ChromaShadowBox = styled(ShadowBox)`
   padding: 20px;
 
   display: flex;
+  align-items: center;
   text-decoration: none;
   color: ${color.darkest};
 
-  transition: transform 150ms ease-out;
+  transition: all 150ms ease-out;
 
   &:hover {
     transform: translate3d(0, -3px, 0);
@@ -24,21 +25,22 @@ const ChromaShadowBox = styled(ShadowBox)`
     transform: translate3d(0, 0, 0);
   }
 
-  img {
+  > img {
     display: block;
-    width: 50px;
+    flex: 0 0 50px;
     height: 50px;
     margin-right: 16px;
+  }
+
+  div {
+    flex: 1;
   }
 
   @media (min-width: ${breakpoint}px) {
     padding: 40px;
 
-    a {
-    }
-
-    img {
-      width: 60px;
+    > img {
+      flex: 0 0 60px;
       height: 60px;
       margin-right: 24px;
     }

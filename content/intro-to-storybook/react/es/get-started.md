@@ -7,7 +7,7 @@ commit: ebe2ae2
 
 Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; otras ediciones para Vue y Angular vendrán pronto.
 
-![Storybook and your app](/storybook-relationship.jpg)
+![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Configurando React Storybook
 
@@ -37,7 +37,7 @@ yarn start
 
 Nuestras tres modalidades del frontend de la aplicación: test automatizado (Jest), desarrollo de componentes (Storybook) y la propia aplicación.
 
-![3 modalidades](/app-three-modalities.png)
+![3 modalidades](/intro-to-storybook/app-three-modalities.png)
 
 Dependiendo de en qué parte de la aplicación estés trabajando, es posible que quieras ejecutar uno o más de estos simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
 
@@ -45,7 +45,7 @@ Dependiendo de en qué parte de la aplicación estés trabajando, es posible que
 
 Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos nuestros archivos LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo src/index.css según la convención de CRA.
 
-![Buzón de tareas UI](/ss-browserchrome-taskbox-learnstorybook.png)
+![Buzón de tareas UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
 Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son proporcionados en el mismo repositorio de GitHub.</div>

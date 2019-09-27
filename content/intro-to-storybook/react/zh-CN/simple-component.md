@@ -119,7 +119,7 @@ configure(loadStories, module);
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/inprogress-task-states.mp4"
+    src="/intro-to-storybook//inprogress-task-states.mp4"
     type="video/mp4"
   />
 </video>

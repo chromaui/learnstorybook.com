@@ -7,9 +7,9 @@ commit: 78a45d1
 
 Storybook 教程沒有測試是不完整的. 測試對於建立高質量的 UI 至關重要. 在模組化系統中,微小的調整可能導致重大的回溯. 到目前為止,我們遇到了三種類型的測試
 
-* **視覺測試** 依賴開發人員手動檢視元件以驗證其正確性. 它們幫助我們在構建時檢查元件的外觀.
-* **快照測試** 使用 Storyshots 捕獲元件的渲染標記. 它們可以幫助我們及時瞭解導致 渲染錯誤和警告的標記更改.
-* **單元測試** 使用 Jest 驗證 在給定固定輸入的情況下 元件的輸出保持不變. 它們非常適合測試元件的功能質量.
+- **視覺測試** 依賴開發人員手動檢視元件以驗證其正確性. 它們幫助我們在構建時檢查元件的外觀.
+- **快照測試** 使用 Storyshots 捕獲元件的渲染標記. 它們可以幫助我們及時瞭解導致 渲染錯誤和警告的標記更改.
+- **單元測試** 使用 Jest 驗證 在給定固定輸入的情況下 元件的輸出保持不變. 它們非常適合測試元件的功能質量.
 
 ## "但看起來不錯嗎?"
 
@@ -69,9 +69,9 @@ import { configure } from "@storybook/react";
 import requireContext from "require-context.macro";
 import "storybook-chromatic";
 
-import '../src/index.css';
+import "../src/index.css";
 
-const req = requireContext('../src/components', true, /\.stories\.js$/);
+const req = requireContext("../src/components", true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -125,7 +125,7 @@ configure(loadStories, module);
 
 有很多變化! 元件層次結構表明 `Task`是`TaskList`的孩子和`Inbox`意味著一個小小的調整滾雪球成為主要的回溯. 這種情況正是開發人員除了其他測試方法之外,還需要視覺回溯測試的原因.
 
-![UI minor tweaks major regressions](/minor-major-regressions.gif)
+![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
 ## 檢視更改
 
