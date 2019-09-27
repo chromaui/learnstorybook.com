@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
 import { Highlight, styles } from '@storybook/design-system';
@@ -63,9 +64,7 @@ const Chapter = ({
     currentGuide: {
       frontmatter: { codeGithubUrl, title: currentGuideTitle, toc },
     },
-    site: {
-      siteMetadata: { githubUrl, contributeUrl },
-    },
+    site: { siteMetadata },
     tocPages,
     translationPages,
   },
@@ -73,13 +72,25 @@ const Chapter = ({
   const entries = tocEntries(toc, tocPages);
   const nextEntry = entries[toc.indexOf(chapter) + 1];
   const firstChapter = toc[0];
-  const githubFileUrl = `${githubUrl}/blob/master/content${slug.replace(/\/$/, '')}.md`;
+  const githubFileUrl = `${siteMetadata.githubUrl}/blob/master/content${slug.replace(
+    /\/$/,
+    ''
+  )}.md`;
 
   return (
     <ChapterWrapper>
+      <Helmet>
+        <title>{`${title} | ${siteMetadata.title}`}</title>
+        <meta name="description" content={description} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+      </Helmet>
+
       <Sidebar
         chapter={chapter}
-        contributeUrl={contributeUrl}
+        contributeUrl={siteMetadata.contributeUrl}
         entries={entries}
         firstChapter={firstChapter}
         framework={framework}
@@ -165,6 +176,7 @@ Chapter.propTypes = {
       siteMetadata: PropTypes.shape({
         contributeUrl: PropTypes.string.isRequired,
         githubUrl: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
   }).isRequired,
