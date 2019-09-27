@@ -9,7 +9,7 @@ const PitchWrapper = styled.div`
   text-align: center;
   max-width: 608px;
   margin: 0 auto;
-  padding: 145px 20px 64px;
+  padding: 145px 20px 48px;
 `;
 
 const PitchTitle = styled.h1`

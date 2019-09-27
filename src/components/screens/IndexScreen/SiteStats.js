@@ -80,7 +80,7 @@ const SiteStats = ({ allEditionsChaptersEdges, chapterCount, guideCount }) => {
 
       <SiteStatWrapper>
         <SiteStat
-          heading={pluralize('chapter', chapterCount, true)}
+          heading={pluralize('total chapter', chapterCount, true)}
           message="With code snippets, sample repos, icons, and production assets."
         />
       </SiteStatWrapper>
