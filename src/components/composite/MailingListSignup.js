@@ -76,19 +76,24 @@ const validateForm = values => {
   return {};
 };
 
-const listUrl =
-  'https://hichroma.us15.list-manage.com/subscribe/post?u=0cd563f2d5b0ef7aa4471c045&amp;id=17ebbc4cc4';
+const listUrl = 'https://hichroma.us15.list-manage.com/subscribe/post';
 
 const MailingListSignup = props => {
   const [hasSubmitted, setSubmitStatus] = useState(false);
   const onSubmitForm = async values => {
-    const data = {
+    const data = new FormData();
+    const fullFields = {
+      u: '0cd563f2d5b0ef7aa4471c045',
+      id: '17ebbc4cc4',
+      MERGE3: 'learn-storybook',
       MERGE0: values.email,
     };
 
+    Object.keys(fullFields).forEach(key => data.append(key, fullFields[key]));
+
     await fetch(listUrl, {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: data,
       mode: 'no-cors',
     });
 
