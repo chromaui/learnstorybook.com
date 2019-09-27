@@ -28,7 +28,6 @@ const PitchTitle = styled.h1`
 const PitchDescription = styled.div`
   color: ${color.darkest};
   font-size: ${typography.size.m1}px;
-  color: ${color.dark};
   line-height: 32px;
   text-align: center;
   margin: 12px auto 0;
