@@ -9,7 +9,7 @@
     "gatsby": "^2.7.1",
     "gatsby-plugin-layout": "^1.0.15",
     "gatsby-plugin-react-helmet": "^3.0.12",
-    "gatsby-plugin-segment": "^1.0.2",
+    "gatsby-plugin-segment-js": "^3.0.1",
     "gatsby-plugin-sitemap": "^2.1.0",
     "gatsby-plugin-styled-components": "^3.0.7",
     "gatsby-source-filesystem": "^2.0.37",

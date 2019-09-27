@@ -30,9 +30,10 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
     {
-      resolve: 'gatsby-plugin-segment',
+      resolve: 'gatsby-plugin-segment-js',
       options: {
-        writeKey: 'JXEYLKE1T9ptsDlNqeNIMdoOy1Ept8CB',
+        prodKey: 'JXEYLKE1T9ptsDlNqeNIMdoOy1Ept8CB',
+        trackPage: true,
       },
     },
   ],
