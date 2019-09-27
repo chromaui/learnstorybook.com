@@ -3,6 +3,7 @@ title: "Intro to Storybook"
 description: "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch."
 heroDescription: "Storybook is the most popular UI component development tool for React, Vue, and Angular. It helps you develop and design UI components outside your app in an isolated environment. Learn Storybook to create bulletproof UI components, along the way you’ll build an app UI from scratch."
 overview: "Intro to Storybook teaches tried-and-true patterns for component development using Storybook. You’ll walk through essential UI component techniques while building a UI from scratch in React, Vue, or Angular. The info here is sourced from professional teams, core maintainers, and the awesome Storybook community. Professional developers at Airbnb, Dropbox, and Lonely Planet use Storybook to build durable documented UIs faster."
+order: 1
 themeColor: "#6F2CAC"
 codeGithubUrl: "https://github.com/chromaui/learnstorybook-code"
 heroAnimationName: "float"

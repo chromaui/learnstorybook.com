@@ -22,14 +22,6 @@ const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
   }
 `;
 
-const ArrowRightIcon = styled(Icon).attrs({ icon: 'arrowright' })`
-  && {
-    width: 8px;
-    height: 8px;
-    margin-left: 5px;
-  }
-`;
-
 const TooltipList = styled.div`
   border-radius: 4px;
   overflow: hidden;

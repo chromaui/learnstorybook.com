@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import styled from "styled-components";
-import { Link, styles } from "@storybook/design-system";
-import GatsbyLink from "./GatsbyLink";
-import { rgba } from "polished";
+import React from 'react';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import { Link, styles } from '@storybook/design-system';
+import { rgba } from 'polished';
+import GatsbyLink from './GatsbyLink';
 
 const boxLinkStyles = `
   && {
@@ -31,26 +31,22 @@ const InternalBoxLink = styled(GatsbyLink)`
 `;
 
 const ExternalBoxLink = styled(Link).attrs({
-  target: "_blank",
-  rel: "noopener"
+  target: '_blank',
+  rel: 'noopener',
 })`
   ${boxLinkStyles}
 `;
 
 const BoxLink = ({ isInternal, to, ...rest }) =>
-  isInternal ? (
-    <InternalBoxLink to={to} {...rest} />
-  ) : (
-    <ExternalBoxLink href={to} {...rest} />
-  );
+  isInternal ? <InternalBoxLink to={to} {...rest} /> : <ExternalBoxLink href={to} {...rest} />;
 
 BoxLink.propTypes = {
   isInternal: PropTypes.bool,
-  to: PropTypes.string.isRequired
+  to: PropTypes.string.isRequired,
 };
 
 BoxLink.defaultProps = {
-  isInternal: false
+  isInternal: false,
 };
 
 export default BoxLink;
