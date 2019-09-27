@@ -97,6 +97,11 @@ const Guide = ({ data }) => {
         <meta property="og:description" content={description} />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
+        {/* TODO change the image path to reflect directory structure
+        /book-title/opengraph-cover.jpg
+        */}
+        <meta property="og:image" content="https://www.learnstorybook.com/opengraph-cover.jpg" />
+        <meta name="twitter:image" content="https://www.learnstorybook.com/opengraph-cover.jpg" />
       </Helmet>
 
       <Hero
