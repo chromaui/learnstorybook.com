@@ -59,7 +59,7 @@ const Chapter = ({
     currentPage: {
       html,
       frontmatter: { commit, title, description },
-      fields: { framework, guide, language, slug, chapter },
+      fields: { framework, guide, language, slug, chapter, permalink },
     },
     currentGuide: {
       frontmatter: { codeGithubUrl, title: currentGuideTitle, toc },
@@ -84,6 +84,7 @@ const Chapter = ({
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
+        <meta property="og:url" content={permalink} />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
       </Helmet>
@@ -122,6 +123,7 @@ Chapter.propTypes = {
         chapter: PropTypes.string.isRequired,
         framework: PropTypes.string,
         language: PropTypes.string.isRequired,
+        permalink: PropTypes.string.isRequired,
       }).isRequired,
       frontmatter: PropTypes.shape({
         commit: PropTypes.string,
@@ -199,6 +201,7 @@ export const query = graphql`
         chapter
         framework
         language
+        permalink
       }
     }
     currentGuide: markdownRemark(fields: { guide: { eq: $guide }, pageType: { eq: "guide" } }) {

@@ -1,4 +1,5 @@
 const path = require('path');
+const config = require('./gatsby-config');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
@@ -15,6 +16,7 @@ const onCreateGuideNode = ({ actions, node, slug }) => {
 
   createNodeField({ node, name: 'guide', value: guide });
   createNodeField({ node, name: 'slug', value: slug });
+  createNodeField({ node, name: 'permalink', value: `${config.siteMetadata.permalink}${slug}` });
   createNodeField({ node, name: 'pageType', value: 'guide' });
 };
 
@@ -25,6 +27,7 @@ const onCreateNonFrameworkChapterNode = ({ actions, node, slug }) => {
 
   createNodeField({ node, name: 'guide', value: guide });
   createNodeField({ node, name: 'slug', value: slug });
+  createNodeField({ node, name: 'permalink', value: `${config.siteMetadata.permalink}${slug}` });
   createNodeField({ node, name: 'language', value: language });
   createNodeField({ node, name: 'chapter', value: chapter });
   createNodeField({ node, name: 'pageType', value: 'chapter' });
@@ -38,6 +41,7 @@ const onCreateFrameworkChapterNode = ({ actions, node, slug }) => {
 
   createNodeField({ node, name: 'guide', value: guide });
   createNodeField({ node, name: 'slug', value: slug });
+  createNodeField({ node, name: 'permalink', value: `${config.siteMetadata.permalink}${slug}` });
   createNodeField({ node, name: 'framework', value: framework });
   createNodeField({ node, name: 'language', value: language });
   createNodeField({ node, name: 'chapter', value: chapter });
@@ -80,7 +84,16 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 };
 
 const createChapterPage = ({ createPage, node }) => {
-  const { guide, slug, framework, language, chapter, pageType, isDefaultTranslation } = node.fields;
+  const {
+    guide,
+    slug,
+    framework,
+    language,
+    chapter,
+    pageType,
+    isDefaultTranslation,
+    permalink,
+  } = node.fields;
 
   createPage({
     path: slug,
@@ -93,13 +106,14 @@ const createChapterPage = ({ createPage, node }) => {
       language,
       chapter,
       pageType,
+      permalink,
       isDefaultTranslation,
     },
   });
 };
 
 const createGuidePage = ({ createPage, node }) => {
-  const { guide, slug, pageType } = node.fields;
+  const { guide, slug, pageType, permalink } = node.fields;
 
   createPage({
     path: slug,
@@ -108,6 +122,7 @@ const createGuidePage = ({ createPage, node }) => {
       // Data passed to context is available in page queries as GraphQL variables.
       guide,
       slug,
+      permalink,
       pageType,
     },
   });

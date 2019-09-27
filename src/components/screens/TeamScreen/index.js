@@ -40,6 +40,7 @@ const PureTeamScreen = ({
       <meta name="description" content={description} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
+      <meta property="og:url" content={`${siteMetadata.permalink}/team`} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
     </Helmet>
@@ -68,6 +69,7 @@ PureTeamScreen.propTypes = {
   data: PropTypes.shape({
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
+        permalink: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
@@ -80,6 +82,7 @@ const TeamScreen = props => (
       query TeamQuery {
         site {
           siteMetadata {
+            permalink
             title
           }
         }

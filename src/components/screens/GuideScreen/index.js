@@ -80,6 +80,7 @@ const Guide = ({ data }) => {
         toc,
         overview,
       },
+      fields: { permalink },
     },
     pages,
     site: { siteMetadata },
@@ -95,6 +96,7 @@ const Guide = ({ data }) => {
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
+        <meta property="og:url" content={permalink} />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         {/* TODO change the image path to reflect directory structure
@@ -212,6 +214,9 @@ export const query = graphql`
         themeColor
         toc
         overview
+      }
+      fields {
+        permalink
       }
     }
     pages: allMarkdownRemark(
