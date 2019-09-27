@@ -3,7 +3,7 @@ title: "Visual Testing Handbook"
 description: "✍️Coming soon: Visual testing is a pragmatic yet precise way to check UI appearance."
 heroDescription: "✍️Coming soon: Visual testing is a pragmatic yet precise way to verify the look of UI components. It’s practiced by companies like Slack, Lonely Planet, and Walmart. This five chapter handbook gives you an overview of visual testing in Storybook."
 overview: "UIs are more complex, multi-state, and personalized than ever. This yields thousands of app permutations users can encounter. UI components help manage that complexity. This book talks about how testing those components helps you ensure that your app looks and feels great every release."
-themeColor: "#4AC013"
+themeColor: "#129F00"
 codeGithubUrl: "https://github.com/chromaui/learnstorybook-code"
 heroAnimationName: null
 toc:

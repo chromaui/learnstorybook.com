@@ -3,7 +3,7 @@ title: "Design Systems for Developers"
 description: "Discover how to build and maintain design systems using Storybook."
 heroDescription: "A guide that teaches professional developers how to transform component libraries into design systems and set up the production infrastructure used by leading frontend teams."
 overview: "Design systems power the frontend teams of Shopify, IBM, Salesforce, Airbnb, Twitter,  and many more. This guide for professional developers examines how the smartest teams engineer design systems at scale and why they use the tools they use. We'll walk through setting up core services, libraries, and workflows to develop a design system from scratch."
-themeColor: "#009DFF"
+themeColor: "#0079FF"
 codeGithubUrl: "https://github.com/chromaui/learnstorybook-code"
 heroAnimationName: null
 toc:
