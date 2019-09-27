@@ -11,7 +11,7 @@ const SubheadingMessage = styled.div`
 `;
 
 const SponsorsList = styled.div`
-  margin-top: 26px;
+  margin-top: 24px;
   display: flex;
 `;
 

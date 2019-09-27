@@ -43,7 +43,7 @@ const BannerHeading = styled.div`
 
 const BannerText = styled.div`
   font-size: ${typography.size.s3}px;
-  line-height: 26px;
+  line-height: 28px;
   margin-top: 8px;
 `;
 

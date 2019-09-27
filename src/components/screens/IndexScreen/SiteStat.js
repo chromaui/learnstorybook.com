@@ -14,9 +14,9 @@ const Heading = styled.div`
 
 const Message = styled.div`
   font-size: ${typography.size.s3}px;
-  color: ${color.dark};
-  line-height: 26px;
-  margin-top: 6px;
+  color: ${color.darker};
+  line-height: 28px;
+  margin-top: 8px;
 `;
 
 const SiteStat = ({ heading, message }) => (

@@ -28,7 +28,7 @@ const ChapterNumber = styled.div`
   font-size: ${typography.size.m1}px;
   line-height: 24px;
   color: ${color.mediumdark};
-  margin-right: 26px;
+  margin-right: 28px;
 `;
 
 const ChapterTitle = styled.div`

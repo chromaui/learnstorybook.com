@@ -80,7 +80,7 @@ const LogoWrapper = styled(Logo)`
 
 const LogoChromaWrapper = styled(LogoChroma)`
   && {
-    height: 26px;
+    height: 28px;
     width: auto;
   }
 `;

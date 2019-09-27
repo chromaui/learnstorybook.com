@@ -22,7 +22,7 @@ const Heading = styled.div`
 
 const Text = styled.div`
   font-size: ${typography.size.s3}px;
-  line-height: 26px;
+  line-height: 28px;
   margin-top: 12px;
 `;
 

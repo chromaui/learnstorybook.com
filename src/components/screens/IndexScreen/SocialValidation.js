@@ -54,7 +54,7 @@ const Testimonials = styled.div`
 
 const Testimonial = styled.div`
   font-size: ${typography.size.s3}px;
-  line-height: 26px;
+  line-height: 28px;
   max-width: 300px;
   text-align: center;
   margin: 60px auto 0;

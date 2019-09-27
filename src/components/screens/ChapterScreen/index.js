@@ -50,7 +50,7 @@ const Title = styled.h1`
 
 const Description = styled.div`
   font-size: ${typography.size.m2}px;
-  line-height: 26px;
+  line-height: 28px;
   margin-bottom: 28px;
 `;
 
