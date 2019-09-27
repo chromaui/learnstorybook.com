@@ -17,27 +17,40 @@ const SidebarWrapper = styled.div`
     margin: 1rem 0 2rem;
     width: 100%;
     border-bottom: 1px solid ${color.mediumlight};
+    padding-bottom: 1.5rem;
   }
 `;
 
 const GuideLink = styled(GatsbyLink)`
   && {
     color: ${color.dark};
-    font-size: ${typography.size.s2}px;
+    font-weight: ${typography.weight.black};
     line-height: 20px;
     margin-bottom: 12px;
+    @media (min-width: ${breakpoint * 1}px) {
+      width: 200px;
+    }
   }
 `;
 
 const SidebarBackIcon = styled(Icon).attrs({ icon: 'arrowleft' })`
   && {
-    width: 12px;
-    margin-left: -12px;
+    width: 1em;
+    margin-left: -1.6em;
+    margin-right: 0.6em;
+    color: ${color.medium};
   }
 `;
 
 const TableOfContentsWrapper = styled(TableOfContents)`
-  margin-top: 20px;
+  @media (min-width: ${breakpoint * 1}px) {
+    margin-bottom: 3rem;
+  }
+`;
+
+const StickyWrapper = styled.div`
+  position: sticky;
+  top: 20px;
 `;
 
 const Sidebar = ({
@@ -53,24 +66,26 @@ const Sidebar = ({
   translationPages,
 }) => (
   <SidebarWrapper>
-    <GuideLink tertiary to={`/${guide}`} title={`Back to ${guideTitle}`}>
-      <SidebarBackIcon icon="arrowleft" />
-      Back
-    </GuideLink>
+    <StickyWrapper>
+      <GuideLink tertiary to={`/${guide}`} title={`Back to ${guideTitle}`}>
+        <SidebarBackIcon icon="arrowleft" />
+        {guideTitle}
+      </GuideLink>
 
-    <div>
-      <LanguageMenu
-        chapter={chapter}
-        contributeUrl={contributeUrl}
-        guide={guide}
-        firstChapter={firstChapter}
-        framework={framework}
-        language={language}
-        translationPages={translationPages}
-      />
-    </div>
+      <TableOfContentsWrapper entries={entries} currentPageSlug={slug} />
 
-    <TableOfContentsWrapper entries={entries} currentPageSlug={slug} />
+      <div>
+        <LanguageMenu
+          chapter={chapter}
+          contributeUrl={contributeUrl}
+          guide={guide}
+          firstChapter={firstChapter}
+          framework={framework}
+          language={language}
+          translationPages={translationPages}
+        />
+      </div>
+    </StickyWrapper>
   </SidebarWrapper>
 );
 
