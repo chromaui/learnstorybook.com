@@ -60,8 +60,8 @@ const TableOfContents = ({ entries }) => (
 
     <ChapterList>
       {entries.map((entry, index) => (
-        <ChapterItem>
-          <BoxLinkWrapper to={entry.slug} key={entry.slug}>
+        <ChapterItem key={entry.slug}>
+          <BoxLinkWrapper to={entry.slug}>
             <Chapter>
               <ChapterNumber>{index + 1}</ChapterNumber>
 
