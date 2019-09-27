@@ -22,7 +22,7 @@ const SidebarWrapper = styled.div`
 
 const GuideLink = styled(GatsbyLink)`
   && {
-    color: ${color.mediumdark};
+    color: ${color.dark};
     font-size: ${typography.size.s2}px;
     line-height: 20px;
     margin-bottom: 12px;
@@ -53,9 +53,9 @@ const Sidebar = ({
   translationPages,
 }) => (
   <SidebarWrapper>
-    <GuideLink tertiary to={`/${guide}`}>
+    <GuideLink tertiary to={`/${guide}`} title={`Back to ${guideTitle}`}>
       <SidebarBackIcon icon="arrowleft" />
-      {guideTitle}
+      Back
     </GuideLink>
 
     <div>

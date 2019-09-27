@@ -6,13 +6,14 @@ import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
 import get from 'lodash/get';
 import { graphql } from 'gatsby';
+import { darken } from 'polished';
 import Contributors from './Contributors';
 import Hero from './Hero';
 import TableOfContents from './TableOfContents';
 import { guideFormatting } from '../../../styles/formatting';
 import tocEntries from '../../../lib/tocEntries';
 
-const { breakpoint, pageMargins, typography } = styles;
+const { breakpoint, color, pageMargins, typography } = styles;
 
 const Content = styled.div`
   ${guideFormatting}
@@ -54,6 +55,15 @@ const Detail = styled.div`
   @media (min-width: ${breakpoint * 1.5}px) {
     margin-top: 0;
     width: 50%;
+  }
+
+  a {
+    &,
+    &:hover,
+    &:focus,
+    &:hover:focus {
+      color: ${darken(0.2, color.secondary)};
+    }
   }
 `;
 

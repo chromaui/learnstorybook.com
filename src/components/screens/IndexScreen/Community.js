@@ -71,9 +71,9 @@ const PureCommunity = ({ contributors }) => (
       <Heading>Expert frontend guidance</Heading>
 
       <Text>
-        Learn Storybook was created by active Storybook maintainers who also helped build Apollo and
-        Meteor. Tens of thousands of frontend developers use their work to build apps for millions
-        of people.
+        Learn Storybook was created by active Storybook maintainers who also helped build Apollo
+        GraphQL and MeteorJS. Tens of thousands of frontend developers use their work to build apps
+        for millions of people.
       </Text>
 
       <GuidanceUsers>

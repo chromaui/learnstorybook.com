@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { styles } from '@storybook/design-system';
+import { darken } from 'polished';
 
 const { background, color, typography } = styles;
 
@@ -137,23 +138,26 @@ export const chapterFormatting = css`
   p a,
   li a,
   .aside a {
-    color: ${color.secondary};
+    color: purple;
     transition: all 250ms ease-out;
     display: inline-block;
     text-decoration: none;
     transform: translate3d(0, 0, 0);
 
+    &,
+    &:hover,
+    &:focus,
+    &:hover:focus {
+      color: ${darken(0.2, color.secondary)};
+    }
+
     &:hover {
-      cursor: pointer;
+      text-decoration: underline;
       transform: translate3d(0, -1px, 0);
     }
 
     &:active {
       transform: translate3d(0, 0, 0);
-    }
-
-    &:visited {
-      color: ${color.secondary};
     }
   }
 
@@ -171,7 +175,6 @@ export const chapterFormatting = css`
     padding: 0;
     max-width: 100%;
     position: relative;
-    vertical-align: top;
     margin: 0 auto;
 
     &.alignright {
@@ -194,7 +197,7 @@ export const chapterFormatting = css`
   }
   .aside {
     font-size: ${typography.size.s3}px;
-    color: ${color.dark};
+    color: ${color.darker};
     background: #f8fafc;
     border-radius: 4px;
     padding: 20px;
@@ -271,11 +274,11 @@ export const chapterFormatting = css`
   }
 
   code {
-    font-size: ${typography.size.s3 - 1}px;
+    font-size: ${typography.size.s3 - 2}px;
   }
 
   .aside code {
-    font-size: 15px;
+    font-size: ${typography.size.s3 - 2}px;
   }
 
   blockquote {
