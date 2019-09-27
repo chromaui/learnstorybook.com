@@ -16,7 +16,7 @@ const { breakpoint, color, pageMargin } = styles;
 
 // The background image only loads on the first render. Passing the time forces it to update.
 const DotBackground = styled.div`
-  background: url('bg-dots.svg?t=${props => props.time}');
+  background: url('frontpage/bg-dots.svg?t=${props => props.time}');
   background-repeat: repeat-x;
   background-position-y: 20vh;
 `;

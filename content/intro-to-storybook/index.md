@@ -70,15 +70,15 @@ contributors:
 
 <div class="badge-box">
   <div class="badge">
-    <img src="/logo-react.svg"> React
+    <img src="/frameworks/logo-react.svg"> React
   </div>
 
   <div class="badge">
-    <img src="/logo-vue.svg"> Vue
+    <img src="/frameworks/logo-vue.svg"> Vue
   </div>
 
   <div class="badge">
-    <img src="/logo-angular.svg"> Angular
+    <img src="/frameworks/logo-angular.svg"> Angular
   </div>
 </div>
 

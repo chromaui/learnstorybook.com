@@ -20,15 +20,27 @@ const Heading = styled.div`
   text-align: center;
 `;
 
+const Logo = styled.div`
+  img {
+    display: block;
+    width: 100%;
+    max-width: 100px;
+    height: auto;
+    max-height: 50px;
+  }
+`;
+
 const Logos = styled.div`
   display: flex;
+  flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
   margin-top: 25px;
 
-  img {
+  ${Logo} {
     margin: 20px;
+    flex: 1;
   }
 `;
 
@@ -73,16 +85,33 @@ const UserWrapper = styled(User)`
 
 const logos = [
   {
-    src: '/logo-meteor.svg',
-    alt: 'Meteor',
+    src: '/brands/logo-nike.svg',
+    alt: 'Nike',
+  },
+
+  {
+    src: '/brands/logo-shopify.svg',
+    alt: 'Shopify',
   },
   {
-    src: '/logo-apollo.svg',
-    alt: 'Apollo',
+    src: '/brands/logo-dazn.svg',
+    alt: 'DAZN',
   },
   {
-    src: '/logo-invision.svg',
-    alt: 'Invision',
+    src: '/brands/logo-invision.svg',
+    alt: 'InVision',
+  },
+  {
+    src: '/brands/logo-oreilly.svg',
+    alt: `O'Reilly`,
+  },
+  {
+    src: '/brands/logo-betterment.svg',
+    alt: 'Betterment',
+  },
+  {
+    src: '/brands/logo-hashicorp.svg',
+    alt: 'Hashicorp',
   },
 ];
 
@@ -92,7 +121,9 @@ const SocialValidation = () => (
 
     <Logos>
       {logos.map(logo => (
-        <img key={logo.src} src={logo.src} alt={logo.alt} />
+        <Logo>
+          <img key={logo.src} src={logo.src} alt={logo.alt} />
+        </Logo>
       ))}
     </Logos>
 

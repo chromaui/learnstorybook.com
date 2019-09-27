@@ -61,7 +61,10 @@ const WhatIsLSB = () => (
       </div>
 
       <video autoPlay muted playsInline loop>
-        <source src="/learnstorybook-componentdrivendevelopment-optimized.mp4" type="video/mp4" />
+        <source
+          src="/frontpage/learnstorybook-componentdrivendevelopment-optimized.mp4"
+          type="video/mp4"
+        />
       </video>
     </Content>
   </WhatIsLSBWrapper>

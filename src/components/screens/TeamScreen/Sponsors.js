@@ -67,7 +67,7 @@ const Sponsors = () => (
 
     <SponsorsList>
       <SponsorBoxLink to="https://www.invisionapp.com/design-forward-fund">
-        <img alt="InVision" src="/logo-invision.svg" />
+        <img alt="InVision" src="/brands/logo-invision.svg" />
       </SponsorBoxLink>
 
       <SponsorBoxLink to="mailto:friends@hichroma.com">
