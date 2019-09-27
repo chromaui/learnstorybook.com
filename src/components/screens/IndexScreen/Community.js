@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import { Avatar, styles } from '@storybook/design-system';
 import User from '../../composite/User';
 
-const { spacing, typography } = styles;
-
-const smallBreakpoint = 440;
+const { breakpoint, spacing, typography } = styles;
 
 const Section = styled.div`
   ${props =>
@@ -30,8 +28,10 @@ const Text = styled.div`
 
 const GuidanceUsers = styled.div`
   margin-top: 52px;
-  display: flex;
-  flex-wrap: wrap;
+
+  @media (min-width: ${breakpoint * 1.25}px) {
+    display: flex;
+  }
 `;
 
 const GuidanceUser = styled(User)`
@@ -42,15 +42,13 @@ const GuidanceUser = styled(User)`
     margin-top: 0;
   }
 
-  @media (min-width: ${smallBreakpoint}px) {
-    width: auto;
+  @media (min-width: ${breakpoint * 1.25}px) {
     margin-top: 0;
+    margin-right: 30px;
 
-    ${props =>
-      !props.isLast &&
-      `
-      margin-right: 60px;
-    `}
+    &:last-of-type {
+      margin-right: 0;
+    }
   }
 `;
 
@@ -90,7 +88,6 @@ const PureCommunity = ({ contributors }) => (
           detail="Storybook core"
         />
         <GuidanceUser
-          isLast
           src="https://avatars2.githubusercontent.com/u/3035355"
           name="Kyle Suss"
           detail="Storybook maintainer"
