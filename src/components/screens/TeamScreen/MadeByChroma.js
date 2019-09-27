@@ -58,8 +58,8 @@ const MadeByChroma = () => (
     <ChromaShadowBox as="a" target="_blank" rel="noopener noreferrer" href="https://hichroma.com/">
       <img alt="Chroma, the Storybook company" src="/icon-chroma.svg" />
       <div>
-        <Bold>Chroma is the Storybook company</Bold> run by core maintainers. We help devs learn
-        Component-Driven Development and build time-saving tools like Chromatic.{' '}
+        <Bold>Chroma is the Storybook company</Bold> run by core maintainers. We help folks learn
+        Component-Driven Development. We also build UI development tools like Chromatic.{' '}
       </div>
     </ChromaShadowBox>
   </>
