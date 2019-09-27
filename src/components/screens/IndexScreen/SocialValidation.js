@@ -135,7 +135,7 @@ const SocialValidation = () => (
         <UserWrapper
           src="https://avatars2.githubusercontent.com/u/9523719"
           name="Kyle Holmberg"
-          detail="Acorns"
+          detail="Engineer at Acorns"
         />
       </Testimonial>
 
@@ -145,7 +145,7 @@ const SocialValidation = () => (
         <UserWrapper
           src="https://avatars2.githubusercontent.com/u/263385"
           name="Dominic Nguyen"
-          detail="Professional rapper"
+          detail="Engineer at X"
         />
       </Testimonial>
 
@@ -155,7 +155,7 @@ const SocialValidation = () => (
         <UserWrapper
           src="https://avatars2.githubusercontent.com/u/263385"
           name="Dominic Nguyen"
-          detail="Professional rapper"
+          detail="Engineer at Y"
         />
       </Testimonial>
     </Testimonials>
