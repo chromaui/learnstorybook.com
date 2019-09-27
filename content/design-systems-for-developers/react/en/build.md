@@ -16,7 +16,7 @@ We’ll use VSCode as our editor in this tutorial but the same idea can be appli
 
 If we add Prettier to our project and set our editor up correctly, we should obtain consistent formatting without having to think much about it:
 
-```
+```bash
 yarn add --dev prettier
 ```
 
@@ -37,7 +37,7 @@ Storybook is the industry-standard [component explorer](https://blog.hichroma.co
 
 Install and run Storybook
 
-```
+```bash
 npx -p @storybook/cli sb init
 yarn storybook
 ```

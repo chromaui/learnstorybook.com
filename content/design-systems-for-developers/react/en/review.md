@@ -108,7 +108,7 @@ storybook-static
 
 And commit it.
 
-```
+```bash
 git commit -am “ignore storybook static”
 ```
 
@@ -118,24 +118,24 @@ Every time a pull request contains UI changes, it’s useful to initiate a visua
 
 We’ll demo visual review by making a UI change on a new branch.
 
-```
+```bash
 git checkout -b improve-button
 ```
 
 First, tweak the Button component. “Make it pop” – our designers will love it.
 
-```
+```javascript
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;
-  font-size: 20
-`
+  font-size: 20;
+`;
 // ...
 ```
 
 Commit the change and push it to your GitHub repo.
 
-```
+```bash
 git commit -am “make Button pop”
 git push -u origin improve-button
 ```

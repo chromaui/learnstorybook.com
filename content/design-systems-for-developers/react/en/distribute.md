@@ -128,7 +128,7 @@ To publish releases to npm, we’ll use a process that also updates a changelog 
 
 Let’s install Auto:
 
-```
+```bash
 yarn add --dev auto
 ```
 
@@ -161,7 +161,7 @@ dist
 
 The first thing we need to do with Auto is to create a set of labels in GitHub. We’ll use these labels in the future when making changes to the package (see the next chapter) and that’ll allow `auto` to update the package version sensibly and create a changelog and release notes.
 
-```
+```bash
 yarn auto create-labels
 ```
 
@@ -175,7 +175,7 @@ We should tag all future PRs with one of the labels: `major`, `minor`, `patch`, 
 
 In the future, we’ll calculate new version numbers with `auto` via scripts, but for the first release, let’s run the commands manually to understand what they do. Let’s generate our first changelog entry:
 
-```
+```bash
 yarn auto changelog
 ```
 
@@ -183,7 +183,7 @@ This will generate a long changelog entry with every commit we’ve created so f
 
 Although it is useful to have an auto-generated changelog so you don’t miss things, it’s also a good idea to manually edit it and craft the message in the most useful way for users. In this case, the users don’t need to know about all the commits along the way. Let’s make a nice simple message for our first v0.1.0 version. First undo the commit that Auto just created (but keep the changes:
 
-```
+```bash
 git reset HEAD^
 ```
 
@@ -200,21 +200,21 @@ Then we’ll update the changelog and commit it:
 
 Let’s add that changelog to git. Note that we use `[skip ci]` to tell CI platforms to ignore these commits, else we end up in their build and publish loop.
 
-```
+```bash
 git add CHANGELOG.md
 git commit -m “Changelog for v0.1.0 [skip ci]”
 ```
 
 Now we can publish:
 
-```
+```bash
 npm version 0.1.0 -m "Bump version to: %s [skip ci]"
 npm publish
 ```
 
 And use Auto to create a release on GitHub:
 
-```
+```bash
 git push --follow-tags origin master
 yarn auto release
 ```
@@ -270,13 +270,13 @@ The example app uses Storybook to facilitate [Component-Driven Development](http
 
 Clone the example app repository from GitHub
 
-```
+```bash
 git clone chromaui/learnstorybook-design-system-example-app
 ```
 
 Install the dependencies and start the app’s Storybook
 
-```
+```bash
 yarn install
 yarn storybook
 ```
@@ -289,7 +289,7 @@ You should see the Storybook running with the stories for the simple components 
 
 Add your published design system as a dependency.
 
-```
+```bash
 yarn add <your-username>-learnstorybook-design-system
 ```
 
