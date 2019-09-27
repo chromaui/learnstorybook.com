@@ -36,14 +36,14 @@ As Storybook users, we have a head start because component variations are alread
 
 With the Storybook Docs addon, we can generate rich documentation from existing stories to reduce maintenance time and get out-of-the-box defaults. First, navigate to your design system directory. We’ll install the docs addon:
 
-```
+```bash
 yarn add --dev @storybook/addon-docs
 ```
 
 Also, we’ll add a _preset_ for the docs addon, in a new file `.storybook/presets.js`. Note that the use of this preset removes the need for our `.storybook/webpack.config.js` and we can remove it:
 
-```
-module.exports = ['@storybook/addon-docs/react/preset'];
+```javascript
+module.exports = ["@storybook/addon-docs/react/preset"];
 ```
 
 You should see two tabs in your Storybook. “Canvas” tab is your component development environment. “Docs” is your component documentation.

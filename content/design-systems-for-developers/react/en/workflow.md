@@ -18,13 +18,13 @@ AvatarList is a component that displays multiple avatars. Like the other design 
 
 First, make a new branch on git where we’ll be tracking this work.
 
-```
+```bash
 git checkout -b create-avatar-list-component
 ```
 
 Download AvatarList to your machine. Place it in the `/src` directory.
 
-```
+```bash
 <code>svn export [https://github.com/chromaui/learnstorybook-design-system/branches/downlosrc](https://github.com/chromaui/learnstorybook-design-system/branches/download-1/src)</code> src</h6>
 ```
 
@@ -55,7 +55,7 @@ export const empty = () => <AvatarList users={[]} />;
 
 Save your progress and commit.
 
-```
+```bash
 git commit -am "Added AvatarList and stories"
 ```
 
@@ -111,7 +111,7 @@ Documentation doesn’t have to be tiresome. With automated tooling, we removed 
 
 Commit the changes and push to GitHub.
 
-```
+```bash
 git commit -am “Improved AvatarList docs”
 ```
 
@@ -119,7 +119,7 @@ git commit -am “Improved AvatarList docs”
 
 Let’s push our `AvatarList` branch to GitHub and create a pull request:
 
-```
+```bash
 git push -u origin `create-avatar-list-component`
 ```
 

@@ -74,7 +74,7 @@ configure(require.context("../src", true, /\.stories\.js$/), module);
 
 Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines.
 
-```
+```bash
 yarn chromatic test -a "<app code>"
 ```
 
@@ -96,7 +96,7 @@ export const typography = {
 
 Run the test command again.
 
-```
+```bash
 yarn chromatic test -a "<app code>"
 ```
 
@@ -201,7 +201,7 @@ Disabilities affect 15% of the population according to the [World Health Organiz
 
 Get a headstart on inclusive UI with Storybook’s Accessibility addon, a tool for verifying web accessibility standards (WCAG) in realtime.
 
-```
+```bash
 yarn add --dev @storybook/addon-a11y
 
 ```
