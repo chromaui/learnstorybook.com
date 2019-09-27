@@ -162,7 +162,7 @@ const FrameworkMenu = ({
             return (
               <Item key={translationFramework}>
                 <Image
-                  src={`/logo-${translationFramework}.svg`}
+                  src={`/frameworks/logo-${translationFramework}.svg`}
                   alt={startCase(translationFramework)}
                 />
 
