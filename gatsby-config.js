@@ -1,10 +1,15 @@
+const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
+const permalink = isDeployPreview
+  ? `${process.env.DEPLOY_PRIME_URL}`
+  : 'https://learnstorybook.com';
+
 module.exports = {
   siteMetadata: {
     title: 'Storybook Tutorials',
     description:
       'Learn Storybook teaches frontend developers how to create UIs with components and design systems. Our free in-depth guides are created by Storybook maintainers and peer-reviewed by the open source community.',
-    permalink: 'https://learnstorybook.com',
-    siteUrl: 'https://learnstorybook.com',
+    permalink,
+    siteUrl: permalink,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
   },
