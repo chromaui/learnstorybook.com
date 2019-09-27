@@ -16,7 +16,10 @@ const query = graphql`
         permalink
       }
     }
-    guides: allMarkdownRemark(filter: { fields: { pageType: { eq: "guide" } } }) {
+    guides: allMarkdownRemark(
+      filter: { fields: { pageType: { eq: "guide" } } }
+      sort: { order: ASC, fields: [frontmatter___order] }
+    ) {
       edges {
         node {
           frontmatter {
