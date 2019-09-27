@@ -29,26 +29,26 @@ Visto que a aplicação é deveras simples, o ecrã a ser construído é bastant
           <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <task-list/>
+      <task-list />
     </div>
   </div>
 </template>
 
 <script>
-import TaskList from "./TaskList.vue";
+  import TaskList from "./TaskList.vue";
 
-export default {
-  name: "pure-inbox-screen",
-  props: {
-    error: {
-      type: Boolean,
-      default: false
+  export default {
+    name: "pure-inbox-screen",
+    props: {
+      error: {
+        type: Boolean,
+        default: false
+      }
+    },
+    components: {
+      TaskList
     }
-  },
-  components: {
-    TaskList
-  }
-};
+  };
 </script>
 ```
 
@@ -57,23 +57,23 @@ Em seguida, podemos criar um contentor, que mais uma vez obtém os dados vindos 
 ```html
 <template>
   <div>
-    <pure-inbox-screen :error="error"/>
+    <pure-inbox-screen :error="error" />
   </div>
 </template>
 
 <script>
-import PureInboxScreen from "./PureInboxScreen";
-import { mapState } from "vuex";
+  import PureInboxScreen from "./PureInboxScreen";
+  import { mapState } from "vuex";
 
-export default {
-  name: "inbox-screen",
-  components: {
-    PureInboxScreen
-  },
-  computed: {
-    ...mapState(["error"])
-  }
-};
+  export default {
+    name: "inbox-screen",
+    components: {
+      PureInboxScreen
+    },
+    computed: {
+      ...mapState(["error"])
+    }
+  };
 </script>
 ```
 
@@ -82,22 +82,22 @@ Vai ser necessário alterar o componente `App` de forma a ser possível renderiz
 ```html
 <template>
   <div id="app">
-    <inbox-screen/>
+    <inbox-screen />
   </div>
 </template>
 
 <script>
-import store from "./store";
-import InboxScreen from "./components/InboxScreen.vue";
-import "../src/index.css";
+  import store from "./store";
+  import InboxScreen from "./components/InboxScreen.vue";
+  import "../src/index.css";
 
-export default {
-  name: "app",
-  store,
-  components: {
-    InboxScreen
-  }
-};
+  export default {
+    name: "app",
+    store,
+    components: {
+      InboxScreen
+    }
+  };
 </script>
 ```
 
@@ -111,27 +111,27 @@ Irá ser feito algo similar para o `PureInboxScreen` no Storybook também.
 No entanto para o `PureInboxScreen` existe um problema, isto porque apesar deste ser de apresentação, o seu "filho", ou seja a `TaskList` não o é. De certa forma o `PureInboxScreen` foi poluído pelo "container-ness". Com isto as estórias no ficheiro `src/components/PureInboxScreen.stories.js` terão que ser definidas da seguinte forma:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import PureInboxScreen from './PureInboxScreen';
+import { storiesOf } from "@storybook/vue";
+import PureInboxScreen from "./PureInboxScreen";
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
+storiesOf("PureInboxScreen", module)
+  .add("default", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
+      template: `<pure-inbox-screen/>`
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
+      template: `<pure-inbox-screen :error="true"/>`
     };
   });
 ```
 
 Pode verificar-se que apesar da estória `erro` funcionar correctamente, existe um problema na estória `default`, isto porque a `TaskList` não tem uma loja Vuex á qual conectar-se. (Poderão surgir problemas similares ao testar o `PureInboxScreen` com um teste unitário).
 
-![Inbox quebrada](/broken-inboxscreen-vue.png)
+![Inbox quebrada](/intro-to-storybook/broken-inboxscreen-vue.png)
 
 Uma forma de evitar este tipo de situações, consiste em evitar por completo a renderização de componentes contentor em qualquer lado na aplicação com a exceção do mais alto nível e injetar os dados ao longo da hierarquia de componentes.
 
@@ -146,41 +146,41 @@ No entanto, algum programador **irá querer** renderizar contentores num nível 
 As boas noticias é que é extremamente fácil fornecer uma loja Vuex ao componente `PureInboxScreen` numa estória! Pode ser criada uma nova loja no ficheiro de estória e esta ser fornecida como contexto da estória:
 
 ```javascript
-import { action } from '@storybook/addon-actions';
-import { storiesOf } from '@storybook/vue';
-import Vue from 'vue';
-import Vuex from 'vuex';
+import { action } from "@storybook/addon-actions";
+import { storiesOf } from "@storybook/vue";
+import Vue from "vue";
+import Vuex from "vuex";
 
-import { defaultTaskList } from './PureTaskList.stories';
-import PureInboxScreen from './PureInboxScreen.vue';
+import { defaultTaskList } from "./PureTaskList.stories";
+import PureInboxScreen from "./PureInboxScreen.vue";
 
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
-    tasks: defaultTaskList,
+    tasks: defaultTaskList
   },
   actions: {
     pinTask(context, id) {
-      action('pinTask')(id);
+      action("pinTask")(id);
     },
     archiveTask(context, id) {
-      action('archiveTask')(id);
-    },
-  },
+      action("archiveTask")(id);
+    }
+  }
 });
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
+storiesOf("PureInboxScreen", module)
+  .add("default", () => {
     return {
       components: { PureInboxScreen },
       template: `<pure-inbox-screen/>`,
-      store,
+      store
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
       components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
+      template: `<pure-inbox-screen :error="true"/>`
     };
   });
 ```
@@ -192,7 +192,7 @@ A iteração de estados no Storybook faz com que seja bastante fácil testar, se
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -203,7 +203,7 @@ Começou-se do fundo com `Task`, prosseguindo para `TaskList` e agora chegou-se 
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
-    src="/component-driven-development-optimized.mp4"
+    src="/intro-to-storybook/component-driven-development-optimized.mp4"
     type="video/mp4"
   />
 </video>

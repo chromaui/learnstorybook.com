@@ -54,7 +54,7 @@ $ git commit -m "taskbox UI"
 
 Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
 
-![GitHub setup](/github-create-taskbox.png)
+![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
 
 In the new repo setup copy the origin URL of the repo and add it to your git project with this command:
 
@@ -78,23 +78,23 @@ If you use CI at your company, add a deploy script to your config that uploads <
 
 [Create an account on Netlify](https://app.netlify.com/start) and click to “create site”.
 
-![Netlify create site](/netlify-create-site.png)
+![Netlify create site](/intro-to-storybook/netlify-create-site.png)
 
 Next click the GitHub button to connect Netlify to GitHub. This allows it to access our remote Taskbox repo.
 
 Now select the taskbox GitHub repo from the list of options.
 
-![Netlify connect to repo](/netlify-account-picker.png)
+![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
 
 Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `yarn build-storybook`.
 
-![Netlify settings](/netlify-settings.png)
+![Netlify settings](/intro-to-storybook/netlify-settings.png)
 
 Submit the form to build and deploy the code on the `master` branch of taskbox.
 
 When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
 
-![Netlify Storybook deploy](/netlify-storybook-deploy.png)
+![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
 
 We finished setting up continuous deployment of your Storybook! Now we can share our stories with teammates via a link.
 

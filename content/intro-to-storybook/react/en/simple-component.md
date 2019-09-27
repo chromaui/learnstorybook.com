@@ -9,7 +9,7 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 ## Task
 
-![Task component in three states](/task-states-learnstorybook.png)
+![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
 `Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
@@ -165,7 +165,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -273,6 +273,6 @@ configure(loadStories, module);
 
 Once the above is done, we can run `yarn test` and see the following output:
 
-![Task test runner](/task-testrunner.png)
+![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.

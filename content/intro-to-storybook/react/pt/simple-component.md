@@ -9,7 +9,7 @@ Iremos construir o interface de utilizador de acordo com a metodologia de [Desen
 
 ## Tarefa
 
-![Componente Task ao longo de três estados](/task-states-learnstorybook.png)
+![Componente Task ao longo de três estados](/intro-to-storybook/task-states-learnstorybook.png)
 
 `Task` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra. 
 O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista. 
@@ -206,6 +206,6 @@ configure(loadStories, module);
 
 Quando for concluída esta operação, pode ser executado `yarn test` e obter o seguinte output:
 
-![Execução testes da Tarefa](/task-testrunner.png)
+![Execução testes da Tarefa](/intro-to-storybook/task-testrunner.png)
 
 Com isto encontra-se agora á disposição um teste snapshot para cada uma das estórias `Task`. Se a implementação da `Task` for alterada, será apresentada uma notificação.

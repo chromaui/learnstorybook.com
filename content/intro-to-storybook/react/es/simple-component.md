@@ -9,7 +9,7 @@ Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Devel
 
 ## Task - Tarea
 
-![Task component in three states](/task-states-learnstorybook.png)
+![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
 `Task` (o Tarea) es el componente principal en nuestra app. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o no marcado), información sobre la tarea y un botón “pin” que nos permite mover la tarea hacia arriba o abajo en la lista de tareas. Poniendo esto en conjunto, necesitaremos estas propiedades -props- :
 
@@ -160,7 +160,7 @@ El maquetado adicional de arriba, combinado con el CSS que hemos importado antes
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -225,6 +225,6 @@ initStoryshots();
 
 Una vez hecho lo anterior, podemos ejecutar `yarn test` y veremos el siguiente resultado:
 
-![Task test runner](/task-testrunner.png)
+![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 Ahora tenemos una prueba de instantánea para cada una de las historias de `Task`. Si cambiamos la implementación de `Task`, se nos pedirá que verifiquemos los cambios.

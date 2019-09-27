@@ -11,11 +11,11 @@ commit: '8db511e'
 
 Taskbox 通过将 固定任务 置于默认任务之上 来强调 固定任务. 这产生了两种变体`TaskList`您需要为以下内容创建故事: 默认项目 以及 默认和 固定项目.
 
-![default and pinned tasks](/tasklist-states-1.png)
+![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
 `Task`可以异步发送数据,我们 **也**需要在没有连接的情况下 loading 渲染 *右图*. 此外,当没有任务时,需要 空状态 *左图*.
 
-![empty and loading tasks](/tasklist-states-2.png)
+![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
 
 ## 获取设置
 
@@ -168,7 +168,7 @@ export default TaskList;
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -206,7 +206,7 @@ export default TaskList;
 
 在上一章中,我们学习了如何使用 Storyshots快照测试 故事. `Task`测试没有太多的复杂性,已然够用了. 而`TaskList`增加了另一层复杂性,我们希望 以 自动测试 的方式验证 某些输入产生某些输出. 为此,我们将使用创建单 元测试[jest-笑话](https://facebook.github.io/jest/)再加上测试渲染器等[Enzyme](http://airbnb.io/enzyme/).
 
-![Jest logo](/logo-jest.png)
+![Jest logo](/intro-to-storybook/logo-jest.png)
 
 ### 用Jest进行单元测试
 
@@ -239,7 +239,7 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-![TaskList test runner](/tasklist-testrunner.png)
+![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
 请注意,我们已经能够重用`withPinnedTasks`故事 和 单元测试中的任务列表;通过这种方式,我们可以继续 以越来越多的方式 利用现有资源 (代表组件的有趣配置的示例) .
 

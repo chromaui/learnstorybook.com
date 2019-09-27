@@ -21,7 +21,7 @@ Las pruebas de regresión visual están diseñadas para detectar cambios en la a
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
-    src="/visual-regression-testing.mp4"
+    src="/intro-to-storybook/visual-regression-testing.mp4"
     type="video/mp4"
   />
 </video>
@@ -83,7 +83,7 @@ Ahora [logueate en Chromatic](https://www.chromaticqa.com/start) con tu cuenta d
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
-    src="/chromatic-setup-learnstorybook.mp4"
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
     type="video/mp4"
   />
 </video>
@@ -100,17 +100,17 @@ Ejecuta el comando de prueba en la línea de comandos para configurar las prueba
 
 Una vez el primer test esté completo, tenemos punto de referencia de prueba para cada historia. En otras palabras, capturas de cada historia que son las "correctas". Cualquier cambio a estas historias será comparado contra dichos puntos de referencia.
 
-![Chromatic baselines](/chromatic-baselines.png)
+![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)
 
 ## Capturando un cambio en la interfaz de usuario
 
 La prueba de regresión visual se basa en la comparación de imágenes del nuevo código de la interfaz de usuario renderizado con las imágenes de los puntos de referencia. Si se detecta un cambio en la interfaz de usuario, se te notificará. Observa cómo funciona ajustando el fondo del componente `Tareas`:
 
-![code change](/chromatic-change-to-task-component.png)
+![code change](/intro-to-storybook/chromatic-change-to-task-component.png)
 
 Esto produce un nuevo color de fondo para la tarea.
 
-![task background change](/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change.png)
 
 Usa el comando de prueba anterior para ejecutar Chromatic de nuevo.
 
@@ -120,7 +120,7 @@ Usa el comando de prueba anterior para ejecutar Chromatic de nuevo.
 
 Sigue el enlace a la interfaz de usuario web donde verás los cambios.
 
-![interfaz gráfica changes in Chromatic](/chromatic-catch-changes.png)
+![interfaz gráfica changes in Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
 
 ¡Hay muchos cambios! La jerarquía de componentes donde `TaskComponent` es hijo de `TaskListComponent` e `InboxScreenComponent` significa que cualquier cambio, por más pequeño que parezca, puede causar un efecto de bola de nieve y provocar regresiones importantes. Precisamente por esto los desarrolladores necesitan pruebas de regresión visual además de los métodos de prueba antes mencionados.
 
@@ -134,7 +134,7 @@ Si un cambio es intencional, es necesario actualizar los puntos de referencia pa
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
-    src="/website-workflow-review-merge-optimized.mp4"
+    src="/intro-to-storybook/website-workflow-review-merge-optimized.mp4"
     type="video/mp4"
   />
 </video>
@@ -145,8 +145,8 @@ Dado que las aplicaciones modernas se construyen a partir de componentes, es imp
 
 Cuando hayamos terminado de revisar los cambios, estaremos listos para fusionar o hacer "merge" de los cambios en la interfaz de usuario, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si te gusta el nuevo fondo `red` entonces acepta los cambios, si no, vuelve al estado anterior.
 
-![Changes ready to be merged](/chromatic-review-finished.png)
+![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
 Storybook te ayuda a **construir** componentes; las pruebas te ayudan a **mantenerlos**. Los cuatro tipos de pruebas de interfaz de usuario que mencionamos en este tutorial son las pruebas visuales, de instantánea, unitarios y de regresión visual. Es posible automatizar los tres últimos añadiéndolos a su script CI. Esto te ayuda a enviar componentes sin tener que preocuparse por los bugs polizones. A continuación se ilustra el flujo de trabajo completo.
 
-![Visual regression testing workflow](/cdd-review-workflow.png)
+![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)

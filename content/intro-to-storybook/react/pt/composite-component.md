@@ -13,11 +13,11 @@ A Taskbox dá prioridade a tarefas que foram confirmadas através do seu posicio
 Isto gera duas variações da `TaskList`, para o qual será necessária a criação de estórias:
 os itens normais e itens normais e itens confirmados.
 
-![tarefas confirmadas e padrão](/tasklist-states-1.png)
+![tarefas confirmadas e padrão](/intro-to-storybook/tasklist-states-1.png)
 
 Visto que os dados para a `Task` podem ser enviados de forma assíncrona, **irá ser** necessário um estado no componente para lidar com a ausência de qualquer tipo de conexão. E além deste um estado extra para lidar com a inexistência de tarefas.
 
-![Tarefas vazias e carregamento](/tasklist-states-2.png)
+![Tarefas vazias e carregamento](/intro-to-storybook/tasklist-states-2.png)
 
 ## Preparação
 
@@ -171,7 +171,7 @@ O markup adicional irá resultar no seguinte interface de utilizador:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -210,7 +210,7 @@ export default TaskList;
 
 No capitulo anterior, aprendeu-se a usar o Storyshots para implementar estórias de testes snapshot. Com o componente `Task` não existia muita complexidade para testar além do sucesso da renderização. Visto que o componente `TaskList` adiciona uma camada extra de complexidade, pretende-se verificar que determinados valores de entrada produzam determinados valores de saída, isto implementado de forma responsável para os testes automáticos. Para tal irão ser criados testes unitários utilizando [Jest](https://facebook.github.io/jest/) em conjunção com um renderizador de testes como por exemplo [Enzyme](http://airbnb.io/enzyme/).
 
-![Jest logo](/logo-jest.png)
+![Jest logo](/intro-to-storybook/logo-jest.png)
 
 ## Testes unitários com Jest
 
@@ -244,7 +244,7 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-![Execução de testes da TaskList](/tasklist-testrunner.png)
+![Execução de testes da TaskList](/intro-to-storybook/tasklist-testrunner.png)
 
 Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasks` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente(os exemplos que representam configurações de um componente) de cada vez mais formas.
 

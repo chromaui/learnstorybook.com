@@ -32,9 +32,9 @@ yarn add @storybook/addon-knobs
 Registar o Knobs no ficheiro `.storybook/addons.js`.
 
 ```javascript
-import '@storybook/addon-actions/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-links/register';
+import "@storybook/addon-actions/register";
+import "@storybook/addon-knobs/register";
+import "@storybook/addon-links/register";
 ```
 
 <div class="aside">
@@ -52,16 +52,16 @@ Vamos usar o objecto knob no componente `Task`.
 Primeiro, importamos o decorador `withKnobs` e o tipo `object` de knob para o ficheiro `Task.stories.js`:
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, object } from '@storybook/addon-knobs/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
+import { withKnobs, object } from "@storybook/addon-knobs/react";
 ```
 
 Em seguida, dentro das estórias do componente `Task`, iremos fornecer `withKnobs` como parâmetro da função `addDecorator()`:
 
 ```javascript
-storiesOf('Task', module)
+storiesOf("Task", module)
   .addDecorator(withKnobs)
   .add(/*...*/);
 ```
@@ -69,13 +69,17 @@ storiesOf('Task', module)
 Finalmente, integramos o tipo `object` do knob na estória "padrão":
 
 ```javascript
-storiesOf('Task', module)
+storiesOf("Task", module)
   .addDecorator(withKnobs)
-  .add('default', () => {
-    return <Task task={object('task', { ...task })} {...actions} />;
+  .add("default", () => {
+    return <Task task={object("task", { ...task })} {...actions} />;
   })
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+  .add("pinned", () => (
+    <Task task={{ ...task, state: "TASK_PINNED" }} {...actions} />
+  ))
+  .add("archived", () => (
+    <Task task={{ ...task, state: "TASK_ARCHIVED" }} {...actions} />
+  ));
 ```
 
 Tal como se encontra documentado [aqui](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), este tipo aceita uma "etiqueta" e um objeto padrão como parâmetros.
@@ -87,7 +91,7 @@ Não somente a tua instância Storybook serve como um [ambiente CDD](https://blo
 
 ## Utilização de Knobs para afinar os casos extremos
 
-Adicionalmente com a facilidade de edição de dados fornecidos ao componente, engenheiros QA ou Engenheiros UI, podem levar o componente ao extremo! Como exemplo o que irá acontecer ao nosso componente se contém uma cadeia de caracteres _GIGANTESCA_ ? [OHH não! O conteúdo á direita aparece corto!](/addon-knobs-demo-edge-case.png) 😥
+Adicionalmente com a facilidade de edição de dados fornecidos ao componente, engenheiros QA ou Engenheiros UI, podem levar o componente ao extremo! Como exemplo o que irá acontecer ao nosso componente se contém uma cadeia de caracteres _GIGANTESCA_ ? [OHH não! O conteúdo á direita aparece corto!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
 Devido a facilidade com que é possível testar inputs diferentes podemos descobrir e resolver estes problemas com facilidade! Vamos então resolver o nosso problema, através da adição de um elemento de estilo ao `Task.js`:
 
@@ -99,11 +103,11 @@ Devido a facilidade com que é possível testar inputs diferentes podemos descob
   value={title}
   readOnly={true}
   placeholder="Input title"
-  style={{ textOverflow: 'ellipsis' }}
+  style={{ textOverflow: "ellipsis" }}
 />
 ```
 
-[Assim sim.](/addon-knobs-demo-edge-case-resolved.png) 👍
+[Assim sim.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
 
 ## Criação de uma nova estória para evitar regressões
 
@@ -115,16 +119,22 @@ Vamos então adicionar uma estória para o caso da ocorrência de um texto grand
 ```javascript
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
-storiesOf('Task', module)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />)
-  .add('long title', () => <Task task={{ ...task, title: longTitle }} {...actions} />);
+storiesOf("Task", module)
+  .add("default", () => <Task task={task} {...actions} />)
+  .add("pinned", () => (
+    <Task task={{ ...task, state: "TASK_PINNED" }} {...actions} />
+  ))
+  .add("archived", () => (
+    <Task task={{ ...task, state: "TASK_ARCHIVED" }} {...actions} />
+  ))
+  .add("long title", () => (
+    <Task task={{ ...task, title: longTitle }} {...actions} />
+  ));
 ```
 
 Agora que foi adicionada a estória, podemos reproduzir este caso extremo com relativa facilidade quando for necessário:
 
-[Aqui está ele no Storybook](/addon-knobs-demo-edge-case-in-storybook.png)
+[Aqui está ele no Storybook](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
 Se estiverem a ser usados [testes de regressão visual](/react/pt/test/), iremos ser informados se a nossa solução eliptica for quebrada.
 Tais casos extremos considerados obscuros têm tendência a ser esquecidos!

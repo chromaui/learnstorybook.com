@@ -52,7 +52,7 @@ $ git commit -m "taskbox UI"
 
 Ve a Github y configura un repositorio [aquí](https://github.com/new). Nombra tu repo “taskbox”.
 
-![GitHub setup](/github-create-taskbox.png)
+![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
 
 En la nueva configuración del repositorio copia la URL de origen del repositorio y añádelo a tu proyecto git con este comando:
 
@@ -76,23 +76,23 @@ Si usas CI en tu empresa, añade un script de implementación a tu configuració
 
 [Crea una cuenta en Netlify](https://app.netlify.com/start) y da click en “crear sitio”.
 
-![Crear sitio en Netlify](/netlify-create-site.png)
+![Crear sitio en Netlify](/intro-to-storybook/netlify-create-site.png)
 
 A continuación, haz clic en el botón de GitHub para conectar Netlify a GitHub. Esto le permite acceder a nuestro repositorio remoto Taskbox.
 
 Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
 
-![Conectar un repositorio en Netlify](/netlify-account-picker.png)
+![Conectar un repositorio en Netlify](/intro-to-storybook/netlify-account-picker.png)
 
 Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `master`. El directorio es `storybook-static`. Ejecuta el comando `yarn build-storybook`.
 
-![Ajustes Netlify](/netlify-settings.png)
+![Ajustes Netlify](/intro-to-storybook/netlify-settings.png)
 
 Ahora envía el formulario para construir e implementar el código en la rama `master` del taskbox.
 
 Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
 
-![Despliegue de Netlify Storybook](/netlify-storybook-deploy.png)
+![Despliegue de Netlify Storybook](/intro-to-storybook/netlify-storybook-deploy.png)
 
 Terminamos de configurar el despliegue continuo de tu Storybook! Ahora podemos compartir nuestras historias con nuestros compañeros de equipo a través de un enlace.
 

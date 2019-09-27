@@ -261,7 +261,7 @@ storiesOf('TaskList', module)
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>

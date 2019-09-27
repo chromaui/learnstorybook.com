@@ -9,7 +9,7 @@ commit: 403f19a
 
 ## 任务-Task
 
-![Task component in three states](/task-states-learnstorybook.png)
+![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
 `Task`是我们的应用程序的核心组件. 每个任务的显示略有不同,具体取决于它所处的`状态-state`. 我们显示一个选中 (或未选中) 复选框,一些有关任务的信息,以及一个"pin"按钮,允许我们在列表中上下移动任务. 为了把各个它们摆在一起,我们需要下面的 **props**: 
 
@@ -165,7 +165,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -238,6 +238,6 @@ initStoryshots();
 
 完成上述操作后,我们就可以运行了`yarn test`并看到以下输出: 
 
-![Task test runner](/task-testrunner.png)
+![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 我们现在为每个`Task`故事进行快照测试. 如果我们改变了`Task`的实现,我们会提示您验证更改. 

@@ -11,11 +11,11 @@ Last chapter we built our first component; this chapter extends what we learned 
 
 Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
 
-![default and pinned tasks](/tasklist-states-1.png)
+![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
 Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, an empty state is required when there are no tasks.
 
-![empty and loading tasks](/tasklist-states-2.png)
+![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
 
 ## Get setup
 
@@ -212,7 +212,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -223,7 +223,7 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 
 In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer such as [Enzyme](http://airbnb.io/enzyme/).
 
-![Jest logo](/logo-jest.png)
+![Jest logo](/intro-to-storybook/logo-jest.png)
 
 ### Unit tests with Jest
 
@@ -254,7 +254,7 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-![TaskList test runner](/tasklist-testrunner.png)
+![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
 Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
 

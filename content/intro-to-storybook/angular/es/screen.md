@@ -14,14 +14,14 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo un `TaskListComponent` y sacando un campo `error` de nuestro contenedor de estado. Ahora crearemos `inbox-screen.component.ts` dentro de `src/tasks/containers`:
 
 ```typescript
-import { Component, OnInit, Input } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
-import { Task } from '../task.model';
-import { Observable } from 'rxjs';
+import { Component, OnInit, Input } from "@angular/core";
+import { Select, Store } from "@ngxs/store";
+import { TasksState, ArchiveTask, PinTask } from "../state/task.state";
+import { Task } from "../task.model";
+import { Observable } from "rxjs";
 
 @Component({
-  selector: 'inbox-screen',
+  selector: "inbox-screen",
   template: `
     <div *ngIf="error$ | async" class="page lists-show">
       <div class="wrapper-message">
@@ -39,7 +39,7 @@ import { Observable } from 'rxjs';
       </nav>
       <task-list></task-list>
     </div>
-  `,
+  `
 })
 export class InboxScreenComponent implements OnInit {
   @Select(TasksState.getError) error$: Observable<any>;
@@ -53,16 +53,16 @@ export class InboxScreenComponent implements OnInit {
 También cambiamos nuestro `AppComponent` para que incluya el `InboxScreenComponent` (en una aplicación real esto sería manejado por el enrutador pero podemos obviarlo):
 
 ```typescript
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
+  selector: "app-root",
   template: `
     <inbox-screen></inbox-screen>
-  `,
+  `
 })
 export class AppComponent {
-  title = 'app';
+  title = "app";
 }
 ```
 
@@ -73,36 +73,36 @@ Como vimos anteriormente, el `InboxScreenComponent` es un **contenedor** que ren
 Sin embargo, para el `InboxScreenComponent` tenemos un problema porque depende de nuestro contenedor de estado global. Afortunadamente, Storybook para Angular provee el decorador `moduleMetadata` que nos permite configurar el módulo de Angular e inyectar los `provider`s que necesitamos:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState, ErrorFromServer } from '../state/task.state';
-import { TaskModule } from '../task.module';
+import { storiesOf, moduleMetadata } from "@storybook/angular";
+import { Store, NgxsModule } from "@ngxs/store";
+import { TasksState, ErrorFromServer } from "../state/task.state";
+import { TaskModule } from "../task.module";
 
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
-storiesOf('InboxScreen', module)
+storiesOf("InboxScreen", module)
   .addDecorator(
     moduleMetadata({
       declarations: [],
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
-      providers: [Store],
-    }),
+      providers: [Store]
+    })
   )
-  .add('default', () => {
+  .add("default", () => {
     return {
-      template: `<inbox-screen></inbox-screen>`,
+      template: `<inbox-screen></inbox-screen>`
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
-      template: `<inbox-screen></inbox-screen>`,
+      template: `<inbox-screen></inbox-screen>`
     };
   });
 ```
 
 Vemos que aunque la historia `default` funciona bien, tenemos un problema en la historia `error` porque el campo `error` viene directamente de nuesto contenedor de estado y no podemos simplemente modificarlo desde afuera. Es necesario enviar una acción.
 
-![Broken inbox](/broken-inboxscreen.png)
+![Broken inbox](/intro-to-storybook/broken-inboxscreen.png)
 
 Una forma de evitar este problema es nunca renderizar componentes contenedores en ninguna parte de tu aplicación excepto en el nivel más alto y en su lugar pasar todos los datos requeridos hacia abajo pasando por toda la jerarquía de componentes.
 
@@ -117,38 +117,40 @@ Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legít
 La forma más sencilla de hacer esto es crear un componente que incluya nuestro `InboxScreenComponent` e incluirlo dentro de los meta datos del módulo. De esa forma, las instancias de los `provider`s que hemos configurado estarán disponibles en el constructor del componente que hemos creado. Una vez que tengamos este componente listo, es sencillo enviar una acción a nuestro contenedor de estado para que cree un error:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState, ErrorFromServer } from '../state/task.state';
-import { TaskModule } from '../task.module';
+import { storiesOf, moduleMetadata } from "@storybook/angular";
+import { Store, NgxsModule } from "@ngxs/store";
+import { TasksState, ErrorFromServer } from "../state/task.state";
+import { TaskModule } from "../task.module";
 
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  template: `<inbox-screen></inbox-screen>`,
+  template: `
+    <inbox-screen></inbox-screen>
+  `
 })
 class HostDispatchErrorComponent {
   constructor(store: Store) {
-    store.dispatch(new ErrorFromServer('Error'));
+    store.dispatch(new ErrorFromServer("Error"));
   }
 }
 
-storiesOf('InboxScreen', module)
+storiesOf("InboxScreen", module)
   .addDecorator(
     moduleMetadata({
       declarations: [HostDispatchErrorComponent],
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
-      providers: [Store],
-    }),
+      providers: [Store]
+    })
   )
-  .add('default', () => {
+  .add("default", () => {
     return {
-      template: `<inbox-screen></inbox-screen>`,
+      template: `<inbox-screen></inbox-screen>`
     };
   })
-  .add('error', () => {
+  .add("error", () => {
     return {
-      component: HostDispatchErrorComponent,
+      component: HostDispatchErrorComponent
     };
   });
 ```
@@ -160,7 +162,7 @@ Un recorrido rápido por los estados en Storybook hace que sea fácil comprobar 
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -171,7 +173,7 @@ Empezamos con un `TaskComponent`, progresando a un `TaskListComponent` y, finalm
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
-    src="/component-driven-development-optimized.mp4"
+    src="/intro-to-storybook/component-driven-development-optimized.mp4"
     type="video/mp4"
   />
 </video>

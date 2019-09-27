@@ -21,7 +21,7 @@ Storybook 教程沒有測試是不完整的. 測試對於建立高質量的 UI �
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
-    src="/visual-regression-testing.mp4"
+    src="/intro-to-storybook/visual-regression-testing.mp4"
     type="video/mp4"
   />
 </video>
@@ -84,7 +84,7 @@ configure(loadStories, module);
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
-    src="/chromatic-setup-learnstorybook.mp4"
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
     type="video/mp4"
   />
 </video>
@@ -101,17 +101,17 @@ configure(loadStories, module);
 
 第一次測試完成後, 我們會為每個故事提供測試基準. 換句話說,每個故事的螢幕截圖都被稱為"good". 這些故事的未來變化 將與 基線進行比較.
 
-![Chromatic baselines](/chromatic-baselines.png)
+![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)
 
 ## 捕獲 UI 更改
 
 視覺回溯測試 依賴於將 新呈現的 UI 程式碼的影象 與 基線影象 進行比較. 如果捕獲到 UI 更改,則會收到通知. 通過調整背景 來了解它是如何工作的`Task`元件:
 
-![code change](/chromatic-change-to-task-component.png)
+![code change](/intro-to-storybook/chromatic-change-to-task-component.png)
 
 這會為專案生成新的背景顏色.
 
-![task background change](/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change.png)
 
 使用之前的 test 命令執行另一個 Chromatic 測試.
 
@@ -121,7 +121,7 @@ configure(loadStories, module);
 
 點選您將看到 更改的網路使用者介面 連結.
 
-![UI changes in Chromatic](/chromatic-catch-changes.png)
+![UI changes in Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
 
 有很多變化! 元件層次結構表明 `Task`是`TaskList`的孩子和`Inbox`意味著一個小小的調整滾雪球成為主要的回溯. 這種情況正是開發人員除了其他測試方法之外,還需要視覺回溯測試的原因.
 
@@ -135,7 +135,7 @@ configure(loadStories, module);
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
-    src="/website-workflow-review-merge-optimized.mp4"
+    src="/intro-to-storybook/website-workflow-review-merge-optimized.mp4"
     type="video/mp4"
   />
 </video>
@@ -146,8 +146,8 @@ configure(loadStories, module);
 
 當我們完成稽核後,我們已準備好自信地合併 UI 更改 - 知道更新不會意外地引入錯誤. 如果你喜歡新的`red`背景色,然後接受更改,如果不需要恢復到以前的狀態.
 
-![Changes ready to be merged](/chromatic-review-finished.png)
+![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
 Storybook 可以幫助你 **建立** 元件;測試可以幫助你 **保持** 他們. 本教程介紹了四種類型的 UI 測試,包括 視覺化,快照,單元和視覺化回溯測試. 您可以通過將它們新增到 CI 指令碼 來自動執行最後三個. 這有助於您運輸元件 而不必擔心 偷渡漏洞. 整個工作流程如下所示.
 
-![Visual regression testing workflow](/cdd-review-workflow.png)
+![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)

@@ -11,11 +11,11 @@ En el capítulo anterior construimos nuestro primer componente; este capítulo e
 
 Taskbox enfatiza las tareas fijadas colocándolas por encima de las tareas predeterminadas. Esto produce dos variaciones del `TaskListComponent` para las que necesita crear historias: ítems por defecto e ítems por defecto y fijados.
 
-![default and pinned tasks](/tasklist-states-1.png)
+![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
 Dado que los datos de nuestro `TaskComponent` pueden enviarse asincrónicamente, **también** necesitamos un estado que denote que la información se está cargando el cual podemos mostrar en ausencia de una conexión o mientras no hayan llegado los datos. Además, se requiere un estado vacío que mostraremos cuando no haya tareas.
 
-![empty and loading tasks](/tasklist-states-2.png)
+![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
 
 ## Empezar la configuración
 
@@ -213,7 +213,7 @@ El HTML añadido da como resultado la siguiente interfaz de usuario:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -228,7 +228,7 @@ A medida que el componente crece, también lo hacen los parámetros de entrada r
 
 En el capítulo anterior aprendimos a capturar historias de prueba utilizando Storyshots. Con el componente `TaskComponent` no había mucha complejidad para probar más allá de que se renderice correctamente. Dado que `TaskListComponent` añade otra capa de complejidad, queremos verificar que ciertas entradas produzcan ciertas salidas de una manera adecuada con pruebas automáticas. Para hacer esto crearemos test unitarios utilizando [Jest](https://facebook.github.io/jest/) junto con un renderizador de prueba.
 
-![Jest logo](/logo-jest.png)
+![Jest logo](/intro-to-storybook/logo-jest.png)
 
 ### Test unitarios con Jest
 
@@ -278,7 +278,7 @@ describe('TaskList component', () => {
 });
 ```
 
-![TaskList test runner](/tasklist-testrunner.png)
+![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
 Como puedes notar, hemos sido capaces de reutilizar la lista de tareas `withPinnedTasks` tanto en la prueba de la historia como en el test unitario; de esta manera podemos aprovechar un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de diferentes formas.
 

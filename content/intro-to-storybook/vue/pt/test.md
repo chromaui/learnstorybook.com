@@ -20,7 +20,7 @@ Os testes visuais de regressão são desenhados para capturar alterações de ap
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
-    src="/visual-regression-testing.mp4"
+    src="/intro-to-storybook/visual-regression-testing.mp4"
     type="video/mp4"
   />
 </video>
@@ -83,7 +83,7 @@ configure(loadStories, module);
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
-    src="/chromatic-setup-learnstorybook.mp4"
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
     type="video/mp4"
   />
 </video>
@@ -100,17 +100,17 @@ Executa-se o comando de testes na consola de forma a configurar os testes visuai
 
 Assim que o primeiro teste estiver concluído, é obtida a base de testes para cada estória. Por outras palavras, uma captura de cada estória considerada "boa". Alterações futuras a estas estórias, irão ser comparadas com esta base.
 
-![Bases Chromatic](/chromatic-baselines.png)
+![Bases Chromatic](/intro-to-storybook/chromatic-baselines.png)
 
 ## Captura de uma alteração no interface utilizador
 
 Os testes de regressão visual dependem da comparação de imagens do novo código do interface de utilizador que foi agora renderizado com as imagens de base. Se for capturada uma alteração no interface de utilizador irá surgir uma notificação. Para isto ser observado altera-se o fundo do componente `Task`:
 
-![alteração código](/chromatic-change-to-task-component.png)
+![alteração código](/intro-to-storybook/chromatic-change-to-task-component.png)
 
 O que irá gerar uma nova cor de fundo para o item.
 
-![alteração da cor de fundo da tarefa](/chromatic-task-change.png)
+![alteração da cor de fundo da tarefa](/intro-to-storybook/chromatic-task-change.png)
 
 Usando agora o comando de testes, para efectuar um outro teste com o Chromatic.
 
@@ -120,7 +120,7 @@ Usando agora o comando de testes, para efectuar um outro teste com o Chromatic.
 
 Ao abrir-se o link, irão ser apresentadas a alterações.
 
-![Alterações interface utilizador no Chromatic](/chromatic-catch-changes.png)
+![Alterações interface utilizador no Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
 
 Pode constatar-se um grande número de alterações! Significa que uma alteração pequena irá originar uma regressão enorme, isto na hierarquia de componentes cuja `Task` é filha de `TaskList` e `Inbox`.
 É precisamente por esta circunstância que os programadores necessitam de testes visuais de regressão além de outras metodologias de teste.
@@ -135,7 +135,7 @@ Se uma alteração é intencional, é necessária a atualização da linha de ba
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
-    src="/website-workflow-review-merge-optimized.mp4"
+    src="/intro-to-storybook/website-workflow-review-merge-optimized.mp4"
     type="video/mp4"
   />
 </video>
@@ -146,8 +146,8 @@ Visto que as aplicações modernas são construidas a partir de componentes, é 
 
 Assim que for terminada a revisão, será possível fundir as alterações com confiança, sabendo que as atualizações não introduzem acidentalmente problemas ou erros. Se o novo fundo `red` for aceitável, terão que ser aceites as alterações, caso contrário, será necessário reverter para o estado anterior.
 
-![Alterações prontas para serem fundidas](/chromatic-review-finished.png)
+![Alterações prontas para serem fundidas](/intro-to-storybook/chromatic-review-finished.png)
 
 O Storybook ajuda na **construção** de componentes; os testes ajudam na sua **manutenção**. Os quatro tipos de teste abordados neste tutorial são, visuais, snapshot,unitários e regressão visual. Os últimos três podem ser automatizados através da adição destes ao script de IC (integração continua, CI na forma nativa). Isto ajuda na implementação de componentes sem ser necessária a preocupação com problemas errantes que possam surgir. O fluxo completo é ilustrado abaixo.
 
-![Fluxo de testes de regressão visual](/cdd-review-workflow.png)
+![Fluxo de testes de regressão visual](/intro-to-storybook/cdd-review-workflow.png)

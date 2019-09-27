@@ -11,11 +11,11 @@ commit: '8db511e'
 
 Taskbox 通過將 固定任務 置於預設任務之上 來強調 固定任務. 這產生了兩種變體`TaskList`您需要為以下內容建立故事: 預設專案 以及 預設和 固定專案.
 
-![default and pinned tasks](/tasklist-states-1.png)
+![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
 `Task`可以非同步傳送資料,我們 **也**需要在沒有連線的情況下 loading 渲染 *右圖*. 此外,當沒有任務時,需要 空狀態 *左圖*.
 
-![empty and loading tasks](/tasklist-states-2.png)
+![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
 
 ## 獲取設定
 
@@ -168,7 +168,7 @@ export default TaskList;
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -206,7 +206,7 @@ export default TaskList;
 
 在上一章中,我們學習瞭如何使用 Storyshots快照測試 故事. `Task`測試沒有太多的複雜性,已然夠用了. 而`TaskList`增加了另一層複雜性,我們希望 以 自動測試 的方式驗證 某些輸入產生某些輸出. 為此,我們將使用建立單 元測試[jest-笑話](https://facebook.github.io/jest/)再加上測試渲染器等[Enzyme](http://airbnb.io/enzyme/).
 
-![Jest logo](/logo-jest.png)
+![Jest logo](/intro-to-storybook/logo-jest.png)
 
 ### 用Jest進行單元測試
 
@@ -239,7 +239,7 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-![TaskList test runner](/tasklist-testrunner.png)
+![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
 請注意,我們已經能夠重用`withPinnedTasks`故事 和 單元測試中的任務列表;通過這種方式,我們可以繼續 以越來越多的方式 利用現有資源 (代表元件的有趣配置的示例) .
 

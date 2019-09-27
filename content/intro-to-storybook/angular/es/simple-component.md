@@ -9,7 +9,7 @@ Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Componen
 
 ## Task - Tarea
 
-![Task component in three states](/task-states-learnstorybook.png)
+![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
 `TaskComponent` (o Tarea) es el componente principal de nuestra aplicación. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o sin marcar), información sobre la tarea y un botón “pin” que nos permite fijar dicha tarea en la parte superior de la lista. Con estas especificaciones en mente, necesitaremos las siguientes propiedades propiedades (props):
 
@@ -241,7 +241,7 @@ El HTML que hemos agregado anteriormente, combinado con el CSS que hemos importa
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states.mp4"
     type="video/mp4"
   />
 </video>
@@ -375,6 +375,6 @@ y, finalmente, actualiza `src/tsconfig.app.json` para excluir los archivos termi
 
 Una vez hecho lo anterior, podemos ejecutar `yarn jest` y veremos el siguiente resultado:
 
-![Task test runner](/task-testrunner.png)
+![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 Ahora tenemos una prueba de instantánea para cada una de las historias de nuestro `TaskComponent`. Si cambiamos la implementación de `TaskComponent`, se nos pedirá que verifiquemos los cambios.
