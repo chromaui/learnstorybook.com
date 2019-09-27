@@ -228,6 +228,8 @@ Notice the Knobs tab in the addon panel. We instrumented the “Size” select e
 
 That said, knobs don’t replace stories. Knobs are great for exploring the edge cases of the components. Stories are used for showcasing the intended cases.
 
+We'll visit the Accessbility and Docs addons in later chapters.
+
 > “Storybook is a powerful frontend workshop environment tool that allows teams to design, build, and organize UI components (and even full screens!) without getting tripped up over business logic and plumbing.” – Brad Frost, Author of Atomic Design
 
 ## Learn how to automate maintenance
