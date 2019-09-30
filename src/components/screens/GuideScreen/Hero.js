@@ -97,8 +97,14 @@ const LanguagesLabel = styled.span`
   font-weight: ${typography.weight.bold};
 `;
 
-const StatWrapper = styled(Stat)`
+const StatWrapper = styled.div`
   margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+
+  > * {
+    margin-right: 30px;
+  }
 `;
 
 const Figure = styled.div`
@@ -133,6 +139,7 @@ const GuideImage = styled.img`
 const Hero = ({
   heroAnimationName,
   contributorCount,
+  chapterCount,
   ctaHref,
   description,
   imagePath,
@@ -163,8 +170,10 @@ const Hero = ({
               {languageList}
             </Languages>
           )}
-
-          {contributorCount && <StatWrapper value={contributorCount} label="Contributors" />}
+          <StatWrapper>
+            {contributorCount && <Stat value={contributorCount} label="Contributors" />}
+            {chapterCount && <Stat value={chapterCount} label="Chapters" />}
+          </StatWrapper>
         </Pitch>
 
         <Figure>
@@ -179,6 +188,7 @@ const Hero = ({
 
 Hero.propTypes = {
   contributorCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  chapterCount: PropTypes.number,
   ctaHref: PropTypes.string,
   description: PropTypes.string,
   heroAnimationName: PropTypes.string,
@@ -190,6 +200,7 @@ Hero.propTypes = {
 
 Hero.defaultProps = {
   contributorCount: null,
+  chapterCount: null,
   ctaHref: null,
   description: null,
   heroAnimationName: null,

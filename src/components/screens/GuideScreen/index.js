@@ -123,6 +123,7 @@ const Guide = ({ data }) => {
 
       <Hero
         contributorCount={contributorCount}
+        chapterCount={entries.length}
         ctaHref={get(entries, '[0].slug')}
         description={heroDescription}
         heroAnimationName={heroAnimationName}
