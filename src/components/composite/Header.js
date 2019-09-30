@@ -114,6 +114,10 @@ const MobileMenuNavItem = styled(NavItem)`
   > span:focus {
     outline: none;
   }
+
+  svg {
+    margin: 0;
+  }
 `;
 
 const GithubNavItem = styled(NavItem)`
@@ -198,9 +202,18 @@ const MobileMenu = styled.div`
   font-size: ${typography.size.s1}px;
   display: flex;
   flex-direction: row;
-  width: 360px;
+  width: auto;
+  max-width: 400px;
+  border-radius: 4px;
+  overflow: hidden;
+
   ${MobileMenuColumn} {
-    flex: 1;
+    &:first-child {
+      flex: 1;
+    }
+    &:last-child {
+      flex: 0;
+    }
   }
   ${TooltipLinkListWrapper} {
     padding: 5px 0;

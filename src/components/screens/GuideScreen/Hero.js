@@ -15,13 +15,13 @@ const HeroWrapper = styled.div`
   justify-content: center;
   background: ${props => props.themeColor};
   padding-bottom: 80px;
-  padding-top: 66px;
+  padding-top: 80px;
   padding-left: ${spacing.padding.medium}px;
   padding-right: ${spacing.padding.medium}px;
 
   @media (min-width: ${breakpoint * 1.5}px) {
-    padding-top: 214px;
-    padding-bottom: 178px;
+    padding-top: 220px;
+    padding-bottom: 180px;
     padding-left: 0;
     padding-right: 0;
     min-height: 70vh;
@@ -56,17 +56,26 @@ const Pitch = styled.div`
 `;
 
 const PitchTitle = styled.h1`
-  font-size: ${typography.size.l2}px;
   font-weight: ${typography.weight.black};
+  font-size: ${typography.size.l1}px;
+  line-height: 44px;
 
-  line-height: 40px;
+  @media (min-width: ${breakpoint * 1.5}px) {
+    font-size: ${typography.size.l2}px;
+    line-height: 52px;
+  }
 `;
 
 const PitchDescription = styled.div`
-  font-size: ${typography.size.m1}px;
-  line-height: 36px;
+  font-size: ${typography.size.s3}px;
+  line-height: 28px;
+  margin-top: 0.5rem;
 
-  margin-top: 1rem;
+  @media (min-width: ${breakpoint * 1.5}px) {
+    font-size: ${typography.size.m1}px;
+    line-height: 36px;
+    margin-top: 1rem;
+  }
 `;
 
 const GetStartedButton = styled(Button)`
@@ -101,9 +110,14 @@ const StatWrapper = styled.div`
   margin-top: 32px;
   display: flex;
   flex-direction: row;
+  justify-content: center;
 
   > * {
     margin-right: 30px;
+  }
+
+  @media (min-width: ${breakpoint * 1.5}px) {
+    justify-content: flex-start;
   }
 `;
 
