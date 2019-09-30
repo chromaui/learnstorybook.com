@@ -80,7 +80,7 @@ export const chapterFormatting = css`
 
   h2 {
     font-size: ${typography.size.m2}px;
-    font-weight: ${typography.weight.black};
+    font-weight: ${typography.weight.extrabold};
     line-height: ${typography.size.m3}px;
     margin-bottom: 0.5em;
   }

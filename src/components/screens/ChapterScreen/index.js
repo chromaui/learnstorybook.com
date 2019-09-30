@@ -45,13 +45,13 @@ const Title = styled.h1`
   font-size: ${typography.size.l1}px;
   font-weight: ${typography.weight.black};
   margin-bottom: 12px;
-  line-height: 40px;
+  line-height: 40px !important;
 `;
 
 const Description = styled.div`
-  font-size: ${typography.size.m2}px;
-  line-height: 28px;
-  margin-bottom: 28px;
+  font-size: ${typography.size.m1}px;
+  line-height: 32px !important;
+  margin-bottom: 24px;
 `;
 
 const Chapter = ({
