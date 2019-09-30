@@ -8,6 +8,12 @@ import GatsbyLink from '../../../basics/GatsbyLink';
 
 const { color, typography } = styles;
 
+const LanguageMenuTitle = styled.div`
+  font-size: ${typography.size.s2}px;
+  color: ${color.dark};
+  margin-bottom: 0.75rem;
+`;
+
 const ButtonContent = styled.div`
   display: flex;
   align-items: center;
@@ -117,44 +123,47 @@ const NonFrameworkMenu = ({
   }
 
   return (
-    <WithTooltip
-      placement="bottom"
-      trigger="click"
-      closeOnClick
-      tooltip={
-        <TooltipList>
-          <TooltipLinkList
-            links={[
-              ...sortedLanguages.map(translationLanguage => ({
-                title: getLanguageName(translationLanguage),
-                href: getChapterInOtherLanguage(
-                  translationLanguage,
-                  guide,
-                  chapter,
-                  firstChapter,
-                  translationPages
-                ),
-              })),
-              {
-                title: 'Help us translate',
-                href: contributeUrl,
-                target: '_blank',
-                rel: 'noopener',
-                isExternal: true,
-              },
-            ]}
-            LinkWrapper={TooltipLinkWrapper}
-          />
-        </TooltipList>
-      }
-    >
-      <Button appearance="outline" size="small">
-        <ButtonContent>
-          {getLanguageName(language)}
-          <ChevronDownIcon />
-        </ButtonContent>
-      </Button>
-    </WithTooltip>
+    <>
+      <LanguageMenuTitle>Language:</LanguageMenuTitle>
+      <WithTooltip
+        placement="bottom"
+        trigger="click"
+        closeOnClick
+        tooltip={
+          <TooltipList>
+            <TooltipLinkList
+              links={[
+                ...sortedLanguages.map(translationLanguage => ({
+                  title: getLanguageName(translationLanguage),
+                  href: getChapterInOtherLanguage(
+                    translationLanguage,
+                    guide,
+                    chapter,
+                    firstChapter,
+                    translationPages
+                  ),
+                })),
+                {
+                  title: 'Help us translate',
+                  href: contributeUrl,
+                  target: '_blank',
+                  rel: 'noopener',
+                  isExternal: true,
+                },
+              ]}
+              LinkWrapper={TooltipLinkWrapper}
+            />
+          </TooltipList>
+        }
+      >
+        <Button appearance="outline" size="small">
+          <ButtonContent>
+            {getLanguageName(language)}
+            <ChevronDownIcon />
+          </ButtonContent>
+        </Button>
+      </WithTooltip>
+    </>
   );
 };
 

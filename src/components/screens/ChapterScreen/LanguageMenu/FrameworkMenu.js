@@ -9,6 +9,12 @@ import getLanguageName from '../../../../lib/getLanguageName';
 
 const { color, typography } = styles;
 
+const LanguageMenuTitle = styled.div`
+  font-size: ${typography.size.s2}px;
+  color: ${color.dark};
+  margin-bottom: 0.75rem;
+`;
+
 const TooltipList = styled.div`
   width: 200px;
 `;
@@ -146,75 +152,78 @@ const FrameworkMenu = ({
   }
 
   return (
-    <WithTooltip
-      tagName="span"
-      placement="bottom"
-      trigger="click"
-      closeOnClick
-      tooltip={
-        <TooltipList>
-          {frameworks.map((translationFramework, frameworkIndex) => {
-            const isLastFramework = frameworkIndex + 1 === frameworks.length;
-            const translationLanguages = sortBy(
-              Object.keys(translationPagesByFramework[translationFramework]),
-              languageName => languageName
-            );
+    <>
+      <LanguageMenuTitle>Framework and language:</LanguageMenuTitle>
+      <WithTooltip
+        tagName="span"
+        placement="bottom"
+        trigger="click"
+        closeOnClick
+        tooltip={
+          <TooltipList>
+            {frameworks.map((translationFramework, frameworkIndex) => {
+              const isLastFramework = frameworkIndex + 1 === frameworks.length;
+              const translationLanguages = sortBy(
+                Object.keys(translationPagesByFramework[translationFramework]),
+                languageName => languageName
+              );
 
-            return (
-              <Item key={translationFramework}>
-                <Image
-                  src={`/frameworks/logo-${translationFramework}.svg`}
-                  alt={startCase(translationFramework)}
-                />
+              return (
+                <Item key={translationFramework}>
+                  <Image
+                    src={`/frameworks/logo-${translationFramework}.svg`}
+                    alt={startCase(translationFramework)}
+                  />
 
-                <TooltipMessage
-                  title={startCase(translationFramework)}
-                  desc={
-                    <>
-                      {translationLanguages.map(translationLanguage => (
-                        <Link
-                          key={translationLanguage}
-                          to={getChapterInOtherLanguage(
-                            translationFramework,
-                            translationLanguage,
-                            guide,
-                            chapter,
-                            firstChapter,
-                            translationPages
-                          )}
-                        >
-                          {getLanguageName(translationLanguage)}
-                        </Link>
-                      ))}
-                    </>
-                  }
-                  links={
-                    isLastFramework
-                      ? [
-                          {
-                            title: 'Help us translate',
-                            href: contributeUrl,
-                            target: '_blank',
-                            rel: 'noopener',
-                            className: 'help-translate-link',
-                          },
-                        ]
-                      : null
-                  }
-                />
-              </Item>
-            );
-          })}
-        </TooltipList>
-      }
-    >
-      <Button appearance="outline" size="small">
-        <ButtonContent>
-          {`${startCase(framework)} - ${getLanguageName(language)}`}
-          <ChevronDownIcon />
-        </ButtonContent>
-      </Button>
-    </WithTooltip>
+                  <TooltipMessage
+                    title={startCase(translationFramework)}
+                    desc={
+                      <>
+                        {translationLanguages.map(translationLanguage => (
+                          <Link
+                            key={translationLanguage}
+                            to={getChapterInOtherLanguage(
+                              translationFramework,
+                              translationLanguage,
+                              guide,
+                              chapter,
+                              firstChapter,
+                              translationPages
+                            )}
+                          >
+                            {getLanguageName(translationLanguage)}
+                          </Link>
+                        ))}
+                      </>
+                    }
+                    links={
+                      isLastFramework
+                        ? [
+                            {
+                              title: 'Help us translate',
+                              href: contributeUrl,
+                              target: '_blank',
+                              rel: 'noopener',
+                              className: 'help-translate-link',
+                            },
+                          ]
+                        : null
+                    }
+                  />
+                </Item>
+              );
+            })}
+          </TooltipList>
+        }
+      >
+        <Button appearance="outline" size="small">
+          <ButtonContent>
+            {`${startCase(framework)} - ${getLanguageName(language)}`}
+            <ChevronDownIcon />
+          </ButtonContent>
+        </Button>
+      </WithTooltip>
+    </>
   );
 };
 
