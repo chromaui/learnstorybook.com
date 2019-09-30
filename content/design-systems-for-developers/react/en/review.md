@@ -1,7 +1,8 @@
 ---
-title: "Review with teams"
-tocTitle: "Review"
-description: "Collaborate with continuous integration and visual review"
+title: 'Review with teams'
+tocTitle: 'Review'
+description: 'Collaborate with continuous integration and visual review'
+commit: eabed3d
 ---
 
 In chapter 4, we’ll learn professional workflows for making design system improvements while mitigating inconsistencies. This chapter covers techniques for gathering UI feedback and reaching consensus with your team. These production processes are used by folks at Auth0, Shopify, and Discovery Network.
@@ -22,7 +23,7 @@ We’re using CircleCI here, which is free for our modest usage. The same princi
 
 First, sign up for CircleCI if you haven’t already. Once there, you’ll see an “add projects” tab where you can set up the design system project like so.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted19.png)
+![Adding a project on CircleCI](/design-systems-for-developers/circleci-add-project.png)
 
 Add a `.circleci` directory at the top level and create a config.yml file inside of it. This will allow us to script how our CI process behaves. We can simply add the default file that Circle suggests for Node for now:
 
@@ -47,11 +48,11 @@ jobs:
       - run: yarn test
 ```
 
-At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. Let’s check that it passes OK on Circle:
+At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. Let’s check that it runs on Circle:
 
-![alt_text](/design-systems-for-developers/Feedback-wanted20.png)
+![First build on CircleCI](/design-systems-for-developers/circleci-first-build.png)
 
-Nice, we’ll pick this back up later.
+Note that our build failed as we currently don't have any tests defined for our project. That's OK, we'll add some soon, for now let's keep moving.
 
 > “But it works on my machine?!” – everyone
 
@@ -77,27 +78,27 @@ When living UI components are accessible via a URL, stakeholders can confirm UI 
 
 Build the visual review workflow using [Netlify](http://netlify.com), a developer-friendly deployment service. Netlify is free for our use case, but it’s straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted22.png)
+![Choosing GitHub on Netlify](/design-systems-for-developers/netlify-choose-provider.png)
 
 Now find your design system’s GitHub repo that we created in the last chapter.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted23.png)
+![Choosing our repository on Netlify](/design-systems-for-developers/netlify-choose-repository.png)
 
 Enter the `storybook-build` command for Netlify to run whenever you commit.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted24.png)
+![Setting up our first build on Netlify](/design-systems-for-developers/netlify-setup-build.png)
+
+All going well, you should see a successful build in Netlify:
+
+![Succeeded running our first build in Netlify](/design-systems-for-developers/netlify-deployed.png)
 
 Browse your published Storybook by clicking on the link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted25.png)
+![Viewing our first build in Netlify](/design-systems-for-developers/netlify-deployed-site.png)
 
-Netlify runs a build command on every commit that deploys your Storybook. You’ll find a link to it in GitHub’s PR checks.
+Netlify runs a build command on every commit that deploys your Storybook. You’ll find a link to it in GitHub’s PR checks (we'll see that below).
 
-![alt_text](/design-systems-for-developers/Feedback-wanted26.png)
-
-Congratulations! Now that you set up the infrastructure to publish Storybook, let’s demo gathering feedback. Go to the Storybook URL in your browser.
-
-![alt_text](/design-systems-for-developers/Feedback-wanted27.png)
+Congratulations! Now that you set up the infrastructure to publish Storybook, let’s demo gathering feedback.
 
 While we are at it, let’s add the `storybook-static` directory to our `.gitignore` file:
 
@@ -128,7 +129,7 @@ First, tweak the Button component. “Make it pop” – our designers will love
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;
-  font-size: 20;
+  font-size: 20px;
 `;
 // ...
 ```
@@ -142,17 +143,17 @@ git push -u origin improve-button
 
 Navigate to GitHub.com and open up a pull request for the `improve-button` branch.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted28.png)
+![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr.png)
 
-![alt_text](/design-systems-for-developers/Feedback-wanted29.png)
+![Created a PR in GitHub](/design-systems-for-developers/github-created-pr.png)
 
 Go to the Netlify URL in your PR checks to find your button component.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted30.png)
+![Button component changed in deployed site](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
 
 For each component and story that changed, copy the URL from the browser address bar and paste it wherever your team manages tasks (GitHub, Asana, Jira, etc) to help teammates quickly review the relevant stories.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted31.png)
+![GitHub PR with links to storybook](/design-systems-for-developers/github-created-pr-with-links.png)
 
 Assign the issue to your teammates and watch the feedback roll in.
 
