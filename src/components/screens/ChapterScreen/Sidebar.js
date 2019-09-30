@@ -50,7 +50,7 @@ const TableOfContentsWrapper = styled(TableOfContents)`
 
 const StickyWrapper = styled.div`
   position: sticky;
-  top: 20px;
+  top: 3rem;
 `;
 
 const Sidebar = ({
