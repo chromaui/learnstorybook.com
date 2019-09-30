@@ -40,6 +40,7 @@ const props = {
     },
     site: {
       siteMetadata: {
+        permalink: 'https://learnstorybook.com',
         title: 'Learn Storybook',
       },
     },

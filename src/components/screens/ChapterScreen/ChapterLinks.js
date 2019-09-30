@@ -56,8 +56,17 @@ const BoxLinkMessage = styled.div`
   }
 `;
 
-const ChapterLinks = ({ codeGithubUrl, commit }) => {
+const buildTwitterUrl = (guide, text) =>
+  `https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=${encodeURI(
+    text
+  )}&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com%2F${guide}&via=chromaui`;
+
+const ChapterLinks = ({ codeGithubUrl, commit, guide, twitterShareText }) => {
   const withCommitLink = !isNil(codeGithubUrl) && !isNil(commit);
+
+  if (!withCommitLink && !twitterShareText) {
+    return null;
+  }
 
   return (
     <BoxLinksWrapper withMultiple={withCommitLink}>
@@ -73,15 +82,17 @@ const ChapterLinks = ({ codeGithubUrl, commit }) => {
         </BoxLink>
       )}
 
-      <BoxLink to="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Flearnstorybook.com%2F&ref_src=twsrc%5Etfw&text=I%E2%80%99m%20learning%20Storybook!%20It%E2%80%99s%20a%20great%20dev%20tool%20for%20UI%20components.%20&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com&via=chromaui">
-        <BoxLinkContent>
-          <BoxLinkIcon icon="twitter" />
+      {twitterShareText && (
+        <BoxLink to={buildTwitterUrl(guide, twitterShareText)}>
+          <BoxLinkContent>
+            <BoxLinkIcon icon="twitter" />
 
-          <BoxLinkMessage>
-            Is this free guide helping you? Tweet to give kudos and help other devs find it.
-          </BoxLinkMessage>
-        </BoxLinkContent>
-      </BoxLink>
+            <BoxLinkMessage>
+              Is this free guide helping you? Tweet to give kudos and help other devs find it.
+            </BoxLinkMessage>
+          </BoxLinkContent>
+        </BoxLink>
+      )}
     </BoxLinksWrapper>
   );
 };
@@ -89,11 +100,14 @@ const ChapterLinks = ({ codeGithubUrl, commit }) => {
 ChapterLinks.propTypes = {
   codeGithubUrl: PropTypes.string,
   commit: PropTypes.string,
+  guide: PropTypes.string.isRequired,
+  twitterShareText: PropTypes.string,
 };
 
 ChapterLinks.defaultProps = {
   codeGithubUrl: null,
   commit: null,
+  twitterShareText: null,
 };
 
 export default ChapterLinks;
