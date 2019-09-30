@@ -141,7 +141,7 @@ const Footer = ({ guides, ...props }) => (
             Team
           </FooterBlockLink>
 
-          <FooterBlockLink as={Link} href="mailto:friends@hichroma.com" tertiary>
+          <FooterBlockLink as={Link} href="mailto:dom@hichroma.com" tertiary>
             Contact us
           </FooterBlockLink>
         </FooterBlockContent>
