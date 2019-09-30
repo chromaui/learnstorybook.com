@@ -58,7 +58,7 @@ const FooterLogoBlock = styled.div`
 `;
 
 const FooterBlockContent = styled.div`
-  margin-top: 14px;
+  margin-top: 1rem;
   display: flex;
   flex-direction: column;
 `;
@@ -67,7 +67,9 @@ const FooterBlockLink = styled(GatsbyLink)`
   && {
     display: block;
     color: ${color.darker};
-    margin-top: 12px;
+    &:not(:first-child) {
+      margin-top: 12px;
+    }
   }
 `;
 
@@ -80,7 +82,7 @@ const LogoWrapper = styled(Logo)`
 
 const LogoChromaWrapper = styled(LogoChroma)`
   && {
-    height: 28px;
+    height: 24px;
     width: auto;
   }
 `;

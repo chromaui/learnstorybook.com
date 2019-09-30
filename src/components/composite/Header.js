@@ -35,7 +35,7 @@ const LogoWrapper = styled(Logo)`
     }
 
     @media (min-width: ${breakpoint}px) {
-      height: 28px;
+      height: 24px;
     }
   }
 `;
