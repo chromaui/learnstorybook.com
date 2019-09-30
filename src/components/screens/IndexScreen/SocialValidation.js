@@ -38,9 +38,19 @@ const Logos = styled.div`
   justify-content: center;
   margin-top: 25px;
 
+  @media (min-width: ${breakpoint * 1.25}px) {
+    display: flex;
+  }
+
   ${Logo} {
     margin: 20px;
-    flex: 1;
+    flex: 0 0 20%;
+    display: flex;
+    justify-content: center;
+
+    @media (min-width: ${breakpoint * 1.25}px) {
+      flex: 1;
+    }
   }
 `;
 
