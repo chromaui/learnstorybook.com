@@ -23,7 +23,7 @@ The example code is based on [Storybook’s own design system](https://github.co
 
 ## About us
 
-_Design systems for Developers_ was created by [Dominic Nguyen](https://twitter.com/domyen) and [Tom Coleman](https://twitter.com/tmeasday). Dominic designed Storybook’s user interface, brand, and the design system. Tom is a member of the Storybook steering committee in frontend architecture. He worked on Component Story Format, addon API, parameter API.
+_Design Systems for Developers_ was created by [Dominic Nguyen](https://twitter.com/domyen) and [Tom Coleman](https://twitter.com/tmeasday). Dominic designed Storybook’s user interface, brand, and the design system. Tom is a member of the Storybook steering committee in frontend architecture. He worked on Component Story Format, addon API, parameter API.
 
 Expert guidance from [Kyle Suss](https://github.com/kylesuss), tech lead of Storybook’s design system, and [Michael Shilman](https://twitter.com/mshilman), creator of Storybook Docs.
 
