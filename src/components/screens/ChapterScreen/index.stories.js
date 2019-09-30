@@ -16,6 +16,7 @@ const props = {
         framework: 'react',
         guide: 'sample-guide',
         language: 'en',
+        permalink: 'https://learnstorybook.com/sample-guide',
         slug: '/chapter-slug',
       },
     },
@@ -31,6 +32,7 @@ const props = {
       siteMetadata: {
         githubUrl: 'https://github.com',
         contributeUrl: 'https://github.com',
+        permalink: 'https://learnstorybook.com',
         title: 'Learn Storybook',
       },
     },
