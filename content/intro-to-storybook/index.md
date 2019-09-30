@@ -64,6 +64,7 @@ contributors:
       detail: "Engineer at Squarespace",
     },
   ]
+twitterShareText: "I’m learning Storybook! It’s a great dev tool for UI components."
 ---
 
 <h2>What you'll build</h2>

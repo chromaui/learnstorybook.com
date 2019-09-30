@@ -62,7 +62,7 @@ const Chapter = ({
       fields: { framework, guide, language, slug, chapter, permalink },
     },
     currentGuide: {
-      frontmatter: { codeGithubUrl, title: currentGuideTitle, toc },
+      frontmatter: { codeGithubUrl, title: currentGuideTitle, toc, twitterShareText },
     },
     site: { siteMetadata },
     tocPages,
@@ -116,7 +116,12 @@ const Chapter = ({
         <Title>{title}</Title>
         <Description>{description}</Description>
         <HighlightWrapper>{html}</HighlightWrapper>
-        <ChapterLinks codeGithubUrl={codeGithubUrl} commit={commit} />
+        <ChapterLinks
+          codeGithubUrl={codeGithubUrl}
+          commit={commit}
+          guide={guide}
+          twitterShareText={twitterShareText}
+        />
         <Pagination nextEntry={nextEntry} />
         <GithubLink githubFileUrl={githubFileUrl} />
       </Content>
@@ -147,6 +152,7 @@ Chapter.propTypes = {
         codeGithubUrl: PropTypes.string,
         title: PropTypes.string.isRequired,
         toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+        twitterShareText: PropTypes.string,
       }).isRequired,
     }).isRequired,
     tocPages: PropTypes.shape({
@@ -220,6 +226,7 @@ export const query = graphql`
         codeGithubUrl
         toc
         title
+        twitterShareText
       }
     }
     site {
