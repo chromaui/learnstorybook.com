@@ -198,7 +198,7 @@ Earlier we configured our Circle config.js file to run `yarn test` on every comm
 
 Disabilities affect 15% of the population according to the [World Health Organization](https://www.who.int/disabilities/world_report/2011/report/en/). Design systems have an outsized impact on accessibility because they contain the building blocks of user interfaces. Improving accessibility of just one component means every instance of that component across your company benefits.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted43.png)
+![Storybook accessibility addon](/design-systems-for-developers/storybook-accessibility-addon.png)
 
 Get a headstart on inclusive UI with Storybook’s Accessibility addon, a tool for verifying web accessibility standards (WCAG) in realtime.
 

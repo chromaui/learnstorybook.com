@@ -135,11 +135,11 @@ The design system’s Storybook is automatically published each pull request to 
 
 Find the AvatarList in the Storybook online. It should look identical to your local Storybook.
 
-![alt_text](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
+![AvatarList in Storybook online](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
 
 The online Storybook is a universal reference point for the team. Share the link to AvatarList with other stakeholders to get feedback faster. Your team will love you because they don’t have to deal with code or setting up a development environment.
 
-![alt_text](/design-systems-for-developers/visual-review-shipit.png)
+![Looks good, ship it!](/design-systems-for-developers/visual-review-shipit.png)
 
 Reaching consensus with numerous teams often feels an exercise in futility. Folks reference out of date code, don’t have a development environment, or scatter feedback across multiple tools. Reviewing Storybook online makes it as simple as sharing a URL.
 

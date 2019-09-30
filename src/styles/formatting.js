@@ -284,6 +284,8 @@ export const chapterFormatting = css`
   blockquote {
     font-size: ${typography.size.m1}px;
     color: ${color.mediumdark};
-    line-height: 40px;
+    line-height: 1.75;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
   }
 `;

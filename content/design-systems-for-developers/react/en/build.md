@@ -7,7 +7,7 @@ commit: e7b6f00
 
 In chapter 3 we’ll set up the essential design system tooling starting with Storybook, the most popular component explorer. The goal of this guide is to show you how professional teams build design systems, so we’ll also focus on finer details like the code hygiene, timesaving Storybook addons, and directory structure.
 
-![alt_text](/design-systems-for-developers/design-system-framework-storybook.jpg)
+![Where Storybook fits in](/design-systems-for-developers/design-system-framework-storybook.jpg)
 
 ## Code formatting and linting for hygiene
 
