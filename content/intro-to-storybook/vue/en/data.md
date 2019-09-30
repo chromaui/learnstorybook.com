@@ -57,7 +57,7 @@ export default new Vuex.Store({
 });
 ```
 
-In our top-level app component (`src/App.vue`) we can wire the store into our component heirarchy failry easily:
+In our top-level app component (`src/App.vue`) we can wire the store into our component heirarchy fairly easily:
 
 ```html
 <template>
@@ -102,18 +102,21 @@ In `src/components/TaskList.vue`:
 ```html
 <template>
   <div>
-    <pure-task-list :tasks="tasks"/>
+    <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask"/>
   </div>
 </template>
 
 <script>
 import PureTaskList from "./PureTaskList";
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "task-list",
   components: {
     PureTaskList
+  },
+  methods: {
+    ...mapActions(['archiveTask', 'pinTask'])
   },
   computed: {
     ...mapState(["tasks"])
