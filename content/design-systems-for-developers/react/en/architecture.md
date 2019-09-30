@@ -1,7 +1,7 @@
 ---
-title: "Architecting systems"
-tocTitle: "Architecture"
-description: "How to extract a design system from component libraries"
+title: 'Architecting systems'
+tocTitle: 'Architecture'
+description: 'How to extract a design system from component libraries'
 commit: b696f85
 ---
 
@@ -45,7 +45,7 @@ npx create-react-app learnstorybook-design-system
 
 Once create-react-app has created our repository, we can push it to GitHub (which we’ll use to host the code for our design system). Start by signing in and creating a new repository on GitHub.com:
 
-![alt_text](/design-systems-for-developers/create-github-repository.png)
+![Create a GitHub repository](/design-systems-for-developers/create-github-repository.png)
 
 Then use GitHub’s instructions to add the remote to your git repo and pushing (the so-far mostly empty) repo:
 
@@ -57,7 +57,7 @@ git push -u origin master
 
 Be sure to replace `chromaui` with your own account name.
 
-![alt_text](/design-systems-for-developers/created-github-repository.png)
+![Initial commit to GitHub repository](/design-systems-for-developers/created-github-repository.png)
 
 ## What belongs and what doesn’t
 
