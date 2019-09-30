@@ -31,4 +31,4 @@ O texto, código e produção foram contribuições feitas pela [Chroma](http://
 
 Se pretender mais tutoriais e artigos tal como este? Subscreva a mailing list da Chroma.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:30px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>

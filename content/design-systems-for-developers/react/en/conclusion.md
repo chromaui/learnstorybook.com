@@ -10,7 +10,7 @@ In the last few years, Tom and I witnessed countless veteran teams anchor their 
 
 Thanks for learning with us. Subscribe to the Chroma mailing list to get notified when helpful articles and guides like this are published.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:30px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
 
 ## Sample code for this tutorial
 

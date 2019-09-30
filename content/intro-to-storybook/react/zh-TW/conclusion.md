@@ -24,7 +24,7 @@ Storybook是 React,Vue和Angular 的強大工具. 它擁有蓬勃發展的開發
 
 ## 誰製作了 LearnStorybook.com?
 
-文字,程式碼和製作都是由[Chroma](http://blog.hichroma.com/). 該教程的靈感來自 Chroma的流行[GraphQL + React教程系列](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+文字,程式碼和製作都是由[Chroma](http://blog.hichroma.com/). 該教程的靈感來自 Chroma 的流行[GraphQL + React 教程系列](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
 想要更多這樣的教程和文章嗎? 註冊 Chroma 郵件列表.
 

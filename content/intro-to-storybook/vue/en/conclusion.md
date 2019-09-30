@@ -27,4 +27,4 @@ The text, code, and production were contributed by [Chroma](http://blog.hichroma
 
 Want more tutorials and articles like this? Sign up to the Chroma mailing list.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:30px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
