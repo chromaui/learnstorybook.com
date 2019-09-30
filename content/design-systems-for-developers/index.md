@@ -62,6 +62,7 @@ contributors: [
       detail: "UX Development at Shopify",
     },
 ]
+twitterShareText: "I’m learning about building design systems! They're great for scaling frontend code on large teams."
 ---
 
 <h2>What you'll build</h2>

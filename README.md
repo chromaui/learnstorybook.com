@@ -177,6 +177,10 @@ contributors:
 
 An animation to use on the guide's hero image which corresponds with a named export from the [animation styles file](https://github.com/chromaui/learnstorybook.com/tree/master/src/styles/animations.js). The export must contain the entire CSS property and value for the animation.
 
+#### `twitterShareText`
+
+The text content for the tweet that is auto-populated when people choose to share the guide on Twitter. The URL that is included in the tweet is auto-generated based on the guide, but the individual guide can control the messaging before the link.
+
 ### Chapter frontmatter
 
 ---
