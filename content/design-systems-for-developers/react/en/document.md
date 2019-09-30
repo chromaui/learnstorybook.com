@@ -1,7 +1,7 @@
 ---
-title: "Document for stakeholders"
-tocTitle: "Document"
-description: "Drive design system adoption with documentation"
+title: 'Document for stakeholders'
+tocTitle: 'Document'
+description: 'Drive design system adoption with documentation'
 ---
 
 [Professional](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [frontend](https://segment.com/blog/driving-adoption-of-a-design-system/) [teams](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) measure design system success by adoption. To get the full work-saving benefits of a design system, components must be widely circulated. Otherwise, what’s the point?
@@ -43,12 +43,12 @@ yarn add --dev @storybook/addon-docs
 Also, we’ll add a _preset_ for the docs addon, in a new file `.storybook/presets.js`. Note that the use of this preset removes the need for our `.storybook/webpack.config.js` and we can remove it:
 
 ```javascript
-module.exports = ["@storybook/addon-docs/react/preset"];
+module.exports = ['@storybook/addon-docs/react/preset'];
 ```
 
 You should see two tabs in your Storybook. “Canvas” tab is your component development environment. “Docs” is your component documentation.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted47.png)
+![Storybook docs tab](/design-systems-for-developers/storybook-docs.png)
 
 Behind the scenes, Storybook Docs created a new “Docs” tab for each component. It populated the tab with frequently used documentation pieces like interactive previews, source code viewers, and a props table. You’ll find similar features in the design system documentation of Shopify and Auth0. All in less than 5 minutes.
 
@@ -60,13 +60,12 @@ Start by adding more metadata that explains what the component does. In `src/Ava
 
 ```javascript
 export default {
-  title: "Design System|Avatar",
+  title: 'Design System|Avatar',
 
   parameters: {
     component: Avatar,
-    componentSubtitle:
-      "Displays an image that represents a user or organization"
-  }
+    componentSubtitle: 'Displays an image that represents a user or organization',
+  },
 };
 ```
 
@@ -84,7 +83,7 @@ export function Avatar({ loading, username, src, size, ...props }) {
 
 You should now see this:
 
-![alt_text](/design-systems-for-developers/Feedback-wanted48.png)
+![Storybook docs tab with component details](/design-systems-for-developers/storybook-docspage.png)
 
 Storybook Docs automatically generated the prop table that shows types and default values. That’s convenient, but it doesn’t mean Avatar is dummy-proof – several props can be misused. Add comments in your proptypes to render them in the auto-generated prop table.
 
@@ -106,7 +105,7 @@ Avatar.propTypes = {
   /**
     Avatar comes in four sizes. In most cases, you'll be fine with `medium`.
     */
-  size: PropTypes.oneOf(Object.keys(sizes))
+  size: PropTypes.oneOf(Object.keys(sizes)),
 };
 ```
 
@@ -138,11 +137,11 @@ export const sizes = () => (
   </div>
 );
 sizes.story = {
-  parameters: { docs: { storyDescription: "4 sizes are supported." } }
+  parameters: { docs: { storyDescription: '4 sizes are supported.' } },
 };
 ```
 
-![alt_text](/design-systems-for-developers/Feedback-wanted49.png)
+![Storybook docs tab with filled out details](/design-systems-for-developers/storybook-docspage-expanded.png)
 
 #### Supercharge documentation with Markdown/MDX
 
@@ -154,7 +153,7 @@ First, let’s take control of the Avatar doc generation from the default. Regis
 
 ```javascript
 // automatically import all files ending in *.stories.js|mdx
-configure(require.context("../src", true, /\.stories\.(js|mdx)$/), module);
+configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module);
 ```
 
 Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remove the `Avatar.stories.js` file and recreate the stories in the mdx file:
@@ -252,7 +251,7 @@ Experiment with this story with Knobs addon in Canvas mode.
 
 In Storybook your Avatar component’s “Docs” tab should be replaced with our sparse MDX page.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted50.png)
+![Storybook docs from MDX](/design-systems-for-developers/storybook-docs-mdx-initial.png)
 
 Storybook Docs come with “Doc Blocks”, readymade components like interactive previews, the props table, and more. By default, they’re used behind the scenes for the auto-generated docs pages. They can also be extracted for individual use. Our goal is to customize Avatar’s docs without redoing everything ourselves so let’s reuse Doc Blocks where possible.
 
@@ -276,7 +275,7 @@ import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
 <Props of={Avatar} />
 ```
 
-![alt_text](/design-systems-for-developers/Feedback-wanted51.png)
+![Storybook docs from MDX with blocks](/design-systems-for-developers/storybook-docs-mdx-docblocks.png)
 
 Nice! We’re back to where we started, but now with full control over ordering and content. The benefits of automated doc generation persist because we’re using Doc Blocks.
 
@@ -297,7 +296,7 @@ Avatar is used to represent a person or an organization. By default the avatar s
 
 ```
 
-![alt_text](/design-systems-for-developers/Feedback-wanted52.png)
+![Storybook docs for MDX with usage info](/design-systems-for-developers/storybook-docs-mdx-usage.png)
 
 #### Custom pages
 
@@ -333,7 +332,7 @@ configure(
 );
 ```
 
-![alt_text](/design-systems-for-developers/Feedback-wanted54.png)
+![Storybook docs with introduction page](/design-systems-for-developers/storybook-docs-introduction.png)
 
 ## Publishing documentation online
 
@@ -349,13 +348,16 @@ In a previous chapter, we published Storybook online for visual review. It’s e
 }
 ```
 
-Save and commit. Create a second Netlify integration to run the docs build script:
+Save and commit. We could change our Netlify publication to deploy the docs site, or use a second deployment system (such as [now.sh](https://zeit.co/home)) to deploy the docs site on every commit.
+
+<!--
+Create a second Netlify integration to run the docs build script:
 
 ![alt_text](/design-systems-for-developers/Feedback-wanted55.png)
 
 Great. Every time you commit, you’ll now see two PR checks. One takes you to the published Storybook. The other takes you to the published Storybook Docs.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted56.png)
+![alt_text](/design-systems-for-developers/Feedback-wanted56.png) -->
 
 <div class="aside">As your design system grows you may encounter organization-specific requirements that warrant custom tooling or even building your own static site using tools like Gatsby or Next. It’s easy to port markdown and MDX to other solutions.</div>
 
