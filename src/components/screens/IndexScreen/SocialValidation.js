@@ -121,8 +121,8 @@ const SocialValidation = () => (
 
     <Logos>
       {logos.map(logo => (
-        <Logo>
-          <img key={logo.src} src={logo.src} alt={logo.alt} />
+        <Logo key={logo.src}>
+          <img src={logo.src} alt={logo.alt} />
         </Logo>
       ))}
     </Logos>
