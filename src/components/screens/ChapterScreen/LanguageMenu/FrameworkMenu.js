@@ -147,6 +147,7 @@ const FrameworkMenu = ({
 
   return (
     <WithTooltip
+      tagName="span"
       placement="bottom"
       trigger="click"
       closeOnClick
