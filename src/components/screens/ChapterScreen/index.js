@@ -44,7 +44,7 @@ const ChapterWrapper = styled.div`
 const Title = styled.h1`
   font-size: ${typography.size.l1}px;
   font-weight: ${typography.weight.black};
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   line-height: 40px !important;
 `;
 

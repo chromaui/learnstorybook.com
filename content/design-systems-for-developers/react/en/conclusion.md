@@ -16,8 +16,8 @@ Thanks for learning with us. Subscribe to the Chroma mailing list to get notifie
 
 If you’re coding along with us, your repositories should look like this:
 
-- Sample design system repository
-- Example app repository
+- [Sample design system repository](https://github.com/chromaui/learnstorybook-design-system)
+- [Example app repository](https://github.com/chromaui/learnstorybook-design-system-example-app)
 
 The example code is based on [Storybook’s own design system](https://github.com/storybookjs/design-system) (SDS) which powers the user experience for tens of thousands of developers. SDS is a work in progress – we welcome community contributions. As a contributor, you’ll get hands-on experience with design system best practices and emergent techniques. SDS is also where the Storybook team demos bleeding-edge features.
 
