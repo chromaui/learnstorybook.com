@@ -2,7 +2,7 @@
 title: 'Distribute UI across an organization'
 tocTitle: 'Distribute'
 description: 'Learn to package and import your design system into other apps'
-commit: dfdc741
+commit: 3a5cd35
 ---
 
 From an architectural perspective, design systems are yet another frontend dependency. They are no different than popular dependencies like moment or lodash. UI components are code so we can rely on established techniques for code reuse.
@@ -246,7 +246,11 @@ Now, when we run `yarn release`, we’ll step through all the steps we ran above
 # ...
 - run: yarn test
 - run: yarn chromatic test -a 2wix88i1ziu
-- run: ‘[ $CIRCLE_BRANCH = 'master' ] && yarn release
+- run: |
+    if [ $CIRCLE_BRANCH = "master" ]
+    then
+      yarn release
+    fi
 ```
 
 We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/<your-username>/learnstorybook-design-system/edit#env-vars):
