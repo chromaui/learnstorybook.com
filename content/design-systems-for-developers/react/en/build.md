@@ -1,7 +1,8 @@
 ---
-title: "Build UI components"
-tocTitle: "Build"
-description: "Setup Storybook to build and catalog design system components"
+title: 'Build UI components'
+tocTitle: 'Build'
+description: 'Setup Storybook to build and catalog design system components'
+commit: e7b6f00
 ---
 
 In chapter 3 we’ll set up the essential design system tooling starting with Storybook, the most popular component explorer. The goal of this guide is to show you how professional teams build design systems, so we’ll also focus on finer details like the code hygiene, timesaving Storybook addons, and directory structure.
@@ -22,7 +23,7 @@ yarn add --dev prettier
 
 If you are using Prettier for the first time, you may need to set it up for your editor. In VSCode, install the Prettier addon:
 
-![alt_text](/design-systems-for-developers/Feedback-wanted11.png)
+![Prettier addon for VSCode](/design-systems-for-developers/prettier-addon.png)
 
 Enable the Format on Save `editor.formatOnSave` if you haven’t done so already. Once you’ve installed Prettier, you should find that it auto-formats your code whenever you save a file.
 
@@ -44,7 +45,7 @@ yarn storybook
 
 You should see this:
 
-![alt_text](/design-systems-for-developers/Feedback-wanted12.png)
+![Initial Storybook UI](/design-systems-for-developers/storybook-initial.png)
 
 Nice, we’ve set up a component explorer!
 
@@ -57,20 +58,19 @@ import { configure } from '@storybook/react';
 configure(require.context('../src, true, /\.stories\.js$/), module);
 ```
 
-Your Storybook should reload like this (notice that the font styles are a little off):
+Your Storybook should reload like this (notice that the font styles are a little off, for instance see the "Initials" story):
 
-![alt_text](/design-systems-for-developers/Feedback-wanted13.png)
+![Initial set of stories](/design-systems-for-developers/storybook-initial-stories.png)
 
 #### Add global styles
 
 Our design system requires some global styles (a CSS reset) to be applied to the document for components to be rendered correctly. The styles can be added easily via a Styled Components global style tag. For reference here is how the code is exported from `src/shared/global.js`:
 
 ```javascript
-import { createGlobalStyle, css } from "styled-components";
-import { color, typography } from "./styles";
+import { createGlobalStyle, css } from 'styled-components';
+import { color, typography } from './styles';
 
-export const fontUrl =
-  "https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900";
+export const fontUrl = 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900';
 
 export const bodyStyles = css`
   /* global styles */
@@ -99,7 +99,6 @@ addDecorator(story => (
 
 // automatically import all files ending in *.stories.js
 configure(require.context('../src’	, true, /\.stories\.js$/), module);
-
 ```
 
 The decorator will ensure the `GlobalStyle` is rendered no matter which story is selected.
@@ -116,7 +115,7 @@ Our design system also relies on the font Nunito Sans to be loaded into the app.
 
 Your Storybook should now look like this. Notice the “T” is sans-serif because we added global font styles.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted14.png)
+![Storybook with global styles loaded](/design-systems-for-developers/storybook-global-styles.png)
 
 ## Supercharge Storybook with addons
 
@@ -145,7 +144,7 @@ export const buttonWrapper = () => (
 )
 ```
 
-![alt_text](/design-systems-for-developers/Feedback-wanted15.png)
+![Using the actions addon](/design-systems-for-developers/storybook-addon-actions.gif)
 
 #### Source to view and paste code
 
@@ -158,9 +157,9 @@ yarn add --dev  @storybook/addon-storysource
 Register the addon in `.storybook/addons.js`:
 
 ```javascript
-import "@storybook/addon-actions/register";
-import "@storybook/addon-links/register";
-import "@storybook/addon-storysource/register";
+import '@storybook/addon-actions/register';
+import '@storybook/addon-links/register';
+import '@storybook/addon-storysource/register';
 ```
 
 And update your webpack config in `.storybook/webpack.config.js`:
@@ -179,7 +178,7 @@ module.exports = function({ config }) {
 
 This is what that workflow looks like in Storybook:
 
-![alt_text](/design-systems-for-developers/Feedback-wanted16.png)
+![The Storysource addon](/design-systems-for-developers/storybook-addon-storysource.png)
 
 <h4>Knobs to stress test components</h4>
 
@@ -194,37 +193,37 @@ yarn add --dev @storybook/addon-knobs
 Register the addon in `.storybook/addons.js`:
 
 ```javascript
-import "@storybook/addon-actions/register";
-import "@storybook/addon-links/register";
-import "@storybook/addon-storysource/register";
-import "@storybook/addon-knobs/register";
+import '@storybook/addon-actions/register';
+import '@storybook/addon-links/register';
+import '@storybook/addon-storysource/register';
+import '@storybook/addon-knobs/register';
 ```
 
 Add a story that uses knobs in `src/Avatar.stories.js`:
 
 ```javascript
-import React from "react";
-import { withKnobs, select, boolean } from "@storybook/addon-knobs";
+import React from 'react';
+import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 
 // …
 
 export const knobs = () => (
   <Avatar
-    loading={boolean("Loading")}
-    size={select("Size", ["tiny", "small", "medium", "large"])}
+    loading={boolean('Loading')}
+    size={select('Size', ['tiny', 'small', 'medium', 'large'])}
     username="Dominic Nguyen"
     src="https://avatars2.githubusercontent.com/u/263385"
   />
 );
 
 knobs.story = {
-  decorators: [withKnobs]
+  decorators: [withKnobs],
 };
 ```
 
 Notice the Knobs tab in the addon panel. We instrumented the “Size” select element that allows us to cycle through the supported Avatar sizes `tiny`, `small`, `medium`, and `large`. You can instrument other props with knobs as well to create an interactive playground for the component.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted17.png)
+![Storybook knobs addon](/design-systems-for-developers/storybook-addon-knobs.gif)
 
 That said, knobs don’t replace stories. Knobs are great for exploring the edge cases of the components. Stories are used for showcasing the intended cases.
 

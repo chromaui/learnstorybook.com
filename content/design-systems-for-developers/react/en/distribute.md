@@ -1,7 +1,8 @@
 ---
-title: "Distribute UI across an organization"
-tocTitle: "Distribute"
-description: "Learn to package and import your design system into other apps"
+title: 'Distribute UI across an organization'
+tocTitle: 'Distribute'
+description: 'Learn to package and import your design system into other apps'
+commit: 3a5cd35
 ---
 
 From an architectural perspective, design systems are yet another frontend dependency. They are no different than popular dependencies like moment or lodash. UI components are code so we can rely on established techniques for code reuse.
@@ -43,18 +44,18 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 Then, let’s create a `src/index.js` file to create a common entry point for using our design system. From this file we’ll export all our design tokens and the components:
 
 ```javascript
-import * as styles from "./shared/styles";
-import * as global from "./shared/global";
-import * as animation from "./shared/animation";
-import * as icons from "./shared/icons";
+import * as styles from './shared/styles';
+import * as global from './shared/global';
+import * as animation from './shared/animation';
+import * as icons from './shared/icons';
 
 export { styles, global, animation, icons };
 
-export * from "./Avatar";
-export * from "./Badge";
-export * from "./Button";
-export * from "./Icon";
-export * from "./Link";
+export * from './Avatar';
+export * from './Badge';
+export * from './Button';
+export * from './Icon';
+export * from './Link';
 ```
 
 Let’s add a development dependency on `@babel/cli` to compile our JavaScript for release:
@@ -138,7 +139,7 @@ Auto is a command line tool we can use for various common tasks around release m
 
 For the next few steps, Auto is going to talk to GitHub and npm. In order for that to work correctly, we’ll need a personal access token. You can get one of those on [this page](https://github.com/settings/tokens) for GitHub. The token will need the `repo` scope.
 
-For npm, you can create a token at the URL: [https://www.npmjs.com/settings/](https://www.npmjs.com/settings/)<your-username>/tokens
+For npm, you can create a token at the URL: https://www.npmjs.com/settings/your-username/tokens.
 
 You’ll need a token with “Read and Publish” permissions.
 
@@ -167,7 +168,7 @@ yarn auto create-labels
 
 If you check on GitHub, you’ll now see a set of labels that `auto` would like us to use:
 
-![alt_text](/design-systems-for-developers/Feedback-wanted59.png)
+![Set of labels created on GitHub by auto](/design-systems-for-developers/github-auto-labels.png)
 
 We should tag all future PRs with one of the labels: `major`, `minor`, `patch`, `skip-release`, `prerelease`, `internal`, `documentation` before merging them.
 
@@ -192,7 +193,7 @@ Then we’ll update the changelog and commit it:
 ```
 # v0.1.0 (Tue Sep 03 2019)
 
-- Created first version of the design system, with `Avatar`, `Badge`, `Button`, ` Icon``Link ` components.</h6>
+- Created first version of the design system, with `Avatar`, `Badge`, `Button`, `Icon` and `Link` components.
 
 #### Authors: 1
 - Tom Coleman ([@tmeasday](https://github.com/tmeasday))
@@ -202,7 +203,7 @@ Let’s add that changelog to git. Note that we use `[skip ci]` to tell CI platf
 
 ```bash
 git add CHANGELOG.md
-git commit -m “Changelog for v0.1.0 [skip ci]”
+git commit -m "Changelog for v0.1.0 [skip ci]"
 ```
 
 Now we can publish:
@@ -221,9 +222,11 @@ yarn auto release
 
 Yay! We’ve successfully published our package to npm and created a release on GitHub (with luck!).
 
-![alt_text](/design-systems-for-developers/Feedback-wanted60.png)
+![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
-![alt_text](/design-systems-for-developers/Feedback-wanted61.png)
+![Release published to GitHub](/design-systems-for-developers/github-published-release.png)
+
+(Note that although `auto` auto-generated the release notes for the first release, we've also modified them to make sense for a first version).
 
 <h4>Set up scripts to use Auto</h4>
 
@@ -243,12 +246,16 @@ Now, when we run `yarn release`, we’ll step through all the steps we ran above
 # ...
 - run: yarn test
 - run: yarn chromatic test -a 2wix88i1ziu
-- run: ‘[ $CIRCLE_BRANCH = 'master' ] && yarn release
+- run: |
+    if [ $CIRCLE_BRANCH = "master" ]
+    then
+      yarn release
+    fi
 ```
 
 We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/<your-username>/learnstorybook-design-system/edit#env-vars):
 
-![alt_text](/design-systems-for-developers/Feedback-wanted62.png)
+![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
 Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
 
@@ -283,7 +290,7 @@ yarn storybook
 
 You should see the Storybook running with the stories for the simple components the app uses:
 
-![alt_text](/design-systems-for-developers/Feedback-wanted64.png)
+![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook.png)
 
 <h4>Integrating the design system</h4>
 
@@ -303,15 +310,19 @@ addDecorator(s => <><GlobalStyles/>{s()}</>);
 
 // automatically import all files ending in *.stories.js
 configure(
- [
-   require.context('../src', true, /\.stories\.js$/),
-   require.context('../node_modules/<your-username>-learnstorybook-design-system/dist, true, /\.stories\.(js|mdx)$/),
- ],
- module
+  [
+    require.context('../src', true, /\.stories\.js$/),
+    require.context(
+      '../node_modules/<your-username>-learnstorybook-design-system/dist',
+      true,
+      /\.stories\.(js|mdx)$/
+    ),
+  ],
+  module
 );
 ```
 
-![alt_text](/design-systems-for-developers/Feedback-wanted65.png)
+![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories.png)
 
 You’ll now be able to browse the design system components and docs while developing the example app. Showcasing the design system during feature development increases the likelihood that developers will reuse existing components instead of wasting time inventing their own.
 
@@ -330,9 +341,9 @@ import { Avatar } from '<your-username>-learnstorybook-design-sys
 We want to render the Avatar beside the username.
 
 ```javascript
-import React from "react";
-import styled from "styled-components";
-import { Avatar } from "learnstorybook-design-system";
+import React from 'react';
+import styled from 'styled-components';
+import { Avatar } from 'learnstorybook-design-system';
 
 const Container = styled.div`
   background: #eee;
@@ -355,7 +366,7 @@ export default ({ user: { name, avatarUrl } }) => (
 
 Upon save, the UserItem component will update in Storybook to show the new Avatar component. Since UserItem is a part of the UserList component, you’ll see the Avatar in UserList as well.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted66.png)
+![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system.png)
 
 There you have it! You just imported a design system component into the example app. Whenever you publish an update to the Avatar component in the design system, that change will also be reflected in the example app when you update the package.
 

@@ -1,7 +1,8 @@
 ---
-title: "Test to maintain quality"
-tocTitle: "Test"
-description: "How to test design system appearance, functionality, and accessibility"
+title: 'Test to maintain quality'
+tocTitle: 'Test'
+description: 'How to test design system appearance, functionality, and accessibility'
+commit: 5b71208
 ---
 
 In chapter 5, we automate design system testing to prevent UI bugs. This chapter dives into what characteristics of UI components warrant testing and potential pitfalls to avoid. We researched professional teams at Wave, BBC, and Salesforce to land on a test strategy that balances comprehensive coverage, straightforward setup, and low maintenance.
@@ -40,11 +41,11 @@ If you’re building a modern UI, visual testing saves your frontend team from t
 
 First, go to [ChromaticQA.com](https://chromaticqa.com) and sign up with your GitHub account.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted37.png)
+![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
 From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted38.png)
+![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
 Install the [storybook-chromatic](https://www.npmjs.com/package/storybook-chromatic) package via npm.
 
@@ -55,11 +56,11 @@ yarn add --dev storybook-chromatic
 Make sure you import Chromatic in your Storybook configuration. Your `.storybook/config.js` file should look like this:
 
 ```javascript
-import React from "react";
-import { configure, addDecorator } from "@storybook/react";
-import "storybook-chromatic";
+import React from 'react';
+import { configure, addDecorator } from '@storybook/react';
+import 'storybook-chromatic';
 
-import { GlobalStyle } from "../src/components/shared/global";
+import { GlobalStyle } from '../src/components/shared/global';
 
 addDecorator(story => (
   <>
@@ -69,16 +70,16 @@ addDecorator(story => (
 ));
 
 // automatically import all files ending in *.stories.js
-configure(require.context("../src", true, /\.stories\.js$/), module);
+configure(require.context('../src', true, /\.stories\.js$/), module);
 ```
 
-Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines.
+Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines (you'll need to use the app code that Chromatic supplies on the website)
 
 ```bash
-yarn chromatic test -a "<app code>"
+yarn chromatic test --app-code=<app-code>
 ```
 
-![alt_text](/design-systems-for-developers/Feedback-wanted39.png)
+![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
 Chromatic captured a baseline image of every story! Subsequent test runs will capture new images and compare them against these baselines. See how that works by tweaking a UI component and saving it. Go to the global styles (`src/shared/styles.js`) and increase the font-size.
 
@@ -87,9 +88,9 @@ Chromatic captured a baseline image of every story! Subsequent test runs will ca
 export const typography = {
   // ...
   size: {
-    s1: "13"
+    s1: '13',
     // ...
-  }
+  },
 };
 // ...
 ```
@@ -97,12 +98,12 @@ export const typography = {
 Run the test command again.
 
 ```bash
-yarn chromatic test -a "<app code>"
+yarn chromatic test --app-code=<app-code>
 ```
 
 Yikes! That small tweak resulted in a flood of UI changes.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted40.png)
+![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build.png)
 
 Visual testing helps identify UI changes in Storybook. Review the changes to confirm whether they’re intentional (improvements) or unintentional (bugs). If you’re fond of the new font-size, go ahead and accept the changes and commit to git. Or perhaps the changes are too ostentatious, go ahead and undo them.
 
@@ -133,7 +134,7 @@ jobs:
          key: v1-dependencies-{{ checksum "package.json" }}
 
      - run: yarn test
-     - run: yarn chromatic test -a 2wix88i1ziu --exit-zero-on-changes
+     - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
 ```
 
 Save and `git commit`. Congratulations you just set up visual testing in CI!
@@ -155,16 +156,16 @@ Visually, it isn’t possible to see if the `href` attribute is there and points
 Let’s add a unit test for our `Link` component. create-react-app has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
 
 ```javascript
-import React from "react";
-import ReactDOM from "react-dom";
-import { Link } from "./Link";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Link } from './Link';
 
 // A straightforward link wrapper that renders an <a> with the passed props. What we are testing
 // here is that the Link component passes the right props to the wrapper and itselfs
 const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
-it("has a href attribute when rendering with linkWrapper", () => {
-  const div = document.createElement("div");
+it('has a href attribute when rendering with linkWrapper', () => {
+  const div = document.createElement('div');
   ReactDOM.render(
     <Link href="https://learnstorybook.com" LinkWrapper={LinkWrapper}>
       Link Text
@@ -172,10 +173,8 @@ it("has a href attribute when rendering with linkWrapper", () => {
     div
   );
 
-  expect(
-    div.querySelector('a[href="https://learnstorybook.com"]')
-  ).not.toBeNull();
-  expect(div.textContent).toEqual("Link Text");
+  expect(div.querySelector('a[href="https://learnstorybook.com"]')).not.toBeNull();
+  expect(div.textContent).toEqual('Link Text');
 
   ReactDOM.unmountComponentAtNode(div);
 });
@@ -183,9 +182,11 @@ it("has a href attribute when rendering with linkWrapper", () => {
 
 We can run the above unit test as part of our `yarn test` command.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted42.png)
+![Running a single Jest test](/design-systems-for-developers/jest-test.png)
 
 Earlier we configured our Circle config.js file to run `yarn test` on every commit. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
+
+![Successful circle build](/design-systems-for-developers/circleci-successful-build.png)
 
 <div class="aside"> Note: Watch out for too many unit tests which can make updates cumbersome. We recommend unit testing design systems in moderation.</div>
 
@@ -209,22 +210,22 @@ yarn add --dev @storybook/addon-a11y
 Register the addon in `.storybook/addons.js`:
 
 ```javascript
-import "@storybook/addon-actions/register";
-import "@storybook/addon-links/register";
-import "@storybook/addon-storysource/register";
-import "@storybook/addon-knobs/register";
-import "@storybook/addon-a11y/register";
+import '@storybook/addon-actions/register';
+import '@storybook/addon-links/register';
+import '@storybook/addon-storysource/register';
+import '@storybook/addon-knobs/register';
+import '@storybook/addon-a11y/register';
 ```
 
 And add the `withA11y` decorator to our `.storybook/config.js`:
 
 ```javascript
-import React from "react";
-import { configure, addDecorator } from "@storybook/react";
-import { withA11y } from "@storybook/addon-a11y";
-import "storybook-chromatic";
+import React from 'react';
+import { configure, addDecorator } from '@storybook/react';
+import { withA11y } from '@storybook/addon-a11y';
+import 'storybook-chromatic';
 
-import { GlobalStyle } from "../src/components/shared/global";
+import { GlobalStyle } from '../src/components/shared/global';
 
 addDecorator(withA11y);
 addDecorator(story => (
@@ -235,16 +236,16 @@ addDecorator(story => (
 ));
 
 // automatically import all files ending in \*.stories.js
-configure(require.context("../src", true, /\.stories\.js\$/), module);
+configure(require.context('../src', true, /\.stories\.js\$/), module);
 ```
 
 Once installed, you’ll see a new “Accessibility” tab in the Storybook addons panel.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted44.png)
+![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y.png)
 
 This shows you accessibility levels of DOM elements (violations and passes). Click the “highlight results” checkbox to visualize violations in situ with the UI component.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted45.png)
+![Storybook a11y addon with passes highlighted](/design-systems-for-developers/storybook-addon-a11y-highlighted.png)
 
 From here, follow the addon’s accessibility recommendations.
 

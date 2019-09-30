@@ -1,7 +1,8 @@
 ---
-title: "Architecting systems"
-tocTitle: "Architecture"
-description: "How to extract a design system from component libraries"
+title: 'Architecting systems'
+tocTitle: 'Architecture'
+description: 'How to extract a design system from component libraries'
+commit: b696f85
 ---
 
 In chapter 2, we extract a design system from existing component libraries. Along the way, we determine which components belong in the design system and outline common challenges developers face getting started.
@@ -44,7 +45,7 @@ npx create-react-app learnstorybook-design-system
 
 Once create-react-app has created our repository, we can push it to GitHub (which we’ll use to host the code for our design system). Start by signing in and creating a new repository on GitHub.com:
 
-![alt_text](/design-systems-for-developers/Feedback-wanted6.png)
+![Create a GitHub repository](/design-systems-for-developers/create-github-repository.png)
 
 Then use GitHub’s instructions to add the remote to your git repo and pushing (the so-far mostly empty) repo:
 
@@ -56,7 +57,7 @@ git push -u origin master
 
 Be sure to replace `chromaui` with your own account name.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted7.png)
+![Initial commit to GitHub repository](/design-systems-for-developers/created-github-repository.png)
 
 ## What belongs and what doesn’t
 
@@ -88,12 +89,11 @@ Add the components we found by downloading them to your computer and dropping th
 ```bash
 rm -rf src/*
 
-svn export [https://github.com/chromaui/learnstorybook-design-system/branches/download-1(https://github.com/chromaui/learnstorybook-design-system/branches/download-1/src)</h6>
-
+svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
 ```
 
 <div class="aside">
-<p>We’ve used `svn` (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-1/src">here</a></p>
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-1/src">here</a>.</p>
 
 <p>
 For the code sample, we’ve selected a subset of these components to make reasoning about the repository simpler. Some teams also include customized third-party components in their design systems for other components like Tables and Forms.</p></div>
@@ -111,13 +111,12 @@ In addition to UI components, it makes sense to include styling constants for ty
 Download our design tokens here and add them to your repository.
 
 ```bash
-# Or download from https://github.com/chromaui/learnstorybook-design-system/tree/download-1/src/shared
-
-# and place in the src/shared folder
-
-svn export [https://github.com/chromaui/learnstorybook-design-system/branches/download-1(https://github.com/chromaui/learnstorybook-design-system/branches/download-1/src)/shared src/shared</h6>
-
+svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared</h6>
 ```
+
+<div class="aside">
+<p>You can also download the files directly from GitHub <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-2/src/shared">here</a>.</p>
+</div>
 
 ## Let’s start developing
 
