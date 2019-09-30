@@ -17,8 +17,8 @@ const Content = styled.div`
   flex-wrap: wrap;
 
   @media (min-width: ${breakpoint}px) {
-    margin-left: -25px;
-    margin-right: -25px;
+    margin-left: -30px;
+    margin-right: -30px;
   }
 
   > * {
