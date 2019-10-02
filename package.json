@@ -34,6 +34,7 @@
     "build-storybook": "build-storybook -s ./static",
     "chromatic": "CHROMATIC_APP_CODE=92d6oc1qsrc chromatic test",
     "dev": "gatsby develop",
+    "serve": "gatsby serve",
     "format": "prettier-eslint --write '**/*.js'",
     "lint": "eslint .",
     "storybook": "start-storybook -s ./static -p 6006",
