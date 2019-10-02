@@ -1,29 +1,23 @@
+const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
+const permalink = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://learnstorybook.com';
+
 module.exports = {
   siteMetadata: {
-    title: 'Storybook Tutorial',
+    title: 'Storybook Tutorials',
     description:
-      'Learn Storybook the UI component development tool for React, Vue, and Angular. This tutorial teaches you Storybook as you build a UI from scratch.',
-    permalink: 'https://learnstorybook.com',
-    toc: [
-      'get-started',
-      'simple-component',
-      'composite-component',
-      'data',
-      'screen',
-      'test',
-      'addons',
-      'deploy',
-      'conclusion',
-      'contribute',
-    ],
-    languages: ['en', 'es', 'zh-CN', 'zh-TW', 'pt'],
-    defaultTranslation: 'react/en',
-    siteUrl: 'https://learnstorybook.com',
+      'Learn Storybook teaches frontend developers how to create UIs with components and design systems. Our free in-depth guides are created by Storybook maintainers and peer-reviewed by the open source community.',
+    permalink,
+    siteUrl: permalink,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
-    codeGithubUrl: 'https://github.com/chromaui/learnstorybook-code',
+    contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
   },
   plugins: [
-    `gatsby-plugin-layout`,
+    {
+      resolve: 'gatsby-plugin-layout',
+      options: {
+        component: require.resolve(`./src/components/composite/AppLayout.js`),
+      },
+    },
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
@@ -36,9 +30,10 @@ module.exports = {
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
     {
-      resolve: 'gatsby-plugin-segment',
+      resolve: 'gatsby-plugin-segment-js',
       options: {
-        writeKey: 'JXEYLKE1T9ptsDlNqeNIMdoOy1Ept8CB',
+        prodKey: 'JXEYLKE1T9ptsDlNqeNIMdoOy1Ept8CB',
+        trackPage: true,
       },
     },
   ],
