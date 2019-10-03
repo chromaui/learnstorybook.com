@@ -139,7 +139,7 @@ Auto is a command line tool we can use for various common tasks around release m
 
 For the next few steps, Auto is going to talk to GitHub and npm. In order for that to work correctly, we’ll need a personal access token. You can get one of those on [this page](https://github.com/settings/tokens) for GitHub. The token will need the `repo` scope.
 
-For npm, you can create a token at the URL: https://www.npmjs.com/settings/your-username/tokens.
+For npm, you can create a token at the URL: https://www.npmjs.com/settings/&lt;your-username&gt;/tokens.
 
 You’ll need a token with “Read and Publish” permissions.
 
@@ -253,7 +253,7 @@ Now, when we run `yarn release`, we’ll step through all the steps we ran above
     fi
 ```
 
-We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/<your-username>/learnstorybook-design-system/edit#env-vars):
+We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
 
 ![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
