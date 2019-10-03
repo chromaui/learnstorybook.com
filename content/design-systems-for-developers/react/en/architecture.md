@@ -111,7 +111,7 @@ In addition to UI components, it makes sense to include styling constants for ty
 Download our design tokens here and add them to your repository.
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared</h6>
+svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared
 ```
 
 <div class="aside">
