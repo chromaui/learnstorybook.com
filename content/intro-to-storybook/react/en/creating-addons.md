@@ -5,8 +5,6 @@ description: "Learn how to build your own addons that will super charge your dev
 commit: "dac373a"
 ---
 
-# Creating addons
-
 Storybook's addon architecture allows you to expand it's feature set and customize it to your needs.
 
 Writing your own addon may sound a bit daunting, but as you'll see in this guide, it can be quite simple.
@@ -19,9 +17,9 @@ Your team has design assets which have some relationship to the UI components. T
 
 We're going to write an addon that will show our design assets next to our component!
 
-![Storybook and your app](/intro-to-storybook/design-asset-addon.jpg)
+![Storybook and your app](/intro-to-storybook/design-assets-addon.png)
 
-Our addon should:
+**Our addon should**:
 - display the design asset in a panel
 - support images, but also urls for embedding
 - should support multiple assets, just in case there will be multiple versions or themes
