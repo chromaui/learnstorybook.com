@@ -19,6 +19,8 @@ Your team has design assets which have some relationship to the UI components. T
 
 We're going to write an addon that will show our design assets next to our component!
 
+![Storybook and your app](/intro-to-storybook/design-asset-addon.jpg)
+
 Our addon should:
 - display the design asset in a panel
 - support images, but also urls for embedding
