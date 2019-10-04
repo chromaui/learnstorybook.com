@@ -3,18 +3,24 @@ module.exports = {
   extends: ['airbnb', 'prettier', 'plugin:jest/recommended'],
   plugins: ['prettier', 'jest'],
   env: {
-    'browser': true,
+    browser: true,
     'jest/globals': true,
   },
   globals: {
-    'graphql': 'readonly',
+    graphql: 'readonly',
   },
   rules: {
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['**/*.stories.js'],
+      },
+    ],
     'jsx-a11y/anchor-is-valid': [
       'error',
       {
-        'components': ['GatsbyLink'],
-        'specialLink': ['to'],
+        components: ['GatsbyLink'],
+        specialLink: ['to'],
       },
     ],
     'prettier/prettier': [
