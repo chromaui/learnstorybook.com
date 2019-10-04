@@ -19,7 +19,7 @@ This step-by-step guide reveals the automated tooling and careful workflows used
 
 ## What’s all the fuss about design systems anyways?
 
-Let’s get something out of the way: the concept of a reusable user interface isn’t new. Styleguides, UI kits, and shareable widgets have existed for decades. Today, designers and developers are aligning towards the UI component construct. A UI component encapsulates the visual and functional properties of discrete user interface pieces. Think LEGOs.
+Let’s get something out of the way: the concept of a reusable user interface isn’t new. Styleguides, UI kits, and shareable widgets have existed for decades. Today, designers and developers are aligning towards the UI component construct. A UI component encapsulates the visual and functional properties of discrete user interface pieces. Think LEGO bricks.
 
 Modern user interfaces are assembled from hundreds of modular UI components that are rearranged to deliver different user experiences.
 
