@@ -88,7 +88,7 @@ To use the `GlobalStyle` “component” in Storybook, we can make use of a deco
 ```javascript
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import { GlobalStyle } from '../src/components/shared/global';
+import { GlobalStyle } from '../src/shared/global';
 
 addDecorator(story => (
  <>
