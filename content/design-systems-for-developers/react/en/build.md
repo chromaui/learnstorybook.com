@@ -55,7 +55,7 @@ By default, Storybook has created a folder `src/stories` with some example stori
 import { configure } from '@storybook/react';
 
 // automatically import all files ending in *.stories.js
-configure(require.context('../src, true, /\.stories\.js$/), module);
+configure(require.context('../src', true, /\.stories\.js$/), module);
 ```
 
 Your Storybook should reload like this (notice that the font styles are a little off, for instance see the "Initials" story):
@@ -98,7 +98,7 @@ addDecorator(story => (
 ));
 
 // automatically import all files ending in *.stories.js
-configure(require.context('../src’	, true, /\.stories\.js$/), module);
+configure(require.context('../src', true, /\.stories\.js$/), module);
 ```
 
 The decorator will ensure the `GlobalStyle` is rendered no matter which story is selected.
