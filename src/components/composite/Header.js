@@ -121,7 +121,12 @@ const MobileMenuNavItem = styled(NavItem)`
 `;
 
 const GithubNavItem = styled(NavItem)`
-  width: 109px;
+  display: none;
+  min-width: 118px;
+
+  @media (min-width: 375px) {
+    display: inline-flex;
+  }
 `;
 
 const Nav = styled.div`
