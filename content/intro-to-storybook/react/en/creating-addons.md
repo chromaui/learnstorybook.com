@@ -325,20 +325,12 @@ addons.register(ADDON_ID, () => {
 
 ```js
 // panel.js
-import React, { Fragment, useMemo, ReactElement } from 'react';
+import React, { Fragment, useMemo } from 'react';
 
 import { useParameter, useAddonState, useStorybookState } from '@storybook/api';
 import { styled } from '@storybook/theming';
 import { ActionBar } from '@storybook/components';
 import { PARAM_KEY, ADDON_ID } from './constants';
-
-interface AssetDescription {
-  url: string;
-  name: string;
-}
-
-type Results = (string | AssetDescription)[];
-type Selected = number;
 
 const Iframe = styled.iframe({
   width: '100%',
@@ -352,7 +344,7 @@ const Img = styled.img({
   objectFit: 'contain',
 });
 
-const Asset = ({ url }: { url: string | undefined }): ReactElement => {
+const Asset = ({ url }) => {
   if (!url) {
     return null;
   }
@@ -368,13 +360,11 @@ const Asset = ({ url }: { url: string | undefined }): ReactElement => {
   return <Iframe title={url} src={url} />;
 };
 
-const getUrl = (input: AssetDescription | string): string => {
-  return typeof input === 'string' ? input : input.url;
-};
+const getUrl = input => typeof input === 'string' ? input : input.url;
 
 export const Content = () => {
-  const results = useParameter<Results>(PARAM_KEY, []);
-  const [selected, setSelected] = useAddonState<Selected>(ADDON_ID, 0);
+  const results = useParameter(PARAM_KEY, []);
+  const [selected, setSelected] = useAddonState(ADDON_ID, 0);
   const { storyId } = useStorybookState();
 
   if (results.length === 0) {
