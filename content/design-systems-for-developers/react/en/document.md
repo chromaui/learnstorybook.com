@@ -75,8 +75,7 @@ Next add JSdoc to the Avatar component (in `src/components/Avatar.js`) that prov
 ```javascript
 /**
 - Use an avatar for attributing actions or content to specific users.
-- The user's name should always be present when using Avatar – either printed beside
-- the avatar or in a tooltip.
+- The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
 **/
 
 export function Avatar({ loading, username, src, size, ...props }) {
