@@ -38,7 +38,7 @@ authors:
 contributors: [
   {
       src: "https://avatars2.githubusercontent.com/u/239215",
-      name: "Fernando Carretoni",
+      name: "Fernando Carrettoni",
       detail: "Design Systems at Auth0",
     },
     {
