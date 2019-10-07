@@ -1,7 +1,7 @@
 ---
-title: "測試 UI 元件"
-tocTitle: "測試"
-description: "瞭解測試UI元件的方法"
+title: '測試 UI 元件'
+tocTitle: '測試'
+description: '瞭解測試UI元件的方法'
 commit: 78a45d1
 ---
 
@@ -65,13 +65,12 @@ yarn add storybook-chromatic
 匯入 Chromatic 到你的`.storybook/config.js`檔案.
 
 ```javascript
-import { configure } from "@storybook/react";
-import requireContext from "require-context.macro";
-import "storybook-chromatic";
+import { configure } from '@storybook/react';
+import requireContext from 'require-context.macro';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = requireContext("../src/components", true, /\.stories\.js$/);
+const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

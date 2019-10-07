@@ -58,7 +58,6 @@ Make sure you import Chromatic in your Storybook configuration. Your `.storybook
 ```javascript
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
-import 'storybook-chromatic';
 
 import { GlobalStyle } from '../src/components/shared/global';
 
@@ -223,7 +222,6 @@ And add the `withA11y` decorator to our `.storybook/config.js`:
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
-import 'storybook-chromatic';
 
 import { GlobalStyle } from '../src/components/shared/global';
 

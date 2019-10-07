@@ -1,7 +1,7 @@
 ---
-title: "Teste de componentes de interface de utilizador"
-tocTitle: "Testes"
-description: "Aprendizagem das formas de teste dos componentes interface utilizador"
+title: 'Teste de componentes de interface de utilizador'
+tocTitle: 'Testes'
+description: 'Aprendizagem das formas de teste dos componentes interface utilizador'
 commit: 78a45d1
 ---
 
@@ -60,13 +60,12 @@ yarn add storybook-chromatic
 O Chromatic é importado para o ficheiro `.storybook/config.js`.
 
 ```javascript
-import { configure } from "@storybook/react";
-import requireContext from "require-context.macro";
-import "storybook-chromatic";
+import { configure } from '@storybook/react';
+import requireContext from 'require-context.macro';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = requireContext("../src/components", true, /\.stories\.js$/);
+const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
