@@ -91,10 +91,10 @@ import { configure, addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
 
 addDecorator(story => (
- <>
-   <GlobalStyle />
-   {story()}
- </>
+  <>
+    <GlobalStyle />
+    {story()}
+  </>
 ));
 
 // automatically import all files ending in *.stories.js
@@ -166,7 +166,7 @@ And update your webpack config in `.storybook/webpack.config.js`:
 
 ```javascript
 module.exports = function({ config }) {
- config.module.rules.push({
+ config.module.rules.unshift({
    test: /\.stories\.jsx?$/,
    loaders: [require.resolve('@storybook/addon-storysource/loader')],
    enforce: 'pre',
