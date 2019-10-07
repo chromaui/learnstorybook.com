@@ -80,7 +80,7 @@ export const GlobalStyle = createGlobalStyle`
  body {
    ${bodyStyles}
  }
-;
+`;
 ```
 
 To use the `GlobalStyle` “component” in Storybook, we can make use of a decorator (a component wrapper). In an app we’d place that component in the top-level app layout.
