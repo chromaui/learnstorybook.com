@@ -1,7 +1,7 @@
 ---
-title: "Test UI components"
-tocTitle: "Testing"
-description: "Learn the ways to test UI components"
+title: 'Test UI components'
+tocTitle: 'Testing'
+description: 'Learn the ways to test UI components'
 commit: 8bf107e
 ---
 
@@ -60,22 +60,6 @@ Add the package as a dependency.
 
 ```bash
 yarn add --dev storybook-chromatic
-```
-
-Import Chromatic in your `.storybook/config.js` file.
-
-```javascript
-import { configure } from "@storybook/vue";
-import "storybook-chromatic";
-
-import "../src/index.css";
-
-const req = require.context("../src", true, /.stories.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
 ```
 
 Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.

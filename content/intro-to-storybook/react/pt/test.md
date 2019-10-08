@@ -1,7 +1,7 @@
 ---
-title: "Teste de componentes de interface de utilizador"
-tocTitle: "Testes"
-description: "Aprendizagem das formas de teste dos componentes interface utilizador"
+title: 'Teste de componentes de interface de utilizador'
+tocTitle: 'Testes'
+description: 'Aprendizagem das formas de teste dos componentes interface utilizador'
 commit: 78a45d1
 ---
 
@@ -55,24 +55,6 @@ Adiciona-se o pacote como dependência.
 
 ```bash
 yarn add storybook-chromatic
-```
-
-O Chromatic é importado para o ficheiro `.storybook/config.js`.
-
-```javascript
-import { configure } from "@storybook/react";
-import requireContext from "require-context.macro";
-import "storybook-chromatic";
-
-import "../src/index.css";
-
-const req = requireContext("../src/components", true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
 ```
 
 É feita a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida criado um projecto com o nome "taskbox" e copie e guarde o `app-code` único.

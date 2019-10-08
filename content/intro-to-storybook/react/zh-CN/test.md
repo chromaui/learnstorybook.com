@@ -1,7 +1,7 @@
 ---
-title: "测试 UI 组件"
-tocTitle: "测试"
-description: "了解测试UI组件的方法"
+title: '测试 UI 组件'
+tocTitle: '测试'
+description: '了解测试UI组件的方法'
 commit: 78a45d1
 ---
 
@@ -60,24 +60,6 @@ $ git commit -m "taskbox UI"
 
 ```bash
 yarn add storybook-chromatic
-```
-
-导入 Chromatic 到你的`.storybook/config.js`文件.
-
-```javascript
-import { configure } from "@storybook/react";
-import requireContext from "require-context.macro";
-import "storybook-chromatic";
-
-import "../src/index.css";
-
-const req = requireContext("../src/components", true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
 ```
 
 然后[登录 Chromatic](https://www.chromaticqa.com/start)使用您的 GitHub 帐户 (Chromatic 仅要求轻量级权限) . 创建名为"taskbox"的项目并复制您的唯一项目`app-code`.

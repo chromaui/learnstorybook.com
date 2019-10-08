@@ -1,7 +1,7 @@
 ---
-title: "Teste de componentes de interface de utilizador"
-tocTitle: "Testes"
-description: "Aprendizagem das formas de teste dos componentes interface utilizador"
+title: 'Teste de componentes de interface de utilizador'
+tocTitle: 'Testes'
+description: 'Aprendizagem das formas de teste dos componentes interface utilizador'
 ---
 
 Qualquer tutorial de Storybook não estaria completo sem serem mencionados os testes. Estes são essenciais na criação de interfaces de utilizador de alta qualidade. Nos sistemas modulares, ajustes minúsculos poderão levar a regressões gigantescas. Até agora foram descritos três tipos de testes:
@@ -61,23 +61,6 @@ Adiciona-se o pacote como dependência.
 
 ```bash
 yarn add storybook-chromatic
-```
-
-O Chromatic é importado no ficheiro `.storybook/config.js`.
-
-```javascript
-import { configure } from "@storybook/angular";
-import "storybook-chromatic";
-import "../src/styles.less";
-
-// automatically import all files ending in *.stories.ts
-const req = require.context("../src/", true, /.stories.ts$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
 ```
 
 É feita a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida criado um projecto com o nome "taskbox" e copie e guarde o `app-code` único.
