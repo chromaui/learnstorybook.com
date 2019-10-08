@@ -62,21 +62,6 @@ Add the package as a dependency.
 yarn add --dev storybook-chromatic
 ```
 
-Import Chromatic in your `.storybook/config.js` file.
-
-```javascript
-import { configure } from '@storybook/vue';
-
-import '../src/index.css';
-
-const req = require.context('../src', true, /.stories.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-```
-
 Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">

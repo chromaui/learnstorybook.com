@@ -63,22 +63,6 @@ Adiciona-se o pacote como dependência.
 yarn add storybook-chromatic
 ```
 
-O Chromatic é importado no ficheiro `.storybook/config.js`.
-
-```javascript
-import { configure } from '@storybook/angular';
-import '../src/styles.less';
-
-// automatically import all files ending in *.stories.ts
-const req = require.context('../src/', true, /.stories.ts$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-```
-
 É feita a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida criado um projecto com o nome "taskbox" e copie e guarde o `app-code` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
