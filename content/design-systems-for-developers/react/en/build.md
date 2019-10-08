@@ -173,7 +173,7 @@ module.exports = function({ config }) {
  });
 
  return config;
-`};
+};
 ```
 
 This is what that workflow looks like in Storybook:
