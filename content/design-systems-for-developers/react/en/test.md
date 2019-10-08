@@ -1,7 +1,7 @@
 ---
-title: 'Test to maintain quality'
-tocTitle: 'Test'
-description: 'How to test design system appearance, functionality, and accessibility'
+title: "Test to maintain quality"
+tocTitle: "Test"
+description: "How to test design system appearance, functionality, and accessibility"
 commit: 5b71208
 ---
 
@@ -53,26 +53,6 @@ Install the [storybook-chromatic](https://www.npmjs.com/package/storybook-chroma
 yarn add --dev storybook-chromatic
 ```
 
-Make sure you import Chromatic in your Storybook configuration. Your `.storybook/config.js` file should look like this:
-
-```javascript
-import React from 'react';
-import { configure, addDecorator } from '@storybook/react';
-import 'storybook-chromatic';
-
-import { GlobalStyle } from '../src/components/shared/global';
-
-addDecorator(story => (
-  <>
-    <GlobalStyle />
-    {story()}
-  </>
-));
-
-// automatically import all files ending in *.stories.js
-configure(require.context('../src', true, /\.stories\.js$/), module);
-```
-
 Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines (you'll need to use the app code that Chromatic supplies on the website)
 
 ```bash
@@ -88,9 +68,9 @@ Chromatic captured a baseline image of every story! Subsequent test runs will ca
 export const typography = {
   // ...
   size: {
-    s1: '13',
+    s1: "13"
     // ...
-  },
+  }
 };
 // ...
 ```
@@ -156,16 +136,16 @@ Visually, it isn’t possible to see if the `href` attribute is there and points
 Let’s add a unit test for our `Link` component. create-react-app has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
 
 ```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Link } from './Link';
+import React from "react";
+import ReactDOM from "react-dom";
+import { Link } from "./Link";
 
 // A straightforward link wrapper that renders an <a> with the passed props. What we are testing
 // here is that the Link component passes the right props to the wrapper and itselfs
 const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
-it('has a href attribute when rendering with linkWrapper', () => {
-  const div = document.createElement('div');
+it("has a href attribute when rendering with linkWrapper", () => {
+  const div = document.createElement("div");
   ReactDOM.render(
     <Link href="https://learnstorybook.com" LinkWrapper={LinkWrapper}>
       Link Text
@@ -173,8 +153,10 @@ it('has a href attribute when rendering with linkWrapper', () => {
     div
   );
 
-  expect(div.querySelector('a[href="https://learnstorybook.com"]')).not.toBeNull();
-  expect(div.textContent).toEqual('Link Text');
+  expect(
+    div.querySelector('a[href="https://learnstorybook.com"]')
+  ).not.toBeNull();
+  expect(div.textContent).toEqual("Link Text");
 
   ReactDOM.unmountComponentAtNode(div);
 });
@@ -210,22 +192,22 @@ yarn add --dev @storybook/addon-a11y
 Register the addon in `.storybook/addons.js`:
 
 ```javascript
-import '@storybook/addon-actions/register';
-import '@storybook/addon-links/register';
-import '@storybook/addon-storysource/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-a11y/register';
+import "@storybook/addon-actions/register";
+import "@storybook/addon-links/register";
+import "@storybook/addon-storysource/register";
+import "@storybook/addon-knobs/register";
+import "@storybook/addon-a11y/register";
 ```
 
 And add the `withA11y` decorator to our `.storybook/config.js`:
 
 ```javascript
-import React from 'react';
-import { configure, addDecorator } from '@storybook/react';
-import { withA11y } from '@storybook/addon-a11y';
-import 'storybook-chromatic';
+import React from "react";
+import { configure, addDecorator } from "@storybook/react";
+import { withA11y } from "@storybook/addon-a11y";
+import "storybook-chromatic";
 
-import { GlobalStyle } from '../src/components/shared/global';
+import { GlobalStyle } from "../src/components/shared/global";
 
 addDecorator(withA11y);
 addDecorator(story => (
@@ -236,7 +218,7 @@ addDecorator(story => (
 ));
 
 // automatically import all files ending in \*.stories.js
-configure(require.context('../src', true, /\.stories\.js\$/), module);
+configure(require.context("../src", true, /\.stories\.js\$/), module);
 ```
 
 Once installed, you’ll see a new “Accessibility” tab in the Storybook addons panel.
