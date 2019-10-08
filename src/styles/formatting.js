@@ -271,6 +271,7 @@ export const chapterFormatting = css`
   code[class*='language-'],
   pre[class*='language-'] {
     font-size: ${typography.size.s2}px;
+    line-height: ${typography.size.m1}px;
   }
 
   code {
