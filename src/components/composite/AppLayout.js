@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, StaticQuery } from 'gatsby';
+import { global } from '@storybook/design-system';
 import Helmet from 'react-helmet';
 import Header from './Header';
 import Footer from './Footer';
-import { GlobalStyle } from '../../styles/global';
+
+const { GlobalStyle } = global;
 
 const query = graphql`
   query TemplateWrapper {

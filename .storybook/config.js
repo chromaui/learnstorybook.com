@@ -2,9 +2,14 @@ import React from 'react';
 import { addDecorator, addParameters, configure } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
-import { loadFontsForStorybook, styles } from '@storybook/design-system';
-import { GlobalStyle } from '../src/styles/global';
+import {
+  global as designSystemGlobal,
+  loadFontsForStorybook,
+  styles,
+} from '@storybook/design-system';
 import 'storybook-chromatic';
+
+const { GlobalStyle } = designSystemGlobal;
 
 addParameters({
   options: { panelPosition: 'bottom' },
