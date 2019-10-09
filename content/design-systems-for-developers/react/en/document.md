@@ -342,8 +342,8 @@ In a previous chapter, we published Storybook online for visual review. It’s e
 
 ```json
 {
-  “scripts”: {
-     `"build-storybook-docs": "build-storybook -s public --docs",`
+  "scripts": {
+     "build-storybook-docs": "build-storybook -s public --docs",
    }
 }
 ```
