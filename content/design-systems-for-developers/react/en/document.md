@@ -325,7 +325,7 @@ To get it to appear first, we have to tell Storybook to load the Introduction fi
 ```javascript
 configure(
  [
-   require.context('../src’, false, /Intro\.stories\.mdx/),
+   require.context('../src', false, /Intro\.stories\.mdx/),
    require.context('../src', true, /\.stories\.(js|mdx)$/),
  ],
  module
