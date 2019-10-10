@@ -165,7 +165,7 @@ The tests were successfully updated. In the future, regressions will have a toug
 
 ## Distribute
 
-We have an open pull request that adds AvatarList to the design system. Our stories are written, the tests pass, and documentation exists. At last, we’re ready to update our design system package with Auto and npm.\*\* \*\*
+We have an open pull request that adds AvatarList to the design system. Our stories are written, the tests pass, and documentation exists. At last, we’re ready to update our design system package with Auto and npm.
 
 Add the `minor` label to the PR. This tells Auto to update the minor version of the package on merge.
 
