@@ -305,9 +305,9 @@ Now, let’s update the example app’s `.storybook/config.js` to list the desig
 ```javascript
 import React from "react";
 import { configure, addDecorator } from "@storybook/react";
-import { global } from "<your-username>-learnstorybook-design-system";
+import { global as designSystemGlobal } from "<your-username>-learnstorybook-design-system";
 
-const { GlobalStyle } = global;
+const { GlobalStyle } = designSystemGlobal;
 
 addDecorator(story => (
   <>
