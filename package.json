@@ -40,6 +40,17 @@
     "storybook": "start-storybook -s ./static -p 6006",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@storybook/addon-a11y": "^5.1.1",
