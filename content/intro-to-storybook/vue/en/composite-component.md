@@ -1,7 +1,7 @@
 ---
-title: "Assemble a composite component"
-tocTitle: "Composite component"
-description: "Assemble a composite component out of simpler components"
+title: 'Assemble a composite component'
+tocTitle: 'Composite component'
+description: 'Assemble a composite component out of simpler components'
 commit: c72f06f
 ---
 
@@ -26,43 +26,48 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 ```html
 <template>
   <div>
-    <div class="list-items" v-if="loading"> loading </div>
-    <div class="list-items" v-if="noTasks && !this.loading">empty </div>
+    <div class="list-items" v-if="loading">loading</div>
+    <div class="list-items" v-if="noTasks && !this.loading">empty</div>
     <div class="list-items" v-if="showTasks">
-      <task v-for="(task, index) in tasks" :key="index" :task="task"
-        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+      <task
+        v-for="(task, index) in tasks"
+        :key="index"
+        :task="task"
+        @archiveTask="$emit('archiveTask', $event)"
+        @pinTask="$emit('pinTask', $event)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "task-list",
-  props: {
-    loading: {
-      type: Boolean,
-      default: false
+  import Task from './Task';
+  export default {
+    name: 'task-list',
+    props: {
+      loading: {
+        type: Boolean,
+        default: false,
+      },
+      tasks: {
+        type: Array,
+        default() {
+          return [];
+        },
+      },
     },
-    tasks: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  },
-  components: {
-    Task
-  },
-  computed: {
-    noTasks() {
-      return this.tasks.length === 0;
+    components: {
+      Task,
     },
-    showTasks() {
-      return !this.loading && !this.noTasks;
-    }
-  }
-};
+    computed: {
+      noTasks() {
+        return this.tasks.length === 0;
+      },
+      showTasks() {
+        return !this.loading && !this.noTasks;
+      },
+    },
+  };
 </script>
 ```
 
@@ -152,9 +157,7 @@ Our component is still rough but now we have an idea of the stories to work towa
     <div v-if="loading">
       <div class="loading-item" v-for="(n, index) in 5" :key="index">
         <span class="glow-checkbox" />
-        <span class="glow-text">
-          <span>Loading</span> <span>cool</span> <span>state</span>
-        </span>
+        <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
       </div>
     </div>
     <div class="list-items" v-if="noTasks && !this.loading">
@@ -165,46 +168,51 @@ Our component is still rough but now we have an idea of the stories to work towa
       </div>
     </div>
     <div class="list-items" v-if="showTasks">
-      <task v-for="(task, index) in tasksInOrder" :key="index" :task="task"
-        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+      <task
+        v-for="(task, index) in tasksInOrder"
+        :key="index"
+        :task="task"
+        @archiveTask="$emit('archiveTask', $event)"
+        @pinTask="$emit('pinTask', $event)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "task-list",
-  props: {
-    loading: {
-      type: Boolean,
-      default: false
+  import Task from './Task';
+  export default {
+    name: 'task-list',
+    props: {
+      loading: {
+        type: Boolean,
+        default: false,
+      },
+      tasks: {
+        type: Array,
+        default() {
+          return [];
+        },
+      },
     },
-    tasks: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  },
-  components: {
-    Task
-  },
-  computed: {
-    noTasks() {
-      return this.tasks.length === 0;
+    components: {
+      Task,
     },
-    showTasks() {
-      return !this.loading && !this.noTasks;
+    computed: {
+      noTasks() {
+        return this.tasks.length === 0;
+      },
+      showTasks() {
+        return !this.loading && !this.noTasks;
+      },
+      tasksInOrder() {
+        return [
+          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
+          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
+        ];
+      },
     },
-    tasksInOrder() {
-      return [
-        ...this.tasks.filter(t => t.state === "TASK_PINNED"),
-        ...this.tasks.filter(t => t.state !== "TASK_PINNED")
-      ];
-    }
-  }
-};
+  };
 </script>
 ```
 

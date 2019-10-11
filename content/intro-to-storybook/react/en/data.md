@@ -1,7 +1,7 @@
 ---
-title: "Wire in data"
-tocTitle: "Data"
-description: "Learn how to wire in data to your UI component"
+title: 'Wire in data'
+tocTitle: 'Data'
+description: 'Learn how to wire in data to your UI component'
 commit: 9c50472
 ---
 
@@ -45,12 +45,12 @@ function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(
-        task => (task.id === action.id ? { ...task, state: taskState } : task)
+      tasks: state.tasks.map(task =>
+        task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
   };
-};
+}
 
 // The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {

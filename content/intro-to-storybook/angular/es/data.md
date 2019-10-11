@@ -1,7 +1,7 @@
 ---
-title: "Introducir datos"
-tocTitle: "Datos"
-description: "Aprende como introducir datos a tus componentes interfaz gráfica"
+title: 'Introducir datos'
+tocTitle: 'Datos'
+description: 'Aprende como introducir datos a tus componentes interfaz gráfica'
 commit: 34f1938
 ---
 
@@ -67,10 +67,7 @@ export class TasksState {
   }
 
   @Action(PinTask)
-  pinTask(
-    { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: PinTask,
-  ) {
+  pinTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: PinTask) {
     const state = getState().entities;
 
     const entities = {
@@ -84,10 +81,7 @@ export class TasksState {
   }
 
   @Action(ArchiveTask)
-  archiveTask(
-    { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: ArchiveTask,
-  ) {
+  archiveTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: ArchiveTask) {
     const state = getState().entities;
 
     const entities = {
@@ -153,7 +147,11 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'task-list',
   template: `
-    <pure-task-list [tasks]="tasks$ | async" (onArchiveTask)="archiveTask($event)" (onPinTask)="pinTask($event)"></pure-task-list>
+    <pure-task-list
+      [tasks]="tasks$ | async"
+      (onArchiveTask)="archiveTask($event)"
+      (onPinTask)="pinTask($event)"
+    ></pure-task-list>
   `,
 })
 export class TaskListComponent implements OnInit {
@@ -212,7 +210,7 @@ storiesOf('TaskList', module)
     moduleMetadata({
       declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
-    }),
+    })
   )
   .add('default', () => {
     return {
@@ -280,13 +278,11 @@ describe('TaskList component', () => {
   let component: PureTaskListComponent;
   let fixture: ComponentFixture<PureTaskListComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [TaskComponent, PureTaskListComponent],
-      }).compileComponents();
-    }),
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [TaskComponent, PureTaskListComponent],
+    }).compileComponents();
+  }));
 
   it('renders pinned tasks at the start of the list', () => {
     fixture = TestBed.createComponent(PureTaskListComponent);
@@ -294,9 +290,7 @@ describe('TaskList component', () => {
     component.tasks = withPinnedTasks;
 
     fixture.detectChanges();
-    const lastTaskInput = fixture.debugElement.query(
-      By.css('.list-item:nth-child(1)'),
-    );
+    const lastTaskInput = fixture.debugElement.query(By.css('.list-item:nth-child(1)'));
 
     // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
     expect(lastTaskInput.nativeElement.id).toEqual('6');

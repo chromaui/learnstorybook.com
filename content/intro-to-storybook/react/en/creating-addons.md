@@ -1,8 +1,8 @@
 ---
-title: "Creating addons"
-tocTitle: "Creating addons"
-description: "Learn how to build your own addons that will super charge your development"
-commit: "dac373a"
+title: 'Creating addons'
+tocTitle: 'Creating addons'
+description: 'Learn how to build your own addons that will super charge your development'
+commit: 'dac373a'
 ---
 
 Storybook's addon architecture allows you to expand it's feature set and customize it to your needs.
@@ -20,6 +20,7 @@ We're going to write an addon that will show our design assets next to our compo
 ![Storybook and your app](/intro-to-storybook/design-assets-addon.png)
 
 **Our addon should**:
+
 - display the design asset in a panel
 - support images, but also urls for embedding
 - should support multiple assets, just in case there will be multiple versions or themes
@@ -67,6 +68,7 @@ import { AddonPanel } from '@storybook/components';
 ```
 
 Now we register a new addon with storybook using and add a panel:
+
 ```js
 addons.register('my/design-assets', () => {
   addons.add(PANEL_ID, {
@@ -100,11 +102,11 @@ export const Content = () => {
   return (
     <Fragment>
       {results.length ? (
-      <ol>
-          {results.map((i) => (
-          <li>{i}</li>
+        <ol>
+          {results.map(i => (
+            <li>{i}</li>
           ))}
-      </ol>
+        </ol>
       ) : null}
     </Fragment>
   );
@@ -112,6 +114,7 @@ export const Content = () => {
 ```
 
 Now all we need to do is connect this component to the rendering of our registered panel and we'll have our working addon:
+
 ```js
 import React, { useMemo } from 'react';
 
@@ -131,11 +134,11 @@ const Content = () => {
   return (
     <Fragment>
       {results.length ? (
-      <ol>
-          {results.map((i) => (
-          <li>{i}</li>
+        <ol>
+          {results.map(i => (
+            <li>{i}</li>
           ))}
-      </ol>
+        </ol>
       ) : null}
     </Fragment>
   );
@@ -158,6 +161,7 @@ addons.register(ADDON_ID, () => {
 At this point we can navigate between stories in storybook and see the list of design assets associated with the selected story.
 
 Let's change the `Content` component so it actually displays the assets:
+
 ```js
 import React, { Fragment, useMemo } from 'react';
 
@@ -168,7 +172,7 @@ import { ActionBar } from '@storybook/components';
 const ADDON_ID = 'storybook/parameter';
 const PARAM_KEY = `assets`;
 
-const getUrl = (input) => {
+const getUrl = input => {
   return typeof input === 'string' ? input : input.url;
 };
 
@@ -205,10 +209,8 @@ export const Content = () => {
   }
 
   const url = getUrl(results[0]).replace('{id}', storyId);
-  
-  return (
-    <Asset url={url} />
-  );
+
+  return <Asset url={url} />;
 };
 ```
 
@@ -241,10 +243,8 @@ export const Content = () => {
   }
 
   const url = getUrl(results[selected]).replace('{id}', storyId);
-  
-  return (
-    <Asset url={url} />
-  );
+
+  return <Asset url={url} />;
 };
 ```
 
@@ -275,7 +275,7 @@ export const Content = () => {
   }
 
   const url = getUrl(results[selected]).replace('{id}', storyId);
-  
+
   return (
     <Fragment>
       <Asset url={url} />
@@ -360,7 +360,7 @@ const Asset = ({ url }) => {
   return <Iframe title={url} src={url} />;
 };
 
-const getUrl = input => typeof input === 'string' ? input : input.url;
+const getUrl = input => (typeof input === 'string' ? input : input.url);
 
 export const Content = () => {
   const results = useParameter(PARAM_KEY, []);
@@ -407,6 +407,7 @@ This is an example of an addon that uses parameters and displays it in a panel, 
 With these principles you're able to display you custom UI in a variety of places in the storybook UI.
 
 You can:
+
 - [add buttons in the storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
 - [communicate through the channel with the iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
 - [send commands and results](https://github.com/storybookjs/storybook/tree/next/addons/events)
@@ -419,7 +420,7 @@ And much more!
 
 # Dev Kits
 
-To help you write addons, the Storybook team has developed `dev-kits`. 
+To help you write addons, the Storybook team has developed `dev-kits`.
 
 These packages are like little starter-sets for you to start developing your own addon.
 The addon we just created is based on the `addon-parameters` dev-kit.
@@ -428,5 +429,3 @@ You can find the dev-kits here:
 https://github.com/storybookjs/storybook/tree/next/dev-kits
 
 More dev-kits will become available in the future.
-
-

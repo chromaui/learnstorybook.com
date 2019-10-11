@@ -1,7 +1,7 @@
 ---
-title: "Construção de um componente siples"
-tocTitle: "Componente simples"
-description: "Construção de um componente simples isolado"
+title: 'Construção de um componente siples'
+tocTitle: 'Componente simples'
+description: 'Construção de um componente simples isolado'
 commit: 403f19a
 ---
 
@@ -11,12 +11,12 @@ Iremos construir o interface de utilizador de acordo com a metodologia de [Desen
 
 ![Componente Task ao longo de três estados](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra. 
-O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista. 
+`Task` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra.
+O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista.
 Para que seja possível implementar isto serão necessárias os seguintes adereços (props):
 
-* `title` - uma cadeia de caracteres que descreve a tarefa
-* `state` - qual a lista em que a tarefa se encontra e se está confirmada?
+- `title` - uma cadeia de caracteres que descreve a tarefa
+- `state` - qual a lista em que a tarefa se encontra e se está confirmada?
 
 Á medida que construimos a `Task`, é necessário definir os três estados que correspondem os três tipos de tarefa delineados acima.
 Em seguida usa-se o Storybook para construir este componente isolado, usando dados predefinidos. Irá "testar-se visualmente" a aparência do componente para cada estado á medida que prosseguimos.
@@ -41,6 +41,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
   );
 }
 ```
+
 O bloco de código acima, quando renderizado, não é nada mais nada menos que a estrutura HTML da `Task` na aplicação Todos.
 
 Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
@@ -72,10 +73,10 @@ storiesOf('Task', module)
 
 Existem dois tipos de organização com Storybook. O componente em si e as estórias associadas. É preferível pensar em cada estória como uma permutação de um componente. Como tal podem existir tantas estórias, tantas as que forem necessárias.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 Ao ser invocada a função `storiesOf()`, está a registar-se o componente, e com isto o processo de arranque do Storybook. É adicionado um nome, nome esse que será usado na barra lateral da aplicação Storybook para identificar o componente.
 
@@ -120,7 +121,6 @@ Após esta alteração, ao ser reiniciado o servidor Storybook, deverá produzir
     type="video/mp4"
   />
 </video>
-
 
 ## Especificação de requisitos de dados
 

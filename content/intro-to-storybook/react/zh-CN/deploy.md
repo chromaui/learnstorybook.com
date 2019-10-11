@@ -1,7 +1,7 @@
 ---
-title: "发布 Storybook"
-tocTitle: "发布"
-description: "使用 GitHub 和 Netlify 发布 Storybook网站 "
+title: '发布 Storybook'
+tocTitle: '发布'
+description: '使用 GitHub 和 Netlify 发布 Storybook网站 '
 ---
 
 在本教程中,我们在开发机器上运行了 Storybook. 您可能还想与团队分享该 Storybook,尤其是非技术成员. 值得庆幸的是,在线部署 Storybook 很容易.

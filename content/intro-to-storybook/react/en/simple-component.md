@@ -1,7 +1,7 @@
 ---
-title: "Build a simple component"
-tocTitle: "Simple component"
-description: "Build a simple component in isolation"
+title: 'Build a simple component'
+tocTitle: 'Simple component'
+description: 'Build a simple component in isolation'
 commit: 403f19a
 ---
 
@@ -13,8 +13,8 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 `Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
-* `title` – a string describing the task
-* `state` - which list is the task currently in and is it checked off?
+- `title` – a string describing the task
+- `state` - which list is the task currently in and is it checked off?
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
@@ -73,10 +73,10 @@ storiesOf('Task', module)
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
 
