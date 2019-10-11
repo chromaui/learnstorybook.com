@@ -168,7 +168,7 @@ And update your webpack config in `.storybook/webpack.config.js`:
 module.exports = function({ config }) {
  config.module.rules.unshift({
    test: /\.stories\.jsx?$/,
-   loaders: [require.resolve('@storybook/addon-storysource/loader')],
+   loaders: [require.resolve('@storybook/source-loader')],
    enforce: 'pre',
  });
 
