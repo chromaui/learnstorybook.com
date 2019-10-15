@@ -1,67 +1,68 @@
 ---
-title: "Design Systems for Developers"
-description: "Discover how to build and maintain design systems using Storybook."
-heroDescription: "A guide that teaches professional developers how to transform component libraries into design systems and set up the production infrastructure used by leading frontend teams."
+title: 'Design Systems for Developers'
+description: 'Discover how to build and maintain design systems using Storybook.'
+heroDescription: 'A guide that teaches professional developers how to transform component libraries into design systems and set up the production infrastructure used by leading frontend teams.'
 overview: "Design systems power the frontend teams of Shopify, IBM, Salesforce, Airbnb, Twitter,  and many more. This guide for professional developers examines how the smartest teams engineer design systems at scale and why they use the tools they use. We'll walk through setting up core services, libraries, and workflows to develop a design system from scratch."
 order: 2
-themeColor: "#0079FF"
-codeGithubUrl: "https://github.com/chromaui/learnstorybook-design-system"
+themeColor: '#0079FF'
+codeGithubUrl: 'https://github.com/chromaui/learnstorybook-design-system'
 heroAnimationName: null
 toc:
   [
-    "introduction",
-    "architecture",
-    "build",
-    "review",
-    "test",
-    "document",
-    "distribute",
-    "workflow",
-    "conclusion",
+    'introduction',
+    'architecture',
+    'build',
+    'review',
+    'test',
+    'document',
+    'distribute',
+    'workflow',
+    'conclusion',
   ]
-coverImagePath: "/guide-cover/design-system.svg"
-thumbImagePath: "/guide-thumb/design-system.svg"
-contributorCount: "+38"
+coverImagePath: '/guide-cover/design-system.svg'
+thumbImagePath: '/guide-thumb/design-system.svg'
+contributorCount: '+38'
 authors:
   [
     {
-      src: "https://avatars2.githubusercontent.com/u/263385",
-      name: "Dominic Nguyen",
-      detail: "Storybook design",
+      src: 'https://avatars2.githubusercontent.com/u/263385',
+      name: 'Dominic Nguyen',
+      detail: 'Storybook design',
     },
     {
-      src: "https://avatars2.githubusercontent.com/u/132554",
-      name: "Tom Coleman",
-      detail: "Storybook core",
+      src: 'https://avatars2.githubusercontent.com/u/132554',
+      name: 'Tom Coleman',
+      detail: 'Storybook core',
     },
   ]
-contributors: [
-  {
-      src: "https://avatars2.githubusercontent.com/u/239215",
-      name: "Fernando Carrettoni",
-      detail: "Design Systems at Auth0",
+contributors:
+  [
+    {
+      src: 'https://avatars2.githubusercontent.com/u/239215',
+      name: 'Fernando Carrettoni',
+      detail: 'Design Systems at Auth0',
     },
     {
-      src: "https://avatars2.githubusercontent.com/u/8339031",
-      name: "Jessie Wu",
-      detail: "Engineer at New York Times",
+      src: 'https://avatars2.githubusercontent.com/u/8339031',
+      name: 'Jessie Wu',
+      detail: 'Engineer at New York Times',
     },
     {
-      src: "https://avatars2.githubusercontent.com/u/21959607",
-      name: "John Crisp",
-      detail: "Engineer at Acivilate",
+      src: 'https://avatars2.githubusercontent.com/u/21959607',
+      name: 'John Crisp',
+      detail: 'Engineer at Acivilate',
     },
     {
-      src: "https://avatars2.githubusercontent.com/u/1474548",
-      name: "Daniel Duan",
-      detail: "Engineer at Squarespace",
+      src: 'https://avatars2.githubusercontent.com/u/1474548',
+      name: 'Daniel Duan',
+      detail: 'Engineer at Squarespace',
     },
     {
-      src: "https://avatars2.githubusercontent.com/u/85783",
-      name: "Kaelig Deloumeau-Prigent",
-      detail: "UX Development at Shopify",
+      src: 'https://avatars2.githubusercontent.com/u/85783',
+      name: 'Kaelig Deloumeau-Prigent',
+      detail: 'UX Development at Shopify',
     },
-]
+  ]
 twitterShareText: "I’m learning about building design systems! They're great for scaling frontend code on large teams."
 ---
 
