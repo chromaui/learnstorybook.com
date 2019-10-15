@@ -44,7 +44,15 @@ yarn add --dev @storybook/addon-docs
 Also, we’ll add a _preset_ for the docs addon, in a new file `.storybook/presets.js`. Note that the use of this preset removes the need for our `.storybook/webpack.config.js` and we can remove it:
 
 ```javascript
-module.exports = ['@storybook/addon-docs/react/preset'];
+module.exports = [
+  {
+    name: '@storybook/addon-docs/react/preset',
+    options: {
+      configureJSX: true,
+    },
+  },
+];
+
 ```
 
 You should see two tabs in your Storybook. “Canvas” tab is your component development environment. “Docs” is your component documentation.
@@ -154,21 +162,6 @@ First, let’s take control of the Avatar doc generation from the default. Regis
 ```javascript
 // automatically import all files ending in *.stories.js|mdx
 configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module);
-```
-
-Let's add some configuration options to the addons-docs preset.
-
-```javascript
-module.exports = [
-  {
-    name: '@storybook/addon-docs/react/preset',
-    options: {
-      configureJSX: true,
-      babelOptions: {},
-      sourceLoaderOptions: null,
-    },
-  },
-];
 ```
 
 Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remove the `Avatar.stories.js` file and recreate the stories in the mdx file:
