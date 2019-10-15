@@ -92,7 +92,8 @@ dist
 
 Finally, let’s make a couple of changes to `package.json` to ensure consumers of the package get all the information we need. The easiest way to do that is to run `yarn init` -- a command that initializes the package for publication:
 
-```yarn init
+```bash
+yarn init
 
 yarn init v1.16.0
 question name (learnstorybook-design-system):
@@ -324,7 +325,7 @@ configure(
       '../node_modules/<your-username>-learnstorybook-design-system/dist',
       true,
       /\.stories\.(js|mdx)$/
-    )
+    ),
   ],
   module
 );
