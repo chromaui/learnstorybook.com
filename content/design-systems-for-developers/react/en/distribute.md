@@ -93,7 +93,7 @@ dist
 Finally, let’s make a couple of changes to `package.json` to ensure consumers of the package get all the information we need. The easiest way to do that is to run `yarn init` -- a command that initializes the package for publication:
 
 ```bash
-yarn init 
+yarn init
 
 yarn init v1.16.0
 question name (learnstorybook-design-system):
@@ -305,9 +305,17 @@ Now, let’s update the example app’s `.storybook/config.js` to list the desig
 
 ```javascript
 import React from 'react';
-import { configure. addDecorator } from '@storybook/react';
-import { GlobalStyles } from '<your-username>-learnstorybook-design-system';
-addDecorator(s => <><GlobalStyles/>{s()}</>);
+import { configure, addDecorator } from '@storybook/react';
+import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
+
+const { GlobalStyle } = designSystemGlobal;
+
+addDecorator(story => (
+  <>
+    <GlobalStyle />
+    {story()}
+  </>
+));
 
 // automatically import all files ending in *.stories.js
 configure(
@@ -336,7 +344,7 @@ Navigate to the UserItem.js component in your editor. Also, find UserItem in the
 Import the Avatar component.
 
 ```javascript
-import { Avatar } from '<your-username>-learnstorybook-design-system'
+import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 We want to render the Avatar beside the username.
