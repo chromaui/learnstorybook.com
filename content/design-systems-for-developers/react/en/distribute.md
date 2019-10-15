@@ -1,7 +1,7 @@
 ---
-title: "Distribute UI across an organization"
-tocTitle: "Distribute"
-description: "Learn to package and import your design system into other apps"
+title: 'Distribute UI across an organization'
+tocTitle: 'Distribute'
+description: 'Learn to package and import your design system into other apps'
 commit: 3a5cd35
 ---
 
@@ -44,18 +44,18 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 Then, let’s create a `src/index.js` file to create a common entry point for using our design system. From this file we’ll export all our design tokens and the components:
 
 ```javascript
-import * as styles from "./shared/styles";
-import * as global from "./shared/global";
-import * as animation from "./shared/animation";
-import * as icons from "./shared/icons";
+import * as styles from './shared/styles';
+import * as global from './shared/global';
+import * as animation from './shared/animation';
+import * as icons from './shared/icons';
 
 export { styles, global, animation, icons };
 
-export * from "./Avatar";
-export * from "./Badge";
-export * from "./Button";
-export * from "./Icon";
-export * from "./Link";
+export * from './Avatar';
+export * from './Badge';
+export * from './Button';
+export * from './Icon';
+export * from './Link';
 ```
 
 Let’s add a development dependency on `@babel/cli` to compile our JavaScript for release:
@@ -143,7 +143,7 @@ For npm, you can create a token at the URL: https://www.npmjs.com/settings/&lt;y
 
 You’ll need a token with “Read and Publish” permissions.
 
-Let’s add that token to a file called `.env` in our project::
+Let’s add that token to a file called `.env` in our project:
 
 ```
 GH_TOKEN=<value you just got from GitHub>
@@ -300,12 +300,12 @@ Add your published design system as a dependency.
 yarn add <your-username>-learnstorybook-design-system
 ```
 
-Now, let’s update the example app’s `.storybook/config.js` to list the design system components, and to use the global styles defined by the design system. Edit `.storybook/config.js` to:
+Now, let’s update the example app’s `.storybook/config.js` to list the design system components, and to use the global styles defined by the design system. Make the following change to the file:
 
 ```javascript
-import React from "react";
-import { configure, addDecorator } from "@storybook/react";
-import { global as designSystemGlobal } from "<your-username>-learnstorybook-design-system";
+import React from 'react';
+import { configure, addDecorator } from '@storybook/react';
+import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
 
 const { GlobalStyle } = designSystemGlobal;
 
@@ -319,9 +319,9 @@ addDecorator(story => (
 // automatically import all files ending in *.stories.js
 configure(
   [
-    require.context("../src", true, /\.stories\.js$/),
+    require.context('../src', true, /\.stories\.js$/),
     require.context(
-      "../node_modules/<your-username>-learnstorybook-design-system/dist",
+      '../node_modules/<your-username>-learnstorybook-design-system/dist',
       true,
       /\.stories\.(js|mdx)$/
     )
@@ -343,15 +343,15 @@ Navigate to the UserItem.js component in your editor. Also, find UserItem in the
 Import the Avatar component.
 
 ```javascript
-import { Avatar } from "<your-username>-learnstorybook-design-system";
+import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 We want to render the Avatar beside the username.
 
 ```javascript
-import React from "react";
-import styled from "styled-components";
-import { Avatar } from "learnstorybook-design-system";
+import React from 'react';
+import styled from 'styled-components';
+import { Avatar } from 'learnstorybook-design-system';
 
 const Container = styled.div`
   background: #eee;
