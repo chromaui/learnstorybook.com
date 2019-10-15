@@ -318,17 +318,17 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 
 This generates a new documentation-only page that is independent of the automated component docs pages from earlier.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted53.png)
+![Storybook docs with introduction page, unsorted](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
 To get it to appear first, we have to tell Storybook to load the Introduction file first:
 
 ```javascript
 configure(
- [
-   require.context('../src', false, /Intro\.stories\.mdx/),
-   require.context('../src', true, /\.stories\.(js|mdx)$/),
- ],
- module
+  [
+    require.context('../src', false, /Intro\.stories\.mdx/),
+    require.context('../src', true, /\.stories\.(js|mdx)$/),
+  ],
+  module
 );
 ```
 
@@ -343,8 +343,8 @@ In a previous chapter, we published Storybook online for visual review. It’s e
 ```json
 {
   "scripts": {
-     "build-storybook-docs": "build-storybook -s public --docs",
-   }
+    "build-storybook-docs": "build-storybook -s public --docs"
+  }
 }
 ```
 
