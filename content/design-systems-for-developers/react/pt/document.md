@@ -328,7 +328,7 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 Isto gera uma nova página somente de documentação, que é independente das restantes páginas de documentação automáticas criadas anteriormente, associadas a componentes.
 
 
-![alt_text](/design-systems-for-developers/Feedback-wanted53.png)
+![Storybook docs with introduction page, unsorted](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
 Para que esta apareça primeiro, precisamos notificar o Storybook para carregar esta página primeiro:
 
