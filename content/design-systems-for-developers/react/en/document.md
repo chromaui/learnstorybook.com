@@ -156,6 +156,21 @@ First, let’s take control of the Avatar doc generation from the default. Regis
 configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module);
 ```
 
+Let's add some configuration options to the addons-docs preset.
+
+```javascript
+module.exports = [
+  {
+    name: '@storybook/addon-docs/react/preset',
+    options: {
+      configureJSX: true,
+      babelOptions: {},
+      sourceLoaderOptions: null,
+    },
+  },
+];
+```
+
 Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remove the `Avatar.stories.js` file and recreate the stories in the mdx file:
 
 ```javascript
