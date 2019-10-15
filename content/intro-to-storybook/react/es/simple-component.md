@@ -14,7 +14,7 @@ Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Devel
 `Task` (o Tarea) es el componente principal en nuestra app. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o no marcado), información sobre la tarea y un botón “pin” que nos permite mover la tarea hacia arriba o abajo en la lista de tareas. Poniendo esto en conjunto, necesitaremos estas propiedades -props- :
 
 * `title` – un string que describe la tarea
-* `state` - en que lista se encuentra la tarea actualmente? y, está marcado el checkbox?
+* `state` - ¿en qué lista se encuentra la tarea actualmente y está marcado el checkbox?
 
 A medida que comencemos a construir `Task`, primero escribiremos nuestros tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
@@ -49,15 +49,12 @@ import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
-export function createTask(attrs) {
-  return {
-    id: Math.round(Math.random() * 1000000).toString(),
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: Date.now(),
-    ...attrs,
-  };
-}
+export const task = {
+  id: '1',
+  title: 'Test Task',
+  state: 'TASK_INBOX',
+  updatedAt: new Date(2018, 0, 1, 9, 0),
+};
 
 export const actions = {
   onPinTask: action('onPinTask'),
@@ -65,17 +62,17 @@ export const actions = {
 };
 
 storiesOf('Task', module)
-  .add('default', () => <Task task={createTask({ state: 'TASK_INBOX' })} {...actions} />)
-  .add('pinned', () => <Task task={createTask({ state: 'TASK_PINNED' })} {...actions} />)
-  .add('archived', () => <Task task={createTask({ state: 'TASK_ARCHIVED' })} {...actions} />);
+  .add('default', () => <Task task={task} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Piensa en cada historia como una permutación posible del componente. Puedes tener tantas historias por componente como se necesite.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+* **Componente**
+  * Historia
+  * Historia
+  * Historia
 
 Para iniciar Storybook, primero invocamos a la función `storiesOf()` para registrar el componente. Agregamos un nombre para mostrar el componente, que se muestra en la barra lateral de la aplicación Storybook.
 
@@ -87,7 +84,7 @@ Otra cosa positiva acerca de agrupar las `actions` que un componente necesita, e
 
 Para definir nuestras historias, llamamos a `add()` una vez para cada uno de nuestros estados del test para generar una historia. La historia de acción - action story - es una función que retorna un elemento renderizado (es decir, una clase componente con un conjunto de props) en un estado dado---exactamente como en React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
-Al crear una historia utilizamos una función auxiliar (`createTask()`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
+Al crear una historia utilizamos una historia base (`task`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
 
 <div class="aside">
 Las <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes UI en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para agregarlas.
@@ -170,11 +167,13 @@ El maquetado adicional de arriba, combinado con el CSS que hemos importado antes
 Es una buena práctica en React utilizar `propTypes` para especificar la forma de los datos que espera recibir un componente. No sólo se auto documenta, sino que también ayuda a detectar problemas rápidamente.
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Task() {
-  ...
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+  // ...
 }
 
 Task.propTypes = {
@@ -186,8 +185,6 @@ Task.propTypes = {
   onArchiveTask: PropTypes.func,
   onPinTask: PropTypes.func,
 };
-
-export default Task;
 ```
 
 Ahora aparecerá una advertencia en modo desarrollo si el componente Task  se utiliza incorrectamente.
