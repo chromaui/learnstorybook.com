@@ -343,7 +343,7 @@ Navigate to the UserItem.js component in your editor. Also, find UserItem in the
 Import the Avatar component.
 
 ```javascript
-import { Avatar } from '<your-username>-learnstorybook-design-sys
+import { Avatar } from "<your-username>-learnstorybook-design-system";
 ```
 
 We want to render the Avatar beside the username.
