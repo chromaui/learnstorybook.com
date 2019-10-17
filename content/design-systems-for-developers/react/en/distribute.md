@@ -305,9 +305,17 @@ Now, let’s update the example app’s `.storybook/config.js` to list the desig
 
 ```javascript
 import React from 'react';
-import { configure. addDecorator } from '@storybook/react';
-import { GlobalStyles } from '<your-username>-learnstorybook-design-system';
-addDecorator(s => <><GlobalStyles/>{s()}</>);
+import { configure, addDecorator } from '@storybook/react';
+import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
+
+const { GlobalStyle } = designSystemGlobal;
+
+addDecorator(story => (
+  <>
+    <GlobalStyle />
+    {story()}
+  </>
+));
 
 // automatically import all files ending in *.stories.js
 configure(

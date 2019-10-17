@@ -18,12 +18,14 @@ Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de
 Agrega una nueva dependencia en `package.json` con:
 
 ```bash
-yarn add react-redux
+yarn add react-redux redux
 ```
 
-Primero construiremos un simple store Redux que responde a acciones que cambian el estado de una tarea, en un archivo llamado `lib/redux.js`, (intencionalmente lo mantendremos simple):
+Primero construiremos un simple store Redux que responde a acciones que cambian el estado de una tarea, en un archivo llamado `lib/redux.js` dentro del folder `src`, (intencionalmente lo mantendremos simple):
 
 ```javascript
+// src/lib/redux.js
+
 // Una implementación simple de los store/actions/reducer de Redux.
 // Una verdadera aplicación sería más compleja y se dividiría en diferentes archivos.
 import { createStore } from 'redux';
@@ -78,15 +80,17 @@ export default createStore(reducer, { tasks: defaultTasks });
 Luego actualizaremos lo exportado por defecto en el componente `TaskList` para conectarlo al Store de Redux y renderizar las tareas en las que estamos interesados.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from './Task';
 import { connect } from 'react-redux';
-import { archiveTask, pinTask, snoozeTask } from '../lib/redux';
+import { archiveTask, pinTask } from '../lib/redux';
 
-export function PureTaskList({ tasks, onPinTask, onArchiveTask }) {
-  /* antigua implementación de TaskList */
+export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+  /* previous implementation of TaskList */
 }
 
 PureTaskList.propTypes = {
@@ -116,28 +120,26 @@ En esta etapa, nuestras pruebas de Storybook habrán dejado de funcionar, ya que
 Sin embargo, podemos resolver este problema fácilmente renderizando `PureTaskList` --el componente de presentación-- en nuestras historias de Storybook:
 
 ```javascript
+// src/components/TaskList.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 import { PureTaskList } from './TaskList';
-import { createTask, actions } from './Task.stories';
+import { task, actions } from './Task.stories';
 
 export const defaultTasks = [
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
-  createTask({ state: 'TASK_INBOX' }),
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
 
 export const withPinnedTasks = [
-  createTask({ title: 'Task 1', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 2', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 3', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 4', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 5', state: 'TASK_INBOX' }),
-  createTask({ title: 'Task 6 (pinned)', state: 'TASK_PINNED' }),
+  ...defaultTasks.slice(0, 5),
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
 storiesOf('TaskList', module)
