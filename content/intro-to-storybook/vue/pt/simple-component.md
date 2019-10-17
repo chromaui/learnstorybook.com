@@ -1,7 +1,7 @@
 ---
-title: "Construção de um componente siples"
-tocTitle: "Componente simples"
-description: "Construção de um componente simples isolado"
+title: 'Construção de um componente siples'
+tocTitle: 'Componente simples'
+description: 'Construção de um componente simples isolado'
 ---
 
 Iremos construir o interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
@@ -10,12 +10,12 @@ Iremos construir o interface de utilizador de acordo com a metodologia de [Desen
 
 ![Componente Task ao longo de três estados](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra. 
-O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista. 
+`Task` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra.
+O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista.
 Para que seja possível implementar isto serão necessárias os seguintes adereços (props):
 
-* `title` - uma cadeia de caracteres que descreve a tarefa
-* `state` - qual a lista em que a tarefa se encontra e se está confirmada?
+- `title` - uma cadeia de caracteres que descreve a tarefa
+- `state` - qual a lista em que a tarefa se encontra e se está confirmada?
 
 Á medida que construimos a `Task`, é necessário definir os três estados que correspondem os três tipos de tarefa delineados acima.
 Em seguida usa-se o Storybook para construir este componente isolado, usando dados predefinidos. Irá "testar-se visualmente" a aparência do componente para cada estado á medida que prosseguimos.
@@ -33,19 +33,19 @@ Iremos iniciar por uma implementação básica da `Task`, que recebe os atributo
 <template>
   <div class="list-item">
     <input type="text" :readonly="true" :value="this.task.title" />
-  </div>  
+  </div>
 </template>
 
 <script>
-export default {
-  name: "task",
-  props: {
-    task: {
-      type: Object,
-      required: true
-    }
-  }
-};
+  export default {
+    name: 'task',
+    props: {
+      task: {
+        type: Object,
+        required: true,
+      },
+    },
+  };
 </script>
 ```
 
@@ -100,10 +100,10 @@ storiesOf('Task', module)
 
 Existem dois tipos de organização com Storybook. O componente em si e as estórias associadas. É preferível pensar em cada estória como uma permutação de um componente. Como tal podem existir tantas estórias, tantas as que forem necessárias.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 Ao ser invocada a função `storiesOf()`, está a registar-se o componente, e com isto o processo de arranque do Storybook. É adicionado um nome, nome esse que será usado na barra lateral da aplicação Storybook para identificar o componente.
 
@@ -158,43 +158,38 @@ O componente neste momento ainda é bastante básico. Primeiro irá ser definido
 <template>
   <div :class="taskClass">
     <label class="checkbox">
-      <input
-        type="checkbox"
-        :checked="isChecked"
-        :disabled="true"
-        name="checked"
-      />
-      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)"/>
+      <input type="checkbox" :checked="isChecked" :disabled="true" name="checked" />
+      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)" />
     </label>
     <div class="title">
       <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
     </div>
     <div class="actions">
       <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
-        <span class="icon-star"/>
+        <span class="icon-star" />
       </a>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
-export default {
-  name: "task",
-  props: {
-    task: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    taskClass() {
-      return `list-item ${this.task.state}`;
+  export default {
+    name: 'task',
+    props: {
+      task: {
+        type: Object,
+        required: true,
+      },
     },
-    isChecked() {
-      return this.task.state === "TASK_ARCHIVED";
-    }
-  }
-};
+    computed: {
+      taskClass() {
+        return `list-item ${this.task.state}`;
+      },
+      isChecked() {
+        return this.task.state === 'TASK_ARCHIVED';
+      },
+    },
+  };
 </script>
 ```
 

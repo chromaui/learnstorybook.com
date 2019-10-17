@@ -1,7 +1,7 @@
 ---
-title: "Ligação de dados"
-tocTitle: "Dados"
-description: "Aprendizagem da metodologia de ligação de dados ao componente interface utilizador"
+title: 'Ligação de dados'
+tocTitle: 'Dados'
+description: 'Aprendizagem da metodologia de ligação de dados ao componente interface utilizador'
 ---
 
 Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação
@@ -67,10 +67,7 @@ export class TasksState {
   }
 
   @Action(PinTask)
-  pinTask(
-    { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: PinTask,
-  ) {
+  pinTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: PinTask) {
     const state = getState().entities;
 
     const entities = {
@@ -84,10 +81,7 @@ export class TasksState {
   }
 
   @Action(ArchiveTask)
-  archiveTask(
-    { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: ArchiveTask,
-  ) {
+  archiveTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: ArchiveTask) {
     const state = getState().entities;
 
     const entities = {
@@ -153,7 +147,11 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'task-list',
   template: `
-    <pure-task-list [tasks]="tasks$ | async" (onArchiveTask)="archiveTask($event)" (onPinTask)="pinTask($event)"></pure-task-list>
+    <pure-task-list
+      [tasks]="tasks$ | async"
+      (onArchiveTask)="archiveTask($event)"
+      (onPinTask)="pinTask($event)"
+    ></pure-task-list>
   `,
 })
 export class TaskListComponent implements OnInit {
@@ -172,7 +170,8 @@ export class TaskListComponent implements OnInit {
   }
 }
 ```
-É de notar que o ficheiro antigo `TaskListComponent` residente em `src/tasks/components/task-list.component.ts` foi renomeado para `src/tasks/components/pure-task-list.component.ts`, mas também alterado o seu `selector` de `task-list` para `pure-task-list` e o nome da classe de `TaskListComponent` para `PureTaskListComponent`. Todas estas alterações foram feitas para proporcionar um sentido de clareza: existe agora um componente puro que recebe uma lista de tarefas, alguns eventos e efetua a renderização de um resultado, assim como um componente contentor que depende da loja para obter os dados necessários, que são fornecidos ao componente puro. Não esquecer de renomear o ficheiro `task-list.stories.ts` também. 
+
+É de notar que o ficheiro antigo `TaskListComponent` residente em `src/tasks/components/task-list.component.ts` foi renomeado para `src/tasks/components/pure-task-list.component.ts`, mas também alterado o seu `selector` de `task-list` para `pure-task-list` e o nome da classe de `TaskListComponent` para `PureTaskListComponent`. Todas estas alterações foram feitas para proporcionar um sentido de clareza: existe agora um componente puro que recebe uma lista de tarefas, alguns eventos e efetua a renderização de um resultado, assim como um componente contentor que depende da loja para obter os dados necessários, que são fornecidos ao componente puro. Não esquecer de renomear o ficheiro `task-list.stories.ts` também.
 
 Nesta altura os testes com Storybook terão deixado de funcionar, visto que `TaskListComponent` é agora um contentor e como tal não está á espera de receber qualquer tipo de adereços (props), ao invés disso conecta-se á loja e define os adereços (props) para o componente `PureTaskListComponent` que está a envolver.
 
@@ -211,7 +210,7 @@ storiesOf('TaskList', module)
     moduleMetadata({
       declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
-    }),
+    })
   )
   .add('default', () => {
     return {
@@ -279,13 +278,11 @@ describe('TaskList component', () => {
   let component: PureTaskListComponent;
   let fixture: ComponentFixture<PureTaskListComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [TaskComponent, PureTaskListComponent],
-      }).compileComponents();
-    }),
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [TaskComponent, PureTaskListComponent],
+    }).compileComponents();
+  }));
 
   it('renders pinned tasks at the start of the list', () => {
     fixture = TestBed.createComponent(PureTaskListComponent);
@@ -293,9 +290,7 @@ describe('TaskList component', () => {
     component.tasks = withPinnedTasks;
 
     fixture.detectChanges();
-    const lastTaskInput = fixture.debugElement.query(
-      By.css('.list-item:nth-child(1)'),
-    );
+    const lastTaskInput = fixture.debugElement.query(By.css('.list-item:nth-child(1)'));
     // Pretende-se que a tarefa denominada "Task 6 (pinned), seja renderizada em primeiro lugar não no fim
     expect(lastTaskInput.nativeElement.id).toEqual('6');
   });

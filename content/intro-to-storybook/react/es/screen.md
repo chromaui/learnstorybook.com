@@ -1,7 +1,7 @@
 ---
-title: "Construir una pantalla"
-tocTitle: "Pantallas"
-description: "Construir una pantalla con componentes"
+title: 'Construir una pantalla'
+tocTitle: 'Pantallas'
+description: 'Construir una pantalla con componentes'
 commit: e56e345
 ---
 
@@ -16,11 +16,11 @@ Como nuestra aplicación es muy simple, la pantalla que construiremos es bastant
 ```javascript
 // src/components/InboxScreen.js
 
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import TaskList from "./TaskList";
+import TaskList from './TaskList';
 
 export function PureInboxScreen({ error }) {
   if (error) {
@@ -48,11 +48,11 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
-  error: PropTypes.string
+  error: PropTypes.string,
 };
 
 PureInboxScreen.defaultProps = {
-  error: null
+  error: null,
 };
 
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
@@ -63,11 +63,11 @@ También cambiamos el componente `App` para renderizar la pantalla de la bandeja
 ```javascript
 // src/App.js
 
-import React, { Component } from "react";
-import { Provider } from "react-redux";
-import store from "./lib/redux";
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './lib/redux';
 
-import InboxScreen from "./components/InboxScreen";
+import InboxScreen from './components/InboxScreen';
 
 class App extends Component {
   render() {
@@ -93,14 +93,14 @@ Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `Pur
 ```javascript
 // src/components/InboxScreen.stories.js
 
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import { PureInboxScreen } from "./InboxScreen";
+import { PureInboxScreen } from './InboxScreen';
 
-storiesOf("InboxScreen", module)
-  .add("default", () => <PureInboxScreen />)
-  .add("error", () => <PureInboxScreen error="Something" />);
+storiesOf('InboxScreen', module)
+  .add('default', () => <PureInboxScreen />)
+  .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
 Vemos que aunque la historia de `error` funciona bien, tenemos un problema en la historia `default`, porque la `TaskList` no tiene una store de Redux a la que conectarse. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario).
@@ -122,29 +122,29 @@ La buena noticia es que es fácil suministrar una store de Redux a la `InboxScre
 ```javascript
 // src/components/InboxScreen.stories.js
 
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import { Provider } from "react-redux";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { Provider } from 'react-redux';
 
-import { PureInboxScreen } from "./InboxScreen";
-import { defaultTasks } from "./TaskList.stories";
+import { PureInboxScreen } from './InboxScreen';
+import { defaultTasks } from './TaskList.stories';
 
 // Un mock super simple de un store de redux
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasks
+      tasks: defaultTasks,
     };
   },
   subscribe: () => 0,
-  dispatch: action("dispatch")
+  dispatch: action('dispatch'),
 };
 
-storiesOf("InboxScreen", module)
+storiesOf('InboxScreen', module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add("default", () => <PureInboxScreen />)
-  .add("error", () => <PureInboxScreen error="Something" />);
+  .add('default', () => <PureInboxScreen />)
+  .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
 Existen enfoques similares para proporcionar un contexto simulado para otras bibliotecas de datos, tales como [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) y algunas otras.

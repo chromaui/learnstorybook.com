@@ -1,7 +1,7 @@
 ---
-title: "Test UI components"
-tocTitle: "Testing"
-description: "Learn the ways to test UI components"
+title: 'Test UI components'
+tocTitle: 'Testing'
+description: 'Learn the ways to test UI components'
 commit: 8bf107e
 ---
 
@@ -65,12 +65,12 @@ yarn add --dev storybook-chromatic
 Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
-import { configure } from "@storybook/vue";
-import "storybook-chromatic";
+import { configure } from '@storybook/vue';
+import 'storybook-chromatic';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = require.context("../src", true, /.stories.js$/);
+const req = require.context('../src', true, /.stories.js$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }

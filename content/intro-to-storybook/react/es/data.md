@@ -1,7 +1,7 @@
 ---
-title: "Introducir datos"
-tocTitle: "Datos"
-description: "Aprende como introducir datos a tus componentes UI"
+title: 'Introducir datos'
+tocTitle: 'Datos'
+description: 'Aprende como introducir datos a tus componentes UI'
 commit: 9c50472
 ---
 
@@ -45,12 +45,12 @@ function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(
-        task => (task.id === action.id ? { ...task, state: taskState } : task)
+      tasks: state.tasks.map(task =>
+        task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
   };
-};
+}
 
 // El reducer describe como los contenidos del store cambian por cada acción.
 export const reducer = (state, action) => {
@@ -117,7 +117,7 @@ export default connect(
 
 En esta etapa, nuestras pruebas de Storybook habrán dejado de funcionar, ya que la `TaskList` ahora es un contenedor y ya no espera ninguna de las props pasadas como parámetros, sino que se conecta a la store y establece las props en el componente `PureTaskList` que envuelve.
 
-Sin embargo, podemos resolver este problema fácilmente renderizando `PureTaskList` --el componente de presentación, en el cual hemos agregado la declaración `export` en el paso anterior-- en nuestras historias de Storybook:
+Sin embargo, podemos resolver este problema fácilmente renderizando `PureTaskList` --el componente de presentación-- en nuestras historias de Storybook:
 
 ```javascript
 // src/components/TaskList.stories.js

@@ -1,11 +1,11 @@
 ---
-title: "組裝複合元件"
-tocTitle: "合成元件"
-description: "使用更簡單的元件 組裝複合元件"
+title: '組裝複合元件'
+tocTitle: '合成元件'
+description: '使用更簡單的元件 組裝複合元件'
 commit: '8db511e'
 ---
 
-上一章我們構建了第一個元件; 本章 我們學習 擴充套件構建TaskList的任務列表. 讓我們將 元件組合 在一起,看看在引入更多複雜性時會發生什麼.
+上一章我們構建了第一個元件; 本章 我們學習 擴充套件構建 TaskList 的任務列表. 讓我們將 元件組合 在一起,看看在引入更多複雜性時會發生什麼.
 
 ## 任務列表
 
@@ -13,7 +13,7 @@ Taskbox 通過將 固定任務 置於預設任務之上 來強調 固定任務. 
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
-`Task`可以非同步傳送資料,我們 **也**需要在沒有連線的情況下 loading 渲染 *右圖*. 此外,當沒有任務時,需要 空狀態 *左圖*.
+`Task`可以非同步傳送資料,我們 **也**需要在沒有連線的情況下 loading 渲染 _右圖_. 此外,當沒有任務時,需要 空狀態 _左圖_.
 
 ![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
 
@@ -44,7 +44,9 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => <Task key={task.id} task={task} {...events} />)}
+      {tasks.map(task => (
+        <Task key={task.id} task={task} {...events} />
+      ))}
     </div>
   );
 }
@@ -83,7 +85,7 @@ storiesOf('TaskList', module)
   .add('empty', () => <TaskList tasks={[]} {...actions} />);
 ```
 
-`addDecorator()`允許我們為每個任務的渲染新增一些"上下文". 在這種情況下,我們在列表周圍新增 *填充-padding*,以便更容易進行 視覺化驗證.
+`addDecorator()`允許我們為每個任務的渲染新增一些"上下文". 在這種情況下,我們在列表周圍新增 _填充-padding_,以便更容易進行 視覺化驗證.
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators-裝飾器</b></a> 是一種為 故事 提供任意包裝的方法。 在這種情況下，我們使用裝飾器來新增樣式。 它們還可以用於包裝故事在 <b>"providers" - 設定 React上下文 的庫元件</b>.
@@ -91,7 +93,7 @@ storiesOf('TaskList', module)
 
 `task`提供一個`Task`的形狀,這是通過我們建立和匯出的`Task.stories.js`檔案. 同樣的,`actions`定義`Task`元件期望的操作 (模擬回撥) ,其中`TaskList`也需要.
 
-現在檢視 Storybook的新內容`TaskList`故事.
+現在檢視 Storybook 的新內容`TaskList`故事.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -156,7 +158,9 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => <Task key={task.id} task={task} {...events} />)}
+      {tasksInOrder.map(task => (
+        <Task key={task.id} task={task} {...events} />
+      ))}
     </div>
   );
 }
@@ -164,7 +168,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-新增的標記會產生以下UI:
+新增的標記會產生以下 UI:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -175,9 +179,9 @@ export default TaskList;
 
 請注意列表中 固定項 的位置. 我們希望固定專案在 列表頂部 呈現,以使其成為我們使用者的優先事項.
 
-## 資料要求和props
+## 資料要求和 props
 
-隨著元件的增長,輸入要求也在增長. 要求定義`TaskList`的*props*. 因為`Task`是一個子元件,請確保提供 正確形狀的資料 來呈現它. 為了節省時間和頭痛,請重用您定義的早期`Task`的propTypes.
+隨著元件的增長,輸入要求也在增長. 要求定義`TaskList`的*props*. 因為`Task`是一個子元件,請確保提供 正確形狀的資料 來呈現它. 為了節省時間和頭痛,請重用您定義的早期`Task`的 propTypes.
 
 ```javascript
 import React from 'react';
@@ -204,19 +208,19 @@ export default TaskList;
 
 ## 自動化測試
 
-在上一章中,我們學習瞭如何使用 Storyshots快照測試 故事. `Task`測試沒有太多的複雜性,已然夠用了. 而`TaskList`增加了另一層複雜性,我們希望 以 自動測試 的方式驗證 某些輸入產生某些輸出. 為此,我們將使用建立單 元測試[jest-笑話](https://facebook.github.io/jest/)再加上測試渲染器等[Enzyme](http://airbnb.io/enzyme/).
+在上一章中,我們學習瞭如何使用 Storyshots 快照測試 故事. `Task`測試沒有太多的複雜性,已然夠用了. 而`TaskList`增加了另一層複雜性,我們希望 以 自動測試 的方式驗證 某些輸入產生某些輸出. 為此,我們將使用建立單 元測試[jest-笑話](https://facebook.github.io/jest/)再加上測試渲染器等[Enzyme](http://airbnb.io/enzyme/).
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
-### 用Jest進行單元測試
+### 用 Jest 進行單元測試
 
- Storybook故事 與 手動視覺化測試 和 快照測試 (見上文) 相結合,可以避免 UI錯誤. 如果故事 涵蓋了 各種各樣的元件用例,並且我們使用的工具可以確保 人員檢查故事的任何變化,那麼錯誤的可能性就大大降低.
+Storybook 故事 與 手動視覺化測試 和 快照測試 (見上文) 相結合,可以避免 UI 錯誤. 如果故事 涵蓋了 各種各樣的元件用例,並且我們使用的工具可以確保 人員檢查故事的任何變化,那麼錯誤的可能性就大大降低.
 
 然而,有時候魔鬼是在細節中. 需要一個明確有關這些細節的測試框架. 這讓我們進行了單元測試.
 
-在我們的例子中,我們希望我們的`TaskList`,在傳遞 不固定tasks 之前,呈現所有固定tasks. 雖然我們有一個故事 (`withPinnedTasks`) 測試這個確切的場景; 但是如果元件停止對 這樣的任務 進行排序，那麼就人類看著來說，這可能是不明確的,*因為只看到表面與操作*, 這是一個bug. 它肯定不會尖叫 **"錯誤!"** 直懟眼睛.
+在我們的例子中,我們希望我們的`TaskList`,在傳遞 不固定 tasks 之前,呈現所有固定 tasks. 雖然我們有一個故事 (`withPinnedTasks`) 測試這個確切的場景; 但是如果元件停止對 這樣的任務 進行排序，那麼就人類看著來說，這可能是不明確的,_因為只看到表面與操作_, 這是一個 bug. 它肯定不會尖叫 **"錯誤!"** 直懟眼睛.
 
-因此,為了避免這個問題,我們可以使用Jest 將故事呈現給`DOM`,並執行一些`DOM`查詢程式碼,來驗證輸出的顯著特徵.
+因此,為了避免這個問題,我們可以使用 Jest 將故事呈現給`DOM`,並執行一些`DOM`查詢程式碼,來驗證輸出的顯著特徵.
 
 建立一個名為的測試檔案`TaskList.test.js`. 在這裡,我們將構建我們的測試,對輸出進行斷言.
 
@@ -243,4 +247,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 請注意,我們已經能夠重用`withPinnedTasks`故事 和 單元測試中的任務列表;通過這種方式,我們可以繼續 以越來越多的方式 利用現有資源 (代表元件的有趣配置的示例) .
 
-另請注意,此測試非常脆弱. 隨著專案的成熟,以及專案的確切實現,這都可能是`Task`的更改 - 可能使用 不同的類名或`textarea`而不是一個`input`- 測試將失敗,需要更新. 這不一定是一個問題,但使用UI的 單元測試 要小心的指示. 它們不容易維護. 替代的是依靠視覺,快照和視覺迴歸 (參見[測試章節](/test/)) 的 Storybook測試. 
+另請注意,此測試非常脆弱. 隨著專案的成熟,以及專案的確切實現,這都可能是`Task`的更改 - 可能使用 不同的類名或`textarea`而不是一個`input`- 測試將失敗,需要更新. 這不一定是一個問題,但使用 UI 的 單元測試 要小心的指示. 它們不容易維護. 替代的是依靠視覺,快照和視覺迴歸 (參見[測試章節](/test/)) 的 Storybook 測試.

@@ -1,7 +1,7 @@
 ---
-title: "Ligação de dados"
-tocTitle: "Dados"
-description: "Aprendizagem da metodologia de ligação de dados ao componente interface utilizador"
+title: 'Ligação de dados'
+tocTitle: 'Dados'
+description: 'Aprendizagem da metodologia de ligação de dados ao componente interface utilizador'
 ---
 
 Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação
@@ -63,22 +63,22 @@ Em seguida o componente de topo (`src/App.vue`) vai ser atualizado de forma que 
 ```html
 <template>
   <div id="app">
-    <task-list/>
+    <task-list />
   </div>
 </template>
 
 <script>
-import store from "./store";
-import TaskList from "./components/TaskList.vue";
-import "../src/index.css";
+  import store from './store';
+  import TaskList from './components/TaskList.vue';
+  import '../src/index.css';
 
-export default {
-  name: "app",
-  store,
-  components: {
-    TaskList
-  }
-};
+  export default {
+    name: 'app',
+    store,
+    components: {
+      TaskList,
+    },
+  };
 </script>
 ```
 
@@ -98,36 +98,36 @@ export default {
   ...
 }
 ```
+
 No ficheiro `src/components/TaskList.vue`:
 
 ```html
 <template>
   <div>
-    <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask"/>
+    <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask" />
   </div>
 </template>
 
 <script>
-import PureTaskList from "./PureTaskList";
-import { mapState, mapActions } from "vuex";
+  import PureTaskList from './PureTaskList';
+  import { mapState, mapActions } from 'vuex';
 
-export default {
-  name: "task-list",
-  components: {
-    PureTaskList
-  },
-  methods: {
-    ...mapActions(['archiveTask', 'pinTask'])
-  },
-  computed: {
-    ...mapState(["tasks"])
-  }
-};
+  export default {
+    name: 'task-list',
+    components: {
+      PureTaskList,
+    },
+    methods: {
+      ...mapActions(['archiveTask', 'pinTask']),
+    },
+    computed: {
+      ...mapState(['tasks']),
+    },
+  };
 </script>
 ```
 
 A razão porque irá ser mantida a versão de apresentação do `TaskList` em separado, é porque é mais fácil para testar e isolar. Visto que não depende da existência de uma loja, logo torna-se mais fácil de lidar do ponto de vista de testes. Irá ser renomeado `src/components/TaskList.stories.js` para `src/components/PureTaskList.stories.js` e com isto garantir que as nossas estórias usam a versão de apresentação:
-
 
 ```javascript
 import { storiesOf } from '@storybook/vue';
@@ -194,7 +194,6 @@ storiesOf('PureTaskList', module)
 </video>
 
 Similarmente, será usado o `PureTaskList` nos testes com Jest:
-
 
 ```js
 import Vue from 'vue';

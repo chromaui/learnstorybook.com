@@ -1,7 +1,7 @@
 ---
-title: "Storybook para o React tutorial"
-tocTitle: "Introdução"
-description: "Configuração do React Storybook no ambiente de desenvolvimento"
+title: 'Storybook para o React tutorial'
+tocTitle: 'Introdução'
+description: 'Configuração do React Storybook no ambiente de desenvolvimento'
 commit: ebe2ae2
 ---
 

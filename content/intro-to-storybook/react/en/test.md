@@ -1,7 +1,7 @@
 ---
-title: "Test UI components"
-tocTitle: "Testing"
-description: "Learn the ways to test UI components"
+title: 'Test UI components'
+tocTitle: 'Testing'
+description: 'Learn the ways to test UI components'
 commit: 78a45d1
 ---
 
@@ -61,13 +61,13 @@ Import Chromatic in your `.storybook/config.js` file.
 ```javascript
 // .storybook/config.js
 
-import { configure } from "@storybook/react";
-import requireContext from "require-context.macro";
-import "storybook-chromatic";
+import { configure } from '@storybook/react';
+import requireContext from 'require-context.macro';
+import 'storybook-chromatic';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = requireContext("../src/components", true, /\.stories\.js$/);
+const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

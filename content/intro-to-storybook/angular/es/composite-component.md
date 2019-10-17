@@ -1,7 +1,7 @@
 ---
-title: "Ensambla un componente compuesto"
-tocTitle: "Componente Compuesto"
-description: "Ensambla un componente compuesto a partir de componentes simples"
+title: 'Ensambla un componente compuesto'
+tocTitle: 'Componente Compuesto'
+description: 'Ensambla un componente compuesto a partir de componentes simples'
 commit: d3abd86
 ---
 
@@ -88,7 +88,7 @@ storiesOf('TaskList', module)
     moduleMetadata({
       declarations: [TaskListComponent, TaskComponent],
       imports: [CommonModule],
-    }),
+    })
   )
   .add('default', () => {
     return {
@@ -179,11 +179,9 @@ import { Task } from './task.model';
       </div>
 
       <div *ngIf="loading">
-        <div *ngFor="let i of [1,2,3,4,5,6]" class="loading-item">
+        <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
           <span class="glow-checkbox"></span>
-          <span class="glow-text">
-            <span>Loading</span> <span>cool</span> <span>state</span>
-          </span>
+          <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
         </div>
       </div>
     </div>
@@ -254,13 +252,11 @@ describe('TaskList component', () => {
   let component: TaskListComponent;
   let fixture: ComponentFixture<TaskListComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [TaskComponent, TaskListComponent],
-      }).compileComponents();
-    }),
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [TaskComponent, TaskListComponent],
+    }).compileComponents();
+  }));
 
   it('renders pinned tasks at the start of the list', () => {
     fixture = TestBed.createComponent(TaskListComponent);
@@ -268,9 +264,7 @@ describe('TaskList component', () => {
     component.tasks = withPinnedTasks;
 
     fixture.detectChanges();
-    const lastTaskInput = fixture.debugElement.query(
-      By.css('.list-item:nth-child(1)'),
-    );
+    const lastTaskInput = fixture.debugElement.query(By.css('.list-item:nth-child(1)'));
 
     // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
     expect(lastTaskInput.nativeElement.id).toEqual('6');
