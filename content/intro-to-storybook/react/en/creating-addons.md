@@ -104,7 +104,7 @@ Starting Storybook at this point, we won't be able to see the addon just yet. Li
 import "./addons/design-assets";
 ```
 
-![design assets addon running inside Storybook](/create-addon-design-assets-added.png)
+![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
 
 Success! We have our newly created addon added to the Storybook UI.
 
@@ -206,7 +206,7 @@ storiesOf("Task", module)
 
 Go ahead and restart your Storybook and select the Task story, you should see something like this:
 
-![storybook story showing contents with design assets addon](/create-addon-design-assets-inside-story.png)
+![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
 ### Showing the actual assets
 
@@ -276,7 +276,7 @@ To actually see the assets displayed in our addon, we need to copy them over to 
 
 Storybook will pick on the change and will load the assets, but for now, only the first one.
 
-![actual assets loaded](/design-assets-image-loaded.png) <!--needs to be created-->
+![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png) <!--needs to be created-->
 
 ## Stateful addons
 
