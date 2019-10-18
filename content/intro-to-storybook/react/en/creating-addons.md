@@ -110,8 +110,6 @@ Success! We have our newly created addon added to the Storybook UI.
 
 <div class="aside">Storybook allows you to add not only panels, but a whole range of different types of UI components. And most if not all of them are already created inside the @storybook/components package, so that you don't need waste too much time implementing the UI and focus on writting features.</div>
 
-
-
 ### Creating the content component
 
 We've completed our first objective. Time to start working on the second one.
@@ -252,9 +250,9 @@ const Asset = ({ url }) => {
 
 export const Content = () => {
   // story's parameter being retrieved here
-  const results = useParameter("assets", []); 
+  const results = useParameter("assets", []);
   // the id of story retrieved from Storybook global state
-  const { storyId } = useStorybookState(); 
+  const { storyId } = useStorybookState();
 
   if (results.length === 0) {
     return null;
@@ -274,12 +272,11 @@ If you take a closer look, you'll see that we're using the `styled` tag, this ta
 
 ### Displaying actual assets
 
-To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the `addParameter` option to reflect these changes. 
+To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the `addParameter` option to reflect these changes.
 
-Storybook will pick on the change and will load the assets, but for now, only the first one. 
+Storybook will pick on the change and will load the assets, but for now, only the first one.
 
 ![actual assets loaded](/design-assets-image-loaded.png) <!--needs to be created-->
-
 
 ## Stateful addons
 
@@ -308,11 +305,11 @@ And modify our `Content` component, so that we can change between assets:
 //.storybook/addons/design-assets.js
 export const Content = () => {
   // story's parameter being retrieved here
-  const results = useParameter("assets", []); 
-   // addon state being persisted here
+  const results = useParameter("assets", []);
+  // addon state being persisted here
   const [selected, setSelected] = useAddonState("my/design-assets", 0);
-   // the id of the story retrieved from Storybook global state
-  const { storyId } = useStorybookState(); 
+  // the id of the story retrieved from Storybook global state
+  const { storyId } = useStorybookState();
 
   if (results.length === 0) {
     return null;
@@ -432,7 +429,7 @@ addons.register("my/design-assets", () => {
 
 ## Next steps
 
-The next logical step for our addon, would be to make it it's own package and allow it to be distributed with your team and possibly with the rest of the community. 
+The next logical step for our addon, would be to make it it's own package and allow it to be distributed with your team and possibly with the rest of the community.
 
 But that's beyond the scope of this tutorial. This example demonstrates how you can use the Storybook API to create your own custom addon to further enchance your development workflow.
 
