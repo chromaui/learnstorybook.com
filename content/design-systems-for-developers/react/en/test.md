@@ -89,7 +89,7 @@ Visual testing helps identify UI changes in Storybook. Review the changes to con
 
 Let’s add visual testing to the continuous integration job. Open `.circleci/config.yml` and add the test command.
 
-```yml
+```yaml
 version: 2
 jobs:
   build:
