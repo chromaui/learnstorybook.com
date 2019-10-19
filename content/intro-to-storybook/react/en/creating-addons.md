@@ -2,7 +2,6 @@
 title: "Creating addons"
 tocTitle: "Creating addons"
 description: "Learn how to build your own addons that will super charge your development"
-commit: "dac373a"
 ---
 
 In the previous chapter we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
@@ -274,7 +273,7 @@ If you take a closer look, you'll see that we're using the `styled` tag, this ta
 
 To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the `addParameter` option to reflect these changes.
 
-Storybook will pick on the change and will load the assets, but for now, only the first one.
+Storybook will pick up on the change and will load the assets, but for now, only the first one.
 
 ![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png) <!--needs to be created-->
 
@@ -288,7 +287,7 @@ Going over our initial objectives:
 
 We're almost there, only one goal remaining.
 
-For the final one, we're going to need some sort of state, we could use React's `useState`, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own `useAddonState`, which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. Also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
+For the final one, we're going to need some sort of state, we could use React's `useState`, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own `useAddonState`, which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
 
 We need to adjust our imports for our needs:
 
@@ -431,11 +430,11 @@ addons.register("my/design-assets", () => {
 
 The next logical step for our addon, would be to make it it's own package and allow it to be distributed with your team and possibly with the rest of the community.
 
-But that's beyond the scope of this tutorial. This example demonstrates how you can use the Storybook API to create your own custom addon to further enchance your development workflow.
+But that's beyond the scope of this tutorial. This example demonstrates how you can use the Storybook API to create your own custom addon to further enhance your development workflow.
 
-Not only what we've accomplished here, but additionally you can also:
+Not only what we've accomplished here, but additionally you can also learn how to further customize your addon:
 
-- [add buttons in the storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
+- [add buttons in the Storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
 - [communicate through the channel with the iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
 - [send commands and results](https://github.com/storybookjs/storybook/tree/next/addons/events)
 - [perform analysis on the html/css outputted by your component](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
@@ -449,9 +448,9 @@ And much more!
 
 ### Dev kits
 
-To help you jumpstart the addon development, the Storybook teams has developed some `dev-kits`.
+To help you jumpstart the addon development, the Storybook team has developed some `dev-kits`.
 
-These packages work like little starter-sets, for you to start developing your own custom addons.
+These packages are starter-kits to help you start building your own addons.
 The addon we've just finished creating is based on one of those starter-sets, more specifically the `addon-parameters` dev-kit.
 
 You can find this one and others here:
