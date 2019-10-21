@@ -18,7 +18,7 @@ We could write forever about configuring and using addons for all of your partic
 
 ## Setting Up Knobs
 
-Knobs is an amazing resource for designers and developers to experiment and play with components in a controlled environment without the need to code! You essentially provide dynamically defined fields with which a user manipulates the props being passed to the components in yours stories. Here's what we're going to implement...
+Knobs is an amazing resource for designers and developers to experiment and play with components in a controlled environment without the need to code! You essentially provide dynamically defined fields with which a user manipulates the props being passed to the components in your stories. Here's what we're going to implement...
 
 <video autoPlay muted playsInline loop>
   <source
