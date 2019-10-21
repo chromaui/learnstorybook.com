@@ -1,7 +1,7 @@
 ---
-title: "開始吧"
-tocTitle: "從頭開始"
-description: "在你的開發環境下, 設定 React Storybook "
+title: '開始吧'
+tocTitle: '從頭開始'
+description: '在你的開發環境下, 設定 React Storybook '
 commit: ebe2ae2
 ---
 

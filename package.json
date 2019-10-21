@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Tom Coleman <tom@hichroma.com>, Dominic Nguyen <dom@hichroma.com>",
   "dependencies": {
-    "@storybook/design-system": "^1.1.6",
+    "@storybook/design-system": "^1.1.7",
     "formik": "^1.5.7",
     "gatsby": "^2.7.1",
     "gatsby-plugin-layout": "^1.0.15",
@@ -40,6 +40,17 @@
     "storybook": "start-storybook -s ./static -p 6006",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@storybook/addon-a11y": "^5.1.1",
@@ -59,6 +70,8 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.7.0",
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.2",
     "prettier": "^1.17.1",
     "prettier-eslint": "^8.8.2",
     "prettier-eslint-cli": "^4.7.1",

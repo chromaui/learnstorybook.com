@@ -1,7 +1,7 @@
 ---
-title: "Construye un componente simple"
-tocTitle: "Componente Simple"
-description: "Construye un componente simple en aislamiento"
+title: 'Construye un componente simple'
+tocTitle: 'Componente Simple'
+description: 'Construye un componente simple en aislamiento'
 commit: 1a14919
 ---
 
@@ -13,8 +13,8 @@ Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Componen
 
 `TaskComponent` (o Tarea) es el componente principal de nuestra aplicación. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o sin marcar), información sobre la tarea y un botón “pin” que nos permite fijar dicha tarea en la parte superior de la lista. Con estas especificaciones en mente, necesitaremos las siguientes propiedades propiedades (props):
 
-* `title` – una cadena de caracteres que describe la tarea
-* `state` - ¿en qué lista se encuentra la tarea actualmente? y, ¿está marcado el checkbox?
+- `title` – una cadena de caracteres que describe la tarea
+- `state` - ¿en qué lista se encuentra la tarea actualmente? y, ¿está marcado el checkbox?
 
 Para construir nuestro `TaskComponent`, primero escribiremos tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizaremos Storybook para construir el componente en aislamiento utilizando únicamente datos de prueba. Vamos a “testear visualmente” la apariencia del componente dependiendo de cada estado.
 
@@ -75,7 +75,7 @@ storiesOf('Task', module)
   .addDecorator(
     moduleMetadata({
       declarations: [TaskComponent],
-    }),
+    })
   )
   .add('default', () => {
     return {
@@ -111,10 +111,10 @@ storiesOf('Task', module)
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Puedes pensar en cada historia como una permutación del componente (todos lo estados posibles que puede tener, basándose en las las entradas que se le pueden proporcionar). Puedes crear tantas historias por componente como sean necesarias.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 Para iniciar Storybook, primero invocamos a la función `storiesOf()` que registra el componente. Agregamos un nombre para el componente que se muestra en la barra lateral de la aplicación Storybook.
 
@@ -210,9 +210,9 @@ import { Task } from './task.model';
       </div>
 
       <div class="actions">
-          <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-            <span class="icon-star"></span>
-          </a>
+        <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
+          <span class="icon-star"></span>
+        </a>
       </div>
     </div>
   `,
@@ -286,9 +286,7 @@ Luego crea un archivo `src/storybook.test.ts` con el siguiente contenido:
 
 ```typescript
 import * as path from 'path';
-import initStoryshots, {
-  multiSnapshotWithOptions,
-} from '@storybook/addon-storyshots';
+import initStoryshots, { multiSnapshotWithOptions } from '@storybook/addon-storyshots';
 
 initStoryshots({
   framework: 'angular',

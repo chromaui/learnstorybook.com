@@ -1,7 +1,7 @@
 ---
-title: "Construção de um componente composto"
-tocTitle: "Componente composto"
-description: "Construção de um componente composto a partir de componentes simples"
+title: 'Construção de um componente composto'
+tocTitle: 'Componente composto'
+description: 'Construção de um componente composto a partir de componentes simples'
 ---
 
 No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
@@ -20,7 +20,7 @@ Visto que os dados para a `Task` podem ser enviados de forma assíncrona, **irá
 
 ## Preparação
 
-Um componente composto não é em nada diferente do componente básico contido dentro deste. Comece por criar um componente `TaskList` e o ficheiro estória que o acompanha em: 
+Um componente composto não é em nada diferente do componente básico contido dentro deste. Comece por criar um componente `TaskList` e o ficheiro estória que o acompanha em:
 `src/components/TaskList.vue` e `src/components/TaskList.stories.js` respetivamente.
 
 Comece por uma implementação em bruto da `TaskList`. Será necessário importar o componente `Task` criado anteriormente e injetar os atributos e as respetivas ações como inputs.
@@ -28,43 +28,48 @@ Comece por uma implementação em bruto da `TaskList`. Será necessário importa
 ```html
 <template>
   <div>
-    <div class="list-items" v-if="loading"> loading </div>
-    <div class="list-items" v-if="noTasks && !this.loading">empty </div>
+    <div class="list-items" v-if="loading">loading</div>
+    <div class="list-items" v-if="noTasks && !this.loading">empty</div>
     <div class="list-items" v-if="showTasks">
-      <task v-for="(task, index) in tasks" :key="index" :task="task"
-        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+      <task
+        v-for="(task, index) in tasks"
+        :key="index"
+        :task="task"
+        @archiveTask="$emit('archiveTask', $event)"
+        @pinTask="$emit('pinTask', $event)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "task-list",
-  props: {
-    loading: {
-      type: Boolean,
-      default: false
+  import Task from './Task';
+  export default {
+    name: 'task-list',
+    props: {
+      loading: {
+        type: Boolean,
+        default: false,
+      },
+      tasks: {
+        type: Array,
+        default() {
+          return [];
+        },
+      },
     },
-    tasks: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  },
-  components: {
-    Task
-  },
-  computed: {
-    noTasks() {
-      return this.tasks.length === 0;
+    components: {
+      Task,
     },
-    showTasks() {
-      return !this.loading && !this.noTasks;
-    }
-  }
-};
+    computed: {
+      noTasks() {
+        return this.tasks.length === 0;
+      },
+      showTasks() {
+        return !this.loading && !this.noTasks;
+      },
+    },
+  };
 </script>
 ```
 
@@ -134,7 +139,7 @@ A função `addDecorator()` permite que seja adicionado algum "contexto" á rend
 </div>
 
 Com a importação da `task` para este ficheiro, está a ser adicionada a forma que uma `Task` assume, isto a partir do ficheiro `Task.stories.js` criado anteriormente.
-Como tal também os `methods` que irão definir quais as ações (através de uma callback simulada) que o componente `Task` se encontra á espera. 
+Como tal também os `methods` que irão definir quais as ações (através de uma callback simulada) que o componente `Task` se encontra á espera.
 
 Estes também necessários á `TaskList`.
 
@@ -157,9 +162,7 @@ O componente ainda se encontra num estado bruto, mas já temos uma ideia de quai
     <div v-if="loading">
       <div class="loading-item" v-for="(n, index) in 5" :key="index">
         <span class="glow-checkbox" />
-        <span class="glow-text">
-          <span>Loading</span> <span>cool</span> <span>state</span>
-        </span>
+        <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
       </div>
     </div>
     <div class="list-items" v-if="noTasks && !this.loading">
@@ -170,46 +173,51 @@ O componente ainda se encontra num estado bruto, mas já temos uma ideia de quai
       </div>
     </div>
     <div class="list-items" v-if="showTasks">
-      <task v-for="(task, index) in tasksInOrder" :key="index" :task="task"
-        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+      <task
+        v-for="(task, index) in tasksInOrder"
+        :key="index"
+        :task="task"
+        @archiveTask="$emit('archiveTask', $event)"
+        @pinTask="$emit('pinTask', $event)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "task-list",
-  props: {
-    loading: {
-      type: Boolean,
-      default: false
+  import Task from './Task';
+  export default {
+    name: 'task-list',
+    props: {
+      loading: {
+        type: Boolean,
+        default: false,
+      },
+      tasks: {
+        type: Array,
+        default() {
+          return [];
+        },
+      },
     },
-    tasks: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  },
-  components: {
-    Task
-  },
-  computed: {
-    noTasks() {
-      return this.tasks.length === 0;
+    components: {
+      Task,
     },
-    showTasks() {
-      return !this.loading && !this.noTasks;
+    computed: {
+      noTasks() {
+        return this.tasks.length === 0;
+      },
+      showTasks() {
+        return !this.loading && !this.noTasks;
+      },
+      tasksInOrder() {
+        return [
+          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
+          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
+        ];
+      },
     },
-    tasksInOrder() {
-      return [
-        ...this.tasks.filter(t => t.state === "TASK_PINNED"),
-        ...this.tasks.filter(t => t.state !== "TASK_PINNED")
-      ];
-    }
-  }
-};
+  };
 </script>
 ```
 
@@ -232,11 +240,11 @@ No capítulo anterior, aprendeu-se a usar o Storyshots para implementar estória
 
 ## Testes unitários com Jest
 
-As estórias criadas com o Storybook em conjunção com os testes visuais manuais e testes de snapshot (tal como mencionado acima) irão prevenir em larga escala problemas futuros no interface de utilizador. Se as estórias definidas abrangerem uma ampla variedade de casos do componente e forem usadas ferramentas que garantam verificações por parte humana, irá resultar num decréscimo de erros. 
+As estórias criadas com o Storybook em conjunção com os testes visuais manuais e testes de snapshot (tal como mencionado acima) irão prevenir em larga escala problemas futuros no interface de utilizador. Se as estórias definidas abrangerem uma ampla variedade de casos do componente e forem usadas ferramentas que garantam verificações por parte humana, irá resultar num decréscimo de erros.
 
-No entanto, por vezes o diabo encontra-se nos detalhes. É necessária uma framework de testes explicita acerca deste tipo de detalhes. O que nos leva aos testes unitários. 
+No entanto, por vezes o diabo encontra-se nos detalhes. É necessária uma framework de testes explicita acerca deste tipo de detalhes. O que nos leva aos testes unitários.
 
-Neste caso pretende-se que o nosso `TaskList` faça a renderização de quaisquer tarefas que foram confirmadas **antes** das não confirmadas que são fornecidas ao adereço (prop) `tasks`. 
+Neste caso pretende-se que o nosso `TaskList` faça a renderização de quaisquer tarefas que foram confirmadas **antes** das não confirmadas que são fornecidas ao adereço (prop) `tasks`.
 Apesar de existir uma estória (`withPinnedTasks`) que testa este cenário em particular; este poderá levar a alguma ambiguidade da parte humana, ou seja se o componente **parar** de ordenar as tarefas desta forma, logo existe um problema. Mas ao olho destreinado não irá gritar **"Erro!"**.
 
 De forma a evitar este problema em concreto, podemos usar o Jest, de forma que este renderize a estória na DOM e efetue pesquisas de forma a verificar o output.
@@ -262,6 +270,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![Execução de testes da TaskList](/intro-to-storybook/tasklist-testrunner.png)
 
-Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasks` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente (os exemplos que representam configurações de um componente) de cada vez mais formas. 
+Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasks` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente (os exemplos que representam configurações de um componente) de cada vez mais formas.
 
 Mas também que este teste é algo frágil. É possível que á medida que o projeto amadurece, a implementação concreta do componente `Task` seja alterada --isto quer pelo uso de uma classe com um nome diferente, por exemplo-- com isto, este teste específico irá falhar e será necessária uma atualização. Isto não é necessariamente um problema, mas um indicador para ser cuidadoso no uso liberal de testes unitários para o interface de utilizador. Visto que não são de fácil manutenção. Ao invés deste tipo de testes, é preferível depender de testes visuais, snapshot ou de regressão visual (ver [capitulo de testes](/vue/pt/test/)) sempre que for possível.

@@ -1,7 +1,7 @@
 ---
-title: "Storybook para o Angular tutorial"
-tocTitle: "Introdução"
-description: "Configuração do Angular Storybook no ambiente de desenvolvimento"
+title: 'Storybook para o Angular tutorial'
+tocTitle: 'Introdução'
+description: 'Configuração do Angular Storybook no ambiente de desenvolvimento'
 ---
 
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.

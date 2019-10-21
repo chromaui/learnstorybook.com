@@ -1,7 +1,7 @@
 ---
-title: "Conclusion"
-tocTitle: "Conclusion"
-description: "Thriving design systems save time and increase productivity"
+title: 'Conclusion'
+tocTitle: 'Conclusion'
+description: 'Thriving design systems save time and increase productivity'
 ---
 
 Research-backed studies suggest reusing code can yield [42–81% time savings](https://www.researchgate.net/publication/3188437_Evaluating_Software_Reuse_Alternatives_A_Model_and_Its_Application_to_an_Industrial_Case_Study?ev=publicSearchHeader&_sg=g8WraNGZNGPw0R-1-jGpy0XwUDeAr3qb472J6lhisyQ3l24pSmndO6anMdX2L3HdWHifsczPegR9wjA) and boost productivity by [40%](http://www.cin.ufpe.br/~in1045/papers/art03.pdf). It should come as no surprise then that design systems, which facilitate sharing **user interface code**, are surging in popularity amongst developers.

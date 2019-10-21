@@ -1,22 +1,21 @@
 ---
-title: "连线数据"
-tocTitle: "Data"
-description: "了解如何将数据连接到UI组件"
+title: '连线数据'
+tocTitle: 'Data'
+description: '了解如何将数据连接到UI组件'
 commit: 9c50472
 ---
 
-到目前为止,我们创建了孤立的无状态组件 - Storybook很棒,但作用不大,除非我们在应用程序中为他们提供一些数据. 
+到目前为止,我们创建了孤立的无状态组件 - Storybook 很棒,但作用不大,除非我们在应用程序中为他们提供一些数据.
 
-本教程不关注构建应用程序的细节,因此我们不会在此处深入研究这些细节. 但我们将花点时间研究一下 与容器组件 连接数据 的常见模式. 
+本教程不关注构建应用程序的细节,因此我们不会在此处深入研究这些细节. 但我们将花点时间研究一下 与容器组件 连接数据 的常见模式.
 
 ## 容器组件
 
-我们的`TaskList`目前编写的组件是"表现性的" (见[这篇博文](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) 因为它不会与 其自身实现之外 的任何内容交谈. 为了获取数据,我们需要一个"容器". 
+我们的`TaskList`目前编写的组件是"表现性的" (见[这篇博文](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) 因为它不会与 其自身实现之外 的任何内容交谈. 为了获取数据,我们需要一个"容器".
 
-这个例子使用[Redux](https://redux.js.org/),最流行的React库,用于存储数据,为我们的应用程序构建一个简单的数据模型. 但是,此处使用的模式同样适用于其他数据管理库[阿波罗](https://www.apollographql.com/client/)和[MobX](https://mobx.js.org/). 
+这个例子使用[Redux](https://redux.js.org/),最流行的 React 库,用于存储数据,为我们的应用程序构建一个简单的数据模型. 但是,此处使用的模式同样适用于其他数据管理库[阿波罗](https://www.apollographql.com/client/)和[MobX](https://mobx.js.org/).
 
-
-首先,我们将构建一个简单的Redux存储,它在一个`src/lib/redux.js`中定义改变任务状态的操作 (故意保持简单) : 
+首先,我们将构建一个简单的 Redux 存储,它在一个`src/lib/redux.js`中定义改变任务状态的操作 (故意保持简单) :
 
 ```javascript
 // 一个简单的 redux store/actions/reducer 实现。
@@ -38,12 +37,12 @@ function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(
-        task => (task.id === action.id ? { ...task, state: taskState } : task)
+      tasks: state.tasks.map(task =>
+        task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
   };
-};
+}
 
 // reducer描述了 Store 中每个 action 如何改变内容
 
@@ -72,7 +71,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-然后我们将更新默认导出`TaskList`组件连接到Redux存储,并呈现我们感兴趣的任务: 
+然后我们将更新默认导出`TaskList`组件连接到 Redux 存储,并呈现我们感兴趣的任务:
 
 ```javascript
 import React from 'react';
@@ -108,10 +107,9 @@ export default connect(
 )(PureTaskList);
 ```
 
-在这个阶段,我们的 Storybook测试将停止工作,因为`TaskList`现在是一个容器,不再需要任何 props,而是连接到 Store 并设置`PureTaskList`包裹组件的props. 
+在这个阶段,我们的 Storybook 测试将停止工作,因为`TaskList`现在是一个容器,不再需要任何 props,而是连接到 Store 并设置`PureTaskList`包裹组件的 props.
 
-
-但是,我们可以通过简单地渲染`PureTaskList`来轻松解决这个问题 - 我们的 Storybook故事中的表现部分: 
+但是,我们可以通过简单地渲染`PureTaskList`来轻松解决这个问题 - 我们的 Storybook 故事中的表现部分:
 
 ```javascript
 import React from 'react';
@@ -149,7 +147,7 @@ storiesOf('TaskList', module)
   />
 </video>
 
-同样,我们需要使用`PureTaskList`在我们的Jest测试中: 
+同样,我们需要使用`PureTaskList`在我们的 Jest 测试中:
 
 ```js
 import React from 'react';

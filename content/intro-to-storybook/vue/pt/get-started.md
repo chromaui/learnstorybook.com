@@ -1,7 +1,7 @@
 ---
-title: "Storybook para o Vue tutorial"
-tocTitle: "Introdução"
-description: "Configuração do Vue Storybook no ambiente de desenvolvimento"
+title: 'Storybook para o Vue tutorial'
+tocTitle: 'Introdução'
+description: 'Configuração do Vue Storybook no ambiente de desenvolvimento'
 ---
 
 Storybook funciona em paralelo à aplicação em modo de desenvolvimento.
@@ -57,7 +57,7 @@ O CSS compilado encontra-se disponível [aqui](https://github.com/chromaui/learn
 
 ```html
 <style>
-  @import "./index.css";
+  @import './index.css';
 </style>
 ```
 

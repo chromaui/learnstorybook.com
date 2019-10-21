@@ -20,6 +20,7 @@ We have our goal, now let's define what features our addon will support:
 - Support images, but also urls for embedding
 - Should support multiple assets, just in case there will be multiple versions or themes
 
+
 The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/configurations/options-parameter/), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
 
 <!-- this is probably not needed as it's used below-->
@@ -141,6 +142,7 @@ const Content = () => {
 };
 ```
 
+
 We've created the component, modified the imports, all that's missing is to connect the component to our panel and we'll have a working addon capable of displaying information relative to our stories.
 
 Your code should look like the following:
@@ -183,6 +185,7 @@ addons.register("my/design-assets", () => {
 
 Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `addParameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
 
+
 ### Using our addon with a story
 
 We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
@@ -207,9 +210,11 @@ Go ahead and restart your Storybook and select the Task story, you should see so
 
 ![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
+
 ### Showing the actual assets
 
 At this stage we can see that the addon is working as it should our stories, but now let's change the `Content` component to actually display the assets:
+
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -221,7 +226,7 @@ import { styled } from "@storybook/theming";
 
 const getUrl = input => {
   return typeof input === "string" ? input : input.url;
-};
+
 
 const Iframe = styled.iframe({
   width: "100%",
@@ -264,6 +269,7 @@ export const Content = () => {
       <Asset url={url} />
     </Fragment>
   );
+
 };
 ```
 
@@ -281,9 +287,11 @@ Storybook will pick up on the change and will load the assets, but for now, only
 
 Going over our initial objectives:
 
+
 - ✔️ Display the design asset in a panel
 - ✔️ Support images, but also urls for embedding
 - ❌ Should support multiple assets, just in case there will be multiple versions or themes
+
 
 We're almost there, only one goal remaining.
 
@@ -320,7 +328,6 @@ export const Content = () => {
   }
 
   const url = getUrl(results[selected]).replace("{id}", storyId);
-
   return (
     <Fragment>
       <Asset url={url} />
@@ -380,6 +387,8 @@ const Asset = ({ url }) => {
   return <Iframe title={url} src={url} />;
 };
 
+
+
 export const Content = () => {
   const results = useParameter("assets", []); // story's parameter being retrieved here
   const [selected, setSelected] = useAddonState("my/design-assets", 0); // addon state being persisted here
@@ -434,6 +443,7 @@ But that's beyond the scope of this tutorial. This example demonstrates how you 
 
 Learn how to further customize your addon:
 
+
 - [add buttons in the Storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
 - [communicate through the channel with the iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
 - [send commands and results](https://github.com/storybookjs/storybook/tree/next/addons/events)
@@ -447,6 +457,7 @@ And much more!
 <div class="aside">Should you create a new addon and you're interested in having it featured, feel free to open a PR in the Storybook documentation to have it featured.</div>
 
 ### Dev kits
+
 
 To help you jumpstart the addon development, the Storybook team has developed some `dev-kits`.
 

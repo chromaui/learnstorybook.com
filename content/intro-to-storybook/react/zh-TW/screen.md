@@ -1,7 +1,7 @@
 ---
-title: "構建一個頁面"
-tocTitle: "頁面"
-description: "用元件構建一個頁面"
+title: '構建一個頁面'
+tocTitle: '頁面'
+description: '用元件構建一個頁面'
 commit: e56e345
 ---
 
@@ -14,11 +14,11 @@ commit: e56e345
 由於我們的應用程式非常簡單,我們將構建的頁面非常簡單,只需簡單地包裝`TaskList`元件 (通過 Redux 提供自己的資料) 在某些佈局中並拉出 redux 中頂層`error`的欄位 (假設我們在連線到 伺服器時遇到問題,我們將設定該欄位) . 建立`InboxScreen.js`在你的`components`夾:
 
 ```javascript
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-import TaskList from "./TaskList";
+import TaskList from './TaskList';
 
 export function PureInboxScreen({ error }) {
   if (error) {
@@ -46,11 +46,11 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
-  error: PropTypes.string
+  error: PropTypes.string,
 };
 
 PureInboxScreen.defaultProps = {
-  error: null
+  error: null,
 };
 
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
@@ -59,11 +59,11 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 我們也改變了`App`,用於渲染的元件`InboxScreen` (最終我們會使用路由器來選擇正確的頁面,但不要在此擔心) :
 
 ```javascript
-import React, { Component } from "react";
-import { Provider } from "react-redux";
-import store from "./lib/redux";
+import React, { Component } from 'react';
+import { Provider } from 'react-redux';
+import store from './lib/redux';
 
-import InboxScreen from "./components/InboxScreen";
+import InboxScreen from './components/InboxScreen';
 
 class App extends Component {
   render() {
@@ -87,14 +87,14 @@ export default App;
 但是,對於`PureInboxScreen`我們有一個問題,因為雖然`PureInboxScreen`本身是表現性的,它的孩子,`TaskList`, 不是. 從某種意義上說`PureInboxScreen`被"容器"汙染了. 所以,當我們設定我們的故事`InboxScreen.stories.js`:
 
 ```javascript
-import React from "react";
-import { storiesOf } from "@storybook/react";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import { PureInboxScreen } from "./InboxScreen";
+import { PureInboxScreen } from './InboxScreen';
 
-storiesOf("InboxScreen", module)
-  .add("default", () => <PureInboxScreen />)
-  .add("error", () => <PureInboxScreen error="Something" />);
+storiesOf('InboxScreen', module)
+  .add('default', () => <PureInboxScreen />)
+  .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
 我們看到了雖然如此`error`故事工作得很好,我們`default`故事有一個問題,因為`TaskList`沒有要連線的 Redux Store . (在嘗試測試時,您也會遇到類似的問題`PureInboxScreen`用單元測試) .
@@ -114,29 +114,29 @@ storiesOf("InboxScreen", module)
 好訊息是 Redux Store 很容易提供給 一個`InboxScreen`故事! 我們可以使用 Redux Store 的模擬版本 提供給到裝飾器中:
 
 ```javascript
-import React from "react";
-import { storiesOf } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import { Provider } from "react-redux";
+import React from 'react';
+import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
+import { Provider } from 'react-redux';
 
-import { PureInboxScreen } from "./InboxScreen";
-import { defaultTasks } from "./TaskList.stories";
+import { PureInboxScreen } from './InboxScreen';
+import { defaultTasks } from './TaskList.stories';
 
 // A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasks
+      tasks: defaultTasks,
     };
   },
   subscribe: () => 0,
-  dispatch: action("dispatch")
+  dispatch: action('dispatch'),
 };
 
-storiesOf("InboxScreen", module)
+storiesOf('InboxScreen', module)
   .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add("default", () => <PureInboxScreen />)
-  .add("error", () => <PureInboxScreen error="Something" />);
+  .add('default', () => <PureInboxScreen />)
+  .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
 存在類似的方法來為其他資料庫提供模擬的上下文,例如[阿波羅](https://www.npmjs.com/package/apollo-storybook-decorator),[Relay](https://github.com/orta/react-storybooks-relay-container)和別的.

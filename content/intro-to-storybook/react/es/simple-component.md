@@ -1,7 +1,7 @@
 ---
-title: "Construye un componente simple"
-tocTitle: "Componente Simple"
-description: "Construye un componente simple en aislamiento"
+title: 'Construye un componente simple'
+tocTitle: 'Componente Simple'
+description: 'Construye un componente simple en aislamiento'
 commit: 403f19a
 ---
 
@@ -13,8 +13,8 @@ Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Devel
 
 `Task` (o Tarea) es el componente principal en nuestra app. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o no marcado), información sobre la tarea y un botón “pin” que nos permite mover la tarea hacia arriba o abajo en la lista de tareas. Poniendo esto en conjunto, necesitaremos estas propiedades -props- :
 
-* `title` – un string que describe la tarea
-* `state` - ¿en qué lista se encuentra la tarea actualmente y está marcado el checkbox?
+- `title` – un string que describe la tarea
+- `state` - ¿en qué lista se encuentra la tarea actualmente y está marcado el checkbox?
 
 A medida que comencemos a construir `Task`, primero escribiremos nuestros tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
@@ -69,10 +69,10 @@ storiesOf('Task', module)
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Piensa en cada historia como una permutación posible del componente. Puedes tener tantas historias por componente como se necesite.
 
-* **Componente**
-  * Historia
-  * Historia
-  * Historia
+- **Componente**
+  - Historia
+  - Historia
+  - Historia
 
 Para iniciar Storybook, primero invocamos a la función `storiesOf()` para registrar el componente. Agregamos un nombre para mostrar el componente, que se muestra en la barra lateral de la aplicación Storybook.
 
@@ -187,7 +187,7 @@ Task.propTypes = {
 };
 ```
 
-Ahora aparecerá una advertencia en modo desarrollo si el componente Task  se utiliza incorrectamente.
+Ahora aparecerá una advertencia en modo desarrollo si el componente Task se utiliza incorrectamente.
 
 <div class="aside">
 Una forma alternativa de lograr el mismo propósito es utilizando un sistema de tipos de JavaScript como TypeScript, para crear un tipo para las propiedades del componente.

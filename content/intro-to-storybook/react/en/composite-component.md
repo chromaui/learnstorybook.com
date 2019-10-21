@@ -1,7 +1,7 @@
 ---
-title: "Assemble a composite component"
-tocTitle: "Composite component"
-description: "Assemble a composite component out of simpler components"
+title: 'Assemble a composite component'
+tocTitle: 'Composite component'
+description: 'Assemble a composite component out of simpler components'
 commit: '8db511e'
 ---
 
@@ -46,7 +46,9 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => <Task key={task.id} task={task} {...events} />)}
+      {tasks.map(task => (
+        <Task key={task.id} task={task} {...events} />
+      ))}
     </div>
   );
 }
@@ -162,7 +164,9 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => <Task key={task.id} task={task} {...events} />)}
+      {tasksInOrder.map(task => (
+        <Task key={task.id} task={task} {...events} />
+      ))}
     </div>
   );
 }

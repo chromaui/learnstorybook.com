@@ -1,7 +1,7 @@
 ---
-title: "Build a simple component"
-tocTitle: "Simple component"
-description: "Build a simple component in isolation"
+title: 'Build a simple component'
+tocTitle: 'Simple component'
+description: 'Build a simple component in isolation'
 commit: b2274bd
 ---
 
@@ -13,8 +13,8 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 `Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
-* `title` – a string describing the task
-* `state` - which list is the task currently in and is it checked off?
+- `title` – a string describing the task
+- `state` - which list is the task currently in and is it checked off?
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
@@ -30,19 +30,19 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 <template>
   <div class="list-item">
     <input type="text" :readonly="true" :value="this.task.title" />
-  </div>  
+  </div>
 </template>
 
 <script>
-export default {
-  name: "task",
-  props: {
-    task: {
-      type: Object,
-      required: true
-    }
-  }
-};
+  export default {
+    name: 'task',
+    props: {
+      task: {
+        type: Object,
+        required: true,
+      },
+    },
+  };
 </script>
 ```
 
@@ -97,10 +97,10 @@ storiesOf('Task', module)
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
 
@@ -154,43 +154,38 @@ The component is still basic at the moment. First write the code that achieves t
 <template>
   <div :class="taskClass">
     <label class="checkbox">
-      <input
-        type="checkbox"
-        :checked="isChecked"
-        :disabled="true"
-        name="checked"
-      />
-      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)"/>
+      <input type="checkbox" :checked="isChecked" :disabled="true" name="checked" />
+      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)" />
     </label>
     <div class="title">
       <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
     </div>
     <div class="actions">
       <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
-        <span class="icon-star"/>
+        <span class="icon-star" />
       </a>
     </div>
-  </div>  
+  </div>
 </template>
 
 <script>
-export default {
-  name: "task",
-  props: {
-    task: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    taskClass() {
-      return `list-item ${this.task.state}`;
+  export default {
+    name: 'task',
+    props: {
+      task: {
+        type: Object,
+        required: true,
+      },
     },
-    isChecked() {
-      return this.task.state === "TASK_ARCHIVED";
-    }
-  }
-};
+    computed: {
+      taskClass() {
+        return `list-item ${this.task.state}`;
+      },
+      isChecked() {
+        return this.task.state === 'TASK_ARCHIVED';
+      },
+    },
+  };
 </script>
 ```
 

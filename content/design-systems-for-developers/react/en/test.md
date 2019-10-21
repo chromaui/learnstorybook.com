@@ -1,7 +1,7 @@
 ---
-title: "Test to maintain quality"
-tocTitle: "Test"
-description: "How to test design system appearance, functionality, and accessibility"
+title: 'Test to maintain quality'
+tocTitle: 'Test'
+description: 'How to test design system appearance, functionality, and accessibility'
 commit: 5b71208
 ---
 
@@ -68,9 +68,9 @@ Chromatic captured a baseline image of every story! Subsequent test runs will ca
 export const typography = {
   // ...
   size: {
-    s1: "13"
+    s1: '13',
     // ...
-  }
+  },
 };
 // ...
 ```
@@ -89,32 +89,32 @@ Visual testing helps identify UI changes in Storybook. Review the changes to con
 
 Let’s add visual testing to the continuous integration job. Open `.circleci/config.yml` and add the test command.
 
-```yml
+```yaml
 version: 2
 jobs:
- build:
-   docker:
-     - image: circleci/node:8.10.0
+  build:
+    docker:
+      - image: circleci/node:8.10.0
 
-   working_directory: ~/repo
+    working_directory: ~/repo
 
-   steps:
-     - checkout
+    steps:
+      - checkout
 
-     - restore_cache:
-         keys:
-           - v1-dependencies-{{ checksum "package.json" }}
-           - v1-dependencies-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
 
-     - run: yarn install
+      - run: yarn install
 
-     - save_cache:
-         paths:
-           - node_modules
-         key: v1-dependencies-{{ checksum "package.json" }}
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
-     - run: yarn test
-     - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
+      - run: yarn test
+      - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
 ```
 
 Save and `git commit`. Congratulations you just set up visual testing in CI!
@@ -136,16 +136,16 @@ Visually, it isn’t possible to see if the `href` attribute is there and points
 Let’s add a unit test for our `Link` component. create-react-app has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
 
 ```javascript
-import React from "react";
-import ReactDOM from "react-dom";
-import { Link } from "./Link";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Link } from './Link';
 
 // A straightforward link wrapper that renders an <a> with the passed props. What we are testing
 // here is that the Link component passes the right props to the wrapper and itselfs
 const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
-it("has a href attribute when rendering with linkWrapper", () => {
-  const div = document.createElement("div");
+it('has a href attribute when rendering with linkWrapper', () => {
+  const div = document.createElement('div');
   ReactDOM.render(
     <Link href="https://learnstorybook.com" LinkWrapper={LinkWrapper}>
       Link Text
@@ -153,10 +153,8 @@ it("has a href attribute when rendering with linkWrapper", () => {
     div
   );
 
-  expect(
-    div.querySelector('a[href="https://learnstorybook.com"]')
-  ).not.toBeNull();
-  expect(div.textContent).toEqual("Link Text");
+  expect(div.querySelector('a[href="https://learnstorybook.com"]')).not.toBeNull();
+  expect(div.textContent).toEqual('Link Text');
 
   ReactDOM.unmountComponentAtNode(div);
 });
@@ -192,22 +190,22 @@ yarn add --dev @storybook/addon-a11y
 Register the addon in `.storybook/addons.js`:
 
 ```javascript
-import "@storybook/addon-actions/register";
-import "@storybook/addon-links/register";
-import "@storybook/addon-storysource/register";
-import "@storybook/addon-knobs/register";
-import "@storybook/addon-a11y/register";
+import '@storybook/addon-actions/register';
+import '@storybook/addon-links/register';
+import '@storybook/addon-storysource/register';
+import '@storybook/addon-knobs/register';
+import '@storybook/addon-a11y/register';
 ```
 
 And add the `withA11y` decorator to our `.storybook/config.js`:
 
 ```javascript
-import React from "react";
-import { configure, addDecorator } from "@storybook/react";
-import { withA11y } from "@storybook/addon-a11y";
-import "storybook-chromatic";
+import React from 'react';
+import { configure, addDecorator } from '@storybook/react';
+import { withA11y } from '@storybook/addon-a11y';
+import 'storybook-chromatic';
 
-import { GlobalStyle } from "../src/components/shared/global";
+import { GlobalStyle } from '../src/components/shared/global';
 
 addDecorator(withA11y);
 addDecorator(story => (
@@ -218,7 +216,7 @@ addDecorator(story => (
 ));
 
 // automatically import all files ending in \*.stories.js
-configure(require.context("../src", true, /\.stories\.js\$/), module);
+configure(require.context('../src', true, /\.stories\.js\$/), module);
 ```
 
 Once installed, you’ll see a new “Accessibility” tab in the Storybook addons panel.
