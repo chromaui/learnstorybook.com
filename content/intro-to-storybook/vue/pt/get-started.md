@@ -5,7 +5,7 @@ description: 'Configuração do Vue Storybook no ambiente de desenvolvimento'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.  
-Ele te ajuda a construir seus componentes de UI de forma isolada da sua lógica de negócio e do contexto de sua aplicação.
+Ajuda-o a construir componentes de interface de utilizador (UI na forma original) isolados da lógica de negócio e do contexto da aplicação.
 Esta edição de Aprenda Storybook é destinada para o Vue.
 Existem outras edições para [React](/react/pt/get-started)e para [Angular](/angular/pt/get-started).
 
