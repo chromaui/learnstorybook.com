@@ -1,4 +1,5 @@
 version: 2
+
 jobs:
   build:
     docker:
@@ -8,21 +9,15 @@ jobs:
 
     steps:
       - checkout
-
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-
-      - run: yarn install
-
+      - run: yarn
       - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn lint
-
-      - run: yarn build # we need to do this to prebuild some babel stuff
-      - run: yarn build-storybook
-      - run: yarn chromatic --storybook-build-dir storybook-static --exit-zero-on-changes
+      - run: yarn build

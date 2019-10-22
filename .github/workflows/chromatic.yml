@@ -1,0 +1,18 @@
+name: "Chromatic"
+on:
+  pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - run: yarn
+    - run: yarn gatsby telemetry --disable
+    - run: yarn build
+    - run: yarn build-storybook
+    - uses: chromaui/action@releases/v1
+      with:
+        appCode: 92d6oc1qsrc
+        token: ${{ secrets.GITHUB_TOKEN }}
+        storybookBuildDir: storybook-static
