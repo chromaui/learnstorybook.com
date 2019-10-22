@@ -14,4 +14,4 @@ jobs:
       with:
         appCode: 92d6oc1qsrc
         token: ${{ secrets.GITHUB_TOKEN }}
-        storybookBuildDir: static
+        storybookBuildDir: ./static

@@ -167,6 +167,7 @@ Guide.propTypes = {
             src: PropTypes.string.isRequired,
           }).isRequired
         ),
+        contributors: PropTypes.arrayOf(PropTypes.any),
         contributorCount: PropTypes.string,
         coverImagePath: PropTypes.string,
         description: PropTypes.string.isRequired,
@@ -177,6 +178,10 @@ Guide.propTypes = {
         title: PropTypes.string.isRequired,
         overview: PropTypes.string.isRequired,
       }).isRequired,
+      fields: PropTypes.shape({
+        guide: PropTypes.any,
+        permalink: PropTypes.any,
+      }),
     }).isRequired,
     pages: PropTypes.shape({
       edges: PropTypes.arrayOf(
@@ -197,6 +202,7 @@ Guide.propTypes = {
         title: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
+    translationPages: PropTypes.arrayOf(PropTypes.any).isRequired,
   }).isRequired,
 };
 
