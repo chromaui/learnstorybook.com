@@ -10,3 +10,4 @@ yarn-error.log
 
 # Only allow yarn.lock
 package-lock.json
+storybook-static
