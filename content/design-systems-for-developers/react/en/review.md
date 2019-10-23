@@ -19,38 +19,29 @@ Bugs are an existential risk for design systems so we’ll do everything to prev
 
 Continuous integration is the defacto way to maintain modern web apps. It allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
 
-We’re using CircleCI here, which is free for our modest usage. The same principles apply to other CI services as well.
+We’re using GitHub actions here, which is free for our modest usage. The same principles apply to other CI services as well.
 
-First, sign up for CircleCI if you haven’t already. Once there, you’ll see an “add projects” tab where you can set up the design system project like so.
+Add a `.github` directory at the top level and a `workflows` directory within that. Then create a `test.yml` file inside of it. This will allow us to script how our CI process behaves.
 
-![Adding a project on CircleCI](/design-systems-for-developers/circleci-add-project.png)
-
-Add a `.circleci` directory at the top level and create a config.yml file inside of it. This will allow us to script how our CI process behaves. We can simply add the default file that Circle suggests for Node for now:
+Add this to the `test.yml` file:
 
 ```yaml
-version: 2
+name: "Test"
+on:
+  push
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node:8.10.0
-    working_directory: ~/repo
+  test:
+    runs-on: ubuntu-latest
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn test
+    - uses: actions/checkout@v1
+    - run: yarn install
+    - run: yarn test
 ```
 
-At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. Let’s check that it runs on Circle:
+At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. When we commit this GitHub will run the test for us and report in the :
 
-![First build on CircleCI](/design-systems-for-developers/circleci-first-build.png)
+{ insert image of First build on GitHub }
 
 Note that our build failed as we currently don't have any tests defined for our project. That's OK, we'll add some soon, for now let's keep moving.
 

@@ -87,34 +87,23 @@ Yikes! That small tweak resulted in a flood of UI changes.
 
 Visual testing helps identify UI changes in Storybook. Review the changes to confirm whether they’re intentional (improvements) or unintentional (bugs). If you’re fond of the new font-size, go ahead and accept the changes and commit to git. Or perhaps the changes are too ostentatious, go ahead and undo them.
 
-Let’s add visual testing to the continuous integration job. Open `.circleci/config.yml` and add the test command.
+Let’s add a second CI job for visual testing. Create `.github/workflows/chromatic.yml` and set it's content to:
 
 ```yaml
-version: 2
+name: "Test"
+on:
+  push
+
 jobs:
-  build:
-    docker:
-      - image: circleci/node:8.10.0
-
-    working_directory: ~/repo
-
+  test:
+    runs-on: ubuntu-latest
     steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: yarn install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: yarn test
-      - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
+    - uses: actions/checkout@v1
+    - run: yarn install
+    - uses: chromaui/action@releases/v1
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        appCode: <appcode>
 ```
 
 Save and `git commit`. Congratulations you just set up visual testing in CI!
@@ -164,7 +153,7 @@ We can run the above unit test as part of our `yarn test` command.
 
 ![Running a single Jest test](/design-systems-for-developers/jest-test.png)
 
-Earlier we configured our Circle config.js file to run `yarn test` on every commit. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
+Earlier we configured our test workflow to run `yarn test` on every commit. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
 
 ![Successful circle build](/design-systems-for-developers/circleci-successful-build.png)
 
