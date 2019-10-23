@@ -41,7 +41,7 @@ jobs:
 
 At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. When we commit this GitHub will run the test for us and report in the :
 
-{ insert image of First build on GitHub }
+![First run of the github action](/design-systems-for-developers/github-first-action-run.png)
 
 Note that our build failed as we currently don't have any tests defined for our project. That's OK, we'll add some soon, for now let's keep moving.
 
