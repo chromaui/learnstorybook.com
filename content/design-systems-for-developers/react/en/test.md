@@ -87,7 +87,7 @@ Yikes! That small tweak resulted in a flood of UI changes.
 
 Visual testing helps identify UI changes in Storybook. Review the changes to confirm whether they’re intentional (improvements) or unintentional (bugs). If you’re fond of the new font-size, go ahead and accept the changes and commit to git. Or perhaps the changes are too ostentatious, go ahead and undo them.
 
-Let’s add a second CI job for visual testing. Create `.github/workflows/chromatic.yml` and set it's content to:
+Let’s add a second CI job for visual testing. Create `.github/workflows/chromatic.yml` and set its content to:
 
 ```yaml
 name: "Test"
