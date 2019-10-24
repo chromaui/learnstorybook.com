@@ -12,6 +12,7 @@ import Hero from './Hero';
 import TableOfContents from './TableOfContents';
 import { guideFormatting } from '../../../styles/formatting';
 import tocEntries from '../../../lib/tocEntries';
+import getLanguageName from '../../../lib/getLanguageName';
 
 const { breakpoint, color, pageMargins, typography } = styles;
 
@@ -73,7 +74,7 @@ const getTranslationLanguages = translationPages =>
     new Set()
   );
 
-const Guide = ({ data }) => {
+const Guide = ({ data, pageContext }) => {
   const {
     currentPage: {
       html,
@@ -96,9 +97,15 @@ const Guide = ({ data }) => {
     site: { siteMetadata },
     translationPages,
   } = data;
+  const { slug } = pageContext;
   const entries = toc && toc.length > 0 ? tocEntries(toc, pages) : [];
-  const languages = Array.from(getTranslationLanguages(translationPages));
-
+  const languages = Array.from(getTranslationLanguages(translationPages)).map(language => ({
+    name: getLanguageName(language),
+    tutorial:
+      slug === '/intro-to-storybook/'
+        ? `${slug}react/${language}/get-started/`
+        : `${slug}react/${language}/introduction/`,
+  }));
   return (
     <>
       <Helmet>
@@ -202,8 +209,22 @@ Guide.propTypes = {
         title: PropTypes.string.isRequired,
       }).isRequired,
     }).isRequired,
-    translationPages: PropTypes.arrayOf(PropTypes.any).isRequired,
+    translationPages: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            fields: PropTypes.shape({
+              language: PropTypes.string,
+              slug: PropTypes.string,
+            }),
+          }),
+        })
+      ),
+    }),
   }).isRequired,
+  pageContext: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+  }),
 };
 
 export default Guide;

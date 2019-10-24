@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { Button, styles } from '@storybook/design-system';
+import { rgba } from 'polished';
 import GatsbyLink from '../../basics/GatsbyLink';
 import Stat from '../../basics/Stat';
-import getLanguageName from '../../../lib/getLanguageName';
 import * as animations from '../../../styles/animations';
 
 const { breakpoint, color, pageMargins, spacing, typography } = styles;
@@ -105,6 +105,29 @@ const Languages = styled.div`
 const LanguagesLabel = styled.span`
   font-weight: ${typography.weight.bold};
 `;
+const LanguageLinkStyles = `
+  && {
+    color: ${styles.color.lightest};
+    &:hover {
+      color: ${rgba(styles.color.lightest, 0.5)};
+    }
+    &:visited{
+      color: ${styles.color.lightest};
+    }
+    &:active {
+      color: ${rgba(styles.color.lightest, 1)};
+    }
+   
+    &:not(:last-child):after{
+      content:', ';
+      white-space: pre;
+    }
+  }
+ 
+`;
+const LanguagesLink = styled(GatsbyLink)`
+  ${LanguageLinkStyles}
+`;
 
 const StatWrapper = styled.div`
   margin-top: 32px;
@@ -161,44 +184,44 @@ const Hero = ({
   themeColor,
   title,
   ...rest
-}) => {
-  const languageList = languages.map(language => getLanguageName(language)).join(', ');
+}) => (
+  <HeroWrapper themeColor={themeColor} {...rest}>
+    <HeroContent>
+      <Pitch>
+        <PitchTitle>{title}</PitchTitle>
 
-  return (
-    <HeroWrapper themeColor={themeColor} {...rest}>
-      <HeroContent>
-        <Pitch>
-          <PitchTitle>{title}</PitchTitle>
+        {description && <PitchDescription>{description}</PitchDescription>}
 
-          {description && <PitchDescription>{description}</PitchDescription>}
+        {ctaHref && (
+          <GatsbyLink to={ctaHref}>
+            <GetStartedButton>Get started</GetStartedButton>
+          </GatsbyLink>
+        )}
 
-          {ctaHref && (
-            <GatsbyLink to={ctaHref}>
-              <GetStartedButton>Get started</GetStartedButton>
-            </GatsbyLink>
-          )}
+        {languages.length > 0 && (
+          <Languages>
+            <LanguagesLabel>Languages: </LanguagesLabel>
+            {languages.map(language => (
+              <LanguagesLink key={`lang_link_${language.name}`} to={language.tutorial}>
+                {language.name}
+              </LanguagesLink>
+            ))}
+          </Languages>
+        )}
+        <StatWrapper>
+          {contributorCount && <Stat value={contributorCount} label="Contributors" />}
+          {chapterCount && <Stat value={chapterCount} label="Chapters" />}
+        </StatWrapper>
+      </Pitch>
 
-          {languageList.length > 0 && (
-            <Languages>
-              <LanguagesLabel>Languages: </LanguagesLabel>
-              {languageList}
-            </Languages>
-          )}
-          <StatWrapper>
-            {contributorCount && <Stat value={contributorCount} label="Contributors" />}
-            {chapterCount && <Stat value={chapterCount} label="Chapters" />}
-          </StatWrapper>
-        </Pitch>
-
-        <Figure>
-          {imagePath && (
-            <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
-          )}
-        </Figure>
-      </HeroContent>
-    </HeroWrapper>
-  );
-};
+      <Figure>
+        {imagePath && (
+          <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
+        )}
+      </Figure>
+    </HeroContent>
+  </HeroWrapper>
+);
 
 Hero.propTypes = {
   contributorCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -207,7 +230,12 @@ Hero.propTypes = {
   description: PropTypes.string,
   heroAnimationName: PropTypes.string,
   imagePath: PropTypes.string,
-  languages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  languages: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      tutorial: PropTypes.string,
+    })
+  ).isRequired,
   themeColor: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };
