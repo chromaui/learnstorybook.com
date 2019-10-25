@@ -91,6 +91,9 @@ const props = {
       ],
     },
   },
+  pageContext: {
+    slug: '/intro-to-storybook/',
+  },
 };
 
 storiesOf('Screens|GuideScreen/index', module)
