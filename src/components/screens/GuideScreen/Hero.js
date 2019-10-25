@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { Button, styles } from '@storybook/design-system';
-import { rgba } from 'polished';
 import GatsbyLink from '../../basics/GatsbyLink';
 import Stat from '../../basics/Stat';
 import * as animations from '../../../styles/animations';
@@ -107,17 +106,6 @@ const LanguagesLabel = styled.span`
 `;
 const LanguageLinkStyles = `
   && {
-    color: ${styles.color.lightest};
-    &:hover {
-      color: ${rgba(styles.color.lightest, 0.5)};
-    }
-    &:visited{
-      color: ${styles.color.lightest};
-    }
-    &:active {
-      color: ${rgba(styles.color.lightest, 1)};
-    }
-   
     &:not(:last-child):after{
       content:', ';
       white-space: pre;
@@ -202,7 +190,7 @@ const Hero = ({
           <Languages>
             <LanguagesLabel>Languages: </LanguagesLabel>
             {languages.map(language => (
-              <LanguagesLink key={`lang_link_${language.name}`} to={language.tutorial}>
+              <LanguagesLink inverse key={`lang_link_${language.name}`} to={language.tutorial}>
                 {language.name}
               </LanguagesLink>
             ))}

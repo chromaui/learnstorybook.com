@@ -223,8 +223,8 @@ Guide.propTypes = {
     }),
   }).isRequired,
   pageContext: PropTypes.shape({
-    slug: PropTypes.string,
-  }),
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Guide;
