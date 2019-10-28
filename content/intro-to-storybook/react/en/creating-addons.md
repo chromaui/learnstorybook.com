@@ -176,7 +176,7 @@ addons.register("my/design-assets", () => {
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
-        implement
+        <Content />
       </AddonPanel>
     )
   });
