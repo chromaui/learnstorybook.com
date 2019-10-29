@@ -89,8 +89,6 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 <script>
   import store from './store';
   import InboxScreen from './components/InboxScreen.vue';
-  import '../src/index.css';
-
   export default {
     name: 'app',
     store,
@@ -99,6 +97,9 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
     },
   };
 </script>
+<style>
+  @import "./index.css";
+</style>
 ```
 
 However, where things get interesting is in rendering the story in Storybook.

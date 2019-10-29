@@ -33,7 +33,7 @@ Podemos rapidamente verificar que os vários ecossistemas da nossa aplicação e
 yarn test:unit
 
 # Start the component explorer on port 6006:
-yarn run storybook
+yarn storybook
 
 # Run the frontend app proper on port 8080:
 yarn serve
@@ -45,10 +45,12 @@ yarn serve
 
 Sendo estes os seguintes: testes automáticos (Jest), desenvolvimento de componentes (Storybook) e a aplicação em si.
 
-![3 modalidades](/intro-to-storybook/app-three-modalities.png)
+![3 modalidades](/intro-to-storybook/app-three-modalities-vue.png)
 
 Dependendo de qual parte da aplicação que estamos a trabalhar, podemos querer executar um ou mais simultâneamente.
 Visto que neste caso, o foco é a criação de um componente de interface de utilizador simples, iremos cingir-nos somente á execução de Storybook.
+
+## Reutilizar CSS
 
 A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
 [Tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), como tal não será necessária a criação de CSS neste tutorial.

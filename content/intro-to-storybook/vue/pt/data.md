@@ -70,7 +70,6 @@ Em seguida o componente de topo (`src/App.vue`) vai ser atualizado de forma que 
 <script>
   import store from './store';
   import TaskList from './components/TaskList.vue';
-  import '../src/index.css';
 
   export default {
     name: 'app',
@@ -80,6 +79,9 @@ Em seguida o componente de topo (`src/App.vue`) vai ser atualizado de forma que 
     },
   };
 </script>
+<style>
+  @import "./index.css";
+</style>
 ```
 
 Em seguida é atualizado o componente `Tasklist`, de forma que este receba os dados oriundos da loja.
@@ -211,3 +213,4 @@ it('renders pinned tasks at the start of the list', () => {
   expect(lastTaskInput).not.toBe(null);
 });
 ```
+<div class="aside">Se os testes snapshot falharem, deverá ter que atualizar os snapshots existentes, executando o comando de testes de novo com a flag -u. Ou criar um novo script para lidar esta situação.</div>
