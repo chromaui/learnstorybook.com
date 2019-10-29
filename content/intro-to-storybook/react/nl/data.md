@@ -21,7 +21,7 @@ Voeg een nieuwe dependency aan `package.json` toe met:
 yarn add react-redux redux
 ```
 
-Eerst zullen we een eenvoudige Redux store bouwen die reageert op acties die de status van taken veranderen, in een bestand met de naam `lib/redux.js` in de folder` src` (opzettelijk eenvoudig gehouden):
+Eerst zullen we een eenvoudige Redux store bouwen die reageert op acties die de status van taken veranderen, in een bestand met de naam `lib/redux.js` in de folder`src` (opzettelijk eenvoudig gehouden):
 
 ```javascript
 // src/lib/redux.js

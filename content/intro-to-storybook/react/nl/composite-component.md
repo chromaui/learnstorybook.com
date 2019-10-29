@@ -1,27 +1,28 @@
 ---
-title: 'Bouw een samengestelde component'
+title: 'Bouw een samengesteld component'
 tocTitle: 'Samengestelde component'
-description: 'Bouw een samengestelde component uit simpelere componenten'
+description: 'Bouw een samengesteld component uit eenvoudiger componenten'
 commit: '8db511e'
 ---
 
-In het vorige hoofdstuk hebben we onze eerste component gebouwd; dit hoofdstuk gaat voort op wat we geleerd hebben bij het bouwen van TaskList, een lijst van Tasks. Laten we componenten combineren and zien wat er gebeurt wanneer de graad van complexiteit stijgt.
+In het vorige hoofdstuk hebben we ons eerste component gebouwd; dit hoofdstuk gaat voort op wat we geleerd hebben bij het bouwen van `TaskList`, een lijst van taken. Laten we nu een aantal componenten combineren en zien wat er gebeurt wanneer de complexiteit toeneemt.
 
 ## Tasklist
 
-Taskbox benadrukt gepinde taken door ze boven de standaard taken te plaatsen. Dit resulteert in 2 variaties van `TaskList` waarvoor we stories moeten creëren: standaard taken en gepinde taken.  
+Taskbox benadrukt gepinde taken door ze boven de standaard taken te plaatsen. Dit resulteert in 2 variaties van `TaskList` waarvoor we _stories_ moeten creëren: standaard taken en gepinde taken.
 
 ![standaard en gepinde taken](/intro-to-storybook/tasklist-states-1.png)
 
-Omdat `Task` data asynchroon kan verzonden worden, moeten we **ook** een laadstatus weergeven als er geen verbinding is. Bovendien is een lege status vereist wanneer er geen taken zijn.
+Omdat `Task` data asynchroon verzonden kan worden, moeten we **ook** een laadstatus weergeven als er geen verbinding is. Bovendien is een lege status vereist wanneer er geen taken zijn.
 
 ![lege en ladende taken](/intro-to-storybook/tasklist-states-2.png)
 
 ## Voorbereiding
 
-Een samengestelde component is niet heel verschillend van de basis component die hij omvat. Maak een `TaskList` component en een bijhorend story bestand aan: `src/components/TaskList.js` en `src/components/TaskList.stories.js`. 
+Een samengesteld component is niet heel verschillend van het basis component die het omvat. Maak bestanden voor het `TaskList` component en de bijhorende _stories_ aan: `src/components/TaskList.js` en `src/components/TaskList.stories.js`.
 
 Start met een ruwe implementatie van `TaskList`. Je zal de `Task` component van eerder moeten importeren en de attributen en acties als input doorgeven.
+
 ```javascript
 // src/components/TaskList.js
 
@@ -55,7 +56,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-Maak vervolgens de teststatussen van `TaskList` aan in het story bestand.
+Maak vervolgens de teststatussen van `TaskList` aan in het `stories` bestand.
 
 ```javascript
 // src/components/TaskList.stories.js
@@ -88,10 +89,10 @@ storiesOf('TaskList', module)
   .add('empty', () => <TaskList tasks={[]} {...actions} />);
 ```
 
-`addDecorator()` laat ons toe om "context" toe te voegen aan het renderen van elke taak. In dit geval voegen we padding toe rond de lijst zodat het makkelijker is om deze visueel te verifiëren. 
+`addDecorator()` stelt ons in staat om "context" toe te voegen aan het renderen van elke taak. In dit geval voegen we padding toe rond de lijst zodat het makkelijker is om deze visueel te verifiëren.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> zijn een manier om arbitraire wrappers toe te voegen aan stories. In dit geval gebruiken we een decorator om styling toe te voegen. Ze kunnen ook gebruikt worden om stories te wrappen in "providers" – d.w.z library componenten die een React context instellen.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> zijn een manier om willekeurige wrappers toe te voegen aan _stories_. In dit geval gebruiken we een decorator om styling toe te voegen. Ze kunnen ook gebruikt worden om _stories_ te wrappen in "providers" – d.w.z library componenten die een React context aanmaken.
 </div>
 
 `task` voorziet de vorm van een `Task` die we gemaakt en geëxporteerd hebben van het `Task.stories.js` bestand. Op een gelijkaardige manier definieren `actions` de acties (mocked callbacks) die een `Task` component verwacht, en de `TaskList` ook nodig heeft.
@@ -107,7 +108,7 @@ Controleer nu Storybook voor de nieuwe `TaskList` stories.
 
 ## Statussen uitbouwen
 
-Onze component is nog steeds wat ruw, maar nu hebben we een idee van de stories waar we naartoe willen werken. Mogelijks denk je dat de `.list-items` wrapper te simplistisch is. Je hebt gelijk - in de meeste gevallen zouden we geen nieuwe component aanmaken enkel en alleen om een wrapper toe te voegen. De **echte complexiteit** van de `TaskList` component wordt echter pas duidelijk in de randgevallen `withPinnedTasks`, `loading` en `empty`.  
+Ons component is nog steeds onvolledig, maar nu hebben we een idee van de _stories_ waar we naartoe willen werken. Misschien denk je dat de `.list-items` wrapper te simplistisch is. Dat klopt - in de meeste gevallen zouden we geen nieuw component aanmaken alleen maar om een wrapper toe te voegen. De **echte complexiteit** van de `TaskList` component wordt echter pas zichtbaar in de randgevallen `withPinnedTasks`, `loading` en `empty`.
 
 ```javascript
 // src/components/TaskList.js
@@ -182,11 +183,11 @@ De toegevoegde markup resulteert in de volgende UI:
   />
 </video>
 
-Merk de positie van de gepinde item in de lijst op. We willen de gepinde item bovenaan de lijst renderen teneinde het een prioriteit te maken voor onze gebruikers.
+Merk de positie van de gepinde item in de lijst op. We willen het gepinde item bovenaan de lijst tonen om het een prioriteit te geven voor de gebruiker.
 
 ## Data vereisten en props
 
-Naarmate de component groeit, doen de input vereisten dat ook. Definieer de prop vereisten van `TaskList`. Omdat `Task` een child component is, moeten we verzekeren dat de data in de juiste vorm voorzien wordt om deze te renderen. Om tijd en zorgen te besparen, kunnen we de propTypes herbruiken die je eerder in `Task` gedefinieerd hebt.
+Naarmate het component groeit, doen de input vereisten dat ook. Definieer nu de vereiste _props_ van `TaskList`. Omdat `Task` een child component is, moeten we zeker zijn dat de data in de juiste vorm wordt aangeleverd om deze te renderen. Om tijd en zorgen te besparen, kunnen we de `propTypes` herbruiken die je eerder in `Task` gedefinieerd hebt.
 
 ```javascript
 // src/components/TaskList.js
@@ -217,20 +218,20 @@ export default TaskList;
 
 ## Geautomatiseerde testen
 
-In het vorige hoofdstuk leerden we test stories te snapshotten aan de hand van Storyshots. Voor `Task` was er niet veel complexiteit om te testen behalve om te kijken of dit normaal rendert. Omdat `TaskList` een laag complexiteit toevoegt, willen we verifiëren dat bepaalde inputs zekere outputs teruggeven op een manier die vatbaar is voor geautomatiseerde testen. Om dit mogelijk te maken zullen we unit tests toevoegen aan de hand van [Jest](https://facebook.github.io/jest/) gekoppeld aan een test render zoals [Enzyme](http://airbnb.io/enzyme/). 
+In het vorige hoofdstuk leerden we test _stories_ te _snapshotten_ aan de hand van Storyshots. Voor `Task` was er niet veel complexiteit om te testen behalve om te kijken of dit normaal rendert. Omdat `TaskList` een extra laag complexiteit toevoegt, willen we verifiëren dat bepaalde inputs zekere outputs teruggeven op een manier die gebruikt kan worden voor geautomatiseerde testen. Om dit mogelijk te maken zullen we unit tests toevoegen aan de hand van [Jest](https://facebook.github.io/jest/) gekoppeld aan een test renderer zoals [Enzyme](http://airbnb.io/enzyme/).
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
 ### Unit tests met Jest
 
-Storybook stories gekoppeld met manuele visuele testen en snapshot tests (zie hierboven) zijn een goede manier om UI bugs te vermijden. Als stories een grote varieteit aan component use cases voor hun rekening nemen, en we gebruiken tools om er zeker van te zijn dat een mens een verandering aan een story controleert, zijn fouten minder waarschijnlijk.
+Storybook _stories_ gekoppeld met handmatige visuele testen en snapshot tests (zie hierboven) zijn een goede manier om UI bugs te voorkomen. Als _stories_ een grote diversiteit aan component use cases voor hun rekening nemen, en we gebruiken tools om er zeker van te zijn dat een mens een verandering aan een story controleert, zijn fouten minder waarschijnlijk.
 
-De duivel is echter soms in de details. Een test framework dat expliciet is over deze details is benodigd. Dit brengt ons bij unit tests.
+Het gevaar zit echter in de details. We hebben daarom tests nodig die alle details controleren. Dit brengt ons bij unit tests.
 
-In ons geval, willen we onze `TaskList` elke gepinde taak laten renderen **voor** niet gepinde taken die deze doorgegeven heeft in de `tasks` prop. Ook al hebben we een story (`withPinnedTasks`) om exact dit scenario te testen, kan het dubbelzinnig zijn voor een menselijke reviewer dat indien de component **stopt** met taken op deze manier te sorteren, het een bug is. Voor de normale mens zal dit zeker geen alarmbellen laten afgaan. 
+In ons geval willen we de `TaskList` elke gepinde taak laten renderen **voor** niet gepinde taken die deze doorgegeven heeft in de `tasks` prop. Ook al hebben we een story (`withPinnedTasks`) om exact dit scenario te testen, kan het onduidelijk zijn voor een menselijke reviewer dat indien de component **stopt** met taken op deze manier te sorteren, het een bug is. Voor het menselijk oog zal dit niet opvallen als foutief gedrag.
 
-Teneinde dit probleem te voorkomen, kunnen we Jest gebruiken om de story te renderen naar de DOM en wat DOM querycode uit te voeren om opvallende kenmerken van de output te verifiëren.
+Om dit probleem te voorkomen, kunnen we Jest gebruiken om de story te renderen naar de DOM en wat code uit te voeren om opvallende kenmerken van de output te verifiëren.
 
-Maak een test bestand `src/components/TaskList.test.js` aan. Hier zullen we onze testen outbouwen die assertions nagaan over de output.
+Maak een test bestand `src/components/TaskList.test.js` aan. Hier zullen we onze testen schrijven die de output controleren.
 
 ```javascript
 // src/components/TaskList.test.js
@@ -255,6 +256,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Merk op dat we de `withPinnedTasks` lijst van taken hebben kunnen herbruiken in zowel de story als de unit test; zodanig kunnen we op veel manieren doorgaan met het benutten van een bestaande bron (de voorbeelden die interessante configuraties van een component vertegenwoordigen).
+Merk op dat we de `withPinnedTasks` lijst van taken hebben kunnen herbruiken in zowel de story als de unit test; zo kunnen we doorgaan met het benutten van een bestaande bron, namelijk de voorbeelden die relevante variaties van een component vertegenwoordigen.
 
-Merk ook op dat deze test behoorlijk broos is. Het is mogelijk dat naarmate het project volwassen wordt en de exacte implementatie van de `Task` verandert - misschien door gebruik van een andere klassenaam of een` textarea` in plaats van een `input` - de test mislukt en moet worden bijgewerkt. Dit is niet noodzakelijk een probleem, maar eerder een indicatie om voorzichtig te zijn met het royaal gebruiken van unit-tests voor UI. Ze zijn niet makkelijk te onderhouden. Vertrouw in plaats daarvan waar mogelijk op visuele, snapshot en visuele regressie tests (zie [testhoofdstuk](/test/)).
+Merk ook op dat deze test veel onderhoud vereist. Het is mogelijk dat naarmate het project volwassen wordt en de exacte implementatie van de `Task` verandert - misschien door gebruik van een andere klassenaam of een`textarea` in plaats van een `input` - de test mislukt en moet worden bijgewerkt. Dit is niet noodzakelijk een probleem, maar eerder een indicatie om voorzichtig te zijn met het royaal gebruiken van unit-tests voor UI componenten. Ze zijn niet makkelijk te onderhouden. Vertrouw in plaats daarvan waar mogelijk op snapshot tests en visuele regressie tests (zie [testhoofdstuk](/test/)).

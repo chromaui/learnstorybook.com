@@ -1,11 +1,11 @@
 ---
 title: 'Test UI componenten'
-tocTitle: 'Testing'
+tocTitle: 'Testen'
 description: 'Leer manieren om UI componenten te testen'
 commit: 78a45d1
 ---
 
-Geen Storybook tutorial zou compleet zijn zonder testen. Testen is essentieel voor het maken van UI's van hoge kwaliteit. In modulaire systemen kunnen minuscule tweaks leiden tot grote regressies. Tot nu toe zijn we drie soorten tests tegengekomen:
+Geen Storybook tutorial zou compleet zijn zonder testen. Testen is essentieel voor het maken van UI's van hoge kwaliteit. In modulaire systemen kunnen kleine tweaks leiden tot grote regressies. Tot nu toe zijn we drie soorten tests tegengekomen:
 
 - **Visuele tests** vertrouwen erop dat developers handmatig naar een component kijken om te controleren of deze correct is. Ze helpen ons om het uiterlijk van een component tijdens het bouwen te controleren.
 - **Snapshot tests** met Storyshots leggen de gerenderde markup van een component vast. Ze helpen ons op de hoogte te blijven van markup-wijzigingen die renderfouten en waarschuwingen veroorzaken.
@@ -28,7 +28,7 @@ Visuele regressie tests zijn ontworpen om veranderingen in het uiterlijk te ontd
 
 Storybook is een fantastisch hulpmiddel voor visuele regressie tests, omdat elke story in wezen een testspecificatie is. Elke keer dat we een story schrijven of bijwerken, krijgen we gratis een specificatie!
 
-Er zijn een aantal hulpmiddelen voor visuele regressie tests. Voor professionele teams raden we [**Chromatic**](https://www.chromaticqa.com/) aan, een add-on gemaakt door Storybook-beheerders die tests in de cloud uitvoert.
+Er zijn een aantal hulpmiddelen voor visuele regressie tests. Voor professionele teams raden we [**Chromatic**](https://www.chromaticqa.com/) aan, een add-on gemaakt door de ontwikkelaars van Storybook die tests in de cloud uitvoert.
 
 ## Visuele regressie tests opzetten
 
@@ -51,7 +51,6 @@ $ git commit -m "taskbox UI"
 ### Download Chromatic
 
 Voeg de package toe als dependency.
-
 
 ```bash
 yarn add storybook-chromatic
@@ -100,9 +99,9 @@ Zodra de eerste test is voltooid, hebben we test baselines voor elke story. Met 
 
 ![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)
 
-## Ontdek een UI-wijziging
+## Ontdek een visuele wijziging
 
-Visuele regressie tests zijn afhankelijk van het vergelijken van afbeeldingen van de nieuwe gerenderde UI-code met de baseline afbeeldingen. Als een UI-wijziging wordt ontdekt, wordt je hiervan op de hoogte gebracht. Bekijk hoe het werkt door de background color van de component `Task` aan te passen:
+Visuele regressie tests zijn afhankelijk van het vergelijken van afbeeldingen van de nieuw gerenderde code met eerder genomen afbeeldingen, pixel voor pixel. Als een visuele wijziging wordt ontdekt, wordt je hiervan op de hoogte gebracht. Zie hoe het werkt door de background color van de component `Task` aan te passen:
 
 ![code wijziging](/intro-to-storybook/chromatic-change-to-task-component.png)
 
@@ -128,7 +127,7 @@ Er zijn veel veranderingen! De componenthiërarchie waarbij `Task` een child is 
 
 Visuele regressie tests zorgen ervoor dat componenten niet per ongeluk veranderen. Maar het is nog steeds aan jou om te bepalen of veranderingen opzettelijk zijn of niet.
 
-Als een wijziging opzettelijk is, moet je de baseline bijwerken zodat toekomstige tests worden vergeleken met de nieuwste versie van de story. Als een wijziging onbedoeld is, moet deze worden geccorigeerd.
+Als een wijziging opzettelijk is, moet je de _baseline_ bijwerken zodat toekomstige tests worden vergeleken met de nieuwste versie van de story. Als een wijziging onbedoeld is, moet deze worden gecorrigeerd.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -141,7 +140,7 @@ Aangezien moderne apps zijn opgebouwd uit componenten, is het belangrijk dat we 
 
 ## Wijzigingen mergen
 
-Wanneer we klaar zijn met reviewen, zijn we klaar om UI-wijzigingen met vertrouwen te mergen - wetende dat updates niet per ongeluk bugs zullen introduceren. Als je van de nieuwe `red` achtergrond houdt, accepteer dan de wijzigingen, zo niet, revert naar de vorige state.
+Wanneer we klaar zijn met reviewen, zijn we klaar om UI-wijzigingen met vertrouwen te mergen - wetende dat updates niet per ongeluk bugs zullen introduceren. Als je van de nieuwe `red` achtergrond houdt, accepteer dan de wijzigingen, zo niet, revert naar de vorige versie.
 
 ![Wijzigingen klaar om gemerged te worden](/intro-to-storybook/chromatic-review-finished.png)
 

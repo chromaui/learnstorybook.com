@@ -5,13 +5,12 @@ description: 'Leer hoe je add-ons kunt integreren en gebruiken aan de hand van e
 commit: 'dac373a'
 ---
 
-Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.org/addons/introduction/) waarmee je de developer experience kunt verbeteren voor
-iedereen in je team. Als je deze tutorial lineair hebt gevolgd, hebben we tot nu toe naar meerdere add-ons verwezen en je zal er al een geïmplementeerd hebben in het [Testing-hoofdstuk](/react/en/test/).
+Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.org/addons/introduction/) waarmee je de developer experience kunt verbeteren voor iedereen in je team. Als je deze tutorial lineair hebt gevolgd, hebben we tot nu toe naar meerdere add-ons verwezen en je zal er al een geïmplementeerd hebben in het [Testing-hoofdstuk](/react/en/test/).
 
 <div class="aside">
 <strong> Op zoek naar een lijst met mogelijke add-ons? </strong>
 <br/>
-😍 Je kunt de lijst met officieel ondersteunde en sterk ondersteunde community-add-ons <a href="https://storybook.js.org/addons/addon-gallery/">hier</a> bekijken.
+😍 Je kunt de lijst met officieel ondersteunde en goede community-add-ons <a href="https://storybook.js.org/addons/addon-gallery/">hier bekijken</a>.
 </div>
 
 We zouden nog veel kunnen schrijven over het configureren en gebruiken van add-ons voor al je specifieke use-cases. Laten we nu werken aan de integratie van een van de meest populaire add-ons in het ecosysteem van Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -100,7 +99,7 @@ Zoals [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#ob
 
 Niet alleen dient je Storybook instantie als een prachtige [CDD-omgeving](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), maar nu bieden we ook een interactieve bron van documentatie aan. PropTypes zijn geweldig, maar een designer of iemand die helemaal nieuw is in de code van een component, kan zijn gedrag heel snel achterhalen via Storybook met de knobs add-on geïmplementeerd.
 
-## Knobs gebruiken om Edge-Cases te vinden
+## Knobs gebruiken om edge-cases te vinden
 
 Bovendien, met gemakkelijke toegang tot het bewerken van doorgegeven data aan een component, kunnen QA Engineers of preventieve UI Engineers nu een component tot het uiterste drijven! Wat gebeurt er bijvoorbeeld met `Task` als ons lijstitem een _GIGANTISCHE_ string heeft?
 
@@ -128,7 +127,7 @@ Dankzij het feit dat we snel verschillende inputs van een component kunnen probe
 
 Natuurlijk kunnen we dit probleem altijd reproduceren door dezelfde input in de knobs in te voeren, maar het is beter om een vaste story te schrijven voor deze input. Dit zal je regressietesten verhogen en de limieten van de componenten duidelijk aangeven voor de rest van je team.
 
-Laten we een story toevoegen voor het lange tekst geval in Task.stories.js:
+Laten we een story toevoegen voor het lange tekst geval in `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
@@ -152,6 +151,6 @@ Als we [visuele regressietests](/react/en/test/) gebruiken, zullen we ook worden
 
 Vergeet niet je wijzigingen te mergen met git!
 
-## Addons Delen Met Het Team
+## Addons delen met het team
 
 Knobs is een geweldige manier om niet-developers met je componenten en stories te laten spelen. Het kan echter moeilijk zijn om het storybook op hun lokale computer uit te voeren. Daarom kan het handig zijn om je storybook naar een online locatie te deployen. In het volgende hoofdstuk zullen we precies dat doen!

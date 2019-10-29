@@ -9,7 +9,7 @@ Gefeliciteerd! Je hebt je eerste UI gemaakt in Storybook. Ondertussen heb je gel
 <br/>
 [🌎 **Gedeployde Storybook**](https://clever-banach-415c03.netlify.com/)
 
-Storybook is een krachtige tool voor React, Vue en Angular. Het heeft een bloeiende developer community en een schat aan add-ons. Deze inleiding is slechts het begin. We zijn ervan overtuigd dat je, zodra je Storybook gewoon wordt, onder de indruk zal zijn van hoe productief het is om duurzame UI's te bouwen.
+Storybook is een krachtige tool voor React, Vue en Angular. Het heeft een bloeiende developer community en een schat aan add-ons. Deze inleiding is slechts het begin. We zijn ervan overtuigd dat je, zodra je Storybook gewend bent, onder de indruk zal zijn van hoe productief het is om duurzame UI's te bouwen.
 
 ## Extra's
 
@@ -23,7 +23,7 @@ Wil je wat dieper gaan? Hier zijn behulpzame bronnen.
 
 ## Who made LearnStorybook.com?
 
-De  tekst, code en productie zijn bijgedragen door [Chroma](http://blog.hichroma.com/). De tutorial was geinspireerd door Chroma's populaire [GraphQL + React tutorial serie](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+De tekst, code en productie zijn bijgedragen door [Chroma](http://blog.hichroma.com/). De tutorial was geinspireerd door Chroma's populaire [GraphQL + React tutorial serie](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
 Wil je meer tutorials en artikels zoals dit? Meld je aan voor de Chrome mailing list.
 

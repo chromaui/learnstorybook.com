@@ -7,7 +7,7 @@ commit: e56e345
 
 We hebben ons geconcentreerd op het bouwen van UI's van onderaf; klein beginnen en complexiteit toevoegen. Hierdoor konden we elk onderdeel afzonderlijk ontwikkelen, de data behoeften achterhalen en ermee spelen in Storybook. Allemaal zonder een server op te zetten of schermen uit te bouwen!
 
-In dit hoofdstuk blijven we de verfijning vergroten door componenten in een scherm te combineren en dat scherm in Storybook te ontwikkelen.
+In dit hoofdstuk blijven we de complexiteit vergroten door componenten in een scherm te combineren en dat scherm in Storybook te ontwikkelen.
 
 ## Geneste containercomponenten
 
@@ -58,7 +58,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-We veranderen ook de component `App` om het` InboxScreen` te renderen (uiteindelijk zouden we een router gebruiken om het juiste scherm te kiezen, maar laten we ons hier geen zorgen over maken):
+We veranderen ook de component `App` om het`InboxScreen` te renderen (uiteindelijk zouden we een router gebruiken om het juiste scherm te kiezen, maar laten we ons hier geen zorgen over maken):
 
 ```javascript
 // src/App.js
@@ -86,9 +86,9 @@ Waar het interessant wordt, is het renderen van de story in Storybook.
 
 Zoals we eerder zagen, is de component `TaskList` een **container** die de presentational component `PureTaskList` rendert. Per definitie kunnen containercomponenten niet eenvoudig afzonderlijk worden gerenderd; ze verwachten een context te krijgen of verbinding te maken met een service. Dit betekent dat we, om een container in Storybook te renderen, de context of service die deze nodig heeft moeten mocken (d.w.z. een zogenaamde versie moeten bieden).
 
-Toen we de `TaskList` in Storybook plaatsten, konden we dit probleem omzeilen door eenvoudigweg de` PureTaskList` te renderen en de container te vermijden. We zullen iets soortgelijks doen en ook de `PureInboxScreen` in Storybook renderen.
+Toen we de `TaskList` in Storybook plaatsten, konden we dit probleem omzeilen door eenvoudigweg de`PureTaskList` te renderen en de container te vermijden. We zullen iets soortgelijks doen en ook de `PureInboxScreen` in Storybook renderen.
 
-Voor de `PureInboxScreen` hebben we echter een probleem omdat, hoewel de` PureInboxScreen` zelf presentational is, het child, de `TaskList` dat niet is. In zekere zin is de `PureInboxScreen` vervuild door "container-ness". Dus wanneer we onze stories instellen in `InboxScreen.stories.js`:
+Voor de `PureInboxScreen` hebben we echter een probleem omdat, hoewel de`PureInboxScreen` zelf presentational is, het child, de `TaskList` dat niet is. In zekere zin is de `PureInboxScreen` vervuild door "container-ness". Dus wanneer we onze stories instellen in `InboxScreen.stories.js`:
 
 ```javascript
 // src/components/InboxScreen.stories.js
@@ -112,7 +112,7 @@ Een manier om dit probleem te omzeilen, is om nooit container componenten overal
 Developers **zullen** echter onvermijdelijk containers verder naar beneden in de componenthiërarchie moeten renderen. Als we de app vooral of geheel in Storybook willen renderen (dat doen we!), hebben we een oplossing voor dit probleem nodig.
 
 <div class="aside">
-Terzijde: het doorgeven van data door de hiërarchie is een legitieme manier, vooral bij het gebruik van <a href="http://graphql.org/">GraphQL</a>. Het is hoe we <a href="https://www.chromaticqa.com">Chromatic</a> naast 800+ stories hebben gebouwd.
+Terzijde: het doorgeven van data door de hiërarchie is een legitieme manier, vooral bij het gebruik van <a href="http://graphql.org/">GraphQL</a>. Het is hoe we <a href="https://www.chromaticqa.com">Chromatic</a> met 800+ stories hebben gebouwd.
 </div>
 
 ## Context voorzien van decorators

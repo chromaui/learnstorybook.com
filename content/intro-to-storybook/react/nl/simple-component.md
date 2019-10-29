@@ -1,24 +1,24 @@
 ---
-title: 'Bouw een eenvoudige component'
-tocTitle: 'Eenvoudige component'
-description: 'Bouw een eenvoudige component in isolatie'
+title: 'Bouw een eenvoudig component'
+tocTitle: 'Eenvoudig component'
+description: 'Bouw een eenvoudig component in isolatie'
 commit: 403f19a
 ---
 
-We zullen onze UI bouwen volgens een [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) -methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met componenten en eindigend met schermen. CDD helpt je de hoeveelheid complexiteit waarmee je wordt geconfronteerd te vergroten naarmate je de UI uitbouwt.
+We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)-methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met losse componenten en eindigend met schermen. CDD helpt je grip te houden op de complexiteit naarmate je de applicatie verder uitbouwt.
 
 ## Task
 
 ![Task component in drie states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` is de kerncomponent van onze app. Elke taak wordt iets anders weergegeven, afhankelijk van de state waarin deze zich bevindt. We geven een aangevinkte (of niet-aangevinkte) checkbox weer, wat informatie over de taak en een "pin"-knop, waarmee we taken naar boven en naar beneden in de lijst kunnen verplaatsen. Samenvattend hebben we deze props nodig:
+`Task` is de kerncomponent van onze app. Een taak wordt anders weergegeven afhankelijk van de staat waarin deze zich bevindt. We geven een aangevinkte (of niet-aangevinkte) checkbox weer, wat informatie over de taak en een "pin"-knop, waarmee we taken naar boven en naar beneden in de lijst kunnen verplaatsen. Samenvattend hebben we deze props nodig:
 
 - `title` – een string die de taak beschrijft
 - `state` - in welke lijst bevindt de taak zich momenteel en is deze aangevinkt?
 
-Wanneer we beginnen met het bouwen van `Task`, schrijven we eerst onze test states die overeenkomen met de verschillende soorten taken die hierboven zijn beschreven. Vervolgens gebruiken we Storybook om de component in isolatie te bouwen met behulp van gemockte data. We zullen het uiterlijk van de component visueel testen voor elke state terwijl we verder gaan.
+Wanneer we beginnen met het bouwen van `Task`, schrijven we eerst onze test states die overeenkomen met de verschillende soorten taken die hierboven zijn beschreven. Vervolgens gebruiken we Storybook om de component in isolatie te bouwen met behulp van gemockte data. We zullen het uiterlijk van de component visueel testen voor elke _state_ terwijl we verder gaan.
 
-Dit proces is vergelijkbaar met [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) dat we “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)" kunnen noemen.
+Dit proces is vergelijkbaar met [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD); je zou het "[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)" kunnen noemen.
 
 ## Laten we beginnen
 
@@ -71,7 +71,7 @@ storiesOf('Task', module)
   .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
-Er zijn twee basisniveaus van organisatie in Storybook: de component en zijn child stories. Beschouw elke story als een permutatie van een component. Je kunt zoveel stories per component hebben als je er nodig hebt.
+Er zijn twee basisniveaus van organisatie in Storybook: de component en zijn _child stories_. Beschouw elke _story_ als een variant van het component. Je kunt zoveel stories per component hebben als je er nodig hebt.
 
 - **Component**
   - Story
@@ -82,7 +82,7 @@ Om Storybook te initiëren roepen we eerst de functie `storiesOf()` aan om de co
 
 Met `action()` kunnen we een callback aanmaken die verschijnt in het **acties**-paneel van de UI van Storybook wanneer erop wordt geklikt. Dus wanneer we een pin-knop bouwen, kunnen we in de test-UI bepalen of een klik op deze knop succesvol is.
 
-Omdat we dezelfde reeks acties moeten doorgeven aan alle permutaties van onze component, is het handig om ze te bundelen in een enkele `actions` variabele en React's` {... actions}` props uitbreiding te gebruiken om ze allemaal in één keer door te geven. `<Task {...actions}>` is gelijk aan `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
+Omdat we dezelfde reeks acties moeten doorgeven aan alle permutaties van onze component, is het handig om ze te bundelen in een enkele `actions` variabele en React's`{...actions}` props uitbreiding te gebruiken om ze allemaal in één keer door te geven. `<Task {...actions}>` is gelijk aan `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
 
 Nog iets leuks over het bundelen van de `actions` die een component nodig heeft, is dat je ze kunt `export`-en en ze in stories kunt gebruiken voor componenten die deze component hergebruiken, zoals we later zullen zien.
 
@@ -126,7 +126,7 @@ Zodra we dit hebben gedaan, zou het opnieuw opstarten van de Storybook-server te
 
 Nu we Storybook opgezet hebben, styles geīmporteerd en testcases hebben uitgebouwd, kunnen we snel beginnen met het implementeren van de HTML van de component om met het ontwerp overeen te komen.
 
-De component is momenteel nog basic. Schrijf eerst de code waarmee het ontwerp wordt bereikt zonder al te veel in detail te treden:
+De component is momenteel nog basaal. Schrijf eerst de code waarmee het ontwerp wordt bereikt zonder al te veel in detail te treden:
 
 ```javascript
 // src/components/Task.js
@@ -205,15 +205,15 @@ Een alternatieve manier om hetzelfde doel te bereiken, is om een JavaScript-type
 
 We hebben nu met succes een component gebouwd zonder dat we een server nodig hebben of de hele frontend-applicatie moeten runnen. De volgende stap is om de resterende Taskbox-componenten één voor één op dezelfde manier uit te bouwen.
 
-Zoals je ziet, is het eenvoudig en snel om aan de slag te gaan met het bouwen van componenten in isolatie. We kunnen verwachten om een UI van hogere kwaliteit te produceren met minder bugs en meer polish, omdat het mogelijk is om in detail te gaan en elke mogelijke state te testen.
+Zoals je ziet, is het eenvoudig en snel om aan de slag te gaan met het bouwen van componenten in isolatie. We kunnen verwachten om een UI van hogere kwaliteit te produceren met minder bugs en meer detail, omdat het mogelijk is om in detail te gaan en elke mogelijke state te testen.
 
-## Geautomatiseerde Testing
+## Geautomatiseerd testen
 
-Storybook gaf ons een geweldige manier om onze applicatie visueel te testen tijdens de constructie. De ‘stories’ helpen ervoor te zorgen dat we onze Task niet visueel breken terwijl we de app blijven ontwikkelen. Het is in dit stadium echter een volledig handmatig proces en iemand moet de moeite nemen om door elke test state te klikken en na te gaan dat deze goed en zonder fouten of waarschuwingen wordt gerenderd. Kunnen we dat niet automatisch doen?
+Storybook gaf ons een geweldige manier om onze applicatie visueel te testen tijdens het bouwen. De _stories_ helpen ervoor te zorgen dat ons component niet onbedoeld visueel veranderd tijdens het ontwikkelen van onze applicatie. Het is in dit stadium echter een volledig handmatig proces en iemand moet de moeite nemen om door elke test state te klikken en na te gaan dat deze goed en zonder fouten of waarschuwingen wordt gerenderd. Kunnen we dat niet automatisch doen?
 
 ### Snapshot testing
 
-Snapshot testing verwijst naar de praktijk van het opnemen van de "bekende goede" output van een component voor een gegeven input en het markeren van de component wanneer de output in de toekomst verandert. Dit is een aanvulling op Storybook, omdat het een snelle manier is om de nieuwe versie van een component te bekijken en de wijzigingen te bekijken.
+Snapshot testing verwijst naar de praktijk van het opnemen van de "bekend juiste" output van een component voor een gegeven input en het markeren van de component wanneer de output in de toekomst verandert. Dit is een aanvulling op Storybook, omdat het een snelle manier is om de nieuwe versie van een component te bekijken en de wijzigingen te bekijken.
 
 <div class="aside">
 Zorg ervoor dat je componenten data renderen die niet verandert, zodat je snapshot tests niet elke keer mislukken. Pas op voor dingen als datums of willekeurig gegenereerde waarden.
@@ -269,7 +269,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-(Merk op dat we `require.context` hebben vervangen door een aanroep van` requireContext` geïmporteerd van de macro).
+(Merk op dat we `require.context` hebben vervangen door een aanroep van `requireContext` geïmporteerd vanuit de macro).
 
 Zodra het bovenstaande gedaan is, kunnen we `yarn test` uitvoeren en de volgende output zien:
 
