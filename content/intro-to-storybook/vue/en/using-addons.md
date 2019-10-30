@@ -2,7 +2,6 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use addons using a popular example'
-commit: 'dac373a'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
@@ -62,10 +61,9 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 ```javascript
 // src/components/Task.stories.js
 
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { withKnobs, object } from '@storybook/addon-knobs/react';
+import { storiesOf } from "@storybook/vue";
+import { action } from "@storybook/addon-actions";
+import { withKnobs, object } from "@storybook/addon-knobs";
 ```
 
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
@@ -82,14 +80,37 @@ Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
 // src/components/Task.stories.js
-
-storiesOf('Task', module)
+storiesOf("Task", module)
   .addDecorator(withKnobs)
-  .add('default', () => {
-    return <Task task={object('task', { ...task })} {...actions} />;
+  .add("default", () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      props: {
+        task: {
+          type: Object,
+          default: object("task", { ...task })
+        }
+      },
+      methods
+    };
   })
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+  .add("pinned", () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      data: () => ({ task: { ...task, state: "TASK_PINNED" } }),
+      methods
+    };
+  })
+  .add("archived", () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      data: () => ({ task: { ...task, state: "TASK_ARCHIVED" } }),
+      methods
+    };
+  });
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -106,20 +127,21 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
+Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.vue`:
 
-```javascript
-// src/components/Task.js
+```html
+<!--src/components/Task.vue>-->
 
-// This is the input for our task title. In practice we would probably update the styles for this element
-// but for this tutorial, let's fix the problem with an inline style:
-<input
-  type="text"
-  value={title}
-  readOnly={true}
-  placeholder="Input title"
-  style={{ textOverflow: 'ellipsis' }}
-/>
+<!-- This is the input for our task title. 
+     In practice we would probably update the styles for this element but for this tutorial, 
+     let's fix the problem with an inline style:-->
+ <input
+    type="text"
+    :readonly="true"
+    :value="this.task.title"
+    placeholder="Input title"
+    style="text-overflow: ellipsis;"
+  />
 ```
 
 ![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
@@ -135,11 +157,45 @@ Let's add a story for the long text case in Task.stories.js:
 
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
-storiesOf('Task', module)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />)
-  .add('long title', () => <Task task={{ ...task, title: longTitle }} {...actions} />);
+storiesOf("Task", module)
+  .addDecorator(withKnobs)
+  .add("default", () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      props: {
+        task: {
+          type: Object,
+          default: object("task", { ...task })
+        }
+      },
+      methods
+    };
+  })
+  .add("pinned", () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      data: () => ({ task: { ...task, state: "TASK_PINNED" } }),
+      methods
+    };
+  })
+  .add("archived", () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      data: () => ({ task: { ...task, state: "TASK_ARCHIVED" } }),
+      methods
+    };
+  })
+  .add("longTitle", () => {
+    return {
+      components: { Task },
+      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+      data: () => ({ task: { ...task, title: longTitle } }),
+      methods
+    };
+  });
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:

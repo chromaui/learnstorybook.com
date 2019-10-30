@@ -89,8 +89,6 @@ Vai ser necessário alterar o componente `App` de forma a ser possível renderiz
 <script>
   import store from './store';
   import InboxScreen from './components/InboxScreen.vue';
-  import '../src/index.css';
-
   export default {
     name: 'app',
     store,
@@ -99,6 +97,9 @@ Vai ser necessário alterar o componente `App` de forma a ser possível renderiz
     },
   };
 </script>
+<style>
+  @import "./index.css";
+</style>
 ```
 
 No entanto as coisas irão tornar-se interessantes ao renderizar-se a estória no Storybook.

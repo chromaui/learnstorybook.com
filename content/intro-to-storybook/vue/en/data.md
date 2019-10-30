@@ -69,7 +69,6 @@ In our top-level app component (`src/App.vue`) we can wire the store into our co
 <script>
   import store from './store';
   import TaskList from './components/TaskList.vue';
-  import '../src/index.css';
 
   export default {
     name: 'app',
@@ -79,6 +78,9 @@ In our top-level app component (`src/App.vue`) we can wire the store into our co
     },
   };
 </script>
+<style>
+  @import "./index.css";
+</style>
 ```
 
 Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `pure-task-list`), and wrap it with a container.
@@ -209,3 +211,4 @@ it('renders pinned tasks at the start of the list', () => {
   expect(lastTaskInput).not.toBe(null);
 });
 ```
+<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>

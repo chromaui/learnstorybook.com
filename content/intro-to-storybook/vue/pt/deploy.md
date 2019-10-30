@@ -25,7 +25,7 @@ Para implementar o Storybook será necessário ser exportado como uma aplicaçã
 }
 ```
 
-E pode agora construir-se o Storybook via `npm run build-storybook`, o que irá popular a pasta `storybook-static` com esta versão.
+E pode agora construir-se o Storybook via `yarn build-storybook`, o que irá popular a pasta `storybook-static` com esta versão.
 
 ## Implementação contínua
 
