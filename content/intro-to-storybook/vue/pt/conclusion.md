@@ -14,19 +14,19 @@ Possui uma comunidade de programadores próspera e uma grande variedade de extra
 
 ## Saber mais
 
-Pretende saber mais? Aqui ficam algumas recursos que irão ajudar.
+Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
-- [**Documentação Oficial Storybook**](https://storybook.js.org/basics/introduction/) contem a documentação da API, links da comunidade e a galeria de extras.
+- [**Documentação Oficial Storybook**](https://storybook.js.org/basics/introduction/) contém a documentação da API, links da comunidade e a galeria de extras.
 
 - [**Manual de testes visuais**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07)
-  enumera as boas práticas de fluxo de trabalho, usadas por equipes que operam a alta velocidade, tal como por exemplo a SquareSpace, a Major League Soccer, a Discovery Network e Apollo GraphQL.
+  enumera as boas práticas de fluxo de trabalho, usadas por equipas que operam a alta velocidade, tal como por exemplo a SquareSpace, a Major League Soccer, a Discovery Network e Apollo GraphQL.
 
 - [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
 
 ## Quem fez LearnStorybook.com?
 
 
-O texto, código e produção foram contribuídos pela [Chroma](http://blog.hichroma.com/). O tutorial foi inspirado pela [série de tutoriais populares](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+O texto, código e produção foram contribuídos pela [Chroma](http://blog.hichroma.com/). O tutorial foi inspirado pela [série de tutoriais populares de GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
 
 Quer mais tutoriais e artigos como este? Subscreva a mailing list da Chroma.
