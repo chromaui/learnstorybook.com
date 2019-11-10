@@ -5,7 +5,7 @@ description: 'Setup Angular Storybook in your development environment'
 commit: 0818d47
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular.
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular; other editions exist for [React](/react/en/get-started) and [Vue](/vue/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -39,7 +39,7 @@ yarn start
   NOTE: If <code>yarn test</code> throws an error, you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
 </div>
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
+Our three frontend app modalities: automated test (Karma), component development (Storybook), and the app itself.
 
 ![3 modalities](/intro-to-storybook/app-three-modalities.png)
 
@@ -47,7 +47,11 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply include the LESS files in our app and import them inside `styles.less`.
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply include the LESS file in our app. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/styles.less` file.
+
+<div class="aside">
+Change the first line from <b>@import url(...)</b> to <b>@import (css) url(...)</b>.
+</div>
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
