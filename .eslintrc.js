@@ -1,3 +1,5 @@
+const prettierConfig = require('./.prettierrc');
+
 module.exports = {
   parser: 'babel-eslint',
   extends: ['airbnb', 'prettier', 'plugin:jest/recommended'],
@@ -23,17 +25,7 @@ module.exports = {
         specialLink: ['to'],
       },
     ],
-    'prettier/prettier': [
-      'warn',
-      {
-        printWidth: 100,
-        tabWidth: 2,
-        bracketSpacing: true,
-        trailingComma: 'es5',
-        singleQuote: true,
-        jsxBracketSameLine: false,
-      },
-    ],
+    'prettier/prettier': ['warn', prettierConfig],
     'react/jsx-filename-extension': [
       1,
       {
@@ -46,5 +38,7 @@ module.exports = {
         arrow: false,
       },
     ],
+    'react/jsx-props-no-spreading': 0,
+    'react/jsx-one-expression-per-line': 0
   },
 };

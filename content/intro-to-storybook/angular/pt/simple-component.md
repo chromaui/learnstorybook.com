@@ -1,7 +1,7 @@
 ---
-title: "Construção de um componente siples"
-tocTitle: "Componente simples"
-description: "Construção de um componente simples isolado"
+title: 'Construção de um componente simples'
+tocTitle: 'Componente simples'
+description: 'Construção de um componente simples isolado'
 ---
 
 Iremos construir o interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC(CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
@@ -10,12 +10,12 @@ Iremos construir o interface de utilizador de acordo com a metodologia de [Desen
 
 ![Componente Task ao longo de três estados](/intro-to-storybook/task-states-learnstorybook.png)
 
-`TaskComponent` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra. 
-O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista. 
+`TaskComponent` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra.
+O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista.
 Para que seja possível implementar isto serão necessárias os seguintes adereços (props):
 
-* `title` - uma cadeia de caracteres que descreve a tarefa
-* `state` - qual a lista em que a tarefa se encontra e se está confirmada?
+- `title` - uma cadeia de caracteres que descreve a tarefa
+- `state` - qual a lista em que a tarefa se encontra e se está confirmada?
 
 Á medida que construimos a `TaskComponent`, é necessário definir os três estados que correspondem os três tipos de tarefa delineados acima.
 Em seguida usa-se o Storybook para construir este componente isolado, usando dados predefinidos. Irá "testar-se visualmente" a aparência do componente para cada estado á medida que prosseguimos.
@@ -50,7 +50,6 @@ export class TaskComponent implements OnInit {
 
   ngOnInit() {}
 }
-
 ```
 
 O bloco de código acima, quando renderizado, não é nada mais nada menos que a estrutura HTML da `TaskComponent` na aplicação Todos.
@@ -79,7 +78,7 @@ storiesOf('Task', module)
   .addDecorator(
     moduleMetadata({
       declarations: [TaskComponent],
-    }),
+    })
   )
   .add('default', () => {
     return {
@@ -111,15 +110,14 @@ storiesOf('Task', module)
       },
     };
   });
-
 ```
 
 Existem dois tipos de organização com Storybook. O componente em si e as estórias associadas. É preferível pensar em cada estória como uma permutação de um componente. Como tal podem existir tantas estórias, tantas as que forem necessárias.
 
-* **Component**
-  * Story
-  * Story
-  * Story
+- **Component**
+  - Story
+  - Story
+  - Story
 
 Ao ser invocada a função `storiesOf()`, está a registar-se o componente, e com isto o processo de arranque do Storybook. É adicionado um nome, nome esse que será usado na barra lateral da aplicação Storybook para identificar o componente.
 
@@ -141,9 +139,7 @@ Será necessária uma alteração minúscula ao ficheiro de configuração do St
 Por norma o Storybook pesquisa numa pasta denominada `/stories` para conter as estórias; este tutorial usa uma nomenclatura similar a `.type.extension`, cuja qual favorecida quando se está a desenvolver uma aplicação Angular.
 
 ```typescript
-import {
-  configure
-} from '@storybook/angular';
+import { configure } from '@storybook/angular';
 
 import '../src/styles.less';
 
@@ -155,24 +151,24 @@ function loadStories() {
 }
 
 configure(loadStories, module);
-
 ```
 
 De forma a que seja possível o suporte ao conteúdo do ficheiro LESS definido acima, será necessário uma pequena modificação no webpack. Para tal será necessário criar um ficheiro denominado `webpack.config.js` dentro da pasta `.storybook` com o seguinte conteúdo:
 
 ```javascript
-const path = require("path");
+const path = require('path');
 
 module.exports = {
   module: {
-    rules: [{
-      test: /\.less$/,
-      loaders: ["style-loader", "css-loader", "less-loader"],
-      include: path.resolve(__dirname, "../")
-    }]
-  }
+    rules: [
+      {
+        test: /\.less$/,
+        loaders: ['style-loader', 'css-loader', 'less-loader'],
+        include: path.resolve(__dirname, '../'),
+      },
+    ],
+  },
 };
-
 ```
 
 Assim como os loaders necessários terão que ser adicionados, através do seguinte comando:
@@ -180,6 +176,7 @@ Assim como os loaders necessários terão que ser adicionados, através do segui
 ```
 yarn add -D less-loader css-loader style-loader
 ```
+
 Assim que esta operação for concluída, ao reiniciar o servidor Storybook, deverá produzir os casos de teste que foram definidos para o componente TaskComponent:
 
 <video autoPlay muted playsInline controls >
@@ -217,9 +214,9 @@ import { Task } from './task.model';
       </div>
 
       <div class="actions">
-          <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-            <span class="icon-star"></span>
-          </a>
+        <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
+          <span class="icon-star"></span>
+        </a>
       </div>
     </div>
   `,
@@ -264,6 +261,7 @@ export interface Task {
   state: string;
 }
 ```
+
 ## Componente construido!
 
 Foi construído com sucesso, sem ser necessário qualquer tipo de servidor, ou que seja necessário executar a aplicação frontend. O próximo passo é construir os restantes componentes da Taskbox um por um de forma similar.
@@ -293,16 +291,13 @@ Em seguida é criado o ficheiro `src/storybook.test.ts` com o conteúdo:
 
 ```typescript
 import * as path from 'path';
-import initStoryshots, {
-  multiSnapshotWithOptions,
-} from '@storybook/addon-storyshots';
+import initStoryshots, { multiSnapshotWithOptions } from '@storybook/addon-storyshots';
 
 initStoryshots({
   framework: 'angular',
   configPath: path.join(__dirname, '../.storybook'),
   test: multiSnapshotWithOptions(),
 });
-
 ```
 
 Quando este processo estiver concluído, será necessário criar uma pasta denominada `jest-config` dentro da pasta `src`, com dois ficheiros dentro desta, `globalMocks.ts` com o conteúdo:
@@ -323,17 +318,16 @@ Object.defineProperty(window, 'sessionStorage', { value: mock() });
 Object.defineProperty(window, 'getComputedStyle', {
   value: () => ['-webkit-appearance'],
 });
-
 ```
+
 e o ficheiro `setup.ts`, com o seguinte conteúdo:
 
 ```typescript
 import 'jest-preset-angular';
 import './globalMocks';
-
 ```
-Em seguida será necessário adicionar um novo campo ao ficheiro`package.json`,
 
+Em seguida será necessário adicionar um novo campo ao ficheiro`package.json`,
 
 ```json
 "jest": {
@@ -359,7 +353,7 @@ Em seguida será necessário adicionar um novo campo ao ficheiro`package.json`,
       "\\.(css|less)$": "identity-obj-proxy"
     }
   },
-  ```
+```
 
 Além disto, serão necessários alguns scripts novos para que o `jest` possa ser executado:
 

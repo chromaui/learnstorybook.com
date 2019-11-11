@@ -1,6 +1,6 @@
 ---
-title: "Contribuir"
-description: "Ayuda a compartir Storybook con el mundo"
+title: 'Contribuir'
+description: 'Ayuda a compartir Storybook con el mundo'
 ---
 
 # Contribuir

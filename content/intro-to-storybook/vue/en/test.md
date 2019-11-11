@@ -1,7 +1,7 @@
 ---
-title: "Test UI components"
-tocTitle: "Testing"
-description: "Learn the ways to test UI components"
+title: 'Test UI components'
+tocTitle: 'Testing'
+description: 'Learn the ways to test UI components'
 commit: 8bf107e
 ---
 
@@ -65,12 +65,12 @@ yarn add --dev storybook-chromatic
 Import Chromatic in your `.storybook/config.js` file.
 
 ```javascript
-import { configure } from "@storybook/vue";
-import "storybook-chromatic";
+import { configure } from '@storybook/vue';
+import 'storybook-chromatic';
 
-import "../src/index.css";
+import '../src/index.css';
 
-const req = require.context("../src", true, /.stories.js$/);
+const req = require.context('../src', true, /.stories.js$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
@@ -127,7 +127,7 @@ There are a lot of changes! The component hierarchy where `Task` is a child of `
 
 ## Review changes
 
-Visual regression testing ensures components dont change by accident. But it’s still up to you to determine whether changes are intentional or not.
+Visual regression testing ensures components don’t change by accident. But it’s still up to you to determine whether changes are intentional or not.
 
 If a change is intentional you need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
 

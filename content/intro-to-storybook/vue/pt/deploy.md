@@ -1,7 +1,7 @@
 ---
-title: "Implementar Storybook"
-tocTitle: "Implementação"
-descrição: "Implemntação online do Storybook com GitHub e Netlify"
+title: 'Implementar Storybook'
+tocTitle: 'Implementação'
+descrição: 'Implemntação online do Storybook com GitHub e Netlify'
 ---
 
 Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessária a partilha com o resto da equipa, em particular com membros considerados não técnicos. Felizmente, é bastante fácil implementar o Storybook online.
@@ -25,7 +25,7 @@ Para implementar o Storybook será necessário ser exportado como uma aplicaçã
 }
 ```
 
-E pode agora construir-se o Storybook via `npm run build-storybook`, o que irá popular a pasta `storybook-static` com esta versão.
+E pode agora construir-se o Storybook via `yarn build-storybook`, o que irá popular a pasta `storybook-static` com esta versão.
 
 ## Implementação contínua
 

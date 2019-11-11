@@ -1,7 +1,7 @@
 ---
-title: "Testear Componentes interfaz gráfica"
-tocTitle: "Testing"
-description: "Aprende las formas de probar los componentes de la interfaz gráfica"
+title: 'Testear Componentes interfaz gráfica'
+tocTitle: 'Testing'
+description: 'Aprende las formas de probar los componentes de la interfaz gráfica'
 commit: 8fdc779
 ---
 
@@ -65,12 +65,12 @@ yarn add -D storybook-chromatic
 Importa Chromatic en tu archivo `.storybook/config.js`.
 
 ```javascript
-import { configure } from "@storybook/angular";
-import "storybook-chromatic";
-import "../src/styles.less";
+import { configure } from '@storybook/angular';
+import 'storybook-chromatic';
+import '../src/styles.less';
 
 // automatically import all files ending in *.stories.ts
-const req = require.context("../src/", true, /.stories.ts$/);
+const req = require.context('../src/', true, /.stories.ts$/);
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));

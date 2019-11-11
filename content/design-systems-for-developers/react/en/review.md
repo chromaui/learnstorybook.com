@@ -27,7 +27,7 @@ First, sign up for CircleCI if you haven’t already. Once there, you’ll see a
 
 Add a `.circleci` directory at the top level and create a config.yml file inside of it. This will allow us to script how our CI process behaves. We can simply add the default file that Circle suggests for Node for now:
 
-```
+```yaml
 version: 2
 jobs:
   build:

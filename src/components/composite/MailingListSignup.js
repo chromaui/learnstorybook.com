@@ -39,7 +39,7 @@ const MailingListFormUI = ({ handleBlur, handleChange, isSubmitting, value, ...r
     />
 
     <SendButton appearance="secondary" type="submit" isUnclickable={isSubmitting}>
-      {'Send'}
+      Send
     </SendButton>
   </MailingListFormUIWrapper>
 );

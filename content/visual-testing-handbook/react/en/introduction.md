@@ -1,7 +1,7 @@
 ---
-title: "Introduction to visual testing"
-tocTitle: "Introduction"
-description: "The pragmatic way to test user interfaces"
+title: 'Introduction to visual testing'
+tocTitle: 'Introduction'
+description: 'The pragmatic way to test user interfaces'
 ---
 
 **Writing in progress.** This handbook gives you an overview of visual testing in Storybook. After reading you’ll understand why to visual test components, what tools are needed, and how visual testing fits into your development process. You’ll also get a tutorial on creating an example component using visual testing techniques.

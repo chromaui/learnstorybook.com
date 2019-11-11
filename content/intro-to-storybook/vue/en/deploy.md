@@ -1,7 +1,7 @@
 ---
-title: "Deploy Storybook"
-tocTitle: "Deploy"
-description: "Deploy Storybook online with GitHub and Netlify"
+title: 'Deploy Storybook'
+tocTitle: 'Deploy'
+description: 'Deploy Storybook online with GitHub and Netlify'
 ---
 
 In this tutorial we ran Storybook on our development machine. You may also want to share that Storybook with the team, especially the non-technical members. Thankfully, it’s easy to deploy Storybook online.
@@ -24,7 +24,7 @@ To deploy Storybook we first need to export it as a static web app. This functio
 }
 ```
 
-Now when you run Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
+Now when you run Storybook via `yarn build-storybook`, it will output a static Storybook in the `storybook-static` directory.
 
 ## Continuous deploy
 

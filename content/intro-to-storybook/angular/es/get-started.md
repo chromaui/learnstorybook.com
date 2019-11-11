@@ -1,7 +1,7 @@
 ---
-title: "Storybook para o Angular tutorial"
-tocTitle: "Empezando"
-description: "Configurar Angular Storybook en tu entorno de desarrollo"
+title: 'Storybook para o Angular tutorial'
+tocTitle: 'Empezando'
+description: 'Configurar Angular Storybook en tu entorno de desarrollo'
 commit: 0818d47
 ---
 
