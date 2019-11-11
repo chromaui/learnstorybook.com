@@ -1,7 +1,7 @@
 ---
-title: 'Bouw een eenvoudig component'
-tocTitle: 'Eenvoudig component'
-description: 'Bouw een eenvoudig component in isolatie'
+title: 'Bouw een eenvoudige component'
+tocTitle: 'Eenvoudige component'
+description: 'Bouw een eenvoudige component in isolatie'
 commit: 403f19a
 ---
 
@@ -71,7 +71,7 @@ storiesOf('Task', module)
   .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
-Er zijn twee basisniveaus van organisatie in Storybook: de component en zijn _child stories_. Beschouw elke _story_ als een variant van het component. Je kunt zoveel stories per component hebben als je er nodig hebt.
+Er zijn twee basisniveaus van organisatie in Storybook: de component en zijn _child stories_. Beschouw elke _story_ als een variant van de component. Je kunt zoveel stories per component hebben als je er nodig hebt.
 
 - **Component**
   - Story
@@ -209,7 +209,7 @@ Zoals je ziet, is het eenvoudig en snel om aan de slag te gaan met het bouwen va
 
 ## Geautomatiseerd testen
 
-Storybook gaf ons een geweldige manier om onze applicatie visueel te testen tijdens het bouwen. De _stories_ helpen ervoor te zorgen dat ons component niet onbedoeld visueel veranderd tijdens het ontwikkelen van onze applicatie. Het is in dit stadium echter een volledig handmatig proces en iemand moet de moeite nemen om door elke test state te klikken en na te gaan dat deze goed en zonder fouten of waarschuwingen wordt gerenderd. Kunnen we dat niet automatisch doen?
+Storybook gaf ons een geweldige manier om onze applicatie visueel te testen tijdens het bouwen. De _stories_ helpen ervoor te zorgen dat onze  component niet onbedoeld visueel veranderd tijdens het ontwikkelen van onze applicatie. Het is in dit stadium echter een volledig handmatig proces en iemand moet de moeite nemen om door elke test state te klikken en na te gaan dat deze goed en zonder fouten of waarschuwingen wordt gerenderd. Kunnen we dat niet automatisch doen?
 
 ### Snapshot testing
 

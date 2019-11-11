@@ -1,11 +1,11 @@
 ---
-title: 'Bouw een samengesteld component'
+title: 'Bouw een samengestelde component'
 tocTitle: 'Samengestelde component'
-description: 'Bouw een samengesteld component uit eenvoudiger componenten'
+description: 'Bouw een samengestelde component uit eenvoudigere componenten'
 commit: '8db511e'
 ---
 
-In het vorige hoofdstuk hebben we ons eerste component gebouwd; dit hoofdstuk gaat voort op wat we geleerd hebben bij het bouwen van `TaskList`, een lijst van taken. Laten we nu een aantal componenten combineren en zien wat er gebeurt wanneer de complexiteit toeneemt.
+In het vorige hoofdstuk hebben we onze eerste component gebouwd; dit hoofdstuk gaat voort op wat we geleerd hebben bij het bouwen van `TaskList`, een lijst van taken. Laten we nu een aantal componenten combineren en zien wat er gebeurt wanneer de complexiteit toeneemt.
 
 ## Tasklist
 
@@ -19,7 +19,7 @@ Omdat `Task` data asynchroon verzonden kan worden, moeten we **ook** een laadsta
 
 ## Voorbereiding
 
-Een samengesteld component is niet heel verschillend van het basis component die het omvat. Maak bestanden voor het `TaskList` component en de bijhorende _stories_ aan: `src/components/TaskList.js` en `src/components/TaskList.stories.js`.
+Een samengestelde component is niet heel verschillend van het basis component die het omvat. Maak bestanden voor het `TaskList` component en de bijhorende _stories_ aan: `src/components/TaskList.js` en `src/components/TaskList.stories.js`.
 
 Start met een ruwe implementatie van `TaskList`. Je zal de `Task` component van eerder moeten importeren en de attributen en acties als input doorgeven.
 
@@ -108,7 +108,7 @@ Controleer nu Storybook voor de nieuwe `TaskList` stories.
 
 ## Statussen uitbouwen
 
-Ons component is nog steeds onvolledig, maar nu hebben we een idee van de _stories_ waar we naartoe willen werken. Misschien denk je dat de `.list-items` wrapper te simplistisch is. Dat klopt - in de meeste gevallen zouden we geen nieuw component aanmaken alleen maar om een wrapper toe te voegen. De **echte complexiteit** van de `TaskList` component wordt echter pas zichtbaar in de randgevallen `withPinnedTasks`, `loading` en `empty`.
+Onze component is nog steeds onvolledig, maar nu hebben we een idee van de _stories_ waar we naartoe willen werken. Misschien denk je dat de `.list-items` wrapper te simplistisch is. Dat klopt - in de meeste gevallen zouden we geen nieuwe component aanmaken alleen maar om een wrapper toe te voegen. De **echte complexiteit** van de `TaskList` component wordt echter pas zichtbaar in de randgevallen `withPinnedTasks`, `loading` en `empty`.
 
 ```javascript
 // src/components/TaskList.js
@@ -187,7 +187,7 @@ Merk de positie van de gepinde item in de lijst op. We willen het gepinde item b
 
 ## Data vereisten en props
 
-Naarmate het component groeit, doen de input vereisten dat ook. Definieer nu de vereiste _props_ van `TaskList`. Omdat `Task` een child component is, moeten we zeker zijn dat de data in de juiste vorm wordt aangeleverd om deze te renderen. Om tijd en zorgen te besparen, kunnen we de `propTypes` herbruiken die je eerder in `Task` gedefinieerd hebt.
+Naarmate de component groeit, doen de input vereisten dat ook. Definieer nu de vereiste _props_ van `TaskList`. Omdat `Task` een child component is, moeten we zeker zijn dat de data in de juiste vorm wordt aangeleverd om deze te renderen. Om tijd en zorgen te besparen, kunnen we de `propTypes` herbruiken die je eerder in `Task` gedefinieerd hebt.
 
 ```javascript
 // src/components/TaskList.js

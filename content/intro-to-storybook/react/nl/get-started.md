@@ -43,7 +43,7 @@ Onze drie front-end app-modaliteiten: geautomatiseerde testen (Jest), component 
 
 ![3 modaliteiten](/intro-to-storybook/app-three-modalities.png)
 
-Afhankelijk van het gedeelte van de app waaraan je werkt, wil je misschien een of meer van deze tegelijkertijd uitvoeren. Aangezien onze huidige focus ligt op het creëren van een enkel UI-component, zullen we het houden bij het werken met Storybook.
+Afhankelijk van het gedeelte van de app waaraan je werkt, wil je misschien een of meer van deze tegelijkertijd uitvoeren. Aangezien onze huidige focus ligt op het creëren van een enkele UI-component, zullen we het houden bij het werken met Storybook.
 
 ## CSS herbruiken
 
@@ -57,4 +57,4 @@ Indien je de stijl wilt wijzigen, de bron LESS bestanden zijn in de GitHub-repo 
 
 ## Assets toevoegen
 
-We moeten ook de [mappen](https://github.com/chromaui/learnstorybook-code/tree/master/public) voor lettertypes en toevoegen aan de folder `public/`. Na het toevoegen van styling en assets zal de app een beetje vreemd renderen. Dat is geen probleem. We werken momenteel niet aan de app. We beginnen met het bouwen van onze eerste component!
+We moeten ook de [mappen](https://github.com/chromaui/learnstorybook-code/tree/master/public) voor lettertypes en iconen toevoegen aan de folder `public/`. Na het toevoegen van styling en assets zal de app een beetje vreemd renderen. Dat is geen probleem. We werken momenteel niet aan de app. We beginnen met het bouwen van onze eerste component!
