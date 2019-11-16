@@ -49,7 +49,7 @@ You should see this:
 
 Nice, we’ve set up a component explorer!
 
-By default, Storybook has created a folder `src/stories` with some example stories. However, when we copied our components over, we brought their stories too. We can get them indexed in our Storybook by changing the search path in `.storybook/config.js` from `’src/stories’` to `’src/components’`, and removing the `src/stories` directory:
+By default, Storybook has created a folder `src/stories` with some example stories. However, when we copied our components over, we brought their stories too. We can get them indexed in our Storybook by changing the search path in `.storybook/config.js` from `’src/stories’` to `’src’`, and removing the `src/stories` directory:
 
 ```javascript
 import { configure } from '@storybook/react';
