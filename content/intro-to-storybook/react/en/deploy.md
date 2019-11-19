@@ -86,7 +86,7 @@ Now select the taskbox GitHub repo from the list of options.
 
 ![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `yarn build-storybook`.
+Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `.storybook-static`. Build command use `yarn build-storybook`.
 
 ![Netlify settings](/intro-to-storybook/netlify-settings.png)
 
