@@ -69,7 +69,7 @@ $ git push -u origin master
 Netlify has a continuous deployment service built in which will allow us to deploy Storybook without needing to configure our own CI.
 
 <div class="aside">
-If you use CI at your company, add a deploy script to your config that uploads <code>storybook-static</code> to a static hosting service like S3.
+If you use CI at your company, add a deploy script to your config that uploads <code>.storybook-static</code> to a static hosting service like S3.
 </div>
 
 [Create an account on Netlify](https://app.netlify.com/start) and click to “create site”.
@@ -82,7 +82,7 @@ Now select the taskbox GitHub repo from the list of options.
 
 ![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `yarn build-storybook`.
+Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `.storybook-static`. Build command use `npm run build-storybook`.
 
 ![Netlify settings](/intro-to-storybook/netlify-settings.png)
 
