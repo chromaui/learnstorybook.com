@@ -31,7 +31,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 First, we will need to install all the necessary dependencies.
 
 ```bash
-npm install @storybook/addon-knobs
+npm install -D @storybook/addon-knobs
 ```
 
 Register Knobs in your `.storybook/addons.js` file.

@@ -16,28 +16,28 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 <!-- src/components/InboxScreen.svelte-->
 
 <script>
-  import TaskList from "./TaskList.svelte";
-  export let error=false;
+  import TaskList from './TaskList.svelte';
+  export let error = false;
 </script>
 
 <div>
   {#if error}
-    <div class="page lists-show">
-      <div class="wrapper-message">
-        <span class="icon-face-sad" />
-        <div class="title-message">Oh no!</div>
-        <div class="subtitle-message">Something went wrong</div>
-      </div>
+  <div class="page lists-show">
+    <div class="wrapper-message">
+      <span class="icon-face-sad" />
+      <div class="title-message">Oh no!</div>
+      <div class="subtitle-message">Something went wrong</div>
     </div>
+  </div>
   {:else}
-    <div class="page lists-show">
-      <nav>
-        <h1 class="title-page">
-          <span class="title-wrapper">Taskbox</span>
-        </h1>
-      </nav>
-      <TaskList/>
-    </div>
+  <div class="page lists-show">
+    <nav>
+      <h1 class="title-page">
+        <span class="title-wrapper">Taskbox</span>
+      </h1>
+    </nav>
+    <TaskList />
+  </div>
   {/if}
 </div>
 ```
@@ -45,31 +45,27 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 We need to update our store (in `src/store.js`) to include our new `error` field, transforming it into :
 
 ```javascript
-import { writable } from "svelte/store";
+import { writable } from 'svelte/store';
 const TaskBox = () => {
   const { subscribe, update } = writable([
-    { id: "1", title: "Something", state: "TASK_INBOX" },
-    { id: "2", title: "Something more", state: "TASK_INBOX" },
-    { id: "3", title: "Something else", state: "TASK_INBOX" },
-    { id: "4", title: "Something again", state: "TASK_INBOX" }
+    { id: '1', title: 'Something', state: 'TASK_INBOX' },
+    { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+    { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+    { id: '4', title: 'Something again', state: 'TASK_INBOX' },
   ]);
 
   return {
     subscribe,
     archiveTask: id =>
       update(tasks => {
-        tasks.map(task =>
-          task.id === id ? { ...task, state: "TASK_ARCHIVED" } : task
-        );
+        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task));
         return tasks;
       }),
     pinTask: id =>
       update(tasks => {
-        tasks.map(task =>
-          task.id === id ? { ...task, state: "TASK_PINNED" } : task
-        );
+        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task));
         return tasks;
-      })
+      }),
   };
 };
 export const taskStore = TaskBox();
@@ -79,29 +75,30 @@ const appState = () => {
   const { subscribe, update } = writable(false);
   return {
     subscribe,
-    error: () => update(error => !error)
+    error: () => update(error => !error),
   };
 };
 
 export const AppStore = appState();
 ```
+
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```html
 <!-- src/App.svelte-->
 <script>
-  import { AppStore } from "./store";
-  import InboxScreen from "./components/InboxScreen.svelte";
+  import { AppStore } from './store';
+  import InboxScreen from './components/InboxScreen.svelte';
 </script>
 
-<InboxScreen error={$AppStore} />
-
+<InboxScreen error="{$AppStore}" />
 ```
+
 <div class="aside">Don't forget that you also need to update TaskList component also to reflect the changes done to the store.</div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition with other frameworks, container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. 
+As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition with other frameworks, container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service.
 
 When placing the `TaskList` into Storybook, we were able to ilustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
@@ -112,20 +109,20 @@ So when we setup our stories in `InboxScreen.stories.js`:
 import { storiesOf } from '@storybook/svelte';
 import InboxScreen from './InboxScreen.svelte';
 
-storiesOf('PureInboxScreen',module)
-.add('default',()=>{
-    return{
-        Component:InboxScreen,
-    }
-})
-.add('error',()=>{
-    return{
-        Component:InboxScreen,
-        props:{
-            error:true
-        }
-    }
-});
+storiesOf('PureInboxScreen', module)
+  .add('default', () => {
+    return {
+      Component: InboxScreen,
+    };
+  })
+  .add('error', () => {
+    return {
+      Component: InboxScreen,
+      props: {
+        error: true,
+      },
+    };
+  });
 ```
 
 We see that both the `error` and `default` stories work just fine. (But you will encounter some problems when trying to test the `PureInboxScreen` with a unit test if no data is supplied like we did with `TaskList`).
@@ -133,7 +130,6 @@ We see that both the `error` and `default` stories work just fine. (But you will
 <div class="aside">
 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
 </div>
-
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
 

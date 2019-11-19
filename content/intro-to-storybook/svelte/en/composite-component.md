@@ -26,96 +26,89 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 <!--src/components/TaskList.svelte-->
 
 <script>
-  import Task from "./Task.svelte";
+  import Task from './Task.svelte';
   export let loading = false;
   export let tasks = [];
-  
+
   // reactive declarations (computed prop in other frameworks)
-  $:noTasks= tasks.length===0;
-  $:emptyTasks=tasks.length === 0 && !loading;
+  $: noTasks = tasks.length === 0;
+  $: emptyTasks = tasks.length === 0 && !loading;
 </script>
 {#if loading}
-  <div class="list-items">loading</div>
-{/if}
-
-{#if emptyTasks}
-  <div class="list-items">empty</div>
-{/if}
-
-
-{#each tasks as task}
-  <Task {task} on:onPinTask on:onArchiveTask/>
+<div class="list-items">loading</div>
+{/if} {#if emptyTasks}
+<div class="list-items">empty</div>
+{/if} {#each tasks as task}
+<Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
-
 
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 // src/components/TaskList.stories.js
 
-import { storiesOf, addDecorator } from "@storybook/svelte";
+import { storiesOf, addDecorator } from '@storybook/svelte';
 
-import TaskList from "./TaskList.svelte";
-import { task, actions } from "./Task.stories";
+import TaskList from './TaskList.svelte';
+import { task, actions } from './Task.stories';
 
 export const defaultTasks = [
-  { ...task, id: "1", title: "Task 1" },
-  { ...task, id: "2", title: "Task 2" },
-  { ...task, id: "3", title: "Task 3" },
-  { ...task, id: "4", title: "Task 4" },
-  { ...task, id: "5", title: "Task 5" },
-  { ...task, id: "6", title: "Task 6" }
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
 
 export const withPinnedTasks = [
   ...defaultTasks.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-storiesOf("TaskList", module)
-  .add("default", () => {
+storiesOf('TaskList', module)
+  .add('default', () => {
     return {
       Component: TaskList,
       props: {
-        tasks: defaultTasks
+        tasks: defaultTasks,
       },
       on: {
-        ...actions
-      }
+        ...actions,
+      },
     };
   })
-  .add("withPinnedTasks", () => {
+  .add('withPinnedTasks', () => {
     return {
       Component: TaskList,
       props: {
-        tasks: withPinnedTasks
+        tasks: withPinnedTasks,
       },
       on: {
-        ...actions
-      }
+        ...actions,
+      },
     };
   })
-  .add("loading", () => {
+  .add('loading', () => {
     return {
       Component: TaskList,
       props: {
-        loading: true
+        loading: true,
       },
       on: {
-        ...actions
-      }
+        ...actions,
+      },
     };
   })
-  .add("empty", () => {
+  .add('empty', () => {
     return {
       Component: TaskList,
       on: {
-        ...actions
-      }
+        ...actions,
+      },
     };
   });
-
 ```
 
 <!-- `addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
@@ -153,7 +146,6 @@ Create a new file called `LoadingRow.svelte` and inside add the following markup
     <span>state</span>
   </span>
 </div>
-
 ```
 
 And update `TaskList.svelte` to the following:
@@ -162,42 +154,38 @@ And update `TaskList.svelte` to the following:
 <!--src/components/TaskList.svelte-->
 
 <script>
-  import Task from "./Task.svelte";
-  import LoadingRow from "./LoadingRow.svelte";
+  import Task from './Task.svelte';
+  import LoadingRow from './LoadingRow.svelte';
   export let loading = false;
   export let tasks = [];
 
   // reactive declaration (computed prop in other frameworks)
-  $:noTasks= tasks.length===0;
-  $:emptyTasks=tasks.length === 0 && !loading;
+  $: noTasks = tasks.length === 0;
+  $: emptyTasks = tasks.length === 0 && !loading;
   $: tasksInOrder = [
-    ...tasks.filter(t => t.state === "TASK_PINNED"),
-    ...tasks.filter(t => t.state !== "TASK_PINNED")
+    ...tasks.filter(t => t.state === 'TASK_PINNED'),
+    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
   ];
 </script>
 {#if loading}
-  <div class="list-items">
-    <LoadingRow />
-    <LoadingRow />
-    <LoadingRow />
-    <LoadingRow />
-    <LoadingRow />
+<div class="list-items">
+  <LoadingRow />
+  <LoadingRow />
+  <LoadingRow />
+  <LoadingRow />
+  <LoadingRow />
+</div>
+{/if} {#if tasks.length === 0 && !loading}
+<div class="list-items">
+  <div class="wrapper-message">
+    <span class="icon-check" />
+    <div class="title-message">You have no tasks</div>
+    <div class="subtitle-message">Sit back and relax</div>
   </div>
-{/if}
-
-{#if tasks.length === 0 && !loading}
-  <div class="list-items">
-    <div class="wrapper-message">
-      <span class="icon-check" />
-      <div class="title-message">You have no tasks</div>
-      <div class="subtitle-message">Sit back and relax</div>
-    </div>
-  </div>
-{/if}
-
-{#each tasksInOrder as task}
-  <Task {task} on:onPinTask on:onArchiveTask />
-{/each} 
+</div>
+{/if} {#each tasksInOrder as task}
+<Task {task} on:onPinTask on:onArchiveTask />
+{/each}
 ```
 
 The added markup results in the following UI:
@@ -231,22 +219,17 @@ Create a test file called `src/components/TaskList.test.js`. Here, we’ll build
 
 ```javascript
 // src/components/TaskList.test.js
-import TaskList from "./TaskList.svelte";
-import { render } from "@testing-library/svelte";
-import { withPinnedTasks } from "./TaskList.stories";
-describe("TaskList", () => {
-  it("renders pinned tasks at the start of the list", () => {
-    setTimeout(() => {
-      const { container } = render(TaskList, {
-        props: {
-          tasks: withPinnedTasks
-        }
-      });
-      expect(container.firstChild.classList.contains("TASK_PINNED")).toBe(true);
-    }, 10);
+import TaskList from './TaskList.svelte';
+import { render } from '@testing-library/svelte';
+import { withPinnedTasks } from './TaskList.stories';
+test('TaskList ', async () => {
+  const { container } = await render(TaskList, {
+    props: {
+      tasks: withPinnedTasks,
+    },
   });
+  expect(container.firstChild.children[0].classList.contains('TASK_PINNED')).toBe(true);
 });
-
 ```
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)

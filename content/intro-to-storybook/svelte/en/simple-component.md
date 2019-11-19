@@ -28,38 +28,35 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 ```html
 <!--src/components/Task.svelte-->
 <script>
-    import { createEventDispatcher } from 'svelte';
-    
-    const dispatch= createEventDispatcher()
+  import { createEventDispatcher } from 'svelte';
 
-    // event handler for Pin Task
-    function PinTask(){
-        dispatch('onPinTask',{
-            id:task.id
-        })
-    }
+  const dispatch = createEventDispatcher();
 
-    // event handler for Archive Task
-    function ArchiveTask() {
-        dispatch('onArchiveTask',{
-            id:task.id
-        });
-    }
-    //
+  // event handler for Pin Task
+  function PinTask() {
+    dispatch('onPinTask', {
+      id: task.id,
+    });
+  }
+
+  // event handler for Archive Task
+  function ArchiveTask() {
+    dispatch('onArchiveTask', {
+      id: task.id,
+    });
+  }
 
   // Task props
-  export let task={
-      id:'',
-      title:'',
-      state:'',
-      updated_at:new Date(2019, 0, 1, 9, 0)
-
+  export let task = {
+    id: '',
+    title: '',
+    state: '',
+    updated_at: new Date(2019, 0, 1, 9, 0),
   };
-  //
 </script>
 
 <div class="list-item">
-  <input type="text" value={task.title} readonly />
+  <input type="text" value="{task.title}" readonly />
 </div>
 ```
 
@@ -69,61 +66,61 @@ Below we build out Task’s three test states in the story file:
 
 ```javascript
 // src/components/Task.stories.js
-import { storiesOf } from "@storybook/svelte";
-import { action} from "@storybook/addon-actions";
+import { storiesOf } from '@storybook/svelte';
+import { action } from '@storybook/addon-actions';
 
-import Task from "./Task.svelte";
+import Task from './Task.svelte';
 
 export const task = {
-  id: "1",
-  title: "Test Task",
-  state: "Task_INBOX",
-  updated_at: new Date(2019, 0, 1, 9, 0)
+  id: '1',
+  title: 'Test Task',
+  state: 'Task_INBOX',
+  updated_at: new Date(2019, 0, 1, 9, 0),
 };
 
 export const actions = {
-  onPinTask: action("onPinTask"),
-  onArchiveTask: action("onArchiveTask")
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf("Task", module)
-  .add("default", () => {
+storiesOf('Task', module)
+  .add('default', () => {
     return {
       Component: Task,
       props: {
-        task
+        task,
       },
-       on: {
-        ...actions
-      }
+      on: {
+        ...actions,
+      },
     };
   })
-  .add("pinned", () => {
+  .add('pinned', () => {
     return {
       Component: Task,
       props: {
         task: {
           ...task,
-          state: "TASK_PINNED"
-        }
+          state: 'TASK_PINNED',
+        },
       },
       on: {
-        ...actions
-      }
+        ...actions,
+      },
     };
   })
-  .add("archived", () => {
+  .add('archived', () => {
     return {
       Component: Task,
       props: {
         task: {
           ...task,
-          state: "TASK_ARCHIVED"
-        }
+          state: 'TASK_ARCHIVED',
+        },
       },
       on: {
-        ...actions
-      }
+        ...actions,
+      },
     };
   });
 ```
@@ -143,7 +140,6 @@ As we need to pass the same set of actions to all permutations of our component,
 
 Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
-
 To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a set of properties that define the story -- in this case a component and it's props and events.
 
 When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
@@ -159,7 +155,7 @@ We also have to make one small change to the Storybook configuration setup (`.st
 ```javascript
 // .storybook/config.js
 
-import { configure } from '@storybook/react';
+import { configure } from '@storybook/svelte';
 import '../src/index.css';
 
 const req = require.context('../src', true, /\.stories.js$/);
@@ -190,48 +186,47 @@ The component is still basic at the moment. First write the code that achieves t
 <!--src/components/Task.svelte-->
 
 <script>
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
   // event handler for Pin Task
   function PinTask() {
-    dispatch("onPinTask", {
-      id: task.id
+    dispatch('onPinTask', {
+      id: task.id,
     });
   }
   // event handler for Archive Task
   function ArchiveTask() {
-    dispatch("onArchiveTask", {
-      id: task.id
+    dispatch('onArchiveTask', {
+      id: task.id,
     });
   }
-  //
 
   // Task props
   export let task = {
-    id: "",
-    title: "",
-    state: "",
-    updated_at: new Date(2019, 0, 1, 9, 0)
+    id: '',
+    title: '',
+    state: '',
+    updated_at: new Date(2019, 0, 1, 9, 0),
   };
-  //
+
   // reactive declaration (computed prop in other frameworks)
-  $: isChecked = task.state === "TASK_ARCHIVED";
+  $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
-<div class={`list-item ${task.state}`}>
+<div class="{`list-item" ${task.state}`}>
   <label class="checkbox">
-    <input type="checkbox" checked={isChecked} disabled name="checked" />
-    <span class="checkbox-custom" on:click={ArchiveTask} />
+    <input type="checkbox" checked="{isChecked}" disabled name="checked" />
+    <span class="checkbox-custom" on:click="{ArchiveTask}" />
   </label>
   <div class="title">
-    <input type="text" readonly value={task.title} placeholder="Input title" />
+    <input type="text" readonly value="{task.title}" placeholder="Input title" />
   </div>
   <div class="actions">
     {#if task.state !== 'TASK_ARCHIVED'}
-      <a href="/" on:click|preventDefault={PinTask}>
-        <span class="icon-star" />
-      </a>
+    <a href="/" on:click|preventDefault="{PinTask}">
+      <span class="icon-star" />
+    </a>
     {/if}
   </div>
 </div>
@@ -277,7 +272,6 @@ Then create an `src/storybook.test.js` file with the following in it:
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
-
 ```
 
 You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Install it with:
@@ -291,12 +285,8 @@ And enable it by changing the `.babelrc` file in the root folder of your app (sa
 ```json
 // .babelrc
 {
-    "plugins": [
-        "macros"
-    ],
-    "presets": [
-        "@babel/preset-env"
-    ]
+  "plugins": ["macros"],
+  "presets": ["@babel/preset-env"]
 }
 ```
 
@@ -315,7 +305,7 @@ function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
-configure(loadStories, module)
+configure(loadStories, module);
 ```
 
 (Notice we've replaced `require.context` with a call to `requireContext` imported from the macro).
@@ -334,6 +324,7 @@ Finally we need to make a small adjustment to our `jest` key in `package.json`:
   }
 }
 ```
+
 Once the above is done, we can run `npm run test` and see the following output:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)

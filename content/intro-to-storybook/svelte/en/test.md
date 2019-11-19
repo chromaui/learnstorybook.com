@@ -38,7 +38,7 @@ Chromatic is a hassle-free Storybook addon for visual regression testing and rev
 At this stage there's still no repository setup just yet. Let's change that and set it up:
 
 ```bash
-$ git init 
+$ git init
 ```
 
 Next add files to the first commit.
@@ -59,26 +59,6 @@ Add the package as a dependency.
 
 ```bash
 npm install -D storybook-chromatic
-```
-
-Import Chromatic in your `.storybook/config.js` file.
-
-```javascript
-// .storybook/config.js
-
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'storybook-chromatic';
-
-import '../src/index.css';
-
-const req = requireContext('../src/components', true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
 ```
 
 Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
