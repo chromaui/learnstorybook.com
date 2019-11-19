@@ -1,5 +1,5 @@
 ---
-title: 'Construção de um componente siples'
+title: 'Construção de um componente simples'
 tocTitle: 'Componente simples'
 description: 'Construção de um componente simples isolado'
 ---
