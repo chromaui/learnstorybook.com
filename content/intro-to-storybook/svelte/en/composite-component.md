@@ -35,11 +35,13 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
   $: emptyTasks = tasks.length === 0 && !loading;
 </script>
 {#if loading}
-<div class="list-items">loading</div>
-{/if} {#if emptyTasks}
-<div class="list-items">empty</div>
-{/if} {#each tasks as task}
-<Task {task} on:onPinTask on:onArchiveTask />
+  <div class="list-items">loading</div>
+{/if}
+{#if emptyTasks}
+  <div class="list-items">empty</div>
+{/if} 
+{#each tasks as task}
+  <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
 
@@ -175,7 +177,8 @@ And update `TaskList.svelte` to the following:
   <LoadingRow />
   <LoadingRow />
 </div>
-{/if} {#if tasks.length === 0 && !loading}
+{/if} 
+{#if tasks.length === 0 && !loading}
 <div class="list-items">
   <div class="wrapper-message">
     <span class="icon-check" />
@@ -183,8 +186,9 @@ And update `TaskList.svelte` to the following:
     <div class="subtitle-message">Sit back and relax</div>
   </div>
 </div>
-{/if} {#each tasksInOrder as task}
-<Task {task} on:onPinTask on:onArchiveTask />
+{/if} 
+{#each tasksInOrder as task}
+  <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
 

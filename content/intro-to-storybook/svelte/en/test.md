@@ -70,6 +70,16 @@ Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub ac
   />
 </video>
 
+A small change is required to the `build-storybook` script to allow the `storybook-chromatic` addon to correctly display the both the assets (icons and fonts) and the css that was added in the beginning of the tutorial
+```json
+{
+  ....
+  "scripts":{
+    ...
+    "build-storybook": "build-storybook -s public",
+  }
+}
+```
 Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
 
 ```bash

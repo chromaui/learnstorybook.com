@@ -38,8 +38,7 @@ Before deploying to Netlify we need to take some additional steps. If you're fol
 
 ### Initialize Repo
 
-First you want to setup Git for your project in the local directory. 
-
+First you want to setup Git for your project in the local directory.
 
 ```bash
 $ git init
@@ -96,6 +95,8 @@ Now select the taskbox GitHub repo from the list of options.
 Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `yarn build-storybook`.
 
 ![Netlify settings](/intro-to-storybook/netlify-settings.png)
+
+<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
 
 Submit the form to build and deploy the code on the `master` branch of taskbox.
 

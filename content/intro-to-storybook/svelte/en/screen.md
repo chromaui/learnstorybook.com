@@ -47,6 +47,7 @@ We need to update our store (in `src/store.js`) to include our new `error` field
 ```javascript
 import { writable } from 'svelte/store';
 const TaskBox = () => {
+  // creates a new writable store populated with some initial data
   const { subscribe, update } = writable([
     { id: '1', title: 'Something', state: 'TASK_INBOX' },
     { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -56,16 +57,16 @@ const TaskBox = () => {
 
   return {
     subscribe,
+    // method to archive a task, think of a action with redux or Vuex
     archiveTask: id =>
-      update(tasks => {
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task));
-        return tasks;
-      }),
+      update(tasks =>
+        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task))
+      ),
+    // method to archive a task, think of a action with redux or Vuex
     pinTask: id =>
-      update(tasks => {
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task));
-        return tasks;
-      }),
+      update(tasks =>
+        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
+      ),
   };
 };
 export const taskStore = TaskBox();

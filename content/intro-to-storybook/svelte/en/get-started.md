@@ -138,8 +138,8 @@ If you want to modify the styling, the source LESS files are provided in the Git
 Add the font and icon directories by downloading them to your computer and dropping them into your repository.
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/tree/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/tree/master/public/font public/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
 
 <div class="aside">
