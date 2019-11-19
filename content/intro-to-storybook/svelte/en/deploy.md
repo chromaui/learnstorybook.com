@@ -14,19 +14,9 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook, we just need to activate it by adding a script to `package.json`.
+To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook out of the box.
 
-```javascript
-// package.json
-
-{
-  "scripts": {
-   "build-storybook": "build-storybook -c .storybook -s public -o storybook-static"
-  }
-}
-```
-
-Now when you build Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
+Now when you build Storybook via `npm run build-storybook`, it will output a static Storybook in the `.storybook-static` directory.
 
 ## Continuous deploy
 

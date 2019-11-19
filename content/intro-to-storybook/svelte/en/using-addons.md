@@ -61,9 +61,9 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 ```javascript
 // src/components/Task.stories.js
 
-import { storiesOf } from "@storybook/svelte";
-import { action} from "@storybook/addon-actions";
-import { withKnobs, object } from "@storybook/addon-knobs";
+import Task from './Task.svelte';
+import { actions, task } from './storybook-helper';
+import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
@@ -71,57 +71,49 @@ Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addD
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+export default {
+  title: 'Task',
+  decorators: [withKnobs],
+};
 ```
 
-Lastly, integrate the `object` knob type within the "default" story:
+Lastly, integrate the `object` knob type within the "standard" story:
 
 ```javascript
 // src/components/Task.stories.js
-
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .add("default", () => {
-    return {
-      Component: Task,
-      props: {
-        task: object("task", { ...task })
-      },
-      on: {
-        ...actions
-      }
-    };
-  })
-  .add("pinned", () => {
-    return {
-      Component: Task,
-      props: {
-        task: {
-          ...task,
-          state: "TASK_PINNED"
-        }
-      },
-      on: {
-        ...actions
-      }
-    };
-  })
-  .add("archived", () => {
-    return {
-      Component: Task,
-      props: {
-        task: {
-          ...task,
-          state: "TASK_ARCHIVED"
-        }
-      },
-      on: {
-        ...actions
-      }
-    };
-  });
+export const standard = () => ({
+  Component: Task,
+  props: {
+    task: object('task', { ...task }), // knobs addon used here
+  },
+  on: {
+    ...actions,
+  },
+});
+export const pinned = () => ({
+  Component: Task,
+  props: {
+    task: {
+      ...task,
+      state: 'TASK_PINNED',
+    },
+  },
+  on: {
+    ...actions,
+  },
+});
+export const archived = () => ({
+  Component: Task,
+  props: {
+    task: {
+      ...task,
+      state: 'TASK_ARCHIVED',
+    },
+  },
+  on: {
+    ...actions,
+  },
+});
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -145,12 +137,13 @@ Thanks to quickly being able to try different inputs to a component we can find 
 
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
 // but for this tutorial, let's fix the problem with an inline style:-->
-<input 
-  type="text" 
-  readonly 
-  value={task.title} 
-  placeholder="Input title" 
-  style="text-overflow: ellipsis;"/>
+<input
+  type="text"
+  readonly
+  value="{task.title}"
+  placeholder="Input title"
+  style="text-overflow: ellipsis;"
+/>
 ```
 
 ![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
@@ -164,60 +157,19 @@ Let's add a story for the long text case in Task.stories.js:
 ```javascript
 // src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+// above code stays the same
 
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .add("default", () => {
-    return {
-      Component: Task,
-      props: {
-        task: object("task", { ...task })
-      },
-      on: {
-        ...actions
-      }
-    };
-  })
-  .add("pinned", () => {
-    return {
-      Component: Task,
-      props: {
-        task: {
-          ...task,
-          state: "TASK_PINNED"
-        }
-      },
-      on: {
-        ...actions
-      }
-    };
-  })
-  .add("archived", () => {
-    return {
-      Component: Task,
-      props: {
-        task: {
-          ...task,
-          state: "TASK_ARCHIVED"
-        }
-      },
-      on: {
-        ...actions
-      }
-    };
-  })
-  .add("longTitle", () => {
-    return {
-      Component: Task,
-      props: {
-        task: {
-          ...task,
-          title: longTitle
-        }
-      }
-    };
-  });
+const reallylongTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+
+export const longTitle = () => ({
+  Component: Task,
+  props: {
+    task: {
+      ...task,
+      title: reallylongTitle,
+    },
+  },
+});
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:

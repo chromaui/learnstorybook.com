@@ -45,72 +45,68 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 {/each}
 ```
 
+We'll need a set of tasks to test this new component. Add the following to `storybook-helper.js` file that was created earlier:
+
+```javascript
+// defines a set of test tasks for our stories and tests
+export const defaultTasks = [
+  { ...task, id: "1", title: "Task 1" },
+  { ...task, id: "2", title: "Task 2" },
+  { ...task, id: "3", title: "Task 3" },
+  { ...task, id: "4", title: "Task 4" },
+  { ...task, id: "5", title: "Task 5" },
+  { ...task, id: "6", title: "Task 6" }
+];
+
+// extends the default tasks by
+// adding a new pinned task that will be used across our tests and stories
+export const withPinnedTasks = [
+  ...defaultTasks.slice(0, 5),
+  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+];
+```
+
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 // src/components/TaskList.stories.js
+import TaskList from "./TaskList.svelte";
+import { actions, defaultTasks, withPinnedTasks } from "./storybook-helper";
+export default {
+  title: "TaskList"
+};
 
-import { storiesOf, addDecorator } from '@storybook/svelte';
-
-import TaskList from './TaskList.svelte';
-import { task, actions } from './Task.stories';
-
-export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
-];
-
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
-
-storiesOf('TaskList', module)
-  .add('default', () => {
-    return {
-      Component: TaskList,
-      props: {
-        tasks: defaultTasks,
-      },
-      on: {
-        ...actions,
-      },
-    };
-  })
-  .add('withPinnedTasks', () => {
-    return {
-      Component: TaskList,
-      props: {
-        tasks: withPinnedTasks,
-      },
-      on: {
-        ...actions,
-      },
-    };
-  })
-  .add('loading', () => {
-    return {
-      Component: TaskList,
-      props: {
-        loading: true,
-      },
-      on: {
-        ...actions,
-      },
-    };
-  })
-  .add('empty', () => {
-    return {
-      Component: TaskList,
-      on: {
-        ...actions,
-      },
-    };
-  });
+// default TaskList state
+export const standard = () => ({
+  Component: TaskList,
+  props: {
+    tasks: defaultTasks
+  },
+  on: {
+    ...actions
+  }
+});
+// tasklist with pinned tasks
+export const pinnedTasks = () => ({
+  Component: TaskList,
+  props: {
+    tasks: withPinnedTasks
+  },
+  on: {
+    ...actions
+  }
+});
+// tasklist in loading state
+export const loading = () => ({
+  Component: TaskList,
+  props: {
+    loading: true
+  },
+});
+// tasklist no tasks
+export const empty = () => ({
+  Component: TaskList,
+}); 
 ```
 
 <!-- `addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
@@ -225,7 +221,7 @@ Create a test file called `src/components/TaskList.test.js`. Here, we’ll build
 // src/components/TaskList.test.js
 import TaskList from './TaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasks } from './TaskList.stories';
+import { withPinnedTasks } from './storybook-helper';
 test('TaskList ', async () => {
   const { container } = await render(TaskList, {
     props: {

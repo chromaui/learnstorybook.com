@@ -62,15 +62,11 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 
 Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
 
-Below we build out Task’s three test states in the story file:
+Before starting implementing the stories for the `Task` component, create a new file `src/components/storybook-helper.js` and add the following:
 
-```javascript
-// src/components/Task.stories.js
-import { storiesOf } from '@storybook/svelte';
+```js
 import { action } from '@storybook/addon-actions';
-
-import Task from './Task.svelte';
-
+// defines a example task to be used with the stories
 export const task = {
   id: '1',
   title: 'Test Task',
@@ -78,51 +74,62 @@ export const task = {
   updated_at: new Date(2019, 0, 1, 9, 0),
 };
 
+// bundles the actions associated with the component
 export const actions = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
+```
 
-storiesOf('Task', module)
-  .add('default', () => {
-    return {
-      Component: Task,
-      props: {
-        task,
-      },
-      on: {
-        ...actions,
-      },
-    };
-  })
-  .add('pinned', () => {
-    return {
-      Component: Task,
-      props: {
-        task: {
-          ...task,
-          state: 'TASK_PINNED',
-        },
-      },
-      on: {
-        ...actions,
-      },
-    };
-  })
-  .add('archived', () => {
-    return {
-      Component: Task,
-      props: {
-        task: {
-          ...task,
-          state: 'TASK_ARCHIVED',
-        },
-      },
-      on: {
-        ...actions,
-      },
-    };
-  });
+<div class="aside"><p>As you continue to work on the tutorial the reasoning behind this file will become more and more clearer. For now think of this file as a simple helper file that streamlines the task development workflow.</p></div>
+
+Below we build out Task’s three test states in the story file:
+
+```javascript
+// src/components/Task.stories.js
+import Task from './Task.svelte';
+import { actions, task } from './storybook-helper';
+
+export default {
+  title: 'Task',
+};
+
+// default task state
+export const standard = () => ({
+  Component: Task,
+  props: {
+    task,
+  },
+  on: {
+    ...actions,
+  },
+});
+// pinned task state
+export const pinned = () => ({
+  Component: Task,
+  props: {
+    task: {
+      ...task,
+      state: 'TASK_PINNED',
+    },
+  },
+  on: {
+    ...actions,
+  },
+});
+// archived task state
+export const archived = () => ({
+  Component: Task,
+  props: {
+    task: {
+      ...task,
+      state: 'TASK_ARCHIVED',
+    },
+  },
+  on: {
+    ...actions,
+  },
+});
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -132,15 +139,13 @@ There are two basic levels of organization in Storybook: the component and its c
   - Story
   - Story
 
-To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
+Up until now, to initiate Storybook we first had to call the `storiesOf()` function to register the component. Then set a display name for the component –the name that appears on the sidebar in the Storybook app. As of now you can simplify the way the stories are written and later consumed by Storybook, by using standard ES6 exports. You can read more about it [here](https://storybook.js.org/docs/formats/component-story-format/).
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
 As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and pass them into our story definition each time (where they will be accessed when the `dispatch` function is invoked).
 
 Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
-
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a set of properties that define the story -- in this case a component and it's props and events.
 
 When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
@@ -154,17 +159,9 @@ We also have to make one small change to the Storybook configuration setup (`.st
 
 ```javascript
 // .storybook/config.js
-
 import { configure } from '@storybook/svelte';
 import '../src/index.css';
-
-const req = require.context('../src', true, /\.stories.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
@@ -259,10 +256,10 @@ Snapshot testing refers to the practice of recording the “known good” output
 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
+With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependencies:
 
 ```bash
-npm install -D @storybook/addon-storyshots require-context.macro
+npm install -D @storybook/addon-storyshots babel-plugin-require-context-hook
 ```
 
 Then create an `src/storybook.test.js` file with the following in it:
@@ -274,19 +271,26 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Install it with:
-
-```bash
-npm install -D babel-plugin-macros
-```
-
 And enable it by changing the `.babelrc` file in the root folder of your app (same level as `package.json`) to the following:
 
 ```json
 // .babelrc
 {
-  "plugins": ["macros"],
-  "presets": ["@babel/preset-env"]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ],
+  "env": {
+    "test": {
+      "plugins": ["require-context-hook"]
+    }
+  }
 }
 ```
 
@@ -295,22 +299,25 @@ Then update `.storybook/config.js` to have:
 ```js
 // .storybook/config.js
 import { configure } from '@storybook/svelte';
-
 import '../src/index.css';
-import requireContext from 'require-context.macro';
 
-const req = requireContext('../src/components', true, /\.stories\.js$/);
+const req = require.context('../src/components', true, /\.stories\.js$/);
 
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+configure(req, module);
 ```
 
-(Notice we've replaced `require.context` with a call to `requireContext` imported from the macro).
+We have almost everything in place to allow snapshot testing with jest and Storybook. We need to take a couple of final steps for our environment to work correctly.
 
-Finally we need to make a small adjustment to our `jest` key in `package.json`:
+First create a new file `.jest/register-context.js` and add the following content:
+
+```javascript
+import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
+registerRequireContextHook();
+```
+
+With this file we're making sure Storybook and Jest can introspect our project and make the necessary snapshot tests.
+
+And finally we need to make a small adjustment to our `jest` key in `package.json`:
 
 ```json
 {
@@ -321,11 +328,15 @@ Finally we need to make a small adjustment to our `jest` key in `package.json`:
       "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-dom/extend-expect",
+      "<rootDir>/.jest/register-context.js"
+    ],
   }
 }
 ```
 
-Once the above is done, we can run `npm run test` and see the following output:
+Once all the above is done, we can run `npm run test` and see the following output:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 

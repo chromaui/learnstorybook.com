@@ -107,26 +107,25 @@ So when we setup our stories in `InboxScreen.stories.js`:
 
 ```javascript
 // src/components/InboxScreen.stories.js
-import { storiesOf } from '@storybook/svelte';
 import InboxScreen from './InboxScreen.svelte';
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
-    return {
-      Component: InboxScreen,
-    };
-  })
-  .add('error', () => {
-    return {
-      Component: InboxScreen,
-      props: {
-        error: true,
-      },
-    };
-  });
+export default {
+  title: 'PureInboxScreen',
+  Component: InboxScreen,
+};
+export const standard = () => ({
+  Component: InboxScreen,
+});
+
+export const error = () => ({
+  Component: InboxScreen,
+  props: {
+    error: true,
+  },
+});
 ```
 
-We see that both the `error` and `default` stories work just fine. (But you will encounter some problems when trying to test the `PureInboxScreen` with a unit test if no data is supplied like we did with `TaskList`).
+We see that both the `error` and `standard` stories work just fine. (But you will encounter some problems when trying to test the `PureInboxScreen` with a unit test if no data is supplied like we did with `TaskList`).
 
 <div class="aside">
 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.

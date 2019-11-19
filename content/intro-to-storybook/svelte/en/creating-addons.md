@@ -23,15 +23,17 @@ We have our goal, now let's define what features our addon will support:
 
 The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/configurations/options-parameter/), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
 
-<!-- this is probably not needed as it's used below-->
-
 ```javascript
-storiesOf("your-component", module)
-  .addParameters({
-    assets: ["path/to/your/asset.png"]
-  })
-  .addDecorator(/*...*/)
-  .add(/*...*/);
+export default {
+  title: "Your component",
+  decorators: [/*...*/],
+  parameters:{
+    assets: [
+      "path/to/your/asset.png"
+    ]
+  }
+  //
+};
 ```
 
 <!-- -->
@@ -59,13 +61,24 @@ Your updated file should look like this:
 
 ```json
 {
-    "plugins": [
-        "macros"
-    ],
     "presets": [
+       [
         "@babel/preset-env",
+        {
+            "targets": {
+              "node": "current"
+            }
+        }
+       ],
         "@babel/preset-react"
-    ]
+    ],
+    "env": {
+        "test": {
+            "plugins": [
+                "require-context-hook"
+            ]
+        }
+    }
 }
 ```
 
@@ -197,15 +210,18 @@ To do so, we're going to make a small change to the `Task.stories.js` file and a
 
 ```javascript
 // src/components/Task.stories.js
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  title: "Task",
+  decorators: [withKnobs],
+  parameters:{
     assets: [
       "path/to/your/asset.png",
       "path/to/another/asset.png",
       "path/to/yet/another/asset.png"
     ]
-  });
+  }
+  //
+};
 /* same as before  */
 ```
 
