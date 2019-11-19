@@ -88,6 +88,8 @@ Configure Netlify by highlighting which build command to run in its CI and which
 
 ![Netlify settings](/intro-to-storybook/netlify-settings.png)
 
+<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
+
 Submit the form to build and deploy the code on the `master` branch of taskbox.
 
 When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).

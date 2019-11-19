@@ -85,9 +85,11 @@ Seguida da seleção do repositório da lista de opções.
 
 ![Conexão Netlify para o repositorio](/intro-to-storybook/netlify-account-picker.png)
 
-É feita a configuração no Netlify ao selecionar-se o comando apropriado para executar no IC(CI na forma nativa) e qual a pasta de output. Como ramo, seleciona-se `master`. Pasta `storybook-static`. Comando `yarn build-storybook`.
+É feita a configuração no Netlify ao selecionar-se o comando apropriado para executar no IC(CI na forma nativa) e qual a pasta de output. Como ramo, seleciona-se `master`. Pasta `.storybook-static`. Comando `yarn build-storybook`.
 
 ![Configurações Netlify](/intro-to-storybook/netlify-settings.png)
+
+<div class="aside"><p>Caso o deploy no Netlify falhe, adicione a <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag ao seu comando <code>build-storybook</code>.</p></div>
 
 Em seguida é feita a submissão do formulário, para compilar o código no ramo `master` do repositório taskbox.
 
