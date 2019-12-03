@@ -78,8 +78,7 @@ In `src/components/PureTaskList.svelte`:
   <LoadingRow />
   <LoadingRow />
 </div>
-{/if} 
-{#if noTasks && !loading}
+{/if} {#if noTasks && !loading}
 <div class="list-items">
   <div class="wrapper-message">
     <span class="icon-check" />
@@ -87,9 +86,8 @@ In `src/components/PureTaskList.svelte`:
     <div class="subtitle-message">Sit back and relax</div>
   </div>
 </div>
-{/if} 
-{#each tasksInOrder as task}
-  <Task {task} on:onPinTask on:onArchiveTask />
+{/if} {#each tasksInOrder as task}
+<Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
 
@@ -119,41 +117,52 @@ In `src/components/TaskList.svelte`:
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
-import PureTaskList from "./PureTaskList.svelte";
-import { actions, defaultTasks, withPinnedTasks } from "./storybook-helper";
+import PureTaskList from './PureTaskList.svelte';
+import { taskData, actionsData } from './Task.stories';
 export default {
-  title: "PureTaskList"
+  title: 'PureTaskList',
+  excludeStories: /.*Data$/,
 };
+export const defaultTasksData = [
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
+];
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+];
+// default TaskList state
+export const Default = () => ({
+  Component: PureTaskList,
+  props: {
+    tasks: defaultTasksData,
+  },
+  on: {
+    ...actionsData,
+  },
+});
 
-// default PureTaskList state
-export const standard = () => ({
+export const WithPinnedTasks = () => ({
   Component: PureTaskList,
   props: {
-    tasks: defaultTasks
+    tasks: withPinnedTasksData,
   },
   on: {
-    ...actions
-  }
-});
-// PureTaskList with pinned tasks
-export const pinnedTasks = () => ({
-  Component: PureTaskList,
-  props: {
-    tasks: withPinnedTasks
-  },
-  on: {
-    ...actions
-  }
-});
-// PureTaskList in loading state
-export const loading = () => ({
-  Component: PureTaskList,
-  props: {
-    loading: true
+    ...actionsData,
   },
 });
-// PureTaskList no tasks
-export const empty = () => ({
+export const Loading = () => ({
+  Component: PureTaskList,
+  props: {
+    loading: true,
+  },
+});
+export const Empty = () => ({
   Component: PureTaskList,
 });
 ```
@@ -170,7 +179,7 @@ Similarly, we need to use `PureTaskList` in our Jest test:
 ```js
 import PureTaskList from './PureTaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasks } from './storybook-helper'
+import { withPinnedTasks } from './storybook-helper';
 
 test('TaskList', async () => {
   const { container } = await render(PureTaskList, {

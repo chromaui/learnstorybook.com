@@ -45,66 +45,60 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 {/each}
 ```
 
-We'll need a set of tasks to test this new component. Add the following to `storybook-helper.js` file that was created earlier:
-
-```javascript
-// defines a set of test tasks for our stories and tests
-export const defaultTasks = [
-  { ...task, id: "1", title: "Task 1" },
-  { ...task, id: "2", title: "Task 2" },
-  { ...task, id: "3", title: "Task 3" },
-  { ...task, id: "4", title: "Task 4" },
-  { ...task, id: "5", title: "Task 5" },
-  { ...task, id: "6", title: "Task 6" }
-];
-
-// extends the default tasks by
-// adding a new pinned task that will be used across our tests and stories
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
-];
-```
 
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 // src/components/TaskList.stories.js
 import TaskList from "./TaskList.svelte";
-import { actions, defaultTasks, withPinnedTasks } from "./storybook-helper";
+import { taskData, actionsData } from "./Task.stories";
 export default {
-  title: "TaskList"
+  title: "TaskList",
+  excludeStories: /.*Data$/
 };
 
+export const defaultTasksData = [
+  { ...taskData, id: "1", title: "Task 1" },
+  { ...taskData, id: "2", title: "Task 2" },
+  { ...taskData, id: "3", title: "Task 3" },
+  { ...taskData, id: "4", title: "Task 4" },
+  { ...taskData, id: "5", title: "Task 5" },
+  { ...taskData, id: "6", title: "Task 6" }
+];
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
+  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+];
+
 // default TaskList state
-export const standard = () => ({
+export const Default = () => ({
   Component: TaskList,
-  props: {
-    tasks: defaultTasks
+   props: {
+    tasks: defaultTasksData
   },
   on: {
-    ...actions
+    ...actionsData
   }
 });
 // tasklist with pinned tasks
-export const pinnedTasks = () => ({
+export const WithPinnedTasks = () => ({
   Component: TaskList,
   props: {
-    tasks: withPinnedTasks
+    tasks: withPinnedTasksData
   },
   on: {
-    ...actions
+    ...actionsData
   }
 });
 // tasklist in loading state
-export const loading = () => ({
+export const Loading = () => ({
   Component: TaskList,
   props: {
     loading: true
   },
 });
 // tasklist no tasks
-export const empty = () => ({
+export const Empty = () => ({
   Component: TaskList,
 }); 
 ```

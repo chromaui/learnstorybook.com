@@ -62,27 +62,6 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 
 Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
 
-Before starting implementing the stories for the `Task` component, create a new file `src/components/storybook-helper.js` and add the following:
-
-```js
-import { action } from '@storybook/addon-actions';
-// defines a example task to be used with the stories
-export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'Task_INBOX',
-  updated_at: new Date(2019, 0, 1, 9, 0),
-};
-
-// bundles the actions associated with the component
-export const actions = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
-};
-```
-
-<div class="aside"><p>As you continue to work on the tutorial the reasoning behind this file will become more and more clearer. For now think of this file as a simple helper file that streamlines the task development workflow.</p></div>
-
 Below we build out Task’s three test states in the story file:
 
 ```javascript
@@ -92,45 +71,60 @@ import { actions, task } from './storybook-helper';
 
 export default {
   title: 'Task',
+  excludeStories: /.*Data$/,
+};
+
+export const actionsData = {
+  onPinTask: action('onPinTask'),
+  onArchiveTask: action('onArchiveTask'),
+};
+
+export const taskData = {
+  id: '1',
+  title: 'Test Task',
+  state: 'Task_INBOX',
+  updated_at: new Date(2019, 0, 1, 9, 0),
 };
 
 // default task state
-export const standard = () => ({
+export const Default = () => ({
   Component: Task,
   props: {
-    task,
+    task: taskData,
   },
   on: {
-    ...actions,
+    ...actionsData,
   },
 });
 // pinned task state
-export const pinned = () => ({
+export const Pinned = () => ({
   Component: Task,
   props: {
     task: {
-      ...task,
+      ...taskData,
       state: 'TASK_PINNED',
     },
   },
   on: {
-    ...actions,
+    ...actionsData,
   },
 });
 // archived task state
-export const archived = () => ({
+export const Archived = () => ({
   Component: Task,
   props: {
     task: {
-      ...task,
+      ...taskData,
       state: 'TASK_ARCHIVED',
     },
   },
   on: {
-    ...actions,
+    ...actionsData,
   },
 });
 ```
+
+Due to some language restraints the default action was named `Default` as the lowercase it's a reserved word, the `excludeStories` prop was added to avoid Storybook treating both the `taskData` and `actionsData` as actual stories, you can read more about it [here](https://storybook.js.org/docs/formats/component-story-format/#non-story-exports).
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 

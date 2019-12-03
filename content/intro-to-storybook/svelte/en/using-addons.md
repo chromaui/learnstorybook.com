@@ -74,6 +74,7 @@ Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addD
 export default {
   title: 'Task',
   decorators: [withKnobs],
+  // same as before
 };
 ```
 
@@ -81,38 +82,38 @@ Lastly, integrate the `object` knob type within the "standard" story:
 
 ```javascript
 // src/components/Task.stories.js
-export const standard = () => ({
+export const Default = () => ({
   Component: Task,
   props: {
-    task: object('task', { ...task }), // knobs addon used here
+    task: object("task", { ...taskData })
   },
   on: {
-    ...actions,
-  },
+    ...actionsData
+  }
 });
-export const pinned = () => ({
+export const Pinned = () => ({
   Component: Task,
   props: {
     task: {
-      ...task,
-      state: 'TASK_PINNED',
-    },
+      ...taskData,
+      state: "TASK_PINNED"
+    }
   },
   on: {
-    ...actions,
-  },
+    ...actionsData
+  }
 });
-export const archived = () => ({
+export const Archived = () => ({
   Component: Task,
   props: {
     task: {
-      ...task,
-      state: 'TASK_ARCHIVED',
-    },
+      ...taskData,
+      state: "TASK_ARCHIVED"
+    }
   },
   on: {
-    ...actions,
-  },
+    ...actionsData
+  }
 });
 ```
 
@@ -161,14 +162,14 @@ Let's add a story for the long text case in Task.stories.js:
 
 const reallylongTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
-export const longTitle = () => ({
+export const LongTitle = () => ({
   Component: Task,
   props: {
     task: {
-      ...task,
-      title: reallylongTitle,
-    },
-  },
+      ...taskData,
+      title: reallylongTitle
+    }
+  }
 });
 ```
 
