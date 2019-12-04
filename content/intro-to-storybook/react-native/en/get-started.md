@@ -2,10 +2,7 @@
 title: 'Storybook for React Native tutorial'
 tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
-commit: ebe2ae2
 ---
-
-note that this needs to run on simulator
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React Native; other editions exist for [Vue](/vue/en/get-started) and [Angular](/angular/en/get-started) and [React](/react/en/get-started).
 
@@ -13,7 +10,18 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 
 ## Setup React Native Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Expo](https://expo.io/tools) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Expo](https://expo.io/tools) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. 
+
+Before diving into the tutorial, take into account the following considerations:
+
+- All the code was intended for the Android platform, if you want to use IOS, some components might need to be updated in order to work properly.
+
+- You'll need a working simulator or a physical device correctly setup to maximize your experience, [react-native docs](https://facebook.github.io/react-native/docs/getting-started) has more detailed instructions on how to achieve this.
+
+- Throughout this tutorial, yarn will be used. Should you want to use npm, select the appropriate option during when you're initializing the app and replace all subsequent commands with npm.
+
+
+With that out of the way, let’s run the following commands:
 
 ```bash
 # Create our application:
@@ -27,10 +35,7 @@ npx -p @storybook/cli sb init --type react_native
 ```
 
 <div class="aside">
-  <ul>
-    <li><p>During Storybook's install process, you'll be prompted to install react-native-server, do so as this package will help out immensely throughout the tutorial.</p></li>
-    <li><p>Throughout this tutorial, yarn will be used. Should you want to use npm, select the appropriate option when initializing the app and replace all subsequent commands with npm.</p></li>
-  </ul>
+  <p>During Storybook's install process, you'll be prompted to install react-native-server, do so as this package will help out immensely throughout the tutorial.</p>
 </div>
 
 We'll also want to add another package and make a change to `storybook/rn-addons.js` to allow the actions (you'll see them in action later in the tutorial) to be logged correctly in the Storybook UI.

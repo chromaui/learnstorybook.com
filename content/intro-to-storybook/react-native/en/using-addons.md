@@ -2,7 +2,6 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use addons using a popular example'
-commit: 'dac373a'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for

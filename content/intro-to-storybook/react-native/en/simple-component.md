@@ -2,7 +2,6 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: 403f19a
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -236,28 +235,15 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots babel-plugin-require-context-hook
+yarn add --dev @storybook/addon-storyshots
 ```
 
 Then create an `__tests__/storybook.test.js` file with the following:
 
 ```javascript
 // __tests__/storybook.test.js
-
-import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
 import initStoryshots from '@storybook/addon-storyshots';
-
-registerRequireContextHook();
 initStoryshots();
-```
-
-Finally the `babel.config.js` file needs to be updated to allow snapshot testing, replace it's contents with the following:
-
-```javascript
-module.exports = api => ({
-  presets: ['babel-preset-expo'],
-  ...(api.env('test') && { plugins: ['require-context-hook'] }),
-});
 ```
 
 Once the above is done, we can run `yarn test` and see the following output:
