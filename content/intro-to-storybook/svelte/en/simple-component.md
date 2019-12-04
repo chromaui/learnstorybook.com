@@ -67,7 +67,6 @@ Below we build out Task’s three test states in the story file:
 ```javascript
 // src/components/Task.stories.js
 import Task from './Task.svelte';
-import { actions, task } from './storybook-helper';
 
 export default {
   title: 'Task',

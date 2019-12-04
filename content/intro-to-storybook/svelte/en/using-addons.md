@@ -62,7 +62,7 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 // src/components/Task.stories.js
 
 import Task from './Task.svelte';
-import { actions, task } from './storybook-helper';
+import { taskData, actionsData } from "./Task.stories";
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 

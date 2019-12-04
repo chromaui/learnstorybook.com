@@ -215,7 +215,7 @@ Create a test file called `src/components/TaskList.test.js`. Here, we’ll build
 // src/components/TaskList.test.js
 import TaskList from './TaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasks } from './storybook-helper';
+import { withPinnedTasksData } from './TaskList.stories'
 test('TaskList ', async () => {
   const { container } = await render(TaskList, {
     props: {

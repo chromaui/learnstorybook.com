@@ -179,12 +179,12 @@ Similarly, we need to use `PureTaskList` in our Jest test:
 ```js
 import PureTaskList from './PureTaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasks } from './storybook-helper';
+import { withPinnedTasksData } from './PureTaskList.stories'
 
 test('TaskList', async () => {
   const { container } = await render(PureTaskList, {
     props: {
-      tasks: withPinnedTasks,
+      tasks: withPinnedTasksData
     },
   });
   expect(container.firstChild.children[0].classList.contains('TASK_PINNED')).toBe(true);
