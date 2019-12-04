@@ -124,7 +124,7 @@ export const Archived = () => ({
 });
 ```
 
-Due to some language restraints the default action was named `Default` as the lowercase it's a reserved word, the `excludeStories` prop was added to avoid Storybook treating both the `taskData` and `actionsData` as actual stories, you can read more about it [here](https://storybook.js.org/docs/formats/component-story-format/#non-story-exports).
+The default action was named `Default` per convention, the `excludeStories` prop was added to avoid Storybook treating both the `taskData` and `actionsData` as actual stories, you can read more about it [here](https://storybook.js.org/docs/formats/component-story-format/#non-story-exports).
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
