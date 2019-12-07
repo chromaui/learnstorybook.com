@@ -76,8 +76,6 @@ Now select the taskbox GitHub repo from the list of options.
 
 Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `.storybook-static`. Build command use `yarn build-storybook`.
 
-image needs update to reflect changes(using npm not yarn)
-
 ![Netlify settings](/intro-to-storybook/netlify-settings-npm.png)
 
 Submit the form to build and deploy the code on the `master` branch of taskbox.
