@@ -78,6 +78,8 @@ Configure Netlify by highlighting which build command to run in its CI and which
 
 ![Netlify settings](/intro-to-storybook/netlify-settings-npm.png)
 
+<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
+
 Submit the form to build and deploy the code on the `master` branch of taskbox.
 
 <div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>

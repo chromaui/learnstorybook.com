@@ -5,7 +5,7 @@ description: 'Setup Angular Storybook in your development environment'
 commit: 0818d47
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular.
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular; other editions exist for [React](/react/en/get-started) and [Vue](/vue/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -174,7 +174,7 @@ Finally update `tsconfig.app.json` with the following:
 
 ```
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
+Our three frontend app modalities: automated test (Karma), component development (Storybook), and the app itself.
 
 Now we can quickly check that the various environments of our application are working properly:
 
@@ -210,7 +210,6 @@ Finally one small change to `src/styles.css` in order to allow the icons in the 
   font-style: normal;
 }
 ```
-
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">

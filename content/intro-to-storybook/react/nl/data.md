@@ -1,31 +1,31 @@
 ---
-title: 'Ligação de dados'
-tocTitle: 'Dados'
-description: 'Aprendizagem da metodologia de ligação de dados ao componente interface utilizador'
+title: 'Aansluiten data'
+tocTitle: 'Data'
+description: 'Leer hoe je data kunt doorgeven aan je UI component'
 commit: 9c50472
 ---
 
-Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação
+Tot nu toe hebben we geïsoleerde stateless componenten gemaakt - geweldig voor Storybook, maar uiteindelijk niet nuttig totdat we ze wat data geven in onze app.
 
-Este tutorial não foca particularmente na construção de uma aplicação, como tal não vamos aprofundar muito este aspeto. Mas será feito um aparte para olhar para um padrão comum para ligação de dados com componentes contentor.
+Deze tutorial richt zich niet op de details van het bouwen van een app, dus we zullen hier niet dieper op ingaan. Maar we zullen wel even de tijd nemen om te kijken naar een algemeen patroon om data door te geven met containercomponenten.
 
-## Componentes contentor
+## Container componenten
 
-O componente `TaskList` na sua presente forma é um componente de "apresentação" (ver [este post no blog](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), de forma que este não comunica com nada externo além de si.
-Para conter dados, irá ser necessário um "contentor".
+Onze `TaskList` component zoals momenteel geschreven is 'presentational' (zie [deze blogpost](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) omdat deze niet praat met iets extern behalve zijn eigen implementatie. Om data erin te krijgen, hebben we een "container" nodig.
 
-Este exemplo utiliza [Redux](https://redux.js.org/), que é a biblioteca mais popular quando se pretende guardar dados, ou construir um modelo de dados para a aplicação.
-No entanto o padrão a ser usado aqui, pode ser aplicado a outras bibliotecas de gestão de dados tal como [Apollo](https://www.apollographql.com/client/) e [MobX](https://mobx.js.org/).
+Dit voorbeeld gebruikt [Redux](https://redux.js.org/), de meest populaire React library voor het opslaan van data, om een eenvoudig data model voor onze app te bouwen. Het hier gebruikte patroon is echter net zo goed van toepassing op andere data management libraries zoals [Apollo](https://www.apollographql.com/client/) en [MobX](https://mobx.js.org/).
 
-Adiciona-se uma nova dependência ao `package.json` com:
+Voeg een nieuwe dependency aan `package.json` toe met:
 
 ```bash
 yarn add react-redux redux
 ```
 
-Irá ser construída (intencionalmente definida de forma simples) uma loja Redux, que responde ao desencadear de ações que alteram o estado das tarefas. Isto no ficheiro `lib/redux.js`, contido dentro de `src`
+Eerst zullen we een eenvoudige Redux store bouwen die reageert op acties die de status van taken veranderen, in een bestand met de naam `lib/redux.js` in de folder`src` (opzettelijk eenvoudig gehouden):
 
 ```javascript
+// src/lib/redux.js
+
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -77,9 +77,11 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Em seguida o componente `TaskList` vai ser atualizado de forma que possa conectar á loja Redux e renderizar as tarefas que pretendemos:
+Vervolgens zullen we de default export van de component `TaskList` bijwerken om verbinding te maken met de Redux store en de taken te renderen waarin we geïnteresseerd zijn:
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -113,11 +115,13 @@ export default connect(
 )(PureTaskList);
 ```
 
-Nesta altura os testes com Storybook terão deixado de funcionar, visto que `TaskList` é agora um contentor e como tal não está á espera de receber qualquer tipo de adereços (props), ao invés disso conecta-se á loja e define os adereços (props) para o componente `PureTaskList` que está a envolver.
+In dit stadium werken onze Storybook testen niet meer, omdat de `TaskList` nu een container is en geen props meer verwacht, maar in plaats daarvan verbinding maakt met de store en de props instelt op de component `PureTaskList` die wordt gewrapt.
 
-No entanto este problema pode ser resolvido com relativa facilidade, ao renderizar-se o componente de apresentação `PureTaskList` nas estórias do Storybook:
+We kunnen dit probleem echter eenvoudig oplossen door simpelweg de `PureTaskList` - de presentional component, waaraan we zojuist het `export` statement in de vorige stap hebben toegevoegd - in onze Storybook stories te renderen:
 
 ```javascript
+// src/components/TaskList.stories.js
+
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -153,9 +157,11 @@ storiesOf('TaskList', module)
   />
 </video>
 
-Similarmente, será usado o `PureTaskList` nos testes com Jest:
+Op een gelijkaardige manier moeten we `PureTaskList` gebruiken in onze Jest testen:
 
 ```js
+// src/components/TaskList.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { PureTaskList } from './TaskList';
