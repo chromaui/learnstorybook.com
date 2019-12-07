@@ -22,7 +22,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 ## Get setup
 
-First, let’s create the task component and its accompanying story file: `src/tasks/task.component.ts` and `src/tasks/task.stories.ts`.
+First, let’s create the task component and its accompanying story file: `src/app/tasks/task.component.ts` and `src/app/tasks/task.stories.ts`.
 
 We’ll begin with a basic implementation of the `TaskComponent`, simply taking in the inputs we know we’ll need and the two actions you can take on a task (to move it between lists):
 
@@ -30,7 +30,7 @@ We’ll begin with a basic implementation of the `TaskComponent`, simply taking 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'task-item',
+  selector: 'app-task',
   template: `
     <div class="list-item">
       <input type="text" [value]="task.title" readonly="true" />
@@ -40,7 +40,11 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class TaskComponent implements OnInit {
   title: string;
   @Input() task: any;
+
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onPinTask: EventEmitter<any> = new EventEmitter();
+
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
@@ -54,7 +58,7 @@ Above, we render straightforward markup for `TaskComponent` based on the existin
 Below we build out Task’s three test states in the story file:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 
 import { TaskComponent } from './task.component';
@@ -72,14 +76,9 @@ export const actions = {
 };
 
 storiesOf('Task', module)
-  .addDecorator(
-    moduleMetadata({
-      declarations: [TaskComponent],
-    })
-  )
   .add('default', () => {
     return {
-      template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
+      component: TaskComponent,
       props: {
         task,
         onPinTask: actions.onPinTask,
@@ -89,7 +88,7 @@ storiesOf('Task', module)
   })
   .add('pinned', () => {
     return {
-      template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
+      component: TaskComponent,
       props: {
         task: { ...task, state: 'TASK_PINNED' },
         onPinTask: actions.onPinTask,
@@ -99,7 +98,7 @@ storiesOf('Task', module)
   })
   .add('archived', () => {
     return {
-      template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
+      component: TaskComponent,
       props: {
         task: { ...task, state: 'TASK_ARCHIVED' },
         onPinTask: actions.onPinTask,
@@ -132,48 +131,16 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.ts` files and uses our LESS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.type.extension` naming scheme favoured when developing Angular apps.
-
-```typescript
-import { configure } from '@storybook/angular';
-
-import '../src/styles.less';
-
-// automatically import all files ending in *.stories.ts
-const req = require.context('../src/', true, /\.stories.ts$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-```
-
-In order to support that LESS import we'll need to play around a bit with webpack. Just create a `webpack.config.js` file inside the `.storybook` folder and paste the following:
+We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.ts` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.type.extension` naming scheme favoured when developing Angular apps.
 
 ```javascript
-const path = require('path');
-
-module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        loaders: ['style-loader', 'css-loader', 'less-loader'],
-        include: path.resolve(__dirname, '../'),
-      },
-    ],
-  },
-};
+import { configure } from '@storybook/angular';
+import '../src/assets/index.css';
+// automatically import all files ending in *.stories.ts
+configure(require.context('../src/app/', true, /\.stories\.ts$/), module);
 ```
 
-You'll also need to install the corresponding loaders:
-
-```
-yarn add -D less-loader css-loader style-loader
-```
-
-Once we’ve done this, restarting the Storybook server should yield test cases for the three TaskComponent states:
+Once we’ve done this, restarting the Storybook server should yield test cases for the three states of TaskComponent:
 
 <video autoPlay muted playsInline controls >
   <source
@@ -182,6 +149,20 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
+## Specify data requirements
+
+It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early. Here, we'll use Typescript and create a interface for the `Task` model.
+
+Create a new folder called `models` inside `app` folder and inside a new file called `task.model.ts` with the following content:
+
+```typescript
+export interface Task {
+  id: string;
+  title: string;
+  state: string;
+}
+```
+
 ## Build out the states
 
 Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
@@ -189,11 +170,10 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from './task.model';
+import { Task } from '../models/task.model';
 
 @Component({
-  selector: 'task-item',
+  selector: 'app-task',
   template: `
     <div class="list-item {{ task?.state }}">
       <label class="checkbox">
@@ -208,7 +188,6 @@ import { Task } from './task.model';
       <div class="title">
         <input type="text" [value]="task?.title" readonly="true" placeholder="Input title" />
       </div>
-
       <div class="actions">
         <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
           <span class="icon-star"></span>
@@ -220,18 +199,22 @@ import { Task } from './task.model';
 export class TaskComponent implements OnInit {
   title: string;
   @Input() task: Task;
+
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onPinTask: EventEmitter<any> = new EventEmitter();
+
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
 
   ngOnInit() {}
 
-  onPin(id) {
+  onPin(id: any) {
     this.onPinTask.emit(id);
   }
 
-  onArchive(id) {
+  onArchive(id: any) {
     this.onArchiveTask.emit(id);
   }
 }
@@ -245,18 +228,6 @@ The additional markup from above combined with the CSS we imported earlier yield
     type="video/mp4"
   />
 </video>
-
-## Specify data requirements
-
-It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early. Here, we've done this using TypeScript and creating an interface for the `Task` model:
-
-```typescript
-export interface Task {
-  id: string;
-  title: string;
-  state: string;
-}
-```
 
 ## Component built!
 
@@ -279,7 +250,7 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add -D @storybook/addon-storyshots identity-obj-proxy jest jest-preset-angular
+npm install -D @storybook/addon-storyshots babel-plugin-require-context-hook
 ```
 
 Then create an `src/storybook.test.ts` file with the following in it:
@@ -295,86 +266,22 @@ initStoryshots({
 });
 ```
 
-After that, create a `src/jest-config` folder with two files inside, `globalMocks.ts`:
-
-```typescript
-const mock = () => {
-  let storage = {};
-  return {
-    getItem: key => (key in storage ? storage[key] : null),
-    setItem: (key, value) => (storage[key] = value || ''),
-    removeItem: key => delete storage[key],
-    clear: () => (storage = {}),
-  };
-};
-
-Object.defineProperty(window, 'localStorage', { value: mock() });
-Object.defineProperty(window, 'sessionStorage', { value: mock() });
-Object.defineProperty(window, 'getComputedStyle', {
-  value: () => ['-webkit-appearance'],
-});
-```
-
-and `setup.ts`:
-
-```typescript
-import 'jest-preset-angular';
-import './globalMocks';
-```
-
-Then we need to add a new field to our `package.json`,
-
-```json
-"jest": {
-    "coveragePathIgnorePatterns": [
-      "/jest-config/",
-      "/node_modules/"
-    ],
-    "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-config/setup.ts",
-    "snapshotSerializers": [
-      "<rootDir>/node_modules/jest-preset-angular/AngularSnapshotSerializer.js",
-      "<rootDir>/node_modules/jest-preset-angular/HTMLCommentSerializer.js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/storybook-static/"
-    ],
-    "transform": {
-      "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
-    },
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
-    }
-  },
-```
-
-a couple of new scripts to run `jest`
-
-```json
-"scripts": {
-  ...
-  "jest": "jest",
-  "jest:watch": "jest --watch"
-}
-```
-
-and update `src/tsconfig.app.json` to exclude `.test.ts` files
-
-```json
-"exclude": [
-    "src/test.ts",
-    "**/*.stories.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
-```
-
-Once the above is done, we can run `yarn jest` and see the following output:
+Once the above is done, we can run `npm run jest` and see the following output:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 We now have a snapshot test for each of our `TaskComponent` stories. If we change the implementation of `TaskComponent`, we’ll be prompted to verify the changes.
 
 Additionally, `jest` will also run the test for `app.component.ts`.
+
+At some point you'll need to run the application in development mode, or build it for production. In order to do that you'll need to make a small change to `tsconfig.app.json` in order for angular to look past the `storybook.test.ts` file that was created and proceed with the build. Change your `exclude` array to the following:
+
+```json
+"exclude": [
+    "src/test.ts",
+    "src/**/*.spec.ts",
+    "**/*.stories.ts",
+    "src/jest-config",
+    "src/storybook.test.ts"
+  ]
+```
