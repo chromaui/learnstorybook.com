@@ -174,12 +174,12 @@ Finally update `tsconfig.app.json` with the following:
 
 ```
 
-Our three frontend app modalities: automated test (Karma), component development (Storybook), and the app itself.
+Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
 
 Now we can quickly check that the various environments of our application are working properly:
 
 ```bash
-# Run the test runner (Karma) in a terminal (we will add Jest along the way):
+# Run the test runner (Jest) in a terminal (we will add Jest along the way):
 npm run jest
 
 # Start the component explorer on port 6006:
