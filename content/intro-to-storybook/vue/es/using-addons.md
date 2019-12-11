@@ -17,7 +17,7 @@ Podríamos escribir para siempre sobre la configuración y el uso de complemento
 
 ## Configurando Knobs
 
-Knobs ess un recurso increíble para que los diseñadores y desarrolladores experimenten y jueguen con componentes en un entorno controlado sin necesidad de codificar! Básicamente, proporciona campos definidos dinámicamente con los que un usuario manipula los props que se pasan a los componentes de sus historias. Esto es lo que vamos a implementar ...
+Knobs es un recurso increíble para que los diseñadores y desarrolladores experimenten y jueguen con componentes en un entorno controlado sin necesidad de codificar! Básicamente, proporciona campos definidos dinámicamente con los que un usuario manipula los props que se pasan a los componentes de sus historias. Esto es lo que vamos a implementar ...
 
 <video autoPlay muted playsInline loop>
   <source
@@ -31,7 +31,7 @@ Knobs ess un recurso increíble para que los diseñadores y desarrolladores expe
 Primero, necesitaremos instalar todas las dependencias necesarias.
 
 ```bash
-yarn add @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs
 ```
 
 Registra Knobs en tu archivo `.storybook/addons.js`.
@@ -54,7 +54,7 @@ El orden en que enumere estos complementos determinará el orden en que aparecer
 
 ### Uso
 
-Usemos el tipo de knob de objeto en el componente `Tarea`.
+Usemos el tipo de knob de objeto en el componente `Task`.
 
 Primero, importe el decorador `withKnobs` y el tipo de knob `object` a `Task.stories.js`:
 
@@ -115,7 +115,7 @@ storiesOf('Task', module)
 
 Ahora debería aparecer una nueva pestaña "Knobs" al lado de la pestaña "Action Logger" en el panel inferior.
 
-Como se documenta [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), el tipo `object` del knob acepta una etiqueta y un objeto predeterminado como parámetros. La etiqueta es constante y se muestra a la izquierda de un campo de texto en el panel de complementos. El objeto que ha pasado se representará como un blob JSON editable. ¡Siempre que envíe un JSON válido, su componente se ajustará en función de los datos que se pasan al objeto!
+Como se documenta [Aquí](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), el tipo `object` del knob acepta una etiqueta y un objeto predeterminado como parámetros. La etiqueta es constante y se muestra a la izquierda de un campo de texto en el panel de complementos. El objeto que ha pasado se representará como un blob JSON editable. ¡Siempre que envíe un JSON válido, su componente se ajustará en función de los datos que se pasan al objeto!
 
 ## Complementos evolucionan el alcance de tus Storybooks
 
@@ -123,7 +123,7 @@ Su instancia de Storybook no solo sirve como un maravilloso [CDD environment](ht
 
 ## Usando Knobs para encontrar casos de borde
 
-Además, con un fácil acceso para editar los datos pasados ​​a un componente, los QA Engineers o los UI Engineers ahora pueden llevar un componente al límite. Como ejemplo, ¿qué le sucede a `Task` si nuestro elemento de la lista tiene un string _MASSIVE_?
+Además, con un fácil acceso para editar los datos pasados ​​a un componente, los QA Engineers o los UI Engineers ahora pueden llevar un componente al límite. Como ejemplo, ¿qué le sucede a `Task` si nuestro elemento de la lista tiene un string _GIGANTESCO_?
 
 ![¡Oh no! ¡El contenido de la extrema derecha está cortado!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
@@ -132,9 +132,9 @@ Además, con un fácil acceso para editar los datos pasados ​​a un component
 ```html
 <!--src/components/Task.vue>-->
 
-<!-- Esta es la entrada para el título de nuestra tarea.
-      En la práctica, probablemente actualizaríamos los estilos para este elemento, pero para este tutorial,
-      arreglemos el problema con un estilo en línea:-->
+<!-- This is the input for our task title.
+     In practice we would probably update the styles for this element but for this tutorial,
+     let's fix the problem with an inline style:-->
 <input
   type="text"
   :readonly="true"

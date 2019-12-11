@@ -14,17 +14,9 @@ En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. Ta
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, sólo necesitamos activarla añadiendo un script al `package.json`.
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook.
 
-```javascript
-{
-  "scripts": {
-    "build-storybook": "build-storybook -c .storybook -s public -o storybook-static"
-  }
-}
-```
-
-Ahora, cuando ejecutes Storybook a través de `yarn storybook`, obtendrás un Storybook estático en el directorio `storybook-static`.
+Ahora, cuando ejecutes Storybook a través de `yarn build-storybook`, obtendrás un Storybook estático en el directorio `storybook-static`.
 
 ## Despliegue continuo
 
@@ -71,7 +63,7 @@ $ git push -u origin master
 Netlify tiene incorporado un servicio de despliegue continuo que nos permitirá desplegar Storybook sin necesidad de configurar nuestro propio CI.
 
 <div class="aside">
-Si usas CI en tu empresa, añade un script de implementación a tu configuración que suba <code>storybook-static</code> a un servicio de alojamiento de estáticos como S3.
+Si usas CI en tu empresa, añade un script de implementación a tu configuración que suba <code>.storybook-static</code> a un servicio de alojamiento de estáticos como S3.
 </div>
 
 [Crea una cuenta en Netlify](https://app.netlify.com/start) y da click en “crear sitio”.
