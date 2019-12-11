@@ -1,37 +1,37 @@
 ---
-title: 'Storybook para Vue tutorial'
+title: 'Tutorial Storybook para Vue'
 tocTitle: 'Empezando'
 description: 'Configurar Vue Storybook en tu entorno de desarrollo'
 commit: d1c4858
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe una edición para [React](/react/en/get-started) y [Angular](/angular/en/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe una edición para [React](/react/en/get-started) y [Angular](/angular/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
-## Configurando Vue Storybook
+## Configurar Storybook con Vue
 
 Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestro entorno. Para iniciar, vamos a usar [Vue CLI](https://cli.vuejs.org) para configurar nuestro sistema de build, y añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para testear nuestra aplicación creada. Vamos a ejecutar los siguientes comandos:
 
 ```bash
-# Crea nuestra aplicación, usando una preconfiguración que contiene jest:
+# Create our application, using a preset that contains jest:
 npx -p @vue/cli vue create --preset hichroma/vue-preset-learnstorybook taskbox
 cd taskbox
 
-# Añade Storybook:
+# Add Storybook:
 npx -p @storybook/cli sb init
 ```
 
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 
 ```bash
-# Ejecuta el test de prueba (Jest) en una terminal:
+# Run the test runner (Jest) in a terminal:
 yarn test:unit
 
-# Inicia el explorador de componentes en el puerto 6006:
+# Start the component explorer on port 6006:
 yarn storybook
 
-# Ejecuta el frontend de la aplicación en el puerto 8080:
+# Run the frontend app proper on port 8080:
 yarn serve
 ```
 
@@ -41,7 +41,7 @@ yarn serve
 
 Nuestras tres modalidades del frontend de la aplicación: test automatizado (Jest), desarrollo de componentes (Storybook) y la propia aplicación.
 
-![3 modalidades](/intro-to-storybook/app-three-modalities.png)
+![3 modalidades](/intro-to-storybook/app-three-modalities-vue.png)
 
 Dependiendo de en qué parte de la aplicación estés trabajando, es posible que quieras ejecutar uno o más de estos simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
 
@@ -64,7 +64,7 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/public) a la carpeta `public/`.
 
-También necesitamos actualizar nuestro storybook script para servir el directorio `public` (en `package.json`):
+También necesitamos actualizar nuestro script storybook para servir el directorio `public` (en `package.json`):
 
 ```json
 {

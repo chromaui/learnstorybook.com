@@ -16,7 +16,7 @@ Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Devel
 - `title` – un string que describe la tarea
 - `state` - ¿en qué lista se encuentra la tarea actualmente y está marcado el checkbox?
 
-A medida que comencemos a construir `Task`, primero escribiremos nuestros tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
+A medida que comencemos a construir `Task`, primero escribiremos nuestras pruebas para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
 Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) al que podemos llamar “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
 
@@ -216,7 +216,7 @@ La prueba de instantáneas se refiere a la práctica de registrar la salida "cor
 Asegúrese de que sus componentes muestren datos que no cambien, para que sus pruebas de instantáneas no fallen cada vez. Tenga cuidado con cosas como fechas o valores generados aleatoriamente.
 </div>
 
-Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Usalo agregando una dependencia en modo desarrollo en el paquete:
+Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Usalo agregando una dependencia en modo desarrollo:
 
 ```bash
 yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
