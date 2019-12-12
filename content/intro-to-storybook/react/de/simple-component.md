@@ -1,24 +1,24 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: 'Baue eine einfache Komponente'
+tocTitle: 'Einfache Komponente'
+description: 'Baue eine einfache Komponente in Isolation'
 commit: 403f19a
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "buttom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
 
 ## Task
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+![Task-Komponente in drei Zuständen](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`Task` ist die zentrale Komponente in unserer App. Jede Aufgabe wird ein wenig anders angezeigt, abhängig davon, in welchem Zustand sie sich befindet. Wir zeigen eine ausgewählte (oder nicht ausgewählte) Checkbox an, einige Informationen über die Aufgabe und einen "Pin"-Button, der uns erlaubt, Aufgaben in der Liste hoch oder runter zu bewegen. Daraus ergeben sich folgende Props:
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+- `title` – ein String, der die Aufgabe beschreibt
+- `state` - In welcher Liste befindet sich die Aufgabe aktuell und ist sie abgeschlossen?
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
+Beim Entwickeln der `Task`-Komponente, schreiben wir zunächst unsere Test-Zustände, die den oben skizzierten möglichen Aufgaben-Typen entsprechen. Anschließend verwenden wir Storybook, um die Komponente mit gemockted Daten isoliert zu entwickeln. Wärend wir entwickeln, prüfen wir die Komponente in jedem möglichen Zustand auf ihre visuelle Erscheinung.
 
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+Dieses Vorgehen ähnelt der [testgetriebenen Entwicklung](https://de.wikipedia.org/wiki/Testgetriebene_Entwicklung) (TDD). Wir nennen es “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
 
 ## Get setup
 
