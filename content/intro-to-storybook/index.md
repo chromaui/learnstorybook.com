@@ -74,13 +74,17 @@ twitterShareText: 'I’m learning Storybook! It’s a great dev tool for UI comp
   <div class="badge">
     <img src="/frameworks/logo-react.svg"> React
   </div>
-
+  <div class="badge">
+    <img src="/frameworks/logo-react.svg"> React Native
+  </div>
   <div class="badge">
     <img src="/frameworks/logo-vue.svg"> Vue
   </div>
-
   <div class="badge">
     <img src="/frameworks/logo-angular.svg"> Angular
+  </div>
+  <div class="badge">
+    <img src="/frameworks/logo-svelte.svg"> Svelte
   </div>
 </div>
 
