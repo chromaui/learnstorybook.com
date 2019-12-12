@@ -20,11 +20,11 @@ Beim Entwickeln der `Task`-Komponente, schreiben wir zunächst unsere Test-Zust�
 
 Dieses Vorgehen ähnelt der [testgetriebenen Entwicklung](https://de.wikipedia.org/wiki/Testgetriebene_Entwicklung) (TDD). Wir nennen es “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
 
-## Get setup
+## Los geht's
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.js` and `src/components/Task.stories.js`.
+Lass uns zunächst eine Komponente für die Aufgaben anlegen sowie die zugehörige Story-Datei: `src/components/Task.js` und `src/components/Task.stories.js`.
 
-We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+Zunächst starten wir mit dem Grundgerüst von `Task`, in dem wir einfach die benötigten Attribute und die zwei Aktionen mitnehmen, die auf einer Aufgabe ausgeführt werden können (um sie zwischen Listen hin und her zu bewegen):
 
 ```javascript
 // src/components/Task.js
@@ -40,9 +40,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
+Oben rendern wir ein einfaches Markup für `Task`, basierend auf der bestehenden HTML-Struktur in der Todos-App.
 
-Below we build out Task’s three test states in the story file:
+Unten bilden wir die drei Test-Zustände, die `Task` einnehmen kann, in einer Story-Datei ab:
 
 ```javascript
 // src/components/Task.stories.js
@@ -71,27 +71,27 @@ storiesOf('Task', module)
   .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+Es gibt zwei grundlegende Ebenen, in denen Komponenten in Storybook origanisiert werden können: Die Komponente selbst und ihr untergeordnete Stories. Stell dir eine Story als Ausprägung einer Komponente vor. Du kannst so viele Stories für eine Komponente anlegen, wie du brauchst.
 
-- **Component**
+- **Komponente**
   - Story
   - Story
   - Story
 
-To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
+Um Storybook zu initiieren, rufen wir zunächst die Funktion `storiesOf()` auf, um die Komponente zu registrieren. Wir brauchen einen Anzeigenamen für die Komponente - der Name, der dann in der Seitenleiste der Storybook App angezeigt wird.
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+`action()` erlaubt uns, ein Callback zu erstellen, das im **Actions** Panel der Storybook UI erscheint, wenn man auf dieses klickt. Wenn wir also einen Pin-Button bauen, können wir so in der Test UI sehen, ob ein Button-Klick erfolgreich war.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and use React's `{...actions}` props expansion to pass them all at once. `<Task {...actions}>` is equivalent to `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
+Da wir allen Ausprägungen unserer Komponente immer das selbe Menge an Actions übergeben müssen, ist es naheliegend, sie in einer einzigen `actions`-Variable zusammenzufassen und die `{...actions}` Syntax von JSX ("spread attributes") zu verwenden, um alle Props auf einmal zu übergeben. `<Task {...actions}>` ist äquivalent zu `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
 
-Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+Ein weiterer Vorteil, die `actions` einer Komponente in einer Variable zusammenzufassen ist, wie wir später sehen werden, dass man diese dann via `export` Stories anderer Komponenten zur Verfügung stellen kann, die diese Komponente wiederverwenden.
 
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+Unsere Stories definieren wir, indem wir `add()` einmal für jeden unserer Test-Zustände aufrufen, um damit eine Story zu generieren. Die Action Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) - genau wie eine [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html) in React.
 
-When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+Beim Erstellen einer Story nutzen wir eine Basis-Aufgabe (`task`), um die Struktur der Aufgabe zu definieren, die unsere Komponente erwartet. Diese basiert üblicherweise auf realitätsnahen Beispiel-Daten. Noch einmal: Diese Struktur zu `export`-ieren erlaubt uns, sie später in weiteren Stories zu verwenden, wie wir noch sehen werden.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> helfen dir, Interaktionen zu verifizieren, wenn du UI Komponenten isoliert entwickelst. Oftmals hast du bei der Entwicklung keinen Zugriff auf die Funktionen und den Zustand, die im Kontext deiner App existieren. Nutze <code>action()</code>, um sie als Stub zur Verfügung zu haben.
 </div>
 
 ## Config
