@@ -28,7 +28,7 @@ Knobs é um recurso fantástico quer para designers quer para programadores, par
 
 ## Instalação
 
-Primeiro irá ser necessário instalar todas as dependências necessárias.
+Primeiro irá ser necessário adicioná-lo como dependência de desenvolvimento.
 
 ```bash
 yarn add -D @storybook/addon-knobs
@@ -104,12 +104,6 @@ export const Pinned = () => ({
       }
     }
   },
-  /* data: () => ({
-    task: {
-      ...taskData,
-      state: "TASK_PINNED"
-    }
-  }), */
   methods: actionsData
 });
 // archived task state

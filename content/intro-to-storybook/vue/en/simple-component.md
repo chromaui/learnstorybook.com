@@ -1,7 +1,7 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: 'Build the core component'
+tocTitle: 'Core component'
+description: 'Build the core component in isolation'
 commit: b2274bd
 ---
 
@@ -24,7 +24,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 First, let’s create the task component and its accompanying story file: `src/components/Task.vue` and `src/components/Task.stories.js`.
 
-We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```html
 <template>
@@ -166,7 +166,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
+Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
 
 ```html
 <template>

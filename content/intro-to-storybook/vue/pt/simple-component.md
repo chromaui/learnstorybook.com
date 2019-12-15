@@ -1,7 +1,7 @@
 ---
-title: 'Construção de um componente simples'
-tocTitle: 'Componente simples'
-description: 'Construção de um componente simples isolado'
+title: 'Construção do componente nuclear'
+tocTitle: 'Componente nuclear'
+description: 'Construção do componente nuclear em isolamento'
 ---
 
 Iremos construir um interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
@@ -27,7 +27,7 @@ Este processo é algo similar ao [Desenvolvimento orientado a testes](https://en
 Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o acompanha:
 `src/components/Task.vue` e `src/components/Task.stories.js` respetivamente.
 
-Iremos iniciar por uma implementação básica da `Task`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
+Iremos iniciar por uma implementação rudimentar da `Task`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
 
 ```html
 <template>
@@ -134,9 +134,9 @@ Para definir as nossas estórias, exportamos uma função para cada um dos casos
 
 A função `action()` permite a criação de um callback, que irá surgir no painel adequado, ou seja o painel **actions** do interface de utilizador Storybook quando for feito o click. Como tal assim que for criado o botão para afixar tarefas, irá ser possível determinar o sucesso ou não do click no interface de utilizador de testes.
 
-Visto que é necessário fornecer o mesmo conjunto de tarefas a todas as permutações do componente, é extremamente conveniente agrupar numa única variável denominada `actionsData` e ser fornecida à estória sempre que necessário.
+Visto que é necessário fornecer o mesmo conjunto de tarefas a todas as permutações do componente, é extremamente conveniente agrupar numa única variável denominada `actionsData` e ser fornecida à estória sempre que necessário (em que o acesso é feito através da propriedade `methods`).
 
-Outro aspeto fantástico é que ao agrupar a `actionsData` necessária ao componente, é que a podemos exportar com recurso á clausula `export` de forma que seja possível serem usadas por outras estórias que reutilizam este componente, tal como se poderá ver futuramente.
+Outro aspeto fantástico é que ao agrupar a `actionsData` necessária ao componente, é que a podemos exportar com recurso á clausula `export` de forma que seja possível serem usadas por outras estórias que reutilizam este componente, tal iremos ver um pouco mais tarde.
 
 Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a forma da tarefa em questão que é necessária ao componente. Geralmente modelada a partir de dados concretos. Mais uma vez o uso da cláusula `export`, neste caso para a estrutura dos dados irá permitir a sua reutilização em estórias futuras, tal como veremos.
 
@@ -170,7 +170,7 @@ Após esta alteração, quando reiniciar o servidor Storybook, deverá produzir 
 
 Neste momento já possuímos o Storybook configurado, os elementos de estilo importados, assim como os casos de teste, podemos agora iniciar a implementação HTML do componente de forma a igualar o design.
 
-O componente neste momento ainda é bastante básico. Primeiro irá ser definido o código necessário para atingir o design definido, sem que se entre em grande detalhe:
+O componente neste momento ainda está algo rudimentar. Vamos fazer algumas alterações de forma a atingir o design pretendido, sem entrar em muitos detalhes:
 
 ```html
 <template>

@@ -22,7 +22,7 @@ Adiciona-se a nova dependência com:
 yarn add vuex
 ```
 
-Irá ser construída (intencionalmente definida de forma simples) uma loja Vuex, que reage ao desencadear de ações que alteram o estado das tarefas. Isto no ficheiro `src/store.js`:
+Num ficheiro denominado `src/store.js` vai ser implementada uma loja Vuex padrão, que irá reagir ao desencadear de ações que alteram o estado das tarefas.
 
 ```javascript
 import Vue from 'vue';
@@ -158,21 +158,26 @@ export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
-const taskListTemplate = `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`;
-
-// default TaskList state
 export const Default = () => ({
   components: { PureTaskList },
-  template: taskListTemplate,
-  data: () => ({ tasks: defaultTasksData }),
-  methods: actionsData,
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: defaultTasksData
+    }
+  },
+  methods: actionsData
 });
 // tasklist with pinned tasks
 export const WithPinnedTasks = () => ({
   components: { PureTaskList },
-  template: taskListTemplate,
-  data: () => ({ tasks: withPinnedTasksData }),
-  methods: actionsData,
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: withPinnedTasksData
+    }
+  },
+  methods: actionsData
 });
 // tasklist in loading state
 export const Loading = () => ({
@@ -183,9 +188,8 @@ export const Loading = () => ({
 // tasklist no tasks
 export const Empty = () => ({
   components: { PureTaskList },
-  template: taskListTemplate,
-  data: () => ({ tasks: [] }),
-  methods: actionsData,
+  template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  methods: actionsData
 });
 ```
 

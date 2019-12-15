@@ -13,7 +13,7 @@ This tutorial doesn’t focus on the particulars of building an app so we won’
 
 Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-This example uses [Vuex](https://vuex.vuejs.org), Vue's default data management library, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+This example uses [Vuex](https://vuex.vuejs.org), Vue's default data management library, to build a straightforward data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
 First, install vuex with:
 
@@ -21,9 +21,10 @@ First, install vuex with:
 yarn add vuex
 ```
 
-Then we’ll construct a simple Vuex store that responds to actions that change the state of tasks, in a file called `src/store.js` (intentionally kept simple):
+In a file called `src/store.js` we'll construct a standard Vuex store that responds to actions which will change the tasks state:
 
 ```javascript
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -156,21 +157,28 @@ export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
-const taskListTemplate = `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`;
 
-// default TaskList state
+
 export const Default = () => ({
   components: { PureTaskList },
-  template: taskListTemplate,
-  data: () => ({ tasks: defaultTasksData }),
-  methods: actionsData,
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: defaultTasksData
+    }
+  },
+  methods: actionsData
 });
 // tasklist with pinned tasks
 export const WithPinnedTasks = () => ({
   components: { PureTaskList },
-  template: taskListTemplate,
-  data: () => ({ tasks: withPinnedTasksData }),
-  methods: actionsData,
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: withPinnedTasksData
+    }
+  },
+  methods: actionsData
 });
 // tasklist in loading state
 export const Loading = () => ({
@@ -181,9 +189,8 @@ export const Loading = () => ({
 // tasklist no tasks
 export const Empty = () => ({
   components: { PureTaskList },
-  template: taskListTemplate,
-  data: () => ({ tasks: [] }),
-  methods: actionsData,
+  template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  methods: actionsData
 });
 ```
 
