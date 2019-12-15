@@ -66,6 +66,7 @@ Below we build out Task’s three test states in the story file:
 
 ```javascript
 // src/components/Task.stories.js
+import { action } from "@storybook/addon-actions";
 import Task from './Task.svelte';
 
 export default {
@@ -153,7 +154,7 @@ We also have to make one small change to the Storybook configuration setup (`.st
 ```javascript
 // .storybook/config.js
 import { configure } from '@storybook/svelte';
-import '../src/index.css';
+import "../public/global.css";
 configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
