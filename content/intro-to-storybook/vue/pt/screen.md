@@ -52,7 +52,7 @@ Visto que a aplicação é deveras simples, o ecrã a ser construído é bastant
 </script>
 ```
 
-Em seguida, podemos criar um contentor, que mais uma vez obtém os dados vindos do `PureInboxScreen` localizado em `src/components/InboxScreen.vue`:
+Em seguida, podemos criar um contentor, que neste caso obtém os dados para o `PureInboxScreen` localizado em `src/components/InboxScreen.vue`:
 
 ```html
 <template>
@@ -77,7 +77,7 @@ Em seguida, podemos criar um contentor, que mais uma vez obtém os dados vindos 
 </script>
 ```
 
-Vai ser necessário alterar o componente `App` de forma a ser possível renderizar o `InboxScreen` (eventualmente iria ser usado um roteador para escolher o ecrã apropriado, mas não e necessário preocupar-se com isso agora):
+Vai ser necessário alterar o componente `App` de forma a ser possível renderizar o `InboxScreen` (eventualmente iria ser usado um roteador para escolher o ecrã apropriado, mas não é necessário preocupar-nos com isto agora):
 
 ```html
 <template>
@@ -104,33 +104,33 @@ Vai ser necessário alterar o componente `App` de forma a ser possível renderiz
 
 No entanto as coisas irão tornar-se interessantes ao renderizar-se a estória no Storybook.
 
-Tal como visto anteriormente, o componente `TaskList` é um **contentor** que renderiza o componente de apresentação `PureTaskList`. Por definição estes componentes, os componentes contentor não podem ser renderizados de forma isolada, estes encontram-se "á espera" de um determinado contexto ou ligação a serviço. O que isto significa, é que para ser feita a renderização de um contentor em Storybook, é necessário simular o contexto ou serviço necessário (ou seja, providenciar uma versão fingida).
+Tal como visto anteriormente, o componente `TaskList` é um **contentor** que renderiza o componente de apresentação `PureTaskList`. Por definição estes componentes, os componentes contentor não podem ser renderizados de forma isolada, estes encontram-se "á espera" de um determinado contexto ou ligação a um serviço. O que isto significa, é que para ser feita a renderização de um contentor em Storybook, é necessário simular o contexto ou serviço necessário (ou seja, providenciar uma versão fingida).
 
 Ao colocar-se a `TaskList` no Storybook, foi possível fugir a este problema através da renderização do `PureTaskList` e com isto evitando o contentor por completo.
 Irá ser feito algo similar para o `PureInboxScreen` no Storybook também.
 
-No entanto para o `PureInboxScreen` existe um problema, isto porque apesar deste ser de apresentação, o seu "filho", ou seja a `TaskList` não o é. De certa forma o `PureInboxScreen` foi poluído pelo "container-ness". Com isto as estórias no ficheiro `src/components/PureInboxScreen.stories.js` terão que ser definidas da seguinte forma:
+No entanto para o `PureInboxScreen` existe um problema, isto porque apesar deste ser de apresentação, o seu "filho", ou seja a `TaskList` não o é. De certa forma o `PureInboxScreen` foi poluído pelo "container-ness". Com isto quando forem adicionadas as estórias ao ficheiro `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from './PureInboxScreen.vue';
+export default {
+  title: 'PureInboxScreen',
+};
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
-    };
-  })
-  .add('error', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
-    };
-  });
+// inbox screen default state
+export const Default = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen/>`,
+});
+
+// inbox screen error state
+export const error = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen :error="true"/>`,
+});
 ```
 
-Pode verificar-se que apesar da estória `erro` funcionar correctamente, existe um problema na estória `default`, isto porque a `TaskList` não tem uma loja Vuex á qual conectar-se. (Poderão surgir problemas similares ao testar o `PureInboxScreen` com um teste unitário).
+Pode verificar-se que apesar da estória `error` funcionar correctamente, existe um problema na estória `Default`, isto porque a `TaskList` não tem uma loja Vuex á qual conectar-se. (Poderão surgir problemas similares ao testar o `PureInboxScreen` com um teste unitário).
 
 ![Inbox quebrada](/intro-to-storybook/broken-inboxscreen-vue.png)
 
@@ -139,26 +139,23 @@ Uma forma de evitar este tipo de situações, consiste em evitar por completo a 
 No entanto, algum programador **irá querer** renderizar contentores num nível mais baixo na hierarquia de componentes. Já que pretendemos renderizar a maioria da aplicação no Storybook (sim queremos!), é necessária uma solução para esta situação.
 
 <div class="aside">
-    Como aparte, a transmissão de dados ao longo da hierarquia é uma abordagem legitima, particulamente quando é utilizado <a href="http://graphql.org/">GrapQL</a>. Foi desta forma que foi construido o <a href="https://www.chromaticqa.com">Chromatic</a>, juntamente com mais de 670 estórias.
+    Como aparte, a transmissão de dados ao longo da hierarquia é uma abordagem legitima, particulamente quando é utilizado <a href="http://graphql.org/">GrapQL</a>. Foi desta forma que foi construido o <a href="https://www.chromaticqa.com">Chromatic</a>, juntamente com mais de 800+ estórias.
 </div>
 
-## Fornecimento de contexto
+## Fornecer contexto ás estórias
 
-As boas noticias é que é extremamente fácil fornecer uma loja Vuex ao componente `PureInboxScreen` numa estória! Pode ser criada uma nova loja no ficheiro de estória e esta ser fornecida como contexto da estória:
+As boas notícias é que é extremamente fácil injetar uma loja Vuex através de uma estória ao componente `PureInboxScreen`! Pode ser instanciada uma nova loja no ficheiro de estória e fornecê-la como contexto da estória:
 
 ```javascript
-import { action } from '@storybook/addon-actions';
-import { storiesOf } from '@storybook/vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
-
-import { defaultTaskList } from './PureTaskList.stories';
 import PureInboxScreen from './PureInboxScreen.vue';
-
+import { action } from '@storybook/addon-actions';
+import { defaultTasksData } from './PureTaskList.stories';
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
-    tasks: defaultTaskList,
+    tasks: defaultTasksData,
   },
   actions: {
     pinTask(context, id) {
@@ -169,21 +166,20 @@ export const store = new Vuex.Store({
     },
   },
 });
-
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
-      store,
-    };
-  })
-  .add('error', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
-    };
-  });
+export default {
+  title: 'PureInboxScreen',
+  excludeStories: /.*store$/,
+};
+export const Default = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen/>`,
+  store,
+});
+// tasklist with pinned tasks
+export const error = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen :error="true"/>`,
+});
 ```
 
 Existem abordagens semelhantes de forma a fornecer contextos simulados para outras bibliotecas de dados tal como [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) assim como outras.

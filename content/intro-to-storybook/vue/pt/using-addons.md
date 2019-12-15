@@ -5,7 +5,7 @@ description: 'Aprender a integrar e usar extras com recurso a um exemplo popular
 commit: 'dac373a'
 ---
 
-Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/introduction/) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/react/pt/test/).
+Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/introduction/) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/vue/pt/test/).
 
 <div class="aside">
     <strong>Á procura de uma lista de extras?</strong>
@@ -31,12 +31,14 @@ Knobs é um recurso fantástico quer para designers quer para programadores, par
 Primeiro irá ser necessário instalar todas as dependências necessárias.
 
 ```bash
-yarn add @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs
 ```
 
-Registar o Knobs no ficheiro `.storybook/addons.js`.
+Registe o Knobs no ficheiro `.storybook/addons.js`.
 
 ```javascript
+// .storybook/addons.js
+
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
 import '@storybook/addon-links/register';
@@ -57,61 +59,83 @@ Vamos usar o objecto knob no componente `Task`.
 Primeiro, importamos o decorador `withKnobs` e o tipo `object` de knob para o ficheiro `Task.stories.js`:
 
 ```javascript
-import { storiesOf } from "@storybook/vue";
-import { action } from "@storybook/addon-actions";
-import { withKnobs, object } from "@storybook/addon-knobs";
+// src/components/Task.stories.js
+import { action } from '@storybook/addon-actions';
+import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Em seguida, dentro das estórias do componente `Task`, iremos fornecer `withKnobs` como parâmetro da função `addDecorator()`:
+Em seguida, dentro do  `default` export do ficheiro `Task.stories`, vamos fornecer `withKnobs` como elemento do `decorators`:
 
 ```javascript
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+// src/components/Task.stories.js
+
+export default {
+  title: 'Task',
+  decorators: [withKnobs],
+  // same as before
+};
 ```
 
 Finalmente, integramos o tipo `object` do knob na estória "padrão":
 
 ```javascript
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .add("default", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      props: {
-        task: {
-          type: Object,
-          default: object("task", { ...task })
-        }
-      },
-      methods
-    };
-  })
-  .add("pinned", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_PINNED" } }),
-      methods
-    };
-  })
-  .add("archived", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_ARCHIVED" } }),
-      methods
-    };
-  });
+// src/components/Task.stories.js
+
+// default task state
+export const Default = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: object("task", { ...taskData })
+    }
+  },
+  methods: actionsData
+});
+// pinned task state
+export const Pinned = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_PINNED"
+      }
+    }
+  },
+  /* data: () => ({
+    task: {
+      ...taskData,
+      state: "TASK_PINNED"
+    }
+  }), */
+  methods: actionsData
+});
+// archived task state
+export const Archived = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_ARCHIVED"
+      }
+    }
+  },
+  methods: actionsData
+});
 ```
 
-Tal como se encontra documentado [aqui](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), este tipo aceita uma "etiqueta" e um objeto padrão como parâmetros.
+Agora um novo item denominado "Knobs" deverá surgir próximo do "Action Logger" no painel inferior da aplicação.
+
+Tal documentado [aqui](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), este tipo aceita uma "etiqueta" e um objeto padrão como parâmetros.
 A etiqueta é constante e irá aparecer no painel de extras á esquerda do campo de texto. O objeto fornecido será representado como um blob JSON que pode ser editado. Desde que seja submetido JSON válido, o componente irá ajustar-se com base na informação fornecida ao objeto!
 
 ## Os extras aumentam a esfera de ação do teu Storybook
 
-Não somente a tua instância Storybook serve como um [ambiente CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) fantástico, mas agora estamos também a fornecer uma forma de documentação interativa. Os PropTypes são fantásticos, mas quer um designer quer uma outra pessoa qualquer nova que é apresentada ao código do componente irá ser capaz de entender qual é o seu comportamento rapidamente graças ao Storybook e a este extra.
+Não somente a tua instância Storybook serve como um [ambiente CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) fantástico, mas agora estamos também a fornecer uma forma de documentação interativa. Os adereços ( ouPropTypes) são fantásticos, mas quer um designer quer uma outra pessoa qualquer nova que é apresentada ao código do componente irá ser capaz de entender qual é o seu comportamento rapidamente graças ao Storybook e a este extra.
 
 ## Utilização de Knobs para afinar os casos extremos
 
@@ -143,59 +167,72 @@ Devido a facilidade com que é possível testar inputs diferentes podemos descob
 Claro que podemos sempre reproduzir este problema através da introdução do mesmo input no objeto knob, mas é melhor escrever uma estória adicional para este input.
 Isto irá expandir os testes de regressão e delinear com maior facilidade quais são os limites do componente(s) aos restantes elementos da equipa.
 
-Vamos então adicionar uma estória para o caso da ocorrência de um texto grande no ficheiro Task.stories.js
+Vamos então adicionar uma estória para o caso da ocorrência de um texto grande no ficheiro `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .add("default", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      props: {
-        task: {
-          type: Object,
-          default: object("task", { ...task })
-        }
-      },
-      methods
-    };
-  })
-  .add("pinned", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_PINNED" } }),
-      methods
-    };
-  })
-  .add("archived", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_ARCHIVED" } }),
-      methods
-    };
-  })
-  .add("longTitle", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, title: longTitle } }),
-      methods
-    };
-  });
+// default task state
+export const Default = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: object("task", { ...taskData })
+    }
+  },
+  methods: actionsData
+});
+// pinned task state
+export const Pinned = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_PINNED"
+      }
+    }
+  },
+  methods: actionsData
+});
+// archived task state
+export const Archived = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_ARCHIVED"
+      }
+    }
+  },
+  methods: actionsData
+});
+export const LongTitle = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        title: longTitle
+      }
+    }
+  },
+  methods: actionsData
+});
 ```
 
 Agora que foi adicionada a estória, podemos reproduzir este caso extremo com relativa facilidade quando for necessário:
 
 ![Aqui está ele no Storybook](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Se estiverem a ser usados [testes de regressão visual](/react/pt/test/), iremos ser informados se a nossa solução eliptica for quebrada.
+Se estiverem a ser usados [testes de regressão visual](/vue/pt/test/), iremos ser informados se a nossa solução elíptica for quebrada.
 Tais casos extremos considerados obscuros têm tendência a ser esquecidos!
 
 ## Fusão das alterações
@@ -204,4 +241,4 @@ Não esquecer de fundir as alterações com o git!
 
 ## Partilha de extras com a equipa
 
-Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser dificil para estes executarem o storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!
+Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser dificil para estes executarem o Storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!

@@ -5,7 +5,7 @@ description: 'Learn how to integrate and use addons using a popular example'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/react/en/test/).
+everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/vue/en/test/).
 
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
@@ -31,7 +31,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 First, we will need to install all the necessary dependencies.
 
 ```bash
-yarn add @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs
 ```
 
 Register Knobs in your `.storybook/addons.js` file.
@@ -60,57 +60,72 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 
 ```javascript
 // src/components/Task.stories.js
-
-import { storiesOf } from "@storybook/vue";
-import { action } from "@storybook/addon-actions";
-import { withKnobs, object } from "@storybook/addon-knobs";
+import { action } from '@storybook/addon-actions';
+import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
+Next, within the `default` export of the `Task.stories` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+export default {
+  title: 'Task',
+  decorators: [withKnobs],
+  // same as before
+};
 ```
 
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
 // src/components/Task.stories.js
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .add("default", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      props: {
-        task: {
-          type: Object,
-          default: object("task", { ...task })
-        }
-      },
-      methods
-    };
-  })
-  .add("pinned", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_PINNED" } }),
-      methods
-    };
-  })
-  .add("archived", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_ARCHIVED" } }),
-      methods
-    };
-  });
+
+// default task state
+export const Default = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: object("task", { ...taskData })
+    }
+  },
+  methods: actionsData
+});
+// pinned task state
+export const Pinned = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_PINNED"
+      }
+    }
+  },
+  /* data: () => ({
+    task: {
+      ...taskData,
+      state: "TASK_PINNED"
+    }
+  }), */
+  methods: actionsData
+});
+// archived task state
+export const Archived = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_ARCHIVED"
+      }
+    }
+  },
+  methods: actionsData
+});
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -135,13 +150,13 @@ Thanks to quickly being able to try different inputs to a component we can find 
 <!-- This is the input for our task title. 
      In practice we would probably update the styles for this element but for this tutorial, 
      let's fix the problem with an inline style:-->
- <input
-    type="text"
-    :readonly="true"
-    :value="this.task.title"
-    placeholder="Input title"
-    style="text-overflow: ellipsis;"
-  />
+<input
+  type="text"
+  :readonly="true"
+  :value="this.task.title"
+  placeholder="Input title"
+  style="text-overflow: ellipsis;"
+/>
 ```
 
 ![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
@@ -150,59 +165,72 @@ Thanks to quickly being able to try different inputs to a component we can find 
 
 Of course we can always reproduce this problem by entering the same input into the knobs, but it's better to write a fixed story for this input. This will increase your regression testing and clearly outline the limits of the component(s) to the rest of your team.
 
-Let's add a story for the long text case in Task.stories.js:
+Let's add a story for the long text case in `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .add("default", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      props: {
-        task: {
-          type: Object,
-          default: object("task", { ...task })
-        }
-      },
-      methods
-    };
-  })
-  .add("pinned", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_PINNED" } }),
-      methods
-    };
-  })
-  .add("archived", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: "TASK_ARCHIVED" } }),
-      methods
-    };
-  })
-  .add("longTitle", () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, title: longTitle } }),
-      methods
-    };
-  });
+// default task state
+export const Default = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: object("task", { ...taskData })
+    }
+  },
+  methods: actionsData
+});
+// pinned task state
+export const Pinned = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_PINNED"
+      }
+    }
+  },
+  methods: actionsData
+});
+// archived task state
+export const Archived = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_ARCHIVED"
+      }
+    }
+  },
+  methods: actionsData
+});
+export const LongTitle = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        title: longTitle
+      }
+    }
+  },
+  methods: actionsData
+});
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
 
 ![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/react/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are using [visual regression testing](/vue/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ### Merge Changes
 
@@ -210,4 +238,4 @@ Don't forget to merge your changes with git!
 
 ## Sharing Addons With The Team
 
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the Storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
