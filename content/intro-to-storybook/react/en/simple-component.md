@@ -93,7 +93,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 
 - `component` -- the component itself,
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
-- `excludeStories` -- which of the other exports in the file encode stories.
+- `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
 
 To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
@@ -101,7 +101,7 @@ To define our stories, we export a function for each of our test states to gener
 
 As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and use React's `{...actionsData}` props expansion to pass them all at once. `<Task {...actionsData}>` is equivalent to `<Task onPinTask={actionsData.onPinTask} onArchiveTask={actionsData.onArchiveTask}>`.
 
-Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+Another nice thing about bundling the actions into `actionsData` is that you can `export` that variable and use the actions in stories for components that reuse this component, as we'll see later.
 
 When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 

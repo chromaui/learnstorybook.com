@@ -67,7 +67,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
-Next, within the `default` export of `Task.stories`, add `withKnobs` to the `decorators` key:
+Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
 
 ````javascript
 // src/components/Task.stories.js

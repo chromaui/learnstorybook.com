@@ -87,19 +87,17 @@ export const withPinnedTasksData = [
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-export const Default = () => <PureTaskList tasks={defaultTasksData} {...actionsData} />;
+export const Default = () => <TaskList tasks={defaultTasksData} {...actionsData} />;
 
-export const WithPinnedTasks = () => <PureTaskList tasks={withPinnedTasksData} {...actionsData} />;
+export const WithPinnedTasks = () => <TaskList tasks={withPinnedTasksData} {...actionsData} />;
 
-export const Loading = () => <PureTaskList loading tasks={[]} {...actionsData} />;
+export const Loading = () => <TaskList loading tasks={[]} {...actionsData} />;
 
-export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
+export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 ```
 
-We use a key `decorators` on the `default` export to add a decorator to each story for this component. The decorator allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
-
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
 `taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
@@ -225,7 +223,7 @@ export default TaskList;
 
 ## Automated testing
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer such as [Enzyme](http://airbnb.io/enzyme/).
+In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer.
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 

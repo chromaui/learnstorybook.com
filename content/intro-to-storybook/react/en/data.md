@@ -163,3 +163,7 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
     type="video/mp4"
   />
 </video>
+
+<div class="aside">
+Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. 
+</div>
