@@ -52,6 +52,7 @@ Nice, we’ve set up a component explorer!
 By default, Storybook has created a folder `src/stories` with some example stories. However, when we copied our components over, we brought their stories too. We can get them indexed in our Storybook by changing the search path in `.storybook/config.js` from `’src/stories’` to `’src’`, and removing the `src/stories` directory:
 
 ```javascript
+// config.js
 import { configure } from '@storybook/react';
 
 // automatically import all files ending in *.stories.js
@@ -67,6 +68,7 @@ Your Storybook should reload like this (notice that the font styles are a little
 Our design system requires some global styles (a CSS reset) to be applied to the document for components to be rendered correctly. The styles can be added easily via a Styled Components global style tag. For reference here is how the code is exported from `src/shared/global.js`:
 
 ```javascript
+// global.js
 import { createGlobalStyle, css } from 'styled-components';
 import { color, typography } from './styles';
 
@@ -86,6 +88,7 @@ export const GlobalStyle = createGlobalStyle`
 To use the `GlobalStyle` “component” in Storybook, we can make use of a decorator (a component wrapper). In an app we’d place that component in the top-level app layout.
 
 ```javascript
+// config.js
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
@@ -107,7 +110,7 @@ The decorator will ensure the `GlobalStyle` is rendered no matter which story is
 
 #### Add font tag
 
-Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook the easiest way to achieve that is to use `.storybook/preview-head.html` to add a `<link>` tag directly to the `<head>` of the page:
+Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook the easiest way to achieve that is to create a new file inside of the `.storybook/` folder called `preview-head.html` and add the following link code. This will append the `<link>` tag directly to the `<head>` of the page:
 
 ```javascript
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900">
@@ -123,11 +126,12 @@ Storybook includes a powerful addon ecosystem created by a massive community. Fo
 
 <h4>Actions addon to verify interactivity</h4>
 
-The [actions addon](https://github.com/storybookjs/storybook/tree/next/addons/actions) gives you UI feedback in Storybook when an action is performed on an interactive element like a Button or Link. Actions comes installed in storybook by default and you use it simply by passing an “action” as a callback prop to a component.
+The [actions addon](https://github.com/storybookjs/storybook/tree/next/addons/actions) gives you UI feedback in Storybook when an action is performed on an interactive element like a Button or Link. Actions comes installed in Storybook by default and you use it simply by passing an “action” as a callback prop to a component.
 
 Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. We have a story that passes an action to that wrapper:
 
 ```javascript
+// Button.stories.js
 import React from 'react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
@@ -157,14 +161,16 @@ yarn add --dev  @storybook/addon-storysource
 Register the addon in `.storybook/addons.js`:
 
 ```javascript
+// addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-links/register';
 import '@storybook/addon-storysource/register';
 ```
 
-And update your webpack config in `.storybook/webpack.config.js`:
+And update your webpack config by creating a new file inside of the `.storybook/` directory called `webpack.config.js`:
 
 ```javascript
+// webpack.config.js
 module.exports = function({ config }) {
   config.module.rules.unshift({
     test: /\.stories\.jsx?$/,
@@ -182,7 +188,7 @@ This is what that workflow looks like in Storybook:
 
 <h4>Knobs to stress test components</h4>
 
-The [knobs addon](https://github.com/storybookjs/storybook/tree/next/addons/knobs) allows you to interact with component props dynamically in the Storybook UI. Knobs allows you to supply a multiple values to a component prop and adjust them through via the UI. This helps design system creators stress test component inputs by adjusting, well, knobs. It also gives design system consumers the ability to try components before integrating them so that they can understand how each prop affects the component.
+The [knobs addon](https://github.com/storybookjs/storybook/tree/next/addons/knobs) allows you to interact with component props dynamically in the Storybook UI. Knobs allows you to supply multiple values to a component prop and adjust them via the UI. This helps design system creators stress test component inputs by adjusting, well, knobs. It also gives design system consumers the ability to try components before integrating them so that they can understand how each prop affects the component.
 
 Let’s see how this works by setting up knobs in the `Avatar` component:
 
@@ -193,6 +199,7 @@ yarn add --dev @storybook/addon-knobs
 Register the addon in `.storybook/addons.js`:
 
 ```javascript
+// addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-links/register';
 import '@storybook/addon-storysource/register';
@@ -202,6 +209,7 @@ import '@storybook/addon-knobs/register';
 Add a story that uses knobs in `src/Avatar.stories.js`:
 
 ```javascript
+// Avatar.stories.js
 import React from 'react';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 
