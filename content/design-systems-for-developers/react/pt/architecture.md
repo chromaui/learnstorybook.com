@@ -1,13 +1,13 @@
 ---
 title: 'Arquitetar sistemas'
-tocTitle: 'Arquitectura'
+tocTitle: 'Arquitetura'
 description: 'Como extrair um sistema de design a partir de bibliotecas de componentes'
 commit: b696f85
 ---
 
 No capítulo 2, vamos extrair um sistema de design de bibliotecas de componentes existentes. Ao longo do trajeto, iremos determinar quais os componentes pertencem ao sistema de design e delinear quais os desafios comuns que os programadores encontram inicialmente.
 
-Em grandes empresas, este exercicio é feito em conjunção com as equipas de design, engenharia e de produto. A Chroma (companhia por detrás do Storybook) e o Storybook partilham uma equipa de infraestrutura de frontend bastante jovial, que auxilia quase 800 contribuidores de código aberto ao longo de mais de 3 propriedades. Por isso vamos delinear todo o processo para você.
+Em grandes empresas, este exercício é feito em conjunção com as equipas de design, engenharia e de produto. A Chroma (companhia por detrás do Storybook) e o Storybook partilham uma equipa de infraestrutura de frontend bastante jovial, que auxilia quase 800 contribuidores de código aberto ao longo de mais de 3 propriedades. Por isso vamos delinear todo o processo para você.
 
 ## O desafio
 

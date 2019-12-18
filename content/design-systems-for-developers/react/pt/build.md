@@ -227,7 +227,7 @@ No painel de extras, repare na tab Knobs. Instrumentalizámos o elemento de sele
 
 Posto isto, os knobs não substituem as estórias. São fantásticos para explorar casos extremos associados aos componentes. Mas para ilustrar os casos pretendidos, são usadas estórias.
 
-Tanto o extra Docs, como o o extra Accessbility serão apresentados em capítulos posteriores.
+Tanto o extra Docs, como o extra Accessbility serão apresentados em capítulos posteriores.
 
 > “O Storybook é uma ferramenta de trabalho poderosa para ambiente de trabalho para o frontend, que permite projetar, construir e organizar os componentes de IU (e mesmo até ecrãs!) sem serem incomodados pela lógica de negócio ou canalização” – Brad Frost, Autor de Atomic Design
 
