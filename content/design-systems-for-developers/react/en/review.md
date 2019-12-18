@@ -19,13 +19,19 @@ Bugs are an existential risk for design systems so we’ll do everything to prev
 
 Continuous integration is the defacto way to maintain modern web apps. It allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
 
-We’re using CircleCI here, which is free for our modest usage. The same principles apply to other CI services as well.
+We’re using [CircleCI](https://circleci.com/) here, which is free for our modest usage. The same principles apply to other CI services as well.
 
-First, sign up for CircleCI if you haven’t already. Once there, you’ll see an “add projects” tab where you can set up the design system project like so.
+First, sign up for CircleCI if you haven’t already.
+
+Once you've created an account or logged in, you’ll see an “add projects” tab on the left navigation bar where you can set up the design system project.
+
+Click "Set Up Project" for the `learnstorybook-design-system` repository.
 
 ![Adding a project on CircleCI](/design-systems-for-developers/circleci-add-project.png)
 
-Add a `.circleci` directory at the top level and create a config.yml file inside of it. This will allow us to script how our CI process behaves. We can simply add the default file that Circle suggests for Node for now:
+Back in VSCode, add a `.circleci` directory at the root of the project and create a `config.yml` file inside of it.
+
+This config file will allow us to script how our CI process behaves. We can simply add the default file that Circle suggests for Node for now:
 
 ```yaml
 version: 2
@@ -48,7 +54,7 @@ jobs:
       - run: yarn test
 ```
 
-At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. Let’s check that it runs on Circle:
+At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. Let’s check that it runs on Circle by clicking the "Start building" button.
 
 ![First build on CircleCI](/design-systems-for-developers/circleci-first-build.png)
 
@@ -76,31 +82,37 @@ When living UI components are accessible via a URL, stakeholders can confirm UI 
 
 #### Publish Storybook
 
-Build the visual review workflow using [Netlify](http://netlify.com), a developer-friendly deployment service. Netlify is free for our use case, but it’s straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
+Now let's build the visual review workflow using [Netlify](http://netlify.com), a developer-friendly deployment service. Netlify is free for our use case, but it’s straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
+
+Create a Netlify account, or log in if you already have one. Click "New site from Git".
 
 ![Choosing GitHub on Netlify](/design-systems-for-developers/netlify-choose-provider.png)
 
-Now find your design system’s GitHub repo that we created in the last chapter.
+Select the `learnstorybook-design-systems` repo which we created in the previous tutorial.
 
 ![Choosing our repository on Netlify](/design-systems-for-developers/netlify-choose-repository.png)
 
-Enter the `storybook-build` command for Netlify to run whenever you commit.
+Underneath "Basic build settings", enter `yarn build-storybook` for the build command and `storybook-static/` for the bulid directory.
 
 ![Setting up our first build on Netlify](/design-systems-for-developers/netlify-setup-build.png)
 
-All going well, you should see a successful build in Netlify:
+Finally click "Deploy site." If all goes well your site should build successfully in Netlify.
 
 ![Succeeded running our first build in Netlify](/design-systems-for-developers/netlify-deployed.png)
 
-Browse your published Storybook by clicking on the link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
+You can view your published Storybook site by clicking on the link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
 
 ![Viewing our first build in Netlify](/design-systems-for-developers/netlify-deployed-site.png)
 
 Netlify runs a build command on every commit that deploys your Storybook. You’ll find a link to it in GitHub’s PR checks (we'll see that below).
 
-Congratulations! Now that you set up the infrastructure to publish Storybook, let’s demo gathering feedback.
+_If you get a deployment error, ensure that you have an `index.js` file in your `src/` directory. Netlify checks whether this file exists during the build process. If you don't have an `index.js` file, you can grab the code [here](https://github.com/chromaui/learnstorybook-design-system/edit/master/src/index.js)._
 
-While we are at it, let’s add the `storybook-static` directory to our `.gitignore` file:
+_Also ensure that your build directory deploy setting is set to `public/`, then click "Trigger Deploy" followed by "Clear cache and deploy site"._
+
+Congratulations! Now that you set up the infrastructure to publish Storybook, let’s demonstrate how to gather feedback.
+
+First let’s add the `storybook-static` directory to our `.gitignore` file:
 
 ```
 # …
@@ -123,13 +135,15 @@ We’ll demo visual review by making a UI change on a new branch.
 git checkout -b improve-button
 ```
 
-First, tweak the Button component. “Make it pop” – our designers will love it.
+First, tweak the Button component by replacing the `border` and `font-size` CSS properties. “Make it pop” – our designers will love it.
 
 ```javascript
+// Button.js
 // ...
 const StyledButton = styled.button`
-  border: 10px solid red;
+  ... border: 10px solid red;
   font-size: 20px;
+  ...;
 `;
 // ...
 ```
@@ -147,7 +161,7 @@ Navigate to GitHub.com and open up a pull request for the `improve-button` branc
 
 ![Created a PR in GitHub](/design-systems-for-developers/github-created-pr.png)
 
-Go to the Netlify URL in your PR checks to find your button component.
+After the PR has been opened and the checks for Netlify and CircleCI have run, grab the Netlify URL in your PR checks underneath "deploy/netlify" by clicking the "Details" link.
 
 ![Button component changed in deployed site](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
 
