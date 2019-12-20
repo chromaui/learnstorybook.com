@@ -54,7 +54,7 @@ E já está! É tempo de usar o extra numa estória.
 
 ### Utilização
 
-Vamos usar o objecto knob no componente `Task`.
+Vamos usar o objeto knob no componente `Task`.
 
 Primeiro, importamos o decorador `withKnobs` e o tipo `object` de knob para o ficheiro `Task.stories.js`:
 
@@ -235,4 +235,4 @@ Não esquecer de fundir as alterações com o git!
 
 ## Partilha de extras com a equipa
 
-Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser dificil para estes executarem o Storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!
+Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser difícil para estes executarem o Storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!

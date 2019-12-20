@@ -1,7 +1,7 @@
 ---
 title: 'Implementar Storybook'
 tocTitle: 'Implementação'
-descrição: 'Implemntação online do Storybook com GitHub e Netlify'
+descrição: 'Implementação online do Storybook com GitHub e Netlify'
 ---
 
 Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessária a partilha com o resto da equipa, em particular com membros considerados não técnicos. Felizmente, é bastante fácil implementar o Storybook online.
@@ -15,7 +15,7 @@ Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessá
 
 ## Exportação sob a forma de uma app estática
 
-Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessária alterar o script tal como quando o projecto foi inicializado [na secção get started](/vue/pt/get-started).
+Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessária alterar o script tal como quando o projeto foi inicializado [na secção get started](/vue/pt/get-started).
 
 ```javascript
 {
@@ -24,7 +24,7 @@ Para implementar o Storybook será necessário ser exportado como uma aplicaçã
   }
 }
 ```
-Quando executar o Storybook através de `yarn build-storybook`, irá gerar a pasta `storybook-static` com o contéudo estático do seu Storybok.
+Quando executar o Storybook através de `yarn build-storybook`, irá gerar a pasta `storybook-static` com o conteúdo estático do seu Storybook.
 
 ## Implementação contínua
 
@@ -76,11 +76,11 @@ O Netlify possui um serviço de implementação contínua, o que permite a imple
 
 ![Criação Site Netlify](/intro-to-storybook/netlify-create-site.png)
 
-Em seguida click no botão GitHub para ser feita a ligação entre ambos. O que permite o acesso ao repositorio remoto taskbox.
+Em seguida click no botão GitHub para ser feita a ligação entre ambos. O que permite o acesso ao repositório remoto taskbox.
 
 Seguida da seleção do repositório da lista de opções.
 
-![Conexão Netlify para o repositorio](/intro-to-storybook/netlify-account-picker.png)
+![Conexão Netlify para o repositório](/intro-to-storybook/netlify-account-picker.png)
 
 É feita a configuração no Netlify ao selecionar-se o comando apropriado para executar no IC (CI na forma nativa) e qual a pasta de output. Como ramo, seleciona-se `master`. Pasta `storybook-static`. Comando `yarn build-storybook`.
 

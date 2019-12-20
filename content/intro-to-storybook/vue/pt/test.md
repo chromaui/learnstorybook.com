@@ -8,11 +8,11 @@ Qualquer tutorial de Storybook não estaria completo sem serem mencionados os te
 
 - **Testes visuais** dependem do programador para olhar para o componente manualmente e verificar se está tudo de acordo. Ajudam a manter um nível de coerência em termos de aparência á medida que é construído.
 - **Testes snapshot** com o extra Storyshots é capturado o markup renderizado do componente. Ajudam a ficar a par das alterações no markup que causam erros de renderização e avisos.
-- **Unit tests** com Jest é verificado que o output de um determinado componente mantém-se idêntico dado um input fixo. São óptimos para efectuar testes das qualidades funcionais de um componente.
+- **Unit tests** com Jest é verificado que o output de um determinado componente mantém-se idêntico dado um input fixo. São ótimos para efetuar testes das qualidades funcionais de um componente.
 
-## "Mas aparenta ser correcto"?
+## "Mas aparenta ser correto"?
 
-Infelizmente as metodologias de teste acima mencionadas, sozinhas não são suficientes para prevenir problemas no interface de utilizador. Estes são complicados para testar, visto que o design é algo subjectivo e com nuances. Os testes visuais são demasiado manuais, os testes de snapshot poderão originar demasiados falsos positivos quando usados para interface de utilizador e os testes unitários ao nível de pixel são pobres. Uma estratégia de testes considerada completa para o Storybook incluí também testes visuais de regressão.
+Infelizmente as metodologias de teste acima mencionadas, sozinhas não são suficientes para prevenir problemas no interface de utilizador. Estes são complicados para testar, visto que o design é algo subjetivo e com nuances. Os testes visuais são demasiado manuais, os testes de snapshot poderão originar demasiados falsos positivos quando usados para interface de utilizador e os testes unitários ao nível de pixel são pobres. Uma estratégia de testes considerada completa para o Storybook incluí também testes visuais de regressão.
 
 ## Testes visuais de regressão para o Storybook
 
@@ -27,7 +27,7 @@ Os testes visuais de regressão são desenhados para capturar alterações de ap
 
 O Storybook é uma ferramenta fantástica para este tipo de testes, por que cada estória é na sua essência uma especificação de teste. Cada vez que é escrita ou atualizada uma estória, obtemos uma especificação de graça!
 
-Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromaticqa.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efectua testes na núvem.
+Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromaticqa.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efetua testes na núvem.
 
 ## Configuração de testes de regressão visual
 
@@ -58,7 +58,7 @@ yarn add -D storybook-chromatic
 
 Um aspeto fantástico acerca deste extra é que recorre á Git history para se manter a par dos componentes de interface de utilizador.
 
-Faça a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida crie um projecto com o nome "taskbox" e copie e guarde seu o `app-code` único.
+Faça a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida crie um projeto com o nome "taskbox" e copie e guarde seu o `app-code` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -91,7 +91,7 @@ O que irá gerar uma nova cor de fundo para o item.
 
 ![alteração da cor de fundo da tarefa](/intro-to-storybook/chromatic-task-change.png)
 
-Usando agora o comando de testes, para efectuar um outro teste com o Chromatic.
+Usando agora o comando de testes, para efetuar um outro teste com o Chromatic.
 
 ```bash
 npx chromatic --app-code=<app-code>
@@ -119,7 +119,7 @@ Se uma alteração é intencional, é necessária a atualização da linha de ba
   />
 </video>
 
-Visto que as aplicações modernas são construidas a partir de componentes, é importante testar ao nível destes. Ao efectuar-se isto ajuda a identificar a principal causa da alteração, ou seja o componente, ao invés de reagir aos sintomas de uma alteração, ecrãs ou componentes compostos.
+Visto que as aplicações modernas são construidas a partir de componentes, é importante testar ao nível destes. Ao efetuar-se isto ajuda a identificar a principal causa da alteração, ou seja o componente, ao invés de reagir aos sintomas de uma alteração, ecrãs ou componentes compostos.
 
 ## Fusão de alterações
 

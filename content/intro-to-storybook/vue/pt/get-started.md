@@ -64,7 +64,7 @@ A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https:/
 
 ## Adicionar recursos
 
-Adicione as pastas (ou diretório) de fontes e icones localmente, através de:
+Adicione as pastas (ou diretórios) de fontes e ícones localmente, através de:
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon

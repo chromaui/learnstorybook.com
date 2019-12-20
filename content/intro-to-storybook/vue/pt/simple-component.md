@@ -128,7 +128,7 @@ De forma a informar o Storybook acerca do componente que está a ser documentado
 
 - `component` -- o componente em si,
 - `title` -- o nome que irá ser apresentado na barra lateral da aplicação Storybook,
-- `excludeStories` -- Informação que é necessária à estoria, mas que não deverá ser renderizada pela aplicação Storybook.
+- `excludeStories` -- Informação que é necessária à estória, mas que não deverá ser renderizada pela aplicação Storybook.
 
 Para definir as nossas estórias, exportamos uma função para cada um dos casos de teste. A estória não é nada mais nada menos que uma função que devolve um elemento renderizado (por exemplo um componente com um conjunto de adereços) num determinado estado -- exatamente tal como um [Componente Funcional sem estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
@@ -234,7 +234,7 @@ Com isto espera-se que seja possível construir um interface de utilizador de qu
 
 ## Testes automatizados
 
-O Storybook oferece uma forma fantástica de testar visualmente a aplicação durante o desenvolvimento. As "estórias" irão garantir que a tarefa não seja visualmente destruída á medida que a aplicação continua a ser desenvolvida. Mas no entanto continua a ser um processo manual neste momento e alguém terá que fazer o esforço de clickar em cada estado de teste de forma a garantir que irá renderizar sem qualquer tipo de problemas. Não poderíamos automatizar isto?
+O Storybook oferece uma forma fantástica de testar visualmente a aplicação durante o desenvolvimento. As "estórias" irão garantir que a tarefa não seja visualmente destruída á medida que a aplicação continua a ser desenvolvida. Mas no entanto continua a ser um processo manual neste momento e alguém terá que fazer o esforço de clicar em cada estado de teste de forma a garantir que irá renderizar sem qualquer tipo de problemas. Não poderíamos automatizar isto?
 
 ### Testes de snapshot
 

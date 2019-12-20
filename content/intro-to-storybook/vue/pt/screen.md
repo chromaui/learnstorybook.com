@@ -130,7 +130,7 @@ export const error = () => ({
 });
 ```
 
-Pode verificar-se que apesar da estória `error` funcionar correctamente, existe um problema na estória `Default`, isto porque a `TaskList` não tem uma loja Vuex á qual conectar-se. (Poderão surgir problemas similares ao testar o `PureInboxScreen` com um teste unitário).
+Pode verificar-se que apesar da estória `error` funcionar corretamente, existe um problema na estória `Default`, isto porque a `TaskList` não tem uma loja Vuex á qual conectar-se. (Poderão surgir problemas similares ao testar o `PureInboxScreen` com um teste unitário).
 
 ![Inbox quebrada](/intro-to-storybook/broken-inboxscreen-vue.png)
 
@@ -139,7 +139,7 @@ Uma forma de evitar este tipo de situações, consiste em evitar por completo a 
 No entanto, algum programador **irá querer** renderizar contentores num nível mais baixo na hierarquia de componentes. Já que pretendemos renderizar a maioria da aplicação no Storybook (sim queremos!), é necessária uma solução para esta situação.
 
 <div class="aside">
-    Como aparte, a transmissão de dados ao longo da hierarquia é uma abordagem legitima, particulamente quando é utilizado <a href="http://graphql.org/">GrapQL</a>. Foi desta forma que foi construido o <a href="https://www.chromaticqa.com">Chromatic</a>, juntamente com mais de 800+ estórias.
+    Como aparte, a transmissão de dados ao longo da hierarquia é uma abordagem legitima, particularmente quando é utilizado <a href="http://graphql.org/">GrapQL</a>. Foi desta forma que foi construido o <a href="https://www.chromaticqa.com">Chromatic</a>, juntamente com mais de 800+ estórias.
 </div>
 
 ## Fornecer contexto ás estórias
@@ -184,7 +184,7 @@ export const error = () => ({
 
 Existem abordagens semelhantes de forma a fornecer contextos simulados para outras bibliotecas de dados tal como [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) assim como outras.
 
-A iteração de estados no Storybook faz com que seja bastante fácil testar, se for feito correctamente:
+A iteração de estados no Storybook faz com que seja bastante fácil testar, se for feito corretamente:
 
 <video autoPlay muted playsInline loop >
 
