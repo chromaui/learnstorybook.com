@@ -14,9 +14,9 @@ Neste capítulo vamos criar um "manual de utilizador" para o sistema de design, 
 
 ## A documentação é exaustiva
 
-É obvio; que a documentação é inestimável para um desenvolvimento colaborativo de IU. Ajuda as equipas a aprender como e quando usar os componentes de IU comuns. Mas porque é que precisa de tanto trabalho?
+É óbvio; que a documentação é inestimável para um desenvolvimento colaborativo de IU. Ajuda as equipas a aprender como e quando usar os componentes de IU comuns. Mas porque é que precisa de tanto trabalho?
 
-Se já alguma vez criou documentação, provavelmente gastou tempo com tarefas que não são relacionadas com documentação, tais como entender a infraestrutura do site, ou discutir com escritores técnicos. E mesmo que consegiu arranjar tempo para publicar essa documentação, continua a ser doloroso mantê-la enquanto se continuam a desenvolver funcionalidades.
+Se já alguma vez criou documentação, provavelmente gastou tempo com tarefas que não são relacionadas com documentação, tais como entender a infraestrutura do site, ou discutir com escritores técnicos. E mesmo que conseguiu arranjar tempo para publicar essa documentação, continua a ser doloroso mantê-la enquanto se continuam a desenvolver funcionalidades.
 
 
 **A maioria da documentação está desatualizada assim que é criada.** Documentação desatualizada irá minar a confiança nos componentes do sistema de design, o que resulta que os programadores optem por criar novos componentes ao invés de reutilizar os que já existem.
@@ -85,7 +85,7 @@ export function Avatar({ loading, username, src, size, ...props }) {
 
 Deverá ver algo do género:
 
-![Tab documentaoção do Storybook com detalhes do componente](/design-systems-for-developers/storybook-docspage.png)
+![Tab documentação do Storybook com detalhes do componente](/design-systems-for-developers/storybook-docspage.png)
 
 O Docs do Storybook gerou automaticamente a tabela de adereços (props na forma original) que apresenta quais os tipos e os valores por defeito. O que é extremamente conveniente, mas não garante que seja "á prova de bala"; diversos adereços (props na forma original) podem ser usados incorretamente. Adicione comentários aos proptypes para que sejam também renderizados na tabela de adereços (props na forma original) que é gerada automaticamente. 
 
@@ -358,7 +358,7 @@ Num capítulo anterior, publicámos o Storybook online para revisão visual. É 
 }
 ```
 
-Guarde as alterações e faça a submissão. Poderiamos alterar a publicação no Netlify para permitir a implementação do site da documentação, ou então usar um segundo sistema de implementação (tal como [now.sh](https://zeit.co/home)) para implementar o site de documentação a cada alteração.
+Guarde as alterações e faça a submissão. Poderíamos alterar a publicação no Netlify para permitir a implementação do site da documentação, ou então usar um segundo sistema de implementação (tal como [now.sh](https://zeit.co/home)) para implementar o site de documentação a cada alteração.
 
 <!--
 Create a second Netlify integration to run the docs build script:
@@ -373,6 +373,6 @@ Great. Every time you commit, you’ll now see two PR checks. One takes you to t
 
 ## Importar o sistema de design noutras aplicações
 
-Até agora, temos estado concentrados no interior. Primeiro a criar componentes de IU duradouros. Em seguida a rever, testar e documentar. Agora vamos mudar de perspectiva, para o exterior de forma a examinar como as equipas consomem os sistemas de design.
+Até agora, temos estado concentrados no interior. Primeiro a criar componentes de IU duradouros. Em seguida a rever, testar e documentar. Agora vamos mudar de perspetiva, para o exterior de forma a examinar como as equipas consomem os sistemas de design.
 
 O capítulo 7 demonstra como empacotar o sistema de design para ser usado noutras aplicações. Aprenda como combinar o npm, o gestor de pacotes do Javascript, com o Auto, uma ferramenta de gestão de versões que economiza tempo.

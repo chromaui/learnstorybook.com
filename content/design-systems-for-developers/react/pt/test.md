@@ -5,7 +5,7 @@ description: 'Como testar a aparência,funcionalidade e acessibilidade do sistem
 commit: 5b71208
 ---
 
-No capítulo 5, vamos automatizar os testes do sistema de design de forma a prevenir problemas com o IU. Neste capítulo vão ser analisadas quais as caraterísticas dos componentes de IU que justificam aplicar testes e quais as possíveis armadilhas a serem evitadas. Com base na pesquisa feita com equipas profissionais na Wave, BBC e Salesforce, acabámos por criar uma estratégia para testes que equilibra, baixa manutenção, uma configuração simples e uma cobertura abragente.
+No capítulo 5, vamos automatizar os testes do sistema de design de forma a prevenir problemas com o IU. Neste capítulo vão ser analisadas quais as caraterísticas dos componentes de IU que justificam aplicar testes e quais as possíveis armadilhas a serem evitadas. Com base na pesquisa feita com equipas profissionais na Wave, BBC e Salesforce, acabámos por criar uma estratégia para testes que equilibra, baixa manutenção, uma configuração simples e uma cobertura abrangente.
 
 <img src="/design-systems-for-developers/ui-component.png" width="250">
 
@@ -31,7 +31,7 @@ Num [artigo anterior](https://blog.hichroma.com/the-delightful-storybook-workflo
 
 ## Aparência visual dos testes
 
-Os sistemas de design contêm componentes de IU de apresentação, que são inerentemente visuais. Os testes visuais validam os aspectos visuais do IU que é renderizado.
+Os sistemas de design contêm componentes de IU de apresentação, que são inerentemente visuais. Os testes visuais validam os aspetos visuais do IU que é renderizado.
 
 Os testes visuais capturam uma imagem de cada componente do IU, num ambiente consistente de browsers. As novas capturas de ecrã são automáticamente comparadas com capturas de ecrã anteriores, consideradas como linhas de base. Quando existem diferenças visuais, será notificado.
 
@@ -45,7 +45,7 @@ Primeiro, vá a [ChromaticQA.com](https://chromaticqa.com) e registe-se usando a
 
 A partir daí, escolha o seu repositório que contêm o sistema de design. Nos bastidores, as permissões de acesso irão ser sincronizadas e serão instrumentalizadas as verificações associadas ao pull request (PR).
 
-![Criar um projecto no Chromatic](/design-systems-for-developers/chromatic-create-project.png)
+![Criar um projeto no Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
 Instale o pacote [storybook-chromatic](https://www.npmjs.com/package/storybook-chromatic) package via npm.
 
@@ -230,7 +230,7 @@ A partir daqui basta seguir as recomendações oferecidas pelo extra de acessibi
 
 ## Outras estratégias de teste
 
-Paradoxalmente efetuar testes pode ecomonizar tempo, mas também reduzir a velocidade de desenvolvimento devido á manutenção. Seja bastante criterioso em testar o que realmente interessa; não tudo. Ainda que o desenvolvimento de software ofereça inúmeras metodologias de teste, descobrimos da forma mais difícil que algumas destas não são as adequadas para sistemas de design.
+Paradoxalmente efetuar testes pode economizar tempo, mas também reduzir a velocidade de desenvolvimento devido á manutenção. Seja bastante criterioso em testar o que realmente interessa; não tudo. Ainda que o desenvolvimento de software ofereça inúmeras metodologias de teste, descobrimos da forma mais difícil que algumas destas não são as adequadas para sistemas de design.
 
 #### Testes Snapshot (Jest)
 
@@ -248,6 +248,6 @@ Os sistemas de design contêm componentes atómicos com funcionalidades relativa
 
 ## Promova a adoção através de documentação
 
-Um sistema de design não estará completo somente com testes. Visto que os sistemas de design irão servir diversas partes interessadas na orgarnização, será necessário ensinar os outros a como obter o máximo dos nossos componentes de IU que estão extremamente bem testados.
+Um sistema de design não estará completo somente com testes. Visto que os sistemas de design irão servir diversas partes interessadas na organização, será necessário ensinar os outros a como obter o máximo dos nossos componentes de IU que estão extremamente bem testados.
 
 No capítulo 6, vamos aprender a acelerar a adoção do sistema de design através de documentação. Veja porque o Storybook Docs funciona como uma arma secreta para gerar documentação sem ser necessário muito trabalho.

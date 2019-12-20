@@ -40,7 +40,7 @@ Estas partes irão ser empacotadas, com versões e distribuídas através de um 
 
 ## Será que precisa de um sistema de design?
 
-Apesar do furor, um sistema de design não é uma solução infalível. Se trabalha com uma equipa modesta numa única aplicação, fica mais bem servido com uma pasta ou  directório de componentes de interface de utilizador (IU), ao invés de implementar toda a infraestrutura associada ao sistema de design. Para projetos pequenos o custo de manutenção, integração e ferramentas associadas supera em larga escala todos e quaisquer benefícios de produtividade poderá observar.
+Apesar do furor, um sistema de design não é uma solução infalível. Se trabalha com uma equipa modesta numa única aplicação, fica mais bem servido com uma pasta ou  diretório de componentes de interface de utilizador (IU), ao invés de implementar toda a infraestrutura associada ao sistema de design. Para projetos pequenos o custo de manutenção, integração e ferramentas associadas supera em larga escala todos e quaisquer benefícios de produtividade poderá observar.
 
 A economia de escala associada a um sistema de design funciona a seu favor quando se partilham os componentes de IU por diversos projetos. Se dá por si a copiar e colar os mesmos componentes em diversas aplicações ou equipas, então este guia é para você.
 
@@ -68,15 +68,15 @@ O Storybook alimenta os sistemas de design da [Uber](https://github.com/uber-web
 
 - ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) para verificar problemas de acessibilidade durante o desenvolvimento
 - 💥 [Actions](https://github.com/storybookjs/storybook/tree/master/addons/actions) para oferecer uma garantia de qualidade nas interações de click e tap
-- 🎛 [Knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs) para ajustar os adereços (props na forma original) de forma interactiva para ser possível fazer experiências com os componentes
-- 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource) para visualizar o código fonte da estória e copiá-lo para o projecto. 
+- 🎛 [Knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs) para ajustar os adereços (props na forma original) de forma interativa para ser possível fazer experiências com os componentes
+- 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource) para visualizar o código fonte da estória e copiá-lo para o projeto. 
 - 📕 [Docs](https://github.com/storybookjs/storybook/tree/master/addons/docs) para geração automática de documentação a partir das estórias
 
 ![Fluxo do sistema de design](/design-systems-for-developers/design-system-workflow.jpg)
 
 ## Compreensão do fluxo de trabalho
 
-Os sistemas de design são um investimento na infraestrutura de frontend. Além de demonstrar como utilizar toda a tecnologia acima, este guia foca-se também nos fluxos de trabalho nucleares que promovem a adopção e simplificam a sua manutenção. Sempre que possível todas as tarefas manuais serão automatizadas. Em seguida são apresentadas todas actividades com que iremos lidar.
+Os sistemas de design são um investimento na infraestrutura de frontend. Além de demonstrar como utilizar toda a tecnologia acima, este guia foca-se também nos fluxos de trabalho nucleares que promovem a adoção e simplificam a sua manutenção. Sempre que possível todas as tarefas manuais serão automatizadas. Em seguida são apresentadas todas atividades com que iremos lidar.
 
 #### Construção de componentes IU em isolamento
 
@@ -96,7 +96,7 @@ A documentação é essencial, mas geralmente a última prioridade para o progra
 
 #### Distribuição do sistema de design para outros projetos consumidores
 
-Assim que obtiver os componentes de IU extremamente bem documentados, terão que ser distribuidos. Iremos descrever como empacotar, publicar e como introduzir o sistema de design noutros Storybooks.
+Assim que obtiver os componentes de IU extremamente bem documentados, terão que ser distribuídos. Iremos descrever como empacotar, publicar e como introduzir o sistema de design noutros Storybooks.
 
 ## Sistema de design do Storybook
 

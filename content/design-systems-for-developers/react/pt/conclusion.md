@@ -4,7 +4,7 @@ tocTitle: "Conclusão"
 description: "Sistemas de design prósperos economizam tem e aumentam produtividade"
 ---
 
-Estudos suportados por pesquisa sugerem que a reutilização de código podem gerar entre [42-81% de economização de tempo](https://www.researchgate.net/publication/3188437_Evaluating_Software_Reuse_Alternatives_A_Model_and_Its_Application_to_an_Industrial_Case_Study?ev=publicSearchHeader&_sg=g8WraNGZNGPw0R-1-jGpy0XwUDeAr3qb472J6lhisyQ3l24pSmndO6anMdX2L3HdWHifsczPegR9wjA) e aumentar a produtividade em [40%](http://www.cin.ufpe.br/~in1045/papers/art03.pdf). Não deverá ser surpresa então, que os sistemas de design que ajudam a facilitar a partilha de **código de interface de utilizador**, estão a ganhar uma popularidade crescente entre programadores.
+Estudos suportados por pesquisa sugerem que a reutilização de código podem gerar entre [42-81% de economia de tempo](https://www.researchgate.net/publication/3188437_Evaluating_Software_Reuse_Alternatives_A_Model_and_Its_Application_to_an_Industrial_Case_Study?ev=publicSearchHeader&_sg=g8WraNGZNGPw0R-1-jGpy0XwUDeAr3qb472J6lhisyQ3l24pSmndO6anMdX2L3HdWHifsczPegR9wjA) e aumentar a produtividade em [40%](http://www.cin.ufpe.br/~in1045/papers/art03.pdf). Não deverá ser surpresa então, que os sistemas de design que ajudam a facilitar a partilha de **código de interface de utilizador**, estão a ganhar uma popularidade crescente entre programadores.
 
 Nos últimos anos, o Tom e eu, observámos inúmeras equipas veteranas ancorar as suas ferramentas de trabalho associadas ao sistema de design em torno do Storybook. Concentraram-se na redução da sobrecarga de comunicação, arquitetura duradoura e automatização de tarefas manuais repetitivas. Esperamos que ao destilarem estas táticas de senso comum, irá ajudar no florescimento do vosso sistema de design.
 
@@ -65,11 +65,11 @@ Sim! A comunidade Storybook cria extras que fazem com que a integração de ferr
 
 #### É necessário um sistema de design para uma só aplicação?
 
-Não. Existe um custo associado á oportunidade de criar e manter um sistema de design. Em escalas pequenas o sistema de design requer um esforço adicional do que o retorno obtido em termos de ecomização de tempo.
+Não. Existe um custo associado á oportunidade de criar e manter um sistema de design. Em escalas pequenas o sistema de design requer um esforço adicional do que o retorno obtido em termos de economia de tempo.
 
 #### Como é que as aplicações consumidoras protegem-se de alterações inesperadas do sistema de design?
 
-Ninguém é perfeito. O vosso sistema de design irá ser lançado com algum erro que irá causar impacto nas aplicações que o consomem. Pode mitigar esta perturbação através da instrumentalização do Storybook da aplicação cliente, através de testes automaticos (visuais, unitários, etc.) da mesma forma que seria feito no sistema de design. Desta forma quando atualizar as dependências num ramo (quer manualmente, quer automaticamente através de serviços tais como [Dependabot](https://dependabot.com/)), os testes da vossa aplicação cliente irão capturar quaisquer regressões oriundas do sistema de design.
+Ninguém é perfeito. O vosso sistema de design irá ser lançado com algum erro que irá causar impacto nas aplicações que o consomem. Pode mitigar esta perturbação através da instrumentalização do Storybook da aplicação cliente, através de testes automáticos (visuais, unitários, etc.) da mesma forma que seria feito no sistema de design. Desta forma quando atualizar as dependências num ramo (quer manualmente, quer automaticamente através de serviços tais como [Dependabot](https://dependabot.com/)), os testes da vossa aplicação cliente irão capturar quaisquer regressões oriundas do sistema de design.
 
 ![Updates do sistema de design](/design-systems-for-developers/design-system-update.png)
 

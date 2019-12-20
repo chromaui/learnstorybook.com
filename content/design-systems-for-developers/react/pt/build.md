@@ -16,7 +16,7 @@ Os sistemas de design são colaborativos, como tal ferramentas que corrigem a si
 
 Neste tutorial vamos usar o VSCode, mas a mesma ideia pode ser aplicada a outros editores modernos, tais como Atom, Sublime, ou IntelliJ.
 
-Se adicionarmos o Prettier ao projeto e configurarmos o editor correctamente, deveremos obter uma formatação consistente sem precisar pensar muito:
+Se adicionarmos o Prettier ao projeto e configurarmos o editor corretamente, deveremos obter uma formatação consistente sem precisar pensar muito:
 
 ```bash
 yarn add --dev prettier
@@ -51,7 +51,7 @@ Deverá ver o seguinte:
 Fantástico, acabámos de configurar o explorador de componentes!
 
 Por defeito, o Storybook, cria uma pasta `src/stories` com alguns exemplos de estórias. No entanto, quando copiámos os nossos componentes, foram copiadas também as suas estórias. Podemos indexá-las no nosso Storybook através da alteração 
-da localização das estórias no ficheiro `.storybook/config.js` para `’src/components’` ao invés de `’src/stories’` e com isto podemos remover a pasta ou directório `src/stories` sem qualquer repercussão:
+da localização das estórias no ficheiro `.storybook/config.js` para `’src/components’` ao invés de `’src/stories’` e com isto podemos remover a pasta ou diretório `src/stories` sem qualquer repercussão:
 
 ```javascript
 import { configure } from '@storybook/react';
@@ -102,7 +102,7 @@ addDecorator(story => (
 configure(require.context('../src', true, /\.stories\.js$/), module);
 ```
 
-O decorador irá garantir que o `GlobalStyle` seja renderizado independentemente da estória seleccionada.
+O decorador irá garantir que o `GlobalStyle` seja renderizado independentemente da estória selecionada.
 
 <div class="aside">O <code><></code> utilizado no decorador não é um erro; mas sim um <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> que é usado para evitar adicionar tags HTML extra desnecessariamente ao nosso output.</div>
 
@@ -184,7 +184,7 @@ No Storybook este fluxo de trabalho assemelha-se ao seguinte:
 
 O [extra Knobs](https://github.com/storybookjs/storybook/tree/next/addons/knobs) permite que interaja dinamicamente com os adereços (props na forma original) do componente no IU do Storybook. O Knobs permite que sejam fornecidos múltiplos valores ao adereço (prop na forma original) de um componente e ajustá-las de acordo via IU. O que ajuda aos criadores de sistemas de design a fazerem testes de stress aos inputs dos componentes ajustando enfim, knobs. Mas também fornece aos consumidores de sistemas de design uma forma de testar os componentes antes de serem integrados, de forma a que possam compreender como cada adereço (prop na forma original) afeta o componente.
 
-Vamos ver como isto funciona, através da configuraçao dos knobs no componente `Avatar`:
+Vamos ver como isto funciona, através da configuração dos knobs no componente `Avatar`:
 
 ```bash
 yarn add --dev @storybook/addon-knobs

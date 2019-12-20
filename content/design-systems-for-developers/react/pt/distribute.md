@@ -9,11 +9,11 @@ De uma perspetiva arquitetónica, os sistemas de design são apenas mais uma dep
 
 Este capítulo ilustra como distribuir sistemas de design, desde empacotamento dos componentes de IU até à importação dos mesmos noutras aplicações. Iremos desvendar técnicas que economizam tempo em termos de publicação e versões.
 
-![Propagar componentse em sites](/design-systems-for-developers/design-system-propagation.png)
+![Propagar componentes em sites](/design-systems-for-developers/design-system-propagation.png)
 
 ## Empacotar o sistema de design
 
-As organizações possuem milhares de componentes de IU espalhados por inúmersas aplicações. Anteriormente extraímos os componentes comuns para o sistema de design. Agora é necessário reintroduzi-los de volta nas aplicações
+As organizações possuem milhares de componentes de IU espalhados por inúmeras aplicações. Anteriormente extraímos os componentes comuns para o sistema de design. Agora é necessário reintroduzi-los de volta nas aplicações
 
 O nosso sistema de design usa o gestor de pacotes npm para Javascript, para lidar com a gestão de dependências, distribuição e controlo de versões. 
 
@@ -29,7 +29,7 @@ Para sistemas de design recém-nascido, a forma mais direta é a publicação de
 
 ## Prepare o seu sistema de design para ser exportado
 
-Utilizámos como ponto de partida para o nosso sistema de design o create-react-app, com isto ainda existem alguns vestigios da aplicação inicial criada pelo pacote. Vamos fazer agora uma limpeza.
+Utilizámos como ponto de partida para o nosso sistema de design o create-react-app, com isto ainda existem alguns vestígios da aplicação inicial criada pelo pacote. Vamos fazer agora uma limpeza.
 
 Primeiro deveremos adicionar um ficheiro README.md básico:
 
@@ -183,9 +183,9 @@ Futuramente os novos valores das versões irão ser calculados pelo `auto`, reco
 yarn auto changelog
 ```
 
-O que o comando faz, é gerar uma entrada no registo de alterações bem grande, com cada submissão feita (e um aviso que temos estado a fazer alterações no ramo master e deveros parar com isso o mais depressa possível).
+O que o comando faz, é gerar uma entrada no registo de alterações bem grande, com cada submissão feita (e um aviso que temos estado a fazer alterações no ramo master e devemos parar com isso o mais depressa possível).
 
-No entanto é extramemente útil manter um registo de alterações gerado automaticamente, de forma que não se percam pitada do que está a acontecer, é também uma muito boa ideia, editá-lo manualmente e gerar uma mensagem útil para os utilizadores. Neste caso, os utilizadores não precisam ter conhecimento de todo e qualquer submissão feita até agora. Vamos criar uma mensagem simples e agradável para a primeira versão v0.1.0. Para isto, primeiro desfaça a alteração feita Auto (mas mantenha-a):
+No entanto é extremamente útil manter um registo de alterações gerado automaticamente, de forma que não se percam pitada do que está a acontecer, é também uma muito boa ideia, editá-lo manualmente e gerar uma mensagem útil para os utilizadores. Neste caso, os utilizadores não precisam ter conhecimento de todo e qualquer submissão feita até agora. Vamos criar uma mensagem simples e agradável para a primeira versão v0.1.0. Para isto, primeiro desfaça a alteração feita Auto (mas mantenha-a):
 
 ```bash
 git reset HEAD^
@@ -244,7 +244,7 @@ Vamos agora configurar o Auto para seguir o mesmo processo quando for necessári
 }
 ```
 
-Agora, quando for executado o `yarn release`, irão ser percorridos quase todos os passos mencionados anteriormente (sendo a excepção, a utilização do registo de alterações que foi gerado automaticamente), de forma automática. Iremos garantir que todas as submissões para o ramo master do repositório são publicados através da adição de um comando ao ficheiro de configuração do circle:
+Agora, quando for executado o `yarn release`, irão ser percorridos quase todos os passos mencionados anteriormente (sendo a exceção, a utilização do registo de alterações que foi gerado automaticamente), de forma automática. Iremos garantir que todas as submissões para o ramo master do repositório são publicados através da adição de um comando ao ficheiro de configuração do circle:
 
 ```yml
 # ...
@@ -260,11 +260,11 @@ Agora, quando for executado o `yarn release`, irão ser percorridos quase todos 
 Será também necessário adicionar os tokens npm e GitHub ao ambiente CircleCI associado ao vosso projeto, mais exatamente no website do CircleCI (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars): 
 
 
-![Definir variaveis de ambiente no CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
+![Definir variáveis de ambiente no CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
 Desta forma, assim que cada PR for fundido com o ramo master, irá publicar automaticamente uma nova versão, incrementando o número da versão apropriadamente, graças ás etiquetas adicionadas.
 
-<div class="aside">Não mencionámos todas as funcionalidades e integrações existentes no Auto, que poderão ser utéis para sistemas de design emergentes. Para isso leia a documentação <a href="https://github.com/intuit/auto">aqui</a>.</div>
+<div class="aside">Não mencionámos todas as funcionalidades e integrações existentes no Auto, que poderão ser úteis para sistemas de design emergentes. Para isso leia a documentação <a href="https://github.com/intuit/auto">aqui</a>.</div>
 
 ![Importar o sistema de design](/design-systems-for-developers/design-system-import.png)
 
@@ -274,7 +274,7 @@ Agora que o nosso sistema de design está online, é bastante trivial instalar a
 
 #### Obter a aplicação de exemplo
 
-Anteriormente neste tutorial, optámos pela stack de frontend popular que inclui React e styled-components. O que signifca que a nossa aplicação de exemplo deverá usar também React e styled-components para retirar o máximo do sistema de design.
+Anteriormente neste tutorial, optámos pela stack de frontend popular que inclui React e styled-components. O que significa que a nossa aplicação de exemplo deverá usar também React e styled-components para retirar o máximo do sistema de design.
 
 <div class="aside">Outros métodos que também são muito promissores, tal como o Svelte ou componentes web, que permitem também que se criem de IU completamente agnósticos. No entanto, estes são relativamente novos, ainda não estão bem documentados ou ainda não têm uma adoção generalizada, como tal não foram incluídos ainda neste guia.</div>
 
@@ -327,7 +327,7 @@ configure(
 );
 ```
 
-![Aplicação de exemplo com as estorias do sistema de design](/design-systems-for-developers/example-app-storybook-with-design-system-stories.png)
+![Aplicação de exemplo com as estórias do sistema de design](/design-systems-for-developers/example-app-storybook-with-design-system-stories.png)
 
 Poderá agora pesquisar os componentes do sistema de design e documentação, enquanto continua a trabalhar na aplicação de exemplo. Apresentar o sistema de design durante o desenvolvimento de funcionalidades aumenta a probabilidade dos componentes serem reutilizados ao invés de perder tempo a inventar os seus próprios componentes.
 

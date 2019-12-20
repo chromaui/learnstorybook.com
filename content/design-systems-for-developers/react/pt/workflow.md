@@ -151,11 +151,11 @@ O nosso conjunto de testes é executado nos bastidores a cada submissão. O Avat
 
 Visto que o AvatarList é novo, ainda não foram definidos testes visuais para ele ainda. Será necessário adicionar linhas de base para cada estória. Aceite as "novas estórias" no Chromatic de forma a expandir a cobertura dos testes visuais.
 
-![Alterações no Chromatic feitas as estorias do AvatarList](/design-systems-for-developers/chromatic-avatarlist-changes.png)
+![Alterações no Chromatic feitas as estórias do AvatarList](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
 Assim que terminar, o processo de compilação irá ser bem sucedido no Chromatic.
 
-![Alterações aceites para as estorias do AvatarList](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
+![Alterações aceites para as estórias do AvatarList](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
 
 O que por sua vez, atualiza as verificações do PR no GitHub.
 
@@ -180,6 +180,6 @@ Sucesso! O seu pacote com o sistema de design foi atualizado a partir do confort
 
 ## A sua jornada começa agora
 
-O _Sistema de Design para Programadores_, na forma original _Design Systems for Developers_, ilustra todo o fluxo de trabalho que é utilizado por equipas profissionais de frontend de forma a fornecer-lhe um avanço enquanto implementa o seu sistema. À medida que o sistema de design cresce, adicione, reorganize e extenda este conjunto de ferramentas de forma ajustarem-se ás necessidades da sua equipa.
+O _Sistema de Design para Programadores_, na forma original _Design Systems for Developers_, ilustra todo o fluxo de trabalho que é utilizado por equipas profissionais de frontend de forma a fornecer-lhe um avanço enquanto implementa o seu sistema. À medida que o sistema de design cresce, adicione, reorganize e estenda este conjunto de ferramentas de forma ajustarem-se ás necessidades da sua equipa.
 
 O capítulo 9 faz a conclusão, com todo o código de exemplo, recursos úteis e as perguntas mais frequentes por parte dos programadores.

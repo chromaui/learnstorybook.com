@@ -25,7 +25,7 @@ Primeiro, registe-se no CircleCI se ainda não o fez. Uma vez feito o registo, i
 
 ![Adicionar um projeto no CircleCI](/design-systems-for-developers/circleci-add-project.png)
 
-Crie uma pasta ou diretório chamado `.circleci` na raíz do seu projeto e no seu interior crie um ficheiro chamado config.yml. Isto irá permitir definir qual o coportamento do processo de integração contínua (IC). Por agora pode simplesmente utilizar a recomendação fornecida pela Circle para Node:
+Crie uma pasta ou diretório chamado `.circleci` na raíz do seu projeto e no seu interior crie um ficheiro chamado config.yml. Isto irá permitir definir qual o comportamento do processo de integração contínua (IC). Por agora pode simplesmente utilizar a recomendação fornecida pela Circle para Node:
 
 ```yml
 version: 2
@@ -92,11 +92,11 @@ Até agora está tudo a correr bem, deverá ver que o Netlify compilou com suces
 
 ![Primeira compilação executou com sucesso no Storybook](/design-systems-for-developers/netlify-deployed.png)
 
-Navegue no seu Storybook que foi publicado, clickando no link fornecido. Irá verificar que o seu ambiente de desenvolvimento local do Storybook, foi espelhado online. O que faz com que seja mais fácil para a sua equipa rever os componentes de IU reais renderizados da mesma forma que os vê localmente.
+Navegue no seu Storybook que foi publicado, clicando no link fornecido. Irá verificar que o seu ambiente de desenvolvimento local do Storybook, foi espelhado online. O que faz com que seja mais fácil para a sua equipa rever os componentes de IU reais renderizados da mesma forma que os vê localmente.
 
 ![Visualizando a primeira compilação no Netlify](/design-systems-for-developers/netlify-deployed-site.png)
 
-O Netlify executa um comando de compilação para cada submissão feita que afeta a implementação do Storybook. Irá encontar um link associado na lista de verificações do PR (pull request) do GitHub (iremos observar isto em seguida).
+O Netlify executa um comando de compilação para cada submissão feita que afeta a implementação do Storybook. Irá encontrar um link associado na lista de verificações do PR (pull request) do GitHub (iremos observar isto em seguida).
 
 Parabéns! Agora que foi configurada a infraestrutura para publicar o Storybook, vamos recolher feedback através de uma demonstração.
 
@@ -149,7 +149,7 @@ No browser, navegue para o GitHub.com e crie um pull request para o ramo `improv
 
 Abra o URL gerado pelo Netlify, que se encontra na lista de verificações do PR para visualizar o seu componente.
 
-![Componnte Button alterado no site implementado](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
+![Componente Button alterado no site implementado](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
 
 Para cada componente e estória que foi alterada, copie o URL da barra de endereço e 
 partilhe-a na plataforma utilizada pela equipa para gerir tarefas (GitHub, Asana, Jira, etc), de forma a ajudar os restantes elementos da equipa a rever as estórias que são relevantes.
