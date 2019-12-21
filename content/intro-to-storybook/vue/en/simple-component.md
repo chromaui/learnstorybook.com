@@ -131,7 +131,7 @@ To define our stories, we export a function for each of our test states to gener
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and use pass them into our story defintion each time (where they are accessed via the `methods` property).
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and use pass them into our story definition each time (where they are accessed via the `methods` property).
 
 Another nice thing about bundling the `actionsData` that a component needs, is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
