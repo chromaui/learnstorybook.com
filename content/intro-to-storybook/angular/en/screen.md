@@ -13,7 +13,7 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskListComponent` (which supplies its own data via ngxs) in some layout and pulling a top-level `error` field out of our store (let's assume we'll set that field if we have some problem connecting to our server).
 
-Let's start by updating the store ( in`src/app/tasks/state/task.state.ts`) to include the error field we want:
+Let's start by updating the store ( in `src/app/tasks/state/task.state.ts`) to include the error field we want:
 
 ```typescript
 import { State, Selector, Action, StateContext } from '@ngxs/store';
@@ -24,7 +24,7 @@ export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
   // defines the new error field we need
-  ERROR: 'APP_ERROR'
+  ERROR: 'APP_ERROR',
 };
 
 export class ArchiveTask {
@@ -50,7 +50,7 @@ const defaultTasks = {
   1: { id: '1', title: 'Something', state: 'TASK_INBOX' },
   2: { id: '2', title: 'Something more', state: 'TASK_INBOX' },
   3: { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-  4: { id: '4', title: 'Something again', state: 'TASK_INBOX' }
+  4: { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 };
 
 export class TaskStateModel {
@@ -63,8 +63,8 @@ export class TaskStateModel {
   name: 'tasks',
   defaults: {
     entities: defaultTasks,
-    error: false
-  }
+    error: false,
+  },
 })
 export class TasksState {
   @Selector()
@@ -76,55 +76,48 @@ export class TasksState {
   // defines a new selector for the error field
   @Selector()
   static getError(state: TaskStateModel) {
-    const {error} = state;
+    const { error } = state;
     return error;
   }
   //
   // triggers the PinTask action, similar to redux
   @Action(PinTask)
-  pinTask(
-    { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: PinTask
-  ) {
+  pinTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: PinTask) {
     const state = getState().entities;
 
     const entities = {
       ...state,
-      [payload]: { ...state[payload], state: 'TASK_PINNED' }
+      [payload]: { ...state[payload], state: 'TASK_PINNED' },
     };
 
     patchState({
-      entities
+      entities,
     });
   }
   // triggers the PinTask action, similar to redux
   @Action(ArchiveTask)
-  archiveTask(
-    { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: ArchiveTask
-  ) {
+  archiveTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: ArchiveTask) {
     const state = getState().entities;
 
     const entities = {
       ...state,
-      [payload]: { ...state[payload], state: 'TASK_ARCHIVED' }
+      [payload]: { ...state[payload], state: 'TASK_ARCHIVED' },
     };
 
     patchState({
-      entities
+      entities,
     });
   }
 
   // function to handle how the state should be updated when the action is triggered
   @Action(AppError)
-  setAppError({patchState, getState}: StateContext<TaskStateModel>, {payload}: AppError) {
+  setAppError({ patchState, getState }: StateContext<TaskStateModel>, { payload }: AppError) {
     const state = getState();
     patchState({
-      error: !state.error
+      error: !state.error,
     });
   }
 }
-
 ```
 
 The store is updated with the new field. Let's create a presentational `pure-inbox-screen.component.ts` in `src/app/tasks/` folder:
@@ -151,7 +144,7 @@ import { Component, OnInit, Input } from '@angular/core';
       </nav>
       <app-task-list></app-task-list>
     </div>
-  `
+  `,
 })
 export class PureInboxScreenComponent implements OnInit {
   @Input() error: any;
@@ -160,13 +153,11 @@ export class PureInboxScreenComponent implements OnInit {
 
   ngOnInit() {}
 }
-
 ```
 
-Then we can create the container, which like before, grabs the data for `PureInboxScreenComponent`. In a new file called `inbox-screen.component.ts`: 
+Then we can create the container, which like before, grabs the data for `PureInboxScreenComponent`. In a new file called `inbox-screen.component.ts`:
 
 ```typescript
-
 import { Component, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { TasksState } from '../state/task.state';
@@ -185,9 +176,7 @@ export class InboxScreenComponent implements OnInit {
 
   ngOnInit() {}
 }
-
 ```
-
 
 We also need to change the `AppComponent` to render the `InboxScreenComponent` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
@@ -200,7 +189,6 @@ import { Component } from '@angular/core';
     <app-inbox-screen></app-inbox-screen>
   `,
 })
-
 export class AppComponent {
   title = 'taskbox';
 }
@@ -216,28 +204,25 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppComponent } from './app.component';
-import {InboxScreenComponent} from './tasks/inbox-screen.component';
+import { InboxScreenComponent } from './tasks/inbox-screen.component';
 import { PureInboxScreenComponent } from './tasks/pure-inbox-screen.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    InboxScreenComponent,
-    PureInboxScreenComponent,
-  ],
+  declarations: [AppComponent, InboxScreenComponent, PureInboxScreenComponent],
   imports: [
     BrowserModule,
     TaskModule,
     NgxsModule.forRoot([]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
 
+<div class="aside"><p>Don't forget to update the test file <code>src/app/app.component.spec.ts</code>. Or the next time you run your tests they will fail.</p></div>
 However, where things get interesting is in rendering the story in Storybook.
 
 As we saw previously, the `TaskListComponent` component is a **container** that renders the `PureTaskListComponent` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
@@ -247,31 +232,29 @@ When placing the `TaskListComponent` into Storybook, we were able to dodge this 
 However, for the `PureInboxScreenComponent` we have a problem because although the `PureInboxScreenComponent` itself is presentational, its child, the `TaskListComponent`, is not. In a sense the `PureInboxScreenComponent` has been polluted by “container-ness”. So when we setup our stories in `pure-inbox-screen.stories.ts`:
 
 ```typescript
-
-import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 import { PureInboxScreenComponent } from './pure-inbox-screen.component';
 import { TaskModule } from './task.module';
-storiesOf('PureInboxScreen', module)
-  .addDecorator(
+export default {
+  title: 'PureInboxScreen',
+  decorators: [
     moduleMetadata({
-      imports: [TaskModule]
-    })
-  )
-  .add('default', () => {
-    return{
-      component: PureInboxScreenComponent
-    };
-  })
-  .add('error', () => {
-    return {
-      component: PureInboxScreenComponent,
-      props: {
-        error: true
-      }
-    };
-  });
+      imports: [TaskModule],
+    }),
+  ],
+};
+// inbox screen default state
+export const Default = () => ({
+  component: PureInboxScreenComponent,
+});
 
-
+// inbox screen error state
+export const error = () => ({
+  component: PureInboxScreenComponent,
+  props: {
+    error: true,
+  },
+});
 ```
 
 We see that our stories are broken now. This is due to the fact that both depend on our store and, even though, we're using a "pure" component for the error both stories still need the context.
@@ -281,7 +264,7 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 670+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context with decorators
@@ -289,64 +272,34 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is that is pretty straightforward to supply the `Store` to the `PureInboxScreenComponent` in a story! We can supply the `Store` provided in a decorator:
 
 ```typescript
-
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState, AppError } from '../state/task.state';
+import { moduleMetadata } from '@storybook/angular';
 import { PureInboxScreenComponent } from './pure-inbox-screen.component';
 import { TaskModule } from './task.module';
-storiesOf('PureInboxScreen', module)
-  .addDecorator(
+import { Store, NgxsModule } from '@ngxs/store';
+import { TasksState } from '../state/task.state';
+export default {
+  title: 'PureInboxScreen',
+  decorators: [
     moduleMetadata({
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
       providers: [Store],
-    })
-  )
-  .add('default', () => {
-    return {
-      component: PureInboxScreenComponent,
-    };
-  })
-  .add('error', () => {
-    return {
-      component: PureInboxScreenComponent,
-      props: {
-        error: true
-      }
-    };
-  });
+    }),
+  ],
+};
+// inbox screen default state
+export const Default = () => ({
+  component: PureInboxScreenComponent,
+});
 
-```
-
-Some additional tweaks are necessary in order allow Storybook, to load the stories correctly.
-
-Add the following key and value to `.storybook/tsconfig.json`:
-
-```json
-{
-  ...
-  "compilerOptions": {
-    "skipLibCheck": true,
-    ....
+// inbox screen error state
+export const error = () => ({
+  component: PureInboxScreenComponent,
+  props: {
+    error: true,
   },
-  ...
-}
-
+});
 ```
 
-And finally in `tsconfig.json`:
-
-```json
-{
-  ....
-  "compilerOptions": {
-    ....
-    "emitDecoratorMetadata":true,
-    ....
-  },
-  ....
-}
-```
 Similar approaches exist to provide mocked context for other data libraries, such as [ngxs](https://ngxs.gitbook.io/ngxs/).
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:

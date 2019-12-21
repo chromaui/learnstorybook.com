@@ -5,7 +5,7 @@ description: 'Learn how to integrate and use addons using a popular example'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/react/en/test/).
+everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/angular/en/test/).
 
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
@@ -60,21 +60,19 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 
 ```javascript
 // src/app/tasks/task.stories.ts
-
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { TaskComponent } from './task.component';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
+Next, within the `default` export of the `Task.stories` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
 // src/app/tasks/task.stories.ts
-
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+export default {
+  title: 'Task',
+  decorators: [withKnobs],
+  // same as before
+};
 ```
 
 Lastly, integrate the `object` knob type within the "default" story:
@@ -82,38 +80,40 @@ Lastly, integrate the `object` knob type within the "default" story:
 ```javascript
 // src/app/tasks/task.stories.ts
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add('default', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: object('task', { ...task }),
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  })
-  .add('pinned', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: { ...task, state: 'TASK_PINNED' },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  })
-  .add('archived', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: { ...task, state: 'TASK_ARCHIVED' },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  });
+// default task state
+export const Default = () => ({
+  component: TaskComponent,
+  props: {
+    task: object('task', { ...taskData }),
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// pinned task state
+export const Pinned = () => ({
+  component: TaskComponent,
+  props: {
+    task: {
+      ...taskData,
+        state: 'TASK_PINNED',
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// archived task state
+export const Archived = () => ({
+  component: TaskComponent,
+   props: {
+    task: {
+      ...taskData,
+      state: 'TASK_ARCHIVED'
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -160,50 +160,54 @@ Let's add a story for the long text case in Task.stories.js:
 // src/app/tasks/task.stories.ts
 
 // tslint:disable-next-line: max-line-length
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add('default', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: object('task', { ...task }),
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask
-      }
-    };
-  })
-  .add('pinned', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: { ...task, state: 'TASK_PINNED' },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask
-      }
-    };
-  })
-  .add('archived', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: { ...task, state: 'TASK_ARCHIVED' },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask
-      }
-    };
-  })
-  .add('longTitle', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: { ...task, title: longTitle },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask
-      }
-    };
-  });
+// default task state
+export const Default = () => ({
+  component: TaskComponent,
+  props: {
+    task: object('task', { ...taskData }),
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// pinned task state
+export const Pinned = () => ({
+  component: TaskComponent,
+  props: {
+    task: {
+      ...taskData,
+        state: 'TASK_PINNED',
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// archived task state
+export const Archived = () => ({
+  component: TaskComponent,
+   props: {
+    task: {
+      ...taskData,
+      state: 'TASK_ARCHIVED'
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+
+export const LongTitle = () => ({
+  component: TaskComponent,
+   props: {
+    task: {
+      ...taskData,
+      title: longTitle
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+
 
 ```
 
@@ -211,7 +215,7 @@ Now we've added the story, we can reproduce this edge-case with ease whenever we
 
 ![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/intro-to-storybook/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are using [visual regression testing](/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ### Merge Changes
 

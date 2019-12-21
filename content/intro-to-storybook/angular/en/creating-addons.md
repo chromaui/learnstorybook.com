@@ -6,7 +6,7 @@ description: 'Learn how to build your own addons that will super charge your dev
 
 In the previous chapter we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
 
-In this chapter we're going to take a look on how we create our own addon. You might think that writting it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writting it.
+In this chapter we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
 
 But first thing is first, let's first scope out what our addon will do.
 
@@ -25,12 +25,16 @@ The way we'll be attaching the list of assets to the stories is through [paramet
 <!-- this is probably not needed as it's used below-->
 
 ```javascript
-storiesOf('your-component', module)
-  .addParameters({
+export default {
+  title: 'Your component',
+  decorators: [
+    /*...*/
+  ],
+  parameters: {
     assets: ['path/to/your/asset.png'],
-  })
-  .addDecorator(/*...*/)
-  .add(/*...*/);
+  },
+  //
+};
 ```
 
 <!-- -->
@@ -54,29 +58,31 @@ Open a console, navigate to your project folder and run the following command:
  npm install -D @storybook/api @storybook/components @storybook/theming @babel/preset-react
 ```
 
-We'll need to make a small change to the `.babelrc` file we created earlier. We need to add a reference to the `@babel/preset-react` package.
+We'll need to make a small change to the `babel.config.js` file we created earlier. We need to add a reference to the `@babel/preset-react` package.
 
 Your updated file should look like this:
 
-```json
-{
-  "presets": [
+```javascript
+module.exports = function(api) {
+  const isTest = api.env('test');
+  const presets = [
     [
-      "@babel/preset-env",
+      '@babel/preset-env',
       {
-        "targets": {
-          "node": "current"
-        }
-      }
+        targets: {
+          node: 'current',
+        },
+      },
     ],
-    "@babel/preset-react"
-  ],
-  "env": {
-    "test": {
-      "plugins": ["babel-plugin-require-context-hook"]
-    }
-  }
-}
+    '@babel/preset-typescript',
+    '@babel/preset-react',
+  ];
+  const plugins = [];
+  return {
+    presets,
+    plugins: isTest ? ['require-context-hook'] : [],
+  };
+};
 ```
 
 ## Writing the addon
@@ -121,7 +127,7 @@ import './addons/design-assets';
 
 Success! We have our newly created addon added to the Storybook UI.
 
-<div class="aside">Storybook allows you to add not only panels, but a whole range of different types of UI components. And most if not all of them are already created inside the @storybook/components package, so that you don't need waste too much time implementing the UI and focus on writting features.</div>
+<div class="aside">Storybook allows you to add not only panels, but a whole range of different types of UI components. And most if not all of them are already created inside the @storybook/components package, so that you don't need waste too much time implementing the UI and focus on writing features.</div>
 
 ### Creating the content component
 
@@ -195,26 +201,28 @@ addons.register('my/design-assets', () => {
 });
 ```
 
-Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `addParameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
+Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `parameters` key for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
 
 ### Using our addon with a story
 
 We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
 
-To do so, we're going to make a small change to the `task.stories.ts` file and add the [addParameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
+To do so, we're going to make a small change to the `task.stories.ts` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) key.
 
 ```javascript
 // src/app/tasks/task.stories.ts
-
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  title: 'Task',
+  decorators: [withKnobs],
+  excludeStories: /.*Data$/,
+  parameters: {
     assets: [
       'path/to/your/asset.png',
       'path/to/another/asset.png',
       'path/to/yet/another/asset.png',
     ],
-  });
+  },
+};
 /* same as before  */
 ```
 
@@ -287,7 +295,7 @@ If you take a closer look, you'll see that we're using the `styled` tag, this ta
 
 ### Displaying actual assets
 
-To actually see the assets displayed in our addon, we need to copy them over to the `assets` folder and adjust the `addParameter` option to reflect these changes.
+To actually see the assets displayed in our addon, we need to copy them over to the `assets` folder and adjust the `parameters` key to reflect these changes.
 
 Storybook will pick up on the change and will load the assets, but for now, only the first one.
 

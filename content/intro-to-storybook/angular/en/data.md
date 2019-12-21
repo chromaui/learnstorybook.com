@@ -24,14 +24,13 @@ npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 Then we'll construct a straightforward store that responds to actions that change the state of tasks, in a file called `src/app/tasks/state/task.state.ts` (intentionally kept simple):
 
 ```typescript
-
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { Task } from '../models/task.model';
 
 // defines the actions available to the app
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
-  PIN_TASK: 'PIN_TASK'
+  PIN_TASK: 'PIN_TASK',
 };
 
 export class ArchiveTask {
@@ -52,7 +51,7 @@ const defaultTasks = {
   1: { id: '1', title: 'Something', state: 'TASK_INBOX' },
   2: { id: '2', title: 'Something more', state: 'TASK_INBOX' },
   3: { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-  4: { id: '4', title: 'Something again', state: 'TASK_INBOX' }
+  4: { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 };
 
 export class TaskStateModel {
@@ -63,8 +62,8 @@ export class TaskStateModel {
 @State<TaskStateModel>({
   name: 'tasks',
   defaults: {
-    entities: defaultTasks
-  }
+    entities: defaultTasks,
+  },
 })
 export class TasksState {
   @Selector()
@@ -75,43 +74,36 @@ export class TasksState {
 
   // triggers the PinTask action, similar to redux
   @Action(PinTask)
-  pinTask(
-    { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: PinTask
-  ) {
+  pinTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: PinTask) {
     const state = getState().entities;
 
     const entities = {
       ...state,
-      [payload]: { ...state[payload], state: 'TASK_PINNED' }
+      [payload]: { ...state[payload], state: 'TASK_PINNED' },
     };
 
     patchState({
-      entities
+      entities,
     });
   }
   // triggers the archiveTask action, similar to redux
   @Action(ArchiveTask)
-  archiveTask(
-    { patchState, getState }: StateContext<TaskStateModel>,
-    { payload }: ArchiveTask
-  ) {
+  archiveTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: ArchiveTask) {
     const state = getState().entities;
 
     const entities = {
       ...state,
-      [payload]: { ...state[payload], state: 'TASK_ARCHIVED' }
+      [payload]: { ...state[payload], state: 'TASK_ARCHIVED' },
     };
 
     patchState({
-      entities
+      entities,
     });
   }
 }
-
 ```
 
-We have the store implemented, we need to take a couple of steps before connecting it to our app. 
+We have the store implemented, we need to take a couple of steps before connecting it to our app.
 
 Let's move our existing presentational version to a new component called `pure-task-list.component.ts`, (renaming the `selector` to `app-pure-task-list`) which will be later wrapped in a container.
 
@@ -133,7 +125,6 @@ import { Task } from '../models/task.model';
 In `src/app/tasks/task-list.component.ts`:
 
 ```typescript
-
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
@@ -148,7 +139,7 @@ import { Observable } from 'rxjs';
       (onArchiveTask)="archiveTask($event)"
       (onPinTask)="pinTask($event)"
     ></app-pure-task-list>
-  `
+  `,
 })
 export class TaskListComponent implements OnInit {
   @Select(TasksState.getAllTasks) tasks$: Observable<Task[]>;
@@ -164,7 +155,6 @@ export class TaskListComponent implements OnInit {
     this.store.dispatch(new PinTask(id));
   }
 }
-
 ```
 
 Now we're going to create a angular module to bridge the components and the store.
@@ -172,7 +162,6 @@ Now we're going to create a angular module to bridge the components and the stor
 Create a new file called `task.module.ts` inside the `tasks` folder and add the following:
 
 ```typescript
-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxsModule } from '@ngxs/store';
@@ -189,13 +178,11 @@ import { PureTaskListComponent } from './pure-task-list.component';
   providers: [],
 })
 export class TaskModule {}
-
 ```
 
 All the pieces are in place, all that is needed is wire the store to the app. In our top level component (src/app/app.module.ts):
 
 ```typescript
-
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TaskModule } from './tasks/task.module';
@@ -205,103 +192,97 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppComponent } from './app.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     TaskModule,
     NgxsModule.forRoot([]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot()
+    NgxsLoggerPluginModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/app/tasks/task-list.stories.ts` into  `src/app/tasks/pure-task-list.stories.ts`, and ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/app/tasks/task-list.stories.ts` into `src/app/tasks/pure-task-list.stories.ts`, and ensure our stories use the presentational version:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-
+import { PureTaskListComponent } from './pure-task-list.component';
 import { TaskComponent } from './task.component';
-import {PureTaskListComponent  } from './pure-task-list.component';
-import { task, actions } from './task.stories';
+import { taskData, actionsData } from './task.stories';
 
-export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' }
-];
-
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' }
-];
-
-const props = {
-  tasks: defaultTasks,
-  onPinTask: actions.onPinTask,
-  onArchiveTask: actions.onArchiveTask
+export default {
+  title: 'PureTaskList',
+  excludeStories: /.*Data$/,
+  decorators: [
+    moduleMetadata({
+      // imports both components to allow component composition with storybook
+      declarations: [PureTaskListComponent, TaskComponent],
+      imports: [CommonModule],
+    }),
+  ],
 };
 
-storiesOf('PureTaskList', module)
-  .addDecorator(
-    moduleMetadata({
-        // imports both components to allow component composition with storybook
-      declarations: [PureTaskListComponent, TaskComponent],
-      imports: [CommonModule]
-    })
-  )
-  .add('default', () => {
-    return {
-      template: `
-        <div style="padding: 3rem">
-          <app-pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
-        </div>
-      `,
-      props
-    };
-  })
-  .add('withPinnedTasks', () => {
-    return {
-      template: `
-        <div style="padding: 3rem">
-          <app-pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
-        </div>
-      `,
-      props: {
-        ...props,
-        tasks: withPinnedTasks
-      }
-    };
-  })
-  .add('loading', () => {
-    return {
-      template: `
+export const defaultTasksData = [
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
+];
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+];
+// default TaskList state
+export const Default = () => ({
+  component: PureTaskListComponent,
+  template: `
+  <div style="padding: 3rem">
+    <app-pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
+  </div>
+`,
+  props: {
+    tasks: defaultTasksData,
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// tasklist with pinned tasks
+export const WithPinnedTasks = () => ({
+  component: PureTaskListComponent,
+  template: `
+    <div style="padding: 3rem">
+      <app-pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
+    </div>
+  `,
+  props: {
+    tasks: withPinnedTasksData,
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// tasklist in loading state
+export const Loading = () => ({
+  template: `
         <div style="padding: 3rem">
           <app-pure-task-list [tasks]="[]" loading="true" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
         </div>
       `,
-      props
-    };
-  })
-  .add('empty', () => {
-    return {
-      template: `
+});
+// tasklist no tasks
+export const Empty = () => ({
+  template: `
         <div style="padding: 3rem">
           <app-pure-task-list [tasks]="[]" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
         </div>
       `,
-      props
-    };
-  });
+});
 ```
 
 <video autoPlay muted playsInline loop>
@@ -314,33 +295,30 @@ storiesOf('PureTaskList', module)
 Similarly, we need to use `PureTaskListComponent` in our Jest test:
 
 ```typescript
-
 import { render } from '@testing-library/angular';
 import { PureTaskListComponent } from './pure-task-list.component';
 import { TaskComponent } from './task.component';
-import { withPinnedTasks } from './pure-task-list.stories';
+import { withPinnedTasksData } from './pure-task-list.stories';
 describe('PureTaskList component', () => {
   it('renders pinned tasks at the start of the list', async () => {
     const mockedActions = jest.fn();
     const tree = await render(PureTaskListComponent, {
       declarations: [TaskComponent],
       componentProperties: {
-        tasks: withPinnedTasks,
+        tasks: withPinnedTasksData,
         loading: false,
         onPinTask: {
           emit: mockedActions,
         } as any,
         onArchiveTask: {
-          emit: mockedActions
-        } as any
-      }
+          emit: mockedActions,
+        } as any,
+      },
     });
     const component = tree.fixture.componentInstance;
     expect(component.tasksInOrder[0].id).toBe('6');
   });
 });
-
-
 ```
 
 <div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>

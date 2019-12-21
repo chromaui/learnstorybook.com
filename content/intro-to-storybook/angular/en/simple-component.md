@@ -1,7 +1,7 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: 'Build the core component'
+tocTitle: 'Core component'
+description: 'Build the core component in isolation'
 commit: 1a14919
 ---
 
@@ -24,7 +24,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 First, let’s create the task component and its accompanying story file: `src/app/tasks/task.component.ts` and `src/app/tasks/task.stories.ts`.
 
-We’ll begin with a basic implementation of the `TaskComponent`, simply taking in the inputs we know we’ll need and the two actions you can take on a task (to move it between lists):
+We’ll begin with the baseline implementation of the `TaskComponent`, simply taking in the inputs we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```typescript
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -58,54 +58,56 @@ Above, we render straightforward markup for `TaskComponent` based on the existin
 Below we build out Task’s three test states in the story file:
 
 ```typescript
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-
 import { TaskComponent } from './task.component';
-
-export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+export default {
+  title: 'Task',
+  excludeStories: /.*Data$/,
 };
 
-export const actions = {
+export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf('Task', module)
-  .add('default', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task,
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  })
-  .add('pinned', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: { ...task, state: 'TASK_PINNED' },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  })
-  .add('archived', () => {
-    return {
-      component: TaskComponent,
-      props: {
-        task: { ...task, state: 'TASK_ARCHIVED' },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  });
+export const taskData = {
+  id: '1',
+  title: 'Test Task',
+  state: 'Task_INBOX',
+  updated_at: new Date(2019, 0, 1, 9, 0),
+};
+export const Default = () => ({
+  component: TaskComponent,
+  props: {
+    task: taskData,
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// pinned task state
+export const Pinned = () => ({
+  component: TaskComponent,
+  props: {
+    task: {
+      ...taskData,
+      state: 'TASK_PINNED',
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// archived task state
+export const Archived = () => ({
+  component: TaskComponent,
+  props: {
+    task: {
+      ...taskData,
+      state: 'TASK_ARCHIVED',
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -115,15 +117,21 @@ There are two basic levels of organization in Storybook: the component and its c
   - Story
   - Story
 
-To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
+To tell Storybook about the component we are documenting, we create a `default` export that contains:
+
+- `component` -- the component itself,
+- `title` -- how to refer to the component in the sidebar of the Storybook app,
+- `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-It is convenient to bundle the actions up into a single `actions` variable. That way we can `export` them and use them in stories for components that reuse this component, as we'll see later.
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and use pass them into our story definition each time.
 
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state.
+Another nice thing about bundling the `actionsData` that a component needs, is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
-When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
@@ -135,8 +143,8 @@ We also have to make one small change to the Storybook configuration setup (`.st
 
 ```javascript
 import { configure } from '@storybook/angular';
-import '../src/assets/index.css';
-// automatically import all files ending in *.stories.ts
+
+import '../src/styles.css';
 configure(require.context('../src/app/', true, /\.stories\.ts$/), module);
 ```
 
@@ -167,7 +175,7 @@ export interface Task {
 
 Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
+Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
 
 ```typescript
 import { Task } from '../models/task.model';
@@ -253,17 +261,51 @@ With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/
 npm install -D @storybook/addon-storyshots babel-plugin-require-context-hook
 ```
 
-Then create an `src/storybook.test.ts` file with the following in it:
+Update the `babel.config.js` that was created in the previous section to the following:
+
+```javascript
+module.exports = function(api) {
+  const isTest = api.env('test');
+  const presets = [
+    [
+      '@babel/preset-env',
+      {
+        targets: {
+          node: 'current',
+        },
+      },
+    ],
+    '@babel/preset-typescript',
+  ];
+  return {
+    presets,
+    plugins: isTest ? ['require-context-hook'] : [],
+  };
+};
+```
+
+Then create the `src/storybook.test.js` file with the following in it:
 
 ```typescript
-import * as path from 'path';
-import initStoryshots, { multiSnapshotWithOptions } from '@storybook/addon-storyshots';
+import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
+import initStoryshots from '@storybook/addon-storyshots';
 
-initStoryshots({
-  framework: 'angular',
-  configPath: path.join(__dirname, '../.storybook'),
-  test: multiSnapshotWithOptions(),
-});
+registerRequireContextHook();
+initStoryshots();
+```
+
+Finally we need to make a small change in the `jest` key in our `package.json`:
+
+```json
+{
+  ....
+   "transform": {
+      "^.+\\.(ts|html)$": "ts-jest",
+      "^.+\\.js$": "babel-jest",
+      "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
+
+    },
+}
 ```
 
 Once the above is done, we can run `npm run jest` and see the following output:
@@ -273,15 +315,3 @@ Once the above is done, we can run `npm run jest` and see the following output:
 We now have a snapshot test for each of our `TaskComponent` stories. If we change the implementation of `TaskComponent`, we’ll be prompted to verify the changes.
 
 Additionally, `jest` will also run the test for `app.component.ts`.
-
-At some point you'll need to run the application in development mode, or build it for production. In order to do that you'll need to make a small change to `tsconfig.app.json` in order for angular to look past the `storybook.test.ts` file that was created and proceed with the build. Change your `exclude` array to the following:
-
-```json
-"exclude": [
-    "src/test.ts",
-    "src/**/*.spec.ts",
-    "**/*.stories.ts",
-    "src/jest-config",
-    "src/storybook.test.ts"
-  ]
-```

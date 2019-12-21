@@ -5,7 +5,7 @@ description: 'Setup Angular Storybook in your development environment'
 commit: 0818d47
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular; other editions exist for [React](/react/en/get-started) and [Vue](/vue/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular; other editions exist for [React](/react/en/get-started), [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started) and [Svelte](/svelte/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -30,7 +30,7 @@ We have two out of three modalities configured in our app, but we still need one
 Run the following command:
 
 ```bash
-npm install -D jest @types/jest jest-preset-angular@7.1.1 @testing-library/angular @testing-library/jest-dom
+npm install -D jest @types/jest jest-preset-angular@7.1.1 @testing-library/angular @testing-library/jest-dom @babel/preset-env @babel/preset-typescript
 ```
 
 Create `src/jest-config` folder and inside some files will be added.
@@ -76,6 +76,29 @@ Also `fileMock.js` with the following:
 module.exports = 'file-stub';
 ```
 
+Now in the root of your project folder, create a file called `babel.config.js` with the following content:
+
+```javascript
+module.exports = function(api) {
+  const presets = [
+    [
+      '@babel/preset-env',
+      {
+        targets: {
+          node: 'current',
+        },
+      },
+    ],
+    '@babel/preset-typescript',
+  ];
+  const plugins = [];
+  return {
+    presets,
+    plugins,
+  };
+};
+```
+
 Add a new field to `package.json` with the following:
 
 ```json
@@ -86,8 +109,10 @@ Add a new field to `package.json` with the following:
     "setupFilesAfterEnv": [
       "<rootDir>/src/jest-config/setup.ts"
     ],
+    "transformIgnorePatterns":[
+      "node_modules/(?!@storybook/*)"
+    ],
     "testPathIgnorePatterns": [
-      "node_modules/(?!@storybook/*)",
       "<rootDir>/node_modules/",
       "<rootDir>/dist/",
       "<rootDir>/storybook-static/",
@@ -118,7 +143,7 @@ Add a new field to `package.json` with the following:
     },
     "transform": {
       "^.+\\.(ts|html)$": "ts-jest",
-      "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
+      "^.+\\.js$": "babel-jest"
     },
     "moduleFileExtensions": [
       "ts",
@@ -132,20 +157,88 @@ Add a new field to `package.json` with the following:
   }
 ```
 
-Also some new scripts to allow `jest` to run:
+We need to make some changes to some of the files that `@angular/cli` added when the project was instantiated earlier. More specifically `tsconfig.spec.json`,`tsconfig.json` and `tsconfig.app.json`.
+
+Start by updating your `tsconfig.spec.json` to the following:
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./out-tsc/spec",
+    "module": "commonjs",
+    "allowJs": true,
+    "types": ["jest", "jquery", "jsdom", "node"]
+  },
+  "files": ["src/test.ts", "src/polyfills.ts"],
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+}
+```
+
+Then change `tsconfig.json` to:
+
+```json
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"]
+  },
+  "angularCompilerOptions": {
+    "fullTemplateTypeCheck": true,
+    "strictInjectionParameters": true
+  }
+}
+```
+
+And finally `tsconfig.app.json` with the following:
+
+```json
+{
+  "exclude": ["src/test.ts", "src/**/*.spec.ts", "**/*.stories.ts", "src/jest-config"]
+}
+```
+
+We're almost done, only three more changes are required to finish setting up Jest with Angular and Storybook.
+
+Add the following key and value to your `.storybook/tsconfig.json`:
+
+```json
+{
+  ...
+  "compilerOptions": {
+    "skipLibCheck": true,
+    ....
+  },
+  ...
+}
+
+```
+
+We need a script to run our tests, add the following script to your `package.json` to allow `jest` to run:
 
 ```json
 {
   ....
   "scripts":{
     ...
-     "jest": "jest",
-     "jest:watch": "jest --watch"
+     "jest": "jest --watch"
   }
 }
 ```
 
-Update `src/app/app.component.spec.ts`:
+And finally update the test file that was created automatically when the project was initialized, more specifically `src/app/app.component.spec.ts` to:
 
 ```typescript
 import { render } from '@testing-library/angular';
@@ -157,21 +250,6 @@ describe('AppComponent', () => {
     expect(getByText('Welcome'));
   });
 });
-```
-
-Finally update `tsconfig.app.json` with the following:
-```json
-{
-  
-  "exclude": [
-    "src/test.ts",
-    "src/**/*.spec.ts",
-    "**/*.stories.ts",
-    "src/jest-config",
-    
-  ]
-}
-
 ```
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
@@ -197,7 +275,7 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/styles.css` file.
 
-Finally one small change to `src/styles.css` in order to allow the icons in the `percolate` font to be correctly displayed with angular.
+And make a small change to allow the icons in the `percolate` font to be correctly displayed with Angular.
 
 ```css
 @font-face {
@@ -210,6 +288,7 @@ Finally one small change to `src/styles.css` in order to allow the icons in the 
   font-style: normal;
 }
 ```
+
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
