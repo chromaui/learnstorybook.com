@@ -62,9 +62,9 @@ Start by adding more metadata that explains what the component does. In `src/Ava
 ```javascript
 export default {
   title: 'Design System|Avatar',
+  component: Avatar,
 
   parameters: {
-    component: Avatar,
     componentSubtitle: 'Displays an image that represents a user or organization',
   },
 };
