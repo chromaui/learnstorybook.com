@@ -94,13 +94,17 @@ However, for the `PureInboxScreen` we have a problem because although the `PureI
 // src/components/InboxScreen.stories.js
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import { PureInboxScreen } from './InboxScreen';
 
-storiesOf('InboxScreen', module)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+export default {
+  component: PureInboxScreen,
+  title: 'InboxScreen',
+};
+
+export const Default = () => <PureInboxScreen />;
+
+export const Error = () => <PureInboxScreen error="Something" />;
 ```
 
 We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
@@ -123,28 +127,32 @@ The good news is that it is easy to supply a Redux store to the `InboxScreen` in
 // src/components/InboxScreen.stories.js
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
 
 import { PureInboxScreen } from './InboxScreen';
-import { defaultTasks } from './TaskList.stories';
+import { defaultTasksData } from './TaskList.stories';
+
+export default {
+  component: PureInboxScreen,
+  title: 'InboxScreen',
+  decorators: [story => <Provider store={store}>{story()}</Provider>],
+};
 
 // A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasks,
+      tasks: defaultTasksData,
     };
   },
   subscribe: () => 0,
   dispatch: action('dispatch'),
 };
 
-storiesOf('InboxScreen', module)
-  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+export const Default = () => <PureInboxScreen />;
+
+export const Error = () => <PureInboxScreen error="Something" />;
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.

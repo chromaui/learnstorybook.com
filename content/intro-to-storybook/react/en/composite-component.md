@@ -62,40 +62,45 @@ Next create `Tasklist`’s test states in the story file.
 // src/components/TaskList.stories.js
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import TaskList from './TaskList';
-import { task, actions } from './Task.stories';
+import { taskData, actionsData } from './Task.stories';
 
-export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
+export default {
+  component: TaskList,
+  title: 'TaskList',
+  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  excludeStories: /.*Data$/,
+};
+
+export const defaultTasksData = [
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
 ];
 
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
-  .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
-  .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <TaskList tasks={[]} {...actions} />);
+export const Default = () => <TaskList tasks={defaultTasksData} {...actionsData} />;
+
+export const WithPinnedTasks = () => <TaskList tasks={withPinnedTasksData} {...actionsData} />;
+
+export const Loading = () => <TaskList loading tasks={[]} {...actionsData} />;
+
+export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 ```
 
-`addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
-
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
-`task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actions` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -218,7 +223,7 @@ export default TaskList;
 
 ## Automated testing
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer such as [Enzyme](http://airbnb.io/enzyme/).
+In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer.
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
@@ -228,9 +233,9 @@ Storybook stories paired with manual visual tests and snapshot tests (see above)
 
 However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`withPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
 
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
+So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can simply import the story in our tests, and render it there!
 
 Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
 
@@ -240,12 +245,11 @@ Create a test file called `src/components/TaskList.test.js`. Here, we’ll build
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TaskList from './TaskList';
-import { withPinnedTasks } from './TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div);
+  ReactDOM.render(<WithPinnedTasks />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
@@ -257,6 +261,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
+Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
 
 Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
