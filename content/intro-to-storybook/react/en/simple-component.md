@@ -119,7 +119,7 @@ We also have to make one small change to the Storybook configuration setup (`.st
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
-configure(requireContext('../src/components', true, /\.stories\.js$/), module);
+configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
