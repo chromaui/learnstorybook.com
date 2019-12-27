@@ -155,54 +155,36 @@ Add a new field to `package.json` with the following:
       ".html"
     ]
   }
+}
 ```
 
 We need to make some changes to some of the files that `@angular/cli` added when the project was instantiated earlier. More specifically `tsconfig.spec.json`,`tsconfig.json` and `tsconfig.app.json`.
 
-Start by updating your `tsconfig.spec.json` to the following:
+In your `tsconfig.spec.json` add the following keys and values to the `compilerOptions`:
 
 ```json
 {
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/spec",
-    "module": "commonjs",
-    "allowJs": true,
-    "types": ["jest", "jquery", "jsdom", "node"]
-  },
-  "files": ["src/test.ts", "src/polyfills.ts"],
-  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
-}
-```
-
-Then change `tsconfig.json` to:
-
-```json
-{
-  "compileOnSave": false,
-  "compilerOptions": {
-    "baseUrl": "./",
-    "outDir": "./dist/out-tsc",
-    "sourceMap": true,
-    "declaration": false,
-    "downlevelIteration": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "importHelpers": true,
-    "target": "es2015",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"]
-  },
-  "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+ "compilerOptions": {
+  ....
+  "module": "commonjs",
+  "allowJs": true,
   }
 }
 ```
 
-And finally `tsconfig.app.json` with the following:
+You'll also need to change the `types` to the following:
+```json
+{
+ "compilerOptions": {
+  "types": ["jest", "jquery", "jsdom", "node"]
+ }
+}
+```
+
+Moving onto `tsconfig.json`. Once again under `compilerOptions` add the following key and value `emitDecoratorMetadata: true`
+
+
+And finally in `tsconfig.app.json` add a reference to the folder you've created earlier to the `exclude`, turning its contents into:
 
 ```json
 {
@@ -297,14 +279,14 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-Add the font and icon directories by downloading them to your computer and dropping them into your repository.
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `assets` folder.
+
+<div class="aside">
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon assets/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font assets/font
 ```
-
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
