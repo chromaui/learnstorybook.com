@@ -52,7 +52,7 @@ Open a console, navigate to your project folder and run the following command:
 <!--using npm here until the whole tutorial set is moved into npm or yarn issue #153-->
 
 ```bash
-  npm install --save-dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
+  yarn add --dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
 ```
 
 We'll need to make a small change to the `.babelrc` file we created earlier. We need to add a reference to the `@babel/preset-react` package.
@@ -194,15 +194,20 @@ To do so, we're going to make a small change to the `Task.stories.js` file and a
 
 ```javascript
 // src/components/Task.stories.js
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  component: Task,
+  title: 'Task',
+  decorators: [withKnobs],
+  parameters: {
     assets: [
       "path/to/your/asset.png",
       "path/to/another/asset.png",
       "path/to/yet/another/asset.png"
     ]
-  });
+  },
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+};
 /* same as before  */
 ```
 
