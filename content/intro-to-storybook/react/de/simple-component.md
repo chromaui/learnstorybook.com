@@ -201,15 +201,15 @@ Nun wird beim Entwickeln eine Warnung angezeigt, wenn die `Task` Komponente fals
 Alternativ kann man hierfür auch JavaScript Typisierung verwenden, wie z.B. TypeScript, um den Props der Komponente Typen zuzuweisen.
 </div>
 
-## Component built!
+## Komponente erstellt!
 
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
+Jetzt haben wir erfolgreich eine Komponente gebaut, ohne dass wir einen Server oder unsere gesamte Frontend App dazu benötigt hätten. Als nächstes müssen wir die verbleibenden Taskbox Komponenten auf die gleiche Weise bauen, eine nach der anderen.
 
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
+Wie du siehst, ist es recht schnell und einfach möglich, eine Komponente in Isolation zu bauen. Dadurch können wir UIs bauen, die schicker, qualitativ hochwertiger und weniger fehleranfällig sind, weil es möglich ist, in die Tiefe zu gehen und jeden möglichen Zustand abzutesten.
 
-## Automated Testing
+## Automatisiertes Testen
 
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook hat uns eine tolle Möglichkeit gegeben, unsere Anwendung visuell zu testen während wir sie entwickeln. Die 'Stories' werden und dabei helfen, sicherzustellen, dass die Darstellung unserer `Task` Komponente nicht zerschossen wird, während wir unsere App weiter entwickeln. Allerdings ist das im Moment noch ein vollständig manueller Vorgang und irgendjemand muss sich die Mühe machen, alle Testzustände durchzuklicken, um sicherzustellen, dass alles korrekt gerendert wird und keine Fehler oder Warnungen auftreten. Können wir das nicht automatisieren?
 
 ### Snapshot testing
 
