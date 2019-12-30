@@ -170,9 +170,9 @@ Das obige zusätzliche Markup, zusammen mit dem CSS, das wir zuvor imporiert hab
   />
 </video>
 
-## Specify data requirements
+## Datenstruktur spezifizieren
 
-It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
+Es ist üblich, `propTypes` in React zu verwenden, um die Struktur der Daten zu spezifizieren, die eine Komponente erwartet. Das dient nicht nur als Dokumentation, sondern hilft auch dabei, Probleme früh abzufangen.
 
 ```javascript
 // src/components/Task.js
@@ -195,10 +195,10 @@ Task.propTypes = {
 };
 ```
 
-Now a warning in development will appear if the Task component is misused.
+Nun wird beim Entwickeln eine Warnung angezeigt, wenn die `Task` Komponente falsch verwendet wird.
 
 <div class="aside">
-An alternative way to achieve the same purpose is to use a JavaScript type system like TypeScript to create a type for the component properties.
+Alternativ kann man hierfür auch JavaScript Typisierung verwenden, wie z.B. TypeScript, um den Props der Komponente Typen zuzuweisen.
 </div>
 
 ## Component built!
