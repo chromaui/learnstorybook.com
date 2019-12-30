@@ -94,9 +94,9 @@ Beim Erstellen einer Story nutzen wir eine Basis-Aufgabe (`task`), um die Strukt
 <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> helfen dir, Interaktionen zu verifizieren, wenn du UI Komponenten isoliert entwickelst. Oftmals hast du bei der Entwicklung keinen Zugriff auf die Funktionen und den Zustand, die im Kontext deiner App existieren. Nutze <code>action()</code>, um sie als Stub zur Verfügung zu haben.
 </div>
 
-## Config
+## Konfiguration
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA for automated tests.
+Wir müssen auch noch eine kleine Anpassung an der Storybook-Konfiguration (`.storybook/config.js`) vornehmen, so dass unsere `.stories.js` Dateien und unsere CSS Datei berücksichtigt werden. Standardmäßig sucht Storybook im Verzeichnis `/stories` nach Stories; Dieses Tutorial verwendet ein Namens-Schema äquivalent zum `.test.js` Namens-Schema, das von CRA für automatisierte Tests bevorzugt wird.
 
 ```javascript
 // .storybook/config.js
@@ -113,7 +113,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
+Sobald wir das erledigt und den Storybook Server neu gestartet haben, sollten die Testfälle für die drei Zustände von `Task` angezeigt werden:
 
 <video autoPlay muted playsInline loop>
   <source
