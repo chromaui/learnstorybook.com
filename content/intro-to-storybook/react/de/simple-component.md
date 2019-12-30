@@ -122,11 +122,11 @@ Sobald wir das erledigt und den Storybook Server neu gestartet haben, sollten di
   />
 </video>
 
-## Build out the states
+## Die Zustände implementieren
 
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+Da wir Storybook jetzt eingerichtet, die Styles importiert und die Testfälle angelegt haben, können wir einfach damit loslegen, das HTML der Komponente zu implementieren, so dass es dem Design entspricht.
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
+Die Komponente ist noch immer sehr einfach gehalten. Schreib zunächst den Code, um das Design zu erhalten, ohne dass wir zu sehr ins Detail gehen: 
 
 ```javascript
 // src/components/Task.js
@@ -161,7 +161,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+Das obige zusätzliche Markup, zusammen mit dem CSS, das wir zuvor imporiert haben, resultiert in folgender Darstellung:
 
 <video autoPlay muted playsInline loop>
   <source
