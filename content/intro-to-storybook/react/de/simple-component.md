@@ -211,21 +211,21 @@ Wie du siehst, ist es recht schnell und einfach möglich, eine Komponente in Iso
 
 Storybook hat uns eine tolle Möglichkeit gegeben, unsere Anwendung visuell zu testen während wir sie entwickeln. Die 'Stories' werden und dabei helfen, sicherzustellen, dass die Darstellung unserer `Task` Komponente nicht zerschossen wird, während wir unsere App weiter entwickeln. Allerdings ist das im Moment noch ein vollständig manueller Vorgang und irgendjemand muss sich die Mühe machen, alle Testzustände durchzuklicken, um sicherzustellen, dass alles korrekt gerendert wird und keine Fehler oder Warnungen auftreten. Können wir das nicht automatisieren?
 
-### Snapshot testing
+### Snapshot-Tests
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+Snapshot-Tests beziehen sich darauf, den "wohlbekannte" Output einer Komponente für eine definierten Input festzuhalten und dann die Komponente hervorzuheben, wann immer sich der Output in Zukunft verändert. Das ergänzt Storybook, denn es ist eine schnelle Möglichkeit, die neue Version einer Komponente zu begutachten und ihre Änderungen zu überprüfen.
 
 <div class="aside">
-Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+Stell sicher, dass deine Kompoenten ein Output rendern, das sich nicht verändert, damit deine Snapshot-Tests nicht jedes mal fehlschlagen. Achte auf Dinge wie Datumsausgaben oder zufällig generierte Werte.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
+Mit dem [Storyshots Addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) wird ein Snapshot-Test für jede deiner Stories generiert. Um es zu verwenden, füge eine `devDependency` in deiner `package.json` hinzu:
 
 ```bash
 yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.macro
 ```
 
-Then create an `src/storybook.test.js` file with the following in it:
+Erstelle dann die Datei `src/storybook.test.js` mit folgendem Inhalt:
 
 ```javascript
 // src/storybook.test.js
@@ -234,13 +234,13 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Install it with:
+Du wirst auch ein [babel Macro](https://github.com/kentcdodds/babel-plugin-macros) verwenden müssen, um sicherzustellen, dass `require.context` (etwas Webpack Magie) in Jest (unser Test-Kontext) ausgeführt wird. Installiere es mit:
 
 ```bash
 yarn add --dev babel-plugin-macros
 ```
 
-And enable it by adding a `.babelrc` file in the root folder of your app (same level as `package.json`)
+Und aktiviere es, indem du eine `.babelrc` Datei im Root-Ordner deiner App (dieselbe Ebene wie die  `package.json`) erstellst:
 
 ```json
 // .babelrc
@@ -250,7 +250,7 @@ And enable it by adding a `.babelrc` file in the root folder of your app (same l
 }
 ```
 
-Then update `.storybook/config.js` to have:
+Danach aktualisiere `.storybook/config.js` wie folgt:
 
 ```js
 // .storybook/config.js
@@ -269,10 +269,10 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-(Notice we've replaced `require.context` with a call to `requireContext` imported from the macro).
+(Beachte, dass wir `require.context` ersetzt haben mit einem Aufruf von `requireContext`, das vom Makro importiert wird.)
 
-Once the above is done, we can run `yarn test` and see the following output:
+Wenn das erledigt ist, können wir `yarn test` ausführen und sehen die folgende Ausgabe:
 
-![Task test runner](/intro-to-storybook/task-testrunner.png)
+![Task Test Runner](/intro-to-storybook/task-testrunner.png)
 
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+Wir haben jetzt einen Snapshot-Test für jede unserer `Task` Stories. Ändern wird die Implementierung von `Task`, werden wir aufgefordert, die Änderungen zu verifizieren.
