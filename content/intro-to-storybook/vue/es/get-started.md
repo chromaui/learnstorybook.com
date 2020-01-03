@@ -5,7 +5,7 @@ description: 'Configurar Vue Storybook en tu entorno de desarrollo'
 commit: d1c4858
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe una edición para [React](/react/en/get-started) y [Angular](/angular/en/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe una edición para [React](/react/es/get-started) y [Angular](/angular/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -16,6 +16,7 @@ Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestr
 ```bash
 # Create our application, using a preset that contains jest:
 npx -p @vue/cli vue create --preset hichroma/vue-preset-learnstorybook taskbox
+
 cd taskbox
 
 # Add Storybook:
@@ -34,10 +35,6 @@ yarn storybook
 # Run the frontend app proper on port 8080:
 yarn serve
 ```
-
-<div class="aside">
-  NOTE: Si <code>yarn test:unit</code> lanza un error, puede que no tengas <a href="https://yarnpkg.com/lang/en/docs/install/">yarn instalado</a> o puede que tengas que instalar <code>watchman</code> como se explica en <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">este artículo</a>.
-</div>
 
 Nuestras tres modalidades del frontend de la aplicación: test automatizado (Jest), desarrollo de componentes (Storybook) y la propia aplicación.
 
@@ -62,7 +59,15 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 ## Añade recursos
 
-También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/public) a la carpeta `public/`.
+Agregue los directorios de fuentes e íconos descargándolos a su computadora y colocándolos en su repositorio.
+
+```bash
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+```
+
+<div class = "aside">
+<p> Hemos utilizado <code>svn</code> (Subversion) para descargar fácilmente una carpeta de archivos desde GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
 
 También necesitamos actualizar nuestro script storybook para servir el directorio `public` (en `package.json`):
 

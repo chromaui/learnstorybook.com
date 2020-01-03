@@ -28,7 +28,7 @@ Knobs es un recurso increíble para que los diseñadores y desarrolladores exper
 
 ### Instalación
 
-Primero, necesitaremos instalar todas las dependencias necesarias.
+Primero, tendremos que agregarlo como una dependencia de desarrollo
 
 ```bash
 yarn add -D @storybook/addon-knobs
@@ -60,57 +60,67 @@ Primero, importe el decorador `withKnobs` y el tipo de knob `object` a `Task.sto
 
 ```javascript
 // src/components/Task.stories.js
-
-import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
 A continuación, dentro de las historias de `Task`, pase`withKnobs` como parámetro a la función `addDecorator()`:
+A continuación, dentro de la exportación `default` del archivo`Task.stories`, agregue `withKnobs` como elemento de `decorators`:
 
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+export default {
+  title: 'Task',
+  decorators: [withKnobs],
+  // same as before
+};
 ```
 
 Por último, integre el tipo de knob `object` dentro de la historia "predeterminada":
 
 ```javascript
 // src/components/Task.stories.js
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add('default', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      props: {
-        task: {
-          type: Object,
-          default: object('task', { ...task }),
-        },
+
+// default task state
+export const Default = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: object('task', { ...taskData }),
+    },
+  },
+  methods: actionsData,
+});
+// pinned task state
+export const Pinned = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: 'TASK_PINNED',
       },
-      methods,
-    };
-  })
-  .add('pinned', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: 'TASK_PINNED' } }),
-      methods,
-    };
-  })
-  .add('archived', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: 'TASK_ARCHIVED' } }),
-      methods,
-    };
-  });
+    },
+  },
+  methods: actionsData,
+});
+// archived task state
+export const Archived = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: 'TASK_ARCHIVED',
+      },
+    },
+  },
+  methods: actionsData,
+});
 ```
 
 Ahora debería aparecer una nueva pestaña "Knobs" al lado de la pestaña "Action Logger" en el panel inferior.
@@ -150,52 +160,65 @@ Además, con un fácil acceso para editar los datos pasados ​​a un component
 
 Por supuesto, siempre podemos reproducir este problema ingresando la misma entrada en los mandos, pero es mejor escribir una historia fija para esta entrada. Esto aumentará sus pruebas de regresión y describirá claramente los límites de los componentes para el resto de su equipo.
 
-Agreguemos una historia para el caso de texto largo en Task.stories.js:
+Agreguemos una historia para el caso de texto largo en `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add('default', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      props: {
-        task: {
-          type: Object,
-          default: object('task', { ...task }),
-        },
+// default task state
+export const Default = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: object('task', { ...taskData }),
+    },
+  },
+  methods: actionsData,
+});
+// pinned task state
+export const Pinned = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: 'TASK_PINNED',
       },
-      methods,
-    };
-  })
-  .add('pinned', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: 'TASK_PINNED' } }),
-      methods,
-    };
-  })
-  .add('archived', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: 'TASK_ARCHIVED' } }),
-      methods,
-    };
-  })
-  .add('longTitle', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, title: longTitle } }),
-      methods,
-    };
-  });
+    },
+  },
+  methods: actionsData,
+});
+// archived task state
+export const Archived = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: 'TASK_ARCHIVED',
+      },
+    },
+  },
+  methods: actionsData,
+});
+export const LongTitle = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        title: longTitle,
+      },
+    },
+  },
+  methods: actionsData,
+});
 ```
 
 Ahora que hemos agregado la historia, podemos reproducir este caso extremo con facilidad siempre que queramos trabajar en él:
@@ -210,4 +233,4 @@ Si estamos utilizando [pruebas de regresión visual](/vue/es/test/), también se
 
 ## Compartir complementos con el equipo
 
-Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!
+Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar Storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!
