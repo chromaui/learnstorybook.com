@@ -51,9 +51,7 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
       },
       tasks: {
         type: Array,
-        default() {
-          return [];
-        },
+        default: () => [],
       },
     },
     components: {
@@ -74,69 +72,74 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
 A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import { task } from './Task.stories';
-
 import TaskList from './TaskList';
-import { methods } from './Task.stories';
-
-export const defaultTaskList = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
-];
-
-export const withPinnedTasks = [
-  ...defaultTaskList.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+import { taskData, actionsData } from './Task.stories';
 
 const paddedList = () => {
   return {
     template: '<div style="padding: 3rem;"><story/></div>',
   };
 };
+export default {
+  title: 'TaskList',
+  excludeStories: /.*Data$/,
+  decorators: [paddedList],
+};
 
-storiesOf('TaskList', module)
-  .addDecorator(paddedList)
-  .add('default', () => ({
-    components: { TaskList },
-    template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    data: () => ({
-      tasks: defaultTaskList,
-    }),
-    methods,
-  }))
-  .add('withPinnedTasks', () => ({
-    components: { TaskList },
-    template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    data: () => ({
-      tasks: withPinnedTasks,
-    }),
-    methods,
-  }))
-  .add('loading', () => ({
-    components: { TaskList },
-    template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods,
-  }))
-  .add('empty', () => ({
-    components: { TaskList },
-    template: `<task-list  @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods,
-  }));
+export const defaultTasksData = [
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
+];
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+];
+
+// default TaskList state
+export const Default = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: defaultTasksData,
+    },
+  },
+  methods: actionsData,
+});
+// tasklist with pinned tasks
+export const WithPinnedTasks = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: withPinnedTasksData,
+    },
+  },
+  methods: actionsData,
+});
+// tasklist in loading state
+export const Loading = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  methods: actionsData,
+});
+// tasklist no tasks
+export const Empty = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  methods: actionsData,
+});
 ```
 
-`addDecorator()` nos permite añadir algún "contexto" al renderizado de cada tarea. En este caso añadimos relleno alrededor de la lista para que sea más fácil de verificar visualmente.
-
 <div class="aside">
-Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
+Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
 </div>
 
-`task` provee la forma de un `Task` que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, `methods` define las acciones (llamadas simuladas) que espera un componente `Task`, el cual también necesita la `TaskList`.
+`taskData` provee la forma de un `Task` que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, `actionsData` define las acciones (llamadas simuladas) que espera un componente `Task`, el cual también necesita la `TaskList`.
 
 Ahora hay que revisar Storybook para ver las nuevas historias de `TaskList`.
 
@@ -149,7 +152,7 @@ Ahora hay que revisar Storybook para ver las nuevas historias de `TaskList`.
 
 ## Construir los estados
 
-Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de las historias en las que trabajaremos. Podrías estar pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón, en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **complejidad real** del componente `TaskList` se revela en los casos extremos `withPinnedTasks`, `loading`, y `empty`.
+Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de las historias en las que trabajaremos. Podrías estar pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón, en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **complejidad real** del componente `TaskList` se revela en los casos extremos `WithPinnedTasks`, `loading`, y `empty`.
 
 ```html
 <template>
@@ -190,9 +193,7 @@ Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de
       },
       tasks: {
         type: Array,
-        default() {
-          return [];
-        },
+        default: () => [],
       },
     },
     components: {
@@ -229,7 +230,7 @@ Observa la posición del elemento anclado en la lista. Queremos que el elemento 
 
 ## Pruebas automatizadas
 
-En el capítulo anterior aprendimos a capturar historias de prueba utilizando Storyshots. Con el componente `Task` no había mucha complejidad para probar más allá de que se renderice correctamente. Dado que `TaskList` añade otra capa de complejidad, queremos verificar que ciertas entradas produzcan ciertas salidas de una manera adecuada con pruebas automáticas. Para hacer esto crearemos test unitarios utilizando [Jest](https://facebook.github.io/jest/) junto con un renderizador de prueba como [Enzyme](http://airbnb.io/enzyme/).
+En el capítulo anterior aprendimos a capturar historias de prueba utilizando Storyshots. Con el componente `Task` no había mucha complejidad para probar más allá de que se renderice correctamente. Dado que `TaskList` añade otra capa de complejidad, queremos verificar que ciertas entradas produzcan ciertas salidas de una manera adecuada con pruebas automáticas. Para hacer esto crearemos test unitarios utilizando [Jest](https://facebook.github.io/jest/) junto con un renderizador de prueba.
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
@@ -239,7 +240,7 @@ Las historias de Storybook combinadas con pruebas visuales manuales y pruebas de
 
 Sin embargo, a veces el diablo está en los detalles. Se necesita un framework de pruebas que sea explícito sobre esos detalles. Lo que nos lleva a hacer pruebas unitarias.
 
-En nuestro caso, queremos que nuestra `TaskList` muestre cualquier tarea anclada **antes de** las tareas no ancladas que sean pasadas en la prop `tasks`. Aunque tenemos una historia (`withPinnedTasks`) para probar este escenario exacto; puede ser ambiguo para un revisor humano que si el componente **no** ordena las tareas de esta manera, es un error. Ciertamente no gritará **"¡Mal!"** para el ojo casual.
+En nuestro caso, queremos que nuestra `TaskList` muestre cualquier tarea anclada **antes de** las tareas no ancladas que sean pasadas en la prop `tasks`. Aunque tenemos una historia (`WithPinnedTasks`) para probar este escenario exacto; puede ser ambiguo para un revisor humano que si el componente **no** ordena las tareas de esta manera, es un error. Ciertamente no gritará **"¡Mal!"** para el ojo casual.
 
 Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes del resultado.
 
@@ -248,12 +249,12 @@ Crea un archivo de prueba llamado `src/components/TaskList.test.js`. Aquí vamos
 ```javascript
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
-import { withPinnedTasks } from '../../src/components/TaskList.stories';
+import { withPinnedTasksData } from '../../src/components/TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const Constructor = Vue.extend(TaskList);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasks },
+    propsData: { tasks: withPinnedTasksData },
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
@@ -264,6 +265,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Nota que hemos sido capaces de reutilizar la lista de tareas `withPinnedTasks` tanto en la prueba de la historia como en el test unitario; de esta manera podemos continuar aprovechando un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de más y más maneras.
+Nota que hemos sido capaces de reutilizar la lista de tareas `withPinnedTasksData` tanto en la prueba de la historia como en el test unitario; de esta manera podemos continuar aprovechando un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de más y más maneras.
 
 Nota también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de `Task` cambie --quizás usando un nombre de clase diferente--la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales, de instantáneas y de regresión visual (mira el [capitulo sobre las pruebas](/vue/es/test/)) siempre que te sea posible.

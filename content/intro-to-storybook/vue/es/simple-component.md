@@ -40,6 +40,7 @@ Comenzaremos con una implementación básica de `Task`, simplemente teniendo en 
       task: {
         type: Object,
         required: true,
+        default: () => ({}),
       },
     },
   };
@@ -51,48 +52,66 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
-
 import Task from './Task';
-
-export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+export default {
+  title: 'Task',
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
 };
-
-export const methods = {
+export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf('Task', module)
-  .add('default', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task }),
-      methods,
-    };
-  })
-  .add('pinned', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: 'TASK_PINNED' } }),
-      methods,
-    };
-  })
-  .add('archived', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: 'TASK_ARCHIVED' } }),
-      methods,
-    };
-  });
+export const taskData = {
+  id: '1',
+  title: 'Test Task',
+  state: 'Task_INBOX',
+  updated_at: new Date(2019, 0, 1, 9, 0),
+};
+
+const taskTemplate = `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`;
+
+// default task state
+export const Default = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: taskData,
+    },
+  },
+  methods: actionsData,
+});
+// pinned task state
+export const Pinned = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: 'TASK_PINNED',
+      },
+    },
+  },
+  methods: actionsData,
+});
+// archived task state
+export const Archived = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: 'TASK_ARCHIVED',
+      },
+    },
+  },
+  methods: actionsData,
+});
 ```
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Piensa en cada historia como una permutación posible del componente. Puedes tener tantas historias por componente como se necesite.
@@ -102,20 +121,24 @@ Existen dos niveles básicos de organización en Storybook. El componente y sus 
   - Historia
   - Historia
 
-Para iniciar Storybook, primero invocamos a la función `storiesOf()` para registrar el componente. Agregamos un nombre para mostrar el componente, que se muestra en la barra lateral de la aplicación Storybook.
+Para decirle a Storybook sobre el componente que estamos documentando, creamos una exportación `por defecto` que contiene:
+
+- `component` -- el componente en sí mismo,
+- `title` -- cómo referirse al componente en la barra lateral de la aplicación Storybook,
+- `excludeStories` -- información requerida por la historia, pero no debe ser presentada por la aplicación Storybook.
+
+Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, una clase de componente con un conjunto de props) en un estado dado, exactamente como en Vue [Componente funcional sin estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 `action()` nos permite crear un callback que aparecerá en el panel **actions** de la UI de Storybook cuando es cliqueado. Entonces, cuando construyamos un botón pin, podremos determinar en la UI de prueba si un click en el botón es exitoso o no.
 
-Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente agruparlas en una sola variable de `methods` y usarlas para pasarlas a la definición de nuestra historia cada vez (donde se accede a través de la propiedad `methods`).
+Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente agruparlas en una sola variable de `actionsData` y usarlas para pasarlas a la definición de nuestra historia cada vez (donde se accede a través de la propiedad `methods`).
 
-Otra cosa positiva acerca de agrupar las `methods` que un componente necesita, es que puedes usar `export` y utilizarlas en historias para otros componentes que reutilicen este componente, como veremos luego.
+Otra cosa interesante acerca de agrupar las `actionsData` que un componente necesita, es que puedes usar `export` y utilizarlas en historias para otros componentes que reutilicen este componente, como veremos luego.
 
-Para definir nuestras historias, llamamos a `add()` una vez para cada uno de nuestros estados del test para generar una historia. La historia de acción es una función que devuelve un conjunto de propiedades que definen la historia, en este caso un string de `template` para la historia junto con `components`, `data` y`methods` que consume la plantilla.
-
-Al crear una historia utilizamos una historia base (`task`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
+Al crear una historia utilizamos una historia base (`taskData`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
 
 <div class="aside">
-Las <a href="https://storybook.jsF .org/addons/introduction/#2-native-addons"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes UI en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para agregarlas.
+Las <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes UI en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para agregarlas.
 </div>
 
 ## Configuración
@@ -127,12 +150,7 @@ import { configure } from '@storybook/vue';
 
 import '../src/index.css';
 
-const req = require.context('../src', true, /\.stories.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
@@ -148,7 +166,7 @@ Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería pr
 
 Ahora tenemos configurado Storybook, los estilos importados y los casos de prueba construidos; podemos comenzar rápidamente el trabajo de implementar el HTML del componente para que coincida con el diseño.
 
-El componente todavía es básico. Primero escribiremos el código que se aproxima al diseño sin entrar en demasiados detalles:
+Nuestro componente todavía es bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida con el diseño previsto sin entrar en demasiados detalles:
 
 ```html
 <template>
@@ -175,6 +193,11 @@ El componente todavía es básico. Primero escribiremos el código que se aproxi
       task: {
         type: Object,
         required: true,
+        default: () => ({
+          id: '',
+          state: '',
+          title: '',
+        }),
       },
     },
     computed: {
@@ -216,10 +239,10 @@ La prueba de instantáneas se refiere a la práctica de registrar la salida "cor
 Asegúrese de que sus componentes muestren datos que no cambien, para que sus pruebas de instantáneas no fallen cada vez. Tenga cuidado con cosas como fechas o valores generados aleatoriamente.
 </div>
 
-Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Usalo agregando una dependencia en modo desarrollo:
+Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando las siguientes dependencias en modo desarrollo:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
+yarn add -D @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
 ```
 
 Luego crea un archivo `tests/unit/storybook.spec.js` con el siguiente contenido:

@@ -34,15 +34,9 @@ Existen varias herramientas para la prueba de regresión visual. Para equipos pr
 
 Chromatic es un complemento de Storybook para pruebas de regresión visual y revisión en la nube. Dado que es un servicio de pago (con una prueba gratuita), puede que no sea para todos. Sin embargo, Chromatic es un ejemplo instructivo de un flujo de trabajo de pruebas visuales de producción que probaremos gratuitamente. Echemos un vistazo.
 
-### Iniciando Git
+### Actualiza git
 
-Primero tienes que configurar Git para tu proyecto en el directorio local. Chromatic usa el historial de Git para hacer un seguimiento de los componentes de tu interfaz de usuario.
-
-```bash
-$ git init
-```
-
-Luego agrega archivos al primer commit.
+Vue CLI ya ha creado un repositorio para su proyecto; Agreguemos los cambios realizados:
 
 ```bash
 $ git add .
@@ -59,24 +53,10 @@ $ git commit -m "taskbox UI"
 Agregando el paquete como una dependencia.
 
 ```bash
-yarn add --dev storybook-chromatic
+yarn add -D storybook-chromatic
 ```
 
-Importa Chromatic en tu archivo `.storybook/config.js`.
-
-```javascript
-import { configure } from '@storybook/vue';
-import 'storybook-chromatic';
-
-import '../src/index.css';
-
-const req = require.context('../src', true, /.stories.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-```
+Una cosa fantástica sobre este complemento es que usará el historial de Git para realizar un seguimiento de sus componentes de la interfaz de usuario.
 
 Ahora [logueate en Chromatic](https://www.chromaticqa.com/start) con tú cuenta de GitHub (Chromatic solo te pedirá algunos permisos simples). Crea un proyecto con nombre "taskbox" y copia tu `app-code` único.
 
@@ -114,7 +94,7 @@ Esto produce un nuevo color de fondo para el artículo.
 Usa el comando de prueba anterior para ejecutar Chromatic de nuevo.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --app-code=<app-code>
 ```
 
 Sigue el enlace a la interfaz de usuario web donde verá los cambios.

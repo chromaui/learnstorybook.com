@@ -14,7 +14,15 @@ En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. Ta
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook.
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/vue/es/get-started).
+
+```javascript
+{
+  "scripts": {
+   "build-storybook": "build-storybook -s public"
+  }
+}
+```
 
 Ahora, cuando ejecutes Storybook a través de `yarn build-storybook`, obtendrás un Storybook estático en el directorio `storybook-static`.
 
@@ -24,13 +32,9 @@ Queremos compartir la última versión de los componentes cada vez que hagamos p
 
 ### GitHub
 
-Primero debes configurar Git para tu proyecto en el directorio local. Si estás siguiendo el capítulo anterior sobre testing, salta a la creación de un repositorio en GitHub.
+Si estás siguiendo el capítulo anterior sobre testing, salta a la creación de un repositorio en GitHub.
 
-```bash
-$ git init
-```
-
-Agrega archivos al primer commit.
+Cuando el proyecto se inicializó con Vue CLI, ya se configuró un repositorio local para usted. En esta etapa, es seguro agregar los archivos al primer commit.
 
 ```bash
 $ git add .
@@ -41,6 +45,8 @@ Ahora haz commit de los archivos.
 ```bash
 $ git commit -m "taskbox UI"
 ```
+
+### Configurar un repositorio en GitHub
 
 Ve a Github y configura un repositorio [aquí](https://github.com/new). Nombra tu repo “taskbox”.
 
@@ -70,7 +76,7 @@ Si usas CI en tu empresa, añade un script de implementación a tu configuració
 
 ![Crear sitio en Netlify](/intro-to-storybook/netlify-create-site.png)
 
-A continuación, haz clic en el botón de GitHub para conectar Netlify a GitHub. Esto le permite acceder a nuestro repositorio remoto Taskbox.
+A continuación, haz clic en el botón de GitHub para conectar Netlify a GitHub. Esto le permite acceder a nuestro repositorio remoto taskbox.
 
 Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
 

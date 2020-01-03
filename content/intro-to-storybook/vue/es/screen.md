@@ -111,22 +111,22 @@ Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este p
 Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Entonces, cuando configuramos nuestras historias en `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from './PureInboxScreen.vue';
+export default {
+  title: 'PureInboxScreen',
+};
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
-    };
-  })
-  .add('error', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
-    };
-  });
+// inbox screen default state
+export const Default = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen/>`,
+});
+
+// inbox screen error state
+export const error = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen :error="true"/>`,
+});
 ```
 
 Vemos que aunque la historia de `error` funciona bien, tenemos un problema en la historia `default`, porque la `TaskList` no tiene una store de Vuex a la que conectarse. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario).
@@ -146,18 +146,15 @@ Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legít
 La buena noticia es que es fácil suministrar una store de Vuex a la `PureInboxScreen` en una historia! Podemos crear una nueva store en nuestra historia y pasarla como contexto de la historia:
 
 ```javascript
-import { action } from '@storybook/addon-actions';
-import { storiesOf } from '@storybook/vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
-
-import { defaultTaskList } from './PureTaskList.stories';
 import PureInboxScreen from './PureInboxScreen.vue';
-
+import { action } from '@storybook/addon-actions';
+import { defaultTasksData } from './PureTaskList.stories';
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
-    tasks: defaultTaskList,
+    tasks: defaultTasksData,
   },
   actions: {
     pinTask(context, id) {
@@ -168,21 +165,20 @@ export const store = new Vuex.Store({
     },
   },
 });
-
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
-      store,
-    };
-  })
-  .add('error', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
-    };
-  });
+export default {
+  title: 'PureInboxScreen',
+  excludeStories: /.*store$/,
+};
+export const Default = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen/>`,
+  store,
+});
+// tasklist with pinned tasks
+export const error = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen :error="true"/>`,
+});
 ```
 
 Existen enfoques similares para proporcionar un contexto simulado para otras bibliotecas de datos, tales como [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) y algunas otras.
