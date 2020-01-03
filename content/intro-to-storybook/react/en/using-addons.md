@@ -77,7 +77,8 @@ export default {
   title: 'Task',
   decorators: [withKnobs],
   excludeStories: /.*Data$/,
-};```
+};
+```
 
 Lastly, integrate the `object` knob type within the "default" story:
 
@@ -130,7 +131,7 @@ Let's add a story for the long text case in Task.stories.js:
 ```javascript
 // src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = () => (
   <Task task={{ ...taskData, title: longTitleString }} {...actionsData} />
