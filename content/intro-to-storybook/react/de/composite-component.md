@@ -106,9 +106,9 @@ Sieh dir jetzt die neuen `TaskList` Stories in Storybook an.
   />
 </video>
 
-## Build out the states
+## Die Zustände implementieren
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+Unsere Komponente ist noch sehr roh, aber wir können uns jetzt ein Bild von den Stories machen, auf die wir hinarbeiten wollen. Vielleicht denkst du, dass der `.list-items` Wrapper kaum eine eigene Komponente rechtfertigt. Du hast Recht - in den meisten Fällen würden wir keine neue Komponente erstellen, nur um einen Wrapper hinzuzufügen. Aber die **wahre Komplexität** der `TaskList` Komponente kommt erst mit den Grenzfällen `withPinnedTasks`, `loading` und `empty` zum Vorschein. 
 
 ```javascript
 // src/components/TaskList.js
@@ -174,7 +174,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-The added markup results in the following UI:
+Durch das zusätzliche Markup ergibt sich folgende UI:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -183,7 +183,7 @@ The added markup results in the following UI:
   />
 </video>
 
-Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
+Achte auf die Position der angehefteten Aufgabe in der Liste. Wir wollen, dass angeheftete Aufgaben oben in der Liste angezeigt werden, um sie dem Benutzer als Aufgabe mit Priorität kenntlich zu machen.
 
 ## Data requirements and props
 
