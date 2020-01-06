@@ -1,27 +1,27 @@
 ---
-title: 'Assemble a composite component'
-tocTitle: 'Composite component'
-description: 'Assemble a composite component out of simpler components'
+title: 'Baue eine Komposition'
+tocTitle: 'Komposition'
+description: 'Setze eine Komposition aus einfachen Komponenten zusammen'
 commit: '8db511e'
 ---
 
-Last chapter we built our first component; this chapter extends what we learned to build TaskList, a list of Tasks. Let’s combine components together and see what happens when more complexity is introduced.
+Im letzten Kapitel haben wir unsere erste Komponente entwickelt; in diesem Kapitel erweitern wir das Gelernte, um `TaskList` zu bauen, eine Liste von Aufgaben. Lass uns Komponenten miteinander kombinieren und sehen, was passiert, wenn mehr Komplexität ins Spiel kommt.
 
-## Tasklist
+## Liste von Aufgaben
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
+Taskbox hebt eine angeheftete Aufgabe hervor, indem es sie über anderen Aufgaben positioniert. Hieraus ergeben sich zwei Varianten der `TaskList`, für die wir Stories anlegen müssen: Normale Aufgaben sowie normale und angeheftete Aufgaben.
 
-![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
+![normale und angeheftete Aufgaben](/intro-to-storybook/tasklist-states-1.png)
 
-Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, an empty state is required when there are no tasks.
+Da die Daten für `Task` asynchron geladen werden, brauchen wir **auch** einen Ladezustand, der bei fehlender Verbindung gerendert wird. Zusätzlich wird ein leerer Zustand benötigt, wenn es keine Tasks gibt.
 
-![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
+![leere und ladende Aufgaben](/intro-to-storybook/tasklist-states-2.png)
 
-## Get setup
+## Los geht's
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.js` and `src/components/TaskList.stories.js`.
+Eine Komposition unterscheidet sich nicht allzu sehr von den einfachen Komponenten, die sie beinhaltet. Erstelle eine `TaskList` Komponente und eine zugehörige Story Datei: `src/components/TaskList.js` und `src/components/TaskList.stories.js`.
 
-Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
+Beginne mit einer groben Implementierung der `TaskList`. Du musst die `Task` Komponente importieren, die du zuvor erstellt hast, und die Attribute und Actions als Props übergeben.
 
 ```javascript
 // src/components/TaskList.js
@@ -56,7 +56,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-Next create `Tasklist`’s test states in the story file.
+Lege als Nächstes die Test-Zustände für `TaskList` in der Story Datei an.
 
 ```javascript
 // src/components/TaskList.stories.js
@@ -89,15 +89,15 @@ storiesOf('TaskList', module)
   .add('empty', () => <TaskList tasks={[]} {...actions} />);
 ```
 
-`addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
+Über `addDecorator()` können wir jeder Aufgabe einen gewissen "Kontext" für das Rendering mitgeben. In diesem Fall fügen wir ein `padding` um die Liste hinzu, um sie visuell schneller erfassen zu können.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> sind eine Möglichkeit, einer Story beliebige umschließende Elemente hinzuzufügen. In diesem Fall nutzen wir einen Decorator um Styling zu ergänzen. Sie können auch verwendet werden, um Stories in "Provider" einzupacken - z.B. eine Library-Komponente, die einen React Kontext setzt.
 </div>
 
-`task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actions` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`task` liefert die Struktur einer `Task` Komponente, wie wir es aus `Task.stories.js` exportiert haben. Auf die gleiche Weise definiert `actions` die Actions (gemockte Callbacks), die von einer `Task` Komponente erwartet werden und die wir in `TaskList` ebenfalls benötigen.
 
-Now check Storybook for the new `TaskList` stories.
+Sieh dir jetzt die neuen `TaskList` Stories in Storybook an.
 
 <video autoPlay muted playsInline loop>
   <source
