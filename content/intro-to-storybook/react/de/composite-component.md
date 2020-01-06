@@ -222,17 +222,17 @@ Im letzten Kapitel haben wir gelernt, wie man Snapshot-Tests für Stories mit St
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
-### Unit tests with Jest
+### Unit-Tests mit Jest
 
-Storybook stories paired with manual visual tests and snapshot tests (see above) go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
+Storybook Stories zusammen mit manuellen visuellen Tests und Snapshot-Tests (siehe oben) sind sehr hilfreich, um UI Fehler zu vermeiden. Wenn Stories viele Anwendungsfälle einer Komponente abdecken und wir Werkzeuge nutzen, die sicherstellen, dass ein Mensch alle Änderungen an einer Story gegencheckt, sind Fehler wesentlich unwahrscheinlicher.
 
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
+Nichts desto trotz steckt der Teufel manchmal im Detail. Daher wird ein Test Framework benötigt, das sich genau um solche Details kümmert. Das führt uns zu Unit-Tests.
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`withPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+In unserem Fall wollen wir, dass unsere `TaskList` alle angehefteten Aufgaben **vor** anderen Aufgaben rendert, die ihr über die `tasks` Prop übergeben werden. Auch wenn wir eine Story haben (`withPinnedTasks`), die genau das abdeckt, ist es für einen menschlichen Tester vielleicht nicht sofort ersicht, dass ein Bug vorliegt, wenn die Komponente **aufhört**, Aufgaben auf diese Weise zu sortieren. Sicherlich wird es einem nicht sofort als **Falsch!** ins Auge springen.
 
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
+Um diesem Problem entgegenzuwirken, können wir Jest verwenden, um die Story im DOM zu rendern und per Code einige DOM Abfragen zu erstellen, die solche typischen Merkmale des Ouputs verifizieren.
 
-Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
+Erstelle eine Test-Datei namens `src/components/TaskList.test.js`. Darin schreiben wir unsere Tests, die Annahmen über den Output treffen.
 
 ```javascript
 // src/components/TaskList.test.js
@@ -255,8 +255,8 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
+![TaskList Test Runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
+Beachte, dass wir die `withPinnedTasks` Liste sowohl in der Story als auch im Unit-Test wiederverwenden konnten; auf diese Weise können wir eine bestehende Ressourcen (die Beispiele, die relevante Konfigurationen einer Komponente repräsentieren) auf verschiedene Weisen nutzen.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+Beachte auch, dass dieser Test ziemlich instabil ist. Es ist möglich, dass mit der Weiterentwicklung des Projekts und einer Änderung an der Implementierung von `Task` -- vielleicht die Änderung des Klassen-Namens oder der Verwendung von `textarea`, statt `input` -- der Test fehlschlagen wird und aktualisiert werden muss. Das ist nicht unbedingt ein Problem, vielmehr ein Hinweis darauf, dass man vorsichtig sein sollte damit, Unit-Tests allzu großzügig für die UI zu nutzen. Ihre Wartung ist nicht einfach. Stattdedden solltest du lieber visuelle, Snapshot- und visuelle Regressions-Tests (siehe das [Kapitel "Testen"](/test/)) verwenden, wo möglich.
