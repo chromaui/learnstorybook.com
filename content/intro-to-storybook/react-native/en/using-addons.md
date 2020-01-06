@@ -2,7 +2,6 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use addons using a popular example'
-commit: 'dac373a'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
@@ -32,17 +31,25 @@ Knobs is an amazing resource for designers and developers to experiment and play
 First, we will need to install all the necessary dependencies.
 
 ```bash
-yarn add @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs @storybook/addon-ondevice-knobs
 ```
 
-Register Knobs in your `.storybook/addons.js` file.
+Register Knobs in your `storybook/addons.js` file.
 
 ```javascript
-// .storybook/addons.js
+// storybook/addons.js
 
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
 import '@storybook/addon-links/register';
+```
+
+And also in `storybook/rn-addons.js`.
+
+```javascript
+// storybook/rn-addons.js
+import '@storybook/addon-ondevice-actions/register';
+import '@storybook/addon-ondevice-knobs/register';
 ```
 
 <div class="aside">
@@ -63,31 +70,34 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 // src/components/Task.stories.js
 
 import React from 'react';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, object } from '@storybook/addon-knobs/react';
+import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
+Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
 
-````javascript
+```javascript
 // src/components/Task.stories.js
 
-export default {
-  component: Task,
-  title: 'Task',
-  decorators: [withKnobs],
-  excludeStories: /.*Data$/,
-};```
+storiesOf('Task', module)
+  .addDecorator(withKnobs)
+  .add(/*...*/);
+```
 
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
 // src/components/Task.stories.js
 
-export const Default = () => {
-  return <Task task={object('task', { ...taskData })} {...actionsData} />;
-};
-````
+storiesOf('Task', module)
+  .addDecorator(withKnobs)
+  .add('default', () => {
+    return <Task task={object('task', { ...task })} {...actions} />;
+  })
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
 
@@ -106,17 +116,19 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
 
 ```javascript
-// src/components/Task.js
+// components/Task.js
 
-// This is the input for our task title. In practice we would probably update the styles for this element
-// but for this tutorial, let's fix the problem with an inline style:
-<input
-  type="text"
-  value={title}
-  readOnly={true}
-  placeholder="Input title"
-  style={{ textOverflow: 'ellipsis' }}
-/>
+// This is the input for our task title. It was changed to a simple text contrary to textinput,
+// to illustrate how to see what's intended
+<Text
+  numberOfLines={1}
+  ellipsizeMode="tail"
+  style={
+    state === 'TASK_ARCHIVED' ? styles.list_item_input_TASK_ARCHIVED : styles.list_item_input_TASK
+  }
+>
+  {title}
+</Text>
 ```
 
 ![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
@@ -128,13 +140,15 @@ Of course we can always reproduce this problem by entering the same input into t
 Let's add a story for the long text case in Task.stories.js:
 
 ```javascript
-// src/components/Task.stories.js
+// components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
-export const LongTitle = () => (
-  <Task task={{ ...taskData, title: longTitleString }} {...actionsData} />
-);
+storiesOf('Task', module)
+  .add('default', () => <Task task={task} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />)
+  .add('long title', () => <Task task={{ ...task, title: longTitle }} {...actions} />);
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:

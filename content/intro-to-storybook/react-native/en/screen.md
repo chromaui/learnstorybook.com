@@ -2,7 +2,6 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: e56e345
 ---
 
 We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -11,42 +10,39 @@ In this chapter we continue to increase the sophistication by combining componen
 
 ## Nested container components
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.js` in your `components` folder:
+As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `PureInboxScreen.js` in your `components` folder:
 
 ```javascript
-// src/components/InboxScreen.js
-
+// components/PureInboxScreen.js
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
+import PercolateIcons from '../constants/Percolate';
 import TaskList from './TaskList';
-
-export function PureInboxScreen({ error }) {
+import { Text, SafeAreaView, View } from 'react-native';
+import { styles } from '../constants/globalStyles';
+const PureInboxScreen = ({ error }) => {
   if (error) {
     return (
-      <div className="page lists-show">
-        <div className="wrapper-message">
-          <span className="icon-face-sad" />
-          <div className="title-message">Oh no!</div>
-          <div className="subtitle-message">Something went wrong</div>
-        </div>
-      </div>
+      <SafeAreaView style={styles.PageListsShow}>
+        <View style={styles.WrapperMessage}>
+          <PercolateIcons name="face-sad" size={64} color={'#2cc5d2'} />
+          <Text style={styles.TitleMessage}>Oh no!</Text>
+          <Text style={styles.SubtitleMessage}>Something went wrong</Text>
+        </View>
+      </SafeAreaView>
     );
   }
-
   return (
-    <div className="page lists-show">
-      <nav>
-        <h1 className="title-page">
-          <span className="title-wrapper">Taskbox</span>
-        </h1>
-      </nav>
+    <SafeAreaView style={styles.PageListsShow}>
+      <View style={[styles.titlepage, styles.PageListsShowhead]}>
+        <Text numberOfLines={1} style={styles.TitleWrapper}>
+          Taskbox
+        </Text>
+      </View>
       <TaskList />
-    </div>
+    </SafeAreaView>
   );
-}
-
+};
 PureInboxScreen.propTypes = {
   error: PropTypes.string,
 };
@@ -55,32 +51,44 @@ PureInboxScreen.defaultProps = {
   error: null,
 };
 
-export default connect(({ error }) => ({ error }))(PureInboxScreen);
+export default PureInboxScreen;
 ```
 
-We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+Then we create a container which grabs the data for `PureInboxScreen` in `screens/InboxScreen.js`
 
 ```javascript
-// src/App.js
+import React from 'react';
+import { connect } from 'react-redux';
+import PureInboxScreen from './PureInboxScreen';
+
+const InboxScreen = ({ error }) => {
+  return <PureInboxScreen error={error} />;
+};
+
+export default connect(({ error }) => ({ error }))(InboxScreen);
+```
+
+We also change the `HomeScreen` component to render the `InboxScreen` (eventually we would use a more complex structure to choose the correct screen, but let's not worry about that here):
+
+```javascript
+// screens/HomeScreen.js
 
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
 
-import InboxScreen from './components/InboxScreen';
+import InboxScreen from "./InboxScreen";
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <InboxScreen />
-      </Provider>
-    );
-  }
+export default function HomeScreen() {
+  return(
+    <Provider store={store}>
+      <InboxScreen/>
+    </Provider>
+  )
 }
-
-export default App;
 ```
+
+<div class="aside"><p>After this change, App-test that was setup by expo will probably break, you can bypass this by deleting the appropriate file in the __tests__ folder or adjust your test accordingly.</p></div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
@@ -88,23 +96,18 @@ As we saw previously, the `TaskList` component is a **container** that renders t
 
 When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
-However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `InboxScreen.stories.js`:
+However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `PureInboxScreen.stories.js`:
 
 ```javascript
-// src/components/InboxScreen.stories.js
+// components/PureInboxScreen.stories.js
 
 import React from 'react';
+import { storiesOf } from '@storybook/react-native';
+import PureInboxScreen from './PureInboxScreen';
 
-import { PureInboxScreen } from './InboxScreen';
-
-export default {
-  component: PureInboxScreen,
-  title: 'InboxScreen',
-};
-
-export const Default = () => <PureInboxScreen />;
-
-export const Error = () => <PureInboxScreen error="Something" />;
+storiesOf('PureInboxScreen', module)
+  .add('default', () => <PureInboxScreen />)
+  .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
 We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
@@ -121,38 +124,33 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 
 ## Supplying context with decorators
 
-The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
+The good news is that it is easy to supply a Redux store to the `PureInboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 
 ```javascript
-// src/components/InboxScreen.stories.js
+// components/PureInboxScreen.stories.js
 
 import React from 'react';
+import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
-
-import { PureInboxScreen } from './InboxScreen';
-import { defaultTasksData } from './TaskList.stories';
-
-export default {
-  component: PureInboxScreen,
-  title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
-};
+import { defaultTasks } from './PureTaskList.stories';
+import PureInboxScreen from './PureInboxScreen';
 
 // A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasksData,
+      tasks: defaultTasks,
     };
   },
   subscribe: () => 0,
   dispatch: action('dispatch'),
 };
 
-export const Default = () => <PureInboxScreen />;
-
-export const Error = () => <PureInboxScreen error="Something" />;
+storiesOf('PureInboxScreen', module)
+  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
+  .add('default', () => <PureInboxScreen />)
+  .add('error', () => <PureInboxScreen error="Something" />);
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.

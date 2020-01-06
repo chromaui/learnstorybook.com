@@ -2,7 +2,6 @@
 title: 'Test UI components'
 tocTitle: 'Testing'
 description: 'Learn the ways to test UI components'
-commit: 8bf107e
 ---
 
 No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
@@ -34,12 +33,18 @@ There are a number of tools for visual regression testing. For professional team
 
 Chromatic is a hassle-free Storybook addon for visual regression testing and review in the cloud. Since it’s a paid service (with a free trial), it may not be for everyone. However, Chromatic is an instructive example of a production visual testing workflow that we'll try out for free. Let’s have a look.
 
-### Bring git up to date
+### Initialize local repository
 
-Vue CLI has already created a repo for your project; let's check in the changes we made:
+At this stage there's still no repository setup just yet. Let's change that and set it up:
 
 ```bash
-$ git add .
+$ git init
+```
+
+Next add files to the first commit.
+
+```bash
+$ git add -A
 ```
 
 Now commit the files.
@@ -53,13 +58,10 @@ $ git commit -m "taskbox UI"
 Add the package as a dependency.
 
 ```bash
-yarn add -D storybook-chromatic
+npm install -D storybook-chromatic
 ```
 
-One fantastic thing about this addon is that it will use Git history to keep track of your UI components.
-
-
-Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
+Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -68,10 +70,20 @@ Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chro
   />
 </video>
 
+A small change is required to the `build-storybook` script to allow the `storybook-chromatic` addon to correctly display the both the assets (icons and fonts) and the css that was added in the beginning of the tutorial
+```json
+{
+  ....
+  "scripts":{
+    ...
+    "build-storybook": "build-storybook -s public",
+  }
+}
+```
 Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
 
 ```bash
-npx chromatic --app-code=<app-code>
+ npx chromatic --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -108,7 +120,7 @@ There are a lot of changes! The component hierarchy where `Task` is a child of `
 
 ## Review changes
 
-Visual regression testing ensures components don’t change by accident. But it’s still up to you to determine whether changes are intentional or not.
+Visual regression testing ensures components dont change by accident. But it’s still up to you to determine whether changes are intentional or not.
 
 If a change is intentional you need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
 

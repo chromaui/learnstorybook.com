@@ -2,7 +2,6 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 9c50472
 ---
 
 So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
@@ -15,16 +14,16 @@ Our `TaskList` component as currently written is “presentational” (see [this
 
 This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
-Add a new dependency on `package.json` with:
+Add some new dependencies on `package.json` with:
 
 ```bash
 yarn add react-redux redux
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
+First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` (intentionally kept simple):
 
 ```javascript
-// src/lib/redux.js
+// lib/redux.js
 
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
@@ -77,17 +76,18 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
+Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `components/PureTaskList.js` and wrap with a container.
+
+In `components/PureTaskList.js`:
 
 ```javascript
-// src/components/TaskList.js
-
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Task from './Task';
-import { connect } from 'react-redux';
-import { archiveTask, pinTask } from '../lib/redux';
+import PercolateIcons from '../constants/Percolate';
+import LoadingRow from './LoadingRow';
+import { FlatList, Text, SafeAreaView, View } from 'react-native';
+import { styles } from '../constants/globalStyles';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   /* previous implementation of TaskList */
@@ -104,6 +104,25 @@ PureTaskList.defaultProps = {
   loading: false,
 };
 
+export default PureTaskList;
+```
+
+In `components/TaskList.js`:
+
+```javascript
+import React from 'react';
+import PureTaskList from './PureTaskList';
+import { connect } from 'react-redux';
+import { archiveTask, pinTask } from '../lib/redux';
+
+function TaskList({ tasks, onPinTask, onArchiveTask }) {
+  const events = {
+    onPinTask,
+    onArchiveTask,
+  };
+
+  return <PureTaskList tasks={tasks} {...events} />;
+}
 export default connect(
   ({ tasks }) => ({
     tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
@@ -112,50 +131,43 @@ export default connect(
     onArchiveTask: id => dispatch(archiveTask(id)),
     onPinTask: id => dispatch(pinTask(id)),
   })
-)(PureTaskList);
+)(TaskList);
 ```
 
-At this stage our Storybook tests will have stopped working, as the `TaskList` is now a container, and no longer expects any props, instead it connects to the store and sets the props on the `PureTaskList` component it wraps.
-
-However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
+The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `components/TaskList.stories.js` into `components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
-// src/components/TaskList.stories.js
+// components/PureTaskList.stories.js
 
 import React from 'react';
+import { View } from 'react-native';
+import { styles } from '../constants/globalStyles';
+import { storiesOf } from '@storybook/react-native';
+import { task, actions } from './Task.stories';
+import PureTaskList from './PureTaskList';
 
-import { PureTaskList } from './TaskList';
-import { taskData, actionsData } from './Task.stories';
-
-export default {
-  component: PureTaskList,
-  title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-  excludeStories: /.*Data$/,
-};
-
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
+export const defaultTasks = [
+  { ...task, id: '1', title: 'Task 1' },
+  { ...task, id: '2', title: 'Task 2' },
+  { ...task, id: '3', title: 'Task 3' },
+  { ...task, id: '4', title: 'Task 4' },
+  { ...task, id: '5', title: 'Task 5' },
+  { ...task, id: '6', title: 'Task 6' },
 ];
-
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
+export const withPinnedTasks = [
+  ...defaultTasks.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-export const Default = () => <PureTaskList tasks={defaultTasksData} {...actionsData} />;
-
-export const WithPinnedTasks = () => <PureTaskList tasks={withPinnedTasksData} {...actionsData} />;
-
-export const Loading = () => <PureTaskList loading tasks={[]} {...actionsData} />;
-
-export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
+storiesOf('PureTaskList', module)
+  .addDecorator(story => <View style={[styles.TaskBox, { padding: 48 }]}>{story()}</View>)
+  .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
+  .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
+  .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
+  .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
 ```
+
+<div class="aside"><p>Don't forget to update storybook config file (in <code>storybook/index.js</code> ) to reflect these changes.</p></div>
 
 <video autoPlay muted playsInline loop>
   <source
@@ -164,6 +176,25 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
   />
 </video>
 
-<div class="aside">
-Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. 
-</div>
+Similarly, we need to use `PureTaskList` in our Jest test:
+
+```js
+// __tests__/TaskList.test.js
+import React from 'react';
+import renderer from 'react-test-renderer';
+import PureTaskList from '../components/PureTaskList';
+import { withPinnedTasks } from '../components/PureTaskList.stories';
+import Task from '../components/Task';
+describe('TaskList',()=>{
+    it('renders pinned tasks at the start of the list',()=>{
+        const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
+        const tree = renderer.create(<PureTaskList tasks={withPinnedTasks} {...events} />)
+        const rootElement= tree.root;
+        const listofTasks= rootElement.findAllByType(Task)
+        expect(listofTasks[0].props.task.title).toBe("Task 6 (pinned)")
+    })
+})
+});
+```
+
+<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>
