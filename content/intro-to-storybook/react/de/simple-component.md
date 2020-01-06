@@ -52,23 +52,34 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
+export default {
+  component: Task,
+  title: 'Task',
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+};
 
-export const task = {
+export const taskData = {
   id: '1',
   title: 'Test Task',
   state: 'TASK_INBOX',
   updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
-export const actions = {
+export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf('Task', module)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+export const Default = () => {
+  return <Task task={{ ...taskData }} {...actionsData} />;
+};
+
+export const Pinned = () => <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />;
+
+export const Archived = () => (
+  <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />
+);
 ```
 
 Es gibt zwei grundlegende Ebenen, in denen Komponenten in Storybook origanisiert werden können: Die Komponente selbst und ihr untergeordnete Stories. Stell dir eine Story als Ausprägung einer Komponente vor. Du kannst so viele Stories für eine Komponente anlegen, wie du brauchst.
@@ -78,17 +89,21 @@ Es gibt zwei grundlegende Ebenen, in denen Komponenten in Storybook origanisiert
   - Story
   - Story
 
-Um Storybook zu initiieren, rufen wir zunächst die Funktion `storiesOf()` auf, um die Komponente zu registrieren. Wir brauchen einen Anzeigenamen für die Komponente - der Name, der dann in der Seitenleiste der Storybook App angezeigt wird.
+Um Storybook die Komponente, die wir dokumentieren, zugänglich zu machen, erstellen wir einen `default` Export. Dieser beinhaltet: 
+
+- `component` -- die Komponente selbst,
+- `title` -- wie die Komponente in der Sidebar der Storybook App referenziert werden soll,
+- `excludeStories` -- Exporte in der Story Datei, die von Storybook nicht als Stories gerendert werden sollen.
+
+Unsere Stories definieren wir, indem wir für jeden unserer Test-Zustände eine Funktion exportieren, um eine Story zu generieren. Die Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) --- genau wie eine [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html) in React.
 
 `action()` erlaubt uns, ein Callback zu erstellen, das im **Actions** Panel der Storybook UI erscheint, wenn man auf dieses klickt. Wenn wir also einen Pin-Button bauen, können wir so in der Test UI sehen, ob ein Button-Klick erfolgreich war.
 
-Da wir allen Ausprägungen unserer Komponente immer das selbe Menge an Actions übergeben müssen, ist es naheliegend, sie in einer einzigen `actions`-Variable zusammenzufassen und die `{...actions}` Syntax von JSX ("spread attributes") zu verwenden, um alle Props auf einmal zu übergeben. `<Task {...actions}>` ist äquivalent zu `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
+Da wir allen Ausprägungen unserer Komponente immer das selbe Menge an Actions übergeben müssen, ist es naheliegend, sie in einer einzigen `actionsData`-Variable zusammenzufassen und die `{...actionsData}` Syntax von JSX ("spread attributes") zu verwenden, um alle Props auf einmal zu übergeben. `<Task {...actionsData}>` ist äquivalent zu `<Task onPinTask={actionsData.onPinTask} onArchiveTask={actionsData.onArchiveTask}>`.
 
-Ein weiterer Vorteil, die `actions` einer Komponente in einer Variable zusammenzufassen ist, wie wir später sehen werden, dass man diese dann via `export` Stories anderer Komponenten zur Verfügung stellen kann, die diese Komponente wiederverwenden.
+Ein weiterer Vorteil, die Actions in `actionsData` zusammenzufassen ist, wie wir später sehen werden, dass man diese Variable dann `export`-ieren und die Actions in Stories anderer Komponenten zur Verfügung stellen kann, die diese Komponente wiederverwenden.
 
-Unsere Stories definieren wir, indem wir `add()` einmal für jeden unserer Test-Zustände aufrufen, um damit eine Story zu generieren. Die Action Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) - genau wie eine [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html) in React.
-
-Beim Erstellen einer Story nutzen wir eine Basis-Aufgabe (`task`), um die Struktur der Aufgabe zu definieren, die unsere Komponente erwartet. Diese basiert üblicherweise auf realitätsnahen Beispiel-Daten. Noch einmal: Diese Struktur zu `export`-ieren erlaubt uns, sie später in weiteren Stories zu verwenden, wie wir noch sehen werden.
+Beim Erstellen einer Story nutzen wir eine Basis-Aufgabe (`taskData`), um die Struktur der Aufgabe zu definieren, die unsere Komponente erwartet. Diese basiert üblicherweise auf realitätsnahen Beispiel-Daten. Noch einmal: Diese Struktur zu `export`-ieren erlaubt uns, sie später in weiteren Stories zu verwenden, wie wir noch sehen werden.
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> helfen dir, Interaktionen zu verifizieren, wenn du UI Komponenten isoliert entwickelst. Oftmals hast du bei der Entwicklung keinen Zugriff auf die Funktionen und den Zustand, die im Kontext deiner App existieren. Nutze <code>action()</code>, um sie als Stub zur Verfügung zu haben.
@@ -104,13 +119,7 @@ Wir müssen auch noch eine kleine Anpassung an der Storybook-Konfiguration (`.st
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
-const req = require.context('../src', true, /\.stories.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Sobald wir das erledigt und den Storybook Server neu gestartet haben, sollten die Testfälle für die drei Zustände von `Task` angezeigt werden:
@@ -260,13 +269,7 @@ import requireContext from 'require-context.macro';
 
 import '../src/index.css';
 
-const req = requireContext('../src/components', true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+configure(requireContext('../src/components', true, /\.stories\.js$/), module);
 ```
 
 (Beachte, dass wir `require.context` ersetzt haben mit einem Aufruf von `requireContext`, das vom Makro importiert wird.)
