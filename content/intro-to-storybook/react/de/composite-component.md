@@ -185,9 +185,9 @@ Durch das zusätzliche Markup ergibt sich folgende UI:
 
 Achte auf die Position der angehefteten Aufgabe in der Liste. Wir wollen, dass angeheftete Aufgaben oben in der Liste angezeigt werden, um sie dem Benutzer als Aufgabe mit Priorität kenntlich zu machen.
 
-## Data requirements and props
+## Anforderungen an die Daten und Props
 
-As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
+Mit einer wachsenden Komponente wachsen auch die Anforderungen an ihren Input. Definiere die Prop-Anforderungen der `TaskList`. Da `Task` eine Kind-Komponente ist, sollte sichergestellt sein, dass Daten in der passenden Struktur geliefert werden, um diese zu rendern. Um Zeit zu sparen und Kopfschmerzen vorzubeugen, solltest du die propTypes wiederverwenden, die du zuvor in `Task` definiert hast.
 
 ```javascript
 // src/components/TaskList.js
@@ -216,9 +216,9 @@ TaskList.defaultProps = {
 export default TaskList;
 ```
 
-## Automated testing
+## Automatisiertes Testen
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer such as [Enzyme](http://airbnb.io/enzyme/).
+Im letzten Kapitel haben wir gelernt, wie man Snapshot-Tests für Stories mit Storyshots erstellt. Bei `Task` musste nicht viel Komplexität getestet werden, außer dass die Komponente richtig rendert. Da mit `TaskList` zusätzliche Komplexität einhergeht, wollen wir auf für Test-Automatisierung verträgliche Weise verifizieren, dass bestimmter Input einen bestimmten Output liefert. Um das zu erreichen, werden wir Unit-Tests mit [Jest](https://facebook.github.io/jest/) erstellen in Verbindung mit einem Test-Renderer wie [Enzyme](http://airbnb.io/enzyme/).
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
