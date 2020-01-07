@@ -1,27 +1,27 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
+title: 'Daten einbinden'
+tocTitle: 'Daten'
+description: 'Lerne, Daten in deine UI Komponente einzubinden'
 commit: 9c50472
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+Bisher haben wir isolierte, zustandslose Komponenten erstellt - perfekt für Storybook, aber letztlich nutzlos, bis wir ihnen einie Daten in unserer App zur Verfügung stellen.
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+Dieses Tutorial beschäftigt sich nicht mit den Details der Entwicklung einer App, daher werden wir hierauf nicht näher eingehen. Aber wir nehmen uns einen Moment Zeit, um ein übliches Vorgehen für das Einbinden von Daten mithilfe von Container-Komponenten zu beleuchten.
 
-## Container components
+## Container-Komponenten
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+So wie unsere `TaskList` aktuell geschrieben ist, ist sie insofern eine rein "darstellende" Komponente (siehe [diesen Blog Beitrag](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), als dass sie in ihrer eigenen Implementierung nicht mit externen Schnittstellen spricht. Um Daten in die Komponente zu bekommen, benötigen wir einen "Container". 
 
-This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+Dieses Beispiel nutzt [Redux](https://redux.js.org/), die bekannteste React Bibliothek zum Vorhalten von Daten, um ein einfaches Datenmodell für unsere App zu bauen. Das darin verwendete Pattern lässt sich aber auch auf andere Bibliotheken anwenden, wie z.B. [Apollo](https://www.apollographql.com/client/) und [MobX](https://mobx.js.org/).
 
-Add a new dependency on `package.json` with:
+Füge eine neue Abhängigkeit zur `package.json` hinzu mit:
 
 ```bash
 yarn add react-redux redux
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
+Als Erstes konstruieren wir einen einfachen Redux Store, der auf Actions reagiert, die den Zustand von Aufgaben verändern. Dazu legen wir die Datei `src/lib/redux.js` an (absichtlich einfach gehalten):
 
 ```javascript
 // src/lib/redux.js
@@ -77,7 +77,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
+Anschließend aktualisieren wir den `default` Export der `TaskList` Komponente, damit dieser sich zum Redux Store verbindet, und die Aufgaben rendert, die uns interessieren:
 
 ```javascript
 // src/components/TaskList.js
@@ -115,9 +115,9 @@ export default connect(
 )(PureTaskList);
 ```
 
-At this stage our Storybook tests will have stopped working, as the `TaskList` is now a container, and no longer expects any props, instead it connects to the store and sets the props on the `PureTaskList` component it wraps.
+Ab jetzt werden unsere Storybook Tests fehlschlagen, da die `TaskList` jetzt ein Container ist und keine Props mehr erwartet. Stattdessen verbindet es sich mit dem Store und übergibt Props an die `PureTaskList` Komponente, die es umschließt.
 
-However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
+Dieses Problem lässt sich aber leicht lösen, indem wir einfach die `PureTaskList` -- die darstellende Komponente, der wir im vorherigen Schritt ja ein `export` Statement hinzugefügt haben -- in unseren Storybook Stories rendern:
 
 ```javascript
 // src/components/TaskList.stories.js
@@ -165,5 +165,5 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
 </video>
 
 <div class="aside">
-Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. 
+Sollten deine Snapshot Tests nun fehlschlagen, musst du die bestehenden Snapshots aktualisieren, indem du das Test Script mit dem Flag <code>-u</code> ausführst.
 </div>
