@@ -1,19 +1,19 @@
 ---
-title: 'Test UI components'
-tocTitle: 'Testing'
-description: 'Learn the ways to test UI components'
+title: 'UI-Komponenten testen'
+tocTitle: 'Testen'
+description: 'Lerne, wie man UI-Komponenten testen kann'
 commit: 78a45d1
 ---
 
-No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
+Kein Storybook Tutorial ist komplett ohne Testen. Testen ist essenziel für die Erstellung hochwertiger UIs. In modularen Systemen können auch kleinste Änderungen einen langen Rattenschwanz nach sich ziehen. Bisher sind uns drei Arten von Tests begegnet: 
 
-- **Visual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
-- **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
-- **Unit tests** with Jest verify that the output of a component remains the same given an fixed input. They’re great for testing the functional qualities of a component.
+- **Visuelle Tests** verlassen sich darauf, dass die Entwickler manuell auf eine Komponente schauen, um deren Korrektheit zu bestätigen. Sie helfen uns dabei, das Erscheinungsbild einer Komponente einem Gesundheitscheck zu unterziehen.
+- **Snapshot-Tests** mit Storyshots erfassen das gerenderte Markup einer Komponente. Sie helfen uns, Änderungen am Markup im Blick zu behalten, die Fehler und Warnungen beim Rendering verursachen.
+- **Unit-Tests** mit Jest stellen sicher, dass der Output einer Komponente bei einem definierten Input gleich bleibt. Sie sind großartig, um die Funktionen einer Komponente zu testen.
 
-## “But does it look right?”
+## “Aber sieht es auch gut aus?”
 
-Unfortunately, the aforementioned testing methods alone aren’t enough to prevent UI bugs. UIs are tricky to test because design is subjective and nuanced. Visual tests are too manual, snapshot tests trigger too many false positives when used for UI, and pixel-level unit tests are poor value. A complete Storybook testing strategy also includes visual regression tests.
+Leider reichen die zuvor erwähnten Arten von Tests nicht aus, um UI Fehler zu vermeiden. UIs zu testen ist knifflig, da Designs subjektiv und detailreich sind. Visuelle Tests sind zu händisch, Snapshot Tests lösen zu viele Fehlalarme aus, wenn man sie für UIs einsetzt, und Unit-Tests auf Pixel-Ebene liefern einen zu geringen Mehrwert. Eine vollständige Storybook Test-Strategie umfasst auch visuelle Regressions-Tests.
 
 ## Visual regression testing for Storybook
 
