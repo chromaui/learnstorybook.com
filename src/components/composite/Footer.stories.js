@@ -1,8 +1,13 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Footer from './Footer';
 
-const guides = {
+export default {
+  component: Footer,
+  excludeStories: /.*Data$/,
+  title: 'Composite|Footer',
+};
+
+const guidesData = {
   edges: [
     {
       node: { frontmatter: { title: 'Intro to Storybook' }, fields: { slug: 'slug' } },
@@ -19,6 +24,4 @@ const guides = {
   ],
 };
 
-storiesOf('Composite|Footer', module)
-  .addParameters({ component: Footer })
-  .add('default', () => <Footer guides={guides} />);
+export const Default = () => <Footer guides={guidesData} />;
