@@ -1,8 +1,13 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Chapter from './index';
 
-const props = {
+export default {
+  component: Chapter,
+  excludeStories: /.*Data$/,
+  title: 'Screens|ChapterScreen/index',
+};
+
+const ChapterScreenData = {
   data: {
     currentPage: {
       html: '<div>The html</div>',
@@ -99,6 +104,4 @@ const props = {
   },
 };
 
-storiesOf('Screens|ChapterScreen/index', module)
-  .addParameters({ component: Chapter })
-  .add('default', () => <Chapter {...props} />);
+export const Default = () => <Chapter {...ChapterScreenData} />;

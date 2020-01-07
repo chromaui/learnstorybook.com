@@ -7,7 +7,6 @@ import {
   loadFontsForStorybook,
   styles,
 } from '@storybook/design-system';
-import 'storybook-chromatic';
 
 const { GlobalStyle } = designSystemGlobal;
 
@@ -42,12 +41,16 @@ window.___navigate = pathname => {
 };
 
 // automatically import all files ending in *.stories.js
-const req = require.context('../src', true, /\.stories\.js$/);
+// before csf
+/* const req = require.context('../src', true, /\.stories\.js$/);
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
-configure(loadStories, module);
+configure(loadStories, module); */
+
+// change to csf
+configure(require.context('../src', true, /\.stories\.js$/), module);
 
 addDecorator(withA11y);
 

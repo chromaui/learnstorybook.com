@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import AppLayout from './AppLayout';
+
+export default {
+  component: AppLayout,
+  excludeStories: /.*Data$/,
+  title: 'Composite|AppLayout',
+};
 
 const Children = styled.div`
   display: flex;
@@ -10,11 +15,8 @@ const Children = styled.div`
   padding: 169px 0 100px;
 `;
 
-const props = {
+const AppLayoutData = {
   children: <Children>I am the app.</Children>,
   location: { pathname: '' },
 };
-
-storiesOf('Composite|AppLayout', module)
-  .addParameters({ component: AppLayout })
-  .add('default', () => <AppLayout {...props} />);
+export const Default = () => <AppLayout {...AppLayoutData} />;

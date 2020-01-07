@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import { Button, styles } from '@storybook/design-system';
 import ShadowBoxCTA from './ShadowBoxCTA';
+
+export default {
+  component: ShadowBoxCTA,
+  title: 'Composite|ShadowBoxCTA',
+  decorators: [story => <Wrapper>{story()}</Wrapper>],
+  excludeStories: /.*Data$/,
+};
 
 const Wrapper = styled.div`
   padding: 40px 0;
@@ -12,15 +18,12 @@ const Wrapper = styled.div`
   }
 `;
 
-const ctaAction = <Button appearance="secondary">Continue</Button>;
+export const ctaActionData = <Button appearance="secondary">Continue</Button>;
 
-storiesOf('Composite|ShadowBoxCTA', module)
-  .addParameters({ component: ShadowBoxCTA })
-  .addDecorator(story => <Wrapper>{story()}</Wrapper>)
-  .add('default', () => (
-    <ShadowBoxCTA
-      action={ctaAction}
-      headingText="Composite component"
-      messageText="Assemble a composite component out of simpler components"
-    />
-  ));
+export const Default = () => (
+  <ShadowBoxCTA
+    action={ctaActionData}
+    headingText="Composite component"
+    messageText="Assemble a composite component out of simpler components"
+  />
+);

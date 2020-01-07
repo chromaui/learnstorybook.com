@@ -1,7 +1,9 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Sponsors from './Sponsors';
 
-storiesOf('Screens|TeamScreen/Sponsors', module)
-  .addParameters({ component: Sponsors })
-  .add('default', () => <Sponsors />);
+export default {
+  component: Sponsors,
+  title: 'Screens|TeamScreen/Sponsors',
+};
+
+export const Default = () => <Sponsors />;

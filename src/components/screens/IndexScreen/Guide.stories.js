@@ -1,8 +1,12 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Guide from './Guide';
 
-const props = {
+export default {
+  component: Guide,
+  excludeStories: /.*Data$/,
+  title: 'Screens|IndexScreen/Guide',
+};
+const GuideData = {
   chapterCount: 10,
   themeColor: '#6F2CAC',
   title: 'Intro to Storybook',
@@ -10,7 +14,4 @@ const props = {
     "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch.",
   imagePath: '/guide-thumb/intro.svg',
 };
-
-storiesOf('Screens|IndexScreen/Guide', module)
-  .addParameters({ component: Guide })
-  .add('default', () => <Guide {...props} />);
+export const Default = () => <Guide {...GuideData} />;

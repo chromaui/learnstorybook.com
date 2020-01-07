@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import Header from './Header';
+
+export default {
+  component: Header,
+  excludeStories: /.*Data$/,
+  title: 'Composite|Header',
+};
 
 const BlueBackground = styled.div`
   padding: 20px;
@@ -9,7 +14,7 @@ const BlueBackground = styled.div`
   height: 120px;
 `;
 
-const props = {
+export const HeaderData = {
   firstChapter: 'get-started',
   githubUrl: 'https://github.com/chromaui/learnstorybook.com',
   guides: {
@@ -29,11 +34,10 @@ const props = {
   },
 };
 
-storiesOf('Composite|Header', module)
-  .addParameters({ component: Header })
-  .add('default', () => <Header {...props} />)
-  .add('inverted', () => (
-    <BlueBackground>
-      <Header isInverted {...props} />
-    </BlueBackground>
-  ));
+export const Default = () => <Header {...HeaderData} />;
+
+export const Inverted = () => (
+  <BlueBackground>
+    <Header isInverted {...HeaderData} />
+  </BlueBackground>
+);

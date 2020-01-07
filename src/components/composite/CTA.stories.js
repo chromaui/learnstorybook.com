@@ -1,8 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import { Button, styles } from '@storybook/design-system';
 import CTA from './CTA';
+
+export default {
+  component: CTA,
+  excludeStories: /.*Data$/,
+  decorators: [story => <Wrapper>{story()}</Wrapper>],
+  title: 'Composite|CTA',
+};
 
 const Wrapper = styled.div`
   padding: 40px 0;
@@ -12,18 +18,15 @@ const Wrapper = styled.div`
   }
 `;
 
-const ctaAction = <Button appearance="secondary">Get started</Button>;
+const ctaActionData = <Button appearance="secondary">Get started</Button>;
 
-storiesOf('Composite|CTA', module)
-  .addParameters({ component: CTA })
-  .addDecorator(story => <Wrapper>{story()}</Wrapper>)
-  .add('all', () => (
-    <>
-      <CTA text="Get started with our thing today!" action={ctaAction} />
+export const All = () => (
+  <>
+    <CTA text="Get started with our thing today!" action={ctaActionData} />
 
-      <CTA
-        text="Get started with our really long thing that will potentially break lines today!"
-        action={ctaAction}
-      />
-    </>
-  ));
+    <CTA
+      text="Get started with our really long thing that will potentially break lines today!"
+      action={ctaActionData}
+    />
+  </>
+);

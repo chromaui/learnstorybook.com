@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import BoxLink from './BoxLink';
+
+export default {
+  component: BoxLink,
+  decorators: [story => <Wrapper>{story()}</Wrapper>],
+  title: 'Basics|BoxLink',
+};
 
 const Wrapper = styled.div`
   padding: 20px;
 `;
 
-storiesOf('Basics|BoxLink', module)
-  .addParameters({ component: BoxLink })
-  .addDecorator(story => <Wrapper>{story()}</Wrapper>)
-  .add('default', () => <BoxLink to="/">BoxLink content</BoxLink>);
+export const Default = () => <BoxLink to="/">BoxLink content</BoxLink>;
