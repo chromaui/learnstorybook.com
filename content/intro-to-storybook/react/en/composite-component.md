@@ -64,7 +64,7 @@ Next create `Tasklist`’s test states in the story file.
 import React from 'react';
 
 import TaskList from './TaskList';
-import { taskData, actionsData } from './Task.stories';
+import { taskData, actionData } from './Task.stories';
 
 export default {
   component: TaskList,
@@ -87,20 +87,20 @@ export const withPinnedTasksData = [
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-export const Default = () => <TaskList tasks={defaultTasksData} {...actionsData} />;
+export const Default = () => <TaskList tasks={defaultTasksData} {...actionData} />;
 
-export const WithPinnedTasks = () => <TaskList tasks={withPinnedTasksData} {...actionsData} />;
+export const WithPinnedTasks = () => <TaskList tasks={withPinnedTasksData} {...actionData} />;
 
-export const Loading = () => <TaskList loading tasks={[]} {...actionsData} />;
+export const Loading = () => <TaskList loading tasks={[]} {...actionData} />;
 
-export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
+export const Empty = () => <TaskList tasks={[]} {...actionData} />;
 ```
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
-`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
 
 Now check Storybook for the new `TaskList` stories.
 
