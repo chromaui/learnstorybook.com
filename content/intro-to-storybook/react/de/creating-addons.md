@@ -35,18 +35,18 @@ storiesOf("your-component", module)
 
 <!-- -->
 
-## Setup
+## Einrichtung
 
-We've outlined what our addon will do, time to setup our local development environment. We need some additional packages in our project. More specifically:
+Wir haben umrissen, was unser Addon können soll, jetzt ist es Zeit, unsere lokale Entwicklungsumgebung aufzusetzen. Wir brauche ein paar zusätzliche Pakete in unserem Projekt. Genauer:
 
 <!-- it would be nice that the readme files would have some minimal information for each package-->
 
-- 📦 [@storybook/api](https://www.npmjs.com/package/@storybook/api) for Storybook API usage.
-- 📦 [@storybook/components](https://www.npmjs.com/package/@storybook/components) to use Storybook's UI components.
-- 📦 [@storybook/theming ](https://www.npmjs.com/package/@storybook/theming) for styling.
-- 🛠 [@babel/preset-react](https://babeljs.io/docs/en/babel-preset-react) to transpile correctly some of React's new features.
+- 📦 [@storybook/api](https://www.npmjs.com/package/@storybook/api) für die Verwendung der Storybook API.
+- 📦 [@storybook/components](https://www.npmjs.com/package/@storybook/components) um die UI-Komponenten von Storybook nutzen zu können.
+- 📦 [@storybook/theming ](https://www.npmjs.com/package/@storybook/theming) für das Styling.
+- 🛠 [@babel/preset-react](https://babeljs.io/docs/en/babel-preset-react) um einige neue React Features korrekt zu transpilieren.
 
-Open a console, navigate to your project folder and run the following command:
+Öffne eine Konsole, navigiere zum Projekt Verzeichnis und führe folgenden Befehl aus:
 
 <!--using npm here until the whole tutorial set is moved into npm or yarn issue #153-->
 
@@ -54,9 +54,9 @@ Open a console, navigate to your project folder and run the following command:
   npm install --save-dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
 ```
 
-We'll need to make a small change to the `.babelrc` file we created earlier. We need to add a reference to the `@babel/preset-react` package.
+Wir müssen eine kleine Anpassung an der `.babelrc` Datei vornehmen, die wir in einem vorangeganenen Kapitel ja bereits angelegt haben. Und zwar müssen wir eine Referenz auf das Paket `@babel/preset-react` hinzufügen.
 
-Your updated file should look like this:
+Die angepasste Datei sollte wie folgt aussehen:
 
 ```json
 {
