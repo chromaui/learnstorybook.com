@@ -1,11 +1,11 @@
 ---
 title: 'UI-Komponenten testen'
-tocTitle: 'Testen'
+tocTitle: 'Tests'
 description: 'Lerne, wie man UI-Komponenten testen kann'
 commit: 78a45d1
 ---
 
-Kein Storybook Tutorial ist komplett ohne Testen. Testen ist essenziel für die Erstellung hochwertiger UIs. In modularen Systemen können auch kleinste Änderungen einen langen Rattenschwanz nach sich ziehen. Bisher sind uns drei Arten von Tests begegnet: 
+Kein Storybook Tutorial ist komplett ohne Tests. Tests sind essenziel für die Erstellung hochwertiger UIs. In modularen Systemen können auch kleinste Änderungen einen langen Rattenschwanz nach sich ziehen. Bisher sind uns drei Arten von Tests begegnet: 
 
 - **Visuelle Tests** verlassen sich darauf, dass die Entwickler manuell auf eine Komponente schauen, um deren Korrektheit zu bestätigen. Sie helfen uns dabei, das Erscheinungsbild einer Komponente einem Gesundheitscheck zu unterziehen.
 - **Snapshot-Tests** mit Storyshots erfassen das gerenderte Markup einer Komponente. Sie helfen uns, Änderungen am Markup im Blick zu behalten, die Fehler und Warnungen beim Rendering verursachen.
@@ -15,9 +15,9 @@ Kein Storybook Tutorial ist komplett ohne Testen. Testen ist essenziel für die 
 
 Leider reichen die zuvor erwähnten Arten von Tests nicht aus, um UI Fehler zu vermeiden. UIs zu testen ist knifflig, da Designs subjektiv und detailreich sind. Visuelle Tests sind zu händisch, Snapshot Tests lösen zu viele Fehlalarme aus, wenn man sie für UIs einsetzt, und Unit-Tests auf Pixel-Ebene liefern einen zu geringen Mehrwert. Eine vollständige Storybook Test-Strategie umfasst auch visuelle Regressions-Tests.
 
-## Visual regression testing for Storybook
+## Visuelle Regressions-Tests für Storybook
 
-Visual regression tests are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.
+Visuelle Regressions-Tests dienen dazu, optische Veränderungen zu identifizieren. Sie speichern Screenshots von jeder Story und vergleichen diese zwischen Commits, um Veränderungen sichtbar zu machen. Dies ist perfekt dafür geeignet, grafische Elemente wie Layout, Farbe, Größe und Kontrast zu verifizieren.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -26,37 +26,37 @@ Visual regression tests are designed to catch changes in appearance. They work b
   />
 </video>
 
-Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
+Storybook eignet sich prima für visuelle Regressions-Tests, da jede Story im Grunde eine eigene Test-Spezifikation darstellt. Immer, wenn wir eine Story schreiben oder aktualisieren, bekommen wir dadurch auch gleich eine Spec geliefert.
 
-There are a number of tools for visual regression testing. For professional teams we recommend [**Chromatic**](https://www.chromaticqa.com/), an addon made by Storybook maintainers that runs tests in the cloud.
+Es gibt eine ganze Reihe von Tools für visuelle Regressions-Tests. Für professionelle Teams empfehlen wir [**Chromatic**](https://www.chromaticqa.com/), eine von den Autoren hinter Storybook entwickelte Erweiterung, die Tests in der Cloud ausführt.
 
-## Setup visual regression testing
+## Einrichtung visueller Regressions-Tests
 
-Chromatic is a hassle-free Storybook addon for visual regression testing and review in the cloud. Since it’s a paid service (with a free trial), it may not be for everyone. However, Chromatic is an instructive example of a production visual testing workflow that we'll try out for free. Let’s have a look.
+Chromatic ist ein leicht anzubindendes Storybook Addon für visuelle Regressions-Tests und -Reviews in der Cloud. Da es ein Bezahldienst ist (mit kostenlosem Probezeitraum), mag es nicht für jedermann geeignet sein. Dennoch ist Chromatic ein lehrreiches Beispiel für einen Workflow mit visuellen Regressions-Tests in Produktion, den wir kostenlos ausprobieren können. Schauen wir mal rein.
 
-### Bring git up to date
+### Git auf den aktuellen Stand bringen
 
-Create React App has created a git repo for your project; let's check in the changes we have made:
+`create-react-app` hat ein Git Repo für unser Projekt angelegt; lass uns unsere bisherigen Änderungen mal einchecken:
 
 ```bash
 $ git add -A
 ```
 
-Now commit the files.
+Nun committe die Dateien.
 
 ```bash
 $ git commit -m "taskbox UI"
 ```
 
-### Get Chromatic
+### Chromatic installieren
 
-Add the package as a dependency.
+Füge das Package als Abhängigkeit hinzu. 
 
 ```bash
 yarn add storybook-chromatic
 ```
 
-Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
+Jetzt melde dich mit deinem GitHub Account [in Chromatic an](https://www.chromaticqa.com/start) (Chromatic erfordert nur wenige Berechtigungen). Erstelle ein Projekt namens "taskbox" und kopiere deinen eindeutigen `app-code`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -65,49 +65,49 @@ Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub ac
   />
 </video>
 
-Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
+Führe den Test-Befehl in der Kommandozeile aus, um visuelle Regressions-Tests für Storybook einzurichten. Vergiss nicht, deinen eindeutigen App Code anstelle von `<app-code>` einzusetzen.
 
 ```bash
 npx chromatic --app-code=<app-code>
 ```
 
 <div class="aside">
-<code>--do-not-start</code> is an option that tells Chromatic not to start Storybook. Use this if you already have Storybook running. If not omit <code>--do-not-start</code>.
+Mit der Option <code>--do-not-start</code> teilst du Chromatic mit, dass es Storybook nicht starten soll. Benutze sie, wenn du Storybook bereits am Laufen hast. Andernfalls lass <code>--do-not-start</code> einfach weg.
 </div>
 
-Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.
+Ist der erste Test einmal durchgelaufen, haben wir Test-Baselines für alle unsere Stories. Anders gesagt, Screenshots von jeder Story, die als "richtig" angesehen werden. Zukünftige Änderungen an den Stories werden mit diesen Baselines verglichen werden.
 
-![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)
+![Chromatic Baselines](/intro-to-storybook/chromatic-baselines.png)
 
-## Catch a UI change
+## Veränderungen in der UI erfassen
 
-Visual regression testing relies on comparing images of the new rendered UI code to the baseline images. If a UI change is caught you get notified. See how it works by tweaking the background of the `Task` component:
+Visuelle Regressions-Tests basieren auf dem Vergleichen von Bildern eines neu gerenderten UI Codes mit den Basline Bildern. Wird eine Veränderung in der UI festgestellt, wird man darüber benachrichtigt. Schau dir an diesem Beispiel an, wie es funktioniert, in dem wir die Hintergrundfarbe der `Task` Komponente verändern:
 
-![code change](/intro-to-storybook/chromatic-change-to-task-component.png)
+![Code-Anpassung](/intro-to-storybook/chromatic-change-to-task-component.png)
 
-This yields a new background color for the item.
+Hierdurch erhalten wir eine neue Hintergrundfarbe für die Aufgabe.
 
-![task background change](/intro-to-storybook/chromatic-task-change.png)
+![Aufgabe mit geändertem Hintergrund](/intro-to-storybook/chromatic-task-change.png)
 
-Use the test command from earlier to run another Chromatic test.
+Führe den Befehl von vorhin aus, um einen weiteren Chromatic Test zu starten.
 
 ```bash
 npx chromatic --app-code=<app-code>
 ```
 
-Follow the link to the web UI where you’ll see changes.
+Folge dem Link zur Weboberfläche, wo du die Veränderungen sehen kannst.
 
-![UI changes in Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
+![UI-Änderungen in Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
 
-There are a lot of changes! The component hierarchy where `Task` is a child of `TaskList` and `Inbox` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
+Es gibt eine ganze Reihe von Veränderungen! Durch die Komponenten-Hierarchie, in der `Task` ein Kind von `TaskList` und `Inbox` ist, löst eine kleine Änderung eine Kettenreaktion vieler weiterer Regressionen aus. Dieser Umstand ist genau der Grund dafür, warum Entwickler visuelle Regressions-Tests ergänzend zu anderen Test-Methoden benötigen.
 
-![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
+![Kleine UI-Änderung löst große Regressionen aus](/intro-to-storybook/minor-major-regressions.gif)
 
-## Review changes
+## Veränderungen auswerten
 
-Visual regression testing ensures components don’t change by accident. But it’s still up to you to determine whether changes are intentional or not.
+Visuelle Regressions-Tests stellen sicher, dass Komponenten sich nicht unbeabsichtigt verändern. Aber letzten Endes liegt es an dir, festzustellen, ob Änderungen beabsichtigt sind, oder nicht.
 
-If a change is intentional you need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
+Ist eine Änderung beabsichtigt, muss die Baseline aktualisiert werden, damit zukünftige Tests mit der aktuellsten Version der Story verglichen werden. Ist eine Änderung jedoch unbeabsichtigt entstanden, muss sie behoben werden.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -116,14 +116,14 @@ If a change is intentional you need to update the baseline so that future tests 
   />
 </video>
 
-Since modern apps are constructed from components, it’s important that we test at the level of component. Doing so helps us pinpoint the root cause of a change, the component, instead of reacting to symptoms of a change, the screens and composite components.
+Da sich moderne Apps aus Komponenten zusammensetzen, ist es wichtig, dass wir auf Komponenten-Ebene testen. Das hilft uns dabei, den Ursprung eines Problems leichter zu identifizieren, anstatt auf seine Symptome in Screens und Kompositionen zu reagieren.
 
-## Merge changes
+## Änderungen übernehmen
 
-When we’ve finished reviewing we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs. If you like the new `red` background then accept the changes, if not revert to the previous state.
+Sobald wir mit der Auswertung fertig sind, können wir die Änderungen in der UI mit gutem Gefühl übernehmen -- uns gewiss, dass die Änderungen keine unbeabsichtigten Bugs verursachen. Wenn dir der neue rote Hintergrund gefällt, akzeptiere die Änderungen. Andernfalls gehe zum vorherigen Zustand zurück.
 
-![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
+![Änderungen, bereit übernommen zu werden](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook helps you **build** components; testing helps you **maintain** them. The four types of UI testing are covered in this tutorial are visual, snapshot, unit, and visual regression testing. You can automate the last three by adding them to your CI script. This helps you ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
+Storybook hilft dir dabei, komponenten zu **bauen**; Tests helfen dir dabei, sie zu **warten**. Die vier Typen von UI-Tests, die in diesem Tutorial behandelt werden, sind visuelle, Snapshot-, Unit- und visuelle Regressions-Tests. Die letzten drei kannst du automatisieren, indem du sie deinem CI Script hinzufügst. Das hilft dir dabei, Komponenten auszuliefern, ohne dass du dich um versteckte Bugs sorgen musst. Der gesamte Workflow ist unten dargestellt.
 
-![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)
+![Workflow für visuelle Regressions-Tests](/intro-to-storybook/cdd-review-workflow.png)
