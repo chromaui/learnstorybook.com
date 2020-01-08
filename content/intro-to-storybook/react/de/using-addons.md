@@ -1,24 +1,23 @@
 ---
 title: 'Addons'
 tocTitle: 'Addons'
-description: 'Learn how to integrate and use addons using a popular example'
+description: 'Lerne an einem bekannten Beispiel, Addons zu integrieren und zu nutzen'
 commit: 'dac373a'
 ---
 
-Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/react/en/test/).
+Storybook rühmt sich eines robuten [Addon-Systems](https://storybook.js.org/addons/introduction/), über das sich die Entwicklungserfahrung all deiner Teammitglieder verbessern lässt. Wenn du diesem Tutorial linear gefolgt bist, haben wir bereits einige Addons erwähnt und du hast bereits eines im [Kapitel über Tests](/react/de/test/) implementiert.
 
 <div class="aside">
-<strong>Looking for a list of potential addons?</strong>
+<strong>Auf der Suche nach einer Liste verfügbarer Addons?</strong>
 <br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
+😍 <a href="https://storybook.js.org/addons/addon-gallery/">Hier</a> findest du die Liste offiziell unterstützter und aktiv unterstützer Community Addons.
 </div>
 
-We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+Wir könnten unendlich viel über die Verwendung von Addons für all deine speziellen Anwendungsfälle schreiben. Für's Erste, lass uns auf die Integration eines der am weitesten verbreiteten Addons innerhalb des Storybook-Ökosystems hinarbeiten: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
 
-## Setting Up Knobs
+## Knobs einrichten
 
-Knobs is an amazing resource for designers and developers to experiment and play with components in a controlled environment without the need to code! You essentially provide dynamically defined fields with which a user manipulates the props being passed to the components in your stories. Here's what we're going to implement...
+Knobs ist eine tolle Ressource für Designer und Entwickler, um in einer kontrollierten Umgebung mit Komponenten herum zu experimentieren und zu spielen, ohne die Notwendigkeit von Code! Im Grunde stellst du dynamisch definierte Felder zur Verfügung, mit denen ein Benutzer die Props manipulieren kann, die den Komponenten deiner Stories übergeben werden. Folgendes werden wir entwickeln...
 
 <video autoPlay muted playsInline loop>
   <source
@@ -69,7 +68,7 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
 
-````javascript
+```javascript
 // src/components/Task.stories.js
 
 export default {
@@ -77,7 +76,8 @@ export default {
   title: 'Task',
   decorators: [withKnobs],
   excludeStories: /.*Data$/,
-};```
+};
+```
 
 Lastly, integrate the `object` knob type within the "default" story:
 
@@ -87,7 +87,7 @@ Lastly, integrate the `object` knob type within the "default" story:
 export const Default = () => {
   return <Task task={object('task', { ...taskData })} {...actionsData} />;
 };
-````
+```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
 
