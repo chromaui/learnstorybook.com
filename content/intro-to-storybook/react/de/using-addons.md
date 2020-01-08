@@ -56,7 +56,7 @@ Das war's! Zeit, das Addon in der Story einzusetzen.
 
 Lass uns den Knob-Type "Objekt" in der `Task` Komponente benutzen.
 
-Importiere zunächst den `withKnobs` Dekorator und den `object` Knob-Type in `Task.stories.js`:
+Importiere zunächst den `withKnobs` Decorator und den `object` Knob-Type in `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js

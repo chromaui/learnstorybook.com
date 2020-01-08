@@ -119,9 +119,9 @@ Entwickler **müssen** Container aber auch zwangsläufig weiter unten in der Kom
 Im Übrigen ist es durchaus ein legitimer Ansatz, Daten die Hierarchie hinunter zu reichen, insbesondere beim Einsatz von <a href="http://graphql.org/">GraphQL</a>. So haben wir auch <a href="https://www.chromaticqa.com">Chromatic</a> entwickelt, neben 800+ weiteren Stories.
 </div>
 
-## Kontext über Dekoratoren zur Verfügung stellen
+## Kontext über Decorators zur Verfügung stellen
 
-Die gute Nachricht ist, dass es einfach ist, dem `InboxScreen` einen Redux Store in einer Story zur Verfügung zu stellen. Wir können einfach eine gemockte Version des Redux Stores nutzen, die über einen Dekorator zur Verfügung gestellt wird:
+Die gute Nachricht ist, dass es einfach ist, dem `InboxScreen` einen Redux Store in einer Story zur Verfügung zu stellen. Wir können einfach eine gemockte Version des Redux Stores nutzen, die über einen Decorator zur Verfügung gestellt wird:
 
 ```javascript
 // src/components/InboxScreen.stories.js
