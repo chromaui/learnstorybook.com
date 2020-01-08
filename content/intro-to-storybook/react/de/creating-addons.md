@@ -1,27 +1,26 @@
 ---
-title: "Creating addons"
-tocTitle: "Creating addons"
-description: "Learn how to build your own addons that will super charge your development"
+title: "Addons erstellen"
+tocTitle: "Addons erstellen"
+description: "Lerne, eigene Addons zu bauen, die deine Entwicklung beschleunigen"
 ---
 
-In the previous chapter we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
+Im letzten Kapitel haben wir eines der wichtigsten Features von Storybook kennengelernt, nämlich sein robustes [Addon-System](https://storybook.js.org/addons/introduction/), das nicht nur deine eigene, sondern auch die Entwicklungserfahrung und Prozesse in deinem ganzen Team verbessern kann.
 
-In this chapter we're going to take a look on how we create our own addon. You might think that writting it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writting it.
+In diesem Kapitel werfen wir einen Blick darauf, wie wir unser eigenes Accon erstellen können. Vielleicht denkst du, dass es umständlich sein wird, das selbst zu schreiben, aber das stimmt nicht. In nur ein paar wenigen Schritten können wir schon damit loslegen, ein Addon zu entwickeln.
 
-But first thing is first, let's first scope out what our addon will do.
+Aber eins nach dem anderen. Lass uns zunächst festlegen, was wir mit unserem Addon erreichen wollen.
 
-## The addon we're going to write
+## Das Addon, das wir schreiben werden
 
-For this example, let's assume that our team has some design assets that are somehow related to the existing UI components. Looking at the current Storybook UI, it seems that relationship isn't really apparent. How can we fix that?
+Lass und für dieses Beispiel annehmen, dass unser Team einige Design Assets hat, die in irgendeiner Weise mit unseren existierenden UI-Komponenten in Verbindung stehen. Wenn wir uns die aktuelle Storybook UI ansehen, scheint es, dass solche Verbindungen nicht abgebildet werden können. Wie können wir das lösen?
 
-We have our goal, now let's define what features our addon will support:
+Wir haben unser Ziel, nun lass uns definieren, welche Features unser Addon unterstützen wird:
 
-- Display the design asset in a panel
-- Support images, but also urls for embedding
-- Should support multiple assets, just in case there will be multiple versions or themes
+- Die Design Assets in einem Panel anzeigen
+- Sowohl Bilder als auch URLs zum Einbetten unterstützen
+- Sollte mehrere Assets unterstützen, nur für den Fall dass es mehrere Versionen oder Themes geben wird
 
-
-The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/configurations/options-parameter/), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
+Wir werden [Parameter](https://storybook.js.org/docs/configurations/options-parameter/) verwenden, um eine Liste von Assets an unsere Story anzufügen. Dies ist eine Storybook Option, die uns ermöglicht, benutzerdefinierte Parameter an unsere Stories zu injecten. Das macht man auf ähnliche Weise, wie wir in den vorherigen Kapiteln schon einen Decorator verwendet haben.
 
 <!-- this is probably not needed as it's used below-->
 
@@ -226,7 +225,7 @@ import { styled } from "@storybook/theming";
 
 const getUrl = input => {
   return typeof input === "string" ? input : input.url;
-
+};
 
 const Iframe = styled.iframe({
   width: "100%",
