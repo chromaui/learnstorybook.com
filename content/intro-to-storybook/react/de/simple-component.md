@@ -106,7 +106,7 @@ Ein weiterer Vorteil, die Actions in `actionsData` zusammenzufassen ist, wie wir
 Beim Erstellen einer Story nutzen wir eine Basis-Aufgabe (`taskData`), um die Struktur der Aufgabe zu definieren, die unsere Komponente erwartet. Diese basiert üblicherweise auf realitätsnahen Beispiel-Daten. Noch einmal: Diese Struktur zu `export`-ieren erlaubt uns, sie später in weiteren Stories zu verwenden, wie wir noch sehen werden.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> helfen dir, Interaktionen zu verifizieren, wenn du UI Komponenten isoliert entwickelst. Oftmals hast du bei der Entwicklung keinen Zugriff auf die Funktionen und den Zustand, die im Kontext deiner App existieren. Nutze <code>action()</code>, um sie als Stub zur Verfügung zu haben.
+<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> helfen dir, Interaktionen zu verifizieren, wenn du UI-Komponenten isoliert entwickelst. Oftmals hast du bei der Entwicklung keinen Zugriff auf die Funktionen und den Zustand, die im Kontext deiner App existieren. Nutze <code>action()</code>, um sie als Stub zur Verfügung zu haben.
 </div>
 
 ## Konfiguration

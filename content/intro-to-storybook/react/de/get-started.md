@@ -5,7 +5,7 @@ description: 'Richte Storybook in deiner Entwicklungsumgebung ein'
 commit: ebe2ae2
 ---
 
-Storybook läuft parallel zu deiner App im Entwicklungs-Modus. Es hilft dir, UI Komponenten unabhängig von Business-Logik und vom Kontext deiner App zu entwickeln. Diese Edition von "Lerne Storybook" ist für React; Es gibt andere Editionen für [Vue](/vue/de/get-started) und [Angular](/angular/de/get-started).
+Storybook läuft parallel zu deiner App im Entwicklungs-Modus. Es hilft dir, UI-Komponenten unabhängig von Business-Logik und vom Kontext deiner App zu entwickeln. Diese Edition von "Lerne Storybook" ist für React; Es gibt andere Editionen für [Vue](/vue/de/get-started) und [Angular](/angular/de/get-started).
 
 ![Storybook und deine App](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -43,7 +43,7 @@ Unsere drei Frontend App Modalitäten: Automatisierte Tests (Jest), Komponenten-
 
 ![3 Modalitäten](/intro-to-storybook/app-three-modalities.png)
 
-Abhängig davon, in welchem Teil der App du gerade arbeitest, möchtest du evtl. eine oder mehrere hiervon gleichzeitig laufen lassen. Da unser Fokus auf der Erstellung einer einzelnen UI Komponente liegt, lassen wir hier nur Storybook laufen.
+Abhängig davon, in welchem Teil der App du gerade arbeitest, möchtest du evtl. eine oder mehrere hiervon gleichzeitig laufen lassen. Da unser Fokus auf der Erstellung einer einzelnen UI-Komponente liegt, lassen wir hier nur Storybook laufen.
 
 ## CSS wiederverwenden
 

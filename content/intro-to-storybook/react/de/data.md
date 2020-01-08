@@ -1,7 +1,7 @@
 ---
 title: 'Daten einbinden'
 tocTitle: 'Daten'
-description: 'Lerne, Daten in deine UI Komponente einzubinden'
+description: 'Lerne, Daten in deine UI-Komponente einzubinden'
 commit: 9c50472
 ---
 
