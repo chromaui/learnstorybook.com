@@ -113,7 +113,7 @@ Erfolg! Wir haben unser neu erzeugtes Addon zur Storybook UI hinzugefügt.
 Storybook erlaubt dir, nicht nur Panels, sondern eine ganze Reihe unterschiedlicher Typen von UI-Komponenten hinzuzufügen. Und die meisten, wenn nicht sogar alle von ihnen, existieren bereits im <code>@storybook/components</code> Paket. Du musst deine Zeit also nicht mit der Entwicklung der UI verschwenden, sondern kannst dich auf Features konzentrieren.
 </div>
 
-### Die Inhalts-Komponente erstellen
+### Die Content Komponente erstellen
 
 Den ersten Meilenstein haben wir erreicht. Zeit, sich an den Zweiten zu machen.
 
@@ -211,10 +211,9 @@ Nun starte Storybook neu und wähle die `Task` Story aus. Du solltest so etwas w
 
 ![Die Storybook Story zeigt Inhalte mit dem Design Assets Addon an](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
-### Showing the actual assets
+### Die eigentlichen Assets anzeigen
 
-At this stage we can see that the addon is working as it should our stories, but now let's change the `Content` component to actually display the assets:
-
+In diesem Stadium sehen wir, dass das Addon in unseren Stories erwartungsgemäß funktioniert, aber lass uns die `Content` Komponente so anpassen, dass sie auch wirklich die eigentlichen Assets anzeigt:
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -273,7 +272,7 @@ export const Content = () => {
 };
 ```
 
-If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the `@storybook/theming` package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
+Wenn du genauer hinschaust, siehst du, dass wir das `styled`-Tag verwenden. Dieses Tag kommt aus dem Paket `@storybook/theming`. Es ermöglicht uns, nicht nur das Theme von Storybook, sondern auch die UI an unsere Bedürfnisse anzupassen. Außerdem nutzen wir [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), ein wirklich praktischer Hook, der uns erlaubt, auf den internen Zustand von Storybook zuzugreifen, um jede verfügbare Information daraus auszulesen. In unserem Fall lesen wir nur die ID einer jeden erstellten Story aus.
 
 ### Displaying actual assets
 
