@@ -187,11 +187,11 @@ addons.register("my/design-assets", () => {
 
 Beachte, dass wir [useParameter](https://storybook.js.org/docs/addons/api/#useparameter) verwenden. Dieser hilfreiche Hook erlaubt uns, auf die Informationen zuzugreifen, die über die Option `addParameters` an jede Story übergeben werden. In unserem Fall wird das also entweder ein einzelner Pfad zu einem Asset sein, oder eine Liste von Pfaden. Du wirst ihn bald schon im Einsatz sehen.
 
-### Using our addon with a story
+### Das Addon in einer Story verwenden
 
-We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
+Jetzt haben wir alle Teile zusammengefügt. Aber wie können wir sehen, ob es auch wirklich funktioniert und uns etwas angezeigt wird?
 
-To do so, we're going to make a small change to the `Task.stories.js` file and add the [addParameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
+Dazu nehmen wir eine kleine Anpassung an der Datei `Task.stories.js` vor und fügen die [addParameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) Option hinzu.
 
 ```javascript
 // src/components/Task.stories.js
@@ -207,10 +207,9 @@ storiesOf("Task", module)
 /* same as before  */
 ```
 
-Go ahead and restart your Storybook and select the Task story, you should see something like this:
+Nun starte Storybook neu und wähle die `Task` Story aus. Du solltest so etwas wie das hier sehen:
 
-![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story.png)
-
+![Die Storybook Story zeigt Inhalte mit dem Design Assets Addon an](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
 ### Showing the actual assets
 
