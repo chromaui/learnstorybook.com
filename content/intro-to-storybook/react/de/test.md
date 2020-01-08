@@ -124,6 +124,6 @@ Sobald wir mit der Auswertung fertig sind, können wir die Änderungen in der UI
 
 ![Änderungen, bereit übernommen zu werden](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook hilft dir dabei, komponenten zu **bauen**; Tests helfen dir dabei, sie zu **warten**. Die vier Typen von UI-Tests, die in diesem Tutorial behandelt werden, sind visuelle, Snapshot-, Unit- und visuelle Regressions-Tests. Die letzten drei kannst du automatisieren, indem du sie deinem CI Script hinzufügst. Das hilft dir dabei, Komponenten auszuliefern, ohne dass du dich um versteckte Bugs sorgen musst. Der gesamte Workflow ist unten dargestellt.
+Storybook hilft dir dabei, Komponenten zu **bauen**; Tests helfen dir dabei, sie zu **warten**. Die vier Typen von UI-Tests, die in diesem Tutorial behandelt werden, sind visuelle, Snapshot-, Unit- und visuelle Regressions-Tests. Die letzten drei kannst du automatisieren, indem du sie deinem CI Script hinzufügst. Das hilft dir dabei, Komponenten auszuliefern, ohne dass du dich um versteckte Bugs sorgen musst. Der gesamte Workflow ist unten dargestellt.
 
 ![Workflow für visuelle Regressions-Tests](/intro-to-storybook/cdd-review-workflow.png)
