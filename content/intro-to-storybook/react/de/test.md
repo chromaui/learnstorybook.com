@@ -50,7 +50,7 @@ $ git commit -m "taskbox UI"
 
 ### Chromatic installieren
 
-Füge das Package als Abhängigkeit hinzu. 
+Füge das Paket als Abhängigkeit hinzu. 
 
 ```bash
 yarn add storybook-chromatic
