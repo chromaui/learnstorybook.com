@@ -113,13 +113,13 @@ Erfolg! Wir haben unser neu erzeugtes Addon zur Storybook UI hinzugefügt.
 Storybook erlaubt dir, nicht nur Panels, sondern eine ganze Reihe unterschiedlicher Typen von UI-Komponenten hinzuzufügen. Und die meisten, wenn nicht sogar alle von ihnen, existieren bereits im <code>@storybook/components</code> Paket. Du musst deine Zeit also nicht mit der Entwicklung der UI verschwenden, sondern kannst dich auf Features konzentrieren.
 </div>
 
-### Creating the content component
+### Die Inhalts-Komponente erstellen
 
-We've completed our first objective. Time to start working on the second one.
+Den ersten Meilenstein haben wir erreicht. Zeit, sich an den Zweiten zu machen.
 
-To complete it, we need to make some changes to our imports and introduce a new component that will display the asset information.
+Um diesen zu erreichen, müssen wir ein paar Änderungen an unseren Imports vornehmen und eine neue Komponente ins Spiel bringen, die sich um die Anzeige von Asset-Informationen kümmern wird. 
 
-Make the following changes to the addon file:
+Nimm folgende Änderungen an der Addon-Datei vor:
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -145,10 +145,9 @@ const Content = () => {
 };
 ```
 
+Wir haben die Komponente erstellt und die Imports angepasst, Was jetzt noch fehlt ist, die Komponente mit unserem Panel zu verbinden, und schon haben wir ein funktionierenes Addon, das Informationen, die mit unseren Stories in Verbindung stehen, darstellen kann.
 
-We've created the component, modified the imports, all that's missing is to connect the component to our panel and we'll have a working addon capable of displaying information relative to our stories.
-
-Your code should look like the following:
+Dein Code sollte wie folgt aussehen:
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -186,8 +185,7 @@ addons.register("my/design-assets", () => {
 });
 ```
 
-Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `addParameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
-
+Beachte, dass wir [useParameter](https://storybook.js.org/docs/addons/api/#useparameter) verwenden. Dieser hilfreiche Hook erlaubt uns, auf die Informationen zuzugreifen, die über die Option `addParameters` an jede Story übergeben werden. In unserem Fall wird das also entweder ein einzelner Pfad zu einem Asset sein, oder eine Liste von Pfaden. Du wirst ihn bald schon im Einsatz sehen.
 
 ### Using our addon with a story
 
