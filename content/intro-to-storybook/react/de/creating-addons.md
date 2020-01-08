@@ -65,11 +65,11 @@ Die angepasste Datei sollte wie folgt aussehen:
 }
 ```
 
-## Writing the addon
+## Das Addon entwickeln
 
-We have what we need, it's time to start working on the actual addon.
+Wir haben, was wir brauchen. Zeit, am eigentlichen Addon zu arbeiten.
 
-Inside the `.storybook` folder create a new folder called `addons` and inside, a file called `design-assets.js` with the following:
+Erstelle innerhalb des `.storybook` Verzeichnisses einen neuen Ordner namens `addons` und darin eine Datei namens `design-assets.js` mit folgendem Inhalt:
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -90,24 +90,28 @@ addons.register("my/design-assets", () => {
 });
 ```
 
-<div class="aside">We're going to use the .storybook folder as a placeholder for our addon. The reason behind this, is to maintain a straightforward approach and avoid complicating it too much. Should this addon be transformed into a actual addon it would be best to move it to a separate package with it's own file and folder structure.</div>
+<div class="aside">
+Wir werden das <code>.storybook</code> Verzeichnis als Speicherort für unser Addon verwenden. Und zwar einfach, weil wir einen möglichst unkomplizierten Ansatz fahren und verhindern wollen, es unnötig kompliziert zu machen. Sollte dieses Addon in ein tatsächliches Addon umgewandelt werden, sollte es am besten in ein separates Paket verschoben werden, mit eigener Datei- und Verzeichnisstruktur.
+</div>
 
-This is the a typical boilerplate code to get started and going over what the code is doing:
+Das ist der typische Boilerplate-Code, um loslegen zu können. Hier kurz, was im Code geschieht:
 
-- We're registering a new addon in our Storybook.
-- Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text.
+- Registriere ein neues Addon in unserem Storybook.
+- Füge ein neues UI-Element für unser Addon mit ein paar Optionen hinzu (ein Titel, der unser Addon benennt, und der verwendete Element-Typ) und rendere es mit einem kleinen Text.
 
-Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/addons.js` file. Just add the following and should be able to see it working:
+Wenn wir Storybook jetzt starten, werden wir unser Addon noch nicht sehen können. Wie zuvor mit dem Knobs Addon, müssen wir auch jetzt unser Addon zunächst in der Datei `.storybook/addons.js` registrieren. Füge einfach folgende Zeile hinzu und unser Addon sollte angezeigt werden:
 
 ```js
 import "./addons/design-assets";
 ```
 
-![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
+![Das Design-Assets Addon läuft in Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
 
-Success! We have our newly created addon added to the Storybook UI.
+Erfolg! Wir haben unser neu erzeugtes Addon zur Storybook UI hinzugefügt.
 
-<div class="aside">Storybook allows you to add not only panels, but a whole range of different types of UI components. And most if not all of them are already created inside the @storybook/components package, so that you don't need waste too much time implementing the UI and focus on writting features.</div>
+<div class="aside">
+Storybook erlaubt dir, nicht nur Panels, sondern eine ganze Reihe unterschiedlicher Typen von UI-Komponenten hinzuzufügen. Und die meisten, wenn nicht sogar alle von ihnen, existieren bereits im <code>@storybook/components</code> Paket. Du musst deine Zeit also nicht mit der Entwicklung der UI verschwenden, sondern kannst dich auf Features konzentrieren.
+</div>
 
 ### Creating the content component
 
