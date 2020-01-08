@@ -26,12 +26,16 @@ The way we'll be attaching the list of assets to the stories is through [paramet
 <!-- this is probably not needed as it's used below-->
 
 ```javascript
-storiesOf("your-component", module)
-  .addParameters({
-    assets: ["path/to/your/asset.png"]
-  })
-  .addDecorator(/*...*/)
-  .add(/*...*/);
+export default {
+  title: 'Your component',
+  decorators: [
+    /*...*/
+  ],
+  parameters: {
+    assets: ['path/to/your/asset.png'],
+  },
+  //
+};
 ```
 
 <!-- -->
