@@ -17,7 +17,7 @@ Wir könnten unendlich viel über die Verwendung von Addons für all deine spezi
 
 ## Knobs einrichten
 
-Knobs ist eine tolle Ressource für Designer und Entwickler, um in einer kontrollierten Umgebung mit Komponenten herum zu experimentieren und zu spielen, ohne die Notwendigkeit von Code! Im Grunde stellst du dynamisch definierte Felder zur Verfügung, mit denen ein Benutzer die Props manipulieren kann, die den Komponenten deiner Stories übergeben werden. Folgendes werden wir entwickeln...
+Knobs (Knöpfe) sind eine tolle Möglichkeit für Designer und Entwickler, um in einer kontrollierten Umgebung mit Komponenten herum zu experimentieren und zu spielen, ohne die Notwendigkeit von Code! Im Grunde stellst du dynamisch definierte Felder zur Verfügung, mit denen ein Benutzer die Props manipulieren kann, die den Komponenten deiner Stories übergeben werden. Folgendes werden wir entwickeln...
 
 <video autoPlay muted playsInline loop>
   <source
@@ -28,13 +28,13 @@ Knobs ist eine tolle Ressource für Designer und Entwickler, um in einer kontrol
 
 ### Installation
 
-First, we will need to install all the necessary dependencies.
+Als Erstes müssen wir die nötigen Abhängigkeiten installieren.
 
 ```bash
 yarn add @storybook/addon-knobs
 ```
 
-Register Knobs in your `.storybook/addons.js` file.
+Registriere Knobs in deiner `.storybook/addons.js` Datei.
 
 ```javascript
 // .storybook/addons.js
@@ -45,18 +45,18 @@ import '@storybook/addon-links/register';
 ```
 
 <div class="aside">
-<strong>📝 Addon registration order matters!</strong>
+<strong>📝 Die Reihnfolge der Addon Registrierung ist wichtig!</strong>
 <br/>
-The order you list these addons will dictate the order in which they appear as tabs on your addon panel (for those that appear there).
+Die Reihenfolge, in der du die Addons auflistest, bestimmt die Reihenfolge, in der sie als Tabs im Addon-Panel erscheinen (für diejenigen, die dort angezeigt werden).
 </div>
 
-That's it! Time to use it in a story.
+Das war's! Zeit, das Addon in der Story einzusetzen.
 
-### Usage
+### Verwendung
 
-Let's use the object knob type in the `Task` component.
+Lass uns den Knob-Type "Objekt" in der `Task` Komponente benutzen.
 
-First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
+Importiere zunächst den `withKnobs` Dekorator und den `object` Knob-Type in `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
@@ -66,7 +66,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
-Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
+Füge als Nächstes `withKnobs` in das `decorators`-Array des `default` Exports von `Task.stories.js` hinzu:
 
 ```javascript
 // src/components/Task.stories.js
@@ -79,7 +79,7 @@ export default {
 };
 ```
 
-Lastly, integrate the `object` knob type within the "default" story:
+Zuletzt integriere noch den `object` Knob-Type in die "default" Story:
 
 ```javascript
 // src/components/Task.stories.js
@@ -89,21 +89,21 @@ export const Default = () => {
 };
 ```
 
-Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
+Nun sollte ein "Knobs" Tab neben dem "Action Logger" Tab im unteren Bereich der Seite erscheinen.
 
-As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as parameters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
+Wie [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#object) dokumentiert, akzeptiert der `object` Knob-Type ein Label und ein Standard-Objeke als Parameter. Das Label ist fix und wird links von einem Textfeld in deinem Addons-Panel angezeigt. Das Standard-Objekt, das du definiert hast, wird als editierbarer JSON-Schnipsel angezeigt. So lange du valides JSON darin einträgst, wird deine Komponente basierend aus den im JSON-Objekt enthaltenen Daten aktualisiert.
 
-## Addons Evolve Your Storybook's Scope
+## Addons erweitern den Umfang deines Storybooks
 
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
+Deine Storybook-Instanz dient nicht nur als eine wunderbare [CDD-Umgebung](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), sondern du bietest damit nun auch eine interaktive Dokumentation an. PropTypes sind toll, aber ein Designer oder jemand, der den Code einer Komponente noch gar nicht kennt, kann über Storybook mit aktiviertem Knobs Addon das Verhalten der Komponente sehr einfach kennenlernen.
 
-## Using Knobs To Find Edge-Cases
+## Knobs nutzen, um Grenzfälle zu identifizieren
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string?
+Hinzu kommt, dass QA Engineers oder präventive UI Engineers mit der einfachen Möglichkeit, die an eine Komponente übergebenen Daten zu bearbeiten, diese nun bis an ihre Grenzen bringen können! Ein Beispiel: Was passiert mit der `Task` Komponente, wenn einer Aufgabe einen _EXTREM LANGEN_ String beinhaltet?
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
+![Oh nein! Der Inhalt wird rechts abgeschnitten!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
+Dank der Möglichkeit, sehr schnell verschiedene Inputs an einer Komponente auszuprobieren, können wir solche Probleme relativ einfach finden und lösen. Lass uns das Problem des Überlaufens Lösen, indem wir ein `style` Attribut in `Task.js` ergänzen:
 
 ```javascript
 // src/components/Task.js
@@ -119,13 +119,13 @@ Thanks to quickly being able to try different inputs to a component we can find 
 />
 ```
 
-![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
+![Das ist besser.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
 
-## Adding A New Story To Avoid Regressions
+## Eine neue Story hinzufügen, um Regressionen zu vermeiden
 
-Of course we can always reproduce this problem by entering the same input into the knobs, but it's better to write a fixed story for this input. This will increase your regression testing and clearly outline the limits of the component(s) to the rest of your team.
+Natürlich können wir das Problem immer reproduzieren, indem wir wieder die gleichen Eingaben in den Knobs vornehmen. Besser ist es jedoch, wenn wir eine eigene Story für diesen Input schreiben. Das erhöht den Grad an Regressions-Tests und markiert eindeutig die Grenzen der Komponente(n) für den Rest des Teams.
 
-Let's add a story for the long text case in Task.stories.js:
+Lass uns eine Story für den Fall von langem Text in `Task.stories.js` hinzufügen:
 
 ```javascript
 // src/components/Task.stories.js
@@ -137,16 +137,16 @@ export const LongTitle = () => (
 );
 ```
 
-Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
+Nun, da wir die Story hinzugefügt haben, können wir diesen Grenzfall ganz einfach reproduziere, wann immer wir daran arbeiten wollen:
 
-![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
+![Hier ist es in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/react/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+Sofern wir [visuelle Regressions-Tests](/react/de/test/) verwenden, werden wir nun auch darauf aufmerksam gemacht, falls wir unsere Umbruch-Lösung je kaputt machen sollten. Solche versteckten Grenzfälle werden nur zu gerne vergessen.
 
-### Merge Changes
+### Änderungen mergen
 
-Don't forget to merge your changes with git!
+Vergiss nicht, deine Änderungen in Git zu mergen!
 
-## Sharing Addons With The Team
+## Addons mit dem Team teilen
 
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+Knobs ist eine schöne Möglichkeit für Nicht-Entwickler mit deinen Komponenten und Stories herum zu spielen. Es könnte ihnen aber Schwierigkeiten bereiten, das Storybook auf ihren lokalen Rechnern zu starten. Aus diesem Grund kann es hilfreich sein, dein Storybook online zu deployen. Im nächsten Kapitel machen wir genau das!
