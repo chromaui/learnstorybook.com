@@ -245,7 +245,6 @@ Erstelle eine Test-Datei namens `src/components/TaskList.test.js`. Darin schreib
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TaskList from './TaskList';
 import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
