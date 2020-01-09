@@ -1,4 +1,5 @@
 const languageNameMap = {
+  de: 'Deutsch',
   en: 'English',
   es: 'Español',
   'zh-CN': '简体中文',
