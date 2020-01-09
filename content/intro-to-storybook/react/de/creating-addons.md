@@ -16,9 +16,9 @@ Lass und für dieses Beispiel annehmen, dass unser Team einige Design Assets hat
 
 Wir haben unser Ziel, nun lass uns definieren, welche Features unser Addon unterstützen wird:
 
-- Die Design Assets in einem Panel anzeigen
-- Sowohl Bilder als auch URLs zum Einbetten unterstützen
-- Sollte mehrere Assets unterstützen, nur für den Fall dass es mehrere Versionen oder Themes geben wird
+- Design Assets in einem Panel anzeigen
+- Sowohl Bilder als auch URLs für die Einbettung unterstützen
+- Mehrere Assets unterstützen, nur für den Fall, dass es mehrere Versionen oder Themes geben wird
 
 Wir werden [Parameter](https://storybook.js.org/docs/configurations/options-parameter/) verwenden, um eine Liste von Assets an unsere Story anzufügen. Dies ist eine Storybook Option, die uns ermöglicht, benutzerdefinierte Parameter an unsere Stories zu injecten. Das macht man auf ähnliche Weise, wie wir in den vorherigen Kapiteln schon einen Decorator verwendet haben.
 
@@ -274,29 +274,27 @@ export const Content = () => {
 
 Wenn du genauer hinschaust, siehst du, dass wir das `styled`-Tag verwenden. Dieses Tag kommt aus dem Paket `@storybook/theming`. Es ermöglicht uns, nicht nur das Theme von Storybook, sondern auch die UI an unsere Bedürfnisse anzupassen. Außerdem nutzen wir [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), ein wirklich praktischer Hook, der uns erlaubt, auf den internen Zustand von Storybook zuzugreifen, um jede verfügbare Information daraus auszulesen. In unserem Fall lesen wir nur die ID einer jeden erstellten Story aus.
 
-### Displaying actual assets
+### Tatsächliche Assets darstellen
 
-To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the `addParameter` option to reflect these changes.
+Damit die tatsächlichen Assets in unserem Addon dargestellt werden, müssen wir sie in das `public` Verzeichnis kopieren und die `addParameter` Option entsprechend anpassen.
 
-Storybook will pick up on the change and will load the assets, but for now, only the first one.
+Storybook wird die Änderung übernehmen und die Assets laden. Allerdings zunächst nur das Erste.
 
-![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png) <!--needs to be created-->
+![Tatsächliche Assets geladen](/intro-to-storybook/design-assets-image-loaded.png) <!--needs to be created-->
 
-## Stateful addons
+## Addons mit Zustand
 
-Going over our initial objectives:
+Checken wir noch mal unsere Ziele:
 
+- ✔️ Design Assets in einem Panel anzeigen
+- ✔️ Sowohl Bilder als auch URLs für die Einbettung unterstützen
+- ❌ Mehrere Assets unterstützen, nur für den Fall, dass es mehrere Versionen oder Themes geben wird
 
-- ✔️ Display the design asset in a panel
-- ✔️ Support images, but also urls for embedding
-- ❌ Should support multiple assets, just in case there will be multiple versions or themes
+Wir haben es fast geschafft, nur noch ein Ziel ist offen.
 
+Für das letzte Ziel brauchen wir irgend eine Art von Zustand. Wir könnten React's `useState` verwenden, oder `this.setState()`, sofern wir mir Klassen-Komponenten arbeiten. Stattdessen wollen wir aber Storybook's eigenen `useAddonState` Hook verwenden, der uns dabei Hilft, den Addon-Zustand zu persistieren, ohne unnötige Logik für einen lokalen Zustand. Außerdem setzen wir ein weiteres UI-Element von Storybook ein, das uns erlaubt, zwischen Items zu wechseln: Die `ActionBar`.
 
-We're almost there, only one goal remaining.
-
-For the final one, we're going to need some sort of state, we could use React's `useState`, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own `useAddonState`, which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
-
-We need to adjust our imports for our needs:
+Wir müssen unsere Imports entsprechend anpassen:
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -305,7 +303,7 @@ import { AddonPanel, ActionBar } from "@storybook/components";
 /* same as before */
 ```
 
-And modify our `Content` component, so that we can change between assets:
+Außerdem müssen wir unsere `Content` Komponente modifizieren, damit wir zwischen Assets wechseln können:
 
 ```javascript
 //.storybook/addons/design-assets.js
