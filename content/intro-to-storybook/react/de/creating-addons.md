@@ -341,12 +341,12 @@ export const Content = () => {
 };
 ```
 
-## Addon built
+## Addon fertiggestellt
 
-We've accomplished what we set out to do, which is to create a fully functioning Storybook addon that displays the design assets related to the UI components.
+Wir haben geschafft, was wir uns vorgenommen haben, nämlich ein voll funktionsfähiges Storybook Addon zu erstellen, das Design Assets anzeigt, die mit UI-Komponenten in Verbindung stehen.
 
 <details>
-  <summary>Click to expand and see the full code used in this example</summary>
+  <summary>Klicke, um den gesamten Code anzuzeigen, der in diesem Beispiel verwendet wurde</summary>
 
 ```javascript
 // .storybook/addons
@@ -383,8 +383,6 @@ const Asset = ({ url }) => {
 
   return <Iframe title={url} src={url} />;
 };
-
-
 
 export const Content = () => {
   const results = useParameter("assets", []); // story's parameter being retrieved here
@@ -432,36 +430,35 @@ addons.register("my/design-assets", () => {
 
 </details>
 
-## Next steps
+## Nächste Schritte
 
-The next logical step for our addon, would be to make it it's own package and allow it to be distributed with your team and possibly with the rest of the community.
+Der nächste logische Schritt für unser Addon wäre, es in ein eigenes Paket umzuwandeln, um es dem gesamten Team zur Verfügung zu stellen und vielleicht sogar der ganzen Community.
 
-But that's beyond the scope of this tutorial. This example demonstrates how you can use the Storybook API to create your own custom addon to further enhance your development workflow.
+Aber das behandeln wir nicht in diesem Tutorial. Das Beispiel demonstriert, wie du die Storybook API nutzen kannst, um dein eigenes Addon zu schreiben und den Entwicklungs-Workflow weiter zu verbessern.
 
-Learn how to further customize your addon:
+So kannst du dein Addon noch weiter anpassen:
 
+- [Buttons zur Storybook hinzufügen](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
+- [durch den Channel mit einem IFrame kommunizieren](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
+- [Kommandos und Ergebnisse versenden](https://github.com/storybookjs/storybook/tree/next/addons/events)
+- [den HTML/CSS Output deiner Komponente analysieren](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
+- [Komponenten wrappen, mit neuen Daten rendern](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
+- [DOM-Events auslösen, den DOM verändern](https://github.com/storybookjs/storybook/tree/next/addons/events)
+- [Tests ausführen](https://github.com/storybookjs/storybook/tree/next/addons/jest)
 
-- [add buttons in the Storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
-- [communicate through the channel with the iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
-- [send commands and results](https://github.com/storybookjs/storybook/tree/next/addons/events)
-- [perform analysis on the html/css outputted by your component](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
-- [wrap components, re-render with new data](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
-- [fire DOM events, make DOM changes](https://github.com/storybookjs/storybook/tree/next/addons/events)
-- [run tests](https://github.com/storybookjs/storybook/tree/next/addons/jest)
+Und vieles mehr!
 
-And much more!
+<div class="aside">
+Falls du ein neues Addon entwickeln und daran interessiert sein solltest, dass wir es in der Dokumentation mit auflisten, fühl dich frei, einen PR mit einer angepassten Storybook-Dokumentation zu stellen.
+</div>
 
-<div class="aside">Should you create a new addon and you're interested in having it featured, feel free to open a PR in the Storybook documentation to have it featured.</div>
+### Entwickler-Kits
 
-### Dev kits
+Um dich bei einem schnellen Start in die Addon-Entwicklung zu unterstützen, hat das Storybook-Team einige `dev-kits` entwickelt.
 
+Diese Pakete sind Starter-Kits, die dir dabei helfen, deine eigenen Addons zu bauen. Das Addon, das wir gerade fertiggestellt haben, basiert auf einem dieser Starter-Kits, genauer gesagt dem `addon-parameters` Entwickler-Kit.
 
-To help you jumpstart the addon development, the Storybook team has developed some `dev-kits`.
-
-These packages are starter-kits to help you start building your own addons.
-The addon we've just finished creating is based on one of those starter-sets, more specifically the `addon-parameters` dev-kit.
-
-You can find this one and others here:
+Dieses und weitere kannst du hier finden:
 https://github.com/storybookjs/storybook/tree/next/dev-kits
 
-More dev-kits will become available in the future.
+Weitere Entwickler-Kits werden in Zukunft folgen.
