@@ -1,20 +1,20 @@
 ---
-title: 'Deploy Storybook'
-tocTitle: 'Deploy'
-description: 'Deploy Storybook online with GitHub and Netlify'
+title: 'Storybook deployen'
+tocTitle: 'Deployment'
+description: 'Deploye Storybook online mit GitHub und Netlify'
 ---
 
-In this tutorial we ran Storybook on our development machine. You may also want to share that Storybook with the team, especially the non-technical members. Thankfully, it’s easy to deploy Storybook online.
+Bisher haben wir Storybook in diesem Tutorial immer auf unserer Entwickler-Maschine laufen lassen. Wahrscheinlich möchtest du das Storybook auch mit deinem Team teilen, insbesondere mit Nicht-Technikern. Glücklicherweise lässt sich Storybook ziemlich einfach online deployen.
 
 <div class="aside">
-<strong>Did you setup Chromatic testing earlier?</strong>
+<strong>Hast du bereits Tests mit Chromatic eingerichtet?</strong>
 <br/>
-🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/react/en/conclusion">conclusion</a>.
+🎉 Deine Stories sind bereits deployed! Chromatic indiziert deine Stories auf sichere Weise online und verfolgt ihren Stand über Branches und Commits hinweg. Überspringe dieses Kapitel und gehe direkt zum <a href="/react/de/conclusion">Fazit</a>.
 </div>
 
-## Exporting as a static app
+## Eine statische App exportieren
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook, we just need to activate it by adding a script to `package.json`.
+Um Storybook zu deployen, müssen wir zunächst eine statische Web App exportieren. Die Funktionalität dafür ist bereits in Storybook integriert, wir müssen sie nur aktivieren, indem wir ein Script in der `package.json` hinzufügen.
 
 ```javascript
 // package.json
@@ -26,43 +26,43 @@ To deploy Storybook we first need to export it as a static web app. This functio
 }
 ```
 
-Now when you build Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
+Wenn du Storybook jetzt via `npm run build-storybook` baust, wird automatisch ein statisches Storybook im Verzeichnis `storybook-static` generiert.
 
-## Continuous deploy
+## Continuous Deployment
 
-We want to share the latest version of components whenever we push code. To do this we need to continuous deploy Storybook. We’ll rely on GitHub and Netlify to deploy our static site. We’re using the Netlify free plan.
+Wir wollen die neueste Version unserer Komponenten verfügbar machen, wann immer wir Code pushen. Dazu müssen wir Continuous Deployment (CD) für Storybook einrichten. Wir nutzen dazu GitHub und Netlify, um unsere statische Seite zu deployen. Von Netlify nutzen wir dabei das kostenlose Paket.
 
 ### GitHub
 
-First you want to setup Git for your project in the local directory. If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
+Als Erstes musst du Git für dein lokales Projekt-Verzeichnis einrichten. Wenn du bereits das vorherige Kapitel "Tests" gelesen hast, springe zum Aufsetzen eines GitHub Repository.
 
 ```bash
 $ git init
 ```
 
-Next add files to the first commit.
+Füge Dateien zum ersten Commit hinzu.
 
 ```bash
 $ git add .
 ```
 
-Now commit the files.
+Committe die Dateien.
 
 ```bash
 $ git commit -m "taskbox UI"
 ```
 
-Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
+Gehe auf GitHub und setze [hier](https://github.com/new) ein Repository auf. Nenne es "taskbox".
 
-![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
+![GitHub einrichten](/intro-to-storybook/github-create-taskbox.png)
 
-In the new repo setup copy the origin URL of the repo and add it to your git project with this command:
+Kopiere die Origin URL des neu aufgesetzten Repos und füge es deinem Git Projekt mit folgendem Befehl hinzu:
 
 ```bash
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-Finally push the repo to GitHub
+Zuletzt pushe das Repo auf GitHub.
 
 ```bash
 $ git push -u origin master
@@ -70,34 +70,38 @@ $ git push -u origin master
 
 ### Netlify
 
-Netlify has a continuous deployment service built in which will allow us to deploy Storybook without needing to configure our own CI.
+Netlify hat einen eingebauten Continuous Deployment Service, der uns ermöglicht, Storybook zu deployen, ohne eine eigene CI aufzubauen.
 
 <div class="aside">
-If you use CI at your company, add a deploy script to your config that uploads <code>storybook-static</code> to a static hosting service like S3.
+Wenn dein Unternehmen CI einsetzt, füge ein Deployment Script zu eurer Config hinzu, das <code>storybook-static</code> auf einen statischen Hosting-Service wie S3 hochlädt.
 </div>
 
-[Create an account on Netlify](https://app.netlify.com/start) and click to “create site”.
+[Erstelle einen Netlify Account](https://app.netlify.com/start) und klicke auf “create site”.
 
-![Netlify create site](/intro-to-storybook/netlify-create-site.png)
+![Netlify Seite anlegen](/intro-to-storybook/netlify-create-site.png)
 
-Next click the GitHub button to connect Netlify to GitHub. This allows it to access our remote Taskbox repo.
+Als nächstes, klicke auf den GitHub Button, um Netlify mit GitHub zu verbinden. Das ermöglicht Netlify, unser `taskbox` Remote-Repo zuzugreifen.
 
-Now select the taskbox GitHub repo from the list of options.
+Wähle nun das `taskbox` GitHub Repo aus der Liste aus.
 
-![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
+![Netlify mit Repo verbinden](/intro-to-storybook/netlify-account-picker.png)
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `.storybook-static`. Build command use `yarn build-storybook`.
+Konfiguriere Netlify, indem du angibst, welcher Build-Befehl ("Build command") in der CI ausgeführt werden soll und in welchem Verzeichnis die statische Seite abgelegt wird ("Publish directory"). Als Branch wähle `master`. Das Verzeichnis ist `.storybook-static`. Als Build-Befehl gib `yarn build-storybook` ein.
 
-![Netlify settings](/intro-to-storybook/netlify-settings.png)
+![Netlify Einstellungen](/intro-to-storybook/netlify-settings.png)
 
-<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
+<div class="aside">
+<p>
+Sollte dein Deployment mit Netlify fehlschlagen, füge deinem <code>build-storybook</code> Script das <code><a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet</a></code> Flag hinzu.
+</p>
+</div>
 
-Submit the form to build and deploy the code on the `master` branch of taskbox.
+Schicke das Formular ab, um den Code auf dem `master` Branch von `taskbox` zu bauen und zu deployen.
 
-When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
+Wenn das erledigt ist, sehen wir eine Bestätigungs-Nachricht auf Netlify mit einem Link zum online verfügbaren `taskbox` Storybook. Hast du alle Anweisungen befolgt, sollte dein Storybook unter einer Subdomain wie [dieser hier](https://clever-banach-415c03.netlify.com/) zu erreichen sein.
 
-![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
+![Deploytes Storybook auf Netlify](/intro-to-storybook/netlify-storybook-deploy.png)
 
-We finished setting up continuous deployment of your Storybook! Now we can share our stories with teammates via a link.
+Wir haben die Einrichtung von Continuous Deployment für unser Storybook abgeschlossen. Ab jetzt können wir unsere Stories mit den Mitgliedern in unserem Team per Link teilen.
 
-This is helpful for visual review as part of the standard app development process or simply to show off work 💅.
+Das ist hilfreich für visuelle Reviews als Bestandteil des Standard App Entwicklungs-Prozesses oder einfach, um mit seiner Arbeit zu prahlen 💅.
