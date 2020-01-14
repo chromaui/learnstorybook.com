@@ -132,21 +132,12 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.ts` files and uses our LESS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.type.extension` naming scheme favoured when developing Angular apps.
+We also have to make one small change to the Storybook configuration so it uses our LESS file. We can do that by adding a file `.storybook/preview.js` which runs when storybook starts in our browser:
 
-```typescript
-import { configure } from '@storybook/angular';
+```javascript
+// .storybook/preview.js
 
 import '../src/styles.less';
-
-// automatically import all files ending in *.stories.ts
-const req = require.context('../src/', true, /\.stories.ts$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
 ```
 
 In order to support that LESS import we'll need to play around a bit with webpack. Just create a `webpack.config.js` file inside the `.storybook` folder and paste the following:

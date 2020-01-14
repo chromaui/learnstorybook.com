@@ -102,13 +102,13 @@ export const Pinned = () => ({
 export const Archived = () => ({
   components: { Task },
   template: taskTemplate,
-   props: {
+  props: {
     task: {
       default: {
         ...taskData,
-        state: "TASK_ARCHIVED"
-      }
-    }
+        state: 'TASK_ARCHIVED',
+      },
+    },
   },
   methods: actionsData,
 });
@@ -143,14 +143,12 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.spec.js` naming scheme favoured by the Vue CLI for automated tests.
+We also have to make one small change to the Storybook configuration so it uses our CSS file. We can do that by adding a file `.storybook/preview.js` which runs when storybook starts in our browser:
 
 ```javascript
-import { configure } from '@storybook/vue';
+// .storybook/preview.js
 
 import '../src/index.css';
-
-configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
@@ -242,16 +240,14 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependencies:
 
 ```bash
-yarn add -D @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
+yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 ```
 
 Then create a `tests/unit/storybook.spec.js` file with the following in it:
 
 ```javascript
-import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
 import initStoryshots from '@storybook/addon-storyshots';
 
-registerRequireContextHook();
 initStoryshots();
 ```
 
@@ -259,15 +255,6 @@ We need to add a line to our `jest.config.js`:
 
 ```js
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
-```
-
-Finally, we need to make a tweak to our `babel.config.js`:
-
-```js
-module.exports = api => ({
-  presets: ['@vue/app'],
-  ...(api.env('test') && { plugins: ['require-context-hook'] }),
-});
 ```
 
 Once the above is done, we can run `yarn test:unit` and see the following output:
