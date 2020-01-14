@@ -143,7 +143,7 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration so it uses our CSS file. We can do that by adding a file `.storybook/preview.js` which runs when storybook starts in our browser:
+We also have to make one small change to the Storybook configuration so it uses our CSS file. We can do that by adding a file `.storybook/preview.js` which runs when Storybook starts in our browser:
 
 ```javascript
 // .storybook/preview.js
