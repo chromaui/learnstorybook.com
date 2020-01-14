@@ -187,23 +187,29 @@ yarn add --dev @storybook/addon-a11y
 
 ```
 
-Register the addon in `.storybook/addons.js`:
+Register the addon in `.storybook/main.js`:
 
 ```javascript
-import '@storybook/addon-actions/register';
-import '@storybook/addon-links/register';
-import '@storybook/addon-storysource/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-a11y/register';
+module.exports = {
+  // automatically import all files ending in *.stories.js|mdx
+  stories: ['../src/**/*.stories.(js|mdx)'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+    '@storybook/addon-a11y',
+  ],
+};
 ```
 
-And add the `withA11y` decorator to our `.storybook/config.js`:
+And add the `withA11y` decorator to `.storybook/preview.js`:
 
 ```javascript
 import React from 'react';
-import { configure, addDecorator } from '@storybook/react';
+import { addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
-import 'storybook-chromatic';
 
 import { GlobalStyle } from '../src/components/shared/global';
 
@@ -214,9 +220,6 @@ addDecorator(story => (
     {story()}
   </>
 ));
-
-// automatically import all files ending in \*.stories.js
-configure(require.context('../src', true, /\.stories\.js\$/), module);
 ```
 
 Once installed, you’ll see a new “Accessibility” tab in the Storybook addons panel.
