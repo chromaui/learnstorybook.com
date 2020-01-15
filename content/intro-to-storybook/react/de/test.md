@@ -5,7 +5,7 @@ description: 'Lerne, wie man UI-Komponenten testen kann'
 commit: 78a45d1
 ---
 
-Kein Storybook Tutorial ist komplett ohne Tests. Tests sind essenziel für die Erstellung hochwertiger UIs. In modularen Systemen können auch kleinste Änderungen einen langen Rattenschwanz nach sich ziehen. Bisher sind uns drei Arten von Tests begegnet: 
+Kein Storybook-Tutorial ist vollständig ohne Tests. Tests sind essenziell für die Erstellung hochwertiger UIs. In modularen Systemen können auch kleinste Änderungen einen langen Rattenschwanz nach sich ziehen. Bisher sind uns drei Arten von Tests begegnet: 
 
 - **Visuelle Tests** verlassen sich darauf, dass die Entwickler manuell auf eine Komponente schauen, um deren Korrektheit zu bestätigen. Sie helfen uns dabei, das Erscheinungsbild einer Komponente einem Gesundheitscheck zu unterziehen.
 - **Snapshot-Tests** mit Storyshots erfassen das gerenderte Markup einer Komponente. Sie helfen uns, Änderungen am Markup im Blick zu behalten, die Fehler und Warnungen beim Rendering verursachen.
@@ -13,7 +13,7 @@ Kein Storybook Tutorial ist komplett ohne Tests. Tests sind essenziel für die E
 
 ## “Aber sieht es auch gut aus?”
 
-Leider reichen die zuvor erwähnten Arten von Tests nicht aus, um UI Fehler zu vermeiden. UIs zu testen ist knifflig, da Designs subjektiv und detailreich sind. Visuelle Tests sind zu händisch, Snapshot Tests lösen zu viele Fehlalarme aus, wenn man sie für UIs einsetzt, und Unit-Tests auf Pixel-Ebene liefern einen zu geringen Mehrwert. Eine vollständige Storybook Test-Strategie umfasst auch visuelle Regressions-Tests.
+Leider reichen die zuvor erwähnten Arten von Tests nicht aus, um UI-Fehler zu vermeiden. UIs zu testen ist knifflig, da Designs subjektiv und detailreich sind. Visuelle Tests sind zu händisch, Snapshot-Tests lösen zu viele Fehlalarme aus, wenn man sie für UIs einsetzt, und Unit-Tests auf Pixel-Ebene liefern einen zu geringen Mehrwert. Eine vollständige Storybook Test-Strategie umfasst auch visuelle Regressions-Tests.
 
 ## Visuelle Regressions-Tests für Storybook
 
@@ -32,7 +32,7 @@ Es gibt eine ganze Reihe von Tools für visuelle Regressions-Tests. Für profess
 
 ## Einrichtung visueller Regressions-Tests
 
-Chromatic ist ein leicht anzubindendes Storybook Addon für visuelle Regressions-Tests und -Reviews in der Cloud. Da es ein Bezahldienst ist (mit kostenlosem Probezeitraum), mag es nicht für jedermann geeignet sein. Dennoch ist Chromatic ein lehrreiches Beispiel für einen Workflow mit visuellen Regressions-Tests in Produktion, den wir kostenlos ausprobieren können. Schauen wir mal rein.
+Chromatic ist ein leicht anzubindendes Storybook-Addon für visuelle Regressions-Tests und -Reviews in der Cloud. Da es ein Bezahldienst ist (mit kostenlosem Probezeitraum), mag es nicht für jedermann geeignet sein. Dennoch ist Chromatic ein lehrreiches Beispiel für einen Workflow mit visuellen Regressions-Tests in Produktion, den wir kostenlos ausprobieren können. Schauen wir mal rein.
 
 ### Git auf den aktuellen Stand bringen
 
@@ -65,7 +65,7 @@ Jetzt melde dich mit deinem GitHub Account [in Chromatic an](https://www.chromat
   />
 </video>
 
-Führe den Test-Befehl in der Kommandozeile aus, um visuelle Regressions-Tests für Storybook einzurichten. Vergiss nicht, deinen eindeutigen App Code anstelle von `<app-code>` einzusetzen.
+Führe den Test-Befehl in der Kommandozeile aus, um visuelle Regressions-Tests für Storybook einzurichten. Vergiss nicht, deinen eindeutigen App-Code anstelle von `<app-code>` einzusetzen.
 
 ```bash
 npx chromatic --app-code=<app-code>
@@ -81,7 +81,7 @@ Ist der erste Test einmal durchgelaufen, haben wir Test-Baselines für alle unse
 
 ## Veränderungen in der UI erfassen
 
-Visuelle Regressions-Tests basieren auf dem Vergleichen von Bildern eines neu gerenderten UI Codes mit den Basline Bildern. Wird eine Veränderung in der UI festgestellt, wird man darüber benachrichtigt. Schau dir an diesem Beispiel an, wie es funktioniert, in dem wir die Hintergrundfarbe der `Task` Komponente verändern:
+Visuelle Regressions-Tests basieren auf dem Vergleichen von Bildern eines neu gerenderten UI-Codes mit den Baseline-Bildern. Wird eine Veränderung in der UI festgestellt, wird man darüber benachrichtigt. Schau dir an diesem Beispiel an, wie es funktioniert, in dem wir die Hintergrundfarbe der `Task`-Komponente verändern:
 
 ![Code-Anpassung](/intro-to-storybook/chromatic-change-to-task-component.png)
 
@@ -89,7 +89,7 @@ Hierdurch erhalten wir eine neue Hintergrundfarbe für die Aufgabe.
 
 ![Aufgabe mit geändertem Hintergrund](/intro-to-storybook/chromatic-task-change.png)
 
-Führe den Befehl von vorhin aus, um einen weiteren Chromatic Test zu starten.
+Führe den Befehl von vorhin aus, um einen weiteren Chromatic-Test zu starten.
 
 ```bash
 npx chromatic --app-code=<app-code>
@@ -120,10 +120,10 @@ Da sich moderne Apps aus Komponenten zusammensetzen, ist es wichtig, dass wir au
 
 ## Änderungen übernehmen
 
-Sobald wir mit der Auswertung fertig sind, können wir die Änderungen in der UI mit gutem Gefühl übernehmen -- uns gewiss, dass die Änderungen keine unbeabsichtigten Bugs verursachen. Wenn dir der neue rote Hintergrund gefällt, akzeptiere die Änderungen. Andernfalls gehe zum vorherigen Zustand zurück.
+Sobald wir mit der Auswertung fertig sind, können wir die Änderungen in der UI mit gutem Gefühl übernehmen -- in der Gewissheit, dass die Änderungen keine unbeabsichtigten Bugs verursachen. Wenn dir der neue rote Hintergrund gefällt, akzeptiere die Änderungen. Andernfalls gehe zum vorherigen Zustand zurück.
 
 ![Änderungen, bereit übernommen zu werden](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook hilft dir dabei, Komponenten zu **bauen**; Tests helfen dir dabei, sie zu **warten**. Die vier Typen von UI-Tests, die in diesem Tutorial behandelt werden, sind visuelle, Snapshot-, Unit- und visuelle Regressions-Tests. Die letzten drei kannst du automatisieren, indem du sie deinem CI Script hinzufügst. Das hilft dir dabei, Komponenten auszuliefern, ohne dass du dich um versteckte Bugs sorgen musst. Der gesamte Workflow ist unten dargestellt.
+Storybook hilft dir dabei, Komponenten zu **bauen**; Tests helfen dir dabei, sie zu **warten**. Die vier Typen von UI-Tests, die in diesem Tutorial behandelt werden, sind visuelle, Snapshot-, Unit- und visuelle Regressions-Tests. Die letzten drei kannst du automatisieren, indem du sie deinem CI-Script hinzufügst. Das hilft dir dabei, Komponenten auszuliefern, ohne dass du dich um versteckte Bugs sorgen musst. Der gesamte Workflow ist unten dargestellt.
 
 ![Workflow für visuelle Regressions-Tests](/intro-to-storybook/cdd-review-workflow.png)

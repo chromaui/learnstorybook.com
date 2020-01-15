@@ -5,13 +5,13 @@ description: 'Stelle einen Screen aus Komponenten zusammen'
 commit: e56e345
 ---
 
-Bisher haben wir uns darauf konzentriert, UIs bottom-up zu bauen; klein starten und Komplexität hinzufügen. Das erlaubte uns, jede Komponente in Isolation zu entwickeln, ihre Anforderungen an Daten zu ermitteln und damit in Storybook herum zu spielen. All das, ohne einen Server aufzubauen oder Screens zu erstellen.
+Bisher haben wir uns darauf konzentriert, UIs bottom-up zu bauen; klein starten und Komplexität hinzufügen. Das erlaubte uns, jede Komponente in Isolation zu entwickeln, ihre Anforderungen an Daten zu ermitteln und damit in Storybook herumzuspielen. All das, ohne einen Server aufzusetzen oder Screens zu erstellen.
 
 In diesem Kapitel werden wir den Schwierigkeitsgrad weiter erhöhen, indem wir Komponenten in einem Screen kombinieren, den wir in Storybook entwickeln.
 
-## Verschachtelte Container Komponenten
+## Verschachtelte Container-Komponenten
 
-Da unsere App sehr einfach ist, wird auch unser Screen ziemlich trivial sein. Wir fügen die `TaskList` Komponente (die ihre Daten via Redux zur Verfügung stellt) in ein Layout ein und holen uns ein top-level `error` Feld aus Redux (lass uns annehmen, wir setzten dieses Feld, wenn wir Probleme mit der Verbindung zu unserem Server haben). Lege `InboxScreen.js` in deinem `components` Verzeichnis an:
+Da unsere App sehr einfach ist, wird auch unser Screen ziemlich trivial sein. Wir fügen die `TaskList`-Komponente (die ihre Daten via Redux zur Verfügung stellt) in ein Layout ein und holen uns ein top-level `error`-Feld aus Redux (lass uns annehmen, wir setzten dieses Feld, wenn wir Probleme mit der Verbindung zu unserem Server haben). Lege `InboxScreen.js` in deinem `components`-Verzeichnis an:
 
 ```javascript
 // src/components/InboxScreen.js
@@ -58,7 +58,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-Außerdem ändern wir die `App` Komponente so, dass sie den `InboxScreen` rendert (vermutlich würden wir einen Router nutzen, um den richtigen Screen zu wählen, aber das soll jetzt nicht unsere Sorge sein):
+Außerdem ändern wir die `App`-Komponente so, dass sie den `InboxScreen` rendert (vermutlich würden wir einen Router nutzen, um den richtigen Screen zu wählen, aber das soll jetzt nicht unsere Sorge sein):
 
 ```javascript
 // src/App.js
@@ -84,7 +84,7 @@ export default App;
 
 Es wird jedoch erst interessant, wenn wir die Story in Storybook rendern.
 
-Wir zuvor gesehen, ist die `TaskList` Komponente ein **Container**, der die darstellende `PureTaskList` Komponente rendert. Laut Definition können Container-Komponenten nicht einfach in Isolation gerendert werden; sie erwarten, dass ihnen ein Kontext übergeben wird, oder dass sie sich zu einem Service verbinden. Das bedeutet, dass wir den Kontext oder den Service, den ein Container erwartet, mocken (sprich eine vorgetäusche Version bereitstellen) müssen, um einen Container in Storybook zu rendern.
+Wie zuvor gesehen, ist die `TaskList`-Komponente ein **Container**, der die darstellende `PureTaskList`-Komponente rendert. Laut Definition können Container-Komponenten nicht einfach in Isolation gerendert werden; sie erwarten, dass ihnen ein Kontext übergeben wird, oder dass sie sich zu einem Service verbinden. Das bedeutet, dass wir den Kontext oder den Service, den ein Container erwartet, mocken (sprich eine vorgetäusche Version bereitstellen) müssen, um einen Container in Storybook zu rendern.
 
 Als wir die `TaskList` in Storybook eingefügt haben, konnten wir dieses Problem einfach umgehen, indem wir die `PureTaskList` gerendert und so die Einbindung des Containers vermieden haben. Jetzt machen wir es genauso und rendern auch den `PureInboxScreen` in Storybook.
 
@@ -107,7 +107,7 @@ export const Default = () => <PureInboxScreen />;
 export const Error = () => <PureInboxScreen error="Something" />;
 ```
 
-... merken wir, dass auch wenn unsere `error` Story richtig funktioniert, wir ein Problem mit der `default` Story haben. Das liegt daran, dass die `TaskList` keinen Redux Store hat, zu dem sie sich verbinden kann. (Ähnliche Probleme würden auch auftreten, wenn du versuchen würdest, den `PureInboxScreen` mit einem Unit-Test zu testen.)
+... merken wir, dass auch wenn unsere `error`-Story richtig funktioniert, wir ein Problem mit der `default`-Story haben. Das liegt daran, dass die `TaskList` keinen Redux Store hat, zu dem sie sich verbinden kann. (Ähnliche Probleme würden auch auftreten, wenn du versuchen würdest, den `PureInboxScreen` mit einem Unit-Test zu testen.)
 
 ![Fehlerhafte Inbox](/intro-to-storybook/broken-inboxscreen.png)
 
@@ -168,7 +168,7 @@ Indem wir uns durch die Zustände in Storybook klicken, können wir leicht prüf
 
 ## Komponent-getriebene Entwicklung
 
-Wir haben ganz unten mit `Task` angefangen, schritten dann vorwärts zur `TaskList` und sind nun hier angelangt, bei einer vollwertigen Screen UI. Unser `InboxScreen` beherbergt eine verschachtelte Container-Komponente und kommt inklusive der zugehörigen Stories.
+Wir haben ganz unten mit `Task` angefangen, schritten dann vorwärts zur `TaskList` und sind nun hier angelangt, bei einer vollwertigen Screen-UI. Unser `InboxScreen` beherbergt eine verschachtelte Container-Komponente und kommt inklusive der zugehörigen Stories.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source

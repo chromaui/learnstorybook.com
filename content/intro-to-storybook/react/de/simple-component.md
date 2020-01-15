@@ -5,7 +5,7 @@ description: 'Baue eine einfache Komponente in Isolation'
 commit: 403f19a
 ---
 
-Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "buttom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
+Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "bottom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
 
 ## Task
 
@@ -16,7 +16,7 @@ Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https:/
 - `title` – ein String, der die Aufgabe beschreibt
 - `state` - In welcher Liste befindet sich die Aufgabe aktuell und ist sie abgeschlossen?
 
-Beim Entwickeln der `Task`-Komponente, schreiben wir zunächst unsere Test-Zustände, die den oben skizzierten möglichen Aufgaben-Typen entsprechen. Anschließend verwenden wir Storybook, um die Komponente mit gemockted Daten isoliert zu entwickeln. Wärend wir entwickeln, prüfen wir die Komponente in jedem möglichen Zustand auf ihre visuelle Erscheinung.
+Beim Entwickeln der `Task`-Komponente schreiben wir zunächst unsere Test-Zustände, die den oben skizzierten möglichen Aufgaben-Typen entsprechen. Anschließend verwenden wir Storybook, um die Komponente mit gemockten Daten isoliert zu entwickeln. Wärend wir entwickeln, prüfen wir die Komponente in jedem möglichen Zustand auf ihre visuelle Erscheinung.
 
 Dieses Vorgehen ähnelt der [testgetriebenen Entwicklung](https://de.wikipedia.org/wiki/Testgetriebene_Entwicklung) (TDD). Wir nennen es “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
 
@@ -97,7 +97,7 @@ Um Storybook die Komponente, die wir dokumentieren, zugänglich zu machen, erste
 
 Unsere Stories definieren wir, indem wir für jeden unserer Test-Zustände eine Funktion exportieren, um eine Story zu generieren. Die Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) --- genau wie eine [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html) in React.
 
-`action()` erlaubt uns, ein Callback zu erstellen, das im **Actions** Panel der Storybook UI erscheint, wenn man auf dieses klickt. Wenn wir also einen Pin-Button bauen, können wir so in der Test UI sehen, ob ein Button-Klick erfolgreich war.
+`action()` erlaubt uns, ein Callback zu erstellen, das im **Actions**-Panel der Storybook-UI erscheint, wenn man auf dieses klickt. Wenn wir also einen Pin-Button bauen, können wir so in der Test-UI sehen, ob ein Button-Klick erfolgreich war.
 
 Da wir allen Ausprägungen unserer Komponente immer das selbe Menge an Actions übergeben müssen, ist es naheliegend, sie in einer einzigen `actionsData`-Variable zusammenzufassen und die `{...actionsData}` Syntax von JSX ("spread attributes") zu verwenden, um alle Props auf einmal zu übergeben. `<Task {...actionsData}>` ist äquivalent zu `<Task onPinTask={actionsData.onPinTask} onArchiveTask={actionsData.onArchiveTask}>`.
 
@@ -111,7 +111,7 @@ Beim Erstellen einer Story nutzen wir eine Basis-Aufgabe (`taskData`), um die St
 
 ## Konfiguration
 
-Wir müssen auch noch eine kleine Anpassung an der Storybook-Konfiguration (`.storybook/config.js`) vornehmen, so dass unsere `.stories.js` Dateien und unsere CSS Datei berücksichtigt werden. Standardmäßig sucht Storybook im Verzeichnis `/stories` nach Stories; Dieses Tutorial verwendet ein Namens-Schema äquivalent zum `.test.js` Namens-Schema, das von CRA für automatisierte Tests bevorzugt wird.
+Wir müssen auch noch eine kleine Anpassung an der Storybook-Konfiguration (`.storybook/config.js`) vornehmen, so dass unsere `.stories.js`-Dateien und unsere CSS-Datei berücksichtigt werden. Standardmäßig sucht Storybook im Verzeichnis `/stories` nach Stories; dieses Tutorial verwendet ein Namens-Schema äquivalent zum `.test.js`-Namens-Schema, das von CRA für automatisierte Tests bevorzugt wird.
 
 ```javascript
 // .storybook/config.js
@@ -204,31 +204,31 @@ Task.propTypes = {
 };
 ```
 
-Nun wird beim Entwickeln eine Warnung angezeigt, wenn die `Task` Komponente falsch verwendet wird.
+Nun wird beim Entwickeln eine Warnung angezeigt, wenn die `Task`-Komponente falsch verwendet wird.
 
 <div class="aside">
-Alternativ kann man hierfür auch JavaScript Typisierung verwenden, wie z.B. TypeScript, um den Props der Komponente Typen zuzuweisen.
+Alternativ kann man hierfür auch JavaScript-Typisierung verwenden, wie z.B. TypeScript, um den Props der Komponente Typen zuzuweisen.
 </div>
 
 ## Komponente erstellt!
 
-Jetzt haben wir erfolgreich eine Komponente gebaut, ohne dass wir einen Server oder unsere gesamte Frontend App dazu benötigt hätten. Als nächstes müssen wir die verbleibenden Taskbox Komponenten auf die gleiche Weise bauen, eine nach der anderen.
+Jetzt haben wir erfolgreich eine Komponente gebaut, ohne dass wir einen Server oder unsere gesamte Frontend-App dazu benötigt hätten. Als nächstes müssen wir die verbleibenden Taskbox-Komponenten auf die gleiche Weise bauen, eine nach der anderen.
 
 Wie du siehst, ist es recht schnell und einfach möglich, eine Komponente in Isolation zu bauen. Dadurch können wir UIs bauen, die schicker, qualitativ hochwertiger und weniger fehleranfällig sind, weil es möglich ist, in die Tiefe zu gehen und jeden möglichen Zustand abzutesten.
 
 ## Automatisiertes Testen
 
-Storybook hat uns eine tolle Möglichkeit gegeben, unsere Anwendung visuell zu testen während wir sie entwickeln. Die 'Stories' werden und dabei helfen, sicherzustellen, dass die Darstellung unserer `Task` Komponente nicht zerschossen wird, während wir unsere App weiter entwickeln. Allerdings ist das im Moment noch ein vollständig manueller Vorgang und irgendjemand muss sich die Mühe machen, alle Testzustände durchzuklicken, um sicherzustellen, dass alles korrekt gerendert wird und keine Fehler oder Warnungen auftreten. Können wir das nicht automatisieren?
+Storybook hat uns eine tolle Möglichkeit gegeben, unsere Anwendung visuell zu testen während wir sie entwickeln. Die 'Stories' werden uns dabei helfen, sicherzustellen, dass die Darstellung unserer `Task`-Komponente nicht zerschossen wird, während wir unsere App weiter entwickeln. Allerdings ist das im Moment noch ein vollständig manueller Vorgang und irgendjemand muss sich die Mühe machen, alle Testzustände durchzuklicken, um sicherzustellen, dass alles korrekt gerendert wird und keine Fehler oder Warnungen auftreten. Können wir das nicht automatisieren?
 
 ### Snapshot-Tests
 
-Snapshot-Tests beziehen sich darauf, den "wohlbekannte" Output einer Komponente für eine definierten Input festzuhalten und dann die Komponente hervorzuheben, wann immer sich der Output in Zukunft verändert. Das ergänzt Storybook, denn es ist eine schnelle Möglichkeit, die neue Version einer Komponente zu begutachten und ihre Änderungen zu überprüfen.
+Snapshot-Tests beziehen sich darauf, den "wohlbekannten" Output einer Komponente für eine definierten Input festzuhalten und dann die Komponente hervorzuheben, wann immer sich der Output in Zukunft verändert. Das ergänzt Storybook, denn es ist eine schnelle Möglichkeit, die neue Version einer Komponente zu begutachten und ihre Änderungen zu überprüfen.
 
 <div class="aside">
-Stell sicher, dass deine Kompoenten ein Output rendern, das sich nicht verändert, damit deine Snapshot-Tests nicht jedes mal fehlschlagen. Achte auf Dinge wie Datumsausgaben oder zufällig generierte Werte.
+Stelle sicher, dass deine Kompoenten ein Output rendern, das sich nicht verändert, damit deine Snapshot-Tests nicht jedes mal fehlschlagen. Achte auf Dinge wie Datumsausgaben oder zufällig generierte Werte.
 </div>
 
-Mit dem [Storyshots Addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) wird ein Snapshot-Test für jede deiner Stories generiert. Um es zu verwenden, füge eine `devDependency` in deiner `package.json` hinzu:
+Mit dem [Storyshots-Addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) wird ein Snapshot-Test für jede deiner Stories generiert. Um es zu verwenden, füge eine `devDependency` in deiner `package.json` hinzu:
 
 ```bash
 yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.macro
@@ -243,7 +243,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-Du wirst auch ein [babel Macro](https://github.com/kentcdodds/babel-plugin-macros) verwenden müssen, um sicherzustellen, dass `require.context` (etwas Webpack Magie) in Jest (unser Test-Kontext) ausgeführt wird. Installiere es mit:
+Du wirst auch ein [babel-Macro](https://github.com/kentcdodds/babel-plugin-macros) verwenden müssen, um sicherzustellen, dass `require.context` (etwas Webpack-Magie) in Jest (unser Test-Kontext) ausgeführt wird. Installiere es mit:
 
 ```bash
 yarn add --dev babel-plugin-macros
@@ -276,6 +276,6 @@ configure(requireContext('../src/components', true, /\.stories\.js$/), module);
 
 Wenn das erledigt ist, können wir `yarn test` ausführen und sehen die folgende Ausgabe:
 
-![Task Test Runner](/intro-to-storybook/task-testrunner.png)
+![Task-Test-Runner](/intro-to-storybook/task-testrunner.png)
 
-Wir haben jetzt einen Snapshot-Test für jede unserer `Task` Stories. Ändern wird die Implementierung von `Task`, werden wir aufgefordert, die Änderungen zu verifizieren.
+Wir haben jetzt einen Snapshot-Test für jede unserer `Task`-Stories. Ändern wir die Implementierung von `Task`, werden wir aufgefordert, die Änderungen zu verifizieren.

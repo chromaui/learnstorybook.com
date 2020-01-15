@@ -5,7 +5,7 @@ description: 'Lerne, Daten in deine UI-Komponente einzubinden'
 commit: 9c50472
 ---
 
-Bisher haben wir isolierte, zustandslose Komponenten erstellt - perfekt für Storybook, aber letztlich nutzlos, bis wir ihnen einie Daten in unserer App zur Verfügung stellen.
+Bisher haben wir isolierte, zustandslose Komponenten erstellt - perfekt für Storybook, aber letztlich nutzlos, bis wir ihnen einige Daten in unserer App zur Verfügung stellen.
 
 Dieses Tutorial beschäftigt sich nicht mit den Details der Entwicklung einer App, daher werden wir hierauf nicht näher eingehen. Aber wir nehmen uns einen Moment Zeit, um ein übliches Vorgehen für das Einbinden von Daten mithilfe von Container-Komponenten zu beleuchten.
 
@@ -13,7 +13,7 @@ Dieses Tutorial beschäftigt sich nicht mit den Details der Entwicklung einer Ap
 
 So wie unsere `TaskList` aktuell geschrieben ist, ist sie insofern eine rein "darstellende" Komponente (siehe [diesen Blog Beitrag](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), als dass sie in ihrer eigenen Implementierung nicht mit externen Schnittstellen spricht. Um Daten in die Komponente zu bekommen, benötigen wir einen "Container". 
 
-Dieses Beispiel nutzt [Redux](https://redux.js.org/), die bekannteste React Bibliothek zum Vorhalten von Daten, um ein einfaches Datenmodell für unsere App zu bauen. Das darin verwendete Pattern lässt sich aber auch auf andere Bibliotheken anwenden, wie z.B. [Apollo](https://www.apollographql.com/client/) und [MobX](https://mobx.js.org/).
+Dieses Beispiel nutzt [Redux](https://redux.js.org/), die bekannteste React-Bibliothek zum Vorhalten von Daten, um ein einfaches Datenmodell für unsere App zu bauen. Das darin verwendete Pattern lässt sich aber auch auf andere Bibliotheken anwenden, wie z.B. [Apollo](https://www.apollographql.com/client/) und [MobX](https://mobx.js.org/).
 
 Füge eine neue Abhängigkeit zur `package.json` hinzu mit:
 
@@ -77,7 +77,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Anschließend aktualisieren wir den `default` Export der `TaskList` Komponente, damit dieser sich zum Redux Store verbindet, und die Aufgaben rendert, die uns interessieren:
+Anschließend aktualisieren wir den `default`-Export der `TaskList`-Komponente, damit dieser sich zum Redux Store verbindet, und die Aufgaben rendert, die uns interessieren:
 
 ```javascript
 // src/components/TaskList.js
@@ -115,9 +115,9 @@ export default connect(
 )(PureTaskList);
 ```
 
-Ab jetzt werden unsere Storybook Tests fehlschlagen, da die `TaskList` jetzt ein Container ist und keine Props mehr erwartet. Stattdessen verbindet es sich mit dem Store und übergibt Props an die `PureTaskList` Komponente, die es umschließt.
+Ab jetzt werden unsere Storybook Tests fehlschlagen, da die `TaskList` jetzt ein Container ist und keine Props mehr erwartet. Stattdessen verbindet er sich mit dem Store und übergibt Props an die `PureTaskList`-Komponente, die er umschließt.
 
-Dieses Problem lässt sich aber leicht lösen, indem wir einfach die `PureTaskList` -- die darstellende Komponente, der wir im vorherigen Schritt ja ein `export` Statement hinzugefügt haben -- in unseren Storybook Stories rendern:
+Dieses Problem lässt sich aber leicht lösen, indem wir einfach die `PureTaskList` -- die darstellende Komponente, der wir im vorherigen Schritt ja ein `export`-Statement hinzugefügt haben -- in unseren Storybook-Stories rendern:
 
 ```javascript
 // src/components/TaskList.stories.js
@@ -165,5 +165,5 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
 </video>
 
 <div class="aside">
-Sollten deine Snapshot Tests nun fehlschlagen, musst du die bestehenden Snapshots aktualisieren, indem du das Test Script mit dem Flag <code>-u</code> ausführst.
+Sollten deine Snapshot Tests nun fehlschlagen, musst du die bestehenden Snapshots aktualisieren, indem du das Test-Script mit dem Flag <code>-u</code> ausführst.
 </div>
