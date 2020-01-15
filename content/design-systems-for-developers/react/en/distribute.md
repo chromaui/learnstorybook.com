@@ -279,7 +279,7 @@ The example app uses Storybook to facilitate [Component-Driven Development](http
 Clone the example app repository from GitHub
 
 ```bash
-git clone chromaui/learnstorybook-design-system-example-app
+git clone https://github.com/chromaui/learnstorybook-design-system-example-app.git
 ```
 
 Install the dependencies and start the app’s Storybook

@@ -69,7 +69,7 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
 
-````javascript
+```javascript
 // src/components/Task.stories.js
 
 export default {
@@ -88,7 +88,7 @@ Lastly, integrate the `object` knob type within the "default" story:
 export const Default = () => {
   return <Task task={object('task', { ...taskData })} {...actionsData} />;
 };
-````
+```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
 
