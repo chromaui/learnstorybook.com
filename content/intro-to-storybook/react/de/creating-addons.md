@@ -25,12 +25,16 @@ Wir werden [Parameter](https://storybook.js.org/docs/configurations/options-para
 <!-- this is probably not needed as it's used below-->
 
 ```javascript
-storiesOf("your-component", module)
-  .addParameters({
-    assets: ["path/to/your/asset.png"]
-  })
-  .addDecorator(/*...*/)
-  .add(/*...*/);
+export default {
+  title: 'Your component',
+  decorators: [
+    /*...*/
+  ],
+  parameters: {
+    assets: ['path/to/your/asset.png'],
+  },
+  //
+};
 ```
 
 <!-- -->
@@ -51,7 +55,7 @@ Wir haben umrissen, was unser Addon können soll, jetzt ist es Zeit, unsere loka
 <!--using npm here until the whole tutorial set is moved into npm or yarn issue #153-->
 
 ```bash
-  npm install --save-dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
+  yarn add --dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
 ```
 
 Wir müssen eine kleine Anpassung an der `.babelrc` Datei vornehmen, die wir in einem vorangeganenen Kapitel ja bereits angelegt haben. Und zwar müssen wir eine Referenz auf das Paket `@babel/preset-react` hinzufügen.
@@ -195,15 +199,20 @@ Dazu nehmen wir eine kleine Anpassung an der Datei `Task.stories.js` vor und fü
 
 ```javascript
 // src/components/Task.stories.js
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  component: Task,
+  title: 'Task',
+  decorators: [withKnobs],
+  parameters: {
     assets: [
       "path/to/your/asset.png",
       "path/to/another/asset.png",
       "path/to/yet/another/asset.png"
     ]
-  });
+  },
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+};
 /* same as before  */
 ```
 
