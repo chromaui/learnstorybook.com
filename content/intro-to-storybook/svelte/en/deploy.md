@@ -84,7 +84,7 @@ Now select the taskbox GitHub repo from the list of options.
 
 Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `npm run build-storybook`.
 
-![Netlify settings](/intro-to-storybook/netlify-settings.png)
+![Netlify settings](/intro-to-storybook/netlify-settings-npm.png)
 
 <div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
 
