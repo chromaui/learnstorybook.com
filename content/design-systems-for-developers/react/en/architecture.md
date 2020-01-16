@@ -87,7 +87,7 @@ Following this method, we end up with UI primitives: Avatar, Badge, Button, Chec
 Add the components we found by downloading them to your computer and dropping them into your repository, as well as removing the application files that Create React App provided:
 
 ```bash
-rm -rf src/*
+rm -rf src
 
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
 ```
