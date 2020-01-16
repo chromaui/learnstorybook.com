@@ -6,21 +6,21 @@ description: "Lerne, eigene Addons zu bauen, die deine Entwicklung beschleunigen
 
 Im letzten Kapitel haben wir eines der wichtigsten Features von Storybook kennengelernt, nämlich sein robustes [Addon-System](https://storybook.js.org/addons/introduction/), das nicht nur deine eigene, sondern auch die Entwicklungserfahrung und Prozesse in deinem ganzen Team verbessern kann.
 
-In diesem Kapitel werfen wir einen Blick darauf, wie wir unser eigenes Accon erstellen können. Vielleicht denkst du, dass es umständlich sein wird, das selbst zu schreiben, aber das stimmt nicht. In nur ein paar wenigen Schritten können wir schon damit loslegen, ein Addon zu entwickeln.
+In diesem Kapitel werfen wir einen Blick darauf, wie wir unser eigenes Addon erstellen können. Vielleicht denkst du, dass es umständlich sein wird, das selbst zu schreiben, aber das stimmt nicht. In nur ein paar wenigen Schritten können wir schon damit loslegen, ein Addon zu entwickeln.
 
 Aber eins nach dem anderen. Lass uns zunächst festlegen, was wir mit unserem Addon erreichen wollen.
 
 ## Das Addon, das wir schreiben werden
 
-Lass und für dieses Beispiel annehmen, dass unser Team einige Design Assets hat, die in irgendeiner Weise mit unseren existierenden UI-Komponenten in Verbindung stehen. Wenn wir uns die aktuelle Storybook UI ansehen, scheint es, dass solche Verbindungen nicht abgebildet werden können. Wie können wir das lösen?
+Lass und für dieses Beispiel annehmen, dass unser Team einige Design-Assets hat, die in irgendeiner Weise mit unseren existierenden UI-Komponenten in Verbindung stehen. Wenn wir uns die aktuelle Storybook-UI ansehen, scheint es, dass solche Verbindungen nicht abgebildet werden können. Wie können wir das lösen?
 
 Wir haben unser Ziel, nun lass uns definieren, welche Features unser Addon unterstützen wird:
 
-- Design Assets in einem Panel anzeigen
+- Design-Assets in einem Panel anzeigen
 - Sowohl Bilder als auch URLs für die Einbettung unterstützen
 - Mehrere Assets unterstützen, nur für den Fall, dass es mehrere Versionen oder Themes geben wird
 
-Wir werden [Parameter](https://storybook.js.org/docs/configurations/options-parameter/) verwenden, um eine Liste von Assets an unsere Story anzufügen. Dies ist eine Storybook Option, die uns ermöglicht, benutzerdefinierte Parameter an unsere Stories zu injecten. Das macht man auf ähnliche Weise, wie wir in den vorherigen Kapiteln schon einen Decorator verwendet haben.
+Wir werden [Parameter](https://storybook.js.org/docs/configurations/options-parameter/) verwenden, um eine Liste von Assets an unsere Story anzufügen. Dies ist eine Storybook-Option, die uns ermöglicht, benutzerdefinierte Parameter in unsere Stories zu injecten. Das macht man auf ähnliche Weise, wie wir in den vorherigen Kapiteln schon einen Decorator verwendet haben.
 
 <!-- this is probably not needed as it's used below-->
 
@@ -50,7 +50,7 @@ Wir haben umrissen, was unser Addon können soll, jetzt ist es Zeit, unsere loka
 - 📦 [@storybook/theming ](https://www.npmjs.com/package/@storybook/theming) für das Styling.
 - 🛠 [@babel/preset-react](https://babeljs.io/docs/en/babel-preset-react) um einige neue React Features korrekt zu transpilieren.
 
-Öffne eine Konsole, navigiere zum Projekt Verzeichnis und führe folgenden Befehl aus:
+Öffne eine Konsole, navigiere zum Projekt-Verzeichnis und führe folgenden Befehl aus:
 
 <!--using npm here until the whole tutorial set is moved into npm or yarn issue #153-->
 
@@ -58,7 +58,7 @@ Wir haben umrissen, was unser Addon können soll, jetzt ist es Zeit, unsere loka
   yarn add --dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
 ```
 
-Wir müssen eine kleine Anpassung an der `.babelrc` Datei vornehmen, die wir in einem vorangeganenen Kapitel ja bereits angelegt haben. Und zwar müssen wir eine Referenz auf das Paket `@babel/preset-react` hinzufügen.
+Wir müssen eine kleine Anpassung an der `.babelrc`-Datei vornehmen, die wir in einem vorangeganenen Kapitel ja bereits angelegt haben. Und zwar müssen wir eine Referenz auf das Paket `@babel/preset-react` hinzufügen.
 
 Die angepasste Datei sollte wie folgt aussehen:
 
@@ -73,7 +73,7 @@ Die angepasste Datei sollte wie folgt aussehen:
 
 Wir haben, was wir brauchen. Zeit, am eigentlichen Addon zu arbeiten.
 
-Erstelle innerhalb des `.storybook` Verzeichnisses einen neuen Ordner namens `addons` und darin eine Datei namens `design-assets.js` mit folgendem Inhalt:
+Erstelle innerhalb des `.storybook`-Verzeichnisses einen neuen Ordner namens `addons` und darin eine Datei namens `design-assets.js` mit folgendem Inhalt:
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -95,7 +95,7 @@ addons.register("my/design-assets", () => {
 ```
 
 <div class="aside">
-Wir werden das <code>.storybook</code> Verzeichnis als Speicherort für unser Addon verwenden. Und zwar einfach, weil wir einen möglichst unkomplizierten Ansatz fahren und verhindern wollen, es unnötig kompliziert zu machen. Sollte dieses Addon in ein tatsächliches Addon umgewandelt werden, sollte es am besten in ein separates Paket verschoben werden, mit eigener Datei- und Verzeichnisstruktur.
+Wir werden das <code>.storybook</code>-Verzeichnis als Speicherort für unser Addon verwenden. Und zwar einfach, weil wir einen möglichst unkomplizierten Ansatz fahren und verhindern wollen, es unnötig kompliziert zu machen. Sollte dieses Addon in ein tatsächliches Addon umgewandelt werden, sollte es am besten in ein separates Paket verschoben werden, mit eigener Datei- und Verzeichnisstruktur.
 </div>
 
 Das ist der typische Boilerplate-Code, um loslegen zu können. Hier kurz, was im Code geschieht:
@@ -103,7 +103,7 @@ Das ist der typische Boilerplate-Code, um loslegen zu können. Hier kurz, was im
 - Registriere ein neues Addon in unserem Storybook.
 - Füge ein neues UI-Element für unser Addon mit ein paar Optionen hinzu (ein Titel, der unser Addon benennt, und der verwendete Element-Typ) und rendere es mit einem kleinen Text.
 
-Wenn wir Storybook jetzt starten, werden wir unser Addon noch nicht sehen können. Wie zuvor mit dem Knobs Addon, müssen wir auch jetzt unser Addon zunächst in der Datei `.storybook/addons.js` registrieren. Füge einfach folgende Zeile hinzu und unser Addon sollte angezeigt werden:
+Wenn wir Storybook jetzt starten, werden wir unser Addon noch nicht sehen können. Wie zuvor mit dem Knobs-Addon, müssen wir auch jetzt unser Addon zunächst in der Datei `.storybook/addons.js` registrieren. Füge einfach folgende Zeile hinzu und unser Addon sollte angezeigt werden:
 
 ```js
 import "./addons/design-assets";
@@ -111,13 +111,13 @@ import "./addons/design-assets";
 
 ![Das Design-Assets Addon läuft in Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
 
-Erfolg! Wir haben unser neu erzeugtes Addon zur Storybook UI hinzugefügt.
+Erfolg! Wir haben unser neu erzeugtes Addon zur Storybook-UI hinzugefügt.
 
 <div class="aside">
 Storybook erlaubt dir, nicht nur Panels, sondern eine ganze Reihe unterschiedlicher Typen von UI-Komponenten hinzuzufügen. Und die meisten, wenn nicht sogar alle von ihnen, existieren bereits im <code>@storybook/components</code> Paket. Du musst deine Zeit also nicht mit der Entwicklung der UI verschwenden, sondern kannst dich auf Features konzentrieren.
 </div>
 
-### Die Content Komponente erstellen
+### Die Content-Komponente erstellen
 
 Den ersten Meilenstein haben wir erreicht. Zeit, sich an den Zweiten zu machen.
 
@@ -149,7 +149,7 @@ const Content = () => {
 };
 ```
 
-Wir haben die Komponente erstellt und die Imports angepasst, Was jetzt noch fehlt ist, die Komponente mit unserem Panel zu verbinden, und schon haben wir ein funktionierenes Addon, das Informationen, die mit unseren Stories in Verbindung stehen, darstellen kann.
+Wir haben die Komponente erstellt und die Imports angepasst. Was jetzt noch fehlt ist, die Komponente mit unserem Panel zu verbinden, und schon haben wir ein funktionierenes Addon, das Informationen, die mit unseren Stories in Verbindung stehen, darstellen kann.
 
 Dein Code sollte wie folgt aussehen:
 
@@ -195,7 +195,7 @@ Beachte, dass wir [useParameter](https://storybook.js.org/docs/addons/api/#usepa
 
 Jetzt haben wir alle Teile zusammengefügt. Aber wie können wir sehen, ob es auch wirklich funktioniert und uns etwas angezeigt wird?
 
-Dazu nehmen wir eine kleine Anpassung an der Datei `Task.stories.js` vor und fügen die [addParameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) Option hinzu.
+Dazu nehmen wir eine kleine Anpassung an der Datei `Task.stories.js` vor und fügen die [addParameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options)-Option hinzu.
 
 ```javascript
 // src/components/Task.stories.js
@@ -216,13 +216,13 @@ export default {
 /* same as before  */
 ```
 
-Nun starte Storybook neu und wähle die `Task` Story aus. Du solltest so etwas wie das hier sehen:
+Nun starte Storybook neu und wähle die `Task`-Story aus. Du solltest so etwas wie das hier sehen:
 
-![Die Storybook Story zeigt Inhalte mit dem Design Assets Addon an](/intro-to-storybook/create-addon-design-assets-inside-story.png)
+![Die Storybook-Story zeigt Inhalte mit dem Design-Assets-Addon an](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
 ### Die eigentlichen Assets anzeigen
 
-In diesem Stadium sehen wir, dass das Addon in unseren Stories erwartungsgemäß funktioniert, aber lass uns die `Content` Komponente so anpassen, dass sie auch wirklich die eigentlichen Assets anzeigt:
+In diesem Stadium sehen wir, dass das Addon in unseren Stories erwartungsgemäß funktioniert, aber lass uns die `Content`-Komponente so anpassen, dass sie auch wirklich die eigentlichen Assets anzeigt:
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -277,7 +277,6 @@ export const Content = () => {
       <Asset url={url} />
     </Fragment>
   );
-
 };
 ```
 
@@ -285,7 +284,7 @@ Wenn du genauer hinschaust, siehst du, dass wir das `styled`-Tag verwenden. Dies
 
 ### Tatsächliche Assets darstellen
 
-Damit die tatsächlichen Assets in unserem Addon dargestellt werden, müssen wir sie in das `public` Verzeichnis kopieren und die `addParameter` Option entsprechend anpassen.
+Damit die tatsächlichen Assets in unserem Addon dargestellt werden, müssen wir sie in das `public`-Verzeichnis kopieren und die `addParameter`-Option entsprechend anpassen.
 
 Storybook wird die Änderung übernehmen und die Assets laden. Allerdings zunächst nur das Erste.
 
@@ -295,13 +294,13 @@ Storybook wird die Änderung übernehmen und die Assets laden. Allerdings zunäc
 
 Checken wir noch mal unsere Ziele:
 
-- ✔️ Design Assets in einem Panel anzeigen
+- ✔️ Design-Assets in einem Panel anzeigen
 - ✔️ Sowohl Bilder als auch URLs für die Einbettung unterstützen
 - ❌ Mehrere Assets unterstützen, nur für den Fall, dass es mehrere Versionen oder Themes geben wird
 
 Wir haben es fast geschafft, nur noch ein Ziel ist offen.
 
-Für das letzte Ziel brauchen wir irgend eine Art von Zustand. Wir könnten React's `useState` verwenden, oder `this.setState()`, sofern wir mir Klassen-Komponenten arbeiten. Stattdessen wollen wir aber Storybook's eigenen `useAddonState` Hook verwenden, der uns dabei Hilft, den Addon-Zustand zu persistieren, ohne unnötige Logik für einen lokalen Zustand. Außerdem setzen wir ein weiteres UI-Element von Storybook ein, das uns erlaubt, zwischen Items zu wechseln: Die `ActionBar`.
+Für das letzte Ziel brauchen wir irgendeine Art von Zustand. Wir könnten Reacts `useState` verwenden, oder `this.setState()`, sofern wir mir Klassen-Komponenten arbeiten. Stattdessen wollen wir aber Storybooks eigenen `useAddonState`-Hook verwenden, der uns dabei hilft, den Addon-Zustand zu persistieren, ohne unnötige Logik für einen lokalen Zustand. Außerdem setzen wir ein weiteres UI-Element von Storybook ein, das uns erlaubt, zwischen Items zu wechseln: Die `ActionBar`.
 
 Wir müssen unsere Imports entsprechend anpassen:
 
@@ -312,7 +311,7 @@ import { AddonPanel, ActionBar } from "@storybook/components";
 /* same as before */
 ```
 
-Außerdem müssen wir unsere `Content` Komponente modifizieren, damit wir zwischen Assets wechseln können:
+Außerdem müssen wir unsere `Content`-Komponente modifizieren, damit wir zwischen Assets wechseln können:
 
 ```javascript
 //.storybook/addons/design-assets.js
@@ -352,7 +351,7 @@ export const Content = () => {
 
 ## Addon fertiggestellt
 
-Wir haben geschafft, was wir uns vorgenommen haben, nämlich ein voll funktionsfähiges Storybook Addon zu erstellen, das Design Assets anzeigt, die mit UI-Komponenten in Verbindung stehen.
+Wir haben geschafft, was wir uns vorgenommen haben, nämlich ein voll funktionsfähiges Storybook-Addon zu erstellen, das Design Assets anzeigt, die mit UI-Komponenten in Verbindung stehen.
 
 <details>
   <summary>Klicke, um den gesamten Code anzuzeigen, der in diesem Beispiel verwendet wurde</summary>
@@ -443,14 +442,14 @@ addons.register("my/design-assets", () => {
 
 Der nächste logische Schritt für unser Addon wäre, es in ein eigenes Paket umzuwandeln, um es dem gesamten Team zur Verfügung zu stellen und vielleicht sogar der ganzen Community.
 
-Aber das behandeln wir nicht in diesem Tutorial. Das Beispiel demonstriert, wie du die Storybook API nutzen kannst, um dein eigenes Addon zu schreiben und den Entwicklungs-Workflow weiter zu verbessern.
+Aber das behandeln wir nicht in diesem Tutorial. Das Beispiel demonstriert, wie du die Storybook-API nutzen kannst, um dein eigenes Addon zu schreiben und den Entwicklungs-Workflow weiter zu verbessern.
 
 So kannst du dein Addon noch weiter anpassen:
 
-- [Buttons zur Storybook hinzufügen](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
-- [durch den Channel mit einem IFrame kommunizieren](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
+- [Buttons zur Storybook-Toolbar hinzufügen](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
+- [durch den Channel mit einem Iframe kommunizieren](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
 - [Kommandos und Ergebnisse versenden](https://github.com/storybookjs/storybook/tree/next/addons/events)
-- [den HTML/CSS Output deiner Komponente analysieren](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
+- [den HTML-/CSS-Output deiner Komponente analysieren](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
 - [Komponenten wrappen, mit neuen Daten rendern](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
 - [DOM-Events auslösen, den DOM verändern](https://github.com/storybookjs/storybook/tree/next/addons/events)
 - [Tests ausführen](https://github.com/storybookjs/storybook/tree/next/addons/jest)
@@ -458,7 +457,7 @@ So kannst du dein Addon noch weiter anpassen:
 Und vieles mehr!
 
 <div class="aside">
-Falls du ein neues Addon entwickeln und daran interessiert sein solltest, dass wir es in der Dokumentation mit auflisten, fühl dich frei, einen PR mit einer angepassten Storybook-Dokumentation zu stellen.
+Falls du ein neues Addon entwickeln und daran interessiert sein solltest, dass wir es in der Dokumentation mit auflisten, fühl' dich frei, einen PR mit einer angepassten Storybook-Dokumentation zu stellen.
 </div>
 
 ### Entwickler-Kits

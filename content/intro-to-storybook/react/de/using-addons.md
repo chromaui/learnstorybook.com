@@ -10,14 +10,14 @@ Storybook rühmt sich eines robuten [Addon-Systems](https://storybook.js.org/add
 <div class="aside">
 <strong>Auf der Suche nach einer Liste verfügbarer Addons?</strong>
 <br/>
-😍 <a href="https://storybook.js.org/addons/addon-gallery/">Hier</a> findest du die Liste offiziell unterstützter und aktiv unterstützer Community Addons.
+😍 <a href="https://storybook.js.org/addons/addon-gallery/">Hier</a> findest du die Liste offiziell unterstützter und der Community aktiv unterstützer Addons.
 </div>
 
-Wir könnten unendlich viel über die Verwendung von Addons für all deine speziellen Anwendungsfälle schreiben. Für's Erste, lass uns auf die Integration eines der am weitesten verbreiteten Addons innerhalb des Storybook-Ökosystems hinarbeiten: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+Wir könnten unendlich viel über die Verwendung von Addons für all deine speziellen Anwendungsfälle schreiben. Fürs Erste, lass uns auf die Integration eines der am weitesten verbreiteten Addons innerhalb des Storybook-Ökosystems hinarbeiten: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
 
 ## Knobs einrichten
 
-Knobs (Knöpfe) sind eine tolle Möglichkeit für Designer und Entwickler, um in einer kontrollierten Umgebung mit Komponenten herum zu experimentieren und zu spielen, ohne die Notwendigkeit von Code! Im Grunde stellst du dynamisch definierte Felder zur Verfügung, mit denen ein Benutzer die Props manipulieren kann, die den Komponenten deiner Stories übergeben werden. Folgendes werden wir entwickeln...
+Knobs (Knöpfe) sind eine tolle Möglichkeit für Designer und Entwickler, um in einer kontrollierten Umgebung mit Komponenten herumzuexperimentieren und zu spielen, ohne die Notwendigkeit von Code! Im Grunde stellst du dynamisch definierte Felder zur Verfügung, mit denen ein Benutzer die Props manipulieren kann, die den Komponenten deiner Stories übergeben werden. Folgendes werden wir entwickeln...
 
 <video autoPlay muted playsInline loop>
   <source
@@ -45,7 +45,7 @@ import '@storybook/addon-links/register';
 ```
 
 <div class="aside">
-<strong>📝 Die Reihnfolge der Addon Registrierung ist wichtig!</strong>
+<strong>📝 Die Reihenfolge der Addon-Registrierung ist wichtig!</strong>
 <br/>
 Die Reihenfolge, in der du die Addons auflistest, bestimmt die Reihenfolge, in der sie als Tabs im Addon-Panel erscheinen (für diejenigen, die dort angezeigt werden).
 </div>
@@ -54,9 +54,9 @@ Das war's! Zeit, das Addon in der Story einzusetzen.
 
 ### Verwendung
 
-Lass uns den Knob-Type "Objekt" in der `Task` Komponente benutzen.
+Lass uns den Knob-Type "Objekt" in der `Task`-Komponente benutzen.
 
-Importiere zunächst den `withKnobs` Decorator und den `object` Knob-Type in `Task.stories.js`:
+Importiere zunächst den `withKnobs`-Decorator und den `object`-Knob-Type in `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
@@ -66,7 +66,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
-Füge als Nächstes `withKnobs` in das `decorators`-Array des `default` Exports von `Task.stories.js` hinzu:
+Füge als Nächstes `withKnobs` in das `decorators`-Array des `default`-Exports von `Task.stories.js` hinzu:
 
 ```javascript
 // src/components/Task.stories.js
@@ -79,7 +79,7 @@ export default {
 };
 ```
 
-Zuletzt integriere noch den `object` Knob-Type in die "default" Story:
+Zuletzt integriere noch den `object`-Knob-Type in die "default"-Story:
 
 ```javascript
 // src/components/Task.stories.js
@@ -89,21 +89,21 @@ export const Default = () => {
 };
 ```
 
-Nun sollte ein "Knobs" Tab neben dem "Action Logger" Tab im unteren Bereich der Seite erscheinen.
+Nun sollte ein "Knobs"-Tab neben dem "Action Logger"-Tab im unteren Bereich der Seite erscheinen.
 
-Wie [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#object) dokumentiert, akzeptiert der `object` Knob-Type ein Label und ein Standard-Objeke als Parameter. Das Label ist fix und wird links von einem Textfeld in deinem Addons-Panel angezeigt. Das Standard-Objekt, das du definiert hast, wird als editierbarer JSON-Schnipsel angezeigt. So lange du valides JSON darin einträgst, wird deine Komponente basierend aus den im JSON-Objekt enthaltenen Daten aktualisiert.
+Wie [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#object) dokumentiert, akzeptiert der `object`-Knob-Type ein Label und ein Standard-Objekt als Parameter. Das Label ist fix und wird links von einem Textfeld in deinem Addons-Panel angezeigt. Das Standard-Objekt, das du definiert hast, wird als editierbarer JSON-Schnipsel angezeigt. So lange du valides JSON darin einträgst, wird deine Komponente basierend aus den im JSON-Objekt enthaltenen Daten aktualisiert.
 
 ## Addons erweitern den Umfang deines Storybooks
 
-Deine Storybook-Instanz dient nicht nur als eine wunderbare [CDD-Umgebung](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), sondern du bietest damit nun auch eine interaktive Dokumentation an. PropTypes sind toll, aber ein Designer oder jemand, der den Code einer Komponente noch gar nicht kennt, kann über Storybook mit aktiviertem Knobs Addon das Verhalten der Komponente sehr einfach kennenlernen.
+Deine Storybook-Instanz dient nicht nur als eine wunderbare [CDD-Umgebung](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), sondern du bietest damit nun auch eine interaktive Dokumentation an. PropTypes sind toll, aber ein Designer oder jemand, der den Code einer Komponente noch gar nicht kennt, kann über Storybook mit aktiviertem Knobs-Addon das Verhalten der Komponente sehr einfach kennenlernen.
 
 ## Knobs nutzen, um Grenzfälle zu identifizieren
 
-Hinzu kommt, dass QA Engineers oder präventive UI Engineers mit der einfachen Möglichkeit, die an eine Komponente übergebenen Daten zu bearbeiten, diese nun bis an ihre Grenzen bringen können! Ein Beispiel: Was passiert mit der `Task` Komponente, wenn einer Aufgabe einen _EXTREM LANGEN_ String beinhaltet?
+Hinzu kommt, dass QA-Engineers oder präventive UI-Engineers mit der einfachen Möglichkeit, die an eine Komponente übergebenen Daten zu bearbeiten, diese nun bis an ihre Grenzen bringen können! Ein Beispiel: Was passiert mit der `Task`-Komponente, wenn eine Aufgabe einen _EXTREM LANGEN_ String beinhaltet?
 
 ![Oh nein! Der Inhalt wird rechts abgeschnitten!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Dank der Möglichkeit, sehr schnell verschiedene Inputs an einer Komponente auszuprobieren, können wir solche Probleme relativ einfach finden und lösen. Lass uns das Problem des Überlaufens Lösen, indem wir ein `style` Attribut in `Task.js` ergänzen:
+Dank der Möglichkeit, sehr schnell verschiedene Inputs an einer Komponente auszuprobieren, können wir solche Probleme relativ einfach finden und lösen. Lass uns das Problem des Überlaufens lösen, indem wir ein `style`-Attribut in `Task.js` ergänzen:
 
 ```javascript
 // src/components/Task.js
@@ -137,9 +137,9 @@ export const LongTitle = () => (
 );
 ```
 
-Nun, da wir die Story hinzugefügt haben, können wir diesen Grenzfall ganz einfach reproduziere, wann immer wir daran arbeiten wollen:
+Nun, da wir die Story hinzugefügt haben, können wir diesen Grenzfall ganz einfach reproduzieren, wann immer wir daran arbeiten wollen:
 
-![Hier ist es in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
+![Hier ist sie in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
 Sofern wir [visuelle Regressions-Tests](/react/de/test/) verwenden, werden wir nun auch darauf aufmerksam gemacht, falls wir unsere Umbruch-Lösung je kaputt machen sollten. Solche versteckten Grenzfälle werden nur zu gerne vergessen.
 
@@ -149,4 +149,4 @@ Vergiss nicht, deine Änderungen in Git zu mergen!
 
 ## Addons mit dem Team teilen
 
-Knobs ist eine schöne Möglichkeit für Nicht-Entwickler mit deinen Komponenten und Stories herum zu spielen. Es könnte ihnen aber Schwierigkeiten bereiten, das Storybook auf ihren lokalen Rechnern zu starten. Aus diesem Grund kann es hilfreich sein, dein Storybook online zu deployen. Im nächsten Kapitel machen wir genau das!
+Knobs ist eine schöne Möglichkeit für Nicht-Entwickler mit deinen Komponenten und Stories herumzuspielen. Es könnte ihnen aber Schwierigkeiten bereiten, das Storybook auf ihren lokalen Rechnern zu starten. Aus diesem Grund kann es hilfreich sein, dein Storybook online zu deployen. Im nächsten Kapitel machen wir genau das!
