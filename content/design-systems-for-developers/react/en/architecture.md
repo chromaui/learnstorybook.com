@@ -101,7 +101,7 @@ For the code sample, we’ve selected a subset of these components to make reaso
 We’ll also need to update dependencies that our components rely on.
 
 ```bash
-yarn add prop-types styled-components polished
+yarn add styled-components polished
 ```
 
 <div class="aside">CSS-in-JS: We use <a href="https://www.styled-components.com">styled-components</a>, a library that allows us to scope styling to the component. There are other valid methods to style components including targeting classes manually, CSS modules, etc.</div>
