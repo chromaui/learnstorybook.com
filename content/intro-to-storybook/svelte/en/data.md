@@ -78,7 +78,8 @@ In `src/components/PureTaskList.svelte`:
   <LoadingRow />
   <LoadingRow />
 </div>
-{/if} {#if noTasks && !loading}
+{/if} 
+{#if noTasks && !loading}
 <div class="list-items">
   <div class="wrapper-message">
     <span class="icon-check" />
@@ -86,7 +87,8 @@ In `src/components/PureTaskList.svelte`:
     <div class="subtitle-message">Sit back and relax</div>
   </div>
 </div>
-{/if} {#each tasksInOrder as task}
+{/if} 
+{#each tasksInOrder as task}
 <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
@@ -107,9 +109,9 @@ In `src/components/TaskList.svelte`:
 
 <div>
   <PureTaskList
-    tasks="{$taskStore}"
-    on:onPinTask="{onPinTask}"
-    on:onArchiveTask="{onArchiveTask}"
+    tasks={$taskStore}
+    on:onPinTask={onPinTask}
+    on:onArchiveTask={onArchiveTask}
   />
 </div>
 ```
@@ -133,7 +135,6 @@ export const defaultTasksData = [
 ];
 export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 // default TaskList state
