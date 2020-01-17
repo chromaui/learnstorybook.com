@@ -40,18 +40,6 @@ window.___navigate = pathname => {
   action('NavigateTo:')(pathname);
 };
 
-// automatically import all files ending in *.stories.js
-// before csf
-/* const req = require.context('../src', true, /\.stories\.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module); */
-
-// change to csf
-configure(require.context('../src', true, /\.stories\.js$/), module);
-
 addDecorator(withA11y);
 
 addDecorator(story => (
