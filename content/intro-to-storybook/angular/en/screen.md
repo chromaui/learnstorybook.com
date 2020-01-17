@@ -13,9 +13,11 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskListComponent` (which supplies its own data via ngxs) in some layout and pulling a top-level `error` field out of our store (let's assume we'll set that field if we have some problem connecting to our server).
 
-Let's start by updating the store ( in `src/app/tasks/state/task.state.ts`) to include the error field we want:
+Let's start by updating the store ( in `src/app/state/task.state.ts`) to include the error field we want:
 
 ```typescript
+// src/app/state/task.state.ts
+
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { Task } from '../models/task.model';
 
@@ -120,9 +122,11 @@ export class TasksState {
 }
 ```
 
-The store is updated with the new field. Let's create a presentational `pure-inbox-screen.component.ts` in `src/app/tasks/` folder:
+The store is updated with the new field. Let's create a presentational `pure-inbox-screen.component.ts` in `src/app/components/` folder:
 
 ```typescript
+// src/app/components/pure-inbox-screen.component.ts
+
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -158,6 +162,9 @@ export class PureInboxScreenComponent implements OnInit {
 Then we can create the container, which like before, grabs the data for `PureInboxScreenComponent`. In a new file called `inbox-screen.component.ts`:
 
 ```typescript
+
+// src/app/components/inbox-screen.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { TasksState } from '../state/task.state';
@@ -181,6 +188,8 @@ export class InboxScreenComponent implements OnInit {
 We also need to change the `AppComponent` to render the `InboxScreenComponent` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```typescript
+//src/app/app.component.ts
+
 import { Component } from '@angular/core';
 
 @Component({
@@ -197,6 +206,8 @@ export class AppComponent {
 And finally the `app.module.ts`:
 
 ```typescript
+//src/app/app.module.ts
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TaskModule } from './tasks/task.module';
@@ -204,8 +215,8 @@ import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppComponent } from './app.component';
-import { InboxScreenComponent } from './tasks/inbox-screen.component';
-import { PureInboxScreenComponent } from './tasks/pure-inbox-screen.component';
+import { InboxScreenComponent } from './components/inbox-screen.component';
+import { PureInboxScreenComponent } from './components/pure-inbox-screen.component';
 
 @NgModule({
   declarations: [AppComponent, InboxScreenComponent, PureInboxScreenComponent],
@@ -232,6 +243,8 @@ When placing the `TaskListComponent` into Storybook, we were able to dodge this 
 However, for the `PureInboxScreenComponent` we have a problem because although the `PureInboxScreenComponent` itself is presentational, its child, the `TaskListComponent`, is not. In a sense the `PureInboxScreenComponent` has been polluted by “container-ness”. So when we setup our stories in `pure-inbox-screen.stories.ts`:
 
 ```typescript
+// src/app/components/pure-inbox-screen.stories.ts
+
 import { moduleMetadata } from '@storybook/angular';
 import { PureInboxScreenComponent } from './pure-inbox-screen.component';
 import { TaskModule } from './task.module';
@@ -272,6 +285,8 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is that is pretty straightforward to supply the `Store` to the `PureInboxScreenComponent` in a story! We can supply the `Store` provided in a decorator:
 
 ```typescript
+// src/app/components/pure-inbox-screen.stories.ts
+
 import { moduleMetadata } from '@storybook/angular';
 import { PureInboxScreenComponent } from './pure-inbox-screen.component';
 import { TaskModule } from './task.module';

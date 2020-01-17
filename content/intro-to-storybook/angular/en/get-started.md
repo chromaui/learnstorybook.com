@@ -80,6 +80,7 @@ Now in the root of your project folder, create a file called `babel.config.js` w
 
 ```javascript
 module.exports = function(api) {
+  process.env.NODE_ENV === "development" ? api.cache(false) : api.cache(true);
   const presets = [
     [
       '@babel/preset-env',
@@ -261,11 +262,13 @@ And make a small change to allow the icons in the `percolate` font to be correct
 
 ```css
 @font-face {
-  font-family: 'percolate';
-  src: url('./assets/icon/percolate.eot?-5w3um4');
-  src: url('./assets/icon/percolate.eot?#iefix5w3um4') format('embedded-opentype'), url('./assets/icon/percolate.woff?5w3um4')
-      format('woff'), url('./assets/icon/percolate.ttf?5w3um4') format('truetype'), url('./assets/icon/percolate.svg?5w3um4')
-      format('svg');
+  font-family: "percolate";
+  src: url("/assets/icon/percolate.eot?-5w3um4");
+  src: url("/assets/icon/percolate.eot?#iefix5w3um4")
+      format("embedded-opentype"),
+    url("/assets/icon/percolate.woff?5w3um4") format("woff"),
+    url("/assets/icon/percolate.ttf?5w3um4") format("truetype"),
+    url("/assets/icon/percolate.svg?5w3um4") format("svg");
   font-weight: normal;
   font-style: normal;
 }

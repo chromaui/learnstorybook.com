@@ -34,14 +34,16 @@ First, we will need to install all the necessary dependencies.
 npm install -D @storybook/addon-knobs
 ```
 
-Register Knobs in your `.storybook/addons.js` file.
+Register Knobs in your `.storybook/main.js` file.
 
 ```javascript
-// .storybook/addons.js
+// .storybook/main.js
 
-import '@storybook/addon-actions/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-links/register';
+module.exports = {
+  stories: ['../src/app/components/**/*.stories.ts'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links','@storybook/addon-knobs'],
+};
+
 ```
 
 <div class="aside">
@@ -59,7 +61,7 @@ Let's use the object knob type in the `Task` component.
 First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
 
 ```javascript
-// src/app/tasks/task.stories.ts
+// src/app/components/task.stories.ts
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
@@ -67,7 +69,7 @@ import { withKnobs, object } from '@storybook/addon-knobs';
 Next, within the `default` export of the `Task.stories` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
-// src/app/tasks/task.stories.ts
+// src/app/components/task.stories.ts
 export default {
   title: 'Task',
   decorators: [withKnobs],
@@ -78,7 +80,7 @@ export default {
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
-// src/app/tasks/task.stories.ts
+// src/app/components/task.stories.ts
 
 // default task state
 export const Default = () => ({
@@ -126,11 +128,11 @@ Not only does your Storybook instance serve as a wonderful [CDD environment](htt
 
 ## Using Knobs To Find Edge-Cases
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string?
+Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `TaskComponent` if our list item has a _MASSIVE_ string?
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
+Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `task.component.ts`:
 
 ```html
 <!-- src/app/tasks/task.component.ts -->
@@ -157,7 +159,7 @@ Of course we can always reproduce this problem by entering the same input into t
 Let's add a story for the long text case in Task.stories.js:
 
 ```javascript
-// src/app/tasks/task.stories.ts
+// src/app/components/task.stories.ts
 
 // tslint:disable-next-line: max-line-length
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;

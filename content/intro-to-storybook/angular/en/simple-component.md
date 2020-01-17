@@ -22,11 +22,12 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 ## Get setup
 
-First, let’s create the task component and its accompanying story file: `src/app/tasks/task.component.ts` and `src/app/tasks/task.stories.ts`.
+First, let’s create the task component and its accompanying story file: `src/app/components/task.component.ts` and `src/app/components/task.stories.ts`.
 
 We’ll begin with the baseline implementation of the `TaskComponent`, simply taking in the inputs we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```typescript
+// src/app/components/task.component.ts
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -58,6 +59,7 @@ Above, we render straightforward markup for `TaskComponent` based on the existin
 Below we build out Task’s three test states in the story file:
 
 ```typescript
+// src/app/components/task.stories.ts
 import { action } from '@storybook/addon-actions';
 import { TaskComponent } from './task.component';
 export default {
@@ -139,13 +141,13 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.ts` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.type.extension` naming scheme favoured when developing Angular apps.
+We also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```javascript
-import { configure } from '@storybook/angular';
-
-import '../src/styles.css';
-configure(require.context('../src/app/', true, /\.stories\.ts$/), module);
+module.exports = {
+  stories: ['../src/app/components/**/*.stories.ts'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-notes'],
+};
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three states of TaskComponent:
@@ -164,6 +166,8 @@ It’s best practice to specify the shape of data that a component expects. Not 
 Create a new folder called `models` inside `app` folder and inside a new file called `task.model.ts` with the following content:
 
 ```typescript
+// src/app/models/task.model.ts
+
 export interface Task {
   id: string;
   title: string;
@@ -178,8 +182,9 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
 
 ```typescript
+// src/app/components/task.component.ts
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
-
 @Component({
   selector: 'app-task',
   template: `
@@ -221,7 +226,6 @@ export class TaskComponent implements OnInit {
   onPin(id: any) {
     this.onPinTask.emit(id);
   }
-
   onArchive(id: any) {
     this.onArchiveTask.emit(id);
   }
@@ -255,43 +259,20 @@ Snapshot testing refers to the practice of recording the “known good” output
 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
+With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
 
 ```bash
-npm install -D @storybook/addon-storyshots babel-plugin-require-context-hook
-```
-
-Update the `babel.config.js` that was created in the previous section to the following:
-
-```javascript
-module.exports = function(api) {
-  const isTest = api.env('test');
-  const presets = [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          node: 'current',
-        },
-      },
-    ],
-    '@babel/preset-typescript',
-  ];
-  return {
-    presets,
-    plugins: isTest ? ['require-context-hook'] : [],
-  };
-};
+npm install -D @storybook/addon-storyshots
 ```
 
 Then create the `src/storybook.test.js` file with the following in it:
 
 ```typescript
-import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
+// src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 
-registerRequireContextHook();
 initStoryshots();
+
 ```
 
 Finally we need to make a small change in the `jest` key in our `package.json`:

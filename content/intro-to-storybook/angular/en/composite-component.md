@@ -19,11 +19,13 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ## Get setup
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/app/tasks/task-list.component.ts` and `src/app/tasks/task-list.stories.ts`.
+A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/app/components/task-list.component.ts` and `src/app/components/task-list.stories.ts`.
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs and events.
 
 ```typescript
+// src/app/components/task-list.component.ts
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 
@@ -61,6 +63,8 @@ export class TaskListComponent implements OnInit {
 Next create `Tasklist`’s test states in the story file.
 
 ```typescript
+// src/app/components/task-list.stories.ts
+
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { TaskListComponent } from './task-list.component';
@@ -154,9 +158,11 @@ Now check Storybook for the new `TaskList` stories.
 
 ## Build out the states
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskListComponent` is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskListComponent` is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
 
 ```typescript
+// src/app/components/task-list.component.ts
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 
@@ -238,13 +244,15 @@ Storybook stories paired with manual visual tests and snapshot tests (see above)
 
 However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
 
-In our case, we want our `TaskListComponent` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`withPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+In our case, we want our `TaskListComponent` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
 
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
 Create a test file called `task-list.component.spec.ts`. Here we’ll build out our tests that make assertions about the output.
 
 ```typescript
+// src/app/components/task-list.component.spec.ts
+
 import { render } from '@testing-library/angular';
 import { TaskListComponent } from './task-list.component';
 import { TaskComponent } from './task.component';
@@ -261,12 +269,13 @@ describe('TaskList component', () => {
           emit: mockedActions,
         } as any,
         onArchiveTask: {
-          emit: mockedActions
-        } as any
-      }
+          emit: mockedActions,
+        } as any,
+      },
     });
     const component = tree.fixture.componentInstance;
     expect(component.tasksInOrder[0].id).toBe('6');
+  });
 });
 ```
 

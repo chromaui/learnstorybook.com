@@ -21,9 +21,10 @@ First install ngxs with:
 npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 ```
 
-Then we'll construct a straightforward store that responds to actions that change the state of tasks, in a file called `src/app/tasks/state/task.state.ts` (intentionally kept simple):
+Then we'll construct a straightforward store that responds to actions that change the state of tasks, in a file called `src/app/state/task.state.ts` (intentionally kept simple):
 
 ```typescript
+// src/app/state/task.state.ts
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { Task } from '../models/task.model';
 
@@ -107,9 +108,10 @@ We have the store implemented, we need to take a couple of steps before connecti
 
 Let's move our existing presentational version to a new component called `pure-task-list.component.ts`, (renaming the `selector` to `app-pure-task-list`) which will be later wrapped in a container.
 
-In `src/app/tasks/pure-task-list.component.ts`:
+In `src/app/components/pure-task-list.component.ts`:
 
 ```typescript
+//src/app/components/pure-task-list.component.ts
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
@@ -118,13 +120,16 @@ import { Task } from '../models/task.model';
   selector: 'app-pure-task-list',
   // same content as before with the task-list.component.ts
 })
+export class PureTaskListComponent implements OnInit {
+  // same content as before with the task-list.component.ts
 }
-
 ```
 
-In `src/app/tasks/task-list.component.ts`:
+In `src/app/components/task-list.component.ts`:
 
 ```typescript
+// src/app/components/task-list.component.ts
+
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
@@ -159,9 +164,11 @@ export class TaskListComponent implements OnInit {
 
 Now we're going to create a angular module to bridge the components and the store.
 
-Create a new file called `task.module.ts` inside the `tasks` folder and add the following:
+Create a new file called `task.module.ts` inside the `components` folder and add the following:
 
 ```typescript
+//src/app/components/task.module.ts
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxsModule } from '@ngxs/store';
@@ -180,12 +187,14 @@ import { PureTaskListComponent } from './pure-task-list.component';
 export class TaskModule {}
 ```
 
-All the pieces are in place, all that is needed is wire the store to the app. In our top level component (src/app/app.module.ts):
+All the pieces are in place, all that is needed is wire the store to the app. In our top level component (`src/app/app.module.ts`):
 
 ```typescript
+// src/app/app.module.ts
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { TaskModule } from './tasks/task.module';
+import { TaskModule } from './components/task.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -206,9 +215,11 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/app/tasks/task-list.stories.ts` into `src/app/tasks/pure-task-list.stories.ts`, and ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/app/components/task-list.stories.ts` into `src/app/components/pure-task-list.stories.ts`, and ensure our stories use the presentational version:
 
 ```typescript
+// src/app/components/pure-task-list.stories.ts
+
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { PureTaskListComponent } from './pure-task-list.component';
@@ -295,6 +306,9 @@ export const Empty = () => ({
 Similarly, we need to use `PureTaskListComponent` in our Jest test:
 
 ```typescript
+
+// src/app/components/task-list.component.spec.ts
+
 import { render } from '@testing-library/angular';
 import { PureTaskListComponent } from './pure-task-list.component';
 import { TaskComponent } from './task.component';
