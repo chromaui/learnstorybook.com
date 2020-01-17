@@ -1,7 +1,7 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: 'Build the core component'
+tocTitle: 'Core component'
+description: 'Build the core component in isolation'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -23,7 +23,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 First, let’s create the task component and its accompanying story file: `src/components/Task.svelte` and `src/components/Task.stories.js`.
 
-We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```html
 <!--src/components/Task.svelte-->
@@ -56,7 +56,7 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 </script>
 
 <div class="list-item">
-  <input type="text" value="{task.title}" readonly />
+  <input type="text" value={task.title} readonly />
 </div>
 ```
 
@@ -67,7 +67,7 @@ Below we build out Task’s three test states in the story file:
 ```javascript
 // src/components/Task.stories.js
 import Task from './Task.svelte';
-
+import { action } from "@storybook/addon-actions";
 export default {
   title: 'Task',
   excludeStories: /.*Data$/,
@@ -123,8 +123,6 @@ export const Archived = () => ({
 });
 ```
 
-The default action was named `Default` per convention, the `excludeStories` prop was added to avoid Storybook treating both the `taskData` and `actionsData` as actual stories, you can read more about it [here](https://storybook.js.org/docs/formats/component-story-format/#non-story-exports).
-
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 - **Component**
@@ -132,15 +130,21 @@ There are two basic levels of organization in Storybook: the component and its c
   - Story
   - Story
 
-Up until now, to initiate Storybook we first had to call the `storiesOf()` function to register the component. Then set a display name for the component –the name that appears on the sidebar in the Storybook app. As of now you can simplify the way the stories are written and later consumed by Storybook, by using standard ES6 exports. You can read more about it [here](https://storybook.js.org/docs/formats/component-story-format/).
+To tell Storybook about the component we are documenting, we create a `default` export that contains:
+
+- `component` -- the component itself,
+- `title` -- how to refer to the component in the sidebar of the Storybook app,
+- `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state.
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and pass them into our story definition each time (where they will be accessed when the `dispatch` function is invoked).
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time (where they will be accessed when the `dispatch` function is invoked).
 
-Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
-When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
@@ -148,16 +152,27 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` or `.spec.js` naming scheme favoured by CRA or Vue CLI for automated tests.
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allow us to use the CSS that was added in the [previous section](/svelte/en/get-started).
+
+Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```javascript
-// .storybook/config.js
-import { configure } from '@storybook/svelte';
-import '../src/index.css';
-configure(require.context('../src/components', true, /\.stories\.js$/), module);
+// .storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+};
+
 ```
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
+After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
+
+```javascript
+// .storybook/preview.js
+import '../public/global.css'
+```
+
+Once we’ve done these two small changes, restarting Storybook should yield test cases for the three Task states:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -165,6 +180,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
     type="video/mp4"
   />
 </video>
+
 
 ## Build out the states
 
@@ -204,17 +220,17 @@ The component is still basic at the moment. First write the code that achieves t
   // reactive declaration (computed prop in other frameworks)
   $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
-<div class="{`list-item" ${task.state}`}>
+<div class={`list-item ${task.state}`}>
   <label class="checkbox">
-    <input type="checkbox" checked="{isChecked}" disabled name="checked" />
-    <span class="checkbox-custom" on:click="{ArchiveTask}" />
+    <input type="checkbox" checked={isChecked} disabled name="checked" />
+    <span class="checkbox-custom" on:click={ArchiveTask} />
   </label>
   <div class="title">
-    <input type="text" readonly value="{task.title}" placeholder="Input title" />
+    <input type="text" readonly value={task.title} placeholder="Input title" />
   </div>
   <div class="actions">
     {#if task.state !== 'TASK_ARCHIVED'}
-    <a href="/" on:click|preventDefault="{PinTask}">
+    <a href="/" on:click|preventDefault={PinTask}>
       <span class="icon-star" />
     </a>
     {/if}
@@ -249,13 +265,13 @@ Snapshot testing refers to the practice of recording the “known good” output
 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependencies:
+With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
 
 ```bash
-npm install -D @storybook/addon-storyshots babel-plugin-require-context-hook
+npm install -D @storybook/addon-storyshots
 ```
 
-Then create an `src/storybook.test.js` file with the following in it:
+Then create an `src/storybook.test.js` file with the following:
 
 ```javascript
 // src/storybook.test.js
@@ -263,52 +279,6 @@ import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
 ```
-
-And enable it by changing the `.babelrc` file in the root folder of your app (same level as `package.json`) to the following:
-
-```json
-// .babelrc
-{
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ]
-  ],
-  "env": {
-    "test": {
-      "plugins": ["require-context-hook"]
-    }
-  }
-}
-```
-
-Then update `.storybook/config.js` to have:
-
-```js
-// .storybook/config.js
-import { configure } from '@storybook/svelte';
-import '../src/index.css';
-
-const req = require.context('../src/components', true, /\.stories\.js$/);
-
-configure(req, module);
-```
-
-We have almost everything in place to allow snapshot testing with jest and Storybook. We need to take a couple of final steps for our environment to work correctly.
-
-First create a new file `.jest/register-context.js` and add the following content:
-
-```javascript
-import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
-registerRequireContextHook();
-```
-
-With this file we're making sure Storybook and Jest can introspect our project and make the necessary snapshot tests.
 
 And finally we need to make a small adjustment to our `jest` key in `package.json`:
 
@@ -322,8 +292,7 @@ And finally we need to make a small adjustment to our `jest` key in `package.jso
       "^.+\\.svelte$": "jest-transform-svelte"
     },
     "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect",
-      "<rootDir>/.jest/register-context.js"
+      "@testing-library/jest-dom/extend-expect"
     ],
   }
 }

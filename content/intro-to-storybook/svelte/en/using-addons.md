@@ -34,14 +34,16 @@ First, we will need to install all the necessary dependencies.
 npm install -D @storybook/addon-knobs
 ```
 
-Register Knobs in your `.storybook/addons.js` file.
+Register Knobs in your `.storybook/main.js` file.
 
 ```javascript
-// .storybook/addons.js
+// .storybook/main.js
 
-import '@storybook/addon-actions/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-links/register';
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links','@storybook/addon-knobs'],
+};
+
 ```
 
 <div class="aside">
@@ -60,13 +62,11 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 
 ```javascript
 // src/components/Task.stories.js
-
-import Task from './Task.svelte';
-import { taskData, actionsData } from "./Task.stories";
+import { action } from "@storybook/addon-actions";
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
+Next, within the `default` export of the `Task.stories` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
 // src/components/Task.stories.js
@@ -141,7 +141,7 @@ Thanks to quickly being able to try different inputs to a component we can find 
 <input
   type="text"
   readonly
-  value="{task.title}"
+  value={task.title}
   placeholder="Input title"
   style="text-overflow: ellipsis;"
 />
@@ -160,14 +160,14 @@ Let's add a story for the long text case in Task.stories.js:
 
 // above code stays the same
 
-const reallylongTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = () => ({
   Component: Task,
   props: {
     task: {
       ...taskData,
-      title: reallylongTitle
+      title: longTitle
     }
   }
 });
