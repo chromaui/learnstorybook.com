@@ -60,7 +60,7 @@ const CommunityAvatars = styled.div`
   flex-wrap: wrap;
 `;
 
-const AvatarWrapper = styled(Avatar).attrs({ size: 'large' })`
+const AvatarWrapper = styled(Avatar).attrs(() => ({ size: 'large' }))`
   min-width: 40px;
   margin: 10px;
 `;
