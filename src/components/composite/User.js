@@ -5,7 +5,7 @@ import { Avatar, styles } from '@storybook/design-system';
 
 const { color, typography } = styles;
 
-const AvatarWrapper = styled(Avatar).attrs({ size: 'large' })`
+const AvatarWrapper = styled(Avatar).attrs(() => ({ size: 'large' }))`
   min-width: 40px;
 `;
 

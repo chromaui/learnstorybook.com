@@ -20,7 +20,7 @@ const ButtonContent = styled.div`
   font-weight: ${typography.weight.extrabold};
 `;
 
-const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
+const ChevronDownIcon = styled(Icon).attrs(() => ({ icon: 'chevrondown' }))`
   && {
     width: 8px;
     height: 8px;

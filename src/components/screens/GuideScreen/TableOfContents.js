@@ -7,7 +7,7 @@ import BoxLink from '../../basics/BoxLink';
 
 const { color, typography } = styles;
 
-const BoxLinkWrapper = styled(BoxLink).attrs({ isInternal: true })`
+const BoxLinkWrapper = styled(BoxLink).attrs(() => ({ isInternal: true }))`
   padding: 20px 28px;
   line-height: 20px;
 

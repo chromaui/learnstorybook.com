@@ -33,7 +33,7 @@ const GuideLink = styled(GatsbyLink)`
   }
 `;
 
-const SidebarBackIcon = styled(Icon).attrs({ icon: 'arrowleft' })`
+const SidebarBackIcon = styled(Icon).attrs(() => ({ icon: 'arrowleft' }))`
   && {
     width: 1em;
     margin-left: -1.6em;
