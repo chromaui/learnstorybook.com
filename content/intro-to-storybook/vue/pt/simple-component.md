@@ -30,6 +30,8 @@ Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o aco
 Iremos iniciar por uma implementação rudimentar da `Task`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
 
 ```html
+
+<!--src/components/Task.vue-->
 <template>
   <div class="list-item">
     <input type="text" :readonly="true" :value="this.task.title" />
@@ -55,6 +57,8 @@ O bloco de código acima, quando renderizado, não é nada mais nada menos que a
 Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
 
 ```javascript
+
+// src/components/Task.stories.js
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
 export default {
@@ -146,15 +150,25 @@ Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a
 
 ## Configuração
 
-Será necessária uma alteração minúscula ao ficheiro de configuração do Storybook (`storybook/config.js`) de forma que este reconheça os ficheiros com extensão `stories.js`, mas também utilize o ficheiro CSS.
-Por norma o Storybook pesquisa numa pasta denominada `/stories` para conter as estórias; este tutorial usa uma nomenclatura similar a `.spec.js`, cuja qual favorecida pelo Vue CLI para testes automatizados.
+É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/vue/pt/get-started).
+
+Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
 
 ```javascript
-import { configure } from '@storybook/vue';
 
+// .storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+};
+
+```
+
+Após efetuar esta alteração, uma vez mais dentro da pasta `.storybook`, crie um novo ficheiro (ou arquivo) chamado `preview.js` com o seguinte conteúdo:
+
+```javascript
+// .storybook/preview.js
 import '../src/index.css';
-
-configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Após esta alteração, quando reiniciar o servidor Storybook, deverá produzir os casos de teste para os três diferentes estados da tarefa:
@@ -173,6 +187,8 @@ Neste momento já possuímos o Storybook configurado, os elementos de estilo imp
 O componente neste momento ainda está algo rudimentar. Vamos fazer algumas alterações de forma a atingir o design pretendido, sem entrar em muitos detalhes:
 
 ```html
+
+<!--src/components/Task.vue-->
 <template>
   <div :class="taskClass">
     <label class="checkbox">
@@ -247,33 +263,25 @@ Este tipo de testes refere-se á pratica de guardar o output considerado "bom" d
 Com o [extra Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) é criado um teste de snapshot para cada uma das estórias. Para que este possa ser usado, adicionam-se as seguintes dependências de desenvolvimento:
 
 ```bash
-yarn add -D @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
+yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 ```
 
 Em seguida é criado o ficheiro `tests/unit/storybook.spec.js` com seguinte:
 
 ```javascript
-import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
-import initStoryshots from '@storybook/addon-storyshots';
 
-registerRequireContextHook();
+// tests/unit/storybook.spec.js
+import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-Em seguida terá que se alterar o ficheiro `jest.config.js`:
+Finalmente terá que se alterar o ficheiro `jest.config.js`:
 
 ```js
+  // jest.config.js
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 ```
 
-E finalmente uma ligeira alteração ao ficheiro `babel.config.js`:
-
-```js
-module.exports = api => ({
-  presets: ['@vue/app'],
-  ...(api.env('test') && { plugins: ['require-context-hook'] }),
-});
-```
 
 Assim que os passos descritos acima estiverem concluídos, poderá ser executado `yarn test:unit` e constatar o seguinte output:
 
