@@ -20,7 +20,7 @@ No entanto o padrão a ser usado aqui, pode ser aplicado a outras bibliotecas de
 Adiciona-se uma nova dependência ao `package.json` com:
 
 ```bash
-yarn add react-redux
+yarn add react-redux redux
 ```
 
 Irá ser construída (intencionalmente definida de forma simples) uma loja Redux, que responde ao desencadear de ações que alteram o estado das tarefas. Isto no ficheiro `lib/redux.js`, contido dentro de `src`

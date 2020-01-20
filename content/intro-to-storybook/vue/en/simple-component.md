@@ -1,7 +1,7 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: 'Build the core component'
+tocTitle: 'Core component'
+description: 'Build the core component in isolation'
 commit: b2274bd
 ---
 
@@ -24,7 +24,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 First, let’s create the task component and its accompanying story file: `src/components/Task.vue` and `src/components/Task.stories.js`.
 
-We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```html
 <template>
@@ -40,6 +40,7 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
       task: {
         type: Object,
         required: true,
+        default: () => ({}),
       },
     },
   };
@@ -51,48 +52,66 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
-
 import Task from './Task';
-
-export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+export default {
+  title: 'Task',
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
 };
-
-export const methods = {
+export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf('Task', module)
-  .add('default', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task }),
-      methods,
-    };
-  })
-  .add('pinned', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: 'TASK_PINNED' } }),
-      methods,
-    };
-  })
-  .add('archived', () => {
-    return {
-      components: { Task },
-      template: `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-      data: () => ({ task: { ...task, state: 'TASK_ARCHIVED' } }),
-      methods,
-    };
-  });
+export const taskData = {
+  id: '1',
+  title: 'Test Task',
+  state: 'Task_INBOX',
+  updated_at: new Date(2019, 0, 1, 9, 0),
+};
+
+const taskTemplate = `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`;
+
+// default task state
+export const Default = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: taskData,
+    },
+  },
+  methods: actionsData,
+});
+// pinned task state
+export const Pinned = () => ({
+  components: { Task },
+  template: taskTemplate,
+  props: {
+    task: {
+      default: {
+        ...taskData,
+        state: 'TASK_PINNED',
+      },
+    },
+  },
+  methods: actionsData,
+});
+// archived task state
+export const Archived = () => ({
+  components: { Task },
+  template: taskTemplate,
+   props: {
+    task: {
+      default: {
+        ...taskData,
+        state: "TASK_ARCHIVED"
+      }
+    }
+  },
+  methods: actionsData,
+});
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -102,17 +121,21 @@ There are two basic levels of organization in Storybook: the component and its c
   - Story
   - Story
 
-To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
+To tell Storybook about the component we are documenting, we create a `default` export that contains:
+
+- `component` -- the component itself,
+- `title` -- how to refer to the component in the sidebar of the Storybook app,
+- `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a Vue [Stateless Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `methods` variable and use pass them into our story defintion each time (where they are accessed via the `methods` property).
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and use pass them into our story definition each time (where they are accessed via the `methods` property).
 
-Another nice thing about bundling the `methods` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+Another nice thing about bundling the `actionsData` that a component needs, is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a set of properties that define the story -- in this case a `template` string for the story alongside the `components`, `data` and `methods` that template consumes.
-
-When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
@@ -127,12 +150,7 @@ import { configure } from '@storybook/vue';
 
 import '../src/index.css';
 
-const req = require.context('../src', true, /\.stories.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
@@ -148,7 +166,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
+Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
 
 ```html
 <template>
@@ -175,6 +193,11 @@ The component is still basic at the moment. First write the code that achieves t
       task: {
         type: Object,
         required: true,
+        default: () => ({
+          id: '',
+          state: '',
+          title: '',
+        }),
       },
     },
     computed: {
@@ -216,10 +239,10 @@ Snapshot testing refers to the practice of recording the “known good” output
 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
+With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependencies:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
+yarn add -D @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
 ```
 
 Then create a `tests/unit/storybook.spec.js` file with the following in it:

@@ -26,12 +26,16 @@ The way we'll be attaching the list of assets to the stories is through [paramet
 <!-- this is probably not needed as it's used below-->
 
 ```javascript
-storiesOf("your-component", module)
-  .addParameters({
-    assets: ["path/to/your/asset.png"]
-  })
-  .addDecorator(/*...*/)
-  .add(/*...*/);
+export default {
+  title: 'Your component',
+  decorators: [
+    /*...*/
+  ],
+  parameters: {
+    assets: ['path/to/your/asset.png'],
+  },
+  //
+};
 ```
 
 <!-- -->
@@ -52,7 +56,7 @@ Open a console, navigate to your project folder and run the following command:
 <!--using npm here until the whole tutorial set is moved into npm or yarn issue #153-->
 
 ```bash
-  npm install --save-dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
+  yarn add --dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
 ```
 
 We'll need to make a small change to the `.babelrc` file we created earlier. We need to add a reference to the `@babel/preset-react` package.
@@ -176,7 +180,7 @@ addons.register("my/design-assets", () => {
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
-        implement
+        <Content />
       </AddonPanel>
     )
   });
@@ -194,15 +198,20 @@ To do so, we're going to make a small change to the `Task.stories.js` file and a
 
 ```javascript
 // src/components/Task.stories.js
-storiesOf("Task", module)
-  .addDecorator(withKnobs)
-  .addParameters({
+export default {
+  component: Task,
+  title: 'Task',
+  decorators: [withKnobs],
+  parameters: {
     assets: [
       "path/to/your/asset.png",
       "path/to/another/asset.png",
       "path/to/yet/another/asset.png"
     ]
-  });
+  },
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+};
 /* same as before  */
 ```
 

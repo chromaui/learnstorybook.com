@@ -13,17 +13,18 @@ This tutorial doesn’t focus on the particulars of building an app so we won’
 
 Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-This example uses [Vuex](https://vuex.vuejs.org), Vue's default data management library, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+This example uses [Vuex](https://vuex.vuejs.org), Vue's default data management library, to build a straightforward data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
-First, install vuex with
+First, install vuex with:
 
 ```bash
 yarn add vuex
 ```
 
-Then we’ll construct a simple Vuex store that responds to actions that change the state of tasks, in a file called `src/store.js` (intentionally kept simple):
+In a file called `src/store.js` we'll construct a standard Vuex store that responds to actions which will change the tasks state:
 
 ```javascript
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -69,7 +70,6 @@ In our top-level app component (`src/App.vue`) we can wire the store into our co
 <script>
   import store from './store';
   import TaskList from './components/TaskList.vue';
-  import '../src/index.css';
 
   export default {
     name: 'app',
@@ -79,6 +79,9 @@ In our top-level app component (`src/App.vue`) we can wire the store into our co
     },
   };
 </script>
+<style>
+  @import './index.css';
+</style>
 ```
 
 Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `pure-task-list`), and wrap it with a container.
@@ -128,60 +131,67 @@ In `src/components/TaskList.vue`:
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import { task } from './Task.stories';
-
 import PureTaskList from './PureTaskList';
-import { methods } from './Task.stories';
-
-export const defaultTaskList = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
-];
-
-export const withPinnedTasks = [
-  ...defaultTaskList.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+import { taskData, actionsData } from './Task.stories';
 
 const paddedList = () => {
   return {
     template: '<div style="padding: 3rem;"><story/></div>',
   };
 };
+export default {
+  title: 'TaskList',
+  excludeStories: /.*Data$/,
+  decorators: [paddedList],
+};
 
-storiesOf('PureTaskList', module)
-  .addDecorator(paddedList)
-  .add('default', () => ({
-    components: { PureTaskList },
-    template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    data: () => ({
-      tasks: defaultTaskList,
-    }),
-    methods,
-  }))
-  .add('withPinnedTasks', () => ({
-    components: { PureTaskList },
-    template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    data: () => ({
-      tasks: withPinnedTasks,
-    }),
-    methods,
-  }))
-  .add('loading', () => ({
-    components: { PureTaskList },
-    template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods,
-  }))
-  .add('empty', () => ({
-    components: { PureTaskList },
-    template: `<pure-task-list  @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods,
-  }));
+export const defaultTasksData = [
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
+];
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+];
+
+
+export const Default = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: defaultTasksData
+    }
+  },
+  methods: actionsData
+});
+// tasklist with pinned tasks
+export const WithPinnedTasks = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: withPinnedTasksData
+    }
+  },
+  methods: actionsData
+});
+// tasklist in loading state
+export const Loading = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  methods: actionsData
+});
+// tasklist no tasks
+export const Empty = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  methods: actionsData
+});
 ```
 
 <video autoPlay muted playsInline loop>
@@ -196,12 +206,12 @@ Similarly, we need to use `PureTaskList` in our Jest test:
 ```js
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
-import { withPinnedTasks } from '../../src/components/PureTaskList.stories';
+import { withPinnedTasksData } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const Constructor = Vue.extend(PureTaskList);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasks },
+    propsData: { tasks: withPinnedTasksData },
   }).$mount();
   const lastTaskInput = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
@@ -209,3 +219,5 @@ it('renders pinned tasks at the start of the list', () => {
   expect(lastTaskInput).not.toBe(null);
 });
 ```
+
+<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>

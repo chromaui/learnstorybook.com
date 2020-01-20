@@ -14,17 +14,17 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook, we just need to activate it by adding a script to `package.json`.
+To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook, we just need to change it like we did before when the project was initialized in the [get started section](/vue/en/get-started).
 
 ```javascript
 {
   "scripts": {
-    "build-storybook": "build-storybook -c .storybook -s public -o storybook-static"
+   "build-storybook": "build-storybook -s public"
   }
 }
 ```
 
-Now when you run Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
+Now when you run Storybook via `yarn build-storybook`, it will output a static Storybook in the `storybook-static` directory.
 
 ## Continuous deploy
 
@@ -32,13 +32,9 @@ We want to share the latest version of components whenever we push code. To do t
 
 ### GitHub
 
-First you want to setup Git for your project in the local directory. If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
+If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
 
-```bash
-$ git init
-```
-
-Next add files to the first commit.
+When the project was initialized with Vue CLI, a local repository was already setup for you. At this stage it's safe to add the files to the first commit.
 
 ```bash
 $ git add .
@@ -49,6 +45,8 @@ Now commit the files.
 ```bash
 $ git commit -m "taskbox UI"
 ```
+
+### Setup a repository in GitHub
 
 Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
 
@@ -78,7 +76,7 @@ If you use CI at your company, add a deploy script to your config that uploads <
 
 ![Netlify create site](/intro-to-storybook/netlify-create-site.png)
 
-Next click the GitHub button to connect Netlify to GitHub. This allows it to access our remote Taskbox repo.
+Next click the GitHub button to connect Netlify to GitHub. This allows it to access our remote taskbox repo.
 
 Now select the taskbox GitHub repo from the list of options.
 
@@ -87,6 +85,8 @@ Now select the taskbox GitHub repo from the list of options.
 Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `yarn build-storybook`.
 
 ![Netlify settings](/intro-to-storybook/netlify-settings.png)
+
+<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
 
 Submit the form to build and deploy the code on the `master` branch of taskbox.
 

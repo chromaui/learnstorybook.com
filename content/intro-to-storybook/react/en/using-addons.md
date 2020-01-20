@@ -11,7 +11,7 @@ everybody in your team. If you've been following along with this tutorial linear
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
 <br/>
-😍 You can seen the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
+😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
 </div>
 
 We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -63,19 +63,21 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 // src/components/Task.stories.js
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
-Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
+Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+export default {
+  component: Task,
+  title: 'Task',
+  decorators: [withKnobs],
+  excludeStories: /.*Data$/,
+};
 ```
 
 Lastly, integrate the `object` knob type within the "default" story:
@@ -83,18 +85,14 @@ Lastly, integrate the `object` knob type within the "default" story:
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add('default', () => {
-    return <Task task={object('task', { ...task })} {...actions} />;
-  })
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+export const Default = () => {
+  return <Task task={object('task', { ...taskData })} {...actionsData} />;
+};
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
 
-As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as paramters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
+As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as parameters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
 
 ## Addons Evolve Your Storybook's Scope
 
@@ -133,13 +131,11 @@ Let's add a story for the long text case in Task.stories.js:
 ```javascript
 // src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-storiesOf('Task', module)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />)
-  .add('long title', () => <Task task={{ ...task, title: longTitle }} {...actions} />);
+export const LongTitle = () => (
+  <Task task={{ ...taskData, title: longTitleString }} {...actionsData} />
+);
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
