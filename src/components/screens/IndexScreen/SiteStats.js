@@ -37,7 +37,7 @@ const SiteStatWrapper = styled.div`
   }
 `;
 
-const AndCountingImage = styled.img.attrs({ src: '/frontpage/lsb-andcounting.svg' })`
+const AndCountingImage = styled.img.attrs(() => ({ src: '/frontpage/lsb-andcounting.svg' }))`
   position: absolute;
   top: 0;
   left: ${props => (props.withMultipleGuides ? 120 : 108)}px;
