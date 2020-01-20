@@ -132,28 +132,22 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration so it uses our LESS file. We can do that by adding a file `.storybook/preview.js` which runs when Storybook starts in our browser:
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use our LESS file.
+
+Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```javascript
-// .storybook/preview.js
-
-import '../src/styles.less';
-```
-
-In order to support that LESS import we'll need to play around a bit with webpack. Just create a `webpack.config.js` file inside the `.storybook` folder and paste the following:
-
-```javascript
-const path = require('path');
-
+// .storybook/main.js
 module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        loaders: ['style-loader', 'css-loader', 'less-loader'],
-        include: path.resolve(__dirname, '../'),
-      },
-    ],
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+  webpackFinal: config => {
+    config.rules.push({
+      test: /\.less$/,
+      loaders: ['style-loader', 'css-loader', 'less-loader'],
+      include: path.resolve(__dirname, '../'),
+    });
+    return config;
   },
 };
 ```
@@ -162,6 +156,14 @@ You'll also need to install the corresponding loaders:
 
 ```
 yarn add -D less-loader css-loader style-loader
+```
+
+After completing the changes above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
+
+```javascript
+// .storybook/preview.js
+
+import '../src/styles.less';
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three TaskComponent states:

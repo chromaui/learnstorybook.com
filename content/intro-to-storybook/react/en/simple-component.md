@@ -111,7 +111,19 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration so it uses our CSS file. We can do that by adding a file `.storybook/preview.js` which runs when Storybook starts in our browser:
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use our CSS file.
+
+Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
+
+```javascript
+// .storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+};
+```
+
+After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
 
 ```javascript
 // .storybook/preview.js
