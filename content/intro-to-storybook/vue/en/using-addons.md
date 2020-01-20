@@ -34,14 +34,15 @@ First, we will need to add it as a development dependency.
 yarn add -D @storybook/addon-knobs
 ```
 
-Register Knobs in your `.storybook/addons.js` file.
+Register Knobs in your `.storybook/main.js` file.
 
 ```javascript
-// .storybook/addons.js
+// .storybook/main.js
 
-import '@storybook/addon-actions/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-links/register';
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
+};
 ```
 
 <div class="aside">
@@ -87,10 +88,10 @@ export const Default = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: object("task", { ...taskData })
-    }
+      default: object('task', { ...taskData }),
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // pinned task state
 export const Pinned = () => ({
@@ -100,11 +101,11 @@ export const Pinned = () => ({
     task: {
       default: {
         ...taskData,
-        state: "TASK_PINNED"
-      }
-    }
+        state: 'TASK_PINNED',
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // archived task state
 export const Archived = () => ({
@@ -114,11 +115,11 @@ export const Archived = () => ({
     task: {
       default: {
         ...taskData,
-        state: "TASK_ARCHIVED"
-      }
-    }
+        state: 'TASK_ARCHIVED',
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 ```
 
@@ -172,10 +173,10 @@ export const Default = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: object("task", { ...taskData })
-    }
+      default: object('task', { ...taskData }),
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // pinned task state
 export const Pinned = () => ({
@@ -185,11 +186,11 @@ export const Pinned = () => ({
     task: {
       default: {
         ...taskData,
-        state: "TASK_PINNED"
-      }
-    }
+        state: 'TASK_PINNED',
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // archived task state
 export const Archived = () => ({
@@ -199,11 +200,11 @@ export const Archived = () => ({
     task: {
       default: {
         ...taskData,
-        state: "TASK_ARCHIVED"
-      }
-    }
+        state: 'TASK_ARCHIVED',
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 export const LongTitle = () => ({
   components: { Task },
@@ -212,11 +213,11 @@ export const LongTitle = () => ({
     task: {
       default: {
         ...taskData,
-        title: longTitle
-      }
-    }
+        title: longTitle,
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 ```
 
