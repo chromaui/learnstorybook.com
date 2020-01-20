@@ -35,14 +35,15 @@ First, we will need to install all the necessary dependencies.
 yarn add @storybook/addon-knobs
 ```
 
-Register Knobs in your `.storybook/addons.js` file.
+Register Knobs in your `.storybook/main.js` file.
 
 ```javascript
-// .storybook/addons.js
+// .storybook/main.js
 
-import '@storybook/addon-actions/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-links/register';
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
+};
 ```
 
 <div class="aside">

@@ -111,15 +111,24 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`.storybook/config.js`) so it notices our `.stories.js` files and uses our CSS file. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA for automated tests.
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use our CSS file.
+
+Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```javascript
-// .storybook/config.js
+// .storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+};
+```
 
-import { configure } from '@storybook/react';
+After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
+
+```javascript
+// .storybook/preview.js
+
 import '../src/index.css';
-
-configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
@@ -231,7 +240,7 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.macro
+yarn add --dev @storybook/addon-storyshots react-test-renderer
 ```
 
 Then create an `src/storybook.test.js` file with the following in it:
@@ -243,39 +252,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-You'll also need to use a [babel macro](https://github.com/kentcdodds/babel-plugin-macros) to ensure `require.context` (some webpack magic) runs in Jest (our test context). Install it with:
-
-```bash
-yarn add --dev babel-plugin-macros
-```
-
-And enable it by adding a `.babelrc` file in the root folder of your app (same level as `package.json`)
-
-```json
-// .babelrc
-
-{
-  "plugins": ["macros"]
-}
-```
-
-Then update `.storybook/config.js` to have:
-
-```js
-// .storybook/config.js
-
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import '../src/index.css';
-
-const req = requireContext('../src/components', true, /\.stories\.js$/);
-
-configure(req, module);
-```
-
-(Notice we've replaced `require.context` with a call to `requireContext` imported from the macro).
-
-Once the above is done, we can run `yarn test` and see the following output:
+That's it, we can run `yarn test` and see the following output:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
