@@ -44,7 +44,7 @@ yarn add --dev @storybook/addon-docs
 Also, we’ll add a _preset_ for the docs addon, in a new file `.storybook/presets.js`. Note that the use of this preset removes the need for our `.storybook/webpack.config.js` and we can remove it:
 
 ```javascript
-module.exports = ['@storybook/addon-docs/react/preset'];
+module.exports = ['@storybook/addon-docs/preset'];
 ```
 
 You should see two tabs in your Storybook. “Canvas” tab is your component development environment. “Docs” is your component documentation.
