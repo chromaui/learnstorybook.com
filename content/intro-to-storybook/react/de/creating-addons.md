@@ -447,7 +447,7 @@ Aber das behandeln wir nicht in diesem Tutorial. Das Beispiel demonstriert, wie 
 So kannst du dein Addon noch weiter anpassen:
 
 - [Buttons zur Storybook-Toolbar hinzufügen](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
-- [durch den Channel mit einem Iframe kommunizieren](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
+- [durch den Channel mit einem iFrame kommunizieren](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
 - [Kommandos und Ergebnisse versenden](https://github.com/storybookjs/storybook/tree/next/addons/events)
 - [den HTML-/CSS-Output deiner Komponente analysieren](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
 - [Komponenten wrappen, mit neuen Daten rendern](https://github.com/storybookjs/storybook/tree/next/addons/knobs)

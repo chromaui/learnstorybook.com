@@ -10,7 +10,7 @@ Storybook rühmt sich eines robuten [Addon-Systems](https://storybook.js.org/add
 <div class="aside">
 <strong>Auf der Suche nach einer Liste verfügbarer Addons?</strong>
 <br/>
-😍 <a href="https://storybook.js.org/addons/addon-gallery/">Hier</a> findest du die Liste offiziell unterstützter und der Community aktiv unterstützer Addons.
+😍 <a href="https://storybook.js.org/addons/addon-gallery/">Hier</a> findest du die Liste offiziell unterstützter und von der Community aktiv unterstützer Addons.
 </div>
 
 Wir könnten unendlich viel über die Verwendung von Addons für all deine speziellen Anwendungsfälle schreiben. Fürs Erste, lass uns auf die Integration eines der am weitesten verbreiteten Addons innerhalb des Storybook-Ökosystems hinarbeiten: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -54,9 +54,9 @@ Das war's! Zeit, das Addon in der Story einzusetzen.
 
 ### Verwendung
 
-Lass uns den Knob-Type "Objekt" in der `Task`-Komponente benutzen.
+Lass uns den Knob-Typ "Objekt" in der `Task`-Komponente benutzen.
 
-Importiere zunächst den `withKnobs`-Decorator und den `object`-Knob-Type in `Task.stories.js`:
+Importiere zunächst den `withKnobs`-Decorator und den `object`-Knob-Typ in `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
@@ -79,7 +79,7 @@ export default {
 };
 ```
 
-Zuletzt integriere noch den `object`-Knob-Type in die "default"-Story:
+Zuletzt integriere noch den `object`-Knob-Typ in die "default"-Story:
 
 ```javascript
 // src/components/Task.stories.js
@@ -91,7 +91,7 @@ export const Default = () => {
 
 Nun sollte ein "Knobs"-Tab neben dem "Action Logger"-Tab im unteren Bereich der Seite erscheinen.
 
-Wie [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#object) dokumentiert, akzeptiert der `object`-Knob-Type ein Label und ein Standard-Objekt als Parameter. Das Label ist fix und wird links von einem Textfeld in deinem Addons-Panel angezeigt. Das Standard-Objekt, das du definiert hast, wird als editierbarer JSON-Schnipsel angezeigt. So lange du valides JSON darin einträgst, wird deine Komponente basierend aus den im JSON-Objekt enthaltenen Daten aktualisiert.
+Wie [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#object) dokumentiert, akzeptiert der `object`-Knob-Typ ein Label und ein Standard-Objekt als Parameter. Das Label ist fix und wird links von einem Textfeld in deinem Addons-Panel angezeigt. Das Standard-Objekt, das du definiert hast, wird als editierbarer JSON-Schnipsel angezeigt. So lange du valides JSON darin einträgst, wird deine Komponente basierend aus den im JSON-Objekt enthaltenen Daten aktualisiert.
 
 ## Addons erweitern den Umfang deines Storybooks
 

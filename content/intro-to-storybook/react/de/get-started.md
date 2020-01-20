@@ -11,7 +11,7 @@ Storybook läuft parallel zu deiner App im Entwicklungs-Modus. Es hilft dir, UI-
 
 ## React-Storybook einrichten
 
-Es sind einige Schritte nötig, um den Build-Prozess in deiner Umgebung einzurichten. Lass uns zu Beginn [Create React App](https://github.com/facebook/create-react-app) (CRA) nutzen, um dein Build System einzurichten und [Storybook](https://storybook.js.org/) und [Jest](https://facebook.github.io/jest/)-Tests in der von dir erstellten App zu ermöglichen. Dazu führen wir folgende Befehle aus: 
+Es sind einige Schritte nötig, um den Build-Prozess in deiner Umgebung einzurichten. Lass uns zu Beginn [Create React App](https://github.com/facebook/create-react-app) (CRA) nutzen, um dein Build System inkl. [Storybook](https://storybook.js.org/) einzurichten und [Jest](https://facebook.github.io/jest/)-Tests in der von dir erstellten App zu ermöglichen. Dazu führen wir folgende Befehle aus:
 
 ```bash
 # Create our application:
