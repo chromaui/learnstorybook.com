@@ -4,7 +4,7 @@ tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Svelte; other editions exist for [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) and [React](/angular/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Svelte; other editions exist for [Vue](/vue/en/get-started), [Angular](/angular/en/get-started), [React](/angular/en/get-started) and [React Native](/react-native/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -50,7 +50,16 @@ Create a `.babelrc` file in the root of the project with the following:
 
 ```json
 {
-  "presets": ["@babel/preset-env"]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ]
+  ]
 }
 ```
 
@@ -90,7 +99,7 @@ And a new script is required to run Jest:
 
 <div class="aside">The usage of the flag `--watchAll` in the script is to prevent a error being thrown by Jest, because at this stage there's still no repository configured. That will be addressed later on.</div>
 
-Finally we need to create a test file. Create a new file called `Sample.test.js` inside the `src` folder with the following inside:
+To make sure everything is working properly we need to create a test file. In the `src` folder, add a file called `Sample.test.js` with the following:
 
 ```javascript
 function sum(a, b) {
@@ -135,17 +144,19 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-Add the font and icon directories by downloading them to your computer and dropping them into your repository.
+To match the intended design, you'll need to download both the font and icon directories and place them inside the `public` folder.
+
+<div class="aside">
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
 
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
 
-And finally we need to update our storybook script to serve the `public` directory (in `package.json`):
+
+Finally we need to update our storybook script to serve the `public` directory (in `package.json`):
 
 ```json
 {

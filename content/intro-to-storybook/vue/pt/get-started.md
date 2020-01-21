@@ -18,7 +18,7 @@ Precisamos de alguns passos extra para configurar o processo de compilação no 
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create --preset hichroma/vue-preset-learnstorybook
+npx -p @vue/cli vue create taskbox --preset hichroma/vue-preset-learnstorybook 
 
 cd taskbox
 
@@ -64,14 +64,17 @@ A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https:/
 
 ## Adicionar recursos
 
-Adicione as pastas (ou diretórios) de fontes e ícones localmente, através de:
+De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `public`.
+
+<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
+
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
 
-<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
+
 
 E também atualizar o nosso script de execução do storybook (no `package.json`) para servir a pasta `public`
 

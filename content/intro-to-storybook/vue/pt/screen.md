@@ -14,6 +14,7 @@ Neste capitulo, irá ser acrescida um pouco mais a sofisticação, através da c
 Visto que a aplicação é deveras simples, o ecrã a ser construído é bastante trivial, simplesmente envolvendo o componente `TaskList` (que fornece os seus dados via Vuex), a um qualquer layout e extraindo o campo `erro` oriundo da loja (assumindo que este irá ser definido caso exista algum problema na ligação ao servidor). Dentro da pasta `src/components/` vai ser adicionado o ficheiro `PureInboxScreen.vue`:
 
 ```html
+<!--src/components/PureInboxScreen.vue-->
 <template>
   <div>
     <div class="page lists-show" v-if="error">
@@ -55,6 +56,7 @@ Visto que a aplicação é deveras simples, o ecrã a ser construído é bastant
 Em seguida, podemos criar um contentor, que neste caso obtém os dados para o `PureInboxScreen` localizado em `src/components/InboxScreen.vue`:
 
 ```html
+<!--src/components/InboxScreen.vue-->
 <template>
   <div>
     <pure-inbox-screen :error="error" />
@@ -80,6 +82,7 @@ Em seguida, podemos criar um contentor, que neste caso obtém os dados para o `P
 Vai ser necessário alterar o componente `App` de forma a ser possível renderizar o `InboxScreen` (eventualmente iria ser usado um roteador para escolher o ecrã apropriado, mas não é necessário preocupar-nos com isto agora):
 
 ```html
+<!--src/App.vue-->
 <template>
   <div id="app">
     <inbox-screen />
@@ -98,7 +101,7 @@ Vai ser necessário alterar o componente `App` de forma a ser possível renderiz
   };
 </script>
 <style>
-  @import "./index.css";
+  @import './index.css';
 </style>
 ```
 
@@ -112,6 +115,7 @@ Irá ser feito algo similar para o `PureInboxScreen` no Storybook também.
 No entanto para o `PureInboxScreen` existe um problema, isto porque apesar deste ser de apresentação, o seu "filho", ou seja a `TaskList` não o é. De certa forma o `PureInboxScreen` foi poluído pelo "container-ness". Com isto quando forem adicionadas as estórias ao ficheiro `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
+//src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 export default {
   title: 'PureInboxScreen',
@@ -147,6 +151,7 @@ No entanto, algum programador **irá querer** renderizar contentores num nível 
 As boas notícias é que é extremamente fácil injetar uma loja Vuex através de uma estória ao componente `PureInboxScreen`! Pode ser instanciada uma nova loja no ficheiro de estória e fornecê-la como contexto da estória:
 
 ```javascript
+//src/components/PureInboxScreen.stories.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 import PureInboxScreen from './PureInboxScreen.vue';
@@ -158,10 +163,10 @@ export const store = new Vuex.Store({
     tasks: defaultTasksData,
   },
   actions: {
-    pinTask(context, id) {
+    pinTask(_, id) {
       action('pinTask')(id);
     },
-    archiveTask(context, id) {
+    archiveTask(_, id) {
       action('archiveTask')(id);
     },
   },

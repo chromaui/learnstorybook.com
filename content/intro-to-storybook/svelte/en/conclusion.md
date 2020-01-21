@@ -9,7 +9,7 @@ Congratulations! You created your first UI in Storybook. Along the way you learn
 <br/>
 [🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.com/)
 
-Storybook is a powerful tool for React, Vue, and Angular. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
+Storybook is a powerful tool for React, React Native, Vue, and Angular. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
 
 ## Learn more
 

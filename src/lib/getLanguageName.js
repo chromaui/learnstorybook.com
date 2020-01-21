@@ -5,6 +5,7 @@ const languageNameMap = {
   'zh-TW': '繁體中文',
   pt: 'Português',
   nl: 'Nederlands',
+  de: 'Deutsch',
 };
 
 const getLanguageName = language => languageNameMap[language] || language;

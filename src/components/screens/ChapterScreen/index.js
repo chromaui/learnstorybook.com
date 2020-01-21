@@ -70,8 +70,11 @@ const Chapter = ({
   },
 }) => {
   const entries = tocEntries(toc, tocPages);
-  const nextEntry = entries[toc.indexOf(chapter) + 1];
-  const firstChapter = toc[0];
+  const tocWithMatchingEntries = toc.filter(tocItem =>
+    entries.find(entry => entry.chapter === tocItem)
+  );
+  const nextEntry = entries[tocWithMatchingEntries.indexOf(chapter) + 1];
+  const firstChapter = tocWithMatchingEntries[0];
   const githubFileUrl = `${siteMetadata.githubUrl}/blob/master/content${slug.replace(
     /\/$/,
     ''

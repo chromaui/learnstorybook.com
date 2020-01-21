@@ -25,6 +25,8 @@ yarn add vuex
 Num ficheiro denominado `src/store.js` vai ser implementada uma loja Vuex padrão, que irá reagir ao desencadear de ações que alteram o estado das tarefas.
 
 ```javascript
+
+// src/store.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -58,9 +60,11 @@ export default new Vuex.Store({
 });
 ```
 
-Em seguida o componente de topo (`src/App.vue`) vai ser atualizado de forma que seja possível conectar á loja e fornecer os dados à hierarquia de componentes de forma extremamente fácil:
+Para ser possível conectar a nossa aplicação á loja recém criada e fornecer dados á hierarquia de componentes de forma extremamente fácil, o componente de topo (`src/App.vue`) vai ser alterado para:
 
 ```html
+
+<!--src/App.vue-->
 <template>
   <div id="app">
     <task-list />
@@ -84,15 +88,17 @@ Em seguida o componente de topo (`src/App.vue`) vai ser atualizado de forma que 
 </style>
 ```
 
-Em seguida é atualizado o componente `Tasklist`, de forma que este receba os dados oriundos da loja.
-Em primeiro lugar, irá ser movida a versão de apresentação do componente para o ficheiro `src/components/PureTaskList.vue` ( renomeando o componente para `pure-task-list` ) e este será envolvido num contentor.
+Em seguida o componente `Tasklist` irá ser alterado, para receber dados oriundos da loja.
+Mas primeiro, vamos mover a versão existente do componente que é considerada de apresentação, para o ficheiro `src/components/PureTaskList.vue` (renomeando o componente para `pure-task-list` ) que será posteriormente envolvido num contentor.
 
 No ficheiro `src/components/PureTaskList.vue`:
 
 ```html
-/* This file moved from TaskList.vue */
-<template>/* as before */
 
+<!--src/components/PureTaskList.vue-->
+<template>
+<!--same content as before-->
+</template>
 <script>
 import Task from "./Task";
 export default {
@@ -104,6 +110,8 @@ export default {
 No ficheiro `src/components/TaskList.vue`:
 
 ```html
+
+<!--src/components/TaskList.vue`-->
 <template>
   <div>
     <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask" />
@@ -129,9 +137,11 @@ No ficheiro `src/components/TaskList.vue`:
 </script>
 ```
 
-A razão porque irá ser mantida a versão de apresentação do `TaskList` em separado, é porque é mais fácil para testar e isolar. Visto que não depende da existência de uma loja, logo torna-se mais fácil de lidar do ponto de vista de testes. Irá ser renomeado `src/components/TaskList.stories.js` para `src/components/PureTaskList.stories.js` e com isto garantir que as nossas estórias usam a versão de apresentação:
+A razão porque irá ser mantida a versão de apresentação do `TaskList` em separado, não é nada mais nada menos pelo facto que é porque é mais fácil para testar e isolar. Visto que não depende da existência de uma loja, logo torna-se mais fácil de lidar do ponto de vista de testes. O ficheiro de estórias `src/components/TaskList.stories.js` vai ser renomeado também para `src/components/PureTaskList.stories.js`, com isto garantimos que as nossas estórias usam a versão de apresentação:
 
 ```javascript
+
+//src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList';
 import { taskData, actionsData } from './Task.stories';
 
@@ -203,6 +213,8 @@ export const Empty = () => ({
 Similarmente, será usado o `PureTaskList` nos testes com Jest:
 
 ```js
+
+//tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
 import { withPinnedTasksData } from '../../src/components/PureTaskList.stories';
