@@ -1,7 +1,7 @@
 ---
-title: 'Construção do componente nuclear'
-tocTitle: 'Componente nuclear'
-description: 'Construção do componente nuclear em isolamento'
+title: 'Construção de um componente simples'
+tocTitle: 'Componente simples'
+description: 'Construção de um componente simples em isolamento'
 ---
 
 Iremos construir um interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.

@@ -1,7 +1,7 @@
 ---
-title: 'Build the core component'
-tocTitle: 'Core component'
-description: 'Build the core component in isolation'
+title: 'Build a simple component'
+tocTitle: 'Simple component'
+description: 'Build a simple component in isolation'
 commit: b2274bd
 ---
 
