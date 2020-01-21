@@ -235,7 +235,7 @@ import { styled } from "@storybook/theming";
 
 const getUrl = input => {
   return typeof input === "string" ? input : input.url;
-
+}
 
 const Iframe = styled.iframe({
   width: "100%",
