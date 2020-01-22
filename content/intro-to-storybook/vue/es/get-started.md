@@ -15,7 +15,7 @@ Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestr
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create --preset hichroma/vue-preset-learnstorybook taskbox
+npx -p @vue/cli vue create taskbox --preset hichroma/vue-preset-learnstorybook
 
 cd taskbox
 
@@ -59,15 +59,14 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 ## Añade recursos
 
-Agregue los directorios de fuentes e íconos descargándolos a su computadora y colocándolos en su repositorio.
+Para que coincida con el diseño previsto del tutorial, deberá transferir las carpetas (o directorios) de los iconos y las fuentes a la carpeta pública.
+
+<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas (o directorios) de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
-
-<div class = "aside">
-<p> Hemos utilizado <code>svn</code> (Subversion) para descargar fácilmente una carpeta de archivos desde GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
 
 También necesitamos actualizar nuestro script storybook para servir el directorio `public` (en `package.json`):
 

@@ -116,10 +116,10 @@ export const Archived = () => ({
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Piensa en cada historia como una permutación posible del componente. Puedes tener tantas historias por componente como se necesite.
 
-- **Componente**
-  - Historia
-  - Historia
-  - Historia
+- **Component**
+  - Story
+  - Story
+  - Story
 
 Para decirle a Storybook sobre el componente que estamos documentando, creamos una exportación `por defecto` que contiene:
 
@@ -127,7 +127,7 @@ Para decirle a Storybook sobre el componente que estamos documentando, creamos u
 - `title` -- cómo referirse al componente en la barra lateral de la aplicación Storybook,
 - `excludeStories` -- información requerida por la historia, pero no debe ser presentada por la aplicación Storybook.
 
-Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, una clase de componente con un conjunto de props) en un estado dado, exactamente como en Vue [Componente funcional sin estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
+Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado, exactamente como en Vue [Componente funcional sin estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 `action()` nos permite crear un callback que aparecerá en el panel **actions** de la UI de Storybook cuando es cliqueado. Entonces, cuando construyamos un botón pin, podremos determinar en la UI de prueba si un click en el botón es exitoso o no.
 

@@ -131,7 +131,7 @@ export const error = () => ({
 
 Vemos que aunque la historia de `error` funciona bien, tenemos un problema en la historia `default`, porque la `TaskList` no tiene una store de Vuex a la que conectarse. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario).
 
-![Broken inbox](/intro-to-storybook/broken-inboxscreen.png)
+![Broken inbox](/intro-to-storybook/broken-inboxscreen-vue.png)
 
 Una forma de evitar este problema es nunca renderizar componentes contenedores en ninguna parte de tu aplicación excepto en el nivel más alto y en su lugar pasar todos los datos requeridos bajo la jerarquía de componentes.
 
