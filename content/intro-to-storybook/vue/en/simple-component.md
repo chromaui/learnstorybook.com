@@ -29,7 +29,7 @@ We’ll begin with the baseline implementation of the `Task`, simply taking in t
 ```html
 <template>
   <div class="list-item">
-    <input type="text" :readonly="true" :value="this.task.title" />
+    <input type="text" :readonly="true" :value="task.title" />
   </div>
 </template>
 
@@ -79,7 +79,7 @@ export const Default = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: taskData,
+      default: () => (taskData),
     },
   },
   methods: actionsData,
@@ -90,10 +90,10 @@ export const Pinned = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_PINNED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -104,10 +104,10 @@ export const Archived = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_ARCHIVED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -186,7 +186,7 @@ Our component is still rather rudimentary at the moment. We're going to make som
       <span class="checkbox-custom" @click="$emit('archiveTask', task.id)" />
     </label>
     <div class="title">
-      <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
+      <input type="text" :readonly="true" :value="task.title" placeholder="Input title" />
     </div>
     <div class="actions">
       <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
