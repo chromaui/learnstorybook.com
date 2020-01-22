@@ -98,7 +98,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
   };
 </script>
 <style>
-  @import "./index.css";
+  @import './index.css';
 </style>
 ```
 
@@ -111,22 +111,23 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import PureInboxScreen from './PureInboxScreen';
 
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
-    };
-  })
-  .add('error', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
-    };
-  });
+import PureInboxScreen from './PureInboxScreen.vue';
+export default {
+  title: 'PureInboxScreen',
+};
+
+// inbox screen default state
+export const Default = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen/>`,
+});
+
+// inbox screen error state
+export const error = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen :error="true"/>`,
+});
 ```
 
 We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Vuex store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
@@ -138,7 +139,7 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 670+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context to stories
@@ -146,18 +147,15 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can create a new store in our story file and pass it in as the context of the story:
 
 ```javascript
-import { action } from '@storybook/addon-actions';
-import { storiesOf } from '@storybook/vue';
 import Vue from 'vue';
 import Vuex from 'vuex';
-
-import { defaultTaskList } from './PureTaskList.stories';
 import PureInboxScreen from './PureInboxScreen.vue';
-
+import { action } from '@storybook/addon-actions';
+import { defaultTasksData } from './PureTaskList.stories';
 Vue.use(Vuex);
 export const store = new Vuex.Store({
   state: {
-    tasks: defaultTaskList,
+    tasks: defaultTasksData,
   },
   actions: {
     pinTask(context, id) {
@@ -168,21 +166,20 @@ export const store = new Vuex.Store({
     },
   },
 });
-
-storiesOf('PureInboxScreen', module)
-  .add('default', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen/>`,
-      store,
-    };
-  })
-  .add('error', () => {
-    return {
-      components: { PureInboxScreen },
-      template: `<pure-inbox-screen :error="true"/>`,
-    };
-  });
+export default {
+  title: 'PureInboxScreen',
+  excludeStories: /.*store$/,
+};
+export const Default = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen/>`,
+  store,
+});
+// tasklist with pinned tasks
+export const error = () => ({
+  components: { PureInboxScreen },
+  template: `<pure-inbox-screen :error="true"/>`,
+});
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.

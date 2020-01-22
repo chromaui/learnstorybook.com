@@ -35,14 +35,15 @@ First, we will need to install all the necessary dependencies.
 yarn add @storybook/addon-knobs
 ```
 
-Register Knobs in your `.storybook/addons.js` file.
+Register Knobs in your `.storybook/main.js` file.
 
 ```javascript
-// .storybook/addons.js
+// .storybook/main.js
 
-import '@storybook/addon-actions/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-links/register';
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
+};
 ```
 
 <div class="aside">
@@ -63,19 +64,21 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 // src/components/Task.stories.js
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
-Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
+Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+export default {
+  component: Task,
+  title: 'Task',
+  decorators: [withKnobs],
+  excludeStories: /.*Data$/,
+};
 ```
 
 Lastly, integrate the `object` knob type within the "default" story:
@@ -83,13 +86,9 @@ Lastly, integrate the `object` knob type within the "default" story:
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add('default', () => {
-    return <Task task={object('task', { ...task })} {...actions} />;
-  })
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+export const Default = () => {
+  return <Task task={object('task', { ...taskData })} {...actionsData} />;
+};
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -133,13 +132,11 @@ Let's add a story for the long text case in Task.stories.js:
 ```javascript
 // src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-storiesOf('Task', module)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />)
-  .add('long title', () => <Task task={{ ...task, title: longTitle }} {...actions} />);
+export const LongTitle = () => (
+  <Task task={{ ...taskData, title: longTitleString }} {...actionsData} />
+);
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
@@ -152,6 +149,6 @@ If we are using [visual regression testing](/react/en/test/), we will also be in
 
 Don't forget to merge your changes with git!
 
-## Sharing Addons With The Team
+## Creating your own addon
 
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the next chapter, we'll guide you through creating an addon that shows your static design alongside your development.
