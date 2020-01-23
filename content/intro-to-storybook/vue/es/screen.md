@@ -14,6 +14,7 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Vuex) en alguna maqueta y sacando un campo `error` de el store (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor). Ahora crearemos `PureInboxScreen.vue` dentro de la carpeta `src/components/`:
 
 ```html
+<!--src/components/PureInboxScreen.vue-->
 <template>
   <div>
     <div class="page lists-show" v-if="error">
@@ -55,6 +56,7 @@ Como nuestra aplicación es muy simple, la pantalla que construiremos es bastant
 Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInboxScreen` en `src/components/InboxScreen.vue`:
 
 ```html
+<!--src/components/InboxScreen.vue-->
 <template>
   <div>
     <pure-inbox-screen :error="error" />
@@ -80,6 +82,7 @@ Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInbo
 También cambiamos nuestro componente `App` para que incluya `InboxScreen` (en una aplicación real esto sería manejado por el enrutador pero podemos obviarlo):
 
 ```html
+<!--src/App.vue-->
 <template>
   <div id="app">
     <inbox-screen />
@@ -111,6 +114,7 @@ Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este p
 Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Entonces, cuando configuramos nuestras historias en `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
+//src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 export default {
   title: 'PureInboxScreen',
@@ -146,6 +150,7 @@ Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legít
 La buena noticia es que es fácil suministrar una store de Vuex a la `PureInboxScreen` en una historia! Podemos crear una nueva store en nuestra historia y pasarla como contexto de la historia:
 
 ```javascript
+//src/components/PureInboxScreen.stories.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 import PureInboxScreen from './PureInboxScreen.vue';
@@ -157,10 +162,10 @@ export const store = new Vuex.Store({
     tasks: defaultTasksData,
   },
   actions: {
-    pinTask(context, id) {
+    pinTask(_, id) {
       action('pinTask')(id);
     },
-    archiveTask(context, id) {
+    archiveTask(_, id) {
       action('archiveTask')(id);
     },
   },
