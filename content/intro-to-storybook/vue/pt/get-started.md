@@ -5,7 +5,7 @@ description: 'Configuração do Storybook num ambiente de desenvolvimento Vue'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.
-Ajuda-o a construir componentes de interface de utilizador (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
+Ajuda-o a construir componentes de interface de usuário (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para Vue.
 Encontram-se disponíveis outras edições quer para [React](/react/pt/get-started), quer para [Angular](/angular/pt/get-started).
 
@@ -18,7 +18,7 @@ Precisamos de alguns passos extra para configurar o processo de compilação no 
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset hichroma/vue-preset-learnstorybook 
+npx -p @vue/cli vue create taskbox --preset hichroma/vue-preset-learnstorybook
 
 cd taskbox
 
@@ -44,7 +44,7 @@ As três modalidades de frontend da aplicação: testes automáticos (Jest), des
 ![3 modalidades](/intro-to-storybook/app-three-modalities-vue.png)
 
 Dependendo de qual parte da aplicação em que está a trabalhar, pode querer executar uma ou mais simultaneamente.
-Mas, visto que o nosso foco é a criação de um único componente de interface de utilizador (UI na forma original), vamos ficar somente pela execução do Storybook.
+Mas, visto que o nosso foco é a criação de um único componente de interface de usuário (UI na forma original), vamos ficar somente pela execução do Storybook.
 
 ## Reutilizar CSS
 
@@ -68,13 +68,10 @@ De forma a igualar o design pretendido do tutorial, terá que transferir as past
 
 <div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
 
-
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
-
-
 
 E também atualizar o nosso script de execução do storybook (no `package.json`) para servir a pasta `public`
 

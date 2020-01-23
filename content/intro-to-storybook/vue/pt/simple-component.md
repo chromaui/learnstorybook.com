@@ -4,7 +4,7 @@ tocTitle: 'Componente simples'
 description: 'Construção de um componente simples em isolamento'
 ---
 
-Iremos construir um interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
+Iremos construir um interface de usuário de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de usuário a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói a interface de usuário.
 
 ## Tarefa
 
@@ -30,7 +30,6 @@ Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o aco
 Iremos iniciar por uma implementação rudimentar da `Task`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
 
 ```html
-
 <!--src/components/Task.vue-->
 <template>
   <div class="list-item">
@@ -57,7 +56,6 @@ O bloco de código acima, quando renderizado, não é nada mais nada menos que a
 Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
 
 ```javascript
-
 // src/components/Task.stories.js
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
@@ -109,13 +107,13 @@ export const Pinned = () => ({
 export const Archived = () => ({
   components: { Task },
   template: taskTemplate,
-   props: {
+  props: {
     task: {
       default: {
         ...taskData,
-        state: "TASK_ARCHIVED"
-      }
-    }
+        state: 'TASK_ARCHIVED',
+      },
+    },
   },
   methods: actionsData,
 });
@@ -136,7 +134,7 @@ De forma a informar o Storybook acerca do componente que está a ser documentado
 
 Para definir as nossas estórias, exportamos uma função para cada um dos casos de teste. A estória não é nada mais nada menos que uma função que devolve um elemento renderizado (por exemplo um componente com um conjunto de adereços) num determinado estado -- exatamente tal como um [Componente Funcional sem estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
-A função `action()` permite a criação de um callback, que irá surgir no painel adequado, ou seja o painel **actions** do interface de utilizador Storybook quando for feito o click. Como tal assim que for criado o botão para afixar tarefas, irá ser possível determinar o sucesso ou não do click no interface de utilizador de testes.
+A função `action()` permite a criação de um callback, que irá surgir no painel adequado, ou seja o painel **actions** da interface de usuário Storybook quando for feito o click. Como tal assim que for criado o botão para afixar tarefas, irá ser possível determinar o sucesso ou não do click no interface de usuário de testes.
 
 Visto que é necessário fornecer o mesmo conjunto de tarefas a todas as permutações do componente, é extremamente conveniente agrupar numa única variável denominada `actionsData` e ser fornecida à estória sempre que necessário (em que o acesso é feito através da propriedade `methods`).
 
@@ -145,7 +143,7 @@ Outro aspeto fantástico é que ao agrupar a `actionsData` necessária ao compon
 Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a forma da tarefa em questão que é necessária ao componente. Geralmente modelada a partir de dados concretos. Mais uma vez o uso da cláusula `export`, neste caso para a estrutura dos dados irá permitir a sua reutilização em estórias futuras, tal como veremos.
 
 <div class="aside">
-    <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface de utilizador isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de <code>action()</code> para esta situação.
+    <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface de usuário isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de <code>action()</code> para esta situação.
 </div>
 
 ## Configuração
@@ -155,13 +153,11 @@ Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a
 Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
 
 ```javascript
-
 // .storybook/main.js
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
-
 ```
 
 Após efetuar esta alteração, uma vez mais dentro da pasta `.storybook`, crie um novo ficheiro (ou arquivo) chamado `preview.js` com o seguinte conteúdo:
@@ -187,7 +183,6 @@ Neste momento já possuímos o Storybook configurado, os elementos de estilo imp
 O componente neste momento ainda está algo rudimentar. Vamos fazer algumas alterações de forma a atingir o design pretendido, sem entrar em muitos detalhes:
 
 ```html
-
 <!--src/components/Task.vue-->
 <template>
   <div :class="taskClass">
@@ -232,7 +227,7 @@ O componente neste momento ainda está algo rudimentar. Vamos fazer algumas alte
 </script>
 ```
 
-O markup adicional descrito acima, combinado com o CSS que foi importado anteriormente irá originar o seguinte interface de utilizador:
+O markup adicional descrito acima, combinado com o CSS que foi importado anteriormente irá originar o seguinte interface de usuário:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -246,7 +241,7 @@ O markup adicional descrito acima, combinado com o CSS que foi importado anterio
 Foi construído com sucesso, sem ser necessário qualquer tipo de servidor, ou que seja necessário executar a aplicação frontend. O próximo passo é construir os restantes componentes da Taskbox um por um de forma similar.
 
 Como se pode ver, começar a construir componentes isoladamente é fácil e rápido.
-Com isto espera-se que seja possível construir um interface de utilizador de qualidade superior com um número de problemas menor e mais polido. Isto devido ao facto que é possível aprofundar e testar qualquer estado possível.
+Com isto espera-se que seja possível construir um interface de usuário de qualidade superior com um número de problemas menor e mais polido. Isto devido ao facto que é possível aprofundar e testar qualquer estado possível.
 
 ## Testes automatizados
 
@@ -269,7 +264,6 @@ yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 Em seguida é criado o ficheiro `tests/unit/storybook.spec.js` com seguinte:
 
 ```javascript
-
 // tests/unit/storybook.spec.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
@@ -281,7 +275,6 @@ Finalmente terá que se alterar o ficheiro `jest.config.js`:
   // jest.config.js
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 ```
-
 
 Assim que os passos descritos acima estiverem concluídos, poderá ser executado `yarn test:unit` e constatar o seguinte output:
 

@@ -15,13 +15,13 @@ Este capítulo ilustra como distribuir sistemas de design, desde empacotamento d
 
 As organizações possuem milhares de componentes de IU espalhados por inúmeras aplicações. Anteriormente extraímos os componentes comuns para o sistema de design. Agora é necessário reintroduzi-los de volta nas aplicações
 
-O nosso sistema de design usa o gestor de pacotes npm para Javascript, para lidar com a gestão de dependências, distribuição e controlo de versões. 
+O nosso sistema de design usa o gestor de pacotes npm para Javascript, para lidar com a gestão de dependências, distribuição e controlo de versões.
 
 Existem muitas outros métodos válidos para empacotar os sistemas de design. Dê uma olhadela aos sistemas de design da Lonely Planet, Auth0, Salesforce, GitHub e Microsoft para ver a diversidade de abordagens. Alguns lançam cada componente como um pacote separado. Outros lançam todos os componentes num só pacote.
 
 Para sistemas de design recém-nascido, a forma mais direta é a publicação de um pacote com controlo de versões que encapsula:
 
-- 🏗 Componentes interface utilizador comuns
+- 🏗 Componentes interface de usuário comuns
 - 🎨 Tokens de design(também conhecidos como variáveis de estilo)
 - 📕 Documentação
 
@@ -93,7 +93,6 @@ dist
 
 Finalmente, vamos fazer algumas alterações adicionais ao ficheiro `package.json`, de forma a garantir que todos os consumidores do pacote, obtenham todas as informações necessárias. A forma mais simples para isto é executar `yarn init`: um comando que inicializa o pacote para ser publicado:
 
-
 ```bash
 yarn init
 
@@ -108,7 +107,7 @@ question license (MIT):
 question private: no
 ```
 
-Ao executar este comando, irão ser apresentados um conjunto de questões, algumas destas já contêm a resposta pré-preenchida, para outras terá que pensar um pouco mais. Terá que escolher um nome que será único ao pacote no npm (não será possível usar, visto que já existe `learnstorybook-design-system`; uma boa escolha é `<o-seu-nome-de-utilizador>-learnstorybook-design-system`).
+Ao executar este comando, irão ser apresentados um conjunto de questões, algumas destas já contêm a resposta pré-preenchida, para outras terá que pensar um pouco mais. Terá que escolher um nome que será único ao pacote no npm (não será possível usar, visto que já existe `learnstorybook-design-system`; uma boa escolha é `<o-seu-nome-de-usuário>-learnstorybook-design-system`).
 
 Em resumo, com base nas respostas fornecidas o ficheiro `package.json` irá ser atualizado com os novos valores:
 
@@ -185,7 +184,7 @@ yarn auto changelog
 
 O que o comando faz, é gerar uma entrada no registo de alterações bem grande, com cada submissão feita (e um aviso que temos estado a fazer alterações no ramo master e devemos parar com isso o mais depressa possível).
 
-No entanto é extremamente útil manter um registo de alterações gerado automaticamente, de forma que não se percam pitada do que está a acontecer, é também uma muito boa ideia, editá-lo manualmente e gerar uma mensagem útil para os utilizadores. Neste caso, os utilizadores não precisam ter conhecimento de todo e qualquer submissão feita até agora. Vamos criar uma mensagem simples e agradável para a primeira versão v0.1.0. Para isto, primeiro desfaça a alteração feita Auto (mas mantenha-a):
+No entanto é extremamente útil manter um registo de alterações gerado automaticamente, de forma que não se percam pitada do que está a acontecer, é também uma muito boa ideia, editá-lo manualmente e gerar uma mensagem útil para os usuários. Neste caso, os usuários não precisam ter conhecimento de todo e qualquer submissão feita até agora. Vamos criar uma mensagem simples e agradável para a primeira versão v0.1.0. Para isto, primeiro desfaça a alteração feita Auto (mas mantenha-a):
 
 ```bash
 git reset HEAD^
@@ -223,7 +222,7 @@ git push --follow-tags origin master
 yarn auto release
 ```
 
-Parabéns! Publicámos com sucesso o nosso pacote para o npm e criámos uma versão 
+Parabéns! Publicámos com sucesso o nosso pacote para o npm e criámos uma versão
 de lançamento no GitHub (com muita sorte!).
 
 ![Pacote publicado no npm](/design-systems-for-developers/npm-published-package.png)
@@ -257,8 +256,7 @@ Agora, quando for executado o `yarn release`, irão ser percorridos quase todos 
     fi
 ```
 
-Será também necessário adicionar os tokens npm e GitHub ao ambiente CircleCI associado ao vosso projeto, mais exatamente no website do CircleCI (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars): 
-
+Será também necessário adicionar os tokens npm e GitHub ao ambiente CircleCI associado ao vosso projeto, mais exatamente no website do CircleCI (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
 
 ![Definir variáveis de ambiente no CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
@@ -333,14 +331,14 @@ Poderá agora pesquisar os componentes do sistema de design e documentação, en
 
 Alternativamente, se o Storybook do sistema de design foi publicado online anteriormente (veja o capítulo 4), pode consultar toda a informação no endereço gerado.
 
-Vamos usar o componente Avatar do nosso sistema de design no componente UserItem da nossa aplicação. O UserItem deverá renderizar a informação relativa ao utilizador incluíndo um nome e foto de perfil.
+Vamos usar o componente Avatar do nosso sistema de design no componente UserItem da nossa aplicação. O UserItem deverá renderizar a informação relativa ao usuário incluíndo um nome e foto de perfil.
 
 No vosso editor, abram o ficheiro UserItem.js. Mas procurem também pelo UserItem na barra lateral do Storybook, para verem todas as alterações de código serem atualizadas instantaneamente através do hot module reload.
 
 Importe o componente Avatar.
 
 ```javascript
-import { Avatar } from '<your-username>-learnstorybook-design-system'
+import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 Como queremos renderizar o Avatar lado a lado com o username, faça a seguinte alteração.

@@ -44,13 +44,14 @@ Instalar e executar o Storybook
 npx -p @storybook/cli sb init
 yarn storybook
 ```
+
 Deverá ver o seguinte:
 
-![Interface de utilizador inicial Storybook](/design-systems-for-developers/storybook-initial.png)
+![Interface de usuário inicial Storybook](/design-systems-for-developers/storybook-initial.png)
 
 Fantástico, acabámos de configurar o explorador de componentes!
 
-Por defeito, o Storybook, cria uma pasta `src/stories` com alguns exemplos de estórias. No entanto, quando copiámos os nossos componentes, foram copiadas também as suas estórias. Podemos indexá-las no nosso Storybook através da alteração 
+Por defeito, o Storybook, cria uma pasta `src/stories` com alguns exemplos de estórias. No entanto, quando copiámos os nossos componentes, foram copiadas também as suas estórias. Podemos indexá-las no nosso Storybook através da alteração
 da localização das estórias no ficheiro `.storybook/config.js` para `’src/components’` ao invés de `’src/stories’` e com isto podemos remover a pasta ou diretório `src/stories` sem qualquer repercussão:
 
 ```javascript
@@ -59,13 +60,14 @@ import { configure } from '@storybook/react';
 // automatically import all files ending in *.stories.js
 configure(require.context('../src', true, /\.stories\.js$/), module);
 ```
+
 Com isto o vosso Storybook deverá recarregar (notem que os estilos associados ás fontes estão um pouco diferentes, por exemplo reparem na estória "Initials"):
 
 ![Conjunto inicial de estórias](/design-systems-for-developers/storybook-initial-stories.png)
 
 #### Adicionar estilos globais
 
-O nosso sistema de design precisa de estilos globais (um reset CSS) que terão que ser aplicados ao documento de forma que os componentes renderizem de forma correta. Estes estilos podem ser facilmente adicionados através da tag style global do Styled Componentes. Como referência, o seguinte excerto demonstra como o código é exportado de `src/shared/global.js` 
+O nosso sistema de design precisa de estilos globais (um reset CSS) que terão que ser aplicados ao documento de forma que os componentes renderizem de forma correta. Estes estilos podem ser facilmente adicionados através da tag style global do Styled Componentes. Como referência, o seguinte excerto demonstra como o código é exportado de `src/shared/global.js`
 
 ```javascript
 import { createGlobalStyle, css } from 'styled-components';
@@ -163,19 +165,20 @@ import '@storybook/addon-links/register';
 import '@storybook/addon-storysource/register';
 ```
 
-E atualize a configuração do webpack que se encontra em `.storybook/webpack.config.js`: 
+E atualize a configuração do webpack que se encontra em `.storybook/webpack.config.js`:
 
 ```javascript
 module.exports = function({ config }) {
- config.module.rules.unshift({
-   test: /\.stories\.jsx?$/,
-   loaders: [require.resolve('@storybook/addon-storysource/loader')],
-   enforce: 'pre',
- });
+  config.module.rules.unshift({
+    test: /\.stories\.jsx?$/,
+    loaders: [require.resolve('@storybook/addon-storysource/loader')],
+    enforce: 'pre',
+  });
 
- return config;
+  return config;
 };
 ```
+
 No Storybook este fluxo de trabalho assemelha-se ao seguinte:
 
 ![O extra Storysource](/design-systems-for-developers/storybook-addon-storysource.png)
@@ -199,7 +202,7 @@ import '@storybook/addon-storysource/register';
 import '@storybook/addon-knobs/register';
 ```
 
-Adicione uma estória que usa os knobs em  `src/Avatar.stories.js`:
+Adicione uma estória que usa os knobs em `src/Avatar.stories.js`:
 
 ```javascript
 import React from 'react';

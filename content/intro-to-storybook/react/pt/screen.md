@@ -5,7 +5,7 @@ description: 'Construção de um ecrã a partir de componentes'
 commit: e56e345
 ---
 
-Tem sido focada a construção de interfaces de utilizador da base para o topo.
+Tem sido focada a construção de interfaces de usuário da base para o topo.
 Começando de forma simples e sendo adicionada complexidade á medida que a aplicação é desenvolvida. Com isto permitiu que cada componente fosse desenvolvido de forma isolada, definindo quais os requisitos de dados e "brincar" com ele em Storybook. Isto tudo sem a necessidade de instanciar um servidor ou ser necessária a construção de ecrãs!
 
 Neste capitulo, irá ser acrescida um pouco mais a sofisticação, através da composição de diversos componentes, originando um ecrã, que será desenvolvido no Storybook.
@@ -155,7 +155,7 @@ A iteração de estados no Storybook faz com que seja bastante fácil testar, se
 
 ## Desenvolmento orientado a Componentes
 
-Começou-se do fundo com `Task`, prosseguindo para `TaskList` e agora chegou-se ao ecrã geral do interface de utilizador. O `InboxScreen`, acomoda um componente contentor que foi adicionado e inclui também estórias que o acompanham.
+Começou-se do fundo com `Task`, prosseguindo para `TaskList` e agora chegou-se ao ecrã geral da interface de usuário. O `InboxScreen`, acomoda um componente contentor que foi adicionado e inclui também estórias que o acompanham.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -164,7 +164,7 @@ Começou-se do fundo com `Task`, prosseguindo para `TaskList` e agora chegou-se 
   />
 </video>
 
-[**Desenvolvimento Orientado a Componentes**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) permite a expansão gradual da complexidade á medida que se prossegue de forma ascendente na hierarquia de componentes. Dos benefícios ao utilizar-se esta abordagem, estão o processo de desenvolvimento focado e cobertura adicional das permutações possíveis do interface de utilizador.
-Resumidamente esta abordagem ajuda na produção de interfaces de utilizador de uma qualidade extrema e assim como complexidade.
+[**Desenvolvimento Orientado a Componentes**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) permite a expansão gradual da complexidade á medida que se prossegue de forma ascendente na hierarquia de componentes. Dos benefícios ao utilizar-se esta abordagem, estão o processo de desenvolvimento focado e cobertura adicional das permutações possíveis da interface de usuário.
+Resumidamente esta abordagem ajuda na produção de interfaces de usuário de uma qualidade extrema e assim como complexidade.
 
-Ainda não finalizamos, o trabalho não acaba quando o interface de utilizador estiver construído. É necessário garantir que resiste ao teste do tempo.
+Ainda não finalizamos, o trabalho não acaba quando a interface de usuário estiver construído. É necessário garantir que resiste ao teste do tempo.

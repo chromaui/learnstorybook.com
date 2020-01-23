@@ -1,10 +1,10 @@
 ---
-title: "Conclusão"
-tocTitle: "Conclusão"
-description: "Sistemas de design prósperos economizam tem e aumentam produtividade"
+title: 'Conclusão'
+tocTitle: 'Conclusão'
+description: 'Sistemas de design prósperos economizam tem e aumentam produtividade'
 ---
 
-Estudos suportados por pesquisa sugerem que a reutilização de código podem gerar entre [42-81% de economia de tempo](https://www.researchgate.net/publication/3188437_Evaluating_Software_Reuse_Alternatives_A_Model_and_Its_Application_to_an_Industrial_Case_Study?ev=publicSearchHeader&_sg=g8WraNGZNGPw0R-1-jGpy0XwUDeAr3qb472J6lhisyQ3l24pSmndO6anMdX2L3HdWHifsczPegR9wjA) e aumentar a produtividade em [40%](http://www.cin.ufpe.br/~in1045/papers/art03.pdf). Não deverá ser surpresa então, que os sistemas de design que ajudam a facilitar a partilha de **código de interface de utilizador**, estão a ganhar uma popularidade crescente entre programadores.
+Estudos suportados por pesquisa sugerem que a reutilização de código podem gerar entre [42-81% de economia de tempo](https://www.researchgate.net/publication/3188437_Evaluating_Software_Reuse_Alternatives_A_Model_and_Its_Application_to_an_Industrial_Case_Study?ev=publicSearchHeader&_sg=g8WraNGZNGPw0R-1-jGpy0XwUDeAr3qb472J6lhisyQ3l24pSmndO6anMdX2L3HdWHifsczPegR9wjA) e aumentar a produtividade em [40%](http://www.cin.ufpe.br/~in1045/papers/art03.pdf). Não deverá ser surpresa então, que os sistemas de design que ajudam a facilitar a partilha de **código de interface de usuário**, estão a ganhar uma popularidade crescente entre programadores.
 
 Nos últimos anos, o Tom e eu, observámos inúmeras equipas veteranas ancorar as suas ferramentas de trabalho associadas ao sistema de design em torno do Storybook. Concentraram-se na redução da sobrecarga de comunicação, arquitetura duradoura e automatização de tarefas manuais repetitivas. Esperamos que ao destilarem estas táticas de senso comum, irá ajudar no florescimento do vosso sistema de design.
 
@@ -19,12 +19,12 @@ Se estiver a programar connosco, os vossos repositórios deverão assemelhar-se 
 - [Repositório de exemplo do sistema de design](https://github.com/chromaui/learnstorybook-design-system)
 - [Repositório da aplicação de exemplo](https://github.com/chromaui/learnstorybook-design-system-example-app)
 
-O código de exemplo é baseado no [próprio sistema de design do Storybook](https://github.com/storybookjs/design-system) (SDS), que alimenta a experiência de utilizador para milhares de programadores. O SDS é um trabalho em curso: encorajamos as contribuições vindas da comunidade. Como contribuidores, irão obter uma experiência prática, baseadas nas melhores práticas dos sistemas de design, mas também com técnicas emergentes. O SDS é também onde a equipa do Storybook demonstra as mais recentes funcionalidades.
+O código de exemplo é baseado no [próprio sistema de design do Storybook](https://github.com/storybookjs/design-system) (SDS), que alimenta a experiência de usuário para milhares de programadores. O SDS é um trabalho em curso: encorajamos as contribuições vindas da comunidade. Como contribuidores, irão obter uma experiência prática, baseadas nas melhores práticas dos sistemas de design, mas também com técnicas emergentes. O SDS é também onde a equipa do Storybook demonstra as mais recentes funcionalidades.
 
 ## Acerca de nós
 
-O _Sistemas de Design para Programadores_, na forma original, _Design Systems for Developers_ foi criado por [Dominic Nguyen](https://twitter.com/domyen) e o [Tom Coleman](https://twitter.com/tmeasday). 
-O Dominic desenhou o interface de utilizador, todo o branding e o sistema de design. O Tom é um membro do comité de direção do Storybook para a arquitetura frontend. Trabalhou no Component Story Format, API dos extras e API de parâmetros.
+O _Sistemas de Design para Programadores_, na forma original, _Design Systems for Developers_ foi criado por [Dominic Nguyen](https://twitter.com/domyen) e o [Tom Coleman](https://twitter.com/tmeasday).
+O Dominic desenhou a interface de usuário, todo o branding e o sistema de design. O Tom é um membro do comité de direção do Storybook para a arquitetura frontend. Trabalhou no Component Story Format, API dos extras e API de parâmetros.
 
 Orientação especializada por parte do [Kyle Suss](https://github.com/kylesuss), líder técnico do sistema de design do Storybook e também [Michael Shilman](https://twitter.com/mshilman), o criador do Storybook Docs.
 
@@ -60,7 +60,6 @@ A governança é um tópico cheio de nuances que é mais extensivo e específico
 
 Sim! A comunidade Storybook cria extras que fazem com que a integração de ferramentas de design se torne bastante fácil. Por exemplo o [Design System Manager](https://www.invisionapp.com/design-system-manager) da InVision integra-se com o Storybook, para demonstrar as estórias existentes na aplicação da InVision. Existem também extras da comunidade para [tokens de design](https://github.com/UX-and-I/storybook-design-token), [Sketch](https://github.com/chrisvxd/story2sketch), e [Figma](https://github.com/pocka/storybook-addon-designs).
 
-
 ![Integrações de ferramentas de design](/design-systems-for-developers/storybook-integrations-design.jpg)
 
 #### É necessário um sistema de design para uma só aplicação?
@@ -75,7 +74,7 @@ Ninguém é perfeito. O vosso sistema de design irá ser lançado com algum erro
 
 #### Como propor ajustes ao sistema de design?
 
-A equipa do sistema de design é uma equipa de serviços. Ao invés de ligar-se com os utilizadores finais, esta existe para tornar as equipas internas da aplicação mais produtivas. Os guardiões do sistema de design são responsáveis por gerir pedidos e socializar com outras equipas. Muitas equipas usam um gestor de tarefas tal como o Jira, Asana, ou o Trello para manter um registo das propostas.
+A equipa do sistema de design é uma equipa de serviços. Ao invés de ligar-se com os usuários finais, esta existe para tornar as equipas internas da aplicação mais produtivas. Os guardiões do sistema de design são responsáveis por gerir pedidos e socializar com outras equipas. Muitas equipas usam um gestor de tarefas tal como o Jira, Asana, ou o Trello para manter um registo das propostas.
 
 ## Agradecimentos
 

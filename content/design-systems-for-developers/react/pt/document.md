@@ -5,10 +5,10 @@ description: 'Acelere a adoção de sistemas de design através de documentaçã
 commit: a032b50
 ---
 
-[Equipas](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) [profissionais](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) de 
+[Equipas](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) [profissionais](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) de
 [frontend](https://segment.com/blog/driving-adoption-of-a-design-system/) medem o sucesso de um sistema de design através da sua adoção. De forma a colher todos os benefícios em termos de tempo de trabalho, os componentes precisam de circular. Caso contrário qual é o objetivo?
 
-Neste capítulo vamos criar um "manual de utilizador" para o sistema de design, de forma a ajudar as restantes partes interessadas a reutilizar os componentes nas suas aplicações. Ao longo do trajeto, vamos revelar as boas práticas recomendadas para documentação de IU, usadas por equipas na Shopify, Microsoft, Auth0 e o governo britânico.
+Neste capítulo vamos criar um "manual de usuário" para o sistema de design, de forma a ajudar as restantes partes interessadas a reutilizar os componentes nas suas aplicações. Ao longo do trajeto, vamos revelar as boas práticas recomendadas para documentação de IU, usadas por equipas na Shopify, Microsoft, Auth0 e o governo britânico.
 
 ![Gerar documentação automáticamente com o Storybook](/design-systems-for-developers/design-system-generate-docs.jpg)
 
@@ -17,7 +17,6 @@ Neste capítulo vamos criar um "manual de utilizador" para o sistema de design, 
 É óbvio; que a documentação é inestimável para um desenvolvimento colaborativo de IU. Ajuda as equipas a aprender como e quando usar os componentes de IU comuns. Mas porque é que precisa de tanto trabalho?
 
 Se já alguma vez criou documentação, provavelmente gastou tempo com tarefas que não são relacionadas com documentação, tais como entender a infraestrutura do site, ou discutir com escritores técnicos. E mesmo que conseguiu arranjar tempo para publicar essa documentação, continua a ser doloroso mantê-la enquanto se continuam a desenvolver funcionalidades.
-
 
 **A maioria da documentação está desatualizada assim que é criada.** Documentação desatualizada irá minar a confiança nos componentes do sistema de design, o que resulta que os programadores optem por criar novos componentes ao invés de reutilizar os que já existem.
 
@@ -31,7 +30,7 @@ A nossa documentação deverá superar toda e qualquer atrito inerente á sua cr
 - **📐Fornecer código base** para que os programadores não reescrevam quaisquer padrões comuns
 - **🎨Oferecer costumizações** para qualquer caso particular complexo e componentes
 
-Como utilizadores do Storybook, já temos um avanço, visto que as variações dos componentes estão definidas como estórias; uma forma de documentação. Uma estória ilustra como o componente irá funcionar com base em inputs diferentes (adereços (ou props na forma original)). As estórias são fáceis de escrever e podem ser atualizadas de forma automática, visto que usam os componentes em produção. Além disso as estórias podem ser testadas contra possíveis regressões recorrendo ás ferramentas mencionadas no capítulo anterior!
+Como usuários do Storybook, já temos um avanço, visto que as variações dos componentes estão definidas como estórias; uma forma de documentação. Uma estória ilustra como o componente irá funcionar com base em inputs diferentes (adereços (ou props na forma original)). As estórias são fáceis de escrever e podem ser atualizadas de forma automática, visto que usam os componentes em produção. Além disso as estórias podem ser testadas contra possíveis regressões recorrendo ás ferramentas mencionadas no capítulo anterior!
 
 > Quando escreves estórias, recebes de graça a documentação dos adereços (props na forma original) do componente e também casos de utilização! – Justin Bennett, Engenheiro na Artsy
 
@@ -42,13 +41,14 @@ Com o extra Docs do Storybook, podemos gerar documentação bastante rica a part
 ```bash
 yarn add --dev @storybook/addon-docs
 ```
+
 Mas também iremos adicionar um _preset_ para este extra, crie o ficheiro `.storybook/presets.js` se ainda não existir. Note que a utilização deste ficheiro de preset, elimina a necessidade do `.storybook/webpack.config.js` e como tal pode ser eliminado:
 
 ```javascript
 module.exports = ['@storybook/addon-docs/react/preset'];
 ```
-Irá reparar que existem duas tabs no seu Storybook, a tab "Canvas" que corresponde ao seu ambiente de desenvolvimento para os componentes e a "Docs" para documentação do componente.
 
+Irá reparar que existem duas tabs no seu Storybook, a tab "Canvas" que corresponde ao seu ambiente de desenvolvimento para os componentes e a "Docs" para documentação do componente.
 
 ![tab documentação do Storybook](/design-systems-for-developers/storybook-docs.png)
 
@@ -71,7 +71,7 @@ export default {
 };
 ```
 
-Em seguida adicione JSdoc ao componente Avatar (no ficheiro `src/components/Avatar.js`) sob a forma de uma descrição que será  posteriormente lida:
+Em seguida adicione JSdoc ao componente Avatar (no ficheiro `src/components/Avatar.js`) sob a forma de uma descrição que será posteriormente lida:
 
 ```javascript
 /**
@@ -87,7 +87,7 @@ Deverá ver algo do género:
 
 ![Tab documentação do Storybook com detalhes do componente](/design-systems-for-developers/storybook-docspage.png)
 
-O Docs do Storybook gerou automaticamente a tabela de adereços (props na forma original) que apresenta quais os tipos e os valores por defeito. O que é extremamente conveniente, mas não garante que seja "á prova de bala"; diversos adereços (props na forma original) podem ser usados incorretamente. Adicione comentários aos proptypes para que sejam também renderizados na tabela de adereços (props na forma original) que é gerada automaticamente. 
+O Docs do Storybook gerou automaticamente a tabela de adereços (props na forma original) que apresenta quais os tipos e os valores por defeito. O que é extremamente conveniente, mas não garante que seja "á prova de bala"; diversos adereços (props na forma original) podem ser usados incorretamente. Adicione comentários aos proptypes para que sejam também renderizados na tabela de adereços (props na forma original) que é gerada automaticamente.
 
 ```javascript
 Avatar.propTypes = {
@@ -172,7 +172,7 @@ import { Avatar } from './Avatar';
 
 ## Displays an image that represents a user or organization
 
-Use an avatar for attributing actions or content to specific users. 
+Use an avatar for attributing actions or content to specific users.
 The user's name should _always_ be present when using Avatar – either printed beside the avatar or in a tooltip.
 
 <Story name="standard">
@@ -214,7 +214,7 @@ The user's name should _always_ be present when using Avatar – either printed 
 
 ### Default Values
 
-When no image is supplied to the `src` prop, Avatar displays initials. 
+When no image is supplied to the `src` prop, Avatar displays initials.
 Avatar should be used sparingly in situations without access to images.
 
 <Story name="initials">
@@ -293,15 +293,14 @@ oferece contexto aos programadores, sobre como tirar partido deste componente. P
 
 ## Usage
 
-Avatar is used to represent a person or an organization. 
-By default the avatar shows an image and gracefully falls back to the first initial of the username. 
-While hydrating the component you may find it useful to render a skeleton template to indicate that Avatar is awaiting data. 
+Avatar is used to represent a person or an organization.
+By default the avatar shows an image and gracefully falls back to the first initial of the username.
+While hydrating the component you may find it useful to render a skeleton template to indicate that Avatar is awaiting data.
 Avatars can be grouped with the AvatarList component.
 
 ### Sizes
 
 // As before
-
 ```
 
 ![Documentação Storybook para MDX com informação de utilização](/design-systems-for-developers/storybook-docs-mdx-usage.png)
@@ -327,18 +326,17 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 
 Isto gera uma nova página somente de documentação, que é independente das restantes páginas de documentação automáticas criadas anteriormente, associadas a componentes.
 
-
 ![Storybook docs with introduction page, unsorted](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
 Para que esta apareça primeiro, precisamos notificar o Storybook para carregar esta página primeiro:
 
 ```javascript
 configure(
- [
-   require.context('../src', false, /Intro\.stories\.mdx/),
-   require.context('../src', true, /\.stories\.(js|mdx)$/),
- ],
- module
+  [
+    require.context('../src', false, /Intro\.stories\.mdx/),
+    require.context('../src', true, /\.stories\.(js|mdx)$/),
+  ],
+  module
 );
 ```
 
@@ -353,8 +351,8 @@ Num capítulo anterior, publicámos o Storybook online para revisão visual. É 
 ```json
 {
   "scripts": {
-     "build-storybook-docs": "build-storybook -s public --docs",
-   }
+    "build-storybook-docs": "build-storybook -s public --docs"
+  }
 }
 ```
 

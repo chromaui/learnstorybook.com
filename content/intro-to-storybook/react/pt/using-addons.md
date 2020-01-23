@@ -17,7 +17,7 @@ Poderíamos ficar aqui eternamente a discutir como configurar e usar os extras p
 
 ## Configuração do extra Knobs
 
-Knobs é um recurso fantástico quer para designers quer para programadores, para fazerem experiências com componentes num ambiente controlado sem ser necessário qualquer tipo de código! Essencialmente, são fornecidos dados com os quais um qualquer utilizador irá manipular e fornecer aos componentes que se encontram definidos nas estórias. Isto é o que iremos implementar....
+Knobs é um recurso fantástico quer para designers quer para programadores, para fazerem experiências com componentes num ambiente controlado sem ser necessário qualquer tipo de código! Essencialmente, são fornecidos dados com os quais um qualquer usuário irá manipular e fornecer aos componentes que se encontram definidos nas estórias. Isto é o que iremos implementar....
 
 ![Knobs in action](/addon-knobs-demo.gif)
 

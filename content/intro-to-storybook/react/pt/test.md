@@ -1,11 +1,11 @@
 ---
-title: 'Teste de componentes de interface de utilizador'
+title: 'Teste de componentes de interface de usuário'
 tocTitle: 'Testes'
-description: 'Aprendizagem das formas de teste dos componentes interface utilizador'
+description: 'Aprendizagem das formas de teste dos componentes interface de usuário'
 commit: 78a45d1
 ---
 
-Qualquer tutorial de Storybook não estaria completo sem serem mencionados os testes. Estes são essenciais na criação de interfaces de utilizador de alta qualidade. Nos sistemas modulares, ajustes minúsculos poderão levar a regressões gigantescas. Até agora foram descritos três tipos de testes:
+Qualquer tutorial de Storybook não estaria completo sem serem mencionados os testes. Estes são essenciais na criação de interfaces de usuário de alta qualidade. Nos sistemas modulares, ajustes minúsculos poderão levar a regressões gigantescas. Até agora foram descritos três tipos de testes:
 
 - **Testes visuais** dependem do programador para olhar para o componente manualmente e verificar se está tudo de acordo. Ajudam a manter um nível de coerência em termos de aparência á medida que é construído.
 - **Testes snapshot** com o extra Storyshots é capturado o markup renderizado do componente. Ajudam a ficar a par das alterações no markup que causam erros de renderização e avisos.
@@ -13,7 +13,7 @@ Qualquer tutorial de Storybook não estaria completo sem serem mencionados os te
 
 ## "Mas aparenta ser correcto"?
 
-Infelizmente as metodologias de teste acima mencionadas, sozinhas não são suficientes para prevenir problemas no interface de utilizador. Estes são complicados para testar, visto que o design é algo subjectivo e com nuances. Os testes visuais são demasiado manuais, os testes de snapshot poderão originar demasiados falsos positivos quando usados para interface de utilizador e os testes unitários ao nível de pixel são pobres. Uma estratégia de testes considerada completa para o Storybook incluí também testes visuais de regressão.
+Infelizmente as metodologias de teste acima mencionadas, sozinhas não são suficientes para prevenir problemas no interface de usuário. Estes são complicados para testar, visto que o design é algo subjectivo e com nuances. Os testes visuais são demasiado manuais, os testes de snapshot poderão originar demasiados falsos positivos quando usados para interface de usuário e os testes unitários ao nível de pixel são pobres. Uma estratégia de testes considerada completa para o Storybook incluí também testes visuais de regressão.
 
 ## Testes visuais de regressão para o Storybook
 
@@ -98,9 +98,9 @@ Assim que o primeiro teste estiver concluído, é obtida a base de testes para c
 
 ![Bases Chromatic](/intro-to-storybook/chromatic-baselines.png)
 
-## Captura de uma alteração interface utilizador
+## Captura de uma alteração interface de usuário
 
-Os testes de regressão visual dependem da comparação de imagens do novo código do interface de utilizador que foi agora renderizado com as imagens de base. Se for capturada uma alteração no interface de utilizador irá surgir uma notificação. Para isto ser observado altera-se o fundo do do componente `Task`:
+Os testes de regressão visual dependem da comparação de imagens do novo código da interface de usuário que foi agora renderizado com as imagens de base. Se for capturada uma alteração no interface de usuário irá surgir uma notificação. Para isto ser observado altera-se o fundo do do componente `Task`:
 
 ![alteração código](/intro-to-storybook/chromatic-change-to-task-component.png)
 
@@ -116,12 +116,12 @@ Usando agora o comando de testes, para efectuar um outro teste com o Chromatic.
 
 Ao abrir-se o link, irão ser apresentadas a alterações.
 
-![Alterações interface utilizador no Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
+![Alterações interface de usuário no Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
 
 Pode constatar-se um grande número de alterações! Significa que uma alteração pequena irá originar uma regressão enorme, isto na hierarquia de componentes cuja `Task` é filha de `TaskList` e `Inbox`.
 É precisamente por esta circunstância que os programadores necessitam de testes visuais de regressão além de outras metodologias de teste.
 
-![Regressoes grandes com alterações de interface de utilizador pequenas](/intro-to-storybook/minor-major-regressions.gif)
+![Regressoes grandes com alterações de interface de usuário pequenas](/intro-to-storybook/minor-major-regressions.gif)
 
 ## Revisão de alterações
 

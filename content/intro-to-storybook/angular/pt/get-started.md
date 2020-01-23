@@ -5,7 +5,7 @@ description: 'Configuração do Angular Storybook no ambiente de desenvolvimento
 ---
 
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
-Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
+Ajuda na construção de componentes de interface de usuário isolados de qualquer lógica e contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para Angular.
 Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started), quer para [React](/react/pt/get-started).
 
@@ -46,7 +46,7 @@ Sendo estes os seguintes: testes automáticos (Jest), desenvolvimento de compone
 ![3 modalidades](/intro-to-storybook/app-three-modalities.png)
 
 Dependendo de qual parte da aplicação que estamos a trabalhar, podemos querer executar um ou mais simultâneamente.
-Visto que neste caso, o foco é a criação de um componente de interface de utilizador simples, iremos cingir-nos somente á execução de Storybook.
+Visto que neste caso, o foco é a criação de um componente de interface de usuário simples, iremos cingir-nos somente á execução de Storybook.
 
 ## Reutilização CSS
 

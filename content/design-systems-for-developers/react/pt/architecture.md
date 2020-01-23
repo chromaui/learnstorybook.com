@@ -13,7 +13,7 @@ Em grandes empresas, este exercício é feito em conjunção com as equipas de d
 
 Se trabalha numa equipa de desenvolvimento, já deve ter reparado que equipas grandes não são muito eficientes. Falhas de comunicação aumentam à medida que as equipas crescem. Os padrões do IU existentes ficam por documentar ou perdem-se por completo. O que significa que os programadores passam mais tempo a reinventar a roda ao invés de construir novas funcionalidades. Com o decorrer do tempo os projetos estão cheios de componentes que são usados uma única vez.
 
-Nós demos de caras com este problema. Apesar das melhores intenções de uma equipa experiente, os componentes de interface de utilizador eram constantemente reconstruídos, ou colados. Os padrões de IU que deveriam ser os mesmos, começaram a divergir em aparência e funcionalidade. Cada componente tornou-se um floco de neve único, o que fez com que se tornasse impossível para os novos programadores distinguirem qual a fonte de verdade, quanto mais contribuir.
+Nós demos de caras com este problema. Apesar das melhores intenções de uma equipa experiente, os componentes de interface de usuário eram constantemente reconstruídos, ou colados. Os padrões de IU que deveriam ser os mesmos, começaram a divergir em aparência e funcionalidade. Cada componente tornou-se um floco de neve único, o que fez com que se tornasse impossível para os novos programadores distinguirem qual a fonte de verdade, quanto mais contribuir.
 
 ![Divergência de IU](/design-systems-for-developers/design-system-inconsistent-buttons.jpg)
 
@@ -55,7 +55,7 @@ git remote add origin https://github.com/chromaui/learnstorybook-design-system.g
 git push -u origin master
 ```
 
-Não se esqueça de substituir `chromaui` pelo seu nome de utilizador.
+Não se esqueça de substituir `chromaui` pelo seu nome de usuário.
 
 ![Adição inicial ao repositório GitHub](/design-systems-for-developers/created-github-repository.png)
 
@@ -63,7 +63,7 @@ Não se esqueça de substituir `chromaui` pelo seu nome de utilizador.
 
 Os sistemas de design deverão somente conter [componentes de apresentação](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) e componentes puros. Estes tipos de componentes lidam com a aparência do IU. Reagem exclusivamente aos adereços (props na forma original), não contêm qualquer tipo de lógica de negócio associada à aplicação e são agnósticos relativamente á forma como os dados são carregados. Estas propriedades são essenciais para permitir a reutilização do componente.
 
-Os sistemas de design não são o super conjunto de cada biblioteca de componentes de uma organização. Gerir isso seria uma dor de cabeça. 
+Os sistemas de design não são o super conjunto de cada biblioteca de componentes de uma organização. Gerir isso seria uma dor de cabeça.
 
 Componentes específicos á aplicação que contêm qualquer tipo de lógica de negócio, não deverão ser incluídos, visto que estes iriam prejudicar a sua reutilização por fazerem com que todos os projetos consumidores tenham que ter as mesmas restrições de negócio.
 

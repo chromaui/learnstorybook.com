@@ -3,7 +3,7 @@ title: 'Conclusão'
 description: 'Fusão de todo o conhecimento adquirido e aprendizagem de técnicas extra de Storybook'
 ---
 
-Parabéns! Acabou de criar o primeiro interface de utilizador com o Storybook. Ao longo do caminho, aprendeu a criar, compor, testar e implementar componentes de interface de utilizador. Se seguiu o tutorial o repositório e o Storybook deverão ficar assim:
+Parabéns! Acabou de criar o primeiro interface de usuário com o Storybook. Ao longo do caminho, aprendeu a criar, compor, testar e implementar componentes de interface de usuário. Se seguiu o tutorial o repositório e o Storybook deverão ficar assim:
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
@@ -25,9 +25,7 @@ Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
 ## Quem fez LearnStorybook.com?
 
-
 O texto, código e produção foram contribuídos pela [Chroma](http://blog.hichroma.com/). O tutorial foi inspirado pela [série de tutoriais populares de GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
-
 
 Quer mais tutoriais e artigos como este? Subscreva a mailing list da Chroma.
 
