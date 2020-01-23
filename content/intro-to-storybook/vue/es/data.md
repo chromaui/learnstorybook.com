@@ -24,6 +24,8 @@ yarn add vuex
 En un archivo llamado `src/store.js`, se implementará un store Vuex estándar que responda a acciones que cambiarán el estado de las tareas:
 
 ```javascript
+
+// src/store.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -57,9 +59,11 @@ export default new Vuex.Store({
 });
 ```
 
-En nuestro componente de aplicación en el nivel superior (`src / App.vue`) podemos conectar el store a nuestra jerarquía de componentes con bastante facilidad:
+Para poder conectar nuestra aplicación al store recién creado y proporcionar datos a la jerarquía de componentes con bastante facilidad, el componente superior (`src/App.vue`) se cambiará a:
 
 ```html
+
+<!--src/App.vue-->
 <template>
   <div id="app">
     <task-list />
@@ -83,14 +87,15 @@ En nuestro componente de aplicación en el nivel superior (`src / App.vue`) pode
 </style>
 ```
 
-Luego actualizaremos nuestra `TaskList` para leer los datos del store. Primero, pasemos nuestra versión del componente existente al archivo `src/components/PureTaskList.vue` (renombrar el componente a `pure-task-list`) y envolverlo con un contenedor.
+Luego se cambiará el componente `TaskList` para leer los datos del store. Pero primero, pasemos nuestra versión del componente existente al archivo `src/components/PureTaskList.vue` (renombrar el componente a `pure-task-list`) que luego se incluirá en un contenedor.
 
 En `src/components/PureTaskList.vue`:
 
 ```html
-/* This file moved from TaskList.vue */
-<template>/* as before */
-
+<!--src/components/PureTaskList.vue-->
+<template>
+<!--same content as before-->
+</template>
 <script>
 import Task from "./Task";
 export default {
@@ -102,6 +107,8 @@ export default {
 En `src/components/TaskList.vue`:
 
 ```html
+
+<!--src/components/TaskList.vue`-->
 <template>
   <div>
     <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask" />
@@ -127,9 +134,11 @@ En `src/components/TaskList.vue`:
 </script>
 ```
 
-La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `src/components/TaskList.stories.js` a`src/components/PureTaskList.stories.js`, y asegúrese de que nuestras stories usen la versión actual:
+La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `src/components/TaskList.stories.js` a`src/components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
 ```javascript
+
+//src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList';
 import { taskData, actionsData } from './Task.stories';
 
@@ -202,6 +211,8 @@ export const Empty = () => ({
 Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
 ```js
+
+//tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
 import { withPinnedTasksData } from '../../src/components/PureTaskList.stories';

@@ -27,6 +27,7 @@ Primero, vamos a crear el componente Task y el archivo de historias de storybook
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
 ```html
+<!--src/components/Task.vue-->
 <template>
   <div class="list-item">
     <input type="text" :readonly="true" :value="this.task.title" />
@@ -52,6 +53,7 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
 ```javascript
+// src/components/Task.stories.js
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
 export default {
@@ -102,13 +104,13 @@ export const Pinned = () => ({
 export const Archived = () => ({
   components: { Task },
   template: taskTemplate,
-  props: {
+   props: {
     task: {
       default: {
         ...taskData,
-        state: 'TASK_ARCHIVED',
-      },
-    },
+        state: "TASK_ARCHIVED"
+      }
+    }
   },
   methods: actionsData,
 });
@@ -116,10 +118,10 @@ export const Archived = () => ({
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Piensa en cada historia como una permutación posible del componente. Puedes tener tantas historias por componente como se necesite.
 
-- **Componente**
-  - Historia
-  - Historia
-  - Historia
+- **Component**
+  - Story
+  - Story
+  - Story
 
 Para decirle a Storybook sobre el componente que estamos documentando, creamos una exportación `por defecto` que contiene:
 
@@ -127,7 +129,7 @@ Para decirle a Storybook sobre el componente que estamos documentando, creamos u
 - `title` -- cómo referirse al componente en la barra lateral de la aplicación Storybook,
 - `excludeStories` -- información requerida por la historia, pero no debe ser presentada por la aplicación Storybook.
 
-Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, una clase de componente con un conjunto de props) en un estado dado, exactamente como en Vue [Componente funcional sin estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
+Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado, exactamente como en Vue [Componente funcional sin estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 `action()` nos permite crear un callback que aparecerá en el panel **actions** de la UI de Storybook cuando es cliqueado. Entonces, cuando construyamos un botón pin, podremos determinar en la UI de prueba si un click en el botón es exitoso o no.
 
@@ -143,14 +145,23 @@ Las <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>A
 
 ## Configuración
 
-También necesitamos hacer un pequeño cambio en la configuración de Storybook (`.storybook/config.js`) para que tenga en cuenta nuestros archivos `.stories.js` y use nuestro archivo CSS. Por defecto, Storybook busca historias en el directorio `/stories`; este tutorial usa un esquema de nombres que es similar al esquema de nombres `.spec.js` preferido por CRA para pruebas -tests- automatizadas.
+Es necesario realizar algunos cambios en la configuración del Storybook, para que sepa no solo dónde buscar las historias que acabamos de crear, sino también usar el CSS que se agregó en el [capítulo anterior](/vue/es/get-started).
+
+Comencemos cambiando el archivo de configuración de Storybook (`.storybook/main.js`) a lo siguiente:
 
 ```javascript
-import { configure } from '@storybook/vue';
+// .storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+};
+```
 
+Después de hacer este cambio, una vez más dentro de la carpeta `.storybook`, cree un nuevo archivo llamado `preview.js` con el siguiente contenido:
+
+```javascript
+// .storybook/preview.js
 import '../src/index.css';
-
-configure(require.context('../src/components', true, /\.stories\.js$/), module);
 ```
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
@@ -169,6 +180,7 @@ Ahora tenemos configurado Storybook, los estilos importados y los casos de prueb
 Nuestro componente todavía es bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida con el diseño previsto sin entrar en demasiados detalles:
 
 ```html
+<!--src/components/Task.vue-->
 <template>
   <div :class="taskClass">
     <label class="checkbox">
@@ -242,32 +254,22 @@ Asegúrese de que sus componentes muestren datos que no cambien, para que sus pr
 Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando las siguientes dependencias en modo desarrollo:
 
 ```bash
-yarn add -D @storybook/addon-storyshots jest-vue-preprocessor babel-plugin-require-context-hook
+yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 ```
 
 Luego crea un archivo `tests/unit/storybook.spec.js` con el siguiente contenido:
 
 ```javascript
-import registerRequireContextHook from 'babel-plugin-require-context-hook/register';
+// tests/unit/storybook.spec.js
 import initStoryshots from '@storybook/addon-storyshots';
-
-registerRequireContextHook();
 initStoryshots();
 ```
 
-Necesitamos agregar una línea a nuestro `jest.config.js`:
+Finalmente, necesitamos agregar una línea a nuestro `jest.config.js`:
 
 ```js
+  // jest.config.js
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
-```
-
-Finalmente, necesitamos hacer un ajuste a nuestro `babel.config.js`:
-
-```js
-module.exports = api => ({
-  presets: ['@vue/app'],
-  ...(api.env('test') && { plugins: ['require-context-hook'] }),
-});
 ```
 
 Una vez hecho lo anterior, podemos ejecutar `yarn test:unit` y veremos el siguiente resultado:
