@@ -57,9 +57,9 @@ Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tut
 <div class="aside">
 Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son proporcionados en el mismo repositorio de GitHub.</div>
 
-## Añade recursos
+## Añadiendo recursos
 
-Para que coincida con el diseño previsto del tutorial, deberá transferir las carpetas (o directorios) de los iconos y las fuentes a la carpeta pública.
+Para que coincida con el diseño previsto del tutorial, deberá transferir las carpetas de los iconos y las fuentes a la carpeta pública.
 
 <div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas (o directorios) de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
 

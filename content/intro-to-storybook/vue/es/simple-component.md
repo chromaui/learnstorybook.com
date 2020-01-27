@@ -22,7 +22,7 @@ Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wik
 
 ## Ajustes iniciales
 
-Primero, vamos a crear el componente Task y el archivo de historias de storybook que lo acompaña: `src/components/Task.js` y `src/components/Task.stories.js`.
+Primero, vamos a crear el componente Task y el archivo de historias de Storybook que lo acompaña: `src/components/Task.js` y `src/components/Task.stories.js`.
 
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
@@ -53,7 +53,7 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
 ```javascript
-// src/components/Task.stories.js
+//src/components/Task.stories.js
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
 export default {
@@ -81,7 +81,7 @@ export const Default = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: taskData,
+      default: () => (taskData)
     },
   },
   methods: actionsData,
@@ -123,13 +123,13 @@ Existen dos niveles básicos de organización en Storybook. El componente y sus 
   - Story
   - Story
 
-Para decirle a Storybook sobre el componente que estamos documentando, creamos una exportación `por defecto` que contiene:
+Para decirle a Storybook sobre el componente que estamos documentando, creamos un `default export` que contiene:
 
 - `component` -- el componente en sí mismo,
 - `title` -- cómo referirse al componente en la barra lateral de la aplicación Storybook,
 - `excludeStories` -- información requerida por la historia, pero no debe ser presentada por la aplicación Storybook.
 
-Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado, exactamente como en Vue [Componente funcional sin estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
+Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado, exactamente como un [Componente funcional sin estado](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 `action()` nos permite crear un callback que aparecerá en el panel **actions** de la UI de Storybook cuando es cliqueado. Entonces, cuando construyamos un botón pin, podremos determinar en la UI de prueba si un click en el botón es exitoso o no.
 
@@ -251,7 +251,7 @@ La prueba de instantáneas se refiere a la práctica de registrar la salida "cor
 Asegúrese de que sus componentes muestren datos que no cambien, para que sus pruebas de instantáneas no fallen cada vez. Tenga cuidado con cosas como fechas o valores generados aleatoriamente.
 </div>
 
-Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando las siguientes dependencias en modo desarrollo:
+Con el [complemento Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando las siguientes dependencias en modo desarrollo:
 
 ```bash
 yarn add -D @storybook/addon-storyshots jest-vue-preprocessor

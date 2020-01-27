@@ -125,11 +125,11 @@ export const Archived = () => ({
 
 Ahora debería aparecer una nueva pestaña "Knobs" al lado de la pestaña "Action Logger" en el panel inferior.
 
-Como se documenta [Aquí](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), el tipo `object` del knob acepta una etiqueta y un objeto predeterminado como parámetros. La etiqueta es constante y se muestra a la izquierda de un campo de texto en el panel de complementos. El objeto que ha pasado se representará como un blob JSON editable. ¡Siempre que envíe un JSON válido, su componente se ajustará en función de los datos que se pasan al objeto!
+Como se documenta [aquí](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), el tipo `object` del knob acepta una etiqueta y un objeto predeterminado como parámetros. La etiqueta es constante y se muestra a la izquierda de un campo de texto en el panel de complementos. El objeto que ha pasado se representará como un blob JSON editable. ¡Siempre que envíe un JSON válido, su componente se ajustará en función de los datos que se pasan al objeto!
 
 ## Complementos evolucionan el alcance de tus Storybooks
 
-Su instancia de Storybook no solo sirve como un maravilloso [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), sino que ahora estamos proporcionando una fuente interactiva de documentación. Los Props son geniales, pero un diseñador o alguien completamente nuevo en el código de un componente podrá descubrir su comportamiento muy rápidamente a través de Storybook con el complemento de knobs implementado.
+Su instancia de Storybook no solo sirve como un maravilloso [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), sino que ahora estamos proporcionando una fuente interactiva de documentación. Los props son geniales, pero un diseñador o alguien completamente nuevo en el código de un componente podrá descubrir su comportamiento muy rápidamente a través de Storybook con el complemento de knobs implementado.
 
 ## Usando Knobs para encontrar casos de borde
 
