@@ -108,7 +108,7 @@ export const Default = () => ({
   template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => (defaultTasksData)
+      default: () => defaultTasksData
     }
   },
   methods: actionsData
@@ -119,7 +119,7 @@ export const WithPinnedTasks = () => ({
   template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => (withPinnedTasksData)
+      default: () => withPinnedTasksData
     }
   },
   methods: actionsData
@@ -139,7 +139,7 @@ export const Empty = () => ({
 ```
 
 <div class="aside">
-Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
+    Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
 </div>
 
 `taskData` provee la forma de un `Task` que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, `actionsData` define las acciones (llamadas simuladas) que espera un componente `Task`, el cual también necesita la `TaskList`.
