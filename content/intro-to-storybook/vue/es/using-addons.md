@@ -8,9 +8,9 @@ Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.o
 todos en tu equipo. Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el [Testing](/vue/es/test/).
 
 <div class = "aside">
-<strong> ¿Busca una lista de posibles complementos? </strong>
-<br/>
-😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons/addon-gallery/"> aquí </a>.
+    <strong> ¿Busca una lista de posibles complementos? </strong>
+    <br/>
+    😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons/addon-gallery/"> aquí </a>.
 </div>
 
 Podríamos escribir para siempre sobre la configuración y el uso de complementos para todos sus casos de uso particulares. Por ahora, trabajemos para integrar uno de los complementos más populares dentro del ecosistema de Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).

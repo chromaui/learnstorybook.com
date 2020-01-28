@@ -171,7 +171,7 @@ export const Default = () => ({
   template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => withPinnedTasksData
+      default: () => defaultTasksData
     },
   },
   methods: actionsData,
