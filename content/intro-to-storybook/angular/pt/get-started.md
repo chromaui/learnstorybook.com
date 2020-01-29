@@ -4,6 +4,8 @@ tocTitle: 'Introdução'
 description: 'Configuração do Angular Storybook no ambiente de desenvolvimento'
 ---
 
+<div class="aside"><p>Esta tradução está desatualizada! Ajuda-nos a melhorá-la clicando no link no fim da página. Não somente a equipa agradece, mas toda a comunidade.</p></div>
+
 Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
 Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para Angular.
