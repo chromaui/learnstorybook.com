@@ -142,7 +142,7 @@ When you view a story, you often want to see the underlying code to understand h
 yarn add --dev  @storybook/addon-storysource
 ```
 
-Register the addon in `.storybook/main.js`:
+Add the addon in `.storybook/main.js`:
 
 ```javascript
 module.exports = {
@@ -170,7 +170,7 @@ Let’s see how this works by setting up knobs in the `Avatar` component:
 yarn add --dev @storybook/addon-knobs
 ```
 
-Register the addon in `.storybook/main.js`:
+Add the addon in `.storybook/main.js`:
 
 ```javascript
 module.exports = {

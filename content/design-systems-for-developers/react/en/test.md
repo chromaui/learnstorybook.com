@@ -187,7 +187,7 @@ yarn add --dev @storybook/addon-a11y
 
 ```
 
-Register the addon in `.storybook/main.js`:
+Add the addon in `.storybook/main.js`:
 
 ```javascript
 module.exports = {
