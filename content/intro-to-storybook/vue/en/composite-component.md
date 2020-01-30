@@ -101,36 +101,36 @@ export const withPinnedTasksData = [
 
 // default TaskList state
 export const Default = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  components: { TaskList },
+  template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: defaultTasksData
+      default: () => defaultTasksData
     }
   },
   methods: actionsData
 });
 // tasklist with pinned tasks
 export const WithPinnedTasks = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  components: { TaskList },
+  template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: withPinnedTasksData
+      default: () => withPinnedTasksData
     }
   },
   methods: actionsData
 });
 // tasklist in loading state
 export const Loading = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  components: { TaskList },
+  template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   methods: actionsData
 });
 // tasklist no tasks
 export const Empty = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  components: { TaskList },
+  template: `<task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   methods: actionsData
 });
 ```
