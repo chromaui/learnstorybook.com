@@ -41,10 +41,20 @@ With the Storybook Docs addon, we can generate rich documentation from existing 
 yarn add --dev @storybook/addon-docs
 ```
 
-Also, we’ll add a _preset_ for the docs addon, in a new file `.storybook/presets.js`. Note that the use of this preset removes the need for our `.storybook/webpack.config.js` and we can remove it:
+We'll add it to our addons list in `.storybook/main.js`:
 
 ```javascript
-module.exports = ['@storybook/addon-docs/preset'];
+module.exports = {
+  stories: ['../src/**/*.stories.js'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+    '@storybook/addon-docs',
+  ],
+};
 ```
 
 You should see two tabs in your Storybook. “Canvas” tab is your component development environment. “Docs” is your component documentation.
@@ -149,11 +159,22 @@ Every component is different and so are the documentation requirements. We used 
 
 Markdown is a straightforward format for writing text. MDX allows you to use interactive code (JSX) inside of Markdown. Storybook Docs uses MDX to give developers ultimate control over how documentation renders.
 
-First, let’s take control of the Avatar doc generation from the default. Register MDX files in `.storybook/config.js` like so.
+First, let’s take control of the Avatar doc generation from the default. Register MDX files in `.storybook/main.js` like so.
 
 ```javascript
-// automatically import all files ending in *.stories.js|mdx
-configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module);
+module.exports = {
+  // automatically import all files ending in *.stories.js|mdx
+  stories: ['../src/**/*.stories.(js|mdx)'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
+  ],
+};
 ```
 
 Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remove the `Avatar.stories.js` file and recreate the stories in the mdx file:
