@@ -5,7 +5,7 @@ description: 'Learn how to integrate and use addons using a popular example'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/svelte/en/test/).
+everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/angular/en/test/).
 
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
@@ -40,7 +40,7 @@ Register Knobs in your `.storybook/main.js` file.
 // .storybook/main.js
 
 module.exports = {
-  stories: ['../src/components/**/*.stories.js'],
+  stories: ['../src/app/components/**/*.stories.ts'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links','@storybook/addon-knobs'],
 };
 
@@ -61,16 +61,15 @@ Let's use the object knob type in the `Task` component.
 First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
 
 ```javascript
-// src/components/Task.stories.js
-import { action } from "@storybook/addon-actions";
+// src/app/components/task.stories.ts
+import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
 Next, within the `default` export of the `Task.stories` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
-// src/components/Task.stories.js
-
+// src/app/components/task.stories.ts
 export default {
   title: 'Task',
   decorators: [withKnobs],
@@ -78,43 +77,45 @@ export default {
 };
 ```
 
-Lastly, integrate the `object` knob type within the "standard" story:
+Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
-// src/components/Task.stories.js
+// src/app/components/task.stories.ts
+
+// default task state
 export const Default = () => ({
-  Component: Task,
+  component: TaskComponent,
   props: {
-    task: object("task", { ...taskData })
+    task: object('task', { ...taskData }),
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
   },
-  on: {
-    ...actionsData
-  }
 });
+// pinned task state
 export const Pinned = () => ({
-  Component: Task,
+  component: TaskComponent,
   props: {
     task: {
       ...taskData,
-      state: "TASK_PINNED"
-    }
+        state: 'TASK_PINNED',
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
   },
-  on: {
-    ...actionsData
-  }
 });
+// archived task state
 export const Archived = () => ({
-  Component: Task,
-  props: {
+  component: TaskComponent,
+   props: {
     task: {
       ...taskData,
-      state: "TASK_ARCHIVED"
-    }
+      state: 'TASK_ARCHIVED'
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
   },
-  on: {
-    ...actionsData
-  }
 });
+
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -127,23 +128,25 @@ Not only does your Storybook instance serve as a wonderful [CDD environment](htt
 
 ## Using Knobs To Find Edge-Cases
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string?
+Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `TaskComponent` if our list item has a _MASSIVE_ string?
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
+Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `task.component.ts`:
 
 ```html
-<!-- src/components/Task.svelte-->
+<!-- src/app/tasks/task.component.ts -->
 
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
-// but for this tutorial, let's fix the problem with an inline style:-->
+but for this tutorial, let's fix the problem with an inline style:
+ -->
 <input
-  type="text"
-  readonly
-  value={task.title}
-  placeholder="Input title"
-  style="text-overflow: ellipsis;"
+      type="text"
+      [value]="task?.title"
+      readonly="true"
+      placeholder="Input title"
+      [ngStyle]="{textOverflow:'ellipsis'}"
+    />
 />
 ```
 
@@ -156,28 +159,65 @@ Of course we can always reproduce this problem by entering the same input into t
 Let's add a story for the long text case in Task.stories.js:
 
 ```javascript
-// src/components/Task.stories.js
+// src/app/components/task.stories.ts
 
-// above code stays the same
-
+// tslint:disable-next-line: max-line-length
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle = () => ({
-  Component: Task,
+// default task state
+export const Default = () => ({
+  component: TaskComponent,
+  props: {
+    task: object('task', { ...taskData }),
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// pinned task state
+export const Pinned = () => ({
+  component: TaskComponent,
   props: {
     task: {
       ...taskData,
-      title: longTitle
-    }
-  }
+        state: 'TASK_PINNED',
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
 });
+// archived task state
+export const Archived = () => ({
+  component: TaskComponent,
+   props: {
+    task: {
+      ...taskData,
+      state: 'TASK_ARCHIVED'
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+
+export const LongTitle = () => ({
+  component: TaskComponent,
+   props: {
+    task: {
+      ...taskData,
+      title: longTitle
+    },
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+
+
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
 
 ![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/svelte/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are using [visual regression testing](/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ### Merge Changes
 

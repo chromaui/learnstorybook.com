@@ -235,7 +235,7 @@ import { styled } from "@storybook/theming";
 
 const getUrl = input => {
   return typeof input === "string" ? input : input.url;
-
+};
 
 const Iframe = styled.iframe({
   width: "100%",
@@ -477,3 +477,7 @@ You can find this one and others here:
 https://github.com/storybookjs/storybook/tree/next/dev-kits
 
 More dev-kits will become available in the future.
+
+## Sharing addons with the team
+
+Addons are timesaving additions to your workflow, but it can be difficult for non-technical teammates and reviewers to take advantage of their features. You can't guarantee folks will run Storybook on their local machine. That's why deploying your Storybook to an online location for everyone to reference can be really helpful. In the next chapter we'll do just that!

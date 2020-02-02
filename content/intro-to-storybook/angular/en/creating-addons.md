@@ -22,6 +22,8 @@ We have our goal, now let's define what features our addon will support:
 
 The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/configurations/options-parameter/), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
 
+<!-- this is probably not needed as it's used below-->
+
 ```javascript
 export default {
   title: 'Your component',
@@ -50,33 +52,38 @@ We've outlined what our addon will do, time to setup our local development envir
 
 Open a console, navigate to your project folder and run the following command:
 
+<!--using npm here until the whole tutorial set is moved into npm or yarn issue #153-->
+
 ```bash
-  npm install --save-dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
+ npm install -D @storybook/api @storybook/components @storybook/theming @babel/preset-react
 ```
 
-We'll need to make a small change to the `.babelrc` file we created earlier. We need to add a reference to the `@babel/preset-react` package.
+We'll need to make a small change to the `babel.config.js` file we created earlier. We need to add a reference to the `@babel/preset-react` package.
 
 Your updated file should look like this:
 
-```json
-{
-  "presets": [
+```javascript
+module.exports = function(api) {
+  process.env.NODE_ENV === "development" ? api.cache(false) : api.cache(true);
+  const presets = [
     [
       "@babel/preset-env",
       {
-        "targets": {
-          "node": "current"
+        targets: {
+          node: "current"
         }
       }
     ],
+    "@babel/preset-typescript",
     "@babel/preset-react"
-  ],
-  "env": {
-    "test": {
-      "plugins": ["require-context-hook"]
-    }
-  }
-}
+  ];
+  const plugins = [];
+  return {
+    presets,
+    plugins
+  };
+};
+
 ```
 
 ## Writing the addon
@@ -195,16 +202,16 @@ addons.register('my/design-assets', () => {
 });
 ```
 
-Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `addParameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
+Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `parameters` key for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
 
 ### Using our addon with a story
 
 We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
 
-To do so, we're going to make a small change to the `Task.stories.js` file and add the [addParameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
+To do so, we're going to make a small change to the `task.stories.ts` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) key.
 
 ```javascript
-// src/components/Task.stories.js
+// src/app/tasks/task.stories.ts
 export default {
   title: 'Task',
   decorators: [withKnobs],
@@ -216,7 +223,6 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  //
 };
 /* same as before  */
 ```
@@ -290,11 +296,11 @@ If you take a closer look, you'll see that we're using the `styled` tag, this ta
 
 ### Displaying actual assets
 
-To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the `addParameter` option to reflect these changes.
+To actually see the assets displayed in our addon, we need to copy them over to the `assets` folder and adjust the `parameters` key to reflect these changes.
 
 Storybook will pick up on the change and will load the assets, but for now, only the first one.
 
-![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png) <!--needs to be created-->
+![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png)
 
 ## Stateful addons
 

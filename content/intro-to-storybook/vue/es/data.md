@@ -1,28 +1,27 @@
 ---
-title: 'Ligação de dados'
-tocTitle: 'Dados'
-description: 'Aprenda a efetuar a ligação de dados ao seu componente de interface de utilizador'
+title: 'Introducir datos'
+tocTitle: 'Datos'
+description: 'Aprende como introducir datos a tus componentes UI'
+commit: 28bc240
 ---
 
-Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação
+Hasta ahora hemos creado componentes aislados sin estado, muy útiles para Storybook, pero finalmente no son útiles hasta que les proporcionemos algunos datos en nuestra aplicación.
 
-Este tutorial não foca particularmente na construção de uma aplicação, como tal não vamos aprofundar muito este aspeto. Mas será feito um aparte para olhar para um padrão comum para ligação de dados com componentes contentor.
+Este tutorial no se centra en los detalles de la construcción de una aplicación, por lo que no profundizaremos en esos detalles aquí. Pero, nos tomaremos un momento para observar un patrón común para introducir datos con componentes contenedores.
 
-## Componentes contentor
+## Componentes contenedores
 
-O componente `TaskList` na sua presente forma é um componente de "apresentação" (ver [este post no blog](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), de forma que este não comunica com nada externo além de si.
-Para conter dados, irá ser necessário um "contentor".
+Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (ver [artículo al respecto](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), en el sentido que no se comunica con nada externo a su implementación. Para poder pasarle datos, necesitaremos un "contenedor".
 
-Este exemplo utiliza [Vuex](https://vuex.vuejs.org), que é a biblioteca mais popular quando se pretende guardar dados, ou construir um modelo de dados para a aplicação.
-No entanto o padrão a ser usado aqui, pode ser aplicado a outras bibliotecas de gestão de dados tal como [Apollo](https://www.apollographql.com/client/) e [MobX](https://mobx.js.org/).
+Este ejemplo utiliza [Vuex](https://vuex.vuejs.org), la librería mas popular de Vue para almacenar datos, que básicamente nos permite crear un modelo simple de datos para la aplicación. De todos modos, el patrón que utilizaremos también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
-Adiciona-se a nova dependência com:
+Primero, instala vuex con:
 
 ```bash
 yarn add vuex
 ```
 
-Num ficheiro denominado `src/store.js` vai ser implementada uma loja Vuex padrão, que irá reagir ao desencadear de ações que alteram o estado das tarefas.
+En un archivo llamado `src/store.js`, se implementará un store Vuex estándar que responda a acciones que cambiarán el estado de las tareas:
 
 ```javascript
 
@@ -60,7 +59,7 @@ export default new Vuex.Store({
 });
 ```
 
-Para ser possível conectar a nossa aplicação á loja recém criada e fornecer dados á hierarquia de componentes de forma extremamente fácil, o componente de topo (`src/App.vue`) vai ser alterado para:
+Para poder conectar nuestra aplicación al store recién creado y proporcionar datos a la jerarquía de componentes con bastante facilidad, el componente superior (`src/App.vue`) se cambiará a:
 
 ```html
 
@@ -84,17 +83,15 @@ Para ser possível conectar a nossa aplicação á loja recém criada e fornecer
   };
 </script>
 <style>
-  @import "./index.css";
+  @import './index.css';
 </style>
 ```
 
-Em seguida o componente `Tasklist` irá ser alterado, para receber dados oriundos da loja.
-Mas primeiro, vamos mover a versão existente do componente que é considerada de apresentação, para o ficheiro `src/components/PureTaskList.vue` (renomeando o componente para `pure-task-list` ) que será posteriormente envolvido num contentor.
+Luego se cambiará el componente `TaskList` para leer los datos del store. Pero primero, pasemos nuestra versión del componente existente al archivo `src/components/PureTaskList.vue` (renombrar el componente a `pure-task-list`) que luego se incluirá en un contenedor.
 
-No ficheiro `src/components/PureTaskList.vue`:
+En `src/components/PureTaskList.vue`:
 
 ```html
-
 <!--src/components/PureTaskList.vue-->
 <template>
 <!--same content as before-->
@@ -107,7 +104,7 @@ export default {
 }
 ```
 
-No ficheiro `src/components/TaskList.vue`:
+En `src/components/TaskList.vue`:
 
 ```html
 
@@ -137,7 +134,7 @@ No ficheiro `src/components/TaskList.vue`:
 </script>
 ```
 
-A razão porque irá ser mantida a versão de apresentação do `TaskList` em separado, não é nada mais nada menos pelo facto que é porque é mais fácil para testar e isolar. Visto que não depende da existência de uma loja, logo torna-se mais fácil de lidar do ponto de vista de testes. O ficheiro de estórias `src/components/TaskList.stories.js` vai ser renomeado também para `src/components/PureTaskList.stories.js`, com isto garantimos que as nossas estórias usam a versão de apresentação:
+La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `src/components/TaskList.stories.js` a`src/components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
 ```javascript
 
@@ -168,15 +165,16 @@ export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
+
 export const Default = () => ({
   components: { PureTaskList },
   template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: defaultTasksData
-    }
+      default: () => defaultTasksData
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist with pinned tasks
 export const WithPinnedTasks = () => ({
@@ -184,22 +182,22 @@ export const WithPinnedTasks = () => ({
   template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: withPinnedTasksData
-    }
+      default: () => withPinnedTasksData
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist in loading state
 export const Loading = () => ({
   components: { PureTaskList },
   template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist no tasks
 export const Empty = () => ({
   components: { PureTaskList },
   template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
+  methods: actionsData,
 });
 ```
 
@@ -210,7 +208,7 @@ export const Empty = () => ({
   />
 </video>
 
-Similarmente, será usado o `PureTaskList` nos testes com Jest:
+Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
 ```js
 
@@ -226,8 +224,9 @@ it('renders pinned tasks at the start of the list', () => {
   }).$mount();
   const lastTaskInput = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
-  // We expect the pinned task to be rendered first, not at the end
+  //Esperamos que la tarea anclada se represente primero, no al final
   expect(lastTaskInput).not.toBe(null);
 });
 ```
-<div class="aside">Se os testes snapshot falharem, deverá ter que atualizar os snapshots existentes, executando o comando de testes de novo com a flag -u. Ou criar um novo script para lidar esta situação.</div>
+
+<div class="aside">Si sus pruebas de instantáneas fallan en esta etapa, debe actualizar las instantáneas existentes ejecutando el script de prueba con el indicador -u. O cree un nuevo script para abordar este problema.</div>

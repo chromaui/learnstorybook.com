@@ -34,14 +34,15 @@ Primeiro irá ser necessário adicioná-lo como dependência de desenvolvimento.
 yarn add -D @storybook/addon-knobs
 ```
 
-Registe o Knobs no ficheiro `.storybook/addons.js`.
+Registe o Knobs no ficheiro `.storybook/main.js`.
 
 ```javascript
-// .storybook/addons.js
+// .storybook/main.js
 
-import '@storybook/addon-actions/register';
-import '@storybook/addon-knobs/register';
-import '@storybook/addon-links/register';
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
+};
 ```
 
 <div class="aside">
@@ -64,7 +65,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Em seguida, dentro do  `default` export do ficheiro `Task.stories`, vamos fornecer `withKnobs` como elemento do `decorators`:
+Em seguida, dentro do `default` export do ficheiro `Task.stories`, vamos fornecer `withKnobs` como elemento do `decorators`:
 
 ```javascript
 // src/components/Task.stories.js
@@ -87,10 +88,10 @@ export const Default = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: object("task", { ...taskData })
-    }
+      default: object('task', { ...taskData }),
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // pinned task state
 export const Pinned = () => ({
@@ -100,11 +101,11 @@ export const Pinned = () => ({
     task: {
       default: {
         ...taskData,
-        state: "TASK_PINNED"
-      }
-    }
+        state: 'TASK_PINNED',
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // archived task state
 export const Archived = () => ({
@@ -114,11 +115,11 @@ export const Archived = () => ({
     task: {
       default: {
         ...taskData,
-        state: "TASK_ARCHIVED"
-      }
-    }
+        state: 'TASK_ARCHIVED',
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 ```
 
@@ -129,11 +130,11 @@ A etiqueta é constante e irá aparecer no painel de extras á esquerda do campo
 
 ## Os extras aumentam a esfera de ação do teu Storybook
 
-Não somente a tua instância Storybook serve como um [ambiente CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) fantástico, mas agora estamos também a fornecer uma forma de documentação interativa. Os adereços ( ouPropTypes) são fantásticos, mas quer um designer quer uma outra pessoa qualquer nova que é apresentada ao código do componente irá ser capaz de entender qual é o seu comportamento rapidamente graças ao Storybook e a este extra.
+Não somente a tua instância Storybook serve como um [ambiente CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) fantástico, mas agora estamos também a fornecer uma forma de documentação interativa. Os adereços (ou props) são fantásticos, mas quer um designer quer uma outra pessoa qualquer nova que é apresentada ao código do componente irá ser capaz de entender qual é o seu comportamento rapidamente graças ao Storybook e a este extra.
 
 ## Utilização de Knobs para afinar os casos extremos
 
-Adicionalmente com a facilidade de edição de dados fornecidos ao componente, engenheiros QA ou Engenheiros UI, podem levar o componente ao extremo! Como exemplo o que irá acontecer ao nosso componente se contém uma cadeia de caracteres _GIGANTESCA_ ? 
+Adicionalmente com a facilidade de edição de dados fornecidos ao componente, engenheiros QA ou Engenheiros UI, podem levar o componente ao extremo! Como exemplo o que irá acontecer ao nosso componente se contém uma cadeia de caracteres _GIGANTESCA_ ?
 
 ![OHH não! O conteúdo á direita aparece corto!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
@@ -145,13 +146,13 @@ Devido a facilidade com que é possível testar inputs diferentes podemos descob
 <!-- This is the input for our task title. 
      In practice we would probably update the styles for this element but for this tutorial, 
      let's fix the problem with an inline style:-->
- <input
-    type="text"
-    :readonly="true"
-    :value="this.task.title"
-    placeholder="Input title"
-    style="text-overflow: ellipsis;"
-  />
+<input
+  type="text"
+  :readonly="true"
+  :value="this.task.title"
+  placeholder="Input title"
+  style="text-overflow: ellipsis;"
+/>
 ```
 
 ![Assim sim.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
@@ -174,10 +175,10 @@ export const Default = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: object("task", { ...taskData })
-    }
+      default: object('task', { ...taskData }),
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // pinned task state
 export const Pinned = () => ({
@@ -187,11 +188,11 @@ export const Pinned = () => ({
     task: {
       default: {
         ...taskData,
-        state: "TASK_PINNED"
-      }
-    }
+        state: 'TASK_PINNED',
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // archived task state
 export const Archived = () => ({
@@ -201,11 +202,11 @@ export const Archived = () => ({
     task: {
       default: {
         ...taskData,
-        state: "TASK_ARCHIVED"
-      }
-    }
+        state: 'TASK_ARCHIVED',
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 export const LongTitle = () => ({
   components: { Task },
@@ -214,11 +215,11 @@ export const LongTitle = () => ({
     task: {
       default: {
         ...taskData,
-        title: longTitle
-      }
-    }
+        title: longTitle,
+      },
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 ```
 
