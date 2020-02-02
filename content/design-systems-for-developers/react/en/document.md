@@ -341,16 +341,22 @@ This generates a new documentation-only page that is independent of the automate
 
 ![Storybook docs with introduction page, unsorted](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
-To get it to appear first, we have to tell Storybook to load the Introduction file first:
+To get it to appear first, we have to tell Storybook to load the Introduction file in `.storybook/main.js`:
 
 ```javascript
-configure(
-  [
-    require.context('../src', false, /Intro\.stories\.mdx/),
-    require.context('../src', true, /\.stories\.(js|mdx)$/),
+module.exports = {
+  // automatically import all files ending in *.stories.js|mdx
+  stories: ['../src/components/Intro.stories.mdx', '../src/**/*.stories.(js|mdx)'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
   ],
-  module
-);
+};
 ```
 
 ![Storybook docs with introduction page](/design-systems-for-developers/storybook-docs-introduction.png)
