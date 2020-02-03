@@ -1,13 +1,13 @@
 ---
-title: "Implementar Storybook"
-tocTitle: "Implementação"
-descrição: "Implemntação online do Storybook com GitHub e Netlify"
+title: 'Implementar Storybook'
+tocTitle: 'Implementação'
+descrição: 'Implementação online do Storybook com GitHub e Netlify'
 ---
 
 Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessária a partilha com o resto da equipa, em particular com membros considerados não técnicos. Felizmente, é bastante fácil implementar o Storybook online.
 
 <div class="aside">
-    <strong>Foram seguidos os passos para implementar os teste com Chromatic, tal como mencionado anteriormente?</strong>
+    <strong>Seguiu os passos para implementar testes com Chromatic, tal como mencionado anteriormente?</strong>
     <br/>
     Então as estórias já se encontram implementadas!🎉 O Chromatic indexa-as e segue-as ao longo das ramificações feitas e dos commits
     Pode saltar-se este capítulo e seguir para <a href="/vue/pt/conclusion">conclusão</a>.
@@ -15,31 +15,26 @@ Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessá
 
 ## Exportação sob a forma de uma app estática
 
-Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessária a sua ativação através da adição de um script ao ficheiro `package.json`.
+Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessário alterar o script tal como quando o projeto foi inicializado [na introdução](/vue/pt/get-started).
 
 ```javascript
 {
   "scripts": {
-    "build-storybook": "build-storybook -c .storybook -s public -o storybook-static"
+   "build-storybook": "build-storybook -s public"
   }
 }
 ```
-
-E pode agora construir-se o Storybook via `npm run build-storybook`, o que irá popular a pasta `storybook-static` com esta versão.
+Quando executar o Storybook através de `yarn build-storybook`, irá gerar a pasta `storybook-static` com o conteúdo estático do seu Storybook.
 
 ## Implementação contínua
 
-Pretende-se que seja partilhada a última versão dos componentes á medida que o código é produzido. Para tal é necessário que o Storybook também o seja. Dependendo do GitHub e Netlify para implementar o site estático. Será usado o plano gratuito.
+Pretende-se que seja partilhada a última versão dos componentes á medida que o código é produzido. Para tal é necessário que o Storybook também o seja. Vamos depender do GitHub e do Netlify (com o plano gratuito) para implementar o site estático.
 
 ### GitHub
 
-Primeiro, será necessário configurar o Git localmente. Se este tutorial estiver a ser seguido, poderá saltar-se para a configuração de um repositório no GitHub.
+Se estiver a seguir o tutorial a partir da secção anterior de testes pode saltar para a configuração do repositório no GitHub.
 
-```bash
-$ git init
-```
-
-Adicionam-se os ficheiros ao primeiro commit.
+Quando o projeto foi inicializado pelo Vue CLI, foi criado um repositório local. Nesta altura é seguro adicionar os ficheiros ao primeiro commit.
 
 ```bash
 $ git add .
@@ -51,11 +46,13 @@ Agora pode ser feito o commit dos ficheiros.
 $ git commit -m "taskbox UI";
 ```
 
-Navegue até ao GitHub e configure [aqui](https://github.com/new) um repositório. E vai ser atribuído o nome “taskbox”.
+### Criar um repositório no GitHub
+
+Navegue até ao GitHub e configure [aqui](https://github.com/new) um repositório. Como nome use “taskbox”.
 
 ![Configuração GitHub](/intro-to-storybook/github-create-taskbox.png)
 
-No novo repositório de código, copia-se o URL original deste, e adicionado ao projeto com o seguinte comando:
+No novo repositório de código, copie o URL de origem, e adicione-o ao projeto com o seguinte comando:
 
 ```bash
 $ git remote add origin https://github.com/<your username>/taskbox.git
@@ -69,29 +66,31 @@ $ git push -u origin master
 
 ### Netlify
 
-O Netlify possui um serviço de implementação continua, o que permite a implementação do Storybook sem ser necessária a configuração de uma IC (CI na forma nativa) própria.
+O Netlify possui um serviço de implementação contínua, o que permite a implementação do Storybook sem ser necessária a configuração de uma IC (CI na forma nativa) própria.
 
 <div class="aside">
-    Se for usado um IC (CI na forma nativa) na empresa, é necessário adicionar um script de implementação para que seja feito o upload da pasta <code>storybook-static</code> para um serviço de hospedagem estático, tal como o S3. 
+    Se for usado um IC (CI na forma nativa) na empresa, será necessário adicionar um script de implementação para que seja feito o upload da pasta <code>storybook-static</code> para um serviço de hospedagem estático, tal como o S3. 
 </div>
 
 [Criação da conta no Netlify](https://app.netlify.com/start), em seguida “create site”.
 
 ![Criação Site Netlify](/intro-to-storybook/netlify-create-site.png)
 
-Em seguida click no botão GitHub para ser feita a ligação do Netlify ao GitHub. O que permite o acesso ao repositorio remoto Taskbox.
+Em seguida click no botão GitHub para ser feita a ligação entre ambos. O que permite o acesso ao repositório remoto taskbox.
 
 Seguida da seleção do repositório da lista de opções.
 
-![Conexão Netlify para o repositorio](/intro-to-storybook/netlify-account-picker.png)
+![Conexão Netlify para o repositório](/intro-to-storybook/netlify-account-picker.png)
 
-É feita a configuração no Netlify ao selecionar-se o comando apropriado para executar no IC(CI na forma nativa) e qual a pasta de output. Como ramo, seleciona-se `master`. Pasta `storybook-static`. Comando `yarn build-storybook`.
+É feita a configuração no Netlify ao selecionar-se o comando apropriado para executar no IC (CI na forma nativa) e qual a pasta de output. Como ramo, seleciona-se `master`. Pasta `storybook-static`. Comando `yarn build-storybook`.
 
 ![Configurações Netlify](/intro-to-storybook/netlify-settings.png)
 
-Em seguida é feita a submissão do formulário, para compilar o código no ramo `master` do repositório taskbox.
+<div class="aside"><p>Caso o deploy no Netlify falhe, adicione a <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag ao comando <code>build-storybook</code>.</p></div>
 
-Quando isto terminar, é apresentada uma mensagem de confirmação no Netlify, juntamente com um link para o Storybook da Taskbox online. Se o tutorial estiver a ser seguido o Storybook estará online [tal como](https://clever-banach-415c03.netlify.com/).
+Em seguida é feita a submissão do formulário, para que o Netlify compile o código existente no ramo `master` do repositório taskbox.
+
+Quando isto terminar, é apresentada uma mensagem de confirmação no Netlify, juntamente com um link para o Storybook da Taskbox online. Se o tutorial estiver a ser seguido, o seu Storybook estará online [tal como aqui](https://clever-banach-415c03.netlify.com/).
 
 ![Implementação Storybook Netlify](/intro-to-storybook/netlify-storybook-deploy.png)
 

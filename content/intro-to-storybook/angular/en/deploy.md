@@ -1,7 +1,7 @@
 ---
-title: "Deploy Storybook"
-tocTitle: "Deploy"
-description: "Deploy Storybook online with GitHub and Netlify"
+title: 'Deploy Storybook'
+tocTitle: 'Deploy'
+description: 'Deploy Storybook online with GitHub and Netlify'
 ---
 
 In this tutorial we ran Storybook on our development machine. You may also want to share that Storybook with the team, especially the non-technical members. Thankfully, it’s easy to deploy Storybook online.
@@ -14,15 +14,7 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook, we just need to activate it by adding a script to `package.json`.
-
-```javascript
-{
-  "scripts": {
-    "build-storybook": "build-storybook -c .storybook"
-  }
-}
-```
+To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook out of the box.
 
 Now when you build Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
 
@@ -32,13 +24,9 @@ We want to share the latest version of components whenever we push code. To do t
 
 ### GitHub
 
-First you want to setup Git for your project in the local directory. If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
+If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
 
-```bash
-$ git init
-```
-
-Next add files to the first commit.
+When the project was initialized with angular cli, a local repository was already setup for you. At this stage it's safe to add the files to the first commit.
 
 ```bash
 $ git add .
@@ -49,6 +37,8 @@ Now commit the files.
 ```bash
 $ git commit -m "taskbox UI"
 ```
+
+### Setup a repository in GitHub
 
 Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
 
@@ -84,11 +74,13 @@ Now select the taskbox GitHub repo from the list of options.
 
 ![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `yarn build-storybook`.
+Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `npm run build-storybook`.
 
-![Netlify settings](/intro-to-storybook/netlify-settings.png)
+![Netlify settings](/intro-to-storybook/netlify-settings-npm.png)
 
 Submit the form to build and deploy the code on the `master` branch of taskbox.
+
+<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
 
 When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
 

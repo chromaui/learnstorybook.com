@@ -49,15 +49,6 @@ You should see this:
 
 Nice, we’ve set up a component explorer!
 
-By default, Storybook has created a folder `src/stories` with some example stories. However, when we copied our components over, we brought their stories too. We can get them indexed in our Storybook by changing the search path in `.storybook/config.js` from `’src/stories’` to `’src/components’`, and removing the `src/stories` directory:
-
-```javascript
-import { configure } from '@storybook/react';
-
-// automatically import all files ending in *.stories.js
-configure(require.context('../src', true, /\.stories\.js$/), module);
-```
-
 Your Storybook should reload like this (notice that the font styles are a little off, for instance see the "Initials" story):
 
 ![Initial set of stories](/design-systems-for-developers/storybook-initial-stories.png)
@@ -83,11 +74,11 @@ export const GlobalStyle = createGlobalStyle`
 `;
 ```
 
-To use the `GlobalStyle` “component” in Storybook, we can make use of a decorator (a component wrapper). In an app we’d place that component in the top-level app layout.
+To use the `GlobalStyle` “component” in Storybook, we can make use of a decorator (a component wrapper). In an app we’d place that component in the top-level app layout, but in Storybook we wrap all stories in it using the preview config file `.storybook/preview.js`
 
 ```javascript
 import React from 'react';
-import { configure, addDecorator } from '@storybook/react';
+import { addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
 
 addDecorator(story => (
@@ -96,9 +87,6 @@ addDecorator(story => (
     {story()}
   </>
 ));
-
-// automatically import all files ending in *.stories.js
-configure(require.context('../src', true, /\.stories\.js$/), module);
 ```
 
 The decorator will ensure the `GlobalStyle` is rendered no matter which story is selected.
@@ -154,25 +142,17 @@ When you view a story, you often want to see the underlying code to understand h
 yarn add --dev  @storybook/addon-storysource
 ```
 
-Register the addon in `.storybook/addons.js`:
+Add the addon in `.storybook/main.js`:
 
 ```javascript
-import '@storybook/addon-actions/register';
-import '@storybook/addon-links/register';
-import '@storybook/addon-storysource/register';
-```
-
-And update your webpack config in `.storybook/webpack.config.js`:
-
-```javascript
-module.exports = function({ config }) {
- config.module.rules.unshift({
-   test: /\.stories\.jsx?$/,
-   loaders: [require.resolve('@storybook/addon-storysource/loader')],
-   enforce: 'pre',
- });
-
- return config;
+module.exports = {
+  stories: ['../src/**/*.stories.js'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+  ],
 };
 ```
 
@@ -190,13 +170,19 @@ Let’s see how this works by setting up knobs in the `Avatar` component:
 yarn add --dev @storybook/addon-knobs
 ```
 
-Register the addon in `.storybook/addons.js`:
+Add the addon in `.storybook/main.js`:
 
 ```javascript
-import '@storybook/addon-actions/register';
-import '@storybook/addon-links/register';
-import '@storybook/addon-storysource/register';
-import '@storybook/addon-knobs/register';
+module.exports = {
+  stories: ['../src/**/*.stories.js'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+  ],
+};
 ```
 
 Add a story that uses knobs in `src/Avatar.stories.js`:

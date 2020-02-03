@@ -8,7 +8,12 @@ export default function tocEntries(toc, pages) {
       }
       const { tocTitle, title, description } = node.frontmatter;
 
-      return { slug: node.fields.slug, title: tocTitle || title, description };
+      return {
+        chapter: node.fields.chapter,
+        slug: node.fields.slug,
+        title: tocTitle || title,
+        description,
+      };
     })
     .filter(e => !!e);
 }

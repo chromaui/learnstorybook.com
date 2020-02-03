@@ -1,7 +1,7 @@
 ---
-title: "Construção de um componente composto"
-tocTitle: "Componente composto"
-description: "Construção de um componente composto a partir de componentes simples"
+title: 'Construção de um componente composto'
+tocTitle: 'Componente composto'
+description: 'Construção de um componente composto a partir de componentes simples'
 ---
 
 No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskListComponent, ou seja uma lista de TaskComponents. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
@@ -20,7 +20,7 @@ Visto que os dados para a `TaskComponent` podem ser enviados de forma assíncron
 
 ## Preparação
 
-Um componente composto não é em nada diferente do componente básico contido dentro deste. Comece por criar um componente `TaskListComponent` e o ficheiro estória que o acompanha em: 
+Um componente composto não é em nada diferente do componente básico contido dentro deste. Comece por criar um componente `TaskListComponent` e o ficheiro estória que o acompanha em:
 `src/tasks/task-list.component.ts` e `src/tasks/task-list.stories.ts` respetivamente.
 
 Comece por uma implementação em bruto da `TaskListComponent`. Será necessário importar o componente `TaskComponent` criado anteriormente e injetar os atributos e as respetivas ações como inputs, assim como os eventos.
@@ -90,7 +90,7 @@ storiesOf('TaskList', module)
     moduleMetadata({
       declarations: [TaskListComponent, TaskComponent],
       imports: [CommonModule],
-    }),
+    })
   )
   .add('default', () => {
     return {
@@ -181,11 +181,9 @@ import { Task } from './task.model';
       </div>
 
       <div *ngIf="loading">
-        <div *ngFor="let i of [1,2,3,4,5,6]" class="loading-item">
+        <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
           <span class="glow-checkbox"></span>
-          <span class="glow-text">
-            <span>Loading</span> <span>cool</span> <span>state</span>
-          </span>
+          <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
         </div>
       </div>
     </div>
@@ -235,12 +233,12 @@ No capitulo anterior, aprendeu-se a usar o Storyshots para implementar estórias
 
 ## Testes unitários com Jest
 
-As estórias criadas com o Storybook em conjunção com os testes visuais manuais e testes de snapshot (tal como mencionado acima) irão prevenir em larga escala problemas futuros no interface de utilizador. Se as estórias definidas abrangerem uma ampla variedade de casos do componente e forem usadas ferramentas que garantam verificações por parte humana, irá resultar num decréscimo de erros. 
+As estórias criadas com o Storybook em conjunção com os testes visuais manuais e testes de snapshot (tal como mencionado acima) irão prevenir em larga escala problemas futuros no interface de utilizador. Se as estórias definidas abrangerem uma ampla variedade de casos do componente e forem usadas ferramentas que garantam verificações por parte humana, irá resultar num decréscimo de erros.
 
-No entanto, por vezes o diabo encontra-se nos detalhes. É necessária uma framework de testes explicita acerca deste tipo de detalhes. O que nos leva aos testes unitários. 
+No entanto, por vezes o diabo encontra-se nos detalhes. É necessária uma framework de testes explicita acerca deste tipo de detalhes. O que nos leva aos testes unitários.
 
-Neste caso pretende-se que o nosso `TaskListComponent` faça a renderização de quaisquer tarefas que foram confirmadas **antes** das não confirmadas que são fornecidas ao adereço (prop) `tasks`. 
-Apesar de existir uma estória (`withPinnedTasks`) que testa este cenário em particular; este poderá levar a alguma ambiguidade da parte humana, ou seja se o componente **parar** de ordenar as tarefas desta forma, logo existe um problema. Mas ao olho destreinado não irá gritar **"Erro!"**. 
+Neste caso pretende-se que o nosso `TaskListComponent` faça a renderização de quaisquer tarefas que foram confirmadas **antes** das não confirmadas que são fornecidas ao adereço (prop) `tasks`.
+Apesar de existir uma estória (`withPinnedTasks`) que testa este cenário em particular; este poderá levar a alguma ambiguidade da parte humana, ou seja se o componente **parar** de ordenar as tarefas desta forma, logo existe um problema. Mas ao olho destreinado não irá gritar **"Erro!"**.
 
 De forma a evitar este problema em concreto, podemos usar o Jest, de forma que este renderize a estória na DOM e efetue pesquisas de forma a verificar o output.
 
@@ -258,13 +256,11 @@ describe('TaskList component', () => {
   let component: TaskListComponent;
   let fixture: ComponentFixture<TaskListComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [TaskComponent, TaskListComponent],
-      }).compileComponents();
-    }),
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [TaskComponent, TaskListComponent],
+    }).compileComponents();
+  }));
 
   it('renders pinned tasks at the start of the list', () => {
     fixture = TestBed.createComponent(TaskListComponent);
@@ -272,9 +268,7 @@ describe('TaskList component', () => {
     component.tasks = withPinnedTasks;
 
     fixture.detectChanges();
-    const lastTaskInput = fixture.debugElement.query(
-      By.css('.list-item:nth-child(1)'),
-    );
+    const lastTaskInput = fixture.debugElement.query(By.css('.list-item:nth-child(1)'));
 
     // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
     expect(lastTaskInput.nativeElement.id).toEqual('6');
@@ -284,6 +278,6 @@ describe('TaskList component', () => {
 
 ![Execução de testes da TaskList](/intro-to-storybook/tasklist-testrunner.png)
 
-Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasks` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente (os exemplos que representam configurações de um componente) de cada vez mais formas. 
+Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasks` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente (os exemplos que representam configurações de um componente) de cada vez mais formas.
 
 Mas também que este teste é algo frágil. É possível que á medida que o projeto amadurece, a implementação concreta do componente `TaskComponent` seja alterada; isto quer pelo uso de uma classe com um nome diferente ou um elemento `textarea` ao invés de um `input`, por exemplo--com isto, este teste específico irá falhar e será necessária uma atualização. Isto não é necessariamente um problema, mas um indicador para ser cuidadoso no uso liberal de testes unitários para o interface de utilizador. Visto que não são de fácil manutenção. Ao invés deste tipo de testes, é preferível depender de testes visuais, snapshot ou de regressão visual (ver [capitulo de testes](/angular/pt/test/)) sempre que for possível.

@@ -1,7 +1,7 @@
 ---
-title: "Assemble a composite component"
-tocTitle: "Composite component"
-description: "Assemble a composite component out of simpler components"
+title: 'Assemble a composite component'
+tocTitle: 'Composite component'
+description: 'Assemble a composite component out of simpler components'
 commit: c72f06f
 ---
 
@@ -26,112 +26,120 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 ```html
 <template>
   <div>
-    <div class="list-items" v-if="loading"> loading </div>
-    <div class="list-items" v-if="noTasks && !this.loading">empty </div>
+    <div class="list-items" v-if="loading">loading</div>
+    <div class="list-items" v-if="noTasks && !this.loading">empty</div>
     <div class="list-items" v-if="showTasks">
-      <task v-for="(task, index) in tasks" :key="index" :task="task"
-        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+      <task
+        v-for="(task, index) in tasks"
+        :key="index"
+        :task="task"
+        @archiveTask="$emit('archiveTask', $event)"
+        @pinTask="$emit('pinTask', $event)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "task-list",
-  props: {
-    loading: {
-      type: Boolean,
-      default: false
+  import Task from './Task';
+  export default {
+    name: 'task-list',
+    props: {
+      loading: {
+        type: Boolean,
+        default: false,
+      },
+      tasks: {
+        type: Array,
+        default: () => []
+      },
     },
-    tasks: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  },
-  components: {
-    Task
-  },
-  computed: {
-    noTasks() {
-      return this.tasks.length === 0;
+    components: {
+      Task,
     },
-    showTasks() {
-      return !this.loading && !this.noTasks;
-    }
-  }
-};
+    computed: {
+      noTasks() {
+        return this.tasks.length === 0;
+      },
+      showTasks() {
+        return !this.loading && !this.noTasks;
+      },
+    },
+  };
 </script>
 ```
 
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-import { storiesOf } from '@storybook/vue';
-import { task } from './Task.stories';
-
 import TaskList from './TaskList';
-import { methods } from './Task.stories';
-
-export const defaultTaskList = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
-];
-
-export const withPinnedTasks = [
-  ...defaultTaskList.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+import { taskData, actionsData } from './Task.stories';
 
 const paddedList = () => {
   return {
     template: '<div style="padding: 3rem;"><story/></div>',
   };
 };
+export default {
+  title: 'TaskList',
+  excludeStories: /.*Data$/,
+  decorators: [paddedList],
+};
 
-storiesOf('TaskList', module)
-  .addDecorator(paddedList)
-  .add('default', () => ({
-    components: { TaskList },
-    template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    data: () => ({
-      tasks: defaultTaskList,
-    }),
-    methods,
-  }))
-  .add('withPinnedTasks', () => ({
-    components: { TaskList },
-    template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    data: () => ({
-      tasks: withPinnedTasks,
-    }),
-    methods,
-  }))
-  .add('loading', () => ({
-    components: { TaskList },
-    template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods,
-  }))
-  .add('empty', () => ({
-    components: { TaskList },
-    template: `<task-list  @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-    methods,
-  }));
+export const defaultTasksData = [
+  { ...taskData, id: "1", title: "Task 1" },
+  { ...taskData, id: "2", title: "Task 2" },
+  { ...taskData, id: "3", title: "Task 3" },
+  { ...taskData, id: "4", title: "Task 4" },
+  { ...taskData, id: "5", title: "Task 5" },
+  { ...taskData, id: "6", title: "Task 6" }
+];
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
+  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+];
+
+// default TaskList state
+export const Default = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: defaultTasksData
+    }
+  },
+  methods: actionsData
+});
+// tasklist with pinned tasks
+export const WithPinnedTasks = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  props: {
+    tasks: {
+      default: withPinnedTasksData
+    }
+  },
+  methods: actionsData
+});
+// tasklist in loading state
+export const Loading = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  methods: actionsData
+});
+// tasklist no tasks
+export const Empty = () => ({
+  components: { PureTaskList },
+  template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
+  methods: actionsData
+});
 ```
 
-`addDecorator()` allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
-
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to add other context to components, as we'll see later.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we're using a decorator key in the default export to add styling. But they can also be used to add other context to components, as we'll see later.
 </div>
 
-`task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `methods` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -144,7 +152,7 @@ Now check Storybook for the new `TaskList` stories.
 
 ## Build out the states
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
 
 ```html
 <template>
@@ -152,9 +160,7 @@ Our component is still rough but now we have an idea of the stories to work towa
     <div v-if="loading">
       <div class="loading-item" v-for="(n, index) in 5" :key="index">
         <span class="glow-checkbox" />
-        <span class="glow-text">
-          <span>Loading</span> <span>cool</span> <span>state</span>
-        </span>
+        <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
       </div>
     </div>
     <div class="list-items" v-if="noTasks && !this.loading">
@@ -165,46 +171,49 @@ Our component is still rough but now we have an idea of the stories to work towa
       </div>
     </div>
     <div class="list-items" v-if="showTasks">
-      <task v-for="(task, index) in tasksInOrder" :key="index" :task="task"
-        @archiveTask="$emit('archiveTask', $event)" @pinTask="$emit('pinTask', $event)"/>
+      <task
+        v-for="(task, index) in tasksInOrder"
+        :key="index"
+        :task="task"
+        @archiveTask="$emit('archiveTask', $event)"
+        @pinTask="$emit('pinTask', $event)"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "task-list",
-  props: {
-    loading: {
-      type: Boolean,
-      default: false
+  import Task from './Task';
+  export default {
+    name: 'task-list',
+    props: {
+      loading: {
+        type: Boolean,
+        default: false,
+      },
+      tasks: {
+        type: Array,
+        default: () => []
+      },
     },
-    tasks: {
-      type: Array,
-      default() {
-        return [];
-      }
-    }
-  },
-  components: {
-    Task
-  },
-  computed: {
-    noTasks() {
-      return this.tasks.length === 0;
+    components: {
+      Task,
     },
-    showTasks() {
-      return !this.loading && !this.noTasks;
+    computed: {
+      noTasks() {
+        return this.tasks.length === 0;
+      },
+      showTasks() {
+        return !this.loading && !this.noTasks;
+      },
+      tasksInOrder() {
+        return [
+          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
+          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
+        ];
+      },
     },
-    tasksInOrder() {
-      return [
-        ...this.tasks.filter(t => t.state === "TASK_PINNED"),
-        ...this.tasks.filter(t => t.state !== "TASK_PINNED")
-      ];
-    }
-  }
-};
+  };
 </script>
 ```
 
@@ -221,7 +230,7 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 
 ## Automated testing
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer such as [Enzyme](http://airbnb.io/enzyme/).
+In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer.
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
@@ -231,7 +240,7 @@ Storybook stories paired with manual visual tests and snapshot tests (see above)
 
 However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`withPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
 
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
@@ -240,12 +249,12 @@ Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out 
 ```javascript
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
-import { withPinnedTasks } from '../../src/components/TaskList.stories';
+import { withPinnedTasksData } from '../../src/components/TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const Constructor = Vue.extend(TaskList);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasks },
+    propsData: { tasks: withPinnedTasksData },
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
@@ -256,6 +265,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `withPinnedTasks` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
+Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/vue/en/test/) tests where possible.

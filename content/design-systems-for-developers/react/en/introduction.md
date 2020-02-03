@@ -1,7 +1,7 @@
 ---
-title: "Introduction to design systems"
-tocTitle: "Introduction"
-description: "A guide to the latest production-ready tools for design systems"
+title: 'Introduction to design systems'
+tocTitle: 'Introduction'
+description: 'A guide to the latest production-ready tools for design systems'
 ---
 
 <div class="aside">This guide is made for <b>professional developers</b> learning how to build design systems. Intermediate experience in JavaScript, Git, and continuous integration is recommended. You should also know Storybook basics, such as writing a story and editing config files (<a href="/intro-to-storybook">Intro to Storybook</a> teaches basics).

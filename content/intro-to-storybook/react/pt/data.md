@@ -1,7 +1,7 @@
 ---
-title: "Ligação de dados"
-tocTitle: "Dados"
-description: "Aprendizagem da metodologia de ligação de dados ao componente interface utilizador"
+title: 'Ligação de dados'
+tocTitle: 'Dados'
+description: 'Aprendizagem da metodologia de ligação de dados ao componente interface utilizador'
 commit: 9c50472
 ---
 
@@ -20,7 +20,7 @@ No entanto o padrão a ser usado aqui, pode ser aplicado a outras bibliotecas de
 Adiciona-se uma nova dependência ao `package.json` com:
 
 ```bash
-yarn add react-redux
+yarn add react-redux redux
 ```
 
 Irá ser construída (intencionalmente definida de forma simples) uma loja Redux, que responde ao desencadear de ações que alteram o estado das tarefas. Isto no ficheiro `lib/redux.js`, contido dentro de `src`
@@ -45,12 +45,12 @@ function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(
-        task => (task.id === action.id ? { ...task, state: taskState } : task)
+      tasks: state.tasks.map(task =>
+        task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
   };
-};
+}
 
 // The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {

@@ -1,7 +1,7 @@
 ---
-title: "Test UI components"
-tocTitle: "Testing"
-description: "Learn the ways to test UI components"
+title: 'Test UI components'
+tocTitle: 'Testing'
+description: 'Learn the ways to test UI components'
 commit: 78a45d1
 ---
 
@@ -56,26 +56,6 @@ Add the package as a dependency.
 yarn add storybook-chromatic
 ```
 
-Import Chromatic in your `.storybook/config.js` file.
-
-```javascript
-// .storybook/config.js
-
-import { configure } from "@storybook/react";
-import requireContext from "require-context.macro";
-import "storybook-chromatic";
-
-import "../src/index.css";
-
-const req = requireContext("../src/components", true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-```
-
 Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
@@ -88,7 +68,7 @@ Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub ac
 Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -112,7 +92,7 @@ This yields a new background color for the item.
 Use the test command from earlier to run another Chromatic test.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --app-code=<app-code>
 ```
 
 Follow the link to the web UI where you’ll see changes.
@@ -125,7 +105,7 @@ There are a lot of changes! The component hierarchy where `Task` is a child of `
 
 ## Review changes
 
-Visual regression testing ensures components dont change by accident. But it’s still up to you to determine whether changes are intentional or not.
+Visual regression testing ensures components don’t change by accident. But it’s still up to you to determine whether changes are intentional or not.
 
 If a change is intentional you need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
 

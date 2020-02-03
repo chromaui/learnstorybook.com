@@ -41,18 +41,25 @@ With the Storybook Docs addon, we can generate rich documentation from existing 
 yarn add --dev @storybook/addon-docs
 ```
 
-Also, we’ll add a _preset_ for the docs addon, in a new file `.storybook/presets.js`. Note that the use of this preset removes the need for our `.storybook/webpack.config.js` and we can remove it:
+We'll add it to our addons list in `.storybook/main.js`:
 
 ```javascript
-module.exports = [
-  {
-    name: '@storybook/addon-docs/react/preset',
-    options: {
-      configureJSX: true,
+module.exports = {
+  stories: ['../src/**/*.stories.js'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        configureJSX: true,
+      },
     },
-  },
-];
-
+  ],
+};
 ```
 
 You should see two tabs in your Storybook. “Canvas” tab is your component development environment. “Docs” is your component documentation.
@@ -157,11 +164,22 @@ Every component is different and so are the documentation requirements. We used 
 
 Markdown is a straightforward format for writing text. MDX allows you to use interactive code (JSX) inside of Markdown. Storybook Docs uses MDX to give developers ultimate control over how documentation renders.
 
-First, let’s take control of the Avatar doc generation from the default. Register MDX files in `.storybook/config.js` like so.
+First, let’s take control of the Avatar doc generation from the default. Register MDX files in `.storybook/main.js` like so.
 
 ```javascript
-// automatically import all files ending in *.stories.js|mdx
-configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module);
+module.exports = {
+  // automatically import all files ending in *.stories.js|mdx
+  stories: ['../src/**/*.stories.(js|mdx)'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
+  ],
+};
 ```
 
 Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remove the `Avatar.stories.js` file and recreate the stories in the mdx file:
@@ -326,18 +344,24 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 
 This generates a new documentation-only page that is independent of the automated component docs pages from earlier.
 
-![alt_text](/design-systems-for-developers/Feedback-wanted53.png)
+![Storybook docs with introduction page, unsorted](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
-To get it to appear first, we have to tell Storybook to load the Introduction file first:
+To get it to appear first, we have to tell Storybook to load the Introduction file in `.storybook/main.js`:
 
 ```javascript
-configure(
- [
-   require.context('../src', false, /Intro\.stories\.mdx/),
-   require.context('../src', true, /\.stories\.(js|mdx)$/),
- ],
- module
-);
+module.exports = {
+  // automatically import all files ending in *.stories.js|mdx
+  stories: ['../src/components/Intro.stories.mdx', '../src/**/*.stories.(js|mdx)'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+    '@storybook/addon-storysource',
+    '@storybook/addon-knobs',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs',
+  ],
+};
 ```
 
 ![Storybook docs with introduction page](/design-systems-for-developers/storybook-docs-introduction.png)
@@ -351,8 +375,8 @@ In a previous chapter, we published Storybook online for visual review. It’s e
 ```json
 {
   "scripts": {
-     "build-storybook-docs": "build-storybook -s public --docs",
-   }
+    "build-storybook-docs": "build-storybook -s public --docs"
+  }
 }
 ```
 

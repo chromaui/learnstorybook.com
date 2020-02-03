@@ -93,7 +93,7 @@ dist
 Finally, let’s make a couple of changes to `package.json` to ensure consumers of the package get all the information we need. The easiest way to do that is to run `yarn init` -- a command that initializes the package for publication:
 
 ```bash
-yarn init 
+yarn init
 
 yarn init v1.16.0
 question name (learnstorybook-design-system):
@@ -279,7 +279,7 @@ The example app uses Storybook to facilitate [Component-Driven Development](http
 Clone the example app repository from GitHub
 
 ```bash
-git clone chromaui/learnstorybook-design-system-example-app
+git clone https://github.com/chromaui/learnstorybook-design-system-example-app.git
 ```
 
 Install the dependencies and start the app’s Storybook
@@ -301,26 +301,37 @@ Add your published design system as a dependency.
 yarn add <your-username>-learnstorybook-design-system
 ```
 
-Now, let’s update the example app’s `.storybook/config.js` to list the design system components, and to use the global styles defined by the design system. Make the following change to the file:
+Now, let’s update the example app’s `.storybook/main.js` to import the design system components:
+
+```javascript
+module.exports = {
+  stories: [
+    '../src/**/*.stories.js',
+    '../node_modules/<your-username>-learnstorybook-design-system/dist/*.stories.(js|mdx)',
+  ],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+  ],
+};
+```
+
+Also we can add a global decorator to a new `.storybook/preview.js` config file use the global styles defined by the design system. Make the following change to the file:
 
 ```javascript
 import React from 'react';
-import { configure. addDecorator } from '@storybook/react';
-import { GlobalStyles } from '<your-username>-learnstorybook-design-system';
-addDecorator(s => <><GlobalStyles/>{s()}</>);
+import { addDecorator } from '@storybook/react';
+import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
 
-// automatically import all files ending in *.stories.js
-configure(
-  [
-    require.context('../src', true, /\.stories\.js$/),
-    require.context(
-      '../node_modules/<your-username>-learnstorybook-design-system/dist',
-      true,
-      /\.stories\.(js|mdx)$/
-    ),
-  ],
-  module
-);
+const { GlobalStyle } = designSystemGlobal;
+
+addDecorator(story => (
+  <>
+    <GlobalStyle />
+    {story()}
+  </>
+));
 ```
 
 ![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories.png)
@@ -336,7 +347,7 @@ Navigate to the UserItem.js component in your editor. Also, find UserItem in the
 Import the Avatar component.
 
 ```javascript
-import { Avatar } from '<your-username>-learnstorybook-design-system'
+import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 We want to render the Avatar beside the username.

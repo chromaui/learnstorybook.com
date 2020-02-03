@@ -1,7 +1,7 @@
 ---
-title: "Wire in data"
-tocTitle: "Data"
-description: "Learn how to wire in data to your UI component"
+title: 'Wire in data'
+tocTitle: 'Data'
+description: 'Learn how to wire in data to your UI component'
 commit: 9c50472
 ---
 
@@ -45,12 +45,12 @@ function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(
-        task => (task.id === action.id ? { ...task, state: taskState } : task)
+      tasks: state.tasks.map(task =>
+        task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
   };
-};
+}
 
 // The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {
@@ -123,31 +123,38 @@ However, we can easily solve this problem by simply rendering the `PureTaskList`
 // src/components/TaskList.stories.js
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import { PureTaskList } from './TaskList';
-import { task, actions } from './Task.stories';
+import { taskData, actionsData } from './Task.stories';
 
-export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
+export default {
+  component: PureTaskList,
+  title: 'TaskList',
+  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  excludeStories: /.*Data$/,
+};
+
+export const defaultTasksData = [
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
 ];
 
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
-  .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
-  .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
+export const Default = () => <PureTaskList tasks={defaultTasksData} {...actionsData} />;
+
+export const WithPinnedTasks = () => <PureTaskList tasks={withPinnedTasksData} {...actionsData} />;
+
+export const Loading = () => <PureTaskList loading tasks={[]} {...actionsData} />;
+
+export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
 ```
 
 <video autoPlay muted playsInline loop>
@@ -157,25 +164,6 @@ storiesOf('TaskList', module)
   />
 </video>
 
-Similarly, we need to use `PureTaskList` in our Jest test:
-
-```js
-// src/components/TaskList.test.js
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { PureTaskList } from './TaskList';
-import { withPinnedTasks } from './TaskList.stories';
-
-it('renders pinned tasks at the start of the list', () => {
-  const div = document.createElement('div');
-  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<PureTaskList tasks={withPinnedTasks} {...events} />, div);
-
-  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
-  expect(lastTaskInput).not.toBe(null);
-
-  ReactDOM.unmountComponentAtNode(div);
-});
-```
+<div class="aside">
+Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. 
+</div>

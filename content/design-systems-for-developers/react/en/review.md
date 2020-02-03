@@ -27,12 +27,12 @@ First, sign up for CircleCI if you haven’t already. Once there, you’ll see a
 
 Add a `.circleci` directory at the top level and create a config.yml file inside of it. This will allow us to script how our CI process behaves. We can simply add the default file that Circle suggests for Node for now:
 
-```yml
+```yaml
 version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.10.0
+      - image: circleci/node:10.13
     working_directory: ~/repo
     steps:
       - checkout

@@ -1,7 +1,7 @@
 ---
-title: "Test UI components"
-tocTitle: "Testing"
-description: "Learn the ways to test UI components"
+title: 'Test UI components'
+tocTitle: 'Testing'
+description: 'Learn the ways to test UI components'
 commit: 8fdc779
 ---
 
@@ -34,15 +34,11 @@ There are a number of tools for visual regression testing. For professional team
 
 Chromatic is a hassle-free Storybook addon for visual regression testing and review in the cloud. Since it’s a paid service (with a free trial), it may not be for everyone. However, Chromatic is an instructive example of a production visual testing workflow that we'll try out for free. Let’s have a look.
 
-### Initiate Git
+### Bring git up to date
+
+Angular CLI has already created a repo for your project; let's check in the changes we made:
 
 First you want to setup Git for your project in the local directory. Chromatic uses Git history to keep track of your UI components.
-
-```bash
-$ git init
-```
-
-Next add files to the first commit.
 
 ```bash
 $ git add .
@@ -59,24 +55,7 @@ $ git commit -m "taskbox UI"
 Add the package as a dependency.
 
 ```bash
-yarn add storybook-chromatic
-```
-
-Import Chromatic in your `.storybook/config.js` file.
-
-```javascript
-import { configure } from "@storybook/angular";
-import "storybook-chromatic";
-import "../src/styles.less";
-
-// automatically import all files ending in *.stories.ts
-const req = require.context("../src/", true, /.stories.ts$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
+npm install -D storybook-chromatic
 ```
 
 Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
@@ -91,7 +70,7 @@ Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub ac
 Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --app-code=<app-code>
 ```
 
 <div class="aside">
@@ -115,7 +94,7 @@ This yields a new background color for the item.
 Use the test command from earlier to run another Chromatic test.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --app-code=<app-code>
 ```
 
 Follow the link to the web UI where you’ll see changes.
@@ -128,7 +107,7 @@ There are a lot of changes! The component hierarchy where `Task` is a child of `
 
 ## Review changes
 
-Visual regression testing ensures components dont change by accident. But it’s still up to you to determine whether changes are intentional or not.
+Visual regression testing ensures components don’t change by accident. But it’s still up to you to determine whether changes are intentional or not.
 
 If a change is intentional you need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
 
