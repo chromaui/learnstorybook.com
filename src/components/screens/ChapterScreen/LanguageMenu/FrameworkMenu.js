@@ -48,6 +48,23 @@ const Image = styled.img`
   position: absolute;
 `;
 
+const FrameworkImage = styled.img`
+  width: 2rem;
+  height: 2rem;
+  padding: 5px;
+  ${({ selectedFramework }) =>
+    selectedFramework &&
+    `
+    border: 2px solid #5CACF7;
+    border-radius:5px;
+   
+  `}
+`;
+
+const FrameworkContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
 const Link = styled(GatsbyLink).attrs({ tertiary: true })`
   && {
     text-decoration: underline;
@@ -79,15 +96,25 @@ const getChapterInOtherLanguage = (
   translationPages
 ) => {
   const expectedSlug = `/${guide}/${framework}/${language}/${currentChapter}/`;
+  // defines the initial chapter
+  const expectedFirstChapter = `/${guide}/${framework}/${language}/${firstChapter}/`;
+
   const chapterInOtherLanguage = translationPages.edges.find(
     ({ node: { fields } }) => fields.slug === expectedSlug
   );
-
   if (chapterInOtherLanguage) {
     return expectedSlug;
   }
-
-  return `/${guide}/${framework}/${language}/${firstChapter}/`;
+  // searches for the first chapter for the translation
+  const firstInOtherLanguage = translationPages.edges.find(
+    ({ node: { fields } }) => fields.slug === expectedFirstChapter
+  );
+  // if it exists returns the expected first chapter
+  if (firstInOtherLanguage) {
+    return firstInOtherLanguage;
+  }
+  // returns the default first chapter(ie the english version of the tutorial, preventing a 404)
+  return `/${guide}/${framework}/en/${firstChapter}/`;
 };
 
 const getTranslationPagesByFramework = translationPages =>
@@ -114,6 +141,141 @@ const getTranslationPagesByFramework = translationPages =>
   }, {});
 
 const FrameworkMenu = ({
+  chapter,
+  contributeUrl,
+  firstChapter,
+  framework,
+  guide,
+  language,
+  translationPages,
+}) => {
+  const translationPagesByFramework = useMemo(
+    () => getTranslationPagesByFramework(translationPages),
+    [translationPages]
+  );
+  const frameworks = sortBy(
+    Object.keys(translationPagesByFramework),
+    frameworkName => frameworkName
+  );
+
+  if (
+    // There is only one framework
+    Object.keys(translationPagesByFramework).length < 2 &&
+    // and that framework only has one translation
+    Object.keys(translationPagesByFramework[framework]).length < 2
+  ) {
+    return (
+      <Button
+        appearance="outline"
+        size="small"
+        isLink
+        href={contributeUrl}
+        target="_blank"
+        rel="noopener"
+      >
+        <ButtonContent>Help us translate</ButtonContent>
+      </Button>
+    );
+  }
+  const availableTranslations = sortBy(
+    Object.keys(translationPagesByFramework[framework]),
+    languageName => languageName
+  );
+  return (
+    <>
+      <LanguageMenuTitle>Framework:</LanguageMenuTitle>
+      {
+        <FrameworkContainer>
+          {frameworks.map(availableFramework => (
+            <Link
+              to={getChapterInOtherLanguage(
+                availableFramework,
+                language,
+                guide,
+                chapter,
+                firstChapter,
+                translationPages
+              )}
+            >
+              <FrameworkImage
+                src={`/frameworks/logo-${availableFramework}.svg`}
+                alt={startCase(availableFramework)}
+                selectedFramework={availableFramework === framework}
+              />
+            </Link>
+          ))}
+        </FrameworkContainer>
+      }
+      <WithTooltip
+        tagName="span"
+        placement="bottom"
+        trigger="click"
+        closeOnClick
+        tooltip={
+          <TooltipList>
+            <>
+              <Item key={framework}>
+                <TooltipMessage
+                  title={`Available translations for the ${startCase(
+                    framework
+                  )} version of the tutorial`}
+                />
+              </Item>
+              <Item>
+                {availableTranslations.map((translation, frameworkIndex) => {
+                  const isLastFramework = frameworkIndex + 1 === availableTranslations.length;
+                  return (
+                    <TooltipMessage
+                      desc={
+                        <>
+                          <Link
+                            key={translation}
+                            to={getChapterInOtherLanguage(
+                              framework,
+                              translation,
+                              guide,
+                              chapter,
+                              firstChapter,
+                              translationPages
+                            )}
+                          >
+                            {getLanguageName(translation)}
+                          </Link>
+                        </>
+                      }
+                      links={
+                        isLastFramework
+                          ? [
+                              {
+                                title: 'Help us translate',
+                                href: contributeUrl,
+                                target: '_blank',
+                                rel: 'noopener',
+                                className: 'help-translate-link',
+                              },
+                            ]
+                          : null
+                      }
+                    />
+                  );
+                })}
+              </Item>
+            </>
+          </TooltipList>
+        }
+      >
+        <Button appearance="outline" size="small">
+          <ButtonContent>
+            {`${getLanguageName(language)}`}
+            <ChevronDownIcon />
+          </ButtonContent>
+        </Button>
+      </WithTooltip>
+    </>
+  );
+};
+
+/* const FrameworkMenu = ({
   chapter,
   contributeUrl,
   firstChapter,
@@ -225,7 +387,7 @@ const FrameworkMenu = ({
       </WithTooltip>
     </>
   );
-};
+}; */
 
 FrameworkMenu.propTypes = {
   chapter: PropTypes.string.isRequired,

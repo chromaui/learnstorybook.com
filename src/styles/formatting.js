@@ -43,7 +43,6 @@ export const guideFormatting = css`
     &:last-of-type {
       margin-right: 0;
     }
-
     img {
       width: 16px;
       margin-right: 6px;
