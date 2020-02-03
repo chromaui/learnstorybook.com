@@ -52,7 +52,12 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-storysource',
     '@storybook/addon-knobs',
-    '@storybook/addon-docs',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        configureJSX: true,
+      },
+    },
   ],
 };
 ```
