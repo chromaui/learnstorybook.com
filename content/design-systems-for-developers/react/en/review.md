@@ -32,7 +32,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:8.10.0
+      - image: circleci/node:10.13
     working_directory: ~/repo
     steps:
       - checkout
