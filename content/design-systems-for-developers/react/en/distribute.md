@@ -58,10 +58,10 @@ export * from './Icon';
 export * from './Link';
 ```
 
-Let’s add a development dependency on `@babel/cli` to compile our JavaScript for release:
+Let’s add a development dependency on `@babel/cli` and `cross-env` to compile our JavaScript for release:
 
 ```bash
-yarn add --dev @babel/cli
+yarn add --dev @babel/cli cross-env`
 ```
 
 To build the package, we’ll add a script to `package.json` that builds our source directory into `dist`:
@@ -69,7 +69,7 @@ To build the package, we’ll add a script to `package.json` that builds our sou
 ```json
 {
   "scripts": {
-    "build": "BABEL_ENV=production babel src -d dist",
+    "build": "cross-env BABEL_ENV=production babel src -d dist",
       ...
   }
   "babel": {
