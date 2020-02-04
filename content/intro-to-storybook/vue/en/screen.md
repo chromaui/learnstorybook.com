@@ -14,6 +14,8 @@ In this chapter we continue to increase the sophistication by combining componen
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` container component (which supplies its own data via Vuex) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
 
 ```html
+
+<!--src/components/PureInboxScreen.vue-->
 <template>
   <div>
     <div class="page lists-show" v-if="error">
@@ -55,6 +57,8 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `src/components/InboxScreen.vue`:
 
 ```html
+
+<!--src/components/InboxScreen.vue-->
 <template>
   <div>
     <pure-inbox-screen :error="error" />
@@ -80,6 +84,8 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```html
+
+<!--src/App.vue-->
 <template>
   <div id="app">
     <inbox-screen />
@@ -112,6 +118,7 @@ However, for the `PureInboxScreen` we have a problem because although the `PureI
 
 ```javascript
 
+//src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 export default {
   title: 'PureInboxScreen',
@@ -147,6 +154,8 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can create a new store in our story file and pass it in as the context of the story:
 
 ```javascript
+
+//src/components/PureInboxScreen.stories.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 import PureInboxScreen from './PureInboxScreen.vue';

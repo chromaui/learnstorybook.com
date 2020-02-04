@@ -28,6 +28,7 @@ In a file called `src/store.js` we'll construct a standard Vuex store that respo
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+// src/store.js
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -61,6 +62,8 @@ export default new Vuex.Store({
 In our top-level app component (`src/App.vue`) we can wire the store into our component heirarchy fairly easily:
 
 ```html
+
+<!--src/App.vue-->
 <template>
   <div id="app">
     <task-list />
@@ -89,8 +92,11 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 In `src/components/PureTaskList.vue`:
 
 ```html
-/* This file moved from TaskList.vue */
-<template>/* as before */
+
+<!--src/components/PureTaskList.vue-->
+<template>
+<!--same content as before-->
+</template>
 
 <script>
 import Task from "./Task";
@@ -103,6 +109,8 @@ export default {
 In `src/components/TaskList.vue`:
 
 ```html
+
+<!--src/components/TaskList.vue`-->
 <template>
   <div>
     <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask" />
@@ -131,6 +139,8 @@ In `src/components/TaskList.vue`:
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
+
+//src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList';
 import { taskData, actionsData } from './Task.stories';
 
@@ -204,6 +214,8 @@ export const Empty = () => ({
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
+
+//tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
 import { withPinnedTasksData } from '../../src/components/PureTaskList.stories';

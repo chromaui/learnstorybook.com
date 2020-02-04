@@ -24,6 +24,8 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```html
+
+<!--src/components/TaskList.vue-->
 <template>
   <div>
     <div class="list-items" v-if="loading">loading</div>
@@ -72,6 +74,8 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
+
+//src/components/TaskList.stories.js
 import TaskList from './TaskList';
 import { taskData, actionsData } from './Task.stories';
 
@@ -155,6 +159,8 @@ Now check Storybook for the new `TaskList` stories.
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
 
 ```html
+
+<!--src/components/TaskList.vue-->
 <template>
   <div>
     <div v-if="loading">
@@ -247,6 +253,8 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
+
+//tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
 import { withPinnedTasksData } from '../../src/components/TaskList.stories';
