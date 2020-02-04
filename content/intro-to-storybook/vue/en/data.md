@@ -25,10 +25,10 @@ In a file called `src/store.js` we'll construct a standard Vuex store that respo
 
 ```javascript
 
+// src/store.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-// src/store.js
 Vue.use(Vuex);
 
 export default new Vuex.Store({
