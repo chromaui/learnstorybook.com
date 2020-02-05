@@ -1,27 +1,27 @@
 ---
-title: 'Storybook for React Native tutorial'
-tocTitle: 'Get started'
-description: 'Setup Storybook in your development environment'
+title: 'Tutorial Storybook para React Native'
+tocTitle: 'Empezando'
+description: 'Configurar Storybook en tu entorno de desarrollo'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React Native; other editions exist for [Vue](/vue/es/get-started) and [Angular](/angular/es/get-started) and [React](/react/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React Native; existe otras ediciones para [Vue](/vue/es/get-started), [Angular](/angular/es/get-started) y [React](/react/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
-## Setup React Native Storybook
+## Configurar Storybook con React Native
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Expo](https://expo.io/tools) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. 
+Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestro entorno. Para iniciar, vamos a usar [Expo](https://expo.io/tools) para configurar nuestro sistema de build, y añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para testear nuestra aplicación creada.
 
-Before diving into the tutorial, take into account the following considerations:
+Antes de sumergirse en el tutorial, tenga en cuenta las siguientes consideraciones:
 
-- All the code was intended for the Android platform, if you want to use IOS, some components might need to be updated in order to work properly.
+- Todo el código estaba destinado a la plataforma Android; si desea utilizar IOS, es posible que algunos componentes deban actualizarse para que funcionen correctamente.
 
-- You'll need a working simulator or a physical device correctly setup to maximize your experience, [react-native docs](https://facebook.github.io/react-native/docs/getting-started) has more detailed instructions on how to achieve this.
+- Necesitará un simulador que funcione o un dispositivo físico configurado correctamente para maximizar su experiencia, los documentos de [react-native](https://facebook.github.io/react-native/docs/getting-started) tienen instrucciones más detalladas sobre cómo lograr esto.
 
-- Throughout this tutorial, yarn will be used. Should you want to use npm, select the appropriate option during when you're initializing the app and replace all subsequent commands with npm.
+- A lo largo de este tutorial, se utilizará yarn. Si desea utilizar npm, seleccione la opción adecuada durante el proceso de inicialización de la aplicación y reemplace todos los comandos posteriores con npm.
 
 
-With that out of the way, let’s run the following commands:
+Con eso fuera del camino, ejecutemos los siguientes comandos:
 
 ```bash
 # Create our application:
@@ -35,28 +35,28 @@ npx -p @storybook/cli sb init --type react_native
 ```
 
 <div class="aside">
-  <p>During Storybook's install process, you'll be prompted to install react-native-server, do so as this package will help out immensely throughout the tutorial.</p>
+  <p>Durante el proceso de instalación de Storybook, se le pedirá que instale react-native-server, hágalo ya que este paquete será de gran ayuda durante todo el tutorial.</p>
 </div>
 
-We'll also want to add another package and make a change to `storybook/rn-addons.js` to allow the actions (you'll see them in action later in the tutorial) to be logged correctly in the Storybook UI.
+También queremos agregar otro paquete y hacer un cambio en `storybook/rn-addons.js` para permitir que las acciones (las verá en acción más adelante en el tutorial) se registren correctamente en la IU de Storybook.
 
-Run the following command:
+Ejecute el siguiente comando:
 
 ```bash
 yarn add -D @storybook/addon-ondevice-actions
 ```
 
-Change `storybook/rn-addons.js` to the following:
+Cambie `storybook/rn-addons.js` a lo siguiente:
 
 ```javascript
 import '@storybook/addon-ondevice-actions/register';
 ```
 
-### Setup Jest with React Native
+### Configurar Jest con React Native
 
-We have two out of three modalities configured in our app, but we still need one, we need to setup [Jest](https://facebook.github.io/jest/) to enable testing.
+Tenemos dos de las tres modalidades configuradas en nuestra aplicación, pero aún necesitamos una, necesitamos configurar [Jest](https://facebook.github.io/jest/) para habilitar las pruebas.
 
-Create a new folder called `__mocks__` and inside add a new file `globalMock.js` with the following:
+Cree una nueva carpeta llamada `__mocks__` y agregue un nuevo archivo `globalMock.js` con lo siguiente:
 
 ```javascript
 jest.mock('global', () => ({
@@ -65,7 +65,7 @@ jest.mock('global', () => ({
 }));
 ```
 
-Update the `jest` field in `package.json`:
+Actualice el campo `jest` en` package.json`:
 
 ```json
 "jest": {
@@ -79,7 +79,7 @@ Update the `jest` field in `package.json`:
   }
 ```
 
-Now we can quickly check that the various environments of our application are working properly:
+Ahora podemos comprobar rápidamente que los diversos entornos de nuestra aplicación funcionan correctamente:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
@@ -92,13 +92,13 @@ yarn storybook
 yarn start
 ```
 
-![3 modalities](/intro-to-storybook/app-three-modalities-rn.png)
+![3 modalidades](/intro-to-storybook/app-three-modalities-rn.png)
 
-Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
+Dependiendo de en qué parte de la aplicación estés trabajando, es posible que quieras ejecutar uno o más de estos simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
 
-## Reuse CSS
+## Reusa CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Contrary to the other tutorials, we wont copy over the compiled CSS, as React Native handles styling in a whole different way, but instead create a new file `constants/globalStyles.js` and add the following:
+Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Al contrario de los otros tutoriales, no copiaremos sobre el CSS compilado, ya que React Native maneja el estilo de una manera completamente diferente, sino que crea un nuevo archivo `constants/globalStyles.js` y agrega lo siguiente:
 
 ```javascript
 import { StyleSheet } from 'react-native';
@@ -231,22 +231,21 @@ export const styles = StyleSheet.create({
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo. And adjust accordingly for React Native styling.
+Si desea modificar el estilo, los archivos LESS de origen se proporcionan en el repositorio de GitHub. Y ajústelo en consecuencia para el estilo React Native.
 </div>
 
-## Add assets
+## Añadiendo recursos
 
-Add the font and icon directories by downloading them to your computer and dropping them into your repository.
+Agregue los directorios de fuentes e íconos descargándolos a su computadora y colocándolos en su repositorio.
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon assets/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font assets/font
 ```
 
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
 
-Next the assets need to be loaded into the app, for that we're going to update `App.js` to the following:
+A continuación, los recursos deben cargarse en la aplicación, para eso vamos a actualizar `App.js` a lo siguiente:
 
 ```javascript
 // App.js
@@ -272,9 +271,9 @@ async function loadResourcesAsync() {
 }
 ```
 
-In order to use the icons from the `percolate` font safely and correctly in React Native we need to create a bridge that will map each individual icon to it's correspondent in the font file.
+Para utilizar los iconos de la fuente `percolate` de forma segura y correcta en React Native, necesitamos crear un puente que asigne cada icono individual a su correspondiente en el archivo de la fuente.
 
-Create a new file `/constants/Percolate.js` with the following:
+Cree un nuevo archivo `/constants/Percolate.js` con lo siguiente:
 
 ```javascript
 /**
@@ -426,7 +425,7 @@ export const ToolbarAndroid = iconSet.ToolbarAndroid;
 export const getImageSource = iconSet.getImageSource;
 ```
 
-In order to see Storybook in React Native we're going to update `screens\SettingsScreen.js` to the following:
+Para ver Storybook en React Native vamos a actualizar `screens\SettingsScreen.js` a lo siguiente:
 
 ```javascript
 import React from 'react';
@@ -440,7 +439,7 @@ SettingsScreen.navigationOptions = {
 };
 ```
 
-And finally `navigation\MainTabNavigator.js` to the following:
+Y finalmente `navigation\MainTabNavigator.js` a lo siguiente:
 
 ```javascript
 import React from 'react';
@@ -504,4 +503,4 @@ tabNavigator.path = '';
 export default tabNavigator;
 ```
 
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+Después de añadir los estilos y recursos, nuestra aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. ¡Comenzamos con la construcción de nuestro primer componente!
