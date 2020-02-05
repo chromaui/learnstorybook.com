@@ -99,10 +99,10 @@ export const Pinned = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_PINNED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -113,10 +113,10 @@ export const Archived = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_ARCHIVED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -184,10 +184,10 @@ export const Pinned = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_PINNED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -198,10 +198,10 @@ export const Archived = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_ARCHIVED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -211,10 +211,10 @@ export const LongTitle = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         title: longTitle,
-      },
+      }),
     },
   },
   methods: actionsData,
