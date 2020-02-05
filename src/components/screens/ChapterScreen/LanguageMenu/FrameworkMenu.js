@@ -218,47 +218,36 @@ const FrameworkMenu = ({
                 <TooltipMessage
                   title={`Available translations for the ${startCase(
                     framework
-                  )} version of the tutorial`}
+                  )} version of the tutorial:`}
+                  desc={
+                    <>
+                      {availableTranslations.map(translationLanguage => (
+                        <Link
+                          key={translationLanguage}
+                          to={getChapterInOtherLanguage(
+                            framework,
+                            translationLanguage,
+                            guide,
+                            chapter,
+                            firstChapter,
+                            translationPages
+                          )}
+                        >
+                          {getLanguageName(translationLanguage)}
+                        </Link>
+                      ))}
+                    </>
+                  }
+                  links={[
+                    {
+                      title: 'Help us translate',
+                      href: contributeUrl,
+                      target: '_blank',
+                      rel: 'noopener',
+                      className: 'help-translate-link',
+                    },
+                  ]}
                 />
-              </Item>
-              <Item>
-                {availableTranslations.map((translation, frameworkIndex) => {
-                  const isLastFramework = frameworkIndex + 1 === availableTranslations.length;
-                  return (
-                    <TooltipMessage
-                      desc={
-                        <>
-                          <Link
-                            key={translation}
-                            to={getChapterInOtherLanguage(
-                              framework,
-                              translation,
-                              guide,
-                              chapter,
-                              firstChapter,
-                              translationPages
-                            )}
-                          >
-                            {getLanguageName(translation)}
-                          </Link>
-                        </>
-                      }
-                      links={
-                        isLastFramework
-                          ? [
-                              {
-                                title: 'Help us translate',
-                                href: contributeUrl,
-                                target: '_blank',
-                                rel: 'noopener',
-                                className: 'help-translate-link',
-                              },
-                            ]
-                          : null
-                      }
-                    />
-                  );
-                })}
               </Item>
             </>
           </TooltipList>
