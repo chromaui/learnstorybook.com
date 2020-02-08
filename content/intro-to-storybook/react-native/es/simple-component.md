@@ -1,29 +1,29 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: 'Construye un componente simple'
+tocTitle: 'Componente Simple'
+description: 'Construye un componente simple en aislamiento'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
 
-## Task
+## Task - Tarea
 
 ![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`Task` (o Tarea) es el componente principal en nuestra app. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o no marcado), información sobre la tarea y un botón “pin” que nos permite mover la tarea hacia arriba o abajo en la lista de tareas. Poniendo esto en conjunto, necesitaremos estas propiedades -props- :
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+-   `title` – un string que describe la tarea
+-   `state` - ¿en qué lista se encuentra la tarea actualmente y está marcado el checkbox?
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
+A medida que comencemos a construir `Task`, primero escribiremos nuestras pruebas para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) al que podemos llamar “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
 
-## Get setup
+## Ajustes iniciales
 
-First, let’s create the task component and its accompanying story file: `components/Task.js` and `components/Task.stories.js`.
+Primero, vamos a crear el componente Task y el archivo de historias de Storybook que lo acompaña: `components/Task.js` y `components/Task.stories.js`.
 
-We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
 ```javascript
 // /components/Task.js
@@ -40,9 +40,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
+Arriba, renderizamos directamente `Task` basándonos en la estructura HTML existente de la app Todos.
 
-Below we build out Task’s three test states in the story file:
+A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
 ```javascript
 // components/Task.stories.js
@@ -70,32 +70,32 @@ storiesOf('Task', module)
   .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Piensa en cada historia como una permutación posible del componente. Puedes tener tantas historias por componente como se necesite.
 
 - **Component**
   - Story
   - Story
   - Story
 
-To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
+Para iniciar Storybook primero llamamos a la función `storiesOf()` para registrar el componente. Agregamos un nombre para mostrar para el componente, el nombre que aparece en la barra lateral de la aplicación Storybook.
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+`action()` nos permite crear un callback que aparecerá en el panel **actions** de la UI de Storybook cuando es cliqueado. Entonces, cuando construyamos un botón pin, podremos determinar en la UI de prueba si un click en el botón es exitoso o no.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and use React's `{...actions}` props expansion to pass them all at once. `<Task {...actions}>` is equivalent to `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
+Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente agruparlas en una sola variable de `actions` y usarlas en los `{... actions}` props de React para pasarlas todas cada vez. `<Task {... actions}>` es equivalente a `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
 
-Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+Otra cosa interesante acerca de agrupar las `actions` que un componente necesita, es que puedes usar `export` y utilizarlas en historias para otros componentes que reutilicen este componente, como veremos luego.
 
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+Para definir nuestras historias, llamaremos `add()` cada vez para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado, exactamente como un React [Componente funcional sin estado](https://reactjs.org/docs/components-and-props.html).
 
-When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+Al crear una historia utilizamos una historia base (`task`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes UI en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para agregarlas.
 </div>
 
-## Config
+## Configuración
 
-We also have to make one small change to the Storybook configuration setup (`storybook/index.js`) so it notices our `.stories.js` files. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA or Vue CLI for automated tests.
+Es necesario realizar algunos cambios en la configuración del Storybook (`storybook/index.js`) para que note nuestros archivos `.stories.js`. Por defecto, Storybook busca historias en un directorio `/stories`; Este tutorial utiliza un esquema de nombres similar al esquema de nombres `.test.js` preferido por CRA o Vue CLI para las pruebas automatizadas.
 
 ```javascript
 // storybook/config.js
@@ -117,7 +117,7 @@ const StorybookUIRoot = getStorybookUI({});
 export default StorybookUIRoot;
 ```
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states in your simulator:
+Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -126,13 +126,13 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-Alternatively you can use [react-native-storybook-loader](https://github.com/elderfo/react-native-storybook-loader) to handle loading all of the stories at once, the use of the this third party package will not be covered in this tutorial for brevity purposes.
+Alternativamente, puedes usar [react-native-storybook-loader](https://github.com/elderfo/react-native-storybook-loader) para manejar la carga de todas las historias a la vez, el uso de este paquete de terceros no se cubrirá en este tutorial por razones de brevedad.
 
-## Build out the states
+## Construyendo los estados
 
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+Ahora tenemos configurado Storybook, los estilos importados y los casos de prueba construidos; podemos comenzar rápidamente el trabajo de implementar el HTML del componente para que coincida con el diseño.
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
+Nuestro componente todavía es bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida con el diseño previsto sin entrar en demasiados detalles:
 
 ```javascript
 // components/Task.js
@@ -174,7 +174,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-The additional markup from above combined with the styling we created earlier yields the following UI:
+El maquetado adicional de arriba, combinado con el CSS que hemos importado antes, produce la siguiente UI:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -183,9 +183,9 @@ The additional markup from above combined with the styling we created earlier yi
   />
 </video>
 
-## Specify data requirements
+## Especificar requisitos de datos
 
-It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
+Se recomienda utilizar `propTypes` en React para especificar la forma de los datos que espera un componente. No solo se documenta por sí mismo, sino que también ayuda a detectar problemas temprano.
 
 ```javascript
 // src/components/Task.js
@@ -208,37 +208,37 @@ Task.propTypes = {
 };
 ```
 
-Now a warning in development will appear if the Task component is misused.
+Ahora aparecerá una advertencia en desarrollo si el componente de Tarea se usa incorrectamente.
 
 <div class="aside">
-An alternative way to achieve the same purpose is to use a JavaScript type system like TypeScript to create a type for the component properties.
+Una forma alternativa de lograr el mismo propósito es usar un sistema de tipos JavaScript como TypeScript para crear un tipo para las propiedades del componente.
 </div>
 
-## Component built!
+## Componente construido!
 
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
+Ahora hemos construido con éxito un componente sin necesidad de un servidor o sin ejecutar toda la aplicación frontend. El siguiente paso es construir los componentes restantes de la Taskbox, uno por uno de manera similar.
 
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
+Como puedes ver, comenzar a construir componentes de forma aislada es fácil y rápido. Podemos esperar producir una UI de mayor calidad con menos errores y más pulida porque es posible profundizar y probar todos los estados posibles.
 
-## Automated Testing
+## Pruebas automatizadas
 
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook nos dio una excelente manera de probar visualmente nuestra aplicación durante su construcción. Las 'historias' ayudarán a asegurar que no rompamos nuestra Task visualmente, a medida que continuamos desarrollando la aplicación. Sin embargo, en esta etapa, es un proceso completamente manual y alguien tiene que hacer el esfuerzo de hacer clic en cada estado de prueba y asegurarse de que se visualice bien y sin errores ni advertencias. ¿No podemos hacer eso automáticamente?
 
-### Snapshot testing
+### Pruebas de instantáneas
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+La prueba de instantáneas se refiere a la práctica de registrar la salida "correcta" de un componente para una entrada dada y luego en el futuro marcar el componente siempre que la salida cambie. Esto complementa a Storybook, porque es una manera rápida de ver la nueva versión de un componente y verificar los cambios.
 
 <div class="aside">
-Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+Asegúrese de que sus componentes muestren datos que no cambien, para que sus pruebas de instantáneas no fallen cada vez. Tenga cuidado con cosas como fechas o valores generados aleatoriamente.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
+Con el [complemento Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando las siguientes dependencias en modo desarrollo:
 
 ```bash
 yarn add --dev @storybook/addon-storyshots
 ```
 
-Then create an `__tests__/storybook.test.js` file with the following:
+Luego crea un archivo `__tests__/storybook.test.js` con el siguiente contenido:
 
 ```javascript
 // __tests__/storybook.test.js
@@ -246,10 +246,10 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-Once the above is done, we can run `yarn test` and see the following output:
+Una vez hecho lo anterior, podemos ejecutar `yarn test` y veremos el siguiente resultado:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+Ahora tenemos una prueba de instantánea para cada una de las historias de `Task`. Si cambiamos la implementación de `Task`, se nos pedirá que verifiquemos los cambios.
 
-<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>
+<div class="aside">Si sus pruebas de instantáneas fallan en esta etapa, debe actualizar las instantáneas existentes ejecutando el script de prueba con el indicador -u. O cree un nuevo script para abordar este problema.</div>
