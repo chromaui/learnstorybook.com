@@ -61,7 +61,7 @@ export * from './Link';
 Let’s add a development dependency on `@babel/cli` and `cross-env` to compile our JavaScript for release:
 
 ```bash
-yarn add --dev @babel/cli cross-env`
+yarn add --dev @babel/cli cross-env
 ```
 
 To build the package, we’ll add a script to `package.json` that builds our source directory into `dist`:
