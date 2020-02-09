@@ -307,7 +307,7 @@ Now, let’s update the example app’s `.storybook/main.js` to import the desig
 module.exports = {
   stories: [
     '../src/**/*.stories.js',
-    '../node_modules/<your-username>-learnstorybook-design-system/dist/*.stories.(js|mdx)',
+    '../node_modules/<your-username>-learnstorybook-design-system/dist/**/*.stories.(js|mdx)',
   ],
   addons: [
     '@storybook/preset-create-react-app',
