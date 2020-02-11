@@ -1,26 +1,26 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
+title: 'Introducir datos'
+tocTitle: 'Datos'
+description: 'Aprende como introducir datos a tus componentes UI'
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+Hasta ahora hemos creado componentes aislados sin estado, muy útiles para Storybook, pero finalmente no son útiles hasta que les proporcionemos algunos datos en nuestra aplicación.
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+Este tutorial no se centra en los detalles de la construcción de una aplicación, por lo que no profundizaremos en esos detalles aquí. Pero, nos tomaremos un momento para observar un patrón común para introducir datos con componentes contenedores.
 
-## Container components
+## Componentes contenedores
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (ver [artículo al respecto](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), en el sentido que no se comunica con nada externo a su implementación. Para poder pasarle datos, necesitaremos un "contenedor".
 
-This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de React para almacenar datos, que básicamente nos permite crear un modelo simple de datos para la aplicación. De todos modos, el patrón que utilizaremos también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
-Add some new dependencies on `package.json` with:
+Agregue algunas dependencias nuevas en `package.json` con:
 
 ```bash
 yarn add react-redux redux
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` (intentionally kept simple):
+Primero, construiremos un store Redux estándar que responda a acciones que cambien el estado de las tareas, en un archivo llamado `lib/redux.js` (intencionalmente simple):
 
 ```javascript
 // lib/redux.js
@@ -76,9 +76,9 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `components/PureTaskList.js` and wrap with a container.
+Luego se cambiará el componente `TaskList` para leer los datos del store. Pero primero, pasemos nuestra versión del componente existente al archivo `components/PureTaskList.js` que luego se incluirá en un contenedor.
 
-In `components/PureTaskList.js`:
+En `components/PureTaskList.js`:
 
 ```javascript
 import React from 'react';
@@ -107,7 +107,7 @@ PureTaskList.defaultProps = {
 export default PureTaskList;
 ```
 
-In `components/TaskList.js`:
+En `components/TaskList.js`:
 
 ```javascript
 import React from 'react';
@@ -134,7 +134,7 @@ export default connect(
 )(TaskList);
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `components/TaskList.stories.js` into `components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
+La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `components/TaskList.stories.js` a `components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
 ```javascript
 // components/PureTaskList.stories.js
@@ -167,7 +167,7 @@ storiesOf('PureTaskList', module)
   .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
 ```
 
-<div class="aside"><p>Don't forget to update storybook config file (in <code>storybook/index.js</code> ) to reflect these changes.</p></div>
+<div class="aside"><p>No olvide actualizar el archivo de configuración Storybook (en<code>storybook/index.js</code> ) para reflejar estos cambios.</p></div>
 
 <video autoPlay muted playsInline loop>
   <source
@@ -176,7 +176,7 @@ storiesOf('PureTaskList', module)
   />
 </video>
 
-Similarly, we need to use `PureTaskList` in our Jest test:
+Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
 ```js
 // __tests__/TaskList.test.js
@@ -197,4 +197,4 @@ describe('TaskList',()=>{
 });
 ```
 
-<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>
+<div class="aside">Si sus pruebas de instantáneas fallan en esta etapa, debe actualizar las instantáneas existentes ejecutando el script de prueba con el indicador -u. O cree un nuevo script para abordar este problema.</div>
