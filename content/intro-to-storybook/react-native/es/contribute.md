@@ -1,12 +1,14 @@
 ---
-title: 'Contribute'
-description: 'Help share Storybook with the world'
+title: 'Contribuir'
+description: 'Ayuda a compartir Storybook con el mundo'
 ---
 
-Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion.
+# Contribuir
 
-Learn Storybook has been primarily created and maintained by the community so we need everyone's help to keep it up to date and ensure any rough edges are smoothed out over time. All help is appreciated!
+Contribuciones para aprender Storybook son bienvenidas! Si se trata de algo pequeño como gramática o puntuación, abre un pull request. Si es un cambio más grande, [agrega un issue](https://github.com/chromaui/learnstorybook.com/issues) para discutirlo.
 
-## Translations
+Learn Storybook ha sido creado y mantenido principalmente por la comunidad, por lo que necesitamos la ayuda de todos para mantenerlo actualizado y garantizar que los bordes ásperos se suavicen con el tiempo. Toda la ayuda es apreciada!
 
-Our goal is to make Storybook approachable to all people. Help translate this tutorial into other languages. We’re especially open to Chinese and Spanish translations. Comment on the [issue here](https://github.com/chromaui/learnstorybook.com/issues/3).
+## Traducciones
+
+Nuestro objetivo es hacer que Storybook sea accesible a todas las personas. Ayuda a traducir este tutorial a otros idiomas. Estamos especialmente abiertos a traducciones al chino y al japonés. Comenta en [este issue](https://github.com/chromaui/learnstorybook.com/issues/3) si deseas ayudar.
