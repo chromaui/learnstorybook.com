@@ -11,9 +11,11 @@ import {
   Subheading,
   TooltipLinkList,
   WithTooltip,
+  ProgressBar,
 } from '@storybook/design-system';
 import GatsbyLink from '../basics/GatsbyLink';
 import Logo from '../basics/Logo';
+
 
 const { color, pageMargins, breakpoint, typography } = styles;
 
@@ -294,6 +296,8 @@ export default function Header({ guides, githubUrl, isInverted, ...props }) {
 
   return (
     <NavWrapper {...props}>
+      <ProgressBar numerator={[{ bar: 'Testing', numeral: 80, status: 'testing' }]}
+      denominator={100} style={{marginBottom: '1rem'}} />
       <Nav>
         <NavGroup>
           <NavItem isInverted={isInverted}>
