@@ -72,7 +72,7 @@ export const actionsData = {
 };
 
 export const Default = () => {
-  return <Task task={{ ...taskData }} {...actionsData} />
+  return <Task task={{ ...taskData }} {...actionsData} />;
 };
 
 export const Pinned = () => (
