@@ -71,9 +71,9 @@ export const actionsData = {
   onArchiveTask: action('onArchiveTask'),
 };
 
-export const Default = () => (
-  <Task task={{ ...taskData }} {...actionsData} />
-);
+export const Default = () => {
+  return <Task task={{ ...taskData }} {...actionsData} />
+};
 
 export const Pinned = () => (
   <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />
