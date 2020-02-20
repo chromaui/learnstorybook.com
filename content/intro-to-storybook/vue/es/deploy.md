@@ -76,7 +76,7 @@ Si usas CI en tu empresa, añade un script de implementación a tu configuració
 
 ![Crear sitio en Netlify](/intro-to-storybook/netlify-create-site.png)
 
-A continuación, haz clic en el botón de GitHub para conectar Netlify a GitHub. Esto le permite acceder a nuestro repositorio remoto taskbox.
+A continuación, haz clic en el botón de GitHub para conectar Netlify a GitHub. Esto le permite acceder a nuestro repositorio remoto Taskbox.
 
 Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
 
