@@ -23,6 +23,11 @@ Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
 - [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
 
+- [**Discord do Storybook**](https://discord.gg/UUt2PJb) põe-te em contacto direto com a comunidade Storybook. Além de oferecer uma forma de te ajudar, mas também para tu ajudares a comunidade.
+
+- [**Blog Storybook**](https://medium.com/storybookjs) onde poderás ler acerca das mais recentes alterações e ainda algumas técnicas para melhorares o teu fluxo de desenvolvimento com o Storybook.
+
+
 ## Quem fez LearnStorybook.com?
 
 

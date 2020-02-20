@@ -21,6 +21,11 @@ Want to dive deeper? Here are helpful resources.
 
 - [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
+- [**Storybook Discord**](https://discord.gg/UUt2PJb) will put you in touch with the Storybook community. Not only offers a means to help you but for you to help the community also.
+
+- [**Storybook blog**](https://medium.com/storybookjs) where you'll read about the latest changes and some techniques to further improve your development workflows with Storybook.
+
+
 ## Who made LearnStorybook.com?
 
 The text, code, and production were contributed by [Chroma](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).

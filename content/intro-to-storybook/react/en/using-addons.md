@@ -32,7 +32,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 First, we will need to install all the necessary dependencies.
 
 ```bash
-yarn add @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs
 ```
 
 Register Knobs in your `.storybook/main.js` file.
@@ -42,7 +42,7 @@ Register Knobs in your `.storybook/main.js` file.
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
+  addons: ['@storybook/preset-create-react-app','@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
 };
 ```
 

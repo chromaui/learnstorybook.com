@@ -5,7 +5,7 @@ description: 'Construção de um ecrã a partir de componentes'
 ---
 
 Tem sido focada a construção de interfaces de utilizador da base para o topo.
-Começando de forma simples e sendo adicionada complexidade á medida que a aplicação é desenvolvida. Com isto permitiu que cada componente fosse desenvolvido de forma isolada, definindo quais os requisitos de dados e "brincar" com ele em Storybook. Isto tudo sem a necessidade de instanciar um servidor ou ser necessária a construção de ecrãs!
+Começando de forma simples e sendo adicionada complexidade á medida que a aplicação é desenvolvida. Com isto permitiu que cada componente fosse desenvolvido de forma isolada, definindo quais os requisitos de dados e "brincar" com ele no Storybook. Isto tudo sem a necessidade de instanciar um servidor ou ser necessária a construção de ecrãs!
 
 Neste capitulo, irá ser acrescida um pouco mais a sofisticação, através da composição de diversos componentes, originando um ecrã, que será desenvolvido no Storybook.
 
