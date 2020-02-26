@@ -21,9 +21,9 @@ Want to dive deeper? Here are helpful resources.
 
 - [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
-- [**Storybook Discord**](https://discord.gg/UUt2PJb) will put you in touch with the Storybook community. Not only offers a means to help you but for you to help the community also.
+- [**Storybook Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community. Get and give help to other Storybook users.
 
-- [**Storybook blog**](https://medium.com/storybookjs) where you'll read about the latest changes and some techniques to further improve your development workflows with Storybook.
+- [**Storybook blog**](https://medium.com/storybookjs) showcases the latest releases and features to streamline your UI development workflow.
 
 
 ## Who made LearnStorybook.com?
