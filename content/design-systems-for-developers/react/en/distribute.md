@@ -58,10 +58,10 @@ export * from './Icon';
 export * from './Link';
 ```
 
-Let’s add a development dependency on `@babel/cli` to compile our JavaScript for release:
+Let’s add a development dependency on `@babel/cli` and `cross-env` to compile our JavaScript for release:
 
 ```bash
-yarn add --dev @babel/cli
+yarn add --dev @babel/cli cross-env
 ```
 
 To build the package, we’ll add a script to `package.json` that builds our source directory into `dist`:
@@ -69,7 +69,7 @@ To build the package, we’ll add a script to `package.json` that builds our sou
 ```json
 {
   "scripts": {
-    "build": "BABEL_ENV=production babel src -d dist",
+    "build": "cross-env BABEL_ENV=production babel src -d dist",
       ...
   }
   "babel": {
@@ -301,11 +301,27 @@ Add your published design system as a dependency.
 yarn add <your-username>-learnstorybook-design-system
 ```
 
-Now, let’s update the example app’s `.storybook/config.js` to list the design system components, and to use the global styles defined by the design system. Make the following change to the file:
+Now, let’s update the example app’s `.storybook/main.js` to import the design system components:
+
+```javascript
+module.exports = {
+  stories: [
+    '../src/**/*.stories.js',
+    '../node_modules/<your-username>-learnstorybook-design-system/dist/**/*.stories.(js|mdx)',
+  ],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+  ],
+};
+```
+
+Also we can add a global decorator to a new `.storybook/preview.js` config file use the global styles defined by the design system. Make the following change to the file:
 
 ```javascript
 import React from 'react';
-import { configure, addDecorator } from '@storybook/react';
+import { addDecorator } from '@storybook/react';
 import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
 
 const { GlobalStyle } = designSystemGlobal;
@@ -316,19 +332,6 @@ addDecorator(story => (
     {story()}
   </>
 ));
-
-// automatically import all files ending in *.stories.js
-configure(
-  [
-    require.context('../src', true, /\.stories\.js$/),
-    require.context(
-      '../node_modules/<your-username>-learnstorybook-design-system/dist',
-      true,
-      /\.stories\.(js|mdx)$/
-    ),
-  ],
-  module
-);
 ```
 
 ![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories.png)
