@@ -23,6 +23,7 @@ yarn add react-redux redux
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` (intentionally kept simple):
 
 ```javascript
+
 // lib/redux.js
 
 // A simple redux store/actions/reducer implementation.
@@ -81,7 +82,9 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 In `components/PureTaskList.js`:
 
 ```javascript
-import React from 'react';
+
+//components/PureTaskList.js
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import Task from './Task';
 import PercolateIcons from '../constants/Percolate';
@@ -110,7 +113,9 @@ export default PureTaskList;
 In `components/TaskList.js`:
 
 ```javascript
-import React from 'react';
+
+// components/TaskList.js
+import * as React from 'react';
 import PureTaskList from './PureTaskList';
 import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
@@ -137,9 +142,9 @@ export default connect(
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `components/TaskList.stories.js` into `components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
-// components/PureTaskList.stories.js
 
-import React from 'react';
+// components/PureTaskList.stories.js
+import * as React from 'react';
 import { View } from 'react-native';
 import { styles } from '../constants/globalStyles';
 import { storiesOf } from '@storybook/react-native';
@@ -178,22 +183,22 @@ storiesOf('PureTaskList', module)
 
 Similarly, we need to use `PureTaskList` in our Jest test:
 
-```js
-// __tests__/TaskList.test.js
-import React from 'react';
-import renderer from 'react-test-renderer';
-import PureTaskList from '../components/PureTaskList';
-import { withPinnedTasks } from '../components/PureTaskList.stories';
-import Task from '../components/Task';
-describe('TaskList',()=>{
-    it('renders pinned tasks at the start of the list',()=>{
-        const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-        const tree = renderer.create(<PureTaskList tasks={withPinnedTasks} {...events} />)
-        const rootElement= tree.root;
-        const listofTasks= rootElement.findAllByType(Task)
-        expect(listofTasks[0].props.task.title).toBe("Task 6 (pinned)")
-    })
-})
+```javascript
+
+// components/__tests__/TaskList.test.js
+import * as React from 'react';
+import {create} from 'react-test-renderer';
+import PureTaskList from '../PureTaskList';
+import { withPinnedTasks } from '../PureTaskList.stories';
+import Task from '../Task';
+describe('TaskList', () => {
+  it('renders pinned tasks at the start of the list', () => {
+    const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
+    const tree = create(<PureTaskList tasks={withPinnedTasks} {...events} />);
+    const rootElement = tree.root;
+    const listofTasks = rootElement.findAllByType(Task);
+    expect(listofTasks[0].props.task.title).toBe('Task 6 (pinned)');
+  });
 });
 ```
 
