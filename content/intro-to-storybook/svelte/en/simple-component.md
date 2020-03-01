@@ -152,7 +152,7 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allow us to use the CSS that was added in the [previous section](/svelte/en/get-started).
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allow us to use the CSS that was added in the [previous section](/intro-to-storybook/svelte/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 

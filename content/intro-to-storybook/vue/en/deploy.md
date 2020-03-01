@@ -9,12 +9,12 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 <div class="aside">
 <strong>Did you setup Chromatic testing earlier?</strong>
 <br/>
-🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/vue/en/conclusion">conclusion</a>.
+🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/intro-to-storybook/vue/en/conclusion">conclusion</a>.
 </div>
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook, we just need to change it like we did before when the project was initialized in the [get started section](/vue/en/get-started).
+To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook, we just need to change it like we did before when the project was initialized in the [get started section](/intro-to-storybook/vue/en/get-started).
 
 ```javascript
 {

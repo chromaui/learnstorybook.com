@@ -4,7 +4,7 @@ tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React Native; other editions exist for [Vue](/vue/en/get-started) and [Angular](/angular/en/get-started) and [React](/react/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React Native; other editions exist for [Vue](/intro-to-storybook/vue/en/get-started) and [Angular](/intro-to-storybook/angular/en/get-started) and [React](/intro-to-storybook/react/en/get-started) [Svelte](/intro-to-storybook/svelte/en/get-started) [random framework](/intro-to-storybook/random-framework/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
