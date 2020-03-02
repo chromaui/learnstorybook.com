@@ -26,8 +26,9 @@ Primero, vamos a crear el componente Task y el archivo de historias de Storybook
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
 ```javascript
-// /components/Task.js
-import React from 'react';
+
+// components/Task.js
+import * as React from 'react';
 import { TextInput, SafeAreaView } from 'react-native';
 import { styles } from '../constants/globalStyles';
 
@@ -45,10 +46,11 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
 ```javascript
+
 // components/Task.stories.js
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
-import { styles } from '../globalStyles';
+import { styles } from '../constants/globalStyles';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
@@ -85,7 +87,7 @@ Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones d
 
 Otra cosa interesante acerca de agrupar las `actions` que un componente necesita, es que puedes usar `export` y utilizarlas en historias para otros componentes que reutilicen este componente, como veremos luego.
 
-Para definir nuestras historias, llamaremos `add()` cada vez para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado, exactamente como un React [Componente funcional sin estado](https://reactjs.org/docs/components-and-props.html).
+Para definir nuestras historias, llamaremos `add()` cada vez para cada uno de nuestros estados de prueba para generar una historia. La historia es una función que devuelve un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado, exactamente como un [Componente funcional sin estado](https://reactjs.org/docs/components-and-props.html).
 
 Al crear una historia utilizamos una historia base (`task`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
 
@@ -95,9 +97,10 @@ Al crear una historia utilizamos una historia base (`task`) para construir la fo
 
 ## Configuración
 
-Es necesario realizar algunos cambios en la configuración del Storybook (`storybook/index.js`) para que note nuestros archivos `.stories.js`. Por defecto, Storybook busca historias en un directorio `/stories`; Este tutorial utiliza un esquema de nombres similar al esquema de nombres `.test.js` preferido por CRA o Vue CLI para las pruebas automatizadas.
+Es necesario realizar algunos cambios en la configuración del Storybook (`storybook/index.js`) para que note nuestras historias creadas recientemente.
 
 ```javascript
+
 // storybook/config.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
@@ -108,11 +111,9 @@ configure(() => {
   require('../components/Task.stories.js');
 }, module);
 
-
-// Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters
-// To find allowed options for getStorybookUI
-const StorybookUIRoot = getStorybookUI({});
-
+const StorybookUIRoot = getStorybookUI({
+  asyncStorage:null
+});
 
 export default StorybookUIRoot;
 ```
@@ -126,8 +127,6 @@ Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería pr
   />
 </video>
 
-Alternativamente, puedes usar [react-native-storybook-loader](https://github.com/elderfo/react-native-storybook-loader) para manejar la carga de todas las historias a la vez, el uso de este paquete de terceros no se cubrirá en este tutorial por razones de brevedad.
-
 ## Construyendo los estados
 
 Ahora tenemos configurado Storybook, los estilos importados y los casos de prueba construidos; podemos comenzar rápidamente el trabajo de implementar el HTML del componente para que coincida con el diseño.
@@ -135,12 +134,12 @@ Ahora tenemos configurado Storybook, los estilos importados y los casos de prueb
 Nuestro componente todavía es bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida con el diseño previsto sin entrar en demasiados detalles:
 
 ```javascript
-// components/Task.js
 
-import React from 'react';
+// components/Task.js
+import * as React from 'react';
 import { TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
-import { styles } from '../globalStyles';
-import PercolateIcons from '../Percolate';
+import { styles } from '../constants/globalStyles';
+import PercolateIcons from '../constants/Percolate';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
@@ -188,9 +187,9 @@ El maquetado adicional de arriba, combinado con el CSS que hemos importado antes
 Se recomienda utilizar `propTypes` en React para especificar la forma de los datos que espera un componente. No solo se documenta por sí mismo, sino que también ayuda a detectar problemas temprano.
 
 ```javascript
-// src/components/Task.js
 
-import React from 'react';
+// src/components/Task.js
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -235,13 +234,14 @@ Asegúrese de que sus componentes muestren datos que no cambien, para que sus pr
 Con el [complemento Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando las siguientes dependencias en modo desarrollo:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots
+yarn add --D @storybook/addon-storyshots
 ```
 
-Luego crea un archivo `__tests__/storybook.test.js` con el siguiente contenido:
+Luego crea un archivo `components/__tests__/storybook.test.js` con el siguiente contenido:
 
 ```javascript
-// __tests__/storybook.test.js
+
+// components/__tests__/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
