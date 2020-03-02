@@ -9,6 +9,6 @@ This is a stub to test some items.
 <div class="aside">
 <strong>Did you setup testing earlier?</strong>
 <br/>
-<a href="/intro-to-storybook/random-framework/en/conclusion">conclusion</a>.
+<a href="/random-framework/en/conclusion">conclusion</a>.
 </div>
 

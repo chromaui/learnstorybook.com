@@ -7,5 +7,5 @@ commit: 'dac373a'
 
 
 This is a stub to test some items.  
-[Testing chapter](/intro-to-storybook/random-framework/en/test/).
+[Testing chapter](/random-framework/en/test/).
 

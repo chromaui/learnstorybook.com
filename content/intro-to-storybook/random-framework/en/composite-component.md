@@ -7,5 +7,5 @@ commit: '8db511e'
 
 This is a stub to test some items. 
 
-[testing chapter](/intro-to-storybook/random-framework/en/test/)
+[testing chapter](/random-framework/en/test/)
 

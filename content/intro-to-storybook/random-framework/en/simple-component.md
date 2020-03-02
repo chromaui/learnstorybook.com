@@ -7,4 +7,4 @@ commit: 403f19a
 
 This is a stub to test some items. 
 
-[Previous section](/intro-to-storybook/random-framework/en/get-started)
+[Previous section](/random-framework/en/get-started)
