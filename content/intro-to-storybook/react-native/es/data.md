@@ -14,7 +14,7 @@ Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (v
 
 Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de React para almacenar datos, que básicamente nos permite crear un modelo simple de datos para la aplicación. De todos modos, el patrón que utilizaremos también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
-Agregue algunas dependencias nuevas en `package.json` con:
+Agregue las dependencias necesarias a su proyecto con:
 
 ```bash
 yarn add react-redux redux
