@@ -185,7 +185,7 @@ Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
 ```javascript
 
-// components/**tests**/TaskList.test.js
+// components/__tests__/TaskList.test.js
 import * as React from 'react';
 import {create} from 'react-test-renderer';
 import PureTaskList from '../PureTaskList';

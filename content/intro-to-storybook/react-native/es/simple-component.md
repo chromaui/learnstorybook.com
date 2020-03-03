@@ -118,7 +118,7 @@ const StorybookUIRoot = getStorybookUI({
 export default StorybookUIRoot;
 ```
 
-Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
+Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task en tu simulador:
 
 <video autoPlay muted playsInline loop>
   <source

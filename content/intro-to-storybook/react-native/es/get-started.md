@@ -4,7 +4,7 @@ tocTitle: 'Empezando'
 description: 'Configurar Storybook en tu entorno de desarrollo'
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React Native; existe otras ediciones para [Vue](/vue/es/get-started), [Angular](/angular/es/get-started), [React](/react/es/get-started) y [Svelte](/svelte/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React Native; existe otras ediciones para [Vue](/vue/es/get-started), [Angular](/angular/es/get-started) y [React](/react/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -72,7 +72,7 @@ Actualice el campo `jest` en` package.json`:
 "jest": {
     "preset": "jest-expo",
     "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/._|react-navigation|@react-navigation/._|@unimodules/.\*|unimodules|sentry-expo|native-base)"
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/__mocks__/globalMock.js"
@@ -441,7 +441,7 @@ export const getImageSource = iconSet.getImageSource;
 
 </details>
 
-Para ver Storybook en React Native vamos a actualizar `screens\SettingsScreen.js` a lo siguiente:
+Para ver Storybook en React Native vamos a actualizar `screens/LinksScreen.js` a lo siguiente:
 
 ```javascript
 // screens/LinksScreen.js
@@ -457,7 +457,7 @@ Y finalmente `navigation\BottomTabNavigator.js` a lo siguiente:
 
 ```javascript
 // navigation/BottomTabNavigator.js
-import \* as React from 'react';
+import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
@@ -469,8 +469,8 @@ const INITIAL_ROUTE_NAME = 'Home';
 export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
   return (
-    &lt;BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
-      &lt;BottomTab.Screen
+    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+      <BottomTab.Screen
         name="Taskbox"
         component={HomeScreen}
         options={{
@@ -478,7 +478,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
         }}
       />
-      &lt;BottomTab.Screen
+      <BottomTab.Screen
         name="Links"
         component={LinksScreen}
         options={{
@@ -486,7 +486,7 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
         }}
       />
-    &lt;/BottomTab.Navigator>
+    </BottomTab.Navigator>
   );
 }
 
