@@ -31,7 +31,7 @@ Knobs is een geweldige bron voor designers en developers om te experimenteren en
 Eerst moeten we alle benodigde dependencies installeren.
 
 ```bash
-yarn add @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs
 ```
 
 Registreer Knobs in je `.storybook/addons.js` bestand.
