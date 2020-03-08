@@ -108,10 +108,10 @@ export const Archived = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_ARCHIVED',
-      },
+      }),
     },
   },
   methods: actionsData,

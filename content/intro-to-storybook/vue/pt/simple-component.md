@@ -86,7 +86,7 @@ export const Default = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: taskData,
+      default: () => taskData,
     },
   },
   methods: actionsData,
@@ -97,10 +97,10 @@ export const Pinned = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_PINNED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -111,10 +111,10 @@ export const Archived = () => ({
   template: taskTemplate,
    props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: "TASK_ARCHIVED"
-      }
+      })
     }
   },
   methods: actionsData,
