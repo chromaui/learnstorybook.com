@@ -39,7 +39,7 @@ export default {
 
 We've outlined what our addon will do, it's time to start working on it.
 
-Inside your `.storybook` folder, create a new one called `addons` and inside it a new file called `register.js`.
+Inside your `.storybook` folder, create a new one called `design-addon` and inside it a new file called `register.js`.
 
 And that's it! Simple isn't it?
 
@@ -50,13 +50,14 @@ And that's it! Simple isn't it?
 Add the following to your recently created file:
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
@@ -76,12 +77,13 @@ This is the a typical boilerplate code to get started and going over what the co
 Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
 
 ```js
+
 // .storybook/main.js
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './.storybook/addons/register.js', // our addon
+    "./.storybook/design-addon/register.js" // our addon
   ],
 };
 ```
@@ -101,7 +103,8 @@ To complete it, we need to make some changes to our imports and introduce a new 
 Make the following changes to the addon file:
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -127,7 +130,8 @@ We've created the component, modified the imports, all that's missing is to conn
 Your code should look like the following:
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -148,8 +152,8 @@ const Content = () => {
   );
 };
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
@@ -170,6 +174,7 @@ We've connected all the necessary pieces. But how can we see if it's actually wo
 To do so, we're going to make a small change to the `Task.stories.js` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
 
 ```javascript
+
 // src/components/Task.stories.js
 export default {
   component: Task,
@@ -197,7 +202,8 @@ Go ahead and restart your Storybook and select the Task story, you should see so
 At this stage we can see that the addon is working as it should, but now let's change the `Content` component to actually display what we want:
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -256,7 +262,7 @@ If you take a closer look, you'll see that we're using the `styled` tag, this ta
 
 ### Displaying the actual assets
 
-To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the `addParameter` option to reflect these changes.
+To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the story's `parameters` option to reflect these changes.
 
 Storybook will pick up on the change and will load the assets, but for now, only the first one.
 
@@ -277,7 +283,8 @@ For the final one, we're going to need some sort of state, we could use React's 
 We need to adjust our imports for our needs:
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -286,12 +293,13 @@ import { AddonPanel, ActionBar } from '@storybook/components';
 And modify our `Content` component, so that we can change between assets:
 
 ```javascript
-//.storybook/addons/register.js
-export const Content = () => {
+
+//.storybook/design-addon/register.js
+const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
   // addon state being persisted here
-  const [selected, setSelected] = useAddonState('my/design-assets', 0);
+  const [selected, setSelected] = useAddonState('my/design-addon', 0);
   // the id of the story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
@@ -329,7 +337,8 @@ We've accomplished what we set out to do, which is to create a fully functioning
   <summary>Click to expand and see the full code used in this example</summary>
 
 ```javascript
-// .storybook/addons/register.js
+
+// .storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
@@ -366,7 +375,7 @@ const Asset = ({ url }) => {
 
 const Content = () => {
   const results = useParameter('assets', []); // story's parameter being retrieved here
-  const [selected, setSelected] = useAddonState('my/design-assets', 0); // addon state being persisted here
+  const [selected, setSelected] = useAddonState('my/design-addon', 0); // addon state being persisted here
   const { storyId } = useStorybookState(); // the story«s unique identifier being retrieved from Storybook global state
 
   if (results.length === 0) {
@@ -395,8 +404,8 @@ const Content = () => {
   );
 };
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (

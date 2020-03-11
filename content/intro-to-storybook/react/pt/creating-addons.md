@@ -39,7 +39,7 @@ export default {
 
 Já delineamos o que o nosso extra irá fazer, está na altura de começar a implementação.
 
-No interior da pasta (ou diretório) `.storybook`, crie uma nova e dentro desta um ficheiro (ou arquivo) chamado `register.js`.
+Dentro da sua pasta (ou diretório) `.storybook`, crie uma nova pasta (ou diretório) chamada `design-addon` e dentro desta um ficheiro (ou arquivo) chamado `register.js`.
 
 E já está! Fácil não é?
 
@@ -50,13 +50,14 @@ E já está! Fácil não é?
 Adicione o conteúdo abaixo ao ficheiro (ou arquivo) que acabámos de criar:
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
@@ -76,12 +77,13 @@ Este é o código inicial para se começar com qualquer extra. Analisando o que 
 Se iniciarmos o Storybook agora, não será ainda possível ver o nosso extra. Este tem que ser registado no ficheiro (ou arquivo) `.storybook/main.js`, tal como foi feito anteriormente com o extra Knobs. Com isto em mente, adicione o seguinte a lista de addons:
 
 ```js
+
 // .storybook/main.js
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './.storybook/addons/register.js', // our addon
+    "./.storybook/design-addon/register.js", // our addon
   ],
 };
 ```
@@ -101,7 +103,8 @@ Para este objetivo, precisamos de efetuar umas pequenas alterações aos imports
 Faça a seguinte alteração no seu ficheiro (ou arquivo):
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -127,7 +130,7 @@ Acabámos de criar o componente, modificámos os imports, somente o que falta é
 O seu código deverá ser semelhante a isto:
 
 ```javascript
-//.storybook/addons/register.js
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -148,8 +151,8 @@ const Content = () => {
   );
 };
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
@@ -170,6 +173,7 @@ Temos as peças todas ligadas. Mas como podemos verificar que está tudo a funci
 Para isto, vamos fazer uma ligeira alteração ao ficheiro (ou arquivo) `Task.stories.js` e adicionar a opção [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options).
 
 ```javascript
+
 // src/components/Task.stories.js
 export default {
   component: Task,
@@ -197,7 +201,8 @@ Reinicie o seu Storybook e escolha a estória associada à Task e deverá ver al
 Podemos ver que o extra está a funcionar corretamente, mas vamos fazer uma ligeira alteração ao componente `Content` para que este mostre o pretendido:
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -256,7 +261,7 @@ Se olhar com atenção, irá reparar que está a ser usada a tag `styled`, esta 
 
 ### Apresentar os itens
 
-Para que possamos ver os nossos itens através do nosso extra, temos que copiá-los para a pasta `public` e ajustar a opção `parameter` de acordo.
+Para que possamos ver os nossos itens no nosso extra, temos que copiá-los para a pasta `public` e ajustar a opção `parameters` da nossa estória de acordo.
 
 O storybook irá detetar a alteração e irá carregar os itens, mas por agora somente o primeiro item.
 
@@ -277,7 +282,8 @@ Para este objetivo, vamos precisar de uma forma qualquer de guardar o estado do 
 Com isto vamos ajustar os imports que estão a ser usados para se adequarem às nossas necessidades:
 
 ```javascript
-//.storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -286,12 +292,13 @@ import { AddonPanel, ActionBar } from '@storybook/components';
 E modificar o componente `Content`, para que possamos movimentar-nos entre itens:
 
 ```javascript
-//.storybook/addons/register.js
-export const Content = () => {
+
+//.storybook/design-addon/register.js
+const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
   // addon state being persisted here
-  const [selected, setSelected] = useAddonState('my/design-assets', 0);
+  const [selected, setSelected] = useAddonState('my/design-addon', 0);
   // the id of the story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
@@ -329,7 +336,8 @@ Atingimos tudo o que nos propusemos a fazer. Ou seja criar um extra do Storybook
   <summary>Clique aqui para expandir e ver o código completo usado neste exemplo</summary>
 
 ```javascript
-// .storybook/addons/register.js
+
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
@@ -366,7 +374,7 @@ const Asset = ({ url }) => {
 
 const Content = () => {
   const results = useParameter('assets', []); // story's parameter being retrieved here
-  const [selected, setSelected] = useAddonState('my/design-assets', 0); // addon state being persisted here
+  const [selected, setSelected] = useAddonState('my/design-addon', 0); // addon state being persisted here
   const { storyId } = useStorybookState(); // the story«s unique identifier being retrieved from Storybook global state
 
   if (results.length === 0) {
@@ -395,8 +403,8 @@ const Content = () => {
   );
 };
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
