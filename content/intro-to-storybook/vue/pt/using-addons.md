@@ -41,7 +41,7 @@ Registe o Knobs no ficheiro `.storybook/main.js`.
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
 };
 ```
 
@@ -93,39 +93,13 @@ export const Default = () => ({
   },
   methods: actionsData,
 });
-// pinned task state
-export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: {
-        ...taskData,
-        state: 'TASK_PINNED',
-      },
-    },
-  },
-  methods: actionsData,
-});
-// archived task state
-export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: {
-        ...taskData,
-        state: 'TASK_ARCHIVED',
-      },
-    },
-  },
-  methods: actionsData,
-});
+
+// same as before
 ```
 
 Agora um novo item denominado "Knobs" deverá surgir próximo do "Action Logger" no painel inferior da aplicação.
 
-Tal documentado [aqui](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), este tipo aceita uma "etiqueta" e um objeto padrão como parâmetros.
+Tal como documentado [aqui](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), este tipo aceita uma "etiqueta" e um objeto padrão como parâmetros.
 A etiqueta é constante e irá aparecer no painel de extras á esquerda do campo de texto. O objeto fornecido será representado como um blob JSON que pode ser editado. Desde que seja submetido JSON válido, o componente irá ajustar-se com base na informação fornecida ao objeto!
 
 ## Os extras aumentam a esfera de ação do teu Storybook
@@ -169,54 +143,17 @@ Vamos então adicionar uma estória para o caso da ocorrência de um texto grand
 
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-// default task state
-export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: object('task', { ...taskData }),
-    },
-  },
-  methods: actionsData,
-});
-// pinned task state
-export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: {
-        ...taskData,
-        state: 'TASK_PINNED',
-      },
-    },
-  },
-  methods: actionsData,
-});
-// archived task state
-export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: {
-        ...taskData,
-        state: 'TASK_ARCHIVED',
-      },
-    },
-  },
-  methods: actionsData,
-});
+// same as before
+
 export const LongTitle = () => ({
   components: { Task },
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         title: longTitle,
-      },
+      }),
     },
   },
   methods: actionsData,

@@ -53,8 +53,10 @@ $ git commit -m "taskbox UI"
 Add the package as a dependency.
 
 ```bash
-yarn add storybook-chromatic
+yarn add -D storybook-chromatic
 ```
+
+One fantastic thing about this addon is that it will use Git history to keep track of your UI components.
 
 Then [login to Chromatic](https://www.chromaticqa.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
 
