@@ -108,10 +108,10 @@ export const Archived = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_ARCHIVED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -131,7 +131,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a Vue [Stateless Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
@@ -147,7 +147,7 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use our CSS file.
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was changed in the [previous chapter](/vue/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 

@@ -71,17 +71,13 @@ export const actionsData = {
   onArchiveTask: action('onArchiveTask'),
 };
 
-export const Default = () => {
-  return <Task task={{ ...taskData }} {...actionsData} />;
-};
+export const Default = () => <Task task={{ ...taskData }} {...actionsData} />;
 
 export const Pinned = () => (
   <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />
 );
 
-export const Archived = () => (
-  <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />
-);
+export const Archived = () => <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />;
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -97,7 +93,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component with a set of props) in a given state---exactly like a [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
@@ -113,15 +109,16 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use our CSS file.
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was changed in the [previous chapter](/react/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```javascript
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+  addons: ['@storybook/preset-create-react-app','@storybook/addon-actions', '@storybook/addon-links'],
 };
 ```
 
@@ -171,6 +168,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
       <div className="actions" onClick={event => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
+           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>
             <span className={`icon-star`} />
           </a>
@@ -239,10 +237,10 @@ Snapshot testing refers to the practice of recording the “known good” output
 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
+With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependencies:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots react-test-renderer
+yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 
 Then create an `src/storybook.test.js` file with the following in it:

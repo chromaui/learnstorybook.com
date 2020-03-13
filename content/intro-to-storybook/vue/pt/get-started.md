@@ -26,6 +26,11 @@ cd taskbox
 npx -p @storybook/cli sb init
 ```
 
+<div class="aside">
+Ao longo desta versão do tutorial, vai ser usado o <code>yarn</code> para executar a maioria dos comandos.
+Se tiver o Yarn instalado, mas preferir usar <code>npm</code>, não há qualquer problema, pode continuar a seguir o tutorial sem problemas. Somente terá que adicionar a seguinte opção: <code> --packageManager=npm</code> ao primeiro comando mencionado acima e tanto o Vue CLI como o Storybook irão inicializar com base nesta opção. À medida que progride no tutorial, não esqueça de ajustar os comandos mencionados para os equivalentes <code>npm</code>.
+</div>
+
 Podemos rapidamente verificar que os vários ambientes da nossa aplicação estão a funcionar corretamente:
 
 ```bash

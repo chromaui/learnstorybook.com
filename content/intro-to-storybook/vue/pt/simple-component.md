@@ -86,7 +86,7 @@ export const Default = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: taskData,
+      default: () => taskData,
     },
   },
   methods: actionsData,
@@ -97,10 +97,10 @@ export const Pinned = () => ({
   template: taskTemplate,
   props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
         state: 'TASK_PINNED',
-      },
+      }),
     },
   },
   methods: actionsData,
@@ -109,13 +109,13 @@ export const Pinned = () => ({
 export const Archived = () => ({
   components: { Task },
   template: taskTemplate,
-   props: {
+  props: {
     task: {
-      default: {
+      default: () => ({
         ...taskData,
-        state: "TASK_ARCHIVED"
-      }
-    }
+        state: 'TASK_ARCHIVED',
+      }),
+    },
   },
   methods: actionsData,
 });
@@ -164,7 +164,7 @@ module.exports = {
 
 ```
 
-Após efetuar esta alteração, uma vez mais dentro da pasta `.storybook`, crie um novo ficheiro (ou arquivo) chamado `preview.js` com o seguinte conteúdo:
+Após efetuar esta alteração, uma vez mais dentro da pasta (ou diretório) `.storybook`, crie um novo ficheiro (ou arquivo) chamado `preview.js` com o seguinte conteúdo:
 
 ```javascript
 // .storybook/preview.js

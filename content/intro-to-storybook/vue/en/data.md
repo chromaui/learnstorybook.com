@@ -59,7 +59,7 @@ export default new Vuex.Store({
 });
 ```
 
-In our top-level app component (`src/App.vue`) we can wire the store into our component heirarchy fairly easily:
+In our top-level app component (`src/App.vue`) we can wire the store into our component hierarchy fairly easily:
 
 ```html
 

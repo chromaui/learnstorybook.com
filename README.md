@@ -4,7 +4,8 @@ Learn Storybook teaches you how to use Storybook and Component-Driven Developmen
 
 ## Contribute
 
-Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started.
+Contributions to Learn Storybook are encouraged! If it’s something small like grammar, punctuation or even a code snippet, first check the [open pull requests](https://github.com/chromaui/learnstorybook.com/pulls) to see if it's already being addressed, if it's not, then open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started. 
+
 
 You'll find the guides and chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory. Content is organized at the guide level. Within the `/content` directory, you'll find directories for the current guides that are offered. Within each guide directory, you can see the chapters that make up that guide.
 
