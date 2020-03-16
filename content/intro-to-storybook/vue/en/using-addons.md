@@ -93,34 +93,8 @@ export const Default = () => ({
   },
   methods: actionsData,
 });
-// pinned task state
-export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_PINNED',
-      }),
-    },
-  },
-  methods: actionsData,
-});
-// archived task state
-export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_ARCHIVED',
-      }),
-    },
-  },
-  methods: actionsData,
-});
+
+// same as before
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -167,45 +141,8 @@ Let's add a story for the long text case in `Task.stories.js`:
 
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-// default task state
-export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: object('task', { ...taskData }),
-    },
-  },
-  methods: actionsData,
-});
-// pinned task state
-export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_PINNED',
-      }),
-    },
-  },
-  methods: actionsData,
-});
-// archived task state
-export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_ARCHIVED',
-      }),
-    },
-  },
-  methods: actionsData,
-});
+// same as before
+
 export const LongTitle = () => ({
   components: { Task },
   template: taskTemplate,

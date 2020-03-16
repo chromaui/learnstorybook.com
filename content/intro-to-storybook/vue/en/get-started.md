@@ -23,6 +23,11 @@ cd taskbox
 npx -p @storybook/cli sb init
 ```
 
+<div class="aside">
+Throughout this version of the tutorial, we'll be using <code>yarn</code> to run the majority of our commands. 
+If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code> --packageManager=npm</code> flag to the first command above and both Vue CLI and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
+</div>
+
 We can quickly check that the various environments of our application are working properly:
 
 ```bash
@@ -60,15 +65,16 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-Add the font and icon directories by downloading them to your computer and dropping them into your repository.
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder.
+
+<div class="aside">
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
 
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
 
 We also need to update our storybook script to serve the `public` directory (in `package.json`):
 

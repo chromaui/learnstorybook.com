@@ -14,7 +14,7 @@ Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (v
 
 Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de React para almacenar datos, que básicamente nos permite crear un modelo simple de datos para la aplicación. De todos modos, el patrón que utilizaremos también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
-Agregue algunas dependencias nuevas en `package.json` con:
+Agregue las dependencias necesarias a su proyecto con:
 
 ```bash
 yarn add react-redux redux
@@ -23,6 +23,7 @@ yarn add react-redux redux
 Primero, construiremos un store Redux estándar que responda a acciones que cambien el estado de las tareas, en un archivo llamado `lib/redux.js` (intencionalmente simple):
 
 ```javascript
+
 // lib/redux.js
 
 // A simple redux store/actions/reducer implementation.
@@ -81,7 +82,9 @@ Luego se cambiará el componente `TaskList` para leer los datos del store. Pero 
 En `components/PureTaskList.js`:
 
 ```javascript
-import React from 'react';
+
+//components/PureTaskList.js
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import Task from './Task';
 import PercolateIcons from '../constants/Percolate';
@@ -110,7 +113,9 @@ export default PureTaskList;
 En `components/TaskList.js`:
 
 ```javascript
-import React from 'react';
+
+// components/TaskList.js
+import * as React from 'react';
 import PureTaskList from './PureTaskList';
 import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
@@ -137,9 +142,9 @@ export default connect(
 La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `components/TaskList.stories.js` a `components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
 ```javascript
-// components/PureTaskList.stories.js
 
-import React from 'react';
+// components/PureTaskList.stories.js
+import * as React from 'react';
 import { View } from 'react-native';
 import { styles } from '../constants/globalStyles';
 import { storiesOf } from '@storybook/react-native';
@@ -178,22 +183,22 @@ storiesOf('PureTaskList', module)
 
 Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
-```js
-// __tests__/TaskList.test.js
-import React from 'react';
-import renderer from 'react-test-renderer';
-import PureTaskList from '../components/PureTaskList';
-import { withPinnedTasks } from '../components/PureTaskList.stories';
-import Task from '../components/Task';
-describe('TaskList',()=>{
-    it('renders pinned tasks at the start of the list',()=>{
+```javascript
+
+// components/__tests__/TaskList.test.js
+import * as React from 'react';
+import {create} from 'react-test-renderer';
+import PureTaskList from '../PureTaskList';
+import { withPinnedTasks } from '../PureTaskList.stories';
+import Task from '../Task';
+describe('TaskList', () => {
+    it('renders pinned tasks at the start of the list', () => {
         const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-        const tree = renderer.create(<PureTaskList tasks={withPinnedTasks} {...events} />)
+        const tree = renderer.create(<PureTaskList tasks={withPinnedTasks} {...events} />);
         const rootElement= tree.root;
-        const listofTasks= rootElement.findAllByType(Task)
-        expect(listofTasks[0].props.task.title).toBe("Task 6 (pinned)")
-    })
-})
+        const listofTasks= rootElement.findAllByType(Task);
+        expect(listofTasks[0].props.task.title).toBe('Task 6 (pinned)');
+    });
 });
 ```
 

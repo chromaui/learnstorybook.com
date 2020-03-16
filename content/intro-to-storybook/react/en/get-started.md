@@ -5,7 +5,7 @@ description: 'Setup Storybook in your development environment'
 commit: ebe2ae2
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [Vue](/vue/en/get-started) and [Angular](/angular/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) and [Svelte](/svelte/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -16,27 +16,34 @@ We’ll need to follow a few steps to get the build process set up in your envir
 ```bash
 # Create our application:
 npx create-react-app taskbox
+
 cd taskbox
 
 # Add Storybook:
 npx -p @storybook/cli sb init
 ```
 
+<div class="aside">
+Throughout this version of the tutorial, we'll be using <code>yarn</code> to run the majority of our commands. 
+If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code>--use-npm</code> flag to the first command above and both CRA and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
+</div>
+
+
 We can quickly check that the various environments of our application are working properly:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
-yarn test
+yarn test --watchAll
 
 # Start the component explorer on port 9009:
-yarn run storybook
+yarn storybook
 
 # Run the frontend app proper on port 3000:
 yarn start
 ```
 
-<div class="aside">
-  NOTE: If <code>yarn test</code> throws an error, you may need to install <code>watchman</code> as advised in <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">this issue</a>.
+<div class="aside"> 
+You may have noticed we've added the <code>--watchAll</code> flag to our test command, don't worry it's intentional, this small change will ensure that all tests run and everything is ok with our application. While you progress through this tutorial you will be introduced to different test scenarios, so probably you might want to consider and add the flag to your test script in your <code>package.json</code> to ensure your entire test suite runs.
 </div>
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
@@ -47,7 +54,7 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. We’ll simply compile the LESS to a single CSS file and include it in our app. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the src/index.css file per CRA’s convention.
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/index.css` file.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -57,4 +64,15 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-We also need to add the font and icon [directories](https://github.com/chromaui/learnstorybook-code/tree/master/public) to the `public/` folder. After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder.
+
+<div class="aside">
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+
+```bash
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+```
+
+
+After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!

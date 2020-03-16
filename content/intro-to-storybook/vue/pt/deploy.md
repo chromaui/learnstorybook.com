@@ -76,7 +76,7 @@ O Netlify possui um serviço de implementação contínua, o que permite a imple
 
 ![Criação Site Netlify](/intro-to-storybook/netlify-create-site.png)
 
-Em seguida click no botão GitHub para ser feita a ligação entre ambos. O que permite o acesso ao repositório remoto taskbox.
+Em seguida click no botão GitHub para ser feita a ligação entre ambos. O que permite o acesso ao repositório remoto Taskbox.
 
 Seguida da seleção do repositório da lista de opções.
 
