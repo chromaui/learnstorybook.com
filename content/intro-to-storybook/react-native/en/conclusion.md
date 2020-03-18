@@ -9,7 +9,7 @@ Congratulations! You created your first UI in Storybook. Along the way you learn
 <br/>
 [🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.com/)
 
-Storybook is a powerful tool for React, Vue, and Angular. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
+Storybook is a powerful tool for React, Vue, Angular, Svelte and many others frameworks. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
 
 ## Learn more
 
@@ -20,6 +20,10 @@ Want to dive deeper? Here are helpful resources.
 - [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
 
 - [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) dives deep into using Storybook to visual test components. Free 31-page ebook.
+
+- [**Storybook Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community. Get and give help to other Storybook users.
+
+- [**Storybook blog**](https://medium.com/storybookjs) showcases the latest releases and features to streamline your UI development workflow.
 
 ## Who made LearnStorybook.com?
 
