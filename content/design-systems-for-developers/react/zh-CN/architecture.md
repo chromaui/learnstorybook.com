@@ -1,53 +1,53 @@
 ---
-title: 'Architecting systems'
-tocTitle: 'Architecture'
-description: 'How to extract a design system from component libraries'
+title: '架构系统'
+tocTitle: '架构'
+description: '如何从现有的组件库中提取出设计系统'
 commit: b696f85
 ---
 
-In chapter 2, we extract a design system from existing component libraries. Along the way, we determine which components belong in the design system and outline common challenges developers face getting started.
+在第二章，我们将从现有的组件库中抽离出设计系统。在此过程中，我们需要识别出哪些组件属于设计系统，并列举出开发人员在构建设计系统的起步阶段面临的一些问题。
 
-In large companies, this exercise is done in conjunction with design, engineering, and product teams. Chroma (the company behind Storybook) and Storybook share a sprightly frontend infrastructure team that serves nearly 800 open source contributors across 3+ properties, so we’re going to outline the process for you.
+在大型公司中，该练习是由设计师、工程师和产品团队一起完成的。 Chroma（Storybook 的母公司）和 Storybook 共享了一个强大的前端基础架构团队，该团队为 3+个产品及将近 800 个开源贡献者提供服务。接下来我们将概述该练习的具体流程。
 
-## The challenge
+## 面临的挑战
 
-If you work on a development team, you’ve probably noticed that bigger teams aren’t very efficient. Miscommunication is rampant as teams grow. Existing UI patterns go undocumented or are lost altogether. That means developers reinvent the wheel instead of building new features. Over time, projects are littered with one-off components.
+如果您是团队中的一名开发人员，您可能已经发现团队的体量越大开发效率越低。沟通缺失随着团队的体量增加而越发明显。现有的 UI 设计模式没有相应的文档或者已经很难找到。当这种情况发生时，开发人员可能需要开发新的轮子而不是开发新的功能，随着时间流逝，项目中的“一次性”代码越来越多。
 
-We slammed into this predicament. Despite the best intentions of an experienced team, UI components were endlessly rebuilt or pasted into place. UI patterns that were supposed to be the same diverged in appearance and functionality. Each component was a unique snowflake which made it impossible for new developers to discern the source of truth, much less contribute.
+当我们陷入这个困境，尽管一个经验丰富的团队拼尽全力，可 UI 组件还是会不断的重建或者从其他地方拿来就用。从功能和表现上来看， UI 组件的设计模式应当保持一致。而项目中每个组件就像是一片独特的雪花，这使得新加入的开发人员无法辨别出哪一个才是自己需要的，这样也让加大他们的交付难度。
 
 ![UIs diverge](/design-systems-for-developers/design-system-inconsistent-buttons.jpg)
 
-## Create a design system
+## 创建一个设计系统
 
-A design system consolidates common UI components in a central well-maintained repository that gets distributed via a package manager. Developers import standardized UI components instead of pasting the same UI code in multiple projects.
+设计系统将常见的 UI 组件合并到一个持续维护的组件库中，该组件库通过程序包管理的方式供外部使用。因此，开发人员只需要从该组件库中导入标准化的 UI 组件，而不用将相同的 UI 代码粘贴到多个项目中去。
 
-Most design systems aren’t built from scratch. Instead, they’re assembled from tried-and-true UI components used across a company which are repackaged as a design system. Our project is no exception. We’ll cherry-pick components from existing production component libraries to save time and deliver our design system to stakeholders faster.
+大多数的设计系统都不是凭空构建起来的，取而代之的是，它们是由已经在多个项目上并且经过验证的组件组成的。我们的项目也不例外。为了节省时间并尽快的交付给利益相关者，我们将从现有的组件库中挑选组件来构建设计系统。
 
 ![What's in a design system](/design-systems-for-developers/design-system-contents.jpg)
 
-## Where does the design system live?
+## 我们把设计系统放在哪?
 
-You can think of a design system as another component library, but instead of servicing one app, it serves an entire organization. A design system focuses on UI primitives while project-specific component libraries can contain anything from composite components to screens.
+你可以把设计系统想像成另外一个组件库，但它并不是服务于一个程序而是服务于整个组织。设计系统应该更加关注在基础组件上（UI primitives），而项目专用的组件库则可以包含任何与该项目 UI 相关的组件（复合组件或页面中任何 UI 元素）。
 
-As such, our design system must be independent of any project and also a dependency of all projects. Changes propagate throughout the organization via a versioned package distributed by a package manager. Projects can reuse design system components and further customize if needed. These constraints give us the blueprint for organizing our frontend projects.
+因此，我们的设计系统必须独立于任何项目并对不依赖所有的项目。当系统中发生任何变更的时候，我们会通过包管理工具发布一个新的版本，别的项目可以通过升级软件包来获取新的更新。项目可以使用设计系统的组件并在需要时对组件进行定制。这些限制为我们提供了组织前端项目的蓝图。
 
 ![Who uses a design system](/design-systems-for-developers/design-system-consumers.jpg)
 
-## Setup our repository with create-react-app and GitHub
+## 使用 create-react-app 和 GitHub 创建仓库
 
-React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial along with the popular [create-react-app](https://github.com/facebook/create-react-app) boilerplate.
+根据 [State of JS](https://stateofjs.com/) 的调查，React 是目前最受欢迎的视图层。大量的 Storybook 都是使用 React 的，因此我们在本教程中将使用与 React 一样流行的 [create-react-app](https://github.com/facebook/create-react-app) 来创建基于 React 的设计系统。
 
 ```bash
 npx create-react-app learnstorybook-design-system
 ```
 
-<div class="aside">Other valid methods of creating design systems include shipping raw HTML/CSS, using other view layers, compiling components with Svelte, or using web components. Pick what works for your team.</div>
+<div class="aside">根据您的团队需求，您也可以选择使用原生 HTML/CSS 、其他视图层（Vue、Angular）、由 Svelte 编译的组件或 web components 来构建您的设计系统</div>
 
-Once create-react-app has created our repository, we can push it to GitHub (which we’ll use to host the code for our design system). Start by signing in and creating a new repository on GitHub.com:
+当我们使用 create-react-app 创建了我们的仓库后，我们可以把它发布到 GitHub 上（用 GitHub 去托管我们的设计系统）。请在 GitHub.com 上登陆您的账号并创建一个新的仓库：
 
 ![Create a GitHub repository](/design-systems-for-developers/create-github-repository.png)
 
-Then use GitHub’s instructions to add the remote to your git repo and pushing (the so-far mostly empty) repo:
+然后按照 GitHub 的说明将远程服务器添加到您的 git 仓库中，并提交（到目前为止大部分为空）仓库：
 
 ```bash
 cd learnstorybook-design-system
@@ -55,36 +55,36 @@ git remote add origin https://github.com/chromaui/learnstorybook-design-system.g
 git push -u origin master
 ```
 
-Be sure to replace `chromaui` with your own account name.
+请记得把 `chromaui` 替换成您的 GitHub 账号名。
 
 ![Initial commit to GitHub repository](/design-systems-for-developers/created-github-repository.png)
 
-## What belongs and what doesn’t
+## 设计系统应包含什么、不包含什么
 
-Design systems should only contain pure and [presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0). These components deal with how UI appears. They respond exclusively to props, do not contain app-specific business logic, and are agnostic to how data loads. These properties are essential in allowing the component to be reusable.
+设计系统应该只包含纯 UI 组件和[可呈现的组件](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)，这些组件关乎到如何去显示 UI。 它们仅对输入的数据作出响应，不应该包含特定于应用程序的业务逻辑，也不应该和数据的加载方式有关。这些要求对于构建一个可重复使用的组件来说至关重要。
 
-Design systems aren’t the superset of every component library in an organization. That would be a headache to keep track of.
+设计系统中的组件不应该是每个组件库的超集，否则就会很难追踪。
 
-App-specific components that contain business logic should not be included because that hamstrings reuse by requiring consumer projects to have identical business constraints.
+含有业务逻辑的程序特定组件不应该包含在设计系统中，因为这些受业务逻辑的约束组件将会成为其他项目使用该组件的障碍。
 
-Omit one-offs that aren’t currently being reused. Even if you hope they become part of the design system one day, nimble teams avoid maintaining excess code when possible.
+避免将当前未被复用过的 UI 组件加入到设计系统，即使您希望以后它能成为你设计系统的一部分，从敏捷团队的角度出发，您应该尽量避免去维护过多的代码。
 
-## Create an inventory
+## 创建一个清单
 
-The first task is creating an inventory of your components to identify the most used. This often involves manually cataloging screens in various web sites or apps to discern common UI patterns. Designers like [Brad Frost](http://bradfrost.com/blog/post/interface-inventory/) and [Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517) have published handy methodologies for inventorying components so we won’t go into further detail in this tutorial.
+您首要的任务是创建一个清单去收集最常用的组件。这通常会涉及到对各个项目（网页）中的 UI 页面进行手动分类，然后识别出常见的 UI 模式。采用 [Brad Frost](http://bradfrost.com/blog/post/interface-inventory/) 和 [Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517) 这种方法可以帮助您便捷的盘点您的组件，因此在本指南中我们将不再赘述。
 
-Useful heuristics for developers:
+对开发人员的启发:
 
-- If a UI pattern is used more than three times, turn it into a reusable UI component.
-- If a UI component is used in 3 or more projects/teams, put it in your design system.
+- 如果一个 UI 模式被使用至少 3 次以上，您可以把他放到可复用组件库里
+- 如果一个 UI 组件至少在 3 个以上的项目/团队中使用，您可以把他放入到设计系统中
 
 ![Contents of a design system](/design-systems-for-developers/design-system-grid.png)
 
-Following this method, we end up with UI primitives: Avatar, Badge, Button, Checkbox, Input, Radio, Select, Textarea, Highlight (for code), Icon, Link, Tooltip, and more. These building blocks are configured in different ways to assemble countless unique features and layouts in our client apps.
+按照该方法，我们最终得到了如下的基础组件： Avatar、 Badge、 Button、 Checkbox、 Input、 Radio、 Select、 Textarea、 Highlight (代码高亮)、 Icon、 Link 和 Tooltip 等。我们将这些模块以不同的方式去配置，并保证它可以在我们的客户端应用程序中组合出无数个特有的功能和布局。
 
 ![Variants in one component](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
-Add the components we found by downloading them to your computer and dropping them into your repository, as well as removing the application files that Create React App provided:
+删除 Create React App 默认提供的应用程序文件，然后通过下载的方式添加上述的组件到您自己的组件库中。
 
 ```bash
 rm -rf src/*
@@ -93,31 +93,32 @@ svn export https://github.com/chromaui/learnstorybook-design-system/tags/downloa
 ```
 
 <div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-1/src">here</a>.</p>
+<p>我们使用 <code>svn</code> (Subversion) 来从 GitHub 上下载该目录文件. 如果您没有安装 svn 或着您想手动下载该目录，您可以通过点击 <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-1/src">这里</a>来下载。</p>
 
 <p>
-For the code sample, we’ve selected a subset of these components to make reasoning about the repository simpler. Some teams also include customized third-party components in their design systems for other components like Tables and Forms.</p></div>
+为了方便代码示例，我们只选择了一部分组件来简化抽取组件库的过程。有些团队在他们的设计系统中也会加入一些自定义的第三方组件（比如：表格、表单）。</p>
+</div>
 
-We’ll also need to update dependencies that our components rely on.
+接下来我们还需要更新组件所依赖的依赖项。
 
 ```bash
 yarn add prop-types styled-components polished
 ```
 
-<div class="aside">CSS-in-JS: We use <a href="https://www.styled-components.com">styled-components</a>, a library that allows us to scope styling to the component. There are other valid methods to style components including targeting classes manually, CSS modules, etc.</div>
+<div class="aside">CSS-in-JS: 我们使用 <a href="https://www.styled-components.com">styled-components</a> 来限制组件的样式作用域。 当然您还可以通过例如：手动定位 css 或 css 模块化的方式去设置您的组件样式</div>
 
-In addition to UI components, it makes sense to include styling constants for typography, colors, spacing, etc that are reused across projects. In design system nomenclature global style variables are called “design tokens”. We won’t dive into the theory behind design tokens in this guide, but you can learn more online (here’s a [good article](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)).
+除了 UI 组件外，设计系统应该还包括：文字版式、颜色和间距等样式常量。在设计系统中这种命名的全局变量被称为“设计元素（design tokens）”。我们不会再本指南中深入探讨设计元素背后的理论，如果您感兴趣可以在网上找到更多的文章（推荐[好文](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)）。
 
-Download our design tokens here and add them to your repository.
+下载我们的设计元素并添加到您的组件库中
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared
 ```
 
 <div class="aside">
-<p>You can also download the files directly from GitHub <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-2/src/shared">here</a>.</p>
+<p>您也可以通过点击<a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-2/src/shared">这里</a>来直接下载。</p>
 </div>
 
-## Let’s start developing
+## 让我们开始开发吧！
 
-We’ve defined what to build and how it fits together, it’s time to get to work. In chapter 3 we’ll scaffold the fundamental tooling for design systems. Our raw directory of UI components will be cataloged and viewable with help from Storybook.
+我们已经定义了如何构建内容以及如何把它们组合到一起，是时候开始开发工作了！在接下来的第三章中，我们将介绍设计系统的基本工具。我们将使用 Storybook 来分类和查看原始目录和 UI 组件库。
