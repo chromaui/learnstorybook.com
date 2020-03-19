@@ -1,61 +1,61 @@
 ---
-title: 'Build UI components'
-tocTitle: 'Build'
-description: 'Setup Storybook to build and catalog design system components'
+title: '创建 UI 组件'
+tocTitle: '创建'
+description: '使用 Storybook 来创建和分类您设计系统中的组件'
 commit: e7b6f00
 ---
 
-In chapter 3 we’ll set up the essential design system tooling starting with Storybook, the most popular component explorer. The goal of this guide is to show you how professional teams build design systems, so we’ll also focus on finer details like the code hygiene, timesaving Storybook addons, and directory structure.
+在第三章中，我们将使用最受欢迎的组件资源管理器 Storybook 来创建我们的设计系统。 本指南目的是向您展示专业团队如何构建他们的设计系统，和他们一样，我们也会详细关注：代码整洁、省时的 Storybook 插件和目录结构。
 
 ![Where Storybook fits in](/design-systems-for-developers/design-system-framework-storybook.jpg)
 
-## Code formatting and linting for hygiene
+## 代码格式和代码整洁
 
-Design systems are collaborative, so tools that fix syntax and standardize formatting serve to improve contribution quality. Enforcing code consistency with tooling is much less work than policing code by hand, a benefit for the resourceful design system author.
+设计系统是需要协作的，所以使用工具来修复错误语法、标准化代码格式对于提高文档质量至关重要。而且使用工具去管理代码一致性的工作量远远小于手动管理代码，因此这对于设计系统的开发者来说是一个非常明智的选择。
 
-We’ll use VSCode as our editor in this tutorial but the same idea can be applied to all modern editors like Atom, Sublime, or IntelliJ.
+在本指南中，我们将使用 VSCode 作为我们的编辑器，您同样可以使用 Atom、Sublime 或者 Intellij。
 
-If we add Prettier to our project and set our editor up correctly, we should obtain consistent formatting without having to think much about it:
+如果我们将 Prettier 添加到我们的项目中并且正确的配置了编辑器，那么 Prettier 会保证我们所有人的代码格式一致。
 
 ```bash
 yarn add --dev prettier
 ```
 
-If you are using Prettier for the first time, you may need to set it up for your editor. In VSCode, install the Prettier addon:
+如果您是第一次使用 Prettier， 你可能需要设置您的编辑器。在 VSCode 中，安装 Prettier 的插件：
 
 ![Prettier addon for VSCode](/design-systems-for-developers/prettier-addon.png)
 
-Enable the Format on Save `editor.formatOnSave` if you haven’t done so already. Once you’ve installed Prettier, you should find that it auto-formats your code whenever you save a file.
+启用保存时自动格式化 `editor.formatOnSave` 如果您之前是禁用的。 当你安装完 Prettier 后，每当你保存修改时你就会发现你的代码会被自动格式化。
 
-## Install Storybook
+## 安装 Storybook
 
-Storybook is the industry-standard [component explorer](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) for developing UI components in isolation. Since design systems focus on UI components, Storybook is the ideal tool for the use case. We’ll rely on these features:
+Storybook [组件资源管理器](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) 是用于独立开发 UI 组件的行业标准。由于设计系统专注于 UI 组件，因此使用 Storybook 在此场景下是非常合适的。我们将使用以下功能：
 
-- 📕Catalog UI components
-- 📄Save component variations as stories
-- ⚡️Developer experience tooling like Hot Module Reloading
-- 🛠Supports many view layers including React
+- 📕 对 UI 组件进行分类
+- 📄 将所有组件转换成 stories
+- ⚡️ 开发提升开发体验的工具，如模块热替换
+- 🛠 支持包含 React 的多视图层
 
-Install and run Storybook
+安装并运行 Storybook
 
 ```bash
 npx -p @storybook/cli sb init
 yarn storybook
 ```
 
-You should see this:
+安装完成后您应该可以看到下图:
 
 ![Initial Storybook UI](/design-systems-for-developers/storybook-initial.png)
 
-Nice, we’ve set up a component explorer!
+赞，我们已经设置好了组件资源浏览器！
 
-Your Storybook should reload like this (notice that the font styles are a little off, for instance see the "Initials" story):
+您的 Storybook 应该重新加载成下图的样子（请注意，字体的样式可能会有一些偏差，参照："Initials"。译者注：字体和示例中的不一样）
 
 ![Initial set of stories](/design-systems-for-developers/storybook-initial-stories.png)
 
-#### Add global styles
+#### 添加全局样式
 
-Our design system requires some global styles (a CSS reset) to be applied to the document for components to be rendered correctly. The styles can be added easily via a Styled Components global style tag. For reference here is how the code is exported from `src/shared/global.js`:
+我们的设计系统需要一些全局样式（CSS 样式重载） 应用于整个文档以保证组件可以被正常的显示出来。您可以通过全局通用标签的形式轻易的添加全局样式。详情请参阅 `src/shared/global.js` 中的代码
 
 ```javascript
 import { createGlobalStyle, css } from 'styled-components';
@@ -74,7 +74,7 @@ export const GlobalStyle = createGlobalStyle`
 `;
 ```
 
-To use the `GlobalStyle` “component” in Storybook, we can make use of a decorator (a component wrapper). In an app we’d place that component in the top-level app layout, but in Storybook we wrap all stories in it using the preview config file `.storybook/preview.js`
+为了使用在 Storybook 的组件中使用 `GlobalStyle`，我们可以使用修饰器（一个组件的封装）。如果在一个应用程序中，我们需要将该样式放在顶层组件中，但是在 Storybook 中我们可以通过修改预配置文件 `.storybook/preview.js` 来封装所有的组件。
 
 ```javascript
 import React from 'react';
@@ -89,31 +89,31 @@ addDecorator(story => (
 ));
 ```
 
-The decorator will ensure the `GlobalStyle` is rendered no matter which story is selected.
+修饰器将会确保无论你选择哪一个 story 的时候 `GlobalStyle` 都能被提前渲染。
 
-<div class="aside">The <code><></code> in the decorator is not a typo -- it’s a <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> that we use here to avoid adding an unnecessary extra HTML tag to our output.</div>
+<div class="aside">在修饰器的代码中，<code><></code> 并不是一个拼写错误的符号  -- 它是一个 <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> 我们可以使用它来避免给我们输出的 HTML 额外添加不必要的标签</div>
 
-#### Add font tag
+#### 添加字体标签
 
-Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook the easiest way to achieve that is to use `.storybook/preview-head.html` to add a `<link>` tag directly to the `<head>` of the page:
+我们的设计系统也需要将 Nunito Sans 字体加载到应用程序中。实现此目标的方式取决于我们采用怎样的应用程序框架（详情可阅读[此篇文章](https://github.com/storybookjs/design-system#font-loading))，但是在 Storybook 中最简单的实现方式是在配置文件 `.storybook/preview-head.html` 中添加一个 `<link>` 标签：
 
 ```javascript
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900">
 ```
 
-Your Storybook should now look like this. Notice the “T” is sans-serif because we added global font styles.
+您的 Storybook 应该看起来像下图一样。由于我们添加了字体样式，您应该可以发现此时的 “T” 变为 sans-serif 的字体。
 
 ![Storybook with global styles loaded](/design-systems-for-developers/storybook-global-styles.png)
 
-## Supercharge Storybook with addons
+## 使用插件来增强 Storybook
 
-Storybook includes a powerful addon ecosystem created by a massive community. For the pragmatic developer, it’s easier to build our workflow using the ecosystem instead of creating custom tooling ourselves (which can be time-consuming).
+Storybook 的插件是由一个庞大的社区生态系统来共同维护的。对于务实的开发人员而言，使用生态系统帮我们构建的工作流要比自己创建一个更加容易。（自己创建往往比较费时）
 
-<h4>Actions addon to verify interactivity</h4>
+<h4>用于验证交互的 Actions 插件</h4>
 
-The [actions addon](https://github.com/storybookjs/storybook/tree/next/addons/actions) gives you UI feedback in Storybook when an action is performed on an interactive element like a Button or Link. Actions comes installed in storybook by default and you use it simply by passing an “action” as a callback prop to a component.
+当您于 Button 或 Link 之类的交互式组件进行交互时，[actions 插件](https://github.com/storybookjs/storybook/tree/next/addons/actions) 可以在 Storybook 中为您的组件提供 UI 反馈。默认情况下，Actions 应该已经安装在您的 Storybook 中了，您只需要将 “action” 作为回调传给您的组件即可。
 
-Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. We have a story that passes an action to that wrapper:
+让我们看看如何在 Button 组件中使用它，该 Button 组件接受一个封装的组件来响应它的点击事件。我们的 story 给封装组件的 click 事件上传入了 action 回调：
 
 ```javascript
 import React from 'react';
@@ -134,15 +134,15 @@ export const buttonWrapper = () => (
 
 ![Using the actions addon](/design-systems-for-developers/storybook-addon-actions.gif)
 
-#### Source to view and paste code
+#### 通过 Source 去查看和复制代码
 
-When you view a story, you often want to see the underlying code to understand how it works and paste it into your project. The Storysource addon shows the currently selected story code in the addon panel.
+当您浏览一个 story 时，您常常希望查看该 story 的源代码以了解其工作原理并将其粘贴到您的项目中。Storysource 插件在插件面板中为您显示了当前您所选的 story 的源代码。
 
 ```bash
 yarn add --dev  @storybook/addon-storysource
 ```
 
-Add the addon in `.storybook/main.js`:
+在配置文件 `.storybook/main.js` 中加载插件:
 
 ```javascript
 module.exports = {
@@ -156,21 +156,23 @@ module.exports = {
 };
 ```
 
-This is what that workflow looks like in Storybook:
+Storybook 的 storysource 如下图所示：
 
 ![The Storysource addon](/design-systems-for-developers/storybook-addon-storysource.png)
 
-<h4>Knobs to stress test components</h4>
+<h4>使用 Knobs 插件测试组件交互性</h4>
 
-The [knobs addon](https://github.com/storybookjs/storybook/tree/next/addons/knobs) allows you to interact with component props dynamically in the Storybook UI. Knobs allows you to supply a multiple values to a component prop and adjust them through via the UI. This helps design system creators stress test component inputs by adjusting, well, knobs. It also gives design system consumers the ability to try components before integrating them so that they can understand how each prop affects the component.
+allows you to interact with component props dynamically in the Storybook UI. Knobs allows you to supply a multiple values to a component prop and adjust them through via the UI. This helps design system creators stress test component inputs by adjusting, well, knobs. It also gives design system consumers the ability to try components before integrating them so that they can understand how each prop affects the component.
 
-Let’s see how this works by setting up knobs in the `Avatar` component:
+在 Storybook UI 中， [knobs 插件](https://github.com/storybookjs/storybook/tree/next/addons/knobs) 可以帮助您动态的与您的组件进行交互。Knobs 允许你传递不同的值给组件并在 UI 上表现出相应的变化。这可以让开发设计系统的人调整不同的值去对组件进行交互测试。而且它也让使用设计系统的人在集成组件到自己的项目之前就可以了解到组件的每个属性是如何去影响它的组件显示的 。
+
+让我们来看看如何给 `Avatar` 组件设置 knobs 插件：
 
 ```bash
 yarn add --dev @storybook/addon-knobs
 ```
 
-Add the addon in `.storybook/main.js`:
+将插件添加到 `.storybook/main.js`:
 
 ```javascript
 module.exports = {
@@ -185,7 +187,7 @@ module.exports = {
 };
 ```
 
-Add a story that uses knobs in `src/Avatar.stories.js`:
+在文件 `src/Avatar.stories.js` 中添加一个使用 knobs 插件的组件:
 
 ```javascript
 import React from 'react';
@@ -207,18 +209,18 @@ knobs.story = {
 };
 ```
 
-Notice the Knobs tab in the addon panel. We instrumented the “Size” select element that allows us to cycle through the supported Avatar sizes `tiny`, `small`, `medium`, and `large`. You can instrument other props with knobs as well to create an interactive playground for the component.
+请注意插件面板上的 Knobs 选项，我们添加了 Size 选项，用户可以随意选择 Avatar 组件支持的尺寸： `tiny`, `small`, `medium`, 和 `large`。您也可以使用 knobs 为组件的其他属性添加交互功能。
 
 ![Storybook knobs addon](/design-systems-for-developers/storybook-addon-knobs.gif)
 
-That said, knobs don’t replace stories. Knobs are great for exploring the edge cases of the components. Stories are used for showcasing the intended cases.
+也就是说， knobs 并不是替代 stories， knobs 是为了让你更方便的去探索您组件的边界情况。 Stories 是用来展示预期的效果。
 
-We'll visit the Accessbility and Docs addons in later chapters.
+在后面的章节中我们将提到无障碍访问相关的文档和插件。
 
-> “Storybook is a powerful frontend workshop environment tool that allows teams to design, build, and organize UI components (and even full screens!) without getting tripped up over business logic and plumbing.” – Brad Frost, Author of Atomic Design
+> “Storybook 是一个强大的前端工作平台工具，它帮助团队摆脱繁杂的业务逻辑，更加的关注到设计、构建并且组织 UI 组件（甚至是整个页面）” – Brad Frost, Author of Atomic Design
 
-## Learn how to automate maintenance
+## 学习如何自动维护
 
-Now that our design system components are in Storybook, we need to set up the automated tooling that streamlines ongoing maintenance. A design system, like all software, should evolve. The challenge is to ensure UI components continue to look and feel as intended as the design system grows.
+到目前位置，我们已经将组件加入到了 Storybook， 我们需要设置自动化工具以简化正在进行的维护工作。像所有的软件一样， 设计系统也应该持续发布，而难点是在于在持续发布的同时，我们仍要确保 UI 组件的外观和表现仍和之前预期的一样。
 
-In chapter 4 we’ll learn how to set up continuous integration and auto-publish the design system online for collaboration.
+为方便协作起见，在第四章中我们将学习如何去搭建一个持续集成并且自动发布的设计系统
