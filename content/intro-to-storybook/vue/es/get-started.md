@@ -15,7 +15,7 @@ Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestr
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset hichroma/vue-preset-learnstorybook
+npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
 
 cd taskbox
 
