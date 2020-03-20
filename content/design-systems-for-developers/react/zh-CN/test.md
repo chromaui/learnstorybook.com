@@ -1,53 +1,53 @@
 ---
-title: 'Test to maintain quality'
-tocTitle: 'Test'
-description: 'How to test design system appearance, functionality, and accessibility'
+title: '通过测试来保证质量'
+tocTitle: '测试'
+description: '如何测试设计系统的界面、功能和无障碍访问'
 commit: 5b71208
 ---
 
-In chapter 5, we automate design system testing to prevent UI bugs. This chapter dives into what characteristics of UI components warrant testing and potential pitfalls to avoid. We researched professional teams at Wave, BBC, and Salesforce to land on a test strategy that balances comprehensive coverage, straightforward setup, and low maintenance.
+在第五章，我们将通过自动化脚本来测试设计系统以规避 UI 问题。本章将会深入讨论 UI 组件有哪些属性值得去测试以及如何避免潜在的问题。我们通过研究 Wave、BCC 和 Salesforce 这样的专业团队去寻求在高覆盖范围、低设置难度和低维护成本间之间找到一个平衡点。
 
 <img src="/design-systems-for-developers/ui-component.png" width="250">
 
-## Fundamentals of UI component testing
+## UI 组件的测试基础
 
-Before we begin, let’s figure out what makes sense to test. Design systems are composed of UI components. Each UI component includes stories (permutations) that describe the intended look and feel given a set of inputs (props). Stories are then rendered by a browser or device for the end-user.
+在开始之前，我们需要先搞清楚什么样的测试是合理的。设计系统是由 UI 组件组成的，每个 UI 组件都有自己的 stories, 这些 stories 描述了在不同输入值的情况下组件预期的外观是什么样子。然后 Stories 通过浏览器或者其他设备呈现给终端用户。
 
 ![Component states are combinatorial](/design-systems-for-developers/component-test-cases.png)
 
-Whoa! As you can see, one component contains many states. Multiply the states by the number of design system components and you can see why keeping track of them all is a Sisyphean task. In reality, it’s unsustainable to review each experience by hand, especially as the design system grows.
+哇！如您所见，一个组件包含很多的状态。将每个组件的状态乘以在设计系统中组件的数量你就会发现持续关注每个组件是一项不可能完成的任务。实际上，手工审查每个元素的每一个状态不是长久之道，尤其当设计系统越来越庞大。
 
-All the more reason to set up automated testing **now** to save work in the **future**.
+**现在**我们更需要设置自动测试来节约**以后**的工作时间。
 
-## Prepare to test
+## 测前须知
 
-I surveyed 4 frontend teams in a [previous article](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) about professional Storybook workflows. They agreed on these best practices for writing stories to make testing easy and comprehensive.
+在[之前的文章](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) 我对 4 个涉及到专业的 Storybook 工作流程的前端团队做过调查。他们认为开发 stories 是一个最佳实践，它让测试变得容易和全面。
 
-**Articulate supported component states** as stories to clarify which combinations of inputs yields a given state. Ruthlessly omit unsupported states to reduce noise.
+**清楚的将组件支持的状态**表达为 stories 可以阐明不同的输入组合所对应的组件状态，尽可能去忽略不支持的状态来降低干扰。
 
-**Render components consistently** to mitigate variability that can be triggered by randomized (Math.random) or relative (Date.now) inputs.
+使用**一致性的渲染**原则来避免由随机（Math.random）或相对输入（Date.now）而带来的不确定性。
 
-> “The best kind of stories allow you to visualize all of the states your component could experience in the wild” – Tim Hingston, Tech lead at Apollo GraphQL
+> “最好的 stories 应让您可视化您可以体验到的所有的组件状态” – Tim Hingston, Tech lead at Apollo GraphQL
 
-## Visual test appearance
+## 用视觉测试来测试组件外观
 
-Design systems contain presentational UI components, which are inherently visual. Visual tests validate the visual aspects of the rendered UI.
+设计系统包含了可展示的 UI 组件，这些组件基本上都是可视的。视觉测试验证了渲染后的 UI 组件的视觉效果。
 
-Visual tests capture an image of every UI component in a consistent browser environment. New screenshots are automatically compared to previously accepted baseline screenshots. When there are visual differences, you get notified.
+视觉测试会在一个保持一致的浏览器环境下对每个 UI 组件截图。新的截图将会自动于之前的基准截图进行对比，如果在视觉上有任何不同，您将会被告知。
 
 ![Visual test components](/design-systems-for-developers/component-visual-testing.gif)
 
-If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions. We’ll demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
+如果你在创建现代化 UI，视觉测试可帮助您的前端开发团队节省人工审查的时间，也可以避免昂贵的 UI 回归测试。我们将使用 Storybook 维护者提供的工业级服务 Chromatic 来演示视觉测试。
 
-First, go to [ChromaticQA.com](https://chromaticqa.com) and sign up with your GitHub account.
+首先，通过您的 Github 在 [ChromaticQA.com](https://chromaticqa.com) 上注册一个账号
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
-From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
+从那里选择你目前设计系统的 Git 仓库，此时会把访问权限同步到后台以便于检查你每次的提交请求。
 
 ![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
-Install the [storybook-chromatic](https://www.npmjs.com/package/storybook-chromatic) package via npm.
+通过 npm 安装 [storybook-chromatic](https://www.npmjs.com/package/storybook-chromatic)
 
 ```bash
 yarn add --dev storybook-chromatic
@@ -61,7 +61,7 @@ yarn chromatic test --app-code=<app-code>
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
-Chromatic captured a baseline image of every story! Subsequent test runs will capture new images and compare them against these baselines. See how that works by tweaking a UI component and saving it. Go to the global styles (`src/shared/styles.js`) and increase the font-size.
+Chromatic 为您的每个 UI 组件生成了一个基准图片！随后每当您运行测试时都会与这些基准图片进行比较。让我们修改一个 UI 组件来看看它是如何工作的。在全局样式文件(`src/shared/styles.js`)中将字体尺寸变大。
 
 ```javascript
 // …
@@ -75,19 +75,19 @@ export const typography = {
 // ...
 ```
 
-Run the test command again.
+在此运行测试命令
 
 ```bash
 yarn chromatic test --app-code=<app-code>
 ```
 
-Yikes! That small tweak resulted in a flood of UI changes.
+你看！细微的调整导致大量的 UI 发生变化
 
 ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build.png)
 
-Visual testing helps identify UI changes in Storybook. Review the changes to confirm whether they’re intentional (improvements) or unintentional (bugs). If you’re fond of the new font-size, go ahead and accept the changes and commit to git. Or perhaps the changes are too ostentatious, go ahead and undo them.
+视觉测试帮助识别出在 Storybook 中的 UI 变化，审查这些变化来确定是有意（改进）或无意（bugs）而为之的。如果您喜欢新的字体大小，那么请同意本次修改并提交到 git。抑或是这些变化也许有些过于夸张，那么您可以撤销您的改动。
 
-Let’s add visual testing to the continuous integration job. Open `.circleci/config.yml` and add the test command.
+让我们将视觉测添加到持续集成的过程中。打开 `.circleci/config.yml` 并添加运行测试的命令
 
 ```yaml
 version: 2
@@ -117,23 +117,23 @@ jobs:
       - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
 ```
 
-Save and `git commit`. Congratulations you just set up visual testing in CI!
+保存并运行 `git commit`。 恭喜您刚刚已经在持续集成过程中成功添加了视觉测试！
 
-## Unit test functionality
+## 用单元测试来测试功能
 
-Unit tests verify whether the UI code returns the correct output given a controlled input. They live alongside the component and help you validate specific functionality.
+单元测试验证了在给定输入下 UI 代码是否能返回正确的输出值。它与组件并存来帮助您验证特定的功能。
 
-Everything is a component in modern view layers like React, Vue, and Angular. Components encapsulate diverse functionality from modest buttons to elaborate date pickers. The more intricate a component, the trickier it becomes to capture nuances using visual testing alone. That’s why we need unit tests.
+任何东西都可以看作一个组件在像 React、Vue 和 Angular 这样的视图层。组件封装了各种功能，从简单的按钮到精致的日期选择器。越错综复杂的组件，越是难以用视觉测试去捕获细微的差别，这就是为什么我们需要单元测试的原因。
 
 ![Unit test components](/design-systems-for-developers/component-unit-testing.gif)
 
-For instance, our Link component is a little complicated when combined with systems that generate link URLs (“LinkWrappers” in ReactRouter, Gatsby, or Next.js). A mistake in the implementation can lead to links without a valid href value.
+例如当与生成系统链接的系统（ReactRouter 中的 “LinkWrappers”、 Gatsby 或 Next.js）结合时，我们的 Link 组件就会变得很复杂。一个错误的实现可能就会导致我们链接没有有效的 href 值。
 
-Visually, it isn’t possible to see if the `href` attribute is there and points to the right location, which is why a unit test can be appropriate to avoid regressions.
+从视觉层面上来看，我们是无法判断 `href` 属性是不是指向一个正确的地方，此时使用单元测试刚好可以避免该问题。
 
-#### Unit testing hrefs
+#### 用单元测试验证 hrefs
 
-Let’s add a unit test for our `Link` component. create-react-app has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
+让我们为 `Link` 组件添加一个单元测试。 create-react-app 已经配置好了一个单元测试的运行环境，所以我们只需要创建一个文件 `src/Link.test.js`：
 
 ```javascript
 import React from 'react';
@@ -160,34 +160,34 @@ it('has a href attribute when rendering with linkWrapper', () => {
 });
 ```
 
-We can run the above unit test as part of our `yarn test` command.
+我们可以通过执行 `yarn test` 来运行上述测试
 
 ![Running a single Jest test](/design-systems-for-developers/jest-test.png)
 
-Earlier we configured our Circle config.js file to run `yarn test` on every commit. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
+之前我们已经配置了我们的 Circel config.js 在每一次提交之后运行 `yarn test`。现在我们这条单元测试便可从中获益。在之后的反复修改组件时，我们也会对强大的 Link 组件保持信心。
 
 ![Successful circle build](/design-systems-for-developers/circleci-successful-build.png)
 
-<div class="aside"> Note: Watch out for too many unit tests which can make updates cumbersome. We recommend unit testing design systems in moderation.</div>
+<div class="aside"> 请注意: 过多的单元测试可能会导致更新组件变得更复杂，所以建议您在设计系统中适度的使用单元测试。</div>
 
-> "Our enhanced automated test suite has empowered our design systems team to move faster with more confidence." – Dan Green-Leipciger, Senior software engineer at Wave
+> "越来越强大的自动化测试套件使我们团队更有信心的加快开发脚步" – Dan Green-Leipciger, Senior software engineer at Wave
 
-## Accessibility test
+## 无障碍访问测试
 
-“Accessibility means all people, including those with disabilities, can understand, navigate, and interact with your app... Online [examples include] alternative ways to access content such as using the tab key and a screen reader to traverse a site.” writes developer [Alex Wilson from T.Rowe Price](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347).
+“无障碍访问意味着所有的人（包括残疾人）都可以理解、导航并与您的应用进行交互......在线[示例包括]访问内容的其他替代方案，例如使用 Tab 键和屏幕阅读器来遍历整个网站内容”。作者：[Alex Wilson from T.Rowe Price](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347).
 
-Disabilities affect 15% of the population according to the [World Health Organization](https://www.who.int/disabilities/world_report/2011/report/en/). Design systems have an outsized impact on accessibility because they contain the building blocks of user interfaces. Improving accessibility of just one component means every instance of that component across your company benefits.
+根据[世界卫生组织](https://www.who.int/disabilities/world_report/2011/report/en/)统计，目前全球有 15%的残疾人。由于囊括了用户界面的 UI，所以设计系统对无障碍访问的影响很大。提高哪怕单个组件的可访问性就意味着整个公司的每个用到该实例的地方都会收益。
 
 ![Storybook accessibility addon](/design-systems-for-developers/storybook-accessibility-addon.png)
 
-Get a headstart on inclusive UI with Storybook’s Accessibility addon, a tool for verifying web accessibility standards (WCAG) in realtime.
+为相关的 UI 组件添加 Storybook 的无障碍访问插件，它是一个实时验证 Web 可访问性标准（WCAG）的工具
 
 ```bash
 yarn add --dev @storybook/addon-a11y
 
 ```
 
-Add the addon in `.storybook/main.js`:
+在文件 `.storybook/main.js` 中添加插件:
 
 ```javascript
 module.exports = {
@@ -204,7 +204,7 @@ module.exports = {
 };
 ```
 
-And add the `withA11y` decorator to `.storybook/preview.js`:
+并且在文件 `.storybook/preview.js` 添加 `withA11y` 修饰器
 
 ```javascript
 import React from 'react';
@@ -222,36 +222,36 @@ addDecorator(story => (
 ));
 ```
 
-Once installed, you’ll see a new “Accessibility” tab in the Storybook addons panel.
+当你完成安装后， “Accessibility” 页签将会出现在 Storybook 的插件页面板中。
 
 ![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y.png)
 
-This shows you accessibility levels of DOM elements (violations and passes). Click the “highlight results” checkbox to visualize violations in situ with the UI component.
+它会告诉您 DOM 元素的无障碍访问等级（违反标准和通过标准）。单击 “highlight results” 选择框便会可视化您 UI 组件不符合标准的设置。
 
 ![Storybook a11y addon with passes highlighted](/design-systems-for-developers/storybook-addon-a11y-highlighted.png)
 
-From here, follow the addon’s accessibility recommendations.
+然后我们只需遵循插件给出的关于无障碍访问的建议即可。
 
-## Other testing strategies
+## 其他测试策略
 
-Paradoxically, tests can save time but also bog down development velocity with maintenance. Be judicious about testing the right things – not everything. Even though software development has many test strategies, we discovered the hard way that some aren’t suited for design systems.
+矛盾的是，测试可以节省时间但也会降低维护速度。您需要自己判断做正确的“测试”，而不是“全部”测试。即使软件开发有很多测试策略，我们还是发现有一些不适合设计系统的。
 
-#### Snapshot tests (Jest)
+#### 快照测试 (Jest)
 
-This technique captures the code output of UI components and compares it to previous versions. Testing UI component markup ends up testing implementation details (code), not what the user experiences in the browser.
+这个技术会捕捉 UI 组件实际的输出代码，并将其与以前的版本进行比较。它并不会测试 UI 组件在浏览器中的具体表现，而是通过对比 UI 组件生成的标记代码来测试代码实现细节是否发生变化。
 
-Diffing code snapshots is unpredictable and prone to false positives. At the component level, code snapshotting doesn’t account for global changes like design tokens, CSS, and 3rd party API updates (web fonts, Stripe forms, Google Maps, etc.). In practice, developers resort to “approving all” or ignoring snapshot tests altogether.
+利用快照来对比代码差异是不可预测的，容易产生误报。在组件级别，代码快照是无法兼顾到设计元素、css 和 第三方 API 更新（网络字体， stripe 表单，Google Maps 等）全局上的更改。实际上，开发人员往往会重新生成快照或直接忽略快照测试。
 
-> Most component snapshot tests are really just a worse version of screenshot tests. Test your outputs. Snapshot what gets rendered, not the underlying (volatile!) markup. – Mark Dalgliesh, Frontend infrastructure at SEEK, CSS modules creator
+> 大多数情况下的组件快照测试只是低配版的截图测试。测试您的输出，应更加关注在内容上面而不是底层的标记代码（很容易改变！）。 – Mark Dalgliesh, Frontend infrastructure at SEEK, CSS modules creator
 
-#### End-to-end tests (Selenium, Cypress)
+#### 端到端测试 (Selenium, Cypress)
 
-End-to-end tests traverse the component DOM to simulate the user flow. They’re best suited for verifying app flows like the signup or checkout process. The more complex functionality the more useful this testing strategy.
+端到端测试用来模拟用户的操作，它们比较适合应用在应用程序的一个流程上（比如：注册或者结账流程），功能越复杂该测试策略越有效。
 
-Design systems contain atomic components with relatively simple functionality. Validating user flows are often overkill for this task because the tests are time-consuming to create and brittle to maintain. However, in rare situations, components may benefit from end-to-end tests. For instance, validating complex UIs like datepickers or self-contained payment forms.
+设计系统大多由功能相对简单的原子组件构成，往往不需要验证用户流程，而且创建测试其实是比较耗时的，也需要经常维护。但是，在极少数情况下，端到端测试可能会帮助到组件，例如，验证复杂的 UI 组件（如：日期选择器或付款表单）。
 
-## Drive adoption with documentation
+## 使用文档推动组件的使用
 
-A design system is not complete with tests alone. Since design systems serve stakeholders from across the organization, we need to teach others how to get the most from our well-tested UI components.
+由于设计系统为整个组织的利益相关者服务，所以不仅仅只有测试，我们需要教别人如果使用经过良好测试的 UI 组件。
 
-In chapter 6, we’ll learn how to accelerate design system adoption with documentation. See why Storybook Docs is a secret weapon to create comprehensive docs with less work.
+在第六章，我们将学习如何通过文档来推动组件的使用，深入了解为什么说用较少的工作就能创建全面的文档的 Storybook Docs 是一个秘密武器。
