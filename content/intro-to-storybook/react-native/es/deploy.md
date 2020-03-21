@@ -6,25 +6,23 @@ description: 'Desplegar Storybook online con GitHub y Netlify'
 
 En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. También se puede compartir ese Storybook con el equipo, especialmente con los miembros no técnicos. Afortunadamente, es fácil implementar Storybook en línea.
 
-<div class="aside">
-<strong>¿Hiciste los test con Chromatic antes?</strong>
-<br/>
-🎉 Sus historias ya están desplegadas! Chromatic indexa de forma segura sus historias en línea y las rastrea a través de ramas y commits. Salta este capítulo y ve a la <a href="/vue/es/conclusion">conclusión</a>.
-</div>
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/vue/es/get-started).
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook y Expo, solo necesitamos activarlo agregando un script a `package.json`.
 
 ```javascript
+// package.json
+
 {
   "scripts": {
-   "build-storybook": "build-storybook -s public"
+    "build-static-webapp":"expo build:web"
   }
 }
 ```
+<div class="aside"><p>En el momento de escribir este tutorial, el proceso de creación web para Expo todavía está en beta. Y podría estar sujeto a algunos cambios en el futuro.</p></div>
 
-Ahora, cuando ejecutes Storybook a través de `yarn build-storybook`, obtendrás un Storybook estático en el directorio `storybook-static`.
+Ahora, cuando compila la aplicación a través de `yarn build-static-webapp`, mostrará tanto la aplicación como un Storybook estático en el directorio `web-build`.
 
 ## Despliegue continuo
 
@@ -32,9 +30,7 @@ Queremos compartir la última versión de los componentes cada vez que hagamos p
 
 ### GitHub
 
-Si estás siguiendo el capítulo anterior sobre testing, salta a la creación de un repositorio en GitHub.
-
-Cuando el proyecto se inicializó con Vue CLI, ya se configuró un repositorio local para usted. En esta etapa, es seguro agregar los archivos al primer commit.
+Cuando el proyecto se inicializó con Expo, ya se configuró un repositorio local para usted. En esta etapa, es seguro agregar los archivos al primer commit.
 
 ```bash
 $ git add .
@@ -69,7 +65,7 @@ $ git push -u origin master
 Netlify tiene incorporado un servicio de despliegue continuo que nos permitirá desplegar Storybook sin necesidad de configurar nuestro propio CI.
 
 <div class="aside">
-Si usas CI en tu empresa, añade un script de implementación a tu configuración que suba <code>storybook-static</code> a un servicio de alojamiento de estáticos como S3.
+Si usas CI en tu empresa, añade un script de implementación a tu configuración que suba <code>web-build</code> a un servicio de alojamiento de estáticos como S3.
 </div>
 
 [Crea una cuenta en Netlify](https://app.netlify.com/start) y da click en “crear sitio”.
@@ -82,15 +78,15 @@ Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
 
 ![Conectar un repositorio en Netlify](/intro-to-storybook/netlify-account-picker.png)
 
-Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `master`. El directorio es `storybook-static`. Ejecuta el comando `yarn build-storybook`.
+Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `master`. El directorio es `web-build`. Ejecuta el comando de compilación `yarn build-static-webapp`.
 
-![Ajustes Netlify](/intro-to-storybook/netlify-settings.png)
-
-<div class="aside"><p>Si su implementación falla con Netlify, agregue <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> al script <code>build-storybook</code>.</p></div>
+![Netlify settings](/intro-to-storybook/netlify-settings-rn.png)
 
 Ahora envía el formulario para construir e implementar el código en la rama `master` del taskbox.
 
 Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
+
+<div class="aside"><p>Si su implementación falla al mencionar que la carpeta no está presente, active una compilación local, luego elimine el comentario en la carpeta de compilación del archivo <code>.gitignore</code></p><p>Commitie los cambios, luego el CI de netlify debería elegir y logrará construir la aplicación junto con Storybook.</p></div>
 
 ![Despliegue de Netlify Storybook](/intro-to-storybook/netlify-storybook-deploy.png)
 

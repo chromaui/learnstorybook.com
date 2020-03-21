@@ -5,7 +5,7 @@ description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
 ---
 
 Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/addons/introduction/) con el que puede mejorar la experiencia del desarrollador para
-todos en tu equipo. Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el [Testing](/vue/es/test/).
+todos en tu equipo.
 
 <div class = "aside">
     <strong> ¿Busca una lista de posibles complementos? </strong>
@@ -26,23 +26,31 @@ Knobs es un recurso increíble para que los diseñadores y desarrolladores exper
   />
 </video>
 
-### Instalación
+### Installation
 
 Primero, tendremos que agregarlo como una dependencia de desarrollo
 
 ```bash
-yarn add -D @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs @storybook/addon-ondevice-knobs
 ```
 
-Registra Knobs en tu archivo `.storybook/main.js`.
+Registra Knobs en tu archivo `storybook/addons.js`.
 
 ```javascript
-// .storybook/main.js
 
-module.exports = {
-  stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
-};
+// storybook/addons.js
+import '@storybook/addon-actions/register';
+import '@storybook/addon-knobs/register';
+import '@storybook/addon-links/register';
+```
+
+Y tambien en `storybook/rn-addons.js`.
+
+```javascript
+
+// storybook/rn-addons.js
+import '@storybook/addon-ondevice-actions/register';
+import '@storybook/addon-ondevice-knobs/register';
 ```
 
 <div class = "aside">
@@ -60,41 +68,34 @@ Usemos el tipo de knob de objeto en el componente `Task`.
 Primero, importe el decorador `withKnobs` y el tipo de knob `object` a `Task.stories.js`:
 
 ```javascript
-// src/components/Task.stories.js
+
+// components/Task.stories.js
+import * as React from 'react';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-A continuación, dentro de la exportación `default` del archivo`Task.stories`, agregue `withKnobs` como elemento de `decorators`:
+A continuación, dentro de las historias de `Task`, agregue `withKnobs` como un parámetro para la funcion `addDecorator()`:
 
 ```javascript
 // src/components/Task.stories.js
 
-export default {
-  title: 'Task',
-  decorators: [withKnobs],
-  // same as before
-};
+storiesOf('Task', module)
+  .addDecorator(withKnobs)
+  .add(/*...*/);
 ```
 
 Por último, integre el tipo de knob `object` dentro de la historia "predeterminada":
 
 ```javascript
-// src/components/Task.stories.js
 
-// default task state
-export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: object('task', { ...taskData }),
-    },
-  },
-  methods: actionsData,
-});
-
-// same as before
+// components/Task.stories.js
+storiesOf('Task', module)
+  .addDecorator(withKnobs)
+  .add('default', () => <Task task={object('task', { ...task })} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
 
 Ahora debería aparecer una nueva pestaña "Knobs" al lado de la pestaña "Action Logger" en el panel inferior.
@@ -111,21 +112,22 @@ Además, con un fácil acceso para editar los datos pasados ​​a un component
 
 ![¡Oh no! ¡El contenido de la extrema derecha está cortado!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-¡Gracias a poder probar rápidamente diferentes entradas a un componente, podemos encontrar y solucionar estos problemas con relativa facilidad! Arreglemos el problema de desbordamiento agregando un estilo a `Task.vue`:
+¡Gracias a poder probar rápidamente diferentes entradas a un componente, podemos encontrar y solucionar estos problemas con relativa facilidad! Arreglemos el problema de desbordamiento agregando un estilo a `Task.js`:
 
-```html
-<!--src/components/Task.vue>-->
+```javascript
 
-<!-- This is the input for our task title.
-     In practice we would probably update the styles for this element but for this tutorial,
-     let's fix the problem with an inline style:-->
-<input
-  type="text"
-  :readonly="true"
-  :value="this.task.title"
-  placeholder="Input title"
-  style="text-overflow: ellipsis;"
-/>
+// components/Task.js
+// This is the input for our task title. It was changed to a simple text contrary to textinput,
+// to illustrate how to see what's intended
+<Text
+  numberOfLines={1}
+  ellipsizeMode="tail"
+  style={
+    state === 'TASK_ARCHIVED' ? styles.list_item_input_TASK_ARCHIVED : styles.list_item_input_TASK
+  }
+>
+  {title}
+</Text>
 ```
 
 ![Mucho mejor.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
@@ -137,32 +139,20 @@ Por supuesto, siempre podemos reproducir este problema ingresando la misma entra
 Agreguemos una historia para el caso de texto largo en `Task.stories.js`:
 
 ```javascript
-// src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+// components/Task.stories.js
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
-// same as before
-
-export const LongTitle = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        title: longTitle,
-      }),
-    },
-  },
-  methods: actionsData,
-});
+storiesOf('Task', module)
+  .add('default', () => <Task task={task} {...actions} />)
+  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
+  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />)
+  .add('long title', () => <Task task={{ ...task, title: longTitle }} {...actions} />);
 ```
 
 Ahora que hemos agregado la historia, podemos reproducir este caso extremo con facilidad siempre que queramos trabajar en él:
 
 ![Aqui esta en la Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
-
-Si estamos utilizando [pruebas de regresión visual](/vue/es/test/), también se nos informará si alguna vez rompemos nuestra solución de elipsis. ¡Esos casos extremos oscuros siempre pueden ser olvidados!
 
 ### Fusionar cambios
 

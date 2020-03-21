@@ -9,11 +9,11 @@ Qualquer tutorial de Storybook não estaria completo sem serem mencionados os te
 
 - **Testes visuais** dependem do programador para olhar para o componente manualmente e verificar se está tudo de acordo. Ajudam a manter um nível de coerência em termos de aparência á medida que é construído.
 - **Testes snapshot** com o extra Storyshots é capturado o markup renderizado do componente. Ajudam a ficar a par das alterações no markup que causam erros de renderização e avisos.
-- **Unit tests** com Jest é verificado que o output de um determinado componente mantém-se idêntico dado um input fixo. São óptimos para efectuar testes das qualidades funcionais de um componente.
+- **Unit tests** com Jest é verificado que o output de um determinado componente mantém-se idêntico dado um input fixo. São ótimos para efetuar testes das qualidades funcionais de um componente.
 
-## "Mas aparenta ser correcto"?
+## "Mas aparenta ser correto"?
 
-Infelizmente as metodologias de teste acima mencionadas, sozinhas não são suficientes para prevenir problemas no interface de utilizador. Estes são complicados para testar, visto que o design é algo subjectivo e com nuances. Os testes visuais são demasiado manuais, os testes de snapshot poderão originar demasiados falsos positivos quando usados para interface de utilizador e os testes unitários ao nível de pixel são pobres. Uma estratégia de testes considerada completa para o Storybook incluí também testes visuais de regressão.
+Infelizmente as metodologias de teste acima mencionadas, sozinhas não são suficientes para prevenir problemas no interface de utilizador. Estes são complicados para testar, visto que o design é algo subjetivo e com nuances. Os testes visuais são demasiado manuais, os testes de snapshot poderão originar demasiados falsos positivos quando usados para interface de utilizador e os testes unitários ao nível de pixel são pobres. Uma estratégia de testes considerada completa para o Storybook incluí também testes visuais de regressão.
 
 ## Testes visuais de regressão para o Storybook
 
@@ -28,16 +28,16 @@ Os testes visuais de regressão são desenhados para capturar alterações de ap
 
 O Storybook é uma ferramenta fantástica para este tipo de testes, por que cada estória é na sua essência uma especificação de teste. Cada vez que é escrita ou atualizada uma estória, obtemos uma especificação de graça!
 
-Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromaticqa.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efectua testes na núvem.
+Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromaticqa.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efetua testes na núvem.
 
 ## Configuração de testes de regressão visual
 
 O Chromatic é um extra sem complicações para este tipo de testes. Visto que é um serviço pago (mas com o período de testes grátis), logo poderá não ser para toda a gente. No entanto este é um exemplo de uma ferramenta ao nível profissional que irá usada gratuitamente.
 Em seguida vai ser elaborada uma breve introdução desta.
 
-## Atualizando o git
+## Atualizar o git
 
-O Create React App, iniciou um repositório git para o projecto, com isto vão ser adicionadas as alterações feitas até agora:
+Quando o projeto foi inicializado, o Create React App criou um repositório local. Vamos adicionar as alterações efetuadas:
 
 ```bash
 $ git add -A
@@ -54,28 +54,12 @@ $ git commit -m "taskbox UI"
 Adiciona-se o pacote como dependência.
 
 ```bash
-yarn add storybook-chromatic
+yarn add -D storybook-chromatic
 ```
 
-O Chromatic é importado para o ficheiro `.storybook/config.js`.
+Um aspeto fantástico acerca deste extra é que recorre á Git history para se manter a par dos componentes de interface de utilizador.
 
-```javascript
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'storybook-chromatic';
-
-import '../src/index.css';
-
-const req = requireContext('../src/components', true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-```
-
-É feita a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida criado um projecto com o nome "taskbox" e copie e guarde o `app-code` único.
+Faça a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida crie um projeto com o nome "taskbox" e copie e guarde seu o `app-code` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -84,23 +68,23 @@ configure(loadStories, module);
   />
 </video>
 
-Executa-se o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `app-code` fornecido ao invés de `<app-code>`.
+Execute o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `app-code` fornecido ao invés de `<app-code>`.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --app-code=<app-code>
 ```
 
 <div class="aside">
-    O argumento <code>--do-not-start</code> é uma opção que informa o Chromatic para não iniciar o Storybook. Isto usado se o Storybook já se encontrar em execução. Caso contrário omite-se o <code>--do-not-start</code>.
+     O argumento <code>--do-not-start</code> é uma opção que informa o Chromatic para não iniciar o Storybook. Isto usado se o Storybook já se encontrar em execução. Caso contrário omite-se o <code>--do-not-start</code>.
 </div>
 
 Assim que o primeiro teste estiver concluído, é obtida a base de testes para cada estória. Por outras palavras, uma captura de cada estória considerada "boa". Alterações futuras a estas estórias, irão ser comparadas com esta base.
 
 ![Bases Chromatic](/intro-to-storybook/chromatic-baselines.png)
 
-## Captura de uma alteração interface utilizador
+## Captura de uma alteração no interface utilizador
 
-Os testes de regressão visual dependem da comparação de imagens do novo código do interface de utilizador que foi agora renderizado com as imagens de base. Se for capturada uma alteração no interface de utilizador irá surgir uma notificação. Para isto ser observado altera-se o fundo do do componente `Task`:
+Os testes de regressão visual dependem da comparação de imagens do novo código do interface de utilizador que foi agora renderizado com as imagens de base. Se for capturada uma alteração no interface de utilizador irá surgir uma notificação. Para isto ser observado altera-se o fundo do componente `Task`:
 
 ![alteração código](/intro-to-storybook/chromatic-change-to-task-component.png)
 
@@ -111,7 +95,7 @@ O que irá gerar uma nova cor de fundo para o item.
 Usando agora o comando de testes, para efectuar um outro teste com o Chromatic.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --app-code=<app-code>
 ```
 
 Ao abrir-se o link, irão ser apresentadas a alterações.
@@ -136,7 +120,8 @@ Se uma alteração é intencional, é necessária a atualização da linha de ba
   />
 </video>
 
-Visto que as aplicações modernas são construidas a partir de componentes, é importante testar ao nível destes. Ao efectuar-se isto ajuda a identificar a principal causa da alteração, ou seja o componente ao invés de reagir aos sintomas de uma alteração, ecrãs ou componentes compostos.
+
+Visto que as aplicações modernas são construidas a partir de componentes, é importante testar ao nível destes. Ao efetuar-se isto ajuda a identificar a principal causa da alteração, ou seja o componente, ao invés de reagir aos sintomas de uma alteração, ecrãs ou componentes compostos.
 
 ## Fusão de alterações
 

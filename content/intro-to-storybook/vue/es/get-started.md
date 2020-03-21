@@ -5,7 +5,7 @@ description: 'Configurar Vue Storybook en tu entorno de desarrollo'
 commit: d1c4858
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe una edición para [React](/react/es/get-started) y [Angular](/angular/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe otras ediciones para [React](/react/es/get-started), [React Native](/react-native/es/get-started) y [Angular](/angular/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -15,13 +15,18 @@ Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestr
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset hichroma/vue-preset-learnstorybook
+npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
 
 cd taskbox
 
 # Add Storybook:
 npx -p @storybook/cli sb init
 ```
+
+<div class = "aside">
+A lo largo de esta versión del tutorial, usaremos <code>yarn</code> para ejecutar la mayoría de nuestros comandos.
+Si tiene instalado Yarn, pero prefiere usar <code>npm</code>, no se preocupe, puede seguir el tutorial sin ningún problema. Simplemente agregue el indicador <code>--packageManager=npm</code> al primer comando anterior y tanto Vue CLI como Storybook se inicializarán en función de esto. Además, mientras avanza en el tutorial, no olvide ajustar los comandos utilizados a sus contrapartes <code>npm</code>.
+</div>
 
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 

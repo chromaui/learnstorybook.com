@@ -1,35 +1,39 @@
 ---
-title: 'Storybook para o React tutorial'
+title: 'Tutorial do Storybook para o React'
 tocTitle: 'Introdução'
-description: 'Configuração do React Storybook no ambiente de desenvolvimento'
+description: 'Configuração do React Storybook no ambiente de desenvolvimento React'
 commit: ebe2ae2
 ---
 
-Storybook funciona em paralelo á aplicação em modo de desenvolvimento.
-Ajuda na construção de componentes de interface de utilizador isolados de qualquer lógica e contexto da aplicação.
+O Storybook executa paralelamente à aplicação em desenvolvimento.
+Ajuda-o a construir componentes de interface de utilizador (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para React.
 Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started), quer para [Angular](/angular/pt/get-started).
 
 ![Storybook e a aplicação](/intro-to-storybook/storybook-relationship.jpg)
 
-## Configuração de Storybook com React
+## Configurar o Storybook com React
 
-Irão ser necessárias algumas etapas adicionais de forma a ser possível configurar o processo de compilação no nosso ambiente de desenvolvimento.
-Para começar queremos usar o pacote [Create React App](https://github.com/facebook/create-react-app) ou como é vulgarmente conhecido (CRA), para configurar o nosso ambiente local e ativar o modo de testes com [Storybook](https://storybook.js.org/) e
-[Jest](https://facebook.github.io/jest/) na nossa aplicação.
-
-Para tal vamos executar os seguintes comandos:
+Precisamos de alguns passos extra para configurar o processo de compilação no nosso ambiente de desenvolvimento.
+Para começar queremos usar o pacote [Create React App](https://github.com/facebook/create-react-app) ou como é vulgarmente conhecido (CRA), para compilação e permitir ao [Storybook](https://storybook.js.org/) e
+[Jest](https://facebook.github.io/jest/) fazerem testes na nossa aplicação. Vamos executar os seguintes comandos:
 
 ```bash
 # Create our application:
 npx create-react-app taskbox
+
 cd taskbox
 
 # Add Storybook:
 npx -p @storybook/cli sb init
 ```
 
-Podemos rapidamente verificar que os vários ecossistemas da nossa aplicação estão a funcionar corretamente através de:
+<div class="aside">
+Ao longo desta versão do tutorial, vai ser usado o <code>yarn</code> para executar a maioria dos comandos.
+Se tiver o Yarn instalado, mas preferir usar <code>npm</code>, não há qualquer problema, pode continuar a seguir o tutorial sem problemas. Somente terá que adicionar a seguinte opção: <code> --use-npm</code> ao primeiro comando mencionado acima e tanto o CRA como o Storybook irão inicializar com base nesta opção. À medida que progride no tutorial, não esqueça de ajustar os comandos mencionados para os equivalentes <code>npm</code>.
+</div>
+
+Podemos rapidamente verificar que os vários ecossistemas da nossa aplicação estão a funcionar corretamente:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
@@ -43,24 +47,21 @@ yarn start
 ```
 
 <div class="aside">
-  Nota: Se <code>yarn test</code> emitir um erro, será necessário instalar o pacote <code>watchman</code>, tal como recomendado neste <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">problema</a>
+Pode ter reparado que foi adicionada a opção <code>--watchAll</code> no comando de testes, não se preocupe, é intencional. Esta pequena alteração irá garantir que todos os testes sejam executados e que a nossa aplicação está a funcionar corretamente. À medida que progride no tutorial, irão ser apresentados diversos cenários de testes, talvez queira considerar e adicionar esta opção ao script de testes no ficheiro (ou arquivo) <code>package.json</code> para garantir que todos os testes sejam executados.
 </div>
 
-Sendo estes os seguintes: testes automáticos (Jest), desenvolvimento de componentes (Storybook) e a aplicação em si.
+
+As três modalidades de frontend da aplicação: testes automáticos (Jest), desenvolvimento de componentes (Storybook) e a aplicação em si.
 
 ![3 modalidades](/intro-to-storybook/app-three-modalities.png)
 
-Dependendo de qual parte da aplicação que estamos a trabalhar, podemos querer executar um ou mais simultâneamente.
-Visto que neste caso, o foco é a criação de um componente de interface de utilizador simples, iremos cingir-nos somente á execução de Storybook.
+Dependendo de qual parte da aplicação em que está a trabalhar, pode querer executar uma ou mais simultaneamente.
+Mas, visto que o nosso foco é a criação de um único componente de interface de utilizador (UI na forma original), vamos ficar somente pela execução do Storybook.
 
-## Reutilização CSS
+## Reutilizar CSS
 
-A Taskbox reutiliza elementos de design do tutorial de React e GraphQL
-[Tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), como tal não será necessária a criação de CSS neste tutorial.
+A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/index.css`.
 
-Com isto o conteúdo do ficheiro LESS será compilado num único ficheiro CSS e incluido na aplicação.
-
-O CSS compilado encontra-se disponível [aqui](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) e pela convenção CRA(Create React App) será necessário copiar seu conteúdo para o seguinte ficheiro src/index.css.
 
 ![Interface Utilizador Taskbox](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -70,6 +71,14 @@ O CSS compilado encontra-se disponível [aqui](https://github.com/chromaui/learn
 
 ## Adicionar recursos
 
-Irá ser necessário adicionar também as pastas com o tipo de letra e ícones que se encontram disponíveis [aqui](https://github.com/chromaui/learnstorybook-code/tree/master/public) á pasta `public`. Ao adicionar estes elementos, a aplicação irá renderizar de forma algo estranha.
-Mas isto é de esperar, visto que não iremos trabalhar na aplicação agora.
-Iremos então iniciar o desenvolvimento do nosso primeiro componente!
+De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `public`.
+
+<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
+
+
+```bash
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+```
+
+Após adicionar os estilos e assets, a aplicação irá renderizar de forma estranha. Tudo bem. Não vamos trabalhar nela agora. Vamos antes começar por construir o nosso primeiro componente.

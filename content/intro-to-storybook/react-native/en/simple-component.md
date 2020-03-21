@@ -26,11 +26,12 @@ First, let’s create the task component and its accompanying story file: `compo
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
-// /components/Task.js
-import React from 'react';
+
+// components/Task.js
+import * as React from 'react';
 import { TextInput, SafeAreaView } from 'react-native';
 import { styles } from '../constants/globalStyles';
-
+ 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <SafeAreaView style={styles.listitem}>
@@ -45,10 +46,11 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
+
 // components/Task.stories.js
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
-import { styles } from '../globalStyles';
+import { styles } from '../constants/globalStyles';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
@@ -85,7 +87,7 @@ As we need to pass the same set of actions to all permutations of our component,
 
 Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
 When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
@@ -95,9 +97,10 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`storybook/index.js`) so it notices our `.stories.js` files. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA or Vue CLI for automated tests.
+We also have to make one small change to the Storybook configuration setup (`storybook/index.js`) so it notices our recently created stories.
 
 ```javascript
+
 // storybook/config.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
@@ -108,10 +111,9 @@ configure(() => {
   require('../components/Task.stories.js');
 }, module);
 
-
-// Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters
-// To find allowed options for getStorybookUI
-const StorybookUIRoot = getStorybookUI({});
+const StorybookUIRoot = getStorybookUI({
+  asyncStorage:null
+});
 
 
 export default StorybookUIRoot;
@@ -126,8 +128,6 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-Alternatively you can use [react-native-storybook-loader](https://github.com/elderfo/react-native-storybook-loader) to handle loading all of the stories at once, the use of the this third party package will not be covered in this tutorial for brevity purposes.
-
 ## Build out the states
 
 Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
@@ -135,12 +135,12 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```javascript
-// components/Task.js
 
-import React from 'react';
+// components/Task.js
+import * as React from 'react';
 import { TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
-import { styles } from '../globalStyles';
-import PercolateIcons from '../Percolate';
+import { styles } from '../constants/globalStyles';
+import PercolateIcons from '../constants/Percolate';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
@@ -188,9 +188,9 @@ The additional markup from above combined with the styling we created earlier yi
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
 ```javascript
-// src/components/Task.js
 
-import React from 'react';
+// src/components/Task.js
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -235,13 +235,14 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots
+yarn add -D @storybook/addon-storyshots
 ```
 
-Then create an `__tests__/storybook.test.js` file with the following:
+Then create an `components/__tests__/storybook.test.js` file with the following:
 
 ```javascript
-// __tests__/storybook.test.js
+
+// components/__tests__/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
