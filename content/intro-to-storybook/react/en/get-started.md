@@ -67,7 +67,8 @@ If you want to modify the styling, the source LESS files are provided in the Git
 To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder.
 
 <div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p>
+<p>To configure Storybook to serve static content refer to <a href="https://storybook.js.org/docs/configurations/serving-static-files">serving static content</a>.</p></div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
