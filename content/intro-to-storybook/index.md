@@ -72,19 +72,24 @@ twitterShareText: 'I’m learning Storybook! It’s a great dev tool for UI comp
 
 <div class="badge-box">
   <div class="badge">
-    <a href="/intro-to-storybook/react/en/get-started/"><img src="/frameworks/logo-react.svg"> React</a>
+    <img src="/frameworks/logo-react.svg">
+    <a href="/intro-to-storybook/react/en/get-started/"> React</a>
   </div>
   <div class="badge">
-    <a href="/intro-to-storybook/react-native/en/get-started/"><img src="/frameworks/logo-react.svg">React Native</a>
+    <img src="/frameworks/logo-react.svg">
+    <a href="/intro-to-storybook/react-native/en/get-started/"> React Native</a>
   </div>
   <div class="badge">
-    <a href="/intro-to-storybook/vue/get-started/"><img src="/frameworks/logo-vue.svg"> Vue</a>
+    <img src="/frameworks/logo-vue.svg">
+    <a href="/intro-to-storybook/vue/en/get-started/"> Vue</a>
   </div>
   <div class="badge">
-    <a href="/intro-to-storybook/angular/get-started/"><img src="/frameworks/logo-angular.svg"> Angular</a>
+    <img src="/frameworks/logo-angular.svg">
+    <a href="/intro-to-storybook/angular/en/get-started/"> Angular</a>
   </div>
   <div class="badge">
-   <a href="/intro-to-storybook/svelte/get-started/"> <img src="/frameworks/logo-svelte.svg"> Svelte</a>
+   <img src="/frameworks/logo-svelte.svg">
+   <a href="/intro-to-storybook/svelte/en/get-started/">  Svelte</a>
   </div>
 </div>
 

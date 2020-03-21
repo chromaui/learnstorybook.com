@@ -187,7 +187,8 @@ const FrameworkMenu = ({
       {
         <FrameworkContainer>
           {frameworks.map(availableFramework => (
-            <Link
+            <Link 
+              key={`link_${availableFramework}`}
               to={getChapterInOtherLanguage(
                 availableFramework,
                 language,

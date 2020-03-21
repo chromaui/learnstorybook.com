@@ -43,9 +43,17 @@ export const guideFormatting = css`
     &:last-of-type {
       margin-right: 0;
     }
+
     img {
       width: 16px;
       margin-right: 6px;
+    }
+    a {
+      color: ${darken(0.2, 'purple')};
+      transition: all 250ms ease-out;
+      display: inline-block;
+      text-decoration: none;
+      transform: translate3d(0, 0, 0);
     }
   }
 `;
