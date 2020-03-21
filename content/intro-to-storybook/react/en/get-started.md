@@ -68,7 +68,8 @@ To match the intended design, you'll need to download both the font and icon dir
 
 <div class="aside">
 <p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p>
-<p>To configure Storybook to serve static content refer to <a href="https://storybook.js.org/docs/configurations/serving-static-files">serving static content</a>.</p></div>
+<p>If you want to learn more about serving static content in your Storybook, you can read more about it in <a href="https://storybook.js.org/docs/configurations/serving-static-files">here</a>.</p>
+</div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
