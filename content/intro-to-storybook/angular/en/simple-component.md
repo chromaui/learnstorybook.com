@@ -265,10 +265,10 @@ With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/
 npm install -D @storybook/addon-storyshots
 ```
 
-Then create the `src/storybook.test.js` file with the following in it:
+Then create the `src/storybook.test.ts` file with the following in it:
 
 ```typescript
-// src/storybook.test.js
+// src/storybook.test.ts
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
