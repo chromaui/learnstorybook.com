@@ -12,6 +12,7 @@
     "gatsby-plugin-segment-js": "^3.0.1",
     "gatsby-plugin-sitemap": "^2.1.0",
     "gatsby-plugin-styled-components": "^3.0.7",
+    "gatsby-remark-autolink-headers": "^2.2.0",
     "gatsby-source-filesystem": "^2.0.37",
     "gatsby-transformer-remark": "^2.3.12",
     "lodash": "^4.17.11",

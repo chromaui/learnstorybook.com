@@ -167,6 +167,7 @@ Chapter.propTypes = {
               title: PropTypes.string,
               description: PropTypes.string,
             }).isRequired,
+            headings: PropTypes.arrayOf(PropTypes.shape({ value: PropTypes.string })).isRequired,
             fields: PropTypes.shape({
               slug: PropTypes.string.isRequired,
               framework: PropTypes.string,
@@ -262,6 +263,9 @@ export const query = graphql`
             slug
             framework
             chapter
+          }
+          headings {
+            value
           }
         }
       }

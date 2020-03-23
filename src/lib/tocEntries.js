@@ -7,12 +7,24 @@ export default function tocEntries(toc, pages) {
         return null;
       }
       const { tocTitle, title, description } = node.frontmatter;
-
+      const { headings } = node;
+      // needs better sanitizing strategy
+      const chapterNavItems = headings
+        ? headings.map(heading => {
+            return {
+              chapterNavText: heading.value,
+              chapterNavLink: `${node.fields.slug}#${heading.value
+                .replace(/\s/g, '-')
+                .toLowerCase()}`,
+            };
+          })
+        : [];
       return {
         chapter: node.fields.chapter,
         slug: node.fields.slug,
         title: tocTitle || title,
         description,
+        chapterNavItems,
       };
     })
     .filter(e => !!e);

@@ -70,16 +70,38 @@ const ListItem = styled.li`
   }
 `;
 
+// nav list
+
+
+
+// temporarly disabled the eslint rules (they will be back soon)
+
+// eslint-disable-next-line react/prop-types
+const NavItems = ({ headings, ...rest }) => (
+  <List {...rest}>
+    {/* eslint-disable-next-line react/prop-types */}
+    {headings.map(item => {
+      return (
+        <ListItem isActive>
+          <GatsbyLink to={item.chapterNavLink} tertiary>
+            {item.chapterNavText}
+          </GatsbyLink>
+        </ListItem>
+      );
+    })}
+  </List>
+);
+
 const TableOfContents = ({ currentPageSlug, entries, ...rest }) => (
   <List {...rest}>
     {entries.map(entry => {
       const isActive = currentPageSlug === entry.slug;
-
       return (
         <ListItem key={entry.slug} isActive={isActive}>
           <GatsbyLink to={entry.slug} tertiary={!isActive}>
             {entry.title}
           </GatsbyLink>
+          {isActive && <NavItems {...rest} headings={entry.chapterNavItems} />}
         </ListItem>
       );
     })}
@@ -92,6 +114,12 @@ TableOfContents.propTypes = {
     PropTypes.shape({
       slug: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
+      chapterNavItems: PropTypes.arrayOf(
+        PropTypes.shape({
+          chapterNavText: PropTypes.string,
+          chapterNavLink: PropTypes.string,
+        })
+      ).isRequired,
     }).isRequired
   ).isRequired,
 };
