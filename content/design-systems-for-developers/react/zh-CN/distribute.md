@@ -1,37 +1,37 @@
 ---
-title: 'Distribute UI across an organization'
-tocTitle: 'Distribute'
-description: 'Learn to package and import your design system into other apps'
+title: '在整个组织中发布您的 UI 组件'
+tocTitle: '发布'
+description: '学习如何打包并在别的应用程序中引入您的设计系统'
 commit: 3a5cd35
 ---
 
-From an architectural perspective, design systems are yet another frontend dependency. They are no different than popular dependencies like moment or lodash. UI components are code so we can rely on established techniques for code reuse.
+从软件架构的角度来看，设计系统就是一个前端的依赖项。它和一些流行的依赖项（moment 或 lodash）没有什么区别。UI 组件也是代码，所以我们大可以依赖已有的前端技术来重用这些代码。
 
-This chapter walks through design system distribution from packaging UI components to importing them in other apps. We’ll also uncover timesaving techniques to streamline versioning and release.
+在本章我们将一起来探讨如何打包设计系统中的 UI 组件并发布给其他应用程序去引入。我们也会涵盖到使用更节省时间的技术去简化版本控制和发布。
 
 ![Propagate components to sites](/design-systems-for-developers/design-system-propagation.png)
 
-## Package the design system
+## 打包设计系统
 
-Organizations have thousands of UI components spread across different apps. Previously, we extracted the most common components into our design system. Now we need to reintroduce those components back into the apps.
+一个组织会有成千上万的 UI 组件散布在不同的应用程序中。之前，我们将最常用的组件提取到我们的设计系统中，现在我们需要将这些组件重新引入到应用程序中。
 
-Our design system uses JavaScript package manager npm to handle distribution, versioning, and dependency management.
+我们的设计系统使用 JavaScript 包管理工具（npm）来发布、版本控制和管理依赖。
 
-There are many valid methods for packaging design systems. Gander at design systems from Lonely Planet, Auth0, Salesforce, GitHub, and Microsoft to see a diversity in approaches. Some folks deliver each component as a separate package. Others ship all components in one package.
+有很多有效的方法可以去打包设计系统，纵观 Lonely Planet、Auth0、Salesforce、GitHub 和 Microsoft 的设计系统，我们可以了解到各种不同的方法。有些人将每个组件作为单独的软件包提供给使用者，有的则将所有的组件打包在一起。
 
-For nascent design systems, the most direct way is to publish a single versioned package that encapsulates:
+对于新生的设计系统，最直接的方法就是发布一个封装了以下内容且版本单一的软件包：
 
-- 🏗 Common UI components
-- 🎨 Design tokens (a.k.a., style variables)
-- 📕 Documentation
+- 🏗 通用 UI 组件
+- 🎨 设计元素 (又称： 样式变量)
+- 📕 文档
 
 ![Package a design system](/design-systems-for-developers/design-system-package.jpg)
 
-## Prepare your design system for export
+## 为导出设计系统作准备
 
-As we used create-react-app as a starting point for our design system, there are still vestiges of the initial app and scripts that create-react-app created for us. Let’s clean them up now.
+由于我们使用 create-react-app 作为我们设计系统的起点，在我们的项目中仍然残存一些脚手架自动生成的代码，我们需要先清理掉这些代码：
 
-First, we should add a basic README.md:
+首先我们需要添加一个基本的 README.md:
 
 ```markdown
 # The Learn Storybook design system
@@ -41,7 +41,7 @@ The Learn Storybook design system is a subset of the full [Storybook design syst
 Learn more at [Learn Storybook](https://learnstorybook.com).
 ```
 
-Then, let’s create a `src/index.js` file to create a common entry point for using our design system. From this file we’ll export all our design tokens and the components:
+然后我们需要创建一个名为 `src/index.js` 的文件作为设计系统的入口，从这个文件中我们将导出我们所有的设计元素和组件：
 
 ```javascript
 import * as styles from './shared/styles';
@@ -58,13 +58,13 @@ export * from './Icon';
 export * from './Link';
 ```
 
-Let’s add a development dependency on `@babel/cli` and `cross-env` to compile our JavaScript for release:
+让我们在开发环境依赖项中添加 `@babel/cli` 和 `cross-env` 这两个库来帮助我们构建发布版本：
 
 ```bash
 yarn add --dev @babel/cli cross-env
 ```
 
-To build the package, we’ll add a script to `package.json` that builds our source directory into `dist`:
+我们需要在 `package.json` 文件中添加一些命令来帮助我们将设计系统打包到 `dist` 文件夹：
 
 ```json
 {
@@ -80,7 +80,7 @@ To build the package, we’ll add a script to `package.json` that builds our sou
 }
 ```
 
-We can now run `yarn build` to build our code into the `dist` directory -- we should add that directory to `.gitignore` too:
+现在我们可以运行 `yarn build` 命令去构建我们的代码到 `dist` 文件夹了 —— 我们也应该将 `dist` 文件夹添加到 `.gitignore` 中：
 
 ```
 // ..
@@ -88,9 +88,9 @@ storybook-static
 dist
 ```
 
-#### Adding package metadata for publication
+#### 添加软件包元数据以进行发布
 
-Finally, let’s make a couple of changes to `package.json` to ensure consumers of the package get all the information we need. The easiest way to do that is to run `yarn init` -- a command that initializes the package for publication:
+最终，我们需要对文件 `package.json` 做一些修改来保证使用者获得所有他们所需的信息。最简单的方法是通过运行 `yarn init` —— 一个发布软件包的初始化命令：
 
 ```bash
 yarn init
@@ -106,9 +106,9 @@ question license (MIT):
 question private: no
 ```
 
-The command will ask us a set of questions, some of which will be prefilled with answers, others that we’ll have to think about. You’ll need to pick a unique name for the package on npm (you won’t be able to use `learnstorybook-design-system` -- a good choice is `<your-username>-learnstorybook-design-system`).
+该命令会问一些预先设置好的问题，一些问题会提前填好答案，而另一些需要我们来给出答案。你需要在 npm 中为您的软件包起一个独一无二的名字（您不能使用 `learnstorybook-design-system` 这个名字因为它已经存在了 —— 推荐使用类似 `<your-username>-learnstorybook-design-system` 的名字）。
 
-All in all, it will update `package.json` with new values as a result of those questions:
+总而言之, 上述步骤将会用问题中输入的新值来替换 `package.json` 中原来的值:
 
 ```json
 {
@@ -122,36 +122,36 @@ All in all, it will update `package.json` with new values as a result of those q
 }
 ```
 
-Now we’ve prepared our package, we can publish it to npm for the first time!
+到目前为止，我们已经准备好打包我们的程序并将它首次发布到 npm!
 
-## Release management with Auto
+## 使用 Auto 来做发布管理
 
-To publish releases to npm, we’ll use a process that also updates a changelog describing changes, sets a sensible version number, and creates git tag linking that version number to a commit in our repository. To help with all those things, we’ll use an open-source tool called [Auto](https://github.com/intuit/auto), designed for this very purpose.
+要将打包好的包发布到 npm，我们需要经历修改变更日志、设置合理的版本号和创建 git 标签这些过程。上述步骤便于我们将该版本号链接到我们 git 仓库中的提交。为了帮助解决这些问题，我们将使用一个名为 [Auto](https://github.com/intuit/auto) 的开源工具。
 
-Let’s install Auto:
+让我们安装 Auto:
 
 ```bash
 yarn add --dev auto
 ```
 
-Auto is a command line tool we can use for various common tasks around release management. You can learn more about Auto on [their documentation site](https://intuit.github.io/auto/).
+Auto 是一个命令行工具，它用于 release 管理相关的各种常见任务。你可以通过学习[它们的文档](https://intuit.github.io/auto/)来了解更多关于 Auto 的使用方法。
 
-#### Getting a GitHub and npm token
+#### 获取 GitHub 和 npm 令牌
 
-For the next few steps, Auto is going to talk to GitHub and npm. In order for that to work correctly, we’ll need a personal access token. You can get one of those on [this page](https://github.com/settings/tokens) for GitHub. The token will need the `repo` scope.
+在接下来的步骤中，Auto 将访问 GitHub 和 npm，为了保证有正确的访问权限，我们需要一个私人访问令牌。你可以通过[这篇文章](https://github.com/settings/tokens)来获取 GitHub 的令牌。令牌应该只限于访问您当前的 `GitHhb 仓库`。
 
-For npm, you can create a token at the URL: https://www.npmjs.com/settings/&lt;your-username&gt;/tokens.
+你可以通过访问 https://www.npmjs.com/settings/&lt;your-username&gt;/tokens 来创建一个 npm 的令牌。
 
-You’ll need a token with “Read and Publish” permissions.
+该令牌需要有 “读取和发布” 的权限。
 
-Let’s add that token to a file called `.env` in our project:
+让我们在项目中的 `.env` 文件中添加令牌信息：
 
 ```
 GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
-By adding the file to `.gitignore` we’ll be sure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package from locally (later we’ll set things up to auto publish when PRs are merged to master) they should set up their own `.env` file following this process:
+通过添加上述文件到 `.gitignore` 来保证我们不会不经意的将令牌信息发布到所有用户都可以看到的开源仓库中。需要特别注意的是，如果其他维护者需要从本地发布软件包（之后我们会将设置当提交请求被合并到主分支后会自动发布），也应该按照上述的过程去设置自己的 `.env` 文件。
 
 ```
 storybook-static
@@ -159,37 +159,37 @@ dist
 .env
 ```
 
-#### Create labels on GitHub
+#### 在 GitHub 中创建标签
 
-The first thing we need to do with Auto is to create a set of labels in GitHub. We’ll use these labels in the future when making changes to the package (see the next chapter) and that’ll allow `auto` to update the package version sensibly and create a changelog and release notes.
+我们要对 Auto 做的第一件事情是在 GitHub 中创建一组标签，将来我们在对软件包进行更改时将使用这些标签（请参阅下一章）来帮助 `auto` 合理的更新软件包的版本，并创建更改日志和发行说明。
 
 ```bash
 yarn auto create-labels
 ```
 
-If you check on GitHub, you’ll now see a set of labels that `auto` would like us to use:
+如果您查看 GitHub, 现在则会看到 `auto` 推荐我们使用的一组标签：
 
 ![Set of labels created on GitHub by auto](/design-systems-for-developers/github-auto-labels.png)
 
-We should tag all future PRs with one of the labels: `major`, `minor`, `patch`, `skip-release`, `prerelease`, `internal`, `documentation` before merging them.
+我们需要在我们所有的合并提交被合并之前为他们打上以下之一的标签：`major`, `minor`, `patch`, `skip-release`, `prerelease`, `internal`, `documentation`。
 
-#### Publish our first release with Auto manually
+#### 手动使用 Auto 发布我们第一个版本
 
-In the future, we’ll calculate new version numbers with `auto` via scripts, but for the first release, let’s run the commands manually to understand what they do. Let’s generate our first changelog entry:
+在未来，我们将使用 `auto` 通过脚步来计算新的版本号。但是在第一次发布的时候，让我们手动运行命令来理解它是如何做的。让我们来创建我们第一个修改日志条目：
 
 ```bash
 yarn auto changelog
 ```
 
-This will generate a long changelog entry with every commit we’ve created so far (and a warning we’ve been pushing to master, which we should stop doing soon).
+这将根据我们创建的每一次提交来生成一个很长的修改条目（还有一条我们一直将代码直接发布到主分支的警告，我们应该尽快停止这么做）。
 
-Although it is useful to have an auto-generated changelog so you don’t miss things, it’s also a good idea to manually edit it and craft the message in the most useful way for users. In this case, the users don’t need to know about all the commits along the way. Let’s make a nice simple message for our first v0.1.0 version. First undo the commit that Auto just created (but keep the changes:
+自动生成改动日志也是很有用的，这样您就不会错过任何东西，而且我们也推荐手动去修改和编写成对用户更有用的消息，这样一来，用户则不用知道所有的提交内容。让我们来为第一个版本 v0.1.0 写一个简单的信息。首先撤销 Auto 刚刚创建的提交（但是保留更改）：
 
 ```bash
 git reset HEAD^
 ```
 
-Then we’ll update the changelog and commit it:
+然后我们修改更新日志并提交它：
 
 ```
 # v0.1.0 (Tue Sep 03 2019)
@@ -200,38 +200,38 @@ Then we’ll update the changelog and commit it:
 - Tom Coleman ([@tmeasday](https://github.com/tmeasday))
 ```
 
-Let’s add that changelog to git. Note that we use `[skip ci]` to tell CI platforms to ignore these commits, else we end up in their build and publish loop.
+让我们添加更新日志到 git。请注意：我们需要使用 `[skip ci]` 来告诉 CI 平台忽略本次提交，否则我们将会触发构建和发布。
 
 ```bash
 git add CHANGELOG.md
 git commit -m "Changelog for v0.1.0 [skip ci]"
 ```
 
-Now we can publish:
+现在我们可以发布了:
 
 ```bash
 npm version 0.1.0 -m "Bump version to: %s [skip ci]"
 npm publish
 ```
 
-And use Auto to create a release on GitHub:
+并且使用 Auto 工具在 GitHub 上创建一个 release：
 
 ```bash
 git push --follow-tags origin master
 yarn auto release
 ```
 
-Yay! We’ve successfully published our package to npm and created a release on GitHub (with luck!).
+赞! 我们已经成功的在 npm 中发布了我们的软件包并且在 GitHub 上创建了一个 release。 (祝好运!).
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
 ![Release published to GitHub](/design-systems-for-developers/github-published-release.png)
 
-(Note that although `auto` auto-generated the release notes for the first release, we've also modified them to make sense for a first version).
+（注意：虽然 `auto` 在第一次发布的时候帮我们自动生成了发布日志，我们仍然还是修改了它来保证第一个版本更加通俗易懂）
 
-<h4>Set up scripts to use Auto</h4>
+<h4>创建使用 Auto 的命令</h4>
 
-Let’s set up Auto to follow the same process when we want to publish the package in the future. We’ll add the following scripts to our `package.json`:
+让我们对 Auto 进行配置，保证之后我们在发布软件包的时候遵循一样的流程。我们将在 `package.json` 中添加如下代码：
 
 ```json
 {
@@ -241,7 +241,7 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 }
 ```
 
-Now, when we run `yarn release`, we’ll step through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. We’ll ensure that all commits to master are published by adding a command to our circle config:
+现在当我们执行命令 `yarn release`, 我们将以自动化的方式逐步执行上述所有的步骤（自动生成变更日志除外）。我们需要在我们的 circle 配置文件中添加如下命令来保证自动发布所有被合并到主分支的提交：
 
 ```
 # ...
@@ -254,54 +254,54 @@ Now, when we run `yarn release`, we’ll step through all the steps we ran above
     fi
 ```
 
-We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
+我们也需要添加在 CircleCI 网站中为您的 Circle 环境添加一个 npm+GitHub 的令牌。(https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
 
 ![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
-Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
+现在每当你合并一个合并请求到主分支，它将自动发布一个新的版本，并且根据您添加的标签适当增加版本号。
 
-<div class="aside">We didn’t cover all of Auto’s many features and integrations that might be useful for growing design systems. Read the docs <a href="https://github.com/intuit/auto">here</a>.</div>
+<div class="aside">我们并没有涵盖 Auto 很多对持续增长的设计系统有用的功能。阅读<a href="https://github.com/intuit/auto">此文档</a>了解更多。</div>
 
 ![Import the design system](/design-systems-for-developers/design-system-import.png)
 
-## Import the design system in an app
+## 在一个应用程序中导入设计系统
 
-Now that our design system lives online, it’s trivial to install the dependency and start using the UI components.
+现在我们的设计系统已经在线运行，安装依赖项并开始使用它将会变得非常简单。
 
-#### Get the example app
+#### 获取示例应用
 
-Earlier in this tutorial, we standardized on a popular frontend stack that includes React and styled-components. That means our example app must also use React and styled-components to take full advantage of the design system.
+在本教程前面的部分，我们标准化了一个流行的技术框架（React 和 styled-components），这意味着为了充分利用设计系统，我们的示例应用程序也必须使用 React 和 styled-components。
 
-<div class="aside">Other promising methods like Svelte or web components may allow you to ship framework-agnostic UI components . However, they are relatively new, under-documented, or lack widespread adoption so they’re not included in this guide yet.</div>
+<div class="aside">其他的方法如 Svelte 和 web components 也许允许你采用与框架无关的 UI 组件。 但是，他们相对较新、文档不足或者缺乏广泛使用。因此本指南中未包含这些部分。</div>
 
-The example app uses Storybook to facilitate [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), an app development methodology of building UIs from the bottom up starting with components and ending with pages. During the demo, we’ll run two Storybook’s side-by-side: one for our example app and one for our design system.
+该示例应用程序采用 Storybook 去简化[组件驱动开发](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)（一种软件开发方法，采用自下而上的方式，先构建组件再构建页面）。在演示过程中，我们将运行两个 Storybook，一个用于示例应用程序，另一个用于设计系统。
 
-Clone the example app repository from GitHub
+从 GitHub 上克隆示例应用程序的代码仓库到本地：
 
 ```bash
 git clone https://github.com/chromaui/learnstorybook-design-system-example-app.git
 ```
 
-Install the dependencies and start the app’s Storybook
+安装依赖项并且启动程序的 Storybook：
 
 ```bash
 yarn install
 yarn storybook
 ```
 
-You should see the Storybook running with the stories for the simple components the app uses:
+您应该可以看到 Storybook 中包含了应用程序使用的简单组件的 stories：
 
 ![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook.png)
 
-<h4>Integrating the design system</h4>
+<h4>集成设计系统</h4>
 
-Add your published design system as a dependency.
+将您您发布的设计系统添加为依赖项：
 
 ```bash
 yarn add <your-username>-learnstorybook-design-system
 ```
 
-Now, let’s update the example app’s `.storybook/main.js` to import the design system components:
+现在，让我们更新示例程序的 `.storybook/main.js` 文件来引入设计系统的组件：
 
 ```javascript
 module.exports = {
@@ -317,7 +317,7 @@ module.exports = {
 };
 ```
 
-Also we can add a global decorator to a new `.storybook/preview.js` config file use the global styles defined by the design system. Make the following change to the file:
+同样的我们可以在新配置文件 `.storybook/preview.js` 中添加全局修饰器来使用设计系统定义的全局样式。在文件中做如下修改：
 
 ```javascript
 import React from 'react';
@@ -336,21 +336,21 @@ addDecorator(story => (
 
 ![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories.png)
 
-You’ll now be able to browse the design system components and docs while developing the example app. Showcasing the design system during feature development increases the likelihood that developers will reuse existing components instead of wasting time inventing their own.
+现在在您的开发过程中，您将可以通过浏览器去浏览您的设计系统和文档。在开发功能的过程中展示设计系统会增加开发人员重用现有组件的可能性，而不是浪费时间开发自己组件。
 
-Alternatively, you can browse your design system’s Storybook online if you deployed it to a web host earlier (see chapter 4).
+另外，如果您之前已经在虚拟主机中部署了您的设计系统（请参阅第四章），您可以在线浏览您设计系统的 Storybook。
 
-We’ll use the Avatar component from our design system in the example app’s UserItem component. UserItem should render information about a user including a name and profile photo.
+我们将在示例应用程序的 UserItem 组件中使用设计系统中的 Avatar 组件。UserItem 应该渲染包含用户名和头像的信息。
 
-Navigate to the UserItem.js component in your editor. Also, find UserItem in the Storybook sidebar to see code changes update instantly with hot module reload.
+在您的编辑器中打开 UserItem.js 文件，另外，当您更改了代码之后，热加载模块可以保证您在 Storybook 的边栏中的 UserItem 中立即查看到更新后的界面。
 
-Import the Avatar component.
+引入 Avatar 组件：
 
 ```javascript
 import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
-We want to render the Avatar beside the username.
+我们要在用户名的旁边显示头像：
 
 ```javascript
 import React from 'react';
@@ -376,16 +376,16 @@ export default ({ user: { name, avatarUrl } }) => (
 );
 ```
 
-Upon save, the UserItem component will update in Storybook to show the new Avatar component. Since UserItem is a part of the UserList component, you’ll see the Avatar in UserList as well.
+保存之后，UserItem 组件将会在 Storybook 中更新并显示新的 Avatar 组件。因为 UserItem 组件是 UserList 组件的一部分，所以您也将在 UserList 组件中看到 Avatar 组件。
 
 ![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system.png)
 
-There you have it! You just imported a design system component into the example app. Whenever you publish an update to the Avatar component in the design system, that change will also be reflected in the example app when you update the package.
+现在您可以看到它了！ 你刚刚成功到将设计系统组件导入到示例应用程序中。每当您在设计系统中发布 Avatar 组件的新版本时，如果您更新程序包，新版本也将反映在您的示例应用程序中。
 
 ![Distribute design systems](/design-systems-for-developers/design-system-propagation-storybook.png)
 
-## Master the design system workflow
+## 掌握设计系统的工作流程
 
-The design system workflow starts with developing UI components in Storybook and ends with distributing them to client apps. That’s not all though. Design systems must continually evolve to serve ever-changing product requirements. Our work has only just begun.
+设计系统的工作流程始于在 Storybook 中开发 UI 组件，终于发布给客户端的应用程序。然而这并不是全部，设计系统必须不断进步来满足不断变化的产品需求。我们的工作才刚刚开始。
 
-Chapter 8 illustrates the end-to-end design system workflow we created in this guide. We’ll see how UI changes ripple outward from the design system.
+第八章详述了本指南中我们创建的端到端设计系统的工作流程，我们将看到 UI 的变化如何从设计系统开始向外扩散。
