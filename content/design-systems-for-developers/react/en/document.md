@@ -364,6 +364,9 @@ module.exports = {
 };
 ```
 
+Please note, if your stories are written in the `storiesOf` format, you'll need to sort them with the `sortStories` function.
+More details can be found [here](https://storybook.js.org/docs/configurations/options-parameter/).
+
 ![Storybook docs with introduction page](/design-systems-for-developers/storybook-docs-introduction.png)
 
 ## Publishing documentation online
