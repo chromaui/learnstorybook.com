@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import startCase from 'lodash/startCase';
 import sortBy from 'lodash/sortBy';
-import { Button, Icon, styles, TooltipMessage, WithTooltip } from '@storybook/design-system';
+import { Button, Icon, styles, WithTooltip, TooltipLinkList } from '@storybook/design-system';
 import GatsbyLink from '../../../basics/GatsbyLink';
 import getLanguageName from '../../../../lib/getLanguageName';
 
@@ -13,39 +13,6 @@ const LanguageMenuTitle = styled.div`
   font-size: ${typography.size.s2}px;
   color: ${color.dark};
   margin-bottom: 0.75rem;
-`;
-
-const TooltipList = styled.div`
-  width: 200px;
-`;
-
-const Item = styled.div`
-  position: relative;
-  padding-left: 22px;
-
-  &:not(:first-child) {
-    border-top: 1px solid ${color.mediumlight};
-  }
-
-  &:not(:last-child) {
-    margin-bottom: -9px;
-  }
-
-  .help-translate-link {
-    margin-left: -22px;
-  }
-
-  div {
-    width: auto;
-  }
-`;
-
-const Image = styled.img`
-  width: 1rem;
-  height: 1rem;
-  top: 16px;
-  left: 14px;
-  position: absolute;
 `;
 
 const FrameworkImage = styled.img`
@@ -158,6 +125,7 @@ const FrameworkMenu = ({
     frameworkName => frameworkName
   );
 
+  // this might be only applied to for now to design systems for developers( and even then....)
   if (
     // There is only one framework
     Object.keys(translationPagesByFramework).length < 2 &&
@@ -180,79 +148,57 @@ const FrameworkMenu = ({
   const availableTranslations = sortBy(
     Object.keys(translationPagesByFramework[framework]),
     languageName => languageName
-  );
+  )
+    .map(translationLanguage => {
+      return {
+        short: translationLanguage,
+        title: getLanguageName(translationLanguage),
+        href: getChapterInOtherLanguage(
+          framework,
+          translationLanguage,
+          guide,
+          chapter,
+          firstChapter,
+          translationPages
+        ),
+      };
+    })
+    .concat([{ short: 'zz', title: 'Help us translate!', href: contributeUrl }]);
+
+  console.log(availableTranslations)
+
+  // need to check if only one version exists, should the links include it or have the help translate link only
+
   return (
     <>
       <LanguageMenuTitle>Framework:</LanguageMenuTitle>
-      {
-        <FrameworkContainer>
-          {frameworks.map(availableFramework => (
-            <Link 
-              key={`link_${availableFramework}`}
-              to={getChapterInOtherLanguage(
-                availableFramework,
-                language,
-                guide,
-                chapter,
-                firstChapter,
-                translationPages
-              )}
-            >
-              <FrameworkImage
-                src={`/frameworks/logo-${availableFramework}.svg`}
-                alt={startCase(availableFramework)}
-                selectedFramework={availableFramework === framework}
-              />
-            </Link>
-          ))}
-        </FrameworkContainer>
-      }
+      <FrameworkContainer>
+        {frameworks.map(availableFramework => (
+          <Link
+            key={`link_${availableFramework}`}
+            to={getChapterInOtherLanguage(
+              availableFramework,
+              language,
+              guide,
+              chapter,
+              firstChapter,
+              translationPages
+            )}
+          >
+            <FrameworkImage
+              src={`/frameworks/logo-${availableFramework}.svg`}
+              alt={startCase(availableFramework)}
+              selectedFramework={availableFramework === framework}
+            />
+          </Link>
+        ))}
+      </FrameworkContainer>
       <WithTooltip
         tagName="span"
         placement="bottom"
         trigger="click"
         closeOnClick
-        tooltip={
-          <TooltipList>
-            <>
-              <Item key={framework}>
-                <TooltipMessage
-                  title={`Available translations for the ${startCase(
-                    framework
-                  )} version of the tutorial:`}
-                  desc={
-                    <>
-                      {availableTranslations.map(translationLanguage => (
-                        <Link
-                          key={translationLanguage}
-                          to={getChapterInOtherLanguage(
-                            framework,
-                            translationLanguage,
-                            guide,
-                            chapter,
-                            firstChapter,
-                            translationPages
-                          )}
-                        >
-                          {getLanguageName(translationLanguage)}
-                        </Link>
-                      ))}
-                    </>
-                  }
-                  links={[
-                    {
-                      title: 'Help us translate',
-                      href: contributeUrl,
-                      target: '_blank',
-                      rel: 'noopener',
-                      className: 'help-translate-link',
-                    },
-                  ]}
-                />
-              </Item>
-            </>
-          </TooltipList>
-        }
+        tooltip={<TooltipLinkList links={availableTranslations} />}
       >
         <Button appearance="outline" size="small">
           <ButtonContent>
@@ -264,120 +210,6 @@ const FrameworkMenu = ({
     </>
   );
 };
-
-/* const FrameworkMenu = ({
-  chapter,
-  contributeUrl,
-  firstChapter,
-  framework,
-  guide,
-  language,
-  translationPages,
-}) => {
-  const translationPagesByFramework = useMemo(
-    () => getTranslationPagesByFramework(translationPages),
-    [translationPages]
-  );
-  const frameworks = sortBy(
-    Object.keys(translationPagesByFramework),
-    frameworkName => frameworkName
-  );
-
-  if (
-    // There is only one framework
-    Object.keys(translationPagesByFramework).length < 2 &&
-    // and that framework only has one translation
-    Object.keys(translationPagesByFramework[framework]).length < 2
-  ) {
-    return (
-      <Button
-        appearance="outline"
-        size="small"
-        isLink
-        href={contributeUrl}
-        target="_blank"
-        rel="noopener"
-      >
-        <ButtonContent>Help us translate</ButtonContent>
-      </Button>
-    );
-  }
-
-  return (
-    <>
-      <LanguageMenuTitle>Framework and language:</LanguageMenuTitle>
-      <WithTooltip
-        tagName="span"
-        placement="bottom"
-        trigger="click"
-        closeOnClick
-        tooltip={
-          <TooltipList>
-            {frameworks.map((translationFramework, frameworkIndex) => {
-              const isLastFramework = frameworkIndex + 1 === frameworks.length;
-              const translationLanguages = sortBy(
-                Object.keys(translationPagesByFramework[translationFramework]),
-                languageName => languageName
-              );
-
-              return (
-                <Item key={translationFramework}>
-                  <Image
-                    src={`/frameworks/logo-${translationFramework}.svg`}
-                    alt={startCase(translationFramework)}
-                  />
-
-                  <TooltipMessage
-                    title={startCase(translationFramework)}
-                    desc={
-                      <>
-                        {translationLanguages.map(translationLanguage => (
-                          <Link
-                            key={translationLanguage}
-                            to={getChapterInOtherLanguage(
-                              translationFramework,
-                              translationLanguage,
-                              guide,
-                              chapter,
-                              firstChapter,
-                              translationPages
-                            )}
-                          >
-                            {getLanguageName(translationLanguage)}
-                          </Link>
-                        ))}
-                      </>
-                    }
-                    links={
-                      isLastFramework
-                        ? [
-                            {
-                              title: 'Help us translate',
-                              href: contributeUrl,
-                              target: '_blank',
-                              rel: 'noopener',
-                              className: 'help-translate-link',
-                            },
-                          ]
-                        : null
-                    }
-                  />
-                </Item>
-              );
-            })}
-          </TooltipList>
-        }
-      >
-        <Button appearance="outline" size="small">
-          <ButtonContent>
-            {`${startCase(framework)} - ${getLanguageName(language)}`}
-            <ChevronDownIcon />
-          </ButtonContent>
-        </Button>
-      </WithTooltip>
-    </>
-  );
-}; */
 
 FrameworkMenu.propTypes = {
   chapter: PropTypes.string.isRequired,
