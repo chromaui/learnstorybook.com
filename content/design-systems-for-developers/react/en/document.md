@@ -364,8 +364,10 @@ module.exports = {
 };
 ```
 
-Please note, if your stories are written in the `storiesOf` format, you'll need to sort them with the `sortStories` function.
-More details can be found [here](https://storybook.js.org/docs/configurations/options-parameter/).
+<div class="aside">
+ <p>If you're still using <code>storiesOf</code> format, you'll need to make some adjustments to your <code>./storybook/preview.js</code> and add the  <code>sortStories</code> function in order to display them correctly.</p>
+ <p> You can read more about it <a href="https://storybook.js.org/docs/configurations/options-parameter/">here.</a></p>
+</div>
 
 ![Storybook docs with introduction page](/design-systems-for-developers/storybook-docs-introduction.png)
 
