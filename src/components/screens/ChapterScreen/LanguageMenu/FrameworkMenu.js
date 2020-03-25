@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import startCase from 'lodash/startCase';
 import sortBy from 'lodash/sortBy';
+import { Link as GatsbyLinkWithoutEffects } from 'gatsby';
 import { Button, Icon, styles, WithTooltip, TooltipLinkList } from '@storybook/design-system';
 import GatsbyLink from '../../../basics/GatsbyLink';
 import getLanguageName from '../../../../lib/getLanguageName';
@@ -54,6 +55,23 @@ const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
   }
 `;
 
+const TooltipLinkListLinkWrapper = ({ href, to, ...rest }) => {
+  if (href){
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    return <a {...rest} href={href} />;
+  }
+  return <GatsbyLinkWithoutEffects {...rest} to={to} />;
+};
+
+TooltipLinkListLinkWrapper.propTypes = {
+  href: PropTypes.string,
+  to: PropTypes.string,
+};
+
+TooltipLinkListLinkWrapper.defaultProps = {
+  href: null,
+  to: null,
+};
 const getChapterInOtherLanguage = (
   framework,
   language,
@@ -165,10 +183,6 @@ const FrameworkMenu = ({
     })
     .concat([{ short: 'zz', title: 'Help us translate!', href: contributeUrl }]);
 
-  console.log(availableTranslations)
-
-  // need to check if only one version exists, should the links include it or have the help translate link only
-
   return (
     <>
       <LanguageMenuTitle>Framework:</LanguageMenuTitle>
@@ -198,7 +212,9 @@ const FrameworkMenu = ({
         placement="bottom"
         trigger="click"
         closeOnClick
-        tooltip={<TooltipLinkList links={availableTranslations} />}
+        tooltip={
+          <TooltipLinkList links={availableTranslations} LinkWrapper={TooltipLinkListLinkWrapper} />
+        }
       >
         <Button appearance="outline" size="small">
           <ButtonContent>
