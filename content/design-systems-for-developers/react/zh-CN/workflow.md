@@ -153,7 +153,7 @@ git push -u origin `create-avatar-list-component`
 
 ![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
-当你操作完成后，Chromatic 的检查便会通过。
+当您操作完成后，Chromatic 的检查便会通过。
 
 ![Chromatic changes to the AvatarList stories accepted](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
 
