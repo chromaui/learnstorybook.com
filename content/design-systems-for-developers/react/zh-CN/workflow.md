@@ -113,15 +113,15 @@ AvatarList.propTypes = {
 git commit -am “Improved AvatarList docs”
 ```
 
-<h4>创建一个合并请求</h4>
+<h4>创建一个 pull request </h4>
 
-让我们将 `AvatarList` 分支提交到 GitHub 上并创建一个合并请求：
+让我们将 `AvatarList` 分支提交到 GitHub 上并创建一个 pull request ：
 
 ```bash
 git push -u origin `create-avatar-list-component`
 ```
 
-然后打开 GitHub 创建一个合并请求：
+然后打开 GitHub 创建一个 pull request ：
 
 ![PR created in PR for AvatarList](/design-systems-for-developers/github-pr-create-avatarlist.png)
 
@@ -129,7 +129,7 @@ git push -u origin `create-avatar-list-component`
 
 此时，AvatarList 作为设计系统的候选组件，干系人需要审查它来确定是否在功能和外观上达到了他们的期望。
 
-设计系统的 Storybook 在每次提交请求后都会自动发布，这让审查变得格外简单。您可以在合并请求的底部找到部署后的 Storybook 链接。
+设计系统的 Storybook 在每次提交请求后都会自动发布，这让审查变得格外简单。您可以在 pull request 的底部找到部署后的 Storybook 链接。
 
 ![PR check for deployed PR](/design-systems-for-developers/github-pr-checks-deployed.png)
 
@@ -165,13 +165,13 @@ git push -u origin `create-avatar-list-component`
 
 ## 发布
 
-我们有一个开放的合并请求去把 AvatarList 添加到设计系统中。我们已经编写了相关的 stories，测试也已经通过并且已经有相关的文档。最后，我们已经准备好使用 Auto 和 npm 来打包设计系统。
+我们有一个开放的 pull request 去把 AvatarList 添加到设计系统中。我们已经编写了相关的 stories，测试也已经通过并且已经有相关的文档。最后，我们已经准备好使用 Auto 和 npm 来打包设计系统。
 
-给合并请求添加 `minor` 标签，这可以告诉 Auto 此次更新是一个小版本的更新。
+给 pull request 添加 `minor` 标签，这可以告诉 Auto 此次更新是一个小版本的更新。
 
 ![GitHub PR with labels](/design-systems-for-developers/github-pr-labelled.png)
 
-现在合并您的合并请求到主分支，您的软件包已经在上传了，您可以在 npm 网站中打开您的软件包并稍等几分钟去查看新的版本。
+现在合并您的 pull request 到主分支，您的软件包已经在上传了，您可以在 npm 网站中打开您的软件包并稍等几分钟去查看新的版本。
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 

@@ -96,7 +96,7 @@ jobs:
 
 ![Viewing our first build in Netlify](/design-systems-for-developers/netlify-deployed-site.png)
 
-您的 Storybook 每提交一次， Netlify 就会重新运行一次打包命令。 您会在您的合并请求检查时可以找到指向它的链接（下面我们将会看到）。
+您的 Storybook 每提交一次， Netlify 就会重新运行一次打包命令。 您会在您的 pull request 检查时可以找到指向它的链接（下面我们将会看到）。
 
 恭喜你！现在您已经完了发布 Storybook 的基础架构，现在我们来演示如何去收集反馈。
 
@@ -115,7 +115,7 @@ git commit -am “ignore storybook static”
 
 #### 邀请您的团队做视觉审查
 
-与干系人一起发起视觉审查来达成共识，当您提交了一个包含了 UI 修改的合并请求。这样便可以避免给他们“惊喜”或带来不必要的返工。
+与干系人一起发起视觉审查来达成共识，当您提交了一个包含了 UI 修改的 pull request 。这样便可以避免给他们“惊喜”或带来不必要的返工。
 
 我们将在一个新的分支上演示如何做一个视觉审查
 
@@ -141,7 +141,7 @@ git commit -am “make Button pop”
 git push -u origin improve-button
 ```
 
-打开 Github.com 并且创建一个对 `improve-button` 分支的合并请求
+打开 Github.com 并且创建一个对 `improve-button` 分支的 pull request
 
 ![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr.png)
 
@@ -163,7 +163,7 @@ git push -u origin improve-button
 
 ![Visual review process](/design-systems-for-developers/visual-review-loop.jpg)
 
-> 在 Shopify 的设计系统 和 Pplaris 中，每一次合并请求都会部署一个新的 Storybook URL，这对我们来说帮助非常大。 Ben Scott, Engineer at Shopify
+> 在 Shopify 的设计系统 和 Pplaris 中，每一次 pull request 都会部署一个新的 Storybook URL，这对我们来说帮助非常大。 Ben Scott, Engineer at Shopify
 
 ## 测试您的设计系统
 

@@ -258,7 +258,7 @@ yarn auto release
 
 ![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
-现在每当你合并一个合并请求到主分支，它将自动发布一个新的版本，并且根据您添加的标签适当增加版本号。
+现在每当你合并一个 pull request 到主分支，它将自动发布一个新的版本，并且根据您添加的标签适当增加版本号。
 
 <div class="aside">我们并没有涵盖 Auto 很多对持续增长的设计系统有用的功能。阅读<a href="https://github.com/intuit/auto">此文档</a>了解更多。</div>
 
