@@ -5,7 +5,7 @@ description: '使用 Storybook 来创建和分类您设计系统中的组件'
 commit: e7b6f00
 ---
 
-在第三章中，我们将使用最受欢迎的组件资源管理器 Storybook 来创建我们的设计系统。 本指南目的是向您展示专业团队如何构建他们的设计系统，和他们一样，我们也会详细关注：代码整洁、省时的 Storybook 插件和目录结构。
+在第三章中，我们将使用最受欢迎的组件资源管理器 Storybook 来创建我们的设计系统。 本指南目的是向您展示专业团队如何构建他们的设计系统。和他们一样，我们也会详细关注：代码整洁、帮助节省时间的 Storybook 插件和目录结构。
 
 ![Where Storybook fits in](/design-systems-for-developers/design-system-framework-storybook.jpg)
 
@@ -34,7 +34,7 @@ Storybook [组件资源管理器](https://blog.hichroma.com/the-crucial-tool-for
 - 📕 对 UI 组件进行分类
 - 📄 将所有组件转换成 stories
 - ⚡️ 开发提升开发体验的工具，如模块热替换
-- 🛠 支持包含 React 的多视图层
+- 🛠 支持包含 React 在内的各种视图层框架
 
 安装并运行 Storybook
 
@@ -74,7 +74,7 @@ export const GlobalStyle = createGlobalStyle`
 `;
 ```
 
-为了使用在 Storybook 的组件中使用 `GlobalStyle`，我们可以使用修饰器（一个组件的封装）。如果在一个应用程序中，我们需要将该样式放在顶层组件中，但是在 Storybook 中我们可以通过修改预配置文件 `.storybook/preview.js` 来封装所有的组件。
+为了在 Storybook 的组件中使用 `GlobalStyle`，我们可以使用修饰器（一个组件的封装）。如果在一个应用程序中，我们需要将该样式放在顶层组件中，在 Storybook 中我们可以通过修改预配置文件 `.storybook/preview.js` 来封装所有的组件。
 
 ```javascript
 import React from 'react';
@@ -111,7 +111,7 @@ Storybook 的插件是由一个庞大的社区生态系统来共同维护的。�
 
 <h4>用于验证交互的 Actions 插件</h4>
 
-当您于 Button 或 Link 之类的交互式组件进行交互时，[actions 插件](https://github.com/storybookjs/storybook/tree/next/addons/actions) 可以在 Storybook 中为您的组件提供 UI 反馈。默认情况下，Actions 应该已经安装在您的 Storybook 中了，您只需要将 “action” 作为回调传给您的组件即可。
+当您与 Button 或 Link 之类的交互式组件进行交互时，[actions 插件](https://github.com/storybookjs/storybook/tree/next/addons/actions) 可以在 Storybook 中为您的组件提供 UI 反馈。默认情况下，Actions 应该已经安装在您的 Storybook 中了，您只需要将 “action” 作为回调传给您的组件即可。
 
 让我们看看如何在 Button 组件中使用它，该 Button 组件接受一个封装的组件来响应它的点击事件。我们的 story 给封装组件的 click 事件上传入了 action 回调：
 
@@ -136,7 +136,7 @@ export const buttonWrapper = () => (
 
 #### 通过 Source 去查看和复制代码
 
-当您浏览一个 story 时，您常常希望查看该 story 的源代码以了解其工作原理并将其粘贴到您的项目中。Storysource 插件在插件面板中为您显示了当前您所选的 story 的源代码。
+当您浏览一个 story 时，您常常希望查看该 story 的源代码以了解其工作原理并将其粘贴到您的项目中。Storysource 插件在插件面板中为您显示了当前您所选 story 的源代码。
 
 ```bash
 yarn add --dev  @storybook/addon-storysource
@@ -162,9 +162,7 @@ Storybook 的 storysource 如下图所示：
 
 <h4>使用 Knobs 插件测试组件交互性</h4>
 
-allows you to interact with component props dynamically in the Storybook UI. Knobs allows you to supply a multiple values to a component prop and adjust them through via the UI. This helps design system creators stress test component inputs by adjusting, well, knobs. It also gives design system consumers the ability to try components before integrating them so that they can understand how each prop affects the component.
-
-在 Storybook UI 中， [knobs 插件](https://github.com/storybookjs/storybook/tree/next/addons/knobs) 可以帮助您动态的与您的组件进行交互。Knobs 允许你传递不同的值给组件并在 UI 上表现出相应的变化。这可以让开发设计系统的人调整不同的值去对组件进行交互测试。而且它也让使用设计系统的人在集成组件到自己的项目之前就可以了解到组件的每个属性是如何去影响它的组件显示的 。
+在 Storybook UI 中， [knobs 插件](https://github.com/storybookjs/storybook/tree/next/addons/knobs) 可以帮助您动态的与您的组件进行交互。Knobs 允许你传递不同的值给组件并在 UI 上表现出相应的变化。这可以让开发设计系统的人调整不同的值去对组件进行交互测试。而且它也让使用设计系统的人在集成组件到自己的项目之前就可以了解到组件的每个属性是如何去影响它的显示的。
 
 让我们来看看如何给 `Avatar` 组件设置 knobs 插件：
 
@@ -209,7 +207,7 @@ knobs.story = {
 };
 ```
 
-请注意插件面板上的 Knobs 选项，我们添加了 Size 选项，用户可以随意选择 Avatar 组件支持的尺寸： `tiny`, `small`, `medium`, 和 `large`。您也可以使用 knobs 为组件的其他属性添加交互功能。
+请注意插件面板上的 Knobs 选项，我们添加了 Size 选项，用户可以随意选择 Avatar 组件支持的尺寸： `tiny`, `small`, `medium` 和 `large`。您也可以使用 knobs 为组件的其他属性添加交互功能。
 
 ![Storybook knobs addon](/design-systems-for-developers/storybook-addon-knobs.gif)
 
@@ -223,4 +221,4 @@ knobs.story = {
 
 到目前位置，我们已经将组件加入到了 Storybook， 我们需要设置自动化工具以简化正在进行的维护工作。像所有的软件一样， 设计系统也应该持续发布，而难点是在于在持续发布的同时，我们仍要确保 UI 组件的外观和表现仍和之前预期的一样。
 
-为方便协作起见，在第四章中我们将学习如何去搭建一个持续集成并且自动发布的设计系统
+为方便协作起见，在第四章中我们将学习如何去搭建一个持续集成并且自动发布的设计系统。
