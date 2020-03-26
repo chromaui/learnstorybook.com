@@ -211,6 +211,196 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
       }}
     />
   ))
+  .add('w all frameworks, 2 translations',()=>(
+    <LanguageMenu
+      {...sharedProps}
+      framework="react"
+      translationPages={{
+        edges: [
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'angular',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'angular',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'vue',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'vue',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'svelte',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'svelte',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react-native',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react-native',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'ember',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'ember',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'html',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'html',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'marko',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'marko',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'mithril',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'mithril',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'riot',
+                language: 'en',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'riot',
+                language: 'es',
+                slug: '/chapter',
+              },
+            },
+          },
+        ],
+      }}
+    />
+  ))
   .add('w/ 5 framework, all translations', () => (
     <LanguageMenu
       {...sharedProps}
@@ -257,6 +447,15 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
             node: {
               fields: {
                 framework: 'react',
+                language: 'zh-CN',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
                 language: 'pt',
                 slug: '/chapter',
               },
@@ -276,6 +475,87 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
               fields: {
                 framework: 'react',
                 language: 'de',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'fr',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'jp',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'tr',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'gr',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'il',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'kr',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'ru',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'bg',
+                slug: '/chapter',
+              },
+            },
+          },
+          {
+            node: {
+              fields: {
+                framework: 'react',
+                language: 'it',
                 slug: '/chapter',
               },
             },
