@@ -15,7 +15,7 @@ commit: 5b71208
 
 ![Component states are combinatorial](/design-systems-for-developers/component-test-cases.png)
 
-哇！如您所见，一个组件包含很多的状态。将每个组件的状态乘以在设计系统中组件的数量你就会发现持续关注每个组件是一项不可能完成的任务。实际上，手工审查每个元素的每一个状态不是长久之道，尤其当设计系统越来越庞大。
+哇！如您所见，一个组件包含很多的状态。将每个组件的状态乘以在设计系统中组件的数量您就会发现持续关注每个组件是一项不可能完成的任务。实际上，手工审查每个元素的每一个状态不是长久之道，尤其当设计系统越来越庞大。
 
 **现在**我们更需要设置自动测试来节约**以后**的工作时间。
 
@@ -33,17 +33,17 @@ commit: 5b71208
 
 设计系统包含了可展示的 UI 组件，这些组件基本上都是可视的。视觉测试验证了渲染后的 UI 组件的视觉效果。
 
-视觉测试会在一个保持一致的浏览器环境下对每个 UI 组件截图。新的截图将会自动于之前的基准截图进行对比，如果在视觉上有任何不同，您将会被告知。
+视觉测试会在一个保持一致的浏览器环境下对每个 UI 组件截图。新的截图将会自动与之前的基准截图进行对比，如果在视觉上有任何不同，您将会被告知。
 
 ![Visual test components](/design-systems-for-developers/component-visual-testing.gif)
 
-如果你在创建现代化 UI，视觉测试可帮助您的前端开发团队节省人工审查的时间，也可以避免昂贵的 UI 回归测试。我们将使用 Storybook 维护者提供的工业级服务 Chromatic 来演示视觉测试。
+如果您在创建现代化 UI，视觉测试可帮助您的前端开发团队节省人工审查的时间，也可以避免昂贵的 UI 回归测试。我们将使用 Storybook 维护者提供的工业级服务 Chromatic 来演示视觉测试。
 
 首先，通过您的 Github 在 [ChromaticQA.com](https://chromaticqa.com) 上注册一个账号
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
-从那里选择你目前设计系统的 Git 仓库，此时会把访问权限同步到后台以便于检查你每次的提交请求。
+从那里选择您目前设计系统的 Git 仓库，此时会把访问权限同步到后台以便于检查您每次的提交请求。
 
 ![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
@@ -53,7 +53,7 @@ commit: 5b71208
 yarn add --dev storybook-chromatic
 ```
 
-Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines (you'll need to use the app code that Chromatic supplies on the website)
+打开您的命令行并跳转到 `design-system` 目录。然后运行您的第一次测试来生成您视觉测试的基准截图。(您将需要使用在 Chromatic 网站中提供的应用程序代码)
 
 ```bash
 yarn chromatic test --app-code=<app-code>
@@ -81,7 +81,7 @@ export const typography = {
 yarn chromatic test --app-code=<app-code>
 ```
 
-你看！细微的调整导致大量的 UI 发生变化
+您看！细微的调整导致大量的 UI 发生变化
 
 ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build.png)
 
@@ -123,11 +123,11 @@ jobs:
 
 单元测试验证了在给定输入下 UI 代码是否能返回正确的输出值。它与组件并存来帮助您验证特定的功能。
 
-任何东西都可以看作一个组件在像 React、Vue 和 Angular 这样的视图层。组件封装了各种功能，从简单的按钮到精致的日期选择器。越错综复杂的组件，越是难以用视觉测试去捕获细微的差别，这就是为什么我们需要单元测试的原因。
+在像 React、Vue 和 Angular 这样的视图层中任何东西都可以看作一个组件。组件封装了各种功能，从简单的按钮到精致的日期选择器。越错综复杂的组件，越是难以用视觉测试去捕获细微的差别，这就是为什么我们需要单元测试的原因。
 
 ![Unit test components](/design-systems-for-developers/component-unit-testing.gif)
 
-例如当与生成系统链接的系统（ReactRouter 中的 “LinkWrappers”、 Gatsby 或 Next.js）结合时，我们的 Link 组件就会变得很复杂。一个错误的实现可能就会导致我们链接没有有效的 href 值。
+例如当与生成系统链接的组件（ReactRouter 中的 “LinkWrappers”、 Gatsby 或 Next.js）结合时，我们的 Link 组件就会变得很复杂。一个错误的实现可能就会导致我们链接没有有效的 href 值。
 
 从视觉层面上来看，我们是无法判断 `href` 属性是不是指向一个正确的地方，此时使用单元测试刚好可以避免该问题。
 
@@ -222,11 +222,11 @@ addDecorator(story => (
 ));
 ```
 
-当你完成安装后， “Accessibility” 页签将会出现在 Storybook 的插件页面板中。
+当您完成安装后， “Accessibility” 页签将会出现在 Storybook 的插件面板中。
 
 ![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y.png)
 
-它会告诉您 DOM 元素的无障碍访问等级（违反标准和通过标准）。单击 “highlight results” 选择框便会可视化您 UI 组件不符合标准的设置。
+它会告诉您 DOM 元素的无障碍访问等级（违反标准或通过标准）。单击 “highlight results” 选择框便会可视化您 UI 组件不符合标准的设置。
 
 ![Storybook a11y addon with passes highlighted](/design-systems-for-developers/storybook-addon-a11y-highlighted.png)
 
@@ -240,7 +240,7 @@ addDecorator(story => (
 
 这个技术会捕捉 UI 组件实际的输出代码，并将其与以前的版本进行比较。它并不会测试 UI 组件在浏览器中的具体表现，而是通过对比 UI 组件生成的标记代码来测试代码实现细节是否发生变化。
 
-利用快照来对比代码差异是不可预测的，容易产生误报。在组件级别，代码快照是无法兼顾到设计变量、css 和 第三方 API 更新（网络字体， stripe 表单，Google Maps 等）全局上的更改。实际上，开发人员往往会重新生成快照或直接忽略快照测试。
+利用快照来对比代码差异是不可预测的，容易产生误报。在组件级别，代码快照是无法兼顾到设计变量、css 和 第三方 API 更新（网络字体， stripe 表单，Google Maps 等）等全局上的更改。实际上，开发人员往往会重新生成快照或直接忽略快照测试。
 
 > 大多数情况下的组件快照测试只是低配版的截图测试。测试您的输出，应更加关注在内容上面而不是底层的标记代码（很容易改变！）。 – Mark Dalgliesh, Frontend infrastructure at SEEK, CSS modules creator
 
@@ -254,4 +254,4 @@ addDecorator(story => (
 
 由于设计系统为整个组织的干系人服务，所以不仅仅只有测试，我们需要教别人如果使用经过良好测试的 UI 组件。
 
-在第六章，我们将学习如何通过文档来推动组件的使用，深入了解为什么说用较少的工作就能创建全面的文档的 Storybook Docs 是一个秘密武器。
+在第六章，我们将学习如何通过文档来推动组件的使用，深入了解为什么说用较少的工作就能创建比较全面的文档的 Storybook Docs 插件是一个秘密武器。
