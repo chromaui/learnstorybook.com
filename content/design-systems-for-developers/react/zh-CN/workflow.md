@@ -1,38 +1,38 @@
 ---
-title: 'Workflow for design systems'
-tocTitle: 'Workflow'
-description: 'An overview of the design system workflow for frontend developers'
+title: '设计系统的工作流程'
+tocTitle: '工作流程'
+description: '概述前端开发创建设计系统的工作流程'
 commit: 5fb832a
 ---
 
-How frontend tools work together has a significant impact on the ultimate value design and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
+前端工具如何协同工作去实现最终目标对设计团队和开发团队有着非常重大的意义。如果做得好，开发和重用组件应该是无缝衔接的。
 
-This chapter showcases the five-step workflow by introducing a new component AvatarList.
+这一章我们将演示通过五步工作流程去开发一个新的 AvatarList 组件。
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow-horizontal.jpg)
 
-## Build
+## 编写
 
-AvatarList is a component that displays multiple avatars. Like the other design system components, AvatarList started off being pasted into many projects. That’s why it warrants inclusion in the design system. For this demo, let’s assume that the component was developed in another project and jump straight to the finished code.
+AvatarList 是一个显示多个 avatar 的组件。和其他设计系统的组件一样，AvatarList 组件被粘贴到各个项目中。因此，我们必须将该组件添加到我们的设计系统中去。在此案例中，我们假设组件已经在其他项目中被开发完成了。
 
 ![AvatarList](/design-systems-for-developers/AvatarList.jpg)
 
-First, make a new branch on git where we’ll be tracking this work.
+首先，在 git 上创建一个新的分支来追踪后续工作：
 
 ```bash
 git checkout -b create-avatar-list-component
 ```
 
-Download `AvatarList` component and story to your machine. Place it in the `/src` directory:
+下载 `AvatarList` 组件到您本地机器，并将它保存在 `/src` 目录：
 
-- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/2347a5e8b27635f39091728d0845ff7a2ded3699/src/AvatarList.js)
-- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/2347a5e8b27635f39091728d0845ff7a2ded3699/src/AvatarList.stories.js)
+- [组件文件](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/2347a5e8b27635f39091728d0845ff7a2ded3699/src/AvatarList.js)
+- [Story 文件](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/2347a5e8b27635f39091728d0845ff7a2ded3699/src/AvatarList.stories.js)
 
-Storybook is setup to automatically detect files ending in `\*.stories.js` and show them in the UI.
+Storybook 被配置为默认识别以 `\*.stories.js` 结尾的文件，并将他们显示到 UI 中。
 
 ![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist.png)
 
-Nice! Now let’s articulate each UI state supported by AvatarList. At a glance, it’s clear that AvatarList supports some of Avatar’s properties like `small` and `loading`.
+赞！我们来看一下 AvatarList 支持的 UI 状态。乍一看，它支持一些和 Avatar 组件一样的属性（如： `small` 和 `loading`）。
 
 ```javascript
 export const smallSize = () => <AvatarList users={users.slice(0, 2)} size="small" />;
@@ -41,7 +41,7 @@ export const loading = () => <AvatarList loading />;
 
 ![Storybook with more AvatarList stories](/design-systems-for-developers/storybook-with-avatarlist-loading.png)
 
-Given that it’s a list, it should show many avatars. Let’s add stories that showcase what happens with numerous list items and what happens with few list items.
+由于它是一个列表，所以应该显示多个头像。让我们添加 stories 去分别演示很多个头像和只有几个头像的情况。
 
 ```javascript
 export const ellipsized = () => <AvatarList users={users} />;
@@ -51,19 +51,19 @@ export const empty = () => <AvatarList users={[]} />;
 
 ![Storybook with all AvatarList stories](/design-systems-for-developers/storybook-with-all-avatarlist-stories.png)
 
-Save your progress and commit.
+添加您的修改并提交.
 
 ```bash
 git commit -am "Added AvatarList and stories"
 ```
 
-## Document
+## 文档
 
-Thanks to Storybook Docs, we get customizable documentation with minimal effort. This helps others learn how to use AvatarList by referring to the Docs tab in Storybook.
+感谢 Storybook Docs 插件，我们只需要花一点点时间便可以可自定义文档内容。它可以帮助其他人通过浏览 Storybook 的 Docs 页签去学习如何使用 AvatarList。
 
 ![Storybook docs with minimal AvatarList info](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
 
-Minimum viable docs! Let’s make AvatarList a bit more human by supplying additional context on how to use it.
+最小可行的文档！让我们添加如何使用 AvatarList 的上下文来让它更加易读：
 
 ```javascript
 /**
@@ -72,7 +72,7 @@ Minimum viable docs! Let’s make AvatarList a bit more human by supplying addit
 export function AvatarList({ loading, users, userCount, size, ...props }) {
 ```
 
-Sprinkle in some additional details about the supported props.
+添加一些组件支持属性的详细信息：
 
 ```javascript
 AvatarList.propTypes = {
@@ -101,84 +101,84 @@ AvatarList.propTypes = {
 };
 ```
 
-Easy as pie! This level of detail is sufficient for now –we can always customize more using MDX later.
+太简单了！ 到目前为止我们的文档已经足够详细了 —— 我们可以使用 MDX 随时添加更多的自定义内容。
 
 ![Storybook docs with full AvatarList info](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
 
-Documentation doesn’t have to be tiresome. With automated tooling, we removed the tedium to get straight to writing.
+文档不需要花费太多精力，有了自动化工具，我们可以删除一些无用的信息然后直接添加我们想要的内容即可。
 
-Commit the changes and push to GitHub.
+提交您的修改到 GitHub 上：
 
 ```bash
 git commit -am “Improved AvatarList docs”
 ```
 
-<h4>Create a Pull Request</h4>
+<h4>创建一个合并请求</h4>
 
-Let’s push our `AvatarList` branch to GitHub and create a pull request:
+让我们将 `AvatarList` 分支提交到 GitHub 上并创建一个合并请求：
 
 ```bash
 git push -u origin `create-avatar-list-component`
 ```
 
-Then navigate to GitHub and open a pull request.
+然后打开 GitHub 创建一个合并请求：
 
 ![PR created in PR for AvatarList](/design-systems-for-developers/github-pr-create-avatarlist.png)
 
-## Review
+## 审查
 
-At this point, AvatarList is a candidate for design system inclusion. Stakeholders must review the component to see if it meets expectations for functionality and appearance.
+此时，AvatarList 作为设计系统的候选组件，利益相关者需要审查它来确定是否在功能和外观上达到了他们的期望。
 
-The design system’s Storybook is automatically published each pull request to make review dead simple. Scroll down to the PR checks to find a link to the deployed Storybook.
+设计系统的 Storybook 在每次提交请求后都会自动发布，这让审查变得格外简单。您可以在合并请求的底部找到部署后的 Storybook 链接。
 
 ![PR check for deployed PR](/design-systems-for-developers/github-pr-checks-deployed.png)
 
-Find the AvatarList in the Storybook online. It should look identical to your local Storybook.
+在线上的 Storybook 中找到 AvatarList，它应该和您本地运行的 Storybook 一模一样。
 
 ![AvatarList in Storybook online](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
 
-The online Storybook is a universal reference point for the team. Share the link to AvatarList with other stakeholders to get feedback faster. Your team will love you because they don’t have to deal with code or setting up a development environment.
+线上版本的 Storybook 是一个团队通用的参考样例，将 AvatarList 的链接分享给其他利益相关者来更快的获得反馈。您的团队成员会非常喜欢您，因为他们不用直接查看代码或者安装开发环境。
 
 ![Looks good, ship it!](/design-systems-for-developers/visual-review-shipit.png)
 
-Reaching consensus with numerous teams often feels an exercise in futility. Folks reference out of date code, don’t have a development environment, or scatter feedback across multiple tools. Reviewing Storybook online makes it as simple as sharing a URL.
+和团队的成员达成共识往往可能是徒劳的，因为他们可能参考了过时的代码，或者没有开发环境，或者将反馈散布在不同的工具上。通过在线的 Storybook 让审查变得像分享链接一样简单。
 
 ## Test
 
-Our test suite runs in the background every commit. AvatarList is a simple presentational component so unit tests aren’t necessary. But if we take a look at the PR check, our visual testing tool Chromatic has already detected changes that need to be reviewed.
+我们的测试套件会在每次提交之后在后台运行。AvatarList 是一个简单的显示组件，所以不需要单元测试。但是如果我们查看提交请求检查，我们会发现视觉测试工具 Chromatic 已经识别出需要被审查的变化。
 
 ![Chromatic changes on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes.png)
 
-Since AvatarList is new there aren’t visual tests for it yet. We’ll need to add baselines for each story. Accept the “new stories” in Chromatic to expand visual test coverage.
+因为 AvatarList 是一个新的组件且未被视觉测试覆盖到，我们则需要为每个 story 去添加新的基准。在 Chromatic 中接受 “新到 stories” 去扩大我们的视觉测试覆盖率。
 
 ![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
-Once you’re done, the build will pass in Chromatic.
+当你操作完成后，Chromatic 的检查便会通过。
 
 ![Chromatic changes to the AvatarList stories accepted](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
 
-Which, in turn, updates the PR check in GitHub.
+依次更新 GitHub 中的合并提交检查。
 
 ![Chromatic changes accepted on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes-accepted.png)
 
-The tests were successfully updated. In the future, regressions will have a tough time sneaking into the design system.
+测试被成功的更新了。在以后，回溯将很难偷偷摸摸的就被加入到设计系统中。
 
-## Distribute
+## 发布
 
-We have an open pull request that adds AvatarList to the design system. Our stories are written, the tests pass, and documentation exists. At last, we’re ready to update our design system package with Auto and npm.
+我们有一个开放的合并请求去把 AvatarList 添加到设计系统中。我们已经编写了相关的 stories，测试也已经通过并且已经有相关的文档。最后，我们已经准备好使用 Auto 和 npm 来打包设计系统。
 
-Add the `minor` label to the PR. This tells Auto to update the minor version of the package on merge.
+给合并请求添加 `minor` 标签，这可以告诉 Auto 此次更新是一个小版本的更新。
 
 ![GitHub PR with labels](/design-systems-for-developers/github-pr-labelled.png)
 
-Now merge your PR, and navigate to your package on npm and hang tight for a few minutes while the package is updated.
+现在合并您的合并请求到主分支，您的软件包已经在上传了，您可以在 npm 网站中打开您的软件包并稍等几分钟去查看新的版本。
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
-Success! Your design system package was updated from the comfort of GitHub. No need to touch the command line or fuss with npm. Update the `learnstorybook-design-system` dependency in the example app to start using AvatarList.
+成功了! 您的设计系统包已经成功上传。您不需要任何和命令行操作或使用繁杂的 npm。在实例中更新您的 `learnstorybook-design-system` 依赖项，然后开始使用 AvatarList。
 
-## Your journey begins
+## 开始您的旅程
 
-_Design Systems for Developers_ highlights the end-to-end workflow used by professional frontend teams to give you a headstart as you develop your own. As your design system grows add, rearrange, and extend these tools to fit your team’s needs.
+_针对开发人员的设计系统_ 着重介绍了专业团队使用的端到端的工作流程，帮助您能在开发自己的设计系统时先行一步。伴随着您的设计系统的发展、重编，您可以扩展这些工具来满足您团队的需求。
 
-Chapter 9 concludes with the complete sample code, helpful resources, and frequently asked questions from developers.
+在第九章，我们将以完整的示例代码、有用的学习资源和回答开发常见问题作为结尾。
