@@ -22,7 +22,7 @@ commit: 3a5cd35
 对于新生的设计系统，最直接的方法就是发布一个封装了以下内容且版本单一的软件包：
 
 - 🏗 通用 UI 组件
-- 🎨 设计元素 (又称： 样式变量)
+- 🎨 设计变量 (又称： 样式变量)
 - 📕 文档
 
 ![Package a design system](/design-systems-for-developers/design-system-package.jpg)
@@ -41,7 +41,7 @@ The Learn Storybook design system is a subset of the full [Storybook design syst
 Learn more at [Learn Storybook](https://learnstorybook.com).
 ```
 
-然后我们需要创建一个名为 `src/index.js` 的文件作为设计系统的入口，从这个文件中我们将导出我们所有的设计元素和组件：
+然后我们需要创建一个名为 `src/index.js` 的文件作为设计系统的入口，从这个文件中我们将导出我们所有的设计变量和组件：
 
 ```javascript
 import * as styles from './shared/styles';

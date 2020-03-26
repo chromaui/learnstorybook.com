@@ -107,9 +107,9 @@ yarn add prop-types styled-components polished
 
 <div class="aside">CSS-in-JS: 我们使用 <a href="https://www.styled-components.com">styled-components</a> 来限制组件的样式作用域。 当然您还可以通过例如：手动定位 css 或 css 模块化的方式去设置您的组件样式</div>
 
-除了 UI 组件外，设计系统应该还包括：文字版式、颜色和间距等样式常量。在设计系统中这种命名的全局变量被称为“设计元素（design tokens）”。我们不会再本指南中深入探讨设计元素背后的理论，如果您感兴趣可以在网上找到更多的文章（推荐[好文](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)）。
+除了 UI 组件外，设计系统应该还包括：文字版式、颜色和间距等样式常量。在设计系统中这种命名的全局变量被称为“设计变量（design tokens）”。我们不会再本指南中深入探讨设计变量背后的理论，如果您感兴趣可以在网上找到更多的文章（推荐[好文](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)）。
 
-下载我们的设计元素并添加到您的组件库中
+下载我们的设计变量并添加到您的组件库中
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared
