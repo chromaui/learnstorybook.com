@@ -364,6 +364,11 @@ module.exports = {
 };
 ```
 
+<div class="aside">
+ <p>If you're still using <code>storiesOf</code> format, you'll need to make some adjustments to your <code>./storybook/preview.js</code> and add the  <code>sortStories</code> function in order to display them correctly.</p>
+ <p> You can read more about it <a href="https://storybook.js.org/docs/configurations/options-parameter/#sorting-stories">here.</a></p>
+</div>
+
 ![Storybook docs with introduction page](/design-systems-for-developers/storybook-docs-introduction.png)
 
 ## Publishing documentation online
