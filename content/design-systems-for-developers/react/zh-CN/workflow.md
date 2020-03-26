@@ -127,7 +127,7 @@ git push -u origin `create-avatar-list-component`
 
 ## 审查
 
-此时，AvatarList 作为设计系统的候选组件，利益相关者需要审查它来确定是否在功能和外观上达到了他们的期望。
+此时，AvatarList 作为设计系统的候选组件，干系人需要审查它来确定是否在功能和外观上达到了他们的期望。
 
 设计系统的 Storybook 在每次提交请求后都会自动发布，这让审查变得格外简单。您可以在合并请求的底部找到部署后的 Storybook 链接。
 
@@ -137,7 +137,7 @@ git push -u origin `create-avatar-list-component`
 
 ![AvatarList in Storybook online](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
 
-线上版本的 Storybook 是一个团队通用的参考样例，将 AvatarList 的链接分享给其他利益相关者来更快的获得反馈。您的团队成员会非常喜欢您，因为他们不用直接查看代码或者安装开发环境。
+线上版本的 Storybook 是一个团队通用的参考样例，将 AvatarList 的链接分享给其他干系人来更快的获得反馈。您的团队成员会非常喜欢您，因为他们不用直接查看代码或者安装开发环境。
 
 ![Looks good, ship it!](/design-systems-for-developers/visual-review-shipit.png)
 

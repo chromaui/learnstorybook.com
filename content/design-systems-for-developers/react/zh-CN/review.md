@@ -70,7 +70,7 @@ jobs:
 
 ![Review your work in the cloud](/design-systems-for-developers/design-system-visual-review.jpg)
 
-当可以通过 URL 来访问所有现存的 UI 组件时， 利益相关者便可以从选择自己喜欢的浏览器去确认 UI 的外观。这意味着开发人员、设计人员和 PM 不必因为过时的引用、错误的本地环境或过期的 UI 组件而虚惊一场。
+当可以通过 URL 来访问所有现存的 UI 组件时， 干系人便可以从选择自己喜欢的浏览器去确认 UI 的外观。这意味着开发人员、设计人员和 PM 不必因为过时的引用、错误的本地环境或过期的 UI 组件而虚惊一场。
 
 > "在每次提交之后部署 Storybook 可以使视觉审查更加容易，并且有助于产品负责人从组件的角度去思考" –Norbert de Langen, Storybook core maintainer
 
@@ -115,7 +115,7 @@ git commit -am “ignore storybook static”
 
 #### 邀请您的团队做视觉审查
 
-与利益相关者一起发起视觉审查来达成共识，当您提交了一个包含了 UI 修改的合并请求。这样便可以避免给他们“惊喜”或带来不必要的返工。
+与干系人一起发起视觉审查来达成共识，当您提交了一个包含了 UI 修改的合并请求。这样便可以避免给他们“惊喜”或带来不必要的返工。
 
 我们将在一个新的分支上演示如何做一个视觉审查
 

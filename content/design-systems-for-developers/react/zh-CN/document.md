@@ -1,5 +1,5 @@
 ---
-title: '写给利益相关者的文档'
+title: '写给干系人的文档'
 tocTitle: '文档'
 description: '通过文档推动设计系统的使用'
 commit: a032b50
@@ -7,7 +7,7 @@ commit: a032b50
 
 [专业的](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [前端](https://segment.com/blog/driving-adoption-of-a-design-system/) [团队](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) 通过采用率来衡量设计系统的成功程度。为了简化所有人的工作量，组件必须是灵活通用的，否则有什么意义呢？
 
-在本章中，我们将创建一个设计系统的“用户手册”来帮助利益相关者在他们的应用程序中复用组件。在此过程中，我们揭示 Shopify、Microsoft、Auth0 和 英国政府使用 UI 文档的最佳实践。
+在本章中，我们将创建一个设计系统的“用户手册”来帮助干系人在他们的应用程序中复用组件。在此过程中，我们揭示 Shopify、Microsoft、Auth0 和 英国政府使用 UI 文档的最佳实践。
 
 ![Generate docs with Storybook automatically](/design-systems-for-developers/design-system-generate-docs.jpg)
 
@@ -368,7 +368,7 @@ module.exports = {
 
 ## 发布在线文档
 
-如果你创建的文档没有人去阅读又有什么用呢？光是创建一个高质量的学习文档是不够的，我们需要将文档暴露给利益相关者和同事。现在，我们的文档被埋藏在 git 仓库中，这意味着大家需要在本地运行设计系统的 Storybook 才能查看文档。
+如果你创建的文档没有人去阅读又有什么用呢？光是创建一个高质量的学习文档是不够的，我们需要将文档暴露给干系人和同事。现在，我们的文档被埋藏在 git 仓库中，这意味着大家需要在本地运行设计系统的 Storybook 才能查看文档。
 
 在之前的章节里，我们为了做视觉审查发布了在线版的 Storybook。我们也可以使用同样的机制去发布我们的组件文档。让我们在 `package.json` 添加一个新的脚本并用文档模式来构建我们的 Storybook：
 
