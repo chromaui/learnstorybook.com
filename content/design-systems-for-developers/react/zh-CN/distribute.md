@@ -106,7 +106,7 @@ question license (MIT):
 question private: no
 ```
 
-该命令会问一些预先设置好的问题，一些问题会提前填好答案，而另一些需要我们来给出答案。你需要在 npm 中为您的软件包起一个独一无二的名字（您不能使用 `learnstorybook-design-system` 这个名字因为它已经存在了 —— 推荐使用类似 `<your-username>-learnstorybook-design-system` 的名字）。
+该命令会问一些预先设置好的问题，一些问题会提前填好答案，而另一些需要我们来给出答案。您需要在 npm 中为您的软件包起一个独一无二的名字（您不能使用 `learnstorybook-design-system` 这个名字因为它已经存在了 —— 推荐使用类似 `<your-username>-learnstorybook-design-system` 的名字）。
 
 总而言之, 上述步骤将会用问题中输入的新值来替换 `package.json` 中原来的值:
 
@@ -134,13 +134,13 @@ question private: no
 yarn add --dev auto
 ```
 
-Auto 是一个命令行工具，它用于 release 管理相关的各种常见任务。你可以通过学习[它们的文档](https://intuit.github.io/auto/)来了解更多关于 Auto 的使用方法。
+Auto 是一个命令行工具，它用于 release 管理相关的各种常见任务。您可以通过学习[它们的文档](https://intuit.github.io/auto/)来了解更多关于 Auto 的使用方法。
 
 #### 获取 GitHub 和 npm 令牌
 
-在接下来的步骤中，Auto 将访问 GitHub 和 npm，为了保证有正确的访问权限，我们需要一个私人访问令牌。你可以通过[这篇文章](https://github.com/settings/tokens)来获取 GitHub 的令牌。令牌应该只限于访问您当前的 `GitHhb 仓库`。
+在接下来的步骤中，Auto 将访问 GitHub 和 npm，为了保证有正确的访问权限，我们需要一个私人访问令牌。您可以通过[这篇文章](https://github.com/settings/tokens)来获取 GitHub 的令牌。令牌应该只限于访问您当前的 `GitHhb 仓库`。
 
-你可以通过访问 https://www.npmjs.com/settings/&lt;your-username&gt;/tokens 来创建一个 npm 的令牌。
+您可以通过访问 https://www.npmjs.com/settings/&lt;your-username&gt;/tokens 来创建一个 npm 的令牌。
 
 该令牌需要有 “读取和发布” 的权限。
 
@@ -258,7 +258,7 @@ yarn auto release
 
 ![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
-现在每当你合并一个 pull request 到主分支，它将自动发布一个新的版本，并且根据您添加的标签适当增加版本号。
+现在每当您合并一个 pull request 到主分支，它将自动发布一个新的版本，并且根据您添加的标签适当增加版本号。
 
 <div class="aside">我们并没有涵盖 Auto 很多对持续增长的设计系统有用的功能。阅读<a href="https://github.com/intuit/auto">此文档</a>了解更多。</div>
 
@@ -272,7 +272,7 @@ yarn auto release
 
 在本教程前面的部分，我们标准化了一个流行的技术框架（React 和 styled-components），这意味着为了充分利用设计系统，我们的示例应用程序也必须使用 React 和 styled-components。
 
-<div class="aside">其他的方法如 Svelte 和 web components 也许允许你采用与框架无关的 UI 组件。 但是，他们相对较新、文档不足或者缺乏广泛使用。因此本指南中未包含这些部分。</div>
+<div class="aside">其他的方法如 Svelte 和 web components 也许允许您采用与框架无关的 UI 组件。 但是，他们相对较新、文档不足或者缺乏广泛使用。因此本指南中未包含这些部分。</div>
 
 该示例应用程序采用 Storybook 去简化[组件驱动开发](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)（一种软件开发方法，采用自下而上的方式，先构建组件再构建页面）。在演示过程中，我们将运行两个 Storybook，一个用于示例应用程序，另一个用于设计系统。
 
@@ -380,7 +380,7 @@ export default ({ user: { name, avatarUrl } }) => (
 
 ![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system.png)
 
-现在您可以看到它了！ 你刚刚成功到将设计系统组件导入到示例应用程序中。每当您在设计系统中发布 Avatar 组件的新版本时，如果您更新程序包，新版本也将反映在您的示例应用程序中。
+现在您可以看到它了！ 您刚刚成功到将设计系统组件导入到示例应用程序中。每当您在设计系统中发布 Avatar 组件的新版本时，如果您更新程序包，新版本也将反映在您的示例应用程序中。
 
 ![Distribute design systems](/design-systems-for-developers/design-system-propagation-storybook.png)
 
