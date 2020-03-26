@@ -5,7 +5,7 @@ description: '如何从现有的组件库中提取出设计系统'
 commit: b696f85
 ---
 
-在第二章，我们将从现有的组件库中抽离出设计系统。在此过程中，我们需要识别出哪些组件属于设计系统，并列举出开发人员在构建设计系统的起步阶段面临的一些问题。
+在第二章，我们将从现有的组件库中提取出设计系统。在此过程中，我们需要识别出哪些组件属于设计系统，并列举出开发人员在构建设计系统的起步阶段面临的一些问题。
 
 在大型公司中，该练习是由设计师、工程师和产品团队一起完成的。 Chroma（Storybook 的母公司）和 Storybook 共享了一个强大的前端基础架构团队，该团队为 3+个产品及将近 800 个开源贡献者提供服务。接下来我们将概述该练习的具体流程。
 
@@ -27,15 +27,15 @@ commit: b696f85
 
 ## 我们把设计系统放在哪?
 
-你可以把设计系统想像成另外一个组件库，但它并不是服务于一个程序而是服务于整个组织。设计系统应该更加关注在基础组件上（UI primitives），而项目专用的组件库则可以包含任何与该项目 UI 相关的组件（复合组件或页面中任何 UI 元素）。
+您可以把设计系统想像成另外一个组件库，但它并不是服务于一个程序而是服务于整个组织。设计系统应该更加关注在基础组件上（UI primitives），而项目专用的组件库则可以包含任何与该项目 UI 相关的组件（复合组件或页面中任何 UI 元素）。
 
-因此，我们的设计系统必须独立于任何项目并对不依赖所有的项目。当系统中发生任何变更的时候，我们会通过包管理工具发布一个新的版本，别的项目可以通过升级软件包来获取新的更新。项目可以使用设计系统的组件并在需要时对组件进行定制。这些限制为我们提供了组织前端项目的蓝图。
+因此，我们的设计系统必须独立于任何项目并不依赖任何项目。当系统中发生任何变更的时候，我们会通过包管理工具发布一个新的版本，别的项目可以通过升级软件包来获取新的更新。项目可以使用设计系统的组件并在需要时对组件进行定制。这些限制为我们提供了组织前端项目的蓝图。
 
 ![Who uses a design system](/design-systems-for-developers/design-system-consumers.jpg)
 
 ## 使用 create-react-app 和 GitHub 创建仓库
 
-根据 [State of JS](https://stateofjs.com/) 的调查，React 是目前最受欢迎的视图层。大量的 Storybook 都是使用 React 的，因此我们在本教程中将使用与 React 一样流行的 [create-react-app](https://github.com/facebook/create-react-app) 来创建基于 React 的设计系统。
+根据 [State of JS](https://stateofjs.com/) 的调查，React 是目前最受欢迎的视图层（view layer）。大量的 Storybook 都是使用 React 的，因此我们在本教程中将使用与 React 一样流行的 [create-react-app](https://github.com/facebook/create-react-app) 来创建基于 React 的设计系统。
 
 ```bash
 npx create-react-app learnstorybook-design-system
@@ -65,13 +65,13 @@ git push -u origin master
 
 设计系统中的组件不应该是每个组件库的超集，否则就会很难追踪。
 
-含有业务逻辑的程序特定组件不应该包含在设计系统中，因为这些受业务逻辑的约束组件将会成为其他项目使用该组件的障碍。
+含有业务逻辑的程序特定组件不应该包含在设计系统中，因为这些受业务逻辑约束的组件将会成为其他项目使用该组件的障碍。
 
-避免将当前未被复用过的 UI 组件加入到设计系统，即使您希望以后它能成为你设计系统的一部分，从敏捷团队的角度出发，您应该尽量避免去维护过多的代码。
+避免将当前未被复用过的 UI 组件加入到设计系统，即使您希望以后它能成为您设计系统的一部分，从敏捷团队的角度出发，您应该尽量避免去维护过多的代码。
 
 ## 创建一个清单
 
-您首要的任务是创建一个清单去收集最常用的组件。这通常会涉及到对各个项目（网页）中的 UI 页面进行手动分类，然后识别出常见的 UI 模式。采用 [Brad Frost](http://bradfrost.com/blog/post/interface-inventory/) 和 [Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517) 这种方法可以帮助您便捷的盘点您的组件，因此在本指南中我们将不再赘述。
+您首要的任务是创建一个清单去收集最常用的组件。这通常会涉及到对各个项目（网页）中的 UI 页面进行手动分类，然后识别出常见的 UI 模式。采用 [Brad Frost](http://bradfrost.com/blog/post/interface-inventory/) 和 [Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517) 提供的方法可以帮助您便捷的盘点您的组件，因此在本指南中我们将不再赘述。
 
 对开发人员的启发:
 
