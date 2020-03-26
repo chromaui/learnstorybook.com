@@ -7,7 +7,7 @@ commit: a032b50
 
 [专业的](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [前端](https://segment.com/blog/driving-adoption-of-a-design-system/) [团队](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) 通过采用率来衡量设计系统的成功程度。为了简化所有人的工作量，组件必须是灵活通用的，否则有什么意义呢？
 
-在本章中，我们将创建一个设计系统的“用户手册”来帮助干系人在他们的应用程序中复用组件。在此过程中，我们揭示 Shopify、Microsoft、Auth0 和 英国政府使用 UI 文档的最佳实践。
+在本章中，我们将创建一个设计系统的“用户手册”来帮助干系人在他们的应用程序中复用组件。在此过程中，我们将揭示 Shopify、Microsoft、Auth0 和 英国政府使用 UI 文档的最佳实践。
 
 ![Generate docs with Storybook automatically](/design-systems-for-developers/design-system-generate-docs.jpg)
 
@@ -15,7 +15,7 @@ commit: a032b50
 
 很明显，文档对于 UI 协作开发非常关键，它帮助团队理解如何去使用常用的 UI 组件，但是为什么它需要很多时间去做呢？
 
-如果你从没有创建过文档，你可能会花很多时间忙于非文档内容的部分，比如网站基础架构或和关于技术名词如何写的争论。而且，即使您有时间发布这些文档，再继续开发功能的同时去维护它也很麻烦。
+如果您从没有创建过文档，您可能会花很多时间忙于非文档内容的部分，比如网站基础架构或和关于技术名词如何写的争论。而且，即使您有时间发布这些文档，在持续开发功能的同时去维护它也很麻烦。
 
 **大多数文档在创建时就已经过时了**，过时的文档破坏了开发人员对设计系统的信任，所以开发人员选择创建新组建而不是重用现有组件。
 
@@ -29,7 +29,7 @@ commit: a032b50
 - **📐 提供样板** 这样开发人员不需要重写一些通用的模板
 - **🎨 提供可定制** 来适用于极其复杂的用例和组件
 
-作为 Storybook 的用户，我们具有领先优势，因为组件的各个变体已经被记录为 stories（一种文档形式）。一个 story 展示了组件不在不同输入下应该如何工作， story 利于编写，且因其引用了生产环境的组件，所以可以自动更新。并且，我们可以使用上一章重的工具对 story 进行回归测试！
+作为 Storybook 的用户，我们具有领先优势，因为组件的各个变体已经被记录为 stories（一种文档形式）。一个 story 展示了组件不在不同输入下应该如何工作， story 利于编写，且因其引用了生产环境的组件，所以可以自动更新。并且，我们可以使用上一章中的工具对 story 进行回归测试！
 
 > 当您编写 story 时您将免费获得组件的属性文档和使用用例 – Justin Bennett, Engineer at Artsy
 
@@ -346,7 +346,7 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 
 ![Storybook docs with introduction page, unsorted](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
-为了让它出现在首页，我们需要在文件 `.storybook/main.js` 文件中告诉 Storybook 去加载介绍文件：
+为了让它出现在首页，我们需要在文件 `.storybook/main.js` 文件中告诉 Storybook 去加载封面文件：
 
 ```javascript
 module.exports = {
@@ -368,7 +368,7 @@ module.exports = {
 
 ## 发布在线文档
 
-如果你创建的文档没有人去阅读又有什么用呢？光是创建一个高质量的学习文档是不够的，我们需要将文档暴露给干系人和同事。现在，我们的文档被埋藏在 git 仓库中，这意味着大家需要在本地运行设计系统的 Storybook 才能查看文档。
+如果您创建的文档没有人去阅读又有什么用呢？光是创建一个高质量的学习文档是不够的，我们需要将文档暴露给干系人和同事。现在，我们的文档被埋藏在 git 仓库中，这意味着大家需要在本地运行设计系统的 Storybook 才能查看文档。
 
 在之前的章节里，我们为了做视觉审查发布了在线版的 Storybook。我们也可以使用同样的机制去发布我们的组件文档。让我们在 `package.json` 添加一个新的脚本并用文档模式来构建我们的 Storybook：
 
@@ -391,7 +391,7 @@ Great. Every time you commit, you’ll now see two PR checks. One takes you to t
 
 ![alt_text](/design-systems-for-developers/Feedback-wanted56.png) -->
 
-<div class="aside">伴随着设计系统的不断增长，你可能会面临到特定于组织的需求，这些要求需要使用自定义工具，甚至使用 Gatsby 或 Next 之类的工具来构建自己的静态站点。将 markdown 和 MDX 移植到其他地方的办法很简单。</div>
+<div class="aside">伴随着设计系统的不断增长，您可能会面临到特定于组织的需求，这些要求需要使用自定义工具，甚至使用 Gatsby 或 Next 之类的工具来构建自己的静态站点。将 markdown 和 MDX 移植到其他地方的办法很简单。</div>
 
 ## 在其它应用程序中导入您的设计系统
 
