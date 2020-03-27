@@ -175,7 +175,7 @@ yarn auto create-labels
 
 #### 手动使用 Auto 发布我们第一个版本
 
-在未来，我们将使用 `auto` 通过脚步来计算新的版本号。但是在第一次发布的时候，让我们手动运行命令来理解它是如何做的。让我们来创建我们第一个修改日志条目：
+在未来，我们将使用 `auto` 通过脚本来计算新的版本号。但是在第一次发布的时候，让我们手动运行命令来理解它是如何做的。让我们来创建我们第一个修改日志条目：
 
 ```bash
 yarn auto changelog
@@ -221,7 +221,7 @@ git push --follow-tags origin master
 yarn auto release
 ```
 
-赞! 我们已经成功的在 npm 中发布了我们的软件包并且在 GitHub 上创建了一个 release。 (祝好运!).
+赞! 我们已经成功的在 npm 中发布了我们的软件包并且在 GitHub 上创建了一个 release (祝好运!)。
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
@@ -295,7 +295,7 @@ yarn storybook
 
 <h4>集成设计系统</h4>
 
-将您您发布的设计系统添加为依赖项：
+将您发布的设计系统添加为依赖项：
 
 ```bash
 yarn add <your-username>-learnstorybook-design-system

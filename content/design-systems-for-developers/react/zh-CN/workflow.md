@@ -59,7 +59,7 @@ git commit -am "Added AvatarList and stories"
 
 ## 文档
 
-感谢 Storybook Docs 插件，我们只需要花一点点时间便可以可自定义文档内容。它可以帮助其他人通过浏览 Storybook 的 Docs 页签去学习如何使用 AvatarList。
+感谢 Storybook Docs 插件，我们只需要花一点点时间便可以得到内容可自定义的文档。它可以帮助其他人通过浏览 Storybook 的 Docs 页签去学习如何使用 AvatarList。
 
 ![Storybook docs with minimal AvatarList info](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
 
@@ -149,7 +149,7 @@ git push -u origin `create-avatar-list-component`
 
 ![Chromatic changes on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes.png)
 
-因为 AvatarList 是一个新的组件且未被视觉测试覆盖到，我们则需要为每个 story 去添加新的基准。在 Chromatic 中接受 “新到 stories” 去扩大我们的视觉测试覆盖率。
+因为 AvatarList 是一个新的组件且未被视觉测试覆盖到，我们则需要为每个 story 去添加新的基准。在 Chromatic 中接受 “新 stories” 去扩大我们的视觉测试覆盖率。
 
 ![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
@@ -161,17 +161,17 @@ git push -u origin `create-avatar-list-component`
 
 ![Chromatic changes accepted on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes-accepted.png)
 
-测试被成功的更新了。在以后，回溯将很难偷偷摸摸的就被加入到设计系统中。
+测试被成功的更新了。在以后，回溯将很难偷偷摸摸地就被加入到设计系统中。
 
 ## 发布
 
-我们有一个开放的 pull request 去把 AvatarList 添加到设计系统中。我们已经编写了相关的 stories，测试也已经通过并且已经有相关的文档。最后，我们已经准备好使用 Auto 和 npm 来打包设计系统。
+我们有一个正在进行的 pull request 去把 AvatarList 添加到设计系统中。我们已经编写了相关的 stories，测试已经通过并且也有相关的文档。最后，我们准备好使用 Auto 和 npm 来打包设计系统。
 
 给 pull request 添加 `minor` 标签，这可以告诉 Auto 此次更新是一个小版本的更新。
 
 ![GitHub PR with labels](/design-systems-for-developers/github-pr-labelled.png)
 
-现在合并您的 pull request 到主分支，您的软件包已经在上传了，您可以在 npm 网站中打开您的软件包并稍等几分钟去查看新的版本。
+现在合并您的 pull request 到主分支，您可以在 npm 网站中打开您的软件包并稍等几分钟（上传软件包）去查看新的版本。
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
@@ -179,6 +179,6 @@ git push -u origin `create-avatar-list-component`
 
 ## 开始您的旅程
 
-_针对开发人员的设计系统_ 着重介绍了专业团队使用的端到端的工作流程，帮助您能在开发自己的设计系统时先行一步。伴随着您的设计系统的发展、重编，您可以扩展这些工具来满足您团队的需求。
+_针对开发人员的设计系统_ 着重介绍了专业团队使用的端到端的工作流程，帮助您能在开发自己的设计系统时先行一步。伴随着您的设计系统的发展、整理，您可以扩展这些工具来满足您团队的需求。
 
 在第九章，我们将以完整的示例代码、有用的学习资源和回答开发常见问题作为结尾。

@@ -23,7 +23,7 @@ commit: 5b71208
 
 在[之前的文章](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) 我对 4 个涉及到专业的 Storybook 工作流程的前端团队做过调查。他们认为开发 stories 是一个最佳实践，它让测试变得容易和全面。
 
-**清楚的将组件支持的状态**表达为 stories 可以阐明不同的输入组合所对应的组件状态，尽可能去忽略不支持的状态来降低干扰。
+**清楚地将组件支持的状态**表达为 stories 可以阐明不同的输入组合所对应的组件状态，尽可能去忽略不支持的状态来降低干扰。
 
 使用**一致性的渲染**原则来避免由随机（Math.random）或相对输入（Date.now）而带来的不确定性。
 
@@ -164,7 +164,7 @@ it('has a href attribute when rendering with linkWrapper', () => {
 
 ![Running a single Jest test](/design-systems-for-developers/jest-test.png)
 
-之前我们已经配置了我们的 Circel config.js 在每一次提交之后运行 `yarn test`。现在我们这条单元测试便可从中获益。在之后的反复修改组件时，我们也会对强大的 Link 组件保持信心。
+之前我们已经配置了我们的 Circle config.js 在每一次提交之后运行 `yarn test`。现在我们这条单元测试便可从中获益。在之后的反复修改组件时，我们也会对强大的 Link 组件保持信心。
 
 ![Successful circle build](/design-systems-for-developers/circleci-successful-build.png)
 
