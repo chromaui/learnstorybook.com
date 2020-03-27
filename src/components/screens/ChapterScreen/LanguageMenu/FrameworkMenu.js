@@ -138,11 +138,13 @@ const FrameworkMenu = ({
     () => getTranslationPagesByFramework(translationPages),
     [translationPages]
   );
-  const frameworks = sortBy(
-    Object.keys(translationPagesByFramework),
-    frameworkName => frameworkName
-  );
+  // in the future ue another metric for popularity
+  const frameworksByPopularity = ['react', 'react-native', 'vue', 'angular', 'svelte'];
 
+  const frameworks = sortBy(Object.keys(translationPagesByFramework), frameworkName =>
+    frameworksByPopularity.indexOf(frameworkName)
+  );
+  /* console.log(`frameworks:${JSON.stringify(frameworks,null,2)}`) */
   // this might be only applied to for now to design systems for developers( and even then....)
   if (
     // There is only one framework
