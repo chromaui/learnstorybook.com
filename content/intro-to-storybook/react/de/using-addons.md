@@ -31,7 +31,7 @@ Knobs (Knöpfe) sind eine tolle Möglichkeit für Designer und Entwickler, um in
 Als Erstes müssen wir die nötigen Abhängigkeiten installieren.
 
 ```bash
-yarn add @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs
 ```
 
 Registriere Knobs in deiner `.storybook/addons.js` Datei.
