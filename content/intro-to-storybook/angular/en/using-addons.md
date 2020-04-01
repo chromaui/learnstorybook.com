@@ -28,7 +28,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 
 ### Installation
 
-First, we will need to install all the necessary dependencies.
+First, we will need to add it as a development dependency.
 
 ```bash
 npm install -D @storybook/addon-knobs
@@ -41,9 +41,8 @@ Register Knobs in your `.storybook/main.js` file.
 
 module.exports = {
   stories: ['../src/app/components/**/*.stories.ts'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links','@storybook/addon-knobs'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
 };
-
 ```
 
 <div class="aside">
@@ -58,7 +57,7 @@ That's it! Time to use it in a story.
 
 Let's use the object knob type in the `Task` component.
 
-First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
+First, import the `withKnobs` decorator and the `object` knob type to `task.stories.ts`:
 
 ```javascript
 // src/app/components/task.stories.ts
@@ -66,7 +65,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Next, within the `default` export of the `Task.stories` file, add `withKnobs` to the `decorators` key:
+Next, within the `default` export of the `task.stories.ts` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
 // src/app/components/task.stories.ts
@@ -91,31 +90,8 @@ export const Default = () => ({
     onArchiveTask: actionsData.onArchiveTask,
   },
 });
-// pinned task state
-export const Pinned = () => ({
-  component: TaskComponent,
-  props: {
-    task: {
-      ...taskData,
-        state: 'TASK_PINNED',
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
-// archived task state
-export const Archived = () => ({
-  component: TaskComponent,
-   props: {
-    task: {
-      ...taskData,
-      state: 'TASK_ARCHIVED'
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
 
+// same as before
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -135,18 +111,18 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `task.component.ts`:
 
 ```html
-<!-- src/app/tasks/task.component.ts -->
+<!-- src/app/components/task.component.ts -->
 
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
 but for this tutorial, let's fix the problem with an inline style:
  -->
 <input
-      type="text"
-      [value]="task?.title"
-      readonly="true"
-      placeholder="Input title"
-      [ngStyle]="{textOverflow:'ellipsis'}"
-    />
+  type="text"
+  [value]="task?.title"
+  readonly="true"
+  placeholder="Input title"
+  [ngStyle]="{textOverflow:'ellipsis'}"
+/>
 />
 ```
 
@@ -156,7 +132,7 @@ but for this tutorial, let's fix the problem with an inline style:
 
 Of course we can always reproduce this problem by entering the same input into the knobs, but it's better to write a fixed story for this input. This will increase your regression testing and clearly outline the limits of the component(s) to the rest of your team.
 
-Let's add a story for the long text case in Task.stories.js:
+Let's add a story for the long text case in `task.stories.ts`:
 
 ```javascript
 // src/app/components/task.stories.ts
@@ -164,53 +140,19 @@ Let's add a story for the long text case in Task.stories.js:
 // tslint:disable-next-line: max-line-length
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-// default task state
-export const Default = () => ({
-  component: TaskComponent,
-  props: {
-    task: object('task', { ...taskData }),
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
-// pinned task state
-export const Pinned = () => ({
-  component: TaskComponent,
-  props: {
-    task: {
-      ...taskData,
-        state: 'TASK_PINNED',
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
-// archived task state
-export const Archived = () => ({
-  component: TaskComponent,
-   props: {
-    task: {
-      ...taskData,
-      state: 'TASK_ARCHIVED'
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
+// same as before
 
 export const LongTitle = () => ({
   component: TaskComponent,
-   props: {
+  props: {
     task: {
       ...taskData,
-      title: longTitle
+      title: longTitle,
     },
     onPinTask: actionsData.onPinTask,
     onArchiveTask: actionsData.onArchiveTask,
   },
 });
-
-
 ```
 
 Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
