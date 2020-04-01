@@ -108,7 +108,7 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
+Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.svelte`:
 
 ```html
 <!-- src/components/Task.svelte-->
