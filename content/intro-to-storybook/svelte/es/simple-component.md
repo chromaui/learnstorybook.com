@@ -265,7 +265,7 @@ La prueba de instantáneas se refiere a la práctica de registrar la salida "cor
 Asegúrese de que sus componentes muestren datos que no cambien, para que sus pruebas de instantáneas no fallen cada vez. Tenga cuidado con cosas como fechas o valores generados aleatoriamente.
 </div>
 
-Con el [complemento Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando las siguientes dependencias en modo desarrollo:
+Con el [complemento Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úselo agregando la siguiente dependencia en modo desarrollo:
 
 ```bash
 npm install -D @storybook/addon-storyshots

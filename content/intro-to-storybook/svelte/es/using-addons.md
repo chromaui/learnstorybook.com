@@ -41,7 +41,7 @@ Registra Knobs en tu archivo `.storybook/main.js`.
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links','@storybook/addon-knobs'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
 };
 
 ```
@@ -62,7 +62,7 @@ Primero, importe el decorador `withKnobs` y el tipo de knob `object` a `Task.sto
 
 ```javascript
 // src/components/Task.stories.js
-import { action } from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
@@ -85,36 +85,14 @@ Por último, integre el tipo de knob `object` dentro de la historia "predetermin
 export const Default = () => ({
   Component: Task,
   props: {
-    task: object("task", { ...taskData })
+    task: object('task', { ...taskData }),
   },
   on: {
-    ...actionsData
-  }
-});
-export const Pinned = () => ({
-  Component: Task,
-  props: {
-    task: {
-      ...taskData,
-      state: "TASK_PINNED"
-    }
+    ...actionsData,
   },
-  on: {
-    ...actionsData
-  }
 });
-export const Archived = () => ({
-  Component: Task,
-  props: {
-    task: {
-      ...taskData,
-      state: "TASK_ARCHIVED"
-    }
-  },
-  on: {
-    ...actionsData
-  }
-});
+
+// same as before
 ```
 
 Ahora debería aparecer una nueva pestaña "Knobs" al lado de la pestaña "Action Logger" en el panel inferior.
@@ -131,7 +109,7 @@ Además, con un fácil acceso para editar los datos pasados ​​a un component
 
 ![¡Oh no! ¡El contenido de la extrema derecha está cortado!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-¡Gracias a poder probar rápidamente diferentes entradas a un componente, podemos encontrar y solucionar estos problemas con relativa facilidad! Arreglemos el problema de desbordamiento agregando un estilo a `Task.js`:
+¡Gracias a poder probar rápidamente diferentes entradas a un componente, podemos encontrar y solucionar estos problemas con relativa facilidad! Arreglemos el problema de desbordamiento agregando un estilo a `Task.svelte`:
 
 ```html
 <!-- src/components/Task.svelte-->
@@ -141,7 +119,7 @@ Además, con un fácil acceso para editar los datos pasados ​​a un component
 <input
   type="text"
   readonly
-  value={task.title}
+  value="{task.title}"
   placeholder="Input title"
   style="text-overflow: ellipsis;"
 />
@@ -167,9 +145,9 @@ export const LongTitle = () => ({
   props: {
     task: {
       ...taskData,
-      title: longTitle
-    }
-  }
+      title: longTitle,
+    },
+  },
 });
 ```
 
