@@ -108,17 +108,17 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
+Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.svelte`:
 
-```html
+```svelte
 <!-- src/components/Task.svelte-->
 
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
-// but for this tutorial, let's fix the problem with an inline style:-->
+  but for this tutorial, let's fix the problem with an inline style-->
 <input
   type="text"
   readonly
-  value="{task.title}"
+  value={task.title}
   placeholder="Input title"
   style="text-overflow: ellipsis;"
 />
