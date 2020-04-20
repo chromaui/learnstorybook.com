@@ -84,7 +84,7 @@ Following this method, we end up with UI primitives: Avatar, Badge, Button, Chec
 
 ![Variants in one component](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
-Add the components we found by downloading them to your computer and dropping them into your repository, as well as removing the application files that Create React App provided:
+At this stage it's safe to delete the src folder that Create React App created for us when we initialized our design system earlier. Don't worry we won't be needing it. Then you can add the components already found by downloading them to your computer and also into your local repository:
 
 ```bash
 rm -rf src
