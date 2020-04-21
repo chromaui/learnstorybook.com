@@ -7,13 +7,13 @@ commit: b696f85
 
 在第二章，我们将从现有的组件库中提取出设计系统。在此过程中，我们需要识别出哪些组件属于设计系统，并列举出开发人员在构建设计系统的起步阶段面临的一些问题。
 
-在大型公司中，该练习是由设计师、工程师和产品团队一起完成的。 Chroma（Storybook 的母公司）和 Storybook 共享了一个强大的前端基础架构团队，该团队为 3+个产品及将近 800 个开源贡献者提供服务。接下来我们将概述该练习的具体流程。
+在大型公司中，该实践是由设计师、工程师和产品团队一起完成的。 Chroma（Storybook 的母公司）和 Storybook 共享了一个强大的前端基础架构团队，该团队为 3+个产品及将近 800 个开源贡献者提供服务。接下来我们将概述该实践的具体流程。
 
 ## 面临的挑战
 
 如果您是团队中的一名开发人员，您可能已经发现团队的体量越大开发效率越低。沟通缺失随着团队的体量增加而越发明显。现有的 UI 设计模式没有相应的文档或者已经很难找到。当这种情况发生时，开发人员可能需要开发新的轮子而不是开发新的功能，随着时间流逝，项目中的“一次性”代码越来越多。
 
-当我们陷入这个困境，尽管一个经验丰富的团队拼尽全力，可 UI 组件还是会不断的重建或者从其他地方拿来就用。从功能和表现上来看， UI 组件的设计模式应当保持一致。而项目中每个组件就像是一片独特的雪花，这使得新加入的开发人员无法辨别出哪一个才是自己需要的，这样也让加大他们的交付难度。
+即使在一支尽职尽责、经验丰富的团队，UI 组件依然被无止尽地重建或是滥用。这使得我们陷入困境。从功能和表现上来看， UI 组件的设计模式应当保持一致。而项目中每个组件就像是一片独特的雪花，这使得新加入的开发人员无法辨别出哪一个才是自己需要的，这样也会加大他们的交付难度。
 
 ![UIs diverge](/design-systems-for-developers/design-system-inconsistent-buttons.jpg)
 
@@ -21,7 +21,7 @@ commit: b696f85
 
 设计系统将常见的 UI 组件合并到一个持续维护的组件库中，该组件库通过程序包管理的方式供外部使用。因此，开发人员只需要从该组件库中导入标准化的 UI 组件，而不用将相同的 UI 代码粘贴到多个项目中去。
 
-大多数的设计系统都不是凭空构建起来的，取而代之的是，它们是由已经在多个项目上并且经过验证的组件组成的。我们的项目也不例外。为了节省时间并尽快的交付给干系人，我们将从现有的组件库中挑选组件来构建设计系统。
+大多数的设计系统都不是凭空构建起来的，而是由已经在多个项目上并且经过验证的组件组成的。我们的项目也不例外。为了节省时间并尽快的交付给干系人，我们将从现有的组件库中挑选组件来构建设计系统。
 
 ![What's in a design system](/design-systems-for-developers/design-system-contents.jpg)
 
@@ -71,12 +71,12 @@ git push -u origin master
 
 ## 创建一个清单
 
-您首要的任务是创建一个清单去收集最常用的组件。这通常会涉及到对各个项目（网页）中的 UI 页面进行手动分类，然后识别出常见的 UI 模式。采用 [Brad Frost](http://bradfrost.com/blog/post/interface-inventory/) 和 [Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517) 提供的方法可以帮助您便捷的盘点您的组件，因此在本指南中我们将不再赘述。
+您首要的任务是创建一个清单去收集最常用的组件。这通常会涉及到对各个项目（网页）中的 UI 页面进行手动分类，然后识别出常见的 UI 模式。采用 [Brad Frost](http://bradfrost.com/blog/post/interface-inventory/) 和 [Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517) 提供的方法可以帮助您便捷地盘点您的组件，因此在本指南中我们将不再赘述。
 
 对开发人员的启发:
 
-- 如果一个 UI 模式被使用至少 3 次以上，您可以把他放到可复用组件库里
-- 如果一个 UI 组件至少在 3 个以上的项目/团队中使用，您可以把他放入到设计系统中
+- 如果一个 UI 模式被使用至少 3 次以上，您可以把它放到可复用组件库里
+- 如果一个 UI 组件至少在 3 个以上的项目/团队中使用，您可以把它放入到设计系统中
 
 ![Contents of a design system](/design-systems-for-developers/design-system-grid.png)
 
@@ -107,7 +107,7 @@ yarn add prop-types styled-components polished
 
 <div class="aside">CSS-in-JS: 我们使用 <a href="https://www.styled-components.com">styled-components</a> 来限制组件的样式作用域。 当然您还可以通过例如：手动定位 css 或 css 模块化的方式去设置您的组件样式</div>
 
-除了 UI 组件外，设计系统应该还包括：文字版式、颜色和间距等样式常量。在设计系统中这种命名的全局变量被称为“设计变量（design tokens）”。我们不会再本指南中深入探讨设计变量背后的理论，如果您感兴趣可以在网上找到更多的文章（推荐[好文](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)）。
+除了 UI 组件外，设计系统应该还包括：文字版式、颜色和间距等样式常量。在设计系统中这种命名的全局变量被称为“设计变量（design tokens）”。我们不会在本指南中深入探讨设计变量背后的理论，如果您感兴趣可以在网上找到更多的文章（推荐[好文](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)）。
 
 下载我们的设计变量并添加到您的组件库中
 
