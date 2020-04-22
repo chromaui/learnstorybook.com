@@ -5,7 +5,7 @@ description: 'Setup Angular Storybook in your development environment'
 commit: 0818d47
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular; other editions exist for [React](/react/en/get-started), [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started) and [Svelte](/svelte/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Angular; other editions exist for [React](/react/en/get-started), [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Svelte](/svelte/en/get-started) and [Ember](/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -80,7 +80,7 @@ Now in the root of your project folder, create a file called `babel.config.js` w
 
 ```javascript
 module.exports = function(api) {
-  process.env.NODE_ENV === "development" ? api.cache(false) : api.cache(true);
+  process.env.NODE_ENV === 'development' ? api.cache(false) : api.cache(true);
   const presets = [
     [
       '@babel/preset-env',
@@ -174,16 +174,16 @@ In your `tsconfig.spec.json` add the following keys and values to the `compilerO
 ```
 
 You'll also need to change the `types` to the following:
+
 ```json
 {
- "compilerOptions": {
-  "types": ["jest", "jquery", "jsdom", "node"]
- }
+  "compilerOptions": {
+    "types": ["jest", "jquery", "jsdom", "node"]
+  }
 }
 ```
 
 Moving onto `tsconfig.json`. Once again under `compilerOptions` add the following key and value `emitDecoratorMetadata: true`
-
 
 And finally in `tsconfig.app.json` add a reference to the folder you've created earlier to the `exclude`, turning its contents into:
 
@@ -262,13 +262,11 @@ And make a small change to allow the icons in the `percolate` font to be correct
 
 ```css
 @font-face {
-  font-family: "percolate";
-  src: url("/assets/icon/percolate.eot?-5w3um4");
-  src: url("/assets/icon/percolate.eot?#iefix5w3um4")
-      format("embedded-opentype"),
-    url("/assets/icon/percolate.woff?5w3um4") format("woff"),
-    url("/assets/icon/percolate.ttf?5w3um4") format("truetype"),
-    url("/assets/icon/percolate.svg?5w3um4") format("svg");
+  font-family: 'percolate';
+  src: url('/assets/icon/percolate.eot?-5w3um4');
+  src: url('/assets/icon/percolate.eot?#iefix5w3um4') format('embedded-opentype'), url('/assets/icon/percolate.woff?5w3um4')
+      format('woff'), url('/assets/icon/percolate.ttf?5w3um4') format('truetype'), url('/assets/icon/percolate.svg?5w3um4')
+      format('svg');
   font-weight: normal;
   font-style: normal;
 }
