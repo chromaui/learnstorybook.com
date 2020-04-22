@@ -101,7 +101,7 @@ We also have to make one small change to the Storybook configuration setup (`sto
 
 ```javascript
 
-// storybook/config.js
+// storybook/index.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
 import './rn-addons';
