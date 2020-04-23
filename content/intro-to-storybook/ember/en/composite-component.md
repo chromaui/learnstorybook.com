@@ -269,6 +269,6 @@ module('Integration | Component | TaskList', function(hooks) {
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner-ember.png)
 
-Contrary to the other versions of this tutorial, with ember we can't import the data and stories used in our story file created earlier, without introducing a lot of complexity and that's beyond the scope of the tutorial. For now we'll copy over the values used in the story file to help out with our tests.
+Contrary to the other versions of this tutorial, with Ember we can't import the data and stories used in our story file created earlier, without introducing a lot of complexity and that's beyond the scope of the tutorial. For now we'll copy over the values used in the story file to help out with our tests.
 
 Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/ember/en/test/)) tests where possible.

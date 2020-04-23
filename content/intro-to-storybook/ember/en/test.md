@@ -71,10 +71,6 @@ Run the test command in the command line to setup visual regression tests for St
 npx chromatic --app-code=<app-code>
 ```
 
-<div class="aside">
-<code>--do-not-start</code> is an option that tells Chromatic not to start Storybook. Use this if you already have Storybook running. If not omit <code>--do-not-start</code>.
-</div>
-
 Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.
 
 ![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)

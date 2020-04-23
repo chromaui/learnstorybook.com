@@ -39,7 +39,7 @@ We want to share the latest version of components whenever we push code. To do t
 
 If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
 
-When the project was initialized with ember cli, a local repository was already setup for you. At this stage it's safe to add the files to the first commit.
+When the project was initialized with Ember CLI, a local repository was already setup for you. At this stage it's safe to add the files to the first commit.
 
 ```bash
 $ git add .
@@ -99,7 +99,6 @@ When that's finished we'll see a confirmation message on Netlify with a link to 
 
 <div class="aside"><p>Should your deployment fail mentioning that the folder is not present, trigger a local build, then uncomment the dist folder from the <code>.gitignore</code>file.</p><p>Commit the changes, then the netlify CI should pick on on it and will succeed in building the app along side with Storybook.</p></div>
 
-needs a pic
 ![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
 
 We finished setting up continuous deployment of your Storybook! Now we can share our stories with teammates via a link.
