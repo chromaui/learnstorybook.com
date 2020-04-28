@@ -15,7 +15,7 @@ Este capítulo ilustra como distribuir sistemas de design, desde empacotamento d
 
 As organizações possuem milhares de componentes de IU espalhados por inúmeras aplicações. Anteriormente extraímos os componentes comuns para o sistema de design. Agora é necessário reintroduzi-los de volta nas aplicações
 
-O nosso sistema de design usa o gestor de pacotes npm para Javascript, para lidar com a gestão de dependências, distribuição e controlo de versões. 
+O nosso sistema de design usa o gestor de pacotes npm para Javascript, para lidar com a gestão de dependências, distribuição e controlo de versões.
 
 Existem muitas outros métodos válidos para empacotar os sistemas de design. Dê uma olhadela aos sistemas de design da Lonely Planet, Auth0, Salesforce, GitHub e Microsoft para ver a diversidade de abordagens. Alguns lançam cada componente como um pacote separado. Outros lançam todos os componentes num só pacote.
 
@@ -92,7 +92,6 @@ dist
 #### Adicionar metadados ao pacote para a publicação
 
 Finalmente, vamos fazer algumas alterações adicionais ao ficheiro `package.json`, de forma a garantir que todos os consumidores do pacote, obtenham todas as informações necessárias. A forma mais simples para isto é executar `yarn init`: um comando que inicializa o pacote para ser publicado:
-
 
 ```bash
 yarn init
@@ -223,7 +222,7 @@ git push --follow-tags origin master
 yarn auto release
 ```
 
-Parabéns! Publicámos com sucesso o nosso pacote para o npm e criámos uma versão 
+Parabéns! Publicámos com sucesso o nosso pacote para o npm e criámos uma versão
 de lançamento no GitHub (com muita sorte!).
 
 ![Pacote publicado no npm](/design-systems-for-developers/npm-published-package.png)
@@ -249,7 +248,7 @@ Agora, quando for executado o `yarn release`, irão ser percorridos quase todos 
 ```yml
 # ...
 - run: yarn test
-- run: yarn chromatic test -a 2wix88i1ziu
+- run: npx chromatic --project-token=2wix88i1ziu
 - run: |
     if [ $CIRCLE_BRANCH = "master" ]
     then
@@ -257,8 +256,7 @@ Agora, quando for executado o `yarn release`, irão ser percorridos quase todos 
     fi
 ```
 
-Será também necessário adicionar os tokens npm e GitHub ao ambiente CircleCI associado ao vosso projeto, mais exatamente no website do CircleCI (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars): 
-
+Será também necessário adicionar os tokens npm e GitHub ao ambiente CircleCI associado ao vosso projeto, mais exatamente no website do CircleCI (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
 
 ![Definir variáveis de ambiente no CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
@@ -340,7 +338,7 @@ No vosso editor, abram o ficheiro UserItem.js. Mas procurem também pelo UserIte
 Importe o componente Avatar.
 
 ```javascript
-import { Avatar } from '<your-username>-learnstorybook-design-system'
+import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 Como queremos renderizar o Avatar lado a lado com o username, faça a seguinte alteração.

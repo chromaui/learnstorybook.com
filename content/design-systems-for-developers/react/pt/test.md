@@ -39,7 +39,7 @@ Os testes visuais capturam uma imagem de cada componente do IU, num ambiente con
 
 Se está a construir um interface de utilizador moderno, os testes visuais irão poupar a sua equipa de frontend de revisões manuais dispendiosas em termos de tempo e prevenir regressões no IU que podem ser também dispendiosas. Vai ser usado o Chromatic, um serviço de nível industrial mantido pela equipa por detrás do Storybook, para demonstrar testes visuais.
 
-Primeiro, vá a [ChromaticQA.com](https://chromaticqa.com) e registe-se usando a sua conta GitHub.
+Primeiro, vá a [chromatic.com](https://chromatic.com) e registe-se usando a sua conta GitHub.
 
 ![Registo na Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
@@ -47,16 +47,16 @@ A partir daí, escolha o seu repositório que contêm o sistema de design. Nos b
 
 ![Criar um projeto no Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
-Instale o pacote [storybook-chromatic](https://www.npmjs.com/package/storybook-chromatic) package via npm.
+Instale o pacote [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
 
 ```bash
-yarn add --dev storybook-chromatic
+yarn add --dev chromatic
 ```
 
 Abra uma nova consola e navegue até à pasta ou diretório do `design-system`. Em seguida execute o seu primeiro teste para gerar uma linha de base para os seus testes visuais posteriores (não se esqueça que terá que usar o app code fornecido pelo site da Chromatic)
 
 ```bash
-yarn chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 ![Resultado da primeira compilação do Chromatic](/design-systems-for-developers/chromatic-first-build.png)
@@ -78,7 +78,7 @@ export const typography = {
 Execute o comando de testes de novo.
 
 ```bash
-yarn chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Chiça! Esta alteração minúscula gerou num número gigantesco de alterações do IU.
@@ -114,7 +114,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn test
-      - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
+      - run: npx chromatic --project-token=<project-token> --exit-zero-on-changes
 ```
 
 Guarde as alterações e execute o comando `git commit` para submeter as alterações feitas. Parabéns, acabou de configurar testes visuais na integração contínua (IC)!
@@ -204,7 +204,7 @@ Em seguida adicione o decorador `withA11y` no ficheiro `.storybook/config.js`:
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
-import 'storybook-chromatic';
+import 'chromatic';
 
 import { GlobalStyle } from '../src/shared/global';
 

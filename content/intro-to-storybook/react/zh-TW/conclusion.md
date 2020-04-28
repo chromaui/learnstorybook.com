@@ -20,7 +20,7 @@ Storybook 是 React,Vue 和 Angular 的強大工具. 它擁有蓬勃發展的開
 
 - [**令人愉快的 Storybook 工作流程**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) 重點介紹 Squarespace,Major League Soccer,Discovery Network 和 Apollo GraphQL 的高速團隊使用的工作流程最佳實踐.
 
-- [**視覺測試手冊**](https://www.chromaticqa.com/book/visual-testing-handbook)深入探討將 Storybook 用於視覺化測試元件. 免費的 31 頁電子書.
+- [**視覺測試手冊**](https://www.chromatic.com/book/visual-testing-handbook)深入探討將 Storybook 用於視覺化測試元件. 免費的 31 頁電子書.
 
 ## 誰製作了 LearnStorybook.com?
 
