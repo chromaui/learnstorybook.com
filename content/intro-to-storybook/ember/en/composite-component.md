@@ -25,16 +25,16 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 ```handlebars
 
 {{!-- app/components/TaskList.hbs--}}
-{{#if loading}}
+{{#if (eq @loading true)}}
   <div class="list-items">loading</div>
 {{/if}}
 
-{{#if emptyTasks}}
+{{#if this.emptyTasks}}
   <div class="list-items">empty</div>
 {{/if}}
 
 {{#each @tasks as |task|}}
- {{Task task=task pinTask=(action pinTask) archiveTask=(action archiveTask)}}
+ {{Task task=task pinTask=(action "taskListOnPinTask") archiveTask=(action "taskListOnArchiveTask")}}
 {{/each}}
 ```
 
@@ -42,15 +42,29 @@ Then we'll add the following to `TaskList.js`:
 
 ```javascript
 // app/components/TaskList.js
-import Component from '@ember/component';
-import { computed } from '@ember/object';
-
-export default Component.extend({
-  // computed property to check for existence of tasks
-  emptyTasks: computed('tasks', function() {
-    return this.tasks.length === 0 && !this.loading;
-  }),
-});
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+export default class TaskList extends Component {
+  constructor() {
+    super(...arguments);
+  }
+  get emptyTasks() {
+    return this.args.tasks.length === 0 && !this.args.loading;
+  }
+  // actions to emulate the click handlers to call the actions passed down to the component
+  @action
+  taskListOnPinTask(taskID) {
+    if (this.args.pinTask) {
+      this.args.pinTask(taskID);
+    }
+  }
+  @action
+  taskListOnArchiveTask(taskID) {
+    if (this.args.archiveTask) {
+      this.args.archiveTask(taskID);
+    }
+  }
+}
 ```
 
 Next create `Tasklist`’s test states in the story file.
@@ -150,26 +164,26 @@ And update `TaskList.hbs` to the following:
 ```handlebars
 
 {{!-- app/components/TaskList.hbs--}}
-{{#if loading}}
-<LoadingRow />
-<LoadingRow />
-<LoadingRow/>
-<LoadingRow />
-<LoadingRow />
+{{#if (eq @loading true)}}
+  <LoadingRow />
+  <LoadingRow />
+  <LoadingRow/>
+  <LoadingRow />
+  <LoadingRow />
 {{/if}}
 
-{{#if emptyTasks}}
-<div class="list-items">
-  <div class="wrapper-message">
-    <span class="icon-check" />
-    <div class="title-message">You have no tasks</div>
-    <div class="subtitle-message">Sit back and relax</div>
+{{#if this.emptyTasks}}
+  <div class="list-items">
+    <div class="wrapper-message">
+      <span class="icon-check" />
+      <div class="title-message">You have no tasks</div>
+      <div class="subtitle-message">Sit back and relax</div>
+    </div>
   </div>
-</div>
 {{/if}}
 
-{{#each tasksInOrder as |task|}}
-{{Task task=task pinTask=(action pinTask) archiveTask=(action archiveTask)}}
+{{#each this.tasksInOrder as |task|}}
+ {{Task task=task pinTask=(action "taskListOnPinTask") archiveTask=(action "taskListOnArchiveTask")}}
 {{/each}}
 ```
 
@@ -177,22 +191,35 @@ And finally `TaskList.js` to the following:
 
 ```javascript
 // app/components/TaskList.js
-import Component from '@ember/component';
-import { computed } from '@ember/object';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+export default class TaskList extends Component {
+  constructor() {
+    super(...arguments);
+  }
+  get emptyTasks() {
+    return this.args.tasks.length === 0 && !this.args.loading;
+  }
 
-export default Component.extend({
-  // computed property to check for existence of tasks
-  emptyTasks: computed('tasks', function() {
-    return this.tasks.length === 0 && !this.loading;
-  }),
-  // computed property to sort the tasks
-  tasksInOrder: computed('tasks', function() {
+  get tasksInOrder() {
     return [
-      ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-      ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
+      ...this.args.tasks.filter(t => t.state === 'TASK_PINNED'),
+      ...this.args.tasks.filter(t => t.state !== 'TASK_PINNED'),
     ];
-  }),
-});
+  }
+  @action
+  taskListOnPinTask(taskID) {
+    if (this.args.pinTask) {
+      this.args.pinTask(taskID);
+    }
+  }
+  @action
+  taskListOnArchiveTask(taskID) {
+    if (this.args.archiveTask) {
+      this.args.archiveTask(taskID);
+    }
+  }
+}
 ```
 
 The added markup results in the following UI:

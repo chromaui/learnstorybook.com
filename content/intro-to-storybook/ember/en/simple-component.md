@@ -21,7 +21,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 ## Get setup
 
-First, let’s create the necessary files for our task component and its accompanying story file: `app/components/Task.hbs`, `app/components/Task.js` and `app/components/Task.stories.js`.
+First, let’s create the necessary files for our task component and its accompanying story file: `app/components/Task.hbs` and `app/components/Task.stories.js`.
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
@@ -160,41 +160,51 @@ The component is still basic at the moment. First write the code that achieves t
 {{!--  app/components/Task.hbs --}}
 <div class="list-item {{@task.state}}">
   <label class="checkbox">
-    <input type="checkbox" disabled name="checked" checked={{isTaskArchived}}/>
-    <span class="checkbox-custom" {{action 'handleArchiveTask'}}/>
+    <input type="checkbox" disabled name="checked" checked={{this.isTaskArchived}}/>
+    <span class="checkbox-custom" onclick={{this.handleArchiveTask}}/>
   </label>
   <div class="title">
     <input type="text" readonly value={{@task.title}} placeholder="Input title" />
   </div>
   <div class="actions">
     {{#if (not-eq @task.state "TASK_ARCHIVED")}}
-      <a href="/"{{action 'handlePinTask'}}><span class="icon-star"  /></a>
+      <a href="/" onclick={{this.handlePinTask}}><span class="icon-star"  /></a>
     {{/if}}
   </div>
 </div>
 ```
 
-Then we'll need to update our `app/components/Task.js` to the following:
+Then we'll need create a new file called `app/components/Task.js` with the following:
 
 ```js
 // app/components/Task.js
-import Component from '@ember/component';
-import { computed } from '@ember/object';
-export default Component.extend({
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+
+export default class Task extends Component {
+  constructor() {
+    super(...arguments);
+  }
   // computed property for the component (to assign a value to the task state checkbox)
-  isTaskArchived: computed('state', function() {
-    return this.task.state === 'TASK_ARCHIVED';
-  }),
-  actions: {
-    // actions to emulate the click handlers to call the actions passed down to the component
-    handlePinTask: function() {
-      this.pinTask(this.task.id);
-    },
-    handleArchiveTask: function() {
-      this.archiveTask(this.task.id);
-    },
-  },
-});
+  get isTaskArchived() {
+    return this.args.task.state === 'TASK_ARCHIVED';
+  }
+  // actions to emulate the click handlers to call the actions passed down to the component
+  @action
+  handlePinTask(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    if (this.args.pinTask) {
+      this.args.pinTask(this.args.task.id);
+    }
+  }
+  @action
+  handleArchiveTask() {
+    if (this.args.archiveTask) {
+      this.args.archiveTask(this.args.task.id);
+    }
+  }
+}
 ```
 
 The additional markup from above combined with the CSS we imported earlier yields the following UI:

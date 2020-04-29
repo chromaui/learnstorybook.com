@@ -81,36 +81,40 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 In `app/components/PureTaskList.hbs`:
 
 ```handlebars
+{{!--app/components/PureTaskList.hbs --}}
+
+
 {{!-- This file was moved from TaskList--}}
-{{#if loading}}
-<LoadingRow />
-<LoadingRow />
-<LoadingRow />
-<LoadingRow />
-<LoadingRow />
+{{#if (eq @loading true)}}
+  <LoadingRow />
+  <LoadingRow />
+  <LoadingRow/>
+  <LoadingRow />
+  <LoadingRow />
 {{/if}}
 
-{{#if emptyTasks}}
-<div class="list-items">
-  <div class="wrapper-message">
-    <span class="icon-check" />
-    <div class="title-message">You have no tasks</div>
-    <div class="subtitle-message">Sit back and relax</div>
+{{#if this.emptyTasks}}
+  <div class="list-items">
+    <div class="wrapper-message">
+      <span class="icon-check" />
+      <div class="title-message">You have no tasks</div>
+      <div class="subtitle-message">Sit back and relax</div>
+    </div>
   </div>
-</div>
 {{/if}}
 
-{{#each tasksInOrder as |task|}}
-{{Task task=task pinTask=(action pinTask) archiveTask=(action archiveTask)}}
+{{#each this.tasksInOrder as |task|}}
+ {{Task task=task pinTask=(action "taskListOnPinTask") archiveTask=(action "taskListOnArchiveTask")}}
 {{/each}}
-
 ```
 
 In `app/components/TaskList.hbs`:
 
 ```handlebars
+
+{{!!-- app/components/TaskList.hbs --}}
 <div>
-   {{PureTaskList tasks=tasks pinTask=(action "onPinTask") archiveTask=(action "onArchiveTask")}}
+   {{PureTaskList tasks=tasks pinTask=(action "taskListOnPinTask") archiveTask=(action "taskListOnArchiveTask")}}
 </div>
 
 ```
@@ -118,10 +122,11 @@ In `app/components/TaskList.hbs`:
 And `app/components/TaskList.js` :
 
 ```js
-import Component from '@ember/component';
+//app/components/TaskList.js
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 import { connect } from 'ember-redux';
 import { archiveTask, pinTask } from '../reducers/index';
-const TaskList = Component.extend({});
 
 const stateToComputed = state => {
   const { reducer } = state;
@@ -130,6 +135,23 @@ const stateToComputed = state => {
     tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
   };
 };
+
+class TaskList extends Component {
+  constructor() {
+    super(...arguments);
+  }
+
+  // the actions will bubble up to redux and update the store accordingly
+  @action
+  taskListOnPinTask(taskID) {
+    this.actions.onPinTask(taskID);
+  }
+  @action
+  taskListOnArchiveTask(taskID) {
+    this.actions.onArchiveTask(taskID);
+  }
+}
+
 export default connect(
   stateToComputed,
   dispatch => ({

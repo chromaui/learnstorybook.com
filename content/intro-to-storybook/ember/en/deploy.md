@@ -24,7 +24,7 @@ Add the following to your scripts:
 {
     "scripts":{
         "pre-build":"ember build",
-         "deploy-storybook":"run-s pre-build build-storybook",
+        "deploy-storybook":"run-s pre-build build-storybook"
     }
 }
 ```
