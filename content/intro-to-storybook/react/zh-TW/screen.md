@@ -106,7 +106,7 @@ storiesOf('InboxScreen', module)
 但是,開發人員 **將** 不可避免地需要在元件層次結構中,進一步渲染容器. 如果我們想要在 Storybook 中渲染大部分或全部應用程式 (我們這樣做!) ,我們需要一個解決此問題的方法.
 
 <div class="aside">
-另外，在層次結構中 傳遞資料 是合法的方法，尤其是在使用 <a href="http://graphql.org/">GraphQL</a>. 這就是我們的建設 <a href="https://www.chromaticqa.com">Chromatic</a> 伴隨著670多個故事.
+另外，在層次結構中 傳遞資料 是合法的方法，尤其是在使用 <a href="http://graphql.org/">GraphQL</a>. 這就是我們的建設 <a href="https://www.chromatic.com">Chromatic</a> 伴隨著670多個故事.
 </div>
 
 ## 用裝飾器提供上下文

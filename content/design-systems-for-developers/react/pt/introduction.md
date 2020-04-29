@@ -1,7 +1,7 @@
 ---
-title: "Introdução aos sistemas de design"
-tocTitle: "Introdução"
-description: "Um guia para as ferramentas mais recentes orientadas para sistemas de design prontas para produção"
+title: 'Introdução aos sistemas de design'
+tocTitle: 'Introdução'
+description: 'Um guia para as ferramentas mais recentes orientadas para sistemas de design prontas para produção'
 ---
 
 <div class="aside">Este guia é orientado para <b>programadores profissionais</b> que pretendem aprender a construir sistemas de design. É recomendado possuír conhecimentos intermédios em Javascript, Git e integração contínua. É também conveniente saber o básico sobre o funcionamento do Storybook, tal como escrever uma estória, ou editar ficheiros de configuração (O guia <a href="/intro-to-storybook">Introdução ao Storybook</a> ensina o básico).
@@ -9,12 +9,12 @@ description: "Um guia para as ferramentas mais recentes orientadas para sistemas
 
 <br/>
 
-Os sistemas de design estão a explodir em termos de popularidade. Desde gigantes da tecnologia tal como a Airbnb até às startups emergentes, organizações de todos os tipos estão a reutilizar padrões de interface de utilizador (IU) de forma a economizar tempo e dinheiro. 
+Os sistemas de design estão a explodir em termos de popularidade. Desde gigantes da tecnologia tal como a Airbnb até às startups emergentes, organizações de todos os tipos estão a reutilizar padrões de interface de utilizador (IU) de forma a economizar tempo e dinheiro.
 Mas existe um fosso bem grande entre os sistemas de design criados pela Airbnb, Uber ou a Microsoft e os sistemas de design criados pela maioria dos programadores.
 
-Porque é que as equipas na vanguarda dos sistemas de design usam as ferramentas e as técnicas que usam? Eu e o meu co-autor Tom fizemos uma pesquisa com base na comunidade Storybook sobre quais seriam as características para um sistema de design bem sucedido, de forma a identificar as melhores práticas. 
+Porque é que as equipas na vanguarda dos sistemas de design usam as ferramentas e as técnicas que usam? Eu e o meu co-autor Tom fizemos uma pesquisa com base na comunidade Storybook sobre quais seriam as características para um sistema de design bem sucedido, de forma a identificar as melhores práticas.
 
-Este guia passo a passo apresenta quais as ferramentas automatizadas e os fluxos de trabalho bastante  cuidadosos, que são usados em sistemas de design de produção em larga escala. Iremos percorrer os passos necessários em como construir um sistema de design a partir de bibliotecas de componentes existentes e em seguida como configurar os serviços essenciais e fluxos de trabalho.
+Este guia passo a passo apresenta quais as ferramentas automatizadas e os fluxos de trabalho bastante cuidadosos, que são usados em sistemas de design de produção em larga escala. Iremos percorrer os passos necessários em como construir um sistema de design a partir de bibliotecas de componentes existentes e em seguida como configurar os serviços essenciais e fluxos de trabalho.
 
 ![Visão geral do sistema de design](/design-systems-for-developers/design-system-overview.jpg)
 
@@ -40,7 +40,7 @@ Estas partes irão ser empacotadas, com versões e distribuídas através de um 
 
 ## Será que precisa de um sistema de design?
 
-Apesar do furor, um sistema de design não é uma solução infalível. Se trabalha com uma equipa modesta numa única aplicação, fica mais bem servido com uma pasta ou  diretório de componentes de interface de utilizador (IU), ao invés de implementar toda a infraestrutura associada ao sistema de design. Para projetos pequenos o custo de manutenção, integração e ferramentas associadas supera em larga escala todos e quaisquer benefícios de produtividade poderá observar.
+Apesar do furor, um sistema de design não é uma solução infalível. Se trabalha com uma equipa modesta numa única aplicação, fica mais bem servido com uma pasta ou diretório de componentes de interface de utilizador (IU), ao invés de implementar toda a infraestrutura associada ao sistema de design. Para projetos pequenos o custo de manutenção, integração e ferramentas associadas supera em larga escala todos e quaisquer benefícios de produtividade poderá observar.
 
 A economia de escala associada a um sistema de design funciona a seu favor quando se partilham os componentes de IU por diversos projetos. Se dá por si a copiar e colar os mesmos componentes em diversas aplicações ou equipas, então este guia é para você.
 
@@ -59,7 +59,7 @@ O Storybook alimenta os sistemas de design da [Uber](https://github.com/uber-web
 
 - 🚥 [CircleCI](https://circleci.com/) para integração contínua
 - 📐 [ESLint](https://eslint.org/) para o linting de JavaScript
-- ✅ [Chromatic](https://chromaticqa.com) para capturar erros visuais nos componentes (pela equipa de manutenção do Storybook)
+- ✅ [Chromatic](https://chromatic.com) para capturar erros visuais nos componentes (pela equipa de manutenção do Storybook)
 - 🃏 [Jest](https://jestjs.io/) para testes unitários dos componentes
 - 📦 [npm](https://npmjs.com) para distribuição da biblioteca
 - 🛠 [Auto](https://github.com/intuit/auto) para gestão do fluxo de trabalho associado ao lançamento de versões
@@ -69,7 +69,7 @@ O Storybook alimenta os sistemas de design da [Uber](https://github.com/uber-web
 - ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) para verificar problemas de acessibilidade durante o desenvolvimento
 - 💥 [Actions](https://github.com/storybookjs/storybook/tree/master/addons/actions) para oferecer uma garantia de qualidade nas interações de click e tap
 - 🎛 [Knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs) para ajustar os adereços (props na forma original) de forma interativa para ser possível fazer experiências com os componentes
-- 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource) para visualizar o código fonte da estória e copiá-lo para o projeto. 
+- 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource) para visualizar o código fonte da estória e copiá-lo para o projeto.
 - 📕 [Docs](https://github.com/storybookjs/storybook/tree/master/addons/docs) para geração automática de documentação a partir das estórias
 
 ![Fluxo do sistema de design](/design-systems-for-developers/design-system-workflow.jpg)
@@ -88,7 +88,7 @@ Desenvolvimento de IU é um desporto de equipa que requer um alinhamento entre p
 
 #### Testar para evitar bugs IU
 
-Os sistemas de design são uma única fonte de verdade, mas também um ponto único de falhanço. Erros pequenos em componentes básicos do IU  podem rapidamente originar incidentes ao nível empresarial. Vamos automatizar um conjunto de testes que o irão ajudar a mitigar erros inevitáveis, de forma a ser possível lançar componentes de IU duradouros e acessíveis com confiança.
+Os sistemas de design são uma única fonte de verdade, mas também um ponto único de falhanço. Erros pequenos em componentes básicos do IU podem rapidamente originar incidentes ao nível empresarial. Vamos automatizar um conjunto de testes que o irão ajudar a mitigar erros inevitáveis, de forma a ser possível lançar componentes de IU duradouros e acessíveis com confiança.
 
 #### Documentação de forma a acelerar a adoção
 

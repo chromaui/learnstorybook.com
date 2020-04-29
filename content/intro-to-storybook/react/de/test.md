@@ -5,7 +5,7 @@ description: 'Lerne, wie man UI-Komponenten testen kann'
 commit: 78a45d1
 ---
 
-Kein Storybook-Tutorial ist vollständig ohne Tests. Tests sind essenziell für die Erstellung hochwertiger UIs. In modularen Systemen können auch kleinste Änderungen einen langen Rattenschwanz nach sich ziehen. Bisher sind uns drei Arten von Tests begegnet: 
+Kein Storybook-Tutorial ist vollständig ohne Tests. Tests sind essenziell für die Erstellung hochwertiger UIs. In modularen Systemen können auch kleinste Änderungen einen langen Rattenschwanz nach sich ziehen. Bisher sind uns drei Arten von Tests begegnet:
 
 - **Visuelle Tests** verlassen sich darauf, dass die Entwickler manuell auf eine Komponente schauen, um deren Korrektheit zu bestätigen. Sie helfen uns dabei, das Erscheinungsbild einer Komponente einem Gesundheitscheck zu unterziehen.
 - **Snapshot-Tests** mit Storyshots erfassen das gerenderte Markup einer Komponente. Sie helfen uns, Änderungen am Markup im Blick zu behalten, die Fehler und Warnungen beim Rendering verursachen.
@@ -28,7 +28,7 @@ Visuelle Regressions-Tests dienen dazu, optische Veränderungen zu identifiziere
 
 Storybook eignet sich prima für visuelle Regressions-Tests, da jede Story im Grunde eine eigene Test-Spezifikation darstellt. Immer, wenn wir eine Story schreiben oder aktualisieren, bekommen wir dadurch auch gleich eine Spec geliefert.
 
-Es gibt eine ganze Reihe von Tools für visuelle Regressions-Tests. Für professionelle Teams empfehlen wir [**Chromatic**](https://www.chromaticqa.com/), eine von den Autoren hinter Storybook entwickelte Erweiterung, die Tests in der Cloud ausführt.
+Es gibt eine ganze Reihe von Tools für visuelle Regressions-Tests. Für professionelle Teams empfehlen wir [**Chromatic**](https://www.chromatic.com/), eine von den Autoren hinter Storybook entwickelte Erweiterung, die Tests in der Cloud ausführt.
 
 ## Einrichtung visueller Regressions-Tests
 
@@ -50,13 +50,13 @@ $ git commit -m "taskbox UI"
 
 ### Chromatic installieren
 
-Füge das Paket als Abhängigkeit hinzu. 
+Füge das Paket als Abhängigkeit hinzu.
 
 ```bash
-yarn add storybook-chromatic
+yarn add chromatic
 ```
 
-Jetzt melde dich mit deinem GitHub Account [in Chromatic an](https://www.chromaticqa.com/start) (Chromatic erfordert nur wenige Berechtigungen). Erstelle ein Projekt namens "taskbox" und kopiere deinen eindeutigen `app-code`.
+Jetzt melde dich mit deinem GitHub Account [in Chromatic an](https://www.chromatic.com/start) (Chromatic erfordert nur wenige Berechtigungen). Erstelle ein Projekt namens "taskbox" und kopiere deinen eindeutigen `project-token`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -65,15 +65,11 @@ Jetzt melde dich mit deinem GitHub Account [in Chromatic an](https://www.chromat
   />
 </video>
 
-Führe den Test-Befehl in der Kommandozeile aus, um visuelle Regressions-Tests für Storybook einzurichten. Vergiss nicht, deinen eindeutigen App-Code anstelle von `<app-code>` einzusetzen.
+Führe den Test-Befehl in der Kommandozeile aus, um visuelle Regressions-Tests für Storybook einzurichten. Vergiss nicht, deinen eindeutigen project-token anstelle von `<project-token>` einzusetzen.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
-
-<div class="aside">
-Mit der Option <code>--do-not-start</code> teilst du Chromatic mit, dass es Storybook nicht starten soll. Benutze sie, wenn du Storybook bereits am Laufen hast. Andernfalls lass <code>--do-not-start</code> einfach weg.
-</div>
 
 Ist der erste Test einmal durchgelaufen, haben wir Test-Baselines für alle unsere Stories. Anders gesagt, Screenshots von jeder Story, die als "richtig" angesehen werden. Zukünftige Änderungen an den Stories werden mit diesen Baselines verglichen werden.
 
@@ -92,7 +88,7 @@ Hierdurch erhalten wir eine neue Hintergrundfarbe für die Aufgabe.
 Führe den Befehl von vorhin aus, um einen weiteren Chromatic-Test zu starten.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Folge dem Link zur Weboberfläche, wo du die Veränderungen sehen kannst.

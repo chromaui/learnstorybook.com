@@ -14,7 +14,6 @@ In this chapter we continue to increase the sophistication by combining componen
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` container component (which supplies its own data via Vuex) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
 
 ```html
-
 <!--src/components/PureInboxScreen.vue-->
 <template>
   <div>
@@ -57,7 +56,6 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `src/components/InboxScreen.vue`:
 
 ```html
-
 <!--src/components/InboxScreen.vue-->
 <template>
   <div>
@@ -84,7 +82,6 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```html
-
 <!--src/App.vue-->
 <template>
   <div id="app">
@@ -117,7 +114,6 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
-
 //src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 export default {
@@ -146,7 +142,7 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context to stories
@@ -154,7 +150,6 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can create a new store in our story file and pass it in as the context of the story:
 
 ```javascript
-
 //src/components/PureInboxScreen.stories.js
 import Vue from 'vue';
 import Vuex from 'vuex';

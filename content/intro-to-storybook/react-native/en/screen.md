@@ -13,7 +13,6 @@ In this chapter we continue to increase the sophistication by combining componen
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `PureInboxScreen.js` in your `components` folder:
 
 ```javascript
-
 // components/PureInboxScreen.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -58,7 +57,6 @@ export default PureInboxScreen;
 Then we create a container which grabs the data for `PureInboxScreen` in `screens/InboxScreen.js`
 
 ```javascript
-
 // screens/InboxScreen.js
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -74,13 +72,12 @@ export default connect(({ error }) => ({ error }))(InboxScreen);
 We also change the `HomeScreen` component to render the `InboxScreen` (eventually we would use a more complex structure to choose the correct screen, but let's not worry about that here):
 
 ```javascript
-
 // screens/HomeScreen.js
-import * as React from "react";
-import { Provider } from "react-redux";
-import store from "../lib/redux";
+import * as React from 'react';
+import { Provider } from 'react-redux';
+import store from '../lib/redux';
 
-import InboxScreen from "./InboxScreen";
+import InboxScreen from './InboxScreen';
 
 export default function HomeScreen() {
   return (
@@ -102,7 +99,6 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `PureInboxScreen.stories.js`:
 
 ```javascript
-
 // components/PureInboxScreen.stories.js
 import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
@@ -122,7 +118,7 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context with decorators
@@ -130,7 +126,6 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 The good news is that it is easy to supply a Redux store to the `PureInboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 
 ```javascript
-
 // components/PureInboxScreen.stories.js
 import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';

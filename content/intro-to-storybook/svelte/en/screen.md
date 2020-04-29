@@ -92,7 +92,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
   import InboxScreen from './components/InboxScreen.svelte';
 </script>
 
-<InboxScreen error={$AppStore} />
+<InboxScreen error="{$AppStore}" />
 ```
 
 <div class="aside">Don't forget that you also need to update TaskList component also to reflect the changes done to the store.</div>
@@ -128,7 +128,7 @@ export const error = () => ({
 We see that both the `error` and `standard` stories work just fine. (But you will encounter some problems when trying to test the `PureInboxScreen` with a unit test if no data is supplied like we did with `TaskList`).
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
