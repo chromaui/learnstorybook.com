@@ -139,7 +139,18 @@ const FrameworkMenu = ({
     [translationPages]
   );
   // in the future ue another metric for popularity
-  const frameworksByPopularity = ['react', 'react-native', 'vue', 'angular', 'svelte'];
+  const frameworksByPopularity = [
+    'react',
+    'react-native',
+    'vue',
+    'angular',
+    'svelte',
+    'ember',
+    'html',
+    'marko',
+    'mithril',
+    'riot',
+  ];
 
   const frameworks = sortBy(Object.keys(translationPagesByFramework), frameworkName =>
     frameworksByPopularity.indexOf(frameworkName)
