@@ -7,7 +7,7 @@ import {
   loadFontsForStorybook,
   styles,
 } from '@storybook/design-system';
-import 'chromatic';
+import 'storybook-chromatic';
 
 const { GlobalStyle } = designSystemGlobal;
 
@@ -37,21 +37,21 @@ global.___loader = {
 global.__PATH_PREFIX__ = '';
 
 // This is to utilized to override the window.___navigate method Gatsby defines and uses to report what path a Link would be taking us to if it wasn't inside a storybook
-window.___navigate = (pathname) => {
+window.___navigate = pathname => {
   action('NavigateTo:')(pathname);
 };
 
 // automatically import all files ending in *.stories.js
 const req = require.context('../src', true, /\.stories\.js$/);
 function loadStories() {
-  req.keys().forEach((filename) => req(filename));
+  req.keys().forEach(filename => req(filename));
 }
 
 configure(loadStories, module);
 
 addDecorator(withA11y);
 
-addDecorator((story) => (
+addDecorator(story => (
   <>
     <GlobalStyle />
     {story()}
