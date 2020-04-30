@@ -246,7 +246,7 @@ Now, when we run `yarn release`, we’ll step through all the steps we ran above
 ```
 # ...
 - run: yarn test
-- run: yarn chromatic test -a 2wix88i1ziu
+- run: npx chromatic --project-token=2wix88i1ziu
 - run: |
     if [ $CIRCLE_BRANCH = "master" ]
     then

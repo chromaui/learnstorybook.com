@@ -27,7 +27,7 @@ Os testes visuais de regressão são desenhados para capturar alterações de ap
 
 O Storybook é uma ferramenta fantástica para este tipo de testes, por que cada estória é na sua essência uma especificação de teste. Cada vez que é escrita ou atualizada uma estória, obtemos uma especificação de graça!
 
-Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromaticqa.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efectua testes na núvem.
+Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromatic.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efectua testes na núvem.
 
 ## Configuração de testes de regressão visual
 
@@ -58,7 +58,7 @@ npm install -D storybook-chromatic
 
 Um aspeto fantástico acerca deste extra é que recorre á Git history para se manter a par dos componentes de interface de utilizador.
 
-É feita a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida criado um projeto com o nome "taskbox" e copie e guarde o `app-code` único.
+É feita a [autenticação na plataforma Chromatic](https://www.chromatic.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida criado um projeto com o nome "taskbox" e copie e guarde o `project-token` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -67,15 +67,11 @@ Um aspeto fantástico acerca deste extra é que recorre á Git history para se m
   />
 </video>
 
-Execute o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `app-code` fornecido ao invés de `<app-code>`.
+Execute o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `project-token` fornecido ao invés de `<project-token>`.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
-
-<div class="aside">
-    O argumento <code>--do-not-start</code> é uma opção que informa o Chromatic para não iniciar o Storybook. Isto usado se o Storybook já se encontrar em execução. Caso contrário omite-se o <code>--do-not-start</code>.
-</div>
 
 Assim que o primeiro teste estiver concluído, é obtida a base de testes para cada estória. Por outras palavras, uma captura de cada estória considerada "boa". Alterações futuras a estas estórias, irão ser comparadas com esta base.
 
@@ -94,7 +90,7 @@ O que irá gerar uma nova cor de fundo para o item.
 Usando agora o comando de testes, para efetuar um outro teste com o Chromatic.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Ao abrir-se o link, irão ser apresentadas alterações.

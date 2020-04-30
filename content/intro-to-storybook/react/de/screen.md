@@ -116,7 +116,7 @@ Ein Weg, dieses Problem zu umgehen, ist niemals eine Container-Komponente irgend
 Entwickler **müssen** Container aber auch zwangsläufig weiter unten in der Komponenten-Hierarchie rendern. Wenn wir also den Großteil oder alles von unserer App in Storybook rendern wollen (und das wollen wir!), brauchen wir hierfür eine Lösung.
 
 <div class="aside">
-Im Übrigen ist es durchaus ein legitimer Ansatz, Daten die Hierarchie hinunter zu reichen, insbesondere beim Einsatz von <a href="http://graphql.org/">GraphQL</a>. So haben wir auch <a href="https://www.chromaticqa.com">Chromatic</a> entwickelt, neben 800+ weiteren Stories.
+Im Übrigen ist es durchaus ein legitimer Ansatz, Daten die Hierarchie hinunter zu reichen, insbesondere beim Einsatz von <a href="http://graphql.org/">GraphQL</a>. So haben wir auch <a href="https://www.chromatic.com">Chromatic</a> entwickelt, neben 800+ weiteren Stories.
 </div>
 
 ## Kontext über Decorators zur Verfügung stellen

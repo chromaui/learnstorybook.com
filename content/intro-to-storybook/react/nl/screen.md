@@ -112,7 +112,7 @@ Een manier om dit probleem te omzeilen, is om nooit container componenten overal
 Developers **zullen** echter onvermijdelijk containers verder naar beneden in de componenthiërarchie moeten renderen. Als we de app vooral of geheel in Storybook willen renderen (dat doen we!), hebben we een oplossing voor dit probleem nodig.
 
 <div class="aside">
-Terzijde: het doorgeven van data door de hiërarchie is een legitieme manier, vooral bij het gebruik van <a href="http://graphql.org/">GraphQL</a>. Het is hoe we <a href="https://www.chromaticqa.com">Chromatic</a> met 800+ stories hebben gebouwd.
+Terzijde: het doorgeven van data door de hiërarchie is een legitieme manier, vooral bij het gebruik van <a href="http://graphql.org/">GraphQL</a>. Het is hoe we <a href="https://www.chromatic.com">Chromatic</a> met 800+ stories hebben gebouwd.
 </div>
 
 ## Context voorzien van decorators

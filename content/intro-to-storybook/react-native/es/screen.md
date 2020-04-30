@@ -13,7 +13,6 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Redux) en alguna maqueta y sacando un campo `error` de el store (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor). Ahora crearemos `PureInboxScreen.js` dentro de la carpeta `components`:
 
 ```javascript
-
 // components/PureInboxScreen.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -58,7 +57,6 @@ export default PureInboxScreen;
 Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInboxScreen` en `screens/InboxScreen.js`:
 
 ```javascript
-
 // screens/InboxScreen.js
 import * as React from 'react';
 import { connect } from 'react-redux';
@@ -74,13 +72,12 @@ export default connect(({ error }) => ({ error }))(InboxScreen);
 También cambiamos nuestro componente `HomeScreen` para que incluya `InboxScreen` (eventualmente usaríamos una estructura más compleja para elegir la pantalla correcta, pero no nos preocupemos por eso aquí):
 
 ```javascript
-
 // screens/HomeScreen.js
-import * as React from "react";
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
 
-import InboxScreen from "./InboxScreen";
+import InboxScreen from './InboxScreen';
 
 export default function HomeScreen() {
   return (
@@ -102,7 +99,6 @@ Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este p
 Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Entonces, cuando configuramos nuestras historias en `PureInboxScreen.stories.js`:
 
 ```javascript
-
 // components/PureInboxScreen.stories.js
 import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
@@ -122,7 +118,7 @@ Una forma de evitar este problema es nunca renderizar componentes contenedores e
 Sin embargo, los desarrolladores **necesitarán** inevitablemente renderizar los contenedores más abajo en la jerarquía de componentes. Si queremos renderizar la mayor parte o la totalidad de la aplicación en Storybook (¡lo hacemos!), necesitamos una solución a este problema.
 
 <div class="aside">
-Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromaticqa.com">Chromatic</a> junto a más de 800+ historias.
+Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromatic.com">Chromatic</a> junto a más de 800+ historias.
 </div>
 
 ## Suministrando contexto con decoradores
@@ -130,7 +126,6 @@ Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legít
 La buena noticia es que es fácil suministrar una store de Redux a la `PureInboxScreen` en una historia! Podemos crear una nueva store en nuestra historia y pasarla como contexto de la historia:
 
 ```javascript
-
 // components/PureInboxScreen.stories.js
 import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
