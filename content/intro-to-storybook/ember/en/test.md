@@ -51,7 +51,7 @@ $ git commit -m "taskbox UI"
 Add the package as a dependency.
 
 ```bash
-npm install -D storybook-chromatic
+npm install -D chromatic
 ```
 
 One fantastic thing about this addon is that it will use Git history to keep track of your UI components.
