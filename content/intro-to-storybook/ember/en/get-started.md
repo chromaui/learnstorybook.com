@@ -43,8 +43,16 @@ And finally make a small change to our <code>package.json</code> to allow Storyb
 
 Add the following entry to your scripts:
 
-```json
-"storybook-dev":"npm-run-all --aggregate-output --continue-on-error --parallel start storybook"
+```javascript
+// package.json
+{
+    "scripts":{
+        "storybook-dev":"npm-run-all --aggregate-output --continue-on-error --parallel start storybook",
+        "pre-build":"ember build",
+        "deploy-storybook":"run-s pre-build build-storybook"
+    }
+}
+
 ```
 
 This change is required based on both Storybook and Ember handle their build processes.

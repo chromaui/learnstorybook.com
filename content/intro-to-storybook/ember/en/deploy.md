@@ -14,22 +14,9 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook and Ember, we just need to make a small change to our `package.json` file in order for both frameworks to be able to work together and successfully deploy our Storybook.
+To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook and Ember out of the box.
 
-Add the following to your scripts:
-
-```javascript
-
-// package.json
-{
-    "scripts":{
-        "pre-build":"ember build",
-        "deploy-storybook":"run-s pre-build build-storybook"
-    }
-}
-```
-
-Now when you build Storybook via `npm run deploy-storybook`, it will output a static Storybook in the `storybook-static` directory.
+Now when you build Storybook via `npm run deploy-storybook` (that we added in the [Get Started](/ember/en/get-started)), it will output a static Storybook in the `storybook-static` directory.
 
 ## Continuous deploy
 
