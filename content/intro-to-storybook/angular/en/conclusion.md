@@ -27,8 +27,8 @@ Want to dive deeper? Here are helpful resources.
 
 ## Who made LearnStorybook.com?
 
-The text, code, and production were contributed by [Chroma](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+The text, code, and production were contributed by [Chromatic](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
-Want more tutorials and articles like this? Sign up to the Chroma mailing list.
+Want more tutorials and articles like this? Sign up to the Chromatic mailing list.
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>

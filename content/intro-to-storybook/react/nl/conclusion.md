@@ -23,7 +23,7 @@ Wil je wat dieper gaan? Hier zijn behulpzame bronnen.
 
 ## Who made LearnStorybook.com?
 
-De tekst, code en productie zijn bijgedragen door [Chroma](http://blog.hichroma.com/). De tutorial was geinspireerd door Chroma's populaire [GraphQL + React tutorial serie](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+De tekst, code en productie zijn bijgedragen door [Chromatic](http://blog.hichroma.com/). De tutorial was geinspireerd door Chroma's populaire [GraphQL + React tutorial serie](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
 Wil je meer tutorials en artikels zoals dit? Meld je aan voor de Chrome mailing list.
 

@@ -23,7 +23,7 @@ Möchtest du noch tiefer einsteigen? Hier ein paar hilfreiche Quellen.
 
 ## Wer steckt hinter LearnStorybook.com?
 
-Der Text, Code und die Produktion wurden unterstützt von [Chroma](http://blog.hichroma.com/). Das Tutorial wurde inspiriert von Chromas beliebter [GraphQL + React Tutorial-Serie](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+Der Text, Code und die Produktion wurden unterstützt von [Chromatic](http://blog.hichroma.com/). Das Tutorial wurde inspiriert von Chromas beliebter [GraphQL + React Tutorial-Serie](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
 Du möchtest mehr solcher Tutorials und Artikel? Melde dich bei der Chroma-Mailingliste an.
 
