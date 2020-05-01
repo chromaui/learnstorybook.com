@@ -32,6 +32,7 @@ const FrameworkImage = styled.img`
 const FrameworkContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 `;
 const Link = styled(GatsbyLink).attrs({ tertiary: true })`
   && {
