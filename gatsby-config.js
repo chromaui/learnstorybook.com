@@ -29,7 +29,7 @@ module.exports = {
     `gatsby-transformer-remark`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
-    ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID
+    ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
       ? [
           {
             resolve: 'gatsby-plugin-google-analytics',
@@ -40,7 +40,7 @@ module.exports = {
           },
         ]
       : []),
-    ...(process.env.FACEBOOK_PIXEL_ID
+    ...(process.env.FACEBOOK_PIXEL_ID && !isDeployPreview
       ? [
           {
             resolve: 'gatsby-plugin-facebook-pixel',
