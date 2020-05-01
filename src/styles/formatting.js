@@ -33,7 +33,7 @@ export const guideFormatting = css`
     margin-bottom: 10px;
     align-items: center;
     background: ${background.app};
-    border-radius: 4px;
+    border-radius: ${styles.spacing.borderRadius.small}px;
     padding: 3px 20px;
     font-size: ${typography.size.s2}px;
     line-height: 24px;
@@ -211,7 +211,7 @@ export const chapterFormatting = css`
     font-size: ${typography.size.s3}px;
     color: ${color.darker};
     background: #f8fafc;
-    border-radius: 4px;
+    border-radius: ${styles.spacing.borderRadius.small}px;
     padding: 20px;
 
     p:last-child {
