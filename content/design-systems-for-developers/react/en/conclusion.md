@@ -8,7 +8,7 @@ Research-backed studies suggest reusing code can yield [42–81% time savings](h
 
 In the last few years, Tom and I witnessed countless veteran teams anchor their design system tooling around Storybook. They concentrated on reducing communication overhead, durable architecture, and automating repetitive manual tasks. We hope that distilling these common-sense tactics will help your design system flourish.
 
-Thanks for learning with us. Subscribe to the Chroma mailing list to get notified when helpful articles and guides like this are published.
+Thanks for learning with us. Subscribe to the Chromatic mailing list to get notified when helpful articles and guides like this are published.
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
 
@@ -27,7 +27,7 @@ _Design Systems for Developers_ was created by [Dominic Nguyen](https://twitter.
 
 Expert guidance from [Kyle Suss](https://github.com/kylesuss), tech lead of Storybook’s design system, and [Michael Shilman](https://twitter.com/mshilman), creator of Storybook Docs.
 
-Content, code, and production brought to you by [Chroma](https://hichroma.com/). InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) graciously helped kickstart production with a grant. We’re seeking sponsors to make continued maintenance and new guides like this possible. Email [Dominic](mailto:dom@hichroma.com) for more details.
+Content, code, and production brought to you by [Chromatic](https://www.chromatic.com/). InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) graciously helped kickstart production with a grant. We’re seeking sponsors to make continued maintenance and new guides like this possible. Email [Dominic](mailto:dom@chromatic.com) for more details.
 
 ## Broaden your perspective
 

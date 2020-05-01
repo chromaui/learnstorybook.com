@@ -24,7 +24,7 @@ const FrameworkImage = styled.img`
     selectedFramework &&
     `
     border: 2px solid #5CACF7;
-    border-radius:5px;
+    border-radius: ${styles.spacing.borderRadius.small}px;
    
   `}
 `;
@@ -57,7 +57,7 @@ const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
 `;
 
 const TooltipLinkListLinkWrapper = ({ href, to, ...rest }) => {
-  if (href){
+  if (href) {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a {...rest} href={href} />;
   }

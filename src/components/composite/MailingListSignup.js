@@ -11,13 +11,17 @@ const MailingListFormUIWrapper = styled.div`
 
 const EmailInput = styled(Input)`
   flex: 1;
+  && input {
+    border-top-left-radius: ${styles.spacing.borderRadius.small}px;
+    border-bottom-left-radius: ${styles.spacing.borderRadius.small}px;
+  }
 `;
 
 const SendButton = styled(Button)`
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
-  border-top-right-radius: 4px;
-  border-bottom-right-radius: 4px;
+  border-top-right-radius: ${styles.spacing.borderRadius.small}px;
+  border-bottom-right-radius: ${styles.spacing.borderRadius.small}px;
 `;
 
 const MailingListFormUI = ({ handleBlur, handleChange, isSubmitting, value, ...rest }) => (
@@ -61,7 +65,7 @@ const MailingListConfirm = styled.div`
   line-height: 20px;
   padding: 10px;
   text-align: center;
-  border-radius: 4px;
+  border-radius: ${styles.spacing.borderRadius.small}px;
 `;
 
 const FormWrapper = styled.form`
