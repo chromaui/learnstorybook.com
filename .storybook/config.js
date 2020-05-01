@@ -7,7 +7,6 @@ import {
   loadFontsForStorybook,
   styles,
 } from '@storybook/design-system';
-import 'storybook-chromatic';
 
 const { GlobalStyle } = designSystemGlobal;
 
