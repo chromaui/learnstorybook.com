@@ -10,7 +10,7 @@ jobs:
       - run: yarn gatsby telemetry --disable
       - run: yarn build
       - run: yarn build-storybook
-      - uses: chromaui/action@releases/v1
+      - uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
