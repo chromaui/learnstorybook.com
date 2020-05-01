@@ -14,9 +14,9 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook and Ember out of the box.
+To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook out of the box.
 
-Now when you build Storybook via `npm run deploy-storybook` (that we added in the [Get Started](/ember/en/get-started)), it will output a static Storybook in the `storybook-static` directory.
+Now when you build Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
 
 ## Continuous deploy
 
@@ -76,7 +76,7 @@ Now select the taskbox GitHub repo from the list of options.
 
 Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `npm run deploy-storybook`.
 
-![Netlify settings](/intro-to-storybook/netlify-settings-ember.png)
+![Netlify settings](/intro-to-storybook/netlify-settings-npm.png)
 
 <div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
 

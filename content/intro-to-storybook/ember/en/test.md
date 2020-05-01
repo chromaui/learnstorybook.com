@@ -34,7 +34,7 @@ Chromatic is a hassle-free Storybook addon for visual regression testing and rev
 
 ### Bring git up to date
 
-Ember cli has created a git repo for your project; let's check in the changes we have made:
+Ember CLI has created a git repo for your project; let's check in the changes we have made:
 
 ```bash
 $ git add -A
@@ -65,13 +65,11 @@ Then [login to Chromatic](https://www.chromatic.com/start) with your GitHub acco
   />
 </video>
 
-Run the following combination of commands in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<project-token>`.
+Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<project-token>`.
 
 ```bash
-npm run pre-build && npx chromatic --project-token=<project-token>
+npx chromatic --project-token=<project-token>
 ```
-
-<div class="aside"><p>You might have noticed that we're using one of the scripts we added in the <a href="/ember/en/get-started">Get Started</a> section. We'll need to run it each time in order to get our visual regression tests working properly with Chromatic.</p></div>
 
 Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.
 
@@ -87,10 +85,10 @@ This yields a new background color for the item.
 
 ![task background change](/intro-to-storybook/chromatic-task-change.png)
 
-Use the same combination of commands from earlier to run another Chromatic test.
+Use the test command from earlier to run another Chromatic test.
 
 ```bash
-npm run pre-build && npx chromatic --project-token=<project-token>
+npx chromatic --project-token=<project-token>
 ```
 
 Follow the link to the web UI where you’ll see changes.

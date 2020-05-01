@@ -28,7 +28,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 
 ### Installation
 
-First, we will need to install all the necessary dependencies.
+First, we will need to to add it as a development dependency.
 
 ```bash
 npm install -D @storybook/addon-knobs

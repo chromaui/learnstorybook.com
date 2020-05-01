@@ -30,13 +30,19 @@ ember install @storybook/ember-cli-storybook
 At the time of writing this tutorial adding the @storybook/ember-cli-storybook, will yield the following message :
 </p>
 The <code>`ember generate <entity-name>`</code> command requires an entity name to be specified. <br/>For more details, use `ember help`.
-<p>Don't worry about it. Everything should be installed and properly configured.</p>
+<p>Don't worry about it. Everything is installed and properly configured for you.</p>
 </div>
 
-We'll need to install one additional package in our app, this one will help us out shortly. Run the following command:
+We'll need to install some additional packages in our app, more specifically one Ember addon and one package, both this one will help us out shortly. Run the following commands:
 
 ```bash
 ember install ember-truth-helpers
+```
+
+Followed by:
+
+```
+npm install -D npm-run-all
 ```
 
 And finally make a small change to our <code>package.json</code> to allow Storybook to work properly with our Ember app.
@@ -48,14 +54,13 @@ Add the following entry to your scripts:
 {
     "scripts":{
         "storybook-dev":"npm-run-all --aggregate-output --continue-on-error --parallel start storybook",
-        "pre-build":"ember build",
-        "deploy-storybook":"run-s pre-build build-storybook"
+        "prebuild-storybook":"ember build"
     }
 }
 
 ```
 
-This change is required based on both Storybook and Ember handle their build processes.
+This change is required based on how both Storybook and Ember handle their build processes.
 
 Now we can quickly check that the various environments of our application are working properly:
 
