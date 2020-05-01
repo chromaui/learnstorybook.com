@@ -29,12 +29,26 @@ module.exports = {
     `gatsby-transformer-remark`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
-    {
-      resolve: 'gatsby-plugin-segment-js',
-      options: {
-        prodKey: 'JXEYLKE1T9ptsDlNqeNIMdoOy1Ept8CB',
-        trackPage: true,
-      },
-    },
+    ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID
+      ? [
+          {
+            resolve: 'gatsby-plugin-google-analytics',
+            options: {
+              trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+              head: true,
+            },
+          },
+        ]
+      : []),
+    ...(process.env.FACEBOOK_PIXEL_ID
+      ? [
+          {
+            resolve: 'gatsby-plugin-facebook-pixel',
+            options: {
+              pixelId: process.env.FACEBOOK_PIXEL_ID,
+            },
+          },
+        ]
+      : []),
   ],
 };

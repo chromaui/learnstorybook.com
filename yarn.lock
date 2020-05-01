@@ -905,6 +905,13 @@
   dependencies:
     regenerator-runtime "^0.13.2"
 
+"@babel/runtime@^7.9.2":
+  version "7.9.6"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
+  integrity sha512-64AF1xY3OAkFHqOb9s4jpgk1Mm5vDZ4L3acHvAml+53nO1XbXLuDodsVpO4OIUsmemlUHMxNdYMNJmsvOwLrvQ==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/template@^7.1.0", "@babel/template@^7.4.0", "@babel/template@^7.4.4", "@babel/template@^7.6.0":
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.6.0.tgz#7f0159c7f5012230dad64cca42ec9bdb5c9536e6"
@@ -6775,6 +6782,19 @@ gatsby-page-utils@^0.0.27:
     micromatch "^3.1.10"
     slash "^3.0.0"
 
+gatsby-plugin-facebook-pixel@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-facebook-pixel/-/gatsby-plugin-facebook-pixel-1.0.3.tgz#d3cab36fa61803e9d412f36847775d383325dfdf"
+  integrity sha512-IM4e+5FkpLUCV/69tU+GFXVAs0EJXBfM/BARO/6SaMqalLfj1fj4ZXUyC8kHy3RiTMuw+y8g2mdkBMZqj7RyWQ==
+
+gatsby-plugin-google-analytics@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.3.0.tgz#d5258606117abd6bded2a678ba9f7661b370e72f"
+  integrity sha512-ekXMjLpkoRT6eYC8eOEOhSDLsSBPBsZ6JQydvcmDqy/cCgc+B66icPlqd4G/Lst13Ede2z2cOMuntEsEXf6CvA==
+  dependencies:
+    "@babel/runtime" "^7.9.2"
+    minimatch "3.0.4"
+
 gatsby-plugin-layout@^1.0.15:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-layout/-/gatsby-plugin-layout-1.1.13.tgz#334e2192c5a4e8e802706eadee99e5906528df1f"
@@ -6801,11 +6821,6 @@ gatsby-plugin-react-helmet@^3.0.12:
   integrity sha512-O3Fvxm76t58RPVUz0Fo2tbXeJnXV6vmlLnKBPMz+smr0Mtx8vnGP1Pi6DuWdRepJsnVespNNth/L8n7iucQCYQ==
   dependencies:
     "@babel/runtime" "^7.6.3"
-
-gatsby-plugin-segment-js@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-segment-js/-/gatsby-plugin-segment-js-3.0.1.tgz#a31380515c97af2f7e7bf4be7aea071b6222f9a5"
-  integrity sha512-pDGx0kE36FDd2aQAwMr4mrY93CedlIuotprvdRQKBuBrWfvQ7DMCQxwpDYPWrwatVJhdf5idnl4Xct0I4WkKRg==
 
 gatsby-plugin-sitemap@^2.1.0:
   version "2.2.19"
@@ -12970,6 +12985,11 @@ regenerator-runtime@^0.13.2:
   version "0.13.3"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.3.tgz#7cf6a77d8f5c6f60eb73c5fc1955b2ceb01e6bf5"
   integrity sha512-naKIZz2GQ8JWh///G7L3X6LaQUAMp2lvb1rvwwsURe/VXwD6VMfr+/1NuNw3ag8v2kY1aQ/go5SNn79O9JU7yw==
+
+regenerator-runtime@^0.13.4:
+  version "0.13.5"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
+  integrity sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA==
 
 regenerator-transform@^0.14.0:
   version "0.14.1"
