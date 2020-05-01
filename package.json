@@ -2,7 +2,7 @@
   "name": "learnstorybook.com",
   "description": "Learn Storybook",
   "version": "1.0.0",
-  "author": "Tom Coleman <tom@hichroma.com>, Dominic Nguyen <dom@hichroma.com>",
+  "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
     "@storybook/design-system": "^1.1.7",
     "formik": "^1.5.7",

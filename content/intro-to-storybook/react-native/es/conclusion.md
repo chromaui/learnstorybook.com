@@ -27,7 +27,7 @@ Quieres bucear más profundo? Aquí algunos recursos útiles:
 
 ## Quién hizo LearnStorybook.com?
 
-El texto, código, y producción fueron contribuidos por [Chroma](http://blog.hichroma.com/). Los tutoriales fueron inspirados por la popular [serie de tutoriales GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858) de Chroma.
+El texto, código, y producción fueron contribuidos por [Chromatic](http://blog.hichroma.com/). Los tutoriales fueron inspirados por la popular [serie de tutoriales GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858) de Chroma.
 
 ¿Quieres más tutoriales y artículos como este? Regístrate en la lista de correo de Chroma.
 
