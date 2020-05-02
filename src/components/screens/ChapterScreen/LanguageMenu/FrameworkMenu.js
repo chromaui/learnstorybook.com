@@ -217,6 +217,7 @@ const FrameworkMenu = ({
               src={`/frameworks/logo-${availableFramework}.svg`}
               alt={startCase(availableFramework)}
               selectedFramework={availableFramework === framework}
+              title={availableFramework}
             />
           </Link>
         ))}
