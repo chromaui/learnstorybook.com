@@ -126,6 +126,11 @@ const getTranslationPagesByFramework = translationPages =>
     return pagesByFramework;
   }, {});
 
+const capitalizeFrameworks = framework => {
+  return framework === 'react-native'
+    ? 'React Native'
+    : framework.charAt(0).toUpperCase() + framework.substring(1);
+};
 const FrameworkMenu = ({
   chapter,
   contributeUrl,
@@ -217,7 +222,7 @@ const FrameworkMenu = ({
               src={`/frameworks/logo-${availableFramework}.svg`}
               alt={startCase(availableFramework)}
               selectedFramework={availableFramework === framework}
-              title={availableFramework}
+              title={capitalizeFrameworks(availableFramework)}
             />
           </Link>
         ))}
