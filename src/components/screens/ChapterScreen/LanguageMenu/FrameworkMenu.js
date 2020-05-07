@@ -32,6 +32,7 @@ const FrameworkImage = styled.img`
 const FrameworkContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 `;
 const Link = styled(GatsbyLink).attrs({ tertiary: true })`
   && {
@@ -125,6 +126,11 @@ const getTranslationPagesByFramework = translationPages =>
     return pagesByFramework;
   }, {});
 
+const capitalizeFrameworks = framework => {
+  return framework === 'react-native'
+    ? 'React Native'
+    : framework.charAt(0).toUpperCase() + framework.substring(1);
+};
 const FrameworkMenu = ({
   chapter,
   contributeUrl,
@@ -139,7 +145,18 @@ const FrameworkMenu = ({
     [translationPages]
   );
   // in the future ue another metric for popularity
-  const frameworksByPopularity = ['react', 'react-native', 'vue', 'angular', 'svelte'];
+  const frameworksByPopularity = [
+    'react',
+    'react-native',
+    'vue',
+    'angular',
+    'svelte',
+    'ember',
+    'html',
+    'marko',
+    'mithril',
+    'riot',
+  ];
 
   const frameworks = sortBy(Object.keys(translationPagesByFramework), frameworkName =>
     frameworksByPopularity.indexOf(frameworkName)
@@ -205,6 +222,7 @@ const FrameworkMenu = ({
               src={`/frameworks/logo-${availableFramework}.svg`}
               alt={startCase(availableFramework)}
               selectedFramework={availableFramework === framework}
+              title={capitalizeFrameworks(availableFramework)}
             />
           </Link>
         ))}
