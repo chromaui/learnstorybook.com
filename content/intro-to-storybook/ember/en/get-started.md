@@ -53,8 +53,11 @@ Add the following entry to your scripts:
 // package.json
 {
     "scripts":{
-        "storybook-dev":"npm-run-all --aggregate-output --continue-on-error --parallel start storybook",
+        "start": "ember serve",
+        "storybook": "start-storybook -p 6006 -s dist",
+        "storybook-dev":"npm-run-all --continue-on-error --parallel start storybook",
         "prebuild-storybook":"ember build"
+        "build-storybook": "build-storybook -s dist",
     }
 }
 

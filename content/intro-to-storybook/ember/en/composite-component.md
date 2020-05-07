@@ -18,65 +18,40 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ## Get setup
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` template, component and an accompanying story file: `app/components/TaskList.hbs`, `app/components/TaskList.js` and `app/components/TaskList.stories.js`.
+A composite component isn’t much different than the basic components it contains. Create a `TaskList` template and an accompanying story file: `app/components/task-list.hbs` and `app/components/task-list.stories.js`.
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```handlebars
 
-{{!-- app/components/TaskList.hbs--}}
-{{#if (eq @loading true)}}
-  <div class="list-items">loading</div>
+{{!-- app/components/task-list.hbs--}}
+{{#if @loading}}
+ <div class="list-items">loading</div>>
+{{else if @tasks}}
+  {{#each @tasks as |task|}}
+    <Task
+      @task={{task}}
+      @pin={{fn @pinTask task.id}}
+      @archive={{fn @archiveTask task.id}}
+    />
+  {{/each}}
+{{else}}
+  <div class="list-items">
+    empty
+  </div>
 {{/if}}
-
-{{#if this.emptyTasks}}
-  <div class="list-items">empty</div>
-{{/if}}
-
-{{#each @tasks as |task|}}
- {{Task task=task pinTask=(action "taskListOnPinTask") archiveTask=(action "taskListOnArchiveTask")}}
-{{/each}}
-```
-
-Then we'll add the following to `TaskList.js`:
-
-```javascript
-// app/components/TaskList.js
-import Component from '@glimmer/component';
-import { action } from '@ember/object';
-export default class TaskList extends Component {
-  constructor() {
-    super(...arguments);
-  }
-  get emptyTasks() {
-    return this.args.tasks.length === 0 && !this.args.loading;
-  }
-  // actions to emulate the click handlers to call the actions passed down to the component
-  @action
-  taskListOnPinTask(taskID) {
-    if (this.args.pinTask) {
-      this.args.pinTask(taskID);
-    }
-  }
-  @action
-  taskListOnArchiveTask(taskID) {
-    if (this.args.archiveTask) {
-      this.args.archiveTask(taskID);
-    }
-  }
-}
 ```
 
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-// app/components/TaskList.stories.js
+// app/components/task-list.stories.js
 import { hbs } from 'ember-cli-htmlbars';
-import { taskData, actionsData } from './Task.stories';
+import { taskData, actionsData } from './task.stories';
 
 export default {
   title: 'TaskList',
-  component: 'TaskList',
+  component: 'task-list',
   excludeStories: /.*Data$/,
 };
 
@@ -95,39 +70,35 @@ export const withPinnedTasksData = [
 ];
 
 export const Default = () => ({
-  template: hbs`<div style="padding: 3rem">{{TaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
+  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
   context: {
     tasks: defaultTasksData,
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData,
   },
 });
 
-export const WithPinnedTasks = () => ({
-  template: hbs`<div style="padding: 3rem">{{TaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
+export const withPinnedTasks = () => ({
+  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
   context: {
     tasks: withPinnedTasksData,
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData,
   },
 });
 export const Loading = () => ({
-  template: hbs`<div style="padding: 3rem">{{TaskList loading=true tasks=tasks}}</div>`,
+  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @loading={{true}}/></div>`,
   context: {
     tasks: [],
   },
 });
 export const Empty = () => ({
-  template: hbs`<div style="padding: 3rem">{{TaskList tasks=tasks}}</div>`,
+  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}}/></div>`,
   context: {
     tasks: [],
   },
 });
 ```
 
-`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`taskData` supplies the shape of a `Task` that we created and exported from the `task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -159,20 +130,26 @@ Create a new file called `loading-row.hbs` and inside add the following markup:
 </div>
 ```
 
-And update `TaskList.hbs` to the following:
+And update `task-list.hbs` to the following:
 
 ```handlebars
 
-{{!-- app/components/TaskList.hbs--}}
-{{#if (eq @loading true)}}
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow/>
-  <LoadingRow />
-  <LoadingRow />
-{{/if}}
-
-{{#if this.emptyTasks}}
+{{!-- app/components/task-list.hbs--}}
+{{#if @loading}}
+ <LoadingRow />
+ <LoadingRow />
+ <LoadingRow/>
+ <LoadingRow />
+ <LoadingRow />
+{{else if this.tasksInOrder}}
+  {{#each this.tasksInOrder as |task|}}
+    <Task
+      @task={{task}}
+      @pin={{fn @pinTask task.id}}
+      @archive={{fn @archiveTask task.id}}
+    />
+  {{/each}}
+{{else}}
   <div class="list-items">
     <div class="wrapper-message">
       <span class="icon-check" />
@@ -181,43 +158,21 @@ And update `TaskList.hbs` to the following:
     </div>
   </div>
 {{/if}}
-
-{{#each this.tasksInOrder as |task|}}
- {{Task task=task pinTask=(action "taskListOnPinTask") archiveTask=(action "taskListOnArchiveTask")}}
-{{/each}}
 ```
 
-And finally `TaskList.js` to the following:
+And finally create a new file called `task-list.js` to the following:
 
 ```javascript
-// app/components/TaskList.js
+// app/components/task-list.js
 import Component from '@glimmer/component';
-import { action } from '@ember/object';
-export default class TaskList extends Component {
-  constructor() {
-    super(...arguments);
-  }
-  get emptyTasks() {
-    return this.args.tasks.length === 0 && !this.args.loading;
-  }
 
+export default class TaskList extends Component {
+  // computed property to arrange the tasks per their state
   get tasksInOrder() {
     return [
       ...this.args.tasks.filter(t => t.state === 'TASK_PINNED'),
       ...this.args.tasks.filter(t => t.state !== 'TASK_PINNED'),
     ];
-  }
-  @action
-  taskListOnPinTask(taskID) {
-    if (this.args.pinTask) {
-      this.args.pinTask(taskID);
-    }
-  }
-  @action
-  taskListOnArchiveTask(taskID) {
-    if (this.args.archiveTask) {
-      this.args.archiveTask(taskID);
-    }
   }
 }
 ```
@@ -275,21 +230,9 @@ module('Integration | Component | TaskList', function(hooks) {
   ];
 
   test('renders pinned tasks at the start of the list', async function(assert) {
-    this.set('tasks', tasklist);
-    this.set('testpinTask', actual => {
-      let expected = 1;
-      assert.deepEquals(actual, expected);
-    });
-
-    this.set('testarchiveTask', actual => {
-      let expected = 1;
-      assert.deepEquals(actual, expected);
-    });
-
-    await render(
-      hbs`{{TaskList tasks=tasks pinTask=(action testpinTask) archiveTask=(action testarchiveTask) }}`
-    );
-    assert.dom(this.element.querySelector('.list-item:nth-of-type(1)')).hasClass('TASK_PINNED');
+    this.tasks = tasklist;
+    await render(hbs`<TaskList @tasks={{this.tasks}}/>`);
+    assert.dom('[data-test-task]:nth-of-type(1)').hasClass('TASK_PINNED');
   });
 });
 ```

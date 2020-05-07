@@ -15,6 +15,7 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 Let's start by updating the store (in `app/reducers/index.js`) to include the error field we want:
 
 ```javascript
+// app/reducers/index.js
 import { combineReducers } from 'redux';
 // The initial state of our store when the app loads.
 // Usually you would fetch this from a server
@@ -74,46 +75,51 @@ export default combineReducers({
 });
 ```
 
-The store is updated with the new field. Let's create a presentational `PureInboxScreen.hbs` in our `app/components` folder:
+The store is updated with the new field. Let's create a presentational `pure-inbox-screen.hbs` in our `app/components` folder:
 
 ```handlebars
-{{!--app/components/PureInboxScreen.hbs--}}
-{{#if @error}}
-  <div class="page lists-show">
-    <div class="wrapper-message">
-        <span class="icon-face-sad" />
-        <div class="title-message">Oh no!</div>
-        <div class="subtitle-message">Something went wrong</div>
+{{!--app/components/pure-inbox-screen.hbs--}}
+<div class="page lists-show">
+  <nav>
+    <h1 class="title-page">
+      <span class="title-wrapper">
+        Taskbox
+      </span>
+    </h1>
+  </nav>
+  {{#if @error}}
+    <div class="page lists-show">
+      <div class="wrapper-message">
+        <span class="icon-face-sad"></span>
+        <div class="title-message">
+          Oh no!
+        </div>
+        <div class="subtitle-message">
+          Something went wrong
+        </div>
+      </div>
     </div>
-  </div>
-{{else}}
-  <div class="page lists-show">
-    <nav>
-        <h1 class="title-page">
-            <span class="title-wrapper">Taskbox</span>
-        </h1>
-    </nav>
-    {{TaskList}}
-  </div>
-{{/if}}
-```
-
-Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `app/components/InboxScreen.hbs` add the following:
-
-```handlebars
-{{!--app/components/InboxScreen.hbs--}}
-<div>
-    {{PureInboxScreen error=error}}
+  {{else}}
+    <TaskList />
+  {{/if}}
 </div>
 ```
 
-In `app/components/InboxScreen.js` add the following:
+Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `app/components/inbox-screen.hbs` add the following:
+
+```handlebars
+{{!--app/components/inbox-screen.hbs --}}
+<div>
+  <PureInboxScreen @error={{this.error}} />
+</div>
+```
+
+In `app/components/inbox-screen.js` add the following:
 
 ```javascript
-// app/components/InboxScreen.js
+// app/components/inbox-screen.js
 import Component from '@glimmer/component';
 import { connect } from 'ember-redux';
-import { computed } from '@ember/object';
 
 const stateToComputed = state => {
   const { reducer } = state;
@@ -123,16 +129,9 @@ const stateToComputed = state => {
     error: isError,
   };
 };
-class InboxScreen extends Component {
-  constructor() {
-    super(...arguments);
-  }
-  @computed('error')
-  get error() {
-    return this.error;
-  }
-}
-export default connect(stateToComputed)(InboxScreen);
+
+class InboxScreenComponent extends Component {}
+export default connect(stateToComputed)(InboxScreenComponent);
 ```
 
 We also change the `application` template to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
@@ -140,7 +139,7 @@ We also change the `application` template to render the `InboxScreen` (eventuall
 ```handlebars
 {{!-- app/templates/aplication.hbs --}}
 
-{{InboxScreen}}
+<InboxScreen />
 ```
 
 However, where things get interesting is in rendering the story in Storybook.
@@ -149,23 +148,23 @@ As we saw previously, the `TaskList` component is a **container** that renders t
 
 When placing the `TaskList` into Storybook, we were able to ilustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
-So when we setup our stories in `PureInboxScreen.stories.js`:
+So when we setup our stories in `pure-inbox-screen.stories.js`:
 
 ```javascript
-// app/components/PureInboxScreen.stories.js
-
+// app/components/pure-inbox-screen.stories.js
 import { hbs } from 'ember-cli-htmlbars';
 
 export default {
   title: 'PureInboxScreen',
-  component: 'PureInboxScreen',
+  component: 'pure-inbox-screen',
 };
 
 export const Default = () => ({
-  template: hbs`{{PureInboxScreen}}`,
+  template: hbs`<PureInboxScreen/>`,
 });
+
 export const error = () => ({
-  template: hbs`{{PureInboxScreen error=true}}`,
+  template: hbs`<PureInboxScreen @error={{true}}/>`,
 });
 ```
 

@@ -57,7 +57,7 @@ That's it! Time to use it in a story.
 
 Let's use the object knob type in the `Task` component.
 
-First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
+First, import the `withKnobs` decorator and the `object` knob type to `task.stories.js`:
 
 ```javascript
 // app/components/Task.stories.js
@@ -67,7 +67,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
+Next, within the `default` export of `task.stories.js` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
 // app/components/Task.stories.js
@@ -83,15 +83,15 @@ export default {
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
-// app/components/Task.stories.js
+// app/components/task.stories.js
+
+// same as before
 
 export const Default = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: taskTemplate,
   context: {
     task: object('task', { ...taskData }),
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData,
   },
 });
 ```
@@ -113,7 +113,7 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.hbs`:
 
 ```handlebars
-{{!-- app/components/Task.hbs --}}
+{{!-- app/components/task.hbs --}}
 
 {{!-- This is the input for our task title. In practice we would probably update the styles for this element
 // but for this tutorial, let's fix the problem with an inline style: --}}
@@ -129,20 +129,20 @@ Of course we can always reproduce this problem by entering the same input into t
 Let's add a story for the long text case in Task.stories.js:
 
 ```javascript
-// app/components/Task.stories.js
+// app/components/task.stories.js
+
+// same as before
 
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: taskTemplate,
   context: {
     task: {
       ...taskData,
       title: longTitle,
     },
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData,
   },
 });
 ```

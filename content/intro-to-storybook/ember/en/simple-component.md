@@ -21,13 +21,13 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 ## Get setup
 
-First, let’s create the necessary files for our task component and its accompanying story file: `app/components/Task.hbs` and `app/components/Task.stories.js`.
+First, let’s create the necessary files for our task component and its accompanying story file: `app/components/task.hbs` and `app/components/task.stories.js`.
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```handlebars
 
-{{!--  app/components/Task.hbs --}}
+{{!-- app/components/task.hbs --}}
 
 <div class="list-item">
   <input type="text" value={{@task.title}} readonly={{true}}/>
@@ -39,13 +39,14 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
-//  app/components/Task.stories.js
+// app/components/task.stories.js
 import { hbs } from 'ember-cli-htmlbars';
 import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Task',
-  component: 'Task',
+  component: 'task',
+  // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
 };
 
@@ -61,41 +62,35 @@ export const actionsData = {
   onArchiveTask: action('onArchiveTask'),
 };
 
+// the markdown that will be displayed in our Storybook
+const taskTemplate = hbs`<Task @task={{this.task}} @pin={{fn this.onPinTask}} @archive={{fn this.onArchiveTask}}/>`;
+
 export const Default = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: taskTemplate,
   context: {
-    task: {
-      ...taskData,
-    },
-    taskActions: {
-      ...actionsData,
-    },
+    task: taskData,
+    ...actionsData,
   },
 });
-
 export const Pinned = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: taskTemplate,
   context: {
     task: {
       ...taskData,
       state: 'TASK_PINNED',
     },
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData,
   },
 });
 
 export const Archived = () => ({
-  template: hbs`{{Task task=task pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}`,
+  template: taskTemplate,
   context: {
     task: {
       ...taskData,
       state: 'TASK_ARCHIVED',
     },
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData,
   },
 });
 ```
@@ -157,52 +152,63 @@ The component is still basic at the moment. First write the code that achieves t
 
 ```handlebars
 
-{{!--  app/components/Task.hbs --}}
-<div class="list-item {{@task.state}}">
+{{!-- app/components/task.hbs --}}
+
+<div class="list-item {{@task.state}}" data-test-task>
   <label class="checkbox">
-    <input type="checkbox" disabled name="checked" checked={{this.isTaskArchived}}/>
-    <span class="checkbox-custom" onclick={{this.handleArchiveTask}}/>
+    <input
+      type="checkbox"
+      disabled
+      name="checked"
+      checked={{this.isTaskArchived}}
+    />
+    <span
+      class="checkbox-custom"
+      data-test-task-archive
+      {{on "click" this.archive}}
+    ></span>
   </label>
   <div class="title">
-    <input type="text" readonly value={{@task.title}} placeholder="Input title" />
+    <input
+      type="text"
+      readonly
+      value={{@task.title}}
+      placeholder="Input title"
+      style="text-overflow: ellipsis;"
+    />
   </div>
   <div class="actions">
     {{#if (not-eq @task.state "TASK_ARCHIVED")}}
-      <a href="/" onclick={{this.handlePinTask}}><span class="icon-star"  /></a>
+      <span data-test-task-pin {{on "click" this.pin}}>
+        <span class="icon-star"></span>
+      </span>
     {{/if}}
   </div>
 </div>
 ```
 
-Then we'll need create a new file called `app/components/Task.js` with the following:
+Then we'll need create a new file called `app/components/task.js` with the following:
 
 ```js
-// app/components/Task.js
+// app/components/task.js
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
 export default class Task extends Component {
-  constructor() {
-    super(...arguments);
-  }
   // computed property for the component (to assign a value to the task state checkbox)
   get isTaskArchived() {
     return this.args.task.state === 'TASK_ARCHIVED';
   }
-  // actions to emulate the click handlers to call the actions passed down to the component
+
+  // actions available to the task, the usage of (?) will check if the argument exists
   @action
-  handlePinTask(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    if (this.args.pinTask) {
-      this.args.pinTask(this.args.task.id);
-    }
+  pin() {
+    this.args.pin?.();
   }
+
   @action
-  handleArchiveTask() {
-    if (this.args.archiveTask) {
-      this.args.archiveTask(this.args.task.id);
-    }
+  archive() {
+    this.args.archive?.();
   }
 }
 ```

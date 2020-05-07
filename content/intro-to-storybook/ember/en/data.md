@@ -14,7 +14,7 @@ Our `TaskList` component as currently written is “presentational” (see [this
 
 This example uses [ember redux](https://ember-redux.com/), a predictable state management library for Ember, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://github.com/ember-graphql/ember-apollo-client).
 
-Add the necessary dependencies to your project with:
+Add the necessary dependency to your project with:
 
 ```bash
 ember install ember-redux
@@ -76,24 +76,27 @@ export default combineReducers({
 });
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to `app/components/PureTaskList.hbs` and `app/components/PureTaskList.js` and wrap it with a container.
+Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to `app/components/pure-task-list.hbs` and `app/components/pure-task-list.js` and wrap it with a container.
 
 In `app/components/PureTaskList.hbs`:
 
 ```handlebars
-{{!--app/components/PureTaskList.hbs --}}
-
-
-{{!-- This file was moved from TaskList--}}
-{{#if (eq @loading true)}}
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow/>
-  <LoadingRow />
-  <LoadingRow />
-{{/if}}
-
-{{#if this.emptyTasks}}
+{{!--app/components/pure-task-list.hbs --}}
+{{#if @loading}}
+ <LoadingRow />
+ <LoadingRow />
+ <LoadingRow/>
+ <LoadingRow />
+ <LoadingRow />
+{{else if this.tasksInOrder}}
+  {{#each this.tasksInOrder as |task|}}
+    <Task
+      @task={{task}}
+      @pin={{fn @pinTask task.id}}
+      @archive={{fn @archiveTask task.id}}
+    />
+  {{/each}}
+{{else}}
   <div class="list-items">
     <div class="wrapper-message">
       <span class="icon-check" />
@@ -102,27 +105,28 @@ In `app/components/PureTaskList.hbs`:
     </div>
   </div>
 {{/if}}
-
-{{#each this.tasksInOrder as |task|}}
- {{Task task=task pinTask=(action "taskListOnPinTask") archiveTask=(action "taskListOnArchiveTask")}}
-{{/each}}
 ```
 
-In `app/components/TaskList.hbs`:
+In `app/components/task-list.hbs`:
 
 ```handlebars
 
-{{!!-- app/components/TaskList.hbs --}}
+{{!!-- app/components/task-list.hbs --}}
 <div>
-   {{PureTaskList tasks=tasks pinTask=(action "taskListOnPinTask") archiveTask=(action "taskListOnArchiveTask")}}
+  <PureTaskList
+    @tasks={{this.tasks}}
+    @pinTask={{this.pinTask}}
+    @archiveTask={{this.archiveTask}}
+  />
 </div>
 
 ```
 
-And `app/components/TaskList.js` :
+And `app/components/task-list.js` :
 
 ```js
-//app/components/TaskList.js
+//app/components/task-list.js
+
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { connect } from 'ember-redux';
@@ -131,23 +135,20 @@ import { archiveTask, pinTask } from '../reducers/index';
 const stateToComputed = state => {
   const { reducer } = state;
   const { tasks } = reducer;
+
   return {
     tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
   };
 };
 
 class TaskList extends Component {
-  constructor() {
-    super(...arguments);
-  }
-
-  // the actions will bubble up to redux and update the store accordingly
   @action
-  taskListOnPinTask(taskID) {
+  pinTask(taskID) {
     this.actions.onPinTask(taskID);
   }
+
   @action
-  taskListOnArchiveTask(taskID) {
+  archiveTask(taskID) {
     this.actions.onArchiveTask(taskID);
   }
 }
@@ -161,16 +162,16 @@ export default connect(
 )(TaskList);
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `app/components/TaskList.stories.js` into `app/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `app/components/task-list.stories.js` into `app/components/pure-task-list.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
-// app/components/PureTaskList.stories.js
+// app/components/pure-task-list.stories.js
 import { hbs } from 'ember-cli-htmlbars';
-import { taskData, actionsData } from './Task.stories';
+import { taskData, actionsData } from './task.stories';
 
 export default {
   title: 'PureTaskList',
-  component: 'PureTaskList',
+  component: 'task-list',
   excludeStories: /.*Data$/,
 };
 
@@ -189,32 +190,28 @@ export const withPinnedTasksData = [
 ];
 
 export const Default = () => ({
-  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
+  template: hbs`<div style="padding: 3rem"><PureTaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
   context: {
     tasks: defaultTasksData,
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData,
   },
 });
 
-export const WithPinnedTasks = () => ({
-  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks pinTask=(action taskActions.onPinTask) archiveTask=(action taskActions.onArchiveTask)}}</div>`,
+export const withPinnedTasks = () => ({
+  template: hbs`<div style="padding: 3rem"><PureTaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
   context: {
     tasks: withPinnedTasksData,
-    taskActions: {
-      ...actionsData,
-    },
+    ...actionsData,
   },
 });
 export const Loading = () => ({
-  template: hbs`<div style="padding: 3rem">{{PureTaskList loading=true tasks=tasks}}</div>`,
+  template: hbs`<div style="padding: 3rem"><PureTaskList @tasks={{this.tasks}} @loading={{true}}/></div>`,
   context: {
     tasks: [],
   },
 });
 export const Empty = () => ({
-  template: hbs`<div style="padding: 3rem">{{PureTaskList tasks=tasks}}</div>`,
+  template: hbs`<div style="padding: 3rem"><PureTaskList @tasks={{this.tasks}}/></div>`,
   context: {
     tasks: [],
   },
@@ -231,11 +228,12 @@ export const Empty = () => ({
 Similarly, we need to use `PureTaskList` in our Qunit test:
 
 ```javascript
+// tests/integration/task-list-test.js
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-module('Integration | Component | PureTaskList', function(hooks) {
+module('Integration | Component | TaskList', function(hooks) {
   setupRenderingTest(hooks);
   const taskData = {
     id: '1',
@@ -253,21 +251,9 @@ module('Integration | Component | PureTaskList', function(hooks) {
   ];
 
   test('renders pinned tasks at the start of the list', async function(assert) {
-    this.set('tasks', tasklist);
-    this.set('testpinTask', actual => {
-      let expected = 1;
-      assert.deepEquals(actual, expected);
-    });
-
-    this.set('testarchiveTask', actual => {
-      let expected = 1;
-      assert.deepEquals(actual, expected);
-    });
-
-    await render(
-      hbs`{{PureTaskList tasks=tasks pinTask=(action testpinTask) archiveTask=(action testarchiveTask) }}`
-    );
-    assert.dom(this.element.querySelector('.list-item:nth-of-type(1)')).hasClass('TASK_PINNED');
+    this.tasks = tasklist;
+    await render(hbs`<PureTaskList @tasks={{this.tasks}}/>`);
+    assert.dom('[data-test-task]:nth-of-type(1)').hasClass('TASK_PINNED');
   });
 });
 ```
