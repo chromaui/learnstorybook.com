@@ -8,45 +8,58 @@ We've concentrated on building UIs from the bottom up; starting small and adding
 
 In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
 
-## Nested container components
+## Screen components
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server).
+As our app is very simple, the screen we’ll build is pretty trivial, simply
+wrapping the `<TaskList>` component in some layout and apply a data layer with
+loading and error states from redux (let's assume we'll set that field if we have some
+problem connecting to our server). We will do that for two reasons: First is to
+keep data-management and presentation clearly separated and second screen
+components do help to move things around in the app as well as design reviews
+within Storybook.
 
-Let's start by updating the store (in `app/reducers/index.js`) to include the error field we want:
+Let's start by updating reducers and actions to include the
+error and loading fields we want:
 
-```javascript
-// app/reducers/index.js
-import { combineReducers } from 'redux';
-// The initial state of our store when the app loads.
-// Usually you would fetch this from a server
-const defaultTasks = [
-  { id: '1', title: 'Something', state: 'TASK_INBOX' },
-  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
-];
-
-const initialState = {
-  isError: false,
-  tasks: defaultTasks,
-};
-// The actions are the "names" of the changes that can happen to the store
+```js
+// app/actions/index.js
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
   SET_ERROR: 'SET_ERROR',
+  SET_LOADING: 'SET_LOADING'
 };
 
 // The action creators bundle actions with the data required to execute them
-export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = id => ({ type: actions.PIN_TASK, id });
+export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
+export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
 export const setError = () => ({ type: actions.SET_ERROR });
+export const setLoading = () => ({ type: actions.SET_LOADING });
+```
+
+```js
+// app/reducers/index.js
+import { actions } from '../actions';
+
+const defaultTasks = [
+  { id: "1", title: "Something", state: "TASK_INBOX" },
+  { id: "2", title: "Something more", state: "TASK_INBOX" },
+  { id: "3", title: "Something else", state: "TASK_INBOX" },
+  { id: "4", title: "Something again", state: "TASK_INBOX" },
+];
+
+const initialState = {
+  isError: false,
+  isLoading: false,
+  tasks: defaultTasks,
+};
+
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(task =>
+      tasks: state.tasks.map((task) =>
         task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
@@ -54,7 +67,7 @@ function taskStateReducer(taskState) {
 }
 
 // The reducer describes how the contents of the store change for each action
-export const reducer = (state, action) => {
+const reducers = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
       return taskStateReducer('TASK_ARCHIVED')(state, action);
@@ -63,78 +76,106 @@ export const reducer = (state, action) => {
     case actions.SET_ERROR:
       return {
         ...state,
-        isError: true,
-      };
+        isError: true
+      }
+    case actions.SET_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      }
     default:
       return state || initialState;
   }
 };
 
-export default combineReducers({
-  reducer,
-});
+export default reducers;
 ```
 
-The store is updated with the new field. Let's create a presentational `pure-inbox-screen.hbs` in our `app/components` folder:
+As our store is updated with the new fields let's move on creating an
+`inbox-screen.hbs` component in our `app/components` folder:
 
 ```handlebars
-{{!--app/components/pure-inbox-screen.hbs--}}
-<div class="page lists-show">
-  <nav>
-    <h1 class="title-page">
-      <span class="title-wrapper">
-        Taskbox
-      </span>
-    </h1>
-  </nav>
-  {{#if @error}}
-    <div class="page lists-show">
-      <div class="wrapper-message">
-        <span class="icon-face-sad"></span>
-        <div class="title-message">
-          Oh no!
-        </div>
-        <div class="subtitle-message">
-          Something went wrong
+{{!--app/components/inbox-screen.hbs--}}
+<div>
+  <div class="page lists-show">
+    <nav>
+      <h1 class="title-page">
+        <span class="title-wrapper">
+          Taskbox
+        </span>
+      </h1>
+    </nav>
+    {{#if this.loading}}
+      <LoadingRow />
+      <LoadingRow />
+      <LoadingRow />
+      <LoadingRow />
+      <LoadingRow />
+    {{else if this.error}}
+      <div class="page lists-show">
+        <div class="wrapper-message">
+          <span class="icon-face-sad"></span>
+          <div class="title-message">
+            Oh no!
+          </div>
+          <div class="subtitle-message">
+            Something went wrong
+          </div>
         </div>
       </div>
-    </div>
-  {{else}}
-    <TaskList />
-  {{/if}}
+    {{else}}
+      <TaskList
+        @tasks={{this.tasks}}
+        @pinTask={{this.pinTask}}
+        @archiveTask={{this.archiveTask}}
+      />
+    {{/if}}
+  </div>
 </div>
 ```
 
-Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `app/components/inbox-screen.hbs` add the following:
-
-```handlebars
-{{!--app/components/inbox-screen.hbs --}}
-<div>
-  <PureInboxScreen @error={{this.error}} />
-</div>
-```
+It already has sections to show various states for loading and errors. Next up
+is to move our already existing data loading from the routes and controller in
+the previous step into the component:
 
 In `app/components/inbox-screen.js` add the following:
 
 ```javascript
 // app/components/inbox-screen.js
 import Component from '@glimmer/component';
-import { connect } from 'ember-redux';
+import { action } from '@ember/object';
+import { store } from '../store';
+import { pinTask, archiveTask } from '../actions';
 
-const stateToComputed = state => {
-  const { reducer } = state;
-  const { isError } = reducer;
+export default class InboxScreenComponent extends Component {
+  get loading() {
+    return this.args.loading ?? store.getState().isLoading;
+  }
 
-  return {
-    error: isError,
-  };
-};
+  get error() {
+    return this.args.error ?? store.getState().isError;
+  }
 
-class InboxScreenComponent extends Component {}
-export default connect(stateToComputed)(InboxScreenComponent);
+  get tasks() {
+    return store.getState().tasks.filter(
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+    );
+  }
+
+  @action
+  pinTask(task) {
+    store.dispatch(pinTask(task.id));
+  }
+
+  @action
+  archiveTask(task) {
+    store.dispatch(archiveTask(task.id));
+  }
+}
 ```
 
-We also change the `application` template to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+We will remove the `tasks` route from the previous step and mount the
+`InboxScreen` in the `application` template.
 
 ```handlebars
 {{!-- app/templates/aplication.hbs --}}
@@ -144,40 +185,51 @@ We also change the `application` template to render the `InboxScreen` (eventuall
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition with other frameworks, container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service.
+As `loading` and `error` are states internal to the `InboxScreen` component,
+they usually aren't controlled from the outside, so we allow those to be passed
+in as arguments. That will enable us to showcase these variations in Storybook
+and enable design review during onto them.
 
-When placing the `TaskList` into Storybook, we were able to ilustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
-
-So when we setup our stories in `pure-inbox-screen.stories.js`:
+So when we setup our stories in `inbox-screen.stories.js`:
 
 ```javascript
-// app/components/pure-inbox-screen.stories.js
-import { hbs } from 'ember-cli-htmlbars';
+// app/components/inbox-screen.stories.js
+import { hbs } from "ember-cli-htmlbars";
 
 export default {
-  title: 'PureInboxScreen',
-  component: 'pure-inbox-screen',
+  title: "InboxScreen",
+  component: "InboxScreen",
 };
 
 export const Default = () => ({
-  template: hbs`<PureInboxScreen/>`,
+  template: hbs`<InboxScreen/>`,
 });
 
-export const error = () => ({
-  template: hbs`<PureInboxScreen @error={{true}}/>`,
-});
+export const Error = () => {
+  return {
+    template: hbs`<InboxScreen @error={{true}}/>`
+  }
+};
+
+export const Loading = () => {
+  return {
+    template: hbs`<InboxScreen @loading={{true}}/>`
+  }
+}
 ```
 
-We see that both the `error` and `standard` stories work just fine. (But you will encounter some problems when trying to test the `PureInboxScreen` with a unit test if no data is supplied like we did with `TaskList`).
+We see that both the `Error`, `Loading` and `Default` stories work just fine.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
+Traditionally in ember, routes do support `loading` and `error` states. Though the motivation
+is go more towards a component based approach. There is <a
+href="https://exelord.gitbook.io/ember-await/">ember-await</a> which nicely encapsulates the
+idea of  data-management and has mechanisms to indicate each state.
 </div>
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
 
-<video autoPlay muted playsInline loop >
-
+<video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook/finished-inboxscreen-states.mp4"
     type="video/mp4"

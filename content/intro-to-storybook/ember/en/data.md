@@ -8,51 +8,62 @@ So far we created isolated stateless components –great for Storybook, but ulti
 
 This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
 
-## Container components
+## Loading Data
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+In ember you can use a couple of ways to load data. There is two things to keep
+an eye on. First where you load the data and second how you load the data.
+Traditionally, you want to use a route and some persistence layer, such as
+ember-data or [Apollo](https://github.com/ember-graphql/ember-apollo-client).
 
-This example uses [ember redux](https://ember-redux.com/), a predictable state management library for Ember, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://github.com/ember-graphql/ember-apollo-client).
+In this example we are going to use redux and demonstrate the usage of it at a
+route and will improve from here as we proceed. To utilize [ember's
+reactivity](https://www.pzuraq.com/how-autotracking-works/)
+system, we are going to use [tracked-redux](https://github.com/pzuraq/tracked-redux).
 
 Add the necessary dependency to your project with:
 
 ```bash
-ember install ember-redux
+ember install tracked-redux
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `reducers/index.js` (intentionally kept simple):
+We'll construct our actions, reducers and finally a tracked redux store. Start
+with the actions:
 
-```javascript
+```js
+// app/actions/index.js
+export const actions = {
+  ARCHIVE_TASK: 'ARCHIVE_TASK',
+  PIN_TASK: 'PIN_TASK'
+};
+
+// The action creators bundle actions with the data required to execute them
+export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
+export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
+```
+
+Then our reducers:
+
+```js
 // app/reducers/index.js
-import { combineReducers } from 'redux';
-// The initial state of our store when the app loads.
-// Usually you would fetch this from a server
+import { actions } from '../actions';
+
 const defaultTasks = [
-  { id: '1', title: 'Something', state: 'TASK_INBOX' },
-  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
+  { id: "1", title: "Something", state: "TASK_INBOX" },
+  { id: "2", title: "Something more", state: "TASK_INBOX" },
+  { id: "3", title: "Something else", state: "TASK_INBOX" },
+  { id: "4", title: "Something again", state: "TASK_INBOX" },
 ];
 
 const initialState = {
   tasks: defaultTasks,
 };
-// The actions are the "names" of the changes that can happen to the store
-export const actions = {
-  ARCHIVE_TASK: 'ARCHIVE_TASK',
-  PIN_TASK: 'PIN_TASK',
-};
-
-// The action creators bundle actions with the data required to execute them
-export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(task =>
+      tasks: state.tasks.map((task) =>
         task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
@@ -60,7 +71,7 @@ function taskStateReducer(taskState) {
 }
 
 // The reducer describes how the contents of the store change for each action
-export const reducer = (state, action) => {
+const reducers = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
       return taskStateReducer('TASK_ARCHIVED')(state, action);
@@ -71,189 +82,87 @@ export const reducer = (state, action) => {
   }
 };
 
-export default combineReducers({
-  reducer,
-});
+export default reducers;
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to `app/components/pure-task-list.hbs` and `app/components/pure-task-list.js` and wrap it with a container.
-
-In `app/components/PureTaskList.hbs`:
-
-```handlebars
-{{!--app/components/pure-task-list.hbs --}}
-{{#if @loading}}
- <LoadingRow />
- <LoadingRow />
- <LoadingRow/>
- <LoadingRow />
- <LoadingRow />
-{{else if this.tasksInOrder}}
-  {{#each this.tasksInOrder as |task|}}
-    <Task
-      @task={{task}}
-      @pin={{fn @pinTask task.id}}
-      @archive={{fn @archiveTask task.id}}
-    />
-  {{/each}}
-{{else}}
-  <div class="list-items">
-    <div class="wrapper-message">
-      <span class="icon-check" />
-      <div class="title-message">You have no tasks</div>
-      <div class="subtitle-message">Sit back and relax</div>
-    </div>
-  </div>
-{{/if}}
-```
-
-In `app/components/task-list.hbs`:
-
-```handlebars
-
-{{!!-- app/components/task-list.hbs --}}
-<div>
-  <PureTaskList
-    @tasks={{this.tasks}}
-    @pinTask={{this.pinTask}}
-    @archiveTask={{this.archiveTask}}
-  />
-</div>
-
-```
-
-And `app/components/task-list.js` :
+And finally our store (watch the import):
 
 ```js
-//app/components/task-list.js
+// app/store.js
+import { createStore } from 'tracked-redux';
+import reducers from './reducers';
 
-import Component from '@glimmer/component';
-import { action } from '@ember/object';
-import { connect } from 'ember-redux';
-import { archiveTask, pinTask } from '../reducers/index';
+export const store = createStore(reducers);
+```
 
-const stateToComputed = state => {
-  const { reducer } = state;
-  const { tasks } = reducer;
+First we’ll construct a simple Redux store that responds to actions that change
+the state of tasks, in a file called `reducers/index.js` (intentionally kept
+simple):
 
-  return {
-    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
-  };
-};
+## Using a Route
 
-class TaskList extends Component {
-  @action
-  pinTask(taskID) {
-    this.actions.onPinTask(taskID);
-  }
+With that we are able to connect our route with the redux store. Thanks to
+tracked-redux we have no artificial properties put on the prototype of our
+objects, instead we can explicitely declare each field we want. Here we are
+going to use the route to load the data and a controller with actions to modify
+it:
 
-  @action
-  archiveTask(taskID) {
-    this.actions.onArchiveTask(taskID);
+```js
+// app/tasks/route.js
+import Route from '@ember/routing/route';
+import { store } from '../store';
+
+export default class TasksRoute extends Route {
+  model() {
+    // thanks to tracked redux, store.getState()
+    // returns a tracked state
+    // whenever the state changes, these will be reflected in the template
+    return store.getState().tasks.filter(
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+    );
   }
 }
-
-export default connect(
-  stateToComputed,
-  dispatch => ({
-    onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id)),
-  })
-)(TaskList);
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `app/components/task-list.stories.js` into `app/components/pure-task-list.stories.js`, and ensure our stories use the presentational version:
+And the controller with modifications where we are going to use our earlier
+defined actions:
 
-```javascript
-// app/components/pure-task-list.stories.js
-import { hbs } from 'ember-cli-htmlbars';
-import { taskData, actionsData } from './task.stories';
+```js
+// app/tasks/controller.js
+import Controller from '@ember/controller';
+import { action } from '@ember/object';
+import { store } from '../store';
+import { pinTask, archiveTask } from '../actions';
 
-export default {
-  title: 'PureTaskList',
-  component: 'task-list',
-  excludeStories: /.*Data$/,
-};
+export default class TaskController extends Controller {
+  @action
+  pinTask(task) {
+    store.dispatch(pinTask(task.id));
+  }
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
-
-export const Default = () => ({
-  template: hbs`<div style="padding: 3rem"><PureTaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
-  context: {
-    tasks: defaultTasksData,
-    ...actionsData,
-  },
-});
-
-export const withPinnedTasks = () => ({
-  template: hbs`<div style="padding: 3rem"><PureTaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
-  context: {
-    tasks: withPinnedTasksData,
-    ...actionsData,
-  },
-});
-export const Loading = () => ({
-  template: hbs`<div style="padding: 3rem"><PureTaskList @tasks={{this.tasks}} @loading={{true}}/></div>`,
-  context: {
-    tasks: [],
-  },
-});
-export const Empty = () => ({
-  template: hbs`<div style="padding: 3rem"><PureTaskList @tasks={{this.tasks}}/></div>`,
-  context: {
-    tasks: [],
-  },
-});
+  @action
+  archiveTask(task) {
+    store.dispatch(archiveTask(task.id));
+  }
+}
 ```
 
-<video autoPlay muted playsInline loop>
-  <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
-    type="video/mp4"
-  />
-</video>
+And we use our earlier created presentational `<TaskList>` component, mount it
+at the route template and connect it with the actions in the controller and the
+data from the route.
 
-Similarly, we need to use `PureTaskList` in our Qunit test:
-
-```javascript
-// tests/integration/task-list-test.js
-import { module, test } from 'qunit';
-import { setupRenderingTest } from 'ember-qunit';
-import { render } from '@ember/test-helpers';
-import { hbs } from 'ember-cli-htmlbars';
-module('Integration | Component | TaskList', function(hooks) {
-  setupRenderingTest(hooks);
-  const taskData = {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
-  };
-  const tasklist = [
-    { ...taskData, id: '1', title: 'Task 1' },
-    { ...taskData, id: '2', title: 'Task 2' },
-    { ...taskData, id: '3', title: 'Task 3' },
-    { ...taskData, id: '4', title: 'Task 4' },
-    { ...taskData, id: '5', title: 'Task 5' },
-    { ...taskData, id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ];
-
-  test('renders pinned tasks at the start of the list', async function(assert) {
-    this.tasks = tasklist;
-    await render(hbs`<PureTaskList @tasks={{this.tasks}}/>`);
-    assert.dom('[data-test-task]:nth-of-type(1)').hasClass('TASK_PINNED');
-  });
-});
+```hbs
+{{!--app/tasks/template.hbs --}}
+<TaskList
+  @tasks={{@model}}
+  @pinTask={{this.pinTask}}
+  @archiveTask={{this.archiveTask}}
+/>
 ```
+
+We will keep the presentational `<TaskList>` decoupled from the data-loading
+mechanism to enforce separation of concerns and a good architecture overall.
+However, also our current implementation of using a route and a controller
+doesn't feel overall pleasing. We can use a container component instead, that
+is also responsible for data loading and visually managing its state. We will do
+this in the next step with the introduction of screen components.
