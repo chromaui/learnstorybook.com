@@ -2,7 +2,7 @@
 title: 'Bouw een eenvoudige component'
 tocTitle: 'Eenvoudige component'
 description: 'Bouw een eenvoudige component in isolatie'
-commit: 403f19a
+commit: 3d9cd8c
 ---
 
 We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)-methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met losse componenten en eindigend met schermen. CDD helpt je grip te houden op de complexiteit naarmate je de applicatie verder uitbouwt.
@@ -209,7 +209,7 @@ Zoals je ziet, is het eenvoudig en snel om aan de slag te gaan met het bouwen va
 
 ## Geautomatiseerd testen
 
-Storybook gaf ons een geweldige manier om onze applicatie visueel te testen tijdens het bouwen. De _stories_ helpen ervoor te zorgen dat onze  component niet onbedoeld visueel veranderd tijdens het ontwikkelen van onze applicatie. Het is in dit stadium echter een volledig handmatig proces en iemand moet de moeite nemen om door elke test state te klikken en na te gaan dat deze goed en zonder fouten of waarschuwingen wordt gerenderd. Kunnen we dat niet automatisch doen?
+Storybook gaf ons een geweldige manier om onze applicatie visueel te testen tijdens het bouwen. De _stories_ helpen ervoor te zorgen dat onze component niet onbedoeld visueel veranderd tijdens het ontwikkelen van onze applicatie. Het is in dit stadium echter een volledig handmatig proces en iemand moet de moeite nemen om door elke test state te klikken en na te gaan dat deze goed en zonder fouten of waarschuwingen wordt gerenderd. Kunnen we dat niet automatisch doen?
 
 ### Snapshot testing
 

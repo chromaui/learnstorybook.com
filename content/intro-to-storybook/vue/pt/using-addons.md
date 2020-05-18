@@ -2,7 +2,7 @@
 title: 'Extras'
 tocTitle: 'Extras'
 description: 'Aprender a integrar e usar extras com recurso a um exemplo popular'
-commit: 'dac373a'
+commit: 'b3bca4a'
 ---
 
 Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/introduction/) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/vue/pt/test/).

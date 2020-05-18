@@ -2,7 +2,7 @@
 title: '测试 UI 组件'
 tocTitle: '测试'
 description: '了解测试UI组件的方法'
-commit: 78a45d1
+commit: 3e283f7
 ---
 
 Storybook 教程没有测试是不完整的. 测试对于创建高质量的 UI 至关重要. 在模块化系统中,微小的调整可能导致重大的回溯. 到目前为止,我们遇到了三种类型的测试

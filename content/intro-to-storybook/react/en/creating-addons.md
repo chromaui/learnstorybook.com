@@ -2,6 +2,7 @@
 title: 'Creating addons'
 tocTitle: 'Creating addons'
 description: 'Learn how to build your own addons that will super charge your development'
+commit: 'bebba5d'
 ---
 
 In the previous chapter we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
@@ -50,7 +51,6 @@ And that's it! Simple isn't it?
 Add the following to your recently created file:
 
 ```javascript
-
 //.storybook/design-addon/register.js
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
@@ -77,13 +77,12 @@ This is the a typical boilerplate code to get started and going over what the co
 Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
 
 ```js
-
 // .storybook/main.js
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    "./.storybook/design-addon/register.js" // our addon
+    './.storybook/design-addon/register.js', // our addon
   ],
 };
 ```
@@ -103,7 +102,6 @@ To complete it, we need to make some changes to our imports and introduce a new 
 Make the following changes to the addon file:
 
 ```javascript
-
 //.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 /* same as before */
@@ -130,7 +128,6 @@ We've created the component, modified the imports, all that's missing is to conn
 Your code should look like the following:
 
 ```javascript
-
 //.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
@@ -174,7 +171,6 @@ We've connected all the necessary pieces. But how can we see if it's actually wo
 To do so, we're going to make a small change to the `Task.stories.js` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
 
 ```javascript
-
 // src/components/Task.stories.js
 export default {
   component: Task,
@@ -202,7 +198,6 @@ Go ahead and restart your Storybook and select the Task story, you should see so
 At this stage we can see that the addon is working as it should, but now let's change the `Content` component to actually display what we want:
 
 ```javascript
-
 //.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
@@ -283,7 +278,6 @@ For the final one, we're going to need some sort of state, we could use React's 
 We need to adjust our imports for our needs:
 
 ```javascript
-
 //.storybook/design-addon/register.js
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
@@ -293,7 +287,6 @@ import { AddonPanel, ActionBar } from '@storybook/components';
 And modify our `Content` component, so that we can change between assets:
 
 ```javascript
-
 //.storybook/design-addon/register.js
 const Content = () => {
   // story's parameter being retrieved here
@@ -337,7 +330,6 @@ We've accomplished what we set out to do, which is to create a fully functioning
   <summary>Click to expand and see the full code used in this example</summary>
 
 ```javascript
-
 // .storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 

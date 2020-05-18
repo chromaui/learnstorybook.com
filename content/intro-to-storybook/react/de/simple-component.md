@@ -2,7 +2,7 @@
 title: 'Baue eine einfache Komponente'
 tocTitle: 'Einfache Komponente'
 description: 'Baue eine einfache Komponente in Isolation'
-commit: 403f19a
+commit: 3d9cd8c
 ---
 
 Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "bottom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
@@ -89,7 +89,7 @@ Es gibt zwei grundlegende Ebenen, in denen Komponenten in Storybook origanisiert
   - Story
   - Story
 
-Um Storybook die Komponente, die wir dokumentieren, zugänglich zu machen, erstellen wir einen `default` Export. Dieser beinhaltet: 
+Um Storybook die Komponente, die wir dokumentieren, zugänglich zu machen, erstellen wir einen `default` Export. Dieser beinhaltet:
 
 - `component` -- die Komponente selbst,
 - `title` -- wie die Komponente in der Sidebar der Storybook App referenziert werden soll,
@@ -135,7 +135,7 @@ Sobald wir das erledigt und den Storybook Server neu gestartet haben, sollten di
 
 Da wir Storybook jetzt eingerichtet, die Styles importiert und die Testfälle angelegt haben, können wir einfach damit loslegen, das HTML der Komponente zu implementieren, so dass es dem Design entspricht.
 
-Die Komponente ist noch immer sehr einfach gehalten. Schreib zunächst den Code, um das Design zu erhalten, ohne dass wir zu sehr ins Detail gehen: 
+Die Komponente ist noch immer sehr einfach gehalten. Schreib zunächst den Code, um das Design zu erhalten, ohne dass wir zu sehr ins Detail gehen:
 
 ```javascript
 // src/components/Task.js
@@ -249,7 +249,7 @@ Du wirst auch ein [babel-Macro](https://github.com/kentcdodds/babel-plugin-macro
 yarn add --dev babel-plugin-macros
 ```
 
-Und aktiviere es, indem du eine `.babelrc` Datei im Root-Ordner deiner App (dieselbe Ebene wie die  `package.json`) erstellst:
+Und aktiviere es, indem du eine `.babelrc` Datei im Root-Ordner deiner App (dieselbe Ebene wie die `package.json`) erstellst:
 
 ```json
 // .babelrc

@@ -2,7 +2,7 @@
 title: 'Storybook voor React tutorial'
 tocTitle: 'Begin'
 description: 'Stel Storybook in voor je ontwikkelomgeving'
-commit: ebe2ae2
+commit: 8741257
 ---
 
 Storybook wordt naast je app in _development mode_ uitgevoerd. Het helpt je om UI componenten te bouwen die geïsoleerd zijn van de business logica en context van je applicatie. Deze versie van Learn Storybook is voor React; er zijn andere versies voor [Vue](/vue/en/get-started) en[Angular](/angular/en/get-started).

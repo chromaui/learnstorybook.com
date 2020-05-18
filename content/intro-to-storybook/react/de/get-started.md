@@ -2,7 +2,7 @@
 title: 'Storybook für React Tutorial'
 tocTitle: 'Leg los'
 description: 'Richte Storybook in deiner Entwicklungsumgebung ein'
-commit: ebe2ae2
+commit: 8741257
 ---
 
 Storybook läuft parallel zu deiner App im Entwicklungs-Modus. Es hilft dir, UI-Komponenten unabhängig von Business-Logik und vom Kontext deiner App zu entwickeln. Diese Edition von "Lerne Storybook" ist für React; es gibt andere Editionen für [Vue](/vue/de/get-started) und [Angular](/angular/de/get-started).

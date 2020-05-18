@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: 403f19a
+commit: 3d9cd8c
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -73,11 +73,11 @@ export const actionsData = {
 
 export const Default = () => <Task task={{ ...taskData }} {...actionsData} />;
 
-export const Pinned = () => (
-  <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />
-);
+export const Pinned = () => <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />;
 
-export const Archived = () => <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />;
+export const Archived = () => (
+  <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />
+);
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -118,7 +118,11 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/preset-create-react-app','@storybook/addon-actions', '@storybook/addon-links'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+  ],
 };
 ```
 
@@ -168,7 +172,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
       <div className="actions" onClick={event => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
-           // eslint-disable-next-line jsx-a11y/anchor-is-valid
+          // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>
             <span className={`icon-star`} />
           </a>
