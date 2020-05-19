@@ -66,6 +66,117 @@ contributors:
     },
   ]
 twitterShareText: 'I’m learning Storybook! It’s a great dev tool for UI components.'
+guideInformation: [
+  {
+     framework: 'react',
+     currentGuideVersion: [
+       {
+         language: 'de',
+         version: 5.2
+       },
+       {
+         language: 'en',
+         version: 5.3
+       },
+       {
+         language: 'es',
+         version: 5.2
+       },
+       {
+         language: 'nl',
+         version: 5.2
+       },
+       {
+         language: 'pt',
+         version: 5.3
+       },
+       {
+         language: 'zh-CN',
+         version: 5.2
+       },
+       {
+         language: 'zh-TW',
+         version: 5.2
+       },
+     ]
+  },
+  {
+     framework: 'react-native',
+     currentGuideVersion: [
+       {
+         language: 'en',
+         version: 5.3
+       },
+       {
+         language: 'es',
+         version: 5.3
+       },
+     ]
+  },
+  {
+     framework: 'vue',
+     currentGuideVersion: [
+       {
+         language: 'en',
+         version: 5.3
+       },
+       {
+         language: 'es',
+         version: 5.3
+       },
+       {
+         language: 'pt',
+         version: 5.3
+       }
+     ]
+  },
+  {
+     framework: 'angular',
+     currentGuideVersion: [
+       {
+         language: 'en',
+         version: 5.3
+       },
+       {
+         language: 'es',
+         version: 5.2
+       },
+       {
+         language: 'pt',
+         version: 5.2
+       }
+     ]
+  },
+  {
+     framework: 'svelte',
+     currentGuideVersion: [
+        {
+         language: 'en',
+         version: 5.3
+       }
+     ]
+  },
+  {
+     framework: 'ember',
+     currentGuideVersion: []
+  },
+  {
+     framework: 'html',
+     currentGuideVersion: []
+  },
+  {
+     framework: 'marko',
+     currentGuideVersion: []
+  },
+  {
+     framework: 'mithril',
+     currentGuideVersion: []
+  },
+  {
+     framework: 'riot',
+     currentGuideVersion: []
+  },
+]
 ---
 
 <h2>What you'll build</h2>

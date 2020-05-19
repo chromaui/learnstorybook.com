@@ -10,6 +10,7 @@ module.exports = {
     siteUrl: permalink,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
+    currentStorybookVersion: 5.3,
   },
   plugins: [
     {

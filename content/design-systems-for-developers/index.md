@@ -64,6 +64,21 @@ contributors:
     },
   ]
 twitterShareText: "I’m learning about building design systems! They're great for scaling frontend code on large teams."
+guideInformation: [
+  {
+    framework: 'react',
+    currentGuideVersion: [
+       {
+         language: 'en',
+         version: 5.3
+       },
+       {
+         language: 'pt',
+         version: 5.3
+       },
+    ]
+  }
+]
 ---
 
 <h2>What you'll build</h2>

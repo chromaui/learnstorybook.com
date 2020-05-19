@@ -8,7 +8,9 @@ import ChapterLinks from './ChapterLinks';
 import GithubLink from './GithubLink';
 import Pagination from './Pagination';
 import Sidebar from './Sidebar';
+import TranslationUpdated from './TranslationUpdated';
 import tocEntries from '../../../lib/tocEntries';
+import { fetchTwitterTextInfo, fetchGitHubTextInfo } from '../../../lib/getTranslationInformation';
 import { chapterFormatting } from '../../../styles/formatting';
 
 const { pageMargins, breakpoint, typography } = styles;
@@ -53,7 +55,6 @@ const Description = styled.div`
   line-height: 32px !important;
   margin-bottom: 24px;
 `;
-
 const Chapter = ({
   data: {
     currentPage: {
@@ -62,7 +63,13 @@ const Chapter = ({
       fields: { framework, guide, language, slug, chapter, permalink },
     },
     currentGuide: {
-      frontmatter: { codeGithubUrl, title: currentGuideTitle, toc, twitterShareText },
+      frontmatter: {
+        codeGithubUrl,
+        title: currentGuideTitle,
+        toc,
+        twitterShareText,
+        guideInformation,
+      },
     },
     site: { siteMetadata },
     tocPages,
@@ -80,6 +87,10 @@ const Chapter = ({
     ''
   )}.md`;
 
+  const guideInformationByFramework = guideInformation.find(x => x.framework === framework);
+
+  const currentTwitterInfo = fetchTwitterTextInfo(language);
+  const currentGitInfo = fetchGitHubTextInfo(language);
   return (
     <ChapterWrapper>
       <Helmet>
@@ -114,19 +125,27 @@ const Chapter = ({
         slug={slug}
         translationPages={translationPages}
       />
-
       <Content>
         <Title>{title}</Title>
         <Description>{description}</Description>
+        {guideInformationByFramework && (
+          <TranslationUpdated
+            currentLanguage={language}
+            currentTranslations={guideInformationByFramework.currentGuideVersion}
+            storybookVersion={siteMetadata.currentStorybookVersion}
+          />
+        )}
         <HighlightWrapper>{html}</HighlightWrapper>
         <ChapterLinks
           codeGithubUrl={codeGithubUrl}
           commit={commit}
           guide={guide}
-          twitterShareText={twitterShareText}
+          twitterShareText={currentTwitterInfo[guide]}
+          twitterLinkDisplayText={currentTwitterInfo.displaytext}
+          gitLinkDisplayText={`${currentGitInfo.displaytext} ${currentGitInfo.committext} ${commit}`}
         />
         <Pagination nextEntry={nextEntry} />
-        <GithubLink githubFileUrl={githubFileUrl} />
+        <GithubLink githubFileUrl={githubFileUrl} githubDisplayText={currentGitInfo.prtext} />
       </Content>
     </ChapterWrapper>
   );
@@ -156,6 +175,17 @@ Chapter.propTypes = {
         title: PropTypes.string.isRequired,
         toc: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
         twitterShareText: PropTypes.string,
+        guideInformation: PropTypes.arrayOf(
+          PropTypes.shape({
+            framework: PropTypes.string,
+            currentGuideVersion: PropTypes.arrayOf(
+              PropTypes.shape({
+                language: PropTypes.string,
+                version: PropTypes.number,
+              })
+            ),
+          })
+        ).isRequired,
       }).isRequired,
     }).isRequired,
     tocPages: PropTypes.shape({
@@ -199,6 +229,7 @@ Chapter.propTypes = {
         githubUrl: PropTypes.string.isRequired,
         permalink: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
+        currentStorybookVersion: PropTypes.number.isRequired,
       }).isRequired,
     }).isRequired,
   }).isRequired,
@@ -230,6 +261,13 @@ export const query = graphql`
         toc
         title
         twitterShareText
+        guideInformation {
+          framework
+          currentGuideVersion {
+            language
+            version
+          }
+        }
       }
     }
     site {
@@ -239,6 +277,7 @@ export const query = graphql`
         contributeUrl
         permalink
         siteUrl
+        currentStorybookVersion
       }
     }
     tocPages: allMarkdownRemark(

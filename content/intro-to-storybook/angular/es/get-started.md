@@ -5,8 +5,8 @@ description: 'Configurar Angular Storybook en tu entorno de desarrollo'
 commit: 0818d47
 ---
 
-<div class="aside"><p>
-¡Esta traducción está desactualizada! Ayúdenos a mejorarlo haciendo clic en el enlace en la parte inferior de la página. No solo el equipo te lo agradece, sino toda la comunidad.</p></div>
+<!-- <div class="aside"><p>
+¡Esta traducción está desactualizada! Ayúdenos a mejorarlo haciendo clic en el enlace en la parte inferior de la página. No solo el equipo te lo agradece, sino toda la comunidad.</p></div> -->
 
 Storybook se ejecuta en conjunto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz gráfica aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Angular.
 

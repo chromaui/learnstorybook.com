@@ -26,6 +26,17 @@ authors:
     },
   ]
 contributors: []
+guideInformation: [
+  {
+    framework: 'react',
+    currentGuideVersion: [
+       {
+         language: 'en',
+         version: 5.3
+       }
+    ]
+  }
+]
 ---
 
 <h2>What you'll build</h2>

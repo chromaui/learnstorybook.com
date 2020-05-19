@@ -61,13 +61,19 @@ const buildTwitterUrl = (guide, text) =>
     text
   )}&tw_p=tweetbutton&url=https%3A%2F%2Flearnstorybook.com%2F${guide}&via=chromaui`;
 
-const ChapterLinks = ({ codeGithubUrl, commit, guide, twitterShareText }) => {
+const ChapterLinks = ({
+  codeGithubUrl,
+  commit,
+  guide,
+  twitterShareText,
+  twitterLinkDisplayText,
+  gitLinkDisplayText,
+}) => {
   const withCommitLink = !isNil(codeGithubUrl) && !isNil(commit);
 
   if (!withCommitLink && !twitterShareText) {
     return null;
   }
-
   return (
     <BoxLinksWrapper withMultiple={withCommitLink}>
       {withCommitLink && (
@@ -76,7 +82,9 @@ const ChapterLinks = ({ codeGithubUrl, commit, guide, twitterShareText }) => {
             <BoxLinkIcon icon="repository" />
 
             <BoxLinkMessage>
-              Keep your code in sync with this chapter. View {commit} on GitHub.
+             {/*  Keep your code in sync with this chapter. View {commit} on GitHub. */}
+
+              {gitLinkDisplayText}
             </BoxLinkMessage>
           </BoxLinkContent>
         </BoxLink>
@@ -88,7 +96,8 @@ const ChapterLinks = ({ codeGithubUrl, commit, guide, twitterShareText }) => {
             <BoxLinkIcon icon="twitter" />
 
             <BoxLinkMessage>
-              Is this free guide helping you? Tweet to give kudos and help other devs find it.
+              {/* Is this free guide helping you? Tweet to give kudos and help other devs find it. */}
+              {twitterLinkDisplayText}
             </BoxLinkMessage>
           </BoxLinkContent>
         </BoxLink>
@@ -102,12 +111,16 @@ ChapterLinks.propTypes = {
   commit: PropTypes.string,
   guide: PropTypes.string.isRequired,
   twitterShareText: PropTypes.string,
+  twitterLinkDisplayText: PropTypes.string,
+  gitLinkDisplayText: PropTypes.string,
 };
 
 ChapterLinks.defaultProps = {
   codeGithubUrl: null,
   commit: null,
   twitterShareText: null,
+  twitterLinkDisplayText: null,
+  gitLinkDisplayText: null,
 };
 
 export default ChapterLinks;

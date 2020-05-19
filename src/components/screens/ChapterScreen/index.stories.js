@@ -26,6 +26,17 @@ const props = {
         languages: ['en'],
         title: 'Guide Title',
         toc: ['chapter-1', 'chapter-2'],
+        guideInformation: [
+          {
+            framework: 'react',
+            currentGuideVersion: [
+              {
+                language: 'en',
+                version: 5.3,
+              },
+            ],
+          },
+        ],
       },
     },
     site: {
@@ -34,6 +45,7 @@ const props = {
         contributeUrl: 'https://github.com',
         permalink: 'https://learnstorybook.com',
         title: 'Learn Storybook',
+        currentStorybookVersion: 5.3,
       },
     },
     tocPages: {
@@ -99,6 +111,42 @@ const props = {
   },
 };
 
+const translatedProps = {
+  data: {
+    ...props.data,
+    currentPage: {
+      ...props.data.currentPage,
+      fields: {
+        chapter: 'chapter-1',
+        framework: 'react',
+        guide: 'sample-guide',
+        language: 'es',
+        permalink: 'https://learnstorybook.com/sample-guide',
+        slug: '/chapter-slug',
+      },
+    },
+    currentGuide: {
+      frontmatter: {
+        codeGithubUrl: 'https://github.com',
+        languages: ['es'],
+        title: 'Guide Title',
+        toc: ['chapter-1', 'chapter-2'],
+        guideInformation: [
+          {
+            framework: 'react',
+            currentGuideVersion: [
+              {
+                language: 'es',
+                version: 5.2,
+              },
+            ],
+          },
+        ],
+      },
+    },
+  },
+};
 storiesOf('Screens|ChapterScreen/index', module)
   .addParameters({ component: Chapter })
-  .add('default', () => <Chapter {...props} />);
+  .add('default', () => <Chapter {...props} />)
+  .add('without outdated version', () => <Chapter {...translatedProps} />);
