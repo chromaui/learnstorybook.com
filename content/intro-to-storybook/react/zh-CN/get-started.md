@@ -2,7 +2,7 @@
 title: '开始吧'
 tocTitle: '从头开始'
 description: '在你的开发环境下, 设置 React Storybook '
-commit: 8741257
+commit: '8741257'
 ---
 
 <div class="aside">

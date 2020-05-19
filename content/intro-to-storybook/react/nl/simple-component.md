@@ -2,7 +2,7 @@
 title: 'Bouw een eenvoudige component'
 tocTitle: 'Eenvoudige component'
 description: 'Bouw een eenvoudige component in isolatie'
-commit: 3d9cd8c
+commit: '3d9cd8c'
 ---
 
 We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)-methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met losse componenten en eindigend met schermen. CDD helpt je grip te houden op de complexiteit naarmate je de applicatie verder uitbouwt.

@@ -2,7 +2,7 @@
 title: 'Test UI components'
 tocTitle: 'Testing'
 description: 'Learn the ways to test UI components'
-commit: 3e283f7
+commit: '3e283f7'
 ---
 
 No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:

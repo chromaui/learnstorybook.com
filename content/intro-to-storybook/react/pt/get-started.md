@@ -2,7 +2,7 @@
 title: 'Tutorial do Storybook para o React'
 tocTitle: 'Introdução'
 description: 'Configuração do React Storybook no ambiente de desenvolvimento React'
-commit: 8741257
+commit: '8741257'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.

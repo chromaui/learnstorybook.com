@@ -2,7 +2,7 @@
 title: 'Storybook para React tutorial'
 tocTitle: 'Empezando'
 description: 'Configurar React Storybook en tu entorno de desarrollo'
-commit: 8741257
+commit: '8741257'
 ---
 
 <div class="aside"><p>

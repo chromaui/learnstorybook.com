@@ -2,7 +2,7 @@
 title: '构建一个简单的组件'
 tocTitle: '简单 组件'
 description: '单独构建一个简单的组件'
-commit: 3d9cd8c
+commit: '3d9cd8c'
 ---
 
 我们将按照[组件驱动开发](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) 方法论来 构建我们的 UI. 这是一个从"自下而上"开始构建 UI 的过程,从组件开始到整个页面结束. CDD 可帮助您在构建 UI 时,摆列您所面临的复杂程度.
