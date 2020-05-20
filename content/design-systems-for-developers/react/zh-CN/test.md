@@ -50,7 +50,7 @@ commit: 5b71208
 通过 npm 安装 [chromatic](https://www.npmjs.com/package/chromatic)
 
 ```bash
-yarn add --dev storybook-chromatic
+yarn add --dev chromatic
 ```
 
 打开您的命令行并跳转到 `design-system` 目录。然后运行您的第一次测试来生成您视觉测试的基准截图。(您将需要使用在 Chromatic 网站中提供的应用程序代码)
