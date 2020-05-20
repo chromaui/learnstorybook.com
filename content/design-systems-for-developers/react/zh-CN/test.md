@@ -47,7 +47,7 @@ commit: 5b71208
 
 ![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
-通过 npm 安装 [storybook-chromatic](https://www.npmjs.com/package/storybook-chromatic)
+通过 npm 安装 [chromatic](https://www.npmjs.com/package/chromatic)
 
 ```bash
 yarn add --dev storybook-chromatic
