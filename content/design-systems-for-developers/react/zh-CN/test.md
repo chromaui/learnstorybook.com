@@ -56,7 +56,7 @@ yarn add --dev chromatic
 打开您的命令行并跳转到 `design-system` 目录。然后运行您的第一次测试来生成您视觉测试的基准截图。(您将需要使用在 Chromatic 网站中提供的应用程序代码)
 
 ```bash
-yarn chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
