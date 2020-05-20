@@ -39,7 +39,7 @@ commit: 5b71208
 
 如果您在创建现代化 UI，视觉测试可帮助您的前端开发团队节省人工审查的时间，也可以避免昂贵的 UI 回归测试。我们将使用 Storybook 维护者提供的工业级服务 Chromatic 来演示视觉测试。
 
-首先，通过您的 Github 在 [ChromaticQA.com](https://chromaticqa.com) 上注册一个账号
+首先，通过您的 Github 在 [Chromatic.com](https://www.chromatic.com/) 上注册一个账号
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
