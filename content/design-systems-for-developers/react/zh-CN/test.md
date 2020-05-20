@@ -78,7 +78,7 @@ export const typography = {
 在此运行测试命令
 
 ```bash
-yarn chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 您看！细微的调整导致大量的 UI 发生变化
