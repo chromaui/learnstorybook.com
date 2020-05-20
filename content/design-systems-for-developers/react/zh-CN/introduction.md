@@ -58,7 +58,7 @@ Storybook 正在为 [Uber](https://github.com/uber-web/baseui)、 [Airbnb](https
 
 - 🚥 [CircleCI](https://circleci.com/) 用于持续集成
 - 📐 [ESLint](https://eslint.org/) 用于 Javascript 语法检查
-- ✅ [Chromatic](https://chromaticqa.com) 用于捕获组件中的视觉错误 (由 Storybook 维护人员执行)
+- ✅ [Chromatic](https://www.chromatic.com/) 用于捕获组件中的视觉错误 (由 Storybook 维护人员执行)
 - 🃏 [Jest](https://jestjs.io/) 用于组件的单元测试
 - 📦 [npm](https://npmjs.com) 用于发行组件库
 - 🛠 [Auto](https://github.com/intuit/auto) 用于发布管理工作流程
