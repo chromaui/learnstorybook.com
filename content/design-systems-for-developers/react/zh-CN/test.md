@@ -114,7 +114,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn test
-      - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
+      - run: yarn chromatic --project-token=<project-token> --exit-zero-on-changes
 ```
 
 保存并运行 `git commit`。 恭喜您刚刚已经在持续集成过程中成功添加了视觉测试！
