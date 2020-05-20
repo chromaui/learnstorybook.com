@@ -2,7 +2,7 @@
 title: 'Test UI componenten'
 tocTitle: 'Testen'
 description: 'Leer manieren om UI componenten te testen'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Geen Storybook tutorial zou compleet zijn zonder testen. Testen is essentieel voor het maken van UI's van hoge kwaliteit. In modulaire systemen kunnen kleine tweaks leiden tot grote regressies. Tot nu toe zijn we drie soorten tests tegengekomen:

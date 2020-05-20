@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use addons using a popular example'
-commit: 'dac373a'
+commit: 'b3bca4a'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
@@ -42,7 +42,12 @@ Register Knobs in your `.storybook/main.js` file.
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/preset-create-react-app','@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-knobs',
+    '@storybook/addon-links',
+  ],
 };
 ```
 

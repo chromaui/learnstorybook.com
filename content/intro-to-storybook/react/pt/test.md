@@ -2,7 +2,7 @@
 title: 'Teste de componentes de interface de utilizador'
 tocTitle: 'Testes'
 description: 'Aprendizagem das formas de teste dos componentes interface utilizador'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Qualquer tutorial de Storybook não estaria completo sem serem mencionados os testes. Estes são essenciais na criação de interfaces de utilizador de alta qualidade. Nos sistemas modulares, ajustes minúsculos poderão levar a regressões gigantescas. Até agora foram descritos três tipos de testes:
