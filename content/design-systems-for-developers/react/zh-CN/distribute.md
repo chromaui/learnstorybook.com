@@ -246,7 +246,7 @@ yarn auto release
 ```
 # ...
 - run: yarn test
-- run: yarn chromatic test -a 2wix88i1ziu
+- run: yarn chromatic --project-token=2wix88i1ziu
 - run: |
     if [ $CIRCLE_BRANCH = "master" ]
     then
