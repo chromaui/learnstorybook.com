@@ -23,21 +23,26 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```handlebars
-
 {{!-- app/components/task-list.hbs--}}
-{{#if @loading}}
- <div class="list-items">loading</div>>
-{{else if @tasks}}
-  {{#each @tasks as |task|}}
+{{#if this.tasksInOrder}}
+  {{#each this.tasksInOrder as |task|}}
     <Task
       @task={{task}}
-      @pin={{fn @pinTask task.id}}
-      @archive={{fn @archiveTask task.id}}
+      @pin={{@pinTask}}
+      @archive={{@archiveTask}}
     />
   {{/each}}
 {{else}}
   <div class="list-items">
-    empty
+    <div class="wrapper-message">
+      <span class="icon-check"></span>
+      <div class="title-message">
+        You have no tasks
+      </div>
+      <div class="subtitle-message">
+        Sit back and relax
+      </div>
+    </div>
   </div>
 {{/if}}
 ```
@@ -46,52 +51,67 @@ Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 // app/components/task-list.stories.js
-import { hbs } from 'ember-cli-htmlbars';
-import { taskData, actionsData } from './task.stories';
+import { hbs } from "ember-cli-htmlbars";
+import { taskData, actionsData } from "./task.stories";
 
 export default {
-  title: 'TaskList',
-  component: 'task-list',
+  title: "TaskList",
+  component: "TaskList",
   excludeStories: /.*Data$/,
 };
 
 export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
+  { ...taskData, id: "1", title: "Task 1" },
+  { ...taskData, id: "2", title: "Task 2" },
+  { ...taskData, id: "3", title: "Task 3" },
+  { ...taskData, id: "4", title: "Task 4" },
+  { ...taskData, id: "5", title: "Task 5" },
+  { ...taskData, id: "6", title: "Task 6" },
 ];
 
 export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" },
 ];
 
 export const Default = () => ({
-  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
+  template: hbs`
+    <div style="padding: 3rem">
+      <TaskList
+        @tasks={{this.tasks}}
+        @pinTask={{fn this.onPinTask}}
+        @archiveTask={{fn this.onArchiveTask}}
+      />
+    </div>
+  `,
   context: {
     tasks: defaultTasksData,
-    ...actionsData,
+    ...actionsData
   },
 });
 
-export const withPinnedTasks = () => ({
-  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
+export const WithPinnedTasks = () => ({
+  template: hbs`
+    <div style="padding: 3rem">
+      <TaskList
+        @tasks={{this.tasks}}
+        @pinTask={{fn this.onPinTask}}
+        @archiveTask={{fn this.onArchiveTask}}
+      />
+    </div>
+  `,
   context: {
     tasks: withPinnedTasksData,
-    ...actionsData,
+    ...actionsData
   },
 });
-export const Loading = () => ({
-  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @loading={{true}}/></div>`,
-  context: {
-    tasks: [],
-  },
-});
+
 export const Empty = () => ({
-  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}}/></div>`,
+  template: hbs`
+    <div style="padding: 3rem">
+      <TaskList @tasks={{this.tasks}}/>
+    </div>
+  `,
   context: {
     tasks: [],
   },
@@ -118,7 +138,6 @@ For the loading edge case, we're going to create a new component that will displ
 Create a new file called `loading-row.hbs` and inside add the following markup:
 
 ```handlebars
-
 {{!-- app/components/loading-row.hbs --}}
 <div class="loading-item">
   <span class="glow-checkbox" />

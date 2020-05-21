@@ -151,7 +151,6 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```handlebars
-
 {{!-- app/components/task.hbs --}}
 
 <div class="list-item {{@task.state}}" data-test-task>
@@ -160,7 +159,7 @@ The component is still basic at the moment. First write the code that achieves t
       type="checkbox"
       disabled
       name="checked"
-      checked={{this.isTaskArchived}}
+      checked={{this.isArchived}}
     />
     <span
       class="checkbox-custom"
@@ -178,11 +177,11 @@ The component is still basic at the moment. First write the code that achieves t
     />
   </div>
   <div class="actions">
-    {{#if (not-eq @task.state "TASK_ARCHIVED")}}
+    {{#unless this.isArchived}}
       <span data-test-task-pin {{on "click" this.pin}}>
         <span class="icon-star"></span>
       </span>
-    {{/if}}
+    {{/unless}}
   </div>
 </div>
 ```
@@ -195,20 +194,20 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
 export default class Task extends Component {
+
   // computed property for the component (to assign a value to the task state checkbox)
-  get isTaskArchived() {
+  get isArchived() {
     return this.args.task.state === 'TASK_ARCHIVED';
   }
 
-  // actions available to the task, the usage of (?) will check if the argument exists
   @action
   pin() {
-    this.args.pin?.();
+    this.args.pin?.(this.args.task);
   }
 
   @action
   archive() {
-    this.args.archive?.();
+    this.args.archive?.(this.args.task);
   }
 }
 ```
@@ -222,7 +221,7 @@ The additional markup from above combined with the CSS we imported earlier yield
   />
 </video>
 
-## Component built!
+## Component built
 
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
