@@ -89,7 +89,7 @@ Run the test command in the command line to setup visual regression tests for St
 ```
 
 <div class="aside">
-If your Storybook has a custom build script you may have to [add options](https://www.chromatic.com/docs/setup#command-options) to this command.
+If your Storybook has a custom build script you may have to <a href="https://www.chromatic.com/docs/setup#command-options">add options</a> to this command.
 </div>
 
 Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.

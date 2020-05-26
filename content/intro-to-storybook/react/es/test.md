@@ -95,6 +95,8 @@ Ejecuta el comando de prueba en la línea de comandos para configurar las prueba
 npx chromatic --project-token=<project-token>
 ```
 
+<div class="aside"> Si su Storybook tiene un script de compilación personalizado, es posible que deba <a href="https://www.chromatic.com/docs/setup#command-options"> agregar opciones </a> a este comando. </div>
+
 Una vez el primer test esté completo, tenemos líneas base de prueba para cada historia. En otras palabras, capturas de cada historia que ya se conocen como "buenas". Los futuros cambios a estas historias serán comparados con estás lineas base.
 
 ![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)

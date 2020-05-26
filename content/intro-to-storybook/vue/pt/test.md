@@ -73,6 +73,8 @@ Execute o comando de testes na consola de forma a configurar os testes visuais d
 npx chromatic --project-token=<project-token>
 ```
 
+<div class="aside"> Se o seu Storybook tiver um script de compilação personalizado, poderá ter que <a href="https://www.chromatic.com/docs/setup#command-options">adicionar opções</a> a este comando. </div>
+
 Assim que o primeiro teste estiver concluído, é obtida a base de testes para cada estória. Por outras palavras, uma captura de cada estória considerada "boa". Alterações futuras a estas estórias, irão ser comparadas com esta base.
 
 ![Bases Chromatic](/intro-to-storybook/chromatic-baselines.png)
