@@ -58,6 +58,8 @@ Add the package as a dependency.
 npm install -D storybook-chromatic
 ```
 
+One fantastic thing about this addon is that it will use Git history to keep track of your UI components.
+
 Then [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `project-token`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">

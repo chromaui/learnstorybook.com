@@ -13,10 +13,9 @@ Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessá
     Pode saltar-se este capítulo e seguir para <a href="/react/pt/conclusion">conclusão</a>.
 </div>
 
-
 ## Exportação sob a forma de uma app estática
 
-Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web.  Esta funcionalidade já está implementada e configurada, como tal não precisamos preocupar-nos com qualquer tipo de configuração.
+Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada e configurada, como tal não precisamos preocupar-nos com qualquer tipo de configuração.
 
 Quando executar o Storybook através de `yarn build-storybook`, irá gerar a pasta `storybook-static` com o conteúdo estático do seu Storybook.
 
@@ -31,12 +30,6 @@ Se estiver a seguir o tutorial a partir da secção anterior de testes pode salt
 Quando o projeto foi inicializado pelo Create React App, foi criado um repositório local. Nesta altura é seguro adicionar os ficheiros ao primeiro commit.
 
 ```bash
-$ git init
-```
-
-Agora pode ser feito o commit dos ficheiros.
-
-```bash
 $ git add .
 ```
 
@@ -45,6 +38,7 @@ Agora pode ser feito o commit dos ficheiros.
 ```bash
 $ git commit -m "taskbox UI";
 ```
+
 ### Criar um repositório no GitHub
 
 Navegue até ao GitHub e configure [aqui](https://github.com/new) um repositório. Como nome use “taskbox”.

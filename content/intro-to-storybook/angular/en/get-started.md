@@ -38,6 +38,7 @@ Create `src/jest-config` folder and inside some files will be added.
 Start by creating a file called `globalMocks.ts` with the following:
 
 ```typescript
+// src/jest-config/globalMocks.ts
 const mock = () => {
   let storage = {};
   return {
@@ -58,6 +59,7 @@ Object.defineProperty(window, 'getComputedStyle', {
 Followed with a new file called `setup.ts` with the following:
 
 ```typescript
+// src/jest-config/setup.ts
 import 'jest-preset-angular';
 import './globalMocks';
 
@@ -67,20 +69,23 @@ Object.defineProperty(global, 'Promise', { writable: false, value: global.Promis
 Then create a new file called `styleMock.js` with the following:
 
 ```javascript
+// src/jest-config/styleMock.js
 module.exports = {};
 ```
 
 Also `fileMock.js` with the following:
 
 ```javascript
+// src/jest-config/fileMock.js
 module.exports = 'file-stub';
 ```
 
 Now in the root of your project folder, create a file called `babel.config.js` with the following content:
 
 ```javascript
+// babel.config.js
 module.exports = function(api) {
-  process.env.NODE_ENV === "development" ? api.cache(false) : api.cache(true);
+  process.env.NODE_ENV === 'development' ? api.cache(false) : api.cache(true);
   const presets = [
     [
       '@babel/preset-env',
@@ -174,16 +179,16 @@ In your `tsconfig.spec.json` add the following keys and values to the `compilerO
 ```
 
 You'll also need to change the `types` to the following:
+
 ```json
 {
- "compilerOptions": {
-  "types": ["jest", "jquery", "jsdom", "node"]
- }
+  "compilerOptions": {
+    "types": ["jest", "jquery", "jsdom", "node"]
+  }
 }
 ```
 
 Moving onto `tsconfig.json`. Once again under `compilerOptions` add the following key and value `emitDecoratorMetadata: true`
-
 
 And finally in `tsconfig.app.json` add a reference to the folder you've created earlier to the `exclude`, turning its contents into:
 
@@ -235,8 +240,6 @@ describe('AppComponent', () => {
 });
 ```
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
-
 Now we can quickly check that the various environments of our application are working properly:
 
 ```bash
@@ -250,6 +253,8 @@ npm run storybook
 npm run start
 ```
 
+Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
+
 ![3 modalities](/intro-to-storybook/app-three-modalities-angular.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
@@ -262,13 +267,11 @@ And make a small change to allow the icons in the `percolate` font to be correct
 
 ```css
 @font-face {
-  font-family: "percolate";
-  src: url("/assets/icon/percolate.eot?-5w3um4");
-  src: url("/assets/icon/percolate.eot?#iefix5w3um4")
-      format("embedded-opentype"),
-    url("/assets/icon/percolate.woff?5w3um4") format("woff"),
-    url("/assets/icon/percolate.ttf?5w3um4") format("truetype"),
-    url("/assets/icon/percolate.svg?5w3um4") format("svg");
+  font-family: 'percolate';
+  src: url('/assets/icon/percolate.eot?-5w3um4');
+  src: url('/assets/icon/percolate.eot?#iefix5w3um4') format('embedded-opentype'), url('/assets/icon/percolate.woff?5w3um4')
+      format('woff'), url('/assets/icon/percolate.ttf?5w3um4') format('truetype'), url('/assets/icon/percolate.svg?5w3um4')
+      format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -282,14 +285,14 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `assets` folder.
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `src/assets` folder.
 
 <div class="aside">
 <p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon assets/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font assets/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon src/assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font src/assets/font
 ```
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
