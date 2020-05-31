@@ -39,24 +39,19 @@ export default {
 
 ## Configuración
 
-Hemos esbozado lo que hará nuestro complemento, es hora de configurar nuestro entorno de desarrollo local. Necesitamos algunos paquetes adicionales en nuestro proyecto. Más específicamente:
+Hemos esbozado lo que hará nuestro complemento, es hora de configurar nuestro entorno de desarrollo local. 
 
-<!-- it would be nice that the readme files would have some minimal information for each package-->
-
-- 📦 [@storybook/api](https://www.npmjs.com/package/@storybook/api) para uso de Storybook API.
-- 📦 [@storybook/components](https://www.npmjs.com/package/@storybook/components) para uso de los componentes de la interfaz de usuario de Storybook.
-- 📦 [@storybook/theming ](https://www.npmjs.com/package/@storybook/theming) para temas.
-- 🛠 [@babel/preset-react](https://babeljs.io/docs/en/babel-preset-react) para recopilar correctamente algunas de las nuevas características de React.
+Comenzaremos agregando un paquete adicional a nuestro proyecto. Más específicamente `@babel/preset-react`, este paquete nos permitirá usar el código React dentro de nuestra aplicación Svelte sin ningún problema.
 
 Abra una consola, navegue a la carpeta de su proyecto y ejecute el siguiente comando:
 
 ```bash
-  npm install --save-dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
+  npm install -D @babel/preset-react
 ```
 
-Tendremos que hacer un pequeño cambio en el archivo `.babelrc` que creamos anteriormente. Necesitamos agregar una referencia al paquete `@babel/preset-react`.
+Una vez que esté instalado, haremos un pequeño cambio en el archivo `.babelrc` que creamos anteriormente al comienzo del [tutorial](/svelte/es/get-started). Tendremos que agregar una referencia a nuestro paquete agregado recientemente.
 
-Su archivo actualizado debería verse así:
+El archivo actualizado debería tener el siguiente aspecto:
 
 ```json
 {
@@ -70,29 +65,28 @@ Su archivo actualizado debería verse así:
       }
     ],
     "@babel/preset-react"
-  ],
-  "env": {
-    "test": {
-      "plugins": ["require-context-hook"]
-    }
-  }
+  ]
 }
 ```
 
+Finalmente dentro de su carpeta `.storybook`, cree una nueva carpeta llamada `design-addon` y dentro de ella un nuevo archivo llamado `register.js`.
+
+¡Y eso es! Estamos listos para comenzar a desarrollar nuestro complemento.
+
+<div class = "aside"> Vamos a utilizar la carpeta <code>.storybook</code> como marcador de posición para nuestro complemento. La razón detrás de esto es mantener un enfoque directo y evitar complicarlo demasiado. Si este complemento se transforma en un complemento real, sería mejor moverlo a un paquete separado con su propia estructura de archivos y carpetas. </div>
+
 ## Escribiendo el complemento
 
-Tenemos lo que necesitamos, es hora de comenzar a trabajar en el complemento real.
-
-Dentro de la carpeta `.storybook` cree una nueva carpeta llamada `addons` y dentro, un archivo llamado `design-assets.js` con lo siguiente:
+Agregue lo siguiente a su archivo creado recientemente:
 
 ```javascript
-//.storybook/addons/design-assets.js
+//.storybook/design-addon/register.js
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
@@ -104,18 +98,23 @@ addons.register('my/design-assets', () => {
 });
 ```
 
-<div class="aside">Vamos a usar la carpeta .storybook como marcador de posición para nuestro complemento. La razón detrás de esto es mantener un enfoque directo y evitar complicarlo demasiado. Si este complemento se transforma en un complemento real, lo mejor sería moverlo a un paquete separado con su propia estructura de archivos y carpetas.</div>
-
 Este es un código de un boilerplate típico para comenzar y repasar lo que está haciendo el código:
 
 - Estamos registrando un nuevo complemento en nuestro Storybook.
-- Agregue un nuevo elemento de interfaz de usuario para nuestro complemento con algunas opciones (un título que definirá nuestro complemento y el tipo de elemento utilizado) y renderícelo con algo de texto.
+- Agregue un nuevo elemento de interfaz de usuario para nuestro complemento con algunas opciones (un título que definirá nuestro complemento y el tipo de elemento utilizado) y renderícelo con algo de texto por ahora.
 
-Comenzando Storybook en este punto, aún no podremos ver el complemento. Como hicimos anteriormente con el complemento Knobs, necesitamos registrar el nuestro en el archivo `.storybook/addons.js`. Simplemente agregue lo siguiente y debería poder verlo funcionando:
+Comenzando Storybook en este punto, aún no podremos ver el complemento. Como hicimos anteriormente con el complemento Knobs, necesitamos registrar el nuestro en el archivo `.storybook/main.js`. Simplemente agregue lo siguiente a la lista de `complementos` ya existente:
 
 
 ```js
-import './addons/design-assets';
+// .storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: [
+    // same as before
+    './.storybook/design-addon/register.js', // our addon
+  ],
+};
 ```
 
 ![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
@@ -133,15 +132,13 @@ Para completarlo, necesitamos hacer algunos cambios en nuestras importaciones e 
 Realice los siguientes cambios en el archivo de complemento:
 
 ```javascript
-//.storybook/addons/design-assets.js
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
 
-//.storybook/addons/design-assets.js
 const Content = () => {
   const results = useParameter('assets', []); // story's parameter being retrieved here
-
   return (
     <Fragment>
       {results.length ? (
@@ -161,7 +158,7 @@ Creamos el componente, modificamos las importaciones, todo lo que falta es conec
 Su código debería tener el siguiente aspecto:
 
 ```javascript
-//.storybook/addons/design-assets.js
+//.storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -169,7 +166,6 @@ import { addons, types } from '@storybook/addons';
 
 const Content = () => {
   const results = useParameter('assets', []); // story's parameter being retrieved here
-
   return (
     <Fragment>
       {results.length ? (
@@ -183,8 +179,8 @@ const Content = () => {
   );
 };
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
@@ -196,20 +192,20 @@ addons.register('my/design-assets', () => {
 });
 ```
 
-Tenga en cuenta que estamos usando el [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), este práctico gancho nos permitirá leer la información proporcionada por la opción `addParameters` para cada historia, que en nuestro caso será una ruta única a un recuros o una lista de rutas. Lo verás en efecto en breve.
+Tenga en cuenta que estamos usando el [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), este práctico gancho nos permitirá leer la información proporcionada por la opción `parameters` para cada historia, que en nuestro caso será una ruta única a un recuros o una lista de rutas. Lo verás en efecto en breve.
 
 ### Usando nuestro complemento con una historia
 
 Hemos conectado todas las piezas necesarias. Pero, ¿cómo podemos ver si realmente funciona y muestra algo?
 
-Para hacerlo, haremos un pequeño cambio en el archivo `Task.stories.js` y agregaremos la opción[addParameters](<https://storybook.js.org/docs/configurations/options-parameter/#per-story-options>).
+Para hacerlo, haremos un pequeño cambio en el archivo `task.stories.ts` y agregaremos la opción[parameters](<https://storybook.js.org/docs/configurations/options-parameter/#per-story-options>).
 
 ```javascript
-// src/components/Task.stories.js
+// src/components/task.stories.ts
 export default {
+  component: Task,
   title: 'Task',
   decorators: [withKnobs],
-  excludeStories: /.*Data$/,
   parameters: {
     assets: [
       'path/to/your/asset.png',
@@ -217,7 +213,8 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  //
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
 };
 /* same as before  */
 ```
@@ -226,32 +223,32 @@ Continúe y reinicie su Storybook y seleccione la historia de la Tarea, debería
 
 ![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
-### Mostrando los recursos reales
+### Mostrar contenido en nuestro complemento
 
-En esta etapa, podemos ver que el complemento está funcionando como deberían nuestras historias, pero ahora cambiemos el componente `Content` para mostrar realmente los recursos:
+En esta etapa, podemos ver que el complemento está funcionando como debería, pero ahora cambiemos el componente `Content` para mostrar realmente lo que queremos:
 
 ```javascript
-//.storybook/addons/design-assets.js
-import React, { Fragment } from "react";
-import { AddonPanel } from "@storybook/components";
-import { useParameter, useStorybookState } from "@storybook/api";
-import { addons, types } from "@storybook/addons";
-import { styled } from "@storybook/theming";
+//.storybook/design-addon/register.js
+import React, { Fragment } from 'react';
+import { AddonPanel } from '@storybook/components';
+import { useParameter, useStorybookState } from '@storybook/api';
+import { addons, types } from '@storybook/addons';
+import { styled } from '@storybook/theming';
 
 const getUrl = input => {
-  return typeof input === "string" ? input : input.url;
-
+  return typeof input === 'string' ? input : input.url;
+};
 
 const Iframe = styled.iframe({
-  width: "100%",
-  height: "100%",
-  border: "0 none"
+  width: '100%',
+  height: '100%',
+  border: '0 none',
 });
 const Img = styled.img({
-  width: "100%",
-  height: "100%",
-  border: "0 none",
-  objectFit: "contain"
+  width: '100%',
+  height: '100%',
+  border: '0 none',
+  objectFit: 'contain',
 });
 
 const Asset = ({ url }) => {
@@ -266,9 +263,9 @@ const Asset = ({ url }) => {
   return <Iframe title={url} src={url} />;
 };
 
-export const Content = () => {
+const Content = () => {
   // story's parameter being retrieved here
-  const results = useParameter("assets", []);
+  const results = useParameter('assets', []);
   // the id of story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
@@ -276,26 +273,25 @@ export const Content = () => {
     return null;
   }
 
-  const url = getUrl(results[0]).replace("{id}", storyId);
+  const url = getUrl(results[0]).replace('{id}', storyId);
 
   return (
     <Fragment>
       <Asset url={url} />
     </Fragment>
   );
-
 };
 ```
 
 Si observa más de cerca, verá que estamos usando la etiqueta `styled`, esta etiqueta proviene del paquete `@storybook/theming`. El uso de esta etiqueta nos permitirá personalizar no solo el tema de Storybook sino también la interfaz de usuario según nuestras necesidades. También [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), que es un verdadero gancho práctico, que nos permite aprovechar el estado interno de Storybook para que podamos obtener cualquier tipo de información presente. En nuestro caso, lo estamos usando para obtener solo la identificación de cada historia creada.
 
-### Mostrar recursos actuales
+### Mostrar los recursos actuales
 
-Para ver realmente los activos que se muestran en nuestro complemento, debemos copiarlos en la carpeta `public` y ajustar la opción `addParameter` para reflejar estos cambios.
+Para ver realmente los activos que se muestran en nuestro complemento, debemos copiarlos en la carpeta `public` y ajustar la opción de parámetros de la historia para reflejar estos cambios.
 
 Storybook recogerá el cambio y cargará los recursos, pero por ahora, solo el primero.
 
-![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png) <!--needs to be created-->
+![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png)
 
 ## Complementos con estado
 
@@ -307,12 +303,12 @@ Repasando nuestros objetivos iniciales:
 
 Ya casi llegamos, solo queda un objetivo.
 
-Para el último, vamos a necesitar algún tipo de estado, podríamos usar el `useState` de React, o si estuviéramos trabajando con los componentes de clase `this.setState()`. Pero en su lugar, vamos a usar el propio `useAddonState` de Storybook, que nos brinda un medio para persistir el estado del complemento y evitar crear una lógica adicional para persistir en el estado local. También usaremos otro elemento de la interfaz de usuario de Storybook, el `ActionBar`, que nos permitirá cambiar entre elementos.
+Para el último, vamos a necesitar algún tipo de estado, podríamos usar el hook `useState` de React, o si estuviéramos trabajando con los componentes de clase `this.setState()`. Pero en su lugar, vamos a usar el propio `useAddonState` de Storybook, que nos brinda un medio para persistir el estado del complemento y evitar crear una lógica adicional para persistir en el estado local. También usaremos otro elemento de la interfaz de usuario de Storybook, el `ActionBar`, que nos permitirá cambiar entre elementos.
 
 Necesitamos ajustar nuestras importaciones a nuestras necesidades:
 
 ```javascript
-//.storybook/addons/design-assets.js
+//.storybook/design-addon/register.js
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -321,12 +317,12 @@ import { AddonPanel, ActionBar } from '@storybook/components';
 Y modifique nuestro componente `Content`, para que podamos cambiar entre recursos:
 
 ```javascript
-//.storybook/addons/design-assets.js
-export const Content = () => {
+//.storybook/design-addon/register.js
+const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
   // addon state being persisted here
-  const [selected, setSelected] = useAddonState('my/design-assets', 0);
+  const [selected, setSelected] = useAddonState('my/design-addon', 0);
   // the id of the story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
@@ -364,7 +360,7 @@ Hemos logrado lo que nos propusimos hacer, que es crear un complemento de Storyb
   <summary>Haga clic para expandir y ver el código completo utilizado en este ejemplo</summary>
 
 ```javascript
-// .storybook/addons
+// .storybook/design-addon/register.js
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
@@ -399,9 +395,9 @@ const Asset = ({ url }) => {
   return <Iframe title={url} src={url} />;
 };
 
-export const Content = () => {
+const Content = () => {
   const results = useParameter('assets', []); // story's parameter being retrieved here
-  const [selected, setSelected] = useAddonState('my/design-assets', 0); // addon state being persisted here
+  const [selected, setSelected] = useAddonState('my/design-addon', 0); // addon state being persisted here
   const { storyId } = useStorybookState(); // the story«s unique identifier being retrieved from Storybook global state
 
   if (results.length === 0) {
@@ -430,8 +426,8 @@ export const Content = () => {
   );
 };
 
-addons.register('my/design-assets', () => {
-  addons.add('design-assets/panel', {
+addons.register('my/design-addon', () => {
+  addons.add('design-addon/panel', {
     title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
@@ -476,3 +472,7 @@ Puedes encontrar este y otros aquí:
 https://github.com/storybookjs/storybook/tree/next/dev-kits
 
 Más kits de desarrollo estarán disponibles en el futuro.
+
+## Compartir complementos con el equipo
+
+Los complementos son adiciones que ahorran tiempo a su flujo de trabajo, pero puede ser difícil para los compañeros de equipo no técnicos y los revisores aprovechar sus características. No puede garantizar que la gente ejecutará Storybook en su máquina local. Es por eso que implementar su Storybook en una ubicación en línea para que todos puedan consultarlo puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!

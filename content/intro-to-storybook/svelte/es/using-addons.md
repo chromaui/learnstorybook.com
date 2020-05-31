@@ -43,7 +43,6 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
 };
-
 ```
 
 <div class="aside">
@@ -111,15 +110,15 @@ Además, con un fácil acceso para editar los datos pasados ​​a un component
 
 ¡Gracias a poder probar rápidamente diferentes entradas a un componente, podemos encontrar y solucionar estos problemas con relativa facilidad! Arreglemos el problema de desbordamiento agregando un estilo a `Task.svelte`:
 
-```html
+```svelte
 <!-- src/components/Task.svelte-->
 
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
-// but for this tutorial, let's fix the problem with an inline style:-->
+  but for this tutorial, let's fix the problem with an inline style:-->
 <input
   type="text"
   readonly
-  value="{task.title}"
+  value={task.title}
   placeholder="Input title"
   style="text-overflow: ellipsis;"
 />

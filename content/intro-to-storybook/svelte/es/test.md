@@ -27,7 +27,7 @@ Las pruebas de regresión visual están diseñadas para detectar cambios en la a
 
 Storybook es una herramienta fantástica para las pruebas de regresión visual porque cada historia es esencialmente una especificación del test. Cada vez que escribimos o actualizamos una historia recibimos una especificación gratis!
 
-Existen varias herramientas para la prueba de regresión visual. Para equipos profesionales recomendamos [**Chromatic**](https://www.chromaticqa.com/), un complemento hecho por las personas de Storybook que ejecuta pruebas en la nube.
+Existen varias herramientas para la prueba de regresión visual. Para equipos profesionales recomendamos [**Chromatic**](https://www.chromatic.com/), un complemento hecho por las personas de Storybook que ejecuta pruebas en la nube.
 
 ## Configurar pruebas de regresión visual
 
@@ -58,10 +58,10 @@ $ git commit -m "taskbox UI"
 Agregando el paquete como una dependencia.
 
 ```bash
-npm install -D storybook-chromatic
+npm install -D chromatic
 ```
 
-Ahora [logueate en Chromatic](https://www.chromaticqa.com/start) con tú cuenta de GitHub (Chromatic solo te pedirá algunos permisos simples). Crea un proyecto con nombre "taskbox" y copia tu `app-code` único.
+Ahora [logueate en Chromatic](https://www.chromatic.com/start) con tú cuenta de GitHub (Chromatic solo te pedirá algunos permisos simples). Crea un proyecto con nombre "taskbox" y copia tu `project-token` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -70,7 +70,7 @@ Ahora [logueate en Chromatic](https://www.chromaticqa.com/start) con tú cuenta 
   />
 </video>
 
-Se requiere un pequeño cambio en el script `build-storybook` para permitir que el complemento `storybook-chromatic` muestre correctamente tanto los recursos (iconos y fuentes) como el css que se agregó al comienzo del tutorial.
+Se requiere un pequeño cambio en el script `build-storybook` para permitir que el complemento `chromatic` muestre correctamente tanto los recursos (iconos y fuentes) como el css que se agregó al comienzo del tutorial.
 
 ```json
 {
@@ -82,14 +82,11 @@ Se requiere un pequeño cambio en el script `build-storybook` para permitir que 
 }
 ```
 
-Ejecuta el comando de prueba en la línea de comandos para configurar las pruebas de regresión visual para Storybook. No olvides añadir tu código de aplicación único en el `<app-code>`.
+Ejecuta el comando de prueba en la línea de comandos para configurar las pruebas de regresión visual para Storybook. No olvides añadir tu código de aplicación único en el `<project-token>`.
 
 ```bash
- npx chromatic --app-code=<app-code>
+ npx chromatic --project-token=<project-token>
 ```
-
-<div class="aside">
-<code>--do-not-start</code> es una opción que le dice a Chromatic que no inicie Storybook. Usa esto si ya tienes a Storybook corriendo. Si no, omite el <code>--do-not-start</code>.
 
 </div>
 
@@ -110,7 +107,7 @@ Esto produce un nuevo color de fondo para el artículo.
 Usa el comando de prueba anterior para ejecutar Chromatic de nuevo.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Sigue el enlace a la interfaz de usuario web donde verá los cambios.
