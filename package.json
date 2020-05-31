@@ -2,14 +2,15 @@
   "name": "learnstorybook.com",
   "description": "Learn Storybook",
   "version": "1.0.0",
-  "author": "Tom Coleman <tom@hichroma.com>, Dominic Nguyen <dom@hichroma.com>",
+  "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
     "@storybook/design-system": "^1.1.7",
     "formik": "^1.5.7",
     "gatsby": "^2.17.1",
+    "gatsby-plugin-facebook-pixel": "^1.0.3",
+    "gatsby-plugin-google-analytics": "^2.3.0",
     "gatsby-plugin-layout": "^1.0.15",
     "gatsby-plugin-react-helmet": "^3.0.12",
-    "gatsby-plugin-segment-js": "^3.0.1",
     "gatsby-plugin-sitemap": "^2.1.0",
     "gatsby-plugin-styled-components": "^3.0.7",
     "gatsby-source-filesystem": "^2.0.37",
@@ -61,6 +62,7 @@
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-styled-components": "^1.10.0",
+    "chromatic": "^4.0.2",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
@@ -73,7 +75,6 @@
     "lint-staged": "^9.4.2",
     "prettier": "^1.17.1",
     "prettier-eslint": "^9.0.0",
-    "prettier-eslint-cli": "^5.0.0",
-    "storybook-chromatic": "^3.0.3"
+    "prettier-eslint-cli": "^5.0.0"
   }
 }

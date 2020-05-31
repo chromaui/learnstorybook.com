@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Link, styles, Subheading } from '@storybook/design-system';
 import GatsbyLink from '../basics/GatsbyLink';
 import Logo from '../basics/Logo';
-import LogoChroma from '../basics/LogoChroma';
+import LogoChromatic from '../basics/LogoChromatic';
 import MailingListSignup from './MailingListSignup';
 
 const { background, breakpoint, color, typography, pageMargins } = styles;
@@ -80,7 +80,7 @@ const LogoWrapper = styled(Logo)`
   }
 `;
 
-const LogoChromaWrapper = styled(LogoChroma)`
+const LogoChromaticWrapper = styled(LogoChromatic)`
   && {
     height: 24px;
     width: auto;
@@ -111,12 +111,12 @@ const Footer = ({ guides, ...props }) => (
         </FooterLogoBlock>
 
         <FooterLogoBlock>
-          <Link target="_blank" rel="noopener" href="https://hichroma.com/">
-            <LogoChromaWrapper />
+          <Link target="_blank" rel="noopener" href="https://www.chromatic.com/">
+            <LogoChromaticWrapper />
           </Link>
 
           <FooterBlockContent>
-            Made by Chroma and the amazing Storybook community.
+            Made by Chromatic and the amazing Storybook community.
           </FooterBlockContent>
         </FooterLogoBlock>
       </FooterBlock>
@@ -141,7 +141,7 @@ const Footer = ({ guides, ...props }) => (
             Team
           </FooterBlockLink>
 
-          <FooterBlockLink as={Link} href="mailto:dom@hichroma.com" tertiary>
+          <FooterBlockLink as={Link} href="mailto:dom@chromatic.com" tertiary>
             Contact us
           </FooterBlockLink>
         </FooterBlockContent>
@@ -151,7 +151,8 @@ const Footer = ({ guides, ...props }) => (
         <SubheadingWrapper>Subscribe</SubheadingWrapper>
 
         <FooterBlockContent>
-          Join the Chroma mailing list to get free tutorials, guides, and resources emailed to you.
+          Join the Chromatic mailing list to get free tutorials, guides, and resources emailed to
+          you.
         </FooterBlockContent>
 
         <MailingListSignupWrapper />

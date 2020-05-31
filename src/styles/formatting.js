@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { styles } from '@storybook/design-system';
-import { darken } from 'polished';
+import { darken, rgba } from 'polished';
 
 const { background, color, typography } = styles;
 
@@ -27,14 +27,13 @@ export const guideFormatting = css`
     margin-top: 18px;
     margin-bottom: 24px;
   }
-
   .badge {
     display: inline-flex;
     vertical-align: top;
     margin-bottom: 10px;
     align-items: center;
     background: ${background.app};
-    border-radius: 4px;
+    border-radius: ${styles.spacing.borderRadius.small}px;
     padding: 3px 20px;
     font-size: ${typography.size.s2}px;
     line-height: 24px;
@@ -47,6 +46,19 @@ export const guideFormatting = css`
     img {
       width: 16px;
       margin-right: 6px;
+    }
+    a {
+      color: ${styles.color.darker};
+      transition: all 250ms ease-out;
+      display: inline-block;
+      text-decoration: none;
+      transform: translate3d(0, 0, 0);
+    }
+    &:hover {
+      border: 1px solid ${styles.color.border};
+      border-color: ${rgba(styles.color.secondary, 0.5)};
+      transform: translate3d(0, -3px, 0);
+      box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
     }
   }
 `;
@@ -199,7 +211,7 @@ export const chapterFormatting = css`
     font-size: ${typography.size.s3}px;
     color: ${color.darker};
     background: #f8fafc;
-    border-radius: 4px;
+    border-radius: ${styles.spacing.borderRadius.small}px;
     padding: 20px;
 
     p:last-child {

@@ -2,7 +2,7 @@
 title: '構建一個簡單的元件'
 tocTitle: '簡單 元件'
 description: '單獨構建一個簡單的元件'
-commit: 403f19a
+commit: '3d9cd8c'
 ---
 
 我們將按照[元件驅動開發](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) 方法論來 構建我們的 UI. 這是一個從"自下而上"開始構建 UI 的過程,從元件開始到整個頁面結束. CDD 可幫助您在構建 UI 時,擺列您所面臨的複雜程度.

@@ -14,7 +14,7 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built-in and configured for you, so you don't need to worry about any configuration. 
+To deploy Storybook we first need to export it as a static web app. This functionality is already built-in and configured for you, so you don't need to worry about any configuration.
 
 Now when you build Storybook via `yarn build-storybook`, it will output a static Storybook in the `storybook-static` directory.
 
@@ -29,12 +29,6 @@ First you want to setup Git for your project in the local directory. If you're f
 When the project was initialized with Create React App, a local repository was already setup for you. At this stage it's safe to add the files to the first commit.
 
 ```bash
-$ git init
-```
-
-Next add files to the first commit.
-
-```bash
 $ git add .
 ```
 
@@ -43,6 +37,7 @@ Now commit the files.
 ```bash
 $ git commit -m "taskbox UI"
 ```
+
 ### Setup a repository in GitHub
 
 Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.

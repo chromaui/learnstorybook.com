@@ -39,7 +39,7 @@ Visual tests capture an image of every UI component in a consistent browser envi
 
 If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions. We’ll demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
 
-First, go to [ChromaticQA.com](https://chromaticqa.com) and sign up with your GitHub account.
+First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
@@ -47,16 +47,16 @@ From there choose your design system repo. Behind the scenes, this will sync acc
 
 ![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
-Install the [storybook-chromatic](https://www.npmjs.com/package/storybook-chromatic) package via npm.
+Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
 
 ```bash
-yarn add --dev storybook-chromatic
+yarn add --dev chromatic
 ```
 
 Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines (you'll need to use the app code that Chromatic supplies on the website)
 
 ```bash
-yarn chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
@@ -78,7 +78,7 @@ export const typography = {
 Run the test command again.
 
 ```bash
-yarn chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Yikes! That small tweak resulted in a flood of UI changes.
@@ -114,7 +114,7 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: yarn test
-      - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
+      - run: npx chromatic --project-token=<project-token> --exit-zero-on-changes
 ```
 
 Save and `git commit`. Congratulations you just set up visual testing in CI!
@@ -211,7 +211,7 @@ import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
 
-import { GlobalStyle } from '../src/components/shared/global';
+import { GlobalStyle } from '../src/shared/global';
 
 addDecorator(withA11y);
 addDecorator(story => (

@@ -2,7 +2,7 @@
 title: 'Storybook for React tutorial'
 tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
-commit: ebe2ae2
+commit: '8741257'
 ---
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) and [Svelte](/svelte/en/get-started).
@@ -27,7 +27,6 @@ npx -p @storybook/cli sb init
 Throughout this version of the tutorial, we'll be using <code>yarn</code> to run the majority of our commands. 
 If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code>--use-npm</code> flag to the first command above and both CRA and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
 </div>
-
 
 We can quickly check that the various environments of our application are working properly:
 
@@ -73,6 +72,5 @@ To match the intended design, you'll need to download both the font and icon dir
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
-
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!

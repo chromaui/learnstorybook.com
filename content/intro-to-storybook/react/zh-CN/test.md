@@ -2,7 +2,7 @@
 title: '测试 UI 组件'
 tocTitle: '测试'
 description: '了解测试UI组件的方法'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Storybook 教程没有测试是不完整的. 测试对于创建高质量的 UI 至关重要. 在模块化系统中,微小的调整可能导致重大的回溯. 到目前为止,我们遇到了三种类型的测试
@@ -28,7 +28,7 @@ Storybook 教程没有测试是不完整的. 测试对于创建高质量的 UI �
 
 Storybook 是视觉回溯测试的绝佳工具,因为每个故事本质上都是一个测试规范. 每次我们编写或更新故事时,我们都会免费获得规格!
 
-有许多用于视觉回溯测试的工具. 对于专业团队,我们建议[**Chromatic**](https://www.chromaticqa.com/),由 Storybook 维护者制作的插件,在云中运行测试.
+有许多用于视觉回溯测试的工具. 对于专业团队,我们建议[**Chromatic**](https://www.chromatic.com/),由 Storybook 维护者制作的插件,在云中运行测试.
 
 ## 设置视觉回溯测试
 
@@ -59,7 +59,7 @@ $ git commit -m "taskbox UI"
 将包添加为依赖项.
 
 ```bash
-yarn add storybook-chromatic
+yarn add chromatic
 ```
 
 导入 Chromatic 到你的`.storybook/config.js`文件.
@@ -67,7 +67,7 @@ yarn add storybook-chromatic
 ```javascript
 import { configure } from '@storybook/react';
 import requireContext from 'require-context.macro';
-import 'storybook-chromatic';
+import 'chromatic';
 
 import '../src/index.css';
 
@@ -80,7 +80,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-然后[登录 Chromatic](https://www.chromaticqa.com/start)使用您的 GitHub 帐户 (Chromatic 仅要求轻量级权限) . 创建名为"taskbox"的项目并复制您的唯一项目`app-code`.
+然后[登录 Chromatic](https://www.chromatic.com/start)使用您的 GitHub 帐户 (Chromatic 仅要求轻量级权限) . 创建名为"taskbox"的项目并复制您的唯一项目`project-token`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -89,15 +89,11 @@ configure(loadStories, module);
   />
 </video>
 
-在命令行中运行 test 命令 以设置 Storybook 的可视化回溯测试. 不要忘记添加您的 唯一应用代码 来代替`<app-code>`.
+在命令行中运行 test 命令 以设置 Storybook 的可视化回溯测试. 不要忘记添加您的 唯一应用代码 来代替`<project-token>`.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
-
-<div class="aside">
-<code>--do-not-start</code> 是一个选项，告诉 Chromatic 不要启动故事书。 如果您已经运行了故事书，请使用此选项。 如果没有会省略 <code>--do-not-start</code>.
-</div>
 
 第一次测试完成后, 我们会为每个故事提供测试基准. 换句话说,每个故事的屏幕截图都被称为"good". 这些故事的未来变化 将与 基线进行比较.
 
@@ -116,7 +112,7 @@ configure(loadStories, module);
 使用之前的 test 命令运行另一个 Chromatic 测试.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 点击您将看到 更改的网络用户界面 链接.

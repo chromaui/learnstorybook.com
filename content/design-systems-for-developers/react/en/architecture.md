@@ -7,7 +7,7 @@ commit: b696f85
 
 In chapter 2, we extract a design system from existing component libraries. Along the way, we determine which components belong in the design system and outline common challenges developers face getting started.
 
-In large companies, this exercise is done in conjunction with design, engineering, and product teams. Chroma (the company behind Storybook) and Storybook share a sprightly frontend infrastructure team that serves nearly 800 open source contributors across 3+ properties, so we’re going to outline the process for you.
+In large companies, this exercise is done in conjunction with design, engineering, and product teams. Chromatic (the company behind Storybook) and Storybook share a sprightly frontend infrastructure team that serves nearly 800 open source contributors across 3+ properties, so we’re going to outline the process for you.
 
 ## The challenge
 
@@ -84,10 +84,10 @@ Following this method, we end up with UI primitives: Avatar, Badge, Button, Chec
 
 ![Variants in one component](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
-Add the components we found by downloading them to your computer and dropping them into your repository, as well as removing the application files that Create React App provided:
+At this stage it's safe to delete the src folder that Create React App created for us when we initialized our design system earlier. Don't worry we won't be needing it. Then you can add the components already found by downloading them to your computer and also into your local repository:
 
 ```bash
-rm -rf src/*
+rm -rf src
 
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
 ```

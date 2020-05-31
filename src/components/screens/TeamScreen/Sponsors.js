@@ -70,7 +70,7 @@ const Sponsors = () => (
         <img alt="InVision" src="/brands/logo-invision.svg" />
       </SponsorBoxLink>
 
-      <SponsorBoxLink to="mailto:dom+sponsorships@hichroma.com">
+      <SponsorBoxLink to="mailto:dom+sponsorships@chromatic.com">
         <SponsorUsLink as="span">Sponsor us</SponsorUsLink>
       </SponsorBoxLink>
     </SponsorsList>

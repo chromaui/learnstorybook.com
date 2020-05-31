@@ -144,6 +144,7 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 We also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```javascript
+// .storybook/main.js
 module.exports = {
   stories: ['../src/app/components/**/*.stories.ts'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-notes'],
@@ -272,7 +273,6 @@ Then create the `src/storybook.test.js` file with the following in it:
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
-
 ```
 
 Finally we need to make a small change in the `jest` key in our `package.json`:
