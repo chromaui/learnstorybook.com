@@ -88,6 +88,7 @@ const getChapterInOtherLanguage = (
   const chapterInOtherLanguage = translationPages.edges.find(
     ({ node: { fields } }) => fields.slug === expectedSlug
   );
+
   if (chapterInOtherLanguage) {
     return expectedSlug;
   }
@@ -95,9 +96,11 @@ const getChapterInOtherLanguage = (
   const firstInOtherLanguage = translationPages.edges.find(
     ({ node: { fields } }) => fields.slug === expectedFirstChapter
   );
+
   // if it exists returns the expected first chapter
   if (firstInOtherLanguage) {
-    return firstInOtherLanguage;
+    // return firstInOtherLanguage;
+    return expectedFirstChapter;
   }
   // returns the default first chapter(ie the english version of the tutorial, preventing a 404)
   return `/${guide}/${framework}/en/${firstChapter}/`;
