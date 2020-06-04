@@ -197,7 +197,7 @@ Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/
 
 We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
 
-To do so, we're going to make a small change to the `task.stories.ts` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
+To do so, we're going to make a small change to the `task.stories.js` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
 
 ```javascript
 // src/components/Task.stories.js
