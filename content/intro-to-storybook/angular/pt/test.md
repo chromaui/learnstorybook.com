@@ -53,7 +53,7 @@ $ git commit -m "taskbox UI"
 Adiciona-se o pacote como dependência.
 
 ```bash
-npm install -D storybook-chromatic
+npm install -D chromatic
 ```
 
 Um aspeto fantástico acerca deste extra é que recorre á Git history para se manter a par dos componentes de interface de utilizador.
@@ -72,6 +72,8 @@ Execute o comando de testes na consola de forma a configurar os testes visuais d
 ```bash
 npx chromatic --project-token=<project-token>
 ```
+
+<div class="aside"> Se o seu Storybook tiver um script de compilação personalizado, poderá ter que <a href="https://www.chromatic.com/docs/setup#command-options">adicionar opções</a> a este comando.</div>
 
 Assim que o primeiro teste estiver concluído, é obtida a base de testes para cada estória. Por outras palavras, uma captura de cada estória considerada "boa". Alterações futuras a estas estórias, irão ser comparadas com esta base.
 
