@@ -198,10 +198,10 @@ Tenga en cuenta que estamos usando el [useParameter](https://storybook.js.org/do
 
 Hemos conectado todas las piezas necesarias. Pero, ¿cómo podemos ver si realmente funciona y muestra algo?
 
-Para hacerlo, haremos un pequeño cambio en el archivo `task.stories.ts` y agregaremos la opción[parameters](<https://storybook.js.org/docs/configurations/options-parameter/#per-story-options>).
+Para hacerlo, haremos un pequeño cambio en el archivo `task.stories.js` y agregaremos la opción[parameters](<https://storybook.js.org/docs/configurations/options-parameter/#per-story-options>).
 
 ```javascript
-// src/components/task.stories.ts
+// src/components/task.stories.js
 export default {
   component: Task,
   title: 'Task',

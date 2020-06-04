@@ -8,7 +8,7 @@ commit: '8741257'
 <div class="aside"><p>
 ¡Esta traducción está desactualizada! Ayúdenos a mejorarlo haciendo clic en el enlace en la parte inferior de la página. No solo el equipo te lo agradece, sino toda la comunidad.</p></div>
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; existe una edición para [Angular](/angular/es/get-started) y para Vue vendrá pronto.
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; existe otras ediciones para [React Native](/react-native/es/get-started), [Vue](/vue/es/get-started), [Angular](/angular/es/get-started) y [Svelte](/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
