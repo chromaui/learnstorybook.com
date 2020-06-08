@@ -77,7 +77,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-After that, we need to update our `src/App.js` to be able to connect our React components to the Redux store. The <Provider /> makes the Redux store available to any nested components that have been wrapped in the connect() function.
+In our top-level app component (src/App.js) we can wire the store into our component hierarchy fairly easily:
 ```javascript
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
