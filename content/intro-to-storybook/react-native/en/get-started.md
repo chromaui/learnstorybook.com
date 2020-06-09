@@ -252,10 +252,10 @@ svn export https://github.com/chromaui/learnstorybook-code/branches/master/publi
 svn export https://github.com/google/fonts/trunk/ofl/nunitosans assets/font
 ```
 
-Next the assets need to be loaded into the app, for that we're going to update `App.js` to the following:
+Next the assets need to be loaded into the app, for that we're going to update `useCachedResources.js` to the following:
 
 ```javascript
-// App.js
+// hooks/useCachedResources.js
 async function loadResourcesAndDataAsync() {
   try {
     SplashScreen.preventAutoHide();
