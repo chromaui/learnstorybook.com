@@ -73,6 +73,16 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
+If using typescript
+
+```typescript
+// src/components/Task.stories.tsx
+
+import React from 'react';
+import { action } from '@storybook/addon-actions';
+import { withKnobs, object } from '@storybook/addon-knobs';
+```
+
 Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
