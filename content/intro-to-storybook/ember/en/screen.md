@@ -18,7 +18,7 @@ keep data-management and presentation clearly separated and second screen
 components do help to move things around in the app as well as design reviews
 within Storybook.
 
-Let's start by updating reducers and actions to include the
+Let's start by updating reducer and actions to include the
 error and loading fields we want:
 
 ```js
@@ -134,9 +134,7 @@ As our store is updated with the new fields let's move on creating an
 </div>
 ```
 
-It already has sections to show various states for loading and errors. Next up
-is to move our already existing data loading from the routes and controller in
-the previous step into the component:
+We now have a way to handle the various states of our application. We can now move the existing logic for handling the data loading and error handling into the component.
 
 In `app/components/inbox-screen.js` add the following:
 
@@ -174,8 +172,7 @@ export default class InboxScreenComponent extends Component {
 }
 ```
 
-We will remove the `tasks` route from the previous step and mount the
-`InboxScreen` in the `application` template.
+At this stage we can now safely delete the `tasks` folder we've setup earlier and add our `InboxScreen` directly in the `application` template.
 
 ```handlebars
 {{!-- app/templates/aplication.hbs --}}
@@ -221,7 +218,7 @@ export const Loading = () => {
 We see that both the `Error`, `Loading` and `Default` stories work just fine.
 
 <div class="aside">
-Traditionally in ember, routes do support `loading` and `error` states. Though the motivation
+Traditionally in Ember, routes do support `loading` and `error` states. Though the motivation
 is go more towards a component based approach. There is <a
 href="https://exelord.gitbook.io/ember-await/">ember-await</a> which nicely encapsulates the
 idea of  data-management and has mechanisms to indicate each state.

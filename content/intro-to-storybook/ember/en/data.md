@@ -10,15 +10,9 @@ This tutorial doesn’t focus on the particulars of building an app so we won’
 
 ## Loading Data
 
-In ember you can use a couple of ways to load data. There is two things to keep
-an eye on. First where you load the data and second how you load the data.
-Traditionally, you want to use a route and some persistence layer, such as
-ember-data or [Apollo](https://github.com/ember-graphql/ember-apollo-client).
+In Ember you can use various ways to load data. But two things that you need to keep in mind. Where are you loading the data and how you're loading it. Per Ember's conventions, you traditionally use a route and some form of data persistance layer, such as [ember-data](https://guides.emberjs.com/release/models/) or [Apollo](https://github.com/ember-graphql/ember-apollo-client).
 
-In this example we are going to use redux and demonstrate the usage of it at a
-route and will improve from here as we proceed. To utilize [ember's
-reactivity](https://www.pzuraq.com/how-autotracking-works/)
-system, we are going to use [tracked-redux](https://github.com/pzuraq/tracked-redux).
+In this example we're going take a different approach and use redux and demonstrate how it can be used with a route. Making the necessary improvements as we progress. We're going to use [tracked-redux](https://github.com/pzuraq/tracked-redux) to handle the data persistance while allowing one of Ember's core features, which is it's [reactivity](https://www.pzuraq.com/how-autotracking-works/).
 
 Add the necessary dependency to your project with:
 
@@ -26,8 +20,7 @@ Add the necessary dependency to your project with:
 ember install tracked-redux
 ```
 
-We'll construct our actions, reducers and finally a tracked redux store. Start
-with the actions:
+Once the package is installed we can begin the implementation. Starting with our actions:
 
 ```js
 // app/actions/index.js
@@ -41,7 +34,7 @@ export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
 ```
 
-Then our reducers:
+Then our reducer:
 
 ```js
 // app/reducers/index.js
@@ -95,17 +88,17 @@ import reducers from './reducers';
 export const store = createStore(reducers);
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change
-the state of tasks, in a file called `reducers/index.js` (intentionally kept
-simple):
+That concludes our redux setup. That's the _how_ we are loading data, let's
+continue with _where_ we do that.
 
 ## Using a Route
 
-With that we are able to connect our route with the redux store. Thanks to
-tracked-redux we have no artificial properties put on the prototype of our
-objects, instead we can explicitely declare each field we want. Here we are
-going to use the route to load the data and a controller with actions to modify
-it:
+We have our redux store setup. Thanks to `tracked-redux` we can explicitely
+declare fields on the objects where we need it. For that we're going to
+use both a [route](https://guides.emberjs.com/release/routing/defining-your-routes/) and a [controller](https://guides.emberjs.com/release/routing/controllers/), the latter will contain the actions we've
+created earlier so that we can modify our store with relative ease.
+
+Inside your app folder, create a new one called `tasks` and inside add a new file called `route.js` with the following:
 
 ```js
 // app/tasks/route.js
@@ -124,8 +117,7 @@ export default class TasksRoute extends Route {
 }
 ```
 
-And the controller with modifications where we are going to use our earlier
-defined actions:
+Once the route is created, we can now move onto creating a controller with the necessary actions. Inside the `tasks` folder we've created add a new file called `controller.js` with the following:
 
 ```js
 // app/tasks/controller.js
@@ -147,9 +139,8 @@ export default class TaskController extends Controller {
 }
 ```
 
-And we use our earlier created presentational `<TaskList>` component, mount it
-at the route template and connect it with the actions in the controller and the
-data from the route.
+And finally we create a new file called `template.hbs` inside the `tasks`
+folder, in which we'll add the presentational `<TaskList>` component we've created in the [previous chapter](./composite-component):
 
 ```hbs
 {{!--app/tasks/template.hbs --}}
@@ -160,9 +151,9 @@ data from the route.
 />
 ```
 
-We will keep the presentational `<TaskList>` decoupled from the data-loading
-mechanism to enforce separation of concerns and a good architecture overall.
-However, also our current implementation of using a route and a controller
-doesn't feel overall pleasing. We can use a container component instead, that
-is also responsible for data loading and visually managing its state. We will do
-this in the next step with the introduction of screen components.
+With this we've accomplished what we've set out to do, we've managed to setup a
+data persistance layer and also we've managed to keep the components decoupled
+by listening to some best practices. But this type of implementation doesn't feel
+overall pleasing. We could use a container component instead, which will be
+responsible for loading the data and also visually managing its state. And
+that's what we'll do in the next chapter when we introduce screen components.
