@@ -74,6 +74,37 @@ This is the a typical boilerplate code to get started and going over what the co
 - We're registering a new addon in our Storybook.
 - Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.
 
+## Note
+
+If you get an error that looks like below
+
+```cmd
+ERROR in ./.storybook/design-addon/register.js
+Module build failed (from ./node_modules/babel-loader/lib/index.js):
+SyntaxError: /Users/chidimo/git-p/taskbox/.storybook/design-addon/register.js: Unexpected token (11:6)
+
+   9 |     type: types.PANEL,
+  10 |     render: ({ active, key }) => (
+> 11 |       <AddonPanel active={active} key={key}>
+     |       ^
+  12 |         implement
+  13 |       </AddonPanel>
+  14 |     ),
+ 
+```
+
+It is likely caused by the absence of a `.babelrc` file in your React project or you're not using the correct presets. To fix it, create a new file with the name `.babelrc` in your project root and enter the below `babel` settings.
+
+```json
+// .babelrc
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ]
+}
+```
+
 Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
 
 ```js
