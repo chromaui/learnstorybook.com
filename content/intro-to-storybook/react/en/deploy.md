@@ -18,9 +18,9 @@ To deploy Storybook we first need to export it as a static web app. This functio
 
 Now when you build Storybook via `yarn build-storybook`, it will output a static Storybook in the `storybook-static` directory.
 
-## Continuous deploy
+## Continuous deployment
 
-We want to share the latest version of components whenever we push code. To do this we need to continuous deploy Storybook. We’ll rely on GitHub and Netlify to deploy our static site. We’re using the Netlify free plan.
+We want to share the latest version of components whenever we push code. To do this we need to continuously deploy Storybook. We’ll rely on GitHub and Netlify to deploy our static site. We’re using the Netlify free plan.
 
 ### GitHub
 
