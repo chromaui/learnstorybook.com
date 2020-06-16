@@ -1,6 +1,6 @@
 ---
 title: 'Construire un simple composant'
-tocTitle: 'Simple component'
+tocTitle: 'Un simple composant'
 description: 'Construire un simple composant en isolation'
 commit: b2274bd
 ---

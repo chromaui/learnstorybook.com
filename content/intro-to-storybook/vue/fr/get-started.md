@@ -1,6 +1,6 @@
 ---
 title: 'Tutoriel Storybook pour Vue'
-tocTitle: 'Get started'
+tocTitle: 'Commencer'
 description: 'Configurer Vue Storybook dans votre environnement de développement'
 commit: d1c4858
 ---
