@@ -73,6 +73,11 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
+<div class="aside">
+  If you're using TypeScript, you'll need to make a small adjustment to the imports.
+  You'll need to use <code>import { withKnobs, object } from '@storybook/addon-knobs'</code> instead.
+</div>
+
 Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
 
 ```javascript
