@@ -252,10 +252,10 @@ svn export https://github.com/chromaui/learnstorybook-code/branches/master/publi
 svn export https://github.com/google/fonts/trunk/ofl/nunitosans assets/font
 ```
 
-Next the assets need to be loaded into the app, for that we're going to update `App.js` to the following:
+Next the assets need to be loaded into the app, for that we're going to update `useCachedResources.js` to the following:
 
 ```javascript
-// App.js
+// hooks/useCachedResources.js
 async function loadResourcesAndDataAsync() {
   try {
     SplashScreen.preventAutoHide();
@@ -266,11 +266,11 @@ async function loadResourcesAndDataAsync() {
     // Load fonts
     await Font.loadAsync({
       ...Ionicons.font,
-      'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      percolate: require('./assets/icon/percolate.ttf'),
-      'NunitoSans-Bold': require('./assets/font/NunitoSans-Bold.ttf'),
-      'NunitoSans-Italic': require('./assets/font/NunitoSans-Italic.ttf'),
-      NunitoSans: require('./assets/font/NunitoSans-Regular.ttf'),
+      'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
+      percolate: require('../assets/icon/percolate.ttf'),
+      'NunitoSans-Bold': require('../assets/font/NunitoSans-Bold.ttf'),
+      'NunitoSans-Italic': require('../assets/font/NunitoSans-Italic.ttf'),
+      NunitoSans: require('../assets/font/NunitoSans-Regular.ttf'),
     });
   } catch (e) {
     // We might want to provide this error information to an error reporting service
