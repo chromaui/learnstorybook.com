@@ -40,9 +40,29 @@ export default {
 
 We've outlined what our addon will do, it's time to start working on it.
 
-Inside your `.storybook` folder, create a new one called `design-addon` and inside it a new file called `register.js`.
+In the root of your project folder, create a new file called `.babelrc` with the following inside:
 
-And that's it! Simple isn't it?
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ]
+}
+```
+
+Adding this file will allow us to use the correct presets and options for the addon we're about to develop.
+
+Afterwards, inside your `.storybook` folder create a new one called `design-addon` and inside it a new file called `register.js`.
+
+And that's it! We are ready to start developing our addon.
 
 <div class="aside">We're going to use the<code>.storybook</code> folder as a placeholder for our addon. The reason behind this, is to maintain a straightforward approach and avoid complicating it too much. Should this addon be transformed into a actual addon it would be best to move it to a separate package with it's own file and folder structure.</div>
 
@@ -73,37 +93,6 @@ This is the a typical boilerplate code to get started and going over what the co
 
 - We're registering a new addon in our Storybook.
 - Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.
-
-## Note
-
-If you get an error that looks like below
-
-```cmd
-ERROR in ./.storybook/design-addon/register.js
-Module build failed (from ./node_modules/babel-loader/lib/index.js):
-SyntaxError: /Users/chidimo/git-p/taskbox/.storybook/design-addon/register.js: Unexpected token (11:6)
-
-   9 |     type: types.PANEL,
-  10 |     render: ({ active, key }) => (
-> 11 |       <AddonPanel active={active} key={key}>
-     |       ^
-  12 |         implement
-  13 |       </AddonPanel>
-  14 |     ),
- 
-```
-
-It is likely caused by the absence of a `.babelrc` file in your React project or you're not using the correct presets. To fix it, create a new file with the name `.babelrc` in your project root and enter the below `babel` settings.
-
-```json
-// .babelrc
-{
-  "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
-  ]
-}
-```
 
 Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
 
