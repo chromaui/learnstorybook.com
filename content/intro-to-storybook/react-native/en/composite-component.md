@@ -90,7 +90,6 @@ export const withPinnedTasks = [
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-storiesOf('TaskList', module)
   .addDecorator(story => <View style={[styles.TaskBox, { padding: 42 }]}>{story()}</View>)
   .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
   .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
@@ -187,7 +186,7 @@ And update `TaskList.js` to the following:
 
 ```javascript
 
-// src/components/TaskList.js
+// components/TaskList.js
 import * as React from 'react';
 import Task from './Task';
 import PercolateIcons from '../constants/Percolate';
