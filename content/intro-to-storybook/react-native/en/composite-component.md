@@ -89,7 +89,7 @@ export const withPinnedTasks = [
   ...defaultTasks.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
-
+storiesOf('TaskList', module)
   .addDecorator(story => <View style={[styles.TaskBox, { padding: 42 }]}>{story()}</View>)
   .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
   .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
