@@ -259,7 +259,7 @@ As the component grows, so too do input requirements. Define the prop requiremen
 
 ```javascript
 
-// src/components/TaskList.js
+// components/TaskList.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
