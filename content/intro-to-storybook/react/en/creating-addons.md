@@ -40,9 +40,29 @@ export default {
 
 We've outlined what our addon will do, it's time to start working on it.
 
-Inside your `.storybook` folder, create a new one called `design-addon` and inside it a new file called `register.js`.
+In the root of your project folder, create a new file called `.babelrc` with the following inside:
 
-And that's it! Simple isn't it?
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ]
+}
+```
+
+Adding this file will allow us to use the correct presets and options for the addon we're about to develop.
+
+Afterwards, inside your `.storybook` folder create a new one called `design-addon` and inside it a new file called `register.js`.
+
+And that's it! We are ready to start developing our addon.
 
 <div class="aside">We're going to use the<code>.storybook</code> folder as a placeholder for our addon. The reason behind this, is to maintain a straightforward approach and avoid complicating it too much. Should this addon be transformed into a actual addon it would be best to move it to a separate package with it's own file and folder structure.</div>
 
