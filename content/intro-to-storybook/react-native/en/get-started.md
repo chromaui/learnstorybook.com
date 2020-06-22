@@ -260,9 +260,6 @@ async function loadResourcesAndDataAsync() {
   try {
     SplashScreen.preventAutoHideAsync();
 
-    // Load our initial navigation state
-    setInitialNavigationState(await getInitialState());
-
     // Load fonts
     await Font.loadAsync({
       ...Ionicons.font,
