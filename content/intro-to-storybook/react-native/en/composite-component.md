@@ -91,7 +91,7 @@ export const withPinnedTasks = [
 ];
 
 storiesOf('TaskList', module)
-  .addDecorator(story => <View style={[styles.Taskbox, { padding: 42 }]}>{story()}</View>)
+  .addDecorator(story => <View style={[styles.TaskBox, { padding: 42 }]}>{story()}</View>)
   .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
   .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
   .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
@@ -187,7 +187,7 @@ And update `TaskList.js` to the following:
 
 ```javascript
 
-// src/components/TaskList.js
+// components/TaskList.js
 import * as React from 'react';
 import Task from './Task';
 import PercolateIcons from '../constants/Percolate';
@@ -259,7 +259,7 @@ As the component grows, so too do input requirements. Define the prop requiremen
 
 ```javascript
 
-// src/components/TaskList.js
+// components/TaskList.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
