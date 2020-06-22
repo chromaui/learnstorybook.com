@@ -258,7 +258,7 @@ Next the assets need to be loaded into the app, for that we're going to update `
 // hooks/useCachedResources.js
 async function loadResourcesAndDataAsync() {
   try {
-    SplashScreen.preventAutoHide();
+    SplashScreen.preventAutoHideAsync();
 
     // Load our initial navigation state
     setInitialNavigationState(await getInitialState());
@@ -277,7 +277,7 @@ async function loadResourcesAndDataAsync() {
     console.warn(e);
   } finally {
     setLoadingComplete(true);
-    SplashScreen.hide();
+    SplashScreen.hideAsync();
   }
 }
 ```
