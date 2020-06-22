@@ -60,7 +60,7 @@ Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInbo
 // screens/InboxScreen.js
 import * as React from 'react';
 import { connect } from 'react-redux';
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from '../components/PureInboxScreen';
 
 const InboxScreen = ({ error }) => {
   return <PureInboxScreen error={error} />;
@@ -87,8 +87,6 @@ export default function HomeScreen() {
   );
 }
 ```
-
-<div class="aside"><p>Después de este cambio, la prueba de aplicación que configuró expo probablemente se romperá, puede omitir esto eliminando el archivo apropiado en la carpeta __tests__ o ajustar su prueba en consecuencia.</p></div>
 
 Sin embargo, al intentar mostrar nuestro componente "contenedor" dentro de Storybook las cosas se ponen interesantes.
 
