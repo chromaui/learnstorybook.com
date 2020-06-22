@@ -58,9 +58,9 @@ Na pasta (ou diretório) raiz do projeto, vamos adicionar um novo ficheiro (ou a
 }
 ```
 
-Com esta adição, vamos garantir que vão ser usadas tanto as predefinições corretas, assim como as opções corretas para o nosso extra.
+Com esta adição, vamos garantir que o nosso extra, irá utilizar as predefinições e opções corretas.
 
-Em seguida, dentro da sua pasta (ou diretório) `.storybook`, crie uma nova pasta (ou diretório) chamada `design-addon` e dentro desta um ficheiro (ou arquivo) chamado `register.js`.
+Em seguida, dentro da pasta (ou diretório) `.storybook`, vamos criar uma nova pasta (ou diretório) chamada `design-addon` e dentro desta um ficheiro (ou arquivo) chamado `register.js`.
 
 E já está! Fácil não é?
 
