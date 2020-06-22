@@ -40,7 +40,27 @@ export default {
 
 Já delineamos o que o nosso extra irá fazer, está na altura de começar a implementação.
 
-Dentro da sua pasta (ou diretório) `.storybook`, crie uma nova pasta (ou diretório) chamada `design-addon` e dentro desta um ficheiro (ou arquivo) chamado `register.js`.
+Na pasta (ou diretório) raiz do projeto, vamos adicionar um novo ficheiro (ou arquivo) chamado `.babelrc` com o seguinte conteúdo:
+
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ]
+}
+```
+
+Com esta adição, vamos garantir que vão ser usadas tanto as predefinições corretas, assim como as opções corretas para o nosso extra.
+
+Em seguida, dentro da sua pasta (ou diretório) `.storybook`, crie uma nova pasta (ou diretório) chamada `design-addon` e dentro desta um ficheiro (ou arquivo) chamado `register.js`.
 
 E já está! Fácil não é?
 
