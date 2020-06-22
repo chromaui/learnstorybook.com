@@ -257,10 +257,7 @@ A continuación, los recursos deben cargarse en la aplicación, para eso vamos a
 // hooks/useCachedResources.js
 async function loadResourcesAndDataAsync() {
   try {
-    SplashScreen.preventAutoHide();
-
-    // Load our initial navigation state
-    setInitialNavigationState(await getInitialState());
+    SplashScreen.preventAutoHideAsync();
 
     // Load fonts
     await Font.loadAsync({
@@ -276,7 +273,7 @@ async function loadResourcesAndDataAsync() {
     console.warn(e);
   } finally {
     setLoadingComplete(true);
-    SplashScreen.hide();
+    SplashScreen.hideAsync();
   }
 }
 ```
