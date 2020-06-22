@@ -82,7 +82,7 @@ const ChapterLinks = ({
             <BoxLinkIcon icon="repository" />
 
             <BoxLinkMessage>
-             {/*  Keep your code in sync with this chapter. View {commit} on GitHub. */}
+              {/*  Keep your code in sync with this chapter. View {commit} on GitHub. */}
 
               {gitLinkDisplayText}
             </BoxLinkMessage>

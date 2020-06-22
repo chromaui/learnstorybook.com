@@ -30,7 +30,7 @@ const TranslationUpdated = ({ currentLanguage, currentTranslations, storybookVer
 };
 TranslationUpdated.defaultProps = {
   currentTranslations: [],
-}
+};
 TranslationUpdated.propTypes = {
   storybookVersion: PropTypes.number.isRequired,
   currentLanguage: PropTypes.string.isRequired,

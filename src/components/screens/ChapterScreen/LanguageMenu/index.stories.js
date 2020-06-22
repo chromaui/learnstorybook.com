@@ -211,7 +211,7 @@ storiesOf('Screens|ChapterScreen/LanguageMenu', module)
       }}
     />
   ))
-  .add('w all frameworks, 2 translations',()=>(
+  .add('w all frameworks, 2 translations', () => (
     <LanguageMenu
       {...sharedProps}
       framework="react"

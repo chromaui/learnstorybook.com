@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Link, styles } from '@storybook/design-system';
-import { fetchGitHubTextInfo } from '../../../lib/getTranslationInformation';
 
 const { typography } = styles;
 

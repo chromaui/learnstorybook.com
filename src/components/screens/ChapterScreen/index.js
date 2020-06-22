@@ -63,13 +63,7 @@ const Chapter = ({
       fields: { framework, guide, language, slug, chapter, permalink },
     },
     currentGuide: {
-      frontmatter: {
-        codeGithubUrl,
-        title: currentGuideTitle,
-        toc,
-        twitterShareText,
-        guideInformation,
-      },
+      frontmatter: { codeGithubUrl, title: currentGuideTitle, toc, guideInformation },
     },
     site: { siteMetadata },
     tocPages,
