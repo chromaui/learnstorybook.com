@@ -1,6 +1,5 @@
 import React from 'react';
 import { addDecorator, addParameters, configure } from '@storybook/react';
-import { withA11y } from '@storybook/addon-a11y';
 import { action } from '@storybook/addon-actions';
 import {
   global as designSystemGlobal,
@@ -39,16 +38,6 @@ global.__PATH_PREFIX__ = '';
 window.___navigate = pathname => {
   action('NavigateTo:')(pathname);
 };
-
-// automatically import all files ending in *.stories.js
-const req = require.context('../src', true, /\.stories\.js$/);
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-
-addDecorator(withA11y);
 
 addDecorator(story => (
   <>

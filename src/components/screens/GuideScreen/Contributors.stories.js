@@ -1,8 +1,13 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Contributors from './Contributors';
 
-const props = {
+export default {
+  component: Contributors,
+  excludeStories: /.*Data$/,
+  title: 'Screens/GuideScreen/Contributors',
+};
+
+const ContributorsData = {
   authors: [
     {
       name: 'Author name',
@@ -19,6 +24,5 @@ const props = {
   ],
 };
 
-storiesOf('Screens|GuideScreen/Contributors', module)
-  .addParameters({ component: Contributors })
-  .add('default', () => <Contributors {...props} />);
+export const Basic = () => <Contributors {...ContributorsData} />;
+Basic.storyName = 'default';

@@ -1,8 +1,12 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import TableOfContents from './TableOfContents';
 
-const entries = [
+export default {
+  component: TableOfContents,
+  excludeStories: /.*Data$/,
+  title: 'Screens/GuideScreen/TableOfContents',
+};
+const TableOfContentsData = [
   {
     description: 'Guide 1 description',
     slug: '/guide-1',
@@ -15,6 +19,5 @@ const entries = [
   },
 ];
 
-storiesOf('Screens|GuideScreen/TableOfContents', module)
-  .addParameters({ component: TableOfContents })
-  .add('default', () => <TableOfContents entries={entries} />);
+export const Basic = () => <TableOfContents entries={TableOfContentsData} />;
+Basic.storyName = 'default';

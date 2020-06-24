@@ -1,8 +1,13 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import IndexScreen from './index';
 
-const props = {
+export default {
+  component: IndexScreen,
+  excludeStories: /.*Data$/,
+  title: 'Screens/IndexScreen/index',
+};
+
+const IndexScreenData = {
   data: {
     allEditionsChapters: {
       edges: [
@@ -61,6 +66,5 @@ const props = {
   },
 };
 
-storiesOf('Screens|IndexScreen/index', module)
-  .addParameters({ component: IndexScreen })
-  .add('default', () => <IndexScreen {...props} />);
+export const Basic = () => <IndexScreen {...IndexScreenData} />;
+Basic.storyName = 'default';

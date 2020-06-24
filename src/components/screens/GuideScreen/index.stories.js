@@ -1,8 +1,13 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import GuideScreen from './index';
 
-const props = {
+export default {
+  component: GuideScreen,
+  excludeStories: /.*Data$/,
+  title: 'Screens/GuideScreen/index',
+};
+
+const GuideScreenData = {
   data: {
     currentPage: {
       html: '<div>The html</div>',
@@ -96,6 +101,5 @@ const props = {
   },
 };
 
-storiesOf('Screens|GuideScreen/index', module)
-  .addParameters({ component: GuideScreen })
-  .add('default', () => <GuideScreen {...props} />);
+export const Basic = () => <GuideScreen {...GuideScreenData} />;
+Basic.storyName = 'default';

@@ -1,7 +1,10 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import MadeByChroma from './MadeByChroma';
 
-storiesOf('Screens|TeamScreen/MadeByChroma', module)
-  .addParameters({ component: MadeByChroma })
-  .add('default', () => <MadeByChroma />);
+export default {
+  component: MadeByChroma,
+  title: 'Screens/TeamScreen/MadeByChroma',
+};
+
+export const Basic = () => <MadeByChroma />;
+Basic.storyName = 'default';

@@ -1,11 +1,18 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import ChapterLinks from './ChapterLinks';
 
-const guide = 'guide';
+export default {
+  component: ChapterLinks,
+  excludeStories: /.*Data$/,
+  title: 'Screens/ChapterScreen/ChapterLinks',
+};
 
-storiesOf('Screens|ChapterScreen/ChapterLinks', module)
-  .add('with commit', () => (
-    <ChapterLinks codeGithubUrl="https://github.com" commit="AAAAAA" guide={guide} />
-  ))
-  .add('without commit', () => <ChapterLinks guide={guide} />);
+const ChapterLinksData = 'guide';
+
+export const Basic = () => (
+  <ChapterLinks codeGithubUrl="https://github.com" commit="AAAAAA" guide={ChapterLinksData} />
+);
+Basic.storyName = 'with commit';
+
+export const WithoutCommit = () => <ChapterLinks guide={ChapterLinksData} />;
+WithoutCommit.storyName = 'without commit';

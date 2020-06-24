@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import AppLayout from './AppLayout';
 
 const Children = styled.div`
@@ -15,6 +14,9 @@ const props = {
   location: { pathname: '' },
 };
 
-storiesOf('Composite|AppLayout', module)
-  .addParameters({ component: AppLayout })
-  .add('default', () => <AppLayout {...props} />);
+export default {
+  component: AppLayout,
+  title: 'Composite/AppLayout',
+};
+export const Basic = () => <AppLayout {...props} />;
+Basic.storyName = 'Default';

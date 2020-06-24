@@ -1,14 +1,19 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Pagination from './Pagination';
 
-const nextEntry = {
+export default {
+  component: Pagination,
+  excludeStories: /.*Data$/,
+  title: 'Screens/ChapterScreen/Pagination',
+};
+const PaginationData = {
   description: 'The description of the next chapter',
   slug: '/slug',
   title: 'Chapter Title',
 };
 
-storiesOf('Screens|ChapterScreen/Pagination', module)
-  .addParameters({ component: Pagination })
-  .add('without nextEntry', () => <Pagination />)
-  .add('with nextEntry', () => <Pagination nextEntry={nextEntry} />);
+export const Basic = () => <Pagination />;
+Basic.storyName = 'without nextEntry';
+
+export const WithNextEntry = () => <Pagination nextEntry={PaginationData} />;
+WithNextEntry.storyName = 'with nextEntry';

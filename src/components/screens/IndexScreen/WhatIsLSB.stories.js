@@ -1,7 +1,10 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import WhatIsLSB from './WhatIsLSB';
 
-storiesOf('Screens|IndexScreen/WhatIsLSB', module)
-  .addParameters({ component: WhatIsLSB })
-  .add('default', () => <WhatIsLSB />);
+export default {
+  component: WhatIsLSB,
+  title: 'Screens/IndexScreen/WhatIsLSB',
+};
+
+export const Basic = () => <WhatIsLSB />;
+Basic.storyName = 'default';

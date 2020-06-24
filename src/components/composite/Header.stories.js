@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import Header from './Header';
 
 const BlueBackground = styled.div`
@@ -29,11 +28,16 @@ const props = {
   },
 };
 
-storiesOf('Composite|Header', module)
-  .addParameters({ component: Header })
-  .add('default', () => <Header {...props} />)
-  .add('inverted', () => (
-    <BlueBackground>
-      <Header isInverted {...props} />
-    </BlueBackground>
-  ));
+export default {
+  component: Header,
+  title: 'Composite/Header',
+};
+
+export const Default = () => <Header {...props} />;
+
+export const Inverted = () => (
+  <BlueBackground>
+    <Header isInverted {...props} />
+  </BlueBackground>
+);
+Inverted.storyName = 'inverted';
