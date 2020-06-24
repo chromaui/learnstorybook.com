@@ -73,4 +73,14 @@ svn export https://github.com/chromaui/learnstorybook-code/branches/master/publi
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
 
+<div class="aside">
+  <p>Additionally, if you prefer <code>curl</code> and <code>tar</code> to download a folder of files from GitHub instead use the below command.</p></div>
+  
+```bash
+curl https://codeload.github.com/chromaui/learnstorybook-code/tar.gz/master --output c.gz 
+tar -C public -xvzf c.gz --strip=2 learnstorybook-code-master/public/font 
+tar -C public -xvzf c.gz --strip=2 learnstorybook-code-master/public/icon 
+rm c.gz
+```
+
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
