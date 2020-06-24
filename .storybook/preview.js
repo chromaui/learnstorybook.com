@@ -1,5 +1,5 @@
 import React from 'react';
-import { addDecorator, addParameters, configure } from '@storybook/react';
+import { addDecorator, addParameters } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import {
   global as designSystemGlobal,

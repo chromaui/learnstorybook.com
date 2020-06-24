@@ -24,7 +24,7 @@
     "react-dom": "^16.8.6",
     "react-github-button": "^0.1.11",
     "react-helmet": "^5.2.1",
-    "styled-components": "^4.1.2"
+    "styled-components": "^4.4.1"
   },
   "keywords": [
     "gatsby"
