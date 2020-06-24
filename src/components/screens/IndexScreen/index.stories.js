@@ -3,11 +3,12 @@ import IndexScreen from './index';
 
 export default {
   component: IndexScreen,
-  excludeStories: /.*Data$/,
   title: 'Screens/IndexScreen/index',
 };
 
-const IndexScreenData = {
+export const Basic = args => <IndexScreen {...args} />;
+Basic.storyName = 'default';
+Basic.args = {
   data: {
     allEditionsChapters: {
       edges: [
@@ -65,6 +66,3 @@ const IndexScreenData = {
     },
   },
 };
-
-export const Basic = () => <IndexScreen {...IndexScreenData} />;
-Basic.storyName = 'default';

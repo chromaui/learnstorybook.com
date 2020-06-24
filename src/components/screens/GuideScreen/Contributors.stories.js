@@ -3,11 +3,12 @@ import Contributors from './Contributors';
 
 export default {
   component: Contributors,
-  excludeStories: /.*Data$/,
   title: 'Screens/GuideScreen/Contributors',
 };
 
-const ContributorsData = {
+export const Basic = args => <Contributors {...args} />;
+Basic.storyName = 'default';
+Basic.args = {
   authors: [
     {
       name: 'Author name',
@@ -23,6 +24,3 @@ const ContributorsData = {
     },
   ],
 };
-
-export const Basic = () => <Contributors {...ContributorsData} />;
-Basic.storyName = 'default';

@@ -6,12 +6,10 @@ export default {
   title: 'Composite/User',
 };
 
-export const Basic = () => (
-  <User
-    src="https://avatars2.githubusercontent.com/u/263385"
-    name="Dominic Nguyen"
-    detail="Professional rapper"
-  />
-);
-
+export const Basic = args => <User {...args} />;
 Basic.storyName = 'Default';
+Basic.args = {
+  src: 'https://avatars2.githubusercontent.com/u/263385',
+  name: 'Dominic Nguyen',
+  detail: 'Professional rapper',
+};

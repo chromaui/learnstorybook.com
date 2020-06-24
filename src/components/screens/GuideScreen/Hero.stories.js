@@ -7,14 +7,6 @@ export default {
   title: 'Screens/GuideScreen/Hero',
 };
 
-const HeroData = {
-  ctaHref: '/get-started',
-  description:
-    "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
-  imagePath: '/guide-cover/intro.svg',
-  themeColor: '#6F2CAC',
-  title: 'Visual Testing Handbook',
-};
 // list of possible available languages used for stories
 const storyLanguagesData = [
   {
@@ -105,50 +97,92 @@ const storyLanguagesData = [
 // list of baseline language for the first 3 stories
 export const defaultLanguagesData = storyLanguagesData.slice(0, 5);
 
-export const Basic = () => <Hero {...HeroData} languages={defaultLanguagesData} />;
+export const Basic = args => <Hero {...args} />;
 Basic.storyName = 'default';
+Basic.args = {
+  ctaHref: '/get-started',
+  description:
+    "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
+  imagePath: '/guide-cover/intro.svg',
+  themeColor: '#6F2CAC',
+  title: 'Visual Testing Handbook',
+  languages: defaultLanguagesData,
+};
 
-export const WithContributorCount = () => (
-  <Hero {...HeroData} contributorCount="34+" languages={defaultLanguagesData} />
-);
+export const WithContributorCount = Basic.bind();
 WithContributorCount.storyName = 'with contributor count';
-
-export const WithChapterCount = () => (
-  <Hero {...HeroData} contributorCount="34+" chapterCount={9} languages={defaultLanguagesData} />
-);
+WithContributorCount.args = {
+  ctaHref: '/get-started',
+  description:
+    "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
+  imagePath: '/guide-cover/intro.svg',
+  themeColor: '#6F2CAC',
+  title: 'Visual Testing Handbook',
+  contributorCount: '34+',
+  languages: defaultLanguagesData,
+};
+export const WithChapterCount = Basic.bind();
 WithChapterCount.storyName = 'with chapter count';
-
-export const OneLanguage = () => (
-  <Hero
-    {...HeroData}
-    contributorCount="34+"
-    chapterCount={9}
-    languages={storyLanguagesData.slice(0, 1)}
-  />
-);
+WithChapterCount.args = {
+  ctaHref: '/get-started',
+  description:
+    "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
+  imagePath: '/guide-cover/intro.svg',
+  themeColor: '#6F2CAC',
+  title: 'Visual Testing Handbook',
+  contributorCount: '34+',
+  languages: defaultLanguagesData,
+  chapterCount: 9,
+};
+export const OneLanguage = Basic.bind();
 OneLanguage.storyName = 'with only one language';
-
-export const AboveFiveLanguages = () => (
-  <Hero
-    {...HeroData}
-    contributorCount="34+"
-    chapterCount={9}
-    languages={storyLanguagesData.slice(0, 7)}
-  />
-);
+OneLanguage.args = {
+  ctaHref: '/get-started',
+  description:
+    "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
+  imagePath: '/guide-cover/intro.svg',
+  themeColor: '#6F2CAC',
+  title: 'Visual Testing Handbook',
+  contributorCount: '34+',
+  chapterCount: 9,
+  languages: storyLanguagesData.slice(0, 1),
+};
+export const AboveFiveLanguages = Basic.bind();
 AboveFiveLanguages.storyName = 'with +5 languages';
-
-export const AboveTenLanguages = () => (
-  <Hero
-    {...HeroData}
-    contributorCount="34+"
-    chapterCount={9}
-    languages={storyLanguagesData.slice(0, 12)}
-  />
-);
+AboveFiveLanguages.args = {
+  ctaHref: '/get-started',
+  description:
+    "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
+  imagePath: '/guide-cover/intro.svg',
+  themeColor: '#6F2CAC',
+  title: 'Visual Testing Handbook',
+  contributorCount: '34+',
+  chapterCount: 9,
+  languages: storyLanguagesData.slice(0, 7),
+};
+export const AboveTenLanguages = Basic.bind();
 AboveTenLanguages.storyName = 'with +10 languages';
-
-export const AboveTwentyLanguages = () => (
-  <Hero {...HeroData} contributorCount="34+" chapterCount={9} languages={storyLanguagesData} />
-);
+AboveTenLanguages.args = {
+  ctaHref: '/get-started',
+  description:
+    "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
+  imagePath: '/guide-cover/intro.svg',
+  themeColor: '#6F2CAC',
+  title: 'Visual Testing Handbook',
+  contributorCount: '34+',
+  chapterCount: 9,
+  languages: storyLanguagesData.slice(0, 12),
+};
+export const AboveTwentyLanguages = Basic.bind();
 AboveTwentyLanguages.storyName = 'with +20 languages';
+AboveTwentyLanguages.args = {
+  ctaHref: '/get-started',
+  description:
+    "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
+  imagePath: '/guide-cover/intro.svg',
+  themeColor: '#6F2CAC',
+  title: 'Visual Testing Handbook',
+  contributorCount: '34+',
+  chapterCount: 9,
+  languages: storyLanguagesData,
+};

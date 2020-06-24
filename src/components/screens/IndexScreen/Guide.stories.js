@@ -3,10 +3,12 @@ import Guide from './Guide';
 
 export default {
   component: Guide,
-  excludeStories: /.*Data$/,
   title: 'Screens/IndexScreen/Guide',
 };
-const GuideData = {
+
+export const Basic = args => <Guide {...args} />;
+Basic.storyName = 'default';
+Basic.args = {
   chapterCount: 10,
   themeColor: '#6F2CAC',
   title: 'Intro to Storybook',
@@ -14,5 +16,3 @@ const GuideData = {
     "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch.",
   imagePath: '/guide-thumb/intro.svg',
 };
-export const Basic = () => <Guide {...GuideData} />;
-Basic.storyName = 'default';

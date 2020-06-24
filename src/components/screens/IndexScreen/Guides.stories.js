@@ -3,10 +3,12 @@ import Guides from './Guides';
 
 export default {
   component: Guides,
-  excludeStories: /.*Data$/,
   title: 'Screens/IndexScreen/Guides',
 };
-const GuidesData = {
+
+export const Basic = args => <Guides {...args} />;
+Basic.storyName = 'default';
+Basic.args = {
   chaptersEdges: [
     {
       node: {
@@ -33,6 +35,3 @@ const GuidesData = {
     },
   ],
 };
-
-export const Basic = () => <Guides {...GuidesData} />;
-Basic.storyName = 'default';

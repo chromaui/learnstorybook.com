@@ -3,11 +3,12 @@ import GuideScreen from './index';
 
 export default {
   component: GuideScreen,
-  excludeStories: /.*Data$/,
   title: 'Screens/GuideScreen/index',
 };
 
-const GuideScreenData = {
+export const Basic = args => <GuideScreen {...args} />;
+Basic.storyName = 'default';
+Basic.args = {
   data: {
     currentPage: {
       html: '<div>The html</div>',
@@ -100,6 +101,3 @@ const GuideScreenData = {
     slug: '/intro-to-storybook/',
   },
 };
-
-export const Basic = () => <GuideScreen {...GuideScreenData} />;
-Basic.storyName = 'default';

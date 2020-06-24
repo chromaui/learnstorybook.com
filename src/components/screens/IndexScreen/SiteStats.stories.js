@@ -3,11 +3,12 @@ import SiteStats from './SiteStats';
 
 export default {
   component: SiteStats,
-  excludeStories: /.*Data$/,
   title: 'Screens/IndexScreen/SiteStats',
 };
 
-const SiteStatsData = {
+export const Basic = args => <SiteStats {...args} />;
+Basic.storyName = 'default';
+Basic.args = {
   chapterCount: 5,
   guideCount: 9,
   allEditionsChaptersEdges: [
@@ -34,6 +35,3 @@ const SiteStatsData = {
     },
   ],
 };
-
-export const Basic = () => <SiteStats {...SiteStatsData} />;
-Basic.storyName = 'default';

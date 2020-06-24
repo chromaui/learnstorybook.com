@@ -3,17 +3,18 @@ import Pagination from './Pagination';
 
 export default {
   component: Pagination,
-  excludeStories: /.*Data$/,
   title: 'Screens/ChapterScreen/Pagination',
 };
-const PaginationData = {
-  description: 'The description of the next chapter',
-  slug: '/slug',
-  title: 'Chapter Title',
-};
 
-export const Basic = () => <Pagination />;
+export const Basic = args => <Pagination {...args} />;
 Basic.storyName = 'without nextEntry';
 
-export const WithNextEntry = () => <Pagination nextEntry={PaginationData} />;
+export const WithNextEntry = Basic.bind();
 WithNextEntry.storyName = 'with nextEntry';
+WithNextEntry.args = {
+  nextEntry: {
+    description: 'The description of the next chapter',
+    slug: '/slug',
+    title: 'Chapter Title',
+  },
+};

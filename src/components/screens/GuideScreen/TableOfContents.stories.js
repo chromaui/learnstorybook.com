@@ -6,7 +6,7 @@ export default {
   excludeStories: /.*Data$/,
   title: 'Screens/GuideScreen/TableOfContents',
 };
-const TableOfContentsData = [
+export const TableOfContentsData = [
   {
     description: 'Guide 1 description',
     slug: '/guide-1',

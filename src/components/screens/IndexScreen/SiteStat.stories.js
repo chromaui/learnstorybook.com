@@ -6,11 +6,10 @@ export default {
   title: 'Screens/IndexScreen/SiteStat',
 };
 
-export const Basic = () => (
-  <SiteStat
-    heading="6 guides"
-    message="Professional walkthroughs made for frontend devs. Updated all the time."
-  />
-);
+export const Basic = args => <SiteStat {...args} />;
 
 Basic.storyName = 'default';
+Basic.args = {
+  heading: '6 guides',
+  message: 'Professional walkthroughs made for frontend devs. Updated all the time.',
+};

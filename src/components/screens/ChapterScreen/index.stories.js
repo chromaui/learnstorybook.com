@@ -3,11 +3,11 @@ import Chapter from './index';
 
 export default {
   component: Chapter,
-  excludeStories: /.*Data$/,
   title: 'Screens/ChapterScreen/index',
 };
-
-const ChapterScreenData = {
+export const Basic = args => <Chapter {...args} />;
+Basic.storyName = 'default';
+Basic.args = {
   data: {
     currentPage: {
       html: '<div>The html</div>',
@@ -103,6 +103,3 @@ const ChapterScreenData = {
     },
   },
 };
-
-export const Basic = () => <Chapter {...ChapterScreenData} />;
-Basic.storyName = 'default';
