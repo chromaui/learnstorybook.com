@@ -8,15 +8,12 @@ const Children = styled.div`
   justify-content: center;
   padding: 169px 0 100px;
 `;
-
-const props = {
-  children: <Children>I am the app.</Children>,
-  location: { pathname: '' },
-};
-
 export default {
   component: AppLayout,
   title: 'Composite/AppLayout',
+  args: {
+    children: <Children>I am the app.</Children>,
+    location: { pathname: '' },
+  },
 };
-export const Basic = () => <AppLayout {...props} />;
-Basic.storyName = 'Default';
+export const Default = args => <AppLayout {...args} />;

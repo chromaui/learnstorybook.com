@@ -6,5 +6,4 @@ export default {
   title: 'Basics/GatsbyLink',
 };
 
-export const Basic = () => <GatsbyLink to="/">I am a GatsbyLink</GatsbyLink>;
-Basic.storyName = 'Default';
+export const Default = () => <GatsbyLink to="/">I am a GatsbyLink</GatsbyLink>;

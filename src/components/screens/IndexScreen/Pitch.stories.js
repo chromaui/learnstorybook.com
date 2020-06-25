@@ -6,5 +6,4 @@ export default {
   title: 'Screens/IndexScreen/Pitch',
 };
 
-export const Basic = () => <Pitch />;
-Basic.storyName = 'default';
+export const Default = () => <Pitch />;

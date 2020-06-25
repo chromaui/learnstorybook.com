@@ -6,5 +6,4 @@ export default {
   title: 'Screens/TeamScreen/Contributors',
 };
 
-export const Basic = () => <Contributors />;
-Basic.storyName = 'default';
+export const Default = () => <Contributors />;

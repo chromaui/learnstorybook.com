@@ -4,18 +4,17 @@ import ChapterLinks from './ChapterLinks';
 export default {
   component: ChapterLinks,
   title: 'Screens/ChapterScreen/ChapterLinks',
+  args: {
+    guide: 'guide',
+  },
 };
 
-export const Basic = args => <ChapterLinks {...args} />;
-Basic.storyName = 'with commit';
-Basic.args = {
+const ChapterLinksStory = args => <ChapterLinks {...args} />;
+
+export const WithCommit = ChapterLinksStory.bind();
+WithCommit.args = {
   codeGithubUrl: 'https://github.com',
   commit: 'AAAAAA',
-  guide: 'guide',
 };
 
-export const WithoutCommit = Basic.bind();
-WithoutCommit.storyName = 'without commit';
-WithoutCommit.args = {
-  guide: 'guide',
-};
+export const WithoutCommit = ChapterLinksStory.bind();

@@ -6,5 +6,4 @@ export default {
   title: 'Basics/IconLearnStorybook',
 };
 
-export const Basic = () => <IconLearnStorybook />;
-Basic.storyName = 'Default';
+export const Default = () => <IconLearnStorybook />;

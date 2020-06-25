@@ -6,5 +6,4 @@ export default {
   title: 'Screens/IndexScreen/SocialValidation',
 };
 
-export const Basic = () => <SocialValidation />;
-Basic.storyName = 'default';
+export const Default = () => <SocialValidation />;

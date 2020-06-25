@@ -14,5 +14,4 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-export const Basic = () => <Stat value="6" label="Contributors" />;
-Basic.storyName = 'Default';
+export const Default = () => <Stat value="6" label="Contributors" />;

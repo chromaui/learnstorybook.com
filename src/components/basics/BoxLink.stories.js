@@ -12,5 +12,4 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-export const Basic = () => <BoxLink to="/">BoxLink content</BoxLink>;
-Basic.storyName = 'Default';
+export const Default = () => <BoxLink to="/">BoxLink content</BoxLink>;

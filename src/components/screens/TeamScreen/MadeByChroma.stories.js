@@ -6,5 +6,4 @@ export default {
   title: 'Screens/TeamScreen/MadeByChroma',
 };
 
-export const Basic = () => <MadeByChroma />;
-Basic.storyName = 'default';
+export const Default = () => <MadeByChroma />;

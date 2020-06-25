@@ -4,12 +4,10 @@ import SiteStat from './SiteStat';
 export default {
   component: SiteStat,
   title: 'Screens/IndexScreen/SiteStat',
+  args: {
+    heading: '6 guides',
+    message: 'Professional walkthroughs made for frontend devs. Updated all the time.',
+  },
 };
 
-export const Basic = args => <SiteStat {...args} />;
-
-Basic.storyName = 'default';
-Basic.args = {
-  heading: '6 guides',
-  message: 'Professional walkthroughs made for frontend devs. Updated all the time.',
-};
+export const Default = args => <SiteStat {...args} />;

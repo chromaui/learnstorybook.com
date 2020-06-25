@@ -29,4 +29,3 @@ export const All = () => (
     />
   </>
 );
-All.storyName = 'all';

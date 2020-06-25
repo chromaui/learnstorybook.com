@@ -6,5 +6,4 @@ export default {
   title: 'Basics/ShadowBox',
 };
 
-export const Basic = () => <ShadowBox>Shadow box content</ShadowBox>;
-Basic.storyName = 'default';
+export const Default = () => <ShadowBox>Shadow box content</ShadowBox>;

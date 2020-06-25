@@ -1,11 +1,6 @@
 import React from 'react';
 import TableOfContents from './TableOfContents';
 
-export default {
-  component: TableOfContents,
-  excludeStories: /.*Data$/,
-  title: 'Screens/GuideScreen/TableOfContents',
-};
 export const TableOfContentsData = [
   {
     description: 'Guide 1 description',
@@ -19,5 +14,13 @@ export const TableOfContentsData = [
   },
 ];
 
-export const Basic = () => <TableOfContents entries={TableOfContentsData} />;
-Basic.storyName = 'default';
+export default {
+  component: TableOfContents,
+  excludeStories: /.*Data$/,
+  title: 'Screens/GuideScreen/TableOfContents',
+  args: {
+    entries: [...TableOfContentsData],
+  },
+};
+
+export const Default = args => <TableOfContents {...args} />;

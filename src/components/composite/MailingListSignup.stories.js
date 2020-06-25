@@ -10,5 +10,4 @@ export default {
   decorators: [story => <Wrapper>{story()}</Wrapper>],
   title: 'Composite/MailingListSignup',
 };
-export const Basic = () => <MailingListSignup />;
-Basic.storyName = 'Default';
+export const Default = () => <MailingListSignup />;

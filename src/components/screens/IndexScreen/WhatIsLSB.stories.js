@@ -6,5 +6,4 @@ export default {
   title: 'Screens/IndexScreen/WhatIsLSB',
 };
 
-export const Basic = () => <WhatIsLSB />;
-Basic.storyName = 'default';
+export const Default = () => <WhatIsLSB />;

@@ -6,5 +6,4 @@ export default {
   title: 'Basics/LogoChroma',
 };
 
-export const Basic = () => <LogoChroma />;
-Basic.storyName = 'Default';
+export const Default = () => <LogoChroma />;

@@ -6,19 +6,23 @@ export default {
   component: LanguageMenu,
   decorators: [story => <Wrapper>{story()}</Wrapper>],
   title: 'Screens/ChapterScreen/LanguageMenu',
+  args: {
+    chapter: 'chapter',
+    contributeUrl: '/contribute',
+    firstChapter: 'get-started',
+    guide: 'guide',
+    language: 'en',
+  },
 };
 const Wrapper = styled.div`
   padding: 20px;
 `;
 
-export const Basic = args => <LanguageMenu {...args} />;
+const LanguageMenuStory = args => <LanguageMenu {...args} />;
+
+export const Basic = LanguageMenuStory.bind();
 Basic.storyName = 'w/ framework, 1 translation';
 Basic.args = {
-  chapter: 'chapter',
-  contributeUrl: '/contribute',
-  firstChapter: 'get-started',
-  guide: 'guide',
-  language: 'en',
   translationPages: {
     edges: [
       {
@@ -34,14 +38,9 @@ Basic.args = {
   },
 };
 
-export const WithFrameworkTwoTranslations = Basic.bind();
+export const WithFrameworkTwoTranslations = LanguageMenuStory.bind();
 WithFrameworkTwoTranslations.storyName = 'w/ framework, 2 translations';
 WithFrameworkTwoTranslations.args = {
-  chapter: 'chapter',
-  contributeUrl: '/contribute',
-  firstChapter: 'get-started',
-  guide: 'guide',
-  language: 'en',
   translationPages: {
     edges: [
       {
@@ -65,14 +64,9 @@ WithFrameworkTwoTranslations.args = {
     ],
   },
 };
-export const WithFiveFrameworksTwoTranslations = Basic.bind();
+export const WithFiveFrameworksTwoTranslations = LanguageMenuStory.bind();
 WithFiveFrameworksTwoTranslations.storyName = 'w/ 5 framework, 2 translations';
 WithFiveFrameworksTwoTranslations.args = {
-  chapter: 'chapter',
-  contributeUrl: '/contribute',
-  firstChapter: 'get-started',
-  guide: 'guide',
-  language: 'en',
   framework: 'react',
   translationPages: {
     edges: [
@@ -169,14 +163,9 @@ WithFiveFrameworksTwoTranslations.args = {
     ],
   },
 };
-export const AllFrameworksTwoTranslations = Basic.bind();
+export const AllFrameworksTwoTranslations = LanguageMenuStory.bind();
 AllFrameworksTwoTranslations.storyName = 'w all frameworks, 2 translations';
 AllFrameworksTwoTranslations.args = {
-  chapter: 'chapter',
-  contributeUrl: '/contribute',
-  firstChapter: 'get-started',
-  guide: 'guide',
-  language: 'en',
   framework: 'react',
   translationPages: {
     edges: [
@@ -363,14 +352,9 @@ AllFrameworksTwoTranslations.args = {
     ],
   },
 };
-export const WithFiveFrameworksAllTranslations = Basic.bind();
+export const WithFiveFrameworksAllTranslations = LanguageMenuStory.bind();
 WithFiveFrameworksAllTranslations.storyName = 'w/ 5 framework, all translations';
 WithFiveFrameworksAllTranslations.args = {
-  chapter: 'chapter',
-  contributeUrl: '/contribute',
-  firstChapter: 'get-started',
-  guide: 'guide',
-  language: 'en',
   framework: 'react',
   translationPages: {
     edges: [
@@ -602,14 +586,9 @@ WithFiveFrameworksAllTranslations.args = {
     ],
   },
 };
-export const NoFrameworkOneTranslation = Basic.bind();
+export const NoFrameworkOneTranslation = LanguageMenuStory.bind();
 NoFrameworkOneTranslation.storyName = 'no framework, 1 translation';
 NoFrameworkOneTranslation.args = {
-  chapter: 'chapter',
-  contributeUrl: '/contribute',
-  firstChapter: 'get-started',
-  guide: 'guide',
-  language: 'en',
   translationPages: {
     edges: [
       {
@@ -623,14 +602,9 @@ NoFrameworkOneTranslation.args = {
     ],
   },
 };
-export const NoFrameworkTwoTranslations = Basic.bind();
+export const NoFrameworkTwoTranslations = LanguageMenuStory.bind();
 NoFrameworkTwoTranslations.storyName = 'no framework, 2 translations';
 NoFrameworkTwoTranslations.args = {
-  chapter: 'chapter',
-  contributeUrl: '/contribute',
-  firstChapter: 'get-started',
-  guide: 'guide',
-  language: 'en',
   translationPages: {
     edges: [
       {
