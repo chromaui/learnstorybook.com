@@ -18,9 +18,10 @@ export default {
   component: TableOfContents,
   excludeStories: /.*Data$/,
   title: 'Screens/GuideScreen/TableOfContents',
-  args: {
-    entries: [...TableOfContentsData],
-  },
 };
 
-export const Default = args => <TableOfContents {...args} />;
+const Story = args => <TableOfContents {...args} />;
+export const Default = Story.bind({});
+Default.args = {
+  entries: [...TableOfContentsData],
+};

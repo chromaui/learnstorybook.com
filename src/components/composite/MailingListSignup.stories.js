@@ -10,4 +10,5 @@ export default {
   decorators: [story => <Wrapper>{story()}</Wrapper>],
   title: 'Composite/MailingListSignup',
 };
+
 export const Default = () => <MailingListSignup />;

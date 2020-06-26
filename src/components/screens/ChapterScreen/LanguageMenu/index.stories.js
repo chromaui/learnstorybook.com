@@ -18,9 +18,9 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-const LanguageMenuStory = args => <LanguageMenu {...args} />;
+const Story = args => <LanguageMenu {...args} />;
 
-export const Basic = LanguageMenuStory.bind();
+export const Basic = Story.bind({});
 Basic.storyName = 'w/ framework, 1 translation';
 Basic.args = {
   translationPages: {
@@ -38,7 +38,7 @@ Basic.args = {
   },
 };
 
-export const WithFrameworkTwoTranslations = LanguageMenuStory.bind();
+export const WithFrameworkTwoTranslations = Story.bind({});
 WithFrameworkTwoTranslations.storyName = 'w/ framework, 2 translations';
 WithFrameworkTwoTranslations.args = {
   translationPages: {
@@ -64,7 +64,7 @@ WithFrameworkTwoTranslations.args = {
     ],
   },
 };
-export const WithFiveFrameworksTwoTranslations = LanguageMenuStory.bind();
+export const WithFiveFrameworksTwoTranslations = Story.bind({});
 WithFiveFrameworksTwoTranslations.storyName = 'w/ 5 framework, 2 translations';
 WithFiveFrameworksTwoTranslations.args = {
   framework: 'react',
@@ -163,7 +163,7 @@ WithFiveFrameworksTwoTranslations.args = {
     ],
   },
 };
-export const AllFrameworksTwoTranslations = LanguageMenuStory.bind();
+export const AllFrameworksTwoTranslations = Story.bind({});
 AllFrameworksTwoTranslations.storyName = 'w all frameworks, 2 translations';
 AllFrameworksTwoTranslations.args = {
   framework: 'react',
@@ -352,7 +352,7 @@ AllFrameworksTwoTranslations.args = {
     ],
   },
 };
-export const WithFiveFrameworksAllTranslations = LanguageMenuStory.bind();
+export const WithFiveFrameworksAllTranslations = Story.bind({});
 WithFiveFrameworksAllTranslations.storyName = 'w/ 5 framework, all translations';
 WithFiveFrameworksAllTranslations.args = {
   framework: 'react',
@@ -586,7 +586,7 @@ WithFiveFrameworksAllTranslations.args = {
     ],
   },
 };
-export const NoFrameworkOneTranslation = LanguageMenuStory.bind();
+export const NoFrameworkOneTranslation = Story.bind({});
 NoFrameworkOneTranslation.storyName = 'no framework, 1 translation';
 NoFrameworkOneTranslation.args = {
   translationPages: {
@@ -602,7 +602,7 @@ NoFrameworkOneTranslation.args = {
     ],
   },
 };
-export const NoFrameworkTwoTranslations = LanguageMenuStory.bind();
+export const NoFrameworkTwoTranslations = Story.bind({});
 NoFrameworkTwoTranslations.storyName = 'no framework, 2 translations';
 NoFrameworkTwoTranslations.args = {
   translationPages: {

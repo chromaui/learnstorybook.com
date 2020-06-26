@@ -11,9 +11,11 @@ const Children = styled.div`
 export default {
   component: AppLayout,
   title: 'Composite/AppLayout',
-  args: {
-    children: <Children>I am the app.</Children>,
-    location: { pathname: '' },
-  },
 };
-export const Default = args => <AppLayout {...args} />;
+const Story = args => <AppLayout {...args} />;
+
+export const Default = Story.bind({});
+Default.args = {
+  children: <Children>I am the app.</Children>,
+  location: { pathname: '' },
+};

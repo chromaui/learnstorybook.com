@@ -6,8 +6,10 @@ export default {
   title: 'Screens/ChapterScreen/Pagination',
 };
 
-export const WithoutNextEntry = args => <Pagination {...args} />;
-export const WithNextEntry = WithoutNextEntry.bind();
+const Story = args => <Pagination {...args} />;
+
+export const WithoutNextEntry = Story.bind({});
+export const WithNextEntry = Story.bind({});
 WithNextEntry.args = {
   nextEntry: {
     description: 'The description of the next chapter',

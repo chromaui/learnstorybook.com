@@ -17,11 +17,12 @@ export default {
   component: ShadowBoxCTA,
   decorators: [story => <Wrapper>{story()}</Wrapper>],
   title: 'Composite/ShadowBoxCTA',
-  args: {
-    action: ctaAction,
-    headingText: 'Composite component',
-    messageText: 'Assemble a composite component out of simpler components',
-  },
 };
 
-export const Default = args => <ShadowBoxCTA {...args} />;
+const Story = args => <ShadowBoxCTA {...args} />;
+export const Default = Story.bind({});
+Default.args = {
+  action: ctaAction,
+  headingText: 'Composite component',
+  messageText: 'Assemble a composite component out of simpler components',
+};

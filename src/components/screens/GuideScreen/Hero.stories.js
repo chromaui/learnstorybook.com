@@ -103,44 +103,44 @@ const storyLanguagesData = [
   },
 ];
 
-const HeroStory = args => <Hero {...args} />;
-export const Default = HeroStory.bind();
+const Story = args => <Hero {...args} />;
+export const Default = Story.bind();
 Default.args = {
   languages: storyLanguagesData.slice(0, 5),
 };
 
-export const WithContributorCount = HeroStory.bind();
+export const WithContributorCount = Story.bind();
 WithContributorCount.storyName = 'with contributor count';
 WithContributorCount.args = {
   contributorCount: '34+',
   languages: storyLanguagesData.slice(0, 5),
 };
-export const WithChapterCount = HeroStory.bind();
+export const WithChapterCount = Story.bind();
 WithChapterCount.storyName = 'with chapter count';
 WithChapterCount.args = {
   contributorCount: '34+',
   chapterCount: 9,
   languages: storyLanguagesData.slice(0, 5),
 };
-export const OneLanguage = HeroStory.bind();
+export const OneLanguage = Story.bind();
 OneLanguage.storyName = 'with only one language';
 OneLanguage.args = {
   ...WithChapterCount.args,
   languages: storyLanguagesData.slice(0, 1),
 };
-export const AboveFiveLanguages = HeroStory.bind();
+export const AboveFiveLanguages = Story.bind();
 AboveFiveLanguages.storyName = 'with +5 languages';
 AboveFiveLanguages.args = {
   ...WithChapterCount.args,
   languages: storyLanguagesData.slice(0, 7),
 };
-export const AboveTenLanguages = HeroStory.bind();
+export const AboveTenLanguages = Story.bind();
 AboveTenLanguages.storyName = 'with +10 languages';
 AboveTenLanguages.args = {
   ...WithChapterCount.args,
   languages: storyLanguagesData.slice(0, 12),
 };
-export const AboveTwentyLanguages = HeroStory.bind();
+export const AboveTwentyLanguages = Story.bind();
 AboveTwentyLanguages.storyName = 'with +20 languages';
 AboveTwentyLanguages.args = {
   ...WithChapterCount.args,

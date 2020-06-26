@@ -9,12 +9,12 @@ export default {
   },
 };
 
-const ChapterLinksStory = args => <ChapterLinks {...args} />;
+const Story = args => <ChapterLinks {...args} />;
 
-export const WithCommit = ChapterLinksStory.bind();
+export const WithCommit = Story.bind({});
 WithCommit.args = {
   codeGithubUrl: 'https://github.com',
   commit: 'AAAAAA',
 };
 
-export const WithoutCommit = ChapterLinksStory.bind();
+export const WithoutCommit = Story.bind({});

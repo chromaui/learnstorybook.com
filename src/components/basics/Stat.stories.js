@@ -13,5 +13,10 @@ const Wrapper = styled.div`
   background: ${styles.color.green};
   padding: 20px;
 `;
+const Story = args => <Stat {...args} />;
 
-export const Default = () => <Stat value="6" label="Contributors" />;
+export const Default = Story.bind({});
+Default.args = {
+  value: '6',
+  label: 'Contributors',
+};

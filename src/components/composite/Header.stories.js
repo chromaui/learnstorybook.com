@@ -11,30 +11,33 @@ const BlueBackground = styled.div`
 export default {
   component: Header,
   title: 'Composite/Header',
-  args: {
-    firstChapter: 'get-started',
-    githubUrl: 'https://github.com/chromaui/learnstorybook.com',
-    guides: {
-      edges: [
-        {
-          node: {
-            frontmatter: {
-              title: 'Guide title',
-              description: 'Guide description',
-            },
-            fields: {
-              slug: 'guide-slug',
-            },
+};
+
+const Story = args => <Header {...args} />;
+export const Default = Story.bind({});
+Default.args = {
+  firstChapter: 'get-started',
+  githubUrl: 'https://github.com/chromaui/learnstorybook.com',
+  guides: {
+    edges: [
+      {
+        node: {
+          frontmatter: {
+            title: 'Guide title',
+            description: 'Guide description',
+          },
+          fields: {
+            slug: 'guide-slug',
           },
         },
-      ],
-    },
+      },
+    ],
   },
 };
 
-export const Default = args => <Header {...args} />;
-export const Inverted = args => (
-  <BlueBackground>
-    <Header isInverted {...args} />
-  </BlueBackground>
-);
+export const Inverted = Story.bind({});
+Inverted.args = {
+  ...Default.args,
+  isInverted: true,
+};
+Inverted.decorators = [story => <BlueBackground>{story()}</BlueBackground>];
