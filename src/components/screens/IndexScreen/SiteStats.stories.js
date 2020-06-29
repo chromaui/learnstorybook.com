@@ -1,8 +1,14 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import SiteStats from './SiteStats';
 
-const props = {
+export default {
+  component: SiteStats,
+  title: 'Screens/IndexScreen/SiteStats',
+};
+
+const Story = args => <SiteStats {...args} />;
+export const Default = Story.bind({});
+Default.args = {
   chapterCount: 5,
   guideCount: 9,
   allEditionsChaptersEdges: [
@@ -29,7 +35,3 @@ const props = {
     },
   ],
 };
-
-storiesOf('Screens|IndexScreen/SiteStats', module)
-  .addParameters({ component: SiteStats })
-  .add('default', () => <SiteStats {...props} />);

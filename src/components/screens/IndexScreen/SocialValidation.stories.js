@@ -1,7 +1,9 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import SocialValidation from './SocialValidation';
 
-storiesOf('Screens|IndexScreen/SocialValidation', module)
-  .addParameters({ component: SocialValidation })
-  .add('default', () => <SocialValidation />);
+export default {
+  component: SocialValidation,
+  title: 'Screens/IndexScreen/SocialValidation',
+};
+
+export const Default = () => <SocialValidation />;
