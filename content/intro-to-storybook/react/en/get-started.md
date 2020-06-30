@@ -66,21 +66,14 @@ If you want to modify the styling, the source LESS files are provided in the Git
 To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder.
 
 <div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
-
-```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
-```
-
-<div class="aside">
-  <p>Additionally, if you prefer <code>curl</code> and <code>tar</code> to download a folder of files from GitHub instead use the below command.</p></div>
+<p>We’ve used curl and tar to easily get the most recent assets from GitHub. If you don’t have curl installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p>
+<p>Depending on your OS, you probably need to update some of the commands to allow the assets to be copied without any issues.</p>
+</div>
   
 ```bash
-curl https://codeload.github.com/chromaui/learnstorybook-code/tar.gz/master --output c.gz 
-tar -C public -xvzf c.gz --strip=2 learnstorybook-code-master/public/font 
-tar -C public -xvzf c.gz --strip=2 learnstorybook-code-master/public/icon 
-rm c.gz
+curl https://codeload.github.com/chromaui/learnstorybook-code/tar.gz/master --output assets.gz
+tar -C public -xvzf c.gz --strip=2 learnstorybook-code-master/{font,icon}
+rm assets.gz
 ```
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
