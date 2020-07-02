@@ -14,10 +14,10 @@ toc:
     'composite-component',
     'data',
     'screen',
+    'deploy',
     'test',
     'using-addons',
     'creating-addons',
-    'deploy',
     'conclusion',
     'contribute',
   ]
