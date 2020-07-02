@@ -68,8 +68,6 @@ Once the first test is complete, we have our test baselines for each story. In o
 
 Aside from this, we'll also get our Storybook deployed online without the need of any additional setup. A link like `https://random-uuid.chromatic.com` will be provided for us. Once we open the link in a browser window we'll see a exact copy of our local Storybook that we've been working on.
 
-<div class="aside"><h4>the image below needs a bit of tlc</h4></div>
-
 ![Storybook deployed with chromatic package](/chromatic/chromatic-manual-storybook-deploy.png)
 
 At this point we were able to create a application, implement various types of tests and successfully setup and manually deploy our Storybook with some addons.
@@ -80,7 +78,7 @@ The short answer is yes. We can automate this process with relative ease and tha
 
 ### Setup a repository in GitHub
 
-When our project was initialized in the [Get Started chapter](/react/en/get-started/), Create React App (CRA) already created a local repository for us. At this stage it's safe to add our files to the first commit.
+When our project was initialized in the [Get started chapter](/react/en/get-started/), Create React App (CRA) already created a local repository for us. At this stage it's safe to add our files to the first commit.
 
 Issue the following commands to add and commit the changes we've done so far.
 
@@ -110,7 +108,7 @@ Now we can finally add our files to our repository on GitHub with:
 $ git push -u origin master
 ```
 
-## Setup GitHub actions with Chromatic
+### Setup GitHub actions with Chromatic
 
 So far we've seen how we could deploy our Storybook manually, but now that our project is hosted in a GitHub repository, how can we continue to deploy our Storybook and share it with our team?
 

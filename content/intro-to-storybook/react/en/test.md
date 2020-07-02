@@ -7,9 +7,9 @@ commit: '3e283f7'
 
 <div class="aside"><h4> semantically align the headings </h4></div>
 
-If you're following along from the [previous chapter](/react/en/deploy), you already know how you can deploy your Storybook and share it with the teammates...
+In the [previous chapter](/react/en/deploy), we saw how we could deploy our Storybook both manually and through CI, using GitHub actions.
 
-In this chapter we're going to take what we've learned so far and see how we can test our components????
+In this chapter we're going to use what we've learned and see it in action.
 
 ## Catch a UI change
 
