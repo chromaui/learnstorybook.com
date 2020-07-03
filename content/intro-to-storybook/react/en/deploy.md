@@ -93,6 +93,8 @@ GitHub has a solution for this, through a fantastic feature called [actions](htt
 
 And that's what we're going to implement next.
 
+Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic. You’ll also get PR check when you open a PR that links directly to your published Storybook.
+
 ### Implementation of the GitHub action
 
 In the root folder of our project, we'll need to create a new one called `.github` and inside it, create another one called `workflows`.
