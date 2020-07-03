@@ -1,15 +1,34 @@
 ---
 title: 'Test UI components'
 tocTitle: 'Testing'
-description: 'Learn how to automate testing UI components through GitHub actions'
+description: 'Learn the ways to test UI components'
 commit: '3e283f7'
 ---
 
-<div class="aside"><h4> semantically align the headings </h4></div>
+No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
 
-In the [previous chapter](/react/en/deploy), we saw how we could deploy our Storybook both manually and through CI, using GitHub actions.
+- **Visual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
+- **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
+- **Unit tests** with Jest verify that the output of a component remains the same given an fixed input. They’re great for testing the functional qualities of a component.
 
-In this chapter we're going to use what we've learned and see it in action.
+## “But does it look right?”
+
+Unfortunately, the aforementioned testing methods alone aren’t enough to prevent UI bugs. UIs are tricky to test because design is subjective and nuanced. Visual tests are too manual, snapshot tests trigger too many false positives when used for UI, and pixel-level unit tests are poor value. A complete Storybook testing strategy also includes visual regression tests.
+
+## Visual regression testing for Storybook
+
+Visual regression tests are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.
+
+<video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/visual-regression-testing.mp4"
+    type="video/mp4"
+  />
+</video>
+
+Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
+
+There are a number of tools for visual regression testing. We recommend [**Chromatic**](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers that not only allows us to deploy and host our Storybook safely and securely, like we saw in the [previous chapter](/react/en/deploy/), but also runs tests in the cloud.
 
 ## Catch a UI change
 
