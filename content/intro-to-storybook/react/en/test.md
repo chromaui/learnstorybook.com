@@ -61,6 +61,14 @@ Once our action finishes it's execution we'll see a screen like the following. S
 
 ![Storybook deployed via action](/github/gh-action-finished.png)
 
+Scroll through the execution log to find a link to the Chromatic build. This will show you the UI changes caught by your commit.
+
+![UI minor tweaks major regressions](/intro-to-storybook/chromatic-catch-changes.png)
+
+There are a lot of changes! The component hierarchy where `Task` is a child of `TaskList` and `Inbox` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
+
+![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
+
 ## Review changes
 
 Visual regression testing ensures components don’t change by accident. But it’s still up to us to determine whether changes are intentional or not.
