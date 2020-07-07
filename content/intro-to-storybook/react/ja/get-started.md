@@ -1,7 +1,7 @@
 ---
 title: 'React 向け Storybook のチュートリアル'
 tocTitle: 'はじめに'
-description: '開発環境に Storybook を構築する'
+description: '開発環境に Storybook を構築します'
 commit: '8741257'
 ---
 
@@ -25,7 +25,7 @@ npx -p @storybook/cli sb init
 
 <div class="aside">
 このチュートリアルでは、コマンドの実行には基本的に <code>yarn</code> を使用します。
-もし、Yarn がインストールされていて、けれど <code>npm</code> を使用したい場合には上記のコマンドに <code>--use-npm</code> フラグをつけることで、CRA および Storybook の設定を変更することができます。<code>npm</code> を使用してチュートリアルを進めても問題ありませんが、使用するコマンドを <code>npm</code> 向けに調整するのを忘れないようにしましょう。
+もし <code>yarn</code> よりも <code>npm</code> を使用したい場合には、上記のコマンドに <code>--use-npm</code> フラグをつけることで、CRA および Storybook の設定を変更することができます。<code>npm</code> を使用してチュートリアルを進めても問題ありませんが、使用するコマンドを <code>npm</code> に合わせて調整するのを忘れないようにしましょう。
 </div>
 
 作成したアプリケーションが問題なく動くことを次のコマンドで確認しましょう。
@@ -42,7 +42,7 @@ yarn start
 ```
 
 <div class="aside"> 
-テストのコマンドに <code>--watchAll</code> フラグを付けているのに気づいたでしょうか。このフラグを付けることによりアプリケーションの各部が問題なく動いていることを確認できます。チュートリアルを進めると、別のテストシナリオを紹介します。もし必要ならばこのフラグを <code>package.json</code> のテストコマンドに追加してテストスイートのすべてのテストが実行されるようにしてください。
+テストのコマンドに <code>--watchAll</code> フラグを付けているのに気づいたでしょうか。これは間違いではありません。このフラグを付けることにより、すべてのテストが実行され、アプリケーションに問題ないことを確実にできます。チュートリアルを進めると、別のテストシナリオも出てきます。必要ならばこのフラグを <code>package.json</code> のテストコマンドに追加することで、テストスイートのすべてのテストが実行されるようになります。
 </div>
 
 フロントエンド開発の 3 つのモード: 自動化されたテスト (Jest)、コンポーネント開発 (Storybook)、アプリケーション自体
@@ -66,8 +66,8 @@ Taskbox はデザイン要素を [GraphQL と React のチュートリアル](ht
 狙い通りのデザインにするためには、フォントとアイコンのフォルダーをダウンロードし、`public` フォルダーに配置する必要があります。
 
 <div class="aside">
-<p>以下のコマンドでは GitHub からフォルダーをダウンロードするのに、<code>svn</code> (Subversion) を使用します。Subversion をインストールしていない、もしくは手動の方が良いのならば、<a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">こちら</a>から直接ダウンロードしてください。
-</p></div>
+<p>以下のコマンドでは GitHub からフォルダーをダウンロードするのに、<code>svn</code> (Subversion) を使用します。Subversion をインストールしていないか、手動でダウンロードしたければ、<a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">こちら</a>から直接ダウンロードできます。</p>
+</div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon

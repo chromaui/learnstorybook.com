@@ -5,15 +5,15 @@ description: 'UI コンポーネントとデータを繋ぐ方法を学びます
 commit: 'f05981b'
 ---
 
-これまでに、隔離された環境で状態を持たない、Storybook に向いているコンポーネントを作成しました。けれど、アプリケーションからデータを渡さなければ全く役には立ちません。
+これまでに、Storybook の隔離された環境で、状態を持たないコンポーネントを作成してきました。しかし、究極的には、アプリケーションからコンポーネントにデータを渡さなければ役には立ちません。
 
-このチュートリアルでは「アプリケーションを作る方法について」ではないので、ここでは詳細までは説明しません。しかし、コンポーネントとデータを繋ぐパターンについて少し見てみることにしましょう。
+このチュートリアルは「アプリケーションを作る方法について」ではないので、詳細までは説明しませんが、コンテナーコンポーネントとデータを繋ぐ一般的なパターンについて見てみましょう。
 
 ## コンテナーコンポーネント
 
 `TaskList` コンポーネントは、今のところ、それ自体では外部と会話しないので「presentational (表示用)」([このブログ記事](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)を参照) として書かれています。データを取得するためには「container (コンテナー)」が必要です。
 
-ここではデータを保存する際のライブラリーである、[Redux](https://redux.js.org/) を使用し、アプリケーションのシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
+ここではデータを保存する際に使用される React で人気のライブラリー、[Redux](https://redux.js.org/) を使用し、アプリケーションのシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
 以下のコマンドを実行し必要な依存関係を追加しましょう:
 
@@ -77,7 +77,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-次に、`TaskList` コンポーネントのデフォルトエクスポートを Redux のストアに 「connect (接続)」し、ストアから、気になるタスクのリストを描画します。
+次に、`TaskList` コンポーネントのデフォルトエクスポートを更新し、Redux のストアに 「connect (接続)」し、ストアから、気になるタスクのリストを描画します。
 
 ```javascript
 // src/components/TaskList.js
@@ -115,9 +115,9 @@ export default connect(
 )(PureTaskList);
 ```
 
-`TaskList` にラップされた `PureTaskList` が `TaskList` の代わりに、ストアに接続され、プロパティがセットされています。この段階で、`TaskList` がコンテナーとなり、プロパティを必要としなくなったので、Storybook のテストが動かなくなってしまいました。
+この段階で、Storybook のテストが動かなくなってしまいました。`TaskList` がストアに接続されてコンテナーとなり、プロパティが不要となりました。、代わりに、`TaskList` にラップされた `PureTaskList` にプロパティがセットされています。
 
-この問題は、Storybook の該当するストーリーに、前の手順で `export` したプレゼンテーショナルコンポーネントである `PureTaskList` を描画することにより、簡単に解決できます:
+この問題は、Storybook の該当するストーリーに、プレゼンテーショナルコンポーネントである `PureTaskList` エクスポートして、描画することにより、簡単に解決できます:
 
 ```javascript
 // src/components/TaskList.stories.js

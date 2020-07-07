@@ -1,15 +1,15 @@
 ---
 title: 'Storybook をデプロイする'
 tocTitle: 'デプロイ'
-description: 'GitHub と Netlify を使用して Storybook をインターネット上にデプロイする'
+description: 'GitHub と Netlify を使用して Storybook をインターネット上にデプロイします'
 ---
 
-このチュートリアルでは Storybook を開発しているマシンで実行してきました。もしかすると、Storybook をチームで、特に非技術者のメンバーと共有したいと思っているかもしれません。ありがたいことに、Storybook をインターネット上にデプロイするのは簡単です。
+このチュートリアルでは Storybook を開発しているマシンで実行してきました。もしかすると、Storybook をチームで、特に非技術者メンバーと共有したいと思っているかもしれません。ありがたいことに、Storybook をインターネット上にデプロイするのは簡単です。
 
 <div class="aside">
 <strong>Chromatic テストを既に導入していますか？</strong>
 <br/>
-🎉 であればストーリーはすでにデプロイされています。Chromatic はインターネット上で安全にストーリーを分類し、ブランチとコミットを横断して追跡します。この章を飛ばして<a href="/react/en/conclusion">まとめ</a>に進んでください。
+🎉 それならば、ストーリーはすでにデプロイされています。Chromatic はインターネット上で安全にストーリーを分類し、ブランチとコミットを横断して追跡します。この章を飛ばして<a href="/react/en/conclusion">まとめ</a>に進んでください。
 </div>
 
 ## 静的サイトとしてデプロイする
@@ -20,7 +20,7 @@ Storybook をデプロイするには、まず静的サイトとしてエクス�
 
 ## 継続的なデプロイメント
 
-コードをプッシュしたときに最新のコンポーネントを共有したいですよね。そのためには、Storybook を継続的にデプロイする必要があります。GitHub と Netlify を使用してこの静的サイトをデプロイしましょう。今回は Netlify の無料プランを使用します。
+コードをプッシュしたときに、最新のコンポーネントを共有したいと思います。そのためには、Storybook を継続的にデプロイする必要があります。GitHub と Netlify を使用してこの静的サイトをデプロイしましょう。今回は Netlify の無料プランを使用します。
 
 ### GitHub
 
@@ -58,7 +58,7 @@ $ git push -u origin master
 
 ### Netlify
 
-Netlify は自分たちで CI を構築することなく Storybook を継続的にデプロイしてくれるサービスを提供しています。
+Netlify には継続的デプロイのサービスがあるので、自分たちの CI を構築することなく Storybook をデプロイできます。
 
 <div class="aside">
 もし CI を使用しているのなら、設定に <code>storybook-static</code> フォルダーを S3 のような静的ホスティングサービスにアップロードするスクリプトを追加しましょう。
@@ -70,7 +70,7 @@ Netlify は自分たちで CI を構築することなく Storybook を継続的
 
 次に GitHub のボタンをクリックして、Netlify を GitHub に関連付けます。これにより Netlify に GitHub のリポジトリーへのアクセスが許可されます。
 
-そして、GitHub の taskbox のリポジトリーをリストから選択します。
+そして、リストから taskbox の GitHub リポジトリーを選択します。
 
 ![Netlify でリポジトリーに接続する](/intro-to-storybook/netlify-account-picker.png)
 
@@ -88,6 +88,6 @@ CI でどのビルドコマンドを実行し、どのディレクトリーに�
 
 ![Netlify で動く Storybook](/intro-to-storybook/netlify-storybook-deploy.png)
 
-Storybook での継続的デプロイメントの構が完了しました。これでリンクを使ってチームメートとストーリーを共有できます。
+Storybook を継続的デプロイメントするための設定が完了しました。これでリンクを使ってチームメートとストーリーを共有できます。
 
 これは標準的なアプリケーション開発のプロセスにおけるレビューや、作業内容を見せるのに役立ちます 💅

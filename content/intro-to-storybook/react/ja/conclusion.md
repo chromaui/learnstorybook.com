@@ -1,15 +1,15 @@
 ---
 title: 'まとめ'
-description: 'さらに Storybook の技術を学ぶために知識をまとめる'
+description: 'さらに Storybook の技術を学ぶために知識をまとめます'
 ---
 
-お疲れ様でした！Storybook で最初の UI を作成しました。これまでに UI コンポーネントを作成し、統合し、テストし、デプロイするする方法を学びました。いままで同じように進めていれば、あなたの Storybook は以下のリンクと同じようになっていることでしょう。
+お疲れ様でした！Storybook で最初の UI を作成しました。これまでに UI コンポーネントを作成し、統合し、テストし、デプロイするする方法を学びました。いままで同じように進めていれば、あなたの リポジトリーとデプロイされた Storybook は以下のリンクと同じようになっていることでしょう。
 
 [📕 **GitHub のリポジトリー: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
 [🌎 **デプロイされた Storybook**](https://clever-banach-415c03.netlify.com/)
 
-Storybook は React、React Native、Vue、Angular、Svelte、その他のフレームワークにとって強力なツールです。コミュニティー活動も活発でアドオンも充実しています。このチュートリアルで紹介した内容は、Storybook で出来ることの一部にすぎません。一度 Storybook を導入すれば、強固な UI を効率的に作れることに驚くことでしょう。
+Storybook は React、React Native、Vue、Angular、Svelte、その他のフレームワークにとって強力なツールです。開発者コミュニティーも活発でアドオンも充実しています。このチュートリアルで紹介した内容は、Storybook で出来ることの一部にすぎません。一度 Storybook を導入すれば、強固な UI を効率的に作れることに驚くことでしょう。
 
 ## さらに学ぶには
 

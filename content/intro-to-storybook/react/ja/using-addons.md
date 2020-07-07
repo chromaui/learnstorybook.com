@@ -1,7 +1,7 @@
 ---
 title: 'アドオン'
 tocTitle: 'アドオン'
-description: 'アドオンの使い方と導入方法を一般的な例で学ぶ'
+description: '使い方と導入方法を人気のアドオンで学びます'
 commit: 'b3bca4a'
 ---
 
@@ -13,7 +13,7 @@ Storybook はチームメンバーの開発を向上する堅牢な[アドオン
 😍 公式にサポートされているアドオンや、コミュニティに強くサポートされているアドオンの一覧は<a href="https://storybook.js.org/addons/addon-gallery/">ここ</a>から見ることができます。
 </div>
 
-全てのアドオンの使用方法や設定方法、特定のユースケースを書きつくすことは出来ませんので、Storybook のエコシステムの中で最も人気のアドオンである [Knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs) を例にとって見てみましょう。
+全てのアドオンの使用方法や設定方法、特定のユースケースを書きつくすことは出来ません。なので、ここでは Storybook のエコシステムの中で最も人気のアドオンである [Knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs) を例にとって見てみましょう。
 
 ## Knobs を導入する
 
@@ -77,7 +77,7 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 上記のインポートの代わりに、<code>import { withKnobs, object } from '@storybook/addon-knobs'</code> と書いてください。
 </div>
 
-次に、`Task.stories.js` ファイルのデフォルトエクスポートの `decorators` キーに `withKnobs` を書いてください:
+次に、`Task.stories.js` ファイルのデフォルトエクスポートの `decorators` キーに `withKnobs` を追加してください:
 
 ```javascript
 // src/components/Task.stories.js
@@ -90,7 +90,7 @@ export default {
 };
 ```
 
-最後に、Default ストーリーに `object` を使い Knobs にオブジェクトを渡します:
+最後に、Default ストーリーに Knobs の `object` を導入します:
 
 ```javascript
 // src/components/Task.stories.js
@@ -100,13 +100,13 @@ export const Default = () => {
 };
 ```
 
-すると、「Knobs」という新しいタブが画面下部の「Action Logger」タブの隣に表示されます。
+すると、「Knobs」という新しいタブが画面下部の「Actions」タブの隣に表示されます。
 
-[ここ](https://github.com/storybooks/storybook/tree/master/addons/knobs#object)に書かれているように、`object` にはラベルとデフォルトのオブジェクトを引数として受け取ります。ラベルはアドオンパネルのテキストエリアの隣に表示されます。デフォルトのオブジェクトはテキストエリアに編集可能な JSON として表示されます。JSON として正しい値を記載している限り、コンポーネントはそのデータに合わせて表示されます。
+[ここ](https://github.com/storybooks/storybook/tree/master/addons/knobs#object)に書かれているように、`object` はラベルとデフォルトのオブジェクトを引数として受け取ります。ラベルはアドオンパネルのテキストエリアの隣に表示されます。渡したオブジェクトはテキストエリアに編集可能な JSON として表示されます。JSON として正しい値を記載している限り、コンポーネントはそのデータに合わせて表示されます。
 
 ## Storybook の範囲をアドオンが進化させる
 
-Storybook が優れた [CDD の開発環境](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)を提供するだけでなく、対話的なドキュメントとしても使えます。PropType も素晴らしいものですが、Knobs が実装された Storybook ならばデザイナーや、コンポーネントのコードを知らない人にとってコンポーネントの振る舞いを簡単に知る手段となります。
+これで、Storybook が優れた [CDD の開発環境](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)を提供するだけでなく、対話的なドキュメントとしても使えるようになりました。PropType も素晴らしいのですが、Knobs が実装された Storybook はデザイナーや、コンポーネントのコードを知らない人にとってコンポーネントの振る舞いを簡単に知る手段となります。
 
 ## Knobs をエッジケースを見つけるのに使用する
 
@@ -114,7 +114,7 @@ Storybook が優れた [CDD の開発環境](https://blog.hichroma.com/component
 
 ![しまった！右側の文字列が切れている！](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-コンポーネントにいろいろな入力を素早く渡せるので、比較的簡単に問題を見つけ、直すことができます。`Task.js` にスタイルを追加してこの問題を解決しましょう:
+コンポーネントにいろいろな入力を素早く渡せるので、比較的簡単に問題を見つけ、直すことができます。`Task.js` にスタイルを追加して、この文字切れ問題を解決しましょう:
 
 ```javascript
 // src/components/Task.js
