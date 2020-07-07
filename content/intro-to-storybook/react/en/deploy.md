@@ -89,9 +89,7 @@ And that's what we're going to implement next.
 
 In the root folder of our project, create a new directory called `.github`. Then create another directory called `workflows`.
 
-Create a new file called `chromatic.yml` with the following content:
-
-Don't forget to change `project-token` with the actual project token.
+Create a new file called `chromatic.yml` like the one below, don't forget to change `project-token` with the actual project token.
 
 ```yaml
 # .github/workflows/chromatic.yml
@@ -131,24 +129,30 @@ In the command line, issue the following command to add the changes that were do
 git add .
 ```
 
-Then commit them by issuing
+Then commit them by issuing:
 
 ```bash
 git commit -m "GitHub action setup"
 ```
 
-Finally push the changes to the remote repository with:
+Finally push them to the remote repository with:
 
 ```bash
 git push origin master
 ```
 
-Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic. You’ll also get PR check when you open a PR that links directly to your published Storybook.
+Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic.
 
 ![Chromatic user dashboard](/chromatic/chromatic-user-dashboard.png)
+
+Click the latest build, it should be the one at the top.
+
+Then, click the `View Storybook` button to see the latest version of your Storybook.
+
+![Storybook link on Chromatic](/chromatic/chromatic-build-storybook-link.png)
 
 <!--
 And that's it, all is required is to commit and push the changes to our repository and we've successfully automated our Storybook deployment
  -->
 
-This is helpful as a part of the standard app development process or simply to show off work 💅.
+Use the link and share it with your team members. This is helpful as a part of the standard app development process or simply to show off work 💅.

@@ -34,7 +34,15 @@ There are a number of tools for visual regression testing. We recommend [**Chrom
 
 Visual regression testing relies on comparing images of the new rendered UI code to the baseline images. If a UI change is caught we'll get notified.
 
-Let's see how it works by tweaking the background of the `Task` component:
+Let's see how it works by tweaking the background of the `Task` component.
+
+Start by creating a new branch for this change:
+
+```bash
+git checkout -b change-task-background
+```
+
+Change `Task` to the following:
 
 ```js
 // src/components/Task.js
@@ -53,11 +61,39 @@ This yields a new background color for the item.
 
 ![task background change](/intro-to-storybook/chromatic-task-change.png)
 
-Now once we commit and push the changes to our remote repo, our action will execute and not only update our Storybook with the new change, but also generate a new set of changes that need to reviewed.
+Add the file:
 
-![actions panel](/github/gh-actions-panel.png)
+```bash
+git add src\components\Task.js
+```
 
-Once our action finishes it's execution we'll see a screen like the following. Scrolling through it we'll see what was done but also we get a link that will redirect us to our Chromatic dashboard. In there we're presented with a multitude of options and amongst them we can also get a link to our deployed Storybook also.
+Commit it:
+
+```bash
+git commit -m “change task background to red”
+```
+
+And push the changes to the remote repo:
+
+```bash
+git push -u origin change-task-background
+```
+
+Finally, open your GitHub repository and open a pull request for the `change-task-background` branch.
+
+![Creating a PR in GitHub for task](/github/pull-request-background.png)
+
+Add a descriptive text to your pull request and click `Create pull request`.
+
+![Created a PR in GitHub for task](/github/pull-request-background-ok.png)
+
+Expand the list of checks and click the `Chromatic Deployment`.
+
+<!-- Now once we commit and push the changes to our remote repo, our action will execute and not only update our Storybook with the new change, but also generate a new set of changes that need to reviewed.
+ -->
+<!-- ![actions panel](/github/gh-actions-panel.png) this needs to go probably -->
+
+<!-- Once our action finishes it's execution we'll see a screen like the following. Scrolling through it we'll see what was done but also we get a link that will redirect us to our Chromatic dashboard. In there we're presented with a multitude of options and amongst them we can also get a link to our deployed Storybook also. -->
 
 ![Storybook deployed via action](/github/gh-action-finished.png)
 
