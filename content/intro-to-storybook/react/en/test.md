@@ -83,23 +83,13 @@ Finally, open your GitHub repository and open a pull request for the `change-tas
 
 ![Creating a PR in GitHub for task](/github/pull-request-background.png)
 
-Add a descriptive text to your pull request and click `Create pull request`.
+Add a descriptive text to your pull request and click `Create pull request`. Click on the "🟡 UI Tests" PR check at the bottom of the page.
 
 ![Created a PR in GitHub for task](/github/pull-request-background-ok.png)
 
-Expand the list of checks and click the `Chromatic Deployment`.
+This will show you the UI changes caught by your commit.
 
-<!-- Now once we commit and push the changes to our remote repo, our action will execute and not only update our Storybook with the new change, but also generate a new set of changes that need to reviewed.
- -->
-<!-- ![actions panel](/github/gh-actions-panel.png) this needs to go probably -->
-
-<!-- Once our action finishes it's execution we'll see a screen like the following. Scrolling through it we'll see what was done but also we get a link that will redirect us to our Chromatic dashboard. In there we're presented with a multitude of options and amongst them we can also get a link to our deployed Storybook also. -->
-
-![Storybook deployed via action](/github/gh-action-finished.png)
-
-Scroll through the execution log to find a link to the Chromatic build. This will show you the UI changes caught by your commit.
-
-![UI minor tweaks major regressions](/intro-to-storybook/chromatic-catch-changes.png)
+![Chromatic caught changes](/intro-to-storybook/chromatic-catch-changes.png)
 
 There are a lot of changes! The component hierarchy where `Task` is a child of `TaskList` and `Inbox` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
 
