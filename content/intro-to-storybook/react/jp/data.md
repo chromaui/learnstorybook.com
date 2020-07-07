@@ -1,46 +1,46 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
+title: 'データを繋ぐ'
+tocTitle: 'データ'
+description: 'UI コンポーネントとデータを繋ぐ方法を学びます'
 commit: 'f05981b'
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+これまでに、隔離された環境で状態を持たない、Storybook に向いているコンポーネントを作成しました。けれど、アプリケーションからデータを渡さなければ全く役には立ちません。
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+このチュートリアルでは「アプリケーションを作る方法について」ではないので、ここでは詳細までは説明しません。しかし、コンポーネントとデータを繋ぐパターンについて少し見てみることにしましょう。
 
-## Container components
+## コンテナーコンポーネント
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+`TaskList` コンポーネントは、今のところ、それ自体では外部と会話しないので「presentational (表示用)」([このブログ記事](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)を参照) として書かれています。データを取得するためには「container (コンテナー)」が必要です。
 
-This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+ここではデータを保存する際のライブラリーである、[Redux](https://redux.js.org/) を使用し、アプリケーションのシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
-Add the necessary dependencies to your project with:
+以下のコマンドを実行し必要な依存関係を追加しましょう:
 
 ```bash
 yarn add react-redux redux
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
+まず、タスクの状態を変更するアクションを処理する単純な Redux のストアを作ります。`src` フォルダの `lib/redux.js` というファイルを作ってください (あえて簡単にしています):
 
 ```javascript
 // src/lib/redux.js
 
-// A simple redux store/actions/reducer implementation.
-// A true app would be more complex and separated into different files.
+// Redux のストア/アクション/レデューサーの単純な実装。
+// 実際のアプリケーションではもっと複雑で複数のファイルに分かれます。
 import { createStore } from 'redux';
 
-// The actions are the "names" of the changes that can happen to the store
+// アクションはストアに対して発生する変更の名前です
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
 };
 
-// The action creators bundle actions with the data required to execute them
+// アクションクリエーターはアクションの実行に必要なデータをまとめます
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
-// All our reducers simply change the state of a single task.
+// 今回のレデューサーは単純に一つのタスクの状態のみを変更します
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
@@ -52,7 +52,7 @@ function taskStateReducer(taskState) {
   };
 }
 
-// The reducer describes how the contents of the store change for each action
+// レデューサーはアクションごとにストア内のデータを変更する方法を定義します
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
@@ -64,8 +64,8 @@ export const reducer = (state, action) => {
   }
 };
 
-// The initial state of our store when the app loads.
-// Usually you would fetch this from a server
+// アプリケーションが起動したときの最初の状態です。
+// 大抵はサーバーからデータを取得します。
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -73,11 +73,11 @@ const defaultTasks = [
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-// We export the constructed redux store
+// Redux のストアを生成してからエクスポートします
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
+次に、`TaskList` コンポーネントのデフォルトエクスポートを Redux のストアに 「connect (接続)」し、ストアから、気になるタスクのリストを描画します。
 
 ```javascript
 // src/components/TaskList.js
@@ -90,7 +90,7 @@ import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  /* previous implementation of TaskList */
+  /* 前回の TaskList の実装 */
 }
 
 PureTaskList.propTypes = {
@@ -115,9 +115,9 @@ export default connect(
 )(PureTaskList);
 ```
 
-At this stage our Storybook tests will have stopped working, as the `TaskList` is now a container, and no longer expects any props, instead it connects to the store and sets the props on the `PureTaskList` component it wraps.
+`TaskList` にラップされた `PureTaskList` が `TaskList` の代わりに、ストアに接続され、プロパティがセットされています。この段階で、`TaskList` がコンテナーとなり、プロパティを必要としなくなったので、Storybook のテストが動かなくなってしまいました。
 
-However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
+この問題は、Storybook の該当するストーリーに、前の手順で `export` したプレゼンテーショナルコンポーネントである `PureTaskList` を描画することにより、簡単に解決できます:
 
 ```javascript
 // src/components/TaskList.stories.js
@@ -165,5 +165,5 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
 </video>
 
 <div class="aside">
-Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. Also as our app is progressively growing it might also a good place to run the tests with the <code> --watchAll</code> flag like mentioned in the <a href="/react/en/get-started/">Get Started</a> section.
+さらにスナップショットテストも失敗しているはずなので、既存のスナップショットテストを <code>-u</code> フラグを付けて実行しなければなりません。<a href="/react/ja/get-started/">はじめに</a>の章で言ったように、<code> --watchAll</code> フラグをつけてテストを実行するのがよいでしょう。
 </div>

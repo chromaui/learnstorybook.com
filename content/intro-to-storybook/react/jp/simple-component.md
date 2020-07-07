@@ -1,30 +1,30 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: '単純なコンポーネントを作る'
+tocTitle: '単純なコンポーネント'
+description: '単純なコンポーネントを隔離された環境で作ります'
 commit: '3d9cd8c'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+それでは、UI コンポーネントを[コンポーネント駆動開発](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) の手法にのっとって作ってみましょう。コンポーネント駆動開発とは UI をコンポーネントから始めて、スクリーンを作り上げる「ボトムアップ」のプロセスです。
 
-## Task
+## Task (タスク)
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+![Task コンポーネントの三状態](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`Task` はアプリケーションのコアとなるコンポーネントです。タスクはその状態によって見た目がかなり異なります。タスクにはチェックボックスと、タスクについての説明と、タスクをリストの上部に固定したり解除したりするための「pin」ボタンがあります。これらをまとめると、以下のプロパティが必要となります:
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+- `title` – タスクを説明する文字列
+- `state` - タスクがどのリストに存在するか。またチェックされているかどうか。
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
+`Task` の作成を始めるにあたり、事前に、タスクの種類に応じたテスト用の状態を作成します。そして、ダミーデータを使用し、Storybook を使い、コンポーネントを隔離状態で作ります。それぞれの状態について、コンポーネントの見た目について「視覚的なテスト」をしながら進めます。
 
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+このプロセスは[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (TDD) と似ていますので、「[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)」と呼んでいます。
 
-## Get setup
+## セットアップする
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.js` and `src/components/Task.stories.js`.
+まずは、タスクのコンポーネントと、対応するストーリーファイル `src/components/Task.js` と `src/components/Task.stories.js` を作成しましょう。
 
-We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+`Task` の基本的な実装から始めます。`Task` は上で必要だと説明したプロパティと、タスクに対して実行できる 2 つのアクション (リスト間を移動させる) を属性として取ります:
 
 ```javascript
 // src/components/Task.js
@@ -40,9 +40,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
+上のコードは Todo アプリケーションの HTML を基にした `Task` の簡単なマークアップです。
 
-Below we build out Task’s three test states in the story file:
+下のコードは `Task` の 3 つのテスト用の状態をストーリーファイルに書いています:
 
 ```javascript
 // src/components/Task.stories.js
@@ -55,7 +55,7 @@ import Task from './Task';
 export default {
   component: Task,
   title: 'Task',
-  // Our exports that end in "Data" are not stories.
+  // "Data" で終わるエクスポートはストーリーではない
   excludeStories: /.*Data$/,
 };
 
@@ -80,38 +80,38 @@ export const Archived = () => (
 );
 ```
 
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+Storybook には基本となる 2 つの階層があります。コンポーネントと子ストーリーです。各ストーリーはコンポーネントの組み合わせだと考えてください。コンポーネントには必要なだけストーリーを記述することができます。
 
-- **Component**
-  - Story
-  - Story
-  - Story
+- **コンポーネント**
+  - ストーリー
+  - ストーリー
+  - ストーリー
 
-To tell Storybook about the component we are documenting, we create a `default` export that contains:
+Storybook に現在のコンポーネントを伝えるには、以下の内容を含む `default export` を記述します:
 
-- `component` -- the component itself,
-- `title` -- how to refer to the component in the sidebar of the Storybook app,
-- `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
+- `component` -- コンポーネント自体
+- `title` -- Storybook のサイドバーにコンポーネントを表示する方法
+- `excludeStories` -- ストーリーファイルのエクスポートでストーリーとして表示させたくないもの
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component with a set of props) in a given state---exactly like a [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+ストーリーを定義するため、テスト用の各状態を作る関数をエクスポートします。ストーリーとは、特定の状態を描画した要素 (例えば、プロパティを指定したコンポーネントなど) を返す[状態を持たない関数コンポーネント](https://ja.reactjs.org/docs/components-and-props.html)のようなものです。
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+`action()` はクリックしたときに Storybook の UI 上の **actions** パネルに表示されるコールバックを生成します。そうすることにより、テスト用の UI 上に pin ボタンを作ったときに、正しくボタンが押されたかどうか特定することができます。
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and use React's `{...actionsData}` props expansion to pass them all at once. `<Task {...actionsData}>` is equivalent to `<Task onPinTask={actionsData.onPinTask} onArchiveTask={actionsData.onArchiveTask}>`.
+コンポーネントに同じアクションの組み合わせを渡さなければならないのであれば、単一の `actionsData` 変数にまとめて、React の属性の展開の構文 `{...actionsData}` を使用して一度に渡すのが便利です。`<Task {...actionsData}>` というのは `<Task onPinTask={actionsData.onPinTask} onArchiveTask={actionsData.onArchiveTask}>` と同じです。
 
-Another nice thing about bundling the actions into `actionsData` is that you can `export` that variable and use the actions in stories for components that reuse this component, as we'll see later.
+`actionsData` としてまとめるもう一つの利点は変数を `export` してこのコンポーネントを再利用するコンポーネントに渡せることです。これについては後ほど説明します。
 
-When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+ストーリーを作る際には素となるタスク (`taskData`) を使用してコンポーネントが予期するタスクの状態を作成します。予期されるデータは実際のデータと同じように作ります。もう一度言いますが、このモデルを `export` することで、後で作成するストーリーで再利用することが可能です。
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>action アドオン</b></a>は隔離された環境で UI コンポーネントを作成するのに役立ちます。隔離された環境ではよく、アプリケーションのコンテキストや状態にアクセスできないためです。<code>action()</code> はそのスタブとして使用できます。
 </div>
 
-## Config
+## 設定する
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was changed in the [previous chapter](/react/en/get-started).
+作成したストーリーを認識させ、[前の章](/react/jp/get-started)で変更した CSS ファイルを使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
 
-Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
+まず、設定ファイル (`.storybook/main.js`) を以下のように変更してください:
 
 ```javascript
 // .storybook/main.js
@@ -126,7 +126,7 @@ module.exports = {
 };
 ```
 
-After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
+上記の変更が完了したら、`.storybook` フォルダー内に `preview.js` という新しいファイルを作成し、以下を記述してください:
 
 ```javascript
 // .storybook/preview.js
@@ -134,7 +134,7 @@ After completing the change above, inside the `.storybook` folder, add a new fil
 import '../src/index.css';
 ```
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
+変更が終わり、Storybook のサーバーを再起動すると、タスクの 3 つの状態のテストケースが生成されます:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -143,11 +143,11 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-## Build out the states
+## 状態を作り出す
 
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+ここまでで、Storybook のセットアップが完了し、スタイルをインポートし、テストケースを作りました。早速、設計に合うようコンポーネントの HTML を実装していきましょう。
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
+今のところコンポーネントは簡素な状態です。まずは設計を満たすのに十分なコードを書いてみましょう。
 
 ```javascript
 // src/components/Task.js
@@ -183,7 +183,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+追加したマークアップとインポートした CSS により以下のような UI ができます:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -192,9 +192,9 @@ The additional markup from above combined with the CSS we imported earlier yield
   />
 </video>
 
-## Specify data requirements
+## データの前提条件を示す
 
-It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
+`propTypes` を使い React にコンポーネントが予期するデータ形式を示すのがベストプラクティスです。これにより予期するデータ形式がコードでわかるだけでなく、素早く問題を見つけることが可能となります。
 
 ```javascript
 // src/components/Task.js
@@ -217,37 +217,38 @@ Task.propTypes = {
 };
 ```
 
-Now a warning in development will appear if the Task component is misused.
+これで、開発中にタスクコンポーネントが間違って使用された際、警告が表示されます。
 
 <div class="aside">
-An alternative way to achieve the same purpose is to use a JavaScript type system like TypeScript to create a type for the component properties.
+別の方法としてコンポーネントのプロパティを TypeScript など JavaScript の型システムで作成する方法もあります。
 </div>
 
-## Component built!
+## 完成!
 
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
+これでサーバーを起動したり、フロントエンドアプリケーションを起動したりすることなく、コンポーネントを作りあげることができました。次は同じ手順で Taskbok コンポーネントの残りの部分を作成します。
 
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
+見た通り、隔離された環境でコンポーネントを作り始めるのは早くて簡単です。あらゆる状態を掘り下げてテストできるので、高品質で、バグが少なく、磨かれた UI を作ることができることでしょう。
 
-## Automated Testing
+## 自動化されたテスト
 
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook はアプリケーションを作成する際に視覚的にテストする素晴らしい方法を提供してくれます。それぞれのストーリーにより、アプリケーションを作る際に、タスクを壊していないことを目で見て確認できます。けれど、これは完全に手動のプロセスなので、誰かが警告やエラーがなく表示されていることをそれぞれの状態を確認しながらクリックしていかなければなりません。自動的にはできないでしょうか。
 
-### Snapshot testing
+### スナップショットテスト
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+スナップショットテストとは、特定の入力に対してコンポーネントの「既知の良好な」出力を記録し、将来、出力が変化したコンポーネントを特定できるようにするテスト手法です。
+これで補完することにより、コンポーネントの新しいバージョンでの変化を Storybook で素早く確認できるようになります。
 
 <div class="aside">
-Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+コンポーネントに渡すデータは変化しないものを使用してください。そうすれば毎回スナップショットテストの結果が同じになります。日付や、ランダムに生成された値に気を付けましょう。
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependencies:
+[Storyshots アドオン](https://github.com/storybooks/storybook/tree/master/addons/storyshots)を使用することで、それぞれのストーリーにスナップショットテストが作成されます。開発時の依存関係を以下のコマンドで追加してください:
 
 ```bash
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 
-Then create an `src/storybook.test.js` file with the following in it:
+次に、`src/storybook.test.js` ファイルを以下の内容で作成します:
 
 ```javascript
 // src/storybook.test.js
@@ -256,8 +257,8 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-That's it, we can run `yarn test` and see the following output:
+これだけです。`yarn test` を実行すれば以下のような出力が得られます:
 
-![Task test runner](/intro-to-storybook/task-testrunner.png)
+![Task テストランナー](/intro-to-storybook/task-testrunner.png)
 
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+これで `Task` の各ストーリーに対するスナップショットテストが出来ました。`Task` の実装を変更するたびに、変更内容の確認を求められるようになります。

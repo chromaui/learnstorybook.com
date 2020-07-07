@@ -1,17 +1,17 @@
 ---
-title: 'Construct a screen'
-tocTitle: 'Screens'
-description: 'Construct a screen out of components'
+title: '画面を作る'
+tocTitle: '画面'
+description: 'コンポーネントから画面を作る'
 commit: '4aef5f7'
 ---
 
-We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+今までボトムアップ (小さく始めてから複雑性を追加していく) で UI の作成に集中してきました。ボトムアップで作業することで、Storybook で遊びながら、コンポーネントのデータ要件を見つけ出し、隔離された環境で各コンポーネントを開発することができました。サーバーを立ち上げたり、画面を作ったりする必要は全くありませんでした！
 
-In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+この章では Storybook を使用し、コンポーネントを画面にまとめながら、完成度を高めていきます。
 
-## Nested container components
+## ネストされたコンテナーコンポーネント
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.js` in your `components` folder:
+このアプリケーションはとても単純なので、作る画面は、(Redux から自分でデータを取得する) `TaskList` をレイアウトで囲って、Redux からの `error` フィールド (サーバーとの接続に失敗したときに設定される項目だと思ってください) を追加しただけの、とても些細なものです。それでは `components` フォルダーに `InboxScreen.js` ファイルを作りましょう:
 
 ```javascript
 // src/components/InboxScreen.js
@@ -58,7 +58,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+また、`App` コンポーネントが `InboxScreen` を描画するように変更 (いずれはルーターにどの画面を表示するか決めてもらいますが、今は気にしないでください) します。
 
 ```javascript
 // src/App.js
@@ -80,13 +80,13 @@ function App() {
 export default App;
 ```
 
-However, where things get interesting is in rendering the story in Storybook.
+けれど、Storybook のストーリーに面白いことが起きています。
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
+前に示したように `TaskList` コンポーネントは `PureTaskList` プレゼンテーショナルコンテナーを描画する **コンテナー** です。定義上コンテナーコンポーネントはコンテキストが渡されたり、サービスに接続されたりすることを予期するため、隔離された環境で単純には描画できません。つまりコンテナーを Storybook で描画するには、コンポーネントに必要なコンテキストやサービスをモック化 (例えば、振る舞いを模倣させるなど) しなければならないということです。
 
-When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+`TaskList` を Storybook に置いたときには、コンテナーではなく、`PureTaskList` を描画することにより、この問題を回避しました。同じように `PureInboxScreen` を Storybook に描画します。
 
-However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `InboxScreen.stories.js`:
+しかし、`PureInboxScreen` には問題があります。`PureInboxScreen` 自体がプレゼンテーショナルとなっても、その子供である `TaskList` はプレゼンテーショナルではないのです。ある意味では、`PureInboxScreen`が「コンテナー化」により汚染されたと言えます。なので、`InboxScreen.stories.js` を以下のようセットアップすると:
 
 ```javascript
 // src/components/InboxScreen.stories.js
@@ -105,21 +105,21 @@ export const Default = () => <PureInboxScreen />;
 export const Error = () => <PureInboxScreen error="Something" />;
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+`Error`　のストーリーは正しく動いていますが、`Default` のストーリーには問題があります。それは `TaskList` に接続するべき Redux のストアがないためです。(同様に `PureInboxScreen` を単体テストしようとしても同じことが起こります。)
 
-![Broken inbox](/intro-to-storybook/broken-inboxscreen.png)
+![壊れている Inbox](/intro-to-storybook/broken-inboxscreen.png)
 
-One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
+この問題を回避する方法の 1 つは、コンテナーコンポーネントをアプリケーションの最上位にのみ描画し、代わりにコンポーネント階層の下層に必要なデータをすべて上位のコンポーネントから渡すことです。
 
-However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
+ですが、開発では**きっと**コンポーネント階層の下位の層でコンテナーを描画する必要が出てくるでしょう。アプリケーション全体、もしくは大部分を Storyook で描画したいなら、解決策が必要です。
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
+補足として、データを階層化して渡すことは正当な手法です。<a href="http://graphql.org/">GraphQL</a> を使う場合は特に。<a href="https://www.chromatic.com">Chromatic</a> を作る際にはこの手法により 800 以上のストーリーを書きました。
 </div>
 
-## Supplying context with decorators
+## デコレーターを使用してコンテキストを渡す
 
-The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
+ストーリーの中で `InboxScreen` に Redux のストアを渡すのは簡単です！モック化したストアをデコレーター内部で使用します:
 
 ```javascript
 // src/components/InboxScreen.stories.js
@@ -137,7 +137,7 @@ export default {
   decorators: [story => <Provider store={store}>{story()}</Provider>],
 };
 
-// A super-simple mock of a redux store
+// とても簡素な Redux ストアのモック
 const store = {
   getState: () => {
     return {
@@ -153,9 +153,9 @@ export const Default = () => <PureInboxScreen />;
 export const Error = () => <PureInboxScreen error="Something" />;
 ```
 
-Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
+同様に [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator) や [Relay](https://github.com/orta/react-storybooks-relay-container) など、他のデータライブラリー向けのモックコンテキストも存在します。
 
-Cycling through states in Storybook makes it easy to test we’ve done this correctly:
+Storybook で状態を選択していくことで、問題なく出来ているか簡単にテストできます:
 
 <video autoPlay muted playsInline loop >
 
@@ -165,9 +165,9 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
-## Component-Driven Development
+## コンポーネント駆動開発
 
-We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
+まず `Task` から始めて、`TaskList` を作り、画面全体の UI が出来ました。`InboxScreen` はネストしたコンテナーコンポーネントを含んでおり、付随するストーリーもあります。
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -176,6 +176,6 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**コンポーネント駆動開発**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) はコンポーネント階層を上がるごとに少しずつ複雑性を拡張していくことが出来ます。利点として、開発プロセスに集中できること、UI の組み合わせをすべて網羅できること、が挙げられます。要するに、CDD によって、高品質で複雑な UI を作ることができます。
 
-We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+まだ終わりではありません。UI を作成しても仕事は終わりません。長期間にわたり耐久性を維持できるようにしなければなりません。

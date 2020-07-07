@@ -1,24 +1,23 @@
 ---
-title: 'Addons'
-tocTitle: 'Addons'
-description: 'Learn how to integrate and use addons using a popular example'
+title: 'アドオン'
+tocTitle: 'アドオン'
+description: 'アドオンの使い方と導入方法を一般的な例で学ぶ'
 commit: 'b3bca4a'
 ---
 
-Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/react/en/test/).
+Storybook はチームメンバーの開発を向上する堅牢な[アドオン](https://storybook.js.org/addons/introduction/)のシステムを誇っています。ここまでチュートリアルを進めてきたのであればいくつかのアドオンをすでに見ており、[テストの章](/react/en/test/)では実際に使用していることでしょう。
 
 <div class="aside">
-<strong>Looking for a list of potential addons?</strong>
+<strong>アドオンの一覧を見たいですか？</strong>
 <br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
+😍 公式にサポートされているアドオンや、コミュニティに強くサポートされているアドオンの一覧は<a href="https://storybook.js.org/addons/addon-gallery/">ここ</a>から見ることができます。
 </div>
 
-We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+全てのアドオンの使用方法や設定方法、特定のユースケースを書きつくすことは出来ませんので、Storybook のエコシステムの中で最も人気のアドオンである [Knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs) を例にとって見てみましょう。
 
-## Setting Up Knobs
+## Knobs を導入する
 
-Knobs is an amazing resource for designers and developers to experiment and play with components in a controlled environment without the need to code! You essentially provide dynamically defined fields with which a user manipulates the props being passed to the components in your stories. Here's what we're going to implement...
+Knobs は、デザイナーや開発者がコードを書かずにコンポーネントで実験したり、触ったりできるようにするアドオンです。ストーリーに描画されるコンポーネントに対し、ユーザーが操作し、動的に定義可能なプロパティを渡せます。これが今から実装しようとするものです:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -27,15 +26,15 @@ Knobs is an amazing resource for designers and developers to experiment and play
   />
 </video>
 
-### Installation
+### 導入方法
 
-First, we will need to install all the necessary dependencies.
+まずは、依存関係を追加します。
 
 ```bash
 yarn add -D @storybook/addon-knobs
 ```
 
-Register Knobs in your `.storybook/main.js` file.
+`.storybook/main.js` ファイルに Knobs を登録します。
 
 ```javascript
 // .storybook/main.js
@@ -52,18 +51,18 @@ module.exports = {
 ```
 
 <div class="aside">
-<strong>📝 Addon registration order matters!</strong>
+<strong>📝 アドオンの記述順序には意味があります！</strong>
 <br/>
-The order you list these addons will dictate the order in which they appear as tabs on your addon panel (for those that appear there).
+アドオンを記載した順序はアドオンのパネル (パネルが表示されるアドオンの場合) のタブ順になります。
 </div>
 
-That's it! Time to use it in a story.
+以上です。ストーリーで使ってみましょう。
 
-### Usage
+### 使い方
 
-Let's use the object knob type in the `Task` component.
+`Task` コンポーネントに Knobs のオブジェクトを使ってみましょう。
 
-First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
+まず、Knobs の `withKnobs` デコレーターと `object` を `Task.stories.js` でインポートします。
 
 ```javascript
 // src/components/Task.stories.js
@@ -74,11 +73,11 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
 <div class="aside">
-  If you're using TypeScript, you'll need to make a small adjustment to the imports.
-  You'll need to use <code>import { withKnobs, object } from '@storybook/addon-knobs'</code> instead.
+もし、TypeScript を使用しているのであれば、すこし調整が必要です。
+上記のインポートの代わりに、<code>import { withKnobs, object } from '@storybook/addon-knobs'</code> と書いてください。
 </div>
 
-Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
+次に、`Task.stories.js` ファイルのデフォルトエクスポートの `decorators` キーに `withKnobs` を書いてください:
 
 ```javascript
 // src/components/Task.stories.js
@@ -91,7 +90,7 @@ export default {
 };
 ```
 
-Lastly, integrate the `object` knob type within the "default" story:
+最後に、Default ストーリーに `object` を使い Knobs にオブジェクトを渡します:
 
 ```javascript
 // src/components/Task.stories.js
@@ -101,27 +100,27 @@ export const Default = () => {
 };
 ```
 
-Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
+すると、「Knobs」という新しいタブが画面下部の「Action Logger」タブの隣に表示されます。
 
-As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as parameters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
+[ここ](https://github.com/storybooks/storybook/tree/master/addons/knobs#object)に書かれているように、`object` にはラベルとデフォルトのオブジェクトを引数として受け取ります。ラベルはアドオンパネルのテキストエリアの隣に表示されます。デフォルトのオブジェクトはテキストエリアに編集可能な JSON として表示されます。JSON として正しい値を記載している限り、コンポーネントはそのデータに合わせて表示されます。
 
-## Addons Evolve Your Storybook's Scope
+## Storybook の範囲をアドオンが進化させる
 
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
+Storybook が優れた [CDD の開発環境](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)を提供するだけでなく、対話的なドキュメントとしても使えます。PropType も素晴らしいものですが、Knobs が実装された Storybook ならばデザイナーや、コンポーネントのコードを知らない人にとってコンポーネントの振る舞いを簡単に知る手段となります。
 
-## Using Knobs To Find Edge-Cases
+## Knobs をエッジケースを見つけるのに使用する
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string?
+さらに、コンポーネントに渡されるデータを簡単に編集できるので、品質管理者や、UI 検査のエンジニアがコンポーネントを限界まで操作できます！例えば `Task` コンポーネントに*大量の*文字列を渡したらどうなるでしょうか。
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
+![しまった！右側の文字列が切れている！](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
+コンポーネントにいろいろな入力を素早く渡せるので、比較的簡単に問題を見つけ、直すことができます。`Task.js` にスタイルを追加してこの問題を解決しましょう:
 
 ```javascript
 // src/components/Task.js
 
-// This is the input for our task title. In practice we would probably update the styles for this element
-// but for this tutorial, let's fix the problem with an inline style:
+// これはタスクのタイトルとなる input タグです。実際にはこの要素のスタイル自体を更新するべきでしょうが
+// このチュートリアルではインラインスタイルとして問題を解決しましょう
 <input
   type="text"
   value={title}
@@ -131,13 +130,13 @@ Thanks to quickly being able to try different inputs to a component we can find 
 />
 ```
 
-![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
+![良くなりました](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
 
-## Adding A New Story To Avoid Regressions
+## リグレッションを回避するためストーリーを追加する
 
-Of course we can always reproduce this problem by entering the same input into the knobs, but it's better to write a fixed story for this input. This will increase your regression testing and clearly outline the limits of the component(s) to the rest of your team.
+Knobs に同じ入力をすればいつでもこの問題は再現可能ですが、この入力に対応するストーリーを書くほうがよいでしょう。ストーリーを書くことにより、リグレッションテストが向上しますし、コンポーネントの限界をチームメンバーに明示することが出来ます。
 
-Let's add a story for the long text case in Task.stories.js:
+それでは `Task.stories.js` ファイルに長い文字列が指定された場合のストーリーを追加しましょう:
 
 ```javascript
 // src/components/Task.stories.js
@@ -149,16 +148,16 @@ export const LongTitle = () => (
 );
 ```
 
-Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
+ストーリーを追加したので、このエッジケースをいつでも再現できるようになりました:
 
-![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
+![Storybook で再現したエッジケース](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/react/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+[視覚的なリグレッションテスト](/react/ja/test/)を使用している場合は、今後文字の切り出しが壊れた場合に分かるようになります。このように曖昧なエッジケースは忘れてしまいがちです。
 
-### Merge Changes
+### 変更をマージする
 
-Don't forget to merge your changes with git!
+変更を忘れずに Git にマージしてください！
 
-## Creating your own addon
+## 自分でアドオンを作る
 
-As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the next chapter, we'll guide you through creating an addon that shows your static design alongside your development.
+Knobs が開発者ではない人にもコンポーネントやストーリーに触れるようにすることを見てきました。アドオンを使えば、自分たちのワークフローに合わせて Storybook をカスタマイズしていけます。次の章では、開発と並行して静的なデザインを見せるアドオンの作り方を説明します。

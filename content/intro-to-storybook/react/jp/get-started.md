@@ -1,76 +1,77 @@
 ---
-title: 'Storybook for React tutorial'
-tocTitle: 'Get started'
-description: 'Setup Storybook in your development environment'
+title: 'React 向け Storybook のチュートリアル'
+tocTitle: 'はじめに'
+description: '開発環境に Storybook を構築する'
 commit: '8741257'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) and [Svelte](/svelte/en/get-started).
+Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから分離して開発ができるようになります。この文書は React 向けです。他にも [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 向けのバージョンがあります。
 
-![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
+![Storybook と開発中のアプリの関係](/intro-to-storybook/storybook-relationship.jpg)
 
-## Setup React Storybook
+## React 向けの Storybook を構築する
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Create React App](https://github.com/facebook/create-react-app) (CRA) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[Create React App](https://github.com/facebook/create-react-app) (CRA) を使用してアプリケーションを作成し、[Storybook](https://storybook.js.org/) とテストフレームワークの [Jest](https://facebook.github.io/jest/) を有効にしましょう。それでは、次のコマンドを実行してください。
 
 ```bash
-# Create our application:
+# アプリケーションを作成する:
 npx create-react-app taskbox
 
 cd taskbox
 
-# Add Storybook:
+# Storybook を追加する:
 npx -p @storybook/cli sb init
 ```
 
 <div class="aside">
-Throughout this version of the tutorial, we'll be using <code>yarn</code> to run the majority of our commands. 
-If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code>--use-npm</code> flag to the first command above and both CRA and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
+このチュートリアルでは、コマンドの実行には基本的に <code>yarn</code> を使用します。
+もし、Yarn がインストールされていて、けれど <code>npm</code> を使用したい場合には上記のコマンドに <code>--use-npm</code> フラグをつけることで、CRA および Storybook の設定を変更することができます。<code>npm</code> を使用してチュートリアルを進めても問題ありませんが、使用するコマンドを <code>npm</code> 向けに調整するのを忘れないようにしましょう。
 </div>
 
-We can quickly check that the various environments of our application are working properly:
+作成したアプリケーションが問題なく動くことを次のコマンドで確認しましょう。
 
 ```bash
-# Run the test runner (Jest) in a terminal:
+# ターミナルでテストランナー (Jest) を開始する:
 yarn test --watchAll
 
-# Start the component explorer on port 9009:
+# ポート 9009 でコンポーネントエクスプローラーを起動する:
 yarn storybook
 
-# Run the frontend app proper on port 3000:
+# ポート 3000 でフロントエンドアプリケーションを起動する:
 yarn start
 ```
 
 <div class="aside"> 
-You may have noticed we've added the <code>--watchAll</code> flag to our test command, don't worry it's intentional, this small change will ensure that all tests run and everything is ok with our application. While you progress through this tutorial you will be introduced to different test scenarios, so probably you might want to consider and add the flag to your test script in your <code>package.json</code> to ensure your entire test suite runs.
+テストのコマンドに <code>--watchAll</code> フラグを付けているのに気づいたでしょうか。このフラグを付けることによりアプリケーションの各部が問題なく動いていることを確認できます。チュートリアルを進めると、別のテストシナリオを紹介します。もし必要ならばこのフラグを <code>package.json</code> のテストコマンドに追加してテストスイートのすべてのテストが実行されるようにしてください。
 </div>
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
+フロントエンド開発の 3 つのモード: 自動化されたテスト (Jest)、コンポーネント開発 (Storybook)、アプリケーション自体
 
-![3 modalities](/intro-to-storybook/app-three-modalities.png)
+![3つのモード](/intro-to-storybook/app-three-modalities.png)
 
-Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
+作業をする対象に応じて、このモードのうち 1 つまたは複数を同時に動かしながら作業します。今は単一の UI コンポーネントを作るのに集中するため、Storybook を動かすことにしましょう。
 
-## Reuse CSS
+## CSS を再利用する
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/index.css` file.
+Taskbox はデザイン要素を [GraphQL と React のチュートリアル](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)より再利用しますので、このチュートリアルでは、CSS を書く必要はありません。[このコンパイル済み CSS ファイル](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) をコピーして `src/index.css` として保存してください。
 
-![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
+![Taskbox の UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo.
+もしスタイルをカスタマイズしたければ、GitHub のリポジトリに LESS のソースファイルがあります。
 </div>
 
-## Add assets
+## アセットを追加する
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder.
+狙い通りのデザインにするためには、フォントとアイコンのフォルダーをダウンロードし、`public` フォルダーに配置する必要があります。
 
 <div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+<p>以下のコマンドでは GitHub からフォルダーをダウンロードするのに、<code>svn</code> (Subversion) を使用します。Subversion をインストールしていない、もしくは手動の方が良いのならば、<a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">こちら</a>から直接ダウンロードしてください。
+</p></div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
 
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+CSS とアセットを追加すると、アプリケーションの描画が崩れてしまいますが、そのままで問題ありません。今はアプリケーションに手はつけません。まずは一つ目のコンポーネントを作り始めましょう！

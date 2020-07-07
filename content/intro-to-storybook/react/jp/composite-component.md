@@ -1,27 +1,27 @@
 ---
-title: 'Assemble a composite component'
-tocTitle: 'Composite component'
-description: 'Assemble a composite component out of simpler components'
+title: '複合的なコンポーネントを組み立てる'
+tocTitle: '複合的なコンポーネント'
+description: '単純なコンポーネントから複合的なコンポーネントを組み立てます'
 commit: 'c43580d'
 ---
 
-Last chapter we built our first component; this chapter extends what we learned to build TaskList, a list of Tasks. Let’s combine components together and see what happens when more complexity is introduced.
+前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである `TaskList` を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうするればよいか見てみましょう。
 
-## Tasklist
+## TaskList (タスクリスト)
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
+Taskbok はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskList` に、タスクのリストが通常のみである場合と、通常とピン留めの組み合わせがある場合という、ストーリーを追加するべき 2 つのバリエーションができます。
 
-![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
+![通常タスクとピン留めタスク](/intro-to-storybook/tasklist-states-1.png)
 
-Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, an empty state is required when there are no tasks.
+`Task` のデータは非同期的に送信されるため、接続がないことを示すため、読み込み中の状態**も**必要となります。さらにタスクがない場合に備え、空の状態も必要でしょう。
 
-![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
+![空の状態とローディングの状態](/intro-to-storybook/tasklist-states-2.png)
 
-## Get setup
+## セットアップする
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.js` and `src/components/TaskList.stories.js`.
+複合的なコンポーネントも基本的なコンポーネントと大きな違いはありません。`TaskList` のコンポーネントとそのストーリーファイル、`src/components/TaskList.js` と `src/components/TaskList.stories.js` を作成しましょう。
 
-Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
+まずは `TaskList` の大雑把な実装から始めます。`Task` コンポーネントをインポートし、属性とアクションを入力として渡します。
 
 ```javascript
 // src/components/TaskList.js
@@ -56,7 +56,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-Next create `Tasklist`’s test states in the story file.
+次に `Tasklist` のテスト状態をストーリーファイルに記述します。
 
 ```javascript
 // src/components/TaskList.stories.js
@@ -97,12 +97,12 @@ export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>デコレーター</b></a>を使ってストーリーを好きなようにカスタマイズすることができます。上記のコードでは、`decorators` というキーをデフォルトエクスポートに追加し、描画するコンポーネントの周りにパディングを設定してます。ストーリーで使用する「プロバイダー」(例えば、React のコンテキストを設定するライブラリコンポーネントなど) を使うために使用します。
 </div>
 
-`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`taskData` は `Task.stories.js` ファイルでエクスポートした `Task` のデータ形式です。同様に `actionsData` は `Task` コンポーネントが想定するアクション (Mock 化したコールバック) を定義しています。`TaskList` でも同様に必要となります。
 
-Now check Storybook for the new `TaskList` stories.
+それでは `TaskList` の新しいストーリーを Storybook で確認してみましょう。
 
 <video autoPlay muted playsInline loop>
   <source
@@ -111,9 +111,9 @@ Now check Storybook for the new `TaskList` stories.
   />
 </video>
 
-## Build out the states
+## 状態を作りこむ
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+今のコンポーネントはまだ粗削りですが、前進するためのストーリーはあります。`.list-items` ラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーならば新しいコンポーネントとすることはありません。`TaskList` の**本当の複雑性**は `withPinnedTasks`、`loading`、`empty` といったエッジケースに現れているのです。
 
 ```javascript
 // src/components/TaskList.js
@@ -179,7 +179,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-The added markup results in the following UI:
+追加したマークアップで UI は以下のようになります:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -188,11 +188,11 @@ The added markup results in the following UI:
   />
 </video>
 
-Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
+リスト内のピン留めされたアイテムの位置に注目してください。ピン留めされたアイテムはユーザーにとって優先度を高くするため、リストの先頭に描画されます。
 
-## Data requirements and props
+## プロパティと必要なデータ
 
-As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
+コンポーネントが大きくなるにつれ、入力で必要となるデータも増えていきます。`TaskList` のプロパティを定義しましょう。`Task` が子供のコンポーネントなので、`Task` を表示するのに必要なデータが入力されることを確認しましょう。時間と節約するため、前に `Task` で定義した `propTypes` を再利用しましょう。
 
 ```javascript
 // src/components/TaskList.js
@@ -221,23 +221,23 @@ TaskList.defaultProps = {
 export default TaskList;
 ```
 
-## Automated testing
+## 自動テスト
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer.
+前章で Storyshots を使用してスナップショットテストを行う方法を学びました。`Task` では、問題なく描画されるのを確認することは、それほど複雑ではありませんでした。`TaskList` では複雑さが増しているので、ある入力がある出力を生成するかどうかを、自動テスト可能な方法で検証したいと思います。そのためには [Jest](https://facebook.github.io/jest/) をテストレンダラーとともに使用し、単体テストを作ります。
 
-![Jest logo](/intro-to-storybook/logo-jest.png)
+![Jest ロゴ](/intro-to-storybook/logo-jest.png)
 
-### Unit tests with Jest
+### Jest で単体テストする
 
-Storybook stories paired with manual visual tests and snapshot tests (see above) go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
+手動の視覚的なテストと、スナップショットテストがある Storybook のストーリーがあれば UI のバグを防ぐことはできるでしょう。もしストーリーでコンポーネントの様々なユースケースをカバーでき、ストーリーに何かあった時に人が確認できるツールを使用していれば、エラーとなる可能性は低くなることでしょう。
 
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
+けれども、細部には悪魔が潜んでいます。そういった細部を明確にするテストフレームワークが必要です。単体テストを始めましょう。
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+`TaskList` の `tasks` プロパティで渡されたタスクのリストのうち、ピン留めされたタスクをピン留めされていないタスクの**前に**表示させたいと思います。このシナリオをテストするストーリー (`WithPinnedTasks`) は既にありますが、コンポーネントが並び順を**変更しなくなった**場合に、それがバグかどうかを人間のレビュアーでは判別しかねます。ストーリーでは分かりやすく**間違っているよ!**と叫んではくれません。
 
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can simply import the story in our tests, and render it there!
+この問題を回避するため、Jest を使ってストーリーを DOM に描画し、DOM を検索するコードを実行し、出力から目立った機能を検証します。ストーリーのいいところは単にストーリーをインポートして、描画に使えるところです。
 
-Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
+`src/components/TaskList.test.js` にテストファイルを作ります。以下に、出力を検証するテストコードを示します。
 
 ```javascript
 // src/components/TaskList.test.js
@@ -258,8 +258,8 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
+![TaskList のテストランナー](/intro-to-storybook/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
+単体テストで `WithPinnedTasks` ストーリーを再利用出来ていることに注目してください。このように、いろいろな方法で既存のリソースを活用していくことができます。
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+このテストは非常に脆いことにも留意してください。プロジェクトが成熟するにつれ、`Task` の実装が変わると―別のクラス名に変更されたり、`input` 要素ではなく `textarea` に変更されたり―テストが失敗して、テストを更新する必要が出る可能性があります。これは必ずしも問題とはならないかもしれませんが、UI の単体テストに対する注意事項を示しています。UI の単体テストはメンテナンスが難しいのです。代わりに可能な限り視覚的なテストやスナップショットテスト、視覚的なリグレッションテスト ([テストの章](/test/)を参照してください) に頼るようにしてください。

@@ -1,56 +1,56 @@
 ---
-title: 'Deploy Storybook'
-tocTitle: 'Deploy'
-description: 'Deploy Storybook online with GitHub and Netlify'
+title: 'Storybook をデプロイする'
+tocTitle: 'デプロイ'
+description: 'GitHub と Netlify を使用して Storybook をインターネット上にデプロイする'
 ---
 
-In this tutorial we ran Storybook on our development machine. You may also want to share that Storybook with the team, especially the non-technical members. Thankfully, it’s easy to deploy Storybook online.
+このチュートリアルでは Storybook を開発しているマシンで実行してきました。もしかすると、Storybook をチームで、特に非技術者のメンバーと共有したいと思っているかもしれません。ありがたいことに、Storybook をインターネット上にデプロイするのは簡単です。
 
 <div class="aside">
-<strong>Did you setup Chromatic testing earlier?</strong>
+<strong>Chromatic テストを既に導入していますか？</strong>
 <br/>
-🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/react/en/conclusion">conclusion</a>.
+🎉 であればストーリーはすでにデプロイされています。Chromatic はインターネット上で安全にストーリーを分類し、ブランチとコミットを横断して追跡します。この章を飛ばして<a href="/react/en/conclusion">まとめ</a>に進んでください。
 </div>
 
-## Exporting as a static app
+## 静的サイトとしてデプロイする
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built-in and configured for you, so you don't need to worry about any configuration.
+Storybook をデプロイするには、まず静的サイトとしてエクスポートします。この機能はすでに組み込まれて、使える状態となっているので、設定について気にする必要はありません。
 
-Now when you build Storybook via `yarn build-storybook`, it will output a static Storybook in the `storybook-static` directory.
+`yarn build-storybook` を使用して Storybook をビルドすると、`storybook-static` ディレクトリーに Storybook が静的サイトとして出力されます。
 
-## Continuous deployment
+## 継続的なデプロイメント
 
-We want to share the latest version of components whenever we push code. To do this we need to continuously deploy Storybook. We’ll rely on GitHub and Netlify to deploy our static site. We’re using the Netlify free plan.
+コードをプッシュしたときに最新のコンポーネントを共有したいですよね。そのためには、Storybook を継続的にデプロイする必要があります。GitHub と Netlify を使用してこの静的サイトをデプロイしましょう。今回は Netlify の無料プランを使用します。
 
 ### GitHub
 
-First you want to setup Git for your project in the local directory. If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
+まず、ローカルディレクトリーの Git をセットアップしましょう。既にテストの章で Git のセットアップが済んでいるのならば、GitHub の設定に進んでください。
 
-When the project was initialized with Create React App, a local repository was already setup for you. At this stage it's safe to add the files to the first commit.
+Create React App を使用してプロジェクトを初期化した場合、ローカルリポジトリーは既にセットアップされています。この段階ならば初回のコミットに向けてファイルをインデックスに追加しましょう。
 
 ```bash
 $ git add .
 ```
 
-Now commit the files.
+次いでファイルをコミットします。
 
 ```bash
 $ git commit -m "taskbox UI"
 ```
 
-### Setup a repository in GitHub
+### GitHub にリポジトリーを作る
 
-Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
+[ここから](https://github.com/new) GitHub にアクセスし、リポジトリーを作りましょう。リポジトリーの名前は「taskbox」とします。
 
-![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
+![GitHub のセットアップ](/intro-to-storybook/github-create-taskbox.png)
 
-In the new repo setup copy the origin URL of the repo and add it to your git project with this command:
+新しいリポジトリーを作ったら origin の URL をコピーして、次のコマンドを実行し、ローカルの Git プロジェクトにリモートを追加します:
 
 ```bash
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-Finally push the repo to GitHub
+最後に GitHub にリポジトリーをプッシュします。
 
 ```bash
 $ git push -u origin master
@@ -58,34 +58,36 @@ $ git push -u origin master
 
 ### Netlify
 
-Netlify has a continuous deployment service built in which will allow us to deploy Storybook without needing to configure our own CI.
+Netlify は自分たちで CI を構築することなく Storybook を継続的にデプロイしてくれるサービスを提供しています。
 
 <div class="aside">
-If you use CI at your company, add a deploy script to your config that uploads <code>storybook-static</code> to a static hosting service like S3.
+もし CI を使用しているのなら、設定に <code>storybook-static</code> フォルダーを S3 のような静的ホスティングサービスにアップロードするスクリプトを追加しましょう。
 </div>
 
-[Create an account on Netlify](https://app.netlify.com/start) and click to “create site”.
+[Netlify にアカウントを作成](https://app.netlify.com/start)し、「New site from Git」をクリックしてください。
 
-![Netlify create site](/intro-to-storybook/netlify-create-site.png)
+![Netlify サイト作成ボタン](/intro-to-storybook/netlify-create-site.png)
 
-Next click the GitHub button to connect Netlify to GitHub. This allows it to access our remote Taskbox repo.
+次に GitHub のボタンをクリックして、Netlify を GitHub に関連付けます。これにより Netlify に GitHub のリポジトリーへのアクセスが許可されます。
 
-Now select the taskbox GitHub repo from the list of options.
+そして、GitHub の taskbox のリポジトリーをリストから選択します。
 
-![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
+![Netlify でリポジトリーに接続する](/intro-to-storybook/netlify-account-picker.png)
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `storybook-static`. Build command use `yarn build-storybook`.
+CI でどのビルドコマンドを実行し、どのディレクトリーに静的サイトが出力されるかを Netlify に設定します。ブランチには `master` を、ビルドコマンドには `yarn build-storybook` を、ディレクトリーには `storybook-static` をそれぞれ指定します。
 
-![Netlify settings](/intro-to-storybook/netlify-settings.png)
+![Netlify の設定](/intro-to-storybook/netlify-settings.png)
 
-<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
+<div class="aside">
+<p>Netlify へのデプロイが失敗する場合、<a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> フラグを <code>build-storybook</code> スクリプトに追加してください。</p>
+</div>
 
-Submit the form to build and deploy the code on the `master` branch of taskbox.
+フォームを送信すると、taskbox の `master` ブランチのコードがビルドされデプロイされます。
 
-When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
+完了すると、Netlify に確認メッセージとともに Taskbox の Storybook へのリンクが表示されます。ここまで問題がなければ、Storybook がインターネット上に[このように](https://clever-banach-415c03.netlify.com/)公開されています。
 
-![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
+![Netlify で動く Storybook](/intro-to-storybook/netlify-storybook-deploy.png)
 
-We finished setting up continuous deployment of your Storybook! Now we can share our stories with teammates via a link.
+Storybook での継続的デプロイメントの構が完了しました。これでリンクを使ってチームメートとストーリーを共有できます。
 
-This is helpful for visual review as part of the standard app development process or simply to show off work 💅.
+これは標準的なアプリケーション開発のプロセスにおけるレビューや、作業内容を見せるのに役立ちます 💅
