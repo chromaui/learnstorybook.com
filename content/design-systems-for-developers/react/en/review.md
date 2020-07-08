@@ -15,40 +15,7 @@ Previously, I wrote that design systems are a [single point of failure](https://
 
 Bugs are an existential risk for design systems so we’ll do everything to prevent them. Small tweaks end up snowballing into innumerable regressions. Without an ongoing maintenance strategy design systems wither.
 
-## Continuous integration
-
-Continuous integration is the defacto way to maintain modern web apps. It allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
-
-We’re using GitHub Actions here, which is free for our modest usage. The same principles apply to other CI services as well.
-
-Add a `.github` directory at the top level. Then create another directory called `workflows`.
-
-Create a file called chromatic.yml like the one below. This will allow us to script how our CI process behaves. We'll start small for now and continue to improve it as we progress:
-
-```yaml
-# .github/workflows/chromatic.yml
-# name of our action
-name: 'Chromatic Deployment'
-# the event that will trigger the action
-on: push
-
-# what the action will do
-jobs:
-  test:
-    # the operating system it will run on
-    runs-on: ubuntu-latest
-    # the list of steps that the action will go through
-    steps:
-      - uses: actions/checkout@v1
-      - run: yarn
-      - run: yarn test
-```
-
-At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. Let’s check that it runs on GitHub:
-
-![First build with GitHub actions](/design-systems-for-developers/github-action-first-build.png)
-
-Note that our build failed as we currently don't have any tests defined for our project. That's OK, we'll add some soon, for now let's keep moving.
+<h4> move quote below?? </h4>
 
 > “But it works on my machine?!” – everyone
 
@@ -58,7 +25,7 @@ Visual review is the process of confirming the behavior and aesthetics of user i
 
 Most developers are familiar with code review, the process of gathering code feedback from other developers to improve code quality. Since UI components express code graphically, visual review is necessary to collect UI/UX feedback.
 
-#### Establish a universal reference point
+### Establish a universal reference point
 
 Delete node_modules. Reinstall packages. Clear localstorage. Delete cookies. If these actions sound familiar, you know how tough it is to ensure teammates reference the latest code. When folks don’t have identical dev environments it’s a nightmare to discern issues caused by the local environment from real bugs.
 
@@ -82,6 +49,8 @@ First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub
 
 From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
 
+<h4> this image needs to be adjusted</h4>
+
 ![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
 Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
@@ -96,7 +65,7 @@ Open up your command line and navigate to the `design-system` directory. Then ru
 npx chromatic --project-token=<project-token>
 ```
 
-<h4>add the command line image from intro to storybook???</h4>
+![Storybook built with Chromatic](intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
 Browse your published Storybook by clicking on the provided link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
 
@@ -125,7 +94,59 @@ Browse your published Storybook by clicking on the link. You’ll find that your
 
 Netlify runs a build command on every commit that deploys your Storybook. You’ll find a link to it in GitHub’s PR checks (we'll see that below). -->
 
-Congratulations! Now that you set up the infrastructure to publish Storybook, let’s demo gathering feedback.
+Congratulations! Now that you set up the infrastructure to publish Storybook, let's improve it with continuous integration.
+
+## Continuous integration
+
+Continuous integration is the defacto way to maintain modern web apps. It allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
+
+We'll use GitHub Actions, which is free for our modest usage. The same principles apply to other CI services as well.
+
+Add a `.github` directory at the top level. Then create another directory called `workflows`.
+
+Create a file called chromatic.yml like the one below. This will allow us to script how our CI process behaves. We'll start small for now and continue to improve it as we progress:
+
+```yaml
+# .github/workflows/chromatic.yml
+# name of our action
+name: 'Chromatic'
+# the event that will trigger the action
+on: push
+
+# what the action will do
+jobs:
+  test:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      #- run: yarn build-storybook
+      - uses: chromaui/action@v1
+        # options required to the GitHub chromatic action
+        with:
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Add the changes with:
+
+```bash
+git add .
+```
+
+Commit them:
+
+```bash
+git commit -m "Storybook deployment with GitHub action"
+```
+
+Finally push them to the remote repository with:
+
+```bash
+git push origin master
+```
 
 While we are at it, let’s add the `storybook-static` directory to our `.gitignore` file:
 
@@ -139,6 +160,8 @@ And commit it.
 ```bash
 git commit -am “ignore storybook static”
 ```
+
+Success! We've just improved our infrastructure.
 
 #### Request visual review from your team
 

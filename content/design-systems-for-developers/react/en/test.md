@@ -61,6 +61,7 @@ npx chromatic --project-token=<project-token>
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 -->
+<h4> logically this would be better suited for a pr ????</h4>
 
 Chromatic captured a baseline image of every story! Subsequent test runs will capture new images and compare them against these baselines. See how that works by tweaking a UI component and saving it. Go to the global styles (`src/shared/styles.js`) and increase the font-size.
 
@@ -88,6 +89,7 @@ Yikes! That small tweak resulted in a flood of UI changes.
 
 Visual testing helps identify UI changes in Storybook. Review the changes to confirm whether they’re intentional (improvements) or unintentional (bugs). If you’re fond of the new font-size, go ahead and accept the changes and commit to git. Or perhaps the changes are too ostentatious, go ahead and undo them.
 
+<!--
 Let’s add visual testing to the continuous integration job. Open `.github/workflows/chromatic.yml` and add the test command.
 
 ```yaml
@@ -115,7 +117,7 @@ jobs:
 
 <div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
 
-Save and `git commit`. Congratulations you just set up visual testing in CI!
+Save and `git commit`. Congratulations you just set up visual testing in CI! -->
 
 ## Unit test functionality
 
@@ -162,7 +164,28 @@ We can run the above unit test as part of our `yarn test` command.
 
 ![Running a single Jest test](/design-systems-for-developers/jest-test.png)
 
-Earlier we configured our Circle config.js file to run `yarn test` on every commit. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
+Earlier we configured our GitHub Action to deploy Storybook, we can now adjust it to include testing as well. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
+
+```yaml
+# .github/workflows/chromatic.yml
+# ... same as before
+jobs:
+  test:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      - run: yarn test # adds the test command
+      - uses: chromaui/action@v1
+        # options required to the GitHub chromatic action
+        with:
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ (update link)
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
 
 <h4>image should be equal to intro to storybook. Below is just for baseline</h4>
 

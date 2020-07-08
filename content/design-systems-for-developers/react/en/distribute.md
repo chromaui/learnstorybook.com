@@ -144,6 +144,8 @@ For npm, you can create a token at the URL: https://www.npmjs.com/settings/&lt;y
 
 You’ll need a token with “Read and Publish” permissions.
 
+<h4> reword needed for GH actions</h4>
+
 Let’s add that token to a file called `.env` in our project:
 
 ```
@@ -258,11 +260,13 @@ Now, when we run `yarn release`, we’ll step through all the steps we ran above
   - run: yarn release
 ```
 
-<h4> add Github secrets</h4>
+<!-- <h4> add Github secrets</h4>
 
 We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
 
-![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
+![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png) -->
+
+<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
 
 Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
 
