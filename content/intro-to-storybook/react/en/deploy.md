@@ -107,7 +107,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-      - run: yarn build-storybook
       - uses: chromaui/action@v1
         # options required to the GitHub chromatic action
         with:
@@ -115,8 +114,6 @@ jobs:
           # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
-          # the name of the folder where Storybook will be exported into.
-          storybookBuildDir: storybook-static
 ```
 
 <div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
