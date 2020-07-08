@@ -5,9 +5,9 @@ description: 'Learn how to build your own addons that will super charge your dev
 commit: 'bebba5d'
 ---
 
-In the previous chapter we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
+Throughout this tutorial we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
 
-In this chapter we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
+In this bonus chapter, we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
 
 But first thing is first, let's first scope out what our addon will do.
 
@@ -40,7 +40,7 @@ export default {
 
 We've outlined what our addon will do, it's time to start working on it.
 
-In the root of your project folder, create a new file called `.babelrc` with the following inside:
+In the root folder of your project, create a new file called `.babelrc` with the following inside:
 
 ```json
 {
@@ -89,7 +89,7 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-This is the a typical boilerplate code to get started and going over what the code is doing:
+This is the typical boilerplate code to get you started. Going over what the code is doing:
 
 - We're registering a new addon in our Storybook.
 - Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.

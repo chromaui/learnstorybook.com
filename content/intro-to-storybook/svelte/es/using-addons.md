@@ -160,6 +160,9 @@ Si estamos utilizando [pruebas de regresión visual](/svelte/es/test/), también
 
 ¡No olvides fusionar tus cambios con git!
 
-## Compartir complementos con el equipo
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
+
+<!-- ## Compartir complementos con el equipo
 
 Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar Storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!
+ -->

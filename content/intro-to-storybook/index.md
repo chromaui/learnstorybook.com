@@ -17,9 +17,9 @@ toc:
     'deploy',
     'test',
     'using-addons',
-    'creating-addons',
     'conclusion',
     'contribute',
+    'creating-addons',
   ]
 coverImagePath: '/guide-cover/intro.svg'
 thumbImagePath: '/guide-thumb/intro.svg'

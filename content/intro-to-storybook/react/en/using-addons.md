@@ -158,7 +158,3 @@ If we are using [visual regression testing](/react/en/test/), we will also be in
 ### Merge Changes
 
 Don't forget to merge your changes with git!
-
-## Creating your own addon
-
-As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the next chapter, we'll guide you through creating an addon that shows your static design alongside your development.
