@@ -50,7 +50,7 @@ $ git push -u origin master
 
 ### Get Chromatic
 
-Add the package as a dependency.
+Add the package as a development dependency.
 
 ```bash
 yarn add -D chromatic
