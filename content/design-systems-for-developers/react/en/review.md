@@ -65,7 +65,7 @@ Open up your command line and navigate to the `design-system` directory. Then ru
 npx chromatic --project-token=<project-token>
 ```
 
-![Storybook built with Chromatic](intro-to-storybook/chromatic-manual-storybook-console-log.png)
+![Storybook built with Chromatic](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
 Browse your published Storybook by clicking on the provided link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
 
