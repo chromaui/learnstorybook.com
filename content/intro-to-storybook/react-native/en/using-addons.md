@@ -37,7 +37,6 @@ yarn add -D @storybook/addon-knobs @storybook/addon-ondevice-knobs
 Register Knobs in your `storybook/addons.js` file.
 
 ```javascript
-
 // storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
@@ -67,7 +66,6 @@ Let's use the object knob type in the `Task` component.
 First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
 
 ```javascript
-
 // components/Task.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
@@ -78,7 +76,6 @@ import { withKnobs, object } from '@storybook/addon-knobs';
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
 
 ```javascript
-
 // components/Task.stories.js
 storiesOf('Task', module)
   .addDecorator(withKnobs)
@@ -88,7 +85,6 @@ storiesOf('Task', module)
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
-
 // components/Task.stories.js
 storiesOf('Task', module)
   .addDecorator(withKnobs)
@@ -114,7 +110,6 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
 
 ```javascript
-
 // components/Task.js
 // This is the input for our task title. It was changed to a simple text contrary to textinput,
 // to illustrate how to see what's intended
@@ -138,7 +133,6 @@ Of course we can always reproduce this problem by entering the same input into t
 Let's add a story for the long text case in Task.stories.js:
 
 ```javascript
-
 // components/Task.stories.js
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
@@ -153,11 +147,13 @@ Now we've added the story, we can reproduce this edge-case with ease whenever we
 
 ![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-
 ### Merge Changes
 
 Don't forget to merge your changes with git!
 
-## Sharing Addons With The Team
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
+
+<!-- ## Sharing Addons With The Team
 
 Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+ -->

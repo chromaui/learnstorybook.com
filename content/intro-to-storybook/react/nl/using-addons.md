@@ -151,6 +151,7 @@ Als we [visuele regressietests](/react/en/test/) gebruiken, zullen we ook worden
 
 Vergeet niet je wijzigingen te mergen met git!
 
-## Addons delen met het team
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
+<!-- ## Addons delen met het team
 
-Knobs is een geweldige manier om niet-developers met je componenten en stories te laten spelen. Het kan echter moeilijk zijn om het storybook op hun lokale computer uit te voeren. Daarom kan het handig zijn om je storybook naar een online locatie te deployen. In het volgende hoofdstuk zullen we precies dat doen!
+Knobs is een geweldige manier om niet-developers met je componenten en stories te laten spelen. Het kan echter moeilijk zijn om het storybook op hun lokale computer uit te voeren. Daarom kan het handig zijn om je storybook naar een online locatie te deployen. In het volgende hoofdstuk zullen we precies dat doen! -->
