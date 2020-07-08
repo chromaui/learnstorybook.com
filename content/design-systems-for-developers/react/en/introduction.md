@@ -56,7 +56,7 @@ Storybook powers the design systems for [Uber](https://github.com/uber-web/baseu
 
 #### Maintain the system
 
-- 🚥 [CircleCI](https://circleci.com/) for continuous integration
+- 🚥 [GitHub Actions](https://github.com/features/actions) for continuous integration
 - 📐 [ESLint](https://eslint.org/) for JavaScript linting
 - ✅ [Chromatic](https://chromatic.com) to catch visual bugs in components (by Storybook maintainers)
 - 🃏 [Jest](https://jestjs.io/) for unit testing components

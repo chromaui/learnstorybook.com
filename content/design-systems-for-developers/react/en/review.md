@@ -19,38 +19,34 @@ Bugs are an existential risk for design systems so we’ll do everything to prev
 
 Continuous integration is the defacto way to maintain modern web apps. It allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
 
-We’re using CircleCI here, which is free for our modest usage. The same principles apply to other CI services as well.
+We’re using GitHub Actions here, which is free for our modest usage. The same principles apply to other CI services as well.
 
-First, sign up for CircleCI if you haven’t already. Once there, you’ll see an “add projects” tab where you can set up the design system project like so.
+Add a `.github` directory at the top level. Then create another directory called `workflows`.
 
-![Adding a project on CircleCI](/design-systems-for-developers/circleci-add-project.png)
-
-Add a `.circleci` directory at the top level and create a config.yml file inside of it. This will allow us to script how our CI process behaves. We can simply add the default file that Circle suggests for Node for now:
+Create a file called chromatic.yml like the one below. This will allow us to script how our CI process behaves. We'll start small for now and continue to improve it as we progress:
 
 ```yaml
-version: 2
+# .github/workflows/chromatic.yml
+# name of our action
+name: 'Chromatic Deployment'
+# the event that will trigger the action
+on: push
+
+# what the action will do
 jobs:
-  build:
-    docker:
-      - image: circleci/node:10.13
-    working_directory: ~/repo
+  test:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # the list of steps that the action will go through
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+      - uses: actions/checkout@v1
+      - run: yarn
       - run: yarn test
 ```
 
-At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. Let’s check that it runs on Circle:
+At the moment, this runs `yarn test`, which is a basic React test that was set up by create-react-app for us. Let’s check that it runs on GitHub:
 
-![First build on CircleCI](/design-systems-for-developers/circleci-first-build.png)
+![First build with GitHub actions](/design-systems-for-developers/github-action-first-build.png)
 
 Note that our build failed as we currently don't have any tests defined for our project. That's OK, we'll add some soon, for now let's keep moving.
 
@@ -76,8 +72,39 @@ When living UI components are accessible via a URL, stakeholders can confirm UI 
 
 #### Publish Storybook
 
-Build the visual review workflow using [Netlify](http://netlify.com), a developer-friendly deployment service. Netlify is free for our use case, but it’s straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
+Build the visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
 
+### Get Chromatic (semantically align it)
+
+First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
+
+![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
+
+From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
+
+![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
+
+Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
+
+```bash
+yarn add --dev chromatic
+```
+
+Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines (you'll need to use the project code that Chromatic supplies on the website)
+
+```bash
+npx chromatic --project-token=<project-token>
+```
+
+<h4>add the command line image from intro to storybook???</h4>
+
+Browse your published Storybook by clicking on the provided link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
+
+<h4>add image of deployed Storybook same as intro to storybook.Image below is just for stubbing</h4>
+
+![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
+
+<!--
 ![Choosing GitHub on Netlify](/design-systems-for-developers/netlify-choose-provider.png)
 
 Now find your design system’s GitHub repo that we created in the last chapter.
@@ -96,7 +123,7 @@ Browse your published Storybook by clicking on the link. You’ll find that your
 
 ![Viewing our first build in Netlify](/design-systems-for-developers/netlify-deployed-site.png)
 
-Netlify runs a build command on every commit that deploys your Storybook. You’ll find a link to it in GitHub’s PR checks (we'll see that below).
+Netlify runs a build command on every commit that deploys your Storybook. You’ll find a link to it in GitHub’s PR checks (we'll see that below). -->
 
 Congratulations! Now that you set up the infrastructure to publish Storybook, let’s demo gathering feedback.
 

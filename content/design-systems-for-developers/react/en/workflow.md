@@ -131,6 +131,8 @@ At this point, AvatarList is a candidate for design system inclusion. Stakeholde
 
 The design system’s Storybook is automatically published each pull request to make review dead simple. Scroll down to the PR checks to find a link to the deployed Storybook.
 
+<h4> image needs to match intro to storybook </h4>
+
 ![PR check for deployed PR](/design-systems-for-developers/github-pr-checks-deployed.png)
 
 Find the AvatarList in the Storybook online. It should look identical to your local Storybook.
@@ -150,6 +152,8 @@ Our test suite runs in the background every commit. AvatarList is a simple prese
 ![Chromatic changes on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes.png)
 
 Since AvatarList is new there aren’t visual tests for it yet. We’ll need to add baselines for each story. Accept the “new stories” in Chromatic to expand visual test coverage.
+
+<h4> image needs to match as well </h4>
 
 ![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 

@@ -243,16 +243,22 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 
 Now, when we run `yarn release`, we’ll step through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. We’ll ensure that all commits to master are published by adding a command to our circle config:
 
+<h4> this needs to be vetted</h4>
+<h5>https://stackoverflow.com/questions/58139406/only-run-job-on-specific-branch-with-github-actions/62419599#62419599</h5>
+
 ```
 # ...
 - run: yarn test
-- run: npx chromatic --project-token=2wix88i1ziu
-- run: |
-    if [ $CIRCLE_BRANCH = "master" ]
-    then
-      yarn release
-    fi
+- uses: chromaui/action@v1
+  with:
+    projectToken: project-token
+    token: ${{ secrets.GITHUB_TOKEN }}
+  if: github.ref == 'refs/heads/master'
+  steps:
+  - run: yarn release
 ```
+
+<h4> add Github secrets</h4>
 
 We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
 
