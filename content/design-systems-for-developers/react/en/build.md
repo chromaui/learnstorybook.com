@@ -58,6 +58,8 @@ Your Storybook should reload like this (notice that the font styles are a little
 Our design system requires some global styles (a CSS reset) to be applied to the document for components to be rendered correctly. The styles can be added easily via a Styled Components global style tag. For reference here is how the code is exported from `src/shared/global.js`:
 
 ```javascript
+// src/shared/global.js
+
 import { createGlobalStyle, css } from 'styled-components';
 import { color, typography } from './styles';
 
@@ -78,6 +80,7 @@ To use the `GlobalStyle` “component” in Storybook, we can make use of a deco
 
 ```javascript
 // .storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';

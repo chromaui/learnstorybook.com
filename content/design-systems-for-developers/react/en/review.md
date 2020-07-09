@@ -15,8 +15,6 @@ Previously, I wrote that design systems are a [single point of failure](https://
 
 Bugs are an existential risk for design systems so we’ll do everything to prevent them. Small tweaks end up snowballing into innumerable regressions. Without an ongoing maintenance strategy design systems wither.
 
-<h4> move quote below?? </h4>
-
 > “But it works on my machine?!” – everyone
 
 ## Visual review UI components with your team
@@ -37,11 +35,11 @@ When living UI components are accessible via a URL, stakeholders can confirm UI 
 
 > "Deploying Storybook each PR makes visual review easier and helps product owners think in components." –Norbert de Langen, Storybook core maintainer
 
-#### Publish Storybook
+### Publish Storybook
 
 Build the visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
 
-### Get Chromatic (semantically align it)
+### Get Chromatic
 
 First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
 
@@ -68,8 +66,6 @@ npx chromatic --project-token=<project-token>
 ![Storybook built with Chromatic](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
 Browse your published Storybook by clicking on the provided link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
-
-<h4>add image of deployed Storybook same as intro to storybook.Image below is just for stubbing</h4>
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
@@ -108,6 +104,7 @@ Create a file called chromatic.yml like the one below. This will allow us to scr
 
 ```yaml
 # .github/workflows/chromatic.yml
+
 # name of our action
 name: 'Chromatic'
 # the event that will trigger the action
@@ -196,6 +193,8 @@ git push -u origin improve-button
 Navigate to GitHub.com and open up a pull request for the `improve-button` branch.
 
 ![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr-actions.png)
+
+Add some descriptive text.
 
 ![Created a PR in GitHub](/design-systems-for-developers/github-created-pr-actions.png)
 

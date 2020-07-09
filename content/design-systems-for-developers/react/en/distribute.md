@@ -44,6 +44,8 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 Then, let’s create a `src/index.js` file to create a common entry point for using our design system. From this file we’ll export all our design tokens and the components:
 
 ```javascript
+//src/index.js
+
 import * as styles from './shared/styles';
 import * as global from './shared/global';
 import * as animation from './shared/animation';
@@ -84,7 +86,6 @@ We can now run `yarn build` to build our code into the `dist` directory -- we sh
 
 ```
 // ..
-
 dist
 ```
 
@@ -144,8 +145,6 @@ For npm, you can create a token at the URL: https://www.npmjs.com/settings/&lt;y
 
 You’ll need a token with “Read and Publish” permissions.
 
-<h4> reword needed for GH actions</h4>
-
 Let’s add that token to a file called `.env` in our project:
 
 ```
@@ -156,7 +155,6 @@ NPM_TOKEN=<value you just got from npm>
 By adding the file to `.gitignore` we’ll be sure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package from locally (later we’ll set things up to auto publish when PRs are merged to master) they should set up their own `.env` file following this process:
 
 ```
-storybook-static
 dist
 .env
 ```
@@ -243,7 +241,7 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 }
 ```
 
-Now, when we run `yarn release`, we’ll step through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. We’ll ensure that all commits to master are published by adding a command to our circle config:
+Now, when we run `yarn release`, we’ll step through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. We’ll ensure that all commits to master are published by making a change to our GitHub Action:
 
 <h4> this needs to be vetted</h4>
 <h5>https://stackoverflow.com/questions/58139406/only-run-job-on-specific-branch-with-github-actions/62419599#62419599</h5>
@@ -260,11 +258,11 @@ Now, when we run `yarn release`, we’ll step through all the steps we ran above
   - run: yarn release
 ```
 
-<!-- <h4> add Github secrets</h4>
+<h4> add Github secrets</h4>
 
-We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
+We’ll also need to add the npm token to our project’s secrets.
 
-![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png) -->
+![Setting secrets in GitHub](/design-systems-for-developers/gh-npm-token-added.png)
 
 <div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
 
@@ -314,6 +312,8 @@ yarn add <your-username>-learnstorybook-design-system
 Now, let’s update the example app’s `.storybook/main.js` to import the design system components:
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
   stories: [
     '../src/**/*.stories.js',
@@ -330,6 +330,7 @@ module.exports = {
 Also we can add a global decorator to a new `.storybook/preview.js` config file use the global styles defined by the design system. Make the following change to the file:
 
 ```javascript
+// .storybook/preview.js
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';

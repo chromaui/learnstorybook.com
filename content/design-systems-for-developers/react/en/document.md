@@ -78,6 +78,7 @@ Start by adding more metadata that explains what the component does. In `src/Ava
 
 ```javascript
 // src/Avatar.stories.js
+
 export default {
   title: 'Design System|Avatar',
 

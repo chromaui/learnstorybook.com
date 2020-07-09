@@ -170,6 +170,7 @@ Earlier we configured our GitHub Action to deploy Storybook, we can now adjust i
 
 ```yaml
 # .github/workflows/chromatic.yml
+
 # ... same as before
 jobs:
   test:
