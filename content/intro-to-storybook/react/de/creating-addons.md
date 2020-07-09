@@ -1,6 +1,6 @@
 ---
-title: 'Addons erstellen'
-tocTitle: 'Addons erstellen'
+title: 'Bonus: Erstelle ein Addon'
+tocTitle: 'Bonus: Addons erstellen'
 description: 'Lerne, eigene Addons zu bauen, die deine Entwicklung beschleunigen'
 commit: 'bebba5d'
 ---

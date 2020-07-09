@@ -1,6 +1,6 @@
 ---
-title: 'Criação de extras'
-tocTitle: 'Criação de extras'
+title: 'Bonus: Criar um extra'
+tocTitle: 'Bonus: Criação de extras'
 description: 'Aprende a criar os teus próprios extras que irão impulsionar o teu desenvolvimento'
 ---
 
