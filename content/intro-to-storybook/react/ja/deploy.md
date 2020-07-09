@@ -1,46 +1,38 @@
 ---
 title: 'Storybook をデプロイする'
 tocTitle: 'デプロイ'
-description: 'GitHub と Netlify を使用して Storybook をインターネット上にデプロイします'
+description: 'Storybook をインターネット上にデプロイする方法を学びます'
 ---
 
-このチュートリアルでは Storybook を開発しているマシンで実行してきました。もしかすると、Storybook をチームで、特に非技術者メンバーと共有したいと思っているかもしれません。ありがたいことに、Storybook をインターネット上にデプロイするのは簡単です。
-
-<div class="aside">
-<strong>Chromatic テストを既に導入していますか？</strong>
-<br/>
-🎉 それならば、ストーリーはすでにデプロイされています。Chromatic はインターネット上で安全にストーリーを分類し、ブランチとコミットを横断して追跡します。この章を飛ばして<a href="/react/en/conclusion">まとめ</a>に進んでください。
-</div>
+ここまで、ローカルの開発マシンでコンポーネントを作成してきました。しかし、どこかの時点で、フィードバックを得るために作業を共有しなければならないこともあるでしょう。チームメートに UI の実装をレビューしてもらうため、Storybook をインターネット上にデプロイしてみましょう。
 
 ## 静的サイトとしてデプロイする
 
 Storybook をデプロイするには、まず静的サイトとしてエクスポートします。この機能はすでに組み込まれて、使える状態となっているので、設定について気にする必要はありません。
 
-`yarn build-storybook` を使用して Storybook をビルドすると、`storybook-static` ディレクトリーに Storybook が静的サイトとして出力されます。
+`yarn build-storybook` を実行すると、`storybook-static` ディレクトリーに Storybook が静的サイトとして出力されますので、静的サイトのホスティングサービスのデプロイ出来ます。
 
-## 継続的なデプロイメント
+## Storybook を発行する
 
-コードをプッシュしたときに、最新のコンポーネントを共有したいと思います。そのためには、Storybook を継続的にデプロイする必要があります。GitHub と Netlify を使用してこの静的サイトをデプロイしましょう。今回は Netlify の無料プランを使用します。
+このチュートリアルでは、Storybook のメンテナーが作成した、無料の発行サービスである <a href="https://www.chromatic.com/">Chromatic</a> を使用します。Chromatic を使えば、クラウド上に Storybook を安全に、デプロイしホストすることができます。
 
-### GitHub
+### GitHub にリポジトリーを作成する
 
-まず、ローカルディレクトリーの Git をセットアップしましょう。既にテストの章で Git のセットアップが済んでいるのならば、GitHub の設定に進んでください。
+デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。[はじめにの章](/react/ja/get-started/)で Create React App (CRA) でプロジェクトを初期化した際に、ローカルのリポジトリーはすでに作成されていますので、そのままファイルをステージングし、コミット出来ます。
 
-Create React App を使用してプロジェクトを初期化した場合、ローカルリポジトリーは既にセットアップされています。この段階ならば初回のコミットに向けてファイルをインデックスに追加しましょう。
+これまでの変更を以下のコマンドを発行し、コミットしましょう。
 
 ```bash
 $ git add .
 ```
 
-次いでファイルをコミットします。
+次に以下を実行します:
 
 ```bash
 $ git commit -m "taskbox UI"
 ```
 
-### GitHub にリポジトリーを作る
-
-[ここから](https://github.com/new) GitHub にアクセスし、リポジトリーを作りましょう。リポジトリーの名前は「taskbox」とします。
+[ここから](https://github.com/new) GitHub にアクセスし、リポジトリーを作りましょう。リポジトリーの名前はローカルと同じく「taskbox」とします。
 
 ![GitHub のセットアップ](/intro-to-storybook/github-create-taskbox.png)
 
@@ -50,44 +42,116 @@ $ git commit -m "taskbox UI"
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-最後に GitHub にリポジトリーをプッシュします。
+最後にローカルリポジトリーを GitHub のリモートリポジトリーにプッシュします:
 
 ```bash
 $ git push -u origin master
 ```
 
-### Netlify
+### Chromatic を使う
 
-Netlify には継続的デプロイのサービスがあるので、自分たちの CI を構築することなく Storybook をデプロイできます。
+パッケージを開発時の依存関係に追加します。
+
+```bash
+yarn add -D chromatic
+```
+
+パッケージをインストールしたら、GitHub のアカウントを使用して [Chromatic にログイン](https://www.chromatic.com/start)します。(Chromatic は一部のアクセス許可を要求します。) 「taskbox」という名前でプロジェクトを作成し、GitHub のリポジトリーと同期させます。
+
+ログインしたら `Choose from GitHub` をクリックし、リポジトリーを選択します。
+
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
+    type="video/mp4"
+  />
+</video>
+
+作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けてください。
+
+```bash
+npx chromatic --project-token=<project-token>
+```
+
+![Chromatic を実行する](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
+
+実行が完了すると、Storybook が発行されて、`https://random-uuid.chromatic.com` のようなリンクができます。このリンクをチームに共有すれば、フィードバックが得られるでしょう。
+
+![Chromatic パッケージを使用してデプロイされた Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+
+やりました！Storybook が一つのコマンドだけで発行できました。UI を実装し、フィードバックを得たいと思ったときに、毎回コマンドを手動実行するのは非効率です。理想的なのは、コードをプッシュすると自動的に最新のコンポーネントが発行されることです。Storybook を継続的にデプロイする必要があります。
+
+## Chromatic を使用した継続的デプロイメント
+
+もうプロジェクトは GitHub にホストされているので、Storybook を自動的にデプロイする継続的インテグレーション (CI) が使用できます。[GitHub アクション](https://github.com/features/actions)は GitHub に組み込まれている CI サービスで、自動発行が簡単にできます。
+
+### Storybook をデプロイするために GitHub アクションを追加する
+
+プロジェクトのルートフォルダーに `.github` というフォルダーを作成し、さらにその中に `workflows` というフォルダーを作成します。
+
+`chromatic.yml` を以下の内容で新規に作成します。`project-token` を先ほどのトークンで置き換えてください。
+
+```yaml
+# .github/workflows/chromatic.yml
+# アクションの名前
+name: 'Chromatic Deployment'
+# トリガーを起動するイベント
+on: push
+
+# このアクションが何をするのか
+jobs:
+  test:
+    # アクションを実行する OS を指定
+    runs-on: ubuntu-latest
+    # 実行するステップのリスト
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      - uses: chromaui/action@v1
+        # GitHub chromatic アクションに必要なパラメーター
+        with:
+          # プロジェクトトークンを指定する
+          # 取得方法は https://www.learnstorybook.com/intro-to-storybook/react/ja/deploy/ を参照
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
 
 <div class="aside">
-もし CI を使用しているのなら、設定に <code>storybook-static</code> フォルダーを S3 のような静的ホスティングサービスにアップロードするスクリプトを追加しましょう。
+<p>簡潔にするため <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
 </div>
 
-[Netlify にアカウントを作成](https://app.netlify.com/start)し、「New site from Git」をクリックしてください。
+### アクションをコミットする
 
-![Netlify サイト作成ボタン](/intro-to-storybook/netlify-create-site.png)
+コマンドラインで以下のコマンドを実行し、今までの内容をステージングします:
 
-次に GitHub のボタンをクリックして、Netlify を GitHub に関連付けます。これにより Netlify に GitHub のリポジトリーへのアクセスが許可されます。
+```bash
+git add .
+```
 
-そして、リストから taskbox の GitHub リポジトリーを選択します。
+さらに以下のコマンドでコミットします:
 
-![Netlify でリポジトリーに接続する](/intro-to-storybook/netlify-account-picker.png)
+```bash
+git commit -m "GitHub action setup"
+```
 
-CI でどのビルドコマンドを実行し、どのディレクトリーに静的サイトが出力されるかを Netlify に設定します。ブランチには `master` を、ビルドコマンドには `yarn build-storybook` を、ディレクトリーには `storybook-static` をそれぞれ指定します。
+最後にリモートリポジトリーにプッシュします:
 
-![Netlify の設定](/intro-to-storybook/netlify-settings.png)
+```bash
+git push origin master
+```
 
-<div class="aside">
-<p>Netlify へのデプロイが失敗する場合、<a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> フラグを <code>build-storybook</code> スクリプトに追加してください。</p>
-</div>
+一度 GitHub アクションをセットアップすれば、コードをプッシュする度に Chromatic にデプロイされます。Chromatic のプロジェクトのビルド画面で発行されたすべての Storybook を確認できます。
 
-フォームを送信すると、taskbox の `master` ブランチのコードがビルドされデプロイされます。
+![Chromatic のユーザーダッシュボード](/intro-to-storybook/chromatic-user-dashboard.png)
 
-完了すると、Netlify に確認メッセージとともに Taskbox の Storybook へのリンクが表示されます。ここまで問題がなければ、Storybook がインターネット上に[このように](https://clever-banach-415c03.netlify.com/)公開されています。
+リストの一番上にある最新のビルドをクリックしてください。
 
-![Netlify で動く Storybook](/intro-to-storybook/netlify-storybook-deploy.png)
+次に `View Storybook` ボタンをクリックすれば、最新の Storybook を見ることができます。
 
-Storybook を継続的デプロイメントするための設定が完了しました。これでリンクを使ってチームメートとストーリーを共有できます。
+![Chromatic の Storybook のリンク](/intro-to-storybook/chromatic-build-storybook-link.png)
 
-これは標準的なアプリケーション開発のプロセスにおけるレビューや、作業内容を見せるのに役立ちます 💅
+<!--
+これだけです。必要なのは変更をコミットしてプッシュするだけです。Storybook のデプロイを自動化することに成功しました。
+ -->
+
+このリンクをチームメンバーに共有しましょう。これは標準的な開発プロセスや、単に作業を公開するのに便利です 💅
