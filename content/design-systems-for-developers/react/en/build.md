@@ -77,6 +77,7 @@ export const GlobalStyle = createGlobalStyle`
 To use the `GlobalStyle` “component” in Storybook, we can make use of a decorator (a component wrapper). In an app we’d place that component in the top-level app layout, but in Storybook we wrap all stories in it using the preview config file `.storybook/preview.js`
 
 ```javascript
+// .storybook/preview.js
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
@@ -116,6 +117,8 @@ The [actions addon](https://github.com/storybookjs/storybook/tree/next/addons/ac
 Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. We have a story that passes an action to that wrapper:
 
 ```javascript
+// src/Button.js
+
 import React from 'react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
@@ -145,6 +148,8 @@ yarn add --dev  @storybook/addon-storysource
 Add the addon in `.storybook/main.js`:
 
 ```javascript
+//.storybook/main.js
+
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -173,6 +178,8 @@ yarn add --dev @storybook/addon-knobs
 Add the addon in `.storybook/main.js`:
 
 ```javascript
+//.storybook/main.js
+
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -188,6 +195,8 @@ module.exports = {
 Add a story that uses knobs in `src/Avatar.stories.js`:
 
 ```javascript
+//src/Avatar.stories.js
+
 import React from 'react';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 

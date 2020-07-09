@@ -136,6 +136,8 @@ Visually, it isn’t possible to see if the `href` attribute is there and points
 Let’s add a unit test for our `Link` component. create-react-app has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
 
 ```javascript
+//src/Link.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from './Link';
@@ -187,9 +189,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<h4>image should be equal to intro to storybook. Below is just for baseline</h4>
-
-![Successful circle build](/design-systems-for-developers/circleci-successful-build.png)
+![Successful circle build](/design-systems-for-developers/gh-action-with-test-successful-build.png)
 
 <div class="aside"> Note: Watch out for too many unit tests which can make updates cumbersome. We recommend unit testing design systems in moderation.</div>
 
@@ -213,9 +213,10 @@ yarn add --dev @storybook/addon-a11y
 Add the addon in `.storybook/main.js`:
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
-  // automatically import all files ending in *.stories.js|mdx
-  stories: ['../src/**/*.stories.(js|mdx)'],
+  stories: ['../src/**/*.stories.js']
   addons: [
     '@storybook/preset-create-react-app',
     '@storybook/addon-actions',
@@ -230,6 +231,8 @@ module.exports = {
 And add the `withA11y` decorator to `.storybook/preview.js`:
 
 ```javascript
+//.storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';

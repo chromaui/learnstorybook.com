@@ -71,7 +71,7 @@ To build the package, we’ll add a script to `package.json` that builds our sou
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist",
       ...
-  }
+  },
   "babel": {
     "presets": [
       "react-app"
@@ -84,7 +84,7 @@ We can now run `yarn build` to build our code into the `dist` directory -- we sh
 
 ```
 // ..
-storybook-static
+
 dist
 ```
 

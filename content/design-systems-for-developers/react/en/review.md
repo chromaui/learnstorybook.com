@@ -148,7 +148,7 @@ Finally push them to the remote repository with:
 git push origin master
 ```
 
-While we are at it, let’s add the `storybook-static` directory to our `.gitignore` file:
+<!-- While we are at it, let’s add the `storybook-static` directory to our `.gitignore` file:
 
 ```
 # …
@@ -159,7 +159,7 @@ And commit it.
 
 ```bash
 git commit -am “ignore storybook static”
-```
+``` -->
 
 Success! We've just improved our infrastructure.
 
@@ -176,6 +176,8 @@ git checkout -b improve-button
 First, tweak the Button component. “Make it pop” – our designers will love it.
 
 ```javascript
+//src/Button.js
+
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;
@@ -193,17 +195,17 @@ git push -u origin improve-button
 
 Navigate to GitHub.com and open up a pull request for the `improve-button` branch.
 
-![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr.png)
+![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr-actions.png)
 
-![Created a PR in GitHub](/design-systems-for-developers/github-created-pr.png)
+![Created a PR in GitHub](/design-systems-for-developers/github-created-pr-actions.png)
 
-Go to the Netlify URL in your PR checks to find your button component.
+In your list of checks, click `Storybook Publish` to view the published Storybook with the new changes.
 
 ![Button component changed in deployed site](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
 
 For each component and story that changed, copy the URL from the browser address bar and paste it wherever your team manages tasks (GitHub, Asana, Jira, etc) to help teammates quickly review the relevant stories.
 
-![GitHub PR with links to storybook](/design-systems-for-developers/github-created-pr-with-links.png)
+![GitHub PR with links to storybook](/design-systems-for-developers/github-created-pr-with-links-actions.png)
 
 Assign the issue to your teammates and watch the feedback roll in.
 
