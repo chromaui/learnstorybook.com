@@ -1,7 +1,7 @@
 ---
 title: 'UI コンポーネントをテストする'
 tocTitle: 'テスト'
-description: 'UI コンポーネントのテストについて学びます'
+description: 'UI コンポーネントのテスト手法について学びましょう'
 commit: '3e283f7'
 ---
 

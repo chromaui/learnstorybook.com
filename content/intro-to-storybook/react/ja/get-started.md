@@ -1,7 +1,7 @@
 ---
 title: 'React 向け Storybook のチュートリアル'
 tocTitle: 'はじめに'
-description: '開発環境に Storybook を構築します'
+description: '開発環境に Storybook を導入しましょう'
 commit: '8741257'
 ---
 
