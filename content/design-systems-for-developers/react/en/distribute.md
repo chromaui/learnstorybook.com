@@ -241,26 +241,58 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 }
 ```
 
-Now, when we run `yarn release`, we’ll step through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. We’ll ensure that all commits to master are published by making a change to our GitHub Action:
+<!-- Now, when we run `yarn release`, we’ll step through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. We’ll ensure that all commits to master are published by making a change to our GitHub Action: -->
 
-<h4> this needs to be vetted</h4>
-<h5>https://stackoverflow.com/questions/58139406/only-run-job-on-specific-branch-with-github-actions/62419599#62419599</h5>
+Now, when we run `yarn release`, we'll setup through all the steps we ran above (except using the auto-generated changelog) in a automated fashion. We'll ensure that all commits to master will be published.
 
+We can do this by adding a new GitHub action in a file called `push.yml`, in the same folder we've used to setup the Storybook publishing action earlier:
+
+```yml
+# .github/workflows/push.yml
+
+## name of our action
+name: Release
+
+# the event that will trigger the action
+on:
+  push:
+    branches: [master]
+
+# what the action will do
+jobs:
+  release:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # this check needs to be in place to prevent a publish loop with auto and github actions
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+          yarn release
 ```
-# ...
-- run: yarn test
-- uses: chromaui/action@v1
-  with:
-    projectToken: project-token
-    token: ${{ secrets.GITHUB_TOKEN }}
-  if: github.ref == 'refs/heads/master'
-  steps:
-  - run: yarn release
-```
 
-<h4> add Github secrets</h4>
-
-We’ll also need to add the npm token to our project’s secrets.
+Don't forget that we’ll also need to add the npm token to our project’s secrets.
 
 ![Setting secrets in GitHub](/design-systems-for-developers/gh-npm-token-added.png)
 
