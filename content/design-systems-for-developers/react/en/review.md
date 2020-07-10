@@ -47,9 +47,7 @@ First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub
 
 From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
 
-<h4> this image needs to be adjusted</h4>
-
-![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
+![Creating a project at Chromatic](/intro-to-storybook/chromatic-setup-learnstorybook.mp4)
 
 Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
 
@@ -65,7 +63,7 @@ npx chromatic --project-token=<project-token>
 
 ![Storybook built with Chromatic](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-Browse your published Storybook by clicking on the provided link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
+Browse your published Storybook by copying the provided link and paste it in a new browser window. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
@@ -158,7 +156,7 @@ And commit it.
 git commit -am “ignore storybook static”
 ``` -->
 
-Success! We've just improved our infrastructure.
+Success! We've improved our infrastructure.
 
 #### Request visual review from your team
 

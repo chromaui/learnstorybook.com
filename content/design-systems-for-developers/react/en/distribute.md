@@ -331,6 +331,7 @@ Also we can add a global decorator to a new `.storybook/preview.js` config file 
 
 ```javascript
 // .storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
