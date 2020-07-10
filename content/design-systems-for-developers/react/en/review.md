@@ -47,7 +47,14 @@ First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub
 
 From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
 
-![Creating a project at Chromatic](/intro-to-storybook/chromatic-setup-learnstorybook.mp4)
+<!-- ![Creating a project at Chromatic](/intro-to-storybook/chromatic-setup-learnstorybook.mp4) -->
+
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
+    type="video/mp4"
+  />
+</video>
 
 Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
 
