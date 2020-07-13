@@ -109,6 +109,8 @@ You should now see this:
 Storybook Docs automatically generated the prop table that shows types and default values. That’s convenient, but it doesn’t mean Avatar is dummy-proof – several props can be misused. Add comments in your proptypes to render them in the auto-generated prop table.
 
 ```javascript
+// src/components/Avatar.js
+
 Avatar.propTypes = {
   /**
     Use the loading state to indicate that the data Avatar needs is still loading.
@@ -406,7 +408,9 @@ In a previous chapter, we published Storybook online for visual review. It’s e
 }
 ```
 
-Save and commit. For instance, we could use either [Netlify](https://www.netlify.com/) or even [Vercel](https://vercel.com/) as a deployment system for our docs site on every commit.
+Save and commit.
+
+For instance either [Netlify](https://www.netlify.com/) or even [Vercel](https://vercel.com/) are good choices as a deployment system for our docs site on every commit. But it's up to you how you want to deploy them.
 
 <!--
 Create a second Netlify integration to run the docs build script:

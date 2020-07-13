@@ -292,11 +292,11 @@ jobs:
           yarn release
 ```
 
-Don't forget that we’ll also need to add the npm token to our project’s secrets.
+Don't forget to to add the npm token to the project’s secrets.
 
 ![Setting secrets in GitHub](/design-systems-for-developers/gh-npm-token-added.png)
 
-<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code any sensitive information.</p></div>
 
 Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
 
@@ -382,7 +382,7 @@ addDecorator(story => (
 
 You’ll now be able to browse the design system components and docs while developing the example app. Showcasing the design system during feature development increases the likelihood that developers will reuse existing components instead of wasting time inventing their own.
 
-Alternatively, you can browse your design system’s Storybook online if you deployed it to a web host earlier (see chapter 4).
+Alternatively, you can browse your design system’s Storybook online if you deployed it to Chromatic earlier (see chapter 4).
 
 We’ll use the Avatar component from our design system in the example app’s UserItem component. UserItem should render information about a user including a name and profile photo.
 
@@ -391,12 +391,16 @@ Navigate to the UserItem.js component in your editor. Also, find UserItem in the
 Import the Avatar component.
 
 ```javascript
+// src/components/UserItem.js
+
 import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 We want to render the Avatar beside the username.
 
 ```javascript
+//src/components/UserItem.js
+
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar } from 'learnstorybook-design-system';

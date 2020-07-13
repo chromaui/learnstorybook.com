@@ -37,7 +37,9 @@ Visual tests capture an image of every UI component in a consistent browser envi
 
 ![Visual test components](/design-systems-for-developers/component-visual-testing.gif)
 
-If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions. We’ll demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
+If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions.
+
+In the <a href="/design-systems-for-developers/react/en/review/#publish-storybook"> previous chapter</a> we've learned how to publish our Storybook and get feedback. We'll expand on what we've learned and demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
 
 <!-- First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
 
@@ -61,63 +63,28 @@ npx chromatic --project-token=<project-token>
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 -->
-<h4> logically this would be better suited for a pr ????</h4>
 
-Chromatic captured a baseline image of every story! Subsequent test runs will capture new images and compare them against these baselines. See how that works by tweaking a UI component and saving it. Go to the global styles (`src/shared/styles.js`) and increase the font-size.
+When the pull request was created, asides from publishing Storybook, Chromatic also captured a set of images for the changes that we made!
 
-```javascript
-// …
-export const typography = {
-  // ...
-  size: {
-    s1: '13',
-    // ...
-  },
-};
-// ...
-```
+![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 
-Run the test command again.
+Click the "🟡 UI Tests" check to review them.
 
-```bash
-npx chromatic --project-token=<project-token>
-```
+![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
 Yikes! That small tweak resulted in a flood of UI changes.
 
-![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build.png)
+<!-- ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build.png) -->
 
-Visual testing helps identify UI changes in Storybook. Review the changes to confirm whether they’re intentional (improvements) or unintentional (bugs). If you’re fond of the new font-size, go ahead and accept the changes and commit to git. Or perhaps the changes are too ostentatious, go ahead and undo them.
+Review them to confirm whether they’re intentional (improvements) or unintentional (bugs).
 
-<!--
-Let’s add visual testing to the continuous integration job. Open `.github/workflows/chromatic.yml` and add the test command.
+![Reviewing changes in Chromatic](/design-systems-for-developers/review-changes-pr.png)
 
-```yaml
-# .github/workflows/chromatic.yml
-# name of our action
-name: 'Chromatic Deployment'
-# the event that will trigger the action
-on: push
+If you’re fond of the new font-size, go ahead and accept the changes and commit to git.
 
-# what the action will do
-jobs:
-  test:
-    # the operating system it will run on
-    runs-on: ubuntu-latest
-    # the list of steps that the action will go through
-    steps:
-      - uses: actions/checkout@v1
-      - run: yarn
-      - run: yarn test
-      - uses: chromaui/action@v1
-        with:
-          projectToken: project-token
-          token: ${{ secrets.GITHUB_TOKEN }}
-```
+![Review finished in Chromatic](/design-systems-for-developers/chromatic-success-review.png)
 
-<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
-
-Save and `git commit`. Congratulations you just set up visual testing in CI! -->
+Or perhaps they are too ostentatious, go ahead and undo them.
 
 ## Unit test functionality
 

@@ -35,7 +35,8 @@ When living UI components are accessible via a URL, stakeholders can confirm UI 
 
 > "Deploying Storybook each PR makes visual review easier and helps product owners think in components." –Norbert de Langen, Storybook core maintainer
 
-### Publish Storybook
+<h3 id="publish-storybook" name="publish-storybook"> Publish Storybook</h3>
+<!-- ### Publish Storybook -->
 
 Build the visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
 
@@ -46,8 +47,6 @@ First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
 From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
-
-<!-- ![Creating a project at Chromatic](/intro-to-storybook/chromatic-setup-learnstorybook.mp4) -->
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -62,7 +61,7 @@ Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm
 yarn add --dev chromatic
 ```
 
-Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines (you'll need to use the project code that Chromatic supplies on the website)
+Once it's installed, issue the following to build and deploy your Storybook (you'll need to use the project code that Chromatic supplies on the website):
 
 ```bash
 npx chromatic --project-token=<project-token>
@@ -73,27 +72,6 @@ npx chromatic --project-token=<project-token>
 Browse your published Storybook by copying the provided link and paste it in a new browser window. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
-
-<!--
-![Choosing GitHub on Netlify](/design-systems-for-developers/netlify-choose-provider.png)
-
-Now find your design system’s GitHub repo that we created in the last chapter.
-
-![Choosing our repository on Netlify](/design-systems-for-developers/netlify-choose-repository.png)
-
-Enter the `storybook-build` command for Netlify to run whenever you commit.
-
-![Setting up our first build on Netlify](/design-systems-for-developers/netlify-setup-build.png)
-
-All going well, you should see a successful build in Netlify:
-
-![Succeeded running our first build in Netlify](/design-systems-for-developers/netlify-deployed.png)
-
-Browse your published Storybook by clicking on the link. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
-
-![Viewing our first build in Netlify](/design-systems-for-developers/netlify-deployed-site.png)
-
-Netlify runs a build command on every commit that deploys your Storybook. You’ll find a link to it in GitHub’s PR checks (we'll see that below). -->
 
 Congratulations! Now that you set up the infrastructure to publish Storybook, let's improve it with continuous integration.
 
@@ -132,36 +110,23 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-Add the changes with:
+Add the change with:
 
 ```bash
 git add .
 ```
 
-Commit them:
+Commit it:
 
 ```bash
 git commit -m "Storybook deployment with GitHub action"
 ```
 
-Finally push them to the remote repository with:
+Finally push it to the remote repository with:
 
 ```bash
 git push origin master
 ```
-
-<!-- While we are at it, let’s add the `storybook-static` directory to our `.gitignore` file:
-
-```
-# …
-storybook-static
-```
-
-And commit it.
-
-```bash
-git commit -am “ignore storybook static”
-``` -->
 
 Success! We've improved our infrastructure.
 

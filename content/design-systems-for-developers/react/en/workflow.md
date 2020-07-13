@@ -35,6 +35,8 @@ Storybook is setup to automatically detect files ending in `\*.stories.js` and s
 Nice! Now let’s articulate each UI state supported by AvatarList. At a glance, it’s clear that AvatarList supports some of Avatar’s properties like `small` and `loading`.
 
 ```javascript
+// src/AvatarList.stories.js
+
 export const smallSize = () => <AvatarList users={users.slice(0, 2)} size="small" />;
 export const loading = () => <AvatarList loading />;
 ```
@@ -44,6 +46,8 @@ export const loading = () => <AvatarList loading />;
 Given that it’s a list, it should show many avatars. Let’s add stories that showcase what happens with numerous list items and what happens with few list items.
 
 ```javascript
+// src/AvatarList.stories.js
+
 export const ellipsized = () => <AvatarList users={users} />;
 export const bigUserCount = () => <AvatarList users={users} userCount={100} />;
 export const empty = () => <AvatarList users={[]} />;
@@ -66,6 +70,8 @@ Thanks to Storybook Docs, we get customizable documentation with minimal effort.
 Minimum viable docs! Let’s make AvatarList a bit more human by supplying additional context on how to use it.
 
 ```javascript
+// src/AvatarList.stories.js
+
 /**
  * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
@@ -75,6 +81,8 @@ export function AvatarList({ loading, users, userCount, size, ...props }) {
 Sprinkle in some additional details about the supported props.
 
 ```javascript
+// src/AvatarList.stories.js
+
 AvatarList.propTypes = {
   /**
    * Are we loading avatar data from the network?
@@ -113,7 +121,7 @@ Commit the changes and push to GitHub.
 git commit -am “Improved AvatarList docs”
 ```
 
-<h4>Create a Pull Request</h4>
+#### Create a Pull Request
 
 Let’s push our `AvatarList` branch to GitHub and create a pull request:
 
@@ -131,9 +139,7 @@ At this point, AvatarList is a candidate for design system inclusion. Stakeholde
 
 The design system’s Storybook is automatically published each pull request to make review dead simple. Scroll down to the PR checks to find a link to the deployed Storybook.
 
-<h4> image needs to match intro to storybook </h4>
-
-![PR check for deployed PR](/design-systems-for-developers/github-pr-checks-deployed.png)
+![PR check for deployed PR](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
 Find the AvatarList in the Storybook online. It should look identical to your local Storybook.
 
@@ -149,7 +155,7 @@ Reaching consensus with numerous teams often feels an exercise in futility. Folk
 
 Our test suite runs in the background every commit. AvatarList is a simple presentational component so unit tests aren’t necessary. But if we take a look at the PR check, our visual testing tool Chromatic has already detected changes that need to be reviewed.
 
-![Chromatic changes on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes.png)
+![Chromatic changes on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
 Since AvatarList is new there aren’t visual tests for it yet. We’ll need to add baselines for each story. Accept the “new stories” in Chromatic to expand visual test coverage.
 
@@ -163,7 +169,7 @@ Once you’re done, the build will pass in Chromatic.
 
 Which, in turn, updates the PR check in GitHub.
 
-![Chromatic changes accepted on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes-accepted.png)
+![Chromatic changes accepted on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes-accepted.png)
 
 The tests were successfully updated. In the future, regressions will have a tough time sneaking into the design system.
 
