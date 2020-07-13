@@ -39,7 +39,7 @@ Visual tests capture an image of every UI component in a consistent browser envi
 
 If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions.
 
-In the <a href="/design-systems-for-developers/react/en/review/#publish-storybook"> previous chapter</a> we've learned how to publish our Storybook and get feedback. We'll expand on what we've learned and demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
+In the <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook"> previous chapter</a> we've learned how to publish our Storybook and get feedback. We'll expand on what we've learned and demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
 
 <!-- First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
 
@@ -64,7 +64,7 @@ npx chromatic --project-token=<project-token>
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 -->
 
-When the pull request was created, asides from publishing Storybook, Chromatic also captured a set of images for the changes that we made!
+When the pull request was created, Chromatic published Storybook then captured a set of images for the changes that we made!
 
 ![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 

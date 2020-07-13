@@ -382,7 +382,7 @@ addDecorator(story => (
 
 You’ll now be able to browse the design system components and docs while developing the example app. Showcasing the design system during feature development increases the likelihood that developers will reuse existing components instead of wasting time inventing their own.
 
-Alternatively, you can browse your design system’s Storybook online if you deployed it to Chromatic earlier (see chapter 4).
+Alternatively, you can browse your design system’s Storybook online if you deployed it to <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">Chromatic </a> earlier (see chapter 4).
 
 We’ll use the Avatar component from our design system in the example app’s UserItem component. UserItem should render information about a user including a name and profile photo.
 

@@ -410,7 +410,7 @@ In a previous chapter, we published Storybook online for visual review. It’s e
 
 Save and commit.
 
-For instance either [Netlify](https://www.netlify.com/) or even [Vercel](https://vercel.com/) are good choices as a deployment system for our docs site on every commit. But it's up to you how you want to deploy them.
+Running `build-storybook-docs` in your command line or continuous integration tool will output a static site in the "docs" configuration. Set up a static site deployment tool [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com/) to deploy the docs site on every commit.
 
 <!--
 Create a second Netlify integration to run the docs build script:

@@ -122,13 +122,13 @@ Commit it:
 git commit -m "Storybook deployment with GitHub action"
 ```
 
-Finally push it to the remote repository with:
+Finally, push it to the remote repository with:
 
 ```bash
 git push origin master
 ```
 
-Success! We've improved our infrastructure.
+Success! We improved our infrastructure.
 
 #### Request visual review from your team
 
