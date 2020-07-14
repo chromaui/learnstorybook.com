@@ -50,7 +50,7 @@ From there choose your design system repo. Behind the scenes, this will sync acc
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
-    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
+    src="/design-systems-for-developers/chromatic-setup-learnstorybook-design-system.mp4"
     type="video/mp4"
   />
 </video>
@@ -170,7 +170,7 @@ Add some descriptive text.
 
 In your list of checks, click `Storybook Publish` to view the published Storybook with the new changes.
 
-![Button component changed in deployed site](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
+![Button component changed in deployed site](/design-systems-for-developers/chromatic-deployed-site-with-changed-button.png)
 
 For each component and story that changed, copy the URL from the browser address bar and paste it wherever your team manages tasks (GitHub, Asana, Jira, etc) to help teammates quickly review the relevant stories.
 

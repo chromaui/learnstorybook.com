@@ -78,13 +78,13 @@ Yikes! That small tweak resulted in a flood of UI changes.
 
 Review them to confirm whether they’re intentional (improvements) or unintentional (bugs).
 
-![Reviewing changes in Chromatic](/design-systems-for-developers/review-changes-pr.png)
+![Reviewing changes in Chromatic](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
-If you’re fond of the new font-size, go ahead and accept the changes and commit to git.
+If you’re fond of the new styling, go ahead and accept the changes and commit to git.
 
 ![Review finished in Chromatic](/design-systems-for-developers/chromatic-success-review.png)
 
-Or perhaps they are too ostentatious, go ahead and undo them.
+Or perhaps it's too ostentatious, go ahead and undo the changes.
 
 ## Unit test functionality
 
