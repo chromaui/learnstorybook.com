@@ -1,6 +1,6 @@
 ---
-title: 'Creando complementos'
-tocTitle: 'Creando complementos'
+title: 'Bonificación: Crear un complemento'
+tocTitle: 'Bonificación: Creando complementos'
 description: 'Aprende a construir tus propios complementos que cargarán tu desarrollo'
 ---
 
@@ -16,9 +16,9 @@ Para este ejemplo, supongamos que nuestro equipo tiene algunos recursos de dise�
 
 Tenemos nuestro objetivo, ahora definamos qué características admitirá nuestro complemento:
 
--   Mostrar el elemento de diseño en un panel
--   Imágenes de soporte, pero también urls para incrustar
--   Debe admitir múltiples recursos, en caso de que haya múltiples versiones o temas
+- Mostrar el elemento de diseño en un panel
+- Imágenes de soporte, pero también urls para incrustar
+- Debe admitir múltiples recursos, en caso de que haya múltiples versiones o temas
 
 La forma en que adjuntaremos la lista de recursos a las historias es a través de [parámetros](https://storybook.js.org/docs/configurations/options-parameter/), que es una opción de Storybook que nos permite inyectar parámetros personalizados para nuestras historias. La forma de usarlo es bastante similar a cómo usamos un decorador en capítulos anteriores.
 
@@ -39,7 +39,7 @@ export default {
 
 ## Configuración
 
-Hemos esbozado lo que hará nuestro complemento, es hora de configurar nuestro entorno de desarrollo local. 
+Hemos esbozado lo que hará nuestro complemento, es hora de configurar nuestro entorno de desarrollo local.
 
 Comenzaremos agregando un paquete adicional a nuestro proyecto. Más específicamente `@babel/preset-react`, este paquete nos permitirá usar el código React dentro de nuestra aplicación Svelte sin ningún problema.
 
@@ -104,7 +104,6 @@ Este es un código de un boilerplate típico para comenzar y repasar lo que est�
 - Agregue un nuevo elemento de interfaz de usuario para nuestro complemento con algunas opciones (un título que definirá nuestro complemento y el tipo de elemento utilizado) y renderícelo con algo de texto por ahora.
 
 Comenzando Storybook en este punto, aún no podremos ver el complemento. Como hicimos anteriormente con el complemento Knobs, necesitamos registrar el nuestro en el archivo `.storybook/main.js`. Simplemente agregue lo siguiente a la lista de `complementos` ya existente:
-
 
 ```js
 // .storybook/main.js
@@ -198,7 +197,7 @@ Tenga en cuenta que estamos usando el [useParameter](https://storybook.js.org/do
 
 Hemos conectado todas las piezas necesarias. Pero, ¿cómo podemos ver si realmente funciona y muestra algo?
 
-Para hacerlo, haremos un pequeño cambio en el archivo `task.stories.js` y agregaremos la opción[parameters](<https://storybook.js.org/docs/configurations/options-parameter/#per-story-options>).
+Para hacerlo, haremos un pequeño cambio en el archivo `task.stories.js` y agregaremos la opción[parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options).
 
 ```javascript
 // src/components/task.stories.js

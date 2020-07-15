@@ -1,6 +1,6 @@
 ---
-title: 'Maken van addons'
-tocTitle: 'Maken van addons'
+title: 'Bonus: maak een addons'
+tocTitle: 'Bonus: Maken van addons'
 description: 'Leer hoe je je eigen add-ons kunt bouwen die je ontwikkeling boosten'
 commit: 'bebba5d'
 ---

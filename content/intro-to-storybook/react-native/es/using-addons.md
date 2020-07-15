@@ -37,7 +37,6 @@ yarn add -D @storybook/addon-knobs @storybook/addon-ondevice-knobs
 Registra Knobs en tu archivo `storybook/addons.js`.
 
 ```javascript
-
 // storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
@@ -47,7 +46,6 @@ import '@storybook/addon-links/register';
 Y tambien en `storybook/rn-addons.js`.
 
 ```javascript
-
 // storybook/rn-addons.js
 import '@storybook/addon-ondevice-actions/register';
 import '@storybook/addon-ondevice-knobs/register';
@@ -68,7 +66,6 @@ Usemos el tipo de knob de objeto en el componente `Task`.
 Primero, importe el decorador `withKnobs` y el tipo de knob `object` a `Task.stories.js`:
 
 ```javascript
-
 // components/Task.stories.js
 import * as React from 'react';
 import { storiesOf } from '@storybook/react';
@@ -89,7 +86,6 @@ storiesOf('Task', module)
 Por último, integre el tipo de knob `object` dentro de la historia "predeterminada":
 
 ```javascript
-
 // components/Task.stories.js
 storiesOf('Task', module)
   .addDecorator(withKnobs)
@@ -115,7 +111,6 @@ Además, con un fácil acceso para editar los datos pasados ​​a un component
 ¡Gracias a poder probar rápidamente diferentes entradas a un componente, podemos encontrar y solucionar estos problemas con relativa facilidad! Arreglemos el problema de desbordamiento agregando un estilo a `Task.js`:
 
 ```javascript
-
 // components/Task.js
 // This is the input for our task title. It was changed to a simple text contrary to textinput,
 // to illustrate how to see what's intended
@@ -139,7 +134,6 @@ Por supuesto, siempre podemos reproducir este problema ingresando la misma entra
 Agreguemos una historia para el caso de texto largo en `Task.stories.js`:
 
 ```javascript
-
 // components/Task.stories.js
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
@@ -158,6 +152,9 @@ Ahora que hemos agregado la historia, podemos reproducir este caso extremo con f
 
 ¡No olvides fusionar tus cambios con git!
 
-## Compartir complementos con el equipo
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
+
+<!-- ## Compartir complementos con el equipo
 
 Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar Storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!
+ -->

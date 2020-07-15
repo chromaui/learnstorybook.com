@@ -1,6 +1,6 @@
 ---
-title: 'Creating addons'
-tocTitle: 'Creating addons'
+title: 'Bonus: Create an addon'
+tocTitle: 'Bonus: Creating addons'
 description: 'Learn how to build your own addons that will super charge your development'
 ---
 
