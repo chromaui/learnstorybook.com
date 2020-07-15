@@ -243,7 +243,7 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 
 Now, when we run `yarn release`, we'll setup through all the steps we ran above (except using the auto-generated changelog) in a automated fashion. We'll ensure that all commits to master will be published.
 
-We can do this by adding a new GitHub action in a file called `push.yml`, in the same folder we've used to setup the Storybook publishing action earlier:
+We can do this by adding a new GitHub Action in a file called `push.yml`, in the same folder we've used to setup the Storybook publishing action earlier:
 
 ```yml
 # .github/workflows/push.yml

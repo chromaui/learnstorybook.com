@@ -39,31 +39,27 @@ Visual tests capture an image of every UI component in a consistent browser envi
 
 If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions.
 
-In the <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook"> previous chapter</a> we've learned how to publish our Storybook and get feedback. We'll expand on what we've learned and demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
+In the <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">previous chapter</a> we learned how to publish Storybook using [Chromatic](https://www.chromatic.com/). We added a bold red border around each `Button` component and then requested feedback from teammates.
 
-When the pull request was created, Chromatic published Storybook then captured a set of images for the changes that we made!
+![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
+
+Now let's see how visual testing works using Chromatic's built in [testing tools](https://www.chromatic.com/features/test). When the pull request was created, Chromatic captured images for our changes and compared them to previous versions of the same components. 3 changes were found:
 
 ![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 
-Click the "🟡 UI Tests" check to review them.
-
-<div class="aside">TODO: Confirm with Dom if image is correct</div>
+Click the **🟡UI Tests** check to review them.
 
 ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
-Yikes! That small tweak resulted in a flood of UI changes.
-
-Review them to confirm whether they’re intentional (improvements) or unintentional (bugs).
+Review them to confirm whether they’re intentional (improvements) or unintentional (bugs). If you accept the changes, the test baselines will be updated. That means subsequent commits will be compared to the new baselines to detect bugs.
 
 ![Reviewing changes in Chromatic](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
-If you’re fond of the new styling, go ahead and accept the changes and commit to git.
+In the last chapter, our teammate did not want a red border around the `Button`'s for some reason. Deny the changes to indicate that they need to be undone.
 
-<div class="aside">TODO: confirm with Dom if image is correct </div>
+![Review deny in Chromatic](/design-systems-for-developers/chromatic-review-deny.png)
 
-![Review finished in Chromatic](/design-systems-for-developers/chromatic-success-review.png)
-
-Or perhaps it's too ostentatious, go ahead and undo the changes.
+Undo the changes and commit again to pass your visual tests again.
 
 ## Unit test functionality
 

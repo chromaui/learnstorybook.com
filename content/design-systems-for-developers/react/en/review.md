@@ -35,7 +35,7 @@ When living UI components are accessible via a URL, stakeholders can confirm UI 
 
 > "Deploying Storybook each PR makes visual review easier and helps product owners think in components." –Norbert de Langen, Storybook core maintainer
 
-<h3 id="publish-storybook" name="publish-storybook"> Publish Storybook</h3>
+## Publish Storybook
 
 Build the visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
 
@@ -66,15 +66,19 @@ Once it's installed, run the the following command to build and deploy your Stor
 npx chromatic --project-token=<project-token>
 ```
 
-![Storybook built with Chromatic](/design-systems-for-developers/chromatic-manual-storybook-console-log.png)
+![Chromatic in the command line](/design-systems-for-developers/chromatic-manual-storybook-console-log.png)
 
-Browse your published Storybook by copying the provided link and paste it in a new browser window. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
+Browse your published Storybook by copying the provided link and paste it in a new browser window. You’ll find that your local Storybook development environment is mirrored online.
+
+![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook.png)
+
+This makes it easy for your team to review the real rendered UI components just as you see them locally. And here's the confirmation you'll see in Chromatic.
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
 Congratulations! Now that you set up the infrastructure to publish Storybook, let's improve it with continuous integration.
 
-## Continuous integration
+### Continuous integration
 
 Continuous integration is the defacto way to maintain modern web apps. It allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
 
@@ -129,7 +133,7 @@ git push origin master
 
 Success! We improved our infrastructure.
 
-#### Request visual review from your team
+## Request visual review from your team
 
 Every time a pull request contains UI changes, it’s useful to initiate a visual review process with stakeholders to reach a consensus on what’s being shipped to the user. That way there are no unwanted surprises or expensive rework.
 
@@ -159,15 +163,11 @@ git commit -am “make Button pop”
 git push -u origin improve-button
 ```
 
-Navigate to GitHub.com and open up a pull request for the `improve-button` branch.
-
-![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr-actions.png)
-
-Add some descriptive text.
+Navigate to GitHub.com and open a pull request for the `improve-button` branch. Once opened, the CI job to publish Storybook will run.
 
 ![Created a PR in GitHub](/design-systems-for-developers/github-created-pr-actions.png)
 
-In your list of checks, click `Storybook Publish` to view the published Storybook with the new changes.
+In your list of PR checks at the bottom of the page, click **Storybook Publish** to view the published Storybook with the new changes.
 
 ![Button component changed in deployed site](/design-systems-for-developers/chromatic-deployed-site-with-changed-button.png)
 
@@ -177,7 +177,7 @@ For each component and story that changed, copy the URL from the browser address
 
 Assign the issue to your teammates and watch the feedback roll in.
 
-![Why?!](/design-systems-for-developers/visual-review-feedback-github.gif)
+![Why?!](/design-systems-for-developers/github-visual-review-feedback.gif)
 
 In software development, most defects stem from miscommunication and not technology. Visual review helps teams gather continuous feedback during development to ship design systems faster.
 
