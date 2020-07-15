@@ -41,29 +41,6 @@ If you’re building a modern UI, visual testing saves your frontend team from t
 
 In the <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook"> previous chapter</a> we've learned how to publish our Storybook and get feedback. We'll expand on what we've learned and demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
 
-<!-- First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
-
-![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
-
-From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
-
-![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
-
-Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
-
-```bash
-yarn add --dev chromatic
-```
-
-Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines (you'll need to use the app code that Chromatic supplies on the website)
-
-```bash
-npx chromatic --project-token=<project-token>
-```
-
-![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
--->
-
 When the pull request was created, Chromatic published Storybook then captured a set of images for the changes that we made!
 
 ![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
@@ -73,8 +50,6 @@ Click the "🟡 UI Tests" check to review them.
 ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
 Yikes! That small tweak resulted in a flood of UI changes.
-
-<!-- ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build.png) -->
 
 Review them to confirm whether they’re intentional (improvements) or unintentional (bugs).
 

@@ -412,15 +412,6 @@ Save and commit.
 
 Running `build-storybook-docs` in your command line or continuous integration tool will output a static site in the "docs" configuration. Set up a static site deployment tool [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com/) to deploy the docs site on every commit.
 
-<!--
-Create a second Netlify integration to run the docs build script:
-
-![alt_text](/design-systems-for-developers/Feedback-wanted55.png)
-
-Great. Every time you commit, you’ll now see two PR checks. One takes you to the published Storybook. The other takes you to the published Storybook Docs.
-
-![alt_text](/design-systems-for-developers/Feedback-wanted56.png) -->
-
 <div class="aside">As your design system grows you may encounter organization-specific requirements that warrant custom tooling or even building your own static site using tools like Gatsby or Next. It’s easy to port markdown and MDX to other solutions.</div>
 
 ## Import the design system in other apps
