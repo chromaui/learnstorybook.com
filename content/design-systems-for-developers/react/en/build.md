@@ -235,9 +235,4 @@ Now that our design system components are in Storybook, we've taken one more ste
 
 A design system, like all software, should evolve. The challenge is to ensure UI components continue to look and feel as intended as the design system grows.
 
-<!--
-In chapter 4 we’ll learn how to set up continuous integration and auto-publish the design system online for collaboration.
-Now that our design system components are in Storybook, we need to set up the automated tooling that streamlines ongoing maintenance. A design system, like all software, should evolve. The challenge is to ensure UI components continue to look and feel as intended as the design system grows.
- -->
-
 In chapter 4 we’ll learn how to set up continuous integration and auto-publish the design system online for collaboration.
