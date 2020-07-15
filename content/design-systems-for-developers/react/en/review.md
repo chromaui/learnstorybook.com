@@ -43,8 +43,6 @@ Build the visual review workflow with [Chromatic](https://www.chromatic.com/), a
 
 First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
 
-<div class="aside">TODO: Ask Dom to capture a new screenshot, to adjust the url correctly (still pointing to the old url)</div>
-
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
 From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
@@ -62,13 +60,13 @@ Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm
 yarn add --dev chromatic
 ```
 
-Once it's installed, issue the following to build and deploy your Storybook (you'll need to use the project code that Chromatic supplies on the website):
+Once it's installed, run the the following command to build and deploy your Storybook (you'll need to use the `project-token` that Chromatic supplies on the website):
 
 ```bash
 npx chromatic --project-token=<project-token>
 ```
 
-![Storybook built with Chromatic](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
+![Storybook built with Chromatic](/design-systems-for-developers/chromatic-manual-storybook-console-log.png)
 
 Browse your published Storybook by copying the provided link and paste it in a new browser window. You’ll find that your local Storybook development environment is mirrored online. This makes it easy for your team to review the real rendered UI components just as you see them locally.
 
