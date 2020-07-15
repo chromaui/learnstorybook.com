@@ -229,7 +229,7 @@ Yay! We’ve successfully published our package to npm and created a release on 
 
 (Note that although `auto` auto-generated the release notes for the first release, we've also modified them to make sense for a first version).
 
-<h4>Set up scripts to use Auto</h4>
+#### Set up scripts to use Auto
 
 Let’s set up Auto to follow the same process when we want to publish the package in the future. We’ll add the following scripts to our `package.json`:
 
@@ -241,33 +241,31 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 }
 ```
 
-Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in a automated fashion. We'll ensure that all commits to master will be published.
+Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in a automated fashion. All commits to `master` will be published.
 
-Congratulations! Now that you setup the infrastructure to publish your design system, it's time to improve it with continuous integration.
+Congratulations! You setup the infrastructure to manually publish your design system releases. Now learn how to automate releases with continuous integration.
 
-But before we proceed, some additional setup is required, we'll need a way for our token to be stored and used in a secure way. We'll use GitHub Secrets for our case.
+## Publish releases automatically
 
-#### Setup secrets
+We use GitHub Actions for continuous integration. But before proceeding, we need to securely store the GitHub and NPM tokens from earlier so that Actions can access them.
 
-In a browser window open your GitHub repository.
+#### Add your tokens to GitHub Secrets
 
-Click the ⚙️ Settings tab, followed by Secrets, you'll see the following screen:
+GitHub Secrets allow us to store sensitive information in our repository. In a browser window open your GitHub repository.
+
+Click the ⚙️ Settings tab then the Secrets link in the sidebar. You'll see the following screen:
 
 ![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
 
-Click the `New secret` button and fill in the required information, for simplicity and consistency, use `NPM_TOKEN` for name, and for value use the token obtained from npm, earlier in this chapter.
+Click the **New secret** button. Use `NPM_TOKEN` for the name and paste the token you got from npm earlier in this chapter.
 
 ![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
 
-Click the "Add secret" button to add the secret to your repository.
+When you add the npm secret to your repository, you'll be able to access it as `secrets.NPM_TOKEN`. You don't need to setup another secret for your GitHub token. All GitHub users automatically get a `secrets.GITHUB_TOKEN` associated with their account.
 
-![npm token in GitHub](/design-systems-for-developers/gh-npm-token-added.png)
+#### Automate releases with GitHub Actions
 
-Success! We've secured our token, now we can add a new GitHub Action that will publish our design system for us, each time a pull request is merged.
-
-## Automate releases with GitHub Actions
-
-Create a new file called `push.yml` in the same folder we used earlier to <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a> and add the following:
+Every time a pull request is merged we want to publish the design system automatically. Create a new file called `push.yml` in the same folder we used earlier to <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a> and add the following:
 
 ```yml
 # .github/workflows/push.yml
@@ -314,11 +312,9 @@ jobs:
           yarn release
 ```
 
-<div class="aside"><p>GitHub recently updated its security by introducing two factor authentication, with this change you probably received a notification to enable it. If you did so, you already have a unique token called <code>GITHUB_TOKEN</code> associated to your account, this token can be used in any GitHub Action to authenticate on your behalf, hence why we only covered how to secure the token obtained from npm earlier in this chapter. You can read more about secrets <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token"> here</a>.</p></div>
-
 Save and commit your changes to the remote repository.
 
-Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
+Success! Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
 
 <div class="aside">We didn’t cover all of Auto’s many features and integrations that might be useful for growing design systems. Read the docs <a href="https://github.com/intuit/auto">here</a>.</div>
 
