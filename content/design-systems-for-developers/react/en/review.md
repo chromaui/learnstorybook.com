@@ -43,6 +43,8 @@ Build the visual review workflow with [Chromatic](https://www.chromatic.com/), a
 
 First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
 
+<div class="aside">TODO: Ask Dom to capture a new screenshot, to adjust the url correctly (still pointing to the old url)</div>
+
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
 From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.

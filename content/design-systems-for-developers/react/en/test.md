@@ -47,6 +47,8 @@ When the pull request was created, Chromatic published Storybook then captured a
 
 Click the "🟡 UI Tests" check to review them.
 
+<div class="aside">TODO: Confirm with Dom if image is correct</div>
+
 ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
 Yikes! That small tweak resulted in a flood of UI changes.
@@ -56,6 +58,8 @@ Review them to confirm whether they’re intentional (improvements) or unintenti
 ![Reviewing changes in Chromatic](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
 If you’re fond of the new styling, go ahead and accept the changes and commit to git.
+
+<div class="aside">TODO: confirm with Dom if image is correct </div>
 
 ![Review finished in Chromatic](/design-systems-for-developers/chromatic-success-review.png)
 

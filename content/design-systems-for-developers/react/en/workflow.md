@@ -159,8 +159,6 @@ Our test suite runs in the background every commit. AvatarList is a simple prese
 
 Since AvatarList is new there aren’t visual tests for it yet. We’ll need to add baselines for each story. Accept the “new stories” in Chromatic to expand visual test coverage.
 
-<h4> image needs to match as well </h4>
-
 ![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
 Once you’re done, the build will pass in Chromatic.
