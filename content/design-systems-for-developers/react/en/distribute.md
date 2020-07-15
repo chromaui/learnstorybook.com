@@ -241,9 +241,33 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 }
 ```
 
-Now, when we run `yarn release`, we'll setup through all the steps we ran above (except using the auto-generated changelog) in a automated fashion. We'll ensure that all commits to master will be published.
+Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in a automated fashion. We'll ensure that all commits to master will be published.
 
-We can do this by adding a new GitHub Action in a file called `push.yml`, in the same folder we've used to setup the Storybook publishing action earlier:
+Congratulations! Now that you setup the infrastructure to publish your design system, it's time to improve it with continuous integration.
+
+But before we proceed, some additional setup is required, we'll need a way for our token to be stored and used in a secure way. We'll use GitHub Secrets for our case.
+
+#### Setup secrets
+
+In a browser window open your GitHub repository.
+
+Click the ⚙️ Settings tab, followed by Secrets, you'll see the following screen:
+
+![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
+
+Click the `New secret` button and fill in the required information, for simplicity and consistency, use `NPM_TOKEN` for name, and for value use the token obtained from npm, earlier in this chapter.
+
+![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
+
+Click the "Add secret" button to add the secret to your repository.
+
+![npm token in GitHub](/design-systems-for-developers/gh-npm-token-added.png)
+
+Success! We've secured our token, now we can add a new GitHub Action that will publish our design system for us, each time a pull request is merged.
+
+## Automate releases with GitHub Actions
+
+Create a new file called `push.yml` in the same folder we used earlier to <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a> and add the following:
 
 ```yml
 # .github/workflows/push.yml
@@ -290,11 +314,9 @@ jobs:
           yarn release
 ```
 
-Don't forget to to add the npm token to the project’s secrets.
+<div class="aside"><p>GitHub recently updated its security by introducing two factor authentication, with this change you probably received a notification to enable it. If you did so, you already have a unique token called <code>GITHUB_TOKEN</code> associated to your account, this token can be used in any GitHub Action to authenticate on your behalf, hence why we only covered how to secure the token obtained from npm earlier in this chapter. You can read more about secrets <a href="https://docs.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token"> here</a>.</p></div>
 
-![Setting secrets in GitHub](/design-systems-for-developers/gh-npm-token-added.png)
-
-<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code any sensitive information.</p></div>
+Save and commit your changes to the remote repository.
 
 Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
 
