@@ -35,7 +35,7 @@ When living UI components are accessible via a URL, stakeholders can confirm UI 
 
 > "Deploying Storybook each PR makes visual review easier and helps product owners think in components." –Norbert de Langen, Storybook core maintainer
 
-## Publish Storybook
+<h2 id="publish-storybook">Publish Storybook</h2>
 
 Build the visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
 
