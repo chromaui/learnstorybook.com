@@ -15,7 +15,7 @@
     "gatsby-plugin-styled-components": "^3.0.7",
     "gatsby-source-filesystem": "^2.0.37",
     "gatsby-transformer-remark": "^2.3.12",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "pluralize": "^8.0.0",
     "polished": "^3.4.1",
     "prismjs": "^1.13.0",
