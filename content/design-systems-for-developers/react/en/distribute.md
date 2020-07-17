@@ -241,7 +241,7 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 }
 ```
 
-Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in a automated fashion. All commits to `master` will be published.
+Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. All commits to `master` will be published.
 
 Congratulations! You setup the infrastructure to manually publish your design system releases. Now learn how to automate releases with continuous integration.
 
