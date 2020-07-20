@@ -179,6 +179,8 @@ Assign the issue to your teammates and watch the feedback roll in.
 
 ![Why?!](/design-systems-for-developers/github-visual-review-feedback.gif)
 
+<div class="aside">Chromatic also offers a complete UI Review workflow built into the product as part of its paid offering. The technique of copying Storybook links into a GitHub PR works at a smaller scale (and with any service that hosts your Storybook, not just Chromatic), but as your use increases you may consider that services as it automates the process.</div>
+
 In software development, most defects stem from miscommunication and not technology. Visual review helps teams gather continuous feedback during development to ship design systems faster.
 
 ![Visual review process](/design-systems-for-developers/visual-review-loop.jpg)
