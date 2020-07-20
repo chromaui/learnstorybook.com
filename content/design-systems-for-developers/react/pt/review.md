@@ -19,7 +19,7 @@ Os erros são um risco existêncial para os sistemas de design, como tal fazemos
 
 A integração contínua é a abordagem ideal para manutenção de aplicações web modernas. Permite que se codifiquem comportamentos tais como testes, análise e implementação á medida que se adiciona código. Vamos pedir emprestada esta técnica de forma a poupar-nos qualquer tipo de trabalho manual repetitivo.
 
-Neste caso vamos usar o CircleCI, que é gratuito para a nossa utilização modesta. Mas os mesmos princípios podem ser aplicados a quaisquer outros serviços de CI também. 
+Neste caso vamos usar o CircleCI, que é gratuito para a nossa utilização modesta. Mas os mesmos princípios podem ser aplicados a quaisquer outros serviços de CI também.
 
 Primeiro, registe-se no CircleCI se ainda não o fez. Uma vez feito o registo, irá reparar na tab com o nome "add projects", é aqui que pode configurar o projeto de sistemas de design da seguinte forma.
 
@@ -149,9 +149,9 @@ No browser, navegue para o GitHub.com e crie um pull request para o ramo `improv
 
 Abra o URL gerado pelo Netlify, que se encontra na lista de verificações do PR para visualizar o seu componente.
 
-![Componente Button alterado no site implementado](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
+![Componente Button alterado no site implementado](/design-systems-for-developers/chromatic-deployed-site-with-changed-button.png)
 
-Para cada componente e estória que foi alterada, copie o URL da barra de endereço e 
+Para cada componente e estória que foi alterada, copie o URL da barra de endereço e
 partilhe-a na plataforma utilizada pela equipa para gerir tarefas (GitHub, Asana, Jira, etc), de forma a ajudar os restantes elementos da equipa a rever as estórias que são relevantes.
 
 ![PR do GitHub com links para o storybook](/design-systems-for-developers/github-created-pr-with-links.png)

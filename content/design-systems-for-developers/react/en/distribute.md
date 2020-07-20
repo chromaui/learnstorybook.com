@@ -44,6 +44,8 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 Then, let’s create a `src/index.js` file to create a common entry point for using our design system. From this file we’ll export all our design tokens and the components:
 
 ```javascript
+//src/index.js
+
 import * as styles from './shared/styles';
 import * as global from './shared/global';
 import * as animation from './shared/animation';
@@ -71,7 +73,7 @@ To build the package, we’ll add a script to `package.json` that builds our sou
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist",
       ...
-  }
+  },
   "babel": {
     "presets": [
       "react-app"
@@ -84,7 +86,6 @@ We can now run `yarn build` to build our code into the `dist` directory -- we sh
 
 ```
 // ..
-storybook-static
 dist
 ```
 
@@ -154,7 +155,6 @@ NPM_TOKEN=<value you just got from npm>
 By adding the file to `.gitignore` we’ll be sure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package from locally (later we’ll set things up to auto publish when PRs are merged to master) they should set up their own `.env` file following this process:
 
 ```
-storybook-static
 dist
 .env
 ```
@@ -229,7 +229,7 @@ Yay! We’ve successfully published our package to npm and created a release on 
 
 (Note that although `auto` auto-generated the release notes for the first release, we've also modified them to make sense for a first version).
 
-<h4>Set up scripts to use Auto</h4>
+#### Set up scripts to use Auto
 
 Let’s set up Auto to follow the same process when we want to publish the package in the future. We’ll add the following scripts to our `package.json`:
 
@@ -241,24 +241,80 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 }
 ```
 
-Now, when we run `yarn release`, we’ll step through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. We’ll ensure that all commits to master are published by adding a command to our circle config:
+Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. All commits to `master` will be published.
 
+Congratulations! You setup the infrastructure to manually publish your design system releases. Now learn how to automate releases with continuous integration.
+
+## Publish releases automatically
+
+We use GitHub Actions for continuous integration. But before proceeding, we need to securely store the GitHub and NPM tokens from earlier so that Actions can access them.
+
+#### Add your tokens to GitHub Secrets
+
+GitHub Secrets allow us to store sensitive information in our repository. In a browser window open your GitHub repository.
+
+Click the ⚙️ Settings tab then the Secrets link in the sidebar. You'll see the following screen:
+
+![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
+
+Click the **New secret** button. Use `NPM_TOKEN` for the name and paste the token you got from npm earlier in this chapter.
+
+![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
+
+When you add the npm secret to your repository, you'll be able to access it as `secrets.NPM_TOKEN`. You don't need to setup another secret for your GitHub token. All GitHub users automatically get a `secrets.GITHUB_TOKEN` associated with their account.
+
+#### Automate releases with GitHub Actions
+
+Every time a pull request is merged we want to publish the design system automatically. Create a new file called `push.yml` in the same folder we used earlier to <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a> and add the following:
+
+```yml
+# .github/workflows/push.yml
+
+## name of our action
+name: Release
+
+# the event that will trigger the action
+on:
+  push:
+    branches: [master]
+
+# what the action will do
+jobs:
+  release:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # this check needs to be in place to prevent a publish loop with auto and github actions
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+          yarn release
 ```
-# ...
-- run: yarn test
-- run: npx chromatic --project-token=2wix88i1ziu
-- run: |
-    if [ $CIRCLE_BRANCH = "master" ]
-    then
-      yarn release
-    fi
-```
 
-We’ll also need to add an npm+GitHub token to your project’s Circle environment on the CircleCI website (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
+Save and commit your changes to the remote repository.
 
-![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
-
-Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
+Success! Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
 
 <div class="aside">We didn’t cover all of Auto’s many features and integrations that might be useful for growing design systems. Read the docs <a href="https://github.com/intuit/auto">here</a>.</div>
 
@@ -304,6 +360,8 @@ yarn add <your-username>-learnstorybook-design-system
 Now, let’s update the example app’s `.storybook/main.js` to import the design system components:
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
   stories: [
     '../src/**/*.stories.js',
@@ -320,6 +378,8 @@ module.exports = {
 Also we can add a global decorator to a new `.storybook/preview.js` config file use the global styles defined by the design system. Make the following change to the file:
 
 ```javascript
+// .storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
@@ -338,7 +398,7 @@ addDecorator(story => (
 
 You’ll now be able to browse the design system components and docs while developing the example app. Showcasing the design system during feature development increases the likelihood that developers will reuse existing components instead of wasting time inventing their own.
 
-Alternatively, you can browse your design system’s Storybook online if you deployed it to a web host earlier (see chapter 4).
+Alternatively, you can browse your design system’s Storybook online if you deployed it to <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">Chromatic </a> earlier (see chapter 4).
 
 We’ll use the Avatar component from our design system in the example app’s UserItem component. UserItem should render information about a user including a name and profile photo.
 
@@ -347,12 +407,16 @@ Navigate to the UserItem.js component in your editor. Also, find UserItem in the
 Import the Avatar component.
 
 ```javascript
+// src/components/UserItem.js
+
 import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 We want to render the Avatar beside the username.
 
 ```javascript
+//src/components/UserItem.js
+
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar } from 'learnstorybook-design-system';

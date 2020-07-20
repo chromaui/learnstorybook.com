@@ -37,87 +37,29 @@ Visual tests capture an image of every UI component in a consistent browser envi
 
 ![Visual test components](/design-systems-for-developers/component-visual-testing.gif)
 
-If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions. We’ll demo visual testing using Chromatic, an industrial-grade service by the Storybook maintainers.
+If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions.
 
-First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub account.
+In the <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">previous chapter</a> we learned how to publish Storybook using [Chromatic](https://www.chromatic.com/). We added a bold red border around each `Button` component and then requested feedback from teammates.
 
-![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
+![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
-From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
+Now let's see how visual testing works using Chromatic's built in [testing tools](https://www.chromatic.com/features/test). When the pull request was created, Chromatic captured images for our changes and compared them to previous versions of the same components. 3 changes were found:
 
-![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
+![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 
-Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
+Click the **🟡UI Tests** check to review them.
 
-```bash
-yarn add --dev chromatic
-```
+![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
-Open up your command line and navigate to the `design-system` directory. Then run your first test to establish your visual test baselines (you'll need to use the app code that Chromatic supplies on the website)
+Review them to confirm whether they’re intentional (improvements) or unintentional (bugs). If you accept the changes, the test baselines will be updated. That means subsequent commits will be compared to the new baselines to detect bugs.
 
-```bash
-npx chromatic --project-token=<project-token>
-```
+![Reviewing changes in Chromatic](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
-![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
+In the last chapter, our teammate did not want a red border around the `Button`'s for some reason. Deny the changes to indicate that they need to be undone.
 
-Chromatic captured a baseline image of every story! Subsequent test runs will capture new images and compare them against these baselines. See how that works by tweaking a UI component and saving it. Go to the global styles (`src/shared/styles.js`) and increase the font-size.
+![Review deny in Chromatic](/design-systems-for-developers/chromatic-review-deny.png)
 
-```javascript
-// …
-export const typography = {
-  // ...
-  size: {
-    s1: '13',
-    // ...
-  },
-};
-// ...
-```
-
-Run the test command again.
-
-```bash
-npx chromatic --project-token=<project-token>
-```
-
-Yikes! That small tweak resulted in a flood of UI changes.
-
-![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build.png)
-
-Visual testing helps identify UI changes in Storybook. Review the changes to confirm whether they’re intentional (improvements) or unintentional (bugs). If you’re fond of the new font-size, go ahead and accept the changes and commit to git. Or perhaps the changes are too ostentatious, go ahead and undo them.
-
-Let’s add visual testing to the continuous integration job. Open `.circleci/config.yml` and add the test command.
-
-```yaml
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:10.13
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: yarn install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: yarn test
-      - run: npx chromatic --project-token=<project-token> --exit-zero-on-changes
-```
-
-Save and `git commit`. Congratulations you just set up visual testing in CI!
+Undo the changes and commit again to pass your visual tests again.
 
 ## Unit test functionality
 
@@ -136,6 +78,8 @@ Visually, it isn’t possible to see if the `href` attribute is there and points
 Let’s add a unit test for our `Link` component. create-react-app has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
 
 ```javascript
+//src/Link.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from './Link';
@@ -164,9 +108,31 @@ We can run the above unit test as part of our `yarn test` command.
 
 ![Running a single Jest test](/design-systems-for-developers/jest-test.png)
 
-Earlier we configured our Circle config.js file to run `yarn test` on every commit. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
+Earlier we configured our GitHub Action to deploy Storybook, we can now adjust it to include testing as well. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
 
-![Successful circle build](/design-systems-for-developers/circleci-successful-build.png)
+```yaml
+# .github/workflows/chromatic.yml
+
+# ... same as before
+jobs:
+  test:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      - run: yarn test # adds the test command
+      - uses: chromaui/action@v1
+        # options required to the GitHub chromatic action
+        with:
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ (update link)
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+![Successful circle build](/design-systems-for-developers/gh-action-with-test-successful-build.png)
 
 <div class="aside"> Note: Watch out for too many unit tests which can make updates cumbersome. We recommend unit testing design systems in moderation.</div>
 
@@ -190,9 +156,10 @@ yarn add --dev @storybook/addon-a11y
 Add the addon in `.storybook/main.js`:
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
-  // automatically import all files ending in *.stories.js|mdx
-  stories: ['../src/**/*.stories.(js|mdx)'],
+  stories: ['../src/**/*.stories.js']
   addons: [
     '@storybook/preset-create-react-app',
     '@storybook/addon-actions',
@@ -207,6 +174,8 @@ module.exports = {
 And add the `withA11y` decorator to `.storybook/preview.js`:
 
 ```javascript
+//.storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
