@@ -1,18 +1,18 @@
 ---
 title: 'React를 위한 Storybook 튜토리얼'
 tocTitle: '시작하기'
-description: 'Storybook을 여러분의 개발 환경에 설치해봅시다'
+description: 'Storybook을 개발 환경에 설치해봅시다'
 commit: '8741257'
 ---
 
-Storybook은 개발 모드에서 여러분의 앱과 함께 실행됩니다. 이것은 비즈니스 로직과 컨텍스트로부터 UI 컴포넌트를 따로 분리하여 만드는 데 도움이 됩니다. 본 Storybook 문서는 React를 위한 것입니다. 그 밖의 [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) 그리고 [Svelte](/svelte/en/get-started)에 대한 문서도 있습니다.
+Storybook은 개발 모드에서 앱과 함께 실행됩니다. 이것은 비즈니스 로직과 컨텍스트로부터 UI 컴포넌트를 따로 분리하여 만드는 데 도움이 됩니다. 본 Storybook 문서는 React를 위한 것입니다. 그 밖의 [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) 그리고 [Svelte](/svelte/en/get-started)에 대한 문서도 있습니다.
 
 ![Storybook과 여러분의 앱](/intro-to-storybook/storybook-relationship.jpg)
 
 ## React Storybook 설치하기
 
-여러분의 환경에 빌드 프로세스를 설정하면서 몇 가지 단계를 거쳐야합니다. 먼저 [React App 생성하기](https://github.com/facebook/create-react-app) (CRA) 를 사용하여 빌드 시스템을 설정하고 [Storybook](https://storybook.js.org/)과 [Jest](https://facebook.github.io/jest/) 테스트를 앱에서 활성화해야 합니다.
-아래의 명령어들을 실행해봅시다.
+개발 환경에 빌드 프로세스를 설정하려면 몇 가지 단계를 거쳐야합니다. 먼저 [React App 생성하기](https://github.com/facebook/create-react-app) (CRA) 를 사용하여 빌드 시스템을 설정하고 [Storybook](https://storybook.js.org/)과 [Jest](https://facebook.github.io/jest/) 테스트를 앱에서 활성화해야 합니다.
+아래의 명령어들을 실행해주세요.
 
 ```bash
 # 애플리케이션 생성하기:
@@ -25,8 +25,8 @@ npx -p @storybook/cli sb init
 ```
 
 <div class="aside">
-이 튜토리얼에서 우리는 <code>yarn</code>을 사용하여 대부분의 명령어를 실행할 것입니다.
-만약 Yarn을 설치했지만 <code>npm</code>을 사용하는 것을 선호하신다면, 걱정 마세요. 그래도 여러분은 아무 문제 없이 튜토리얼을 진행하실 수 있습니다. 간단히 <code>--use-npm</code> 플래그를 추가하면 CRA와 Storybook이 이를 기반으로 초기 설정됩니다. 또한, 이 튜토리얼을 진행하시면서 <code>npm</code>에 맞게 조정하는 것을 잊지 마세요.
+이 튜토리얼에서는 <code>yarn</code>을 사용하여 대부분의 명령어를 실행할 것입니다.
+만약 Yarn을 설치했지만 <code>npm</code>을 사용하는 것을 선호하신다면, 걱정 마세요. 그래도 아무 문제 없이 튜토리얼을 진행하실 수 있습니다. 간단히 <code>--use-npm</code> 플래그를 추가하면 CRA와 Storybook이 이를 기반으로 초기 설정됩니다. 또한, 이 튜토리얼을 진행하시면서 <code>npm</code>에 맞게 조정하는 것을 잊지 마세요.
 </div>
 
 우리는 다양한 환경에서 애플리케이션이 올바르게 작동하는지 다음 명령어를 통해 빠르게 확인할 수 있습니다.
@@ -43,14 +43,14 @@ yarn start
 ```
 
 <div class="aside"> 
-여러분은 테스트 명령어에 <code>--watchAll</code> 플래그를 추가한 것을 발견하셨을 수 있습니다. 이것은 의도적인 것으로, 이 작은 플래그 덕분에 모든 테스트가 실행되고 애플리케이션이 정상임을 확인할 수 있습니다. 이 튜토리얼을 진행하시는 동안 다양한 테스트 시나리오를 소개해드릴 것이며, 여러분은 <code>package.json</code>의 테스트 스크립트 부분에 이 플래그를 추가하여 모든 테스트가 실행되도록 하실 수 있습니다.
+테스트 명령어에 <code>--watchAll</code> 플래그를 추가한 것을 발견하셨을 수 있습니다. 이것은 의도적인 것으로, 이 작은 플래그 덕분에 모든 테스트가 실행되고 애플리케이션이 정상임을 확인할 수 있습니다. 이 튜토리얼을 진행하시는 동안 다양한 테스트 시나리오를 소개해드릴 것이며, <code>package.json</code>의 테스트 스크립트 부분에 이 플래그를 추가하여 모든 테스트가 실행되도록 하실 수 있습니다.
 </div>
 
 프론트엔드 앱의 3가지 모드 : 자동화된 테스트 (Jest), 컴포넌트 개발 (Storybook), 그리고 앱 그 자체.
 
 ![3가지 모드](/intro-to-storybook/app-three-modalities.png)
 
-앱의 어느 부분을 작업하고 계신가에 따라, 여러분은 하나 또는 그 이상을 동시에 실행하시기를 원하실 수 있습니다. 저희는 단일 UI 컴포넌트를 만드는 데 초점을 두고 있기 때문에, Storybook을 계속 실행해두도록 하겠습니다.
+앱의 어느 부분을 작업하고 계신가에 따라, 하나 또는 그 이상을 동시에 실행하기를 원하실 수 있습니다. 저희는 단일 UI 컴포넌트를 만드는 데 초점을 두고 있기 때문에, Storybook을 계속 실행해두도록 하겠습니다.
 
 ## CSS를 재사용하기
 

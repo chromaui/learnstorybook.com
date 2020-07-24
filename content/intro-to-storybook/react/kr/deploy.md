@@ -58,7 +58,7 @@ yarn add -D chromatic
 
 패키지가 설치되면 GitHub 계정으로 [Chromatic에 로그인](https://www.chromatic.com/start) 해주세요(Chromatic은 가벼운 권한 요청만 할 것입니다). 그런 다음 "taskbox"라는 이름의 새로운 프로젝트를 만들고 앞서 설정한 GithHub 저장소와 동기화합니다.
 
-`Choose GitHub repo`를 클릭하고 여러분의 저장소를 선택해주세요.
+`Choose GitHub repo`를 클릭하고 저장소를 선택해주세요.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -75,7 +75,7 @@ npx chromatic --project-token=<project-token>
 
 ![Chromatic 실행](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-완료되면 여러분은 배포된 Storybook의 `https://random-uuid.chromatic.com`링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
+완료되면 배포된 Storybook의 `https://random-uuid.chromatic.com`링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
 
 ![chromatic 패키지와 함께 배포된 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 

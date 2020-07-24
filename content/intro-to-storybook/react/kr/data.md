@@ -165,5 +165,5 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
 </video>
 
 <div class="aside">
-이 단계에서 스냅샷 테스트가 실패할 것이며, 여러분은 <code>-u</code> 플래그와 함께 테스트 스크립트를 실행하여 기존의 스냅샷을 업데이트하셔야 합니다. 또한 앱이 점진적으로 성장함에 따라 <a href="/react/kr/get-started/">시작하기</a> 부분에서 언급된 것처럼 <code> --watchAll</code> 플래그로 테스트를 시작하기에 좋은 장소일 수도 있습니다.
+이 단계에서 스냅샷 테스트가 실패할 것이며, <code>-u</code> 플래그와 함께 테스트 스크립트를 실행하여 기존의 스냅샷을 업데이트하셔야 합니다. 또한 앱이 점진적으로 성장함에 따라 <a href="/react/kr/get-started/">시작하기</a> 부분에서 언급된 것처럼 <code> --watchAll</code> 플래그로 테스트를 시작하기에 좋은 장소일 수도 있습니다.
 </div>

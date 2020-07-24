@@ -5,7 +5,7 @@ description: '애드온(addons)을 적용하고 사용하는 방법을 잘 알�
 commit: 'b3bca4a'
 ---
 
-Storybook은 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 시스템을 통해 팀의 모든 구성원의 개발 경험을 향상할 수 있습니다. 만약 본 튜토리얼을 계속 따라 하셨다면, 저희는 지금까지 여러 애드온를 참조해왔으며, 여러분은 이미 [테스팅 챕터](/react/kr/test/)에서 하나를 구현해보셨을 것입니다.
+Storybook은 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 시스템을 통해 팀의 모든 구성원의 개발 경험을 향상할 수 있습니다. 만약 본 튜토리얼을 계속 따라 하셨다면, 저희는 지금까지 여러 애드온를 참조해왔으며, 이미 [테스팅 챕터](/react/kr/test/)에서 하나를 구현해보셨을 것입니다.
 
 <div class="aside">
 <strong>사용 가능한 애드온 목록을 찾고 계신가요?</strong>
@@ -103,7 +103,7 @@ export const Default = () => {
 이제 하단 창의 "Action Logger" 탭 옆에 새로운 "Knobs" 탭이 나타납니다.
 
 [여기](https://github.com/storybooks/storybook/tree/master/addons/knobs#object)에 설명된 것처럼, `object` knob는 라벨과 "default" 객체를 매개변수로 받아들입니다.
-라벨은 애드온 패널의 왼쪽에 표시됩니다. 여러분이 전달한 객체는 편집 가능한 JSON blob으로 표시됩니다. 유효한 JSON 객체를 보내는 한, 컴포넌트가 객체에 전달된 데이터를 바탕으로 조정될 것입니다!
+라벨은 애드온 패널의 왼쪽에 표시됩니다. 전달한 객체는 편집 가능한 JSON blob으로 표시됩니다. 유효한 JSON 객체를 보내는 한, 컴포넌트가 객체에 전달된 데이터를 바탕으로 조정될 것입니다!
 
 ## Storybook의 범위를 넓혀주는 Addons
 
@@ -135,7 +135,7 @@ export const Default = () => {
 
 ## 회귀를 피하기 위해 새로운 Story 추가하기
 
-물론 우리는 knobs에 같은 입력값을 넣음으로써 문제를 항상 재현할 수 있지만, 이러한 입력값에 대응하는 story를 쓰는 것이 더 좋습니다. 이렇게 하면 회귀 테스트가 증가하고 여러분의 팀에게 컴포넌트의 한계들을 분명히 설명할 수 있을 것입니다.
+물론 우리는 knobs에 같은 입력값을 넣음으로써 문제를 항상 재현할 수 있지만, 이러한 입력값에 대응하는 story를 쓰는 것이 더 좋습니다. 이렇게 하면 회귀 테스트가 증가하고 팀에게 컴포넌트의 한계들을 분명히 설명할 수 있을 것입니다.
 함께 긴 문자열이 관한 사례를 `Task.stories.js` story에 추가해봅시다.
 
 ```javascript
@@ -155,6 +155,6 @@ export const LongTitle = () => (
 
 ### 변경 사항을 병합하기
 
-여러분의 변경 사항들을 git에 merge 하는 것을 잊지 마세요!
+변경 사항들을 git에 merge 하는 것을 잊지 마세요!
 
-<div class="aside"><p>우리가 살펴본 바와 같이, Knobs는 개발자가 아닌 사람들이 여러분의 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법입니다. 하지만, Storybook을 사용자 정의하여 여러분의 작업 흐름에 맞게 애드온을 사용할 수 있는 더 많은 방법이 있습니다. 보너스 챕터 <a href="/intro-to-storybook/react/kr/creating-addons">애드온 만들기</a>에서는 여러분의 개발 작업 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어 보며 알려드리겠습니다.</p></div>
+<div class="aside"><p>우리가 살펴본 바와 같이, Knobs는 개발자가 아닌 사람들이 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법입니다. 하지만, Storybook을 사용자 정의하여 작업 흐름에 맞게 애드온을 사용할 수 있는 더 많은 방법이 있습니다. 보너스 챕터 <a href="/intro-to-storybook/react/kr/creating-addons">애드온 만들기</a>에서는 개발 작업의 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어 보며 알려드리겠습니다.</p></div>

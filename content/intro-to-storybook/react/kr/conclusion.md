@@ -3,7 +3,7 @@ title: '결론'
 description: '모든 지식을 종합하여 더 많은 Storybook 테크닉을 배워봅시다'
 ---
 
-축하드립니다! 여러분은 Storybook에서 첫 UI를 만드셨습니다. 그동안 우리는 UI 컴포넌트를 제작, 구성, 테스트 및 배포하는 방법을 배웠습니다. 여러분이 잘 따라오셨다면, 여러분의 저장소와 배포된 Storybook은 이런 모습일 것입니다.
+축하드립니다! Storybook에서 첫 UI를 만드셨습니다. 그동안 우리는 UI 컴포넌트를 제작, 구성, 테스트 및 배포하는 방법을 배웠습니다. 잘 따라오셨다면, 여러분의 저장소와 배포된 Storybook은 이런 모습일 것입니다.
 
 [📕 **GitHub 저장소: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
@@ -28,7 +28,7 @@ Storybook은 React, React Native, Vue, Angular, Svelte 외 다른 여러 프레�
 
 ## LearnStorybook.com은 누가 만들었나요?
 
-내용, 코드, 제작은 [Chromatic](http://blog.hichroma.com/)께서 기여해주셨습니다. 튜토리얼은 Chroma의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)에서 영감을 얻었습니다.
+내용, 코드, 제작은 [Chromatic](http://blog.hichroma.com/)이 기여해주셨습니다. 튜토리얼은 Chroma의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)에서 영감을 얻었습니다.
 
 이와 같은 튜토리얼과 기사를 더 원하시나요? Chromatic의 메일링 목록에 등록하세요.
 
