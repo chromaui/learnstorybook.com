@@ -111,7 +111,7 @@ jobs:
         # GitHub chromatic action에 필요한 옵션
         with:
           # 프로젝트 토큰, 얻는 방법은
-          # https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ 를 참조하세요
+          # https://www.learnstorybook.com/intro-to-storybook/react/kr/deploy/ 를 참조하세요
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

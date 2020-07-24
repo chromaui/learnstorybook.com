@@ -1,19 +1,19 @@
 ---
-title: 'Addons'
-tocTitle: 'Addons'
-description: 'addons를 적용하고 사용하는 방법을 잘 알려진 예시를 통해 배워봅시다.'
+title: '애드온'
+tocTitle: '애드온'
+description: '애드온(addons)을 적용하고 사용하는 방법을 잘 알려진 예시를 통해 배워봅시다.'
 commit: 'b3bca4a'
 ---
 
-Storybook은 강력한 [addons](https://storybook.js.org/addons/introduction/) 시스템을 통해 팀의 모든 구성원의 개발 경험을 향상할 수 있습니다. 만약 본 튜토리얼을 계속 따라 하셨다면, 저희는 지금까지 여러 addons를 참조해왔으며, 여러분은 이미 [Testing 챕터](/react/kr/test/)에서 하나를 구현해보셨을 것입니다.
+Storybook은 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 시스템을 통해 팀의 모든 구성원의 개발 경험을 향상할 수 있습니다. 만약 본 튜토리얼을 계속 따라 하셨다면, 저희는 지금까지 여러 애드온를 참조해왔으며, 여러분은 이미 [테스팅 챕터](/react/kr/test/)에서 하나를 구현해보셨을 것입니다.
 
 <div class="aside">
-<strong>사용 가능한 addons 목록을 찾고 계신가요?</strong>
+<strong>사용 가능한 애드온 목록을 찾고 계신가요?</strong>
 <br/>
-😍 Storybook에서 공식 지원되며, 커뮤니티에서 적극적으로 지원되는 addons 목록은 <a href="https://storybook.js.org/addons/addon-gallery/">여기</a>에서 보실 수 있습니다.
+😍 Storybook에서 공식 지원되며, 커뮤니티에서 적극적으로 지원되는 애드온 목록은 <a href="https://storybook.js.org/addons/addon-gallery/">여기</a>에서 보실 수 있습니다.
 </div>
 
-저희는 특정 사용 사례에 대하여 addons이 어떻게 구성되고 사용되는지 모두 다 적을 수는 없었습니다. 지금은 Storybook의 에코시스템 내에서 가장 인기 있는 addons인 [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs)를 함께 구현해 보도록 하겠습니다.
+저희는 특정 사용 사례에 대하여 애드온 이 어떻게 구성되고 사용되는지 모두 다 적을 수는 없었습니다. 지금은 Storybook의 에코시스템 내에서 가장 인기 있는 애드온 [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs)를 함께 구현해 보도록 하겠습니다.
 
 ## Knobs 설치하기
 
@@ -51,9 +51,9 @@ module.exports = {
 ```
 
 <div class="aside">
-<strong>📝 Addon을 등록하는 순서는 매우 중요합니다!</strong>
+<strong>📝 애드온을 등록하는 순서는 매우 중요합니다!</strong>
 <br/>
-addons을 등록하는 순서는 addon 패널의 탭에 표시되는 순서를 결정합니다(탭에 나타나는 addon인 경우).
+애드온을 등록하는 순서는 애드온 패널의 탭에 표시되는 순서를 결정합니다(탭에 나타나는 애드온인 경우).
 </div>
 
 이상입니다! 이제 스토리에 적용해 볼 차례입니다.
@@ -103,11 +103,11 @@ export const Default = () => {
 이제 하단 창의 "Action Logger" 탭 옆에 새로운 "Knobs" 탭이 나타납니다.
 
 [여기](https://github.com/storybooks/storybook/tree/master/addons/knobs#object)에 설명된 것처럼, `object` knob는 라벨과 "default" 객체를 매개변수로 받아들입니다.
-라벨은 addons 패널의 왼쪽에 표시됩니다. 여러분이 전달한 객체는 편집 가능한 JSON blob으로 표시됩니다. 유효한 JSON 객체를 보내는 한, 컴포넌트가 객체에 전달된 데이터를 바탕으로 조정될 것입니다!
+라벨은 애드온 패널의 왼쪽에 표시됩니다. 여러분이 전달한 객체는 편집 가능한 JSON blob으로 표시됩니다. 유효한 JSON 객체를 보내는 한, 컴포넌트가 객체에 전달된 데이터를 바탕으로 조정될 것입니다!
 
 ## Storybook의 범위를 넓혀주는 Addons
 
-이제 Storybook이 뛰어난 [CDD 개발환경](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)을 제공해줄 뿐만 아니라, 상호작용을 할 수 있는 문서 자료 또한 제공합니다. PropTypes는 훌륭하지만, 디자이너 또는 컴포넌트의 코드에 익숙하지 않은 사람도 knobs addon이 구현된 Storybook을 통해서라면 컴포넌트가 어떻게 작동하는지를 쉽게 이해하실 수 있습니다.
+이제 Storybook이 뛰어난 [CDD 개발환경](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)을 제공해줄 뿐만 아니라, 상호작용을 할 수 있는 문서 자료 또한 제공합니다. PropTypes는 훌륭하지만, 디자이너 또는 컴포넌트의 코드에 익숙하지 않은 사람도 knobs 애드온이 구현된 Storybook을 통해서라면 컴포넌트가 어떻게 작동하는지를 쉽게 이해하실 수 있습니다.
 
 ## Knobs를 사용하여 Edge-cases를 찾기
 
@@ -157,4 +157,4 @@ export const LongTitle = () => (
 
 여러분의 변경 사항들을 git에 merge 하는 것을 잊지 마세요!
 
-<div class="aside"><p>우리가 살펴본 바와 같이, Knobs는 개발자가 아닌 사람들이 여러분의 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법입니다. 하지만, Storybook을 사용자 정의하여 여러분의 작업 흐름에 맞게 addons를 사용할 수 있는 더 많은 방법이 있습니다. 보너스 챕터 <a href="/intro-to-storybook/react/en/creating-addons">addons 만들기</a>에서는 여러분의 개발 작업 흐름을 강화할 수 있도록 도와주는 addon을 함께 만들어 보며 알려드리겠습니다.</p></div>
+<div class="aside"><p>우리가 살펴본 바와 같이, Knobs는 개발자가 아닌 사람들이 여러분의 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법입니다. 하지만, Storybook을 사용자 정의하여 여러분의 작업 흐름에 맞게 애드온을 사용할 수 있는 더 많은 방법이 있습니다. 보너스 챕터 <a href="/intro-to-storybook/react/kr/creating-addons">애드온 만들기</a>에서는 여러분의 개발 작업 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어 보며 알려드리겠습니다.</p></div>
