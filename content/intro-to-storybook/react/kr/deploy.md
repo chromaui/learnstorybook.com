@@ -79,7 +79,7 @@ npx chromatic --project-token=<project-token>
 
 ![chromatic 패키지와 함께 배포된 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 
-만세! 하나의 명령어를 사용하여 Storybook을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적입니다. 코드를 푸시할 때마다 최신 버전의 컴포넌트를 배포하는 것이 이상적입니다. Storybook을 지속하여 배포해야 할 것입니다.
+만세! 하나의 명령어를 사용하여 Storybook을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적입니다. 코드를 푸시할 때마다 최신 버전의 컴포넌트를 배포하는 것이 이상적입니다. Storybook을 지속적으로 배포 할 수 있도록 해야합니다.
 
 ## Chromatic을 통한 지속적 배포
 
@@ -118,7 +118,7 @@ jobs:
 
 <div class="aside"><p>간단하게 진행하고자 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 은 언급되지 않았습니다. 이는 GitHub에서 제공하는 안전한 환경 변수이며 이를 사용하면 <code>project-token</code>을 하드코딩 할 필요가 없습니다.</p></div>
 
-### GitHub action을 커밋하기
+### GitHub 액션 커밋하기
 
 다음의 명령어를 실행하여 변경된 사항을 추가해주세요.
 
@@ -144,7 +144,7 @@ GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 배포�
 
 맨 위에 있는 최신 빌드를 클릭해주세요.
 
-그리고 최신 버전의 Storybook을 보시려면 `View Storybook` 버튼을 클릭해주세요.
+최신 버전의 Storybook을 보시려면 `View Storybook` 버튼을 클릭해주세요.
 
 ![Chromatic의 Storybook 링크](/intro-to-storybook/chromatic-build-storybook-link.png)
 
@@ -152,4 +152,4 @@ GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 배포�
 이제, 변경 사항을 커밋하고 푸시하는 것만으로도 Storybook 배포를 성공적으로 자동화 할 수 있습니다
  -->
 
-링크를 사용하여 팀원과 공유하세요. 이는 표준화된 앱 개발 과정일 뿐만 아니라 여러분의 작업을 팀원들에게 자랑할 수 있도록 도와줄 것입니다 💅.
+링크를 사용하여 팀원들과 공유하세요. 이는 표준화된 앱 개발 과정일 뿐만 아니라 여러분의 작업을 팀원들에게 자랑할 수 있게끔 도와줄 것입니다 💅.
