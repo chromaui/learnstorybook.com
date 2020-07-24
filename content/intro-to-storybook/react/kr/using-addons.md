@@ -62,7 +62,7 @@ addons을 등록하는 순서는 addon 패널의 탭에 표시되는 순서를 �
 
 `Task` 컴포넌트에 객체 타입의 knob를 사용해보겠습니다.
 
-먼저, `withKnobs` 데코레이터와 `object` knob를 `Task.stories.js`에 가져옵니다.
+먼저, `withKnobs` 데코레이터(decorators)와 `object` knob를 `Task.stories.js`에 가져옵니다.
 
 ```javascript
 // src/components/Task.stories.js

@@ -1,64 +1,64 @@
 ---
-title: 'Deploy Storybook'
-tocTitle: 'Deploy'
-description: 'Learn how to deploy Storybook online'
+title: 'Storybook 배포하기'
+tocTitle: '배포하기'
+description: 'Storybook을 온라인으로 배포하는 방법을 배워봅시다'
 ---
 
-Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.
+이 튜토리얼을 통해, 우리는 로컬 개발 환경에서 컴포넌트를 만들었습니다. 언젠가 팀의 피드백을 얻기 위해 작업을 공유해야 할 필요가 있을 것입니다. 다른 팀원들이 UI 구현을 검토할 수 있도록 Storybook을 온라인으로 배포해봅시다.
 
-## Exporting as a static app
+## 정적 앱으로 내보내기
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
+Storybook을 배포하기 위해서는 먼저 정적인 웹 앱으로 내보내야 합니다. 이 기능은 Storybook에 이미 내장되어 있으며 사전 구성되어 있습니다.
 
-Running `yarn build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
+`yarn build-storybook`을 실행하면, `storybook-static` 디렉터리에 정적인 Storybook이 생성될 것이며 이를 정적 사이트 호스팅 서비스에 배포할 수 있습니다.
 
-## Publish Storybook
+## Storybook 배포하기
 
-This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
+이번 튜토리얼은 Storybook 관리자가 만든 무료 배포 서비스인 <a href="https://www.chromatic.com/">Chromatic</a>을 사용하겠습니다. 클라우드에서 Storybook을 안전하게 배포하고 호스팅 할 수 있게 해줍니다.
 
-### Setup a repository in GitHub
+### GitHub 저장소 설정
 
-Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/react/en/get-started/), Create React App (CRA) already created a local repository for us. At this stage it's safe to add our files to the first commit.
+먼저 시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 챕터](/react/kr/get-started/)에서 프로젝트를 시작하였을 때, Create React App (CRA) 을 통해 이미 로컬 저장소가 생성되었을 것입니다. 이 단계에서 첫 번째 커밋으로 그간의 파일들을 추가하는 것이 안전합니다.
 
-Issue the following commands to add and commit the changes we've done so far.
+다음 명령어를 실행하여 지금까지 한 변경 사항들을 추가하고 커밋해주세요.
 
 ```bash
 $ git add .
 ```
 
-Followed by:
+다음으로,
 
 ```bash
 $ git commit -m "taskbox UI"
 ```
 
-Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
+GitHub으로 이동하여 [여기](https://github.com/new)에서 프로젝트를 위한 새로운 저장소를 만듭니다. 저장소의 이름은 프로젝트명과 동일하게 “taskbox”라고 하겠습니다.
 
-![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
+![GitHub 설정](/intro-to-storybook/github-create-taskbox.png)
 
-In the new repo, grab the origin URL of the repo and add it to your git project with this command:
+새로운 저장소에서 origin URL을 가져와서 다음 명령과 같이 git 프로젝트에 추가해주세요.
 
 ```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+$ git remote add origin https://github.com/<사용자명>/taskbox.git
 ```
 
-Finally, push our local repo to the remote repo on GitHub with:
+마지막으로, 로컬 저장소를 원격 저장소로 푸시해주세요.
 
 ```bash
 $ git push -u origin master
 ```
 
-### Get Chromatic
+### Chromatic 설치
 
-Add the package as a development dependency.
+개발용 디펜던시로 패키지를 추가해주세요.
 
 ```bash
 yarn add -D chromatic
 ```
 
-Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've setup.
+패키지가 설치되면 GitHub 계정으로 [Chromatic에 로그인](https://www.chromatic.com/start) 해주세요(Chromatic은 가벼운 권한 요청만 할 것입니다). 그런 다음 "taskbox"라는 이름의 새로운 프로젝트를 만들고 앞서 설정한 GithHub 저장소와 동기화합니다.
 
-Click `Choose GitHub repo` under collaborators and select your repo.
+`Choose GitHub repo`를 클릭하고 여러분의 저장소를 선택해주세요.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -67,89 +67,89 @@ Click `Choose GitHub repo` under collaborators and select your repo.
   />
 </video>
 
-Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
+프로젝트를 위해 생성된 고유한 `project-token`을 복사해주세요. 그런 다음 Storybook을 빌드하고 배포하기 위해 아래 명령어를 실행해주세요. 여러분의 토큰으로 `project-token` 부분을 꼭 바꾸어주세요.
 
 ```bash
 npx chromatic --project-token=<project-token>
 ```
 
-![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
+![Chromatic 실행](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-When finished, you'll get a link `https://random-uuid.chromatic.com` to your published Storybook. Share the link with your team to get feedback.
+완료되면 여러분은 배포된 Storybook의 `https://random-uuid.chromatic.com`링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+![chromatic 패키지와 함께 배포된 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 
-Hooray! We published Storybook with one command, but manually running a command every time we want to get feedback on UI implementation is repetitive. Ideally, we'd publish the latest version of components whenever we push code. We'll need to continuously deploy Storybook.
+만세! 하나의 명령어를 사용하여 Storybook을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적입니다. 코드를 푸시할 때마다 최신 버전의 컴포넌트를 배포하는 것이 이상적입니다. Storybook을 지속하여 배포해야 할 것입니다.
 
-## Continuous deployment with Chromatic
+## Chromatic을 통한 지속적 배포
 
-Now that our project is hosted in a GitHub repository, we can use a continuous integration(CI) service to deploy our Storybook automatically. [GitHub Actions](https://github.com/features/actions) is a free CI service that's built into GitHub that makes automatic publishing easy.
+이제 프로젝트가 GitHub 저장소에 호스팅 되었으므로 우리는 자동으로 Storybook을 배포하기 위하여 지속적 통합(continuous integration, CI) 서비스를 이용할 수 있습니다.
 
-### Add a GitHub Action to deploy Storybook
+### Storybook을 배포하기 위해 GitHub 액션 추가하기
 
-In the root folder of our project, create a new directory called `.github` then create another `workflows` directory inside of it.
+프로젝트의 루트 폴터에 `.github`라는 새로운 디렉터리를 만들고 그 안에 `workflows`라는 디렉터리를 만들어주세요.
 
-Create a new file called `chromatic.yml` like the one below. Replace to change `project-token` with your project token.
+`chromatic.yml`이라는 파일을 아래와 같이 생성해주세요. `project-token` 은 여러분의 프로젝트 토큰으로 바꿔주세요.
 
 ```yaml
 # .github/workflows/chromatic.yml
-# name of our action
+# 액션의 이름
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+# 액션을 실행할 이벤트
 on: push
 
-# what the action will do
+# 액션이 실행할 것들
 jobs:
   test:
-    # the operating system it will run on
+    # 실행될 운영체제
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # 액션이 수행할 단계
     steps:
       - uses: actions/checkout@v1
       - run: yarn
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # GitHub chromatic action에 필요한 옵션
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
+          # 프로젝트 토큰, 얻는 방법은
+          # https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ 를 참조하세요
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+<div class="aside"><p>간단하게 진행하고자 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 은 언급되지 않았습니다. 이는 GitHub에서 제공하는 안전한 환경 변수이며 이를 사용하면 <code>project-token</code>을 하드코딩 할 필요가 없습니다.</p></div>
 
-### Commit the action
+### GitHub action을 커밋하기
 
-In the command line, issue the following command to add the changes that were done:
+다음의 명령어를 실행하여 변경된 사항을 추가해주세요.
 
 ```bash
 git add .
 ```
 
-Then commit them by issuing:
+그런 다음 커밋을 해주세요.
 
 ```bash
 git commit -m "GitHub action setup"
 ```
 
-Finally push them to the remote repository with:
+마지막으로 원격 저장소에 푸시해주세요.
 
 ```bash
 git push origin master
 ```
 
-Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic.
+GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 배포될 것입니다. Chromatic의 프로젝트 빌드 화면에서 배포된 모든 Storybook을 보실 수 있습니다.
 
-![Chromatic user dashboard](/intro-to-storybook/chromatic-user-dashboard.png)
+![Chromatic 사용자 대시보드](/intro-to-storybook/chromatic-user-dashboard.png)
 
-Click the latest build, it should be the one at the top.
+맨 위에 있는 최신 빌드를 클릭해주세요.
 
-Then, click the `View Storybook` button to see the latest version of your Storybook.
+그리고 최신 버전의 Storybook을 보시려면 `View Storybook` 버튼을 클릭해주세요.
 
-![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
+![Chromatic의 Storybook 링크](/intro-to-storybook/chromatic-build-storybook-link.png)
 
 <!--
-And that's it, all is required is to commit and push the changes to our repository and we've successfully automated our Storybook deployment
+이제, 변경 사항을 커밋하고 푸시하는 것만으로도 Storybook 배포를 성공적으로 자동화 할 수 있습니다
  -->
 
-Use the link and share it with your team members. This is helpful as a part of the standard app development process or simply to show off work 💅.
+링크를 사용하여 팀원과 공유하세요. 이는 표준화된 앱 개발 과정일 뿐만 아니라 여러분의 작업을 팀원들에게 자랑할 수 있도록 도와줄 것입니다 💅.
