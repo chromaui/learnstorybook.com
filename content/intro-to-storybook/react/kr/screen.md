@@ -1,5 +1,5 @@
 ---
-title: '화면 구성'
+title: '화면 구성하기'
 tocTitle: '화면'
 description: '컴포넌트의 화면을 구성해봅시다'
 commit: '4aef5f7'
@@ -80,12 +80,12 @@ function App() {
 export default App;
 ```
 
-그러나 여기서 흥미로운 점은 스토리를 Storybook에 랜더링 할 때입니다.
+그러나 여기서 흥미로운 점은 Storybook에서 스토리를 렌더링 할 때입니다.
 
-앞에서 살펴보았듯이, `TaskList` 컴포넌트는 `PureTaskList`라는 표상적 컴포넌트를 랜더링하는 **컨테이너**입니다. 정의에 의하면, 컨테이너 컴포넌트는 독립적인 환경에서 간단하게 랜더링 될 수 없습니다. 컨테이너 컴포넌트는 어떠한 맥락이 전달되거나 서비스에 연결되는 것을 기대하기 때문입니다. 이 말은 즉 Storybook에서 컨테이너를 랜더링 하기 위해서는 필요한 컨텍스트나 서비스를 모방(예를 들어 가상 버전을 제공하기)하여야 합니다.
+앞에서 살펴보았듯이 `TaskList` 컴포넌트는 `PureTaskList`라는 표상적 컴포넌트를 렌더링하는 **컨테이너**입니다. 정의에 의하면 컨테이너 컴포넌트는 독립적인 환경에서 간단하게 렌더링 될 수 없습니다. 컨테이너 컴포넌트는 어떠한 컨텍스트가 전달되거나 서비스에 연결되는 것을 기대하기 때문입니다. 이 말은 즉 Storybook에서 컨테이너를 렌더링 하기 위해서는 필요한 컨텍스트나 서비스를 모방(예를 들어 가상 버전을 제공하기)하여야 합니다.
 
-우리는 `TaskList`을 Storybook에 넣을 때 컨테이너가 아닌 `PureTaskList`를 렌더링하여 이 문제에서 벗어날 수 있습니다. 이와 비슷한 방식으로 `PureInboxScreen`을 Storybook에 렌더링할 것입니다.
-그러나, `PureInboxScreen` 그 자체는 표상적 컴포넌트이지만 그 하위 컴포넌트인 `TaskList`는 아니기 때문에 문제가 발생합니다. 어떤 의미에서 보면 `PureInboxScreen`는 “컨테이너화”되는 것에 의해 오염되었다고 볼 수 있습니다. 그래서 `InboxScreen.stories.js`에서 스토리를 설정해보면 :
+`TaskList`을 Storybook에 배치할 때 `PureTaskList`를 렌더링하고 컨테이너를 피함으로써 이 문제에서 벗어날 수 있습니다. 이와 비슷한 방식으로 `PureInboxScreen`을 Storybook에 렌더링할 것입니다.
+하지만 `PureInboxScreen` 자체는 표상적 컴포넌트이지만 그 하위 컴포넌트인 `TaskList`는 아니기 때문에 문제가 발생합니다. 어떤 의미에서 보면 `PureInboxScreen`는 “컨테이너화”되는 것에 의해 오염되었다고 볼 수 있습니다. 따라서 `InboxScreen.stories.js`에서 스토리를 설정할 때:
 
 ```javascript
 // src/components/InboxScreen.stories.js
@@ -108,17 +108,17 @@ export const Error = () => <PureInboxScreen error="Something" />;
 
 ![고장난 inbox](/intro-to-storybook/broken-inboxscreen.png)
 
-이 문제를 피하는 한 가지 방법으로, 앱의 최상위 수준에서만 컨테이너 컴포넌트를 렌더링하고 대신 필요한 모든 데이터를 상위의 컴포넌트에서 하위의 컴포넌트로 전달하는 것입니다.
+이 문제를 피하는 한 가지 방법으로 앱의 최상위 수준에서만 컨테이너 컴포넌트를 렌더링하는 대신 필요한 모든 데이터를 상위의 컴포넌트에서 하위의 컴포넌트로 전달하는 것입니다.
 
 그러나 개발자가 **불가피하게** 컴포넌트 계층의 하위 계층에서 컨테이너를 렌더링할 필요가 생길 수 있습니다. Storybook에서 전체 또는 대부분의 앱을 렌더링하려면 우리는 이러한 문제에 대한 해결책이 필요합니다.
 
 <div class="aside">
-추가로, 데이터를 하위 계층에 전달하는 것은 합당한 접근 방식입니다. 특히 <a href="http://graphql.org/">GraphQL</a>을 사용하는 경우에 그렇습니다. 저희는 <a href="https://www.chromatic.com">Chromatic</a>을 만들 때 이러한 방법으로 800개 이상의 스토리를 만들었습니다.
+여담으로 데이터를 하위 계층에 전달하는 것은 합당한 접근 방식입니다. 특히 <a href="http://graphql.org/">GraphQL</a>을 사용하는 경우에 그렇습니다. 저희는 <a href="https://www.chromatic.com">Chromatic</a>을 만들 때 이러한 방법으로 800개 이상의 스토리를 만들었습니다.
 </div>
 
 ## 데코레이터(decorators)와 함께 컨텍스트를 제공하기
 
-좋은 소식은 스토리 내에서 `InboxScreen`에 Redux store를 제공하기는 매우 쉽습니다! 데코레이터를 통해 모방한 버전의 Redux store를 사용하면 됩니다.
+좋은 소식은 스토리 내에서 `InboxScreen`에 Redux store를 제공하기는 매우 쉽습니다! 데코레이터를 통해 모방된 Redux store를 사용하면 됩니다.
 
 ```javascript
 // src/components/InboxScreen.stories.js
@@ -152,9 +152,9 @@ export const Default = () => <PureInboxScreen />;
 export const Error = () => <PureInboxScreen error="Something" />;
 ```
 
-[Apollo](https://www.npmjs.com/package/apollo-storybook-decorator)와 [Relay](https://github.com/orta/react-storybooks-relay-container) 등 다른 데이터 라이브러리를 위한 모방한 컨텍스트를 제공하는 방식 또한 비슷합니다.
+[Apollo](https://www.npmjs.com/package/apollo-storybook-decorator)와 [Relay](https://github.com/orta/react-storybooks-relay-container) 등 여타 데이터 라이브러리에 대해서도 모방된 컨텍스트를 제공하는 방식은 비슷합니다.
 
-Storybook에서 상태를 변화시킴으로써 문제가 없는지 쉽게 테스트 할 수 있도록 해줍니다.
+Storybook에서 state를 순환해봄으로써 우리가 올바르게 하고 있는지를 쉽게 테스트 할 수 있도록 해줍니다.
 
 <video autoPlay muted playsInline loop >
 
@@ -175,6 +175,6 @@ Storybook에서 상태를 변화시킴으로써 문제가 없는지 쉽게 테�
   />
 </video>
 
-[**컴포넌트 기반 개발**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) 은 컴포넌트의 상위 계층으로 올라감에 따른 복잡성을 점진적으로 확장할 수 있도록 해줍니다. 이것의 이점 중 하나는 보다 개발 과정에 집중할 수 있으며 가능한 모든 UI 순열의 적용 범위가 늘어난다는 것입니다. 간단히 말하면, 컴포넌트 기반 개발(CDD)은 더 높은 품질과 복잡성을 가진 사용자 인터페이스를 만들 수 있도록 도와줍니다.
+[**컴포넌트 기반 개발**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)은 컴포넌트의 상위 계층으로 올라감에 따른 복잡성을 점진적으로 확장할 수 있도록 해줍니다. 이것의 이점 중 하나는 보다 개발 과정에 집중할 수 있으며 가능한 모든 UI 순열의 적용 범위가 늘어난다는 것입니다. 간단히 말하면, 컴포넌트 기반 개발(CDD)은 더 높은 품질과 복잡성을 가진 사용자 인터페이스를 만들 수 있도록 도와줍니다.
 
-아직 끝이 아닙니다. UI가 완성되었다고 할 일이 모두 끝난 것은 아닙니다. 우리는 또한 시간이 지나도 UI가 내구성을 유지할 수 있도록 해야 합니다.
+아직 끝이 아닙니다! UI가 완성되었다고 할 일이 모두 끝난 것은 아닙니다. 우리는 또한 시간이 지나도 UI가 내구성을 유지할 수 있도록 해야 합니다.

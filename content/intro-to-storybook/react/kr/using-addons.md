@@ -1,7 +1,7 @@
 ---
 title: '애드온'
 tocTitle: '애드온'
-description: '애드온(addons)을 적용하고 사용하는 방법을 잘 알려진 예시를 통해 배워봅시다.'
+description: '잘 알려진 예시를 통해 애드온을 적용하고 사용하는 방법을 배워봅시다.'
 commit: 'b3bca4a'
 ---
 
@@ -105,7 +105,7 @@ export const Default = () => {
 [여기](https://github.com/storybooks/storybook/tree/master/addons/knobs#object)에 설명된 것처럼, `object` knob는 라벨과 "default" 객체를 매개변수로 받아들입니다.
 라벨은 애드온 패널의 왼쪽에 표시됩니다. 전달한 객체는 편집 가능한 JSON blob으로 표시됩니다. 유효한 JSON 객체를 보내는 한, 컴포넌트가 객체에 전달된 데이터를 바탕으로 조정될 것입니다!
 
-## Storybook의 범위를 넓혀주는 Addons
+## Storybook의 범위를 넓혀주는 애드온
 
 이제 Storybook이 뛰어난 [CDD 개발환경](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)을 제공해줄 뿐만 아니라, 상호작용을 할 수 있는 문서 자료 또한 제공합니다. PropTypes는 훌륭하지만, 디자이너 또는 컴포넌트의 코드에 익숙하지 않은 사람도 knobs 애드온이 구현된 Storybook을 통해서라면 컴포넌트가 어떻게 작동하는지를 쉽게 이해하실 수 있습니다.
 
@@ -115,7 +115,7 @@ export const Default = () => {
 
 ![아이코! 가장 오른쪽에 있는 내용이 잘렸네요!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-다행히도 컴포넌트에 다른 입력을 빠르게 시도해볼 수 있기 때문에 우리는 이러한 문제점들을 상대적으로 쉽게 발견하고 수정할 수 있습니다! 함께 `Task.js`에 스타일을 추가하여 글자가 넘치는 문제를 해결해보겠습니다.
+다행히도 컴포넌트에 다른 입력을 빠르게 시도해볼 수 있기 때문에 우리는 이러한 문제점들을 상대적으로 쉽게 발견하고 수정할 수 있습니다! `Task.js`에 스타일을 추가하여 글자가 넘치는 문제를 함께 해결해보겠습니다.
 
 ```javascript
 // src/components/Task.js
@@ -136,7 +136,7 @@ export const Default = () => {
 ## 회귀를 피하기 위해 새로운 Story 추가하기
 
 물론 우리는 knobs에 같은 입력값을 넣음으로써 문제를 항상 재현할 수 있지만, 이러한 입력값에 대응하는 story를 쓰는 것이 더 좋습니다. 이렇게 하면 회귀 테스트가 증가하고 팀에게 컴포넌트의 한계들을 분명히 설명할 수 있을 것입니다.
-함께 긴 문자열이 관한 사례를 `Task.stories.js` story에 추가해봅시다.
+긴 문자열에 관한 사례를 `Task.stories.js` story에 함께 추가해봅시다.
 
 ```javascript
 // src/components/Task.stories.js
@@ -148,13 +148,13 @@ export const LongTitle = () => (
 );
 ```
 
-이제 우리는 story를 추가했으며, 언제든지 우리가 작업하고 싶을 때마다 이러한 극단적 사례들을 쉽게 재현하여 볼 수 있습니다.
+이제 우리는 story를 추가했으며 언제든지 우리가 작업하고 싶을 때마다 이러한 극단적 사례들을 쉽게 재현하여 볼 수 있습니다.
 ![Storybook으로 재현한 극단적 사례](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
 [시각적 회귀 테스트](/react/kr/test/)를 사용하는 경우, 만약 줄임말에 대한 방식을 어기는 경우가 생긴다면 그에 대한 알림을 받을 것입니다. 이렇게 모호한 사례들은 항상 잊어버릴 수 있습니다!
 
 ### 변경 사항을 병합하기
 
-변경 사항들을 git에 merge 하는 것을 잊지 마세요!
+변경 사항들을 git에 병합하는 것을 잊지 마세요!
 
-<div class="aside"><p>우리가 살펴본 바와 같이, Knobs는 개발자가 아닌 사람들이 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법입니다. 하지만, Storybook을 사용자 정의하여 작업 흐름에 맞게 애드온을 사용할 수 있는 더 많은 방법이 있습니다. 보너스 챕터 <a href="/intro-to-storybook/react/kr/creating-addons">애드온 만들기</a>에서는 개발 작업의 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어 보며 알려드리겠습니다.</p></div>
+<div class="aside"><p>우리가 살펴본 바와 같이 Knobs는 개발자가 아닌 사람들이 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법입니다. 하지만 Storybook을 사용자 정의하여 작업 흐름에 맞게 애드온을 사용할 수 있는 더 많은 방법이 있습니다. 보너스 챕터 <a href="/intro-to-storybook/react/kr/creating-addons">애드온 만들기</a>에서는 개발 작업의 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어 보며 알려드리겠습니다.</p></div>

@@ -4,13 +4,13 @@ tocTitle: '배포하기'
 description: 'Storybook을 온라인으로 배포하는 방법을 배워봅시다'
 ---
 
-이 튜토리얼을 통해, 우리는 로컬 개발 환경에서 컴포넌트를 만들었습니다. 언젠가 팀의 피드백을 얻기 위해 작업을 공유해야 할 필요가 있을 것입니다. 다른 팀원들이 UI 구현을 검토할 수 있도록 Storybook을 온라인으로 배포해봅시다.
+이 튜토리얼을 통해 우리는 로컬 개발 환경에서 컴포넌트를 만들었습니다. 언젠가 팀의 피드백을 얻기 위해 작업을 공유해야 할 필요가 있을 것입니다. 다른 팀원들이 UI 구현을 검토할 수 있도록 Storybook을 온라인으로 배포해봅시다.
 
 ## 정적 앱으로 내보내기
 
 Storybook을 배포하기 위해서는 먼저 정적인 웹 앱으로 내보내야 합니다. 이 기능은 Storybook에 이미 내장되어 있으며 사전 구성되어 있습니다.
 
-`yarn build-storybook`을 실행하면, `storybook-static` 디렉터리에 정적인 Storybook이 생성될 것이며 이를 정적 사이트 호스팅 서비스에 배포할 수 있습니다.
+`yarn build-storybook`을 실행하면 `storybook-static` 디렉터리에 정적인 Storybook이 생성될 것이며 이를 정적 사이트 호스팅 서비스에 배포할 수 있습니다.
 
 ## Storybook 배포하기
 
@@ -18,7 +18,7 @@ Storybook을 배포하기 위해서는 먼저 정적인 웹 앱으로 내보내�
 
 ### GitHub 저장소 설정
 
-먼저 시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 챕터](/react/kr/get-started/)에서 프로젝트를 시작하였을 때, Create React App (CRA) 을 통해 이미 로컬 저장소가 생성되었을 것입니다. 이 단계에서 첫 번째 커밋으로 그간의 파일들을 추가하는 것이 안전합니다.
+먼저 시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 챕터](/react/kr/get-started/)에서 프로젝트를 시작하셨을 때, Create React App (CRA)을 통해 이미 로컬 저장소가 생성되었을 것입니다. 이 단계에서 첫 번째 커밋으로 그동안의 파일들을 추가하는 것이 안전합니다.
 
 다음 명령어를 실행하여 지금까지 한 변경 사항들을 추가하고 커밋해주세요.
 
@@ -32,7 +32,7 @@ $ git add .
 $ git commit -m "taskbox UI"
 ```
 
-GitHub으로 이동하여 [여기](https://github.com/new)에서 프로젝트를 위한 새로운 저장소를 만듭니다. 저장소의 이름은 프로젝트명과 동일하게 “taskbox”라고 하겠습니다.
+GitHub로 이동하여 [여기](https://github.com/new)에서 프로젝트를 위한 새로운 저장소를 만듭니다. 저장소의 이름은 프로젝트명과 동일하게 “taskbox”로 하겠습니다.
 
 ![GitHub 설정](/intro-to-storybook/github-create-taskbox.png)
 
@@ -79,11 +79,11 @@ npx chromatic --project-token=<project-token>
 
 ![chromatic 패키지와 함께 배포된 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 
-만세! 하나의 명령어를 사용하여 Storybook을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적입니다. 코드를 푸시할 때마다 최신 버전의 컴포넌트를 배포하는 것이 이상적입니다. Storybook을 지속적으로 배포 할 수 있도록 해야합니다.
+만세! 하나의 명령어를 사용하여 Storybook을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 푸시할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. Storybook을 지속적으로 배포 할 수 있도록 해야할 것입니다.
 
 ## Chromatic을 통한 지속적 배포
 
-이제 프로젝트가 GitHub 저장소에 호스팅 되었으므로 우리는 자동으로 Storybook을 배포하기 위하여 지속적 통합(continuous integration, CI) 서비스를 이용할 수 있습니다.
+이제 프로젝트가 GitHub 저장소에 호스팅 되었으므로 자동으로 Storybook을 배포하기 위하여 지속적 통합(continuous integration, CI) 서비스를 이용할 수 있습니다.
 
 ### Storybook을 배포하기 위해 GitHub 액션 추가하기
 
