@@ -14,7 +14,7 @@ Storybook을 배포하기 위해서는 먼저 정적인 웹 앱으로 내보내�
 
 ## Storybook 배포하기
 
-이번 튜토리얼은 Storybook 관리자가 만든 무료 배포 서비스인 <a href="https://www.chromatic.com/">Chromatic</a>을 사용하겠습니다. 클라우드에서 Storybook을 안전하게 배포하고 호스팅 할 수 있게 해줍니다.
+이번 튜토리얼은 Storybook 관리자가 만든 무료 배포 서비스인 <a href="https://www.chromatic.com/">Chromatic</a>을 사용하겠습니다. 이는 클라우드에서 Storybook을 안전하게 배포하고 호스팅 할 수 있게 합니다.
 
 ### GitHub 저장소 설정
 
@@ -79,7 +79,7 @@ npx chromatic --project-token=<project-token>
 
 ![chromatic 패키지와 함께 배포된 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 
-만세! 하나의 명령어를 사용하여 Storybook을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 푸시할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. Storybook을 지속적으로 배포 할 수 있도록 해야할 것입니다.
+만세! 하나의 명령어를 사용하여 Storybook을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 푸시할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. Storybook을 지속적으로 배포할 수 있도록 해야 할 것입니다.
 
 ## Chromatic을 통한 지속적 배포
 
@@ -116,7 +116,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>간단하게 진행하고자 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 은 언급되지 않았습니다. 이는 GitHub에서 제공하는 안전한 환경 변수이며 이를 사용하면 <code>project-token</code>을 하드코딩 할 필요가 없습니다.</p></div>
+<div class="aside"><p>간단하게 진행하고자 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 은 언급되지 않았습니다. 이는 GitHub에서 제공하는 안전한 환경 변수이며 이를 사용하면 <code>project-token</code>을 하드코딩할 필요가 없습니다.</p></div>
 
 ### GitHub 액션 커밋하기
 
@@ -149,7 +149,7 @@ GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 배포�
 ![Chromatic의 Storybook 링크](/intro-to-storybook/chromatic-build-storybook-link.png)
 
 <!--
-이제, 변경 사항을 커밋하고 푸시하는 것만으로도 Storybook 배포를 성공적으로 자동화 할 수 있습니다
+이제, 변경 사항을 커밋하고 푸시하는 것만으로도 Storybook 배포를 성공적으로 자동화할 수 있습니다
  -->
 
 링크를 사용하여 팀원들과 공유하세요. 이는 표준화된 앱 개발 과정일 뿐만 아니라 여러분의 작업을 팀원들에게 자랑할 수 있게끔 도와줄 것입니다 💅.

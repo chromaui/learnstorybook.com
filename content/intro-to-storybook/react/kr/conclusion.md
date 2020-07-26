@@ -24,7 +24,7 @@ Storybook은 React, React Native, Vue, Angular, Svelte 외 다른 여러 프레�
 
 - [**Storybook Discord 채널**](https://discord.gg/UUt2PJb)로 Storybook 커뮤니티와 연결될 수 있습니다. Storybook 사용자를 위한 도움을 주고받으세요.
 
-- [**Storybook 블로그**](https://medium.com/storybookjs)는 UI 개발을 위한 workflow를 간소화 할 수 있는 최신 릴리즈와 기능들을 보여줍니다.
+- [**Storybook 블로그**](https://medium.com/storybookjs)는 UI 개발을 위한 workflow를 간소화할 수 있는 최신 릴리즈와 기능들을 보여줍니다.
 
 ## LearnStorybook.com은 누가 만들었나요?
 

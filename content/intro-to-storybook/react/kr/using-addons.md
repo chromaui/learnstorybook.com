@@ -5,7 +5,7 @@ description: '잘 알려진 예시를 통해 애드온을 적용하고 사용하
 commit: 'b3bca4a'
 ---
 
-Storybook은 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 시스템을 통해 팀의 모든 구성원의 개발 경험을 향상할 수 있습니다. 만약 본 튜토리얼을 계속 따라 하셨다면, 저희는 지금까지 여러 애드온를 참조해왔으며, 이미 [테스팅 챕터](/react/kr/test/)에서 하나를 구현해보셨을 것입니다.
+Storybook은 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 시스템을 통해 팀의 모든 구성원의 개발 경험을 향상할 수 있습니다. 만약 본 튜토리얼을 계속 따라 하셨다면, 저희는 지금까지 여러 애드온을 참조해왔으며, 이미 [테스팅 챕터](/react/kr/test/)에서 하나를 구현해보셨을 것입니다.
 
 <div class="aside">
 <strong>사용 가능한 애드온 목록을 찾고 계신가요?</strong>
@@ -13,9 +13,9 @@ Storybook은 강력한 [애드온(addons)](https://storybook.js.org/addons/intro
 😍 Storybook에서 공식 지원되며, 커뮤니티에서 적극적으로 지원되는 애드온 목록은 <a href="https://storybook.js.org/addons/addon-gallery/">여기</a>에서 보실 수 있습니다.
 </div>
 
-저희는 특정 사용 사례에 대하여 애드온 이 어떻게 구성되고 사용되는지 모두 다 적을 수는 없었습니다. 지금은 Storybook의 에코시스템 내에서 가장 인기 있는 애드온 [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs)를 함께 구현해 보도록 하겠습니다.
+저희는 특정 사용 사례에 대하여 애드온이 어떻게 구성되고 사용되는지 모두 다 적을 수는 없었습니다. 지금은 Storybook의 에코시스템 내에서 가장 인기 있는 애드온 [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs)를 함께 구현해 보도록 하겠습니다.
 
-## Knobs 설치하기
+## Knobs 설정하기
 
 Knobs는 코드가 필요 없는 제한된 환경에서 디자이너와 개발자가 컴포넌트를 실험하고 사용해 볼 수 있는 놀라운 리소스입니다! 기본적으로 사용자가 스토리의 컴포넌트로 전달된 props를 조작해 볼 수 있도록 동적으로 정의된 필드들을 제공하는 것입니다. 이것을 지금부터 구현해보겠습니다.
 
@@ -111,7 +111,7 @@ export const Default = () => {
 
 ## Knobs를 사용하여 Edge-cases를 찾기
 
-또한, 컴포넌트에 전달된 데이터를 쉽게 편집 할 수 있기 때문에 QA 엔지니어 또는 UI 엔지니어가 컴포넌트의 한계를 시험해 볼 수 있습니다! 예를 들어, `Task`컴포넌트의 목록 아이템 중 하나가 _대량의_ 문자열이라면 어떤 일이 벌어질까요?
+또한, 컴포넌트에 전달된 데이터를 쉽게 편집할 수 있기 때문에 QA 엔지니어 또는 UI 엔지니어가 컴포넌트의 한계를 시험해 볼 수 있습니다! 예를 들어, `Task`컴포넌트의 목록 아이템 중 하나가 _대량의_ 문자열이라면 어떤 일이 벌어질까요?
 
 ![아이코! 가장 오른쪽에 있는 내용이 잘렸네요!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 

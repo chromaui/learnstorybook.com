@@ -21,7 +21,7 @@ commit: 'f05981b'
 yarn add react-redux redux
 ```
 
-먼저 `src` 폴더의`lib / redux.js` 파일 (의도적으로 단순하게 작성함)에서 과업의 state를 변경하는 동작에 대응하는 간단한 Redux 저장소를 구성해보겠습니다.
+먼저 `src` 폴더의 `lib / redux.js` 파일 (의도적으로 단순하게 작성함)에서 과업의 state를 변경하는 동작에 대응하는 간단한 Redux 저장소를 구성해보겠습니다.
 
 ```javascript
 // src/lib/redux.js
@@ -64,7 +64,7 @@ export const reducer = (state, action) => {
   }
 };
 
-// 앱이 로딩될 때 store가 갖게될 처음의 state입니다.
+// 앱이 로딩될 때 store가 갖게 될 처음의 state입니다.
 // 보통은 서버에서 이를 가져옵니다
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -77,7 +77,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-그런 다음 `TaskList` 컴포넌트에서 기본 내보내기를 업데이트하여 redux store에 연결하고 과업을 렌더링합니다.
+그런 다음 `TaskList` 컴포넌트에서 기본 내보내기를 업데이트하여 redux store에 연결하고 과업을 렌더링 합니다.
 
 ```javascript
 // src/components/TaskList.js
@@ -115,7 +115,7 @@ export default connect(
 )(PureTaskList);
 ```
 
-이 단계에서 Storybook 테스트는 제대로 작동하지 않을 것입니다. `TaskList` 컴포넌트는 새로운 컨테이너이기 때문에 더이상 props을 받지 않는 대신 이를 감싸주는 `PureTaskList` 컴포넌트에서 store에 연결하고 props를 설정합니다.
+이 단계에서 Storybook 테스트는 제대로 작동하지 않을 것입니다. `TaskList` 컴포넌트는 새로운 컨테이너이기 때문에 더 이상 props을 받지 않는 대신 이를 감싸주는 `PureTaskList` 컴포넌트에서 store에 연결하고 props를 설정합니다.
 
 하지만 이전 단계에서 진행한 Storybook 스토리의 내보내기 구문에 `PureTaskList`(표상적인 컴포넌트)를 간단하게 렌더링함으로써 이러한 문제를 쉽게 해결할 수 있습니다.
 
@@ -165,5 +165,5 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
 </video>
 
 <div class="aside">
-이 단계에서 스냅샷 테스트는 실패할 것이므로 <code>-u</code> 플래그와 함께 테스트 스크립트를 실행하여 기존의 스냅샷을 업데이트 해주어야 합니다. 또한 앱이 점진적으로 성장함에 따라 <a href="/react/kr/get-started/">시작하기</a> 부분에서 언급된 것처럼 <code> --watchAll</code> 플래그로 테스트를 시작하기에 좋은 시점일 수 있습니다.
+이 단계에서 스냅샷 테스트는 실패할 것이므로 <code>-u</code> 플래그와 함께 테스트 스크립트를 실행하여 기존의 스냅샷을 업데이트해야 합니다. 또한 앱이 점진적으로 성장함에 따라 <a href="/react/kr/get-started/">시작하기</a> 부분에서 언급된 것처럼 <code> --watchAll</code> 플래그로 테스트를 시작하기에 좋은 시점일 수 있습니다.
 </div>

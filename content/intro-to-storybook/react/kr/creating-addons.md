@@ -5,7 +5,7 @@ description: '개발을 강력하게 만들어 줄 나만의 애드온을 만드
 commit: 'bebba5d'
 ---
 
-앞서 우리는 Storybook의 핵심 기능인 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 에코시스템에 대해 소개해 드렸습니다. 애드온은 개발자 경험과 작업 흐름을 향상하는데 사용됩니다.
+앞서 우리는 Storybook의 핵심 기능인 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 에코시스템에 대해 소개해 드렸습니다. 애드온은 개발자 경험과 작업 흐름을 향상하는 데 사용됩니다.
 
 이번 보너스 챕터에서는 애드온을 어떻게 만드는지 살펴보겠습니다. 애드온을 직접 만드는 것은 벅찬 작업이라고 생각하실지도 모르겠지만 실제로는 그렇지 않습니다. 시작하기 위해 몇 단계를 거치기만 하면 바로 작성을 시작할 수 있습니다.
 
@@ -36,7 +36,7 @@ export default {
 };
 ```
 
-## 설정
+## 설치
 
 우리의 애드온이 무엇을 하게 될지 간략히 살펴보았습니다. 이제 본격적으로 작업을 시작해보겠습니다.
 
@@ -92,9 +92,9 @@ addons.register('my/design-addon', () => {
 이는 여러분이 시작하기 위한 전형적인 상용구 코드(boilerplate)입니다. 코드가 수행하는 작업을 살펴보면:
 
 - Storybook에 새로운 애드온을 등록하고 있습니다.
-- 일부 옵션(애드온을 정의하는 title과 사용되는 요소의 type)과 함께 애드온에 대한 새로운 UI 요소를 추가하고 있으며, 현재는 일부 텍스트를 렌더링합니다.
+- 일부 옵션(애드온을 정의하는 title과 사용되는 요소의 type)과 함께 애드온에 대한 새로운 UI 요소를 추가하고 있으며, 현재는 일부 텍스트를 렌더링 합니다.
 
-이 시점에서 Storybook을 시작하면 아직 애드온을 볼 수 없습니다. 이전에 Knobs 애드온을 사용했을 때와 같이, `.storybook/main.js` 파일에 등록해주어야 합니다. 기존의 애드온 목록에 다음을 추가해주세요.
+이 시점에서 Storybook을 시작하면 아직 애드온을 볼 수 없습니다. 이전에 Knobs 애드온을 사용했을 때와 같이 `.storybook/main.js` 파일에 등록해주어야 합니다. 기존의 애드온 목록에 다음을 추가해주세요.
 
 ```js
 // .storybook/main.js
@@ -111,7 +111,7 @@ module.exports = {
 
 성공! Storybook UI에 새로 만든 애드온이 추가되었습니다.
 
-<div class="aside">Storybook 패널뿐만 아니라 다양한 종류의 UI 컴포넌트를 추가할 수 있습니다. 전부는 아니지만, 대부분이 @storybook/components 패키지 안에 이미 만들어져있기 때문에 여러분은 UI 구현에 너무 많은 시간을 낭비하지 않고 기능을 작성하는데 집중하실 수 있습니다. </div>
+<div class="aside">Storybook 패널뿐만 아니라 다양한 종류의 UI 컴포넌트를 추가할 수 있습니다. 전부는 아니지만, 대부분이 @storybook/components 패키지 안에 이미 만들어져 있기 때문에 여러분은 UI 구현에 너무 많은 시간을 낭비하지 않고 기능을 작성하는데 집중하실 수 있습니다. </div>
 
 ### Content 컴포넌트 만들기
 
@@ -182,7 +182,7 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-여기서 [useParameter](https://storybook.js.org/docs/addons/api/#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해줄 것이며, 우리의 경우에는 자산에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
+여기서 [useParameter](https://storybook.js.org/docs/addons/api/#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해 줄 것이며, 우리의 경우에는 자산에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
 
 ### 스토리에서 애드온 사용하기
 
@@ -273,7 +273,7 @@ const Content = () => {
 };
 ```
 
-자세히 살펴보면 `styled` 태그를 사용하고 있음을 보실 수 있습니다. 이 태그는 `@storybook/theming` 패키지에서 가져온 것입니다. 이 태그를 사용하면 Storybook의 테마뿐만 아니라 필요한 경우 UI를 사용자 정의 할 수 있습니다. 또한 [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate)는 스토리 북의 내부 state를 활용하여 존재하는 어떤 정보든 가져올 수 있는 편리한 훅입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져오기 위해 사용합니다.
+자세히 살펴보면 `styled` 태그를 사용하고 있음을 보실 수 있습니다. 이 태그는 `@storybook/theming` 패키지에서 가져온 것입니다. 이 태그를 사용하면 Storybook의 테마뿐만 아니라 필요한 경우 UI를 사용자 정의할 수 있습니다. 또한 [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate)는 스토리 북의 내부 state를 활용하여 존재하는 어떤 정보든 가져올 수 있는 편리한 훅입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져오기 위해 사용합니다.
 
 ### 실제 자원을 표시하기
 
@@ -455,7 +455,7 @@ addons.register('my/design-addon', () => {
 
 Storybook 팀은 여러분이 애드온을 개발하시는 것을 돕고자 데브 키트를 개발하였습니다.
 
-이 패키지는 자신만의 애드온 구축을 시작하는 데 도움이되는 스타터 키트입니다.
+이 패키지는 자신만의 애드온 구축을 시작하는 데 도움이 되는 스타터 키트입니다.
 방금 만든 애드온은 이러한 스타터 세트 중 하나이며, 특히 `addon-parameters` 를 기반으로 하였습니다.
 
 데브 키트는 여기에서 찾아보실 수 있습니다:
@@ -465,4 +465,4 @@ https://github.com/storybookjs/storybook/tree/next/dev-kits
 
 ## 애드온을 팀과 공유하기
 
-애드온은 개발 흐름에 시간을 절약해 주는 기능이지만 기술자가 아닌 팀원이나 검토자가 해당 기능을 활용하기에 어려울 수 있습니다. 모든 사람이 로컬 컴퓨터에서 Storybook을 작동시킬 것이라고 장담할 수도 없습니다. 그 때문에 Storybook을 온라인에 배포하여 모든 사람이 참조 할 수 있도록 하는 것이 매우 도움이 되는 이유입니다. 다음 챕터에서 해 볼 것입니다!
+애드온은 개발 흐름에 시간을 절약해 주는 기능이지만 기술자가 아닌 팀원이나 검토자가 해당 기능을 활용하기에 어려울 수 있습니다. 모든 사람이 로컬 컴퓨터에서 Storybook을 작동시킬 것이라고 장담할 수도 없습니다. 그 때문에 Storybook을 온라인에 배포하여 모든 사람이 참조할 수 있도록 하는 것이 매우 도움이 되는 이유입니다. 다음 챕터에서 해 볼 것입니다!
