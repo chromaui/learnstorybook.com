@@ -73,7 +73,7 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
 
 <div class="aside">
-  만약 TypeScript를 사용하고 계신다면, 'import'로 가져오실 때 약간의 조정이 필요합니다.
+  만약 TypeScript를 사용하고 계신다면, import 하실 때 약간의 조정이 필요합니다.
   <code>import { withKnobs, object } from '@storybook/addon-knobs'</code>를 사용해주세요.
 </div>
 

@@ -5,20 +5,20 @@ description: '개발을 강력하게 만들어 줄 나만의 애드온을 만드
 commit: 'bebba5d'
 ---
 
-앞서 우리는 Storybook의 핵심 기능인 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 에코시스템에 대해 소개드렸습니다. 애드온은 개발자 경험과 작업 흐름을 향상시키는데 사용됩니다.
+앞서 우리는 Storybook의 핵심 기능인 강력한 [애드온(addons)](https://storybook.js.org/addons/introduction/) 에코시스템에 대해 소개해 드렸습니다. 애드온은 개발자 경험과 작업 흐름을 향상하는데 사용됩니다.
 
 이번 보너스 챕터에서는 애드온을 어떻게 만드는지 살펴보겠습니다. 애드온을 직접 만드는 것은 벅찬 작업이라고 생각하실지도 모르겠지만 실제로는 그렇지 않습니다. 시작하기 위해 몇 단계를 거치기만 하면 바로 작성을 시작할 수 있습니다.
 
-하지만 우선 먼저 해야할 일로, 우리가 만들 애드온이 무엇을 할지에 대해 알아보겠습니다.
+하지만 우선 먼저 해야 할 일로, 우리가 만들 애드온이 무엇을 할지에 대해 알아보겠습니다.
 
-## 우리가 쓸 애드온
+## 우리가 만들 애드온
 
-이 예제를 위해서 우리 팀이 기존의 UI 컴포넌트와 관련이 있는 디자인 자산(design assets)을 가지고 있다고 가정해봅시다. 현재의 Storybook UI를 보면, 그러한 관계가 분명하지 않은 것 같아 보입니다. 어떻게 하면 이러한 점을 고칠 수 있을까요?
+이 예제를 위해서 우리 팀이 기존의 UI 컴포넌트와 관련이 있는 디자인 자산(design assets)을 가지고 있다고 가정해봅시다. 현재의 Storybook UI를 보면, 그러한 관계가 분명하지 않은 것으로 보입니다. 어떻게 하면 이러한 점을 고칠 수 있을까요?
 
 우리의 목표를 잡았습니다. 이제 애드온이 지원할 기능을 정의해보겠습니다.
 
-- 디자인 자산을 패널에 표시함
-- 이미지 및 임베딩을 위한 url을 지원함
+- 디자인 자산을 패널에 표시
+- 이미지 및 임베딩을 위한 URL 지원
 - 여러 버전이나 테마가 있는 경우를 대비하여, 여러 자산을 지원 가능해야 함
 
 스토리에 자산 목록을 첨부하는 방법은 Storybook의 옵션인 [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options)를 사용하는 것입니다. 이는 사용자 정의 변수를 스토리에 주입할 수 있도록 해줍니다. 사용하는 방법은 이전 챕터에서 살펴본 데코레이터(decorator)를 사용한 방식과 매우 유사합니다.
@@ -38,7 +38,7 @@ export default {
 
 ## 설정
 
-우리의 애드온이 무엇을 하게될지 간략히 살펴보았습니다. 이제 본격적으로 작업을 시작해보겠습니다.
+우리의 애드온이 무엇을 하게 될지 간략히 살펴보았습니다. 이제 본격적으로 작업을 시작해보겠습니다.
 
 프로젝트의 루트 폴더에 `.babelrc` 파일을 아래와 같이 생성해주세요:
 
@@ -64,7 +64,7 @@ export default {
 
 그게 다입니다! 이제 애드온 개발을 시작할 준비가 되었습니다.
 
-<div class="aside">우리는 <code>.storybook</code> 폴더에 애드온을 배치할 것입니다. 그 이유는 간단한 접근방식을 유지하고 복잡하기 않게 하기 위함입니다. 이 애드온을 실제 애드온으로 변환하는 경우에는 자체 파일 및 폴더 구조를 가진 별도의 패키지로 분리하는 것이 가장 좋습니다.</div>
+<div class="aside">우리는 <code>.storybook</code> 폴더에 애드온을 배치할 것입니다. 그 이유는 간단한 접근방식을 유지하고 복잡하지 않게 하기 위함입니다. 이것을 실제 애드온으로 변환하는 경우에는 자체 파일 및 폴더 구조를 가진 별도의 패키지로 분리하는 것이 가장 좋습니다.</div>
 
 ## 애드온 작성하기
 
@@ -92,9 +92,9 @@ addons.register('my/design-addon', () => {
 이는 여러분이 시작하기 위한 전형적인 상용구 코드(boilerplate)입니다. 코드가 수행하는 작업을 살펴보면:
 
 - Storybook에 새로운 애드온을 등록하고 있습니다.
-- 일부 옵션(애드온을 정의하는 title과 사용되는 요소의 type)과 함께 애드온에 대한 새로운 UI 요소를 추가하고 현재는 일부 텍스트를 렌더링합니다.
+- 일부 옵션(애드온을 정의하는 title과 사용되는 요소의 type)과 함께 애드온에 대한 새로운 UI 요소를 추가하고 있으며, 현재는 일부 텍스트를 렌더링합니다.
 
-이 시점에서 Storybook을 시작하면 아직 애드온을 볼 수 없습니다. 이전에 Knobs 애드온을 사용했을때와 같이, `.storybook/main.js` 파일에 등록해주어야 합니다. 기존의 애드온 목록에 다음을 추가해주세요.
+이 시점에서 Storybook을 시작하면 아직 애드온을 볼 수 없습니다. 이전에 Knobs 애드온을 사용했을 때와 같이, `.storybook/main.js` 파일에 등록해주어야 합니다. 기존의 애드온 목록에 다음을 추가해주세요.
 
 ```js
 // .storybook/main.js
@@ -111,13 +111,13 @@ module.exports = {
 
 성공! Storybook UI에 새로 만든 애드온이 추가되었습니다.
 
-<div class="aside">Storybook 패널뿐만 아니라 다양한 종류의 UI 컴포넌트를 추가할 수 있습니다. 전부는 아니지만 대부분이 @storybook/components 패키지 안에 이미 만들어져있기 때문에, 여러분은 UI 구현에 너무 많은 시간을 낭비하지 않고 기능을 작성하는데 집중하실 수 있습니다. </div>
+<div class="aside">Storybook 패널뿐만 아니라 다양한 종류의 UI 컴포넌트를 추가할 수 있습니다. 전부는 아니지만, 대부분이 @storybook/components 패키지 안에 이미 만들어져있기 때문에 여러분은 UI 구현에 너무 많은 시간을 낭비하지 않고 기능을 작성하는데 집중하실 수 있습니다. </div>
 
 ### Content 컴포넌트 만들기
 
-우리는 첫번째 목표를 달성하였습니다. 이제 두번째 목표를 위한 작업을 시작할 시간입니다.
+우리는 첫 번째 목표를 달성하였습니다. 이제 두 번째 목표를 위한 작업을 시작할 시간입니다.
 
-이를 완료하려면 가져오기 부분을 약간 변경하고 자산에 대한 정보를 표시할 새로운 컴포넌트를 도입해야 합니다.
+이를 완료하려면 import 부분을 약간 변경하고 자산에 대한 정보를 표시할 새로운 컴포넌트를 도입해야 합니다.
 
 애드온 파일을 다음과 같이 변경해주세요:
 
@@ -143,7 +143,7 @@ const Content = () => {
 };
 ```
 
-컴포넌트를 생성하고, 가져오기 부분을 수정해보았습니다. 남은 것은 컴포넌트를 패널에 연결하는 것 뿐입니다. 그러면 우리는 스토리와 관련된 정보를 표시할 수 있는 애드온을 갖게 될 것입니다.
+컴포넌트를 생성하고, import 부분을 수정해보았습니다. 남은 것은 컴포넌트를 패널에 연결하는 것뿐입니다. 그러면 우리는 스토리와 관련된 정보를 표시할 수 있는 애드온을 갖게 될 것입니다.
 
 코드는 다음과 같아야 합니다.
 
@@ -182,11 +182,11 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-여기서 [useParameter](https://storybook.js.org/docs/addons/api/#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해줄 것이며, 우리와 같은 경우에는 자산에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
+여기서 [useParameter](https://storybook.js.org/docs/addons/api/#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해줄 것이며, 우리의 경우에는 자산에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
 
 ### 스토리에서 애드온 사용하기
 
-필요한 모든 조각들을 연결해보았습니다. 그치만 실제로 잘 작동하는지 또 어떤 것을 보여주는지 어떻게하면 확인할 수 있을까요?
+필요한 모든 조각을 연결해보았습니다. 그렇지만 실제로 잘 작동하는지 또 어떤 것을 보여주는지 어떻게 하면 확인할 수 있을까요?
 
 이를 위해 `Task.stories.js` 파일을 조금 변경하고 [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) 옵션을 추가해보도록 하겠습니다.
 
@@ -273,38 +273,38 @@ const Content = () => {
 };
 ```
 
-자세히 살펴보면 `styled` 태그를 사용하고 있음을 보실 수 있습니다. 이 태그는 `@storybook/theming` 패키지에서 가져온 것입니다. 이 태그를 사용하면 Storybook의 테마뿐만 아니라 필요한 경우 UI를 사용자 정의 할 수 있습니다. 또한 [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate)는 스토리 북의 내부 state를 활용하여 존재하는 어떤 정보든 가져올 수 있는 편리한 훅입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져 오기 위해 사용합니다.
+자세히 살펴보면 `styled` 태그를 사용하고 있음을 보실 수 있습니다. 이 태그는 `@storybook/theming` 패키지에서 가져온 것입니다. 이 태그를 사용하면 Storybook의 테마뿐만 아니라 필요한 경우 UI를 사용자 정의 할 수 있습니다. 또한 [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate)는 스토리 북의 내부 state를 활용하여 존재하는 어떤 정보든 가져올 수 있는 편리한 훅입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져오기 위해 사용합니다.
 
 ### 실제 자원을 표시하기
 
 애드온이 표시하는 자산들을 실제로 보려면, `public` 폴더로 자산을 복사하고 `parameters` 옵션을 조정하여 이러한 변경사항을 반영해야 합니다.
 
-Storybook은 변경 사항을 파악하고 자산들을 가져올 것입니다. 그러나 지금은 첫번째 자산만 가져옵니다.
+Storybook은 변경 사항을 파악하고 자산들을 가져올 것입니다. 그러나 지금은 첫 번째 자산만 가져옵니다.
 
 ![가져온 실제 자산](/intro-to-storybook/design-assets-image-loaded.png)
 
-## Stateful addons
+## 상태를 저장하는(Stateful) 애드온
 
-Going over our initial objectives:
+우리의 초기 목표를 되짚어 보면:
 
-- ✔️ Display the design asset in a panel
-- ✔️ Support images, but also urls for embedding
-- ❌ Should support multiple assets, just in case there will be multiple versions or themes
+- ✔️ 디자인 자산을 패널에 표시
+- ✔️ 이미지 및 임베딩을 위한 URL 지원
+- ❌ 여러 버전이나 테마가 있는 경우를 대비하여, 여러 자산을 지원 가능해야 함
 
-We're almost there, only one goal remaining.
+거의 다 왔네요, 이제 한 가지 목표만 남았습니다.
 
-For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own `useAddonState`, which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
+마지막으로 우리는 일종의 state가 필요합니다. React의 `useState` 훅이나 클래스형 컴포넌트의 `this.setState()`를 사용할 수도 있지만 대신 우리는 Storybook의 `useAddonState`를 사용할 것입니다. 이는 애드온의 state를 지속할 수 있는 수단을 제공하고 로컬 state를 지속하기 위한 추가적 논리를 생성하는 것을 피하도록 해줍니다.
 
-We need to adjust our imports for our needs:
+import를 필요에 맞게 수정해주세요:
 
 ```javascript
 //.storybook/design-addon/register.js
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
-/* same as before */
+/* 이전과 동일 */
 ```
 
-And modify our `Content` component, so that we can change between assets:
+그리고 `Content` 컴포넌트를 수정하여 자산을 전환할 수 있도록 해보겠습니다:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -342,12 +342,12 @@ const Content = () => {
 };
 ```
 
-## Addon built
+## 애드온 완성
 
-We've accomplished what we set out to do, which is to create a fully functioning Storybook addon that displays the design assets related to the UI components.
+우리는 목표한 바와 같이 UI 구성 요소와 관련된 디자인 자산을 표시하는 완전한 기능을 갖춘 Storybook 애드온을 완성해보았습니다.
 
 <details>
-  <summary>Click to expand and see the full code used in this example</summary>
+  <summary>이 예제에 사용된 전체 코드를 보시려면 여기를 클릭해주세요. </summary>
 
 ```javascript
 // .storybook/design-addon/register.js
@@ -431,38 +431,38 @@ addons.register('my/design-addon', () => {
 
 </details>
 
-## Next steps
+## 다음 단계
 
-The next logical step for our addon, would be to make it it's own package and allow it to be distributed with your team and possibly with the rest of the community.
+우리가 만든 애드온을 위한 다음 단계가 있다고 한다면, 그것은 애드온을 자체 패키지로 만들어 팀 및 다른 커뮤니티에 배포할 수 있도록 하는 것입니다.
 
-But that's beyond the scope of this tutorial. This example demonstrates how you can use the Storybook API to create your own custom addon to further enhance your development workflow.
+그러나 그것은 이 튜토리얼에서 다룰 수 있는 범위를 벗어납니다. 이 예제는 작업 흐름을 더욱 향상하기 위해 Storybook API를 사용하여 여러분만의 애드온을 만드는 방법을 보여주었습니다.
 
-Learn how to further customize your addon:
+애드온을 사용자 정의하는 추가적 방법들은:
 
-- [add buttons in the Storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
-- [communicate through the channel with the iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
-- [send commands and results](https://github.com/storybookjs/storybook/tree/next/addons/events)
-- [perform analysis on the html/css outputted by your component](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
-- [wrap components, re-render with new data](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
-- [fire DOM events, make DOM changes](https://github.com/storybookjs/storybook/tree/next/addons/events)
-- [run tests](https://github.com/storybookjs/storybook/tree/next/addons/jest)
+- [Storybook 툴바에 버튼 추가하기](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
+- [iframe과 채널을 통해 전달하기](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
+- [명령 및 결과 보내기](https://github.com/storybookjs/storybook/tree/next/addons/events)
+- [컴포넌트가 출력한 html/css에 대한 분석 수행하기](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
+- [컴포넌트를 감싸 새로운 데이터와 함께 다시 렌더링](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
+- [DOM 이벤트를 발생시키고 DOM을 변경하기](https://github.com/storybookjs/storybook/tree/next/addons/events)
+- [테스트를 실행하기](https://github.com/storybookjs/storybook/tree/next/addons/jest)
 
-And much more!
+외에도 더 많은 방법이 있습니다!
 
-<div class="aside">Should you create a new addon and you're interested in having it featured, feel free to open a PR in the Storybook documentation to have it featured.</div>
+<div class="aside">새로운 애드온을 만들고 위 목록에 추가되길 원하신다면, 추가될 수 있도록 Storybook 문서에서 PR을 열어주세요.</div>
 
-### Dev kits
+### 데브 키트(Dev kits)
 
-To help you jumpstart the addon development, the Storybook team has developed some `dev-kits`.
+Storybook 팀은 여러분이 애드온을 개발하시는 것을 돕고자 데브 키트를 개발하였습니다.
 
-These packages are starter-kits to help you start building your own addons.
-The addon we've just finished creating is based on one of those starter-sets, more specifically the `addon-parameters` dev-kit.
+이 패키지는 자신만의 애드온 구축을 시작하는 데 도움이되는 스타터 키트입니다.
+방금 만든 애드온은 이러한 스타터 세트 중 하나이며, 특히 `addon-parameters` 를 기반으로 하였습니다.
 
-You can find this one and others here:
+데브 키트는 여기에서 찾아보실 수 있습니다:
 https://github.com/storybookjs/storybook/tree/next/dev-kits
 
-More dev-kits will become available in the future.
+앞으로 더 많은 데브 키드가 제공될 예정입니다.
 
-## Sharing addons with the team
+## 애드온을 팀과 공유하기
 
-Addons are timesaving additions to your workflow, but it can be difficult for non-technical teammates and reviewers to take advantage of their features. You can't guarantee folks will run Storybook on their local machine. That's why deploying your Storybook to an online location for everyone to reference can be really helpful. In the next chapter we'll do just that!
+애드온은 개발 흐름에 시간을 절약해 주는 기능이지만 기술자가 아닌 팀원이나 검토자가 해당 기능을 활용하기에 어려울 수 있습니다. 모든 사람이 로컬 컴퓨터에서 Storybook을 작동시킬 것이라고 장담할 수도 없습니다. 그 때문에 Storybook을 온라인에 배포하여 모든 사람이 참조 할 수 있도록 하는 것이 매우 도움이 되는 이유입니다. 다음 챕터에서 해 볼 것입니다!
