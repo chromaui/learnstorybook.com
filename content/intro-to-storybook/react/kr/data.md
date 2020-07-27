@@ -7,11 +7,11 @@ commit: 'f05981b'
 
 지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 Storybook에는 적합하지만, 궁극적으로 앱에서 데이터를 제공할 할 때까지는 유용하지 않습니다.
 
-이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 여기서 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트에 데이터를 연결하는 일반적인 패턴을 살펴보겠습니다.
+이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트에 데이터를 연결하는 일반적인 패턴을 살펴보겠습니다.
 
 ## 컨테이너 컴포넌트
 
-현재 작성된 우리의 `TaskList`는 “표상적(presentational)” 컴포넌트입니다. ([이 블로그 포스트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)를 참조해주세요. 이는 데이터를 제공하는 “컨테이너(container)”와 대비됩니다.)
+현재 작성된 우리의 `TaskList`는 “표상적(presentational)” 컴포넌트입니다. ([이 블로그 포스트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)를 참조해주세요. 이는 데이터를 제공하는 “컨테이너(container) 컴포넌트”와 대비됩니다.)
 
 이 예제는 데이터 저장을 위해 가장 널리 사용되는 React 라이브러리인 [리덕스(Redux)](https://redux.js.org/)를 사용하여 앱을 위해 간단한 데이터 모델을 만듭니다. 여기서 사용된 패턴은 [Apollo](https://www.apollographql.com/client/)와 [MobX](https://mobx.js.org/) 같은 다른 데이터 관리 라이브러리에도 적용됩니다.
 
@@ -90,7 +90,7 @@ import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  /* previous implementation of TaskList */
+  /* 이전에 구현한 TaskList */
 }
 
 PureTaskList.propTypes = {

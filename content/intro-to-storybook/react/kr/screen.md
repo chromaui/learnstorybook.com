@@ -116,9 +116,9 @@ export const Error = () => <PureInboxScreen error="Something" />;
 여담으로 데이터를 하위 계층에 전달하는 것은 합당한 접근 방식입니다. 특히 <a href="http://graphql.org/">GraphQL</a>을 사용하는 경우에 그렇습니다. 저희는 <a href="https://www.chromatic.com">Chromatic</a>을 만들 때 이러한 방법으로 800개 이상의 스토리를 만들었습니다.
 </div>
 
-## 데코레이터(decorators)와 함께 컨텍스트를 제공하기
+## 데코레이터와 함께 컨텍스트를 제공하기
 
-좋은 소식은 스토리 내에서 `InboxScreen`에 Redux store를 제공하기는 매우 쉽습니다! 데코레이터를 통해 모방된 Redux store를 사용하면 됩니다.
+좋은 소식은 스토리 내에서 `InboxScreen`에 Redux store를 제공하기는 매우 쉽습니다! 데코레이터(decorators)를 통해 모방된 Redux store를 사용하면 됩니다.
 
 ```javascript
 // src/components/InboxScreen.stories.js
@@ -136,7 +136,7 @@ export default {
   decorators: [story => <Provider store={store}>{story()}</Provider>],
 };
 
-// A super-simple mock of a redux store
+// redux store의 매우 간단한 모방
 const store = {
   getState: () => {
     return {

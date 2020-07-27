@@ -13,7 +13,7 @@ Storybook은 강력한 [애드온(addons)](https://storybook.js.org/addons/intro
 😍 Storybook에서 공식 지원되며, 커뮤니티에서 적극적으로 지원되는 애드온 목록은 <a href="https://storybook.js.org/addons/addon-gallery/">여기</a>에서 보실 수 있습니다.
 </div>
 
-저희는 특정 사용 사례에 대하여 애드온이 어떻게 구성되고 사용되는지 모두 다 적을 수는 없었습니다. 지금은 Storybook의 에코시스템 내에서 가장 인기 있는 애드온 [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs)를 함께 구현해 보도록 하겠습니다.
+저희는 특정 사용 사례에 대하여 애드온이 어떻게 구성되고 사용되는지 모두 다 적을 수는 없었습니다. 지금은 Storybook의 에코시스템 내에서 가장 인기 있는 애드온인 [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs)를 함께 구현해 보도록 하겠습니다.
 
 ## Knobs 설정하기
 
@@ -109,7 +109,7 @@ export const Default = () => {
 
 이제 Storybook이 뛰어난 [CDD 개발환경](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)을 제공해줄 뿐만 아니라, 상호작용을 할 수 있는 문서 자료 또한 제공합니다. PropTypes는 훌륭하지만, 디자이너 또는 컴포넌트의 코드에 익숙하지 않은 사람도 knobs 애드온이 구현된 Storybook을 통해서라면 컴포넌트가 어떻게 작동하는지를 쉽게 이해하실 수 있습니다.
 
-## Knobs를 사용하여 Edge-cases를 찾기
+## Knobs를 사용하여 엣지 케이스(Edge cases)를 찾기
 
 또한, 컴포넌트에 전달된 데이터를 쉽게 편집할 수 있기 때문에 QA 엔지니어 또는 UI 엔지니어가 컴포넌트의 한계를 시험해 볼 수 있습니다! 예를 들어, `Task`컴포넌트의 목록 아이템 중 하나가 _대량의_ 문자열이라면 어떤 일이 벌어질까요?
 
@@ -133,7 +133,7 @@ export const Default = () => {
 
 ![이제 한결 낫네요.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
 
-## 회귀를 피하기 위해 새로운 Story 추가하기
+## 회귀를 피하기 위해 새로운 스토리 추가하기
 
 물론 우리는 knobs에 같은 입력값을 넣음으로써 문제를 항상 재현할 수 있지만, 이러한 입력값에 대응하는 story를 쓰는 것이 더 좋습니다. 이렇게 하면 회귀 테스트가 증가하고 팀에게 컴포넌트의 한계들을 분명히 설명할 수 있을 것입니다.
 긴 문자열에 관한 사례를 `Task.stories.js` story에 함께 추가해봅시다.
@@ -151,7 +151,7 @@ export const LongTitle = () => (
 이제 우리는 story를 추가했으며 언제든지 우리가 작업하고 싶을 때마다 이러한 극단적 사례들을 쉽게 재현하여 볼 수 있습니다.
 ![Storybook으로 재현한 극단적 사례](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-[시각적 회귀 테스트](/react/kr/test/)를 사용하는 경우, 만약 줄임말에 대한 방식을 어기는 경우가 생긴다면 그에 대한 알림을 받을 것입니다. 이렇게 모호한 사례들은 항상 잊어버릴 수 있습니다!
+[시각적 회귀 테스트](/react/kr/test/)를 사용하는 경우, 줄임말 방식에 어긋나는 사례가 생긴다면 그에 대한 알림을 받을 것입니다. 이렇게 모호한 엣지 케이스는 항상 잊어버릴 수도 있습니다!
 
 ### 변경 사항을 병합하기
 

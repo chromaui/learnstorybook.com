@@ -100,7 +100,7 @@ export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>데코레이터(Decorators)</b></a>는 스토리에 임의의 래퍼(wrapper)를 제공하는 한 방법입니다. 위의 예시에서 우리는 데코레이터 `키`를 사용하여 기본 내보내기에서 랜더링 된 컴포넌트에 `패딩`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)에서 스토리를 감싸 줄 때 사용될 수 있습니다.
 </div>
 
-`taskData`는 `Task.stories.js`에서 생성 및 내보냈던 `Task` 데이터의 형식을 제공합니다. 마찬가지로 `actionsData`는 `Task` 컴포넌트가 기대하는 액션(mocked callbacks)을 정의하며 이는 `TaskList`에서도 필요합니다.
+`taskData`는 `Task.stories.js`에서 생성 및 내보냈던 `Task` 데이터의 형식을 제공합니다. 마찬가지로 `actionsData`는 `Task` 컴포넌트가 기대하는 액션(모방된 콜백)을 정의하며 이는 `TaskList`에서도 필요합니다.
 
 이제 Storybook에서 새로운 `TaskList` 스토리를 확인해보겠습니다.
 
@@ -188,7 +188,7 @@ export default TaskList;
   />
 </video>
 
-목록에서 핀으로 고정된 과업의 위치를 확인해주세요. 사용자들을 위해 핀으로 고정된 과업을 목록의 맨 위에 위치하도록 하여 우선순위를 부여하려고 합니다.
+목록에서 핀으로 고정된 과업의 위치를 확인해주세요. 핀으로 고정된 과업을 사용자들을 위해 목록의 맨 위에 위치하도록 하여 우선순위를 부여하려고 합니다.
 
 ## 데이터 요구사항 및 props
 
@@ -223,7 +223,7 @@ export default TaskList;
 
 ## 자동화된 테스트
 
-이전 챕터에서 우리는 Storyshots을 이용하여 스냅샷 테스트하는 법을 배워보았습니다. `Task`에서는 렌더링이 잘 되는지 확인하는 것 이상의 많은 복잡성이 필요하지는 않았습니다. `TaskList`에서는 복잡성이 더해지기 때문에 특정 입력이 자동화된 테스트에 적합한 방식으로 특정 출력을 생성하는지에 대해 확인해야 합니다. 이를 위해 테스트 renderer와 함께 [Jest](https://facebook.github.io/jest/)를 사용하여 단위 테스트를 만들어 보겠습니다.
+이전 챕터에서 우리는 Storyshots을 이용하여 스냅샷 테스트하는 법을 배워보았습니다. `Task`에서는 렌더링이 잘 되는지 확인하는 것 이상의 많은 복잡성이 필요하지는 않았습니다. `TaskList`에서는 복잡성이 더해지기 때문에 특정 입력이 자동화된 테스트에 적합한 방식으로 특정 출력을 생성하는지에 대해 확인해야 합니다. 이를 위해 테스트 랜더러와 함께 [Jest](https://facebook.github.io/jest/)를 사용하여 단위 테스트를 만들어 보겠습니다.
 
 ![Jest 로고](/intro-to-storybook/logo-jest.png)
 
@@ -231,7 +231,7 @@ export default TaskList;
 
 Storybook 스토리, 수동 테스트, 스냅샷 테스트는 UI 버그를 피하는 데 큰 도움이 됩니다. 스토리가 광범위한 컴포넌트 사용 사례를 다루고 있으며 사람이 스토리의 변경 사항을 확인하도록 하는 도구를 사용한다면 오류의 가능성을 훨씬 줄일 수 있습니다.
 
-그러나, 때로는 나쁜 악마는 세부 사항에 있습니다. 그러한 세부 사항을 명확히 하기 위해서 테스트 프레임워크가 필요합니다. 이는 우리에게 단위 테스트의 필요성을 가져다줍니다.
+그러나, 때로는 나쁜 악마는 세부 사항에 숨어있습니다. 그러한 세부 사항을 명확히 하기 위해서 테스트 프레임워크가 필요합니다. 이는 우리에게 단위 테스트의 필요성을 가져다줍니다.
 
 우리의 경우에는 `TaskList`가`tasks` prop에서 전달된 일반 과업보다 핀으로 고정된 과업을 **먼저** 랜더링 하기를 원합니다. 이러한 특정 시나리오를 테스트하는 스토리인 (`WithPinnedTasks`)가 있다 할지라도, 사람이 검토하는 경우에 컴포넌트가 과업의 순서를 바르게 정렬하지 않는 버그의 경우에 판단하기 애매모호할 수 있습니다. 일반적인 시선에는 딱히 **“잘못되었어!”**라고 보이지 않을 것입니다.
 
@@ -250,7 +250,7 @@ it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
   ReactDOM.render(<WithPinnedTasks />, div);
 
-  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
+  // "(핀으로 고정된) 과업 6"이 마지막이 아닌 처음에 렌더링 될 것으로 예상합니다.
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 
