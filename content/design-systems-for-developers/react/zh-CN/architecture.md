@@ -7,7 +7,7 @@ commit: b696f85
 
 在第二章，我们将从现有的组件库中提取出设计系统。在此过程中，我们需要识别出哪些组件属于设计系统，并列举出开发人员在构建设计系统的起步阶段面临的一些问题。
 
-在大型公司中，该实践是由设计师、工程师和产品团队一起完成的。 Chroma（Storybook 的母公司）和 Storybook 共享了一个强大的前端基础架构团队，该团队为 3+个产品及将近 800 个开源贡献者提供服务。接下来我们将概述该实践的具体流程。
+在大型公司中，该实践是由设计师、工程师和产品团队一起完成的。 Chromatic（Storybook 的母公司）和 Storybook 共享了一个强大的前端基础架构团队，该团队为 3+个产品及将近 800 个开源贡献者提供服务。接下来我们将概述该实践的具体流程。
 
 ## 面临的挑战
 
@@ -84,10 +84,10 @@ git push -u origin master
 
 ![Variants in one component](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
-删除 Create React App 默认提供的应用程序文件，然后通过下载的方式添加上述的组件到您自己的组件库中。
+将我们方才下载的组件添加到您的组件库中并且删除 Create React App 默认提供的应用程序文件。
 
 ```bash
-rm -rf src/*
+rm -rf src
 
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
 ```
