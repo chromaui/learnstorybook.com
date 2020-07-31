@@ -41,7 +41,7 @@ Registra Knobs en tu archivo `.storybook/main.js`.
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
 };
 ```
 
@@ -93,34 +93,8 @@ export const Default = () => ({
   },
   methods: actionsData,
 });
-// pinned task state
-export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_PINNED',
-      }),
-      },
-    },
-  methods: actionsData,
-});
-// archived task state
-export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_ARCHIVED',
-      }),
-      },
-    },
-  methods: actionsData,
-});
+
+// same as before
 ```
 
 Ahora debería aparecer una nueva pestaña "Knobs" al lado de la pestaña "Action Logger" en el panel inferior.
@@ -167,45 +141,8 @@ Agreguemos una historia para el caso de texto largo en `Task.stories.js`:
 
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-// default task state
-export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: object('task', { ...taskData }),
-    },
-  },
-  methods: actionsData,
-});
-// pinned task state
-export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: "TASK_PINNED",
-      }),
-    },
-  },
-  methods: actionsData,
-});
-// archived task state
-export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: "TASK_ARCHIVED",
-      }),
-    },
-  },
-  methods: actionsData,
-});
+// same as before
+
 export const LongTitle = () => ({
   components: { Task },
   template: taskTemplate,
@@ -231,6 +168,9 @@ Si estamos utilizando [pruebas de regresión visual](/vue/es/test/), también se
 
 ¡No olvides fusionar tus cambios con git!
 
-## Compartir complementos con el equipo
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
+
+<!-- ## Compartir complementos con el equipo
 
 Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar Storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!
+ -->

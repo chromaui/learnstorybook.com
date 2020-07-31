@@ -2,7 +2,7 @@
 title: '測試 UI 元件'
 tocTitle: '測試'
 description: '瞭解測試UI元件的方法'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Storybook 教程沒有測試是不完整的. 測試對於建立高質量的 UI 至關重要. 在模組化系統中,微小的調整可能導致重大的回溯. 到目前為止,我們遇到了三種類型的測試
@@ -28,7 +28,7 @@ Storybook 教程沒有測試是不完整的. 測試對於建立高質量的 UI �
 
 Storybook 是視覺回溯測試的絕佳工具,因為每個故事本質上都是一個測試規範. 每次我們編寫或更新故事時,我們都會免費獲得規格!
 
-有許多用於視覺回溯測試的工具. 對於專業團隊,我們建議[**Chromatic**](https://www.chromaticqa.com/),由 Storybook 維護者製作的外掛,在雲中執行測試.
+有許多用於視覺回溯測試的工具. 對於專業團隊,我們建議[**Chromatic**](https://www.chromatic.com/),由 Storybook 維護者製作的外掛,在雲中執行測試.
 
 ## 設定視覺回溯測試
 
@@ -59,7 +59,7 @@ $ git commit -m "taskbox UI"
 將包新增為依賴項.
 
 ```bash
-yarn add storybook-chromatic
+yarn add chromatic
 ```
 
 匯入 Chromatic 到你的`.storybook/config.js`檔案.
@@ -67,7 +67,7 @@ yarn add storybook-chromatic
 ```javascript
 import { configure } from '@storybook/react';
 import requireContext from 'require-context.macro';
-import 'storybook-chromatic';
+import 'chromatic';
 
 import '../src/index.css';
 
@@ -80,7 +80,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-然後[登入 Chromatic](https://www.chromaticqa.com/start)使用您的 GitHub 帳戶 (Chromatic 僅要求輕量級許可權) . 建立名為"taskbox"的專案並複製您的唯一專案`app-code`.
+然後[登入 Chromatic](https://www.chromatic.com/start)使用您的 GitHub 帳戶 (Chromatic 僅要求輕量級許可權) . 建立名為"taskbox"的專案並複製您的唯一專案`project-token`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -89,15 +89,11 @@ configure(loadStories, module);
   />
 </video>
 
-在命令列中執行 test 命令 以設定 Storybook 的視覺化回溯測試. 不要忘記新增您的 唯一應用程式碼 來代替`<app-code>`.
+在命令列中執行 test 命令 以設定 Storybook 的視覺化回溯測試. 不要忘記新增您的 唯一應用程式碼 來代替`<project-token>`.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
-
-<div class="aside">
-<code>--do-not-start</code> 是一個選項，告訴 Chromatic 不要啟動故事書。 如果您已經運行了故事書，請使用此選項。 如果沒有會省略 <code>--do-not-start</code>.
-</div>
 
 第一次測試完成後, 我們會為每個故事提供測試基準. 換句話說,每個故事的螢幕截圖都被稱為"good". 這些故事的未來變化 將與 基線進行比較.
 
@@ -116,7 +112,7 @@ configure(loadStories, module);
 使用之前的 test 命令執行另一個 Chromatic 測試.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 點選您將看到 更改的網路使用者介面 連結.

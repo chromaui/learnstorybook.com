@@ -28,7 +28,7 @@ Visual regression tests are designed to catch changes in appearance. They work b
 
 Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
 
-There are a number of tools for visual regression testing. For professional teams we recommend [**Chromatic**](https://www.chromaticqa.com/), an addon made by Storybook maintainers that runs tests in the cloud.
+There are a number of tools for visual regression testing. For professional teams we recommend [**Chromatic**](https://www.chromatic.com/), an addon made by Storybook maintainers that runs tests in the cloud.
 
 ## Setup visual regression testing
 
@@ -53,13 +53,12 @@ $ git commit -m "taskbox UI"
 Add the package as a dependency.
 
 ```bash
-yarn add -D storybook-chromatic
+yarn add -D chromatic
 ```
 
 One fantastic thing about this addon is that it will use Git history to keep track of your UI components.
 
-
-Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `app-code`.
+Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `project-token`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -68,14 +67,14 @@ Then [login to Chromatic](https://bit.ly/2Is93Ez) with your GitHub account (Chro
   />
 </video>
 
-Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<app-code>`.
+Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<project-token>`.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 <div class="aside">
-<code>--do-not-start</code> is an option that tells Chromatic not to start Storybook. Use this if you already have Storybook running. If not omit <code>--do-not-start</code>.
+If your Storybook has a custom build script you may have to <a href="https://www.chromatic.com/docs/setup#command-options"> add options </a> to this command.
 </div>
 
 Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.
@@ -95,7 +94,7 @@ This yields a new background color for the item.
 Use the test command from earlier to run another Chromatic test.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Follow the link to the web UI where you’ll see changes.

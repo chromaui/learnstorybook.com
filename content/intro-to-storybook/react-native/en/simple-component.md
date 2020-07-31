@@ -34,7 +34,7 @@ import { styles } from '../constants/globalStyles';
  
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
-    <SafeAreaView style={styles.listitem}>
+    <SafeAreaView style={styles.ListItem}>
       <TextInput value={title} editable={false} />
     </SafeAreaView>
   );
@@ -101,7 +101,7 @@ We also have to make one small change to the Storybook configuration setup (`sto
 
 ```javascript
 
-// storybook/config.js
+// storybook/index.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
 import './rn-addons';

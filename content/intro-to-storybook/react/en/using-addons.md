@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use addons using a popular example'
-commit: 'dac373a'
+commit: 'b3bca4a'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
@@ -42,7 +42,12 @@ Register Knobs in your `.storybook/main.js` file.
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/preset-create-react-app','@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-knobs',
+    '@storybook/addon-links',
+  ],
 };
 ```
 
@@ -67,6 +72,11 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
+
+<div class="aside">
+  If you're using TypeScript, you'll need to make a small adjustment to the imports.
+  You'll need to use <code>import { withKnobs, object } from '@storybook/addon-knobs'</code> instead.
+</div>
 
 Next, within the `default` export of `Task.stories.js` file, add `withKnobs` to the `decorators` key:
 
@@ -149,6 +159,4 @@ If we are using [visual regression testing](/react/en/test/), we will also be in
 
 Don't forget to merge your changes with git!
 
-## Creating your own addon
-
-As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the next chapter, we'll guide you through creating an addon that shows your static design alongside your development.
+<div class="aside"><p>As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/intro-to-storybook/react/en/creating-addons">create addons</a> bonus chapter we'll teach you that, by creating a addon that will help you supercharge your development workflow.</p></div>

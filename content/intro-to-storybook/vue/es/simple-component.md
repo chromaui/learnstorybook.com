@@ -94,7 +94,7 @@ export const Pinned = () => ({
     task: {
       default: () => ({
         ...taskData,
-        state: "TASK_PINNED",
+        state: 'TASK_PINNED',
       }),
     },
   },
@@ -108,7 +108,7 @@ export const Archived = () => ({
     task: {
       default: () => ({
         ...taskData,
-        state: "TASK_ARCHIVED",
+        state: 'TASK_ARCHIVED',
       }),
     },
   },

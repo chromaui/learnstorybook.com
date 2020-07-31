@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: 403f19a
+commit: '3d9cd8c'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -16,9 +16,7 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 - `title` – a string describing the task
 - `state` - which list is the task currently in and is it checked off?
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
-
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll manually test the component’s appearance given each state as we go.
 
 ## Get setup
 
@@ -73,11 +71,11 @@ export const actionsData = {
 
 export const Default = () => <Task task={{ ...taskData }} {...actionsData} />;
 
-export const Pinned = () => (
-  <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />
-);
+export const Pinned = () => <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />;
 
-export const Archived = () => <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />;
+export const Archived = () => (
+  <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />
+);
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -118,7 +116,11 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/preset-create-react-app','@storybook/addon-actions', '@storybook/addon-links'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+  ],
 };
 ```
 
@@ -168,7 +170,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
       <div className="actions" onClick={event => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
-           // eslint-disable-next-line jsx-a11y/anchor-is-valid
+          // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>
             <span className={`icon-star`} />
           </a>
@@ -227,7 +229,7 @@ As you can see, getting started building components in isolation is easy and fas
 
 ## Automated Testing
 
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook gave us a great way to manually test our application UI during construction. The ‘stories’ will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
 
 ### Snapshot testing
 

@@ -21,32 +21,39 @@ Visto que os dados para a `TaskComponent` podem ser enviados de forma assíncron
 ## Preparação
 
 Um componente composto não é em nada diferente do componente básico contido dentro deste. Comece por criar um componente `TaskListComponent` e o ficheiro estória que o acompanha em:
-`src/tasks/task-list.component.ts` e `src/tasks/task-list.stories.ts` respetivamente.
+`src/app/components/task-list.component.ts` e `src/app/components/task-list.stories.ts` respetivamente.
 
-Comece por uma implementação em bruto da `TaskListComponent`. Será necessário importar o componente `TaskComponent` criado anteriormente e injetar os atributos e as respetivas ações como inputs, assim como os eventos.
+Comece por uma implementação em bruto da `TaskList`. Será necessário importar o componente `Task` criado anteriormente e injetar os atributos e as respetivas ações como inputs, assim como os eventos.
 
 ```typescript
+// src/app/components/task-list.component.ts
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from './task.model';
+import { Task } from '../models/task.model';
 
 @Component({
-  selector: 'task-list',
+  selector: 'app-task-list',
   template: `
     <div class="list-items">
-      <task-item
-        *ngFor="let task of tasksInOrder"
+      <div *ngIf="loading">loading</div>
+      <div *ngIf="!loading && tasks.length === 0">empty</div>
+      <app-task
+        *ngFor="let task of tasks"
         [task]="task"
         (onArchiveTask)="onArchiveTask.emit($event)"
         (onPinTask)="onPinTask.emit($event)"
       >
-      </task-item>
+      </app-task>
     </div>
   `,
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = [];
-  @Input() loading: boolean = false;
+  @Input() tasks: Task[] = [];
+  @Input() loading = false;
+
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onPinTask: EventEmitter<any> = new EventEmitter();
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
 
   constructor() {}
@@ -58,92 +65,92 @@ export class TaskListComponent implements OnInit {
 Em seguida iremos criar os estados de teste do `TaskList` no ficheiro de estórias respetivo.
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
+// src/app/components/task-list.stories.ts
+
+import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
-
-import { TaskComponent } from './task.component';
 import { TaskListComponent } from './task-list.component';
-import { task, actions } from './task.stories';
+import { TaskComponent } from './task.component';
+import { taskData, actionsData } from './task.stories';
 
-export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
-];
-
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
-
-const props = {
-  tasks: defaultTasks,
-  onPinTask: actions.onPinTask,
-  onArchiveTask: actions.onArchiveTask,
-};
-
-storiesOf('TaskList', module)
-  .addDecorator(
+export default {
+  title: 'TaskList',
+  excludeStories: /.*Data$/,
+  decorators: [
     moduleMetadata({
+      // imports both components to allow component composition with storybook
       declarations: [TaskListComponent, TaskComponent],
       imports: [CommonModule],
-    })
-  )
-  .add('default', () => {
-    return {
-      template: `
+    }),
+  ],
+};
+
+export const defaultTasksData = [
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
+];
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+];
+// default TaskList state
+export const Default = () => ({
+  component: TaskListComponent,
+  template: `
+  <div style="padding: 3rem">
+    <app-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
+  </div>
+`,
+  props: {
+    tasks: defaultTasksData,
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// tasklist with pinned tasks
+export const WithPinnedTasks = () => ({
+  component: TaskListComponent,
+  template: `
+    <div style="padding: 3rem">
+      <app-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
+    </div>
+  `,
+  props: {
+    tasks: withPinnedTasksData,
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+// tasklist in loading state
+export const Loading = () => ({
+  template: `
         <div style="padding: 3rem">
-          <task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></task-list>
+          <app-task-list [tasks]="[]" loading="true" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
         </div>
       `,
-      props,
-    };
-  })
-  .add('withPinnedTasks', () => {
-    return {
-      template: `
+});
+// tasklist no tasks
+export const Empty = () => ({
+  template: `
         <div style="padding: 3rem">
-          <task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></task-list>
+          <app-task-list [tasks]="[]" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
         </div>
       `,
-      props: {
-        ...props,
-        tasks: withPinnedTasks,
-      },
-    };
-  })
-  .add('loading', () => {
-    return {
-      template: `
-        <div style="padding: 3rem">
-          <task-list [tasks]="[]" loading="true" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></task-list>
-        </div>
-      `,
-      props,
-    };
-  })
-  .add('empty', () => {
-    return {
-      template: `
-        <div style="padding: 3rem">
-          <task-list [tasks]="[]" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></task-list>
-        </div>
-      `,
-      props,
-    };
-  });
+});
 ```
 
-A função `addDecorator()` permite que seja adicionado algum "contexto" á renderização de cada tarefa. Neste caso adicionam-se os metadados do módulo de forma a ser possível o uso de todos os componentes Angular dentro das estórias.
-
 <div class="aside">
-    Os <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a>, oferecem uma forma de embrulho arbitrária ás estórias. Neste caso estamos a usar um decorador para adicionar metadados.
+    Os <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>decoradores</b></a>, oferecem uma forma para envolver arbitrariamente as estórias. Neste caso estamos a usar um decorador para adicionar alguns metadados necessários. Mas podem ser usados para adicionar outras formas de contexto aos componentes, tal como irá ser visto posteriormente.
 </div>
 
-O elemento `task` irá definir a forma da `Task` que foi criada e exportada a partir do ficheiro `task.stories.ts`. E como tal, as `actions` irão definir quais as ações (através de uma callback simulada) que o componente `TaskComponent` se encontra á espera. Cujas quais também necessárias á `TaskListComponent`.
+Com a importação da `taskData` para este ficheiro, está a ser adicionada a forma que uma `Task` assume, isto a partir do ficheiro (ou arquivo) `task.stories.ts` criado anteriormente.
+Como tal também a `actionsData` que irá definir quais as ações (através de uma callback simulada) que o componente `Task` se encontra á espera.
+
+Estes também necessários á `TaskList`.
 
 Pode agora verificar-se o Storybook com as estórias novas associadas á `Tasklist`.
 
@@ -156,23 +163,25 @@ Pode agora verificar-se o Storybook com as estórias novas associadas á `Taskli
 
 ## Definir os estados
 
-O componente ainda se encontra num estado bruto, mas temos já uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que o embrulho `.list-items` é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um embrulho. A **verdadeira complexidade** do componente `TaskListComponent` é revelada com os casos extremos `withPinnedTasks`, `loading` e `empty`.
+O componente ainda se encontra num estado bruto, mas já temos uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que ao usar-se o `.list-items` no componente como invólucro é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um invólucro. A **verdadeira complexidade** do componente `TaskList` é revelada com os casos extremos `WithPinnedTasks`, `loading` e `empty`.
 
 ```typescript
+// src/app/components/task-list.component.ts
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from './task.model';
+import { Task } from '../models/task.model';
 
 @Component({
-  selector: 'task-list',
+  selector: 'app-task-list',
   template: `
     <div class="list-items">
-      <task-item
+      <app-task
         *ngFor="let task of tasksInOrder"
         [task]="task"
         (onArchiveTask)="onArchiveTask.emit($event)"
         (onPinTask)="onPinTask.emit($event)"
       >
-      </task-item>
+      </app-task>
 
       <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
         <span class="icon-check"></span>
@@ -191,8 +200,12 @@ import { Task } from './task.model';
 })
 export class TaskListComponent implements OnInit {
   tasksInOrder: Task[] = [];
-  @Input() loading: boolean = false;
+  @Input() loading = false;
+
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onPinTask: EventEmitter<any> = new EventEmitter();
+
+  // tslint:disable-next-line: no-output-on-prefix
   @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
 
   @Input()
@@ -218,16 +231,16 @@ O markup adicional irá resultar no seguinte interface de utilizador:
   />
 </video>
 
-Reparem na posição do item confirmado na lista. Pretende-se que este item seja renderizado no topo da lista e torná-lo uma prioridade aos utilizadores.
+Repare na posição do item que está confirmado na lista. Pretende-se que este item seja renderizado no topo da lista e torná-lo uma prioridade aos utilizadores.
 
 ## Requisitos de dados
 
-Á medida que o componente tem tendência em crescer, o mesmo irá acontecer com os seus requisitos. Defina os requisitos de dados de `TaskListComponent`, através do uso de TypeScript. Visto que `TaskComponent` é um componente filho, é necessário fornecer os dados estruturados correctamente de forma que possa ser renderizado correctamente.
+Á medida que o componente tem tendência em crescer, o mesmo irá acontecer com os seus requisitos. Defina os requisitos de dados de `TaskListComponent`, através do uso de TypeScript. Visto que `TaskComponent` é um componente filho, é necessário fornecer os dados estruturados corretamente de forma que possa ser renderizado sem problemas.
 De forma a poupar tempo podemos reutilizar o modelo que foi definido anteriormente no ficheiro `task.model.ts`.
 
 ## Testes automatizados
 
-No capitulo anterior, aprendeu-se a usar o Storyshots para implementar estórias de testes snapshot. Com o componente `TaskComponent` não existia muita complexidade para testar além do sucesso da renderização. Visto que o componente `TaskListComponent` adiciona uma camada extra de complexidade, pretende-se verificar que determinados valores de entrada produzam determinados valores de saída, isto implementado de forma responsável para os testes automáticos. Para tal irão ser criados testes unitários utilizando [Jest](https://facebook.github.io/jest/) em conjunção com um renderizador de testes.
+No capítulo anterior, aprendemos a usar o Storyshots para efetuar testes snapshot nas estórias. Com o `TaskComponent` não existia muita complexidade para testar além do sucesso da renderização. Visto que o `TaskListComponent` adiciona uma camada extra de complexidade, pretende-se verificar que determinados valores de entrada produzam determinados valores de saída, isto implementado de forma responsável para os testes automáticos. Para tal irão ser criados testes unitários utilizando [Jest](https://facebook.github.io/jest/) em conjunção com um renderizador de testes.
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
@@ -245,33 +258,30 @@ De forma a evitar este problema em concreto, podemos usar o Jest, de forma que e
 Iremos começar por criar um ficheiro de testes denominado `task-list.component.spec.ts`. Neste ficheiro estarão contidos os testes que irão fazer asserções acerca do valor de saída.
 
 ```typescript
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+// src/app/components/task-list.component.spec.ts
+
+import { render } from '@testing-library/angular';
 import { TaskListComponent } from './task-list.component';
 import { TaskComponent } from './task.component';
-
-import { withPinnedTasks } from './task-list.stories';
-import { By } from '@angular/platform-browser';
-
+import { withPinnedTasksData } from './task-list.stories';
 describe('TaskList component', () => {
-  let component: TaskListComponent;
-  let fixture: ComponentFixture<TaskListComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [TaskComponent, TaskListComponent],
-    }).compileComponents();
-  }));
-
-  it('renders pinned tasks at the start of the list', () => {
-    fixture = TestBed.createComponent(TaskListComponent);
-    component = fixture.componentInstance;
-    component.tasks = withPinnedTasks;
-
-    fixture.detectChanges();
-    const lastTaskInput = fixture.debugElement.query(By.css('.list-item:nth-child(1)'));
-
-    // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-    expect(lastTaskInput.nativeElement.id).toEqual('6');
+  it('renders pinned tasks at the start of the list', async () => {
+    const mockedActions = jest.fn();
+    const tree = await render(TaskListComponent, {
+      declarations: [TaskComponent],
+      componentProperties: {
+        tasks: withPinnedTasksData,
+        loading: false,
+        onPinTask: {
+          emit: mockedActions,
+        } as any,
+        onArchiveTask: {
+          emit: mockedActions,
+        } as any,
+      },
+    });
+    const component = tree.fixture.componentInstance;
+    expect(component.tasksInOrder[0].id).toBe('6');
   });
 });
 ```

@@ -2,7 +2,7 @@
 title: 'Test UI componenten'
 tocTitle: 'Testen'
 description: 'Leer manieren om UI componenten te testen'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Geen Storybook tutorial zou compleet zijn zonder testen. Testen is essentieel voor het maken van UI's van hoge kwaliteit. In modulaire systemen kunnen kleine tweaks leiden tot grote regressies. Tot nu toe zijn we drie soorten tests tegengekomen:
@@ -28,7 +28,7 @@ Visuele regressie tests zijn ontworpen om veranderingen in het uiterlijk te ontd
 
 Storybook is een fantastisch hulpmiddel voor visuele regressie tests, omdat elke story in wezen een testspecificatie is. Elke keer dat we een story schrijven of bijwerken, krijgen we gratis een specificatie!
 
-Er zijn een aantal hulpmiddelen voor visuele regressie tests. Voor professionele teams raden we [**Chromatic**](https://www.chromaticqa.com/) aan, een add-on gemaakt door de ontwikkelaars van Storybook die tests in de cloud uitvoert.
+Er zijn een aantal hulpmiddelen voor visuele regressie tests. Voor professionele teams raden we [**Chromatic**](https://www.chromatic.com/) aan, een add-on gemaakt door de ontwikkelaars van Storybook die tests in de cloud uitvoert.
 
 ## Visuele regressie tests opzetten
 
@@ -53,7 +53,7 @@ $ git commit -m "taskbox UI"
 Voeg de package toe als dependency.
 
 ```bash
-yarn add storybook-chromatic
+yarn add chromatic
 ```
 
 Import Chromatic in je `.storybook/config.js` bestand.
@@ -63,7 +63,7 @@ Import Chromatic in je `.storybook/config.js` bestand.
 
 import { configure } from '@storybook/react';
 import requireContext from 'require-context.macro';
-import 'storybook-chromatic';
+import 'chromatic';
 
 import '../src/index.css';
 
@@ -76,7 +76,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Vervolgens [log je in op Chromatic](https://www.chromaticqa.com/start) met je GitHub-account (Chromatic vraagt alleen om lichte permissies). Maak een project aan met de naam "taskbox" en kopieer je unieke `app-code`.
+Vervolgens [log je in op Chromatic](https://www.chromatic.com/start) met je GitHub-account (Chromatic vraagt alleen om lichte permissies). Maak een project aan met de naam "taskbox" en kopieer je unieke `project-token`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -85,14 +85,14 @@ Vervolgens [log je in op Chromatic](https://www.chromaticqa.com/start) met je Gi
   />
 </video>
 
-Voer het test commando uit op de command line om visuele regressietests in te stellen voor Storybook. Vergeet niet om je unieke app-code toe te voegen in plaats van `<app-code>`.
+Voer het test commando uit op de command line om visuele regressietests in te stellen voor Storybook. Vergeet niet om je unieke project-token toe te voegen in plaats van `<project-token>`.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 <div class="aside">
-<code>--do-not-start</code> is een optie die Chromatic vertelt dat het Storybook niet moet starten. Gebruik dit als Storybook al is aan het runnen. Indien niet, laat <code>--do-not-start</code> weg.
+Als je Storybook een afwijkend build script heeft dan moet je mogelijk <a href="https://www.chromatic.com/docs/setup#command-options">opties toevoegen </a> aan dit commando.
 </div>
 
 Zodra de eerste test is voltooid, hebben we test baselines voor elke story. Met andere woorden, screenshots van elke story die bekend staan als "goed". Toekomstige wijzigingen in die stories zullen worden vergeleken met de baselines.
@@ -112,7 +112,7 @@ Dit levert een nieuwe background color op voor het item.
 Gebruik het test commando van eerder om nog een Chromatic test uit te voeren.
 
 ```bash
-./node_modules/.bin/chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Volg de link naar de web UI waar je wijzigingen ziet.

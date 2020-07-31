@@ -106,7 +106,7 @@ export class TasksState {
 
 We have the store implemented, we need to take a couple of steps before connecting it to our app.
 
-Let's move our existing presentational version to a new component called `pure-task-list.component.ts`, (renaming the `selector` to `app-pure-task-list`) which will be later wrapped in a container.
+We're going to update our `TaskListComponent` to read data from the store, but first we're going to move our presentational version to a new file called `pure-task-list.component.ts`, (renaming the `selector` to `app-pure-task-list`) which will be later wrapped in a container.
 
 In `src/app/components/pure-task-list.component.ts`:
 
@@ -125,7 +125,7 @@ export class PureTaskListComponent implements OnInit {
 }
 ```
 
-In `src/app/components/task-list.component.ts`:
+Afterwards we change `src/app/components/task-list.component.ts` to the following:
 
 ```typescript
 // src/app/components/task-list.component.ts
@@ -187,7 +187,7 @@ import { PureTaskListComponent } from './pure-task-list.component';
 export class TaskModule {}
 ```
 
-All the pieces are in place, all that is needed is wire the store to the app. In our top level component (`src/app/app.module.ts`):
+All the pieces are in place, all that is needed is wire the store to the app. In our top level module (`src/app/app.module.ts`):
 
 ```typescript
 // src/app/app.module.ts
@@ -215,7 +215,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/app/components/task-list.stories.ts` into `src/app/components/pure-task-list.stories.ts`, and ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's also rename `src/app/components/task-list.stories.ts` into `src/app/components/pure-task-list.stories.ts`, and ensure our stories use the presentational version:
 
 ```typescript
 // src/app/components/pure-task-list.stories.ts
@@ -306,7 +306,6 @@ export const Empty = () => ({
 Similarly, we need to use `PureTaskListComponent` in our Jest test:
 
 ```typescript
-
 // src/app/components/task-list.component.spec.ts
 
 import { render } from '@testing-library/angular';

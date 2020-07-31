@@ -19,11 +19,11 @@ Möchtest du noch tiefer einsteigen? Hier ein paar hilfreiche Quellen.
 
 - [**Der Blog-Post "The Delightful Storybook Workflow"**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) zeigt dir Workflows und Best-Practices der Hochgeschwindigkeits-Teams von Squarespace, Major League Soccer, Discovery Network, und Apollo GraphQL.
 
-- [**Das Handbuch für visuelle Tests**](https://www.chromaticqa.com/book/visual-testing-handbook) taucht tief in die Verwendung von Storybook für visuelle Tests für Komponenten ein. Ein kostenloses 31-seitiges E-Book.
+- [**Das Handbuch für visuelle Tests**](https://www.chromatic.com/book/visual-testing-handbook) taucht tief in die Verwendung von Storybook für visuelle Tests für Komponenten ein. Ein kostenloses 31-seitiges E-Book.
 
 ## Wer steckt hinter LearnStorybook.com?
 
-Der Text, Code und die Produktion wurden unterstützt von [Chroma](http://blog.hichroma.com/). Das Tutorial wurde inspiriert von Chromas beliebter [GraphQL + React Tutorial-Serie](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+Der Text, Code und die Produktion wurden unterstützt von [Chromatic](http://blog.hichroma.com/). Das Tutorial wurde inspiriert von Chromas beliebter [GraphQL + React Tutorial-Serie](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
 Du möchtest mehr solcher Tutorials und Artikel? Melde dich bei der Chroma-Mailingliste an.
 

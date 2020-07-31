@@ -55,16 +55,18 @@ Your Storybook should reload like this (notice that the font styles are a little
 
 #### Add global styles
 
-Our design system requires some global styles (a CSS reset) to be applied to the document for components to be rendered correctly. The styles can be added easily via a Styled Components global style tag. For reference here is how the code is exported from `src/shared/global.js`:
+Our design system requires some global styles (a CSS reset) to be applied to the document for components to be rendered correctly. The styles can be added easily via a Styled Components global style tag. Adjust your global styles, located in `src/shared/global.js` to the following:
 
 ```javascript
+// src/shared/global.js
+
 import { createGlobalStyle, css } from 'styled-components';
 import { color, typography } from './styles';
 
 export const fontUrl = 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900';
 
 export const bodyStyles = css`
-  /* global styles */
+  /* same as before */
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -77,6 +79,8 @@ export const GlobalStyle = createGlobalStyle`
 To use the `GlobalStyle` “component” in Storybook, we can make use of a decorator (a component wrapper). In an app we’d place that component in the top-level app layout, but in Storybook we wrap all stories in it using the preview config file `.storybook/preview.js`
 
 ```javascript
+// .storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
@@ -116,6 +120,8 @@ The [actions addon](https://github.com/storybookjs/storybook/tree/next/addons/ac
 Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. We have a story that passes an action to that wrapper:
 
 ```javascript
+// src/Button.js
+
 import React from 'react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
@@ -145,6 +151,8 @@ yarn add --dev  @storybook/addon-storysource
 Add the addon in `.storybook/main.js`:
 
 ```javascript
+//.storybook/main.js
+
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -173,6 +181,8 @@ yarn add --dev @storybook/addon-knobs
 Add the addon in `.storybook/main.js`:
 
 ```javascript
+//.storybook/main.js
+
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -188,6 +198,8 @@ module.exports = {
 Add a story that uses knobs in `src/Avatar.stories.js`:
 
 ```javascript
+//src/Avatar.stories.js
+
 import React from 'react';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 
@@ -219,6 +231,8 @@ We'll visit the Accessbility and Docs addons in later chapters.
 
 ## Learn how to automate maintenance
 
-Now that our design system components are in Storybook, we need to set up the automated tooling that streamlines ongoing maintenance. A design system, like all software, should evolve. The challenge is to ensure UI components continue to look and feel as intended as the design system grows.
+Now that our design system components are in Storybook, we've taken one more step to create a industry-standard design system. Now it's a good time to commit our work to our remote repository. Then we can start thinking about how we setup the automated tooling that streamlines ongoing maintenance.
+
+A design system, like all software, should evolve. The challenge is to ensure UI components continue to look and feel as intended as the design system grows.
 
 In chapter 4 we’ll learn how to set up continuous integration and auto-publish the design system online for collaboration.

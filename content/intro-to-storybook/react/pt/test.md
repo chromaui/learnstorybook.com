@@ -2,7 +2,7 @@
 title: 'Teste de componentes de interface de utilizador'
 tocTitle: 'Testes'
 description: 'Aprendizagem das formas de teste dos componentes interface utilizador'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Qualquer tutorial de Storybook não estaria completo sem serem mencionados os testes. Estes são essenciais na criação de interfaces de utilizador de alta qualidade. Nos sistemas modulares, ajustes minúsculos poderão levar a regressões gigantescas. Até agora foram descritos três tipos de testes:
@@ -28,7 +28,7 @@ Os testes visuais de regressão são desenhados para capturar alterações de ap
 
 O Storybook é uma ferramenta fantástica para este tipo de testes, por que cada estória é na sua essência uma especificação de teste. Cada vez que é escrita ou atualizada uma estória, obtemos uma especificação de graça!
 
-Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromaticqa.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efetua testes na núvem.
+Existem inúmeras ferramentas para este propósito. Para equipas profissionais é recomendado o [**Chromatic**](https://www.chromatic.com/), um extra desenvolvido pela equipa de manutenção do Storybook que efetua testes na núvem.
 
 ## Configuração de testes de regressão visual
 
@@ -54,12 +54,12 @@ $ git commit -m "taskbox UI"
 Adiciona-se o pacote como dependência.
 
 ```bash
-yarn add -D storybook-chromatic
+yarn add -D chromatic
 ```
 
 Um aspeto fantástico acerca deste extra é que recorre á Git history para se manter a par dos componentes de interface de utilizador.
 
-Faça a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida crie um projeto com o nome "taskbox" e copie e guarde seu o `app-code` único.
+Faça a [autenticação na plataforma Chromatic](https://www.chromatic.com/start), com a conta GitHub (O Chromatic pede permissões ligeiras). Em seguida crie um projeto com o nome "taskbox" e copie e guarde seu o `project-token` único.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -68,15 +68,13 @@ Faça a [autenticação na plataforma Chromatic](https://www.chromaticqa.com/sta
   />
 </video>
 
-Execute o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `app-code` fornecido ao invés de `<app-code>`.
+Execute o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `project-token` fornecido ao invés de `<project-token>`.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
-<div class="aside">
-     O argumento <code>--do-not-start</code> é uma opção que informa o Chromatic para não iniciar o Storybook. Isto usado se o Storybook já se encontrar em execução. Caso contrário omite-se o <code>--do-not-start</code>.
-</div>
+<div class="aside"> Se o seu Storybook tiver um script de compilação personalizado, poderá ter que <a href="https://www.chromatic.com/docs/setup#command-options">adicionar opções</a> a este comando. </div>
 
 Assim que o primeiro teste estiver concluído, é obtida a base de testes para cada estória. Por outras palavras, uma captura de cada estória considerada "boa". Alterações futuras a estas estórias, irão ser comparadas com esta base.
 
@@ -95,7 +93,7 @@ O que irá gerar uma nova cor de fundo para o item.
 Usando agora o comando de testes, para efectuar um outro teste com o Chromatic.
 
 ```bash
-npx chromatic --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Ao abrir-se o link, irão ser apresentadas a alterações.
@@ -119,7 +117,6 @@ Se uma alteração é intencional, é necessária a atualização da linha de ba
     type="video/mp4"
   />
 </video>
-
 
 Visto que as aplicações modernas são construidas a partir de componentes, é importante testar ao nível destes. Ao efetuar-se isto ajuda a identificar a principal causa da alteração, ou seja o componente, ao invés de reagir aos sintomas de uma alteração, ecrãs ou componentes compostos.
 

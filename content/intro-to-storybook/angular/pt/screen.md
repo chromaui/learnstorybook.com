@@ -11,37 +11,126 @@ Neste capitulo, irá ser acrescida um pouco mais a sofisticação, através da c
 
 ## Componentes contentores
 
-Visto que a aplicação é deveras simples, o ecrã a ser construído é bastante trivial, simplesmente envolvendo o componente `TaskListComponent` (que fornece os seus dados via ngxs), a um qualquer layout e extraindo o campo de topo `erro` oriundo do loja(assumindo que este irá ser definido caso exista algum problema na ligação ao servidor). Dentro da pasta `src/tasks/containers` vai ser adicionado o ficheiro `inbox-screen.component.ts`:
+Visto que a aplicação é deveras simples, o ecrã a ser construído é bastante trivial, simplesmente envolvendo o componente `TaskListComponent` (que fornece os seus dados via ngxs), a um qualquer layout e extraindo o campo de topo `erro` oriundo do loja (assumindo que este irá ser definido caso exista algum problema na ligação ao servidor).
+
+Vamos começar por atualizar a nossa loja (no ficheiro (ou arquivo) `src/app/state/task.state.ts`) para incluir o campo de erro que pretendemos:
 
 ```typescript
-import { Component, OnInit, Input } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
-import { Task } from '../task.model';
-import { Observable } from 'rxjs';
+// src/app/state/task.state.ts
 
-@Component({
-  selector: 'inbox-screen',
-  template: `
-    <pure-inbox-screen [error]="error$ | async"></pure-inbox-screen>
-  `,
+import { State, Selector, Action, StateContext } from '@ngxs/store';
+import { Task } from '../models/task.model';
+
+// defines the actions available to the app
+export const actions = {
+  ARCHIVE_TASK: 'ARCHIVE_TASK',
+  PIN_TASK: 'PIN_TASK',
+  // defines the new error field we need
+  ERROR: 'APP_ERROR',
+};
+
+export class ArchiveTask {
+  static readonly type = actions.ARCHIVE_TASK;
+
+  constructor(public payload: string) {}
+}
+
+export class PinTask {
+  static readonly type = actions.PIN_TASK;
+
+  constructor(public payload: string) {}
+}
+// the class definition for our error field
+export class AppError {
+  static readonly type = actions.ERROR;
+  constructor(public payload: boolean) {}
+}
+
+// The initial state of our store when the app loads.
+// Usually you would fetch this from a server
+const defaultTasks = {
+  1: { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  2: { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  3: { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  4: { id: '4', title: 'Something again', state: 'TASK_INBOX' },
+};
+
+export class TaskStateModel {
+  entities: { [id: number]: Task };
+  error: boolean;
+}
+
+// sets the default state
+@State<TaskStateModel>({
+  name: 'tasks',
+  defaults: {
+    entities: defaultTasks,
+    error: false,
+  },
 })
-export class InboxScreenComponent implements OnInit {
-  @Select(TasksState.getError) error$: Observable<any>;
+export class TasksState {
+  @Selector()
+  static getAllTasks(state: TaskStateModel) {
+    const entities = state.entities;
+    return Object.keys(entities).map(id => entities[+id]);
+  }
 
-  constructor() {}
+  // defines a new selector for the error field
+  @Selector()
+  static getError(state: TaskStateModel) {
+    const { error } = state;
+    return error;
+  }
+  //
+  // triggers the PinTask action, similar to redux
+  @Action(PinTask)
+  pinTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: PinTask) {
+    const state = getState().entities;
 
-  ngOnInit() {}
+    const entities = {
+      ...state,
+      [payload]: { ...state[payload], state: 'TASK_PINNED' },
+    };
+
+    patchState({
+      entities,
+    });
+  }
+  // triggers the PinTask action, similar to redux
+  @Action(ArchiveTask)
+  archiveTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: ArchiveTask) {
+    const state = getState().entities;
+
+    const entities = {
+      ...state,
+      [payload]: { ...state[payload], state: 'TASK_ARCHIVED' },
+    };
+
+    patchState({
+      entities,
+    });
+  }
+
+  // function to handle how the state should be updated when the action is triggered
+  @Action(AppError)
+  setAppError({ patchState, getState }: StateContext<TaskStateModel>, { payload }: AppError) {
+    const state = getState();
+    patchState({
+      error: !state.error,
+    });
+  }
 }
 ```
 
-Em seguida vai ser necessária a criação do componente `PureInboxScreenComponent` dentro da pasta `src/tasks/components` com o seguinte código:
+Já temos a loja atualizada com o novo campo. Vamos criar um novo ficheiro (ou arquivo) chamado `pure-inbox-screen.component.ts` no interior da pasta (ou diretório) `src/app/components`:
 
 ```typescript
+// src/app/components/pure-inbox-screen.component.ts
+
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
-  selector: 'pure-inbox-screen',
+  selector: 'app-pure-inbox-screen',
   template: `
     <div *ngIf="error" class="page lists-show">
       <div class="wrapper-message">
@@ -57,7 +146,7 @@ import { Component, OnInit, Input } from '@angular/core';
           <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <task-list></task-list>
+      <app-task-list></app-task-list>
     </div>
   `,
 })
@@ -70,25 +159,84 @@ export class PureInboxScreenComponent implements OnInit {
 }
 ```
 
-Vai ser necessário alterar o `AppComponent` de forma a ser possível renderizar o `InboxScreenComponent` (eventualmente iria ser usado um roteador para escolher o ecrã apropriado, mas não e necessário preocupar-se com isso agora):
+Em seguida podemos criar o contentor, que tal como anteriormente, obtém os dados oriundos da loja para o componente `PureInboxScreenComponent`. Num novo ficheiro (ou arquivo) chamado `inbox-screen.component.ts`:
 
 ```typescript
+// src/app/components/inbox-screen.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { Select } from '@ngxs/store';
+import { TasksState } from '../state/task.state';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-inbox-screen',
+  template: `
+    <app-pure-inbox-screen [error]="error$ | async"></app-pure-inbox-screen>
+  `,
+})
+export class InboxScreenComponent implements OnInit {
+  @Select(TasksState.getError) error$: Observable<any>;
+
+  constructor() {}
+
+  ngOnInit() {}
+}
+```
+
+Vai ser necessário alterar o componente `AppComponent` de forma a ser possível renderizar o `InboxScreenComponent` (eventualmente iria ser usado um roteador para escolher o ecrã apropriado, mas não é necessário preocupar-nos com isto agora):
+
+```typescript
+//src/app/app.component.ts
+
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   template: `
-    <inbox-screen></inbox-screen>
+    <app-inbox-screen></app-inbox-screen>
   `,
 })
 export class AppComponent {
-  title = 'app';
+  title = 'taskbox';
 }
 ```
 
+E com isto uma última alteração, esta no ficheiro (ou arquivo) `app.module.ts`:
+
+```typescript
+//src/app/app.module.ts
+
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { TaskModule } from './components/task.module';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { AppComponent } from './app.component';
+import { InboxScreenComponent } from './components/inbox-screen.component';
+import { PureInboxScreenComponent } from './components/pure-inbox-screen.component';
+
+@NgModule({
+  declarations: [AppComponent, InboxScreenComponent, PureInboxScreenComponent],
+  imports: [
+    BrowserModule,
+    TaskModule,
+    NgxsModule.forRoot([]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
+  ],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+<div class="aside"><p>Não se esqueça de atualizar o ficheiro (ou arquivo) <code>src/app/app.component.spec.ts</code>. Ou na próxima vez que executar os testes, estes irão falhar.</p></div>
+
 No entanto as coisas irão tornar-se interessantes ao renderizar-se a estória no Storybook.
 
-Tal como visto anteriormente, o componente `TaskListComponent` é um **contentor** que renderiza o componente de apresentação `PureTaskListComponent`. Por definição estes componentes, os componentes contentor não podem ser renderizados de forma isolada, estes encontram-se "á espera" de um determinado contexto ou ligação a serviço. O que isto significa, é que para ser feita a renderização de um contentor em Storybook, é necessário simular o contexto ou serviço necessário(ou seja, providenciar uma versão fingida).
+Tal como visto anteriormente, o componente `TaskListComponent` é um **contentor** que renderiza o componente de apresentação `PureTaskListComponent`. Por definição estes componentes, os componentes contentor não podem ser renderizados de forma isolada, estes encontram-se "á espera" de um determinado contexto ou ligação a serviço. O que isto significa, é que para ser feita a renderização de um contentor no Storybook, é necessário simular o contexto ou serviço necessário (ou seja, providenciar uma versão fingida).
 
 Ao colocar-se a `TaskListComponent` no Storybook, foi possível fugir a este problema através da renderização do `PureTaskListComponent` e com isto evitando o contentor por completo.
 Irá ser feito algo similar para o `PureInboxScreen` no Storybook também.
@@ -96,76 +244,81 @@ Irá ser feito algo similar para o `PureInboxScreen` no Storybook também.
 No entanto para o `PureInboxScreenComponent` existe um problema, isto porque apesar deste ser de apresentação, o seu "filho", ou seja a `TaskListComponent` não o é. De certa forma o `PureInboxScreenComponent` foi poluído pelo "container-ness". Com isto as estórias no ficheiro `inbox-screen.stories.ts` terão que ser definidas da seguinte forma:
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { TaskModule } from '../task.module';
+// src/app/components/pure-inbox-screen.stories.ts
 
-storiesOf('InboxScreen', module)
-  moduleMetadata({
-    imports: [TaskModule],
-    providers: [],
-  }),
-  .add('default', () => {
-    return {
-      template: `<inbox-screen></inbox-screen>`,
-    };
-  })
-  .add('error', () => {
-    return {
-      template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
-      props: {
-        error: 'Something!',
-      },
-    };
-  });
+import { moduleMetadata } from '@storybook/angular';
+import { PureInboxScreenComponent } from './pure-inbox-screen.component';
+import { TaskModule } from './task.module';
+export default {
+  title: 'PureInboxScreen',
+  decorators: [
+    moduleMetadata({
+      imports: [TaskModule],
+    }),
+  ],
+};
+// inbox screen default state
+export const Default = () => ({
+  component: PureInboxScreenComponent,
+});
+
+// inbox screen error state
+export const error = () => ({
+  component: PureInboxScreenComponent,
+  props: {
+    error: true,
+  },
+});
 ```
 
 Pode verificar-se agora existem problemas com as estórias. Isto deve-se ao facto que ambas dependem da loja e apesar de se estar a usar um componente "puro" para o estado erro, ambas ainda precisam do contexto.
-
-![Inbox quebrada](/intro-to-storybook/broken-inboxscreen.png)
 
 Uma forma de evitar este tipo de situações, consiste em evitar por completo a renderização de componentes contentor em qualquer lado na aplicação com a exceção do mais alto nível e injetar os dados ao longo da hierarquia de componentes.
 
 No entanto, algum programador **irá querer** renderizar contentores num nível mais baixo na hierarquia de componentes. Já que pretendemos renderizar a maioria da aplicação no Storybook (sim queremos!), é necessária uma solução para esta situação.
 
 <div class="aside">
-    Como aparte, a transmissão de dados ao longo da hierarquia é uma abordagem legitima, particulamente quando é utilizado <a href="http://graphql.org/">GrapQL</a>. Foi desta forma que foi construido o <a href="https://www.chromaticqa.com">Chromatic</a>, juntamente com mais de 670 estórias.
+    Como aparte, a transmissão de dados ao longo da hierarquia é uma abordagem legitima, particularmente quando é utilizado <a href="http://graphql.org/">GraphQL</a>. Foi desta forma que foi construido o <a href="https://www.chromatic.com">Chromatic</a>, juntamente com mais de 800 estórias.
 </div>
 
-## Fornecimento do contexto com recurso a decoradores
+## Fornecer contexto ás estórias
 
-A forma mais fácil de se atingir isto consiste em fornecer a `Store` ao módulo e inicializar o estado, partindo do pressuposto que é uma aplicação completa:
+As boas notícias é que é extremamente fácil injetar a loja ao `PureInboxScreenComponent` numa estória! Podemos instanciar uma nova instância da loja e fornecê-la como contexto da estória através de um decorador.
 
 ```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState, ErrorFromServer } from '../state/task.state';
-import { TaskModule } from '../task.module';
+// src/app/components/pure-inbox-screen.stories.ts
 
-storiesOf('InboxScreen', module)
-  .addDecorator(
+import { moduleMetadata } from '@storybook/angular';
+import { PureInboxScreenComponent } from './pure-inbox-screen.component';
+import { TaskModule } from './task.module';
+import { Store, NgxsModule } from '@ngxs/store';
+import { TasksState } from '../state/task.state';
+export default {
+  title: 'PureInboxScreen',
+  decorators: [
     moduleMetadata({
       imports: [TaskModule, NgxsModule.forRoot([TasksState])],
       providers: [Store],
-    })
-  )
-  .add('default', () => {
-    return {
-      template: `<inbox-screen></inbox-screen>`,
-    };
-  })
-  .add('error', () => {
-    return {
-      template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
-      props: {
-        error: 'Something!',
-      },
-    };
-  });
+    }),
+  ],
+};
+// inbox screen default state
+export const Default = () => ({
+  component: PureInboxScreenComponent,
+});
+
+// inbox screen error state
+export const error = () => ({
+  component: PureInboxScreenComponent,
+  props: {
+    error: true,
+  },
+});
 ```
 
-Existem abordagens semelhantes de forma a fornecer contextos simulados para outras bibliotecas de dados tal como [ngxs](https://ngxs.gitbook.io/ngxs/).
+Existem abordagens semelhantes de forma a fornecer contextos simulados para outras bibliotecas, tais como por exemplo [@ngrx](https://github.com/ngrx/platform) ou [Apollo](https://www.apollographql.com/docs/angular/).
 
-A iteração de estados no Storybook faz com que seja bastante fácil testar, se for feito correctamente:
+A iteração de estados no Storybook faz com que seja bastante fácil testar, se for feito corretamente:
 
 <video autoPlay muted playsInline loop >
 
@@ -175,64 +328,7 @@ A iteração de estados no Storybook faz com que seja bastante fácil testar, se
   />
 </video>
 
-## Método alternativo
-
-Poderá estar a perguntar-se porque foi criado o novo `PureInboxScreenComponent`, somente para testar o atributo `error`. A resposta mais curta é que iriamos querer mostrar um padrão que é bastante comum: ou seja componentes contentores agrupados. Neste caso, o `TaskListComponent` foi ligado á loja e com isto injetado dentro do `InboxScreenComponent` que também se encontra ligado á loja (para se obter o `error`). Foi adicionado o `PureInboxScreenComponent` somente para ilustrar uma forma de se dividir os componentes nas formas pura e ligada, assim como a possibilidade de testar em separado.
-
-Este é um exemplo extremamente simples e como tal adicionar estes componentes puros poderá sugerir algo excessivo. Mas com o Storybook para Angular existe uma outra forma de escrever estórias para o `InboxScreenComponent`:
-
-```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState, ErrorFromServer } from '../state/task.state';
-import { TaskModule } from '../task.module';
-
-import { Component } from '@angular/core';
-
-@Component({
-  template: `
-    <inbox-screen></inbox-screen>
-  `,
-})
-class HostDispatchErrorComponent {
-  constructor(store: Store) {
-    store.dispatch(new ErrorFromServer('Error'));
-  }
-}
-
-storiesOf('InboxScreen', module)
-  .addDecorator(
-    moduleMetadata({
-      declarations: [HostDispatchErrorComponent],
-      imports: [TaskModule, NgxsModule.forRoot([TasksState])],
-      providers: [Store],
-    })
-  )
-  .add('default', () => {
-    return {
-      template: `<inbox-screen></inbox-screen>`,
-    };
-  })
-  .add('error', () => {
-    return {
-      template: `<pure-inbox-screen [error]="error"></pure-inbox-screen>`,
-      props: {
-        error: 'Something!',
-      },
-    };
-  })
-  .add('Connected Error', () => {
-    return {
-      component: HostDispatchErrorComponent,
-    };
-  });
-```
-
-Como pode ser visto, foi criado um novo componente, componente este que embrulha e irá incluir o componente `InboxScreenComponent` diretamente. Dentro do construtor deste, iremos usar o mecanismo de injeção de dependências do Angular de forma a ser possível o acesso á instância `Store` e com isto despoletar a ação de erro. O que resulta no `error` ser adicionado á loja e como consequencia disso, o componente `InboxScreenComponent` irá renderizar corretamente o estado de erro.
-
-Poderá estar a pensar no porque de se usar `component` ao invés de `template` para definir a estória. O que acontece é que Storybook para Angular permite quer uma, quer a outra metodologia, o que a metodologia usada por `component` faz, não é nada mais nada menos do que o que se pretende: permite fornecer uma referência a uma qualquer classe componente e com isso é possível adicionar como um componente dentro do módulo e renderizar. Como efeito colateral, visto que este componente é agora parte do módulo, tem acesso a todos os fornecedores, assim como todos os módulos que foram importados.
-
-## Desenvolmento orientado a Componentes
+## Desenvolvimento orientado a Componentes
 
 Começou-se do fundo com `TaskComponent`, prosseguindo para `TaskListComponent` e agora chegou-se ao ecrã geral do interface de utilizador. O `InboxScreenComponent`, acomoda um componente contentor que foi adicionado e inclui também estórias que o acompanham.
 

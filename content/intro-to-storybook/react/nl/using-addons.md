@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Leer hoe je add-ons kunt integreren en gebruiken aan de hand van een populair voorbeeld'
-commit: 'dac373a'
+commit: 'b3bca4a'
 ---
 
 Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.org/addons/introduction/) waarmee je de developer experience kunt verbeteren voor iedereen in je team. Als je deze tutorial lineair hebt gevolgd, hebben we tot nu toe naar meerdere add-ons verwezen en je zal er al een geïmplementeerd hebben in het [Testing-hoofdstuk](/react/en/test/).
@@ -31,7 +31,7 @@ Knobs is een geweldige bron voor designers en developers om te experimenteren en
 Eerst moeten we alle benodigde dependencies installeren.
 
 ```bash
-yarn add @storybook/addon-knobs
+yarn add -D @storybook/addon-knobs
 ```
 
 Registreer Knobs in je `.storybook/addons.js` bestand.
@@ -151,6 +151,7 @@ Als we [visuele regressietests](/react/en/test/) gebruiken, zullen we ook worden
 
 Vergeet niet je wijzigingen te mergen met git!
 
-## Addons delen met het team
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
+<!-- ## Addons delen met het team
 
-Knobs is een geweldige manier om niet-developers met je componenten en stories te laten spelen. Het kan echter moeilijk zijn om het storybook op hun lokale computer uit te voeren. Daarom kan het handig zijn om je storybook naar een online locatie te deployen. In het volgende hoofdstuk zullen we precies dat doen!
+Knobs is een geweldige manier om niet-developers met je componenten en stories te laten spelen. Het kan echter moeilijk zijn om het storybook op hun lokale computer uit te voeren. Daarom kan het handig zijn om je storybook naar een online locatie te deployen. In het volgende hoofdstuk zullen we precies dat doen! -->

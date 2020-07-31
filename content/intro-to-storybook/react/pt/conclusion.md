@@ -21,19 +21,15 @@ Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 - [**Manual de testes visuais**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07)
   enumera as boas práticas de fluxo de trabalho, usadas por equipas que operam a alta velocidade, tal como por exemplo a SquareSpace, a Major League Soccer, a Discovery Network e Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.chromaticqa.com/book/visual-testing-handbook) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
+- [**Visual Testing Handbook**](https://www.chromatic.com/book/visual-testing-handbook) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
 
 - [**Discord do Storybook**](https://discord.gg/UUt2PJb) põe-te em contacto direto com a comunidade Storybook. Onde podes oferecer e receber ajuda de outros utilizadores do Storybook.
 
-- [**Blog Storybook**](https://medium.com/storybookjs) demonstra tanto as novidades acerca das versões mais recentes, como as últimas funcionalidades existentes, de forma a otimizar o teu fluxo de trabalho no desenvolvimento de interface de utilizador 
-
-
+- [**Blog Storybook**](https://medium.com/storybookjs) demonstra tanto as novidades acerca das versões mais recentes, como as últimas funcionalidades existentes, de forma a otimizar o teu fluxo de trabalho no desenvolvimento de interface de utilizador
 
 ## Quem fez LearnStorybook.com?
 
-
-O texto, código e produção foram contribuídos pela [Chroma](http://blog.hichroma.com/). O tutorial foi inspirado pela [série de tutoriais populares de GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
-
+O texto, código e produção foram contribuídos pela [Chromatic](http://blog.hichroma.com/). O tutorial foi inspirado pela [série de tutoriais populares de GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
 Quer mais tutoriais e artigos como este? Subscreva a mailing list da Chroma.
 

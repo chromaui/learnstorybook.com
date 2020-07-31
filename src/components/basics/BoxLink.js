@@ -10,7 +10,7 @@ const boxLinkStyles = `
     display: block;
     background: ${styles.color.lightest};
     border: 1px solid ${styles.color.border};
-    border-radius: 4px;
+    border-radius: ${styles.spacing.borderRadius.small}px;
     transition: background 150ms ease-out, border 150ms ease-out, transform 150ms ease-out;
 
     &:hover {

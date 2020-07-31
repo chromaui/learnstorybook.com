@@ -5,7 +5,7 @@ description: 'Configurar Vue Storybook en tu entorno de desarrollo'
 commit: d1c4858
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe otras ediciones para [React](/react/es/get-started), [React Native](/react-native/es/get-started) y [Angular](/angular/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe otras ediciones para [React](/react/es/get-started), [React Native](/react-native/es/get-started/), [Angular](/angular/es/get-started) y [Svelte](/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -15,13 +15,18 @@ Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestr
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset hichroma/vue-preset-learnstorybook
+npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
 
 cd taskbox
 
 # Add Storybook:
 npx -p @storybook/cli sb init
 ```
+
+<div class = "aside">
+A lo largo de esta versión del tutorial, usaremos <code>yarn</code> para ejecutar la mayoría de nuestros comandos.
+Si tiene instalado Yarn, pero prefiere usar <code>npm</code>, no se preocupe, puede seguir el tutorial sin ningún problema. Simplemente agregue el indicador <code>--packageManager=npm</code> al primer comando anterior y tanto Vue CLI como Storybook se inicializarán en función de esto. Además, mientras avanza en el tutorial, no olvide ajustar los comandos utilizados a sus contrapartes <code>npm</code>.
+</div>
 
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 
@@ -61,7 +66,7 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 Para que coincida con el diseño previsto del tutorial, deberá transferir las carpetas de los iconos y las fuentes a la carpeta pública.
 
-<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas (o directorios) de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
+<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
