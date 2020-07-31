@@ -8,7 +8,7 @@ description: '持续发展的设计系统帮您节省时间并提高效率'
 
 在过去的几年里，Tom 和我目睹了无数的专业团队使用 Storybook 来固化他们的设计系统。他们致力于降低沟通成本、持久化构建框架并自动执行重复的手工任务。我们希望总结这些通用的知识来为您设计系统的蓬勃发展助力。
 
-谢谢您与我们一起学习，您可以通过定于 Chroma 邮件列表来获取最新发布的文章和指南。
+谢谢您与我们一起学习，您可以通过定于 Chromatic 邮件列表来获取最新发布的文章和指南。
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
 
@@ -27,7 +27,7 @@ _针对开发人员的设计系统_ 是由 [Dominic Nguyen](https://twitter.com/
 
 [Kyle Suss](https://github.com/kylesuss) （Storybook 设计系统的技术主管） 和 [Michael Shilman](https://twitter.com/mshilman)（Storybook Docs 插件的创始人）提供专业的技术指导。
 
-[Chroma](https://hichroma.com/) 为我们提供的内容、代码和产品。InVision 的 [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) 慷慨的为我们提供了启动资金。我们仍然在寻求其他的赞助商来帮助我们持续维护和提出类似的新指南。更多详情请致邮：[Dominic](mailto:dom@hichroma.com)
+[Chromatic](https://www.chromatic.com/) 为我们提供的内容、代码和产品。InVision 的 [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) 慷慨的为我们提供了启动资金。我们仍然在寻求其他的赞助商来帮助我们持续维护和提出类似的新指南。更多详情请致邮：[Dominic](mailto:dom@chromatic.com)
 
 ## 拓宽视野
 
