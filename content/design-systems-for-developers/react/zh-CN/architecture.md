@@ -35,7 +35,7 @@ commit: b696f85
 
 ## 使用 create-react-app 和 GitHub 创建仓库
 
-根据 [State of JS](https://stateofjs.com/) 的调查，React 是目前最受欢迎的视图层（view layer）。大量的 Storybook 都是使用 React 的，因此我们在本教程中将使用与 React 一样流行的 [create-react-app](https://github.com/facebook/create-react-app) 来创建基于 React 的设计系统。
+根据 [State of JS](https://stateofjs.com/) 的调查，React 是目前最受欢迎的视图层（view layer）。大量的 Storybook 都是使用 React 的，因此我们在本教程中将使用与 React 一起流行的 [create-react-app](https://github.com/facebook/create-react-app) 来创建基于 React 的设计系统。
 
 ```bash
 npx create-react-app learnstorybook-design-system
