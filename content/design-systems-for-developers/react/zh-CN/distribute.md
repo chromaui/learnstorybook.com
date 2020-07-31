@@ -44,6 +44,8 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 然后我们需要创建一个名为 `src/index.js` 的文件作为设计系统的入口，从这个文件中我们将导出我们所有的设计变量和组件：
 
 ```javascript
+//src/index.js
+
 import * as styles from './shared/styles';
 import * as global from './shared/global';
 import * as animation from './shared/animation';
@@ -71,7 +73,7 @@ yarn add --dev @babel/cli cross-env
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist",
       ...
-  }
+  },
   "babel": {
     "presets": [
       "react-app"
@@ -154,7 +156,6 @@ NPM_TOKEN=<value you just got from npm>
 通过添加上述文件到 `.gitignore` 来保证我们不会不经意的将令牌信息发布到所有用户都可以看到的开源仓库中。需要特别注意的是，如果其他维护者需要从本地发布软件包（之后我们会将设置当提交请求被合并到主分支后会自动发布），也应该按照上述的过程去设置自己的 `.env` 文件。
 
 ```
-storybook-static
 dist
 .env
 ```
@@ -241,22 +242,80 @@ yarn auto release
 }
 ```
 
-现在当我们执行命令 `yarn release`, 我们将以自动化的方式逐步执行上述所有的步骤（自动生成变更日志除外）。我们需要在我们的 circle 配置文件中添加如下命令来保证自动发布所有被合并到主分支的提交：
+现在当我们执行命令 `yarn release`, 我们将以自动化的方式逐步执行上述所有的步骤（自动生成变更日志除外）。我们需要保证所有提交到主分支的代码会被自动发布：
 
+恭喜您！现在您已经配置好了发布您设计系统的基础设施，现在是时候将他升级为持续集成的设计系统了。
+
+但是在开始之前，为了让我们的令牌信息更安全的存储起来，我们需要一些额外的步骤。在该场景下我们将引入 Github “密令”。
+
+#### 设置 “密令”
+
+在浏览器中打开您的 Github 仓库。
+
+点击 ⚙️ Settings 页签中的 Secrets 按钮， 您将看到该页面：
+
+![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
+
+点击 `New secret` 并填写相关的必填项，为方便和保持一致起见，请将 “密令” 的名字设置为 `NPM_TOKEN` 并将 “密令” 的值设置为之前章节中提到的 npm 令牌。
+
+![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
+
+点击 "Add secret" 按钮将该 “密令” 添加到您的仓库中。
+
+![npm token in GitHub](/design-systems-for-developers/gh-npm-token-added.png)
+
+成功了！我们通过安全的方式将我们的令牌存储起来了， 现在我们可以添加一个新的 Github action 来帮助我们发布我们自己的设计系统当我们每一次的合并请求被合并到主分支后。
+
+## 使用 GitHub actions 来自动发布
+
+在与之前提到的<a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">发布 Storybook</a>章节的相同文件夹下， 我们可以添加一个名为 `push.yml` 的 Github action 文件：
+
+```yml
+# .github/workflows/push.yml
+## name of our action
+name: Release
+# the event that will trigger the action
+on:
+  push:
+    branches: [master]
+# what the action will do
+jobs:
+  release:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # this check needs to be in place to prevent a publish loop with auto and github actions
+    if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare repository
+        run: git fetch --unshallow --tags
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: yarn-deps-${{ hashFiles('yarn.lock') }}
+          restore-keys: |
+            yarn-deps-${{ hashFiles('yarn.lock') }}
+      - name: Create Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          yarn install --frozen-lockfile
+          yarn build
+          yarn release
 ```
-# ...
-- run: yarn test
-- run: yarn chromatic --project-token=2wix88i1ziu
-- run: |
-    if [ $CIRCLE_BRANCH = "master" ]
-    then
-      yarn release
-    fi
-```
 
-我们也需要添加在 CircleCI 网站中为您的 Circle 环境添加一个 npm+GitHub 的令牌。(https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
+别忘了我们也需要将 npm 令牌添加至我们的项目中。
 
-![Setting environment variables on CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
+![Setting secrets in GitHub](/design-systems-for-developers/gh-npm-token-added.png)
+
+<div class="aside"><p>为简洁起见，我们没有提到<a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub “密令”</a>。 “密令” 是 Github 提供的一个安全访问环境变量的方式，因此我们不需要将任何敏感信息硬编码到代码中。</p></div>
 
 现在每当您合并一个 pull request 到主分支，它将自动发布一个新的版本，并且根据您添加的标签适当增加版本号。
 
@@ -304,6 +363,8 @@ yarn add <your-username>-learnstorybook-design-system
 现在，让我们更新示例程序的 `.storybook/main.js` 文件来引入设计系统的组件：
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
   stories: [
     '../src/**/*.stories.js',
@@ -320,6 +381,8 @@ module.exports = {
 同样的我们可以在新配置文件 `.storybook/preview.js` 中添加全局修饰器来使用设计系统定义的全局样式。在文件中做如下修改：
 
 ```javascript
+// .storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
@@ -338,7 +401,7 @@ addDecorator(story => (
 
 现在在您的开发过程中，您将可以通过浏览器去浏览您的设计系统和文档。在开发功能的过程中展示设计系统会增加开发人员重用现有组件的可能性，而不是浪费时间开发自己组件。
 
-另外，如果您之前已经在虚拟主机中部署了您的设计系统（请参阅第四章），您可以在线浏览您设计系统的 Storybook。
+另外，如果您之前已经在 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">Chromatic</a> 中部署了您的设计系统（请参阅第四章），您可以在线浏览您设计系统的 Storybook。
 
 我们将在示例应用程序的 UserItem 组件中使用设计系统中的 Avatar 组件。UserItem 应该渲染包含用户名和头像的信息。
 
@@ -347,12 +410,16 @@ addDecorator(story => (
 引入 Avatar 组件：
 
 ```javascript
+// src/components/UserItem.js
+
 import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 我们要在用户名的旁边显示头像：
 
 ```javascript
+//src/components/UserItem.js
+
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar } from 'learnstorybook-design-system';
