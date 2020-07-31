@@ -55,16 +55,18 @@ yarn storybook
 
 #### 添加全局样式
 
-我们的设计系统需要一些全局样式（CSS 样式重载） 应用于整个文档以保证组件可以被正常的显示出来。您可以通过全局通用标签的形式轻易的添加全局样式。详情请参阅 `src/shared/global.js` 中的代码
+我们的设计系统需要一些全局样式（CSS 样式重载） 应用于整个文档以保证组件可以被正常的显示出来。您可以通过全局通用标签的形式轻易的添加全局样式。在该文件中 `src/shared/global.js` 调整您的全局样式：
 
 ```javascript
+// src/shared/global.js
+
 import { createGlobalStyle, css } from 'styled-components';
 import { color, typography } from './styles';
 
 export const fontUrl = 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900';
 
 export const bodyStyles = css`
-  /* global styles */
+  /* same as before */
 `;
 
 export const GlobalStyle = createGlobalStyle`
@@ -77,6 +79,8 @@ export const GlobalStyle = createGlobalStyle`
 为了在 Storybook 的组件中使用 `GlobalStyle`，我们可以使用修饰器（一个组件的封装）。如果在一个应用程序中，我们需要将该样式放在顶层组件中，在 Storybook 中我们可以通过修改预配置文件 `.storybook/preview.js` 来封装所有的组件。
 
 ```javascript
+// .storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
@@ -116,6 +120,8 @@ Storybook 的插件是由一个庞大的社区生态系统来共同维护的。�
 让我们看看如何在 Button 组件中使用它，该 Button 组件接受一个封装的组件来响应它的点击事件。我们的 story 给封装组件的 click 事件上传入了 action 回调：
 
 ```javascript
+// src/Button.js
+
 import React from 'react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
@@ -145,6 +151,8 @@ yarn add --dev  @storybook/addon-storysource
 在配置文件 `.storybook/main.js` 中加载插件:
 
 ```javascript
+//.storybook/main.js
+
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -173,6 +181,8 @@ yarn add --dev @storybook/addon-knobs
 将插件添加到 `.storybook/main.js`:
 
 ```javascript
+//.storybook/main.js
+
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -188,6 +198,8 @@ module.exports = {
 在文件 `src/Avatar.stories.js` 中添加一个使用 knobs 插件的组件:
 
 ```javascript
+//src/Avatar.stories.js
+
 import React from 'react';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 
@@ -219,6 +231,8 @@ knobs.story = {
 
 ## 学习如何自动维护
 
-到目前位置，我们已经将组件加入到了 Storybook， 我们需要设置自动化工具以简化正在进行的维护工作。像所有的软件一样， 设计系统也应该持续发布，而难点是在于在持续发布的同时，我们仍要确保 UI 组件的外观和表现仍和之前预期的一样。
+到目前位置，我们已经将组件加入到了 Storybook，在创建行业标准地设计系统中，我们又迈出了坚实的一步。现在正是一个将我们的代码提交到远程仓库的好时机。 接下来我们就可以思考如何去设置自动化工具以简化正在进行的维护工作。
+
+一个设计系统，像所有的软件一样， 也需要持续改进，而难点是在于在持续发布的同时，我们仍要确保 UI 组件的外观和表现仍和之前预期的一样。
 
 为方便协作起见，在第四章中我们将学习如何去搭建一个持续集成并且自动发布的设计系统。
