@@ -44,6 +44,8 @@ yarn add --dev @storybook/addon-docs
 在文件 `.storybook/main.js` 中添加插件:
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -75,6 +77,8 @@ Storybook Docs 插件在运行时帮您的每个组件创建了一个 "Docs" 选
 首先添加更多的元数据来阐述组件到底是做什么的。 在文件 `src/Avatar.stories.js` 中添加一个副标题来阐述 Avatar 组件是做什么的：
 
 ```javascript
+// src/Avatar.stories.js
+
 export default {
   title: 'Design System|Avatar',
 
@@ -88,6 +92,8 @@ export default {
 然后给 Avatar 添加 JSDoc（在文件 `src/components/Avatar.js` 中），它为该组件提供了相应的描述。
 
 ```javascript
+// src/components/Avatar.js
+
 /**
 - Use an avatar for attributing actions or content to specific users.
 - The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
@@ -127,6 +133,8 @@ Avatar.propTypes = {
 默认情况下，每个 Avatar story 都会被渲染在文档中，我们不能假设其他的开发人员知道每个 story 代表什么。您可以在 `src/Avatar.stories.js` 文件中为每个 story 添加一些描述文本：
 
 ```javascript
+// src/Avatar.stories.js
+
 export const sizes = () => (
   <div>
     <Avatar
@@ -167,6 +175,8 @@ Markdown 是一个格式简单的文本编辑工具，MDX 允许您在 Markdown 
 首先我们修改由插件生成默认的 Avatar 文档。如下在文件 `.storybook/main.js` 中注册 MDX。
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
   // automatically import all files ending in *.stories.js|mdx
   stories: ['../src/**/*.stories.(js|mdx)'],
@@ -185,6 +195,8 @@ module.exports = {
 创建一个新文件 `src/Avatar.stories.mdx` 并提供一些组件详细信息。我们将删除 `Avatar.stories.js` 文件并重新使用 mdx 来创建 stories。
 
 ```javascript
+// src/Avatar.stories.mdx
+
 import { Meta, Story } from '@storybook/addon-docs/blocks';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 
@@ -284,6 +296,8 @@ Storybook Docs 插件随附“文档块”和现成的组件如：交互预览�
 让我们来添加`属性`文档块，并将我们的原始组件封装在`预览`中
 
 ```javascript
+// src/Avatar.stories.mdx
+
 import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
 
 # …
@@ -308,7 +322,9 @@ import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
 通过添加用例的方式自定义 Avatar 文档可以为开发者提供更多如何使用该组件的上下文。我们可以像在其他 markdown 文档中一样为组件的文档添加 markdown：
 
 ```javascript
-// As before
+// src/Avatar.stories.mdx
+
+// 和之前内容相同
 
 <Props of={Avatar} />
 
@@ -318,7 +334,7 @@ Avatar is used to represent a person or an organization. By default the avatar s
 
 ### Sizes
 
-// As before
+//  和之前内容相同
 
 ```
 
@@ -331,6 +347,8 @@ Avatar is used to represent a person or an organization. By default the avatar s
 创建一个新文件 `src/components/Intro.stories.mdx`:
 
 ```javascript
+// src/components/Intro.stories.mdx
+
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Design System|Introduction" />
@@ -349,7 +367,10 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 为了让它出现在首页，我们需要在文件 `.storybook/main.js` 文件中告诉 Storybook 去加载封面文件：
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
+  // changes the load order of our stories. First loads the Intro page
   // automatically import all files ending in *.stories.js|mdx
   stories: ['../src/components/Intro.stories.mdx', '../src/**/*.stories.(js|mdx)'],
   addons: [
@@ -380,16 +401,7 @@ module.exports = {
 }
 ```
 
-保存并提交，我们可以修改 Netlify 去发布我们的文档站点，或者使用其他部署系统 (例如 [now.sh](https://zeit.co/home)) 帮我们在每次发布时自动部署文档站点。
-
-<!--
-Create a second Netlify integration to run the docs build script:
-
-![alt_text](/design-systems-for-developers/Feedback-wanted55.png)
-
-Great. Every time you commit, you’ll now see two PR checks. One takes you to the published Storybook. The other takes you to the published Storybook Docs.
-
-![alt_text](/design-systems-for-developers/Feedback-wanted56.png) -->
+在您的命令行或持续集成的工具中运行 `build-storybook-docs` 后将根据您的“文档“配置生成一个静态站点。使用 [Netlify](https://www.netlify.com/) 或 [Vercel](https://vercel.com/) 来配置一个静态网站发布工具，这样便可以在每次提交时部署我们的站点。
 
 <div class="aside">伴随着设计系统的不断增长，您可能会面临到特定于组织的需求，这些要求需要使用自定义工具，甚至使用 Gatsby 或 Next 之类的工具来构建自己的静态站点。将 markdown 和 MDX 移植到其他地方的办法很简单。</div>
 
