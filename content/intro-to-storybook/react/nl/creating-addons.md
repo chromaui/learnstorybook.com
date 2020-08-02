@@ -1,8 +1,8 @@
 ---
-title: 'Maken van addons'
-tocTitle: 'Maken van addons'
+title: 'Bonus: maak een addons'
+tocTitle: 'Bonus: Maken van addons'
 description: 'Leer hoe je je eigen add-ons kunt bouwen die je ontwikkeling boosten'
-commit: 'dac373a'
+commit: 'bebba5d'
 ---
 
 Met de add-on-architectuur van Storybook kan je de functieset uitbreiden en aanpassen aan je behoeften.
@@ -53,7 +53,7 @@ Laten we een nieuw bestand aanmaken: `.storybook/addons/design-assets.js`. (je z
 > We maken deze add-on voor storybook in de storybook config folder die standaard `.storybook` is.
 > Op een gegeven moment in de toekomst zouden we deze add-on naar zijn eigen package moeten verplaatsen, laten we ons eerst concentreren op het schrijven van de add-on en deze werkende te krijgen.
 
-In dit nieuwe bestand gaan we enkele dependencies importeren die we nodig hebben. Mogelijks moet je deze ook installeren met behulp van `npm` of` yarn`.
+In dit nieuwe bestand gaan we enkele dependencies importeren die we nodig hebben. Mogelijks moet je deze ook installeren met behulp van `npm` of`yarn`.
 
 Dit zijn de dependencies die we nodig zullen hebben: `react`, `@storybook/api`, `storybook/addons` en `@storybook/components`.
 
@@ -215,7 +215,7 @@ export const Content = () => {
 ```
 
 Opmerking: Styling in storybook wordt gedaan via `@storybook/theming` waarin `styled` wordt ge-exposed als een named export. Hiermee kan je een nieuwe component voor Storybook's UI maken die reageert op Storybook's thema.
-Als je dit gebruikt, moet je ook `@storybook/theming` toevoegen aan je` package.json`.
+Als je dit gebruikt, moet je ook `@storybook/theming` toevoegen aan je`package.json`.
 
 ## Stateful add-ons
 
@@ -225,7 +225,7 @@ Dus 1 van onze doelen was:
 
 Om dit te doen, hebben we state nodig, namelijk: "welke asset is momenteel geselecteerd".
 
-We zouden `useState` van react kunnen gebruiken of we zouden` this.setState` in een class component kunnen gebruiken. Maar laten we in plaats daarvan storybook's `useAddonState` gebruiken!
+We zouden `useState` van react kunnen gebruiken of we zouden`this.setState` in een class component kunnen gebruiken. Maar laten we in plaats daarvan storybook's `useAddonState` gebruiken!
 
 ```js
 export const Content = () => {

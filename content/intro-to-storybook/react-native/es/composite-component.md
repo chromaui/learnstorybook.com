@@ -23,17 +23,16 @@ Un componente compuesto no es muy diferente de los componentes básicos que cont
 Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Task` del capítulo anterior y pasarle los atributos y acciones como entrada.
 
 ```javascript
-
 // components/TaskList.js
 import * as React from 'react';
 import Task from './Task';
 import { FlatList, Text, SafeAreaView } from 'react-native';
-import { styles } from "../constants/globalStyles";
+import { styles } from '../constants/globalStyles';
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
-    onArchiveTask
+    onArchiveTask,
   };
   if (loading) {
     return (
@@ -54,9 +53,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       <FlatList
         data={tasks}
         keyExtractor={task => task.id}
-        renderItem={({ item }) => (
-          <Task key={item.id} task={item} {...events} />
-        )}
+        renderItem={({ item }) => <Task key={item.id} task={item} {...events} />}
       />
     </SafeAreaView>
   );
@@ -68,7 +65,6 @@ export default TaskList;
 A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
 
 ```javascript
-
 // components/TaskList.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
@@ -136,7 +132,6 @@ Para el caso del borde de carga, crearemos un nuevo componente que mostrará el 
 Cree un nuevo archivo llamado `LoadingRow.js` con el siguiente contenido:
 
 ```javascript
-
 // components/LoadingRow.js
 import React, { useState, useEffect } from 'react';
 import { Animated, Text, View, Easing, SafeAreaView } from 'react-native';
@@ -185,14 +180,13 @@ export default LoadingRow;
 Y actualice `TaskList.js` a lo siguiente:
 
 ```javascript
-
-// src/components/TaskList.js
+// components/TaskList.js
 import * as React from 'react';
 import Task from './Task';
 import PercolateIcons from '../constants/Percolate';
 import LoadingRow from './LoadingRow';
 import { FlatList, Text, SafeAreaView, View } from 'react-native';
-import { styles } from "../constants/globalStyles";
+import { styles } from '../constants/globalStyles';
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
@@ -258,7 +252,7 @@ A medida que el componente crece, también lo hacen los requisitos de entrada. D
 
 ```javascript
 
-// src/components/TaskList.js
+// components/TaskList.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
@@ -302,11 +296,10 @@ Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la hi
 Crea un archivo de prueba llamado `components/__tests__/TaskList.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
 ```javascript
-
 // components/__tests__/TaskList.test.js
 import * as React from 'react';
-import {create} from 'react-test-renderer';
-import TaskList from '../TaskList'
+import { create } from 'react-test-renderer';
+import TaskList from '../TaskList';
 import { withPinnedTasks } from '../TaskList.stories';
 import Task from '../Task';
 describe('TaskList', () => {
@@ -324,4 +317,4 @@ describe('TaskList', () => {
 
 Nota que hemos sido capaces de reutilizar la lista de tareas `withPinnedTasksData` tanto en la prueba de la historia como en el test unitario; de esta manera podemos continuar aprovechando un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de más y más maneras.
 
-Nota también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de `Task` cambie --quizás usando un prop de estilo diferente o un `Text` en lugar de un` TextInput`--la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales e instantáneas siempre que te sea posible.
+Nota también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de `Task` cambie --quizás usando un prop de estilo diferente o un `Text` en lugar de un`TextInput`--la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales e instantáneas siempre que te sea posible.

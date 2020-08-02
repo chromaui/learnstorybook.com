@@ -55,8 +55,10 @@ $ git commit -m "taskbox UI"
 Add the package as a dependency.
 
 ```bash
-npm install -D storybook-chromatic
+npm install -D chromatic
 ```
+
+One fantastic thing about this addon is that it will use Git history to keep track of your UI components.
 
 Then [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `project-token`.
 
@@ -74,7 +76,7 @@ npx chromatic --project-token=<project-token>
 ```
 
 <div class="aside">
-If your Storybook has a custom build script you may have to [add options](https://www.chromatic.com/docs/setup#command-options) to this command.
+If your Storybook has a custom build script you may have to <a href="https://www.chromatic.com/docs/setup#command-options">add options </a> to this command.
 </div>
 
 Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.

@@ -1,8 +1,14 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import Guides from './Guides';
 
-const props = {
+export default {
+  component: Guides,
+  title: 'Screens/IndexScreen/Guides',
+};
+
+const Story = args => <Guides {...args} />;
+export const Default = Story.bind({});
+Default.args = {
   chaptersEdges: [
     {
       node: {
@@ -29,7 +35,3 @@ const props = {
     },
   ],
 };
-
-storiesOf('Screens|IndexScreen/Guides', module)
-  .addParameters({ component: Guides })
-  .add('default', () => <Guides {...props} />);

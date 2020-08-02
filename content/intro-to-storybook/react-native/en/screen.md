@@ -60,7 +60,7 @@ Then we create a container which grabs the data for `PureInboxScreen` in `screen
 // screens/InboxScreen.js
 import * as React from 'react';
 import { connect } from 'react-redux';
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from '../components/PureInboxScreen';
 
 const InboxScreen = ({ error }) => {
   return <PureInboxScreen error={error} />;
@@ -87,8 +87,6 @@ export default function HomeScreen() {
   );
 }
 ```
-
-<div class="aside"><p>After this change, App-test that was setup by expo will probably break, you can bypass this by deleting the appropriate file in the __tests__ folder or adjust your test accordingly.</p></div>
 
 However, where things get interesting is in rendering the story in Storybook.
 

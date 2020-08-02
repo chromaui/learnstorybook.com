@@ -2,7 +2,7 @@
 title: 'UI-Komponenten testen'
 tocTitle: 'Tests'
 description: 'Lerne, wie man UI-Komponenten testen kann'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Kein Storybook-Tutorial ist vollständig ohne Tests. Tests sind essenziell für die Erstellung hochwertiger UIs. In modularen Systemen können auch kleinste Änderungen einen langen Rattenschwanz nach sich ziehen. Bisher sind uns drei Arten von Tests begegnet:

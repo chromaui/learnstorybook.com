@@ -1,26 +1,20 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import GuideScreen from './index';
+import { ContributorsData } from './Contributors.stories';
 
-const props = {
+export default {
+  component: GuideScreen,
+  title: 'Screens/GuideScreen/index',
+};
+
+const Story = args => <GuideScreen {...args} />;
+export const Default = Story.bind({});
+Default.args = {
   data: {
     currentPage: {
       html: '<div>The html</div>',
       frontmatter: {
-        authors: [
-          {
-            name: 'Author name',
-            detail: 'A person who does things',
-            src: 'https://avatars2.githubusercontent.com/u/263385',
-          },
-        ],
-        contributors: [
-          {
-            name: 'Contributor name',
-            detail: 'Another person who does things',
-            src: 'https://avatars2.githubusercontent.com/u/263385',
-          },
-        ],
+        ...ContributorsData,
         contributorCount: '+34',
         coverImagePath: '/guide-cover/intro.svg',
         description: 'A good guide',
@@ -95,7 +89,3 @@ const props = {
     slug: '/intro-to-storybook/',
   },
 };
-
-storiesOf('Screens|GuideScreen/index', module)
-  .addParameters({ component: GuideScreen })
-  .add('default', () => <GuideScreen {...props} />);

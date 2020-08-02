@@ -12,8 +12,8 @@ Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Devel
 
 `Task` (o Tarea) es el componente principal en nuestra app. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o no marcado), información sobre la tarea y un botón “pin” que nos permite mover la tarea hacia arriba o abajo en la lista de tareas. Poniendo esto en conjunto, necesitaremos estas propiedades -props- :
 
--   `title` – un string que describe la tarea
--   `state` - ¿en qué lista se encuentra la tarea actualmente y está marcado el checkbox?
+- `title` – un string que describe la tarea
+- `state` - ¿en qué lista se encuentra la tarea actualmente y está marcado el checkbox?
 
 A medida que comencemos a construir `Task`, primero escribiremos nuestras pruebas para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
@@ -26,7 +26,6 @@ Primero, vamos a crear el componente Task y el archivo de historias de Storybook
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
 ```javascript
-
 // components/Task.js
 import * as React from 'react';
 import { TextInput, SafeAreaView } from 'react-native';
@@ -34,7 +33,7 @@ import { styles } from '../constants/globalStyles';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
-    <SafeAreaView style={styles.listitem}>
+    <SafeAreaView style={styles.ListItem}>
       <TextInput value={title} editable={false} />
     </SafeAreaView>
   );
@@ -46,7 +45,6 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
 ```javascript
-
 // components/Task.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
@@ -100,7 +98,6 @@ Al crear una historia utilizamos una historia base (`task`) para construir la fo
 Es necesario realizar algunos cambios en la configuración del Storybook (`storybook/index.js`) para que note nuestras historias creadas recientemente.
 
 ```javascript
-
 // storybook/config.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
@@ -112,7 +109,7 @@ configure(() => {
 }, module);
 
 const StorybookUIRoot = getStorybookUI({
-  asyncStorage:null
+  asyncStorage: null,
 });
 
 export default StorybookUIRoot;
@@ -134,7 +131,6 @@ Ahora tenemos configurado Storybook, los estilos importados y los casos de prueb
 Nuestro componente todavía es bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida con el diseño previsto sin entrar en demasiados detalles:
 
 ```javascript
-
 // components/Task.js
 import * as React from 'react';
 import { TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
@@ -154,9 +150,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
       <TextInput
         placeholder="Input Title"
         style={
-          state === 'TASK_ARCHIVED'
-            ? styles.ListItemInputTaskArchived
-            : styles.ListItemInputTask
+          state === 'TASK_ARCHIVED' ? styles.ListItemInputTaskArchived : styles.ListItemInputTask
         }
         value={title}
         editable={false}
@@ -187,7 +181,6 @@ El maquetado adicional de arriba, combinado con el CSS que hemos importado antes
 Se recomienda utilizar `propTypes` en React para especificar la forma de los datos que espera un componente. No solo se documenta por sí mismo, sino que también ayuda a detectar problemas temprano.
 
 ```javascript
-
 // src/components/Task.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -240,7 +233,6 @@ yarn add --D @storybook/addon-storyshots
 Luego crea un archivo `components/__tests__/storybook.test.js` con el siguiente contenido:
 
 ```javascript
-
 // components/__tests__/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();

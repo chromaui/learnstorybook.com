@@ -2,7 +2,7 @@
 title: 'Testear Componentes UI'
 tocTitle: 'Testing'
 description: 'Aprende las formas de hacer test a los componentes de la UI'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Ningún tutorial de Storybook estaría completo sin hacer test. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:
@@ -94,6 +94,8 @@ Ejecuta el comando de prueba en la línea de comandos para configurar las prueba
 ```bash
 npx chromatic --project-token=<project-token>
 ```
+
+<div class="aside"> Si su Storybook tiene un script de compilación personalizado, es posible que deba <a href="https://www.chromatic.com/docs/setup#command-options"> agregar opciones </a> a este comando. </div>
 
 Una vez el primer test esté completo, tenemos líneas base de prueba para cada historia. En otras palabras, capturas de cada historia que ya se conocen como "buenas". Los futuros cambios a estas historias serán comparados con estás lineas base.
 

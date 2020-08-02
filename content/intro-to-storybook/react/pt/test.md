@@ -2,7 +2,7 @@
 title: 'Teste de componentes de interface de utilizador'
 tocTitle: 'Testes'
 description: 'Aprendizagem das formas de teste dos componentes interface utilizador'
-commit: 78a45d1
+commit: '3e283f7'
 ---
 
 Qualquer tutorial de Storybook não estaria completo sem serem mencionados os testes. Estes são essenciais na criação de interfaces de utilizador de alta qualidade. Nos sistemas modulares, ajustes minúsculos poderão levar a regressões gigantescas. Até agora foram descritos três tipos de testes:
@@ -73,6 +73,8 @@ Execute o comando de testes na consola de forma a configurar os testes visuais d
 ```bash
 npx chromatic --project-token=<project-token>
 ```
+
+<div class="aside"> Se o seu Storybook tiver um script de compilação personalizado, poderá ter que <a href="https://www.chromatic.com/docs/setup#command-options">adicionar opções</a> a este comando. </div>
 
 Assim que o primeiro teste estiver concluído, é obtida a base de testes para cada estória. Por outras palavras, uma captura de cada estória considerada "boa". Alterações futuras a estas estórias, irão ser comparadas com esta base.
 

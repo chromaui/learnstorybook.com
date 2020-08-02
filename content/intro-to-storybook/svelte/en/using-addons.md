@@ -41,9 +41,8 @@ Register Knobs in your `.storybook/main.js` file.
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links','@storybook/addon-knobs'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
 };
-
 ```
 
 <div class="aside">
@@ -62,7 +61,7 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 
 ```javascript
 // src/components/Task.stories.js
-import { action } from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
@@ -85,36 +84,14 @@ Lastly, integrate the `object` knob type within the "standard" story:
 export const Default = () => ({
   Component: Task,
   props: {
-    task: object("task", { ...taskData })
+    task: object('task', { ...taskData }),
   },
   on: {
-    ...actionsData
-  }
-});
-export const Pinned = () => ({
-  Component: Task,
-  props: {
-    task: {
-      ...taskData,
-      state: "TASK_PINNED"
-    }
+    ...actionsData,
   },
-  on: {
-    ...actionsData
-  }
 });
-export const Archived = () => ({
-  Component: Task,
-  props: {
-    task: {
-      ...taskData,
-      state: "TASK_ARCHIVED"
-    }
-  },
-  on: {
-    ...actionsData
-  }
-});
+
+// same as before
 ```
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
@@ -131,13 +108,13 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
+Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.svelte`:
 
-```html
+```svelte
 <!-- src/components/Task.svelte-->
 
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
-// but for this tutorial, let's fix the problem with an inline style:-->
+  but for this tutorial, let's fix the problem with an inline style-->
 <input
   type="text"
   readonly
@@ -167,9 +144,9 @@ export const LongTitle = () => ({
   props: {
     task: {
       ...taskData,
-      title: longTitle
-    }
-  }
+      title: longTitle,
+    },
+  },
 });
 ```
 
@@ -183,6 +160,4 @@ If we are using [visual regression testing](/svelte/en/test/), we will also be i
 
 Don't forget to merge your changes with git!
 
-## Sharing Addons With The Team
-
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+<div class="aside"><p>As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/intro-to-storybook/react/en/creating-addons">create addons</a> bonus chapter we'll teach you that, by creating a addon that will help you supercharge your development workflow.</p></div>

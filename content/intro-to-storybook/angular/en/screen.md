@@ -209,7 +209,7 @@ And finally the `app.module.ts`:
 
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { TaskModule } from './tasks/task.module';
+import { TaskModule } from './components/task.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
@@ -233,6 +233,7 @@ export class AppModule {}
 ```
 
 <div class="aside"><p>Don't forget to update the test file <code>src/app/app.component.spec.ts</code>. Or the next time you run your tests they will fail.</p></div>
+
 However, where things get interesting is in rendering the story in Storybook.
 
 As we saw previously, the `TaskListComponent` component is a **container** that renders the `PureTaskListComponent` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
@@ -314,7 +315,7 @@ export const error = () => ({
 });
 ```
 
-Similar approaches exist to provide mocked context for other data libraries, such as [ngxs](https://ngxs.gitbook.io/ngxs/).
+Similar approaches exist to provide mocked context for other data libraries, such as [@ngrx](https://github.com/ngrx/platform) or [Apollo](https://www.apollographql.com/docs/angular/).
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
 

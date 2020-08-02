@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import AppLayout from './AppLayout';
 
 const Children = styled.div`
@@ -9,12 +8,14 @@ const Children = styled.div`
   justify-content: center;
   padding: 169px 0 100px;
 `;
+export default {
+  component: AppLayout,
+  title: 'Composite/AppLayout',
+};
+const Story = args => <AppLayout {...args} />;
 
-const props = {
+export const Default = Story.bind({});
+Default.args = {
   children: <Children>I am the app.</Children>,
   location: { pathname: '' },
 };
-
-storiesOf('Composite|AppLayout', module)
-  .addParameters({ component: AppLayout })
-  .add('default', () => <AppLayout {...props} />);

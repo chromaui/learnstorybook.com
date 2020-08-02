@@ -2,7 +2,7 @@
 title: 'Construção de um componente composto'
 tocTitle: 'Componente composto'
 description: 'Construção de um componente composto a partir de componentes simples'
-commit: 8db511e
+commit: 'c43580d'
 ---
 
 No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
@@ -117,6 +117,7 @@ Pode agora verificar-se o Storybook com as estórias novas associadas á `Taskli
 </video>
 
 ## Definir os estados
+
 O componente ainda se encontra num estado bruto, mas já temos uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que ao usar-se o `.list-items` no componente como invólucro é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um invólucro. A **verdadeira complexidade** do componente `TaskList` é revelada com os casos extremos `WithPinnedTasks`, `loading` e `empty`.
 
 ```javascript

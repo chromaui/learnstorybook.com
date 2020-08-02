@@ -1,13 +1,16 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 import User from './User';
 
-storiesOf('Composite|User', module)
-  .addParameters({ component: User })
-  .add('default', () => (
-    <User
-      src="https://avatars2.githubusercontent.com/u/263385"
-      name="Dominic Nguyen"
-      detail="Professional rapper"
-    />
-  ));
+export default {
+  component: User,
+  title: 'Composite/User',
+};
+
+const Story = args => <User {...args} />;
+
+export const Default = Story.bind({});
+Default.args = {
+  src: 'https://avatars2.githubusercontent.com/u/263385',
+  name: 'Dominic Nguyen',
+  detail: 'Professional rapper',
+};

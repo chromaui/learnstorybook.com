@@ -2,7 +2,7 @@
 title: 'Extras'
 tocTitle: 'Extras'
 description: 'Aprender a integrar e usar extras com recurso a um exemplo popular'
-commit: 'dac373a'
+commit: 'b3bca4a'
 ---
 
 Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/introduction/) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/react/pt/test/).
@@ -41,7 +41,12 @@ Registe o Knobs no ficheiro (ou arquivo) `.storybook/main.js`.
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/preset-create-react-app','@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-knobs',
+    '@storybook/addon-links',
+  ],
 };
 ```
 
@@ -66,6 +71,8 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 ```
+
+<div class="aside">Se estiver a usar TypeScript, o import terá que ser ligeiramente diferente, terá que ser <code>import { withKnobs, object } from '@storybook/addon-knobs'</code>.</div>
 
 Em seguida, dentro do `default` export do ficheiro (ou arquivo) `Task.stories`, vamos fornecer `withKnobs` como elemento do `decorators`:
 
@@ -151,6 +158,8 @@ Tais casos extremos considerados obscuros têm tendência a ser esquecidos!
 
 Não esquecer de fundir as alterações com o git!
 
-## Partilha de extras com a equipa
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
 
-Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser difícil para estes executarem o Storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!!
+<!-- ## Partilha de extras com a equipa
+
+Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser difícil para estes executarem o Storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!! -->

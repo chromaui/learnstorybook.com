@@ -168,6 +168,8 @@ If we are using [visual regression testing](/vue/en/test/), we will also be info
 
 Don't forget to merge your changes with git!
 
-## Sharing Addons With The Team
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
 
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the Storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+<!-- ## Sharing Addons With The Team
+
+Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the Storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that! -->

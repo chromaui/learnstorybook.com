@@ -1,7 +1,8 @@
 ---
-title: "Addons erstellen"
-tocTitle: "Addons erstellen"
-description: "Lerne, eigene Addons zu bauen, die deine Entwicklung beschleunigen"
+title: 'Bonus: Erstelle ein Addon'
+tocTitle: 'Bonus: Addons erstellen'
+description: 'Lerne, eigene Addons zu bauen, die deine Entwicklung beschleunigen'
+commit: 'bebba5d'
 ---
 
 Im letzten Kapitel haben wir eines der wichtigsten Features von Storybook kennengelernt, nämlich sein robustes [Addon-System](https://storybook.js.org/addons/introduction/), das nicht nur deine eigene, sondern auch die Entwicklungserfahrung und Prozesse in deinem ganzen Team verbessern kann.
@@ -77,19 +78,19 @@ Erstelle innerhalb des `.storybook`-Verzeichnisses einen neuen Ordner namens `ad
 
 ```javascript
 //.storybook/addons/design-assets.js
-import React from "react";
-import { AddonPanel } from "@storybook/components";
-import { addons, types } from "@storybook/addons";
+import React from 'react';
+import { AddonPanel } from '@storybook/components';
+import { addons, types } from '@storybook/addons';
 
-addons.register("my/design-assets", () => {
-  addons.add("design-assets/panel", {
-    title: "assets",
+addons.register('my/design-assets', () => {
+  addons.add('design-assets/panel', {
+    title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
         implement
       </AddonPanel>
-    )
+    ),
   });
 });
 ```
@@ -106,7 +107,7 @@ Das ist der typische Boilerplate-Code, um loslegen zu können. Hier kurz, was im
 Wenn wir Storybook jetzt starten, werden wir unser Addon noch nicht sehen können. Wie zuvor mit dem Knobs-Addon, müssen wir auch jetzt unser Addon zunächst in der Datei `.storybook/addons.js` registrieren. Füge einfach folgende Zeile hinzu und unser Addon sollte angezeigt werden:
 
 ```js
-import "./addons/design-assets";
+import './addons/design-assets';
 ```
 
 ![Das Design-Assets Addon läuft in Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
@@ -121,19 +122,19 @@ Storybook erlaubt dir, nicht nur Panels, sondern eine ganze Reihe unterschiedlic
 
 Den ersten Meilenstein haben wir erreicht. Zeit, sich an den Zweiten zu machen.
 
-Um diesen zu erreichen, müssen wir ein paar Änderungen an unseren Imports vornehmen und eine neue Komponente ins Spiel bringen, die sich um die Anzeige von Asset-Informationen kümmern wird. 
+Um diesen zu erreichen, müssen wir ein paar Änderungen an unseren Imports vornehmen und eine neue Komponente ins Spiel bringen, die sich um die Anzeige von Asset-Informationen kümmern wird.
 
 Nimm folgende Änderungen an der Addon-Datei vor:
 
 ```javascript
 //.storybook/addons/design-assets.js
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 /* same as before */
-import { useParameter } from "@storybook/api";
+import { useParameter } from '@storybook/api';
 
 //.storybook/addons/design-assets.js
 const Content = () => {
-  const results = useParameter("assets", []); // story's parameter being retrieved here
+  const results = useParameter('assets', []); // story's parameter being retrieved here
 
   return (
     <Fragment>
@@ -155,13 +156,13 @@ Dein Code sollte wie folgt aussehen:
 
 ```javascript
 //.storybook/addons/design-assets.js
-import React, { Fragment } from "react";
-import { AddonPanel } from "@storybook/components";
-import { useParameter } from "@storybook/api";
-import { addons, types } from "@storybook/addons";
+import React, { Fragment } from 'react';
+import { AddonPanel } from '@storybook/components';
+import { useParameter } from '@storybook/api';
+import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter("assets", []); // story's parameter being retrieved here
+  const results = useParameter('assets', []); // story's parameter being retrieved here
 
   return (
     <Fragment>
@@ -176,15 +177,15 @@ const Content = () => {
   );
 };
 
-addons.register("my/design-assets", () => {
-  addons.add("design-assets/panel", {
-    title: "assets",
+addons.register('my/design-assets', () => {
+  addons.add('design-assets/panel', {
+    title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
         <Content />
       </AddonPanel>
-    )
+    ),
   });
 });
 ```
@@ -205,10 +206,10 @@ export default {
   decorators: [withKnobs],
   parameters: {
     assets: [
-      "path/to/your/asset.png",
-      "path/to/another/asset.png",
-      "path/to/yet/another/asset.png"
-    ]
+      'path/to/your/asset.png',
+      'path/to/another/asset.png',
+      'path/to/yet/another/asset.png',
+    ],
   },
   // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
@@ -226,26 +227,26 @@ In diesem Stadium sehen wir, dass das Addon in unseren Stories erwartungsgemäß
 
 ```javascript
 //.storybook/addons/design-assets.js
-import React, { Fragment } from "react";
-import { AddonPanel } from "@storybook/components";
-import { useParameter, useStorybookState } from "@storybook/api";
-import { addons, types } from "@storybook/addons";
-import { styled } from "@storybook/theming";
+import React, { Fragment } from 'react';
+import { AddonPanel } from '@storybook/components';
+import { useParameter, useStorybookState } from '@storybook/api';
+import { addons, types } from '@storybook/addons';
+import { styled } from '@storybook/theming';
 
 const getUrl = input => {
-  return typeof input === "string" ? input : input.url;
+  return typeof input === 'string' ? input : input.url;
 };
 
 const Iframe = styled.iframe({
-  width: "100%",
-  height: "100%",
-  border: "0 none"
+  width: '100%',
+  height: '100%',
+  border: '0 none',
 });
 const Img = styled.img({
-  width: "100%",
-  height: "100%",
-  border: "0 none",
-  objectFit: "contain"
+  width: '100%',
+  height: '100%',
+  border: '0 none',
+  objectFit: 'contain',
 });
 
 const Asset = ({ url }) => {
@@ -262,7 +263,7 @@ const Asset = ({ url }) => {
 
 export const Content = () => {
   // story's parameter being retrieved here
-  const results = useParameter("assets", []);
+  const results = useParameter('assets', []);
   // the id of story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
@@ -270,7 +271,7 @@ export const Content = () => {
     return null;
   }
 
-  const url = getUrl(results[0]).replace("{id}", storyId);
+  const url = getUrl(results[0]).replace('{id}', storyId);
 
   return (
     <Fragment>
@@ -306,8 +307,8 @@ Wir müssen unsere Imports entsprechend anpassen:
 
 ```javascript
 //.storybook/addons/design-assets.js
-import { useParameter, useStorybookState, useAddonState } from "@storybook/api";
-import { AddonPanel, ActionBar } from "@storybook/components";
+import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
+import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
 ```
 
@@ -317,9 +318,9 @@ Außerdem müssen wir unsere `Content`-Komponente modifizieren, damit wir zwisch
 //.storybook/addons/design-assets.js
 export const Content = () => {
   // story's parameter being retrieved here
-  const results = useParameter("assets", []);
+  const results = useParameter('assets', []);
   // addon state being persisted here
-  const [selected, setSelected] = useAddonState("my/design-assets", 0);
+  const [selected, setSelected] = useAddonState('my/design-assets', 0);
   // the id of the story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
@@ -332,15 +333,15 @@ export const Content = () => {
     return null;
   }
 
-  const url = getUrl(results[selected]).replace("{id}", storyId);
+  const url = getUrl(results[selected]).replace('{id}', storyId);
   return (
     <Fragment>
       <Asset url={url} />
       {results.length > 1 ? (
         <ActionBar
           actionItems={results.map((i, index) => ({
-            title: typeof i === "string" ? `asset #${index + 1}` : i.name,
-            onClick: () => setSelected(index)
+            title: typeof i === 'string' ? `asset #${index + 1}` : i.name,
+            onClick: () => setSelected(index),
           }))}
         />
       ) : null}
@@ -358,27 +359,27 @@ Wir haben geschafft, was wir uns vorgenommen haben, nämlich ein voll funktionsf
 
 ```javascript
 // .storybook/addons
-import React, { Fragment } from "react";
+import React, { Fragment } from 'react';
 
-import { useParameter, useStorybookState, useAddonState } from "@storybook/api";
-import { addons, types } from "@storybook/addons";
-import { AddonPanel, ActionBar } from "@storybook/components";
-import { styled } from "@storybook/theming";
+import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
+import { addons, types } from '@storybook/addons';
+import { AddonPanel, ActionBar } from '@storybook/components';
+import { styled } from '@storybook/theming';
 
 const getUrl = input => {
-  return typeof input === "string" ? input : input.url;
+  return typeof input === 'string' ? input : input.url;
 };
 
 const Iframe = styled.iframe({
-  width: "100%",
-  height: "100%",
-  border: "0 none"
+  width: '100%',
+  height: '100%',
+  border: '0 none',
 });
 const Img = styled.img({
-  width: "100%",
-  height: "100%",
-  border: "0 none",
-  objectFit: "contain"
+  width: '100%',
+  height: '100%',
+  border: '0 none',
+  objectFit: 'contain',
 });
 
 const Asset = ({ url }) => {
@@ -393,8 +394,8 @@ const Asset = ({ url }) => {
 };
 
 export const Content = () => {
-  const results = useParameter("assets", []); // story's parameter being retrieved here
-  const [selected, setSelected] = useAddonState("my/design-assets", 0); // addon state being persisted here
+  const results = useParameter('assets', []); // story's parameter being retrieved here
+  const [selected, setSelected] = useAddonState('my/design-assets', 0); // addon state being persisted here
   const { storyId } = useStorybookState(); // the story«s unique identifier being retrieved from Storybook global state
 
   if (results.length === 0) {
@@ -406,7 +407,7 @@ export const Content = () => {
     return null;
   }
 
-  const url = getUrl(results[selected]).replace("{id}", storyId);
+  const url = getUrl(results[selected]).replace('{id}', storyId);
 
   return (
     <Fragment>
@@ -414,8 +415,8 @@ export const Content = () => {
       {results.length > 1 ? (
         <ActionBar
           actionItems={results.map((i, index) => ({
-            title: typeof i === "string" ? `asset #${index + 1}` : i.name,
-            onClick: () => setSelected(index)
+            title: typeof i === 'string' ? `asset #${index + 1}` : i.name,
+            onClick: () => setSelected(index),
           }))}
         />
       ) : null}
@@ -423,15 +424,15 @@ export const Content = () => {
   );
 };
 
-addons.register("my/design-assets", () => {
-  addons.add("design-assets/panel", {
-    title: "assets",
+addons.register('my/design-assets', () => {
+  addons.add('design-assets/panel', {
+    title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
         <Content />
       </AddonPanel>
-    )
+    ),
   });
 });
 ```
