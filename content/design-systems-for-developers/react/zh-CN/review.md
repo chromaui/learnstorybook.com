@@ -15,45 +15,6 @@ commit: eabed3d
 
 任何一个设计系统都可能存在问题，所以我们需要竭尽全力去防止问题发生。 一次小小的修改产生的问题可能会滚雪球般越来越大，最终会导致不计其数的回溯。一个没有维护策略的设计系统最终都会变成强弩之末。
 
-## 持续集成
-
-持续集成是目前维护 Web 应用程序的有效方法，它允许您在每次提交新代码时运行自己编写的脚本，如： 测试、分析和部署。 我们将借用这种技术来避免重复的手工工作。
-
-在这里我们采用了在我们这种模式下免费的 CircleCI，它和其他 CI 提供一样的服务。
-
-如果您没有 CircleCI 账号，首先您需要注册一个。 然后您将看到一个 “add projects” 的标签栏，您可以在其中设置您的设计系统。
-
-![Adding a project on CircleCI](/design-systems-for-developers/circleci-add-project.png)
-
-首先在您的根目录下添加一个名为 `.circleci` 的目录，并在该目录下创建一个名为 config.yml 的文件。 这样我们便可以将我们持续集成的步骤代码化。我们可以按照 Circle 推荐的默认配置来配置 Node 环境下的 Circle CI:
-
-```yaml
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:10.13
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run: yarn install
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn test
-```
-
-现在您可以通过执行 create-react-app 配置的 `yarn test` 命令去运行基本的 React 测试。我们看看它在 Circle 上面的运行结果：
-
-![First build on CircleCI](/design-systems-for-developers/circleci-first-build.png)
-
-请注意由于我们没有定义的测试文件，所以我们的打包失败了。 但这是我们期待的行为，我们之后会添加一些测试，目前我们先进行后续流程。
-
 > “但是他是运行在我本地的?!” – 所有人
 
 ## 在您的团队中展示您的 UI 组件
@@ -62,7 +23,7 @@ jobs:
 
 大多数的开发人员应该对代码审查比较熟悉，它是从其他开发者那里收集代码质量相关反馈的一个流程。由于 UI 组件是以图形的方式表达代码，因此需要与 UI/UX 进行视觉检查来收集反馈。
 
-#### 建立一个通用的参考点
+### 建立一个通用的参考点
 
 删除 node_modules、重新安装包、清除本地存储、清除本地 cookies。 如果您对这些操作很熟悉，那么您应该会很清楚让所有的团队成员保持一致的代码运行环境是一件非常难的事情。如果团队成员间没有相同的开发环境，那么就很难识别出问题究竟是源于本地环境还是其他原因。
 
@@ -74,46 +35,107 @@ jobs:
 
 > "在每次提交之后部署 Storybook 可以使视觉审查更加容易，并且有助于产品负责人从组件的角度去思考" –Norbert de Langen, Storybook core maintainer
 
-#### 发布 Storybook
+<h2 id="publish-storybook">发布 Storybook</h2>
 
-使用 [Netlify](http://netlify.com) 创建在线的视觉审查, Netlify 提供一个对开发人员友好的发布服务. 在我们的场景中可以免费使用 Netlify, 当然您也可以简单的使用其他的托管服务去[搭建 Storybook 静态网站并发布](https://storybook.js.org/docs/basics/exporting-storybook/)。
+我们将演示如何使用 Storybook 维护团队免费发布工具 [Chromatic](https://www.chromatic.com/) 来创建一个在线视觉审查。它可以让你安全的在云端部署和托管您的 Storybook，但是我们也可以通过简单明了的[将 storybook 打包为静态网站并部署](https://storybook.js.org/docs/basics/exporting-storybook/)在其他的服务器上。
 
-![Choosing GitHub on Netlify](/design-systems-for-developers/netlify-choose-provider.png)
+### 获取 Chromatic
 
-找到我们之前在 Github 上创建的设计系统的仓库
+首先，打开网站： [chromatic.com](https://chromatic.com) 并使用您的 Github 账号进行注册。
 
-![Choosing our repository on Netlify](/design-systems-for-developers/netlify-choose-repository.png)
+<div class="aside">TODO: Ask Dom to capture a new screenshot, to adjust the url correctly (still pointing to the old url)</div>
 
-在 Netlify 中输入 `stroybook-build` 以便以后每次提交后运行该命令：
+![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
-![Setting up our first build on Netlify](/design-systems-for-developers/netlify-setup-build.png)
+在这里选择您设计系统的代码仓库，与此同时，该操作将授权该网站在您的每次合并请求时添加一个检查工具。
 
-如果一切顺利，您应该可以在 Netlify 中成功搭建您的网站
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
+  <source
+    src="/design-systems-for-developers/chromatic-setup-learnstorybook-design-system.mp4"
+    type="video/mp4"
+  />
+</video>
 
-![Succeeded running our first build in Netlify](/design-systems-for-developers/netlify-deployed.png)
+通过 npm 安装 [chromatic](https://www.npmjs.com/package/chromatic).
 
-点击链接即可查看您发布成功的 Storybook。您会发现本地的 Storybook 和在线的版本一模一样。这样您的团队便可以像您查看本地的 UI 组件一样轻松的查看实际渲染出来的 UI 组件。
+```bash
+yarn add --dev chromatic
+```
 
-![Viewing our first build in Netlify](/design-systems-for-developers/netlify-deployed-site.png)
+完成安装后，运行如下命令来构建和部署您的 Storybook（您将需要 Chromatic 网站上提供给您的项目代码）
 
-您的 Storybook 每提交一次， Netlify 就会重新运行一次打包命令。 您会在您检查 pull request 时时候找到指向它的链接（下面我们将会看到）。
+```bash
+npx chromatic --project-token=<project-token>
+```
+
+![Chromatic in the command line](/design-systems-for-developers/chromatic-manual-storybook-console-log.png)
+
+复制链接提供的地址，并在新的浏览器窗口打开该地址来浏览您发布的 Storybook。 您将看到在线的 Storybook 和您本地开发环境下的一模一样。
+
+![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook.png)
+
+这便可以让您的团队非常轻而易举的能够看到和您本地一模一样的 UI 组件。
+
+![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
 恭喜您！现在您已经完了发布 Storybook 的基础架构，现在我们来演示如何去收集反馈。
 
-在开始之前，我们需要先将 `storybook-static` 文件夹添加到 `.gitignore` 文件中
+### 持续集成
 
-```
-# …
-storybook-static
+持续集成是目前维护 Web 应用程序的有效方法，它允许您在每次提交新代码时运行自己编写的脚本，如： 测试、分析和部署。 我们将借用这种技术来避免重复的手工工作。
+
+在这里我们采用了在我们这种模式下免费的 GitHub Actions，它和其他 CI 提供一样的服务。
+
+在根目录下添加一个 `.github` 的目录，然后在该目录下创建一个名为 `workflows` 的目录。
+
+创建一个名为 `chromatic.yml` 文件，该文件将描述我们持续集成的流程。我们将循序渐进地来提高它：
+
+```yaml
+# .github/workflows/chromatic.yml
+
+# name of our action
+name: 'Chromatic'
+# the event that will trigger the action
+on: push
+
+# what the action will do
+jobs:
+  test:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      #- run: yarn build-storybook
+      - uses: chromaui/action@v1
+        # options required to the GitHub chromatic action
+        with:
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-然后提交您的改动
+通过命令来添加这些变更:
 
 ```bash
-git commit -am “ignore storybook static”
+git add .
 ```
 
-#### 邀请您的团队做视觉审查
+并对变更进行提交:
+
+```bash
+git commit -m "Storybook deployment with GitHub action"
+```
+
+最后通过如下命令将您对提交上传到远端代码仓库:
+
+```bash
+git push origin master
+```
+
+成功了！就在刚才我们改进了我们系统的基础能力。
+
+## 邀请您的团队做视觉审查
 
 与干系人一起发起视觉审查来达成共识，当您提交了一个包含了 UI 修改的 pull request 。这样便可以避免给他们“惊喜”或带来不必要的返工。
 
@@ -126,6 +148,8 @@ git checkout -b improve-button
 首先，给 Button 组件做一个小小的修改。 “把它变为流行的样式” —— 我们的设计师应该会喜欢它
 
 ```javascript
+//src/Button.js
+
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;
@@ -141,23 +165,25 @@ git commit -am “make Button pop”
 git push -u origin improve-button
 ```
 
-打开 Github.com 并为 `improve-button` 分支创建一个 pull request
+打开 Github.com 并为 `improve-button` 分支创建一个 pull request。 创建成功后，一个关于发布 Storybook 的工作也会在 CI 中自动运行。
 
-![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr.png)
+![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr-actions.png)
 
-![Created a PR in GitHub](/design-systems-for-developers/github-created-pr.png)
+![Created a PR in GitHub](/design-systems-for-developers/github-created-pr-actions.png)
 
-在 pull request 中找到您 Netlify 的 URL，并检查 Button 组件
+在您当前合并请求的页面底部的任务列表中，点击 **Storybook Publish** 来浏览您新发布的 Storybook。
 
-![Button component changed in deployed site](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
+![Button component changed in deployed site](/design-systems-for-developers/chromatic-deployed-site-with-changed-button.png)
 
 找到每个修改的组件和 story 并从浏览器中复制相应的 URL， 然后粘贴到项目管理员的任务表中（Github、Asana、Jira 等），这样方便整个团队成员审查相关的改动。
 
-![GitHub PR with links to storybook](/design-systems-for-developers/github-created-pr-with-links.png)
+![GitHub PR with links to storybook](/design-systems-for-developers/github-created-pr-with-links-actions.png)
 
 将问题分配给您的团队成员并实时关注他们的反馈
 
-![Why?!](/design-systems-for-developers/visual-review-feedback-github.gif)
+![Why?!](/design-systems-for-developers/github-visual-review-feedback.gif)
+
+<div class="aside">在 Chromatic 的收费版本中，它也提供一个完整的 UI 审查工作流. 通过复制 Storybook 的链接到 Github 的合并请求中适用于规模较小的情况（不光适用于 Chromatic，也适用于其他可以部署您 Storybook 的服务），但是随着您使用频率的增加，你可能会考虑将它变为一个自动化的流程。</div>
 
 在软件开发中的大多数缺陷不是源于技术，而是缺乏沟通。视觉审查可以帮助团队在开发过程中持续的收集反馈，以便于更快的交付设计系统。
 
