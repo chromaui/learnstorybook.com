@@ -1,12 +1,12 @@
 ---
-title: 'Creating addons'
-tocTitle: 'Creating addons'
+title: 'Bonus: Create an addon'
+tocTitle: 'Bonus: Creating addons'
 description: 'Learn how to build your own addons that will super charge your development'
 ---
 
-In the previous chapter we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
+Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/addons/introduction/) ecosystem. Addons are used to enhance your developer experience and workflows.
 
-In this chapter we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
+In this bonus chapter, we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
 
 But first thing is first, let's first scope out what our addon will do.
 
