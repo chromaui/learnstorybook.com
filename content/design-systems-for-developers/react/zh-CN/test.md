@@ -39,85 +39,29 @@ commit: 5b71208
 
 如果您在创建现代化 UI，视觉测试可帮助您的前端开发团队节省人工审查的时间，也可以避免昂贵的 UI 回归测试。我们将使用 Storybook 维护者提供的工业级服务 Chromatic 来演示视觉测试。
 
-首先，通过您的 Github 在 [Chromatic.com](https://www.chromatic.com/) 上注册一个账号
+在 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">之前的章节</a> 我们学习到如何使用 [Chromatic](https://www.chromatic.com/) 去发布一个 Storybook。 我们为 `Button` 组件添加了一个红色边框并向同事来寻求反馈。
 
-![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
+![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
-从那里选择您目前设计系统的 Git 仓库，此时会把访问权限同步到后台以便于检查您每次的提交请求。
+现在我们使用 Chromatic 内置的工具 [testing tools](https://www.chromatic.com/features/test) 来看看视觉测试是如何工作的。当合并请求被创建的时候，Chromatic 获取到我们组件和之前组件的变化差异图。有 3 个改动被发现：
 
-![Creating a project at Chromatic](/design-systems-for-developers/chromatic-create-project.png)
+![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 
-通过 npm 安装 [chromatic](https://www.npmjs.com/package/chromatic)
+点击 "🟡 UI Tests" 按钮来浏览它们。
 
-```bash
-yarn add --dev chromatic
-```
-
-打开您的命令行并跳转到 `design-system` 目录。然后运行您的第一次测试来生成您视觉测试的基准截图。(您将需要使用在 Chromatic 网站中提供的应用程序代码)
-
-```bash
-npx chromatic --project-token=<project-token>
-```
-
-![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
-
-Chromatic 为您的每个 UI 组件生成了一个基准图片！随后每当您运行测试时都会与这些基准图片进行比较。让我们修改一个 UI 组件来看看它是如何工作的。在全局样式文件(`src/shared/styles.js`)中将字体尺寸变大。
-
-```javascript
-// …
-export const typography = {
-  // ...
-  size: {
-    s1: '13',
-    // ...
-  },
-};
-// ...
-```
-
-在此运行测试命令
-
-```bash
-npx chromatic --project-token=<project-token>
-```
+![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
 您看！细微的调整导致大量的 UI 发生变化
 
-![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build.png)
+审查这些变化来确定是有意（改进）或无意（bugs）而为之的。如果您同意该改动，那么对比基线则会更新为当前最新版本，这意味着之后的版本将会拿该基线来对比和识别 bug。
 
-视觉测试帮助识别出在 Storybook 中的 UI 变化，审查这些变化来确定是有意（改进）或无意（bugs）而为之的。如果您喜欢新的字体大小，那么请同意本次修改并提交到 git。抑或是这些变化也许有些过于夸张，那么您可以撤销您的改动。
+![Reviewing changes in Chromatic](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
-让我们将视觉测添加到持续集成的过程中。打开 `.circleci/config.yml` 并添加运行测试的命令
+在最后一章，因为一些原因，我们的同事不喜欢红色边框的 `Button` 组件。拒绝该修改来表明这次的改动需要被撤销。
 
-```yaml
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/node:10.13
+![Review deny in Chromatic](/design-systems-for-developers/chromatic-review-deny.png)
 
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: yarn install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: yarn test
-      - run: yarn chromatic --project-token=<project-token> --exit-zero-on-changes
-```
-
-保存并运行 `git commit`。 恭喜您刚刚已经在持续集成过程中成功添加了视觉测试！
+撤销这些改动并且重新提交代码来发起另一轮视觉审查。
 
 ## 用单元测试来测试功能
 
@@ -136,6 +80,8 @@ jobs:
 让我们为 `Link` 组件添加一个单元测试。 create-react-app 已经配置好了一个单元测试的运行环境，所以我们只需要创建一个文件 `src/Link.test.js`：
 
 ```javascript
+//src/Link.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from './Link';
@@ -164,9 +110,30 @@ it('has a href attribute when rendering with linkWrapper', () => {
 
 ![Running a single Jest test](/design-systems-for-developers/jest-test.png)
 
-之前我们已经配置了我们的 Circle config.js 在每一次提交之后运行 `yarn test`。现在我们这条单元测试便可从中获益。在之后的反复修改组件时，我们也会对强大的 Link 组件保持信心。
+之前我们已经配置了我们的 GitHub action 来部署 Storybook。现在我们可以修改它来让它帮助我们运行测试。代码贡献者也会从中获益，我们也会对强大的 Link 组件保持信心。
 
-![Successful circle build](/design-systems-for-developers/circleci-successful-build.png)
+```yaml
+# .github/workflows/chromatic.yml
+# ... same as before
+jobs:
+  test:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      - run: yarn test # adds the test command
+      - uses: chromaui/action@v1
+        # options required to the GitHub chromatic action
+        with:
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ (update link)
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+![Successful circle build](/design-systems-for-developers/gh-action-with-test-successful-build.png)
 
 <div class="aside"> 请注意: 过多的单元测试可能会导致更新组件变得更复杂，所以建议您在设计系统中适度的使用单元测试。</div>
 
@@ -190,9 +157,10 @@ yarn add --dev @storybook/addon-a11y
 在文件 `.storybook/main.js` 中添加插件:
 
 ```javascript
+// .storybook/main.js
+
 module.exports = {
-  // automatically import all files ending in *.stories.js|mdx
-  stories: ['../src/**/*.stories.(js|mdx)'],
+  stories: ['../src/**/*.stories.js'],
   addons: [
     '@storybook/preset-create-react-app',
     '@storybook/addon-actions',
@@ -207,6 +175,8 @@ module.exports = {
 并且在文件 `.storybook/preview.js` 添加 `withA11y` 修饰器
 
 ```javascript
+//.storybook/preview.js
+
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
