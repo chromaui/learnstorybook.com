@@ -43,8 +43,6 @@ commit: eabed3d
 
 首先，打开网站： [chromatic.com](https://chromatic.com) 并使用您的 Github 账号进行注册。
 
-<div class="aside">TODO: Ask Dom to capture a new screenshot, to adjust the url correctly (still pointing to the old url)</div>
-
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
 在这里选择您设计系统的代码仓库，与此同时，该操作将授权该网站在您的每次合并请求时添加一个检查工具。
@@ -166,8 +164,6 @@ git push -u origin improve-button
 ```
 
 打开 Github.com 并为 `improve-button` 分支创建一个 pull request。 创建成功后，一个关于发布 Storybook 的工作也会在 CI 中自动运行。
-
-![Creating a PR in GitHub](/design-systems-for-developers/github-create-pr-actions.png)
 
 ![Created a PR in GitHub](/design-systems-for-developers/github-created-pr-actions.png)
 

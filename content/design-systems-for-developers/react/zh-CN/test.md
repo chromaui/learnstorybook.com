@@ -57,7 +57,7 @@ commit: 5b71208
 
 ![Reviewing changes in Chromatic](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
-在最后一章，因为一些原因，我们的同事不喜欢红色边框的 `Button` 组件。拒绝该修改来表明这次的改动需要被撤销。
+在上一章中，因为一些原因，我们的同事不喜欢红色边框的 `Button` 组件，所以我们需要拒绝修改来表明本次提交需要被撤销。
 
 ![Review deny in Chromatic](/design-systems-for-developers/chromatic-review-deny.png)
 
