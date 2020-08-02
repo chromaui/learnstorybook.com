@@ -35,6 +35,8 @@ Storybook 被配置为默认识别以 `\*.stories.js` 结尾的文件，并将�
 赞！我们来看一下 AvatarList 支持的 UI 状态。乍一看，它支持一些和 Avatar 组件一样的属性（如： `small` 和 `loading`）。
 
 ```javascript
+// src/AvatarList.stories.js
+
 export const smallSize = () => <AvatarList users={users.slice(0, 2)} size="small" />;
 export const loading = () => <AvatarList loading />;
 ```
@@ -44,6 +46,8 @@ export const loading = () => <AvatarList loading />;
 由于它是一个列表，所以应该显示多个头像。让我们添加 stories 去分别演示很多个头像和只有几个头像的情况。
 
 ```javascript
+// src/AvatarList.stories.js
+
 export const ellipsized = () => <AvatarList users={users} />;
 export const bigUserCount = () => <AvatarList users={users} userCount={100} />;
 export const empty = () => <AvatarList users={[]} />;
@@ -66,6 +70,8 @@ git commit -am "Added AvatarList and stories"
 最小可行的文档！让我们添加如何使用 AvatarList 的上下文来让它更加易读：
 
 ```javascript
+// src/AvatarList.stories.js
+
 /**
  * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
@@ -75,6 +81,8 @@ export function AvatarList({ loading, users, userCount, size, ...props }) {
 添加一些组件支持属性的详细信息：
 
 ```javascript
+// src/AvatarList.stories.js
+
 AvatarList.propTypes = {
   /**
    * Are we loading avatar data from the network?
@@ -113,7 +121,7 @@ AvatarList.propTypes = {
 git commit -am “Improved AvatarList docs”
 ```
 
-<h4>创建一个 pull request </h4>
+#### 创建一个 pull request
 
 让我们将 `AvatarList` 分支提交到 GitHub 上并创建一个 pull request ：
 
@@ -131,7 +139,7 @@ git push -u origin `create-avatar-list-component`
 
 设计系统的 Storybook 在每次提交请求后都会自动发布，这让审查变得格外简单。您可以在 pull request 的底部找到部署后的 Storybook 链接。
 
-![PR check for deployed PR](/design-systems-for-developers/github-pr-checks-deployed.png)
+![PR check for deployed PR](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
 在线上的 Storybook 中找到 AvatarList，它应该和您本地运行的 Storybook 一模一样。
 
@@ -147,7 +155,7 @@ git push -u origin `create-avatar-list-component`
 
 我们的测试套件会在每次提交之后在后台运行。AvatarList 是一个简单的显示组件，所以不需要单元测试。但是如果我们查看提交请求检查，我们会发现视觉测试工具 Chromatic 已经识别出需要被审查的变化。
 
-![Chromatic changes on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes.png)
+![Chromatic changes on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
 因为 AvatarList 是一个新的组件且未被视觉测试覆盖到，我们则需要为每个 story 去添加新的基准。在 Chromatic 中接受 “新 stories” 去扩大我们的视觉测试覆盖率。
 
@@ -159,7 +167,7 @@ git push -u origin `create-avatar-list-component`
 
 依次更新 GitHub 中的合并提交检查。
 
-![Chromatic changes accepted on the GitHub PR check](/design-systems-for-developers/github-pr-checks-chromatic-changes-accepted.png)
+![Chromatic changes accepted on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes-accepted.png)
 
 测试被成功的更新了。在以后，回溯将很难偷偷摸摸地就被加入到设计系统中。
 
