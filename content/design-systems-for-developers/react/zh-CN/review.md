@@ -72,7 +72,7 @@ npx chromatic --project-token=<project-token>
 
 ![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook.png)
 
-这便可以让您的团队非常轻而易举的能够看到和您本地一模一样的 UI 组件。
+这便可以让您的团队轻而易举地看到和您本地一模一样的 UI 组件。
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
@@ -125,7 +125,7 @@ git add .
 git commit -m "Storybook deployment with GitHub action"
 ```
 
-最后通过如下命令将您对提交上传到远端代码仓库:
+最后通过如下命令将您的提交上传到远端代码仓库:
 
 ```bash
 git push origin master
