@@ -5,7 +5,7 @@ description: 'Build a simple component in isolation'
 commit: b2274bd
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
@@ -27,7 +27,6 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```html
-
 <!--src/components/Task.vue-->
 <template>
   <div class="list-item">
@@ -54,7 +53,6 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
-
 // src/components/Task.stories.js
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
@@ -152,7 +150,6 @@ We'll need to make a couple of changes to the Storybook configuration so it noti
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```javascript
-
 // .storybook/main.js
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
@@ -163,7 +160,6 @@ module.exports = {
 After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
 
 ```javascript
-
 // .storybook/preview.js
 import '../src/index.css';
 ```
@@ -184,7 +180,6 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
 
 ```html
-
 <!--src/components/Task.vue-->
 <template>
   <div :class="taskClass">
@@ -265,7 +260,6 @@ yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 Then create a `tests/unit/storybook.spec.js` file with the following in it:
 
 ```javascript
-
 // tests/unit/storybook.spec.js
 import initStoryshots from '@storybook/addon-storyshots';
 
