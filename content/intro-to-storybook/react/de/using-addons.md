@@ -10,7 +10,7 @@ Storybook rühmt sich eines robuten [Addon-Systems](https://storybook.js.org/add
 <div class="aside">
 <strong>Auf der Suche nach einer Liste verfügbarer Addons?</strong>
 <br/>
-😍 <a href="https://storybook.js.org/addons/addon-gallery/">Hier</a> findest du die Liste offiziell unterstützter und von der Community aktiv unterstützer Addons.
+😍 <a href="https://storybook.js.org/addons">Hier</a> findest du die Liste offiziell unterstützter und von der Community aktiv unterstützer Addons.
 </div>
 
 Wir könnten unendlich viel über die Verwendung von Addons für all deine speziellen Anwendungsfälle schreiben. Fürs Erste, lass uns auf die Integration eines der am weitesten verbreiteten Addons innerhalb des Storybook-Ökosystems hinarbeiten: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).

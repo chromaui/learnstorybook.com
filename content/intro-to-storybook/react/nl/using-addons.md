@@ -10,7 +10,7 @@ Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.o
 <div class="aside">
 <strong> Op zoek naar een lijst met mogelijke add-ons? </strong>
 <br/>
-😍 Je kunt de lijst met officieel ondersteunde en goede community-add-ons <a href="https://storybook.js.org/addons/addon-gallery/">hier bekijken</a>.
+😍 Je kunt de lijst met officieel ondersteunde en goede community-add-ons <a href="https://storybook.js.org/addons">hier bekijken</a>.
 </div>
 
 We zouden nog veel kunnen schrijven over het configureren en gebruiken van add-ons voor al je specifieke use-cases. Laten we nu werken aan de integratie van een van de meest populaire add-ons in het ecosysteem van Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
