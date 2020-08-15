@@ -104,7 +104,7 @@ A etiqueta é constante e irá aparecer no painel de extras á esquerda do campo
 
 ## Os extras aumentam a esfera de ação do teu Storybook
 
-Não somente a tua instância Storybook serve como um [ambiente CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) fantástico, mas agora estamos também a fornecer uma forma de documentação interativa. Os adereços (ou props) são fantásticos, mas quer um designer quer uma outra pessoa qualquer nova que é apresentada ao código do componente irá ser capaz de entender qual é o seu comportamento rapidamente graças ao Storybook e a este extra.
+Não somente a tua instância Storybook serve como um [ambiente CDD](https://www.componentdriven.org/) fantástico, mas agora estamos também a fornecer uma forma de documentação interativa. Os adereços (ou props) são fantásticos, mas quer um designer quer uma outra pessoa qualquer nova que é apresentada ao código do componente irá ser capaz de entender qual é o seu comportamento rapidamente graças ao Storybook e a este extra.
 
 ## Utilização de Knobs para afinar os casos extremos
 
