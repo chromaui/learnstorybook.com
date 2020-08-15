@@ -4,7 +4,7 @@ tocTitle: 'Componente simples'
 description: 'Construção de um componente simples em isolamento'
 ---
 
-Iremos construir um interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
+Iremos construir um interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://www.componentdriven.org/), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
 
 ## Tarefa
 
@@ -30,7 +30,6 @@ Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o aco
 Iremos iniciar por uma implementação rudimentar da `Task`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
 
 ```html
-
 <!--src/components/Task.vue-->
 <template>
   <div class="list-item">
@@ -57,7 +56,6 @@ O bloco de código acima, quando renderizado, não é nada mais nada menos que a
 Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
 
 ```javascript
-
 // src/components/Task.stories.js
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
@@ -155,13 +153,11 @@ Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a
 Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
 
 ```javascript
-
 // .storybook/main.js
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
-
 ```
 
 Após efetuar esta alteração, uma vez mais dentro da pasta (ou diretório) `.storybook`, crie um novo ficheiro (ou arquivo) chamado `preview.js` com o seguinte conteúdo:
@@ -187,7 +183,6 @@ Neste momento já possuímos o Storybook configurado, os elementos de estilo imp
 O componente neste momento ainda está algo rudimentar. Vamos fazer algumas alterações de forma a atingir o design pretendido, sem entrar em muitos detalhes:
 
 ```html
-
 <!--src/components/Task.vue-->
 <template>
   <div :class="taskClass">
@@ -269,7 +264,6 @@ yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 Em seguida é criado o ficheiro `tests/unit/storybook.spec.js` com seguinte:
 
 ```javascript
-
 // tests/unit/storybook.spec.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
@@ -281,7 +275,6 @@ Finalmente terá que se alterar o ficheiro `jest.config.js`:
   // jest.config.js
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 ```
-
 
 Assim que os passos descritos acima estiverem concluídos, poderá ser executado `yarn test:unit` e constatar o seguinte output:
 
