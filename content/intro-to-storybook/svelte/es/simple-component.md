@@ -4,7 +4,7 @@ tocTitle: 'Componente Simples'
 description: 'Construye un componente simple en aislamiento'
 ---
 
-Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://www.componentdriven.org/). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
+Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
 
 ## Task - Tarea
 
@@ -56,7 +56,7 @@ Comenzaremos con una implementación básica de `Task`, simplemente teniendo en 
 </script>
 
 <div class="list-item">
-  <input type="text" value="{task.title}" readonly />
+  <input type="text" value={task.title} readonly />
 </div>
 ```
 
@@ -67,7 +67,7 @@ A continuación creamos los tres estados de prueba de Task dentro del archivo de
 ```javascript
 // src/components/Task.stories.js
 import Task from './Task.svelte';
-import { action } from '@storybook/addon-actions';
+import { action } from "@storybook/addon-actions";
 export default {
   title: 'Task',
   excludeStories: /.*Data$/,
@@ -162,13 +162,14 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
+
 ```
 
 Después de hacer este cambio, una vez más dentro de la carpeta `.storybook`, cree un nuevo archivo llamado `preview.js` con el siguiente contenido:
 
 ```javascript
 // .storybook/preview.js
-import '../public/global.css';
+import '../public/global.css'
 ```
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
@@ -179,6 +180,7 @@ Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería pr
     type="video/mp4"
   />
 </video>
+
 
 ## Construyendo los estados
 
@@ -218,17 +220,17 @@ Nuestro componente todavía es bastante rudimentario en este momento. Vamos a ha
   // reactive declaration (computed prop in other frameworks)
   $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
-<div class="{`list-item" ${task.state}`}>
+<div class={`list-item ${task.state}`}>
   <label class="checkbox">
-    <input type="checkbox" checked="{isChecked}" disabled name="checked" />
-    <span class="checkbox-custom" on:click="{ArchiveTask}" />
+    <input type="checkbox" checked={isChecked} disabled name="checked" />
+    <span class="checkbox-custom" on:click={ArchiveTask} />
   </label>
   <div class="title">
-    <input type="text" readonly value="{task.title}" placeholder="Input title" />
+    <input type="text" readonly value={task.title} placeholder="Input title" />
   </div>
   <div class="actions">
     {#if task.state !== 'TASK_ARCHIVED'}
-    <a href="/" on:click|preventDefault="{PinTask}">
+    <a href="/" on:click|preventDefault={PinTask}>
       <span class="icon-star" />
     </a>
     {/if}

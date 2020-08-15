@@ -4,7 +4,7 @@ tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
@@ -56,7 +56,7 @@ We’ll begin with the baseline implementation of the `Task`, simply taking in t
 </script>
 
 <div class="list-item">
-  <input type="text" value="{task.title}" readonly />
+  <input type="text" value={task.title} readonly />
 </div>
 ```
 
@@ -67,7 +67,7 @@ Below we build out Task’s three test states in the story file:
 ```javascript
 // src/components/Task.stories.js
 import Task from './Task.svelte';
-import { action } from '@storybook/addon-actions';
+import { action } from "@storybook/addon-actions";
 export default {
   title: 'Task',
   excludeStories: /.*Data$/,
@@ -162,13 +162,14 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
+
 ```
 
 After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
 
 ```javascript
 // .storybook/preview.js
-import '../public/global.css';
+import '../public/global.css'
 ```
 
 Once we’ve done these two small changes, restarting Storybook should yield test cases for the three Task states:
@@ -179,6 +180,7 @@ Once we’ve done these two small changes, restarting Storybook should yield tes
     type="video/mp4"
   />
 </video>
+
 
 ## Build out the states
 
@@ -218,17 +220,17 @@ The component is still basic at the moment. First write the code that achieves t
   // reactive declaration (computed prop in other frameworks)
   $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
-<div class="{`list-item" ${task.state}`}>
+<div class={`list-item ${task.state}`}>
   <label class="checkbox">
-    <input type="checkbox" checked="{isChecked}" disabled name="checked" />
-    <span class="checkbox-custom" on:click="{ArchiveTask}" />
+    <input type="checkbox" checked={isChecked} disabled name="checked" />
+    <span class="checkbox-custom" on:click={ArchiveTask} />
   </label>
   <div class="title">
-    <input type="text" readonly value="{task.title}" placeholder="Input title" />
+    <input type="text" readonly value={task.title} placeholder="Input title" />
   </div>
   <div class="actions">
     {#if task.state !== 'TASK_ARCHIVED'}
-    <a href="/" on:click|preventDefault="{PinTask}">
+    <a href="/" on:click|preventDefault={PinTask}>
       <span class="icon-star" />
     </a>
     {/if}

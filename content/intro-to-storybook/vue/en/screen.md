@@ -209,6 +209,6 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.

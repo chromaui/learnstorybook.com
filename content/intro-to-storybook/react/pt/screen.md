@@ -176,7 +176,7 @@ Começou-se do fundo com `Task`, prosseguindo para `TaskList` e agora chegou-se 
   />
 </video>
 
-[**Component-Driven Development**](https://www.componentdriven.org/) permite a expansão gradual da complexidade á medida que se prossegue de forma ascendente na hierarquia de componentes. Dos benefícios ao utilizar-se esta abordagem, estão o processo de desenvolvimento focado e cobertura adicional das permutações possíveis do interface de utilizador.
+[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) permite a expansão gradual da complexidade á medida que se prossegue de forma ascendente na hierarquia de componentes. Dos benefícios ao utilizar-se esta abordagem, estão o processo de desenvolvimento focado e cobertura adicional das permutações possíveis do interface de utilizador.
 Resumidamente esta abordagem ajuda na produção de interfaces de utilizador de uma qualidade extrema e assim como complexidade.
 
 Ainda não finalizamos, o trabalho não acaba quando o interface de utilizador estiver construído. É necessário garantir que resiste ao teste do tempo.

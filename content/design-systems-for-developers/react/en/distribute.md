@@ -330,7 +330,7 @@ Earlier in this tutorial, we standardized on a popular frontend stack that inclu
 
 <div class="aside">Other promising methods like Svelte or web components may allow you to ship framework-agnostic UI components . However, they are relatively new, under-documented, or lack widespread adoption so they’re not included in this guide yet.</div>
 
-The example app uses Storybook to facilitate [Component-Driven Development](https://www.componentdriven.org/), an app development methodology of building UIs from the bottom up starting with components and ending with pages. During the demo, we’ll run two Storybook’s side-by-side: one for our example app and one for our design system.
+The example app uses Storybook to facilitate [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), an app development methodology of building UIs from the bottom up starting with components and ending with pages. During the demo, we’ll run two Storybook’s side-by-side: one for our example app and one for our design system.
 
 Clone the example app repository from GitHub
 

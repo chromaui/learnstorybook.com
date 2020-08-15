@@ -162,6 +162,6 @@ storiesOf('InboxScreen', module)
   />
 </video>
 
-[**组件驱动开发**](https://www.componentdriven.org/)允许您在向上移动组件层次结构时,逐渐扩展复杂性. 其中的好处包括 更集中的开发过程 以及 所有可能的 UI 排列 的覆盖范围. 简而言之,CDD 可帮助您构建 更高质量和更复杂 的用户界面.
+[**组件驱动开发**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)允许您在向上移动组件层次结构时,逐渐扩展复杂性. 其中的好处包括 更集中的开发过程 以及 所有可能的 UI 排列 的覆盖范围. 简而言之,CDD 可帮助您构建 更高质量和更复杂 的用户界面.
 
 我们还没有完成 - 在构建 UI 时,工作不会结束. 我们还需要确保它随着时间的推移保持持久.

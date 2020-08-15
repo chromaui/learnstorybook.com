@@ -5,7 +5,7 @@ description: 'Construye un componente simple en aislamiento'
 commit: 1a14919
 ---
 
-Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Component-Driven Development](https://www.componentdriven.org/) (desarrollo de software guiado por componentes). Es un proceso que construye las interfaces gráficas desde “abajo hacia arriba”, empezando con los componentes individuales y terminando con las vistas. CDD te ayudará a escalar la complejidad con la que te enfrentas a medida que construyes la interfaz gráfica de tu aplicación.
+Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (desarrollo de software guiado por componentes). Es un proceso que construye las interfaces gráficas desde “abajo hacia arriba”, empezando con los componentes individuales y terminando con las vistas. CDD te ayudará a escalar la complejidad con la que te enfrentas a medida que construyes la interfaz gráfica de tu aplicación.
 
 ## Task - Tarea
 
