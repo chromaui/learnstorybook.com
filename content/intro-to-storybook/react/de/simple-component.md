@@ -5,7 +5,7 @@ description: 'Baue eine einfache Komponente in Isolation'
 commit: '3d9cd8c'
 ---
 
-Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://www.componentdriven.org/) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "bottom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
+Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "bottom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
 
 ## Task
 

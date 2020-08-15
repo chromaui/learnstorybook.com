@@ -92,7 +92,7 @@ También cambiamos nuestro componente `App` para que incluya `InboxScreen` (en u
   import InboxScreen from './components/InboxScreen.svelte';
 </script>
 
-<InboxScreen error="{$AppStore}" />
+<InboxScreen error={$AppStore} />
 ```
 
 <div class="aside">No olvide que también necesita actualizar el componente TaskList para reflejar los cambios realizados en el store.</div>
@@ -125,7 +125,7 @@ export const error = () => ({
 });
 ```
 
-Vemos que aunque la historia de `error` y `standard` funciona bien. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario si no se proporcionan datos como lo hicimos con`TaskList`).
+Vemos que aunque la historia de `error` y `standard` funciona bien. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario si no se proporcionan datos como lo hicimos con` TaskList`).
 
 <div class="aside">
 Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromatic.com">Chromatic</a> junto a más de 800+ historias.
@@ -152,6 +152,6 @@ Empezamos desde abajo con `Task`, luego progresamos a `TaskList`, ahora estamos 
   />
 </video>
 
-[**El desarrollo basado en componentes**](https://www.componentdriven.org/) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
+[**El desarrollo basado en componentes**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
 
 Aún no hemos terminado, el trabajo no termina cuando se construye la interfaz de usuario. También tenemos que asegurarnos de que siga siendo duradero a lo largo del tiempo.

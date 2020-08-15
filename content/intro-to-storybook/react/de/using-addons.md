@@ -95,7 +95,7 @@ Wie [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#obje
 
 ## Addons erweitern den Umfang deines Storybooks
 
-Deine Storybook-Instanz dient nicht nur als eine wunderbare [CDD-Umgebung](https://www.componentdriven.org/), sondern du bietest damit nun auch eine interaktive Dokumentation an. PropTypes sind toll, aber ein Designer oder jemand, der den Code einer Komponente noch gar nicht kennt, kann über Storybook mit aktiviertem Knobs-Addon das Verhalten der Komponente sehr einfach kennenlernen.
+Deine Storybook-Instanz dient nicht nur als eine wunderbare [CDD-Umgebung](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), sondern du bietest damit nun auch eine interaktive Dokumentation an. PropTypes sind toll, aber ein Designer oder jemand, der den Code einer Komponente noch gar nicht kennt, kann über Storybook mit aktiviertem Knobs-Addon das Verhalten der Komponente sehr einfach kennenlernen.
 
 ## Knobs nutzen, um Grenzfälle zu identifizieren
 

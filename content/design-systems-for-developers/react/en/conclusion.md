@@ -40,7 +40,7 @@ It’s worth expanding your focus to get a holistic design system perspective.
 More from the authors:
 
 - [Intro to Storybook](http://learnstorybook.com/intro-to-storybook) (guide)
-- [Component-Driven Development by Tom Coleman](https://www.componentdriven.org/) (article)
+- [Component-Driven Development by Tom Coleman](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (article)
 - [Why design systems are a single point of failure by Dominic Nguyen](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) (article)
 - [Delightful Storybook Workflow by Dominic Nguyen](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) (article)
 - [Visual Testing by Tom Coleman](https://blog.hichroma.com/visual-testing-the-pragmatic-way-to-test-uis-18c8da617ecf) (article)
