@@ -84,7 +84,7 @@ Configura Netlify resaltando el comando build que se ejecutará en tu CI y el di
 
 Ahora envía el formulario para construir e implementar el código en la rama `master` del taskbox.
 
-Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
+Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.app/).
 
 <div class="aside"><p>Si su implementación falla al mencionar que la carpeta no está presente, active una compilación local, luego elimine el comentario en la carpeta de compilación del archivo <code>.gitignore</code></p><p>Commitie los cambios, luego el CI de netlify debería elegir y logrará construir la aplicación junto con Storybook.</p></div>
 

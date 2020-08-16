@@ -90,7 +90,7 @@ Netlify 内置了持续部署服务,使我们无需配置自己的 CI,即可部�
 
 提交表单以 构建和部署代码任务箱的`master`分支. 完成后,我们将在 Netlify 上 看到一条确认消息,其中包含指向 Taskbox 在线 Storybook 的链接.
 
-如果您正在跟进,您部署的 Storybook 应该在线[像这样](https://clever-banach-415c03.netlify.com/).
+如果您正在跟进,您部署的 Storybook 应该在线[像这样](https://clever-banach-415c03.netlify.app/).
 
 ![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
 

@@ -69,7 +69,7 @@ $ git push -u origin master
 O Netlify possui um serviço de implementação contínua, o que permite a implementação do Storybook sem ser necessária a configuração de uma IC (CI na forma nativa) própria.
 
 <div class="aside">
-    Se for usado um IC (CI na forma nativa) na empresa, será necessário adicionar um script de implementação para que seja feito o upload da pasta <code>storybook-static</code> para um serviço de hospedagem estático, tal como o S3. 
+    Se for usado um IC (CI na forma nativa) na empresa, será necessário adicionar um script de implementação para que seja feito o upload da pasta <code>storybook-static</code> para um serviço de hospedagem estático, tal como o S3.
 </div>
 
 [Criação da conta no Netlify](https://app.netlify.com/start), em seguida “create site”.
@@ -90,7 +90,7 @@ Seguida da seleção do repositório da lista de opções.
 
 Em seguida é feita a submissão do formulário, para que o Netlify compile o código existente no ramo `master` do repositório taskbox.
 
-Quando isto terminar, é apresentada uma mensagem de confirmação no Netlify, juntamente com um link para o Storybook da Taskbox online. Se o tutorial estiver a ser seguido, o seu Storybook estará online [tal como aqui](https://clever-banach-415c03.netlify.com/).
+Quando isto terminar, é apresentada uma mensagem de confirmação no Netlify, juntamente com um link para o Storybook da Taskbox online. Se o tutorial estiver a ser seguido, o seu Storybook estará online [tal como aqui](https://clever-banach-415c03.netlify.app/).
 
 ![Implementação Storybook Netlify](/intro-to-storybook/netlify-storybook-deploy.png)
 

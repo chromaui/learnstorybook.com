@@ -8,7 +8,7 @@ description: '把所有的知识汇总以下，学习更多的 storybook 技巧'
 
 [📕**GitHub 回购: hichroma / learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎**部署 Storybook**](https://clever-banach-415c03.netlify.com/)
+[🌎**部署 Storybook**](https://clever-banach-415c03.netlify.app/)
 
 Storybook 是 React,Vue 和 Angular 的强大工具. 它拥有蓬勃发展的开发者社区和丰富的插件. 这篇介绍揭示了可能的表面. 我们相信,一旦您采用了 Storybook,您将会对构建持久 UI 的效率印象深刻.
 

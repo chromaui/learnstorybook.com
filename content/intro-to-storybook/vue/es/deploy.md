@@ -90,7 +90,7 @@ Configura Netlify resaltando el comando build que se ejecutará en tu CI y el di
 
 Ahora envía el formulario para construir e implementar el código en la rama `master` del taskbox.
 
-Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
+Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.app/).
 
 ![Despliegue de Netlify Storybook](/intro-to-storybook/netlify-storybook-deploy.png)
 

@@ -7,7 +7,7 @@ description: 'Pon todo tu conocimiento junto y aprende más técnicas de Storybo
 
 [📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **Storybook Desplegado**](https://clever-banach-415c03.netlify.com/)
+[🌎 **Storybook Desplegado**](https://clever-banach-415c03.netlify.app/)
 
 Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una próspera comunidad de desarrolladores y una gran cantidad de complementos. Esta introducción demuestra una pequeña parte de todo lo que es posible con Storybook. Estamos seguros de que una vez que adoptes Storybook, quedarás impresionado por lo productivo que es crear interfaces de usuario duraderas.
 

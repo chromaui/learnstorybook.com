@@ -82,7 +82,7 @@ Configure Netlify by highlighting which build command to run in its CI and which
 
 Submit the form to build and deploy the code on the `master` branch of taskbox.
 
-When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
+When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.app/).
 
 ![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
 

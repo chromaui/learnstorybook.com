@@ -98,7 +98,7 @@ Sollte dein Deployment mit Netlify fehlschlagen, füge deinem <code>build-storyb
 
 Schicke das Formular ab, um den Code auf dem `master`-Branch von `taskbox` zu bauen und zu deployen.
 
-Wenn das erledigt ist, sehen wir eine Bestätigungs-Nachricht auf Netlify mit einem Link zum online verfügbaren `taskbox`-Storybook. Hast du alle Anweisungen befolgt, sollte dein Storybook unter einer Subdomain wie [dieser hier](https://clever-banach-415c03.netlify.com/) zu erreichen sein.
+Wenn das erledigt ist, sehen wir eine Bestätigungs-Nachricht auf Netlify mit einem Link zum online verfügbaren `taskbox`-Storybook. Hast du alle Anweisungen befolgt, sollte dein Storybook unter einer Subdomain wie [dieser hier](https://clever-banach-415c03.netlify.app/) zu erreichen sein.
 
 ![Deploytes Storybook auf Netlify](/intro-to-storybook/netlify-storybook-deploy.png)
 

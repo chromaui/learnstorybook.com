@@ -84,7 +84,7 @@ Configure Netlify by highlighting which build command to run in its CI and which
 
 Submit the form to build and deploy the code on the `master` branch of taskbox.
 
-When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
+When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.app/).
 
 <div class="aside"><p>Should your deployment fail mentioning that the folder is not present, trigger a local build, then uncomment the build folder from the <code>.gitignore</code>file.</p><p>Commit the changes, then the netlify CI should pick on on it and will succeed in building the app along side with Storybook.</p></div>
 

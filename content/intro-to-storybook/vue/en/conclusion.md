@@ -7,7 +7,7 @@ Congratulations! You created your first UI in Storybook. Along the way you learn
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/vue)
 <br/>
-[🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.com/)
+[🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.app/)
 
 Storybook is a powerful tool for React, React Native, Vue, Angular, Svelte and many others frameworks. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
 

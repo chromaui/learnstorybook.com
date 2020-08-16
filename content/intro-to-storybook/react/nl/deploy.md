@@ -92,7 +92,7 @@ Configureer Netlify door te markeren welk build-commando moet worden uitgevoerd 
 
 Dien het formulier in om de code te bouwen en te deployen op de `master` branch van de taskbox.
 
-Wanneer dat is voltooid, zien we een bevestigingsbericht op Netlify met een link naar het online Taskbox Storybook. Als je mee aan het doen bent, moet je gedeployde Storybook online staan [zoals dit](https://clever-banach-415c03.netlify.com/).
+Wanneer dat is voltooid, zien we een bevestigingsbericht op Netlify met een link naar het online Taskbox Storybook. Als je mee aan het doen bent, moet je gedeployde Storybook online staan [zoals dit](https://clever-banach-415c03.netlify.app/).
 
 ![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
 
