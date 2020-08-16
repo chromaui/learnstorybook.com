@@ -16,7 +16,7 @@ Storybook 是 React,Vue 和 Angular 的强大工具. 它拥有蓬勃发展的开
 
 想深入了解? 这是有用的资源.
 
-- [**官方 Storybook 文档**](https://storybook.js.org/basics/introduction/)有 API 文档,社区链接和插件库.
+- [**官方 Storybook 文档**](https://storybook.js.org/docs/react/get-started/introduction)有 API 文档,社区链接和插件库.
 
 - [**令人愉快的 Storybook 工作流程**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) 重点介绍 Squarespace,Major League Soccer,Discovery Network 和 Apollo GraphQL 的高速团队使用的工作流程最佳实践.
 

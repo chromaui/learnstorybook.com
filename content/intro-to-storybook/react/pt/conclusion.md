@@ -16,7 +16,7 @@ Possui uma comunidade de programadores próspera e uma grande variedade de extra
 
 Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
-- [**Documentação Oficial Storybook**](https://storybook.js.org/basics/introduction/) contém a documentação da API, links da comunidade e a galeria de extras.
+- [**Documentação Oficial Storybook**](https://storybook.js.org/docs/react/get-started/introduction) contém a documentação da API, links da comunidade e a galeria de extras.
 
 - [**Manual de testes visuais**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07)
   enumera as boas práticas de fluxo de trabalho, usadas por equipas que operam a alta velocidade, tal como por exemplo a SquareSpace, a Major League Soccer, a Discovery Network e Apollo GraphQL.
