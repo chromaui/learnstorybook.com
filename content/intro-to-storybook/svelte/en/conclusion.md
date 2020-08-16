@@ -19,7 +19,7 @@ Want to dive deeper? Here are helpful resources.
 
 - [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.chromatic.com/book/visual-testing-handbook) dives deep into using Storybook to visual test components. Free 31-page ebook.
+- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
 - [**Storybook Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community. Get and give help to other Storybook users.
 

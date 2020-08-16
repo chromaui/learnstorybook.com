@@ -21,7 +21,7 @@ Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 - [**Manual de testes visuais**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07)
   enumera as boas práticas de fluxo de trabalho, usadas por equipas que operam a alta velocidade, tal como por exemplo a SquareSpace, a Major League Soccer, a Discovery Network e Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.chromatic.com/book/visual-testing-handbook) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
+- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
 
 - [**Discord do Storybook**](https://discord.gg/UUt2PJb) põe-te em contacto direto com a comunidade Storybook. Onde podes oferecer e receber ajuda de outros utilizadores do Storybook.
 

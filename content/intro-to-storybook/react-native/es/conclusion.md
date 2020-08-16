@@ -19,7 +19,7 @@ Quieres bucear más profundo? Aquí algunos recursos útiles:
 
 - [**El delicioso flujo de trabajo de Storybook**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Squarespace, Major League Soccer, Discovery Network y Apollo GraphQL.
 
-- [**Manual de pruebas visuales**](https://www.chromatic.com/book/visual-testing-handbook) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
+- [**Manual de pruebas visuales**](https://www.learnstorybook.com/visual-testing-handbook/) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
 
 - [**Discord de Storybook**](https://discord.gg/UUt2PJb) te pone en contacto con la comunidad de Storybook. Obtenga y brinde ayuda a otros usuarios de Storybook.
 
