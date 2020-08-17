@@ -113,7 +113,7 @@ Maintenant, regardez dans Storybook pour les nouvelles story de la `TaskList`.
 
 ## Construire les États
 
-Notre composante est encore rudimentaire, mais nous avons maintenant une idée des story à travailler. Vous pensez peut-être que la présentation de la `.list-items` est trop simpliste. Vous avez raison - dans la plupart des cas, nous ne créerions pas un nouveau composant juste pour ajouter une enveloppe. Mais la **réelle complexité** du composant `TaskList` est révélée dans les cas particuliers `withPinnedTasks`, `loading`, et `empty`.
+Notre composant est encore rudimentaire, mais nous avons maintenant une idée des story à travailler. Vous pensez peut-être que la présentation de la `.list-items` est trop simpliste. Vous avez raison - dans la plupart des cas, nous ne créerions pas un nouveau composant juste pour ajouter une enveloppe. Mais la **réelle complexité** du composant `TaskList` est révélée dans les cas particuliers `withPinnedTasks`, `loading`, et `empty`.
 
 ```javascript
 // src/components/TaskList.js
