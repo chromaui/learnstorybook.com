@@ -4,20 +4,19 @@ tocTitle: 'Modules complémentaires'
 description: 'Apprenez à intégrer et à utiliser des modules complémentaires à l aide d un exemple populaire'
 ---
 
-Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/vue/en/test/).
+Storybook dispose d'un système robuste de [modules complémentaires](https://storybook.js.org/addons/introduction/) avec lequel vous pouvez améliorer l'expérience des développeurs pour toute votre équipe. Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/vue/en/test/)..
 
 <div class="aside">
-<strong>Looking for a list of potential addons?</strong>
+<strong>Vous recherchez une liste de modules complémentaires potentiels?</strong>
 <br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
+😍 Vous pouvez voir la liste des modules complémentaires officiellement supportés et fortement soutenu par la communauté <a href="https://storybook.js.org/addons/addon-gallery/">ici</a>.
 </div>
 
-We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+Nous pourrions écrire éternellement sur la configuration et l'utilisation des modules complémentaires pour tous vos cas d'utilisation particuliers. Pour l'instant, travaillons à l'intégration de l'un des modules complémentaires les plus populaires de l'écosystème de Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
 
-## Setting Up Knobs
+## Configuration de Knobs
 
-Knobs is an amazing resource for designers and developers to experiment and play with components in a controlled environment without the need to code! You essentially provide dynamically defined fields with which a user manipulates the props being passed to the components in your stories. Here's what we're going to implement...
+Knobs est une ressource incroyable pour les concepteurs et les développeurs pour expérimenter et jouer avec des composants dans un environnement contrôlé sans avoir besoin de coder! Vous fournissez essentiellement des champs définis dynamiquement avec lesquels un utilisateur manipule les accessoires transmis aux composants de vos histoires. Voici ce que nous allons mettre en œuvre ...
 
 <video autoPlay muted playsInline loop>
   <source
@@ -28,13 +27,13 @@ Knobs is an amazing resource for designers and developers to experiment and play
 
 ### Installation
 
-First, we will need to add it as a development dependency.
+Tout d'abord, nous devrons l'ajouter en tant que dépendance.
 
 ```bash
 yarn add -D @storybook/addon-knobs
 ```
 
-Register Knobs in your `.storybook/main.js` file.
+Enregistrez Knobs dans votre fichier `.storybook/main.js`.
 
 ```javascript
 // .storybook/main.js
@@ -46,18 +45,18 @@ module.exports = {
 ```
 
 <div class="aside">
-<strong>📝 Addon registration order matters!</strong>
+<strong>📝 L'ordre d'enregistrement des addons est important!</strong>
 <br/>
-The order you list these addons will dictate the order in which they appear as tabs on your addon panel (for those that appear there).
+L'ordre dans lequel vous listez ces addons dictera l'ordre dans lequel ils apparaissent sous forme d'onglets sur votre panneau d'extension (pour ceux qui y apparaissent).
 </div>
 
-That's it! Time to use it in a story.
+C'est tout! Il est temps de l'utiliser dans une histoire.
 
-### Usage
+### Utilisation
 
-Let's use the object knob type in the `Task` component.
+Utilisons le type de bouton d'objet dans le composant `Task`.
 
-First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
+Tout d'abord, importez le décorateur `withKnobs` et l'`objet` knob dans `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
@@ -65,7 +64,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
-Next, within the `default` export of the `Task.stories` file, add `withKnobs` to the `decorators` key:
+Ensuite, dans l'exportation par `défaut` du fichier `Task.stories`, ajoutez `withKnobs` à la clé `decorators`:
 
 ```javascript
 // src/components/Task.stories.js
@@ -73,16 +72,16 @@ Next, within the `default` export of the `Task.stories` file, add `withKnobs` to
 export default {
   title: 'Task',
   decorators: [withKnobs],
-  // same as before
+  // pareil qu'avant
 };
 ```
 
-Lastly, integrate the `object` knob type within the "default" story:
+Enfin, intégrez l'`objet` know dans l'histoire "par défaut":
 
 ```javascript
 // src/components/Task.stories.js
 
-// default task state
+// état de la tâche par défaut
 export const Default = () => ({
   components: { Task },
   template: taskTemplate,
@@ -94,31 +93,31 @@ export const Default = () => ({
   methods: actionsData,
 });
 
-// same as before
+// pareil qu'avant
 ```
 
-Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
+Maintenant, un nouvel onglet "Knobs" devrait apparaître à côté de l'onglet "Action Logger" dans le volet du bas.
 
-As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as parameters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
+Comme documenté [ici](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), l'`objet` know accepte une étiquette et un objet par défaut comme paramètres. L'étiquette est constante et apparaît à gauche d'un champ de texte dans votre panneau de modules complémentaires. L'objet que vous avez transmis sera représenté sous la forme d'un objet blob JSON modifiable. Tant que vous soumettez un JSON valide, votre composant s'ajustera en fonction des données transmises à l'objet!
 
-## Addons Evolve Your Storybook's Scope
+## Les modules complémentaires font évoluer la portée de votre livre de contes
 
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
+Non seulement votre instance Storybook sert d'[environnement CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) merveilleux, mais nous fournissons maintenant une source de documentation interactive. Les PropTypes sont excellents, mais un concepteur ou quelqu'un de complètement nouveau dans le code d'un composant sera capable de comprendre son comportement très rapidement via Storybook avec l'addon de boutons implémenté.
 
-## Using Knobs To Find Edge-Cases
+## Utilisation de Knobs pour rechercher les cas aux limites
 
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string?
+De plus, avec un accès facile à l'édition des données transmises à un composant, les ingénieurs d'assurance qualité ou les ingénieurs d'interface utilisateur préventifs peuvent désormais pousser un composant à la limite! À titre d'exemple, qu'arrive-t-il à `Task` si notre élément de liste a une chaîne _MASSIVE_?
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
+![Oh non! Le contenu à l'extrême droite est coupé!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
 
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.vue`:
+Grâce à la possibilité d'essayer rapidement différentes entrées d'un composant, nous pouvons trouver et résoudre de tels problèmes avec une relative facilité! Résolvons le problème de débordement en ajoutant un style à `Task.vue`:
 
 ```html
 <!--src/components/Task.vue>-->
 
-<!-- This is the input for our task title. 
-     In practice we would probably update the styles for this element but for this tutorial, 
-     let's fix the problem with an inline style:-->
+<!-- Ceci est l'entrée pour notre titre de tâche. 
+    En pratique, nous mettrions probablement à jour les styles de cet élément mais pour ce tutoriel, 
+    résolvons le problème avec un style en ligne:-->
 <input
   type="text"
   :readonly="true"
@@ -128,20 +127,20 @@ Thanks to quickly being able to try different inputs to a component we can find 
 />
 ```
 
-![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
+![C'est mieux.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
 
-## Adding A New Story To Avoid Regressions
+## Ajout d'une nouvelle histoire pour éviter les régressions
 
-Of course we can always reproduce this problem by entering the same input into the knobs, but it's better to write a fixed story for this input. This will increase your regression testing and clearly outline the limits of the component(s) to the rest of your team.
+Bien sûr, nous pouvons toujours reproduire ce problème en entrant la même entrée dans les boutons, mais il est préférable d'écrire une histoire fixe pour cette entrée. Cela augmentera vos tests de régression et définira clairement les limites du ou des composants au reste de votre équipe.
 
-Let's add a story for the long text case in `Task.stories.js`:
+Ajoutons une histoire pour le cas de texte long dans `Task.stories.js`:
 
 ```javascript
 // src/components/Task.stories.js
 
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-// same as before
+// pareil qu'avant
 
 export const LongTitle = () => ({
   components: { Task },
@@ -158,16 +157,16 @@ export const LongTitle = () => ({
 });
 ```
 
-Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
+Maintenant que nous avons ajouté l'histoire, nous pouvons reproduire ce test aux limites avec facilité chaque fois que nous voulons travailler dessus:
 
-![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
+![Le voici dans Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/vue/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+Si nous utilisons des [tests de régression visuelle](/vue/en/test/), nous serons également informés si jamais nous cassons notre solution d'ellipse. Ces bordures obscures sont toujours susceptibles d'être oubliées!
 
-### Merge Changes
+### Fusionner les modifications
 
-Don't forget to merge your changes with git!
+N'oubliez pas de fusionner vos modifications avec git!
 
-## Sharing Addons With The Team
+## Partager des modules complémentaires avec l'équipe
 
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the Storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+Knobs est un excellent moyen de faire jouer les non-développeurs avec vos composants et vos histoires. Cependant, il peut être difficile pour eux d'exécuter le livre d'histoires sur leur machine locale. C'est pourquoi déployer votre livre d'histoires sur un site en ligne peut être très utile. Dans le prochain chapitre, nous ferons exactement cela!
