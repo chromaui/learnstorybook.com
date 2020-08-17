@@ -61,9 +61,9 @@ Taskbox réutilise des éléments de design du tutoriel GraphQL et React [l'appl
 Si vous souhaitez modifier le styling, les fichiers sources LESS sont fournis dans le répertoire GitHub.
 </div>
 
-## Ajouter les ressources
+## Ajouter les assets
 
-Pour correspondre au design prévue, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier "public".
+Pour correspondre au design prévue, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier `public`.
 
 <div class="aside">
 <p>Nous avons utilisé <code>svn</code> (Subversion) pour télécharger facilement un dossier de fichiers depuis GitHub. Si vous n'avez pas installé subversion ou si vous voulez simplement le faire manuellement, vous pouvez récupérer les dossiers directement <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">ici</a>.</p></div>

@@ -16,7 +16,7 @@ Nous allons construire notre interface utilisateur(UI) en suivant la méthode [C
 - `title` – un string (chaîne de caractères) décrivant la tâche
 - `state` - sur quelle liste se trouve actuellement la tâche et est-elle cochée ?
 
-Lorsque nous commençons à construire une "Tâche", nous écrivons d'abord nos tests d'états pour les différents types de tâches décrits ci-dessus. Ensuite, nous utilisons Storybook pour construire le composant de façon isolée en utilisant des données simulées. Nous testerons manuellement l'apparence du composant en fonction de chaque état au fur et à mesure.
+Lorsque nous commençons à construire une `Task` (Tâche), nous écrivons d'abord nos tests d'états pour les différents types de tâches décrits ci-dessus. Ensuite, nous utilisons Storybook pour construire le composant de façon isolée en utilisant des données simulées. Nous testerons manuellement l'apparence du composant en fonction de chaque état au fur et à mesure.
 
 ## Préparer le terrain
 
@@ -103,12 +103,12 @@ Un autre avantage de regrouper les actions dans `ActionsData` est que vous pouve
 Lors de la création d'une story, nous utilisons une tâche de base (`taskData`) pour construire la forme de la tâche que le composant attend. Cette tâche est généralement modélisée à partir de ce à quoi ressemblent les données réelles. Encore une fois, `export`-er cette forme nous permettra de la réutiliser dans des histoires ultérieures, comme nous le verrons.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b><</a> vous aident à vérifier les interactions lors de la construction des composants de l'interface utilisateur en isolation. Souvent, vous n'aurez pas accès aux fonctions et à l'état dont vous disposez dans le contexte de l'application. Utilisez <code>action()</code> pour les simuler.
+<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> vous aident à vérifier les interactions lors de la construction des composants de l'interface utilisateur en isolation. Souvent, vous n'aurez pas accès aux fonctions et à l'état dont vous disposez dans le contexte de l'application. Utilisez <code>action()</code> pour les simuler.
 </div>
 
 ## Configuration
 
-Nous devrons apporter quelques modifications à la configuration du Storybook pour qu'il remarque non seulement nos story récemment créées, mais nous permette également d'utiliser le fichier CSS qui a été modifié dans le [chapitre précédent].(/react/en/get-started).
+Nous devrons apporter quelques modifications à la configuration du Storybook pour qu'il remarque non seulement nos story récemment créées, mais nous permette également d'utiliser le fichier CSS qui a été modifié dans le [chapitre précédent](/react/en/get-started).
 
 Commencez par modifier le fichier de configuration de votre Storybook (`.storybook/main.js`) comme suit :
 
@@ -259,4 +259,4 @@ C'est tout, nous pouvons faire un `yarn test` et voir le résultat suivant:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
-Nous avons maintenant une capture instantanée pour chacune de nos "Tâches"(Task). Si nous modifions l'implémentation de la "Tâche", nous serons invités à vérifier les changements.
+Nous avons maintenant une capture instantanée pour chacune de nos "Tâches"(Task). Si nous modifions l'implémentation de la `Task`, nous serons invités à vérifier les changements.

@@ -5,11 +5,11 @@ description: 'Assembler un composant complexe à partir de composants plus simpl
 commit: 'c43580d'
 ---
 
-Dans le précédent chapitre nous avons construit notre premier composant ; ce chapitre prolonge ce que nous avons appris pour construire la TaskList, une liste de tâches. Combinons les composants ensemble et voyons ce qui se passe lorsqu'on introduit plus de complexité.
+Dans le précédent chapitre nous avons construit notre premier composant; ce chapitre prolonge ce que nous avons appris pour construire la TaskList, une liste de tâches. Combinons les composants ensemble et voyons ce qui se passe lorsqu'on introduit plus de complexité.
 
 ## Tasklist(Liste des tâches)
 
-Taskbox met l'accent sur les tâches épinglées en les positionnant au-dessus des tâches par défaut. Cela donne deux variantes de la "TaskList" pour laquelle vous devez créer des histoires : les éléments par défaut et les éléments par défaut et épinglés.
+Taskbox met l'accent sur les tâches épinglées en les positionnant au-dessus des tâches par défaut. Cela donne deux variantes de la `TaskList` pour laquelle vous devez créer des histoires: les éléments par défaut et les éléments par défaut et épinglés.
 
 ![tâches par défaut et tâches épinglées](/intro-to-storybook/tasklist-states-1.png)
 
@@ -97,7 +97,7 @@ export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Les décorateurs</b><</a> sont un moyen de fournir un enrobage arbitraire aux story. Dans ce cas, nous utilisons un `key` (clé) de décorateur sur l'export par défaut pour ajouter du `padding` autour du composant rendu. Ils peuvent également être utilisés pour enrober des story dans des "fournisseurs" - c'est-à-dire des composants de bibliothèque qui définissent le contexte de React.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Les décorateurs</b></a> sont un moyen de fournir un enrobage arbitraire aux story. Dans ce cas, nous utilisons un `key` (clé) de décorateur sur l'export par défaut pour ajouter du `padding` autour du composant rendu. Ils peuvent également être utilisés pour enrober des story dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte de React.
 </div>
 
 `taskData` fournit la forme d'une `Task` que nous avons créée et exportée à partir du fichier `Task.stories.js`. De même, `actionsData` définit les actions (mocked callbacks) qu'attend un composant `Task`, dont la `TaskList` a également besoin.
