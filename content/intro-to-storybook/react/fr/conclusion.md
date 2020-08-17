@@ -1,0 +1,34 @@
+---
+title: 'Conclusion'
+description: 'Combinez toutes vos connaissances et apprenez plus de techniques de Storybook'
+---
+
+Félicitations! Vous avez créé votre première interface utilisateur dans Storybook. En cours de route, vous avez appris à construire, composer, tester et déployer les composants de l'interface utilisateur. Si vous avez fait de même, votre repo et votre Storybook déployé devraient ressembler à ceci:
+
+[📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
+<br/>
+[🌎 **Storybook déployé**](https://clever-banach-415c03.netlify.com/)
+
+Storybook est un outil puissant pour React, React Native, Vue, Angular, Svelte et bien d'autres. Il dispose d'une communauté de développeurs florissante et d'une multitude d'addons. Cette introduction gratte la surface de ce qui est possible. Nous sommes persuadés qu'une fois que vous aurez adopté Storybook, vous serez impressionné par la productivité que représente la création d'interfaces utilisateur durables.
+
+## En savoir plus
+
+Vous voulez plonger plus profondément? Voici des ressources utiles.
+
+- [**Documentation officielle de Storybook**](https://storybook.js.org/basics/introduction/) comprend la documentation de l'API, les liens de la communauté et la galerie d'addons.
+
+- [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) met en évidence les meilleures pratiques de workflow utilisées par les équipes à grande vitesse de Squarespace, Major League Soccer, Discovery Network, et Apollo GraphQL.
+
+- [**Visual Testing Handbook**](https://www.chromatic.com/book/visual-testing-handbook) plonge dans l'utilisation de Storybook pour tester visuellement les composants. Livre électronique gratuit de 31 pages.
+
+- [**Storybook Discord chat**](https://discord.gg/UUt2PJb) vous met en contact avec la communauté Storybook. Obtenez et donnez de l'aide aux autres utilisateurs de Storybook.
+
+- [**blog Storybook**](https://medium.com/storybookjs) présente les dernières versions et les fonctionnalités permettant de fluidifier votre workflow de développement d'interface utilisateur.
+
+## Qui a créé LearnStorybook.com ?
+
+Le texte, le code et la production ont été fournis par [Chromatic](http://blog.hichroma.com/). Le tutoriel a été inspiré par la populaire série de tutoriels de Chroma [GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+
+Vous voulez d'autres tutoriels et articles comme celui-ci ? Inscrivez-vous à la liste de diffusion de Chromatic.
+
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
