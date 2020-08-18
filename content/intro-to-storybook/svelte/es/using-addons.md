@@ -10,7 +10,7 @@ todos en tu equipo. Si ha seguido este tutorial linealmente, hasta ahora hemos h
 <div class="aside">
   <strong>¿Busca una lista de posibles complementos?</strong>
   <br/>
-  😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons/addon-gallery/"> aquí </a>.
+  😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons"> aquí </a>.
 </div>
 
 Podríamos escribir para siempre sobre la configuración y el uso de complementos para todos sus casos de uso particulares. Por ahora, trabajemos para integrar uno de los complementos más populares dentro del ecosistema de Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).

@@ -9,7 +9,7 @@ Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/
 <div class="aside">
     <strong>Á procura de uma lista de extras?</strong>
     <br/>
-    😍 A lista de extras oficiais e da comunidade pode ser consultada <a href="https://storybook.js.org/addons/addon-gallery/">aqui</a>.
+    😍 A lista de extras oficiais e da comunidade pode ser consultada <a href="https://storybook.js.org/addons">aqui</a>.
 </div>
 
 Poderíamos ficar aqui eternamente a discutir como configurar e usar os extras para todos os casos. Por enquanto, vamos focar-nos em integrar um dos extras mais populares no ecossistema Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
