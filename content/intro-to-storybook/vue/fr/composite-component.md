@@ -13,15 +13,15 @@ Taskbox met l'accent sur les tâches épinglées en les positionnant au-dessus d
 
 ![tâches par défault et épinglées](/intro-to-storybook/tasklist-states-1.png)
 
-Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, an empty state is required when there are no tasks.
+Étant donné que les données de `Task` peuvent être envoyées de manière asynchrone, nous avons **également** besoin d'un état de chargement à rendre en l'absence de connexion. De plus, un état vide est requis lorsqu'il n'y a pas de tâches.
 
-![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
+![Composant vide et liste de tâches en cours de chargement](/intro-to-storybook/tasklist-states-2.png)
 
-## Get setup
+## Obtenir la configuration
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.vue` and `src/components/TaskList.stories.js`.
+Un composant composite n’est pas très différent des composants de base qu’il contient. Créez un composant `TaskList` et un fichier d'histoire associé: `src/components/TaskList.vue` et `src/components/TaskList.stories.js`.
 
-Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
+Commencez par une implémentation approximative de `Tasklist`. Vous devrez importer le composant `Task` et transmettre les attributs et les actions en tant qu'entrées.
 
 ```html
 <!--src/components/TaskList.vue-->
@@ -70,7 +70,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 </script>
 ```
 
-Next create `Tasklist`’s test states in the story file.
+Créez ensuite les états de `Tasklist` dans le fichier de l'histoire.
 
 ```javascript
 //src/components/TaskList.stories.js
@@ -101,7 +101,7 @@ export const withPinnedTasksData = [
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-// default TaskList state
+// Etat de TaskList par défault
 export const Default = () => ({
   components: { TaskList },
   template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
@@ -112,7 +112,7 @@ export const Default = () => ({
   },
   methods: actionsData,
 });
-// tasklist with pinned tasks
+// Liste de tâches avec des tâches épinglées.
 export const WithPinnedTasks = () => ({
   components: { TaskList },
   template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
@@ -123,13 +123,13 @@ export const WithPinnedTasks = () => ({
   },
   methods: actionsData,
 });
-// tasklist in loading state
+// Liste des taĉhes en cours de chargement.
 export const Loading = () => ({
   components: { TaskList },
   template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   methods: actionsData,
 });
-// tasklist no tasks
+// Liste des taĉhes vide.
 export const Empty = () => ({
   components: { TaskList },
   template: `<task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
@@ -138,12 +138,12 @@ export const Empty = () => ({
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we're using a decorator key in the default export to add styling. But they can also be used to add other context to components, as we'll see later.
+Les <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>décorateurs</b></a> sont un moyen de fournir des enveloppes arbitraires aux histoires. Dans ce cas, nous utilisons une clé décoratrice dans l'exportation par défaut pour ajouter un style. Mais ils peuvent également être utilisés pour ajouter d'autres contextes aux composants, comme nous le verrons plus tard.
 </div>
 
-`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`taskData` fournit la forme d'une `Task` que nous avons créée et exportée à partir du fichier `Task.stories.js`. De même, `actionsData` définit les actions (bouchonnés) attendues par un composant `Task`, dont la `TaskList` a également besoin.
 
-Now check Storybook for the new `TaskList` stories.
+Vérifiez maintenant Storybook pour les nouvelles histoires de `Tasklist`.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -152,9 +152,9 @@ Now check Storybook for the new `TaskList` stories.
   />
 </video>
 
-## Build out the states
+## Construire les états
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
+Notre composant est encore difficile, mais nous avons maintenant une idée des histoires sur lesquelles travailler. Vous pensez peut-être que le wrapper `.list-items est` trop simpliste. Vous avez raison: dans la plupart des cas, nous ne créerions pas de nouveau composant uniquement pour ajouter un wrapper. Mais la **vraie complexité** du composant `TaskList` est révélée dans les cas marginaux `WithPinnedTasks`, `loadgin` et `empty`.
 
 ```html
 <!--src/components/TaskList.vue-->
@@ -220,7 +220,7 @@ Our component is still rough but now we have an idea of the stories to work towa
 </script>
 ```
 
-The added markup results in the following UI:
+Les ajouts ont entraînés l'interface utilisateur suivante:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -229,25 +229,26 @@ The added markup results in the following UI:
   />
 </video>
 
-Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
+Notez la position de l'élément épinglé dans la liste. Nous voulons que l'élément épinglé s'affiche en haut de la liste pour en faire une priorité pour nos utilisateurs.
 
-## Automated testing
+## Tests automatisés
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer.
+Dans le chapitre précédent, nous avons appris à créer des histoires de tests instantanés à l'aide de Storyshots. Avec `Task`, il n'y avait pas beaucoup de complexité à tester au-delà de son rendu OK. Puisque `TaskList` ajoute une autre couche de complexité, nous voulons vérifier que certaines entrées produisent certaines sorties de manière à pouvoir être testées automatiquement. Pour ce faire, nous allons créer des tests unitaires en utilisant [Jest](https://facebook.github.io/jest/) couplé à un moteur de rendu de test.
 
-![Jest logo](/intro-to-storybook/logo-jest.png)
+![Logo Jest](/intro-to-storybook/logo-jest.png)
 
-### Unit tests with Jest
+### Tests unitaires avec Jest
 
-Storybook stories paired with manual visual tests and snapshot tests (see above) go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
+Les histoires de storybook associées à des tests visuels manuels et à des tests d'instantanés (voir ci-dessus) contribuent grandement à éviter les bogues de l'interface utilisateur. Si les histoires couvrent une grande variété de cas d'utilisation de composants et que nous utilisons des outils qui garantissent qu'un humain vérifie tout changement dans l'histoire, les erreurs sont beaucoup moins probables.
 
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
+Cependant, parfois, le diable est dans les détails. Un framework de test explicite sur ces détails est nécessaire. Ce qui nous amène aux tests unitaires.
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+Dans notre cas, nous voulons que notre `TaskList` affiche toutes les tâches épinglées **avant** les tâches non épinglées qui sont passées dans la propriété `tasks`. Bien que nous ayons une histoire (`WithPinnedTasks`) pour tester ce scénario exact; il peut être ambigu pour un réviseur humain que si le composant **arrête** d'ordonner les tâches comme celle-ci, c'est un bug. Il ne crie certainement pas **"Faux!"** à l'œil occasionnel.
 
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
+Ainsi, pour éviter ce problème, nous pouvons utiliser Jest pour rendre l'histoire dans le DOM et exécuter du code d'interrogation DOM pour vérifier les principales caractéristiques de la sortie.
 
-Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
+Créez un fichier de test appelé `tests/unit/TaskList.spec.js`. Ici, nous allons construire nos tests qui font des affirmations sur la sortie.
+parfois
 
 ```javascript
 //tests/unit/TaskList.spec.js
@@ -262,13 +263,13 @@ it('renders pinned tasks at the start of the list', () => {
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
-  // We expect the pinned task to be rendered first, not at the end
+  // Nous nous attendons à ce que la tâche épinglée soit rendue en premier, pas à la fin
   expect(firstTaskPinned).not.toBe(null);
 });
 ```
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
+Notez que nous avons été en mesure de réutiliser la liste de tâches `withPinnedTasksData` à la fois dans l'histoire et dans le test unitaire; de cette manière, nous pouvons continuer à exploiter une ressource existante (les exemples qui représentent des configurations intéressantes d'un composant) de plus en plus de façons.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/vue/en/test/) tests where possible.
+Notez également que ce test est assez fragile. Il est possible qu'à mesure que le projet mûrit et que l'implémentation exacte de `Task` change - peut-être en utilisant un nom de classe différent - le test échoue et doit être mis à jour. Ce n'est pas nécessairement un problème, mais plutôt une indication de faire preuve de prudence en utilisant les tests unitaires pour l'interface utilisateur. Ils ne sont pas faciles à entretenir. Fiez-vous plutôt à la régression visuelle, instantanée et visuelle (voir [le chapitre de tests](/vue/fr/test/) lorsque cela est possible.

@@ -145,7 +145,7 @@ Les <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>a
 
 ## Configuration
 
-Nous devons effectuer quelques modifications à la configuration de Storybook afin qu'il remarque non seulement nos stories récemment créées, mais aussi nous permettre d'utiliser les fichiers CSS modifiés dans le [chapitre précédent](/vue/en/get-started).
+Nous devons effectuer quelques modifications à la configuration de Storybook afin qu'il remarque non seulement nos stories récemment créées, mais aussi nous permettre d'utiliser les fichiers CSS modifiés dans le [chapitre précédent](/vue/fr/get-started).
 
 Commencez par changer votre fichier de configuration Storybook (`.storybook/main.js`) avec ceci :
 

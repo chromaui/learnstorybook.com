@@ -161,7 +161,7 @@ Maintenant que nous avons ajouté l'histoire, nous pouvons reproduire ce test au
 
 ![Le voici dans Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Si nous utilisons des [tests de régression visuelle](/vue/en/test/), nous serons également informés si jamais nous cassons notre solution d'ellipse. Ces bordures obscures sont toujours susceptibles d'être oubliées!
+Si nous utilisons des [tests de régression visuelle](/vue/fr/test/), nous serons également informés si jamais nous cassons notre solution d'ellipse. Ces bordures obscures sont toujours susceptibles d'être oubliées!
 
 ### Fusionner les modifications
 
