@@ -66,35 +66,31 @@ Create a `.babelrc` file in the root of the project with the following:
 Add a new field to `package.json`:
 
 ```json
-"jest": {
+{
+  "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
-    "moduleFileExtensions": [
-      "js",
-      "svelte",
-      "json"
-    ],
+    "moduleFileExtensions": ["js", "svelte", "json"],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|scss|stylesheet)$": "<rootDir>/__mocks__/styleMock.js"
     },
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/storybook-static/"
-    ]
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
+    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/storybook-static/"]
   }
+}
 ```
 
 And a new script is required to run Jest:
 
 ```json
-"test": "jest --watchAll"
+{
+  "scripts": {
+    "test": "jest --watchAll"
+  }
+}
 ```
 
 <div class="aside">The usage of the flag `--watchAll` in the script is to prevent a error being thrown by Jest, because at this stage there's still no repository configured. That will be addressed later on.</div>
@@ -102,6 +98,8 @@ And a new script is required to run Jest:
 To make sure everything is working properly we need to create a test file. In the `src` folder, add a file called `Sample.test.js` with the following:
 
 ```javascript
+// Sample.test.js
+
 function sum(a, b) {
   return a + b;
 }
@@ -153,8 +151,6 @@ To match the intended design, you'll need to download both the font and icon dir
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
-
-
 
 Finally we need to update our storybook script to serve the `public` directory (in `package.json`):
 

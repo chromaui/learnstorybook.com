@@ -30,7 +30,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 
 First, we will need to install all the necessary dependencies.
 
-```bash
+```shell
 npm install -D @storybook/addon-knobs
 ```
 
@@ -61,6 +61,7 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 
 ```javascript
 // src/components/Task.stories.js
+
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
@@ -81,6 +82,7 @@ Lastly, integrate the `object` knob type within the "standard" story:
 
 ```javascript
 // src/components/Task.stories.js
+
 export const Default = () => ({
   Component: Task,
   props: {
@@ -111,7 +113,7 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.svelte`:
 
 ```svelte
-<!-- src/components/Task.svelte-->
+<!-- src/components/Task.svelte -->
 
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
   but for this tutorial, let's fix the problem with an inline style-->
