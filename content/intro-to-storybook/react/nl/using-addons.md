@@ -97,7 +97,7 @@ Zoals [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#ob
 
 ## Addons evolueren het bereik van je Storybook
 
-Niet alleen dient je Storybook instantie als een prachtige [CDD-omgeving](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), maar nu bieden we ook een interactieve bron van documentatie aan. PropTypes zijn geweldig, maar een designer of iemand die helemaal nieuw is in de code van een component, kan zijn gedrag heel snel achterhalen via Storybook met de knobs add-on geïmplementeerd.
+Niet alleen dient je Storybook instantie als een prachtige [CDD-omgeving](https://www.componentdriven.org/), maar nu bieden we ook een interactieve bron van documentatie aan. PropTypes zijn geweldig, maar een designer of iemand die helemaal nieuw is in de code van een component, kan zijn gedrag heel snel achterhalen via Storybook met de knobs add-on geïmplementeerd.
 
 ## Knobs gebruiken om edge-cases te vinden
 
