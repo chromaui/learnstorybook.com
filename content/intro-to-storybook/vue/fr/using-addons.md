@@ -102,7 +102,7 @@ Comme documenté [ici](https://github.com/storybooks/storybook/tree/master/addon
 
 ## Les modules complémentaires font évoluer la portée de votre livre de contes
 
-Non seulement votre instance Storybook sert d'[environnement CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) merveilleux, mais nous fournissons maintenant une source de documentation interactive. Les PropTypes sont excellents, mais un concepteur ou quelqu'un de complètement nouveau dans le code d'un composant sera capable de comprendre son comportement très rapidement via Storybook avec l'addon de boutons implémenté.
+Non seulement votre instance Storybook sert d'[environnement CDD](https://www.componentdriven.org/) merveilleux, mais nous fournissons maintenant une source de documentation interactive. Les PropTypes sont excellents, mais un concepteur ou quelqu'un de complètement nouveau dans le code d'un composant sera capable de comprendre son comportement très rapidement via Storybook avec l'addon de boutons implémenté.
 
 ## Utilisation de Knobs pour rechercher les cas aux limites
 

@@ -5,7 +5,7 @@ description: 'Construire un simple composant en isolation'
 commit: b2274bd
 ---
 
-Nous allons construire notre propre interface utilisateur en suivant la méthode [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e). C'est un processus qui créé des interfaces utilisateurs du début à la fin, en commençant par les composants et terminant avec les écrans. CDD vous aide à adapter la complexité à laquelle vous êtes confronté lors de la création de l'interface utilisateur.
+Nous allons construire notre propre interface utilisateur en suivant la méthode [Component-Driven Development](https://www.componentdriven.org/). C'est un processus qui créé des interfaces utilisateurs du début à la fin, en commençant par les composants et terminant avec les écrans. CDD vous aide à adapter la complexité à laquelle vous êtes confronté lors de la création de l'interface utilisateur.
 
 ## Tâche
 
