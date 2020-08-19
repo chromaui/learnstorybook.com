@@ -64,7 +64,7 @@ This yields a new background color for the item.
 Add the file:
 
 ```bash
-git add src/components/Task.js
+git add .
 ```
 
 Commit it:
