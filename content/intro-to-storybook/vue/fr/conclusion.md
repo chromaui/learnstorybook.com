@@ -15,11 +15,11 @@ Storybook est un puissant outil pour React, React Native, Vue, Angular, Svelte e
 
 Vous voulez en apprendre plus ? Voici des ressources utiles :
 
-- [**Documentation Officielle de Storybook**](https://storybook.js.org/basics/introduction/) possède une documentation de l'API, des liens de la communauté et une galerie d'addons.
+- [**Documentation Officielle de Storybook**](https://storybook.js.org/docs/vue/get-started/introduction) possède une documentation de l'API, des liens de la communauté et une galerie d'addons.
 
 - [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) met en évidence les meilleures pratiques de workflow utilisées par les équipes de haute vélocité de Squarespace, Major League Soccer, Discovery Network, et Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.chromatic.com/book/visual-testing-handbook) plonge profondément dans l'utilisation de Storybook pour visualiser les composants de test. Livre numérique gratui de 31 pages.
+- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) plonge profondément dans l'utilisation de Storybook pour visualiser les composants de test. Livre numérique gratui de 31 pages.
 
 - [**Le chat Discord de Storybook**](https://discord.gg/UUt2PJb) vous met en contact avec la communauté Storybook. Obtenez et aidez d'autres utilisateurs de Storybook.
 

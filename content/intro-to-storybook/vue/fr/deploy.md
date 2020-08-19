@@ -90,7 +90,7 @@ Configurez Netlify en surlignant la commande de build à construire dans son CI 
 
 Soumettez le formulaire pour construire et déployer le code de la branche `master` du repo taskbox.
 
-Une fois terminé, nous verrons un message de confirmation sur Netlify avec un lien vers le Storybook taskbox en ligne. Si vous suivez le tutoriel, votre Storybook déployé devrait être en ligne [comme cela](https://clever-banach-415c03.netlify.com/).
+Une fois terminé, nous verrons un message de confirmation sur Netlify avec un lien vers le Storybook taskbox en ligne. Si vous suivez le tutoriel, votre Storybook déployé devrait être en ligne [comme cela](https://clever-banach-415c03.netlify.app/).
 
 ![Déploiement du Storybook sur Netlify](/intro-to-storybook/netlify-storybook-deploy.png)
 
