@@ -25,8 +25,9 @@ Primero, vamos a crear el componente Task y el archivo de historias de Storybook
 
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
-```html
-<!--src/components/Task.svelte-->
+```svelte
+<!-- src/components/Task.svelte -->
+
 <script>
   import { createEventDispatcher } from 'svelte';
 
@@ -66,8 +67,9 @@ A continuación creamos los tres estados de prueba de Task dentro del archivo de
 
 ```javascript
 // src/components/Task.stories.js
+
 import Task from './Task.svelte';
-import { action } from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions';
 export default {
   title: 'Task',
   excludeStories: /.*Data$/,
@@ -158,18 +160,19 @@ Comencemos cambiando el archivo de configuración de Storybook (`.storybook/main
 
 ```javascript
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
-
 ```
 
 Después de hacer este cambio, una vez más dentro de la carpeta `.storybook`, cree un nuevo archivo llamado `preview.js` con el siguiente contenido:
 
 ```javascript
 // .storybook/preview.js
-import '../public/global.css'
+
+import '../public/global.css';
 ```
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
@@ -181,15 +184,14 @@ Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería pr
   />
 </video>
 
-
 ## Construyendo los estados
 
 Ahora tenemos configurado Storybook, los estilos importados y los casos de prueba construidos; podemos comenzar rápidamente el trabajo de implementar el HTML del componente para que coincida con el diseño.
 
 Nuestro componente todavía es bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida con el diseño previsto sin entrar en demasiados detalles:
 
-```html
-<!--src/components/Task.svelte-->
+```svelte
+<!-- src/components/Task.svelte -->
 
 <script>
   import { createEventDispatcher } from 'svelte';
@@ -275,6 +277,7 @@ Luego crea un archivo `src/storybook.test.js` con el siguiente contenido:
 
 ```javascript
 // src/storybook.test.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -284,16 +287,13 @@ Finalmente, necesitamos hacer un pequeño ajuste a nuestro campo `jest` en `pack
 
 ```json
 {
-  .....
-  "jest":{
+  "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect"
-    ],
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
   }
 }
 ```
