@@ -30,7 +30,7 @@ import React from 'react';
 
 import Task from './Task';
 
-function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
     onArchiveTask,
@@ -52,8 +52,6 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     </div>
   );
 }
-
-export default TaskList;
 ```
 
 Next create `Tasklist`’s test states in the story file.
@@ -66,13 +64,6 @@ import React from 'react';
 import TaskList from './TaskList';
 import { taskData, actionsData } from './Task.stories';
 
-export default {
-  component: TaskList,
-  title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-  excludeStories: /.*Data$/,
-};
-
 export const defaultTasksData = [
   { ...taskData, id: '1', title: 'Task 1' },
   { ...taskData, id: '2', title: 'Task 2' },
@@ -81,28 +72,57 @@ export const defaultTasksData = [
   { ...taskData, id: '5', title: 'Task 5' },
   { ...taskData, id: '6', title: 'Task 6' },
 ];
-
 export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-export const Default = () => <TaskList tasks={defaultTasksData} {...actionsData} />;
+export default {
+  component: TaskList,
+  title: 'TaskList',
+  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+  argTypes: {
+    ...actionsData,
+  },
+};
+const Template = args => <TaskList {...args} />;
 
-export const WithPinnedTasks = () => <TaskList tasks={withPinnedTasksData} {...actionsData} />;
+export const Default = Template.bind({});
+Default.args = {
+  tasks: defaultTasksData,
+};
 
-export const Loading = () => <TaskList loading tasks={[]} {...actionsData} />;
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  tasks: withPinnedTasksData,
+};
 
-export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  tasks: [],
+  loading: false,
+};
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
 `taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
 
 Now check Storybook for the new `TaskList` stories.
+
+<div class="aside">
+TODO: video needs to be updated for 6.0
+</div>
 
 <video autoPlay muted playsInline loop>
   <source
@@ -122,7 +142,7 @@ import React from 'react';
 
 import Task from './Task';
 
-function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
     onArchiveTask,
@@ -136,7 +156,6 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </span>
     </div>
   );
-
   if (loading) {
     return (
       <div className="list-items">
@@ -149,7 +168,6 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
-
   if (tasks.length === 0) {
     return (
       <div className="list-items">
@@ -161,12 +179,10 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
-
   const tasksInOrder = [
     ...tasks.filter(t => t.state === 'TASK_PINNED'),
     ...tasks.filter(t => t.state !== 'TASK_PINNED'),
   ];
-
   return (
     <div className="list-items">
       {tasksInOrder.map(task => (
@@ -175,11 +191,13 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     </div>
   );
 }
-
-export default TaskList;
 ```
 
 The added markup results in the following UI:
+
+<div class="aside">
+TODO: video needs to be updated for 6.0
+</div>
 
 <video autoPlay muted playsInline loop>
   <source
@@ -202,23 +220,23 @@ import PropTypes from 'prop-types';
 
 import Task from './Task';
 
-function TaskList() {
+export default function TaskList() {
   ...
 }
 
-
 TaskList.propTypes = {
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func.isRequired,
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func.isRequired,
 };
-
 TaskList.defaultProps = {
   loading: false,
 };
-
-export default TaskList;
 ```
 
 ## Automated testing

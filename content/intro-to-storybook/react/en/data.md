@@ -94,9 +94,13 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 
 PureTaskList.propTypes = {
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func.isRequired,
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -115,6 +119,10 @@ export default connect(
 )(PureTaskList);
 ```
 
+Now that we have some real data populating our component, obtained from Redux, we could have wired it to `src/app.js` and render the component there. But for now let's hold off doing that and continue on our component-driven journey.
+
+Don't worry about it we'll take care of it in the next chapter.
+
 At this stage our Storybook tests will have stopped working, as the `TaskList` is now a container, and no longer expects any props, instead it connects to the store and sets the props on the `PureTaskList` component it wraps.
 
 However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
@@ -127,13 +135,6 @@ import React from 'react';
 import { PureTaskList } from './TaskList';
 import { taskData, actionsData } from './Task.stories';
 
-export default {
-  component: PureTaskList,
-  title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-  excludeStories: /.*Data$/,
-};
-
 export const defaultTasksData = [
   { ...taskData, id: '1', title: 'Task 1' },
   { ...taskData, id: '2', title: 'Task 2' },
@@ -142,20 +143,50 @@ export const defaultTasksData = [
   { ...taskData, id: '5', title: 'Task 5' },
   { ...taskData, id: '6', title: 'Task 6' },
 ];
-
 export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-export const Default = () => <PureTaskList tasks={defaultTasksData} {...actionsData} />;
+export default {
+  component: PureTaskList,
+  title: 'PureTaskList',
+  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+  argTypes: {
+    ...actionsData,
+  },
+};
 
-export const WithPinnedTasks = () => <PureTaskList tasks={withPinnedTasksData} {...actionsData} />;
+const Template = args => <PureTaskList {...args} />;
 
-export const Loading = () => <PureTaskList loading tasks={[]} {...actionsData} />;
+export const Default = Template.bind({});
+Default.args = {
+  tasks: defaultTasksData,
+};
 
-export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  tasks: withPinnedTasksData,
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  tasks: [],
+  loading: false,
+};
 ```
+
+<div class="aside">
+TODO: video needs to match 6.0
+</div>
 
 <video autoPlay muted playsInline loop>
   <source

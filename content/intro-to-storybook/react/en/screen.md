@@ -48,6 +48,7 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
+  /** The error message */
   error: PropTypes.string,
 };
 
@@ -100,9 +101,14 @@ export default {
   title: 'InboxScreen',
 };
 
-export const Default = () => <PureInboxScreen />;
+const Template = args => <PureInboxScreen {...args} />;
 
-export const Error = () => <PureInboxScreen error="Something" />;
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
@@ -125,17 +131,10 @@ The good news is that it is easy to supply a Redux store to the `InboxScreen` in
 // src/components/InboxScreen.stories.js
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
-
+import { action } from '@storybook/addon-actions';
 import { PureInboxScreen } from './InboxScreen';
 import { defaultTasksData } from './TaskList.stories';
-
-export default {
-  component: PureInboxScreen,
-  title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
-};
 
 // A super-simple mock of a redux store
 const store = {
@@ -148,14 +147,29 @@ const store = {
   dispatch: action('dispatch'),
 };
 
-export const Default = () => <PureInboxScreen />;
+export default {
+  component: PureInboxScreen,
+  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  title: 'InboxScreen',
+};
 
-export const Error = () => <PureInboxScreen error="Something" />;
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
+
+<div class="aside">
+TODO: video needs to be updated to match 6.0
+</div>
 
 <video autoPlay muted playsInline loop >
 
@@ -176,6 +190,6 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.

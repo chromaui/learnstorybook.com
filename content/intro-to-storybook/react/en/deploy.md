@@ -70,7 +70,7 @@ Click `Choose GitHub repo` under collaborators and select your repo.
 Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 
 ```bash
-npx chromatic --project-token=<project-token>
+yarn chromatic --project-token=<project-token>
 ```
 
 ![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
