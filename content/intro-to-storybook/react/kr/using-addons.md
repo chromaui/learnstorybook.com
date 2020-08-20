@@ -107,7 +107,7 @@ export const Default = () => {
 
 ## Storybook의 범위를 넓혀주는 애드온
 
-이제 Storybook이 뛰어난 [CDD 개발환경](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)을 제공해줄 뿐만 아니라, 상호작용을 할 수 있는 문서 자료 또한 제공합니다. PropTypes는 훌륭하지만, 디자이너 또는 컴포넌트의 코드에 익숙하지 않은 사람도 knobs 애드온이 구현된 Storybook을 통해서라면 컴포넌트가 어떻게 작동하는지를 쉽게 이해하실 수 있습니다.
+이제 Storybook이 뛰어난 [CDD 개발환경](https://www.componentdriven.org/)을 제공해줄 뿐만 아니라, 상호작용을 할 수 있는 문서 자료 또한 제공합니다. PropTypes는 훌륭하지만, 디자이너 또는 컴포넌트의 코드에 익숙하지 않은 사람도 knobs 애드온이 구현된 Storybook을 통해서라면 컴포넌트가 어떻게 작동하는지를 쉽게 이해하실 수 있습니다.
 
 ## Knobs를 사용하여 엣지 케이스(Edge cases)를 찾기
 

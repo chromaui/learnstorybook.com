@@ -5,7 +5,7 @@ description: '간단한 컴포넌트를 독립적으로 만들어봅시다'
 commit: '3d9cd8c'
 ---
 
-우리는 [컴포넌트 기반 개발(Component-Driven Development)](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) 방법론에 따라 UI를 만들어 볼 것입니다. 이는 컴포넌트로부터 시작하여 마지막 화면에 이르기까지 상향적으로 UI를 개발하는 과정입니다. CDD는 UI를 구축할 때 직면하는 복잡성을 확장하는데 도움을 줍니다.
+우리는 [컴포넌트 기반 개발(Component-Driven Development)](https://www.componentdriven.org/) (CDD) 방법론에 따라 UI를 만들어 볼 것입니다. 이는 컴포넌트로부터 시작하여 마지막 화면에 이르기까지 상향적으로 UI를 개발하는 과정입니다. CDD는 UI를 구축할 때 직면하는 복잡성을 확장하는데 도움을 줍니다.
 
 ## Task 컴포넌트
 

@@ -64,7 +64,7 @@ git checkout -b change-task-background
 아래 파일을 추가해주세요:
 
 ```bash
-git add src\components\Task.js
+git add .
 ```
 
 커밋해주세요:
