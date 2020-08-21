@@ -49,38 +49,27 @@ import React from 'react';
 
 import Task from './Task';
 
-export const actionsData = {
-  onPinTask: { action: 'onPinTask' },
-  onArchiveTask: { action: 'onArchiveTask' },
-};
-
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
-};
 export default {
   component: Task,
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
   title: 'Task',
-  argTypes: {
-    ...actionsData,
-  },
 };
 
 const Template = args => <Task {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  task: taskData,
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
 
 export const Pinned = Template.bind({});
 Pinned.args = {
   task: {
-    ...taskData,
+    ...Default.args.task,
     state: 'TASK_PINNED',
   },
 };
@@ -88,7 +77,7 @@ Pinned.args = {
 export const Archived = Template.bind({});
 Archived.args = {
   task: {
-    ...taskData,
+    ...Default.args.task,
     state: 'TASK_ARCHIVED',
   },
 };
@@ -114,17 +103,13 @@ As we have multiple permutations of our component, it's convenient to assign it 
 
 <div class="aside">
 
-Take in consideration that `Template.bind({})` is a [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) technique for making a copy of a function. We recommend this technique, so each exported story can set its own properties on it.
+`Template.bind({})` is a [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
 
 </div>
 
-Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, are extremely helpful for editing our components. They allow us to edit our components without restarting Storybook. Once the [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, are extremely helpful for editing our components. They allow us to edit our components with the controls addon without restarting Storybook. Once the [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes so does the component.
 
-`action` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
-
-Another nice thing about bundling the actions into `actionsData` is that you can `export` that variable and use the actions in stories for components that reuse this component, as we'll see later.
-
-When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
@@ -160,6 +145,8 @@ export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
 ```
+
+`actions` allows us to create callbacks that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 

@@ -102,32 +102,21 @@ import React from 'react';
 
 import Task from './Task';
 
-export const actionsData = {
-  onPinTask: { action: 'onPinTask' },
-  onArchiveTask: { action: 'onArchiveTask' },
-};
-
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
-};
 export default {
   component: Task,
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
   title: 'Task',
-  argTypes: {
-    ...actionsData,
-  },
 };
 
 const Template = args => <Task {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  task: taskData,
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
   // Background color added
   backgroundColor: '#e5f9f7',
 };
@@ -135,7 +124,7 @@ Default.args = {
 export const Pinned = Template.bind({});
 Pinned.args = {
   task: {
-    ...taskData,
+    ...Default.args.task,
     state: 'TASK_PINNED',
   },
   // Background color added
@@ -145,7 +134,7 @@ Pinned.args = {
 export const Archived = Template.bind({});
 Archived.args = {
   task: {
-    ...taskData,
+    ...Default.args.task,
     state: 'TASK_ARCHIVED',
   },
   // Background color added
@@ -163,13 +152,13 @@ TODO: add video or image of the initial controls setup showing
 
 ## Addons Evolve Your Storybook's Scope
 
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://www.componentdriven.org/), but now we're providing an interactive source of documentation and usability. PropTypes and args are great, but a designer or somebody completely new to a component's code will need to be able to figure out its behavior very quickly via Storybook.
+Not only does your Storybook instance serve as a wonderful [component-driven development environment](https://www.componentdriven.org/), but now we're providing an interactive source of documentation and usability. PropTypes and args are great, but a designer or somebody completely new to a component's code will need to be able to figure out its behavior very quickly via Storybook.
 
 That's what we're going to do, we're going to improve our existing example and implement a better way to achieve what we've set out to do.
 
 ### Using the color picker control type
 
-As we've seen we can use strings. But we be specific and tell Storybook which type of control we want to use. In our case a color picker.
+As we've seen we can use strings. But we can be specific and tell Storybook which type of control we want to use. In our case a color picker.
 
 To do this we'll need to make a small change in our story and add a new [`argType`](https://storybook.js.org/docs/react/essentials/controls#choosing-the-control-type):
 
@@ -178,24 +167,10 @@ import React from 'react';
 
 import Task from './Task';
 
-export const actionsData = {
-  onPinTask: { action: 'onPinTask' },
-  onArchiveTask: { action: 'onArchiveTask' },
-};
-
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
-};
 export default {
   component: Task,
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
   title: 'Task',
   argTypes: {
-    ...actionsData,
     // backgroundColor will now be a color picker instead of a string
     backgroundColor: { control: 'color' },
   },
@@ -205,13 +180,18 @@ const Template = args => <Task {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  task: taskData,
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
 
 export const Pinned = Template.bind({});
 Pinned.args = {
   task: {
-    ...taskData,
+    ...Default.args.task,
     state: 'TASK_PINNED',
   },
 };
@@ -219,7 +199,7 @@ Pinned.args = {
 export const Archived = Template.bind({});
 Archived.args = {
   task: {
-    ...taskData,
+    ...Default.args.task,
     state: 'TASK_ARCHIVED',
   },
 };

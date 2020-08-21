@@ -62,41 +62,38 @@ Next create `Tasklist`’s test states in the story file.
 import React from 'react';
 
 import TaskList from './TaskList';
-import { taskData, actionsData } from './Task.stories';
-
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
-  argTypes: {
-    ...actionsData,
-  },
 };
+
 const Template = args => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  tasks: defaultTasksData,
+  // Shaping the stories through args composition.
+  // The data was inherited the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.default.args, id: '1', title: 'Task 1' },
+    { ...TaskStories.default.args, id: '2', title: 'Task 2' },
+    { ...TaskStories.default.args, id: '3', title: 'Task 3' },
+    { ...TaskStories.default.args, id: '4', title: 'Task 4' },
+    { ...TaskStories.default.args, id: '5', title: 'Task 5' },
+    { ...TaskStories.default.args, id: '6', title: 'Task 6' },
+  ],
 };
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  tasks: withPinnedTasksData,
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
 };
 
 export const Loading = Template.bind({});
@@ -107,7 +104,9 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  tasks: [],
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
   loading: false,
 };
 ```
@@ -116,7 +115,10 @@ Empty.args = {
 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
-`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort, preserving the same shape for the data and actions (mocked callbacks) expected for both components.
+
+<!--
+`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs. -->
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -256,6 +258,10 @@ In our case, we want our `TaskList` to render any pinned tasks **before** unpinn
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can simply import the story in our tests, and render it there!
 
 Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
+
+<div class="aside">
+TODO: This needs to be vetted.
+</div>
 
 ```javascript
 // src/components/TaskList.test.js

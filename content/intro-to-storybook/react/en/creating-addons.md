@@ -110,6 +110,10 @@ module.exports = {
 };
 ```
 
+<div class="aside">
+TODO: match image to 6.0 (currently the addon does not work)
+</div>
+
 ![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
 
 Success! We have our newly created addon added to the Storybook UI.
@@ -201,7 +205,6 @@ To do so, we're going to make a small change to the `Task.stories.js` file and a
 export default {
   component: Task,
   title: 'Task',
-  decorators: [withKnobs],
   parameters: {
     assets: [
       'path/to/your/asset.png',
@@ -209,13 +212,19 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
+  argTypes: {
+    /* ...actionsData, */
+    backgroundColor: { control: 'color' },
+  },
 };
 /* same as before  */
 ```
 
 Go ahead and restart your Storybook and select the Task story, you should see something like this:
+
+<div class="aside">
+TODO: match image to 6.0 (currently the addon does not work)
+</div>
 
 ![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
@@ -287,6 +296,10 @@ If you take a closer look, you'll see that we're using the `styled` tag, this ta
 To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the story's `parameters` option to reflect these changes.
 
 Storybook will pick up on the change and will load the assets, but for now, only the first one.
+
+<div class="aside">
+TODO: match image to 6.0 (currently the addon does not work)
+</div>
 
 ![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png)
 
