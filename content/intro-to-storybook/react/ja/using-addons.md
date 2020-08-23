@@ -10,7 +10,7 @@ Storybook はチームメンバーの開発を向上する堅牢な[アドオン
 <div class="aside">
 <strong>アドオンの一覧を見たいですか？</strong>
 <br/>
-😍 公式にサポートされているアドオンや、コミュニティに強くサポートされているアドオンの一覧は<a href="https://storybook.js.org/addons/addon-gallery/">ここ</a>から見ることができます。
+😍 公式にサポートされているアドオンや、コミュニティに強くサポートされているアドオンの一覧は<a href="https://storybook.js.org/addons">ここ</a>から見ることができます。
 </div>
 
 全てのアドオンの使用方法や設定方法、特定のユースケースを書きつくすことは出来ません。なので、ここでは Storybook のエコシステムの中で最も人気のアドオンである [Knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs) を例にとって見てみましょう。
@@ -106,7 +106,7 @@ export const Default = () => {
 
 ## Storybook の範囲をアドオンが進化させる
 
-これで、Storybook が優れた [CDD の開発環境](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)を提供するだけでなく、対話的なドキュメントとしても使えるようになりました。PropType も素晴らしいのですが、Knobs が実装された Storybook はデザイナーや、コンポーネントのコードを知らない人にとってコンポーネントの振る舞いを簡単に知る手段となります。
+これで、Storybook が優れた [CDD の開発環境](https://www.componentdriven.org/)を提供するだけでなく、対話的なドキュメントとしても使えるようになりました。PropType も素晴らしいのですが、Knobs が実装された Storybook はデザイナーや、コンポーネントのコードを知らない人にとってコンポーネントの振る舞いを簡単に知る手段となります。
 
 ## Knobs をエッジケースを見つけるのに使用する
 
