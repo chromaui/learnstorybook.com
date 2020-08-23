@@ -79,7 +79,7 @@ twitterShareText: "I’m learning about building design systems! They're great f
     Prettier
   </div>
   <div class="badge">
-    CircleCI
+    GitHub Actions
   </div>
   <div class="badge">
     ESLint
