@@ -64,7 +64,7 @@ git checkout -b change-task-background
 この変更をステージングします:
 
 ```bash
-git add src\components\Task.js
+git add src/components/Task.js
 ```
 
 コミットします:
