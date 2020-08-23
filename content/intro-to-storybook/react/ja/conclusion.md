@@ -3,7 +3,7 @@ title: 'まとめ'
 description: '今までの知識をまとめて、Storybook のテクニックをもっと学びましょう'
 ---
 
-お疲れ様でした！Storybook で最初の UI を作成しました。これまでに UI コンポーネントを作成し、統合し、テストし、デプロイするする方法を学びました。いままで同じように進めていれば、あなたの リポジトリーとデプロイされた Storybook は以下のリンクと同じようになっていることでしょう。
+Storybook で最初の UI を作成しましたね。お疲れ様でした！ここまでの章で UI コンポーネントを作成し、複合させ、テストし、デプロイするする方法を学びました。同じように進めていれば、リポジトリーとデプロイされた Storybook は以下のリンクと同じようになっていることでしょう。
 
 [📕 **GitHub のリポジトリー: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>

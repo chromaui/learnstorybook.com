@@ -9,4 +9,4 @@ Learn Storybook はコミュニティによって作成・運営されていま�
 
 ## 翻訳
 
-Storybook をすべての人が使用できるように、このチュートリアルを他の言語に翻訳するのを手伝ってください。中国語やスペイン語は特に歓迎します。興味があれば[この issue](https://github.com/chromaui/learnstorybook.com/issues/3) にコメントください。
+Storybook をすべての人が使用できるように、このチュートリアルを他の言語に翻訳するのを手伝ってください。中国語やスペイン語は特に歓迎します。興味があれば[この issue](https://github.com/chromaui/learnstorybook.com/issues/3) にコメントしてください。
