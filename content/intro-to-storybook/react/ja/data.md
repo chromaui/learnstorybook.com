@@ -11,7 +11,7 @@ commit: 'f05981b'
 
 ## コンテナーコンポーネント
 
-`TaskList` コンポーネントは、今のところ、それ自体では外部と会話しないので「presentational (表示用)」([このブログ記事](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)を参照) として書かれています。データを取得するためには「container (コンテナー)」が必要です。
+`TaskList` コンポーネントは、今のところ、それ自体では外部とのやりとりをしないので「presentational (表示用)」([このブログ記事](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)を参照) として書かれています。データを取得するためには「container (コンテナー)」が必要です。
 
 ここではデータを保存する際に使用される React で人気のライブラリー、[Redux](https://redux.js.org/) を使用し、アプリケーションのシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
@@ -26,7 +26,7 @@ yarn add react-redux redux
 ```javascript
 // src/lib/redux.js
 
-// Redux のストア/アクション/レデューサーの単純な実装。
+// Redux のストア/アクション/リデューサーの単純な実装。
 // 実際のアプリケーションではもっと複雑で複数のファイルに分かれます。
 import { createStore } from 'redux';
 
@@ -40,7 +40,7 @@ export const actions = {
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
-// 今回のレデューサーは単純に一つのタスクの状態のみを変更します
+// 今回のリデューサーは単純に一つのタスクの状態のみを変更します
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
@@ -52,7 +52,7 @@ function taskStateReducer(taskState) {
   };
 }
 
-// レデューサーはアクションごとにストア内のデータを変更する方法を定義します
+// リデューサーはアクションごとにストア内のデータを変更する方法を定義します
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
