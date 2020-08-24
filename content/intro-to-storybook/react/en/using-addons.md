@@ -147,8 +147,15 @@ And that's it. Simple isn't it?
 Each time you change the `backgroundColor`'s value the component will re-render and show the new color.
 
 <div class="aside">
-TODO: add video or image of the initial controls setup showing
+TODO: vet video
 </div>
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/background-change-with-controls-initial.mp4"
+    type="video/mp4"
+  />
+</video>
 
 ## Addons Evolve Your Storybook's Scope
 
@@ -206,8 +213,16 @@ Archived.args = {
 ```
 
 <div class="aside">
-TODO: add video or image of the control type
+TODO: vet video
+
 </div>
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/background-change-with-controls-final.mp4"
+    type="video/mp4"
+  />
+</video>
 
 And that's it. Now we can continue interacting with the component and use a dynamic color without introducing major regressions to our UI.
 

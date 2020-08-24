@@ -123,12 +123,12 @@ By importing `TaskStories`, we were able to [compose](https://storybook.js.org/d
 Now check Storybook for the new `TaskList` stories.
 
 <div class="aside">
-TODO: video needs to be updated for 6.0
+TODO: vet video
 </div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -198,12 +198,12 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 The added markup results in the following UI:
 
 <div class="aside">
-TODO: video needs to be updated for 6.0
+TODO: vet video
 </div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -260,7 +260,7 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
 
 <div class="aside">
-TODO: This needs to be vetted.
+TODO: Vet this, leads to warning on console about the actions not being defined. (Probably required prop could be dropped?)
 </div>
 
 ```javascript
@@ -268,11 +268,15 @@ TODO: This needs to be vetted.
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import '@testing-library/jest-dom/extend-expect';
+
 import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<WithPinnedTasks />, div);
+  // Our story will be used for the test.
+  // With the arguments that were created.
+  ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');

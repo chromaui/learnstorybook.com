@@ -137,7 +137,7 @@ import * as TaskStories from './Task.stories';
 
 export default {
   component: PureTaskList,
-  title: 'PureTaskList',
+  title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
@@ -188,7 +188,7 @@ TODO: video needs to match 6.0
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

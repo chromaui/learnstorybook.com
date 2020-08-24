@@ -134,29 +134,32 @@ module.exports = {
 };
 ```
 
-After completing the change above, inside the `.storybook` folder, change the `preview.js` to the following:
+After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
 
 ```javascript
 // .storybook/preview.js
 
 import '../src/index.css';
 
+// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
 ```
 
-`actions` allows us to create callbacks that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case we're going to use them to configure how the `actions` (mocked callbacks) are handled.
+
+`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
 <div class="aside">
-TODO: needs a new video for 6.0
+TODO: vet video
 </div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -204,12 +207,12 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 The additional markup from above combined with the CSS we imported earlier yields the following UI:
 
 <div class="aside">
-TODO: needs a new video for 6.0
+TODO: vet video
 </div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
