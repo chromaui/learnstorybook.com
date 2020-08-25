@@ -16,7 +16,6 @@ everybody in your team. If you've been following along with this tutorial linear
 
 We could write forever about configuring and using addons for all your particular use-cases. For now, let's work towards integrating a addon that is rapidly becoming one of the most popular ones within Storybook's ecosystem: [Controls](https://storybook.js.org/docs/react/essentials/controls).
 
-Controls is the spiritual successor of the popular [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs) addon. It was created based on the feedback obtained from community to allow a better way to control and edit both components and stories alike.
 
 If you've been following this tutorial, you already have it setup. When you installed Storybook this and other popular addons were added as part of the [essential addons library](https://storybook.js.org/docs/react/essentials/introduction) and we don't need to add any extra configuration.
 
