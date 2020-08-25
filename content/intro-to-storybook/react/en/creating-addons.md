@@ -21,7 +21,7 @@ We have our goal, now let's define what features our addon will support:
 - Support images, but also urls for embedding
 - Should support multiple assets, just in case there will be multiple versions or themes
 
-The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
+We'll attach the list of assets to the stories with [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), a Storybook feature that allows us to add extra metadata to our stories.
 
 ```javascript
 // YourComponent.js
