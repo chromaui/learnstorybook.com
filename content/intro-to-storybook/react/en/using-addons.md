@@ -5,7 +5,7 @@ description: 'Learn how to integrate and use the controls addon using a popular 
 commit: 'b3bca4a'
 ---
 
-Storybook boasts a robust system of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) with which you can enhance the developer experience for
+Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) that you can use to enhance the developer experience for
 everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/react/en/test/).
 
 <div class="aside">
