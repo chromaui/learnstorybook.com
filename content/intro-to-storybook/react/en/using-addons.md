@@ -17,7 +17,7 @@ everybody in your team. If you've been following along with this tutorial linear
 We could write forever about every use case for addons. For now, let's work towards integrating  the popular addon [Controls](https://storybook.js.org/docs/react/essentials/controls).
 
 
-If you've been following this tutorial, you already have it setup. When you installed Storybook this and other popular addons were added as part of the [essential addons library](https://storybook.js.org/docs/react/essentials/introduction) and we don't need to add any extra configuration.
+If you've been following this tutorial, you already have Controls setup. Fresh installs of Storybook include [essential addons](https://storybook.js.org/docs/react/essentials/introduction) to the Storybook experience. Thus, there's no extra configuration.
 
 ### Get setup
 
