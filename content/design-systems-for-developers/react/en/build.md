@@ -170,7 +170,7 @@ This is what that workflow looks like in Storybook:
 
 <h4>Knobs to stress test components</h4>
 
-The [knobs addon](https://github.com/storybookjs/storybook/tree/next/addons/knobs) allows you to interact with component props dynamically in the Storybook UI. Knobs allows you to supply a multiple values to a component prop and adjust them through via the UI. This helps design system creators stress test component inputs by adjusting, well, knobs. It also gives design system consumers the ability to try components before integrating them so that they can understand how each prop affects the component.
+The [knobs addon](https://github.com/storybookjs/storybook/tree/next/addons/knobs) allows you to interact with component props dynamically in the Storybook UI. Knobs allows you to supply multiple values to a component prop and adjust them through the UI. This helps design system creators stress test component inputs by adjusting, well, knobs. It also gives design system consumers the ability to try components before integrating them so that they can understand how each prop affects the component.
 
 Let’s see how this works by setting up knobs in the `Avatar` component:
 

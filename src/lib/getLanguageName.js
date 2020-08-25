@@ -7,7 +7,7 @@ const languageNameMap = {
   nl: 'Nederlands',
   de: 'Deutsch',
   fr: 'Français',
-  jp: '日本語',
+  ja: '日本語',
   tr: 'Türk',
   gr: 'Ελληνικά',
   il: 'ישראלי',
