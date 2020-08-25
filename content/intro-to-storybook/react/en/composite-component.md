@@ -75,7 +75,7 @@ const Template = args => <TaskList {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   // Shaping the stories through args composition.
-  // The data was inherited the Default story in task.stories.js.
+  // The data was inherited from the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.default.args, id: '1', title: 'Task 1' },
     { ...TaskStories.default.args, id: '2', title: 'Task 2' },
