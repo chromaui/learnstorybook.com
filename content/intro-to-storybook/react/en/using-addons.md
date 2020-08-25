@@ -159,7 +159,7 @@ TODO: vet video
 
 ## Addons unlock new Storybook workflows
 
-Not only does your Storybook instance serve as a wonderful [component-driven development environment](https://www.componentdriven.org/), but now we're providing an interactive source of documentation and usability. PropTypes and args are great, but a designer or somebody completely new to a component's code will need to be able to figure out its behavior very quickly via Storybook.
+Storybook already serves as a wonderful [component-driven development environment](https://www.componentdriven.org/). With Controls we also created documentation that is interactive. Now anyone can easily figure out component behavior by _playing_ with its arguments.
 
 That's what we're going to do, we're going to improve our existing example and implement a better way to achieve what we've set out to do.
 
