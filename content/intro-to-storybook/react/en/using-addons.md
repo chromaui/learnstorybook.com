@@ -95,7 +95,7 @@ Task.propTypes = {
 
 We have the component updated, time to update `Task.stories.js` to reflect our change.
 
-Add a new element to the each stories [`args`](https://storybook.js.org/docs/react/writing-stories/args) with the same name we've used for the component.
+Add a new element to each story's [`args`](https://storybook.js.org/docs/react/writing-stories/args) with the same name we've used for the component.
 
 ```javascript
 import React from 'react';
