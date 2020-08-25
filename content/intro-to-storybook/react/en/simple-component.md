@@ -107,7 +107,7 @@ As we have multiple permutations of our component, it's convenient to assign it 
 
 </div>
 
-Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, are extremely helpful for editing our components. They allow us to edit our components with the controls addon without restarting Storybook. Once the [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes so does the component.
 
 When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
