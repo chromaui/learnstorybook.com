@@ -14,7 +14,7 @@ everybody in your team. If you've been following along with this tutorial linear
 😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
 </div>
 
-We could write forever about configuring and using addons for all your particular use-cases. For now, let's work towards integrating a addon that is rapidly becoming one of the most popular ones within Storybook's ecosystem: [Controls](https://storybook.js.org/docs/react/essentials/controls).
+We could write forever about every use case for addons. For now, let's work towards integrating  the popular addon [Controls](https://storybook.js.org/docs/react/essentials/controls).
 
 
 If you've been following this tutorial, you already have it setup. When you installed Storybook this and other popular addons were added as part of the [essential addons library](https://storybook.js.org/docs/react/essentials/introduction) and we don't need to add any extra configuration.
