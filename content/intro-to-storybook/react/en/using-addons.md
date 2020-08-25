@@ -1,7 +1,7 @@
 ---
 title: 'Addons'
 tocTitle: 'Addons'
-description: 'Learn how to integrate and use the controls addon using a popular example'
+description: 'Learn how to integrate and use the Controls addon using a popular example'
 commit: 'b3bca4a'
 ---
 
@@ -14,218 +14,93 @@ everybody in your team. If you've been following along with this tutorial linear
 😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
 </div>
 
-We could write forever about every use case for addons. For now, let's work towards integrating  the popular addon [Controls](https://storybook.js.org/docs/react/essentials/controls).
-
+We could write forever about every use case for addons. For now, let's work towards integrating the popular addon [Controls](https://storybook.js.org/docs/react/essentials/controls).
 
 If you've been following this tutorial, you already have Controls setup. Fresh installs of Storybook include [essential addons](https://storybook.js.org/docs/react/essentials/introduction) to the Storybook experience. Thus, there's no extra configuration.
 
-### Get setup
+### Using Controls to find edge cases
 
-Let's assume the proposed changes in the [testing](/react/en/test) chapter were not accepted, as the color `red` was to ostentatious to use, but we still need to use a background color to define the `Task`'s state.
+With Controls QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Let's consider the following example, what would happen to our `Task` if we added a **MASSIVE** string?
 
-That's where Controls comes in, it will allow us to interact with our components and live edit them without introducing major regressions in the UI.
+![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
 
-### Change the UI with Controls
+Ohh no 😥 !
 
-We've outlined what needs to be done, time to start working on it.
+Looks like we have a problem with our component.
 
-Start by changing the `Task` component to include a new prop for the desired color, we'll keep it simple and call it `backgroundColor`:
+This is where Controls comes in. We can use it to try different inputs in a component to find and fix such problems with minimal effort. Let's fix the issue with overflowing by adding styling to `Task.js`:
 
-```javascript
+```js
 // src/components/Task.js
 
-export default function Task({
-  task: { id, title, state },
-  backgroundColor,
-  onArchiveTask,
-  onPinTask,
-}) {
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask, inputStyle }) {
   return (
     <div className={`list-item ${state}`}>
-      <label className="checkbox">
-        <input
-          type="checkbox"
-          defaultChecked={state === 'TASK_ARCHIVED'}
-          disabled={true}
-          name="checked"
-        />
-        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
-      </label>
+      /* same as before */
       <div className="title">
         <input
           type="text"
           value={title}
           readOnly={true}
           placeholder="Input title"
-          style={backgroundColor && { backgroundColor }}
+          /* Our new styling added */
+          style={{ textOverflow: inputStyle }}
         />
       </div>
-
-      <div className="actions" onClick={event => event.stopPropagation()}>
-        {state !== 'TASK_ARCHIVED' && (
-          // eslint-disable-next-line jsx-a11y/anchor-is-valid
-          <a onClick={() => onPinTask(id)}>
-            <span className={`icon-star`} />
-          </a>
-        )}
-      </div>
+      /* same as before */
     </div>
   );
 }
 Task.propTypes = {
-  /** Composition of the task */
-  task: PropTypes.shape({
-    /** Id of the task */
-    id: PropTypes.string.isRequired,
-    /** Title of the task */
-    title: PropTypes.string.isRequired,
-    /** Current state of the task */
-    state: PropTypes.string.isRequired,
-    /** Background color for each state */
-  }),
-  /** Background color for the task */
-  backgroundColor: PropTypes.string,
-  /** Event to change the task to archived */
-  onArchiveTask: PropTypes.func,
-  /** Event to change the task to pinned */
-  onPinTask: PropTypes.func,
+  /** same as before */
+  /**  Our new propType to configure the styling for the input */
+  inputStyle: PropTypes.string,
 };
 ```
 
-We have the component updated, time to update `Task.stories.js` to reflect our change.
+![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-Add a new element to each story's [`args`](https://storybook.js.org/docs/react/writing-stories/args) with the same name we've used for the component.
+That's it! 👍
 
-```javascript
-import React from 'react';
-
-import Task from './Task';
-
-export default {
-  component: Task,
-  title: 'Task',
-};
-
-const Template = args => <Task {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
-  },
-  // Background color added
-  backgroundColor: '#e5f9f7',
-};
-
-export const Pinned = Template.bind({});
-Pinned.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_PINNED',
-  },
-  // Background color added
-  backgroundColor: '#c0eef0',
-};
-
-export const Archived = Template.bind({});
-Archived.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_ARCHIVED',
-  },
-  // Background color added
-  backgroundColor: '#d7f5f5',
-};
-```
-
-And that's it. Simple isn't it?
-
-Each time you change the `backgroundColor`'s value the component will re-render and show the new color.
-
-<div class="aside">
-TODO: vet video
-</div>
-
-<video autoPlay muted playsInline loop>
-  <source
-    src="/intro-to-storybook/background-change-with-controls-initial.mp4"
-    type="video/mp4"
-  />
-</video>
+With this small change, we made our component more robust and introduced a way to visually test and fix any existing edge cases.
 
 ## Addons unlock new Storybook workflows
 
 Storybook already serves as a wonderful [component-driven development environment](https://www.componentdriven.org/). With Controls we also created documentation that is interactive. Now anyone can easily figure out component behavior by _playing_ with its arguments.
 
-That's what we're going to do, we're going to improve our existing example and implement a better way to achieve what we've set out to do.
+![New docs for styling](/intro-to-storybook/task-style-docs.png)
 
-### Using the color picker control type
+### Adding a new story to avoid regressions
 
-As we've seen we can use strings. But we can be specific and tell Storybook which type of control we want to use. In our case a color picker.
+It's always a good practice to write a fixed story for inputs like this. This will increase your regression testing and outline the limits of the component(s) for all stakeholders.
 
-To do this we'll need to make a small change in our story and add a new [`argType`](https://storybook.js.org/docs/react/essentials/controls#choosing-the-control-type):
+Let's add a story for the long text case in `Task.stories.js`:
 
-```javascript
-import React from 'react';
+```js
+// src/components/Task.stories.js
 
-import Task from './Task';
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export default {
-  component: Task,
-  title: 'Task',
-  argTypes: {
-    // backgroundColor will now be a color picker instead of a string
-    backgroundColor: { control: 'color' },
-  },
-};
-
-const Template = args => <Task {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
-  },
-};
-
-export const Pinned = Template.bind({});
-Pinned.args = {
+export const LongTitle = Template.bind({});
+LongTitle.args = {
   task: {
     ...Default.args.task,
-    state: 'TASK_PINNED',
+    title: longTitleString,
   },
-};
-
-export const Archived = Template.bind({});
-Archived.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_ARCHIVED',
-  },
+  inputStyle: 'ellipsis',
 };
 ```
 
-<div class="aside">
-TODO: vet video
-
-</div>
-
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/background-change-with-controls-final.mp4"
+    src="/intro-to-storybook/using-addons-example-complete.mp4"
     type="video/mp4"
   />
 </video>
 
-And that's it. Now we can continue interacting with the component and use a dynamic color without introducing major regressions to our UI.
+With this new story, we can now reduce the amount of edge cases that could have easily be forgotten.
 
-Also our non-technical team members will thank us.
+Now your team members will thank you.
 
 ### Merge Changes
 
