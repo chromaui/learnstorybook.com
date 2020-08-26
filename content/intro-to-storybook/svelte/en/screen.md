@@ -91,11 +91,11 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 <!-- src/App.svelte -->
 
 <script>
-  import { AppStore } from './store';
+  import { appState } from './store';
   import InboxScreen from './components/InboxScreen.svelte';
 </script>
 
-<InboxScreen error="{$AppStore}" />
+<InboxScreen error="{$appState}" />
 ```
 
 <div class="aside">Don't forget that you also need to update TaskList component also to reflect the changes done to the store.</div>
