@@ -122,10 +122,6 @@ By importing `TaskStories`, we were able to [compose](https://storybook.js.org/d
 
 Now check Storybook for the new `TaskList` stories.
 
-<div class="aside">
-TODO: vet video
-</div>
-
 <video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
@@ -197,10 +193,6 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 The added markup results in the following UI:
 
-<div class="aside">
-TODO: vet video
-</div>
-
 <video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
@@ -258,10 +250,6 @@ In our case, we want our `TaskList` to render any pinned tasks **before** unpinn
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can simply import the story in our tests, and render it there!
 
 Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
-
-<div class="aside">
-TODO: Vet this, leads to warning on console about the actions not being defined. (Probably required prop could be dropped?)
-</div>
 
 ```javascript
 // src/components/TaskList.test.js

@@ -110,10 +110,6 @@ module.exports = {
 };
 ```
 
-<div class="aside">
-TODO: match image to 6.0 (currently the addon does not work)
-</div>
-
 ![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
 
 Success! We have our newly created addon added to the Storybook UI.
@@ -222,10 +218,6 @@ export default {
 
 Go ahead and restart your Storybook and select the Task story, you should see something like this:
 
-<div class="aside">
-TODO: match image to 6.0 (currently the addon does not work)
-</div>
-
 ![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
 ### Showing content in our addon
@@ -296,10 +288,6 @@ Let's take a look at the code. We use the `styled` tag that comes from the `@sto
 To actually see the assets displayed in our addon, we need to copy them over to the `public` folder and adjust the story's `parameters` option to reflect these changes.
 
 Storybook will pick up on the change and will load the assets, but for now, only the first one.
-
-<div class="aside">
-TODO: match image to 6.0 (currently the addon does not work)
-</div>
 
 ![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png)
 

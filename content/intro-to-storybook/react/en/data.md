@@ -182,10 +182,6 @@ Empty.args = {
 };
 ```
 
-<div class="aside">
-TODO: video needs to match 6.0
-</div>
-
 <video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"

@@ -167,10 +167,6 @@ Similar approaches exist to provide mocked context for other data libraries, suc
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
 
-<div class="aside">
-TODO: video needs to be updated to match 6.0
-</div>
-
 <video autoPlay muted playsInline loop >
 
   <source

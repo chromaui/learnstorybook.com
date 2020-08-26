@@ -153,10 +153,6 @@ export const parameters = {
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
-<div class="aside">
-TODO: vet video
-</div>
-
 <video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
@@ -205,10 +201,6 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 ```
 
 The additional markup from above combined with the CSS we imported earlier yields the following UI:
-
-<div class="aside">
-TODO: vet video
-</div>
 
 <video autoPlay muted playsInline loop>
   <source
