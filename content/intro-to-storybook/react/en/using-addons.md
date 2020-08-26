@@ -5,16 +5,17 @@ description: 'Learn how to integrate and use the Controls addon using a popular 
 commit: 'b3bca4a'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) that you can use to enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/react/en/test/).
+Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons),
 
-<div class="aside">
-<strong>Looking for a list of potential addons?</strong>
-<br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
-</div>
+If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/react/en/test/) chapter.
 
-We could write forever about every use case for addons. For now, let's work towards integrating the popular addon [Controls](https://storybook.js.org/docs/react/essentials/controls).
+There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/react/essentials/controls).
+
+## What is Controls?
+
+Controls allows designers and developers to easily explore component behavior by _playing_ with its arguments. No code required. Controls creates an addon panel next to your stories, so you can edit their arguments live.
+
+Fresh installs of Storybook include Controls out of the box. No extra configuration needed.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -23,11 +24,9 @@ We could write forever about every use case for addons. For now, let's work towa
   />
 </video>
 
-If you've been following this tutorial, you already have Controls setup. Fresh installs of Storybook include [essential addons](https://storybook.js.org/docs/react/essentials/introduction) to the Storybook experience. Thus, there's no extra configuration.
-
 ## Addons unlock new Storybook workflows
 
-Storybook already serves as a wonderful [component-driven development environment](https://www.componentdriven.org/). With Controls we also created documentation that is interactive. Now anyone can easily figure out component behavior by _playing_ with its arguments.
+Storybook is a wonderful [component-driven development environment](https://www.componentdriven.org/). The Controls addon evolves Storybook into an interactive documentation tool.
 
 ### Using Controls to find edge cases
 
@@ -35,11 +34,11 @@ With Controls QA Engineers, UI Engineers, or any other stakeholder can push the 
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
 
-Ohh no 😥 !
+That's not right! It looks like the text overflows beyond the bounds of the Task component.
 
-Looks like we have a problem with our component.
+Controls allowed us to quickly verify different inputs to a component. In this case a long string. This reduces the work required to discover UI problems.
 
-This is where Controls comes in. We can use it to try different inputs in a component to find and fix such problems with minimal effort. Let's fix the issue with overflowing by adding a style to `Task.js`:
+Now let's fix the issue with overflowing by adding a style to `Task.js`:
 
 ```js
 // src/components/Task.js
@@ -55,15 +54,13 @@ This is where Controls comes in. We can use it to try different inputs in a comp
 
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-Problem solved! 👍
-
-With this small change, we made our component more robust and introduced a way to visually test and fix any existing edge cases.
+Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
 
 ### Adding a new story to avoid regressions
 
-Of course we can always reproduce this problem by entering the same input into Controls, but it's always a good practice to write a fixed story for inputs like this. This will increase your regression testing and clearly outline the limits of the component(s) for the rest of the team.
+In the future, We can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
 
-Let's add a new story for the long text case in `Task.stories.js`:
+Add a new story for the long text case in `Task.stories.js`:
 
 ```js
 // src/components/Task.stories.js
@@ -79,7 +76,7 @@ LongTitle.args = {
 };
 ```
 
-With this new story, we can reproduce this edge case with ease whenever we want to work on it:
+Now we can reproduce and work on this edge case with ease.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -88,7 +85,7 @@ With this new story, we can reproduce this edge case with ease whenever we want 
   />
 </video>
 
-If we are using [visual regression testing](/react/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are [visual testing](/react/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
 
 ### Merge Changes
 
