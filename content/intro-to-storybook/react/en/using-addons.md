@@ -16,7 +16,18 @@ everybody in your team. If you've been following along with this tutorial linear
 
 We could write forever about every use case for addons. For now, let's work towards integrating the popular addon [Controls](https://storybook.js.org/docs/react/essentials/controls).
 
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/controls-in-action.mp4"
+    type="video/mp4"
+  />
+</video>
+
 If you've been following this tutorial, you already have Controls setup. Fresh installs of Storybook include [essential addons](https://storybook.js.org/docs/react/essentials/introduction) to the Storybook experience. Thus, there's no extra configuration.
+
+## Addons unlock new Storybook workflows
+
+Storybook already serves as a wonderful [component-driven development environment](https://www.componentdriven.org/). With Controls we also created documentation that is interactive. Now anyone can easily figure out component behavior by _playing_ with its arguments.
 
 ### Using Controls to find edge cases
 
@@ -28,53 +39,31 @@ Ohh no 😥 !
 
 Looks like we have a problem with our component.
 
-This is where Controls comes in. We can use it to try different inputs in a component to find and fix such problems with minimal effort. Let's fix the issue with overflowing by adding styling to `Task.js`:
+This is where Controls comes in. We can use it to try different inputs in a component to find and fix such problems with minimal effort. Let's fix the issue with overflowing by adding a style to `Task.js`:
 
 ```js
 // src/components/Task.js
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask, inputStyle }) {
-  return (
-    <div className={`list-item ${state}`}>
-      /* same as before */
-      <div className="title">
-        <input
-          type="text"
-          value={title}
-          readOnly={true}
-          placeholder="Input title"
-          /* Our new styling added */
-          style={{ textOverflow: inputStyle }}
-        />
-      </div>
-      /* same as before */
-    </div>
-  );
-}
-Task.propTypes = {
-  /** same as before */
-  /**  Our new propType to configure the styling for the input */
-  inputStyle: PropTypes.string,
-};
+<input
+  type="text"
+  value={title}
+  readOnly={true}
+  placeholder="Input title"
+  style={{ textOverflow: 'ellipsis' }}
+/>
 ```
 
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-That's it! 👍
+Problem solved! 👍
 
 With this small change, we made our component more robust and introduced a way to visually test and fix any existing edge cases.
 
-## Addons unlock new Storybook workflows
-
-Storybook already serves as a wonderful [component-driven development environment](https://www.componentdriven.org/). With Controls we also created documentation that is interactive. Now anyone can easily figure out component behavior by _playing_ with its arguments.
-
-![New docs for styling](/intro-to-storybook/task-style-docs.png)
-
 ### Adding a new story to avoid regressions
 
-It's always a good practice to write a fixed story for inputs like this. This will increase your regression testing and outline the limits of the component(s) for all stakeholders.
+Of course we can always reproduce this problem by entering the same input into Controls, but it's always a good practice to write a fixed story for inputs like this. This will increase your regression testing and clearly outline the limits of the component(s) for the rest of the team.
 
-Let's add a story for the long text case in `Task.stories.js`:
+Let's add a new story for the long text case in `Task.stories.js`:
 
 ```js
 // src/components/Task.stories.js
@@ -87,20 +76,19 @@ LongTitle.args = {
     ...Default.args.task,
     title: longTitleString,
   },
-  inputStyle: 'ellipsis',
 };
 ```
 
+With this new story, we can reproduce this edge case with ease whenever we want to work on it:
+
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/using-addons-example-complete.mp4"
+    src="/intro-to-storybook/task-stories-long-title.mp4"
     type="video/mp4"
   />
 </video>
 
-With this new story, we can now reduce the amount of edge cases that could have easily be forgotten.
-
-Now your team members will thank you.
+If we are using [visual regression testing](/react/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ### Merge Changes
 
