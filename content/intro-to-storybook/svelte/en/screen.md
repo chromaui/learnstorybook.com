@@ -74,7 +74,7 @@ const TaskBox = () => {
 export const taskStore = TaskBox();
 
 // store to handle the app state
-const appState = () => {
+const AppState = () => {
   const { subscribe, update } = writable(false);
   return {
     subscribe,
@@ -82,7 +82,7 @@ const appState = () => {
   };
 };
 
-export const AppStore = appState();
+export const appState = AppState();
 ```
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
