@@ -70,7 +70,7 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, object } from '@storybook/addon-knobs/react';
+import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
 <div class="aside">
