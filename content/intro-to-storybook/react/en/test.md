@@ -52,7 +52,7 @@ Change `Task` to the following:
     value={title}
     readOnly={true}
     placeholder="Input title"
-    style={{ textOverflow: 'ellipsis', background: 'red' }}
+    style={{ background: 'red' }}
   />
 </div>
 ```
