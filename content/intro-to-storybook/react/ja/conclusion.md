@@ -7,7 +7,7 @@ Storybook で最初の UI を作成しましたね。お疲れ様でした！こ
 
 [📕 **GitHub のリポジトリー: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **デプロイされた Storybook**](https://clever-banach-415c03.netlify.com/)
+[🌎 **デプロイされた Storybook**](https://clever-banach-415c03.netlify.app/)
 
 Storybook は React、React Native、Vue、Angular、Svelte、その他のフレームワークにとって強力なツールです。開発者コミュニティーも活発でアドオンも充実しています。このチュートリアルで紹介した内容は、Storybook で出来ることの一部にすぎません。一度 Storybook を導入すれば、強固な UI を効率的に作れることに驚くことでしょう。
 
@@ -15,7 +15,7 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 もっと深く掘り下げたいですか？役に立つリソースを紹介します。
 
-- [**Storybook の公式ドキュメント**](https://storybook.js.org/basics/introduction/)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
+- [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/react/get-started/introduction)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
 
 - [**楽しい Storybook のワークフロー**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07)では Squarespace や、メジャーリーグサッカー、ディスカバリーネットワーク、 Apollo GraphQL といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
 

@@ -30,7 +30,7 @@ import React from 'react';
 
 import Task from './Task';
 
-function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
     onArchiveTask,
@@ -52,8 +52,6 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     </div>
   );
 }
-
-export default TaskList;
 ```
 
 次に `Tasklist` のテスト状態をストーリーファイルに記述します。
@@ -64,49 +62,69 @@ export default TaskList;
 import React from 'react';
 
 import TaskList from './TaskList';
-import { taskData, actionsData } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-  excludeStories: /.*Data$/,
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
+const Template = args => <TaskList {...args} />;
 
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
 
-export const Default = () => <TaskList tasks={defaultTasksData} {...actionsData} />;
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
 
-export const WithPinnedTasks = () => <TaskList tasks={withPinnedTasksData} {...actionsData} />;
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
 
-export const Loading = () => <TaskList loading tasks={[]} {...actionsData} />;
-
-export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、<code>decorators</code> というキーをデフォルトエクスポートに追加し、描画するコンポーネントの周りに <code>padding</code> を設定してます。ストーリーで使用する「プロバイダー」(例えば、React のコンテキストを設定するライブラリコンポーネントなど) を使うためにも使用します。
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、<code>decorators</code> というキーをデフォルトエクスポートに追加し、描画するコンポーネントの周りに <code>padding</code> を設定してます。ストーリーで使用する「プロバイダー」(例えば、React のコンテキストを設定するライブラリコンポーネントなど) を使うためにも使用します。
 </div>
 
-`taskData` は `Task.stories.js` ファイルでエクスポートした `Task` のデータ形式です。同様に `actionsData` は `Task` コンポーネントが想定するアクション (コールバックのモック) を定義しています。`TaskList` でも同様に必要となります。
+`TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/react/writing-stories/args#args-composition)ことができます。このようにコンポーネントが想定するデータとアクション (呼び出しのモック) を保存します。
+
+<!--
+`taskData` は `Task.stories.js` ファイルでエクスポートした `Task` のデータ形式です。同様に `actionsData` は `Task` コンポーネントが想定するアクション (コールバックのモック) を定義しています。`TaskList` でも同様に必要となります。 -->
 
 それでは `TaskList` の新しいストーリーを Storybook で確認してみましょう。
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -122,7 +140,7 @@ import React from 'react';
 
 import Task from './Task';
 
-function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
     onArchiveTask,
@@ -136,7 +154,6 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </span>
     </div>
   );
-
   if (loading) {
     return (
       <div className="list-items">
@@ -149,7 +166,6 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
-
   if (tasks.length === 0) {
     return (
       <div className="list-items">
@@ -161,12 +177,10 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
-
   const tasksInOrder = [
     ...tasks.filter(t => t.state === 'TASK_PINNED'),
     ...tasks.filter(t => t.state !== 'TASK_PINNED'),
   ];
-
   return (
     <div className="list-items">
       {tasksInOrder.map(task => (
@@ -175,15 +189,13 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     </div>
   );
 }
-
-export default TaskList;
 ```
 
 追加したマークアップで UI は以下のようになります:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -202,23 +214,23 @@ import PropTypes from 'prop-types';
 
 import Task from './Task';
 
-function TaskList() {
+export default function TaskList() {
   ...
 }
 
-
 TaskList.propTypes = {
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  onPinTask: PropTypes.func.isRequired,
-  onArchiveTask: PropTypes.func.isRequired,
+  /** Event to change the task to pinned */
+  onPinTask: PropTypes.func,
+  /** Event to change the task to archived */
+  onArchiveTask: PropTypes.func,
 };
-
 TaskList.defaultProps = {
   loading: false,
 };
-
-export default TaskList;
 ```
 
 ## 自動テスト
@@ -244,13 +256,17 @@ Storybook のストーリーと、手動のテスト、スナップショット�
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import '@testing-library/jest-dom/extend-expect';
+
 import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<WithPinnedTasks />, div);
+  // Our story will be used for the test.
+  // With the arguments that were created.
+  ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
-  // タイトルが "Task 6 (pinned)" であるタスクが最後にではなく、最初に表示されるはず
+  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 

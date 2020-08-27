@@ -70,14 +70,14 @@ yarn add -D chromatic
 作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けてください。
 
 ```bash
-npx chromatic --project-token=<project-token>
+yarn chromatic --project-token=<project-token>
 ```
 
 ![Chromatic を実行する](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
 実行が完了すると、Storybook が発行されて、`https://random-uuid.chromatic.com` のようなリンクができます。このリンクをチームに共有すれば、フィードバックが得られるでしょう。
 
-![Chromatic パッケージを使用してデプロイされた Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+![Chromatic パッケージを使用してデプロイされた Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
 
 やりました！Storybook が一つのコマンドだけで発行できました。ですが、UI を実装し、フィードバックを得たいと思ったときに、毎回コマンドを手動実行するのは非効率です。理想的なのは、コードをプッシュすると自動的に最新のコンポーネントが発行されることです。それには、Storybook を継続的にデプロイしていく必要があります。
 

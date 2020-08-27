@@ -48,6 +48,7 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
+  /** The error message */
   error: PropTypes.string,
 };
 
@@ -100,9 +101,14 @@ export default {
   title: 'InboxScreen',
 };
 
-export const Default = () => <PureInboxScreen />;
+const Template = args => <PureInboxScreen {...args} />;
 
-export const Error = () => <PureInboxScreen error="Something" />;
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 `Error` ストーリーは正しく動いていますが、`Default` ストーリーには問題があります。それは `TaskList` に接続するべき Redux のストアがないためです。(同様に `PureInboxScreen` を単体テストしようとしても同じことが起こります。)
@@ -125,32 +131,36 @@ export const Error = () => <PureInboxScreen error="Something" />;
 // src/components/InboxScreen.stories.js
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
-
+import { action } from '@storybook/addon-actions';
 import { PureInboxScreen } from './InboxScreen';
-import { defaultTasksData } from './TaskList.stories';
+import * as TaskListStories from './TaskList.stories';
 
-export default {
-  component: PureInboxScreen,
-  title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
-};
-
-// とても簡素な Redux ストアのモック
+// A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasksData,
+      tasks: TaskListStories.Default.args.tasks,
     };
   },
   subscribe: () => 0,
   dispatch: action('dispatch'),
 };
 
-export const Default = () => <PureInboxScreen />;
+export default {
+  component: PureInboxScreen,
+  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  title: 'InboxScreen',
+};
 
-export const Error = () => <PureInboxScreen error="Something" />;
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 同様に [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator) や [Relay](https://github.com/orta/react-storybooks-relay-container) など、他のデータライブラリー向けのモックコンテキストも存在します。
@@ -160,7 +170,7 @@ Storybook で状態を選択していくことで、問題なく出来ている�
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

@@ -70,8 +70,12 @@ Taskbox はデザイン要素を [GraphQL と React のチュートリアル](ht
 </div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+npx degit chromaui/learnstorybook-code/public/font public/font
+npx degit chromaui/learnstorybook-code/public/icon public/icon
 ```
+
+<div class="aside">
+ここでは を GitHub からフォルダーをダウンロードするのに <a href="https://github.com/Rich-Harris/degit">degit</a> を使用しています。手動でダウンロードしたければ各フォルダーは<a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">ここ</a>にあります。
+</div>
 
 CSS とアセットを追加すると、アプリケーションの描画が崩れてしまいますが、そのままで問題ありません。今はアプリケーションに手はつけません。まずは一つ目のコンポーネントを作り始めましょう！
