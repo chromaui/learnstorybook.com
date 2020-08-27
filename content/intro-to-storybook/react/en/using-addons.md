@@ -1,7 +1,7 @@
 ---
 title: 'Addons'
 tocTitle: 'Addons'
-description: 'Learn how to integrate and use the Controls addon using a popular example'
+description: 'Learn how to integrate and use the popular Controls addon'
 commit: 'b3bca4a'
 ---
 
