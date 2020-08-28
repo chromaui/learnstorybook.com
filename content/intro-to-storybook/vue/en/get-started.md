@@ -73,7 +73,7 @@ npx degit chromaui/learnstorybook-code/public/icon public/icon
 ```
 
 <div class="aside">
-We've used <a href="https://github.com/Rich-Harris/degit">degit</a> to easily download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
 </div>
 
 We also need to update our storybook script to serve the `public` directory (in `package.json`):
