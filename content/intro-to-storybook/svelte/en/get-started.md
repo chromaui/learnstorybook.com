@@ -10,7 +10,7 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 
 ## Setup Svelte Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Degit](https://github.com/Rich-Harris/degit) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [degit](https://github.com/Rich-Harris/degit) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
 
 ```bash
 # Create our application:
@@ -137,20 +137,21 @@ Taskbox reuses design elements from the GraphQL and React Tutorial [example app]
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo.
+If you want to modify the styling, the source LESS files are provided <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/style">here</a>.
 </div>
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place them inside the `public` folder.
-
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+To match the intended design, you'll need to download both the font and icon directories and place them inside the `public` folder. Issue the following commands in your terminal:
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+npx degit chromaui/learnstorybook-code/public/font public/font
+npx degit chromaui/learnstorybook-code/public/icon public/icon
 ```
+
+<div class="aside">
+We've used <a href="https://github.com/Rich-Harris/degit">degit</a> once more, to make it easier to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+</div>
 
 Finally we need to update our storybook script to serve the `public` directory (in `package.json`):
 

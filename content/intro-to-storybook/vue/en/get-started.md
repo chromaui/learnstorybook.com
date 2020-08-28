@@ -15,7 +15,7 @@ We’ll need to follow a few steps to get the build process set up in your envir
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook 
+npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
 
 cd taskbox
 
@@ -60,21 +60,21 @@ Taskbox reuses design elements from the GraphQL and React Tutorial [example app]
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo.
+If you want to modify the styling, the source LESS files are provided <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/style">here</a>.
 </div>
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder.
-
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder. Issue the following commands in your terminal:
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+npx degit chromaui/learnstorybook-code/public/font public/font
+npx degit chromaui/learnstorybook-code/public/icon public/icon
 ```
 
+<div class="aside">
+We've used <a href="https://github.com/Rich-Harris/degit">degit</a> to easily download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+</div>
 
 We also need to update our storybook script to serve the `public` directory (in `package.json`):
 
