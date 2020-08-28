@@ -1,7 +1,7 @@
 import React from 'react';
-import User from '../../composite/User';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
+import User from '../../composite/User';
 
 const { breakpoint, pageMargins, typography } = styles;
 
@@ -130,7 +130,7 @@ const SocialValidation = () => (
     <Heading>+100,000 readers so far</Heading>
 
     <Logos>
-      {logos.map((logo) => (
+      {logos.map(logo => (
         <Logo key={logo.src}>
           <img src={logo.src} alt={logo.alt} />
         </Logo>
@@ -140,8 +140,8 @@ const SocialValidation = () => (
     <Testimonials>
       <Testimonial>
         Storybook is such a pivotal tool not just for workbenching a component in isolation, but
-        also to communicate your component's use cases and API to your whole team. You NEED to learn
-        how to use Storybook, and this is the place to learn.
+        also to communicate your component&#39;s use cases and API to your whole team. You NEED to
+        learn how to use Storybook, and this is the place to learn.
         <UserWrapper
           src="https://avatars2.githubusercontent.com/u/9523719"
           name="Kyle Holmberg"
