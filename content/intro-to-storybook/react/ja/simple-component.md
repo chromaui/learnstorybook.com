@@ -212,7 +212,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 ## データ要件を明示する
 
-`propTypes` を使い React にコンポーネントが想定するデータ形式を示すのがベストプラクティスです。これにより想定するデータ形式がコードからわかるだけでなく、早期に問題を見つけるのに役立ちます。
+`propTypes` を使い React にコンポーネントが想定するデータ構造を示すのがベストプラクティスです。これにより想定するデータ構造がコードからわかるだけでなく、早期に問題を見つけるのに役立ちます。
 
 ```javascript
 // src/components/Task.js

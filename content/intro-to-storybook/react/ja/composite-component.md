@@ -118,7 +118,7 @@ Empty.args = {
 `TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/react/writing-stories/args#args-composition)ことができます。このようにコンポーネントが想定するデータとアクション (呼び出しのモック) を保存します。
 
 <!--
-`taskData` は `Task.stories.js` ファイルでエクスポートした `Task` のデータ形式です。同様に `actionsData` は `Task` コンポーネントが想定するアクション (コールバックのモック) を定義しています。`TaskList` でも同様に必要となります。 -->
+`taskData` は `Task.stories.js` ファイルでエクスポートした `Task` のデータ構造です。同様に `actionsData` は `Task` コンポーネントが想定するアクション (コールバックのモック) を定義しています。`TaskList` でも同様に必要となります。 -->
 
 それでは `TaskList` の新しいストーリーを Storybook で確認してみましょう。
 
@@ -204,7 +204,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 ## データ要件とプロパティ
 
-コンポーネントが大きくなるにつれ、入力の要件も増えていきます。`TaskList` のプロパティの要件を定義しましょう。`Task` が子供のコンポーネントなので、`Task` を表示するのに正しいデータ形式が渡されていることを確認しましょう。時間を節約するため、前の章で `Task` に定義した `propTypes` を再利用しましょう。
+コンポーネントが大きくなるにつれ、入力の要件も増えていきます。`TaskList` のプロパティの要件を定義しましょう。`Task` が子供のコンポーネントなので、`Task` を表示するのに正しいデータ構造が渡されていることを確認しましょう。時間を節約するため、前の章で `Task` に定義した `propTypes` を再利用しましょう。
 
 ```javascript
 // src/components/TaskList.js
