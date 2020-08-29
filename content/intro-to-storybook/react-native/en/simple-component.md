@@ -4,7 +4,7 @@ tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
@@ -26,12 +26,11 @@ First, let’s create the task component and its accompanying story file: `compo
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
-
 // components/Task.js
 import * as React from 'react';
 import { TextInput, SafeAreaView } from 'react-native';
 import { styles } from '../constants/globalStyles';
- 
+
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <SafeAreaView style={styles.ListItem}>
@@ -46,7 +45,6 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```javascript
-
 // components/Task.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
@@ -100,7 +98,6 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 We also have to make one small change to the Storybook configuration setup (`storybook/index.js`) so it notices our recently created stories.
 
 ```javascript
-
 // storybook/index.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
@@ -112,9 +109,8 @@ configure(() => {
 }, module);
 
 const StorybookUIRoot = getStorybookUI({
-  asyncStorage:null
+  asyncStorage: null,
 });
-
 
 export default StorybookUIRoot;
 ```
@@ -135,7 +131,6 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```javascript
-
 // components/Task.js
 import * as React from 'react';
 import { TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
@@ -155,9 +150,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
       <TextInput
         placeholder="Input Title"
         style={
-          state === 'TASK_ARCHIVED'
-            ? styles.ListItemInputTaskArchived
-            : styles.ListItemInputTask
+          state === 'TASK_ARCHIVED' ? styles.ListItemInputTaskArchived : styles.ListItemInputTask
         }
         value={title}
         editable={false}
@@ -188,7 +181,6 @@ The additional markup from above combined with the styling we created earlier yi
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
 ```javascript
-
 // src/components/Task.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -241,7 +233,6 @@ yarn add -D @storybook/addon-storyshots
 Then create an `components/__tests__/storybook.test.js` file with the following:
 
 ```javascript
-
 // components/__tests__/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();

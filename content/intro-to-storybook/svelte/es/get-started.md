@@ -66,35 +66,31 @@ Cree un archivo `.babelrc` en la raíz del proyecto con lo siguiente:
 Y un nuevo campo en `package.json`:
 
 ```json
-"jest": {
+{
+  "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
-    "moduleFileExtensions": [
-      "js",
-      "svelte",
-      "json"
-    ],
+    "moduleFileExtensions": ["js", "svelte", "json"],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|scss|stylesheet)$": "<rootDir>/__mocks__/styleMock.js"
     },
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/storybook-static/"
-    ]
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
+    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/storybook-static/"]
   }
+}
 ```
 
 Y se requiere un nuevo script para ejecutar Jest:
 
 ```json
-"test": "jest --watchAll"
+{
+  "scripts": {
+    "test": "jest --watchAll"
+  }
+}
 ```
 
 <div class="aside">El uso de la bandera `--watchAll` en el script es para evitar que Jest arroje un error, porque en esta etapa todavía no hay un repositorio configurado. Eso se abordará más adelante.</div>
@@ -102,6 +98,8 @@ Y se requiere un nuevo script para ejecutar Jest:
 Para asegurarnos de que todo funciona correctamente, necesitamos crear un archivo de prueba. En la carpeta `src`, agregue un archivo llamado `Sample.test.js` con lo siguiente:
 
 ```javascript
+// Sample.test.js
+
 function sum(a, b) {
   return a + b;
 }

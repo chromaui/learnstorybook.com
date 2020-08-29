@@ -276,7 +276,7 @@ Anteriormente neste tutorial, optámos pela stack de frontend popular que inclui
 
 <div class="aside">Outros métodos que também são muito promissores, tal como o Svelte ou componentes web, que permitem também que se criem de IU completamente agnósticos. No entanto, estes são relativamente novos, ainda não estão bem documentados ou ainda não têm uma adoção generalizada, como tal não foram incluídos ainda neste guia.</div>
 
-A aplicação de exemplo usa o Storybook de forma a facilitar o [desenvolvimento orientado a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), que é uma metodologia de desenvolvimento de aplicações usada para criar IU de baixo para cima, começando por componentes, acabando nos ecrãs. Durante a demonstração iremos executar dois Storybooks lado a lado: um para a aplicação de exemplo e outro para o nosso sistema de design.
+A aplicação de exemplo usa o Storybook de forma a facilitar o [desenvolvimento orientado a componentes](https://www.componentdriven.org/), que é uma metodologia de desenvolvimento de aplicações usada para criar IU de baixo para cima, começando por componentes, acabando nos ecrãs. Durante a demonstração iremos executar dois Storybooks lado a lado: um para a aplicação de exemplo e outro para o nosso sistema de design.
 
 Clone a aplicação de exemplo do repositório do GitHub
 
