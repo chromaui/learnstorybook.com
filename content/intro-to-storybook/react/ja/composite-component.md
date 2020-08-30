@@ -115,7 +115,7 @@ Empty.args = {
 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、<code>decorators</code> というキーをデフォルトエクスポートに追加し、描画するコンポーネントの周りに <code>padding</code> を設定してます。ストーリーで使用する「プロバイダー」(例えば、React のコンテキストを設定するライブラリコンポーネントなど) を使うためにも使用します。
 </div>
 
-`TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/react/writing-stories/args#args-composition)ことができます。このようにコンポーネントが想定するデータとアクション (呼び出しのモック) を保存します。
+`TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/react/writing-stories/args#args-composition)ことができます。このようにコンポーネントが想定するデータとアクション (呼び出しのモック) を維持します。
 
 <!--
 `taskData` は `Task.stories.js` ファイルでエクスポートした `Task` のデータ構造です。同様に `actionsData` は `Task` コンポーネントが想定するアクション (コールバックのモック) を定義しています。`TaskList` でも同様に必要となります。 -->
