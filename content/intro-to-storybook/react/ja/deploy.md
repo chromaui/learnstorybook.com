@@ -93,31 +93,31 @@ yarn chromatic --project-token=<project-token>
 
 ```yaml
 # .github/workflows/chromatic.yml
-# アクションの名前
+# name of our action
 name: 'Chromatic Deployment'
-# トリガーを起動するイベント
+# the event that will trigger the action
 on: push
 
-# このアクションが何をするのか
+# what the action will do
 jobs:
   test:
-    # アクションを実行する OS を指定
+    # the operating system it will run on
     runs-on: ubuntu-latest
-    # 実行するステップのリスト
+    # the list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
       - uses: chromaui/action@v1
-        # GitHub chromatic アクションに必要なパラメーター
+        # options required to the GitHub chromatic action
         with:
-          # プロジェクトトークンを指定する
-          # 取得方法は https://www.learnstorybook.com/intro-to-storybook/react/ja/deploy/ を参照
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 <div class="aside">
-<p>簡潔にするため <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
+<p>簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
 </div>
 
 ### アクションをコミットする

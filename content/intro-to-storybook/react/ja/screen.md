@@ -59,7 +59,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-さらに、`App` コンポーネントを `InboxScreen` を描画するように変更 (いずれはルーターにどの画面を表示するか決めてもらいますが、今は気にしないでください) します:
+さらに、`App` コンポーネントを `InboxScreen` を描画するように変更します (いずれはルーターにどの画面を表示するか決めてもらいますが、今は気にしないでください):
 
 ```javascript
 // src/App.js
@@ -81,13 +81,13 @@ function App() {
 export default App;
 ```
 
-しかし、興味深いのは、`InboxScreen` のストーリーに関してです。
+しかし興味深いのは、`InboxScreen` のストーリーに関してです。
 
 前に示したように `TaskList` コンポーネントは、表示用のコンポーネントである `PureTaskList` を描画する**コンテナー**です。定義上コンテナーコンポーネントはコンテキストが渡されたり、サービスに接続したりすることを想定するため、切り離された環境においてはそのままでは描画できません。つまりコンテナーを Storybook で描画するには、コンポーネントに必要なコンテキストやサービスをモック化 (例えば、振る舞いを模倣させるなど) しなければならないということです。
 
 `TaskList` を Storybook に置いたときには、コンテナーではなく、`PureTaskList` を描画することにより、この問題を回避しました。同じように `PureInboxScreen` を Storybook に描画してみます。
 
-しかし、`PureInboxScreen` には問題があります。`PureInboxScreen` が表示用コンポーネントであっても、その子供である `TaskList` は表示用ではないのです。つまり、`PureInboxScreen`が「コンテナー化」により汚染されたと言えます。なので、`InboxScreen.stories.js` を以下のようセットアップすると:
+しかし、`PureInboxScreen` には問題があります。`PureInboxScreen` が表示用コンポーネントであっても、その子供である `TaskList` は表示用ではないのです。つまり、`PureInboxScreen`が「コンテナー性」により汚染されたと言えます。なので、`InboxScreen.stories.js` を以下のようセットアップすると:
 
 ```javascript
 // src/components/InboxScreen.stories.js

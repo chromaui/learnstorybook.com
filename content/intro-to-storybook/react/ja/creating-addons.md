@@ -21,9 +21,7 @@ commit: 'bebba5d'
 - イメージを表示できるようにして、URL も埋め込めるようにする
 - 複数のテーマやバージョンがあることを考慮し、複数のアセットに対応する
 
-We'll attach the list of assets to the stories with [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), a Storybook feature that allows us to add extra metadata to our stories.
-
-ストーリーとアセットの紐づけには、[parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters)を使用します。Storybook の機能でストーリーに追加のメタデータを設定することができます。
+ストーリーとアセットの紐づけには、[parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) の機能でストーリーに追加のメタデータを設定することができます。
 
 ```javascript
 // YourComponent.js
@@ -69,7 +67,7 @@ export default {
 これだけです。これでアドオンの作成準備が整いました。
 
 <div class="aside">
-<code>.storybook</code> フォルダーをアドオンの配置場所として使用します。その理由は直接的なアプローチをとることで複雑になりすぎないようにするためです。実際のアドオンを作成するならば、別のパッケージに移動させ、独自のファイルとフォルダーの構成にするべきでしょう。
+ここでは <code>.storybook</code> フォルダーをアドオンの配置場所として使用します。その理由は直接的なアプローチをとることで複雑になりすぎないようにするためです。実際のアドオンを作成するならば、別のパッケージに移動させ、独自のファイルとフォルダーの構成にするべきでしょう。
 </div>
 
 ## アドオンを書く

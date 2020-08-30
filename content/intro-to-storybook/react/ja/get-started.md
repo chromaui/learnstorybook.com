@@ -11,7 +11,7 @@ Storybook は開発時にアプリケーションと並行して動きます。S
 
 ## React 向けの Storybook を構築する
 
-Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[Create React App](https://github.com/facebook/create-react-app) (CRA) を使用してアプリケーションを作成し、[Storybook](https://storybook.js.org/) とテストフレームワークの [Jest](https://facebook.github.io/jest/) を有効にしましょう。それでは、次のコマンドを実行してください。
+Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[Create React App](https://github.com/facebook/create-react-app) (CRA) を使用してアプリケーションを作成し、[Storybook](https://storybook.js.org/) とテストフレームワークの [Jest](https://facebook.github.io/jest/) を有効にしましょう。それでは、次のコマンドを実行してください:
 
 ```bash
 # アプリケーションを作成する:
@@ -28,7 +28,7 @@ npx -p @storybook/cli sb init
 もし <code>yarn</code> ではなく <code>npm</code> を使用したい場合には、上記のコマンドに <code>--use-npm</code> フラグをつけることで、CRA および Storybook の設定を変更することができます。<code>npm</code> を使用してチュートリアルを進めても問題ありませんが、使用するコマンドを <code>npm</code> に合わせて調整するのを忘れないようにしましょう。
 </div>
 
-作成したアプリケーションが問題なく動くことを次のコマンドで確認しましょう。
+作成したアプリケーションが問題なく動くことを次のコマンドで確認しましょう:
 
 ```bash
 # ターミナルでテストランナー (Jest) を開始する:
@@ -63,7 +63,7 @@ Taskbox はデザイン要素を [GraphQL と React のチュートリアル](ht
 
 ## アセットを追加する
 
-狙い通りのデザインにするためには、フォントとアイコンのフォルダーをダウンロードし、`public` フォルダーに配置する必要があります。
+狙い通りのデザインにするためには、フォントとアイコンのフォルダーをダウンロードし、`public` フォルダーに配置する必要があります。次のコマンドを実行してください:
 
 ```bash
 npx degit chromaui/learnstorybook-code/public/font public/font

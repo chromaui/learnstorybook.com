@@ -83,7 +83,7 @@ git push -u origin change-task-background
 
 ![GitHub にタスクの PR を作成する](/github/pull-request-background.png)
 
-プルリクエストに適切な説明を書き、`Create pull request` をクリックしてください。ページの下部に表示された「UI Tests」の PR チェックをクリックして下さい。
+プルリクエストに適切な説明を書き、`Create pull request` をクリックしてください。ページの下部に表示された「🟡 UI Tests」の PR チェックをクリックして下さい。
 
 ![GitHub にタスクの PR が作成された](/github/pull-request-background-ok.png)
 

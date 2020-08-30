@@ -95,7 +95,7 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 - `component` -- コンポーネント自体
 - `title` -- Storybook のサイドバーにあるコンポーネントを参照する方法
 - `excludeStories` -- ストーリーファイルのエクスポートのうち、Storybook にストーリーとして表示させたくないもの
-- `argTypes` -- 各ストーリーの [args](https://storybook.js.org/docs/react/api/argtypes) の挙動を指定する
+- `argTypes` -- 各ストーリーへの引数 ([args](https://storybook.js.org/docs/react/api/argtypes)) の挙動を指定する
 
 ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、React の[状態を持たない関数コンポーネント](https://ja.reactjs.org/docs/components-and-props.html)のようなものです。
 
@@ -103,16 +103,16 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 
 <div class="aside">
 
-`Template.bind({})` は関数のコピーを作成する [JavaScript の標準的な](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
+`Template.bind({})` は関数のコピーを作成する [JavaScript の標準的な](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
 
 </div>
 
-Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-stories/args)) を使用することで、controls アドオンを通して、Storybook を再起動することなく直にコンポーネントを編集することができるようになります。[`args`](https://storybook.js.org/docs/react/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
+Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-stories/args)) を使用することで、Controls アドオンを通して、Storybook を再起動することなく直にコンポーネントを編集することができるようになります。[`args`](https://storybook.js.org/docs/react/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
 
-ストーリーを作る際には素となるタスク (`args` の `task`) を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。もう一度言いますが、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となるのです。
+ストーリーを作る際には素となるタスク引数を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。さらに、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となります。
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。<code>action()</code> はそのスタブとして使用できます。
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>アクション</b></a>は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。<code>action()</code> はそのスタブとして使用できます。
 </div>
 
 ## 設定する
@@ -147,15 +147,15 @@ export const parameters = {
 };
 ```
 
-[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) は Storybook の機能やアドオンの振る舞いをコントロールするのに使用します。この例では、`actions` (呼び出しのモック) がどのように扱われるかを設定しています。
+[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) は Storybook の機能やアドオンの振る舞いをコントロールするのに使用します。この例では、アクション (呼び出しのモック) がどのように扱われるかを設定しています。
 
-`actions` はクリックした時などに Storybook の **actions** パネルにその情報を表示するコールバックを作成します。これにより、ピン留めボタンを作成するとき、ボタンがクリックされたことがテスト用の UI 上で確認できます。
+アクションはクリックした時などに Storybook の **actions** パネルにその情報を表示するコールバックを作成します。これにより、ピン留めボタンを作成するとき、ボタンがクリックされたことがテスト用の UI 上で確認できます。
 
 Storybook のサーバーを再起動すると、タスクの 3 つの状態のテストケースが生成されているはずです:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -167,7 +167,6 @@ Storybook のサーバーを再起動すると、タスクの 3 つの状態の�
 今のところコンポーネントは簡素な状態です。まずはデザインを実現するために最低限必要なコードを書いてみましょう:
 
 ```javascript
-// src/components/Task.js
 // src/components/Task.js
 
 import React from 'react';
@@ -249,13 +248,13 @@ Task.propTypes = {
 
 ## 完成！
 
-これでサーバーを起動したり、フロントエンドアプリケーションを起動したりすることなく、コンポーネントを作りあげることができました。次の章でも、同じように Taskbox コンポーネントの残りの部分を少しずつ作成していきます。
+これでサーバーを起動したり、フロントエンドアプリケーションを起動したりすることなく、コンポーネントを作りあげることができました。次の章では、Taskbox の残りのコンポーネントを、同じように少しずつ作成していきます。
 
 見た通り、コンポーネントだけを切り離して作り始めるのは早くて簡単です。あらゆる状態を掘り下げてテストできるので、高品質で、バグが少なく、洗練された UI を作ることができることでしょう。
 
 ## 自動化されたテスト
 
-Storybook はアプリケーションの UI を作成する際に目視でテストする素晴らしい方法を提供してくれます。ストーリーがあることにより、タスクの外観を壊していないことを確認しながらアプリケーションを開発できます。しかし、これは完全に手動のプロセスなので、誰かが警告やエラーがなく表示されていることをそれぞれの状態を確認しながらクリックしていかなければなりません。自動化できないものでしょうか。
+Storybook はアプリケーションの UI を作成する際に目視でテストする素晴らしい方法を与えてくれます。ストーリーがあれば、タスクの外観が壊れていないことを確認しながらアプリケーションを開発できます。しかしこれは完全に手動の作業なので、警告やエラーがなく表示されていることを、それぞれの状態を確認しながら誰かがクリックしていかなければなりません。なんとか自動化できないものでしょうか。
 
 ### スナップショットテスト
 
