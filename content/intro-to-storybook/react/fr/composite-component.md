@@ -97,7 +97,7 @@ export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Les décorateurs</b></a> sont un moyen de fournir un enrobage arbitraire aux story. Dans ce cas, nous utilisons un `key` (clé) de décorateur sur l'export par défaut pour ajouter du `padding` autour du composant rendu. Ils peuvent également être utilisés pour enrober des story dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte de React.
+<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Les décorateurs</b></a> sont un moyen de fournir un encapsulation arbitraire aux story. Dans ce cas, nous utilisons une `key` (clé) de décorateur sur le default export pour ajouter du `padding` autour du composant rendu. Ils peuvent également être utilisés pour encapsuler des story dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte de React.
 </div>
 
 `taskData` fournit la forme d'une `Task` que nous avons créée et exportée à partir du fichier `Task.stories.js`. De même, `actionsData` définit les actions (mocked callbacks) qu'attend un composant `Task`, dont la `TaskList` a également besoin.
@@ -179,7 +179,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 export default TaskList;
 ```
 
-Les balises ajoutées donnent l'interface utilisateur suivante :
+Les balises ajoutées donnent l'UI (User Interface) suivante :
 
 <video autoPlay muted playsInline loop>
   <source
@@ -192,7 +192,7 @@ Notez la position de l'élément épinglé dans la liste. Nous voulons que l'él
 
 ## Données requises et props
 
-Au fur et à mesure que le composant s'agrandit, les quantités de données a l'entrée(input requirements) augmentent également. Définissez les exigences en matière d'accessoires de la `TaskList`. Comme `Task` est un composant enfant, assurez-vous de fournir des données dans la bonne forme pour le rendu. Pour gagner du temps et épargner des soucis, réutilisez les propTypes que vous avez définis dans `Task` plus tôt.
+Au fur et à mesure que le composant grossit, les quantités de données a l'entrée(input requirements) augmentent également. Définissez les exigences en matière de props de la `TaskList`. Comme `Task` est un composant enfant, assurez-vous de fournir des données dans la bonne forme pour le rendu. Pour gagner du temps et épargner des soucis, réutilisez les propTypes que vous avez définis dans `Task` plus tôt.
 
 ```javascript
 // src/components/TaskList.js
@@ -223,19 +223,20 @@ export default TaskList;
 
 ## Tests automatisés
 
-Dans le chapitre précédent, nous avons appris à faire des captures instantanées de story de test à l'aide de Storyshots. Avec `Task`, il n'y avait pas beaucoup de complexité à tester au-delà de ce que le rendu soit OK. Comme `TaskList` ajoute une autre couche de complexité, nous voulons vérifier que certaines entrées produisent certaines sorties d'une manière qui se prête aux tests automatiques. Pour ce faire, nous allons créer des tests unitaires en utilisant [Jest](https://facebook.github.io/jest/) couplé avec un moteur de rendu de test.
+Dans le chapitre précédent, nous avons appris à faire des captures instantanées de story de test à l'aide de Storyshots. Avec `Task`, il n'y avait pas beaucoup de complexité à tester au-delà du rendu finale de la story. Comme `TaskList` ajoute une nouvelle couche de complexité, nous voulons vérifier que certains inputs produisent certains outputs qui se prêtent aux tests automatique. Pour ce faire, nous allons créer des tests unitaires en utilisant [Jest](https://facebook.github.io/jest/) couplé avec un moteur de rendu de test.
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
 ### Tests unitaires avec Jest
 
-Les story de Storybook, les tests manuels et les capture instantanés contribuent largement à éviter les bogues d'interface utilisateur. Si les histoires couvrent une grande variété de cas d'utilisation des composants, et que nous utilisons des outils qui garantissent qu'un humain vérifie toute modification de l'histoire, les erreurs sont beaucoup moins probables.
+Les story de Storybook, les tests manuels et les capture instantanés contribuent largement à éviter les bogues d'UI. Si les story couvrent une grande variété de cas d'utilisation des composants, et que nous utilisons des outils qui garantissent qu'un humain vérifie toute modification des story, les erreurs sont beaucoup moins probables.
 
 Cependant, le diable se cache parfois dans les détails. Un framework de test qui soit explicite sur ces détails est nécessaire. Ce qui nous amène aux tests unitaires.
 
-Dans notre cas, nous voulons que notre `TaskList` rende toute tâche épinglée **avant** toute tâche non épinglée qu'elle a passée dans le props `tasks`. Bien que nous ayons une histoire (`WithPinnedTasks`) pour tester ce scénario exact, il peut être ambigu pour un examinateur humain que si le composant **arrête** d'ordonner les tâches comme ceci, c'est un bug. Il ne criera certainement pas **"Mauvais!"** à l'œil nu.
+Dans notre cas, nous voulons que notre `TaskList` rende toute tâche épinglée **avant** toute tâche non épinglée qu'elle a passée dans le props `tasks`. Bien que nous ayons une story (`WithPinnedTasks`) pour tester ce scénario exact, si le composant **arrête** d'ordonner les tâches comme ceci, un examinateur humain ne pourra pas voir du premier coup d'oeil qu'il s'agit d'un bug..
 
-Donc, pour éviter ce problème, nous pouvons utiliser Jest pour rendre le story au DOM et exécuter un code de requête DOM pour vérifier les caractéristiques saillantes du resultat. L'avantage du format du story est que nous pouvons simplement importer le story dans nos tests, et l'y rendre !
+Donc, pour éviter ce problème, nous pouvons utiliser Jest pour générer la story dans le DOM et exécuter des requêtes sur ce DOM pour vérifier les caractéristiques principales du composant sur ce rendu.
+L'avantage du format utilisé pour les story, est que nous pouvons simplement importer une story dans nos tests et l'afficher directement dedans!
 
 Créez un fichier de test appelé `src/components/TaskList.test.js`. Ici, nous allons construire nos tests qui font des assertions sur le resultat.
 
@@ -260,6 +261,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Notez que nous avons pu réutiliser le story `WithPinnedTasks` dans notre test unitaire; de cette façon, nous pouvons continuer à exploiter une ressource existante (les exemples qui représentent des configurations intéressantes d'un composant) de nombreuses façons.
+Notez que nous avons pu réutiliser la story `WithPinnedTasks` dans notre test unitaire; de cette façon, nous pouvons continuer à exploiter une ressource existante (les exemples représentant des configurations intéressantes d'un composant) de nombreuses façons.
 
-Notez également que ce test est assez fragile. Il est possible qu'à mesure que le projet mûrit, et que l'implémentation exacte de la `Task` change --peut-être en utilisant un nom de classe différent ou une `textarea` plutôt qu'une `input`-- le test échouera, et devra être mis à jour. Ce n'est pas nécessairement un problème, mais plutôt une indication qu'il faut faire attention à utiliser généreusement les tests unitaires pour l'IU. Ils ne sont pas faciles à maintenir. Utilisez plutôt des tests manuels, des captures instantanées et la régression visuelle (voir [chapitre sur les tests](/test/)) lorsque c'est possible.
+Notez également que ce test est assez fragile. Il est possible qu'à mesure que le projet mûrit, et que l'implémentation exacte de la `Task` change --peut-être en utilisant un nom de classe différent ou une `textarea` plutôt qu'une `input`-- le test échouera, et devra être mis à jour. Ce n'est pas nécessairement un problème, mais plutôt une indication qu'il faut faire attention à utiliser généreusement les tests unitaires pour l'UI. Ils ne sont pas faciles à maintenir. Utilisez plutôt des tests manuels, des captures instantanées et la régression visuelle (voir [chapitre sur les tests](/test/)) lorsque c'est possible.
