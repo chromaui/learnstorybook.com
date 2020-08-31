@@ -9,13 +9,13 @@ commit: 'c43580d'
 
 ## Tasklist
 
-Taskbox는 핀으로 고정된 과업들을 일반 과업들 위에 배치하여 강조합니다. 따라서 일반 과업과 핀으로 고정된 과업에 대한 두 가지 유형의 `TaskList` 스토리를 만들어야 합니다.
+Taskbox는 핀으로 고정된 태스크(task)들을 일반 태스크들 위에 배치하여 강조합니다. 따라서 일반 태스크과 핀으로 고정된 태스크에 대한 두 가지 유형의 `TaskList` 스토리를 만들어야 합니다.
 
-![일반 과업과 핀으로 고정된 과업](/intro-to-storybook/tasklist-states-1.png)
+![일반 태스크과 핀으로 고정된 태스크](/intro-to-storybook/tasklist-states-1.png)
 
-`Task` 데이터는 비동기식으로 전송될 수 있기 때문에, 연결이 없는 상태를 랜더링 할 수 있도록 로딩 state **또한** 필요합니다. 과업이 없는 경우를 위해 비어있는 state도 필요할 것입니다.
+`Task` 데이터는 비동기식으로 전송될 수 있기 때문에, 연결이 없는 상태를 랜더링 할 수 있도록 로딩 state **또한** 필요합니다. 태스크가 없는 경우를 위해 비어있는 state도 필요할 것입니다.
 
-![로딩 중 과업과 비어있는 과업](/intro-to-storybook/tasklist-states-2.png)
+![로딩 중 태스크과 빈 태스크](/intro-to-storybook/tasklist-states-2.png)
 
 ## 설정 시작하기
 
@@ -115,7 +115,7 @@ Empty.args = {
 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>데코레이터(Decorators)</b></a>는 스토리에 임의의 래퍼(wrapper)를 제공하는 한 방법입니다. 위의 예시에서 우리는 데코레이터 `key`를 사용하여 기본 내보내기에서 랜더링 된 컴포넌트에 `padding`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)에서 스토리를 감싸 줄 때 사용될 수 있습니다.
 </div>
 
-`TaskStories`를 가져옴으로써 최소한의 노력으로 스토리 속의 인수(arguments, 줄임말로 args)를 [합성(compose)]((https://storybook.js.org/docs/react/writing-stories/args#args-composition)할 수 있었습니다.
+`TaskStories`를 가져옴으로써 최소한의 노력으로 스토리 속의 인수(arguments, 줄임말로 args)를 [합성(compose)](https://storybook.js.org/docs/react/writing-stories/args#args-composition)할 수 있었습니다.
 
 이를 통해 두 컴포넌트가 받을 수 있는 데이터와 액션(mocked callbacks)가 모두 보존됩니다.
 
@@ -202,7 +202,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   />
 </video>
 
-목록에서 핀으로 고정된 과업의 위치를 확인해주세요. 핀으로 고정된 과업을 사용자들을 위해 목록의 맨 위에 위치하도록 하여 우선순위를 부여하려고 합니다.
+목록에서 핀으로 고정된 태스크의 위치를 확인해주세요. 핀으로 고정된 태스크를 사용자를 위해 목록의 맨 위에 위치하도록 하여 우선순위를 부여하려고 합니다.
 
 ## 데이터 요구사항 및 props
 
@@ -249,7 +249,7 @@ Storybook 스토리, 수동 테스트, 스냅샷 테스트는 UI 버그를 피�
 
 그러나, 가끔 오류는 세부 사항에 숨어있습니다. 세부 사항을 명확히 하기 위해서 테스트 프레임워크가 필요합니다. 이는 우리에게 단위 테스트의 필요성을 가져다줍니다.
 
-우리의 경우에는 `TaskList`가`tasks` prop에서 전달된 일반 과업보다 핀으로 고정된 과업을 **먼저** 랜더링 하기를 원합니다. 이러한 특정 시나리오를 테스트하는 스토리(`WithPinnedTasks`)가 있다 할지라도, 사람이 검토하는 경우에 컴포넌트가 과업의 순서를 바르게 정렬하지 않는 버그의 경우에 판단하기 애매모호할 수 있습니다. 일반적인 시선에는 딱히 **“잘못되었어!”**라고 보이지 않을 것입니다.
+우리의 경우에는 `TaskList`가`tasks` prop에서 전달된 일반 태스크보다 핀으로 고정된 태스크를 **먼저** 랜더링 하기를 원합니다. 이러한 특정 시나리오를 테스트하는 스토리(`WithPinnedTasks`)가 있다 할지라도, 사람이 검토하는 경우에 컴포넌트가 태스크의 순서를 바르게 정렬하지 않는 버그의 경우에 판단하기 애매모호할 수 있습니다. 일반적인 시선에는 딱히 **“잘못되었어!”**라고 보이지 않을 것입니다.
 
 따라서 이러한 문제를 피하기 위해, 우리는 Jest를 사용하여 스토리를 DOM에 랜더링 하고 출력의 두드러진 특징을 확인하기 위해 DOM 쿼리 코드를 실행할 수 있습니다. 스토리 형식의 좋은 점은 우리가 간단히 스토리를 테스트에 가져온 후, 거기에서 랜더링 할 수 있다는 점입니다.
 
@@ -270,7 +270,7 @@ it('renders pinned tasks at the start of the list', () => {
   // 생성된 인수를 함께 전달합니다.
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
-  // "(핀으로 고정된) 과업 6"이 마지막이 아닌 처음에 렌더링 될 것으로 예상합니다.
+  // "(핀으로 고정된) 6번째 태스크"가 마지막이 아닌 처음에 렌더링 될 것으로 예상합니다.
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 
