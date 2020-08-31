@@ -107,7 +107,7 @@ Comme documenté [ici](https://github.com/storybooks/storybook/tree/master/addon
 
 ## Les addons font évoluer la portée de votre Storybook
 
-Non seulement votre instance de Storybook sert de merveilleux [environnement CDD](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), mais en plus nous fournissons maintenant une source interactive de documentation. Les PropTypes sont géniaux, mais un designer ou quelqu'un de complètement nouveau dans le code d'un composant sera capable de comprendre son comportement très rapidement via Storybook avec l'addon knobs implémenté.
+Non seulement votre instance de Storybook sert de merveilleux [environnement CDD](https://www.componentdriven.org/), mais en plus nous fournissons maintenant une source interactive de documentation. Les PropTypes sont géniaux, mais un designer ou quelqu'un de complètement nouveau dans le code d'un composant sera capable de comprendre son comportement très rapidement via Storybook avec l'addon knobs implémenté.
 
 ## Utiliser les Knobs pour trouver les cas limites
 

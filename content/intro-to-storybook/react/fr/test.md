@@ -64,7 +64,7 @@ Cela donne une nouvelle couleur de fond pour l'objet.
 Ajoutez le fichier:
 
 ```bash
-git add src\components\Task.js
+git add .
 ```
 
 Faire un commit:

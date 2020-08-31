@@ -5,7 +5,7 @@ description: 'Créer un simple composant en isolation'
 commit: '3d9cd8c'
 ---
 
-Nous allons construire notre interface utilisateur(UI) en suivant la méthode [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD). Il s'agit d'un processus qui construit les interfaces utilisateur de "bas en haut" en commençant par les composants et en terminant par les écrans. Le CDD vous permet d'évaluer le degré de complexité auquel vous êtes confronté lors de la construction de l'interface utilisateur(UI).
+Nous allons construire notre interface utilisateur(UI) en suivant la méthode [Component-Driven Development](https://www.componentdriven.org/) (CDD). Il s'agit d'un processus qui construit les interfaces utilisateur de "bas en haut" en commençant par les composants et en terminant par les écrans. Le CDD vous permet d'évaluer le degré de complexité auquel vous êtes confronté lors de la construction de l'interface utilisateur(UI).
 
 ## Tâche(Task)
 

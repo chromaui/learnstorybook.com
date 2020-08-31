@@ -7,21 +7,21 @@ commit: 'bebba5d'
 
 Plus tôt, nous avons lancé une fonctionnalité clé du Storybook : le robuste écosystème [addons](https://storybook.js.org/addons/introduction/). Les addons sont utilisés pour améliorer l'expérience et les workflows des développeurs.
 
-Dans ce chapitre bonus, nous allons voir comment nous créons notre propre addon. Vous pensez peut-être que l'écrire peut être une tâche intimidante, mais en fait, ce n'est pas le cas, nous devons juste prendre quelques mesures pour commencer et nous pouvons commencer à l'écrire.
+Dans ce chapitre bonus, nous allons voir comment créer notre propre addon. Vous pensez peut-être que l'écrire est une tâche insurmontable, mais en fait, ce n'est pas le cas, nous devons juste prendre quelques étapes pour commencer et nous pourrons commencer à l'écrire.
 
-Mais d'abord, il faut d'abord déterminer ce que notre addon va faire.
+Mais d'abord, il faut déterminer ce que notre addon va faire.
 
 ## L'addon que nous allons écrire
 
-Pour cet exemple, supposons que notre équipe dispose de certains design assets qui sont d'une manière ou d'une autre liés aux composantes existantes de l'interface utilisateur. En examinant l'interface utilisateur actuelle de Storybook, il semble que cette relation ne soit pas vraiment apparente. Comment pouvons-nous y remédier?
+Pour cet exemple, supposons que notre équipe dispose de certaines maquettes qui sont d'une manière ou d'une autre, liées aux autres composants existants de l'UI. En examinant l'interface utilisateur actuelle de Storybook, il semble que cette relation ne soit pas vraiment apparente. Comment pouvons-nous y remédier?
 
 Nous avons notre objectif, maintenant définissons les fonctionnalités que notre addon va prendre en charge:
 
 - Affichage du design assets dans un panneau
-- Images de support, mais aussi urls pour l'intégration
+- Supportez les images, mais aussi les urls pour l'intégration
 - Devrait prendre en charge plusieurs assets, juste au cas où il y aurait plusieurs versions ou thèmes
 
-La façon dont nous allons joindre la liste des assets aux story est par le biais de [paramètres](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options), qui est une option du Storybook qui nous permet d'injecter des paramètres personnalisés à nos histoires. La façon de l'utiliser est assez similaire à celle que nous avons utilisée pour un décorateur dans les chapitres précédents.
+La façon dont nous allons joindre la liste des assets aux story est par le biais de [paramètres](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options), qui est une option du Storybook qui nous permet d'injecter des paramètres personnalisés à nos story. La façon de l'utiliser est assez similaire à celle que nous avons utilisée pour un décorateur dans les chapitres précédents.
 
 ```javascript
 export default {
@@ -58,7 +58,7 @@ Dans le dossier racine de votre projet, créez un nouveau fichier appelé `.babe
 }
 ```
 
-L'ajout de ce fichier nous permettra d'utiliser les préréglages et options corrects pour l'addon que nous allons développer.
+L'ajout de ce fichier nous permettra d'utiliser les préréglages et les options corrects pour l'addon que nous allons développer.
 
 Ensuite, dans votre dossier `.storybook`, créez un nouveau dossier appelé `design-addon` et à l'intérieur de celui-ci, un nouveau fichier appelé `register.js`.
 

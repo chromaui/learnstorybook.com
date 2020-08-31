@@ -3,17 +3,17 @@ title: 'Conclusion'
 description: 'Combinez toutes vos connaissances et apprenez plus de techniques de Storybook'
 ---
 
-Félicitations! Vous avez créé votre première interface utilisateur dans Storybook. En cours de route, vous avez appris à construire, composer, tester et déployer les composants de l'interface utilisateur. Si vous avez fait de même, votre repo et votre Storybook déployé devraient ressembler à ceci:
+Félicitations! Vous avez créé votre première interface utilisateur dans Storybook. En cours de route, vous avez appris à construire, assembler, tester et déployer les composants de l'interface utilisateur. Si vous avez fait de même, votre repo et votre Storybook déployé devraient ressembler à ceci:
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
 [🌎 **Storybook déployé**](https://clever-banach-415c03.netlify.app/)
 
-Storybook est un outil puissant pour React, React Native, Vue, Angular, Svelte et bien d'autres. Il dispose d'une communauté de développeurs florissante et d'une multitude d'addons. Cette introduction gratte la surface de ce qui est possible. Nous sommes persuadés qu'une fois que vous aurez adopté Storybook, vous serez impressionné par la productivité que représente la création d'interfaces utilisateur durables.
+Storybook est un outil puissant pour React, React Native, Vue, Angular, Svelte et bien d'autres. Il dispose d'une communauté de développeurs florissante et d'une multitude d'addons. Cette introduction décrit brièvement une infime partie de ce qu'il est possible de faire. Nous sommes persuadés qu'une fois que vous aurez adopté Storybook, vous serez impressionné de voir comme il est fructueux de créer des UI durables
 
 ## En savoir plus
 
-Vous voulez plonger plus profondément? Voici des ressources utiles.
+Envie de creuser plus? Voici des ressources utiles.
 
 - [**Documentation officielle de Storybook**](https://storybook.js.org/docs/react/get-started/introduction) comprend la documentation de l'API, les liens de la communauté et la galerie d'addons.
 

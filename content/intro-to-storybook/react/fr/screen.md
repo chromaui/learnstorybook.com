@@ -176,6 +176,6 @@ Nous avons commencé par le bas avec `Task`, puis nous sommes passés à `TaskLi
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) vous permet d'accroître progressivement la complexité à mesure que vous montez dans la hiérarchie des composants. Parmi les avantages, citons un processus de développement plus ciblé et une couverture accrue de toutes les permutations possibles de l'interface utilisateur. En bref, le CDD vous aide à construire des interfaces utilisateur de meilleure qualité et plus complexes.
+[**Component-Driven Development**](https://www.componentdriven.org/) vous permet d'accroître progressivement la complexité à mesure que vous montez dans la hiérarchie des composants. Parmi les avantages, citons un processus de développement plus ciblé et une couverture accrue de toutes les permutations possibles de l'interface utilisateur. En bref, le CDD vous aide à construire des interfaces utilisateur de meilleure qualité et plus complexes.
 
 Nous n'avons pas encore terminé - le travail ne s'arrête pas à la construction de l'interface utilisateur. Nous devons également veiller à ce qu'elle reste durable dans le temps.
