@@ -57,7 +57,7 @@ contributors:
     {
       src: 'https://avatars2.githubusercontent.com/u/9523719',
       name: 'Kyle Holmberg',
-      detail: 'Engineer at Acorns',
+      detail: 'Engineer at Air',
     },
     {
       src: 'https://avatars2.githubusercontent.com/u/1474548',

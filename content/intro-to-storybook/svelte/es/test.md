@@ -74,10 +74,8 @@ Se requiere un pequeño cambio en el script `build-storybook` para permitir que 
 
 ```json
 {
-  ....
-  "scripts":{
-    ...
-    "build-storybook": "build-storybook -s public",
+  "scripts": {
+    "build-storybook": "build-storybook -s public"
   }
 }
 ```
