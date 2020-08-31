@@ -12,8 +12,8 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Svelte Store) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.svelte` in your `components` folder:
 
-```html
-<!-- src/components/InboxScreen.svelte-->
+```svelte
+<!-- src/components/InboxScreen.svelte -->
 
 <script>
   import TaskList from './TaskList.svelte';
@@ -45,6 +45,8 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 We need to update our store (in `src/store.js`) to include our new `error` field, transforming it into :
 
 ```javascript
+// src/store.js
+
 import { writable } from 'svelte/store';
 const TaskBox = () => {
   // creates a new writable store populated with some initial data
@@ -85,8 +87,9 @@ export const AppStore = appState();
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```html
-<!-- src/App.svelte-->
+```svelte
+<!-- src/App.svelte -->
+
 <script>
   import { AppStore } from './store';
   import InboxScreen from './components/InboxScreen.svelte';
@@ -107,6 +110,7 @@ So when we setup our stories in `InboxScreen.stories.js`:
 
 ```javascript
 // src/components/InboxScreen.stories.js
+
 import InboxScreen from './InboxScreen.svelte';
 
 export default {
@@ -152,6 +156,6 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
