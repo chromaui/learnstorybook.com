@@ -7,7 +7,7 @@ Félicitations! Vous avez créé votre première interface utilisateur dans Stor
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **Storybook déployé**](https://clever-banach-415c03.netlify.com/)
+[🌎 **Storybook déployé**](https://clever-banach-415c03.netlify.app/)
 
 Storybook est un outil puissant pour React, React Native, Vue, Angular, Svelte et bien d'autres. Il dispose d'une communauté de développeurs florissante et d'une multitude d'addons. Cette introduction gratte la surface de ce qui est possible. Nous sommes persuadés qu'une fois que vous aurez adopté Storybook, vous serez impressionné par la productivité que représente la création d'interfaces utilisateur durables.
 
@@ -15,11 +15,11 @@ Storybook est un outil puissant pour React, React Native, Vue, Angular, Svelte e
 
 Vous voulez plonger plus profondément? Voici des ressources utiles.
 
-- [**Documentation officielle de Storybook**](https://storybook.js.org/basics/introduction/) comprend la documentation de l'API, les liens de la communauté et la galerie d'addons.
+- [**Documentation officielle de Storybook**](https://storybook.js.org/docs/react/get-started/introduction) comprend la documentation de l'API, les liens de la communauté et la galerie d'addons.
 
 - [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) met en évidence les meilleures pratiques de workflow utilisées par les équipes à grande vitesse de Squarespace, Major League Soccer, Discovery Network, et Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.chromatic.com/book/visual-testing-handbook) plonge dans l'utilisation de Storybook pour tester visuellement les composants. Livre électronique gratuit de 31 pages.
+- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) plonge dans l'utilisation de Storybook pour tester visuellement les composants. Livre électronique gratuit de 31 pages.
 
 - [**Storybook Discord chat**](https://discord.gg/UUt2PJb) vous met en contact avec la communauté Storybook. Obtenez et donnez de l'aide aux autres utilisateurs de Storybook.
 
