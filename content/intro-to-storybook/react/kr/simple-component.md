@@ -106,7 +106,7 @@ Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려�
 
 </div>
 
-인수(Arguments) 또는 간단히 줄여서 [`args`](https://storybook.js.org/docs/react/writing-stories/args)를 사용하여 Storybook을 다시 시작하지 않고도 애드온(addon)으로 컴포넌트를 실시간으로 수정할 수 있습니다. [`args`](https://storybook.js.org/docs/react/writing-stories/args)의 값이 변하면 컴포넌트도 함께 변합니다.
+인수(Arguments) 또는 간단히 줄여서 [`args`](https://storybook.js.org/docs/react/writing-stories/args)를 사용하여 Storybook을 다시 시작하지 않고도 Controls addon으로 컴포넌트를 실시간으로 수정할 수 있습니다. [`args`](https://storybook.js.org/docs/react/writing-stories/args)의 값이 변하면 컴포넌트도 함께 변합니다.
 
 스토리를 만들때 우리는 기본 `태스크(task)` 인수를 사용하여 컴포넌트가 예상하는 태스크의 형태를 구성합니다. 이는 일반적으로 실제 데이터를 모델로 하여 만들어집니다. 다시 말하지만 `export`하는 것은 차후 스토리에서 이를 재사용 할 수 있도록 해줍니다.
 

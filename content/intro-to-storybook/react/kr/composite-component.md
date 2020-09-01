@@ -77,12 +77,12 @@ Default.args = {
   // 인수 합성(args composition)을 통해 스토리를 형성합니다.
   // 데이터는 task.stories.js의 기본 스토리에서 상속되었습니다.
   tasks: [
-    { ...TaskStories.default.args, id: '1', title: 'Task 1' },
-    { ...TaskStories.default.args, id: '2', title: 'Task 2' },
-    { ...TaskStories.default.args, id: '3', title: 'Task 3' },
-    { ...TaskStories.default.args, id: '4', title: 'Task 4' },
-    { ...TaskStories.default.args, id: '5', title: 'Task 5' },
-    { ...TaskStories.default.args, id: '6', title: 'Task 6' },
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
   ],
 };
 
@@ -280,6 +280,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![TaskList 테스트 러너](/intro-to-storybook/tasklist-testrunner.png)
 
-이와 같이 `WithPinnedTasks` 스토리를 단위 테스트에서 재사용할 수 있었습니다. 이러한 방식으로 기존의 자원(컴포넌트의 흥미로운 구성을 나타내는 예)을 여러가지 방법으로 계속 활용할 수 있습니다.
+이와 같이 `WithPinnedTasks` 스토리를 단위 테스트에서 재사용할 수 있었습니다. 이러한 방식으로 기존의 자원을 여러가지 방법으로 계속 활용할 수 있습니다.
 
 단위 테스트는 매우 취약할 수 있다는 것도 아셔야 합니다. 프로젝트의 완성도에 따라, `Task`의 정확한 구현이 변할 수 있습니다. 어쩌면 다른 클래스명을 사용하거나 `input` 대신 `textarea`를 사용하여 테스트가 실패하게 되면 업데이트가 필요할 수 있습니다. 이것이 꼭 문제라기보다는 UI에 대한 단위 테스트를 자유롭게 사용하는 것에 주의해야 한다는 지표입니다. 단위 테스트는 유지 관리하기가 쉽지 않습니다. 가능한 경우 수동, 스냅샷, 시각적 회귀 테스트([테스트 챕터](/react/kr/test/) 보기)를 사용하세요.

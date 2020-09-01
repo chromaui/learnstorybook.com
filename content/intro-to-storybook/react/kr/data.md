@@ -94,9 +94,13 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 
 PureTaskList.propTypes = {
+  /** 로딩 상태인지 확인 */
   loading: PropTypes.bool,
+  /** task 목록 */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
+  /** task를 고정되게 변경할 때의 이벤트 */
   onPinTask: PropTypes.func.isRequired,
+  /** task를 저장되게 변경할 때의 이벤트 */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -115,7 +119,11 @@ export default connect(
 )(PureTaskList);
 ```
 
-이 단계에서 Storybook 테스트는 제대로 작동하지 않을 것입니다. `TaskList` 컴포넌트는 새로운 컨테이너이기 때문에 더 이상 props을 받지 않는 대신 이를 감싸주는 `PureTaskList` 컴포넌트에서 store에 연결하고 props를 설정합니다.
+이제 Redux에서 받은 실제 데이터로 생성된 컴포넌트가 있으므로, 이를 `src/app.js`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 그보다 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
+
+걱정하지 마세요! 그에 대한 내용은 다음 챕터에서 다룰 것입니다.
+
+이 단계에서, `TaskList`는 컨테이너이며 더이상 어떠한 props도 받지 않기 때문에 Storybook 테스트는 작동을 멈추었을 것입니다. 대신 `TaskList`는 Redux store에 연결하고 이를 감싸는 `PureTaskList`에서 props를 설정합니다.
 
 하지만 이전 단계에서 진행한 Storybook 스토리의 내보내기 구문에 `PureTaskList`(표상적인 컴포넌트)를 간단하게 렌더링함으로써 이러한 문제를 쉽게 해결할 수 있습니다.
 
@@ -125,36 +133,53 @@ export default connect(
 import React from 'react';
 
 import { PureTaskList } from './TaskList';
-import { taskData, actionsData } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
 export default {
   component: PureTaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-  excludeStories: /.*Data$/,
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
+const Template = args => <PureTaskList {...args} />;
 
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+export const Default = Template.bind({});
+Default.args = {
+  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
+  // 데이터는 task.stories.js의 기본 스토리에서 상속되었습니다.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
 
-export const Default = () => <PureTaskList tasks={defaultTasksData} {...actionsData} />;
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
+  // 데이터는 기본 스토리에서 상속되었습니다.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
 
-export const WithPinnedTasks = () => <PureTaskList tasks={withPinnedTasksData} {...actionsData} />;
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
 
-export const Loading = () => <PureTaskList loading tasks={[]} {...actionsData} />;
-
-export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
+export const Empty = Template.bind({});
+Empty.args = {
+  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
+  // 상속된 데이터는 Loading 스토리에서 온 것입니다.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
