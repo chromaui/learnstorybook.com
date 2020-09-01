@@ -5,7 +5,7 @@ description: 'Construire un écran à partir de composants'
 commit: '4aef5f7'
 ---
 
-Nous nous sommes concentrés sur la création d'une interface utilisateur de bas en haut, en commençant par les plus simples et en ajoutant de la complexité. Cela nous a permis de développer chaque composant séparément, de déterminer ses besoins en données et de jouer avec dans Storybook. Tout cela sans avoir besoin de mettre en place un serveur ou de construire des écrans !
+Nous nous sommes concentrés sur la création d'un UI de bas en haut, en commençant par les plus simples et en ajoutant de la complexité. Cela nous a permis de développer chaque composant séparément, de déterminer ses besoins en données et de jouer avec dans Storybook. Tout cela sans avoir besoin de mettre en place un serveur ou de construire des écrans !
 
 Dans ce chapitre, nous continuons à accroître la sophistication en combinant des composants dans un écran et en développant cet écran dans Storybook.
 
@@ -48,6 +48,7 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
+  /** The error message */
   error: PropTypes.string,
 };
 
@@ -58,7 +59,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-Nous avons également modifié le composant `App` pour rendre le `InboxScreen` (éventuellement nous utiliserions un routeur pour choisir le bon écran, mais ne nous inquiétons pas de cela ici):
+Nous changeons également le composant `App` pour rendre le `InboxScreen` (éventuellement nous utiliserions un routeur pour choisir le bon écran, mais ne nous inquiétons pas de cela ici):
 
 ```javascript
 // src/App.js
@@ -80,13 +81,13 @@ function App() {
 export default App;
 ```
 
-Cependant, c'est quand nous faisons la rendu de story dans Storybook que les choses deviennent intéressantes.
+Cependant, c'est dans le rendu du story dans Storybook que les choses deviennent intéressantes.
 
-Comme nous l'avons vu précédemment, le composant `TaskList` est un **conteneur** qui rend le composant de présentation `PureTaskList`. Par définition, les composants de conteneur ne peuvent pas être simplement rendus de manière isolée ; ils s'attendent à recevoir un contexte ou à être connectés à un service. Cela signifie que pour faire le rendu d'un conteneur dans Storybook, nous devons nous mocker (c'est-à-dire fournir une fausse version) le contexte ou le service dont il a besoin.
+Comme nous l'avons vu précédemment, le composant `TaskList` est un **conteneur** qui rend le composant de présentation `PureTaskList`. Par définition, les composants de conteneur ne peuvent pas être simplement rendus de manière isolée ; ils s'attendent à recevoir un contexte ou à être connectés à un service. Cela signifie que pour rendre un conteneur dans Storybook, nous devons nous simuler (c'est-à-dire fournir une fausse version) du contexte ou du service dont il a besoin.
 
 Lorsque nous avons placé la `TaskList` dans Storybook, nous avons pu éviter ce problème en rendant simplement la `PureTaskList` et en évitant le conteneur. Nous allons faire quelque chose de similaire et rendre le `PureInboxScreen` dans Storybook également.
 
-Cependant, pour le `PureInboxScreen`, nous avons un problème car, bien que le `PureInboxScreen` lui-même soit présentationnel, son enfant, la `TaskList`, ne l'est pas. Dans un sens, le `PureInboxScreen` a été pollué par son caractère en tant que "conteneur". Donc, lorsque nous mettons en place nos story dans `InboxScreen.stories.js` :
+Cependant, pour le `PureInboxScreen`, nous avons un problème car, bien que le `PureInboxScreen` lui-même soit présenté, son enfant, la `TaskList`, ne l'est pas. Dans un sens, le `PureInboxScreen` a été pollué par son caractère "conteneur". Ainsi, lorsque nous mettons en place nos stories dans `InboxScreen.stories.js`:
 
 ```javascript
 // src/components/InboxScreen.stories.js
@@ -100,12 +101,17 @@ export default {
   title: 'InboxScreen',
 };
 
-export const Default = () => <PureInboxScreen />;
+const Template = args => <PureInboxScreen {...args} />;
 
-export const Error = () => <PureInboxScreen error="Something" />;
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
-Nous constatons que, bien que le story `error` fonctionne très bien, nous avons un problème dans le story `default`, car `TaskList` n'a pas de stockage Redux auquel se connecter. (Vous rencontrerez également des problèmes similaires lorsque vous essaierez de tester le `PureInboxScreen` avec un test unitaire).
+Nous constatons que, bien que le story `error` fonctionne très bien, nous avons un problème dans le story `défaut`, car la `TaskList` n'a pas de magasin Redux auquel se connecter. (Vous rencontrerez également des problèmes similaires lorsque vous essaierez de tester le `PureInboxScreen` avec un test unitaire).
 
 ![Boîte de réception non opérationnelle](/intro-to-storybook/broken-inboxscreen.png)
 
@@ -114,7 +120,7 @@ Une façon de contourner ce problème est de ne jamais rendre les composants con
 Cependant, les développeurs **devront** inévitablement rendre les conteneurs plus bas dans la hiérarchie des composants. Si nous voulons rendre la plupart ou la totalité de l'application dans Storybook (c'est ce que nous voulons !), nous devons trouver une solution à ce problème.
 
 <div class="aside">
-Soit dit en passant, la transmission de données en descendant dans la hiérarchie est une approche légitime, surtout lorsqu'on utilise <a href="http://graphql.org/">GraphQL</a>. C'est ainsi que nous avons construit <a href="https://www.chromatic.com">Chromatique</a> à côté de plus de 800 histoires.
+Soit dit en passant, la transmission de données en descendant dans la hiérarchie est une approche légitime, surtout lorsqu'on utilise <a href="http://graphql.org/">GraphQL</a>. C'est ainsi que nous avons construit <a href="https://www.chromatic.com">Chromatique</a> à côté de plus de 800 story.
 </div>
 
 ## Fournir un contexte aux décorateurs
@@ -160,14 +166,14 @@ En parcourant les États dans Storybook, il est facile de vérifier que nous avo
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## Component-Driven Development
 
-Nous avons commencé par le bas avec `Task`, puis nous sommes passés à `TaskList`, maintenant nous sommes ici avec une interface utilisateur sur tout l'écran. Notre `InboxScreen` contient un composant conteneur emboîté et inclut des story en accompagnement.
+Nous avons commencé par le bas avec `Task`, puis nous sommes passés à `TaskList`, maintenant nous sommes ici avec un UI sur tout l'écran. Notre `InboxScreen` contient un composant conteneur emboîté et inclut des story en accompagnement.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -176,6 +182,6 @@ Nous avons commencé par le bas avec `Task`, puis nous sommes passés à `TaskLi
   />
 </video>
 
-[**Component-Driven Development**](https://www.componentdriven.org/) vous permet d'accroître progressivement la complexité à mesure que vous montez dans la hiérarchie des composants. Parmi les avantages, citons un processus de développement plus ciblé et une couverture accrue de toutes les permutations possibles de l'interface utilisateur. En bref, le CDD vous aide à construire des interfaces utilisateur de meilleure qualité et plus complexes.
+[**Component-Driven Development**](https://www.componentdriven.org/) vous permet d'accroître progressivement la complexité à mesure que vous montez dans la hiérarchie des composants. Parmi les avantages, citons un processus de développement plus ciblé et une couverture accrue de toutes les permutations possibles de l'UI. En bref, le CDD vous aide à construire des interfaces utilisateur de meilleure qualité et plus complexes.
 
-Nous n'avons pas encore terminé - le travail ne s'arrête pas à la construction de l'interface utilisateur. Nous devons également veiller à ce qu'elle reste durable dans le temps.
+Nous n'avons pas encore terminé - le travail ne s'arrête pas à la construction de l'UI. Nous devons également veiller à ce qu'elle reste durable dans le temps.

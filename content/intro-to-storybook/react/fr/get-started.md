@@ -5,7 +5,7 @@ description: 'Configurer Storybook dans votre environnement de développement'
 commit: '8741257'
 ---
 
-Storybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants d'interfaces utilisateurs(UI) qui sont isolées de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) et [Svelte](/svelte/en/get-started).
+Storybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants des UI(User Interface) qui sont isolées de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) et [Svelte](/svelte/en/get-started).
 
 ![Storybook et votre application](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -49,13 +49,13 @@ Notre application front-end se compose de trois modules: test automatisé (Jest)
 
 ![les 3 modules](/intro-to-storybook/app-three-modalities.png)
 
-Selon la partie de l'application sur laquelle vous travaillez, vous voudriez peut-être exécuter un ou plusieurs de ces modules simultanément. Comme nous nous concentrerons actuellement sur la création d'un seul composant d'interface utilisateur(UI), nous continuerons à exécuter Storybook.
+Selon la partie de l'application sur laquelle vous travaillez, vous voudriez peut-être exécuter un ou plusieurs de ces modules simultanément. Comme nous nous concentrerons actuellement sur la création d'un seul composant d'UI, nous continuerons à exécuter Storybook.
 
 ## Réutiliser les CSS
 
 Taskbox réutilise des éléments de design du tutoriel GraphQL et React [l'application d'éxample](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), donc ce ne sera pas necessaire d'écrire de CSS dans ce tutoriel. Copier et coller [ce CSS compilé](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dans le fichier `src/index.css`.
 
-![Interface utilisateur de Taskbox](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
+![UI de Taskbox](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
 Si vous souhaitez modifier le styling, les fichiers sources LESS sont fournis dans le répertoire GitHub.
@@ -65,12 +65,13 @@ Si vous souhaitez modifier le styling, les fichiers sources LESS sont fournis da
 
 Pour correspondre au design prévue, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier `public`.
 
-<div class="aside">
-<p>Nous avons utilisé <code>svn</code> (Subversion) pour télécharger facilement un dossier de fichiers depuis GitHub. Si vous n'avez pas installé subversion ou si vous voulez simplement le faire manuellement, vous pouvez récupérer les dossiers directement <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">ici</a>.</p></div>
-
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+npx degit chromaui/learnstorybook-code/public/font public/font
+npx degit chromaui/learnstorybook-code/public/icon public/icon
 ```
+
+<div class="aside">
+Nous utilisons <a href="https://github.com/Rich-Harris/degit">degit</a> pour télécharger les dossiers de GitHub. Si vous voulez le faire manuellement, vous pouvez récupérer les dossiers <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">ici</a>.
+</div>
 
 Après avoir ajouté le styling et les ressources, l'application aura un rendu un peu étrange. Ce n'est pas grave, car nous ne travaillons pas sur l'application pour l'instant. Nous somme d'abord en train de construire notre premier composant!

@@ -1,11 +1,11 @@
 ---
-title: "Tester les composantes d'interface utilisateur"
+title: 'Tester les composantes UI'
 tocTitle: 'Test'
-description: "Apprenez à tester les composants d'interface utilisateur"
+description: 'Apprenez à tester les composants UI'
 commit: '3e283f7'
 ---
 
-Aucun tutoriel de Storybook ne serait complet sans test. Les tests sont essentiels pour créer des interfaces utilisateur de haute qualité. Dans les systèmes modulaires, de minuscules modifications peuvent entraîner des régressions majeures. Jusqu'à présent, nous avons rencontré trois types de tests :
+Aucun tutoriel de Storybook ne serait complet sans test. Les tests sont essentiels pour créer des UI de haute qualité. Dans les systèmes modulaires, de minuscules modifications peuvent entraîner des régressions majeures. Jusqu'à présent, nous avons rencontré trois types de tests :
 
 - **Tests manuels** qui consistent pour les développeurs à examiner manuellement un composant pour en vérifier l'exactitude. Ils nous aident à vérifier l'aspect d'un composant au fur et à mesure de sa construction.
 - **Les captures instantanées** avec Storyshots capturent le balisage rendu d'un composant. Ils nous aident à nous tenir au courant des changements de balisage qui provoquent des erreurs de rendu et des avertissements.
@@ -13,7 +13,7 @@ Aucun tutoriel de Storybook ne serait complet sans test. Les tests sont essentie
 
 ## "Mais est-ce que ça a l'air bien ?"
 
-Malheureusement, les méthodes de test mentionnées ci-dessus ne suffisent pas à prévenir les bugs de l'interface utilisateur. Les interfaces utilisateur sont délicates à tester car la conception est subjective et nuancée. Les tests manuels sont, eh bien, manuels. Les tests instantanés déclenchent trop de faux positifs lorsqu'ils sont utilisés pour l'interface utilisateur. Les tests unitaires au niveau pixel sont de mauvaise qualité. Une stratégie de test complète de Storybook comprend également des tests de régression visuelle.
+Malheureusement, les méthodes de test mentionnées ci-dessus ne suffisent pas à prévenir les bugs de l'UI. Les interfaces utilisateur sont délicates à tester car la conception est subjective et nuancée. Les tests manuels sont, eh bien, manuels. Les tests instantanés déclenchent trop de faux positifs lorsqu'ils sont utilisés pour l'UI. Les tests unitaires au niveau pixel sont de mauvaise qualité. Une stratégie de test complète de Storybook comprend également des tests de régression visuelle.
 
 ## Tests visuels pour Storybook
 
@@ -30,9 +30,9 @@ Storybook est un outil fantastique pour les tests de régression visuelle car ch
 
 Il existe un certain nombre d'outils pour les tests de régression visuelle. Nous recommandons [**Chromatic**](https://www.chromatic.com/), un service de publication gratuit créé par les mainteneurs de Storybook qui effectue des tests visuels dans un cloud parallélisé. Il nous permet également de publier Storybook en ligne, comme nous l'avons vu dans le [chapitre précédent](/react/fr/deploy/).
 
-## Voir les modifications de l'interface utilisateur
+## Voir les modifications de l'UI
 
-Les tests de régression visuelle reposent sur la comparaison des images du nouveau code UI rendu avec les images de base. Si une modification de l'interface utilisateur est détectée, nous en sommes informés.
+Les tests de régression visuelle reposent sur la comparaison des images du nouveau code UI rendu avec les images de base. Si une modification de l'UI est détectée, nous en sommes informés.
 
 Voyons comment cela fonctionne en modifiant l'arrière-plan du composant `Tâche`.
 
@@ -52,7 +52,7 @@ Modifiez `Task` comme suit:
     value={title}
     readOnly={true}
     placeholder="Input title"
-    style={{ textOverflow: 'ellipsis', background: 'red' }}
+    style={{ background: 'red' }}
   />
 </div>
 ```
@@ -70,7 +70,7 @@ git add .
 Faire un commit:
 
 ```bash
-git commit -m “change task background to red”
+git commit -m "change task background to red"
 ```
 
 Et envoyer les changements au repo à distance:
@@ -87,7 +87,7 @@ Ajoutez un texte descriptif à votre pull request et cliquez sur `Create pull re
 
 ![Créé un PR dans GitHub pour la tâche](/github/pull-request-background-ok.png)
 
-Cela vous montrera les modifications de l'interface utilisateur prises en compte par votre commit.
+Cela vous montrera les modifications de l'UI prises en compte par votre commit.
 
 ![Changements détectés par Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
 
@@ -112,10 +112,10 @@ Comme les applications modernes sont construites à partir de composants, il est
 
 ## Fusionner les changements
 
-Lorsque nous aurons terminé notre examen, nous serons prêts à fusionner les changements apportés à l'interface utilisateur en toute confiance, sachant que les mises à jour n'introduiront pas accidentellement des bogues. Si vous aimez le nouveau fond "rouge", alors acceptez les changements, sinon revenez à l'état précédent.
+Lorsque nous aurons terminé notre examen, nous serons prêts à fusionner les changements apportés à l'UI en toute confiance, sachant que les mises à jour n'introduiront pas accidentellement des bogues. Si vous aimez le nouveau fond "rouge", alors acceptez les changements, sinon revenez à l'état précédent.
 
 ![Changements prêts à être fusionnés](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook nous aide à **construire** des composants ; les tests nous aident à **les entretenir**. Les quatre types de tests de l'interface utilisateur couverts dans ce tutoriel sont les tests visuels, captures instantanées, unitaires et de régression visuelle. Les trois derniers peuvent être automatisés en les ajoutant à un CI alors que nous venons de terminer la mise en place. Cela nous aide à distribuer les composants sans nous soucier des bogues clandestins. L'ensemble du déroulement des opérations est illustré ci-dessous.
+Storybook nous aide à **construire** des composants ; les tests nous aident à **les entretenir**. Les quatre types de tests de l'UI couverts dans ce tutoriel sont les tests visuels, captures instantanées, unitaires et de régression visuelle. Les trois derniers peuvent être automatisés en les ajoutant à un CI alors que nous venons de terminer la mise en place. Cela nous aide à distribuer les composants sans nous soucier des bogues clandestins. L'ensemble du déroulement des opérations est illustré ci-dessous.
 
 ![Déroulement des opérations du test de régression visuel](/intro-to-storybook/cdd-review-workflow.png)

@@ -4,7 +4,7 @@ tocTitle: 'Déploiement'
 description: 'Découvrez comment déployer Storybook en ligne'
 ---
 
-Tout au long de ce tutoriel, nous avons construit des composants sur notre machine de développement local. À un moment donné, nous devrons partager notre travail pour obtenir les réactions de l'équipe. Déployons Storybook en ligne pour aider nos coéquipiers à examiner la mise en œuvre de l'interface utilisateur.
+Tout au long de ce tutoriel, nous avons construit des composants sur notre machine de développement local. À un moment donné, nous devrons partager notre travail pour obtenir les réactions de l'équipe. Déployons Storybook en ligne pour aider nos coéquipiers à examiner la mise en œuvre de l'UI.
 
 ## Exporter sous forme d'application statique
 
@@ -14,7 +14,7 @@ L'exécution de `yarn build-storybook` produira un Storybook statique dans le r�
 
 ## Publier Storybook
 
-Ce tutoriel utilise <a href="https://www.chromatic.com/">Chromatique</a>, un service de publication gratuit réalisé par les mainteneurs de Storybook. Il nous permet de déployer et d'héberger notre Storybook en toute sécurité dans le cloud.
+Ce tutoriel utilise <a href="https://www.chromatic.com/">Chromatic</a>, un service de publication gratuit réalisé par les mainteneurs de Storybook. Il nous permet de déployer et d'héberger notre Storybook en toute sécurité dans le cloud.
 
 ### Configurer un repo dans GitHub
 
@@ -70,16 +70,16 @@ Cliquez sur `Choisir le dépôt GitHub` sous collaborateurs et sélectionnez vot
 Copiez l'unique `projet-token` qui a été généré pour votre projet. Puis exécutez-le, en émettant ce qui suit dans la ligne de commande, pour construire et déployer notre Storybook. Veillez à remplacer le `project-token` par votre token de votre projet.
 
 ```bash
-npx chromatic --project-token=<project-token>
+yarn chromatic --project-token=<project-token>
 ```
 
 ![Chromatique est en marche](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
 Lorsque vous aurez terminé, vous recevrez un lien `https://random-uuid.chromatic.com` vers votre Storybook publié. Partagez ce lien avec votre équipe pour obtenir des avis.
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
 
-Hourra! Nous avons publié Storybook avec une seule commande, mais l'exécution manuelle d'une commande chaque fois que nous voulons avoir un retour sur la mise en œuvre de l'interface utilisateur est répétitive. L'idéal serait de publier la dernière version des composants chaque fois que nous envoyons le code sur le repo Github. Nous devrons déployer Storybook en continu.
+Hourra! Nous avons publié Storybook avec une seule commande, mais l'exécution manuelle d'une commande chaque fois que nous voulons avoir un retour sur la mise en œuvre de l'UI est répétitive. L'idéal serait de publier la dernière version des composants chaque fois que nous envoyons le code sur le repo Github. Nous devrons déployer Storybook en continu.
 
 ## Déploiement continu avec Chromatic
 

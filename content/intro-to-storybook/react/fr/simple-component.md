@@ -5,7 +5,7 @@ description: 'Créer un simple composant en isolation'
 commit: '3d9cd8c'
 ---
 
-Nous allons construire notre interface utilisateur(UI) en suivant la méthode [Component-Driven Development](https://www.componentdriven.org/) (CDD). Il s'agit d'un processus qui construit les interfaces utilisateur de "bas en haut" en commençant par les composants et en terminant par les écrans. Le CDD vous permet d'évaluer le degré de complexité auquel vous êtes confronté lors de la construction de l'interface utilisateur(UI).
+Nous allons construire notre UI en suivant la méthode [Component-Driven Development](https://www.componentdriven.org/) (CDD). Il s'agit d'un processus qui construit les interfaces utilisateur de "bas en haut" en commençant par les composants et en terminant par les écrans. Le CDD vous permet d'évaluer le degré de complexité auquel vous êtes confronté lors de la construction de l'UI.
 
 ## Tâche(Task)
 
@@ -46,36 +46,41 @@ Ci-dessous, nous allons construire les trois états de test de Task dans le fich
 // src/components/Task.stories.js
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
 export default {
   component: Task,
   title: 'Task',
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
 };
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+const Template = args => <Task {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
 
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
 };
 
-export const Default = () => <Task task={{ ...taskData }} {...actionsData} />;
-
-export const Pinned = () => <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />;
-
-export const Archived = () => (
-  <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />
-);
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
+  },
+};
 ```
 
 Il y a deux niveaux d'organisation de base dans Storybook : le composant et ses story enfants. Considérez chaque story comme une permutation d'un composant. Vous pouvez avoir autant de story par composant que vous en voulez.
@@ -90,20 +95,25 @@ Pour informer Storybook sur le composant que nous documentons, nous créons un `
 - `component` -- le composant lui-même,
 - `title` -- comment faire référence au composant dans la barre latérale de l'application Storybook,
 - `excludeStories` -- les export dans le fichier story qui ne doivent pas être rendues comme des story par Storybook.
+- `argTypes` -- spécifiez le comportement des [args](https://storybook.js.org/docs/react/api/argtypes) dans chaque story.
 
-Pour définir nos histoires, nous exportons une fonction pour chacun de nos états tests afin de générer une story.
+Pour définir nos story, nous exportons une fonction pour chacun de nos états tests afin de générer un story.
 Le story est une fonction qui renvoie un élément qui a été rendu (c'est-à-dire un composant avec un ensemble de props) dans un état donné--exactement comme un [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
-`action()` nous permet de créer un callback qui apparaît dans le panneau d'**actions** de l'interface utilisateur du Storybook lorsqu'on clique dessus. Ainsi, lorsque nous construisons un bouton d'épingle, nous pourrons déterminer dans l'interface de test si un clic de bouton est réussi.
-
-Comme nous avons besoin de passer le même ensemble d'actions à toutes les permutations de notre composant, il est pratique de les regrouper en une seule variable `actionsData` et d'utiliser l'expansion de props `{...actionsData}` de React pour les passer toutes en même temps. `<Task {...actionsData}>` est équivalent à `<Task onPinTask={actionsData.onPinTask} onArchiveTask={actionsData.onArchiveTask}>`.
-
-Un autre avantage de regrouper les actions dans `ActionsData` est que vous pouvez `export` cette variable et utiliser les actions dans les story pour des composants qui réutilisent ce composant, comme nous le verrons plus tard.
-
-Lors de la création d'une story, nous utilisons une tâche de base (`taskData`) pour construire la forme de la tâche que le composant attend. Cette tâche est généralement modélisée à partir de ce à quoi ressemblent les données réelles. Encore une fois, `export`-er cette forme nous permettra de la réutiliser dans des histoires ultérieures, comme nous le verrons.
+Comme nous avons plusieurs permutations de notre composant, il est pratique de lui assigner une variable `Template`. L'introduction de ce schéma dans vos story réduira la quantité de code que vous devez écrire et maintenir.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> vous aident à vérifier les interactions lors de la construction des composants de l'interface utilisateur en isolation. Souvent, vous n'aurez pas accès aux fonctions et à l'état dont vous disposez dans le contexte de l'application. Utilisez <code>action()</code> pour les simuler.
+
+`Template.bind({})` est une technique [standard de JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) permettant de faire une copie d'une fonction. Nous utilisons cette technique pour permettre à chaque story exportée de définir ses propres propriétés, mais en utilisant la même implémentation.
+
+</div>
+
+Arguments ou [`args`](https://storybook.js.org/docs/react/writing-stories/args) pour faire court, nous permettent d'éditer en temps réel nos composants avec l'addon de contrôle sans avoir à redémarrer Storybook. Une fois que la valeur d'un [`args`](https://storybook.js.org/docs/react/writing-stories/args) change, le composant change aussi.
+
+Lors de la création d'un story, nous utilisons un argument de base "task" pour construire la forme de la tâche que le composant attend. Cette tâche est généralement modélisée à partir de ce à quoi ressemblent les données réelles. Encore une fois, "exporter" cette forme nous permettra de la réutiliser dans des story ultérieures, comme nous le verrons.
+
+<div class="aside">
+<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> vous aident à vérifier les interactions lors de la construction des composants de l'UI en isolation. Souvent, vous n'aurez pas accès aux fonctions et à l'état dont vous disposez dans le contexte de l'application. Utilisez <code>action()</code> pour les simuler.
 </div>
 
 ## Configuration
@@ -118,26 +128,35 @@ Commencez par modifier le fichier de configuration de votre Storybook (`.storybo
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
   ],
 };
 ```
 
-Après avoir effectué la modification ci-dessus, dans le dossier `storybook`, ajoutez un nouveau fichier appelé `preview.js` avec ce qui suit :
+Après avoir effectué la modification ci-dessus, dans le dossier `storybook`, changez votre `preview.js` en ce qui suit :
 
 ```javascript
 // .storybook/preview.js
 
 import '../src/index.css';
+
+// Configure Storybook pour enregistrer les actions (onArchiveTask et onPinTask) dans le UI.
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
 
-Une fois que nous aurons fait cela, le redémarrage du serveur Storybook devrait permettre d'obtenir des cas de test pour les trois états de la tâche(Task) :
+[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) sont généralement utilisés pour contrôler le comportement des fonctionnalités et des addons de Storybook. Dans notre cas, nous allons les utiliser pour configurer la manière dont les `actions` (les callbacks simulés) sont gérées.
+
+Les `actions` nous permettent de créer des callbacks qui apparaissent dans le panneau **actions** du UI de Storybook lorsqu'on clique dessus. Ainsi, lorsque nous construisons un bouton d'épingle, nous pourrons déterminer dans le UI de test si un clic de bouton est réussi.
+
+Une fois que nous aurons fait cela, le redémarrage du serveur Storybook devrait permettre d'obtenir des cas de test pour les trois états de Task:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -182,11 +201,11 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-La balisage supplémentaire ci-dessus, combiné avec le CSS que nous avons importé précédemment, donne l'interface utilisateur suivante :
+La balisage supplémentaire ci-dessus, combiné avec le CSS que nous avons importé précédemment, donne l'UI suivante :
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -206,12 +225,18 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 
 Task.propTypes = {
+  /** Composition du task */
   task: PropTypes.shape({
+    /** Id du task */
     id: PropTypes.string.isRequired,
+    /** Titre du task */
     title: PropTypes.string.isRequired,
+    /** État actuel de la task */
     state: PropTypes.string.isRequired,
   }),
+  /** Event pour changer la tâche à archiver */
   onArchiveTask: PropTypes.func,
+  /** Event pour changer la tâche à épingler */
   onPinTask: PropTypes.func,
 };
 ```
@@ -226,11 +251,11 @@ Une autre façon d'atteindre le même objectif est d'utiliser un système de typ
 
 Nous avons maintenant réussi à créer un composant sans avoir besoin d'un serveur ou d'exécuter toute l'application front-end. L'étape suivante consiste à construire les autres composants de la Taskbox un par un, de manière similaire.
 
-Comme vous pouvez le voir, il est facile et rapide de commencer à construire des composants de manière isolée. Nous pouvons nous attendre à produire une interface utilisateur de meilleure qualité avec moins de bogues et plus de peaufinage car il est possible de se pencher et de tester tous les états possibles.
+Comme vous pouvez le voir, il est facile et rapide de commencer à construire des composants de manière isolée. Nous pouvons nous attendre à produire un UI de meilleure qualité avec moins de bogues et plus de peaufinage car il est possible de se pencher et de tester tous les états possibles.
 
 ## Tests automatisés
 
-Storybook nous a donné un excellent moyen de tester manuellement l'interface utilisateur de notre application pendant la construction. Les " story " nous aideront à ne pas déformer l'apparence de notre tâche pendant que nous continuons à développer l'application. Cependant, il s'agit d'un processus entièrement manuel à ce stade, et quelqu'un doit faire l'effort de cliquer sur chaque état de test et de s'assurer que le rendu est bon et sans erreurs ou avertissements. Ne pouvons-nous pas faire cela automatiquement?
+Storybook nous a donné un excellent moyen de tester manuellement l'UI de notre application pendant la construction. Les 'story' nous aideront à ne pas déformer l'apparence de notre tâche pendant que nous continuons à développer l'application. Cependant, il s'agit d'un processus entièrement manuel à ce stade, et quelqu'un doit faire l'effort de cliquer sur chaque état de test et de s'assurer que le rendu est bon et sans erreurs ou avertissements. Ne pouvons-nous pas faire cela automatiquement?
 
 ### Capture instantanée
 
@@ -259,4 +284,4 @@ C'est tout, nous pouvons faire un `yarn test` et voir le résultat suivant:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
-Nous avons maintenant une capture instantanée pour chacune de nos "Tâches"(Task). Si nous modifions l'implémentation de la `Task`, nous serons invités à vérifier les changements.
+Nous avons maintenant une capture instantanée pour chacune de nos `Task`. Si nous modifions l'implémentation de la `Task`, nous serons invités à vérifier les changements.

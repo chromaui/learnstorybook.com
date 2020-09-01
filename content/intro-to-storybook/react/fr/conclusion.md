@@ -3,7 +3,7 @@ title: 'Conclusion'
 description: 'Combinez toutes vos connaissances et apprenez plus de techniques de Storybook'
 ---
 
-Félicitations! Vous avez créé votre première interface utilisateur dans Storybook. En cours de route, vous avez appris à construire, assembler, tester et déployer les composants de l'interface utilisateur. Si vous avez fait de même, votre repo et votre Storybook déployé devraient ressembler à ceci:
+Félicitations! Vous avez créé votre premier UI dans Storybook. En cours de route, vous avez appris à construire, assembler, tester et déployer les composants de l'UI. Si vous avez fait de même, votre repo et votre Storybook déployé devraient ressembler à ceci:
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
@@ -23,11 +23,11 @@ Envie de creuser plus? Voici des ressources utiles.
 
 - [**Storybook Discord chat**](https://discord.gg/UUt2PJb) vous met en contact avec la communauté Storybook. Obtenez et donnez de l'aide aux autres utilisateurs de Storybook.
 
-- [**blog Storybook**](https://medium.com/storybookjs) présente les dernières versions et les fonctionnalités permettant de fluidifier votre workflow de développement d'interface utilisateur.
+- [**Blog Storybook**](https://medium.com/storybookjs) présente les dernières versions et les fonctionnalités permettant de fluidifier votre workflow de développement d'UI.
 
 ## Qui a créé LearnStorybook.com ?
 
-Le texte, le code et la production ont été fournis par [Chromatic](http://blog.hichroma.com/). Le tutoriel a été inspiré par la populaire série de tutoriels de Chroma [GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+Le texte, le code et la production ont été fournis par [Chromatic](http://blog.hichroma.com/). Le tutoriel a été inspiré par la populaire [série de tutoriels de Chroma GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
 
 Vous voulez d'autres tutoriels et articles comme celui-ci ? Inscrivez-vous à la liste de diffusion de Chromatic.
 

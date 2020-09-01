@@ -94,9 +94,13 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 
 PureTaskList.propTypes = {
+  /** Vérifie s'il est en état de chargement */
   loading: PropTypes.bool,
+  /** La liste des task */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
+  /** Event pour changer la tâche à épingler */
   onPinTask: PropTypes.func.isRequired,
+  /** Event pour changer la tâche en archivage */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -115,7 +119,11 @@ export default connect(
 )(PureTaskList);
 ```
 
-À ce stade, les tests de notre Storybook auront cessé de fonctionner, car la `TaskList` est maintenant un conteneur, et n'attend plus de props, elle se connecte au magasin et place les accessoires sur le composant `PureTaskList` qu'elle enveloppe.
+Maintenant que nous avons de vraies données qui alimentent notre composant, obtenues à partir de Redux, nous aurions pu le connecter à `src/app.js` et y rendre le composant. Mais pour l'instant, nous allons attendre et continuer notre voyage à travers les composants.
+
+Ne vous inquiétez pas, nous nous en occuperons dans le prochain chapitre.
+
+À ce stade, les tests de notre Storybook auront cessé de fonctionner, car la `TaskList` est maintenant un conteneur, et n'attend plus de props, elle se connecte au stockage et place les accessoires sur le composant `PureTaskList` qu'elle enveloppe.
 
 Cependant, nous pouvons facilement résoudre ce problème en rendant simplement la `PureTaskList` --le composant de présentation, auquel nous venons d'ajouter la déclaration `export` à l'étape précédente-- dans nos story de Storybook :
 
@@ -125,41 +133,58 @@ Cependant, nous pouvons facilement résoudre ce problème en rendant simplement 
 import React from 'react';
 
 import { PureTaskList } from './TaskList';
-import { taskData, actionsData } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
 export default {
   component: PureTaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-  excludeStories: /.*Data$/,
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
+const Template = args => <PureTaskList {...args} />;
 
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+export const Default = Template.bind({});
+Default.args = {
+  // Mise en forme des story par la composition d'args.
+  // Les données ont été héritées du story par défaut dans task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
 
-export const Default = () => <PureTaskList tasks={defaultTasksData} {...actionsData} />;
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Mise en forme des story par la composition d'args.
+  // Les données ont été héritées du story par défaut.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
 
-export const WithPinnedTasks = () => <PureTaskList tasks={withPinnedTasksData} {...actionsData} />;
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
 
-export const Loading = () => <PureTaskList loading tasks={[]} {...actionsData} />;
-
-export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
+export const Empty = Template.bind({});
+Empty.args = {
+  // Mise en forme des stories par la composition d'args.
+  // Données héritées du story en cours de chargement.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

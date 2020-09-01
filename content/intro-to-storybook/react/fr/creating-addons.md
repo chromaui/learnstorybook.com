@@ -13,7 +13,7 @@ Mais d'abord, il faut déterminer ce que notre addon va faire.
 
 ## L'addon que nous allons écrire
 
-Pour cet exemple, supposons que notre équipe dispose de certaines maquettes qui sont d'une manière ou d'une autre, liées aux autres composants existants de l'UI. En examinant l'interface utilisateur actuelle de Storybook, il semble que cette relation ne soit pas vraiment apparente. Comment pouvons-nous y remédier?
+Pour cet exemple, supposons que notre équipe dispose de certaines design assets qui sont d'une manière ou d'une autre, liées aux autres composants existants de l'UI. En examinant l'UI actuelle de Storybook, il semble que cette relation ne soit pas vraiment apparente. Comment pouvons-nous y remédier?
 
 Nous avons notre objectif, maintenant définissons les fonctionnalités que notre addon va prendre en charge:
 
@@ -21,7 +21,7 @@ Nous avons notre objectif, maintenant définissons les fonctionnalités que notr
 - Supportez les images, mais aussi les urls pour l'intégration
 - Devrait prendre en charge plusieurs assets, juste au cas où il y aurait plusieurs versions ou thèmes
 
-La façon dont nous allons joindre la liste des assets aux story est par le biais de [paramètres](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options), qui est une option du Storybook qui nous permet d'injecter des paramètres personnalisés à nos story. La façon de l'utiliser est assez similaire à celle que nous avons utilisée pour un décorateur dans les chapitres précédents.
+Nous joindrons la liste des ressources aux story avec [paramètres](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), une fonctionnalité de Storybook qui nous permet d'ajouter des métadonnées supplémentaires à nos stories.
 
 ```javascript
 export default {
@@ -92,9 +92,9 @@ addons.register('my/design-addon', () => {
 C'est le code typique pour vous aider à démarrer. Nous allons voir ce que fait le code :
 
 - Nous enregistrons un nouvel addon dans notre Storybook.
-- Ajoutez un nouvel élément d'interface utilisateur pour notre addon avec quelques options (un titre qui définira notre addon et le type d'élément utilisé) et rendez le avec du texte pour l'instant.
+- Ajoutez un nouvel élément UI pour notre addon avec quelques options (un titre qui définira notre addon et le type d'élément utilisé) et rendez le avec du texte pour l'instant.
 
-Si nous démarrons Storybook à ce stade, nous ne pourrons pas encore voir l'addon. Comme nous l'avons fait précédemment avec l'extension Knobs, nous devons enregistrer la nôtre dans le fichier `.storybook/main.js`. Il suffit d'ajouter ce qui suit à la liste des `addons` déjà existants :
+Si nous démarrons Storybook à ce stade, nous ne pourrons pas encore voir l'addon. Comme nous l'avons fait précédemment avec l'addon Controls, nous devons enregistrer la nôtre dans le fichier `.storybook/main.js`. Il suffit d'ajouter ce qui suit à la liste des `addons` déjà existants :
 
 ```js
 // .storybook/main.js
@@ -109,9 +109,9 @@ module.exports = {
 
 ![addon de design assets fonctionnant dans Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
 
-Succès! Nous avons ajouté notre nouvel addon à l'interface utilisateur de Storybook.
+Succès! Nous avons ajouté notre nouvel addon à l'UI de Storybook.
 
-<div class="aside">Storybook vous permet d'ajouter non seulement des panneaux, mais aussi toute une série de types de composants d'interface utilisateur différents. Et la plupart, sinon tous, sont déjà créés dans le paquet @storybook/components, afin que vous ne perdiez pas trop de temps à implémenter l'interface utilisateur et que vous vous concentriez sur l'écriture de fonctionnalités.</div>
+<div class="aside">Storybook vous permet d'ajouter non seulement des panneaux, mais aussi toute une série de types de composants d'UI différents. Et la plupart, sinon tous, sont déjà créés dans le paquet @storybook/components, afin que vous ne perdiez pas trop de temps à implémenter l'UI et que vous vous concentriez sur l'écriture de fonctionnalités.</div>
 
 ### Création du composant contenu
 
@@ -184,18 +184,18 @@ addons.register('my/design-addon', () => {
 
 Remarquez que nous utilisons le [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), ce hook pratique nous permettra de lire les informations fournies par l'option `paramètres` pour chaque story, qui dans notre cas sera soit un chemin unique vers un assets, soit une liste de chemins. Vous le verrez bientôt entrer en vigueur.
 
-### Utiliser notre addon avec une histoire
+### Utiliser notre addon avec un story
 
-Nous avons connecté toutes les pièces nécessaires. Mais comment pouvons-nous voir si cela fonctionne et affiche quelque chose ?
+Nous avons connecté toutes les pièces nécessaires. Mais comment pouvons-nous voir si cela fonctionne et affiche quelque chose?
 
 Pour ce faire, nous allons apporter une petite modification au fichier `Task.stories.js` et ajouter l'option [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options).
 
 ```javascript
 // src/components/Task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
-  decorators: [withKnobs],
   parameters: {
     assets: [
       'path/to/your/asset.png',
@@ -203,22 +203,25 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
+  argTypes: {
+    /* ...actionsData, */
+    backgroundColor: { control: 'color' },
+  },
 };
-/* same as before  */
+/* comme avant  */
 ```
 
 Allez-y, redémarrez votre Storybook et sélectionnez le story Task, vous devriez voir quelque chose comme ceci :
 
 ![story de Storybook montrant le contenu avec l'addon design assets](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
-### Afficher le contenu dans notre addon
+### Afficher du contenu dans notre addon
 
 À ce stade, nous pouvons voir que l'addon fonctionne comme il le devrait, mais maintenant changeons le composant `Contenu` pour afficher réellement ce que nous voulons:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -273,7 +276,7 @@ const Content = () => {
 };
 ```
 
-Si vous regardez de plus près, vous verrez que nous utilisons le tag `style`, ce tag vient du paquet `@storybook/theming`. L'utilisation de cette balise nous permettra de personnaliser non seulement le thème de Storybook mais aussi l'interface utilisateur en fonction de nos besoins. De plus, [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), qui est un hook très pratique, nous permet d'accéder à l'état interne de Storybook afin de récupérer n'importe quelle information présente. Dans notre cas, nous l'utilisons pour récupérer uniquement l'id de chaque histoire créée.
+Si vous regardez de plus près, vous verrez que nous utilisons le tag `style`, ce tag vient du paquet `@storybook/theming`. L'utilisation de cette balise nous permettra de personnaliser non seulement le thème de Storybook mais aussi l'UI en fonction de nos besoins. De plus, [`useStorybookState`](https://storybook.js.org/docs/addons/api/#usestorybookstate), qui est un hook très pratique, nous permet d'accéder à l'état interne de Storybook afin de récupérer n'importe quelle information présente. Dans notre cas, nous l'utilisons pour récupérer uniquement l'id de chaque story créé.
 
 ### Affichage des assets réels
 
@@ -293,7 +296,7 @@ Revenir sur nos objectifs initiaux :
 
 Nous y sommes presque, il ne reste plus qu'un but à atteindre.
 
-Pour le dernier, nous allons avoir besoin d'une sorte d'état, nous pourrions utiliser le hook `useState` de React, ou si nous travaillions avec des composants de classe `this.setState()`. Mais à la place, nous allons utiliser le `useAddonState` de Storybook, qui nous donne un moyen de persister l'état de l'addon, et d'éviter de créer une logique supplémentaire pour persister l'état local. Nous utiliserons également un autre élément de l'interface utilisateur de Storybook, l'`ActionBar`, qui nous permettra de passer d'un élément à l'autre.
+Pour le dernier, nous allons avoir besoin d'une sorte d'état, nous pourrions utiliser le hook `useState` de React, ou si nous travaillions avec des composants de classe `this.setState()`. Mais à la place, nous allons utiliser le `useAddonState` de Storybook, qui nous donne un moyen de persister l'état de l'addon, et d'éviter de créer une logique supplémentaire pour persister l'état local. Nous utiliserons également un autre élément de l'UI de Storybook, l'`ActionBar`, qui nous permettra de passer d'un élément à l'autre.
 
 Nous devons adapter nos imports à nos besoins :
 
@@ -304,7 +307,7 @@ import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
 ```
 
-Et modifier notre composant `Contenu, afin que nous puissions passer d'un asset à l'autre:
+Et modifier notre composant `Content`, afin que nous puissions passer d'un asset à l'autre:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -344,13 +347,14 @@ const Content = () => {
 
 ## Addon construit
 
-Nous avons accompli ce que nous nous étions fixé comme objectif, à savoir créer un addon Storybook pleinement fonctionnel qui affiche les design assets liés aux composants de l'interface utilisateur.
+Nous avons accompli ce que nous nous étions fixé comme objectif, à savoir créer un addon Storybook pleinement fonctionnel qui affiche les design assets liés aux composants de l'UI.
 
 <details>
   <summary>Cliquez pour étendre et voir le code complet utilisé dans cet exemple</summary>
 
 ```javascript
 // .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
