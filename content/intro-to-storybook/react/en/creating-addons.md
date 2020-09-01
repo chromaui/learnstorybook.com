@@ -97,7 +97,7 @@ This is the typical boilerplate code to get you started. Going over what the cod
 - We're registering a new addon in our Storybook.
 - Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.
 
-Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
+Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Controls addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
 
 ```js
 // .storybook/main.js
