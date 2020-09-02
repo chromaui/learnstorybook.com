@@ -10,7 +10,7 @@ everybody in your team. If you've been following along with this tutorial linear
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
 <br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
+😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
 </div>
 
 We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -30,7 +30,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 
 First, we will need to install all the necessary dependencies.
 
-```bash
+```shell
 npm install -D @storybook/addon-knobs
 ```
 
@@ -61,6 +61,7 @@ First, import the `withKnobs` decorator and the `object` knob type to `Task.stor
 
 ```javascript
 // src/components/Task.stories.js
+
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
@@ -81,6 +82,7 @@ Lastly, integrate the `object` knob type within the "standard" story:
 
 ```javascript
 // src/components/Task.stories.js
+
 export const Default = () => ({
   Component: Task,
   props: {
@@ -100,7 +102,7 @@ As documented [here](https://github.com/storybooks/storybook/tree/master/addons/
 
 ## Addons Evolve Your Storybook's Scope
 
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
+Not only does your Storybook instance serve as a wonderful [CDD environment](https://www.componentdriven.org/), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
 
 ## Using Knobs To Find Edge-Cases
 
@@ -111,7 +113,7 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.svelte`:
 
 ```svelte
-<!-- src/components/Task.svelte-->
+<!-- src/components/Task.svelte -->
 
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
   but for this tutorial, let's fix the problem with an inline style-->
