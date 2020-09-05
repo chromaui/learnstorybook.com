@@ -27,7 +27,8 @@ commit: 3a5cd35
 
 ![Package a design system](/design-systems-for-developers/design-system-package.jpg)
 
-## Prepare your design system for export
+## 디자인 시스템 Export 준비하기 
+
 create-react-app을 이용해서 디자인 시스템을 만들고 있기 때문에 create-react-app의 초기 상태와 스크립트들을 정리해야 합니다. 
 
 우선, 기초적인 README.md 파일을 추가합니다.
@@ -174,7 +175,7 @@ yarn auto create-labels
 
 #### 직접 Auto를 이용해서 첫 릴리즈 배포하기
 
-차후에는 `Auto`에서 스크립트를 통해 새로운 버전 숫자들을 계산할 것입니다. 하지만 첫 번째 릴리즈에서는 명령어를 직접 입력해서 릴리즈 배포가 어떻게 실행되는지 알아봅니다. 첫 changelog를 생성합니다.
+차후에는 `Auto`에서 스크립트를 통해 새로운 버전 숫자들을 계산할 것입니다. 하지만 첫 번째 릴리즈에서는 명령어를 직접 입력해서 릴리즈 배포가 어떻게 실행되는지 알아봅시다. 첫 changelog를 생성합니다.
 
 ```bash
 yarn auto changelog
@@ -242,7 +243,7 @@ yarn auto release
 
 이제 `yarn release` 명령어를 실행하면 (자동 생성된 changelog를 사용하는 것을 제외하고) 위의 단계들이 모두 자동으로 진행됩니다. `master`에 푸쉬 된 모든 커밋들이 배포됩니다.
 
-축하합니다! 수동으로 디자인 시스템 릴리즈를 배포할 수 있는 인프라 구조를 구축했습니다! 이제 지속해서 통합(integration)을 할 수 있도록 릴리즈를 자동화하는 법을 배워봅니다.
+축하합니다! 수동으로 디자인 시스템 릴리즈를 배포할 수 있는 인프라 구조를 구축했습니다! 이제 지속적 통합(CI)을 할 수 있도록 릴리즈를 자동화하는 법을 배워봅니다.
 
 ## 릴리즈 자동 배포하기
 
@@ -250,7 +251,7 @@ yarn auto release
 
 #### Github Secrets에 토큰 추가하기
 
-Github Secrets에 우리의 리퍼지터리에 관련된 민감한 정보들을 저장할 수 있습니다. 브라우저에서 깃헙 리퍼지터리를 열어보세요. 
+Github Secrets에 우리의 저장소에 관련된 민감한 정보들을 저장할 수 있습니다. 브라우저에서 깃헙 저장소를 열어보세요. 
 
 ⚙️ Settings 설정 탭을 클릭하고, 사이드바에 있는 Secrets 링크를 클릭하세요. 다음과 같은 화면이 뜰 것입니다.
 
@@ -260,7 +261,7 @@ Github Secrets에 우리의 리퍼지터리에 관련된 민감한 정보들을 
 
 ![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
 
-npm secret을 리포지터리에 추가하면 `secrets.NPM_TOKEN`으로 접근할 수 있습니다. 깃헙 토큰을 위해 또 다른 secret을 만들 필요는 없습니다. 모든 깃헙 사용자들은 자동으로 본인의 계정과 연동된 `secrets.NPM_TOKEN`를 발급받습니다.
+npm secret을 리포지터리에 추가하면 `secrets.NPM_TOKEN`을 접근할 수 있습니다. 깃헙 토큰을 위해 또 다른 secret을 만들 필요는 없습니다. 모든 깃헙 사용자들은 자동으로 본인의 계정과 연동된 `secrets.NPM_TOKEN`를 발급받습니다.
 
 #### GitHub Actions로 릴리즈 자동화하기
 
@@ -311,7 +312,7 @@ jobs:
           yarn release
 ```
 
-이 변경사항을 저장하고 원격 리퍼지터리에 커밋합니다.
+이 변경사항을 저장하고 원격 저장소에 커밋합니다.
 
 성공! 이제 사용자가 마스터에 풀 리퀘스트를 merge 할 때 마다 새로운 버전이 배포되고 사용자가 추가한 레이블에 맞춰서 버전 숫자가 업데이트됩니다. 
 
@@ -327,11 +328,11 @@ jobs:
 
 이 튜토리얼의 앞부분에서 우리는 프런트 엔드 기술로 인기가 많은 React와 styled-components를 기준으로 설정했습니다. 즉, 디자인 시스템의 장점을 최대한 많이 사용하기 위해서는 우리의 예제 앱도 React와 styled-components를 사용해야 합니다.
 
-<div class="aside">Svelte나 다른 웹 컴포넌트들을 사용하면 프레임워크에 구애받지 않는 UI 컴포넌트를 만들 수도 있습니다. 하지만 그 방법들은 만들어진 지 얼마 되지 않았거나 문서화가 부족하거나 다방면으로 적용되기 어려울 수 있기 때문에 이 가이드에는 아직 포함하지 않았습니다. </div>
+<div class="aside">Svelte나 다른 웹 컴포넌트들을 사용하면 프레임워크에 구애받지 않는 UI 컴포넌트를 만들 수도 있습니다. 하지만 그 방법들은 만들어진 지 얼마 되지 않았거나, 문서화가 부족하거나 다방면으로 적용되기 어려울 수 있기 때문에 이 가이드에는 아직 포함하지 않았습니다. </div>
 
 이 예제 앱은 [컴포넌트 주도 개발 Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)를 할 수 있도록 스토리북을 사용합니다. 컴포넌트 주도 개발은 컴포넌트로 바닥부터 시작해서 페이지로 끝내는 UI 구축 방법입니다. 데모에서 우리는 두 개의 스토리북을 번갈아 가며 실행할 것입니다. 하나는 예제 앱, 하나는 디자인 시스템을 위한 것입니다.
 
-깃헙에서 아래 예제 앱 리퍼지터리를 clone 해줍니다.
+깃헙에서 아래 예제 앱 저장소를 clone 해줍니다.
 
 ```bash
 git clone https://github.com/chromaui/learnstorybook-design-system-example-app.git
@@ -395,7 +396,7 @@ addDecorator(story => (
 
 ![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories.png)
 
-이제 예제 앱을 개발하면서 동시에 디자인 시스템 컴포넌트와 문서도 볼 수 있습니다. 기능을 구현하는 중에 디자인 시스템을 볼 수 있다면 개발자들이 스스로 컴포넌트를 만드느라 시간을 낭비하지 않고 만들어진 컴포넌트를 재사용할 수 있습니다.
+이제 예제 앱을 개발하면서 동시에 디자인 시스템 컴포넌트와 문서도 볼 수 있습니다. 기능을 구현하는 중에 디자인 시스템을 볼 수 있다면 개발자들이 스스로 컴포넌트를 만드느라 시간을 낭비하지 않고 만들어진 컴포넌트를 재사용 가능합니다.
 
 만약 4장에서 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">Chromatic</a>에 스토리북을 배포했다면 본인이 만든 디자인 시스템의 스토리북을 볼 수 있습니다. 
 
@@ -439,7 +440,7 @@ export default ({ user: { name, avatarUrl } }) => (
 );
 ```
 
-저장하면 UserItem 컴포넌트가 스토리북에서 업데이트되고 새로운 Avatar 컴포넌트가 보입니다. UserItem가 UserList에 속해 있기 때문에 UserList에서도 Avatar를 볼 수 있습니다.
+저장하면 UserItem 컴포넌트가 스토리북에서 업데이트되고 새로운 Avatar 컴포넌트가 보입니다. UserItem이 UserList에 속해 있기 때문에 UserList에서도 Avatar를 볼 수 있습니다.
 
 ![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system.png)
 
