@@ -89,7 +89,7 @@ yarn test
 yarn storybook
 
 # Run the frontend app proper on port 19002:
-yarn start
+yarn web
 ```
 
 ![3 modalities](/intro-to-storybook/app-three-modalities-rn.png)
