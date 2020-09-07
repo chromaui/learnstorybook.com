@@ -9,19 +9,19 @@ commit: eabed3d
 
 ## 단일한 진실 지점(SSOT)인가, 단일한 장애 지점(SPOF)인가
 
-이 전에, 디자인 시스템은 프런트엔드 팀에 있어서 [단일한 장애 지점](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) 이라고 한 적이 있습니다. 결국 디자인 시스템이란 의존성이기 때문입니다. 당신이 디자인 시스템 컴포넌트를 바꾸면, 그 변화는 의존 관계의 앱들로 퍼지게 됩니다. 변화가 퍼지는 방식은 공평합니다. 개선된 부분과 버그가 함께 있기 때문입니다.
+이 전에, 디자인 시스템은 프런트엔드 팀에 있어서 [단일한 장애 지점](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) 이라고 한 적이 있습니다. 결국 디자인 시스템이란 디펜던시(Dependency)이기 때문입니다. 디자인 시스템 컴포넌트를 바꾸면, 그 변화는 의존 관계에 있는 앱들로 퍼지게 됩니다. 변화가 퍼지는 방식은 공평합니다. 개선된 부분과 버그가 함께 있기 때문입니다.
 
 ![Design system dependencies](/design-systems-for-developers/design-system-dependencies.png)
 
-버그는 디자인 시스템에 있어서 치명적인 문제점이기 때문에 우리는 모두 버그를 예방하기 위해 큰 노력을 합니다. 작은 변화가 셀 수 없이 많은 버그가 될 수도 있습니다. 지속적 관리가 없으면 디자인 시스템은 실패의 길을 걷게 될 것입니다.
+버그는 디자인 시스템에 있어서 치명적인 문제점이기 때문에 우리는 모두 버그를 예방하기 위해 큰 노력을 합니다. 작은 변화가 셀 수 없이 많은 버그가 될 수도 있습니다. 지속해서 관리하지 않으면 디자인 시스템은 무용지물이 될 것입니다.
 
 > “내 컴퓨터에서는 잘 되던데?!” – 모두
 
 ## 팀과 함께 UI 컴포넌트 비주얼 리뷰하기
 
-비주얼 리뷰는 UI의 기능과 미학을 결정짓는 과정입니다. 이는 UI 개발 과정 및 팀과 QA 진행 시 모두 필요합니다. 
+비주얼 리뷰는 UI의 기능과 미학을 결정짓는 과정입니다. 이는 UI 개발 과정 및 QA 진행 시 모두 필요합니다. 
 
-대부분의 개발자들은, 코드 퀄리티를 향상하기 위해 다른 개발자들로부터 피드백을 주고받는 과정인 코드 리뷰에 익숙합니다. UI 컴포넌트는 코드를 시각적으로 표현하므로, 비주얼 리뷰는 UI/UX와 관련한 피드백을 주고받기 위해 필수적입니다. 
+대부분의 개발자들은 코드 퀄리티를 향상하기 위해 다른 개발자들로부터 피드백을 주고받는 과정인 코드 리뷰에 익숙합니다. UI 컴포넌트는 코드를 시각적으로 표현하므로, 비주얼 리뷰는 UI/UX와 관련한 피드백을 주고받기 위해 필수적입니다. 
 
 ### 전체적인 참조 지점 수립하기
 
@@ -37,7 +37,7 @@ UI 컴포넌트들이 URL을 통해 접근 가능할 때, 관계자들은 UI가 
 
 <h2 id="publish-storybook">스토리북 퍼블리싱하기</h2>
 
-우리는 스토리북 관리자들이 만든 무료 퍼블리싱 서비스인 [Chromatic](https://www.chromatic.com/) 을 통해 비주얼 리뷰의 예를 보여줄 것입니다. 이는 여러분이 클라우드에 스토리북을 안전하게 그리고 안정적으로 배포하고 호스트 할 수 있게 해줄 뿐만 아니라, [스토리북을 정적 사이트로 만들고 다른 호스팅 서비스에 배포하기](https://storybook.js.org/docs/basics/exporting-storybook/) 도 상당히 수월하게 해줍니다.
+우리는 스토리북 관리자들이 만든 무료 퍼블리싱 서비스인 [크로마틱(Chromatic)](https://www.chromatic.com/) 을 통해 비주얼 리뷰의 예를 보여줄 것입니다. 이는 여러분이 클라우드에 스토리북을 안전하게 그리고 안정적으로 배포하고 호스트 할 수 있게 해줄 뿐만 아니라, [스토리북을 정적 사이트로 만들고 다른 호스팅 서비스에 배포하기](https://storybook.js.org/docs/basics/exporting-storybook/) 도 상당히 수월하게 해줍니다.
 
 ### 크로마틱 시작하기
 
@@ -45,7 +45,7 @@ UI 컴포넌트들이 URL을 통해 접근 가능할 때, 관계자들은 UI가 
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
-크로마틱에서 다자인 시스템 저장소를 선택합니다. 실제로는, 이는 접근 권한을 동기화하고 PR 체크 기능을 설치하는 과정입니다.
+크로마틱에서 다자인 시스템 저장소를 선택합니다. 실제로 이는 접근 권한을 동기화하고 PR 체크 기능을 설치하는 과정입니다.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -60,7 +60,7 @@ npm을 통해 [chromatic](https://www.npmjs.com/package/chromatic) 패키지를 
 yarn add --dev chromatic
 ```
 
-설치되었으면, 아래 커맨드를 실행해 스토리북을 빌드하고 배포합니다. (크로마틱 웹사이트에서 제공되는 `project-token`을 사용해야 합니다)
+설치되었으면 아래 커맨드를 실행해 스토리북을 빌드하고 배포합니다. (크로마틱 웹사이트에서 제공되는 `project-token`을 사용해야 합니다)
 
 ```bash
 npx chromatic --project-token=<project-token>
@@ -68,15 +68,15 @@ npx chromatic --project-token=<project-token>
 
 ![Chromatic in the command line](/design-systems-for-developers/chromatic-manual-storybook-console-log.png)
 
-위 링크를 복사한 후 새로운 브라우저 창에 붙여넣어 퍼블리쉬된 스토리북을 살펴봅니다. 로컬 스토리북 개발환경이 온라인에서 그대로 구현될 것을 볼 수 있습니다.
+위 링크를 복사한 후 새로운 브라우저 창에 붙여넣어 퍼블리쉬된 스토리북을 살펴봅니다. 로컬 스토리북 개발환경이 온라인에서 그대로 구현된 것을 볼 수 있습니다.
 
 ![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook.png)
 
-이는 여러분의 팀이, 실제로 렌더링 된 UI 컴포넌트들을 리뷰하는 과정을 원활하게 합니다. 마치 로컬 개발환경에서 리뷰하듯이 말입니다. 아래는 여러분이 크로마틱에서 보게 될 결과입니다.
+이는 여러분의 팀이 실제로 렌더링 된 UI 컴포넌트들을 리뷰하는 과정을 원활하게 합니다. 마치 로컬 개발환경에서 리뷰하듯이 말입니다. 아래는 여러분이 크로마틱에서 보게 될 결과입니다.
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
-축하드립니다! 이제 스토리북을 퍼블리쉬하기 위한 인프라가 만들어졌으므로, 지속적 통합(CI)을 통해 더 발전 시켜 나가 봅시다.
+축하드립니다! 이제 스토리북을 배포하기 위한 인프라가 만들어졌으므로, 지속적 통합(CI)을 통해 더 발전 시켜 나가 봅시다.
 
 ### 지속적 통합(CI)
 
@@ -135,7 +135,7 @@ git push origin master
 
 ## 팀에게 비주얼 리뷰 요청하기
 
-풀 리퀘스트가 UI 변동사항을 동반할 때마다, 유저에게 무엇을 전달할지에 관해 합의에 이르기 위해 관련자들과 비주얼 리뷰 과정을 항상 거치는 것이 도움 됩니다. 
+풀 리퀘스트가 UI 변동사항을 동반할 때마다, 유저에게 무엇을 전달할지에 관해 합의에 이르기 위해 이해 당사자들과 비주얼 리뷰 과정을 항상 거치는 것이 도움 됩니다. 
 
 우리는 새로운 브랜치에 UI 변경을 함으로써 비주얼 리뷰를 보여주겠습니다.
 
