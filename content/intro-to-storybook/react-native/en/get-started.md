@@ -94,7 +94,7 @@ yarn web
 
 ![3 modalities](/intro-to-storybook/app-three-modalities-rn.png)
 
-Your storybook server won't be able to load the stories list just yet, but we'll fix this in the next steps.
+Checking our Storybook at this point, you might see that there's no stories displayed. That's ok, we'll take care of it shortly, for now, let's continue working on getting our application properly setup.
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 
