@@ -37,7 +37,7 @@ As such, our design system must be independent of any project and also a depende
 
 React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial along with the popular [create-react-app](https://github.com/facebook/create-react-app) boilerplate.
 
-```bash
+```shell
 npx create-react-app learnstorybook-design-system
 ```
 
@@ -49,7 +49,7 @@ Once create-react-app has created our repository, we can push it to GitHub (whic
 
 Then use GitHub’s instructions to add the remote to your git repo and pushing (the so-far mostly empty) repo:
 
-```bash
+```shell
 cd learnstorybook-design-system
 git remote add origin https://github.com/chromaui/learnstorybook-design-system.git
 git push -u origin master
@@ -86,7 +86,7 @@ Following this method, we end up with UI primitives: Avatar, Badge, Button, Chec
 
 At this stage it's safe to delete the src folder that Create React App created for us when we initialized our design system earlier. Don't worry we won't be needing it. Then you can add the components already found by downloading them to your computer and also into your local repository:
 
-```bash
+```shell
 rm -rf src
 
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
@@ -100,7 +100,7 @@ For the code sample, we’ve selected a subset of these components to make reaso
 
 We’ll also need to update dependencies that our components rely on.
 
-```bash
+```shell
 yarn add prop-types styled-components polished
 ```
 
@@ -110,7 +110,7 @@ In addition to UI components, it makes sense to include styling constants for ty
 
 Download our design tokens here and add them to your repository.
 
-```bash
+```shell
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared
 ```
 
