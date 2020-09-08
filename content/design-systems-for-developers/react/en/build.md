@@ -138,16 +138,15 @@ Let’s see how to use it in our Button element, which optionally takes a wrappe
 
 import React from 'react';
 import styled from 'styled-components';
-import { action } from '@storybook/addon-actions';
 
 // When the user clicks a button, it will trigger the `action()`,
 // ultimately showing up in Storybook's addon panel.
 function ButtonWrapper(props) {
-  return <CustomButton onClick={action('button action click')} {...props} />;
+  return <CustomButton {...props} />;
 }
 
-export const buttonWrapper = () => (
-<Button ButtonWrapper={ButtonWrapper} appearance="primary">
+export const buttonWrapper = (args) => (
+  return <CustomButton {...props}/>;
 // … etc ..
 )
 ```
