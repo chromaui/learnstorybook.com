@@ -85,7 +85,7 @@ import ReactDOM from 'react-dom';
 import { Link } from './Link';
 
 // A straightforward link wrapper that renders an <a> with the passed props. What we are testing
-// here is that the Link component passes the right props to the wrapper and itselfs
+// here is that the Link component passes the right props to the wrapper and itself.
 const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
 it('has a href attribute when rendering with linkWrapper', () => {
@@ -148,7 +148,7 @@ Disabilities affect 15% of the population according to the [World Health Organiz
 
 Get a headstart on inclusive UI with Storybook’s Accessibility addon, a tool for verifying web accessibility standards (WCAG) in realtime.
 
-```bash
+```shell
 yarn add --dev @storybook/addon-a11y
 
 ```
@@ -159,45 +159,58 @@ Add the addon in `.storybook/main.js`:
 // .storybook/main.js
 
 module.exports = {
-  stories: ['../src/**/*.stories.js']
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
-    '@storybook/addon-storysource',
-    '@storybook/addon-knobs',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
     '@storybook/addon-a11y',
   ],
 };
 ```
 
-And add the `withA11y` decorator to `.storybook/preview.js`:
+Update your `.storybook/preview.js`'s [parameters](https://storybook.js.org/docs/react/writing-stories/parameters) and add the following `a11y` configuration:
 
 ```javascript
 //.storybook/preview.js
 
 import React from 'react';
-import { addDecorator } from '@storybook/react';
-import { withA11y } from '@storybook/addon-a11y';
 
 import { GlobalStyle } from '../src/shared/global';
 
-addDecorator(withA11y);
-addDecorator(story => (
-  <>
-    <GlobalStyle />
-    {story()}
-  </>
-));
+export const decorators = [
+  Story => (
+    <>
+      <GlobalStyle />
+      <Story />
+    </>
+  ),
+];
+
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  // Storybook a11y addon configuration
+  a11y: {
+    // the target DOM element
+    element: '#root',
+    // sets the execution mode for the addon
+    manual: false,
+  },
+};
 ```
 
-Once installed, you’ll see a new “Accessibility” tab in the Storybook addons panel.
+Once all is setup, you’ll see a new “Accessibility” tab in the Storybook addons panel.
 
-![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y.png)
+![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y-6-0.png)
 
 This shows you accessibility levels of DOM elements (violations and passes). Click the “highlight results” checkbox to visualize violations in situ with the UI component.
 
-![Storybook a11y addon with passes highlighted](/design-systems-for-developers/storybook-addon-a11y-highlighted.png)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/design-systems-for-developers/storybook-addon-a11y-6-0-highlighted.mp4"
+    type="video/mp4"
+  />
+</video>
 
 From here, follow the addon’s accessibility recommendations.
 

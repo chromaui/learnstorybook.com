@@ -56,13 +56,13 @@ From there choose your design system repo. Behind the scenes, this will sync acc
 
 Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
 
-```bash
+```shell
 yarn add --dev chromatic
 ```
 
 Once it's installed, run the the following command to build and deploy your Storybook (you'll need to use the `project-token` that Chromatic supplies on the website):
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -70,7 +70,7 @@ npx chromatic --project-token=<project-token>
 
 Browse your published Storybook by copying the provided link and paste it in a new browser window. You’ll find that your local Storybook development environment is mirrored online.
 
-![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook.png)
+![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook-6-0.png)
 
 This makes it easy for your team to review the real rendered UI components just as you see them locally. And here's the confirmation you'll see in Chromatic.
 
@@ -105,7 +105,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-      #- run: yarn build-storybook
       - uses: chromaui/action@v1
         # options required to the GitHub chromatic action
         with:
@@ -115,19 +114,19 @@ jobs:
 
 Add the change with:
 
-```bash
+```shell
 git add .
 ```
 
 Commit it:
 
-```bash
+```shell
 git commit -m "Storybook deployment with GitHub action"
 ```
 
 Finally, push it to the remote repository with:
 
-```bash
+```shell
 git push origin master
 ```
 
@@ -139,7 +138,7 @@ Every time a pull request contains UI changes, it’s useful to initiate a visua
 
 We’ll demo visual review by making a UI change on a new branch.
 
-```bash
+```shell
 git checkout -b improve-button
 ```
 
@@ -158,8 +157,8 @@ const StyledButton = styled.button`
 
 Commit the change and push it to your GitHub repo.
 
-```bash
-git commit -am “make Button pop”
+```shell
+git commit -am "make Button pop"
 git push -u origin improve-button
 ```
 

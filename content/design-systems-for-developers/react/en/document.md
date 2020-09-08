@@ -35,40 +35,17 @@ As Storybook users, we have a head start because component variations are alread
 
 ## Write stories, generate docs
 
-With the Storybook Docs addon, we can generate rich documentation from existing stories to reduce maintenance time and get out-of-the-box defaults. First, navigate to your design system directory. We’ll install the docs addon:
+With the Storybook Docs addon, we can generate rich documentation from existing stories to reduce maintenance time and get out of the box defaults.
+Like the addons we've covered in the [build](/react/en/build/) chapter (Controls and Actions), the Docs addon is also included and configured with each Storybook install, so we can focus on writing good documentation.
 
-```bash
-yarn add --dev @storybook/addon-docs
-```
+Each time you open your Storybook you should see two tabs:
 
-We'll add it to our addons list in `.storybook/main.js`:
+- 🖼️ “Canvas” tab is your component development environment.
+- 📝 “Docs” tab is your component documentation.
 
-```javascript
-// .storybook/main.js
+![Storybook docs tab](/design-systems-for-developers/storybook-docs-6-0.png)
 
-module.exports = {
-  stories: ['../src/**/*.stories.js'],
-  addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
-    '@storybook/addon-links',
-    '@storybook/addon-storysource',
-    '@storybook/addon-knobs',
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        configureJSX: true,
-      },
-    },
-  ],
-};
-```
-
-You should see two tabs in your Storybook. “Canvas” tab is your component development environment. “Docs” is your component documentation.
-
-![Storybook docs tab](/design-systems-for-developers/storybook-docs.png)
-
-Behind the scenes, Storybook Docs created a new “Docs” tab for each component. It populated the tab with frequently used documentation pieces like interactive previews, source code viewers, and a props table. You’ll find similar features in the design system documentation of Shopify and Auth0. All in less than 5 minutes.
+Behind the scenes, Storybook Docs created a new “Docs” tab for each component. It populated the tab with frequently used documentation pieces like interactive previews, source code viewers, and an args table. You’ll find similar features in the design system documentation of Shopify and Auth0. All in less than 2 minutes.
 
 ## Extending documentation
 
@@ -80,19 +57,18 @@ Start by adding more metadata that explains what the component does. In `src/Ava
 // src/Avatar.stories.js
 
 export default {
-  title: 'Design System|Avatar',
-
+  title: 'Design System/Avatar',
+  component: Avatar,
   parameters: {
-    component: Avatar,
     componentSubtitle: 'Displays an image that represents a user or organization',
   },
 };
 ```
 
-Next add JSdoc to the Avatar component (in `src/components/Avatar.js`) that provides a description to be read:
+Next add JSdoc to the Avatar component (in `src/Avatar.js`) that provides a description to be read:
 
 ```javascript
-// src/components/Avatar.js
+// src/Avatar.js
 
 /**
 - Use an avatar for attributing actions or content to specific users.
@@ -104,9 +80,9 @@ export function Avatar({ loading, username, src, size, ...props }) {
 
 You should now see this:
 
-![Storybook docs tab with component details](/design-systems-for-developers/storybook-docspage.png)
+![Storybook docs tab with component details](/design-systems-for-developers/storybook-docspage-6-0.png)
 
-Storybook Docs automatically generated the prop table that shows types and default values. That’s convenient, but it doesn’t mean Avatar is dummy-proof – several props can be misused. Add comments in your proptypes to render them in the auto-generated prop table.
+Storybook Docs automatically generated the args table that shows types and default values. That’s convenient, but it doesn’t mean Avatar is dummy-proof – several arguments (props) can be misused. Add comments in your proptypes to render them in the auto-generated args table.
 
 ```javascript
 // src/components/Avatar.js
@@ -137,36 +113,34 @@ By default, every Avatar story is rendered in the docs. We can’t assume other 
 ```javascript
 // src/Avatar.stories.js
 
-export const sizes = () => (
+export const Sizes = args => (
   <div>
-    <Avatar
-      size="large"
-      username="Tom Coleman"
-      src="https://avatars2.githubusercontent.com/u/132554"
-    />
-    <Avatar
-      size="medium"
-      username="Tom Coleman"
-      src="https://avatars2.githubusercontent.com/u/132554"
-    />
-    <Avatar
-      size="small"
-      username="Tom Coleman"
-      src="https://avatars2.githubusercontent.com/u/132554"
-    />
-    <Avatar
-      size="tiny"
-      username="Tom Coleman"
-      src="https://avatars2.githubusercontent.com/u/132554"
-    />
+    <Avatar {...args} size="large" />
+    <Avatar {...args} size="medium" />
+    <Avatar {...args} size="small" />
+    <Avatar {...args} size="tiny" />
   </div>
 );
-sizes.story = {
-  parameters: { docs: { storyDescription: '4 sizes are supported.' } },
+
+Sizes.args = {
+  username: 'Tom Coleman',
+  src: 'https://avatars2.githubusercontent.com/u/132554',
+};
+
+Sizes.parameters = {
+  docs: {
+    // The story now contains a description
+    storyDescription: '4 sizes are supported.',
+  },
 };
 ```
 
-![Storybook docs tab with filled out details](/design-systems-for-developers/storybook-docspage-expanded.png)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/design-systems-for-developers/storybook-docspage-expanded-6-0.mp4"
+    type="video/mp4"
+  />
+</video>
 
 #### Supercharge documentation with Markdown/MDX
 
@@ -174,43 +148,42 @@ Every component is different and so are the documentation requirements. We used 
 
 Markdown is a straightforward format for writing text. MDX allows you to use interactive code (JSX) inside of Markdown. Storybook Docs uses MDX to give developers ultimate control over how documentation renders.
 
-First, let’s take control of the Avatar doc generation from the default. Register MDX files in `.storybook/main.js` like so.
+As part of the Storybook install workflow, MDX files are registered by default. Your `.storybook/main.js` should look like so:
 
 ```javascript
 // .storybook/main.js
 
 module.exports = {
-  // automatically import all files ending in *.stories.js|mdx
-  stories: ['../src/**/*.stories.(js|mdx)'],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
-    '@storybook/addon-storysource',
-    '@storybook/addon-knobs',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
     '@storybook/addon-a11y',
-    '@storybook/addon-docs',
   ],
 };
 ```
 
 Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remove the `Avatar.stories.js` file and recreate the stories in the mdx file:
 
+<!-- prettier-ignore-start -->
+
 ```javascript
 // src/Avatar.stories.mdx
 
-import { Meta, Story } from '@storybook/addon-docs/blocks';
-import { withKnobs, select, boolean } from '@storybook/addon-knobs';
+import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
 
 import { Avatar } from './Avatar';
 
-<Meta title="Design System|Avatar" component={Avatar} />
+<Meta title="Design System/Avatar" component={Avatar} />
 
 # Avatar
 
 ## Displays an image that represents a user or organization
 
-Use an avatar for attributing actions or content to specific users. The user's name should _always_ be present when using Avatar – either printed beside the avatar or in a tooltip.
+Use an avatar for attributing actions or content to specific users.
+
+The user's name should _always_ be present when using Avatar – either printed beside the avatar or in a tooltip.
 
 <Story name="standard">
   <Avatar
@@ -251,7 +224,9 @@ Use an avatar for attributing actions or content to specific users. The user's n
 
 ### Default Values
 
-When no image is supplied to the `src` prop, Avatar displays initials. Avatar should be used sparingly in situations without access to images.
+When no image is supplied to the `src` prop, Avatar displays initials.
+
+Avatar should be used sparingly in situations without access to images.
 
 <Story name="initials">
   <div>
@@ -277,30 +252,36 @@ The loading state is used when the image or username is, well, loading.
 
 ### Playground
 
-Experiment with this story with Knobs addon in Canvas mode.
+Experiment with this story with the Controls addon in the Canvas tab.
 
-<Story name="knobs" parameters={{ decorators: [withKnobs] }}>
-  <Avatar
-    loading={boolean('Loading')}
-    size={select('Size', ['tiny', 'small', 'medium', 'large'])}
-    username="Dominic Nguyen"
-    src="https://avatars2.githubusercontent.com/u/263385"
-  />
-</Story>
+export const Template = (args) => <Avatar {...args} />
+
+<Canvas>
+  <Story name="controls" args={{
+    loading: false,
+    size: "tiny",
+    username: "Dominic Nguyen",
+    src: "https://avatars2.githubusercontent.com/u/263385"
+  }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
 ```
+
+<!-- prettier-ignore-end -->
 
 In Storybook your Avatar component’s “Docs” tab should be replaced with our sparse MDX page.
 
-![Storybook docs from MDX](/design-systems-for-developers/storybook-docs-mdx-initial.png)
+![Storybook docs from MDX](/design-systems-for-developers/storybook-docs-mdx-initial-6-0.png)
 
-Storybook Docs come with “Doc Blocks”, readymade components like interactive previews, the props table, and more. By default, they’re used behind the scenes for the auto-generated docs pages. They can also be extracted for individual use. Our goal is to customize Avatar’s docs without redoing everything ourselves so let’s reuse Doc Blocks where possible.
+Storybook Docs come with [“Doc Blocks”](https://storybook.js.org/docs/react/writing-docs/doc-blocks), readymade components like interactive previews, the args table, and more. By default, they’re used behind the scenes for the auto-generated docs pages. They can also be extracted for individual use. Our goal is to customize Avatar’s docs without redoing everything ourselves so let’s reuse Doc Blocks where possible.
 
-Let’s add the `Props` doc block, and wrap our initial story in a `Preview`
+Let’s add the [`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-blocks#mdx) doc block, and wrap our initial story in a `Preview`
 
 ```javascript
 // src/Avatar.stories.mdx
 
-import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
+import { Meta, Story, ArgsTable, Preview } from '@storybook/addon-docs/blocks';
 
 # …
 
@@ -314,10 +295,10 @@ import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
   </Story>
 </Preview>
 
-<Props of={Avatar} />
+<ArgsTable of={Avatar} />
 ```
 
-![Storybook docs from MDX with blocks](/design-systems-for-developers/storybook-docs-mdx-docblocks.png)
+![Storybook docs from MDX with blocks](/design-systems-for-developers/storybook-docs-mdx-docblocks-6-0.png)
 
 Nice! We’re back to where we started, but now with full control over ordering and content. The benefits of automated doc generation persist because we’re using Doc Blocks.
 
@@ -328,7 +309,7 @@ Customize Avatar’s docs with a note about use cases. This gives developers con
 
 // Same content as before
 
-<Props of={Avatar} />
+<ArgsTable of={Avatar} />
 
 ## Usage
 
@@ -340,7 +321,7 @@ Avatar is used to represent a person or an organization. By default the avatar s
 
 ```
 
-![Storybook docs for MDX with usage info](/design-systems-for-developers/storybook-docs-mdx-usage.png)
+![Storybook docs for MDX with usage info](/design-systems-for-developers/storybook-docs-mdx-usage-6-0.png)
 
 #### Custom pages
 
@@ -353,7 +334,7 @@ Create a new file `src/components/Intro.stories.mdx`:
 
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Design System|Introduction" />
+<Meta title="Design System/Introduction" />
 
 # Introduction to the Learn Storybook design system
 
@@ -374,25 +355,21 @@ To get it to appear first, we have to tell Storybook to load the Introduction fi
 module.exports = {
   // changes the load order of our stories. First loads the Intro page
   // automatically import all files ending in *.stories.js|mdx
-  stories: ['../src/components/Intro.stories.mdx', '../src/**/*.stories.(js|mdx)'],
+  stories: [
+    '../src/components/Intro.stories.mdx',
+    '../src/**/*.stories.mdx',
+    '../src/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
-    '@storybook/addon-storysource',
-    '@storybook/addon-knobs',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
     '@storybook/addon-a11y',
-    '@storybook/addon-docs',
   ],
 };
 ```
 
-<div class="aside">
- <p>If you're still using <code>storiesOf</code> format, you'll need to make some adjustments to your <code>./storybook/preview.js</code> and add the  <code>sortStories</code> function in order to display them correctly.</p>
- <p> You can read more about it <a href="https://storybook.js.org/docs/configurations/options-parameter/#sorting-stories">here.</a></p>
-</div>
-
-![Storybook docs with introduction page](/design-systems-for-developers/storybook-docs-introduction.png)
+![Storybook docs with introduction page](/design-systems-for-developers/storybook-docs-introduction-6-0.png)
 
 ## Publishing documentation online
 

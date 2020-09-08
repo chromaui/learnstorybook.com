@@ -66,10 +66,9 @@ Storybook powers the design systems for [Uber](https://github.com/uber-web/baseu
 #### Storybook addons
 
 - ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) to check for accessibility issues during development
-- 💥 [Actions](https://github.com/storybookjs/storybook/tree/master/addons/actions) to QA click and tap interactions
-- 🎛 [Knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs) to interactively adjust props to experiment with components
-- 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource) to view story code to paste it in your project
-- 📕 [Docs](https://github.com/storybookjs/storybook/tree/master/addons/docs) for automatic documentation generation from stories
+- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions) to QA click and tap interactions
+- 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls) to interactively adjust props to experiment with components
+- 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction) for automatic documentation generation from stories
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow.jpg)
 
