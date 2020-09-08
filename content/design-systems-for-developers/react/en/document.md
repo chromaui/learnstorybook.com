@@ -166,6 +166,8 @@ module.exports = {
 
 Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remove the `Avatar.stories.js` file and recreate the stories in the mdx file:
 
+<!-- prettier-ignore-start -->
+
 ```javascript
 // src/Avatar.stories.mdx
 
@@ -265,6 +267,8 @@ export const Template = (args) => <Avatar {...args} />
   </Story>
 </Canvas>
 ```
+
+<!-- prettier-ignore-end -->
 
 In Storybook your Avatar component’s “Docs” tab should be replaced with our sparse MDX page.
 
