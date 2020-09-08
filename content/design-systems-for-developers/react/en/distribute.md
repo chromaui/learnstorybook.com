@@ -31,7 +31,7 @@ For nascent design systems, the most direct way is to publish a single versioned
 
 As we used [Create React App](https://github.com/facebook/create-react-app) (CRA) as a starting point for our design system, there are still vestiges of the initial app and scripts that were created for us. Let’s clean them up now.
 
-First, we'll update the README.md to something better suited for us:
+First, update the README.md to something more descriptive:
 
 ```markdown
 # The Learn Storybook design system
@@ -62,7 +62,7 @@ export * from './Link';
 
 We'll need some additional development packages, we're going to use [`@babel/cli`](https://www.npmjs.com/package/@babel/cli) and [`cross-env`](https://www.npmjs.com/package/cross-env) to help us with the build process.
 
-In your terminal issue the following command:
+In your command line issue the following command:
 
 ```shell
 yarn add --dev @babel/cli cross-env
@@ -70,9 +70,7 @@ yarn add --dev @babel/cli cross-env
 
 With the packages installed, we'll need to implement the build process.
 
-Thankfully for us, Create React App (CRA), has already taken care of this for us. We'll use the existing `build` script and change it to the following:
-
-<!-- Thankfully for us, Create React App (CRA), already provided us with a `build` script, so we can modify it to build our source directory into a `dist` directory, like so: -->
+Thankfully for us, Create React App (CRA), has already taken care of this for us. We'll use the existing `build` script and change it to build our design system to the `dist` directory:
 
 ```json
 {
@@ -109,12 +107,6 @@ dist
 #### Adding package metadata for publication
 
 To ensure consumers of the package get all the information necessary, some additional work is required on our `package.json`. The easiest way to to it, is simply running `yarn init` -- a command that initializes the package for publication:
-
-<!-- To ensure consumers of the package get all the information we want, we'll need to continue updating the `package.json`. The easiest way to do it is to run `yarn init` -- a command that initializes the package for publication: -->
-
-<!--
-Finally, let’s make a couple of changes to `package.json` to ensure consumers of the package get all the information we need. The easiest way to do that is to run `yarn init` -- a command that initializes the package for publication:
- -->
 
 ```shell
 yarn init
@@ -355,7 +347,7 @@ Earlier in this tutorial, we standardized on a popular frontend stack that inclu
 
 The example app uses Storybook to facilitate [Component-Driven Development](https://www.componentdriven.org/), an app development methodology of building UIs from the bottom up starting with components and ending with pages. During the demo, we’ll run two Storybook’s side-by-side: one for our example app and one for our design system.
 
-Run the following commands in your terminal to setup the example app:
+Run the following commands in your command line to set up the example app:
 
 ```shell
 # Clones the files locally
@@ -446,7 +438,7 @@ export const parameters = {
 
 We’ll use the `Avatar` component from our design system in the example app’s `UserItem` component. `UserItem` should render information about a user including a name and profile photo.
 
-In your editor, open the `UserItem` component, located in `src/components/UserItem.js`. Also, select `UserItem` in your Storybook, to see the code changes we're about to make instantly with hot module reload.
+In your editor, open the `UserItem` component located in `src/components/UserItem.js`. Also, select `UserItem` in your Storybook, to see the code changes we're about to make instantly with hot module reload.
 
 Import the Avatar component.
 

@@ -35,9 +35,9 @@ As such, our design system must be independent of any project and also a depende
 
 ## Setup our repository with create-react-app and GitHub
 
-React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial along with the custom [create-react-app](https://github.com/facebook/create-react-app) boilerplate.
+React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial along with the [create-react-app](https://github.com/facebook/create-react-app) boilerplate.
 
-In a terminal run the following commands:
+In your command line run the following commands:
 
 ```shell
 # Clone the files

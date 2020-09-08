@@ -51,7 +51,7 @@ Nice, we’ve set up a component explorer!
 
 Every time you install Storybook into an application it will add some examples inside the `stories` folder. If you want, take some time and explore them. But we won't be needing them for our design system, so it's safe to delete the `stories` directory.
 
-Now your Storybook should look like this (notice that the font styles are a little off, for instance see the "Initials" story):
+Now your Storybook should look like this (notice that the font styles are a little off, for instance see the "Avatar: Initials" story):
 
 <video autoPlay muted playsInline loop>
   <source
@@ -185,7 +185,7 @@ controls.args = {
 };
 ```
 
-Notice the Controls tab in the addon panel. We instrumented the “size” select element that allows us to cycle through the supported Avatar sizes `tiny`, `small`, `medium`, and `large`. The same was applied to the remainder component's props (“loading”,“username” and “src”), allowing us to create a simple and user friendly way to interact and stress test components.
+Notice the Controls tab in the addon panel. Controls automatically generates graphical UI to adjust props. For instance, the “size” select element allows us to cycle through the supported Avatar sizes `tiny`, `small`, `medium`, and `large`. The same was applied to the remainder component's props (“loading”,“username” and “src”). This allows us to create a user-friendly way to stress test components.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -196,7 +196,7 @@ Notice the Controls tab in the addon panel. We instrumented the “size” selec
 
 That said, Controls don’t replace stories. They are great for exploring the edge cases of the components. Stories are used for showcasing the intended cases.
 
-We'll visit the Accessbility and Docs addons in later chapters.
+We'll visit the Accessibility and Docs addons in later chapters.
 
 > “Storybook is a powerful frontend workshop environment tool that allows teams to design, build, and organize UI components (and even full screens!) without getting tripped up over business logic and plumbing.” – Brad Frost, Author of Atomic Design
 

@@ -82,7 +82,7 @@ You should now see this:
 
 ![Storybook docs tab with component details](/design-systems-for-developers/storybook-docspage-6-0.png)
 
-Storybook Docs automatically generated the args table that shows types and default values. That’s convenient, but it doesn’t mean Avatar is dummy-proof – several inputs (props) can be misused. Add comments in your proptypes to render them in the auto-generated args table.
+Storybook Docs automatically generated the args table that shows types and default values. That’s convenient, but it doesn’t mean Avatar is dummy-proof – several arguments (props) can be misused. Add comments in your proptypes to render them in the auto-generated args table.
 
 ```javascript
 // src/components/Avatar.js
