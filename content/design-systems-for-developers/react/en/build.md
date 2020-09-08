@@ -143,7 +143,7 @@ import { action } from '@storybook/addon-actions';
 // When the user clicks a button, it will trigger the `action()`,
 // ultimately showing up in Storybook's addon panel.
 function ButtonWrapper(props) {
-return <CustomButton onClick={action('button action click')} {...props} />;
+  return <CustomButton onClick={action('button action click')} {...props} />;
 }
 
 export const buttonWrapper = () => (
@@ -175,7 +175,9 @@ import React from 'react';
 // …
 
 // New story using controls
-export const controls = args => <Avatar {...args} />;
+const Template = args => <Avatar {...args} />;
+
+export const Controls = Template.bind({});
 controls.args = {
   loading: false,
   size: 'tiny',

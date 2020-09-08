@@ -37,14 +37,14 @@ Nice! Now let’s articulate each UI state supported by AvatarList. At a glance,
 ```javascript
 // src/AvatarList.stories.js
 
-export const smallSize = Template.bind({});
-smallSize.args = {
+export const SmallSize = Template.bind({});
+SmallSize.args = {
   users: short.args.users,
   size: 'small',
 };
 
-export const loading = Template.bind({});
-loading.args = {
+export const Loading = Template.bind({});
+Loading.args = {
   loading: true,
 };
 ```
@@ -56,8 +56,8 @@ Given that it’s a list, it should show many avatars. Let’s add stories that 
 ```javascript
 // src/AvatarList.stories.js
 
-export const ellipsized = Template.bind({});
-ellipsized.args = {
+export const Ellipsized = Template.bind({});
+Ellipsized.args = {
   users: [
     ...short.args.users,
     {
@@ -73,19 +73,17 @@ ellipsized.args = {
   ],
 };
 
-export const bigUserCount = Template.bind({});
+export const BigUserCount = Template.bind({});
 bigUserCount.args = {
-  users: ellipsized.args.users,
+  users: Ellipsized.args.users,
   userCount: 100,
 };
 
-export const empty = Template.bind({});
+export const Empty = Template.bind({});
 empty.args = {
   users: [],
 };
 ```
-
-<!-- ![Storybook with all AvatarList stories](/design-systems-for-developers/storybook-with-all-avatarlist-stories.png) -->
 
 <video autoPlay muted playsInline loop>
   <source

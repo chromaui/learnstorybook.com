@@ -113,7 +113,7 @@ By default, every Avatar story is rendered in the docs. We can’t assume other 
 ```javascript
 // src/Avatar.stories.js
 
-export const sizes = args => (
+export const Sizes = args => (
   <div>
     <Avatar {...args} size="large" />
     <Avatar {...args} size="medium" />
@@ -122,12 +122,12 @@ export const sizes = args => (
   </div>
 );
 
-sizes.args = {
+Sizes.args = {
   username: 'Tom Coleman',
   src: 'https://avatars2.githubusercontent.com/u/132554',
 };
 
-sizes.parameters = {
+Sizes.parameters = {
   docs: {
     // The story now contains a description
     storyDescription: '4 sizes are supported.',
