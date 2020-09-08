@@ -142,7 +142,7 @@ Après avoir effectué la modification ci-dessus, dans le dossier `storybook`, c
 
 import '../src/index.css';
 
-// Configure Storybook pour enregistrer les actions (onArchiveTask et onPinTask) dans le UI.
+// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
@@ -225,18 +225,18 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 
 Task.propTypes = {
-  /** Composition du task */
+  /** Composition of the task */
   task: PropTypes.shape({
-    /** Id du task */
+    /** Id of the task */
     id: PropTypes.string.isRequired,
-    /** Titre du task */
+    /** Title of the task */
     title: PropTypes.string.isRequired,
-    /** État actuel de la task */
+    /** Current state of the task */
     state: PropTypes.string.isRequired,
   }),
-  /** Event pour changer la tâche à archiver */
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func,
-  /** Event pour changer la tâche à épingler */
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func,
 };
 ```

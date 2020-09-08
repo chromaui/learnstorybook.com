@@ -26,21 +26,21 @@ Nous allons d'abord construire un stockage Redux simple qui répond aux actions 
 ```javascript
 // src/lib/redux.js
 
-// Une simple mise en œuvre de redux store/actions/réduction.
-// Une véritable application serait plus complexe et séparée en différents fichiers.
+// A simple redux store/actions/reducer implementation.
+// A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
 
-// Les actions sont les "noms" des changements qui peuvent arriver au stockage.
+// The actions are the "names" of the changes that can happen to the store
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
 };
 
-// Les créateurs d'actions regroupent les actions avec les données nécessaires à leur exécution
+// The action creators bundle actions with the data required to execute them
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
-// Tous nos réducteurs changent simplement l'état d'une seule tâche.
+// All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
@@ -52,7 +52,7 @@ function taskStateReducer(taskState) {
   };
 }
 
-// Le réducteur décrit comment le contenu du magasin change pour chaque action
+// The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
@@ -64,8 +64,8 @@ export const reducer = (state, action) => {
   }
 };
 
-// L'état initial de notre stockage lorsque l'application se charge.
-// Habituellement, vous le récupérez sur un serveur
+// The initial state of our store when the app loads.
+// Usually you would fetch this from a server
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -94,13 +94,13 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 
 PureTaskList.propTypes = {
-  /** Vérifie s'il est en état de chargement */
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
-  /** La liste des task */
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** Event pour changer la tâche à épingler */
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func.isRequired,
-  /** Event pour changer la tâche en archivage */
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -145,8 +145,8 @@ const Template = args => <PureTaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  // Mise en forme des story par la composition d'args.
-  // Les données ont été héritées du story par défaut dans task.stories.js.
+  // Shaping the stories through args composition.
+  // The data was inherited the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -159,8 +159,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // Mise en forme des story par la composition d'args.
-  // Les données ont été héritées du story par défaut.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -175,8 +175,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // Mise en forme des stories par la composition d'args.
-  // Données héritées du story en cours de chargement.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };

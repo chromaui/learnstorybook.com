@@ -155,7 +155,7 @@ import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // le paramètre du story étant récupéré ici
+  const results = useParameter('assets', []); // story's parameter being retrieved here
   return (
     <Fragment>
       {results.length ? (
@@ -312,11 +312,11 @@ Et modifier notre composant `Content`, afin que nous puissions passer d'un asset
 ```javascript
 //.storybook/design-addon/register.js
 const Content = () => {
-  // Le paramètre du story est récupéré ici
+  // story's parameter being retrieved here
   const results = useParameter('assets', []);
-  // l'état de l'addon est maintenu ici
+  // addon state being persisted here
   const [selected, setSelected] = useAddonState('my/design-addon', 0);
-  // l'id du story récupéré de l'état global de Storybook
+  // the id of the story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
   if (results.length === 0) {

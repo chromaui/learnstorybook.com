@@ -93,25 +93,25 @@ Créez un nouveau fichier appelé `chromatic.yml` comme celui ci-dessous. Rempla
 
 ```yaml
 # .github/workflows/chromatic.yml
-# nom de notre action
+# name of our action
 name: 'Chromatic Deployment'
-# l'événement qui déclenchera l'action
+# the event that will trigger the action
 on: push
 
-# ce que l'action fera
+# what the action will do
 jobs:
   test:
-    # le système d'exploitation sur lequel il fonctionnera
+    # the operating system it will run on
     runs-on: ubuntu-latest
-    # la liste des étapes par lesquelles l'action passera
+    # the list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
       - uses: chromaui/action@v1
-        # les options nécessaires à l'action chromatique de GitHub
+        # options required to the GitHub chromatic action
         with:
-          # notre token de projet, pour voir comment l'obtenir
-          # se référer à https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -149,7 +149,7 @@ Ensuite, cliquez sur le bouton `View Storybook` pour voir la dernière version d
 ![Lien Storybook sur Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
 
 <!--
-Et c'est tout, il suffit de faire un commit et d'envoyer les changements vers notre repo et nous avons réussi à automatiser le déploiement de notre Storybook
+And that's it, all is required is to commit and push the changes to our repository and we've successfully automated our Storybook deployment
  -->
 
 Utilisez le lien et partagez-le avec les membres de votre équipe. Ceci est utile dans le cadre du processus de développement standard d'une application ou simplement pour montrer son travail 💅.

@@ -143,7 +143,7 @@ export default {
   decorators: [story => <Provider store={store}>{story()}</Provider>],
 };
 
-// Un mock super simple du stockage de redux
+// A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {

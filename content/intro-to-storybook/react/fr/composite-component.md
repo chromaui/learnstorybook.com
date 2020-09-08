@@ -76,8 +76,8 @@ const Template = args => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  // Mise en forme des story par la composition d'args.
-  // Les données ont été héritées du story par défaut dans task.stories.js.
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -90,8 +90,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // Mise en forme des story par la composition d'args.
-  // Données héritées du story par défaut.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -106,8 +106,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // Mise en forme des story par la composition d'args.
-  // Données héritées provenant du story en cours de chargement.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };
@@ -218,13 +218,13 @@ export default function TaskList() {
 }
 
 TaskList.propTypes = {
-  /** Vérifie s'il est en état de chargement */
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
-  /** La liste des task(tâches) */
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** Event pour changer la tâche à épingler */
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func,
-  /** Event pour changer la tâche en archivage */
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func,
 };
 TaskList.defaultProps = {
@@ -262,12 +262,11 @@ import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  // Notre story sera utilisée pour le test.
-  // Avec les arguments qui ont été créés.
+  // Our story will be used for the test.
+  // With the arguments that were created.
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
-  // Nous nous attendons à ce que la tâche intitulée "Task 6 (pinned)" soit rendue en premier,
-  // et non à la fin
+  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 

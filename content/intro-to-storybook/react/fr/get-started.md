@@ -14,12 +14,12 @@ Storybook s'éxécute parallèlement à votre application en mode développement
 Voici les étapes pour configurer le processus de compilation dans votre environnement. Pour commencer, nous allons utiliser [Create React App](https://github.com/facebook/create-react-app) (CRA) pour mettre en place notre système de compilation, et ensuite ajouter [Storybook](https://storybook.js.org/) et l'outil de test [Jest](https://facebook.github.io/jest/) dans notre application. Exécutons les commandes suivantes:
 
 ```bash
-# Créer notre application:
+# Create our application:
 npx create-react-app taskbox
 
 cd taskbox
 
-# Ajouter Storybook:
+# Add Storybook:
 npx -p @storybook/cli sb init
 ```
 
@@ -31,13 +31,13 @@ Si vous avez deja installé <code>yarn</code>, mais vous préfériez utiliser <c
 Pour vérifier rapidement que les différents environnements de notre application fonctionnent correctement:
 
 ```bash
-# Faire fonctionner le testeur (Jest) dans un terminal:
+# Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# Démarrer l'explorateur de composants sur le port 9009:
+# Start the component explorer on port 9009:
 yarn storybook
 
-# Exécutez l'application front-end sur le port 3000:
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 
