@@ -50,7 +50,7 @@ $ git push -u origin master
 
 ### Chromatic 설치
 
-개발용 디펜던시로 패키지를 추가해주세요.
+development dependency로 패키지를 추가해주세요.
 
 ```bash
 yarn add -D chromatic
@@ -70,14 +70,14 @@ yarn add -D chromatic
 프로젝트를 위해 생성된 고유한 `project-token`을 복사해주세요. 그런 다음 Storybook을 빌드하고 배포하기 위해 아래 명령어를 실행해주세요. 여러분의 토큰으로 `project-token` 부분을 꼭 바꾸어주세요.
 
 ```bash
-npx chromatic --project-token=<project-token>
+yarn chromatic --project-token=<project-token>
 ```
 
 ![Chromatic 실행](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
 완료되면 배포된 Storybook의 `https://random-uuid.chromatic.com`링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
 
-![chromatic 패키지와 함께 배포된 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+![chromatic 패키지와 함께 배포된 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
 
 만세! 하나의 명령어를 사용하여 Storybook을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 푸시할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. Storybook을 지속적으로 배포할 수 있도록 해야 할 것입니다.
 
@@ -93,30 +93,30 @@ npx chromatic --project-token=<project-token>
 
 ```yaml
 # .github/workflows/chromatic.yml
-# 액션의 이름
+# name of our action
 name: 'Chromatic Deployment'
-# 액션을 실행할 이벤트
+# the event that will trigger the action
 on: push
 
-# 액션이 실행할 것들
+# what the action will do
 jobs:
   test:
-    # 실행될 운영체제
+    # the operating system it will run on
     runs-on: ubuntu-latest
-    # 액션이 수행할 단계
+    # the list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
       - uses: chromaui/action@v1
-        # GitHub chromatic action에 필요한 옵션
+        # options required to the GitHub chromatic action
         with:
-          # 프로젝트 토큰, 얻는 방법은
-          # https://www.learnstorybook.com/intro-to-storybook/react/kr/deploy/ 를 참조하세요
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>간단하게 진행하고자 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 은 언급되지 않았습니다. 이는 GitHub에서 제공하는 안전한 환경 변수이며 이를 사용하면 <code>project-token</code>을 하드코딩할 필요가 없습니다.</p></div>
+<div class="aside"><p>간단하게 진행하고자 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 은 언급되지 않았습니다. 이는 GitHub에서 제공하는 안전한 환경 변수이며 이를 사용하면 <code>project-token</code>을 직접 입력할 필요가 없습니다.</p></div>
 
 ### GitHub 액션 커밋하기
 

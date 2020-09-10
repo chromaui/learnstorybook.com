@@ -5,42 +5,42 @@ description: 'UI 컴포넌트에 데이터를 연결하는 방법을 배워봅�
 commit: 'f05981b'
 ---
 
-지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 Storybook에는 적합하지만, 궁극적으로 앱에서 데이터를 제공할 할 때까지는 유용하지 않습니다.
+지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 Storybook에는 적합하지만, 우리가 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
 
-이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트에 데이터를 연결하는 일반적인 패턴을 살펴보겠습니다.
+이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트에 데이터를 연결하는 일반적인 패턴을 살펴보도록 하겠습니다.
 
 ## 컨테이너 컴포넌트
 
 현재 작성된 우리의 `TaskList`는 “표상적(presentational)” 컴포넌트입니다. ([이 블로그 포스트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)를 참조해주세요. 이는 데이터를 제공하는 “컨테이너(container) 컴포넌트”와 대비됩니다.)
 
-이 예제는 데이터 저장을 위해 가장 널리 사용되는 React 라이브러리인 [리덕스(Redux)](https://redux.js.org/)를 사용하여 앱을 위해 간단한 데이터 모델을 만듭니다. 여기서 사용된 패턴은 [Apollo](https://www.apollographql.com/client/)와 [MobX](https://mobx.js.org/) 같은 다른 데이터 관리 라이브러리에도 적용됩니다.
+이 예제는 데이터 저장을 위해 가장 널리 사용되는 React 라이브러리인 [Redux](https://redux.js.org/)를 사용하여 앱을 위해 간단한 데이터 모델을 만듭니다. 여기서 사용된 패턴은 [Apollo](https://www.apollographql.com/client/)와 [MobX](https://mobx.js.org/) 같은 다른 데이터 관리 라이브러리에도 적용됩니다.
 
-프로젝트에 필수 디펜던시를 다음과 같이 설치해주세요.
+프로젝트에 필수 dependency를 다음과 같이 설치해주세요:
 
 ```bash
 yarn add react-redux redux
 ```
 
-먼저 `src` 폴더의 `lib / redux.js` 파일 (의도적으로 단순하게 작성함)에서 과업의 state를 변경하는 동작에 대응하는 간단한 Redux 저장소를 구성해보겠습니다.
+먼저 `src` 폴더의 `lib / redux.js` 파일 (의도적으로 단순하게 작성함)에서 task의 state를 변경하는 동작에 대응하는 간단한 Redux 저장소를 구성해보겠습니다.
 
 ```javascript
 // src/lib/redux.js
 
-// 간단한 Redux store / actions / reducer 구현.
-// 진정한 앱은 이보다 더 복잡하며 여러 파일로 분리됩니다.
+// A simple redux store/actions/reducer implementation.
+// A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
 
-// actions은 store에 발생할 수 있는 변경사항의 "이름"입니다.
+// The actions are the "names" of the changes that can happen to the store
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
 };
 
-// action creators는 actions를 실행하는데 필요한 데이터와 action을 함께 묶어줍니다.
+// The action creators bundle actions with the data required to execute them
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
-// 모든 reducers들은 단순히 하나의 작업에 대한 state를 변경합니다.
+// All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
@@ -52,7 +52,7 @@ function taskStateReducer(taskState) {
   };
 }
 
-// reducer는 각 action에 대해 store의 내용이 어떻게 변하는지 설명해줍니다.
+// The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
@@ -64,8 +64,8 @@ export const reducer = (state, action) => {
   }
 };
 
-// 앱이 로딩될 때 store가 갖게 될 처음의 state입니다.
-// 보통은 서버에서 이를 가져옵니다
+// The initial state of our store when the app loads.
+// Usually you would fetch this from a server
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -73,11 +73,11 @@ const defaultTasks = [
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-// 구성된 Redux store를 내보냅니다
+// We export the constructed redux store
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-그런 다음 `TaskList` 컴포넌트에서 기본 내보내기를 업데이트하여 redux store에 연결하고 과업을 렌더링 합니다.
+그런 다음 `TaskList` 컴포넌트에서 default export를 업데이트하여 redux store에 연결하고 task를 렌더링 합니다.
 
 ```javascript
 // src/components/TaskList.js
@@ -90,17 +90,17 @@ import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  /* 이전에 구현한 TaskList */
+  /* previous implementation of TaskList */
 }
 
 PureTaskList.propTypes = {
-  /** 로딩 상태인지 확인 */
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
-  /** task 목록 */
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** task를 고정되게 변경할 때의 이벤트 */
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func.isRequired,
-  /** task를 저장되게 변경할 때의 이벤트 */
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -119,11 +119,11 @@ export default connect(
 )(PureTaskList);
 ```
 
-이제 Redux에서 받은 실제 데이터로 생성된 컴포넌트가 있으므로, 이를 `src/app.js`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 그보다 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
+이제 Redux에서 받은 실제 데이터로 생성된 컴포넌트가 있으므로, 이를 `src/app.js`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
 
-걱정하지 마세요! 그에 대한 내용은 다음 챕터에서 다룰 것입니다.
+그에 대한 내용은 다음 챕터에서 다룰 것이므로 걱정하지 않으셔도 됩니다.
 
-이 단계에서, `TaskList`는 컨테이너이며 더이상 어떠한 props도 받지 않기 때문에 Storybook 테스트는 작동을 멈추었을 것입니다. 대신 `TaskList`는 Redux store에 연결하고 이를 감싸는 `PureTaskList`에서 props를 설정합니다.
+이 단계에서 `TaskList`는 컨테이너이며 더이상 어떠한 props도 받지 않기 때문에 Storybook 테스트는 작동을 멈추었을 것입니다. 대신 `TaskList`는 Redux store에 연결하고 이를 감싸는 `PureTaskList`에서 props를 설정합니다.
 
 하지만 이전 단계에서 진행한 Storybook 스토리의 내보내기 구문에 `PureTaskList`(표상적인 컴포넌트)를 간단하게 렌더링함으로써 이러한 문제를 쉽게 해결할 수 있습니다.
 
@@ -145,8 +145,8 @@ const Template = args => <PureTaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
-  // 데이터는 task.stories.js의 기본 스토리에서 상속되었습니다.
+  // Shaping the stories through args composition.
+  // The data was inherited the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -159,8 +159,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
-  // 데이터는 기본 스토리에서 상속되었습니다.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -175,8 +175,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
-  // 상속된 데이터는 Loading 스토리에서 온 것입니다.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };

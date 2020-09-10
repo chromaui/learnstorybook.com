@@ -74,8 +74,8 @@ const Template = args => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
-  // 데이터는 task.stories.js의 기본 스토리에서 상속되었습니다.
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -88,8 +88,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
-  // 데이터는 기본 스토리에서 상속되었습니다.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -104,8 +104,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // 인수 합성(args composition)을 통해 스토리를 형성합니다.
-  // 상속된 데이터는 Loading 스토리에서 온 것입니다.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };
@@ -133,7 +133,7 @@ Empty.args = {
 
 ## States 구현하기
 
-우리의 컴포넌트는 아직 기본 뼈대만을 갖추었지만, 앞으로 작업하게 될 스토리에 대한 아이디어를 얻었습니다. `.list-items` wrapper가 지나치게 단순하다고 생각할 수도 있습니다. 맞습니다! 대부분의 경우에 우리는 단지 wrapper를 추가하기 위해서 새로운 컴포넌트를 만들지 않습니다. 하지만 `TaskList` 컴포넌트의 **진정한 복잡성**은 `withPinnedTasks`, `loading`, 그리고 `empty`에서 드러날 것입니다.
+우리의 컴포넌트는 아직 기본 뼈대만을 갖추었지만, 앞으로 작업하게 될 스토리에 대한 아이디어를 얻었습니다. `.list-items` wrapper가 지나치게 단순하다고 생각할 수도 있습니다. 맞습니다! 대부분의 경우에 우리는 단지 wrapper를 추가하기 위해서 새로운 컴포넌트를 만들지 않습니다. 하지만 `TaskList` 컴포넌트의 **진정한 복잡성**은 `withPinnedTasks`, `loading` 그리고 `empty`에서 드러날 것입니다.
 
 ```javascript
 // src/components/TaskList.js
@@ -222,14 +222,14 @@ export default function TaskList() {
 
 
 TaskList.propTypes = {
-  /** 로딩 상태인지 확인 */
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
-  /** task 목록 */
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** task를 고정되게 변경할 때의 이벤트 */
-  onPinTask: PropTypes.func.isRequired,
-  /** task를 저장되게 변경할 때의 이벤트 */
-  onArchiveTask: PropTypes.func.isRequired,
+  /** Event to change the task to pinned */
+  onPinTask: PropTypes.func,
+  /** Event to change the task to archived */
+  onArchiveTask: PropTypes.func,
 };
 
 TaskList.defaultProps = {
@@ -266,11 +266,11 @@ import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  // 우리의 스토리가 테스트에 사용될 것입니다.
-  // 생성된 인수를 함께 전달합니다.
+  // Our story will be used for the test.
+  // With the arguments that were created.
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
-  // "(핀으로 고정된) 6번째 task"가 마지막이 아닌 처음에 렌더링 될 것으로 예상합니다.
+  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 

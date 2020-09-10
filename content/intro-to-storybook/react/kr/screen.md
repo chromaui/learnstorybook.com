@@ -11,7 +11,7 @@ commit: '4aef5f7'
 
 ## 중첩된 컨테이너 컴포넌트
 
-우리 앱은 매우 간단하므로 우리가 만들 화면은 아주 사소한 것입니다. 간단히 `TaskList` 컴포넌트(Redux를 통해 자체 데이터를 제공하는)를 일부 레이아웃으로 감싸고 최상위 레벨의 `error` 필드를 빼내는 것입니다(서버 연결에 문제가 있으면 설정되는 항목이라고 가정해봅시다). `InboxScreen.js`를 `components`폴더 안에 생성해주세요.
+우리 앱은 매우 간단하므로 우리가 만들 화면은 아주 사소한 것입니다. `TaskList` 컴포넌트(Redux를 통해 자체적으로 데이터를 공급하는)를 일부 레이아웃으로 간단히 감싸고 최상위 레벨의 `error` 필드를 빼내는 것입니다(서버 연결에 문제가 있으면 설정되는 항목이라고 가정해봅시다). `InboxScreen.js`를 `components`폴더 안에 생성해주세요:
 
 ```javascript
 // src/components/InboxScreen.js
@@ -48,6 +48,7 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
+  /** The error message */
   error: PropTypes.string,
 };
 
@@ -58,7 +59,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-또한 `App` 컴포넌트를 변경하여 `InboxScreen`을 렌더링 합니다. (올바른 화면을 선택하기 위하여 router를 사용해도 되지만, 우선 지금은 걱정하지 않으셔도 됩니다.)
+또한 `App` 컴포넌트를 변경하여 `InboxScreen`을 렌더링 합니다. (올바른 화면 선택을 위하여 router를 사용해도 되지만 여기서는 걱정하지 않도록 하겠습니다.)
 
 ```javascript
 // src/App.js
@@ -99,9 +100,14 @@ export default {
   title: 'InboxScreen',
 };
 
-export const Default = () => <PureInboxScreen />;
+const Template = args => <PureInboxScreen {...args} />;
 
-export const Error = () => <PureInboxScreen error="Something" />;
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 비록 `error` 스토리가 제대로 작동할지라도, `TaskList`에 연결할 Redux store가 없기 때문에 `default` 스토리에 문제가 있음을 알 수 있습니다. (또한 단위 테스트로 `PureInboxScreen`을 테스트할 때도 비슷한 문제가 발생할 것입니다.)
@@ -124,42 +130,46 @@ export const Error = () => <PureInboxScreen error="Something" />;
 // src/components/InboxScreen.stories.js
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
-
+import { action } from '@storybook/addon-actions';
 import { PureInboxScreen } from './InboxScreen';
-import { defaultTasksData } from './TaskList.stories';
+import * as TaskListStories from './TaskList.stories';
 
-export default {
-  component: PureInboxScreen,
-  title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
-};
-
-// redux store의 매우 간단한 모방
+// A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasksData,
+      tasks: TaskListStories.Default.args.tasks,
     };
   },
   subscribe: () => 0,
   dispatch: action('dispatch'),
 };
 
-export const Default = () => <PureInboxScreen />;
+export default {
+  component: PureInboxScreen,
+  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  title: 'InboxScreen',
+};
 
-export const Error = () => <PureInboxScreen error="Something" />;
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator)와 [Relay](https://github.com/orta/react-storybooks-relay-container) 등 여타 데이터 라이브러리에 대해서도 모방된 컨텍스트를 제공하는 방식은 비슷합니다.
 
-Storybook에서 state를 순환해봄으로써 우리가 올바르게 하고 있는지를 쉽게 테스트할 수 있도록 해줍니다.
+Storybook에서 state를 순환해봄으로써 우리가 올바르게 하고 있는지를 쉽게 테스트할 수 있도록 해줍니다:
 
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

@@ -5,7 +5,7 @@ description: '개발을 강력하게 만들어 줄 나만의 애드온을 만드
 commit: 'bebba5d'
 ---
 
-앞서 우리는 Storybook의 핵심 기능인 강력한 [애드온(addons)](docs/react/configure/storybook-addons) 에코시스템에 대해 소개해 드렸습니다. 애드온은 개발자 경험과 작업 흐름을 향상하는 데 사용됩니다.
+앞서 우리는 Storybook의 핵심 기능인 강력한 [애드온(addons)](https://storybook.js.org/docs/react/configure/storybook-addons) 에코시스템에 대해 소개해 드렸습니다. 애드온은 개발자 경험과 작업 흐름을 향상하는 데 사용됩니다.
 
 이번 보너스 챕터에서는 애드온을 어떻게 만드는지 살펴보겠습니다. 애드온을 직접 만드는 것은 벅찬 작업이라고 생각하실지도 모르겠지만 실제로는 그렇지 않습니다. 시작하기 위해 몇 단계를 거치기만 하면 바로 작성을 시작할 수 있습니다.
 
@@ -21,9 +21,11 @@ commit: 'bebba5d'
 - 이미지 및 임베딩을 위한 URL 지원
 - 여러 버전이나 테마가 있는 경우를 대비하여, 여러 자산을 지원 가능해야 함
 
-스토리에 자산 목록을 첨부하는 방법은 Storybook의 옵션인 [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options)를 사용하는 것입니다. 이는 사용자 정의 변수를 스토리에 주입할 수 있도록 해줍니다. 사용하는 방법은 이전 챕터에서 살펴본 데코레이터(decorator)를 사용한 방식과 매우 유사합니다.
+Storybook의 기능인 [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters)는 스토리에 메타데이터(metadata)를 추가할 수 있도록 도와줍니다. 이를 사용하여 스토리에 자산의 목록을 첨부해보도록 하겠습니다.
 
 ```javascript
+// YourComponent.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -101,8 +103,8 @@ addons.register('my/design-addon', () => {
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    // 이전과 동일
-    './.storybook/design-addon/register.js', // 우리의 애드온
+    // same as before
+    './.storybook/design-addon/register.js', // our addon
   ],
 };
 ```
@@ -123,12 +125,13 @@ module.exports = {
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
-/* 이전과 동일 */
+/* same as before */
 import { useParameter } from '@storybook/api';
 
 const Content = () => {
-  const results = useParameter('assets', []); // 스토리의 매개변수(parameter)가 여기에서 검색됩니다
+  const results = useParameter('assets', []); // story's parameter being retrieved here
   return (
     <Fragment>
       {results.length ? (
@@ -149,13 +152,14 @@ const Content = () => {
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // 스토리의 매개변수(parameter)가 여기에서 검색됩니다
+  const results = useParameter('assets', []); // story's parameter being retrieved here
   return (
     <Fragment>
       {results.length ? (
@@ -182,20 +186,20 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-여기서 [useParameter](https://storybook.js.org/docs/addons/api/#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해 줄 것이며, 우리의 경우에는 자산에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
+여기서 [useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해 줄 것이며, 우리의 경우에는 자산에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
 
 ### 스토리에서 애드온 사용하기
 
 필요한 모든 조각을 연결해보았습니다. 그렇지만 실제로 잘 작동하는지 또 어떤 것을 보여주는지 어떻게 하면 확인할 수 있을까요?
 
-이를 위해 `Task.stories.js` 파일을 조금 변경하고 [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) 옵션을 추가해보도록 하겠습니다.
+이를 위해 `Task.stories.js` 파일을 조금 변경하고 [parameters](https://storybook.js.org/docs/react/writing-stories/parameters) 옵션을 추가해보도록 하겠습니다.
 
 ```javascript
 // src/components/Task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
-  decorators: [withKnobs],
   parameters: {
     assets: [
       'path/to/your/asset.png',
@@ -203,10 +207,12 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  // "Data"로 끝나는 것은 스토리에서 제외합니다
-  excludeStories: /.*Data$/,
+  argTypes: {
+    /* ...actionsData, */
+    backgroundColor: { control: 'color' },
+  },
 };
-/* 이전과 동일  */
+/* same as before  */
 ```
 
 Storybook을 다시 시작하고 Task 스토리를 선택해주세요. 다음과 같은 내용을 보실 수 있을 것입니다.
@@ -219,6 +225,7 @@ Storybook을 다시 시작하고 Task 스토리를 선택해주세요. 다음과
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -246,7 +253,7 @@ const Asset = ({ url }) => {
     return null;
   }
   if (url.match(/\.(png|gif|jpeg|tiff|svg|anpg|webp)/)) {
-    // 이미지 뷰어 실행
+    // do image viewer
     return <Img alt="" src={url} />;
   }
 
@@ -254,9 +261,9 @@ const Asset = ({ url }) => {
 };
 
 const Content = () => {
-  // 스토리의 매개변수(parameter)가 여기에서 검색됩니다
+  // story's parameter being retrieved here
   const results = useParameter('assets', []);
-  // Storybook global state에서 story의 id를 가져옵니다
+  // the id of story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
   if (results.length === 0) {
@@ -273,7 +280,7 @@ const Content = () => {
 };
 ```
 
-자세히 살펴보면 `styled` 태그를 사용하고 있음을 보실 수 있습니다. 이 태그는 `@storybook/theming` 패키지에서 가져온 것입니다. 이 태그를 사용하면 Storybook의 테마뿐만 아니라 필요한 경우 UI를 사용자 정의할 수 있습니다. 또한 [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate)는 스토리 북의 내부 state를 활용하여 존재하는 어떤 정보든 가져올 수 있는 편리한 훅입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져오기 위해 사용합니다.
+코드를 한번 살펴보겠습니다. 우리는 `@storybook/theming` 패키지에서 가져온 `styled` 태그를 사용합니다. 이를 통해 Storybook의 테마와 에드온 UI를 사용자 정의할 수 있습니다. [`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate)은 스토리 북의 내부 state를 활용하여 존재하는 모든 정보를 가져올 수 있는 훅(hook)입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져오기 위해 사용합니다.
 
 ### 실제 자원을 표시하기
 
@@ -299,15 +306,17 @@ import를 필요에 맞게 수정해주세요:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
-/* 이전과 동일 */
+/* same as before */
 ```
 
 그리고 `Content` 컴포넌트를 수정하여 자산을 전환할 수 있도록 해보겠습니다:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
@@ -351,6 +360,7 @@ const Content = () => {
 
 ```javascript
 // .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';

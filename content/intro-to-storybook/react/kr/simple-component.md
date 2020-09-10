@@ -11,17 +11,17 @@ commit: '3d9cd8c'
 
 ![Task 컴포넌트의 3가지 states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task`는 우리 앱의 핵심 컴포넌트입니다. 각각의 태스크(task)는 현재 어떤 state에 있는지에 따라 약간씩 다르게 나타납니다. 선택된 (또는 선택되지 않은) 체크 박스, 태스크에 대한 정보, 그리고 태스크를 위아래로 움직일 수 있도록 도와주는 "핀" 버튼이 표시될 것입니다. 이를 위해 다음과 같은 prop들이 필요합니다.
+`Task`는 우리 앱의 핵심 컴포넌트입니다. 각각의 task는 현재 어떤 state에 있는지에 따라 약간씩 다르게 나타납니다. 선택된 (또는 선택되지 않은) 체크 박스, task에 대한 정보, 그리고 task를 위아래로 움직일 수 있도록 도와주는 "핀" 버튼이 표시될 것입니다. 이를 위해 다음과 같은 prop들이 필요합니다.
 
-- `title` – 태스크를 설명해주는 문자열
-- `state` - 현재 어떤 태스크가 목록에 있으며, 선택되어 있는지의 여부
+- `title` – task를 설명해주는 문자열
+- `state` - 현재 어떤 task가 목록에 있으며, 선택되어 있는지의 여부
 
-`Task` 컴포넌트를 만들기 위해, 위에서 살펴본 여러 유형의 태스크에 해당하는 테스트 state를 작성합니다. 그런 다음 모의 데이터를 사용하여 독립적 환경에서 컴포넌트를 구축하기 위해 Storybook을 사용합니다. 각각의 state에 따라 컴포넌트의 모습을 수동으로 테스트하면서 진행할 것입니다.
+`Task` 컴포넌트를 만들기 위해, 위에서 살펴본 여러 유형의 task에 해당하는 테스트 state를 작성합니다. 그런 다음 모의 데이터를 사용하여 독립적 환경에서 컴포넌트를 구축하기 위해 Storybook을 사용합니다. 각각의 state에 따라 컴포넌트의 모습을 수동으로 테스트하면서 진행할 것입니다.
 
 ## 설정 시작하기
 
 먼저, `Task` 컴포넌트와 그에 해당하는 스토리 파일을 만들어 봅시다. `src/components/Task.js`와 `src/components/Task.stories.js`을 생성해주세요.
-`Task`의 기본 구현부터 시작하겠습니다. 우리가 필요로 하는 속성들과 여러분이 태스크에 대해 취할 수 있는 두 가지 액션(목록 간 이동하는 것)을 간단히 살펴보도록 하겠습니다.
+`Task`의 기본 구현부터 시작하겠습니다. 우리가 필요로 하는 속성들과 여러분이 task에 대해 취할 수 있는 두 가지 액션(목록 간 이동하는 것)을 간단히 살펴보도록 하겠습니다.
 
 ```javascript
 // src/components/Task.js
@@ -89,7 +89,7 @@ Storybook은 컴포넌트와 그 하위 스토리의 두 가지 기본 단계로
   - 스토리
   - 스토리
 
-Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려주기 위해, 아래 사항들을 포함하는 `default`를 내보내기 해주세요.
+Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려주기 위해, 아래 사항들을 포함하는 `default` export를 해주세요.
 
 - `component` -- 해당 컴포넌트,
 - `title` -- Storybook 앱의 사이드바에서 컴포넌트를 참조하는 방법,
@@ -106,9 +106,9 @@ Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려�
 
 </div>
 
-인수(Arguments) 또는 간단히 줄여서 [`args`](https://storybook.js.org/docs/react/writing-stories/args)를 사용하여 Storybook을 다시 시작하지 않고도 Controls addon으로 컴포넌트를 실시간으로 수정할 수 있습니다. [`args`](https://storybook.js.org/docs/react/writing-stories/args)의 값이 변하면 컴포넌트도 함께 변합니다.
+인수(arguments) 또는 간단히 줄여서 [`args`](https://storybook.js.org/docs/react/writing-stories/args)를 사용하여 Storybook을 다시 시작하지 않고도 Controls addon으로 컴포넌트를 실시간으로 수정할 수 있습니다. [`args`](https://storybook.js.org/docs/react/writing-stories/args)의 값이 변하면 컴포넌트도 함께 변합니다.
 
-스토리를 만들때 우리는 기본 `태스크(task)` 인수를 사용하여 컴포넌트가 예상하는 태스크의 형태를 구성합니다. 이는 일반적으로 실제 데이터를 모델로 하여 만들어집니다. 다시 말하지만 `export`하는 것은 차후 스토리에서 이를 재사용 할 수 있도록 해줍니다.
+스토리를 만들때 우리는 기본 `task` 인수를 사용하여 컴포넌트가 예상하는 task의 형태를 구성합니다. 이는 일반적으로 실제 데이터를 모델로 하여 만들어집니다. 다시 말하지만 `export`하는 것은 차후 스토리에서 이를 재사용 할 수 있도록 해줍니다.
 
 <div class="aside">
 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>액션(Actions)</b></a>은 UI 컴포넌트를 독립적으로 만들 때, 컴포넌트와의 상호작용을 확인하는데 도움이 됩니다. 종종, 앱의 컨텍스트에서 함수와 state에 접근하지 못할 수 있습니다. 이런 경우 <code>action()</code> 을 사용하여 끼워 넣어 주세요.
@@ -140,7 +140,7 @@ module.exports = {
 
 import '../src/index.css';
 
-// UI에 액션(onArchiveTask 및 onPinTask)을 기록하도록 Storybook을 구성합니다.
+// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
@@ -150,7 +150,7 @@ export const parameters = {
 
 `actions`은 클릭이 되었을때 Storybook UI의 actions 패널에 나타날 콜백을 생성할수 있도록 해줍니다. 따라서 핀 버튼을 만들 때, 버튼 클릭이 성공적이었는지 테스트 UI에서 확인 할 수 있을 것입니다.
 
-이 작업을 끝내신 후, Storybook 서버를 재시작하면 세 가지 태스크 state에 관한 테스트 사례가 생성됩니다.
+이 작업을 끝내신 후, Storybook 서버를 재시작하면 세 가지 task state에 관한 테스트 사례가 생성됩니다.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -222,18 +222,18 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 
 Task.propTypes = {
-  /** task의 구성 */
+  /** Composition of the task */
   task: PropTypes.shape({
-    /** task의 Id */
+    /** Id of the task */
     id: PropTypes.string.isRequired,
-    /** task의 Title */
+    /** Title of the task */
     title: PropTypes.string.isRequired,
-    /** task의 현재 state */
+    /** Current state of the task */
     state: PropTypes.string.isRequired,
   }),
-  /** task를 고정되게 변경할 때의 이벤트 */
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func,
-  /** task를 저장되게 변경할 때의 이벤트 */
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func,
 };
 ```
@@ -248,7 +248,7 @@ Task.propTypes = {
 
 지금까지 우리는 서버나 프런트엔드 앱 전체를 실행하지 않고 성공적으로 컴포넌트를 만들었습니다. 다음 단계는 이와 유사한 방법으로 Taskbox 컴포넌트의 남은 부분을 하나씩 만드는 것입니다.
 
-보시다시피, 독립적 환경에서 컴포넌트를 제작하는 것은 쉽고 빠릅니다. 가능한 모든 state를 테스트할 수 있기 때문에, 버그가 적고 높은 퀄리티의 UI를 제작할 수 있습니다.
+보시다시피, 독립적 환경에서 컴포넌트를 제작하는 것은 쉽고 빠릅니다. 가능한 모든 state를 테스트할 수 있기 때문에 버그가 적고 높은 퀄리티의 UI를 제작할 수 있습니다.
 
 ## 자동화된 테스트
 
