@@ -21,7 +21,7 @@ commit: 'bebba5d'
 - イメージを表示できるようにして、URL も埋め込めるようにする
 - 複数のテーマやバージョンがあることを考慮し、複数のアセットに対応する
 
-ストーリーとアセットの紐づけには、[parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) の機能でストーリーに追加のメタデータを設定することができます。
+ストーリーとアセットの紐づけには Storybook の機能である [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) を使用します。parameters はストーリーに追加のメタデータを設定することができます。
 
 ```javascript
 // YourComponent.js
