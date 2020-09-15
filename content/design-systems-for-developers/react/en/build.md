@@ -113,7 +113,7 @@ The decorator will ensure the `GlobalStyle` is rendered no matter which story is
 
 #### Add font tag
 
-Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook the easiest way to achieve that is to use `.storybook/preview-head.html` to add a `<link>` tag directly to the `<head>` of the page:
+Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook the easiest way to achieve that is to use [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) to add a `<link>` tag directly to the `<head>` of the page:
 
 ```html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900" />
