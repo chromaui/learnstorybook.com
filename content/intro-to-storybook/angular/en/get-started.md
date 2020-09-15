@@ -280,19 +280,20 @@ And make a small change to allow the icons in the `percolate` font to be correct
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo.
+If you want to modify the styling, the source LESS files are provided <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/style">here</a>.
 </div>
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `src/assets` folder.
-
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `src/assets` folder. Issue the following commands in your terminal:
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon src/assets/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font src/assets/font
+npx degit chromaui/learnstorybook-code/public/font src/assets/font
+npx degit chromaui/learnstorybook-code/public/icon src/assets/icon
 ```
+
+<div class="aside">
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+</div>
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!

@@ -94,9 +94,13 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 
 PureTaskList.propTypes = {
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func.isRequired,
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -115,7 +119,11 @@ export default connect(
 )(PureTaskList);
 ```
 
-At this stage our Storybook tests will have stopped working, as the `TaskList` is now a container, and no longer expects any props, instead it connects to the store and sets the props on the `PureTaskList` component it wraps.
+Now that we have some real data populating our component, obtained from Redux, we could have wired it to `src/app.js` and render the component there. But for now let's hold off doing that and continue on our component-driven journey.
+
+Don't worry about it we'll take care of it in the next chapter.
+
+At this stage, our Storybook tests will have stopped working because `TaskList` is now a container and no longer expects any props. Instead `TaskList` connects to the store and sets the props on the `PureTaskList` component it wraps.
 
 However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
 
@@ -125,41 +133,58 @@ However, we can easily solve this problem by simply rendering the `PureTaskList`
 import React from 'react';
 
 import { PureTaskList } from './TaskList';
-import { taskData, actionsData } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
 export default {
   component: PureTaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-  excludeStories: /.*Data$/,
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
+const Template = args => <PureTaskList {...args} />;
 
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
 
-export const Default = () => <PureTaskList tasks={defaultTasksData} {...actionsData} />;
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
 
-export const WithPinnedTasks = () => <PureTaskList tasks={withPinnedTasksData} {...actionsData} />;
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
 
-export const Loading = () => <PureTaskList loading tasks={[]} {...actionsData} />;
-
-export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

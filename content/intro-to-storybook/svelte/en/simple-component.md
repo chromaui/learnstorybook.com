@@ -4,7 +4,7 @@ tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
@@ -25,8 +25,9 @@ First, let’s create the task component and its accompanying story file: `src/c
 
 We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```html
-<!--src/components/Task.svelte-->
+```svelte
+<!-- src/components/Task.svelte -->
+
 <script>
   import { createEventDispatcher } from 'svelte';
 
@@ -66,8 +67,9 @@ Below we build out Task’s three test states in the story file:
 
 ```javascript
 // src/components/Task.stories.js
+
 import Task from './Task.svelte';
-import { action } from "@storybook/addon-actions";
+import { action } from '@storybook/addon-actions';
 export default {
   title: 'Task',
   excludeStories: /.*Data$/,
@@ -158,18 +160,19 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 
 ```javascript
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
-
 ```
 
 After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
 
 ```javascript
 // .storybook/preview.js
-import '../public/global.css'
+
+import '../public/global.css';
 ```
 
 Once we’ve done these two small changes, restarting Storybook should yield test cases for the three Task states:
@@ -181,15 +184,14 @@ Once we’ve done these two small changes, restarting Storybook should yield tes
   />
 </video>
 
-
 ## Build out the states
 
 Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```html
-<!--src/components/Task.svelte-->
+```svelte
+<!-- src/components/Task.svelte -->
 
 <script>
   import { createEventDispatcher } from 'svelte';
@@ -267,7 +269,7 @@ Make sure your components render data that doesn't change, so that your snapshot
 
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
 
-```bash
+```shell
 npm install -D @storybook/addon-storyshots
 ```
 
@@ -275,6 +277,7 @@ Then create an `src/storybook.test.js` file with the following:
 
 ```javascript
 // src/storybook.test.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -284,16 +287,13 @@ And finally we need to make a small adjustment to our `jest` key in `package.jso
 
 ```json
 {
-  .....
-  "jest":{
+  "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect"
-    ],
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
   }
 }
 ```

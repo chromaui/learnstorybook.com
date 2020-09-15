@@ -5,7 +5,7 @@ description: 'Learn how to build your own addons that will super charge your dev
 commit: 'bebba5d'
 ---
 
-Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/addons/introduction/) ecosystem. Addons are used to enhance your developer experience and workflows.
+Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/docs/react/configure/storybook-addons) ecosystem. Addons are used to enhance your developer experience and workflows.
 
 In this bonus chapter, we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
 
@@ -21,9 +21,11 @@ We have our goal, now let's define what features our addon will support:
 - Support images, but also urls for embedding
 - Should support multiple assets, just in case there will be multiple versions or themes
 
-The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
+We'll attach the list of assets to the stories with [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), a Storybook feature that allows us to add extra metadata to our stories.
 
 ```javascript
+// YourComponent.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -72,6 +74,7 @@ Add the following to your recently created file:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -94,14 +97,17 @@ This is the typical boilerplate code to get you started. Going over what the cod
 - We're registering a new addon in our Storybook.
 - Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.
 
-Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
+Starting Storybook at this point, we won't be able to see the addon just yet. We need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    // same as before
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
     './.storybook/design-addon/register.js', // our addon
   ],
 };
@@ -123,6 +129,7 @@ Make the following changes to the addon file:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -149,6 +156,7 @@ Your code should look like the following:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -182,20 +190,20 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
+Notice that we're using the [useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
 
 ### Using our addon with a story
 
 We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
 
-To do so, we're going to make a small change to the `Task.stories.js` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
+To do so, we're going to make a small change to the `Task.stories.js` file and add the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters) option.
 
 ```javascript
 // src/components/Task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
-  decorators: [withKnobs],
   parameters: {
     assets: [
       'path/to/your/asset.png',
@@ -203,8 +211,10 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
+  argTypes: {
+    /* ...actionsData, */
+    backgroundColor: { control: 'color' },
+  },
 };
 /* same as before  */
 ```
@@ -219,6 +229,7 @@ At this stage we can see that the addon is working as it should, but now let's c
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -273,7 +284,7 @@ const Content = () => {
 };
 ```
 
-If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the `@storybook/theming` package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
+Let's take a look at the code. We use the `styled` tag that comes from the `@storybook/theming` package. This allows us to customize Storybook's theme and the addon UI. [`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) is a hook that allows us to tap into Storybook's internal state to fetch any bit of information present. In our case we're using it to fetch the id of each story created.
 
 ### Displaying the actual assets
 
@@ -299,6 +310,7 @@ We need to adjust our imports for our needs:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -308,6 +320,7 @@ And modify our `Content` component, so that we can change between assets:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
@@ -351,6 +364,7 @@ We've accomplished what we set out to do, which is to create a fully functioning
 
 ```javascript
 // .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
@@ -465,4 +479,4 @@ More dev-kits will become available in the future.
 
 ## Sharing addons with the team
 
-Addons are timesaving additions to your workflow, but it can be difficult for non-technical teammates and reviewers to take advantage of their features. You can't guarantee folks will run Storybook on their local machine. That's why deploying your Storybook to an online location for everyone to reference can be really helpful. In the next chapter we'll do just that!
+Addons are timesaving additions to your workflow, but it can be difficult for non-technical teammates and reviewers to take advantage of their features. You can't guarantee folks will run Storybook on their local machine. That's why deploying your Storybook to an online location for everyone to reference can be really helpful.
