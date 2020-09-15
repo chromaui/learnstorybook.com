@@ -99,14 +99,17 @@ addons.register('my/design-addon', () => {
 - Storybook に新しいアドオンを登録する
 - 新しい UI 要素をオプション (アドオンを説明するタイトルと要素の種類) と共に追加し、暫定的にテキストを表示する
 
-この時点では Storybook を起動しても、アドオンは見えません。前に Knobs アドオンを追加したのと同じように、`.storybook/main.js` ファイルに登録用のコードを追加する必要があります。以下の内容を現在の `addons` リストに追加しましょう:
+この時点では Storybook を起動しても、アドオンは見えません。アドオンを登録するためには、`.storybook/main.js` ファイルにコードを追加する必要があります。以下の内容を現在の `addons` リストに追加しましょう:
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    // same as before
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
     './.storybook/design-addon/register.js', // our addon
   ],
 };
@@ -482,4 +485,4 @@ https://github.com/storybookjs/storybook/tree/next/dev-kits
 
 ## チーム内でアドオンを共有する
 
-ワークフローにアドオンを使用することで、時間を節約することができますが、技術者ではないチームメートやレビュアーがその恩恵を受けるのが難しい場合もあります。Storybook を動かせない環境の人もいるのです。それが Storybook をみんなが見られるようにオンラインで公開する理由です。次の章では、それをやりましょう！
+ワークフローにアドオンを使用することで、時間を節約することができますが、技術者ではないチームメートやレビュアーがその恩恵を受けるのが難しい場合もあります。Storybook を動かせない環境の人もいるのです。それが Storybook をみんなが見られるようにオンラインで公開する理由です。
