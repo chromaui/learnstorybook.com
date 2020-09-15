@@ -1,7 +1,7 @@
 ---
 title: '単純なコンポーネントを作る'
 tocTitle: '単純なコンポーネント'
-description: '単純なコンポーネントを隔離された環境で作りましょう'
+description: '単純なコンポーネントを切り離して作りましょう'
 commit: '3d9cd8c'
 ---
 
@@ -9,14 +9,14 @@ commit: '3d9cd8c'
 
 ## Task (タスク)
 
-![Task コンポーネントの三態](/intro-to-storybook/task-states-learnstorybook.png)
+![Task コンポーネントの 3 つの状態](/intro-to-storybook/task-states-learnstorybook.png)
 
 `Task` は今回作るアプリケーションのコアとなるコンポーネントです。タスクはその状態によって見た目が微妙に異なります。タスクにはチェックされた (または未チェックの) チェックボックスと、タスクについての説明と、リストの上部に固定したり解除したりするためのピン留めボタンがあります。これをまとめると、以下のプロパティが必要となります:
 
 - `title` – タスクを説明する文字列
 - `state` - タスクがどのリストに存在するか。またチェックされているかどうか。
 
-`Task` の作成を始めるにあたり、事前に上記のそれぞれのタスクに応じたテスト用の状態を作成します。次いで、モックデータを使用し、Storybook を使い、コンポーネントを隔離された環境で作ります。コンポーネントのそれぞれの状態について見た目を確認しながら進めます。
+`Task` の作成を始めるにあたり、事前に上記のそれぞれのタスクに応じたテスト用の状態を作成します。次いで、Storybook で、モックデータを使用し、コンポーネントを切り離して作ります。コンポーネントのそれぞれの状態について見た目を確認しながら進めます。
 
 ## セットアップする
 
@@ -46,36 +46,41 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 // src/components/Task.stories.js
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
 export default {
   component: Task,
   title: 'Task',
-  // "Data" で終わるエクスポートはストーリーではない
-  excludeStories: /.*Data$/,
 };
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+const Template = args => <Task {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
 
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
 };
 
-export const Default = () => <Task task={{ ...taskData }} {...actionsData} />;
-
-export const Pinned = () => <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />;
-
-export const Archived = () => (
-  <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />
-);
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
+  },
+};
 ```
 
 Storybook には基本となる 2 つの階層があります。コンポーネントとその子供となるストーリーです。各ストーリーはコンポーネントに連なるものだと考えてください。コンポーネントには必要なだけストーリーを記述することができます。
@@ -90,19 +95,24 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 - `component` -- コンポーネント自体
 - `title` -- Storybook のサイドバーにあるコンポーネントを参照する方法
 - `excludeStories` -- ストーリーファイルのエクスポートのうち、Storybook にストーリーとして表示させたくないもの
+- `argTypes` -- 各ストーリーへの引数 ([args](https://storybook.js.org/docs/react/api/argtypes)) の挙動を指定する
 
 ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、React の[状態を持たない関数コンポーネント](https://ja.reactjs.org/docs/components-and-props.html)のようなものです。
 
-`action()` はクリックしたときに Storybook の UI 上の **actions** パネルに表示されるコールバックを生成します。そうすることにより、テスト用の UI 上にピン留めボタンを作ったときに、正しくボタンが押されたかどうか特定することができます。
-
-同じアクションのセットをコンポーネントのすべてのストーリーに渡さなければならないのであれば、単一の `actionsData` 変数にまとめて、React の属性の展開の構文 `{...actionsData}` を使用して一度に渡すのが便利です。`<Task {...actionsData}>` というのは `<Task onPinTask={actionsData.onPinTask} onArchiveTask={actionsData.onArchiveTask}>` と同じです。
-
-`actionsData` としてまとめるもう一つの利点は変数をエクスポートして、このコンポーネントを使用するコンポーネントに渡せることです。これについては後で詳しく見てみましょう。
-
-ストーリーを作る際には素となるタスク (`taskData`) を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。もう一度言いますが、このデータをエクスポートすることで、後で作成するストーリーで再利用することが可能です。
+コンポーネントにストーリーが複数連なっているので、各ストーリーを単一の `Template` 変数に割り当てるのが便利です。このパターンを導入することで、書くべきコードの量が減り、保守性も上がります。
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>actions アドオン</b></a>は隔離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。<code>action()</code> はそのスタブとして使用できます。
+
+`Template.bind({})` は関数のコピーを作成する [JavaScript の標準的な](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
+
+</div>
+
+Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-stories/args)) を使用することで、コントロールアドオンを通して、Storybook を再起動することなく、コンポーネントを動的に編集することができるようになります。[`args`](https://storybook.js.org/docs/react/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
+
+ストーリーを作る際には素となるタスク引数を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。さらに、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となります。
+
+<div class="aside">
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>アクションアドオン</b></a>は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。<code>action()</code> はそのスタブとして使用できます。
 </div>
 
 ## 設定する
@@ -117,26 +127,35 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
   ],
 };
 ```
 
-上記の変更が完了したら、`.storybook` フォルダー内に `preview.js` という新しいファイルを作成し、以下を記述してください:
+上記の変更が完了したら、`.storybook` フォルダー内の `preview.js` を、以下のように変更してください:
 
 ```javascript
 // .storybook/preview.js
 
 import '../src/index.css';
+
+// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
+
+[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) は Storybook の機能やアドオンの振る舞いをコントロールするのに使用します。この例では、アクション (呼び出しのモック) がどのように扱われるかを設定しています。
+
+アクションアドオンを使用することで、クリックした時などに Storybook の **actions** パネルにその情報を表示するコールバックを作成できます。これにより、ピン留めボタンを作成するとき、ボタンがクリックされたことがテスト用の UI 上で確認できます。
 
 Storybook のサーバーを再起動すると、タスクの 3 つの状態のテストケースが生成されているはずです:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -185,14 +204,14 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## データ要件を明示する
 
-`propTypes` を使い React にコンポーネントが想定するデータ形式を示すのがベストプラクティスです。これにより想定するデータ形式がコードからわかるだけでなく、早期に問題を見つけるのに役立ちます。
+`propTypes` を使い React にコンポーネントが想定するデータ構造を示すのがベストプラクティスです。これにより想定するデータ構造がコードからわかるだけでなく、早期に問題を見つけるのに役立ちます。
 
 ```javascript
 // src/components/Task.js
@@ -205,12 +224,18 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 
 Task.propTypes = {
+  /** Composition of the task */
   task: PropTypes.shape({
+    /** Id of the task */
     id: PropTypes.string.isRequired,
+    /** Title of the task */
     title: PropTypes.string.isRequired,
+    /** Current state of the task */
     state: PropTypes.string.isRequired,
   }),
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func,
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func,
 };
 ```
@@ -223,13 +248,13 @@ Task.propTypes = {
 
 ## 完成！
 
-これでサーバーを起動したり、フロントエンドアプリケーションを起動したりすることなく、コンポーネントを作りあげることができました。次の章でも、同じように Taskbox コンポーネントの残りの部分を少しずつ作成していきます。
+これでサーバーを起動したり、フロントエンドアプリケーションを起動したりすることなく、コンポーネントを作りあげることができました。次の章では、Taskbox の残りのコンポーネントを、同じように少しずつ作成していきます。
 
-見た通り、隔離された環境でコンポーネントを作り始めるのは早くて簡単です。あらゆる状態を掘り下げてテストできるので、高品質で、バグが少なく、洗練された UI を作ることができることでしょう。
+見た通り、コンポーネントだけを切り離して作り始めるのは早くて簡単です。あらゆる状態を掘り下げてテストできるので、高品質で、バグが少なく、洗練された UI を作ることができることでしょう。
 
 ## 自動化されたテスト
 
-Storybook はアプリケーションの UI を作成する際に目視でテストする素晴らしい方法を提供してくれます。ストーリーがあることにより、タスクの外観を壊していないことを確認しながらアプリケーションを開発できます。しかし、これは完全に手動のプロセスなので、誰かが警告やエラーがなく表示されていることをそれぞれの状態を確認しながらクリックしていかなければなりません。自動化できないものでしょうか。
+Storybook はアプリケーションの UI を作成する際に目視でテストする素晴らしい方法を与えてくれます。ストーリーがあれば、タスクの外観が壊れていないことを確認しながらアプリケーションを開発できます。しかしこれは完全に手動の作業なので、警告やエラーがなく表示されていることを、それぞれの状態を確認しながら誰かがクリックしていかなければなりません。なんとか自動化できないものでしょうか。
 
 ### スナップショットテスト
 

@@ -5,7 +5,7 @@ description: '開発を加速させるアドオンを自分で作る方法を学
 commit: 'bebba5d'
 ---
 
-既に、Storybook の特徴的な機能である、堅牢な[アドオン](https://storybook.js.org/addons/introduction/)のエコシステムを紹介しました。アドオンを使用することで、開発効率とワークフローが向上します。
+既に、Storybook の特徴的な機能である、堅牢な[アドオン](https://storybook.js.org/docs/react/configure/storybook-addons)のエコシステムを紹介しました。アドオンを使用することで、開発効率とワークフローが向上します。
 
 このおまけの章では自分でアドオンを作る方法について見ていきます。アドオンを作るのは困難だと思われるかもしれませんが、そうでもありません。少し手順を踏めば、アドオンを書き始めることができます。
 
@@ -21,9 +21,11 @@ commit: 'bebba5d'
 - イメージを表示できるようにして、URL も埋め込めるようにする
 - 複数のテーマやバージョンがあることを考慮し、複数のアセットに対応する
 
-ストーリーとアセットの紐づけには、[parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options)を使用します。Storybook のオプションでストーリーにカスタムのパラメーターを設定することができます。使い方は以前の章で使用したデコレーターとほとんど同じです。
+ストーリーとアセットの紐づけには Storybook の機能である [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) を使用します。parameters はストーリーに追加のメタデータを設定することができます。
 
 ```javascript
+// YourComponent.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -65,7 +67,7 @@ export default {
 これだけです。これでアドオンの作成準備が整いました。
 
 <div class="aside">
-<code>.storybook</code> フォルダーをアドオンの配置場所として使用します。その理由は直接的なアプローチをとることで複雑になりすぎないようにするためです。実際のアドオンを作成するならば、別のパッケージに移動させ、独自のファイルとフォルダーの構成にするべきでしょう。
+ここでは <code>.storybook</code> フォルダーをアドオンの配置場所として使用します。その理由は直接的なアプローチをとることで複雑になりすぎないようにするためです。実際のアドオンを作成するならば、別のパッケージに移動させ、独自のファイルとフォルダーの構成にするべきでしょう。
 </div>
 
 ## アドオンを書く
@@ -74,6 +76,7 @@ export default {
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -96,15 +99,18 @@ addons.register('my/design-addon', () => {
 - Storybook に新しいアドオンを登録する
 - 新しい UI 要素をオプション (アドオンを説明するタイトルと要素の種類) と共に追加し、暫定的にテキストを表示する
 
-この時点では Storybook を起動しても、アドオンは見えません。前に Knobs アドオンを追加したのと同じように、`.storybook/main.js` ファイルに登録用のコードを追加する必要があります。以下の内容を現在の `addons` リストに追加しましょう:
+この時点では Storybook を起動しても、アドオンは見えません。アドオンを登録するためには、`.storybook/main.js` ファイルにコードを追加する必要があります。以下の内容を現在の `addons` リストに追加しましょう:
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    // 前と同じ
-    './.storybook/design-addon/register.js', // 今回のアドオン
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
+    './.storybook/design-addon/register.js', // our addon
   ],
 };
 ```
@@ -117,7 +123,7 @@ module.exports = {
 Storybook には、パネルだけではなく、様々な種類の UI コンポーネントを追加できます。すべてではありませんが、ほとんどの UI コンポーネントは既に @storybook/components パッケージ内にありますので、UI を実装する手間を省き、機能を作りこむことに集中することができます。
 </div>
 
-### コンテントコンポーネントを作成する
+### Content コンポーネントを作成する
 
 最初の目標は完了しました。次の目標に取り掛かりましょう。
 
@@ -127,12 +133,13 @@ Storybook には、パネルだけではなく、様々な種類の UI コンポ
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
-/* 前と同じ */
+/* same as before */
 import { useParameter } from '@storybook/api';
 
 const Content = () => {
-  const results = useParameter('assets', []); // ストーリーのパラメーターをここで取得する
+  const results = useParameter('assets', []); // story's parameter being retrieved here
   return (
     <Fragment>
       {results.length ? (
@@ -153,13 +160,14 @@ const Content = () => {
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // ストーリーのパラメーターをここで取得する
+  const results = useParameter('assets', []); // story's parameter being retrieved here
   return (
     <Fragment>
       {results.length ? (
@@ -186,20 +194,20 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-[useParameter](https://storybook.js.org/docs/addons/api/#useparameter) を使用していることに注目してください。この便利なフックは各ストーリーに設定された `parameters` オプションを読み取ることが可能です。このアドオンでは単一または複数のアセットへのパスが指定されます。実際の効果は後ほど確認しましょう。
+[useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter) を使用していることに注目してください。この便利なフックは各ストーリーに設定された `parameters` オプションを読み取ることが可能です。このアドオンでは単一または複数のアセットへのパスが指定されます。実際の効果は後ほど確認しましょう。
 
 ### ストーリーにアドオンを使用する
 
 必要なピースはすべて組み立てました。しかし、実際に動かして何かを表示させるにはどうすればよいでしょうか。
 
-使うためには `Task.stories.js` ファイルにちょっとした変更を加え、[parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) オプションを追加します。
+使うためには `Task.stories.js` ファイルにちょっとした変更を加え、[parameters](https://storybook.js.org/docs/react/writing-stories/parameters) オプションを追加します。
 
 ```javascript
 // src/components/Task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
-  decorators: [withKnobs],
   parameters: {
     assets: [
       'path/to/your/asset.png',
@@ -207,10 +215,12 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  // "Data" で終わるエクスポートはストーリーではない
-  excludeStories: /.*Data$/,
+  argTypes: {
+    /* ...actionsData, */
+    backgroundColor: { control: 'color' },
+  },
 };
-/* 前と同じ */
+/* same as before  */
 ```
 
 それでは Storybook を再起動してタスクのストーリーを選択してみましょう。すると以下のようになります:
@@ -223,6 +233,7 @@ export default {
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -250,7 +261,7 @@ const Asset = ({ url }) => {
     return null;
   }
   if (url.match(/\.(png|gif|jpeg|tiff|svg|anpg|webp)/)) {
-    // イメージを表示する
+    // do image viewer
     return <Img alt="" src={url} />;
   }
 
@@ -258,9 +269,9 @@ const Asset = ({ url }) => {
 };
 
 const Content = () => {
-  // ストーリーのパラメーターをここで取得する
+  // story's parameter being retrieved here
   const results = useParameter('assets', []);
-  // Storybook のグローバル状態から ID を取得する
+  // the id of story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
   if (results.length === 0) {
@@ -277,7 +288,7 @@ const Content = () => {
 };
 ```
 
-よく見ると、`styled` タグを使用していることがわかります。このタグは `@storybook/theming` パッケージにあります。`styled` タグを使うことで、Storybook のテーマをカスタマイズするだけではなく、UI も必要に応じてカスタマイズすることができます。さらに、[useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate) という本当に便利なフックを使用し、Storybook の内部状態にアクセスすることで、現在のどんな些細な情報でも取得できるようになります。この例では、単に各ストーリーに付けられた ID を取得するのに使用しています。
+コードを見てみましょう。`@storybook/theming` パッケージの `styled` タグを使用しています。これを使用することで Storybook のテーマとアドオンの UI をカスタマイズすることができます。[`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) は Storybook の内部状態にアクセスするためのフックで、どんな些細な情報でも取得することができます。この例では、各ストーリーに付けられた ID を取得するのに使用しています。
 
 ### 実際のアセットを表示する
 
@@ -303,21 +314,23 @@ Storybook が変更を検知し、アセットをロードします。今のと�
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
-/* 前と同じ */
+/* same as before */
 ```
 
 そして `Content` コンポーネントを変更し、アセットを切り替えられるようにしましょう:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 const Content = () => {
-  // ストーリーのパラメーターをここで取得する
+  // story's parameter being retrieved here
   const results = useParameter('assets', []);
-  // アドオンの状態をここで保存する
+  // addon state being persisted here
   const [selected, setSelected] = useAddonState('my/design-addon', 0);
-  // Storybook のグローバル状態から ID を取得する
+  // the id of the story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
   if (results.length === 0) {
@@ -355,6 +368,7 @@ UI コンポーネントに関連するデザインアセットを表示する�
 
 ```javascript
 // .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
@@ -390,9 +404,9 @@ const Asset = ({ url }) => {
 };
 
 const Content = () => {
-  const results = useParameter('assets', []); // ストーリーのパラメーターをここで取得する
-  const [selected, setSelected] = useAddonState('my/design-addon', 0); // アドオンの状態をここで保存する
-  const { storyId } = useStorybookState(); // Storybook のグローバル状態から ID を取得する
+  const results = useParameter('assets', []); // story's parameter being retrieved here
+  const [selected, setSelected] = useAddonState('my/design-addon', 0); // addon state being persisted here
+  const { storyId } = useStorybookState(); // the story«s unique identifier being retrieved from Storybook global state
 
   if (results.length === 0) {
     return null;
@@ -471,4 +485,4 @@ https://github.com/storybookjs/storybook/tree/next/dev-kits
 
 ## チーム内でアドオンを共有する
 
-ワークフローにアドオンを使用することで、時間を節約することができますが、技術者ではないチームメートやレビュアーがその恩恵を受けるのが難しい場合もあります。Storybook を動かせない環境の人もいるのです。それが Storybook をみんなが見られるようにオンラインで公開する理由です。次の章では、それをやりましょう！
+ワークフローにアドオンを使用することで、時間を節約することができますが、技術者ではないチームメートやレビュアーがその恩恵を受けるのが難しい場合もあります。Storybook を動かせない環境の人もいるのです。それが Storybook をみんなが見られるようにオンラインで公開する理由です。

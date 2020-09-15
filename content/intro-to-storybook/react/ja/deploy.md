@@ -70,14 +70,14 @@ yarn add -D chromatic
 作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けてください。
 
 ```bash
-npx chromatic --project-token=<project-token>
+yarn chromatic --project-token=<project-token>
 ```
 
 ![Chromatic を実行する](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
 実行が完了すると、Storybook が発行されて、`https://random-uuid.chromatic.com` のようなリンクができます。このリンクをチームに共有すれば、フィードバックが得られるでしょう。
 
-![Chromatic パッケージを使用してデプロイされた Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+![Chromatic パッケージを使用してデプロイされた Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
 
 やりました！Storybook が一つのコマンドだけで発行できました。ですが、UI を実装し、フィードバックを得たいと思ったときに、毎回コマンドを手動実行するのは非効率です。理想的なのは、コードをプッシュすると自動的に最新のコンポーネントが発行されることです。それには、Storybook を継続的にデプロイしていく必要があります。
 
@@ -93,31 +93,31 @@ npx chromatic --project-token=<project-token>
 
 ```yaml
 # .github/workflows/chromatic.yml
-# アクションの名前
+# name of our action
 name: 'Chromatic Deployment'
-# トリガーを起動するイベント
+# the event that will trigger the action
 on: push
 
-# このアクションが何をするのか
+# what the action will do
 jobs:
   test:
-    # アクションを実行する OS を指定
+    # the operating system it will run on
     runs-on: ubuntu-latest
-    # 実行するステップのリスト
+    # the list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
       - uses: chromaui/action@v1
-        # GitHub chromatic アクションに必要なパラメーター
+        # options required to the GitHub chromatic action
         with:
-          # プロジェクトトークンを指定する
-          # 取得方法は https://www.learnstorybook.com/intro-to-storybook/react/ja/deploy/ を参照
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 <div class="aside">
-<p>簡潔にするため <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
+<p>簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
 </div>
 
 ### アクションをコミットする
