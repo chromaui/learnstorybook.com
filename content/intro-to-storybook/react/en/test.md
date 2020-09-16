@@ -39,7 +39,7 @@ Let's see how it works by tweaking the background of the `Task` component.
 Start by creating a new branch for this change:
 
 ```bash
-git checkout -b change-task-background
+git switch -c change-task-background
 ```
 
 Change `Task` to the following:
