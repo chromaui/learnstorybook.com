@@ -12,7 +12,7 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 
 We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [ember-cli](https://github.com/ember-cli/ember-cli) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Qunit](https://qunitjs.com/) testing in our app. Let’s run the following commands:
 
-```bash
+```shell
 # Create our application:
 ember new taskbox
 
@@ -35,13 +35,13 @@ The <code>`ember generate <entity-name>`</code> command requires an entity name 
 
 We'll need to install some additional packages in our app, more specifically one Ember addon and one package, both this one will help us out shortly. Run the following commands:
 
-```bash
+```shell
 ember install ember-truth-helpers
 ```
 
 Followed by:
 
-```
+```shell
 npm install -D npm-run-all
 ```
 
@@ -49,25 +49,23 @@ And finally make a small change to our <code>package.json</code> to allow Storyb
 
 Add the following entry to your scripts:
 
-```javascript
-// package.json
+```json
 {
-    "scripts":{
-        "start": "ember serve",
-        "storybook": "start-storybook -p 6006 -s dist",
-        "storybook-dev":"npm-run-all --continue-on-error --parallel start storybook",
-        "prebuild-storybook":"ember build"
-        "build-storybook": "build-storybook -s dist",
-    }
+  "scripts": {
+    "start": "ember serve",
+    "storybook": "start-storybook -p 6006 -s dist --ci",
+    "storybook-dev": "npm-run-all --continue-on-error --parallel start storybook",
+    "prebuild-storybook": "ember build",
+    "build-storybook": "build-storybook -s dist"
+  }
 }
-
 ```
 
 This change is required based on how both Storybook and Ember handle their build processes.
 
 Now we can quickly check that the various environments of our application are working properly:
 
-```bash
+```shell
 # Run the test runner (Qunit) in a terminal:
 ember test --server
 
@@ -96,14 +94,15 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder.
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder. Issue the following commands in your terminal:
+
+```shell
+npx degit chromaui/learnstorybook-code/public/font public/font
+npx degit chromaui/learnstorybook-code/public/icon public/icon
+```
 
 <div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
-
-```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
-```
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+</div>
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!

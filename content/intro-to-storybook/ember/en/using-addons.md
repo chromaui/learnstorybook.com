@@ -30,7 +30,7 @@ Knobs is an amazing resource for designers and developers to experiment and play
 
 First, we will need to to add it as a development dependency.
 
-```bash
+```shell
 npm install -D @storybook/addon-knobs
 ```
 
@@ -117,6 +117,7 @@ Thanks to quickly being able to try different inputs to a component we can find 
 
 {{!-- This is the input for our task title. In practice we would probably update the styles for this element
 // but for this tutorial, let's fix the problem with an inline style: --}}
+
 <input type="text" readonly value={{@task.title}} placeholder="Input title" style="text-overflow: ellipsis;" />
 ```
 
@@ -159,4 +160,4 @@ Don't forget to merge your changes with git!
 
 ## Creating your own addon
 
-As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the next chapter, we'll guide you through creating an addon that shows your static design alongside your development.
+As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the [create addons](/ember/en/creating-addons) bonus chapter we'll teach you that, by creating a addon that will help you supercharge your development workflow.

@@ -24,6 +24,7 @@ First we’ll construct a simple Redux store that responds to actions that chang
 
 ```javascript
 // app/reducers/index.js
+
 import { combineReducers } from 'redux';
 // The initial state of our store when the app loads.
 // Usually you would fetch this from a server
@@ -82,6 +83,7 @@ In `app/components/PureTaskList.hbs`:
 
 ```handlebars
 {{!--app/components/pure-task-list.hbs --}}
+
 {{#if @loading}}
  <LoadingRow />
  <LoadingRow />
@@ -110,8 +112,8 @@ In `app/components/PureTaskList.hbs`:
 In `app/components/task-list.hbs`:
 
 ```handlebars
-
 {{!!-- app/components/task-list.hbs --}}
+
 <div>
   <PureTaskList
     @tasks={{this.tasks}}
@@ -166,6 +168,7 @@ The reason to keep the presentational version of the `TaskList` separate is beca
 
 ```javascript
 // app/components/pure-task-list.stories.js
+
 import { hbs } from 'ember-cli-htmlbars';
 import { taskData, actionsData } from './task.stories';
 
@@ -229,6 +232,7 @@ Similarly, we need to use `PureTaskList` in our Qunit test:
 
 ```javascript
 // tests/integration/task-list-test.js
+
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';

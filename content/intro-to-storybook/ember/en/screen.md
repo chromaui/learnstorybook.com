@@ -16,6 +16,7 @@ Let's start by updating the store (in `app/reducers/index.js`) to include the er
 
 ```javascript
 // app/reducers/index.js
+
 import { combineReducers } from 'redux';
 // The initial state of our store when the app loads.
 // Usually you would fetch this from a server
@@ -79,6 +80,7 @@ The store is updated with the new field. Let's create a presentational `pure-inb
 
 ```handlebars
 {{!--app/components/pure-inbox-screen.hbs--}}
+
 <div class="page lists-show">
   <nav>
     <h1 class="title-page">
@@ -109,6 +111,7 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 
 ```handlebars
 {{!--app/components/inbox-screen.hbs --}}
+
 <div>
   <PureInboxScreen @error={{this.error}} />
 </div>
@@ -118,6 +121,7 @@ In `app/components/inbox-screen.js` add the following:
 
 ```javascript
 // app/components/inbox-screen.js
+
 import Component from '@glimmer/component';
 import { connect } from 'ember-redux';
 
@@ -146,12 +150,13 @@ However, where things get interesting is in rendering the story in Storybook.
 
 As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition with other frameworks, container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service.
 
-When placing the `TaskList` into Storybook, we were able to ilustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+When placing the `TaskList` into Storybook, we were able to illustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
 So when we setup our stories in `pure-inbox-screen.stories.js`:
 
 ```javascript
 // app/components/pure-inbox-screen.stories.js
+
 import { hbs } from 'ember-cli-htmlbars';
 
 export default {
@@ -195,6 +200,6 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.

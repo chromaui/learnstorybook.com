@@ -36,7 +36,7 @@ Let's see how it works by tweaking the background of the `Task` component.
 
 Start by creating a new branch for this change:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
@@ -44,13 +44,14 @@ Change `Task` to the following:
 
 ```hbs
 <!-- app/components/task.js -->
+
 <div class="title">
     <input
       type="text"
       readonly
       value={{@task.title}}
       placeholder="Input title"
-      style="text-overflow: ellipsis;"
+      style="background:red;"
     />
   </div>
 ```
@@ -61,19 +62,19 @@ This yields a new background color for the item.
 
 Add the file:
 
-```bash
-git add app\components\task.js
+```shell
+git add .
 ```
 
 Commit it:
 
-```bash
+```shell
 git commit -m “change task background to red”
 ```
 
 And push the changes to the remote repo:
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

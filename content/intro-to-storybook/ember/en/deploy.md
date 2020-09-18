@@ -22,13 +22,13 @@ Before we begin, our local code needs to sync with a remote version control serv
 
 Issue the following commands to add and commit the changes we've done so far.
 
-```bash
+```shell
 $ git add .
 ```
 
 Followed by:
 
-```bash
+```shell
 $ git commit -m "taskbox UI"
 ```
 
@@ -38,13 +38,13 @@ Go to GitHub and create a new repository for our project [here](https://github.c
 
 In the new repo, grab the origin URL of the repo and add it to your git project with this command:
 
-```bash
+```shell
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Finally, push our local repo to the remote repo on GitHub with:
 
-```bash
+```shell
 $ git push -u origin master
 ```
 
@@ -52,7 +52,7 @@ $ git push -u origin master
 
 Add the package as a development dependency.
 
-```bash
+```shell
 npm install -D chromatic
 ```
 
@@ -69,7 +69,7 @@ Click `Choose GitHub repo` under collaborators and select your repo.
 
 Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -93,6 +93,7 @@ Create a new file called `chromatic.yml` like the one below. Replace to change `
 
 ```yaml
 # .github/workflows/chromatic.yml
+
 # name of our action
 name: 'Chromatic Deployment'
 # the event that will trigger the action
@@ -122,19 +123,19 @@ jobs:
 
 In the command line, issue the following command to add the changes that were done:
 
-```bash
+```shell
 git add .
 ```
 
 Then commit them by issuing:
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
 Finally push them to the remote repository with:
 
-```bash
+```shell
 git push origin master
 ```
 

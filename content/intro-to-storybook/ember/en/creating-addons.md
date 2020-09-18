@@ -43,8 +43,7 @@ We're going to start by adding one additional package to our project. More speci
 
 Open a console, navigate to your project folder and run the following command:
 
-```bash
-
+```shell
 npm install -D @babel/preset-react
 
 ```
@@ -53,6 +52,7 @@ Once it's installed, we'll need to create a new file called `babel.config.js` in
 
 ```javascript
 // babel.config.js
+
 module.exports = function(api) {
   process.env.NODE_ENV === 'development' ? api.cache(false) : api.cache(true);
   const presets = [
@@ -86,6 +86,7 @@ Add the following to your recently created file:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -112,6 +113,7 @@ Starting Storybook at this point, we won't be able to see the addon just yet. Li
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../app/components/**/*.stories.js'],
   addons: [
@@ -137,6 +139,7 @@ Make the following changes to the addon file:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -163,6 +166,7 @@ Your code should look like the following:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -206,6 +210,7 @@ To do so, we're going to make a small change to the `task.stories.js` file and a
 
 ```javascript
 // app/components/task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
@@ -233,6 +238,7 @@ At this stage we can see that the addon is working as it should, but now let's c
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -287,7 +293,7 @@ const Content = () => {
 };
 ```
 
-If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the `@storybook/theming` package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
+If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the `@storybook/theming` package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [useStorybookState](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
 
 ### Displaying the actual assets
 
@@ -313,6 +319,7 @@ We need to adjust our imports for our needs:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -322,6 +329,7 @@ And modify our `Content` component, so that we can change between assets:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
@@ -365,6 +373,7 @@ We've accomplished what we set out to do, which is to create a fully functioning
 
 ```javascript
 // .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';

@@ -23,8 +23,8 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```handlebars
-
 {{!-- app/components/task-list.hbs--}}
+
 {{#if @loading}}
  <div class="list-items">loading</div>>
 {{else if @tasks}}
@@ -46,6 +46,7 @@ Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 // app/components/task-list.stories.js
+
 import { hbs } from 'ember-cli-htmlbars';
 import { taskData, actionsData } from './task.stories';
 
@@ -118,8 +119,8 @@ For the loading edge case, we're going to create a new component that will displ
 Create a new file called `loading-row.hbs` and inside add the following markup:
 
 ```handlebars
-
 {{!-- app/components/loading-row.hbs --}}
+
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -133,8 +134,8 @@ Create a new file called `loading-row.hbs` and inside add the following markup:
 And update `task-list.hbs` to the following:
 
 ```handlebars
-
 {{!-- app/components/task-list.hbs--}}
+
 {{#if @loading}}
  <LoadingRow />
  <LoadingRow />
@@ -164,6 +165,7 @@ And finally create a new file called `task-list.js` to the following:
 
 ```javascript
 // app/components/task-list.js
+
 import Component from '@glimmer/component';
 
 export default class TaskList extends Component {
@@ -208,6 +210,7 @@ Create a test file called `tests/integration/task-list-test.js`. Here, we’ll b
 
 ```javascript
 // tests/integration/task-list-test.js
+
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';

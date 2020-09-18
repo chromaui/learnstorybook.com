@@ -4,7 +4,7 @@ tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
@@ -40,6 +40,7 @@ Below we build out Task’s three test states in the story file:
 
 ```javascript
 // app/components/task.stories.js
+
 import { hbs } from 'ember-cli-htmlbars';
 import { action } from '@storybook/addon-actions';
 
@@ -191,6 +192,7 @@ Then we'll need create a new file called `app/components/task.js` with the follo
 
 ```js
 // app/components/task.js
+
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
