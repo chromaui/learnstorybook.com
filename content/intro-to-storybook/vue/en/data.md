@@ -104,6 +104,7 @@ export default {
   name: "pure-task-list",
   ...
 }
+</script>
 ```
 
 In `src/components/TaskList.vue`:
