@@ -177,7 +177,7 @@ import React from 'react';
 const Template = args => <Avatar {...args} />;
 
 export const Controls = Template.bind({});
-controls.args = {
+Controls.args = {
   loading: false,
   size: 'tiny',
   username: 'Dominic Nguyen',
