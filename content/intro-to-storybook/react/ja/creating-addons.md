@@ -2,7 +2,7 @@
 title: 'おまけ: アドオンを作る'
 tocTitle: 'おまけ: アドオンを作る'
 description: '開発を加速させるアドオンを自分で作る方法を学びましょう'
-commit: 'bebba5d'
+commit: '6d1d770'
 ---
 
 既に、Storybook の特徴的な機能である、堅牢な[アドオン](https://storybook.js.org/docs/react/configure/storybook-addons)のエコシステムを紹介しました。アドオンを使用することで、開発効率とワークフローが向上します。

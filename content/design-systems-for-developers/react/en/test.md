@@ -2,7 +2,7 @@
 title: 'Test to maintain quality'
 tocTitle: 'Test'
 description: 'How to test design system appearance, functionality, and accessibility'
-commit: 5b71208
+commit: 95d7ae7
 ---
 
 In chapter 5, we automate design system testing to prevent UI bugs. This chapter dives into what characteristics of UI components warrant testing and potential pitfalls to avoid. We researched professional teams at Wave, BBC, and Salesforce to land on a test strategy that balances comprehensive coverage, straightforward setup, and low maintenance.

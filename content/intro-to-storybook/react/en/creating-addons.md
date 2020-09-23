@@ -2,7 +2,7 @@
 title: 'Bonus: Create an addon'
 tocTitle: 'Bonus: Creating addons'
 description: 'Learn how to build your own addons that will super charge your development'
-commit: 'bebba5d'
+commit: '6d1d770'
 ---
 
 Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/docs/react/configure/storybook-addons) ecosystem. Addons are used to enhance your developer experience and workflows.
