@@ -222,7 +222,7 @@ Nuestro componente todavía es bastante rudimentario en este momento. Vamos a ha
   // reactive declaration (computed prop in other frameworks)
   $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
-<div class={`list-item ${task.state}`}>
+<div class="list-item {task.state}">
   <label class="checkbox">
     <input type="checkbox" checked={isChecked} disabled name="checked" />
     <span class="checkbox-custom" on:click={ArchiveTask} />
