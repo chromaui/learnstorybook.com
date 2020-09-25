@@ -2,7 +2,7 @@
 title: 'Bonus : créer un addon'
 tocTitle: "Bonus : création d'addons"
 description: "Apprenez à construire vos propres addons qui vous permettront d'optimiser votre développement"
-commit: 'bebba5d'
+commit: '6d1d770'
 ---
 
 Plus tôt, nous avons lancé une fonctionnalité clé du Storybook : le robuste écosystème [addons](https://storybook.js.org/addons/introduction/). Les addons sont utilisés pour améliorer l'expérience et les workflows des développeurs.
