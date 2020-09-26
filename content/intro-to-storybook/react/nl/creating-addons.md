@@ -58,13 +58,13 @@ Maak een bestand aan in de root folder van ons project, genoemd `.babelrc` met h
 }
 ```
 
-Het toevoegen van dit bestand zal ons toelaten om de correcte preset en opties te gebruiken voor de add-on die we zullen ontwikkeln.
+Het toevoegen van dit bestand zal ons toelaten om de correcte preset en opties te gebruiken voor de add-on die we zullen ontwikkelen.
  
 Maak hierna, in je `.storybook` folder, een nieuwe folder aan, genoemd `design-add-on` en maak hierin een nieuw bestand aan genaamd `register.js`.
 
 Dat is het! We zijn klaar voor het ontwikkelen van onze add-on.
 
-<div class="aside">We gaan onze code>.storybook</code> folder gebruiken als een placeholder voor onze add-on. De reden hierachter is om een ongecompliceerde aanpak te behouden en te voorkomen dat deze te ingewikkeld wordt. Indien deze add-on zal getransformeerd worden in een echte add-on, zou het best zijn deze te verplaatsen naar een aparte package met zijn eigen bestand- en folderstructuur</div>
+<div class="aside">We gaan onze code>.storybook</code> folder gebruiken als een placeholder voor onze add-on. De reden hierachter is om een ongecompliceerde aanpak te behouden en te voorkomen dat deze te ingewikkeld wordt. Indien deze add-on getransformeerd wordt in een echte add-on, is het noodzakelijk deze te verplaatsen naar een aparte package met zijn eigen bestand- en folderstructuur.</div>
 
 ## Het schrijven van de add-on
 

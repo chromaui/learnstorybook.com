@@ -76,7 +76,7 @@ git commit -m “change task background to red”
 En push de wijzigingen naar de remote repo:
 
 ```bash
-git push -u origin change-task-background
+git push -u origin head
 ```
 
 Tot slot, open je Github repository en open een pull request voor de `change-task-background` branch.

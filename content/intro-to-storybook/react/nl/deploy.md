@@ -39,7 +39,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Tenslotte, push de lokale repo naar de remote repo op GitHub met het volgende:
 
 ```bash
-$ git push -u origin master
+$ git push -u origin head
 ```
 
 ### Voeg Chromatic toe
@@ -122,7 +122,7 @@ git commit -m "GitHub action setup"
 Tenslotte push je ze naar de remote repository met het volgende commando:
 
 ```bash
-git push origin master
+git push origin head
 ```
 
 Eenmaal je de Github action hebt opgezet, zal je Storybook gedeployed worden naar Chromatic elke keer je code pushed. Je kan all de gepubliceerde Storybook's vinden op je project zijn "build" scherm in Chromatic.
