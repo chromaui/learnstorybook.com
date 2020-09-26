@@ -2,7 +2,7 @@
 title: 'UI 배포하기'
 tocTitle: '배포'
 description: '디자인 시스템을 패키징하고 다른 앱에 임포트하는 법 알아보기'
-commit: 3a5cd35
+commit: 2d0450a
 ---
 
 설계 관점에서 보았을 때, 디자인 시스템은 그저 또 다른 프런트엔드 디펜던시입니다. moment나 lodash처럼 유명한 디펜던시들과 다를 바가 없습니다. UI 컴포넌트는 코드로 이루어졌기 때문에 기존의 기술로 코드를 재사용할 수 있습니다.
@@ -29,9 +29,9 @@ commit: 3a5cd35
 
 ## 디자인 시스템 Export 준비하기 
 
-create-react-app을 이용해서 디자인 시스템을 만들고 있기 때문에 create-react-app의 초기 상태와 스크립트들을 정리해야 합니다. 
+[Create React App](https://github.com/facebook/create-react-app) (CRA)을 이용해서 디자인 시스템을 만들고 있기 때문에 create-react-app의 초기 상태와 스크립트 중 자잘한 것을 정리합니다. 
 
-우선, 기초적인 README.md 파일을 추가합니다.
+우선, README.md 파일을 좀 더 자세하게 업데이트합니다.
 
 ```markdown
 # 스토리북 디자인 시스템 배우기
@@ -60,29 +60,44 @@ export * from './Icon';
 export * from './Link';
 ```
 
-자바스크립트를 컴파일하고 배포하기 위해 `@babel/cli`와 `cross-env`에 개발 디펜던시를 추가합니다.
+필요한 몇 가지 개발 패키지를 추가합니다. 빌드 과정에 필요한 [`@babel/cli`](https://www.npmjs.com/package/@babel/cli)와 [`cross-env`](https://www.npmjs.com/package/cross-env)를 사용할 것입니다.
 
-```bash
+커맨드 라인에 아래와 같이 명령어를 입력합니다.
+
+```shell
 yarn add --dev @babel/cli cross-env
 ```
 
-패키지를 빌드하기 위해 `package.json`에 스크립트를 추가합니다. 이 스크립트는 `dist` 폴더 안에 소스 디렉터리를 구축합니다.
+패키지를 설치했다면 빌드 과정을 구현해야 합니다.
+
+다행히도 이 부분은 Create React App (CRA)이 이미 만들어 놓았습니다. 해당 `build` 스크립트를 사용해서 디자인 시스템을 `dist` 디렉토리에 빌드하도록 수정합니다.
 
 ```json
 {
   "scripts": {
-    "build": "cross-env BABEL_ENV=production babel src -d dist",
-      ...
-  },
+    "build": "cross-env BABEL_ENV=production babel src -d dist"
+  }
+}
+```
+
+빌드 과정 구현이 완료되었습니다. 여기서 조금만 더 다듬으면 됩니다. `babel` 키 값을 `package.json` 파일에 추가해서 아래와 같이 업데이트합니다.
+
+```json
+{
   "babel": {
     "presets": [
-      "react-app"
+      [
+        "react-app",
+       {
+          "absoluteRuntime": false
+        }
+      ]
     ]
   }
 }
 ```
 
-이제 `yarn build`를 실행해서 `dist` 디렉터리에 코드를 빌드합니다. 참고로 이 `dist` 디렉터리를 `.gitignore` 파일에 추가해야 합니다.
+이제 `yarn build`를 실행해서 `dist` 디렉터리에 코드를 빌드합니다. 참고로 이 `dist` 디렉터리를 실수로 커밋하지 않도록 `.gitignore` 파일에 추가해야 합니다.
 
 ```
 // ..
@@ -91,12 +106,12 @@ dist
 
 #### 배포를 위해 패키지 메타 데이터 추가하기
 
-마지막으로 사용자가 필요한 정보를 모두 갖출 수 있도록 `package.json` 파일을 조금 수정해야 합니다. 가장 쉬운 방법은 `yarn init` 명령어를 실행하는 것입니다. 이 명령어는 배포를 위해 패키지의 초기 상태를 설정(initialize)합니다.
+패키지 사용자가 필요한 정보를 모두 갖출 수 있도록 `package.json` 파일을 조금 더 손봐야 합니다. 가장 쉬운 방법은 `yarn init` 명령어를 실행하는 것입니다. 이 명령어는 배포를 위해 패키지의 초기 상태를 설정(initialize)합니다.
 
-```bash
+```shell
 yarn init
 
-yarn init v1.16.0
+yarn init v1.22.5
 question name (learnstorybook-design-system):
 question version (0.1.0):
 question description (Learn Storybook design system):
@@ -131,7 +146,7 @@ question private: no
 
 Auto를 설치합니다.
 
-```bash
+```shell
 yarn add --dev auto
 ```
 
@@ -163,7 +178,7 @@ dist
 
 Auto를 사용할 때 가장 먼저 깃헙에 몇 가지 레이블을 만들어야 합니다. (다음 장에서 설명할) 패키지를 변경할 때 레이블을 사용하게 될 것입니다. `Auto`는 레이블을 이용해서 패키지 버전을 효율적으로 업데이트하고 changelog와 릴리즈 노트를 생성합니다.
 
-```bash
+```shell
 yarn auto create-labels
 ```
 
@@ -177,7 +192,7 @@ yarn auto create-labels
 
 차후에는 `Auto`에서 스크립트를 통해 새로운 버전 숫자들을 계산할 것입니다. 하지만 첫 번째 릴리즈에서는 명령어를 직접 입력해서 릴리즈 배포가 어떻게 실행되는지 알아봅시다. 첫 changelog를 생성합니다.
 
-```bash
+```shell
 yarn auto changelog
 ```
 
@@ -185,7 +200,7 @@ yarn auto changelog
 
 혹시나 실수하지 않기 위해 자동 생성된 changelog를 사용하는 것이 유용하지만, 사용자에게 가장 알맞도록 changelog를 수정하고 메시지를 변경하는 것도 좋은 방법입니다. 이런 경우에는 사용자가 모든 커밋에 대해 알 필요가 없습니다. 첫 번째로 만든 v0.1.0 버전에 간단한 메시지를 만들어 봅니다. 다음 명령어를 통해 `Auto`가 방금 생성한 커밋을 undo 하되 변경사항은 유지합니다.
 
-```bash
+```shell
 git reset HEAD^
 ```
 
@@ -202,21 +217,21 @@ git reset HEAD^
 
 이 changelog를 git에 추가합니다. CI 플랫폼이 이 커밋을 무시하도록 `[skip ci]`를 입력해야 합니다. 그렇지 않으면 빌드와 배포 과정에 추가되어 버립니다.
 
-```bash
+```shell
 git add CHANGELOG.md
 git commit -m "Changelog for v0.1.0 [skip ci]"
 ```
 
 이제 배포 단계입니다.
 
-```bash
+```shell
 npm version 0.1.0 -m "Bump version to: %s [skip ci]"
 npm publish
 ```
 
 그리고 Auto를 통해 깃헙에 릴리즈를 생성합니다. 
 
-```bash
+```shell
 git push --follow-tags origin master
 yarn auto release
 ```
@@ -332,79 +347,102 @@ jobs:
 
 이 예제 앱은 [컴포넌트 주도 개발 Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)를 할 수 있도록 스토리북을 사용합니다. 컴포넌트 주도 개발은 컴포넌트로 바닥부터 시작해서 페이지로 끝내는 UI 구축 방법입니다. 데모에서 우리는 두 개의 스토리북을 번갈아 가며 실행할 것입니다. 하나는 예제 앱, 하나는 디자인 시스템을 위한 것입니다.
 
-깃헙에서 아래 예제 앱 저장소를 clone 해줍니다.
+예제 앱을 설정하기 위해 커맨드 라인에서 아래 명령어들을 실행합니다;.
 
-```bash
-git clone https://github.com/chromaui/learnstorybook-design-system-example-app.git
+```shell
+// 로컬에 파일을 클론합니다.
+npx degit chromaui/learnstorybook-design-system-example-app example-app
+cd example-app
+# 디펜던시를 설치합니다
+yarn install
+## 스토리북을 시작합니다
+yarn storybook	
 ```
 
 디펜던시를 설치하고 앱에서 스토리북을 시작합니다.
 
-```bash
+```shell
 yarn install
 yarn storybook
 ```
 
 앱이 사용하는 간단한 컴포넌트들의 스토리가 실행되는 게 보일 것입니다.
 
-![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook.png)
+![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook-6-0.png)
 
 <h4>디자인 시스템 통합하기</h4>
 
-배포한 디자인 시스템을 디펜던시에 추가합니다.
-
-```bash
-yarn add <your-username>-learnstorybook-design-system
-```
-
-디자인 시스템 컴포넌트를 임포트하기 위해 예제 앱의 `.storybook/main.js` 파일을 업데이트합니다.
+디자인 시스템의 스토리북이 배포되었으니 예제 앱에 추가하도록 합니다. 예제 앱의 `.storybook/main.js` 파일을 아래와 같이 업데이트하면 스토리북을 추가할 수 있습니다.
 
 ```javascript
 // .storybook/main.js
 
 module.exports = {
-  stories: [
-    '../src/**/*.stories.js',
-    '../node_modules/<your-username>-learnstorybook-design-system/dist/**/*.stories.(js|mdx)',
-  ],
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  refs: {
+  'design-system': {
+     title: 'My design system',
+     // 배포되었을 때 Chromatic에서 제공한 url 
+     url: 'https://your-published-url.chromatic.com',
+    },
+  },
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
   ],
 };
 ```
 
-전역 데코레이터를 `.storybook/preview.js` 설정 파일에 추가해서 디자인 시스템이 지정한 전역 스타일을 사용할 수도 있습니다. 파일을 아래처럼 수정해 주세요.
+<video autoPlay muted playsInline loop>
+<source
+    src="/design-systems-for-developers/storybook-composition-6-0.mp4"
+    type="video/mp4"
+  />
+</video>
+
+<div class="aside">
+<code>refs</code> 키 값을 <code>.storybook/main.js</code> 파일에 추가해서 <a href="https://storybook.js.org/docs/react/workflows/storybook-composition">여러 스토리북을 하나로 통합합니다.</a> 이 방법은 여러 저장소로 나뉘어져 있거나 다양한 기술 스택을 사용하는 대형 프로젝트를 작업할 때 유용합니다.
+
+이제 예제 앱을 개발함과 동시에 디자인 시스템의 컴포넌트와 문서를 둘러볼 수 있습니다. 기능을 구현하는 중에 디자인 시스템을 볼 수 있다면 개발자들이 스스로 컴포넌트를 만드느라 시간을 낭비하지 않고 만들어진 컴포넌트를 재사용할 가능성이 높아집니다.
+
+필요한 것을 모두 갖췄으니 디자인 시스템을 추가하고 사용하면 됩니다. 터미널에서 아래 명령어를 실행해 주세요.
+
+```shell
+yarn add <your-username>-learnstorybook-design-system
+```
+
+디자인 시스템에 정의된 글로벌 스타일을 사용해야 하므로 [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) 설정 파일을 업데이트 하고 [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators)를 추가합니다. 
 
 ```javascript
 // .storybook/preview.js
 
 import React from 'react';
-import { addDecorator } from '@storybook/react';
 import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
 
-const { GlobalStyle } = designSystemGlobal;
+// 디자인 시스템에서 임포트한 스타일을 포함하기 위해 글로벌 decorator를 추가합니다.
+export const decorators = [
+    Story => (
+    <>
+      <GlobalStyle />
+      <Story />
+    </>
+  ),
+];
 
-addDecorator(story => (
-  <>
-    <GlobalStyle />
-    {story()}
-  </>
-));
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
 
-![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories.png)
+![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
 
-이제 예제 앱을 개발하면서 동시에 디자인 시스템 컴포넌트와 문서도 볼 수 있습니다. 기능을 구현하는 중에 디자인 시스템을 볼 수 있다면 개발자들이 스스로 컴포넌트를 만드느라 시간을 낭비하지 않고 만들어진 컴포넌트를 재사용 가능합니다.
 
-만약 4장에서 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">Chromatic</a>에 스토리북을 배포했다면 본인이 만든 디자인 시스템의 스토리북을 볼 수 있습니다. 
+우리가 만든 디자인 시스템 중 `Avatar` 컴포넌트를 예제 앱의 `UserItem` 컴포넌트에 사용해 보도록 합니다. `UserItem`은 이름과 프로필 사진을 포함한 사용자의 정보를 보여줘야 합니다.
 
-우리가 만든 디자인 시스템 중 Avatar 컴포넌트를 예제 앱의 UserItem 컴포넌트에 사용해 보도록 합니다. UserItem은 이름과 프로필 사진을 포함한 사용자의 정보를 보여줘야 합니다.
+본인의 에디터에서 `src/components/UserItem.js` 파일에 있는 `UserItem` 컴포넌트를 찾아보세요. 그리고 곧이어 변경할 코드가 핫모듈 재로딩으로 업데이트 되는 것을 보기 위해 스토리북에서 `UserItem`를 선택하세요.
 
-본인의 에디터에서 UserItem.js 컴포넌트를 찾아보세요. 그리고 코드가 바뀔 때 핫 모듈 재로딩으로 업데이트가 바로 되는지 스토리북 사이드바에서 UserItem을 찾아보세요.
-
-Avatar 컴포넌트를 임포트합니다.
+`Avatar` 컴포넌트를 임포트합니다.
 
 ```javascript
 // src/components/UserItem.js
@@ -440,9 +478,9 @@ export default ({ user: { name, avatarUrl } }) => (
 );
 ```
 
-저장하면 UserItem 컴포넌트가 스토리북에서 업데이트되고 새로운 Avatar 컴포넌트가 보입니다. UserItem이 UserList에 속해 있기 때문에 UserList에서도 Avatar를 볼 수 있습니다.
+저장하면 `UserItem` 컴포넌트가 스토리북에서 업데이트되고 새로운 `Avatar` 컴포넌트가 보입니다. `UserItem`이 `UserList`에 속해 있기 때문에 `UserList`에서도 `Avatar`를 볼 수 있습니다.
 
-![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system.png)
+![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
 
 짜잔! 디자인 시스템 컴포넌트를 예제 앱에 성공적으로 임포트했습니다. 디자인 시스템에서 Avatart 컴포넌트 관련된 업데이트를 배포하면 앱의 패키지를 업데이트 할 때 예제 앱에서 그 변경 사항을 확인할 수 있습니다. 
 
