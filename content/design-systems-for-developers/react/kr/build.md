@@ -2,7 +2,7 @@
 title: 'UI 컴포넌트 구축하기'
 tocTitle: '빌드'
 description: '스토리북에서 디자인 시스템 컴포넌트를 구축하고 구조화하기'
-commit: e7b6f00
+commit: 4211d5e
 ---
 
 3장에서 우리는 가장 인기 있는 컴포넌트 탐색기인 Storybook을 이용하여 필수 디자인 시스템 제작과정을 설정할 것입니다. 이 가이드의 목표는 전문가로 이루어진 팀들이 어떻게 디자인 시스템을 구축하는지 보여주는 것입니다. 그러므로 우리는 깔끔한 코드 (code hygiene), 시간을 절약해주는 스토리북 애드온, 디렉터리 구조 등과 같은 세부 사항들도 살펴볼 것입니다.
@@ -17,7 +17,7 @@ commit: e7b6f00
 
 이 프로젝트에 Prettier 애드온을 설치해서 사용한다면, 크게 신경 쓸 필요 없이 일관성 있는 코드 형식을 유지할 수 있습니다. 
 
-```bash
+```shell
 yarn add --dev prettier
 ```
 
@@ -38,16 +38,28 @@ yarn add --dev prettier
 
 스토리북을 설치하고 실행한다면,
 
-```bash
+```shell
 npx -p @storybook/cli sb init
 yarn storybook
 ```
 
 다음과 같은 화면이 보입니다.
 
+![Initial Storybook UI](/design-systems-for-developers/storybook-initial-6-0.png)
+
 이제 우리는 컴포넌트 탐색기를 설치했습니다!
 
-스토리북은 아래와 같이 재 로딩돼야 합니다. (스토리 목록 중 'Initials'의 폰트가 살짝 어긋나 있습니다.)
+어플리케이션에 스토리북을 설치할 때마다 'stories' 폴더에 몇 가지 예제들이 추가될 것입니다. 원한다면 예제들을 천천히 둘러보아도 좋습니다. 하지만 디자인 시스템 챕터에서는 사용하지 않으므로 'stories' 디렉토리를 지워도 무방합니다.
+
+스토리북은 아래와 같이 보여야 합니다. (스토리 목록 중 "Avatar: Initials"의 폰트 스타일이 살짝 어긋나 있습니다.)
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/design-systems-for-developers/storybook-initial-stories-without-styles-6-0.mp4"
+    type="video/mp4"
+  />
+</video>
+
 
 ### 글로벌 스타일 추가하기
 
@@ -72,21 +84,28 @@ export const GlobalStyle = createGlobalStyle`
 `;
 ```
 
-스토리북의 `GlobalStyle` 컴포넌트를 사용하기 위해서 우리는 컴포넌트 래퍼(wrapper)인 decorator를 이용할 수 있습니다. 앱이라면 그 컴포넌트를 앱 레이아웃 최상단에 놓을 것입니다. 하지만 스토리북에서는 `.storybook/preview.js` 설정 파일을 사용해서 모든 스토리들을 그 컴포넌트 안에 넣고 감싸도록 합니다.
+스토리북의 `GlobalStyle` 컴포넌트를 사용하기 위해서 우리는 컴포넌트 래퍼(wrapper)인 [decorator](https://storybook.js.org/docs/react/writing-stories/decorators)를 이용할 수 있습니다. 앱이라면 그 컴포넌트를 앱 레이아웃 최상단에 놓을 것입니다. 하지만 스토리북에서는 [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) 설정 파일을 사용해서 모든 스토리들을 그 컴포넌트 안에 넣고 감싸도록 합니다.
 
 ```javascript
 // .storybook/preview.js
 
 import React from 'react';
-import { addDecorator } from '@storybook/react';
+
 import { GlobalStyle } from '../src/shared/global';
 
-addDecorator(story => (
-  <>
-    <GlobalStyle />
-    {story()}
-  </>
-));
+// 모든 스토리에 스타일을 적용하기 위한 글로벌 decorator
+export const decorators = [
+  Story => (
+    <>
+      <GlobalStyle />
+	    <Story />
+    </>
+  ),
+];
+
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
 
 decorator 는 어떤 스토리가 선택되었든 간에 GlobalStyle 이 반드시 렌더링되도록 합니다. 
@@ -95,132 +114,84 @@ decorator 는 어떤 스토리가 선택되었든 간에 GlobalStyle 이 반드�
 
 ### 폰트 태그 추가하기
 
-우리의 디자인 시스템은 앱에서 Nunito Sans 폰트를 기본으로 합니다. 이 부분은 앱 프레임워크에 따라서 설정하는 방법이 다르지만 ([여기](https://github.com/storybookjs/design-system#font-loading)에서 더 자세하게 볼 수 있습니다), 스토리북에서 설정하는 가장 쉬운 방법은 `.storybook/preview-head.html` 파일에서 `<head>` 태그에 직접 `<link>` 태그를 추가하는 것입니다. 
+우리의 디자인 시스템은 앱에서 Nunito Sans 폰트를 기본으로 합니다. 이 부분은 앱 프레임워크에 따라서 설정하는 방법이 다르지만 ([여기](https://github.com/storybookjs/design-system#font-loading)에서 더 자세하게 볼 수 있습니다), 스토리북에서 설정하는 가장 쉬운 방법은 [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) 파일에서 `<head>` 태그에 직접 `<link>` 태그를 추가하는 것입니다. 
 
-```javascript
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900">
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900" />
 ```
 
-이제 당신의 스토리북은 이렇게 보일 것입니다. 글로벌 폰트 스타일을 적용했기 때문에 'T' 글자는 sans-serif 폰트가 적용되어 있습니다.
+이제 당신의 스토리북은 이렇게 보일 것입니다. 글로벌 폰트 스타일을 적용했기 때문에 "T" 글자는 sans-serif 폰트가 적용되어 있습니다.
 
-![글로벌 스타일이 적용된 스토리북](/design-systems-for-developers/storybook-global-styles.png)
+![글로벌 스타일이 적용된 스토리북](/design-systems-for-developers/storybook-global-styles-6-0.png)
 
 ## 애드온으로 스토리북을 더욱 강력하게 
 
-큰 커뮤니티 덕분에 스토리북은 탄탄한 애드온 생태계를 가지고 있습니다. 실용성을 추구하는 개발자를 위해서도, 우리가 직접 커스텀 도구를 만드는 것보다 애드온 생태계를 이용해서 워크플로우를 구축하기가 더 쉽고 빠릅니다. 
+큰 커뮤니티 덕분에 스토리북은 탄탄한 [애드온 생태계](https://storybook.js.org/addons)를 가지고 있습니다. 실용성을 추구하는 개발자를 위해서도, 우리가 직접 커스텀 도구를 만드는 것보다 애드온 생태계를 이용해서 워크플로우를 구축하기가 더 쉽고 빠릅니다. 
 
 <h4>인터렉션을 위한 액션 애드온</h4>
 
-버튼이나 링크 같은 인터렉티브한 엘리먼트를 실행했을 때, 스토리북의 [액션 애드온](https://github.com/storybookjs/storybook/tree/next/addons/actions)은 UI 피드백을 줍니다. 액션 애드온은 스토리북을 설치할 때 기본으로 같이 설치되며, '액션'을 콜백 prop으로 컴포넌트에 전달하여 사용할 수 있습니다. 
+버튼이나 링크 같은 인터렉티브한 엘리먼트를 실행했을 때, 스토리북의 [액션 애드온](https://storybook.js.org/docs/react/essentials/actions)은 UI 피드백을 줍니다. 액션 애드온은 스토리북을 설치할 때 기본으로 같이 설치되며, '액션'을 콜백 prop으로 컴포넌트에 전달하여 사용할 수 있습니다. 
 
 클릭에 반응하기 위해 wrapper 컴포넌트로 버튼 엘리먼트를 감싸기도 하는데, 이 버튼 엘리먼트에서 액션 애드온을 어떻게 사용할 수 있는지 봅시다. 
 
 여기, 버튼 wrapper에 액션을 전달하는 스토리가 있습니다.
 
 ```javascript
-// src/Button.js
+// src/Button.stories.js
 
 import React from 'react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
 
-// When the user clicks a button, it will trigger the `action()`,
-// ultimately showing up in Storybook's addon panel.
+// 버튼을 클릭하면, `action()`이 실행되고,
+// 스토리북의 애드온 패널에 나타난다.
 function ButtonWrapper(props) {
-return <CustomButton onClick={action('button action click')} {...props} />;
+  return <CustomButton {...props} />;
 }
 
-export const buttonWrapper = () => (
-<Button ButtonWrapper={ButtonWrapper} appearance="primary">
-// … etc ..
+export const buttonWrapper = (args) => (
+  return <CustomButton {...props}/>;
+  // … etc ..
 )
 ```
 
-![액션 애드온 사용하기](/design-systems-for-developers/storybook-addon-actions.gif)
+<video autoPlay muted playsInline loop>
+  <source src="/design-systems-for-developers/storybook-addon-actions-6-0.mp4" type="video/mp4" />
+</video>
 
-#### 코드를 보고 복사할 수 있는 소스
+<h4>컴포넌트 스트레스 테스트를 위한 Controls</h4>
 
-사용자가 스토리를 보다가, 이 스토리가 어떻게 작동하는지 알기 위해 뒷단의 코드를 보고 본인의 프로젝트에 복사하고 싶을 수도 있습니다. Storysource 애드온은 애드온 패널 중에서 현재 선택된 스토리 코드를 보여줍니다. 
+스토리북을 새로 설치하면 [Controls 애드온](https://storybook.js.org/docs/react/essentials/controls)이 이미 다 설정된 상태로 포함되어 있습니다. 
 
-```bash
-yarn add --dev  @storybook/addon-storysource
-```
+Controls 애드온을 이용하면 스토리북 UI에서 컴포넌트 입력값(props)을 역동적으로 사용할 수 있습니다. [전달인자](https://storybook.js.org/docs/react/writing-stories/args) (줄여서 args)를 통해 컴포넌트 prop에 다양한 값을 제공할 수 있고 UI를 통해서 값을 변경할 수 있습니다. 이는 디자인 시스템을 만드는 사람들이 전달인자의 값들을 조정하면서 컴포넌트 입력값(props)을 스트레스 테스트를 할 수 있도록 해줍니다. 동시에 디자인 시스템 사용자들은 여러 컴포넌트를 합치기 이전에 먼저 사용해보고 각 입력값(prop)이 컴포넌트를 어떻게 바꾸는지 이해할 수 있습니다.
 
-`.storybook/main.js` 에 애드온을 추가합니다:
-```javascript
-//.storybook/main.js
-
-module.exports = {
-  stories: ['../src/**/*.stories.js'],
-  addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
-    '@storybook/addon-links',
-    '@storybook/addon-storysource',
-  ],
-};
-```
-
-스토리북에서 이 워크플로우는 이렇게 보입니다.
-
-![Storysource 애드온](/design-systems-for-developers/storybook-addon-storysource.png)
-
-<h4>Knobs 애드온으로 컴포넌트 스트레스 테스트하기</h4>
-
-[knobs 애드온](https://github.com/storybookjs/storybook/tree/next/addons/knobs)을 이용하면 스토리북 UI에서 컴포넌트 props를 역동적으로 사용할 수 있습니다. Knobs는 컴포넌트 prop에 다양한 값을 제공할 수 있고 UI를 통해서 값을 변경할 수 있도록 도와줍니다. 이는 디자인 시스템을 만드는 사람들이 knobs를 조절해서 컴포넌트의 여러 입력값을 스트레스 테스트를 할 수 있도록 해줍니다. 동시에 디자인 시스템 사용자들은 여러 컴포넌트를 합치기 이전에, 먼저 사용해보고, 각각의 prop이 컴포넌트를 어떻게 바꾸는지 이해할 수 있습니다.
-
-`Avatar` 컴포넌트에서 knobs를 설정해서 어떻게 작동하는지 봅시다.
-
-```bash
-yarn add --dev @storybook/addon-knobs
-```
-
-`.storybook/main.js`에 애드온을 추가합니다.
-
-```javascript
-//.storybook/main.js
-
-module.exports = {
-  stories: ['../src/**/*.stories.js'],
-  addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
-    '@storybook/addon-links',
-    '@storybook/addon-storysource',
-    '@storybook/addon-knobs',
-  ],
-};
-```
-
-`src/Avatar.stories.js` 에 있는 knobs를 사용하는 스토리를 추가합니다.
+`src/Avatar.stories.js`에 있는 `Avatar` 컴포넌트에 새로운 스토리를 추가해보면서 Controls 애드온이 어떻게 작동하는지 살펴봅시다.
 
 ```javascript
 //src/Avatar.stories.js
-
 import React from 'react';
-import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 
-// …
-
-export const knobs = () => (
-  <Avatar
-    loading={boolean('Loading')}
-    size={select('Size', ['tiny', 'small', 'medium', 'large'])}
-    username="Dominic Nguyen"
-    src="https://avatars2.githubusercontent.com/u/263385"
-  />
-);
-
-knobs.story = {
-  decorators: [withKnobs],
-};
+// Controls을 사용하는 새로운 스토리
+const Template = args => <Avatar {...args} />;
+export const Controls = Template.bind({});
+Controls.args = {
+  loading: false,
+  size: 'tiny',
+  username: 'Dominic Nguyen',
+  src: 'https://avatars2.githubusercontent.com/u/263385',
+};	
 ```
 
-애드온 목록에 있는 Knobs 탭을 주목해 봅니다. 사이즈를 선택하는 엘리먼트("Size")를 조절해서 아바타 사이즈를 `tiny`, `small`, `medium`, `large` 중에서 고를 수 있습니다. 이렇게 knobs와 다른 props를 조합해서 여러 컴포넌트를 인터렉티브하게 사용해 볼 수 있는 환경을 만들 수 있습니다.
+애드온 목록에 있는 Controls 탭을 주목해 봅니다. Controls는 props를 조정하기 위해 자동으로 그래픽 UI를 생성합니다. 예를 들어, 사이즈를 선택하는 엘리먼트("size")를 이용해서 아바타 사이즈를 `tiny`, `small`, `medium`, `large` 중에서 고를 수 있습니다. 이 방식은 컴포넌트의 나머지 props에도 ("loading", "username", "src")에도 동일하게 적용됩니다. 이렇게 사용자 친화적인 방법으로 컴포넌트 스트레스 테스트를 만드는 것이 가능합니다.
 
-![Storybook knobs 애드온](/design-systems-for-developers/storybook-addon-knobs.gif)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/design-systems-for-developers/storybook-addon-controls-6-0.mp4"
+    type="video/mp4"
+  />
+</video>
 
-단, knobs가 stories를 대체하지는 않습니다. knobs는 컴포넌트의 여러 특수 케이스를 탐색하는 데에 매우 유용합니다. Story는 의도된 케이스를 보여주는 데에 사용합니다.
+단, Controls가 stories를 대체하지는 않습니다. Controls는 컴포넌트의 여러 특수 케이스를 탐색하는 데에 매우 유용합니다. Stories는 의도된 케이스를 보여주는 데에 사용합니다.
 
 우리는 뒤의 챕터에서 접근성과 문서 (Accessibility and Docs) 애드온을 살펴볼 것입니다. 
 
