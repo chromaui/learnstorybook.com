@@ -14,7 +14,7 @@ Om Storybook te deployen, moeten we het eerst exporteren als een statische web-a
 
 ## Storybook publiceren
 
-Deze tutorial gebruikt <a href="https://www.chromatic.com/">Chromatic</a>, een gratis pblishing service gemaakt door de mensen die Storybook onderhouden. Het laat ons toe om Storybook veilig in de cloud te deployen.
+Deze tutorial gebruikt <a href="https://www.chromatic.com/">Chromatic</a>, een gratis dienst gemaakt door de mensen die Storybook onderhouden. Het laat ons toe om Storybook veilig in de cloud te deployen.
 
 ### Een GitHub repository opzetten
 
