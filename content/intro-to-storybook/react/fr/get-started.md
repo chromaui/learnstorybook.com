@@ -53,7 +53,7 @@ Selon la partie de l'application sur laquelle vous travaillez, vous voudriez peu
 
 ## Réutiliser les CSS
 
-Taskbox réutilise des éléments de design du tutoriel GraphQL et React [l'application d'éxample](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), donc ce ne sera pas necessaire d'écrire de CSS dans ce tutoriel. Copier et coller [ce CSS compilé](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dans le fichier `src/index.css`.
+Taskbox réutilise des éléments de design du tutoriel GraphQL et React [l'application d'éxample](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), donc ce ne sera pas necessaire d'écrire de CSS dans ce tutoriel. Copier et coller [ce CSS compilé](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dans le fichier `src/index.css`.
 
 ![UI de Taskbox](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 

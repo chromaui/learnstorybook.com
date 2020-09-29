@@ -53,7 +53,7 @@ yarn start
 
 ## CSS を再利用する
 
-Taskbox はデザイン要素を [GraphQL と React のチュートリアル](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)より再利用しますので、このチュートリアルでは、CSS を書く必要はありません。[このコンパイル済み CSS ファイル](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) をコピーして `src/index.css` に貼り付けてください。
+Taskbox はデザイン要素を [GraphQL と React のチュートリアル](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)より再利用しますので、このチュートリアルでは、CSS を書く必要はありません。[このコンパイル済み CSS ファイル](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) をコピーして `src/index.css` に貼り付けてください。
 
 ![Taskbox の UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 

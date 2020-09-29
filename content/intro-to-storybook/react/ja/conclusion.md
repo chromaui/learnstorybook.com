@@ -17,7 +17,7 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 - [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/react/get-started/introduction)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
 
-- [**楽しい Storybook のワークフロー**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07)では Squarespace や、メジャーリーグサッカー、ディスカバリーネットワーク、 Apollo GraphQL といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
+- [**楽しい Storybook のワークフロー**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)では Squarespace や、メジャーリーグサッカー、ディスカバリーネットワーク、 Apollo GraphQL といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
 
 - [**視覚的なテストのハンドブック**](https://www.learnstorybook.com/visual-testing-handbook)では、コンポーネントを Storybook で視覚的にテストする方法を掘り下げています。無料の 31 ページある eBook です。
 
@@ -27,7 +27,7 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 ## LearnStorybook.com について
 
-文書や、コード、製作は [Chromatic](http://blog.hichroma.com/) の貢献です。このチュートリアルは Chroma の [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858) を参考にしています。
+文書や、コード、製作は [Chromatic](https://www.chromatic.com/) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
 
 このようなチュートリアルや記事をお望みならば、Chromatic のメーリングリストにサインアップしてください。
 
