@@ -47,7 +47,7 @@ npm install -D npm-run-all
 
 And finally make a small change to our <code>package.json</code> to allow Storybook to work properly with our Ember app.
 
-Add the following entry to your scripts:
+Add the following entries to your scripts:
 
 ```json
 {
@@ -61,7 +61,12 @@ Add the following entry to your scripts:
 }
 ```
 
-This change is required based on how both Storybook and Ember handle their build processes.
+These changes are required based on how both Storybook and Ember handle their build processes. To give a bit more context on some of the changes, as they're going to help us throughout the tutorial:
+
+- The **storybook** script was updated to include the [`--ci`](https://storybook.js.org/docs/react/api/cli-options#start-storybook), to prevent Storybook from opening a browser window before the Ember CLI finishes building our application.
+- The **storybook-dev** script was included to help us while we're progressing through the tutorial. We'll see it in effect shortly.
+
+- The **prebuild-storybook** script was introduced to help us later on when we deploy our Storybook, removing the need of manually building our application, simplifying our deployment workflow.
 
 Now we can quickly check that the various environments of our application are working properly:
 
