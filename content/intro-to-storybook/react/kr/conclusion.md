@@ -1,9 +1,9 @@
 ---
 title: '결론'
-description: '모든 지식을 종합하고, 더 많은 Storybook 테크닉을 배워봅시다'
+description: '모든 지식을 종합하고 더 많은 Storybook 테크닉을 배워봅시다'
 ---
 
-축하드립니다! Storybook에서 첫 UI를 만드셨습니다. 그동안 우리는 UI 컴포넌트를 제작, 구성, 테스트 및 배포하는 방법을 배웠습니다. 잘 따라오셨다면, 여러분의 저장소와 배포된 Storybook은 이런 모습일 것입니다.
+축하드립니다! Storybook에서 첫 UI를 만드셨습니다. 그동안 우리는 UI 컴포넌트를 제작, 구성, 테스트 및 배포하는 방법을 배웠습니다. 잘 따라오셨다면, 여러분의 저장소와 배포된 Storybook은 이런 모습일 것입니다:
 
 [📕 **GitHub 저장소: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>

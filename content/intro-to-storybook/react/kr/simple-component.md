@@ -18,9 +18,10 @@ commit: '3d9cd8c'
 
 `Task` 컴포넌트를 만들기 위해, 위에서 살펴본 여러 유형의 task에 해당하는 테스트 state를 작성합니다. 그런 다음 모의 데이터를 사용하여 독립적 환경에서 컴포넌트를 구축하기 위해 Storybook을 사용합니다. 각각의 state에 따라 컴포넌트의 모습을 수동으로 테스트하면서 진행할 것입니다.
 
-## 설정 시작하기
+## 설정하기
 
-먼저, `Task` 컴포넌트와 그에 해당하는 스토리 파일을 만들어 봅시다. `src/components/Task.js`와 `src/components/Task.stories.js`을 생성해주세요.
+먼저 `Task` 컴포넌트와 그에 해당하는 스토리 파일을 만들어 봅시다. `src/components/Task.js`와 `src/components/Task.stories.js`을 생성해주세요.
+
 `Task`의 기본 구현부터 시작하겠습니다. 우리가 필요로 하는 속성들과 여러분이 task에 대해 취할 수 있는 두 가지 액션(목록 간 이동하는 것)을 간단히 살펴보도록 하겠습니다.
 
 ```javascript
@@ -37,7 +38,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-위의 코드는 Todos 앱의 HTML을 기반으로 한 `Task` 기반의 직관적인 마크업을 렌더링 합니다.
+위의 코드는 Todos 앱의 기존 HTML을 기반으로 `Task`에 대한 간단한 마크업을 렌더링 합니다.
 
 아래의 코드는 `Task`의 세 가지 테스트 state를 스토리 파일에 작성한 것입니다.
 
@@ -89,7 +90,7 @@ Storybook은 컴포넌트와 그 하위 스토리의 두 가지 기본 단계로
   - 스토리
   - 스토리
 
-Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려주기 위해, 아래 사항들을 포함하는 `default` export를 해주세요.
+Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려주기 위해, 아래 사항들을 포함하는 `default` export를 생성합니다.
 
 - `component` -- 해당 컴포넌트,
 - `title` -- Storybook 앱의 사이드바에서 컴포넌트를 참조하는 방법,

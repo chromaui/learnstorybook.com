@@ -5,17 +5,17 @@ description: 'UI 컴포넌트에 데이터를 연결하는 방법을 배워봅�
 commit: 'f05981b'
 ---
 
-지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 Storybook에는 적합하지만, 우리가 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
+지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 Storybook에는 적합하지만 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
 
-이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트에 데이터를 연결하는 일반적인 패턴을 살펴보도록 하겠습니다.
+이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트(container components)에 데이터를 연결하는 일반적인 패턴을 살펴보도록 하겠습니다.
 
 ## 컨테이너 컴포넌트
 
-현재 작성된 우리의 `TaskList`는 “표상적(presentational)” 컴포넌트입니다. ([이 블로그 포스트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)를 참조해주세요. 이는 데이터를 제공하는 “컨테이너(container) 컴포넌트”와 대비됩니다.)
+현재 작성된 `TaskList`는 구현됨에 있어서 외부와 어떠한 대화도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. ([이 블로그 포스트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)를 참조해주세요. 데이터를 얻기 위해서는 “컨테이너(container)”가 필요합니다.)
 
 이 예제는 데이터 저장을 위해 가장 널리 사용되는 React 라이브러리인 [Redux](https://redux.js.org/)를 사용하여 앱을 위해 간단한 데이터 모델을 만듭니다. 여기서 사용된 패턴은 [Apollo](https://www.apollographql.com/client/)와 [MobX](https://mobx.js.org/) 같은 다른 데이터 관리 라이브러리에도 적용됩니다.
 
-프로젝트에 필수 dependency를 다음과 같이 설치해주세요:
+프로젝트에 필수 dependency를 다음과 같이 설치해주세요.
 
 ```bash
 yarn add react-redux redux
@@ -190,5 +190,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-이 단계에서 스냅샷 테스트는 실패할 것이므로 <code>-u</code> 플래그와 함께 테스트 스크립트를 실행하여 기존의 스냅샷을 업데이트해야 합니다. 또한 앱이 점진적으로 성장함에 따라 <a href="/react/kr/get-started/">시작하기</a> 부분에서 언급된 것처럼 <code> --watchAll</code> 플래그로 테스트를 시작하기에 좋은 시점일 수 있습니다.
+이 단계에서 스냅샷 테스트가 실패하는 경우, <code>-u</code> 플래그와 함께 테스트 스크립트를 실행하여 기존의 스냅샷을 업데이트해야 합니다. 또한 앱이 점진적으로 성장함에 따라 <a href="/react/kr/get-started/">시작하기</a> 부분에서 언급된 것처럼 <code> --watchAll</code> 플래그로 테스트를 시작하기에 좋은 시점일 수 있습니다.
 </div>

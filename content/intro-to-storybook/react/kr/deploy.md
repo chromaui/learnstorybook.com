@@ -26,7 +26,7 @@ Storybook을 배포하기 위해서는 먼저 정적인 웹 앱으로 내보내�
 $ git add .
 ```
 
-다음으로,
+다음으로:
 
 ```bash
 $ git commit -m "taskbox UI"
@@ -56,7 +56,7 @@ development dependency로 패키지를 추가해주세요.
 yarn add -D chromatic
 ```
 
-패키지가 설치되면 GitHub 계정으로 [Chromatic에 로그인](https://www.chromatic.com/start) 해주세요(Chromatic은 가벼운 권한 요청만 할 것입니다). 그런 다음 "taskbox"라는 이름의 새로운 프로젝트를 만들고 앞서 설정한 GithHub 저장소와 동기화합니다.
+패키지가 설치되면 GitHub 계정으로 [Chromatic에 로그인](https://www.chromatic.com/start) 해주세요(Chromatic은 간단한 권한 요청만 할 것입니다). 그런 다음 "taskbox"라는 이름의 새로운 프로젝트를 만들고 앞서 설정한 GithHub 저장소와 동기화합니다.
 
 `Choose GitHub repo`를 클릭하고 저장소를 선택해주세요.
 
@@ -83,11 +83,11 @@ yarn chromatic --project-token=<project-token>
 
 ## Chromatic을 통한 지속적 배포
 
-이제 프로젝트가 GitHub 저장소에 호스팅 되었으므로 자동으로 Storybook을 배포하기 위하여 지속적 통합(continuous integration, CI) 서비스를 이용할 수 있습니다.
+이제 프로젝트가 GitHub 저장소에 호스팅 되었으므로 자동으로 Storybook을 배포하기 위하여 지속적 통합(continuous integration, CI) 서비스를 이용할 수 있습니다. [GitHub Actions](https://github.com/features/actions)은 GitHub에 내장된 무료 CI 서비스로 자동으로 배포를 쉽게 할 수 있도록 합니다.
 
 ### Storybook을 배포하기 위해 GitHub 액션 추가하기
 
-프로젝트의 루트 폴터에 `.github`라는 새로운 디렉터리를 만들고 그 안에 `workflows`라는 디렉터리를 만들어주세요.
+프로젝트의 기본 폴더에 `.github`라는 새로운 디렉터리를 만들고 그 안에 `workflows`라는 디렉터리를 만들어주세요.
 
 `chromatic.yml`이라는 파일을 아래와 같이 생성해주세요. `project-token` 은 여러분의 프로젝트 토큰으로 바꿔주세요.
 
@@ -126,25 +126,25 @@ jobs:
 git add .
 ```
 
-그런 다음 커밋을 해주세요.
+그런 다음 커밋을 해주세요:
 
 ```bash
 git commit -m "GitHub action setup"
 ```
 
-마지막으로 원격 저장소에 푸시해주세요.
+마지막으로 원격 저장소에 푸시해주세요:
 
 ```bash
 git push origin master
 ```
 
-GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 배포될 것입니다. Chromatic의 프로젝트 빌드 화면에서 배포된 모든 Storybook을 보실 수 있습니다.
+GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 Chromatic에 배포될 것입니다. Chromatic의 프로젝트 빌드 화면에서 배포된 모든 Storybook을 보실 수 있습니다.
 
 ![Chromatic 사용자 대시보드](/intro-to-storybook/chromatic-user-dashboard.png)
 
 맨 위에 있는 최신 빌드를 클릭해주세요.
 
-최신 버전의 Storybook을 보시려면 `View Storybook` 버튼을 클릭해주세요.
+그런 다음, 최신 버전의 Storybook을 보시려면 `View Storybook` 버튼을 클릭해주세요.
 
 ![Chromatic의 Storybook 링크](/intro-to-storybook/chromatic-build-storybook-link.png)
 

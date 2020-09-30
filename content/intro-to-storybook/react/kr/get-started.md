@@ -64,7 +64,7 @@ Taskbox는 GraphQL과 React 튜토리얼 [연습 예제](https://blog.hichroma.c
 
 ## Asset 추가하기
 
-의도된 디자인과 일치하도록 글꼴과 아이콘 디렉터리들을 모두 다운로드해서 `public` 폴더 안에 넣어주세요. 터미널에서 다음 명령어를 실행하세요.
+의도된 디자인에 맞도록 글꼴과 아이콘 디렉터리들을 모두 다운로드해서 `public` 폴더 안에 넣어주세요. 터미널에서 다음 명령어를 실행하세요.
 
 ```bash
 npx degit chromaui/learnstorybook-code/public/font public/font

@@ -13,15 +13,15 @@ commit: 'bebba5d'
 
 ## 우리가 만들 애드온
 
-이 예제를 위해서 우리 팀이 기존의 UI 컴포넌트와 관련이 있는 디자인 자산(design assets)을 가지고 있다고 가정해봅시다. 현재의 Storybook UI를 보면, 그러한 관계가 분명하지 않은 것으로 보입니다. 어떻게 하면 이러한 점을 고칠 수 있을까요?
+이 예제를 위해서 우리 팀이 기존의 UI 컴포넌트와 관련이 있는 디자인 에셋(design assets)을 가지고 있다고 가정해봅시다. 현재의 Storybook UI를 보면, 그러한 관계가 분명하지 않은 것으로 보입니다. 어떻게 하면 이러한 점을 고칠 수 있을까요?
 
 우리의 목표를 잡았습니다. 이제 애드온이 지원할 기능을 정의해보겠습니다.
 
-- 디자인 자산을 패널에 표시
+- 디자인 에셋을 패널에 표시
 - 이미지 및 임베딩을 위한 URL 지원
-- 여러 버전이나 테마가 있는 경우를 대비하여, 여러 자산을 지원 가능해야 함
+- 여러 버전이나 테마가 있는 경우를 대비하여, 여러 에셋을 지원 가능해야 함
 
-Storybook의 기능인 [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters)는 스토리에 메타데이터(metadata)를 추가할 수 있도록 도와줍니다. 이를 사용하여 스토리에 자산의 목록을 첨부해보도록 하겠습니다.
+Storybook의 기능인 [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters)는 스토리에 메타데이터(metadata)를 추가할 수 있도록 도와줍니다. 이를 사용하여 스토리에 에셋의 목록을 첨부해보도록 하겠습니다.
 
 ```javascript
 // YourComponent.js
@@ -91,7 +91,7 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-이는 여러분이 시작하기 위한 전형적인 상용구 코드(boilerplate)입니다. 코드가 수행하는 작업을 살펴보면:
+이는 여러분이 시작하기 위한 전형적인 보일러 플레이트(boilerplate)입니다. 코드가 수행하는 작업을 살펴보면:
 
 - Storybook에 새로운 애드온을 등록하고 있습니다.
 - 일부 옵션(애드온을 정의하는 title과 사용되는 요소의 type)과 함께 애드온에 대한 새로운 UI 요소를 추가하고 있으며, 현재는 일부 텍스트를 렌더링 합니다.
@@ -100,16 +100,19 @@ addons.register('my/design-addon', () => {
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    // same as before
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
     './.storybook/design-addon/register.js', // our addon
   ],
 };
 ```
 
-![Storybook에서 실행되는 디자인 자산 애드온](/intro-to-storybook/create-addon-design-assets-added.png)
+![Storybook에서 실행되는 디자인 에셋 애드온](/intro-to-storybook/create-addon-design-assets-added.png)
 
 성공! Storybook UI에 새로 만든 애드온이 추가되었습니다.
 
@@ -119,7 +122,7 @@ module.exports = {
 
 우리는 첫 번째 목표를 달성하였습니다. 이제 두 번째 목표를 위한 작업을 시작할 시간입니다.
 
-이를 완료하려면 import 부분을 약간 변경하고 자산에 대한 정보를 표시할 새로운 컴포넌트를 도입해야 합니다.
+이를 완료하려면 import 부분을 약간 변경하고 에셋에 대한 정보를 표시할 새로운 컴포넌트를 만들어야 합니다.
 
 애드온 파일을 다음과 같이 변경해주세요:
 
@@ -148,7 +151,7 @@ const Content = () => {
 
 컴포넌트를 생성하고, import 부분을 수정해보았습니다. 남은 것은 컴포넌트를 패널에 연결하는 것뿐입니다. 그러면 우리는 스토리와 관련된 정보를 표시할 수 있는 애드온을 갖게 될 것입니다.
 
-코드는 다음과 같아야 합니다.
+코드는 다음과 같아야 합니다:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -186,7 +189,7 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-여기서 [useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해 줄 것이며, 우리의 경우에는 자산에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
+여기서 [useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해 줄 것이며, 우리의 경우에는 에셋에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
 
 ### 스토리에서 애드온 사용하기
 
@@ -217,7 +220,7 @@ export default {
 
 Storybook을 다시 시작하고 Task 스토리를 선택해주세요. 다음과 같은 내용을 보실 수 있을 것입니다.
 
-![Storybook 스토리에서 디자인 자산 애드온의 내용이 표시됨](/intro-to-storybook/create-addon-design-assets-inside-story.png)
+![Storybook 스토리에서 디자인 에셋 애드온의 내용이 표시됨](/intro-to-storybook/create-addon-design-assets-inside-story.png)
 
 ### 애드온에 내용 표시하기
 
@@ -282,21 +285,21 @@ const Content = () => {
 
 코드를 한번 살펴보겠습니다. 우리는 `@storybook/theming` 패키지에서 가져온 `styled` 태그를 사용합니다. 이를 통해 Storybook의 테마와 에드온 UI를 사용자 정의할 수 있습니다. [`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate)은 스토리 북의 내부 state를 활용하여 존재하는 모든 정보를 가져올 수 있는 훅(hook)입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져오기 위해 사용합니다.
 
-### 실제 자원을 표시하기
+### 실제 에셋을 표시하기
 
-애드온이 표시하는 자산들을 실제로 보려면, `public` 폴더로 자산을 복사하고 `parameters` 옵션을 조정하여 이러한 변경사항을 반영해야 합니다.
+애드온이 표시하는 에셋들을 실제로 보려면, `public` 폴더로 에셋을 복사하고 `parameters` 옵션을 조정하여 이러한 변경사항을 반영해야 합니다.
 
-Storybook은 변경 사항을 파악하고 자산들을 가져올 것입니다. 그러나 지금은 첫 번째 자산만 가져옵니다.
+Storybook은 변경 사항을 파악하고 에셋들을 가져올 것입니다. 그러나 지금은 첫 번째 에셋만 가져옵니다.
 
-![가져온 실제 자산](/intro-to-storybook/design-assets-image-loaded.png)
+![가져온 실제 에셋](/intro-to-storybook/design-assets-image-loaded.png)
 
-## 상태를 저장하는(Stateful) 애드온
+## State를 갖는 애드온
 
 우리의 초기 목표를 되짚어 보면:
 
-- ✔️ 디자인 자산을 패널에 표시
+- ✔️ 디자인 에셋을 패널에 표시
 - ✔️ 이미지 및 임베딩을 위한 URL 지원
-- ❌ 여러 버전이나 테마가 있는 경우를 대비하여, 여러 자산을 지원 가능해야 함
+- ❌ 여러 버전이나 테마가 있는 경우를 대비하여, 여러 에셋을 지원 가능해야 함
 
 거의 다 왔네요, 이제 한 가지 목표만 남았습니다.
 
@@ -312,7 +315,7 @@ import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
 ```
 
-그리고 `Content` 컴포넌트를 수정하여 자산을 전환할 수 있도록 해보겠습니다:
+그리고 `Content` 컴포넌트를 수정하여 에셋을 전환할 수 있도록 해보겠습니다:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -353,7 +356,7 @@ const Content = () => {
 
 ## 애드온 완성
 
-우리는 목표한 바와 같이 UI 구성 요소와 관련된 디자인 자산을 표시하는 완전한 기능을 갖춘 Storybook 애드온을 완성해보았습니다.
+우리는 목표한 바와 같이 UI 구성 요소와 관련된 디자인 에셋을 표시하는 완전한 기능을 갖춘 Storybook 애드온을 완성해보았습니다.
 
 <details>
   <summary>이 예제에 사용된 전체 코드를 보시려면 여기를 클릭해주세요. </summary>
@@ -461,9 +464,9 @@ addons.register('my/design-addon', () => {
 
 <div class="aside">새로운 애드온을 만들고 위 목록에 추가되길 원하신다면, 추가될 수 있도록 Storybook 문서에서 PR을 열어주세요.</div>
 
-### 데브 키트(Dev kits)
+### Dev kits
 
-Storybook 팀은 여러분이 애드온을 개발하시는 것을 돕고자 데브 키트를 개발하였습니다.
+Storybook 팀은 여러분이 애드온을 개발하시는 것을 돕고자 Dev kits를 개발하였습니다.
 
 이 패키지는 자신만의 애드온 구축을 시작하는 데 도움이 되는 스타터 키트입니다.
 방금 만든 애드온은 이러한 스타터 세트 중 하나이며, 특히 `addon-parameters` 를 기반으로 하였습니다.

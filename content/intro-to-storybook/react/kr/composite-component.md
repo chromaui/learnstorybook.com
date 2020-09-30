@@ -1,11 +1,11 @@
 ---
-title: '복합적 컴포넌트 만들기'
+title: '복합적 컴포넌트 조합하기'
 tocTitle: '복합적 컴포넌트'
-description: '간단한 컴포넌트로 복합적 컴포넌트를 만들어봅시다'
+description: '간단한 컴포넌트로 복합적 컴포넌트를 조합해봅시다'
 commit: 'c43580d'
 ---
 
-저희는 지난 챕터에서 첫 번째 컴포넌트를 만들어보았습니다. 이번 챕터에서는 이전에 학습한 내용을 바탕으로 Task의 목록인 `TaskList`를 만들어보겠습니다. 컴포넌트를 결합하여 복잡성이 커지는 경우 어떤 일이 일어나는지 함께 살펴보겠습니다.
+저희는 지난 챕터에서 첫 번째 컴포넌트를 만들어보았습니다. 이번 챕터에서는 이전에 학습한 내용을 바탕으로 Task의 목록인 TaskList를 만들어보겠습니다. 컴포넌트를 결합하여 복잡성이 커지는 경우 어떤 일이 일어나는지 함께 살펴보겠습니다.
 
 ## Tasklist
 
@@ -13,11 +13,11 @@ Taskbox는 핀으로 고정된 task를 일반 task 위에 배치하여 강조합
 
 ![일반 task과 핀으로 고정된 task](/intro-to-storybook/tasklist-states-1.png)
 
-`Task` 데이터는 비동기식으로 전송될 수 있기 때문에, 연결이 없는 상태를 랜더링 할 수 있도록 로딩 state **또한** 필요합니다. task가 없는 경우를 위해 비어있는 state도 필요할 것입니다.
+`Task` 데이터는 비동기식으로 전송될 수 있기 때문에, 연결이 없는 상태를 렌더링 할 수 있도록 로딩 state **또한** 필요합니다. task가 없는 경우를 위해 비어있는 state도 필요할 것입니다.
 
 ![로딩 중 task과 빈 task](/intro-to-storybook/tasklist-states-2.png)
 
-## 설정 시작하기
+## 설정하기
 
 복합적인 컴포넌트는 기본 컴포넌트와 크게 다르지 않습니다. `TaskList` 컴포넌트와 그에 해당하는 스토리 파일을 만들어보겠습니다. `src/components/TaskList.js` 와 `src/components/TaskList.stories.js`를 생성해주세요.
 
@@ -54,7 +54,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-다음으로 `Tasklist`의 테스트 상태를 스토리 파일에 작성합니다.
+다음으로 `Tasklist`의 test states를 스토리 파일에 작성합니다.
 
 ```javascript
 // src/components/TaskList.stories.js
@@ -112,12 +112,12 @@ Empty.args = {
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>데코레이터(Decorators)</b></a>는 스토리에 임의의 래퍼(wrapper)를 제공하는 한 방법입니다. 위의 예시에서 우리는 데코레이터 `key`를 사용하여 기본 내보내기에서 랜더링 된 컴포넌트에 `padding`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)에서 스토리를 감싸 줄 때 사용될 수 있습니다.
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>데코레이터(Decorators)</b></a>는 스토리에 임의의 래퍼(wrapper)를 제공하는 한 방법입니다. 위의 예시에서 우리는 데코레이터 `key`를 사용하여 기본 내보내기에서 렌더링 된 컴포넌트에 `padding`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)에서 스토리를 감싸 줄 때 사용될 수 있습니다.
 </div>
 
 `TaskStories`를 가져옴으로써 최소한의 노력으로 스토리 속의 인수(arguments, 줄임말로 args)를 [합성(compose)](https://storybook.js.org/docs/react/writing-stories/args#args-composition)할 수 있었습니다.
 
-이를 통해 두 컴포넌트가 받을 수 있는 데이터와 액션(mocked callbacks)가 모두 보존됩니다.
+이를 통해 두 컴포넌트가 받을 수 있는 데이터와 액션(mocked callbacks)이 모두 보존됩니다.
 
 <!--
 `taskData`는 `Task.stories.js` 파일에서 만들고 내보낸 `Task`의 형태를 제공합니다. 마찬가지로 `actionsData`는 `Task` 컴포넌트가 예상하는 액션(mocked callbacks)을 정의하며 이는 `TaskList`에도 필요합니다. -->
@@ -193,7 +193,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-위에서 추가된 마크업으로 다음과 같은 UI가 나타납니다.
+위에서 추가된 마크업으로 다음과 같은 UI가 나타납니다:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -249,11 +249,11 @@ Storybook 스토리, 수동 테스트, 스냅샷 테스트는 UI 버그를 피�
 
 그러나, 가끔 오류는 세부 사항에 숨어있습니다. 세부 사항을 명확히 하기 위해서 테스트 프레임워크가 필요합니다. 이는 우리에게 단위 테스트의 필요성을 가져다줍니다.
 
-우리의 경우에는 `TaskList`가`tasks` prop에서 전달된 일반 task보다 핀으로 고정된 task를 **먼저** 랜더링 하기를 원합니다. 이러한 특정 시나리오를 테스트하는 스토리(`WithPinnedTasks`)가 있다 할지라도, 사람이 검토하는 경우에 컴포넌트가 task의 순서를 바르게 정렬하지 않는 버그의 경우에 판단하기 애매모호할 수 있습니다. 일반적인 시선에는 딱히 **“잘못되었어!”**라고 보이지 않을 것입니다.
+우리의 경우에는 `TaskList`가`tasks` prop에서 전달된 일반 task보다 핀으로 고정된 task를 **먼저** 렌더링 하기를 원합니다. 이러한 특정 시나리오를 테스트하는 스토리(`WithPinnedTasks`)가 있다 할지라도, 컴포넌트가 task의 순서를 바르게 정렬하지 않는 버그와 같은 경우 사람이 검토할 때는 판단하기 애매모호할 수 있습니다. 일반적인 시선에는 딱히 **“잘못되었어!”**라고 보이지 않을 것입니다.
 
-따라서 이러한 문제를 피하기 위해, 우리는 Jest를 사용하여 스토리를 DOM에 랜더링 하고 출력의 두드러진 특징을 확인하기 위해 DOM 쿼리 코드를 실행할 수 있습니다. 스토리 형식의 좋은 점은 우리가 간단히 스토리를 테스트에 가져온 후, 거기에서 랜더링 할 수 있다는 점입니다.
+그래서 이러한 문제를 피하기 위하여 Jest를 사용하여 스토리를 DOM에 렌더링 하고 출력 값의 두드러진 특징을 확인하기 위해 DOM 쿼리 코드를 실행할 수 있습니다. 스토리 형식의 좋은 점은 간단히 스토리를 테스트에 가져와 렌더링 할 수 있다는 점입니다!
 
-`src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서, 출력 값을 검증하는 테스트를 만들어보겠습니다.
+`src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서 출력 값을 검증하는 테스트를 만들어보겠습니다.
 
 ```javascript
 // src/components/TaskList.test.js
