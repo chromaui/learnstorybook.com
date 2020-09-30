@@ -17,7 +17,7 @@ Storybook은 React, React Native, Vue, Angular, Svelte 외 다른 여러 프레�
 
 - [**공식 Storybook 문서**](https://storybook.js.org/docs/react/get-started/introduction)는 API 설명서, 커뮤니티 링크와 addon 갤러리가 있습니다.
 
-- [**Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07)는 Squarespace, Major League Soccer, Discovery Network 및 Apollo GraphQL과 같은 빠른 개발 속도를 가진 팀에서 사용하는 Workflow 모범 사례를 보여줍니다.
+- [**Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)는 Squarespace, Major League Soccer, Discovery Network 및 Apollo GraphQL과 같은 빠른 개발 속도를 가진 팀에서 사용하는 Workflow 모범 사례를 보여줍니다.
 
 - [**시각적 테스팅 핸드북**](https://www.learnstorybook.com/visual-testing-handbook/)에서는
   Storybook을 컴포넌트의 시각적 테스트에 사용하는 것에 대해 알아봅니다. 31페이지 분량의 무료 전자책.
@@ -28,7 +28,7 @@ Storybook은 React, React Native, Vue, Angular, Svelte 외 다른 여러 프레�
 
 ## LearnStorybook.com은 누가 만들었나요?
 
-내용, 코드, 제작은 [Chromatic](http://blog.hichroma.com/)에서 기여해주셨습니다. 튜토리얼은 Chroma의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)에서 영감을 얻었습니다.
+내용, 코드, 제작은 [Chromatic](https://www.chromatic.com/)에서 기여해주셨습니다. 튜토리얼은 Chromatic의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)에서 영감을 얻었습니다.
 
 이와 같은 튜토리얼과 기사를 더 원하시나요? Chromatic의 메일링 목록에 등록하세요.
 

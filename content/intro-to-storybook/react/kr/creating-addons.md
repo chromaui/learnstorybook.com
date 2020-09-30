@@ -2,7 +2,7 @@
 title: '보너스: 애드온 만들기'
 tocTitle: '보너스: 애드온 만들기'
 description: '개발을 강력하게 만들어 줄 나만의 애드온을 만드는 방법을 배워봅시다'
-commit: 'bebba5d'
+commit: '6d1d770'
 ---
 
 앞서 우리는 Storybook의 핵심 기능인 강력한 [애드온(addons)](https://storybook.js.org/docs/react/configure/storybook-addons) 에코시스템에 대해 소개해 드렸습니다. 애드온은 개발자 경험과 작업 흐름을 향상하는 데 사용됩니다.
