@@ -2,7 +2,7 @@
 title: 'React를 위한 Storybook 튜토리얼'
 tocTitle: '시작하기'
 description: 'Storybook을 개발 환경에 설치해봅시다'
-commit: '8741257'
+commit: 'b935904'
 ---
 
 Storybook은 개발 모드에서 앱과 함께 실행됩니다. 이것은 비즈니스 로직과 컨텍스트로부터 UI 컴포넌트를 독립적으로 분리하여 만들수 있도록 도와줍니다. 본 Storybook 문서는 React를 위한 것입니다. 그 밖의 [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) 그리고 [Svelte](/svelte/en/get-started)에 대한 문서도 있습니다.
@@ -31,13 +31,13 @@ npx -p @storybook/cli sb init
 우리는 다양한 환경에서 애플리케이션이 올바르게 작동하는지 다음 명령어를 통해 빠르게 확인할 수 있습니다:
 
 ```bash
-# 터미널에서 테스트 러너(Jest) 실행하기:
+# Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# 포트 9009에서 컴포넌트 탐색기를 시작하기:
+# Start the component explorer on port 9009:
 yarn storybook
 
-# 포트 3000에서 프런트엔드 앱을 실행하기:
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 
@@ -53,7 +53,7 @@ yarn start
 
 ## CSS를 재사용하기
 
-Taskbox는 GraphQL과 React 튜토리얼 [연습 예제](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)를 재사용할 것이므로 CSS를 따로 작성할 필요가 없습니다.
+Taskbox는 GraphQL과 React 튜토리얼 [연습 예제](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)를 재사용할 것이므로 CSS를 따로 작성할 필요가 없습니다.
 [컴파일된 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)를`src/index.css` 파일에 복사하여 붙여넣기 해주세요.
 
 ![Taskbox의 UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
