@@ -471,10 +471,10 @@ Storybook 팀은 여러분이 애드온을 개발하시는 것을 돕고자 Dev 
 이 패키지는 자신만의 애드온 구축을 시작하는 데 도움이 되는 스타터 키트입니다.
 방금 만든 애드온은 이러한 스타터 세트 중 하나이며, 특히 `addon-parameters` 를 기반으로 하였습니다.
 
-데브 키트는 여기에서 찾아보실 수 있습니다:
+Dev kits는 여기에서 찾아보실 수 있습니다:
 https://github.com/storybookjs/storybook/tree/next/dev-kits
 
-앞으로 더 많은 데브 키드가 제공될 예정입니다.
+앞으로 더 많은 Dev kits가 제공될 예정입니다.
 
 ## 애드온을 팀과 공유하기
 
