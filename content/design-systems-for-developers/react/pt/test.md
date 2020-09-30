@@ -21,7 +21,7 @@ Mais uma razão para configurar testes automatizados **agora** de forma a poupar
 
 ## Prepare-se para testar
 
-Num [artigo anterior](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) fiz uma pesquisa a 4 equipas de frontend, acerca dos fluxos de trabalho profissionais do Storybook. Concordaram com as seguintes práticas recomendadas para escrita de estórias de forma a tornar os testes fáceis e abrangentes.
+Num [artigo anterior](https://www.chromatic.com/blog/the-delightful-storybook-workflow) fiz uma pesquisa a 4 equipas de frontend, acerca dos fluxos de trabalho profissionais do Storybook. Concordaram com as seguintes práticas recomendadas para escrita de estórias de forma a tornar os testes fáceis e abrangentes.
 
 **Articular os estados suportados pelos componentes** como estórias de forma a clarificar quais as combinações de inputs produzem um determinado estado. Omita categoricamente estados que não são suportados de forma a reduzir ruído.
 

@@ -8,7 +8,7 @@ description: '把所有的知識彙總以下，學習更多的 storybook 技巧'
 
 [📕**GitHub 回購: hichroma / learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎**部署 Storybook**](https://clever-banach-415c03.netlify.com/)
+[🌎**部署 Storybook**](https://clever-banach-415c03.netlify.app/)
 
 Storybook 是 React,Vue 和 Angular 的強大工具. 它擁有蓬勃發展的開發者社群和豐富的外掛. 這篇介紹揭示了可能的表面. 我們相信,一旦您採用了 Storybook,您將會對構建持久 UI 的效率印象深刻.
 
@@ -16,15 +16,15 @@ Storybook 是 React,Vue 和 Angular 的強大工具. 它擁有蓬勃發展的開
 
 想深入瞭解? 這是有用的資源.
 
-- [**官方 Storybook 文件**](https://storybook.js.org/basics/introduction/)有 API 文件,社群連結和外掛庫.
+- [**官方 Storybook 文件**](https://storybook.js.org/docs/react/get-started/introduction)有 API 文件,社群連結和外掛庫.
 
-- [**令人愉快的 Storybook 工作流程**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) 重點介紹 Squarespace,Major League Soccer,Discovery Network 和 Apollo GraphQL 的高速團隊使用的工作流程最佳實踐.
+- [**令人愉快的 Storybook 工作流程**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) 重點介紹 Squarespace,Major League Soccer,Discovery Network 和 Apollo GraphQL 的高速團隊使用的工作流程最佳實踐.
 
-- [**視覺測試手冊**](https://www.chromatic.com/book/visual-testing-handbook)深入探討將 Storybook 用於視覺化測試元件. 免費的 31 頁電子書.
+- [**視覺測試手冊**](https://www.learnstorybook.com/visual-testing-handbook/)深入探討將 Storybook 用於視覺化測試元件. 免費的 31 頁電子書.
 
 ## 誰製作了 LearnStorybook.com?
 
-文字,程式碼和製作都是由[Chromatic](http://blog.hichroma.com/). 該教程的靈感來自 Chromatic 的流行[GraphQL + React 教程系列](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+文字,程式碼和製作都是由[Chromatic](https://www.chromatic.com/). 該教程的靈感來自 Chromatic 的流行[GraphQL + React 教程系列](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 想要更多這樣的教程和文章嗎? 註冊 Chromatic 郵件列表.
 

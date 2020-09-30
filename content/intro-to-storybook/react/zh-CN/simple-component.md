@@ -19,7 +19,7 @@ commit: '3d9cd8c'
 
 在我们开始构建`Task`时,我们首先编写 与 上面草图中不同类型的任务 相对应的测试状态. 然后我们使用 Storybook 模拟数据 隔离对应状态组件. 我们将"视觉测试"组件在每个状态下的外观.
 
-这个过程类似于[测试驱动的开发(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我们可以称之为["Visual-虚拟 TDD"](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)
+这个过程类似于[测试驱动的开发(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我们可以称之为["Visual-虚拟 TDD"](https://www.chromatic.com/blog/visual-test-driven-development)
 
 ## 获取设置
 

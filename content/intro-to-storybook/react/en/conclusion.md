@@ -17,7 +17,7 @@ Want to dive deeper? Here are helpful resources.
 
 - [**Official Storybook documentation**](https://storybook.js.org/docs/react/get-started/introduction) has API documentation, community links, and the addon gallery.
 
-- [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
+- [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
 
 - [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
@@ -27,7 +27,7 @@ Want to dive deeper? Here are helpful resources.
 
 ## Who made LearnStorybook.com?
 
-The text, code, and production were contributed by [Chromatic](http://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858).
+The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 Want more tutorials and articles like this? Sign up to the Chromatic mailing list.
 

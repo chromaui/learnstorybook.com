@@ -29,7 +29,7 @@ Enable the Format on Save `editor.formatOnSave` if you haven’t done so already
 
 ## Install Storybook
 
-Storybook is the industry-standard [component explorer](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) for developing UI components in isolation. Since design systems focus on UI components, Storybook is the ideal tool for the use case. We’ll rely on these features:
+Storybook is the industry-standard [component explorer](https://www.chromatic.com/blog/ui-component-explorers---your-new-favorite-tool) for developing UI components in isolation. Since design systems focus on UI components, Storybook is the ideal tool for the use case. We’ll rely on these features:
 
 - 📕Catalog UI components
 - 📄Save component variations as stories
