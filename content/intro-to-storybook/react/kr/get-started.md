@@ -14,12 +14,12 @@ Storybook은 개발 모드에서 앱과 함께 실행됩니다. 이것은 비즈
 개발 환경에 빌드 프로세스를 설정하려면 몇 가지 단계를 거쳐야 합니다. 먼저 [React App 생성하기](https://github.com/facebook/create-react-app)(CRA)를 사용하여 빌드 시스템을 설정하고 [Storybook](https://storybook.js.org/)과 [Jest](https://facebook.github.io/jest/) 테스트를 앱에서 활성화해야 합니다. 아래의 명령어들을 실행해주세요:
 
 ```bash
-# 애플리케이션 생성하기:
+# Create our application:
 npx create-react-app taskbox
 
 cd taskbox
 
-# Storybook 추가하기:
+# Add Storybook:
 npx -p @storybook/cli sb init
 ```
 
