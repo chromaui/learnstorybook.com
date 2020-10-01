@@ -146,7 +146,7 @@ Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a
 // .storybook/main.js
 module.exports = {
   stories: ['../src/app/components/**/*.stories.ts'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-notes'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
 ```
 
