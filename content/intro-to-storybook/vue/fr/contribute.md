@@ -3,9 +3,9 @@ title: 'Contribuer'
 description: 'Aider à partager Storybook dans le monde'
 ---
 
-Les contributions à Learn Storybook sont encouragées ! S'il s'agit de petites corrections comme de la grammaire our de la ponctuation, ouvrez une pull request. S'il s'agit d'importants changements, [ajouter une issue](https://github.com/chromaui/learnstorybook.com/issues) pour échanger.
+Les contributions à Learn Storybook sont encouragées ! S'il s'agit de petites corrections comme de la grammaire ou de la ponctuation, ouvrez une pull request. S'il s'agit d'importants changements, [ajouter une issue](https://github.com/chromaui/learnstorybook.com/issues) pour échanger.
 
-Learn Storybook a été principalement créé et maintenu par la communauté, nous avons donc besoin de l'aide de tous pour le garder à jour et nous assurer que <TODO>and ensure any rough edges are smoothed out over time.</TODO> Toute aide est appréciée !
+Learn Storybook a été principalement créé et maintenu par la communauté, nous avons donc besoin de l'aide de tous pour le garder à jour et nous assurer que les imperfections seront corrigés avec le temps. Toute aide est appréciée !
 
 ## Traductions
 

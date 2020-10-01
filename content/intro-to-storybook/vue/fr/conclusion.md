@@ -3,13 +3,13 @@ title: 'Conclusion'
 description: 'Mettez toutes vos connaissances ensemble et apprenez plus de techniques Storybook'
 ---
 
-Félicitations ! Vous avez créé votre première interface utilisateur avec Storybook. En cours de route, vous avez appris comment construire, composer, tester et déployer des composants graphiques. Si vous avez suivi, votre projet et instance Storybook déployée devraient ressembler à ceci :
+Félicitations ! Vous avez créé votre première interface utilisateur avec Storybook. En cours de route, vous avez appris à construire, composer, tester et déployer des composants graphiques. Si vous avez suivi, votre projet et votre instance Storybook déployée devraient ressembler à ceci :
 
 [📕 **Projet GitHub : chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/vue)
 <br/>
 [🌎 **Instance Storybook déployée**](https://clever-banach-415c03.netlify.com/)
 
-Storybook est un puissant outil pour React, React Native, Vue, Angular, Svelte et beaucoup d'autres frameworks. Il y a une communauté de développeurs prospère et une nombre important d'addons. Cette introduction égratigne la surface de ce qui est possible. Nous sommes convaincus qu'une fois que vous aurez adopté Storybook, vous serez impressionnés par la manière de produire des interfaces utilisateurs durables.
+Storybook est un outil puissant pour React, React Native, Vue, Angular, Svelte et beaucoup d'autres frameworks. Il possède une importante communauté de développeurs et un nombre important d'extensions. Cette introduction survole la surface de ce qui est possible de faire. Nous sommes convaincus qu'une fois que vous aurez adopté Storybook, vous serez impressionnés par la manière de produire des interfaces utilisateurs durables.
 
 ## En apprendre plus
 
