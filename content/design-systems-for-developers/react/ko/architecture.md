@@ -106,7 +106,7 @@ yarn add prop-types styled-components polished
 
 <div class="aside">CSS-in-JS: 이 튜토리얼에서는 <a href="https://www.styled-components.com">Styled-components</a>를 사용합니다. 이 라이브러리를 사용하면 컴포넌트에 스타일링 범위를 지정할 수 있습니다. 컴포넌트를 스타일링하는 방법에는 class를 지정하는 방법, CSS 모듈 등이 있습니다.</div>
 
-UI 컴포넌트 외에도 프로젝트 간에 재사용되는 타이포그래피, 색상, 간격 등에 대한 스타일링 상수를 포함하는 것이 좋습니다. 디자인 시스템 명명법에서 전역 스타일 변수를 "디자인 토큰"이라고 합니다. 이 가이드에서 디자인 토큰에 대한 이론에 대해서는 다루지 않지만, 온라인에서 더 자세히 알아볼 수 있습니다([좋은 글](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)을 첨부합니다).
+UI 컴포넌트 외에도 프로젝트 간에 재사용되는 타이포그래피, 색상, 간격 등에 대한 스타일링 상수를 포함하는 것이 좋습니다. 디자인 시스템 명명법에서 전역 스타일 변수를 "디자인 토큰"이라고 합니다. 이 가이드에서 디자인 토큰에 대한 이론에 대해서는 다루지 않지만, 온라인에서 더 자세히 알아볼 수 있습니다(이와 관련한 [좋은 글](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)을 첨부합니다).
 
 여기에서 디자인 토큰을 다운로드 하고 저장소에 추가해보세요.
 
