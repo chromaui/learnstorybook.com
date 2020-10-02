@@ -1,0 +1,80 @@
+{
+  "name": "learnstorybook.com",
+  "description": "Learn Storybook",
+  "version": "1.0.0",
+  "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
+  "dependencies": {
+    "@storybook/design-system": "^5.1.0",
+    "formik": "^1.5.7",
+    "gatsby": "^2.17.1",
+    "gatsby-plugin-facebook-pixel": "^1.0.3",
+    "gatsby-plugin-google-analytics": "^2.3.0",
+    "gatsby-plugin-layout": "^1.0.15",
+    "gatsby-plugin-react-helmet": "^3.0.12",
+    "gatsby-plugin-sitemap": "^2.1.0",
+    "gatsby-plugin-styled-components": "^3.0.7",
+    "gatsby-source-filesystem": "^2.0.37",
+    "gatsby-transformer-remark": "^2.3.12",
+    "lodash": "^4.17.11",
+    "pluralize": "^8.0.0",
+    "polished": "^3.4.1",
+    "prismjs": "^1.13.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-github-button": "^0.1.11",
+    "react-helmet": "^5.2.1",
+    "styled-components": "^4.4.1"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "build-storybook": "build-storybook -s ./static",
+    "dev": "gatsby develop",
+    "serve": "gatsby serve",
+    "format": "prettier-eslint --write '**/*.js'",
+    "lint": "eslint .",
+    "storybook": "start-storybook -s ./static -p 6006",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.md": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@storybook/addon-a11y": "^6.0.0-beta.36",
+    "@storybook/addon-actions": "^6.0.0-beta.36",
+    "@storybook/addon-links": "^6.0.0-beta.36",
+    "@storybook/addon-viewport": "^6.0.0-beta.36",
+    "@storybook/addons": "^6.0.0-beta.36",
+    "@storybook/react": "^6.0.0-beta.36",
+    "babel-eslint": "^10.0.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-styled-components": "^1.10.0",
+    "chromatic": "^4.0.2",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-jest": "^22.20.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.7.0",
+    "husky": "^3.0.8",
+    "lint-staged": "^9.4.2",
+    "prettier": "^1.17.1",
+    "prettier-eslint": "^9.0.0",
+    "prettier-eslint-cli": "^5.0.0"
+  }
+}

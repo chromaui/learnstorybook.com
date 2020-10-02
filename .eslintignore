@@ -1,0 +1,5 @@
+.cache/**/*.js
+public/**/*.js
+src/html.js
+node_modules
+storybook-static
