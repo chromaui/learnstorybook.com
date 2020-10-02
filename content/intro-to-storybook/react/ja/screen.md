@@ -2,10 +2,10 @@
 title: '画面を作る'
 tocTitle: '画面'
 description: 'コンポーネントをまとめて画面を作りましょう'
-commit: '4aef5f7'
+commit: 'c117e09'
 ---
 
-今までボトムアップ (小さく始めてから複雑性を追加していく) で UI の作成に集中してきました。ボトムアップで作業することで、Storybook で遊びながら、コンポーネントに必要なデータを考えて、隔離された環境で各コンポーネントを開発することができました。サーバーを立ち上げたり、画面を作ったりする必要は全くありませんでした！
+今までボトムアップ (小さく始めてから複雑性を追加していく) で UI の作成に集中してきました。ボトムアップで作業することで、Storybook で遊びながら、それぞれのコンポーネントを切り離された環境で、それぞれに必要なデータを考えながら開発することができました。サーバーを立ち上げたり、画面を作ったりする必要は全くありませんでした！
 
 この章では Storybook を使用して、コンポーネントを組み合わせて画面を作り、完成度を高めていきます。
 
@@ -48,6 +48,7 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
+  /** The error message */
   error: PropTypes.string,
 };
 
@@ -58,7 +59,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-さらに、`App` コンポーネントを `InboxScreen` を描画するように変更 (いずれはルーターにどの画面を表示するか決めてもらいますが、今は気にしないでください) します:
+さらに、`App` コンポーネントを `InboxScreen` を描画するように変更します (いずれはルーターにどの画面を表示するか決めてもらいますが、今は気にしないでください):
 
 ```javascript
 // src/App.js
@@ -80,13 +81,13 @@ function App() {
 export default App;
 ```
 
-しかし、興味深いのは、`InboxScreen` のストーリーに関してです。
+しかし興味深いのは、`InboxScreen` のストーリーに関してです。
 
-前に示したように `TaskList` コンポーネントは、表示用のコンポーネントである `PureTaskList` を描画する**コンテナー**です。定義上コンテナーコンポーネントはコンテキストが渡されたり、サービスに接続したりすることを想定するため、隔離された環境においてはそのままでは描画できません。つまりコンテナーを Storybook で描画するには、コンポーネントに必要なコンテキストやサービスをモック化 (例えば、振る舞いを模倣させるなど) しなければならないということです。
+前に示したように `TaskList` コンポーネントは、表示用のコンポーネントである `PureTaskList` を描画する**コンテナー**です。定義上コンテナーコンポーネントはコンテキストが渡されたり、サービスに接続したりすることを想定するため、切り離された環境においてはそのままでは描画できません。つまりコンテナーを Storybook で描画するには、コンポーネントに必要なコンテキストやサービスをモック化 (例えば、振る舞いを模倣させるなど) しなければならないということです。
 
 `TaskList` を Storybook に置いたときには、コンテナーではなく、`PureTaskList` を描画することにより、この問題を回避しました。同じように `PureInboxScreen` を Storybook に描画してみます。
 
-しかし、`PureInboxScreen` には問題があります。`PureInboxScreen` が表示用コンポーネントであっても、その子供である `TaskList` は表示用ではないのです。つまり、`PureInboxScreen`が「コンテナー化」により汚染されたと言えます。なので、`InboxScreen.stories.js` を以下のようセットアップすると:
+しかし、`PureInboxScreen` には問題があります。`PureInboxScreen` が表示用コンポーネントであっても、その子供である `TaskList` は表示用ではないのです。つまり、`PureInboxScreen`が「コンテナー性」により汚染されたと言えます。なので、`InboxScreen.stories.js` を以下のようセットアップすると:
 
 ```javascript
 // src/components/InboxScreen.stories.js
@@ -100,9 +101,14 @@ export default {
   title: 'InboxScreen',
 };
 
-export const Default = () => <PureInboxScreen />;
+const Template = args => <PureInboxScreen {...args} />;
 
-export const Error = () => <PureInboxScreen error="Something" />;
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 `Error` ストーリーは正しく動いていますが、`Default` ストーリーには問題があります。それは `TaskList` に接続するべき Redux のストアがないためです。(同様に `PureInboxScreen` を単体テストしようとしても同じことが起こります。)
@@ -125,32 +131,36 @@ export const Error = () => <PureInboxScreen error="Something" />;
 // src/components/InboxScreen.stories.js
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
-
+import { action } from '@storybook/addon-actions';
 import { PureInboxScreen } from './InboxScreen';
-import { defaultTasksData } from './TaskList.stories';
+import * as TaskListStories from './TaskList.stories';
 
-export default {
-  component: PureInboxScreen,
-  title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
-};
-
-// とても簡素な Redux ストアのモック
+// A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasksData,
+      tasks: TaskListStories.Default.args.tasks,
     };
   },
   subscribe: () => 0,
   dispatch: action('dispatch'),
 };
 
-export const Default = () => <PureInboxScreen />;
+export default {
+  component: PureInboxScreen,
+  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  title: 'InboxScreen',
+};
 
-export const Error = () => <PureInboxScreen error="Something" />;
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 同様に [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator) や [Relay](https://github.com/orta/react-storybooks-relay-container) など、他のデータライブラリー向けのモックコンテキストも存在します。
@@ -160,7 +170,7 @@ Storybook で状態を選択していくことで、問題なく出来ている�
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

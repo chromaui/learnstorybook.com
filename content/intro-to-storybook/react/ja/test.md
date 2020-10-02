@@ -2,7 +2,6 @@
 title: 'UI コンポーネントをテストする'
 tocTitle: 'テスト'
 description: 'UI コンポーネントのテスト手法について学びましょう'
-commit: '3e283f7'
 ---
 
 Storybook のチュートリアルをテスト抜きには終われません。テストは高品質な UI を作成するのに必要なことです。疎結合なシステムにおいては、些細な変更で大きなリグレッション (手戻り) をもたらすことがあるのです。既に 3 種類のテストについて学びました:
@@ -13,7 +12,7 @@ Storybook のチュートリアルをテスト抜きには終われません。�
 
 ## 「でも、見た目は大丈夫？」
 
-残念ながら、前述のテスト方法だけでは UI のバグを防ぎきれません。UI のデザインというのは主観的で、ごくわずかな変更で全く異なってしまうことがあるため、テストが厄介なのです。手動テストは、その名の通り、手動です。UI のスナップショットテストでは多数の偽陽性を発生させてしまいます。ピクセルレベルの単体テストは価値があまりありません。Storybook のテスト戦略にはビジュアルテストが不可欠です。
+残念ながら、前述のテスト方法だけでは UI のバグを防ぎきれません。UI というのは主観的なものなので、テストが厄介なのです。手動テストは、その名の通り、手動です。UI のスナップショットテストでは多数の偽陽性を発生させてしまいます。ピクセルレベルの単体テストは価値があまりありません。Storybook のテスト戦略には視覚的なリグレッションテストが不可欠です。
 
 ## Storybook 向けのビジュアルテスト
 
@@ -28,7 +27,7 @@ Storybook のチュートリアルをテスト抜きには終われません。�
 
 Storybook は視覚的なリグレッションテスト用の素晴らしいツールです。Storybook において、すべてのストーリーはテスト仕様となるからです。ストーリーを書くたび、仕様が無料でついてきます！
 
-視覚的なリグレッションテスト向けのツールは多々あります。Storybook のメンテナーが作成した無料の発行サービスである [**Chromatic**](https://www.chromatic.com/) がおすすめです。Chromatic はクラウド上でビジュアルテストを並列実行します。[前の章](/react/ja/deploy/)と同じように Storybook をインターネット上に発行出来ます。
+視覚的なリグレッションテスト向けのツールは多々あります。Storybook のメンテナーが作成した無料のホスティングサービスである [**Chromatic**](https://www.chromatic.com/) がおすすめです。Chromatic はクラウド上でビジュアルテストを並列実行します。[前の章](/react/ja/deploy/)と同じように Storybook をインターネット上に発行出来ます。
 
 ## UI の変更を検知する
 
@@ -52,7 +51,7 @@ git checkout -b change-task-background
     value={title}
     readOnly={true}
     placeholder="Input title"
-    style={{ textOverflow: 'ellipsis', background: 'red' }}
+    style={{ background: 'red' }}
   />
 </div>
 ```
@@ -83,7 +82,7 @@ git push -u origin change-task-background
 
 ![GitHub にタスクの PR を作成する](/github/pull-request-background.png)
 
-プルリクエストに適切な説明を書き、`Create pull request` をクリックしてください。ページの下部に表示された「UI Tests」の PR チェックをクリックして下さい。
+プルリクエストに適切な説明を書き、`Create pull request` をクリックしてください。ページの下部に表示された「🟡 UI Tests」の PR チェックをクリックして下さい。
 
 ![GitHub にタスクの PR が作成された](/github/pull-request-background-ok.png)
 

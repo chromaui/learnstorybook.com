@@ -2,7 +2,7 @@
 title: 'Bonus: Create an addon'
 tocTitle: 'Bonus: Creating addons'
 description: 'Learn how to build your own addons that will super charge your development'
-commit: 'bebba5d'
+commit: '6d1d770'
 ---
 
 Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/docs/react/configure/storybook-addons) ecosystem. Addons are used to enhance your developer experience and workflows.
@@ -97,14 +97,17 @@ This is the typical boilerplate code to get you started. Going over what the cod
 - We're registering a new addon in our Storybook.
 - Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.
 
-Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
+Starting Storybook at this point, we won't be able to see the addon just yet. We need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    // same as before
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
     './.storybook/design-addon/register.js', // our addon
   ],
 };
@@ -476,4 +479,4 @@ More dev-kits will become available in the future.
 
 ## Sharing addons with the team
 
-Addons are timesaving additions to your workflow, but it can be difficult for non-technical teammates and reviewers to take advantage of their features. You can't guarantee folks will run Storybook on their local machine. That's why deploying your Storybook to an online location for everyone to reference can be really helpful. In the next chapter we'll do just that!
+Addons are timesaving additions to your workflow, but it can be difficult for non-technical teammates and reviewers to take advantage of their features. You can't guarantee folks will run Storybook on their local machine. That's why deploying your Storybook to an online location for everyone to reference can be really helpful.

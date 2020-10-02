@@ -18,7 +18,7 @@ Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Componen
 
 Para construir nuestro `TaskComponent`, primero escribiremos tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizaremos Storybook para construir el componente en aislamiento utilizando únicamente datos de prueba. Vamos a “testear visualmente” la apariencia del componente dependiendo de cada estado.
 
-Este es un proceso es al [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que podemos llamar “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+Este es un proceso es al [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que podemos llamar “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
 ## Ajustes iniciales
 
