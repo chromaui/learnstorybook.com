@@ -22,8 +22,8 @@ Un componente compuesto no es muy diferente de los componentes básicos que cont
 
 Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Task` del capítulo anterior y pasarle los atributos y acciones como entrada.
 
-```html
-<!--src/components/TaskList.svelte-->
+```svelte
+<!-- src/components/TaskList.svelte -->
 
 <script>
   import Task from './Task.svelte';
@@ -39,7 +39,7 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
 {/if}
 {#if emptyTasks}
   <div class="list-items">empty</div>
-{/if} 
+{/if}
 {#each tasks as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
@@ -49,57 +49,58 @@ A continuación, crea los estados de prueba de `Tasklist` en el archivo de histo
 
 ```javascript
 // src/components/TaskList.stories.js
-import TaskList from "./TaskList.svelte";
-import { taskData, actionsData } from "./Task.stories";
+
+import TaskList from './TaskList.svelte';
+import { taskData, actionsData } from './Task.stories';
 export default {
-  title: "TaskList",
-  excludeStories: /.*Data$/
+  title: 'TaskList',
+  excludeStories: /.*Data$/,
 };
 
 export const defaultTasksData = [
-  { ...taskData, id: "1", title: "Task 1" },
-  { ...taskData, id: "2", title: "Task 2" },
-  { ...taskData, id: "3", title: "Task 3" },
-  { ...taskData, id: "4", title: "Task 4" },
-  { ...taskData, id: "5", title: "Task 5" },
-  { ...taskData, id: "6", title: "Task 6" }
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
 ];
 export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
 // default TaskList state
 export const Default = () => ({
   Component: TaskList,
-   props: {
-    tasks: defaultTasksData
+  props: {
+    tasks: defaultTasksData,
   },
   on: {
-    ...actionsData
-  }
+    ...actionsData,
+  },
 });
 // tasklist with pinned tasks
 export const WithPinnedTasks = () => ({
   Component: TaskList,
   props: {
-    tasks: withPinnedTasksData
+    tasks: withPinnedTasksData,
   },
   on: {
-    ...actionsData
-  }
+    ...actionsData,
+  },
 });
 // tasklist in loading state
 export const Loading = () => ({
   Component: TaskList,
   props: {
-    loading: true
+    loading: true,
   },
 });
 // tasklist no tasks
 export const Empty = () => ({
   Component: TaskList,
-}); 
+});
 ```
 
 `taskData` provee la forma de un `Task` que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, `actionsData` define las acciones (llamadas simuladas) que espera un componente `Task`, el cual también necesita la `TaskList`.
@@ -122,7 +123,7 @@ Para el caso del borde de carga, crearemos un nuevo componente que mostrará el 
 Cree un nuevo archivo llamado `LoadingRow.svelte` y agregue el siguiente marcado:
 
 ```html
-<!--src/components/LoadingRow.svelte-->
+<!-- src/components/LoadingRow.svelte -->
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -135,8 +136,8 @@ Cree un nuevo archivo llamado `LoadingRow.svelte` y agregue el siguiente marcado
 
 Y actualice `TaskList.svelte` a lo siguiente:
 
-```html
-<!--src/components/TaskList.svelte-->
+```svelte
+<!-- src/components/TaskList.svelte -->
 
 <script>
   import Task from './Task.svelte';
@@ -160,7 +161,7 @@ Y actualice `TaskList.svelte` a lo siguiente:
   <LoadingRow />
   <LoadingRow />
 </div>
-{/if} 
+{/if}
 {#if tasks.length === 0 && !loading}
 <div class="list-items">
   <div class="wrapper-message">
@@ -169,7 +170,7 @@ Y actualice `TaskList.svelte` a lo siguiente:
     <div class="subtitle-message">Sit back and relax</div>
   </div>
 </div>
-{/if} 
+{/if}
 {#each tasksInOrder as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
@@ -206,9 +207,10 @@ Crea un archivo de prueba llamado `src/components/TaskList.test.js`. Aquí vamos
 
 ```javascript
 // src/components/TaskList.test.js
+
 import TaskList from './TaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasksData } from './TaskList.stories'
+import { withPinnedTasksData } from './TaskList.stories';
 test('TaskList ', async () => {
   const { container } = await render(TaskList, {
     props: {

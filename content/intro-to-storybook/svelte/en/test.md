@@ -74,10 +74,8 @@ A small change is required to the `build-storybook` script to allow the `chromat
 
 ```json
 {
-  ....
-  "scripts":{
-    ...
-    "build-storybook": "build-storybook -s public",
+  "scripts": {
+    "build-storybook": "build-storybook -s public"
   }
 }
 ```

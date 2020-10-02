@@ -23,6 +23,8 @@ Tenemos nuestro objetivo, ahora definamos qué características admitirá nuestr
 La forma en que adjuntaremos la lista de recursos a las historias es a través de [parámetros](https://storybook.js.org/docs/configurations/options-parameter/), que es una opción de Storybook que nos permite inyectar parámetros personalizados para nuestras historias. La forma de usarlo es bastante similar a cómo usamos un decorador en capítulos anteriores.
 
 ```javascript
+// YourComponent.stories.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -35,8 +37,6 @@ export default {
 };
 ```
 
-<!-- -->
-
 ## Configuración
 
 Hemos esbozado lo que hará nuestro complemento, es hora de configurar nuestro entorno de desarrollo local.
@@ -45,7 +45,7 @@ Comenzaremos agregando un paquete adicional a nuestro proyecto. Más específica
 
 Abra una consola, navegue a la carpeta de su proyecto y ejecute el siguiente comando:
 
-```bash
+```shell
   npm install -D @babel/preset-react
 ```
 
@@ -80,7 +80,8 @@ Finalmente dentro de su carpeta `.storybook`, cree una nueva carpeta llamada `de
 Agregue lo siguiente a su archivo creado recientemente:
 
 ```javascript
-//.storybook/design-addon/register.js
+// .storybook/design-addon/register.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -107,6 +108,7 @@ Comenzando Storybook en este punto, aún no podremos ver el complemento. Como hi
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
@@ -131,7 +133,8 @@ Para completarlo, necesitamos hacer algunos cambios en nuestras importaciones e 
 Realice los siguientes cambios en el archivo de complemento:
 
 ```javascript
-//.storybook/design-addon/register.js
+// .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -157,7 +160,8 @@ Creamos el componente, modificamos las importaciones, todo lo que falta es conec
 Su código debería tener el siguiente aspecto:
 
 ```javascript
-//.storybook/design-addon/register.js
+// .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -201,6 +205,7 @@ Para hacerlo, haremos un pequeño cambio en el archivo `task.stories.js` y agreg
 
 ```javascript
 // src/components/task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
@@ -227,7 +232,8 @@ Continúe y reinicie su Storybook y seleccione la historia de la Tarea, debería
 En esta etapa, podemos ver que el complemento está funcionando como debería, pero ahora cambiemos el componente `Content` para mostrar realmente lo que queremos:
 
 ```javascript
-//.storybook/design-addon/register.js
+// .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -307,7 +313,8 @@ Para el último, vamos a necesitar algún tipo de estado, podríamos usar el hoo
 Necesitamos ajustar nuestras importaciones a nuestras necesidades:
 
 ```javascript
-//.storybook/design-addon/register.js
+// .storybook/design-addon/register.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -316,7 +323,8 @@ import { AddonPanel, ActionBar } from '@storybook/components';
 Y modifique nuestro componente `Content`, para que podamos cambiar entre recursos:
 
 ```javascript
-//.storybook/design-addon/register.js
+// .storybook/design-addon/register.js
+
 const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
@@ -360,6 +368,7 @@ Hemos logrado lo que nos propusimos hacer, que es crear un complemento de Storyb
 
 ```javascript
 // .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
