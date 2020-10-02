@@ -2,7 +2,7 @@
 title: '팀과 함께 리뷰하기'
 tocTitle: '리뷰'
 description: '지속적 통합(CI)과 비주얼 리뷰를 통한 협업'
-commit: eabed3d
+commit: 3b28026
 ---
 
 4장에서는 디자인 간 불일치 문제를 해결하며 디자인 시스템을 더 발전시킬 수 있는 전문적인 워크플로우에 대해서 배울 것입니다. 이 장은 팀에서 UI 피드백을 주고받아 의견 합의에 이를 수 있는 여러 방법을 알려줍니다. 이러한 프로덕션 과정들은 Auth0, Shopify, 그리고 Discovery Network에서 이용되고 있습니다. 
@@ -56,13 +56,13 @@ UI 컴포넌트들이 URL을 통해 접근 가능할 때, 관계자들은 UI가 
 
 npm을 통해 [chromatic](https://www.npmjs.com/package/chromatic) 패키지를 설치합니다.
 
-```bash
+```shell
 yarn add --dev chromatic
 ```
 
 설치되었으면 아래 커맨드를 실행해 스토리북을 빌드하고 배포합니다. (크로마틱 웹사이트에서 제공되는 `project-token`을 사용해야 합니다)
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -115,19 +115,19 @@ jobs:
 
 수정사항을 git add 합니다.
 
-```bash
+```shell
 git add .
 ```
 
 커밋합니다.
 
-```bash
+```shell
 git commit -m "Storybook deployment with GitHub action"
 ```
 
 마지막으로, 아래 명령어를 사용해 원격 저장소에 푸쉬합니다.
 
-```bash
+```shell
 git push origin master
 ```
 
@@ -139,7 +139,7 @@ git push origin master
 
 우리는 새로운 브랜치에 UI 변경을 함으로써 비주얼 리뷰를 보여주겠습니다.
 
-```bash
+```shell
 git checkout -b improve-button
 ```
 
@@ -158,7 +158,7 @@ const StyledButton = styled.button`
 
 변동사항을 커밋하고 여러분의 깃허브 저장소에 푸쉬합니다.
 
-```bash
+```shell
 git commit -am “make Button pop”
 git push -u origin improve-button
 ```
