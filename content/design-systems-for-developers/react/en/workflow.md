@@ -2,7 +2,7 @@
 title: 'Workflow for design systems'
 tocTitle: 'Workflow'
 description: 'An overview of the design system workflow for frontend developers'
-commit: 5fb832a
+commit: ab64b4c
 ---
 
 How frontend tools work together has a significant impact on the ultimate value design and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
@@ -19,45 +19,82 @@ AvatarList is a component that displays multiple avatars. Like the other design 
 
 First, make a new branch on git where we’ll be tracking this work.
 
-```bash
+```shell
 git checkout -b create-avatar-list-component
 ```
 
 Download `AvatarList` component and story to your machine. Place it in the `/src` directory:
 
-- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/2347a5e8b27635f39091728d0845ff7a2ded3699/src/AvatarList.js)
-- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/2347a5e8b27635f39091728d0845ff7a2ded3699/src/AvatarList.stories.js)
+- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.js)
+- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.stories.js)
 
 Storybook is setup to automatically detect files ending in `\*.stories.js` and show them in the UI.
 
-![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist.png)
+![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist-6-0.png)
 
 Nice! Now let’s articulate each UI state supported by AvatarList. At a glance, it’s clear that AvatarList supports some of Avatar’s properties like `small` and `loading`.
 
 ```javascript
 // src/AvatarList.stories.js
 
-export const smallSize = () => <AvatarList users={users.slice(0, 2)} size="small" />;
-export const loading = () => <AvatarList loading />;
+export const SmallSize = Template.bind({});
+SmallSize.args = {
+  users: short.args.users,
+  size: 'small',
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  loading: true,
+};
 ```
 
-![Storybook with more AvatarList stories](/design-systems-for-developers/storybook-with-avatarlist-loading.png)
+![Storybook with more AvatarList stories](/design-systems-for-developers/storybook-with-avatarlist-loading-6-0.png)
 
 Given that it’s a list, it should show many avatars. Let’s add stories that showcase what happens with numerous list items and what happens with few list items.
 
 ```javascript
 // src/AvatarList.stories.js
 
-export const ellipsized = () => <AvatarList users={users} />;
-export const bigUserCount = () => <AvatarList users={users} userCount={100} />;
-export const empty = () => <AvatarList users={[]} />;
+export const Ellipsized = Template.bind({});
+Ellipsized.args = {
+  users: [
+    ...short.args.users,
+    {
+      id: '3',
+      name: 'Zoltan Olah',
+      avatarUrl: 'https://avatars0.githubusercontent.com/u/81672',
+    },
+    {
+      id: '4',
+      name: 'Tim Hingston',
+      avatarUrl: 'https://avatars3.githubusercontent.com/u/1831709',
+    },
+  ],
+};
+
+export const BigUserCount = Template.bind({});
+bigUserCount.args = {
+  users: Ellipsized.args.users,
+  userCount: 100,
+};
+
+export const Empty = Template.bind({});
+empty.args = {
+  users: [],
+};
 ```
 
-![Storybook with all AvatarList stories](/design-systems-for-developers/storybook-with-all-avatarlist-stories.png)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/design-systems-for-developers/storybook-with-all-avatarlist-stories-6-0.mp4"
+    type="video/mp4"
+  />
+</video>
 
 Save your progress and commit.
 
-```bash
+```shell
 git commit -am "Added AvatarList and stories"
 ```
 
@@ -117,16 +154,16 @@ Documentation doesn’t have to be tiresome. With automated tooling, we removed 
 
 Commit the changes and push to GitHub.
 
-```bash
-git commit -am “Improved AvatarList docs”
+```shell
+git commit -am "Improved AvatarList docs"
 ```
 
 #### Create a Pull Request
 
 Let’s push our `AvatarList` branch to GitHub and create a pull request:
 
-```bash
-git push -u origin `create-avatar-list-component`
+```shell
+git push -u origin create-avatar-list-component
 ```
 
 Then navigate to GitHub and open a pull request.

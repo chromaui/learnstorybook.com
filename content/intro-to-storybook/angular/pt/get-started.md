@@ -267,7 +267,7 @@ Mas, visto que o nosso foco é a criação de um único componente de interface 
 
 ## Reutilização CSS
 
-A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/styles.css`.
+A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/styles.css`.
 
 E faça uma pequena alteração de forma que os ícones da fonte `percolate` que vamos usar sejam adicionados de forma correta na nossa aplicação Angular.
 

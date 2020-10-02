@@ -47,7 +47,7 @@ Afhankelijk van het gedeelte van de app waaraan je werkt, wil je misschien een o
 
 ## CSS herbruiken
 
-Taskbox herbruikt design elementen uit de GraphQL en React Tutorial [voorbeeld-app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), dus we hoeven geen CSS te schrijven in deze tutorial. We compileren gewoon de LESS tot een enkel CSS-bestand en voegen het toe aan onze app. Kopieer en plak [deze gecompileerde CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) in het `src/index.css`-bestand volgens de conventie van CRA.
+Taskbox herbruikt design elementen uit de GraphQL en React Tutorial [voorbeeld-app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), dus we hoeven geen CSS te schrijven in deze tutorial. We compileren gewoon de LESS tot een enkel CSS-bestand en voegen het toe aan onze app. Kopieer en plak [deze gecompileerde CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) in het `src/index.css`-bestand volgens de conventie van CRA.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
