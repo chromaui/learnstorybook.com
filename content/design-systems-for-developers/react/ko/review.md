@@ -114,10 +114,6 @@ jobs:
 
 수정사항을 git add 합니다.
 
-<<<<<<< HEAD
-=======
-
->>>>>>> cce9ae18d671217dcafb72207f8a191f28c8eca7
 ```shell
 git add .
 ```
