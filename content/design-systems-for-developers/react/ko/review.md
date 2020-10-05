@@ -139,7 +139,6 @@ git push origin master
 
 우리는 새로운 브랜치에 UI 변경을 함으로써 비주얼 리뷰를 보여주겠습니다.
 
-```bash
 ```shell
 git checkout -b improve-button
 ```
