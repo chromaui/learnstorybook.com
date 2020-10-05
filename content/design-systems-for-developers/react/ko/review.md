@@ -2,14 +2,14 @@
 title: '팀과 함께 리뷰하기'
 tocTitle: '리뷰'
 description: '지속적 통합(CI)과 비주얼 리뷰를 통한 협업'
-commit: eabed3d
+commit: 3b28026
 ---
 
 4장에서는 디자인 간 불일치 문제를 해결하며 디자인 시스템을 더 발전시킬 수 있는 전문적인 워크플로우에 대해서 배울 것입니다. 이 장은 팀에서 UI 피드백을 주고받아 의견 합의에 이를 수 있는 여러 방법을 알려줍니다. 이러한 프로덕션 과정들은 Auth0, Shopify, 그리고 Discovery Network에서 이용되고 있습니다. 
 
 ## 단일한 진실 지점(SSOT)인가, 단일한 장애 지점(SPOF)인가
 
-이 전에, 디자인 시스템은 프런트엔드 팀에 있어서 [단일한 장애 지점](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) 이라고 한 적이 있습니다. 결국 디자인 시스템이란 디펜던시(Dependency)이기 때문입니다. 디자인 시스템 컴포넌트를 바꾸면, 그 변화는 의존 관계에 있는 앱들로 퍼지게 됩니다. 변화가 퍼지는 방식은 공평합니다. 개선된 부분과 버그가 함께 있기 때문입니다.
+이 전에, 디자인 시스템은 프런트엔드 팀에 있어서 [단일한 장애 지점](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) 이라고 한 적이 있습니다. 결국 디자인 시스템이란 디펜던시(Dependency)이기 때문입니다. 디자인 시스템 컴포넌트를 바꾸면, 그 변화는 의존 관계에 있는 앱들로 퍼지게 됩니다. 변화가 퍼지는 방식은 공평합니다. 개선된 부분과 버그가 함께 있기 때문입니다.
 
 ![Design system dependencies](/design-systems-for-developers/design-system-dependencies.png)
 
@@ -56,13 +56,13 @@ UI 컴포넌트들이 URL을 통해 접근 가능할 때, 관계자들은 UI가 
 
 npm을 통해 [chromatic](https://www.npmjs.com/package/chromatic) 패키지를 설치합니다.
 
-```bash
+```shell
 yarn add --dev chromatic
 ```
 
 설치되었으면 아래 커맨드를 실행해 스토리북을 빌드하고 배포합니다. (크로마틱 웹사이트에서 제공되는 `project-token`을 사용해야 합니다)
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -70,7 +70,7 @@ npx chromatic --project-token=<project-token>
 
 위 링크를 복사한 후 새로운 브라우저 창에 붙여넣어 퍼블리쉬된 스토리북을 살펴봅니다. 로컬 스토리북 개발환경이 온라인에서 그대로 구현된 것을 볼 수 있습니다.
 
-![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook.png)
+![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook-6-0.png)
 
 이는 여러분의 팀이 실제로 렌더링 된 UI 컴포넌트들을 리뷰하는 과정을 원활하게 합니다. 마치 로컬 개발환경에서 리뷰하듯이 말입니다. 아래는 여러분이 크로마틱에서 보게 될 결과입니다.
 
@@ -105,7 +105,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-      #- run: yarn build-storybook
       - uses: chromaui/action@v1
         # options required to the GitHub chromatic action
         with:
@@ -115,19 +114,19 @@ jobs:
 
 수정사항을 git add 합니다.
 
-```bash
+```shell
 git add .
 ```
 
 커밋합니다.
 
-```bash
+```shell
 git commit -m "Storybook deployment with GitHub action"
 ```
 
 마지막으로, 아래 명령어를 사용해 원격 저장소에 푸쉬합니다.
 
-```bash
+```shell
 git push origin master
 ```
 
@@ -139,7 +138,7 @@ git push origin master
 
 우리는 새로운 브랜치에 UI 변경을 함으로써 비주얼 리뷰를 보여주겠습니다.
 
-```bash
+```shell
 git checkout -b improve-button
 ```
 
@@ -158,8 +157,8 @@ const StyledButton = styled.button`
 
 변동사항을 커밋하고 여러분의 깃허브 저장소에 푸쉬합니다.
 
-```bash
-git commit -am “make Button pop”
+```shell
+git commit -am "make Button pop"
 git push -u origin improve-button
 ```
 
