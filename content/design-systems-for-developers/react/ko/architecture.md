@@ -36,28 +36,40 @@ description: '컴포넌트 라이브러리에서 디자인 시스템을 추출�
 
 [State of JS](https://stateofjs.com/)의 설문조사에 따르면, 가장 인기 있는 뷰 레이어는 리액트(React)입니다. 압도적으로 많은 스토리북에서 리액트를 사용하기 때문에, 이 튜토리얼에서도 [create-react-app](https://github.com/facebook/create-react-app) 보일러플레이트를 사용하겠습니다.
 
+터미널에 아래 명령어를 입력하여 실행해보세요.
 
-```bash
-npx create-react-app learnstorybook-design-system
+```shell
+# Clone the files
+npx degit chromaui/learnstorybook-design-system#setup learnstorybook-design-system
+
+cd learnstorybook-design-system
+
+# Install the dependencies
+yarn install
 ```
 
-<div class="aside">디자인 시스템을 만드는 다른 방법으로는 원시 HTML/CSS 파일을 포함하거나 다른 뷰 레이어 사용하기, Svelte로 구성된 컴포넌트 컴파일하기, 혹은 다른 웹 컴포넌트 사용하기 등이 있습니다. 팀에 적합한 것을 선택하세요.</div>
+<div class="aside">여기에서는 깃허브(GitHub)로부터 폴더를 다운로드 받기 위해 <a href="https://github.com/Rich-Harris/degit">degit</a>를 사용했습니다. 수동으로 직접 가져오고 싶다면, <a href="https://github.com/chromaui/learnstorybook-design-system/tree/setup">여기</a>를 참고하세요.</div>
 
-create-react-app을 통해 저장소를 생성했으면, 깃허브(GitHub)에 이를 푸쉬할 수 있습니다(푸쉬를 하면 디자인 시스템 코드를 호스팅할 수 있습니다). 먼저 깃허브에 로그인하고 새 저장소를 만듭니다.
+파일들과 종속되는 요소들까지 설치가 완료되었으면, 이를 깃허브에 푸쉬(push)할 수 있습니다. 이 과정을 통해 우리의 디자인 시스템을 웹에 호스트할 수 있게 됩니다. 먼저 GitHub.com에 가입을 하여 새 저장소를 만듭니다.
 
 ![Create a GitHub repository](/design-systems-for-developers/create-github-repository.png)
 
 그런 다음 깃허브에서 제공하는 명령어를 사용해 원격 저장소를 git 저장소에 추가하고 (아마 거의 비어있을) 저장소를 푸쉬합니다.
 
-```bash
-cd learnstorybook-design-system
-git remote add origin https://github.com/chromaui/learnstorybook-design-system.git
+```shell
+git init
+git add .
+git commit -m "first commit"
+git branch -M master
+git remote add origin https://github.com/your-username/learnstorybook-design-system.git
 git push -u origin master
 ```
 
-`chromaui`를 본인 계정 이름으로 바꾸는 것을 잊지 마세요.
+`your-username`을 본인 계정 이름으로 바꾸는 것을 잊지 마세요.
 
 ![Initial commit to GitHub repository](/design-systems-for-developers/created-github-repository.png)
+
+<div class="aside">디자인 시스템을 만드는 다른 방법으로는 원시 HTML/CSS 파일을 포함하거나 다른 뷰 레이어 사용하기, Svelte로 구성된 컴포넌트 컴파일하기, 혹은 다른 웹 컴포넌트 사용하기 등이 있습니다. 팀에 적합한 것을 선택하세요.</div>
 
 ## 필요한 것과 그렇지 않은 것
 
@@ -84,39 +96,12 @@ git push -u origin master
 
 ![Variants in one component](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
-이 단계에서는 이전에 Create React App을 통해 만든 디자인 시스템의 src 폴더를 삭제해도 무방합니다. 필요가 없을 것이니 걱정하지 마세요. 그 다음에는 위에서 찾아낸 컴포넌트들을 컴퓨터 및 로컬 저장소에 다운로드하여 추가할 수 있습니다.
-
-```bash
-rm -rf src
-
-svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
-```
-
-<div class="aside">
-<p>여기서는 <code>SVN</code>(Subversion)을 사용하여 깃허브에서 파일 폴더를 쉽게 다운로드 했습니다. Subversion이 설치되어있지 않거나, 직접 다운로드를 받고 싶을 경우, <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-1/src">여기</a>에서 받을 수 있습니다.</p>
-
 <p>
 샘플 코드에서는 저장소를 간단하게 만들기 위해 이러한 컴포넌트들의 일부만 가져왔습니다. 몇몇 팀들은 표나 폼을 위해 사용자 정의된 외부 컴포넌트를 디자인 시스템에 포함하기도 합니다.</p></div>
-
-또한 컴포넌트가 의존하는 종속성도 업데이트를 해야 합니다.
-
-```bash
-yarn add prop-types styled-components polished
-```
 
 <div class="aside">CSS-in-JS: 이 튜토리얼에서는 <a href="https://www.styled-components.com">Styled-components</a>를 사용합니다. 이 라이브러리를 사용하면 컴포넌트에 스타일링 범위를 지정할 수 있습니다. 컴포넌트를 스타일링하는 방법에는 class를 지정하는 방법, CSS 모듈 등이 있습니다.</div>
 
 UI 컴포넌트 외에도 프로젝트 간에 재사용되는 타이포그래피, 색상, 간격 등에 대한 스타일링 상수를 포함하는 것이 좋습니다. 디자인 시스템 명명법에서 전역 스타일 변수를 "디자인 토큰"이라고 합니다. 이 가이드에서 디자인 토큰에 대한 이론에 대해서는 다루지 않지만, 온라인에서 더 자세히 알아볼 수 있습니다(이와 관련한 [좋은 글](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)을 첨부합니다).
-
-여기에서 디자인 토큰을 다운로드 하고 저장소에 추가해보세요.
-
-```bash
-svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared
-```
-
-<div class="aside">
-<p><a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-2/src/shared">깃허브 저장소</a>에서 직접 파일을 다운로드 받을 수도 있습니다.</p>
-</div>
 
 ## 개발을 시작해봅시다
 
