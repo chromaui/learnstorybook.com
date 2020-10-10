@@ -65,10 +65,9 @@ description: 'A guide to the latest production-ready tools for design systems'
 #### 스토리북 애드온
 
 - ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y): 개발하면서 접근성 체크를 도와줍니다.
-- 💥 [Actions](https://github.com/storybookjs/storybook/tree/master/addons/actions): QA 클릭과 탭 인터렉션이 가능합니다.
-- 🎛 [Knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs): 컴포넌트의 props를 동적으로 화면에 반영해줍니다.
-- 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource): 스토리 코드를 확인하고 프로젝트에 붙여넣을 수 있습니다.
-- 📕 [Docs](https://github.com/storybookjs/storybook/tree/master/addons/docs): 스토리에서 자동으로 문서를 생성해줍니다.
+- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions): QA 클릭과 탭 인터렉션이 가능합니다.
+- 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls): 컴포넌트의 props를 동적으로 화면에 반영해줍니다.
+- 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction): 스토리에서 자동으로 문서를 생성해줍니다.
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow.jpg)
 
