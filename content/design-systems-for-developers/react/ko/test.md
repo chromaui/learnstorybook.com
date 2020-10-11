@@ -2,7 +2,7 @@
 title: '품질 유지를 위한 테스트'
 tocTitle: '테스트'
 description: '디자인 시스템 외관, 기능성 및 접근성을 테스트하는 방법'
-commit: 5b71208
+commit: 95d7ae7
 ---
 
 5장에서는 UI 버그를 방지하기 위해 디자인 시스템 테스트를 자동화합니다. 이 장에서는 테스트가 필요한 UI 컴포넌트의 특성과 피해야 할 잠재적 함정에 대해 자세히 설명합니다. Wave, BBC 및 Salesforce의 전문 팀을 조사하여 합리적인 테스트 적용 범위, 직관적인 초기 설정 및 낮은 유지 보수 비용 간의 균형을 고려한 테스트 전략을 수립했습니다.
@@ -21,7 +21,7 @@ commit: 5b71208
 
 ## 테스트 준비
 
-전문적인 스토리북 워크플로우에 대해 [이전 글](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07)에서 4개의 프런트엔드 팀을 설문 조사했습니다. 그들은 스토리 작성에 대한 이러한 모범 사례들이 쉽고 합리적인 테스트를 만든다는 것에 동의했습니다.
+전문적인 스토리북 워크플로우에 대해 [이전 글](https://www.chromatic.com/blog/the-delightful-storybook-workflow)에서 4개의 프런트엔드 팀을 설문 조사했습니다. 그들은 스토리 작성에 대한 이러한 모범 사례들이 쉽고 합리적인 테스트를 만든다는 것에 동의했습니다.
 
 어떤 입력 조합이 테스트 항목으로 주어지는 명확히 하기 위해 **스토리가 지원하는 컴포넌트 상태**들을 표시합니다. 엉뚱한 테스트 범위를 제거하기 위해 지원되지 않는 상태를 가차 없이 제거합니다.
 
@@ -148,7 +148,7 @@ jobs:
 
 웹 접근성 표준 (WCAG)을 실시간으로 확인하기 위한 도구인 스토리북의 접근성 애드온을 사용하여 포용력 있는 UI를 시작하세요.
 
-```bash
+```shell
 yarn add --dev @storybook/addon-a11y
 
 ```
@@ -159,45 +159,57 @@ yarn add --dev @storybook/addon-a11y
 // .storybook/main.js
 
 module.exports = {
-  stories: ['../src/**/*.stories.js']
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
-    '@storybook/addon-storysource',
-    '@storybook/addon-knobs',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
     '@storybook/addon-a11y',
   ],
 };
 ```
 
-그리고 `withA11y` 데코레이터를 `.storybook/preview.js`에 추가합니다.
+`.storybook/preview.js`파일의 [parameters](https://storybook.js.org/docs/react/writing-stories/parameters)를 업데이트 하고, 다음의 `a11y`설정을 추가하세요.
 
 ```javascript
 //.storybook/preview.js
 
 import React from 'react';
-import { addDecorator } from '@storybook/react';
-import { withA11y } from '@storybook/addon-a11y';
 
 import { GlobalStyle } from '../src/shared/global';
 
-addDecorator(withA11y);
-addDecorator(story => (
-  <>
-    <GlobalStyle />
-    {story()}
-  </>
-));
+export const decorators = [
+  Story => (
+    <>
+      <GlobalStyle />
+      <Story />
+    </>
+  ),
+];
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  // 스토리북 a11y 애드온 설정
+  a11y: {
+    // 타겟 DOM 엘리먼트
+    element: '#root',
+    // 애드온의 실행 모드를 설정
+    manual: false,
+  },
+};
 ```
 
-설치되면 스토리북 애드온 패널에 새로운 "접근성"탭이 표시됩니다.
+모든 설정이 완료되면 스토리북 애드온 패널에 새로운 "접근성"탭이 표시됩니다.
 
-![스토리북 A11y 애드온](/design-systems-for-developers/storybook-addon-a11y.png)
+![스토리북 A11y 애드온](/design-systems-for-developers/storybook-addon-a11y-6-0.png)
 
 DOM 요소 (위반 및 통과)의 접근성 수준을 보여줍니다. UI 컴포넌트인 "highlight results" 체크박스를 클릭하여 위반 사항을 시각화합니다.
 
-![패스가 강조 표시된 스토리북 A11y 애드온](/design-systems-for-developers/storybook-addon-a11y-highlighted.png)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/design-systems-for-developers/storybook-addon-a11y-6-0-highlighted.mp4"
+    type="video/mp4"
+  />
+</video>
 
 지금부터는 애드온의 접근성 권장 사항을 따르세요.
 
