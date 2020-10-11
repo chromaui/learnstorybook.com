@@ -23,6 +23,16 @@ cd taskbox
 npx -p @storybook/cli sb init
 ```
 
+In case storybook won't install dependencies
+
+```bash
+# Install storybook cli in Dev mode
+yarn add -D @storybook/cli
+
+# initialize sb
+yarn sb init
+```
+
 <div class="aside">
 Throughout this version of the tutorial, we'll be using <code>yarn</code> to run the majority of our commands. 
 If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code>--use-npm</code> flag to the first command above and both CRA and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
