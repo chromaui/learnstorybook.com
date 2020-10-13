@@ -1,68 +1,77 @@
 ---
-title: '开始吧'
-tocTitle: '从头开始'
-description: '在你的开发环境下, 设置 React Storybook '
+title: 'Storybook React 教程'
+tocTitle: '开始吧'
+description: '在你的开发环境下设置 Storybook'
 commit: '8741257'
 ---
 
-<div class="aside">
-<p>
-  此翻译未更新！您可以通过单击页面底部的链接来帮助我们改进它，不仅团队会感激它，而且整个社区都会感激不尽
-</p>
-</div>
-
-Storybook 是在开发模式下 与 您的应用程序一起运行的. 它可以帮助您构建 UI 组件,并与 应用程序的 业务逻辑和上下文 隔离开来. 本期"学习 Storybook"适用于 **React**; `Vue和Angular`版本即将推出.
+Storybook 在开发环境下与你的程序一起运行。它可以帮助你隔离业务逻辑和应用程序上下文独立构建 UI 组件。此版本的 Storybook 教程适用于 React。其他版本还有：[React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started) 以及 [Svelte](/svelte/en/get-started)。
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
-> 整个页面 -> 拿出各种组件 -> 分隔出 **每个组件** /`组件组合`用来测试与文档说明
-
 ## 设置 React Storybook
 
-我们需要按照几个步骤设置 Storybook 环境. 首先,我们想要使用[Create React App](https://github.com/facebook/create-react-app) (**CRA**) 快速设置我们的环境,并启用[Storybook](https://storybook.js.org/)和[ jest ](https://facebook.github.io/jest/)测试我们创建的应用. 让我们运行以下命令:
+我们将需要通过几个步骤设置环境。首先，我们需要使用[Create React App](https://github.com/facebook/create-react-app) (CRA) 来设置我们的构建系统，并开启 [Storybook](https://storybook.js.org/) 以及 [Jest](https://facebook.github.io/jest/) 在我们创建的应用程序中进行测试。 让我们运行以下命令：
 
 ```bash
-# 创建应用:
+# 创建应用程序
 npx create-react-app taskbox
+
 cd taskbox
 
-# 加入 Storybook:
-npx -p @storybook/cli getstorybook
+# 添加 Storybook
+npx -p @storybook/cli sb init
 ```
 
-我们可以快速检查,我们的应用程序的各种命令是否正常工作:
+<div class="aside">
+在这个版本的教程中，我们将使用 <code>yarn</code> 来运行大多数命令。
+如果你已经安装了 Yarn，但更偏向使用 <code>npm</code> 替代，不必担心，你仍然可以顺利完成本教程。只需要在上面的命令后添加 <code>--use-npm</code> 标志，CRA 和 Storybook 都将基于此初始化。并且在完成本教程时不要忘记调整其中的命令为 <code>npm</code> 中对应的命令。
+</div>
+
+我们可以快速检查应用程序的各种环境是否正常运行：
 
 ```bash
-# 运行 测试引擎(Jest):
-yarn test
+# 终端运行测试工具 Jest
+yarn test --watchAll
 
-# 启动 storybook 在端口:9009 :
-yarn run storybook
+# 在端口 9009 启动组件浏览
+yarn storybook
 
-# 启动 前端 页面 在端口:3000:
+# 在端口 3000 运行前端应用
 yarn start
 ```
 
 <div class="aside">
-  注意: 如果 <code>yarn test</code> 运行错误, 你可能需要安装 <code>watchman</code> 具体问题来自 <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">这个Issue</a>.
+你或许已经发现了我们给 test 命令添加了 <code>--watchAll</code> 标志，这是故意的，请不用担心，这点小的改动将确保我们应用程序的所有测试用例运行并一切正常。当你在学习本套教程的过程中，将会将你介绍不同的测试场景，因此你可能会考虑为 <code>package.json</code> 中的测试脚本添加该标志以确保你的完整的测试用例能够运行。
 </div>
 
-我们的三个前端应用程序模式: 自动化测试 (Jest) ,组件开发 (Storybook) 和 应用程序本身.
+我们的三个前端应用程序模式: 自动化测试（Jest），组件开发（Storybook）和 应用程序本身.
 
 ![3 modalities](/intro-to-storybook/app-three-modalities.png)
 
-根据您正在处理的应用程序的哪个部分,您可能希望同时运行其中一个或多个. 由于我们目前的重点是创建单个 UI 组件,因此我们将坚持运行 Storybook.
+根据您正在处理的应用程序的哪个部分，您可能希望同时运行其中一个或多个。由于我们目前的重点是创建单个 UI 组件，因此我们将坚持运行 Storybook。
 
 ## 重用 CSS
 
-本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例应用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的设计元素,所以我们不需要在本教程中编写 CSS. 我们只需将 LESS 编译为单个 CSS 文件, 并将其包含在我们的应用程序中. 复制和粘贴[这个编译的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根据 **CRA**的规则 进入 **src/index.css** 文件.
+本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例应用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的设计元素，所以我们不需要在本教程中编写 CSS。我们只需将 LESS 编译为单个 CSS 文件，并将其包含在我们的应用程序中。复制和粘贴[这个编译的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根据 **CRA**的规则 进入 **src/index.css** 文件。
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-如果要修改样式，在GitHub存储库中有提供 源LESS文件。
+如果要修改样式，<a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/style">这里</a> 提供了源LESS文件。
 </div>
 
 ## 添加资源
 
-我们还需要添加 字体和图标[文件夹](https://github.com/chromaui/learnstorybook-code/tree/master/public)到了`public/`文件夹. 添加 样式和静态资源 后,应用程序会奇奇怪怪的. 没关系. 因为我们还没有开发应用程序. 现在我们开始构建我们的第一个组件!
+为了匹配预期的设计，需要你下载字体及图标目录到 `public` 文件夹下。在终端执行以下命令：
+
+```bash
+npx degit chromaui/learnstorybook-code/public/font public/font
+npx degit chromaui/learnstorybook-code/public/icon public/icon
+```
+
+<div class="aside">
+我们使用 <a href="https://github.com/Rich-Harris/degit">degit</a> 从 Github 下载文件夹。如果想要手动，可以从 <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">这里</a> 抓取。
+</div>
+
+添加完样式和资源后，程序会渲染出一些奇怪的效果。没有关系，我们目前不在开发该应用，我们从构建第一个组件开始！

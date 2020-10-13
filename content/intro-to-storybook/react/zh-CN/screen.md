@@ -14,6 +14,8 @@ commit: '4aef5f7'
 由于我们的应用程序非常简单,我们将构建的页面非常简单,只需简单地包装`TaskList`组件 (通过 Redux 提供自己的数据) 在某些布局中并拉出 redux 中顶层`error`的字段 (假设我们在连接到 服务器时遇到问题,我们将设置该字段) . 创建`InboxScreen.js`在你的`components`夹:
 
 ```javascript
+// src/components/InboxScreen.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -59,6 +61,8 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 我们也改变了`App`,用于渲染的组件`InboxScreen` (最终我们会使用路由器来选择正确的页面,但不要在此担心) :
 
 ```javascript
+// src/App.js
+
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
@@ -87,14 +91,25 @@ export default App;
 但是,对于`PureInboxScreen`我们有一个问题,因为虽然`PureInboxScreen`本身是表现性的,它的孩子,`TaskList`, 不是. 从某种意义上说`PureInboxScreen`被"容器"污染了. 所以,当我们设置我们的故事`InboxScreen.stories.js`:
 
 ```javascript
+// src/components/InboxScreen.stories.js
+
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import { PureInboxScreen } from './InboxScreen';
 
-storiesOf('InboxScreen', module)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+export default {
+  component: PureInboxScreen,
+  title: 'InboxScreen',
+};
+
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 我们看到了虽然如此`error`故事工作得很好,我们`default`故事有一个问题,因为`TaskList`没有要连接的 Redux Store . (在尝试测试时,您也会遇到类似的问题`PureInboxScreen`用单元测试) .
@@ -114,29 +129,39 @@ storiesOf('InboxScreen', module)
 好消息是 Redux Store 很容易提供给 一个`InboxScreen`故事! 我们可以使用 Redux Store 的模拟版本 提供给到装饰器中:
 
 ```javascript
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { Provider } from 'react-redux';
+// src/components/InboxScreen.stories.js
 
+import React from 'react';
+import { Provider } from 'react-redux';
+import { action } from '@storybook/addon-actions';
 import { PureInboxScreen } from './InboxScreen';
-import { defaultTasks } from './TaskList.stories';
+import * as TaskListStories from './TaskList.stories';
 
 // A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasks,
+      tasks: TaskListStories.Default.args.tasks,
     };
   },
   subscribe: () => 0,
   dispatch: action('dispatch'),
 };
 
-storiesOf('InboxScreen', module)
-  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+export default {
+  component: PureInboxScreen,
+  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  title: 'InboxScreen',
+};
+
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 存在类似的方法来为其他数据库提供模拟的上下文,例如[阿波罗](https://www.npmjs.com/package/apollo-storybook-decorator),[Relay](https://github.com/orta/react-storybooks-relay-container)和别的.
@@ -146,7 +171,7 @@ storiesOf('InboxScreen', module)
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
