@@ -2,7 +2,7 @@
 title: 'Test to maintain quality'
 tocTitle: 'Test'
 description: 'How to test design system appearance, functionality, and accessibility'
-commit: 5b71208
+commit: 95d7ae7
 ---
 
 In chapter 5, we automate design system testing to prevent UI bugs. This chapter dives into what characteristics of UI components warrant testing and potential pitfalls to avoid. We researched professional teams at Wave, BBC, and Salesforce to land on a test strategy that balances comprehensive coverage, straightforward setup, and low maintenance.
@@ -21,7 +21,7 @@ All the more reason to set up automated testing **now** to save work in the **fu
 
 ## Prepare to test
 
-I surveyed 4 frontend teams in a [previous article](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) about professional Storybook workflows. They agreed on these best practices for writing stories to make testing easy and comprehensive.
+I surveyed 4 frontend teams in a [previous article](https://www.chromatic.com/blog/the-delightful-storybook-workflow) about professional Storybook workflows. They agreed on these best practices for writing stories to make testing easy and comprehensive.
 
 **Articulate supported component states** as stories to clarify which combinations of inputs yields a given state. Ruthlessly omit unsupported states to reduce noise.
 

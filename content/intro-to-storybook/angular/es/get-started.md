@@ -46,7 +46,7 @@ Dependiendo de la parte de la aplicación en la que estés trabajando, es posibl
 
 ## Reutilizando el CSS
 
-Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente incluiremos nuestros archivos LESS y los importaremos dentro de `styles.less`.
+Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente incluiremos nuestros archivos LESS y los importaremos dentro de `styles.less`.
 
 ![Interfaz gráfica del Buzón de tareas](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 

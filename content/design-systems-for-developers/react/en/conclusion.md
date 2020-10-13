@@ -41,9 +41,9 @@ More from the authors:
 
 - [Intro to Storybook](http://learnstorybook.com/intro-to-storybook) (guide)
 - [Component-Driven Development by Tom Coleman](https://www.componentdriven.org/) (article)
-- [Why design systems are a single point of failure by Dominic Nguyen](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) (article)
-- [Delightful Storybook Workflow by Dominic Nguyen](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) (article)
-- [Visual Testing by Tom Coleman](https://blog.hichroma.com/visual-testing-the-pragmatic-way-to-test-uis-18c8da617ecf) (article)
+- [Why design systems are a single point of failure by Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) (article)
+- [Delightful Storybook Workflow by Dominic Nguyen](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (article)
+- [Visual Testing by Tom Coleman](https://www.chromatic.com/blog/visual-testing-the-pragmatic-way-to-test-uis/) (article)
 
 ## FAQ
 

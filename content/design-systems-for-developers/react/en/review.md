@@ -2,14 +2,14 @@
 title: 'Review with teams'
 tocTitle: 'Review'
 description: 'Collaborate with continuous integration and visual review'
-commit: eabed3d
+commit: 3b28026
 ---
 
 In chapter 4, we’ll learn professional workflows for making design system improvements while mitigating inconsistencies. This chapter covers techniques for gathering UI feedback and reaching consensus with your team. These production processes are used by folks at Auth0, Shopify, and Discovery Network.
 
 ## Single source of truth or single point of failure
 
-Previously, I wrote that design systems are a [single point of failure](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) for frontend teams. In essence, design systems are a dependency. If you change a design system component, that change propagates to dependent apps. The mechanism for distributing changes is unbiased – it ships both improvements and bugs.
+Previously, I wrote that design systems are a [single point of failure](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) for frontend teams. In essence, design systems are a dependency. If you change a design system component, that change propagates to dependent apps. The mechanism for distributing changes is unbiased – it ships both improvements and bugs.
 
 ![Design system dependencies](/design-systems-for-developers/design-system-dependencies.png)
 

@@ -2,7 +2,7 @@
 title: 'Distribute UI across an organization'
 tocTitle: 'Distribute'
 description: 'Learn to package and import your design system into other apps'
-commit: 3a5cd35
+commit: 2d0450a
 ---
 
 From an architectural perspective, design systems are yet another frontend dependency. They are no different than popular dependencies like moment or lodash. UI components are code so we can rely on established techniques for code reuse.
@@ -418,6 +418,8 @@ import React from 'react';
 
 // The styles imported from the design system.
 import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
+
+const { GlobalStyle } = designSystemGlobal; 
 
 // Adds a global decorator to include the imported styles from the design system.
 export const decorators = [
