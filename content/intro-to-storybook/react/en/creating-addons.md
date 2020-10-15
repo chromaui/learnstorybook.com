@@ -42,27 +42,7 @@ export default {
 
 We've outlined what our addon will do, it's time to start working on it.
 
-In the root folder of your project, create a new file called `.babelrc` with the following inside:
-
-```json
-{
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ],
-    "@babel/preset-react"
-  ]
-}
-```
-
-Adding this file will allow us to use the correct presets and options for the addon we're about to develop.
-
-Afterwards, inside your `.storybook` folder create a new one called `design-addon` and inside it a new file called `register.js`.
+Inside your `.storybook` folder create a new one called `design-addon` and inside it a new file called `register.js`.
 
 And that's it! We are ready to start developing our addon.
 
@@ -81,7 +61,7 @@ import { addons, types } from '@storybook/addons';
 
 addons.register('my/design-addon', () => {
   addons.add('design-addon/panel', {
-    title: 'assets',
+    title: 'Assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
@@ -97,7 +77,7 @@ This is the typical boilerplate code to get you started. Going over what the cod
 - We're registering a new addon in our Storybook.
 - Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.
 
-Starting Storybook at this point, we won't be able to see the addon just yet. We need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
+Starting Storybook at this point, we won't be able to see the addon just yet. We need to register our own in the [`.storybook/main.js`](https://storybook.js.org/docs/react/configure/overview#configure-your-storybook-project) file. Just add the following to the already existing `addons` list:
 
 ```js
 // .storybook/main.js
@@ -108,12 +88,12 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './.storybook/design-addon/register.js', // our addon
+    './design-addon/register.js', // our addon
   ],
 };
 ```
 
-![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
+![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added-6-0.png)
 
 Success! We have our newly created addon added to the Storybook UI.
 
@@ -179,7 +159,7 @@ const Content = () => {
 
 addons.register('my/design-addon', () => {
   addons.add('design-addon/panel', {
-    title: 'assets',
+    title: 'Assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
@@ -211,17 +191,13 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  argTypes: {
-    /* ...actionsData, */
-    backgroundColor: { control: 'color' },
-  },
 };
 /* same as before  */
 ```
 
 Go ahead and restart your Storybook and select the Task story, you should see something like this:
 
-![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story.png)
+![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story-6-0.png)
 
 ### Showing content in our addon
 
@@ -284,7 +260,7 @@ const Content = () => {
 };
 ```
 
-Let's take a look at the code. We use the `styled` tag that comes from the `@storybook/theming` package. This allows us to customize Storybook's theme and the addon UI. [`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) is a hook that allows us to tap into Storybook's internal state to fetch any bit of information present. In our case we're using it to fetch the id of each story created.
+Let's take a look at the code. We use the `styled` tag that comes from the [`@storybook/theming`](https://storybook.js.org/docs/react/configure/theming) package. This allows us to customize Storybook's theme and the addon UI. [`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) is a hook that allows us to tap into Storybook's internal state to fetch any bit of information present. In our case we're using it to fetch the id of each story created.
 
 ### Displaying the actual assets
 
@@ -292,7 +268,7 @@ To actually see the assets displayed in our addon, we need to copy them over to 
 
 Storybook will pick up on the change and will load the assets, but for now, only the first one.
 
-![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png)
+![actual assets loaded](/intro-to-storybook/design-assets-image-loaded-6-0.png)
 
 ## Stateful addons
 
@@ -304,7 +280,7 @@ Going over our initial objectives:
 
 We're almost there, only one goal remaining.
 
-For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own `useAddonState`, which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
+For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own [`useAddonState`](https://storybook.js.org/docs/react/api/addons-api#useaddonstate), which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
 
 We need to adjust our imports for our needs:
 
@@ -432,7 +408,7 @@ const Content = () => {
 
 addons.register('my/design-addon', () => {
   addons.add('design-addon/panel', {
-    title: 'assets',
+    title: 'Assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
