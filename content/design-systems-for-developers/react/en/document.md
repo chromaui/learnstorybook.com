@@ -36,7 +36,7 @@ As Storybook users, we have a head start because component variations are alread
 ## Write stories, generate docs
 
 With the Storybook Docs addon, we can generate rich documentation from existing stories to reduce maintenance time and get out of the box defaults.
-Like the addons we've covered in the [build](/react/en/build/) chapter (Controls and Actions), the Docs addon is also included and configured with each Storybook install, so we can focus on writing good documentation.
+Like the addons we've covered in the [build](/design-systems-for-developers/react/en/build/) chapter (Controls and Actions), the Docs addon is also included and configured with each Storybook install, so we can focus on writing good documentation.
 
 Each time you open your Storybook you should see two tabs:
 
