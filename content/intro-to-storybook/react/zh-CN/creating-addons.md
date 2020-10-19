@@ -42,27 +42,7 @@ export default {
 
 我们已经概述了插件的功能，是时候开始研究它了。
 
-在您的项目的根文件夹中，创建一个名为 `.babelrc` 的新文件，其中包含以下内容：
-
-```json
-{
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ],
-    "@babel/preset-react"
-  ]
-}
-```
-
-添加此文件将使我们能够为要开发的插件使用正确的预设和选项。
-
-然后，在您的`.storybook`文件夹中创建一个名为`design-addon`的新文件，并在其中创建一个名为`register.js`的新文件。
+在您的 `.storybook` 文件夹中，创建一个名为 `design-addon` 的新文件夹，并在其中创建一个名为 `register.js` 的新文件。
 
 就是这样！我们准备开始开发插件。
 
@@ -81,7 +61,7 @@ import { addons, types } from '@storybook/addons';
 
 addons.register('my/design-addon', () => {
   addons.add('design-addon/panel', {
-    title: 'assets',
+    title: 'Assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
@@ -97,7 +77,7 @@ addons.register('my/design-addon', () => {
 - 我们正在故事书中注册一个新插件。
 - 为我们的插件添加一个新的 UI 元素，并带有一些选项（标题将定义我们的插件和所使用的元素的类型），并暂时用一些文本进行渲染。
 
-此时启动 Storybook，我们暂时还看不到该插件。我们需要在`.storybook/main.js`文件中注册自己的文件。只需将以下内容添加到已经存在的`addons`列表中：
+此时启动 Storybook，我们暂时还看不到该插件。我们需要在 [`.storybook/main.js`](https://storybook.js.org/docs/react/configure/overview#configure-your-storybook-project) 文件中注册自己的文件。只需将以下内容添加到已经存在的`addons`列表中：
 
 ```js
 // .storybook/main.js
@@ -108,12 +88,12 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './.storybook/design-addon/register.js', // our addon
+    './design-addon/register.js', // our addon
   ],
 };
 ```
 
-![在 Storybook 中运行的设计资产插件](/intro-to-storybook/create-addon-design-assets-added.png)
+![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added-6-0.png)
 
 成功！我们将新创建的插件添加到 Storybook UI 中。
 
@@ -179,7 +159,7 @@ const Content = () => {
 
 addons.register('my/design-addon', () => {
   addons.add('design-addon/panel', {
-    title: 'assets',
+    title: 'Assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
@@ -211,17 +191,13 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  argTypes: {
-    /* ...actionsData, */
-    backgroundColor: { control: 'color' },
-  },
 };
 /* same as before  */
 ```
 
 继续并重新启动 Storybook，然后选择 Task 故事，您应该会看到类似以下内容：
 
-![故事书故事，显示带有设计资产附加组件的内容](/intro-to-storybook/create-addon-design-assets-inside-story.png)
+![故事书故事，显示带有设计资产附加组件的内容](/intro-to-storybook/create-addon-design-assets-inside-story-6-0.png)
 
 ### 在我们的插件中显示内容
 
@@ -284,7 +260,7 @@ const Content = () => {
 };
 ```
 
-让我们看一下代码。我们使用来自 `@storybook/theming` 包的 `styled` 标签。这使我们可以自定义 Storybook 的主题和插件 UI。 [useStorybookState](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) 是一个挂钩，可让我们利用 Storybook 的内部状态来获取存在的任何信息。在我们的案例中，我们正在使用它来获取创建的每个故事的 ID。
+让我们看一下代码。我们使用来自 [`@storybook/theming`](https://storybook.js.org/docs/react/configure/theming) 包的 `styled` 标签。这使我们可以自定义 Storybook 的主题和插件 UI。 [useStorybookState](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) 是一个挂钩，可让我们利用 Storybook 的内部状态来获取存在的任何信息。在我们的案例中，我们正在使用它来获取创建的每个故事的 ID。
 
 ### 显示实际资产
 
@@ -292,7 +268,7 @@ const Content = () => {
 
 故事书将获取更改并加载资产，但目前仅第一个。
 
-![加载的实际资产](/intro-to-storybook/design-assets-image-loaded.png)
+![加载的实际资产](/intro-to-storybook/design-assets-image-loaded-6-0.png)
 
 ## 有状态的插件
 
@@ -304,7 +280,7 @@ const Content = () => {
 
 我们快到了，只剩下一个目标。
 
-对于最后一个，我们将需要某种状态，我们可以使用 React 的 `useState` 钩子，或者如果我们正在使用类组件 `this.setState()`。但是相反，我们将使用 Storybook 自己的 `useAddonState`，这为我们提供了一种持久化插件状态的方法，并且避免创建额外的逻辑来持久化本地状态。我们还将使用 Storybook 中的另一个 UI 元素 `ActionBar` ，该元素可让我们在各项之间进行切换。
+对于最后一个，我们将需要某种状态，我们可以使用 React 的 `useState` 钩子，或者如果我们正在使用类组件 `this.setState()`。但是相反，我们将使用 Storybook 自己的 [`useAddonState`](https://storybook.js.org/docs/react/api/addons-api#useaddonstate)，这为我们提供了一种持久化插件状态的方法，并且避免创建额外的逻辑来持久化本地状态。我们还将使用 Storybook 中的另一个 UI 元素 `ActionBar` ，该元素可让我们在各项之间进行切换。
 
 我们需要根据需要调整进口量：
 
@@ -432,7 +408,7 @@ const Content = () => {
 
 addons.register('my/design-addon', () => {
   addons.add('design-addon/panel', {
-    title: 'assets',
+    title: 'Assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
