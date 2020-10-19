@@ -26,21 +26,21 @@ yarn add react-redux redux
 ```javascript
 // src/lib/redux.js
 
-// 一个简单的 redux store/actions/reducer 实现。
-// 一个真正的应用程序将更复杂，并分为不同的文件.
+// A simple redux store/actions/reducer implementation.
+// A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
 
-// 这些行为是可能发生的store变化的“名称”
+// The actions are the "names" of the changes that can happen to the store
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
 };
 
-// 动作创建者是将动作与 要求的数据捆绑在一起的方式
+// The action creators bundle actions with the data required to execute them
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
-// 我们所有的Reducer都只是改变了一个任务的状态。
+// All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
@@ -52,8 +52,7 @@ function taskStateReducer(taskState) {
   };
 }
 
-// reducer描述了 Store 中每个 action 如何改变内容
-
+// The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
@@ -65,9 +64,8 @@ export const reducer = (state, action) => {
   }
 };
 
-// 应用加载时我们Store 的初始状态。
-
-// 通常你会从服务器上获取它
+// The initial state of our store when the app loads.
+// Usually you would fetch this from a server
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -75,7 +73,7 @@ const defaultTasks = [
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-// 我们导出构造的 redux store
+// We export the constructed redux store
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 

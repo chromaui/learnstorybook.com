@@ -141,7 +141,7 @@ module.exports = {
 
 import '../src/index.css';
 
-// Story 配置用于记录 UI 行为如 (onArchiveTask and onPinTask)
+// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };

@@ -14,12 +14,12 @@ Storybook 在开发环境下与你的程序一起运行。它可以帮助你隔�
 我们将需要通过几个步骤设置环境。首先，我们需要使用[Create React App](https://github.com/facebook/create-react-app) (CRA) 来设置我们的构建系统，并开启 [Storybook](https://storybook.js.org/) 以及 [Jest](https://facebook.github.io/jest/) 在我们创建的应用程序中进行测试。 让我们运行以下命令：
 
 ```bash
-# 创建应用程序
+# Create our application:
 npx create-react-app taskbox
 
 cd taskbox
 
-# 添加 Storybook
+# Add Storybook:
 npx -p @storybook/cli sb init
 ```
 
@@ -31,13 +31,13 @@ npx -p @storybook/cli sb init
 我们可以快速检查应用程序的各种环境是否正常运行：
 
 ```bash
-# 终端运行测试工具 Jest
+# Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# 在端口 9009 启动组件浏览
+# Start the component explorer on port 9009:
 yarn storybook
 
-# 在端口 3000 运行前端应用
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 
