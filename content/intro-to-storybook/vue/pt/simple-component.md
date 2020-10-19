@@ -20,7 +20,7 @@ Para que seja possível implementar isto serão necessárias os seguintes adere�
 Á medida que construimos a `Task`, é necessário definir os três estados que correspondem os três tipos de tarefa delineados acima.
 Em seguida usa-se o Storybook para construir este componente isolado, usando dados predefinidos. Irá "testar-se visualmente" a aparência do componente para cada estado á medida que prosseguimos.
 
-Este processo é algo similar ao [Desenvolvimento orientado a testes](https://en.wikipedia.org/wiki/Test-driven_development), ou como é conhecido nativamente (TDD), o que neste caso denominamos de "[DOT Visual](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”, nativamente (Visual TDD).
+Este processo é algo similar ao [Desenvolvimento orientado a testes](https://en.wikipedia.org/wiki/Test-driven_development), ou como é conhecido nativamente (TDD), o que neste caso denominamos de "[DOT Visual](https://www.chromatic.com/blog/visual-test-driven-development)”, nativamente (Visual TDD).
 
 ## Configuração Inicial
 

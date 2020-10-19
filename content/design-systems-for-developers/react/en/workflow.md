@@ -2,7 +2,7 @@
 title: 'Workflow for design systems'
 tocTitle: 'Workflow'
 description: 'An overview of the design system workflow for frontend developers'
-commit: 5fb832a
+commit: ab64b4c
 ---
 
 How frontend tools work together has a significant impact on the ultimate value design and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
@@ -25,8 +25,8 @@ git checkout -b create-avatar-list-component
 
 Download `AvatarList` component and story to your machine. Place it in the `/src` directory:
 
-- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/2347a5e8b27635f39091728d0845ff7a2ded3699/src/AvatarList.js)
-- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/2347a5e8b27635f39091728d0845ff7a2ded3699/src/AvatarList.stories.js)
+- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.js)
+- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.stories.js)
 
 Storybook is setup to automatically detect files ending in `\*.stories.js` and show them in the UI.
 

@@ -17,7 +17,7 @@ Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Devel
 
 A medida que comencemos a construir `Task`, primero escribiremos nuestras pruebas para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
-Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) al que podemos llamar “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) al que podemos llamar “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
 ## Ajustes iniciales
 
@@ -222,7 +222,7 @@ Nuestro componente todavía es bastante rudimentario en este momento. Vamos a ha
   // reactive declaration (computed prop in other frameworks)
   $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
-<div class={`list-item ${task.state}`}>
+<div class="list-item {task.state}">
   <label class="checkbox">
     <input type="checkbox" checked={isChecked} disabled name="checked" />
     <span class="checkbox-custom" on:click={ArchiveTask} />

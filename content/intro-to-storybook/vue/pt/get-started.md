@@ -18,7 +18,7 @@ Precisamos de alguns passos extra para configurar o processo de compilação no 
 
 ```bash
 # Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook 
+npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
 
 cd taskbox
 
@@ -53,7 +53,7 @@ Mas, visto que o nosso foco é a criação de um único componente de interface 
 
 ## Reutilizar CSS
 
-A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/index.css` e em seguida importe o CSS para a aplicação editando a tag `<style>` no ficheiro (ou arquivo) `src/App.vue` para que fique assim:
+A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/index.css` e em seguida importe o CSS para a aplicação editando a tag `<style>` no ficheiro (ou arquivo) `src/App.vue` para que fique assim:
 
 ```html
 <style>
@@ -73,13 +73,10 @@ De forma a igualar o design pretendido do tutorial, terá que transferir as past
 
 <div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
 
-
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
 ```
-
-
 
 E também atualizar o nosso script de execução do storybook (no `package.json`) para servir a pasta `public`
 

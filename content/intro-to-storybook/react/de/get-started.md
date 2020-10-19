@@ -47,7 +47,7 @@ Abhängig davon, in welchem Teil der App du gerade arbeitest, möchtest du evtl.
 
 ## CSS wiederverwenden
 
-In Taskbox werden Design-Elemente vom GraphQL- und React-Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858) wiederverwendet, sodass wir in diesem Tutorial kein CSS schreiben müssen. Wir kompilieren einfach das LESS zu einer einzigen CSS Datei und inkludieren es in unserer App. Kopiere [dieses kompilierte CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) und füge es in die Datei src/index.css ein, nach der Konvention von CRA.
+In Taskbox werden Design-Elemente vom GraphQL- und React-Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) wiederverwendet, sodass wir in diesem Tutorial kein CSS schreiben müssen. Wir kompilieren einfach das LESS zu einer einzigen CSS Datei und inkludieren es in unserer App. Kopiere [dieses kompilierte CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) und füge es in die Datei src/index.css ein, nach der Konvention von CRA.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 

@@ -2,7 +2,7 @@
 title: 'アドオン'
 tocTitle: 'アドオン'
 description: '人気のコントロールアドオンの使用方法を学びましょう'
-commit: 'b3bca4a'
+commit: '271f39d'
 ---
 
 Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/addons/introduction/)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。

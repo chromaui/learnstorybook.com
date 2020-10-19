@@ -100,7 +100,7 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Contrary to the other tutorials, we wont copy over the compiled CSS, as React Native handles styling in a whole different way, but instead create a new file `constants/globalStyles.js` and add the following:
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Contrary to the other tutorials, we wont copy over the compiled CSS, as React Native handles styling in a whole different way, but instead create a new file `constants/globalStyles.js` and add the following:
 
 <details>
   <summary>Click to expand and see the full file contents</summary>

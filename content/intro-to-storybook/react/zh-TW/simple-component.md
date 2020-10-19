@@ -19,7 +19,7 @@ commit: '3d9cd8c'
 
 在我們開始構建`Task`時,我們首先編寫 與 上面草圖中不同型別的任務 相對應的測試狀態. 然後我們使用 Storybook 模擬資料 隔離對應狀態元件. 我們將"視覺測試"元件在每個狀態下的外觀.
 
-這個過程類似於[測試驅動的開發(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我們可以稱之為["Visual-虛擬 TDD"](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)
+這個過程類似於[測試驅動的開發(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我們可以稱之為["Visual-虛擬 TDD"](https://www.chromatic.com/blog/visual-test-driven-development)
 
 ## 獲取設定
 

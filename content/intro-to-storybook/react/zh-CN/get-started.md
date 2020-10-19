@@ -53,7 +53,7 @@ yarn start
 
 ## 重用 CSS
 
-本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例应用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的设计元素，所以我们不需要在本教程中编写 CSS。我们只需将 LESS 编译为单个 CSS 文件，并将其包含在我们的应用程序中。复制和粘贴[这个编译的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根据 **CRA**的规则 进入 **src/index.css** 文件。
+本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例应用](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)中的设计元素,所以我们不需要在本教程中编写 CSS. 我们只需将 LESS 编译为单个 CSS 文件, 并将其包含在我们的应用程序中. 复制和粘贴[这个编译的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根据 **CRA**的规则 进入 **src/index.css** 文件.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 

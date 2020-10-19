@@ -2,7 +2,7 @@
 title: 'React 向け Storybook のチュートリアル'
 tocTitle: 'はじめに'
 description: '開発環境に Storybook を導入しましょう'
-commit: '8741257'
+commit: 'b935904'
 ---
 
 Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから切り離して開発できるようになります。この文書は React 向けです。他にも [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 向けのバージョンがあります。
@@ -53,7 +53,7 @@ yarn start
 
 ## CSS を再利用する
 
-Taskbox はデザイン要素を [GraphQL と React のチュートリアル](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)より再利用しますので、このチュートリアルでは、CSS を書く必要はありません。[このコンパイル済み CSS ファイル](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) をコピーして `src/index.css` に貼り付けてください。
+Taskbox はデザイン要素を [GraphQL と React のチュートリアル](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)より再利用しますので、このチュートリアルでは、CSS を書く必要はありません。[このコンパイル済み CSS ファイル](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) をコピーして `src/index.css` に貼り付けてください。
 
 ![Taskbox の UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
