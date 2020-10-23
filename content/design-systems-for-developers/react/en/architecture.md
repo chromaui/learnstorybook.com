@@ -63,9 +63,9 @@ Then follow GitHub's instructions to setup the (the so-far mostly empty) reposit
 git init
 git add .
 git commit -m "first commit"
-git branch -M master
+git branch -M main
 git remote add origin https://github.com/your-username/learnstorybook-design-system.git
-git push -u origin master
+git push -u origin main
 ```
 
 Be sure to replace `your-username` with your own account name.
