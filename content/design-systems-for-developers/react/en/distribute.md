@@ -251,7 +251,7 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 ```json
 {
   "scripts": {
-    "release": "auto shipit"
+    "release": "auto shipit --base-branch=main"
   }
 }
 ```

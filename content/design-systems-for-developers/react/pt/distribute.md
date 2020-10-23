@@ -238,7 +238,7 @@ Vamos agora configurar o Auto para seguir o mesmo processo quando for necessári
 ```json
 {
   "scripts": {
-    "release": "auto shipit"
+    "release": "auto shipit --base-branch=main"
   }
 }
 ```
