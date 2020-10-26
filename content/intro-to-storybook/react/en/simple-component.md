@@ -2,10 +2,10 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: '3d9cd8c'
+commit: 'f433fe5'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
@@ -46,36 +46,41 @@ Below we build out Task’s three test states in the story file:
 // src/components/Task.stories.js
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
 export default {
   component: Task,
   title: 'Task',
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
 };
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+const Template = args => <Task {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
 
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
 };
 
-export const Default = () => <Task task={{ ...taskData }} {...actionsData} />;
-
-export const Pinned = () => <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />;
-
-export const Archived = () => (
-  <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />
-);
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
+  },
+};
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -90,19 +95,24 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `component` -- the component itself,
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
+- `argTypes` -- specify the [args](https://storybook.js.org/docs/react/api/argtypes) behavior in each story.
 
 To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component with a set of props) in a given state---exactly like a [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
-
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and use React's `{...actionsData}` props expansion to pass them all at once. `<Task {...actionsData}>` is equivalent to `<Task onPinTask={actionsData.onPinTask} onArchiveTask={actionsData.onArchiveTask}>`.
-
-Another nice thing about bundling the actions into `actionsData` is that you can `export` that variable and use the actions in stories for components that reuse this component, as we'll see later.
-
-When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+
+`Template.bind({})` is a [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
+
+</div>
+
+Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes so does the component.
+
+When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+
+<div class="aside">
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
 </div>
 
 ## Config
@@ -117,26 +127,35 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
   ],
 };
 ```
 
-After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
+After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
 
 ```javascript
 // .storybook/preview.js
 
 import '../src/index.css';
+
+// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
+
+[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case we're going to use them to configure how the `actions` (mocked callbacks) are handled.
+
+`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -185,7 +204,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -205,12 +224,18 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 
 Task.propTypes = {
+  /** Composition of the task */
   task: PropTypes.shape({
+    /** Id of the task */
     id: PropTypes.string.isRequired,
+    /** Title of the task */
     title: PropTypes.string.isRequired,
+    /** Current state of the task */
     state: PropTypes.string.isRequired,
   }),
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func,
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func,
 };
 ```

@@ -14,7 +14,7 @@ Traditional Chinese translation is converted from Simplified Chinese using [Open
 
 ## Who made LearnStorybook.com?
 
-The text, code, and production were contributed by [Chromatic](https://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)
+The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)
 
 ## Develop
 

@@ -2,7 +2,6 @@
 title: 'Test UI components'
 tocTitle: 'Testing'
 description: 'Learn the ways to test UI components'
-commit: '3e283f7'
 ---
 
 No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
@@ -52,7 +51,7 @@ Change `Task` to the following:
     value={title}
     readOnly={true}
     placeholder="Input title"
-    style={{ textOverflow: 'ellipsis', background: 'red' }}
+    style={{ background: 'red' }}
   />
 </div>
 ```
@@ -64,13 +63,13 @@ This yields a new background color for the item.
 Add the file:
 
 ```bash
-git add src\components\Task.js
+git add .
 ```
 
 Commit it:
 
 ```bash
-git commit -m “change task background to red”
+git commit -m "change task background to red"
 ```
 
 And push the changes to the remote repo:

@@ -41,10 +41,10 @@ Vale muito a pena expandir o vosso foco, de forma a obter uma perspetiva holíst
 Mais acerca dos autores:
 
 - [Introdução ao Storybook](http://learnstorybook.com/intro-to-storybook) (guia)
-- [Component-Driven Development por Tom Coleman](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (artigo)
-- [Why design systems are a single point of failure por Dominic Nguyen](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) (artigo)
-- [Delightful Storybook Workflow por Dominic Nguyen](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) (artigo)
-- [Visual Testing por Tom Coleman](https://blog.hichroma.com/visual-testing-the-pragmatic-way-to-test-uis-18c8da617ecf) (artigo)
+- [Component-Driven Development por Tom Coleman](https://www.componentdriven.org/) (artigo)
+- [Why design systems are a single point of failure por Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) (artigo)
+- [Delightful Storybook Workflow por Dominic Nguyen](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (artigo)
+- [Visual Testing por Tom Coleman](https://www.chromatic.com/blog/visual-testing-the-pragmatic-way-to-test-uis) (artigo)
 
 ## Perguntas frequentes
 
@@ -80,4 +80,4 @@ A equipa do sistema de design é uma equipa de serviços. Ao invés de ligar-se 
 
 Muito obrigado a comunidade fantástica do Storybook, pelo seu feedback inestimável.
 
-Gert Hengeveld and Norbert de Langen (Chroma), Alex Wilson (T. Rowe Price), Jimmy Somsanith (Talend), Dan Green-Leipciger (Wave), Kyle Holmberg (Acorns), Andrew Frankel (Salesforce), Fernando Carrettoni (Auth0), Pauline Masigla and Kathleen McMahon (O’Reilly Media), Shawn Wang (Netlify), Mark Dalgleish (SEEK), Stephan Boak (Datadog), Andrew Lisowski (Intuit), Kaelig Deloumeau-Prigent and Ben Scott (Shopify), Joshua Ogle (Hashicorp), Atanas Stoyanov, Daniel Miller (Agile Six), Matthew Bambach (2u), Beau Calvez (AppDirect), Jesse Clark (American Family Insurance), Trevor Eyre (Healthwise), Justin Anastos (Apollo GraphQL), Donnie D’Amato (Compass), Michele Legait (PROS), Guilherme Morais (doDoc), John Crisp (Acivilate), Marc Jamais (SBS Australia), Patrick Camacho (Framer), Brittany Wetzel (United Airlines), Luke Whitmore, Josh Thomas (Ionic), Ryan Williamson-Cardneau (Cisco), Matt Stow (Hireup), Mike Pitt (Zeplin), Jordan Pailthorpe (NextRequest), Jessie Wu (New York Times), Lee Robinson (Hy-Vee)
+Gert Hengeveld and Norbert de Langen (Chroma), Alex Wilson (T. Rowe Price), Jimmy Somsanith (Talend), Dan Green-Leipciger (Wave), Kyle Holmberg (Air), Andrew Frankel (Salesforce), Fernando Carrettoni (Auth0), Pauline Masigla and Kathleen McMahon (O’Reilly Media), Shawn Wang (Netlify), Mark Dalgleish (SEEK), Stephan Boak (Datadog), Andrew Lisowski (Intuit), Kaelig Deloumeau-Prigent and Ben Scott (Shopify), Joshua Ogle (Hashicorp), Atanas Stoyanov, Daniel Miller (Agile Six), Matthew Bambach (2u), Beau Calvez (AppDirect), Jesse Clark (American Family Insurance), Trevor Eyre (Healthwise), Justin Anastos (Apollo GraphQL), Donnie D’Amato (Compass), Michele Legait (PROS), Guilherme Morais (doDoc), John Crisp (Acivilate), Marc Jamais (SBS Australia), Patrick Camacho (Framer), Brittany Wetzel (United Airlines), Luke Whitmore, Josh Thomas (Ionic), Ryan Williamson-Cardneau (Cisco), Matt Stow (Hireup), Mike Pitt (Zeplin), Jordan Pailthorpe (NextRequest), Jessie Wu (New York Times), Lee Robinson (Hy-Vee)

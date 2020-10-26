@@ -22,8 +22,8 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```html
-<!--src/components/TaskList.svelte-->
+```svelte
+<!-- src/components/TaskList.svelte -->
 
 <script>
   import Task from './Task.svelte';
@@ -39,68 +39,68 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 {/if}
 {#if emptyTasks}
   <div class="list-items">empty</div>
-{/if} 
+{/if}
 {#each tasks as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
 
-
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 // src/components/TaskList.stories.js
-import TaskList from "./TaskList.svelte";
-import { taskData, actionsData } from "./Task.stories";
+
+import TaskList from './TaskList.svelte';
+import { taskData, actionsData } from './Task.stories';
 export default {
-  title: "TaskList",
-  excludeStories: /.*Data$/
+  title: 'TaskList',
+  excludeStories: /.*Data$/,
 };
 
 export const defaultTasksData = [
-  { ...taskData, id: "1", title: "Task 1" },
-  { ...taskData, id: "2", title: "Task 2" },
-  { ...taskData, id: "3", title: "Task 3" },
-  { ...taskData, id: "4", title: "Task 4" },
-  { ...taskData, id: "5", title: "Task 5" },
-  { ...taskData, id: "6", title: "Task 6" }
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
 ];
 export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
 // default TaskList state
 export const Default = () => ({
   Component: TaskList,
-   props: {
-    tasks: defaultTasksData
+  props: {
+    tasks: defaultTasksData,
   },
   on: {
-    ...actionsData
-  }
+    ...actionsData,
+  },
 });
 // tasklist with pinned tasks
 export const WithPinnedTasks = () => ({
   Component: TaskList,
   props: {
-    tasks: withPinnedTasksData
+    tasks: withPinnedTasksData,
   },
   on: {
-    ...actionsData
-  }
+    ...actionsData,
+  },
 });
 // tasklist in loading state
 export const Loading = () => ({
   Component: TaskList,
   props: {
-    loading: true
+    loading: true,
   },
 });
 // tasklist no tasks
 export const Empty = () => ({
   Component: TaskList,
-}); 
+});
 ```
 
 `taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
@@ -122,8 +122,9 @@ For the loading edge case, we're going to create a new component that will displ
 
 Create a new file called `LoadingRow.svelte` and inside add the following markup:
 
-```html
-<!--src/components/LoadingRow.svelte-->
+```svelte
+<!-- src/components/LoadingRow.svelte -->
+
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -136,8 +137,8 @@ Create a new file called `LoadingRow.svelte` and inside add the following markup
 
 And update `TaskList.svelte` to the following:
 
-```html
-<!--src/components/TaskList.svelte-->
+```svelte
+<!-- src/components/TaskList.svelte -->
 
 <script>
   import Task from './Task.svelte';
@@ -161,7 +162,7 @@ And update `TaskList.svelte` to the following:
   <LoadingRow />
   <LoadingRow />
 </div>
-{/if} 
+{/if}
 {#if tasks.length === 0 && !loading}
 <div class="list-items">
   <div class="wrapper-message">
@@ -170,7 +171,7 @@ And update `TaskList.svelte` to the following:
     <div class="subtitle-message">Sit back and relax</div>
   </div>
 </div>
-{/if} 
+{/if}
 {#each tasksInOrder as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
@@ -207,9 +208,10 @@ Create a test file called `src/components/TaskList.test.js`. Here, we’ll build
 
 ```javascript
 // src/components/TaskList.test.js
+
 import TaskList from './TaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasksData } from './TaskList.stories'
+import { withPinnedTasksData } from './TaskList.stories';
 test('TaskList ', async () => {
   const { container } = await render(TaskList, {
     props: {

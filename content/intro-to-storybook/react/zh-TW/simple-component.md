@@ -5,7 +5,7 @@ description: '單獨構建一個簡單的元件'
 commit: '3d9cd8c'
 ---
 
-我們將按照[元件驅動開發](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) 方法論來 構建我們的 UI. 這是一個從"自下而上"開始構建 UI 的過程,從元件開始到整個頁面結束. CDD 可幫助您在構建 UI 時,擺列您所面臨的複雜程度.
+我們將按照[元件驅動開發](https://www.componentdriven.org/) (CDD) 方法論來 構建我們的 UI. 這是一個從"自下而上"開始構建 UI 的過程,從元件開始到整個頁面結束. CDD 可幫助您在構建 UI 時,擺列您所面臨的複雜程度.
 
 ## 任務-Task
 
@@ -19,7 +19,7 @@ commit: '3d9cd8c'
 
 在我們開始構建`Task`時,我們首先編寫 與 上面草圖中不同型別的任務 相對應的測試狀態. 然後我們使用 Storybook 模擬資料 隔離對應狀態元件. 我們將"視覺測試"元件在每個狀態下的外觀.
 
-這個過程類似於[測試驅動的開發(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我們可以稱之為["Visual-虛擬 TDD"](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)
+這個過程類似於[測試驅動的開發(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我們可以稱之為["Visual-虛擬 TDD"](https://www.chromatic.com/blog/visual-test-driven-development)
 
 ## 獲取設定
 

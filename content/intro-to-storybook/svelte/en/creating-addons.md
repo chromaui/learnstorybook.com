@@ -4,9 +4,9 @@ tocTitle: 'Bonus: Creating addons'
 description: 'Learn how to build your own addons that will super charge your development'
 ---
 
-In the previous chapter we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
+Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/addons/introduction/) ecosystem. Addons are used to enhance your developer experience and workflows.
 
-In this chapter we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
+In this bonus chapter, we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
 
 But first thing is first, let's first scope out what our addon will do.
 
@@ -23,6 +23,8 @@ We have our goal, now let's define what features our addon will support:
 The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/configurations/options-parameter/), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
 
 ```javascript
+// YourComponent.stories.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -69,7 +71,9 @@ The updated file should look like the following:
 }
 ```
 
-Finally inside your `.storybook` folder, create a new one called `design-addon` and inside it a new file called `register.js`.
+Making this change will allow us to use the correct presets and options for the addon we're about to develop.
+
+Afterwards, inside your `.storybook` folder, create a new one called `design-addon` and inside it a new file called `register.js`.
 
 And that's it! We're ready to start developing our addon.
 
@@ -81,6 +85,7 @@ Add the following to your recently created file:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -107,6 +112,7 @@ Starting Storybook at this point, we won't be able to see the addon just yet. Li
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
@@ -132,6 +138,7 @@ Make the following changes to the addon file:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -158,6 +165,7 @@ Your code should look like the following:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -201,6 +209,7 @@ To do so, we're going to make a small change to the `task.stories.js` file and a
 
 ```javascript
 // src/components/Task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
@@ -228,6 +237,7 @@ At this stage we can see that the addon is working as it should, but now let's c
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -308,6 +318,7 @@ We need to adjust our imports for our needs:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -317,6 +328,7 @@ And modify our `Content` component, so that we can change between assets:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
@@ -360,6 +372,7 @@ We've accomplished what we set out to do, which is to create a fully functioning
 
 ```javascript
 // .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';

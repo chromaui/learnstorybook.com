@@ -55,7 +55,9 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 
 In `src/components/PureTaskList.svelte`:
 
-```html
+```svelte
+<!-- src/components/PureTaskList.svelte -->
+
 <!--This file moved from TaskList.svelte-->
 <script>
   import Task from './Task.svelte';
@@ -78,7 +80,7 @@ In `src/components/PureTaskList.svelte`:
   <LoadingRow />
   <LoadingRow />
 </div>
-{/if} 
+{/if}
 {#if noTasks && !loading}
 <div class="list-items">
   <div class="wrapper-message">
@@ -87,7 +89,7 @@ In `src/components/PureTaskList.svelte`:
     <div class="subtitle-message">Sit back and relax</div>
   </div>
 </div>
-{/if} 
+{/if}
 {#each tasksInOrder as task}
 <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
@@ -95,7 +97,9 @@ In `src/components/PureTaskList.svelte`:
 
 In `src/components/TaskList.svelte`:
 
-```html
+```svelte
+<!-- src/components/TaskList.svelte -->
+
 <script>
   import PureTaskList from './PureTaskList.svelte';
   import { taskStore } from '../store';
@@ -119,6 +123,8 @@ In `src/components/TaskList.svelte`:
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
+// src/components/PureTaskList.stories.js
+
 import PureTaskList from './PureTaskList.svelte';
 import { taskData, actionsData } from './Task.stories';
 export default {
@@ -177,15 +183,17 @@ export const Empty = () => ({
 
 Similarly, we need to use `PureTaskList` in our Jest test:
 
-```js
+```javascript
+// src/components/TaskList.test.js
+
 import PureTaskList from './PureTaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasksData } from './PureTaskList.stories'
+import { withPinnedTasksData } from './PureTaskList.stories';
 
 test('TaskList', async () => {
   const { container } = await render(PureTaskList, {
     props: {
-      tasks: withPinnedTasksData
+      tasks: withPinnedTasksData,
     },
   });
   expect(container.firstChild.children[0].classList.contains('TASK_PINNED')).toBe(true);
