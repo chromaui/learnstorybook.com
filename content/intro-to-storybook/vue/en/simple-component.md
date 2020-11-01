@@ -27,21 +27,22 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```html
-<!--src/components/Task.vue-->
+<!-- src/components/Task.vue -->
 <template>
   <div class="list-item">
-    <input type="text" :readonly="true" :value="this.task.title" />
+    <input type="text" readonly :value="task.title" />
   </div>
 </template>
 
 <script>
   export default {
-    name: 'task',
+    name: 'Task',
     props: {
       task: {
         type: Object,
         required: true,
-        default: () => ({}),
+        default: () => ({ id: '', state: '', title: '' }),
+        validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
   };
@@ -54,66 +55,53 @@ Below we build out Task’s three test states in the story file:
 
 ```javascript
 // src/components/Task.stories.js
-import { action } from '@storybook/addon-actions';
 import Task from './Task';
+import { action } from '@storybook/addon-actions';
+
 export default {
-  title: 'Task',
+  title: '1: Task/Task',
+  component: Task,
   // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
 };
+
 export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+  onPinTask: action('pin-task'),
+  onArchiveTask: action('archive-task'),
 };
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'Task_INBOX',
-  updated_at: new Date(2019, 0, 1, 9, 0),
+const Template = (args, { argTypes }) => ({
+  components: { Task },
+  props: Object.keys(argTypes),
+  methods: actionsData,
+  template: '<Task v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+});
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
 
-const taskTemplate = `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`;
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
+};
 
-// default task state
-export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => taskData,
-    },
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
   },
-  methods: actionsData,
-});
-// pinned task state
-export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_PINNED',
-      }),
-    },
-  },
-  methods: actionsData,
-});
-// archived task state
-export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_ARCHIVED',
-      }),
-    },
-  },
-  methods: actionsData,
-});
+};
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
