@@ -141,7 +141,7 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 // .storybook/main.js
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
 ```
 
@@ -168,18 +168,19 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
 
 ```html
-<!--src/components/Task.vue-->
+<!-- src/components/Task.vue -->
 <template>
-  <div :class="taskClass">
+  <div class="list-item" :class="task.state">
     <label class="checkbox">
-      <input type="checkbox" :checked="isChecked" :disabled="true" name="checked" />
-      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)" />
+      <input type="checkbox" :checked="isChecked" disabled name="checked" />
+      <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
     </label>
     <div class="title">
-      <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
+      <input type="text" :value="task.title" readonly placeholder="Input title" />
     </div>
+
     <div class="actions">
-      <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
+      <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
         <span class="icon-star" />
       </a>
     </div>
@@ -188,22 +189,16 @@ Our component is still rather rudimentary at the moment. We're going to make som
 
 <script>
   export default {
-    name: 'task',
+    name: 'Task',
     props: {
       task: {
         type: Object,
         required: true,
-        default: () => ({
-          id: '',
-          state: '',
-          title: '',
-        }),
+        default: () => ({ id: '', state: '', title: '' }),
+        validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
     computed: {
-      taskClass() {
-        return `list-item ${this.task.state}`;
-      },
       isChecked() {
         return this.task.state === 'TASK_ARCHIVED';
       },
