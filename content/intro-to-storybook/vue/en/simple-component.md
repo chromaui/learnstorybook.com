@@ -24,7 +24,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 First, let’s create the task component and its accompanying story file: `src/components/Task.vue` and `src/components/Task.stories.js`.
 
-We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need:
 
 ```html
 <!-- src/components/Task.vue -->
@@ -59,7 +59,7 @@ import Task from './Task';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: '1: Task/Task',
+  title: 'Task',
   component: Task,
   // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
@@ -127,7 +127,7 @@ As we have multiple permutations of our component, it's convenient to assign it 
 
 </div>
 
-Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/vue/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes so does the component.
 
 When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
