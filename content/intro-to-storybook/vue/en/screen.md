@@ -71,7 +71,7 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```html
-<!--src/App.vue-->
+<!-- src/App.vue -->
 <template>
   <div id="app">
     <InboxScreen />
@@ -89,6 +89,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
     },
   };
 </script>
+
 <style>
   @import './index.css';
 </style>
