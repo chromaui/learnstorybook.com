@@ -24,47 +24,33 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```html
-
-<!--src/components/TaskList.vue-->
+<!-- src/components/TaskList.vue -->
 <template>
-  <div>
-    <div class="list-items" v-if="loading">loading</div>
-    <div class="list-items" v-if="noTasks && !this.loading">empty</div>
-    <div class="list-items" v-if="showTasks">
-      <task
-        v-for="(task, index) in tasks"
-        :key="index"
-        :task="task"
-        @archiveTask="$emit('archiveTask', $event)"
-        @pinTask="$emit('pinTask', $event)"
-      />
-    </div>
+  <div class="list-items">
+    <template v-if="loading"
+      >loading</template
+    >
+    <template v-else-if="isEmpty"
+      >empty</template
+    >
+    <template v-else>
+      <Task v-for="task in tasks" :key="task.id" :task="task" v-on="$listeners" />
+    </template>
   </div>
 </template>
 
 <script>
   import Task from './Task';
   export default {
-    name: 'task-list',
+    name: 'TaskList',
+    components: { Task },
     props: {
-      loading: {
-        type: Boolean,
-        default: false,
-      },
-      tasks: {
-        type: Array,
-        default: () => []
-      },
-    },
-    components: {
-      Task,
+      tasks: { type: Array, required: true, default: () => [] },
+      loading: { type: Boolean, default: false },
     },
     computed: {
-      noTasks() {
+      isEmpty() {
         return this.tasks.length === 0;
-      },
-      showTasks() {
-        return !this.loading && !this.noTasks;
       },
     },
   };
@@ -74,69 +60,61 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-
-//src/components/TaskList.stories.js
+// src/components/TaskList.stories.js
 import TaskList from './TaskList';
-import { taskData, actionsData } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
-const paddedList = () => {
-  return {
-    template: '<div style="padding: 3rem;"><story/></div>',
-  };
-};
 export default {
+  component: TaskList,
   title: 'TaskList',
-  excludeStories: /.*Data$/,
-  decorators: [paddedList],
+  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: "1", title: "Task 1" },
-  { ...taskData, id: "2", title: "Task 2" },
-  { ...taskData, id: "3", title: "Task 3" },
-  { ...taskData, id: "4", title: "Task 4" },
-  { ...taskData, id: "5", title: "Task 5" },
-  { ...taskData, id: "6", title: "Task 6" }
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
-];
+const Template = (args, { argTypes }) => ({
+  components: { TaskList },
+  props: Object.keys(argTypes),
+  // We are reusing our actions from task.stories.js
+  methods: TaskStories.actionsData,
+  template: '<TaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+});
 
-// default TaskList state
-export const Default = () => ({
-  components: { TaskList },
-  template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  props: {
-    tasks: {
-      default: () => defaultTasksData
-    }
-  },
-  methods: actionsData
-});
-// tasklist with pinned tasks
-export const WithPinnedTasks = () => ({
-  components: { TaskList },
-  template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  props: {
-    tasks: {
-      default: () => withPinnedTasksData
-    }
-  },
-  methods: actionsData
-});
-// tasklist in loading state
-export const Loading = () => ({
-  components: { TaskList },
-  template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
-});
-// tasklist no tasks
-export const Empty = () => ({
-  components: { TaskList },
-  template: `<task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
-});
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
+
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <div class="aside">
@@ -159,7 +137,6 @@ Now check Storybook for the new `TaskList` stories.
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
 
 ```html
-
 <!--src/components/TaskList.vue-->
 <template>
   <div>
@@ -199,7 +176,7 @@ Our component is still rough but now we have an idea of the stories to work towa
       },
       tasks: {
         type: Array,
-        default: () => []
+        default: () => [],
       },
     },
     components: {
@@ -253,7 +230,6 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
-
 //tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
