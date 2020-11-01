@@ -213,18 +213,18 @@ In our case, we want our `TaskList` to render any pinned tasks **before** unpinn
 
 So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
-Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
+Create a test file called `src/components/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
 ```javascript
-//tests/unit/TaskList.spec.js
+// src/components/TaskList.spec.js
 import Vue from 'vue';
-import TaskList from '../../src/components/TaskList.vue';
-import { withPinnedTasksData } from '../../src/components/TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
-  const Constructor = Vue.extend(TaskList);
+  // render WithPinnedTasks story
+  const Constructor = Vue.extend(WithPinnedTasks);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasksData },
+    propsData: WithPinnedTasks.args,
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
