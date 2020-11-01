@@ -24,7 +24,6 @@ yarn add vuex
 In a file called `src/store.js` we'll construct a standard Vuex store that responds to actions which will change the tasks state:
 
 ```javascript
-
 // src/store.js
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -62,7 +61,6 @@ export default new Vuex.Store({
 In our top-level app component (`src/App.vue`) we can wire the store into our component hierarchy fairly easily:
 
 ```html
-
 <!--src/App.vue-->
 <template>
   <div id="app">
@@ -87,34 +85,31 @@ In our top-level app component (`src/App.vue`) we can wire the store into our co
 </style>
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `pure-task-list`), and wrap it with a container.
+Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `PureTaskList`), and wrap it with a container.
 
 In `src/components/PureTaskList.vue`:
 
 ```html
 
-<!--src/components/PureTaskList.vue-->
+<!-- src/components/PureTaskList.vue -->
 <template>
-<!--same content as before-->
+<!-- same content as before -->
 </template>
 
 <script>
 import Task from "./Task";
 export default {
-  name: "pure-task-list",
-  ...
+  name: "PureTaskList",
+  // same content as before
 }
 ```
 
 In `src/components/TaskList.vue`:
 
 ```html
-
-<!--src/components/TaskList.vue`-->
+<!-- src/components/TaskList.vue -->
 <template>
-  <div>
-    <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask" />
-  </div>
+  <PureTaskList :tasks="tasks" v-on="$listeners" @archive-task="archiveTask" @pin-task="pinTask" />
 </template>
 
 <script>
@@ -122,16 +117,11 @@ In `src/components/TaskList.vue`:
   import { mapState, mapActions } from 'vuex';
 
   export default {
-    name: 'task-list',
-    components: {
-      PureTaskList,
-    },
-    methods: {
-      ...mapActions(['archiveTask', 'pinTask']),
-    },
-    computed: {
-      ...mapState(['tasks']),
-    },
+    components: { PureTaskList },
+
+    methods: mapActions(['archiveTask', 'pinTask']),
+
+    computed: mapState(['tasks']),
   };
 </script>
 ```
@@ -139,69 +129,61 @@ In `src/components/TaskList.vue`:
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```javascript
-
-//src/components/PureTaskList.stories.js
+// src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList';
-import { taskData, actionsData } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
-const paddedList = () => {
-  return {
-    template: '<div style="padding: 3rem;"><story/></div>',
-  };
-};
 export default {
-  title: 'TaskList',
-  excludeStories: /.*Data$/,
-  decorators: [paddedList],
+  component: PureTaskList,
+  title: 'PureTaskList',
+  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+const Template = (args, { argTypes }) => ({
+  components: { PureTaskList },
+  props: Object.keys(argTypes),
+  // We are reusing our actions from task.stories.js
+  methods: TaskStories.actionsData,
+  template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+});
 
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
 
-export const Default = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  props: {
-    tasks: {
-      default: () => defaultTasksData
-    }
-  },
-  methods: actionsData
-});
-// tasklist with pinned tasks
-export const WithPinnedTasks = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  props: {
-    tasks: {
-      default: () => withPinnedTasksData
-    }
-  },
-  methods: actionsData
-});
-// tasklist in loading state
-export const Loading = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
-});
-// tasklist no tasks
-export const Empty = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
-});
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
@@ -214,21 +196,20 @@ export const Empty = () => ({
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
-
-//tests/unit/TaskList.spec.js
+// src/components/PureTaskList.spec.js
 import Vue from 'vue';
-import PureTaskList from '../../src/components/PureTaskList.vue';
-import { withPinnedTasksData } from '../../src/components/PureTaskList.stories';
+import { WithPinnedTasks } from './PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
-  const Constructor = Vue.extend(PureTaskList);
+  // render WithPinnedTasks story
+  const Constructor = Vue.extend(WithPinnedTasks);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasksData },
+    propsData: WithPinnedTasks.args,
   }).$mount();
-  const lastTaskInput = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
+  const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
   // We expect the pinned task to be rendered first, not at the end
-  expect(lastTaskInput).not.toBe(null);
+  expect(firstTaskPinned).not.toBe(null);
 });
 ```
 
