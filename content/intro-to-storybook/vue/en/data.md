@@ -90,18 +90,18 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 In `src/components/PureTaskList.vue`:
 
 ```html
-
 <!-- src/components/PureTaskList.vue -->
 <template>
-<!-- same content as before -->
+  <!-- same content as before -->
 </template>
 
 <script>
-import Task from "./Task";
-export default {
-  name: "PureTaskList",
-  // same content as before
-}
+  import Task from './Task';
+  export default {
+    name: 'PureTaskList',
+    // same content as before
+  };
+</script>
 ```
 
 In `src/components/TaskList.vue`:
