@@ -27,12 +27,12 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 <!-- src/components/TaskList.vue -->
 <template>
   <div class="list-items">
-    <template v-if="loading"
-      >loading</template
-    >
-    <template v-else-if="isEmpty"
-      >empty</template
-    >
+    <template v-if="loading">
+      loading
+    </template>
+    <template v-else-if="isEmpty">
+      empty
+    </template>
     <template v-else>
       <Task v-for="task in tasks" :key="task.id" :task="task" v-on="$listeners" />
     </template>
