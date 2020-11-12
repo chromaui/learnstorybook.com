@@ -127,7 +127,7 @@ git commit -m "Storybook deployment with GitHub action"
 Finally, push it to the remote repository with:
 
 ```shell
-git push origin master
+git push origin main
 ```
 
 Success! We improved our infrastructure.

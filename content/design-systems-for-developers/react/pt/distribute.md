@@ -218,7 +218,7 @@ npm publish
 E usamos o Auto para gerar uma versão de lançamento no GitHub:
 
 ```bash
-git push --follow-tags origin master
+git push --follow-tags origin main
 yarn auto release
 ```
 
@@ -238,7 +238,7 @@ Vamos agora configurar o Auto para seguir o mesmo processo quando for necessári
 ```json
 {
   "scripts": {
-    "release": "auto shipit"
+    "release": "auto shipit --base-branch=main"
   }
 }
 ```
@@ -250,7 +250,7 @@ Agora, quando for executado o `yarn release`, irão ser percorridos quase todos 
 - run: yarn test
 - run: npx chromatic --project-token=2wix88i1ziu
 - run: |
-    if [ $CIRCLE_BRANCH = "master" ]
+    if [ $CIRCLE_BRANCH = "main" ]
     then
       yarn release
     fi
