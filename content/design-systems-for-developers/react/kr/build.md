@@ -15,7 +15,7 @@ commit: 4211d5e
 
 이 튜토리얼에서는 VSCode 에디터를 사용하지만, Atom, Sublime, IntelliJ 등 다른 최신 에디터들을 사용해도 무방합니다.
 
-이 프로젝트에 Prettier 애드온을 설치해서 사용한다면, 크게 신경 쓸 필요 없이 일관성 있는 코드 형식을 유지할 수 있습니다. 
+이 프로젝트에 Prettier 애드온을 설치해서 사용한다면, 크게 신경 쓸 필요 없이 일관성 있는 코드 형식을 유지할 수 있습니다.
 
 ```shell
 yarn add --dev prettier
@@ -27,7 +27,7 @@ yarn add --dev prettier
 
 ## 스토리북 설치하기
 
-스토리북은 독자적으로 UI 컴포넌트를 개발하기 위한 업계 표준 [컴포넌트 탐색기](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a)입니다. 디자인 시스템은 UI 컴포넌트에 집중하기 때문에 스토리북은 디자인 시스템을 구축하는 데에 매우 유용합니다. 
+스토리북은 독자적으로 UI 컴포넌트를 개발하기 위한 업계 표준 [컴포넌트 탐색기](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a)입니다. 디자인 시스템은 UI 컴포넌트에 집중하기 때문에 스토리북은 디자인 시스템을 구축하는 데에 매우 유용합니다.
 
 우리는 다음 기능들에 집중합니다.
 
@@ -59,7 +59,6 @@ yarn storybook
     type="video/mp4"
   />
 </video>
-
 
 ### 글로벌 스타일 추가하기
 
@@ -98,7 +97,7 @@ export const decorators = [
   Story => (
     <>
       <GlobalStyle />
-	    <Story />
+      <Story />
     </>
   ),
 ];
@@ -108,13 +107,13 @@ export const parameters = {
 };
 ```
 
-decorator 는 어떤 스토리가 선택되었든 간에 GlobalStyle 이 반드시 렌더링되도록 합니다. 
+decorator 는 어떤 스토리가 선택되었든 간에 GlobalStyle 이 반드시 렌더링되도록 합니다.
 
 <div class="aside"> decorator 안의 <code><></code> 기호는 오타가 아닙니다 -- 불필요한 HTML 태그를 추가하지 않기 위해 <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> 를 사용합니다. </div>
 
 ### 폰트 태그 추가하기
 
-우리의 디자인 시스템은 앱에서 Nunito Sans 폰트를 기본으로 합니다. 이 부분은 앱 프레임워크에 따라서 설정하는 방법이 다르지만 ([여기](https://github.com/storybookjs/design-system#font-loading)에서 더 자세하게 볼 수 있습니다), 스토리북에서 설정하는 가장 쉬운 방법은 [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) 파일에서 `<head>` 태그에 직접 `<link>` 태그를 추가하는 것입니다. 
+우리의 디자인 시스템은 앱에서 Nunito Sans 폰트를 기본으로 합니다. 이 부분은 앱 프레임워크에 따라서 설정하는 방법이 다르지만 ([여기](https://github.com/storybookjs/design-system#font-loading)에서 더 자세하게 볼 수 있습니다), 스토리북에서 설정하는 가장 쉬운 방법은 [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) 파일에서 `<head>` 태그에 직접 `<link>` 태그를 추가하는 것입니다.
 
 ```html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900" />
@@ -124,15 +123,15 @@ decorator 는 어떤 스토리가 선택되었든 간에 GlobalStyle 이 반드�
 
 ![글로벌 스타일이 적용된 스토리북](/design-systems-for-developers/storybook-global-styles-6-0.png)
 
-## 애드온으로 스토리북을 더욱 강력하게 
+## 애드온으로 스토리북을 더욱 강력하게
 
-큰 커뮤니티 덕분에 스토리북은 탄탄한 [애드온 생태계](https://storybook.js.org/addons)를 가지고 있습니다. 실용성을 추구하는 개발자를 위해서도, 우리가 직접 커스텀 도구를 만드는 것보다 애드온 생태계를 이용해서 워크플로우를 구축하기가 더 쉽고 빠릅니다. 
+큰 커뮤니티 덕분에 스토리북은 탄탄한 [애드온 생태계](https://storybook.js.org/addons)를 가지고 있습니다. 실용성을 추구하는 개발자를 위해서도, 우리가 직접 커스텀 도구를 만드는 것보다 애드온 생태계를 이용해서 워크플로우를 구축하기가 더 쉽고 빠릅니다.
 
 <h4>인터렉션을 위한 액션 애드온</h4>
 
-버튼이나 링크 같은 인터렉티브한 엘리먼트를 실행했을 때, 스토리북의 [액션 애드온](https://storybook.js.org/docs/react/essentials/actions)은 UI 피드백을 줍니다. 액션 애드온은 스토리북을 설치할 때 기본으로 같이 설치되며, '액션'을 콜백 prop으로 컴포넌트에 전달하여 사용할 수 있습니다. 
+버튼이나 링크 같은 인터렉티브한 엘리먼트를 실행했을 때, 스토리북의 [액션 애드온](https://storybook.js.org/docs/react/essentials/actions)은 UI 피드백을 줍니다. 액션 애드온은 스토리북을 설치할 때 기본으로 같이 설치되며, '액션'을 콜백 prop으로 컴포넌트에 전달하여 사용할 수 있습니다.
 
-클릭에 반응하기 위해 wrapper 컴포넌트로 버튼 엘리먼트를 감싸기도 하는데, 이 버튼 엘리먼트에서 액션 애드온을 어떻게 사용할 수 있는지 봅시다. 
+클릭에 반응하기 위해 wrapper 컴포넌트로 버튼 엘리먼트를 감싸기도 하는데, 이 버튼 엘리먼트에서 액션 애드온을 어떻게 사용할 수 있는지 봅시다.
 
 여기, 버튼 wrapper에 액션을 전달하는 스토리가 있습니다.
 
@@ -161,7 +160,7 @@ export const buttonWrapper = (args) => (
 
 <h4>컴포넌트 스트레스 테스트를 위한 Controls</h4>
 
-스토리북을 새로 설치하면 [Controls 애드온](https://storybook.js.org/docs/react/essentials/controls)이 이미 다 설정된 상태로 포함되어 있습니다. 
+스토리북을 새로 설치하면 [Controls 애드온](https://storybook.js.org/docs/react/essentials/controls)이 이미 다 설정된 상태로 포함되어 있습니다.
 
 Controls 애드온을 이용하면 스토리북 UI에서 컴포넌트 입력값(props)을 역동적으로 사용할 수 있습니다. [전달인자](https://storybook.js.org/docs/react/writing-stories/args) (줄여서 args)를 통해 컴포넌트 prop에 다양한 값을 제공할 수 있고 UI를 통해서 값을 변경할 수 있습니다. 이는 디자인 시스템을 만드는 사람들이 전달인자의 값들을 조정하면서 컴포넌트 입력값(props)을 스트레스 테스트를 할 수 있도록 해줍니다. 동시에 디자인 시스템 사용자들은 여러 컴포넌트를 합치기 이전에 먼저 사용해보고 각 입력값(prop)이 컴포넌트를 어떻게 바꾸는지 이해할 수 있습니다.
 
@@ -179,7 +178,7 @@ Controls.args = {
   size: 'tiny',
   username: 'Dominic Nguyen',
   src: 'https://avatars2.githubusercontent.com/u/263385',
-};	
+};
 ```
 
 애드온 목록에 있는 Controls 탭을 주목해 봅니다. Controls는 props를 조정하기 위해 자동으로 그래픽 UI를 생성합니다. 예를 들어, 사이즈를 선택하는 엘리먼트("size")를 이용해서 아바타 사이즈를 `tiny`, `small`, `medium`, `large` 중에서 고를 수 있습니다. 이 방식은 컴포넌트의 나머지 props에도 ("loading", "username", "src")에도 동일하게 적용됩니다. 이렇게 사용자 친화적인 방법으로 컴포넌트 스트레스 테스트를 만드는 것이 가능합니다.
@@ -193,14 +192,14 @@ Controls.args = {
 
 단, Controls가 stories를 대체하지는 않습니다. Controls는 컴포넌트의 여러 특수 케이스를 탐색하는 데에 매우 유용합니다. Stories는 의도된 케이스를 보여주는 데에 사용합니다.
 
-우리는 뒤의 챕터에서 접근성과 문서 (Accessibility and Docs) 애드온을 살펴볼 것입니다. 
+우리는 뒤의 챕터에서 접근성과 문서 (Accessibility and Docs) 애드온을 살펴볼 것입니다.
 
 > 비즈니스 로직과 틀을 망치지 않으면서, 디자인하고 개발하고 UI 컴포넌트를 정리하기에 스토리북은 강력한 프런트엔드 워크숍 환경 도구입니다. – Brad Frost, Atomic Design 저자
 
 ## 유지 보수 자동화하기
 
-이제 우리의 디자인 시스템 컴포넌트들이 스토리북에 생성되었습니다. 우리는 업계 표준의 디자인 시스템을 구축하는 데에 한 발짝 더 가까워졌습니다. 원격 저장소(remote repository)에 작업을 커밋하기 좋은 때입니다. 그러고 나서 우리는 유지보수를 계속해서 가동하기 위해 어떻게 자동화 도구를 설정해야 하는지 생각해볼 수 있습니다. 
+이제 우리의 디자인 시스템 컴포넌트들이 스토리북에 생성되었습니다. 우리는 업계 표준의 디자인 시스템을 구축하는 데에 한 발짝 더 가까워졌습니다. 원격 저장소(remote repository)에 작업을 커밋하기 좋은 때입니다. 그러고 나서 우리는 유지보수를 계속해서 가동하기 위해 어떻게 자동화 도구를 설정해야 하는지 생각해볼 수 있습니다.
 
 여느 소프트웨어처럼, 디자인 시스템도 지속해서 발전해야 합니다. 디자인 시스템이 발전하면서 UI 컴포넌트들도 계속 의도한 대로 보이고 느껴질 수 있게 하는 것은 쉬운 일이 아닙니다.
 
-4장에서는 지속가능한 통합과 온라인 협업을 위해 디자인 시스템을 자동 배포하는 방법을 배울 것입니다. 
+4장에서는 지속가능한 통합과 온라인 협업을 위해 디자인 시스템을 자동 배포하는 방법을 배울 것입니다.

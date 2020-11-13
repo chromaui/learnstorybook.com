@@ -86,7 +86,7 @@ import { Link } from './Link';
 
 // 전달된 속성으로 <a>를 렌더링 하는 간단한 링크 래퍼입니다.
 // 여기서 테스트하는 것은 Link 컴포넌트가 올바른 props를 래퍼와 자기 자신에게 전달한다는지 아닌 지입니다.
-const LinkWrapper = props => <a {... props} />; // eslint-disable-line jsx-a11y/anchor-has-content
+const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
 it('has a href attribute when rendering with linkWrapper', () => {
   const div = document.createElement('div');
