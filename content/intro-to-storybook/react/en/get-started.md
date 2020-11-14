@@ -24,6 +24,11 @@ npx -p @storybook/cli sb init
 ```
 
 <div class="aside">
+With a recent update to React and CRA you'll need to downgrade <code>react-scripts</code> package to a previous version in order to run Storybook without any issues, version 3.4.3 will work perfectly. Also both the <code>React</code> and <code>ReactDOM</code> will require a downgrade to a previous version. Version <code>16.14.0</code> of both packages will work perfectly.
+<p>See the Yarn official documentation on how to <a href="https://yarnpkg.com/cli/add">add</a> and <a href="https://yarnpkg.com/cli/remove">remove</a> packages.</p>
+</div>
+
+<div class="aside">
 Throughout this version of the tutorial, we'll be using <code>yarn</code> to run the majority of our commands. 
 If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code>--use-npm</code> flag to the first command above and both CRA and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
 </div>
