@@ -46,7 +46,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Enfin, transférer notre repo locale vers la repo à distance sur GitHub avec:
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Obtenir Chromatic
@@ -136,7 +136,7 @@ git commit -m "GitHub action setup"
 Enfin, les envoyer vers le repo à distance avec :
 
 ```bash
-git push origin master
+git push origin main
 ```
 
 Une fois que vous avez mis en place l'action GitHub. Votre Storybook sera déployé sur Chromatic chaque fois que vous enverrez du code. Vous pouvez trouver tous les Storybook publiés sur l'écran de compilation de votre projet dans Chromatic.

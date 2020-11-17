@@ -6,7 +6,6 @@ description: 'Deploy Storybook online with GitHub and Netlify'
 
 In this tutorial we ran Storybook on our development machine. You may also want to share that Storybook with the team, especially the non-technical members. Thankfully, it’s easy to deploy Storybook online.
 
-
 ## Exporting as a static app
 
 To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook and Expo, we just need to activate it by adding a script to `package.json`.
@@ -20,6 +19,7 @@ To deploy Storybook we first need to export it as a static web app. This functio
   }
 }
 ```
+
 <div class="aside"><p>At the time of the writing of this tutorial the web build process for Expo is still in beta. And might be subject to some changes in the future.</p></div>
 
 Now when you build the app via `yarn build-static-webapp`, it will output both the app and a static Storybook in the `web-build` directory.
@@ -57,7 +57,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Finally push the repo to GitHub
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Netlify
@@ -78,11 +78,11 @@ Now select the taskbox GitHub repo from the list of options.
 
 ![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `master`. Directory is `web-build`. Build command use `yarn build-static-webapp`.
+Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `main`. Directory is `web-build`. Build command use `yarn build-static-webapp`.
 
 ![Netlify settings](/intro-to-storybook/netlify-settings-rn.png)
 
-Submit the form to build and deploy the code on the `master` branch of taskbox.
+Submit the form to build and deploy the code on the `main` branch of taskbox.
 
 When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
 
