@@ -65,7 +65,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Tenslotte, push de repo naar GitHub
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Netlify
@@ -86,11 +86,11 @@ Selecteer nu de taskbox GitHub repo uit de lijst met opties.
 
 ![Netlify verbinden met repo](/intro-to-storybook/netlify-account-picker.png)
 
-Configureer Netlify door te markeren welk build-commando moet worden uitgevoerd in de CI en in welke folder de statische site wordt ge-output. Kies voor branch `master`. De folder is `storybook-static`. Als build-commando gebruik je `yarn build-storybook`.
+Configureer Netlify door te markeren welk build-commando moet worden uitgevoerd in de CI en in welke folder de statische site wordt ge-output. Kies voor branch `main`. De folder is `storybook-static`. Als build-commando gebruik je `yarn build-storybook`.
 
 ![Netlify instellingen](/intro-to-storybook/netlify-settings.png)
 
-Dien het formulier in om de code te bouwen en te deployen op de `master` branch van de taskbox.
+Dien het formulier in om de code te bouwen en te deployen op de `main` branch van de taskbox.
 
 Wanneer dat is voltooid, zien we een bevestigingsbericht op Netlify met een link naar het online Taskbox Storybook. Als je mee aan het doen bent, moet je gedeployde Storybook online staan [zoals dit](https://clever-banach-415c03.netlify.com/).
 

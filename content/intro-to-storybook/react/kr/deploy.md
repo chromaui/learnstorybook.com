@@ -46,7 +46,7 @@ $ git remote add origin https://github.com/<사용자명>/taskbox.git
 마지막으로, 로컬 저장소를 원격 저장소로 푸시해주세요.
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Chromatic 설치
@@ -136,7 +136,7 @@ git commit -m "GitHub action setup"
 마지막으로 원격 저장소에 푸시해주세요:
 
 ```bash
-git push origin master
+git push origin main
 ```
 
 GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 Chromatic에 배포될 것입니다. Chromatic의 프로젝트 빌드 화면에서 배포된 모든 Storybook을 보실 수 있습니다.

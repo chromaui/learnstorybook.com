@@ -46,7 +46,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 最後にローカルリポジトリーを GitHub のリモートリポジトリーにプッシュします:
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Chromatic を使う
@@ -138,7 +138,7 @@ git commit -m "GitHub action setup"
 最後にリモートリポジトリーにプッシュします:
 
 ```bash
-git push origin master
+git push origin main
 ```
 
 一度 GitHub アクションをセットアップすれば、コードをプッシュする度に Chromatic にデプロイされます。Chromatic のプロジェクトのビルド画面で発行されたすべての Storybook を確認できます。

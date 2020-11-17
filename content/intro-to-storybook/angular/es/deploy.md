@@ -63,7 +63,7 @@ $ git remote add origin https://github.com/<tu nombre de usuario>/taskbox.git
 Finalmente haz push al repositorio en GitHub.
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Netlify
@@ -84,11 +84,11 @@ Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
 
 ![Conectar un repositorio en Netlify](/intro-to-storybook/netlify-account-picker.png)
 
-Configura Netlify resaltando cuál comando se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Elige `master` como la rama del repositorio. El directorio es `storybook-static`. Ejecuta el comando `yarn build-storybook`.
+Configura Netlify resaltando cuál comando se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Elige `main` como la rama del repositorio. El directorio es `storybook-static`. Ejecuta el comando `yarn build-storybook`.
 
 ![Ajustes Netlify](/intro-to-storybook/netlify-settings.png)
 
-Ahora envía el formulario para construir e implementar el código en la rama `master` del taskbox.
+Ahora envía el formulario para construir e implementar el código en la rama `main` del taskbox.
 
 Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si has llevado a cabo los pasos anteriores, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
 
