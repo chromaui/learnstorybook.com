@@ -232,7 +232,7 @@ npm publish
 그리고 Auto를 통해 깃헙에 릴리즈를 생성합니다. 
 
 ```shell
-git push --follow-tags origin master
+git push --follow-tags origin main
 yarn auto release
 ```
 
@@ -256,7 +256,7 @@ yarn auto release
 }
 ```
 
-이제 `yarn release` 명령어를 실행하면 (자동 생성된 changelog를 사용하는 것을 제외하고) 위의 단계들이 모두 자동으로 진행됩니다. `master`에 푸쉬 된 모든 커밋들이 배포됩니다.
+이제 `yarn release` 명령어를 실행하면 (자동 생성된 changelog를 사용하는 것을 제외하고) 위의 단계들이 모두 자동으로 진행됩니다. `main`에 푸쉬 된 모든 커밋들이 배포됩니다.
 
 축하합니다! 수동으로 디자인 시스템 릴리즈를 배포할 수 있는 인프라 구조를 구축했습니다! 이제 지속적 통합(CI)을 할 수 있도록 릴리즈를 자동화하는 법을 배워봅니다.
 
@@ -291,7 +291,7 @@ name: Release
 # the event that will trigger the action
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 # what the action will do
 jobs:

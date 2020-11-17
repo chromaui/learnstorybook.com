@@ -60,9 +60,9 @@ yarn install
 git init
 git add .
 git commit -m "first commit"
-git branch -M master
+git branch -M main
 git remote add origin https://github.com/your-username/learnstorybook-design-system.git
-git push -u origin master
+git push -u origin main
 ```
 
 `your-username`을 본인 계정 이름으로 바꾸는 것을 잊지 마세요.

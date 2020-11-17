@@ -127,7 +127,7 @@ git commit -m "Storybook deployment with GitHub action"
 마지막으로, 아래 명령어를 사용해 원격 저장소에 푸쉬합니다.
 
 ```shell
-git push origin master
+git push origin main
 ```
 
 성공했습니다! 인프라를 향상시켰네요.
