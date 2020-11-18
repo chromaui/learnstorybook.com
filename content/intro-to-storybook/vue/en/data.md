@@ -196,14 +196,16 @@ Empty.args = {
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
-// src/components/PureTaskList.spec.js
+// tests/unit/PureTaskList.spec.js
 import Vue from 'vue';
-import { WithPinnedTasks } from './PureTaskList.stories';
+import PureTaskList from '../../src/components/PureTaskList.vue';
+import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
-  // render WithPinnedTasks story
-  const Constructor = Vue.extend(WithPinnedTasks);
+  // render PureTaskList
+  const Constructor = Vue.extend(PureTaskList);
   const vm = new Constructor({
+    // ...using WithPinnedTasks.args
     propsData: WithPinnedTasks.args,
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
