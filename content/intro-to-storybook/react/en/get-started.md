@@ -24,22 +24,23 @@ npx -p @storybook/cli sb init
 ```
 
 <div class="aside">
-With a recent update to React and CRA you'll need to downgrade <code>react-scripts</code> package to a previous version in order to run Storybook without any issues, version 3.4.3 will work perfectly. Also both the <code>React</code> and <code>ReactDOM</code> will require a downgrade to a previous version. Version <code>16.14.0</code> of both packages will work perfectly.
-<p>See the Yarn official documentation on how to <a href="https://yarnpkg.com/cli/add">add</a> and <a href="https://yarnpkg.com/cli/remove">remove</a> packages.</p>
-</div>
-
-<div class="aside">
 Throughout this version of the tutorial, we'll be using <code>yarn</code> to run the majority of our commands. 
 If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code>--use-npm</code> flag to the first command above and both CRA and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
 </div>
 
-We can quickly check that the various environments of our application are working properly:
+After running the commands we'll need to make a small change to our app. In the root folder of the project add a new file called `.env` with the following content:
+
+```
+SKIP_PREFLIGHT_CHECK=true
+```
+
+Now we can quickly check that the various environments of our application are working properly:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn storybook
 
 # Run the frontend app proper on port 3000:
@@ -60,6 +61,20 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/index.css` file.
 
+And make a small change to allow the icons in the percolate font to be correctly displayed with React.
+
+```css
+@font-face {
+  font-family: 'percolate';
+  src: url('./assets/icon/percolate.eot?-5w3um4');
+  src: url('./assets/icon/percolate.eot?#iefix5w3um4') format('embedded-opentype'), url('./assets/icon/percolate.woff?5w3um4')
+      format('woff'), url('./assets/icon/percolate.ttf?5w3um4') format('truetype'), url('./assets/icon/percolate.svg?5w3um4')
+      format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+```
+
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
@@ -68,15 +83,15 @@ If you want to modify the styling, the source LESS files are provided <a href="h
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder. Issue the following commands in your terminal:
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `src/assets` folder. Issue the following commands in your terminal:
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/public/font src/assets/font
+npx degit chromaui/learnstorybook-code/public/icon src/assets/icon
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
 </div>
 
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+We've successfully configured our app. Let's start building our first component!

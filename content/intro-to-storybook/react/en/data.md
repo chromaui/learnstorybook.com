@@ -82,10 +82,10 @@ Then we’ll update the default export from the `TaskList` component to connect 
 ```javascript
 // src/components/TaskList.js
 
-import React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from './Task';
+
 import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 

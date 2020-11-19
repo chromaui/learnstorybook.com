@@ -16,7 +16,6 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 ```javascript
 // src/components/InboxScreen.js
 
-import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -64,7 +63,6 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 ```javascript
 // src/App.js
 
-import React from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
 
