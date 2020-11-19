@@ -45,7 +45,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Finally, push our local repo to the remote repo on GitHub with:
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Get Chromatic
@@ -135,7 +135,7 @@ git commit -m "GitHub action setup"
 Finally push them to the remote repository with:
 
 ```bash
-git push origin master
+git push origin main
 ```
 
 Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic.
