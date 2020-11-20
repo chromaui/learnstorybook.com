@@ -41,6 +41,7 @@ Now let's fix the issue with overflowing by adding a style to `Task.vue`:
 
 ```html
 <!-- src/components/Task.vue -->
+
 <input
   type="text"
   :value="task.title"

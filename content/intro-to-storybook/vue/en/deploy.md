@@ -8,7 +8,15 @@ Throughout this tutorial, we built components on our local development machine. 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
+To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured, we just need to update the script like we did in the [Get started chapter](/vue/en/get-started).
+
+```json
+{
+  "scripts": {
+    "build-storybook": "build-storybook -s public"
+  }
+}
+```
 
 Running `yarn build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
 
@@ -93,6 +101,7 @@ Create a new file called `chromatic.yml` like the one below. Replace to change `
 
 ```yaml
 # .github/workflows/chromatic.yml
+
 # name of our action
 name: 'Chromatic Deployment'
 # the event that will trigger the action

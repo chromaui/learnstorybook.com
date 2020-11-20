@@ -25,6 +25,7 @@ In a file called `src/store.js` we'll construct a standard Vuex store that respo
 
 ```javascript
 // src/store.js
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -61,7 +62,8 @@ export default new Vuex.Store({
 In our top-level app component (`src/App.vue`) we can wire the store into our component hierarchy fairly easily:
 
 ```html
-<!--src/App.vue-->
+<!--src/App.vue -->
+
 <template>
   <div id="app">
     <task-list />
@@ -91,6 +93,7 @@ In `src/components/PureTaskList.vue`:
 
 ```html
 <!-- src/components/PureTaskList.vue -->
+
 <template>
   <!-- same content as before -->
 </template>
@@ -108,6 +111,7 @@ In `src/components/TaskList.vue`:
 
 ```html
 <!-- src/components/TaskList.vue -->
+
 <template>
   <PureTaskList :tasks="tasks" v-on="$listeners" @archive-task="archiveTask" @pin-task="pinTask" />
 </template>
@@ -130,6 +134,7 @@ The reason to keep the presentational version of the `TaskList` separate is beca
 
 ```javascript
 // src/components/PureTaskList.stories.js
+
 import PureTaskList from './PureTaskList';
 import * as TaskStories from './Task.stories';
 
@@ -197,6 +202,7 @@ Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
 // tests/unit/PureTaskList.spec.js
+
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
 import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
