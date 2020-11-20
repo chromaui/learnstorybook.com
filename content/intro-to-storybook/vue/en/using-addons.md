@@ -1,175 +1,92 @@
 ---
 title: 'Addons'
 tocTitle: 'Addons'
-description: 'Learn how to integrate and use addons using a popular example'
+description: 'Learn how to integrate and use the popular Controls addon'
 ---
 
-Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/vue/en/test/).
+Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/vue/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons),
 
-<div class="aside">
-<strong>Looking for a list of potential addons?</strong>
-<br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
-</div>
+If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/react/en/test/) chapter.
 
-We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/vue/essentials/controls).
 
-## Setting Up Knobs
+## What is Controls?
 
-Knobs is an amazing resource for designers and developers to experiment and play with components in a controlled environment without the need to code! You essentially provide dynamically defined fields with which a user manipulates the props being passed to the components in your stories. Here's what we're going to implement...
+Controls allows designers and developers to easily explore component behavior by _playing_ with its arguments. No code required. Controls creates an addon panel next to your stories, so you can edit their arguments live.
+
+Fresh installs of Storybook include Controls out of the box. No extra configuration needed.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/addon-knobs-demo.mp4"
+    src="/intro-to-storybook/controls-in-action.mp4"
     type="video/mp4"
   />
 </video>
 
-### Installation
+## Addons unlock new Storybook workflows
 
-First, we will need to add it as a development dependency.
+Storybook is a wonderful [component-driven development environment](https://www.componentdriven.org/). The Controls addon evolves Storybook into an interactive documentation tool.
 
-```bash
-yarn add -D @storybook/addon-knobs
-```
+### Using Controls to find edge cases
 
-Register Knobs in your `.storybook/main.js` file.
+With Controls QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Let's consider the following example, what would happen to our `Task` if we added a **MASSIVE** string?
 
-```javascript
-// .storybook/main.js
+![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
 
-module.exports = {
-  stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
-};
-```
+That's not right! It looks like the text overflows beyond the bounds of the Task component.
 
-<div class="aside">
-<strong>📝 Addon registration order matters!</strong>
-<br/>
-The order you list these addons will dictate the order in which they appear as tabs on your addon panel (for those that appear there).
-</div>
+Controls allowed us to quickly verify different inputs to a component. In this case a long string. This reduces the work required to discover UI problems.
 
-That's it! Time to use it in a story.
-
-### Usage
-
-Let's use the object knob type in the `Task` component.
-
-First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
-
-```javascript
-// src/components/Task.stories.js
-import { action } from '@storybook/addon-actions';
-import { withKnobs, object } from '@storybook/addon-knobs';
-```
-
-Next, within the `default` export of the `Task.stories` file, add `withKnobs` to the `decorators` key:
-
-```javascript
-// src/components/Task.stories.js
-
-export default {
-  title: 'Task',
-  decorators: [withKnobs],
-  // same as before
-};
-```
-
-Lastly, integrate the `object` knob type within the "default" story:
-
-```javascript
-// src/components/Task.stories.js
-
-// default task state
-export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: object('task', { ...taskData }),
-    },
-  },
-  methods: actionsData,
-});
-
-// same as before
-```
-
-Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
-
-As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as parameters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
-
-## Addons Evolve Your Storybook's Scope
-
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://www.componentdriven.org/), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
-
-## Using Knobs To Find Edge-Cases
-
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `Task` if our list item has a _MASSIVE_ string?
-
-![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
-
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.vue`:
+Now let's fix the issue with overflowing by adding a style to `Task.vue`:
 
 ```html
-<!--src/components/Task.vue>-->
-
-<!-- This is the input for our task title. 
-     In practice we would probably update the styles for this element but for this tutorial, 
-     let's fix the problem with an inline style:-->
+<!-- src/components/Task.vue -->
 <input
   type="text"
-  :readonly="true"
-  :value="this.task.title"
+  :value="task.title"
+  readonly
   placeholder="Input title"
   style="text-overflow: ellipsis;"
 />
 ```
 
-![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
+![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-## Adding A New Story To Avoid Regressions
+Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
 
-Of course we can always reproduce this problem by entering the same input into the knobs, but it's better to write a fixed story for this input. This will increase your regression testing and clearly outline the limits of the component(s) to the rest of your team.
+### Adding a new story to avoid regressions
 
-Let's add a story for the long text case in `Task.stories.js`:
+In the future, We can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
 
-```javascript
+Add a new story for the long text case in `Task.stories.js`:
+
+```js
 // src/components/Task.stories.js
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-// same as before
-
-export const LongTitle = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        title: longTitle,
-      }),
-    },
+export const LongTitle = Template.bind({});
+LongTitle.args = {
+  task: {
+    ...Default.args.task,
+    title: longTitleString,
   },
-  methods: actionsData,
-});
+};
 ```
 
-Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
+Now we can reproduce and work on this edge case with ease.
 
-![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/task-stories-long-title.mp4"
+    type="video/mp4"
+  />
+</video>
 
-If we are using [visual regression testing](/vue/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are [visual testing](/react/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
 
 ### Merge Changes
 
 Don't forget to merge your changes with git!
 
-<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
-
-<!-- ## Sharing Addons With The Team
-
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the Storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that! -->
+<div class="aside"><p>Controls is a great way to get non-developers playing with your components and stories, and much more than we've seen here, we recommend reading the <a href="https://storybook.js.org/docs/vue/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/intro-to-storybook/react/en/creating-addons">create addons</a> bonus chapter we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
