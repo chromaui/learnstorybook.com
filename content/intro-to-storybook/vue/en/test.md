@@ -46,6 +46,7 @@ Change `Task` to the following:
 
 ```html
 <!-- src/components/Task.vue -->
+
 <input
   type="text"
   :value="task.title"

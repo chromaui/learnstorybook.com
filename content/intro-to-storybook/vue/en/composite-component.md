@@ -25,6 +25,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 ```html
 <!-- src/components/TaskList.vue -->
+
 <template>
   <div class="list-items">
     <template v-if="loading">
@@ -61,6 +62,7 @@ Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 // src/components/TaskList.stories.js
+
 import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
@@ -138,6 +140,7 @@ Our component is still rough but now we have an idea of the stories to work towa
 
 ```html
 <!-- src/components/TaskList.vue -->
+
 <template>
   <div class="list-items">
     <template v-if="loading">
@@ -216,6 +219,7 @@ Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out 
 
 ```javascript
 // tests/unit/TaskList.spec.js
+
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';

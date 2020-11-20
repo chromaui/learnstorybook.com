@@ -15,6 +15,7 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 
 ```html
 <!-- src/components/PureInboxScreen.vue -->
+
 <template>
   <div>
     <div v-if="error" class="page lists-show">
@@ -52,6 +53,7 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 
 ```html
 <!-- src/components/InboxScreen.vue -->
+
 <template>
   <PureInboxScreen :error="error" />
 </template>
@@ -72,6 +74,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 
 ```html
 <!-- src/App.vue -->
+
 <template>
   <div id="app">
     <InboxScreen />
@@ -105,6 +108,7 @@ However, for the `PureInboxScreen` we have a problem because although the `PureI
 
 ```javascript
 // src/components/PureInboxScreen.stories.js
+
 import PureInboxScreen from './PureInboxScreen.vue';
 
 export default {
@@ -142,6 +146,7 @@ The good news is that it is easy to supply a Vuex store to the `PureInboxScreen`
 
 ```javascript
 // src/components/PureInboxScreen.stories.js
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import PureInboxScreen from './PureInboxScreen.vue';

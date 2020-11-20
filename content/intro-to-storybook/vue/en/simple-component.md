@@ -28,6 +28,7 @@ We’ll begin with the baseline implementation of the `Task`, simply taking in t
 
 ```html
 <!-- src/components/Task.vue -->
+
 <template>
   <div class="list-item">
     <input type="text" readonly :value="task.title" />
@@ -55,6 +56,7 @@ Below we build out Task’s three test states in the story file:
 
 ```javascript
 // src/components/Task.stories.js
+
 import Task from './Task';
 import { action } from '@storybook/addon-actions';
 
@@ -149,6 +151,7 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 
 ```javascript
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
@@ -159,6 +162,7 @@ After completing the change above, inside the `.storybook` folder, add a new fil
 
 ```javascript
 // .storybook/preview.js
+
 import '../src/index.css';
 ```
 
@@ -179,6 +183,7 @@ Our component is still rather rudimentary at the moment. We're going to make som
 
 ```html
 <!-- src/components/Task.vue -->
+
 <template>
   <div class="list-item" :class="task.state">
     <label class="checkbox">
@@ -254,6 +259,7 @@ Then create a `tests/unit/storybook.spec.js` file with the following in it:
 
 ```javascript
 // tests/unit/storybook.spec.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -262,8 +268,8 @@ initStoryshots();
 We need to add a line to our `jest.config.js`:
 
 ```js
-
   // jest.config.js
+
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 ```
 
