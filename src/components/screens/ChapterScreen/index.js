@@ -8,6 +8,7 @@ import ChapterLinks from './ChapterLinks';
 import GithubLink from './GithubLink';
 import Pagination from './Pagination';
 import Sidebar from './Sidebar';
+import fetchTutorialNotUpdatedText from '../../../lib/getTranslationMessages';
 import tocEntries from '../../../lib/tocEntries';
 import { chapterFormatting } from '../../../styles/formatting';
 
@@ -59,7 +60,7 @@ const Chapter = ({
     currentPage: {
       html,
       frontmatter: { commit, title, description },
-      fields: { framework, guide, language, slug, chapter, permalink },
+      fields: { framework, guide, language, slug, chapter, permalink, tutorialupdated },
     },
     currentGuide: {
       frontmatter: { codeGithubUrl, title: currentGuideTitle, toc, twitterShareText },
@@ -79,7 +80,6 @@ const Chapter = ({
     /\/$/,
     ''
   )}.md`;
-
   return (
     <ChapterWrapper>
       <Helmet>
@@ -118,6 +118,7 @@ const Chapter = ({
       <Content>
         <Title>{title}</Title>
         <Description>{description}</Description>
+        {!tutorialupdated && <div className="aside">{fetchTutorialNotUpdatedText(language)}</div>}
         <HighlightWrapper>{html}</HighlightWrapper>
         <ChapterLinks
           codeGithubUrl={codeGithubUrl}
@@ -142,6 +143,7 @@ Chapter.propTypes = {
         framework: PropTypes.string,
         language: PropTypes.string.isRequired,
         permalink: PropTypes.string.isRequired,
+        tutorialupdated: PropTypes.bool,
       }).isRequired,
       frontmatter: PropTypes.shape({
         commit: PropTypes.string,
@@ -222,6 +224,7 @@ export const query = graphql`
         framework
         language
         permalink
+        tutorialupdated
       }
     }
     currentGuide: markdownRemark(fields: { guide: { eq: $guide }, pageType: { eq: "guide" } }) {

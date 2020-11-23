@@ -5,9 +5,6 @@ description: '在你的開發環境下, 設定 React Storybook '
 commit: '8741257'
 ---
 
-<div class="aside"><p>
-此翻譯尚未更新！您可以通過單擊頁面底部的鏈接來幫助我們改進它，不僅團隊會感激它，而且整個社區也會感激不盡。
-</p></div>
 Storybook 是在開發模式下 與 您的應用程式一起執行的. 它可以幫助您構建 UI 元件,並與 應用程式的 業務邏輯和上下文 隔離開來. 本期"學習 Storybook"適用於 **React**; `Vue和Angular`版本即將推出.
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
