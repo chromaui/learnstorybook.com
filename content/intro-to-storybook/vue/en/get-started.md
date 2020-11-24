@@ -75,7 +75,7 @@ npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-
 We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">here</a>.
+</div>
 
 We've successfully configured our app. Let's start building our first component!
