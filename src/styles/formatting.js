@@ -218,6 +218,14 @@ export const chapterFormatting = css`
       margin-bottom: 0;
     }
   }
+  .translation-aside {
+    font-size: ${typography.size.s3}px;
+    color: ${color.darker};
+    background: #f8fafc;
+    border-radius: ${styles.spacing.borderRadius.small}px;
+    padding: 20px;
+    margin-bottom: 1rem;
+  }
 
   /* Tables based on GH markdown format */
   table {

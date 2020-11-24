@@ -118,7 +118,9 @@ const Chapter = ({
       <Content>
         <Title>{title}</Title>
         <Description>{description}</Description>
-        {!tutorialupdated && <div className="aside">{fetchTutorialNotUpdatedText(language)}</div>}
+        {!tutorialupdated && (
+          <div className="translation-aside">{fetchTutorialNotUpdatedText(language)}</div>
+        )}
         <HighlightWrapper>{html}</HighlightWrapper>
         <ChapterLinks
           codeGithubUrl={codeGithubUrl}
