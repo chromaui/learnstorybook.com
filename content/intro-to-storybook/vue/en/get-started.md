@@ -52,6 +52,8 @@ Depending on what part of the app you’re working on, you may want to run one o
 Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into `src/index.css` and then import the CSS into the app by editing the `<style>` tag in `src/App.vue` so it looks like:
 
 ```html
+<!-- src/App.vue -->
+
 <style>
   @import './index.css';
 </style>
@@ -73,7 +75,7 @@ npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
+
 We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">here</a>.
-</div>
 
 We've successfully configured our app. Let's start building our first component!
