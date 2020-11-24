@@ -61,20 +61,6 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/index.css` file.
 
-And make a small change to allow the icons in the percolate font to be correctly displayed with React.
-
-```css
-@font-face {
-  font-family: 'percolate';
-  src: url('./assets/icon/percolate.eot?-5w3um4');
-  src: url('./assets/icon/percolate.eot?#iefix5w3um4') format('embedded-opentype'), url('./assets/icon/percolate.woff?5w3um4')
-      format('woff'), url('./assets/icon/percolate.ttf?5w3um4') format('truetype'), url('./assets/icon/percolate.svg?5w3um4')
-      format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-```
-
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
@@ -86,12 +72,12 @@ If you want to modify the styling, the source LESS files are provided <a href="h
 To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `src/assets` folder. Issue the following commands in your terminal:
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font src/assets/font
-npx degit chromaui/learnstorybook-code/public/icon src/assets/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">here</a>.
 </div>
 
 We've successfully configured our app. Let's start building our first component!
