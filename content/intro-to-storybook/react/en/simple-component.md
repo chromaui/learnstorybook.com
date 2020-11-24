@@ -27,6 +27,8 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 ```javascript
 // src/components/Task.js
 
+import React from 'react';
+
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className="list-item">
@@ -167,6 +169,8 @@ The component is still basic at the moment. First write the code that achieves t
 ```javascript
 // src/components/Task.js
 
+import React from 'react';
+
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
@@ -212,6 +216,7 @@ It’s best practice to use `propTypes` in React to specify the shape of data th
 ```javascript
 // src/components/Task.js
 
+import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {

@@ -26,6 +26,8 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 ```javascript
 // src/components/TaskList.js
 
+import React from 'react';
+
 import Task from './Task';
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -134,6 +136,8 @@ Our component is still rough but now we have an idea of the stories to work towa
 ```javascript
 // src/components/TaskList.js
 
+import React from 'react';
+
 import Task from './Task';
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -205,6 +209,7 @@ As the component grows, so too do input requirements. Define the prop requiremen
 ```javascript
 // src/components/TaskList.js
 
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from './Task';
@@ -249,20 +254,23 @@ Create a test file called `src/components/TaskList.test.js`. Here, we’ll build
 ```javascript
 // src/components/TaskList.test.js
 
-import { render } from '@testing-library/react';
+import React from 'react';
+import ReactDOM from 'react-dom';
 import '@testing-library/jest-dom/extend-expect';
 
 import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
+  const div = document.createElement('div');
   // Our story will be used for the test.
   // With the arguments that were created.
-  const { container } = render(<WithPinnedTasks {...WithPinnedTasks.args} />);
+  ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
+
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-  const lastTaskInput = container.querySelector(
-    '.list-item:nth-child(1) input[value="Task 6 (pinned)"]'
-  );
+  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
+
+  ReactDOM.unmountComponentAtNode(div);
 });
 ```
 
