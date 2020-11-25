@@ -1,6 +1,7 @@
 const KoreanLanguageMap = {
   guidenotupdated:
-    '이 번역은 업데이트되지 않았습니다! 페이지 하단에있는 링크를 클릭하여 개선하는 데 도움을 줄 수 있습니다. 팀뿐만 아니라 전체 커뮤니티도 감사 할 것입니다.',
+    '이 커뮤니티 번역은 아직 최신 스토리 북 버전으로 업데이트되지 않았습니다. 이 번역에 대한 한국어 가이드의 변경 사항을 적용하여 업데이트 할 수 있도록 도와주세요.',
+  pullrequestmessage: 'Pull requests 환영합니다',
 };
 
 export default KoreanLanguageMap;

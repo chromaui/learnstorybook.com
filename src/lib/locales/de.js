@@ -1,6 +1,7 @@
 const GermanLanguageMap = {
   guidenotupdated:
-    'Diese Übersetzung wird nicht aktualisiert! Sie können uns helfen, es zu verbessern, indem Sie auf den Link unten auf der Seite klicken. Nicht nur das Team wird es zu schätzen wissen, sondern auch die gesamte Community.',
+    'Diese Community-Übersetzung wurde noch nicht auf die neueste Storybook-Version aktualisiert. Helfen Sie uns, es zu aktualisieren, indem Sie die Änderungen im deutschen Leitfaden für diese Übersetzung übernehmen.',
+    pullrequestmessage: 'Pull requests sind willkommen',
 };
 
 export default GermanLanguageMap;

@@ -52,9 +52,7 @@ const translationMap = {
  * @returns {Object} with the necessary text to be added to the tutorial
  */
 const fetchTutorialNotUpdatedText = language => {
-  return translationMap[language]
-    ? translationMap[language].guidenotupdated
-    : translationMap.en.guidenotupdated;
+  return translationMap[language] ? translationMap[language] : translationMap.en;
 };
 
 export default fetchTutorialNotUpdatedText;

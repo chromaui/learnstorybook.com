@@ -1,6 +1,7 @@
 const EnglishLanguageMap = {
   guidenotupdated:
-    'This translation is not updated! You can help us improve it by clicking the link at the bottom of the page, not only the team will appreciate it but also the entire community.',
+    'This community translation has not been updated to the latest version of Storybook yet. Help us update it by applying the changes in the English guide to this translation.',
+  pullrequestmessage: 'Pull requests are welcome',
 };
 
 export default EnglishLanguageMap;

@@ -1,6 +1,7 @@
 const JapaneseLanguageMap = {
   guidenotupdated:
-    'この翻訳は更新されていません！ページの下部にあるリンクをクリックすると、改善に役立てることができます。チームだけでなく、コミュニティ全体にも感謝します。',
+    'このコミュニティの翻訳は、最新のストーリーブックバージョンにまだ更新されていません。この翻訳の日本語ガイドの変更を適用して、更新にご協力ください。',
+  pullrequestmessage: 'Pull requests 彼らは大歓迎です',
 };
 
 export default JapaneseLanguageMap;

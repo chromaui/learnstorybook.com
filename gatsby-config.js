@@ -19,7 +19,7 @@ module.exports = {
           es: 5.3,
           fr: 6.1,
           ja: 6.1,
-          kr: 6.0,
+          kr: 6.1,
           nl: 5.3,
           pt: 5.3,
           'zh-CN': 5.3,

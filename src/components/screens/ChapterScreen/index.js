@@ -80,6 +80,7 @@ const Chapter = ({
     /\/$/,
     ''
   )}.md`;
+  const fetchStatusUpdate = fetchTutorialNotUpdatedText(language);
   return (
     <ChapterWrapper>
       <Helmet>
@@ -119,7 +120,10 @@ const Chapter = ({
         <Title>{title}</Title>
         <Description>{description}</Description>
         {!tutorialUpToDate && (
-          <div className="translation-aside">{fetchTutorialNotUpdatedText(language)}</div>
+          <div className="translation-aside">
+            {fetchStatusUpdate.guidenotupdated}{' '}
+            <a href={githubFileUrl}>{fetchStatusUpdate.pullrequestmessage}</a> .
+          </div>
         )}
         <HighlightWrapper>{html}</HighlightWrapper>
         <ChapterLinks

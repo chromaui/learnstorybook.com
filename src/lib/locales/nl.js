@@ -1,6 +1,7 @@
 const NetherLandsLanguageMap = {
   guidenotupdated:
-    'Deze vertaling is niet bijgewerkt! Je kunt ons helpen het te verbeteren door op de link onderaan de pagina te klikken, niet alleen het team zal het waarderen, maar ook de hele community.',
+    'Deze gemeenschapsvertaling is nog niet bijgewerkt naar de nieuwste versie van Storybook. Help ons om het bij te werken door de wijzigingen in de Nederlandse gids voor deze vertaling toe te passen.',
+  pullrequestmessage: 'Pull requests ze zijn welkom',
 };
 
 export default NetherLandsLanguageMap;

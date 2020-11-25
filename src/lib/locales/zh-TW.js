@@ -1,6 +1,7 @@
 const TraditionalChineseLanguageMap = {
   guidenotupdated:
-    '此翻譯未更新！您可以通過單擊頁面底部的鏈接來幫助我們改進它，不僅團隊會感激它，而且整個社區也會感激。',
+    '此社區翻譯尚未更新為最新的Storybook版本。通過應用此翻譯的中文指南中的更改來幫助我們更新它。',
+  pullrequestmessage: 'Pull requests 歡迎他們',
 };
 
 export default TraditionalChineseLanguageMap;
