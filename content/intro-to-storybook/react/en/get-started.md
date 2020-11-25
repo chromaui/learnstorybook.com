@@ -24,17 +24,16 @@ npx -p @storybook/cli sb init
 ```
 
 <div class="aside">
+With a recent update to React and CRA you'll need to downgrade <code>react-scripts</code> package to a previous version in order to run Storybook without any issues, version 3.4.3 will work perfectly. Also both the <code>React</code> and <code>ReactDOM</code> will require a downgrade to a previous version. Version <code>16.14.0</code> of both packages will work perfectly.
+<p>See the Yarn official documentation on how to <a href="https://yarnpkg.com/cli/add">add</a> and <a href="https://yarnpkg.com/cli/remove">remove</a> packages.</p>
+</div>
+
+<div class="aside">
 Throughout this version of the tutorial, we'll be using <code>yarn</code> to run the majority of our commands. 
 If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code>--use-npm</code> flag to the first command above and both CRA and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
 </div>
 
-After running the commands we'll need to make a small change to our app. In the root folder of the project add a new file called `.env` with the following content:
-
-```
-SKIP_PREFLIGHT_CHECK=true
-```
-
-Now we can quickly check that the various environments of our application are working properly:
+We can quickly check that the various environments of our application are working properly:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
@@ -69,15 +68,15 @@ If you want to modify the styling, the source LESS files are provided <a href="h
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `src/assets` folder. Issue the following commands in your terminal:
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder. Issue the following commands in your terminal:
 
 ```bash
-npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
-npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
+npx degit chromaui/learnstorybook-code/public/font public/font
+npx degit chromaui/learnstorybook-code/public/icon public/icon
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
 </div>
 
-We've successfully configured our app. Let's start building our first component!
+After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!

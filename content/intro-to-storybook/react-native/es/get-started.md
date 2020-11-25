@@ -244,10 +244,10 @@ Si desea modificar el estilo, los archivos LESS de origen se proporcionan en el 
 
 Para que coincida con el diseño previsto, deberá descargar los directorios de fuentes e iconos y colocarlos dentro de la carpeta `assets`.
 
-<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas (o directorios) de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puedes tomar la carpeta de iconos directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aquí</a> y la fuente <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">aquí</a>.</p></div>
+<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas (o directorios) de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puedes tomar la carpeta de iconos directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a> y la fuente <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">aquí</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon assets/icon
 svn export <https://github.com/google/fonts/trunk/ofl/nunitosans> assets/font
 ```
 

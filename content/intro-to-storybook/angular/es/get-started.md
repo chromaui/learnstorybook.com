@@ -55,5 +55,5 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS se e
 
 ## Añadiendo los recursos
 
-También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets) a la carpeta `src/assets/`.
+También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/public) a la carpeta `assets/`.
 Después de añadir los estilos y recursos, nuestra aplicación se verá de forma un poco extraña. Está bien. No estamos trabajando en la aplicación y no la veremos hasta dentro de algunos capítulos. A continuación, ¡comenzamos con la construcción de nuestro primer componente!
