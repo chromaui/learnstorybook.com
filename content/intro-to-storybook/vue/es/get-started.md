@@ -64,13 +64,23 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 ## Añadiendo recursos
 
-Para que coincida con el diseño previsto del tutorial, deberá transferir las carpetas de los iconos y las fuentes a la carpeta `src/assets/`.
+Para que coincida con el diseño previsto del tutorial, deberá transferir las carpetas de los iconos y las fuentes a la carpeta pública.
 
-<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aquí</a>.</p></div>
+<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+```
+
+También necesitamos actualizar nuestro script storybook para servir el directorio `public` (en `package.json`):
+
+```json
+{
+  "scripts": {
+    "storybook": "start-storybook -p 6006 -s public"
+  }
+}
 ```
 
 Después de añadir los estilos y recursos, nuestra aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. ¡Comenzamos con la construcción de nuestro primer componente!
