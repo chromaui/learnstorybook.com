@@ -224,7 +224,7 @@ export const chapterFormatting = css`
     background: #f8fafc;
     border-radius: ${styles.spacing.borderRadius.small}px;
     padding: 20px;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
 
   /* Tables based on GH markdown format */
