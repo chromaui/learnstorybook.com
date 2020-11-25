@@ -66,7 +66,7 @@ const onCreateFrameworkChapterNode = ({ actions, node, slug }) => {
   if (!currentVersion) {
     return;
   }
-  createNodeField({ node, name: 'tutorialupdated', value: storybookVersion === currentVersion });
+  createNodeField({ node, name: 'tutorialUpToDate', value: storybookVersion === currentVersion });
 };
 
 exports.onCreateNode = ({ node, getNode, actions }) => {

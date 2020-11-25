@@ -60,7 +60,7 @@ const Chapter = ({
     currentPage: {
       html,
       frontmatter: { commit, title, description },
-      fields: { framework, guide, language, slug, chapter, permalink, tutorialupdated },
+      fields: { framework, guide, language, slug, chapter, permalink, tutorialUpToDate },
     },
     currentGuide: {
       frontmatter: { codeGithubUrl, title: currentGuideTitle, toc, twitterShareText },
@@ -118,7 +118,7 @@ const Chapter = ({
       <Content>
         <Title>{title}</Title>
         <Description>{description}</Description>
-        {!tutorialupdated && (
+        {!tutorialUpToDate && (
           <div className="translation-aside">{fetchTutorialNotUpdatedText(language)}</div>
         )}
         <HighlightWrapper>{html}</HighlightWrapper>
@@ -145,7 +145,7 @@ Chapter.propTypes = {
         framework: PropTypes.string,
         language: PropTypes.string.isRequired,
         permalink: PropTypes.string.isRequired,
-        tutorialupdated: PropTypes.bool,
+        tutorialUpToDate: PropTypes.bool,
       }).isRequired,
       frontmatter: PropTypes.shape({
         commit: PropTypes.string,
@@ -226,7 +226,7 @@ export const query = graphql`
         framework
         language
         permalink
-        tutorialupdated
+        tutorialUpToDate
       }
     }
     currentGuide: markdownRemark(fields: { guide: { eq: $guide }, pageType: { eq: "guide" } }) {
