@@ -66,12 +66,12 @@ Si vous souhaitez modifier le styling, les fichiers sources LESS sont fournis da
 Pour correspondre au design prévu, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier `public`.
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-Nous utilisons <a href="https://github.com/Rich-Harris/degit">degit</a> pour télécharger les dossiers de GitHub. Si vous voulez le faire manuellement, vous pouvez récupérer les dossiers <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">ici</a>.
+Nous utilisons <a href="https://github.com/Rich-Harris/degit">degit</a> pour télécharger les dossiers de GitHub. Si vous voulez le faire manuellement, vous pouvez récupérer les dossiers <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">ici</a>.
 </div>
 
 Après avoir ajouté le styling et les ressources, l'application aura un rendu un peu étrange. Ce n'est pas grave, car nous ne travaillons pas sur l'application pour l'instant. Nous sommes d'abord en train de construire notre premier composant!

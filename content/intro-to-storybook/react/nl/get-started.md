@@ -57,4 +57,4 @@ Indien je de stijl wilt wijzigen, de bron LESS bestanden zijn in de GitHub-repo 
 
 ## Assets toevoegen
 
-We moeten ook de [mappen](https://github.com/chromaui/learnstorybook-code/tree/master/public) voor lettertypes en iconen toevoegen aan de folder `public/`. Na het toevoegen van styling en assets zal de app een beetje vreemd renderen. Dat is geen probleem. We werken momenteel niet aan de app. We beginnen met het bouwen van onze eerste component!
+We moeten ook de [mappen](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets) voor lettertypes en iconen toevoegen aan de folder `src/assets`. Na het toevoegen van styling en assets zal de app een beetje vreemd renderen. Dat is geen probleem. We werken momenteel niet aan de app. We beginnen met het bouwen van onze eerste component!
