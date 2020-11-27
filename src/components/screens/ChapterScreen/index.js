@@ -122,7 +122,7 @@ const Chapter = ({
         {!tutorialUpToDate && (
           <div className="translation-aside">
             {fetchStatusUpdate.guidenotupdated}{' '}
-            <a href={githubFileUrl}>{fetchStatusUpdate.pullrequestmessage}</a> .
+            <a href={githubFileUrl}>{fetchStatusUpdate.pullrequestmessage}</a>.
           </div>
         )}
         <HighlightWrapper>{html}</HighlightWrapper>
