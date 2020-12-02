@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
-import { Highlight, styles } from '@storybook/design-system';
+import { Highlight, Link, styles } from '@storybook/design-system';
 import ChapterLinks from './ChapterLinks';
 import GithubLink from './GithubLink';
 import Pagination from './Pagination';
@@ -122,7 +122,10 @@ const Chapter = ({
         {!tutorialUpToDate && (
           <div className="translation-aside">
             {fetchStatusUpdate.guidenotupdated}{' '}
-            <a href={githubFileUrl}>{fetchStatusUpdate.pullrequestmessage}</a>.
+            <Link tertiary href={githubFileUrl} target="_blank" rel="noopener">
+              {fetchStatusUpdate.pullrequestmessage}
+            </Link>
+            .
           </div>
         )}
         <HighlightWrapper>{html}</HighlightWrapper>
