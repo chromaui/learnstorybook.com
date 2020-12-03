@@ -23,6 +23,7 @@ Default.args = {
         language: 'en',
         permalink: 'https://learnstorybook.com/sample-guide',
         slug: '/chapter-slug',
+        tutorialupdated: true,
       },
     },
     currentGuide: {
@@ -103,3 +104,28 @@ Default.args = {
     },
   },
 };
+
+export const TutorialNotUpdated = Story.bind({});
+TutorialNotUpdated.args = {
+  data: {
+    ...Default.args.data,
+    currentPage: {
+      html: '<div>The html</div>',
+      frontmatter: {
+        commit: '123456789',
+        title: 'Chapter Title',
+        description: 'A good chapter',
+      },
+      fields: {
+        chapter: 'chapter-1',
+        framework: 'react',
+        guide: 'sample-guide',
+        language: 'en',
+        permalink: 'https://learnstorybook.com/sample-guide',
+        slug: '/chapter-slug',
+        tutorialupdated: false,
+      },
+    },
+   
+  },
+}
