@@ -54,7 +54,7 @@ Le tre modalità di applicazione frontend: test automatici (Jest), sviluppo di c
 
 ![3 modalità](/intro-to-storybook/app-three-modalities.png)
 
-A seconda con quale parte dell'applicazione stai lavorando, potresti voler eseguire una o più di queste modalità simultaneamente. Siccome il nostro attuale obbiettivo è quello di creare un singolo componente di UI, inizieremo con l'eseguire Storybook.
+In base a quale parte dell'applicazione stai utilizzando, potresti voler eseguire una o più di queste modalità simultaneamente. Siccome il nostro attuale obbiettivo è quello di creare un singolo componente di UI, inizieremo con l'eseguire Storybook.
 
 ## Riusa i CSS
 
