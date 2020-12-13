@@ -170,7 +170,7 @@ addons.register('my/design-addon', () => {
 
 Fíjate que estamos usando el hook [useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter), este útil hook nos permitirá leer la información suministrada por la opción `parameters` para cada historia, que en nuestro caso será o una ruta a nuestro asset o una lista de rutas. Lo verás en funcionamiento en breve.
 
-### Usando nuestro complementocon una historia
+### Usando nuestro complemento con una historia
 
 Hemos conectado todas las partes necesarias. Pero ¿cómo podemos ver si de hecho funciona y muestra algo?
 Para hacerlo, vamos a hacer un pequeño cambio al archivo `Task.stories.js` y le añadimos la opción  [parameters](https://storybook.js.org/docs/react/writing-stories/parameters).
@@ -259,11 +259,11 @@ Echemos un vistazo al código. Usamos la etiqueta `style` que viene del paquete 
  nos permite customizar el theme de Storybook y el complemento de interfaz de usuario. [`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) es un hook que nos permite hacer uso del estado interno de Storybook para extraer la más pequeña cantidad de información presente. En nuestro caso estamos usandolo para extraer el id de cada historia creada.
 
 ### Mostrar los assets en cuestión
+
 Para ver efectivamente los assets mostrados en nuesto complemento, necesitamos copiarlos a la carpeta `public` y ajustar la opción de `parameters` de la historia para que refleje estos cambios.
 Storybook detectará el cambio y cargará los assets, pero por ahora, solo el primero.
 ![assets cargados](/intro-to-storybook/design-assets-image-loaded-6-0.png)
 
-## Stateful addons
 ## Complementos Stateful
 
 Repasemos nuestros objetivos iniciales:
