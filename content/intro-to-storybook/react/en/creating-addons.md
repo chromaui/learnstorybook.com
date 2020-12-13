@@ -423,7 +423,7 @@ addons.register('my/design-addon', () => {
 
 ## Next steps
 
-The next logical step for our addon, would be to make it it's own package and allow it to be distributed with your team and possibly with the rest of the community.
+The next logical step for our addon, would be to make it its own package and allow it to be distributed with your team and possibly with the rest of the community.
 
 But that's beyond the scope of this tutorial. This example demonstrates how you can use the Storybook API to create your own custom addon to further enhance your development workflow.
 
