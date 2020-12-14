@@ -192,7 +192,7 @@ export default {
 /* igual que antes  */
 ```
 
-Reinicia tu Storybook y selecciona la historia de la Tarea, deberías de ver algo así
+Reinicia tu Storybook y selecciona la historia de la Task, deberías de ver algo así
 ![historia de storybook que muestra contenidos con complemento de diseño de assets](/intro-to-storybook/create-addon-design-assets-inside-story-6-0.png)
 
 ### Mostrando contenido en nuesto complemento
