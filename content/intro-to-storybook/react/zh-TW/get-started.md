@@ -5,9 +5,6 @@ description: '在你的開發環境下, 設定 React Storybook '
 commit: '8741257'
 ---
 
-<div class="aside"><p>
-此翻譯尚未更新！您可以通過單擊頁面底部的鏈接來幫助我們改進它，不僅團隊會感激它，而且整個社區也會感激不盡。
-</p></div>
 Storybook 是在開發模式下 與 您的應用程式一起執行的. 它可以幫助您構建 UI 元件,並與 應用程式的 業務邏輯和上下文 隔離開來. 本期"學習 Storybook"適用於 **React**; `Vue和Angular`版本即將推出.
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
@@ -52,7 +49,7 @@ yarn start
 
 ## 重用 CSS
 
-本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例應用](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)中的設計元素,所以我們不需要在本教程中編寫 CSS. 我們只需將 LESS 編譯為單個 CSS 檔案, 並將其包含在我們的應用程式中. 複製和貼上[這個編譯的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根據 **CRA**的規則 進入 **src/index.css** 檔案.
+本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例應用](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)中的設計元素,所以我們不需要在本教程中編寫 CSS. 我們只需將 LESS 編譯為單個 CSS 檔案, 並將其包含在我們的應用程式中. 複製和貼上[這個編譯的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根據 **CRA**的規則 進入 **src/index.css** 檔案.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 

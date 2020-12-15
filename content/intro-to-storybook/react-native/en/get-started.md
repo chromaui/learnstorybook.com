@@ -89,16 +89,18 @@ yarn test
 yarn storybook
 
 # Run the frontend app proper on port 19002:
-yarn start
+yarn web
 ```
 
 ![3 modalities](/intro-to-storybook/app-three-modalities-rn.png)
+
+Checking our Storybook at this point, you might see that there's no stories displayed. That's ok, we'll take care of it shortly, for now, let's continue working on getting our application properly setup.
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Contrary to the other tutorials, we wont copy over the compiled CSS, as React Native handles styling in a whole different way, but instead create a new file `constants/globalStyles.js` and add the following:
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Contrary to the other tutorials, we wont copy over the compiled CSS, as React Native handles styling in a whole different way, but instead create a new file `constants/globalStyles.js` and add the following:
 
 <details>
   <summary>Click to expand and see the full file contents</summary>

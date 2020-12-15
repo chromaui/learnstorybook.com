@@ -5,7 +5,7 @@ description: '单独构建一个简单的组件'
 commit: '3d9cd8c'
 ---
 
-我们将按照[组件驱动开发](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) 方法论来 构建我们的 UI. 这是一个从"自下而上"开始构建 UI 的过程,从组件开始到整个页面结束. CDD 可帮助您在构建 UI 时,摆列您所面临的复杂程度.
+我们将按照[组件驱动开发](https://www.componentdriven.org/) (CDD) 方法论来 构建我们的 UI. 这是一个从"自下而上"开始构建 UI 的过程,从组件开始到整个页面结束. CDD 可帮助您在构建 UI 时,摆列您所面临的复杂程度.
 
 ## 任务-Task
 
@@ -19,7 +19,7 @@ commit: '3d9cd8c'
 
 在我们开始构建`Task`时,我们首先编写 与 上面草图中不同类型的任务 相对应的测试状态. 然后我们使用 Storybook 模拟数据 隔离对应状态组件. 我们将"视觉测试"组件在每个状态下的外观.
 
-这个过程类似于[测试驱动的开发(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我们可以称之为["Visual-虚拟 TDD"](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)
+这个过程类似于[测试驱动的开发(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我们可以称之为["Visual-虚拟 TDD"](https://www.chromatic.com/blog/visual-test-driven-development)
 
 ## 获取设置
 

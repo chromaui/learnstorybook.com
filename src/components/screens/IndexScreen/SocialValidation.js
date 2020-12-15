@@ -139,13 +139,13 @@ const SocialValidation = () => (
 
     <Testimonials>
       <Testimonial>
-        Storybook is such a pivotal tool not just for communicating a component to your fellow
-        developers, but also to keep your whole team comfortable with the app at an atomic level.
-        You need to learn how to use it - this is the place to learn.
+        Storybook is such a pivotal tool not just for workbenching a component in isolation, but
+        also to communicate your component&#39;s use cases and API to your whole team. You NEED to
+        learn how to use Storybook, and this is the place to learn.
         <UserWrapper
           src="https://avatars2.githubusercontent.com/u/9523719"
           name="Kyle Holmberg"
-          detail="Engineer at Acorns"
+          detail="Engineer at Air"
         />
       </Testimonial>
 

@@ -9,7 +9,7 @@ No capítulo 4, vamos aprender quais os fluxos de trabalho profissionais para fa
 
 ## Fonte de verdade única ou ponto único de falhanço
 
-Anteriormente, escrevi um artigo mencionando que os sistemas de design são um [ponto único de falhanço](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) para equipas de frontend. Na sua essência os sistemas de design são uma dependência. Se alterarem um componente do sistema de design, essa alteração propaga-se para todas as aplicações dependentes. Como o mecanismo de distribuição é imparcial - melhoramentos, ou erros são lançados igualmente.
+Anteriormente, escrevi um artigo mencionando que os sistemas de design são um [ponto único de falhanço](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) para equipas de frontend. Na sua essência os sistemas de design são uma dependência. Se alterarem um componente do sistema de design, essa alteração propaga-se para todas as aplicações dependentes. Como o mecanismo de distribuição é imparcial - melhoramentos, ou erros são lançados igualmente.
 
 ![Dependências do sistema de design](/design-systems-for-developers/design-system-dependencies.png)
 

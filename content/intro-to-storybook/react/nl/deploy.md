@@ -39,7 +39,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Tenslotte, push de lokale repo naar de remote repo op GitHub met het volgende:
 
 ```bash
-$ git push -u origin head
+$ git push -u origin main
 ```
 
 ### Voeg Chromatic toe
@@ -61,7 +61,6 @@ Klik `Choose Github repo` onder "collaborators" en selecteer je repo.
   />
 </video>
 
-Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 Kopieer de unieke `project-token` die gegenereerd werd voor je project. Voor het dan uit door het volgende commando uit te voeren op de command line, om zo onze Storybook te bouwen en te deployen. Denk er zeker aan om `project-token` te vervangen door jouw projecttoken.
 
 ```bash
@@ -122,21 +121,19 @@ git commit -m "GitHub action setup"
 Tenslotte push je ze naar de remote repository met het volgende commando:
 
 ```bash
-git push origin head
+git push origin main
 ```
 
 Eenmaal je de Github action hebt opgezet, zal je Storybook gedeployed worden naar Chromatic elke keer je code pushed. Je kan all de gepubliceerde Storybook's vinden op je project zijn "build" scherm in Chromatic.
+
 
 ![Chromatic gebruikersdashboard](/intro-to-storybook/chromatic-user-dashboard.png)
 
 Klik op de laatste build, degene die bovenaan staat.
 
+
 Hierna klik je op de `View Storybook` knop om de laatste versie van je Storybook te bekijken,
 
 ![Storybook link op Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
-
-<!--
-Dat was het. Alles dat nu nog nodig is, is om de veranderingen te committen en te pushen naar onze repository. We hebben onze Storybook deployment successvol geautomatiseerd.
- -->
 
 Gebruik de link en deel deze met je team. Dit is nuttig als deel van ons standaard app development process of simpelweg om ons werk te laten zien 💅.

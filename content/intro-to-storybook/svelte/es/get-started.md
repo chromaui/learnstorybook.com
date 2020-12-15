@@ -66,35 +66,31 @@ Cree un archivo `.babelrc` en la raíz del proyecto con lo siguiente:
 Y un nuevo campo en `package.json`:
 
 ```json
-"jest": {
+{
+  "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
-    "moduleFileExtensions": [
-      "js",
-      "svelte",
-      "json"
-    ],
+    "moduleFileExtensions": ["js", "svelte", "json"],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|scss|stylesheet)$": "<rootDir>/__mocks__/styleMock.js"
     },
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/storybook-static/"
-    ]
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
+    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/storybook-static/"]
   }
+}
 ```
 
 Y se requiere un nuevo script para ejecutar Jest:
 
 ```json
-"test": "jest --watchAll"
+{
+  "scripts": {
+    "test": "jest --watchAll"
+  }
+}
 ```
 
 <div class="aside">El uso de la bandera `--watchAll` en el script es para evitar que Jest arroje un error, porque en esta etapa todavía no hay un repositorio configurado. Eso se abordará más adelante.</div>
@@ -102,6 +98,8 @@ Y se requiere un nuevo script para ejecutar Jest:
 Para asegurarnos de que todo funciona correctamente, necesitamos crear un archivo de prueba. En la carpeta `src`, agregue un archivo llamado `Sample.test.js` con lo siguiente:
 
 ```javascript
+// Sample.test.js
+
 function sum(a, b) {
   return a + b;
 }
@@ -134,7 +132,7 @@ Dependiendo de en qué parte de la aplicación estés trabajando, es posible que
 
 ## Reusa CSS
 
-Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo `public/global.css`.
+Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), por lo que no necesitaremos escribir CSS en este tutorial. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo `public/global.css`.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 

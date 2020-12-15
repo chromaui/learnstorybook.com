@@ -10,7 +10,7 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 
 ## Setup Svelte Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Degit](https://github.com/Rich-Harris/degit) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [degit](https://github.com/Rich-Harris/degit) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
 
 ```bash
 # Create our application:
@@ -66,35 +66,31 @@ Create a `.babelrc` file in the root of the project with the following:
 Add a new field to `package.json`:
 
 ```json
-"jest": {
+{
+  "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
-    "moduleFileExtensions": [
-      "js",
-      "svelte",
-      "json"
-    ],
+    "moduleFileExtensions": ["js", "svelte", "json"],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|scss|stylesheet)$": "<rootDir>/__mocks__/styleMock.js"
     },
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-dom/extend-expect"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/storybook-static/"
-    ]
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
+    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/storybook-static/"]
   }
+}
 ```
 
 And a new script is required to run Jest:
 
 ```json
-"test": "jest --watchAll"
+{
+  "scripts": {
+    "test": "jest --watchAll"
+  }
+}
 ```
 
 <div class="aside">The usage of the flag `--watchAll` in the script is to prevent a error being thrown by Jest, because at this stage there's still no repository configured. That will be addressed later on.</div>
@@ -102,6 +98,8 @@ And a new script is required to run Jest:
 To make sure everything is working properly we need to create a test file. In the `src` folder, add a file called `Sample.test.js` with the following:
 
 ```javascript
+// Sample.test.js
+
 function sum(a, b) {
   return a + b;
 }
@@ -134,27 +132,26 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the public/global.css file.
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the public/global.css file.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
 <div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo.
+If you want to modify the styling, the source LESS files are provided <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/style">here</a>.
 </div>
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place them inside the `public` folder.
-
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+To match the intended design, you'll need to download both the font and icon directories and place them inside the `public` folder. Issue the following commands in your terminal:
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+npx degit chromaui/learnstorybook-code/public/font public/font
+npx degit chromaui/learnstorybook-code/public/icon public/icon
 ```
 
-
+<div class="aside">
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+</div>
 
 Finally we need to update our storybook script to serve the `public` directory (in `package.json`):
 
