@@ -11,7 +11,7 @@ const languageNameMap = {
   tr: 'Türk',
   gr: 'Ελληνικά',
   il: 'ישראלי',
-  kr: '한국어',
+  ko: '한국어',
   ru: 'русский',
   bg: 'български',
   it: 'Italiano',

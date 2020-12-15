@@ -19,7 +19,7 @@ module.exports = {
           es: 5.3,
           fr: 6.1,
           ja: 6.1,
-          kr: 6.1,
+          ko: 6.1,
           nl: 5.3,
           pt: 5.3,
           'zh-CN': 5.3,
@@ -48,7 +48,7 @@ module.exports = {
       'design-systems-for-developers': {
         react: {
           en: 6.1,
-          kr: 6.1,
+          ko: 6.1,
           pt: 5.3,
         },
       },
