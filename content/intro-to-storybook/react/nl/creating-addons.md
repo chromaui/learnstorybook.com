@@ -5,54 +5,89 @@ description: 'Leer hoe je je eigen add-ons kunt bouwen die je ontwikkeling boost
 commit: 'bebba5d'
 ---
 
-Met de add-on-architectuur van Storybook kan je de functieset uitbreiden en aanpassen aan je behoeften.
+Eerder, hebben we een belangrijke feature van Storybook geïntroduceerd: het robuuste [addons](https://storybook.js.org/addons/introduction/) ecosysteem. Addons worden gebruikt om je developer ervaring en workflows te verbeteren.
 
-Het schrijven van je eigen add-on klinkt misschien een beetje overweldigend, maar zoals je in deze tutorial zal zien, kan het vrij eenvoudig zijn.
+In dit bonushoofdstuk, gaan we een kijkje nemen over het schrijven van onze eigen add-on. Je denkt misschien dat het schrijven ervan  als een overweldigende taak klinkt, maar dat is het eigenlijk niet, we moeten maar een aantal stappen nemen om te starten, en dan kunnen we eraan beginnen.
 
-We gaan samen een add-on schrijven, laten we eerst kijken wat onze add-on zal doen:
+Laat ons eerst vastleggen wat onze add-on zal doen.
 
 ## De add-on die we gaan schrijven
 
-Je team heeft design assets die enigszins verband houden met de UI-componenten. Die relatie is niet echt duidelijk vanuit de UI van Storybook. Laten we dat oplossen!
+Voor dit voorbeeld, laten we ervan uitgaan dat ons team een aantal design assets heeft die op een manier gerelateerd zijn aan de bestaande UI componenten. Kijkende naar de huidige Storybook UI, lijkt het erop dat deze relatie niet echt duidelijk is. Hoe kunnen we dit oplossen?
 
-We gaan een add-on schrijven die onze design assets naast onze component toont!
-
-![Storybook en jouw app](/intro-to-storybook/design-assets-addon.png)
-
-**Onze addon moet**:
+**Onze add-on moet**:
 
 - het design asset weergeven in een paneel
 - zowel afbeeldingen als url's voor embedding ondersteunen
 - zou meerdere assets moeten ondersteunen, voor het geval dat er meerdere versies of thema's zijn
 
-De manier waarop we de lijst met assets met stories gaan associeren, is via parameters.
+De manier waarop we onze lijst van assets gaan vastmaken aan de stories is door [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options), wat een Storybook optie is die ons toelaat om custom parameters te injecteren in onze stories. De manier om het te gebruiken, is redelijk gelijkaardig aan hoe we een decorator hebben gebruikt in vorige hoofdstukken.
 
-Zo zal het eruit zien wanneer iemand design assets aan zijn story toevoegt:
-
-```js
-import Component from './component';
-
+```javascript
 export default {
-  title: 'Component',
-  component: Component,
+  title: 'Your component',
+  decorators: [
+    /*...*/
+  ],
   parameters: {
-    assets: ['path/to/asset.png'],
+    assets: ['path/to/your/asset.png'],
   },
+  //
 };
-
-export const variant = () => <Component />;
 ```
 
-Met onze publieke API gedefinieerd, kunnen we beginnen met het schrijven van de add-on om deze in de UI van Storybook te laten verschijnen.
+## Setup
 
-## Het schrijven van de addon
+We hebben vastgelegd wat onze add-on zal doen, nu is het tijd om eraan te beginnen werken.
 
-Laten we een nieuw bestand aanmaken: `.storybook/addons/design-assets.js`. (je zal mogelijks de `addons` folder moeten aanmaken)
+Maak een bestand aan in de root folder van ons project, genoemd `.babelrc` met het volgende:
 
-> **Opmerking:**
-> We maken deze add-on voor storybook in de storybook config folder die standaard `.storybook` is.
-> Op een gegeven moment in de toekomst zouden we deze add-on naar zijn eigen package moeten verplaatsen, laten we ons eerst concentreren op het schrijven van de add-on en deze werkende te krijgen.
+```json
+{
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "current"
+        }
+      }
+    ],
+    "@babel/preset-react"
+  ]
+}
+```
 
+Het toevoegen van dit bestand zal ons toelaten om de correcte preset en opties te gebruiken voor de add-on die we zullen ontwikkelen.
+ 
+Maak hierna, in je `.storybook` folder, een nieuwe folder aan, genoemd `design-add-on` en maak hierin een nieuw bestand aan genaamd `register.js`.
+
+Dat is het! We zijn klaar voor het ontwikkelen van onze add-on.
+
+<div class="aside">We gaan onze code>.storybook</code> folder gebruiken als een placeholder voor onze add-on. De reden hierachter is om een ongecompliceerde aanpak te behouden en te voorkomen dat deze te ingewikkeld wordt. Indien deze add-on getransformeerd wordt in een echte add-on, is het noodzakelijk deze te verplaatsen naar een aparte package met zijn eigen bestand- en folderstructuur.</div>
+
+## Het schrijven van de add-on
+
+Voeg het volgende toe aan je recent gecreëerde bestand:
+
+```javascript
+//.storybook/design-add-on/register.js
+import React from 'react';
+import { AddonPanel } from '@storybook/components';
+import { addons, types } from '@storybook/addons';
+
+addons.register('my/design-add-on', () => {
+  addons.add('design-add-on/panel', {
+    title: 'assets',
+    type: types.PANEL,
+    render: ({ active, key }) => (
+      <AddonPanel active={active} key={key}>
+        implement
+      </AddonPanel>
+    ),
+  });
+});
+```
 In dit nieuwe bestand gaan we enkele dependencies importeren die we nodig hebben. Mogelijks moet je deze ook installeren met behulp van `npm` of`yarn`.
 
 Dit zijn de dependencies die we nodig zullen hebben: `react`, `@storybook/api`, `storybook/addons` en `@storybook/components`.
@@ -82,23 +117,46 @@ addons.register('my/design-assets', () => {
   });
 });
 ```
+Dit is de typische standaardcode om je op weg te helpen. Doornemen wat de code doet:
 
-Storybook laadt het bestand dat we zonet hebben aangemaakt niet automatisch, we moeten een verwijzing naar `.storybook/addons/design-assets.js` toevoegen aan het bestand dat alle add-ons registreert.
-Het bestand waar dit gebeurt is `.storybook/addons.js`, dus voeg deze lijn toe aan dat bestand:
+- We registreren een nieuwe add-on in onze Storybook.
+- Voeg een nieuw UI-element toe voor onze add-on met enkele opties (een titel die onze add-on en het gebruikte type element definieert) en render het voorlopig met wat tekst.
+
+Als we Storybook op dit punt starten, kunnen we de add-on nog niet zien. Zoals we eerder deden met de Knobs add-on, moeten we onze eigen add-on registreren in het bestand `.storybook / main.js`. Voeg gewoon het volgende toe aan de reeds bestaande lijst met `addons`:
 
 ```js
-import './addons/design-assets';
+// .storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  addons: [
+    // same as before
+    './.storybook/design-add-on/register.js', // our add-on
+  ],
+};
 ```
 
-Wanneer we nu storybook starten, zouden we eigenlijk een paneel aan de UI toegevegd moeten zien.
-Met Storybook kan je niet alleen panelen toevoegen, maar ook een lijst met typen van UI's.
+![design assets add-on die in Storybook wordt uitgevoerd](/intro-to-storybook/create-add-on-design-assets-added.png)
 
-Maar nu gaan we een component schrijven die inhaakt op de state van Storybook en de parameters van de huidige story zal ophalen:
+Succes! We hebben onze nieuw gemaakte add-on toegevoegd aan de Storybook UI.
 
-```js
-export const Content = () => {
-  const results = useParameter('assets', []);
+<div class="aside"> Met Storybook kun je niet alleen panelen toevoegen, maar een hele reeks verschillende soorten UI-componenten. En de meeste, zo niet alle, zijn al gemaakt in de @storybook/components package, zodat je niet al te veel tijd hoeft te verspillen aan het implementeren van de UI en je je kunt concentreren op het schrijven van features. </div>
 
+### De content component creëren
+
+We hebben ons eerste doel bereikt. Tijd om aan het tweede te gaan werken.
+
+Om dit te voltooien, moeten we enkele wijzigingen aanbrengen in onze imports en een nieuwe component introduceren die de asset informatie weergeeft.
+
+Breng de volgende wijzigingen aan in het add-on-bestand:
+
+```javascript
+//.storybook/design-add-on/register.js
+import React, { Fragment } from 'react';
+/* same as before */
+import { useParameter } from '@storybook/api';
+
+const Content = () => {
+  const results = useParameter('assets', []); // story's parameter being retrieved here
   return (
     <Fragment>
       {results.length ? (
@@ -113,24 +171,19 @@ export const Content = () => {
 };
 ```
 
-Nu hoeven we alleen nog maar deze component aan de rendering van ons geregistreerde paneel te koppelen en we hebben onze werkende add-on:
+We hebben de component gemaakt en de imports aangepast. Het enige dat ontbreekt, is de component met ons paneel te verbinden waarna we een werkende add-on zullen hebben die in staat is om informatie weer te geven met betrekking tot onze stories.
 
-```js
-import React, { useMemo } from 'react';
+Je code zou er als volgt uit moeten zien:
 
+```javascript
+//.storybook/design-add-on/register.js
+import React, { Fragment } from 'react';
+import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
-import { AddonPanel } from '@storybook/components';
 
-// this is often placed in a constants.js file
-const ADDON_ID = 'storybook/parameter';
-const PANEL_ID = `${ADDON_ID}/panel`;
-const PARAM_KEY = `assets`;
-
-// this is often placed in a panel.js file
 const Content = () => {
-  const results = useParameter(PARAM_KEY, []);
-
+  const results = useParameter('assets', []); // story's parameter being retrieved here
   return (
     <Fragment>
       {results.length ? (
@@ -144,10 +197,9 @@ const Content = () => {
   );
 };
 
-// this is often placed in a register.js file
-addons.register(ADDON_ID, () => {
-  addons.add(PANEL_ID, {
-    title: 'parameter',
+addons.register('my/design-add-on', () => {
+  addons.add('design-add-on/panel', {
+    title: 'assets',
     type: types.PANEL,
     render: ({ active, key }) => (
       <AddonPanel active={active} key={key}>
@@ -158,19 +210,48 @@ addons.register(ADDON_ID, () => {
 });
 ```
 
-Op dit punt kunnen we tussen stories in Storybook navigeren en de lijst met design assets bekijken die geassocieerd zijn met de geselecteerde story.
+Merk op dat we de [useParameter](https://storybook.js.org/docs/addons/api/#useparameter) gebruiken, deze handige "hook" stelt ons in staat om de informatie te lezen die wordt geleverd door de `parameters` optie voor elke story, dat in ons geval ofwel een pad naar een item is ofwel een lijst met paden is. Je zult het binnenkort in actie zien.
 
-Laten we de `Content` component veranderen zodat deze daadwerkelijk de assets weergeeft:
+### Onze add-on gebruiken in een story
 
-```js
-import React, { Fragment, useMemo } from 'react';
+We hebben alle benodigde onderdelen met elkaar verbonden. Maar hoe kunnen we zien of het echt werkt en iets laat zien?
 
+Om dit te doen, gaan we een kleine wijziging aanbrengen in het bestand `Task.stories.js` en de [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) optie toevoegen.
+
+```javascript
+// src/components/Task.stories.js
+export default {
+  component: Task,
+  title: 'Task',
+  decorators: [withKnobs],
+  parameters: {
+    assets: [
+      'path/to/your/asset.png',
+      'path/to/another/asset.png',
+      'path/to/yet/another/asset.png',
+    ],
+  },
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+};
+/* same as before  */
+```
+
+Ga je gang en start je Storybook opnieuw en selecteer de Task story, je zou zoiets als dit moeten zien:
+
+! [Storybook die inhoud toont met design assets addons](/intro-to-storybook/create-add-on-design-assets-inside-story.png)
+
+### Inhoud tonen in onze add-on
+
+In dit stadium kunnen we zien dat de add-on werkt zoals het hoort, maar laten we nu de `Content` component wijzigen om daadwerkelijk weer te geven wat we willen:
+
+```javascript
+//.storybook/design-add-on/register.js
+import React, { Fragment } from 'react';
+import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
+import { addons, types } from '@storybook/addons';
 import { styled } from '@storybook/theming';
-import { ActionBar } from '@storybook/components';
-
-const ADDON_ID = 'storybook/parameter';
-const PARAM_KEY = `assets`;
 
 const getUrl = input => {
   return typeof input === 'string' ? input : input.url;
@@ -200,8 +281,10 @@ const Asset = ({ url }) => {
   return <Iframe title={url} src={url} />;
 };
 
-export const Content = () => {
-  const results = useParameter(PARAM_KEY, []);
+const Content = () => {
+  // story's parameter being retrieved here
+  const results = useParameter('assets', []);
+  // the id of story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
   if (results.length === 0) {
@@ -210,27 +293,56 @@ export const Content = () => {
 
   const url = getUrl(results[0]).replace('{id}', storyId);
 
-  return <Asset url={url} />;
+  return (
+    <Fragment>
+      <Asset url={url} />
+    </Fragment>
+  );
 };
 ```
 
-Opmerking: Styling in storybook wordt gedaan via `@storybook/theming` waarin `styled` wordt ge-exposed als een named export. Hiermee kan je een nieuwe component voor Storybook's UI maken die reageert op Storybook's thema.
-Als je dit gebruikt, moet je ook `@storybook/theming` toevoegen aan je`package.json`.
+Als je goed kijkt, zul je zien dat we de `styled` tag gebruiken, deze tag komt uit de `@storybook/theming` package. Door deze tag te gebruiken, kunnen we niet alleen het thema van Storybook, maar ook de UI aanpassen aan onze behoeften. Ook [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), wat een echt handige hook is, waarmee we in de interne state van Storybook kunnen tappen, zodat we elk stukje beschikbare informatie kunnen ophalen. In ons geval gebruiken we het om alleen de id van elke aangemaakte story op te halen.
 
-## Stateful add-ons
+### De eigenlijke assets tonen
 
-Dus 1 van onze doelen was:
+Om de assets die in onze add-on worden weergegeven daadwerkelijk te zien, moeten we ze naar de `public` folder kopiëren en de `parameters` optie van de story aanpassen om deze wijzigingen weer te geven.
 
-> - zou meerdere assets moeten ondersteunen, voor het geval er meerdere versies of thema's zijn
+Storybook pikt de wijziging op en laadt de items, maar voorlopig alleen de eerste.
 
-Om dit te doen, hebben we state nodig, namelijk: "welke asset is momenteel geselecteerd".
+![eigenlijke assets geladen](/intro-to-storybook/design-assets-image-loaded.png)
 
-We zouden `useState` van react kunnen gebruiken of we zouden`this.setState` in een class component kunnen gebruiken. Maar laten we in plaats daarvan storybook's `useAddonState` gebruiken!
+## Stateful addons
 
-```js
-export const Content = () => {
-  const results = useParameter(PARAM_KEY, []);
-  const [selected, setSelected] = useAddonState(ADDON_ID, 0);
+Omze over onze oorspronkelijke doelstellingen te gaan:
+
+- ✔️ Toon het design asset in een paneel
+- ✔️ Ondersteuning van afbeeldingen, maar ook het inbedden van URL's 
+- ❌ Moet meerdere assets ondersteunen, voor het geval er meerdere versies of thema's zouden zijn
+
+We zijn er bijna, er is nog maar 1 doelstelling over.
+
+Voor de laatste hebben we een soort status nodig, we zouden React's `useState` hook kunnen gebruiken, of als we met class components zouden werken `this.setState()`. Maar in plaats daarvan gaan we Storybook's eigen `useAddonState` gebruiken, wat ons een middel geeft om de add-on status te persisteren en te vermijden dat we extra logica moeten schrijven om de lokale statate te persisteren. We zullen ook een ander UI-element uit Storybook gebruiken, de `ActionBar`, waarmee we tussen items kunnen wisselen.
+
+We moeten onze imports aanpassen voor onze behoeften:
+
+```javascript
+//.storybook/design-add-on/register.js
+import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
+import { AddonPanel, ActionBar } from '@storybook/components';
+/* same as before */
+```
+
+
+En onze `Content` component aanpassen, zodat we kunnen wisselen tussen assets:
+
+```javascript
+//.storybook/design-add-on/register.js
+const Content = () => {
+  // story's parameter being retrieved here
+  const results = useParameter('assets', []);
+  // add-on state being persisted here
+  const [selected, setSelected] = useAddonState('my/design-add-on', 0);
+  // the id of the story retrieved from Storybook global state
   const { storyId } = useStorybookState();
 
   if (results.length === 0) {
@@ -243,39 +355,6 @@ export const Content = () => {
   }
 
   const url = getUrl(results[selected]).replace('{id}', storyId);
-
-  return <Asset url={url} />;
-};
-```
-
-## Gebruik Storybook-UI in je custom add-on
-
-Nu hebben we state, maar geen manier om de state te veranderen.
-We kunnen natuurlijk onze eigen UI maken, maar laten we in plaats daarvan een UI gebruiken die storybook al heeft gemaakt.
-
-De UI-component van Storybook is te vinden in de package `@storybook/components`.
-
-Laten we de `ActionBar` component gebruiken:
-
-```js
-import { ActionBar } from '@storybook/components';
-
-export const Content = () => {
-  const results = useParameter(PARAM_KEY, []);
-  const [selected, setSelected] = useAddonState(ADDON_ID, 0);
-  const { storyId } = useStorybookState();
-
-  if (results.length === 0) {
-    return null;
-  }
-
-  if (results.length && !results[selected]) {
-    setSelected(0);
-    return null;
-  }
-
-  const url = getUrl(results[selected]).replace('{id}', storyId);
-
   return (
     <Fragment>
       <Asset url={url} />
@@ -292,45 +371,25 @@ export const Content = () => {
 };
 ```
 
-## Volledige broncode van onze add-on
+## add-on gebouwd
 
-```js
-// constants.js
-export const ADDON_ID = 'storybook/design-assets';
-export const PANEL_ID = `${ADDON_ID}/panel`;
-export const PARAM_KEY = `assets`;
-```
+We hebben bereikt wat we wilden doen, namelijk het maken van een volledig functionerende Storybook add-on die de design assets weergeeft die verband houden met de UI-componenten.
 
-```js
-// register.js
-import React from 'react';
+<details>
+  <summary>Klik om te vergroten en de volledige gebruikte code te zien in dit voorbeeld</summary>
 
+```javascript
+// .storybook/design-add-on/register.js
+import React, { Fragment } from 'react';
+
+import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
-import { AddonPanel } from '@storybook/components';
-import { ADDON_ID, PANEL_ID } from './constants';
-import { Content } from './panel';
-
-addons.register(ADDON_ID, () => {
-  addons.add(PANEL_ID, {
-    title: 'design assets',
-    type: types.PANEL,
-    render: ({ active, key }) => (
-      <AddonPanel active={active} key={key}>
-        <Content />
-      </AddonPanel>
-    ),
-  });
-});
-```
-
-```js
-// panel.js
-import React, { Fragment, useMemo } from 'react';
-
-import { useParameter, useAddonState, useStorybookState } from '@storybook/api';
+import { AddonPanel, ActionBar } from '@storybook/components';
 import { styled } from '@storybook/theming';
-import { ActionBar } from '@storybook/components';
-import { PARAM_KEY, ADDON_ID } from './constants';
+
+const getUrl = input => {
+  return typeof input === 'string' ? input : input.url;
+};
 
 const Iframe = styled.iframe({
   width: '100%',
@@ -349,23 +408,16 @@ const Asset = ({ url }) => {
     return null;
   }
   if (url.match(/\.(png|gif|jpeg|tiff|svg|anpg|webp)/)) {
-    // do image viewer
     return <Img alt="" src={url} />;
-  }
-  if (url.match(/\.(mp4|ogv|webm)/)) {
-    // do video viewer
-    return <div>not implemented yet, sorry</div>;
   }
 
   return <Iframe title={url} src={url} />;
 };
 
-const getUrl = input => (typeof input === 'string' ? input : input.url);
-
-export const Content = () => {
-  const results = useParameter(PARAM_KEY, []);
-  const [selected, setSelected] = useAddonState(ADDON_ID, 0);
-  const { storyId } = useStorybookState();
+const Content = () => {
+  const results = useParameter('assets', []); // story's parameter being retrieved here
+  const [selected, setSelected] = useAddonState('my/design-add-on', 0); // add-on state being persisted here
+  const { storyId } = useStorybookState(); // the story«s unique identifier being retrieved from Storybook global state
 
   if (results.length === 0) {
     return null;
@@ -375,6 +427,8 @@ export const Content = () => {
     setSelected(0);
     return null;
   }
+
+  const url = getUrl(results[selected]).replace('{id}', storyId);
 
   return (
     <Fragment>
@@ -390,26 +444,33 @@ export const Content = () => {
     </Fragment>
   );
 };
+
+addons.register('my/design-add-on', () => {
+  addons.add('design-add-on/panel', {
+    title: 'assets',
+    type: types.PANEL,
+    render: ({ active, key }) => (
+      <AddonPanel active={active} key={key}>
+        <Content />
+      </AddonPanel>
+    ),
+  });
+});
 ```
 
-## Je add-on extracten naar zijn eigen package
+</details>
 
-Nadat je add-on werkt zoals voorzien, wil je deze waarschijnlijk naar zijn eigen pakket extracten.
-
-Indien het nuttig voor je is, is het waarschijnlijk ook nuttig voor iemand anders.
-
-Je kan een PR openen in de storybook documentatie om je add-on daar in de verf te zetten.
 
 ## Wat is het volgende?
 
-Dit is een voorbeeld van een add-on die parameters gebruikt en in een paneel weergeeft, maar dat is slechts een van de vele opties die je hebt.
+De volgende logische stap voor onze add-on, zou zijn om er een eigen package van te maken en deze toe te staan te verspreiden met je team en eventueel met de rest van de gemeenschap.
 
-Met deze principes kan je je custom UI op verschillende plaatsen in storybook's UI weergeven.
+Maar dat valt buiten de scope van deze tutorial. Dit voorbeeld laat zien hoe je de Storybook API kunt gebruiken om je eigen custom add-on te maken om je ontwikkelingsworkflow verder te verbeteren.
 
-Je kan:
+Leer meer over het verder customizen van je add-on:
 
 - [knoppen toevoegen in de Storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
-- [communiceren via het kanaal met het iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
+- [communiceren via het kanaal met het iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/add-on-roundtrip/README.md)
 - [stuur commands en resultaten](https://github.com/storybookjs/storybook/tree/next/addons/events)
 - [analyse uitvoeren op de html/css output van je component](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
 - [componenten wrappen, opnieuw renderen met nieuwe data](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
@@ -418,14 +479,20 @@ Je kan:
 
 En nog veel meer!
 
-# Dev Kits
+<div class="apart"> Mocht je een nieuwe add-on maken en je zou deze graag gefeatured zien, voel je dan vrij om een PR te openen in de Storybook-documentatie om deze gefeatured te zien.</div>
 
-Om je te helpen bij het schrijven van add-ons heeft het Storybook-team `dev-kits` ontwikkeld.
+### Dev Kits
+
+Om je te helpen bij het schrijven van addons heeft het Storybook-team `dev-kits` ontwikkeld.
 
 Deze packages zijn als kleine startersets waarmee je je eigen add-on kan ontwikkelen.
-De add-on die we zojuist hebben gemaakt, is gebaseerd op de dev-kit `addon-parameters`.
+De add-on die we zojuist hebben gemaakt, is gebaseerd op de dev-kit `add-on-parameters`.
 
-Je kan de dev-kits hier vinden:
+Je kan deze en andere dev-kits hier vinden:
 https://github.com/storybookjs/storybook/tree/next/dev-kits
 
 Meer dev-kits zullen in de toekomst beschikbaar worden.
+
+## Addons delen met team
+
+Addons zijn tijdbesparende toevoegingen aan je workflow, maar het kan moeilijk zijn voor niet-technische teamgenoten en reviewers om te profiteren van hun functies. Je kunt niet garanderen dat mensen Storybook op hun lokale computer zullen draaien. Daarom kan het erg nuttig zijn om je Storybook op een online locatie te plaatsen waar iedereen naar kan verwijzen. In het volgende hoofdstuk doen we precies dat!

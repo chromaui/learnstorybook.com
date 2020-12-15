@@ -1,58 +1,32 @@
 ---
 title: 'Deploy Storybook'
 tocTitle: 'Deploy'
-description: 'Deploy Storybook online met GitHub en Netlify'
+description: 'Leren hoe we Storybook online deployen'
 ---
 
-In deze tutorial hebben we Storybook op onze development machine uitgevoerd. Misschien wil je dat Storybook ook met het team delen, vooral met de niet-technische leden. Gelukkig is het eenvoudig om Storybook online te deployen.
-
-<div class="aside">
-<strong>Heb je Chromatic testing eerder ingesteld?</strong>
-<br/>
-🎉 Je stories zijn al gedeployed! Chromatic indexeert je stories veilig online en volgt ze over branches en commits. Sla dit hoofdstuk over en ga naar de <a href="/react/en/conclusion">conclusie</a>.
-</div>
+Doorheen deze tutorial hebben we componenten lokaal op onze development machine gebouwd. Er komt een punt waar we ons werk willen delen met het team om zo feedback te verkrijgen. Laten we Storybook online deployen om ons team te helpen met het reviewen van de UI implementatie.
 
 ## Exporteren als een statische app
 
-Om Storybook te deployen, moeten we het eerst exporteren als een statische web-app. Deze functionaliteit is al ingebouwd in Storybook, we moeten het alleen activeren door een script toe te voegen aan `package.json`.
+Om Storybook te deployen, moeten we het eerst exporteren als een statische web-app. Deze functionaliteit is ingebouwd in Storybook en alreeds geconfigureerd.
 
-```javascript
-// package.json
+`yarn build-storybook` uitvoeren, zal een static Storybook in de `storybook-static` folder opleveren, dewelke dan kan gedeployed worden naar een static site hosting service naar keuze.
 
-{
-  "scripts": {
-    "build-storybook": "build-storybook -c .storybook"
-  }
-}
-```
+## Storybook publiceren
 
-Wanneer je nu Storybook buildt via `npm run build-storybook`, zal het een statisch Storybook outputten in de folder `storybook-static`.
+Deze tutorial gebruikt <a href="https://www.chromatic.com/">Chromatic</a>, een gratis dienst gemaakt door de mensen die Storybook onderhouden. Het laat ons toe om Storybook veilig in de cloud te deployen.
 
-## Continuous deploy
+### Een GitHub repository opzetten
 
-We willen de nieuwste versie van componenten delen wanneer we code pushen. Om dit te doen moeten we Storybook continu deployen. We zullen op GitHub en Netlify vertrouwen om onze statische site te deployen. We gebruiken het gratis Netlify-abonnement.
+Voor we beginnen, moet onze lokale code synchroniseren met een remote versiecontrolesysteem. Toen we ons project initialiseerden in het [Get started hoofdstuk](/react/nl/get-started), had Create React App (CRA) alreeds een lokale repository voor ons gemaakt. Op dit moment is het oké om onze bestanden toe te voegen aan de eerste commit.  
 
-### GitHub
-
-Eerst wil je Git instellen voor je project in de lokale folder. Als je hebt gevolgd met het vorige hoofdstuk over testing, ga dan naar het opzetten van een repository op GitHub.
-
-```bash
-$ git init
-```
-
-Voeg vervolgens bestanden toe aan de eerste commit.
+Voor de volgende commando's uit om de veranderingen die we tot dusver hebben gemaakt toe te voegen en te committen.
 
 ```bash
 $ git add .
 ```
 
-Commit nu de bestanden.
-
-```bash
-$ git commit -m "taskbox UI"
-```
-
-Ga naar GitHub en stel [hier](https://github.com/new) een repository in. Noem je repo "taskbox".
+Ga naar GitHub om [hier](https://github.com/new) een nieuwe repository voor ons project te creëren. Noem de repo “taskbox”, hetzelfde als ons lokaal project.
 
 ![GitHub instelling](/intro-to-storybook/github-create-taskbox.png)
 
@@ -62,40 +36,104 @@ Kopieer in de nieuwe repo-setup de oorspronkelijke URL van de repo en voeg deze 
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-Tenslotte, push de repo naar GitHub
+Tenslotte, push de lokale repo naar de remote repo op GitHub met het volgende:
 
 ```bash
 $ git push -u origin main
 ```
 
-### Netlify
+### Voeg Chromatic toe
 
-Netlify heeft een continuous deployment service waarmee we Storybook kunnen deployen zonder onze eigen CI te hoeven configureren.
+Voeg de package toe als een development dependency.
 
-<div class="aside">
-Als je CI in je bedrijf gebruikt, voeg je een deploy script toe aan je configuratie waarmee <code>storybook-static</code> wordt geüpload naar een statische hostingservice zoals S3.
-</div>
+```bash
+yarn add -D chromatic
+```
 
-[Maak een account aan op Netlify](https://app.netlify.com/start) en klik door naar “create site”.
+Eenmaal de package is geïnstalleerd, [log je in op Chromatic](https://www.chromatic.com/start) met je Github account (Chromatic zal je voor enkele niet-intrusieve permissies vragen). Dan creëren we ons nieuw project, genoemd "taskbox" en synchroniseren we het met de Github repository die we hebben opgezet.
 
-![Netlify site maken](/intro-to-storybook/netlify-create-site.png)
+Klik `Choose Github repo` onder "collaborators" en selecteer je repo.
 
-Klik vervolgens op de GitHub-knop om Netlify met GitHub te verbinden. Hiermee heeft het toegang tot onze remote Taskbox-repo.
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
+    type="video/mp4"
+  />
+</video>
 
-Selecteer nu de taskbox GitHub repo uit de lijst met opties.
+Kopieer de unieke `project-token` die gegenereerd werd voor je project. Voor het dan uit door het volgende commando uit te voeren op de command line, om zo onze Storybook te bouwen en te deployen. Denk er zeker aan om `project-token` te vervangen door jouw projecttoken.
 
-![Netlify verbinden met repo](/intro-to-storybook/netlify-account-picker.png)
+```bash
+npx chromatic --project-token=<project-token>
+```
 
-Configureer Netlify door te markeren welk build-commando moet worden uitgevoerd in de CI en in welke folder de statische site wordt ge-output. Kies voor branch `main`. De folder is `storybook-static`. Als build-commando gebruik je `yarn build-storybook`.
+![Chromatic uitvoeren](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-![Netlify instellingen](/intro-to-storybook/netlify-settings.png)
+Wanneer je klaar bent, zal je een link `https://random-uuid.chromatic.com` verkrijgen naar je gepubliceerde Storybook. Deel de link met je team om feedback te verkrijgen.
 
-Dien het formulier in om de code te bouwen en te deployen op de `main` branch van de taskbox.
+### Voeg een GitHub Action toe om Storybook te deployen
 
-Wanneer dat is voltooid, zien we een bevestigingsbericht op Netlify met een link naar het online Taskbox Storybook. Als je mee aan het doen bent, moet je gedeployde Storybook online staan [zoals dit](https://clever-banach-415c03.netlify.com/).
+Creër een nieuwe folder in de root folder van ons project, genoemd `.github`. Maak hierna nog een `workflows` directory aan binnen deze directory.
 
-![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
+Maak een nieuw bestand genoemd `chromatic.yml` aan zoals hierbeneden. Vervang `project-token` met je eigen projecttoken.
 
-We zijn klaar met het instellen van de continuous deployment van je Storybook! Nu kunnen we onze stories delen met teamgenoten via een link.
+```yaml
+# .github/workflows/chromatic.yml
+# name of our action
+name: 'Chromatic Deployment'
+# the event that will trigger the action
+on: push
 
-Dit is handig voor visuele beoordeling als onderdeel van het standaard app-ontwikkelingsproces of gewoon om te pronken met je werk 💅.
+# what the action will do
+jobs:
+  test:
+    # the operating system it will run on
+    runs-on: ubuntu-latest
+    # the list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+      - uses: chromaui/action@v1
+        # options required to the GitHub chromatic action
+        with:
+          # our project token, to see how to obtain it
+          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+<div class="aside"><p>Om het korter te houden zijn <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> niet vernoemd. Secrets zijn secure environment variabelen die door Github voorzien zijn zodat je de <code>project-token</code>.</p></div> niet moet hardcoden.
+
+### Commit de action
+
+Voer het volgende commando uit op de commandline uit om de veranderingen die gedaan zijn toe te voegen:
+
+```bash
+git add .
+```
+
+Commit ze dan door het volgende uit te voeren:
+
+```bash
+git commit -m "GitHub action setup"
+```
+
+Tenslotte push je ze naar de remote repository met het volgende commando:
+
+```bash
+git push origin main
+```
+
+Eenmaal je de Github action hebt opgezet, zal je Storybook gedeployed worden naar Chromatic elke keer je code pushed. Je kan all de gepubliceerde Storybook's vinden op je project zijn "build" scherm in Chromatic.
+
+
+![Chromatic gebruikersdashboard](/intro-to-storybook/chromatic-user-dashboard.png)
+
+Klik op de laatste build, degene die bovenaan staat.
+
+
+Hierna klik je op de `View Storybook` knop om de laatste versie van je Storybook te bekijken,
+
+![Storybook link op Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
+
+Gebruik de link en deel deze met je team. Dit is nuttig als deel van ons standaard app development process of simpelweg om ons werk te laten zien 💅.
