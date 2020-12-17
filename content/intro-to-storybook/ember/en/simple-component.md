@@ -26,7 +26,6 @@ First, let’s create the necessary files for our task component and its accompa
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```handlebars
-
 {{!-- app/components/task.hbs --}}
 
 <div class="list-item">
@@ -42,20 +41,13 @@ Below we build out Task’s three test states in the story file:
 // app/components/task.stories.js
 
 import { hbs } from 'ember-cli-htmlbars';
+
 import { action } from '@storybook/addon-actions';
 
 export default {
   title: 'Task',
   component: 'task',
-  // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
-};
-
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
 };
 
 export const actionsData = {
@@ -63,37 +55,39 @@ export const actionsData = {
   onArchiveTask: action('onArchiveTask'),
 };
 
-// the markdown that will be displayed in our Storybook
-const taskTemplate = hbs`<Task @task={{this.task}} @pin={{fn this.onPinTask}} @archive={{fn this.onArchiveTask}}/>`;
-
-export const Default = () => ({
-  template: taskTemplate,
-  context: {
-    task: taskData,
-    ...actionsData,
-  },
-});
-export const Pinned = () => ({
-  template: taskTemplate,
-  context: {
-    task: {
-      ...taskData,
-      state: 'TASK_PINNED',
-    },
-    ...actionsData,
-  },
+const Template = args => ({
+  template: hbs`<Task @task={{this.task}} @pin={{fn this.onPinTask}} @archive={{fn this.onArchiveTask}}/>`,
+  context: args,
 });
 
-export const Archived = () => ({
-  template: taskTemplate,
-  context: {
-    task: {
-      ...taskData,
-      state: 'TASK_ARCHIVED',
-    },
-    ...actionsData,
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
   },
-});
+  ...actionsData,
+};
+
+export const Pinned = Template.bind({});
+Pinned.args = {
+  ...Default.args,
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
+};
+
+export const Archived = Template.bind({});
+Archived.args = {
+  ...Default.args,
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
+  },
+};
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -108,19 +102,24 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `component` -- the component itself,
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
+- `argTypes` -- specify the [args](https://storybook.js.org/docs/react/api/argtypes) behavior in each story.
 
 To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component with a set of props) in a given state---exactly like a [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
-
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them into a single `actionData` variable and pass them into our story definition each time (where they accessed when triggered!!!).
-
-Another nice thing about bundling the actions into `actionsData` is that you can `export` that variable and use the actions in stories for components that reuse this component, as we'll see later.
-
-When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/configure/storybook-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+
+`Template.bind({})` is a [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
+
+</div>
+
+Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes so does the component.
+
+When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+
+<div class="aside">
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
 </div>
 
 ## Config
@@ -140,7 +139,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -152,7 +151,6 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```handlebars
-
 {{!-- app/components/task.hbs --}}
 
 <div class="list-item {{@task.state}}" data-test-task>
@@ -161,7 +159,7 @@ The component is still basic at the moment. First write the code that achieves t
       type="checkbox"
       disabled
       name="checked"
-      checked={{this.isTaskArchived}}
+      checked={{this.isArchived}}
     />
     <span
       class="checkbox-custom"
@@ -175,15 +173,15 @@ The component is still basic at the moment. First write the code that achieves t
       readonly
       value={{@task.title}}
       placeholder="Input title"
-      style="text-overflow: ellipsis;"
+      style="background:red;"
     />
   </div>
   <div class="actions">
-    {{#if (not-eq @task.state "TASK_ARCHIVED")}}
+    {{#unless this.isArchived}}
       <span data-test-task-pin {{on "click" this.pin}}>
         <span class="icon-star"></span>
       </span>
-    {{/if}}
+    {{/unless}}
   </div>
 </div>
 ```
@@ -198,19 +196,18 @@ import { action } from '@ember/object';
 
 export default class Task extends Component {
   // computed property for the component (to assign a value to the task state checkbox)
-  get isTaskArchived() {
+  get isArchived() {
     return this.args.task.state === 'TASK_ARCHIVED';
   }
 
-  // actions available to the task, the usage of (?) will check if the argument exists
   @action
   pin() {
-    this.args.pin?.();
+    this.args.pin?.(this.args.task.id);
   }
 
   @action
   archive() {
-    this.args.archive?.();
+    this.args.archive?.(this.args.task.id);
   }
 }
 ```
@@ -219,7 +216,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -229,3 +226,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
 As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
+
+<div class="aside">
+Don't forget to commit your changes with git!
+</div>

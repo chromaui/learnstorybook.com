@@ -10,7 +10,7 @@ Throughout this tutorial, we built components on our local development machine. 
 
 To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
 
-Running `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
+Running `yarn build-storybook`, it will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
 
 ## Publish Storybook
 
@@ -18,19 +18,7 @@ This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free pu
 
 ### Setup a repository in GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/ember/en/get-started/), Ember CLI already created a local repository for us. At this stage it's safe to add our files to the first commit.
-
-Issue the following commands to add and commit the changes we've done so far.
-
-```shell
-$ git add .
-```
-
-Followed by:
-
-```shell
-$ git commit -m "taskbox UI"
-```
+Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/ember/en/get-started/), Ember CLI already created a local repository for us. At this stage we already have a set of commits that we push to remote repository.
 
 Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
 
@@ -45,7 +33,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Finally, push our local repo to the remote repo on GitHub with:
 
 ```shell
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Get Chromatic
@@ -53,7 +41,7 @@ $ git push -u origin master
 Add the package as a development dependency.
 
 ```shell
-npm install -D chromatic
+yarn add -D chromatic
 ```
 
 Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've setup.
@@ -70,7 +58,7 @@ Click `Choose GitHub repo` under collaborators and select your repo.
 Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 
 ```shell
-npx chromatic --project-token=<project-token>
+yarn chromatic --project-token=<project-token>
 ```
 
 ![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
@@ -136,7 +124,7 @@ git commit -m "GitHub action setup"
 Finally push them to the remote repository with:
 
 ```shell
-git push origin master
+git push origin main
 ```
 
 Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic.

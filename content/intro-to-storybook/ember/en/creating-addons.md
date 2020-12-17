@@ -44,7 +44,7 @@ We're going to start by adding one additional package to our project. More speci
 Open a console, navigate to your project folder and run the following command:
 
 ```shell
-npm install -D @babel/preset-react
+yarn add -D @babel/preset-react
 
 ```
 
@@ -118,7 +118,7 @@ module.exports = {
   stories: ['../app/components/**/*.stories.js'],
   addons: [
     // same as before
-    './.storybook/design-addon/register.js', // our addon
+    './design-addon/register.js', // our addon
   ],
 };
 ```
@@ -212,9 +212,10 @@ To do so, we're going to make a small change to the `task.stories.js` file and a
 // app/components/task.stories.js
 
 export default {
-  component: Task,
   title: 'Task',
-  decorators: [withKnobs],
+  component: 'task',
+  // Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
   parameters: {
     assets: [
       'path/to/your/asset.png',
@@ -222,8 +223,6 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
 };
 /* same as before  */
 ```

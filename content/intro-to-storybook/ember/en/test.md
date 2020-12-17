@@ -43,7 +43,7 @@ git checkout -b change-task-background
 Change `Task` to the following:
 
 ```hbs
-<!-- app/components/task.js -->
+{{!-- app/components/task.js --}}
 
 <div class="title">
     <input
@@ -53,7 +53,7 @@ Change `Task` to the following:
       placeholder="Input title"
       style="background:red;"
     />
-  </div>
+</div>
 ```
 
 This yields a new background color for the item.

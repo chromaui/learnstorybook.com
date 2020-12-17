@@ -48,64 +48,71 @@ Next create `Tasklist`’s test states in the story file.
 // app/components/task-list.stories.js
 
 import { hbs } from 'ember-cli-htmlbars';
-import { taskData, actionsData } from './task.stories';
+import * as TaskStories from './task.stories';
 
 export default {
   title: 'TaskList',
-  component: 'task-list',
-  excludeStories: /.*Data$/,
+  component: 'TaskList',
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
-
-export const Default = () => ({
-  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
-  context: {
-    tasks: defaultTasksData,
-    ...actionsData,
-  },
+const Template = args => ({
+  template: hbs`
+    <div style="margin: 3em">
+      <TaskList
+        @tasks={{this.tasks}}
+        @pinTask={{fn this.onPinTask}}
+        @archiveTask={{fn this.onArchiveTask}}
+        @loading={{this.loading}}/>
+    </div>`,
+  context: args,
 });
 
-export const withPinnedTasks = () => ({
-  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @pinTask={{fn this.onPinTask}} @archiveTask={{fn this.onArchiveTask}}/></div>`,
-  context: {
-    tasks: withPinnedTasksData,
-    ...actionsData,
-  },
-});
-export const Loading = () => ({
-  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}} @loading={{true}}/></div>`,
-  context: {
-    tasks: [],
-  },
-});
-export const Empty = () => ({
-  template: hbs`<div style="padding: 3rem"><TaskList @tasks={{this.tasks}}/></div>`,
-  context: {
-    tasks: [],
-  },
-});
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+  ...TaskStories.actionsData,
+};
+
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  ...Default.args,
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  ...Loading.args,
+  loading: false,
+};
 ```
 
-`taskData` supplies the shape of a `Task` that we created and exported from the `task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -183,7 +190,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -245,3 +252,7 @@ module('Integration | Component | TaskList', function(hooks) {
 Contrary to the other versions of this tutorial, with Ember we can't import the data and stories used in our story file created earlier, without introducing a lot of complexity and that's beyond the scope of the tutorial. For now we'll copy over the values used in the story file to help out with our tests.
 
 Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/ember/en/test/)) tests where possible.
+
+<div class="aside">
+Don't forget to commit your changes with git!
+</div>

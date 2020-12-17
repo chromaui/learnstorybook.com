@@ -14,7 +14,7 @@ We’ll need to follow a few steps to get the build process set up in your envir
 
 ```shell
 # Create our application:
-ember new taskbox
+ember new taskbox --yarn
 
 cd taskbox
 
@@ -26,14 +26,17 @@ ember install @storybook/ember-cli-storybook
 ```
 
 <div class="aside">
-<p>
-At the time of writing this tutorial adding the @storybook/ember-cli-storybook, will yield the following message :
-</p>
-The <code>`ember generate <entity-name>`</code> command requires an entity name to be specified. <br/>For more details, use `ember help`.
-<p>Don't worry about it. Everything is installed and properly configured for you.</p>
+At the time of writing this version of the tutorial, adding the <code>@storybook/ember-cli-storybook</code> will yield the following message:
+
+The <code>ember generate entity-name command</code> requires an entity name to be specified. For more details, use <code>ember help</code>.
+
+This is just a warning! Everything is properly installed and configured.
+
+Throughout this version of the tutorial we'll be using <code>yarn</code> to run the majority of our commands. If you don't have <code>yarn</code> installed, you can still go through the tutorial without any issues. You'll need to adjust the commands to their <code>npm</code> counterparts.
+
 </div>
 
-We'll need to install some additional packages in our app, more specifically one Ember addon and one package, both this one will help us out shortly. Run the following commands:
+We'll need to install some additional packages in our app, more specifically one Ember addon and one package. Run the following commands:
 
 ```shell
 ember install ember-truth-helpers
@@ -42,7 +45,7 @@ ember install ember-truth-helpers
 Followed by:
 
 ```shell
-npm install -D npm-run-all
+yarn add -D npm-run-all
 ```
 
 And finally make a small change to our <code>package.json</code> to allow Storybook to work properly with our Ember app.
@@ -61,12 +64,10 @@ Add the following entries to your scripts:
 }
 ```
 
-These changes are required based on how both Storybook and Ember handle their build processes. To give a bit more context on some of the changes, as they're going to help us throughout the tutorial:
+These changes are necessary based on how both Storybook and Ember handle their build processes. Going over them:
 
-- The **storybook** script was updated to include the [`--ci`](https://storybook.js.org/docs/react/api/cli-options#start-storybook), to prevent Storybook from opening a browser window before the Ember CLI finishes building our application.
-- The **storybook-dev** script was included to help us while we're progressing through the tutorial. We'll see it in effect shortly.
-
-- The **prebuild-storybook** script was introduced to help us later on when we deploy our Storybook, removing the need of manually building our application, simplifying our deployment workflow.
+- `storybook`'s script was updated to include the [ci](https://storybook.js.org/docs/react/api/cli-options#start-storybook) flag to prevent it from opening before Ember finishes building the app
+- Both `storybook-dev` and `prebuild-storybook` `scripts` were introduced to help streamline our workflow throughout the tutorial
 
 Now we can quickly check that the various environments of our application are working properly:
 
@@ -107,7 +108,25 @@ npx degit chromaui/learnstorybook-code/public/icon public/icon
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
 </div>
 
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now.
+
+## Commit Changes
+
+When our project was initialized, Ember's CLI already created a local repository for us. At this stage it's safe to add our files to the first commit.
+
+Run the following commands to add and commit the changes we've done so far.
+
+```shell
+$ git add .
+```
+
+Followed by:
+
+```shell
+$ git commit -m "first commit"
+```
+
+That's it. Let's start building our first component!
