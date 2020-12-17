@@ -113,7 +113,7 @@ We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download fold
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now.
 
-## Commit Changes
+## Commit changes
 
 When our project was initialized, Ember's CLI already created a local repository for us. At this stage it's safe to add our files to the first commit.
 
