@@ -4,7 +4,7 @@ tocTitle: 'Bonus: Criação de extras'
 description: 'Aprende a criar os teus próprios extras que irão impulsionar o teu desenvolvimento'
 ---
 
-No capítulo anterior foi apresentada uma das funcionalidades chave do Storybook, o seu sistema robusto de [extras](https://storybook.js.org/addons/introduction/), que pode ser usado para melhorar não somente a tua experiência de desenvolvimento e fluxos de trabalho, mas também para a tua equipa.
+No capítulo anterior foi apresentada uma das funcionalidades chave do Storybook, o seu sistema robusto de [extras](https://storybook.js.org/docs/react/configure/storybook-addons), que pode ser usado para melhorar não somente a tua experiência de desenvolvimento e fluxos de trabalho, mas também para a tua equipa.
 
 Neste capítulo vamos ver como podemos criar o nosso próprio extra. Pode pensar que implementá-lo pode ser uma tarefa extremamente difícil, mas muito pelo contrário. Somente é necessário seguir alguns pequenos passos e podemos começar a sua implementação.
 
@@ -20,7 +20,7 @@ Temos o nosso objetivo, vamos agora definir quais as funcionalidades que o nosso
 - Suporte de não somente imagens, mas também urls que podem ser embebidos
 - Deverá suportar vários items, para o caso de existirem múltiplas versões ou temas.
 
-A forma que vamos usar para adicionar a lista de items às estórias é através de uma opção do Storybook, chamada [parâmetros](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options), esta opção permite injetar informação customizada às nossas estórias. São usados de forma semelhante aos decoradores que vimos anteriormente.
+A forma que vamos usar para adicionar a lista de items às estórias é através de uma opção do Storybook, chamada [parâmetros](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), esta opção permite injetar informação customizada às nossas estórias. São usados de forma semelhante aos decoradores que vimos anteriormente.
 
 ```javascript
 export default {
@@ -109,7 +109,7 @@ Este é o código inicial para se começar com qualquer extra. Analisando o que 
 - Estamos a registar um novo extra no nosso Storybook.
 - Adicionamos um novo elemento de IU para o nosso extra com algumas opções (um título que irá definir o nosso extra e o tipo de elemento usado) e renderizamos um bloco de texto por enquanto.
 
-Se iniciarmos o Storybook agora, não será ainda possível ver o nosso extra. Este tem que ser registado no ficheiro (ou arquivo) `.storybook/main.js`, tal como foi feito anteriormente com o extra Knobs. Com isto em mente, adicione o seguinte a lista de addons:
+Se iniciarmos o Storybook agora, não será ainda possível ver o nosso extra. Este tem que ser registado no ficheiro (ou arquivo) `.storybook/main.js`](https://storybook.js.org/docs/react/configure/overview#configure-your-storybook-project), tal como foi feito anteriormente com o extra Knobs. Com isto em mente, adicione o seguinte à lista de `addons`:
 
 ```js
 // .storybook/main.js
@@ -197,13 +197,13 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-Repare que estamos a usar [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), este hook bastante útil permite que possamos ler o conteúdo fornecido pela opção `parameters` de cada uma das estórias, o que no nosso caso será uma lista de localizações ou somente uma. Mas não se preocupe com isso agora, em breve vamos ver isto a funcionar.
+Repare que estamos a usar useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter), este hook bastante útil permite que possamos ler o conteúdo fornecido pela opção `parameters` de cada uma das estórias, o que no nosso caso será uma lista de localizações ou somente uma. Mas não se preocupe com isso agora, em breve vamos ver isto a funcionar.
 
 ### Usar uma estória com o nosso extra
 
 Temos as peças todas ligadas. Mas como podemos verificar que está tudo a funcionar e conseguimos ver alguma coisa?
 
-Para isto, vamos fazer uma ligeira alteração ao ficheiro (ou arquivo) `task.stories.ts` e adicionar a opção [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options).
+Para isto, vamos fazer uma ligeira alteração ao ficheiro (ou arquivo) `task.stories.ts` e adicionar a opção [parameters](https://storybook.js.org/docs/react/writing-stories/parameters).
 
 ```javascript
 // src/app/components/task.stories.ts
@@ -288,7 +288,7 @@ const Content = () => {
 };
 ```
 
-Se olhar com atenção, irá reparar que está a ser usada a tag `styled`, esta tag vem do pacote `@storybook/theming`. Com esta, podemos costumizar não somente o tema usado pelo Storybook, mas também o IU de acordo com as nossas necessidades. E ainda o [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), um hook deveras útil, que permite que possamos aceder ao estado interno do Storybook e obter toda a informação disponível. No nosso caso vamos usá-lo somente para obter o identificador de cada estória que foi criada.
+Se olhar com atenção, irá reparar que está a ser usada a tag `styled`, esta tag vem do pacote [`@storybook/theming`](https://storybook.js.org/docs/react/configure/theming). Com esta, podemos costumizar não somente o tema usado pelo Storybook, mas também o IU de acordo com as nossas necessidades. E ainda o [`useStorybookState`](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate), um hook deveras útil, que permite que possamos aceder ao estado interno do Storybook e obter toda a informação disponível. No nosso caso vamos usá-lo somente para obter o identificador de cada estória que foi criada.
 
 ### Apresentar os itens
 
@@ -308,7 +308,7 @@ Olhando uma vez mais para os nossos objetivos:
 
 Estamos quase lá, falta somente um objetivo.
 
-Para este objetivo, vamos precisar de uma forma qualquer de guardar o estado do componente, isto podia ser feito com o hook `useState` do React, ou se estivéssemos a usar classes com `this.setState()`. Mas para evitar implementar lógica adicional ao componente vamos antes usar o `useAddonState` do Storybook, esta funcionalidade ajuda-nos não só a evitar ter de criar lógica adicional, mas também garante uma forma de persistir o estado do nosso extra. Além desta funcionalidade, vamos usar um outro elemento de IU do Storybook, o `ActionBar`, que permite selecionar elementos.
+Para este objetivo, vamos precisar de uma forma qualquer de guardar o estado do componente, isto podia ser feito com o hook `useState` do React, ou se estivéssemos a usar classes com `this.setState()`. Mas para evitar implementar lógica adicional ao componente vamos antes usar o [`useAddonState`](https://storybook.js.org/docs/react/addons/addons-api#useaddonstate) do Storybook, esta funcionalidade ajuda-nos não só a evitar ter de criar lógica adicional, mas também garante uma forma de persistir o estado do nosso extra. Além desta funcionalidade, vamos usar um outro elemento de IU do Storybook, o `ActionBar`, que permite selecionar elementos.
 
 Com isto vamos ajustar os imports que estão a ser usados para se adequarem às nossas necessidades:
 

@@ -74,6 +74,7 @@ export default {
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -107,7 +108,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './.storybook/design-addon/register.js', // our addon
+    './design-addon/register.js', // our addon
   ],
 };
 ```
@@ -189,7 +190,7 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-여기서 [useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해 줄 것이며, 우리의 경우에는 에셋에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
+여기서 [useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter)를 사용하고 있는데, 이 편리한 훅은 각각의 스토리에 `parameters` 옵션을 통해 제공된 정보를 읽을 수 있게 해 줄 것이며, 우리의 경우에는 에셋에 대한 단일 경로 또는 경로 목록이 될 것입니다. 곧 적용된 모습을 보실 수 있을 것입니다.
 
 ### 스토리에서 애드온 사용하기
 
@@ -283,7 +284,7 @@ const Content = () => {
 };
 ```
 
-코드를 한번 살펴보겠습니다. 우리는 `@storybook/theming` 패키지에서 가져온 `styled` 태그를 사용합니다. 이를 통해 Storybook의 테마와 에드온 UI를 사용자 정의할 수 있습니다. [`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate)은 스토리 북의 내부 state를 활용하여 존재하는 모든 정보를 가져올 수 있는 훅(hook)입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져오기 위해 사용합니다.
+코드를 한번 살펴보겠습니다. 우리는 `@storybook/theming` 패키지에서 가져온 `styled` 태그를 사용합니다. 이를 통해 Storybook의 테마와 에드온 UI를 사용자 정의할 수 있습니다. [`useStorybookState`](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate)은 스토리 북의 내부 state를 활용하여 존재하는 모든 정보를 가져올 수 있는 훅(hook)입니다. 우리의 경우에는 생성된 각 스토리의 id를 가져오기 위해 사용합니다.
 
 ### 실제 에셋을 표시하기
 

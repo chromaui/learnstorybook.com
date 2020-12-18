@@ -30,7 +30,7 @@ npx -p @storybook/cli getstorybook
 # 运行 测试引擎(Jest):
 yarn test
 
-# 启动 storybook 在端口:9009 :
+# 启动 storybook 在端口:6006 :
 yarn run storybook
 
 # 启动 前端 页面 在端口:3000:
@@ -59,4 +59,4 @@ yarn start
 
 ## 添加资源
 
-我们还需要添加 字体和图标[文件夹](https://github.com/chromaui/learnstorybook-code/tree/master/public)到了`public/`文件夹. 添加 样式和静态资源 后,应用程序会奇奇怪怪的. 没关系. 因为我们还没有开发应用程序. 现在我们开始构建我们的第一个组件!
+我们还需要添加 字体和图标[文件夹](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets)到了`src/assets/`文件夹. 添加 样式和静态资源 后,应用程序会奇奇怪怪的. 没关系. 因为我们还没有开发应用程序. 现在我们开始构建我们的第一个组件!

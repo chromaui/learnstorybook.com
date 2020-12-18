@@ -28,7 +28,7 @@ Wir können einfach feststellen, ob die verschiedenen Umgebungen deiner App rich
 # Run the test runner (Jest) in a terminal:
 yarn test
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn run storybook
 
 # Run the frontend app proper on port 3000:
@@ -57,4 +57,4 @@ Wenn du das Styling anpassen willst, findest du die LESS-Quelldateien im GitHub-
 
 ## Assets hinzufügen
 
-Wir müssen noch die font- und icon-[Verzeichnisse](https://github.com/chromaui/learnstorybook-code/tree/master/public) im Ordner `public/` hinzufügen. Nachdem wir das Styling und die Assets hinzugefügt haben, sieht die App noch ein bisschen seltsam aus. Das ist OK. Noch müssen wir nicht an der App arbeiten. Wir legen jetzt los und bauen unsere erste Komponente!
+Wir müssen noch die font- und icon-[Verzeichnisse](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets) im Ordner `src/assets/` hinzufügen. Nachdem wir das Styling und die Assets hinzugefügt haben, sieht die App noch ein bisschen seltsam aus. Das ist OK. Noch müssen wir nicht an der App arbeiten. Wir legen jetzt los und bauen unsere erste Komponente!

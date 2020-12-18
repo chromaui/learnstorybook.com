@@ -110,7 +110,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './.storybook/design-addon/register.js', // our addon
+    './design-addon/register.js', // our addon
   ],
 };
 ```
@@ -194,7 +194,7 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-[useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter) を使用していることに注目してください。この便利なフックは各ストーリーに設定された `parameters` オプションを読み取ることが可能です。このアドオンでは単一または複数のアセットへのパスが指定されます。実際の効果は後ほど確認しましょう。
+[useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter) を使用していることに注目してください。この便利なフックは各ストーリーに設定された `parameters` オプションを読み取ることが可能です。このアドオンでは単一または複数のアセットへのパスが指定されます。実際の効果は後ほど確認しましょう。
 
 ### ストーリーにアドオンを使用する
 
@@ -288,7 +288,7 @@ const Content = () => {
 };
 ```
 
-コードを見てみましょう。`@storybook/theming` パッケージの `styled` タグを使用しています。これを使用することで Storybook のテーマとアドオンの UI をカスタマイズすることができます。[`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) は Storybook の内部状態にアクセスするためのフックで、どんな些細な情報でも取得することができます。この例では、各ストーリーに付けられた ID を取得するのに使用しています。
+コードを見てみましょう。`@storybook/theming` パッケージの `styled` タグを使用しています。これを使用することで Storybook のテーマとアドオンの UI をカスタマイズすることができます。[`useStorybookState`](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate) は Storybook の内部状態にアクセスするためのフックで、どんな些細な情報でも取得することができます。この例では、各ストーリーに付けられた ID を取得するのに使用しています。
 
 ### 実際のアセットを表示する
 

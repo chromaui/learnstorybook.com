@@ -26,17 +26,7 @@ We want to share the latest version of components whenever we push code. To do t
 
 If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
 
-When the project was initialized with angular cli, a local repository was already setup for you. At this stage it's safe to add the files to the first commit.
-
-```bash
-$ git add .
-```
-
-Now commit the files.
-
-```bash
-$ git commit -m "taskbox UI"
-```
+When the project was initialized with Angular CLI, a local repository was already setup for you. At this stage we already have a set of commits that we can push to a remote repository.
 
 ### Setup a repository in GitHub
 

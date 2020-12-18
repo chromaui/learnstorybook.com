@@ -117,7 +117,7 @@ Now we can quickly check that the various environments of our application are wo
 # Run the test runner (Jest) in a terminal:
 npm run test
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 npm run storybook
 
 # Run the frontend app proper on port 5000:
@@ -132,7 +132,7 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the public/global.css file.
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/index.css` file.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -142,15 +142,15 @@ If you want to modify the styling, the source LESS files are provided <a href="h
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place them inside the `public` folder. Issue the following commands in your terminal:
+To match the intended design, you'll need to download both the font and icon directories and place them inside the `src/assets` folder. Issue the following commands in your terminal:
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a>.
 </div>
 
 Finally we need to update our storybook script to serve the `public` directory (in `package.json`):
@@ -163,4 +163,26 @@ Finally we need to update our storybook script to serve the `public` directory (
 }
 ```
 
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now.
+
+## Commit changes
+
+At this stage it's safe to add our files to a local repository. Run the following commands to initialize a local repository, add and commit the changes we've done so far.
+
+```shell
+$ git init
+```
+
+Followed by:
+
+```shell
+$ git add .
+```
+
+And finally:
+
+```shell
+$ git commit -m "first commit"
+```
+
+Let's start building our first component!

@@ -26,25 +26,7 @@ We want to share the latest version of components whenever we push code. To do t
 
 Before deploying to Netlify we need to take some additional steps. If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
 
-### Initialize Repo
-
-First you want to setup Git for your project in the local directory.
-
-```bash
-$ git init
-```
-
-Next add files to the first commit.
-
-```bash
-$ git add .
-```
-
-Now commit the files.
-
-```bash
-$ git commit -m "taskbox UI"
-```
+When the project was initialized in the [Get started chapter](/svelte/en/get-started) we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
 
 ### Setup a repository in GitHub
 

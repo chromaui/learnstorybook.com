@@ -4,7 +4,7 @@ tocTitle: 'Bonus: Creating addons'
 description: 'Learn how to build your own addons that will super charge your development'
 ---
 
-Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/addons/introduction/) ecosystem. Addons are used to enhance your developer experience and workflows.
+Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/docs/react/configure/storybook-addons) ecosystem. Addons are used to enhance your developer experience and workflows.
 
 In this bonus chapter, we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
 
@@ -20,7 +20,7 @@ We have our goal, now let's define what features our addon will support:
 - Support images, but also urls for embedding
 - Should support multiple assets, just in case there will be multiple versions or themes
 
-The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/configurations/options-parameter/), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
+The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
 
 ```javascript
 // YourComponent.stories.js
@@ -108,7 +108,7 @@ This is the a typical boilerplate code to get started and going over what the co
 - We're registering a new addon in our Storybook.
 - Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.
 
-Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
+Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the [`.storybook/main.js`](https://storybook.js.org/docs/react/configure/overview#configure-your-storybook-project) file. Just add the following to the already existing `addons` list:
 
 ```js
 // .storybook/main.js
@@ -117,7 +117,7 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './.storybook/design-addon/register.js', // our addon
+    './design-addon/register.js', // our addon
   ],
 };
 ```
@@ -199,13 +199,13 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
+Notice that we're using the [useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
 
 ### Using our addon with a story
 
 We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
 
-To do so, we're going to make a small change to the `task.stories.js` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
+To do so, we're going to make a small change to the `task.stories.js` file and add the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters) option.
 
 ```javascript
 // src/components/Task.stories.js
@@ -292,7 +292,7 @@ const Content = () => {
 };
 ```
 
-If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the `@storybook/theming` package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
+If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the [`@storybook/theming`](https://storybook.js.org/docs/react/configure/theming) package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [useStorybookState](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
 
 ### Displaying the actual assets
 
@@ -312,7 +312,7 @@ Going over our initial objectives:
 
 We're almost there, only one goal remaining.
 
-For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own `useAddonState`, which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
+For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own [`useAddonState`](https://storybook.js.org/docs/react/addons/addons-api#useaddonstate), which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
 
 We need to adjust our imports for our needs:
 

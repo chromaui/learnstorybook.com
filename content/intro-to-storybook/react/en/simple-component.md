@@ -284,3 +284,7 @@ That's it, we can run `yarn test` and see the following output:
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+
+<div class="aside">
+Don't forget to commit your changes with git!
+</div>

@@ -30,7 +30,7 @@ npx -p @storybook/cli sb init
 # 執行 測試引擎(Jest):
 yarn test
 
-# 啟動 storybook 在埠:9009 :
+# 啟動 storybook 在埠:6006 :
 yarn run storybook
 
 # 啟動 前端 頁面 在埠:3000:
@@ -59,4 +59,4 @@ yarn start
 
 ## 新增資源
 
-我們還需要新增 字型和圖示[資料夾](https://github.com/chromaui/learnstorybook-code/tree/master/public)到了`public/`資料夾. 新增 樣式和靜態資源 後,應用程式會奇奇怪怪的. 沒關係. 因為我們還沒有開發應用程式. 現在我們開始構建我們的第一個元件!
+我們還需要新增 字型和圖示[資料夾](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets)到了`src/assets`資料夾. 新增 樣式和靜態資源 後,應用程式會奇奇怪怪的. 沒關係. 因為我們還沒有開發應用程式. 現在我們開始構建我們的第一個元件!
