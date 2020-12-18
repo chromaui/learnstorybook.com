@@ -100,15 +100,15 @@ If you want to modify the styling, the source LESS files are provided in the Git
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder. Issue the following commands in your terminal:
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `app/styles` folder. Issue the following commands in your terminal:
 
 ```shell
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font app/styles/font
+npx degit chromaui/learnstorybook-code/src/assets/icon app/styles/icon
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a>.
 </div>
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now.
