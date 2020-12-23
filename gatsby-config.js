@@ -44,6 +44,9 @@ module.exports = {
           en: 5.3,
           es: 5.3,
         },
+        ember: {
+          en: 6.1,
+        },
       },
       'design-systems-for-developers': {
         react: {
