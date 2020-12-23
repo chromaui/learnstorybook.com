@@ -2,7 +2,7 @@
 title: 'Bonus: Criar um extra'
 tocTitle: 'Bonus: Criação de extras'
 description: 'Aprende a criar os teus próprios extras que irão impulsionar o teu desenvolvimento'
-commit: 'bebba5d'
+commit: 'ed54b16'
 ---
 
 No capítulo anterior foi apresentada uma das funcionalidades chave do Storybook, o seu sistema robusto de [extras](https://storybook.js.org/addons/introduction/), que pode ser usado para melhorar não somente a tua experiência de desenvolvimento e fluxos de trabalho, mas também para a tua equipa.

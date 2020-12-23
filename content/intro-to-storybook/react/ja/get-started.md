@@ -2,7 +2,7 @@
 title: 'React 向け Storybook のチュートリアル'
 tocTitle: 'はじめに'
 description: '開発環境に Storybook を導入しましょう'
-commit: 'b935904'
+commit: 'ac1ec13'
 ---
 
 Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから切り離して開発できるようになります。この文書は React 向けです。他にも [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 向けのバージョンがあります。

@@ -2,6 +2,7 @@
 title: 'Modules complémentaires'
 tocTitle: 'Modules complémentaires'
 description: 'Apprenez à intégrer et à utiliser des modules complémentaires à l aide d un exemple populaire'
+commit: '45b6600'
 ---
 
 Storybook dispose d'un système robuste de [modules complémentaires](https://storybook.js.org/addons/introduction/) avec lequel vous pouvez améliorer l'expérience des développeurs pour toute votre équipe. Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/vue/en/test/)..

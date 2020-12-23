@@ -2,7 +2,7 @@
 title: 'React를 위한 Storybook 튜토리얼'
 tocTitle: '시작하기'
 description: 'Storybook을 개발 환경에 설치해봅시다'
-commit: 'b935904'
+commit: 'ac1ec13'
 ---
 
 Storybook은 개발 모드에서 앱과 함께 실행됩니다. 이것은 비즈니스 로직과 컨텍스트로부터 UI 컴포넌트를 독립적으로 분리하여 만들수 있도록 도와줍니다. 본 Storybook 문서는 React를 위한 것입니다. 그 밖의 [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) 그리고 [Svelte](/svelte/en/get-started)에 대한 문서도 있습니다.

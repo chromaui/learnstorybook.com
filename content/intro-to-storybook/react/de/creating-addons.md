@@ -2,7 +2,7 @@
 title: 'Bonus: Erstelle ein Addon'
 tocTitle: 'Bonus: Addons erstellen'
 description: 'Lerne, eigene Addons zu bauen, die deine Entwicklung beschleunigen'
-commit: 'bebba5d'
+commit: 'ed54b16'
 ---
 
 Im letzten Kapitel haben wir eines der wichtigsten Features von Storybook kennengelernt, nämlich sein robustes [Addon-System](https://storybook.js.org/docs/react/configure/storybook-addons), das nicht nur deine eigene, sondern auch die Entwicklungserfahrung und Prozesse in deinem ganzen Team verbessern kann.

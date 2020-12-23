@@ -2,7 +2,7 @@
 title: 'Tutoriel de Storybook pour React'
 tocTitle: 'Débuter'
 description: 'Configurer Storybook dans votre environnement de développement'
-commit: 'b935904'
+commit: 'ac1ec13'
 ---
 
 Storybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants UI(User Interface) qui sont isolés de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) et [Svelte](/svelte/en/get-started).

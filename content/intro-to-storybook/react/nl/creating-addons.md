@@ -2,7 +2,7 @@
 title: 'Bonus: maak een addons'
 tocTitle: 'Bonus: Maken van addons'
 description: 'Leer hoe je je eigen add-ons kunt bouwen die je ontwikkeling boosten'
-commit: 'bebba5d'
+commit: 'ed54b16'
 ---
 
 Eerder, hebben we een belangrijke feature van Storybook geïntroduceerd: het robuuste [addons](https://storybook.js.org/addons/introduction/) ecosysteem. Addons worden gebruikt om je developer ervaring en workflows te verbeteren.

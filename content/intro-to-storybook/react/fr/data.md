@@ -2,7 +2,7 @@
 title: 'Transmettre des données'
 tocTitle: 'Données'
 description: "Apprenez comment transmettre des données à votre composant d'interface d'utilisateur"
-commit: '97fc9a6'
+commit: 'd2fca1f'
 ---
 
 Jusqu'à présent, nous avons créé des composants sans état isolés - très bien pour Storybook, mais finalement inutiles tant que nous ne leur fournirons pas quelques données dans notre application.

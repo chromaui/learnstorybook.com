@@ -2,7 +2,7 @@
 title: 'Ensamblar un componente compuesto'
 tocTitle: 'Componente Compuesto'
 description: 'Ensamblar un componente compuesto a partir de componentes simples'
-commit: c72f06f
+commit: '98335e5'
 ---
 
 En el último capítulo construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir TaskList, una lista de Tasks (o Tareas). Combinemos componentes en conjunto y veamos qué sucede cuando se añade más complejidad.
@@ -24,7 +24,6 @@ Un componente compuesto no es muy diferente de los componentes básicos que cont
 Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Task` del capítulo anterior y pasarle los atributos y acciones como entrada.
 
 ```html
-
 <!--src/components/TaskList.vue-->
 <template>
   <div>
@@ -53,7 +52,7 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
       },
       tasks: {
         type: Array,
-        default: () => []
+        default: () => [],
       },
     },
     components: {
@@ -75,31 +74,31 @@ A continuación, crea los estados de prueba de `Tasklist` en el archivo de histo
 
 ```javascript
 //src/components/TaskList.stories.js
-import TaskList from "./TaskList";
-import { taskData, actionsData } from "./Task.stories";
+import TaskList from './TaskList';
+import { taskData, actionsData } from './Task.stories';
 
 const paddedList = () => {
   return {
-    template: '<div style="padding: 3rem;"><story/></div>'
+    template: '<div style="padding: 3rem;"><story/></div>',
   };
 };
 export default {
-  title: "TaskList",
+  title: 'TaskList',
   excludeStories: /.*Data$/,
-  decorators: [paddedList]
+  decorators: [paddedList],
 };
 
 export const defaultTasksData = [
-  { ...taskData, id: "1", title: "Task 1" },
-  { ...taskData, id: "2", title: "Task 2" },
-  { ...taskData, id: "3", title: "Task 3" },
-  { ...taskData, id: "4", title: "Task 4" },
-  { ...taskData, id: "5", title: "Task 5" },
-  { ...taskData, id: "6", title: "Task 6" }
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
 ];
 export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
 // default TaskList state
@@ -108,10 +107,10 @@ export const Default = () => ({
   template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => defaultTasksData
-    }
+      default: () => defaultTasksData,
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist with pinned tasks
 export const WithPinnedTasks = () => ({
@@ -119,22 +118,22 @@ export const WithPinnedTasks = () => ({
   template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => withPinnedTasksData
-    }
+      default: () => withPinnedTasksData,
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist in loading state
 export const Loading = () => ({
   components: { TaskList },
   template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist no tasks
 export const Empty = () => ({
   components: { TaskList },
   template: `<task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
+  methods: actionsData,
 });
 ```
 
@@ -197,7 +196,7 @@ Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de
       },
       tasks: {
         type: Array,
-        default: () => []
+        default: () => [],
       },
     },
     components: {
