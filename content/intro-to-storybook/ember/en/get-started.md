@@ -26,6 +26,7 @@ ember install @storybook/ember-cli-storybook
 ```
 
 <div class="aside">
+
 At the time of writing this version of the tutorial, adding the <code>@storybook/ember-cli-storybook</code> will yield the following message:
 
 The <code>ember generate entity-name command</code> requires an entity name to be specified. For more details, use <code>ember help</code>.
