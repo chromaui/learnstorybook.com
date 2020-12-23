@@ -20,7 +20,7 @@ We have our goal, now let's define what features our addon will support:
 - Support images, but also urls for embedding
 - Should support multiple assets, just in case there will be multiple versions or themes
 
-The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/configurations/options-parameter/), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
+The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
 
 ```javascript
 export default {
@@ -55,6 +55,7 @@ The updated file should look like the following:
 
 ```javascript
 // babel.config.js
+
 module.exports = function(api) {
   process.env.NODE_ENV === 'development' ? api.cache(false) : api.cache(true);
   const presets = [
@@ -89,6 +90,7 @@ Add the following to your recently created file:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -115,6 +117,7 @@ Starting Storybook at this point, we won't be able to see the addon just yet. Li
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/app/components/**/*.stories.ts'],
   addons: [
@@ -140,6 +143,7 @@ Make the following changes to the addon file:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -166,6 +170,7 @@ Your code should look like the following:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -199,16 +204,17 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-Notice that we're using the [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
+Notice that we're using the [useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
 
 ### Using our addon with a story
 
 We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
 
-To do so, we're going to make a small change to the `task.stories.ts` file and add the [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options) option.
+To do so, we're going to make a small change to the `task.stories.ts` file and add the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) option.
 
 ```javascript
 // src/app/components/task.stories.ts
+
 export default {
   component: Task,
   title: 'Task',
@@ -236,6 +242,7 @@ At this stage we can see that the addon is working as it should, but now let's c
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -290,7 +297,7 @@ const Content = () => {
 };
 ```
 
-If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the `@storybook/theming` package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
+If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the `@storybook/theming` package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [`useStorybookState`](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
 
 ### Displaying the actual assets
 
@@ -310,12 +317,13 @@ Going over our initial objectives:
 
 We're almost there, only one goal remaining.
 
-For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own `useAddonState`, which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
+For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own [`useAddonState`](https://storybook.js.org/docs/react/addons/addons-api#useaddonstate), which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
 
 We need to adjust our imports for our needs:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -325,6 +333,7 @@ And modify our `Content` component, so that we can change between assets:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
@@ -368,6 +377,7 @@ We've accomplished what we set out to do, which is to create a fully functioning
 
 ```javascript
 // .storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';

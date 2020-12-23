@@ -2,7 +2,7 @@
 title: 'Bonus: Create an addon'
 tocTitle: 'Bonus: Creating addons'
 description: 'Learn how to build your own addons that will super charge your development'
-commit: '6d1d770'
+commit: 'ed54b16'
 ---
 
 Earlier, we introduced a key Storybook feature: the robust [addons](https://storybook.js.org/docs/react/configure/storybook-addons) ecosystem. Addons are used to enhance your developer experience and workflows.
@@ -170,7 +170,7 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-Notice that we're using the [useParameter](https://storybook.js.org/docs/react/api/addons-api#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
+Notice that we're using the [useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
 
 ### Using our addon with a story
 
@@ -260,7 +260,7 @@ const Content = () => {
 };
 ```
 
-Let's take a look at the code. We use the `styled` tag that comes from the [`@storybook/theming`](https://storybook.js.org/docs/react/configure/theming) package. This allows us to customize Storybook's theme and the addon UI. [`useStorybookState`](https://storybook.js.org/docs/react/api/addons-api#usestorybookstate) is a hook that allows us to tap into Storybook's internal state to fetch any bit of information present. In our case we're using it to fetch the id of each story created.
+Let's take a look at the code. We use the `styled` tag that comes from the [`@storybook/theming`](https://storybook.js.org/docs/react/configure/theming) package. This allows us to customize Storybook's theme and the addon UI. [`useStorybookState`](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate) is a hook that allows us to tap into Storybook's internal state to fetch any bit of information present. In our case we're using it to fetch the id of each story created.
 
 ### Displaying the actual assets
 
@@ -280,7 +280,7 @@ Going over our initial objectives:
 
 We're almost there, only one goal remaining.
 
-For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own [`useAddonState`](https://storybook.js.org/docs/react/api/addons-api#useaddonstate), which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
+For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own [`useAddonState`](https://storybook.js.org/docs/react/addons/addons-api#useaddonstate), which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
 
 We need to adjust our imports for our needs:
 

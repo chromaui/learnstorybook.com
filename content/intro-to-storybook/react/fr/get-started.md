@@ -2,7 +2,7 @@
 title: 'Tutoriel de Storybook pour React'
 tocTitle: 'Débuter'
 description: 'Configurer Storybook dans votre environnement de développement'
-commit: 'b935904'
+commit: 'ac1ec13'
 ---
 
 Storybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants UI(User Interface) qui sont isolés de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) et [Svelte](/svelte/en/get-started).
@@ -34,7 +34,7 @@ Pour vérifier rapidement que les différents environnements de notre applicatio
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn storybook
 
 # Run the frontend app proper on port 3000:
@@ -63,15 +63,15 @@ Si vous souhaitez modifier le styling, les fichiers sources LESS sont fournis da
 
 ## Ajouter les assets
 
-Pour correspondre au design prévu, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier `public`.
+Pour correspondre au design prévu, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier `src/assets`.
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-Nous utilisons <a href="https://github.com/Rich-Harris/degit">degit</a> pour télécharger les dossiers de GitHub. Si vous voulez le faire manuellement, vous pouvez récupérer les dossiers <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">ici</a>.
+Nous utilisons <a href="https://github.com/Rich-Harris/degit">degit</a> pour télécharger les dossiers de GitHub. Si vous voulez le faire manuellement, vous pouvez récupérer les dossiers <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">ici</a>.
 </div>
 
 Après avoir ajouté le styling et les ressources, l'application aura un rendu un peu étrange. Ce n'est pas grave, car nous ne travaillons pas sur l'application pour l'instant. Nous sommes d'abord en train de construire notre premier composant!

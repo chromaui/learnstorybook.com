@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: '97fc9a6'
+commit: 'd2fca1f'
 ---
 
 So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
@@ -190,5 +190,9 @@ Empty.args = {
 </video>
 
 <div class="aside">
-Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. Also as our app is progressively growing it might also a good place to run the tests with the <code> --watchAll</code> flag like mentioned in the <a href="/react/en/get-started/">Get Started</a> section.
+
+Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. Also as our app is progressively growing it might also a good place to run the tests with the <code> --watchAll</code> flag like mentioned in the <a href="/react/en/get-started/">Get started</a> section.
+
+Don't forget to commit your changes with git!
+
 </div>

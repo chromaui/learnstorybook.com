@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: b2274bd
+commit: 'f03552f'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -278,3 +278,7 @@ Once the above is done, we can run `yarn test:unit` and see the following output
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+
+<div class="aside">
+Don't forget to commit your changes with git!
+</div>

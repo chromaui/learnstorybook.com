@@ -2,7 +2,7 @@
 title: 'Tutoriel Storybook pour Vue'
 tocTitle: 'Commencer'
 description: 'Configurer Vue Storybook dans votre environnement de développement'
-commit: d1c4858
+commit: '9e3165c'
 ---
 
 Storybook fonctionne avec votre application en mode développement. Il vous aide à créer des composants graphiques isolés de la logique métier et du contexte de votre application. Cette édition de Learn Storybook est pour Vue. D'autres éditions existent pour [React](/react/en/get-started), [React Native](/react-native/en/get-started/), [Angular](/angular/en/get-started) et [Svelte](/svelte/en/get-started).
@@ -67,14 +67,14 @@ Si vous voulez modifier le style, les fichiers sont fournis dans le projet GitHu
 
 ## Ajoutez des ressources
 
-Pour correspondre à la conception souhaitée, vous devrez télécharger les répertoires de polices et d'icônes et placer son contenu dans votre dossier `public`.
+Pour correspondre à la conception souhaitée, vous devrez télécharger les répertoires de polices et d'icônes et placer son contenu dans votre dossier `src/assets`.
 
 <div class="aside">
-<p>Nous avons utilisé <code>svn</code> (Subversion) pour télécharger facilement des fichiers d'un répertoire à partir de GitHub. Si vous n'avez pas subversion d'installé ou si vous voulez le faire manuellement, vous pouvez récupérer les fichiers directement <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">ici</a>.</p></div>
+<p>Nous avons utilisé <code>svn</code> (Subversion) pour télécharger facilement des fichiers d'un répertoire à partir de GitHub. Si vous n'avez pas subversion d'installé ou si vous voulez le faire manuellement, vous pouvez récupérer les fichiers directement <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">ici</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
 ```
 
 Nous devons également mettre à jour nos scripts Storybook pour pointer vers le répertoire `public` (dans le fichier `package.json`):

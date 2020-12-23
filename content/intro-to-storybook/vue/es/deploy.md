@@ -2,6 +2,7 @@
 title: 'Desplegar Storybook'
 tocTitle: 'Desplegar'
 description: 'Desplegar Storybook online con GitHub y Netlify'
+commit: '107b7ce'
 ---
 
 En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. También se puede compartir ese Storybook con el equipo, especialmente con los miembros no técnicos. Afortunadamente, es fácil implementar Storybook en línea.

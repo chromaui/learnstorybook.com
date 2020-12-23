@@ -2,7 +2,7 @@
 title: 'Tutorial Storybook para Vue'
 tocTitle: 'Empezando'
 description: 'Configurar Vue Storybook en tu entorno de desarrollo'
-commit: d1c4858
+commit: '9e3165c'
 ---
 
 Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe otras ediciones para [React](/react/es/get-started), [React Native](/react-native/es/get-started/), [Angular](/angular/es/get-started) y [Svelte](/svelte/es/get-started).
@@ -66,11 +66,11 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 Para que coincida con el diseño previsto del tutorial, deberá transferir las carpetas de los iconos y las fuentes a la carpeta pública.
 
-<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
+<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aquí</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
 ```
 
 También necesitamos actualizar nuestro script storybook para servir el directorio `public` (en `package.json`):

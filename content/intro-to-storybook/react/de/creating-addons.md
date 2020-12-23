@@ -2,10 +2,10 @@
 title: 'Bonus: Erstelle ein Addon'
 tocTitle: 'Bonus: Addons erstellen'
 description: 'Lerne, eigene Addons zu bauen, die deine Entwicklung beschleunigen'
-commit: 'bebba5d'
+commit: 'ed54b16'
 ---
 
-Im letzten Kapitel haben wir eines der wichtigsten Features von Storybook kennengelernt, nämlich sein robustes [Addon-System](https://storybook.js.org/addons/introduction/), das nicht nur deine eigene, sondern auch die Entwicklungserfahrung und Prozesse in deinem ganzen Team verbessern kann.
+Im letzten Kapitel haben wir eines der wichtigsten Features von Storybook kennengelernt, nämlich sein robustes [Addon-System](https://storybook.js.org/docs/react/configure/storybook-addons), das nicht nur deine eigene, sondern auch die Entwicklungserfahrung und Prozesse in deinem ganzen Team verbessern kann.
 
 In diesem Kapitel werfen wir einen Blick darauf, wie wir unser eigenes Addon erstellen können. Vielleicht denkst du, dass es umständlich sein wird, das selbst zu schreiben, aber das stimmt nicht. In nur ein paar wenigen Schritten können wir schon damit loslegen, ein Addon zu entwickeln.
 
@@ -21,11 +21,11 @@ Wir haben unser Ziel, nun lass uns definieren, welche Features unser Addon unter
 - Sowohl Bilder als auch URLs für die Einbettung unterstützen
 - Mehrere Assets unterstützen, nur für den Fall, dass es mehrere Versionen oder Themes geben wird
 
-Wir werden [Parameter](https://storybook.js.org/docs/configurations/options-parameter/) verwenden, um eine Liste von Assets an unsere Story anzufügen. Dies ist eine Storybook-Option, die uns ermöglicht, benutzerdefinierte Parameter in unsere Stories zu injecten. Das macht man auf ähnliche Weise, wie wir in den vorherigen Kapiteln schon einen Decorator verwendet haben.
-
-<!-- this is probably not needed as it's used below-->
+Wir werden [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) verwenden, um eine Liste von Assets an unsere Story anzufügen. Dies ist eine Storybook-Option, die uns ermöglicht, benutzerdefinierte Parameter in unsere Stories zu injecten. Das macht man auf ähnliche Weise, wie wir in den vorherigen Kapiteln schon einen Decorator verwendet haben.
 
 ```javascript
+// YourComponent.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -37,8 +37,6 @@ export default {
   //
 };
 ```
-
-<!-- -->
 
 ## Einrichtung
 
@@ -52,8 +50,6 @@ Wir haben umrissen, was unser Addon können soll, jetzt ist es Zeit, unsere loka
 - 🛠 [@babel/preset-react](https://babeljs.io/docs/en/babel-preset-react) um einige neue React Features korrekt zu transpilieren.
 
 Öffne eine Konsole, navigiere zum Projekt-Verzeichnis und führe folgenden Befehl aus:
-
-<!--using npm here until the whole tutorial set is moved into npm or yarn issue #153-->
 
 ```bash
   yarn add --dev @storybook/api @storybook/components @storybook/theming @babel/preset-react
@@ -78,6 +74,7 @@ Erstelle innerhalb des `.storybook`-Verzeichnisses einen neuen Ordner namens `ad
 
 ```javascript
 //.storybook/addons/design-assets.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -128,6 +125,7 @@ Nimm folgende Änderungen an der Addon-Datei vor:
 
 ```javascript
 //.storybook/addons/design-assets.js
+
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -156,6 +154,7 @@ Dein Code sollte wie folgt aussehen:
 
 ```javascript
 //.storybook/addons/design-assets.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -190,16 +189,17 @@ addons.register('my/design-assets', () => {
 });
 ```
 
-Beachte, dass wir [useParameter](https://storybook.js.org/docs/addons/api/#useparameter) verwenden. Dieser hilfreiche Hook erlaubt uns, auf die Informationen zuzugreifen, die über die Option `addParameters` an jede Story übergeben werden. In unserem Fall wird das also entweder ein einzelner Pfad zu einem Asset sein, oder eine Liste von Pfaden. Du wirst ihn bald schon im Einsatz sehen.
+Beachte, dass wir [useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter) verwenden. Dieser hilfreiche Hook erlaubt uns, auf die Informationen zuzugreifen, die über die Option `addParameters` an jede Story übergeben werden. In unserem Fall wird das also entweder ein einzelner Pfad zu einem Asset sein, oder eine Liste von Pfaden. Du wirst ihn bald schon im Einsatz sehen.
 
 ### Das Addon in einer Story verwenden
 
 Jetzt haben wir alle Teile zusammengefügt. Aber wie können wir sehen, ob es auch wirklich funktioniert und uns etwas angezeigt wird?
 
-Dazu nehmen wir eine kleine Anpassung an der Datei `Task.stories.js` vor und fügen die [addParameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options)-Option hinzu.
+Dazu nehmen wir eine kleine Anpassung an der Datei `Task.stories.js` vor und fügen die [parameters](https://storybook.js.org/docs/react/writing-stories/parameters)-Option hinzu.
 
 ```javascript
 // src/components/Task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
@@ -227,6 +227,7 @@ In diesem Stadium sehen wir, dass das Addon in unseren Stories erwartungsgemäß
 
 ```javascript
 //.storybook/addons/design-assets.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -281,7 +282,7 @@ export const Content = () => {
 };
 ```
 
-Wenn du genauer hinschaust, siehst du, dass wir das `styled`-Tag verwenden. Dieses Tag kommt aus dem Paket `@storybook/theming`. Es ermöglicht uns, nicht nur das Theme von Storybook, sondern auch die UI an unsere Bedürfnisse anzupassen. Außerdem nutzen wir [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), ein wirklich praktischer Hook, der uns erlaubt, auf den internen Zustand von Storybook zuzugreifen, um jede verfügbare Information daraus auszulesen. In unserem Fall lesen wir nur die ID einer jeden erstellten Story aus.
+Wenn du genauer hinschaust, siehst du, dass wir das `styled`-Tag verwenden. Dieses Tag kommt aus dem Paket `@storybook/theming`. Es ermöglicht uns, nicht nur das Theme von Storybook, sondern auch die UI an unsere Bedürfnisse anzupassen. Außerdem nutzen wir [useStorybookState](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate), ein wirklich praktischer Hook, der uns erlaubt, auf den internen Zustand von Storybook zuzugreifen, um jede verfügbare Information daraus auszulesen. In unserem Fall lesen wir nur die ID einer jeden erstellten Story aus.
 
 ### Tatsächliche Assets darstellen
 
@@ -289,7 +290,7 @@ Damit die tatsächlichen Assets in unserem Addon dargestellt werden, müssen wir
 
 Storybook wird die Änderung übernehmen und die Assets laden. Allerdings zunächst nur das Erste.
 
-![Tatsächliche Assets geladen](/intro-to-storybook/design-assets-image-loaded.png) <!--needs to be created-->
+![Tatsächliche Assets geladen](/intro-to-storybook/design-assets-image-loaded.png)
 
 ## Addons mit Zustand
 
@@ -307,6 +308,7 @@ Wir müssen unsere Imports entsprechend anpassen:
 
 ```javascript
 //.storybook/addons/design-assets.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -316,6 +318,7 @@ Außerdem müssen wir unsere `Content`-Komponente modifizieren, damit wir zwisch
 
 ```javascript
 //.storybook/addons/design-assets.js
+
 export const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
@@ -358,7 +361,8 @@ Wir haben geschafft, was wir uns vorgenommen haben, nämlich ein voll funktionsf
   <summary>Klicke, um den gesamten Code anzuzeigen, der in diesem Beispiel verwendet wurde</summary>
 
 ```javascript
-// .storybook/addons
+//.storybook/addons/design-assets.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';

@@ -2,6 +2,7 @@
 title: 'Deploy Storybook'
 tocTitle: 'Deploy'
 description: 'Learn how to deploy Storybook online'
+commit: '107b7ce'
 ---
 
 Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.
@@ -26,19 +27,7 @@ This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free pu
 
 ### Setup a repository in GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/intro-to-storybook/vue/en/get-started), Vue CLI already created a local repository for us. At this stage it's safe to add our files to the first commit.
-
-Issue the following commands to add and commit the changes we've done so far.
-
-```bash
-$ git add .
-```
-
-Followed by:
-
-```bash
-$ git commit -m "taskbox UI"
-```
+Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/vue/en/get-started), Vue CLI already created a local repository for us. At this stage we already have a set of commits that we can push to a remote repository.
 
 Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
 
@@ -156,9 +145,5 @@ Click the latest build, it should be the one at the top.
 Then, click the `View Storybook` button to see the latest version of your Storybook.
 
 ![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
-
-<!--
-And that's it, all is required is to commit and push the changes to our repository and we've successfully automated our Storybook deployment
- -->
 
 Use the link and share it with your team members. This is helpful as a part of the standard app development process or simply to show off work 💅.

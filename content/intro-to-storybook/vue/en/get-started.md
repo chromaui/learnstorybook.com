@@ -2,7 +2,7 @@
 title: 'Storybook for Vue tutorial'
 tocTitle: 'Get started'
 description: 'Setup Vue Storybook in your development environment'
-commit: d1c4858
+commit: '9e3165c'
 ---
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Vue; other editions exist for [React](/react/en/get-started), [React Native](/react-native/en/get-started/), [Angular](/angular/en/get-started), [Svelte](/svelte/en/get-started) and [Ember](/ember/en/get-started).
@@ -67,15 +67,15 @@ If you want to modify the styling, the source LESS files are provided <a href="h
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder. Issue the following commands in your terminal:
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `src/assets` folder. Issue the following commands in your terminal:
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a>.
 </div>
 
 We also need to update our storybook script to serve the `public` directory (in `package.json`):
@@ -89,3 +89,21 @@ We also need to update our storybook script to serve the `public` directory (in 
 ```
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+
+## Commit changes
+
+When our project was initialized, Vue CLI already created a local repository for us. At this stage it's safe to add our files to the first commit.
+
+Run the following commands to add and commit the changes we've done so far.
+
+```shell
+$ git add .
+```
+
+Followed by:
+
+```shell
+$ git commit -m "first commit"
+```
+
+Let's start building our first component!

@@ -2,6 +2,7 @@
 title: 'Construção de um componente composto'
 tocTitle: 'Componente composto'
 description: 'Construção de um componente composto a partir de componentes simples'
+commit: '98335e5'
 ---
 
 No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
@@ -26,7 +27,6 @@ Um componente composto não é em nada diferente do componente básico contido d
 Comece por uma implementação em bruto da `TaskList`. Será necessário importar o componente `Task` criado anteriormente e injetar os atributos e as respetivas ações como inputs.
 
 ```html
-
 <!--src/components/TaskList.vue-->
 <template>
   <div>
@@ -55,7 +55,7 @@ Comece por uma implementação em bruto da `TaskList`. Será necessário importa
       },
       tasks: {
         type: Array,
-        default: () => []
+        default: () => [],
       },
     },
     components: {
@@ -76,33 +76,32 @@ Comece por uma implementação em bruto da `TaskList`. Será necessário importa
 Em seguida iremos criar os estados de teste do `TaskList` no ficheiro de estórias respetivo.
 
 ```javascript
-
 //src/components/TaskList.stories.js
-import TaskList from "./TaskList";
-import { taskData, actionsData } from "./Task.stories";
+import TaskList from './TaskList';
+import { taskData, actionsData } from './Task.stories';
 
 const paddedList = () => {
   return {
-    template: '<div style="padding: 3rem;"><story/></div>'
+    template: '<div style="padding: 3rem;"><story/></div>',
   };
 };
 export default {
-  title: "TaskList",
+  title: 'TaskList',
   excludeStories: /.*Data$/,
-  decorators: [paddedList]
+  decorators: [paddedList],
 };
 
 export const defaultTasksData = [
-  { ...taskData, id: "1", title: "Task 1" },
-  { ...taskData, id: "2", title: "Task 2" },
-  { ...taskData, id: "3", title: "Task 3" },
-  { ...taskData, id: "4", title: "Task 4" },
-  { ...taskData, id: "5", title: "Task 5" },
-  { ...taskData, id: "6", title: "Task 6" }
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
 ];
 export const withPinnedTasksData = [
   ...defaultTasksData.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
+  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
 // default TaskList state
@@ -111,10 +110,10 @@ export const Default = () => ({
   template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => defaultTasksData
-    }
+      default: () => defaultTasksData,
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist with pinned tasks
 export const WithPinnedTasks = () => ({
@@ -122,24 +121,23 @@ export const WithPinnedTasks = () => ({
   template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => withPinnedTasksData
-    }
+      default: () => withPinnedTasksData,
+    },
   },
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist in loading state
 export const Loading = () => ({
   components: { TaskList },
   template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
+  methods: actionsData,
 });
 // tasklist no tasks
 export const Empty = () => ({
   components: { TaskList },
   template: `<task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData
+  methods: actionsData,
 });
-
 ```
 
 <div class="aside">
@@ -165,7 +163,6 @@ Pode agora verificar-se o Storybook com as estórias novas associadas á `Taskli
 O componente ainda se encontra num estado bruto, mas já temos uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que ao usar-se o `.list-items` no componente como invólucro é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um invólucro. A **verdadeira complexidade** do componente `TaskList` é revelada com os casos extremos `WithPinnedTasks`, `loading` e `empty`.
 
 ```html
-
 <!--src/components/TaskList.vue-->
 <template>
   <div>
@@ -205,7 +202,7 @@ O componente ainda se encontra num estado bruto, mas já temos uma ideia de quai
       },
       tasks: {
         type: Array,
-        default: () => []
+        default: () => [],
       },
     },
     components: {
@@ -255,7 +252,7 @@ No entanto, por vezes o diabo encontra-se nos detalhes. É necessária uma frame
 Neste caso pretende-se que o nosso `TaskList` faça a renderização de quaisquer tarefas que foram confirmadas **antes** das não confirmadas que são fornecidas ao adereço (prop) `tasks`.
 Apesar de existir uma estória (`WithPinnedTasks`) que testa este cenário em particular; este poderá levar a alguma ambiguidade da parte humana, ou seja se o componente **parar** de ordenar as tarefas desta forma, logo existe um problema. Mas ao olho destreinado não irá gritar **"Erro!"**.
 
-De forma a evitar este problema em concreto, podemos usar o Jest, de forma que este renderize a estória na DOM e efetue pesquisas de forma a verificar o output. 
+De forma a evitar este problema em concreto, podemos usar o Jest, de forma que este renderize a estória na DOM e efetue pesquisas de forma a verificar o output.
 
 Iremos começar por criar um ficheiro de testes denominado `tests/unit/TaskList.spec.js`. Aqui estarão contidos os testes que irão fazer asserções acerca do valor de saída.
 

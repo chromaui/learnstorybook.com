@@ -2,7 +2,7 @@
 title: 'Introducir datos'
 tocTitle: 'Datos'
 description: 'Aprende como introducir datos a tus componentes UI'
-commit: 28bc240
+commit: 'fa1c954'
 ---
 
 Hasta ahora hemos creado componentes aislados sin estado, muy útiles para Storybook, pero finalmente no son útiles hasta que les proporcionemos algunos datos en nuestra aplicación.
@@ -24,7 +24,6 @@ yarn add vuex
 En un archivo llamado `src/store.js`, se implementará un store Vuex estándar que responda a acciones que cambiarán el estado de las tareas:
 
 ```javascript
-
 // src/store.js
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -62,7 +61,6 @@ export default new Vuex.Store({
 Para poder conectar nuestra aplicación al store recién creado y proporcionar datos a la jerarquía de componentes con bastante facilidad, el componente superior (`src/App.vue`) se cambiará a:
 
 ```html
-
 <!--src/App.vue-->
 <template>
   <div id="app">
@@ -107,7 +105,6 @@ export default {
 En `src/components/TaskList.vue`:
 
 ```html
-
 <!--src/components/TaskList.vue`-->
 <template>
   <div>
@@ -137,7 +134,6 @@ En `src/components/TaskList.vue`:
 La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `src/components/TaskList.stories.js` a`src/components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
 ```javascript
-
 //src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList';
 import { taskData, actionsData } from './Task.stories';
@@ -171,7 +167,7 @@ export const Default = () => ({
   template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => defaultTasksData
+      default: () => defaultTasksData,
     },
   },
   methods: actionsData,
@@ -182,7 +178,7 @@ export const WithPinnedTasks = () => ({
   template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
   props: {
     tasks: {
-      default: () => withPinnedTasksData
+      default: () => withPinnedTasksData,
     },
   },
   methods: actionsData,
@@ -211,7 +207,6 @@ export const Empty = () => ({
 Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
 ```js
-
 //tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';

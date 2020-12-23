@@ -2,7 +2,7 @@
 title: 'Assemble a composite component'
 tocTitle: 'Composite component'
 description: 'Assemble a composite component out of simpler components'
-commit: c72f06f
+commit: '98335e5'
 ---
 
 Last chapter we built our first component; this chapter extends what we learned to build TaskList, a list of Tasks. Let’s combine components together and see what happens when more complexity is introduced.
@@ -243,3 +243,7 @@ it('renders pinned tasks at the start of the list', () => {
 Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
 
 Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/vue/en/test/) tests where possible.
+
+<div class="aside">
+Don't forget to commit your changes with git!
+</div>

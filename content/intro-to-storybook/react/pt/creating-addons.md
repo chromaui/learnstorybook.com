@@ -2,7 +2,7 @@
 title: 'Bonus: Criar um extra'
 tocTitle: 'Bonus: Criação de extras'
 description: 'Aprende a criar os teus próprios extras que irão impulsionar o teu desenvolvimento'
-commit: 'bebba5d'
+commit: 'ed54b16'
 ---
 
 No capítulo anterior foi apresentada uma das funcionalidades chave do Storybook, o seu sistema robusto de [extras](https://storybook.js.org/addons/introduction/), que pode ser usado para melhorar não somente a tua experiência de desenvolvimento e fluxos de trabalho, mas também para a tua equipa.
@@ -72,6 +72,7 @@ Adicione o conteúdo abaixo ao ficheiro (ou arquivo) que acabámos de criar:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React from 'react';
 import { AddonPanel } from '@storybook/components';
 import { addons, types } from '@storybook/addons';
@@ -98,11 +99,12 @@ Se iniciarmos o Storybook agora, não será ainda possível ver o nosso extra. E
 
 ```js
 // .storybook/main.js
+
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './.storybook/design-addon/register.js', // our addon
+    './design-addon/register.js', // our addon
   ],
 };
 ```
@@ -123,6 +125,7 @@ Faça a seguinte alteração no seu ficheiro (ou arquivo):
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
@@ -149,6 +152,7 @@ O seu código deverá ser semelhante a isto:
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter } from '@storybook/api';
@@ -182,16 +186,17 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-Repare que estamos a usar [useParameter](https://storybook.js.org/docs/addons/api/#useparameter), este hook bastante útil permite que possamos ler o conteúdo fornecido pela opção `parameters` de cada uma das estórias, o que no nosso caso será uma lista de localizações ou somente uma. Mas não se preocupe com isso agora, em breve vamos ver isto a funcionar.
+Repare que estamos a usar [useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter), este hook bastante útil permite que possamos ler o conteúdo fornecido pela opção `parameters` de cada uma das estórias, o que no nosso caso será uma lista de localizações ou somente uma. Mas não se preocupe com isso agora, em breve vamos ver isto a funcionar.
 
 ### Usar uma estória com o nosso extra
 
 Temos as peças todas ligadas. Mas como podemos verificar que está tudo a funcionar e conseguimos ver alguma coisa?
 
-Para isto, vamos fazer uma ligeira alteração ao ficheiro (ou arquivo) `Task.stories.js` e adicionar a opção [parameters](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options).
+Para isto, vamos fazer uma ligeira alteração ao ficheiro (ou arquivo) `Task.stories.js` e adicionar a opção [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters).
 
 ```javascript
 // src/components/Task.stories.js
+
 export default {
   component: Task,
   title: 'Task',
@@ -219,6 +224,7 @@ Podemos ver que o extra está a funcionar corretamente, mas vamos fazer uma lige
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 import { AddonPanel } from '@storybook/components';
 import { useParameter, useStorybookState } from '@storybook/api';
@@ -273,7 +279,7 @@ const Content = () => {
 };
 ```
 
-Se olhar com atenção, irá reparar que está a ser usada a tag `styled`, esta tag vem do pacote `@storybook/theming`. Com esta, podemos costumizar não somente o tema usado pelo Storybook, mas também o IU de acordo com as nossas necessidades. E ainda o [useStorybookState](https://storybook.js.org/docs/addons/api/#usestorybookstate), um hook deveras útil, que permite que possamos aceder ao estado interno do Storybook e obter toda a informação disponível. No nosso caso vamos usá-lo somente para obter o identificador de cada estória que foi criada.
+Se olhar com atenção, irá reparar que está a ser usada a tag `styled`, esta tag vem do pacote `@storybook/theming`. Com esta, podemos costumizar não somente o tema usado pelo Storybook, mas também o IU de acordo com as nossas necessidades. E ainda o [`useStorybookState`](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate), um hook deveras útil, que permite que possamos aceder ao estado interno do Storybook e obter toda a informação disponível. No nosso caso vamos usá-lo somente para obter o identificador de cada estória que foi criada.
 
 ### Apresentar os itens
 
@@ -299,6 +305,7 @@ Com isto vamos ajustar os imports que estão a ser usados para se adequarem às 
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';
 import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
@@ -308,6 +315,7 @@ E modificar o componente `Content`, para que possamos movimentar-nos entre itens
 
 ```javascript
 //.storybook/design-addon/register.js
+
 const Content = () => {
   // story's parameter being retrieved here
   const results = useParameter('assets', []);
@@ -351,6 +359,7 @@ Atingimos tudo o que nos propusemos a fazer. Ou seja criar um extra do Storybook
 
 ```javascript
 //.storybook/design-addon/register.js
+
 import React, { Fragment } from 'react';
 
 import { useParameter, useStorybookState, useAddonState } from '@storybook/api';

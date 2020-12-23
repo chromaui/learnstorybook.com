@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'c117e09'
+commit: '46f29e3'
 ---
 
 We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -189,3 +189,7 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
 [**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+
+<div class="aside">
+Don't forget to commit your changes with git!
+</div>

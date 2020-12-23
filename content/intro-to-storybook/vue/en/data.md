@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 28bc240
+commit: 'fa1c954'
 ---
 
 So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
@@ -221,4 +221,10 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>
+<div class="aside">
+
+Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.
+
+Don't forget to commit your changes with git!
+
+</div>

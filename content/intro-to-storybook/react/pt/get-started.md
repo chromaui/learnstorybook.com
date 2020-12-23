@@ -2,7 +2,7 @@
 title: 'Tutorial do Storybook para o React'
 tocTitle: 'Introdução'
 description: 'Configuração do React Storybook no ambiente de desenvolvimento React'
-commit: '8741257'
+commit: 'ac1ec13'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.
@@ -39,7 +39,7 @@ Podemos rapidamente verificar que os vários ecossistemas da nossa aplicação e
 # Run the test runner (Jest) in a terminal:
 yarn test
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn run storybook
 
 # Run the frontend app proper on port 3000:
@@ -69,13 +69,15 @@ A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https:/
 
 ## Adicionar recursos
 
-De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `public`.
-
-<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
+De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `src/assets`.
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
+
+<div class="aside">
+Foi usado o <a href="https://github.com/Rich-Harris/degit">degit</a> para transferir pastas do GitHub. Se quiser transferir manualmente, pode obtê las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">aqui</a>.
+</div>
 
 Após adicionar os estilos e assets, a aplicação irá renderizar de forma estranha. Tudo bem. Não vamos trabalhar nela agora. Vamos antes começar por construir o nosso primeiro componente.

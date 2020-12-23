@@ -2,7 +2,7 @@
 title: 'React를 위한 Storybook 튜토리얼'
 tocTitle: '시작하기'
 description: 'Storybook을 개발 환경에 설치해봅시다'
-commit: 'b935904'
+commit: 'ac1ec13'
 ---
 
 Storybook은 개발 모드에서 앱과 함께 실행됩니다. 이것은 비즈니스 로직과 컨텍스트로부터 UI 컴포넌트를 독립적으로 분리하여 만들수 있도록 도와줍니다. 본 Storybook 문서는 React를 위한 것입니다. 그 밖의 [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) 그리고 [Svelte](/svelte/en/get-started)에 대한 문서도 있습니다.
@@ -34,7 +34,7 @@ npx -p @storybook/cli sb init
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn storybook
 
 # Run the frontend app proper on port 3000:
@@ -64,14 +64,14 @@ Taskbox는 GraphQL과 React 튜토리얼 [연습 예제](https://www.chromatic.c
 
 ## Asset 추가하기
 
-의도된 디자인에 맞도록 글꼴과 아이콘 디렉터리들을 모두 다운로드해서 `public` 폴더 안에 넣어주세요. 터미널에서 다음 명령어를 실행하세요.
+의도된 디자인에 맞도록 글꼴과 아이콘 디렉터리들을 모두 다운로드해서 `src/assets` 폴더 안에 넣어주세요. 터미널에서 다음 명령어를 실행하세요.
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-<p>다음 명령어들은 Github로부터 쉽게 파일과 폴더를 다운로드할 수 있도록 <a href="https://github.com/Rich-Harris/degit">degit</a>을 사용하였습니다. 만일 수동으로 다운로드하고 싶으신 경우 <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">여기</a>에서 폴더를 직접 가져오실 수 있습니다.</p></div>
+<p>다음 명령어들은 Github로부터 쉽게 파일과 폴더를 다운로드할 수 있도록 <a href="https://github.com/Rich-Harris/degit">degit</a>을 사용하였습니다. 만일 수동으로 다운로드하고 싶으신 경우 <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">여기</a>에서 폴더를 직접 가져오실 수 있습니다.</p></div>
 
 스타일과 asset을 추가하신 후에 앱이 약간 이상하게 랜더링 될 것입니다. 우리가 앱을 아직 작업하지 않았기에 괜찮습니다. 그럼 첫 번째 컴포넌트 제작을 시작해보겠습니다!

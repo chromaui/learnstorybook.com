@@ -303,3 +303,7 @@ Once all the above is done, we can run `npm run test` and see the following outp
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+
+<div class="aside">
+Don't forget to commit your changes with git!
+</div>
