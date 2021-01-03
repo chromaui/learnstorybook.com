@@ -190,5 +190,9 @@ Empty.args = {
 </video>
 
 <div class="aside">
+
 さらにスナップショットテストも失敗しているはずなので、既存のスナップショットテストを <code>-u</code> フラグを付けて実行しなければなりません。<a href="/react/ja/get-started/">はじめに</a>の章で言ったように、<code> --watchAll</code> フラグをつけてテストを実行するのがよいでしょう。
+
+Git へのコミットを忘れずに行ってください！
+
 </div>
