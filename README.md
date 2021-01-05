@@ -20,7 +20,7 @@ Currently the Intro to Storybook tutorial features the following translations. S
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | Taiwanese        | ❌      |
-|              | Mainland Chinese | ❌      |
+|              | Mainland Chinese | ✅      |
 |              | Dutch            | ❌      |
 |              | Korean           | ✅      |
 |              | Japanese         | ✅      |

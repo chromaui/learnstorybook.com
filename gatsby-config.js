@@ -22,7 +22,7 @@ module.exports = {
           ko: 6.1,
           nl: 5.3,
           pt: 5.3,
-          'zh-CN': 5.3,
+          'zh-CN': 6.1,
           'zh-TW': 5.3,
         },
         'react-native': {
