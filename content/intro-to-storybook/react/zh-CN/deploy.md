@@ -2,6 +2,7 @@
 title: '部署 Storybook'
 tocTitle: '部署'
 description: '学习如何在线部署 Storybook'
+commit: '8652d73'
 ---
 
 在本教程中,我们在开发机器上运行了 Storybook. 您可能还想与团队分享该 Storybook,尤其是非技术成员. 值得庆幸的是,在线部署 Storybook 很容易.
@@ -143,7 +144,6 @@ git push origin main
 ![Chromatic 用户仪表盘](/intro-to-storybook/chromatic-user-dashboard.png)
 
 提交表单以 构建和部署代码任务箱的`main`分支. 完成后,我们将在 Netlify 上 看到一条确认消息,其中包含指向 Taskbox 在线 Storybook 的链接.
-
 
 接下来点击 `View Storybook` 按钮查看 Storybook 的最新版。
 

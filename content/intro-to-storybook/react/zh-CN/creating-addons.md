@@ -2,7 +2,7 @@
 title: '奖励：创建一个插件'
 tocTitle: '奖励：创建一个插件'
 description: '了解如何构建自己的插件，这些插件将为您的开发增添更多动力'
-commit: 'bebba5d'
+commit: 'ed54b16'
 ---
 
 之前，我们介绍了 Storybook 的一个关键功能，就是强大的 [插件](https://storybook.js.org/docs/react/configure/storybook-addons) 生态系统。插件用于增强你的开发体验和工作流程。
