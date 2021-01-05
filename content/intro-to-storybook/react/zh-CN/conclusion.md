@@ -22,6 +22,10 @@ Storybook 是 React,Vue 和 Angular 的强大工具. 它拥有蓬勃发展的开
 
 - [**视觉测试手册**](https://www.learnstorybook.com/visual-testing-handbook/)深入探讨将 Storybook 用于可视化测试组件. 免费的 31 页电子书.
 
+- [**Storybook 聊天室**](https://discord.gg/UUt2PJb) 让你与 Storybook 社区保持联系，并给予其他 Storybook 用户帮助。
+
+- [**Storybook blog**](https://medium.com/storybookjs) 展示最新版本和功能，以简化你的 UI 开发工作流程。
+
 ## 谁制作了 LearnStorybook.com?
 
 文本,代码和制作都是由[Chromatic](https://www.chromatic.com/). 该教程的灵感来自 Chromatic 的流行[GraphQL + React 教程系列](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
