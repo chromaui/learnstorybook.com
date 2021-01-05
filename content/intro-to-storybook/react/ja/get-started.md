@@ -2,7 +2,7 @@
 title: 'React 向け Storybook のチュートリアル'
 tocTitle: 'はじめに'
 description: '開発環境に Storybook を導入しましょう'
-commit: 'b935904'
+commit: 'ac1ec13'
 ---
 
 Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから切り離して開発できるようになります。この文書は React 向けです。他にも [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 向けのバージョンがあります。
@@ -34,7 +34,7 @@ npx -p @storybook/cli sb init
 # ターミナルでテストランナー (Jest) を開始する:
 yarn test --watchAll
 
-# ポート 9009 でコンポーネントエクスプローラーを起動する:
+# ポート 6006 でコンポーネントエクスプローラーを起動する:
 yarn storybook
 
 # ポート 3000 でフロントエンドアプリケーションを起動する:
@@ -63,15 +63,15 @@ Taskbox はデザイン要素を [GraphQL と React のチュートリアル](ht
 
 ## アセットを追加する
 
-狙い通りのデザインにするためには、フォントとアイコンのフォルダーをダウンロードし、`public` フォルダーに配置する必要があります。次のコマンドを実行してください:
+狙い通りのデザインにするためには、フォントとアイコンのフォルダーをダウンロードし、`src/assets` フォルダーに配置する必要があります。次のコマンドを実行してください:
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-ここでは GitHub からフォルダーをダウンロードするのに <a href="https://github.com/Rich-Harris/degit">degit</a> を使用しています。手動でダウンロードしたければ、それぞれのフォルダーは<a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">こちら</a>にあります。
+ここでは GitHub からフォルダーをダウンロードするのに <a href="https://github.com/Rich-Harris/degit">degit</a> を使用しています。手動でダウンロードしたければ、それぞれのフォルダーは<a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">こちら</a>にあります。
 </div>
 
 CSS とアセットを追加すると、アプリケーションの描画が崩れてしまいますが、そのままで問題ありません。今はアプリケーションに手はつけません。まずは一つ目のコンポーネントを作り始めましょう！

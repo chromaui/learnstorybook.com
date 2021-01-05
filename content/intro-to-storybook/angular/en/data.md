@@ -334,4 +334,10 @@ describe('PureTaskList component', () => {
 });
 ```
 
-<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>
+<div class="aside">
+
+Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.
+
+Don't forget to commit your changes with git!
+
+</div>

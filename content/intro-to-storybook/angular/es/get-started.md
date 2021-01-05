@@ -5,9 +5,6 @@ description: 'Configurar Angular Storybook en tu entorno de desarrollo'
 commit: 0818d47
 ---
 
-<div class="aside"><p>
-¡Esta traducción está desactualizada! Ayúdenos a mejorarlo haciendo clic en el enlace en la parte inferior de la página. No solo el equipo te lo agradece, sino toda la comunidad.</p></div>
-
 Storybook se ejecuta en conjunto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz gráfica aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Angular; existe otras ediciones para [React](/react/es/get-started), [React Native](/react-native/es/get-started), [Vue](/vue/es/get-started) y [Svelte](/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
@@ -55,5 +52,5 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS se e
 
 ## Añadiendo los recursos
 
-También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/public) a la carpeta `assets/`.
+También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets) a la carpeta `assets/`.
 Después de añadir los estilos y recursos, nuestra aplicación se verá de forma un poco extraña. Está bien. No estamos trabajando en la aplicación y no la veremos hasta dentro de algunos capítulos. A continuación, ¡comenzamos con la construcción de nuestro primer componente!

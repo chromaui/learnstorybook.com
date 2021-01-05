@@ -2,10 +2,10 @@
 title: 'Storybook for React tutorial'
 tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
-commit: 'b935904'
+commit: 'ac1ec13'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) and [Svelte](/svelte/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React; other editions exist for [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started), [Svelte](/svelte/en/get-started) and [Ember](/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -28,13 +28,19 @@ Throughout this version of the tutorial, we'll be using <code>yarn</code> to run
 If you have Yarn installed, but prefer to use <code>npm</code> instead, don't worry, you can still go through the tutorial without any issues. Just add the <code>--use-npm</code> flag to the first command above and both CRA and Storybook will initialize based on this. Also while you progress through the tutorial, don't forget to adjust the commands used to their <code>npm</code> counterparts.
 </div>
 
-We can quickly check that the various environments of our application are working properly:
+In the root folder of the project add a new file called `.env` with the following:
+
+```
+SKIP_PREFLIGHT_CHECK=true
+```
+
+Now we can quickly check that the various environments of our application are working properly:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn storybook
 
 # Run the frontend app proper on port 3000:
@@ -63,15 +69,33 @@ If you want to modify the styling, the source LESS files are provided <a href="h
 
 ## Add assets
 
-To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `public` folder. Issue the following commands in your terminal:
+To match the intended design, you'll need to download both the font and icon directories and place its contents inside your `src/assets` folder. Issue the following commands in your terminal:
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the folders <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">here</a>.
 </div>
 
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+That's it. We've successfully configured our app.
+
+## Commit changes
+
+When our project was initialized, Create React App (CRA) already created a local repository for us. At this stage it's safe to add our files to the first commit.
+
+Run the following commands to add and commit the changes we've done so far.
+
+```shell
+$ git add .
+```
+
+Followed by:
+
+```shell
+$ git commit -m "first commit"
+```
+
+Let's start building our first component!

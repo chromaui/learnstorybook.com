@@ -2,7 +2,7 @@
 title: '간단한 컴포넌트 만들기'
 tocTitle: '간단한 컴포넌트'
 description: '간단한 컴포넌트를 독립적으로 만들어봅시다'
-commit: 'f433fe5'
+commit: '97d6750'
 ---
 
 우리는 [컴포넌트 기반 개발(Component-Driven Development)](https://www.componentdriven.org/) (CDD) 방법론에 따라 UI를 만들어 볼 것입니다. 이는 컴포넌트로부터 시작하여 마지막 화면에 이르기까지 상향적으로 UI를 개발하는 과정입니다. CDD는 UI를 구축할 때 직면하게 되는 규모의 복잡성을 해결하는 데 도움이 됩니다.
@@ -117,7 +117,7 @@ Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려�
 
 ## 구성
 
-Storybook 구성을 몇 가지 변경하여, 최근에 생성한 스토리뿐 아니라 [지난 챕터](/react/kr/get-started)에서 변경된 CSS 파일을 사용할 수 있도록 해보겠습니다.
+Storybook 구성을 몇 가지 변경하여, 최근에 생성한 스토리뿐 아니라 [지난 챕터](/react/ko/get-started)에서 변경된 CSS 파일을 사용할 수 있도록 해보겠습니다.
 
 Storybook 구성 파일 (`.storybook/main.js`)을 다음과 같이 변경해주세요.
 

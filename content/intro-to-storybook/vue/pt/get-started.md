@@ -2,6 +2,7 @@
 title: 'Tutorial do Storybook para o Vue'
 tocTitle: 'Introdução'
 description: 'Configuração do Storybook num ambiente de desenvolvimento Vue'
+commit: '9e3165c'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.
@@ -69,13 +70,13 @@ A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https:/
 
 ## Adicionar recursos
 
-De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `public`.
+De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `src/assets`.
 
-<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
+<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aqui</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
 ```
 
 E também atualizar o nosso script de execução do storybook (no `package.json`) para servir a pasta `public`

@@ -2,7 +2,7 @@
 title: '데이터 연결하기'
 tocTitle: '데이터'
 description: 'UI 컴포넌트에 데이터를 연결하는 방법을 배워봅시다'
-commit: '97fc9a6'
+commit: 'd2fca1f'
 ---
 
 지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 Storybook에는 적합하지만 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
@@ -190,5 +190,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-이 단계에서 스냅샷 테스트가 실패하는 경우, <code>-u</code> 플래그와 함께 테스트 스크립트를 실행하여 기존의 스냅샷을 업데이트해야 합니다. 또한 앱이 점진적으로 성장함에 따라 <a href="/react/kr/get-started/">시작하기</a> 부분에서 언급된 것처럼 <code> --watchAll</code> 플래그로 테스트를 시작하기에 좋은 시점일 수 있습니다.
+이 단계에서 스냅샷 테스트가 실패하는 경우, <code>-u</code> 플래그와 함께 테스트 스크립트를 실행하여 기존의 스냅샷을 업데이트해야 합니다. 또한 앱이 점진적으로 성장함에 따라 <a href="/react/ko/get-started/">시작하기</a> 부분에서 언급된 것처럼 <code> --watchAll</code> 플래그로 테스트를 시작하기에 좋은 시점일 수 있습니다.
 </div>

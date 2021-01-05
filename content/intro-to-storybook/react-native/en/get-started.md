@@ -4,7 +4,7 @@ tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React Native; other editions exist for [React](/react/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) and [Svelte](/svelte/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React Native; other editions exist for [React](/react/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started), [Svelte](/svelte/en/get-started) and [Ember](/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -247,10 +247,10 @@ If you want to modify the styling, the source LESS files are provided in the Git
 To match the intended design, you'll need to download both the font and icon directories and place them inside the `assets` folder.
 
 <div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the icons folder directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a> and the font <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">here</a>.</p></div>
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the icons folder directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a> and the font <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">here</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
 svn export https://github.com/google/fonts/trunk/ofl/nunitosans assets/font
 ```
 

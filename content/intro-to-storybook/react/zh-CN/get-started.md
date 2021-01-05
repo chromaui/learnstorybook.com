@@ -2,10 +2,11 @@
 title: 'Storybook React 教程'
 tocTitle: '开始吧'
 description: '在你的开发环境下设置 Storybook'
-commit: '8741257'
+commit: 'ac1ec13'
 ---
 
-Storybook 在开发环境下与你的程序一起运行。它可以帮助你隔离业务逻辑和应用程序上下文独立构建 UI 组件。此版本的 Storybook 教程适用于 React。其他版本还有：[React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started) 以及 [Svelte](/svelte/en/get-started)。
+Storybook 是在开发模式下 与 您的应用程序一起运行的. 它可以帮助您构建 UI 组件,并与 应用程序的 业务逻辑和上下文 隔离开来. 本期"学习 Storybook"适用于 **React**; `Vue和Angular`版本即将推出.
+
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -34,7 +35,7 @@ npx -p @storybook/cli sb init
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn storybook
 
 # Run the frontend app proper on port 3000:
@@ -63,15 +64,15 @@ yarn start
 
 ## 添加资源
 
-为了匹配预期的设计，需要你下载字体及图标目录到 `public` 文件夹下。在终端执行以下命令：
+为了匹配预期的设计，需要你下载字体及图标目录到 `src/assets` 文件夹下。在终端执行以下命令：
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-我们使用 <a href="https://github.com/Rich-Harris/degit">degit</a> 从 Github 下载文件夹。如果想要手动，可以从 <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">这里</a> 抓取。
+我们使用 <a href="https://github.com/Rich-Harris/degit">degit</a> 从 Github 下载文件夹。如果想要手动，可以从 <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">这里</a> 抓取。
 </div>
 
 添加完样式和资源后，程序会渲染出一些奇怪的效果。没有关系，我们目前不在开发该应用，我们从构建第一个组件开始！

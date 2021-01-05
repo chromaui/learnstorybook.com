@@ -2,7 +2,7 @@
 title: 'Storybook 배포하기'
 tocTitle: '배포하기'
 description: 'Storybook을 온라인으로 배포하는 방법을 배워봅시다'
-commit: '313b27f'
+commit: '8652d73'
 ---
 
 이 튜토리얼을 통해 우리는 로컬 개발 환경에서 컴포넌트를 만들었습니다. 언젠가 팀의 피드백을 얻기 위해 작업을 공유해야 할 필요가 있을 것입니다. 다른 팀원들이 UI 구현을 검토할 수 있도록 Storybook을 온라인으로 배포해봅시다.
@@ -19,7 +19,7 @@ Storybook을 배포하기 위해서는 먼저 정적인 웹 앱으로 내보내�
 
 ### GitHub 저장소 설정
 
-먼저 시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 챕터](/react/kr/get-started/)에서 프로젝트를 시작하셨을 때, Create React App (CRA)을 통해 이미 로컬 저장소가 생성되었을 것입니다. 이 단계에서 첫 번째 커밋으로 그동안의 파일들을 추가하는 것이 안전합니다.
+먼저 시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 챕터](/react/ko/get-started/)에서 프로젝트를 시작하셨을 때, Create React App (CRA)을 통해 이미 로컬 저장소가 생성되었을 것입니다. 이 단계에서 첫 번째 커밋으로 그동안의 파일들을 추가하는 것이 안전합니다.
 
 다음 명령어를 실행하여 지금까지 한 변경 사항들을 추가하고 커밋해주세요.
 
@@ -46,7 +46,7 @@ $ git remote add origin https://github.com/<사용자명>/taskbox.git
 마지막으로, 로컬 저장소를 원격 저장소로 푸시해주세요.
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Chromatic 설치
@@ -136,7 +136,7 @@ git commit -m "GitHub action setup"
 마지막으로 원격 저장소에 푸시해주세요:
 
 ```bash
-git push origin master
+git push origin main
 ```
 
 GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 Chromatic에 배포될 것입니다. Chromatic의 프로젝트 빌드 화면에서 배포된 모든 Storybook을 보실 수 있습니다.

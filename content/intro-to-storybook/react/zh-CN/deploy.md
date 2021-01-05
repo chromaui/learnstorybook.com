@@ -18,7 +18,7 @@ description: '学习如何在线部署 Storybook'
 
 ### GitHub 仓库设置
 
-在我们开始前，我们本地需要与远程控制服务版本同步。在[开始吧 章节](/react/en/get-started/)中我们的项目已经初始化，Create React App (CRA) 已经为我们创建了一个本地仓库。在此阶段，我们添加文件完成第一次提交是安全的。
+在我们开始前，我们本地需要与远程控制服务版本同步。在[开始吧 章节](react/zh-CN/get-started/)中我们的项目已经初始化，Create React App (CRA) 已经为我们创建了一个本地仓库。在此阶段，我们添加文件完成第一次提交是安全的。
 
 发出以下命令以添加并提交目前为止我们的所有修改。
 
@@ -45,7 +45,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 最后将本地仓库推送到 GitHub 远程仓库
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### 开始 Chromatic
@@ -135,21 +135,18 @@ git commit -m "GitHub action setup"
 最后推送到远程分支：
 
 ```bash
-git push origin master
+git push origin main
 ```
 
 设置了 GitHub action 后，当推送代码时，你的 Storybook 将部署到 Chromatic 上。你可以在 Chromatic 的构建屏幕中找到所有已发布的 Storybook。
 
 ![Chromatic 用户仪表盘](/intro-to-storybook/chromatic-user-dashboard.png)
 
-点击 latest build 它应该是顶部的版本。
+提交表单以 构建和部署代码任务箱的`main`分支. 完成后,我们将在 Netlify 上 看到一条确认消息,其中包含指向 Taskbox 在线 Storybook 的链接.
+
 
 接下来点击 `View Storybook` 按钮查看 Storybook 的最新版。
 
 ![Storybook 链接到 Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
-
-<!--
-And that's it, all is required is to commit and push the changes to our repository and we've successfully automated our Storybook deployment
- -->
 
 使用链接分享给您的团队成员。作为标准应用程序开发过程的一部分，或仅用于展示工作 💅 都是有用的。

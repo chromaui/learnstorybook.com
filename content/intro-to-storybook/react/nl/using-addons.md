@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Leer hoe je add-ons kunt integreren en gebruiken aan de hand van een populair voorbeeld'
-commit: 'b3bca4a'
+commit: 'a23f4d0'
 ---
 
 Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.org/addons/introduction/) waarmee je de developer experience kunt verbeteren voor iedereen in je team. Als je deze tutorial lineair hebt gevolgd, hebben we tot nu toe naar meerdere add-ons verwezen en je zal er al een geïmplementeerd hebben in het [Testing-hoofdstuk](/react/en/test/).

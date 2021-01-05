@@ -52,7 +52,7 @@ Utilize as instruções fornecidas pelo GitHub para adicionar a localização re
 ```bash
 cd learnstorybook-design-system
 git remote add origin https://github.com/chromaui/learnstorybook-design-system.git
-git push -u origin master
+git push -u origin main
 ```
 
 Não se esqueça de substituir `chromaui` pelo seu nome de utilizador.

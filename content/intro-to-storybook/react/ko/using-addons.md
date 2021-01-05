@@ -2,12 +2,12 @@
 title: '애드온'
 tocTitle: '애드온'
 description: '인기있는 Controls 애드온을 적용하고 사용하는 방법을 배워봅시다.'
-commit: '271f39d'
+commit: 'a23f4d0'
 ---
 
 Storybook은 강력한 [애드온(addons)](https://storybook.js.org/docs/react/configure/storybook-addons) 시스템을 통해 팀의 모든 구성원의 개발 경험을 향상할 수 있습니다. [여기](https://storybook.js.org/addons)에서 애드온 목록을 보실 수 있습니다.
 
-만약 본 튜토리얼을 계속 따라 하셨다면, 저희는 지금까지 여러 애드온을 참조해왔으며, 이미 [테스팅 챕터](/react/kr/test/)에서 하나를 구현해보셨을 것입니다.
+만약 본 튜토리얼을 계속 따라 하셨다면, 저희는 지금까지 여러 애드온을 참조해왔으며, 이미 [테스팅 챕터](/react/ko/test/)에서 하나를 구현해보셨을 것입니다.
 
 가능한 모든 사용 사례에 대한 애드온이 있기 때문에 애드온에 관한 모든 예시를 다룰 수는 없을 것입니다. 여기서는 가장 인기 있는 애드온인 [Controls](https://storybook.js.org/docs/react/essentials/controls)를 함께 구현해 보도록 하겠습니다.
 
@@ -85,10 +85,10 @@ LongTitle.args = {
   />
 </video>
 
-[시각적 테스팅(visual testing)](/react/kr/test/)인 경우, 말줄임표에 관한 솔루션이 작동을 멈추었는지에 대한 알림 또한 받을 수 있을 것입니다. 모호한 엣지 케이스들은 테스트 커버리지 없이는 잊혀지기가 쉽습니다!
+[시각적 테스팅(visual testing)](/react/ko/test/)인 경우, 말줄임표에 관한 솔루션이 작동을 멈추었는지에 대한 알림 또한 받을 수 있을 것입니다. 모호한 엣지 케이스들은 테스트 커버리지 없이는 잊혀지기가 쉽습니다!
 
 ### 변경 사항을 병합하기
 
 변경 사항들을 git에 merge하는 것을 잊지 마세요!
 
-<div class="aside"><p>우리가 살펴본 바와 같이 Controls는 개발자가 아닌 사람들이 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법이며 함께 살펴본 것보다 더 많은 사항은 <a href="https://storybook.js.org/docs/react/essentials/controls">공식 문서</a>를 통해 배우실 수 있습니다. 그러나 애드온을 사용하여 여러분의 작업흐름에 맞게 Storybook을 사용하는 많은 방법들이 존재합니다. <a href="/intro-to-storybook/react/kr/creating-addons">애드온 생성하기</a> 보너스 챕터에서는 개발 작업 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어보며 그러한 방법을 알려드리도록 하겠습니다.</p></div>
+<div class="aside"><p>우리가 살펴본 바와 같이 Controls는 개발자가 아닌 사람들이 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법이며 함께 살펴본 것보다 더 많은 사항은 <a href="https://storybook.js.org/docs/react/essentials/controls">공식 문서</a>를 통해 배우실 수 있습니다. 그러나 애드온을 사용하여 여러분의 작업흐름에 맞게 Storybook을 사용하는 많은 방법들이 존재합니다. <a href="/intro-to-storybook/react/ko/creating-addons">애드온 생성하기</a> 보너스 챕터에서는 개발 작업 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어보며 그러한 방법을 알려드리도록 하겠습니다.</p></div>

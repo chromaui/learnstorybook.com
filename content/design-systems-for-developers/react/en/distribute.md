@@ -167,7 +167,7 @@ GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
-By adding the file to `.gitignore` we’ll be sure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package from locally (later we’ll set things up to auto publish when PRs are merged to master) they should set up their own `.env` file following this process:
+By adding the file to `.gitignore` we’ll be sure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package from locally (later we’ll set things up to auto publish when PRs are merged to the default branch) they should set up their own `.env` file following this process:
 
 ```
 dist
@@ -196,7 +196,7 @@ In the future, we’ll calculate new version numbers with `auto` via scripts, bu
 yarn auto changelog
 ```
 
-This will generate a long changelog entry with every commit we’ve created so far (and a warning we’ve been pushing to master, which we should stop doing soon).
+This will generate a long changelog entry with every commit we’ve created so far (and a warning we’ve been pushing to the default branch, which we should stop doing soon).
 
 Although it is useful to have an auto-generated changelog so you don’t miss things, it’s also a good idea to manually edit it and craft the message in the most useful way for users. In this case, the users don’t need to know about all the commits along the way. Let’s make a nice simple message for our first v0.1.0 version. First undo the commit that Auto just created (but keep the changes:
 
@@ -232,7 +232,7 @@ npm publish
 And use Auto to create a release on GitHub:
 
 ```shell
-git push --follow-tags origin master
+git push --follow-tags origin main
 yarn auto release
 ```
 
@@ -251,12 +251,12 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 ```json
 {
   "scripts": {
-    "release": "auto shipit"
+    "release": "auto shipit --base-branch=main"
   }
 }
 ```
 
-Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. All commits to `master` will be published.
+Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. All commits to the default branch will be published.
 
 Congratulations! You setup the infrastructure to manually publish your design system releases. Now learn how to automate releases with continuous integration.
 
@@ -291,7 +291,7 @@ name: Release
 # the event that will trigger the action
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 # what the action will do
 jobs:
@@ -329,7 +329,7 @@ jobs:
 
 Save and commit your changes to the remote repository.
 
-Success! Now every time you merge a PR to master, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
+Success! Now every time you merge a PR to the default branch, it will automatically publish a new version, incrementing the version number as appropriate due to the labels you’ve added.
 
 <div class="aside">We didn’t cover all of Auto’s many features and integrations that might be useful for growing design systems. Read the docs <a href="https://github.com/intuit/auto">here</a>.</div>
 

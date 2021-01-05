@@ -296,3 +296,7 @@ Once the above is done, we can run `npm run jest` and see the following output:
 We now have a snapshot test for each of our `TaskComponent` stories. If we change the implementation of `TaskComponent`, we’ll be prompted to verify the changes.
 
 Additionally, `jest` will also run the test for `app.component.ts`.
+
+<div class="aside">
+Don't forget to commit your changes with git!
+</div>
