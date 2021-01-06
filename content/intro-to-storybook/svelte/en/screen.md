@@ -74,7 +74,7 @@ const TaskBox = () => {
 export const taskStore = TaskBox();
 
 // store to handle the app state
-const appState = () => {
+const AppState = () => {
   const { subscribe, update } = writable(false);
   return {
     subscribe,
@@ -82,7 +82,7 @@ const appState = () => {
   };
 };
 
-export const AppStore = appState();
+export const AppStore = AppState();
 ```
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
@@ -91,6 +91,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 <!-- src/App.svelte -->
 
 <script>
+  import './index.css'
   import { AppStore } from './store';
   import InboxScreen from './components/InboxScreen.svelte';
 </script>
@@ -104,7 +105,7 @@ However, where things get interesting is in rendering the story in Storybook.
 
 As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition with other frameworks, container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service.
 
-When placing the `TaskList` into Storybook, we were able to ilustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+When placing the `TaskList` into Storybook, we were able to illustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
 So when we setup our stories in `InboxScreen.stories.js`:
 
@@ -114,19 +115,21 @@ So when we setup our stories in `InboxScreen.stories.js`:
 import InboxScreen from './InboxScreen.svelte';
 
 export default {
+  component: InboxScreen,
   title: 'PureInboxScreen',
-  Component: InboxScreen,
 };
-export const standard = () => ({
+
+const Template = args => ({
   Component: InboxScreen,
+  props: args,
 });
 
-export const error = () => ({
-  Component: InboxScreen,
-  props: {
-    error: true,
-  },
-});
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: true,
+};
 ```
 
 We see that both the `error` and `standard` stories work just fine. (But you will encounter some problems when trying to test the `PureInboxScreen` with a unit test if no data is supplied like we did with `TaskList`).

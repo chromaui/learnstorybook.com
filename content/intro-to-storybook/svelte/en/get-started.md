@@ -6,7 +6,6 @@ description: 'Setup Storybook in your development environment'
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Svelte; other editions exist for [Vue](/vue/en/get-started), [Angular](/angular/en/get-started), [React](/angular/en/get-started), [React Native](/react-native/en/get-started) and [Ember](/ember/en/get-started).
 
-
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Setup Svelte Storybook
@@ -99,16 +98,19 @@ And a new script is required to run Jest:
 To make sure everything is working properly we need to create a test file. In the `src` folder, add a file called `Sample.test.js` with the following:
 
 ```javascript
-// Sample.test.js
+// src/Sample.test.js
 
-function sum(a, b) {
-  return a + b;
-}
-describe('Sample Test', () => {
-  it('should return 3 as the result of the function', () => {
-    // set timeout to prevent false positives with tests
-    expect(sum(1, 2)).toBe(3);
+import App from './App.svelte';
+import { render } from '@testing-library/svelte';
+
+test('App', () => {
+  const { getByText } = render(App, {
+    props: {
+      name: 'World',
+    },
   });
+
+  expect(getByText('Hello World!')).toBeInTheDocument();
 });
 ```
 

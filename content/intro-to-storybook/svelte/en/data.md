@@ -126,52 +126,61 @@ The reason to keep the presentational version of the `TaskList` separate is beca
 // src/components/PureTaskList.stories.js
 
 import PureTaskList from './PureTaskList.svelte';
-import { taskData, actionsData } from './Task.stories';
-export default {
-  title: 'PureTaskList',
-  excludeStories: /.*Data$/,
-};
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
-// default TaskList state
-export const Default = () => ({
-  Component: PureTaskList,
-  props: {
-    tasks: defaultTasksData,
-  },
-  on: {
-    ...actionsData,
-  },
-});
+import * as TaskStories from './Task.stories';
 
-export const WithPinnedTasks = () => ({
-  Component: PureTaskList,
-  props: {
-    tasks: withPinnedTasksData,
+export default {
+  component: PureTaskList,
+  title: 'PureTaskList',
+  argTypes: {
+    onPinTask: { action: 'onPinTask' },
+    onArchiveTask: { action: 'onArchiveTask' },
   },
+};
+
+const Template = args => ({
+  Component: PureTaskList,
+  props: args,
   on: {
-    ...actionsData,
+    ...TaskStories.actionsData,
   },
 });
-export const Loading = () => ({
-  Component: PureTaskList,
-  props: {
-    loading: true,
-  },
-});
-export const Empty = () => ({
-  Component: PureTaskList,
-});
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
+
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
@@ -188,13 +197,11 @@ Similarly, we need to use `PureTaskList` in our Jest test:
 
 import PureTaskList from './PureTaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasksData } from './PureTaskList.stories';
+import { WithPinnedTasks } from './PureTaskList.stories';
 
-test('TaskList', async () => {
-  const { container } = await render(PureTaskList, {
-    props: {
-      tasks: withPinnedTasksData,
-    },
+test('PureTaskList', () => {
+  const { container } = render(PureTaskList, {
+    props: WithPinnedTasks.args,
   });
   expect(container.firstChild.children[0].classList.contains('TASK_PINNED')).toBe(true);
 });

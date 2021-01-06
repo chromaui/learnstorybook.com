@@ -70,59 +70,55 @@ Below we build out Task’s three test states in the story file:
 
 import Task from './Task.svelte';
 import { action } from '@storybook/addon-actions';
-export default {
-  title: 'Task',
-  excludeStories: /.*Data$/,
-};
 
 export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'Task_INBOX',
-  updated_at: new Date(2019, 0, 1, 9, 0),
+export default {
+  component: Task,
+  title: 'Task',
+  excludeStories: /.*Data$/,
+  // the argTypes are included so that they are properly displayed in the Actions Panel
+  argTypes: {
+    onPinTask: { action: 'onPinTask' },
+    onArchiveTask: { action: 'onArchiveTask' },
+  },
 };
 
-// default task state
-export const Default = () => ({
+const Template = ({ onArchiveTask, onPinTask, ...args }) => ({
   Component: Task,
-  props: {
-    task: taskData,
-  },
+  props: args,
   on: {
     ...actionsData,
   },
 });
-// pinned task state
-export const Pinned = () => ({
-  Component: Task,
-  props: {
-    task: {
-      ...taskData,
-      state: 'TASK_PINNED',
-    },
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
   },
-  on: {
-    ...actionsData,
+};
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
   },
-});
-// archived task state
-export const Archived = () => ({
-  Component: Task,
-  props: {
-    task: {
-      ...taskData,
-      state: 'TASK_ARCHIVED',
-    },
+};
+
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
   },
-  on: {
-    ...actionsData,
-  },
-});
+};
 ```
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -137,16 +133,27 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `component` -- the component itself,
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+- `argTypes` -- specify the [args](https://storybook.js.org/docs/react/api/argtypes) behavior in each story.
 
 To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state.
+
+As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
+
+<div class="aside">
+
+`Template.bind({})` is a [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
+
+</div>
+
+Arguments or [`args`](https://storybook.js.org/docs/vue/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes so does the component.
+
+When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
 As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time (where they will be accessed when the `dispatch` function is invoked).
 
 Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
-
-When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
 <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
@@ -172,7 +179,7 @@ After completing the change above, inside the `.storybook` folder, add a new fil
 ```javascript
 // .storybook/preview.js
 
-import '../public/global.css';
+import '../src/index.css';
 ```
 
 Once we’ve done these two small changes, restarting Storybook should yield test cases for the three Task states:
