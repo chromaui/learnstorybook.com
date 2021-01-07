@@ -6,7 +6,6 @@ description: 'Setup Storybook in your development environment'
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Svelte; other editions exist for [Vue](/vue/en/get-started), [Angular](/angular/en/get-started), [React](/angular/en/get-started), [React Native](/react-native/en/get-started) and [Ember](/ember/en/get-started).
 
-
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Setup Svelte Storybook
@@ -133,7 +132,7 @@ Depending on what part of the app you’re working on, you may want to run one o
 
 ## Reuse CSS
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/index.css` file.
+Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `public/global.css` file, replacing all content.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -146,8 +145,8 @@ If you want to modify the styling, the source LESS files are provided <a href="h
 To match the intended design, you'll need to download both the font and icon directories and place them inside the `src/assets` folder. Issue the following commands in your terminal:
 
 ```bash
-npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
-npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
+npx degit chromaui/learnstorybook-code/src/assets/font public/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon public/assets/icon
 ```
 
 <div class="aside">
