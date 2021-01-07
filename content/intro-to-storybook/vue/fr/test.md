@@ -26,84 +26,69 @@ Les tests de régression visuelle sont conçus pour détecter les changements d'
   />
 </video>
 
-Storybook est un outil fantastique pour les tests de régression visuelle, car chaque histoire est essentiellement une spécification de test. Chaque fois que nous écrivons ou mettons à jour une histoire, nous obtenons une spécification gratuitement!
+Storybook est un outil fantastique pour les tests de régression visuelle, car chaque histoire est essentiellement une spécification de test. Chaque fois que nous écrivons ou mettons à jour une histoire, nous obtenons une spécification gratuitement !
 
-Il existe de nombreux outils pour les tests de régression visuelle. Pour les équipes professionnelles, nous recommandons [**Chromatic**](https://www.chromatic.com/), un addon créé par les mainteneurs de Storybook qui exécute des tests dans le cloud.
-
-## Configurer les tests de régression visuelle
-
-Chromatic est un module complémentaire de Storybook sans tracas pour les tests de régression visuelle et la révision dans le cloud. Puisqu'il s'agit d'un service payant (avec un essai gratuit), il peut ne pas convenir à tout le monde. Cependant, Chromatic est un exemple instructif de flux de travail de test visuel de production que nous allons essayer gratuitement. Regardons.
-
-### Mettez Git à jour
-
-Vue CLI a déjà créé un répertoire pour votre projet; vérifions les modifications que nous avons apportées:
-
-```bash
-$ git add .
-```
-
-Maintenant soumettez les fichiers.
-
-```bash
-$ git commit -m "taskbox UI"
-```
-
-### Obtenir Chromatic
-
-Ajoutez le paquetage comme une dépendance.
-
-```bash
-yarn add -D chromatic
-```
-
-Une chose fantastique à propos de cet addon est qu'il utilisera l'historique Git pour garder une trace de vos composants d'interface utilisateur.
-
-Ensuite [connectez-vous Chromatic](https://bit.ly/2Is93Ez) avec votre compte GitHub (Chromatic ne demande que des autorisations légères). Créez un projet avec le nom "taskbox" et copiez votre `project-token` unique.
-
-<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
-  <source
-    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
-    type="video/mp4"
-  />
-</video>
-
-Exécutez la commande de test dans la ligne de commande pour configurer des tests de régression visuelle pour Storybook. N'oubliez pas d'ajouter votre code d'application unique à la place de `<project-token>`.
-
-```bash
-npx chromatic --project-token=<project-token>
-```
-
-<div class="aside">
-Si votre Storybook a un script de construction personnalisé, vous devrez peut-être [ajouter des options](https://www.chromatic.com/docs/setup#command-options) à cette commande.
-</div>
-
-Une fois le premier test terminé, nous avons des références de test pour chaque histoire. En d'autres termes, des captures d'écran de chaque histoire connue pour être «bonne». Les futurs changements apportés à ces histoires seront comparés aux références.
-
-![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)
+Il existe de nombreux outils pour les tests de régression visuelle. Nous recommandons [**Chromatic**](https://www.chromatic.com/), un service de publication gratuit créé par les responsables de Storybook qui exécute des tests visuels dans un cloud parallélisé. Cela nous permet également de publier Storybook en ligne comme nous l'avons vu dans le [chapitre précédent](/vue/fr/deploy/).
 
 ## Attraper un changement d'interface utilisateur
 
-Les tests de régression visuelle reposent sur la comparaison des images du nouveau code d'interface utilisateur rendu aux images de base. Si une modification de l'interface utilisateur est détectée, vous en êtes averti. Voyez comment cela fonctionne en modifiant l'arrière-plan du composant `Task`:
+Les tests de régression visuelle reposent sur la comparaison des images du nouveau code d'interface utilisateur rendu aux images de base. Si une modification de l'interface utilisateur est détectée, nous en serons avertis.
 
-![Changement de code](/intro-to-storybook/chromatic-change-to-task-component.png)
+Voyons comment cela fonctionne en modifiant l'arrière-plan du composant `Task`.
+
+Commencez par créer une nouvelle branche pour ce changement :
+
+```bash
+git checkout -b change-task-background
+```
+
+Remplacez `Task` par ceci :
+
+```diff:title=src/components/Task.vue
+<input
+  type="text"
+  :value="task.title"
+  readonly
+  placeholder="Input title"
++ style="background: red;"
+/>
+```
 
 Cela donne une nouvelle couleur d'arrière-plan pour l'élément.
 
-![Modification de la couleur d'arrière plan d'une tâche](/intro-to-storybook/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change.png)
 
-Utilisez la commande de test précédente pour exécuter un autre test chromatique.
+Ajoutez le fichier :
 
 ```bash
-npx chromatic --project-token=<project-token>
+git add .
 ```
 
-Suivez le lien vers l'interface utilisateur Web où vous verrez les modifications.
+Validez le :
 
-![Changement UI dans Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
+```bash
+git commit -m "change task background to red"
+```
 
-Il y a beaucoup de changements! La hiérarchie des composants où `Task` est un enfant de `TaskList` et `Inbox` signifie une petite modification des boules de neige en régressions majeures. Cette circonstance est précisément la raison pour laquelle les développeurs ont besoin de tests de régression visuelle en plus d'autres méthodes de test.
+Et poussez les modifications au référentiel distant :
 
-![Petites modifications UI, grande régression](/intro-to-storybook/minor-major-regressions.gif)
+```bash
+git push -u origin change-task-background
+```
+
+Enfin, ouvrez votre référentiel GitHub et ouvrez une pull request pour la branche `change-task-background`.
+
+![Creating a PR in GitHub for task](/github/pull-request-background.png)
+
+Ajoutez un texte descriptif à votre demande de fusion et cliquez sur `Créer une demande de fusion`. Cliquez sur le "🟡 UI Tests" en bas de page.
+
+Cela vous montrera les changements d'interface utilisateur capturés par votre validation.
+
+![Chromatic caught changes](/intro-to-storybook/chromatic-catch-changes.png)
+
+Il y a beaucoup de changements ! La hiérarchie des composants où `Task` est un enfant de `TaskList` et `Inbox` signifie une petite modification avec un effet boules de neige sur des régressions majeures. Cette circonstance est précisément la raison pour laquelle les développeurs ont besoin de tests de régression visuelle en plus d'autres méthodes de test.
+
+![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
 ## Examiner les changements
 

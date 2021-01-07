@@ -13,41 +13,35 @@ Dans ce chaptre, nous continuons d'améliorer la sophistication en combinant des
 
 Comme notre application est très simple, l'écran que nous allons créer est assez trivial, il suffit d'encapsuler le composant conteneur `TaskList` (qui fournit ses propres données via Vuex) dans une mise en page et d'extraire un champ d'erreur de niveau supérieur du magasin (supposons nous allons définir ce champ si nous avons un problème de connexion à notre serveur). Créons une vue `PureInboxScreen.vue` dans votre dossier `src/components/` :
 
-```html
-<!--src/components/PureInboxScreen.vue-->
+```html:title=src/components/PureInboxScreen.vue
 <template>
   <div>
-    <div class="page lists-show" v-if="error">
+    <div v-if="error" class="page lists-show">
       <div class="wrapper-message">
         <span class="icon-face-sad" />
         <div class="title-message">Oh no!</div>
         <div class="subtitle-message">Something went wrong</div>
       </div>
     </div>
-    <div class="page lists-show" v-else>
+
+    <div v-else class="page lists-show">
       <nav>
         <h1 class="title-page">
           <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <task-list />
+      <TaskList />
     </div>
   </div>
 </template>
 
 <script>
   import TaskList from './TaskList.vue';
-
   export default {
-    name: 'pure-inbox-screen',
+    name: 'PureInboxScreen',
+    components: { TaskList },
     props: {
-      error: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    components: {
-      TaskList,
+      error: { type: Boolean, default: false },
     },
   };
 </script>
@@ -55,12 +49,9 @@ Comme notre application est très simple, l'écran que nous allons créer est as
 
 Ensuite, nous pouvons créer un conteneur, qui récupère à nouveau les données pour `PureInboxScreen` dans `src/components/InboxScreen.vue`:
 
-```html
-<!--src/components/InboxScreen.vue-->
+```html:title=src/components/InboxScreen.vue
 <template>
-  <div>
-    <pure-inbox-screen :error="error" />
-  </div>
+  <PureInboxScreen :error="error" />
 </template>
 
 <script>
@@ -68,38 +59,37 @@ Ensuite, nous pouvons créer un conteneur, qui récupère à nouveau les donnée
   import { mapState } from 'vuex';
 
   export default {
-    name: 'inbox-screen',
-    components: {
-      PureInboxScreen,
-    },
-    computed: {
-      ...mapState(['error']),
-    },
+    name: 'InboxScreen',
+    components: { PureInboxScreen },
+    computed: mapState(['error']),
   };
 </script>
 ```
 
-Nous modifions également le composant `App` pour intégrer `InboxScreen` (éventuellement, nous utiliserions un routeur pour choisir le bon écran, mais ne nous inquiétons pas à ce sujet ici):
+Nous modifions également le composant `App` pour intégrer `InboxScreen` (éventuellement, nous utiliserions un routeur pour choisir le bon écran, mais ne nous inquiétons pas à ce sujet ici) :
 
-```html
-<!--src/App.vue-->
+```diff:title=src/App.vue
 <template>
   <div id="app">
-    <inbox-screen />
+-   <task-list />
++   <InboxScreen />
   </div>
 </template>
 
 <script>
   import store from './store';
-  import InboxScreen from './components/InboxScreen.vue';
+- import TaskList from './components/TaskList.vue';
++ import InboxScreen from './components/InboxScreen.vue';
   export default {
     name: 'app',
     store,
     components: {
-      InboxScreen,
+-     TaskList
++     InboxScreen,
     },
   };
 </script>
+
 <style>
   @import './index.css';
 </style>
@@ -113,24 +103,24 @@ Lors du placement du composant `TaskList` dans Storybook, nous avons pu éviter 
 
 Cependant, pour le composant `PureInboxScreen`, nous avons un problème car bien que le `PureInboxScreen` lui-même soit de présentation, son enfant, le composant `TaskList`, ne l'est pas. Dans un sens, `PureInboxScreen` a été pollué par le «container-ness». Ainsi, lorsque nous configurons nos histoires dans `src/components/PureInboxScreen.stories.js` :
 
-```javascript
-//src/components/PureInboxScreen.stories.js
+```js:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
+
 export default {
   title: 'PureInboxScreen',
+  component: PureInboxScreen,
 };
 
-// inbox screen default state
-export const Default = () => ({
+const Template = (args, { argTypes }) => ({
   components: { PureInboxScreen },
-  template: `<pure-inbox-screen/>`,
+  props: Object.keys(argTypes),
+  template: '<PureInboxScreen v-bind="$props" />',
 });
 
-// inbox screen error state
-export const error = () => ({
-  components: { PureInboxScreen },
-  template: `<pure-inbox-screen :error="true"/>`,
-});
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = { error: true };
 ```
 
 Nous voyons que bien que l'histoire `erreor` fonctionne très bien, nous avons un problème dans l'histoire `default`, car le composant `TaskList` n'a pas de magasin Vuex auquel se connecter.
@@ -142,48 +132,55 @@ Une façon d'éviter ce problème consiste à ne jamais afficher les composants 
 Cependant, les développeurs **devront** inévitablement rendre les conteneurs plus bas dans la hiérarchie des composants. Si nous voulons afficher la plupart ou la totalité de l'application dans Storybook (nous le faisons!), Nous avons besoin d'une solution à ce problème.
 
 <div class="aside">
-En passant, la transmission des données dans la hiérarchie est une approche légitime, en particulier lors de l'utilisation de <a href="http://graphql.org/">GraphQL</a>. C'est ainsi que nous avons construit <a href="https://www.chromatic.com">Chromatic</a> aux côtés de plus de 800 histoires.
+💡 En passant, la transmission des données dans la hiérarchie est une approche légitime, en particulier lors de l'utilisation de <a href="http://graphql.org/">GraphQL</a>. C'est ainsi que nous avons construit <a href="https://www.chromatic.com">Chromatic</a> aux côtés de plus de 800 histoires.
 </div>
 
 ## Fournir du contexte aux histoires
 
-La bonne nouvelle est qu'il est facile de fournir un magasin Vuex au composant `PureInboxScreen` dans une histoire! Nous pouvons créer un nouveau magasin dans notre fichier d'histoire et le transmettre comme contexte de l'histoire:
+La bonne nouvelle est qu'il est facile de fournir un magasin Vuex au composant `PureInboxScreen` dans une histoire ! Nous pouvons créer un nouveau magasin dans notre fichier d'histoire et le transmettre comme contexte de l'histoire :
 
-```javascript
-//src/components/PureInboxScreen.stories.js
-import Vue from 'vue';
-import Vuex from 'vuex';
+```diff:title=src/components/PureInboxScreen.stories.js
++ import Vue from 'vue';
++ import Vuex from 'vuex';
+
 import PureInboxScreen from './PureInboxScreen.vue';
-import { action } from '@storybook/addon-actions';
-import { defaultTasksData } from './PureTaskList.stories';
-Vue.use(Vuex);
-export const store = new Vuex.Store({
-  state: {
-    tasks: defaultTasksData,
-  },
-  actions: {
-    pinTask(context, id) {
-      action('pinTask')(id);
-    },
-    archiveTask(context, id) {
-      action('archiveTask')(id);
-    },
-  },
-});
+
++ import { action } from '@storybook/addon-actions';
++ import * as TaskListStories from './PureTaskList.stories';
+
++Vue.use(Vuex);
+
++ export const store = new Vuex.Store({
++  state: {
++    tasks: TaskListStories.Default.args.tasks,
++  },
++  actions: {
++    pinTask(context, id) {
++      action('pin-task')(id);
++    },
++    archiveTask(context, id) {
++      action('archive-task')(id);
++    },
++  },
++ });
+
 export default {
   title: 'PureInboxScreen',
+  component: PureInboxScreen,
   excludeStories: /.*store$/,
 };
-export const Default = () => ({
+
+const Template = (args, { argTypes }) => ({
   components: { PureInboxScreen },
-  template: `<pure-inbox-screen/>`,
+  props: Object.keys(argTypes),
+  template: '<PureInboxScreen v-bind="$props" />',
   store,
 });
-// liste de tâches avec les tâches épinglées
-export const error = () => ({
-  components: { PureInboxScreen },
-  template: `<pure-inbox-screen :error="true"/>`,
-});
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = { error: true };
 ```
 
 Des approches similaires existent pour fournir un contexte simulé pour d'autres bibliothèques de données, telles qu'[Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) et autres.
@@ -212,3 +209,7 @@ Nous avons commencé par le composant le plus bas avec `Task`, puis nous sommes 
 [**Le développement basé sur les composants (Component-Driven Development)**](https://www.componentdriven.org/) vous permet d'augmenter progressivement la complexité à mesure que vous montez dans la hiérarchie des composants. Parmi les avantages figurent un processus de développement plus ciblé et une couverture accrue de toutes les permutations possibles de l'interface utilisateur. En bref, CDD vous aide à créer des interfaces utilisateur de meilleure qualité et plus complexes.
 
 Nous n'avons pas encore terminé - le travail ne se termine pas lorsque l'interface utilisateur est créée. Nous devons également nous assurer qu'il reste durable dans le temps.
+
+<div class="aside">
+💡 N'oubliez pas de valider vos modifications avec git !
+</div>

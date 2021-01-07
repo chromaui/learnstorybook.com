@@ -25,9 +25,9 @@ Vous voulez en apprendre plus ? Voici des ressources utiles :
 
 - [**Le blog de Storybook**](https://medium.com/storybookjs) présente les dernières versions et fonctionnalités pour rationaliser votre workflow de développement d'interface utilisateur.
 
-## Qui a fait LearnStorybook.com?
+## Qui a créé le tutoriel Introduction à Storybook ?
 
-Le texte, le code et la production ont été fournis par [Chromatic](http://blog.hichroma.com/). Le tutoriel s'inspire de la populaire [série de tutoriel GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858) de Chroma.
+Le texte, le code et la production ont été fournis par [Chromatic](http://blog.hichroma.com/). Le tutoriel s'inspire de la populaire [série de tutoriels GraphQL + React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858) de Chroma.
 
 Vous voulez d'avantage de tutoriels et d'articles comme celui-ci ? Inscrivez-vous à la liste de diffusion Chromatic.
 

@@ -5,169 +5,87 @@ description: 'Apprenez à intégrer et à utiliser des modules complémentaires 
 commit: '035d245'
 ---
 
-Storybook dispose d'un système robuste de [modules complémentaires](https://storybook.js.org/docs/vue/configure/storybook-addons) avec lequel vous pouvez améliorer l'expérience des développeurs pour toute votre équipe. Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/intro-to-storybook/vue/fr/test/).
+Storybook dispose d'un solide écosystème d'[addons](https://storybook.js.org/docs/vue/configure/storybook-addons) que vous pouvez utiliser pour améliorer l'expérience des développeurs pour tous les membres de votre équipe. Regardez-les tous [ici](https://storybook.js.org/addons).
 
-<div class="aside">
-<strong>Vous recherchez une liste de modules complémentaires potentiels?</strong>
-<br/>
-😍 Vous pouvez voir la liste des modules complémentaires officiellement supportés et fortement soutenu par la communauté <a href="https://storybook.js.org/addons/addon-gallery/">ici</a>.
-</div>
+Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/vue/fr/test/).
 
-Nous pourrions écrire éternellement sur la configuration et l'utilisation des modules complémentaires pour tous vos cas d'utilisation particuliers. Pour l'instant, travaillons à l'intégration de l'un des modules complémentaires les plus populaires de l'écosystème de Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+Il existe des addons pour chaque cas d'utilisation possible. Il faudrait une éternité pour tout écrire. Intégrons l'un des addons les plus populaires: [Controls](https://storybook.js.org/docs/vue/essentials/controls).
 
-## Configuration de Knobs
+## Qu'est-ce que Controls?
 
-Knobs est une ressource incroyable pour les concepteurs et les développeurs pour expérimenter et jouer avec des composants dans un environnement contrôlé sans avoir besoin de coder! Vous fournissez essentiellement des champs définis dynamiquement avec lesquels un utilisateur manipule les accessoires transmis aux composants de vos histoires. Voici ce que nous allons mettre en œuvre ...
+Controls permett aux concepteurs et aux développeurs d'explorer facilement le comportement des composants _en jouant_ avec ses arguments. Aucun code requis. Contrôles crée un panneau complémentaire à côté de vos histoires, afin que vous puissiez modifier leurs arguments en direct.
+
+Les nouvelles installations de Storybook incluent des contrôles prêts à l'emploi. Aucune configuration supplémentaire nécessaire.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/addon-knobs-demo.mp4"
+    src="/intro-to-storybook/controls-in-action.mp4"
     type="video/mp4"
   />
 </video>
 
-### Installation
+## Les addons débloquent de nouveaux workflows de Storybook
 
-Tout d'abord, nous devrons l'ajouter en tant que dépendance.
+Storybook est un merveilleux [environnement de développement axé sur les composants](https://www.componentdriven.org/). L'addon Controls fait évoluer Storybook en un outil de documentation interactif.
 
-```bash
-yarn add -D @storybook/addon-knobs
-```
+### Utilisation de Controls pour rechercher des cas aux extrêmes
 
-Enregistrez Knobs dans votre fichier `.storybook/main.js`.
+Avec Controls, les ingénieurs d'assurance qualité, les ingénieurs d'interface utilisateur ou toute autre partie prenante peuvent pousser le composant à la limite! Prenons l'exemple suivant, qu'arriverait-il à notre `Task` si nous ajoutions une chaîne de caractères **MASSIVE**?
 
-```javascript
-// .storybook/main.js
+![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
 
-module.exports = {
-  stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
-};
-```
+Ce n'est pas bon ! Il semble que le texte déborde au-delà des limites du composant `Task`.
 
-<div class="aside">
-<strong>📝 L'ordre d'enregistrement des addons est important!</strong>
-<br/>
-L'ordre dans lequel vous listez ces addons dictera l'ordre dans lequel ils apparaissent sous forme d'onglets sur votre panneau d'extension (pour ceux qui y apparaissent).
-</div>
+Controls nous a permis de vérifier rapidement les différentes entrées d'un composant. Dans ce cas, une longue chaîne de caractères. Cela réduit le travail requis pour découvrir les problèmes d'interface utilisateur.
 
-C'est tout! Il est temps de l'utiliser dans une histoire.
+Corrigeons maintenant le problème de débordement en ajoutant un style à `Task.vue` :
 
-### Utilisation
-
-Utilisons le type de bouton d'objet dans le composant `Task`.
-
-Tout d'abord, importez le décorateur `withKnobs` et l'`objet` knob dans `Task.stories.js`:
-
-```javascript
-// src/components/Task.stories.js
-import { action } from '@storybook/addon-actions';
-import { withKnobs, object } from '@storybook/addon-knobs';
-```
-
-Ensuite, dans l'exportation par `défaut` du fichier `Task.stories`, ajoutez `withKnobs` à la clé `decorators`:
-
-```javascript
-// src/components/Task.stories.js
-
-export default {
-  title: 'Task',
-  decorators: [withKnobs],
-  // pareil qu'avant
-};
-```
-
-Enfin, intégrez l'`objet` know dans l'histoire "par défaut":
-
-```javascript
-// src/components/Task.stories.js
-
-// état de la tâche par défaut
-export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: object('task', { ...taskData }),
-    },
-  },
-  methods: actionsData,
-});
-
-// pareil qu'avant
-```
-
-Maintenant, un nouvel onglet "Knobs" devrait apparaître à côté de l'onglet "Action Logger" dans le volet du bas.
-
-Comme documenté [ici](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), l'`objet` know accepte une étiquette et un objet par défaut comme paramètres. L'étiquette est constante et apparaît à gauche d'un champ de texte dans votre panneau de modules complémentaires. L'objet que vous avez transmis sera représenté sous la forme d'un objet blob JSON modifiable. Tant que vous soumettez un JSON valide, votre composant s'ajustera en fonction des données transmises à l'objet!
-
-## Les modules complémentaires font évoluer la portée de votre livre de contes
-
-Non seulement votre instance Storybook sert d'[environnement CDD](https://www.componentdriven.org/) merveilleux, mais nous fournissons maintenant une source de documentation interactive. Les PropTypes sont excellents, mais un concepteur ou quelqu'un de complètement nouveau dans le code d'un composant sera capable de comprendre son comportement très rapidement via Storybook avec l'addon de boutons implémenté.
-
-## Utilisation de Knobs pour rechercher les cas aux limites
-
-De plus, avec un accès facile à l'édition des données transmises à un composant, les ingénieurs d'assurance qualité ou les ingénieurs d'interface utilisateur préventifs peuvent désormais pousser un composant à la limite! À titre d'exemple, qu'arrive-t-il à `Task` si notre élément de liste a une chaîne _MASSIVE_?
-
-![Oh non! Le contenu à l'extrême droite est coupé!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
-
-Grâce à la possibilité d'essayer rapidement différentes entrées d'un composant, nous pouvons trouver et résoudre de tels problèmes avec une relative facilité! Résolvons le problème de débordement en ajoutant un style à `Task.vue`:
-
-```html
-<!--src/components/Task.vue>-->
-
-<!-- Ceci est l'entrée pour notre titre de tâche. 
-    En pratique, nous mettrions probablement à jour les styles de cet élément mais pour ce tutoriel, 
-    résolvons le problème avec un style en ligne:-->
+```diff:title=src/components/Task.vue
 <input
   type="text"
-  :readonly="true"
-  :value="this.task.title"
+  :value="task.title"
+  readonly
   placeholder="Input title"
-  style="text-overflow: ellipsis;"
++ style="text-overflow: ellipsis;"
 />
 ```
 
-![C'est mieux.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
+![C'est mieux.](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-## Ajout d'une nouvelle histoire pour éviter les régressions
+Problème résolu ! Le texte est maintenant tronqué lorsqu'il atteint la limite de la zone des tâches à l'aide d'une belle ellipse.
 
-Bien sûr, nous pouvons toujours reproduire ce problème en entrant la même entrée dans les boutons, mais il est préférable d'écrire une histoire fixe pour cette entrée. Cela augmentera vos tests de régression et définira clairement les limites du ou des composants au reste de votre équipe.
+### Ajouter une nouvelle histoire pour éviter les régressions
 
-Ajoutons une histoire pour le cas de texte long dans `Task.stories.js`:
+À l'avenir, nous pourrons reproduire manuellement ce problème en entrant la même chaîne via Controls. Mais il est plus facile d'écrire une histoire qui présente ce cas de pointe. Cela élargit la couverture de nos tests de régression et décrit clairement les limites du ou des composants pour le reste de l'équipe.
 
-```javascript
-// src/components/Task.stories.js
+Ajouter une nouvelle histoire pour la longue casse de texte dans `Task.stories.js` :
 
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+```js:title=src/components/Task.stories.js
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-// pareil qu'avant
-
-export const LongTitle = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        title: longTitle,
-      }),
-    },
+export const LongTitle = Template.bind({});
+LongTitle.args = {
+  task: {
+    ...Default.args.task,
+    title: longTitleString,
   },
-  methods: actionsData,
-});
+};
 ```
 
-Maintenant que nous avons ajouté l'histoire, nous pouvons reproduire ce test aux limites avec facilité chaque fois que nous voulons travailler dessus:
+Maintenant, nous pouvons reproduire et travailler sur ce cas d'utilisation en toute simplicité.
 
-![Le voici dans Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/task-stories-long-title.mp4"
+    type="video/mp4"
+  />
+</video>
 
-Si nous utilisons des [tests de régression visuelle](/intro-to-storybook/vue/fr/test/), nous serons également informés si jamais nous cassons notre solution d'ellipse. Ces bordures obscures sont toujours susceptibles d'être oubliées!
+Si nous effectuons des [tests visuels](/intro-to-storybook/vue/fr/test/), nous serons également informés si la solution d'ellipse se brise. Les bordures obscures risquent d'être oubliées sans couverture de test !
 
 ### Fusionner les modifications
 
-N'oubliez pas de fusionner vos modifications avec git!
+💡 N'oubliez pas de fusionner vos modifications avec git !
 
-## Partager des modules complémentaires avec l'équipe
-
-Knobs est un excellent moyen de faire jouer les non-développeurs avec vos composants et vos histoires. Cependant, il peut être difficile pour eux d'exécuter le livre d'histoires sur leur machine locale. C'est pourquoi déployer votre livre d'histoires sur un site en ligne peut être très utile. Dans le prochain chapitre, nous ferons exactement cela!
+<div class="aside"><p>
+Controls est un excellent moyen de faire jouer les non-développeurs avec vos composants et vos histoires, et bien plus que ce que nous avons vu ici, nous vous recommandons de lire la <a href="https://storybook.js.org/docs/vue/essentials/controls">documentation officielle</a> pour en savoir plus. Cependant, il existe de nombreuses autres façons de personnaliser Storybook pour l'adapter à votre flux de travail avec des modules complémentaires. Dans le chapitre bonus de <a href="/intro-to-storybook/vue/en/creating-addons">création d'addons</a>, nous vous apprendrons cela, en créant un addon qui vous aidera à dynamiser votre flux de travail de développement.</p></div>

@@ -24,24 +24,24 @@ Le procédure est similaire au [Test-driven development](https://en.wikipedia.or
 
 Premièrement, créons le composant Tâche et le fichier story associé : `src/components/Task.vue` et `src/components/Task.stories.js`.
 
-Nous allons commencer avec l'implémentation de base de la `Tâche`, en prenant simplement les attributs dont nous aurons besoin et les deux actions que vous pouvez effectuer sur une tâche (la déplacer entre les listes) :
+Nous allons commencer avec l'implémentation de base de la `Tâche`, en prenant simplement les attributs dont nous aurons besoin :
 
-```html
-<!--src/components/Task.vue-->
+```html:title=src/components/Task.vue
 <template>
   <div class="list-item">
-    <input type="text" :readonly="true" :value="this.task.title" />
+    <input type="text" readonly :value="task.title" />
   </div>
 </template>
 
 <script>
   export default {
-    name: 'task',
+    name: 'Task',
     props: {
       task: {
         type: Object,
         required: true,
-        default: () => ({}),
+        default: () => ({ id: '', state: '', title: '' }),
+        validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
   };
@@ -52,68 +52,55 @@ Ci-dessus, nous donnons une structure simple du composant `Tâche` basé sur l'e
 
 Ci-dessous nous construisons les trois états de test d'une Tâche dans le fichier story :
 
-```javascript
-// src/components/Task.stories.js
-import { action } from '@storybook/addon-actions';
+```js:title=src/components/Task.stories.js
 import Task from './Task';
+
+import { action } from '@storybook/addon-actions';
+
 export default {
   title: 'Task',
-  // Nos exports se terminant par "Data" ne sont pas des stories.
+  component: Task,
+  // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
 };
+
 export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+  onPinTask: action('pin-task'),
+  onArchiveTask: action('archive-task'),
 };
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'Task_INBOX',
-  updated_at: new Date(2019, 0, 1, 9, 0),
+const Template = (args, { argTypes }) => ({
+  components: { Task },
+  props: Object.keys(argTypes),
+  methods: actionsData,
+  template: '<Task v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+});
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
 
-const taskTemplate = `<task :task="task" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`;
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
+};
 
-// Etat par défaut d'une tâche
-export const Default = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => taskData,
-    },
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
   },
-  methods: actionsData,
-});
-// Etat épinglé d'une tâche
-export const Pinned = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_PINNED',
-      }),
-    },
-  },
-  methods: actionsData,
-});
-// Etat archivé d'une tâche
-export const Archived = () => ({
-  components: { Task },
-  template: taskTemplate,
-  props: {
-    task: {
-      default: () => ({
-        ...taskData,
-        state: 'TASK_ARCHIVED',
-      }),
-    },
-  },
-  methods: actionsData,
-});
+};
 ```
 
 Il y a deux niveaux d'organisation de base dans Storybook : le composant et ses stories enfant. Considérez chaque story comme une permutation d'un composant. Vous pouvez avoir autant de stories par composant que vous le voulez.
@@ -131,40 +118,55 @@ Pour informer Storybook du composant que nous documentons, nous créons un expor
 
 Pour définir nos stories, nous exportons une fonction pour chacun de nos états de test pour générer une story. La story est une fonction qui retourne a rendu d'élément (c'est-à-dire une classe de composant avec une liste de propriétés) dans un état donné --- exactement comme un [Composant fonctionnel sans état](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
+Comme nous avons plusieurs permutations de notre composant, il est pratique de l'attribuer à une variable `Template`. L'introduction de ce pattern dans vos histoires réduira la quantité de code à écrire et à maintenir.
+
+<div class="aside">
+💡 `Template.bind({})` est un [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) pour faire une copie d'une fonction. Nous utilisons cette technique pour permettre à chaque histoire exportée de définir ses propres propriétés, mais utiliser la même implémentation.
+</div>
+
+Les arguments ou [`args`](https://storybook.js.org/docs/vue/writing-stories/args) pour faire court, nous permettent de modifier en direct nos composants avec le module complémentaire de contrôle sans redémarrer Storybook. Une fois qu'une valeur [`args`](https://storybook.js.org/docs/vue/writing-stories/args) change, le composant change également.
+
+Lors de la création d'une histoire, nous utilisons un argument de `tâche` de base pour créer la forme de la tâche attendue par le composant. Ceci est généralement modélisé à partir de ce à quoi ressemblent les vraies données. Encore une fois, l'`export`-ation de cette forme nous permettra de la réutiliser dans des histoires ultérieures, comme nous le verrons.
+
 `action()` nous permet de créer un callback qui apparait dans le panneau des **actions** de l'interface Storybook quand vous cliquez dessus. Quand nous contruisons un bouton d'épingle, nous serons donc capable de déterminer dans l'interface utilisateur de test si un clic sur le bouton a réussi.
 
 Comme nous devons passer le même ensemble d'actions à toutes les permutations de notre composant, une bonne pratique consiste à les regrouper dans une seule variable `actionsData` et de le transmettre dans chaque définition de story (où elles sont disponibles via la propriété `methods`).
 
 Une autre bonne chose à propos du regroupement des `actionsData` dont un composant a besoin, c'est de pouvoir les `exporter`et de les utiliser dans les stories pour les composants qui réutilisent ce composant, comme nous le verrons plus tard.
 
-Lors de la création d'une story, nous utilisons une tâche de base (`taskData`) pour construire la forme de la tâche attendue par le composant. C'est généralement modelisé à partir de réelles données. Encore une fois, l'`export`ation de cette forme nous permettra de la réutiliser dans d'autres stories comme nous le verrons.
-
 <div class="aside">
-Les <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>actions</b></a> vous aident à vérifier les interactions lors de la création des composants d'interface utilisateur de manière isolée. Souvent, vous n'aurez pas accès aux fonctions et aux états que vous dans le contexte de l'application. Utilisez <code>action()</code> pour les insérer.
+💡 Les <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>actions</b></a> vous aident à vérifier les interactions lors de la création des composants d'interface utilisateur de manière isolée. Souvent, vous n'aurez pas accès aux fonctions et aux états que vous dans le contexte de l'application. Utilisez <code>action()</code> pour les insérer.
 </div>
 
 ## Configuration
 
-Nous devons effectuer quelques modifications à la configuration de Storybook afin qu'il remarque non seulement nos stories récemment créées, mais aussi nous permettre d'utiliser les fichiers CSS modifiés dans le [chapitre précédent](/intro-to-storybook/vue/fr/get-started).
+Nous devrons effectuer quelques modifications aux fichiers de configuration de Storybook afin qu'il remarque nos stories récemment créées et nous permette d'utiliser les fichiers CSS de l'application (situés dans `src/index.css`).
 
 Commencez par changer votre fichier de configuration Storybook (`.storybook/main.js`) avec ceci :
 
-```javascript
-// .storybook/main.js
+```diff:title=.storybook/main.js
+
 module.exports = {
-  //👇 Location of our stories
-  stories: ['../src/components/**/*.stories.js'],
+  //👇 Location of your stories
++ stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
 ```
 
-Après avoir effectué la modification ci-dessus, dans le dossier `.storybook`, ajoutez un nouveau fichier appelé `preview.js` avec ces informations :
+Après avoir effectué la modification ci-dessus, dans le dossier `.storybook`, modifié votre fichier appelé `preview.js` avec ces informations :
 
-```javascript
-// .storybook/preview.js
+```diff:title=.storybook/preview.js
 
-import '../src/index.css'; //👈 The app's CSS file goes here
++ import '../src/index.css';
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
+
+Les [`paramètres`](https://storybook.js.org/docs/vue/writing-stories/parameters) sont généralement utilisés pour contrôler le comportement des fonctionnalités et des modules complémentaires de Storybook. Dans notre cas, nous allons les utiliser pour configurer la manière dont les `actions` (rappels simulés) sont gérées.
+
+Les `actions` nous permettent de créer des rappels qui apparaissent dans le panneau **actions** de l'interface utilisateur de Storybook lorsque l'utilisateur clique dessus. Ainsi, lorsque nous créerons un bouton d'épingle, nous serons en mesure de déterminer dans l'interface utilisateur de test si un clic sur un bouton réussit.
 
 Une fois cela fait, le redémarrage du serveur Storybook devrait générer des cas de test pour les trois états de la tâche :
 
@@ -181,47 +183,41 @@ Maintenant que nous avons Storybook de configuré, que les styles sont importés
 
 Notre composant est encore assez rudimentaire pour le moment. Nous allons faire quelques modifications pour qu'il corresponde au design attendu sans pour autant rentrer trop dans le détail :
 
-```html
-<!--src/components/Task.vue-->
+```diff:title=src/components/Task.vue
+
 <template>
-  <div :class="taskClass">
-    <label class="checkbox">
-      <input type="checkbox" :checked="isChecked" :disabled="true" name="checked" />
-      <span class="checkbox-custom" @click="$emit('archiveTask', task.id)" />
-    </label>
-    <div class="title">
-      <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
-    </div>
-    <div class="actions">
-      <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
-        <span class="icon-star" />
-      </a>
-    </div>
-  </div>
++ <div class="list-item" :class="task.state">
++  <label class="checkbox">
++    <input type="checkbox" :checked="isChecked" disabled name="checked" />
++    <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
++  </label>
++  <div class="title">
++    <input type="text" :value="task.title" readonly placeholder="Input title" />
++  </div>
++  <div class="actions">
++   <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
++    <span class="icon-star" />
++   </a>
++  </div>
++ </div>
 </template>
 
 <script>
   export default {
-    name: 'task',
+    name: 'Task',
     props: {
       task: {
         type: Object,
         required: true,
-        default: () => ({
-          id: '',
-          state: '',
-          title: '',
-        }),
+        default: () => ({ id: '', state: '', title: '' }),
+        validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
-    computed: {
-      taskClass() {
-        return `list-item ${this.task.state}`;
-      },
-      isChecked() {
-        return this.task.state === 'TASK_ARCHIVED';
-      },
-    },
++   computed: {
++     isChecked() {
++       return this.task.state === 'TASK_ARCHIVED';
++     },
++   },
   };
 </script>
 ```
@@ -235,7 +231,7 @@ Le code additionnel ci-dessus combiné avec le CSS importé précédemment donne
   />
 </video>
 
-## Le composant est construit!
+## Le composant est construit !
 
 Nous venons de créer un composant sans avoir besoin de serveur ni d'exécuter toute l'application. La prochaine étape consiste à créer les composants Taskbox un par un de la même manière.
 
@@ -250,7 +246,7 @@ Storybook nous a donné un excellent moyen de tester visuellement notre applicat
 Le test instantané fait référence à la pratique consistant à enregistrer la bonne sortie d'un composant pour une entrée donnée, puis de signaler le composant à chaque fois que la sortie change. Cela complète Storybook, parce que Storybook est un moyen rapide de voir les nouvelles versions d'un composant et de visualiser les changements.
 
 <div class="aside">
-Assurez-vous que vos composants gèrent des données qui ne changent pas, afin que vos tests instantanés n'échouent pas à chaque fois. Faites attention à certains éléments, comme les dates ou les valeurs générées aléatoirement.
+💡 Assurez-vous que vos composants gèrent des données qui ne changent pas, afin que vos tests instantanés n'échouent pas à chaque fois. Faites attention à certains éléments, comme les dates ou les valeurs générées aléatoirement.
 </div>
 
 Avec le [plugin Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) un test instantané est créé pour chacune de vos stories. Utilisez-le en ajoutant la dépendance suivante :
@@ -261,8 +257,7 @@ yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 
 Puis créez un fichier `tests/unit/storybook.spec.js` avec le code suivant :
 
-```javascript
-// tests/unit/storybook.spec.js
+```js:title=tests/unit/storybook.spec.js
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -270,10 +265,12 @@ initStoryshots();
 
 Nous devons ajouter une ligne dans votre `jest.config.js`:
 
-```js
+```diff:title=jest.config.js
 
-  // jest.config.js
-  transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+module.exports = {
+  ...
++ transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+};
 ```
 
 Une fois toutes les étapes réalisées, nous pouvons exécuter cette commande `yarn test:unit` et voir la sortie suivante :
@@ -281,3 +278,7 @@ Une fois toutes les étapes réalisées, nous pouvons exécuter cette commande `
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 Nous avons maintenant un test instantané pour chacune de nos stories de notre `Tâche`. Si vous changez l'implémentation de `Tâche`, nous serons notifiés de vérifier les changements.
+
+<div class="aside">
+💡 N'oubliez pas de valider vos modifications avec git !
+</div>
