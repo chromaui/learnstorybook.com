@@ -35,7 +35,7 @@ Currently the Intro to Storybook tutorial features the following translations. S
 | Angular      | English          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
-| Svelte       | English          | ❌      |
+| Svelte       | English          | ✅      |
 |              | Spanish          | ❌      |
 | Ember        | English          | ✅      |
 

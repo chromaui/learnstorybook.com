@@ -41,7 +41,7 @@ module.exports = {
           pt: 5.3,
         },
         svelte: {
-          en: 5.3,
+          en: 6.1,
           es: 5.3,
         },
         ember: {
