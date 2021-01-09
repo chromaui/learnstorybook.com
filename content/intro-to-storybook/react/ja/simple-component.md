@@ -285,3 +285,7 @@ initStoryshots();
 ![Task テストランナー](/intro-to-storybook/task-testrunner.png)
 
 これで `Task` の各ストーリーに対するスナップショットテストが出来ました。`Task` の実装を変更するたびに、変更内容の確認を求められるようになります。
+
+<div class="aside">
+Git へのコミットを忘れずに行ってください！
+</div>

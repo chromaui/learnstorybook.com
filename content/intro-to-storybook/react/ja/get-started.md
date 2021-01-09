@@ -5,7 +5,7 @@ description: '開発環境に Storybook を導入しましょう'
 commit: 'ac1ec13'
 ---
 
-Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから切り離して開発できるようになります。この文書は React 向けです。他にも [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 向けのバージョンがあります。
+Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから切り離して開発できるようになります。この文書は React 向けです。他にも [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started)、[Ember](/ember/en/get-started) 向けのバージョンがあります。
 
 ![Storybook と開発中のアプリの関係](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -28,7 +28,13 @@ npx -p @storybook/cli sb init
 もし <code>yarn</code> ではなく <code>npm</code> を使用したい場合には、上記のコマンドに <code>--use-npm</code> フラグをつけることで、CRA および Storybook の設定を変更することができます。<code>npm</code> を使用してチュートリアルを進めても問題ありませんが、使用するコマンドを <code>npm</code> に合わせて調整するのを忘れないようにしましょう。
 </div>
 
-作成したアプリケーションが問題なく動くことを次のコマンドで確認しましょう:
+プロジェクトのルートフォルダーに `.env` という名前で、以下の内容のファイルを作成してください:
+
+```
+SKIP_PREFLIGHT_CHECK=true
+```
+
+それでは、作成したアプリケーションが問題なく動くことを次のコマンドで確認しましょう:
 
 ```bash
 # ターミナルでテストランナー (Jest) を開始する:
@@ -74,4 +80,22 @@ npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ここでは GitHub からフォルダーをダウンロードするのに <a href="https://github.com/Rich-Harris/degit">degit</a> を使用しています。手動でダウンロードしたければ、それぞれのフォルダーは<a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">こちら</a>にあります。
 </div>
 
-CSS とアセットを追加すると、アプリケーションの描画が崩れてしまいますが、そのままで問題ありません。今はアプリケーションに手はつけません。まずは一つ目のコンポーネントを作り始めましょう！
+以上です。これでアプリケーションの設定が完了しました。
+
+## 変更をコミットする
+
+プロジェクトを初期化したとき、Create React App (CRA) が既にローカルリポジトリーを作ってくれています。この段階で、最初のコミットにファイルを追加しても問題ありません。
+
+次のコマンドを実行し、今までの変更を追加して、コミットしましょう。
+
+```shell
+$ git add .
+```
+
+次に以下を実行します:
+
+```shell
+$ git commit -m "first commit"
+```
+
+それでは最初のコンポーネントを作り始めましょう！
