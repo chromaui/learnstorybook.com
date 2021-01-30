@@ -152,6 +152,7 @@ Comencemos cambiando el archivo de configuración de Storybook (`.storybook/main
 ```javascript
 // .storybook/main.js
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
@@ -161,7 +162,8 @@ Después de hacer este cambio, una vez más dentro de la carpeta `.storybook`, c
 
 ```javascript
 // .storybook/preview.js
-import '../src/index.css';
+
+import '../src/index.css'; //👈 The app's CSS file goes here
 ```
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:

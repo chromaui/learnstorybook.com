@@ -24,6 +24,8 @@ Temos o nosso objetivo, vamos agora definir quais as funcionalidades que o nosso
 A forma que vamos usar para adicionar a lista de items às estórias é através de uma opção do Storybook, chamada [parâmetros](https://storybook.js.org/docs/configurations/options-parameter/#per-story-options), esta opção permite injetar informação customizada às nossas estórias. São usados de forma semelhante aos decoradores que vimos anteriormente.
 
 ```javascript
+// YourComponent.stories.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -104,7 +106,7 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './design-addon/register.js', // our addon
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```

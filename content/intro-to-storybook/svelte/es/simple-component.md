@@ -162,6 +162,7 @@ Comencemos cambiando el archivo de configuración de Storybook (`.storybook/main
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };

@@ -41,10 +41,11 @@ Start by creating a new branch for this change:
 git checkout -b change-task-background
 ```
 
-Change `Task` to the following:
+Change `src/components/Task.js` to the following:
 
 ```js
 // src/components/Task.js
+
 <div className="title">
   <input
     type="text"

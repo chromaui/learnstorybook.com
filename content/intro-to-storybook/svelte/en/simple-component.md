@@ -140,9 +140,7 @@ To define our stories, we export a function for each of our test states to gener
 As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 
 <div class="aside">
-
-`Template.bind({})` is a [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
-
+💡 <code>Template.bind({})</code> is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">standard JavaScript</a> technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
 </div>
 
 Arguments or [`args`](https://storybook.js.org/docs/vue/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes so does the component.
@@ -156,12 +154,12 @@ As we need to pass the same set of actions to all permutations of our component,
 Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+💡 <a href="https://storybook.js.org/docs/svelte/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
 </div>
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allow us to use the CSS that was added in the [previous section](/svelte/en/get-started).
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the[previous section](/svelte/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
@@ -169,18 +167,28 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
 ```
 
-After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
+After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
 
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
+
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
+
+[`parameters`](https://storybook.js.org/docs/svelte/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case we're going to use them to configure how the `actions` (mocked callbacks) are handled.
+
+`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
 Once we’ve done these two small changes, restarting Storybook should yield test cases for the three Task states:
 
@@ -271,13 +279,13 @@ Storybook gave us a great way to visually test our application during constructi
 Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
 
 <div class="aside">
-Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+💡 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
 
 ```shell
-npm install -D @storybook/addon-storyshots
+yarn add -D @storybook/addon-storyshots
 ```
 
 Then create an `src/storybook.test.js` file with the following:
@@ -305,12 +313,12 @@ And finally we need to make a small adjustment to our `jest` key in `package.jso
 }
 ```
 
-Once all the above is done, we can run `npm run test` and see the following output:
+Once all the above is done, we can run `yarn test` and see the following output:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>

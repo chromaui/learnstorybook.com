@@ -24,7 +24,7 @@ commit: 'ed54b16'
 ストーリーとアセットの紐づけには Storybook の機能である [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) を使用します。parameters はストーリーに追加のメタデータを設定することができます。
 
 ```javascript
-// YourComponent.js
+// YourComponent.stories.js
 
 export default {
   title: 'Your component',
@@ -90,7 +90,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './design-addon/register.js', // our addon
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```

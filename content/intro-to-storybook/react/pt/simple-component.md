@@ -122,6 +122,7 @@ Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/preset-create-react-app',
@@ -136,7 +137,7 @@ Após efetuar esta alteração, uma vez mais dentro da pasta (ou diretório) `.s
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
 ```
 
 Após esta alteração, quando reiniciar o servidor Storybook, deverá produzir os casos de teste para os três diferentes estados da tarefa:

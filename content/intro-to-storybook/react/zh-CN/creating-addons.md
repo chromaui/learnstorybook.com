@@ -24,7 +24,7 @@ commit: 'ed54b16'
 我么将通过 [参数 parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters)将资产列表附加到故事中，可以除 Storybook 功能以外添加额外的元数据到故事中。
 
 ```javascript
-// YourComponent.js
+// YourComponent.stories.js
 
 export default {
   title: 'Your component',
@@ -88,7 +88,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './design-addon/register.js', // our addon
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```

@@ -24,6 +24,8 @@ Voor dit voorbeeld, laten we ervan uitgaan dat ons team een aantal design assets
 De manier waarop we onze lijst van assets gaan vastmaken aan de stories is door [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), wat een Storybook optie is die ons toelaat om custom parameters te injecteren in onze stories. De manier om het te gebruiken, is redelijk gelijkaardig aan hoe we een decorator hebben gebruikt in vorige hoofdstukken.
 
 ```javascript
+// YourComponent.stories.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -133,7 +135,7 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './design-add-on/register.js', // our add-on
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```

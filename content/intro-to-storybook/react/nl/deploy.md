@@ -18,7 +18,7 @@ Deze tutorial gebruikt <a href="https://www.chromatic.com/">Chromatic</a>, een g
 
 ### Een GitHub repository opzetten
 
-Voor we beginnen, moet onze lokale code synchroniseren met een remote versiecontrolesysteem. Toen we ons project initialiseerden in het [Get started hoofdstuk](/react/nl/get-started), had Create React App (CRA) alreeds een lokale repository voor ons gemaakt. Op dit moment is het oké om onze bestanden toe te voegen aan de eerste commit.  
+Voor we beginnen, moet onze lokale code synchroniseren met een remote versiecontrolesysteem. Toen we ons project initialiseerden in het [Get started hoofdstuk](/react/nl/get-started), had Create React App (CRA) alreeds een lokale repository voor ons gemaakt. Op dit moment is het oké om onze bestanden toe te voegen aan de eerste commit.
 
 Voor de volgende commando's uit om de veranderingen die we tot dusver hebben gemaakt toe te voegen en te committen.
 
@@ -79,25 +79,27 @@ Maak een nieuw bestand genoemd `chromatic.yml` aan zoals hierbeneden. Vervang `p
 
 ```yaml
 # .github/workflows/chromatic.yml
-# name of our action
+
+# Workflow name
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+
+# Event for the workflow
 on: push
 
-# what the action will do
+# List of jobs
 jobs:
   test:
-    # the operating system it will run on
+    # Operating System
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
+          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -126,11 +128,9 @@ git push origin main
 
 Eenmaal je de Github action hebt opgezet, zal je Storybook gedeployed worden naar Chromatic elke keer je code pushed. Je kan all de gepubliceerde Storybook's vinden op je project zijn "build" scherm in Chromatic.
 
-
 ![Chromatic gebruikersdashboard](/intro-to-storybook/chromatic-user-dashboard.png)
 
 Klik op de laatste build, degene die bovenaan staat.
-
 
 Hierna klik je op de `View Storybook` knop om de laatste versie van je Storybook te bekijken,
 

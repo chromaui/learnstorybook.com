@@ -8,17 +8,9 @@ Throughout this tutorial, we built components on our local development machine. 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured, we just need to update the script like we did in the [Get started chapter](/svelte/en/get-started).
+To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
 
-```json
-{
-  "scripts": {
-    "build-storybook": "build-storybook -s public"
-  }
-}
-```
-
-Running `npm run build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
+Running `yarn build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
 
 ### Publish Storybook
 
@@ -26,7 +18,7 @@ This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free pu
 
 ### Setup a repository in GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When the project was initialized in the [Get started chapter](/svelte/en/get-started) we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
+Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/svelte/en/get-started), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
 
 Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
 
@@ -49,7 +41,7 @@ $ git push -u origin main
 Add the package as a development dependency.
 
 ```bash
-npm install -D chromatic
+yarn add -D chromatic
 ```
 
 Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've setup.
@@ -66,7 +58,7 @@ Click `Choose GitHub repo` under collaborators and select your repo.
 Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 
 ```bash
-npx chromatic --project-token=<project-token>
+yarn chromatic --project-token=<project-token>
 ```
 
 ![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
@@ -90,30 +82,31 @@ Create a new file called `chromatic.yml` like the one below. Replace to change `
 ```yaml
 # .github/workflows/chromatic.yml
 
-# name of our action
+# Workflow name
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+
+# Event for the workflow
 on: push
 
-# what the action will do
+# List of jobs
 jobs:
   test:
-    # the operating system it will run on
+    # Operating System
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # Job steps
     steps:
       - uses: actions/checkout@v1
-      - run: npm install
+      - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/svelte/en/deploy/
+          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/svelte/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+<div class="aside"><p>💡 For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
 
 ### Commit the action
 

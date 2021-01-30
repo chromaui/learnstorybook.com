@@ -113,7 +113,7 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './.storybook/design-addon/register.js', // our addon
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```

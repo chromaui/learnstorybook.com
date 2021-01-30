@@ -24,6 +24,8 @@ Nous avons notre objectif, maintenant définissons les fonctionnalités que notr
 Nous joindrons la liste des ressources aux story avec [paramètres](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), une fonctionnalité de Storybook qui nous permet d'ajouter des métadonnées supplémentaires à nos stories.
 
 ```javascript
+// YourComponent.stories.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -104,7 +106,7 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './design-addon/register.js', // our addon
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```
