@@ -32,6 +32,7 @@ export default {
     /*...*/
   ],
   parameters: {
+    //👇 Name of the parameter used with the addon.
     assets: ['path/to/your/asset.png'],
   },
   //
@@ -162,7 +163,8 @@ import React, { Fragment } from 'react';
 import { useParameter } from '@storybook/api';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -190,7 +192,8 @@ import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -233,6 +236,7 @@ export default {
   title: 'Task',
   decorators: [withKnobs],
   parameters: {
+    //👇 Story's parameter defined here
     assets: [
       'path/to/your/asset.png',
       'path/to/another/asset.png',
@@ -347,7 +351,7 @@ En onze `Content` component aanpassen, zodat we kunnen wisselen tussen assets:
 //.storybook/design-add-on/register.js
 
 const Content = () => {
-  // story's parameter being retrieved here
+  //👇 Story's parameter defined here
   const results = useParameter('assets', []);
   // add-on state being persisted here
   const [selected, setSelected] = useAddonState('my/design-add-on', 0);

@@ -6,7 +6,7 @@ description: 'Learn the ways to test UI components'
 
 No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered two types of tests:
 
-- **Visual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
+- **Manual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
 - **Unit tests** with Qunit verify that the output of a component remains the same given a fixed input. They’re great for testing the functional qualities of a component.
 
 ## “But does it look right?”

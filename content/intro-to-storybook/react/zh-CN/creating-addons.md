@@ -32,6 +32,7 @@ export default {
     /*...*/
   ],
   parameters: {
+    //👇 Name of the parameter used with the addon.
     assets: ['path/to/your/asset.png'],
   },
   //
@@ -115,7 +116,8 @@ import React, { Fragment } from 'react';
 import { useParameter } from '@storybook/api';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -143,7 +145,8 @@ import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -241,7 +244,7 @@ const Asset = ({ url }) => {
 };
 
 const Content = () => {
-  // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
   const results = useParameter('assets', []);
   // the id of story retrieved from Storybook global state
   const { storyId } = useStorybookState();

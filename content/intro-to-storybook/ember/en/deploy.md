@@ -18,7 +18,7 @@ This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free pu
 
 ### Setup a repository in GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/ember/en/get-started/), Ember CLI already created a local repository for us. At this stage we already have a set of commits that we push to remote repository.
+Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/ember/en/get-started/), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
 
 Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
 
@@ -82,30 +82,31 @@ Create a new file called `chromatic.yml` like the one below. Replace to change `
 ```yaml
 # .github/workflows/chromatic.yml
 
-# name of our action
+# Workflow name
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+
+# Event for the workflow
 on: push
 
-# what the action will do
+# List of jobs
 jobs:
   test:
-    # the operating system it will run on
+    # Operating System
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/ember/en/deploy/
+          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/ember/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+<div class="aside"><p>💡 For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
 
 ### Commit the action
 

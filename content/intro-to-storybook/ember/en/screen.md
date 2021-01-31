@@ -218,7 +218,7 @@ Loading.args = {
 We see that both the `Error`, `Loading` and `Default` stories work just fine.
 
 <div class="aside">
-In Ember, routes support <code>loading</code> and <code>error</code> states. Though the motivation is go more towards a component based approach. There is <a href="https://exelord.gitbook.io/ember-await/">ember-await</a> which nicely encapsulates the idea of data-management and has mechanisms to indicate each state.
+💡 In Ember, routes support <code>loading</code> and <code>error</code> states. Though the motivation is go more towards a component based approach. Take a look at <a href="https://exelord.gitbook.io/ember-await/">ember-await</a> which nicely encapsulates the idea of data-management and has mechanisms to indicate each state.
 </div>
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
@@ -246,5 +246,5 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>

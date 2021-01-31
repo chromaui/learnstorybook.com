@@ -145,5 +145,5 @@ With this we've accomplished what we've set out to do, we've managed to setup a 
 Our implementation is rather rudimentary and requires additional work if we decide to update our application. In the next chapter we'll introduce screen components, which will improve how the data is handled in our small application.
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>
