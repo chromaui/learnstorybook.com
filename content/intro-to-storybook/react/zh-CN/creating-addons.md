@@ -188,6 +188,7 @@ export default {
   component: Task,
   title: 'Task',
   parameters: {
+    //👇 Story's parameter defined here
     assets: [
       'path/to/your/asset.png',
       'path/to/another/asset.png',

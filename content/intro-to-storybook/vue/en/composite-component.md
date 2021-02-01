@@ -222,7 +222,8 @@ Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out 
 
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
-import { WithPinnedTasks } from '../../src/components/TaskList.stories'; //👈  Our story imported here
+//👇 Our story imported here
+import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   // render Tasklist
