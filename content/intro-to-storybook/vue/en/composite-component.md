@@ -222,13 +222,13 @@ Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out 
 
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
-import { WithPinnedTasks } from '../../src/components/TaskList.stories';
+import { WithPinnedTasks } from '../../src/components/TaskList.stories'; //👈  Our story imported here
 
 it('renders pinned tasks at the start of the list', () => {
   // render Tasklist
   const Constructor = Vue.extend(TaskList);
   const vm = new Constructor({
-    // ...using WithPinnedTasks.args
+    //👇 Story's args used with our test
     propsData: WithPinnedTasks.args,
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
