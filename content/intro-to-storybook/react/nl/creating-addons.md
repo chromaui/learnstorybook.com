@@ -141,7 +141,7 @@ module.exports = {
 };
 ```
 
-![design assets add-on die in Storybook wordt uitgevoerd](/intro-to-storybook/create-add-on-design-assets-added.png)
+![design assets add-on die in Storybook wordt uitgevoerd](/intro-to-storybook/create-addon-design-assets-added.png)
 
 Succes! We hebben onze nieuw gemaakte add-on toegevoegd aan de Storybook UI.
 
