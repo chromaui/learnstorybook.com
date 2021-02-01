@@ -24,7 +24,7 @@ commit: 'ed54b16'
 Storybook의 기능인 [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters)는 스토리에 메타데이터(metadata)를 추가할 수 있도록 도와줍니다. 이를 사용하여 스토리에 에셋의 목록을 첨부해보도록 하겠습니다.
 
 ```javascript
-// YourComponent.js
+// YourComponent.stories.js
 
 export default {
   title: 'Your component',
@@ -32,6 +32,7 @@ export default {
     /*...*/
   ],
   parameters: {
+    //👇 Name of the parameter used with the addon.
     assets: ['path/to/your/asset.png'],
   },
   //
@@ -108,7 +109,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './design-addon/register.js', // our addon
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```
@@ -135,7 +136,8 @@ import React, { Fragment } from 'react';
 import { useParameter } from '@storybook/api';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -163,7 +165,8 @@ import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -205,6 +208,7 @@ export default {
   component: Task,
   title: 'Task',
   parameters: {
+    //👇 Story's parameter defined here
     assets: [
       'path/to/your/asset.png',
       'path/to/another/asset.png',

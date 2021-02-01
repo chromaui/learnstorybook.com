@@ -216,9 +216,10 @@ Create a test file called `src/components/TaskList.test.js`. Here, we’ll build
 
 import TaskList from './TaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { WithPinnedTasks } from './TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
 
 test('TaskList', () => {
+  //👇 Story's args used with our test
   const { container } = render(TaskList, {
     props: WithPinnedTasks.args,
   });
@@ -233,5 +234,5 @@ Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in 
 Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/svelte/en/test/)) tests where possible.
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>

@@ -24,7 +24,7 @@ We have our goal, now let's define what features our addon will support:
 We'll attach the list of assets to the stories with [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), a Storybook feature that allows us to add extra metadata to our stories.
 
 ```javascript
-// YourComponent.js
+// YourComponent.stories.js
 
 export default {
   title: 'Your component',
@@ -32,6 +32,7 @@ export default {
     /*...*/
   ],
   parameters: {
+    //👇 Name of the parameter used with the addon.
     assets: ['path/to/your/asset.png'],
   },
   //
@@ -46,7 +47,9 @@ Inside your `.storybook` folder create a new one called `design-addon` and insid
 
 And that's it! We are ready to start developing our addon.
 
-<div class="aside">We're going to use the<code>.storybook</code> folder as a placeholder for our addon. The reason behind this, is to maintain a straightforward approach and avoid complicating it too much. Should this addon be transformed into a actual addon it would be best to move it to a separate package with it's own file and folder structure.</div>
+<div class="aside">
+💡 We're going to use the<code>.storybook</code> folder as a placeholder for our addon. The reason behind this, is to maintain a straightforward approach and avoid complicating it too much. Should this addon be transformed into a actual addon it would be best to move it to a separate package with it's own file and folder structure.
+</div>
 
 ## Writing the addon
 
@@ -88,7 +91,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './design-addon/register.js', // our addon
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```
@@ -97,7 +100,9 @@ module.exports = {
 
 Success! We have our newly created addon added to the Storybook UI.
 
-<div class="aside">Storybook allows you to add not only panels, but a whole range of different types of UI components. And most if not all of them are already created inside the @storybook/components package, so that you don't need waste too much time implementing the UI and focus on writing features.</div>
+<div class="aside">
+💡 Storybook allows you to add not only panels, but a whole range of different types of UI components. All of them already included in the <code>@storybook/components</code> package, so that you don't need to invest too much time implementing the UI and focus on writing features.
+</div>
 
 ### Creating the content component
 
@@ -115,7 +120,8 @@ import React, { Fragment } from 'react';
 import { useParameter } from '@storybook/api';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -143,7 +149,8 @@ import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -185,6 +192,7 @@ export default {
   component: Task,
   title: 'Task',
   parameters: {
+    //👇 Story's parameter defined here
     assets: [
       'path/to/your/asset.png',
       'path/to/another/asset.png',
@@ -439,7 +447,7 @@ Learn how to further customize your addon:
 
 And much more!
 
-<div class="aside">Should you create a new addon and you're interested in having it featured, feel free to open a PR in the Storybook documentation to have it featured.</div>
+<div class="aside">💡 See the official Storybook <a href="https://storybook.js.org/docs/react/addons/writing-addons">documentation</a> on how to create standalone addons and get them featured in the addon catalog.</div>
 
 ### Dev kits
 

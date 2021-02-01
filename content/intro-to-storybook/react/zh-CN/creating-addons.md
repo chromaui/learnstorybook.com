@@ -24,7 +24,7 @@ commit: 'ed54b16'
 我么将通过 [参数 parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters)将资产列表附加到故事中，可以除 Storybook 功能以外添加额外的元数据到故事中。
 
 ```javascript
-// YourComponent.js
+// YourComponent.stories.js
 
 export default {
   title: 'Your component',
@@ -32,6 +32,7 @@ export default {
     /*...*/
   ],
   parameters: {
+    //👇 Name of the parameter used with the addon.
     assets: ['path/to/your/asset.png'],
   },
   //
@@ -88,7 +89,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    './design-addon/register.js', // our addon
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```
@@ -115,7 +116,8 @@ import React, { Fragment } from 'react';
 import { useParameter } from '@storybook/api';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -143,7 +145,8 @@ import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -185,6 +188,7 @@ export default {
   component: Task,
   title: 'Task',
   parameters: {
+    //👇 Story's parameter defined here
     assets: [
       'path/to/your/asset.png',
       'path/to/another/asset.png',
@@ -241,7 +245,7 @@ const Asset = ({ url }) => {
 };
 
 const Content = () => {
-  // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
   const results = useParameter('assets', []);
   // the id of story retrieved from Storybook global state
   const { storyId } = useStorybookState();

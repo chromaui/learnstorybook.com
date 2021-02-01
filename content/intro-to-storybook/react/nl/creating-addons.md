@@ -24,12 +24,15 @@ Voor dit voorbeeld, laten we ervan uitgaan dat ons team een aantal design assets
 De manier waarop we onze lijst van assets gaan vastmaken aan de stories is door [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), wat een Storybook optie is die ons toelaat om custom parameters te injecteren in onze stories. De manier om het te gebruiken, is redelijk gelijkaardig aan hoe we een decorator hebben gebruikt in vorige hoofdstukken.
 
 ```javascript
+// YourComponent.stories.js
+
 export default {
   title: 'Your component',
   decorators: [
     /*...*/
   ],
   parameters: {
+    //👇 Name of the parameter used with the addon.
     assets: ['path/to/your/asset.png'],
   },
   //
@@ -133,12 +136,12 @@ module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     // same as before
-    './design-add-on/register.js', // our add-on
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```
 
-![design assets add-on die in Storybook wordt uitgevoerd](/intro-to-storybook/create-add-on-design-assets-added.png)
+![design assets add-on die in Storybook wordt uitgevoerd](/intro-to-storybook/create-addon-design-assets-added.png)
 
 Succes! We hebben onze nieuw gemaakte add-on toegevoegd aan de Storybook UI.
 
@@ -160,7 +163,8 @@ import React, { Fragment } from 'react';
 import { useParameter } from '@storybook/api';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -188,7 +192,8 @@ import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
   return (
     <Fragment>
       {results.length ? (
@@ -231,6 +236,7 @@ export default {
   title: 'Task',
   decorators: [withKnobs],
   parameters: {
+    //👇 Story's parameter defined here
     assets: [
       'path/to/your/asset.png',
       'path/to/another/asset.png',
@@ -345,7 +351,7 @@ En onze `Content` component aanpassen, zodat we kunnen wisselen tussen assets:
 //.storybook/design-add-on/register.js
 
 const Content = () => {
-  // story's parameter being retrieved here
+  //👇 Story's parameter defined here
   const results = useParameter('assets', []);
   // add-on state being persisted here
   const [selected, setSelected] = useAddonState('my/design-add-on', 0);

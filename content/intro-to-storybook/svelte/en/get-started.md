@@ -10,121 +10,35 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 
 ## Setup Svelte Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [degit](https://github.com/Rich-Harris/degit) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+We'll need to follow a few steps to get the build process set up in our environment. To start with, we want to use [degit](https://github.com/Rich-Harris/degit) to setup our build system. Using this package, you can download "templates" (partially built applications with some default configuration) to help you fast track your development workflow.
+
+Let’s run the following commands:
 
 ```bash
 # Create our application:
-npx degit sveltejs/template taskbox
+npx degit chromaui/intro-storybook-svelte-template taskbox
 
 cd taskbox
 
-# Install the dependencies
-npm install
-
-# Add Storybook:
-npx -p @storybook/cli sb init --type svelte
+# Install dependencies
+yarn
 ```
 
-### Setup Jest with Svelte
-
-We have two out of three modalities configured in our app, but we still need one, we need to setup [Jest](https://facebook.github.io/jest/) to enable testing.
-
-Run the following commands:
-
-```bash
-npm install -D jest @testing-library/svelte jest-transform-svelte @testing-library/jest-dom
-```
-
-Create a new folder called `__mocks__`, with two files inside:
-
-- The first one called `fileMock.js` with the following content:
-  ```javascript
-  module.exports = 'file-stub';
-  ```
-- The second one called `styleMock.js` with the following content:
-  ```javascript
-  module.exports = {};
-  ```
-
-Create a `.babelrc` file in the root of the project with the following:
-
-```json
-{
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "node": "current"
-        }
-      }
-    ]
-  ]
-}
-```
-
-Add a new field to `package.json`:
-
-```json
-{
-  "jest": {
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-      "^.+\\.svelte$": "jest-transform-svelte"
-    },
-    "moduleFileExtensions": ["js", "svelte", "json"],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-      "\\.(css|scss|stylesheet)$": "<rootDir>/__mocks__/styleMock.js"
-    },
-    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"],
-    "testPathIgnorePatterns": ["/node_modules/", "/build/", "/storybook-static/"]
-  }
-}
-```
-
-And a new script is required to run Jest:
-
-```json
-{
-  "scripts": {
-    "test": "jest --watchAll"
-  }
-}
-```
-
-<div class="aside">The usage of the flag `--watchAll` in the script is to prevent a error being thrown by Jest, because at this stage there's still no repository configured. That will be addressed later on.</div>
-
-To make sure everything is working properly we need to create a test file. In the `src` folder, add a file called `Sample.test.js` with the following:
-
-```javascript
-// src/Sample.test.js
-
-import App from './App.svelte';
-import { render } from '@testing-library/svelte';
-
-test('App', () => {
-  const { getByText } = render(App, {
-    props: {
-      name: 'World',
-    },
-  });
-
-  expect(getByText('Hello World!')).toBeInTheDocument();
-});
-```
+<div class="aside">
+💡 This template contains the necessary styles, assets and bare essential configurations for this version of the tutorial.
+</div>
 
 Now we can quickly check that the various environments of our application are working properly:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
-npm run test
+yarn test
 
 # Start the component explorer on port 6006:
-npm run storybook
+yarn storybook
 
 # Run the frontend app proper on port 5000:
-npm run dev
+yarn dev
 ```
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
@@ -132,41 +46,6 @@ Our three frontend app modalities: automated test (Jest), component development 
 ![3 modalities](/intro-to-storybook/app-three-modalities-svelte.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
-
-## Reuse CSS
-
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into the `src/index.css` file.
-
-![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
-
-<div class="aside">
-If you want to modify the styling, the source LESS files are provided <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/style">here</a>.
-</div>
-
-## Add assets
-
-To match the intended design, you'll need to download both the font and icon directories and place them inside the `src/assets` folder. Issue the following commands in your terminal:
-
-```bash
-npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
-npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
-```
-
-<div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab them <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a>.
-</div>
-
-Finally we need to update our storybook script to serve the `public` directory (in `package.json`):
-
-```json
-{
-  "scripts": {
-    "storybook": "start-storybook -p 6006 -s public"
-  }
-}
-```
-
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now.
 
 ## Commit changes
 

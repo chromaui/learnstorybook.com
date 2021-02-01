@@ -142,7 +142,7 @@ export const Empty = () => ({
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we're using a decorator key in the default export to add some metadata that is required. But they can also be used to add other context to components, as we'll see later.
+💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
 `taskData` supplies the shape of a `Task` that we created and exported from the `task.stories.ts` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `TaskComponent` expects, which the `TaskListComponent` also needs.
@@ -286,5 +286,5 @@ Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in 
 Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `TaskComponent` changes --perhaps using a different class name or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/angular/en/test/)) tests where possible.
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>

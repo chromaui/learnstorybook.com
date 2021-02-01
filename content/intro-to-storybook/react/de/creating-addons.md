@@ -24,7 +24,7 @@ Wir haben unser Ziel, nun lass uns definieren, welche Features unser Addon unter
 Wir werden [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) verwenden, um eine Liste von Assets an unsere Story anzufügen. Dies ist eine Storybook-Option, die uns ermöglicht, benutzerdefinierte Parameter in unsere Stories zu injecten. Das macht man auf ähnliche Weise, wie wir in den vorherigen Kapiteln schon einen Decorator verwendet haben.
 
 ```javascript
-// YourComponent.js
+// YourComponent.stories.js
 
 export default {
   title: 'Your component',
@@ -32,6 +32,7 @@ export default {
     /*...*/
   ],
   parameters: {
+    //👇 Name of the parameter used with the addon.
     assets: ['path/to/your/asset.png'],
   },
   //
@@ -130,9 +131,9 @@ import React, { Fragment } from 'react';
 /* same as before */
 import { useParameter } from '@storybook/api';
 
-//.storybook/addons/design-assets.js
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
 
   return (
     <Fragment>
@@ -161,7 +162,8 @@ import { useParameter } from '@storybook/api';
 import { addons, types } from '@storybook/addons';
 
 const Content = () => {
-  const results = useParameter('assets', []); // story's parameter being retrieved here
+  //👇 Story's parameter being retrieved here
+  const results = useParameter('assets', []);
 
   return (
     <Fragment>
@@ -205,6 +207,7 @@ export default {
   title: 'Task',
   decorators: [withKnobs],
   parameters: {
+    //👇 Story's parameter defined here
     assets: [
       'path/to/your/asset.png',
       'path/to/another/asset.png',
