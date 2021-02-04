@@ -1,30 +1,30 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: '构建一个简单的组件'
+tocTitle: '简单组件'
+description: '单独构建一个简单的组件'
 commit: 'f03552f'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+我们将按照[组件驱动开发](https://www.componentdriven.org/) (CDD)来构建我们的 UI。这是一个自下而上的构建 UI 的过程，我们从组件开始以整个页面结束。CDD 可以帮助您在构建 UI 时衡量其复杂性。
 
-## Task
+## 任务
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+![任务组件的三个状态](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`任务(Task)`是我们应用程序的核心组件。每个任务根据其状态的不同在显示上会略有不同。我们提供一个选中(未选中)的复选框，一些关于 Task 的信息和一个允许我们上下移动任务的“pin”按钮。我们需要下述的 props 来将它们整合起来：
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+- `title` – 描述任务的字符串
+- `state` - 当前任务所在列表，以及其是否被选中？
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
+在我们构建`Task`之前，首先我们根据上述的草图编写测试所需的状态(state)。然后我们使用 Storybook 模拟数据并独立的构建组件。我们可以“视觉测试”自己设定好状态的组件外观。
 
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
+这个过程有点像[驱动测试开发](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) 所以我们可以称之为“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”
 
-## Get setup
+## 配置
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.vue` and `src/components/Task.stories.js`.
+首先，让我们创建 task 组件以及它相关的 story 文件：`src/components/Task.vue` 和 `src/components/Task.stories.js`。
 
-We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need:
+首先我们使用已知将会用到的属性为基础实现一个最基本的`Task`：
 
 ```html
 <!-- src/components/Task.vue -->
@@ -50,9 +50,9 @@ We’ll begin with the baseline implementation of the `Task`, simply taking in t
 </script>
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
+如上所示，我们直接基于现有的 Todos 应用的 HTML 结构创建一个`Task`。
 
-Below we build out Task’s three test states in the story file:
+如下，我们在 story 文件中创建 Task 的三个不同测试状态：
 
 ```javascript
 // src/components/Task.stories.js
@@ -63,7 +63,7 @@ import { action } from '@storybook/addon-actions';
 export default {
   title: 'Task',
   component: Task,
-  // Our exports that end in "Data" are not stories.
+  // 我们的以“Data”结尾导出的内容不属于story
   excludeStories: /.*Data$/,
 };
 
@@ -106,67 +106,76 @@ Archived.args = {
 };
 ```
 
+Storybook 有两个基本的组织级别：组件和他的 story。可以将每个 story 视作其组件的排列组合。您可以根据需要给每一个组件创建任意个 story。
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
-- **Component**
+- **组件**
   - Story
   - Story
   - Story
 
-To tell Storybook about the component we are documenting, we create a `default` export that contains:
+我们创建了一个`default`来提示 Storybook 我们正在文档化的组件：
 
-- `component` -- the component itself,
-- `title` -- how to refer to the component in the sidebar of the Storybook app,
-- `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+- `component` -- 组件本身,
+- `title` -- 在 Storybook 应用侧边栏的显示,
+- `excludeStories` -- story 本身需要但是不用在 Storybook 应用中渲染的信息。
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
+我们为每一个我们需要测试的状态导出一个函数，以此来定义我们的 story。Story 实际上就是一个根据给定的状态返回已渲染元素的函数---就像是[无状态函数式组件](https://vuejs.org/v2/guide/render-function.html#Functional-Components)那样。
 
-As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
+因为我们的组件存在多种排列组合，所以设置一个`Template`变量不失为一种便捷的做法。使用这样的模式来创建您的 Story 可以大量减少代码量和维护成本。
 
 <div class="aside">
-
-`Template.bind({})` is a [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
-
+💡 <code>Template.bind({})</code> 是 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">标准JavaScript</a> 中用来复制函数的技术。我们使用这项技术保证了在使用同一份实现的同时，让每一个导出的story可以配置自己的属性。
 </div>
 
-Arguments or [`args`](https://storybook.js.org/docs/vue/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes so does the component.
+Arguments 或者简写[`args`](https://storybook.js.org/docs/vue/writing-stories/args) , 让我们可以在不重启 Storybook 的前提下实时编辑我们的组件。只要 [`args`](https://storybook.js.org/docs/vue/writing-stories/args) 的值被修改我们的组件也会相应的更新。
 
-When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+我们创建了一个最基本的`task`变量来描述 task 组件应该呈现的样子。这通常是根据真实数据来进行建模的。同时，`导出`此 task 也让我们在以后编写其他 story 时可以复用它，详见下文。
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+`action()`使我们可以创建一个回调函数，当点击事件触发时 Storybook UI 的**actions**面板会显示结果。所以如果我们创建了一个 pin 按钮，我们就可以通过面板清楚的知道按钮是否被成功点击了。
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time (where they are accessed via the `methods` property).
+考虑到我们需要为组件的每一个排列组合都传入同样的 actions，通常的便捷做法是将他们合并到一个`actionsData`变量中，并传入给每一个定义好的 story 中(story 使用`methods`属性访问)。
 
-Another nice thing about bundling the `actionsData` that a component needs, is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+值得一提的是当我们将组件所需的操作都合并到`actionsData`之后，我们可以在其他组件复用此组件时，让其他组件的 story 也可以复用`导出`的`actionsData`，详见下文。
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+💡 <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>Actions</b></a>帮助您在隔离构建UI组件时验证交互。 通常情况下您不会持有应用程序上下文中函数和状态的访问权限。请使用<code>action()</code>保存它们。
 </div>
 
-## Config
+## 配置
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was changed in the [previous chapter](/vue/en/get-started).
+我们需要对 Storybook 的配置做几处修改，这样其不仅可以识别到近期创建的 story，同时还允许我们可以使用[上一章节](/vue/en/get-started)中引入的 CSS 文件。
 
-Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
+如下修改您的 Storybook 配置文件(`.storybook/main.js`)：
 
 ```javascript
 // .storybook/main.js
 
 module.exports = {
+  //👇 我们的story的所在位置
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
 ```
 
-After completing the change above, inside the `.storybook` folder, add a new file called `preview.js` with the following:
+完成上述的修改后，如下所示修改您`.storybook`文件夹中的`preview.js` ：
 
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 应用程序使用的CSS文件
+
+//👇 配置Storybook使其可以在UI中记录actions(onArchiveTask和onPinTask)
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
+[`parameters`](https://storybook.js.org/docs/vue/writing-stories/parameters) 通常用来控制 Storybook 中特性和插件的行为。在我们的例子中我们使用它们来配置`actions`(模拟的回掉)该如何被处理。
+
+`actions`允许我们创建回调来决定当点击事件发生时 Storybook UI 的**actions**面板将如何显示。这样当我们创建了一个 pin 按钮后，我们就可以在测试 UI 中查看该按钮是否被点击成功了。
+
+完成了上述配置后重启 Storybook 服务器，Task 的三种状态的测试用例应该就生成完毕了：
 
 <video autoPlay muted playsInline controls >
   <source
@@ -175,11 +184,11 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-## Build out the states
+## 建立状态
 
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+现在我们配置好了 Storyb，导入了样式并且构建了测试用例，接下来我们可以根据设计快速编写组件的 HTML 代码。
 
-Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
+我们的组件现在仍然十分粗糙。我们做一些修改保证其在满足所需设计的同时而不至于陷入太多的细节中。
 
 ```html
 <!-- src/components/Task.vue -->
@@ -222,7 +231,7 @@ Our component is still rather rudimentary at the moment. We're going to make som
 </script>
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+我们配合已经导入的 CSS 追加了一些标记，得到了如下的 UI：
 
 <video autoPlay muted playsInline loop>
   <source
@@ -231,31 +240,31 @@ The additional markup from above combined with the CSS we imported earlier yield
   />
 </video>
 
-## Component built!
+## 组件构建完成！
 
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
+这样我们在没有服务器或者不需要运行整个前端应用的情况下成功的构建了一个组件。下一步我们以类似的方式逐个构建剩余的 Taskbox 组件。
 
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
+如您所见，这种隔离式的组件构建方式既轻松又高效。我们由此可以生成一个更高质量的 UI，同时包含更少的 Bug 和打磨，原因在于我们现在可以深入并对每一个可能的状态进行测试。
 
-## Automated Testing
+## 自动化测试
 
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook 给我们提供了一个在开发期间可视化测试应用程序的方法。这样的‘story’保证了我们在不破坏 Task 外观的同时可以继续开发应用程序。然而到目前为止这仍然是一个完全手动的过程，这意味着我们需要某个人手动的测试每一个状态并确保其渲染得正确无误。我们能将这个过程自动化吗？
 
-### Snapshot testing
+### 快照测试
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because Storybook is a quick way to view the new version of a component and visualize the changes.
+快照测试指的是先根据给定的输入记录下组件的所谓的“正确的”输出，并且当输出改变时予以标记。这补充了 Storybook，因为 Storybook 可以快速查看组件的新版本并可视化修改。
 
 <div class="aside">
-Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+💡 请确保您组件渲染的数据不会更改，以保证快照测试不会每一次都失败。尤其注意日期或者随机数据等信息。
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependencies:
+通过[Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots)我们可以为每一个 story 创建一个快照测试。通过下述方式追加依赖：
 
 ```bash
 yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 ```
 
-Then create a `tests/unit/storybook.spec.js` file with the following in it:
+上述命令生成了`tests/unit/storybook.spec.js`文件，内容如下：
 
 ```javascript
 // tests/unit/storybook.spec.js
@@ -265,7 +274,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-We need to add a line to our `jest.config.js`:
+我们还需要在`jest.config.js`中追加一行：
 
 ```js
   // jest.config.js
@@ -273,12 +282,12 @@ We need to add a line to our `jest.config.js`:
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 ```
 
-Once the above is done, we can run `yarn test:unit` and see the following output:
+完成上述操作后运行`yarn test:unit`并查看输出：
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+这样我们就为每一个`Task` story 创建了快照测试。一旦我们修改了`Task`，我们就需要根据提示验证那些修改。
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 别忘记提交您的修改！
 </div>
