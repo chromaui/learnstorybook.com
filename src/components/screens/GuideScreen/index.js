@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
 import get from 'lodash/get';
-import { graphql } from 'gatsby';
+import { graphql, withPrefix } from 'gatsby';
 import { darken } from 'polished';
 import Contributors from './Contributors';
 import Hero from './Hero';
@@ -114,17 +114,17 @@ const Guide = ({ data, pageContext }) => {
 
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:url" content={permalink} />
+        <meta property="og:url" content={withPrefix(permalink)} />
         <meta
           property="og:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+          content={withPrefix(`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`)}
         />
 
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta
           name="twitter:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+          content={withPrefix(`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`)}
         />
       </Helmet>
 
@@ -134,7 +134,7 @@ const Guide = ({ data, pageContext }) => {
         ctaHref={get(entries, '[0].slug')}
         description={heroDescription}
         heroAnimationName={heroAnimationName}
-        imagePath={coverImagePath}
+        imagePath={withPrefix(coverImagePath)}
         languages={languages}
         title={title}
         themeColor={themeColor}

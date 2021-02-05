@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
+import { withPrefix } from 'gatsby';
 
 const { background, breakpoint, color, pageMargins, typography } = styles;
 
@@ -62,7 +63,7 @@ const WhatIsLSB = () => (
 
       <video autoPlay muted playsInline loop>
         <source
-          src="/frontpage/learnstorybook-componentdrivendevelopment-optimized.mp4"
+          src={withPrefix('/frontpage/learnstorybook-componentdrivendevelopment-optimized.mp4')}
           type="video/mp4"
         />
       </video>

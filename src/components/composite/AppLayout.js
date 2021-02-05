@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, StaticQuery, withPrefix } from 'gatsby';
 import { global } from '@storybook/design-system';
 import Helmet from 'react-helmet';
 import Header from './Header';
@@ -38,9 +38,9 @@ const query = graphql`
 `;
 
 const getHeaderInvertedState = pathname => {
-  const pathParts = pathname.split('/').filter(p => !!p);
+  const pathParts = pathname.split('/').filter(p => !!p && p !== 'tutorials');
   // This will need to get "smarter" if the hierarchy of pages/guides changes.
-  return pathParts.length === 1 && pathParts[0] !== 'team';
+  return pathParts.length === 1 && pathParts[0] !== 'team' && pathParts[0] !== '404';
 };
 
 const TemplateWrapper = ({ location: { pathname }, children }) => (
@@ -59,7 +59,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           <link
             rel="shortcut icon"
             type="image/png"
-            href="/icon-storybook.png"
+            href={withPrefix('/icon-storybook.png')}
             sizes="16x16 32x32 64x64"
           />
           <title>{title}</title>
@@ -67,13 +67,13 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
 
           <meta property="og:title" content={title} />
           <meta property="og:description" content={description} />
-          <meta property="og:image" content={`${permalink}/opengraph-cover.jpg`} />
-          <meta property="og:url" content={permalink} />
+          <meta property="og:image" content={withPrefix(`${permalink}/opengraph-cover.jpg`)} />
+          <meta property="og:url" content={withPrefix(permalink)} />
 
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:title" content={title} />
           <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={`${permalink}/opengraph-cover.jpg`} />
+          <meta name="twitter:image" content={withPrefix(`${permalink}/opengraph-cover.jpg`)} />
 
           <meta
             name="google-site-verification"
@@ -81,11 +81,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           />
         </Helmet>
 
-        <Header
-          guides={guides}
-          githubUrl={githubUrl}
-          isInverted={getHeaderInvertedState(pathname)}
-        />
+        <Header guides={guides} githubUrl={githubUrl} inverse={getHeaderInvertedState(pathname)} />
 
         {children}
         <Footer guides={guides} />

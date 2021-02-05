@@ -159,7 +159,7 @@ Now we've added the story, we can reproduce this edge-case with ease whenever we
 
 ![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are using [visual regression testing](/intro-to-storybook/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ### Merge Changes
 

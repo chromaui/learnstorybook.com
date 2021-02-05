@@ -32,4 +32,4 @@ Storybook은 React, React Native, Vue, Angular, Svelte 외 다른 여러 프레�
 
 이와 같은 튜토리얼과 기사를 더 원하시나요? Chromatic의 메일링 목록에 등록하세요.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

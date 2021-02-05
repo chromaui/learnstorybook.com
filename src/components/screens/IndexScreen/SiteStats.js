@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import pluralize from 'pluralize';
 import { styles } from '@storybook/design-system';
+import { withPrefix } from 'gatsby';
 import SiteStat from './SiteStat';
 
 const { breakpoint, pageMargins } = styles;
@@ -37,7 +38,7 @@ const SiteStatWrapper = styled.div`
   }
 `;
 
-const AndCountingImage = styled.img.attrs({ src: '/frontpage/lsb-andcounting.svg' })`
+const AndCountingImage = styled.img.attrs({ src: withPrefix('/frontpage/lsb-andcounting.svg') })`
   position: absolute;
   top: 0;
   left: ${props => (props.withMultipleGuides ? 120 : 108)}px;

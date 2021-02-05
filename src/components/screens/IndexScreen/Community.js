@@ -2,9 +2,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Avatar, styles } from '@storybook/design-system';
-import User from '../../composite/User';
 
-const { breakpoint, spacing, typography } = styles;
+const { typography } = styles;
 
 const Section = styled.div`
   ${props =>
@@ -26,32 +25,6 @@ const Text = styled.div`
   margin-top: 12px;
 `;
 
-const GuidanceUsers = styled.div`
-  margin-top: 52px;
-
-  @media (min-width: ${breakpoint * 1.25}px) {
-    display: flex;
-  }
-`;
-
-const GuidanceUser = styled(User)`
-  width: 100%;
-  margin-top: ${spacing.padding.medium}px;
-
-  &:first-of-type {
-    margin-top: 0;
-  }
-
-  @media (min-width: ${breakpoint * 1.25}px) {
-    margin-top: 0;
-    margin-right: 30px;
-
-    &:last-of-type {
-      margin-right: 0;
-    }
-  }
-`;
-
 const CommunityAvatars = styled.div`
   margin-top: 24px;
   margin-left: -10px;
@@ -68,39 +41,11 @@ const AvatarWrapper = styled(Avatar).attrs({ size: 'large' })`
 const PureCommunity = ({ contributors }) => (
   <div>
     <Section isFirst>
-      <Heading>Expert frontend guidance</Heading>
+      <Heading>Peer reviewed and updated all the time</Heading>
 
       <Text>
-        Learn Storybook was created by active Storybook maintainers who also helped build Apollo
-        GraphQL and MeteorJS. Tens of thousands of frontend developers use their work to build apps
-        for millions of people.
-      </Text>
-
-      <GuidanceUsers>
-        <GuidanceUser
-          src="https://avatars2.githubusercontent.com/u/263385"
-          name="Dominic Nguyen"
-          detail="Storybook design"
-        />
-        <GuidanceUser
-          src="https://avatars2.githubusercontent.com/u/132554"
-          name="Tom Coleman"
-          detail="Storybook core"
-        />
-        <GuidanceUser
-          src="https://avatars2.githubusercontent.com/u/3035355"
-          name="Kyle Suss"
-          detail="Storybook maintainer"
-        />
-      </GuidanceUsers>
-    </Section>
-
-    <Section>
-      <Heading>Updated all the time</Heading>
-
-      <Text>
-        Our amazing community of learners help update, localize, and suggest new guide topics. That
-        means Learn Storybook stays up to date with industry best practices.
+        Our guides are peer reviewed by leading folks at Shopify, Auth0, and New York Times. Our
+        amazing community of learners keep the guides up to date with industry best practices.
       </Text>
 
       <CommunityAvatars className="chromatic-ignore">

@@ -167,5 +167,5 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
 </video>
 
 <div class="aside">
-Se os testes snapshot falharem, deverá ter que atualizar os snapshots existentes, executando o comando de testes de novo com a flag -u. Como a nossa aplicação está a crescer exponencialmente, poderá ser agora um bom momento para executar os testes com a opção <code> --watchAll</code> tal como mencionado na <a href="/react/pt/get-started">introdução</a>
+Se os testes snapshot falharem, deverá ter que atualizar os snapshots existentes, executando o comando de testes de novo com a flag -u. Como a nossa aplicação está a crescer exponencialmente, poderá ser agora um bom momento para executar os testes com a opção <code> --watchAll</code> tal como mencionado na <a href="/intro-to-storybook/react/pt/get-started">introdução</a>
 </div>

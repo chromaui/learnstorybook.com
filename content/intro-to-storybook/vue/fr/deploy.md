@@ -10,7 +10,7 @@ Dans ce tutoriel, nous avons exécuté Storybook sur notre machine de développe
 <div class="aside">
 <strong>Avez-vous configuré les tests Chromatic plus tôt ?</strong>
 <br/>
-🎉 Vos histoires sont déjà déployées ! Chromatic indexe en tout sécurité vos histoires en lignes et les suit à travers les branches et les commits. Sautez ce chapitre et allez à la <a href="/vue/fr/conclusion">conclusion</a>.
+🎉 Vos histoires sont déjà déployées ! Chromatic indexe en tout sécurité vos histoires en lignes et les suit à travers les branches et les commits. Sautez ce chapitre et allez à la <a href="/intro-to-storybook/vue/fr/conclusion">conclusion</a>.
 </div>
 
 ## Exportation en tant qu'application statique
