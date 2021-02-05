@@ -61,7 +61,8 @@ Default.args = {
         {
           node: {
             frontmatter: {
-              description: '✍️Coming soon: Visual testing is a pragmatic yet precise way to check UI appearance.',
+              description:
+                '✍️Coming soon: Visual testing is a pragmatic yet precise way to check UI appearance.',
               title: 'Visual Testing Handbook',
               themeColor: '#129F00',
               thumbImagePath: '/guide-thumb/visual-testing.svg',

@@ -126,6 +126,5 @@ TutorialNotUpdated.args = {
         tutorialupdated: false,
       },
     },
-   
   },
-}
+};

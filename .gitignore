@@ -11,3 +11,7 @@ yarn-error.log
 # Only allow yarn.lock
 package-lock.json
 storybook-static
+
+# Pulled from monorepo & frontpage
+src/content/docs
+site-metadata.js

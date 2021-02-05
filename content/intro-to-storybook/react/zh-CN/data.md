@@ -188,5 +188,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-如果你的快照测试失败，你需要通过运行测试脚本并带上 <code>-u</code> 标志来更新已存在的快照。随着我们的应用程序越来越大，这可能也是运行测试脚本时带有 <code> --watchAll</code> 标志的好处，如 <a href="/react/en/get-started/">开始吧</a> 章节中提到的。
+如果你的快照测试失败，你需要通过运行测试脚本并带上 <code>-u</code> 标志来更新已存在的快照。随着我们的应用程序越来越大，这可能也是运行测试脚本时带有 <code> --watchAll</code> 标志的好处，如 <a href="/intro-to-storybook/react/en/get-started/">开始吧</a> 章节中提到的。
 </div>

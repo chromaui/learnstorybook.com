@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { Button, styles } from '@storybook/design-system';
+import { Button, styles, Icon } from '@storybook/design-system';
 import GatsbyLink from '../../basics/GatsbyLink';
 import Stat from '../../basics/Stat';
 import * as animations from '../../../styles/animations';
@@ -111,7 +111,6 @@ const LanguageLinkStyles = `
       white-space: pre;
     }
   }
- 
 `;
 const LanguagesLink = styled(GatsbyLink)`
   ${LanguageLinkStyles}
@@ -161,6 +160,37 @@ const GuideImage = styled.img`
     `}
 `;
 
+const BreadcrumbLink = styled(GatsbyLink)`
+  font-size: ${typography.size.s3}px;
+  line-height: ${typography.size.m1}px;
+  font-weight: ${typography.weight.bold};
+  margin-top: 16px;
+  margin-bottom: 20px;
+  color: ${color.lightest};
+  margin-left: -22px; // optical for rebalancing for centered layout. This accounts for the arrow
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: ${color.lightest};
+  }
+
+  @media (min-width: ${breakpoint * 1.333}px) {
+    margin-top: 0;
+  }
+`;
+
+const Breadcrumb = ({ children, ...props }) => (
+  <BreadcrumbLink withIcon {...props}>
+    <Icon icon="arrowleft" />
+    {children}
+  </BreadcrumbLink>
+);
+
+Breadcrumb.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 const Hero = ({
   heroAnimationName,
   contributorCount,
@@ -176,6 +206,8 @@ const Hero = ({
   <HeroWrapper themeColor={themeColor} {...rest}>
     <HeroContent>
       <Pitch>
+        <Breadcrumb to="/">Tutorials</Breadcrumb>
+
         <PitchTitle>{title}</PitchTitle>
 
         {description && <PitchDescription>{description}</PitchDescription>}
@@ -201,7 +233,6 @@ const Hero = ({
           {chapterCount && <Stat value={chapterCount} label="Chapters" />}
         </StatWrapper>
       </Pitch>
-
       <Figure>
         {imagePath && (
           <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
