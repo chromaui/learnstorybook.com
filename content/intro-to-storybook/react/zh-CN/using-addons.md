@@ -91,4 +91,4 @@ LongTitle.args = {
 
 不要忘记使用 git 合并你的修改！
 
-<div class="aside"><p>Controls 控件是让非开发人员玩弄您的组件和故事的好方法，它比我们在这里看到的要多得多，我们推荐阅读 <a href="https://storybook.js.org/docs/react/essentials/controls">官方文档</a> 学习关于它的更多。并且你可以通过多种方式自定义 Storybook 插件以适合你的工作流程。 在 <a href="/intro-to-storybook/react/zh-CN/creating-addons">创建插件</a> 章节中，我们将通过创建一个插件来教您这一点，该插件将帮助您增强开发工作流程。</p></div>
+<div class="aside"><p>Controls 控件是让非开发人员玩弄您的组件和故事的好方法，它比我们在这里看到的要多得多，我们推荐阅读 <a href="https://storybook.js.org/docs/react/essentials/controls">官方文档</a> 学习关于它的更多。并且你可以通过多种方式自定义 Storybook 插件以适合你的工作流程。 在 <a href="/create-an-addon/react/en/introduction/">创建插件</a> 章节中，我们将通过创建一个插件来教您这一点，该插件将帮助您增强开发工作流程。</p></div>
