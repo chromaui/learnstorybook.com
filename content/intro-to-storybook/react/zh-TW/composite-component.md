@@ -1,7 +1,7 @@
 ---
 title: '組裝複合元件'
-tocTitle: '合成元件'
-description: '使用更簡單的元件 組裝複合元件'
+tocTitle: '複合元件'
+description: '從較為簡易的元件，組裝複合元件'
 commit: 'f9b2cfb'
 ---
 

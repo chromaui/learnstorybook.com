@@ -1,11 +1,11 @@
 ---
-title: '構建一個簡單的元件'
-tocTitle: '簡單 元件'
-description: '單獨構建一個簡單的元件'
+title: '打造簡易元件'
+tocTitle: '簡易元件'
+description: '打造互不干擾的簡易元件'
 commit: '97d6750'
 ---
 
-我們將按照[元件驅動開發](https://www.componentdriven.org/) (CDD) 方法論來 構建我們的 UI. 這是一個從"自下而上"開始構建 UI 的過程,從元件開始到整個頁面結束. CDD 可幫助您在構建 UI 時,擺列您所面臨的複雜程度.
+我們將按照[元件驅動開發](https://www.componentdriven.org/) (CDD) 方法論來打造 UI，是「由下而上」的流程。從元件開始，一路至各種畫面。CDD 在打造 UI 時，面臨不斷擴大的複雜程度很有幫助。
 
 ## 任務-Task
 
