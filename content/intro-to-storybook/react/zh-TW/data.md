@@ -1,7 +1,7 @@
 ---
-title: '连线数据'
-tocTitle: 'Data'
-description: '了解如何将数据连接到UI组件'
+title: '連結資料'
+tocTitle: '資料'
+description: '了解把資料連結到 UI 元件的方法'
 commit: 'd2fca1f'
 ---
 

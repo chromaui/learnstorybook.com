@@ -1,35 +1,32 @@
 ---
 title: '打造簡易元件'
 tocTitle: '簡易元件'
-description: '打造互不干擾的簡易元件'
+description: '打造獨立的簡易元件'
 commit: '97d6750'
 ---
 
-我們將按照[元件驅動開發](https://www.componentdriven.org/) (CDD) 方法論來打造 UI，是「由下而上」的流程。從元件開始，一路至各種畫面。CDD 在打造 UI 時，面臨不斷擴大的複雜程度很有幫助。
+我們會按照[元件驅動開發](https://www.componentdriven.org/) (CDD) 方法論來打造 UI，是「由下而上」的流程。從元件開始，一路至各種畫面。CDD 在打造 UI 時，面臨不斷擴大的複雜程度很有幫助。
 
-## 任務-Task
+## 工作事項 (Task)
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+![工作事項元件的三種狀態](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task`是我們的應用程式的核心元件. 每個任務的顯示略有不同,具體取決於它所處的`狀態-state`. 我們顯示一個選中 (或未選中) 複選框,一些有關任務的資訊,以及一個"pin"按鈕,允許我們在列表中上下移動任務. 為了把各個它們擺在一起,我們需要下面的 **props**:
+`工作事項`是應用程式裡的核心元件。每個工作事項只會根據它的狀態，而有一些外觀上的不同。顯示有打鉤（沒打鉤）狀態的 checkbox、工作事項的資訊和可以在清單上把工作事項上下移動的「標記」按鈕 。這樣子，props 就會有：
 
-- `title` - 描述任務的字串
+- `title` - 描述工作事項的字串
+- `state` - 工作事項目前所屬清單，以及是完成的嗎？
 
-- `state` - 哪個列表是當前的任務,是否已檢查?
+開始打造`工作事項`的時候，首先要撰寫狀態的測試，對應上面提到工作事項的類型。接著，使用模擬資料在 Storybook 打造獨立元件。執行每個狀態時，元件的外觀是手動進行測試。
 
-在我們開始構建`Task`時,我們首先編寫 與 上面草圖中不同型別的任務 相對應的測試狀態. 然後我們使用 Storybook 模擬資料 隔離對應狀態元件. 我們將"視覺測試"元件在每個狀態下的外觀.
+## 做好準備
 
-這個過程類似於[測試驅動的開發(TDD)](https://en.wikipedia.org/wiki/Test-driven_development),我們可以稱之為["Visual-虛擬 TDD"](https://www.chromatic.com/blog/visual-test-driven-development)
+首先，新增工作項目元件，還有搭檔的 story 檔案：`src/components/Task.js` 和 `src/components/Task.stories.js`。
 
-## 獲取設定
-
-首先,讓我們建立任務元件 及 其附帶的 _storybook-故事_ 檔案:
-
-`src/components/Task.js`和`src/components/Task.stories.js`
-
-我們將從基本實現開始,簡單傳入我們需要的`屬性-props` 以及 您可以對任務執行的兩個`on`操作 (在列表之間移動它) :
+一開始，先做好`工作事項`的基礎設定，只需帶入知道會用到的屬性，還有兩個在工作事項可以執行的動作（在清單之間移動）：
 
 ```javascript
+// src/components/Task.js
+
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -41,45 +38,64 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-上面,我們基於 Todos 應用程式現有 HTML 結構 為 `Task`提供簡單的 markup .
+在上面，我們根據待辦事項 app 現有的 HTML 結構，把`工作事項`語法直覺地 render 出來。
 
-下面, 我們在 故事檔案中 構建 Task 的 三個測試狀態:
+接下來，要在 story 檔案蓋出工作事項的 3 種測試狀態：
 
 ```javascript
+// src/components/Task.stories.js
+
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
-export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+export default {
+  component: Task,
+  title: 'Task',
 };
 
-export const actions = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+const Template = args => <Task {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
 
-storiesOf('Task', module)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
+};
+
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
+  },
+};
 ```
 
-Storybook 中有兩個基本的組織級別.
-
-該元件 及 其 child 故事.
-
-將每個故事 視為元件的排列. 您可以根據需要為每個元件 建立 儘可能多的故事.
+在 Storybook，組織方式有兩個基本階層：元件和其子 story。把每個 story 想成是該元件的排列 (permutation)。只要有必要，每個元件可以有無限多個 story。
 
 - **元件**
-  - 故事
-  - 故事
-  - 故事
+  - Story
+  - Story
+  - Story
+
+為了要讓 Storybook 知道正在撰寫文件的元件，先做好 `default` export，包含：
+
+- `component` -- 元件它本人；
+- `title` -- 在 Storybook app 側邊欄找到元件的名字；
+- `excludeStories` -- story 檔案裡的 export，但不應被 Storybook render 為 story；
+- `argTypes` -- 設定每個 story 的[參數](https://storybook.js.org/docs/react/api/argtypes)行為。
 
 要開始 Storybook,我們先運`行 註冊元件的`storiesOf()`函式. 我們為元件新增 _顯示名稱 - Storybook 應用程式側欄上顯示的名稱_.
 

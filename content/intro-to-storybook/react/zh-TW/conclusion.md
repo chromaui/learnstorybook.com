@@ -1,7 +1,6 @@
 ---
-title: '結論'
-tocTitle: '總結'
-description: '把所有的知識彙總以下，學習更多的 storybook 技巧'
+title: '總結'
+description: '總結已經會的，接著學習更多 Storybook 技巧'
 ---
 
 恭喜! 您在 Storybook 中建立了第一個 UI. 在此過程中,您學習瞭如何構建,組合,測試和部署 UI 元件. 如果您一直關注,您的 repo 和部署的 Storybook 應如下所示:
