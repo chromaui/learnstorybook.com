@@ -51,6 +51,22 @@ const onCreateFrameworkChapterNode = ({ actions, node, slug }) => {
     name: 'isDefaultTranslation',
     value: language === defaultLanguage && framework === defaultFramework,
   });
+  const { siteMetadata } = config;
+  const { storybookVersion, tutorialStatus } = siteMetadata;
+
+  const currentGuide = tutorialStatus[guide];
+  const currentFramework = currentGuide[framework];
+
+  // checks if the framework is defined
+  if (!currentFramework) {
+    return;
+  }
+  // gets and checks if the translation is defined
+  const currentVersion = currentFramework[language];
+  if (!currentVersion) {
+    return;
+  }
+  createNodeField({ node, name: 'tutorialUpToDate', value: storybookVersion === currentVersion });
 };
 
 exports.onCreateNode = ({ node, getNode, actions }) => {

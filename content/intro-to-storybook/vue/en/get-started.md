@@ -2,28 +2,34 @@
 title: 'Storybook for Vue tutorial'
 tocTitle: 'Get started'
 description: 'Setup Vue Storybook in your development environment'
-commit: d1c4858
+commit: '9e3165c'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Vue; other editions exist for [React](/react/en/get-started), [React Native](/react-native/en/get-started/), [Angular](/angular/en/get-started) and [Svelte](/svelte/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for Vue; other editions exist for [React](/react/en/get-started), [React Native](/react-native/en/get-started/), [Angular](/angular/en/get-started), [Svelte](/svelte/en/get-started) and [Ember](/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Setup Vue Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use the [Vue CLI](https://cli.vuejs.org) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app. Let’s run the following commands:
+We'll need to follow a few steps to get the build process set up in our environment. To start with, we want to use [degit](https://github.com/Rich-Harris/degit) to setup our build system. Using this package, you can download "templates" (partially built applications with some default configuration) to help you fast track your development workflow.
+
+Let’s run the following commands:
 
 ```bash
-# Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset hichroma/vue-preset-learnstorybook 
+# Clone the template
+npx degit chromaui/intro-storybook-vue-template taskbox
 
 cd taskbox
 
-# Add Storybook:
-npx -p @storybook/cli sb init
+# Install dependencies
+yarn
 ```
 
-We can quickly check that the various environments of our application are working properly:
+<div class="aside">
+💡 This template contains the necessary styles, assets and bare essential configurations for this version of the tutorial.
+</div>
+
+Now we can quickly check that the various environments of our application are working properly:
 
 ```bash
 # Run the test runner (Jest) in a terminal:
@@ -42,42 +48,24 @@ Our three frontend app modalities: automated test (Jest), component development 
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 
-## Reuse CSS
+## Commit changes
 
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), so we won’t need to write CSS in this tutorial. Copy and paste [this compiled CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) into `src/index.css` and then import the CSS into the app by editing the `<style>` tag in `src/App.vue` so it looks like:
+At this stage it's safe to add our files to a local repository. Run the following commands to initialize a local repository, add and commit the changes we've done so far.
 
-```html
-<style>
-  @import './index.css';
-</style>
+```shell
+$ git init
 ```
 
-![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
+Followed by:
 
-<div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo.
-</div>
-
-## Add assets
-
-Add the font and icon directories by downloading them to your computer and dropping them into your repository.
-
-```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+```shell
+$ git add .
 ```
 
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a>.</p></div>
+And finally:
 
-We also need to update our storybook script to serve the `public` directory (in `package.json`):
-
-```json
-{
-  "scripts": {
-    "storybook": "start-storybook -p 6006 -s public"
-  }
-}
+```shell
+$ git commit -m "first commit"
 ```
 
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+Let's start building our first component!

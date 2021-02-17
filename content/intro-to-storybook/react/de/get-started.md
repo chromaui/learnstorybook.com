@@ -2,7 +2,7 @@
 title: 'Storybook für React Tutorial'
 tocTitle: 'Leg los'
 description: 'Richte Storybook in deiner Entwicklungsumgebung ein'
-commit: ebe2ae2
+commit: 'ac1ec13'
 ---
 
 Storybook läuft parallel zu deiner App im Entwicklungs-Modus. Es hilft dir, UI-Komponenten unabhängig von Business-Logik und vom Kontext deiner App zu entwickeln. Diese Edition von "Lerne Storybook" ist für React; es gibt andere Editionen für [Vue](/vue/de/get-started) und [Angular](/angular/de/get-started).
@@ -28,7 +28,7 @@ Wir können einfach feststellen, ob die verschiedenen Umgebungen deiner App rich
 # Run the test runner (Jest) in a terminal:
 yarn test
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn run storybook
 
 # Run the frontend app proper on port 3000:
@@ -47,7 +47,7 @@ Abhängig davon, in welchem Teil der App du gerade arbeitest, möchtest du evtl.
 
 ## CSS wiederverwenden
 
-In Taskbox werden Design-Elemente vom GraphQL- und React-Tutorial [example app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858) wiederverwendet, sodass wir in diesem Tutorial kein CSS schreiben müssen. Wir kompilieren einfach das LESS zu einer einzigen CSS Datei und inkludieren es in unserer App. Kopiere [dieses kompilierte CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) und füge es in die Datei src/index.css ein, nach der Konvention von CRA.
+In Taskbox werden Design-Elemente vom GraphQL- und React-Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) wiederverwendet, sodass wir in diesem Tutorial kein CSS schreiben müssen. Wir kompilieren einfach das LESS zu einer einzigen CSS Datei und inkludieren es in unserer App. Kopiere [dieses kompilierte CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) und füge es in die Datei src/index.css ein, nach der Konvention von CRA.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -57,4 +57,4 @@ Wenn du das Styling anpassen willst, findest du die LESS-Quelldateien im GitHub-
 
 ## Assets hinzufügen
 
-Wir müssen noch die font- und icon-[Verzeichnisse](https://github.com/chromaui/learnstorybook-code/tree/master/public) im Ordner `public/` hinzufügen. Nachdem wir das Styling und die Assets hinzugefügt haben, sieht die App noch ein bisschen seltsam aus. Das ist OK. Noch müssen wir nicht an der App arbeiten. Wir legen jetzt los und bauen unsere erste Komponente!
+Wir müssen noch die font- und icon-[Verzeichnisse](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets) im Ordner `src/assets/` hinzufügen. Nachdem wir das Styling und die Assets hinzugefügt haben, sieht die App noch ein bisschen seltsam aus. Das ist OK. Noch müssen wir nicht an der App arbeiten. Wir legen jetzt los und bauen unsere erste Komponente!

@@ -7,7 +7,7 @@ commit: b696f85
 
 No capítulo 2, vamos extrair um sistema de design de bibliotecas de componentes existentes. Ao longo do trajeto, iremos determinar quais os componentes pertencem ao sistema de design e delinear quais os desafios comuns que os programadores encontram inicialmente.
 
-Em grandes empresas, este exercício é feito em conjunção com as equipas de design, engenharia e de produto. A Chroma (companhia por detrás do Storybook) e o Storybook partilham uma equipa de infraestrutura de frontend bastante jovial, que auxilia quase 800 contribuidores de código aberto ao longo de mais de 3 propriedades. Por isso vamos delinear todo o processo para você.
+Em grandes empresas, este exercício é feito em conjunção com as equipas de design, engenharia e de produto. A Chromatic (companhia por detrás do Storybook) e o Storybook partilham uma equipa de infraestrutura de frontend bastante jovial, que auxilia quase 800 contribuidores de código aberto ao longo de mais de 3 propriedades. Por isso vamos delinear todo o processo para você.
 
 ## O desafio
 
@@ -52,7 +52,7 @@ Utilize as instruções fornecidas pelo GitHub para adicionar a localização re
 ```bash
 cd learnstorybook-design-system
 git remote add origin https://github.com/chromaui/learnstorybook-design-system.git
-git push -u origin master
+git push -u origin main
 ```
 
 Não se esqueça de substituir `chromaui` pelo seu nome de utilizador.
@@ -63,7 +63,7 @@ Não se esqueça de substituir `chromaui` pelo seu nome de utilizador.
 
 Os sistemas de design deverão somente conter [componentes de apresentação](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0) e componentes puros. Estes tipos de componentes lidam com a aparência do IU. Reagem exclusivamente aos adereços (props na forma original), não contêm qualquer tipo de lógica de negócio associada à aplicação e são agnósticos relativamente á forma como os dados são carregados. Estas propriedades são essenciais para permitir a reutilização do componente.
 
-Os sistemas de design não são o super conjunto de cada biblioteca de componentes de uma organização. Gerir isso seria uma dor de cabeça. 
+Os sistemas de design não são o super conjunto de cada biblioteca de componentes de uma organização. Gerir isso seria uma dor de cabeça.
 
 Componentes específicos á aplicação que contêm qualquer tipo de lógica de negócio, não deverão ser incluídos, visto que estes iriam prejudicar a sua reutilização por fazerem com que todos os projetos consumidores tenham que ter as mesmas restrições de negócio.
 

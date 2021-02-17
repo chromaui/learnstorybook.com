@@ -2,7 +2,7 @@
 title: 'Daten einbinden'
 tocTitle: 'Daten'
 description: 'Lerne, Daten in deine UI-Komponente einzubinden'
-commit: 9c50472
+commit: 'd2fca1f'
 ---
 
 Bisher haben wir isolierte, zustandslose Komponenten erstellt - perfekt für Storybook, aber letztlich nutzlos, bis wir ihnen einige Daten in unserer App zur Verfügung stellen.
@@ -11,7 +11,7 @@ Dieses Tutorial beschäftigt sich nicht mit den Details der Entwicklung einer Ap
 
 ## Container-Komponenten
 
-So wie unsere `TaskList` aktuell geschrieben ist, ist sie insofern eine rein "darstellende" Komponente (siehe [diesen Blog Beitrag](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), als dass sie in ihrer eigenen Implementierung nicht mit externen Schnittstellen spricht. Um Daten in die Komponente zu bekommen, benötigen wir einen "Container". 
+So wie unsere `TaskList` aktuell geschrieben ist, ist sie insofern eine rein "darstellende" Komponente (siehe [diesen Blog Beitrag](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), als dass sie in ihrer eigenen Implementierung nicht mit externen Schnittstellen spricht. Um Daten in die Komponente zu bekommen, benötigen wir einen "Container".
 
 Dieses Beispiel nutzt [Redux](https://redux.js.org/), die bekannteste React-Bibliothek zum Vorhalten von Daten, um ein einfaches Datenmodell für unsere App zu bauen. Das darin verwendete Pattern lässt sich aber auch auf andere Bibliotheken anwenden, wie z.B. [Apollo](https://www.apollographql.com/client/) und [MobX](https://mobx.js.org/).
 

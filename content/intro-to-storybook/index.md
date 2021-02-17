@@ -14,12 +14,12 @@ toc:
     'composite-component',
     'data',
     'screen',
+    'deploy',
     'test',
     'using-addons',
-    'creating-addons',
-    'deploy',
     'conclusion',
     'contribute',
+    'creating-addons',
   ]
 coverImagePath: '/guide-cover/intro.svg'
 thumbImagePath: '/guide-thumb/intro.svg'
@@ -57,7 +57,7 @@ contributors:
     {
       src: 'https://avatars2.githubusercontent.com/u/9523719',
       name: 'Kyle Holmberg',
-      detail: 'Engineer at Acorns',
+      detail: 'Engineer at Air',
     },
     {
       src: 'https://avatars2.githubusercontent.com/u/1474548',
@@ -72,19 +72,24 @@ twitterShareText: 'I’m learning Storybook! It’s a great dev tool for UI comp
 
 <div class="badge-box">
   <div class="badge">
-    <img src="/frameworks/logo-react.svg"> React
+    <img src="/frameworks/logo-react.svg">
+    <a href="/intro-to-storybook/react/en/get-started/"> React</a>
   </div>
   <div class="badge">
-    <img src="/frameworks/logo-react.svg"> React Native
+    <img src="/frameworks/logo-react.svg">
+    <a href="/intro-to-storybook/react-native/en/get-started/"> React Native</a>
   </div>
   <div class="badge">
-    <img src="/frameworks/logo-vue.svg"> Vue
+    <img src="/frameworks/logo-vue.svg">
+    <a href="/intro-to-storybook/vue/en/get-started/"> Vue</a>
   </div>
   <div class="badge">
-    <img src="/frameworks/logo-angular.svg"> Angular
+    <img src="/frameworks/logo-angular.svg">
+    <a href="/intro-to-storybook/angular/en/get-started/"> Angular</a>
   </div>
   <div class="badge">
-    <img src="/frameworks/logo-svelte.svg"> Svelte
+   <img src="/frameworks/logo-svelte.svg">
+   <a href="/intro-to-storybook/svelte/en/get-started/">  Svelte</a>
   </div>
 </div>
 

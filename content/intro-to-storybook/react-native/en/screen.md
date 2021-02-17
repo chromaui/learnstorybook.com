@@ -14,7 +14,7 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 
 ```javascript
 // components/PureInboxScreen.js
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import PercolateIcons from '../constants/Percolate';
 import TaskList from './TaskList';
@@ -57,9 +57,10 @@ export default PureInboxScreen;
 Then we create a container which grabs the data for `PureInboxScreen` in `screens/InboxScreen.js`
 
 ```javascript
-import React from 'react';
+// screens/InboxScreen.js
+import * as React from 'react';
 import { connect } from 'react-redux';
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from '../components/PureInboxScreen';
 
 const InboxScreen = ({ error }) => {
   return <PureInboxScreen error={error} />;
@@ -72,23 +73,20 @@ We also change the `HomeScreen` component to render the `InboxScreen` (eventuall
 
 ```javascript
 // screens/HomeScreen.js
-
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
-import store from './lib/redux';
+import store from '../lib/redux';
 
-import InboxScreen from "./InboxScreen";
+import InboxScreen from './InboxScreen';
 
 export default function HomeScreen() {
-  return(
+  return (
     <Provider store={store}>
-      <InboxScreen/>
+      <InboxScreen />
     </Provider>
-  )
+  );
 }
 ```
-
-<div class="aside"><p>After this change, App-test that was setup by expo will probably break, you can bypass this by deleting the appropriate file in the __tests__ folder or adjust your test accordingly.</p></div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
@@ -100,8 +98,7 @@ However, for the `PureInboxScreen` we have a problem because although the `PureI
 
 ```javascript
 // components/PureInboxScreen.stories.js
-
-import React from 'react';
+import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import PureInboxScreen from './PureInboxScreen';
 
@@ -119,7 +116,7 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
+As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context with decorators
@@ -128,8 +125,7 @@ The good news is that it is easy to supply a Redux store to the `PureInboxScreen
 
 ```javascript
 // components/PureInboxScreen.stories.js
-
-import React from 'react';
+import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
@@ -176,6 +172,6 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.

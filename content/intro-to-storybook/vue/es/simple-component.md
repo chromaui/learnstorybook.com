@@ -2,10 +2,10 @@
 title: 'Construye un componente simples'
 tocTitle: 'Componente Simples'
 description: 'Construye un componente simple en aislamiento'
-commit: b2274bd
+commit: 'f03552f'
 ---
 
-Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
+Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://www.componentdriven.org/). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
 
 ## Task - Tarea
 
@@ -18,7 +18,7 @@ Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Devel
 
 A medida que comencemos a construir `Task`, primero escribiremos nuestras pruebas para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizamos Storybook para construir el componente de forma aislada usando datos de prueba. Vamos a “testear visualmente” la apariencia del componente a medida que cambiemos cada estado.
 
-Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) al que podemos llamar “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+Este proceso es similar a [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) al que podemos llamar “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
 ## Ajustes iniciales
 
@@ -104,7 +104,7 @@ export const Pinned = () => ({
 export const Archived = () => ({
   components: { Task },
   template: taskTemplate,
-   props: {
+  props: {
     task: {
       default: () => ({
         ...taskData,
@@ -152,6 +152,7 @@ Comencemos cambiando el archivo de configuración de Storybook (`.storybook/main
 ```javascript
 // .storybook/main.js
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
@@ -161,7 +162,8 @@ Después de hacer este cambio, una vez más dentro de la carpeta `.storybook`, c
 
 ```javascript
 // .storybook/preview.js
-import '../src/index.css';
+
+import '../src/index.css'; //👈 The app's CSS file goes here
 ```
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:

@@ -5,7 +5,7 @@ description: 'Build a simple component in isolation'
 commit: 1a14919
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
@@ -18,7 +18,7 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 As we start to build `TaskComponent`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
 ## Get setup
 
@@ -136,7 +136,7 @@ Another nice thing about bundling the `actionsData` that a component needs, is t
 When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+💡 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
 </div>
 
 ## Config
@@ -144,6 +144,7 @@ When creating a story we use a base task (`taskData`) to build out the shape of 
 We also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```javascript
+// .storybook/main.js
 module.exports = {
   stories: ['../src/app/components/**/*.stories.ts'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-notes'],
@@ -183,6 +184,7 @@ Our component is still rather rudimentary at the moment. We're going to make som
 
 ```typescript
 // src/app/components/task.component.ts
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 @Component({
@@ -256,7 +258,7 @@ Storybook gave us a great way to visually test our application during constructi
 Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
 
 <div class="aside">
-Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+💡 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
@@ -272,7 +274,6 @@ Then create the `src/storybook.test.js` file with the following in it:
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
-
 ```
 
 Finally we need to make a small change in the `jest` key in our `package.json`:
@@ -296,3 +297,7 @@ Once the above is done, we can run `npm run jest` and see the following output:
 We now have a snapshot test for each of our `TaskComponent` stories. If we change the implementation of `TaskComponent`, we’ll be prompted to verify the changes.
 
 Additionally, `jest` will also run the test for `app.component.ts`.
+
+<div class="aside">
+💡 Don't forget to commit your changes with git!
+</div>

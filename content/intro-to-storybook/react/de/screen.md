@@ -2,7 +2,7 @@
 title: 'Einen Screen erstellen'
 tocTitle: 'Screens'
 description: 'Stelle einen Screen aus Komponenten zusammen'
-commit: e56e345
+commit: '46f29e3'
 ---
 
 Bisher haben wir uns darauf konzentriert, UIs bottom-up zu bauen; klein starten und Komplexität hinzufügen. Das erlaubte uns, jede Komponente in Isolation zu entwickeln, ihre Anforderungen an Daten zu ermitteln und damit in Storybook herumzuspielen. All das, ohne einen Server aufzusetzen oder Screens zu erstellen.
@@ -116,7 +116,7 @@ Ein Weg, dieses Problem zu umgehen, ist niemals eine Container-Komponente irgend
 Entwickler **müssen** Container aber auch zwangsläufig weiter unten in der Komponenten-Hierarchie rendern. Wenn wir also den Großteil oder alles von unserer App in Storybook rendern wollen (und das wollen wir!), brauchen wir hierfür eine Lösung.
 
 <div class="aside">
-Im Übrigen ist es durchaus ein legitimer Ansatz, Daten die Hierarchie hinunter zu reichen, insbesondere beim Einsatz von <a href="http://graphql.org/">GraphQL</a>. So haben wir auch <a href="https://www.chromaticqa.com">Chromatic</a> entwickelt, neben 800+ weiteren Stories.
+Im Übrigen ist es durchaus ein legitimer Ansatz, Daten die Hierarchie hinunter zu reichen, insbesondere beim Einsatz von <a href="http://graphql.org/">GraphQL</a>. So haben wir auch <a href="https://www.chromatic.com">Chromatic</a> entwickelt, neben 800+ weiteren Stories.
 </div>
 
 ## Kontext über Decorators zur Verfügung stellen
@@ -177,6 +177,6 @@ Wir haben ganz unten mit `Task` angefangen, schritten dann vorwärts zur `TaskLi
   />
 </video>
 
-[**Komponent-getriebene Entwicklung**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) erlaubt uns, schrittweise die Komplexität zu erhöhen, während wir uns in der Komponenten-Hierarchie nach oben bewegen. Ein besserer Fokus im Entwicklungs-Prozess und eine erhöhte Abdeckung aller möglichen Permutationen in der UI zählen zu den Vorzügen. Kurz, CDD hilft dir dabei, komplexere Benutzeroberflächen mit höherer Qualität zu entwickeln.
+[**Komponent-getriebene Entwicklung**](https://www.componentdriven.org/) (CDD) erlaubt uns, schrittweise die Komplexität zu erhöhen, während wir uns in der Komponenten-Hierarchie nach oben bewegen. Ein besserer Fokus im Entwicklungs-Prozess und eine erhöhte Abdeckung aller möglichen Permutationen in der UI zählen zu den Vorzügen. Kurz, CDD hilft dir dabei, komplexere Benutzeroberflächen mit höherer Qualität zu entwickeln.
 
 Wir sind noch nicht fertig - der Job ist nicht erledigt, wenn die UI gebaut ist. Wir müssen auch sicherstellen, dass sie über die Zeit stabil bleibt.

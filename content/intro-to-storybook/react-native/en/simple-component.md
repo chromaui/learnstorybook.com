@@ -4,7 +4,7 @@ tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
@@ -17,7 +17,7 @@ We’ll build our UI following a [Component-Driven Development](https://blog.hic
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
 ## Get setup
 
@@ -26,14 +26,14 @@ First, let’s create the task component and its accompanying story file: `compo
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```javascript
-// /components/Task.js
-import React from 'react';
+// components/Task.js
+import * as React from 'react';
 import { TextInput, SafeAreaView } from 'react-native';
 import { styles } from '../constants/globalStyles';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
-    <SafeAreaView style={styles.listitem}>
+    <SafeAreaView style={styles.ListItem}>
       <TextInput value={title} editable={false} />
     </SafeAreaView>
   );
@@ -46,9 +46,9 @@ Below we build out Task’s three test states in the story file:
 
 ```javascript
 // components/Task.stories.js
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
-import { styles } from '../globalStyles';
+import { styles } from '../constants/globalStyles';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import Task from './Task';
@@ -85,7 +85,7 @@ As we need to pass the same set of actions to all permutations of our component,
 
 Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
 When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
@@ -95,10 +95,10 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 
 ## Config
 
-We also have to make one small change to the Storybook configuration setup (`storybook/index.js`) so it notices our `.stories.js` files. By default Storybook looks for stories in a `/stories` directory; this tutorial uses a naming scheme that is similar to the `.test.js` naming scheme favoured by CRA or Vue CLI for automated tests.
+We also have to make one small change to the Storybook configuration setup (`storybook/index.js`) so it notices our recently created stories.
 
 ```javascript
-// storybook/config.js
+// storybook/index.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
 import './rn-addons';
@@ -108,11 +108,9 @@ configure(() => {
   require('../components/Task.stories.js');
 }, module);
 
-
-// Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters
-// To find allowed options for getStorybookUI
-const StorybookUIRoot = getStorybookUI({});
-
+const StorybookUIRoot = getStorybookUI({
+  asyncStorage: null,
+});
 
 export default StorybookUIRoot;
 ```
@@ -126,8 +124,6 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-Alternatively you can use [react-native-storybook-loader](https://github.com/elderfo/react-native-storybook-loader) to handle loading all of the stories at once, the use of the this third party package will not be covered in this tutorial for brevity purposes.
-
 ## Build out the states
 
 Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
@@ -136,11 +132,10 @@ The component is still basic at the moment. First write the code that achieves t
 
 ```javascript
 // components/Task.js
-
-import React from 'react';
+import * as React from 'react';
 import { TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
-import { styles } from '../globalStyles';
-import PercolateIcons from '../Percolate';
+import { styles } from '../constants/globalStyles';
+import PercolateIcons from '../constants/Percolate';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
@@ -155,9 +150,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
       <TextInput
         placeholder="Input Title"
         style={
-          state === 'TASK_ARCHIVED'
-            ? styles.ListItemInputTaskArchived
-            : styles.ListItemInputTask
+          state === 'TASK_ARCHIVED' ? styles.ListItemInputTaskArchived : styles.ListItemInputTask
         }
         value={title}
         editable={false}
@@ -189,8 +182,7 @@ It’s best practice to use `propTypes` in React to specify the shape of data th
 
 ```javascript
 // src/components/Task.js
-
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -235,13 +227,13 @@ Make sure your components render data that doesn't change, so that your snapshot
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
 ```bash
-yarn add --dev @storybook/addon-storyshots
+yarn add -D @storybook/addon-storyshots
 ```
 
-Then create an `__tests__/storybook.test.js` file with the following:
+Then create an `components/__tests__/storybook.test.js` file with the following:
 
 ```javascript
-// __tests__/storybook.test.js
+// components/__tests__/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```

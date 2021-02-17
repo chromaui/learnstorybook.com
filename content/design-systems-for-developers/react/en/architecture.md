@@ -2,12 +2,12 @@
 title: 'Architecting systems'
 tocTitle: 'Architecture'
 description: 'How to extract a design system from component libraries'
-commit: b696f85
+commit: 15d81f7
 ---
 
 In chapter 2, we extract a design system from existing component libraries. Along the way, we determine which components belong in the design system and outline common challenges developers face getting started.
 
-In large companies, this exercise is done in conjunction with design, engineering, and product teams. Chroma (the company behind Storybook) and Storybook share a sprightly frontend infrastructure team that serves nearly 800 open source contributors across 3+ properties, so we’re going to outline the process for you.
+In large companies, this exercise is done in conjunction with design, engineering, and product teams. Chromatic (the company behind Storybook) and Storybook share a sprightly frontend infrastructure team that serves nearly 800 open source contributors across 3+ properties, so we’re going to outline the process for you.
 
 ## The challenge
 
@@ -35,29 +35,44 @@ As such, our design system must be independent of any project and also a depende
 
 ## Setup our repository with create-react-app and GitHub
 
-React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial along with the popular [create-react-app](https://github.com/facebook/create-react-app) boilerplate.
+React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial along with the [create-react-app](https://github.com/facebook/create-react-app) boilerplate.
 
-```bash
-npx create-react-app learnstorybook-design-system
+In your command line run the following commands:
+
+```shell
+# Clone the files
+npx degit chromaui/learnstorybook-design-system#setup learnstorybook-design-system
+
+cd learnstorybook-design-system
+
+# Install the dependencies
+yarn install
 ```
 
-<div class="aside">Other valid methods of creating design systems include shipping raw HTML/CSS, using other view layers, compiling components with Svelte, or using web components. Pick what works for your team.</div>
+<div class="aside">
+We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the contents <a href="https://github.com/chromaui/learnstorybook-design-system/tree/setup">here</a>.
+</div>
 
-Once create-react-app has created our repository, we can push it to GitHub (which we’ll use to host the code for our design system). Start by signing in and creating a new repository on GitHub.com:
+Once the files and dependencies are installed, we can push it to GitHub (which we’ll use to host the code for our design system). Start by signing in and creating a new repository on GitHub.com:
 
 ![Create a GitHub repository](/design-systems-for-developers/create-github-repository.png)
 
-Then use GitHub’s instructions to add the remote to your git repo and pushing (the so-far mostly empty) repo:
+Then follow GitHub's instructions to setup the (the so-far mostly empty) repository:
 
-```bash
-cd learnstorybook-design-system
-git remote add origin https://github.com/chromaui/learnstorybook-design-system.git
-git push -u origin master
+```shell
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/your-username/learnstorybook-design-system.git
+git push -u origin main
 ```
 
-Be sure to replace `chromaui` with your own account name.
+Be sure to replace `your-username` with your own account name.
 
 ![Initial commit to GitHub repository](/design-systems-for-developers/created-github-repository.png)
+
+<div class="aside">Other valid methods of creating design systems include shipping raw HTML/CSS, using other view layers, compiling components with Svelte, or using web components. Pick what works for your team.</div>
 
 ## What belongs and what doesn’t
 
@@ -84,39 +99,12 @@ Following this method, we end up with UI primitives: Avatar, Badge, Button, Chec
 
 ![Variants in one component](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
-Add the components we found by downloading them to your computer and dropping them into your repository, as well as removing the application files that Create React App provided:
-
-```bash
-rm -rf src/*
-
-svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
-```
-
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the folders directly <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-1/src">here</a>.</p>
-
 <p>
 For the code sample, we’ve selected a subset of these components to make reasoning about the repository simpler. Some teams also include customized third-party components in their design systems for other components like Tables and Forms.</p></div>
-
-We’ll also need to update dependencies that our components rely on.
-
-```bash
-yarn add prop-types styled-components polished
-```
 
 <div class="aside">CSS-in-JS: We use <a href="https://www.styled-components.com">styled-components</a>, a library that allows us to scope styling to the component. There are other valid methods to style components including targeting classes manually, CSS modules, etc.</div>
 
 In addition to UI components, it makes sense to include styling constants for typography, colors, spacing, etc that are reused across projects. In design system nomenclature global style variables are called “design tokens”. We won’t dive into the theory behind design tokens in this guide, but you can learn more online (here’s a [good article](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)).
-
-Download our design tokens here and add them to your repository.
-
-```bash
-svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared
-```
-
-<div class="aside">
-<p>You can also download the files directly from GitHub <a href="https://github.com/chromaui/learnstorybook-design-system/tree/download-2/src/shared">here</a>.</p>
-</div>
 
 ## Let’s start developing
 

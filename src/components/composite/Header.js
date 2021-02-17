@@ -164,7 +164,7 @@ const GitHubWrapper = styled.div`
 `;
 
 const TooltipList = styled.div`
-  border-radius: 4px;
+  border-radius: ${styles.spacing.borderRadius.small}px;
   overflow: hidden;
 
   @media (min-width: ${navBreakpoint}px) {
@@ -209,7 +209,7 @@ const MobileMenu = styled.div`
   flex-direction: row;
   width: auto;
   max-width: 400px;
-  border-radius: 4px;
+  border-radius: ${styles.spacing.borderRadius.small}px;
   overflow: hidden;
 
   ${MobileMenuColumn} {

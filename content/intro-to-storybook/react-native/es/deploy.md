@@ -6,7 +6,6 @@ description: 'Desplegar Storybook online con GitHub y Netlify'
 
 En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. También se puede compartir ese Storybook con el equipo, especialmente con los miembros no técnicos. Afortunadamente, es fácil implementar Storybook en línea.
 
-
 ## Exportando como una app estática
 
 Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook y Expo, solo necesitamos activarlo agregando un script a `package.json`.
@@ -20,6 +19,7 @@ Para desplegar Storybook primero necesitamos exportarlo como una aplicación web
   }
 }
 ```
+
 <div class="aside"><p>En el momento de escribir este tutorial, el proceso de creación web para Expo todavía está en beta. Y podría estar sujeto a algunos cambios en el futuro.</p></div>
 
 Ahora, cuando compila la aplicación a través de `yarn build-static-webapp`, mostrará tanto la aplicación como un Storybook estático en el directorio `web-build`.
@@ -57,7 +57,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Finalmente haz push al repo en GitHub.
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Netlify
@@ -72,17 +72,17 @@ Si usas CI en tu empresa, añade un script de implementación a tu configuració
 
 ![Crear sitio en Netlify](/intro-to-storybook/netlify-create-site.png)
 
-A continuación, haz clic en el botón de GitHub para conectar Netlify a GitHub. Esto le permite acceder a nuestro repositorio remoto taskbox.
+A continuación, haz clic en el botón de GitHub para conectar Netlify a GitHub. Esto le permite acceder a nuestro repositorio remoto Taskbox.
 
 Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
 
 ![Conectar un repositorio en Netlify](/intro-to-storybook/netlify-account-picker.png)
 
-Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `master`. El directorio es `web-build`. Ejecuta el comando de compilación `yarn build-static-webapp`.
+Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `main`. El directorio es `web-build`. Ejecuta el comando de compilación `yarn build-static-webapp`.
 
 ![Netlify settings](/intro-to-storybook/netlify-settings-rn.png)
 
-Ahora envía el formulario para construir e implementar el código en la rama `master` del taskbox.
+Ahora envía el formulario para construir e implementar el código en la rama `main` del taskbox.
 
 Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
 

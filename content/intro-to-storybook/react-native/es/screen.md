@@ -10,11 +10,11 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 
 ## Componentes "contenedores"
 
-Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Vuex) en alguna maqueta y sacando un campo `error` de el store (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor). Ahora crearemos `PureInboxScreen.js` dentro de la carpeta `components`:
+Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Redux) en alguna maqueta y sacando un campo `error` de el store (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor). Ahora crearemos `PureInboxScreen.js` dentro de la carpeta `components`:
 
 ```javascript
 // components/PureInboxScreen.js
-import React from 'react';
+import * as React from 'react';
 import PropTypes from 'prop-types';
 import PercolateIcons from '../constants/Percolate';
 import TaskList from './TaskList';
@@ -57,9 +57,10 @@ export default PureInboxScreen;
 Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInboxScreen` en `screens/InboxScreen.js`:
 
 ```javascript
-import React from 'react';
+// screens/InboxScreen.js
+import * as React from 'react';
 import { connect } from 'react-redux';
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from '../components/PureInboxScreen';
 
 const InboxScreen = ({ error }) => {
   return <PureInboxScreen error={error} />;
@@ -72,23 +73,20 @@ También cambiamos nuestro componente `HomeScreen` para que incluya `InboxScreen
 
 ```javascript
 // screens/HomeScreen.js
-
-import React, { Component } from 'react';
+import * as React from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
 
-import InboxScreen from "./InboxScreen";
+import InboxScreen from './InboxScreen';
 
 export default function HomeScreen() {
-  return(
+  return (
     <Provider store={store}>
-      <InboxScreen/>
+      <InboxScreen />
     </Provider>
-  )
+  );
 }
 ```
-
-<div class="aside"><p>Después de este cambio, la prueba de aplicación que configuró expo probablemente se romperá, puede omitir esto eliminando el archivo apropiado en la carpeta __tests__ o ajustar su prueba en consecuencia.</p></div>
 
 Sin embargo, al intentar mostrar nuestro componente "contenedor" dentro de Storybook las cosas se ponen interesantes.
 
@@ -100,8 +98,7 @@ Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `Pur
 
 ```javascript
 // components/PureInboxScreen.stories.js
-
-import React from 'react';
+import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import PureInboxScreen from './PureInboxScreen';
 
@@ -119,7 +116,7 @@ Una forma de evitar este problema es nunca renderizar componentes contenedores e
 Sin embargo, los desarrolladores **necesitarán** inevitablemente renderizar los contenedores más abajo en la jerarquía de componentes. Si queremos renderizar la mayor parte o la totalidad de la aplicación en Storybook (¡lo hacemos!), necesitamos una solución a este problema.
 
 <div class="aside">
-Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromaticqa.com">Chromatic</a> junto a más de 800+ historias.
+Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromatic.com">Chromatic</a> junto a más de 800+ historias.
 </div>
 
 ## Suministrando contexto con decoradores
@@ -128,8 +125,7 @@ La buena noticia es que es fácil suministrar una store de Redux a la `PureInbox
 
 ```javascript
 // components/PureInboxScreen.stories.js
-
-import React from 'react';
+import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
@@ -176,6 +172,6 @@ Empezamos desde abajo con `Task`, luego progresamos a `TaskList`, ahora estamos 
   />
 </video>
 
-[**El desarrollo basado en componentes**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
+[**El desarrollo basado en componentes**](https://www.componentdriven.org/) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
 
 Aún no hemos terminado, el trabajo no termina cuando se construye la interfaz de usuario. También tenemos que asegurarnos de que siga siendo duradero a lo largo del tiempo.

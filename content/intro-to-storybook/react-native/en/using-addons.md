@@ -5,12 +5,12 @@ description: 'Learn how to integrate and use addons using a popular example'
 ---
 
 Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/react/en/test/).
+everybody in your team.
 
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
 <br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons/addon-gallery/">here</a>.
+😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
 </div>
 
 We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -38,7 +38,6 @@ Register Knobs in your `storybook/addons.js` file.
 
 ```javascript
 // storybook/addons.js
-
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
 import '@storybook/addon-links/register';
@@ -67,8 +66,7 @@ Let's use the object knob type in the `Task` component.
 First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
 
 ```javascript
-// src/components/Task.stories.js
-
+// components/Task.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -78,8 +76,7 @@ import { withKnobs, object } from '@storybook/addon-knobs';
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
 
 ```javascript
-// src/components/Task.stories.js
-
+// components/Task.stories.js
 storiesOf('Task', module)
   .addDecorator(withKnobs)
   .add(/*...*/);
@@ -88,13 +85,10 @@ storiesOf('Task', module)
 Lastly, integrate the `object` knob type within the "default" story:
 
 ```javascript
-// src/components/Task.stories.js
-
+// components/Task.stories.js
 storiesOf('Task', module)
   .addDecorator(withKnobs)
-  .add('default', () => {
-    return <Task task={object('task', { ...task })} {...actions} />;
-  })
+  .add('default', () => <Task task={object('task', { ...task })} {...actions} />)
   .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
   .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
 ```
@@ -105,7 +99,7 @@ As documented [here](https://github.com/storybooks/storybook/tree/master/addons/
 
 ## Addons Evolve Your Storybook's Scope
 
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
+Not only does your Storybook instance serve as a wonderful [CDD environment](https://www.componentdriven.org/), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
 
 ## Using Knobs To Find Edge-Cases
 
@@ -117,7 +111,6 @@ Thanks to quickly being able to try different inputs to a component we can find 
 
 ```javascript
 // components/Task.js
-
 // This is the input for our task title. It was changed to a simple text contrary to textinput,
 // to illustrate how to see what's intended
 <Text
@@ -141,8 +134,7 @@ Let's add a story for the long text case in Task.stories.js:
 
 ```javascript
 // components/Task.stories.js
-
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
+const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 storiesOf('Task', module)
   .add('default', () => <Task task={task} {...actions} />)
@@ -155,12 +147,13 @@ Now we've added the story, we can reproduce this edge-case with ease whenever we
 
 ![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/react/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
-
 ### Merge Changes
 
 Don't forget to merge your changes with git!
 
-## Sharing Addons With The Team
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
+
+<!-- ## Sharing Addons With The Team
 
 Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
+ -->

@@ -2,7 +2,7 @@
 title: 'Construção de um componente composto'
 tocTitle: 'Componente composto'
 description: 'Construção de um componente composto a partir de componentes simples'
-commit: 8db511e
+commit: 'f9b2cfb'
 ---
 
 No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
@@ -10,8 +10,8 @@ No capitulo anterior, construímos o nosso primeiro componente, neste capitulo i
 ## TaskList
 
 A Taskbox dá prioridade a tarefas que foram confirmadas através do seu posicionamento acima de quaisquer outras.
-Isto gera duas variações da `TaskList`, para o qual será necessária a criação de estórias:
-os itens normais e itens normais e itens confirmados.
+Isto gera duas variações da `TaskList`, para a qual será necessária a criação de estórias:
+itens normais e itens normais e itens confirmados.
 
 ![tarefas confirmadas e padrão](/intro-to-storybook/tasklist-states-1.png)
 
@@ -27,6 +27,8 @@ Um componente composto não é em nada diferente do componente básico contido d
 Comece por uma implementação em bruto da `TaskList`. Será necessário importar o componente `Task` criado anteriormente e injetar os atributos e as respetivas ações como inputs.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 
 import Task from './Task';
@@ -60,41 +62,50 @@ export default TaskList;
 Em seguida iremos criar os estados de teste do `TaskList` no ficheiro de estórias respetivo.
 
 ```javascript
+// src/components/TaskList.stories.js
+
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import TaskList from './TaskList';
-import { task, actions } from './Task.stories';
+import { taskData, actionsData } from './Task.stories';
 
-export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
+export default {
+  component: TaskList,
+  title: 'TaskList',
+  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  excludeStories: /.*Data$/,
+};
+
+export const defaultTasksData = [
+  { ...taskData, id: '1', title: 'Task 1' },
+  { ...taskData, id: '2', title: 'Task 2' },
+  { ...taskData, id: '3', title: 'Task 3' },
+  { ...taskData, id: '4', title: 'Task 4' },
+  { ...taskData, id: '5', title: 'Task 5' },
+  { ...taskData, id: '6', title: 'Task 6' },
 ];
 
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
+export const withPinnedTasksData = [
+  ...defaultTasksData.slice(0, 5),
   { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
 ];
 
-storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
-  .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
-  .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <TaskList tasks={[]} {...actions} />);
+export const Default = () => <TaskList tasks={defaultTasksData} {...actionsData} />;
+
+export const WithPinnedTasks = () => <TaskList tasks={withPinnedTasksData} {...actionsData} />;
+
+export const Loading = () => <TaskList loading tasks={[]} {...actionsData} />;
+
+export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 ```
 
-A função `addDecorator()` permite que seja adicionado algum "contexto" á renderização de cada tarefa. Neste caso a lista é envolvida com um ligeiro preenchimento, de forma que seja possível ser feita uma verificação visual com maior eficácia.
-
 <div class="aside">
-    Os <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a>, oferecem uma forma de embrulho arbitrária ás estórias. Neste caso estamos a usar um decorador para gerar elementos de estilo. Mas podem ser usados para envolver as estórias definidas em "providers", nomeadamente, bibliotecas ou componentes que usam o contexto React.
+    Os <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a>, oferecem uma forma de envolver arbitráriamente as estórias. Neste caso estamos a usar um decorador para gerar elementos de estilo. Mas podem ser usados para envolver as estórias definidas em "providers", nomeadamente, bibliotecas ou componentes que usam o contexto React.
 </div>
 
-O adereço `task` irá definir a forma da `Task` que foi criada e exportada a partir do ficheiro `Task.stories.js`. E como tal, as `actions` irão definir quais as ações (através de uma callback simulada) que o componente `Task` se encontra á espera. Cujas quais também necessárias á `TaskList`.
+Com a importação da `taskData` para este ficheiro (ou arquivo), está a ser adicionada a forma que uma tarefa (ou `Task`) assume, isto a partir do ficheiro `Task.stories.js` criado anteriormente. Como tal também a `actionsData` que irá definir quais as ações (através de uma callback simulada) que o componente Task se encontra á espera.
+
+Estes também necessários á TaskList.
 
 Pode agora verificar-se o Storybook com as estórias novas associadas á `Tasklist`.
 
@@ -107,9 +118,11 @@ Pode agora verificar-se o Storybook com as estórias novas associadas á `Taskli
 
 ## Definir os estados
 
-O componente ainda se encontra num estado bruto, mas temos já uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que o embrulho `.list-items` é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um embrulho. A **verdadeira complexidade** do componente `TaskList` é revelada com os casos extremos `withPinnedTasks`, `loading` e `empty`.
+O componente ainda se encontra num estado bruto, mas já temos uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que ao usar-se o `.list-items` no componente como invólucro é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um invólucro. A **verdadeira complexidade** do componente `TaskList` é revelada com os casos extremos `WithPinnedTasks`, `loading` e `empty`.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 
 import Task from './Task';
@@ -180,16 +193,20 @@ O markup adicional irá resultar no seguinte interface de utilizador:
   />
 </video>
 
-Reparem na posição do item confirmado na lista. Pretende-se que este item seja renderizado no topo da lista e torná-lo uma prioridade aos utilizadores.
+Repare na posição do item que está confirmado na lista. Pretende-se que este item seja renderizado no topo da lista e torná-lo uma prioridade aos utilizadores.
 
 ## Requisitos de dados e adereços
 
-Á medida que o componente tem tendência em crescer, o mesmo irá acontecer com os seus requisitos. Visto que `Task` é um componente filho, é necessário fornecer os dados estruturados correctamente ao componente `TaskList` de forma que possa ser renderizado correctamente.
+À medida que o componente tem tendência em crescer, o mesmo irá acontecer com os seus requisitos. Visto que `Task` é um componente filho, é necessário fornecer os dados estruturados corretamente ao componente `TaskList` de forma que possa ser renderizado corretamente.
 De forma a poupar tempo podemos reutilizar os adereços (propTypes) que foram definidos anteriormente no componente `Task`.
 
 ```javascript
+// src/components/TaskList.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import Task from './Task';
 
 function TaskList() {
   ...
@@ -212,7 +229,7 @@ export default TaskList;
 
 ## Testes automatizados
 
-No capitulo anterior, aprendeu-se a usar o Storyshots para implementar estórias de testes snapshot. Com o componente `Task` não existia muita complexidade para testar além do sucesso da renderização. Visto que o componente `TaskList` adiciona uma camada extra de complexidade, pretende-se verificar que determinados valores de entrada produzam determinados valores de saída, isto implementado de forma responsável para os testes automáticos. Para tal irão ser criados testes unitários utilizando [Jest](https://facebook.github.io/jest/) em conjunção com um renderizador de testes como por exemplo [Enzyme](http://airbnb.io/enzyme/).
+No capítulo anterior, aprendemos a usar o Storyshots para efetuar testes snapshot nas estórias. Com o componente `Task` não existia muita complexidade para testar além do sucesso da renderização. Visto que o componente `TaskList` adiciona uma camada extra de complexidade, pretende-se verificar que determinados valores de entrada produzam determinados valores de saída, isto implementado de forma responsável para os testes automáticos. Para tal irão ser criados testes unitários utilizando [Jest](https://facebook.github.io/jest/) em conjunção com um renderizador de testes.
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
@@ -230,15 +247,15 @@ De forma a evitar este problema em concreto, podemos usar o Jest, de forma que e
 Iremos começar por criar um ficheiro de testes denominado `TaskList.test.js`. Neste ficheiro estarão contidos os testes que irão fazer asserções acerca do valor de saída.
 
 ```javascript
+// src/components/TaskList.test.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TaskList from './TaskList';
-import { withPinnedTasks } from './TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<TaskList tasks={withPinnedTasks} {...events} />, div);
+  ReactDOM.render(<WithPinnedTasks />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
@@ -250,6 +267,6 @@ it('renders pinned tasks at the start of the list', () => {
 
 ![Execução de testes da TaskList](/intro-to-storybook/tasklist-testrunner.png)
 
-Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasks` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente(os exemplos que representam configurações de um componente) de cada vez mais formas.
+Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasks` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente (os exemplos que representam configurações de um componente) de cada vez mais formas.
 
 Mas também que este teste é algo frágil. É possível que á medida que o projeto amadurece, a implementação concreta do componente `Task` seja alterada; isto quer pelo uso de uma classe com um nome diferente ou um elemento `textarea` ao invés de um `input`, por exemplo--com isto, este teste específico irá falhar e será necessária uma atualização. Isto não é necessariamente um problema, mas um indicador para ser cuidadoso no uso liberal de testes unitários para o interface de utilizador. Visto que não são de fácil manutenção. Ao invés deste tipo de testes, é preferível depender de testes visuais, snapshot ou de regressão visual (ver [capitulo de testes](/react/pt/test/)) sempre que for possível.

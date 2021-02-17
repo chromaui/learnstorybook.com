@@ -4,17 +4,52 @@ Learn Storybook teaches you how to use Storybook and Component-Driven Developmen
 
 ## Contribute
 
-Contributions to Learn Storybook are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started.
+Contributions to Learn Storybook are encouraged! If it’s something small like grammar, punctuation or even a code snippet, first check the [open pull requests](https://github.com/chromaui/learnstorybook.com/pulls) to see if it's already being addressed, if it's not, then open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started.
 
 You'll find the guides and chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory. Content is organized at the guide level. Within the `/content` directory, you'll find directories for the current guides that are offered. Within each guide directory, you can see the chapters that make up that guide.
 
-We love translations of our guides to new languages. That helps the Storybook community learn in the language they're most comfortable with. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3)
+We love translations of our guides to new languages. That helps the Storybook community learn in the language they're most comfortable with. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3).
 
 Traditional Chinese translation is converted from Simplified Chinese using [OpenCC](https://github.com/BYVoid/OpenCC). Please help us correct any idiomatic errors.
 
+Currently the Intro to Storybook tutorial features the following translations. Some are updated, others are not. If you want to get acquainted with Storybook and you are a native speaker of any of the languages detailed below. Help us out updating the translation. Comment in the issue above.
+
+| Framework    | Translation      | Updated |
+| ------------ | ---------------- | ------- |
+| React        | English          | ✅      |
+|              | Spanish          | ❌      |
+|              | Portuguese       | ❌      |
+|              | Taiwanese        | ❌      |
+|              | Mainland Chinese | ✅      |
+|              | Dutch            | ❌      |
+|              | Korean           | ✅      |
+|              | Japanese         | ✅      |
+|              | French           | ✅      |
+|              | German           | ❌      |
+| React Native | English          | ❌      |
+|              | Spanish          | ❌      |
+| Vue          | English          | ✅      |
+|              | Spanish          | ❌      |
+|              | Portuguese       | ❌      |
+|              | French           | ❌      |
+| Angular      | English          | ❌      |
+|              | Spanish          | ❌      |
+|              | Portuguese       | ❌      |
+| Svelte       | English          | ✅      |
+|              | Spanish          | ❌      |
+| Ember        | English          | ✅      |
+
+The Design Systems for Developers features the following translations. Some are updated some are not. If you want to expand your Storybook and learn how to build a industry grade component library and you're a native speaker of any of the languages detailed below. Help us out by updating the translations. Comment in the issue above.
+
+| Translation | Updated |
+| ----------- | ------- |
+| English     | ✅      |
+| Korean      | ✅      |
+| Portuguese  | ❌      |
+
 ## Who made LearnStorybook.com?
 
-The text, code, and production were contributed by [Chroma](https://blog.hichroma.com/). The tutorial was inspired by Chroma’s popular [GraphQL + React tutorial series](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858)
+The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)
 
 ## Develop
 
@@ -210,3 +245,5 @@ A brief description of the chapter. Shown underneath the chapter title on the ch
 #### `commit`
 
 The short commit hash that maps to the commit on the code example repo for this chapter.
+
+### Current Guide Status

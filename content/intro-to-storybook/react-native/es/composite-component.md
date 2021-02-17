@@ -24,16 +24,15 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
 
 ```javascript
 // components/TaskList.js
-
-import React from 'react';
+import * as React from 'react';
 import Task from './Task';
 import { FlatList, Text, SafeAreaView } from 'react-native';
-import { styles } from "../constants/globalStyles";
+import { styles } from '../constants/globalStyles';
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
-    onArchiveTask
+    onArchiveTask,
   };
   if (loading) {
     return (
@@ -54,9 +53,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       <FlatList
         data={tasks}
         keyExtractor={task => task.id}
-        renderItem={({ item }) => (
-          <Task key={item.id} task={item} {...events} />
-        )}
+        renderItem={({ item }) => <Task key={item.id} task={item} {...events} />}
       />
     </SafeAreaView>
   );
@@ -69,7 +66,7 @@ A continuación, crea los estados de prueba de `Tasklist` en el archivo de histo
 
 ```javascript
 // components/TaskList.stories.js
-import React from 'react';
+import * as React from 'react';
 import { View } from 'react-native';
 import { styles } from '../constants/globalStyles';
 import { storiesOf } from '@storybook/react-native';
@@ -110,7 +107,7 @@ No olvide que esta historia también debe agregarse a `storybook/index.js` para 
 Cambie el método `configure()` a lo siguiente:
 
 ```javascript
-// import stories
+// storybook/config.js
 configure(() => {
   require('../components/Task.stories.js');
   require('../components/TaskList.stories.js');
@@ -136,10 +133,9 @@ Cree un nuevo archivo llamado `LoadingRow.js` con el siguiente contenido:
 
 ```javascript
 // components/LoadingRow.js
-
 import React, { useState, useEffect } from 'react';
 import { Animated, Text, View, Easing, SafeAreaView } from 'react-native';
-import { styles } from '../globalStyles';
+import { styles } from '../constants/globalStyles';
 
 const GlowView = props => {
   const [glowAnim] = useState(new Animated.Value(0));
@@ -184,14 +180,13 @@ export default LoadingRow;
 Y actualice `TaskList.js` a lo siguiente:
 
 ```javascript
-// src/components/TaskList.js
-
-import React from 'react';
+// components/TaskList.js
+import * as React from 'react';
 import Task from './Task';
 import PercolateIcons from '../constants/Percolate';
 import LoadingRow from './LoadingRow';
 import { FlatList, Text, SafeAreaView, View } from 'react-native';
-import { styles } from "../constants/globalStyles";
+import { styles } from '../constants/globalStyles';
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
@@ -256,9 +251,9 @@ Tenga en cuenta la posición del elemento anclado en la lista. Queremos que el e
 A medida que el componente crece, también lo hacen los requisitos de entrada. Defina los props requeridos de `TaskList`. Debido a que `Task` es un componente secundario, asegúrese de proporcionar datos en la forma correcta para representarlo. Para ahorrar tiempo y dolor de cabeza, reutilice los propTypes que definió en `Task` anteriormente.
 
 ```javascript
-// src/components/TaskList.js
 
-import React from 'react';
+// components/TaskList.js
+import * as React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from './Task';
@@ -298,19 +293,19 @@ En nuestro caso, queremos que nuestra `TaskList` muestre cualquier tarea anclada
 
 Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes del resultado.
 
-Crea un archivo de prueba llamado `__tests__/TaskList.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
+Crea un archivo de prueba llamado `components/__tests__/TaskList.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
 ```javascript
-// __tests__/TaskList.test.js
-import React from 'react';
-import renderer from 'react-test-renderer';
-import TaskList from '../components/TaskList';
-import { withPinnedTasks } from '../components/TaskList.stories';
-import Task from '../components/Task';
+// components/__tests__/TaskList.test.js
+import * as React from 'react';
+import { create } from 'react-test-renderer';
+import TaskList from '../TaskList';
+import { withPinnedTasks } from '../TaskList.stories';
+import Task from '../Task';
 describe('TaskList', () => {
   it('renders pinned tasks at the start of the list', () => {
     const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-    const tree = renderer.create(<TaskList tasks={withPinnedTasks} {...events} />);
+    const tree = create(<TaskList tasks={withPinnedTasks} {...events} />);
     const rootElement = tree.root;
     const listofTasks = rootElement.findAllByType(Task);
     expect(listofTasks[0].props.task.title).toBe('Task 6 (pinned)');
@@ -322,4 +317,4 @@ describe('TaskList', () => {
 
 Nota que hemos sido capaces de reutilizar la lista de tareas `withPinnedTasksData` tanto en la prueba de la historia como en el test unitario; de esta manera podemos continuar aprovechando un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de más y más maneras.
 
-Nota también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de `Task` cambie --quizás usando un prop de estilo diferente o un `Text` en lugar de un` TextInput`--la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales, de instantáneas y de regresión visual (mira el [capitulo sobre las pruebas](/intro-to-storybook/react-native/es/test/)) siempre que te sea posible.
+Nota también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de `Task` cambie --quizás usando un prop de estilo diferente o un `Text` en lugar de un`TextInput`--la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales e instantáneas siempre que te sea posible.

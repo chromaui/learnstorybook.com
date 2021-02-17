@@ -2,10 +2,10 @@
 title: 'Bouw een eenvoudige component'
 tocTitle: 'Eenvoudige component'
 description: 'Bouw een eenvoudige component in isolatie'
-commit: 403f19a
+commit: '97d6750'
 ---
 
-We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)-methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met losse componenten en eindigend met schermen. CDD helpt je grip te houden op de complexiteit naarmate je de applicatie verder uitbouwt.
+We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Development](https://www.componentdriven.org/)-methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met losse componenten en eindigend met schermen. CDD helpt je grip te houden op de complexiteit naarmate je de applicatie verder uitbouwt.
 
 ## Task
 
@@ -18,7 +18,7 @@ We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Developme
 
 Wanneer we beginnen met het bouwen van `Task`, schrijven we eerst onze test states die overeenkomen met de verschillende soorten taken die hierboven zijn beschreven. Vervolgens gebruiken we Storybook om de component in isolatie te bouwen met behulp van gemockte data. We zullen het uiterlijk van de component visueel testen voor elke _state_ terwijl we verder gaan.
 
-Dit proces is vergelijkbaar met [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD); je zou het "[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)" kunnen noemen.
+Dit proces is vergelijkbaar met [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD); je zou het "[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)" kunnen noemen.
 
 ## Laten we beginnen
 
@@ -209,7 +209,7 @@ Zoals je ziet, is het eenvoudig en snel om aan de slag te gaan met het bouwen va
 
 ## Geautomatiseerd testen
 
-Storybook gaf ons een geweldige manier om onze applicatie visueel te testen tijdens het bouwen. De _stories_ helpen ervoor te zorgen dat onze  component niet onbedoeld visueel veranderd tijdens het ontwikkelen van onze applicatie. Het is in dit stadium echter een volledig handmatig proces en iemand moet de moeite nemen om door elke test state te klikken en na te gaan dat deze goed en zonder fouten of waarschuwingen wordt gerenderd. Kunnen we dat niet automatisch doen?
+Storybook gaf ons een geweldige manier om onze applicatie visueel te testen tijdens het bouwen. De _stories_ helpen ervoor te zorgen dat onze component niet onbedoeld visueel veranderd tijdens het ontwikkelen van onze applicatie. Het is in dit stadium echter een volledig handmatig proces en iemand moet de moeite nemen om door elke test state te klikken en na te gaan dat deze goed en zonder fouten of waarschuwingen wordt gerenderd. Kunnen we dat niet automatisch doen?
 
 ### Snapshot testing
 

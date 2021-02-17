@@ -2,6 +2,7 @@
 title: 'Complementos'
 tocTitle: 'Complementos'
 description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
+commit: '45b6600'
 ---
 
 Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/addons/introduction/) con el que puede mejorar la experiencia del desarrollador para
@@ -10,7 +11,7 @@ todos en tu equipo. Si ha seguido este tutorial linealmente, hasta ahora hemos h
 <div class = "aside">
     <strong> ¿Busca una lista de posibles complementos? </strong>
     <br/>
-    😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons/addon-gallery/"> aquí </a>.
+    😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons"> aquí </a>.
 </div>
 
 Podríamos escribir para siempre sobre la configuración y el uso de complementos para todos sus casos de uso particulares. Por ahora, trabajemos para integrar uno de los complementos más populares dentro del ecosistema de Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
@@ -103,7 +104,7 @@ Como se documenta [aquí](https://github.com/storybooks/storybook/tree/master/ad
 
 ## Complementos evolucionan el alcance de tus Storybooks
 
-Su instancia de Storybook no solo sirve como un maravilloso [CDD environment](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), sino que ahora estamos proporcionando una fuente interactiva de documentación. Los props son geniales, pero un diseñador o alguien completamente nuevo en el código de un componente podrá descubrir su comportamiento muy rápidamente a través de Storybook con el complemento de knobs implementado.
+Su instancia de Storybook no solo sirve como un maravilloso [CDD environment](https://www.componentdriven.org/), sino que ahora estamos proporcionando una fuente interactiva de documentación. Los props son geniales, pero un diseñador o alguien completamente nuevo en el código de un componente podrá descubrir su comportamiento muy rápidamente a través de Storybook con el complemento de knobs implementado.
 
 ## Usando Knobs para encontrar casos de borde
 
@@ -168,6 +169,9 @@ Si estamos utilizando [pruebas de regresión visual](/vue/es/test/), también se
 
 ¡No olvides fusionar tus cambios con git!
 
-## Compartir complementos con el equipo
+<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
+
+<!-- ## Compartir complementos con el equipo
 
 Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar Storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!
+ -->

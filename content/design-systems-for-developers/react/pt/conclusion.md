@@ -1,7 +1,7 @@
 ---
-title: "Conclusão"
-tocTitle: "Conclusão"
-description: "Sistemas de design prósperos economizam tem e aumentam produtividade"
+title: 'Conclusão'
+tocTitle: 'Conclusão'
+description: 'Sistemas de design prósperos economizam tem e aumentam produtividade'
 ---
 
 Estudos suportados por pesquisa sugerem que a reutilização de código podem gerar entre [42-81% de economia de tempo](https://www.researchgate.net/publication/3188437_Evaluating_Software_Reuse_Alternatives_A_Model_and_Its_Application_to_an_Industrial_Case_Study?ev=publicSearchHeader&_sg=g8WraNGZNGPw0R-1-jGpy0XwUDeAr3qb472J6lhisyQ3l24pSmndO6anMdX2L3HdWHifsczPegR9wjA) e aumentar a produtividade em [40%](http://www.cin.ufpe.br/~in1045/papers/art03.pdf). Não deverá ser surpresa então, que os sistemas de design que ajudam a facilitar a partilha de **código de interface de utilizador**, estão a ganhar uma popularidade crescente entre programadores.
@@ -23,12 +23,12 @@ O código de exemplo é baseado no [próprio sistema de design do Storybook](htt
 
 ## Acerca de nós
 
-O _Sistemas de Design para Programadores_, na forma original, _Design Systems for Developers_ foi criado por [Dominic Nguyen](https://twitter.com/domyen) e o [Tom Coleman](https://twitter.com/tmeasday). 
+O _Sistemas de Design para Programadores_, na forma original, _Design Systems for Developers_ foi criado por [Dominic Nguyen](https://twitter.com/domyen) e o [Tom Coleman](https://twitter.com/tmeasday).
 O Dominic desenhou o interface de utilizador, todo o branding e o sistema de design. O Tom é um membro do comité de direção do Storybook para a arquitetura frontend. Trabalhou no Component Story Format, API dos extras e API de parâmetros.
 
 Orientação especializada por parte do [Kyle Suss](https://github.com/kylesuss), líder técnico do sistema de design do Storybook e também [Michael Shilman](https://twitter.com/mshilman), o criador do Storybook Docs.
 
-O conteúdo, código e produção são fornecidos pela [Chroma](https://hichroma.com/). A InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) ajudou de forma graciosa com uma doação que ajudou no ínicio do processo. Estamos à procura de patrocinadores para uma manutenção contínua e também guias novos tais como este sempre que possível. Enviem um email ao [Dominic](mailto:dom@hichroma.com), para mais detalhes.
+O conteúdo, código e produção são fornecidos pela [Chromatic](https://www.chromatic.com/). A InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) ajudou de forma graciosa com uma doação que ajudou no ínicio do processo. Estamos à procura de patrocinadores para uma manutenção contínua e também guias novos tais como este sempre que possível. Enviem um email ao [Dominic](mailto:dom@chromatic.com), para mais detalhes.
 
 ## Expanda a sua perspetiva
 
@@ -41,10 +41,10 @@ Vale muito a pena expandir o vosso foco, de forma a obter uma perspetiva holíst
 Mais acerca dos autores:
 
 - [Introdução ao Storybook](http://learnstorybook.com/intro-to-storybook) (guia)
-- [Component-Driven Development por Tom Coleman](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (artigo)
-- [Why design systems are a single point of failure por Dominic Nguyen](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) (artigo)
-- [Delightful Storybook Workflow por Dominic Nguyen](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) (artigo)
-- [Visual Testing por Tom Coleman](https://blog.hichroma.com/visual-testing-the-pragmatic-way-to-test-uis-18c8da617ecf) (artigo)
+- [Component-Driven Development por Tom Coleman](https://www.componentdriven.org/) (artigo)
+- [Why design systems are a single point of failure por Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) (artigo)
+- [Delightful Storybook Workflow por Dominic Nguyen](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (artigo)
+- [Visual Testing por Tom Coleman](https://www.chromatic.com/blog/visual-testing-the-pragmatic-way-to-test-uis) (artigo)
 
 ## Perguntas frequentes
 
@@ -59,7 +59,6 @@ A governança é um tópico cheio de nuances que é mais extensivo e específico
 #### O Storybook integra-se com outras ferramentas de design?
 
 Sim! A comunidade Storybook cria extras que fazem com que a integração de ferramentas de design se torne bastante fácil. Por exemplo o [Design System Manager](https://www.invisionapp.com/design-system-manager) da InVision integra-se com o Storybook, para demonstrar as estórias existentes na aplicação da InVision. Existem também extras da comunidade para [tokens de design](https://github.com/UX-and-I/storybook-design-token), [Sketch](https://github.com/chrisvxd/story2sketch), e [Figma](https://github.com/pocka/storybook-addon-designs).
-
 
 ![Integrações de ferramentas de design](/design-systems-for-developers/storybook-integrations-design.jpg)
 
@@ -81,4 +80,4 @@ A equipa do sistema de design é uma equipa de serviços. Ao invés de ligar-se 
 
 Muito obrigado a comunidade fantástica do Storybook, pelo seu feedback inestimável.
 
-Gert Hengeveld and Norbert de Langen (Chroma), Alex Wilson (T. Rowe Price), Jimmy Somsanith (Talend), Dan Green-Leipciger (Wave), Kyle Holmberg (Acorns), Andrew Frankel (Salesforce), Fernando Carrettoni (Auth0), Pauline Masigla and Kathleen McMahon (O’Reilly Media), Shawn Wang (Netlify), Mark Dalgleish (SEEK), Stephan Boak (Datadog), Andrew Lisowski (Intuit), Kaelig Deloumeau-Prigent and Ben Scott (Shopify), Joshua Ogle (Hashicorp), Atanas Stoyanov, Daniel Miller (Agile Six), Matthew Bambach (2u), Beau Calvez (AppDirect), Jesse Clark (American Family Insurance), Trevor Eyre (Healthwise), Justin Anastos (Apollo GraphQL), Donnie D’Amato (Compass), Michele Legait (PROS), Guilherme Morais (doDoc), John Crisp (Acivilate), Marc Jamais (SBS Australia), Patrick Camacho (Framer), Brittany Wetzel (United Airlines), Luke Whitmore, Josh Thomas (Ionic), Ryan Williamson-Cardneau (Cisco), Matt Stow (Hireup), Mike Pitt (Zeplin), Jordan Pailthorpe (NextRequest), Jessie Wu (New York Times), Lee Robinson (Hy-Vee)
+Gert Hengeveld and Norbert de Langen (Chroma), Alex Wilson (T. Rowe Price), Jimmy Somsanith (Talend), Dan Green-Leipciger (Wave), Kyle Holmberg (Air), Andrew Frankel (Salesforce), Fernando Carrettoni (Auth0), Pauline Masigla and Kathleen McMahon (O’Reilly Media), Shawn Wang (Netlify), Mark Dalgleish (SEEK), Stephan Boak (Datadog), Andrew Lisowski (Intuit), Kaelig Deloumeau-Prigent and Ben Scott (Shopify), Joshua Ogle (Hashicorp), Atanas Stoyanov, Daniel Miller (Agile Six), Matthew Bambach (2u), Beau Calvez (AppDirect), Jesse Clark (American Family Insurance), Trevor Eyre (Healthwise), Justin Anastos (Apollo GraphQL), Donnie D’Amato (Compass), Michele Legait (PROS), Guilherme Morais (doDoc), John Crisp (Acivilate), Marc Jamais (SBS Australia), Patrick Camacho (Framer), Brittany Wetzel (United Airlines), Luke Whitmore, Josh Thomas (Ionic), Ryan Williamson-Cardneau (Cisco), Matt Stow (Hireup), Mike Pitt (Zeplin), Jordan Pailthorpe (NextRequest), Jessie Wu (New York Times), Lee Robinson (Hy-Vee)

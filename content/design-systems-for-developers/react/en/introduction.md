@@ -56,9 +56,9 @@ Storybook powers the design systems for [Uber](https://github.com/uber-web/baseu
 
 #### Maintain the system
 
-- 🚥 [CircleCI](https://circleci.com/) for continuous integration
+- 🚥 [GitHub Actions](https://github.com/features/actions) for continuous integration
 - 📐 [ESLint](https://eslint.org/) for JavaScript linting
-- ✅ [Chromatic](https://chromaticqa.com) to catch visual bugs in components (by Storybook maintainers)
+- ✅ [Chromatic](https://chromatic.com) to catch visual bugs in components (by Storybook maintainers)
 - 🃏 [Jest](https://jestjs.io/) for unit testing components
 - 📦 [npm](https://npmjs.com) for distributing the library
 - 🛠 [Auto](https://github.com/intuit/auto) for release management workflow
@@ -66,10 +66,9 @@ Storybook powers the design systems for [Uber](https://github.com/uber-web/baseu
 #### Storybook addons
 
 - ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) to check for accessibility issues during development
-- 💥 [Actions](https://github.com/storybookjs/storybook/tree/master/addons/actions) to QA click and tap interactions
-- 🎛 [Knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs) to interactively adjust props to experiment with components
-- 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource) to view story code to paste it in your project
-- 📕 [Docs](https://github.com/storybookjs/storybook/tree/master/addons/docs) for automatic documentation generation from stories
+- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions) to QA click and tap interactions
+- 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls) to interactively adjust props to experiment with components
+- 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction) for automatic documentation generation from stories
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow.jpg)
 

@@ -2,7 +2,7 @@
 title: 'Bouw een scherm'
 tocTitle: 'Schermen'
 description: 'Bouw een scherm uit componenten'
-commit: e56e345
+commit: '46f29e3'
 ---
 
 We hebben ons geconcentreerd op het bouwen van UI's van onderaf; klein beginnen en complexiteit toevoegen. Hierdoor konden we elk onderdeel afzonderlijk ontwikkelen, de data behoeften achterhalen en ermee spelen in Storybook. Allemaal zonder een server op te zetten of schermen uit te bouwen!
@@ -112,7 +112,7 @@ Een manier om dit probleem te omzeilen, is om nooit container componenten overal
 Developers **zullen** echter onvermijdelijk containers verder naar beneden in de componenthiërarchie moeten renderen. Als we de app vooral of geheel in Storybook willen renderen (dat doen we!), hebben we een oplossing voor dit probleem nodig.
 
 <div class="aside">
-Terzijde: het doorgeven van data door de hiërarchie is een legitieme manier, vooral bij het gebruik van <a href="http://graphql.org/">GraphQL</a>. Het is hoe we <a href="https://www.chromaticqa.com">Chromatic</a> met 800+ stories hebben gebouwd.
+Terzijde: het doorgeven van data door de hiërarchie is een legitieme manier, vooral bij het gebruik van <a href="http://graphql.org/">GraphQL</a>. Het is hoe we <a href="https://www.chromatic.com">Chromatic</a> met 800+ stories hebben gebouwd.
 </div>
 
 ## Context voorzien van decorators
@@ -170,6 +170,6 @@ We zijn van onderaf begonnen met `Task` en zijn vervolgens overgegaan naar `Task
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) stelt je in staat om de complexiteit geleidelijk uit te breiden naarmate je hoger gaat in de componenthiërarchie. Één van de voordelen is een meer gericht development proces en een grotere dekking van alle mogelijke UI-permutaties. Kortom, CDD helpt je bij het bouwen van kwalitatief betere en complexere UI's.
+[**Component-Driven Development**](https://www.componentdriven.org/) stelt je in staat om de complexiteit geleidelijk uit te breiden naarmate je hoger gaat in de componenthiërarchie. Één van de voordelen is een meer gericht development proces en een grotere dekking van alle mogelijke UI-permutaties. Kortom, CDD helpt je bij het bouwen van kwalitatief betere en complexere UI's.
 
 We zijn nog niet klaar - het werk is nog niet gedaan wanneer de UI is gebouwd. We moeten er ook voor zorgen dat het na verloop van tijd duurzaam blijft.

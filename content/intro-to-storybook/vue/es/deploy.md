@@ -2,6 +2,7 @@
 title: 'Desplegar Storybook'
 tocTitle: 'Desplegar'
 description: 'Desplegar Storybook online con GitHub y Netlify'
+commit: '107b7ce'
 ---
 
 En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. También se puede compartir ese Storybook con el equipo, especialmente con los miembros no técnicos. Afortunadamente, es fácil implementar Storybook en línea.
@@ -61,7 +62,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Finalmente haz push al repo en GitHub.
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Netlify
@@ -82,13 +83,13 @@ Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
 
 ![Conectar un repositorio en Netlify](/intro-to-storybook/netlify-account-picker.png)
 
-Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `master`. El directorio es `storybook-static`. Ejecuta el comando `yarn build-storybook`.
+Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `main`. El directorio es `storybook-static`. Ejecuta el comando `yarn build-storybook`.
 
 ![Ajustes Netlify](/intro-to-storybook/netlify-settings.png)
 
 <div class="aside"><p>Si su implementación falla con Netlify, agregue <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> al script <code>build-storybook</code>.</p></div>
 
-Ahora envía el formulario para construir e implementar el código en la rama `master` del taskbox.
+Ahora envía el formulario para construir e implementar el código en la rama `main` del taskbox.
 
 Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
 

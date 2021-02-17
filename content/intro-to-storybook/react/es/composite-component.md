@@ -2,7 +2,7 @@
 title: 'Ensamblar un componente compuesto'
 tocTitle: 'Componente Compuesto'
 description: 'Ensamblar un componente compuesto a partir de componentes simples'
-commit: 8db511e
+commit: 'f9b2cfb'
 ---
 
 En el último capítulo construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir TaskList, una lista de Tareas. Combinemos componentes en conjunto y veamos qué sucede cuando se añade más complejidad.
@@ -95,7 +95,7 @@ storiesOf('TaskList', module)
 Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador para añadir estilo. También se pueden utilizar para envolver historias en "proveedores", es decir, componentes de la librería que establecen el contexto de React.
 </div>
 
-`task` provee la forma de un `Task` que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, `actions` define las acciones (llamadas simuladas)  que espera un componente `Task`, el cual también necesita la `TaskList`.
+`task` provee la forma de un `Task` que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, `actions` define las acciones (llamadas simuladas) que espera un componente `Task`, el cual también necesita la `TaskList`.
 
 Ahora hay que revisar Storybook para ver las nuevas historias de `TaskList`.
 

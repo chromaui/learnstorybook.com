@@ -10,6 +10,57 @@ module.exports = {
     siteUrl: permalink,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
+    storybookVersion: 6.1,
+    tutorialStatus: {
+      'intro-to-storybook': {
+        react: {
+          de: 5.3,
+          en: 6.1,
+          es: 5.3,
+          fr: 6.1,
+          ja: 6.1,
+          ko: 6.1,
+          nl: 5.3,
+          pt: 5.3,
+          'zh-CN': 6.1,
+          'zh-TW': 5.3,
+        },
+        'react-native': {
+          en: 5.3,
+          es: 5.3,
+        },
+        vue: {
+          en: 6.1,
+          es: 5.3,
+          fr: 5.3,
+          pt: 5.3,
+        },
+        angular: {
+          en: 5.3,
+          es: 5.3,
+          pt: 5.3,
+        },
+        svelte: {
+          en: 6.1,
+          es: 5.3,
+        },
+        ember: {
+          en: 6.1,
+        },
+      },
+      'design-systems-for-developers': {
+        react: {
+          en: 6.1,
+          ko: 6.1,
+          pt: 5.3,
+        },
+      },
+      'visual-testing-handbook': {
+        react: {
+          en: 6.1,
+        },
+      },
+    },
   },
   plugins: [
     {
@@ -29,12 +80,26 @@ module.exports = {
     `gatsby-transformer-remark`,
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
-    {
-      resolve: 'gatsby-plugin-segment-js',
-      options: {
-        prodKey: 'JXEYLKE1T9ptsDlNqeNIMdoOy1Ept8CB',
-        trackPage: true,
-      },
-    },
+    ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
+      ? [
+          {
+            resolve: 'gatsby-plugin-google-analytics',
+            options: {
+              trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
+              head: true,
+            },
+          },
+        ]
+      : []),
+    ...(process.env.FACEBOOK_PIXEL_ID && !isDeployPreview
+      ? [
+          {
+            resolve: 'gatsby-plugin-facebook-pixel',
+            options: {
+              pixelId: process.env.FACEBOOK_PIXEL_ID,
+            },
+          },
+        ]
+      : []),
   ],
 };

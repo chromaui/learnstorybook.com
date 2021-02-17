@@ -21,7 +21,7 @@ Mais uma razão para configurar testes automatizados **agora** de forma a poupar
 
 ## Prepare-se para testar
 
-Num [artigo anterior](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) fiz uma pesquisa a 4 equipas de frontend, acerca dos fluxos de trabalho profissionais do Storybook. Concordaram com as seguintes práticas recomendadas para escrita de estórias de forma a tornar os testes fáceis e abrangentes.
+Num [artigo anterior](https://www.chromatic.com/blog/the-delightful-storybook-workflow) fiz uma pesquisa a 4 equipas de frontend, acerca dos fluxos de trabalho profissionais do Storybook. Concordaram com as seguintes práticas recomendadas para escrita de estórias de forma a tornar os testes fáceis e abrangentes.
 
 **Articular os estados suportados pelos componentes** como estórias de forma a clarificar quais as combinações de inputs produzem um determinado estado. Omita categoricamente estados que não são suportados de forma a reduzir ruído.
 
@@ -39,7 +39,7 @@ Os testes visuais capturam uma imagem de cada componente do IU, num ambiente con
 
 Se está a construir um interface de utilizador moderno, os testes visuais irão poupar a sua equipa de frontend de revisões manuais dispendiosas em termos de tempo e prevenir regressões no IU que podem ser também dispendiosas. Vai ser usado o Chromatic, um serviço de nível industrial mantido pela equipa por detrás do Storybook, para demonstrar testes visuais.
 
-Primeiro, vá a [ChromaticQA.com](https://chromaticqa.com) e registe-se usando a sua conta GitHub.
+Primeiro, vá a [chromatic.com](https://chromatic.com) e registe-se usando a sua conta GitHub.
 
 ![Registo na Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
@@ -47,15 +47,16 @@ A partir daí, escolha o seu repositório que contêm o sistema de design. Nos b
 
 ![Criar um projeto no Chromatic](/design-systems-for-developers/chromatic-create-project.png)
 
-Instale o pacote [storybook-chromatic](https://www.npmjs.com/package/storybook-chromatic) package via npm.
+Instale o pacote [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
 
 ```bash
-yarn add --dev storybook-chromatic
+yarn add --dev chromatic
 ```
+
 Abra uma nova consola e navegue até à pasta ou diretório do `design-system`. Em seguida execute o seu primeiro teste para gerar uma linha de base para os seus testes visuais posteriores (não se esqueça que terá que usar o app code fornecido pelo site da Chromatic)
 
 ```bash
-yarn chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 ![Resultado da primeira compilação do Chromatic](/design-systems-for-developers/chromatic-first-build.png)
@@ -77,7 +78,7 @@ export const typography = {
 Execute o comando de testes de novo.
 
 ```bash
-yarn chromatic test --app-code=<app-code>
+npx chromatic --project-token=<project-token>
 ```
 
 Chiça! Esta alteração minúscula gerou num número gigantesco de alterações do IU.
@@ -91,29 +92,29 @@ Vamos agora adicionar testes visuais ao processo de integração contínua. Abra
 ```yml
 version: 2
 jobs:
- build:
-   docker:
-     - image: circleci/node:8.10.0
+  build:
+    docker:
+      - image: circleci/node:8.10.0
 
-   working_directory: ~/repo
+    working_directory: ~/repo
 
-   steps:
-     - checkout
+    steps:
+      - checkout
 
-     - restore_cache:
-         keys:
-           - v1-dependencies-{{ checksum "package.json" }}
-           - v1-dependencies-
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
 
-     - run: yarn install
+      - run: yarn install
 
-     - save_cache:
-         paths:
-           - node_modules
-         key: v1-dependencies-{{ checksum "package.json" }}
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
-     - run: yarn test
-     - run: yarn chromatic test --app-code=<app-code> --exit-zero-on-changes
+      - run: yarn test
+      - run: npx chromatic --project-token=<project-token> --exit-zero-on-changes
 ```
 
 Guarde as alterações e execute o comando `git commit` para submeter as alterações feitas. Parabéns, acabou de configurar testes visuais na integração contínua (IC)!
@@ -122,7 +123,7 @@ Guarde as alterações e execute o comando `git commit` para submeter as altera�
 
 Testes unitários verificam se o código do IU devolve o resultado correto com base num input controlado. Coexistem com o componente e ajudam na validação de funcionalidades específicas.
 
-Nas camadas modernas tais como React,Vue e Angular tudo é um componente. Estes encapsulam diversas funcionalidades, que vão desde botões modestos a seletores de datas extremamente complexos. Quanto mais complexo o componente é, mais difícil será capturar certas nuances somente com base em testes visuais. É por isso mesmo que são necessários testes unitários. 
+Nas camadas modernas tais como React,Vue e Angular tudo é um componente. Estes encapsulam diversas funcionalidades, que vão desde botões modestos a seletores de datas extremamente complexos. Quanto mais complexo o componente é, mais difícil será capturar certas nuances somente com base em testes visuais. É por isso mesmo que são necessários testes unitários.
 
 ![Testes unitários de components](/design-systems-for-developers/component-unit-testing.gif)
 
@@ -174,7 +175,7 @@ Como anteriormente o ficheiro config.js do Circle foi configurado de forma a exe
 ## Testes de acessibilidade
 
 O programador [Alex Wilson da T.Rowe Price](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347) escreve:
-"Acessibilidade diz que todas as pessoas, incluíndo as que são portadoras de algum tipo de deficiência, podem entender, podem navegar e podem interagir com a vossa aplicação.... [Exemplos online incluem] formas alternativas de aceder a conteúdos, tais como utilizar a tecla tab e um leitor de telas para percorrer um site". 
+"Acessibilidade diz que todas as pessoas, incluíndo as que são portadoras de algum tipo de deficiência, podem entender, podem navegar e podem interagir com a vossa aplicação.... [Exemplos online incluem] formas alternativas de aceder a conteúdos, tais como utilizar a tecla tab e um leitor de telas para percorrer um site".
 
 De acordo com a [World Health Organization](https://www.who.int/disabilities/world_report/2011/report/en/), 15% da população é sofre de algum tipo de deficiência. Com isto os sistemas de design têm um impacto enorme em termos de acessibilidade visto que contêm todas as peças que constituem um interface de utilizador. Ao melhorar a acessibilidade de somente um componente faz com que a sua empresa beneficie de cada instância desse componente.
 
@@ -186,6 +187,7 @@ Obtenha um avanço com um IU inclusivo através do extra Accessibility do Storyb
 yarn add --dev @storybook/addon-a11y
 
 ```
+
 Registe o extra em `.storybook/addons.js`:
 
 ```javascript
@@ -202,9 +204,9 @@ Em seguida adicione o decorador `withA11y` no ficheiro `.storybook/config.js`:
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
-import 'storybook-chromatic';
+import 'chromatic';
 
-import { GlobalStyle } from '../src/components/shared/global';
+import { GlobalStyle } from '../src/shared/global';
 
 addDecorator(withA11y);
 addDecorator(story => (
@@ -217,12 +219,12 @@ addDecorator(story => (
 // automatically import all files ending in \*.stories.js
 configure(require.context('../src', true, /\.stories\.js\$/), module);
 ```
-Uma vez instalado, irá verificar que existe um nova tab chamado  “Accessibility” no painel de extras do Storybook.
+
+Uma vez instalado, irá verificar que existe um nova tab chamado “Accessibility” no painel de extras do Storybook.
 
 ![Extra a11y do Storybook](/design-systems-for-developers/storybook-addon-a11y.png)
 
 O que nos mostra os diferentes níveis de acessibilidade dos elementos na DOM (infrações e sucessos). Click na caixa de seleção “highlight results” para visualizar localmente todas e quaisquer infrações associadas ao componente de interface de utilizador.
-
 
 ![Extra Storybook a11y com os sucessos passes delineados](/design-systems-for-developers/storybook-addon-a11y-highlighted.png)
 

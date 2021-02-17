@@ -2,7 +2,7 @@
 title: '構建一個頁面'
 tocTitle: '頁面'
 description: '用元件構建一個頁面'
-commit: e56e345
+commit: '46f29e3'
 ---
 
 我們專注於從下到上構建 UI; 從小做起並增加複雜性. 這樣做使我們能夠獨立開發每個元件,找出其資料需求,並在 Storybook 中使用它. 所有這些都無需 啟動伺服器或構建出頁面!
@@ -106,7 +106,7 @@ storiesOf('InboxScreen', module)
 但是,開發人員 **將** 不可避免地需要在元件層次結構中,進一步渲染容器. 如果我們想要在 Storybook 中渲染大部分或全部應用程式 (我們這樣做!) ,我們需要一個解決此問題的方法.
 
 <div class="aside">
-另外，在層次結構中 傳遞資料 是合法的方法，尤其是在使用 <a href="http://graphql.org/">GraphQL</a>. 這就是我們的建設 <a href="https://www.chromaticqa.com">Chromatic</a> 伴隨著670多個故事.
+另外，在層次結構中 傳遞資料 是合法的方法，尤其是在使用 <a href="http://graphql.org/">GraphQL</a>. 這就是我們的建設 <a href="https://www.chromatic.com">Chromatic</a> 伴隨著670多個故事.
 </div>
 
 ## 用裝飾器提供上下文
@@ -162,6 +162,6 @@ storiesOf('InboxScreen', module)
   />
 </video>
 
-[**元件驅動開發**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)允許您在向上移動元件層次結構時,逐漸擴充套件複雜性. 其中的好處包括 更集中的開發過程 以及 所有可能的 UI 排列 的覆蓋範圍. 簡而言之,CDD 可幫助您構建 更高質量和更復雜 的使用者介面.
+[**元件驅動開發**](https://www.componentdriven.org/)允許您在向上移動元件層次結構時,逐漸擴充套件複雜性. 其中的好處包括 更集中的開發過程 以及 所有可能的 UI 排列 的覆蓋範圍. 簡而言之,CDD 可幫助您構建 更高質量和更復雜 的使用者介面.
 
 我們還沒有完成 - 在構建 UI 時,工作不會結束. 我們還需要確保它隨著時間的推移保持持久.

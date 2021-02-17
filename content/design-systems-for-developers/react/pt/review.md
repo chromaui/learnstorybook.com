@@ -9,7 +9,7 @@ No capítulo 4, vamos aprender quais os fluxos de trabalho profissionais para fa
 
 ## Fonte de verdade única ou ponto único de falhanço
 
-Anteriormente, escrevi um artigo mencionando que os sistemas de design são um [ponto único de falhanço](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) para equipas de frontend. Na sua essência os sistemas de design são uma dependência. Se alterarem um componente do sistema de design, essa alteração propaga-se para todas as aplicações dependentes. Como o mecanismo de distribuição é imparcial - melhoramentos, ou erros são lançados igualmente.
+Anteriormente, escrevi um artigo mencionando que os sistemas de design são um [ponto único de falhanço](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) para equipas de frontend. Na sua essência os sistemas de design são uma dependência. Se alterarem um componente do sistema de design, essa alteração propaga-se para todas as aplicações dependentes. Como o mecanismo de distribuição é imparcial - melhoramentos, ou erros são lançados igualmente.
 
 ![Dependências do sistema de design](/design-systems-for-developers/design-system-dependencies.png)
 
@@ -19,7 +19,7 @@ Os erros são um risco existêncial para os sistemas de design, como tal fazemos
 
 A integração contínua é a abordagem ideal para manutenção de aplicações web modernas. Permite que se codifiquem comportamentos tais como testes, análise e implementação á medida que se adiciona código. Vamos pedir emprestada esta técnica de forma a poupar-nos qualquer tipo de trabalho manual repetitivo.
 
-Neste caso vamos usar o CircleCI, que é gratuito para a nossa utilização modesta. Mas os mesmos princípios podem ser aplicados a quaisquer outros serviços de CI também. 
+Neste caso vamos usar o CircleCI, que é gratuito para a nossa utilização modesta. Mas os mesmos princípios podem ser aplicados a quaisquer outros serviços de CI também.
 
 Primeiro, registe-se no CircleCI se ainda não o fez. Uma vez feito o registo, irá reparar na tab com o nome "add projects", é aqui que pode configurar o projeto de sistemas de design da seguinte forma.
 
@@ -149,9 +149,9 @@ No browser, navegue para o GitHub.com e crie um pull request para o ramo `improv
 
 Abra o URL gerado pelo Netlify, que se encontra na lista de verificações do PR para visualizar o seu componente.
 
-![Componente Button alterado no site implementado](/design-systems-for-developers/netlify-deployed-site-with-changed-button.png)
+![Componente Button alterado no site implementado](/design-systems-for-developers/chromatic-deployed-site-with-changed-button.png)
 
-Para cada componente e estória que foi alterada, copie o URL da barra de endereço e 
+Para cada componente e estória que foi alterada, copie o URL da barra de endereço e
 partilhe-a na plataforma utilizada pela equipa para gerir tarefas (GitHub, Asana, Jira, etc), de forma a ajudar os restantes elementos da equipa a rever as estórias que são relevantes.
 
 ![PR do GitHub com links para o storybook](/design-systems-for-developers/github-created-pr-with-links.png)

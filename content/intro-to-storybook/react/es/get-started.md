@@ -2,10 +2,10 @@
 title: 'Storybook para React tutorial'
 tocTitle: 'Empezando'
 description: 'Configurar React Storybook en tu entorno de desarrollo'
-commit: ebe2ae2
+commit: 'ac1ec13'
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; existe una edición para [Angular](/angular/es/get-started) y para Vue vendrá pronto.
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; existe otras ediciones para [React Native](/react-native/es/get-started), [Vue](/vue/es/get-started), [Angular](/angular/es/get-started) y [Svelte](/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -28,7 +28,7 @@ Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación
 # Corre el test de prueba (Jest) en una terminal:
 yarn test
 
-# Inicia el explorador de componentes en el puerto 9009:
+# Inicia el explorador de componentes en el puerto 6006:
 yarn run storybook
 
 # Ejecuta el frontend de la aplicación en el puerto 3000:
@@ -43,7 +43,7 @@ Dependiendo de en qué parte de la aplicación estés trabajando, es posible que
 
 ## Reusa CSS
 
-Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos nuestros archivos LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo src/index.css según la convención de CRA.
+Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos nuestros archivos LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo src/index.css según la convención de CRA.
 
 ![Buzón de tareas UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -52,5 +52,5 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 ## Añade recursos
 
-También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/public) a la carpeta `public/`.
+También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/) a la carpeta `src/assets`.
 Después de añadir los estilos y recursos, nuestra aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. Comenzamos con la construcción de nuestro primer componente!

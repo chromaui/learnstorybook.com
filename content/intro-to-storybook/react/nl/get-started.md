@@ -2,7 +2,7 @@
 title: 'Storybook voor React tutorial'
 tocTitle: 'Begin'
 description: 'Stel Storybook in voor je ontwikkelomgeving'
-commit: ebe2ae2
+commit: 'ac1ec13'
 ---
 
 Storybook wordt naast je app in _development mode_ uitgevoerd. Het helpt je om UI componenten te bouwen die geïsoleerd zijn van de business logica en context van je applicatie. Deze versie van Learn Storybook is voor React; er zijn andere versies voor [Vue](/vue/en/get-started) en[Angular](/angular/en/get-started).
@@ -28,7 +28,7 @@ We kunnen snel controleren of de verschillende omgevingen van onze applicatie co
 # Run the test runner (Jest) in a terminal:
 yarn test
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn run storybook
 
 # Run the frontend app proper on port 3000:
@@ -47,7 +47,7 @@ Afhankelijk van het gedeelte van de app waaraan je werkt, wil je misschien een o
 
 ## CSS herbruiken
 
-Taskbox herbruikt design elementen uit de GraphQL en React Tutorial [voorbeeld-app](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), dus we hoeven geen CSS te schrijven in deze tutorial. We compileren gewoon de LESS tot een enkel CSS-bestand en voegen het toe aan onze app. Kopieer en plak [deze gecompileerde CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) in het `src/index.css`-bestand volgens de conventie van CRA.
+Taskbox herbruikt design elementen uit de GraphQL en React Tutorial [voorbeeld-app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), dus we hoeven geen CSS te schrijven in deze tutorial. We compileren gewoon de LESS tot een enkel CSS-bestand en voegen het toe aan onze app. Kopieer en plak [deze gecompileerde CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) in het `src/index.css`-bestand volgens de conventie van CRA.
 
 ![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -57,4 +57,4 @@ Indien je de stijl wilt wijzigen, de bron LESS bestanden zijn in de GitHub-repo 
 
 ## Assets toevoegen
 
-We moeten ook de [mappen](https://github.com/chromaui/learnstorybook-code/tree/master/public) voor lettertypes en iconen toevoegen aan de folder `public/`. Na het toevoegen van styling en assets zal de app een beetje vreemd renderen. Dat is geen probleem. We werken momenteel niet aan de app. We beginnen met het bouwen van onze eerste component!
+We moeten ook de [mappen](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets) voor lettertypes en iconen toevoegen aan de folder `src/assets`. Na het toevoegen van styling en assets zal de app een beetje vreemd renderen. Dat is geen probleem. We werken momenteel niet aan de app. We beginnen met het bouwen van onze eerste component!

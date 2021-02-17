@@ -22,8 +22,8 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```html
-<!--src/components/TaskList.svelte-->
+```svelte
+<!-- src/components/TaskList.svelte -->
 
 <script>
   import Task from './Task.svelte';
@@ -32,78 +32,83 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
   // reactive declarations (computed prop in other frameworks)
   $: noTasks = tasks.length === 0;
-  $: emptyTasks = tasks.length === 0 && !loading;
+  $: emptyTasks = noTasks && !loading;
 </script>
 {#if loading}
   <div class="list-items">loading</div>
 {/if}
 {#if emptyTasks}
   <div class="list-items">empty</div>
-{/if} 
+{/if}
 {#each tasks as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
 
-
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
 // src/components/TaskList.stories.js
-import TaskList from "./TaskList.svelte";
-import { taskData, actionsData } from "./Task.stories";
+
+import TaskList from './TaskList.svelte';
+import * as TaskStories from './Task.stories';
+
 export default {
-  title: "TaskList",
-  excludeStories: /.*Data$/
+  component: TaskList,
+  title: 'TaskList',
+  argTypes: {
+    onPinTask: { action: 'onPinTask' },
+    onArchiveTask: { action: 'onArchiveTask' },
+  },
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: "1", title: "Task 1" },
-  { ...taskData, id: "2", title: "Task 2" },
-  { ...taskData, id: "3", title: "Task 3" },
-  { ...taskData, id: "4", title: "Task 4" },
-  { ...taskData, id: "5", title: "Task 5" },
-  { ...taskData, id: "6", title: "Task 6" }
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" }
-];
+const Template = args => ({
+  Component: TaskList,
+  props: args,
+  on: {
+    ...TaskStories.actionsData,
+  },
+});
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
 
-// default TaskList state
-export const Default = () => ({
-  Component: TaskList,
-   props: {
-    tasks: defaultTasksData
-  },
-  on: {
-    ...actionsData
-  }
-});
-// tasklist with pinned tasks
-export const WithPinnedTasks = () => ({
-  Component: TaskList,
-  props: {
-    tasks: withPinnedTasksData
-  },
-  on: {
-    ...actionsData
-  }
-});
-// tasklist in loading state
-export const Loading = () => ({
-  Component: TaskList,
-  props: {
-    loading: true
-  },
-});
-// tasklist no tasks
-export const Empty = () => ({
-  Component: TaskList,
-}); 
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
-`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/svelte/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -122,8 +127,9 @@ For the loading edge case, we're going to create a new component that will displ
 
 Create a new file called `LoadingRow.svelte` and inside add the following markup:
 
-```html
-<!--src/components/LoadingRow.svelte-->
+```svelte
+<!-- src/components/LoadingRow.svelte -->
+
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -136,8 +142,8 @@ Create a new file called `LoadingRow.svelte` and inside add the following markup
 
 And update `TaskList.svelte` to the following:
 
-```html
-<!--src/components/TaskList.svelte-->
+```svelte
+<!-- src/components/TaskList.svelte -->
 
 <script>
   import Task from './Task.svelte';
@@ -147,7 +153,7 @@ And update `TaskList.svelte` to the following:
 
   // reactive declaration (computed prop in other frameworks)
   $: noTasks = tasks.length === 0;
-  $: emptyTasks = tasks.length === 0 && !loading;
+  $: emptyTasks = noTasks && !loading;
   $: tasksInOrder = [
     ...tasks.filter(t => t.state === 'TASK_PINNED'),
     ...tasks.filter(t => t.state !== 'TASK_PINNED'),
@@ -161,8 +167,8 @@ And update `TaskList.svelte` to the following:
   <LoadingRow />
   <LoadingRow />
 </div>
-{/if} 
-{#if tasks.length === 0 && !loading}
+{/if}
+{#if emptyTasks}
 <div class="list-items">
   <div class="wrapper-message">
     <span class="icon-check" />
@@ -170,7 +176,7 @@ And update `TaskList.svelte` to the following:
     <div class="subtitle-message">Sit back and relax</div>
   </div>
 </div>
-{/if} 
+{/if}
 {#each tasksInOrder as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
@@ -207,14 +213,15 @@ Create a test file called `src/components/TaskList.test.js`. Here, we’ll build
 
 ```javascript
 // src/components/TaskList.test.js
+
 import TaskList from './TaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { withPinnedTasksData } from './TaskList.stories'
-test('TaskList ', async () => {
-  const { container } = await render(TaskList, {
-    props: {
-      tasks: withPinnedTasksData,
-    },
+import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
+
+test('TaskList', () => {
+  //👇 Story's args used with our test
+  const { container } = render(TaskList, {
+    props: WithPinnedTasks.args,
   });
   expect(container.firstChild.children[0].classList.contains('TASK_PINNED')).toBe(true);
 });
@@ -225,3 +232,7 @@ test('TaskList ', async () => {
 Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
 
 Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/svelte/en/test/)) tests where possible.
+
+<div class="aside">
+💡 Don't forget to commit your changes with git!
+</div>

@@ -2,7 +2,7 @@
 title: '连线数据'
 tocTitle: 'Data'
 description: '了解如何将数据连接到UI组件'
-commit: 9c50472
+commit: 'd2fca1f'
 ---
 
 到目前为止,我们创建了孤立的无状态组件 - Storybook 很棒,但作用不大,除非我们在应用程序中为他们提供一些数据.
@@ -15,24 +15,32 @@ commit: 9c50472
 
 这个例子使用[Redux](https://redux.js.org/),最流行的 React 库,用于存储数据,为我们的应用程序构建一个简单的数据模型. 但是,此处使用的模式同样适用于其他数据管理库[阿波罗](https://www.apollographql.com/client/)和[MobX](https://mobx.js.org/).
 
+在你的项目中添加必要的依赖：
+
+```bash
+yarn add react-redux redux
+```
+
 首先,我们将构建一个简单的 Redux 存储,它在一个`src/lib/redux.js`中定义改变任务状态的操作 (故意保持简单) :
 
 ```javascript
-// 一个简单的 redux store/actions/reducer 实现。
-// 一个真正的应用程序将更复杂，并分为不同的文件.
+// src/lib/redux.js
+
+// A simple redux store/actions/reducer implementation.
+// A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
 
-// 这些行为是可能发生的store变化的“名称”
+// The actions are the "names" of the changes that can happen to the store
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
 };
 
-// 动作创建者是将动作与 要求的数据捆绑在一起的方式
+// The action creators bundle actions with the data required to execute them
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
-// 我们所有的Reducer都只是改变了一个任务的状态。
+// All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
@@ -44,8 +52,7 @@ function taskStateReducer(taskState) {
   };
 }
 
-// reducer描述了 Store 中每个 action 如何改变内容
-
+// The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
@@ -57,9 +64,8 @@ export const reducer = (state, action) => {
   }
 };
 
-// 应用加载时我们Store 的初始状态。
-
-// 通常你会从服务器上获取它
+// The initial state of our store when the app loads.
+// Usually you would fetch this from a server
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -67,7 +73,7 @@ const defaultTasks = [
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-// 我们导出构造的 redux store
+// We export the constructed redux store
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
@@ -86,9 +92,13 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 
 PureTaskList.propTypes = {
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func.isRequired,
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -107,63 +117,76 @@ export default connect(
 )(PureTaskList);
 ```
 
+现在我们已经有了一些从 Redux 获得的用于填充组件的真实数据，我们可以连到 `src/app.js` 并在那渲染组件。但是现在我们先不这样做，让我们继续组件驱动之旅。
+
+不要担心，我们将在下一章进行介绍。
+
 在这个阶段,我们的 Storybook 测试将停止工作,因为`TaskList`现在是一个容器,不再需要任何 props,而是连接到 Store 并设置`PureTaskList`包裹组件的 props.
 
 但是,我们可以通过简单地渲染`PureTaskList`来轻松解决这个问题 - 我们的 Storybook 故事中的表现部分:
 
 ```javascript
+// src/components/TaskList.stories.js
+
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import { PureTaskList } from './TaskList';
-import { task, actions } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
-export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
-];
+export default {
+  component: PureTaskList,
+  title: 'TaskList',
+  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+};
 
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+const Template = args => <PureTaskList {...args} />;
 
-storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
-  .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
-  .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
+
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
-同样,我们需要使用`PureTaskList`在我们的 Jest 测试中:
-
-```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { PureTaskList } from './TaskList';
-import { withPinnedTasks } from './TaskList.stories';
-
-it('renders pinned tasks at the start of the list', () => {
-  const div = document.createElement('div');
-  const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-  ReactDOM.render(<PureTaskList tasks={withPinnedTasks} {...events} />, div);
-
-  // 我们期望首先渲染标题为“任务6（固定）”的任务，而不是最后
-  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
-  expect(lastTaskInput).not.toBe(null);
-
-  ReactDOM.unmountComponentAtNode(div);
-});
-```
+<div class="aside">
+如果你的快照测试失败，你需要通过运行测试脚本并带上 <code>-u</code> 标志来更新已存在的快照。随着我们的应用程序越来越大，这可能也是运行测试脚本时带有 <code> --watchAll</code> 标志的好处，如 <a href="/react/en/get-started/">开始吧</a> 章节中提到的。
+</div>

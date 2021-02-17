@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { graphql } from 'gatsby';
-import { Highlight, styles } from '@storybook/design-system';
+import { Highlight, Link, styles } from '@storybook/design-system';
 import ChapterLinks from './ChapterLinks';
 import GithubLink from './GithubLink';
 import Pagination from './Pagination';
 import Sidebar from './Sidebar';
+import fetchTutorialNotUpdatedText from '../../../lib/getTranslationMessages';
 import tocEntries from '../../../lib/tocEntries';
 import { chapterFormatting } from '../../../styles/formatting';
 
@@ -59,7 +60,7 @@ const Chapter = ({
     currentPage: {
       html,
       frontmatter: { commit, title, description },
-      fields: { framework, guide, language, slug, chapter, permalink },
+      fields: { framework, guide, language, slug, chapter, permalink, tutorialUpToDate },
     },
     currentGuide: {
       frontmatter: { codeGithubUrl, title: currentGuideTitle, toc, twitterShareText },
@@ -79,7 +80,7 @@ const Chapter = ({
     /\/$/,
     ''
   )}.md`;
-
+  const fetchStatusUpdate = fetchTutorialNotUpdatedText(language);
   return (
     <ChapterWrapper>
       <Helmet>
@@ -118,6 +119,15 @@ const Chapter = ({
       <Content>
         <Title>{title}</Title>
         <Description>{description}</Description>
+        {!tutorialUpToDate && (
+          <div className="translation-aside">
+            {fetchStatusUpdate.guidenotupdated}{' '}
+            <Link tertiary href={githubFileUrl} target="_blank" rel="noopener">
+              {fetchStatusUpdate.pullrequestmessage}
+            </Link>
+            .
+          </div>
+        )}
         <HighlightWrapper>{html}</HighlightWrapper>
         <ChapterLinks
           codeGithubUrl={codeGithubUrl}
@@ -142,6 +152,7 @@ Chapter.propTypes = {
         framework: PropTypes.string,
         language: PropTypes.string.isRequired,
         permalink: PropTypes.string.isRequired,
+        tutorialUpToDate: PropTypes.bool,
       }).isRequired,
       frontmatter: PropTypes.shape({
         commit: PropTypes.string,
@@ -222,6 +233,7 @@ export const query = graphql`
         framework
         language
         permalink
+        tutorialUpToDate
       }
     }
     currentGuide: markdownRemark(fields: { guide: { eq: $guide }, pageType: { eq: "guide" } }) {

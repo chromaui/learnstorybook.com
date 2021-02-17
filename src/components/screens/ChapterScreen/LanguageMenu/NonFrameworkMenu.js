@@ -29,7 +29,7 @@ const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
 `;
 
 const TooltipList = styled.div`
-  border-radius: 4px;
+  border-radius: ${styles.spacing.borderRadius.small}px;
   overflow: hidden;
 `;
 

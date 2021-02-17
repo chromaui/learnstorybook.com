@@ -12,8 +12,8 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Svelte Store) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.svelte` in your `components` folder:
 
-```html
-<!-- src/components/InboxScreen.svelte-->
+```svelte
+<!-- src/components/InboxScreen.svelte -->
 
 <script>
   import TaskList from './TaskList.svelte';
@@ -45,6 +45,8 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 We need to update our store (in `src/store.js`) to include our new `error` field, transforming it into :
 
 ```javascript
+// src/store.js
+
 import { writable } from 'svelte/store';
 const TaskBox = () => {
   // creates a new writable store populated with some initial data
@@ -72,7 +74,7 @@ const TaskBox = () => {
 export const taskStore = TaskBox();
 
 // store to handle the app state
-const appState = () => {
+const AppState = () => {
   const { subscribe, update } = writable(false);
   return {
     subscribe,
@@ -80,55 +82,62 @@ const appState = () => {
   };
 };
 
-export const AppStore = appState();
+export const AppStore = AppState();
 ```
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```html
-<!-- src/App.svelte-->
+```svelte
+<!-- src/App.svelte -->
+
 <script>
+  import './index.css'
   import { AppStore } from './store';
   import InboxScreen from './components/InboxScreen.svelte';
 </script>
 
-<InboxScreen error={$AppStore} />
+<InboxScreen error="{$AppStore}" />
 ```
 
-<div class="aside">Don't forget that you also need to update TaskList component also to reflect the changes done to the store.</div>
+<div class="aside">
+💡 Don't forget to update the <code>TaskList</code> component to reflect the changes applied to the store.
+</div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
 As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition with other frameworks, container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service.
 
-When placing the `TaskList` into Storybook, we were able to ilustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+When placing the `TaskList` into Storybook, we were able to illustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
 So when we setup our stories in `InboxScreen.stories.js`:
 
 ```javascript
 // src/components/InboxScreen.stories.js
+
 import InboxScreen from './InboxScreen.svelte';
 
 export default {
+  component: InboxScreen,
   title: 'PureInboxScreen',
-  Component: InboxScreen,
 };
-export const standard = () => ({
+
+const Template = args => ({
   Component: InboxScreen,
+  props: args,
 });
 
-export const error = () => ({
-  Component: InboxScreen,
-  props: {
-    error: true,
-  },
-});
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: true,
+};
 ```
 
 We see that both the `error` and `standard` stories work just fine. (But you will encounter some problems when trying to test the `PureInboxScreen` with a unit test if no data is supplied like we did with `TaskList`).
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
@@ -152,6 +161,10 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+
+<div class="aside">
+💡 Don't forget to commit your changes with git!
+</div>

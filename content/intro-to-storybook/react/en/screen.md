@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: e56e345
+commit: '46f29e3'
 ---
 
 We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -48,6 +48,7 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
+  /** The error message */
   error: PropTypes.string,
 };
 
@@ -63,22 +64,20 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 ```javascript
 // src/App.js
 
-import React, { Component } from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
 
 import InboxScreen from './components/InboxScreen';
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <InboxScreen />
-      </Provider>
-    );
-  }
+import './index.css';
+function App() {
+  return (
+    <Provider store={store}>
+      <InboxScreen />
+    </Provider>
+  );
 }
-
 export default App;
 ```
 
@@ -102,9 +101,14 @@ export default {
   title: 'InboxScreen',
 };
 
-export const Default = () => <PureInboxScreen />;
+const Template = args => <PureInboxScreen {...args} />;
 
-export const Error = () => <PureInboxScreen error="Something" />;
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
@@ -116,7 +120,7 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromaticqa.com">Chromatic</a> alongside 800+ stories.
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context with decorators
@@ -127,32 +131,36 @@ The good news is that it is easy to supply a Redux store to the `InboxScreen` in
 // src/components/InboxScreen.stories.js
 
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';
-
+import { action } from '@storybook/addon-actions';
 import { PureInboxScreen } from './InboxScreen';
-import { defaultTasksData } from './TaskList.stories';
-
-export default {
-  component: PureInboxScreen,
-  title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
-};
+import * as TaskListStories from './TaskList.stories';
 
 // A super-simple mock of a redux store
 const store = {
   getState: () => {
     return {
-      tasks: defaultTasksData,
+      tasks: TaskListStories.Default.args.tasks,
     };
   },
   subscribe: () => 0,
   dispatch: action('dispatch'),
 };
 
-export const Default = () => <PureInboxScreen />;
+export default {
+  component: PureInboxScreen,
+  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  title: 'InboxScreen',
+};
 
-export const Error = () => <PureInboxScreen error="Something" />;
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
@@ -162,7 +170,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -178,6 +186,10 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+
+<div class="aside">
+💡 Don't forget to commit your changes with git!
+</div>

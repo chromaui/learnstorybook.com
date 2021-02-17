@@ -15,7 +15,7 @@ Este capítulo ilustra como distribuir sistemas de design, desde empacotamento d
 
 As organizações possuem milhares de componentes de IU espalhados por inúmeras aplicações. Anteriormente extraímos os componentes comuns para o sistema de design. Agora é necessário reintroduzi-los de volta nas aplicações
 
-O nosso sistema de design usa o gestor de pacotes npm para Javascript, para lidar com a gestão de dependências, distribuição e controlo de versões. 
+O nosso sistema de design usa o gestor de pacotes npm para Javascript, para lidar com a gestão de dependências, distribuição e controlo de versões.
 
 Existem muitas outros métodos válidos para empacotar os sistemas de design. Dê uma olhadela aos sistemas de design da Lonely Planet, Auth0, Salesforce, GitHub e Microsoft para ver a diversidade de abordagens. Alguns lançam cada componente como um pacote separado. Outros lançam todos os componentes num só pacote.
 
@@ -92,7 +92,6 @@ dist
 #### Adicionar metadados ao pacote para a publicação
 
 Finalmente, vamos fazer algumas alterações adicionais ao ficheiro `package.json`, de forma a garantir que todos os consumidores do pacote, obtenham todas as informações necessárias. A forma mais simples para isto é executar `yarn init`: um comando que inicializa o pacote para ser publicado:
-
 
 ```bash
 yarn init
@@ -219,11 +218,11 @@ npm publish
 E usamos o Auto para gerar uma versão de lançamento no GitHub:
 
 ```bash
-git push --follow-tags origin master
+git push --follow-tags origin main
 yarn auto release
 ```
 
-Parabéns! Publicámos com sucesso o nosso pacote para o npm e criámos uma versão 
+Parabéns! Publicámos com sucesso o nosso pacote para o npm e criámos uma versão
 de lançamento no GitHub (com muita sorte!).
 
 ![Pacote publicado no npm](/design-systems-for-developers/npm-published-package.png)
@@ -239,7 +238,7 @@ Vamos agora configurar o Auto para seguir o mesmo processo quando for necessári
 ```json
 {
   "scripts": {
-    "release": "auto shipit"
+    "release": "auto shipit --base-branch=main"
   }
 }
 ```
@@ -249,16 +248,15 @@ Agora, quando for executado o `yarn release`, irão ser percorridos quase todos 
 ```yml
 # ...
 - run: yarn test
-- run: yarn chromatic test -a 2wix88i1ziu
+- run: npx chromatic --project-token=2wix88i1ziu
 - run: |
-    if [ $CIRCLE_BRANCH = "master" ]
+    if [ $CIRCLE_BRANCH = "main" ]
     then
       yarn release
     fi
 ```
 
-Será também necessário adicionar os tokens npm e GitHub ao ambiente CircleCI associado ao vosso projeto, mais exatamente no website do CircleCI (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars): 
-
+Será também necessário adicionar os tokens npm e GitHub ao ambiente CircleCI associado ao vosso projeto, mais exatamente no website do CircleCI (https://circleci.com/gh/&lt;your-username&gt;/learnstorybook-design-system/edit#env-vars):
 
 ![Definir variáveis de ambiente no CircleCI](/design-systems-for-developers/circleci-set-env-vars.png)
 
@@ -278,7 +276,7 @@ Anteriormente neste tutorial, optámos pela stack de frontend popular que inclui
 
 <div class="aside">Outros métodos que também são muito promissores, tal como o Svelte ou componentes web, que permitem também que se criem de IU completamente agnósticos. No entanto, estes são relativamente novos, ainda não estão bem documentados ou ainda não têm uma adoção generalizada, como tal não foram incluídos ainda neste guia.</div>
 
-A aplicação de exemplo usa o Storybook de forma a facilitar o [desenvolvimento orientado a componentes](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), que é uma metodologia de desenvolvimento de aplicações usada para criar IU de baixo para cima, começando por componentes, acabando nos ecrãs. Durante a demonstração iremos executar dois Storybooks lado a lado: um para a aplicação de exemplo e outro para o nosso sistema de design.
+A aplicação de exemplo usa o Storybook de forma a facilitar o [desenvolvimento orientado a componentes](https://www.componentdriven.org/), que é uma metodologia de desenvolvimento de aplicações usada para criar IU de baixo para cima, começando por componentes, acabando nos ecrãs. Durante a demonstração iremos executar dois Storybooks lado a lado: um para a aplicação de exemplo e outro para o nosso sistema de design.
 
 Clone a aplicação de exemplo do repositório do GitHub
 
@@ -340,7 +338,7 @@ No vosso editor, abram o ficheiro UserItem.js. Mas procurem também pelo UserIte
 Importe o componente Avatar.
 
 ```javascript
-import { Avatar } from '<your-username>-learnstorybook-design-system'
+import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 Como queremos renderizar o Avatar lado a lado com o username, faça a seguinte alteração.

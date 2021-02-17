@@ -55,11 +55,16 @@ const MadeByChroma = () => (
   <>
     <Subheading>Made by</Subheading>
 
-    <ChromaShadowBox as="a" target="_blank" rel="noopener noreferrer" href="https://hichroma.com/">
-      <img alt="Chroma, the Storybook company" src="/icon-chroma.svg" />
+    <ChromaShadowBox
+      as="a"
+      target="_blank"
+      rel="noopener noreferrer"
+      href="https://www.chromatic.com/"
+    >
+      <img alt="Chromatic, the Storybook company" src="/icon-chroma.svg" />
       <div>
-        <Bold>Chroma is the Storybook company</Bold> run by core maintainers. We help folks learn
-        Component-Driven Development. We also build UI development tools like Chromatic.{' '}
+        <Bold>Chromatic is the Storybook company</Bold> run by core maintainers. We help folks learn
+        Component-Driven Development and build tools for UI developers.
       </div>
     </ChromaShadowBox>
   </>
