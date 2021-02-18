@@ -1,27 +1,27 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
+title: '绑定数据'
+tocTitle: '数据'
+description: '学习如何在您的UI组件中绑定数据'
 commit: 'fa1c954'
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+我们创建了隔离的无状态组件 -这对于 Storybook 来说没问题，但是在真实 app 中只有绑定了数据后这样的组件才有意义。
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+这份教程不会关注如何构建一个特定的 app，所以我们不会讨论一些构建 app 的细节。但是我们将会花点时间来研究一下通常是如何给一个容器组件绑定数据。
 
-## Container components
+## 容器组件（Container components）
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+我们目前编写的`TaskList`组件属于一个“表示型（presentational）”的组件（参照[这篇博客](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)），意味着该组件不会告诉外部它自己的实现。为了将数据放进该组件，我们需要一个“容器”。
 
-This example uses [Vuex](https://vuex.vuejs.org), Vue's default data management library, to build a straightforward data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+此示例使用[Vuex](https://vuex.vuejs.org)，一个 Vue 默认的数据管理库，来为我们的 app 创建一个直观的数据模型。不过此处的示例同样也适用于其他的数据管理库，例如[Apollo](https://www.apollographql.com/client/)和[MobX](https://mobx.js.org/)。
 
-First, install vuex with:
+首先通过下面的命令安装 vuex：
 
 ```bash
 yarn add vuex
 ```
 
-In a file called `src/store.js` we'll construct a standard Vuex store that responds to actions which will change the tasks state:
+在`src/store.js`中我们构建了一个标准的 Vuex store 来处理一些可能的改变状态的操作。
 
 ```javascript
 // src/store.js
@@ -59,7 +59,7 @@ export default new Vuex.Store({
 });
 ```
 
-In our top-level app component (`src/App.vue`) we can wire the store into our component hierarchy fairly easily:
+在顶层的 app 组件（`src/App.vue`）中我们可以非常容易的将 store 绑定到我们的组件结构中：
 
 ```html
 <!--src/App.vue -->
@@ -87,27 +87,27 @@ In our top-level app component (`src/App.vue`) we can wire the store into our co
 </style>
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `PureTaskList`), and wrap it with a container.
+接下来我们更新`TaskList`让其读取 store 中的数据。首先让我们将目前的表示型版本移动到文件`src/components/PureTaskList.vue`中（重命名组件为`PureTaskList`），并用容器包裹起来。
 
-In `src/components/PureTaskList.vue`:
+在`src/components/PureTaskList.vue`中：
 
 ```html
 <!-- src/components/PureTaskList.vue -->
 
 <template>
-  <!-- same content as before -->
+  <!-- 和之前的内容一致 -->
 </template>
 
 <script>
   import Task from './Task';
   export default {
     name: 'PureTaskList',
-    // same content as before
+    // 和之前的内容一致
   };
 </script>
 ```
 
-In `src/components/TaskList.vue`:
+在`src/components/TaskList.vue`中：
 
 ```html
 <!-- src/components/TaskList.vue -->
@@ -130,7 +130,7 @@ In `src/components/TaskList.vue`:
 </script>
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
+将`TaskList`的表示型版本分离开的原因是，这使得我们的测试和隔离更加容易。同时因为它不依赖 store，所以从测试的角度来说将变的更加容易。重命名`src/components/TaskList.stories.js`为`src/components/PureTaskList.stories.js`，并在我们的 story 中使用表示型版本：
 
 ```javascript
 // src/components/PureTaskList.stories.js
@@ -147,15 +147,15 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { PureTaskList },
   props: Object.keys(argTypes),
-  // We are reusing our actions from task.stories.js
+  // 重用task.stories.js中的actions
   methods: TaskStories.actionsData,
   template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in task.stories.js.
+  // 使用args来来改变story外观。
+  // 从task.stories.js的Default story继承数据。
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -168,8 +168,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
+  // 使用args来来改变story外观。
+  // 从task.stories.js的Default story继承数据。
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -184,8 +184,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
+  // 使用args来来改变story外观。
+  // 从task.stories.js的Default story继承数据。
   ...Loading.args,
   loading: false,
 };
@@ -198,7 +198,7 @@ Empty.args = {
   />
 </video>
 
-Similarly, we need to use `PureTaskList` in our Jest test:
+同样的，我们也需要在 Jest 测试中使用`PureTaskList`：
 
 ```js
 // tests/unit/PureTaskList.spec.js
@@ -223,8 +223,9 @@ it('renders pinned tasks at the start of the list', () => {
 
 <div class="aside">
 
-Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.
+当您的快照测试失败时，您必须用-u 来重新运行测试脚本以便更新现有的快照。或者创建一个新的脚本来解决这个问题。
 
+别忘记提交您的代码！
 Don't forget to commit your changes with git!
 
 </div>
