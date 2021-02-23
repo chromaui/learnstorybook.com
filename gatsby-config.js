@@ -1,5 +1,5 @@
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
-const permalink = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://storybook.js.org';
+const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://storybook.js.org';
 
 module.exports = {
   flags: {
@@ -12,8 +12,8 @@ module.exports = {
     title: 'Storybook Tutorials',
     description:
       'Learn how to develop UIs with components and design systems. Our in-depth frontend guides are created by Storybook maintainers and peer-reviewed by the open source community.',
-    permalink,
-    siteUrl: permalink,
+    permalink: `${permalinkBase}/tutorials`,
+    siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
     storybookVersion: 6.1,
