@@ -1,27 +1,29 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
+title: 'データを繋ぐ'
+tocTitle: 'データ'
+description: 'UI コンポーネントとデータを繋ぐ方法を学びましょう'
 commit: 34f1938
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+これまでに、Storybook の切り離された環境で、状態を持たないコンポーネントを作成してきました。しかし、究極的には、アプリケーションからコンポーネントにデータを渡さなければ役には立ちません。
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+このチュートリアルは「アプリケーションを作る方法について」ではないので、詳細までは説明しませんが、コンテナーコンポーネントとデータを繋ぐ一般的なパターンについて見てみましょう。
 
 ## Container components
 
-Our `TaskList` as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+`TaskList` コンポーネントは、今のところ、それ自体では外部とのやりとりをしないので「presentational (表示用)」([このブログ記事](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)を参照) として書かれています。データを取得するためには「container (コンテナー)」が必要です。
 
-This example uses [ngxs](https://ngxs.gitbook.io/ngxs/), a library that embraces Redux/ngrx principles but focuses on reducing boilerplate and provides a more _angular-y_ way of managing state, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [ngrx/store](https://github.com/ngrx/platform) or [Apollo](https://www.apollographql.com/docs/angular/).
+ここではデータを保存する際に使用される React で人気のライブラリーである [Redux](https://redux.js.org/) を使用し、アプリケーションにシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
-First install ngxs with:
+シンプルなデータモデルを作るため、ここでは[ngxs](https://ngxs.gitbook.io/ngxs/)を使います。Redux/ngrxの原則を受入れつつボイラープレートを減らし、よりAngularらしい状態管理を提供することに注力したライブラリです。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
+
+まず、ngxsをインストールします:
 
 ```bash
 npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 ```
 
-Then we'll construct a straightforward store that responds to actions that change the state of tasks, in a file called `src/app/state/task.state.ts` (intentionally kept simple):
+それからタスクの状態を変更するアクションを処理する単純なストアを作ります。`src/app/state/task.state.ts` というファイルを作ってください (あえて簡単にしています):
 
 ```typescript
 // src/app/state/task.state.ts
@@ -104,11 +106,11 @@ export class TasksState {
 }
 ```
 
-We have the store implemented, we need to take a couple of steps before connecting it to our app.
+ストアを実装しましたが、アプリにつなげる前にいくつかのステップを踏む必要があります。
 
-We're going to update our `TaskListComponent` to read data from the store, but first we're going to move our presentational version to a new file called `pure-task-list.component.ts`, (renaming the `selector` to `app-pure-task-list`) which will be later wrapped in a container.
+ストアからデータを読むように`TaskListComponent`を更新しますが、まず表示用のバージョンを`pure-task-list.component.ts`という新しいファイルへ移動し(`selector`は`app-pure-task-list`に変更します)、コンテナーでラップします。
 
-In `src/app/components/pure-task-list.component.ts`:
+以下、`src/app/components/pure-task-list.component.ts`の内容です:
 
 ```typescript
 //src/app/components/pure-task-list.component.ts
@@ -125,7 +127,7 @@ export class PureTaskListComponent implements OnInit {
 }
 ```
 
-Afterwards we change `src/app/components/task-list.component.ts` to the following:
+その後、`src/app/components/task-list.component.ts`を以下のように変更します:
 
 ```typescript
 // src/app/components/task-list.component.ts
@@ -162,9 +164,9 @@ export class TaskListComponent implements OnInit {
 }
 ```
 
-Now we're going to create a angular module to bridge the components and the store.
+コンポーネントとストアの橋渡しをするAngularモジュールを作ります。
 
-Create a new file called `task.module.ts` inside the `components` folder and add the following:
+`components`フォルダ内に`task.module.ts`というファイルを作成し、以下の内容を追加します:
 
 ```typescript
 //src/app/components/task.module.ts
@@ -187,7 +189,7 @@ import { PureTaskListComponent } from './pure-task-list.component';
 export class TaskModule {}
 ```
 
-All the pieces are in place, all that is needed is wire the store to the app. In our top level module (`src/app/app.module.ts`):
+全てのピースが揃ったので、後はストアをアプリケーションに繋げるだけです。トップレベルモジュール(`src/app/app.module.ts`)に以下の内容を記載します:
 
 ```typescript
 // src/app/app.module.ts
@@ -215,7 +217,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's also rename `src/app/components/task-list.stories.ts` into `src/app/components/pure-task-list.stories.ts`, and ensure our stories use the presentational version:
+表示用の`TaskList`をそのままにするのは、テストと分離が容易になるからです。ストアの存在に依存しないので、テストの観点から見ると取り扱いがより簡単になります。`src/app/components/task-list.stories.ts`を`src/app/components/pure-task-list.stories.ts`に変更し、ストーリーが表示用のバージョンを使っていることを確認しましょう:
 
 ```typescript
 // src/app/components/pure-task-list.stories.ts
@@ -303,7 +305,7 @@ export const Empty = () => ({
   />
 </video>
 
-Similarly, we need to use `PureTaskListComponent` in our Jest test:
+同様に, `PureTaskListComponent`をJestのテストで使用する必要があります:
 
 ```typescript
 // src/app/components/task-list.component.spec.ts
@@ -335,5 +337,9 @@ describe('PureTaskList component', () => {
 ```
 
 <div class="aside">
-💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
+
+さらにスナップショットテストも失敗しているはずなので、既存のスナップショットテストを <code>-u</code> フラグを付けて実行しなければなりません。
+
+Git へのコミットを忘れずに行ってください！
+
 </div>
