@@ -6,6 +6,7 @@ import IconLearnStorybook from '../../basics/IconLearnStorybook';
 const { breakpoint, color, typography } = styles;
 
 const PitchWrapper = styled.div`
+  color: ${color.darkest};
   text-align: center;
   max-width: 608px;
   margin: 0 auto;
@@ -13,25 +14,27 @@ const PitchWrapper = styled.div`
 `;
 
 const PitchTitle = styled.h1`
-  color: ${color.darkest};
+  font-size: ${typography.size.m3}px;
   font-weight: ${typography.weight.black};
-  font-size: ${typography.size.l1}px;
-  line-height: 40px;
-  margin-top: 1rem;
+  line-height: 24px;
+  margin-bottom: 0.5rem;
 
-  @media (min-width: ${breakpoint * 1.5}px) {
-    font-size: 40px;
-    line-height: 48px;
+  @media (min-width: ${breakpoint}px) {
+    font-size: ${typography.size.l2}px;
+    line-height: 1;
+    margin-bottom: 1rem;
   }
 `;
 
 const PitchDescription = styled.div`
-  color: ${color.darkest};
-  font-size: ${typography.size.m1}px;
-  line-height: 32px;
-  text-align: center;
-  margin: 12px auto 0;
-  max-width: 434px;
+  font-size: ${typography.size.s3}px;
+  line-height: 1.5;
+  color: ${color.darker};
+
+  @media (min-width: ${breakpoint}px) {
+    font-size: ${typography.size.m1}px;
+    line-height: 32px;
+  }
 `;
 
 const Pitch = () => (

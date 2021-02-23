@@ -18,21 +18,21 @@ const Content = styled.div`
   flex-wrap: wrap;
 
   @media (min-width: ${breakpoint}px) {
-    margin-left: -30px;
-    margin-right: -30px;
+    margin-left: -25px;
+    margin-right: -25px;
   }
 
   > * {
     max-width: 100%;
-    margin: 25px 0;
+    margin: 20px 0;
 
     @media (min-width: ${breakpoint}px) {
-      max-width: calc(50% - 50px);
-      margin: 25px;
+      max-width: calc(50% - 40px);
+      margin: 20px;
     }
 
     @media (min-width: ${breakpoint * 1.75}px) {
-      max-width: calc(33% - 50px);
+      max-width: calc(33% - 40px);
     }
   }
 `;
