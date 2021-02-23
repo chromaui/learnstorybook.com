@@ -1,30 +1,30 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: '単純なコンポーネントを作る'
+tocTitle: '単純なコンポーネント'
+description: '単純なコンポーネントを切り離して作りましょう'
 commit: 1a14919
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+それでは、[コンポーネント駆動開発](https://www.componentdriven.org/) (CDD) の手法にのっとって UI を作ってみましょう。コンポーネント駆動開発とは、UI を最初にコンポーネントから作り始めて、最後に画面を作り上げる「ボトムアップ」の開発プロセスです。CDD を用いれば UI を作る際に直面する複雑性を軽減することができます。
 
-## Task
+## Task (タスク)
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+![Task コンポーネントの 3 つの状態](/intro-to-storybook/task-states-learnstorybook.png)
 
-`TaskComponent` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`Task` は今回作るアプリケーションのコアとなるコンポーネントです。タスクはその状態によって見た目が微妙に異なります。タスクにはチェックされた (または未チェックの) チェックボックスと、タスクについての説明と、リストの上部に固定したり解除したりするためのピン留めボタンがあります。これをまとめると、以下のプロパティが必要となります:
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+- `title` – タスクを説明する文字列
+- `state` - タスクがどのリストに存在するか。またチェックされているかどうか。
 
-As we start to build `TaskComponent`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
+`TaskComponent` の作成を始めるにあたり、事前に上記のそれぞれのタスクに応じたテスト用の状態を作成します。次いで、Storybook で、モックデータを使用し、コンポーネントを切り離して作ります。コンポーネントのそれぞれの状態について「ビジュアルテスト」を行い、見た目を確認しながら進めます。
 
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
+[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (test-driven development;TDD) に似ているこのプロセスを、“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”(英語)と呼んでいます。
 
-## Get setup
+## セットアップする
 
-First, let’s create the task component and its accompanying story file: `src/app/components/task.component.ts` and `src/app/components/task.stories.ts`.
+まずは、タスクのコンポーネントと、対応するストーリーファイル `src/app/components/task.component.ts` と `src/app/components/task.stories.ts` を作成しましょう。
 
-We’ll begin with the baseline implementation of the `TaskComponent`, simply taking in the inputs we know we’ll need and the two actions you can take on a task (to move it between lists):
+`TaskComponent` の基本的な実装から始めます。上述したプロパティと、タスクに対して実行できる 2 つの (リスト間を移動させる) アクションを引数として取ります:
 
 ```typescript
 // src/app/components/task.component.ts
@@ -54,9 +54,9 @@ export class TaskComponent implements OnInit {
 }
 ```
 
-Above, we render straightforward markup for `TaskComponent` based on the existing HTML structure of the Todos app.
+上のコードは Todo アプリケーションの HTML を基にした `TaskComponent` の簡単なマークアップです。
 
-Below we build out Task’s three test states in the story file:
+下のコードは `TaskComponent` に対する 3 つのテスト用の状態をストーリーファイルに書いています:
 
 ```typescript
 // src/app/components/task.stories.ts
@@ -112,36 +112,43 @@ export const Archived = () => ({
 });
 ```
 
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+Storybook には基本となる 2 つの階層があります。コンポーネントとその子供となるストーリーです。各ストーリーはコンポーネントに連なるものだと考えてください。コンポーネントには必要なだけストーリーを記述することができます。
 
-- **Component**
-  - Story
-  - Story
-  - Story
+- **コンポーネント**
+  - ストーリー
+  - ストーリー
+  - ストーリー
 
-To tell Storybook about the component we are documenting, we create a `default` export that contains:
+Storybook にコンポーネントを認識させるには、以下の内容を含む `default export` を記述します:
 
-- `component` -- the component itself,
-- `title` -- how to refer to the component in the sidebar of the Storybook app,
-- `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+- `component` -- コンポーネント自体
+- `title` -- Storybook のサイドバーにあるコンポーネントを参照する方法
+- `excludeStories` -- ストーリーファイルのエクスポートのうち、Storybook にストーリーとして表示させたくないもの
+- `argTypes` -- 各ストーリーへの引数 ([args](https://storybook.js.org/docs/angular/api/argtypes)) の挙動を指定する
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://angular.io/guide/component-interaction).
+ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、[状態を持たない関数コンポーネント](https://angular.jp/guide/component-interaction)のようなものです。
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+コンポーネントの全ストーリーに同じアクションを渡す必要があるので、`actionsData` という1つの変数にまとめ、各ストーリーの定義に渡すと便利です。
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and use pass them into our story definition each time.
-
-Another nice thing about bundling the `actionsData` that a component needs, is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
-
-When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+コンポーネントに必要な`actionsData`を作るもう一つの利点は、後ほど見るように、`export`してこのコンポーネントを再利用するコンポーネントのストーリーで使える点です。
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+
+`Template.bind({})` は関数のコピーを作成する [JavaScript の標準的な](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
+
 </div>
 
-## Config
+Arguments (略して [`args`](https://storybook.js.org/docs/angular/writing-stories/args)) を使用することで、コントロールアドオンを通して、Storybook を再起動することなく、コンポーネントを動的に編集することができるようになります。[`args`](https://storybook.js.org/docs/angular/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
 
-We also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your Storybook configuration file (`.storybook/main.js`) to the following:
+ストーリーを作る際には素となるタスク(`taskData`)を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。さらに、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となります。
+
+<div class="aside">
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>アクションアドオン</b></a>は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。<code>action()</code> はそのスタブとして使用できます。
+</div>
+
+## 設定する
+
+作成したストーリーを認識させるため、若干の変更を加える必要があります。設定ファイル (`.storybook/main.js`) を以下のように変更してください:
 
 ```javascript
 // .storybook/main.js
@@ -151,7 +158,11 @@ module.exports = {
 };
 ```
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three states of TaskComponent:
+[`parameters`](https://storybook.js.org/docs/angular/writing-stories/parameters) は Storybook の機能やアドオンの振る舞いをコントロールするのに使用します。この例では、アクション (呼び出しのモック) がどのように扱われるかを設定しています。
+
+アクションアドオンを使用することで、クリックした時などに Storybook の **actions** パネルにその情報を表示するコールバックを作成できます。これにより、ピン留めボタンを作成するとき、ボタンがクリックされたことがテスト用の UI 上で確認できます。
+
+Storybook のサーバーを再起動すると、タスクの 3 つの状態のテストケースが生成されているはずです:
 
 <video autoPlay muted playsInline controls >
   <source
@@ -160,27 +171,11 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-## Specify data requirements
+## 状態を作り出す
 
-It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early. Here, we'll use Typescript and create a interface for the `Task` model.
+ここまでで、Storybook のセットアップが完了し、スタイルをインポートし、テストケースを作りました。早速、デザインに合わせてコンポーネントの HTML を実装していきましょう。
 
-Create a new folder called `models` inside `app` folder and inside a new file called `task.model.ts` with the following content:
-
-```typescript
-// src/app/models/task.model.ts
-
-export interface Task {
-  id: string;
-  title: string;
-  state: string;
-}
-```
-
-## Build out the states
-
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
-
-Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
+今のところコンポーネントは簡素な状態です。まずはデザインを実現するために最低限必要なコードを書いてみましょう:
 
 ```typescript
 // src/app/components/task.component.ts
@@ -234,7 +229,7 @@ export class TaskComponent implements OnInit {
 }
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+追加したマークアップとインポートした CSS により以下のような UI ができます:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -243,31 +238,50 @@ The additional markup from above combined with the CSS we imported earlier yield
   />
 </video>
 
-## Component built!
+## データ要件を明示する
 
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
+コンポーネントが想定するデータ構造を明示的に示すのがベストプラクティスです。これにより想定するデータ構造がコードからわかるだけでなく、早期に問題を見つけるのに役立ちます。
 
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
+ここではTypescriptを使い、`Task`モデルのインターフェースを作ります。
 
-## Automated Testing
+`app`フォルダの中に`models`フォルダを作り、`task.model.ts`というファイルを以下の内容でせくせいします。
 
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+```typescript
+// src/app/models/task.model.ts
 
-### Snapshot testing
+export interface Task {
+  id: string;
+  title: string;
+  state: string;
+}
+```
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+## 完成
+
+これでサーバーを起動したり、フロントエンドアプリケーションを起動したりすることなく、コンポーネントを作りあげることができました。次の章では、Taskbox の残りのコンポーネントを、同じように少しずつ作成していきます。
+
+見た通り、コンポーネントだけを切り離して作り始めるのは早くて簡単です。あらゆる状態を掘り下げてテストできるので、高品質で、バグが少なく、洗練された UI を作ることができることでしょう。
+
+## 自動化されたテスト
+
+Storybook はアプリケーションの UI を作成する際に目視でテストする素晴らしい方法を与えてくれます。ストーリーがあれば、タスクの外観が壊れていないことを確認しながらアプリケーションを開発できます。しかしこれは完全に手動の作業なので、警告やエラーがなく表示されていることを、それぞれの状態を確認しながら誰かがクリックしていかなければなりません。なんとか自動化できないものでしょうか。
+
+### スナップショットテスト
+
+スナップショットテストとは、特定の入力に対してコンポーネントの「既知の良好な」出力を記録し、将来、出力が変化したコンポーネントを特定できるようにするテスト手法です。
+これで補完することにより、コンポーネントの新しいバージョンでの変化を Storybook で素早く確認できるようになります。
 
 <div class="aside">
-💡 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+コンポーネントに渡すデータは変化しないものを使用してください。そうすれば毎回スナップショットテストの結果が同じになります。日付や、ランダムに生成された値に気を付けましょう。
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
+[Storyshots アドオン](https://github.com/storybooks/storybook/tree/master/addons/storyshots)を使用することで、それぞれのストーリーにスナップショットテストが作成されます。開発時の依存関係を以下のコマンドで追加してください:
 
 ```bash
 npm install -D @storybook/addon-storyshots
 ```
 
-Then create the `src/storybook.test.js` file with the following in it:
+次に、`src/storybook.test.js` ファイルを以下の内容で作成します:
 
 ```typescript
 // src/storybook.test.js
@@ -276,7 +290,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-Finally we need to make a small change in the `jest` key in our `package.json`:
+最後に、`package.json`の`jest`キーに小さな変更を加える必要があります。
 
 ```json
 {
@@ -290,14 +304,14 @@ Finally we need to make a small change in the `jest` key in our `package.json`:
 }
 ```
 
-Once the above is done, we can run `npm run jest` and see the following output:
+以上の修正をしてから`npm run jest` を実行すると、以下のような出力が得られます。
 
-![Task test runner](/intro-to-storybook/task-testrunner.png)
+![Task テストランナー](/intro-to-storybook/task-testrunner.png)
 
-We now have a snapshot test for each of our `TaskComponent` stories. If we change the implementation of `TaskComponent`, we’ll be prompted to verify the changes.
+これで `Task` の各ストーリーに対するスナップショットテストが出来ました。`Task` の実装を変更するたびに、変更内容の確認を求められるようになります。
 
-Additionally, `jest` will also run the test for `app.component.ts`.
+上記のテストに加えて、`jest`は`app.component.ts`に対してのテストも実行します。
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+Git へのコミットを忘れずに行ってください！
 </div>
