@@ -2,6 +2,7 @@
 title: 'Track state'
 tocTitle: 'Track state'
 description: 'Manage addon state across the Manager and Preview'
+commit: 'ffd9ccb'
 ---
 
 React has built in [hooks](https://reactjs.org/docs/hooks-state.html#gatsby-focus-wrapper), such as `useState`, to manage state. Usually, this would be enough. However, in this case things are slightly more complicated. Let’s take a moment to talk about how Storybook is architected.

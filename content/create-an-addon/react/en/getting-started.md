@@ -1,6 +1,7 @@
 ---
 title: 'Setup'
 description: 'Get started with the Addon Kit'
+commit: 'd3b6651'
 ---
 
 <!-- - Getting started (with addon kit)
@@ -24,6 +25,8 @@ Next, clone your repository and install dependencies.
 
 ```bash
 npm install
+# For npm 7 use this instead
+npm i --legacy-peer-deps
 ```
 
 Finally, start the development mode. This starts up Storybook and runs babel in watch mode.

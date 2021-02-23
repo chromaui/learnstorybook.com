@@ -2,6 +2,7 @@
 title: 'Add to the addon catalog'
 tocTitle: 'Add to catalog'
 description: 'Share your Storybook addon with the community'
+commit: '927e729'
 ---
 
 The [Addon Catalog](https://storybook.js.org/addons) is the home of all Storybook addons. It’s where we showcase your addons and how developers discover new ones. Let's prepare your addon for release, package it up, and publish it to the catalog.

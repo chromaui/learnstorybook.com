@@ -2,6 +2,7 @@
 title: 'Decorators'
 tocTitle: 'Decorators'
 description: 'Interacting with the stories'
+commit: '0e7246a'
 ---
 
 Almost there. So far, we created a tool, added it to the toolbar and it even tracks state. We now need to respond to this state and show/hide the outlines.
@@ -76,7 +77,7 @@ export const withGlobals = (StoryFn, context) => {
   useEffect(() => {
     const selectorId = isInDocs ? `addon-outline-docs-${context.id}` : `addon-outline`;
 
-    if (!isActive) {
+    if (!outlineActive) {
       clearStyles(selectorId);
       return;
     }
@@ -86,7 +87,9 @@ export const withGlobals = (StoryFn, context) => {
     return () => {
       clearStyles(selectorId);
     };
-  }, [isActive, outlineStyles, context.id]);
+  }, [outlineActive, outlineStyles, context.id]);
+
+  return StoryFn();
 };
 ```
 

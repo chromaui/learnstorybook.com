@@ -354,7 +354,7 @@ const Footer = ({ ...props }) => (
                 Follow along with code samples.
               </ResourceDesc>
               <ResourceActions>
-                <Link withArrow isGatsby LinkWrapper={LinkWrapper} to="/">
+                <Link withArrow isGatsby LinkWrapper={LinkWrapper} href="/">
                   Learn Storybook now
                 </Link>
               </ResourceActions>

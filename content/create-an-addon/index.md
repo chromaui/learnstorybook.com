@@ -5,7 +5,7 @@ heroDescription: 'Addons give you superpowers to extend Storybook, automate work
 overview: 'While the Storybook community offers over 250 addons, you can also build one tailored to your specific needs. This guide introduces you to the Addon Kit and APIs, along the way you will build an addon from scratch.'
 order: 4
 themeColor: '#FF4785'
-codeGithubUrl: 'https://github.com/chromaui/learnstorybook-code'
+codeGithubUrl: 'https://github.com/chromaui/learnstorybook-addon-code'
 heroAnimationName: null
 toc:
   [
@@ -30,13 +30,14 @@ authors:
     },
   ]
 contributors: []
+twitterShareText: "I’m learning how to build a Storybook addon! They're great for customizing Storybook to fit your UI development workflow."
 ---
 
 <h2>What you'll build</h2>
 
 <div class="badge-box">
   <div class="badge">
-    <img src="/frameworks/logo-react.svg"> <a href="/create-an-addon/react/en/introduction/"> React</a>
+    <img src="/frameworks/logo-react.svg"> React
   </div>
 </div>
 

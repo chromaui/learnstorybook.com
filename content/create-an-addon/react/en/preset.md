@@ -2,6 +2,7 @@
 title: 'Preset'
 tocTitle: 'Preset'
 description: 'Enable Outline for every story'
+commit: 'bdb7aaa'
 ---
 
 Now that the decorator is out of the way, let's use a preset to wrap every story with it.
@@ -23,6 +24,6 @@ export const decorators = [withGlobals];
 
 <div class="aside"><b>Note:</b> the <code>withRoundTrip</code> decorator from the Addon Kit is an example of two-way communication between the story and an addon. However, we don't require that for our addon and can delete it.</div>
 
-Success! You now have a fully functional addon!
+Success! You now have a fully functional addon in your local Storybook. In the final chapter, learn how to list your addon in the catalog. That way you can share with your team and the Storybook community.
 
 ![toggling the tool toggles the outlines](../../images/toggle.gif)

@@ -1,6 +1,7 @@
 ---
 title: 'Register addon'
 description: 'Build the addon UI and register it in Storybook'
+commit: '5db9bc9'
 ---
 
 Let's start in the `src/Tool.js` file. This is where the UI code for the Outline tool will live. Notice the [@storybook/components](https://www.npmjs.com/package/@storybook/components) import. This is Storybooks own component library, built with React and Emotion. It's used to build, well, Storybook itself ([demo](https://next--storybookjs.netlify.app/official-storybook/)). We can also use it to build our addon.
