@@ -1,12 +1,12 @@
 # See https://www.netlify.com/docs/redirects/
 
 # The old framework intro guide paths were not namespaced
-/react/* /intro-to-storybook/react/:splat 301
-/angular/* /intro-to-storybook/angular/:splat 301
-/vue/* /intro-to-storybook/vue/:splat 301
-/svelte/* /intro-to-storybook/svelte/:splat 301
-/react-native/* /intro-to-storybook/react-native/:splat 301
-/ember/* /intro-to-storybook/ember/:splat 301
+/react/* /tutorials/intro-to-storybook/react/:splat 301
+/angular/* /tutorials/intro-to-storybook/angular/:splat 301
+/vue/* /tutorials/intro-to-storybook/vue/:splat 301
+/svelte/* /tutorials/intro-to-storybook/svelte/:splat 301
+/react-native/* /tutorials/intro-to-storybook/react-native/:splat 301
+/ember/* /tutorials/intro-to-storybook/ember/:splat 301
 
 # Before frameworks and translations were added, chapters sat at the root
 /get-started /react/en/get-started 301
@@ -18,3 +18,10 @@
 /addons /react/en/addons 301
 /deploy /react/en/deploy 301
 /contribute /react/en/contribute 301
+
+# moving all guides to under /tutorials
+/intro-to-storybook/* /tutorials/intro-to-storybook/:splat 301
+/design-systems-for-developers/* /tutorials/design-systems-for-developers/:splat 301
+/visual-testing-handbook/* /tutorials/visual-testing-handbook/:splat 301
+
+/ /tutorials/

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
-import { graphql } from 'gatsby';
+import { graphql, withPrefix } from 'gatsby';
 import { Highlight, Link, styles } from '@storybook/design-system';
 import ChapterLinks from './ChapterLinks';
 import GithubLink from './GithubLink';
@@ -89,17 +89,17 @@ const Chapter = ({
 
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:url" content={permalink} />
+        <meta property="og:url" content={withPrefix(permalink)} />
         <meta
           property="og:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+          content={withPrefix(`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`)}
         />
 
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta
           name="twitter:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+          content={withPrefix(`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`)}
         />
       </Helmet>
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { Button, styles } from '@storybook/design-system';
+import { Button, styles, Icon } from '@storybook/design-system';
 import GatsbyLink from '../../basics/GatsbyLink';
 import Stat from '../../basics/Stat';
 import * as animations from '../../../styles/animations';
@@ -60,8 +60,8 @@ const PitchTitle = styled.h1`
   line-height: 44px;
 
   @media (min-width: ${breakpoint * 1.5}px) {
-    font-size: ${typography.size.l2}px;
-    line-height: 52px;
+    font-size: 36px;
+    line-height: 48px;
   }
 `;
 
@@ -71,9 +71,7 @@ const PitchDescription = styled.div`
   margin-top: 0.5rem;
 
   @media (min-width: ${breakpoint * 1.5}px) {
-    font-size: ${typography.size.m1}px;
-    line-height: 36px;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 `;
 
@@ -111,7 +109,6 @@ const LanguageLinkStyles = `
       white-space: pre;
     }
   }
- 
 `;
 const LanguagesLink = styled(GatsbyLink)`
   ${LanguageLinkStyles}
@@ -161,6 +158,38 @@ const GuideImage = styled.img`
     `}
 `;
 
+const BreadcrumbLink = styled(GatsbyLink)`
+  font-size: ${typography.size.s3}px;
+  line-height: ${typography.size.m1}px;
+  font-weight: ${typography.weight.bold};
+  margin-top: 16px;
+  margin-bottom: 20px;
+  color: ${color.lightest};
+  margin-left: -22px; // optical for rebalancing for centered layout. This accounts for the arrow
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: ${color.lightest};
+  }
+
+  @media (min-width: ${breakpoint * 1.333}px) {
+    margin-top: 0;
+    margin-left: 0;
+  }
+`;
+
+const Breadcrumb = ({ children, ...props }) => (
+  <BreadcrumbLink withIcon {...props}>
+    <Icon icon="arrowleft" />
+    {children}
+  </BreadcrumbLink>
+);
+
+Breadcrumb.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
 const Hero = ({
   heroAnimationName,
   contributorCount,
@@ -176,6 +205,8 @@ const Hero = ({
   <HeroWrapper themeColor={themeColor} {...rest}>
     <HeroContent>
       <Pitch>
+        <Breadcrumb to="/">Tutorials</Breadcrumb>
+
         <PitchTitle>{title}</PitchTitle>
 
         {description && <PitchDescription>{description}</PitchDescription>}
@@ -201,7 +232,6 @@ const Hero = ({
           {chapterCount && <Stat value={chapterCount} label="Chapters" />}
         </StatWrapper>
       </Pitch>
-
       <Figure>
         {imagePath && (
           <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
