@@ -114,17 +114,17 @@ const Guide = ({ data, pageContext }) => {
 
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:url" content={withPrefix(permalink)} />
+        <meta property="og:url" content={permalink} />
         <meta
           property="og:image"
-          content={withPrefix(`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`)}
+          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
         />
 
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
         <meta
           name="twitter:image"
-          content={withPrefix(`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`)}
+          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
         />
       </Helmet>
 
