@@ -41,7 +41,7 @@ const Pitch = () => (
     <PitchTitle>Learn to develop UIs with components and design systems</PitchTitle>
 
     <PitchDescription>
-      Free in-depth guides for professional frontend developers. Made by Storybook maintainers.
+      In-depth guides for professional frontend developers. Made by Storybook maintainers.
     </PitchDescription>
   </PitchWrapper>
 );
