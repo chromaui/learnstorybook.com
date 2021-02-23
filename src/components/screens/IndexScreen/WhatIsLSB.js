@@ -52,12 +52,10 @@ const WhatIsLSB = () => (
   <WhatIsLSBWrapper>
     <Content>
       <div>
-        <BannerHeading>What is Learn Storybook?</BannerHeading>
+        <BannerHeading>What&rsquo;s inside</BannerHeading>
         <BannerText>
-          Learn Storybook teaches tried-and-true development techniques for UI components. The best
-          practices here are sourced from professional teams, Storybook maintainers, and the awesome
-          community. We value your time. Our guides cover essential learnings and timesaving tactics
-          that make you more productive at Component-Driven Development immediately. No filler.
+          You get tried-and-true development techniques for UI components. Our research is based on
+          interviews with professional teams, Storybook maintainers, and the larger community.
         </BannerText>
       </div>
 
