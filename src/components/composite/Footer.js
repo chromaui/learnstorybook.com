@@ -229,13 +229,10 @@ const Services = styled.div`
     height: 22px;
     width: auto;
     display: inline-block;
-    filter: grayscale(100%);
     transition: all 150ms ease-out;
-
-    &:hover {
-      filter: grayscale(0%);
-    }
   }
+
+  
 
   ${CircleCI} {
     /* Turn down the pure black of these logos */
@@ -326,7 +323,7 @@ const Footer = ({ ...props }) => (
           <Resource>
             <img src={withPrefix('/repo.svg')} alt="Docs" />
             <Meta>
-              <ResourceTitle>Storybook documentation</ResourceTitle>
+              <ResourceTitle>Documentation</ResourceTitle>
               <ResourceDesc>
                 Add Storybook to your project in less than a minute to build components faster and
                 easier.
@@ -351,10 +348,10 @@ const Footer = ({ ...props }) => (
           <Resource>
             <img src={withPrefix('/direction.svg')} alt="Tutorial" />
             <Meta>
-              <ResourceTitle>Storybook tutorial</ResourceTitle>
+              <ResourceTitle>Tutorials</ResourceTitle>
               <ResourceDesc>
-                Learn Storybook with a 10-chapter tutorial that teaches Storybook best practices as
-                you build a UI from scratch.
+                Learn Storybook with in-depth tutorials that teaches Storybook best practices.
+                Follow along with code samples.
               </ResourceDesc>
               <ResourceActions>
                 <Link withArrow isGatsby LinkWrapper={LinkWrapper} to="/">
@@ -419,13 +416,7 @@ const Footer = ({ ...props }) => (
     </HrWrapper>
     <Services>
       <Service>
-        <Text>Hosting by</Text>
-        <a href="https://netlify.com">
-          <Netlify src={withPrefix('/logo-netlify.svg')} alt="Netlify" />
-        </a>
-      </Service>
-      <Service>
-        <Text>Visual testing by</Text>
+        <Text>Maintained by</Text>
         <a href="https://www.chromatic.com/">
           <Chromatic src={withPrefix('/logo-chromatic.svg')} alt="Chromatic" />
         </a>
@@ -434,6 +425,12 @@ const Footer = ({ ...props }) => (
         <Text>Continuous integration by</Text>
         <a href="https://circleci.com/">
           <CircleCI src={withPrefix('/logo-circleci.svg')} alt="CircleCI" />
+        </a>
+      </Service>
+      <Service>
+        <Text>Hosting by</Text>
+        <a href="https://netlify.com">
+          <Netlify src={withPrefix('/logo-netlify.svg')} alt="Netlify" />
         </a>
       </Service>
     </Services>
