@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { styles } from '@storybook/design-system';
-import { darken, rgba } from 'polished';
+import { darken } from 'polished';
 
 require(`prismjs/components/prism-diff`);
 

@@ -16,12 +16,12 @@ const PitchTitle = styled.h1`
   color: ${color.darkest};
   font-weight: ${typography.weight.black};
   font-size: ${typography.size.l1}px;
-  line-height: 38px;
-  margin-top: 18px;
+  line-height: 44px;
+  margin-top: 1rem;
 
   @media (min-width: ${breakpoint * 1.5}px) {
     font-size: 36px;
-    line-height: 44px;
+    line-height: 48px;
   }
 `;
 

@@ -60,8 +60,8 @@ const PitchTitle = styled.h1`
   line-height: 44px;
 
   @media (min-width: ${breakpoint * 1.5}px) {
-    font-size: ${typography.size.l2}px;
-    line-height: 52px;
+    font-size: 36px;
+    line-height: 48px;
   }
 `;
 
@@ -71,9 +71,7 @@ const PitchDescription = styled.div`
   margin-top: 0.5rem;
 
   @media (min-width: ${breakpoint * 1.5}px) {
-    font-size: ${typography.size.m1}px;
-    line-height: 36px;
-    margin-top: 1rem;
+    margin-top: 0.75rem;
   }
 `;
 
@@ -177,6 +175,7 @@ const BreadcrumbLink = styled(GatsbyLink)`
 
   @media (min-width: ${breakpoint * 1.333}px) {
     margin-top: 0;
+    margin-left: 0;
   }
 `;
 
