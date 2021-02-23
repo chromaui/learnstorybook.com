@@ -130,7 +130,7 @@ const logos = [
 
 const SocialValidation = () => (
   <SocialValidationWrapper>
-    <Heading>+100,000 readers so far</Heading>
+    <Heading>200,000+ readers so far</Heading>
 
     <Logos>
       {logos.map(logo => (
@@ -170,7 +170,7 @@ const SocialValidation = () => (
         <UserWrapper
           src="https://avatars2.githubusercontent.com/u/9113740"
           name="Lee Robinson"
-          detail="Engineer at Hy-Vee"
+          detail="Engineer at Vercel"
         />
       </Testimonial>
     </Testimonials>
