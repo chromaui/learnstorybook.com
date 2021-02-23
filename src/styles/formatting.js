@@ -52,7 +52,7 @@ export const guideFormatting = css`
       width: 16px;
       margin-right: 6px;
     }
-    a {
+    & a {
       color: ${styles.color.darker};
       transition: all 250ms ease-out;
       display: inline-block;
@@ -69,13 +69,6 @@ export const guideFormatting = css`
       opacity: 0;
       transition: opacity 0.3s ease-in-out;
       box-shadow: rgba(0, 0, 0, 0.08) 0 3px 10px 0;
-    }
-
-    &:hover {
-      border-color: ${rgba(styles.color.secondary, 0.5)};
-      &:after {
-        opacity: 1;
-      }
     }
   }
 `;
