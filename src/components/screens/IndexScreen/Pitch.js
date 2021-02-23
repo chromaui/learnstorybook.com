@@ -8,12 +8,14 @@ const { breakpoint, color, typography } = styles;
 const PitchWrapper = styled.div`
   color: ${color.darkest};
   text-align: center;
-  max-width: 608px;
+  max-width: 600px;
   margin: 0 auto;
-  padding: 145px 20px 48px;
+  padding: 9rem 20px 3rem;
 `;
 
 const PitchTitle = styled.h1`
+  margin-top: 1rem;
+
   font-size: ${typography.size.m3}px;
   font-weight: ${typography.weight.black};
   line-height: 24px;
