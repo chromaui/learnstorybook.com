@@ -16,11 +16,11 @@ const PitchTitle = styled.h1`
   color: ${color.darkest};
   font-weight: ${typography.weight.black};
   font-size: ${typography.size.l1}px;
-  line-height: 44px;
+  line-height: 40px;
   margin-top: 1rem;
 
   @media (min-width: ${breakpoint * 1.5}px) {
-    font-size: 36px;
+    font-size: 40px;
     line-height: 48px;
   }
 `;
@@ -38,11 +38,9 @@ const Pitch = () => (
   <PitchWrapper>
     <IconLearnStorybook />
 
-    <PitchTitle>Learn to develop UIs with components and design systems</PitchTitle>
+    <PitchTitle>Tutorials</PitchTitle>
 
-    <PitchDescription>
-      In-depth guides for professional frontend developers. Made by Storybook maintainers.
-    </PitchDescription>
+    <PitchDescription>Learn to develop UIs with components and design systems.</PitchDescription>
   </PitchWrapper>
 );
 
