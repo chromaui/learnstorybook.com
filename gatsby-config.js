@@ -11,7 +11,7 @@ module.exports = {
   siteMetadata: {
     title: 'Storybook Tutorials',
     description:
-      'Learn Storybook teaches frontend developers how to create UIs with components and design systems. Our free in-depth guides are created by Storybook maintainers and peer-reviewed by the open source community.',
+      'Learn how to develop UIs with components and design systems. Our in-depth frontend guides are created by Storybook maintainers and peer-reviewed by the open source community.',
     permalink: `${permalinkBase}/tutorials`,
     siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
