@@ -59,7 +59,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           <link
             rel="shortcut icon"
             type="image/png"
-            href="/icon-storybook.png"
+            href={`${permalink}/icon-storybook.png`}
             sizes="16x16 32x32 64x64"
           />
           <title>{title}</title>
