@@ -159,10 +159,10 @@ Now we've added the story, we can reproduce this edge-case with ease whenever we
 
 ![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-If we are using [visual regression testing](/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+If we are using [visual regression testing](/intro-to-storybook/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
 
 ### Merge Changes
 
 Don't forget to merge your changes with git!
 
-<div class="aside"><p>As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/intro-to-storybook/react/en/creating-addons">create addons bonus chapter</a> we'll teach you that, by creating a addon that will help you supercharge your development workflow.</p></div>
+<div class="aside"><p>As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating a addon that will help you supercharge your development workflow.</p></div>

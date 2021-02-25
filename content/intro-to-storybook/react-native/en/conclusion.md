@@ -29,6 +29,6 @@ Want to dive deeper? Here are helpful resources.
 
 The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
-Want more tutorials and articles like this? Sign up to the Chromatic mailing list.
+Want more tutorials and articles like this? Sign up to the Storybook mailing list.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

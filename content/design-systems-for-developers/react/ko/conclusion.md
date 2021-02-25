@@ -10,7 +10,7 @@ description: '성장하는 디자인 시스템으로 시간 절약과 생산성 
 
 저희와 함께 배워나가 주셔서 감사합니다. 유익한 글들 및 이와 같은 가이드들이 발행될 때마다 알림을 받을 수 있도록 크로마틱 뉴스레터를 구독해 주세요.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
 
 ## 이 튜토리얼을 위한 예시 코드
 

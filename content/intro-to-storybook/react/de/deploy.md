@@ -9,7 +9,7 @@ Bisher haben wir Storybook in diesem Tutorial immer auf unserer Entwickler-Masch
 <div class="aside">
 <strong>Hast du bereits Tests mit Chromatic eingerichtet?</strong>
 <br/>
-🎉 Deine Stories sind bereits deployed! Chromatic indiziert deine Stories auf sichere Weise online und verfolgt ihren Stand über Branches und Commits hinweg. Überspringe dieses Kapitel und gehe direkt zum <a href="/react/de/conclusion">Fazit</a>.
+🎉 Deine Stories sind bereits deployed! Chromatic indiziert deine Stories auf sichere Weise online und verfolgt ihren Stand über Branches und Commits hinweg. Überspringe dieses Kapitel und gehe direkt zum <a href="/intro-to-storybook/react/de/conclusion">Fazit</a>.
 </div>
 
 ## Eine statische App exportieren

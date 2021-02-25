@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
+import { withPrefix } from 'gatsby';
 
 const { background, breakpoint, color, pageMargins, typography } = styles;
 
@@ -51,18 +52,16 @@ const WhatIsLSB = () => (
   <WhatIsLSBWrapper>
     <Content>
       <div>
-        <BannerHeading>What is Learn Storybook?</BannerHeading>
+        <BannerHeading>What&rsquo;s inside</BannerHeading>
         <BannerText>
-          Learn Storybook teaches tried-and-true development techniques for UI components. The best
-          practices here are sourced from professional teams, Storybook maintainers, and the awesome
-          community. We value your time. Our guides cover essential learnings and timesaving tactics
-          that make you more productive at Component-Driven Development immediately. No filler.
+          You get tried-and-true development techniques for UI components. Our research is based on
+          interviews with professional teams, Storybook maintainers, and the larger community.
         </BannerText>
       </div>
 
       <video autoPlay muted playsInline loop>
         <source
-          src="/frontpage/learnstorybook-componentdrivendevelopment-optimized.mp4"
+          src={withPrefix('/frontpage/learnstorybook-componentdrivendevelopment-optimized.mp4')}
           type="video/mp4"
         />
       </video>

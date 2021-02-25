@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
+import { withPrefix } from 'gatsby';
 import User from '../../composite/User';
 
 const { breakpoint, pageMargins, typography } = styles;
@@ -98,7 +99,6 @@ const logos = [
     src: '/brands/logo-nike.svg',
     alt: 'Nike',
   },
-
   {
     src: '/brands/logo-shopify.svg',
     alt: 'Shopify',
@@ -123,11 +123,14 @@ const logos = [
     src: '/brands/logo-hashicorp.svg',
     alt: 'Hashicorp',
   },
-];
+].map(logo => ({
+  ...logo,
+  src: withPrefix(logo.src),
+}));
 
 const SocialValidation = () => (
   <SocialValidationWrapper>
-    <Heading>+100,000 readers so far</Heading>
+    <Heading>200,000+ readers so far</Heading>
 
     <Logos>
       {logos.map(logo => (
@@ -167,7 +170,7 @@ const SocialValidation = () => (
         <UserWrapper
           src="https://avatars2.githubusercontent.com/u/9113740"
           name="Lee Robinson"
-          detail="Engineer at Hy-Vee"
+          detail="Engineer at Vercel"
         />
       </Testimonial>
     </Testimonials>

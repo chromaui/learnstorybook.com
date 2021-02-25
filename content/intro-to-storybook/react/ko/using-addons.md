@@ -91,4 +91,4 @@ LongTitle.args = {
 
 변경 사항들을 git에 merge하는 것을 잊지 마세요!
 
-<div class="aside"><p>우리가 살펴본 바와 같이 Controls는 개발자가 아닌 사람들이 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법이며 함께 살펴본 것보다 더 많은 사항은 <a href="https://storybook.js.org/docs/react/essentials/controls">공식 문서</a>를 통해 배우실 수 있습니다. 그러나 애드온을 사용하여 여러분의 작업흐름에 맞게 Storybook을 사용하는 많은 방법들이 존재합니다. <a href="/intro-to-storybook/react/ko/creating-addons">애드온 생성하기</a> 보너스 챕터에서는 개발 작업 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어보며 그러한 방법을 알려드리도록 하겠습니다.</p></div>
+<div class="aside"><p>우리가 살펴본 바와 같이 Controls는 개발자가 아닌 사람들이 컴포넌트와 story들을 접해 볼 수 있도록 하는 훌륭한 방법이며 함께 살펴본 것보다 더 많은 사항은 <a href="https://storybook.js.org/docs/react/essentials/controls">공식 문서</a>를 통해 배우실 수 있습니다. 그러나 애드온을 사용하여 여러분의 작업흐름에 맞게 Storybook을 사용하는 많은 방법들이 존재합니다. <a href="/create-an-addon/react/en/introduction/">애드온 생성하기</a> 보너스 챕터에서는 개발 작업 흐름을 강화할 수 있도록 도와주는 애드온을 함께 만들어보며 그러한 방법을 알려드리도록 하겠습니다.</p></div>

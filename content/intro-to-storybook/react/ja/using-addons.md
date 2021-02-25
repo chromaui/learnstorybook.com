@@ -92,5 +92,5 @@ LongTitle.args = {
 変更を忘れずに Git にマージしてください！
 
 <div class="aside">
-<p>開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/react/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="/intro-to-storybook/react/ja/creating-addons">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p>
+<p>開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/react/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="/create-an-addon/react/en/introduction/">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p>
 </div>
