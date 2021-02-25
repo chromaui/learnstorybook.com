@@ -14,40 +14,36 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Vuex) en alguna maqueta y sacando un campo `error` de el store (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor). Ahora crearemos `PureInboxScreen.vue` dentro de la carpeta `src/components/`:
 
 ```html
-<!--src/components/PureInboxScreen.vue-->
+<!-- src/components/PureInboxScreen.vue -->
+
 <template>
   <div>
-    <div class="page lists-show" v-if="error">
+    <div v-if="error" class="page lists-show">
       <div class="wrapper-message">
         <span class="icon-face-sad" />
         <div class="title-message">Oh no!</div>
         <div class="subtitle-message">Something went wrong</div>
       </div>
     </div>
-    <div class="page lists-show" v-else>
+
+    <div v-else class="page lists-show">
       <nav>
         <h1 class="title-page">
           <span class="title-wrapper">Taskbox</span>
         </h1>
       </nav>
-      <task-list />
+      <TaskList />
     </div>
   </div>
 </template>
 
 <script>
   import TaskList from './TaskList.vue';
-
   export default {
-    name: 'pure-inbox-screen',
+    name: 'PureInboxScreen',
+    components: { TaskList },
     props: {
-      error: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    components: {
-      TaskList,
+      error: { type: Boolean, default: false },
     },
   };
 </script>
@@ -56,11 +52,10 @@ Como nuestra aplicación es muy simple, la pantalla que construiremos es bastant
 Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInboxScreen` en `src/components/InboxScreen.vue`:
 
 ```html
-<!--src/components/InboxScreen.vue-->
+<!-- src/components/InboxScreen.vue -->
+
 <template>
-  <div>
-    <pure-inbox-screen :error="error" />
-  </div>
+  <PureInboxScreen :error="error" />
 </template>
 
 <script>
@@ -68,13 +63,9 @@ Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInbo
   import { mapState } from 'vuex';
 
   export default {
-    name: 'inbox-screen',
-    components: {
-      PureInboxScreen,
-    },
-    computed: {
-      ...mapState(['error']),
-    },
+    name: 'InboxScreen',
+    components: { PureInboxScreen },
+    computed: mapState(['error']),
   };
 </script>
 ```
@@ -82,10 +73,11 @@ Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInbo
 También cambiamos nuestro componente `App` para que incluya `InboxScreen` (en una aplicación real esto sería manejado por el enrutador pero podemos obviarlo):
 
 ```html
-<!--src/App.vue-->
+<!-- src/App.vue -->
+
 <template>
   <div id="app">
-    <inbox-screen />
+    <InboxScreen />
   </div>
 </template>
 
@@ -100,6 +92,7 @@ También cambiamos nuestro componente `App` para que incluya `InboxScreen` (en u
     },
   };
 </script>
+
 <style>
   @import './index.css';
 </style>
@@ -114,23 +107,25 @@ Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este p
 Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Entonces, cuando configuramos nuestras historias en `src/components/PureInboxScreen.stories.js`:
 
 ```javascript
-//src/components/PureInboxScreen.stories.js
+// src/components/PureInboxScreen.stories.js
+
 import PureInboxScreen from './PureInboxScreen.vue';
+
 export default {
   title: 'PureInboxScreen',
+  component: PureInboxScreen,
 };
 
-// inbox screen default state
-export const Default = () => ({
+const Template = (args, { argTypes }) => ({
   components: { PureInboxScreen },
-  template: `<pure-inbox-screen/>`,
+  props: Object.keys(argTypes),
+  template: '<PureInboxScreen v-bind="$props" />',
 });
 
-// inbox screen error state
-export const error = () => ({
-  components: { PureInboxScreen },
-  template: `<pure-inbox-screen :error="true"/>`,
-});
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = { error: true };
 ```
 
 Vemos que aunque la historia de `error` funciona bien, tenemos un problema en la historia `default`, porque la `TaskList` no tiene una store de Vuex a la que conectarse. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario).
@@ -142,7 +137,7 @@ Una forma de evitar este problema es nunca renderizar componentes contenedores e
 Sin embargo, los desarrolladores **necesitarán** inevitablemente renderizar los contenedores más abajo en la jerarquía de componentes. Si queremos renderizar la mayor parte o la totalidad de la aplicación en Storybook (¡lo hacemos!), necesitamos una solución a este problema.
 
 <div class="aside">
-Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromatic.com">Chromatic</a> junto a más de 800+ historias.
+💡 Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromatic.com">Chromatic</a> junto a más de 800+ historias.
 </div>
 
 ## Suministrando contexto con decoradores
@@ -150,40 +145,47 @@ Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legít
 La buena noticia es que es fácil suministrar una store de Vuex a la `PureInboxScreen` en una historia! Podemos crear una nueva store en nuestra historia y pasarla como contexto de la historia:
 
 ```javascript
-//src/components/PureInboxScreen.stories.js
+// src/components/PureInboxScreen.stories.js
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import PureInboxScreen from './PureInboxScreen.vue';
 import { action } from '@storybook/addon-actions';
-import { defaultTasksData } from './PureTaskList.stories';
+import * as TaskListStories from './PureTaskList.stories';
+
 Vue.use(Vuex);
+
 export const store = new Vuex.Store({
   state: {
-    tasks: defaultTasksData,
+    tasks: TaskListStories.Default.args.tasks,
   },
   actions: {
-    pinTask(_, id) {
-      action('pinTask')(id);
+    pinTask(context, id) {
+      action('pin-task')(id);
     },
-    archiveTask(_, id) {
-      action('archiveTask')(id);
+    archiveTask(context, id) {
+      action('archive-task')(id);
     },
   },
 });
+
 export default {
   title: 'PureInboxScreen',
+  component: PureInboxScreen,
   excludeStories: /.*store$/,
 };
-export const Default = () => ({
+
+const Template = (args, { argTypes }) => ({
   components: { PureInboxScreen },
-  template: `<pure-inbox-screen/>`,
+  props: Object.keys(argTypes),
+  template: '<PureInboxScreen v-bind="$props" />',
   store,
 });
-// tasklist with pinned tasks
-export const error = () => ({
-  components: { PureInboxScreen },
-  template: `<pure-inbox-screen :error="true"/>`,
-});
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = { error: true };
 ```
 
 Existen enfoques similares para proporcionar un contexto simulado para otras bibliotecas de datos, tales como [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) y algunas otras.
@@ -212,3 +214,7 @@ Empezamos desde abajo con `Task`, luego progresamos a `TaskList`, ahora estamos 
 [**El desarrollo basado en componentes**](https://www.componentdriven.org/) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
 
 Aún no hemos terminado, el trabajo no termina cuando se construye la interfaz de usuario. También tenemos que asegurarnos de que siga siendo duradero a lo largo del tiempo.
+
+<div class="aside">
+💡 ¡No olvides confirmar tus cambios con git!
+</div>

@@ -1,6 +1,8 @@
 ---
 title: 'Contribuir'
+tocTitle: 'Data'
 description: 'Ayuda a compartir Storybook con el mundo'
+commit: 'fa1c954'
 ---
 
 # Contribuir

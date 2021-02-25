@@ -25,45 +25,33 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
 
 ```html
 <!--src/components/TaskList.vue-->
+
 <template>
-  <div>
-    <div class="list-items" v-if="loading">loading</div>
-    <div class="list-items" v-if="noTasks && !this.loading">empty</div>
-    <div class="list-items" v-if="showTasks">
-      <task
-        v-for="(task, index) in tasks"
-        :key="index"
-        :task="task"
-        @archiveTask="$emit('archiveTask', $event)"
-        @pinTask="$emit('pinTask', $event)"
-      />
-    </div>
+  <div class="list-items">
+    <template v-if="loading">
+      loading
+    </template>
+    <template v-else-if="isEmpty">
+      empty
+    </template>
+    <template v-else>
+      <Task v-for="task in tasks" :key="task.id" :task="task" v-on="$listeners" />
+    </template>
   </div>
 </template>
 
 <script>
   import Task from './Task';
   export default {
-    name: 'task-list',
+    name: 'TaskList',
+    components: { Task },
     props: {
-      loading: {
-        type: Boolean,
-        default: false,
-      },
-      tasks: {
-        type: Array,
-        default: () => [],
-      },
-    },
-    components: {
-      Task,
+      tasks: { type: Array, required: true, default: () => [] },
+      loading: { type: Boolean, default: false },
     },
     computed: {
-      noTasks() {
+      isEmpty() {
         return this.tasks.length === 0;
-      },
-      showTasks() {
-        return !this.loading && !this.noTasks;
       },
     },
   };
@@ -73,75 +61,69 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
 A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
 
 ```javascript
-//src/components/TaskList.stories.js
+// src/components/TaskList.stories.js
+
 import TaskList from './TaskList';
-import { taskData, actionsData } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
-const paddedList = () => {
-  return {
-    template: '<div style="padding: 3rem;"><story/></div>',
-  };
-};
 export default {
+  component: TaskList,
   title: 'TaskList',
-  excludeStories: /.*Data$/,
-  decorators: [paddedList],
+  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+const Template = (args, { argTypes }) => ({
+  components: { TaskList },
+  props: Object.keys(argTypes),
+  // We are reusing our actions from task.stories.js
+  methods: TaskStories.actionsData,
+  template: '<TaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+});
 
-// default TaskList state
-export const Default = () => ({
-  components: { TaskList },
-  template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  props: {
-    tasks: {
-      default: () => defaultTasksData,
-    },
-  },
-  methods: actionsData,
-});
-// tasklist with pinned tasks
-export const WithPinnedTasks = () => ({
-  components: { TaskList },
-  template: `<task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  props: {
-    tasks: {
-      default: () => withPinnedTasksData,
-    },
-  },
-  methods: actionsData,
-});
-// tasklist in loading state
-export const Loading = () => ({
-  components: { TaskList },
-  template: `<task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData,
-});
-// tasklist no tasks
-export const Empty = () => ({
-  components: { TaskList },
-  template: `<task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData,
-});
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
+
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <div class="aside">
-    Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
+💡 Los <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
 </div>
 
-`taskData` provee la forma de un `Task` que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, `actionsData` define las acciones (llamadas simuladas) que espera un componente `Task`, el cual también necesita la `TaskList`.
+Al importar `TaskStories`, pudimos [componer](https://storybook.js.org/docs/vue/writing-stories/args#args-composition) los argumentos (args para abreviar) en nuestras historias con un mínimo esfuerzo. De esa forma, se conservan los datos y las acciones (callbacks simulados) que esperan ambos componentes.
 
 Ahora hay que revisar Storybook para ver las nuevas historias de `TaskList`.
 
@@ -158,62 +140,48 @@ Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de
 
 ```html
 <!--src/components/TaskList.vue-->
+
 <template>
-  <div>
-    <div v-if="loading">
-      <div class="loading-item" v-for="(n, index) in 5" :key="index">
+  <div class="list-items">
+    <template v-if="loading">
+      <div v-for="n in 6" :key="n" class="loading-item">
         <span class="glow-checkbox" />
         <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
       </div>
-    </div>
-    <div class="list-items" v-if="noTasks && !this.loading">
+    </template>
+
+    <div v-else-if="isEmpty" class="list-items">
       <div class="wrapper-message">
         <span class="icon-check" />
         <div class="title-message">You have no tasks</div>
         <div class="subtitle-message">Sit back and relax</div>
       </div>
     </div>
-    <div class="list-items" v-if="showTasks">
-      <task
-        v-for="(task, index) in tasksInOrder"
-        :key="index"
-        :task="task"
-        @archiveTask="$emit('archiveTask', $event)"
-        @pinTask="$emit('pinTask', $event)"
-      />
-    </div>
+
+    <template v-else>
+      <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
+    </template>
   </div>
 </template>
 
 <script>
   import Task from './Task';
   export default {
-    name: 'task-list',
+    name: 'TaskList',
+    components: { Task },
     props: {
-      loading: {
-        type: Boolean,
-        default: false,
-      },
-      tasks: {
-        type: Array,
-        default: () => [],
-      },
-    },
-    components: {
-      Task,
+      tasks: { type: Array, required: true, default: () => [] },
+      loading: { type: Boolean, default: false },
     },
     computed: {
-      noTasks() {
-        return this.tasks.length === 0;
-      },
-      showTasks() {
-        return !this.loading && !this.noTasks;
-      },
       tasksInOrder() {
         return [
           ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
           ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
         ];
+      },
+      isEmpty() {
+        return this.tasks.length === 0;
       },
     },
   };
@@ -245,21 +213,24 @@ Sin embargo, a veces el diablo está en los detalles. Se necesita un framework d
 
 En nuestro caso, queremos que nuestra `TaskList` muestre cualquier tarea anclada **antes de** las tareas no ancladas que sean pasadas en la prop `tasks`. Aunque tenemos una historia (`WithPinnedTasks`) para probar este escenario exacto; puede ser ambiguo para un revisor humano que si el componente **no** ordena las tareas de esta manera, es un error. Ciertamente no gritará **"¡Mal!"** para el ojo casual.
 
-Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes del resultado.
+Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes del resultado. Lo bueno del formato de la historia es que simplemente podemos importar la historia en nuestras pruebas y reproducirla allí.
 
-Crea un archivo de prueba llamado `src/components/TaskList.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
+Crea un archivo de prueba llamado `tests/unit/TaskList.spec.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
 ```javascript
-//tests/unit/TaskList.spec.js
+// tests/unit/TaskList.spec.js
 
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
-import { withPinnedTasksData } from '../../src/components/TaskList.stories';
+//👇 Our story imported here
+import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
+  // render Tasklist
   const Constructor = Vue.extend(TaskList);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasksData },
+    //👇 Story's args used with our test
+    propsData: WithPinnedTasks.args,
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
@@ -273,3 +244,7 @@ it('renders pinned tasks at the start of the list', () => {
 Nota que hemos sido capaces de reutilizar la lista de tareas `withPinnedTasksData` tanto en la prueba de la historia como en el test unitario; de esta manera podemos continuar aprovechando un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de más y más maneras.
 
 Nota también que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de `Task` cambie --quizás usando un nombre de clase diferente--la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso usando pruebas unitarias para la UI. No son fáciles de mantener. En su lugar, confía en las pruebas visuales, de instantáneas y de regresión visual (mira el [capitulo sobre las pruebas](/vue/es/test/)) siempre que te sea posible.
+
+<div class="aside">
+💡 ¡No olvides confirmar tus cambios con git!
+</div>

@@ -25,6 +25,7 @@ En un archivo llamado `src/store.js`, se implementará un store Vuex estándar q
 
 ```javascript
 // src/store.js
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -61,7 +62,8 @@ export default new Vuex.Store({
 Para poder conectar nuestra aplicación al store recién creado y proporcionar datos a la jerarquía de componentes con bastante facilidad, el componente superior (`src/App.vue`) se cambiará a:
 
 ```html
-<!--src/App.vue-->
+<!--src/App.vue -->
+
 <template>
   <div id="app">
     <task-list />
@@ -85,31 +87,33 @@ Para poder conectar nuestra aplicación al store recién creado y proporcionar d
 </style>
 ```
 
-Luego se cambiará el componente `TaskList` para leer los datos del store. Pero primero, pasemos nuestra versión del componente existente al archivo `src/components/PureTaskList.vue` (renombrar el componente a `pure-task-list`) que luego se incluirá en un contenedor.
+Luego se cambiará el componente `TaskList` para leer los datos del store. Pero primero, pasemos nuestra versión del componente existente al archivo `src/components/PureTaskList.vue` (renombrar el componente a `PureTaskList`) que luego se incluirá en un contenedor.
 
 En `src/components/PureTaskList.vue`:
 
 ```html
-<!--src/components/PureTaskList.vue-->
+<!-- src/components/PureTaskList.vue -->
+
 <template>
-<!--same content as before-->
+  <!-- same content as before -->
 </template>
+
 <script>
-import Task from "./Task";
-export default {
-  name: "pure-task-list",
-  ...
-}
+  import Task from './Task';
+  export default {
+    name: 'PureTaskList',
+    // same content as before
+  };
+</script>
 ```
 
 En `src/components/TaskList.vue`:
 
 ```html
-<!--src/components/TaskList.vue`-->
+<!-- src/components/TaskList.vue -->
+
 <template>
-  <div>
-    <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask" />
-  </div>
+  <PureTaskList :tasks="tasks" v-on="$listeners" @archive-task="archiveTask" @pin-task="pinTask" />
 </template>
 
 <script>
@@ -117,16 +121,11 @@ En `src/components/TaskList.vue`:
   import { mapState, mapActions } from 'vuex';
 
   export default {
-    name: 'task-list',
-    components: {
-      PureTaskList,
-    },
-    methods: {
-      ...mapActions(['archiveTask', 'pinTask']),
-    },
-    computed: {
-      ...mapState(['tasks']),
-    },
+    components: { PureTaskList },
+
+    methods: mapActions(['archiveTask', 'pinTask']),
+
+    computed: mapState(['tasks']),
   };
 </script>
 ```
@@ -134,67 +133,62 @@ En `src/components/TaskList.vue`:
 La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `src/components/TaskList.stories.js` a`src/components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
 ```javascript
-//src/components/PureTaskList.stories.js
+// src/components/PureTaskList.stories.js
+
 import PureTaskList from './PureTaskList';
-import { taskData, actionsData } from './Task.stories';
+import * as TaskStories from './Task.stories';
 
-const paddedList = () => {
-  return {
-    template: '<div style="padding: 3rem;"><story/></div>',
-  };
-};
 export default {
-  title: 'TaskList',
-  excludeStories: /.*Data$/,
-  decorators: [paddedList],
+  component: PureTaskList,
+  title: 'PureTaskList',
+  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
 };
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
+const Template = (args, { argTypes }) => ({
+  components: { PureTaskList },
+  props: Object.keys(argTypes),
+  // We are reusing our actions from task.stories.js
+  methods: TaskStories.actionsData,
+  template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+});
 
-export const Default = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  props: {
-    tasks: {
-      default: () => defaultTasksData,
-    },
-  },
-  methods: actionsData,
-});
-// tasklist with pinned tasks
-export const WithPinnedTasks = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list :tasks="tasks" @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  props: {
-    tasks: {
-      default: () => withPinnedTasksData,
-    },
-  },
-  methods: actionsData,
-});
-// tasklist in loading state
-export const Loading = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list loading @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData,
-});
-// tasklist no tasks
-export const Empty = () => ({
-  components: { PureTaskList },
-  template: `<pure-task-list @archiveTask="onArchiveTask" @pinTask="onPinTask"/>`,
-  methods: actionsData,
-});
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
+
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
@@ -204,24 +198,34 @@ export const Empty = () => ({
   />
 </video>
 
+<div class="aside">
+
+</div>
+
 Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
 ```js
-//tests/unit/TaskList.spec.js
+// tests/unit/PureTaskList.spec.js
+
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
-import { withPinnedTasksData } from '../../src/components/PureTaskList.stories';
+//👇 Our story imported here
+import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
+  // render PureTaskList
   const Constructor = Vue.extend(PureTaskList);
   const vm = new Constructor({
-    propsData: { tasks: withPinnedTasksData },
+    //👇 Story's args used with our test
+    propsData: WithPinnedTasks.args,
   }).$mount();
-  const lastTaskInput = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
+  const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
-  //Esperamos que la tarea anclada se represente primero, no al final
-  expect(lastTaskInput).not.toBe(null);
+  // We expect the pinned task to be rendered first, not at the end
+  expect(firstTaskPinned).not.toBe(null);
 });
 ```
 
-<div class="aside">Si sus pruebas de instantáneas fallan en esta etapa, debe actualizar las instantáneas existentes ejecutando el script de prueba con el indicador -u. O cree un nuevo script para abordar este problema.</div>
+<div class="aside">
+💡 Con este cambio, sus instantáneas requerirán una actualización. Vuelva a ejecutar el comando de prueba con el indicador <code>-u</code> para actualizarlos. ¡Además, no olvides confirmar tus cambios con git!
+</div>

@@ -1,55 +1,27 @@
 ---
 title: 'Desplegar Storybook'
 tocTitle: 'Desplegar'
-description: 'Desplegar Storybook online con GitHub y Netlify'
+description: 'Aprenda a desplegar Storybook en línea'
 commit: '107b7ce'
 ---
 
-En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. También se puede compartir ese Storybook con el equipo, especialmente con los miembros no técnicos. Afortunadamente, es fácil implementar Storybook en línea.
-
-<div class="aside">
-<strong>¿Hiciste los test con Chromatic antes?</strong>
-<br/>
-🎉 Sus historias ya están desplegadas! Chromatic indexa de forma segura sus historias en línea y las rastrea a través de ramas y commits. Salta este capítulo y ve a la <a href="/vue/es/conclusion">conclusión</a>.
-</div>
+A lo largo de este tutorial, creamos componentes en nuestra máquina de desarrollo. En algún momento, tendremos que compartir nuestro trabajo para recibir comentarios del equipo. Despleguemos Storybook en línea para ayudar a los compañeros de equipo a revisar la implementación de la interfaz de usuario.
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/vue/es/get-started).
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook.
 
-```javascript
-{
-  "scripts": {
-   "build-storybook": "build-storybook -s public"
-  }
-}
-```
+Ahora, cuando ejecutes Storybook a través de `yarn build-storybook`, obtendrás un Storybook estático en el directorio `storybook-static`, que luego se puede implementar en cualquier servicio de alojamiento de sitios estáticos.
 
-Ahora, cuando ejecutes Storybook a través de `yarn build-storybook`, obtendrás un Storybook estático en el directorio `storybook-static`.
+## Publicar Storybook
 
-## Despliegue continuo
-
-Queremos compartir la última versión de los componentes cada vez que hagamos push del código. Para ello necesitamos desplegar de forma continua Storybook. Confiaremos en GitHub y Netlify para desplegar nuestro sitio estático. Estaremos usando el plan gratuito de Netlify.
-
-### GitHub
-
-Si estás siguiendo el capítulo anterior sobre testing, salta a la creación de un repositorio en GitHub.
-
-Cuando el proyecto se inicializó con Vue CLI, ya se configuró un repositorio local para usted. En esta etapa, es seguro agregar los archivos al primer commit.
-
-```bash
-$ git add .
-```
-
-Ahora haz commit de los archivos.
-
-```bash
-$ git commit -m "taskbox UI"
-```
+Este tutorial utiliza <a href="https://www.chromatic.com/">Chromatic</a>, un servicio de publicación gratuito creado por los mantenedores de Storybook. Nos permite implementar y alojar nuestro Storybook de forma segura en la nube..
 
 ### Configurar un repositorio en GitHub
 
-Ve a Github y configura un repositorio [aquí](https://github.com/new). Nombra tu repo “taskbox”.
+Antes de comenzar, nuestro código local debe sincronizarse con un servicio de control de versiones remoto. Cuando nuestro proyecto se inicializó en el [Empezando](/vue/es/get-started), ya inicializamos un repositorio local. En esta etapa, ya tenemos un conjunto de commits que podemos enviar remotamente.
+
+Ve a Github y configura un repositorio [aquí](https://github.com/new). Nombra tu repo “taskbox”, igual que nuestro proyecto local.
 
 ![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
 
@@ -65,36 +37,106 @@ Finalmente haz push al repo en GitHub.
 $ git push -u origin main
 ```
 
-### Netlify
+### Agrega Chromatic
 
-Netlify tiene incorporado un servicio de despliegue continuo que nos permitirá desplegar Storybook sin necesidad de configurar nuestro propio CI.
+Agregue el paquete como una dependencia de desarrollo.
 
-<div class="aside">
-Si usas CI en tu empresa, añade un script de implementación a tu configuración que suba <code>storybook-static</code> a un servicio de alojamiento de estáticos como S3.
-</div>
+```bash
+yarn add -D chromatic
+```
 
-[Crea una cuenta en Netlify](https://app.netlify.com/start) y da click en “crear sitio”.
+Una vez que el paquete esté instalado, [inicie sesión en Chromatic](https://www.chromatic.com/start) con su cuenta de GitHub (Chromatic solo pedirá permisos simples). Luego crearemos un nuevo proyecto llamado "taskbox" y lo sincronizaremos con el repositorio de GithHub que hemos configurado.
 
-![Crear sitio en Netlify](/intro-to-storybook/netlify-create-site.png)
+Haga clic en `Elegir repositorio de GitHub` debajo de colaboradores y seleccione su repositorio.
 
-A continuación, haz clic en el botón de GitHub para conectar Netlify a GitHub. Esto le permite acceder a nuestro repositorio remoto Taskbox.
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
+    type="video/mp4"
+  />
+</video>
 
-Ahora selecciona el repo de taskbox de GitHub de la lista de opciones.
+Copie el "project-token" único que se generó para su proyecto. Luego ejecútelo, emitiendo lo siguiente en la línea de comando, para construir e implementar nuestro Storybook. Asegúrate de reemplazar `project-token` con el token de tu proyecto.
 
-![Conectar un repositorio en Netlify](/intro-to-storybook/netlify-account-picker.png)
+```bash
+yarn chromatic --project-token=<project-token>
+```
 
-Configura Netlify resaltando el comando build que se ejecutará en tu CI y el directorio en el que se enviará el sitio estático. Para la rama elegir `main`. El directorio es `storybook-static`. Ejecuta el comando `yarn build-storybook`.
+![Lanzando Chromatic](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-![Ajustes Netlify](/intro-to-storybook/netlify-settings.png)
+Cuando termine, obtendrá un enlace `https://random-uuid.chromatic.com` a su Storybook publicado. Comparta el enlace con su equipo para recibir comentarios.
 
-<div class="aside"><p>Si su implementación falla con Netlify, agregue <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> al script <code>build-storybook</code>.</p></div>
+![Despliegue de storybook con el paquete chromatic](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
 
-Ahora envía el formulario para construir e implementar el código en la rama `main` del taskbox.
+¡Hurra! Publicamos Storybook con un comando, pero ejecutar manualmente un comando cada vez que queremos obtener comentarios sobre la implementación de la interfaz de usuario es repetitivo. Idealmente, publicaríamos la última versión de los componentes cada vez que hagamos push del código. Necesitaremos desplegar continuamente Storybook.
 
-Cuando esto termine veremos un mensaje de confirmación en Netlify con un enlace al Storybook de Taskbox online. Si lo estás siguiendo, tu Storybook desplegado debería estar en línea [como este](https://clever-banach-415c03.netlify.com/).
+## Despliegue continuo con Chromatic
 
-![Despliegue de Netlify Storybook](/intro-to-storybook/netlify-storybook-deploy.png)
+Ahora que nuestro proyecto está alojado en un repositorio de GitHub, podemos usar un servicio de integración continua(CI) para implementar nuestro Storybook automáticamente. [Acciones de GitHub](https://github.com/features/actions) es un servicio gratuito de CI integrado en GitHub que facilita la publicación automática.
 
-Terminamos de configurar el despliegue continuo de tu Storybook! Ahora podemos compartir nuestras historias con nuestros compañeros de equipo a través de un enlace.
+### Agregar una acción de GitHub para implementar Storybook
 
-Esto es útil para la revisión visual como parte del proceso de desarrollo de aplicaciones estándar o simplemente para mostrar nuestro trabajo💅.
+En la carpeta raíz de nuestro proyecto, cree un nuevo directorio llamado `.github` y luego cree otro directorio `workflows` dentro de él.
+
+Cree un nuevo archivo llamado `chromatic.yml` como el siguiente. Reemplazar `project-token` con su token de proyecto.
+
+```yaml
+# .github/workflows/chromatic.yml
+
+# Workflow name
+name: 'Chromatic Deployment'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  test:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
+      - uses: chromaui/action@v1
+        # Options required for Chromatic's GitHub Action
+        with:
+          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/vue/en/deploy/ to obtain it
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+<div class="aside"><p>💡 Por motivos de brevedad, no se mencionaron los <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a>. Los secrets son variables de entorno seguras proporcionadas por GitHub para que no necesite codificar el <code>project-token</code>.</p></div>
+
+### Commit en acción
+
+En la línea de comando, emita el siguiente comando para agregar los cambios que se realizaron:
+
+```bash
+git add .
+```
+
+Luego, confírmelos emitiendo:
+
+```bash
+git commit -m "GitHub action setup"
+```
+
+Finalmente, envíelos al repositorio remoto con:
+
+```bash
+git push origin main
+```
+
+Una vez que haya configurado la acción de GitHub. Su Storybook se implementará en Chromatic cada vez que actualice el código. Puedes encontrar todos los Storybook publicados en la pantalla de compilación de tu proyecto en Chromatic.
+
+![Panel de usuario de Chromatic](/intro-to-storybook/chromatic-user-dashboard.png)
+
+Haga clic en la última compilación, debería ser la que está en la parte superior.
+
+Luego, haga clic en el botón "Ver Storybook" para ver la última versión de su Storybook.
+
+![Enlace de Storybook en Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
+
+Utilice el enlace y compártalo con los miembros de su equipo. Esto es útil como parte del proceso de desarrollo de aplicaciones estándar o simplemente para presumir de trabajo 💅.
