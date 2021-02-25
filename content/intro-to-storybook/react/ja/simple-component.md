@@ -117,7 +117,7 @@ Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-storie
 
 ## 設定する
 
-作成したストーリーを認識させ、[前の章](/react/ja/get-started)で変更した CSS ファイルを使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
+作成したストーリーを認識させ、[前の章](/intro-to-storybook/react/ja/get-started)で変更した CSS ファイルを使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
 
 まず、設定ファイル (`.storybook/main.js`) を以下のように変更してください:
 

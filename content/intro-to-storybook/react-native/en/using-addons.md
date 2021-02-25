@@ -4,8 +4,7 @@ tocTitle: 'Addons'
 description: 'Learn how to integrate and use addons using a popular example'
 ---
 
-Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team.
+Storybook boasts a robust system of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) with which you can enhance the developer experience for everybody in your team.
 
 <div class="aside">
 <strong>Looking for a list of potential addons?</strong>
@@ -150,10 +149,3 @@ Now we've added the story, we can reproduce this edge-case with ease whenever we
 ### Merge Changes
 
 Don't forget to merge your changes with git!
-
-<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
-
-<!-- ## Sharing Addons With The Team
-
-Knobs is a great way to get non-developers playing with your components and stories. However, it can be difficult for them to run the storybook on their local machine. That's why deploying your storybook to an online location can be really helpful. In the next chapter we'll do just that!
- -->

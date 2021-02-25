@@ -115,7 +115,7 @@ When creating a story we use a base `task` arg to build out the shape of the tas
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous chapter](/react/en/get-started).
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous chapter](/intro-to-storybook/react/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 

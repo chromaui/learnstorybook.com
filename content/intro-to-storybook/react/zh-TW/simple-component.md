@@ -94,7 +94,7 @@ Storybook 中有兩個基本的組織級別.
 在建立故事時,我們使用基本任務 (`task`) 構建元件期望的 任務的形狀. 這通常是 根據真實資料的模型建模的. 再次,正如我們所看到的,`export`這種形狀將使我們能夠在以後的故事中重複使用它.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> 幫助您在隔離構建UI元件時 驗證互動. 通常，您無法訪問應用程式上下文中的函式和狀態。 使用 <code>action()</code> 將它們存入.
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> 幫助您在隔離構建UI元件時 驗證互動. 通常，您無法訪問應用程式上下文中的函式和狀態。 使用 <code>action()</code> 將它們存入.
 </div>
 
 ## 配置

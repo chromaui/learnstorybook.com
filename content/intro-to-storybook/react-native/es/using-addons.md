@@ -4,8 +4,7 @@ tocTitle: 'Complementos'
 description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
 ---
 
-Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/addons/introduction/) con el que puede mejorar la experiencia del desarrollador para
-todos en tu equipo.
+Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/docs/react/configure/storybook-addons) con el que puede mejorar la experiencia del desarrollador para todos en tu equipo.
 
 <div class = "aside">
     <strong> ¿Busca una lista de posibles complementos? </strong>
@@ -151,10 +150,3 @@ Ahora que hemos agregado la historia, podemos reproducir este caso extremo con f
 ### Fusionar cambios
 
 ¡No olvides fusionar tus cambios con git!
-
-<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
-
-<!-- ## Compartir complementos con el equipo
-
-Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar Storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!
- -->

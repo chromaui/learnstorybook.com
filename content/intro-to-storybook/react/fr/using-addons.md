@@ -8,7 +8,7 @@ commit: 'a23f4d0'
 Storybook dispose d'un système robuste d'[addons](https://storybook.js.org/docs/react/configure/storybook-addons) avec lequel vous pouvez améliorer l'expérience des développeurs pour
 tout le monde dans votre équipe. Consultez-les tous [ici](https://storybook.js.org/addons)
 
-Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/react/fr/test/).
+Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/intro-to-storybook/react/fr/test/).
 
 Il existe des addons pour chaque cas d'utilisation possible. Il faudrait une éternité pour les décrire tous. Intégrons l'un des addons les plus populaires : [Controls](https://storybook.js.org/docs/react/essentials/controls).
 
@@ -86,7 +86,7 @@ Nous pouvons maintenant reproduire et travailler sur ce cas limite avec facilit�
   />
 </video>
 
-Si nous faisons un [test visuel](/réagir/fr/test/), nous serons également informés si la solution elliptique se brise. Les cas limites obscurs sont susceptibles d'être oubliés sans la couverture de test!
+Si nous faisons un [test visuel](/intro-to-storybook/react/fr/test/), nous serons également informés si la solution elliptique se brise. Les cas limites obscurs sont susceptibles d'être oubliés sans la couverture de test!
 
 ### Fusionner les changements
 

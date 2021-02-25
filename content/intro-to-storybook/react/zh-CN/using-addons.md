@@ -7,7 +7,7 @@ commit: 'a23f4d0'
 
 Storybook 有一个强大的生态系统 [addons](https://storybook.js.org/docs/react/configure/storybook-addons)，你能够用来增强你的团队中每个人的开发体验。在 [这里](https://storybook.js.org/addons) 浏览全部。
 
-如果你一直遵循着本教程，那么你已经遇到了多个插件，并在 [测试](/react/zh-CN/test/) 章节进行了设置。
+如果你一直遵循着本教程，那么你已经遇到了多个插件，并在 [测试](/intro-to-storybook/react/zh-CN/test/) 章节进行了设置。
 
 有些插件对于每个例子都可能用到。让我们集成最受欢迎的插件：[Controls](https://storybook.js.org/docs/react/essentials/controls)。
 
