@@ -66,6 +66,11 @@ module.exports = {
           en: 6.1,
         },
       },
+      'create-an-addon': {
+        react: {
+          en: 6.1,
+        },
+      },
     },
   },
   plugins: [
