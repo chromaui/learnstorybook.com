@@ -9,7 +9,7 @@ Last chapter we built our first component; this chapter extends what we learned 
 
 ## Tasklist
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
+Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and pinned items.
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
