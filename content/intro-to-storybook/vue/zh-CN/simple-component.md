@@ -107,7 +107,6 @@ Archived.args = {
 ```
 
 Storybook 有两个基本的组织级别：组件和他的 story。可以将每个 story 视作其组件的排列组合。您可以根据需要给每一个组件创建任意个 story。
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 - **组件**
   - Story
@@ -144,7 +143,7 @@ Arguments 或者简写[`args`](https://storybook.js.org/docs/vue/writing-stories
 
 ## 配置
 
-我们需要对 Storybook 的配置做几处修改，这样其不仅可以识别到近期创建的 story，同时还允许我们可以使用[上一章节](/vue/en/get-started)中引入的 CSS 文件。
+我们需要对 Storybook 的配置做几处修改，这样其不仅可以识别到近期创建的 story，同时还允许我们可以使用[上一章节](/intro-to-storybook/vue/zh-CN/get-started)中引入的 CSS 文件。
 
 如下修改您的 Storybook 配置文件(`.storybook/main.js`)：
 

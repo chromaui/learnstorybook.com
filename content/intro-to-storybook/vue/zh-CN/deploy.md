@@ -9,7 +9,7 @@ commit: '107b7ce'
 
 ## 导出为一个静态应用
 
-为了部署 Storybook 我们首先需要将其导出为一个静态 web 应用。Storybook 已经集成了此功能并已预配置完成，我们只需要将[开始吧章节](/vue/en/get-started)中的脚本更新即可。
+为了部署 Storybook 我们首先需要将其导出为一个静态 web 应用。Storybook 已经集成了此功能并已预配置完成，我们只需要将[开始吧章节](/intro-to-storybook/vue/zh-CN/get-started)中的脚本更新即可。
 
 ```json
 {
@@ -27,7 +27,7 @@ commit: '107b7ce'
 
 ### 在 GitHub 中创建一个仓库
 
-在我们开始之前，我们首先需要将本地代码和一个远程版本控制服务关联起来。在[开始吧章节](/vue/en/get-started)中，Vue CLI 初始化时已经为我们创建了一个本地仓库。也就是说我们已经拥有了一系列可以提交到远程仓库的 commits。
+在我们开始之前，我们首先需要将本地代码和一个远程版本控制服务关联起来。在[开始吧章节](/intro-to-storybook/vue/zh-CN/get-started)中，Vue CLI 初始化时已经为我们创建了一个本地仓库。也就是说我们已经拥有了一系列可以提交到远程仓库的 commits。
 
 进入 GitHub 然后创建一个新的仓库，[这里](https://github.com/new)。和我们的本地项目一样，命名为“taskbox”。
 
@@ -110,7 +110,7 @@ jobs:
         # GitHub chromatic action所需的选项
         with:
           # 我们项目的token，查看如何获取
-          # 参考https://www.learnstorybook.com/intro-to-storybook/vue/en/deploy/
+          # 参考https://www.learnstorybook.com/intro-to-storybook/vue/zh-CN/deploy/
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

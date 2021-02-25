@@ -226,6 +226,5 @@ it('renders pinned tasks at the start of the list', () => {
 当您的快照测试失败时，您必须用-u 来重新运行测试脚本以便更新现有的快照。或者创建一个新的脚本来解决这个问题。
 
 别忘记提交您的代码！
-Don't forget to commit your changes with git!
 
 </div>
