@@ -15,7 +15,7 @@ En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. Ta
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/vue/es/get-started).
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/intro-to-storybook/vue/es/get-started).
 
 ```javascript
 {

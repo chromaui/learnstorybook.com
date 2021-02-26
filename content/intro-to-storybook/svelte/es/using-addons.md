@@ -4,8 +4,7 @@ tocTitle: 'Complementos'
 description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
 ---
 
-Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/addons/introduction/) con el que puede mejorar la experiencia del desarrollador para
-todos en tu equipo. Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el [Testing](/svelte/es/test/).
+Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/docs/svelte/configure/storybook-addons) con el que puede mejorar la experiencia del desarrollador para todos en tu equipo. Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el [Testing](/intro-to-storybook/svelte/es/test/).
 
 <div class="aside">
   <strong>¿Busca una lista de posibles complementos?</strong>
@@ -156,7 +155,7 @@ Ahora que hemos agregado la historia, podemos reproducir este caso extremo con f
 
 ![Aqui esta en la Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Si estamos utilizando [pruebas de regresión visual](/svelte/es/test/), también se nos informará si alguna vez rompemos nuestra solución de elipsis. ¡Esos casos extremos oscuros siempre pueden ser olvidados!
+Si estamos utilizando [pruebas de regresión visual](/intro-to-storybook/svelte/es/test/), también se nos informará si alguna vez rompemos nuestra solución de elipsis. ¡Esos casos extremos oscuros siempre pueden ser olvidados!
 
 ### Fusionar cambios
 

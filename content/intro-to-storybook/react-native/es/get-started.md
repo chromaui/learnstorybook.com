@@ -4,7 +4,7 @@ tocTitle: 'Empezando'
 description: 'Configurar Storybook en tu entorno de desarrollo'
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React Native; existe otras ediciones para [React](/react/es/get-started), [Vue](/vue/es/get-started), [Angular](/angular/es/get-started) y [Svelte](/svelte/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React Native; existe otras ediciones para [React](/intro-to-storybook/react/es/get-started), [Vue](/intro-to-storybook/vue/es/get-started), [Angular](/intro-to-storybook/angular/es/get-started) y [Svelte](/intro-to-storybook/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 

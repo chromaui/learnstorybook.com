@@ -98,7 +98,7 @@ export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> sind eine Möglichkeit, einer Story beliebige umschließende Elemente hinzuzufügen. In diesem Fall nutzen wir einen Decorator `key` im `default export`, um ein `padding` um die gerenderte Komponente hinzuzufügen. Sie können auch verwendet werden, um Stories in "Provider" einzupacken - z.B. eine Library-Komponente, die einen React-Kontext setzt.
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> sind eine Möglichkeit, einer Story beliebige umschließende Elemente hinzuzufügen. In diesem Fall nutzen wir einen Decorator `key` im `default export`, um ein `padding` um die gerenderte Komponente hinzuzufügen. Sie können auch verwendet werden, um Stories in "Provider" einzupacken - z.B. eine Library-Komponente, die einen React-Kontext setzt.
 </div>
 
 `taskData` liefert die Struktur einer `Task`-Komponente, wie wir es aus `Task.stories.js` exportiert haben. Auf die gleiche Weise definiert `actionsData` die Actions (gemockte Callbacks), die von einer `Task`-Komponente erwartet werden und die wir in `TaskList` ebenfalls benötigen.
@@ -263,4 +263,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 Beachte, dass wir die `WithPinnedTasks`-Story im Unit-Test wiederverwenden konnten; auf diese Weise können wir bestehende Ressourcen (die Beispiele, die relevante Konfigurationen einer Komponente repräsentieren) auf verschiedene Weisen nutzen.
 
-Beachte auch, dass dieser Test ziemlich instabil ist. Es ist möglich, dass mit der Weiterentwicklung des Projekts und einer Änderung an der Implementierung von `Task` -- vielleicht die Änderung des Klassen-Namens oder der Verwendung von `textarea`, statt `input` -- der Test fehlschlagen wird und aktualisiert werden muss. Das ist nicht unbedingt ein Problem, vielmehr ein Hinweis darauf, dass man vorsichtig sein sollte damit, Unit-Tests allzu großzügig für die UI zu nutzen. Ihre Wartung ist nicht einfach. Stattdedden solltest du lieber visuelle, Snapshot- und visuelle Regressions-Tests (siehe [Kapitel "Testen"](/test/)) verwenden, wo möglich.
+Beachte auch, dass dieser Test ziemlich instabil ist. Es ist möglich, dass mit der Weiterentwicklung des Projekts und einer Änderung an der Implementierung von `Task` -- vielleicht die Änderung des Klassen-Namens oder der Verwendung von `textarea`, statt `input` -- der Test fehlschlagen wird und aktualisiert werden muss. Das ist nicht unbedingt ein Problem, vielmehr ein Hinweis darauf, dass man vorsichtig sein sollte damit, Unit-Tests allzu großzügig für die UI zu nutzen. Ihre Wartung ist nicht einfach. Stattdedden solltest du lieber visuelle, Snapshot- und visuelle Regressions-Tests (siehe [Kapitel "Testen"](/intro-to-storybook/react/de/test/)) verwenden, wo möglich.

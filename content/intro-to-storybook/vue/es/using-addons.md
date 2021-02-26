@@ -5,8 +5,8 @@ description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
 commit: '45b6600'
 ---
 
-Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/addons/introduction/) con el que puede mejorar la experiencia del desarrollador para
-todos en tu equipo. Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el [Testing](/vue/es/test/).
+Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/docs/vue/configure/storybook-addons) con el que puede mejorar la experiencia del desarrollador para
+todos en tu equipo. Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el [Testing](/intro-to-storybook/vue/es/test/).
 
 <div class = "aside">
     <strong> ¿Busca una lista de posibles complementos? </strong>
@@ -163,15 +163,8 @@ Ahora que hemos agregado la historia, podemos reproducir este caso extremo con f
 
 ![Aqui esta en la Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Si estamos utilizando [pruebas de regresión visual](/vue/es/test/), también se nos informará si alguna vez rompemos nuestra solución de elipsis. ¡Esos casos extremos oscuros siempre pueden ser olvidados!
+Si estamos utilizando [pruebas de regresión visual](/intro-to-storybook/vue/es/test/), también se nos informará si alguna vez rompemos nuestra solución de elipsis. ¡Esos casos extremos oscuros siempre pueden ser olvidados!
 
 ### Fusionar cambios
 
 ¡No olvides fusionar tus cambios con git!
-
-<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
-
-<!-- ## Compartir complementos con el equipo
-
-Knobs es una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias. Sin embargo, puede ser difícil para ellos ejecutar Storybook en su máquina local. Es por eso que implementar storybook en una ubicación en línea puede ser realmente útil. ¡En el próximo capítulo haremos exactamente eso!
- -->

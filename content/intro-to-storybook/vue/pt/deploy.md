@@ -16,7 +16,7 @@ Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessá
 
 ## Exportação sob a forma de uma app estática
 
-Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessário alterar o script tal como quando o projeto foi inicializado [na introdução](/vue/pt/get-started).
+Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessário alterar o script tal como quando o projeto foi inicializado [na introdução](/intro-to-storybook/vue/pt/get-started).
 
 ```javascript
 {

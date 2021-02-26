@@ -7,7 +7,7 @@ commit: 'a23f4d0'
 
 Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons),
 
-If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/react/en/test/) chapter.
+If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/intro-to-storybook/react/en/test/) chapter.
 
 There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/react/essentials/controls).
 
@@ -85,7 +85,7 @@ Now we can reproduce and work on this edge case with ease.
   />
 </video>
 
-If we are [visual testing](/react/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
+If we are [visual testing](/intro-to-storybook/react/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
 
 <div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories, and much more than we've seen here, we recommend reading the <a href="https://storybook.js.org/docs/react/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
 

@@ -133,7 +133,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `component` -- the component itself,
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
-- `argTypes` -- specify the [args](https://storybook.js.org/docs/react/api/argtypes) behavior in each story.
+- `argTypes` -- specify the [args](https://storybook.js.org/docs/svelte/api/argtypes) behavior in each story.
 
 To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state.
 
@@ -159,7 +159,7 @@ Another nice thing about bundling the `actionsData` that a component needs is th
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the[previous section](/svelte/en/get-started).
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous section](/intro-to-storybook/svelte/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
