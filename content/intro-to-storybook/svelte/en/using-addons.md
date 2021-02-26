@@ -6,7 +6,7 @@ description: 'Learn how to integrate and use the popular Controls addon'
 
 Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/svelte/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons),
 
-If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/svelte/en/test/) chapter.
+If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/intro-to-storybook/svelte/en/test/) chapter.
 
 There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/svelte/essentials/controls).
 
@@ -84,7 +84,7 @@ Now we can reproduce and work on this edge case with ease.
   />
 </video>
 
-If we are [visual testing](/svelte/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
+If we are [visual testing](/intro-to-storybook/svelte/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
 
 ### Merge Changes
 

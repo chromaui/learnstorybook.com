@@ -27,7 +27,7 @@ Visual regression tests, also called visual tests, are designed to catch changes
 
 Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
 
-There are a number of tools for visual regression testing. We recommend [**Chromatic**](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers that runs visual tests in parallelized cloud. It also allows us to publish Storybook online as we saw in the [previous chapter](/svelte/en/deploy/).
+There are a number of tools for visual regression testing. We recommend [**Chromatic**](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers that runs visual tests in parallelized cloud. It also allows us to publish Storybook online as we saw in the [previous chapter](/intro-to-storybook/svelte/en/deploy/).
 
 ## Catch a UI change
 

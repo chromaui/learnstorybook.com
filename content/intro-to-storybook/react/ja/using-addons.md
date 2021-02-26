@@ -5,9 +5,9 @@ description: '人気のコントロールアドオンの使用方法を学びま
 commit: 'a23f4d0'
 ---
 
-Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/addons/introduction/)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
+Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/docs/react/configure/storybook-addons)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
 
-ここまでチュートリアルを進めてきたのであれば、すでにいくつかのアドオンに遭遇し、[テストの章](/react/ja/test/)では導入もしています。
+ここまでチュートリアルを進めてきたのであれば、すでにいくつかのアドオンに遭遇し、[テストの章](/intro-to-storybook/react/ja/test/)では導入もしています。
 
 多様なユースケースに対応するためのアドオンがあるので、それを全て説明することは出来ません。ここでは最も人気のあるアドオンである [コントロールアドオン](https://storybook.js.org/docs/react/essentials/controls) を導入してみましょう。
 
@@ -85,7 +85,7 @@ LongTitle.args = {
   />
 </video>
 
-[ビジュアルテスト](/react/ja/test/)を使用している場合は、文字の省略が壊れた場合に分かるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
+[ビジュアルテスト](/intro-to-storybook/react/ja/test/)を使用している場合は、文字の省略が壊れた場合に分かるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
 
 ### 変更をマージする
 

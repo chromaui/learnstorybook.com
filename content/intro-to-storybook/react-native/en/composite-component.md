@@ -23,17 +23,16 @@ A composite component isn’t much different than the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```javascript
-
 // components/TaskList.js
 import * as React from 'react';
 import Task from './Task';
 import { FlatList, Text, SafeAreaView } from 'react-native';
-import { styles } from "../constants/globalStyles";
+import { styles } from '../constants/globalStyles';
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
-    onArchiveTask
+    onArchiveTask,
   };
   if (loading) {
     return (
@@ -54,9 +53,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       <FlatList
         data={tasks}
         keyExtractor={task => task.id}
-        renderItem={({ item }) => (
-          <Task key={item.id} task={item} {...events} />
-        )}
+        renderItem={({ item }) => <Task key={item.id} task={item} {...events} />}
       />
     </SafeAreaView>
   );
@@ -68,7 +65,6 @@ export default TaskList;
 Next create `Tasklist`’s test states in the story file.
 
 ```javascript
-
 // components/TaskList.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
@@ -101,7 +97,7 @@ storiesOf('TaskList', module)
 As you may have noticed, the `addDecorator()` was used in the previous chapter and in this one, it allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
 `task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actions` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
@@ -111,7 +107,6 @@ Don't forget that this story also needs to be added to `storybook/index.js` so t
 Change the `configure()` method to the following:
 
 ```javascript
-
 // storybook/config.js
 configure(() => {
   require('../components/Task.stories.js');
@@ -137,7 +132,6 @@ For the loading edge case, we're going to create a new component that will displ
 Create a new file called `LoadingRow.js` with the following content:
 
 ```javascript
-
 // components/LoadingRow.js
 import React, { useState, useEffect } from 'react';
 import { Animated, Text, View, Easing, SafeAreaView } from 'react-native';
@@ -186,14 +180,13 @@ export default LoadingRow;
 And update `TaskList.js` to the following:
 
 ```javascript
-
 // components/TaskList.js
 import * as React from 'react';
 import Task from './Task';
 import PercolateIcons from '../constants/Percolate';
 import LoadingRow from './LoadingRow';
 import { FlatList, Text, SafeAreaView, View } from 'react-native';
-import { styles } from "../constants/globalStyles";
+import { styles } from '../constants/globalStyles';
 
 function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
@@ -303,11 +296,10 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 Create a test file called `components/__tests__/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
 
 ```javascript
-
 // components/__tests__/TaskList.test.js
 import * as React from 'react';
-import {create} from 'react-test-renderer';
-import TaskList from '../TaskList'
+import { create } from 'react-test-renderer';
+import TaskList from '../TaskList';
 import { withPinnedTasks } from '../TaskList.stories';
 import Task from '../Task';
 describe('TaskList', () => {

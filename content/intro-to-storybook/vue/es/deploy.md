@@ -9,7 +9,7 @@ A lo largo de este tutorial, creamos componentes en nuestra máquina de desarrol
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook.
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/intro-to-storybook/vue/es/get-started).
 
 Ahora, cuando ejecutes Storybook a través de `yarn build-storybook`, obtendrás un Storybook estático en el directorio `storybook-static`, que luego se puede implementar en cualquier servicio de alojamiento de sitios estáticos.
 

@@ -167,7 +167,7 @@ export default class InboxScreenComponent extends Component {
 }
 ```
 
-We can now safely delete the `tasks` folder we created in the [previous chapter](/ember/en/data/) and add the `InboxScreen` to the `application` template.
+We can now safely delete the `tasks` folder we created in the [previous chapter](/intro-to-storybook/ember/en/data/) and add the `InboxScreen` to the `application` template.
 
 ```handlebars
 {{!-- app/templates/aplication.hbs --}}

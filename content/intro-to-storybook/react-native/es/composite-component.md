@@ -97,7 +97,7 @@ storiesOf('TaskList', module)
 Como habrás notado, el `addDecorator ()` se usó en el capítulo anterior y en este, nos permite agregar algo de “contexto” a la representación de cada tarea. En este caso, agregamos relleno alrededor de la lista para facilitar la verificación visual.
 
 <div class="aside">
-    Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para envolver historias en "proveedores", es decir, componentes de la biblioteca que establecen el contexto React.
+    Los <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para envolver historias en "proveedores", es decir, componentes de la biblioteca que establecen el contexto React.
 </div>
 
 `task` provee la forma de un `Task` que creamos y exportamos desde el archivo `Task.stories.js`. De manera similar, `actions` define las acciones (llamadas simuladas) que espera un componente `Task`, el cual también necesita la `TaskList`.

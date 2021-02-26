@@ -144,12 +144,12 @@ Outro aspeto fantástico é que ao agrupar a `actionsData` necessária ao compon
 Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a forma da tarefa em questão que é necessária ao componente. Geralmente modelada a partir de dados concretos. Mais uma vez o uso da cláusula `export`, neste caso para a estrutura dos dados irá permitir a sua reutilização em estórias futuras, tal como veremos.
 
 <div class="aside">
-    <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface de utilizador isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de <code>action()</code> para esta situação.
+    <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface de utilizador isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de <code>action()</code> para esta situação.
 </div>
 
 ## Configuração
 
-É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/vue/pt/get-started).
+É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/intro-to-storybook/vue/pt/get-started).
 
 Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
 
