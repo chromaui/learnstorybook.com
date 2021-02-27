@@ -23,9 +23,7 @@ yarn add react-redux redux
 
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -79,44 +77,43 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
-```javascript
-// src/components/TaskList.js
-
+```diff:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from './Task';
-import { connect } from 'react-redux';
-import { archiveTask, pinTask } from '../lib/redux';
 
-export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  /* previous implementation of TaskList */
-}
++ import { connect } from 'react-redux';
++ import { archiveTask, pinTask } from '../lib/redux';
 
-PureTaskList.propTypes = {
-  /** Checks if it's in loading state */
-  loading: PropTypes.bool,
-  /** The list of tasks */
-  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** Event to change the task to pinned */
-  onPinTask: PropTypes.func.isRequired,
-  /** Event to change the task to archived */
-  onArchiveTask: PropTypes.func.isRequired,
-};
++ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
++  /* previous implementation of TaskList */
++ }
 
-PureTaskList.defaultProps = {
-  loading: false,
-};
++ PureTaskList.propTypes = {
++  /** Checks if it's in loading state */
++  loading: PropTypes.bool,
++  /** The list of tasks */
++  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
++  /** Event to change the task to pinned */
++  onPinTask: PropTypes.func.isRequired,
++  /** Event to change the task to archived */
++  onArchiveTask: PropTypes.func.isRequired,
++ };
 
-export default connect(
-  ({ tasks }) => ({
-    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
-  }),
-  dispatch => ({
-    onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id)),
-  })
-)(PureTaskList);
++ PureTaskList.defaultProps = {
++  loading: false,
++ };
+
++ export default connect(
++  ({ tasks }) => ({
++    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
++  }),
++  dispatch => ({
++    onArchiveTask: id => dispatch(archiveTask(id)),
++    onPinTask: id => dispatch(pinTask(id)),
++  })
++ )(PureTaskList);
 ```
 
 Now that we have some real data populating our component, obtained from Redux, we could have wired it to `src/app.js` and render the component there. But for now let's hold off doing that and continue on our component-driven journey.
@@ -127,21 +124,19 @@ At this stage, our Storybook tests will have stopped working because `TaskList` 
 
 However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
 
-```javascript
-// src/components/TaskList.stories.js
-
+```diff:title=src/components/TaskList.stories.js
 import React from 'react';
 
-import { PureTaskList } from './TaskList';
++ import { PureTaskList } from './TaskList';
 import * as TaskStories from './Task.stories';
 
 export default {
-  component: PureTaskList,
++ component: PureTaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <PureTaskList {...args} />;
++ const Template = args => <PureTaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
