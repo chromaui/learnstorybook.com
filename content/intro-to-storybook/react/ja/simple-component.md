@@ -117,7 +117,7 @@ Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-storie
 
 ## 設定する
 
-作成したストーリーを認識させ、[前の章](/react/ja/get-started)で変更した CSS ファイルを使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
+作成したストーリーを認識させ、[前の章](/intro-to-storybook/react/ja/get-started)で変更した CSS ファイルを使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
 
 まず、設定ファイル (`.storybook/main.js`) を以下のように変更してください:
 
@@ -125,6 +125,7 @@ Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-storie
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/addon-links',
@@ -139,9 +140,9 @@ module.exports = {
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
 
-// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };

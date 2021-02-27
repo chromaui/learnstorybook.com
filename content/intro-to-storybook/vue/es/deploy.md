@@ -10,12 +10,12 @@ En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. Ta
 <div class="aside">
 <strong>¿Hiciste los test con Chromatic antes?</strong>
 <br/>
-🎉 Sus historias ya están desplegadas! Chromatic indexa de forma segura sus historias en línea y las rastrea a través de ramas y commits. Salta este capítulo y ve a la <a href="/vue/es/conclusion">conclusión</a>.
+🎉 Sus historias ya están desplegadas! Chromatic indexa de forma segura sus historias en línea y las rastrea a través de ramas y commits. Salta este capítulo y ve a la <a href="/intro-to-storybook/vue/es/conclusion">conclusión</a>.
 </div>
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/vue/es/get-started).
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/intro-to-storybook/vue/es/get-started).
 
 ```javascript
 {

@@ -109,12 +109,12 @@ Outro aspeto fantástico ao agrupar as `actions` necessárias ao componente na `
 Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a forma da tarefa em questão que é necessária ao componente. Geralmente modelada a partir de dados concretos. Mais uma vez o uso da cláusula `export`, neste caso para a estrutura dos dados irá permitir a sua reutilização em estórias futuras, tal como veremos.
 
 <div class="aside">
-    <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface de utilizador isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de<code>action()</code> para esta situação.
+    <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface de utilizador isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de<code>action()</code> para esta situação.
 </div>
 
 ## Configuração
 
-É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/react/pt/get-started).
+É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/intro-to-storybook/react/pt/get-started).
 
 Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
 
@@ -122,6 +122,7 @@ Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/preset-create-react-app',
@@ -136,7 +137,7 @@ Após efetuar esta alteração, uma vez mais dentro da pasta (ou diretório) `.s
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
 ```
 
 Após esta alteração, quando reiniciar o servidor Storybook, deverá produzir os casos de teste para os três diferentes estados da tarefa:

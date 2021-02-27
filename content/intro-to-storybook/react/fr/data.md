@@ -190,5 +190,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-Si vos captures instantanées échouent à ce stade, vous devez mettre à jour les capture instantanées existants en exécutant le script de test avec le drapeau <code>-u</code>. De plus, comme notre application se développe progressivement, il serait bon d'exécuter les tests avec le drapeau <code> --watchAll</code> comme mentionné dans la section <a href="/react/en/get-started/">Débuter</a>.
+Si vos captures instantanées échouent à ce stade, vous devez mettre à jour les capture instantanées existants en exécutant le script de test avec le drapeau <code>-u</code>. De plus, comme notre application se développe progressivement, il serait bon d'exécuter les tests avec le drapeau <code> --watchAll</code> comme mentionné dans la section <a href="/intro-to-storybook/react/fr/get-started/">Débuter</a>.
 </div>

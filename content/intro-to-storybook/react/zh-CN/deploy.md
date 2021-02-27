@@ -19,7 +19,7 @@ commit: '8652d73'
 
 ### GitHub 仓库设置
 
-在我们开始前，我们本地需要与远程控制服务版本同步。在[开始吧 章节](react/zh-CN/get-started/)中我们的项目已经初始化，Create React App (CRA) 已经为我们创建了一个本地仓库。在此阶段，我们添加文件完成第一次提交是安全的。
+在我们开始前，我们本地需要与远程控制服务版本同步。在[开始吧 章节](/intro-to-storybook/react/zh-CN/get-started/)中我们的项目已经初始化，Create React App (CRA) 已经为我们创建了一个本地仓库。在此阶段，我们添加文件完成第一次提交是安全的。
 
 发出以下命令以添加并提交目前为止我们的所有修改。
 
@@ -94,25 +94,27 @@ yarn chromatic --project-token=<project-token>
 
 ```yaml
 # .github/workflows/chromatic.yml
-# name of our action
+
+# Workflow name
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+
+# Event for the workflow
 on: push
 
-# what the action will do
+# List of jobs
 jobs:
   test:
-    # the operating system it will run on
+    # Operating System
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
+          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

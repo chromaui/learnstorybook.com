@@ -8,9 +8,9 @@ Research-backed studies suggest reusing code can yield [42–81% time savings](h
 
 In the last few years, Tom and I witnessed countless veteran teams anchor their design system tooling around Storybook. They concentrated on reducing communication overhead, durable architecture, and automating repetitive manual tasks. We hope that distilling these common-sense tactics will help your design system flourish.
 
-Thanks for learning with us. Subscribe to the Chromatic mailing list to get notified when helpful articles and guides like this are published.
+Thanks for learning with us. Subscribe to the Storybook mailing list to get notified when helpful articles and guides like this are published.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
 
 ## Sample code for this tutorial
 

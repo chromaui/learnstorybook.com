@@ -198,6 +198,10 @@ Empty.args = {
   />
 </video>
 
+<div class="aside">
+
+</div>
+
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```js
@@ -205,13 +209,14 @@ Similarly, we need to use `PureTaskList` in our Jest test:
 
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
+//👇 Our story imported here
 import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   // render PureTaskList
   const Constructor = Vue.extend(PureTaskList);
   const vm = new Constructor({
-    // ...using WithPinnedTasks.args
+    //👇 Story's args used with our test
     propsData: WithPinnedTasks.args,
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
@@ -222,9 +227,5 @@ it('renders pinned tasks at the start of the list', () => {
 ```
 
 <div class="aside">
-
-Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.
-
-Don't forget to commit your changes with git!
-
+💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
 </div>

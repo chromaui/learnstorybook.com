@@ -136,7 +136,7 @@ Another nice thing about bundling the `actionsData` that a component needs, is t
 When creating a story we use a base task (`taskData`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
 </div>
 
 ## Config
@@ -184,6 +184,7 @@ Our component is still rather rudimentary at the moment. We're going to make som
 
 ```typescript
 // src/app/components/task.component.ts
+
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 @Component({
@@ -257,7 +258,7 @@ Storybook gave us a great way to visually test our application during constructi
 Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
 
 <div class="aside">
-Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+💡 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
@@ -298,5 +299,5 @@ We now have a snapshot test for each of our `TaskComponent` stories. If we chang
 Additionally, `jest` will also run the test for `app.component.ts`.
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>

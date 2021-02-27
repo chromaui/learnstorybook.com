@@ -257,12 +257,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import { WithPinnedTasks } from './TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  // Our story will be used for the test.
-  // With the arguments that were created.
+  //👇 Story's args used with our test
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
@@ -277,4 +276,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 请注意，我们已经能够重用 `withPinnedTasks` 故事和单元测试中的任务列表；通过这种方式，我们可以继续以越来越多的方式利用现有资源 (代表组件的有趣配置的示例)。
 
-另请注意，此测试非常脆弱。随着项目的成熟，以及项目的确切实现，这都可能是`Task`的更改 - 可能使用不同的类名或`textarea`而不是一个`input`- 测试将失败，需要更新。这不一定是一个问题，但使用 UI 的单元测试要小心的指示。它们不容易维护。替代的是依靠视觉，快照和视觉回归 (参见[测试章节](/test/)) 的 Storybook 测试。
+另请注意，此测试非常脆弱。随着项目的成熟，以及项目的确切实现，这都可能是`Task`的更改 - 可能使用不同的类名或`textarea`而不是一个`input`- 测试将失败，需要更新。这不一定是一个问题，但使用 UI 的单元测试要小心的指示。它们不容易维护。替代的是依靠视觉，快照和视觉回归 (参见[测试章节](/intro-to-storybook/react/zh-CN/test/)) 的 Storybook 测试。

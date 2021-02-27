@@ -114,17 +114,18 @@ Arguments 或者 [`args`](https://storybook.js.org/docs/react/writing-stories/ar
 在创建 story 时，我们使用基本任务 (`task`) 构建组件期望的任务的形状。这通常是根据真实数据的模型建模的。再次，正如我们所看到的，`export` 这种形状将使我们能够在以后的 story 中重复使用它。
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> 帮助您在隔离构建UI组件时验证交互。通，您无法访问应用程序上下文中的函数和状态。使用 <code>action()</code> 将它们存入。
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> 帮助您在隔离构建UI组件时验证交互。通，您无法访问应用程序上下文中的函数和状态。使用 <code>action()</code> 将它们存入。
 </div>
 
 ## 配置
 
-我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用[上个章节](/react/en/get-started)中修改过的 CSS 文件。
+我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用[上个章节](/intro-to-storybook/react/zh-CN/get-started)中修改过的 CSS 文件。
 
 ```javascript
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/addon-links',
@@ -139,9 +140,9 @@ module.exports = {
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
 
-// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };

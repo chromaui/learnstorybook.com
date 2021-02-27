@@ -343,5 +343,5 @@ We started from the bottom with `TaskComponent`, then progressed to `TaskListCom
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>

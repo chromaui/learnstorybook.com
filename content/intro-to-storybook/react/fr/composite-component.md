@@ -114,7 +114,7 @@ Empty.args = {
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Les décorateurs</b></a> sont un moyen de fournir un encapsulation arbitraire aux story. Dans ce cas, nous utilisons une `key` (clé) de décorateur sur le default export pour ajouter du `padding` autour du composant rendu. Ils peuvent également être utilisés pour encapsuler des story dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte de React.
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Les décorateurs</b></a> sont un moyen de fournir un encapsulation arbitraire aux story. Dans ce cas, nous utilisons une `key` (clé) de décorateur sur le default export pour ajouter du `padding` autour du composant rendu. Ils peuvent également être utilisés pour encapsuler des story dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte de React.
 </div>
 
 En important `TaskStories`, nous avons pu [composer](https://storybook.js.org/docs/react/writing-stories/args#args-composition) les arguments (args pour faire court) de nos story avec un minimum d'effort. De cette façon, les données et les actions (callbacks simulés) attendues par les deux composants sont préservées.
@@ -258,12 +258,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import { WithPinnedTasks } from './TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  // Our story will be used for the test.
-  // With the arguments that were created.
+  //👇 Story's args used with our test
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
@@ -278,4 +277,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 Notez que nous avons pu réutiliser le story `WithPinnedTasks` dans notre test unitaire; de cette façon, nous pouvons continuer à exploiter une ressource existante (les exemples représentant des configurations intéressantes d'un composant) de nombreuses façons.
 
-Notez également que ce test est assez fragile. Il est possible qu'à mesure que le projet mûrit, et que l'implémentation exacte de la `Task` change --peut-être en utilisant un nom de classe différent ou une `textarea` plutôt qu'une `input`-- le test échouera, et devra être mis à jour. Ce n'est pas nécessairement un problème, mais plutôt une indication qu'il faut faire attention à utiliser généreusement les tests unitaires pour l'UI. Ils ne sont pas faciles à maintenir. Utilisez plutôt des tests manuels, des captures instantanées et la régression visuelle (voir [chapitre sur les tests](/test/)) lorsque c'est possible.
+Notez également que ce test est assez fragile. Il est possible qu'à mesure que le projet mûrit, et que l'implémentation exacte de la `Task` change --peut-être en utilisant un nom de classe différent ou une `textarea` plutôt qu'une `input`-- le test échouera, et devra être mis à jour. Ce n'est pas nécessairement un problème, mais plutôt une indication qu'il faut faire attention à utiliser généreusement les tests unitaires pour l'UI. Ils ne sont pas faciles à maintenir. Utilisez plutôt des tests manuels, des captures instantanées et la régression visuelle (voir [chapitre sur les tests](/intro-to-storybook/react/fr/test/)) lorsque c'est possible.

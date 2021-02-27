@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import { styles } from '@storybook/design-system';
 import get from 'lodash/get';
-import { graphql } from 'gatsby';
+import { graphql, withPrefix } from 'gatsby';
 import { darken } from 'polished';
 import Contributors from './Contributors';
 import Hero from './Hero';
@@ -134,7 +134,7 @@ const Guide = ({ data, pageContext }) => {
         ctaHref={get(entries, '[0].slug')}
         description={heroDescription}
         heroAnimationName={heroAnimationName}
-        imagePath={coverImagePath}
+        imagePath={withPrefix(coverImagePath)}
         languages={languages}
         title={title}
         themeColor={themeColor}

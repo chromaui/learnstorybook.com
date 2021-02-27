@@ -32,4 +32,4 @@ Storybook 是 React,Vue 和 Angular 的强大工具. 它拥有蓬勃发展的开
 
 想要更多这样的教程和文章吗? 注册 Chromatic 邮件列表.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:30px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:30px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

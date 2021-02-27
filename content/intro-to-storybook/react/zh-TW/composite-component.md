@@ -88,7 +88,7 @@ storiesOf('TaskList', module)
 `addDecorator()`允許我們為每個任務的渲染新增一些"上下文". 在這種情況下,我們在列表周圍新增 _填充-padding_,以便更容易進行 視覺化驗證.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators-裝飾器</b></a> 是一種為 故事 提供任意包裝的方法。 在這種情況下，我們使用裝飾器來新增樣式。 它們還可以用於包裝故事在 <b>"providers" - 設定 React上下文 的庫元件</b>.
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators-裝飾器</b></a> 是一種為 故事 提供任意包裝的方法。 在這種情況下，我們使用裝飾器來新增樣式。 它們還可以用於包裝故事在 <b>"providers" - 設定 React上下文 的庫元件</b>.
 </div>
 
 `task`提供一個`Task`的形狀,這是通過我們建立和匯出的`Task.stories.js`檔案. 同樣的,`actions`定義`Task`元件期望的操作 (模擬回撥) ,其中`TaskList`也需要.
@@ -247,4 +247,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 請注意,我們已經能夠重用`withPinnedTasks`故事 和 單元測試中的任務列表;通過這種方式,我們可以繼續 以越來越多的方式 利用現有資源 (代表元件的有趣配置的示例) .
 
-另請注意,此測試非常脆弱. 隨著專案的成熟,以及專案的確切實現,這都可能是`Task`的更改 - 可能使用 不同的類名或`textarea`而不是一個`input`- 測試將失敗,需要更新. 這不一定是一個問題,但使用 UI 的 單元測試 要小心的指示. 它們不容易維護. 替代的是依靠視覺,快照和視覺迴歸 (參見[測試章節](/test/)) 的 Storybook 測試.
+另請注意,此測試非常脆弱. 隨著專案的成熟,以及專案的確切實現,這都可能是`Task`的更改 - 可能使用 不同的類名或`textarea`而不是一個`input`- 測試將失敗,需要更新. 這不一定是一個問題,但使用 UI 的 單元測試 要小心的指示. 它們不容易維護. 替代的是依靠視覺,快照和視覺迴歸 (參見[測試章節](/intro-to-storybook/react/zh-TW/test/)) 的 Storybook 測試.

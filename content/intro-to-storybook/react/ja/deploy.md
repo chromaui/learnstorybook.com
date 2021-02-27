@@ -19,7 +19,7 @@ Storybook をデプロイするには、まず静的サイトとしてエクス�
 
 ### GitHub にリポジトリーを作成する
 
-デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。[はじめにの章](/react/ja/get-started/)で Create React App (CRA) でプロジェクトを初期化した際に、ローカルのリポジトリーはすでに作成されています。また、この段階でリモートリポジトリーにプッシュできるコミットがあるはずです。
+デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。[はじめにの章](/intro-to-storybook/react/ja/get-started/)で Create React App (CRA) でプロジェクトを初期化した際に、ローカルのリポジトリーはすでに作成されています。また、この段階でリモートリポジトリーにプッシュできるコミットがあるはずです。
 
 [ここから](https://github.com/new) GitHub にアクセスし、リポジトリーを作りましょう。リポジトリーの名前はローカルと同じく「taskbox」とします。
 
@@ -82,25 +82,27 @@ yarn chromatic --project-token=<project-token>
 
 ```yaml
 # .github/workflows/chromatic.yml
-# name of our action
+
+# Workflow name
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+
+# Event for the workflow
 on: push
 
-# what the action will do
+# List of jobs
 jobs:
   test:
-    # the operating system it will run on
+    # Operating System
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
+          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

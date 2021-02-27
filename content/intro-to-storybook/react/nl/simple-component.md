@@ -91,7 +91,7 @@ Om onze stories te definiëren, roepen we eenmaal `add()` op voor elk van onze t
 Bij het aanmaken van een story gebruiken we een basistaak (`task`) om de vorm van de taak uit te bouwen die de component verwacht. Dit wordt typisch gemodelleerd naar hoe de echte data eruit ziet. Nogmaals, als we deze vorm `export`-en, kunnen we deze in latere stories hergebruiken, zoals we zullen zien.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> helpen je bij het verifiëren van interacties bij het geisoleerd bouwen van UI-componenten. Vaak heb je geen toegang tot de functies en state die je hebt in de context van de app. Gebruik <code>action()</code> om ze in te stubben.
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> helpen je bij het verifiëren van interacties bij het geisoleerd bouwen van UI-componenten. Vaak heb je geen toegang tot de functies en state die je hebt in de context van de app. Gebruik <code>action()</code> om ze in te stubben.
 </div>
 
 ## Configuratie

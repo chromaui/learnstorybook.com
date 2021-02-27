@@ -7,7 +7,7 @@ commit: 'a23f4d0'
 
 Storybook 有一个强大的生态系统 [addons](https://storybook.js.org/docs/react/configure/storybook-addons)，你能够用来增强你的团队中每个人的开发体验。在 [这里](https://storybook.js.org/addons) 浏览全部。
 
-如果你一直遵循着本教程，那么你已经遇到了多个插件，并在 [测试](/react/zh-CN/test/) 章节进行了设置。
+如果你一直遵循着本教程，那么你已经遇到了多个插件，并在 [测试](/intro-to-storybook/react/zh-CN/test/) 章节进行了设置。
 
 有些插件对于每个例子都可能用到。让我们集成最受欢迎的插件：[Controls](https://storybook.js.org/docs/react/essentials/controls)。
 
@@ -85,10 +85,10 @@ LongTitle.args = {
   />
 </video>
 
-如果我们是[视觉测试](/react/zh-CN/test/)，那么如果省略号式的解决方案中断，我们也会收到通知。没有测试覆盖范围的情况下，容易遗忘的边缘盒！
+如果我们是[视觉测试](/intro-to-storybook/react/zh-CN/test/)，那么如果省略号式的解决方案中断，我们也会收到通知。没有测试覆盖范围的情况下，容易遗忘的边缘盒！
 
 ### 合并修改
 
 不要忘记使用 git 合并你的修改！
 
-<div class="aside"><p>Controls 控件是让非开发人员玩弄您的组件和故事的好方法，它比我们在这里看到的要多得多，我们推荐阅读 <a href="https://storybook.js.org/docs/react/essentials/controls">官方文档</a> 学习关于它的更多。并且你可以通过多种方式自定义 Storybook 插件以适合你的工作流程。 在 <a href="/intro-to-storybook/react/zh-CN/creating-addons">创建插件</a> 章节中，我们将通过创建一个插件来教您这一点，该插件将帮助您增强开发工作流程。</p></div>
+<div class="aside"><p>Controls 控件是让非开发人员玩弄您的组件和故事的好方法，它比我们在这里看到的要多得多，我们推荐阅读 <a href="https://storybook.js.org/docs/react/essentials/controls">官方文档</a> 学习关于它的更多。并且你可以通过多种方式自定义 Storybook 插件以适合你的工作流程。 在 <a href="/create-an-addon/react/en/introduction/">创建插件</a> 章节中，我们将通过创建一个插件来教您这一点，该插件将帮助您增强开发工作流程。</p></div>

@@ -190,9 +190,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-
-Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. Also as our app is progressively growing it might also a good place to run the tests with the <code> --watchAll</code> flag like mentioned in the <a href="/react/en/get-started/">Get started</a> section.
-
-Don't forget to commit your changes with git!
-
+💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
 </div>

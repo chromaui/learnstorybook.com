@@ -1,380 +1,137 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link as GatsbyLinkWithoutEffects } from 'gatsby';
+import PropTypes from 'prop-types';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
 import {
-  Icon,
-  Link,
   styles,
-  Subheading,
+  Icon,
   TooltipLinkList,
   WithTooltip,
+  Header as DSHeader,
+  NavItem,
+  NavLink,
 } from '@storybook/design-system';
-import GatsbyLink from '../basics/GatsbyLink';
-import Logo from '../basics/Logo';
+import { Link as GatsbyLink } from 'gatsby';
+import LogoStorybook from '../basics/LogoStorybook';
 
-const { color, pageMargins, breakpoint, typography } = styles;
+const { breakpoint } = styles;
 
-const LogoWrapper = styled(Logo)`
-  && {
-    height: 22px;
-    width: auto;
-    display: block;
-    transition: transform 150ms ease-out;
-    transform: translate3d(0, 0, 0);
-    margin-top: -6px;
-
-    &:hover {
-      transform: translate3d(0, -1px, 0);
-    }
-
-    &:active {
-      transform: translate3d(0, 0, 0);
-    }
-
-    @media (min-width: ${breakpoint}px) {
-      height: 24px;
-    }
+const LinkWrapper = ({ href, isGatsby, ...props }) => {
+  if (isGatsby) {
+    return <GatsbyLink to={href} {...props} />;
   }
-`;
 
-const navBreakpoint = breakpoint * 1.2;
+  // eslint-disable-next-line
+  return <a href={href} {...props} />;
+};
 
-const NavItem = styled.div`
-  display: inline-flex;
-  height: 3rem;
-  vertical-align: top;
-  align-items: center;
-  font-size: ${typography.size.s2}px;
-  font-weight: ${typography.weight.bold};
-  line-height: 19px;
+LinkWrapper.propTypes = {
+  href: PropTypes.string.isRequired,
+  isGatsby: PropTypes.bool.isRequired,
+};
 
-  ${props =>
-    props.showDesktop &&
-    `
-    display: none;
-    @media (min-width: ${navBreakpoint}px) {
-      display: inline-flex;
-    }
-  `}
+const navCommunityLinks = [
+  {
+    title: 'Get involved',
+    href: 'https://storybook.js.org/community/',
+    isGatsby: false,
+  },
+  {
+    title: 'Use cases',
+    href: 'https://storybook.js.org/use-cases',
+    isGatsby: false,
+  },
+  {
+    title: 'Support',
+    href: 'https://storybook.js.org/support',
+    isGatsby: false,
+  },
+  { title: 'Team', href: 'https://storybook.js.org/team', isGatsby: false },
+];
 
-  ${props =>
-    props.showMobile &&
-    `
-    @media (min-width: ${navBreakpoint}px) {
-      display: none;
-    }
-  `}
-`;
+const links = [
+  {
+    title: 'Docs',
+    href: 'https://storybook.js.org/docs/react/get-started/introduction',
+    isGatsby: false,
+  },
+  {
+    title: 'Tutorials',
+    href: '/',
+    isGatsby: true,
+  },
+  {
+    title: 'Releases',
+    href: 'https://storybook.js.org/releases/',
+    isGatsby: false,
+  },
+  { title: 'Addons', href: 'https://storybook.js.org/addons', isGatsby: false },
+  { title: 'Blog', href: 'https://storybook.js.org/blog', isGatsby: false },
+];
 
-const NavTextLinkInternal = styled(GatsbyLink)`
-  && {
-    color: ${props => (props.inverse ? color.lightest : color.darkest)};
-
-    svg {
-      margin-right: 0;
-
-      path {
-        fill: ${props => (props.inverse ? color.lightest : color.darkest)};
-      }
-    }
-  }
-`;
-
-const NavTextLinkExternal = styled(Link)`
-  color: ${props => (props.inverse ? color.lightest : color.darkest)};
-  transition: transform 150ms ease-out;
-`;
-
-const NavGroup = styled.div`
+const HeaderWrapper = styled.header`
   position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 1;
-  display: flex;
-
-  ${props =>
-    props.withRightAlignment &&
-    `
-    left: auto;
-    right: 0;
-  `}
-
-  ${NavItem} + ${NavItem} {
-    margin-left: 20px;
-  }
+  left: 0px;
+  right: 0px;
+  top: 0px;
 `;
 
-const MobileMenuNavItem = styled(NavItem)`
-  order: 1;
-  margin-right: 10px;
-
-  > span:focus {
-    outline: none;
-  }
-
-  svg {
-    margin: 0;
-  }
-`;
-
-const GithubNavItem = styled(NavItem)`
-  display: none;
-  min-width: 118px;
-
-  @media (min-width: 375px) {
-    display: inline-flex;
-  }
-`;
-
-const Nav = styled.div`
-  height: 3rem;
-  position: relative;
-  text-align: center;
-  z-index: 3;
-`;
-
-const NavWrapper = styled.nav`
-  ${pageMargins}
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  padding-top: 12px;
-
-  @media (min-width: ${breakpoint}px) {
-    padding-top: 36px;
-  }
-`;
-
-const GitHubWrapper = styled.div`
-  transform: scale(0.84);
-
-  ${'' /* Overrides to make a medium sized button */};
-  .github-btn {
-    font: bold 14px/14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    height: auto;
-    .gh-btn,
-    .gh-count {
-      padding: 4px 8px;
-    }
-  }
-`;
-
-const TooltipList = styled.div`
-  border-radius: ${styles.spacing.borderRadius.small}px;
-  overflow: hidden;
-
-  @media (min-width: ${navBreakpoint}px) {
-    width: 300px;
-  }
-`;
-
-const TooltipLinkListWrapper = styled.div`
-  padding: 8px 5px;
-  color: ${color.darkest};
-  white-space: normal;
-`;
-
-const TooltipLinkListSubtitle = styled.span`
-  font-weight: ${typography.weight.regular};
-  line-height: 1rem;
-  color: ${color.dark};
-  display: block;
-`;
-
-const MenuHeading = styled(Subheading)`
-  color: #8c9baa;
-  font-size: 10px;
-  line-height: 32px;
-  padding: 0px 15px;
-  border-bottom: 1px solid #eeeeee;
-  display: block;
-`;
-
-const MobileMenuColumn = styled.div`
-  &:first-child {
-    background: ${color.lightest};
-  }
-  &:last-child {
-    background: #f8f8fa;
-  }
-`;
-
-const MobileMenu = styled.div`
-  font-size: ${typography.size.s1}px;
-  display: flex;
-  flex-direction: row;
-  width: auto;
-  max-width: 400px;
-  border-radius: ${styles.spacing.borderRadius.small}px;
-  overflow: hidden;
-
-  ${MobileMenuColumn} {
-    &:first-child {
-      flex: 1;
-    }
-    &:last-child {
-      flex: 0;
-    }
-  }
-  ${TooltipLinkListWrapper} {
-    padding: 5px 0;
-  }
-`;
-
-const TooltipLinkListLinkWrapper = ({ href, to, ...rest }) => {
-  if (href) {
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return <a {...rest} href={href} />;
-  }
-
-  return <GatsbyLinkWithoutEffects {...rest} to={to} />;
-};
-
-TooltipLinkListLinkWrapper.propTypes = {
-  href: PropTypes.string,
-  to: PropTypes.string,
-};
-
-TooltipLinkListLinkWrapper.defaultProps = {
-  href: null,
-  to: null,
-};
-
-const preventDefault = e => e.preventDefault();
-
-export default function Header({ guides, githubUrl, isInverted, ...props }) {
-  const [namespace, repo] = githubUrl.match(/github.com\/(.*)\/(.*)$/).slice(1);
-
-  const guideList = (
-    <TooltipList>
-      <TooltipLinkList
-        links={guides.edges.map(({ node: guideNode }) => ({
-          title: (
-            <TooltipLinkListWrapper>
-              {guideNode.frontmatter.title}
-              <TooltipLinkListSubtitle>{guideNode.frontmatter.description}</TooltipLinkListSubtitle>
-            </TooltipLinkListWrapper>
-          ),
-          to: guideNode.fields.slug,
-        }))}
-        LinkWrapper={TooltipLinkListLinkWrapper}
-      />
-    </TooltipList>
-  );
-
-  const mobileMenu = (
-    <MobileMenu>
-      <MobileMenuColumn>
-        <MenuHeading>Guides</MenuHeading>
-        {guideList}
-      </MobileMenuColumn>
-
-      <MobileMenuColumn>
-        <MenuHeading>Links</MenuHeading>
-
-        <TooltipLinkList
-          links={[
-            { title: 'Team', to: '/team' },
-            {
-              title: 'Storybook',
-              href: 'https://storybook.js.org/',
-              target: '_blank',
-              rel: 'noopener',
-            },
-          ]}
-          LinkWrapper={TooltipLinkListLinkWrapper}
-        />
-      </MobileMenuColumn>
-    </MobileMenu>
-  );
-
-  return (
-    <NavWrapper {...props}>
-      <Nav>
-        <NavGroup>
-          <NavItem isInverted={isInverted}>
-            <GatsbyLink to="/">
-              <LogoWrapper isInverted={isInverted} />
-            </GatsbyLink>
-          </NavItem>
-        </NavGroup>
-
-        <NavGroup withRightAlignment>
-          <NavItem isInverted={isInverted} showDesktop>
-            <WithTooltip placement="bottom" trigger="click" closeOnClick tooltip={guideList}>
-              <NavTextLinkExternal inverse={isInverted} tertiary onClick={preventDefault}>
-                Guides <Icon icon="arrowdown" />
-              </NavTextLinkExternal>
-            </WithTooltip>
-          </NavItem>
-
-          <NavItem isInverted={isInverted} showDesktop>
-            <NavTextLinkInternal tertiary inverse={isInverted} to="/team">
-              Team
-            </NavTextLinkInternal>
-          </NavItem>
-
-          <NavItem isInverted={isInverted} showDesktop>
-            <NavTextLinkExternal
-              tertiary
-              inverse={isInverted}
-              href="https://storybook.js.org/"
-              rel="noopener"
-            >
-              Storybook
-            </NavTextLinkExternal>
-          </NavItem>
-
-          <MobileMenuNavItem showMobile>
+const Header = ({ inverse }) => (
+  <HeaderWrapper>
+    <DSHeader
+      navBreakpoint={1.5 * breakpoint}
+      inverse={inverse}
+      logo={<LogoStorybook inverse={inverse} />}
+      links={
+        <>
+          {links.map(link => (
+            <NavItem key={link.title} showDesktop>
+              <NavLink LinkWrapper={LinkWrapper} href={link.href} isGatsby={link.isGatsby}>
+                {link.title}
+              </NavLink>
+            </NavItem>
+          ))}
+          <NavItem showDesktop>
             <WithTooltip
               tagName="span"
-              placement="top"
+              placement="bottom"
               trigger="click"
-              tooltip={mobileMenu}
               closeOnClick
+              tooltip={<TooltipLinkList links={navCommunityLinks} LinkWrapper={LinkWrapper} />}
             >
-              <NavTextLinkExternal tertiary inverse={isInverted} onClick={preventDefault}>
-                <Icon icon="menu" />
-              </NavTextLinkExternal>
+              <NavLink tertiary>
+                Community <Icon icon="arrowdown" />
+              </NavLink>
             </WithTooltip>
-          </MobileMenuNavItem>
-
-          <GithubNavItem className="chromatic-ignore" isInverted={isInverted}>
-            <GitHubWrapper>
-              <GitHubButton type="stargazers" namespace={namespace} repo={repo} />
-            </GitHubWrapper>
-          </GithubNavItem>
-        </NavGroup>
-      </Nav>
-    </NavWrapper>
-  );
-}
+          </NavItem>
+        </>
+      }
+      github={<GitHubButton type="stargazers" namespace="storybookjs" repo="storybook" />}
+      mobileMenu={
+        <TooltipLinkList
+          links={[
+            ...links,
+            ...navCommunityLinks,
+            {
+              title: 'GitHub',
+              href: 'https://github.com/storybookjs/storybook',
+              isGatsby: false,
+            },
+          ]}
+          LinkWrapper={LinkWrapper}
+        />
+      }
+    />
+  </HeaderWrapper>
+);
 
 Header.propTypes = {
-  githubUrl: PropTypes.string,
-  guides: PropTypes.shape({
-    edges: PropTypes.arrayOf(
-      PropTypes.shape({
-        node: PropTypes.shape({
-          frontmatter: PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            description: PropTypes.string.isRequired,
-          }).isRequired,
-          fields: PropTypes.shape({
-            slug: PropTypes.string.isRequired,
-          }).isRequired,
-        }).isRequired,
-      }).isRequired
-    ),
-  }).isRequired,
-  isInverted: PropTypes.bool,
+  inverse: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  githubUrl: null,
-  isInverted: false,
+  inverse: false,
 };
+
+export default Header;

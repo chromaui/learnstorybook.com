@@ -113,12 +113,12 @@ Arguments ou [`args`](https://storybook.js.org/docs/react/writing-stories/args) 
 Lors de la création d'un story, nous utilisons un argument de base "task" pour construire la forme de la tâche que le composant attend. Cette tâche est généralement modélisée à partir de ce à quoi ressemblent les données réelles. Encore une fois, "exporter" cette forme nous permettra de la réutiliser dans des story ultérieures, comme nous le verrons.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> vous aident à vérifier les interactions lors de la construction des composants de l'UI en isolation. Souvent, vous n'aurez pas accès aux fonctions et à l'état dont vous disposez dans le contexte de l'application. Utilisez <code>action()</code> pour les simuler.
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> vous aident à vérifier les interactions lors de la construction des composants de l'UI en isolation. Souvent, vous n'aurez pas accès aux fonctions et à l'état dont vous disposez dans le contexte de l'application. Utilisez <code>action()</code> pour les simuler.
 </div>
 
 ## Configuration
 
-Nous devrons apporter quelques modifications à la configuration du Storybook pour qu'il remarque non seulement nos story récemment créées, mais nous permette également d'utiliser le fichier CSS qui a été modifié dans le [chapitre précédent](/react/en/get-started).
+Nous devrons apporter quelques modifications à la configuration du Storybook pour qu'il remarque non seulement nos story récemment créées, mais nous permette également d'utiliser le fichier CSS qui a été modifié dans le [chapitre précédent](/intro-to-storybook/react/fr/get-started).
 
 Commencez par modifier le fichier de configuration de votre Storybook (`.storybook/main.js`) comme suit :
 
@@ -126,6 +126,7 @@ Commencez par modifier le fichier de configuration de votre Storybook (`.storybo
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/addon-links',
@@ -140,9 +141,9 @@ Après avoir effectué la modification ci-dessus, dans le dossier `storybook`, c
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
 
-// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };

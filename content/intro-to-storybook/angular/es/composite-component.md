@@ -138,7 +138,7 @@ storiesOf('TaskList', module)
 `addDecorator()` nos permite añadir algún "contexto" al renderizado de cada tarea. En este caso añadimos meta datos que sirven para inicializar el módulo de Angular que nos permite utilizar nuestros componentes dentro de las historias.
 
 <div class="aside">
-Los <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador para añadir meta datos.
+Los <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador para añadir meta datos.
 </div>
 
 `task` corresponde a la forma de la Tarea que creamos y exportamos desde el archivo `task.stories.ts`. De manera similar, `actions` define las acciones (comunmente llamadas mockeadas) que espera un `TaskComponent`, el cual también necesita la `TaskListComponent`.
@@ -276,4 +276,4 @@ describe('TaskList component', () => {
 
 Como puedes notar, hemos sido capaces de reutilizar la lista de tareas `withPinnedTasks` tanto en la prueba de la historia como en el test unitario; de esta manera podemos aprovechar un recurso existente (los ejemplos que representan configuraciones interesantes de un componente) de diferentes formas.
 
-Es necesario resaltar que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de nuestro `TaskComponent` cambie --quizás usando un nombre de clase diferente o un "área de texto" en lugar de un "input"-- la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso cuando se utilizan pruebas unitarias para probar interfaces gráficas. No son fáciles de mantener. En su lugar, confía en las pruebas visuales, de instantáneas y de regresión visual (mira el [capitulo sobre las pruebas](/test/)) siempre que te sea posible.
+Es necesario resaltar que esta prueba es bastante frágil. Es posible que a medida que el proyecto madure y que la implementación exacta de nuestro `TaskComponent` cambie --quizás usando un nombre de clase diferente o un "área de texto" en lugar de un "input"-- la prueba falle y necesite ser actualizada. Esto no es necesariamente un problema, sino más bien una indicación de que hay que ser bastante cuidadoso cuando se utilizan pruebas unitarias para probar interfaces gráficas. No son fáciles de mantener. En su lugar, confía en las pruebas visuales, de instantáneas y de regresión visual (mira el [capitulo sobre las pruebas](/intro-to-storybook/angular/es/test/)) siempre que te sea posible.

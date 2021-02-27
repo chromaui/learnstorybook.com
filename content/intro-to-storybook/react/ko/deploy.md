@@ -19,7 +19,7 @@ Storybook을 배포하기 위해서는 먼저 정적인 웹 앱으로 내보내�
 
 ### GitHub 저장소 설정
 
-먼저 시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 챕터](/react/ko/get-started/)에서 프로젝트를 시작하셨을 때, Create React App (CRA)을 통해 이미 로컬 저장소가 생성되었을 것입니다. 이 단계에서 첫 번째 커밋으로 그동안의 파일들을 추가하는 것이 안전합니다.
+먼저 시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 챕터](/intro-to-storybook/react/ko/get-started/)에서 프로젝트를 시작하셨을 때, Create React App (CRA)을 통해 이미 로컬 저장소가 생성되었을 것입니다. 이 단계에서 첫 번째 커밋으로 그동안의 파일들을 추가하는 것이 안전합니다.
 
 다음 명령어를 실행하여 지금까지 한 변경 사항들을 추가하고 커밋해주세요.
 
@@ -94,25 +94,27 @@ yarn chromatic --project-token=<project-token>
 
 ```yaml
 # .github/workflows/chromatic.yml
-# name of our action
+
+# Workflow name
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+
+# Event for the workflow
 on: push
 
-# what the action will do
+# List of jobs
 jobs:
   test:
-    # the operating system it will run on
+    # Operating System
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
+          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

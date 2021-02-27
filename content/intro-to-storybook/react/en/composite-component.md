@@ -9,7 +9,7 @@ Last chapter we built our first component; this chapter extends what we learned 
 
 ## Tasklist
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
+Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and pinned items.
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
@@ -112,13 +112,10 @@ Empty.args = {
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
 By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
-
-<!--
-`taskData` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs. -->
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -258,12 +255,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import { WithPinnedTasks } from './TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  // Our story will be used for the test.
-  // With the arguments that were created.
+  //👇 Story's args used with our test
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
@@ -278,8 +274,8 @@ it('renders pinned tasks at the start of the list', () => {
 
 Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/react/en/test/)) tests where possible.
 
 <div class="aside">
-Don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>

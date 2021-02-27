@@ -31,4 +31,4 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 このようなチュートリアルや記事をお望みならば、Chromatic のメーリングリストにサインアップしてください。
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

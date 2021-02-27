@@ -38,9 +38,9 @@ const query = graphql`
 `;
 
 const getHeaderInvertedState = pathname => {
-  const pathParts = pathname.split('/').filter(p => !!p);
+  const pathParts = pathname.split('/').filter(p => !!p && p !== 'tutorials');
   // This will need to get "smarter" if the hierarchy of pages/guides changes.
-  return pathParts.length === 1 && pathParts[0] !== 'team';
+  return pathParts.length === 1 && pathParts[0] !== 'team' && pathParts[0] !== '404';
 };
 
 const TemplateWrapper = ({ location: { pathname }, children }) => (
@@ -59,7 +59,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           <link
             rel="shortcut icon"
             type="image/png"
-            href="/icon-storybook.png"
+            href={`${permalink}/icon-storybook.png`}
             sizes="16x16 32x32 64x64"
           />
           <title>{title}</title>
@@ -81,11 +81,7 @@ const TemplateWrapper = ({ location: { pathname }, children }) => (
           />
         </Helmet>
 
-        <Header
-          guides={guides}
-          githubUrl={githubUrl}
-          isInverted={getHeaderInvertedState(pathname)}
-        />
+        <Header guides={guides} githubUrl={githubUrl} inverse={getHeaderInvertedState(pathname)} />
 
         {children}
         <Footer guides={guides} />

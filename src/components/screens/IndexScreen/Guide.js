@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import pluralize from 'pluralize';
-import { styles, Icon, Subheading } from '@storybook/design-system';
+import { styles, Subheading } from '@storybook/design-system';
 
 const { breakpoint, color, spacing, typography } = styles;
 
@@ -59,18 +59,10 @@ const GuideImage = styled.img`
   max-height: 170px;
 `;
 
-const StyledIcon = styled(Icon)`
-  opacity: 0.7;
-  height: 0.8em !important;
-  bottom: -0.25em !important;
-`;
-
 const Guide = ({ chapterCount, description, imagePath, themeColor, title, ...props }) => (
   <GuideWrapper themeColor={themeColor} {...props}>
     <div>
-      <GuideTitle>
-        {title} <StyledIcon icon="arrowrightalt" />
-      </GuideTitle>
+      <GuideTitle>{title}</GuideTitle>
       <GuideDescription>{description}</GuideDescription>
 
       {chapterCount && (

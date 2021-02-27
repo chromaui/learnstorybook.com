@@ -262,12 +262,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import { WithPinnedTasks } from './TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  // Our story will be used for the test.
-  // With the arguments that were created.
+  //👇 Story's args used with our test
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
@@ -282,4 +281,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 이와 같이 `WithPinnedTasks` 스토리를 단위 테스트에서 재사용할 수 있었습니다. 이러한 방식으로 기존의 자원을 여러가지 방법으로 계속 활용할 수 있습니다.
 
-단위 테스트는 매우 취약할 수 있다는 것도 아셔야 합니다. 프로젝트의 완성도에 따라, `Task`의 정확한 구현이 변할 수 있습니다. 어쩌면 다른 클래스명을 사용하거나 `input` 대신 `textarea`를 사용하여 테스트가 실패하게 되면 업데이트가 필요할 수 있습니다. 이것이 꼭 문제라기보다는 UI에 대한 단위 테스트를 자유롭게 사용하는 것에 주의해야 한다는 지표입니다. 단위 테스트는 유지 관리하기가 쉽지 않습니다. 가능한 경우 수동, 스냅샷, 시각적 회귀 테스트([테스트 챕터](/react/ko/test/) 보기)를 사용하세요.
+단위 테스트는 매우 취약할 수 있다는 것도 아셔야 합니다. 프로젝트의 완성도에 따라, `Task`의 정확한 구현이 변할 수 있습니다. 어쩌면 다른 클래스명을 사용하거나 `input` 대신 `textarea`를 사용하여 테스트가 실패하게 되면 업데이트가 필요할 수 있습니다. 이것이 꼭 문제라기보다는 UI에 대한 단위 테스트를 자유롭게 사용하는 것에 주의해야 한다는 지표입니다. 단위 테스트는 유지 관리하기가 쉽지 않습니다. 가능한 경우 수동, 스냅샷, 시각적 회귀 테스트([테스트 챕터](/intro-to-storybook/react/ko/test/) 보기)를 사용하세요.
