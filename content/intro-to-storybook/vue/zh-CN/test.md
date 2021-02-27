@@ -1,23 +1,23 @@
 ---
-title: 'Test UI components'
-tocTitle: 'Testing'
-description: 'Learn the ways to test UI components'
+title: '测试UI组件'
+tocTitle: '测试'
+description: '学习如何测试您的UI组件'
 commit: 8bf107e
 ---
 
-No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
+任何的 Storybook 教程都需要提及测试。测试旨在提供高质量的 UI。在模块化系统中，即使是细微的改变也可能引发极大的问题。我们已经提及了三种类型的测试：
 
-- **Manual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
-- **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
-- **Unit tests** with Jest verify that the output of a component remains the same given a fixed input. They’re great for testing the functional qualities of a component.
+- **手动测试** 这需要开发者自己去观察以确保组件的正确性。它们使得我们可以理性的确保组件外观的正确性。
+- **快照测试** Storybook 快照帮助我们记录下组件的渲染特征。它们帮助我们了解因渲染出错或者警告所导致的特征变更。
+- **单元测试** 通过 Jest，我们可以确保组件在给定输入的情况下，保持相同的输出。它们在测试组件的功能特性时十分有用。
 
-## “But does it look right?”
+## “但这看起来就是正确的吗？”
 
-Unfortunately, the aforementioned testing methods alone aren’t enough to prevent UI bugs. UIs are tricky to test because design is subjective and nuanced. Manual tests are, well, manual. Snapshot tests trigger too many false positives when used for UI. Pixel-level unit tests are poor value. A complete Storybook testing strategy also includes visual regression tests.
+不幸的是，只依靠上述的测试方法是不足以防止 UI 漏洞发生的。UI 难以测试在于其主观性。手动测试，显然是手动的。快照测试很可能出发太多的错误报告。像素级别的测试又没那么有价值。一个完整的 Storybook 测试策略也应该包括视觉回归测试。
 
-## Visual testing for Storybook
+## Storybook 中的视觉测试
 
-Visual regression tests, also called visual tests, are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.
+视觉回归测试，也叫做视觉测试，主要是用来捕获外观的变化。他们通过获取每一个 story 的截图，并进行 commit 级别的比较。这对于验证像布局，颜色，大小和对比度等图像元素来说再合适不过了。
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -26,23 +26,24 @@ Visual regression tests, also called visual tests, are designed to catch changes
   />
 </video>
 
-Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
+Storybook 是一个完全适用于视觉回归测试的工具，因为每一个 story 本质上都是一个测试规格。每次对 story 的创建或修改都意味着我们创建了一个新的规格！
 
-There are a number of tools for visual regression testing. We recommend [**Chromatic**](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers that runs visual tests in parallelized cloud. It also allows us to publish Storybook online as we saw in the [previous chapter](/intro-to-storybook/vue/en/deploy/).
+我们有很多视觉回归测试工具可以使用。我们推荐使用[**Chromatic**](https://www.chromatic.com/)，一个由 Storybook 团队维护的免费发布服务，并支持在云端并行的运行视觉测试。同时正如[前一章](/intro-to-storybook/vue/zh-CN/deploy/)所示，此服务也允许我们在线发布 Storybook。
 
-## Catch a UI change
+## 捕获 UI 改变
 
-Visual regression testing relies on comparing images of the new rendered UI code to the baseline images. If a UI change is caught we'll get notified.
+视觉回归测试依赖于新 UI 代码生成的图像和基准图像的比较。一旦 UI 被改变，我们将会收到通知。
 
-Let's see how it works by tweaking the background of the `Task` component.
+让我们修改`Task`组件的背景来看看它是怎么工作的吧。
 
-Start by creating a new branch for this change:
+先创建一个新的分支：
 
 ```bash
 git checkout -b change-task-background
 ```
 
-Change `Task` to the following:
+按如下修改`Task`：
+；、——。m'm'm'm'm'm'm'm'm'm'm'm'm'm'm
 
 ```html
 <!-- src/components/Task.vue -->
@@ -56,49 +57,49 @@ Change `Task` to the following:
 />
 ```
 
-This yields a new background color for the item.
+这为每个 task 项提供了一个新的背景色。
 
 ![task background change](/intro-to-storybook/chromatic-task-change.png)
 
-Add the file:
+添加文件：
 
 ```bash
 git add .
 ```
 
-Commit it:
+提交：
 
 ```bash
 git commit -m "change task background to red"
 ```
 
-And push the changes to the remote repo:
+提交到远程仓库：
 
 ```bash
 git push -u origin change-task-background
 ```
 
-Finally, open your GitHub repository and open a pull request for the `change-task-background` branch.
+最后，打开您的 GitHub 仓库，并为`change-task-background`分支建立一个拉取请求（pull request）。
 
 ![Creating a PR in GitHub for task](/github/pull-request-background.png)
 
-Add a descriptive text to your pull request and click `Create pull request`. Click on the "🟡 UI Tests" PR check at the bottom of the page.
+为您的拉取请求添加一些描述并点击`Create pull request`。点击页面底部的"🟡 UI Tests"PR 检查。
 
 ![Created a PR in GitHub for task](/github/pull-request-background-ok.png)
 
-This will show you the UI changes caught by your commit.
+您提交所产生的 UI 改变将会显示出来。
 
 ![Chromatic caught changes](/intro-to-storybook/chromatic-catch-changes.png)
 
-There are a lot of changes! The component hierarchy where `Task` is a child of `TaskList` and `Inbox` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
+这里有太多改变了！从组件层级来说，因为`Task`是`TaskList`和`Inbox`的子组件，这也就意味着即使是很小的修改也会被滚雪球式的放大。这种情况恰恰精准的展示了为什么开发者除了需要其他测试方法之外，还需要视觉回归测试的原因。
 
 ![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
-## Review changes
+## 审查改变
 
-Visual regression testing ensures components don’t change by accident. But it’s still up to us to determine whether changes are intentional or not.
+视觉回归测试确保了组件不会被意外修改。但这仍然需要我们自己来判断修改是有意的还是无意的。
 
-If a change is intentional we'll need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
+如果修改是我们有意为之的，那我们就需要更新基准来保证未来的测试可以和最新版本的 story 进行对比。如果是无意的那就说明我们需要修正它。
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -107,14 +108,14 @@ If a change is intentional we'll need to update the baseline so that future test
   />
 </video>
 
-Since modern apps are constructed from components, it’s important that we test at the level of component. Doing so helps us pinpoint the root cause of a change, the component, instead of reacting to symptoms of a change, the screens and composite components.
+现代应用是基于组件进行开发的，所以在组件级别进行测试尤为重要。这帮助我们理解改变的根本原因，即组件本身，而不是只看到由改变而导致的症状，即画面或者合成组件。
 
-## Merge changes
+## 合并修改
 
-When we’ve finished reviewing we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs. If you like the new `red` background then accept the changes, if not revert to the previous state.
+当我们审查完代码后，我们相信现在可以合并这些 UI 改变了 --也就是说这些修改不会意外地导致漏洞发生。如果你喜欢新的`红色`背景则保留此次修改，否则恢复到原来的状态。
 
 ![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook helps us **build** components; testing helps us **maintain** them. The four types of UI testing covered in this tutorial were visual, snapshot, unit, and visual regression testing. The last three can be automated by adding them to a CI as we've just finished setting up. This helps us ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
+Storybook 帮助我们**构建**组件；测试帮助我们**维护**组件。本教程中提及的 UI 测试包括视觉，快照，单元和视觉回归测试。后三种可以通过添加进 CI 来实现自动化，正如我们所设置的那样。这可以帮助我们在编写组件时规避漏洞的产生。整体的流程如下所示。
 
 ![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)
