@@ -16,16 +16,14 @@ This example uses [Svelte's Stores](https://svelte.dev/docs#svelte_store), Svelt
 
 First we’ll construct a simple Svelte store that responds to actions that change the state of tasks, in a file called `src/store.js` (intentionally kept simple):
 
-```javascript
-// src/store.js
-
+```js:title=src/store.js
 // A simple Svelte store implementation with update methods and initial data.
 // A true app would be more complex and separated into different files.
 
 import { writable } from 'svelte/store';
 
 const TaskBox = () => {
-  // creates a new writable store populated with some initial data
+  // Creates a new writable store populated with some initial data
   const { subscribe, update } = writable([
     { id: '1', title: 'Something', state: 'TASK_INBOX' },
     { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -35,12 +33,12 @@ const TaskBox = () => {
 
   return {
     subscribe,
-    // method to archive a task, think of a action with redux or Vuex
+    // Method to archive a task, think of a action with redux or Vuex
     archiveTask: id =>
       update(tasks =>
         tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task))
       ),
-    // method to archive a task, think of a action with redux or Vuex
+    // Method to archive a task, think of a action with redux or Vuex
     pinTask: id =>
       update(tasks =>
         tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
@@ -55,9 +53,7 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 
 In `src/components/PureTaskList.svelte`:
 
-```svelte
-<!-- src/components/PureTaskList.svelte -->
-
+```svelte:title=src/components/PureTaskList.svelte
 <!--This file moved from TaskList.svelte-->
 <script>
   import Task from './Task.svelte';
@@ -91,40 +87,37 @@ In `src/components/PureTaskList.svelte`:
 </div>
 {/if}
 {#each tasksInOrder as task}
-<Task {task} on:onPinTask on:onArchiveTask />
+  <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
 
 In `src/components/TaskList.svelte`:
 
-```svelte
-<!-- src/components/TaskList.svelte -->
+```diff:title=src/components/TaskList.svelte
 
 <script>
-  import PureTaskList from './PureTaskList.svelte';
-  import { taskStore } from '../store';
-  function onPinTask(event) {
-    taskStore.pinTask(event.detail.id);
-  }
-  function onArchiveTask(event) {
-    taskStore.archiveTask(event.detail.id);
-  }
++ import PureTaskList from './PureTaskList.svelte';
++ import { taskStore } from '../store';
++ function onPinTask(event) {
++   taskStore.pinTask(event.detail.id);
++ }
++ function onArchiveTask(event) {
++   taskStore.archiveTask(event.detail.id);
++ }
 </script>
 
 <div>
-  <PureTaskList
-    tasks={$taskStore}
-    on:onPinTask={onPinTask}
-    on:onArchiveTask={onArchiveTask}
-  />
++ <PureTaskList
++   tasks={$taskStore}
++   on:onPinTask={onPinTask}
++   on:onArchiveTask={onArchiveTask}
++ />
 </div>
 ```
 
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
-```javascript
-// src/components/PureTaskList.stories.js
-
+```js:title=src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList.svelte';
 import * as TaskStories from './Task.stories';
 
