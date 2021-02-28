@@ -23,10 +23,9 @@ yarn add vuex
 
 In a file called `src/store.js` we'll construct a standard Vuex store that responds to actions which will change the tasks state:
 
-```javascript
-// src/store.js
-
+```js:title=src/store.js
 import Vue from 'vue';
+
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
@@ -61,24 +60,22 @@ export default new Vuex.Store({
 
 In our top-level app component (`src/App.vue`) we can wire the store into our component hierarchy fairly easily:
 
-```html
-<!--src/App.vue -->
-
+```diff:title=src/App.vue
 <template>
   <div id="app">
-    <task-list />
++   <task-list />
   </div>
 </template>
 
 <script>
-  import store from './store';
-  import TaskList from './components/TaskList.vue';
++ import store from './store';
++ import TaskList from './components/TaskList.vue';
 
   export default {
     name: 'app',
-    store,
++   store,
     components: {
-      TaskList,
++     TaskList,
     },
   };
 </script>
@@ -91,9 +88,7 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 
 In `src/components/PureTaskList.vue`:
 
-```html
-<!-- src/components/PureTaskList.vue -->
-
+```diff:title=src/components/PureTaskList.vue
 <template>
   <!-- same content as before -->
 </template>
@@ -101,7 +96,7 @@ In `src/components/PureTaskList.vue`:
 <script>
   import Task from './Task';
   export default {
-    name: 'PureTaskList',
++   name: 'PureTaskList',
     // same content as before
   };
 </script>
@@ -109,9 +104,7 @@ In `src/components/PureTaskList.vue`:
 
 In `src/components/TaskList.vue`:
 
-```html
-<!-- src/components/TaskList.vue -->
-
+```html:title=src/components/TaskList.vue
 <template>
   <PureTaskList :tasks="tasks" v-on="$listeners" @archive-task="archiveTask" @pin-task="pinTask" />
 </template>
@@ -132,24 +125,23 @@ In `src/components/TaskList.vue`:
 
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
-```javascript
-// src/components/PureTaskList.stories.js
+```diff:title=src/components/PureTaskList.stories.js
++ import PureTaskList from './PureTaskList';
 
-import PureTaskList from './PureTaskList';
 import * as TaskStories from './Task.stories';
 
 export default {
-  component: PureTaskList,
-  title: 'PureTaskList',
++ component: PureTaskList,
++ title: 'PureTaskList',
   decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
 };
 
 const Template = (args, { argTypes }) => ({
-  components: { PureTaskList },
++ components: { PureTaskList },
   props: Object.keys(argTypes),
   // We are reusing our actions from task.stories.js
   methods: TaskStories.actionsData,
-  template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
++ template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
 });
 
 export const Default = Template.bind({});
@@ -204,17 +196,17 @@ Empty.args = {
 
 Similarly, we need to use `PureTaskList` in our Jest test:
 
-```js
-// tests/unit/PureTaskList.spec.js
-
+```diff:title=tests/unit/PureTaskList.spec.js
 import Vue from 'vue';
-import PureTaskList from '../../src/components/PureTaskList.vue';
+
++ import PureTaskList from '../../src/components/PureTaskList.vue';
+
 //👇 Our story imported here
-import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
++ import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   // render PureTaskList
-  const Constructor = Vue.extend(PureTaskList);
++ const Constructor = Vue.extend(PureTaskList);
   const vm = new Constructor({
     //👇 Story's args used with our test
     propsData: WithPinnedTasks.args,
