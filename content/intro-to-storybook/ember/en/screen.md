@@ -14,8 +14,7 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 
 Let's start by updating our store with the necessary fields:
 
-```js
-// app/store.js
+```diff:title=app/store.js
 
 import { createStore } from 'tracked-redux';
 
@@ -23,16 +22,16 @@ export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
   // The new actions to handle both error and loading state
-  SET_ERROR: 'SET_ERROR',
-  SET_LOADING: 'SET_LOADING',
++ SET_ERROR: 'SET_ERROR',
++ SET_LOADING: 'SET_LOADING',
 };
 
 // The action creators bundle actions with the data required to execute them
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
-export const setError = () => ({ type: actions.SET_ERROR });
-export const setLoading = () => ({ type: actions.SET_LOADING });
++ export const setError = () => ({ type: actions.SET_ERROR });
++ export const setLoading = () => ({ type: actions.SET_LOADING });
 
 // A sample set of tasks
 const defaultTasks = [
@@ -68,16 +67,16 @@ const reducers = (state, action) => {
       return taskStateReducer('TASK_ARCHIVED')(state, action);
     case actions.PIN_TASK:
       return taskStateReducer('TASK_PINNED')(state, action);
-    case actions.SET_ERROR:
-      return {
-        ...state,
-        isError: true,
-      };
-    case actions.SET_LOADING:
-      return {
-        ...state,
-        isLoading: true,
-      };
++   case actions.SET_ERROR:
++     return {
++       ...state,
++       isError: true,
++     };
++   case actions.SET_LOADING:
++     return {
++       ...state,
++       isLoading: true,
++     };
     default:
       return state || initialState;
   }
@@ -88,8 +87,7 @@ export const store = createStore(reducers);
 
 Next, create a new component called `inbox-scree.hbs` inside the `app/components` directory:
 
-```handlebars
-{{!--app/components/inbox-screen.hbs--}}
+```hbs:title=app/components/inbox-screen.hbs
 
 <div>
   <div class="page lists-show">
@@ -133,11 +131,10 @@ We now have a way to handle the various states of our application. We can now mo
 
 Inside `app/components/inbox-screen.js` add the following:
 
-```javascript
-// app/components/inbox-screen.js
-
+```js:title=app/components/inbox-screen.js
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+
 import { store, pinTask, archiveTask } from '../store';
 
 export default class InboxScreenComponent extends Component {
@@ -169,10 +166,8 @@ export default class InboxScreenComponent extends Component {
 
 We can now safely delete the `tasks` folder we created in the [previous chapter](/intro-to-storybook/ember/en/data/) and add the `InboxScreen` to the `application` template.
 
-```handlebars
-{{!-- app/templates/aplication.hbs --}}
-
-<InboxScreen />
+```diff:title=app/templates/aplication.hbs
++ <InboxScreen />
 ```
 
 However, where things get interesting is in rendering the story in Storybook.
@@ -181,9 +176,7 @@ As `loading` and `error` are states internal to the `InboxScreen` component, the
 
 So when we setup our stories in `inbox-screen.stories.js`:
 
-```javascript
-// app/components/inbox-screen.stories.js
-
+```js:title=app/components/inbox-screen.stories.js
 import { hbs } from 'ember-cli-htmlbars';
 
 export default {

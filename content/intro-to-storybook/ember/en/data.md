@@ -25,9 +25,7 @@ ember install tracked-redux
 
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `redux.js` in the `app` folder (intentionally kept simple):
 
-```js
-// app/store.js
-
+```js:title=app/store.js
 import { createStore } from 'tracked-redux';
 
 export const actions = {
@@ -89,9 +87,7 @@ For that we're going to use both a [route](https://guides.emberjs.com/release/ro
 
 Inside the `app` directory, create a new one called `tasks` and inside add a new file called `route.js` with the following:
 
-```js
-// app/tasks/route.js
-
+```js:title=app/tasks/route.js
 import Route from '@ember/routing/route';
 import { store } from '../store';
 
@@ -108,11 +104,10 @@ export default class TasksRoute extends Route {
 
 Next, we'll need the controller. Inside the `tasks` folder create another file called `controller.js` with the following:
 
-```js
-// app/tasks/controller.js
-
+```js:title=app/tasks/controller.js
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
+
 import { store, pinTask, archiveTask } from '../store';
 
 export default class TaskController extends Controller {
@@ -130,14 +125,12 @@ export default class TaskController extends Controller {
 
 And one final file called `template.hbs`, in which we'll add the presentational `<TaskList>` component we've created in the [previous chapter](/intro-to-storybook/ember/en/composite-component/):
 
-```hbs
-{{!--app/tasks/template.hbs --}}
-
-<TaskList
-  @tasks={{@model}}
-  @pinTask={{this.pinTask}}
-  @archiveTask={{this.archiveTask}}
-/>
+```diff:title=app/tasks/template.hbs
++ <TaskList
++  @tasks={{@model}}
++  @pinTask={{this.pinTask}}
++  @archiveTask={{this.archiveTask}}
++ />
 ```
 
 With this we've accomplished what we've set out to do, we've managed to setup a data persistance layer and also we've managed to keep the components decoupled by adopting some best practices.

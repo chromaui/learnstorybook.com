@@ -25,9 +25,7 @@ First, let’s create the necessary files for our task component and its accompa
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```handlebars
-{{!-- app/components/task.hbs --}}
-
+```hbs:title=app/components/task.hbs
 <div class="list-item">
   <input type="text" value={{@task.title}} readonly={{true}}/>
 </div>
@@ -37,9 +35,7 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```javascript
-// app/components/task.stories.js
-
+```js:title=app/components/task.stories.js
 import { hbs } from 'ember-cli-htmlbars';
 
 import { action } from '@storybook/addon-actions';
@@ -124,12 +120,9 @@ When creating a story we use a base `task` arg to build out the shape of the tas
 
 We'll also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your configuration file (`.storybook/main.js`) to the following:
 
-```javascript
-// .storybook/main.js
-
+```diff:title=.storybook/main.js
 module.exports = {
-  //👇 Location of our stories
-  stories: ['../app/components/**/*.stories.js'],
++ stories: ['../app/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
 ```
@@ -149,51 +142,47 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```handlebars
-{{!-- app/components/task.hbs --}}
-
-<div class="list-item {{@task.state}}" data-test-task>
-  <label class="checkbox">
-    <input
-      type="checkbox"
-      disabled
-      name="checked"
-      checked={{this.isArchived}}
-    />
-    <span
-      class="checkbox-custom"
-      data-test-task-archive
-      {{on "click" this.archive}}
-    ></span>
-  </label>
-  <div class="title">
-    <input
-      type="text"
-      readonly
-      value={{@task.title}}
-      placeholder="Input title"
-    />
-  </div>
-  <div class="actions">
-    {{#unless this.isArchived}}
-      <span data-test-task-pin {{on "click" this.pin}}>
-        <span class="icon-star"></span>
-      </span>
-    {{/unless}}
-  </div>
-</div>
+```diff:title=app/components/task.hbs
++ <div class="list-item {{@task.state}}" data-test-task>
++   <label class="checkbox">
++     <input
++       type="checkbox"
++       disabled
++       name="checked"
++       checked={{this.isArchived}}
++     />
++     <span
++       class="checkbox-custom"
++       data-test-task-archive
++       {{on "click" this.archive}}
++     ></span>
++   </label>
++   <div class="title">
++     <input
++       type="text"
++       readonly
++       value={{@task.title}}
++       placeholder="Input title"
++     />
++   </div>
++   <div class="actions">
++     {{#unless this.isArchived}}
++       <span data-test-task-pin {{on "click" this.pin}}>
++         <span class="icon-star"></span>
++       </span>
++     {{/unless}}
++   </div>
++ </div>
 ```
 
 Then we'll need create a new file called `app/components/task.js` with the following:
 
-```js
-// app/components/task.js
-
+```js:title=app/components/task.js
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
 export default class Task extends Component {
-  // computed property for the component (to assign a value to the task state checkbox)
+  // Computed property for the component (to assign a value to the task state checkbox)
   get isArchived() {
     return this.args.task.state === 'TASK_ARCHIVED';
   }
