@@ -244,7 +244,7 @@ The component is still basic at the moment. First write the code that achieves t
 +     </a>
 +     {/if}
 +   </div>
-+ </div>
++  </div>
 ```
 
 The additional markup from above combined with the CSS we imported earlier yields the following UI:

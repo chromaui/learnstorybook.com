@@ -139,7 +139,7 @@ And update `TaskList.svelte` to the following:
 
 ```diff:title=src/components/TaskList.svelte
 <script>
- import Task from './Task.svelte';
+  import Task from './Task.svelte';
 + import LoadingRow from './LoadingRow.svelte';
   export let loading = false;
   export let tasks = [];

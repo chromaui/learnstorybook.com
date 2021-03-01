@@ -126,12 +126,12 @@ The good news is that it is easy to supply a Redux store to the `InboxScreen` in
 
 ```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
++ import { Provider } from 'react-redux';
 
 import { PureInboxScreen } from './InboxScreen';
 
-+ import { Provider } from 'react-redux';
 + import { action } from '@storybook/addon-actions';
-+ import { PureInboxScreen } from './InboxScreen';
+
 + import * as TaskListStories from './TaskList.stories';
 
 + // A super-simple mock of a redux store

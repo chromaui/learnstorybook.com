@@ -136,7 +136,6 @@ Create a new file called `loading-row.hbs` and inside add the following markup:
 And update `task-list.hbs` to the following:
 
 ```diff:title=app/components/task-list.hbs
-
 + {{#if @loading}}
 +  <LoadingRow />
 +  <LoadingRow />
