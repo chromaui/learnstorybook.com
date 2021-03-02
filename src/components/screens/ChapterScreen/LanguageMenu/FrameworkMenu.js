@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import startCase from 'lodash/startCase';
 import sortBy from 'lodash/sortBy';
-import { Link as GatsbyLinkWithoutEffects } from 'gatsby';
+import { withPrefix, Link as GatsbyLinkWithoutEffects } from 'gatsby';
 import { Button, Icon, styles, WithTooltip, TooltipLinkList } from '@storybook/design-system';
 import GatsbyLink from '../../../basics/GatsbyLink';
 import getLanguageName from '../../../../lib/getLanguageName';
@@ -25,7 +25,7 @@ const FrameworkImage = styled.img`
     `
     border: 2px solid #5CACF7;
     border-radius: ${styles.spacing.borderRadius.small}px;
-   
+
   `}
 `;
 
@@ -193,13 +193,15 @@ const FrameworkMenu = ({
       return {
         short: translationLanguage,
         title: getLanguageName(translationLanguage),
-        href: getChapterInOtherLanguage(
-          framework,
-          translationLanguage,
-          guide,
-          chapter,
-          firstChapter,
-          translationPages
+        href: withPrefix(
+          getChapterInOtherLanguage(
+            framework,
+            translationLanguage,
+            guide,
+            chapter,
+            firstChapter,
+            translationPages
+          )
         ),
       };
     })
@@ -222,7 +224,7 @@ const FrameworkMenu = ({
             )}
           >
             <FrameworkImage
-              src={`/frameworks/logo-${availableFramework}.svg`}
+              src={withPrefix(`/frameworks/logo-${availableFramework}.svg`)}
               alt={startCase(availableFramework)}
               selectedFramework={availableFramework === framework}
               title={capitalizeFrameworks(availableFramework)}

@@ -120,7 +120,7 @@ Empty.args = {
 ```
 
 <div class="aside">
-💡 Los <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
+    Los <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
 </div>
 
 Al importar `TaskStories`, pudimos [componer](https://storybook.js.org/docs/vue/writing-stories/args#args-composition) los argumentos (args para abreviar) en nuestras historias con un mínimo esfuerzo. De esa forma, se conservan los datos y las acciones (callbacks simulados) que esperan ambos componentes.

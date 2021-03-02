@@ -127,7 +127,7 @@ Para definir nuestras historias, llamamos la función `add()` una vez por cada u
 Al crear una historia utilizamos una `tarea` (`task`) base que se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ar esta tarea nos permitirá reutilizarla en historias posteriores.
 
 <div class="aside">
-Las <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes interfaz gráfica en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para simularlas.
+Las <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes interfaz gráfica en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para simularlas.
 </div>
 
 ## Configuración

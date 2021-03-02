@@ -5,7 +5,7 @@ description: 'Lerne an einem bekannten Beispiel, Addons zu integrieren und zu nu
 commit: 'a23f4d0'
 ---
 
-Storybook rühmt sich eines robuten [Addon-Systems](https://storybook.js.org/addons/introduction/), über das sich die Entwicklungserfahrung all deiner Teammitglieder verbessern lässt. Wenn du diesem Tutorial linear gefolgt bist, haben wir bereits einige Addons erwähnt und du hast bereits eines im [Kapitel über Tests](/react/de/test/) implementiert.
+Storybook rühmt sich eines robuten [Addon-Systems](https://storybook.js.org/docs/react/configure/storybook-addons), über das sich die Entwicklungserfahrung all deiner Teammitglieder verbessern lässt. Wenn du diesem Tutorial linear gefolgt bist, haben wir bereits einige Addons erwähnt und du hast bereits eines im [Kapitel über Tests](/intro-to-storybook/react/de/test/) implementiert.
 
 <div class="aside">
 <strong>Auf der Suche nach einer Liste verfügbarer Addons?</strong>
@@ -141,15 +141,8 @@ Nun, da wir die Story hinzugefügt haben, können wir diesen Grenzfall ganz einf
 
 ![Hier ist sie in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Sofern wir [visuelle Regressions-Tests](/react/de/test/) verwenden, werden wir nun auch darauf aufmerksam gemacht, falls wir unsere Umbruch-Lösung je kaputt machen sollten. Solche versteckten Grenzfälle werden nur zu gerne vergessen.
+Sofern wir [visuelle Regressions-Tests](/intro-to-storybook/react/de/test/) verwenden, werden wir nun auch darauf aufmerksam gemacht, falls wir unsere Umbruch-Lösung je kaputt machen sollten. Solche versteckten Grenzfälle werden nur zu gerne vergessen.
 
 ### Änderungen mergen
 
 Vergiss nicht, deine Änderungen in Git zu mergen!
-
-<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
-
-<!--
-## Addons mit dem Team teilen
-
-Knobs ist eine schöne Möglichkeit für Nicht-Entwickler mit deinen Komponenten und Stories herumzuspielen. Es könnte ihnen aber Schwierigkeiten bereiten, das Storybook auf ihren lokalen Rechnern zu starten. Aus diesem Grund kann es hilfreich sein, dein Storybook online zu deployen. Im nächsten Kapitel machen wir genau das! -->

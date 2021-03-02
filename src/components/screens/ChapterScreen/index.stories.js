@@ -38,7 +38,7 @@ Default.args = {
       siteMetadata: {
         githubUrl: 'https://github.com',
         contributeUrl: 'https://github.com',
-        permalink: 'https://learnstorybook.com',
+        permalink: 'https://storybook.js.org/tutorials',
         title: 'Learn Storybook',
       },
     },
@@ -126,6 +126,5 @@ TutorialNotUpdated.args = {
         tutorialupdated: false,
       },
     },
-   
   },
-}
+};

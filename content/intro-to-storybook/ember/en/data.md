@@ -128,7 +128,7 @@ export default class TaskController extends Controller {
 }
 ```
 
-And one final file called `template.hbs`, in which we'll add the presentational `<TaskList>` component we've created in the [previous chapter](/ember/en/composite-component/):
+And one final file called `template.hbs`, in which we'll add the presentational `<TaskList>` component we've created in the [previous chapter](/intro-to-storybook/ember/en/composite-component/):
 
 ```hbs
 {{!--app/tasks/template.hbs --}}

@@ -106,7 +106,7 @@ Empty.args = {
 };
 ```
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/ember/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -251,7 +251,7 @@ module('Integration | Component | TaskList', function(hooks) {
 
 Contrary to the other versions of this tutorial, with Ember we can't import the data and stories used in our story file created earlier, without introducing a lot of complexity and that's beyond the scope of the tutorial. For now we'll copy over the values used in the story file to help out with our tests.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/ember/en/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/ember/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

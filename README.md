@@ -53,7 +53,15 @@ The text, code, and production were contributed by [Chromatic](https://www.chrom
 
 ## Develop
 
-Install packages and run with `yarn dev`.
+Install packages `yarn`
+
+This project relies on some content from the main Storybook repo. To fetch it, run:
+
+```bash
+yarn extract-sb-docs-metadata
+```
+
+Start development server with `yarn dev`
 
 ## Contributors
 

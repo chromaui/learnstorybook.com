@@ -117,7 +117,7 @@ Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려�
 
 ## 구성
 
-Storybook 구성을 몇 가지 변경하여, 최근에 생성한 스토리뿐 아니라 [지난 챕터](/react/ko/get-started)에서 변경된 CSS 파일을 사용할 수 있도록 해보겠습니다.
+Storybook 구성을 몇 가지 변경하여, 최근에 생성한 스토리뿐 아니라 [지난 챕터](/intro-to-storybook/react/ko/get-started)에서 변경된 CSS 파일을 사용할 수 있도록 해보겠습니다.
 
 Storybook 구성 파일 (`.storybook/main.js`)을 다음과 같이 변경해주세요.
 

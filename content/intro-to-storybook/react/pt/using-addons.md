@@ -5,7 +5,7 @@ description: 'Aprender a integrar e usar extras com recurso a um exemplo popular
 commit: 'a23f4d0'
 ---
 
-Storybook possui um sistema robusto de [extras](https://storybook.js.org/addons/introduction/) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/react/pt/test/).
+Storybook possui um sistema robusto de [extras](https://storybook.js.org/docs/react/configure/storybook-addons) com o qual se pode aumentar a experiência de desenvolvimento para qualquer elemento da sua equipa. Se estiver a seguir este tutorial, pode ter reparado que já foram mencionados múltiplos extras e já terá implementado um no [capitulo de testes](/intro-to-storybook/react/pt/test/).
 
 <div class="aside">
     <strong>Á procura de uma lista de extras?</strong>
@@ -151,15 +151,9 @@ Agora que foi adicionada a estória, podemos reproduzir este caso extremo com re
 
 ![Aqui está ele no Storybook](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Se estiverem a ser usados [testes de regressão visual](/react/pt/test/), iremos ser informados se a nossa solução elíptica for quebrada.
+Se estiverem a ser usados [testes de regressão visual](/intro-to-storybook/react/pt/test/), iremos ser informados se a nossa solução elíptica for quebrada.
 Tais casos extremos considerados obscuros têm tendência a ser esquecidos!
 
 ## Fusão das alterações
 
 Não esquecer de fundir as alterações com o git!
-
-<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
-
-<!-- ## Partilha de extras com a equipa
-
-Knobs é uma forma fantástica de forma a permitir que elementos não programadores brinquem com os componentes e estórias. No entanto, pode ser difícil para estes executarem o Storybook nos seus ambientes locais. É por isso que uma implementação online pode ajudar em muito. No próximo capitulo iremos fazer exatamente isso!! -->

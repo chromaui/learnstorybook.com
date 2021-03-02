@@ -5,7 +5,7 @@ description: 'Apprenez à intégrer et à utiliser des modules complémentaires 
 commit: '45b6600'
 ---
 
-Storybook dispose d'un système robuste de [modules complémentaires](https://storybook.js.org/addons/introduction/) avec lequel vous pouvez améliorer l'expérience des développeurs pour toute votre équipe. Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/vue/en/test/)..
+Storybook dispose d'un système robuste de [modules complémentaires](https://storybook.js.org/docs/vue/configure/storybook-addons) avec lequel vous pouvez améliorer l'expérience des développeurs pour toute votre équipe. Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/intro-to-storybook/vue/fr/test/).
 
 <div class="aside">
 <strong>Vous recherchez une liste de modules complémentaires potentiels?</strong>
@@ -162,7 +162,7 @@ Maintenant que nous avons ajouté l'histoire, nous pouvons reproduire ce test au
 
 ![Le voici dans Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Si nous utilisons des [tests de régression visuelle](/vue/fr/test/), nous serons également informés si jamais nous cassons notre solution d'ellipse. Ces bordures obscures sont toujours susceptibles d'être oubliées!
+Si nous utilisons des [tests de régression visuelle](/intro-to-storybook/vue/fr/test/), nous serons également informés si jamais nous cassons notre solution d'ellipse. Ces bordures obscures sont toujours susceptibles d'être oubliées!
 
 ### Fusionner les modifications
 

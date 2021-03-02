@@ -28,7 +28,7 @@ Visuele regressie tests, ook visuele tests genoemd, zijn ontworpen om veranderin
 
 Storybook is een fantastisch hulpmiddel voor visuele regressie tests, omdat elke story in wezen een testspecificatie is. Elke keer dat we een story schrijven of bijwerken, krijgen we gratis een specificatie!
 
-Er zijn een aantal hulpmiddelen voor visuele regressie tests. Voor professionele teams raden we [**Chromatic**](https://www.chromatic.com/) aan, een add-on gemaakt door de ontwikkelaars van Storybook die tests in de cloud uitvoert. Het laat ons ook toe om Storybook online te publiceren zoals we gezien hebben in het [vorige hoofdstuk](/react/nl/deploy/)
+Er zijn een aantal hulpmiddelen voor visuele regressie tests. Voor professionele teams raden we [**Chromatic**](https://www.chromatic.com/) aan, een add-on gemaakt door de ontwikkelaars van Storybook die tests in de cloud uitvoert. Het laat ons ook toe om Storybook online te publiceren zoals we gezien hebben in het [vorige hoofdstuk](/intro-to-storybook/react/nl/deploy/)
 
 ## Een UI wijziging opmerken
 
@@ -92,7 +92,7 @@ Dit zal je tonen hoe de UI wijzigingen door jouw commit zijn opgemerkt.
 ![Chromatic merkt wijzigingen op](/intro-to-storybook/chromatic-catch-changes.png)
 
 Er zijn veel wijzigingen! De component hiërarchie waar `Task` een kind is van `TaskList` en `Inbox` betekent dat één kleine verandering een sneeuwbaleffect kan teweegbrengen tot grote regressies. Deze omstandigheid is precies waarom developers visuele regressietests nodig hebben in aanvulling op andere testmethodes.
- 
+
 ![UI kleine wijzigingen grote regressies](/intro-to-storybook/minor-major-regressions.gif)
 
 ## Wijzigingen reviewen

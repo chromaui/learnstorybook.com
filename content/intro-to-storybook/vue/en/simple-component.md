@@ -143,7 +143,7 @@ Another nice thing about bundling the `actionsData` that a component needs, is t
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous chapter](/vue/en/get-started).
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous chapter](/intro-to-storybook/vue/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 

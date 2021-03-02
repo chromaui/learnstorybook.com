@@ -12,6 +12,8 @@ const MailingListFormUIWrapper = styled.div`
 const EmailInput = styled(Input)`
   flex: 1;
   && input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
     border-top-left-radius: ${styles.spacing.borderRadius.small}px;
     border-bottom-left-radius: ${styles.spacing.borderRadius.small}px;
   }
@@ -80,15 +82,15 @@ const validateForm = values => {
   return {};
 };
 
-const listUrl = 'https://hichroma.us15.list-manage.com/subscribe/post';
+const listUrl = 'https://storybook.us18.list-manage.com/subscribe/post';
 
 const MailingListSignup = props => {
   const [hasSubmitted, setSubmitStatus] = useState(false);
   const onSubmitForm = async values => {
     const data = new FormData();
     const fullFields = {
-      u: '0cd563f2d5b0ef7aa4471c045',
-      id: '17ebbc4cc4',
+      u: '06a6fce3ab1327784d4342396',
+      id: '18b5cea6e6',
       MERGE3: 'learn-storybook',
       MERGE0: values.email,
     };

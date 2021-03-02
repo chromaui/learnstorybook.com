@@ -38,6 +38,6 @@ Default.args = {
 export const Inverted = Story.bind({});
 Inverted.args = {
   ...Default.args,
-  isInverted: true,
+  inverse: true,
 };
 Inverted.decorators = [story => <BlueBackground>{story()}</BlueBackground>];

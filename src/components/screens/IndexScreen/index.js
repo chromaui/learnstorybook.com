@@ -14,13 +14,6 @@ import WhatIsLSB from './WhatIsLSB';
 
 const { breakpoint, color, pageMargin } = styles;
 
-// The background image only loads on the first render. Passing the time forces it to update.
-const DotBackground = styled.div`
-  background: url('frontpage/bg-dots.svg?t=${props => props.time}');
-  background-repeat: repeat-x;
-  background-position-y: 20vh;
-`;
-
 const BottomSection = styled.div`
   padding: 84px 20px 1rem;
 
@@ -52,15 +45,13 @@ const CTALineBreak = styled.div`
 
 const PureIndexScreen = ({ data }) => (
   <>
-    <DotBackground time={Date.now()}>
-      <Pitch />
-      <Guides chaptersEdges={data.chapters.edges} guidesEdges={data.guides.edges} />
-      <SiteStats
-        allEditionsChaptersEdges={data.allEditionsChapters.edges}
-        chapterCount={data.chapters.edges.length}
-        guideCount={data.guides.edges.length}
-      />
-    </DotBackground>
+    <Pitch />
+    <Guides chaptersEdges={data.chapters.edges} guidesEdges={data.guides.edges} />
+    <SiteStats
+      allEditionsChaptersEdges={data.allEditionsChapters.edges}
+      chapterCount={data.chapters.edges.length}
+      guideCount={data.guides.edges.length}
+    />
 
     <WhatIsLSB />
     <SocialValidation />
