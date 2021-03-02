@@ -44,15 +44,13 @@ git checkout -b change-task-background
 
 Change `Task` to the following:
 
-```html
-<!-- src/components/Task.vue -->
-
+```diff:title=src/components/Task.vue
 <input
   type="text"
   :value="task.title"
   readonly
   placeholder="Input title"
-  style="background: red;"
++ style="background: red;"
 />
 ```
 

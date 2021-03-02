@@ -13,9 +13,7 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` container component (which supplies its own data via Vuex) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
 
-```html
-<!-- src/components/PureInboxScreen.vue -->
-
+```html:title=src/components/PureInboxScreen.vue
 <template>
   <div>
     <div v-if="error" class="page lists-show">
@@ -25,7 +23,6 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
         <div class="subtitle-message">Something went wrong</div>
       </div>
     </div>
-
     <div v-else class="page lists-show">
       <nav>
         <h1 class="title-page">
@@ -51,9 +48,7 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 
 Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `src/components/InboxScreen.vue`:
 
-```html
-<!-- src/components/InboxScreen.vue -->
-
+```html:title=src/components/InboxScreen.vue
 <template>
   <PureInboxScreen :error="error" />
 </template>
@@ -72,23 +67,24 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```html
-<!-- src/App.vue -->
-
+```diff:title=src/App.vue
 <template>
   <div id="app">
-    <InboxScreen />
+-   <task-list />
++   <InboxScreen />
   </div>
 </template>
 
 <script>
   import store from './store';
-  import InboxScreen from './components/InboxScreen.vue';
+- import TaskList from './components/TaskList.vue';
++ import InboxScreen from './components/InboxScreen.vue';
   export default {
     name: 'app',
     store,
     components: {
-      InboxScreen,
+-     TaskList
++     InboxScreen,
     },
   };
 </script>
@@ -106,9 +102,7 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `src/components/PureInboxScreen.stories.js`:
 
-```javascript
-// src/components/PureInboxScreen.stories.js
-
+```js:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 
 export default {
@@ -144,30 +138,30 @@ However, developers **will** inevitably need to render containers further down t
 
 The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can create a new store in our story file and pass it in as the context of the story:
 
-```javascript
-// src/components/PureInboxScreen.stories.js
+```diff:title=src/components/PureInboxScreen.stories.js
++ import Vue from 'vue';
++ import Vuex from 'vuex';
 
-import Vue from 'vue';
-import Vuex from 'vuex';
 import PureInboxScreen from './PureInboxScreen.vue';
-import { action } from '@storybook/addon-actions';
-import * as TaskListStories from './PureTaskList.stories';
 
-Vue.use(Vuex);
++ import { action } from '@storybook/addon-actions';
++ import * as TaskListStories from './PureTaskList.stories';
 
-export const store = new Vuex.Store({
-  state: {
-    tasks: TaskListStories.Default.args.tasks,
-  },
-  actions: {
-    pinTask(context, id) {
-      action('pin-task')(id);
-    },
-    archiveTask(context, id) {
-      action('archive-task')(id);
-    },
-  },
-});
++Vue.use(Vuex);
+
++ export const store = new Vuex.Store({
++  state: {
++    tasks: TaskListStories.Default.args.tasks,
++  },
++  actions: {
++    pinTask(context, id) {
++      action('pin-task')(id);
++    },
++    archiveTask(context, id) {
++      action('archive-task')(id);
++    },
++  },
++ });
 
 export default {
   title: 'PureInboxScreen',

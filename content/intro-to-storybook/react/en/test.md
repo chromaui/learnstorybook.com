@@ -43,16 +43,14 @@ git checkout -b change-task-background
 
 Change `src/components/Task.js` to the following:
 
-```js
-// src/components/Task.js
-
+```diff:title=src/components/Task.js
 <div className="title">
   <input
     type="text"
     value={title}
     readOnly={true}
     placeholder="Input title"
-    style={{ background: 'red' }}
++   style={{ background: 'red' }}
   />
 </div>
 ```
