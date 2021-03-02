@@ -125,12 +125,12 @@ export default class TaskController extends Controller {
 
 And one final file called `template.hbs`, in which we'll add the presentational `<TaskList>` component we've created in the [previous chapter](/intro-to-storybook/ember/en/composite-component/):
 
-```diff:title=app/tasks/template.hbs
-+ <TaskList
-+  @tasks={{@model}}
-+  @pinTask={{this.pinTask}}
-+  @archiveTask={{this.archiveTask}}
-+ />
+```handlebars:title=app/tasks/template.hbs
+<TaskList
+  @tasks={{@model}}
+  @pinTask={{this.pinTask}}
+  @archiveTask={{this.archiveTask}}
+ />
 ```
 
 With this we've accomplished what we've set out to do, we've managed to setup a data persistance layer and also we've managed to keep the components decoupled by adopting some best practices.

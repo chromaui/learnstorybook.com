@@ -84,14 +84,14 @@ const TaskBox = () => {
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```diff:title=src/App.svelte
+```svelte:title=src/App.svelte
 <script>
   import './index.css'
-+ import { AppStore } from './store';
-+ import InboxScreen from './components/InboxScreen.svelte';
+  import { AppStore } from './store';
+  import InboxScreen from './components/InboxScreen.svelte';
 </script>
 
-+ <InboxScreen error="{$AppStore}" />
+<InboxScreen error="{$AppStore}" />
 ```
 
 <div class="aside">

@@ -22,7 +22,7 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```hbs:title=app/components/task-list.hbs
+```handlebars:title=app/components/task-list.hbs
 {{#if @loading}}
  <div class="list-items">loading</div>>
 {{else if @tasks}}
@@ -122,7 +122,7 @@ For the loading edge case, we're going to create a new component that will displ
 
 Create a new file called `loading-row.hbs` and inside add the following markup:
 
-```hbs:title=app/components/loading-row.hbs
+```handlebars:title=app/components/loading-row.hbs
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -135,30 +135,30 @@ Create a new file called `loading-row.hbs` and inside add the following markup:
 
 And update `task-list.hbs` to the following:
 
-```diff:title=app/components/task-list.hbs
-+ {{#if @loading}}
-+  <LoadingRow />
-+  <LoadingRow />
-+  <LoadingRow/>
-+  <LoadingRow />
-+  <LoadingRow />
-+ {{else if this.tasksInOrder}}
-+   {{#each this.tasksInOrder as |task|}}
-+     <Task
-+       @task={{task}}
-+       @pin={{fn @pinTask task.id}}
-+       @archive={{fn @archiveTask task.id}}
-+     />
-+   {{/each}}
-+ {{else}}
-+   <div class="list-items">
-+     <div class="wrapper-message">
-+       <span class="icon-check" />
-+       <div class="title-message">You have no tasks</div>
-+       <div class="subtitle-message">Sit back and relax</div>
-+     </div>
-+   </div>
-+ {{/if}}
+```handlebars:title=app/components/task-list.hbs
+{{#if @loading}}
+  <LoadingRow />
+  <LoadingRow />
+  <LoadingRow/>
+  <LoadingRow />
+  <LoadingRow />
+{{else if this.tasksInOrder}}
+  {{#each this.tasksInOrder as |task|}}
+    <Task
+       @task={{task}}
+       @pin={{fn @pinTask task.id}}
+       @archive={{fn @archiveTask task.id}}
+    />
+   {{/each}}
+{{else}}
+  <div class="list-items">
+    <div class="wrapper-message">
+      <span class="icon-check" />
+      <div class="title-message">You have no tasks</div>
+      <div class="subtitle-message">Sit back and relax</div>
+    </div>
+  </div>
+{{/if}}
 ```
 
 And finally create a new file called `task-list.js` to the following:

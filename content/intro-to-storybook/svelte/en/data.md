@@ -93,25 +93,25 @@ In `src/components/PureTaskList.svelte`:
 
 In `src/components/TaskList.svelte`:
 
-```diff:title=src/components/TaskList.svelte
+```svelte:title=src/components/TaskList.svelte
 
 <script>
-+ import PureTaskList from './PureTaskList.svelte';
-+ import { taskStore } from '../store';
-+ function onPinTask(event) {
-+   taskStore.pinTask(event.detail.id);
-+ }
-+ function onArchiveTask(event) {
-+   taskStore.archiveTask(event.detail.id);
-+ }
+  import PureTaskList from './PureTaskList.svelte';
+  import { taskStore } from '../store';
+  function onPinTask(event) {
+    taskStore.pinTask(event.detail.id);
+  }
+  function onArchiveTask(event) {
+    taskStore.archiveTask(event.detail.id);
+  }
 </script>
 
 <div>
-+ <PureTaskList
-+   tasks={$taskStore}
-+   on:onPinTask={onPinTask}
-+   on:onArchiveTask={onArchiveTask}
-+ />
+  <PureTaskList
+    tasks={$taskStore}
+    on:onPinTask={onPinTask}
+    on:onArchiveTask={onArchiveTask}
+  />
 </div>
 ```
 

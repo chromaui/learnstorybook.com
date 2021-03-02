@@ -25,7 +25,7 @@ First, let’s create the necessary files for our task component and its accompa
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```hbs:title=app/components/task.hbs
+```handlebars:title=app/components/task.hbs
 <div class="list-item">
   <input type="text" value={{@task.title}} readonly={{true}}/>
 </div>
@@ -142,37 +142,37 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```diff:title=app/components/task.hbs
-+ <div class="list-item {{@task.state}}" data-test-task>
-+   <label class="checkbox">
-+     <input
-+       type="checkbox"
-+       disabled
-+       name="checked"
-+       checked={{this.isArchived}}
-+     />
-+     <span
-+       class="checkbox-custom"
-+       data-test-task-archive
-+       {{on "click" this.archive}}
-+     ></span>
-+   </label>
-+   <div class="title">
-+     <input
-+       type="text"
-+       readonly
-+       value={{@task.title}}
-+       placeholder="Input title"
-+     />
-+   </div>
-+   <div class="actions">
-+     {{#unless this.isArchived}}
-+       <span data-test-task-pin {{on "click" this.pin}}>
-+         <span class="icon-star"></span>
-+       </span>
-+     {{/unless}}
-+   </div>
-+ </div>
+```handlebars:title=app/components/task.hbs
+<div class="list-item {{@task.state}}" data-test-task>
+  <label class="checkbox">
+    <input
+      type="checkbox"
+      disabled
+      name="checked"
+      checked={{this.isArchived}}
+    />
+    <span
+      class="checkbox-custom"
+      data-test-task-archive
+      {{on "click" this.archive}}
+    ></span>
+  </label>
+  <div class="title">
+    <input
+      type="text"
+      readonly
+      value={{@task.title}}
+      placeholder="Input title"
+    />
+  </div>
+  <div class="actions">
+    {{#unless this.isArchived}}
+      <span data-test-task-pin {{on "click" this.pin}}>
+        <span class="icon-star"></span>
+      </span>
+    {{/unless}}
+  </div>
+</div>
 ```
 
 Then we'll need create a new file called `app/components/task.js` with the following:

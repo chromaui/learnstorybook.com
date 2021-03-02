@@ -87,8 +87,7 @@ export const store = createStore(reducers);
 
 Next, create a new component called `inbox-scree.hbs` inside the `app/components` directory:
 
-```hbs:title=app/components/inbox-screen.hbs
-
+```handlebars:title=app/components/inbox-screen.hbs
 <div>
   <div class="page lists-show">
     <nav>
@@ -166,8 +165,8 @@ export default class InboxScreenComponent extends Component {
 
 We can now safely delete the `tasks` folder we created in the [previous chapter](/intro-to-storybook/ember/en/data/) and add the `InboxScreen` to the `application` template.
 
-```diff:title=app/templates/aplication.hbs
-+ <InboxScreen />
+```handlebars:title=app/templates/aplication.hbs
+<InboxScreen />
 ```
 
 However, where things get interesting is in rendering the story in Storybook.

@@ -60,22 +60,22 @@ export default new Vuex.Store({
 
 In our top-level app component (`src/App.vue`) we can wire the store into our component hierarchy fairly easily:
 
-```diff:title=src/App.vue
+```html:title=src/App.vue
 <template>
   <div id="app">
-+   <task-list />
+    <task-list />
   </div>
 </template>
 
 <script>
-+ import store from './store';
-+ import TaskList from './components/TaskList.vue';
+  import store from './store';
+  import TaskList from './components/TaskList.vue';
 
   export default {
     name: 'app',
-+   store,
+    store,
     components: {
-+     TaskList,
+      TaskList,
     },
   };
 </script>
@@ -88,7 +88,7 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 
 In `src/components/PureTaskList.vue`:
 
-```diff:title=src/components/PureTaskList.vue
+```html:title=src/components/PureTaskList.vue
 <template>
   <!-- same content as before -->
 </template>
@@ -96,7 +96,7 @@ In `src/components/PureTaskList.vue`:
 <script>
   import Task from './Task';
   export default {
-+   name: 'PureTaskList',
+    name: 'PureTaskList',
     // same content as before
   };
 </script>

@@ -111,7 +111,7 @@ When creating a story we use a base `task` arg to build out the shape of the tas
 
 ## Config
 
-We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories, but also allow us to use the application's CSS file (located in `src/index.css`).
+We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
@@ -156,35 +156,35 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```diff:title=src/components/Task.js
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
-+ return (
-+   <div className={`list-item ${state}`}>
-+     <label className="checkbox">
-+       <input
-+         type="checkbox"
-+         defaultChecked={state === 'TASK_ARCHIVED'}
-+         disabled={true}
-+         name="checked"
-+       />
-+       <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
-+     </label>
-+     <div className="title">
-+       <input type="text" value={title} readOnly={true} placeholder="Input title" />
-+     </div>
+  return (
+    <div className={`list-item ${state}`}>
+      <label className="checkbox">
+        <input
+          type="checkbox"
+          defaultChecked={state === 'TASK_ARCHIVED'}
+          disabled={true}
+          name="checked"
+        />
+        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
+      </label>
+      <div className="title">
+        <input type="text" value={title} readOnly={true} placeholder="Input title" />
+      </div>
 
-+     <div className="actions" onClick={event => event.stopPropagation()}>
-+       {state !== 'TASK_ARCHIVED' && (
-+         // eslint-disable-next-line jsx-a11y/anchor-is-valid
-+         <a onClick={() => onPinTask(id)}>
-+           <span className={`icon-star`} />
-+         </a>
-+       )}
-+     </div>
-+   </div>
-+ );
+      <div className="actions" onClick={event => event.stopPropagation()}>
+        {state !== 'TASK_ARCHIVED' && (
+          // eslint-disable-next-line jsx-a11y/anchor-is-valid
+          <a onClick={() => onPinTask(id)}>
+            <span className={`icon-star`} />
+          </a>
+        )}
+      </div>
+    </div>
+  );
 }
 ```
 

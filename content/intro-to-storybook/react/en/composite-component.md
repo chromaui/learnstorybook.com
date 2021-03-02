@@ -126,7 +126,7 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
-```diff:title=src/components/TaskList.js
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -137,48 +137,48 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     onArchiveTask,
   };
 
-+ const LoadingRow = (
-+   <div className="loading-item">
-+     <span className="glow-checkbox" />
-+     <span className="glow-text">
-+       <span>Loading</span> <span>cool</span> <span>state</span>
-+     </span>
-+   </div>
-+ );
-+ if (loading) {
-+   return (
-+     <div className="list-items">
-+       {LoadingRow}
-+       {LoadingRow}
-+       {LoadingRow}
-+       {LoadingRow}
-+       {LoadingRow}
-+       {LoadingRow}
-+     </div>
-+   );
-+ }
-+ if (tasks.length === 0) {
-+   return (
-+     <div className="list-items">
-+       <div className="wrapper-message">
-+         <span className="icon-check" />
-+         <div className="title-message">You have no tasks</div>
-+         <div className="subtitle-message">Sit back and relax</div>
-+       </div>
-+     </div>
-+   );
-+ }
-+ const tasksInOrder = [
-+   ...tasks.filter(t => t.state === 'TASK_PINNED'),
-+   ...tasks.filter(t => t.state !== 'TASK_PINNED'),
-+ ];
-+ return (
-+   <div className="list-items">
-+     {tasksInOrder.map(task => (
-+       <Task key={task.id} task={task} {...events} />
-+     ))}
-+   </div>
-+ );
+  const LoadingRow = (
+    <div className="loading-item">
+      <span className="glow-checkbox" />
+      <span className="glow-text">
+        <span>Loading</span> <span>cool</span> <span>state</span>
+      </span>
+    </div>
+  );
+  if (loading) {
+    return (
+      <div className="list-items">
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+      </div>
+    );
+  }
+  if (tasks.length === 0) {
+    return (
+      <div className="list-items">
+        <div className="wrapper-message">
+          <span className="icon-check" />
+          <div className="title-message">You have no tasks</div>
+          <div className="subtitle-message">Sit back and relax</div>
+        </div>
+      </div>
+    );
+  }
+  const tasksInOrder = [
+    ...tasks.filter(t => t.state === 'TASK_PINNED'),
+    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+  ];
+  return (
+    <div className="list-items">
+      {tasksInOrder.map(task => (
+        <Task key={task.id} task={task} {...events} />
+      ))}
+    </div>
+  );
 }
 ```
 

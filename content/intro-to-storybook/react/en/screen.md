@@ -33,7 +33,6 @@ export function PureInboxScreen({ error }) {
       </div>
     );
   }
-
   return (
     <div className="page lists-show">
       <nav>
@@ -60,21 +59,19 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```diff:title=src/App.js
-- import logo from './logo.svg';
-- import './App.css';
-+ import { Provider } from 'react-redux';
-+ import store from './lib/redux';
+```js:title=src/App.js
+import { Provider } from 'react-redux';
+import store from './lib/redux';
 
-+ import InboxScreen from './components/InboxScreen';
+import InboxScreen from './components/InboxScreen';
 
-+ import './index.css';
+import './index.css';
 
 function App() {
   return (
-+   <Provider store={store}>
-+     <InboxScreen />
-+   </Provider>
+    <Provider store={store}>
+      <InboxScreen />
+    </Provider>
   );
 }
 export default App;

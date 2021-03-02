@@ -23,7 +23,6 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
         <div class="subtitle-message">Something went wrong</div>
       </div>
     </div>
-
     <div v-else class="page lists-show">
       <nav>
         <h1 class="title-page">
@@ -71,17 +70,20 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 ```diff:title=src/App.vue
 <template>
   <div id="app">
+-   <task-list />
 +   <InboxScreen />
   </div>
 </template>
 
 <script>
   import store from './store';
+- import TaskList from './components/TaskList.vue';
 + import InboxScreen from './components/InboxScreen.vue';
   export default {
     name: 'app',
     store,
     components: {
+-     TaskList
 +     InboxScreen,
     },
   };

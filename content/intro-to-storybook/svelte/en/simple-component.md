@@ -156,7 +156,7 @@ Another nice thing about bundling the `actionsData` that a component needs is th
 
 ## Config
 
-We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories, but also allow us to use the application's CSS file (located in `src/index.css`).
+We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
