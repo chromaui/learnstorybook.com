@@ -5,9 +5,9 @@ description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
 commit: '45b6600'
 ---
 
-Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/addons/introduction/) con el que puede mejorar la experiencia del desarrollador para todos en tu equipo.Véalos todos [aquí](https://storybook.js.org/addons).
+Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/docs/vue/configure/storybook-addons) con el que puede mejorar la experiencia del desarrollador para todos en tu equipo.Véalos todos [aquí](https://storybook.js.org/addons).
 
-Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el capítulo [Testing](/vue/es/test/).
+Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el capítulo [Testing](/intro-to-storybook/vue/es/test/).
 
 Hay complementos para cada caso de uso posible. Llevaría una eternidad escribir sobre todos ellos. Integremos uno de los complementos más populares: [Controles](https://storybook.js.org/docs/vue/essentials/controls).
 
@@ -86,7 +86,7 @@ Ahora podemos reproducir y trabajar en este caso de borde con facilidad.
   />
 </video>
 
-Si estamos utilizando [pruebas de regresión visual](/vue/es/test/), también se nos informará si alguna vez rompemos nuestra solución de elipsis. ¡Esos casos extremos oscuros siempre pueden ser olvidados!
+Si estamos utilizando [pruebas de regresión visual](/intro-to-storybook/vue/es/test/), también se nos informará si alguna vez rompemos nuestra solución de elipsis. ¡Esos casos extremos oscuros siempre pueden ser olvidados!
 
 <div class="aside"><p>💡 Los controles son una excelente manera de hacer que los no desarrolladores jueguen con sus componentes e historias, y mucho más de lo que hemos visto aquí, recomendamos leer la <a href="https://storybook.js.org/docs/vue/essentials/controls">documentación oficial</a> para obtener más información al respecto. Sin embargo, hay muchas más formas de personalizar Storybook para que se adapte a su flujo de trabajo con complementos.</div>
 
