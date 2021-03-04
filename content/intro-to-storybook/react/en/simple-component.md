@@ -43,7 +43,7 @@ Below we build out Task’s three test states in the story file:
 ```js:title=src/components/Task.stories.js
 import React from 'react';
 
-import Task from './Task';
+import Task from '../components/Task';
 
 export default {
   component: Task,
