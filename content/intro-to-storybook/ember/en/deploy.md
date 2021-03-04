@@ -79,9 +79,7 @@ In the root folder of our project, create a new directory called `.github` then 
 
 Create a new file called `chromatic.yml` like the one below. Replace to change `project-token` with your project token.
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
 name: 'Chromatic Deployment'
 
