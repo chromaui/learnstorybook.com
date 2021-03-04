@@ -5,7 +5,7 @@ description: 'Configurar Vue Storybook en tu entorno de desarrollo'
 commit: '9e3165c'
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe otras ediciones para [React](/intro-to-storybook/react/es/get-started), [React Native](/intro-to-storybook/react-native/es/get-started/), [Angular](/intro-to-storybook/angular/es/get-started) y [Svelte](/intro-to-storybook/svelte/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición del tutorial de Aprende Storybook es para Vue; existe otras ediciones para [React](/intro-to-storybook/react/es/get-started), [React Native](/intro-to-storybook/react-native/es/get-started/), [Angular](/intro-to-storybook/angular/es/get-started) y [Svelte](/intro-to-storybook/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
