@@ -3,32 +3,32 @@ title: '總結'
 description: '總結已學到的，接著學習更多 Storybook 技巧'
 ---
 
-Congratulations! You created your first UI in Storybook. Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following, your repo and deployed Storybook should look like this:
+恭喜！你已經做好在 Storybook 裡的 UI。一路下來，學到如何打造、組合、測試和發布 UI 元件。如果都是跟著做，發布的 Storybook 和程式碼應該會長得像這樣：
 
-[📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
+[📕 **GitHub 專案：chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.app/)
+[🌎 **已發布的 Storybook**](https://clever-banach-415c03.netlify.app/)
 
-Storybook is a powerful tool for React, React Native, Vue, Angular, Svelte and many others frameworks. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
+Storybook 在 React、React Native、Vue、Angular、Svelte 和其他 framework 都是很犀利的工具。有熱鬧的開發者社群以及豐富的外掛。這份介紹擷取了其可能性最淺薄的一部份。只要採用 Storybook，我們有自信讓你對效率和打造堅強的 UI 感到驚艷。
 
-## Learn more
+## 繼續學習
 
-Want to dive deeper? Here are helpful resources.
+想要深入探索？這些資源會有幫助。
 
-- [**Official Storybook documentation**](https://storybook.js.org/docs/react/get-started/introduction) has API documentation, community links, and the addon gallery.
+- [**Storybook 官方文件**](https://storybook.js.org/docs/react/get-started/introduction) 記載 API、社群連結與外掛集散地。
 
-- [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
+- [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) 的特色是 Squarespace、Major League Soccer、Discovery Network 和 Apollo GraphQL 裡高效率團隊的最佳工作流程方法。
 
-- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
+- [**視覺測試手冊**](https://www.learnstorybook.com/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
-- [**Storybook Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community. Get and give help to other Storybook users.
+- [**在 Discord 聊 Storybook **](https://discord.gg/UUt2PJb) 則是與 Storybook 社群進行互動。只要你幫助其他 Storybook 使用者，Storybook 使用者也會幫你。
 
-- [**Storybook blog**](https://medium.com/storybookjs) showcases the latest releases and features to streamline your UI development workflow.
+- [**Storybook 部落格**](https://medium.com/storybookjs) 展示能夠讓 UI 開發工作流程一致的最新版本與功能。
 
-## Who made LearnStorybook.com?
+## LearnStorybook.com 是誰做的？
 
-The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+[Chromatic](https://www.chromatic.com/) 製作了文字、程式碼與影片剪輯。這份教學是受到 Chromatic 很受歡迎的 [GraphQL + React 教學系列](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)所啟發。
 
-Want more tutorials and articles like this? Sign up to the Storybook mailing list.
+還想要有更多這樣的教學和文章嗎？請加入 Storybook 的郵寄清單。
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
