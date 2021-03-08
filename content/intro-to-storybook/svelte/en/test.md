@@ -43,14 +43,12 @@ git checkout -b change-task-background
 
 Change `src/components/Task.svelte` to the following:
 
-```svelte
-<!-- src/components/Task.svelte -->
-
+```diff:title=src/components/Task.svelte
 <input
   type="text"
   readonly value={task.title}
   placeholder="Input title"
-  style="background: red;"
++ style="background: red;"
 />
 ```
 

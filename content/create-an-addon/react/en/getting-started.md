@@ -4,9 +4,6 @@ description: 'Get started with the Addon Kit'
 commit: 'd3b6651'
 ---
 
-<!-- - Getting started (with addon kit)
-- Building the UI & registering the addon -->
-
 ![](../../images/addon-kit-demo.gif)
 
 We'll use the [Addon Kit](https://github.com/storybookjs/addon-kit) to bootstrap our project. It gives you everything you need to build a Storybook addon:

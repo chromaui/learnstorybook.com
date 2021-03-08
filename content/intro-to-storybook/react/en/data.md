@@ -23,9 +23,7 @@ yarn add react-redux redux
 
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -79,13 +77,12 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from './Task';
+
 import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
@@ -127,21 +124,19 @@ At this stage, our Storybook tests will have stopped working because `TaskList` 
 
 However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
 
-```javascript
-// src/components/TaskList.stories.js
-
+```diff:title=src/components/TaskList.stories.js
 import React from 'react';
 
-import { PureTaskList } from './TaskList';
++ import { PureTaskList } from './TaskList';
 import * as TaskStories from './Task.stories';
 
 export default {
-  component: PureTaskList,
++ component: PureTaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <PureTaskList {...args} />;
++ const Template = args => <PureTaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

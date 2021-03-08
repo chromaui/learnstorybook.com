@@ -39,16 +39,14 @@ Controls allowed us to quickly verify different inputs to a component. In this c
 
 Now let's fix the issue with overflowing by adding a style to `task.hbs`:
 
-```hbs
-{{!-- app/components/task.hbs --}}
-
+```diff:title=app/components/task.hbs
 <div class="title">
     <input
       type="text"
       readonly
       value={{@task.title}}
       placeholder="Input title"
-      style="text-overflow: ellipsis;"
++     style="text-overflow: ellipsis;"
     />
   </div>
 ```
@@ -63,9 +61,7 @@ In the future, We can manually reproduce this problem by entering the same strin
 
 Add a new story for the long text case in `task.stories.js`:
 
-```js
-// app/components/task.stories.js
-
+```js:title=app/components/task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});
