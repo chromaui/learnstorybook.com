@@ -42,14 +42,16 @@ git checkout -b change-task-background
 
 Change `Task` to the following:
 
-```diff:title=app/components/task.hbs
+```hbs
+{{!-- app/components/task.hbs --}}
+
 <div class="title">
     <input
       type="text"
       readonly
       value={{@task.title}}
       placeholder="Input title"
-+     style="background:red;"
+      style="background:red;"
     />
 </div>
 ```

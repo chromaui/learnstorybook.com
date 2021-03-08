@@ -12,7 +12,9 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Svelte Store) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.svelte` in your `components` folder:
 
-```svelte:title=src/components/InboxScreen.svelte
+```svelte
+<!-- src/components/InboxScreen.svelte -->
+
 <script>
   import TaskList from './TaskList.svelte';
   export let error = false;
@@ -20,33 +22,34 @@ As our app is very simple, the screen we’ll build is pretty trivial, simply wr
 
 <div>
   {#if error}
-    <div class="page lists-show">
-      <div class="wrapper-message">
-        <span class="icon-face-sad" />
-        <div class="title-message">Oh no!</div>
-        <div class="subtitle-message">Something went wrong</div>
-      </div>
+  <div class="page lists-show">
+    <div class="wrapper-message">
+      <span class="icon-face-sad" />
+      <div class="title-message">Oh no!</div>
+      <div class="subtitle-message">Something went wrong</div>
     </div>
+  </div>
   {:else}
-    <div class="page lists-show">
-      <nav>
-        <h1 class="title-page">
-          <span class="title-wrapper">Taskbox</span>
-        </h1>
-      </nav>
-      <TaskList />
-    </div>
+  <div class="page lists-show">
+    <nav>
+      <h1 class="title-page">
+        <span class="title-wrapper">Taskbox</span>
+      </h1>
+    </nav>
+    <TaskList />
+  </div>
   {/if}
 </div>
 ```
 
 We need to update our store (in `src/store.js`) to include our new `error` field, transforming it into :
 
-```diff:title=src/store.js
-import { writable } from 'svelte/store';
+```javascript
+// src/store.js
 
+import { writable } from 'svelte/store';
 const TaskBox = () => {
-  // Creates a new writable store populated with some initial data
+  // creates a new writable store populated with some initial data
   const { subscribe, update } = writable([
     { id: '1', title: 'Something', state: 'TASK_INBOX' },
     { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -56,35 +59,37 @@ const TaskBox = () => {
 
   return {
     subscribe,
-    // Method to archive a task, think of a action with redux or Vuex
+    // method to archive a task, think of a action with redux or Vuex
     archiveTask: id =>
       update(tasks =>
         tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task))
       ),
-    // Method to archive a task, think of a action with redux or Vuex
+    // method to archive a task, think of a action with redux or Vuex
     pinTask: id =>
       update(tasks =>
         tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
       ),
   };
 };
-+ export const taskStore = TaskBox();
+export const taskStore = TaskBox();
 
-+ // Store to handle the app state
-+ const AppState = () => {
-+  const { subscribe, update } = writable(false);
-+  return {
-+    subscribe,
-+    error: () => update(error => !error),
-+  };
-+ };
+// store to handle the app state
+const AppState = () => {
+  const { subscribe, update } = writable(false);
+  return {
+    subscribe,
+    error: () => update(error => !error),
+  };
+};
 
-+ export const AppStore = AppState();
+export const AppStore = AppState();
 ```
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```svelte:title=src/App.svelte
+```svelte
+<!-- src/App.svelte -->
+
 <script>
   import './index.css'
   import { AppStore } from './store';
@@ -106,7 +111,9 @@ When placing the `TaskList` into Storybook, we were able to illustrate this issu
 
 So when we setup our stories in `InboxScreen.stories.js`:
 
-```js:title=src/components/InboxScreen.stories.js
+```javascript
+// src/components/InboxScreen.stories.js
+
 import InboxScreen from './InboxScreen.svelte';
 
 export default {

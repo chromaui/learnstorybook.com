@@ -117,6 +117,9 @@ Empty.args = {
 
 `TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/react/writing-stories/args#args-composition)ことができます。そうすることで、2 つのコンポーネントが想定するデータとアクション (呼び出しのモック) の一貫性が保たれます。
 
+<!--
+`taskData` は `Task.stories.js` ファイルでエクスポートした `Task` のデータ構造です。同様に `actionsData` は `Task` コンポーネントが想定するアクション (呼び出しのモック) を定義しています。`TaskList` でも同様に必要となります。 -->
+
 それでは `TaskList` の新しいストーリーを Storybook で確認してみましょう。
 
 <video autoPlay muted playsInline loop>

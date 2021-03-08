@@ -7,9 +7,9 @@ commit: 'fa1c954'
 
 # Contribuir
 
-Contribuciones a los tutoriales de Storybook son bienvenidas! Si se trata de algo pequeño como gramática o puntuación, abre un pull request. Si es un cambio más grande, [agrega un issue](https://github.com/chromaui/learnstorybook.com/issues) para discutirlo.
+Contribuciones para aprender Storybook son bienvenidas! Si se trata de algo pequeño como gramática o puntuación, abre un pull request. Si es un cambio más grande, [agrega un issue](https://github.com/chromaui/learnstorybook.com/issues) para discutirlo.
 
-Los tutoriales de Storybook ha sido creado y mantenido principalmente por la comunidad, por lo que necesitamos la ayuda de todos para mantenerlo actualizado y garantizar que los bordes ásperos se suavicen con el tiempo. Toda la ayuda es apreciada!
+Learn Storybook ha sido creado y mantenido principalmente por la comunidad, por lo que necesitamos la ayuda de todos para mantenerlo actualizado y garantizar que los bordes ásperos se suavicen con el tiempo. Toda la ayuda es apreciada!
 
 ## Traducciones
 

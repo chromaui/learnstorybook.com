@@ -119,6 +119,9 @@ Empty.args = {
 
 이를 통해 두 컴포넌트가 받을 수 있는 데이터와 액션(mocked callbacks)이 모두 보존됩니다.
 
+<!--
+`taskData`는 `Task.stories.js` 파일에서 만들고 내보낸 `Task`의 형태를 제공합니다. 마찬가지로 `actionsData`는 `Task` 컴포넌트가 예상하는 액션(mocked callbacks)을 정의하며 이는 `TaskList`에도 필요합니다. -->
+
 이제 Storybook에서 새로운 `TaskList` 스토리를 확인해보겠습니다.
 
 <video autoPlay muted playsInline loop>

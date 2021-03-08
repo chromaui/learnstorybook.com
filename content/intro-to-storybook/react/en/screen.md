@@ -13,10 +13,11 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.js` in your `components` folder:
 
-```js:title=src/components/InboxScreen.js
+```javascript
+// src/components/InboxScreen.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { connect } from 'react-redux';
 
 import TaskList from './TaskList';
@@ -33,6 +34,7 @@ export function PureInboxScreen({ error }) {
       </div>
     );
   }
+
   return (
     <div className="page lists-show">
       <nav>
@@ -59,14 +61,16 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```js:title=src/App.js
+```javascript
+// src/App.js
+
+import React from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
 
 import InboxScreen from './components/InboxScreen';
 
 import './index.css';
-
 function App() {
   return (
     <Provider store={store}>
@@ -85,7 +89,9 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `InboxScreen.stories.js`:
 
-```js:title=src/components/InboxScreen.stories.js
+```javascript
+// src/components/InboxScreen.stories.js
+
 import React from 'react';
 
 import { PureInboxScreen } from './InboxScreen';
@@ -121,30 +127,29 @@ However, developers **will** inevitably need to render containers further down t
 
 The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 
-```diff:title=src/components/InboxScreen.stories.js
+```javascript
+// src/components/InboxScreen.stories.js
+
 import React from 'react';
-+ import { Provider } from 'react-redux';
-
+import { Provider } from 'react-redux';
+import { action } from '@storybook/addon-actions';
 import { PureInboxScreen } from './InboxScreen';
+import * as TaskListStories from './TaskList.stories';
 
-+ import { action } from '@storybook/addon-actions';
-
-+ import * as TaskListStories from './TaskList.stories';
-
-+ // A super-simple mock of a redux store
-+ const store = {
-+   getState: () => {
-+    return {
-+      tasks: TaskListStories.Default.args.tasks,
-+    };
-+   },
-+   subscribe: () => 0,
-+   dispatch: action('dispatch'),
-+ };
+// A super-simple mock of a redux store
+const store = {
+  getState: () => {
+    return {
+      tasks: TaskListStories.Default.args.tasks,
+    };
+  },
+  subscribe: () => 0,
+  dispatch: action('dispatch'),
+};
 
 export default {
   component: PureInboxScreen,
-+ decorators: [story => <Provider store={store}>{story()}</Provider>],
+  decorators: [story => <Provider store={store}>{story()}</Provider>],
   title: 'InboxScreen',
 };
 

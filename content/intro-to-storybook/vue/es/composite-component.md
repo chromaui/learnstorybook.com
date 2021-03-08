@@ -23,7 +23,9 @@ Un componente compuesto no es muy diferente de los componentes básicos que cont
 
 Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Task` del capítulo anterior y pasarle los atributos y acciones como entrada.
 
-```html:title=src/components/TaskList.vue
+```html
+<!--src/components/TaskList.vue-->
+
 <template>
   <div class="list-items">
     <template v-if="loading">
@@ -58,7 +60,9 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
 
 A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
 
-```js:title=src/components/TaskList.stories.js
+```javascript
+// src/components/TaskList.stories.js
+
 import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
@@ -134,26 +138,28 @@ Ahora hay que revisar Storybook para ver las nuevas historias de `TaskList`.
 
 Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de las historias en las que trabajaremos. Podrías estar pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón, en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **complejidad real** del componente `TaskList` se revela en los casos extremos `WithPinnedTasks`, `loading`, y `empty`.
 
-```diff:title=src/components/TaskList.vue
+```html
+<!--src/components/TaskList.vue-->
+
 <template>
   <div class="list-items">
     <template v-if="loading">
-+     <div v-for="n in 6" :key="n" class="loading-item">
-+       <span class="glow-checkbox" />
-+       <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
-+     </div>
+      <div v-for="n in 6" :key="n" class="loading-item">
+        <span class="glow-checkbox" />
+        <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
+      </div>
     </template>
 
     <div v-else-if="isEmpty" class="list-items">
-+     <div class="wrapper-message">
-+       <span class="icon-check" />
-+       <div class="title-message">You have no tasks</div>
-+       <div class="subtitle-message">Sit back and relax</div>
-+     </div>
+      <div class="wrapper-message">
+        <span class="icon-check" />
+        <div class="title-message">You have no tasks</div>
+        <div class="subtitle-message">Sit back and relax</div>
+      </div>
     </div>
 
     <template v-else>
-+     <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
+      <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
     </template>
   </div>
 </template>
@@ -168,12 +174,12 @@ Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de
       loading: { type: Boolean, default: false },
     },
     computed: {
-+     tasksInOrder() {
-+       return [
-+         ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-+         ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
-+       ];
-+     },
+      tasksInOrder() {
+        return [
+          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
+          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
+        ];
+      },
       isEmpty() {
         return this.tasks.length === 0;
       },
@@ -211,11 +217,11 @@ Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la hi
 
 Crea un archivo de prueba llamado `tests/unit/TaskList.spec.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
-```js:title=tests/unit/TaskList.spec.js
+```javascript
+// tests/unit/TaskList.spec.js
+
 import Vue from 'vue';
-
 import TaskList from '../../src/components/TaskList.vue';
-
 //👇 Our story imported here
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 

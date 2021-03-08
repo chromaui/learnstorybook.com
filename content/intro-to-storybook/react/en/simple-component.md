@@ -24,7 +24,9 @@ First, let’s create the task component and its accompanying story file: `src/c
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```js:title=src/components/Task.js
+```javascript
+// src/components/Task.js
+
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -40,7 +42,9 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```js:title=src/components/Task.stories.js
+```javascript
+// src/components/Task.stories.js
+
 import React from 'react';
 
 import Task from './Task';
@@ -111,13 +115,16 @@ When creating a story we use a base `task` arg to build out the shape of the tas
 
 ## Config
 
-We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous chapter](/intro-to-storybook/react/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
-```diff:title=.storybook/main.js
+```javascript
+// .storybook/main.js
+
 module.exports = {
-+ stories: ['../src/components/**/*.stories.js'],
+  //👇 Location of our stories
+  stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -128,8 +135,10 @@ module.exports = {
 
 After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
 
-```diff:title=.storybook/preview.js
-+ import '../src/index.css';
+```javascript
+// .storybook/preview.js
+
+import '../src/index.css'; //👈 The app's CSS file goes here
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
@@ -156,7 +165,9 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```js:title=src/components/Task.js
+```javascript
+// src/components/Task.js
+
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -201,7 +212,9 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
-```diff:title=src/components/Task.js
+```javascript
+// src/components/Task.js
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -209,21 +222,21 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
   // ...
 }
 
-+ Task.propTypes = {
-+  /** Composition of the task */
-+  task: PropTypes.shape({
-+    /** Id of the task */
-+    id: PropTypes.string.isRequired,
-+    /** Title of the task */
-+    title: PropTypes.string.isRequired,
-+    /** Current state of the task */
-+    state: PropTypes.string.isRequired,
-+  }),
-+  /** Event to change the task to archived */
-+  onArchiveTask: PropTypes.func,
-+  /** Event to change the task to pinned */
-+  onPinTask: PropTypes.func,
-+ };
+Task.propTypes = {
+  /** Composition of the task */
+  task: PropTypes.shape({
+    /** Id of the task */
+    id: PropTypes.string.isRequired,
+    /** Title of the task */
+    title: PropTypes.string.isRequired,
+    /** Current state of the task */
+    state: PropTypes.string.isRequired,
+  }),
+  /** Event to change the task to archived */
+  onArchiveTask: PropTypes.func,
+  /** Event to change the task to pinned */
+  onPinTask: PropTypes.func,
+};
 ```
 
 Now a warning in development will appear if the Task component is misused.
@@ -258,7 +271,9 @@ yarn add -D @storybook/addon-storyshots react-test-renderer
 
 Then create an `src/storybook.test.js` file with the following in it:
 
-```js:title=src/storybook.test.js
+```javascript
+// src/storybook.test.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```

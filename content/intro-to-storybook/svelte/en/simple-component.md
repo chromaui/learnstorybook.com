@@ -25,7 +25,9 @@ First, let’s create the task component and its accompanying story file: `src/c
 
 We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```svelte:title=src/components/Task.svelte
+```svelte
+<!-- src/components/Task.svelte -->
+
 <script>
   import { createEventDispatcher } from 'svelte';
 
@@ -63,9 +65,10 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```js:title=src/components/Task.stories.js
-import Task from './Task.svelte';
+```javascript
+// src/components/Task.stories.js
 
+import Task from './Task.svelte';
 import { action } from '@storybook/addon-actions';
 
 export const actionsData = {
@@ -77,7 +80,7 @@ export default {
   component: Task,
   title: 'Task',
   excludeStories: /.*Data$/,
-  //👇 The argTypes are included so that they are properly displayed in the Actions Panel
+  // the argTypes are included so that they are properly displayed in the Actions Panel
   argTypes: {
     onPinTask: { action: 'onPinTask' },
     onArchiveTask: { action: 'onArchiveTask' },
@@ -156,23 +159,26 @@ Another nice thing about bundling the `actionsData` that a component needs is th
 
 ## Config
 
-We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
+We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous section](/intro-to-storybook/svelte/en/get-started).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
-```diff:title=.storybook/main.js
+```javascript
 // .storybook/main.js
 
 module.exports = {
-+ stories: ['../src/components/**/*.stories.js'],
+  //👇 Location of our stories
+  stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
 ```
 
 After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
 
-```diff:title=..storybook/preview.js
-+ import '../src/index.css';
+```javascript
+// .storybook/preview.js
+
+import '../src/index.css'; //👈 The app's CSS file goes here
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
@@ -199,7 +205,9 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```diff:title=src/components/Task.svelte
+```svelte
+<!-- src/components/Task.svelte -->
+
 <script>
   import { createEventDispatcher } from 'svelte';
 
@@ -229,22 +237,22 @@ The component is still basic at the moment. First write the code that achieves t
   // reactive declaration (computed prop in other frameworks)
   $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
-+  <div class="list-item {task.state}">
-+   <label class="checkbox">
-+     <input type="checkbox" checked={isChecked} disabled name="checked" />
-+     <span class="checkbox-custom" on:click={ArchiveTask} />
-+   </label>
-+   <div class="title">
-+     <input type="text" readonly value={task.title} placeholder="Input title" />
-+   </div>
-+   <div class="actions">
-+     {#if task.state !== 'TASK_ARCHIVED'}
-+     <a href="/" on:click|preventDefault={PinTask}>
-+       <span class="icon-star" />
-+     </a>
-+     {/if}
-+   </div>
-+  </div>
+<div class="list-item {task.state}">
+  <label class="checkbox">
+    <input type="checkbox" checked={isChecked} disabled name="checked" />
+    <span class="checkbox-custom" on:click={ArchiveTask} />
+  </label>
+  <div class="title">
+    <input type="text" readonly value={task.title} placeholder="Input title" />
+  </div>
+  <div class="actions">
+    {#if task.state !== 'TASK_ARCHIVED'}
+    <a href="/" on:click|preventDefault={PinTask}>
+      <span class="icon-star" />
+    </a>
+    {/if}
+  </div>
+</div>
 ```
 
 The additional markup from above combined with the CSS we imported earlier yields the following UI:
@@ -282,7 +290,9 @@ yarn add -D @storybook/addon-storyshots
 
 Then create an `src/storybook.test.js` file with the following:
 
-```js:title=src/storybook.test.js
+```javascript
+// src/storybook.test.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -290,14 +300,15 @@ initStoryshots();
 
 And finally we need to make a small adjustment to our `jest` key in `package.json`:
 
-```diff:title=package.json
+```json
 {
   "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
-+     "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
+      "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
+    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
   }
 }
 ```

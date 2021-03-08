@@ -26,7 +26,9 @@ Primero, vamos a crear el componente Task y el archivo de historias de Storybook
 
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos:
 
-```html:title=src/components/Task.vue
+```html
+<!-- src/components/Task.vue -->
+
 <template>
   <div class="list-item">
     <input type="text" readonly :value="task.title" />
@@ -52,9 +54,10 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
-```js:title=src/components/Task.stories.js
-import Task from './Task';
+```javascript
+// src/components/Task.stories.js
 
+import Task from './Task';
 import { action } from '@storybook/addon-actions';
 
 export default {
@@ -142,22 +145,26 @@ Al crear una historia utilizamos una historia base (`taskData`) para construir l
 
 ## Configuración
 
-Es necesario realizar algunos cambios en los archivos de configuración de Storybook para que no solo note nuestras historias creadas recientemente y nos permita usar el archivo CSS de la aplicación (ubicado en `src/index.css`).
+Es necesario realizar algunos cambios en la configuración del Storybook, para que sepa no solo dónde buscar las historias que acabamos de crear, sino también usar el CSS que se agregó en el [capítulo anterior](/intro-to-storybook/vue/es/get-started).
 
 Comencemos cambiando el archivo de configuración de Storybook (`.storybook/main.js`) a lo siguiente:
 
-```diff:title=.storybook/main.js
+```javascript
+// .storybook/main.js
+
 module.exports = {
-+ stories: ['../src/components/**/*.stories.js'],
+  //👇 Location of our stories
+  stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
 ```
 
 Después de hacer este cambio, una vez más dentro de la carpeta `.storybook`, cambie el archivo `preview.js` con el siguiente contenido:
 
-```diff:title=.storybook/preview.js
+```javascript
+// .storybook/preview.js
 
-+ import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
@@ -184,22 +191,25 @@ Ahora tenemos configurado Storybook, los estilos importados y los casos de prueb
 
 Nuestro componente todavía es bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida con el diseño previsto sin entrar en demasiados detalles:
 
-```diff:title=src/components/Task.vue
+```html
+<!-- src/components/Task.vue -->
+
 <template>
-+ <div class="list-item" :class="task.state">
-+  <label class="checkbox">
-+    <input type="checkbox" :checked="isChecked" disabled name="checked" />
-+    <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
-+  </label>
-+  <div class="title">
-+    <input type="text" :value="task.title" readonly placeholder="Input title" />
-+  </div>
-+  <div class="actions">
-+   <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
-+    <span class="icon-star" />
-+   </a>
-+  </div>
-+ </div>
+  <div class="list-item" :class="task.state">
+    <label class="checkbox">
+      <input type="checkbox" :checked="isChecked" disabled name="checked" />
+      <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
+    </label>
+    <div class="title">
+      <input type="text" :value="task.title" readonly placeholder="Input title" />
+    </div>
+
+    <div class="actions">
+      <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
+        <span class="icon-star" />
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -213,11 +223,11 @@ Nuestro componente todavía es bastante rudimentario en este momento. Vamos a ha
         validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
-+   computed: {
-+     isChecked() {
-+       return this.task.state === 'TASK_ARCHIVED';
-+     },
-+   },
+    computed: {
+      isChecked() {
+        return this.task.state === 'TASK_ARCHIVED';
+      },
+    },
   };
 </script>
 ```
@@ -257,7 +267,9 @@ yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 
 Luego crea un archivo `tests/unit/storybook.spec.js` con el siguiente contenido:
 
-```js:title=tests/unit/storybook.spec.js
+```javascript
+// tests/unit/storybook.spec.js
+
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -265,11 +277,10 @@ initStoryshots();
 
 Finalmente, necesitamos agregar una línea a nuestro `jest.config.js`:
 
-```diff:title=jest.config.js
-module.exports = {
-  ...
-+ transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
-};
+```js
+  // jest.config.js
+
+  transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 ```
 
 Una vez hecho lo anterior, podemos ejecutar `yarn test:unit` y veremos el siguiente resultado:

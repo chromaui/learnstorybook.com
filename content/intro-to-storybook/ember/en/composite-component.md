@@ -22,7 +22,9 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```handlebars:title=app/components/task-list.hbs
+```handlebars
+{{!-- app/components/task-list.hbs--}}
+
 {{#if @loading}}
  <div class="list-items">loading</div>>
 {{else if @tasks}}
@@ -42,9 +44,10 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 Next create `Tasklist`’s test states in the story file.
 
-```js:title=app/components/task-list.stories.js
-import { hbs } from 'ember-cli-htmlbars';
+```javascript
+// app/components/task-list.stories.js
 
+import { hbs } from 'ember-cli-htmlbars';
 import * as TaskStories from './task.stories';
 
 export default {
@@ -122,7 +125,9 @@ For the loading edge case, we're going to create a new component that will displ
 
 Create a new file called `loading-row.hbs` and inside add the following markup:
 
-```handlebars:title=app/components/loading-row.hbs
+```handlebars
+{{!-- app/components/loading-row.hbs --}}
+
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -135,21 +140,23 @@ Create a new file called `loading-row.hbs` and inside add the following markup:
 
 And update `task-list.hbs` to the following:
 
-```handlebars:title=app/components/task-list.hbs
+```handlebars
+{{!-- app/components/task-list.hbs--}}
+
 {{#if @loading}}
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow/>
-  <LoadingRow />
-  <LoadingRow />
+ <LoadingRow />
+ <LoadingRow />
+ <LoadingRow/>
+ <LoadingRow />
+ <LoadingRow />
 {{else if this.tasksInOrder}}
   {{#each this.tasksInOrder as |task|}}
     <Task
-       @task={{task}}
-       @pin={{fn @pinTask task.id}}
-       @archive={{fn @archiveTask task.id}}
+      @task={{task}}
+      @pin={{fn @pinTask task.id}}
+      @archive={{fn @archiveTask task.id}}
     />
-   {{/each}}
+  {{/each}}
 {{else}}
   <div class="list-items">
     <div class="wrapper-message">
@@ -163,7 +170,9 @@ And update `task-list.hbs` to the following:
 
 And finally create a new file called `task-list.js` to the following:
 
-```js:title=app/components/task-list.js
+```javascript
+// app/components/task-list.js
+
 import Component from '@glimmer/component';
 
 export default class TaskList extends Component {
@@ -206,12 +215,13 @@ So, to avoid this problem, we can use Qunit to render the component and run some
 
 Create a test file called `tests/integration/task-list-test.js`. Here, we’ll build out our tests that make assertions about the output.
 
-```js:title=tests/integration/task-list-test.js
+```javascript
+// tests/integration/task-list-test.js
+
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
-
 module('Integration | Component | TaskList', function(hooks) {
   setupRenderingTest(hooks);
   const taskData = {
