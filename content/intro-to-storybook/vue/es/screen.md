@@ -13,9 +13,7 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Vuex) en alguna maqueta y sacando un campo `error` de el store (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor). Ahora crearemos `PureInboxScreen.vue` dentro de la carpeta `src/components/`:
 
-```html
-<!-- src/components/PureInboxScreen.vue -->
-
+```html:title=src/components/PureInboxScreen.vue
 <template>
   <div>
     <div v-if="error" class="page lists-show">
@@ -25,7 +23,6 @@ Como nuestra aplicación es muy simple, la pantalla que construiremos es bastant
         <div class="subtitle-message">Something went wrong</div>
       </div>
     </div>
-
     <div v-else class="page lists-show">
       <nav>
         <h1 class="title-page">
@@ -36,7 +33,6 @@ Como nuestra aplicación es muy simple, la pantalla que construiremos es bastant
     </div>
   </div>
 </template>
-
 <script>
   import TaskList from './TaskList.vue';
   export default {
@@ -51,17 +47,13 @@ Como nuestra aplicación es muy simple, la pantalla que construiremos es bastant
 
 Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInboxScreen` en `src/components/InboxScreen.vue`:
 
-```html
-<!-- src/components/InboxScreen.vue -->
-
+```html:title=src/components/InboxScreen.vue
 <template>
   <PureInboxScreen :error="error" />
 </template>
-
 <script>
   import PureInboxScreen from './PureInboxScreen';
   import { mapState } from 'vuex';
-
   export default {
     name: 'InboxScreen',
     components: { PureInboxScreen },
@@ -72,27 +64,26 @@ Luego, podemos crear un contenedor, que nuevamente toma los datos para `PureInbo
 
 También cambiamos nuestro componente `App` para que incluya `InboxScreen` (en una aplicación real esto sería manejado por el enrutador pero podemos obviarlo):
 
-```html
-<!-- src/App.vue -->
-
+```diff:title=src/App.vue
 <template>
   <div id="app">
-    <InboxScreen />
+-   <task-list />
++   <InboxScreen />
   </div>
 </template>
-
 <script>
   import store from './store';
-  import InboxScreen from './components/InboxScreen.vue';
+- import TaskList from './components/TaskList.vue';
++ import InboxScreen from './components/InboxScreen.vue';
   export default {
     name: 'app',
     store,
     components: {
-      InboxScreen,
+-     TaskList
++     InboxScreen,
     },
   };
 </script>
-
 <style>
   @import './index.css';
 </style>
@@ -106,24 +97,18 @@ Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este p
 
 Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Entonces, cuando configuramos nuestras historias en `src/components/PureInboxScreen.stories.js`:
 
-```javascript
-// src/components/PureInboxScreen.stories.js
-
+```js:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
-
 export default {
   title: 'PureInboxScreen',
   component: PureInboxScreen,
 };
-
 const Template = (args, { argTypes }) => ({
   components: { PureInboxScreen },
   props: Object.keys(argTypes),
   template: '<PureInboxScreen v-bind="$props" />',
 });
-
 export const Default = Template.bind({});
-
 export const Error = Template.bind({});
 Error.args = { error: true };
 ```
@@ -144,46 +129,38 @@ Sin embargo, los desarrolladores **necesitarán** inevitablemente renderizar los
 
 La buena noticia es que es fácil suministrar una store de Vuex a la `PureInboxScreen` en una historia! Podemos crear una nueva store en nuestra historia y pasarla como contexto de la historia:
 
-```javascript
-// src/components/PureInboxScreen.stories.js
-
-import Vue from 'vue';
-import Vuex from 'vuex';
+```diff:title=src/components/PureInboxScreen.stories.js
++ import Vue from 'vue';
++ import Vuex from 'vuex';
 import PureInboxScreen from './PureInboxScreen.vue';
-import { action } from '@storybook/addon-actions';
-import * as TaskListStories from './PureTaskList.stories';
-
-Vue.use(Vuex);
-
-export const store = new Vuex.Store({
-  state: {
-    tasks: TaskListStories.Default.args.tasks,
-  },
-  actions: {
-    pinTask(context, id) {
-      action('pin-task')(id);
-    },
-    archiveTask(context, id) {
-      action('archive-task')(id);
-    },
-  },
-});
-
++ import { action } from '@storybook/addon-actions';
++ import * as TaskListStories from './PureTaskList.stories';
++Vue.use(Vuex);
++ export const store = new Vuex.Store({
++  state: {
++    tasks: TaskListStories.Default.args.tasks,
++  },
++  actions: {
++    pinTask(context, id) {
++      action('pin-task')(id);
++    },
++    archiveTask(context, id) {
++      action('archive-task')(id);
++    },
++  },
++ });
 export default {
   title: 'PureInboxScreen',
   component: PureInboxScreen,
   excludeStories: /.*store$/,
 };
-
 const Template = (args, { argTypes }) => ({
   components: { PureInboxScreen },
   props: Object.keys(argTypes),
   template: '<PureInboxScreen v-bind="$props" />',
   store,
 });
-
 export const Default = Template.bind({});
-
 export const Error = Template.bind({});
 Error.args = { error: true };
 ```

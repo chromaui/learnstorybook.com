@@ -80,15 +80,11 @@ En la carpeta raíz de nuestro proyecto, cree un nuevo directorio llamado `.gith
 
 Cree un nuevo archivo llamado `chromatic.yml` como el siguiente. Reemplazar `project-token` con su token de proyecto.
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
 name: 'Chromatic Deployment'
-
 # Event for the workflow
 on: push
-
 # List of jobs
 jobs:
   test:

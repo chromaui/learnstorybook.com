@@ -41,15 +41,13 @@ Los controles nos permitieron verificar rápidamente diferentes entradas a un co
 
 Ahora solucionemos el problema del desbordamiento agregando un estilo a `Task.vue`:
 
-```html
-<!-- src/components/Task.vue -->
-
+```diff:title=src/components/Task.vue
 <input
   type="text"
   :value="task.title"
   readonly
   placeholder="Input title"
-  style="text-overflow: ellipsis;"
++ style="text-overflow: ellipsis;"
 />
 ```
 
@@ -63,11 +61,8 @@ En el futuro, podemos reproducir manualmente este problema ingresando la misma e
 
 Agreguemos una historia para el caso de texto largo en `Task.stories.js`:
 
-```js
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
-
 export const LongTitle = Template.bind({});
 LongTitle.args = {
   task: {
