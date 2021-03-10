@@ -1,21 +1,21 @@
 ---
-title: 'Addons'
-tocTitle: 'Addons'
-description: 'Learn how to integrate and use the popular Controls addon'
+title: '插件'
+tocTitle: '插件'
+description: '学习如何集成并使用热门插件'
 commit: '45b6600'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/vue/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons),
+Storybook 拥有一个健壮的[插件](https://storybook.js.org/docs/vue/configure/storybook-addons)生态系统来帮助您的团队提高开发体验。在[这里](https://storybook.js.org/addons)查看它们，
 
-If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/react/en/test/) chapter.
+如果您完成了教程之前的部分，您实际上已经接触了一些插件，并在[测试](intro-to-storybook/vue/zh-CN/test/)章节配置了其中一个。
 
-There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/vue/essentials/controls).
+基本上每一个用例都有对应的插件。想要对每一个插件进行说明几乎是不可能的。让我们来集成其中最受欢迎的一个吧：[Controls](https://storybook.js.org/docs/vue/essentials/controls)。
 
-## What is Controls?
+## 什么是 Controls？
 
-Controls allows designers and developers to easily explore component behavior by _playing_ with its arguments. No code required. Controls creates an addon panel next to your stories, so you can edit their arguments live.
+Controls 允许设计人员和开发人员通过*修改*组件参数的方式轻松浏览组件的行为，不需要写代码。Controls 通过在您的 story 旁创建一个插件面板，让您可以动态的修改组件参数。
 
-Fresh installs of Storybook include Controls out of the box. No extra configuration needed.
+全新安装的 Storybook 默认包含了 Controls。所以无需额外配置。
 
 <video autoPlay muted playsInline loop>
   <source
@@ -24,21 +24,21 @@ Fresh installs of Storybook include Controls out of the box. No extra configurat
   />
 </video>
 
-## Addons unlock new Storybook workflows
+## 使用插件解锁新的 Storybook 工作流程
 
-Storybook is a wonderful [component-driven development environment](https://www.componentdriven.org/). The Controls addon evolves Storybook into an interactive documentation tool.
+Storybook 是一个非常棒的[组件驱动式开发环境](https://www.componentdriven.org/)。Controls 插件将 Storybook 进化成一个互动式工具。
 
-### Using Controls to find edge cases
+### 使用 Controls 来发现边界用例
 
-With Controls QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Let's consider the following example, what would happen to our `Task` if we added a **MASSIVE** string?
+任何的 QA 工程师，UI 工程师，或者其他的利害关系者都可以将组件推进到极致！让我们想想对于下面的这个例子，如果我们添加了一个**非常长**的字符串，我们的`Task`会发生什么？
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
 
-That's not right! It looks like the text overflows beyond the bounds of the Task component.
+这显然不对！就好像文本从 Task 组件的边界溢出了一样。
 
-Controls allowed us to quickly verify different inputs to a component. In this case a long string. This reduces the work required to discover UI problems.
+Controls 使得我们可以快速的测试各种输入。在这个例子中是一个长字符串。这减少了发现 UI 问题所需要的工作量。
 
-Now let's fix the issue with overflowing by adding a style to `Task.vue`:
+现在让我们通过给`Task.vue`追加一个样式来解决这个问题：
 
 ```html
 <!-- src/components/Task.vue -->
@@ -54,13 +54,13 @@ Now let's fix the issue with overflowing by adding a style to `Task.vue`:
 
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
+解决问题！通过截短文本来处理这种过长的情况。
 
-### Adding a new story to avoid regressions
+### 增加一个新的 story 来避免回归
 
-In the future, We can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
+未来我们可以通过 Controls 输入相同的字符串来重现这个问题。但是更简单的方式是写一个 story 来表明这个边缘用例。这样做的好处在于增加了我们回归测试的覆盖率，并向其他组员清晰的表明了组件的局限性。
 
-Add a new story for the long text case in `Task.stories.js`:
+在`Task.stories.js`中为长文本的情况增加一个新的 story。
 
 ```js
 // src/components/Task.stories.js
@@ -76,7 +76,7 @@ LongTitle.args = {
 };
 ```
 
-Now we can reproduce and work on this edge case with ease.
+现在我们可以轻松的再现并处理此边缘用例了。
 
 <video autoPlay muted playsInline loop>
   <source
@@ -85,10 +85,10 @@ Now we can reproduce and work on this edge case with ease.
   />
 </video>
 
-If we are [visual testing](/react/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
+如果我们在[视觉测试]](/intro-to-storybook/vue/zh-CN/test/)，在截短方案失效时我们也会得到提示。如果没有覆盖测试，这样的模糊的边缘用例很容易被忽视。
 
-### Merge Changes
+<div class="aside"><p>💡 Controls非常适合让一些非开发人员测试您的组件和story，它远比您想象的要强大。我们推荐您阅读<a href="https://storybook.js.org/docs/vue/essentials/controls">官方文档</a>来了解更多。此外您还可以使用很多别的方式来定制Storybook。</div>
 
-Don't forget to merge your changes with git!
+### 合并修改
 
-<div class="aside"><p>Controls is a great way to get non-developers playing with your components and stories, and much more than we've seen here, we recommend reading the <a href="https://storybook.js.org/docs/vue/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/intro-to-storybook/react/en/creating-addons">create addons</a> bonus chapter we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
+别忘了在 git 里合并您的修改！
