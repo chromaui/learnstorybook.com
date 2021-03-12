@@ -19,7 +19,7 @@ Wil je wat dieper gaan? Hier zijn behulpzame bronnen.
 
 - [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) benadrukt workflow-best practices die worden gebruikt door high-speed teams bij Squarespace, Major League Soccer, Discovery Network en Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) gaat meer in detail over het gebruik van Storybook om visuele componenten te testen. Gratis e-book van 31 pagina's.
+- [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) gaat meer in detail over het gebruik van Storybook om visuele componenten te testen. Gratis e-book van 31 pagina's.
 
 ## Who made LearnStorybook.com?
 

@@ -19,7 +19,7 @@ Möchtest du noch tiefer einsteigen? Hier ein paar hilfreiche Quellen.
 
 - [**Der Blog-Post "The Delightful Storybook Workflow"**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) zeigt dir Workflows und Best-Practices der Hochgeschwindigkeits-Teams von Squarespace, Major League Soccer, Discovery Network, und Apollo GraphQL.
 
-- [**Das Handbuch für visuelle Tests**](https://www.learnstorybook.com/visual-testing-handbook/) taucht tief in die Verwendung von Storybook für visuelle Tests für Komponenten ein. Ein kostenloses 31-seitiges E-Book.
+- [**Das Handbuch für visuelle Tests**](https://storybook.js.org/tutorials/visual-testing-handbook/) taucht tief in die Verwendung von Storybook für visuelle Tests für Komponenten ein. Ein kostenloses 31-seitiges E-Book.
 
 ## Wer steckt hinter LearnStorybook.com?
 
