@@ -54,8 +54,6 @@ So far we’ve made lots of progress with little effort. Yet, the documentation 
 Start by adding more metadata that explains what the component does. In `src/Avatar.stories.js`, add a subtitle that describes what the Avatar is used for:
 
 ```diff:title=src/Avatar.stories.js
-// src/Avatar.stories.js
-
 export default {
   title: 'Design System/Avatar',
   component: Avatar,

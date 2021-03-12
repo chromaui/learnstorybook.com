@@ -443,7 +443,7 @@ In your editor, open the `UserItem` component located in `src/components/UserIte
 
 Import the Avatar component.
 
-```js:title=src/components/UserItem.js
+```diff:title=src/components/UserItem.js
 import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
