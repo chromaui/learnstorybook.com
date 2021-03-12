@@ -1,28 +1,30 @@
 ---
-title: 'Bonus: Create an addon'
-tocTitle: 'Bonus: Creating addons'
-description: 'Learn how to build your own addons that will super charge your development'
+title: 'おまけ: アドオンを作る'
+tocTitle: 'おまけ: アドオンを作る'
+description: '開発を加速させるアドオンを自分で作る方法を学びましょう'
 ---
 
-In the previous chapter we were introduced to one of the key features of Storybook, its robust system of [addons](https://storybook.js.org/addons/introduction/), which can be used to enhance not only yours but also your team's developer experience and workflows.
+既に、Storybook の特徴的な機能である、堅牢な[アドオン](https://storybook.js.org/docs/angular/configure/storybook-addons)のエコシステムを紹介しました。アドオンを使用することで、開発効率とワークフローが向上します。
 
-In this chapter we're going to take a look on how we create our own addon. You might think that writing it can be a daunting task, but actually it's not, we just need to take a couple of steps to get started and we can start writing it.
+このおまけの章では自分でアドオンを作る方法について見ていきます。アドオンを作るのは困難だと思われるかもしれませんが、そうでもありません。少し手順を踏めば、アドオンを書き始めることができます。
 
-But first thing is first, let's first scope out what our addon will do.
+しかし、まずは今から作るアドオンがどういうものか俯瞰してみましょう。
 
-## The addon we're going to write
+## 作成するアドオンについて
 
-For this example, let's assume that our team has some design assets that are somehow related to the existing UI components. Looking at the current Storybook UI, it seems that relationship isn't really apparent. How can we fix that?
+今回の例では、すでに存在する UI コンポーネントに関連したデザインアセットがあると仮定します。しかし、Storybook の UI を見てもデザインアセットとコンポーネントの関連が見えません。どうすればよいでしょうか。
 
-We have our goal, now let's define what features our addon will support:
+これから作るアドオンにどういった機能があればよいのか定義してみましょう:
 
-- Display the design asset in a panel
-- Support images, but also urls for embedding
-- Should support multiple assets, just in case there will be multiple versions or themes
+- パネルにデザインアセットを表示する
+- イメージを表示できるようにして、URL も埋め込めるようにする
+- 複数のテーマやバージョンがあることを考慮し、複数のアセットに対応する
 
-The way we'll be attaching the list of assets to the stories is through [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters), which is a Storybook option that allow us to inject custom parameters to our stories. The way to use it, it's quite similar on how we used a decorator in previous chapters.
+ストーリーとアセットの紐づけには Storybook の機能である [parameters](https://storybook.js.org/docs/angular/writing-stories/parameters#story-parameters) を使用します。parameters はストーリーに追加のメタデータを設定することができます。
 
 ```javascript
+// YourComponent.stories.js
+
 export default {
   title: 'Your component',
   decorators: [
@@ -36,58 +38,21 @@ export default {
 };
 ```
 
-<!-- -->
+## セットアップ
 
-## Setup
+これから作るアドオンがどういうものかを説明したので、作業を始めていきましょう。
 
-We've outlined what our addon will do, time to setup our local development environment.
+`.storybook` フォルダーに `design-addon` フォルダーを作成し、さらにその中に `register.js` というファイルを作ります。
 
-We're going to start by adding one additional package to our project. More specifically `@babel/preset-react`, this package will allow us to use React code inside our Angular app without any issues.
+これだけです。これでアドオンの作成準備が整いました。
 
-Open a console, navigate to your project folder and run the following command:
+<div class="aside">
+ここでは <code>.storybook</code> フォルダーをアドオンの配置場所として使用します。その理由は直接的なアプローチをとることで複雑になりすぎないようにするためです。実際のアドオンを作成するならば、別のパッケージに移動させ、独自のファイルとフォルダーの構成にするべきでしょう。
+</div>
 
-```bash
- npm install -D @babel/preset-react
-```
+## アドオンを書く
 
-Once it's installed, we're going to make a small change to the `babel.config.js` file we created earlier in the beginning of the [tutorial](/angular/en/get-started). We'll need to add a reference to our recently added package.
-
-The updated file should look like the following:
-
-```javascript
-// babel.config.js
-
-module.exports = function(api) {
-  process.env.NODE_ENV === 'development' ? api.cache(false) : api.cache(true);
-  const presets = [
-    [
-      '@babel/preset-env',
-      {
-        targets: {
-          node: 'current',
-        },
-      },
-    ],
-    '@babel/preset-typescript',
-    '@babel/preset-react',
-  ];
-  const plugins = [];
-  return {
-    presets,
-    plugins,
-  };
-};
-```
-
-Finally inside your `.storybook` folder, create a new one called `design-addon` and inside it a new file called `register.js`.
-
-And that's it! We're ready to start developing our addon.
-
-<div class="aside">We're going to use the<code>.storybook</code> folder as a placeholder for our addon. The reason behind this, is to maintain a straightforward approach and avoid complicating it too much. Should this addon be transformed into a actual addon it would be best to move it to a separate package with it's own file and folder structure.</div>
-
-## Writing the addon
-
-Add the following to your recently created file:
+今追加したファイルに以下のコードを記述します:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -109,12 +74,12 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-This is the a typical boilerplate code to get started and going over what the code is doing:
+これが作業を始める際の、典型的なボイラープレートコードです。このコードが何をしているのかというと:
 
-- We're registering a new addon in our Storybook.
-- Add a new UI element for our addon with some options (a title that will define our addon and the type of element used) and render it with some text for now.
+- Storybook に新しいアドオンを登録する
+- 新しい UI 要素をオプション (アドオンを説明するタイトルと要素の種類) と共に追加し、暫定的にテキストを表示する
 
-Starting Storybook at this point, we won't be able to see the addon just yet. Like we did earlier with the Knobs addon, we need to register our own in the `.storybook/main.js` file. Just add the following to the already existing `addons` list:
+この時点では Storybook を起動しても、アドオンは見えません。アドオンを登録するためには、`.storybook/main.js` ファイルにコードを追加する必要があります。以下の内容を現在の `addons` リストに追加しましょう:
 
 ```js
 // .storybook/main.js
@@ -122,25 +87,29 @@ Starting Storybook at this point, we won't be able to see the addon just yet. Li
 module.exports = {
   stories: ['../src/app/components/**/*.stories.ts'],
   addons: [
-    // same as before
-    './.storybook/design-addon/register.js', //👈 Our addon registered here
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
+    './design-addon/register.js', //👈 Our addon registered here
   ],
 };
 ```
 
-![design assets addon running inside Storybook](/intro-to-storybook/create-addon-design-assets-added.png)
+![Storybook 内で動くデザインアセットアドオン](/intro-to-storybook/create-addon-design-assets-added-6-0.png)
 
-Success! We have our newly created addon added to the Storybook UI.
+動きました！Storybook の UI に作成したアドオンが追加されています。
 
-<div class="aside">Storybook allows you to add not only panels, but a whole range of different types of UI components. And most if not all of them are already created inside the @storybook/components package, so that you don't need waste too much time implementing the UI and focus on writing features.</div>
+<div class="aside">
+Storybook には、パネルだけではなく、様々な種類の UI コンポーネントを追加できます。すべてではありませんが、ほとんどの UI コンポーネントは既に @storybook/components パッケージ内にありますので、UI を実装する手間を省き、機能を作りこむことに集中することができます。
+</div>
 
-### Creating the content component
+### Content コンポーネントを作成する
 
-We've completed our first objective. Time to start working on the second one.
+最初の目標は完了しました。次の目標に取り掛かりましょう。
 
-To complete it, we need to make some changes to our imports and introduce a new component that will display the asset information.
+次の目標を完了させるため、インポートを変更し、アセットの情報を表示する新しいコンポーネントを導入する必要があります。
 
-Make the following changes to the addon file:
+アドオンファイルを以下のように変更します:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -166,9 +135,9 @@ const Content = () => {
 };
 ```
 
-We've created the component, modified the imports, all that's missing is to connect the component to our panel and we'll have a working addon capable of displaying information relative to our stories.
+これで、コンポーネントを作り、インポートを変更しました。あとはパネルにコンポーネントを接続すれば、ストーリーに関連のある情報を表示できるアドオンとなることでしょう。
 
-Your code should look like the following:
+最終的なコードは以下のようになるでしょう:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -207,21 +176,20 @@ addons.register('my/design-addon', () => {
 });
 ```
 
-Notice that we're using the [useParameter](https://storybook.js.org/docs/react/addons/addons-api#useparameter), this handy hook will allow us to read the information supplied by the `parameters` option for each story, which in our case will be either a single path to a asset or a list of paths. You'll see it in effect shortly.
+[useParameter](https://storybook.js.org/docs/angular/addons/addons-api#useparameter) を使用していることに注目してください。この便利なフックは各ストーリーに設定された `parameters` オプションを読み取ることが可能です。このアドオンでは単一または複数のアセットへのパスが指定されます。実際の効果は後ほど確認しましょう。
 
-### Using our addon with a story
+### ストーリーにアドオンを使用する
 
-We've connected all the necessary pieces. But how can we see if it's actually working and showing anything?
+必要なピースはすべて組み立てました。しかし、実際に動かして何かを表示させるにはどうすればよいでしょうか。
 
-To do so, we're going to make a small change to the `task.stories.ts` file and add the [parameters](https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters) option.
+使うためには `task.stories.ts` ファイルにちょっとした変更を加え、[parameters](https://storybook.js.org/docs/angular/writing-stories/parameters) オプションを追加します。
 
 ```javascript
-// src/app/components/task.stories.ts
+// src/components/task.stories.ts
 
 export default {
   component: Task,
   title: 'Task',
-  decorators: [withKnobs],
   parameters: {
     //👇 Story's parameter defined here
     assets: [
@@ -230,19 +198,17 @@ export default {
       'path/to/yet/another/asset.png',
     ],
   },
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
 };
 /* same as before  */
 ```
 
-Go ahead and restart your Storybook and select the Task story, you should see something like this:
+それでは Storybook を再起動してタスクのストーリーを選択してみましょう。すると以下のようになります:
 
-![storybook story showing contents with design assets addon](/intro-to-storybook/create-addon-design-assets-inside-story.png)
+![Storybook のストーリーがデザインアセットアドオンとともに表示されている](/intro-to-storybook/create-addon-design-assets-inside-story-6-0.png)
 
-### Showing content in our addon
+### アドオンにコンテンツを表示する
 
-At this stage we can see that the addon is working as it should, but now let's change the `Content` component to actually display what we want:
+ここまで来るとアドオンが動いているのがわかります。さらに `Content` コンポーネントを変更し、実際にイメージを表示してみましょう:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -301,29 +267,29 @@ const Content = () => {
 };
 ```
 
-If you take a closer look, you'll see that we're using the `styled` tag, this tag comes from the `@storybook/theming` package. Using this tag, will allow us to customize not only Storybook's theme but also the UI to our needs. Also [`useStorybookState`](https://storybook.js.org/docs/react/addons/addons-api#usestorybookstate), which is a real handy hook, that allows us to tap into Storybook's internal state so that we can fetch any bit of information present. In our case we're using it to fetch only the id of each story created.
+コードを見てみましょう。[`@storybook/theming`](https://storybook.js.org/docs/angular/configure/theming) パッケージの `styled` タグを使用しています。これを使用することで Storybook のテーマとアドオンの UI をカスタマイズすることができます。[`useStorybookState`](https://storybook.js.org/docs/angular/addons/addons-api#usestorybookstate) は Storybook の内部状態にアクセスするためのフックで、どんな些細な情報でも取得することができます。この例では、各ストーリーに付けられた ID を取得するのに使用しています。
 
-### Displaying the actual assets
+### 実際のアセットを表示する
 
-To actually see the assets displayed in our addon, we need to copy them over to the `src/assets` folder and adjust the story's `parameters` option to reflect these changes.
+実際にアセットをアドオンに表示させるには、アセットを `public` フォルダーにコピーし、ここまでの変更を反映し、ストーリーの `parameters` オプションを変更しなければなりません。
 
-Storybook will pick up on the change and will load the assets, but for now, only the first one.
+Storybook が変更を検知し、アセットをロードします。今のところ最初のアセットしか表示出来ません。
 
-![actual assets loaded](/intro-to-storybook/design-assets-image-loaded.png)
+![実際のアセットがロードされた](/intro-to-storybook/design-assets-image-loaded-6-0.png)
 
-## Stateful addons
+## ステートフルなアドオン
 
-Going over our initial objectives:
+最初に挙げた目標を確認してみましょう:
 
-- ✔️ Display the design asset in a panel
-- ✔️ Support images, but also urls for embedding
-- ❌ Should support multiple assets, just in case there will be multiple versions or themes
+- ✔️ パネルにデザインアセットを表示する
+- ✔️ イメージを表示できるようにして、URL も埋め込めるようにする
+- ❌ 複数のテーマやバージョンがあることを考慮し、複数のアセットに対応する
 
-We're almost there, only one goal remaining.
+もうすぐ完了ですね。残り一つです。
 
-For the final one, we're going to need some sort of state, we could use React's `useState` hook, or if we were working with class components `this.setState()`. But instead we're going to use Storybook's own [`useAddonState`](https://storybook.js.org/docs/react/addons/addons-api#useaddonstate), which gives us a means to persist the addon state, and avoid creating extra logic to persist the local state. We'll also use another UI element from Storybook, the `ActionBar`, which will allow us to change between items.
+最後の目標を完了するには、状態を保持することが必要です。React の `useState` フックを使用してもいいですし、コンポーネントを class コンポーネントに変更し `this.setState()` を使用してもいいでしょう。しかし今回は Storybook の [`useAddonState`](https://storybook.js.org/docs/angular/addons/addons-api#useaddonstate) を使用します。これはアドオンの状態を永続化する手段を提供してくれるので、状態を永続化するコードを書かなくて済みます。さらに Storybook の他の UI 要素である `ActionBar` を使用しアイテムの切り替えを可能にします。
 
-We need to adjust our imports for our needs:
+それではインポートを変更しましょう:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -333,7 +299,7 @@ import { AddonPanel, ActionBar } from '@storybook/components';
 /* same as before */
 ```
 
-And modify our `Content` component, so that we can change between assets:
+そして `Content` コンポーネントを変更し、アセットを切り替えられるようにしましょう:
 
 ```javascript
 //.storybook/design-addon/register.js
@@ -372,12 +338,12 @@ const Content = () => {
 };
 ```
 
-## Addon built
+## アドオンの完成
 
-We've accomplished what we set out to do, which is to create a fully functioning Storybook addon that displays the design assets related to the UI components.
+UI コンポーネントに関連するデザインアセットを表示するという、実際に使える Storybook アドオンを作るために、やるべきことを全て達成しました。
 
 <details>
-  <summary>Click to expand and see the full code used in this example</summary>
+  <summary>この例で作成したコード全体を参照するにはクリックしてください</summary>
 
 ```javascript
 // .storybook/design-addon/register.js
@@ -462,38 +428,40 @@ addons.register('my/design-addon', () => {
 
 </details>
 
-## Next steps
+## 次にやること
 
-The next logical step for our addon, would be to make it it's own package and allow it to be distributed with your team and possibly with the rest of the community.
+アドオンの作成で次にやることは、チームや、コミュニティが使えるようにパッケージ化して使えるようにすることでしょう。
 
-But that's beyond the scope of this tutorial. This example demonstrates how you can use the Storybook API to create your own custom addon to further enhance your development workflow.
+しかし、それはこのチュートリアルの範囲を超えてしまいます。このチュートリアルでは、Stoybook API を使用して、カスタムアドオンを作成することで、開発のワークフローを向上できることを示しました。
 
-Learn how to further customize your addon:
+さらにアドオンをカスタマイズしたい場合は以下を参照してください:
 
-- [add buttons in the Storybook toolbar](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
-- [communicate through the channel with the iframe](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
-- [send commands and results](https://github.com/storybookjs/storybook/tree/next/addons/events)
-- [perform analysis on the html/css outputted by your component](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
-- [wrap components, re-render with new data](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
-- [fire DOM events, make DOM changes](https://github.com/storybookjs/storybook/tree/next/addons/events)
-- [run tests](https://github.com/storybookjs/storybook/tree/next/addons/jest)
+- [Storybook のツールバーにボタンを追加する](https://github.com/storybookjs/storybook/blob/next/addons/viewport/src/register.tsx#L8-L15)
+- [チャネルを通して iframe と通信する](https://github.com/storybookjs/storybook/blob/next/dev-kits/addon-roundtrip/README.md)
+- [コマンドと結果を送信する](https://github.com/storybookjs/storybook/tree/next/addons/events)
+- [コンポーネントから出力された HTML/CSS を解析する](https://github.com/storybookjs/storybook/tree/next/addons/a11y)
+- [コンポーネントをラップしてデータを再描画する](https://github.com/storybookjs/storybook/tree/next/addons/knobs)
+- [DOM のイベントを発火させ、DOM を変更する](https://github.com/storybookjs/storybook/tree/next/addons/events)
+- [テストを実行する](https://github.com/storybookjs/storybook/tree/next/addons/jest)
 
-And much more!
+などなど！
 
-<div class="aside">Should you create a new addon and you're interested in having it featured, feel free to open a PR in the Storybook documentation to have it featured.</div>
+<div class="aside">
+新しいアドオンを作成して、そのアドオンをフィーチャーして欲しいと思ったら、気軽に Storybook のドキュメントにプルリクエストを送ってください。
+</div>
 
-### Dev kits
+### 開発キット
 
-To help you jumpstart the addon development, the Storybook team has developed some `dev-kits`.
+アドオンの開発を加速させるために、Storybook チームでは複数の開発キットを用意しています。
 
-These packages are starter-kits to help you start building your own addons.
-The addon we've just finished creating is based on one of those starter-sets, more specifically the `addon-parameters` dev-kit.
+これらのパッケージはアドオンの開発を始めるための、スターターキットになっています。
+今回作成したアドオンはそのうちの一つである `addon-parameters` 開発キットを元に作成しました。
 
-You can find this one and others here:
-https://github.com/storybookjs/storybook/tree/next/dev-kits
+開発キットは以下のリンクを参照してください:
+<https://github.com/storybookjs/storybook/tree/next/dev-kits>
 
-More dev-kits will become available in the future.
+今後も開発キットを増やしていく予定です。
 
-## Sharing addons with the team
+## チーム内でアドオンを共有する
 
-Addons are timesaving additions to your workflow, but it can be difficult for non-technical teammates and reviewers to take advantage of their features. You can't guarantee folks will run Storybook on their local machine. That's why deploying your Storybook to an online location for everyone to reference can be really helpful. In the next chapter we'll do just that!
+ワークフローにアドオンを使用することで、時間を節約することができますが、技術者ではないチームメートやレビュアーがその恩恵を受けるのが難しい場合もあります。Storybook を動かせない環境の人もいるのです。それが Storybook をみんなが見られるようにオンラインで公開する理由です。
