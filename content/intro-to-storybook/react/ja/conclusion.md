@@ -19,7 +19,7 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 - [**楽しい Storybook のワークフロー**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)では Squarespace や、メジャーリーグサッカー、ディスカバリーネットワーク、 Apollo GraphQL といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
 
-- [**視覚的なテストのハンドブック**](https://www.learnstorybook.com/visual-testing-handbook)では、コンポーネントを Storybook で視覚的にテストする方法を掘り下げています。無料の 31 ページある eBook です。
+- [**視覚的なテストのハンドブック**](https://storybook.js.org/tutorials/visual-testing-handbook)では、コンポーネントを Storybook で視覚的にテストする方法を掘り下げています。無料の 31 ページある eBook です。
 
 - [**Storybook Discord**](https://discord.gg/UUt2PJb) では Storybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
 
