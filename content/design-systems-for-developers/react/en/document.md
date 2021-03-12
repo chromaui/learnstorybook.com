@@ -58,7 +58,7 @@ export default {
   title: 'Design System/Avatar',
   component: Avatar,
 + parameters: {
-+  componentSubtitle: 'Displays an image that represents a user or organization',
++   componentSubtitle: 'Displays an image that represents a user or organization',
 + },
 };
 ```
@@ -70,7 +70,6 @@ Next add JSdoc to the Avatar component (in `src/Avatar.js`) that provides a desc
 - Use an avatar for attributing actions or content to specific users.
 - The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
 **/
-
 export function Avatar({ loading, username, src, size, ...props }) {
 ```
 

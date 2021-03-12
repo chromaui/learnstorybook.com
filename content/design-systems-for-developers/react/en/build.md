@@ -105,7 +105,7 @@ export const parameters = {
 
 The decorator will ensure the `GlobalStyle` is rendered no matter which story is selected.
 
-<div class="aside">The <code><></code> in the decorator is not a typo -- it’s a <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> that we use here to avoid adding an unnecessary extra HTML tag to our output.</div>
+<div class="aside">💡 The <code><></code> in the decorator is not a typo -- it’s a <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> that we use here to avoid adding an unnecessary extra HTML tag to our output.</div>
 
 #### Add font tag
 

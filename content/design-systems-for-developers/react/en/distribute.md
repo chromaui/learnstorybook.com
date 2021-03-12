@@ -111,9 +111,9 @@ To ensure consumers of the package get all the information necessary, some addit
 yarn init --scope=@your-npm-username
 
 yarn init v1.22.5
-question name (@your-npm-username/learnstorybook-design-system):
+question name (learnstorybook-design-system): @your-npm-username/learnstorybook-design-system
 question version (0.1.0):
-question description (Learn Storybook design system):
+question description (Learn Storybook design system):Storybook design systems tutorial
 question entry point (dist/index.js):
 question repository url (https://github.com/your-username/learnstorybook-design-system.git):
 question author (your-npm-username <your-email-address@email-provider.com>):
@@ -121,7 +121,7 @@ question license (MIT):
 question private: no
 ```
 
-The command will ask us a set of questions, some of which will be prefilled with answers, others that we’ll have to think about. You’ll need to pick a unique name for the package on npm (you won’t be able to use `learnstorybook-design-system` -- a good choice is `@your-username/learnstorybook-design-system`).
+The command will ask us a set of questions, some of which will be prefilled with answers, others that we’ll have to think about. You’ll need to pick a unique name for the package on npm (you won’t be able to use `learnstorybook-design-system` -- a good choice is `@your-npm-username/learnstorybook-design-system`).
 
 All in all, it will update `package.json` with new values as a result of those questions:
 
@@ -210,12 +210,13 @@ git reset HEAD^
 Then we’ll update the changelog and commit it:
 
 ```
-# v0.1.0 (Tue Sep 03 2019)
+# v0.1.0 (Tue Mar 09 2021)
 
 - Created first version of the design system, with `Avatar`, `Badge`, `Button`, `Icon` and `Link` components.
 
 #### Authors: 1
-- Tom Coleman ([@tmeasday](https://github.com/tmeasday))
+
+- [your-usermane](https://github.com/your-username)
 ```
 
 Let’s add that changelog to git. Note that we use `[skip ci]` to tell CI platforms to ignore these commits, else we end up in their build and publish loop.
@@ -231,6 +232,10 @@ Now we can publish:
 npm --allow-same-version version 0.1.0 -m "Bump version to: %s [skip ci]"
 npm publish --access=public
 ```
+
+<div class="aside">
+💡 Don't forget to adjust the commands accordingly if you're using <a href="https://classic.yarnpkg.com/en/docs/cli/">yarn</a> to publish your package. 
+</div>
 
 And use Auto to create a release on GitHub:
 
@@ -407,7 +412,7 @@ You’ll now be able to browse the design system components and docs while devel
 We have what we need, time to add our design system and start using it. Run the following command in your terminal:
 
 ```shell
-yarn add <your-username>-learnstorybook-design-system
+yarn add @your-npm-username/learnstorybook-design-system
 ```
 
 We'll need to use the same global styles defined in the design system, so we'll need to update [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) config file and add a [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators).
@@ -416,7 +421,7 @@ We'll need to use the same global styles defined in the design system, so we'll 
 import React from 'react';
 
 // The styles imported from the design system.
-import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
+import { global as designSystemGlobal } from '@your-npm-username/learnstorybook-design-system';
 
 const { GlobalStyle } = designSystemGlobal;
 
@@ -443,8 +448,8 @@ In your editor, open the `UserItem` component located in `src/components/UserIte
 
 Import the Avatar component.
 
-```diff:title=src/components/UserItem.js
-import { Avatar } from '<your-username>-learnstorybook-design-system';
+```js:title=src/components/UserItem.js
+import { Avatar } from '@your-npm-username/learnstorybook-design-system';
 ```
 
 We want to render the Avatar beside the username.
@@ -454,7 +459,7 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-+ import { Avatar } from '<your-username>-learnstorybook-design-system';
++ import { Avatar } from '@your-npm-username/learnstorybook-design-system';
 
 const Container = styled.div`
   background: #eee;

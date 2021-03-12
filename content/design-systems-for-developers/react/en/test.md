@@ -92,13 +92,13 @@ const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/a
 it('has a href attribute when rendering with linkWrapper', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-    <Link href="https://learnstorybook.com" LinkWrapper={LinkWrapper}>
+    <Link href="https://storybook.js.org/tutorials/" LinkWrapper={LinkWrapper}>
       Link Text
     </Link>,
     div
   );
 
-  expect(div.querySelector('a[href="https://learnstorybook.com"]')).not.toBeNull();
+  expect(div.querySelector('a[href="https://storybook.js.org/tutorials/"]')).not.toBeNull();
   expect(div.textContent).toEqual('Link Text');
 
   ReactDOM.unmountComponentAtNode(div);

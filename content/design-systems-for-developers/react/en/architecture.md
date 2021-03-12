@@ -41,7 +41,7 @@ In your command line run the following commands:
 
 ```shell
 # Clone the files
-npx degit chromaui/learnstorybook-design-system#setup learnstorybook-design-system
+npx degit chromaui/learnstorybook-design-system-template learnstorybook-design-system
 
 cd learnstorybook-design-system
 

@@ -39,7 +39,7 @@ commit: 95d7ae7
 
 모던 UI를 구축하는 경우 시각적 테스트를 통해 프런트엔드 팀이 수작업 리뷰에 드는 시간을 절약하고 비용이 많이 드는 UI 회귀 테스트를 수행하는 것을 방지할 수 있습니다.
 
-<a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">이전 장</a>에서 [Chromatic](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 '버튼' 컴포넌트 주위에 굵은 빨간색 테두리를 추가한 다음, 팀원에게 피드백을 요청했습니다.
+<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">이전 장</a>에서 [Chromatic](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 '버튼' 컴포넌트 주위에 굵은 빨간색 테두리를 추가한 다음, 팀원에게 피드백을 요청했습니다.
 
 ![빨간색 테두리 버튼](/design-systems-for-developers/chromatic-button-border-change.png)
 
@@ -127,7 +127,7 @@ jobs:
         # GitHub chromatic action에 필요한 옵션
         with:
           # 우리의 프로젝트 토큰, 이것을 얻는 방법은 다음을 참고하였습니다.
-          # https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ (업데이트 링크)
+          # https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/ (업데이트 링크)
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
