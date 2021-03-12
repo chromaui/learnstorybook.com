@@ -64,43 +64,39 @@ Now your Storybook should look like this (notice that the font styles are a litt
 
 Our design system requires some global styles (a CSS reset) to be applied to the document for components to be rendered correctly. The styles can be added easily via a Styled Components global style tag. Adjust your global styles, located in `src/shared/global.js` to the following:
 
-```javascript
-// src/shared/global.js
-
+```diff:title=src/shared/global.js
 import { createGlobalStyle, css } from 'styled-components';
+
 import { color, typography } from './styles';
 
-export const fontUrl = 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900';
++ export const fontUrl = 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900';
 
 export const bodyStyles = css`
-  /* same as before */
+  /* Same as before */
 `;
 
 export const GlobalStyle = createGlobalStyle`
  body {
    ${bodyStyles}
- }
-`;
+ }`;
 ```
 
 To use the `GlobalStyle` “component” in Storybook, we can make use of a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators) (a component wrapper). In an app we’d place that component in the top-level app layout, but in Storybook we wrap all stories in it using the preview config file [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering).
 
-```javascript
-// .storybook/preview.js
+```diff:title=.storybook/preview.js
++ import React from 'react';
 
-import React from 'react';
++ import { GlobalStyle } from '../src/shared/global';
 
-import { GlobalStyle } from '../src/shared/global';
-
-// Global decorator to apply the styles to all stories
-export const decorators = [
-  Story => (
-    <>
-      <GlobalStyle />
-      <Story />
-    </>
-  ),
-];
++ // Global decorator to apply the styles to all stories
++ export const decorators = [
++   Story => (
++     <>
++       <GlobalStyle />
++       <Story />
++     </>
++   ),
++ ];
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -115,7 +111,7 @@ The decorator will ensure the `GlobalStyle` is rendered no matter which story is
 
 Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook the easiest way to achieve that is to use [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head) to add a `<link>` tag directly to the `<head>` of the page:
 
-```html
+```html:title=.storybook/preview-head.html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900" />
 ```
 
@@ -133,10 +129,9 @@ The [actions addon](https://storybook.js.org/docs/react/essentials/actions) give
 
 Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. We have a story that passes an action to that wrapper:
 
-```javascript
-// src/Button.stories.js
-
+```js:title=src/Button.stories.js
 import React from 'react';
+
 import styled from 'styled-components';
 
 // When the user clicks a button, it will trigger the `action()`,
@@ -166,13 +161,7 @@ It allows you to interact with component inputs (props) dynamically in the Story
 
 Let's see how they work, by adding a new story in the `Avatar` component, located in `src/Avatar.stories.js`:
 
-```javascript
-// src/Avatar.stories.js
-
-import React from 'react';
-
-// …
-
+```js:title=src/Avatar.stories.js
 // New story using controls
 const Template = args => <Avatar {...args} />;
 

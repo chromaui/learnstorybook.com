@@ -50,7 +50,7 @@ yarn install
 ```
 
 <div class="aside">
-We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the contents <a href="https://github.com/chromaui/learnstorybook-design-system/tree/setup">here</a>.
+💡 We use <a href="https://github.com/Rich-Harris/degit">degit</a> to download folders from GitHub. If you want to do it manually, you can grab the contents <a href="https://github.com/chromaui/learnstorybook-design-system/tree/setup">here</a>.
 </div>
 
 Once the files and dependencies are installed, we can push it to GitHub (which we’ll use to host the code for our design system). Start by signing in and creating a new repository on GitHub.com:
@@ -72,7 +72,7 @@ Be sure to replace `your-username` with your own account name.
 
 ![Initial commit to GitHub repository](/design-systems-for-developers/created-github-repository.png)
 
-<div class="aside">Other valid methods of creating design systems include shipping raw HTML/CSS, using other view layers, compiling components with Svelte, or using web components. Pick what works for your team.</div>
+<div class="aside">💡 Other valid methods of creating design systems include shipping raw HTML/CSS, using other view layers, compiling components with Svelte, or using web components. Pick what works for your team.</div>
 
 ## What belongs and what doesn’t
 
@@ -102,7 +102,7 @@ Following this method, we end up with UI primitives: Avatar, Badge, Button, Chec
 <p>
 For the code sample, we’ve selected a subset of these components to make reasoning about the repository simpler. Some teams also include customized third-party components in their design systems for other components like Tables and Forms.</p></div>
 
-<div class="aside">CSS-in-JS: We use <a href="https://www.styled-components.com">styled-components</a>, a library that allows us to scope styling to the component. There are other valid methods to style components including targeting classes manually, CSS modules, etc.</div>
+<div class="aside">💡 CSS-in-JS: We use <a href="https://www.styled-components.com">styled-components</a>, a library that allows us to scope styling to the component. There are other valid methods to style components including targeting classes manually, CSS modules, etc.</div>
 
 In addition to UI components, it makes sense to include styling constants for typography, colors, spacing, etc that are reused across projects. In design system nomenclature global style variables are called “design tokens”. We won’t dive into the theory behind design tokens in this guide, but you can learn more online (here’s a [good article](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)).
 
