@@ -1,34 +1,34 @@
 ---
-title: 'Conclusion'
-description: 'Put all your knowledge together and learn more Storybook techniques'
+title: 'まとめ'
+description: '今までの知識をまとめて、Storybook のテクニックをもっと学びましょう'
 ---
 
-Congratulations! You created your first UI in Storybook. Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following, your repo and deployed Storybook should look like this:
+Storybook で最初の UI を作成しましたね。お疲れ様でした！ここまでの章で UI コンポーネントを作成し、複合させ、テストし、デプロイする方法を学びました。同じように進めていれば、リポジトリーとデプロイされた Storybook は以下のリンクと同じようになっていることでしょう。
 
-[📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
+[📕 **GitHub のリポジトリー: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.com/)
+[🌎 **デプロイされた Storybook**](https://clever-banach-415c03.netlify.app/)
 
-Storybook is a powerful tool for React, React Native, Vue, Angular, Svelte and many others frameworks. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
+Storybook は React、React Native、Vue、Angular、Svelte、その他のフレームワークにとって強力なツールです。開発者コミュニティーも活発でアドオンも充実しています。このチュートリアルで紹介した内容は、Storybook で出来ることの一部にすぎません。一度 Storybook を導入すれば、強固な UI を効率的に作れることに驚くことでしょう。
 
-## Learn more
+## さらに学ぶには
 
-Want to dive deeper? Here are helpful resources.
+もっと深く掘り下げたいですか？役に立つリソースを紹介します。
 
-- [**Official Storybook documentation**](https://storybook.js.org/docs/react/get-started/introduction) has API documentation, community links, and the addon gallery.
+- [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/react/get-started/introduction)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
 
-- [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
+- [**楽しい Storybook のワークフロー**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)では Squarespace や、メジャーリーグサッカー、ディスカバリーネットワーク、 Apollo GraphQL といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
 
-- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
+- [**視覚的なテストのハンドブック**](https://www.learnstorybook.com/visual-testing-handbook)では、コンポーネントを Storybook で視覚的にテストする方法を掘り下げています。無料の 31 ページある eBook です。
 
-- [**Storybook Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community. Get and give help to other Storybook users.
+- [**Storybook Discord**](https://discord.gg/UUt2PJb) では Storybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
 
-- [**Storybook blog**](https://medium.com/storybookjs) showcases the latest releases and features to streamline your UI development workflow.
+- [**Storybook ブログ**](https://medium.com/storybookjs)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
 
-## Who made LearnStorybook.com?
+## LearnStorybook.com について
 
-The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+文書や、コード、製作は [Chromatic](https://www.chromatic.com/) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
 
-Want more tutorials and articles like this? Sign up to the Chromatic mailing list.
+このようなチュートリアルや記事をお望みならば、Chromatic のメーリングリストにサインアップしてください。
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
