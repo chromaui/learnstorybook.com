@@ -1,81 +1,143 @@
 ---
-title: 'Deploy Storybook'
-tocTitle: 'Deploy'
-description: 'Deploy Storybook online with GitHub and Netlify'
+title: 'Storybook をデプロイする'
+tocTitle: 'デプロイ'
+description: 'Storybook をインターネット上にデプロイする方法を学びましょう'
 ---
 
-In this tutorial we ran Storybook on our development machine. You may also want to share that Storybook with the team, especially the non-technical members. Thankfully, it’s easy to deploy Storybook online.
+ここまで、ローカルの開発マシンでコンポーネントを作成してきました。しかし、ある時点で、フィードバックを得るためにチームに作業を共有しなければならないこともあるでしょう。チームメートに UI の実装をレビューしてもらうため、Storybook をインターネット上にデプロイしてみましょう。
 
-<div class="aside">
-<strong>Did you setup Chromatic testing earlier?</strong>
-<br/>
-🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/angular/en/conclusion">conclusion</a>.
-</div>
+## 静的サイトとしてエクスポートする
 
-## Exporting as a static app
+Storybook をデプロイするには、まず静的サイトとしてエクスポートします。この機能はすでに組み込まれて、使える状態となっているので、設定について気にする必要はありません。
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook out of the box.
+`yarn build-storybook` を実行すると、`storybook-static` ディレクトリーに Storybook が静的サイトとして出力されますので、静的サイトのホスティングサービスのデプロイ出来ます。
 
-Now when you build Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
+## Storybook を発行する
 
-## Continuous deploy
+このチュートリアルでは、Storybook のメンテナーが作成した、無料のホスティングサービスである <a href="https://www.chromatic.com/">Chromatic</a> を使用します。Chromatic を使えば、クラウド上に Storybook を安全に、デプロイしホストすることができます。
 
-We want to share the latest version of components whenever we push code. To do this we need to continuous deploy Storybook. We’ll rely on GitHub and Netlify to deploy our static site. We’re using the Netlify free plan.
+### GitHub にリポジトリーを作成する
 
-### GitHub
+デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。[はじめにの章](/react/ja/get-started/)で Create React App (CRA) でプロジェクトを初期化した際に、ローカルのリポジトリーはすでに作成されています。また、この段階でリモートリポジトリーにプッシュできるコミットがあるはずです。
 
-If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
+[ここから](https://github.com/new) GitHub にアクセスし、リポジトリーを作りましょう。リポジトリーの名前はローカルと同じく「taskbox」とします。
 
-When the project was initialized with Angular CLI, a local repository was already setup for you. At this stage we already have a set of commits that we can push to a remote repository.
+![GitHub のセットアップ](/intro-to-storybook/github-create-taskbox.png)
 
-### Setup a repository in GitHub
-
-Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
-
-![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
-
-In the new repo setup copy the origin URL of the repo and add it to your git project with this command:
+新しいリポジトリーを作ったら origin の URL をコピーして、次のコマンドを実行し、ローカルの Git プロジェクトにリモートを追加します:
 
 ```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-Finally push the repo to GitHub
+最後にローカルリポジトリーを GitHub のリモートリポジトリーにプッシュします:
 
 ```bash
-$ git push -u origin main
+git push -u origin main
 ```
 
-### Netlify
+### Chromatic を使う
 
-Netlify has a continuous deployment service built in which will allow us to deploy Storybook without needing to configure our own CI.
+パッケージを開発時の依存関係に追加します。
+
+```bash
+yarn add -D chromatic
+```
+
+パッケージをインストールしたら、GitHub のアカウントを使用して [Chromatic にログイン](https://www.chromatic.com/start)します。(Chromatic は一部のアクセス許可を要求します。) 「taskbox」という名前でプロジェクトを作成し、GitHub のリポジトリーと同期させます。
+
+ログインしたら `Choose from GitHub` をクリックし、リポジトリーを選択します。
+
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
+    type="video/mp4"
+  />
+</video>
+
+作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けてください。
+
+```bash
+yarn chromatic --project-token=<project-token>
+```
+
+![Chromatic を実行する](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
+
+実行が完了すると、Storybook が発行されて、`https://random-uuid.chromatic.com` のようなリンクができます。このリンクをチームに共有すれば、フィードバックが得られるでしょう。
+
+![Chromatic パッケージを使用してデプロイされた Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
+
+やりました！Storybook が一つのコマンドだけで発行できました。ですが、UI を実装し、フィードバックを得たいと思ったときに、毎回コマンドを手動実行するのは非効率です。理想的なのは、コードをプッシュすると自動的に最新のコンポーネントが発行されることです。それには、Storybook を継続的にデプロイしていく必要があります。
+
+## Chromatic を使用した継続的デプロイメント
+
+もうプロジェクトは GitHub にホストされているので、Storybook を自動的にデプロイする継続的インテグレーション (CI) が使用できます。[GitHub アクション](https://github.com/features/actions)は GitHub に組み込まれている CI サービスで、自動発行が簡単にできます。
+
+### Storybook をデプロイするために GitHub アクションを追加する
+
+プロジェクトのルートフォルダーに `.github` というフォルダーを作成し、さらにその中に `workflows` というフォルダーを作成します。
+
+`chromatic.yml` を以下の内容で新規に作成します。`project-token` を先ほどのトークンで置き換えてください。
+
+```yaml
+# .github/workflows/chromatic.yml
+
+# Workflow name
+name: 'Chromatic Deployment'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  test:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
+      - uses: chromaui/action@v1
+        # Options required for Chromatic's GitHub Action
+        with:
+          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ to obtain it
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
 
 <div class="aside">
-If you use CI at your company, add a deploy script to your config that uploads <code>storybook-static</code> to a static hosting service like S3.
+<p>簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
 </div>
 
-[Create an account on Netlify](https://app.netlify.com/start) and click to “create site”.
+### アクションをコミットする
 
-![Netlify create site](/intro-to-storybook/netlify-create-site.png)
+コマンドラインで以下のコマンドを実行し、今までの内容をステージングします:
 
-Next click the GitHub button to connect Netlify to GitHub. This allows it to access our remote Taskbox repo.
+```bash
+git add .
+```
 
-Now select the taskbox GitHub repo from the list of options.
+さらに以下のコマンドでコミットします:
 
-![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
+```bash
+git commit -m "GitHub action setup"
+```
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `main`. Directory is `storybook-static`. Build command use `npm run build-storybook`.
+最後にリモートリポジトリーにプッシュします:
 
-![Netlify settings](/intro-to-storybook/netlify-settings-npm.png)
+```bash
+git push origin main
+```
 
-<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
+一度 GitHub アクションをセットアップすれば、コードをプッシュする度に Chromatic にデプロイされます。Chromatic のプロジェクトのビルド画面で発行されたすべての Storybook を確認できます。
 
-Submit the form to build and deploy the code on the `main` branch of taskbox.
+![Chromatic のユーザーダッシュボード](/intro-to-storybook/chromatic-user-dashboard.png)
 
-When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
+リストの一番上にある最新のビルドをクリックしてください。
 
-![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
+次に `View Storybook` ボタンをクリックすれば、最新の Storybook を見ることができます。
 
-We finished setting up continuous deployment of your Storybook! Now we can share our stories with teammates via a link.
+![Chromatic の Storybook のリンク](/intro-to-storybook/chromatic-build-storybook-link.png)
 
-This is helpful for visual review as part of the standard app development process or simply to show off work 💅.
+このリンクをチームメンバーに共有しましょう。これは標準的な開発プロセスや、単に作業を公開するのに便利です 💅
