@@ -1,23 +1,23 @@
 ---
-title: 'Test UI components'
-tocTitle: 'Testing'
-description: 'Learn the ways to test UI components'
+title: 'UI コンポーネントをテストする'
+tocTitle: 'テスト'
+description: 'UI コンポーネントのテスト手法について学びましょう'
 commit: 8fdc779
 ---
 
-No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
+Storybook のチュートリアルをテスト抜きには終われません。テストは高品質な UI を作成するのに必要なことです。疎結合なシステムにおいては、些細な変更で大きなリグレッション (手戻り) をもたらすことがあるのです。既に 3 種類のテストについて学びました:
 
-- **Visual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
-- **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
-- **Unit tests** with Jest verify that the output of a component remains the same given an fixed input. They’re great for testing the functional qualities of a component.
+- **手動テスト**では、コンポーネントの正しさを開発者が手動で確認します。コンポーネントを作成する際、見た目が問題ないかチェックするのに役立ちます。
+- **スナップショットテスト**では、Storyshots を使用し、コンポーネントのマークアップを記録します。描画時のエラーや警告の原因となるマークアップの変更を常に把握するのに役立ちます。
+- **単体テスト**では、Jest を使用し、コンポーネントへの決まった入力より同様の出力が出ていることを確認します。コンポーネントの機能性をテストするのに優れています。
 
-## “But does it look right?”
+## 「でも、見た目は大丈夫？」
 
-Unfortunately, the aforementioned testing methods alone aren’t enough to prevent UI bugs. UIs are tricky to test because design is subjective and nuanced. Visual tests are too manual, snapshot tests trigger too many false positives when used for UI, and pixel-level unit tests are poor value. A complete Storybook testing strategy also includes visual regression tests.
+残念ながら、前述のテスト方法だけでは UI のバグを防ぎきれません。UI というのは主観的なものなので、テストが厄介なのです。手動テストは、その名の通り、手動です。UI のスナップショットテストでは多数の偽陽性を発生させてしまいます。ピクセルレベルの単体テストは価値があまりありません。Storybook のテスト戦略には視覚的なリグレッションテストが不可欠です。
 
-## Visual regression testing for Storybook
+## Storybook 向けのビジュアルテスト
 
-Visual regression tests are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.
+視覚的なリグレッションテスト (ビジュアルテスト) は、見た目の変更を検出するために設計されています。ビジュアルテストはコミット毎に各ストーリーのスクリーンショットを撮って、前のコミットと比較して変更点を探します。レイアウトや色、サイズ、コントラストといった表示要素の確認にとても適しています。
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -26,92 +26,87 @@ Visual regression tests are designed to catch changes in appearance. They work b
   />
 </video>
 
-Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
+Storybook は視覚的なリグレッションテスト用の素晴らしいツールです。Storybook において、すべてのストーリーはテスト仕様となるからです。ストーリーを書くたび、仕様が無料でついてきます！
 
-There are a number of tools for visual regression testing. For professional teams we recommend [**Chromatic**](https://www.chromatic.com/), an addon made by Storybook maintainers that runs tests in the cloud.
+視覚的なリグレッションテスト向けのツールは多々あります。Storybook のメンテナーが作成した無料のホスティングサービスである [**Chromatic**](https://www.chromatic.com/) がおすすめです。Chromatic はクラウド上でビジュアルテストを並列実行します。[前の章](/react/ja/deploy/)と同じように Storybook をインターネット上に発行出来ます。
 
-## Setup visual regression testing
+## UI の変更を検知する
 
-Chromatic is a hassle-free Storybook addon for visual regression testing and review in the cloud. Since it’s a paid service (with a free trial), it may not be for everyone. However, Chromatic is an instructive example of a production visual testing workflow that we'll try out for free. Let’s have a look.
+視覚的なリグレッションテストでは UI コードにより描画されたイメージが基準となるイメージと比較されます。ツールが UI の変更が検知したら、教えてくれます。
 
-### Bring git up to date
+それでは、`Task` コンポーネントの背景を変更し、どう動くのか見てみましょう。
 
-Angular CLI has already created a repo for your project; let's check in the changes we made:
-
-First you want to setup Git for your project in the local directory. Chromatic uses Git history to keep track of your UI components.
+変更する前に新しいブランチを作成します:
 
 ```bash
-$ git add .
+git checkout -b change-task-background
 ```
 
-Now commit the files.
+`src/app/components/task.component.ts` を以下のように変更します:
 
-```bash
-$ git commit -m "taskbox UI"
+```typescript
+// src/app/components/task.component.ts
+import { Component, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'app-task',
+  template: `
+     <div class="title">
+      <input
+        type="text"
+        value={title}
+        readOnly={true}
+        placeholder="Input title"
+        style={{ background: 'red' }}
+      />
+    </div>
+  `,
+})
 ```
 
-### Get Chromatic
-
-Add the package as a dependency.
-
-```bash
-npm install -D chromatic
-```
-
-One fantastic thing about this addon is that it will use Git history to keep track of your UI components.
-
-Then [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic only asks for lightweight permissions). Create a project with name "taskbox" and copy your unique `project-token`.
-
-<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
-  <source
-    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
-    type="video/mp4"
-  />
-</video>
-
-Run the test command in the command line to setup visual regression tests for Storybook. Don't forget to add your unique app code in place of `<project-token>`.
-
-```bash
-npx chromatic --project-token=<project-token>
-```
-
-<div class="aside">
-If your Storybook has a custom build script you may have to <a href="https://www.chromatic.com/docs/setup#command-options">add options </a> to this command.
-</div>
-
-Once the first test is complete, we have test baselines for each story. In other words, screenshots of each story known to be “good”. Future changes to those stories will be compared to the baselines.
-
-![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)
-
-## Catch a UI change
-
-Visual regression testing relies on comparing images of the new rendered UI code to the baseline images. If a UI change is caught you get notified. See how it works by tweaking the background of the `Task` component:
-
-![code change](/intro-to-storybook/chromatic-change-to-task-component.png)
-
-This yields a new background color for the item.
+これでタスクの背景色が変更されます。
 
 ![task background change](/intro-to-storybook/chromatic-task-change.png)
 
-Use the test command from earlier to run another Chromatic test.
+この変更をステージングします:
 
 ```bash
-npx chromatic --project-token=<project-token>
+git add src/components/Task.js
 ```
 
-Follow the link to the web UI where you’ll see changes.
+コミットします:
 
-![UI changes in Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
+```bash
+git commit -m “change task background to red”
+```
 
-There are a lot of changes! The component hierarchy where `Task` is a child of `TaskList` and `Inbox` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
+そして変更をリモートリポジトリーにプッシュします:
 
-![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
+```bash
+git push -u origin change-task-background
+```
 
-## Review changes
+最後に、GitHub のリポジトリーを開き `change-task-background` ブランチのプルリクエストを作成します。
 
-Visual regression testing ensures components don’t change by accident. But it’s still up to you to determine whether changes are intentional or not.
+![GitHub にタスクの PR を作成する](/github/pull-request-background.png)
 
-If a change is intentional you need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
+プルリクエストに適切な説明を書き、`Create pull request` をクリックしてください。ページの下部に表示された「🟡 UI Tests」の PR チェックをクリックして下さい。
+
+![GitHub にタスクの PR が作成された](/github/pull-request-background-ok.png)
+
+これで先のコミットによって検出された UI の変更が見られます。
+
+![Chromatic が変更を検知した](/intro-to-storybook/chromatic-catch-changes.png)
+
+とてもたくさん変更されていますね！`Task` はコンポーネント階層で `TaskList` と `InboxScreen` の子供なので、少しの変更で雪だるま式に大規模なリグレッションが発生します。このような状況となるからこそ、テストメソッドの他に視覚的なリグレッションテストが必要となるのです。
+
+![UI のちょっとした変更で大きなリグレッションが発生](/intro-to-storybook/minor-major-regressions.gif)
+
+## 変更をレビューする
+
+視覚的なリグレッションテストはコンポーネントが意図せず変更されていないことを保障します。しかし、その変更が意図的であるかどうかを判別するのは、やはり人になります。
+
+もし意図的な変更であるならば、基準を更新すれば、最新のストーリーが今後の比較に使用されるようになります。そうでなければ、修正が必要です。
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -120,14 +115,14 @@ If a change is intentional you need to update the baseline so that future tests 
   />
 </video>
 
-Since modern apps are constructed from components, it’s important that we test at the level of component. Doing so helps us pinpoint the root cause of a change, the component, instead of reacting to symptoms of a change, the screens and composite components.
+モダンなアプリケーションはコンポーネントから作られていますので、コンポーネントのレベルでテストするのが重要です。そうすることで、他のコンポーネントの変更による影響を受けた画面や複合的なコンポーネントではなく、変化の原因であるコンポーネントを特定するのに役立ちます。
 
-## Merge changes
+## 変更をマージする
 
-When we’ve finished reviewing we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs. If you like the new `red` background then accept the changes, if not revert to the previous state.
+UI の変更をレビューしたら、その変更で意図せずバグを混入させていないことがわかっているので、自信をもってマージできます。赤色の背景が気に入ったのであれば、変更を受け入れ、そうでなければ元の状態に戻します。
 
-![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
+![マージの準備ができた変更内容](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook helps you **build** components; testing helps you **maintain** them. The four types of UI testing are covered in this tutorial are visual, snapshot, unit, and visual regression testing. You can automate the last three by adding them to your CI script. This helps you ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
+Storybook はコンポーネントを**作る**のに役立ち、テストはコンポーネントを**保つ**のに役立ちます。手動テスト、スナップショットテスト、単体テスト、ビジュアルテストの 4 種類をこのチュートリアルで学びました。最後の 3 種類は、今設定したように、CI に追加することで自動化することができます。これによりコンポーネントのバグに気づかないことを心配をせずにリリースできます。このワークフロー全体は以下の図の通りです。
 
-![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)
+![視覚的なリグレッションテストのワークフロー](/intro-to-storybook/cdd-review-workflow.png)
