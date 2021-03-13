@@ -17,9 +17,9 @@ Storybook 在 React、React Native、Vue、Angular、Svelte 和其他 framework 
 
 - [**Storybook 官方文件**](https://storybook.js.org/docs/react/get-started/introduction) 記載 API、社群連結與外掛集散地。
 
-- [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) 的特色是 Squarespace、Major League Soccer、Discovery Network 和 Apollo GraphQL 裡高效率團隊的最佳工作流程方法。
+- [**快快樂樂學 Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) 的特色是 Squarespace、Major League Soccer、Discovery Network 和 Apollo GraphQL 裡高效率團隊的最佳工作流程方法。
 
-- [**視覺測試手冊**](https://www.learnstorybook.com/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
+- [**視覺測試手冊**](https://storybook.js.org/tutorials/visual-testing-handbook) 深入探討在 Storybook 以視覺測試元件。免費的 31 頁電子書。
 
 - [**在 Discord 聊 Storybook **](https://discord.gg/UUt2PJb) 則是與 Storybook 社群進行互動。只要你幫助其他 Storybook 使用者，Storybook 使用者也會幫你。
 
