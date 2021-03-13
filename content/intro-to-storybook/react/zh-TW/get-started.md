@@ -5,9 +5,9 @@ description: '在開發環境設定 Storybook'
 commit: 'ac1ec13'
 ---
 
-Storybook 是與 app 的開發模式一起運作，幫助打造與 app 商業邏輯和情境分開來的 UI 元件。這裡是 Learn Storybook 的 React 版本，其他還有 [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 和 [Ember](/ember/en/get-started)。
+Storybook 是與 App 的開發模式一起運作，協助將 App 裡 UI 元件的商業邏輯和情境分開來。這裡是 Storybook 簡介的 React 版本，其他還有 [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 和 [Ember](/ember/en/get-started)。
 
-![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
+![Storybook 和 App](/intro-to-storybook/storybook-relationship.jpg)
 
 ## 設定 React Storybook
 

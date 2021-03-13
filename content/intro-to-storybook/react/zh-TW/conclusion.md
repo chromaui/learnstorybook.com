@@ -3,7 +3,7 @@ title: '總結'
 description: '總結已學到的，接著學習更多 Storybook 技巧'
 ---
 
-恭喜！你已經做好在 Storybook 裡的 UI。一路下來，學到如何打造、組合、測試和發布 UI 元件。如果都是跟著做，發布的 Storybook 和程式碼應該會長得像這樣：
+恭喜！你已經做好在 Storybook 裡的 UI。一路下來，學到如何打造、組合、測試和發布 UI 元件。如果都照著做，發布的 Storybook 和程式碼應該會長得像這樣：
 
 [📕 **GitHub 專案：chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>

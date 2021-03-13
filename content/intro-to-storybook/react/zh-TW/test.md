@@ -10,11 +10,11 @@ No Storybook tutorial would be complete without testing. Testing is essential to
 - **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
 - **Unit tests** with Jest verify that the output of a component remains the same given a fixed input. They’re great for testing the functional qualities of a component.
 
-## “But does it look right?”
+## 「可是，看起來正常嗎？」
 
 Unfortunately, the aforementioned testing methods alone aren’t enough to prevent UI bugs. UIs are tricky to test because design is subjective and nuanced. Manual tests are, well, manual. Snapshot tests trigger too many false positives when used for UI. Pixel-level unit tests are poor value. A complete Storybook testing strategy also includes visual regression tests.
 
-## Visual testing for Storybook
+## Storybook 的視覺測試
 
 Visual regression tests, also called visual tests, are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.
 
@@ -29,7 +29,7 @@ Storybook is a fantastic tool for visual regression testing because every story 
 
 There are a number of tools for visual regression testing. We recommend [**Chromatic**](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers that runs visual tests in parallelized cloud. It also allows us to publish Storybook online as we saw in the [previous chapter](/intro-to-storybook/react/en/deploy/).
 
-## Catch a UI change
+## 找出 UI 變化
 
 Visual regression testing relies on comparing images of the new rendered UI code to the baseline images. If a UI change is caught we'll get notified.
 
@@ -93,7 +93,7 @@ There are a lot of changes! The component hierarchy where `Task` is a child of `
 
 ![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
-## Review changes
+## 檢查變動
 
 Visual regression testing ensures components don’t change by accident. But it’s still up to us to determine whether changes are intentional or not.
 
@@ -108,7 +108,7 @@ If a change is intentional we'll need to update the baseline so that future test
 
 Since modern apps are constructed from components, it’s important that we test at the level of component. Doing so helps us pinpoint the root cause of a change, the component, instead of reacting to symptoms of a change, the screens and composite components.
 
-## Merge changes
+## 合併變動
 
 When we’ve finished reviewing we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs. If you like the new `red` background then accept the changes, if not revert to the previous state.
 

@@ -148,7 +148,7 @@ export const parameters = {
 
 [`parameter`](https://storybook.js.org/docs/react/writing-stories/parameters) 通常使用在控制 Storybook 功能和 addon 的行為。在這裡，是為了要用來設定 `action`（模擬 callback）的處理方式。
 
-`action` 讓我們可以做一些會在 Storybook UI 裡裡，按下 **actions** 區塊出現的 callback。因此，在打造置頂按鈕時，就可以在測試 UI 看出點擊按鈕是否成功。
+`action` 讓我們可以做一些會在 Storybook UI 裡裡，按下 **actions** 區塊出現的 callback。因此，在做圖釘按鈕時，就可以在測試 UI 看出點擊按鈕是否成功。
 
 做好這些事情後，重新開啟 Storybook 伺服器，就應該會產生 3 種 Task 狀態的測試案例：
 

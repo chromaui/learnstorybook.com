@@ -9,7 +9,7 @@ We've concentrated on building UIs from the bottom up; starting small and adding
 
 In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
 
-## Nested container components
+## 巢狀容器元件
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.js` in your `components` folder:
 
@@ -117,7 +117,7 @@ However, developers **will** inevitably need to render containers further down t
 💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
-## Supplying context with decorators
+## 以 Decorator 提供情境
 
 The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 

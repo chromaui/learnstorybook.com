@@ -107,7 +107,7 @@ jobs:
 
 <div class="aside"><p>💡 因為版面因素，沒有特別講 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a>。 Secrets 是 Github 提供的安全環境變數，就不用把 <code>project-token</code> 直接寫在程式碼裡面。</p></div>
 
-### 將 Action 進行 Commit
+### 提交 Action
 
 在文字指令列，用以下的指令來把做好的修改送出去：
 
@@ -115,7 +115,7 @@ jobs:
 git add .
 ```
 
-接著，進行 commit：
+接著，進行提交：
 
 ```bash
 git commit -m "GitHub action setup"
