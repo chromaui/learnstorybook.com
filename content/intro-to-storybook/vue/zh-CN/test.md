@@ -43,11 +43,8 @@ git checkout -b change-task-background
 ```
 
 按如下修改`Task`：
-；、——。m'm'm'm'm'm'm'm'm'm'm'm'm'm'm
 
-```html
-<!-- src/components/Task.vue -->
-
+```diff:title=src/components/Task.vue
 <input
   type="text"
   :value="task.title"

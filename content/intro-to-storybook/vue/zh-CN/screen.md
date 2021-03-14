@@ -13,9 +13,7 @@ commit: '99d3d65'
 
 因为我们的应用十分简单，所以我们要构建的页面也十分简单，只需要给`TaskList`容器组件（使用 Vuex 中的数据）添加一些布局，并使用 store 创建一个顶层的`error`字段（例如当我们遇到一些服务器连接问题时我们可以设置此字段）。在`src/components/`文件夹中创建一个表示型组件`PureInboxScreen.vue`。
 
-```html
-<!-- src/components/PureInboxScreen.vue -->
-
+```html:title=src/components/PureInboxScreen.vue
 <template>
   <div>
     <div v-if="error" class="page lists-show">
@@ -25,7 +23,6 @@ commit: '99d3d65'
         <div class="subtitle-message">Something went wrong</div>
       </div>
     </div>
-
     <div v-else class="page lists-show">
       <nav>
         <h1 class="title-page">
@@ -51,9 +48,7 @@ commit: '99d3d65'
 
 接着我们创建一个容器，为`src/components/InboxScreen.vue`中的`PureInboxScreen`抓取数据：
 
-```html
-<!-- src/components/InboxScreen.vue -->
-
+```html:title=src/components/InboxScreen.vue
 <template>
   <PureInboxScreen :error="error" />
 </template>
@@ -72,23 +67,24 @@ commit: '99d3d65'
 
 同时我们修改`App`组件让其渲染`InboxScreen`（最终我们会使用路由来决定渲染哪个页面，现在我们暂时不需要担心这些）：
 
-```html
-<!-- src/App.vue -->
-
+```diff:title=src/App.vue
 <template>
   <div id="app">
+    <task-list />
     <InboxScreen />
   </div>
 </template>
 
 <script>
   import store from './store';
+  import TaskList from './components/TaskList.vue';
   import InboxScreen from './components/InboxScreen.vue';
   export default {
     name: 'app',
     store,
     components: {
-      InboxScreen,
+      TaskList,
+      InboxScreen
     },
   };
 </script>
@@ -107,9 +103,7 @@ However, where things get interesting is in rendering the story in Storybook.
 
 但是这里我们遇到的问题是，尽管`PureInboxScreen`本身是表示型的，但它的子组件`TaskList`却并不是。某种意义上来说`PureIndexScreen`被“容器性”所污染了。所以当我们设置`src/components/PureInboxScreen.stories.js`时：
 
-```javascript
-// src/components/PureInboxScreen.stories.js
-
+```js:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 
 export default {
@@ -145,12 +139,12 @@ Error.args = { error: true };
 
 好消息是对于 story 来说在`PureInboxScreen`中使用 Vuex store 十分容易！我们可以在 story 文件中创建一个新的 store 作为上下文：
 
-```javascript
-// src/components/PureInboxScreen.stories.js
-
+```diff:title=src/components/PureInboxScreen.stories.js
 import Vue from 'vue';
 import Vuex from 'vuex';
+
 import PureInboxScreen from './PureInboxScreen.vue';
+
 import { action } from '@storybook/addon-actions';
 import * as TaskListStories from './PureTaskList.stories';
 

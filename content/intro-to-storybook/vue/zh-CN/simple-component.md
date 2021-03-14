@@ -26,9 +26,7 @@ commit: 'f03552f'
 
 首先我们使用已知将会用到的属性为基础实现一个最基本的`Task`：
 
-```html
-<!-- src/components/Task.vue -->
-
+```html:title=src/components/Task.vue
 <template>
   <div class="list-item">
     <input type="text" readonly :value="task.title" />
@@ -54,10 +52,9 @@ commit: 'f03552f'
 
 如下，我们在 story 文件中创建 Task 的三个不同测试状态：
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import Task from './Task';
+
 import { action } from '@storybook/addon-actions';
 
 export default {
@@ -143,13 +140,11 @@ Arguments 或者简写[`args`](https://storybook.js.org/docs/vue/writing-stories
 
 ## 配置
 
-我们需要对 Storybook 的配置做几处修改，这样其不仅可以识别到近期创建的 story，同时还允许我们可以使用[上一章节](/intro-to-storybook/vue/zh-CN/get-started)中引入的 CSS 文件。
+我们需要对 Storybook 的配置做几处修改，这样其不仅可以识别到近期创建的 story，同时还允许我们可以使用应用的 CSS 文件（在`sec/index.css`）。
 
 如下修改您的 Storybook 配置文件(`.storybook/main.js`)：
 
-```javascript
-// .storybook/main.js
-
+```diff:title=.storybook/main.js
 module.exports = {
   //👇 我们的story的所在位置
   stories: ['../src/components/**/*.stories.js'],
@@ -159,10 +154,8 @@ module.exports = {
 
 完成上述的修改后，如下所示修改您`.storybook`文件夹中的`preview.js` ：
 
-```javascript
-// .storybook/preview.js
-
-import '../src/index.css'; //👈 应用程序使用的CSS文件
+```diff:title=.storybook/preview.js
+import '../src/index.css';
 
 //👇 配置Storybook使其可以在UI中记录actions(onArchiveTask和onPinTask)
 export const parameters = {
@@ -189,9 +182,7 @@ export const parameters = {
 
 我们的组件现在仍然十分粗糙。我们做一些修改保证其在满足所需设计的同时而不至于陷入太多的细节中。
 
-```html
-<!-- src/components/Task.vue -->
-
+```diff:title=src/components/Task.vue
 <template>
   <div class="list-item" :class="task.state">
     <label class="checkbox">
@@ -265,9 +256,7 @@ yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 
 上述命令生成了`tests/unit/storybook.spec.js`文件，内容如下：
 
-```javascript
-// tests/unit/storybook.spec.js
-
+```js:title=tests/unit/storybook.spec.js
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -275,10 +264,11 @@ initStoryshots();
 
 我们还需要在`jest.config.js`中追加一行：
 
-```js
-  // jest.config.js
-
+```diff:title=jest.config.js
+module.exports = {
+  ...
   transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+};
 ```
 
 完成上述操作后运行`yarn test:unit`并查看输出：

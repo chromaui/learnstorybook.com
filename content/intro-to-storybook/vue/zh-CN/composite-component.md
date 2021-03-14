@@ -23,9 +23,7 @@ Taskbox 通过将固定 task（pinned tasks）置于其他默认 task 之上来�
 
 先简单实现以下`TaskList`。您需要先导入`Task`组件并将属性作为输入传入。
 
-```html
-<!-- src/components/TaskList.vue -->
-
+```html:title=src/components/TaskList.vue
 <template>
   <div class="list-items">
     <template v-if="loading">
@@ -60,9 +58,7 @@ Taskbox 通过将固定 task（pinned tasks）置于其他默认 task 之上来�
 
 下一步我们在 story 文件中创建`Tasklist`的测试状态。
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
@@ -138,9 +134,7 @@ Empty.args = {
 
 我们的组件仍然很粗糙但我们已经有了该如何构建 story 的方向。您可能觉得`.list-items`太过简单了。您是对的 - 大多数情况下我们不会仅仅为了增加一层包装就创建一个新组件。但是`WithPinnedTasks`，`loading`和 `empty`这些边界情况却揭示了`TaskList`**真正的复杂性**。
 
-```html
-<!-- src/components/TaskList.vue -->
-
+```diff:title=src/components/TaskList.vue
 <template>
   <div class="list-items">
     <template v-if="loading">
@@ -217,11 +211,11 @@ Storybook 使用手动检查和快照测试的方式来防止 UI 的 bug。看�
 
 创建一个测试文件`tests/unit/TaskList.spec.js`。我们创建测试来判断输出结果。
 
-```javascript
-// tests/unit/TaskList.spec.js
-
+```js:title=tests/unit/TaskList.spec.js
 import Vue from 'vue';
+
 import TaskList from '../../src/components/TaskList.vue';
+
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {

@@ -23,10 +23,9 @@ yarn add vuex
 
 在`src/store.js`中我们构建了一个标准的 Vuex store 来处理一些可能的改变状态的操作。
 
-```javascript
-// src/store.js
-
+```js:title=src/store.js
 import Vue from 'vue';
+
 import Vuex from 'vuex';
 
 Vue.use(Vuex);
@@ -61,9 +60,7 @@ export default new Vuex.Store({
 
 在顶层的 app 组件（`src/App.vue`）中我们可以非常容易的将 store 绑定到我们的组件结构中：
 
-```html
-<!--src/App.vue -->
-
+```html:title=src/App.vue
 <template>
   <div id="app">
     <task-list />
@@ -91,9 +88,7 @@ export default new Vuex.Store({
 
 在`src/components/PureTaskList.vue`中：
 
-```html
-<!-- src/components/PureTaskList.vue -->
-
+```html:title=src/components/PureTaskList.vue
 <template>
   <!-- 和之前的内容一致 -->
 </template>
@@ -109,9 +104,7 @@ export default new Vuex.Store({
 
 在`src/components/TaskList.vue`中：
 
-```html
-<!-- src/components/TaskList.vue -->
-
+```html:title=src/components/TaskList.vue
 <template>
   <PureTaskList :tasks="tasks" v-on="$listeners" @archive-task="archiveTask" @pin-task="pinTask" />
 </template>
@@ -132,10 +125,9 @@ export default new Vuex.Store({
 
 将`TaskList`的表示型版本分离开的原因是，这使得我们的测试和隔离更加容易。同时因为它不依赖 store，所以从测试的角度来说将变的更加容易。重命名`src/components/TaskList.stories.js`为`src/components/PureTaskList.stories.js`，并在我们的 story 中使用表示型版本：
 
-```javascript
-// src/components/PureTaskList.stories.js
-
+```diff:title=src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList';
+
 import * as TaskStories from './Task.stories';
 
 export default {
@@ -198,13 +190,18 @@ Empty.args = {
   />
 </video>
 
+<div class="aside">
+
+</div>
+
 同样的，我们也需要在 Jest 测试中使用`PureTaskList`：
 
-```js
-// tests/unit/PureTaskList.spec.js
-
+```diff:title=tests/unit/PureTaskList.spec.js
 import Vue from 'vue';
+
 import PureTaskList from '../../src/components/PureTaskList.vue';
+
+//👇 在这里导入我们的story
 import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {

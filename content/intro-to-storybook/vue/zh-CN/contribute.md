@@ -3,9 +3,9 @@ title: '贡献'
 description: '帮助向全世界分享Storybook'
 ---
 
-我们鼓励给 Learn Storybook 做贡献！如果有一些小的类似语法或标点符号的修改，欢迎开启一个 pull request。如果是一个大的修改，欢迎[添加 issue](https://github.com/chromaui/learnstorybook.com/issues)来进一步讨论。
+我们鼓励给 Storybook 的教程做贡献！如果有一些小的类似语法或标点符号的修改，欢迎开启一个 pull request。如果是一个大的修改，欢迎[添加 issue](https://github.com/chromaui/learnstorybook.com/issues)来进一步讨论。
 
-Learn Storybook 主要是由社区来创建和维护的，所以我们需要每一个人的帮助来保持其更新并随着时间的推进逐步完善。我们感谢任何形式的帮助！
+Storybook 教程主要是由社区来创建和维护的，所以我们需要每一个人的帮助来保持其更新并随着时间的推进逐步完善。我们感谢任何形式的帮助！
 
 ## 翻译
 

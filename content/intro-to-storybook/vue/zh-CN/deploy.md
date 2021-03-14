@@ -89,9 +89,7 @@ yarn chromatic --project-token=<project-token>
 
 创建一个叫`chromatic.yml`的文件，内容如下。替换`project-token`为您项目所持有的 token。
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # 我们的action的名字
 name: 'Chromatic Deployment'
 # 触发action的event

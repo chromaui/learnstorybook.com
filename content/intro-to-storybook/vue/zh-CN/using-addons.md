@@ -40,9 +40,7 @@ Controls 使得我们可以快速的测试各种输入。在这个例子中是�
 
 现在让我们通过给`Task.vue`追加一个样式来解决这个问题：
 
-```html
-<!-- src/components/Task.vue -->
-
+```diff:title=src/components/Task.vue
 <input
   type="text"
   :value="task.title"
@@ -62,9 +60,7 @@ Controls 使得我们可以快速的测试各种输入。在这个例子中是�
 
 在`Task.stories.js`中为长文本的情况增加一个新的 story。
 
-```js
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});
