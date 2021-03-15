@@ -216,7 +216,7 @@ Then we’ll update the changelog and commit it:
 
 #### Authors: 1
 
-- [your-usermane](https://github.com/your-username)
+- [your-username](https://github.com/your-username)
 ```
 
 Let’s add that changelog to git. Note that we use `[skip ci]` to tell CI platforms to ignore these commits, else we end up in their build and publish loop.
