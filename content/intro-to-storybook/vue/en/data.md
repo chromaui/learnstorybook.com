@@ -190,10 +190,6 @@ Empty.args = {
   />
 </video>
 
-<div class="aside">
-
-</div>
-
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```diff:title=tests/unit/PureTaskList.spec.js
