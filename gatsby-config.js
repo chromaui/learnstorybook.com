@@ -42,7 +42,7 @@ module.exports = {
           pt: 5.3,
         },
         angular: {
-          en: 5.3,
+          en: 6.1,
           es: 5.3,
           pt: 5.3,
         },

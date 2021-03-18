@@ -23,12 +23,9 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs and events.
 
-```typescript
-// src/app/components/task-list.component.ts
-
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+```ts:title=src/app/components/task-list.component.ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
-
 @Component({
   selector: 'app-task-list',
   template: `
@@ -45,107 +42,105 @@ import { Task } from '../models/task.model';
     </div>
   `,
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent {
+  /** The list of tasks */
   @Input() tasks: Task[] = [];
+
+  /** Checks if it's in loading state */
   @Input() loading = false;
 
+  /** Event to change the task to pinned */
   // tslint:disable-next-line: no-output-on-prefix
-  @Output() onPinTask: EventEmitter<any> = new EventEmitter();
+  @Output()
+  onPinTask = new EventEmitter<Event>();
+
+  /** Event to change the task to archived */
   // tslint:disable-next-line: no-output-on-prefix
-  @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
-
-  constructor() {}
-
-  ngOnInit() {}
+  @Output()
+  onArchiveTask = new EventEmitter<Event>();
 }
 ```
 
 Next create `Tasklist`’s test states in the story file.
 
-```typescript
-// src/app/components/task-list.stories.ts
-
+```ts:title=src/app/components/task-list.stories.ts
 import { moduleMetadata } from '@storybook/angular';
+import { Story, Meta } from '@storybook/angular/types-6-0';
+
 import { CommonModule } from '@angular/common';
+
 import { TaskListComponent } from './task-list.component';
 import { TaskComponent } from './task.component';
-import { taskData, actionsData } from './task.stories';
+
+import * as TaskStories from './task.stories';
 
 export default {
-  title: 'TaskList',
-  excludeStories: /.*Data$/,
+  component: TaskListComponent,
   decorators: [
     moduleMetadata({
-      // imports both components to allow component composition with storybook
+      //👇 Imports both components to allow component composition with storybook
       declarations: [TaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
   ],
-};
+  title: 'TaskList',
+} as Meta;
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
-// default TaskList state
-export const Default = () => ({
+const Template: Story<TaskListComponent> = args => ({
   component: TaskListComponent,
-  template: `
-  <div style="padding: 3rem">
-    <app-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
-  </div>
-`,
   props: {
-    tasks: defaultTasksData,
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
+    ...args,
+    onPinTask: TaskStories.actionsData.onPinTask,
+    onArchiveTask: TaskStories.actionsData.onArchiveTask,
   },
-});
-// tasklist with pinned tasks
-export const WithPinnedTasks = () => ({
-  component: TaskListComponent,
   template: `
     <div style="padding: 3rem">
-      <app-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
-    </div>
-  `,
-  props: {
-    tasks: withPinnedTasksData,
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
+      <app-task-list [tasks]="tasks" [loading]=loading (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
+    </div> `,
 });
-// tasklist in loading state
-export const Loading = () => ({
-  template: `
-        <div style="padding: 3rem">
-          <app-task-list [tasks]="[]" loading="true" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
-        </div>
-      `,
-});
-// tasklist no tasks
-export const Empty = () => ({
-  template: `
-        <div style="padding: 3rem">
-          <app-task-list [tasks]="[]" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
-        </div>
-      `,
-});
+
+export const Default = Template.bind({});
+Default.args = {
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
+
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to configure the necessary modules and components. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
-`taskData` supplies the shape of a `Task` that we created and exported from the `task.stories.ts` file. Similarly, `actionsData` defines the actions (mocked callbacks) that a `TaskComponent` expects, which the `TaskListComponent` also needs.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/angular/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -160,41 +155,45 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskListComponent` is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
 
-```typescript
-// src/app/components/task-list.component.ts
-
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+```diff:title=src/app/components/task-list.component.ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-task-list',
   template: `
-    <div class="list-items">
-      <app-task
-        *ngFor="let task of tasksInOrder"
-        [task]="task"
-        (onArchiveTask)="onArchiveTask.emit($event)"
-        (onPinTask)="onPinTask.emit($event)"
-      >
-      </app-task>
++   <div class="list-items">
++     <app-task
++       *ngFor="let task of tasksInOrder"
++       [task]="task"
++       (onArchiveTask)="onArchiveTask.emit($event)"
++       (onPinTask)="onPinTask.emit($event)"
++     >
++     </app-task>
 
-      <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
-        <span class="icon-check"></span>
-        <div class="title-message">You have no tasks</div>
-        <div class="subtitle-message">Sit back and relax</div>
-      </div>
++     <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
++       <span class="icon-check"></span>
++       <div class="title-message">You have no tasks</div>
++       <div class="subtitle-message">Sit back and relax</div>
++     </div>
 
-      <div *ngIf="loading">
-        <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
-          <span class="glow-checkbox"></span>
-          <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
-        </div>
-      </div>
-    </div>
++     <div *ngIf="loading">
++       <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
++         <span class="glow-checkbox"></span>
++         <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
++       </div>
++     </div>
++   </div>
   `,
 })
-export class TaskListComponent implements OnInit {
-  tasksInOrder: Task[] = [];
+export class TaskListComponent {
+- @Input() tasks: Task[] = [];
+
++  /**
++  * Component property to define ordering of tasks
++  */
++ tasksInOrder: Task[] = [];
+
   @Input() loading = false;
 
   // tslint:disable-next-line: no-output-on-prefix
@@ -203,17 +202,13 @@ export class TaskListComponent implements OnInit {
   // tslint:disable-next-line: no-output-on-prefix
   @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
 
-  @Input()
-  set tasks(arr: Task[]) {
-    this.tasksInOrder = [
-      ...arr.filter(t => t.state === 'TASK_PINNED'),
-      ...arr.filter(t => t.state !== 'TASK_PINNED'),
-    ];
-  }
-
-  constructor() {}
-
-  ngOnInit() {}
++ @Input()
++ set tasks(arr: Task[]) {
++   this.tasksInOrder = [
++     ...arr.filter(t => t.state === 'TASK_PINNED'),
++     ...arr.filter(t => t.state !== 'TASK_PINNED'),
++   ];
++ }
 }
 ```
 
@@ -250,21 +245,22 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 
 Create a test file called `task-list.component.spec.ts`. Here we’ll build out our tests that make assertions about the output.
 
-```typescript
-// src/app/components/task-list.component.spec.ts
-
+```ts:title=src/app/components/task-list.component.spec.ts
 import { render } from '@testing-library/angular';
+
 import { TaskListComponent } from './task-list.component';
 import { TaskComponent } from './task.component';
-import { withPinnedTasksData } from './task-list.stories';
+
+//👇 Our story imported here
+import { WithPinnedTasks } from './task-list.stories';
+
 describe('TaskList component', () => {
   it('renders pinned tasks at the start of the list', async () => {
     const mockedActions = jest.fn();
     const tree = await render(TaskListComponent, {
       declarations: [TaskComponent],
       componentProperties: {
-        tasks: withPinnedTasksData,
-        loading: false,
+        ...WithPinnedTasks.args,
         onPinTask: {
           emit: mockedActions,
         } as any,
