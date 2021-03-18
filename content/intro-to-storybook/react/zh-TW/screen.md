@@ -170,7 +170,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
-## Component-Driven Development
+## 元件驅動開發
 
 We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
 

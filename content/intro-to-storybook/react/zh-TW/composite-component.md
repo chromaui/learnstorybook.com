@@ -5,23 +5,23 @@ description: '從較為簡易的元件，組裝複合元件'
 commit: 'f9b2cfb'
 ---
 
-上個章節，我們打造出第 1 個元件，而在這章延伸已經學到的，做出 TaskList，也就是一組 Task。開始動手把元件組裝起來，看看更複雜的時候會發生什麼事情。
+上個章節，我們打造出第 1 個元件，而在這章延伸已經學到的，做出 TaskList，也就是 1 組 Task。接著，開始動手把元件組裝起來，看看更複雜的時候會發生什麼事情。
 
 ## Tasklist
 
-Taskbox 將置頂任務放置在一般任務上方來加強。因此讓 `TaskList` 產生 2 個得做成 story 的樣式：預設與置頂。
+Taskbox 將置頂任務放置在一般任務上方來加強。因此讓 `TaskList` 產生 2 種得做成 story 的樣式：預設與置頂。
 
 ![預設與置頂的任務](/intro-to-storybook/tasklist-states-1.png)
 
-因為 `Task` 的資料可以非同步送出，因此**也要** render 在沒有連線時，讀取中狀態。還有，沒任務的時候也要做空白狀態。
+因為 `Task` 的資料可以非同步送出，因此**也要** 渲染在沒有連線時，讀取中狀態。還有，沒任務的時候也要做空白狀態。
 
 ![空白與讀取中的任務](/intro-to-storybook/tasklist-states-2.png)
 
 ## 準備好設定
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.js` and `src/components/TaskList.stories.js`.
+組合元件跟它包含的基本元件沒什麼差別。新增 TaskLis 元件，還有對應的 story 檔案：`src/components/TaskList.js` 和 `src/components/TaskList.stories.js`。
 
-Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
+一開始的 `TaskList` 只要粗淺做一下即可。得要匯入先前的 `Task` 元件，傳入屬性和 actions。
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -52,7 +52,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-Next create `Tasklist`’s test states in the story file.
+接著，在 story 檔案新增 `Tasklist` 測試的狀態。
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -108,12 +108,12 @@ Empty.args = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> 是一種為 story 提供臨時 wrapper 的方法。在這裡，預設 export 使用名為 key 的 decorator，會在渲染出來的元件新增一些 padding 環繞。它們也可以用在 provider 包住 story — 也就是已經設定 React context 的 library 元件。
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
+因為匯入了 `TaskStories`，就可以用最小力氣在[組合](https://storybook.js.org/docs/react/writing-stories/args#args-composition) story 的參數（英文簡稱 args）。這樣子，兩邊元件都要使用的資料和 action（虛構的 callback）都保留起來了。
 
-Now check Storybook for the new `TaskList` stories.
+現在，看看 Storybook 裡，新的 story：`TaskList`。
 
 <video autoPlay muted playsInline loop>
   <source
@@ -124,7 +124,7 @@ Now check Storybook for the new `TaskList` stories.
 
 ## 打造狀態 (States)
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+元件還很粗糙，但已經知道 story 要怎麼繼續進行。你可能覺得 wrapper：`.list-items` 太過於簡樸。沒錯，大多數的情況下並不會為了把東西包起來，就做新元件。`TaskList` 元件**真正複雜**的地方在 `withPinnedTasks`、`loading` 和 `empty` 等極端案例才會出現。
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -182,7 +182,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-The added markup results in the following UI:
+新增的語法產生以下 UI：
 
 <video autoPlay muted playsInline loop>
   <source
@@ -191,11 +191,11 @@ The added markup results in the following UI:
   />
 </video>
 
-Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
+請注意清單裡的置頂項目。為了讓使用者覺得這比較重要，就要把置頂項目顯示在清單的頂部。
 
 ## 資料需求與 Props
 
-As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
+隨著元件逐漸龐大，所需傳入的資料也是。請定義 `TaskList` 的 prop 需求，由於 `Task` 是子元件，要確認提供渲染的資料是否正確。為了輕鬆省時，要重複利用先前在 `Task` 定義的 propTypes。
 
 ```diff:title=src/components/TaskList.js
 import React from 'react';
@@ -224,21 +224,21 @@ export default function TaskList() {
 
 ## 自動測試
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer.
+在上一章學到使用 Storyshot 為 story 進行快照測試。那時候，要測試 Task 渲染是否 OK 並不複雜。而 TaskList 增加另一層複雜度之後，就會想要相容自動測試，驗證特定輸入是否可以產生特定輸出。因此，要以 [Jest](https://facebook.github.io/jest/) 搭配測試渲染機制，建立單元測試。
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
 ### 以 Jest 進行單元測試
 
-Storybook stories, manual tests, and snapshot tests go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
+Storybook 的 story、手動測試和快照測試已經能夠盡可能避免 UI 臭蟲。如果 story 涵蓋的元件使用情境已經廣泛，並且使用以人類進行檢查 story 變動的工具，錯誤就可能會比較少。
 
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
+然而，有時候魔鬼就是藏在細節裡，得要有讓細節顯而易見的測試框架，讓我們把目光放到單元測試。
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+現在的情況是， 想要把 `TaskList` 的置頂任務在沒有置頂的**前面**渲染出來。即使已經有 `WithPinnedTasks` 這個 story，就是用來測試這情境。如果元件**不再**以如此方式排列任務，也就是出現臭蟲了，對於以人力來檢查來說，仍是模糊的。它絕對不會對大家的目光大喊**「出錯了」**！
 
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can simply import the story in our tests, and render it there!
+因此，為了避免這問題，可以使用 Jest 來把 story 渲染至 DOM，然後執行一些 DOM 查詢程式碼，驗證結果的顯著特徵。story 格式的好處，是可以只要匯入測試裡的 story，然後就輸出了。
 
-Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
+新增名為 `src/components/TaskList.test.js` 的測試檔案。在這裡，要打造有明確結果的測試。
 
 ```js:title=src/components/TaskList.test.js
 import React from 'react';
@@ -261,12 +261,12 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
+![TaskList 測試的 runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
+請記得，其實已經可以在單元測試重複使用 `WithPinnedTasks` 這個 story。這作法讓我們持續以各種方式利用現有資源（可以展示元件各種有趣設定的範例）。
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/react/en/test/)) tests where possible.
+還要注意，這裡的測試還不夠完善。隨著專案成熟，很可能 `Task` 的實作工法就改變了：也許是使用不同 classname 或以 `textarea` 取代 `input`，就會讓測試失敗，必須得更新。有時候，這並不會是問題，但在 UI 使用單元測試，明確標示出值得注意的地方會更好，維護起來並不容易。要不然，有必要的地方也是可以使用手動、快照與視覺回溯測試（見[測試](/intro-to-storybook/react/zh-TW/test/)章節）。
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 別忘了在 git 提交改好的東西！
 </div>
