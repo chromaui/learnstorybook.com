@@ -5,12 +5,11 @@ description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
 commit: '45b6600'
 ---
 
-Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/docs/vue/configure/storybook-addons) con el que puede mejorar la experiencia del desarrollador para todos en tu equipo.Véalos todos [aquí](https://storybook.js.org/addons).
+Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/docs/vue/configure/storybook-addons) con el que puede mejorar la experiencia del desarrollador para todos en tu equipo. Véalos todos [aquí](https://storybook.js.org/addons).
 
 Si ha seguido este tutorial linealmente, hasta ahora hemos hecho referencia a varios complementos, y ya habrá implementado uno en el capítulo [Testing](/intro-to-storybook/vue/es/test/).
 
 Hay complementos para cada caso de uso posible. Llevaría una eternidad escribir sobre todos ellos. Integremos uno de los complementos más populares: [Controles](https://storybook.js.org/docs/vue/essentials/controls).
-
 
 ## ¿Qué son los controles?
 

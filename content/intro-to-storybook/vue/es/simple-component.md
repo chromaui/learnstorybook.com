@@ -126,8 +126,6 @@ Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones d
 
 Otra cosa interesante acerca de agrupar las `actionsData` que un componente necesita, es que puedes usar `export` y utilizarlas en historias para otros componentes que reutilicen este componente, como veremos luego.
 
-Al crear una historia utilizamos una historia base (`taskData`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
-
 <div class="aside">
 💡 Las <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes UI en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para agregarlas.
 </div>

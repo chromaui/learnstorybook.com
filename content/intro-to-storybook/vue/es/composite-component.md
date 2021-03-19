@@ -109,7 +109,7 @@ Empty.args = {
 ```
 
 <div class="aside">
-    Los <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportacion predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
+💡 Los <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador en la exportación predeterminada para añadir estilo. También se pueden usar para agregar otro contexto a los componentes, como veremos más adelante.
 </div>
 
 Al importar `TaskStories`, pudimos [componer](https://storybook.js.org/docs/vue/writing-stories/args#args-composition) los argumentos (args para abreviar) en nuestras historias con un mínimo esfuerzo. De esa forma, se conservan los datos y las acciones (callbacks simulados) que esperan ambos componentes.
@@ -197,13 +197,14 @@ Sin embargo, a veces el diablo está en los detalles. Se necesita un framework d
 
 En nuestro caso, queremos que nuestra `TaskList` muestre cualquier tarea anclada **antes de** las tareas no ancladas que sean pasadas en la prop `tasks`. Aunque tenemos una historia (`WithPinnedTasks`) para probar este escenario exacto; puede ser ambiguo para un revisor humano que si el componente **no** ordena las tareas de esta manera, es un error. Ciertamente no gritará **"¡Mal!"** para el ojo casual.
 
-Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes del resultado. Lo bueno del formato de la historia es que simplemente podemos importar la historia en nuestras pruebas y reproducirla allí.
+Por lo tanto, para evitar este problema, podemos usar Jest para hacer la historia en el DOM y ejecutar algún código de consulta del DOM para verificar las características salientes del resultado. Lo bueno del formato de la historia es que simplemente podemos importar la historia en nuestras pruebas y reproducirla allí.
 
 Crea un archivo de prueba llamado `tests/unit/TaskList.spec.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
 ```js:title=tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
+
 //👇 Our story imported here
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 it('renders pinned tasks at the start of the list', () => {

@@ -9,7 +9,7 @@ A lo largo de este tutorial, creamos componentes en nuestra máquina de desarrol
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, solo tenemos que cambiarla como lo hicimos antes cuando el proyecto se inicializó en la [sección de Empezando](/intro-to-storybook/vue/es/get-started).
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook.
 
 Ahora, cuando ejecutes Storybook a través de `yarn build-storybook`, obtendrás un Storybook estático en el directorio `storybook-static`, que luego se puede implementar en cualquier servicio de alojamiento de sitios estáticos.
 
@@ -78,7 +78,7 @@ Ahora que nuestro proyecto está alojado en un repositorio de GitHub, podemos us
 
 En la carpeta raíz de nuestro proyecto, cree un nuevo directorio llamado `.github` y luego cree otro directorio `workflows` dentro de él.
 
-Cree un nuevo archivo llamado `chromatic.yml` como el siguiente. Reemplazar `project-token` con su token de proyecto.
+Cree un nuevo archivo llamado `chromatic.yml` como el siguiente. Asegúrate de reemplazar `project-token` con su token de proyecto.
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
@@ -98,7 +98,7 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/vue/en/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/vue/es/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
