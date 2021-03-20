@@ -5,23 +5,23 @@ description: '了解把資料連結到 UI 元件的方法'
 commit: 'd2fca1f'
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+目前，我們已經做好沒有狀態的獨立元件：對 Storybook 來說很夠用。但到頭來，在 App 加入資料之前是沒什麼用處的。
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+這份教學並不是要專注鑽研 app 製作，因此不會深入探討細節。但仍會花點時間檢視將容器元件 (container components) 接上資料的常見模式。
 
 ## 容器元件
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+`TaskList` 元件現在的寫法是「展示狀態」（可以看[這篇文章](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)），因為並沒有進行任何外部溝通，將其接到自身的作法。要灌入資料，就得有個「容器」。
 
-This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+這裡儲存資料的範例，使用最受歡迎的 React 函式庫：[Redux](https://redux.js.org/)，來打造簡易的 App 資料 model。不過，這裡使用的模式也，可以好好的用在其它資料管理函式庫，像是 [Apollo](https://www.apollographql.com/client/) 和 [MobX](https://mobx.js.org/)。
 
-Add the necessary dependencies to your project with:
+在專案裡加入要用到的相依套件：
 
 ```bash
 yarn add react-redux redux
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
+一開始，在 `src` 資料夾裡，加入 `lib/redux.js` 這支檔案（有刻意簡化），蓋出簡單的 Redux store，對應改變任務狀態的 Action。
 
 ```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
@@ -75,7 +75,7 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
+接著，更新 `TaskList` 元件的預設 export，用來連接 Redux store，並渲染出目標任務。
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -116,13 +116,13 @@ export default connect(
 )(PureTaskList);
 ```
 
-Now that we have some real data populating our component, obtained from Redux, we could have wired it to `src/app.js` and render the component there. But for now let's hold off doing that and continue on our component-driven journey.
+既然已經有用來產生元件的 Redux 真實資料，就可以把它接到 `src/app.js`，在那邊渲染元件。但現在先不要，繼續在元件驅動的旅程。
 
-Don't worry about it we'll take care of it in the next chapter.
+不用擔心，下個章節就會來關照這邊。
 
-At this stage, our Storybook tests will have stopped working because `TaskList` is now a container and no longer expects any props. Instead `TaskList` connects to the store and sets the props on the `PureTaskList` component it wraps.
+這時候，因為 TaskList 現在是容器，沒有設定好接收任何 props，造成 Storybook 的測試無法運作。TaskList 現在連接至 store，改在它裡面的 `PureTaskList`設定 props。
 
-However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
+然而，只要把 `PureTaskList` 這個展示元件渲染至上個步驟中，在 Storybook 裡 story 剛加入 export 的宣告，就可以了：
 
 ```diff:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -185,5 +185,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
+💡 進行這些變動後，快照得要進行更新。重新執行一次測試指令，加上 <code>-u</code> 來更新。還有，別忘了在 git 提交改好的東西！
 </div>

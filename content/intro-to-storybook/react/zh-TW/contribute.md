@@ -9,4 +9,4 @@ Storybook 教學主要由社群進行維護。因此，我們需要每個人參�
 
 ## 翻譯
 
-我們的目標是讓人人都懂 Storybook。請協助把教學翻譯成其他語言，特別是中文和西班牙文翻譯。請在[此 Issue](https://github.com/chromaui/learnstorybook.com/issues/3) 留言。
+我們的目標是讓人人都懂 Storybook。請協助把教學翻譯成其它語言，特別是中文和西班牙文翻譯。請在[此 Issue](https://github.com/chromaui/learnstorybook.com/issues/3) 留言。

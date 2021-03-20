@@ -9,7 +9,7 @@ description: '總結已學到的，接著學習更多 Storybook 技巧'
 <br/>
 [🌎 **已發布的 Storybook**](https://clever-banach-415c03.netlify.app/)
 
-Storybook 在 React、React Native、Vue、Angular、Svelte 和其他 framework 都是很犀利的工具。有熱鬧的開發者社群以及豐富的外掛。這份介紹擷取了其可能性最淺薄的一部份。只要採用 Storybook，我們有自信讓你對效率和打造堅強的 UI 感到驚艷。
+Storybook 在 React、React Native、Vue、Angular、Svelte 和其它 framework 都是很犀利的工具。有熱鬧的開發者社群以及豐富的外掛。這份介紹擷取了其可能性最淺薄的一部份。只要採用 Storybook，我們有自信讓你對效率和打造堅強的 UI 感到驚艷。
 
 ## 繼續學習
 
