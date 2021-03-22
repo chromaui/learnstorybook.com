@@ -29,7 +29,7 @@ Currently the Intro to Storybook tutorial features the following translations. S
 | React Native | English          | ❌      |
 |              | Spanish          | ❌      |
 | Vue          | English          | ✅      |
-|              | Spanish          | ❌      |
+|              | Spanish          | ✅      |
 |              | Portuguese       | ❌      |
 |              | French           | ❌      |
 | Angular      | English          | ❌      |

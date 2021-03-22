@@ -1,11 +1,7 @@
 ---
 title: 'Contribuir'
-tocTitle: 'Data'
 description: 'Ayuda a compartir Storybook con el mundo'
-commit: 'fa1c954'
 ---
-
-# Contribuir
 
 Contribuciones a los tutoriales de Storybook son bienvenidas! Si se trata de algo pequeño como gramática o puntuación, abre un pull request. Si es un cambio más grande, [agrega un issue](https://github.com/chromaui/learnstorybook.com/issues) para discutirlo.
 
