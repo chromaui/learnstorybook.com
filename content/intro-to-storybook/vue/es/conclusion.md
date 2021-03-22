@@ -15,7 +15,7 @@ Storybook es una poderosa herramienta para React, React Native, Vue, Angular, Sv
 
 Quieres bucear más profundo? Aquí algunos recursos útiles:
 
-- [**Documentación oficial de Storybook**](https://storybook.js.org/docs/react/get-started/introduction) tiene la documentación del API, links comunitarios y una galería de complementos.
+- [**Documentación oficial de Storybook**](https://storybook.js.org/docs/vue/get-started/introduction) tiene la documentación del API, links comunitarios y una galería de complementos.
 
 - [**El delicioso flujo de trabajo de Storybook**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Squarespace, Major League Soccer, Discovery Network y Apollo GraphQL.
 
