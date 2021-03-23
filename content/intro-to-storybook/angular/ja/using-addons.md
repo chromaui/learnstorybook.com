@@ -4,165 +4,92 @@ tocTitle: 'Addons'
 description: 'Learn how to integrate and use addons using a popular example'
 ---
 
-Storybook boasts a robust system of [addons](https://storybook.js.org/addons/introduction/) with which you can enhance the developer experience for
-everybody in your team. If you've been following along with this tutorial linearly, we have referenced multiple addons so far, and you will have already implemented one in the [Testing chapter](/angular/en/test/).
+Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/addons/introduction/)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
 
-<div class="aside">
-<strong>Looking for a list of potential addons?</strong>
-<br/>
-😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
-</div>
+ここまでチュートリアルを進めてきたのであれば、すでにいくつかのアドオンに遭遇し、[テストの章](/react/ja/test/)では導入もしています。
 
-We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+多様なユースケースに対応するためのアドオンがあるので、それを全て説明することは出来ません。ここでは最も人気のあるアドオンである [コントロールアドオン](https://storybook.js.org/docs/react/essentials/controls) を導入してみましょう。
 
-## Setting Up Knobs
+## コントロールアドオンとは
 
-Knobs is an amazing resource for designers and developers to experiment and play with components in a controlled environment without the need to code! You essentially provide dynamically defined fields with which a user manipulates the props being passed to the components in your stories. Here's what we're going to implement...
+コントロールアドオンはデザイナーや、開発者がコードを書かずにパラメータを*いじって遊びながら*コンポーネントの挙動を探求できるようにするアドオンです。このアドオンはストーリーの隣にパネルを表示し、そこから直にコンポーネントの引数を編集できます。
+
+Storybook を新たにインストールすると、はじめから Contorls が使用可能です。追加で設定する必要はありません。
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/addon-knobs-demo.mp4"
+    src="/intro-to-storybook/controls-in-action.mp4"
     type="video/mp4"
   />
 </video>
 
-### Installation
+## アドオンで Storybook の新たなワークフローを開放する
 
-First, we will need to add it as a development dependency.
+Storybook はすばらしい[コンポーネント駆動開発](https://www.componentdriven.org/)の環境です。コントロールアドオンを使用することで、Storybook はインタラクティブなドキュメンテーションツールに進化します。
 
-```bash
-npm install -D @storybook/addon-knobs
-```
+## コントロールアドオンをエッジケースを見つけるのに使用する
 
-Register Knobs in your `.storybook/main.js` file.
+コントロールアドオンを使用すれば、品質管理者や、UI エンジニアや、その他のステークホルダーがコンポーネントを限界まで操作できます！例えば `TaskComponent` コンポーネントに*大量の*文字列を渡したらどうなるでしょうか。
 
-```javascript
-// .storybook/main.js
+![しまった！右側の文字列が切れている！](/intro-to-storybook/task-edge-case.png)
 
-module.exports = {
-  stories: ['../src/app/components/**/*.stories.ts'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-knobs'],
-};
-```
+これはマズいです。タスクコンポーネントの境界を越えて文字列があふれています。
 
-<div class="aside">
-<strong>📝 Addon registration order matters!</strong>
-<br/>
-The order you list these addons will dictate the order in which they appear as tabs on your addon panel (for those that appear there).
-</div>
+コントロールアドオンを使用すればコンポーネントにいろいろな入力をして素早く確認できます。今回は長い文字列を入力しました。これで UI の問題を発見する際の作業を減らすことができます。
 
-That's it! Time to use it in a story.
-
-### Usage
-
-Let's use the object knob type in the `Task` component.
-
-First, import the `withKnobs` decorator and the `object` knob type to `task.stories.ts`:
+それでは `task.component.ts` にスタイルを追加して、この文字切れ問題を解決しましょう:
 
 ```javascript
-// src/app/components/task.stories.ts
-import { action } from '@storybook/addon-actions';
-import { withKnobs, object } from '@storybook/addon-knobs';
-```
+// src/components/task.component.ts
 
-Next, within the `default` export of the `task.stories.ts` file, add `withKnobs` to the `decorators` key:
-
-```javascript
-// src/app/components/task.stories.ts
-export default {
-  title: 'Task',
-  decorators: [withKnobs],
-  // same as before
-};
-```
-
-Lastly, integrate the `object` knob type within the "default" story:
-
-```javascript
-// src/app/components/task.stories.ts
-
-// default task state
-export const Default = () => ({
-  component: TaskComponent,
-  props: {
-    task: object('task', { ...taskData }),
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
-
-// same as before
-```
-
-Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
-
-As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as parameters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
-
-## Addons Evolve Your Storybook's Scope
-
-Not only does your Storybook instance serve as a wonderful [CDD environment](https://www.componentdriven.org/), but now we're providing an interactive source of documentation. PropTypes are great, but a designer or somebody completely new to a component's code will be able to figure out its behavior very quickly via Storybook with the knobs addon implemented.
-
-## Using Knobs To Find Edge-Cases
-
-Additionally, with easy access to editing passed data to a component, QA Engineers or preventative UI Engineers can now push a component to the limit! As an example, what happens to `TaskComponent` if our list item has a _MASSIVE_ string?
-
-![Oh no! The far right content is cut-off!](/intro-to-storybook/addon-knobs-demo-edge-case.png) 😥
-
-Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `task.component.ts`:
-
-```html
-<!-- src/app/components/task.component.ts -->
-
-<!-- This is the input for our task title. In practice we would probably update the styles for this element
-but for this tutorial, let's fix the problem with an inline style:
- -->
 <input
   type="text"
-  [value]="task?.title"
-  readonly="true"
+  value={title}
+  readOnly={true}
   placeholder="Input title"
-  [ngStyle]="{textOverflow:'ellipsis'}"
-/>
+  style={{ textOverflow: 'ellipsis' }}
 />
 ```
 
-![That's better.](/intro-to-storybook/addon-knobs-demo-edge-case-resolved.png) 👍
+![良くなりました](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-## Adding A New Story To Avoid Regressions
+問題は解決しました！文字列がタスクの境界に達したらかっこいい省略記号で切り詰められるようになりました。
 
-Of course we can always reproduce this problem by entering the same input into the knobs, but it's better to write a fixed story for this input. This will increase your regression testing and clearly outline the limits of the component(s) to the rest of your team.
+## リグレッションを回避するためストーリーを追加する
 
-Let's add a story for the long text case in `task.stories.ts`:
+今後もコントロールアドオンを使用して、手動で同じ入力をすればいつでもこの問題は再現可能です。ですが、このエッジケースに対応するストーリーを書く方が簡単です。ストーリーを書くことにより、リグレッションテストのカバレッジが向上しますし、コンポーネントの限界をチームメンバーに明示することが出来ます。
+
+それでは `task.stories.ts` ファイルに長い文字列が指定された場合のストーリーを追加しましょう:
 
 ```javascript
-// src/app/components/task.stories.ts
+// src/components/task.stories.ts
 
-// tslint:disable-next-line: max-line-length
-const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-// same as before
-
-export const LongTitle = () => ({
-  component: TaskComponent,
-  props: {
-    task: {
-      ...taskData,
-      title: longTitle,
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
+export const LongTitle = Template.bind({});
+LongTitle.args = {
+  task: {
+    ...Default.args.task,
+    title: longTitleString,
   },
-});
+};
 ```
 
-Now we've added the story, we can reproduce this edge-case with ease whenever we want to work on it:
+これで、このエッジケースをいつでも再現できるようになりました:
 
-![Here it is in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/task-stories-long-title.mp4"
+    type="video/mp4"
+  />
+</video>
 
-If we are using [visual regression testing](/angular/en/test/), we will also be informed if we ever break our ellipsizing solution. Such obscure edge-cases are always liable to be forgotten!
+[ビジュアルテスト](/react/ja/test/)を使用している場合は、文字の省略が壊れた場合に分かるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
 
-### Merge Changes
+### 変更をマージする
 
-Don't forget to merge your changes with git!
+変更を忘れずに Git にマージしてください！
 
-<div class="aside"><p>As we've seen, Knobs is a great way to get non-developers playing with your components and stories. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/intro-to-storybook/react/en/creating-addons">create addons bonus chapter</a> we'll teach you that, by creating a addon that will help you supercharge your development workflow.</p></div>
+<div class="aside">
+<p>開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/react/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="/intro-to-storybook/react/ja/creating-addons">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p>
+</div>
