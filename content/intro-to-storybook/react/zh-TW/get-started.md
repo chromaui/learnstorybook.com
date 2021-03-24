@@ -5,7 +5,7 @@ description: '在開發環境設定 Storybook'
 commit: 'ac1ec13'
 ---
 
-Storybook 是與 App 的開發模式一起運作，協助將 App 裡 UI 元件的商業邏輯和情境分開來。這裡是 Storybook 簡介的 React 版本，其它還有 [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 和 [Ember](/ember/en/get-started)。
+Storybook 與 App 的開發模式一起運作，協助將 App 裡 UI 元件的商業邏輯和情境分開來。這裡是 Storybook 簡介的 React 版本，其它還有 [React Native](/react-native/en/get-started)、[Vue](/vue/en/get-started)、[Angular](/angular/en/get-started)、[Svelte](/svelte/en/get-started) 和 [Ember](/ember/en/get-started)。
 
 ![Storybook 和 App](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -48,7 +48,7 @@ yarn start
 
 現在有 3 種前端應用程式模式：自動化測試 (Jest)、元件開發 (Storybook) 和應用程式本身。
 
-![3 modalities](/intro-to-storybook/app-three-modalities.png)
+![3 種模式](/intro-to-storybook/app-three-modalities.png)
 
 根據 app 裡開發不同的部分，可能會想要同時執行多個。然而，我們現在專注在建造單一 UI 元件，所以只會說 Storybook。
 

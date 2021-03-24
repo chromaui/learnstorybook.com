@@ -19,7 +19,7 @@ Taskbox 將置頂任務放置在一般任務上方來加強。因此讓 `TaskLis
 
 ## 準備好設定
 
-組合元件跟它包含的基本元件沒什麼差別。新增 TaskLis 元件，還有對應的 story 檔案：`src/components/TaskList.js` 和 `src/components/TaskList.stories.js`。
+複合元件跟它包含的基本元件沒什麼差別。新增 `TaskLis` 元件，還有對應的 story 檔案：`src/components/TaskList.js` 和 `src/components/TaskList.stories.js`。
 
 一開始的 `TaskList` 只要粗淺做一下即可。得要匯入先前的 `Task` 元件，傳入屬性和 actions。
 
@@ -70,8 +70,8 @@ const Template = args => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in task.stories.js.
+  // 透過 args 組合捏出 story。
+  // 資料來自 task.stories.js 裡 Default 這個 story。
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -84,8 +84,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
+  // 透過 args 組合捏出 story。
+  // 資料來自 Default 這個 story。
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -100,8 +100,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
+  // 透過 args 組合捏出 story。
+  // 資料來自 Loading 這個 story。
   ...Loading.args,
   loading: false,
 };
@@ -234,7 +234,7 @@ Storybook 的 story、手動測試和快照測試已經能夠盡可能避免 UI 
 
 然而，有時候魔鬼就是藏在細節裡，得要有讓細節顯而易見的測試框架，讓我們把目光放到單元測試。
 
-現在的情況是， 想要把 `TaskList` 的置頂任務在沒有置頂的**前面**渲染出來。即使已經有 `WithPinnedTasks` 這個 story，就是用來測試這情境。如果元件**不再**以如此方式排列任務，也就是出現臭蟲了，對於以人力來檢查來說，仍是模糊的。它絕對不會對大家的目光大喊**「出錯了」**！
+現在的情況是，已經傳入 `tasks` 這個 props 的 `TaskList` 裡，將置頂任務在沒有置頂的**前面**渲染出來。即使已經有 `WithPinnedTasks` 這個 story，就是用來測試這情境。如果元件**不再**以如此方式排列任務，也就是出現臭蟲了，對於以人力來檢查來說，仍是模糊的。它絕對不會對大家的目光大喊**「出錯了」**！
 
 因此，為了避免這問題，可以使用 Jest 來把 story 渲染至 DOM，然後執行一些 DOM 查詢程式碼，驗證結果的顯著特徵。story 格式的好處，是可以只要匯入測試裡的 story，然後就輸出了。
 
@@ -250,10 +250,10 @@ import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  //👇 Story's args used with our test
+  //👇 Story 測試要用到的 args
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
-  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
+  // 期望標題是 "Task 6 (pinned)" 的任務先渲染出來，而不是在尾端
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 

@@ -105,7 +105,7 @@ Archived.args = {
 💡 <code>Template.bind({})</code> 是 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">標準的 JavaScript</a> 技巧，用來複製函式。此技巧是用來讓每個 export 出來的 story 可以設定各自的 property，但使用完全相同的方法。
 </div>
 
-參數，或簡稱為 [`args`](https://storybook.js.org/docs/react/writing-stories/args)，可以透過 controls 外掛即時更新元件，而且不用重啟 Storybook。一旦 [`args`](https://storybook.js.org/docs/react/writing-stories/args) 值改變了，元件也跟著變。
+參數，或簡稱為 [`args`](https://storybook.js.org/docs/react/writing-stories/args)，可以透過 Controls 外掛即時更新元件，而且不用重啟 Storybook。一旦 [`args`](https://storybook.js.org/docs/react/writing-stories/args) 值改變了，元件也跟著變。
 
 在新增 story 的時候，會用到基本的 `task` 參數，來蓋出元件應該要有的工作事項外觀。This is typically modelled from what the true data looks like. 這裡還是一樣，以這樣的結構來輸出，讓我們可以在之後的做的 story 重複使用，接下來還會有。
 
@@ -225,16 +225,16 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 Task.propTypes = {
   /** Composition of the task */
   task: PropTypes.shape({
-    /** Id of the task */
+    /** 任務的 Id */
     id: PropTypes.string.isRequired,
-    /** Title of the task */
+    /** 任務的標題 */
     title: PropTypes.string.isRequired,
-    /** Current state of the task */
+    /** 任務現在的狀態 */
     state: PropTypes.string.isRequired,
   }),
-  /** Event to change the task to archived */
+  /** 任務變成封存時觸發的事件 */
   onArchiveTask: PropTypes.func,
-  /** Event to change the task to pinned */
+  /** 任務變成置頂時觸發的事件 */
   onPinTask: PropTypes.func,
 };
 ```

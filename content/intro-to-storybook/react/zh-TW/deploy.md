@@ -84,23 +84,23 @@ yarn chromatic --project-token=<project-token>
 # Workflow 名稱
 name: 'Chromatic Deployment'
 
-# Event for the workflow
+# Workflow 事件
 on: push
 
-# List of jobs
+# 工作清單
 jobs:
   test:
-    # Operating System
+    # 作業系統
     runs-on: ubuntu-latest
-    # Job steps
+    # 工作步驟
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-        #👇 Adds Chromatic as a step in the workflow
+        #👇 將 Chromatic 加入成為 Workflow 的步驟
       - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
+        # Chromatic 的 GitHub Action 必備選項
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/zh-TW/deploy/ to obtain it
+          #👇 Chromatic 的 projectToken, 請見 https://storybook.js.org/tutorials/intro-to-storybook/react/zh-TW/deploy/ 來取得
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
