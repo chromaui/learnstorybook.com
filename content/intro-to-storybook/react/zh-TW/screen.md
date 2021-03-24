@@ -5,13 +5,13 @@ description: '以元件建構頁面'
 commit: '46f29e3'
 ---
 
-We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+先前專注在由下而上的方式打造 UI，小規模著手，再不斷增加複雜度。這樣能夠以互不干擾的方式開發元件、瞭解資料需求，然後在 Storybook 裡把玩。完全不必設立伺服器，或蓋出畫面！
 
-In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+在這章，我們使用 Storybook 將元件組合在畫面上，複雜度會繼續增加。
 
 ## 巢狀容器元件
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.js` in your `components` folder:
+因為 App 非常簡樸，要做的畫面也相當無腦。就只要把 `TaskList` 元件（會透過 Redux 提供自用資料的那個）以某種排版包起來，然後在 Redux 外面的頂層堆上 `error` 欄位（假設連接伺服器的時候出問題，就要放置這個欄位）。在 `components` 資料夾新增 `InboxScreen.js`：
 
 ```js:title=src/components/InboxScreen.js
 import React from 'react';
@@ -57,7 +57,7 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+`App` 元件也要修改成可以渲染 `InboxScreen`（到最後會用 router 來選擇正確的畫面，但在這裡先不用擔心）：
 
 ```js:title=src/App.js
 import { Provider } from 'react-redux';
@@ -77,13 +77,13 @@ function App() {
 export default App;
 ```
 
-However, where things get interesting is in rendering the story in Storybook.
+然而，有趣的地方就在 Storybook 渲染 story。
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
+就像前面已知 `TaskList` 元件是渲染展示元件 `PureTaskList` 的容器。容器元件，在字面上的意思就是不能直接獨立渲染，它們應該要收到一些情境，或連接服務。這意思是在 Storybook，渲染容器時應該要 情境或要用到的服務。
 
-When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+只要把 `TaskList` 放在 Storybook，將 `PureTaskList` 渲染而不使用容器，就能夠避開這個問題。接著還會在 Storybook 渲染類似的 `PureInboxScreen`。
 
-However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `InboxScreen.stories.js`:
+只不過，`PureInboxScreen` 會遇到的問題是：它本身是只用來展示的，但裡面的 `TaskList`不是。某種程度上來說，`PureInboxScreen` 已經被容器化污染。因此，在 `InboxScreen.stories.js` 設定 story 的時候：
 
 ```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
@@ -105,21 +105,21 @@ Error.args = {
 };
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+雖然 `error` 這個 story 運作良好，`default` 卻有問題，因為 `TaskList` 沒有可以連接的 Redux store（想要為 `PureInboxScreen` 進行單元測試的時候也會遇到類似的問題）。
 
 ![Broken inbox](/intro-to-storybook/broken-inboxscreen.png)
 
-One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
+一種避開這問題的方法，是在 App 裡除了最高層級，其它都絕不渲染容器元件，並且把所有資料需求在元件結構往下傳。
 
-However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
+只不過，開發者們**肯定**無可避免地得要在元件層級下方渲染容器。如果想要在 Storybook 盡可能渲染幾乎所有，或全部 App（我們有做到），這問題就要有解決方案。
 
 <div class="aside">
-💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
+💡 儘管如此，將資料往結構下方傳遞是容許的，尤其是使用 <a href="http://graphql.org/">GraphQL</a> 的時候。這就是我們以 800+ 個 story 打造出 <a href="https://www.chromatic.com">Chromatic</a> 的方法。
 </div>
 
 ## 以 Decorator 提供情境
 
-The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
+好消息是：在 story 裡，可以很輕易地為 `InboxScreen` 準備好 Redux store！只要使用在 Decorator 裡，使用虛構版的 Redux store。
 
 ```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
@@ -158,9 +158,9 @@ Error.args = {
 };
 ```
 
-Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
+其他資料函式庫，像是 [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator) 和 [Relay](https://github.com/orta/react-storybooks-relay-container) …等也有類似提供虛構情境的功能。
 
-Cycling through states in Storybook makes it easy to test we’ve done this correctly:
+在 Storybook 裡做好狀態的循環，就可以輕鬆、正確地使用做好的測試：
 
 <video autoPlay muted playsInline loop >
 
@@ -172,7 +172,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 
 ## 元件驅動開發
 
-We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
+我們從最底層的 `Task` 開始，進展到 `TaskList`，現在已經是一整個畫面的 UI。`InboxScreen` 容納巢狀容器元件，還有對應的 story。
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -181,10 +181,10 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**元件驅動開發**](https://www.componentdriven.org/)能夠隨著元件結構往上疊加，讓複雜度逐漸擴張。各種好處可以帶來更專注的開發流程、涵蓋所有可能的 UI 排列。簡單來說，CDD 有助於打造更高品質且更複雜的使用者介面。
 
-We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+還沒有搞定。UI 打造出來之前，工作都不算結束。還要確保隨著時間，仍保持可用狀態。
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 別忘了在 git 提交改好的東西！
 </div>

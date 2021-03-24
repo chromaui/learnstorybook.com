@@ -7,9 +7,9 @@ commit: 'a23f4d0'
 
 Storybook 有精美的[外掛](https://storybook.js.org/docs/react/configure/storybook-addons)生態系，可以用來加強團隊裡的開發者體驗。[在這裡](https://storybook.js.org/addons)可以翻閱。
 
-If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/intro-to-storybook/react/en/test/) chapter.
+如果有仔細看這份教學，應該已經遇到許多外掛，在[進行測試](/intro-to-storybook/react/zh-TW/test/)章節就有設定過。
 
-There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/react/essentials/controls).
+各種情況都有適用的外掛，不可能全部都講一遍。我們以最廣泛使用的外掛：[Controls](https://storybook.js.org/docs/react/essentials/controls) 開始。
 
 ## Controls 是什麼？
 
