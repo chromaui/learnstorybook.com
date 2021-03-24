@@ -19,7 +19,7 @@ commit: '8652d73'
 
 ### 在 Github 設定 Repository
 
-開始之前，本地端的程式碼得要與遠端版本控制服務同步。在[《開始》那章節](/intro-to-storybook/react/en/get-started/)，專案進行初始設定時，就已經有一份本地端 Repository。在這階段，已經有一組可以推到遠端的 commit。
+開始之前，本地端的程式碼得要與遠端版本控制服務同步。在[《開始》那章節](/intro-to-storybook/react/zh-TW/get-started/)，專案進行初始設定時，就已經有一份本地端 Repository。在這階段，已經有一組可以推到遠端的 commit。
 
 [點此](https://github.com/new)到 Github 為專案開新 Repository。取名為 “Taskbox”，跟本地端的專案一樣。
 
@@ -100,7 +100,7 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/zh-TW/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

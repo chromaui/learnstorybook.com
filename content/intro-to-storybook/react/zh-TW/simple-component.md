@@ -115,7 +115,7 @@ Archived.args = {
 
 ## 設定
 
-Storybook 的設定還要做些更新，不僅能夠顯示新增的 story，還可以使用[上個章節](/react/en/get-started)介紹到的 CSS 檔案。
+Storybook 的設定還要做些更新，不僅能夠顯示新增的 story，還可以使用[上個章節](/react/zh-TW/get-started)介紹到的 CSS 檔案。
 
 一開始，先把 Storybook 設定檔 (`.storybook/main.js`) 改為：
 
