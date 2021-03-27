@@ -9,19 +9,19 @@ commit: d3abd86
 
 ## TaskListComponent (タスクリストコンポーネント)
 
-Taskbox はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskList` に、タスクのリストが、通常のタスクのみである場合と、ピン留めされたタスクとの組み合わせである場合という、ストーリーを追加するべき 2 つのバリエーションができます。
+Taskbox はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskListComponent` に、タスクのリストが、通常のタスクのみである場合と、ピン留めされたタスクとの組み合わせである場合という、ストーリーを追加するべき 2 つのバリエーションができます。
 
 ![通常のタスクとピン留めされたタスク](/intro-to-storybook/tasklist-states-1.png)
 
-`Task` のデータは非同期的に送信されるので、接続がないことを示すため、読み込み中の状態**も**必要となります。さらにタスクがない場合に備え、空の状態も必要です。
+`TaskComponent` のデータは非同期的に送信されるので、接続がないことを示すため、読み込み中の状態**も**必要となります。さらにタスクがない場合に備え、空の状態も必要です。
 
 ![空の状態と読み込み中の状態](/intro-to-storybook/tasklist-states-2.png)
 
 ## セットアップする
 
-複合的なコンポーネントも基本的なコンポーネントと大きな違いはありません。`TaskList` のコンポーネントとそのストーリーファイル、`src/components/TaskList.js` と `src/components/TaskList.stories.js` を作成しましょう。
+複合的なコンポーネントも基本的なコンポーネントと大きな違いはありません。`TaskListComponent` のコンポーネントとそのストーリーファイル、`src/components/task-list-component.ts` と `src/components/task-list.stories.js` を作成しましょう。
 
-まずは `TaskList` の大まかな実装から始めます。前の章で作成した `Task` コンポーネントをインポートし、属性とアクションを入力とイベントとして渡します。
+まずは `TaskListComponent` の大まかな実装から始めます。前の章で作成した `Task` コンポーネントをインポートし、属性とアクションを入力とイベントとして渡します。
 
 ```typescript
 // src/app/components/task-list.component.ts
@@ -60,7 +60,7 @@ export class TaskListComponent implements OnInit {
 }
 ```
 
-次に `Tasklist` のテスト状態をストーリーファイルに記述します。
+次に `TaskListComponent` のテスト状態をストーリーファイルに記述します。
 
 ```typescript
 // src/app/components/task-list.stories.ts
@@ -147,7 +147,7 @@ export const Empty = () => ({
 
 `taskData` は `task.stories.ts` ファイルでエクスポートした `Task` のデータ構造です。同様に `actionsData` は `TaskComponent` コンポーネントが想定するアクション (呼び出しのモック) を定義しています。`TaskListComponent` でも同様に必要となります。
 
-それでは `TaskList` の新しいストーリーを Storybook で確認してみましょう。
+それでは `TaskListComponent` の新しいストーリーを Storybook で確認してみましょう。
 
 <video autoPlay muted playsInline loop>
   <source
@@ -158,7 +158,7 @@ export const Empty = () => ({
 
 ## 状態を作りこむ
 
-今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。`TaskList` の**本当の複雑さ**は `WithPinnedTasks`かつ`loading`かつ`empty`といったエッジケースに洗われているのです。
+今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。`TaskListComponent` の**本当の複雑さ**は `WithPinnedTasks`かつ`loading`かつ`empty`といったエッジケースに現われているのです。
 
 ```typescript
 // src/app/components/task-list.component.ts
@@ -230,7 +230,7 @@ export class TaskListComponent implements OnInit {
 
 ## データ要件とプロパティ
 
-コンポーネントが大きくなるにつれ、入力の要件も増えていきます。`TaskListComponent` のプロパティの要件をTypescriptで定義しましょう。`TaskComponent` が子供のコンポーネントなので、表示するのに正しいデータ構造が渡されていることを確認しましょう。時間を節約するため、前の章で `task.model.ts` に定義したモデルを再利用しましょう。
+コンポーネントが大きくなるにつれ、入力の要件も増えていきます。`TaskListComponent` のプロパティの要件を Typescript で定義しましょう。`TaskComponent` が子供のコンポーネントなので、表示するのに正しいデータ構造が渡されていることを確認しましょう。時間を節約するため、前の章で `task.model.ts` に定義したモデルを再利用しましょう。
 
 ## Automated testing
 

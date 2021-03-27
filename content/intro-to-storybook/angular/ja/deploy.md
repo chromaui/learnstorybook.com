@@ -18,7 +18,7 @@ Storybook をデプロイするには、まず静的サイトとしてエクス�
 
 ### GitHub にリポジトリーを作成する
 
-デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。[はじめにの章](/react/ja/get-started/)で Create React App (CRA) でプロジェクトを初期化した際に、ローカルのリポジトリーはすでに作成されています。また、この段階でリモートリポジトリーにプッシュできるコミットがあるはずです。
+デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。また、この段階でリモートリポジトリーにプッシュできるコミットがあるはずです。
 
 [ここから](https://github.com/new) GitHub にアクセスし、リポジトリーを作りましょう。リポジトリーの名前はローカルと同じく「taskbox」とします。
 
@@ -41,7 +41,7 @@ git push -u origin main
 パッケージを開発時の依存関係に追加します。
 
 ```bash
-yarn add -D chromatic
+npm install --save-dev chromatic
 ```
 
 パッケージをインストールしたら、GitHub のアカウントを使用して [Chromatic にログイン](https://www.chromatic.com/start)します。(Chromatic は一部のアクセス許可を要求します。) 「taskbox」という名前でプロジェクトを作成し、GitHub のリポジトリーと同期させます。
@@ -58,7 +58,7 @@ yarn add -D chromatic
 作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けてください。
 
 ```bash
-yarn chromatic --project-token=<project-token>
+npx chromatic --project-token=<project-token>
 ```
 
 ![Chromatic を実行する](/intro-to-storybook/chromatic-manual-storybook-console-log.png)

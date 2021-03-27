@@ -1,7 +1,7 @@
 ---
 title: 'Addons'
 tocTitle: 'Addons'
-description: 'Learn how to integrate and use addons using a popular example'
+description: 'Addonを組み込んで利用する方法を、人気のある例を使って学びましょう'
 ---
 
 Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/addons/introduction/)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
