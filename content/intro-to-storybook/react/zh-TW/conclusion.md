@@ -15,15 +15,15 @@ Storybook 在 React、React Native、Vue、Angular、Svelte 和其它 framework 
 
 想要深入探索？這些資源會有幫助。
 
-- [**Storybook 官方文件**](https://storybook.js.org/docs/react/get-started/introduction) 記載 API、社群連結與外掛集散地。
+- [**Storybook 官方文件**](https://storybook.js.org/docs/react/get-started/introduction)記載 API、社群連結與外掛集散地。
 
-- [**快快樂樂學 Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) 的特色是 Squarespace、Major League Soccer、Discovery Network 和 Apollo GraphQL 裡高效率團隊的最佳工作流程方法。
+- [**快快樂樂學 Storybook 工作流程**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)隆重介紹 Squarespace、Major League Soccer、Discovery Network 和 Apollo GraphQL 裡高效率團隊的最佳工作流程方法。
 
-- [**視覺測試手冊**](https://storybook.js.org/tutorials/visual-testing-handbook) 深入探討在 Storybook 以視覺測試元件。免費的 31 頁電子書。
+- [**視覺測試手冊**](https://storybook.js.org/tutorials/visual-testing-handbook)深入探討在 Storybook 以視覺測試元件。免費的 31 頁電子書。
 
-- [**在 Discord 聊 Storybook **](https://discord.gg/UUt2PJb) 則是與 Storybook 社群進行互動。只要你幫助其他 Storybook 使用者，Storybook 使用者也會幫你。
+- 在 [**Discord 聊 Storybook**](https://discord.gg/UUt2PJb) 與 Storybook 社群進行互動。只要你幫助其他 Storybook 使用者，Storybook 使用者也會幫你。
 
-- [**Storybook 部落格**](https://medium.com/storybookjs) 展示能夠讓 UI 開發工作流程一致的最新版本與功能。
+- [**Storybook 部落格**](https://medium.com/storybookjs)展示能夠讓 UI 開發工作流程一致的最新版本與功能。
 
 ## LearnStorybook.com 是誰做的？
 
