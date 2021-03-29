@@ -25,7 +25,7 @@ Want to dive deeper? Here are helpful resources.
 
 - [**Storybook blog**](https://medium.com/storybookjs) showcases the latest releases and features to streamline your UI development workflow.
 
-## Who made LearnStorybook.com?
+## Who made the Intro to Storybook tutorial
 
 The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
