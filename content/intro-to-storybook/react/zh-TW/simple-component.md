@@ -115,16 +115,13 @@ Archived.args = {
 
 ## 設定
 
-Storybook 的設定還要做些更新，不僅能夠顯示新增的 story，還可以使用[上個章節](/react/zh-TW/get-started)介紹到的 CSS 檔案。
+Storybook 的設定還要做些更新，不僅能夠顯示新增的 story，還可以使用應用程式的 CSS 檔案（位置在 `src/index.css`）。
 
 一開始，先把 Storybook 設定檔 (`.storybook/main.js`) 改為：
 
-```javascript
-// .storybook/main.js
-
+```diff:title=.storybook/main.js
 module.exports = {
-  //👇 story 的位置
-  stories: ['../src/components/**/*.stories.js'],
++ stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
@@ -135,12 +132,10 @@ module.exports = {
 
 以上更新完成之後，在 `.storybook` 資料夾裡的 `preview.js` 改成：
 
-```javascript
-// .storybook/preview.js
+```diff:title=.storybook/preview.js
++ import '../src/index.css';
 
-import '../src/index.css'; //👈 App 的 CSS 檔案放在這裡
-
-//👇 讓 Storybook 記錄 UI 裡 action (onArchiveTask 和 onPinTask) 的設定。
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
@@ -222,21 +217,21 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
   // ...
 }
 
-Task.propTypes = {
-  /** Composition of the task */
-  task: PropTypes.shape({
-    /** 任務的 Id */
-    id: PropTypes.string.isRequired,
-    /** 任務的標題 */
-    title: PropTypes.string.isRequired,
-    /** 任務現在的狀態 */
-    state: PropTypes.string.isRequired,
-  }),
-  /** 任務變成封存時觸發的事件 */
-  onArchiveTask: PropTypes.func,
-  /** 任務變成置頂時觸發的事件 */
-  onPinTask: PropTypes.func,
-};
++ Task.propTypes = {
++  /** Composition of the task */
++  task: PropTypes.shape({
++    /** Id of the task */
++    id: PropTypes.string.isRequired,
++    /** Title of the task */
++    title: PropTypes.string.isRequired,
++    /** Current state of the task */
++    state: PropTypes.string.isRequired,
++  }),
++  /** Event to change the task to archived */
++  onArchiveTask: PropTypes.func,
++  /** Event to change the task to pinned */
++  onPinTask: PropTypes.func,
++ };
 ```
 
 現在，若 Task 元件使用方式錯了，就會在開發環境出現警告。

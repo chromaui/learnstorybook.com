@@ -24,21 +24,21 @@ yarn add react-redux redux
 一開始，在 `src` 資料夾裡，加入 `lib/redux.js` 這支檔案（有刻意簡化），蓋出簡單的 Redux store，對應改變任務狀態的 Action。
 
 ```js:title=src/lib/redux.js
-// 簡易的 Redux store/action/reducer 實做。
-// 真實的 App 裡，會更複雜，分成好幾個檔案。
+// A simple redux store/actions/reducer implementation.
+// A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
 
-// Action 是發生在 Store 裡，變動的「名稱」
+// The actions are the "names" of the changes that can happen to the store
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
 };
 
-// Action creators 將 action 與執行時必備的資料綑綁起來
+// The action creators bundle actions with the data required to execute them
 export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
 export const pinTask = id => ({ type: actions.PIN_TASK, id });
 
-// 所有 Reducer 緊緊簡單地改變單一任務的狀態。
+// All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
@@ -50,7 +50,7 @@ function taskStateReducer(taskState) {
   };
 }
 
-// 這裡的 Reducer 在講每個 action 的 store 內容如何改變
+// The reducer describes how the contents of the store change for each action
 export const reducer = (state, action) => {
   switch (action.type) {
     case actions.ARCHIVE_TASK:
@@ -62,8 +62,8 @@ export const reducer = (state, action) => {
   }
 };
 
-// App 讀取時,Store 的狀態初始值。
-// 通常是從伺服器抓取
+// The initial state of our store when the app loads.
+// Usually you would fetch this from a server
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -71,7 +71,7 @@ const defaultTasks = [
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-// 輸出蓋好的 Redux store
+// We export the constructed redux store
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
@@ -87,17 +87,17 @@ import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  /* 先前實做的 TaskList */
+  /* previous implementation of TaskList */
 }
 
 PureTaskList.propTypes = {
-  /** 檢查是否是讀取中狀態 */
+  /** Checks if it's in loading state */
   loading: PropTypes.bool,
-  /** 任務列表 */
+  /** The list of tasks */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** 任務變成置頂時觸發的事件 */
+  /** Event to change the task to pinned */
   onPinTask: PropTypes.func.isRequired,
-  /** 任務變成封存時觸發的事件 */
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -154,8 +154,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // 透過 args 組合捏出 story。
-  // 資料來自 task.stories.js 裡 Default 這個 story。
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -170,8 +170,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // 透過 args 組合捏出 story。
-  // 資料來自 task.stories.js 裡 Loading 這個 story。
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };

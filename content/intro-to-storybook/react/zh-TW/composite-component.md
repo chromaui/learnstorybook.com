@@ -70,8 +70,8 @@ const Template = args => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  // 透過 args 組合捏出 story。
-  // 資料來自 task.stories.js 裡 Default 這個 story。
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -84,8 +84,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // 透過 args 組合捏出 story。
-  // 資料來自 Default 這個 story。
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -100,8 +100,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // 透過 args 組合捏出 story。
-  // 資料來自 Loading 這個 story。
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };
@@ -250,10 +250,10 @@ import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  //👇 Story 測試要用到的 args
+  //👇 Story's args used with our test
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
-  // 期望標題是 "Task 6 (pinned)" 的任務先渲染出來，而不是在尾端
+  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
   const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
   expect(lastTaskInput).not.toBe(null);
 
