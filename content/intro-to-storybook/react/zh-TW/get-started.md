@@ -16,12 +16,12 @@ Storybook 與 App 的開發模式一起運作，協助將 App 裡 UI 元件的�
 讓我們執行以下指令：
 
 ```bash
-# 複製範本
+# Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# 安裝相依套件
+# Install dependencies
 yarn
 ```
 
@@ -32,13 +32,13 @@ yarn
 現在，可以來快速檢查應用程式的不同環境是否正常運作：
 
 ```bash
-# 在終端機執行測試 runner (Jest)：
+# Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# 在 port 6006 啟動元件瀏覽器：
+# Start the component explorer on port 6006:
 yarn storybook
 
-# 在 port 3000 執行前端應用程式 proper：
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 
@@ -50,11 +50,11 @@ yarn start
 
 ![3 種模式](/intro-to-storybook/app-three-modalities.png)
 
-根據 app 裡開發不同的部分，可能會想要同時執行多個。然而，我們現在專注在建造單一 UI 元件，所以只會說 Storybook。
+根據 App 裡開發不同的部分，可能會想要同時執行多個。然而，我們現在專注在建造單一 UI 元件，所以只會說 Storybook。
 
 ## 提交更變
 
-這時候已經可以安心在本地端 repository 放進檔案。啟動本地端 repository 的指令在下方，然後為我們目前做好的東西提交變更。
+這時候已經可以安心在本地端 Repository 放進檔案。依照下方指令啟動本地端 Repository，然後將目前做好的東西提交變更。
 
 ```shell
 $ git init
