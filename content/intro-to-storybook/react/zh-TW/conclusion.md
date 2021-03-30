@@ -25,7 +25,7 @@ Storybook 在 React、React Native、Vue、Angular、Svelte 和其它 framework 
 
 - [**Storybook 部落格**](https://medium.com/storybookjs)展示能夠讓 UI 開發工作流程一致的最新版本與功能。
 
-## LearnStorybook.com 是誰做的？
+## Storybook 入門教學是誰做的？
 
 [Chromatic](https://www.chromatic.com/) 製作了文字、程式碼與影片剪輯。這份教學是受到 Chromatic 很受歡迎的 [GraphQL + React 教學系列](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)所啟發。
 

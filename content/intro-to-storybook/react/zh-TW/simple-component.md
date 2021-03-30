@@ -24,9 +24,7 @@ commit: '97d6750'
 
 一開始，先做好`工作事項`的基礎設定，只需帶入知道會用到的屬性，還有兩個在工作事項可以執行的動作（在清單之間移動）：
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -42,9 +40,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 接下來，要在 story 檔案蓋出工作事項的 3 種測試狀態：
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import React from 'react';
 
 import Task from './Task';
@@ -160,9 +156,7 @@ export const parameters = {
 
 現在，元件還是最基本的。首先，先寫下符合設計的程式碼，但不必非常仔細：
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -207,9 +201,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 為了符合元件應該有的資料樣貌，使用 `propTypes` 是最佳作法。不僅讓本身就是文件說明，也對儘早察覺問題有幫助。
 
-```javascript
-// src/components/Task.js
-
+```diff:title=src/components/Task.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -266,9 +258,7 @@ yarn add -D @storybook/addon-storyshots react-test-renderer
 
 接著，新增有以下內容的 `src/storybook.test.js` 檔案：
 
-```javascript
-// src/storybook.test.js
-
+```js:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
