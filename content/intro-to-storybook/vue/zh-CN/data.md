@@ -90,14 +90,14 @@ export default new Vuex.Store({
 
 ```html:title=src/components/PureTaskList.vue
 <template>
-  <!-- 和之前的内容一致 -->
+  <!-- same content as before -->
 </template>
 
 <script>
   import Task from './Task';
   export default {
     name: 'PureTaskList',
-    // 和之前的内容一致
+    // same content as before
   };
 </script>
 ```
@@ -126,28 +126,28 @@ export default new Vuex.Store({
 将`TaskList`的表示型版本分离开的原因是，这使得我们的测试和隔离更加容易。同时因为它不依赖 store，所以从测试的角度来说将变的更加容易。重命名`src/components/TaskList.stories.js`为`src/components/PureTaskList.stories.js`，并在我们的 story 中使用表示型版本：
 
 ```diff:title=src/components/PureTaskList.stories.js
-import PureTaskList from './PureTaskList';
++ import PureTaskList from './PureTaskList';
 
 import * as TaskStories from './Task.stories';
 
 export default {
-  component: PureTaskList,
-  title: 'PureTaskList',
++ component: PureTaskList,
++ title: 'PureTaskList',
   decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
 };
 
 const Template = (args, { argTypes }) => ({
-  components: { PureTaskList },
++ components: { PureTaskList },
   props: Object.keys(argTypes),
-  // 重用task.stories.js中的actions
+  // We are reusing our actions from task.stories.js
   methods: TaskStories.actionsData,
-  template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
++ template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  // 使用args来来改变story外观。
-  // 从task.stories.js的Default story继承数据。
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -160,8 +160,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // 使用args来来改变story外观。
-  // 从task.stories.js的Default story继承数据。
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -176,8 +176,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // 使用args来来改变story外观。
-  // 从task.stories.js的Default story继承数据。
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };
@@ -190,25 +190,21 @@ Empty.args = {
   />
 </video>
 
-<div class="aside">
-
-</div>
-
 同样的，我们也需要在 Jest 测试中使用`PureTaskList`：
 
 ```diff:title=tests/unit/PureTaskList.spec.js
 import Vue from 'vue';
 
-import PureTaskList from '../../src/components/PureTaskList.vue';
++ import PureTaskList from '../../src/components/PureTaskList.vue';
 
-//👇 在这里导入我们的story
-import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
+//👇 Our story imported here
++ import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   // render PureTaskList
-  const Constructor = Vue.extend(PureTaskList);
++ const Constructor = Vue.extend(PureTaskList);
   const vm = new Constructor({
-    // ...using WithPinnedTasks.args
+    //👇 Story's args used with our test
     propsData: WithPinnedTasks.args,
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
@@ -219,9 +215,5 @@ it('renders pinned tasks at the start of the list', () => {
 ```
 
 <div class="aside">
-
-当您的快照测试失败时，您必须用-u 来重新运行测试脚本以便更新现有的快照。或者创建一个新的脚本来解决这个问题。
-
-别忘记提交您的代码！
-
+💡 您需要更新快照来对应此次修改。加上<code>-u</code>来重新运行测试命令以更新快照。同时别忘记提交您的代码！
 </div>

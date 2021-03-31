@@ -60,7 +60,7 @@ import { action } from '@storybook/addon-actions';
 export default {
   title: 'Task',
   component: Task,
-  // 我们的以“Data”结尾导出的内容不属于story
+  // Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
 };
 
@@ -146,8 +146,7 @@ Arguments 或者简写[`args`](https://storybook.js.org/docs/vue/writing-stories
 
 ```diff:title=.storybook/main.js
 module.exports = {
-  //👇 我们的story的所在位置
-  stories: ['../src/components/**/*.stories.js'],
++ stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
 ```
@@ -155,9 +154,10 @@ module.exports = {
 完成上述的修改后，如下所示修改您`.storybook`文件夹中的`preview.js` ：
 
 ```diff:title=.storybook/preview.js
+
 import '../src/index.css';
 
-//👇 配置Storybook使其可以在UI中记录actions(onArchiveTask和onPinTask)
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
@@ -184,21 +184,20 @@ export const parameters = {
 
 ```diff:title=src/components/Task.vue
 <template>
-  <div class="list-item" :class="task.state">
-    <label class="checkbox">
-      <input type="checkbox" :checked="isChecked" disabled name="checked" />
-      <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
-    </label>
-    <div class="title">
-      <input type="text" :value="task.title" readonly placeholder="Input title" />
-    </div>
-
-    <div class="actions">
-      <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
-        <span class="icon-star" />
-      </a>
-    </div>
-  </div>
++ <div class="list-item" :class="task.state">
++  <label class="checkbox">
++    <input type="checkbox" :checked="isChecked" disabled name="checked" />
++    <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
++  </label>
++  <div class="title">
++    <input type="text" :value="task.title" readonly placeholder="Input title" />
++  </div>
++  <div class="actions">
++   <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
++    <span class="icon-star" />
++   </a>
++  </div>
++ </div>
 </template>
 
 <script>
@@ -212,11 +211,11 @@ export const parameters = {
         validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
-    computed: {
-      isChecked() {
-        return this.task.state === 'TASK_ARCHIVED';
-      },
-    },
++   computed: {
++     isChecked() {
++       return this.task.state === 'TASK_ARCHIVED';
++     },
++   },
   };
 </script>
 ```
@@ -267,7 +266,7 @@ initStoryshots();
 ```diff:title=jest.config.js
 module.exports = {
   ...
-  transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
++ transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 };
 ```
 

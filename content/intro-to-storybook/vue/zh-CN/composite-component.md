@@ -71,15 +71,15 @@ export default {
 const Template = (args, { argTypes }) => ({
   components: { TaskList },
   props: Object.keys(argTypes),
-  // 我们复用 task.stories.js中的action
+  // We are reusing our actions from task.stories.js
   methods: TaskStories.actionsData,
   template: '<TaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
 });
 
 export const Default = Template.bind({});
 Default.args = {
-  // 通过args来构建story的外观。
-  // 数据继承自task.stories.js中的默认story。
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -92,8 +92,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // 通过args来构建story的外观。
-  // 数据继承自默认story。
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -108,8 +108,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // 通过args来构建story的外观。
-  // 数据继承自默认story。
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };
@@ -138,22 +138,22 @@ Empty.args = {
 <template>
   <div class="list-items">
     <template v-if="loading">
-      <div v-for="n in 6" :key="n" class="loading-item">
-        <span class="glow-checkbox" />
-        <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
-      </div>
++     <div v-for="n in 6" :key="n" class="loading-item">
++       <span class="glow-checkbox" />
++       <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
++     </div>
     </template>
 
     <div v-else-if="isEmpty" class="list-items">
-      <div class="wrapper-message">
-        <span class="icon-check" />
-        <div class="title-message">You have no tasks</div>
-        <div class="subtitle-message">Sit back and relax</div>
-      </div>
++     <div class="wrapper-message">
++       <span class="icon-check" />
++       <div class="title-message">You have no tasks</div>
++       <div class="subtitle-message">Sit back and relax</div>
++     </div>
     </div>
 
     <template v-else>
-      <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
++     <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
     </template>
   </div>
 </template>
@@ -168,12 +168,12 @@ Empty.args = {
       loading: { type: Boolean, default: false },
     },
     computed: {
-      tasksInOrder() {
-        return [
-          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
-        ];
-      },
++     tasksInOrder() {
++       return [
++         ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
++         ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
++       ];
++     },
       isEmpty() {
         return this.tasks.length === 0;
       },
@@ -216,18 +216,19 @@ import Vue from 'vue';
 
 import TaskList from '../../src/components/TaskList.vue';
 
+//👇 Our story imported here
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
-  // 渲染Tasklist
+  // render Tasklist
   const Constructor = Vue.extend(TaskList);
   const vm = new Constructor({
-    // ...使用 WithPinnedTasks.args
+    //👇 Story's args used with our test
     propsData: WithPinnedTasks.args,
   }).$mount();
   const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
 
-  // 我们期望固定task会先被渲染，而不是最后被渲染
+  // We expect the pinned task to be rendered first, not at the end
   expect(firstTaskPinned).not.toBe(null);
 });
 ```

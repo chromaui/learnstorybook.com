@@ -90,25 +90,26 @@ yarn chromatic --project-token=<project-token>
 创建一个叫`chromatic.yml`的文件，内容如下。替换`project-token`为您项目所持有的 token。
 
 ```yaml:title=.github/workflows/chromatic.yml
-# 我们的action的名字
+# Workflow name
 name: 'Chromatic Deployment'
-# 触发action的event
+
+# Event for the workflow
 on: push
 
-# action的具体内容
+# List of jobs
 jobs:
   test:
-    # 要运行的操作系统
+    # Operating System
     runs-on: ubuntu-latest
-    # action的一系列操作（step）
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # GitHub chromatic action所需的选项
+        # Options required for Chromatic's GitHub Action
         with:
-          # 我们项目的token，查看如何获取
-          # 参考https://www.learnstorybook.com/intro-to-storybook/vue/zh-CN/deploy/
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/vue/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

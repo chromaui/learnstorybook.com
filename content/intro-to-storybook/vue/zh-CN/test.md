@@ -50,7 +50,7 @@ git checkout -b change-task-background
   :value="task.title"
   readonly
   placeholder="Input title"
-  style="background: red;"
++ style="background: red;"
 />
 ```
 

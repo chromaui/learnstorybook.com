@@ -46,7 +46,7 @@ Controls 使得我们可以快速的测试各种输入。在这个例子中是�
   :value="task.title"
   readonly
   placeholder="Input title"
-  style="text-overflow: ellipsis;"
++ style="text-overflow: ellipsis;"
 />
 ```
 

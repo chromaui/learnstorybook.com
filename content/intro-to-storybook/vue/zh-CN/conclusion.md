@@ -25,7 +25,7 @@ description: '汇总所有的知识并学习更多Storybook技巧'
 
 - [**Storybook 博客**](https://medium.com/storybookjs) 展示了最新版本和特性，来帮助您简化 UI 开发工作流程。
 
-## 谁创建了 LearnStorybook.com？
+## 谁创建了 Storybook 教程？
 
 文本，代码和制作都来自[Chromatic](https://www.chromatic.com/)。这份教程启发自 Chromatic 流行的[GraphQL + React 教程系列](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)。
 

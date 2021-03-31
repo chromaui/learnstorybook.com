@@ -70,21 +70,21 @@ commit: '99d3d65'
 ```diff:title=src/App.vue
 <template>
   <div id="app">
-    <task-list />
-    <InboxScreen />
+-   <task-list />
++   <InboxScreen />
   </div>
 </template>
 
 <script>
   import store from './store';
-  import TaskList from './components/TaskList.vue';
-  import InboxScreen from './components/InboxScreen.vue';
+- import TaskList from './components/TaskList.vue';
++ import InboxScreen from './components/InboxScreen.vue';
   export default {
     name: 'app',
     store,
     components: {
-      TaskList,
-      InboxScreen
+-     TaskList
++     InboxScreen,
     },
   };
 </script>
@@ -95,7 +95,6 @@ commit: '99d3d65'
 ```
 
 但是，当在 Storybook 中渲染 story 时事情就变得有趣起来了。
-However, where things get interesting is in rendering the story in Storybook.
 
 正如我们之前所见的，`TaskList`组件作为一个**容器**负责渲染`PureTaskList`这个表示型组件。我们定义了容器组件不能简单的被隔离式地渲染；我们希望传递给它们一些上下文或者让它们和某个服务进行通信。这表示如果我们希望在 Storybook 中渲染一个容器，我们必须模拟（例如提供一个虚拟版本）一个其所需的上下文或者服务。
 
@@ -132,7 +131,7 @@ Error.args = { error: true };
 但是，开发人员**将会**不可避免的在下层结构中渲染容器组件。如果我们想要在 Storybook 中渲染应用中大部分或者全部的组件（我们想！），我们仍需要一个解决方案。
 
 <div class="aside">
-需要说明的是，自顶而下的传递数据是一种合理的解决方案，尤其是使用<a href="http://graphql.org/">GraphQL</a>时。这也是我们在<a href="https://www.chromatic.com">Chromatic</a>中构建超过800个story的方式。
+💡 需要说明的是，自顶而下的传递数据是一种合理的解决方案，尤其是使用<a href="http://graphql.org/">GraphQL</a>时。这也是我们在<a href="https://www.chromatic.com">Chromatic</a>中构建超过800个story的方式。
 </div>
 
 ## 在 story 中提供上下文
@@ -140,29 +139,29 @@ Error.args = { error: true };
 好消息是对于 story 来说在`PureInboxScreen`中使用 Vuex store 十分容易！我们可以在 story 文件中创建一个新的 store 作为上下文：
 
 ```diff:title=src/components/PureInboxScreen.stories.js
-import Vue from 'vue';
-import Vuex from 'vuex';
++ import Vue from 'vue';
++ import Vuex from 'vuex';
 
 import PureInboxScreen from './PureInboxScreen.vue';
 
-import { action } from '@storybook/addon-actions';
-import * as TaskListStories from './PureTaskList.stories';
++ import { action } from '@storybook/addon-actions';
++ import * as TaskListStories from './PureTaskList.stories';
 
-Vue.use(Vuex);
++Vue.use(Vuex);
 
-export const store = new Vuex.Store({
-  state: {
-    tasks: TaskListStories.Default.args.tasks,
-  },
-  actions: {
-    pinTask(context, id) {
-      action('pin-task')(id);
-    },
-    archiveTask(context, id) {
-      action('archive-task')(id);
-    },
-  },
-});
++ export const store = new Vuex.Store({
++  state: {
++    tasks: TaskListStories.Default.args.tasks,
++  },
++  actions: {
++    pinTask(context, id) {
++      action('pin-task')(id);
++    },
++    archiveTask(context, id) {
++      action('archive-task')(id);
++    },
++  },
++ });
 
 export default {
   title: 'PureInboxScreen',
@@ -211,5 +210,5 @@ Error.args = { error: true };
 我们还没有完全结束 - 光创建 UI 是不够的。我们仍需要保证应用的耐用性。
 
 <div class="aside">
-别忘了提交您的代码！
+💡 别忘了提交您的代码！
 </div>
