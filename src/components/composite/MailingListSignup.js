@@ -39,7 +39,6 @@ const MailingListFormUI = ({ handleBlur, handleChange, isSubmitting, value, ...r
       onBlur={handleBlur}
       autoCapitalize="off"
       autoCorrect="off"
-      appearance="secondary"
       label="Your email"
       hideLabel
     />

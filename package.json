@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
-    "@storybook/design-system": "^5.4.7",
+    "@storybook/design-system": "^5.5.0",
     "cheerio": "^1.0.0-rc.5",
     "formik": "^1.5.7",
     "gatsby": "^2.32.3",
@@ -65,12 +65,12 @@
   "devDependencies": {
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.12.13",
-    "@storybook/addon-a11y": "^6.1.17",
-    "@storybook/addon-actions": "^6.1.17",
-    "@storybook/addon-links": "^6.1.17",
-    "@storybook/addon-viewport": "^6.1.17",
-    "@storybook/addons": "^6.1.17",
-    "@storybook/react": "^6.1.17",
+    "@storybook/addon-a11y": "^6.2.1",
+    "@storybook/addon-actions": "^6.2.1",
+    "@storybook/addon-links": "^6.2.1",
+    "@storybook/addon-viewport": "^6.2.1",
+    "@storybook/addons": "^6.2.1",
+    "@storybook/react": "^6.2.1",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "babel-plugin-remove-graphql-queries": "^2.16.0",
@@ -86,7 +86,7 @@
     "eslint-plugin-react": "^7.7.0",
     "husky": "^3.0.8",
     "lint-staged": "^9.4.2",
-    "prettier": "^1.17.1",
+    "prettier": "^2.1.1",
     "prettier-eslint": "^9.0.0",
     "prettier-eslint-cli": "^5.0.0"
   }
