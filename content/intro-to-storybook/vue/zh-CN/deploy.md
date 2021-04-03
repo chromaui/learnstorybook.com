@@ -9,15 +9,7 @@ commit: '107b7ce'
 
 ## 导出为一个静态应用
 
-为了部署 Storybook 我们首先需要将其导出为一个静态 web 应用。Storybook 已经集成了此功能并已预配置完成，我们只需要将[开始吧章节](/intro-to-storybook/vue/zh-CN/get-started)中的脚本更新即可。
-
-```json
-{
-  "scripts": {
-    "build-storybook": "build-storybook -s public"
-  }
-}
-```
+为了部署 Storybook 我们首先需要将其导出为一个静态 web 应用。Storybook 已经集成了此功能并已预配置完成。
 
 运行`yarn build-storybook`会在`storybook-static`目录下输出一个静态 Storybook，用于部署在任何可以托管静态网站的服务中。
 

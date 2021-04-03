@@ -81,7 +81,7 @@ LongTitle.args = {
   />
 </video>
 
-如果我们在[视觉测试]](/intro-to-storybook/vue/zh-CN/test/)，在截短方案失效时我们也会得到提示。如果没有覆盖测试，这样的模糊的边缘用例很容易被忽视。
+如果我们在进行[视觉测试](/intro-to-storybook/vue/zh-CN/test/)，那么在截短方案失效时我们也会得到提示。如果没有覆盖测试，这样的模糊的边缘用例很容易被忽视。
 
 <div class="aside"><p>💡 Controls非常适合让一些非开发人员测试您的组件和story，它远比您想象的要强大。我们推荐您阅读<a href="https://storybook.js.org/docs/vue/essentials/controls">官方文档</a>来了解更多。此外您还可以使用很多别的方式来定制Storybook。</div>
 

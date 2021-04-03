@@ -16,12 +16,12 @@ Storybook 是在开发模式下与您的应用程序一同运行的。它可以�
 让我们运行下述的命令：
 
 ```bash
-# 克隆模板
+# Clone the template
 npx degit chromaui/intro-storybook-vue-template taskbox
 
 cd taskbox
 
-# 安装依赖
+# Install dependencies
 yarn
 ```
 
@@ -32,13 +32,13 @@ yarn
 现在通过下述的命令行我们可以快速查看应用程序中的各个环境是否正常运行：
 
 ```bash
-# 在终端中运行(Jest):
+# Run the test runner (Jest) in a terminal:
 yarn test:unit
 
-# 在6006端口启用组件浏览器:
+# Start the component explorer on port 6006:
 yarn storybook
 
-# 在8080运行前端应用程序:
+# Run the frontend app proper on port 8080:
 yarn serve
 ```
 
