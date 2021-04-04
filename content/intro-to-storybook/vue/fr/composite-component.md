@@ -138,7 +138,7 @@ export const Empty = () => ({
 ```
 
 <div class="aside">
-Les <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>décorateurs</b></a> sont un moyen de fournir des enveloppes arbitraires aux histoires. Dans ce cas, nous utilisons une clé décoratrice dans l'exportation par défaut pour ajouter un style. Mais ils peuvent également être utilisés pour ajouter d'autres contextes aux composants, comme nous le verrons plus tard.
+Les <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>décorateurs</b></a> sont un moyen de fournir des enveloppes arbitraires aux histoires. Dans ce cas, nous utilisons une clé décoratrice dans l'exportation par défaut pour ajouter un style. Mais ils peuvent également être utilisés pour ajouter d'autres contextes aux composants, comme nous le verrons plus tard.
 </div>
 
 `taskData` fournit la forme d'une `Task` que nous avons créée et exportée à partir du fichier `Task.stories.js`. De même, `actionsData` définit les actions (bouchonnés) attendues par un composant `Task`, dont la `TaskList` a également besoin.
@@ -272,4 +272,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 Notez que nous avons été en mesure de réutiliser la liste de tâches `withPinnedTasksData` à la fois dans l'histoire et dans le test unitaire; de cette manière, nous pouvons continuer à exploiter une ressource existante (les exemples qui représentent des configurations intéressantes d'un composant) de plus en plus de façons.
 
-Notez également que ce test est assez fragile. Il est possible qu'à mesure que le projet mûrit et que l'implémentation exacte de `Task` change - peut-être en utilisant un nom de classe différent - le test échoue et doit être mis à jour. Ce n'est pas nécessairement un problème, mais plutôt une indication de faire preuve de prudence en utilisant les tests unitaires pour l'interface utilisateur. Ils ne sont pas faciles à entretenir. Fiez-vous plutôt à la régression visuelle, instantanée et visuelle (voir [le chapitre de tests](/vue/fr/test/) lorsque cela est possible.
+Notez également que ce test est assez fragile. Il est possible qu'à mesure que le projet mûrit et que l'implémentation exacte de `Task` change - peut-être en utilisant un nom de classe différent - le test échoue et doit être mis à jour. Ce n'est pas nécessairement un problème, mais plutôt une indication de faire preuve de prudence en utilisant les tests unitaires pour l'interface utilisateur. Ils ne sont pas faciles à entretenir. Fiez-vous plutôt à la régression visuelle, instantanée et visuelle (voir [le chapitre de tests](/intro-to-storybook/vue/fr/test/) lorsque cela est possible.

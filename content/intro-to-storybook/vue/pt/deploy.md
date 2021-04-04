@@ -11,12 +11,12 @@ Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessá
     <strong>Seguiu os passos para implementar testes com Chromatic, tal como mencionado anteriormente?</strong>
     <br/>
     Então as estórias já se encontram implementadas!🎉 O Chromatic indexa-as e segue-as ao longo das ramificações feitas e dos commits
-    Pode saltar-se este capítulo e seguir para <a href="/vue/pt/conclusion">conclusão</a>.
+    Pode saltar-se este capítulo e seguir para <a href="/intro-to-storybook/vue/pt/conclusion">conclusão</a>.
 </div>
 
 ## Exportação sob a forma de uma app estática
 
-Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessário alterar o script tal como quando o projeto foi inicializado [na introdução](/vue/pt/get-started).
+Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessário alterar o script tal como quando o projeto foi inicializado [na introdução](/intro-to-storybook/vue/pt/get-started).
 
 ```javascript
 {
@@ -71,7 +71,7 @@ $ git push -u origin main
 O Netlify possui um serviço de implementação contínua, o que permite a implementação do Storybook sem ser necessária a configuração de uma IC (CI na forma nativa) própria.
 
 <div class="aside">
-    Se for usado um IC (CI na forma nativa) na empresa, será necessário adicionar um script de implementação para que seja feito o upload da pasta <code>storybook-static</code> para um serviço de hospedagem estático, tal como o S3. 
+    Se for usado um IC (CI na forma nativa) na empresa, será necessário adicionar um script de implementação para que seja feito o upload da pasta <code>storybook-static</code> para um serviço de hospedagem estático, tal como o S3.
 </div>
 
 [Criação da conta no Netlify](https://app.netlify.com/start), em seguida “create site”.

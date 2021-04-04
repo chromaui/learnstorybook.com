@@ -34,7 +34,7 @@ Default.args = {
     },
     site: {
       siteMetadata: {
-        permalink: 'https://learnstorybook.com',
+        permalink: 'https://storybook.js.org/tutorials',
         title: 'Learn Storybook',
       },
     },

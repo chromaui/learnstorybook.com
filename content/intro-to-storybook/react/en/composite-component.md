@@ -9,7 +9,7 @@ Last chapter we built our first component; this chapter extends what we learned 
 
 ## Tasklist
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
+Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and pinned items.
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
@@ -23,9 +23,7 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -56,9 +54,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 Next create `Tasklist`’s test states in the story file.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
 import TaskList from './TaskList';
@@ -130,9 +126,7 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -203,9 +197,7 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 
 As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
 
-```javascript
-// src/components/TaskList.js
-
+```diff:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -215,19 +207,19 @@ export default function TaskList() {
   ...
 }
 
-TaskList.propTypes = {
-  /** Checks if it's in loading state */
-  loading: PropTypes.bool,
-  /** The list of tasks */
-  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** Event to change the task to pinned */
-  onPinTask: PropTypes.func,
-  /** Event to change the task to archived */
-  onArchiveTask: PropTypes.func,
-};
-TaskList.defaultProps = {
-  loading: false,
-};
++ TaskList.propTypes = {
++  /** Checks if it's in loading state */
++  loading: PropTypes.bool,
++  /** The list of tasks */
++  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
++  /** Event to change the task to pinned */
++  onPinTask: PropTypes.func,
++  /** Event to change the task to archived */
++  onArchiveTask: PropTypes.func,
++ };
++ TaskList.defaultProps = {
++  loading: false,
++ };
 ```
 
 ## Automated testing
@@ -248,11 +240,10 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 
 Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
 
-```javascript
-// src/components/TaskList.test.js
-
+```js:title=src/components/TaskList.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import '@testing-library/jest-dom/extend-expect';
 
 import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
@@ -274,7 +265,7 @@ it('renders pinned tasks at the start of the list', () => {
 
 Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/react/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

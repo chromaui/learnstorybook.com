@@ -19,7 +19,7 @@ commit: '8652d73'
 
 ### GitHub 仓库设置
 
-在我们开始前，我们本地需要与远程控制服务版本同步。在[开始吧 章节](react/zh-CN/get-started/)中我们的项目已经初始化，Create React App (CRA) 已经为我们创建了一个本地仓库。在此阶段，我们添加文件完成第一次提交是安全的。
+在我们开始前，我们本地需要与远程控制服务版本同步。在[开始吧 章节](/intro-to-storybook/react/zh-CN/get-started/)中我们的项目已经初始化，Create React App (CRA) 已经为我们创建了一个本地仓库。在此阶段，我们添加文件完成第一次提交是安全的。
 
 发出以下命令以添加并提交目前为止我们的所有修改。
 
@@ -114,7 +114,7 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

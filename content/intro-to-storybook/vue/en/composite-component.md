@@ -23,9 +23,7 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes as inputs.
 
-```html
-<!-- src/components/TaskList.vue -->
-
+```html:title=src/components/TaskList.vue
 <template>
   <div class="list-items">
     <template v-if="loading">
@@ -60,9 +58,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 Next create `Tasklist`’s test states in the story file.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
@@ -138,28 +134,26 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
 
-```html
-<!-- src/components/TaskList.vue -->
-
+```diff:title=src/components/TaskList.vue
 <template>
   <div class="list-items">
     <template v-if="loading">
-      <div v-for="n in 6" :key="n" class="loading-item">
-        <span class="glow-checkbox" />
-        <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
-      </div>
++     <div v-for="n in 6" :key="n" class="loading-item">
++       <span class="glow-checkbox" />
++       <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
++     </div>
     </template>
 
     <div v-else-if="isEmpty" class="list-items">
-      <div class="wrapper-message">
-        <span class="icon-check" />
-        <div class="title-message">You have no tasks</div>
-        <div class="subtitle-message">Sit back and relax</div>
-      </div>
++     <div class="wrapper-message">
++       <span class="icon-check" />
++       <div class="title-message">You have no tasks</div>
++       <div class="subtitle-message">Sit back and relax</div>
++     </div>
     </div>
 
     <template v-else>
-      <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
++     <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
     </template>
   </div>
 </template>
@@ -174,12 +168,12 @@ Our component is still rough but now we have an idea of the stories to work towa
       loading: { type: Boolean, default: false },
     },
     computed: {
-      tasksInOrder() {
-        return [
-          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
-        ];
-      },
++     tasksInOrder() {
++       return [
++         ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
++         ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
++       ];
++     },
       isEmpty() {
         return this.tasks.length === 0;
       },
@@ -217,11 +211,11 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 
 Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
-```javascript
-// tests/unit/TaskList.spec.js
-
+```js:title=tests/unit/TaskList.spec.js
 import Vue from 'vue';
+
 import TaskList from '../../src/components/TaskList.vue';
+
 //👇 Our story imported here
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 
@@ -243,7 +237,7 @@ it('renders pinned tasks at the start of the list', () => {
 
 Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/vue/en/test/) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/vue/en/test/) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

@@ -18,7 +18,7 @@ This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free pu
 
 ### Setup a repository in GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/ember/en/get-started/), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
+Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/intro-to-storybook/ember/en/get-started/), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
 
 Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
 
@@ -77,11 +77,9 @@ Now that our project is hosted in a GitHub repository, we can use a continuous i
 
 In the root folder of our project, create a new directory called `.github` then create another `workflows` directory inside of it.
 
-Create a new file called `chromatic.yml` like the one below. Replace to change `project-token` with your project token.
+Create a new file called `chromatic.yml` like the one below. Make sure to replace `project-token` with your project token.
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
 name: 'Chromatic Deployment'
 
@@ -101,7 +99,7 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/ember/en/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/ember/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

@@ -1,81 +1,139 @@
 ---
 title: 'Deploy Storybook'
 tocTitle: 'Deploy'
-description: 'Deploy Storybook online with GitHub and Netlify'
+description: 'Learn how to deploy Storybook online'
 ---
 
-In this tutorial we ran Storybook on our development machine. You may also want to share that Storybook with the team, especially the non-technical members. Thankfully, it’s easy to deploy Storybook online.
-
-<div class="aside">
-<strong>Did you setup Chromatic testing earlier?</strong>
-<br/>
-🎉 Your stories are already deployed! Chromatic securely indexes your stories online and tracks them across branches and commits. Skip this chapter and go to the <a href="/angular/en/conclusion">conclusion</a>.
-</div>
+Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook out of the box.
+To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
 
-Now when you build Storybook via `npm run build-storybook`, it will output a static Storybook in the `storybook-static` directory.
+Running `npm run build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
 
-## Continuous deploy
+## Publish Storybook
 
-We want to share the latest version of components whenever we push code. To do this we need to continuous deploy Storybook. We’ll rely on GitHub and Netlify to deploy our static site. We’re using the Netlify free plan.
-
-### GitHub
-
-If you're following along from the previous testing chapter jump to setting up a repository on GitHub.
-
-When the project was initialized with Angular CLI, a local repository was already setup for you. At this stage we already have a set of commits that we can push to a remote repository.
+This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
 
 ### Setup a repository in GitHub
 
-Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
+Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/intro-to-storybook/angular/en/get-started), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
+
+Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
 
 ![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
 
-In the new repo setup copy the origin URL of the repo and add it to your git project with this command:
+In the new repo, grab the origin URL of the repo and add it to your git project with this command:
 
 ```bash
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-Finally push the repo to GitHub
+Finally, push our local repo to the remote repo on GitHub with:
 
 ```bash
 $ git push -u origin main
 ```
 
-### Netlify
+### Get Chromatic
 
-Netlify has a continuous deployment service built in which will allow us to deploy Storybook without needing to configure our own CI.
+Add the package as a development dependency.
 
-<div class="aside">
-If you use CI at your company, add a deploy script to your config that uploads <code>storybook-static</code> to a static hosting service like S3.
-</div>
+```bash
+npm install -D chromatic
+```
 
-[Create an account on Netlify](https://app.netlify.com/start) and click to “create site”.
+Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've setup.
 
-![Netlify create site](/intro-to-storybook/netlify-create-site.png)
+Click `Choose GitHub repo` under collaborators and select your repo.
 
-Next click the GitHub button to connect Netlify to GitHub. This allows it to access our remote Taskbox repo.
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
+    type="video/mp4"
+  />
+</video>
 
-Now select the taskbox GitHub repo from the list of options.
+Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 
-![Netlify connect to repo](/intro-to-storybook/netlify-account-picker.png)
+```bash
+npx chromatic --project-token=<project-token>
+```
 
-Configure Netlify by highlighting which build command to run in its CI and which directory the static site is outputted in. For branch choose `main`. Directory is `storybook-static`. Build command use `npm run build-storybook`.
+![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-![Netlify settings](/intro-to-storybook/netlify-settings-npm.png)
+When finished, you'll get a link `https://random-uuid.chromatic.com` to your published Storybook. Share the link with your team to get feedback.
 
-<div class="aside"><p>Should your deployment fail with Netlify, add the <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag to your <code>build-storybook</code> script.</p></div>
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
 
-Submit the form to build and deploy the code on the `main` branch of taskbox.
+Hooray! We published Storybook with one command, but manually running a command every time we want to get feedback on UI implementation is repetitive. Ideally, we'd publish the latest version of components whenever we push code. We'll need to continuously deploy Storybook.
 
-When that's finished we'll see a confirmation message on Netlify with a link to Taskbox’ Storybook online. If you're following along, your deployed Storybook should be online [like so](https://clever-banach-415c03.netlify.com/).
+## Continuous deployment with Chromatic
 
-![Netlify Storybook deploy](/intro-to-storybook/netlify-storybook-deploy.png)
+Now that our project is hosted in a GitHub repository, we can use a continuous integration(CI) service to deploy our Storybook automatically. [GitHub Actions](https://github.com/features/actions) is a free CI service that's built into GitHub that makes automatic publishing easy.
 
-We finished setting up continuous deployment of your Storybook! Now we can share our stories with teammates via a link.
+### Add a GitHub Action to deploy Storybook
 
-This is helpful for visual review as part of the standard app development process or simply to show off work 💅.
+In the root folder of our project, create a new directory called `.github` then create another `workflows` directory inside of it.
+
+Create a new file called `chromatic.yml` like the one below. Replace `project-token` with your project token.
+
+```yaml:title=.github/workflows/chromatic.yml
+# Workflow name
+name: 'Chromatic Deployment'
+
+# Event for the workflow
+on: push
+
+# List of jobs
+jobs:
+  test:
+    # Operating System
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      - uses: actions/checkout@v1
+      - run: npm install
+        #👇 Adds Chromatic as a step in the workflow
+      - uses: chromaui/action@v1
+        # Options required for Chromatic's GitHub Action
+        with:
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/angular/en/deploy/ to obtain it
+          projectToken: project-token
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+<div class="aside"><p>💡 For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+
+### Commit the action
+
+In the command line, issue the following command to add the changes that were done:
+
+```bash
+git add .
+```
+
+Then commit them by issuing:
+
+```bash
+git commit -m "GitHub action setup"
+```
+
+Finally push them to the remote repository with:
+
+```bash
+git push origin main
+```
+
+Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic.
+
+![Chromatic user dashboard](/intro-to-storybook/chromatic-user-dashboard.png)
+
+Click the latest build, it should be the one at the top.
+
+Then, click the `View Storybook` button to see the latest version of your Storybook.
+
+![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
+
+Use the link and share it with your team members. This is helpful as a part of the standard app development process or simply to show off work 💅.

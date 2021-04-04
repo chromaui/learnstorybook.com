@@ -19,7 +19,7 @@ Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una 
 
 - [**El delicioso flujo de trabajo de Storybook**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Squarespace, Major League Soccer, Discovery Network y Apollo GraphQL.
 
-- [**Manual de pruebas visuales**](https://www.learnstorybook.com/visual-testing-handbook/) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
+- [**Manual de pruebas visuales**](https://storybook.js.org/tutorials/visual-testing-handbook/) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
 
 - [**Discord de Storybook**](https://discord.gg/UUt2PJb) te pone en contacto con la comunidad de Storybook. Obtenga y brinde ayuda a otros usuarios de Storybook.
 
@@ -31,4 +31,4 @@ El texto, código, y producción fueron contribuidos por [Chromatic](https://www
 
 ¿Quieres más tutoriales y artículos como este? Regístratate a la lista de correo de Chromatic.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

@@ -1,13 +1,19 @@
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
-const permalink = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://learnstorybook.com';
+const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://storybook.js.org';
 
 module.exports = {
+  flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+    FAST_DEV: true,
+    QUERY_ON_DEMAND: true,
+  },
+  pathPrefix: `/tutorials`,
   siteMetadata: {
     title: 'Storybook Tutorials',
     description:
-      'Learn Storybook teaches frontend developers how to create UIs with components and design systems. Our free in-depth guides are created by Storybook maintainers and peer-reviewed by the open source community.',
-    permalink,
-    siteUrl: permalink,
+      'Learn how to develop UIs with components and design systems. Our in-depth frontend guides are created by Storybook maintainers and peer-reviewed by the open source community.',
+    permalink: `${permalinkBase}/tutorials`,
+    siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
     storybookVersion: 6.1,
@@ -31,12 +37,12 @@ module.exports = {
         },
         vue: {
           en: 6.1,
-          es: 5.3,
+          es: 6.1,
           fr: 5.3,
           pt: 5.3,
         },
         angular: {
-          en: 5.3,
+          en: 6.1,
           es: 5.3,
           pt: 5.3,
         },
@@ -60,6 +66,11 @@ module.exports = {
           en: 6.1,
         },
       },
+      'create-an-addon': {
+        react: {
+          en: 6.1,
+        },
+      },
     },
   },
   plugins: [
@@ -77,7 +88,26 @@ module.exports = {
         path: `${__dirname}/content/`,
       },
     },
-    `gatsby-transformer-remark`,
+    `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          `gatsby-remark-copy-linked-files`,
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              quality: 100,
+              maxWidth: 800,
+              linkImagesToOriginal: false,
+            },
+          },
+          `gatsby-remark-code-titles`,
+          // A custom plugin in /plugins directory
+          `gatsby-remark-prefix-links`,
+        ],
+      },
+    },
     `gatsby-plugin-styled-components`,
     `gatsby-plugin-sitemap`,
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview

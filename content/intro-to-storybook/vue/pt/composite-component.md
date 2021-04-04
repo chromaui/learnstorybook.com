@@ -141,7 +141,7 @@ export const Empty = () => ({
 ```
 
 <div class="aside">
-    Os <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>decoradores</b></a>, oferecem uma forma para envolver arbitrariamente as estórias. Neste caso estamos a usar um decorador para gerar elementos de estilo. Mas podem ser usados para adicionar outras formas de contexto aos componentes, tal como irá ser visto posteriormente.
+    Os <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>decoradores</b></a>, oferecem uma forma para envolver arbitrariamente as estórias. Neste caso estamos a usar um decorador para gerar elementos de estilo. Mas podem ser usados para adicionar outras formas de contexto aos componentes, tal como irá ser visto posteriormente.
 </div>
 
 Com a importação da `taskData` para este ficheiro, está a ser adicionada a forma que uma `Task` assume, isto a partir do ficheiro `Task.stories.js` criado anteriormente.
@@ -279,4 +279,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasksData` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente (os exemplos que representam configurações de um componente) de cada vez mais formas.
 
-Mas também que este teste é algo frágil. É possível que á medida que o projeto amadurece, a implementação concreta do componente `Task` seja alterada --isto quer pelo uso de uma classe com um nome diferente, por exemplo-- com isto, este teste específico irá falhar e será necessária uma atualização. Isto não é necessariamente um problema, mas um indicador para ser cuidadoso no uso liberal de testes unitários para o interface de utilizador. Visto que não são de fácil manutenção. Ao invés deste tipo de testes, é preferível depender de testes visuais, snapshot ou de regressão visual (ver [capitulo de testes](/vue/pt/test/)) sempre que for possível.
+Mas também que este teste é algo frágil. É possível que á medida que o projeto amadurece, a implementação concreta do componente `Task` seja alterada --isto quer pelo uso de uma classe com um nome diferente, por exemplo-- com isto, este teste específico irá falhar e será necessária uma atualização. Isto não é necessariamente um problema, mas um indicador para ser cuidadoso no uso liberal de testes unitários para o interface de utilizador. Visto que não são de fácil manutenção. Ao invés deste tipo de testes, é preferível depender de testes visuais, snapshot ou de regressão visual (ver [capitulo de testes](/intro-to-storybook/vue/pt/test/)) sempre que for possível.

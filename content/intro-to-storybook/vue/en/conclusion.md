@@ -19,16 +19,16 @@ Want to dive deeper? Here are helpful resources.
 
 - [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
+- [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
 - [**Storybook Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community. Get and give help to other Storybook users.
 
 - [**Storybook blog**](https://medium.com/storybookjs) showcases the latest releases and features to streamline your UI development workflow.
 
-## Who made LearnStorybook.com?
+## Who made the Intro to Storybook tutorial?
 
 The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
-Want more tutorials and articles like this? Sign up to the Chromatic mailing list.
+Want more tutorials and articles like this? Sign up to the Storybook mailing list.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

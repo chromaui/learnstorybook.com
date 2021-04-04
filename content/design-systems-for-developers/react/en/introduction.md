@@ -78,7 +78,7 @@ Design systems are an investment in frontend infrastructure. In addition to show
 
 #### Build UI components in isolation
 
-Every design system is composed of UI components. We’ll use Storybook as a “workbench” to build UI components in isolation outside of our consumer apps. Then we’ll integrate timesaving addons that help you increase component durability (Actions, Source, Knobs).
+Every design system is composed of UI components. We’ll use Storybook as a “workbench” to build UI components in isolation outside of our consumer apps. Then we’ll integrate timesaving addons that help you increase component durability (Actions, A11y, Controls).
 
 #### Review to reach consensus and gather feedback
 

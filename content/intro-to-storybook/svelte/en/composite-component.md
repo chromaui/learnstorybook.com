@@ -22,9 +22,7 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```svelte
-<!-- src/components/TaskList.svelte -->
-
+```svelte:title=src/components/TaskList.svelte
 <script>
   import Task from './Task.svelte';
   export let loading = false;
@@ -47,10 +45,9 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 Next create `Tasklist`’s test states in the story file.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title= src/components/TaskList.stories.js
 import TaskList from './TaskList.svelte';
+
 import * as TaskStories from './Task.stories';
 
 export default {
@@ -127,9 +124,7 @@ For the loading edge case, we're going to create a new component that will displ
 
 Create a new file called `LoadingRow.svelte` and inside add the following markup:
 
-```svelte
-<!-- src/components/LoadingRow.svelte -->
-
+```svelte:title=src/components/LoadingRow.svelte
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -142,44 +137,42 @@ Create a new file called `LoadingRow.svelte` and inside add the following markup
 
 And update `TaskList.svelte` to the following:
 
-```svelte
-<!-- src/components/TaskList.svelte -->
-
+```diff:title=src/components/TaskList.svelte
 <script>
   import Task from './Task.svelte';
-  import LoadingRow from './LoadingRow.svelte';
++ import LoadingRow from './LoadingRow.svelte';
   export let loading = false;
   export let tasks = [];
 
-  // reactive declaration (computed prop in other frameworks)
+  //👇 Reactive declarations (computed props in other frameworks)
   $: noTasks = tasks.length === 0;
   $: emptyTasks = noTasks && !loading;
-  $: tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
-  ];
++ $: tasksInOrder = [
++   ...tasks.filter(t => t.state === 'TASK_PINNED'),
++   ...tasks.filter(t => t.state !== 'TASK_PINNED'),
++ ];
 </script>
-{#if loading}
-<div class="list-items">
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-</div>
-{/if}
-{#if emptyTasks}
-<div class="list-items">
-  <div class="wrapper-message">
-    <span class="icon-check" />
-    <div class="title-message">You have no tasks</div>
-    <div class="subtitle-message">Sit back and relax</div>
-  </div>
-</div>
-{/if}
-{#each tasksInOrder as task}
-  <Task {task} on:onPinTask on:onArchiveTask />
-{/each}
++ {#if loading}
++   <div class="list-items">
++     <LoadingRow />
++     <LoadingRow />
++     <LoadingRow />
++     <LoadingRow />
++     <LoadingRow />
++   </div>
++ {/if}
++ {#if emptyTasks}
++   <div class="list-items">
++     <div class="wrapper-message">
++       <span class="icon-check" />
++       <div class="title-message">You have no tasks</div>
++       <div class="subtitle-message">Sit back and relax</div>
++     </div>
++   </div>
++ {/if}
++ {#each tasksInOrder as task}
++   <Task {task} on:onPinTask on:onArchiveTask />
++ {/each}
 ```
 
 The added markup results in the following UI:
@@ -211,11 +204,11 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 
 Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
 
-```javascript
-// src/components/TaskList.test.js
-
+```js:title=src/components/TaskList.test.js
 import TaskList from './TaskList.svelte';
+
 import { render } from '@testing-library/svelte';
+
 import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
 
 test('TaskList', () => {
@@ -231,7 +224,7 @@ test('TaskList', () => {
 
 Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/svelte/en/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/svelte/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

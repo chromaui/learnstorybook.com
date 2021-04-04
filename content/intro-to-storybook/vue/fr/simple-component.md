@@ -140,12 +140,12 @@ Une autre bonne chose à propos du regroupement des `actionsData` dont un compos
 Lors de la création d'une story, nous utilisons une tâche de base (`taskData`) pour construire la forme de la tâche attendue par le composant. C'est généralement modelisé à partir de réelles données. Encore une fois, l'`export`ation de cette forme nous permettra de la réutiliser dans d'autres stories comme nous le verrons.
 
 <div class="aside">
-Les <a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>actions</b></a> vous aident à vérifier les interactions lors de la création des composants d'interface utilisateur de manière isolée. Souvent, vous n'aurez pas accès aux fonctions et aux états que vous dans le contexte de l'application. Utilisez <code>action()</code> pour les insérer.
+Les <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>actions</b></a> vous aident à vérifier les interactions lors de la création des composants d'interface utilisateur de manière isolée. Souvent, vous n'aurez pas accès aux fonctions et aux états que vous dans le contexte de l'application. Utilisez <code>action()</code> pour les insérer.
 </div>
 
 ## Configuration
 
-Nous devons effectuer quelques modifications à la configuration de Storybook afin qu'il remarque non seulement nos stories récemment créées, mais aussi nous permettre d'utiliser les fichiers CSS modifiés dans le [chapitre précédent](/vue/fr/get-started).
+Nous devons effectuer quelques modifications à la configuration de Storybook afin qu'il remarque non seulement nos stories récemment créées, mais aussi nous permettre d'utiliser les fichiers CSS modifiés dans le [chapitre précédent](/intro-to-storybook/vue/fr/get-started).
 
 Commencez par changer votre fichier de configuration Storybook (`.storybook/main.js`) avec ceci :
 

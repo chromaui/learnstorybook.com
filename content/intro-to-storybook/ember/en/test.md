@@ -26,7 +26,7 @@ Visual regression tests, also called visual tests, are designed to catch changes
 
 Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
 
-There are a number of tools for visual regression testing. We recommend [**Chromatic**](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers that runs visual tests in parallelized cloud. It also allows us to publish Storybook online as we saw in the [previous chapter](/ember/en/deploy/).
+There are a number of tools for visual regression testing. We recommend [**Chromatic**](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers that runs visual tests in parallelized cloud. It also allows us to publish Storybook online as we saw in the [previous chapter](/intro-to-storybook/ember/en/deploy/).
 
 ## Catch a UI change
 
@@ -42,16 +42,14 @@ git checkout -b change-task-background
 
 Change `Task` to the following:
 
-```hbs
-{{!-- app/components/task.hbs --}}
-
+```diff:title=app/components/task.hbs
 <div class="title">
     <input
       type="text"
       readonly
       value={{@task.title}}
       placeholder="Input title"
-      style="background:red;"
++     style="background:red;"
     />
 </div>
 ```

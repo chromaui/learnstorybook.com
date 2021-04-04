@@ -9,7 +9,7 @@ En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. Es
 <div class="aside">
 <strong>¿Seguiste los pasos del capítulo anterior con Chromatic?</strong>
 <br/>
-🎉 ¡Tus historias ya están desplegadas! Chromatic indexa de forma segura tus historias en línea y las rastrea a través de ramas y commits. Salta este capítulo y ve a la <a href="/angular/es/conclusion">conclusión</a>.
+🎉 ¡Tus historias ya están desplegadas! Chromatic indexa de forma segura tus historias en línea y las rastrea a través de ramas y commits. Salta este capítulo y ve a la <a href="/intro-to-storybook/angular/es/conclusion">conclusión</a>.
 </div>
 
 ## Exportando como una app estática

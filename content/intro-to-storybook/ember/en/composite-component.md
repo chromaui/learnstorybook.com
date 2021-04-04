@@ -22,9 +22,7 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```handlebars
-{{!-- app/components/task-list.hbs--}}
-
+```handlebars:title=app/components/task-list.hbs
 {{#if @loading}}
  <div class="list-items">loading</div>>
 {{else if @tasks}}
@@ -44,10 +42,9 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 Next create `Tasklist`’s test states in the story file.
 
-```javascript
-// app/components/task-list.stories.js
-
+```js:title=app/components/task-list.stories.js
 import { hbs } from 'ember-cli-htmlbars';
+
 import * as TaskStories from './task.stories';
 
 export default {
@@ -106,7 +103,7 @@ Empty.args = {
 };
 ```
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/ember/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -125,9 +122,7 @@ For the loading edge case, we're going to create a new component that will displ
 
 Create a new file called `loading-row.hbs` and inside add the following markup:
 
-```handlebars
-{{!-- app/components/loading-row.hbs --}}
-
+```handlebars:title=app/components/loading-row.hbs
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -140,23 +135,21 @@ Create a new file called `loading-row.hbs` and inside add the following markup:
 
 And update `task-list.hbs` to the following:
 
-```handlebars
-{{!-- app/components/task-list.hbs--}}
-
+```handlebars:title=app/components/task-list.hbs
 {{#if @loading}}
- <LoadingRow />
- <LoadingRow />
- <LoadingRow/>
- <LoadingRow />
- <LoadingRow />
+  <LoadingRow />
+  <LoadingRow />
+  <LoadingRow/>
+  <LoadingRow />
+  <LoadingRow />
 {{else if this.tasksInOrder}}
   {{#each this.tasksInOrder as |task|}}
     <Task
-      @task={{task}}
-      @pin={{fn @pinTask task.id}}
-      @archive={{fn @archiveTask task.id}}
+       @task={{task}}
+       @pin={{fn @pinTask task.id}}
+       @archive={{fn @archiveTask task.id}}
     />
-  {{/each}}
+   {{/each}}
 {{else}}
   <div class="list-items">
     <div class="wrapper-message">
@@ -170,9 +163,7 @@ And update `task-list.hbs` to the following:
 
 And finally create a new file called `task-list.js` to the following:
 
-```javascript
-// app/components/task-list.js
-
+```js:title=app/components/task-list.js
 import Component from '@glimmer/component';
 
 export default class TaskList extends Component {
@@ -215,13 +206,12 @@ So, to avoid this problem, we can use Qunit to render the component and run some
 
 Create a test file called `tests/integration/task-list-test.js`. Here, we’ll build out our tests that make assertions about the output.
 
-```javascript
-// tests/integration/task-list-test.js
-
+```js:title=tests/integration/task-list-test.js
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
+
 module('Integration | Component | TaskList', function(hooks) {
   setupRenderingTest(hooks);
   const taskData = {
@@ -251,7 +241,7 @@ module('Integration | Component | TaskList', function(hooks) {
 
 Contrary to the other versions of this tutorial, with Ember we can't import the data and stories used in our story file created earlier, without introducing a lot of complexity and that's beyond the scope of the tutorial. For now we'll copy over the values used in the story file to help out with our tests.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/ember/en/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/ember/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

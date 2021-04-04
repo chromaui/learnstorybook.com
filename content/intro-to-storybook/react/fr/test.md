@@ -27,7 +27,7 @@ Les tests de régression visuelle, également appelés tests visuels, sont conç
 
 Storybook est un outil fantastique pour les tests de régression visuelle car chaque story est essentiellement une spécification de test. Chaque fois que nous écrivons ou mettons à jour un story, nous obtenons gratuitement une spécification !
 
-Il existe un certain nombre d'outils pour les tests de régression visuelle. Nous recommandons [**Chromatic**](https://www.chromatic.com/), un service de publication gratuit créé par les mainteneurs de Storybook qui effectue des tests visuels dans un cloud parallélisé. Il nous permet également de publier Storybook en ligne, comme nous l'avons vu dans le [chapitre précédent](/react/fr/deploy/).
+Il existe un certain nombre d'outils pour les tests de régression visuelle. Nous recommandons [**Chromatic**](https://www.chromatic.com/), un service de publication gratuit créé par les mainteneurs de Storybook qui effectue des tests visuels dans un cloud parallélisé. Il nous permet également de publier Storybook en ligne, comme nous l'avons vu dans le [chapitre précédent](/intro-to-storybook/react/fr/deploy/).
 
 ## Voir les modifications de l'UI
 

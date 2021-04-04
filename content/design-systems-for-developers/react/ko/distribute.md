@@ -280,7 +280,7 @@ npm secret을 리포지터리에 추가하면 `secrets.NPM_TOKEN`을 접근할 �
 
 #### GitHub Actions로 릴리즈 자동화하기
 
-우리는 풀 리퀘스트가 merge 될 때마다 디자인 시스템을 자동으로 배포하고 싶습니다. 이전 장에서 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">스토리북을 배포할 때</a> 사용한 폴더 안에 `push.yml`라는 파일을 생성하고 아래 내용을 추가합니다.
+우리는 풀 리퀘스트가 merge 될 때마다 디자인 시스템을 자동으로 배포하고 싶습니다. 이전 장에서 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">스토리북을 배포할 때</a> 사용한 폴더 안에 `push.yml`라는 파일을 생성하고 아래 내용을 추가합니다.
 
 ```yml
 # .github/workflows/push.yml

@@ -27,7 +27,7 @@ Storybook 教程没有测试是不完整的. 测试对于创建高质量的 UI �
 
 Storybook 是视觉回溯测试的绝佳工具,因为每个故事本质上都是一个测试规范. 每次我们编写或更新故事时,我们都会免费获得规格!
 
-有很多用于视觉回归测试的工具。我们推荐 [**Chromatic**](https://www.chromatic.com/)，一个由 Storybook 维护者提供的在并发云上运行可视化测试的免费发布服务。如 [上一章节](/react/en/deploy/) 中所示，它也允许我们在线发布 Storybook。
+有很多用于视觉回归测试的工具。我们推荐 [**Chromatic**](https://www.chromatic.com/)，一个由 Storybook 维护者提供的在并发云上运行可视化测试的免费发布服务。如 [上一章节](/intro-to-storybook/react/zh-CN/deploy/) 中所示，它也允许我们在线发布 Storybook。
 
 ## 捕获 UI 更改
 

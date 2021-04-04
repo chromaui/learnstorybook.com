@@ -25,8 +25,8 @@ git checkout -b create-avatar-list-component
 
 Download `AvatarList` component and story to your machine. Place it in the `/src` directory:
 
-- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.js)
-- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.stories.js)
+- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/f92f904b7694e4456749f86f8df9699cfb86a47c/src/AvatarList.js)
+- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/f92f904b7694e4456749f86f8df9699cfb86a47c/src/AvatarList.stories.js)
 
 Storybook is setup to automatically detect files ending in `\*.stories.js` and show them in the UI.
 
@@ -34,12 +34,10 @@ Storybook is setup to automatically detect files ending in `\*.stories.js` and s
 
 Nice! Now let’s articulate each UI state supported by AvatarList. At a glance, it’s clear that AvatarList supports some of Avatar’s properties like `small` and `loading`.
 
-```javascript
-// src/AvatarList.stories.js
-
+```js:title=src/AvatarList.stories.js
 export const SmallSize = Template.bind({});
 SmallSize.args = {
-  users: short.args.users,
+  users: Short.args.users,
   size: 'small',
 };
 
@@ -53,13 +51,11 @@ Loading.args = {
 
 Given that it’s a list, it should show many avatars. Let’s add stories that showcase what happens with numerous list items and what happens with few list items.
 
-```javascript
-// src/AvatarList.stories.js
-
+```js:title=src/AvatarList.stories.js
 export const Ellipsized = Template.bind({});
 Ellipsized.args = {
   users: [
-    ...short.args.users,
+    ...Short.args.users,
     {
       id: '3',
       name: 'Zoltan Olah',
@@ -74,13 +70,13 @@ Ellipsized.args = {
 };
 
 export const BigUserCount = Template.bind({});
-bigUserCount.args = {
+BigUserCount.args = {
   users: Ellipsized.args.users,
   userCount: 100,
 };
 
 export const Empty = Template.bind({});
-empty.args = {
+Empty.args = {
   users: [],
 };
 ```
@@ -106,9 +102,7 @@ Thanks to Storybook Docs, we get customizable documentation with minimal effort.
 
 Minimum viable docs! Let’s make AvatarList a bit more human by supplying additional context on how to use it.
 
-```javascript
-// src/AvatarList.stories.js
-
+```js:title=src/AvatarList.js
 /**
  * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
@@ -117,9 +111,7 @@ export function AvatarList({ loading, users, userCount, size, ...props }) {
 
 Sprinkle in some additional details about the supported props.
 
-```javascript
-// src/AvatarList.stories.js
-
+```js:title=src/AvatarList.js
 AvatarList.propTypes = {
   /**
    * Are we loading avatar data from the network?

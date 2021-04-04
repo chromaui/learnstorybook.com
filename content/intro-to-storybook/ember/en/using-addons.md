@@ -4,11 +4,11 @@ tocTitle: 'Addons'
 description: 'Learn how to integrate and use the popular Controls addon'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
+Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/ember/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
 
-If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/ember/en/test/) chapter.
+If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/intro-to-storybook/ember/en/test/) chapter.
 
-There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/react/essentials/controls).
+There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/ember/essentials/controls).
 
 ## What is Controls?
 
@@ -39,16 +39,14 @@ Controls allowed us to quickly verify different inputs to a component. In this c
 
 Now let's fix the issue with overflowing by adding a style to `task.hbs`:
 
-```hbs
-{{!-- app/components/task.hbs --}}
-
+```diff:title=app/components/task.hbs
 <div class="title">
     <input
       type="text"
       readonly
       value={{@task.title}}
       placeholder="Input title"
-      style="text-overflow: ellipsis;"
++     style="text-overflow: ellipsis;"
     />
   </div>
 ```
@@ -63,9 +61,7 @@ In the future, We can manually reproduce this problem by entering the same strin
 
 Add a new story for the long text case in `task.stories.js`:
 
-```js
-// app/components/task.stories.js
-
+```js:title=app/components/task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});
@@ -86,10 +82,10 @@ Now we can reproduce and work on this edge case with ease.
   />
 </video>
 
-If we are [visual testing](/ember/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
+If we are [visual testing](/intro-to-storybook/ember/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
 
 ### Merge Changes
 
 Don't forget to merge your changes with git!
 
-<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories, and much more than we've seen here, we recommend reading the <a href="https://storybook.js.org/docs/ember/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/intro-to-storybook/ember/en/creating-addons">create addons</a> bonus chapter we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
+<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories, and much more than we've seen here, we recommend reading the <a href="https://storybook.js.org/docs/ember/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>

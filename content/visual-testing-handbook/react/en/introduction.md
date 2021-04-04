@@ -8,4 +8,4 @@ description: 'The pragmatic way to test user interfaces'
 
 Get an early preview and help review the guide by emailing [dom@chromatic.com](mailto:dom@chromatic.com). Sign up to Chroma's (the company behind Storybook) mailing list to get notified when articles and guides like this are published.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
