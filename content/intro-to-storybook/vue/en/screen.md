@@ -166,14 +166,14 @@ import PureInboxScreen from './PureInboxScreen.vue';
 export default {
   title: 'PureInboxScreen',
   component: PureInboxScreen,
-  excludeStories: /.*store$/,
++ excludeStories: /.*store$/,
 };
 
 const Template = (args, { argTypes }) => ({
   components: { PureInboxScreen },
   props: Object.keys(argTypes),
   template: '<PureInboxScreen v-bind="$props" />',
-  store,
++ store,
 });
 
 export const Default = Template.bind({});
