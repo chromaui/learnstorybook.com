@@ -4,7 +4,7 @@ tocTitle: '簡介'
 description: '正式環境的最新設計系統工具指南'
 ---
 
-<div class="aside">這篇是為了<b>專業開發者</b>學習打造設計系統的指南。建議具備相當的 JavaScript、Git 和持續整合經驗。也應該要懂 Storybook 的基礎，例如撰寫 story 和編輯設定檔（<a href="/intro-to-storybook">Storybook 入門</a>有教基礎）。
+<div class="aside">這篇是寫給<b>專業開發者</b>學習打造設計系統的指南。建議具備相當的 JavaScript、Git 和持續整合經驗。也應該要懂 Storybook 的基礎，例如撰寫 story 和編輯設定檔（<a href="/intro-to-storybook">Storybook 入門</a>有教基礎）。
 </div>
 
 <br/>
@@ -27,77 +27,77 @@ description: '正式環境的最新設計系統工具指南'
 
 ![Design systems bridge design and development](/design-systems-for-developers/design-system-context.jpg)
 
-Designers often talk about building design systems inside their tools. The holistic scope of a design system encompasses assets (Sketch, Figma, etc.), overarching design principles, contribution structure, governance, and more. There’s an abundance of designer-oriented guides that dive deep into these topics so we won’t rehash that here.
+通常，設計師談論打造設計系統，是在使用的工具裡面。設計系統整體來說，涵蓋圖像（Sketch、Figma⋯ 等）、 設計原則、貢獻結構、行政管理 ⋯。寫給設計師，深入探討這些話題的指南已經非常多，因此就不再贅述。
 
-For developers, a few things are certain, production design systems must include the UI components and the frontend infrastructure behind it all. There are three technical parts to a design system that we’ll talk about in this guide:
+對開發者來說，確定的事情不多。正式環境的設計系統必須包含 UI 元件，以及背後的前端基礎建設。接下來，這份指南在設計系統的技術部分會談到 3 種：
 
-- 🏗 Common reusable UI components
-- 🎨 Design tokens: Styling-specific variables such as brand colors and spacing
-- 📕 Documentation site: Usage instructions, narrative, do’s and don'ts
+- 🏗 常見可重複使用的 UI 元件
+- 🎨 設計 Token：專用在樣式的變數，例如品牌顏色和留白。
+- 📕 文件網站：使用教學、說明、可做與不可做。
 
-The parts are packaged up, versioned, and distributed to consumer apps via a package manager.
+這些都會透過 Package Manager 打包起來、進行版控，並配送至會用到的 App。
 
-## Do you need a design system?
+## 設計系統，有必要嗎？
 
-Despite the hype, a design system isn’t a silver bullet. If you work with a modest team on a single app, you’re better off with a directory of UI components instead of setting up the infrastructure to enable a design system. For small projects, the cost of maintenance, integration, and tooling far outweighs any productivity benefits you might see.
+先不管熱潮，設計系統並不是萬靈丹。如果是在只有單一 App，中等規模的團隊，最好只要 UI 元件的目錄即可，而不是為了能使用設計系統就設定基礎建設。對小型專案來說，維護、整合與工具選用的成本，會遠超過任何可以感覺到的生產力提升。
 
-The economy of scale in a design system works in your favor when sharing UI components across many projects. If you find yourself pasting the same UI components in different apps or across teams, this guide is for you.
+設計系統在 UI 元件橫跨多個專案時，所達到的規模經濟會最對胃口。發現自己在不同 App 或團隊裡複製貼上 UI 元件的時候，這份指南就是為你而寫的。
 
-## What we’re building
+## 會打造出什麼？
 
-Storybook powers the design systems for [Uber](https://github.com/uber-web/baseui), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/), and hundreds more companies. The recommendations here are inspired by best practices and tools from the smartest teams. We’ll be building the following frontend stack:
+Storybook 為 [Uber](https://github.com/uber-web/baseui)、[Airbnb](https://github.com/airbnb/lunar)、[IBM](https://www.carbondesignsystem.com/)、[GitHub](https://primer.style/css/) 和其他數以百計的公司提供設計系統。這裡的建議名單，啟發自最傑出團隊的最佳方法和工具。我們將打造以下前端組合包：
 
-#### Build components
+#### 打造元件
 
-- 📚 [Storybook](http://storybook.js.org) for UI component development and auto-generated docs
-- ⚛️ [React](https://reactjs.org/) for declarative component-centric UI (via create-react-app)
-- 💅 [Styled-components](https://www.styled-components.com/) for component-scoped styling
-- ✨ [Prettier](https://prettier.io/) for automatic code formatting
+- 📚 [Storybook](http://storybook.js.org) 用來進行 UI 元件開發，以及自動產生文件
+- ⚛️ [React](https://reactjs.org/) 用來進行宣告式，元件為中心的 UI（使用 create-react-app）
+- 💅 [Styled-components](https://www.styled-components.com/) 用來設定元件範圍內的樣式
+- ✨ [Prettier](https://prettier.io/) 用來自動排好程式碼格式
 
-#### Maintain the system
+#### 維護系統
 
-- 🚥 [GitHub Actions](https://github.com/features/actions) for continuous integration
-- 📐 [ESLint](https://eslint.org/) for JavaScript linting
-- ✅ [Chromatic](https://chromatic.com) to catch visual bugs in components (by Storybook maintainers)
-- 🃏 [Jest](https://jestjs.io/) for unit testing components
-- 📦 [npm](https://npmjs.com) for distributing the library
-- 🛠 [Auto](https://github.com/intuit/auto) for release management workflow
+- 🚥 [GitHub Actions](https://github.com/features/actions) 用來進行持續整合
+- 📐 [ESLint](https://eslint.org/) 用來整理 JavaScript
+- ✅ [Chromatic](https://chromatic.com) 找出元件裡的視覺臭蟲 (由 Storybook 維護者營運)
+- 🃏 [Jest](https://jestjs.io/) 用來進行元件的單元測試
+- 📦 [npm](https://npmjs.com) 用來配送資源庫
+- 🛠 [Auto](https://github.com/intuit/auto) 用來管理釋出版本的工作流程
 
-#### Storybook addons
+#### Storybook 外掛
 
-- ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) to check for accessibility issues during development
-- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions) to QA click and tap interactions
-- 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls) to interactively adjust props to experiment with components
-- 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction) for automatic documentation generation from stories
+- ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) 檢查開發過程的的無障礙設計
+- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions) 確保點擊與觸擊的品質
+- 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls) 以互動的方式調整 props，對元件做實驗
+- 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction) 從 story 自動產生文件
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow.jpg)
 
-## Understand the workflow
+## 瞭解工作流程
 
-Design systems are an investment in frontend infrastructure. In addition to showcasing how to use the technology above, this guide also focuses on core workflows that promote adoption and simplify maintenance. Wherever possible, manual tasks will be automated. Below are the activities we’ll encounter.
+設計系統就是投資在前端基礎建設。除了展示如何使用以上提到的技術，這份指南也專注在採用程度提升與維護簡化的核心工作流程。手動的任務會盡可能自動化。以下是會遇到的行動。
 
-#### Build UI components in isolation
+#### 打造獨立的 UI 元件
 
-Every design system is composed of UI components. We’ll use Storybook as a “workbench” to build UI components in isolation outside of our consumer apps. Then we’ll integrate timesaving addons that help you increase component durability (Actions, A11y, Controls).
+每個設計系統都是由 UI 元件組成。Storybook 是 打造各自獨立 UI 元件的「工作檯」。接著，整合能夠節省時間、增加元件耐用度的外掛 (Actions, A11y, Controls)。
 
-#### Review to reach consensus and gather feedback
+#### 為達成共識、蒐集回饋的檢查
 
-UI development is a team sport that requires alignment between developers, designers, and other disciplines. We’ll publish work-in-progress UI components to loop stakeholders into the development process so we can ship faster.
+UI 開發是團隊運動，開發者、設計師和其他領域之間都必須遵守。我們做好 UI 元件半成品，將利害關係人納入開發流程，就可以更快上線。
 
-#### Test to prevent UI bugs
+#### 為避免 UI 臭蟲的測試
 
-Design systems are a single source of truth and a single point of failure. Minor UI bugs in basic components can snowball into company-wide incidents. We’ll automate tests to help you mitigate the inevitable bugs to ship durable, accessible UI components with confidence.
+設計系統是唯一可信任來源 (single source of truth)，也可能是唯一失靈點。基本元件裡，微小的 UI 臭蟲可以滾學球成為一間公司的災難。我們將測試自動化，幫助減緩無可避免的臭蟲，有自信地將耐用、無障礙的 UI 元件推上線。
 
-#### Document to accelerate adoption
+#### 為加速採用而撰寫文件
 
-Documentation is essential, but creating it is often a developer’s last priority. We’ll make it much easier for you to document UI components by auto-generating minimum viable docs which can be further customized.
+撰寫文件是一定要做的，但通常是開發者最後才進行的事情。有自動產生的最小可行性文件，為 UI 元件撰寫文件就輕鬆多了，之後還可以深入客製化。
 
-#### Distribute the design system to consumer projects
+#### 將設計系統配送至要用到的專案
 
-Once you have well-documented UI components, you need to distribute them to other teams. We’ll cover packaging, publishing, and how to surface the design system in other Storybooks.
+一旦有完整記錄在文件的 UI 元件，就得要傳給其他團隊。接著會談到打包 (packaging)、推出 (publishing)，還有在其它 Storybook 如何將設計系統凸顯出來。
 
-## Storybook Design System
+## Storybook 設計系統
 
-This guide’s example design system was inspired by Storybook’s own [production design system](https://github.com/storybookjs/design-system). It is consumed by three sites and touched by tens of thousands of developers in the Storybook ecosystem.
+這份指南示範的設計系統，來自 Storybook 自有[正式環境的設計系統](https://github.com/storybookjs/design-system)。它用在 3 個網站，以及 Storybook 生態系裡數萬位開發者參與其中。
 
-In the next chapter we’ll show you how to extract a design system from disparate component libraries.
+下一章節，將展示如何從截然不同的元件資源庫提取出設計系統。
