@@ -15,9 +15,9 @@ commit: 34f1938
 
 ここではデータを保存する際に使用される React で人気のライブラリーである [Redux](https://redux.js.org/) を使用し、アプリケーションにシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
-シンプルなデータモデルを作るため、ここでは[ngxs](https://ngxs.gitbook.io/ngxs/)を使います。Redux/ngrxの原則を受入れつつボイラープレートを減らし、よりAngularらしい状態管理を提供することに注力したライブラリです。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
+シンプルなデータモデルを作るため、ここでは[ngxs](https://ngxs.gitbook.io/ngxs/)を使います。Redux/ngrx の原則を受入れつつボイラープレートを減らし、より Angular らしい状態管理を提供することに注力したライブラリです。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
-まず、ngxsをインストールします:
+まず、ngxs をインストールします:
 
 ```bash
 npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
@@ -25,12 +25,11 @@ npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 
 それからタスクの状態を変更するアクションを処理する単純なストアを作ります。`src/app/state/task.state.ts` というファイルを作ってください (あえて簡単にしています):
 
-```typescript
-// src/app/state/task.state.ts
+```ts:title=src/app/state/task.state.ts
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { Task } from '../models/task.model';
 
-// defines the actions available to the app
+// Defines the actions available to the app
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
@@ -61,7 +60,7 @@ export class TaskStateModel {
   entities: { [id: number]: Task };
 }
 
-// sets the default state
+// Sets the default state
 @State<TaskStateModel>({
   name: 'tasks',
   defaults: {
@@ -75,7 +74,7 @@ export class TasksState {
     return Object.keys(entities).map(id => entities[+id]);
   }
 
-  // triggers the PinTask action, similar to redux
+  // Triggers the PinTask action, similar to redux
   @Action(PinTask)
   pinTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: PinTask) {
     const state = getState().entities;
@@ -89,7 +88,7 @@ export class TasksState {
       entities,
     });
   }
-  // triggers the archiveTask action, similar to redux
+  // Triggers the archiveTask action, similar to redux
   @Action(ArchiveTask)
   archiveTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: ArchiveTask) {
     const state = getState().entities;
@@ -112,27 +111,25 @@ export class TasksState {
 
 以下、`src/app/components/pure-task-list.component.ts`の内容です:
 
-```typescript
-//src/app/components/pure-task-list.component.ts
+```diff:title=src/app/components/pure-task-list.component.ts
 
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
-
 @Component({
-  selector: 'app-pure-task-list',
+- selector:'app-task-list',
++ selector: 'app-pure-task-list',
   // same content as before with the task-list.component.ts
 })
-export class PureTaskListComponent implements OnInit {
+- export class TaskListComponent {
++ export class PureTaskListComponent {
   // same content as before with the task-list.component.ts
-}
+ }
 ```
 
 その後、`src/app/components/task-list.component.ts`を以下のように変更します:
 
-```typescript
-// src/app/components/task-list.component.ts
-
-import { Component, OnInit } from '@angular/core';
+```ts:title=src/app/components/task-list.component.ts
+import { Component } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
 import { Task } from '../models/task.model';
@@ -148,29 +145,32 @@ import { Observable } from 'rxjs';
     ></app-pure-task-list>
   `,
 })
-export class TaskListComponent implements OnInit {
+export class TaskListComponent {
   @Select(TasksState.getAllTasks) tasks$: Observable<Task[]>;
 
   constructor(private store: Store) {}
 
-  ngOnInit() {}
+  /**
+   * Component method to trigger the archiveTask event
+   */
   archiveTask(id: string) {
     this.store.dispatch(new ArchiveTask(id));
   }
 
+  /**
+   * Component method to trigger the pinTask event
+   */
   pinTask(id: string) {
     this.store.dispatch(new PinTask(id));
   }
 }
 ```
 
-コンポーネントとストアの橋渡しをするAngularモジュールを作ります。
+コンポーネントとストアの橋渡しをする Angular モジュールを作ります。
 
 `components`フォルダ内に`task.module.ts`というファイルを作成し、以下の内容を追加します:
 
-```typescript
-//src/app/components/task.module.ts
-
+```ts:title=src/app/components/task.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxsModule } from '@ngxs/store';
@@ -191,25 +191,25 @@ export class TaskModule {}
 
 全てのピースが揃ったので、後はストアをアプリケーションに繋げるだけです。トップレベルモジュール(`src/app/app.module.ts`)に以下の内容を記載します:
 
-```typescript
-// src/app/app.module.ts
-
+```diff:title=src/app/app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { TaskModule } from './components/task.module';
-import { NgxsModule } from '@ngxs/store';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+
++ import { TaskModule } from './components/task.module';
++ import { NgxsModule } from '@ngxs/store';
++ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
++ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    TaskModule,
-    NgxsModule.forRoot([]),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
++   TaskModule,
++   NgxsModule.forRoot([]),
++   NgxsReduxDevtoolsPluginModule.forRoot(),
++   NgxsLoggerPluginModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -219,83 +219,75 @@ export class AppModule {}
 
 表示用の`TaskList`をそのままにするのは、テストと分離が容易になるからです。ストアの存在に依存しないので、テストの観点から見ると取り扱いがより簡単になります。`src/app/components/task-list.stories.ts`を`src/app/components/pure-task-list.stories.ts`に変更し、ストーリーが表示用のバージョンを使っていることを確認しましょう:
 
-```typescript
-// src/app/components/pure-task-list.stories.ts
-
+```ts:title=src/app/components/pure-task-list.stories.ts
 import { moduleMetadata } from '@storybook/angular';
+import { Story, Meta } from '@storybook/angular/types-6-0';
+
 import { CommonModule } from '@angular/common';
+
 import { PureTaskListComponent } from './pure-task-list.component';
 import { TaskComponent } from './task.component';
-import { taskData, actionsData } from './task.stories';
+import * as TaskStories from './task.stories';
 
 export default {
-  title: 'PureTaskList',
-  excludeStories: /.*Data$/,
+  component: PureTaskListComponent,
   decorators: [
     moduleMetadata({
-      // imports both components to allow component composition with storybook
+      //👇 Imports both components to allow component composition with storybook
       declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
   ],
-};
+  title: 'PureTaskList',
+} as Meta;
 
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
-// default TaskList state
-export const Default = () => ({
+const Template: Story<PureTaskListComponent> = args => ({
   component: PureTaskListComponent,
-  template: `
-  <div style="padding: 3rem">
-    <app-pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
-  </div>
-`,
   props: {
-    tasks: defaultTasksData,
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
+    ...args,
+    onPinTask: TaskStories.actionsData.onPinTask,
+    onArchiveTask: TaskStories.actionsData.onArchiveTask,
   },
-});
-// tasklist with pinned tasks
-export const WithPinnedTasks = () => ({
-  component: PureTaskListComponent,
   template: `
     <div style="padding: 3rem">
-      <app-pure-task-list [tasks]="tasks" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
-    </div>
-  `,
-  props: {
-    tasks: withPinnedTasksData,
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
+      <app-pure-task-list [tasks]="tasks" [loading]=loading (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
+    </div> `,
 });
-// tasklist in loading state
-export const Loading = () => ({
-  template: `
-        <div style="padding: 3rem">
-          <app-pure-task-list [tasks]="[]" loading="true" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
-        </div>
-      `,
-});
-// tasklist no tasks
-export const Empty = () => ({
-  template: `
-        <div style="padding: 3rem">
-          <app-pure-task-list [tasks]="[]" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
-        </div>
-      `,
-});
+
+export const Default = Template.bind({});
+Default.args = {
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
@@ -305,23 +297,26 @@ export const Empty = () => ({
   />
 </video>
 
-同様に, `PureTaskListComponent`をJestのテストで使用する必要があります:
+同様に, `PureTaskListComponent`を Jest のテストで使用する必要があります:
 
-```typescript
-// src/app/components/task-list.component.spec.ts
-
+```diff:title= src/app/components/task-list.component.spec.ts
 import { render } from '@testing-library/angular';
-import { PureTaskListComponent } from './pure-task-list.component';
+- import { TaskListComponent } from './task-list.component.ts';
++ import { PureTaskListComponent } from './pure-task-list.component';
+
 import { TaskComponent } from './task.component';
-import { withPinnedTasksData } from './pure-task-list.stories';
-describe('PureTaskList component', () => {
+
+//👇 Our story imported here
+- import { WithPinnedTasks } from './task-list.stories';
++ import { WithPinnedTasks } from './pure-task-list.stories';
+
+describe('TaskList component', () => {
   it('renders pinned tasks at the start of the list', async () => {
     const mockedActions = jest.fn();
     const tree = await render(PureTaskListComponent, {
       declarations: [TaskComponent],
       componentProperties: {
-        tasks: withPinnedTasksData,
-        loading: false,
+        ...WithPinnedTasks.args,
         onPinTask: {
           emit: mockedActions,
         } as any,

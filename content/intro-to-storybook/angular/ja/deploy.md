@@ -10,7 +10,7 @@ description: 'Storybook をインターネット上にデプロイする方法�
 
 Storybook をデプロイするには、まず静的サイトとしてエクスポートします。この機能はすでに組み込まれて、使える状態となっているので、設定について気にする必要はありません。
 
-`yarn build-storybook` を実行すると、`storybook-static` ディレクトリーに Storybook が静的サイトとして出力されますので、静的サイトのホスティングサービスのデプロイ出来ます。
+`npm run build-storybook` を実行すると、`storybook-static` ディレクトリーに Storybook が静的サイトとして出力されますので、静的サイトのホスティングサービスのデプロイ出来ます。
 
 ## Storybook を発行する
 
@@ -18,7 +18,7 @@ Storybook をデプロイするには、まず静的サイトとしてエクス�
 
 ### GitHub にリポジトリーを作成する
 
-デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。また、この段階でリモートリポジトリーにプッシュできるコミットがあるはずです。
+デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。[はじめにの章](/intro-to-storybook/angular/ja/get-started/)でプロジェクトを初期化した際に、ローカルのリポジトリーはすでに作成されています。また、この段階でリモートリポジトリーにプッシュできるコミットがあるはずです。
 
 [ここから](https://github.com/new) GitHub にアクセスし、リポジトリーを作りましょう。リポジトリーの名前はローカルと同じく「taskbox」とします。
 
@@ -41,12 +41,12 @@ git push -u origin main
 パッケージを開発時の依存関係に追加します。
 
 ```bash
-npm install --save-dev chromatic
+yarn add -D chromatic
 ```
 
 パッケージをインストールしたら、GitHub のアカウントを使用して [Chromatic にログイン](https://www.chromatic.com/start)します。(Chromatic は一部のアクセス許可を要求します。) 「taskbox」という名前でプロジェクトを作成し、GitHub のリポジトリーと同期させます。
 
-ログインしたら `Choose from GitHub` をクリックし、リポジトリーを選択します。
+「colaborators」の下にある `Choose from GitHub` をクリックし、リポジトリーを選択します。
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -55,10 +55,10 @@ npm install --save-dev chromatic
   />
 </video>
 
-作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けてください。
+作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けるのを忘れないでください。
 
 ```bash
-npx chromatic --project-token=<project-token>
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 ![Chromatic を実行する](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
@@ -79,9 +79,7 @@ npx chromatic --project-token=<project-token>
 
 `chromatic.yml` を以下の内容で新規に作成します。`project-token` を先ほどのトークンで置き換えてください。
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
 name: 'Chromatic Deployment'
 
@@ -96,12 +94,12 @@ jobs:
     # Job steps
     steps:
       - uses: actions/checkout@v1
-      - run: yarn
+      - run: npm install
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/angular/en/deploy/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

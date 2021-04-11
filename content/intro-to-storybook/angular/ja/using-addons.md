@@ -39,15 +39,13 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 
 それでは `task.component.ts` にスタイルを追加して、この文字切れ問題を解決しましょう:
 
-```javascript
-// src/components/task.component.ts
-
+```diff:title=src/app/components/task.component.ts
 <input
   type="text"
-  value={title}
-  readOnly={true}
+  [value]="task?.title"
+  readonly="true"
   placeholder="Input title"
-  style={{ textOverflow: 'ellipsis' }}
++ style="text-overflow: ellipsis;"
 />
 ```
 
@@ -61,9 +59,7 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 
 それでは `task.stories.ts` ファイルに長い文字列が指定された場合のストーリーを追加しましょう:
 
-```javascript
-// src/components/task.stories.ts
-
+```ts:title=src/app/components/task.stories.ts
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});

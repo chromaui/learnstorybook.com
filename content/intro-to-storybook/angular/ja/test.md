@@ -44,24 +44,14 @@ git checkout -b change-task-background
 
 `src/app/components/task.component.ts` を以下のように変更します:
 
-```typescript
-// src/app/components/task.component.ts
-import { Component, OnInit} from '@angular/core';
-
-@Component({
-  selector: 'app-task',
-  template: `
-     <div class="title">
-      <input
-        type="text"
-        value={title}
-        readOnly={true}
-        placeholder="Input title"
-        style={{ background: 'red' }}
-      />
-    </div>
-  `,
-})
+```diff:title=src/app/components/task.component.ts
+<input
+  type="text"
+  [value]="task?.title"
+  readonly="true"
+  placeholder="Input title"
++ style="background: red;"
+/>
 ```
 
 これでタスクの背景色が変更されます。
@@ -71,7 +61,7 @@ import { Component, OnInit} from '@angular/core';
 この変更をステージングします:
 
 ```bash
-git add src/components/Task.js
+git add .
 ```
 
 コミットします:

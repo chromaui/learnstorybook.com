@@ -26,9 +26,8 @@ commit: 1a14919
 
 `TaskComponent` の基本的な実装から始めます。必要と分かっているインプットと、タスクに対して実行できる 2 つの (リスト間を移動させる) アクションを受け取ります:
 
-```typescript
-// src/app/components/task.component.ts
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+```ts:title=src/app/components/task.component.ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-task',
@@ -38,19 +37,16 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
     </div>
   `,
 })
-export class TaskComponent implements OnInit {
-  title: string;
+export class TaskComponent {
   @Input() task: any;
 
   // tslint:disable-next-line: no-output-on-prefix
-  @Output() onPinTask: EventEmitter<any> = new EventEmitter();
+  @Output()
+  onPinTask = new EventEmitter<Event>();
 
   // tslint:disable-next-line: no-output-on-prefix
-  @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
-
-  constructor() {}
-
-  ngOnInit() {}
+  @Output()
+  onArchiveTask = new EventEmitter<Event>();
 }
 ```
 
@@ -58,58 +54,57 @@ export class TaskComponent implements OnInit {
 
 下のコードは `TaskComponent` に対する 3 つのテスト用の状態をストーリーファイルに書いています:
 
-```typescript
-// src/app/components/task.stories.ts
+```ts:title=src/app/components/task.stories.ts
+import { Story, Meta } from '@storybook/angular/types-6-0';
 import { action } from '@storybook/addon-actions';
+
 import { TaskComponent } from './task.component';
+
 export default {
   title: 'Task',
+  component: TaskComponent,
   excludeStories: /.*Data$/,
-};
+} as Meta;
 
 export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'Task_INBOX',
-  updated_at: new Date(2019, 0, 1, 9, 0),
+const Template: Story<TaskComponent> = args => ({
+  component: TaskComponent,
+  props: {
+    ...args,
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
 };
-export const Default = () => ({
-  component: TaskComponent,
-  props: {
-    task: taskData,
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
+
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
   },
-});
-// pinned task state
-export const Pinned = () => ({
-  component: TaskComponent,
-  props: {
-    task: {
-      ...taskData,
-      state: 'TASK_PINNED',
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
+};
+
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
   },
-});
-// archived task state
-export const Archived = () => ({
-  component: TaskComponent,
-  props: {
-    task: {
-      ...taskData,
-      state: 'TASK_ARCHIVED',
-    },
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
+};
 ```
 
 Storybook には基本となる 2 つの階層があります。コンポーネントとその子供となるストーリーです。各ストーリーはコンポーネントに連なるものだと考えてください。コンポーネントには必要なだけストーリーを記述することができます。
@@ -150,11 +145,10 @@ Arguments (略して [`args`](https://storybook.js.org/docs/angular/writing-stor
 
 作成したストーリーを認識させるため、若干の変更を加える必要があります。設定ファイル (`.storybook/main.js`) を以下のように変更してください:
 
-```javascript
-// .storybook/main.js
+```diff:title=.storybook/main.js
 module.exports = {
-  stories: ['../src/app/components/**/*.stories.ts'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-notes'],
++ stories: ['../src/app/components/**/*.stories.ts'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
 ```
 
@@ -179,9 +173,7 @@ Storybook のサーバーを再起動すると、タスクの 3 つの状態の�
 
 `app`フォルダの中に`models`フォルダを作り、`task.model.ts`というファイルを以下の内容で作成します。
 
-```typescript
-// src/app/models/task.model.ts
-
+```ts:title=src/app/models/task.model.ts
 export interface Task {
   id: string;
   title: string;
@@ -195,55 +187,65 @@ export interface Task {
 
 今のところコンポーネントは簡素な状態です。まずはデザインを実現するために最低限必要なコードを書いてみましょう:
 
-```typescript
-// src/app/components/task.component.ts
+```diff:title=src/app/components/task.component.ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from '../models/task.model';
++ import { Task } from '../models/task.model';
+
 @Component({
   selector: 'app-task',
   template: `
-    <div class="list-item {{ task?.state }}">
-      <label class="checkbox">
-        <input
-          type="checkbox"
-          [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
-          disabled="true"
-          name="checked"
-        />
-        <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
-      </label>
-      <div class="title">
-        <input type="text" [value]="task?.title" readonly="true" placeholder="Input title" />
-      </div>
-      <div class="actions">
-        <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-          <span class="icon-star"></span>
-        </a>
-      </div>
-    </div>
++   <div class="list-item {{ task?.state }}">
++     <label class="checkbox">
++       <input
++         type="checkbox"
++         [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
++         disabled="true"
++         name="checked"
++       />
++       <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
++     </label>
++     <div class="title">
++       <input
++         type="text"
++         [value]="task?.title"
++         readonly="true"
++         placeholder="Input title"
++       />
++     </div>
++     <div class="actions">
++       <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
++         <span class="icon-star"></span>
++       </a>
++     </div>
++   </div>
   `,
 })
-export class TaskComponent implements OnInit {
-  title: string;
-  @Input() task: Task;
+export class TaskComponent { {
++ @Input() task: Task;
 
   // tslint:disable-next-line: no-output-on-prefix
-  @Output() onPinTask: EventEmitter<any> = new EventEmitter();
+  @Output()
+  onPinTask = new EventEmitter<Event>();
 
   // tslint:disable-next-line: no-output-on-prefix
-  @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
+  @Output()
+  onArchiveTask = new EventEmitter<Event>();
 
-  constructor() {}
-
-  ngOnInit() {}
-
-  onPin(id: any) {
-    this.onPinTask.emit(id);
-  }
-  onArchive(id: any) {
-    this.onArchiveTask.emit(id);
-  }
++ /**
++  * Component method to trigger the onPin event
++  * @param id string
++  */
++ onPin(id: any) {
++   this.onPinTask.emit(id);
++ }
++ /**
++  * Component method to trigger the onArchive event
++  * @param id string
++  */
++ onArchive(id: any) {
++   this.onArchiveTask.emit(id);
++ }
 }
 ```
 
@@ -283,8 +285,7 @@ npm install -D @storybook/addon-storyshots
 
 次に、`src/storybook.test.js` ファイルを以下の内容で作成します:
 
-```typescript
-// src/storybook.test.js
+```ts:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -292,13 +293,12 @@ initStoryshots();
 
 最後に、`package.json`の`jest`キーに小さな変更を加える必要があります。
 
-```json
+```diff:title=package.json
 {
-  ....
    "transform": {
       "^.+\\.(ts|html)$": "ts-jest",
       "^.+\\.js$": "babel-jest",
-      "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
++     "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
 
     },
 }

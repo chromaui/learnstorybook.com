@@ -19,16 +19,16 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 - [**楽しい Storybook のワークフロー**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)では Squarespace や、メジャーリーグサッカー、ディスカバリーネットワーク、 Apollo GraphQL といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
 
-- [**視覚的なテストのハンドブック**](https://www.learnstorybook.com/visual-testing-handbook)では、コンポーネントを Storybook で視覚的にテストする方法を掘り下げています。無料の 31 ページある eBook です。
+- [**視覚的なテストのハンドブック**](https://storybook.js.org/tutorials/visual-testing-handbook/)では、コンポーネントを Storybook で視覚的にテストする方法を掘り下げています。無料の 31 ページある eBook です。
 
 - [**Storybook Discord**](https://discord.gg/UUt2PJb) では Storybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
 
 - [**Storybook ブログ**](https://medium.com/storybookjs)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
 
-## LearnStorybook.com について
+## Intro to Storybook tutorial について
 
 文書や、コード、製作は [Chromatic](https://www.chromatic.com/) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
 
-このようなチュートリアルや記事をお望みならば、Chromatic のメーリングリストにサインアップしてください。
+このようなチュートリアルや記事をお望みならば、Storybook のメーリングリストにサインアップしてください。
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
