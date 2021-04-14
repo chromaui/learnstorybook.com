@@ -12,15 +12,9 @@ This handbook is made for <b>professional developers</b> learning how to impleme
 
 Applications now have a larger surface area than ever before, and users expect frequent releases with new features. This has made automated testing essential for creating and maintaining high-quality software.
 
-Interfaces are subjective by nature. "Does this look right?" — the answer often depends on the browser/device. You can't infer correctness from an exact sequence of HTML tags and CSS classes. Developers and designers have to verify the rendered UI — a time-consuming and manual process. Different approaches have attempted to automate this process but failed to capture the nuance without real success.
+Interfaces are subjective by nature. _"Does this look right?"_ — the answer often depends on the browser/device. You can't infer correctness from an exact sequence of HTML tags and CSS classes. Developers and designers have to verify the rendered UI — a time-consuming and manual process. Different approaches have attempted to automate this process but failed to capture the nuance without real success.
 
 This handbook argues for a different approach. Instead of completely removing humans from the testing equation, let's use tools to augment the process. Focus their effort on the specific components in the particular states that require human attention.
-
-Testing is integral to creating and maintaining high-quality software. Throughout the buildout process, you’ll often find developers and designers doing manual testing — _“Does this look right?”_ However, due to the often subjective nature of interface design, it’s not really possible to write an automated test to capture that “correctness”. It means that companies face a decision between time-consuming manual testing or the inevitable decline in UI quality that results from the lack of a proper testing regime.
-
-Testing UIs is complicated because the salient details of the smallest modules of UI (components) are hard to express programmatically. When is the output of a component correct? Correctness can neither be determined by the exact sequence of HTML tags/classes nor the textual part of the output. Different approaches have attempted to hit the sweet spot for years and capture the nuance without real success.
-
-This handbook argues for a different approach: instead of removing humans from the testing equation, let’s use tools to focus the manual tester on the exact components in the exact states that require human attention.
 
 ## Unit testing UIs
 
@@ -117,7 +111,7 @@ Inbox.args = {
 
 To test `TaskList` in the "inbox" state, we browse to the relevant part of Storybook to see it in isolation on our screen. We verify that it looks and behaves OK and move on.
 
-In the upcoming chapters, we'll dive deeper into this process. We will learn how to use tools like Chromatic to capture snapshots and build a complete workflow.
+In the upcoming chapters, we'll dive deeper into this process. We will learn how to use tools like Chromatic to capture snapshots and build out a complete workflow.
 
 <video autoPlay muted playsInline loop>
   <source

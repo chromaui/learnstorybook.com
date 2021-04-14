@@ -4,81 +4,57 @@ tocTitle: 'Component explorers'
 description: 'Your new favorite tool for UI development'
 ---
 
-UI components make you think reusable, predictable, and modular. It may be true for small apps where you can easily recall each component from memory. As an app grows, teams encounter two challenges:
+UI components make you think reusable, predictable, and modular. They allow you to build apps "bottom-up," starting with atomic components then progressively combining them into pages.
 
-- 🗄️ The proliferation of components
-- 🗜️ Increased component complexity
+However, as an app grows, teams encounter two challenges:
 
-What is, in theory, a solid architecture for building modern UIs becomes unwieldy in large apps.
+- 🗄️ An ever-increasing number of components
+- 🗜️ More complex components
 
-How can frontend engineers ensure their modular UI adapts to evolving requirements and increasing scope? Let’s see how component explorers are crucial to frontend professionals for taming the process of building and testing modern apps.
+Modern interfaces support countless permutations of language, device, browser, and UI state. Building components "on-site" of the app screen where it is first used makes it challenging to test all scenarios. What, in theory, is a solid architecture for modern UIs becomes unwieldy in large apps.
 
-![Industrial Revolution Factory floor](/visual-testing-handbook/factory-floor-optimized.jpg)
-
-## Modularization
-
-Two hundred years ago, pioneers of the industrial revolution built complex machines and streamlined manufacturing to make goods and services more accessible.
-
-Less than a decade ago, our friends in DevOps landed on microservice architecture to create modular distributed systems. Today’s frontend engineers seek to build modular UIs to assemble more powerful and complex apps.
-
-The recent adoption of the frontend patterns below has finally enabled frontend engineers to make headway on building web app interfaces in a modular way.
-
-- 📐 **Standardized components:** Idioms established by popular frameworks like React, Angular, and Vue lead to consistency between components.
-- ⚛️ **Page-agnostic components:** Components designed to live in isolation from their intended setting and data context
-- 🛠 **State-based view layers** (i.e., declarative templating): The separation of UI state, the underlying logical situation of what the user can see, from the layout (DOM)
+Leading teams use component explorers to manage complexity. Fortune 100 companies like [**Walmart**](https://www.walmart.com/), [**eBay**](https://www.ebay.com/), and [**Facebook**](https://www.facebook.com/) can deliver robust UI components for billions of people because they can build and test UI in isolation. Global software consultancies like [**Pivotal**](https://www.pivotalconsults.com/) and [**IBM**](https://www.ibm.com/) use component explorers to create enterprise-grade UIs with confidence.
 
 ## Component explorers
 
-Component explorers help engineers build modular UIs by visualizing components to be constructed to isolate an app’s business logic and layout. They allow you to simulate component states during the building process and playback those states during testing. Consider a component explorer, a dictionary for your modular UI that lives alongside your production apps.
+A component explorer is packaged as a small standalone sandbox that lives alongside your app. Their primary features:
 
-Companies of all sizes and shapes use component explorers. Fortune 100 companies like [**Walmart**](https://www.walmart.com/), [**eBay**](https://www.ebay.com/), and [**Facebook**](https://www.facebook.com/) can deliver robust UI components for billions of people because they can build and test UI in isolation. Global software consultancies like [**Pivotal**](https://www.pivotalconsults.com/) and [**IBM**](https://www.ibm.com/) use component explorers to create enterprise-grade UIs with confidence.
+- 🧱 Sandbox for component isolation
+- 🔭 State visualizer for component specification and properties
+- 📑 Documentation for component discovery and usage guidelines
 
-Adopting a component explorer is not only for large teams, though, but there is also an immense utility and low overhead whether you’re one developer or one thousand.
+They allow you to visualize component states during the development process. You can mock hard-to-reach edge cases and record the supported test cases. Then playback those states during QA. And lastly, have a directory of your modular UI that lives alongside your production apps.
 
-<div class="aside">
- TODO: add missing image (page 13) test states histogram
-</div>
+But, why build UIs in isolation?
 
-### Robust user interfaces
+## Robust user interfaces
 
-Engineering is prone to bugs. The essential complexity in building apps is inescapable. Component explorers seek to mitigate inconsistency by showcasing the many states of components.
+Engineering is prone to bugs. The more components and states you have, the harder it is to confirm that they all render correctly in users' devices and browsers.
 
-Highlighting the various permutations enables developers to build each state independently. All component states can be tested in isolation and complicated ones to replicate, mocked (e.g., `loading`).
+![Component test cases](/visual-testing-handbook/component-test-cases.png)
 
-Toggling between permutations helps engineers visually verify what to expect and fine-tune the interactions or animations between states. Just as machine tools like lathes help build mechanical parts, a component explorer is necessary for building interfaces.
+Component explorers mitigate inconsistency by showcasing the various states of a component. Highlighting these permutations enables developers to focus on each state independently. They can be tested in isolation, and you can use mocking to replicate complicated edge cases.
 
-### Rapid development
+## Rapid development
 
-As Fred Brooks wrote in [Mythical Man Month](https://en.wikipedia.org/wiki/The_Mythical_Man-Month), “... our ideas are faulty, we have bugs”. The first product release cannot be the last because the subsequent iterations are needed to iron out the bugs in our thinking and code.
+Applications are not static. You have to continuously iterate to improve the user experience. Therefore, apps must be easily adaptable to accommodate new learning.
 
-> "Our ideas are faulty, we have bugs."
+Dissecting UIs into interchangeable components enables rapid development. You can reconfigure pieces as business needs change. The component model encourages interchangeability by separating the state from the UI.
 
-Since ideas are prone to bugs, apps must be easily adaptable to accommodate new learning. Dissecting UIs into interchangeable components enables rapid reconfiguration of the pieces as business needs change. The component model encourages interchangeability by isolating component state from business logic.
+Component explorers make this separation evident by providing a sandbox to develop the interfaces in isolation, away from the app.
 
-A component explorer makes this separation evident by providing a sandbox to develop the UI component in isolation of the app.
+The model also allows you to parallelize work. A team of people can work on different UI pieces simultaneously without distraction or state pollution from other parts of the app.
 
-The model also allows for parallel production where a team of people can work on different UI pieces simultaneously without distraction or state pollution from other parts of the app. By combining interchangeability and distributed production component explorers contribute to rapid product development. In short: teams get things done faster.
+In short: teams get things done faster.
 
-<div class="aside">
-TODO: add image of component explorer (Storybook) (page 14)
-</div>
+## Collaboration
+UI engineering is inherently visual. Code-only pull requests are an incomplete representation of the work. To truly unlock collaboration, user interfaces must be made real.
 
-### Collaborative
-
-UI engineering is inherently visual. Code-only pull requests are an incomplete representation of the work. To truly unlock collaboration, user interfaces must be made real. Visualizing components allows developers to create artifacts that are easy to share with designers, product, and QA.
+Visualizing components allows developers to create artifacts that are easy to share with designers, product managers, and QA.
 
 ![Relation between components and component explorers](/visual-testing-handbook/component-explorer-diagram-optimized.png)
 
 ## How does it work?
-
-A component explorer is packaged as a small development-only standalone app that lives alongside your app. Installing one is as easy as running a command to add a dependency in our project.
-
-### Primary features
-
-- 🧱 Sandbox for isolated component development
-- 🔭 State visualizer for component discovery and specification
-
-### Process
 
 1. 🔧 Build components in isolation
 2. ✉️ Register the component with the explorer
