@@ -10,6 +10,12 @@ This handbook is made for <b>professional developers</b> learning how to impleme
 
 <br/>
 
+Applications now have a larger surface area than ever before, and users expect frequent releases with new features. This has made automated testing essential for creating and maintaining high-quality software.
+
+Interfaces are subjective by nature. "Does this look right?" — the answer often depends on the browser/device. You can't infer correctness from an exact sequence of HTML tags and CSS classes. Developers and designers have to verify the rendered UI — a time-consuming and manual process. Different approaches have attempted to automate this process but failed to capture the nuance without real success.
+
+This handbook argues for a different approach. Instead of completely removing humans from the testing equation, let's use tools to augment the process. Focus their effort on the specific components in the particular states that require human attention.
+
 Testing is integral to creating and maintaining high-quality software. Throughout the buildout process, you’ll often find developers and designers doing manual testing — _“Does this look right?”_ However, due to the often subjective nature of interface design, it’s not really possible to write an automated test to capture that “correctness”. It means that companies face a decision between time-consuming manual testing or the inevitable decline in UI quality that results from the lack of a proper testing regime.
 
 Testing UIs is complicated because the salient details of the smallest modules of UI (components) are hard to express programmatically. When is the output of a component correct? Correctness can neither be determined by the exact sequence of HTML tags/classes nor the textual part of the output. Different approaches have attempted to hit the sweet spot for years and capture the nuance without real success.
@@ -18,63 +24,57 @@ This handbook argues for a different approach: instead of removing humans from t
 
 ## Unit testing UIs
 
-To grasp visual testing, let’s first take a look at unit testing. Componentization of UIs is all the rage these days, but that’s just a fancy way of saying the code is more modular. A key benefit of modular code is the ability to unit test it.
+A unit test isolates a module and then verifies its behaviour by supplying inputs and comparing the output to an expected result. A vital benefit of the [component-driven](https://componentdriven.org/) approach is that we can unit test components much like functions.
 
-A unit test isolates a module and then verifies its behavior over a set of inputs by comparing the module’s output on each input to an expected result. The reason unit testing is so desirable is that when testing a module in isolation (rather than the system as a whole), it is easier to thoroughly cover all of its use cases and subsequently to identify where issues are located when they occur.
+What makes unit testing so desirable is that isolation makes it easier to cover all use cases thoroughly. And subsequently pinpoint the source of failures.
 
 <video autoPlay muted playsInline loop>
-  <source 
+  <source
     src="/visual-testing-handbook/unit-testing-optimized.mp4"
     type="video/mp4"/>
 </video>
 
 ### The problem
 
-For a unit of user interface (a component), we can specify the input — in React, that would be the component instance’s props and context — in a straightforward fashion. Still, it is harder to determine the output in a sensible way that is robust to minor changes in the component’s implementation.
+The component construct allows you to render a specific variation as a function of props and state. You don't need to spin up the whole app just to see how a component renders, instead pass in props and state to view it in isolation. However, determining the output is still a challenge.
 
-There are great tools (such as [Enzyme](https://enzymejs.github.io/enzyme/)) to render a single component in a single state and programmatically inspect the resulting DOM. However, in most cases, the salient details of the generated HTML are not easy to express, and the tests end up brittle (over-specified) or insufficient (under-specified).
+The core issue is that much of a components' inherent complexity is visual — the specifics of how generated HTML and CSS appear when it reaches the user's screen. Which historically has made it difficult to unit test UIs.
 
-![Minified component code](/visual-testing-handbook/code-visual-testing-optimized.png)
-
-In some cases, it makes sense to write a typical unit test: if I render a `RelativeDate` component that should display “two weeks ago” for a given date, I can pass in a well-chosen date and inspect the text of the resultant HTML.
-
-Even in such testable cases as this, there’s a solid argument to be made that the date formatting functionality should be factored out into a simple library, which can then be tested directly without the complexity of rendering HTML and inspecting the DOM for the result.
-
-The core issue is that a large portion of components’ inherent complexity is visual — the specifics of how generated HTML and CSS appears when it reaches the user’s screen. Historically it has never been easy to write a test for such a case.
-
-The difficulty in unit testing UIs unsurprisingly leads to a lack of UI tests, which lead to resultant regressions as UIs evolve, and various states of the system are forgotten about.
-
-It’s not surprising that you often see visual bugs in loading states or when you have unusual data, even in production systems, as it’s troublesome to manually test everything when deploying a new version of a UI.
+The complexity of unit testing UIs leads to a lack of UI tests, which leads to resultant regressions. It's not surprising that you often see visual bugs in loading states or when you have unusual data, even in production.
 
 > "In a world that’s moving toward continuous deployment, we absolutely need to test our UIs effectively; a lack of tests is a problem that’s only getting worse and worse."
 
 ### Approach: Snapshot testing
 
-One approach to solving this problem comes in the form of a “snapshot test”. This approach complements UI unit tests by acknowledging that often UI outputs are difficult to specify in code; instead, we focus on ensuring we are informed about all the parts of the UI that have changed for a given set of code changes. Snapshot testing frameworks like [Jest](https://jestjs.io/) compare the rendered HTML output of components.
+One approach to solving this problem is [snapshot testing](https://reactjs.org/docs/testing-recipes.html#snapshot-testing). This is where the test framework saves the rendered HTML of a component. And each subsequent change has to be explicitly committed by the developer.
 
-<div class="aside">
-Todo: missing image (page 7) Comparing rendered HTML (Jest snapshot)
-</div>
+The intention was to allow us to check the changes quickly. However, these DOM snapshots are super hard to parse. You really can't discern the salient details of UI by looking at a blob of HTML 🤷🏽‍♂️
 
-Hopefully, this approach allows us to quickly check if the changes are intended — although it’s not always easy to tell whether UI changes from an HTML diff with high accuracy; perhaps there’s a better way? There is 🎉 !
+![Minified component code](/visual-testing-handbook/code-visual-testing-optimized.png)
+
+It also suffers from the same brittleness as all other automated UI tests. Any changes to the internal workings of a component require the test to be updated, regardless of whether the component's output changed.
+
+Luckily for us, there is a better way!
 
 ## Visual testing
 
-Snapshot testing is helpful but ultimately suffers from the same brittleness as all other automated UI tests. They must be constantly updated as minor details (that may not ultimately matter to the user) trigger the test to fail. Eventually, **a developer must check a failing test to confirm if it is a false positive**.
+A different approach to all this is to use a component explorer. It allows you to isolate components, mock their variations, and record the supported test cases. That enables developers to spot-check component appearance during initial development and again in QA.
 
-> "Snapshot testing entails an admission of defeat in capturing the essential details of a component: instead, we capture them all."
-
-**There is another way**. A different approach to all this is to use a component explorer. A component explorer is a tool that allows you to work with a single component from your app in isolation. Rather than building a component “on-site” of the app screen where it is first used, you use a tool that isolates the component. The idea is that you define test states and use the explorer to choose a state of a component to see on the screen.
+You can run through all the variations, see how they render, and decide if they work correctly.
 
 ![Storybook toggle button](/visual-testing-handbook/storybook-toggle-stories-optimized.png)
 
-It means that you (a human) can quickly and easily “run” a manual test of a component, see how it renders, and decide if it works properly.
+Still, given the scale of modern applications, it's impractical to test UI appearance by hand. You'd have to check each component's variations across every breakpoint and browser whenever you tweak the UI. That's a lot of work!
 
-It may sound laborious, but typically it ends up being easier than sifting through false positives from automated tests, updating test cases to match up with minor UI changes, and working overtime to make tests pass again. Suppose you are careful to visual test regularly. In that case, it’s certainly a world better than having patchy or non-existent UI tests and dealing with regular regressions hitting production!
+Visual tests add a layer of automation to this process. They capture a screenshot of every UI component, complete with markup, styling, and other assets, in a consistent browser environment. That way, they're testing what the user actually sees.
 
-### Writing visual tests
+Each commit, new screenshots are automatically compared to previously accepted baseline screenshots. When the machine detects visual differences, the developer gets notified to approve the intentional change or fix the accidental bug.
 
-Visual tests share the same setup, execute, and teardown steps as any other type of testing, but the verification step falls to the user. In Storybook, a test is as simple as rendering a React element:
+![Storybook toggle button](/visual-testing-handbook/component-visual-testing.gif)
+
+### Writing visual test cases
+
+Visual tests share the same setup, execute, and teardown steps as any other type of testing, but the verification step falls to the user. In Storybook, a test is as simple as rendering a React element.
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -117,8 +117,10 @@ Inbox.args = {
 
 To test `TaskList` in the "inbox" state, we browse to the relevant part of Storybook to see it in isolation on our screen. We verify that it looks and behaves OK and move on.
 
+In the upcoming chapters, we'll dive deeper into this process. We will learn how to use tools like Chromatic to capture snapshots and build a complete workflow.
+
 <video autoPlay muted playsInline loop>
-  <source 
+  <source
     src="/visual-testing-handbook/tasklist-snoozed-stories-optimized.mp4"
     type="video/mp4"/>
 </video>
