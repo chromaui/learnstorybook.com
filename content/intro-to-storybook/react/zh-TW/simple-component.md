@@ -93,17 +93,17 @@ Archived.args = {
 - `excludeStories` -- story 檔案裡的 export，但不應被 Storybook render 為 story；
 - `argTypes` -- 設定每個 story 的[參數](https://storybook.js.org/docs/react/api/argtypes)行為。
 
-若要定義出各式各樣的 story，就為每個要測試的狀態 export 函式，以此產生 story。Story 就是根據設定好的狀態，回傳 render 出元素的函式（也就是有一組 prop 的元件），這跟 [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html) 一樣。
+若要定義出各式各樣的 story，就為每個要測試的狀態 export 函式，以此產生 story。Story 就是根據設定好的狀態，回傳 render 出元素的函式（也就是有一組 prop 的元件），這跟 [Functional Component](https://reactjs.org/docs/components-and-props.html) 一樣。
 
 既然已經排列出元件，賦值給稱為 `Template` 的變數會很方便。採用這樣的模式來做 story 可以減少撰寫和維護程式碼的份量。
 
 <div class="aside">
-💡 <code>Template.bind({})</code> 是 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">標準的 JavaScript</a> 技巧，用來複製函式。此技巧是用來讓每個 export 出來的 story 可以設定各自的 property，但使用完全相同的方法。
+💡 <code>Template.bind({})</code> 是 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">標準的 JavaScript</a> 技巧，用來複製函式。此技巧是用來讓每個輸出的 story 可以設定各自的參數，但使用完全相同的方法。
 </div>
 
 參數，或簡稱為 [`args`](https://storybook.js.org/docs/react/writing-stories/args)，可以透過 Controls 外掛即時更新元件，而且不用重啟 Storybook。一旦 [`args`](https://storybook.js.org/docs/react/writing-stories/args) 值改變了，元件也跟著變。
 
-在新增 story 的時候，會用到基本的 `task` 參數，來蓋出元件應該要有的工作事項外觀。This is typically modelled from what the true data looks like. 這裡還是一樣，以這樣的結構來輸出，讓我們可以在之後的做的 story 重複使用，接下來還會有。
+在新增 story 的時候，會用到基本的 `task` 參數，來蓋出元件應該要有的工作事項外觀。通常，是根據真實資料的模樣進行模擬。這裡還是一樣，以這樣的結構來輸出，讓我們可以在之後做的 story 重複使用，接下來還會有。
 
 <div class="aside">
 💡 在打造各自獨立的 UI 元件時，<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> 協助驗證互動。有時候，app 裡有些無法讀到的函式和狀態，若想放進來，就要使用 <code>action()</code>。
