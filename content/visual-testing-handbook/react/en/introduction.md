@@ -54,70 +54,17 @@ Luckily for us, there is a better way!
 
 A different approach to all this is to use a component explorer. It allows you to isolate components, mock their variations, and record the supported test cases. That enables developers to spot-check component appearance during initial development and again in QA.
 
-You can run through all the variations, see how they render, and decide if they work correctly.
+It means that you (a human) can quickly and easily “run” a manual test of a component, see how it renders, and decide if it works properly.
 
 ![Storybook toggle button](/visual-testing-handbook/storybook-toggle-stories-optimized.png)
 
-Still, given the scale of modern applications, it's impractical to test UI appearance by hand. You'd have to check each component's variations across every breakpoint and browser whenever you tweak the UI. That's a lot of work!
+It may sound laborious, but typically it ends up being easier than sifting through false positives from automated tests, updating test cases to match up with minor UI changes, and working overtime to make tests pass again.
 
-Visual tests add a layer of automation to this process. They capture a screenshot of every UI component, complete with markup, styling, and other assets, in a consistent browser environment. That way, they're testing what the user actually sees.
+We can then go a step further and use automation to catch regressions. Tools like [Chromatic](https://www.chromatic.com/) capture a screenshot of each test case, complete with markup, styling, and other assets, in a consistent browser environment.
 
 Each commit, new screenshots are automatically compared to previously accepted baseline screenshots. When the machine detects visual differences, the developer gets notified to approve the intentional change or fix the accidental bug.
 
 ![Storybook toggle button](/visual-testing-handbook/component-visual-testing.gif)
-
-### Writing visual test cases
-
-Visual tests share the same setup, execute, and teardown steps as any other type of testing, but the verification step falls to the user. In Storybook, a test is as simple as rendering a React element.
-
-```js:title=src/components/TaskList.stories.js
-import React from 'react';
-
-import TaskList from './TaskList';
-
-export default {
-  component: TaskList,
-  title: 'TaskList',
-};
-
-const Template = args => <TaskList {...args} />;
-
-export const Inbox = Template.bind({});
-Inbox.args = {
-  tasks: [
-    {
-      id: '1',
-      boardName: 'on Chromatic/Taskbox',
-      title: 'Add Asana integration',
-      state: 'TASK_INBOX',
-      updatedAt: new Date(2021, 0, 1, 9, 0),
-    },
-    {
-      id: '2',
-      boardName: 'on Test Board',
-      title: 'Write commodity components post',
-      state: 'TASK_INBOX',
-      updatedAt: new Date(2021, 0, 1, 9, 0),
-    },
-    {
-      id: '33',
-      title: 'Pay electric bill',
-      state: 'TASK_INBOX',
-      updatedAt: new Date(2021, 0, 1, 9, 0),
-    },
-  ],
-};
-```
-
-To test `TaskList` in the "inbox" state, we browse to the relevant part of Storybook to see it in isolation on our screen. We verify that it looks and behaves OK and move on.
-
-In the upcoming chapters, we'll dive deeper into this process. We will learn how to use tools like Chromatic to capture snapshots and build out a complete workflow.
-
-<video autoPlay muted playsInline loop>
-  <source
-    src="/visual-testing-handbook/tasklist-snoozed-stories-optimized.mp4"
-    type="video/mp4"/>
-</video>
 
 ## Next up: learn the tools
 

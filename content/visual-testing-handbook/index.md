@@ -12,8 +12,8 @@ toc:
     'introduction',
     'component-explorers',
     'visual-test-driven-development',
-    'tutorial',
-    'automate',
+    'tutorial-vtdd',
+    'tutorial-automate',
     'conclusion',
   ]
 coverImagePath: '/guide-cover/visual-testing.svg'

@@ -1,10 +1,11 @@
 ---
-title: 'Tutorial'
+title: 'Tutorial Visual TDD'
+tocTitle: 'Tutorial — VTDD'
 description: 'Put all the concepts together in code'
 commit: 'e7c8eb9'
 ---
 
-Now that the basics are covered, let’s jump into the details. This example demonstrates building out a state of `CommentList` using **VTDD** with Storybook.
+Now that the basics are covered, let’s jump into the details. This example demonstrates building out a state of `CommentList` using **Visual TDD** with Storybook.
 
 Suppose we are tasked with building out the CommentList, part of a chat tool for galactic freedom fighters. Our designer has handed us a design for the various ways the list of comments should look based on the data and the state of the app:
 
@@ -176,7 +177,7 @@ yarn storybook
 ```
 
 <video autoPlay muted playsInline loop>
-  <source 
+  <source
     src="/visual-testing-handbook/commentlist-initial-state-optimized.mp4"
     type="video/mp4"/>
 </video>
@@ -326,7 +327,7 @@ CommentList.defaultProps = {
 Once we’ve worked on our implementation a little bit, we can open it up in Storybook to see if it works. Of course, this example was heavy on CSS, so chances are we will have been testing our changes in Storybook as we went to tweak the styles to achieve what we wanted.
 
 <video autoPlay muted playsInline loop>
-  <source 
+  <source
     src="/visual-testing-handbook/commentlist-finished-state-optimized.mp4"
     type="video/mp4"/>
 </video>

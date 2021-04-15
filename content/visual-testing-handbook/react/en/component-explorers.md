@@ -25,6 +25,8 @@ A component explorer is packaged as a small standalone sandbox that lives alongs
 
 They allow you to visualize component states during the development process. You can mock hard-to-reach edge cases and record the supported test cases. Then playback those states during QA. And lastly, have a directory of your modular UI that lives alongside your production apps.
 
+[Storybook](https://storybook.js.org/) is the industry standard and the most widely used component explorer. It's used by teams at Twitter, Slack, Airbnb, Shopify, Stripe, and Microsoft.
+
 But, why build UIs in isolation?
 
 ## Robust user interfaces
