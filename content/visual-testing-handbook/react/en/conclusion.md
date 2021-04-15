@@ -6,7 +6,7 @@ description: 'Conquering visual regressions'
 
 Congratulations! You started your journey into Visual Test-Driven Development. Along the way, you learnt how to isolate components, write test cases in Storybook and catch regressions with Chromatic.
 
-Storybook helps us build components and write out test cases. Running tests at the component level allows us to pinpoint the root cause of a change. And by running automated snapshots, we can catch regressions. This helps us ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
+Storybook helps us **build** components and write out **test cases**. Running tests at the component level allows us to pinpoint the root cause of a change. And by running automated snapshots, we can catch **regressions**. This helps us ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
 
 ![visual testing workflow](/visual-testing-handbook/workflow-uitest.png)
 
