@@ -50,7 +50,7 @@ It also suffers from the same brittleness as all other automated UI tests. Any c
 
 Luckily for us, there is a better way!
 
-## Visual testing
+## Approach: Visual testing
 
 A different approach to all this is to use a component explorer. It allows you to isolate components, mock their variations, and record the supported test cases. That enables developers to spot-check component appearance during initial development and again in QA.
 

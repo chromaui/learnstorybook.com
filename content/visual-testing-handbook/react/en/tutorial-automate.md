@@ -96,7 +96,7 @@ yarn chromatic --project-token=<project-token>
 
 ![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-With this one command, you've published your storybook and triggered Chromatic to capture a snapshot of each story (using a cloud browser) and set it as the baseline.
+With this one command, you've published your storybook and triggered Chromatic to capture a visual snapshot of each story (using a cloud browser) and set it as the baseline.
 
 Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
