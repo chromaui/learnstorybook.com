@@ -11,7 +11,8 @@ Storybook se ejecuta en conjunto con tu aplicación en modo desarrollo. Te ayuda
 
 ## Configurando Angular Storybook
 
-Necesitaremos seguir algunos pasos para configurar el proceso de transformación y agregación de recursos y archivos en nuestro entorno. Para esto, vamos a utilizar [@angular/cli](https://cli.angular.io/). Adicionalmente, añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para probar nuestra aplicación. Para hacerlo, vamos a ejecutar los siguientes comandos:
+Necesitaremos seguir algunos pasos para configurar el proceso de transformación e incorporación de recursos y archivos 
+en nuestro entorno. Para esto, vamos a utilizar [@angular/cli](https://cli.angular.io/). Adicionalmente, añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para probar nuestra aplicación. Para hacerlo, vamos a ejecutar los siguientes comandos:
 
 ```bash
 # Crea nuestra aplicación:

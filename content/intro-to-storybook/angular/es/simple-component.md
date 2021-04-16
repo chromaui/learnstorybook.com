@@ -11,20 +11,20 @@ Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Componen
 
 ![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`TaskComponent` (o Tarea) es el componente principal de nuestra aplicación. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o sin marcar), información sobre la tarea y un botón “pin” que nos permite fijar dicha tarea en la parte superior de la lista. Con estas especificaciones en mente, necesitaremos las siguientes propiedades propiedades (props):
+`TaskComponent` (o Tarea) es el componente principal de nuestra aplicación. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o sin marcar), información sobre la tarea y un botón “pin” que nos permite fijar dicha tarea en la parte superior de la lista. Con estas especificaciones en mente, necesitaremos las siguientes propiedades (props):
 
 - `title` – una cadena de caracteres que describe la tarea
 - `state` - ¿en qué lista se encuentra la tarea actualmente? y, ¿está marcado el checkbox?
 
 Para construir nuestro `TaskComponent`, primero escribiremos tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizaremos Storybook para construir el componente en aislamiento utilizando únicamente datos de prueba. Vamos a “testear visualmente” la apariencia del componente dependiendo de cada estado.
 
-Este es un proceso es al [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que podemos llamar “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
+Este proceso es al [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que podemos llamar “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
 ## Ajustes iniciales
 
 Primero, vamos a crear el componente que describe una Tarea (`TaskComponent`) y el archivo de historias de Storybook que lo acompaña: `src/tasks/task.component.ts` y `src/tasks/task.stories.ts`.
 
-Comenzaremos con una implementación básica del `TaskComponent`, en la que simplemente recibiremos los atributos que componen una tarea (titulo y estado de la misma) y las dos acciones que puedes realizar: moverla entre las listas y fijarla.
+Comenzaremos con una implementación básica del `TaskComponent`, en la que simplemente recibiremos los atributos que componen una tarea (título y estado de la misma) y las dos acciones que puedes realizar: moverla entre las listas y fijarla.
 
 ```typescript
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
@@ -109,7 +109,7 @@ storiesOf('Task', module)
   });
 ```
 
-Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Puedes pensar en cada historia como una permutación del componente (todos lo estados posibles que puede tener, basándose en las las entradas que se le pueden proporcionar). Puedes crear tantas historias por componente como sean necesarias.
+Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Puedes pensar en cada historia como una permutación del componente (todos los estados posibles que puede tener, basándose en las entradas que se le pueden proporcionar). Puedes crear tantas historias por componente como sean necesarias.
 
 - **Component**
   - Story
@@ -118,13 +118,14 @@ Existen dos niveles básicos de organización en Storybook. El componente y sus 
 
 Para iniciar Storybook, primero invocamos a la función `storiesOf()` que registra el componente. Agregamos un nombre para el componente que se muestra en la barra lateral de la aplicación Storybook.
 
-`action()` nos permite crear un callback que aparecerá en el panel **actions** de la interfaz gráfica de Storybook cuando es cliqueado. Entonces, por ejemplo, cuando construyamos el botón de fijar, podremos determinar en la interfaz gráfica de prueba si un click en el botón es exitoso o no.
+`action()` Nos permite crear un callback que aparecerá en el panel **actions** de la interfaz gráfica de Storybook cuando es cliqueado. Entonces, por ejemplo, cuando construyamos el botón de fijar, podremos determinar en la interfaz gráfica de prueba si un click en el botón es exitoso o no.
 
-Es conveniente agrupar las `actions` que un componente necesita ya que puedes `export`-arlas y utilizarlas en historias de otros componentes que reutilicen este componente, como veremos luego.
+Es conveniente agrupar las `actions` que un componente necesita, ya que puedes exportarlas y utilizarlas en 
+historias de otros componentes que reutilicen este componente, como veremos luego.
 
 Para definir nuestras historias, llamamos la función `add()` una vez por cada uno de los estados de la prueba para generar una historia. La historia de acción - action story - es una función que retorna un elemento renderizado (es decir, una clase componente con un conjunto de propiedades) en un estado dado.
 
-Al crear una historia utilizamos una `tarea` (`task`) base que se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ar esta tarea nos permitirá reutilizarla en historias posteriores.
+Al crear una historia utilizamos una `tarea` (`task`) base que se modela a partir del aspecto de los datos verdaderos. Nuevamente, `exportar` esta tarea nos permitirá reutilizarla en historias posteriores.
 
 <div class="aside">
 Las <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes interfaz gráfica en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para simularlas.
@@ -139,7 +140,7 @@ import { configure } from '@storybook/angular';
 
 import '../src/styles.less';
 
-// automatically import all files ending in *.stories.ts
+// importa automáticamente todos los archivos que terminan en *.stories.ts
 const req = require.context('../src/', true, /\.stories.ts$/);
 
 function loadStories() {
@@ -149,7 +150,7 @@ function loadStories() {
 configure(loadStories, module);
 ```
 
-Para que sea posible importar directamente nuestro archivo LESS necesitamos añadir una configuración expecial de Webpack. Basta con crear un archivo `webpack.config.js` dentro del directorio `.storybook` y pegar el siguiente código:
+Para que sea posible importar directamente nuestro archivo LESS necesitamos añadir una configuración especial de Webpack. Basta con crear un archivo `webpack.config.js` dentro del directorio `.storybook` y pegar el siguiente código:
 
 ```javascript
 const path = require('path');
@@ -167,7 +168,7 @@ module.exports = {
 };
 ```
 
-También es necesario instalar los siguiente paquetes:
+También es necesario instalar los siguientes paquetes:
 
 ```
 yarn add -D less-loader css-loader style-loader
@@ -175,7 +176,7 @@ yarn add -D less-loader css-loader style-loader
 
 Una vez que hayamos hecho esto y reiniciado el servidor de Storybook deberíamos ver los casos de prueba para cada estado de nuestro `TaskComponent`:
 
-<video autoPlay muted playsInline controls >
+<video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook//inprogress-task-states.mp4"
     type="video/mp4"
@@ -248,7 +249,7 @@ El HTML que hemos agregado anteriormente, combinado con el CSS que hemos importa
 
 ## Especificar los requerimientos de datos
 
-Es una buena práctica especificar la forma de los datos que un componente espera recibir. Esto no sólo permite que sea mucho más sencillo entender los requerimientos del componente al leer su código, sino que también ayuda a detectar problemas rápidamente. En este caso hemos utilizado TypeScript para crear una interfaz que describe el modelo de la tarea (`Task`):
+Es una buena práctica especificar la forma de los datos que un componente espera recibir. Esto no solo permite que sea mucho más sencillo entender los requerimientos del componente al leer su código, sino que también ayuda a detectar problemas rápidamente. En este caso hemos utilizado TypeScript para crear una interfaz que describe el modelo de la tarea (`Task`):
 
 ```typescript
 export interface Task {
@@ -262,11 +263,11 @@ export interface Task {
 
 Hemos construido, exitosamente, un componente sin necesidad de un servidor y sin ejecutar la aplicación. El siguiente paso es construir los componentes restantes de la Taskbox, uno por uno de manera similar.
 
-Como puedes ver, construir componentes en aislamiento es fácil y rápido. De esta forma nuestras interfaces gráficas serán de mayor calidad, estarán mucho más pulidas y tendrán menos errores ya que es posible profundizar y probar todos los estados posibles de cada componente.
+Como puedes ver, construir componentes en aislamiento es fácil y rápido. De esta forma nuestras interfaces gráficas serán de mayor calidad, estarán mucho más pulidas y tendrán menos errores, ya que es posible profundizar y probar todos los estados posibles de cada componente.
 
 ## Pruebas automatizadas
 
-Storybook proporciona una excelente forma de probar visualmente nuestra aplicación durante su construcción. Las 'historias' ayudarán a asegurar que no rompamos nuestro `TaskComponent` y que se cada estado posible siempre se vea como debe ser, a medida que continuamos desarrollando la aplicación. Sin embargo, en esta etapa, es un proceso completamente manual y alguien tiene que hacer el esfuerzo de hacer clic en cada estado de prueba y asegurarse de que se visualice bien y sin errores ni advertencias. ¿No podemos hacer eso automáticamente?
+Storybook proporciona una excelente forma de probar visualmente nuestra aplicación durante su construcción. Las 'historias' ayudarán a asegurar que no rompamos nuestro `TaskComponent` y que cada estado posible siempre se vea como debe ser, a medida que continuamos desarrollando la aplicación. Sin embargo, en esta etapa, es un proceso completamente manual y alguien tiene que hacer el esfuerzo de hacer clic en cada estado de prueba y asegurarse de que se visualice bien y sin errores ni advertencias. ¿No podemos hacer eso automáticamente?
 
 ### Pruebas de instantáneas
 
