@@ -85,7 +85,7 @@ const reducers = (state, action) => {
 export const store = createStore(reducers);
 ```
 
-Next, create a new component called `inbox-scree.hbs` inside the `app/components` directory:
+Next, create a new component called `inbox-screen.hbs` inside the `app/components` directory:
 
 ```handlebars:title=app/components/inbox-screen.hbs
 <div>
