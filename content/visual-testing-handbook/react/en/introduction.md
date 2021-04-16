@@ -10,7 +10,7 @@ This handbook is made for <b>professional developers</b> learning how to impleme
 
 <br/>
 
-Applications now have a larger surface area than ever before, and users expect frequent releases with new features. This has made automated testing essential for creating and maintaining high-quality software.
+Applications now have a larger surface area than ever before, and users expect frequent releases with new features. It made automated testing essential for creating and maintaining high-quality software.
 
 Interfaces are subjective by nature. _"Does this look right?"_ — the answer often depends on the browser/device. You can't infer correctness from an exact sequence of HTML tags and CSS classes. Developers and designers have to verify the rendered UI — a time-consuming and manual process. Different approaches have attempted to automate this process but failed to capture the nuance without real success.
 
@@ -42,7 +42,7 @@ The complexity of unit testing UIs leads to a lack of UI tests, which leads to r
 
 One approach to solving this problem is [snapshot testing](https://reactjs.org/docs/testing-recipes.html#snapshot-testing). This is where the test framework saves the rendered HTML of a component. And each subsequent change has to be explicitly committed by the developer.
 
-The intention was to allow us to check the changes quickly. However, these DOM snapshots are super hard to parse. You really can't discern the salient details of UI by looking at a blob of HTML 🤷🏽‍♂️
+The intention was to allow us to check the changes quickly. However, these DOM snapshots are super hard to parse. You really can't discern the salient details of UI by looking at a blob of HTML 🤷🏽‍♂️.
 
 ![Minified component code](/visual-testing-handbook/code-visual-testing-optimized.png)
 

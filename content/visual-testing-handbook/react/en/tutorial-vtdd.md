@@ -167,7 +167,7 @@ Empty.args = {
 
 ### Step 2: Check the tests in Storybook
 
-Now we can start Storybook and see the our test cases.
+Now we can start Storybook and see our test cases.
 
 Run the following command:
 

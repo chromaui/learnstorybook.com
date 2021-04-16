@@ -28,7 +28,7 @@ One of the crucial advantages of modularization is **test-driven development (TD
 
 TDD allows you to think clearly about what your code needs to do in terms of concrete inputs (for components, we refer to these as “states”) and makes it easy to cover all use cases of your module. For more on this subject, check out [James Shore’s post](http://www.jamesshore.com/v2/books/aoad1/test_driven_development).
 
-Let's look at an example, `relativize` function that converts a raw date object to the relative date format of the form "2 weeks ago". It's pretty straightforward to outline all the various types of input you want to cover. And then, just hit the "test" button each time you think you've made progress toward a solution.
+Let's look at an example. Assuming we have a `relativize` function that converts a raw date object to the relative date format of the form "2 weeks ago". It's pretty straightforward to outline all the various types of input you want to cover. And then, just hit the "test" button each time you think you've made progress toward a solution.
 
 Your test framework allows you to run the `relativize` function in isolation without needing to provide input for your entire application just to test that one part.
 
@@ -40,7 +40,7 @@ If you are building an app from a well-thought-out design, the chances are that 
 
 - ✍🏽 **Build out the test cases.** Specify a set of inputs to the component that cover these use cases. It can often lead you to think about scenarios that you wouldn’t consider if you developed it in a more ad-hoc way.
 - 🔍 **Implement and verify.** As you progress towards the solution, you can quickly and easily verify each state in the component explorer.
-- 📁 **Capture snapshots.** The set of specs survive the development process will form the basis of the regression tests.
+- 📁 **Capture snapshots.** The set of specs that survive the development process will form the basis of the regression tests.
 - 🔄 Iterate
 
 ### Writing visual test cases

@@ -5,13 +5,13 @@ description: 'Learn how to automate visual testing to catch regressions'
 commit: 'b1b5f0b'
 ---
 
-Almost there. So far, we've implemented the `CommentList`. And used Visual TDD to build out all its states. We now need to ensure that future changes do not have unintended consequences.
+Almost there. So far, we've implemented the `CommentList` and used Visual TDD to build out all its states. We now need to ensure that future changes do not have unintended consequences.
 
 Let's look at how to use snapshots to decrease incoming bugs and prevent UI regressions altogether.
 
 ## "Does it look right?"
 
-It's been one of the central points of this handbook. We learned that visual testing is a practical way to verify that our components match the intended design. Empowered by Storybook, and streamlined with Visual TDD. It leads to our ultimate goal, creating solid UIs better equipped to handle hardships.
+It's been one of the central points of this handbook. We learned that visual testing is a practical way to verify that our components match the intended design. Empowered by Storybook and streamlined with Visual TDD. It leads to our ultimate goal, creating solid UIs better equipped to handle hardships.
 
 However, creating components is just one aspect of frontend engineering. They must also remain reliable over time. Successful apps require:
 
@@ -78,35 +78,41 @@ Enable visual tests for your project on the manage screen.
 
 ### Establish baselines
 
-Add Chromatic as a development package, to your project:
+Add Chromatic as a development package to your project:
 
 ```shell
 yarn add -D chromatic
 ```
 
-Once installed, run the following command to build and deploy your Storybook.
+Once it’s finished installing, we have all that we need. Now is an excellent time to commit and push the changes to the remote repository.
+
+```shell
+git add .
+git commit -m "Added Chromatic"
+git push
+```
+
+Let's build and deploy our Storybook. Run the following command:
 
 ```shell
 yarn chromatic --project-token=<project-token>
 ```
 
 <div class="aside">
-💡 Don't forget to replace the <code>project-token</code> with the Chromatic supplies on the website.
+💡 Don't forget to replace the <code>project-token</code> with one Chromatic supplies on the website.
 </div>
 
 ![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-With this one command, you've published your storybook and triggered Chromatic to capture a visual snapshot of each story (using a cloud browser) and set it as the baseline.
+With this one command, you've published your Storybook and triggered Chromatic to capture a visual snapshot of each story (using a cloud browser) and set it as the baseline.
 
 Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
-<div class="aside">
-TODO: maybe add an image of what baselines look like in Chromatic
-</div>
+![Baselines in Chromatic](/visual-testing-handbook/commentlist-accepted-baselines-optimized.png)
 
 ### Run tests
 
-Every time a pull request contains UI changes, big or small, it's helpful to run these checks. Chromatic will compare new snapshots to existing baselines from previous builds. The list of changes are shown on the build page in the web app. The build will be marked “unreviewed” and the changes will be listed in the “Tests” table.
+Every time a pull request contains UI changes, big or small, it's helpful to run these checks. Chromatic will compare new snapshots to existing baselines from previous builds. The list of changes is shown on the build page in the web app. The build will be marked “unreviewed” and the changes listed in the “Tests” table.
 
 Let's make a small UI change to demonstrate this concept.
 
@@ -251,21 +257,17 @@ yarn chromatic --project-token=<project-token>
 
 Open a pull request for the new branch in your GitHub repository.
 
-![Comment list pull requested opened in GitHub](/visual-testing-handbook/commentlist-pull-request-GitHub-optimized.png)
+![Comment list pull requested opened in GitHub](/visual-testing-handbook/commentlist-gh-pullrequest-optimized.png)
 
 Check the PR checks and click "🟡 UI Test" to view the new changes published into Chromatic.
 
-<div class="aside">
-TODO: show UI Test instead
-</div>
-
-![New changes published to Chromatic](/visual-testing-handbook/commentlist-chromatic-ui-changes-optimized.png)
+![New changes published to Chromatic](/visual-testing-handbook/commentlist-ui-tests-chromatic-optimized.png)
 
 ## Review and merge changes
 
 Visual regression testing ensures components don’t change by accident. But it’s still up to us to determine whether changes are intentional or not.
 
-If a change is intentional we'll need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
+If a change is intentional we'll need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs fixing.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
