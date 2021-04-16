@@ -1,57 +1,79 @@
 ---
-title: 'Storybook tutorial para Angular'
+title: 'Tutorial de Storybook para Angular'
 tocTitle: 'Empezando'
-description: 'Configurar Angular Storybook en tu entorno de desarrollo'
+description: 'Configure Angular Storybook en su entorno de desarrollo'
 commit: 0818d47
 ---
 
-Storybook se ejecuta en conjunto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz gráfica aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Angular; existe otras ediciones para [React](/intro-to-storybook/react/es/get-started), [React Native](/intro-to-storybook/react-native/es/get-started), [Vue](/intro-to-storybook/vue/es/get-started) y [Svelte](/intro-to-storybook/svelte/es/get-started).
+Storybook se ejecuta junto con su aplicación en modo de desarrollo. Le ayuda a crear componentes de interfaz de 
+usuario aislados de la lógica de negocio y el contexto de su aplicación. Esta edición del tutorial de Storybook es para 
+Angular;
+existen otras ediciones para [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) y [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
-## Configurando Angular Storybook
+## Configurar Angular Storybook
 
-Necesitaremos seguir algunos pasos para configurar el proceso de transformación e incorporación de recursos y archivos 
-en nuestro entorno. Para esto, vamos a utilizar [@angular/cli](https://cli.angular.io/). Adicionalmente, añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para probar nuestra aplicación. Para hacerlo, vamos a ejecutar los siguientes comandos:
+Necesitaremos seguir algunos pasos para configurar el proceso de transformación y agregación de recursos y archivos en nuestro entorno. Para empezar, vamos 
+a usar [degit](https://github.com/Rich-Harris/degit) para configurar nuestro sistema de construcción. Usando este 
+paquete, podrás descargar
+"templates" (aplicaciones parcialmente construidas con alguna configuración predeterminada) para ayudarte a acelerar 
+tu flujo de trabajo de desarrollo.
+
+Ejecutemos los siguientes comandos:
 
 ```bash
-# Crea nuestra aplicación:
-npx ng new taskbox --style less
+# Clonar la plantilla
+npx degit chromaui/intro-storybook-angular-template taskbox
+
 cd taskbox
 
-# Añade Storybook:
-npx -p @storybook/cli sb init
+# Instalar dependencias
+npm install
 ```
 
-Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
+<div class="aside">
+💡 Esta plantilla contiene los estilos, recursos y configuraciones esenciales necesarios para esta versión del tutorial.
+</div>
+
+Ahora podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 
 ```bash
-# Ejecuta el corredor de pruebas (Karma) en una terminal (añadiremos Jest más adelante):
-yarn test
+# Ejecute el corredor de prueba (Jest) en una terminal:
+npm run test
 
-# Inicia el explorador de componentes en el puerto 6006:
-yarn run storybook
+# Iniciar el explorador de componentes en el puerto 6006:
+npm run storybook
 
-# Ejecuta la aplicación cliente en el puerto 4200:
-yarn start
+# Ejecutar la interfaz de la aplicación en el puerto 4200:
+npm run start
 ```
 
-Las tres modalidades de nuestra aplicación son: test automatizado (Jest), desarrollo de componentes (Storybook) y la propia aplicación.
+Nuestras tres modalidades de aplicaciones frontend: test automáticos (Jest), desarrollo de componentes (Storybook), 
+y la propia aplicación.
 
-![3 modalidades](/intro-to-storybook/app-three-modalities.png)
+![3 modalities](/intro-to-storybook/app-three-modalities-angular.png)
 
 Dependiendo de la parte de la aplicación en la que estés trabajando, es posible que quieras ejecutar una o varias de ellas simultáneamente. Dado que nuestro objetivo es crear un componente de interfaz gráfica en completo aislamiento del resto de la aplicación, utilizaremos Storybook.
 
-## Reutilizando el CSS
+## Confirmar cambios
 
-Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente incluiremos nuestros archivos LESS y los importaremos dentro de `styles.less`.
+En esta etapa, es seguro agregar nuestros archivos a un repositorio local. Ejecute los siguientes comandos para inicializar un repositorio local, agregue y confirme los cambios que hemos realizado hasta ahora.
 
-![Interfaz gráfica del Buzón de tareas](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
+```shell
+$ git init
+```
 
-<div class="aside">
-Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS se encuentran en el mismo repositorio de GitHub.</div>
+Seguido de:
 
-## Añadiendo los recursos
+```shell
+$ git add .
+```
 
-También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets) a la carpeta `assets/`.
-Después de añadir los estilos y recursos, nuestra aplicación se verá de forma un poco extraña. Está bien. No estamos trabajando en la aplicación y no la veremos hasta dentro de algunos capítulos. A continuación, ¡comenzamos con la construcción de nuestro primer componente!
+Y finalmente:
+
+```shell
+$ git commit -m "first commit"
+```
+
+¡Comencemos a construir nuestro primer componente!
