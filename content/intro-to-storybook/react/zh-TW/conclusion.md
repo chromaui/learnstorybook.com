@@ -3,11 +3,11 @@ title: '總結'
 description: '總結已學到的，接著學習更多 Storybook 技巧'
 ---
 
-恭喜！你已經做好在 Storybook 裡的 UI。一路下來，學到如何打造、組合、測試和發布 UI 元件。如果都照著做，發布的 Storybook 和程式碼應該會長得像這樣：
+恭喜！你已經做好在 Storybook 裡的 UI。一路下來，學到如何打造、組合、測試和部署 UI 元件。如果都照著做，部署上去的 Storybook 和程式碼應該會長得像這樣：
 
 [📕 **GitHub 專案：chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **已發布的 Storybook**](https://clever-banach-415c03.netlify.app/)
+[🌎 **已部署的 Storybook**](https://clever-banach-415c03.netlify.app/)
 
 Storybook 在 React、React Native、Vue、Angular、Svelte 和其它 framework 都是很犀利的工具。有熱鬧的開發者社群以及豐富的外掛。這份介紹擷取了其可能性最淺薄的一部份。只要採用 Storybook，我們有自信讓你對效率和打造堅強的 UI 感到驚艷。
 

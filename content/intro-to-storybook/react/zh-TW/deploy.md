@@ -1,21 +1,21 @@
 ---
-title: '發布 Storybook'
-tocTitle: '發布'
-description: '學習把 Storybook 發布至線上的方法'
+title: '部署 Storybook'
+tocTitle: '部署'
+description: '學習把 Storybook 部署到線上的方法'
 commit: '8652d73'
 ---
 
-在這套教學的過程中，我們已經在本地端機器打造元件。有一些進展後，要把成果分享出去，藉以獲得回饋。接下來，要把 Storybook 發布到線上，協助隊友檢查 UI 的實作方法。
+在這套教學的過程中，我們已經在本地端機器打造元件。有一些進展後，要把成果分享出去，藉以獲得回饋。接下來，要把 Storybook 部署到線上，協助隊友檢查 UI 的實作方法。
 
 ## 以靜態 App 輸出
 
-發布 Storybook 的第一件事是以靜態網頁 app 輸出。這是 Storybook 的內建功能，而且已經預先設定好了。
+部署 Storybook 的第一件事是以靜態網頁 app 輸出。這是 Storybook 的內建功能，而且已經預先設定好了。
 
-執行 `yarn build-storybook` 就會在 `storybook-static` 資料夾輸出靜態的 Storybook。接著，就可以發布到任何靜態網站放置服務。
+執行 `yarn build-storybook` 就會在 `storybook-static` 資料夾輸出靜態的 Storybook。接著，就可以部署到任何靜態網站放置服務。
 
-## 將 Storybook 進行 Publish
+## 發布 Storybook
 
-這一份教學使用 Storybook 維護團隊製作的免費 Publish 服務：<a href="https://www.chromatic.com/">Chromatic</a>，可以在雲端安全地發布與放置 Storybook。
+這一份教學使用 Storybook 維護團隊製作的免費發布服務：<a href="https://www.chromatic.com/">Chromatic</a>，可以在雲端安全地部署與放置 Storybook。
 
 ### 在 Github 設定 Repository
 
@@ -56,7 +56,7 @@ yarn add -D chromatic
   />
 </video>
 
-複製專案裡產生，識別用的 'project-token'。在文字指令列執行下方那行，即可 build 和發布 Storybook。記得要把 'project-token' 換成專案的 token。
+複製專案裡產生，識別用的 'project-token'。在文字指令列執行下方那行，即可 build 和部署 Storybook。記得要把 'project-token' 換成專案的 token。
 
 ```bash
 yarn chromatic --project-token=<project-token>
@@ -64,17 +64,17 @@ yarn chromatic --project-token=<project-token>
 
 ![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-完成之後，Publish 出去的 Storybook 連結是 `https://random-uuid.chromatic.com`。與團隊分享此連結來獲得回饋。
+完成之後，發布出去的 Storybook 連結是 `https://random-uuid.chromatic.com`。與團隊分享此連結來獲得回饋。
 
-![以 Chromatic 套件發布出去的 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
+![以 Chromatic 套件部署出去的 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
 
-萬歲！只用了 1 個指令就將 Storybook 進行 Publish。只是，每次想要獲得 UI 實做回饋的時候，都要手動執行指令會覺得很冗。理想狀況應該是只要推程式碼時，就會將最新版本進行 Publish。也就是，得要進行持續發布 Storybook。
+萬歲！只用了 1 個指令就將 Storybook 發布。只是，每次想要獲得 UI 實做回饋的時候，都要手動執行指令會覺得很冗。理想狀況應該是只要推程式碼時，就會發布最新版本。也就是，得要進行持續部署 Storybook。
 
-## 以 Chromatic 進行持續發布
+## 以 Chromatic 進行持續部署
 
-既然專案是放在 Github Repository，就可以使用持續整合 (CI) 服務，自動發布 Storybook。[GitHub Actions](https://github.com/features/actions) 是 Github 的免費 CI 服務，可以輕鬆地自動 Publish。
+既然專案是放在 Github Repository，就可以使用持續整合 (CI) 服務，自動部署 Storybook。[GitHub Actions](https://github.com/features/actions) 是 Github 的免費 CI 服務，可以輕鬆地自動發布。
 
-### 加入 GitHub Action 來發布 Storybook
+### 加入 GitHub Action 來部署 Storybook
 
 在專案的根目錄新增 `.github` 資料夾，其中再新增 `workflows` 資料夾。
 
@@ -127,7 +127,7 @@ git commit -m "GitHub action setup"
 git push origin main
 ```
 
-只要設定好 Github action，每次推程式碼的時候，Storybook 就會發布到 Chromatic。在 Chromatic，可以找到專案裡所有 Publish 過的 Storybook。
+只要設定好 Github action，每次推程式碼的時候，Storybook 就會部署到 Chromatic。在 Chromatic，可以找到專案裡所有發布過的 Storybook。
 
 ![Chromatic 的使用者儀表板](/intro-to-storybook/chromatic-user-dashboard.png)
 
