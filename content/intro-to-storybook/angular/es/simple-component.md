@@ -1,51 +1,62 @@
 ---
 title: 'Construye un componente simple'
-tocTitle: 'Componente Simple'
+tocTitle: 'Componente simple'
 description: 'Construye un componente simple en aislamiento'
 commit: 1a14919
 ---
 
-Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Component-Driven Development](https://www.componentdriven.org/) (desarrollo de software guiado por componentes). Es un proceso que construye las interfaces gráficas desde “abajo hacia arriba”, empezando con los componentes individuales y terminando con las vistas. CDD te ayudará a escalar la complejidad con la que te enfrentas a medida que construyes la interfaz gráfica de tu aplicación.
+Construiremos nuestra UI siguiendo la metodología [Component-Driven Development](https://www.componentdriven.org/) 
+(CDD). Es un proceso que crea interfaces de usuario "de abajo hacia arriba", comenzando con componentes y terminando 
+con pantallas. CDD nos ayudará a escalar la cantidad de complejidad a la que nos enfrentamos a medida que creamos la interfaz de usuario.
 
 ## Task - Tarea
 
 ![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`TaskComponent` (o Tarea) es el componente principal de nuestra aplicación. Cada tarea se muestra de forma ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o sin marcar), información sobre la tarea y un botón “pin” que nos permite fijar dicha tarea en la parte superior de la lista. Con estas especificaciones en mente, necesitaremos las siguientes propiedades (props):
+`TaskComponent` (o Tarea) es el componente principal de nuestra aplicación. Cada tarea se muestra de forma 
+ligeramente diferente según el estado en el que se encuentre. Mostramos un checkbox marcado (o sin marcar), 
+información sobre la tarea y un botón “pin” que nos permite fijar dicha tarea en la parte superior de la lista. Con 
+estas especificaciones en mente, necesitaremos las siguientes propiedades (props):
 
 - `title` – una cadena de caracteres que describe la tarea
 - `state` - ¿en qué lista se encuentra la tarea actualmente? y, ¿está marcado el checkbox?
 
-Para construir nuestro `TaskComponent`, primero escribiremos tests para los estados que corresponden a los distintos tipos de tareas descritas anteriormente. Luego, utilizaremos Storybook para construir el componente en aislamiento utilizando únicamente datos de prueba. Vamos a “testear visualmente” la apariencia del componente dependiendo de cada estado.
+Mientras comenzamos a construir nuestro `TaskComponent`, Primero escribimos nuestros estados de prueba que 
+corresponden a los diferentes tipos de tareas descritas anteriormente. Luego, utilizaremos Storybook para construir el 
+componente de forma aislada usando datos simulados. Realizaremos una "prueba visual" de la apariencia del componente 
+en cada estado a medida que avanzamos.
 
-Este proceso es al [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que podemos llamar “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
+Este proceso es similar al [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) 
+que podríamos denominar ["Visual TDD"](https://www.chromatic.com/blog/visual-test-driven-development).
 
 ## Ajustes iniciales
 
-Primero, vamos a crear el componente que describe una Tarea (`TaskComponent`) y el archivo de historias de Storybook que lo acompaña: `src/tasks/task.component.ts` y `src/tasks/task.stories.ts`.
+Primero, creemos el componente de la tarea y el archivo de historia que lo acompaña: `src/app/components/task.component.ts` y `src/app/components/task.stories.ts`.
 
-Comenzaremos con una implementación básica del `TaskComponent`, en la que simplemente recibiremos los atributos que componen una tarea (título y estado de la misma) y las dos acciones que puedes realizar: moverla entre las listas y fijarla.
+Comenzaremos con la implementación básica del `TaskComponent`, simplemente tomando las entradas que sabemos que 
+necesitaremos (título y estado de la misma) y las dos acciones que puede realizar en una tarea (moverla entre las listas y fijarla):
 
-```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+```ts:title=src/app/components/task.component.ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'task-item',
+  selector: 'app-task',
   template: `
     <div class="list-item">
       <input type="text" [value]="task.title" readonly="true" />
     </div>
   `,
 })
-export class TaskComponent implements OnInit {
-  title: string;
+export class TaskComponent {
   @Input() task: any;
-  @Output() onPinTask: EventEmitter<any> = new EventEmitter();
-  @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
 
-  constructor() {}
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output()
+  onPinTask = new EventEmitter<Event>();
 
-  ngOnInit() {}
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output()
+  onArchiveTask = new EventEmitter<Event>();
 }
 ```
 
@@ -53,128 +64,123 @@ Arriba, renderizamos directamente nuestro `TaskComponent` basándonos en la estr
 
 A continuación creamos los tres estados de prueba del componente dentro del archivo de historia:
 
-```typescript
-import { storiesOf, moduleMetadata } from '@storybook/angular';
+```ts:title=src/app/components/task.stories.ts
+import { Story, Meta } from '@storybook/angular/types-6-0';
 import { action } from '@storybook/addon-actions';
 
 import { TaskComponent } from './task.component';
 
-export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
-};
+export default {
+  title: 'Task',
+  component: TaskComponent,
+  excludeStories: /.*Data$/,
+} as Meta;
 
-export const actions = {
+export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-storiesOf('Task', module)
-  .addDecorator(
-    moduleMetadata({
-      declarations: [TaskComponent],
-    })
-  )
-  .add('default', () => {
-    return {
-      template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
-      props: {
-        task,
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  })
-  .add('pinned', () => {
-    return {
-      template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
-      props: {
-        task: { ...task, state: 'TASK_PINNED' },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  })
-  .add('archived', () => {
-    return {
-      template: `<task-item [task]="task" (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)" ></task-item>`,
-      props: {
-        task: { ...task, state: 'TASK_ARCHIVED' },
-        onPinTask: actions.onPinTask,
-        onArchiveTask: actions.onArchiveTask,
-      },
-    };
-  });
+const Template: Story<TaskComponent> = args => ({
+  component: TaskComponent,
+  props: {
+    ...args,
+    onPinTask: actionsData.onPinTask,
+    onArchiveTask: actionsData.onArchiveTask,
+  },
+});
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2018, 0, 1, 9, 0),
+  },
+};
+
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
+};
+
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
+  },
+};
 ```
 
-Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Puedes pensar en cada historia como una permutación del componente (todos los estados posibles que puede tener, basándose en las entradas que se le pueden proporcionar). Puedes crear tantas historias por componente como sean necesarias.
+Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Puedes pensar en cada 
+historia como una permutación del componente (todos los estados posibles que puede tener, basándose en las 
+entradas que se le pueden proporcionar). Puedes crear tantas historias por componente como sean necesarias.
 
 - **Component**
   - Story
   - Story
   - Story
 
-Para iniciar Storybook, primero invocamos a la función `storiesOf()` que registra el componente. Agregamos un nombre para el componente que se muestra en la barra lateral de la aplicación Storybook.
+Para informar a Storybook sobre el componente que estamos documentando, creamos una exportación `por defecto` que 
+contendrá:
 
-`action()` Nos permite crear un callback que aparecerá en el panel **actions** de la interfaz gráfica de Storybook cuando es cliqueado. Entonces, por ejemplo, cuando construyamos el botón de fijar, podremos determinar en la interfaz gráfica de prueba si un click en el botón es exitoso o no.
+- `component` -- el componente en sí,
+- `title` -- cómo hacer referencia al componente en la barra lateral de la aplicación Storybook,
+- `excludeStories` -- exporta en el archivo de la historia las partes que Storybook no debería representar como 
+  historias.
 
-Es conveniente agrupar las `actions` que un componente necesita, ya que puedes exportarlas y utilizarlas en 
-historias de otros componentes que reutilicen este componente, como veremos luego.
+Para definir nuestras historias, exportamos una función para cada uno de nuestros estados de prueba para generar una 
+historia. La historia es una función que devuelve un elemento renderizado. (ej. un componente de clase con un 
+conjunto de propiedades) en un estado dado, exactamente como un [Stateless Functional Component](https://angular.io/guide/component-interaction).
 
-Para definir nuestras historias, llamamos la función `add()` una vez por cada uno de los estados de la prueba para generar una historia. La historia de acción - action story - es una función que retorna un elemento renderizado (es decir, una clase componente con un conjunto de propiedades) en un estado dado.
-
-Al crear una historia utilizamos una `tarea` (`task`) base que se modela a partir del aspecto de los datos verdaderos. Nuevamente, `exportar` esta tarea nos permitirá reutilizarla en historias posteriores.
+Como tenemos múltiples permutaciones de nuestro componente, es conveniente asignarlo a una variable `template`. La 
+introducción de este patrón en sus historias reducirá la cantidad de código que necesita escribir y mantener.
 
 <div class="aside">
-Las <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes interfaz gráfica en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para simularlas.
+💡 <code>Template.bind({})</code> es la técnica <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">estándar de JavaScript</a> para hacer una 
+copia de una función. Usamos esta técnica para permitir que cada historia exportada establezca sus propias 
+propiedades, pero usamos la misma implementación.
+</div>
+
+Argumentos o [`args`](https://storybook.js.org/docs/angular/writing-stories/args) para abreviar, nos permite editar en 
+vivo nuestros componentes con un complemento de controles sin reiniciar Storybook. Cuando los valores de los [`args`](https://storybook.js.org/docs/vue/writing-stories/args) cambian, también lo hace el componente.
+
+Al crear una historia usamos un argumento base `task` para construir la forma de la tarea que el componente espera. 
+Esto generalmente se modela a partir de cómo se ven los datos reales. De nuevo, `export` esta forma nos permitirá 
+reutilizarla en historias posteriores, como veremos.
+
+`action()` nos permite crear una devolución de la llamada que aparece en el panel **actions** de la UI de Storybook al hacer clic. Entonces, cuando creamos un botón de marcador, podremos determinar en la UI de prueba si el clic de un botón es exitoso.
+
+Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente 
+agruparlas en una sola variable `actionsData` y pasarlas a nuestra definición de historia cada vez.
+
+Otra cosa buena de agrupar los `actionsData` que necesita un componente, es que puedes` exportarlos` y usarlos en 
+historias para componentes que reutilizan este componente, como veremos más adelante.
+
+<div class="aside">
+💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Actions</b></a> nos ayuda a verificar las 
+interacciones al crear componentes de UI de forma aislada. A menudo, no tendremos acceso a las funciones y el estado 
+que tiene el contexto de la aplicación. Use <code>action()</code> para simularlas.
 </div>
 
 ## Configuración
 
-También necesitamos hacer un pequeño cambio en la configuración de Storybook (`.storybook/config.js`) para que tenga en cuenta nuestros archivos `.stories.ts` y use nuestro archivo LESS. Por defecto, Storybook busca historias en el directorio `/stories`; este tutorial usa un esquema de nombres que es similar al esquema de nombres `.tipo.extensión` preferido cuando se desarrollan aplicaciones con Angular.
+También necesitamos hacer un pequeño cambio en la configuración del Storybook para que se tenga en cuenta de 
+nuestras historias creadas recientemente. Cambia tu archivo de configuración de Storybook (`.storybook/main.js`) a lo siguiente:
 
-```typescript
-import { configure } from '@storybook/angular';
-
-import '../src/styles.less';
-
-// importa automáticamente todos los archivos que terminan en *.stories.ts
-const req = require.context('../src/', true, /\.stories.ts$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-```
-
-Para que sea posible importar directamente nuestro archivo LESS necesitamos añadir una configuración especial de Webpack. Basta con crear un archivo `webpack.config.js` dentro del directorio `.storybook` y pegar el siguiente código:
-
-```javascript
-const path = require('path');
-
+```diff:title=.storybook/main.js
 module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.less$/,
-        loaders: ['style-loader', 'css-loader', 'less-loader'],
-        include: path.resolve(__dirname, '../'),
-      },
-    ],
-  },
++ stories: ['../src/app/components/**/*.stories.ts'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
 ```
 
-También es necesario instalar los siguientes paquetes:
-
-```
-yarn add -D less-loader css-loader style-loader
-```
-
-Una vez que hayamos hecho esto y reiniciado el servidor de Storybook deberíamos ver los casos de prueba para cada estado de nuestro `TaskComponent`:
+Una vez que hayamos hecho esto, reiniciar el servidor de Storybook debería generar casos de prueba para los tres estados de TaskComponent:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -183,62 +189,93 @@ Una vez que hayamos hecho esto y reiniciado el servidor de Storybook deberíamos
   />
 </video>
 
-## Construyendo los estados
+## Especificar los requisitos de datos
 
-Ahora que hemos configurado Storybook, importado los estilos y los casos de prueba están construidos; podemos comenzar a modificar el HTML del componente para que coincida con el diseño final.
+Es una buena práctica especificar la forma de los datos que espera un componente. No solo se documenta por sí mismo, 
+sino que también ayuda a detectar problemas de manera temprana. Aquí, usaremos TypeScript y crearemos una interfaz para el modelo `Task`.
 
-Con el siguiente código, lograremos que nuestro componente (que aún es básico) se vea como deseamos:
+Cree una nueva carpeta llamada `models` dentro de la carpeta` app` y dentro de un nuevo archivo llamado `task.model.
+ts` con el siguiente contenido:
 
-```typescript
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from './task.model';
-
-@Component({
-  selector: 'task-item',
-  template: `
-    <div class="list-item {{ task?.state }}">
-      <label class="checkbox">
-        <input
-          type="checkbox"
-          [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
-          disabled="true"
-          name="checked"
-        />
-        <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
-      </label>
-      <div class="title">
-        <input type="text" [value]="task?.title" readonly="true" placeholder="Input title" />
-      </div>
-
-      <div class="actions">
-        <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-          <span class="icon-star"></span>
-        </a>
-      </div>
-    </div>
-  `,
-})
-export class TaskComponent implements OnInit {
+```ts:title=src/app/models/task.model.ts
+export interface Task {
+  id: string;
   title: string;
-  @Input() task: Task;
-  @Output() onPinTask: EventEmitter<any> = new EventEmitter();
-  @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
-
-  constructor() {}
-
-  ngOnInit() {}
-
-  onPin(id) {
-    this.onPinTask.emit(id);
-  }
-
-  onArchive(id) {
-    this.onArchiveTask.emit(id);
-  }
+  state: string;
 }
 ```
 
-El HTML que hemos agregado anteriormente, combinado con el CSS que hemos importado, produce la siguiente interfaz gráfica:
+## Construye los estados
+
+Ahora que tenemos la configuración de Storybook, los estilos importados y los casos de prueba construidos, podemos 
+comenzar rápidamente el trabajo de implementar el HTML del componente para que coincida con el diseño.
+
+Nuestro componente es todavía bastante rudimentario en este momento. Vamos a hacer algunos cambios para que coincida 
+con el diseño deseado sin entrar en demasiados detalles:
+
+```diff:title=src/app/components/task.component.ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
++ import { Task } from '../models/task.model';
+
+@Component({
+  selector: 'app-task',
+  template: `
++   <div class="list-item {{ task?.state }}">
++     <label class="checkbox">
++       <input
++         type="checkbox"
++         [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
++         disabled="true"
++         name="checked"
++       />
++       <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
++     </label>
++     <div class="title">
++       <input
++         type="text"
++         [value]="task?.title"
++         readonly="true"
++         placeholder="Input title"
++       />
++     </div>
++     <div class="actions">
++       <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
++         <span class="icon-star"></span>
++       </a>
++     </div>
++   </div>
+  `,
+})
+export class TaskComponent { {
++ @Input() task: Task;
+
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output()
+  onPinTask = new EventEmitter<Event>();
+
+  // tslint:disable-next-line: no-output-on-prefix
+  @Output()
+  onArchiveTask = new EventEmitter<Event>();
+
++ /**
++  * Component method to trigger the onPin event
++  * @param id string
++  */
++ onPin(id: any) {
++   this.onPinTask.emit(id);
++ }
++ /**
++  * Component method to trigger the onArchive event
++  * @param id string
++  */
++ onArchive(id: any) {
++   this.onArchiveTask.emit(id);
++ }
+}
+```
+
+El marcado adicional de arriba combinado con el CSS que importamos anteriormente produce la siguiente interfaz de usuario:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -247,133 +284,72 @@ El HTML que hemos agregado anteriormente, combinado con el CSS que hemos importa
   />
 </video>
 
-## Especificar los requerimientos de datos
+## ¡Componente construido!
 
-Es una buena práctica especificar la forma de los datos que un componente espera recibir. Esto no solo permite que sea mucho más sencillo entender los requerimientos del componente al leer su código, sino que también ayuda a detectar problemas rápidamente. En este caso hemos utilizado TypeScript para crear una interfaz que describe el modelo de la tarea (`Task`):
+Ahora hemos construido con éxito un componente sin necesidad de un servidor o ejecutar toda la aplicación frontend. 
+El siguiente paso es construir los componentes restantes de Taskbox uno por uno de manera similar.
 
-```typescript
-export interface Task {
-  id: string;
-  title: string;
-  state: string;
-}
-```
-
-## ¡Componente listo!
-
-Hemos construido, exitosamente, un componente sin necesidad de un servidor y sin ejecutar la aplicación. El siguiente paso es construir los componentes restantes de la Taskbox, uno por uno de manera similar.
-
-Como puedes ver, construir componentes en aislamiento es fácil y rápido. De esta forma nuestras interfaces gráficas serán de mayor calidad, estarán mucho más pulidas y tendrán menos errores, ya que es posible profundizar y probar todos los estados posibles de cada componente.
+Como puede ver, comenzar a construir componentes de forma aislada es fácil y rápido. Podemos esperar producir una 
+interfaz de usuario de mayor calidad con menos errores y más pulida porque es posible profundizar y probar todos los estados posibles.
 
 ## Pruebas automatizadas
 
-Storybook proporciona una excelente forma de probar visualmente nuestra aplicación durante su construcción. Las 'historias' ayudarán a asegurar que no rompamos nuestro `TaskComponent` y que cada estado posible siempre se vea como debe ser, a medida que continuamos desarrollando la aplicación. Sin embargo, en esta etapa, es un proceso completamente manual y alguien tiene que hacer el esfuerzo de hacer clic en cada estado de prueba y asegurarse de que se visualice bien y sin errores ni advertencias. ¿No podemos hacer eso automáticamente?
+Storybook proporciona una excelente forma de probar visualmente nuestra aplicación durante su construcción. Las 
+'historias' ayudarán a asegurar que no rompamos nuestro TaskComponent y que cada estado posible siempre se vea 
+como debe ser, a medida que continuamos desarrollando la aplicación. Sin embargo, en esta etapa, es un proceso 
+completamente manual y alguien tiene que hacer el esfuerzo de hacer clic en cada estado de prueba y asegurarse de 
+que se visualice bien y sin errores ni advertencias. ¿No podemos hacer eso automáticamente?
 
 ### Pruebas de instantáneas
 
-La prueba de instantáneas se refiere a la práctica de registrar la salida "correcta" de un componente (como debe mostrarse en el navegador) para una determinada serie de entradas (datos que recibe el componente) y luego en el futuro marcar el componente siempre que la salida cambie. Estas pruebas complementan el trabajo que Storybook hace, pues constituyen una manera rápida de visualizar la nueva versión de un componente y verificar los cambios.
+La prueba de instantáneas se refiere a la práctica de registrar la salida "correcta" de un componente (como debe 
+mostrarse en el navegador) para una determinada serie de entradas (datos que recibe el componente) y luego en el 
+futuro marcar el componente siempre que la salida cambie. Estas pruebas complementan el trabajo que Storybook hace, 
+pues constituyen una manera rápida de visualizar la nueva versión de un componente y verificar los cambios.
 
 <div class="aside">
-Asegúrate de que tus componentes rendericen datos que no cambien. De otro modo, cada vez que los datos cambien tus pruebas fallarán. Presta especial atención a fechas o valores generados de manera aleatoria.
+💡 Asegúrate de que tus componentes rendericen datos que no cambien. De otro modo, cada vez que los datos cambien tus 
+pruebas fallarán. Presta especial atención a fechas o valores generados de manera aleatoria.
 </div>
 
-Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea, automáticamente, una prueba de instantánea para cada una de las historias. Úsalo agregando el siguiente paquete en modo desarrollo a las dependencias del proyecto:
+Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea, 
+automáticamente, una prueba de instantánea para cada una de las historias. Úsalo agregando el siguiente paquete en 
+modo desarrollo a las dependencias del proyecto:
 
 ```bash
-yarn add -D @storybook/addon-storyshots identity-object-proxy jest jest-preset-angular
+npm install -D @storybook/addon-storyshots
 ```
 
-Luego crea un archivo `src/storybook.test.ts` con el siguiente contenido:
+Luego crea un archivo `src/storybook.test.js` con el siguiente contenido:
 
-```typescript
-import * as path from 'path';
-import initStoryshots, { multiSnapshotWithOptions } from '@storybook/addon-storyshots';
+```ts:title=src/storybook.test.js
+import initStoryshots from '@storybook/addon-storyshots';
 
-initStoryshots({
-  framework: 'angular',
-  configPath: path.join(__dirname, '../.storybook'),
-  test: multiSnapshotWithOptions(),
-});
+initStoryshots();
 ```
 
-Después de esto, crea un directorio `src/jest-config` que contenga dos archivos, `globalMocks.ts`:
+Finalmente, necesitamos hacer un pequeño cambio para `jest` en nuestro `package.json`:
 
-```typescript
-const mock = () => {
-  let storage = {};
-  return {
-    getItem: key => (key in storage ? storage[key] : null),
-    setItem: (key, value) => (storage[key] = value || ''),
-    removeItem: key => delete storage[key],
-    clear: () => (storage = {}),
-  };
-};
+```diff:title=package.json
+{
+   "transform": {
+      "^.+\\.(ts|html)$": "ts-jest",
+      "^.+\\.js$": "babel-jest",
++     "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
 
-Object.defineProperty(window, 'localStorage', { value: mock() });
-Object.defineProperty(window, 'sessionStorage', { value: mock() });
-Object.defineProperty(window, 'getComputedStyle', {
-  value: () => ['-webkit-appearance'],
-});
-```
-
-y `setup.ts`:
-
-```typescript
-import 'jest-preset-angular';
-import './globalMocks';
-```
-
-Adicionalmente, añade un nuevo campo al `package.json`,
-
-```json
-"jest": {
-    "coveragePathIgnorePatterns": [
-      "/jest-config/",
-      "/node_modules/"
-    ],
-    "preset": "jest-preset-angular",
-    "setupTestFrameworkScriptFile": "<rootDir>/src/jest-config/setup.ts",
-    "snapshotSerializers": [
-      "<rootDir>/node_modules/jest-preset-angular/AngularSnapshotSerializer.js",
-      "<rootDir>/node_modules/jest-preset-angular/HTMLCommentSerializer.js"
-    ],
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "/build/",
-      "/storybook-static/"
-    ],
-    "transform": {
-      "^.+\\.(ts|js|html)$": "<rootDir>/node_modules/jest-preset-angular/preprocessor.js"
     },
-    "moduleNameMapper": {
-      "\\.(css|less)$": "identity-obj-proxy"
-    }
-  },
-```
-
-dos nuevos scripts para ejecutar `jest`
-
-```json
-"scripts": {
-  ...
-  "jest": "jest",
-  "jest:watch": "jest --watch"
 }
 ```
 
-y, finalmente, actualiza `src/tsconfig.app.json` para excluir los archivos terminados en `.test.ts`
-
-```json
-"exclude": [
-    "src/test.ts",
-    "**/*.stories.ts",
-    "**/*.spec.ts",
-    "**/*.test.ts"
-  ]
-```
-
-Una vez hecho lo anterior, podemos ejecutar `yarn jest` y veremos el siguiente resultado:
+Una vez hecho lo anterior, podemos ejecutar `npm run test` y ver el siguiente resultado:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
-Ahora tenemos una prueba de instantánea para cada una de las historias de nuestro `TaskComponent`. Si cambiamos la implementación de `TaskComponent`, se nos pedirá que verifiquemos los cambios.
+Ahora tenemos una prueba instantánea para cada una de nuestras historias de "TaskComponent". Si cambiamos la 
+implementación de `TaskComponent`, se nos pedirá que verifiquemos los cambios.
+
+Adicionalmente, `jest` también ejecutará la prueba para `app.component.ts`.
+
+<div class="aside">
+💡 ¡No olvides confirmar tus cambios en git!
+</div>
