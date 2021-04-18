@@ -1,20 +1,25 @@
 ---
-title: 'Addons'
-tocTitle: 'Addons'
-description: 'Learn how to integrate and use the popular Controls addon'
+title: 'Complementos'
+tocTitle: 'Complementos'
+description: 'Aprenda a integrar y utilizar el popular complemento de controles'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/angular/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons),
+Storybook tiene un ecosistema robusto de [complementos](https://storybook.js.
+org/docs/angular/configure/storybook-addons) que puede utilizar para mejorar la experiencia de desarrollo para todos
+los miembros de su equipo. Verlos todos [aquí](https://storybook.js.org/addons),
 
-If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/intro-to-storybook/angular/en/test/) chapter.
+Si ha estado siguiendo este tutorial, ya ha encontrado varios complementos y ha configurado uno en el capítulo [Testing](/intro-to-storybook/angular/es/test/).
 
-There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/angular/essentials/controls).
+Hay complementos para cada caso de uso posible. Llevaría una eternidad escribir sobre todos ellos. Integremos uno de
+los complementos más populares: [Controls](https://storybook.js.org/docs/angular/essentials/controls).
 
-## What is Controls?
+## ¿Qué son los controles?
 
-Controls allows designers and developers to easily explore component behavior by _playing_ with its arguments. No code required. Controls creates an addon panel next to your stories, so you can edit their arguments live.
+Los controles permiten a los diseñadores y desarrolladores explorar fácilmente el comportamiento de los componentes
+al _jugar_ con sus argumentos. No se requiere código. Controls crea un panel adicional junto a sus historias, para
+que pueda editar sus argumentos en vivo.
 
-Fresh installs of Storybook include Controls out of the box. No extra configuration needed.
+Las nuevas instalaciones de Storybook incluyen controles listos para usar. No se necesita configuración adicional.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -23,21 +28,25 @@ Fresh installs of Storybook include Controls out of the box. No extra configurat
   />
 </video>
 
-## Addons unlock new Storybook workflows
+## Los complementos desbloquean nuevos flujos de trabajo de Storybook
 
-Storybook is a wonderful [component-driven development environment](https://www.componentdriven.org/). The Controls addon evolves Storybook into an interactive documentation tool.
+Storybook es un maravilloso [component-driven development environment](https://www.componentdriven.org/). El
+complemento Controls convierte Storybook en una herramienta de documentación interactiva.
 
-### Using Controls to find edge cases
+### Usar controles para encontrar casos extremos
 
-With Controls QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Let's consider the following example, what would happen to our `Task` if we added a **MASSIVE** string?
+Con Controls, los ingenieros de control de calidad, los ingenieros de interfaz de usuario o cualquier otra parte
+interesada pueden llevar el componente al límite. Consideremos el siguiente ejemplo, ¿qué pasaría con nuestra
+`Task` si agregamos una cadena **MASIVA**?
 
 ![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
 
-That's not right! It looks like the text overflows beyond the bounds of the Task component.
+¡Eso no está bien! Parece que el texto se desborda más allá de los límites del componente Task.
 
-Controls allowed us to quickly verify different inputs to a component. In this case a long string. This reduces the work required to discover UI problems.
+Los controles nos permitieron verificar rápidamente diferentes entradas a un componente. En este caso una cadena
+larga. Esto reduce el trabajo necesario para descubrir problemas de UI.
 
-Now let's fix the issue with overflowing by adding a style to `Task.vue`:
+Ahora solucionemos el problema del desbordamiento agregando un estilo a `Task.vue`:
 
 ```diff:title=src/app/components/task.component.ts
 <input
@@ -51,13 +60,16 @@ Now let's fix the issue with overflowing by adding a style to `Task.vue`:
 
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
+¡Problema resuelto! El texto ahora está truncado cuando alcanza el límite del área de Tarea usando una ellipsis
+atractiva.
 
-### Adding a new story to avoid regressions
+### Agregar una nueva historia para evitar regresiones
 
-In the future, We can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
+En el futuro, podemos reproducir manualmente este problema ingresando la misma cadena a través de Controles. Pero es
+más fácil escribir una historia que muestre este caso extremo. Eso amplía la cobertura de nuestra prueba de regresión y
+describe claramente los límites de los componentes para el resto del equipo.
 
-Add a new story for the long text case in `Task.stories.js`:
+Agregue una nueva historia para el caso de texto largo en `Task.stories.js`:
 
 ```ts:title=src/app/components/task.stories.ts
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
@@ -71,7 +83,7 @@ LongTitle.args = {
 };
 ```
 
-Now we can reproduce and work on this edge case with ease.
+Ahora podemos reproducir y trabajar en este caso de desborde con facilidad.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -80,10 +92,12 @@ Now we can reproduce and work on this edge case with ease.
   />
 </video>
 
-If we are [visual testing](/intro-to-storybook/angular/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
+Si estamos haciendo un [test visual](/intro-to-storybook/angular/es/test/), también se nos informará si se rompe la
+solución de ellipse. ¡Los casos de borde oscuros pueden olvidarse sin cobertura de prueba!
 
-<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories, and much more than we've seen here, we recommend reading the <a href="https://storybook.js.org/docs/angular/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons.</div>
+<div class="aside"><p>💡 Los controles son una excelente manera de hacer que los no desarrolladores jueguen con sus 
+componentes e historias, y mucho más de lo que hemos visto aquí, recomendamos leer la <a href="https://storybook.js.org/docs/angular/essentials/controls">documentation oficial</a> para aprender más acerca de esto. Sin embargo, hay muchas más formas de personalizar Storybook para que se adapte a su flujo de trabajo con complementos.</div>
 
-### Merge Changes
+### Mergear Cambios
 
-Don't forget to merge your changes with git!
+¡No olvide guardar sus cambios con git!
