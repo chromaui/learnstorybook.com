@@ -86,7 +86,7 @@ Omdat we dezelfde reeks acties moeten doorgeven aan alle permutaties van onze co
 
 Nog iets leuks over het bundelen van de `actions` die een component nodig heeft, is dat je ze kunt `export`-en en ze in stories kunt gebruiken voor componenten die deze component hergebruiken, zoals we later zullen zien.
 
-Om onze stories te definiëren, roepen we eenmaal `add()` op voor elk van onze test states om een story te genereren. De action story is een functie die een gerenderd element (dwz een component class met een set props) teruggeeft in een bepaalde state --- precies zoals een React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+Om onze stories te definiëren, roepen we eenmaal `add()` op voor elk van onze test states om een story te genereren. De action story is een functie die een gerenderd element (dwz een component class met een set props) teruggeeft in een bepaalde state --- precies zoals een React [Functional Component](https://reactjs.org/docs/components-and-props.html).
 
 Bij het aanmaken van een story gebruiken we een basistaak (`task`) om de vorm van de taak uit te bouwen die de component verwacht. Dit wordt typisch gemodelleerd naar hoe de echte data eruit ziet. Nogmaals, als we deze vorm `export`-en, kunnen we deze in latere stories hergebruiken, zoals we zullen zien.
 

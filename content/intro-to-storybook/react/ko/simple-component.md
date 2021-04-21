@@ -97,7 +97,7 @@ Storybook에게 우리가 문서화하고 있는 컴포넌트에 대해 알려�
 - `excludeStories` -- Storybook에서 스토리를 내보낼 때 렌더링에서 제외하는 것
 - `argTypes` -- 각각의 스토리에서 [인수(args)](https://storybook.js.org/docs/react/api/argtypes)의 행동 방식을 명시합니다.
 
-스토리를 정의하기 위해, 각각의 테스트 state에 해당하는 스토리를 만들기 위해서 우리는 함수를 내보냅니다. 스토리는 주어진 state안에서 렌더링된 요소(예를 들자면 prop이 포함된 컴포넌트)를 리턴하는 함수입니다. 이는 [함수형 컴포넌트(Stateless Functional Component)](https://reactjs.org/docs/components-and-props.html)와 같습니다.
+스토리를 정의하기 위해, 각각의 테스트 state에 해당하는 스토리를 만들기 위해서 우리는 함수를 내보냅니다. 스토리는 주어진 state안에서 렌더링된 요소(예를 들자면 prop이 포함된 컴포넌트)를 리턴하는 함수입니다. 이는 [함수형 컴포넌트(Functional Component)](https://reactjs.org/docs/components-and-props.html)와 같습니다.
 
 우리 컴포넌트의 순열(permutations)이 여러 개이기 때문에 `Template` 변수에 할당하는 것이 편리합니다. 이 패턴을 스토리에 도입함으로써 작성하고 유지해야 하는 코드의 양이 줄어들 것입니다.
 
