@@ -50,7 +50,7 @@ We’ll begin with the baseline implementation of the `Task`, simply taking in t
     id: '',
     title: '',
     state: '',
-    updated_at: new Date(2019, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   };
 </script>
 
@@ -98,7 +98,7 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 export const Pinned = Template.bind({});
@@ -164,6 +164,10 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 // .storybook/main.js
 
 module.exports = {
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
 + stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
@@ -188,7 +192,7 @@ Once we’ve done these two small changes, restarting Storybook should yield tes
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -205,13 +209,13 @@ The component is still basic at the moment. First write the code that achieves t
 
   const dispatch = createEventDispatcher();
 
-  // event handler for Pin Task
+  // Event handler for Pin Task
   function PinTask() {
     dispatch('onPinTask', {
       id: task.id,
     });
   }
-  // event handler for Archive Task
+  // Event handler for Archive Task
   function ArchiveTask() {
     dispatch('onArchiveTask', {
       id: task.id,
@@ -223,10 +227,10 @@ The component is still basic at the moment. First write the code that achieves t
     id: '',
     title: '',
     state: '',
-    updated_at: new Date(2019, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   };
 
-  // reactive declaration (computed prop in other frameworks)
+  // Reactive declaration (computed prop in other frameworks)
   $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
 +  <div class="list-item {task.state}">
@@ -251,7 +255,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -298,6 +302,7 @@ And finally we need to make a small adjustment to our `jest` key in `package.jso
 +     "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
++   "transformIgnorePatterns": ["node_modules/(?!(@storybook/svelte)/)"],
   }
 }
 ```

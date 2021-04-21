@@ -68,7 +68,7 @@ const TaskBox = () => {
       ),
   };
 };
-+ export const taskStore = TaskBox();
+export const taskStore = TaskBox();
 
 + // Store to handle the app state
 + const AppState = () => {
@@ -138,7 +138,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

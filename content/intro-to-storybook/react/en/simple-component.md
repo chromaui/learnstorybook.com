@@ -118,8 +118,8 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 ```diff:title=.storybook/main.js
 module.exports = {
 - stories: [
--    '../src/**/*.stories.mdx',
--    '../src/**/*.stories.@(js|jsx|ts|tsx)'
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
 + stories: ['../src/components/**/*.stories.js'],
   addons: [

@@ -18,7 +18,7 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ## Get setup
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.svelte` and `src/components/TaskList.stories.js`.
+A composite component isn’t much different than the basic components it contains. Create a `TaskList` component, an auxiliary component to help us display the correct markup, and an accompanying story file: `src/components/TaskList.svelte`, `src/components/MarginDecorator.svelte`, and `src/components/TaskList.stories.js`.
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
@@ -28,7 +28,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
   export let loading = false;
   export let tasks = [];
 
-  // reactive declarations (computed prop in other frameworks)
+  //👇 Reactive declarations (computed prop in other frameworks)
   $: noTasks = tasks.length === 0;
   $: emptyTasks = noTasks && !loading;
 </script>
@@ -43,15 +43,33 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 {/each}
 ```
 
-Next create `Tasklist`’s test states in the story file.
+Next, create `MarginDecorator` with the following inside:
 
-```js:title= src/components/TaskList.stories.js
+```svelte:title=src/components/MarginDecorator.svelte
+<div>
+  <slot />
+</div>
+
+<style>
+  div {
+    margin: 3em;
+  }
+</style>
+```
+
+Finally, create `Tasklist`’s test states in the story file.
+
+```js:title=src/components/TaskList.stories.js
 import TaskList from './TaskList.svelte';
+
+import MarginDecorator from './MarginDecorator.svelte';
 
 import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
+  //👇 The auxiliary component will be added as a decorator to help show the UI correctly
+  decorators: [() => MarginDecorator],
   title: 'TaskList',
   argTypes: {
     onPinTask: { action: 'onPinTask' },
@@ -105,13 +123,17 @@ Empty.args = {
 };
 ```
 
+<div class="aside">
+💡 <a href="https://storybook.js.org/docs/svelte/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add styling around the rendered component. They can also be used to add other context to components.
+</div>
+
 By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/svelte/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -179,7 +201,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -188,11 +210,15 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 
 ## Automated testing
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer.
+In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Svelte Testing Library](https://testing-library.com/docs/svelte-testing-library/intro).
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
-### Unit tests with Jest
+<div class="aside">
+TODO:ADD testing library image
+</div>
+
+### Unit tests with Svelte Testing Library
 
 Storybook stories paired with manual visual tests and snapshot tests (see above) go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
 
@@ -200,7 +226,7 @@ However, sometimes the devil is in the details. A test framework that is explici
 
 In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
 
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
+So, to avoid this problem, we can use Svelte Testing Library to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
 Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
 
@@ -211,7 +237,7 @@ import { render } from '@testing-library/svelte';
 
 import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
 
-test('TaskList', () => {
+test('renders pinned tasks at the start of the list', () => {
   //👇 Story's args used with our test
   const { container } = render(TaskList, {
     props: WithPinnedTasks.args,
