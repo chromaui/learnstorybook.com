@@ -82,7 +82,7 @@ Como necesitamos pasarle el mismo conjunto de acciones a todas las permutaciones
 
 Otra cosa positiva acerca de agrupar las `actions` que un componente necesita, es que puedes usar `export` y utilizarlas en historias para otros componentes que reutilicen este componente, como veremos luego.
 
-Para definir nuestras historias, llamamos a `add()` una vez para cada uno de nuestros estados del test para generar una historia. La historia de acción - action story - es una función que retorna un elemento renderizado (es decir, una clase componente con un conjunto de props) en un estado dado.
+Para definir nuestras historias, llamamos a `add()` una vez para cada uno de nuestros estados del test para generar una historia. La historia de acción - action story - es una función que retorna un elemento renderizado (es decir, una clase componente con un conjunto de props) en un estado dado---exactamente como en React [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
 
 Al crear una historia utilizamos una historia base (`task`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
 
