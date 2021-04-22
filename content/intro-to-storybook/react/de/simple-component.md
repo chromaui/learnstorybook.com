@@ -95,7 +95,7 @@ Um Storybook die Komponente, die wir dokumentieren, zugänglich zu machen, erste
 - `title` -- wie die Komponente in der Sidebar der Storybook App referenziert werden soll,
 - `excludeStories` -- Exporte in der Story Datei, die von Storybook nicht als Stories gerendert werden sollen.
 
-Unsere Stories definieren wir, indem wir für jeden unserer Test-Zustände eine Funktion exportieren, um eine Story zu generieren. Die Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) --- genau wie eine [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html) in React.
+Unsere Stories definieren wir, indem wir für jeden unserer Test-Zustände eine Funktion exportieren, um eine Story zu generieren. Die Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) --- genau wie eine [function component](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in React.
 
 `action()` erlaubt uns, ein Callback zu erstellen, das im **Actions**-Panel der Storybook-UI erscheint, wenn man auf dieses klickt. Wenn wir also einen Pin-Button bauen, können wir so in der Test-UI sehen, ob ein Button-Klick erfolgreich war.
 
