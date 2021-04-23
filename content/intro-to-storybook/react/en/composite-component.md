@@ -226,11 +226,7 @@ export default function TaskList() {
 
 In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [@storybook/testing-react](https://storybook.js.org/addons/@storybook/testing-react).
 
-![Testing library and Storybook testing logos](/intro-to-storybook/logos-react-testing-lib-storybook-testing-react_smaller.png)
-
-<div class="aside">
-TODO:ADD testing library image
-</div>
+![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
 
 ### Unit tests with React Testing Library
 

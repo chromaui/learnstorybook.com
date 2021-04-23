@@ -225,11 +225,7 @@ As the component grows, so too do input requirements. Define the data requiremen
 
 In the previous chapter we learned how to snapshot test stories using Storyshots. With `TaskComponent` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskListComponent` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
 
-![Jest logo](/intro-to-storybook/logo-jest.png)
-
-<div class="aside">
-TODO:ADD testing library image
-</div>
+![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
 
 ### Unit tests with Angular Testing Library
 
