@@ -47,6 +47,12 @@ The Design Systems for Developers features the following translations. Some are 
 | Korean      | ✅      |
 | Portuguese  | ❌      |
 
+The Create an Addon features the following translations. If you want to learn about the addon ecosystem and you're a native speaker of any of the languages detailed below. Help us out by updating the translations. Comment in the issue above.
+| Translation | Updated |
+| ----------- | ------- |
+| English | ✅ |
+| French | ✅ |
+
 ## Who made LearnStorybook.com?
 
 The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)
