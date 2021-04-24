@@ -5,13 +5,13 @@ description: 'Partagez votre addon Storybook à la communauté'
 commit: '927e729'
 ---
 
-Le [catalogue d'addon](https://storybook.js.org/addons) abrite tous les addons Storybook. C'est là que nous affichons vos addons et où les développeurs en découvrent de nouveaux. Préparons votre addon pour le release, l'empaqueter et le publier dans le catalogue.
+Le [catalogue d'addon](https://storybook.js.org/addons) abrite tous les addons Storybook. C'est là que nous affichons vos addons et où les développeurs en découvrent de nouveaux. Préparons votre addon pour entreprendre sa release, l'empaqueter et le publier dans le catalogue.
 
 ![](../../images/catalog.png)
 
 ## Préparer votre addon pour le release
 
-Les addons storybook, comme la plupart des packages de l'écosystème JavaScript, sont distribués via npm. Cependant, ils remplissent certains critères :
+Les addons storybook, comme la plupart des packages de l'écosystème JavaScript, sont distribués via npm. Cependant, ils respectent certains critères :
 
 1. Ils ont un répertoire dist contenant le code ES5 transpilé.
 2. Un fichier `preset.js` à la racine, écrit en tant que module ES5.
@@ -54,11 +54,11 @@ Imaginons que vous créez une bibliothèque de formulaire fonctionnant avec Reac
 
 ## Métadonnées pour le catalogue
 
-En plus des informations liées au module, vous devez préciser quelques métadonnées pour le catalogue d'addons Storybook.
+En plus des informations liées au module, vous devez préciser quelques métadonnées pour le catalogue d'addons de Storybook.
 
 ![les métadonnées du catalogue comprennent les tags, la compatibilité, les auteurs, etc.](../../images/catalog-metadata.png)
 
-Certaines de ces informations sont pré-configurées par l'Addon Kit. Des choses comme le nom public, l'icône ou la compatibilité des différents frameworks sont définies par la propriété storybook. Consultez la [documentation des métadonnées d'Addons](https://storybook.js.org/docs/react/addons/addon-catalog/#addon-metadata) pour une spécification complète de l'API des métadonnées.
+Certaines de ces informations sont pré-configurées par l'Addon Kit. Des choses comme le nom public, l'icône ou la compatibilité des différents frameworks sont définies par la propriété storybook. Consultez la [documentation concernant les métadonnées des Addons](https://storybook.js.org/docs/react/addons/addon-catalog/#addon-metadata) pour une spécification complète de l'API des métadonnées.
 
 ```json:title=package.json
 {
@@ -77,7 +77,7 @@ Certaines de ces informations sont pré-configurées par l'Addon Kit. Des choses
 }
 ```
 
-La propriété keywords se réfère aux tags du catalogue. Par exemple, le tag storybook-addons assure que votre addon sera ajouté au catalogue et appearence représente une catégorie du catalogue. Le reste facilite la recherche de votre addon.
+La propriété keywords correspond aux tags du catalogue. Par exemple, le tag storybook-addons assure que votre addon sera ajouté au catalogue et appearence représente une catégorie du catalogue. Le reste facilite la recherche de votre addon.
 
 ## Publier sur NPM
 
@@ -101,7 +101,7 @@ npx auto create-labels
 
 Si vous vérifiez sur GitHub, vous devriez désormais voir un ensemble de labels qu'Auto aimerait que vous utilisiez. Utilisez-les pour tagger les futures pull requests.
 
-Enfin, création d'une release
+Enfin, la création d'une release
 
 ```bash
 npm run release
