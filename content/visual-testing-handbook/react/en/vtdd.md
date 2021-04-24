@@ -1,6 +1,5 @@
 ---
-title: 'Tutorial Visual TDD'
-tocTitle: 'Tutorial — VTDD'
+title: 'Visual TDD'
 description: 'Put all the concepts together in code'
 commit: 'e7c8eb9'
 ---
@@ -13,16 +12,14 @@ Suppose we are tasked with building out the CommentList, part of a chat tool for
 
 We need to ensure the list renders correctly in terms of the exact text, images displayed, and visual treatment.
 
-### Step 1: Building test cases
+### 1. Build visual test cases
 
-To start TDD, we need to build test cases. We’ll create three cases that match the three images we’ve been handed above (a strict TDD-er would say we need to develop and implement one test case at a time; it’s up to you if you think this helps your process).
+Start visual TDD by building test cases. We’ll create three cases that match the three images above. A strict TDD-er would say we need to develop and implement one test case at a time; it’s up to you if you think this helps your process.
 
-Before we jump into the implementation, we need to take a couple of steps to set up our project. We’re going to use [degit](https://github.com/Rich-Harris/degit) to set up the necessary boilerplate code. Using this package, you can download “templates” (partially built applications with some default configuration).
-
-Let's run the following commands:
+Let's set up the example project using [degit](https://github.com/Rich-Harris/degit) to download the necessary boilerplate templates (partially built applications with some default configuration). Run the following commands:
 
 ```shell
-# Clone the template
+# Clone the template for this tutorial
 npx degit chromaui/visual-testing-handbook-react-template commentlist
 
 cd commentlist
@@ -31,13 +28,9 @@ cd commentlist
 yarn
 ```
 
-<div class="aside">
-💡 This template contains the necessary assets and bare essential Storybook configurations for this version of the tutorial.
-</div>
+Next, we’ll build the simplest-possible `CommentList` implementation so that we can ensure our tests are set up correctly.
 
-Next, we’ll build a simplest-possible `CommentList` implementation so that we can ensure our tests are set up correctly.
-
-Inside your `src` directory, create a new one named `components`, followed by a new file called `CommentList.js` with the following content:
+Inside your `src` directory, create a new folder called `components`, then by a new file called `CommentList.js` with the following content:
 
 ```js:title=src/components/CommentList.js
 import React from 'react';
@@ -89,9 +82,9 @@ CommentList.defaultProps = {
 };
 ```
 
-Then we build our test states. Storybook makes this quick and easy.
+Now that we have a basic implementation, we can build our test states. Storybook makes this quick and easy.
 
-Create a new file called `CommentList.stories.js`, in the same directory as above (`src/components`) and add the following:
+Create a new file called `CommentList.stories.js` in `src/components` and add the following:
 
 ```js:title=src/components/CommentList.stories.js
 import React from 'react';
@@ -165,11 +158,9 @@ Empty.args = {
 };
 ```
 
-### Step 2: Check the tests in Storybook
+### 2. Check the tests in Storybook
 
-Now we can start Storybook and see our test cases.
-
-Run the following command:
+Start Storybook to see the test cases. Our component implementation is bare bones, but it allows us to confirm our test cases render as intended.
 
 ```shell
 # Start Storybook in development mode
@@ -182,21 +173,17 @@ yarn storybook
     type="video/mp4"/>
 </video>
 
-Our component implementation is trivial, but we can see that our tests look like they are working well.
-
 ### Step 3: Build out the implementation
 
-Now that we have a rudimentary implementation of our component, Storybook setup, and our test cases built out. It’s time to start building an implementation of the `HasData` state in a self-contained way. We’ll use [`styled-components`](https://styled-components.com/) – a CSS encapsulation library that allows proper style isolation at the component level.
+So far, we scaffolded a rudimentary implementation, setup Storybook to render our test cases. It’s time to start building an implementation of the `HasData` state in isolation.
 
-Run the following command in your terminal:
+We use [`styled-components`](https://styled-components.com/) – a libary that encapsulates CSS at the component level. Run the following command:
 
 ```shell
 yarn add styled-components
 ```
 
-Now we can try an implementation of the main list that handles the `HasData` use- case.
-
-Update your `CommentList.js` file to the following:
+Now we can try an implementation of the main list that handles the `HasData` use case. Update your `CommentList.js` file to the following:
 
 ```diff:title=src/components/CommentList.stories.js
 import React from 'react';
@@ -322,9 +309,9 @@ CommentList.defaultProps = {
 };
 ```
 
-### Step 4: Check the implementation against the design
+### 4. Check the implementation against the design
 
-Once we’ve worked on our implementation a little bit, we can open it up in Storybook to see if it works. Of course, this example was heavy on CSS, so chances are we will have been testing our changes in Storybook as we went to tweak the styles to achieve what we wanted.
+Open it up in Storybook to see if it works. Of course, this example was heavy on CSS, so chances are we will have been testing our changes in Storybook as we went to tweak the styles to achieve what we wanted.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -332,7 +319,7 @@ Once we’ve worked on our implementation a little bit, we can open it up in Sto
     type="video/mp4"/>
 </video>
 
-### Step 5: Iterate
+### 5. Iterate
 
 If we were unhappy with our implementation in step 4, we could go back to step 3 and keep working on it. If we’re satisfied, then it’s time to build the next state. Perhaps we’d tackle the `paginated` test state and try to add the “load more” button.
 

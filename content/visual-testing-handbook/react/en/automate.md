@@ -1,6 +1,6 @@
 ---
-title: 'Tutorial Automated visual testing'
-tocTitle: 'Tutorial — Automate'
+title: 'Automate visual testing'
+tocTitle: 'Automate'
 description: 'Learn how to automate visual testing to catch regressions'
 commit: 'b1b5f0b'
 ---

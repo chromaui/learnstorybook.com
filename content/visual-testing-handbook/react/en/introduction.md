@@ -66,7 +66,7 @@ Each commit, new screenshots are automatically compared to previously accepted b
 
 That may sound laborious, but typically it ends up being easier than sifting through false positives from automated tests, updating test cases to match up with minor UI changes, and working overtime to make tests pass again.
 
-## Next up: learn the tools
+## Learn the tools
 
 Now that we have a sense of what visual testing is, let’s check out the main tool you need to enable it: a component explorer.
 

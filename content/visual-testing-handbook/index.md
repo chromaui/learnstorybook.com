@@ -7,15 +7,7 @@ order: 3
 themeColor: '#129F00'
 codeGithubUrl: 'https://github.com/chromaui/learnstorybook-visual-testing-code'
 heroAnimationName: null
-toc:
-  [
-    'introduction',
-    'component-explorers',
-    'visual-test-driven-development',
-    'tutorial-vtdd',
-    'tutorial-automate',
-    'conclusion',
-  ]
+toc: ['introduction', 'component-explorers', 'workflow', 'vtdd', 'automate', 'conclusion']
 coverImagePath: '/guide-cover/visual-testing.svg'
 thumbImagePath: '/guide-thumb/visual-testing.svg'
 contributorCount: '+2'
