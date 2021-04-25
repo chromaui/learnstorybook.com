@@ -5,31 +5,21 @@ description: 'Learn how to automate visual testing to catch regressions'
 commit: 'b1b5f0b'
 ---
 
-Almost there. So far, we've implemented the `CommentList` and used Visual TDD to build out all its states. We now need to ensure that future changes do not have unintended consequences.
+**"Does it still look right?"**
 
-Let's look at how to use snapshots to decrease incoming bugs and prevent UI regressions altogether.
+Building UIs is only one part of frontend engineering. UIs must also stay reliable over time. But over the natural course of app development, changes inevitably cause UI regressions.
 
-## "Does it look right?"
+It's impractical to check for UI bugs in each `CommentList` state manually each time we push code. This chapter shows you how to automate visual testing using image snapshots.
 
-It's been one of the central points of this handbook. We learned that visual testing is a practical way to verify that our components match the intended design. Empowered by Storybook and streamlined with Visual TDD. It leads to our ultimate goal, creating solid UIs better equipped to handle hardships.
+## How does it work?
 
-However, creating components is just one aspect of frontend engineering. They must also remain reliable over time. Successful apps require:
+Visual test automation combines the accuracy of the human eye with the efficiency of machines. It doesn't remove people from the testing process. It use tools to focus human effort on the specific UI changes that require attention.
 
-- 🎛️ Sustained effort to add features
-- 📈 Improved performance
-- 🕳️ Patch security holes
+First, an image snapshot is taken for each component and state as a "baseline" – the last known good state of the UI. Whenever we push code, the machine will automatically take new snapshots and compare them pixel-by-pixel to the baseline snapshots.
 
-Over the natural course of app development, component changes inevitably produce UI regressions.
+If the machine detects UI changes, a human gets notified to confirm whether they're unintended bugs or intentional improvements.
 
-Forward-thinking teams guard against regressions with test suites composed of unit tests and end-to-end tests, along with a continuous integration tool. But historically, it has been challenging to add visual tests to this suite.
-
-Previous approaches were either too brittle (and complex) or too broad for many teams to adopt. With modern UIs, their inherent modularity makes it much easier to scope tests and pinpoint possible regressions.
-
-## Automated visual testing
-
-By taking snapshots of visual tests, you’ll have a recipe for squashing UI regressions once and for all. We capture an image of the component state, then use a machine to generate a pixel-by-pixel diff. Which then identifies whether components have changed in appearance.
-
-We'll demonstrate a visual test and reviewing workflow with [Chromatic](https://www.chromatic.com/), a service created by Storybook maintainers.
+We'll demonstrate how this all works using [Chromatic](https://www.chromatic.com/) by Storybook maintainers.
 
 ![How visual testing snapshots work](/visual-testing-handbook/how-snapshots work.png)
 
@@ -68,13 +58,7 @@ From there, choose the repository you've just created.
  TODO: add video similar to the other tutorials (Intro Storybook and Design Systems) to select the repo in Chromatic
 </div>
 
-### Enable UI Tests
-
-UI tests capture a visual snapshot of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against baselines. If there are visual changes, you verify if they’re intentional.
-
-Enable visual tests for your project on the manage screen.
-
-![enable UI tests](/visual-testing-handbook/enable-uitests.png)
+UI tests capture an image snapshot of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against baselines. If there are visual changes, you verify if they’re intentional.
 
 ### Establish baselines
 
@@ -92,7 +76,7 @@ git commit -m "Added Chromatic"
 git push
 ```
 
-Let's build and deploy our Storybook. Run the following command:
+Build and publish our Storybook with the following command:
 
 ```shell
 yarn chromatic --project-token=<project-token>
@@ -104,7 +88,7 @@ yarn chromatic --project-token=<project-token>
 
 ![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-With this one command, you've published your Storybook and triggered Chromatic to capture a visual snapshot of each story (using a cloud browser) and set it as the baseline.
+With this one command, you've published your Storybook and triggered Chromatic to capture an image snapshot of each story (in a standardized cloud browser) and set it as the baseline.
 
 Subsequent builds will generate new snapshots that are compared against existing baselines to detect UI changes.
 
@@ -259,7 +243,7 @@ Open a pull request for the new branch in your GitHub repository.
 
 ![Comment list pull requested opened in GitHub](/visual-testing-handbook/commentlist-gh-pullrequest-optimized.png)
 
-Check the PR checks and click "🟡 UI Test" to view the new changes published into Chromatic.
+Check the PR checks and click "🟡 UI Test" to view the changes in Chromatic.
 
 ![New changes published to Chromatic](/visual-testing-handbook/commentlist-ui-tests-chromatic-optimized.png)
 
@@ -278,7 +262,7 @@ If a change is intentional we'll need to update the baseline so that future test
 
 When we’ve finished reviewing we’re ready to merge UI changes with confidence—knowing that updates won’t accidentally introduce bugs.
 
-After you merge your code, Chromatic will also apply accepted baselines to stories on the target branch. That means you’ll only need to accept baselines a single time.
+After you merge your code back into the target branch, Chromatic will also transfer the accepted baselines so that you only need to accept baselines a single time.
 
 ## Continuous integration
 

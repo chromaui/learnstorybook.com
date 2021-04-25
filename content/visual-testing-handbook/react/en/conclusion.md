@@ -1,12 +1,14 @@
 ---
 title: 'Conclusion'
 tocTitle: 'Conclusion'
-description: 'Conquering visual regressions'
+description: 'You conquered visual regressions'
 ---
 
-Congratulations! You started your journey into Visual Test-Driven Development. Along the way, you learnt how to isolate components, write test cases in Storybook and catch regressions with Chromatic.
+Congratulations! Visual testing is a practical way to verify that UI matches the intended design. You learned the basics to apply to your projects.
 
-Storybook helps us **build** components and write out **test cases**. Running tests at the component level allows us to pinpoint the root cause of a change. And by running automated snapshots, we can catch **regressions**. This helps us ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
+Storybook helps **build** components and write **test cases**. Running tests at the component level allows us to pinpoint the root cause of a change. Taking image snapshots automatically helps us catch **regressions**.
+
+That means we can ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
 
 ![visual testing workflow](/visual-testing-handbook/workflow-uitest.png)
 

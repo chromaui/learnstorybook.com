@@ -173,9 +173,9 @@ yarn storybook
     type="video/mp4"/>
 </video>
 
-### Step 3: Build out the implementation
+### 3. Build out the implementation
 
-So far, we scaffolded a rudimentary implementation, setup Storybook to render our test cases. It’s time to start building an implementation of the `HasData` state in isolation.
+So far, we scaffolded a rudimentary implementation then setup Storybook to render our test cases. It’s time to start building an implementation of the `HasData` and `Paginated` state in isolation.
 
 We use [`styled-components`](https://styled-components.com/) – a libary that encapsulates CSS at the component level. Run the following command:
 
@@ -183,7 +183,7 @@ We use [`styled-components`](https://styled-components.com/) – a libary that e
 yarn add styled-components
 ```
 
-Now we can try an implementation of the main list that handles the `HasData` use case. Update your `CommentList.js` file to the following:
+Update your `CommentList.js` file to the following:
 
 ```diff:title=src/components/CommentList.stories.js
 import React from 'react';
@@ -311,7 +311,7 @@ CommentList.defaultProps = {
 
 ### 4. Check the implementation against the design
 
-Open it up in Storybook to see if it works. Of course, this example was heavy on CSS, so chances are we will have been testing our changes in Storybook as we went to tweak the styles to achieve what we wanted.
+See how the component looks in Storybook. This example was CSS heavy. In practice, we would have been testing the changes in Storybook as we went along. That way we could tweak the styles to match the design spec.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -321,10 +321,10 @@ Open it up in Storybook to see if it works. Of course, this example was heavy on
 
 ### 5. Iterate
 
-If we were unhappy with our implementation in step 4, we could go back to step 3 and keep working on it. If we’re satisfied, then it’s time to build the next state. Perhaps we’d tackle the `paginated` test state and try to add the “load more” button.
+If we weren't satisfied with our implementation in step 4, we could go back to step 3 and keep working on it. If we’re satisfied, then it’s time to build the next state. Perhaps we’d add the “load more” button to the `Paginated` story.
 
-As we iterate through this process, we should keep checking each state to ensure that our final implementation correctly handles our test states (not just the last one we worked on!)
+As we iterate through this workflow, regularly check each story to ensure that the final implementation correctly handles each test state and not just the last one we worked on.
 
-## Next up: learn how to automate visual testing
+## Learn how to automate visual testing
 
-We're not done yet! In the next chapter, we’ll see how we can automate the VTDD process with Chromatic, a free publishing service made by the Storybook maintainers.
+In the next chapter, we’ll see how we can automate the VTDD process with [Chromatic](https://chromatic.com/), a free visual testing service made by the Storybook maintainers.
