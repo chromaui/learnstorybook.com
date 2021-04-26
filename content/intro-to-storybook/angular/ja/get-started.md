@@ -5,13 +5,13 @@ description: '開発環境に Storybook を導入しましょう'
 commit: 0818d47
 ---
 
-Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから切り離して開発できるようになります。 この Intro to Storybook tutorial のバージョンは Angular 向けです。他にも [React](/intro-to-storybook/react/en/get-started), [React Native](intro-to-storybook/react-native/en/get-started), [Vue](intro-to-storybook/vue/en/get-started), [Svelte](intro-to-storybook/svelte/en/get-started) and [Ember](intro-to-storybook/ember/en/get-started) 向けのバージョンがあります。
+Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから切り離して開発できるようになります。 この Storybook チュートリアルのバージョンは Angular 向けです。他にも [React](/intro-to-storybook/react/en/get-started)、 [React Native](intro-to-storybook/react-native/en/get-started)、 [Vue](intro-to-storybook/vue/en/get-started)、 [Svelte](intro-to-storybook/svelte/en/get-started) and [Ember](intro-to-storybook/ember/en/get-started) 向けのバージョンがあります。
 
 ![Storybook と開発中のアプリの関係](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Angular 向けの Storybook を構築する
 
-Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[degit](https://github.com/Rich-Harris/degit) を使用してビルドシステムをセットアップします。このパッケージを使うと、テンプレート(既定の設定で部分的に構築されているアプリケーション)をダウンロードできるので、開発フローを加速できます。
+Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[degit](https://github.com/Rich-Harris/degit) を使用してビルドシステムをセットアップします。このパッケージを使うと、テンプレート (既定の設定で部分的に構築されているアプリケーション) をダウンロードできるので、開発フローを加速できます。
 
 次のコマンドを実行してください。
 
@@ -26,7 +26,7 @@ npm install
 ```
 
 <div class="aside">
-テンプレートにはこのチュートリアルに必要なスタイル、アセット、最低限の設定が含まれています。
+💡 テンプレートにはこのチュートリアルに必要なスタイル、アセット、最低限の設定が含まれています。
 </div>
 
 ここでアプリケーションのいくつかの環境が正常に動作しているかクイックに確認できます。
@@ -50,9 +50,7 @@ npm run start
 
 ## 変更をコミットする
 
-この段階で、最初のコミットにファイルを追加しても問題ありません。
-
-次のコマンドを実行し、レポジトリの初期化と今までの変更の追加を行い、コミットしましょう。
+この段階で、ローカルのレポジトリーにファイルを追加しても問題ありません。次のコマンドを実行し、レポジトリーの初期化と今までの変更の追加を行い、コミットしましょう。
 
 ```shell
 git init
