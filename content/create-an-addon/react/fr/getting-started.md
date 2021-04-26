@@ -1,6 +1,6 @@
 ---
 title: 'Avant de commencer'
-description: "Commencer avec l'Addon Kit"
+description: "Avant de commencer avec l'Addon Kit"
 commit: 'd3b6651'
 ---
 
