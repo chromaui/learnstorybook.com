@@ -86,7 +86,7 @@ La dernière étape, c'est d'effectivement publier l'addon. L'Addon Kit est pré
 
 1. Authentifiez-vous en utilisant [npm adduser](https://docs.npmjs.com/cli/adduser.html)
 2. Créez un [token](https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-access-tokens). Vous aurez besoin d'un token avec les droits de lecture et de publication.
-3. De la même manière, générez un [token Github](https://github.com/settings/tokens). Ce token nécessitera les droits sur les dépôts.
+3. De la même manière, générez un [token Github](https://github.com/settings/tokens). Ce token nécessitera les droits sur le dépôt.
 4. Créez un fichier `.env` à la racine de votre projet et ajoutez-y les deux tokens :
 
 ```bash
