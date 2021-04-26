@@ -114,4 +114,4 @@ Cette commande va :
 - pousser une release sur GitHub et NPM
 - pousser un changelog sur GitHub
 
-Voilà ! Nous avons réussi à publier notre package sur npm et à sortir notre premier addon Storybook. Il peut y avoir un délai entre le moment où vous le publiez et le moment où il apparaît dans le catalogue car ce dernier doit parcourir npm. Si votre addon n'apparaît pas, veuillez ouvrir une issue sur le dépôt du catalogue.
+Voilà ! Nous avons réussi à publier notre package sur npm et à sortir notre premier addon Storybook. Il peut y avoir un délai entre le moment où vous le publiez et le moment où il apparaît dans le catalogue car ce dernier doit parcourir npm. Si votre addon n'apparaît pas, ouvrez une issue sur le projet GitHub de Storybook.
