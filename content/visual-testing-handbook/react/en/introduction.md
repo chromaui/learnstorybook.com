@@ -24,23 +24,19 @@ A unit test isolates a module and then verifies its behaviour. It supplies input
     type="video/mp4"/>
 </video>
 
-### The problem
-
 The core issue is that much of a UIs inherent complexity is visual — the specifics of how generated HTML and CSS render on the user's screen.
 
 Unit tests are perfect for evaluating concrete outputs: `2 + 2 === 4`. But they're not great for UI because it's tough to discern which details of HTML or CSS impact appearance and how. For example, HTML changes don't always affect the UI look and feel.
 
-### What about snapshot tests?
+## What about snapshot tests?
 
 [Snapshot tests](https://reactjs.org/docs/testing-recipes.html#snapshot-testing) provide an alternate approach to verifying UI appearance. This is where the test framework saves the generated DOM of a component as a "baseline". Subsequent changes compare the new DOM to the baseline. If there are differences, the developer must explicitly update the baseline.
 
-In theory, snapshot tests allow developers to confirm UI changes fast. In practice, DOM snapshots are awkward because it's tricky to determine how a UI renders by evaluating an HTML blob.
-
 ![Minified component code](/visual-testing-handbook/code-visual-testing-optimized.png)
 
-Snapshot tests suffer from the same brittleness as other automated UI tests. Any changes to the internal workings of a component require the test to be updated, regardless of whether the component's rendered output changed.
+In practice, DOM snapshots are awkward because it's tricky to determine how a UI renders by evaluating an HTML blob.
 
-> Snapshot testing entails an admission of defeat in capturing the essential details of a component: instead we capture them all.
+Snapshot tests suffer from the same brittleness as other automated UI tests. Any changes to the internal workings of a component require the test to be updated, regardless of whether the component's rendered output changed.
 
 ## Visual testing is made for UIs
 

@@ -270,8 +270,8 @@ Running this command each time we make a change is tiresome. Ideally, we'd like 
 
 ![visual testing workflow](/visual-testing-handbook/workflow-uitest.png)
 
-## You're ready to visual test
+## Your journey begins
 
-Visual Testing Handbook showcases the how leading frontend teams test UI appearance. It's a practical way to verify that UI matches the intended design and remains bug free over time. You're now ready to apply what you learned to your own projects.
+Visual Testing Handbook showcases the how leading frontend teams test UI appearance. It's a practical way to verify that UI matches the intended design and remains bug free over time. You're ready to visual test your own projects.
 
 The final chapter concludes with the complete sample code and helpful resources.
