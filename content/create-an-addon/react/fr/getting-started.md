@@ -32,4 +32,4 @@ Enfin, lancez le mode développement afin de démarrer Storybook et babel en mod
 npm run start
 ```
 
-Le code de l'addon se situe dans le répertoire `src`. Le code modèle inclus montre le fonctionnement des trois paradigmes UI et d'autres concepts comme la gestion d'état et comment interagir avec une story. Nous y reviendrons plus en détail dans les prochaines sections.
+Le code de l'addon se situe dans le répertoire `src`. L'exemple montre le fonctionnement des trois paradigmes UI et d'autres concepts comme la gestion d'état et comment interagir avec une story. Nous y reviendrons plus en détail dans les prochaines sections.
