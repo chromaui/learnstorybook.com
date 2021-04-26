@@ -4,15 +4,15 @@ tocTitle: 'Introduction'
 description: 'The pragmatic way to test user interfaces'
 ---
 
-User interfaces are subjective. The answer to "does this look right?" depends on your browser, device, and personal taste. You still have to eyeball the rendered UI to verify its appearance.
+User interfaces are subjective. The answer to "does this look right?" depends on your browser, device, and personal taste. You still have to look at the rendered UI to verify its appearance.
 
-But it's unrealistic to **manually** check the every corner of the UI whenver you make a change. That would take forever.
+But it takes forever to manually check the whole UI each commit. Different approaches like unit and snapshot testing attempt to automate visual verification. They often fail because it's tough for machines to determine UI correctness from sequences of HTML tags and CSS classes.
 
-Different approaches like unit and snapshot testing attempt to **automate** visual verification. They often fail because it's tough for machines to determine UI correctness from sequences of HTML tags and CSS classes.
+How do teams actually prevent UI bugs? Are janky UIs inevitable? We researched teams whose UIs impact millions of people like Microsoft, BBC, and Shopify to figure out what works.
 
-This handbook introduces visual testing, a pragmatic approach that combines the accuracy of the human eye with the efficiency of machines. Instead of removing people from the testing equation, visual testing uses tools to focus their effort on the specific UI changes that require attention. It's a best practice adopted by teams at Microsoft, BBC, and Shopify.
+This handbook introduces visual testing, a pragmatic approach that combines the accuracy of the human eye with the efficiency of machines. Instead of removing people from the testing equation, visual testing uses tools to focus their effort on the specific UI changes that require attention.
 
-## Why unit tests don't work for UIs
+## Unit tests don't have eyes
 
 To grasp visual testing, it makes sense to start with unit testing. Modern UIs are [component-driven](https://componentdriven.org/) – they're composed of modular pieces. The component construct allows you to render UI as a function of props and state. That means you can unit test components much like any other function.
 
@@ -20,7 +20,7 @@ A unit test isolates a module and then verifies its behaviour. It supplies input
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/visual-testing-handbook/unit-testing-optimized.mp4"
+    src="/visual-testing-handbook/component-unit-testing.mp4"
     type="video/mp4"/>
 </video>
 
