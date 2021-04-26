@@ -5,7 +5,7 @@ description: 'Partagez votre addon Storybook à la communauté'
 commit: '927e729'
 ---
 
-Le [catalogue d'addon](https://storybook.js.org/addons) abrite tous les addons Storybook. C'est là que nous affichons vos addons et où les développeurs en découvrent de nouveaux. Préparons votre addon pour entreprendre sa release, l'empaqueter et le publier dans le catalogue.
+Le [catalogue d'addons](https://storybook.js.org/addons) rassemble tous les addons Storybook. Préparons le vôtre pour le publier dans le catalogue.
 
 ![](../../images/catalog.png)
 
