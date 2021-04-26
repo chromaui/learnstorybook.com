@@ -90,9 +90,8 @@ La dernière étape, c'est d'effectivement publier l'addon. L'Addon Kit est pré
 4. Créez un fichier `.env` à la racine de votre projet et ajoutez-y les deux tokens :
 
 ```bash
-GH_TOKEN=valeur_récupérée_depuis_github
-NPM_TOKEN=valeur_récupérée_depuis_npm
-```
+GH_TOKEN=valeur_récupérée_depuis_GitHub
+NPM_TOKEN=valeur_récupérée_depuis_NPM
 
 **Créez ensuite des labels sur GitHub**. Vous utiliserez ces labels plus tard lorsque vous apporterez des modifications à votre package.
 
