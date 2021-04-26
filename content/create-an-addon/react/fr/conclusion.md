@@ -14,7 +14,7 @@ C'est facile de se lancer. L'[Addon Kit](https://github.com/storybookjs/addon-ki
 
 La [documentation](https://storybook.js.org/docs/react/addons/introduction) propose plus de guides, d'exemples de code et une base de connaissances.
 
-Si vous codez en suivant notre guide, vos dépôts devraient ressembler à ça : [exemple de dépôt d'un addon](http://github.com/chromaui/learnstorybook-addon-code). Cet exemple repose sur l'[Addon Outline de Storybook ](https://github.com/chromaui/storybook-addon-outline).
+Si vous suivez nos guides, votre dépôt devrait ressembler à ça : [exemple de dépôt d'un addon](http://github.com/chromaui/learnstorybook-addon-code). Cet exemple repose sur l'addon [Outline](https://github.com/chromaui/storybook-addon-outline) de Storybook.
 
 Vous pouvez également vous baser sur d'autres addons tels que [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [Dark Mode](https://github.com/hipstersmoothie/storybook-dark-mode) et tous les [autres addons officiels](https://github.com/storybookjs/storybook/tree/next/addons) et jouer avec dans le [Storybook officiel](https://next--storybookjs.netlify.app/official-storybook/).
 
