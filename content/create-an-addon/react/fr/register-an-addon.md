@@ -58,7 +58,7 @@ addons.register(ADDON_ID, () => {
 });
 ```
 
-Notez la présence d'une propriété match. Elle vous permet de contrôler dans quel mode de visualisation l'addon sera actif. Dans notre cas, l'addon sera disponible dans le mode story et le mode docs.
+Notez la présence d'une propriété `match`. Elle vous permet de contrôler dans quel mode de visualisation l'addon sera actif. Dans notre cas, l'addon sera disponible dans le mode story et le mode docs.
 
 À ce stade, vous devriez voir l'outil de contour apparaître dans la barre d'outils 🎉
 
