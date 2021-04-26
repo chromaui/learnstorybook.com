@@ -18,7 +18,7 @@ commit: 1a14919
 
 `TaskComponent` の作成を始めるにあたり、事前に上記のそれぞれのタスクに応じたテスト用の状態を作成します。次いで、Storybook で、モックデータを使用し、コンポーネントを切り離して作ります。コンポーネントのそれぞれの状態について「ビジュアルテスト」を行い、見た目を確認しながら進めます。
 
-[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (test-driven development;TDD) に似ているこのプロセスを、“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”(英語)と呼んでいます。
+[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (TDD) に似ているこのプロセスを、“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”(英語)と呼んでいます。
 
 ## セットアップする
 
@@ -123,22 +123,26 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 
 ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、[状態を持たない関数コンポーネント](https://angular.jp/guide/component-interaction)のようなものです。
 
-コンポーネントの全ストーリーに同じアクションを渡す必要があるので、`actionsData` という 1 つの変数にまとめ、各ストーリーの定義に渡すと便利です。
-
-コンポーネントに必要な`actionsData`を作るもう一つの利点は、後ほど見るように、`export`してこのコンポーネントを再利用するコンポーネントのストーリーで使える点です。
+コンポーネントにストーリーが複数連なっているので、各ストーリーを単一の `Template` 変数に割り当てるのが便利です。このパターンを導入することで、書くべきコードの量が減り、保守性も上がります。
 
 <div class="aside">
 
-`Template.bind({})` は関数のコピーを作成する [JavaScript の標準的な](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
+💡 `Template.bind({})` は関数のコピーを作成する [JavaScript の標準的な](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
 
 </div>
 
-Arguments (略して [`args`](https://storybook.js.org/docs/angular/writing-stories/args)) を使用することで、コントロールアドオンを通して、Storybook を再起動することなく、コンポーネントを動的に編集することができるようになります。[`args`](https://storybook.js.org/docs/angular/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
+Arguments (略して [`args`](https://storybook.js.org/docs/angular/writing-stories/args)) を使用することで、コントロールアドオンを通して、Storybook を再起動することなく、コンポーネントを動的に編集することができるようになります。 [`args`](https://storybook.js.org/docs/angular/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
 
-ストーリーを作る際には素となるタスク(`taskData`)を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。さらに、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となります。
+ストーリーを作る際には素となるタスク (`task`) を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。さらに、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となります。
+
+`action()` を使うと、クリックされたときに Storybook の画面の **actions** パネルに表示されるコールバックを作ることができます。なのでピン留めボタンを作るときに、クリックがうまくいっているかテスト UI 上で分かります。
+
+コンポーネントの全てのストーリーに同じアクションを渡す必要があるので、 `actionsData` という 1 つの変数にまとめて各ストーリーの定義に渡すと便利です。
+
+コンポーネントに必要な `actionsData` を作るもう一つの利点は、後ほど見るように、 `export` してこのコンポーネントを再利用するコンポーネントのストーリーで使える点です。
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/essentials/actions"><b>アクションアドオン</b></a>は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。<code>action()</code> はそのスタブとして使用できます。
+💡 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>アクションアドオン</b></a>は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。 <code>action()</code> はそのスタブとして使用できます。
 </div>
 
 ## 設定する
@@ -154,8 +158,6 @@ module.exports = {
 
 [`parameters`](https://storybook.js.org/docs/angular/writing-stories/parameters) は Storybook の機能やアドオンの振る舞いをコントロールするのに使用します。この例では、アクション (呼び出しのモック) がどのように扱われるかを設定しています。
 
-アクションアドオンを使用することで、クリックした時などに Storybook の **actions** パネルにその情報を表示するコールバックを作成できます。これにより、ピン留めボタンを作成するとき、ボタンがクリックされたことがテスト用の UI 上で確認できます。
-
 Storybook のサーバーを再起動すると、タスクの 3 つの状態のテストケースが生成されているはずです:
 
 <video autoPlay muted playsInline controls >
@@ -167,11 +169,9 @@ Storybook のサーバーを再起動すると、タスクの 3 つの状態の�
 
 ## データ要件を明示する
 
-コンポーネントが想定するデータ構造を明示的に示すのがベストプラクティスです。これにより想定するデータ構造がコードからわかるだけでなく、早期に問題を見つけるのに役立ちます。
+コンポーネントが想定するデータ構造を明示的に示すのがベストプラクティスです。これにより想定するデータ構造がコードからわかるだけでなく、早期に問題を見つけるのに役立ちます。ここでは Typescript を使い、 `Task` モデルのインターフェースを作ります。
 
-ここでは Typescript を使い、`Task`モデルのインターフェースを作ります。
-
-`app`フォルダの中に`models`フォルダを作り、`task.model.ts`というファイルを以下の内容で作成します。
+`app` フォルダの中に `models` フォルダを作り、 `task.model.ts` というファイルを以下の内容で作成します。
 
 ```ts:title=src/app/models/task.model.ts
 export interface Task {
@@ -274,7 +274,7 @@ Storybook はアプリケーションの UI を作成する際に目視でテス
 これで補完することにより、コンポーネントの新しいバージョンでの変化を Storybook で素早く確認できるようになります。
 
 <div class="aside">
-コンポーネントに渡すデータは変化しないものを使用してください。そうすれば毎回スナップショットテストの結果が同じになります。日付や、ランダムに生成された値に気を付けましょう。
+💡 コンポーネントに渡すデータは変化しないものを使用してください。そうすれば毎回スナップショットテストの結果が同じになります。日付や、ランダムに生成された値に気を付けましょう。
 </div>
 
 [Storyshots アドオン](https://github.com/storybooks/storybook/tree/master/addons/storyshots)を使用することで、それぞれのストーリーにスナップショットテストが作成されます。開発時の依存関係を以下のコマンドで追加してください:
@@ -313,5 +313,5 @@ initStoryshots();
 上記のテストに加えて、`jest`は`app.component.ts`に対してのテストも実行します。
 
 <div class="aside">
-Git へのコミットを忘れずに行ってください！
+💡 Git へのコミットを忘れずに行ってください！
 </div>
