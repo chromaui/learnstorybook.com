@@ -21,7 +21,7 @@ L'[addon Outline](https://storybook.js.org/addons/storybook-addon-outline) ajout
 
 ## L'anatomie d'un addon
 
-Les modules complémentaires vous permettent d'étendre les possibilités de Storybook, de son interface à ses APIs. Ils ⚡boostent⚡ le workflow du développement UI.
+Les addons vous permettent d'étendre les possibilités de Storybook, de son interface à ses APIs. Ils ⚡boostent⚡ le workflow du développement UI.
 
 Il y a deux sortes d'addons :
 
