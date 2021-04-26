@@ -11,7 +11,7 @@ Le [catalogue d'addons](https://storybook.js.org/addons) rassemble tous les addo
 
 ## Préparer votre addon pour le release
 
-Les addons storybook, comme la plupart des packages de l'écosystème JavaScript, sont distribués via npm. Cependant, ils respectent certains critères :
+Les addons Storybook, comme la plupart des packages de l'écosystème JavaScript, sont distribués via NPM. Cependant, ils respectent certains critères :
 
 1. Ils ont un répertoire dist contenant le code ES5 transpilé.
 2. Un fichier `preset.js` à la racine, écrit en tant que module ES5.
