@@ -11,7 +11,7 @@ React intègre des [hooks](https://fr.reactjs.org/docs/hooks-state.html#gatsby-f
 
 ![](../../images/manager-preview.jpg)
 
-Vu de l'extérieur, Storybook présente une interface utilisateur dans son ensemble. C²ette interface est en fait composée de deux segments qui communiquent ensemble grâce à un **canal de communication:**
+Vu de l'extérieur, Storybook présente une interface utilisateur dans son ensemble. Cette interface est en fait composée de deux segments qui communiquent grâce à un **canal de communication:**
 
 - **Un Manager:** l'interface utilisateur où sont rendues la recherche, la navigation, les barres d'outils et les addons de Storybook.
 - **La Prévisualisation:** une iframe où sont rendues les stories.
