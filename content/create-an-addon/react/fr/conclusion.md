@@ -12,7 +12,7 @@ C'est facile de se lancer. L'[Addon Kit](https://github.com/storybookjs/addon-ki
 
 ## En savoir plus
 
-L'[addon documentation](https://storybook.js.org/docs/react/addons/introduction) propose plus de guides, d'exemples de code et une base de connaissance pleine de recettes.
+La [documentation](https://storybook.js.org/docs/react/addons/introduction) propose plus de guides, d'exemples de code et une base de connaissances.
 
 Si vous codez en suivant notre guide, vos dépôts devraient ressembler à ça : [exemple de dépôt d'un addon](http://github.com/chromaui/learnstorybook-addon-code). Cet exemple repose sur l'[Addon Outline de Storybook ](https://github.com/chromaui/storybook-addon-outline).
 
