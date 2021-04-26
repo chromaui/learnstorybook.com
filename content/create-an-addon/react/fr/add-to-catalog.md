@@ -58,7 +58,8 @@ En plus des informations liées au module, vous devez préciser quelques métado
 
 ![les métadonnées du catalogue comprennent les tags, la compatibilité, les auteurs, etc.](../../images/catalog-metadata.png)
 
-Certaines de ces informations sont pré-configurées par l'Addon Kit. Des choses comme le nom public, l'icône ou la compatibilité des différents frameworks sont définies par la propriété storybook. Consultez la [documentation concernant les métadonnées des Addons](https://storybook.js.org/docs/react/addons/addon-catalog/#addon-metadata) pour une spécification complète de l'API des métadonnées.
+Certaines de ces informations sont pré-configurées. Des choses comme le nom, l'icône ou la compatibilité des différents frameworks sont définies sous la propriété
+`storybook`. Consultez la [documentation concernant les métadonnées des Addons](https://storybook.js.org/docs/react/addons/addon-catalog/#addon-metadata) pour une spécification complète de l'API des métadonnées.
 
 ```json:title=package.json
 {
