@@ -97,7 +97,7 @@ Ok, ça fait beaucoup là, non ? Parcourons les modifications.
 
 L'addon peut être activé à la fois dans les modes docs et story. Le nœud du DOM, correspondant à l'`iframe` de prévisualisation, est différent selon ces deux modes. En fait, le mode docs affiche plusieurs prévisualisations de stories sur une même page. Nous devons donc choisir un sélecteur approprié pour déterminer où nos styles seront injectés. De plus, le CSS doit être spécifiquement ciblé sur ce sélecteur.
 
-<div class="aside"><b>Note :</b> <code>useMemo</code> et <code>useEffect</code> sont fournis par <a href="https://storybook.js.org/docs/react/addons/addons-api">@storybook/addons</a> et non par React car le code du décorateur s'exécute dans la partie prévisualisation de Storybook. C'est là qu'est chargé le code de l'utilisateur et celui-ci n'est pas forcément du React. Par conséquent, afin de rester indépendant de quelque framework qu'il soit, Storybook nous met à disposition une bibliothèque de hooks similaire à React !</div>
+<div class="aside"><b>Note :</b> <code>useMemo</code> et <code>useEffect</code> sont fournis par <a href="https://storybook.js.org/docs/react/addons/addons-api">@storybook/addons</a> et non par React car le code du décorateur s'exécute dans la partie prévisualisation de Storybook. C'est là qu'est chargé le code de l'utilisateur et celui-ci n'est pas forcément du React. Par conséquent, afin de rester indépendant de quelque framework qu'il soit, Storybook nous met à disposition une bibliothèque de hooks similaires à React !</div>
 
 Ensuite, tandis que nous injectons nos styles dans le DOM, nous devons en garder une trace afin de les retirer lorsque l'utilisateur les désactive ou change de mode.
 
