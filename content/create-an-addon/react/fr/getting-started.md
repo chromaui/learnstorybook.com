@@ -1,5 +1,5 @@
 ---
-title: 'Préparation'
+title: 'Avant de commencer'
 description: "Commencer avec l'Addon Kit"
 commit: 'd3b6651'
 ---
