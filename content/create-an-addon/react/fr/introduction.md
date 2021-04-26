@@ -25,7 +25,7 @@ Les modules complémentaires vous permettent d'étendre les possibilités de Sto
 
 Il y a deux sortes d'addons :
 
-- **Les addons liés à l'UI:** personnaliser l'interface, ajouter des raccourcis pour des tâches répétitives ou mettre en forme et afficher des informations complémentaires. Par exemple : mise en place de documentations, de tests d'accessibilité, de contrôles interactifs ou de prévisualisations du design.
+- **Les addons liés à l'UI:** personnaliser l'interface, ajouter des raccourcis pour des tâches répétitives ou mettre en forme et afficher des informations complémentaires. Par exemple : mise en place de documentation, de tests d'accessibilité, de contrôles interactifs ou de prévisualisations du design.
 
 - **Presets:** une collection de configurations Storybook appliquées automatiquement. Elles sont souvent utilisées pour coupler Storybook à une technologie spécifique. Par exemple : preset-create-react-app, preset-nuxt et preset-scss.
 
