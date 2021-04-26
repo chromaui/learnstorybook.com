@@ -20,7 +20,7 @@ Nous devons suivre l'état actif/inactif **et** nous devons également partager 
 
 ## Suivre l'état global
 
-Les [globales](https://storybook.js.org/docs/react/essentials/toolbars-and-globals/#globals) représentent le contexte “global” (comprenez ici indépendant des stories) de Storybook. C'est une façon pratique de partager des informations entre différentes stories, différents addons et décorateurs. Le hook `useGlobals` vous permet d'accéder à ce contexte global depuis l'outil que vous êtes en train de créer.
+Les [globales](https://storybook.js.org/docs/react/essentials/toolbars-and-globals/#globals) représentent le contexte “global” (comprenez ici indépendant des stories) de Storybook. C'est une façon pratique de partager des informations entre différentes stories, différents addons et décorateurs. Le hook `useGlobals` vous permet d'accéder à ce contexte depuis l'addon que vous êtes en train de créer.
 
 <div class="aside">Jetez un œil à <a href="https://storybook.js.org/docs/react/addons/addons-api">@storybook/addons</a> pour plus d'informations concernant les APIs dédiées aux addons.</div>
 
