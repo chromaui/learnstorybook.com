@@ -18,7 +18,7 @@ Pour commencer, cliquez sur le bouton **Use this template** sur le [dépôt de l
 
 ![](../../images/addon-kit.png)
 
-Ensuite, clonez votre dépôt et installez les dépendances.
+Ensuite, clonez le dépôt et installez les dépendances.
 
 ```bash
 npm install
