@@ -26,7 +26,7 @@ npm install
 npm i --legacy-peer-deps
 ```
 
-Enfin, lancez le mode développement afin de démarrer Storybook et babel en mode watch.
+Enfin, lancez le mode développement afin de démarrer Storybook et Babel en mode watch.
 
 ```bash
 npm run start
