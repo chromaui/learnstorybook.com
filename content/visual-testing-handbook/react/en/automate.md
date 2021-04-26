@@ -5,7 +5,7 @@ description: 'Learn how to automate visual testing to catch regressions'
 commit: 'b1b5f0b'
 ---
 
-**"Does it still look right?"**
+**"Does it STILL look right?"**
 
 Building UIs is only one part of frontend engineering. UIs must also stay reliable over time. But over the natural course of app development, changes inevitably cause UI regressions.
 
@@ -15,7 +15,7 @@ It's impractical to check for UI bugs in each `CommentList` state manually each 
 
 Visual test automation combines the accuracy of the human eye with the efficiency of machines. It doesn't remove people from the testing process. It use tools to focus human effort on the specific UI changes that require attention.
 
-First, an image snapshot is taken for each component and state as a "baseline" – the last known good state of the UI. Whenever we push code, the machine will automatically take new snapshots and compare them pixel-by-pixel to the baseline snapshots.
+First, an image snapshot is taken for each component and variation as a "baseline" – the last known good state of the UI. Whenever we push code, the machine will automatically take new snapshots and compare them pixel-by-pixel to the baseline snapshots.
 
 If the machine detects UI changes, a human gets notified to confirm whether they're unintended bugs or intentional improvements.
 
@@ -23,7 +23,7 @@ We'll demonstrate how this all works using [Chromatic](https://www.chromatic.com
 
 ![How visual testing snapshots work](/visual-testing-handbook/how-snapshots work.png)
 
-### Setup a repository in GitHub
+## Setup a repository in GitHub
 
 Before we begin, our local code needs to sync with a remote version control service.
 
@@ -247,7 +247,7 @@ Check the PR checks and click "🟡 UI Test" to view the changes in Chromatic.
 
 ![New changes published to Chromatic](/visual-testing-handbook/commentlist-ui-tests-chromatic-optimized.png)
 
-## Review and merge changes
+### Review and merge changes
 
 Visual regression testing ensures components don’t change by accident. But it’s still up to us to determine whether changes are intentional or not.
 
@@ -264,6 +264,14 @@ When we’ve finished reviewing we’re ready to merge UI changes with confidenc
 
 After you merge your code back into the target branch, Chromatic will also transfer the accepted baselines so that you only need to accept baselines a single time.
 
-## Continuous integration
+### Continuous integration
 
 Running this command each time we make a change is tiresome. Ideally, we'd like to run these tests automatically whenever we push code. Chromatic can be used in CI/CD systems to indicate success and unblock deployment. [Learn about CI setup](https://www.chromatic.com/docs/ci).
+
+![visual testing workflow](/visual-testing-handbook/workflow-uitest.png)
+
+## You're ready to visual test
+
+Visual Testing Handbook showcases the how leading frontend teams test UI appearance. It's a practical way to verify that UI matches the intended design and remains bug free over time. You're now ready to apply what you learned to your own projects.
+
+The final chapter concludes with the complete sample code and helpful resources.

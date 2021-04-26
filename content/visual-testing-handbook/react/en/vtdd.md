@@ -4,13 +4,17 @@ description: 'Put all the concepts together in code'
 commit: 'e7c8eb9'
 ---
 
-Now that the basics are covered, let’s jump into the details. This example demonstrates building out a state of `CommentList` using **Visual TDD** with Storybook.
+Now that the basics are covered, let’s jump into the details. This example demonstrates building out a state of a `CommentList` component using **Visual TDD** with Storybook.
 
-Suppose we are tasked with building out the CommentList, part of a chat tool for galactic freedom fighters. Our designer has handed us a design for the various ways the list of comments should look based on the data and the state of the app:
+1. Build visual test cases
+2. Check the tests in Storybook
+3. Build out the implementation
+4. Check the implementation against the design
+5. Iterate
+
+`CommentList` is part of a chat tool for galactic freedom fighters. Our designer has handed us a design for the various ways the list of comments should look based on the data and the state of the app. Our job is to ensure the list renders correctly in terms of the exact text, images displayed, and visual treatment.
 
 ![Commentlist design spec](/visual-testing-handbook/visual-testing-handbook-commentlist-design-optimized.png)
-
-We need to ensure the list renders correctly in terms of the exact text, images displayed, and visual treatment.
 
 ### 1. Build visual test cases
 
@@ -175,7 +179,7 @@ yarn storybook
 
 ### 3. Build out the implementation
 
-So far, we scaffolded a rudimentary implementation then setup Storybook to render our test cases. It’s time to start building an implementation of the `HasData` and `Paginated` state in isolation.
+So far, we scaffolded a rudimentary implementation then setup Storybook to render our test cases. It’s time to start building an implementation of the `HasData` variation in isolation.
 
 We use [`styled-components`](https://styled-components.com/) – a libary that encapsulates CSS at the component level. Run the following command:
 
@@ -311,7 +315,7 @@ CommentList.defaultProps = {
 
 ### 4. Check the implementation against the design
 
-See how the component looks in Storybook. This example was CSS heavy. In practice, we would have been testing the changes in Storybook as we went along. That way we could tweak the styles to match the design spec.
+Check how the component looks in Storybook. This example provided the CSS already, but in practice, we would tweak the styles and confirmed them in Storybook as we went along.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -321,7 +325,7 @@ See how the component looks in Storybook. This example was CSS heavy. In practic
 
 ### 5. Iterate
 
-If we weren't satisfied with our implementation in step 4, we could go back to step 3 and keep working on it. If we’re satisfied, then it’s time to build the next state. Perhaps we’d add the “load more” button to the `Paginated` story.
+If we weren't satisfied with our implementation in step 4, we could go back to step 3 and keep working on it. If we’re satisfied, then we'll move on to building the next variation. Perhaps we’d add the “load more” button to the `Paginated` story.
 
 As we iterate through this workflow, regularly check each story to ensure that the final implementation correctly handles each test state and not just the last one we worked on.
 

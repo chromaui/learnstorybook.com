@@ -3,15 +3,15 @@ title: 'Workflow'
 description: 'A test-driven workflow for building components'
 ---
 
-Developing user interfaces has always been part art and part science. In the past, the subjective nature of UI often led to ad-hoc and ill-defined development workflows. The lack of a unified approach makes it hard for developers to build durable UIs quickly.
+Developing user interfaces has always been part art and part science. She subjective nature of UI often led to ad-hoc development workflows. The lack of a unified approach meant that it was tricky for developers to build durable UIs quickly.
 
-This chapter combines **visual testing** and **component explorers** to show you how to build UIs in a rigorous, test-driven fashion.
+This chapter shows you how to build UIs in a rigorous, visual test-driven fashion.
 
 ![Visual testing driven path](/visual-testing-handbook/visual-testing-handbook-vtdd-path-optimized.png)
 
 ## Test-Driven Development
 
-Before we begin, let's recap **[test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)**, a widely-used engineering practice. The core idea behind TDD is that you write your tests first then develop the functionality under test.
+Before we begin, let's recap **[test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)**, a popular engineering practice. The core idea behind TDD is that you write your tests first then develop the functionality under test.
 
 1. Construct a set of automated unit tests for your code
 2. Write the code itself to “turn the tests green”
@@ -109,7 +109,7 @@ If you are building an app from a well-thought-out design, the chances are that 
 
 - ✍🏽 **Build out the test cases.** Specify a set of inputs to the component that cover these use cases. It can often lead you to think about scenarios that you wouldn’t consider if you developed it in an ad-hoc way.
 - 🔍 **Implement and verify.** As you progress towards the solution, you can quickly and easily verify each state in Storybook.
-- 📁 **Capture screenshots.** The set of specs that survive the development process will form the basis of the regression tests.
+- 📁 **Capture image snapshots.** The set of specs that survive the development process will form the basis of the regression tests.
 - 🔄 **Iterate**
 
-In the next chapter, we'll apply what we learned so far by building an example component using Visual TDD.
+In the next chapter, we'll apply what we learned so far by coding an example component using Visual TDD.
