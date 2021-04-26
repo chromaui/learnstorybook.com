@@ -1,7 +1,7 @@
 ---
 title: "Ajouter votre Addon au catalogue"
 tocTitle: 'Ajouter au catalogue'
-description: 'Partagez votre addon Storybook à la communauté'
+description: 'Partagez votre addon Storybook avec la communauté'
 commit: '927e729'
 ---
 
