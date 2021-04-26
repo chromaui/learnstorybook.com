@@ -99,7 +99,7 @@ NPM_TOKEN=valeur_récupérée_depuis_NPM
 npx auto create-labels
 ```
 
-Si vous vérifiez sur GitHub, vous devriez désormais voir un ensemble de labels qu'Auto aimerait que vous utilisiez. Utilisez-les pour tagger les futures pull requests.
+Rendez-vous sur GitHub, vous devriez désormais voir un ensemble de labels qu'Auto aimerait que vous utilisiez. Utilisez-les pour tagger les futures Pull Requests.
 
 Enfin, la création d'une release
 
