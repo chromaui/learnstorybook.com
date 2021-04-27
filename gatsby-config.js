@@ -56,19 +56,19 @@ module.exports = {
       },
       'design-systems-for-developers': {
         react: {
-          en: 6.1,
+          en: 6.2,
           ko: 6.1,
           pt: 5.3,
         },
       },
       'visual-testing-handbook': {
         react: {
-          en: 6.1,
+          en: 6.2,
         },
       },
       'create-an-addon': {
         react: {
-          en: 6.1,
+          en: 6.2,
         },
       },
     },
