@@ -305,6 +305,7 @@ import { TaskComponent } from './task.component';
 
 //👇 Our story imported here
 - import { WithPinnedTasks } from './task-list.stories';
+
 + import { WithPinnedTasks } from './pure-task-list.stories';
 
 describe('TaskList component', () => {

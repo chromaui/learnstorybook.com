@@ -229,9 +229,13 @@ Similarly, we need to use `PureTaskList` in our Jest test:
 ```diff:title=tests/unit/PureTaskList.spec.js
 import { mount } from '@vue/test-utils';
 
+- import TaskList from '../../src/components/TaskList.vue';
+
 + import PureTaskList from '../../src/components/PureTaskList.vue';
 
 //👇 Our story imported here
+- import { WithPinnedTasks } from '../src/components/TaskList.stories.js';
+
 + import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
