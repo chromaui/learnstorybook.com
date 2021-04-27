@@ -95,7 +95,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 ```
 
 <div class="aside">
-💡 Don't forget to update the <code>TaskList</code> component to reflect the changes applied to the store.
+💡 Don't forget to update the <code>TaskList</code> component and your unit tests to reflect the changes that were introduced.
 </div>
 
 However, where things get interesting is in rendering the story in Storybook.

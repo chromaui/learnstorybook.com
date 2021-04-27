@@ -189,12 +189,14 @@ Empty.args = {
 
 Similarly, we need to use `PureTaskList` in our Jest test:
 
-```javascript
-// src/components/TaskList.test.js
+```diff:title=src/components/TaskList.test.js
+- import TaskList from './TaskList.svelte';
++ import PureTaskList from './PureTaskList.svelte';
 
-import PureTaskList from './PureTaskList.svelte';
 import { render } from '@testing-library/svelte';
-import { WithPinnedTasks } from './PureTaskList.stories'; //👈  Our story imported here
+
+- import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
++ import { WithPinnedTasks } from './PureTaskList.stories'; //👈  Our story imported here
 
 test('PureTaskList', () => {
   const { container } = render(PureTaskList, {
