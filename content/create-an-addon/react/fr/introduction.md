@@ -4,7 +4,7 @@ tocTitle: 'Présentation'
 description: "L'anatomie d'un addon"
 ---
 
-<div class="aside">Ce guide est destiné aux <b>développeurs professionnels</b> souhaitant apprendre à créer un addon pour Storybook. Une certaine expérience en JavaScript et avec React est recommandée. Il est également recommandé de connaître les bases de Storybook telles que la rédaction d'une story et la modification des fichiers de configuration (ces bases sont enseignées dans <a href="/intro-to-storybook">Intro to Storybook</a>).
+<div class="aside">Ce guide est destiné aux <b>développeurs professionnels</b> souhaitant apprendre à créer un addon pour Storybook. Une certaine expérience en JavaScript et avec React est recommandée. Il est également recommandé de connaître les bases de Storybook telles que la rédaction d'une story et la modification des fichiers de configuration (ces bases sont décrites dans <a href="/intro-to-storybook">Intro to Storybook</a>).
 </div>
 
 <br/>

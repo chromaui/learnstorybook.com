@@ -1,30 +1,30 @@
 ---
-title: "Ajouter votre Addon au catalogue"
+title: 'Ajouter votre Addon au catalogue'
 tocTitle: 'Ajouter au catalogue'
 description: 'Partagez votre addon Storybook avec la communauté'
 commit: '927e729'
 ---
 
-Le [catalogue d'addons](https://storybook.js.org/addons) rassemble tous les addons Storybook. Préparons le vôtre pour le publier dans le catalogue.
+Le [catalogue d'addons](https://storybook.js.org/addons) rassemble tous les addons Storybook. C'est là que nous affichons vos addons et où les développeurs en découvrent de nouveaux. Préparons le vôtre pour le publier dans le catalogue.
 
 ![](../../images/catalog.png)
 
-## Préparer votre addon pour le release
+## Préparer votre addon pour le publier
 
 Les addons Storybook, comme la plupart des packages de l'écosystème JavaScript, sont distribués via NPM. Cependant, ils respectent certains critères :
 
 1. Ils ont un répertoire dist contenant le code ES5 transpilé.
 2. Un fichier `preset.js` à la racine, écrit en tant que module ES5.
 3. Un fichier `package.json` déclarant :
-   - Les dépendances paires
+   - Les peerDependencies
    - Les informations liées au module
    - Les métadonnées pour le catalogue
 
-L'Addon Kit se charge de presque tout ça pour nous. Nous devons juste nous assurer de fournir des métadonnées adéquates.
+L'Addon Kit se charge de presque tout ça pour nous. Nous devons juste nous assurer de fournir les bonnes métadonnées.
 
 ## Métadonnées du module
 
-La première catégorie concerne les métadonnées liées au module. Cela inclut le point d'entrée principal du module et quels fichiers à inclure lorsque vous publiez votre addon, ainsi que toutes les dépendances paires de l'addon. Par exemple, react, react-dom et toutes les APIs liées à Storybook.
+Elles incluent le point d'entrée de l'addon et quels fichiers sont à inclure lorsque vous le publiez, ainsi que toutes ses dépendances. Par exemple, React, React DOM et toutes les APIs liées à Storybook.
 
 ```json:title=package.json
 {
@@ -48,9 +48,9 @@ La première catégorie concerne les métadonnées liées au module. Cela inclut
 }
 ```
 
-#### Pourquoi les dépendances paires ?
+#### Pourquoi les peerDependencies ?
 
-Imaginons que vous créez une bibliothèque de formulaire fonctionnant avec React. Si vous incluez React comme dépendance, tout le code de React sera empaqueté dans votre bibliothèque. Imaginons maintenant que vos utilisateurs ont déjà React d'installé dans leur codebase. Si les versions diffèrent, leur application va planter. C'est le même principe ici.
+Imaginons que vous créiez une bibliothèque de formulaire fonctionnant avec React. Si vous incluez React comme dépendance, tout le code de React sera embarqué dans votre paquet. Imaginons maintenant que vos utilisateurs aient déjà React en dépendance. Si les versions diffèrent, leur application ne fonctionnera plus. C'est le même principe ici.
 
 ## Métadonnées pour le catalogue
 
@@ -78,18 +78,18 @@ Certaines de ces informations sont pré-configurées. Des choses comme le nom, l
 }
 ```
 
-La propriété keywords correspond aux tags du catalogue. Par exemple, le tag storybook-addons assure que votre addon sera ajouté au catalogue et appearence représente une catégorie du catalogue. Le reste facilite la recherche de votre addon.
+La propriété `keywords` correspond aux mots-clés du catalogue. Par exemple, le mot-clé storybook-addons assure que votre addon sera ajouté au catalogue. Le mot-clé "appearence" représente une catégorie du catalogue. Le reste pour la recherche.
 
 ## Publier sur NPM
 
-La dernière étape, c'est d'effectivement publier l'addon. L'Addon Kit est pré-configuré avec [Auto](https://github.com/intuit/auto) pour la gestion de releases : il génère un changelog et le pousse à la fois sur GitHub et sur npm. Vous devez donc configurer l'accès à ces derniers.
+La dernière étape est de publier l'addon. L'Addon Kit est pré-configuré avec [Auto](https://github.com/intuit/auto) pour la gestion de releases : un changelog est généré et poussé à la fois sur GitHub et sur NPM. Vous devez donc configurer l'accès à ces derniers.
 
 1. Authentifiez-vous en utilisant [npm adduser](https://docs.npmjs.com/cli/adduser.html)
 2. Créez un [token d'accès](https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-access-tokens). Vous aurez besoin d'un token avec les droits de lecture et de publication.
 3. De la même manière, générez un [token Github](https://github.com/settings/tokens). Ce token nécessitera les droits sur les dépôts.
 4. Créez un fichier `.env` à la racine de votre projet et ajoutez-y les deux tokens :
 
-```bash
+````bash
 GH_TOKEN=valeur_récupérée_depuis_GitHub
 NPM_TOKEN=valeur_récupérée_depuis_NPM
 
@@ -97,7 +97,7 @@ NPM_TOKEN=valeur_récupérée_depuis_NPM
 
 ```bash
 npx auto create-labels
-```
+````
 
 Rendez-vous sur GitHub, vous devriez désormais voir un ensemble de labels qu'Auto aimerait que vous utilisiez. Utilisez-les pour tagger les futures Pull Requests.
 
@@ -109,7 +109,7 @@ npm run release
 
 Cette commande va :
 
-- build et empaqueter le code de l'addon
+- compiler et empaqueter le code de l'addon
 - générer une nouvelle version
 - pousser une release sur GitHub et NPM
 - pousser un changelog sur GitHub

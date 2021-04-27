@@ -4,7 +4,7 @@ tocTitle: 'Conclusion'
 description: 'Aidez à automatiser et étendre Storybook'
 ---
 
-Félicitations ! Vous avez créé et publié votre premier addon Storybook. En cours de route, vous avez appris les fonctionnements internes de Storybook et à quel point ce dernier est personnalisable. [42%](https://2020.stateofjs.com/en-us/technologies/testing/testing_experience_ranking/) des développeurs JavaScript utilisent déjà Storybook. Le dynamique écosystème des addons en est la principale raison.
+Félicitations ! Vous avez créé et publié votre premier addon Storybook. En cours de route, vous avez appris les fonctionnements internes de Storybook et à quel point ce dernier est personnalisable. [42%](https://2020.stateofjs.com/en-us/technologies/testing/testing_experience_ranking/) des développeurs JavaScript utilisent déjà Storybook. L'écosystème très actif des addons en est la principale raison.
 
 Créez un addon et aidez la communauté à personnaliser et à automatiser Storybook !
 

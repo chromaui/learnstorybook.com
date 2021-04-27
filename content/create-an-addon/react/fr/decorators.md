@@ -5,11 +5,11 @@ description: 'Interagir avec les stories'
 commit: '0e7246a'
 ---
 
-Nous y sommes presque. Jusque là, nous avons créé un outil, nous l'avons ajouté à la barre d'outils et il suit même son état. Nous devons maintenant appliquer cet état et afficher ou masquer les contours.
+Nous y sommes presque ! Jusque là, nous avons créé un outil, nous l'avons ajouté à la barre d'outils et il a même un état. Nous devons maintenant suivre et appliquer cet état pour afficher ou masquer les contours.
 
-Les [décorateurs](https://storybook.js.org/docs/react/writing-stories/decorators) englobent les stories et ajoutent des fonctionnalités au rendu. Nous allons créer un décorateur qui réagit à la globale de contour et gère l'injection de CSS affichant des contours autour de tous les éléments HTML.
+Les [décorateurs](https://storybook.js.org/docs/react/writing-stories/decorators) englobent les stories et ajoutent des fonctionnalités au rendu. Nous allons créer un décorateur qui réagit à la variable globale de contour et gère l'injection de CSS affichant des contours autour de tous les éléments HTML.
 
-Dans l'étape précédente, nous avons défini la globale `outlineActive`, branchons-la ! Nous pouvons consommer les globales dans un décorateur en utilisant le hook `useGlobals`.
+Dans l'étape précédente, nous avons défini la globale `outlineActive`, branchons-la ! Nous pouvons consommer les globales en passant par un décorateur, en utilisant le hook `useGlobals`.
 
 ```js:title=src/withGlobals.js
 /* eslint-env browser */
@@ -54,7 +54,7 @@ ${JSON.stringify(state, null, 2)}
 
 ## Injecter le CSS affichant les contours
 
-Ajouter et nettoyer des styles est un effet de bord. Par conséquent, nous devons englober cette opération dans `useEffect`. Cette dernière étant déclenchée par la globale `outlineActive`. L'Addon Kit fournit un exemple, mais modifions-le afin d'appliquer l'injection de CSS pour afficher les contours.
+Ajouter et nettoyer des styles est un effet de bord. Par conséquent, nous devons englober cette opération dans un `useEffect`. Ce dernier étant déclenché par le changement de la variable globale `outlineActive`. L'Addon Kit fournit un exemple, mais modifions-le afin d'appliquer l'injection de CSS pour afficher les contours.
 
 ```js:title=src/withGlobals.js
 /* eslint-env browser */
