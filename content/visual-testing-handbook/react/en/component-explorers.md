@@ -6,11 +6,13 @@ description: 'A tool for UI development and visual testing'
 
 Modern UIs support countless permutations of state, language, device, browser, and user data. It's cumbersome to navigate to a page, then click around to get it in the right state, just to work on a component.
 
-**Component explorers isolate UI concerns from business logic and app context.** First, you build UI components in isolation to focus on each component's supported permutations. That allows you to gauge how inputs (props, state) affect the rendered UI. After the component is complete, you integrate it into the app.
+**Component explorers isolate UI concerns from business logic and app context.** You build UI components in isolation to focus on each component's supported permutations. That allows you to gauge how inputs (props, state) affect the rendered UI. When the component is complete, you integrate it into the app.
 
-Isolation is a fundamental requirement of visual testing today's componentized UIs. Let's see why.
+[Storybook](https://storybook.js.org/) is the industry-standard component explorer used by Twitter, Slack, Airbnb, Shopify, Stripe, and Microsoft. It helps you build UIs in isolation which is key to visual testing.
 
-![Relation between components and component explorers](/visual-testing-handbook/component-explorer-diagram-optimized.png)
+<div class="aside">
+TODO: add image of component explorer into app
+</div>
 
 ## Why build UIs in isolation?
 
@@ -34,23 +36,17 @@ UIs are inherently visual. Code-only pull requests are an incomplete representat
 
 Component explorers visualize UI components and all their variations. That makes it easy to get feedback on "does this look right?" from developers, designers, product managers, and QA.
 
-<div class="aside">
-TODO: component explorer vs app illustration
-</div>
-
 ## How do component explorers work?
 
-A component explorer is packaged as a small standalone sandbox that lives alongside your app. [Storybook](https://storybook.js.org/) is the industry-standard component explorer used by Twitter, Slack, Airbnb, Shopify, Stripe, and Microsoft.
+A component explorer is packaged as a small standalone sandbox that lives alongside your app. It allows you to visualize component variations during the development process. You can mock hard-to-reach cases and save them as "stories" to revisit during testing.
+
+![Relation between components and component explorers](/visual-testing-handbook/storybook-relationship.png)
 
 #### Primary features
 
 - 🧱 Sandbox for component isolation
 - 🔭 Variation visualizer for component specification and properties
 - 📑 Documentation for component discovery and usage guidelines
-
-Storybook allows you to visualize component variations during the development process. You can mock hard-to-reach cases and save them as "stories" to revisit during QA.
-
-> A story is a test case. Stories are a test suite.
 
 <div class="aside">
 TODO: add image multiple states (histogram page 16)
@@ -68,4 +64,4 @@ For example, a form <code>input</code> might have `disabled`, `error`, and `defa
 
 ## Learn the workflow
 
-Teams at Peloton, Twilio, and Salesforce rely on Storybook to visual test. The next chapter shows you how to apply the popular Test-Driven Development methodology to UI development.
+Teams at Peloton, Twilio, and Salesforce rely on Storybook for visual testing. The next chapter shows you how to apply the popular Test-Driven Development methodology to UI development.

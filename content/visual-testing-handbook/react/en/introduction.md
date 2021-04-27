@@ -4,15 +4,25 @@ tocTitle: 'Introduction'
 description: 'The pragmatic way to test user interfaces'
 ---
 
+<div class="aside">
+
+This guide is made for **intermediate developers** who are familiar with UI testing techniques like unit, snapshot, and end-to-end.
+
+</div>
+
+<br/>
+
 User interfaces are subjective. The answer to "does this look right?" depends on your browser, device, and personal taste. You still have to look at the rendered UI to verify its appearance.
 
-But it takes forever to manually check the whole UI each commit. Different approaches like unit and snapshot testing attempt to automate visual verification. They often fail because it's tough for machines to determine UI correctness from sequences of HTML tags and CSS classes.
+But it takes forever to manually check the whole UI each commit. Different approaches like unit and snapshot testing attempt to automate visual verification. They often end in failure because machines can't determine UI correctness from sequences of HTML tags and CSS classes.
 
-How do teams actually prevent UI bugs? Are janky UIs inevitable? We researched teams whose UIs impact millions of people like Microsoft, BBC, and Shopify to figure out what works.
+How do teams prevent visual bugs? What techniques do Microsoft, BBC, and Shopify use to ship UIs to millions of people? My co-author Tom and I researched leading teams to figure out what actually works.
 
 This handbook introduces visual testing, a pragmatic approach that combines the accuracy of the human eye with the efficiency of machines. Instead of removing people from the testing equation, visual testing uses tools to focus their effort on the specific UI changes that require attention.
 
-## Unit tests don't have eyes
+![Visual testing driven path](/visual-testing-handbook/visual-testing-handbook-vtdd-path-optimized.png)
+
+## Unit tests don't have eyeballs
 
 To grasp visual testing, it makes sense to start with unit testing. Modern UIs are [component-driven](https://componentdriven.org/) – they're composed of modular pieces. The component construct allows you to render UI as a function of props and state. That means you can unit test components much like any other function.
 
@@ -44,7 +54,7 @@ Visual tests are designed to catch changes in UI appearance. You use a component
 
 During development, “run” a quick manual test of a component by rendering it in a browser to see how it looks. Confirm the variations of your component by toggling through each test case listed in the component explorer.
 
-![Storybook toggle button](/visual-testing-handbook/storybook-toggle-stories-optimized.png)
+**// image of toggling through component explorer**
 
 In QA, use automation to detect regressions and enforce UI consistency. Tools like [Chromatic](https://www.chromatic.com/) capture an image snapshot of each test case, complete with markup, styling, and other assets, in a consistent browser environment.
 

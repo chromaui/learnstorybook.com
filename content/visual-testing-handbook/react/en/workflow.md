@@ -3,13 +3,11 @@ title: 'Workflow'
 description: 'A test-driven workflow for building components'
 ---
 
-Developing user interfaces has always been part art and part science. She subjective nature of UI often led to ad-hoc development workflows. The lack of a unified approach meant that it was tricky for developers to build durable UIs quickly.
+Developing user interfaces has always been part art and part science. The subjective nature of UI often led to ad-hoc development workflows. The lack of a unified approach meant that it was tricky for developers to build durable UIs quickly.
 
 This chapter shows you how to build UIs in a rigorous, visual test-driven fashion.
 
-![Visual testing driven path](/visual-testing-handbook/visual-testing-handbook-vtdd-path-optimized.png)
-
-## Test-Driven Development
+## Test-driven development
 
 Before we begin, let's recap **[test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)**, a popular engineering practice. The core idea behind TDD is that you write your tests first then develop the functionality under test.
 
@@ -20,7 +18,7 @@ TDD allows you to think clearly about what your code needs to do in terms of con
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/visual-testing-handbook/red-green-vtdd-optimized.mp4"
+    src="/visual-testing-handbook/test-driven-development.mp4"
     type="video/mp4">
 </video>
 
@@ -103,7 +101,13 @@ What we have produced above corresponds to the _“execute”_ phase of a test c
 
 For testing UI, human verification is a pragmatic approach because it's robust to code changes in the component that don’t affect the visual appearance. Additionally, because we only need to write our inputs ahead of time and visually check the output, we’re automatically building UIs in a TDD style.
 
-## Learn Visual TDD
+<video autoPlay muted playsInline loop>
+  <source
+    src="/visual-testing-handbook/visual-test-driven-development.mp4"
+    type="video/mp4">
+</video>
+
+## Learn visual test-driven development
 
 If you are building an app from a well-thought-out design, the chances are that there are a set of well-specified components with inputs and outputs embedded in the design artifact. Pair this “design spec” with the visual testing process, and you can run an exact analogy to TDD:
 

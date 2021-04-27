@@ -5,23 +5,17 @@ description: 'Learn how to automate visual testing to catch regressions'
 commit: 'b1b5f0b'
 ---
 
-**"Does it STILL look right?"**
+**"Does it STILL look right?"** Over the natural course of development bugs are inevitable.
 
-Building UIs is only one part of frontend engineering. UIs must also stay reliable over time. But over the natural course of app development, changes inevitably cause UI regressions.
-
-It's impractical to check for UI bugs in each `CommentList` state manually each time we push code. This chapter shows you how to automate visual testing using image snapshots.
+It's impractical to check for UI bugs in each `CommentList` story by hand. That's why we'll detect visual changes automatically using image snapshots.
 
 ## How does it work?
 
-Visual test automation combines the accuracy of the human eye with the efficiency of machines. It doesn't remove people from the testing process. It use tools to focus human effort on the specific UI changes that require attention.
+Visual test automation uses machines to detect changes in UI appearance for a human to review. We'll demonstrate how this all works using [Chromatic](https://www.chromatic.com/) by Storybook maintainers.
 
-First, an image snapshot is taken for each component and variation as a "baseline" – the last known good state of the UI. Whenever we push code, the machine will automatically take new snapshots and compare them pixel-by-pixel to the baseline snapshots.
+In a nutshell, an image snapshot is taken of every component variation. This serves as the visual test "baseline". Each commit, new snapshots are captured then compared pixel-by-pixel to the baselines. If there are UI changes, you get notified to review whether they're bugs or intentional updates.
 
-If the machine detects UI changes, a human gets notified to confirm whether they're unintended bugs or intentional improvements.
-
-We'll demonstrate how this all works using [Chromatic](https://www.chromatic.com/) by Storybook maintainers.
-
-![How visual testing snapshots work](/visual-testing-handbook/how-snapshots work.png)
+![visual testing workflow](/visual-testing-handbook/workflow-uitest.png)
 
 ## Setup a repository in GitHub
 
@@ -268,10 +262,8 @@ After you merge your code back into the target branch, Chromatic will also trans
 
 Running this command each time we make a change is tiresome. Ideally, we'd like to run these tests automatically whenever we push code. Chromatic can be used in CI/CD systems to indicate success and unblock deployment. [Learn about CI setup](https://www.chromatic.com/docs/ci).
 
-![visual testing workflow](/visual-testing-handbook/workflow-uitest.png)
-
 ## Your journey begins
 
-Visual Testing Handbook showcases the how leading frontend teams test UI appearance. It's a practical way to verify that UI matches the intended design and remains bug free over time. You're ready to visual test your own projects.
+Visual Testing Handbook showcases the how leading frontend teams test UI appearance. It's a practical way to verify that UI matches the intended design and remains bug free over time.
 
 The final chapter concludes with the complete sample code and helpful resources.
