@@ -100,7 +100,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
 - `argTypes` -- specify the [args](https://storybook.js.org/docs/ember/api/argtypes) behavior in each story.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component with a set of props) in a given state---exactly like a [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component with a set of props) in a given state---exactly like a [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 
 As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 

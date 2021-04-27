@@ -247,7 +247,7 @@ import { composeStories } from '@storybook/testing-react';
 
 import * as TaskListStories from './TaskList.stories'; //👈  Our stories imported here
 
-//👇 ComposeStories will process all information related to the component (e.g., args)
+//👇 composeStories will process all information related to the component (e.g., args)
 const { WithPinnedTasks } = composeStories(TaskListStories);
 
 it('renders pinned tasks at the start of the list', () => {
@@ -260,7 +260,7 @@ it('renders pinned tasks at the start of the list', () => {
 ```
 
 <div class="aside">
-💡 <a href="">@storybook/testing-react</a> is a good solution to reuse your Storybook stories in your React tests. By reusing your stories in your tests, you have a catalog of component scenarios ready to be tested. All args, decorators, and other information from your story will be composed by this library. All you have to do in your tests is to select which story to render.
+💡 <a href="">@storybook/testing-react</a> is a great addon that allows you to reuse your Storybook stories in your unit tests. By reusing your stories in your tests, you have a catalog of component scenarios ready to be tested. Also, all args, decorators, and other information from your story will be composed by this library. As you just saw, all you have to do in your tests is select which story to render.
 </div>
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)

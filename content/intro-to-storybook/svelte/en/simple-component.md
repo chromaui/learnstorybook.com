@@ -175,7 +175,7 @@ module.exports = {
 
 After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
 
-```diff:title=..storybook/preview.js
+```diff:title=.storybook/preview.js
 + import '../src/index.css';
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
@@ -230,9 +230,12 @@ The component is still basic at the moment. First write the code that achieves t
     updatedAt: new Date(2021, 0, 1, 9, 0),
   };
 
-  // Reactive declaration (computed prop in other frameworks)
-  $: isChecked = task.state === 'TASK_ARCHIVED';
++ // Reactive declaration (computed prop in other frameworks)
++ $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
+-  <div class="list-item">
+-   <input type="text" value={task.title} readonly />
+-  </div>
 +  <div class="list-item {task.state}">
 +   <label class="checkbox">
 +     <input type="checkbox" checked={isChecked} disabled name="checked" />
