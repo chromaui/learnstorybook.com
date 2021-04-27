@@ -216,7 +216,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 +   </div>
   `,
 })
-export class TaskComponent { {
+export class TaskComponent {
 + @Input() task: Task;
 
   // tslint:disable-next-line: no-output-on-prefix
