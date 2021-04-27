@@ -1,6 +1,6 @@
 ---
-title: 'Préparation'
-description: "Commencer avec l'Addon Kit"
+title: 'Avant de commencer'
+description: "Avant de commencer avec l'Addon Kit"
 commit: 'd3b6651'
 ---
 
@@ -18,7 +18,7 @@ Pour commencer, cliquez sur le bouton **Use this template** sur le [dépôt de l
 
 ![](../../images/addon-kit.png)
 
-Ensuite, clonez votre dépôt et installez les dépendances.
+Ensuite, clonez le dépôt et installez les dépendances.
 
 ```bash
 npm install
@@ -26,10 +26,10 @@ npm install
 npm i --legacy-peer-deps
 ```
 
-Enfin, lancez le mode développement afin de démarrer Storybook et babel en mode watch.
+Enfin, lancez le mode développement afin de démarrer Storybook et Babel en mode watch.
 
 ```bash
 npm run start
 ```
 
-Le code de l'addon se situe dans le répertoire `src`. Le code modèle inclus montre le fonctionnement des trois paradigmes UI et d'autres concepts comme la gestion d'état et comment interagir avec une story. Nous y reviendrons plus en détail dans les prochaines sections.
+Le code de l'addon se situe dans le répertoire `src`. L'exemple montre le fonctionnement des trois paradigmes UI et d'autres concepts comme la gestion d'état et comment interagir avec une story. Nous y reviendrons plus en détail dans les prochaines sections.

@@ -85,8 +85,8 @@ La propriété `keywords` correspond aux mots-clés du catalogue. Par exemple, l
 La dernière étape est de publier l'addon. L'Addon Kit est pré-configuré avec [Auto](https://github.com/intuit/auto) pour la gestion de releases : un changelog est généré et poussé à la fois sur GitHub et sur NPM. Vous devez donc configurer l'accès à ces derniers.
 
 1. Authentifiez-vous en utilisant [npm adduser](https://docs.npmjs.com/cli/adduser.html)
-2. Créez un [token d'accès](https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-access-tokens). Vous aurez besoin d'un token avec les droits de lecture et de publication.
-3. De la même manière, générez un [token Github](https://github.com/settings/tokens). Ce token nécessitera les droits sur les dépôts.
+2. Créez un [token](https://docs.npmjs.com/creating-and-viewing-access-tokens#creating-access-tokens). Vous aurez besoin d'un token avec les droits de lecture et de publication.
+3. De la même manière, générez un [token Github](https://github.com/settings/tokens). Ce token nécessitera les droits sur le dépôt.
 4. Créez un fichier `.env` à la racine de votre projet et ajoutez-y les deux tokens :
 
 ````bash
@@ -114,4 +114,4 @@ Cette commande va :
 - pousser une release sur GitHub et NPM
 - pousser un changelog sur GitHub
 
-Voilà ! Nous avons réussi à publier notre package sur npm et à sortir notre premier addon Storybook. Il peut y avoir un délai entre le moment où vous le publiez et le moment où il apparaît dans le catalogue car ce dernier doit parcourir npm. Si votre addon n'apparaît pas, veuillez ouvrir une issue sur le dépôt du catalogue.
+Voilà ! Nous avons réussi à publier notre package sur npm et à sortir notre premier addon Storybook. Il peut y avoir un délai entre le moment où vous le publiez et le moment où il apparaît dans le catalogue car ce dernier doit parcourir npm. Si votre addon n'apparaît pas, ouvrez une issue sur le projet GitHub de Storybook.
