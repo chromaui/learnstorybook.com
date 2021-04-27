@@ -7,13 +7,13 @@ commit: d3abd86
 
 前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである `TaskListComponent` を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうすればよいか見てみましょう。
 
-## TaskListComponent (タスクリストコンポーネント)
+## TaskListComponent
 
 Taskbox はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskListComponent` に、タスクのリストが、通常のタスクのみである場合と、ピン留めされたタスクとの組み合わせである場合という、ストーリーを追加するべき 2 つのバリエーションができます。
 
 ![通常のタスクとピン留めされたタスク](/intro-to-storybook/tasklist-states-1.png)
 
-`TaskComponent` のデータは非同期的に送信されるので、接続がないことを示すため、読み込み中の状態**も**必要となります。さらにタスクがない場合に備え、空の状態も必要です。
+`Task` のデータは非同期的に送信されるので、接続がないことを示すため、読み込み中の状態**も**必要となります。さらにタスクがない場合に備え、空の状態も必要です。
 
 ![空の状態と読み込み中の状態](/intro-to-storybook/tasklist-states-2.png)
 
@@ -137,10 +137,10 @@ Empty.args = {
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、<code>decorators</code> というキーをデフォルトエクスポートに追加し、描画するコンポーネントの周りに <code>padding</code> を設定してます。ストーリーで使用する「プロバイダー」(例えば、React のコンテキストを設定するライブラリコンポーネントなど) を使うためにも使用します。
+💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、 <code>decorators</code> というキーをデフォルトエクスポートで使用し、必要なモジュールやコンポーネントを設定するために使っています。ストーリーで使用する「プロバイダー」(例えば、 React のコンテキストを設定するライブラリコンポーネントなど) を使うためにも使用します。
 </div>
 
-`taskData` は `task.stories.ts` ファイルでエクスポートした `Task` のデータ構造です。同様に `actionsData` は `TaskComponent` コンポーネントが想定するアクション (呼び出しのモック) を定義しています。`TaskListComponent` でも同様に必要となります。
+`TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/angular/writing-stories/args#args-composition)ことができます。そうすることで、2 つのコンポーネントが想定するデータとアクション (呼び出しのモック) の一貫性が保たれます。
 
 それでは `TaskListComponent` の新しいストーリーを Storybook で確認してみましょう。
 
@@ -153,7 +153,7 @@ Empty.args = {
 
 ## 状態を作りこむ
 
-今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。`TaskListComponent` の**本当の複雑さ**は `WithPinnedTasks`かつ`loading`かつ`empty`といったエッジケースに現われているのです。
+今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。 `TaskListComponent` の**本当の複雑さ**は `WithPinnedTasks` かつ `loading` かつ `empty` といったエッジケースに現われているのです。
 
 ```diff:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -227,7 +227,7 @@ export class TaskListComponent {
 
 コンポーネントが大きくなるにつれ、入力の要件も増えていきます。`TaskListComponent` のプロパティの要件を Typescript で定義しましょう。`TaskComponent` が子供のコンポーネントなので、表示するのに正しいデータ構造が渡されていることを確認しましょう。時間を節約するため、前の章で `task.model.ts` に定義したモデルを再利用しましょう。
 
-## Automated testing
+## 自動テスト
 
 前の章で Storyshots を使用してストーリーのスナップショットテストを行う方法を学びました。`TaskComponent` では、問題なく描画されるのを確認することは、それほど複雑ではありませんでした。`TaskListComponent` では複雑さが増しているので、ある入力がある出力を生成するかどうかを、自動テスト可能な方法で検証したいと思います。そのためには [Jest](https://facebook.github.io/jest/) をテストレンダラーとともに使用し、単体テストを作ります。
 
@@ -277,10 +277,10 @@ describe('TaskList component', () => {
 
 ![TaskList のテストランナー](/intro-to-storybook/tasklist-testrunner.png)
 
-単体テストで `withPinnedTasksData` ストーリーを再利用出来ていることに注目してください。このように、多様な方法で既存のリソースを活用していくことができます。
+ストーリーと単体テストの両方でタスクのリストを再利用出来ていることに注目してください。このように、多様な方法で既存のリソースを活用していくことができます。
 
 ただし、このテストは非常に脆いことにも留意してください。プロジェクトが成熟し、`Task` の実装が変わっていく (たとえば、別のクラス名に変更されたり、`input` 要素ではなく `textarea` に変更されたりする) と、テストが失敗し、更新が必要となる可能性があります。これは必ずしも問題とならないかもしれませんが、UI の単体テストを使用する際の注意点です。UI の単体テストはメンテナンスが難しいのです。可能な限り手動のテストや、スナップショットテスト、視覚的なリグレッションテスト ([テストの章](/intro-to-storybook/angular/ja/test/)を参照してください) に頼るようにしてください。
 
 <div class="aside">
-Git へのコミットを忘れずに行ってください！
+💡 Git へのコミットを忘れずに行ってください！
 </div>
