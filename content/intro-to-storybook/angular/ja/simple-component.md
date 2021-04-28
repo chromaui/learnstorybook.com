@@ -18,7 +18,7 @@ commit: 1a14919
 
 `TaskComponent` の作成を始めるにあたり、事前に上記のそれぞれのタスクに応じたテスト用の状態を作成します。次いで、Storybook で、モックデータを使用し、コンポーネントを切り離して作ります。コンポーネントのそれぞれの状態について「ビジュアルテスト」を行い、見た目を確認しながら進めます。
 
-[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (TDD) に似ているこのプロセスを、“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”(英語)と呼んでいます。
+[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (TDD) に似ているこのプロセスを、“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”と呼んでいます。
 
 ## セットアップする
 
@@ -142,7 +142,7 @@ Arguments (略して [`args`](https://storybook.js.org/docs/angular/writing-stor
 コンポーネントに必要な `actionsData` を作るもう一つの利点は、後ほど見るように、 `export` してこのコンポーネントを再利用するコンポーネントのストーリーで使える点です。
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>アクションアドオン</b></a>は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。 <code>action()</code> はそのスタブとして使用できます。
+💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>アクションアドオン</b></a>は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。 <code>action()</code> はそのスタブとして使用できます。
 </div>
 
 ## 設定する
