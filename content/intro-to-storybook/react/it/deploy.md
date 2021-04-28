@@ -5,9 +5,9 @@ description: 'Impara come deployare Storibook online'
 commit: '8652d73'
 ---
 
-Attraverso questo tutorila, abbiamo costruito componenti nell' ambiente locale della nostra macchina. Ad un certo punto, avremo bisogno di condividere il nostro lavoro per avere dei feedback dal nostro team. Procediamo quindi con il deploy di Storybook online per aiutare i nostri colleghi a rivedere l'implementazione della nostra UI.
+Attraverso questo tutorial, abbiamo costruito dei componenti in locale sulla nostra macchina. Ad un certo punto, avremo bisogno di condividere il nostro lavoro per avere dei feedback dal nostro team. Procediamo quindi con il deploy di Storybook online per aiutare i nostri colleghi a esaminare l'implementazione della UI.
 
-## Exporting as a static app
+## Esportare come applicazione statica
 
 To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
 
