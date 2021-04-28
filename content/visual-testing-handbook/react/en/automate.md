@@ -239,7 +239,7 @@ Automating visual testing ensures components don’t change by accident. But it�
 
 If a change is intentional, we accept the snapshot to update the baseline. That means future tests will be compared to the `CommentList` with red borders.
 
-If a change is unintentional, it needs fixing. Our designer thinks our majestic red border is horrendous so let's undo it.
+If a change is unintentional, it needs fixing. Our designer thinks the ✨majestic✨ red border is horrendous so let's undo it.
 
 ![Chromatic test screen](/visual-testing-handbook/chromatic-test-screen-optimized.png)
 

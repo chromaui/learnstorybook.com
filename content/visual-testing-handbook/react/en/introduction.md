@@ -6,7 +6,7 @@ description: 'The pragmatic way to test user interfaces'
 
 User interfaces are subjective. The answer to "does this look right?" depends on your browser, device, and personal taste. You still have to look at the rendered UI to verify its appearance.
 
-But it takes forever to check the whole UI for each commit manually. Different approaches like unit and snapshot testing attempt to automate visual verification. They often end in failure because machines can't determine UI correctness from sequences of HTML tags and CSS classes.
+But it takes forever to check the whole UI manually each commit. Different approaches like unit and snapshot testing attempt to automate visual verification. They often end in failure because machines can't determine UI correctness from sequences of HTML tags and CSS classes.
 
 How do teams prevent visual bugs? What techniques do Microsoft, BBC, and Shopify use to ship UIs to millions of people? My co-author Tom and I researched leading teams to figure out what actually works.
 
