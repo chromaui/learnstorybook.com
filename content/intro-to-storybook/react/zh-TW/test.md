@@ -1,7 +1,7 @@
 ---
 title: '測試 UI 元件'
 tocTitle: '測試'
-description: '瞭解測試UI元件的方法'
+description: '瞭解測試 UI 元件的方法'
 commit: '3e283f7'
 ---
 

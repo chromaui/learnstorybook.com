@@ -1,6 +1,6 @@
 ---
 title: '參與'
-description: '一起把分享 Storybook 至全世界'
+description: '一起把 Storybook 分享至全世界'
 ---
 
 歡迎參與 Learn Storybook！如果是文法或標點符號的小問題，請開啟 Pull Request。如果是頗大的改變，可以[新增 Issue](https://github.com/chromaui/learnstorybook.com/issues) 討論一下。
