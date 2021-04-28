@@ -7,7 +7,7 @@ Developing user interfaces has always been ill-defined. The subjective nature of
 
 ## Test-driven development
 
-Before we begin, let's recap **[test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)**, a popular engineering practice. The core idea behind TDD is that you write your tests first then develop the functionality under test.
+Before we begin, let's recap **[test-driven development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)**, a popular engineering practice. The core idea behind TDD is that you write your tests before developing the functionality under test.
 
 1. Construct a set of automated unit tests for your code
 2. Write the code itself to “turn the tests green”
@@ -28,7 +28,7 @@ However, TDD falls down when developing UIs because it's hard to define tests ah
 
 ## Visual testing
 
-The tricky part of UI testing is that it’s not possible to express the relevant visual details through verification code. Visual testing bypasses this by involving a human’s judgement in a quick and focused fashion.
+The tricky part of UI testing is that it’s not possible to express the relevant visual details through verification code. Visual testing bypasses this by involving a human’s judgement in a quick and focused way.
 
 #### How to write visual test cases
 
@@ -43,7 +43,7 @@ test do
 end
 ```
 
-In Storybook, a test is as simple as rendering a React element. To write a visual test case, a "story" in Storybook parlance, we'll outline the states of the component we're interested in.
+In Storybook, a test is as simple as rendering a React element. To write a visual test case, a "story" in Storybook parlance, we outline the states of the component we're interested in. The code sample below shows how you'd write visual tests for `InboxTask`, `SnoozedTask`, and `PinnedTask`.
 
 ```js:title=src/components/Task.stories.js
 import React from 'react';
@@ -87,7 +87,7 @@ PinnedTask.args = {
 };
 ```
 
-Then we can view the Task in Storybook.
+In Storybook, the `Task` and it's variations would appear in the sidebar. This corresponds to the _“execute”_ phase of a test cycle; the _“verify”_ phase we do by eye in Storybook.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -95,23 +95,16 @@ Then we can view the Task in Storybook.
     type="video/mp4"/>
 </video>
 
-What we have produced above corresponds to the _“execute”_ phase of a test cycle; the _“verify”_ phase we do by eye.
-
 For testing UI, human verification is a pragmatic approach because it's robust to code changes in the component that don’t affect the visual appearance. Additionally, because we only need to write our inputs ahead of time and visually check the output, we’re automatically building UIs in a TDD style.
+
+## Learn visual test-driven development
+
+If you are building an app from a well-thought-out design, the chances are that there are a set of well-specified components with inputs and outputs embedded in the design artifact. Pair this “design spec” with the visual testing process, and you can run an exact analogy to TDD.
+
+In the next chapter, we'll apply what we learned so far by coding an example component using Visual TDD.
 
 <video autoPlay muted playsInline loop>
   <source
     src="/visual-testing-handbook/visual-test-driven-development.mp4"
     type="video/mp4">
 </video>
-
-## Learn visual test-driven development
-
-If you are building an app from a well-thought-out design, the chances are that there are a set of well-specified components with inputs and outputs embedded in the design artifact. Pair this “design spec” with the visual testing process, and you can run an exact analogy to TDD:
-
-- ✍🏽 **Build out the test cases.** Specify a set of inputs to the component that cover these use cases. It can often lead you to think about scenarios that you wouldn’t consider if you developed it in an ad-hoc way.
-- 🔍 **Implement and verify.** As you progress towards the solution, you can quickly and easily verify each state in Storybook.
-- 📁 **Capture image snapshots.** The set of specs that survive the development process will form the basis of the regression tests.
-- 🔄 **Iterate**
-
-In the next chapter, we'll apply what we learned so far by coding an example component using Visual TDD.

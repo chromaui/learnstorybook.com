@@ -325,7 +325,7 @@ Check how the component looks in Storybook. This example provided the CSS alread
 
 ### 5. Iterate
 
-If we weren't satisfied with our implementation in step 4, we could go back to step 3 and keep working on it. If we’re satisfied, then we'll move on to building the next variation. Perhaps we’d add the “load more” button to the `Paginated` story.
+If we're not satisfied with the implementation in step 4, we'd go back to step 3 and keep working on it. If the UI matches the spec, then we'll move on to building the next variation - perhaps by add the “load more” button to the `Paginated` story.
 
 As we iterate through this workflow, regularly check each story to ensure that the final implementation correctly handles each test state and not just the last one we worked on.
 

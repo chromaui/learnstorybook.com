@@ -66,6 +66,6 @@ Each commit, new image snapshots are automatically compared to previously accept
 
 That may sound laborious, but it ends up being easier than sifting through false positives from automated tests, updating test cases to match up with minor UI changes, and working overtime to make tests pass again.
 
-## Learn the tools
+## Learn the tooling
 
 Now that we have a sense of visual testing, let’s check out the main tool you need to enable it: a component explorer. In the next chapter, we’ll see how component explorers help developers build and test components.

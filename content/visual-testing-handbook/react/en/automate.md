@@ -9,9 +9,9 @@ Over the natural course of development bugs are inevitable. Visual test automati
 
 In a nutshell, an image snapshot is taken of every component variation. This serves as the visual test "baseline". Each commit, new snapshots are captured then compared pixel-by-pixel to the baselines. If there are UI changes, you get notified to review whether they're bugs or intentional updates.
 
-<video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
+<video autoPlay muted playsInline loop >
   <source
-    src="/intro-to-storybook/website-workflow-review-merge-optimized.mp4"
+    src="/visual-testing-handbook/automate-visual-workflow-test-diff.mp4"
     type="video/mp4"
   />
 </video>
