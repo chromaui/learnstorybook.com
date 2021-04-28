@@ -224,11 +224,11 @@ export default function TaskList() {
 
 ## 自動測試
 
-在上一章學到使用 Storyshot 為 story 進行快照測試。那時候，要測試 Task 渲染是否 OK 並不複雜。而 TaskList 增加另一層複雜度之後，就會想要相容自動測試，驗證特定輸入是否可以產生特定輸出。因此，要以 [Jest](https://facebook.github.io/jest/) 搭配測試渲染機制，建立單元測試。
+在上一章學到使用 Storyshot 為 story 進行快照測試。那時候，要測試 Task 渲染是否 OK 並不複雜。而 TaskList 增加另一層複雜度之後，就會想要相容自動測試，驗證特定輸入是否可以產生特定輸出。因此，要以 [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) 和 [@storybook/testing-react](https://storybook.js.org/addons/@storybook/testing-react)，建立單元測試。
 
-![Jest logo](/intro-to-storybook/logo-jest.png)
+![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
 
-### 以 Jest 進行單元測試
+### 以 React Testing Library 進行單元測試
 
 Storybook 的 story、手動測試和快照測試已經能夠盡可能避免 UI 臭蟲。如果 story 涵蓋的元件使用情境已經廣泛，並且使用以人類進行檢查 story 變動的工具，錯誤就可能會比較少。
 
@@ -236,30 +236,31 @@ Storybook 的 story、手動測試和快照測試已經能夠盡可能避免 UI 
 
 現在的情況是，已經傳入 `tasks` 這個 props 的 `TaskList` 裡，將置頂任務在沒有置頂的**前面**渲染出來。即使已經有 `WithPinnedTasks` 這個 story，就是用來測試這情境。如果元件**不再**以如此方式排列任務，也就是出現臭蟲了，對於以人力來檢查來說，仍是模糊的。它絕對不會對大家的目光大喊**「出錯了」**！
 
-因此，為了避免這問題，可以使用 Jest 來把 story 渲染至 DOM，然後執行一些 DOM 查詢程式碼，驗證結果的顯著特徵。story 格式的好處，是可以只要匯入測試裡的 story，然後就輸出了。
+因此，為了避免這問題，可以使用 React Testing Library 來把 story 渲染至 DOM，然後執行一些 DOM 查詢程式碼，驗證結果的顯著特徵。story 格式的好處，是可以只要匯入測試裡的 story，然後就輸出了。
 
 新增名為 `src/components/TaskList.test.js` 的測試檔案。在這裡，要打造有明確結果的測試。
 
 ```js:title=src/components/TaskList.test.js
-import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from '@testing-library/react';
 
-import '@testing-library/jest-dom/extend-expect';
+import { composeStories } from '@storybook/testing-react';
 
-import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
+import * as TaskListStories from './TaskList.stories'; //👈  Our stories imported here
+
+//👇 composeStories will process all information related to the component (e.g., args)
+const { WithPinnedTasks } = composeStories(TaskListStories);
 
 it('renders pinned tasks at the start of the list', () => {
-  const div = document.createElement('div');
-  //👇 Story's args used with our test
-  ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
+  const { container } = render(<WithPinnedTasks />);
 
-  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
-  expect(lastTaskInput).not.toBe(null);
-
-  ReactDOM.unmountComponentAtNode(div);
+  expect(
+    container.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]')
+  ).not.toBe(null);
 });
 ```
+<div class="aside">
+💡 <a href="">@storybook/testing-react</a> 是可以在單元測試裡重複利用 Storybook story 的優秀外掛。在測試裡重複利用 story，就是準備好一整組元件情境目錄可供測試。同時，所有 story 裡的參數、decorator 和其他訊息也在此資源庫產生。就如同所見，在測試裡只要選擇要渲染的 story。
+</div>
 
 ![TaskList 測試的 runner](/intro-to-storybook/tasklist-testrunner.png)
 

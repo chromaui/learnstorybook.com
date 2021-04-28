@@ -114,6 +114,6 @@ git push -u origin change-task-background
 
 ![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook 幫助我們**打造**元件，而進行測試則是有助於**維護**。這篇教學裡提到的 4 種 UI 測試，分別是視覺、快照、單元與視覺回溯測試。後 3 項就是剛剛設定好的，可以加到 CI 自動進行，在推出元件的時候免於擔心逃票的臭蟲。整個工作流程如下圖。
+Storybook 幫助我們**打造**元件，而進行測試則是有助於**維護**。這篇教學裡提到的 4 種 UI 測試，分別是手動、快照、單元與視覺回溯測試。後 3 項就是剛剛設定好的，可以加到 CI 自動進行，在推出元件的時候免於擔心逃票的臭蟲。整個工作流程如下圖。
 
 ![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)

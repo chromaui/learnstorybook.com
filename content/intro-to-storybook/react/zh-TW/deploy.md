@@ -78,7 +78,7 @@ yarn chromatic --project-token=<project-token>
 
 在專案的根目錄新增 `.github` 資料夾，其中再新增 `workflows` 資料夾。
 
-如下方所示，新增 `chromatic.yml` 這個檔案。把 `project-token` 以專案的 token 取代。
+如下方所示，新增 `chromatic.yml` 這個檔案。把 `CHROMATIC_PROJECT_TOKEN` 以專案的 token 取代。
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
@@ -101,7 +101,7 @@ jobs:
         # Options required for Chromatic's GitHub Action
         with:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
-          projectToken: project-token
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 

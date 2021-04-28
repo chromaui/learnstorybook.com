@@ -58,7 +58,7 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 
@@ -93,7 +93,7 @@ Archived.args = {
 - `excludeStories` -- story 檔案裡的 export，但不應被 Storybook render 為 story；
 - `argTypes` -- 設定每個 story 的[參數](https://storybook.js.org/docs/react/api/argtypes)行為。
 
-若要定義出各式各樣的 story，就為每個要測試的狀態 export 函式，以此產生 story。Story 就是根據設定好的狀態，回傳 render 出元素的函式（也就是有一組 prop 的元件），這跟 [Functional Component](https://reactjs.org/docs/components-and-props.html) 一樣。
+若要定義出各式各樣的 story，就為每個要測試的狀態 export 函式，以此產生 story。Story 就是根據設定好的狀態，回傳 render 出元素的函式（也就是有一組 prop 的元件），這跟 [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components) 一樣。
 
 既然已經排列出元件，賦值給稱為 `Template` 的變數會很方便。採用這樣的模式來做 story 可以減少撰寫和維護程式碼的份量。
 
@@ -117,6 +117,10 @@ Storybook 的設定還要做些更新，不僅能夠顯示新增的 story，還�
 
 ```diff:title=.storybook/main.js
 module.exports = {
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
 + stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/addon-links',
