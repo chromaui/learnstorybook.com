@@ -9,13 +9,11 @@ commit: 34f1938
 
 このチュートリアルは「アプリケーションを作る方法について」ではないので、詳細までは説明しませんが、コンテナーコンポーネントとデータを繋ぐ一般的なパターンについて見てみましょう。
 
-## Container components
+## コンテナーコンポーネント
 
 `TaskList` コンポーネントは、今のところ、それ自体では外部とのやりとりをしないので「presentational (表示用)」([このブログ記事](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)を参照) として書かれています。データを取得するためには「container (コンテナー)」が必要です。
 
-ここではデータを保存する際に使用される React で人気のライブラリーである [Redux](https://redux.js.org/) を使用し、アプリケーションにシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
-
-シンプルなデータモデルを作るため、ここでは[ngxs](https://ngxs.gitbook.io/ngxs/)を使います。Redux/ngrx の原則を受入れつつボイラープレートを減らし、より Angular らしい状態管理を提供することに注力したライブラリです。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
+ここでは Redux/ngrx の原則を取り入れつつボイラープレートを減らし、より Angular らしい状態管理の方法を提供する [ngxs](https://ngxs.gitbook.io/ngxs/) を使用し、アプリケーションにシンプルなデータモデルを作ります。しかし、 [ngrx/store](https://github.com/ngrx/platform) や [Apollo](https://www.apollographql.com/docs/angular/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
 まず、ngxs をインストールします:
 
@@ -217,7 +215,7 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-表示用の`TaskList`をそのままにするのは、テストと分離が容易になるからです。ストアの存在に依存しないので、テストの観点から見ると取り扱いがより簡単になります。`src/app/components/task-list.stories.ts`を`src/app/components/pure-task-list.stories.ts`に変更し、ストーリーが表示用のバージョンを使っていることを確認しましょう:
+表示用の TaskList をそのままにしておくのは、テストと分離が容易になるからです。ストアの存在に依存しないので、テストの観点から見ると取り扱いがより簡単になります。さらに `src/app/components/task-list.stories.ts` も `src/app/components/pure-task-list.stories.ts` に変更し、ストーリーが表示用のバージョンを使っていることを確実にしましょう:
 
 ```ts:title=src/app/components/pure-task-list.stories.ts
 import { moduleMetadata } from '@storybook/angular';
@@ -297,7 +295,7 @@ Empty.args = {
   />
 </video>
 
-同様に, `PureTaskListComponent`を Jest のテストで使用する必要があります:
+同様に、 `PureTaskListComponent` を Jest のテストで使用する必要があります:
 
 ```diff:title= src/app/components/task-list.component.spec.ts
 import { render } from '@testing-library/angular';
@@ -332,9 +330,5 @@ describe('TaskList component', () => {
 ```
 
 <div class="aside">
-
-さらにスナップショットテストも失敗しているはずなので、既存のスナップショットテストを <code>-u</code> フラグを付けて実行しなければなりません。
-
-Git へのコミットを忘れずに行ってください！
-
+💡 さらにスナップショットテストも失敗しているはずなので、既存のスナップショットテストを <code>-u</code> フラグを付けて実行しなければなりません。Git へのコミットを忘れずに行ってください！
 </div>
