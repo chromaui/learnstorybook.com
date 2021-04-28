@@ -4,14 +4,6 @@ tocTitle: 'Introduction'
 description: 'The pragmatic way to test user interfaces'
 ---
 
-<div class="aside">
-
-This guide is made for **intermediate developers** who are familiar with UI testing techniques like unit, snapshot, and end-to-end.
-
-</div>
-
-<br/>
-
 User interfaces are subjective. The answer to "does this look right?" depends on your browser, device, and personal taste. You still have to look at the rendered UI to verify its appearance.
 
 But it takes forever to manually check the whole UI each commit. Different approaches like unit and snapshot testing attempt to automate visual verification. They often end in failure because machines can't determine UI correctness from sequences of HTML tags and CSS classes.
@@ -40,7 +32,7 @@ Unit tests are perfect for evaluating concrete outputs: `2 + 2 === 4`. But they'
 
 ## What about snapshot tests?
 
-[Snapshot tests](https://reactjs.org/docs/testing-recipes.html#snapshot-testing) provide an alternate approach to verifying UI appearance. This is where the test framework saves the generated DOM of a component as a "baseline". Subsequent changes compare the new DOM to the baseline. If there are differences, the developer must explicitly update the baseline.
+[Snapshot tests](https://reactjs.org/docs/testing-recipes.html#snapshot-testing) provide an alternate approach to verifying UI appearance. They render the component then capture the generated DOM as a "baseline". Subsequent changes compare the new DOM to the baseline. If there are differences, the developer must explicitly update the baseline.
 
 ![Minified component code](/visual-testing-handbook/code-visual-testing-optimized.png)
 
@@ -54,13 +46,21 @@ Visual tests are designed to catch changes in UI appearance. You use a component
 
 During development, “run” a quick manual test of a component by rendering it in a browser to see how it looks. Confirm the variations of your component by toggling through each test case listed in the component explorer.
 
-**// image of toggling through component explorer**
+<video autoPlay muted playsInline loop>
+  <source
+    src="/visual-testing-handbook/storybook-toggling-stories.mp4"
+    type="video/mp4"/>
+</video>
 
 In QA, use automation to detect regressions and enforce UI consistency. Tools like [Chromatic](https://www.chromatic.com/) capture an image snapshot of each test case, complete with markup, styling, and other assets, in a consistent browser environment.
 
 Each commit, new image snapshots are automatically compared to previously accepted baseline snapshots. When the machine detects visual differences, the developer gets notified to approve the intentional change or fix the accidental bug.
 
-![Visual testing components](/visual-testing-handbook/component-visual-testing.gif)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/visual-testing-handbook/component-visual-testing.mp4"
+    type="video/mp4"/>
+</video>
 
 #### That sounds like a lot of work...
 

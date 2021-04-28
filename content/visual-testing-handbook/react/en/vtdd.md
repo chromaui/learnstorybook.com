@@ -1,6 +1,6 @@
 ---
 title: 'Visual TDD'
-description: 'Put all the concepts together in code'
+description: 'Write your first visual tests'
 commit: 'e7c8eb9'
 ---
 

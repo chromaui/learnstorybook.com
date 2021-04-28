@@ -3,9 +3,7 @@ title: 'Workflow'
 description: 'A test-driven workflow for building components'
 ---
 
-Developing user interfaces has always been part art and part science. The subjective nature of UI often led to ad-hoc development workflows. The lack of a unified approach meant that it was tricky for developers to build durable UIs quickly.
-
-This chapter shows you how to build UIs in a rigorous, visual test-driven fashion.
+Developing user interfaces has always been ill-defined. The subjective nature of UI leads to ad-hoc development workflows and buggy UIs. This chapter shares how professional teams build UI in a rigorous, visual test-driven fashion.
 
 ## Test-driven development
 
