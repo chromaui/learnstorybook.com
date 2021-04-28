@@ -43,9 +43,10 @@ We'll use Chromatic by Storybook maintainers to demonstrate the image snapshotti
 
 From there, choose the repository you've just created.
 
-<div class="aside">
- TODO: add video similar to the other tutorials (Intro Storybook and Design Systems) to select the repo in Chromatic
-</div>
+<video autoPlay muted playsInline loop>
+  <source src="/visual-testing-handbook/chromatic-create-project-optimized.mp4"
+    type="video/mp4" />
+</video>
 
 UI tests capture an image snapshot of every story in a cloud browser environment. Whenever you push code, Chromatic generates a new set of snapshots and compares them against baselines. If there are visual changes, you verify if they’re intentional.
 
@@ -240,7 +241,7 @@ If a change is intentional, we accept the snapshot to update the baseline. That 
 
 If a change is unintentional, it needs fixing. Our designer thinks our majestic red border is horrendous so let's undo.
 
-// TODO Joao to screenshot TestScreen with the accept/deny button
+![Chromatic test screen](/visual-testing-handbook/chromatic-test-screen-optimized.png)
 
 ### Merge changes
 
