@@ -6,7 +6,7 @@ description: 'The pragmatic way to test user interfaces'
 
 User interfaces are subjective. The answer to "does this look right?" depends on your browser, device, and personal taste. You still have to look at the rendered UI to verify its appearance.
 
-But it takes forever to manually check the whole UI each commit. Different approaches like unit and snapshot testing attempt to automate visual verification. They often end in failure because machines can't determine UI correctness from sequences of HTML tags and CSS classes.
+But it takes forever to check the whole UI for each commit manually. Different approaches like unit and snapshot testing attempt to automate visual verification. They often end in failure because machines can't determine UI correctness from sequences of HTML tags and CSS classes.
 
 How do teams prevent visual bugs? What techniques do Microsoft, BBC, and Shopify use to ship UIs to millions of people? My co-author Tom and I researched leading teams to figure out what actually works.
 
@@ -18,7 +18,7 @@ This handbook introduces visual testing, a pragmatic approach that combines the 
 
 To grasp visual testing, it makes sense to start with unit testing. Modern UIs are [component-driven](https://componentdriven.org/) – they're composed of modular pieces. The component construct allows you to render UI as a function of props and state. That means you can unit test components much like any other function.
 
-A unit test isolates a module and then verifies its behaviour. It supplies inputs (props, state, etc.) and compares the output to an expected result. Unit tests are desirable because testing modules in isolation makes it easier to cover edge cases and pinpoint the source of failures.
+A unit test isolates a module and then verifies its behavior. It supplies inputs (props, state, etc.) and compares the output to an expected result. Unit tests are desirable because testing modules in isolation makes it easier to cover edge cases and pinpoint the source of failures.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -26,7 +26,7 @@ A unit test isolates a module and then verifies its behaviour. It supplies input
     type="video/mp4"/>
 </video>
 
-The core issue is that much of a UIs inherent complexity is visual — the specifics of how generated HTML and CSS render on the user's screen.
+The core issue is that much of a UI's inherent complexity is visual — the specifics of how generated HTML and CSS render on the user's screen.
 
 Unit tests are perfect for evaluating concrete outputs: `2 + 2 === 4`. But they're not great for UI because it's tough to discern which details of HTML or CSS impact appearance and how. For example, HTML changes don't always affect the UI look and feel.
 
@@ -68,4 +68,4 @@ That may sound laborious, but it ends up being easier than sifting through false
 
 ## Learn the tooling
 
-Now that we have a sense of visual testing, let’s check out the main tool you need to enable it: a component explorer. In the next chapter, we’ll see how component explorers help developers build and test components.
+Now that we have a sense of visual testing let’s check out the main tool you need to enable it: a component explorer. In the next chapter, we’ll see how component explorers help developers build and test components.

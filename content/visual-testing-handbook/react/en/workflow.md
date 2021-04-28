@@ -12,7 +12,7 @@ Before we begin, let's recap **[test-driven development (TDD)](https://en.wikipe
 1. Construct a set of automated unit tests for your code
 2. Write the code itself to “turn the tests green”
 
-TDD allows you to think clearly about what your code needs to do in terms of concrete inputs (for components, we refer to these as “states”). That way you can cover all use cases of your module.
+TDD allows you to think clearly about what your code needs to do in terms of concrete inputs (for components, we refer to these as “states”). That way, you can cover all use cases of your module.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -28,7 +28,7 @@ However, TDD falls down when developing UIs because it's hard to define tests ah
 
 ## Visual testing
 
-The tricky part of UI testing is that it’s not possible to express the relevant visual details through verification code. Visual testing bypasses this by involving a human’s judgement in a quick and focused way.
+The tricky part of UI testing is that it’s not possible to express the relevant visual details through verification code. Visual testing bypasses this by involving a human’s judgment in a quick and focused way.
 
 #### How to write visual test cases
 
@@ -87,7 +87,7 @@ PinnedTask.args = {
 };
 ```
 
-In Storybook, the `Task` and it's variations would appear in the sidebar. This corresponds to the _“execute”_ phase of a test cycle; the _“verify”_ phase we do by eye in Storybook.
+In Storybook, the `Task` and its variations would appear in the sidebar. This corresponds to the _“execute”_ phase of a test cycle; the _“verify”_ phase we do by eye in Storybook.
 
 <video autoPlay muted playsInline loop>
   <source

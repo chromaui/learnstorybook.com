@@ -5,9 +5,9 @@ description: 'Automate visual testing to catch regressions'
 commit: 'b1b5f0b'
 ---
 
-Over the natural course of development bugs are inevitable. Visual test automation uses machines to detect changes in UI appearance for a human to review.
+Over the natural course of development, bugs are inevitable. Visual test automation uses machines to detect changes in UI appearance for a human to review.
 
-In a nutshell, an image snapshot is taken of every component variation. This serves as the visual test "baseline". Each commit, new snapshots are captured then compared pixel-by-pixel to the baselines. If there are UI changes, you get notified to review whether they're bugs or intentional updates.
+In a nutshell, an image snapshot is taken of every component variation. This serves as the visual test "baseline". With each commit, new snapshots are captured then compared pixel-by-pixel to the baselines. If there are UI changes, you get notified to review whether they're bugs or intentional updates.
 
 <video autoPlay muted playsInline loop >
   <source
@@ -229,7 +229,7 @@ Open a pull request for the new branch in your GitHub repository.
 
 ![Comment list pull requested opened in GitHub](/visual-testing-handbook/commentlist-gh-pullrequest-optimized.png)
 
-Chromatic detected UI changes for you to review! Go to the PR checks and click "🟡 UI Test" see the list of changes. The build will be marked “unreviewed” and the changes listed in the “Tests” table.
+Chromatic detected UI changes for you to review! Go to the PR checks and click "🟡 UI Test" to see the list of changes. The build will be marked “unreviewed” and the changes listed in the “Tests” table.
 
 ![New changes published to Chromatic](/visual-testing-handbook/commentlist-ui-tests-chromatic-optimized.png)
 
@@ -239,13 +239,13 @@ Automating visual testing ensures components don’t change by accident. But it�
 
 If a change is intentional, we accept the snapshot to update the baseline. That means future tests will be compared to the `CommentList` with red borders.
 
-If a change is unintentional, it needs fixing. Our designer thinks our majestic red border is horrendous so let's undo.
+If a change is unintentional, it needs fixing. Our designer thinks our majestic red border is horrendous so let's undo it.
 
 ![Chromatic test screen](/visual-testing-handbook/chromatic-test-screen-optimized.png)
 
 ### Merge changes
 
-Once bugs are fixed and baselines are up to date you're ready to merge code back into the target branch. Chromatic will transfer any accepted baselines between branches so that you only need to accept baselines once.
+Once bugs are fixed and baselines are up to date, you're ready to merge code back into the target branch. Chromatic will transfer any accepted baselines between branches so that you only need to accept baselines once.
 
 ![visual testing workflow](/visual-testing-handbook/workflow-uitest.png)
 

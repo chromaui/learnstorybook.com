@@ -4,7 +4,7 @@ description: 'Write your first visual tests'
 commit: 'e7c8eb9'
 ---
 
-Now that the basics are covered, let’s jump into the details. This example demonstrates building out a state of a `CommentList` component using **Visual TDD** with Storybook.
+Now that the basics are covered let’s jump into the details. This example demonstrates building out a state of a `CommentList` component using **Visual TDD** with Storybook.
 
 1. Build visual test cases
 2. Check the tests in Storybook
@@ -12,7 +12,7 @@ Now that the basics are covered, let’s jump into the details. This example dem
 4. Check the implementation against the design
 5. Iterate
 
-`CommentList` is part of a chat tool for galactic freedom fighters. Our designer has handed us a design for the various ways the list of comments should look based on the data and the state of the app. Our job is to ensure the list renders correctly in terms of the exact text, images displayed, and visual treatment.
+`CommentList` is part of a chat tool for galactic freedom fighters. Our designer has handed us a design for the various ways the list of comments should look based on the data and the app's state. Our job is to ensure the list renders correctly in terms of the exact text, images displayed, and visual treatment.
 
 ![Commentlist design spec](/visual-testing-handbook/visual-testing-handbook-commentlist-design-optimized.png)
 
@@ -181,7 +181,7 @@ yarn storybook
 
 So far, we scaffolded a rudimentary implementation then setup Storybook to render our test cases. It’s time to start building an implementation of the `HasData` variation in isolation.
 
-We use [`styled-components`](https://styled-components.com/) – a libary that encapsulates CSS at the component level. Run the following command:
+We use [`styled-components`](https://styled-components.com/) – a library that encapsulates CSS at the component level. Run the following command:
 
 ```shell
 yarn add styled-components
@@ -325,7 +325,7 @@ Check how the component looks in Storybook. This example provided the CSS alread
 
 ### 5. Iterate
 
-If we're not satisfied with the implementation in step 4, we'd go back to step 3 and keep working on it. If the UI matches the spec, then we'll move on to building the next variation - perhaps by add the “load more” button to the `Paginated` story.
+If we're not satisfied with the implementation in step 4, we'd go back to step 3 and keep working on it. If the UI matches the spec, then we'll move on to building the next variation - perhaps by adding the “load more” button to the `Paginated` story.
 
 As we iterate through this workflow, regularly check each story to ensure that the final implementation correctly handles each test state and not just the last one we worked on.
 

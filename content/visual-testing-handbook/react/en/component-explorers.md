@@ -4,7 +4,7 @@ tocTitle: 'Component explorers'
 description: 'A tool for UI development and visual testing'
 ---
 
-Modern UIs support countless permutations of state, language, device, browser, and user data. In the past, developing UI was cumbersome. You'd have to navigate to a given page in the right device with the right settings. Then you'd click around to get the page into the right state so you could start coding.
+Modern UIs support countless permutations of state, language, device, browser, and user data. In the past, developing UI was cumbersome. You'd have to navigate to a given page on the right device with the proper settings. Then you'd click around to get the page into the right state so you could start coding.
 
 **A component explorer isolates UI concerns from business logic and app context.** You build UI components in isolation to focus on each component's supported variations. That allows you to gauge how inputs (props, state) affect the rendered UI and forms the basis of your visual test suite.
 
