@@ -12,6 +12,8 @@ Now that the basics are covered let’s jump into the details. This example demo
 4. Check the implementation against the design
 5. Iterate
 
+### What we're building
+
 `CommentList` is part of a chat tool for galactic freedom fighters. Our designer has handed us a design for the various ways the list of comments should look based on the data and the app's state. Our job is to ensure the list renders correctly in terms of the exact text, images displayed, and visual treatment.
 
 ![Commentlist design spec](/visual-testing-handbook/visual-testing-handbook-commentlist-design-optimized.png)

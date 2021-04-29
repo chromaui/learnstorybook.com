@@ -8,7 +8,7 @@ Modern UIs support countless permutations of state, language, device, browser, a
 
 **A component explorer isolates UI concerns from business logic and app context.** You build UI components in isolation to focus on each component's supported variations. That allows you to gauge how inputs (props, state) affect the rendered UI and forms the basis of your visual test suite.
 
-[Storybook](https://storybook.js.org/) is the industry-standard component explorer used by Twitter, Slack, Airbnb, Shopify, Stripe, and Microsoft.
+[Storybook](https://storybook.js.org/) is the industry-standard component explorer that we'll use to demonstrate visual testing. It's adopted by Twitter, Slack, Airbnb, Shopify, Stripe, and thousands of other companies so you can apply the learnings in this guide wherever you end up working.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -57,4 +57,4 @@ A component explorer is packaged as a small standalone sandbox that lives alongs
 
 ## Learn the workflow
 
-Teams at Peloton, Twilio, and Salesforce rely on Storybook for visual testing. The next chapter shows you how to apply the popular Test-Driven Development methodology to UI development.
+Isolating your UI with a component explorer unlocks visual testing. The next chapter shows you how to remix Test-Driven Development for UI development.
