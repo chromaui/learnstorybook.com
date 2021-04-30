@@ -97,7 +97,7 @@ De forma a informar o Storybook acerca do componente que está a ser documentado
 - `title` -- o nome que irá ser apresentado na barra lateral da aplicação Storybook,
 - `excludeStories` -- Informação que é necessária à estória, mas que não deverá ser renderizada pela aplicação Storybook.
 
-Para definir as nossas estórias, exportamos uma função para cada um dos casos de teste. A estória não é nada mais nada menos que uma função que devolve um elemento renderizado (por exemplo um componente com um conjunto de adereços) num determinado estado -- exatamente tal como um [Componente Funcional sem estado](https://reactjs.org/docs/components-and-props.html).
+Para definir as nossas estórias, exportamos uma função para cada um dos casos de teste. A estória não é nada mais nada menos que uma função que devolve um elemento renderizado (por exemplo um componente com um conjunto de adereços) num determinado estado -- exatamente tal como um [Componente Funcional](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 
 A função `action()` permite a criação de um callback, que irá surgir no painel adequado, ou seja o painel **actions** do interface de utilizador Storybook quando for feito o click. Como tal assim que for criado o botão para afixar tarefas, irá ser possível determinar o sucesso ou não do click no interface de utilizador de testes.
 

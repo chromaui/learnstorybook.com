@@ -42,16 +42,14 @@ git checkout -b change-task-background
 
 Change `Task` to the following:
 
-```hbs
-{{!-- app/components/task.hbs --}}
-
+```diff:title=app/components/task.hbs
 <div class="title">
     <input
       type="text"
       readonly
       value={{@task.title}}
       placeholder="Input title"
-      style="background:red;"
++     style="background:red;"
     />
 </div>
 ```
@@ -115,6 +113,6 @@ When we’ve finished reviewing we’re ready to merge UI changes with confidenc
 
 ![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook helps us **build** components; testing helps us **maintain** them. The four types of UI testing covered in this tutorial were visual, snapshot, unit, and visual regression testing. The last three can be automated by adding them to a CI as we've just finished setting up. This helps us ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
+Storybook helps us **build** components; testing helps us **maintain** them. The three types of UI testing covered in this tutorial were manual, unit, and visual regression testing. All of them can be automated by adding them to a CI as we've just finished setting up. This helps us ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
 
 ![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)

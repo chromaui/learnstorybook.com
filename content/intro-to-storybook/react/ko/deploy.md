@@ -114,8 +114,8 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ to obtain it
-          projectToken: project-token
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -150,9 +150,5 @@ GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 Chromat
 그런 다음, 최신 버전의 Storybook을 보시려면 `View Storybook` 버튼을 클릭해주세요.
 
 ![Chromatic의 Storybook 링크](/intro-to-storybook/chromatic-build-storybook-link.png)
-
-<!--
-이제, 변경 사항을 커밋하고 푸시하는 것만으로도 Storybook 배포를 성공적으로 자동화할 수 있습니다
- -->
 
 링크를 사용하여 팀원들과 공유하세요. 이는 표준화된 앱 개발 과정일 뿐만 아니라 여러분의 작업을 팀원들에게 자랑할 수 있게끔 도와줄 것입니다 💅.

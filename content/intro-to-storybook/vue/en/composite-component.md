@@ -23,9 +23,7 @@ A composite component isn’t much different than the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes as inputs.
 
-```html
-<!-- src/components/TaskList.vue -->
-
+```html:title=src/components/TaskList.vue
 <template>
   <div class="list-items">
     <template v-if="loading">
@@ -35,13 +33,21 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
       empty
     </template>
     <template v-else>
-      <Task v-for="task in tasks" :key="task.id" :task="task" v-on="$listeners" />
+      <Task
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        @archive-task="onArchiveTask"
+        @pin-task="onPinTask"
+      />
     </template>
   </div>
 </template>
 
 <script>
   import Task from './Task';
+  import { reactive, computed } from 'vue';
+
   export default {
     name: 'TaskList',
     components: { Task },
@@ -49,10 +55,25 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
       tasks: { type: Array, required: true, default: () => [] },
       loading: { type: Boolean, default: false },
     },
-    computed: {
-      isEmpty() {
-        return this.tasks.length === 0;
-      },
+    emits: ['archive-task', 'pin-task'],
+
+    setup(props, { emit }) {
+      props = reactive(props);
+      return {
+        isEmpty: computed(() => props.tasks.length === 0),
+        /**
+         * Event handler for archiving tasks
+         */
+        onArchiveTask(taskId) {
+          emit('archive-task', taskId);
+        },
+        /**
+         * Event handler for pinning tasks
+         */
+        onPinTask(taskId) {
+          emit('pin-task', taskId);
+        },
+      };
     },
   };
 </script>
@@ -60,24 +81,27 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 Next create `Tasklist`’s test states in the story file.
 
-```javascript
-// src/components/TaskList.stories.js
+```js:title=src/components/TaskList.stories.js
+import TaskList from './TaskList.vue';
 
-import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
+  decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { TaskList },
-  props: Object.keys(argTypes),
-  // We are reusing our actions from task.stories.js
-  methods: TaskStories.actionsData,
-  template: '<TaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+  setup() {
+    return { args, ...TaskStories.actionsData };
+  },
+  template: '<TaskList v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -129,7 +153,7 @@ Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -138,53 +162,72 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
 
-```html
-<!-- src/components/TaskList.vue -->
-
+```diff:title=src/components/TaskList.vue
 <template>
   <div class="list-items">
     <template v-if="loading">
-      <div v-for="n in 6" :key="n" class="loading-item">
-        <span class="glow-checkbox" />
-        <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
-      </div>
++     <div v-for="n in 6" :key="n" class="loading-item">
++       <span class="glow-checkbox" />
++       <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
++     </div>
     </template>
 
     <div v-else-if="isEmpty" class="list-items">
-      <div class="wrapper-message">
-        <span class="icon-check" />
-        <div class="title-message">You have no tasks</div>
-        <div class="subtitle-message">Sit back and relax</div>
-      </div>
++     <div class="wrapper-message">
++       <span class="icon-check" />
++       <div class="title-message">You have no tasks</div>
++       <div class="subtitle-message">Sit back and relax</div>
++     </div>
     </div>
 
     <template v-else>
-      <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
++     <Task v-for="task in tasksInOrder"
++       :key="task.id"
++       :task="task"
++       @archive-task="onArchiveTask
++       @pin-task="onPinTask"/>
     </template>
   </div>
 </template>
 
 <script>
-  import Task from './Task';
-  export default {
-    name: 'TaskList',
-    components: { Task },
-    props: {
-      tasks: { type: Array, required: true, default: () => [] },
-      loading: { type: Boolean, default: false },
-    },
-    computed: {
-      tasksInOrder() {
-        return [
-          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
-        ];
+import Task from './Task';
+import { reactive, computed } from 'vue';
+
+export default {
+  name: 'TaskList',
+  components: { Task },
+  props: {
+    tasks: { type: Array, required: true, default: () => [] },
+    loading: { type: Boolean, default: false },
+  },
+  emits: ["archive-task", "pin-task"],
+
+  setup(props, { emit }) {
+    props = reactive(props);
+    return {
+      isEmpty: computed(() => props.tasks.length === 0),
++     tasksInOrder:computed(()=>{
++       return [
++         ...props.tasks.filter(t => t.state === 'TASK_PINNED'),
++         ...props.tasks.filter(t => t.state !== 'TASK_PINNED'),
++       ]
++     }),
+      /**
+       * Event handler for archiving tasks
+       */
+      onArchiveTask(taskId) {
+        emit('archive-task',taskId);
       },
-      isEmpty() {
-        return this.tasks.length === 0;
+      /**
+       * Event handler for pinning tasks
+       */
+      onPinTask(taskId) {
+        emit('pin-task', taskId);
       },
-    },
-  };
+    };
+  },
+};
 </script>
 ```
 
@@ -192,7 +235,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -217,25 +260,21 @@ So, to avoid this problem, we can use Jest to render the story to the DOM and ru
 
 Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
 
-```javascript
-// tests/unit/TaskList.spec.js
+```js:title=tests/unit/TaskList.spec.js
+import { mount } from '@vue/test-utils';
 
-import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
+
 //👇 Our story imported here
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 
-it('renders pinned tasks at the start of the list', () => {
-  // render Tasklist
-  const Constructor = Vue.extend(TaskList);
-  const vm = new Constructor({
+test('renders pinned tasks at the start of the list', () => {
+  const wrapper = mount(TaskList, {
     //👇 Story's args used with our test
     propsData: WithPinnedTasks.args,
-  }).$mount();
-  const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
-
-  // We expect the pinned task to be rendered first, not at the end
-  expect(firstTaskPinned).not.toBe(null);
+  });
+  const firstPinnedTask = wrapper.find('.list-item:nth-child(1).TASK_PINNED');
+  expect(firstPinnedTask).not.toBe(null);
 });
 ```
 

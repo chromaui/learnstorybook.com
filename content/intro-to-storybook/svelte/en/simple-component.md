@@ -25,9 +25,7 @@ First, let’s create the task component and its accompanying story file: `src/c
 
 We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```svelte
-<!-- src/components/Task.svelte -->
-
+```svelte:title=src/components/Task.svelte
 <script>
   import { createEventDispatcher } from 'svelte';
 
@@ -52,7 +50,7 @@ We’ll begin with the baseline implementation of the `Task`, simply taking in t
     id: '',
     title: '',
     state: '',
-    updated_at: new Date(2019, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   };
 </script>
 
@@ -65,10 +63,9 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import Task from './Task.svelte';
+
 import { action } from '@storybook/addon-actions';
 
 export const actionsData = {
@@ -80,7 +77,7 @@ export default {
   component: Task,
   title: 'Task',
   excludeStories: /.*Data$/,
-  // the argTypes are included so that they are properly displayed in the Actions Panel
+  //👇 The argTypes are included so that they are properly displayed in the Actions Panel
   argTypes: {
     onPinTask: { action: 'onPinTask' },
     onArchiveTask: { action: 'onArchiveTask' },
@@ -101,7 +98,7 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 export const Pinned = Template.bind({});
@@ -159,26 +156,27 @@ Another nice thing about bundling the `actionsData` that a component needs is th
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous section](/intro-to-storybook/svelte/en/get-started).
+We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
-```javascript
+```diff:title=.storybook/main.js
 // .storybook/main.js
 
 module.exports = {
-  //👇 Location of our stories
-  stories: ['../src/components/**/*.stories.js'],
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
++ stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
 ```
 
 After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
 
-```javascript
-// .storybook/preview.js
-
-import '../src/index.css'; //👈 The app's CSS file goes here
+```diff:title=.storybook/preview.js
++ import '../src/index.css';
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
@@ -194,7 +192,7 @@ Once we’ve done these two small changes, restarting Storybook should yield tes
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -205,21 +203,19 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```svelte
-<!-- src/components/Task.svelte -->
-
+```diff:title=src/components/Task.svelte
 <script>
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
-  // event handler for Pin Task
+  // Event handler for Pin Task
   function PinTask() {
     dispatch('onPinTask', {
       id: task.id,
     });
   }
-  // event handler for Archive Task
+  // Event handler for Archive Task
   function ArchiveTask() {
     dispatch('onArchiveTask', {
       id: task.id,
@@ -231,35 +227,38 @@ The component is still basic at the moment. First write the code that achieves t
     id: '',
     title: '',
     state: '',
-    updated_at: new Date(2019, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   };
 
-  // reactive declaration (computed prop in other frameworks)
-  $: isChecked = task.state === 'TASK_ARCHIVED';
++ // Reactive declaration (computed prop in other frameworks)
++ $: isChecked = task.state === 'TASK_ARCHIVED';
 </script>
-<div class="list-item {task.state}">
-  <label class="checkbox">
-    <input type="checkbox" checked={isChecked} disabled name="checked" />
-    <span class="checkbox-custom" on:click={ArchiveTask} />
-  </label>
-  <div class="title">
-    <input type="text" readonly value={task.title} placeholder="Input title" />
-  </div>
-  <div class="actions">
-    {#if task.state !== 'TASK_ARCHIVED'}
-    <a href="/" on:click|preventDefault={PinTask}>
-      <span class="icon-star" />
-    </a>
-    {/if}
-  </div>
-</div>
+-  <div class="list-item">
+-   <input type="text" value={task.title} readonly />
+-  </div>
++  <div class="list-item {task.state}">
++   <label class="checkbox">
++     <input type="checkbox" checked={isChecked} disabled name="checked" />
++     <span class="checkbox-custom" on:click={ArchiveTask} />
++   </label>
++   <div class="title">
++     <input type="text" readonly value={task.title} placeholder="Input title" />
++   </div>
++   <div class="actions">
++     {#if task.state !== 'TASK_ARCHIVED'}
++     <a href="/" on:click|preventDefault={PinTask}>
++       <span class="icon-star" />
++     </a>
++     {/if}
++   </div>
++  </div>
 ```
 
 The additional markup from above combined with the CSS we imported earlier yields the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -290,9 +289,7 @@ yarn add -D @storybook/addon-storyshots
 
 Then create an `src/storybook.test.js` file with the following:
 
-```javascript
-// src/storybook.test.js
-
+```js:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -300,15 +297,15 @@ initStoryshots();
 
 And finally we need to make a small adjustment to our `jest` key in `package.json`:
 
-```json
+```diff:title=package.json
 {
   "jest": {
     "transform": {
       "^.+\\.js$": "babel-jest",
-      "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
++     "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
       "^.+\\.svelte$": "jest-transform-svelte"
     },
-    "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
++   "transformIgnorePatterns": ["node_modules/(?!(@storybook/svelte)/)"],
   }
 }
 ```

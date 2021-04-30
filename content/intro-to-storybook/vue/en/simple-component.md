@@ -26,9 +26,7 @@ First, let’s create the task component and its accompanying story file: `src/c
 
 We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need:
 
-```html
-<!-- src/components/Task.vue -->
-
+```html:title=src/components/Task.vue
 <template>
   <div class="list-item">
     <input type="text" readonly :value="task.title" />
@@ -54,17 +52,21 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```javascript
-// src/components/Task.stories.js
+```js:title=src/components/Task.stories.js
+import Task from './Task.vue';
 
-import Task from './Task';
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Task',
   component: Task,
-  // Our exports that end in "Data" are not stories.
+  //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
+  title: 'Task',
+  //👇 Our events will be mapped in Storybook UI
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
 export const actionsData = {
@@ -72,13 +74,13 @@ export const actionsData = {
   onArchiveTask: action('archive-task'),
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { Task },
-  props: Object.keys(argTypes),
-  methods: actionsData,
-  template: '<Task v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+  setup() {
+    return { args, ...actionsData };
+  },
+  template: '<Task v-bind="args" />',
 });
-
 export const Default = Template.bind({});
 Default.args = {
   task: {
@@ -119,7 +121,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 
@@ -133,7 +135,7 @@ When creating a story we use a base `task` arg to build out the shape of the tas
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time (where they are accessed via the `methods` property).
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time.
 
 Another nice thing about bundling the `actionsData` that a component needs, is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
@@ -143,26 +145,26 @@ Another nice thing about bundling the `actionsData` that a component needs, is t
 
 ## Config
 
-We'll need to make a couple of changes to the Storybook configuration so it notices not only our recently created stories, but also allows us to use the CSS file that was introduced in the [previous chapter](/intro-to-storybook/vue/en/get-started).
+We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
-```javascript
-// .storybook/main.js
-
+```diff:title=.storybook/main.js
 module.exports = {
-  //👇 Location of our stories
-  stories: ['../src/components/**/*.stories.js'],
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
++ stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
 ```
 
 After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
 
-```javascript
-// .storybook/preview.js
+```diff:title=.storybook/preview.js
 
-import '../src/index.css'; //👈 The app's CSS file goes here
++ import '../src/index.css';
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
@@ -178,7 +180,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -189,21 +191,18 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
 
-```html
-<!-- src/components/Task.vue -->
-
+```html:title=src/components/Task.vue
 <template>
-  <div class="list-item" :class="task.state">
+  <div :class="classes">
     <label class="checkbox">
       <input type="checkbox" :checked="isChecked" disabled name="checked" />
-      <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
+      <span class="checkbox-custom" @click="archiveTask" />
     </label>
     <div class="title">
       <input type="text" :value="task.title" readonly placeholder="Input title" />
     </div>
-
     <div class="actions">
-      <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
+      <a v-if="!isChecked" @click="pinTask">
         <span class="icon-star" />
       </a>
     </div>
@@ -211,6 +210,8 @@ Our component is still rather rudimentary at the moment. We're going to make som
 </template>
 
 <script>
+  import { reactive, computed } from 'vue';
+
   export default {
     name: 'Task',
     props: {
@@ -221,10 +222,33 @@ Our component is still rather rudimentary at the moment. We're going to make som
         validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
-    computed: {
-      isChecked() {
-        return this.task.state === 'TASK_ARCHIVED';
-      },
+    emits: ['archive-task', 'pin-task'],
+
+    setup(props, { emit }) {
+      props = reactive(props);
+      return {
+        classes: computed(() => ({
+          'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
+          'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
+          'list-item TASK_ARCHIVED': props.task.state === 'TASK_ARCHIVED',
+        })),
+        /**
+         * Computed property for checking the state of the task
+         */
+        isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
+        /**
+         * Event handler for archiving tasks
+         */
+        archiveTask() {
+          emit('archive-task', props.task.id);
+        },
+        /**
+         * Event handler for pinning tasks
+         */
+        pinTask() {
+          emit('pin-task', props.task.id);
+        },
+      };
     },
   };
 </script>
@@ -234,7 +258,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -265,9 +289,7 @@ yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 
 Then create a `tests/unit/storybook.spec.js` file with the following in it:
 
-```javascript
-// tests/unit/storybook.spec.js
-
+```js:title=tests/unit/storybook.spec.js
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -275,10 +297,11 @@ initStoryshots();
 
 We need to add a line to our `jest.config.js`:
 
-```js
-  // jest.config.js
-
-  transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+```diff:title=jest.config.js
+module.exports = {
+  ...
++ transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+};
 ```
 
 Once the above is done, we can run `yarn test:unit` and see the following output:

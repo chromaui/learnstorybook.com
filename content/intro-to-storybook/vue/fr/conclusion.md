@@ -19,7 +19,7 @@ Vous voulez en apprendre plus ? Voici des ressources utiles :
 
 - [**The Delightful Storybook Workflow**](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) met en évidence les meilleures pratiques de workflow utilisées par les équipes de haute vélocité de Squarespace, Major League Soccer, Discovery Network, et Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) plonge profondément dans l'utilisation de Storybook pour visualiser les composants de test. Livre numérique gratui de 31 pages.
+- [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) plonge profondément dans l'utilisation de Storybook pour visualiser les composants de test. Livre numérique gratui de 31 pages.
 
 - [**Le chat Discord de Storybook**](https://discord.gg/UUt2PJb) vous met en contact avec la communauté Storybook. Obtenez et aidez d'autres utilisateurs de Storybook.
 

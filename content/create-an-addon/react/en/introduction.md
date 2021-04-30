@@ -55,5 +55,3 @@ Our addon code has four parts that we'll cover in the next few chapters:
 - **Registration** of the addon with Storybook.
 - **State management** to track the toggle state of the tool. This controls whether the outlines are visible or not.
 - **Decorator** that injects CSS in the preview iframe to draw the outlines.
-
-<!-- Getting started is straightforward. The [addon API](https://storybook.js.org/docs/react/addons/addons-api/) makes it easy for you to configure and customize Storybook to suit your specific needs. -->
