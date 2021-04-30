@@ -3,32 +3,20 @@ title: '总结'
 description: '汇总所有的知识并学习更多Storybook技巧'
 ---
 
-恭喜！您已经使用 Storybook 创建了第一个 UI。您学习了如何构建，组合，测试和部署 UI 组件。只要您完成了本教程，您的仓库和部署的 Storybook 应该类似如下：
+恭喜！您可以成功创建和发布了您的第一个 Storybook 插件。相信您通过学习 Storybook 的内部运作原理已经了解到了其自定义化的强大之处。[42%](https://2020.stateofjs.com/en-us/technologies/testing/testing_experience_ranking/)的 JavaScript 开发人员已经在使用 Storybook。丰富多样的插件生态系统是其保持人气的重要原因。
 
-[📕 **GitHub 仓库: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/vue)
-<br/>
-[🌎 **部署的 Storybook**](https://clever-banach-415c03.netlify.app/)
+通过创建一个插件来帮助社区定制和自动化 Storybook 吧！
 
-对于 React，React Native，Vue，Angular，Svelte 和许多其他框架来说，Storybook 都是一个强大的工具。它拥有一个繁荣的开发者社区和一系列插件。这份指南仅告诉您 Storybook 可以做什么。我们可以十分自信地说，只要您接纳了 Storybook，您将会被其构建稳定 UI 的生产力所震惊。
+从零起步其实很简单。[Addon Kit](https://github.com/storybookjs/addon-kit)提供了您创建插件所需的全部信息。通过[addon API](https://storybook.js.org/docs/react/addons/addons-api)，您可以添加新特性，自动化工作流程，集成您喜爱的库。此外，您还可以通过[addon catalog](https://storybook.js.org/addons)与成千名开发者分享这些插件。
 
 ## 了解更多
 
-想了解更多？这是一些有用的资源。
+[**Storybook 官方文档**](https://storybook.js.org/docs/react/get-started/introduction) 提供了更多指南,样例代码和一个知识库。
 
-- [**Storybook 官方文档**](https://storybook.js.org/docs/react/get-started/introduction) 有 API 文档, 社区链接和插件库。
+如果您和我们一起编写代码的话，您的仓库应该如此所示： [Sample addon repository](http://github.com/chromaui/learnstorybook-addon-code). 此样例基于 [Storybook Addon Outline](https://github.com/chromaui/storybook-addon-outline)。
 
-- [**令人愉悦的 Storybook 工作流程**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) 来自 Squarespace，Major League Soccer, Discovery Network 和 Apollo GraphQL 的高速团队踢出的工作流程最佳实践。
+您也可以参考其他的插件，例如 [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [Dark Mode](https://github.com/hipstersmoothie/storybook-dark-mode) 和所有 [其他的官方插件](https://github.com/storybookjs/storybook/tree/next/addons) 并结合 [official Storybook](https://next--storybookjs.netlify.app/official-storybook/)使用它们。
 
-- [**视觉测试手册**](https://www.learnstorybook.com/visual-testing-handbook/) 深入剖析了如何使用 Storybook 来视觉测试组件。31 页的免费电子书。
+感谢与我们共同学习。 通过订阅 Storybook 的邮件列表来获取其他有用的文章或者像此指南一样的信息。
 
-- [**Storybook Discord chat**](https://discord.gg/UUt2PJb) 让您可以参与到 Storybook 的社区中。给其他用户提供或者获取帮助。
-
-- [**Storybook 博客**](https://medium.com/storybookjs) 展示了最新版本和特性，来帮助您简化 UI 开发工作流程。
-
-## 谁创建了 Storybook 教程？
-
-文本，代码和制作都来自[Chromatic](https://www.chromatic.com/)。这份教程启发自 Chromatic 流行的[GraphQL + React 教程系列](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)。
-
-想要更多像这样的教程和文章？订阅 Chromatic 的邮件列表吧。
-
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

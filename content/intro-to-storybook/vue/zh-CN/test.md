@@ -113,6 +113,6 @@ git push -u origin change-task-background
 
 ![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook 帮助我们**构建**组件；测试帮助我们**维护**组件。本教程中提及的 UI 测试包括视觉，快照，单元和视觉回归测试。后三种可以通过添加进 CI 来实现自动化，正如我们所设置的那样。这可以帮助我们在编写组件时规避漏洞的产生。整体的流程如下所示。
+Storybook 帮助我们**构建**组件；测试帮助我们**维护**组件。本教程中提及的 UI 测试包括手动，快照，单元和视觉回归测试。后三种可以通过添加进 CI 来实现自动化，正如我们所设置的那样。这可以帮助我们在编写组件时规避漏洞的产生。整体的流程如下所示。
 
 ![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)

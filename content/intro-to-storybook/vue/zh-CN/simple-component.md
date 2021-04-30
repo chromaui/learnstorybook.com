@@ -20,7 +20,7 @@ commit: 'f03552f'
 
 这个过程有点像[驱动测试开发](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) 所以我们可以称之为“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”
 
-## 配置
+## 开始设置
 
 首先，让我们创建 task 组件以及它相关的 story 文件：`src/components/Task.vue` 和 `src/components/Task.stories.js`。
 
@@ -53,15 +53,20 @@ commit: 'f03552f'
 如下，我们在 story 文件中创建 Task 的三个不同测试状态：
 
 ```js:title=src/components/Task.stories.js
-import Task from './Task';
+import Task from './Task.vue';
 
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Task',
   component: Task,
-  // Our exports that end in "Data" are not stories.
+  //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
+  title: 'Task',
+  //👇 Our events will be mapped in Storybook UI
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
 export const actionsData = {
@@ -69,13 +74,13 @@ export const actionsData = {
   onArchiveTask: action('archive-task'),
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { Task },
-  props: Object.keys(argTypes),
-  methods: actionsData,
-  template: '<Task v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+  setup() {
+    return { args, ...actionsData };
+  },
+  template: '<Task v-bind="args" />',
 });
-
 export const Default = Template.bind({});
 Default.args = {
   task: {
@@ -116,7 +121,7 @@ Storybook 有两个基本的组织级别：组件和他的 story。可以将每�
 - `title` -- 在 Storybook 应用侧边栏的显示,
 - `excludeStories` -- story 本身需要但是不用在 Storybook 应用中渲染的信息。
 
-我们为每一个我们需要测试的状态导出一个函数，以此来定义我们的 story。Story 实际上就是一个根据给定的状态返回已渲染元素的函数---就像是[无状态函数式组件](https://vuejs.org/v2/guide/render-function.html#Functional-Components)那样。
+我们为每一个我们需要测试的状态导出一个函数，以此来定义我们的 story。Story 实际上就是一个根据给定的状态返回已渲染元素的函数---就像是[函数式组件](https://vuejs.org/v2/guide/render-function.html#Functional-Components)那样。
 
 因为我们的组件存在多种排列组合，所以设置一个`Template`变量不失为一种便捷的做法。使用这样的模式来创建您的 Story 可以大量减少代码量和维护成本。
 
@@ -130,7 +135,7 @@ Arguments 或者简写[`args`](https://storybook.js.org/docs/vue/writing-stories
 
 `action()`使我们可以创建一个回调函数，当点击事件触发时 Storybook UI 的**actions**面板会显示结果。所以如果我们创建了一个 pin 按钮，我们就可以通过面板清楚的知道按钮是否被成功点击了。
 
-考虑到我们需要为组件的每一个排列组合都传入同样的 actions，通常的便捷做法是将他们合并到一个`actionsData`变量中，并传入给每一个定义好的 story 中(story 使用`methods`属性访问)。
+考虑到我们需要为组件的每一个排列组合都传入同样的 actions，通常的便捷做法是将他们合并到一个`actionsData`变量中，并传入给每一个定义好的 story 中。
 
 值得一提的是当我们将组件所需的操作都合并到`actionsData`之后，我们可以在其他组件复用此组件时，让其他组件的 story 也可以复用`导出`的`actionsData`，详见下文。
 
@@ -146,6 +151,10 @@ Arguments 或者简写[`args`](https://storybook.js.org/docs/vue/writing-stories
 
 ```diff:title=.storybook/main.js
 module.exports = {
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
 + stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
@@ -171,7 +180,7 @@ export const parameters = {
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -182,25 +191,27 @@ export const parameters = {
 
 我们的组件现在仍然十分粗糙。我们做一些修改保证其在满足所需设计的同时而不至于陷入太多的细节中。
 
-```diff:title=src/components/Task.vue
+```html:title=src/components/Task.vue
 <template>
-+ <div class="list-item" :class="task.state">
-+  <label class="checkbox">
-+    <input type="checkbox" :checked="isChecked" disabled name="checked" />
-+    <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
-+  </label>
-+  <div class="title">
-+    <input type="text" :value="task.title" readonly placeholder="Input title" />
-+  </div>
-+  <div class="actions">
-+   <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
-+    <span class="icon-star" />
-+   </a>
-+  </div>
-+ </div>
+  <div :class="classes">
+    <label class="checkbox">
+      <input type="checkbox" :checked="isChecked" disabled name="checked" />
+      <span class="checkbox-custom" @click="archiveTask" />
+    </label>
+    <div class="title">
+      <input type="text" :value="task.title" readonly placeholder="Input title" />
+    </div>
+    <div class="actions">
+      <a v-if="!isChecked" @click="pinTask">
+        <span class="icon-star" />
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
+  import { reactive, computed } from 'vue';
+
   export default {
     name: 'Task',
     props: {
@@ -211,11 +222,34 @@ export const parameters = {
         validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
-+   computed: {
-+     isChecked() {
-+       return this.task.state === 'TASK_ARCHIVED';
-+     },
-+   },
+    emits: ['archive-task', 'pin-task'],
+
+    setup(props, { emit }) {
+      props = reactive(props);
+      return {
+        classes: computed(() => ({
+          'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
+          'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
+          'list-item TASK_ARCHIVED': props.task.state === 'TASK_ARCHIVED',
+        })),
+        /**
+         * Computed property for checking the state of the task
+         */
+        isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
+        /**
+         * Event handler for archiving tasks
+         */
+        archiveTask() {
+          emit('archive-task', props.task.id);
+        },
+        /**
+         * Event handler for pinning tasks
+         */
+        pinTask() {
+          emit('pin-task', props.task.id);
+        },
+      };
+    },
   };
 </script>
 ```
@@ -224,7 +258,7 @@ export const parameters = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

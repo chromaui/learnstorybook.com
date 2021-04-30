@@ -33,13 +33,21 @@ Taskbox 通过将固定 task（pinned tasks）置于其他默认 task 之上来�
       empty
     </template>
     <template v-else>
-      <Task v-for="task in tasks" :key="task.id" :task="task" v-on="$listeners" />
+      <Task
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        @archive-task="onArchiveTask"
+        @pin-task="onPinTask"
+      />
     </template>
   </div>
 </template>
 
 <script>
   import Task from './Task';
+  import { reactive, computed } from 'vue';
+
   export default {
     name: 'TaskList',
     components: { Task },
@@ -47,10 +55,25 @@ Taskbox 通过将固定 task（pinned tasks）置于其他默认 task 之上来�
       tasks: { type: Array, required: true, default: () => [] },
       loading: { type: Boolean, default: false },
     },
-    computed: {
-      isEmpty() {
-        return this.tasks.length === 0;
-      },
+    emits: ['archive-task', 'pin-task'],
+
+    setup(props, { emit }) {
+      props = reactive(props);
+      return {
+        isEmpty: computed(() => props.tasks.length === 0),
+        /**
+         * Event handler for archiving tasks
+         */
+        onArchiveTask(taskId) {
+          emit('archive-task', taskId);
+        },
+        /**
+         * Event handler for pinning tasks
+         */
+        onPinTask(taskId) {
+          emit('pin-task', taskId);
+        },
+      };
     },
   };
 </script>
@@ -59,21 +82,26 @@ Taskbox 通过将固定 task（pinned tasks）置于其他默认 task 之上来�
 下一步我们在 story 文件中创建`Tasklist`的测试状态。
 
 ```js:title=src/components/TaskList.stories.js
-import TaskList from './TaskList';
+import TaskList from './TaskList.vue';
+
 import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
+  decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { TaskList },
-  props: Object.keys(argTypes),
-  // We are reusing our actions from task.stories.js
-  methods: TaskStories.actionsData,
-  template: '<TaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+  setup() {
+    return { args, ...TaskStories.actionsData };
+  },
+  template: '<TaskList v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -125,7 +153,7 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -153,32 +181,53 @@ Empty.args = {
     </div>
 
     <template v-else>
-+     <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
++     <Task v-for="task in tasksInOrder"
++       :key="task.id"
++       :task="task"
++       @archive-task="onArchiveTask
++       @pin-task="onPinTask"/>
     </template>
   </div>
 </template>
 
 <script>
-  import Task from './Task';
-  export default {
-    name: 'TaskList',
-    components: { Task },
-    props: {
-      tasks: { type: Array, required: true, default: () => [] },
-      loading: { type: Boolean, default: false },
-    },
-    computed: {
-+     tasksInOrder() {
+import Task from './Task';
+import { reactive, computed } from 'vue';
+
+export default {
+  name: 'TaskList',
+  components: { Task },
+  props: {
+    tasks: { type: Array, required: true, default: () => [] },
+    loading: { type: Boolean, default: false },
+  },
+  emits: ["archive-task", "pin-task"],
+
+  setup(props, { emit }) {
+    props = reactive(props);
+    return {
+      isEmpty: computed(() => props.tasks.length === 0),
++     tasksInOrder:computed(()=>{
 +       return [
-+         ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-+         ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
-+       ];
-+     },
-      isEmpty() {
-        return this.tasks.length === 0;
++         ...props.tasks.filter(t => t.state === 'TASK_PINNED'),
++         ...props.tasks.filter(t => t.state !== 'TASK_PINNED'),
++       ]
++     }),
+      /**
+       * Event handler for archiving tasks
+       */
+      onArchiveTask(taskId) {
+        emit('archive-task',taskId);
       },
-    },
-  };
+      /**
+       * Event handler for pinning tasks
+       */
+      onPinTask(taskId) {
+        emit('pin-task', taskId);
+      },
+    };
+  },
+};
 </script>
 ```
 
@@ -186,7 +235,7 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -212,24 +261,20 @@ Storybook 使用手动检查和快照测试的方式来防止 UI 的 bug。看�
 创建一个测试文件`tests/unit/TaskList.spec.js`。我们创建测试来判断输出结果。
 
 ```js:title=tests/unit/TaskList.spec.js
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 
 import TaskList from '../../src/components/TaskList.vue';
 
 //👇 Our story imported here
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 
-it('renders pinned tasks at the start of the list', () => {
-  // render Tasklist
-  const Constructor = Vue.extend(TaskList);
-  const vm = new Constructor({
+test('renders pinned tasks at the start of the list', () => {
+  const wrapper = mount(TaskList, {
     //👇 Story's args used with our test
     propsData: WithPinnedTasks.args,
-  }).$mount();
-  const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
-
-  // We expect the pinned task to be rendered first, not at the end
-  expect(firstTaskPinned).not.toBe(null);
+  });
+  const firstPinnedTask = wrapper.find('.list-item:nth-child(1).TASK_PINNED');
+  expect(firstPinnedTask).not.toBe(null);
 });
 ```
 

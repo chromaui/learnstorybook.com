@@ -54,13 +54,25 @@ commit: '99d3d65'
 </template>
 
 <script>
+  import { computed } from 'vue';
+
+  import { useStore } from 'vuex';
+
   import PureInboxScreen from './PureInboxScreen';
-  import { mapState } from 'vuex';
 
   export default {
     name: 'InboxScreen',
     components: { PureInboxScreen },
-    computed: mapState(['error']),
+    setup() {
+      //👇 Creates a store instance
+      const store = useStore();
+
+      //👇 Retrieves the error from the store's state
+      const error = computed(() => store.state.error);
+      return {
+        error,
+      };
+    },
   };
 </script>
 ```
@@ -76,12 +88,10 @@ commit: '99d3d65'
 </template>
 
 <script>
-  import store from './store';
 - import TaskList from './components/TaskList.vue';
 + import InboxScreen from './components/InboxScreen.vue';
   export default {
     name: 'app',
-    store,
     components: {
 -     TaskList
 +     InboxScreen,
@@ -106,14 +116,18 @@ commit: '99d3d65'
 import PureInboxScreen from './PureInboxScreen.vue';
 
 export default {
-  title: 'PureInboxScreen',
   component: PureInboxScreen,
+  title: 'PureInboxScreen',
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { PureInboxScreen },
-  props: Object.keys(argTypes),
-  template: '<PureInboxScreen v-bind="$props" />',
+  setup() {
+    return {
+      args,
+    };
+  },
+  template: '<PureInboxScreen v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -139,41 +153,44 @@ Error.args = { error: true };
 好消息是对于 story 来说在`PureInboxScreen`中使用 Vuex store 十分容易！我们可以在 story 文件中创建一个新的 store 作为上下文：
 
 ```diff:title=src/components/PureInboxScreen.stories.js
-+ import Vue from 'vue';
-+ import Vuex from 'vuex';
++ import { app } from '@storybook/vue3';
+
++ import { createStore } from 'vuex';
 
 import PureInboxScreen from './PureInboxScreen.vue';
 
 + import { action } from '@storybook/addon-actions';
 + import * as TaskListStories from './PureTaskList.stories';
 
-+Vue.use(Vuex);
-
-+ export const store = new Vuex.Store({
-+  state: {
-+    tasks: TaskListStories.Default.args.tasks,
-+  },
-+  actions: {
-+    pinTask(context, id) {
-+      action('pin-task')(id);
-+    },
-+    archiveTask(context, id) {
-+      action('archive-task')(id);
-+    },
-+  },
++ const store = createStore({
++   state: {
++     tasks: TaskListStories.Default.args.tasks,
++   },
++   actions: {
++     pinTask(context, id) {
++       action("pin-task")(id);
++     },
++     archiveTask(context, id) {
++       action("archive-task")(id);
++     },
++   },
 + });
+
++ app.use(store);
 
 export default {
   title: 'PureInboxScreen',
   component: PureInboxScreen,
-  excludeStories: /.*store$/,
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = (args) => ({
   components: { PureInboxScreen },
-  props: Object.keys(argTypes),
-  template: '<PureInboxScreen v-bind="$props" />',
-  store,
+  setup() {
+    return {
+      args,
+    };
+  },
+  template: '<PureInboxScreen v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -189,7 +206,7 @@ Error.args = { error: true };
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

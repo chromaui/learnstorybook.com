@@ -18,19 +18,15 @@ commit: 'fa1c954'
 首先通过下面的命令安装 vuex：
 
 ```bash
-yarn add vuex
+yarn add vuex@next --save
 ```
 
 在`src/store.js`中我们构建了一个标准的 Vuex store 来处理一些可能的改变状态的操作。
 
 ```js:title=src/store.js
-import Vue from 'vue';
+import { createStore } from 'vuex';
 
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default createStore({
   state: {
     tasks: [
       { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -58,29 +54,45 @@ export default new Vuex.Store({
 });
 ```
 
-在顶层的 app 组件（`src/App.vue`）中我们可以非常容易的将 store 绑定到我们的组件结构中：
+下一步, 我们需要更新应用的入口文件 (`src/main.js`)以帮助我们更轻松的将 store 集成到组件结构中:
 
-```html:title=src/App.vue
+```diff:title=src/main.js
+import { createApp } from 'vue';
+
+import App from './App.vue';
+
++ import store from './store';
+
+- createApp(App).mount('#app')
++ createApp(App).use(store).mount('#app')
+```
+
+当我们在 app 中使用了 store 后，我们需要更新顶层的组件(`src/App.vue`)来显示`TaskList`组件。
+
+```diff:title=src/App.vue
 <template>
-  <div id="app">
-    <task-list />
-  </div>
+- <img alt="Vue logo" src="./assets/logo.png">
+- <HelloWorld msg="Welcome to Your Vue.js App"/>
++ <div id="app">
++   <task-list />
++ </div>
 </template>
 
 <script>
-  import store from './store';
-  import TaskList from './components/TaskList.vue';
+- import HelloWorld from './components/HelloWorld.vue'
++ import TaskList from './components/TaskList.vue';
 
-  export default {
-    name: 'app',
-    store,
-    components: {
-      TaskList,
-    },
-  };
+export default {
+  name: 'App',
+  components: {
+-   HelloWorld
++   TaskList
+  }
+}
 </script>
+
 <style>
-  @import './index.css';
+@import "./index.css";
 </style>
 ```
 
@@ -102,23 +114,39 @@ export default new Vuex.Store({
 </script>
 ```
 
-在`src/components/TaskList.vue`中：
+In `src/components/TaskList.vue`:
 
 ```html:title=src/components/TaskList.vue
 <template>
-  <PureTaskList :tasks="tasks" v-on="$listeners" @archive-task="archiveTask" @pin-task="pinTask" />
+  <PureTaskList :tasks="tasks" @archive-task="archiveTask" @pin-task="pinTask" />
 </template>
 
 <script>
   import PureTaskList from './PureTaskList';
-  import { mapState, mapActions } from 'vuex';
+
+  import { computed } from 'vue';
+
+  import { useStore } from 'vuex';
 
   export default {
     components: { PureTaskList },
+    setup() {
+      //👇 Creates a store instance
+      const store = useStore();
 
-    methods: mapActions(['archiveTask', 'pinTask']),
+      //👇 Retrieves the tasks from the store's state
+      const tasks = computed(() => store.state.tasks);
 
-    computed: mapState(['tasks']),
+      //👇 Dispatches the actions back to the store
+      const archiveTask = task => store.dispatch('archiveTask', task);
+      const pinTask = task => store.dispatch('pinTask', task);
+
+      return {
+        tasks,
+        archiveTask,
+        pinTask,
+      };
+    },
   };
 </script>
 ```
@@ -126,22 +154,28 @@ export default new Vuex.Store({
 将`TaskList`的表示型版本分离开的原因是，这使得我们的测试和隔离更加容易。同时因为它不依赖 store，所以从测试的角度来说将变的更加容易。重命名`src/components/TaskList.stories.js`为`src/components/PureTaskList.stories.js`，并在我们的 story 中使用表示型版本：
 
 ```diff:title=src/components/PureTaskList.stories.js
-+ import PureTaskList from './PureTaskList';
++ import PureTaskList from './PureTaskList.vue';
 
 import * as TaskStories from './Task.stories';
 
 export default {
 + component: PureTaskList,
 + title: 'PureTaskList',
-  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
+  decorators: [
+    () => ({ template: '<div style="margin: 3em;"><story/></div>' }),
+  ],
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
 const Template = (args, { argTypes }) => ({
 + components: { PureTaskList },
-  props: Object.keys(argTypes),
-  // We are reusing our actions from task.stories.js
-  methods: TaskStories.actionsData,
-+ template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+ setup() {
+    return { args, ...TaskStories.actionsData };
+  },
++ template: '<PureTaskList v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -185,7 +219,7 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -193,27 +227,32 @@ Empty.args = {
 同样的，我们也需要在 Jest 测试中使用`PureTaskList`：
 
 ```diff:title=tests/unit/PureTaskList.spec.js
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
+
+- import TaskList from '../../src/components/TaskList.vue';
 
 + import PureTaskList from '../../src/components/PureTaskList.vue';
 
 //👇 Our story imported here
+- import { WithPinnedTasks } from '../src/components/TaskList.stories.js';
+
 + import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   // render PureTaskList
-+ const Constructor = Vue.extend(PureTaskList);
-  const vm = new Constructor({
-    //👇 Story's args used with our test
-    propsData: WithPinnedTasks.args,
-  }).$mount();
-  const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
+- const wrapper = mount(TaskList, {
+-   //👇 Story's args used with our test
+-   propsData: WithPinnedTasks.args,
+- });
++ const wrapper = mount(PureTaskList, {
++   propsData: WithPinnedTasks.args,
++ });
 
-  // We expect the pinned task to be rendered first, not at the end
-  expect(firstTaskPinned).not.toBe(null);
+  const firstPinnedTask = wrapper.find('.list-item:nth-child(1).TASK_PINNED');
+  expect(firstPinnedTask).not.toBe(null);
 });
 ```
 
 <div class="aside">
-💡 您需要更新快照来对应此次修改。加上<code>-u</code>来重新运行测试命令以更新快照。同时别忘记提交您的代码！
+💡 您需要更新快照来应对上述的修改。加上<code>-u</code>重新运行测试命令来更新快照。同时别忘记提交您的代码！
 </div>

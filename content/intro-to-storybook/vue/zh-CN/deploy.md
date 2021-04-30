@@ -9,7 +9,7 @@ commit: '107b7ce'
 
 ## 导出为一个静态应用
 
-为了部署 Storybook 我们首先需要将其导出为一个静态 web 应用。Storybook 已经集成了此功能并已预配置完成。
+为了部署 Storybook 我们首先需要将其导出为一个静态 web 应用。Storybook 已经集成了此功能并已预配置完成，我们只需要将[开始吧章节](/intro-to-storybook/vue/zh-CN/get-started)中的脚本更新即可。
 
 运行`yarn build-storybook`会在`storybook-static`目录下输出一个静态 Storybook，用于部署在任何可以托管静态网站的服务中。
 
@@ -26,7 +26,6 @@ commit: '107b7ce'
 ![设置GitHub](/intro-to-storybook/github-create-taskbox.png)
 
 在新的仓库中，获得仓库的 URL 并执行下述命令将其应用于您的 git 项目中：
-In the new repo, grab the origin URL of the repo and add it to your git project with this command:
 
 ```bash
 $ git remote add origin https://github.com/<your username>/taskbox.git
@@ -79,7 +78,7 @@ yarn chromatic --project-token=<project-token>
 
 在我们项目的根目录下，创建一个叫做`.github`的文件夹并在其中创建另一个叫做`workflows`的文件夹。
 
-创建一个叫`chromatic.yml`的文件，内容如下。替换`project-token`为您项目所持有的 token。
+创建一个叫`chromatic.yml`的文件，内容如下。替换`CHROMATIC_PROJECT_TOKEN`为您项目所持有的 token。
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
@@ -102,7 +101,7 @@ jobs:
         # Options required for Chromatic's GitHub Action
         with:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/vue/en/deploy/ to obtain it
-          projectToken: project-token
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
