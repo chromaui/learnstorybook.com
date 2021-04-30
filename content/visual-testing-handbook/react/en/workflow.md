@@ -28,7 +28,7 @@ However, TDD falls down when developing UIs because it's hard to define tests ah
 
 ## Visual testing
 
-The tricky part of UI testing is that it’s not possible to verify the relevant visual details by merely evaluating code. Visual testing bypasses this by involving a human’s judgment in a quick and focused way.
+The tricky part of UI testing is that it’s not possible to verify the relevant visual details with code alone. Visual testing bypasses this by involving a human’s judgment in a quick and focused way.
 
 #### Visual testing workflow
 
@@ -49,7 +49,7 @@ And subsequently, any regressions are caught by automatically capturing and comp
 test do
   setup
   execute 👈 Storybook renders stories
-  verify 👈 Chromatic captures image snapshots and compares them to baselines
+  verify 👈 capture image snapshots and compare them to baselines
   teardown
 end
 ```
