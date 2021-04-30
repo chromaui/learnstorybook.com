@@ -44,7 +44,7 @@ Snapshot tests suffer from the same brittleness as other automated UI tests. Any
 
 Visual tests are designed to catch changes in UI appearance. You use a component explorer like Storybook to isolate UI components, mock their variations, and save the supported test cases as "stories".
 
-During development, “run” a quick manual test of a component by rendering it in a browser to see how it looks. Confirm the variations of your component by toggling through each test case listed in the component explorer.
+During development, “run” a quick manual verification of a component by rendering it in a browser to see how it looks. Confirm the variations of your component by toggling through each test case listed in the component explorer.
 
 <video autoPlay muted playsInline loop>
   <source

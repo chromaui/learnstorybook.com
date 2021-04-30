@@ -28,9 +28,9 @@ However, TDD falls down when developing UIs because it's hard to define tests ah
 
 ## Visual testing
 
-The tricky part of UI testing is that it’s not possible to express the relevant visual details through verification code. Visual testing bypasses this by involving a human’s judgment in a quick and focused way.
+The tricky part of UI testing is that it’s not possible to verify the relevant visual details by merely evaluating code. Visual testing bypasses this by involving a human’s judgment in a quick and focused way.
 
-#### How to write visual test cases
+#### Visual testing workflow
 
 In practice, visual testing uses Storybook to “visually” test a component across a set of defined test states. Visual tests share the same setup, execute, and teardown steps as any other type of testing, but the verification step falls to the user.
 
@@ -43,7 +43,22 @@ test do
 end
 ```
 
-In Storybook, a test is as simple as rendering a React element. To write a visual test case, a "story" in Storybook parlance, we outline the states of the component we're interested in. The code sample below shows how you'd write visual tests for `InboxTask`, `SnoozedTask`, and `PinnedTask`.
+And subsequently, any regressions are caught by automatically capturing and comparing image snapshots.
+
+```
+test do
+  setup
+  execute 👈 Storybook renders stories
+  verify 👈 Chromatic captures image snapshots and compares them to baselines
+  teardown
+end
+```
+
+The same test case is used in both scenarios, only the method of verification changes.
+
+#### How to write visual test cases
+
+Let's focus on that first scenario for now. In Storybook, a test is as simple as rendering a React element. To write a visual test case, a "story" in Storybook parlance, we outline the states of the component we're interested in. The code sample below shows how you'd write visual tests for `InboxTask`, `SnoozedTask`, and `PinnedTask`.
 
 ```js:title=src/components/Task.stories.js
 import React from 'react';
