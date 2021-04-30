@@ -25,7 +25,9 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 ```ts:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
 import { Task } from '../models/task.model';
+
 @Component({
   selector: 'app-task-list',
   template: `
@@ -184,6 +186,7 @@ export class TaskListComponent {
 - @Input() tasks: Task[] = [];
 
 +  /**
++  * @ignore
 +  * Component property to define ordering of tasks
 +  */
 + tasksInOrder: Task[] = [];

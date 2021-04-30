@@ -59,8 +59,6 @@ import { moduleMetadata, Story, Meta } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
-import { Story, Meta } from '@storybook/angular';
-
 import { action } from '@storybook/addon-actions';
 
 import { TaskComponent } from './task.component';
@@ -154,9 +152,7 @@ Another nice thing about bundling the `actionsData` that a component needs, is t
 
 ## Config
 
-We'll need to make a couple of changes to Storybook's configuration so it notices our recently created stories and allow us to properly display our component's stories.
-
-Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
+We'll also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your configuration file (`.storybook/main.js`) to the following:
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -169,24 +165,6 @@ module.exports = {
 };
 ```
 
-After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
-
-```diff:title=.storybook/preview.js
-import { setCompodocJson } from "@storybook/addon-docs/angular";
-import docJson from "../documentation.json";
-setCompodocJson(docJson);
-
-
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-+ angularLegacyRendering: true,
-}
-```
-
-[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case we're going to use them to configure how the `actions` (mocked callbacks) are handled.
-
-`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
-
 Once we’ve done this, restarting the Storybook server should yield test cases for the three states of TaskComponent:
 
 <video autoPlay muted playsInline controls >
@@ -198,7 +176,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 ## Specify data requirements
 
-It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early. Here, we'll use Typescript and create a interface for the `Task` model.
+It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early. Here, we'll use Typescript and create an interface for the `Task` model.
 
 Create a new folder called `models` inside `app` folder and inside a new file called `task.model.ts` with the following content:
 
