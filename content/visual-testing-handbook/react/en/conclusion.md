@@ -4,11 +4,9 @@ tocTitle: 'Conclusion'
 description: 'Say bye to visual bugs'
 ---
 
-Developers spend [21%](https://ieeexplore.ieee.org/document/895984) of their time fixing bugs. If you're a frontend developer like me, debugging UI appearance is especially frustrating.
+Developers spend [21%](https://ieeexplore.ieee.org/document/895984) of their time fixing bugs. Debugging UI appearance can be especially frustrating. Reproductions require you to spin up different browsers, get your app into the right state, and trudge through HTML/JS/CSS. What's more, the stakes are high: uncaught bugs cost [5-10x](https://www.cs.umd.edu/projects/SoftEng/ESEG/papers/82.78.pdf) more time to fix in production.
 
-Reproducing visual bugs requires you to spin up different browsers, get your app into the right state, and trudge through CSS. If you can't catch bugs in time, you end up burning [5-10x](https://www.cs.umd.edu/projects/SoftEng/ESEG/papers/82.78.pdf) more time to fix production bugs.
-
-It should come as no surprise then why thousands of teams are adopting Storybook for visual testing. Storybook helps you **build** components and write **visual tests**. Running tests at the component level allows you to pinpoint the root cause of a change. Taking image snapshots helps you catch **regressions** automatically. That means folks can ship UIs without worrying about stowaway bugs.
+It's common sense then that thousands of frontend teams visual test using Storybook. Storybook helps you **build** components and write **visual tests**. Running tests at the component level allows you to pinpoint the root cause of a change. Taking image snapshots helps you catch **regressions** automatically. That means folks can ship UIs without worrying about stowaway bugs.
 
 This guide introduced you to essential visual testing concepts and tooling. Tom and I hope you can build upon these learnings in your own projects. Subscribe to the Storybook mailing list to get notified when helpful articles and guides like this are published.
 
