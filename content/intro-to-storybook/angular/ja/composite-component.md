@@ -153,7 +153,7 @@ Empty.args = {
 
 ## 状態を作りこむ
 
-今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。 `TaskListComponent` の**本当の複雑さ**は `WithPinnedTasks` かつ `loading` かつ `empty` といったエッジケースに現われているのです。
+今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。 `TaskListComponent` の**本当の複雑さ**は `WithPinnedTasks`、`loading`、`empty` といったエッジケースに現われているのです。
 
 ```diff:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
