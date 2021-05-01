@@ -218,13 +218,13 @@ export class AppModule {}
 表示用の TaskList をそのままにしておくのは、テストと分離が容易になるからです。ストアの存在に依存しないので、テストの観点から見ると取り扱いがより簡単になります。さらに `src/app/components/task-list.stories.ts` も `src/app/components/pure-task-list.stories.ts` に変更し、ストーリーが表示用のバージョンを使っていることを確実にしましょう:
 
 ```ts:title=src/app/components/pure-task-list.stories.ts
-import { moduleMetadata } from '@storybook/angular';
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Story, Meta, componentWrapperDecorator } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
 import { PureTaskListComponent } from './pure-task-list.component';
 import { TaskComponent } from './task.component';
+
 import * as TaskStories from './task.stories';
 
 export default {
@@ -235,21 +235,18 @@ export default {
       declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
+        //👇 Wraps our stories with a decorator
+    componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
-  title: 'PureTaskList',
+  title: 'PureTaskListComponent',
 } as Meta;
 
 const Template: Story<PureTaskListComponent> = args => ({
-  component: PureTaskListComponent,
   props: {
     ...args,
     onPinTask: TaskStories.actionsData.onPinTask,
     onArchiveTask: TaskStories.actionsData.onArchiveTask,
   },
-  template: `
-    <div style="padding: 3rem">
-      <app-pure-task-list [tasks]="tasks" [loading]=loading (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
-    </div> `,
 });
 
 export const Default = Template.bind({});
@@ -263,6 +260,7 @@ Default.args = {
     { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
   ],
 };
+
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
   // Shaping the stories through args composition.
@@ -290,7 +288,7 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -299,6 +297,7 @@ Empty.args = {
 
 ```diff:title= src/app/components/task-list.component.spec.ts
 import { render } from '@testing-library/angular';
+
 - import { TaskListComponent } from './task-list.component.ts';
 + import { PureTaskListComponent } from './pure-task-list.component';
 
@@ -306,6 +305,7 @@ import { TaskComponent } from './task.component';
 
 //👇 Our story imported here
 - import { WithPinnedTasks } from './task-list.stories';
+
 + import { WithPinnedTasks } from './pure-task-list.stories';
 
 describe('TaskList component', () => {
