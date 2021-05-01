@@ -77,7 +77,7 @@ npx chromatic --project-token=<project-token>
 
 プロジェクトのルートフォルダーに `.github` というフォルダーを作成し、さらにその中に `workflows` というフォルダーを作成します。
 
-`chromatic.yml` を以下の内容で新規に作成します。`project-token` を先ほどのトークンで置き換えてください。
+`chromatic.yml` を以下の内容で新規に作成します。`CHROMATIC_PROJECT_TOKEN` を先ほどのトークンで置き換えてください。
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
@@ -100,7 +100,7 @@ jobs:
         # Options required for Chromatic's GitHub Action
         with:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/angular/en/deploy/ to obtain it
-          projectToken: project-token
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
