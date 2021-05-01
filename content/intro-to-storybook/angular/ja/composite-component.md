@@ -5,11 +5,11 @@ description: '単純なコンポーネントから複合的なコンポーネン
 commit: d3abd86
 ---
 
-前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである `TaskListComponent` を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうすればよいか見てみましょう。
+前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである `TaskList` を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうすればよいか見てみましょう。
 
 ## TaskListComponent
 
-Taskbox はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskListComponent` に、タスクのリストが、通常のタスクのみである場合と、ピン留めされたタスクとの組み合わせである場合という、ストーリーを追加するべき 2 つのバリエーションができます。
+Taskbox はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskList` に、タスクのリストが、通常のタスクのみである場合と、ピン留めされたタスクとの組み合わせである場合という、ストーリーを追加するべき 2 つのバリエーションができます。
 
 ![通常のタスクとピン留めされたタスク](/intro-to-storybook/tasklist-states-1.png)
 
@@ -19,13 +19,15 @@ Taskbox はピン留めされたタスクを通常のタスクより上部に表
 
 ## セットアップする
 
-複合的なコンポーネントも基本的なコンポーネントと大きな違いはありません。`TaskListComponent` のコンポーネントとそのストーリーファイル、`src/components/task-list-component.ts` と `src/components/task-list.stories.ts` を作成しましょう。
+複合的なコンポーネントも基本的なコンポーネントと大きな違いはありません。`TaskList` のコンポーネントとそのストーリーファイル、`src/app/components/task-list-component.ts` と `src/app/components/task-list.stories.ts` を作成しましょう。
 
-まずは `TaskListComponent` の大まかな実装から始めます。前の章で作成した `Task` コンポーネントをインポートし、属性とアクションを入力とイベントとして渡します。
+まずは `TaskList` の大まかな実装から始めます。前の章で作成した `Task` コンポーネントをインポートし、属性とアクションを入力とイベントとして渡します。
 
 ```ts:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
 import { Task } from '../models/task.model';
+
 @Component({
   selector: 'app-task-list',
   template: `
@@ -61,11 +63,10 @@ export class TaskListComponent {
 }
 ```
 
-次に `TaskListComponent` のテスト状態をストーリーファイルに記述します。
+次に `TaskList` のテスト状態をストーリーファイルに記述します。
 
 ```ts:title=src/app/components/task-list.stories.ts
-import { moduleMetadata } from '@storybook/angular';
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Story, Meta, componentWrapperDecorator } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -78,25 +79,22 @@ export default {
   component: TaskListComponent,
   decorators: [
     moduleMetadata({
-      //👇 Imports both components to allow component composition with storybook
+      //👇 Imports both components to allow component composition with Storybook
       declarations: [TaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
+        //👇 Wraps our stories with a decorator
+    componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
   title: 'TaskList',
 } as Meta;
 
 const Template: Story<TaskListComponent> = args => ({
-  component: TaskListComponent,
   props: {
     ...args,
     onPinTask: TaskStories.actionsData.onPinTask,
     onArchiveTask: TaskStories.actionsData.onArchiveTask,
   },
-  template: `
-    <div style="padding: 3rem">
-      <app-task-list [tasks]="tasks" [loading]=loading (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
-    </div> `,
 });
 
 export const Default = Template.bind({});
@@ -146,7 +144,7 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -170,13 +168,11 @@ import { Task } from '../models/task.model';
 +       (onPinTask)="onPinTask.emit($event)"
 +     >
 +     </app-task>
-
 +     <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
 +       <span class="icon-check"></span>
 +       <div class="title-message">You have no tasks</div>
 +       <div class="subtitle-message">Sit back and relax</div>
 +     </div>
-
 +     <div *ngIf="loading">
 +       <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
 +         <span class="glow-checkbox"></span>
@@ -190,6 +186,7 @@ export class TaskListComponent {
 - @Input() tasks: Task[] = [];
 
 +  /**
++  * @ignore
 +  * Component property to define ordering of tasks
 +  */
 + tasksInOrder: Task[] = [];
@@ -216,7 +213,7 @@ export class TaskListComponent {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -229,11 +226,11 @@ export class TaskListComponent {
 
 ## 自動テスト
 
-前の章で Storyshots を使用してストーリーのスナップショットテストを行う方法を学びました。`TaskComponent` では、問題なく描画されるのを確認することは、それほど複雑ではありませんでした。`TaskListComponent` では複雑さが増しているので、ある入力がある出力を生成するかどうかを、自動テスト可能な方法で検証したいと思います。そのためには [Jest](https://facebook.github.io/jest/) をテストレンダラーとともに使用し、単体テストを作ります。
+前の章で Storyshots を使用してストーリーのスナップショットテストを行う方法を学びました。`TaskComponent` では、問題なく描画されるのを確認することは、それほど複雑ではありませんでした。`TaskListComponent` では複雑さが増しているので、ある入力がある出力を生成するかどうかを、自動テスト可能な方法で検証したいと思います。そのためには [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) を使用し、単体テストを作ります。
 
-![Jest ロゴ](/intro-to-storybook/logo-jest.png)
+![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
 
-### Jest で単体テストする
+### Angular Testing Library で単体テストする
 
 Storybook のストーリーと、手動のテスト、スナップショットテストがあれば UI のバグを防ぐのに十分でしょう。ストーリーでコンポーネントの様々なユースケースをカバーしており、ストーリーへのどんな変更に対しても、人が確実に確認できるツールを使用していれば、エラーはめったに発生しなくなります。
 
@@ -241,7 +238,7 @@ Storybook のストーリーと、手動のテスト、スナップショット�
 
 `TaskListComponent` の `tasks` プロパティで渡されたタスクのリストのうち、ピン留めされたタスクを通常のタスクの**前に**表示させたいと思います。このシナリオをテストするストーリー (`WithPinnedTasks`) は既にありますが、コンポーネントが並び替えを**しなくなった**場合に、それがバグかどうかを人間のレビュアーでは判別しかねます。ストーリーでは誰にでも分かるように、**間違っているよ！**と叫んではくれません。
 
-この問題を回避するため、Jest を使ってストーリーを DOM に描画し、DOM を検索するコードを実行し、出力から目立った機能を検証します。ストーリー形式のいいところは単純にストーリーをインポートして、そのまま描画できるところです。
+この問題を回避するため、Angular Testing Library を使ってストーリーを DOM に描画し、DOM を検索するコードを実行し、出力から目立った機能を検証します。ストーリー形式のいいところは単純にストーリーをインポートして、そのまま描画できるところです。
 
 `task-list.component.spec.ts` にテストファイルを作ります。以下に、出力を検証するテストコードを示します。
 
