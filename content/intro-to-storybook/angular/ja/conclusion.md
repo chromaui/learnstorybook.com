@@ -15,7 +15,7 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 もっと深く掘り下げたいですか？役に立つリソースを紹介します。
 
-- [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/react/get-started/introduction)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
+- [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/angular/get-started/introduction)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
 
 - [**楽しい Storybook のワークフロー**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)では Squarespace や、メジャーリーグサッカー、ディスカバリーネットワーク、 Apollo GraphQL といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
 
@@ -25,7 +25,7 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 - [**Storybook ブログ**](https://medium.com/storybookjs)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
 
-## Intro to Storybook tutorial について
+## Storybook チュートリアルについて
 
 文書や、コード、製作は [Chromatic](https://www.chromatic.com/) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
 
