@@ -55,15 +55,24 @@ export class TaskComponent {
 下のコードは `TaskComponent` に対する 3 つのテスト用の状態をストーリーファイルに書いています:
 
 ```ts:title=src/app/components/task.stories.ts
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Story, Meta } from '@storybook/angular';
+
+import { CommonModule } from '@angular/common';
+
 import { action } from '@storybook/addon-actions';
 
 import { TaskComponent } from './task.component';
 
 export default {
-  title: 'Task',
   component: TaskComponent,
+  decorators: [
+    moduleMetadata({
+      declarations: [TaskComponent],
+      imports: [CommonModule],
+    }),
+  ],
   excludeStories: /.*Data$/,
+  title: 'Task',
 } as Meta;
 
 export const actionsData = {
@@ -72,7 +81,6 @@ export const actionsData = {
 };
 
 const Template: Story<TaskComponent> = args => ({
-  component: TaskComponent,
   props: {
     ...args,
     onPinTask: actionsData.onPinTask,
@@ -86,7 +94,7 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 
@@ -121,7 +129,7 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 - `excludeStories` -- ストーリーファイルのエクスポートのうち、Storybook にストーリーとして表示させたくないもの
 - `argTypes` -- 各ストーリーへの引数 ([args](https://storybook.js.org/docs/angular/api/argtypes)) の挙動を指定する
 
-ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、[状態を持たない関数コンポーネント](https://angular.jp/guide/component-interaction)のようなものです。
+ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、[関数コンポーネント](https://angular.jp/guide/component-interaction)のようなものです。
 
 コンポーネントにストーリーが複数連なっているので、各ストーリーを単一の `Template` 変数に割り当てるのが便利です。このパターンを導入することで、書くべきコードの量が減り、保守性も上がります。
 
@@ -147,10 +155,14 @@ Arguments (略して [`args`](https://storybook.js.org/docs/angular/writing-stor
 
 ## 設定する
 
-作成したストーリーを認識させるため、若干の変更を加える必要があります。設定ファイル (`.storybook/main.js`) を以下のように変更してください:
+作成したストーリーを認識させるため、若干の変更を加える必要があります。Storybook 用設定ファイル (`.storybook/main.js`) を以下のように変更してください:
 
 ```diff:title=.storybook/main.js
 module.exports = {
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
 + stories: ['../src/app/components/**/*.stories.ts'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
@@ -162,7 +174,7 @@ Storybook のサーバーを再起動すると、タスクの 3 つの状態の�
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -221,7 +233,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 +   </div>
   `,
 })
-export class TaskComponent { {
+export class TaskComponent {
 + @Input() task: Task;
 
   // tslint:disable-next-line: no-output-on-prefix
@@ -253,7 +265,7 @@ export class TaskComponent { {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -299,7 +311,6 @@ initStoryshots();
       "^.+\\.(ts|html)$": "ts-jest",
       "^.+\\.js$": "babel-jest",
 +     "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
-
     },
 }
 ```
