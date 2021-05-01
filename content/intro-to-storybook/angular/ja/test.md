@@ -28,7 +28,7 @@ Storybook のチュートリアルをテスト抜きには終われません。�
 
 Storybook は視覚的なリグレッションテスト用の素晴らしいツールです。Storybook において、すべてのストーリーはテスト仕様となるからです。ストーリーを書くたび、仕様が無料でついてきます！
 
-視覚的なリグレッションテスト向けのツールは多々あります。Storybook のメンテナーが作成した無料のホスティングサービスである [**Chromatic**](https://www.chromatic.com/) がおすすめです。Chromatic はクラウド上でビジュアルテストを並列実行します。[前の章](/react/ja/deploy/)と同じように Storybook をインターネット上に発行出来ます。
+視覚的なリグレッションテスト向けのツールは多々あります。Storybook のメンテナーが作成した無料のホスティングサービスである [**Chromatic**](https://www.chromatic.com/) がおすすめです。Chromatic はクラウド上でビジュアルテストを並列実行します。[前の章](/angular/ja/deploy/)で見たように Storybook をインターネット上に発行出来ます。
 
 ## UI の変更を検知する
 
@@ -42,7 +42,7 @@ Storybook は視覚的なリグレッションテスト用の素晴らしいツ�
 git checkout -b change-task-background
 ```
 
-`src/app/components/task.component.ts` を以下のように変更します:
+`TaskComponent` を以下のように変更します:
 
 ```diff:title=src/app/components/task.component.ts
 <input
