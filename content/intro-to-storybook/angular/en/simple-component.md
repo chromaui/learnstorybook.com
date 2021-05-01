@@ -55,15 +55,24 @@ Above, we render straightforward markup for `TaskComponent` based on the existin
 Below we build out Task’s three test states in the story file:
 
 ```ts:title=src/app/components/task.stories.ts
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Story, Meta } from '@storybook/angular';
+
+import { CommonModule } from '@angular/common';
+
 import { action } from '@storybook/addon-actions';
 
 import { TaskComponent } from './task.component';
 
 export default {
-  title: 'Task',
   component: TaskComponent,
+  decorators: [
+    moduleMetadata({
+      declarations: [TaskComponent],
+      imports: [CommonModule],
+    }),
+  ],
   excludeStories: /.*Data$/,
+  title: 'Task',
 } as Meta;
 
 export const actionsData = {
@@ -72,7 +81,6 @@ export const actionsData = {
 };
 
 const Template: Story<TaskComponent> = args => ({
-  component: TaskComponent,
   props: {
     ...args,
     onPinTask: actionsData.onPinTask,
@@ -86,7 +94,7 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 
@@ -120,7 +128,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://angular.io/guide/component-interaction).
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Functional Component](https://angular.io/guide/component-interaction).
 
 As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 
@@ -144,10 +152,14 @@ Another nice thing about bundling the `actionsData` that a component needs, is t
 
 ## Config
 
-We also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your Storybook configuration file (`.storybook/main.js`) to the following:
+We'll also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your configuration file (`.storybook/main.js`) to the following:
 
 ```diff:title=.storybook/main.js
 module.exports = {
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
 + stories: ['../src/app/components/**/*.stories.ts'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
@@ -157,14 +169,14 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## Specify data requirements
 
-It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early. Here, we'll use Typescript and create a interface for the `Task` model.
+It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early. Here, we'll use Typescript and create an interface for the `Task` model.
 
 Create a new folder called `models` inside `app` folder and inside a new file called `task.model.ts` with the following content:
 
@@ -216,7 +228,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 +   </div>
   `,
 })
-export class TaskComponent { {
+export class TaskComponent {
 + @Input() task: Task;
 
   // tslint:disable-next-line: no-output-on-prefix
@@ -248,7 +260,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -293,7 +305,6 @@ Finally we need to make a small change in the `jest` key in our `package.json`:
       "^.+\\.(ts|html)$": "ts-jest",
       "^.+\\.js$": "babel-jest",
 +     "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
-
     },
 }
 ```

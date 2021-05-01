@@ -77,7 +77,7 @@ Now that our project is hosted in a GitHub repository, we can use a continuous i
 
 In the root folder of our project, create a new directory called `.github` then create another `workflows` directory inside of it.
 
-Create a new file called `chromatic.yml` like the one below. Make sure to replace `project-token` with your project token.
+Create a new file called `chromatic.yml` like the one below. Make sure to replace `CHROMATIC_PROJECT_TOKEN` with your project token.
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
@@ -100,7 +100,7 @@ jobs:
         # Options required for Chromatic's GitHub Action
         with:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/svelte/en/deploy/ to obtain it
-          projectToken: project-token
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 

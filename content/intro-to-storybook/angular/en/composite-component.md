@@ -25,7 +25,9 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 ```ts:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+
 import { Task } from '../models/task.model';
+
 @Component({
   selector: 'app-task-list',
   template: `
@@ -64,8 +66,7 @@ export class TaskListComponent {
 Next create `Tasklist`’s test states in the story file.
 
 ```ts:title=src/app/components/task-list.stories.ts
-import { moduleMetadata } from '@storybook/angular';
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Story, Meta, componentWrapperDecorator } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -78,25 +79,22 @@ export default {
   component: TaskListComponent,
   decorators: [
     moduleMetadata({
-      //👇 Imports both components to allow component composition with storybook
+      //👇 Imports both components to allow component composition with Storybook
       declarations: [TaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
+    //👇 Wraps our stories with a decorator
+    componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
   title: 'TaskList',
 } as Meta;
 
 const Template: Story<TaskListComponent> = args => ({
-  component: TaskListComponent,
   props: {
     ...args,
     onPinTask: TaskStories.actionsData.onPinTask,
     onArchiveTask: TaskStories.actionsData.onArchiveTask,
   },
-  template: `
-    <div style="padding: 3rem">
-      <app-task-list [tasks]="tasks" [loading]=loading (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
-    </div> `,
 });
 
 export const Default = Template.bind({});
@@ -146,7 +144,7 @@ Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -170,13 +168,11 @@ import { Task } from '../models/task.model';
 +       (onPinTask)="onPinTask.emit($event)"
 +     >
 +     </app-task>
-
 +     <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
 +       <span class="icon-check"></span>
 +       <div class="title-message">You have no tasks</div>
 +       <div class="subtitle-message">Sit back and relax</div>
 +     </div>
-
 +     <div *ngIf="loading">
 +       <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
 +         <span class="glow-checkbox"></span>
@@ -190,6 +186,7 @@ export class TaskListComponent {
 - @Input() tasks: Task[] = [];
 
 +  /**
++  * @ignore
 +  * Component property to define ordering of tasks
 +  */
 + tasksInOrder: Task[] = [];
@@ -216,7 +213,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -229,11 +226,11 @@ As the component grows, so too do input requirements. Define the data requiremen
 
 ## Automated testing
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `TaskComponent` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskListComponent` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Jest](https://facebook.github.io/jest/) coupled with a test renderer.
+In the previous chapter we learned how to snapshot test stories using Storyshots. With `TaskComponent` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskListComponent` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
 
-![Jest logo](/intro-to-storybook/logo-jest.png)
+![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
 
-### Unit tests with Jest
+### Unit tests with Angular Testing Library
 
 Storybook stories paired with manual visual tests and snapshot tests (see above) go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
 
@@ -241,7 +238,7 @@ However, sometimes the devil is in the details. A test framework that is explici
 
 In our case, we want our `TaskListComponent` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
 
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output.
+So, to avoid this problem, we can use Angular Testing Library to render the story to the DOM and run some DOM querying code to verify salient features of the output.
 
 Create a test file called `task-list.component.spec.ts`. Here we’ll build out our tests that make assertions about the output.
 

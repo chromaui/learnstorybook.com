@@ -68,7 +68,7 @@ const TaskBox = () => {
       ),
   };
 };
-+ export const taskStore = TaskBox();
+export const taskStore = TaskBox();
 
 + // Store to handle the app state
 + const AppState = () => {
@@ -95,7 +95,7 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 ```
 
 <div class="aside">
-💡 Don't forget to update the <code>TaskList</code> component to reflect the changes applied to the store.
+💡 Don't forget to update the <code>TaskList</code> component and your unit tests to reflect the changes that were introduced.
 </div>
 
 However, where things get interesting is in rendering the story in Storybook.
@@ -138,7 +138,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

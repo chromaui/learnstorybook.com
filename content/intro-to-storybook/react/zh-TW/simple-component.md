@@ -89,7 +89,7 @@ Storybook 中有兩個基本的組織級別.
 
 關於捆綁`actions`的另一個好處就是,你可以`export-暴露`它們,用於重用該元件的元件,我們稍後會看到.
 
-為了定義我們的故事,我們用`add()`,一次一個為我們的每個測試狀態生成一個故事. `add`第二個引數是一個函式,它返回一個給定狀態的渲染元素 (即帶有一組`props`的元件類) - 就像一個 React[無狀態功能元件](https://reactjs.org/docs/components-and-props.html).
+為了定義我們的故事,我們用`add()`,一次一個為我們的每個測試狀態生成一個故事. `add`第二個引數是一個函式,它返回一個給定狀態的渲染元素 (即帶有一組`props`的元件類) - 就像一個 React[無狀態功能元件](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 
 在建立故事時,我們使用基本任務 (`task`) 構建元件期望的 任務的形狀. 這通常是 根據真實資料的模型建模的. 再次,正如我們所看到的,`export`這種形狀將使我們能夠在以後的故事中重複使用它.
 

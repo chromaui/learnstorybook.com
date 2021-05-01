@@ -229,24 +229,26 @@ When placing the `TaskListComponent` into Storybook, we were able to dodge this 
 However, for the `PureInboxScreenComponent` we have a problem because although the `PureInboxScreenComponent` itself is presentational, its child, the `TaskListComponent`, is not. In a sense the `PureInboxScreenComponent` has been polluted by “container-ness”. So when we setup our stories in `pure-inbox-screen.stories.ts`:
 
 ```ts:title=src/app/components/pure-inbox-screen.stories.ts
-import { moduleMetadata } from '@storybook/angular';
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Story, Meta } from '@storybook/angular';
+
+import { CommonModule } from '@angular/common';
 
 import { PureInboxScreenComponent } from './pure-inbox-screen.component';
+
 import { TaskModule } from './task.module';
 
 export default {
-  title: 'PureInboxScreen',
   component: PureInboxScreenComponent,
   decorators: [
     moduleMetadata({
-      imports: [TaskModule],
+      declarations: [PureInboxScreenComponent],
+      imports: [CommonModule, TaskModule],
     }),
   ],
+  title: 'PureInboxScreen',
 } as Meta;
 
 const Template: Story<PureInboxScreenComponent> = args => ({
-  component: PureInboxScreenComponent,
   props: args,
 });
 
@@ -287,8 +289,8 @@ export default {
   component:PureInboxScreenComponent,
   decorators: [
     moduleMetadata({
--     imports: [TaskModule],
-+     imports: [TaskModule, NgxsModule.forRoot([TasksState])],
+-     imports: [CommonModule,TaskModule],
++     imports: [CommonModule,TaskModule,NgxsModule.forRoot([TasksState])],
 +     providers: [Store],
     }),
   ],
@@ -314,7 +316,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

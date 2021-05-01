@@ -98,7 +98,7 @@ Pour informer Storybook sur le composant que nous documentons, nous créons un `
 - `argTypes` -- spécifiez le comportement des [args](https://storybook.js.org/docs/react/api/argtypes) dans chaque story.
 
 Pour définir nos story, nous exportons une fonction pour chacun de nos états tests afin de générer un story.
-Le story est une fonction qui renvoie un élément qui a été rendu (c'est-à-dire un composant avec un ensemble de props) dans un état donné--exactement comme un [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+Le story est une fonction qui renvoie un élément qui a été rendu (c'est-à-dire un composant avec un ensemble de props) dans un état donné--exactement comme un [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 
 Comme nous avons plusieurs permutations de notre composant, il est pratique de lui assigner une variable `Template`. L'introduction de ce schéma dans vos story réduira la quantité de code que vous devez écrire et maintenir.
 
