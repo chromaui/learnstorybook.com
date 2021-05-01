@@ -9,11 +9,11 @@ commit: deff6cb
 
 この章では Storybook を使用して、コンポーネントを組み合わせて画面を作り、完成度を高めていきます。
 
-## Nested container components
+## ネストされたコンテナーコンポーネント
 
-このアプリケーションはとても単純なので、作る画面は些細なものです。(ngxs から自分でデータを取得する) `TaskListComponent` をレイアウトして、store からの `error` フィールド (サーバーとの接続に失敗したときに設定される項目だと思ってください) を追加するだけです。
+このアプリケーションはとても単純なので、作る画面も些細なものです。 ngxs から自分でデータを取得する TaskListComponent を表示して、ストアからの error フィールド (サーバーとの接続に失敗したときに設定される項目だと思ってください) を追加するだけです。
 
-(`src/app/state/task.state.ts`にある)store を更新して、error フィールドを含めることから始めましょう
+(`src/app/state/task.state.ts`にある) ストアを更新して、 error フィールドを含めることから始めましょう
 
 ```diff:title=src/app/state/task.state.ts
 import { State, Selector, Action, StateContext } from '@ngxs/store';
@@ -120,7 +120,7 @@ export class TasksState {
 }
 ```
 
-store が新しいフィールドを含むよう更新されました。`src/app/components/`に`pure-inbox-screen.component.ts`という名前で表示用コンポーネントを作りましょう:
+ストア が新しいフィールドを含むよう更新されました。`src/app/components/`に`pure-inbox-screen.component.ts`という名前で表示用コンポーネントを作りましょう:
 
 ```ts:title=src/app/components/pure-inbox-screen.component.ts
 import { Component, Input } from '@angular/core';
@@ -226,7 +226,7 @@ export class AppModule {}
 
 `TaskListComponent` を Storybook に置いたときには、コンテナーではなく、`PureTaskListComponent` を描画することにより、この問題を回避しました。同じように `PureInboxScreenComponent` を Storybook に描画してみます。
 
-しかし、`PureInboxSPureInboxScreenComponentcreen` には問題があります。`PureInboxScreenComponent` が表示用コンポーネントであっても、その子供である `TaskListComponent` は表示用ではないのです。つまり、`PureInboxScreenComponent`が「コンテナー性」により汚染されたと言えます。なので、`pure-inbox-screen.stories.ts` を以下のようセットアップすると:
+しかし、 `PureInboxScreenComponent` には問題があります。`PureInboxScreenComponent` が表示用コンポーネントであっても、その子供である `TaskListComponent` は表示用ではないのです。つまり、`PureInboxScreenComponent`が「コンテナー性」により汚染されたと言えます。なので、`pure-inbox-screen.stories.ts` を以下のようセットアップすると:
 
 ```ts:title=src/app/components/pure-inbox-screen.stories.ts
 import { moduleMetadata } from '@storybook/angular';
@@ -258,7 +258,7 @@ Error.args = {
 };
 ```
 
-ストーリーが壊れてしまっていることが分かります。これは、「ピュア」なコンポーネントをエラーに使っていますが、ストーリーが両方 store に依存していてそのコンテキストが必要なためです。
+ストーリーが壊れてしまっていることが分かります。これは、「ピュア」なコンポーネントをエラーに使っていますが、ストーリーが両方ストアに依存していてそのコンテキストが必要なためです。
 
 この問題を回避する方法の 1 つは、コンテナーコンポーネントをアプリケーションの最上位にのみ描画し、代わりにコンポーネント階層の下層に必要なデータをすべて上位のコンポーネントから渡すことです。
 
@@ -270,7 +270,7 @@ Error.args = {
 
 ## デコレーターを使用してコンテキストを渡す
 
-ストーリーの中で `PureInboxScreenComponent` に`Store`のストアを渡すのは簡単です！モック化した`Store`をデコレーター内部で使用します:
+ストーリーの中で `PureInboxScreenComponent` に `Store` を渡すのは簡単です！モック化した `Store` をデコレーター内部で使用します:
 
 ```diff:title=src/app/components/pure-inbox-screen.stories.ts
 import { moduleMetadata } from '@storybook/angular';
@@ -307,7 +307,7 @@ Error.args = {
 };
 ```
 
-同様に[@ngrx](https://github.com/ngrx/platform)や[Apollo](https://www.apollographql.com/docs/angular/)など、他のデータライブラリー向けのモックコンテキストも存在します。
+同様に [@ngrx](https://github.com/ngrx/platform) や [Apollo](https://www.apollographql.com/docs/angular/) など、他のデータライブラリー向けのモックコンテキストも存在します。
 
 Storybook で状態を選択していくことで、問題なく出来ているか簡単にテストできます
 
@@ -335,5 +335,5 @@ Storybook で状態を選択していくことで、問題なく出来ている�
 まだ終わりではありません。UI を作成しても仕事は終わりません。長期間にわたり耐久性を維持できるようにしなければなりません。
 
 <div class="aside">
-Git へのコミットを忘れずに行ってください！
+💡 Git へのコミットを忘れずに行ってください！
 </div>
