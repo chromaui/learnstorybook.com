@@ -3,9 +3,9 @@ title: '貢献する'
 description: 'Storybook を世界に広めましょう'
 ---
 
-Storybook の tutorial に協力してください！文法や句読点など小さなことなら、プルリクエストを送ってください。もし大きなことなら [GitHub の issue を追加](https://github.com/chromaui/learnstorybook.com/issues)して議論しましょう。
+Storybook の チュートリアル に協力してください！文法や句読点など小さなことなら、プルリクエストを送ってください。もし大きなことなら [GitHub の issue を追加](https://github.com/chromaui/learnstorybook.com/issues)して議論しましょう。
 
-Storybook の tutorial は主にコミュニティによって作成・運営されていますので、最新の状態を保ち、荒い部分を削るには皆さんの協力が必要です。どんな協力でも歓迎します。
+Storybook の チュートリアル は主にコミュニティによって作成・運営されていますので、最新の状態を保ち、荒い部分を削るには皆さんの協力が必要です。どんな協力でも歓迎します。
 
 ## 翻訳
 
