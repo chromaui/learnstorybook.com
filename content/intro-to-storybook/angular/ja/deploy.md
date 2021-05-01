@@ -41,7 +41,7 @@ git push -u origin main
 パッケージを開発時の依存関係に追加します。
 
 ```bash
-yarn add -D chromatic
+npm install -D chromatic
 ```
 
 パッケージをインストールしたら、GitHub のアカウントを使用して [Chromatic にログイン](https://www.chromatic.com/start)します。(Chromatic は一部のアクセス許可を要求します。) 「taskbox」という名前でプロジェクトを作成し、GitHub のリポジトリーと同期させます。
@@ -58,7 +58,7 @@ yarn add -D chromatic
 作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けるのを忘れないでください。
 
 ```bash
-git remote add origin https://github.com/<your username>/taskbox.git
+npx chromatic --project-token=<project-token>
 ```
 
 ![Chromatic を実行する](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
@@ -105,7 +105,7 @@ jobs:
 ```
 
 <div class="aside">
-<p>簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
+💡 <p>簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
 </div>
 
 ### アクションをコミットする
