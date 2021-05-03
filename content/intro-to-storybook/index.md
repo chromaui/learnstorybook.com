@@ -22,7 +22,7 @@ toc:
   ]
 coverImagePath: '/guide-cover/intro.svg'
 thumbImagePath: '/guide-thumb/intro.svg'
-contributorCount: '+42'
+contributorCount: '42+'
 authors:
   [
     {
