@@ -168,8 +168,6 @@ module.exports = {
 };
 ```
 
-[`parameters`](https://storybook.js.org/docs/angular/writing-stories/parameters) は Storybook の機能やアドオンの振る舞いをコントロールするのに使用します。この例では、アクション (呼び出しのモック) がどのように扱われるかを設定しています。
-
 Storybook のサーバーを再起動すると、タスクの 3 つの状態のテストケースが生成されているはずです:
 
 <video autoPlay muted playsInline controls >
