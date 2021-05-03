@@ -28,7 +28,7 @@ Component explorers prevent inconsistency by showcasing the supported variations
 
 ### Faster development
 
-Apps are never finished. You continuously iterate. Therefore, UI architecture must be adaptable to accommodate new features. The component model encourages interchangeability by separating the UI from application business logic and backend.
+Apps are never finished. You continuously iterate. Therefore, UI architectures must be adaptable to accommodate new features. The component model encourages interchangeability by separating the UI from application business logic and backend.
 
 Component explorers make this separation evident by providing a sandbox to develop UI in isolation, away from the app. That means teams can work on different UI pieces simultaneously without distraction or state pollution from other parts of the app.
 
