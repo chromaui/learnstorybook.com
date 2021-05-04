@@ -69,6 +69,7 @@ module.exports = {
       'create-an-addon': {
         react: {
           en: 6.2,
+          fr: 6.2,
         },
       },
     },
