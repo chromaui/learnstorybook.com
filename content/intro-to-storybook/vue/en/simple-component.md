@@ -120,6 +120,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `component` -- the component itself,
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+- `argTypes` -- specify the [args](https://storybook.js.org/docs/react/api/argtypes) behavior in each story.
 
 To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
