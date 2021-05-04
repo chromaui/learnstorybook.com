@@ -119,10 +119,14 @@ The reason to keep the presentational version of the `TaskList` separate is beca
 
 ```js:title=src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList.svelte';
+import MarginDecorator from './MarginDecorator.svelte';
+
 import * as TaskStories from './Task.stories';
 
 export default {
   component: PureTaskList,
+  //👇 The auxiliary component will be added as a decorator to help show the UI correctly
+  decorators: [() => MarginDecorator],
   title: 'PureTaskList',
   argTypes: {
     onPinTask: { action: 'onPinTask' },
@@ -178,19 +182,24 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 Similarly, we need to use `PureTaskList` in our Jest test:
 
-```javascript
-// src/components/TaskList.test.js
+```diff:title=src/components/TaskList.test.js
+- import TaskList from './TaskList.svelte';
 
-import PureTaskList from './PureTaskList.svelte';
++ import PureTaskList from './PureTaskList.svelte';
+
 import { render } from '@testing-library/svelte';
-import { WithPinnedTasks } from './PureTaskList.stories'; //👈  Our story imported here
+
+//👇 Our story imported here
+- import { WithPinnedTasks } from './TaskList.stories';
+
++ import { WithPinnedTasks } from './PureTaskList.stories';
 
 test('PureTaskList', () => {
   const { container } = render(PureTaskList, {
