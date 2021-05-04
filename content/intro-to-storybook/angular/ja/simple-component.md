@@ -127,7 +127,6 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 - `component` -- コンポーネント自体
 - `title` -- Storybook のサイドバーにあるコンポーネントを参照する方法
 - `excludeStories` -- ストーリーファイルのエクスポートのうち、Storybook にストーリーとして表示させたくないもの
-- `argTypes` -- 各ストーリーへの引数 ([args](https://storybook.js.org/docs/angular/api/argtypes)) の挙動を指定する
 
 ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、[関数コンポーネント](https://angular.jp/guide/component-interaction)のようなものです。
 
