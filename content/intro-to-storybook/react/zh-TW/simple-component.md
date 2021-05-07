@@ -89,9 +89,7 @@ Archived.args = {
 為了要讓 Storybook 知道正在撰寫文件的元件，先做好 `default` export，包含：
 
 - `component` -- 元件它本人；
-- `title` -- 在 Storybook app 側邊欄找到元件的名字；
-- `excludeStories` -- story 檔案裡的 export，但不應被 Storybook render 為 story；
-- `argTypes` -- 設定每個 story 的[參數](https://storybook.js.org/docs/react/api/argtypes)行為。
+- `title` -- 在 Storybook app 側邊欄找到元件的名字。
 
 若要定義出各式各樣的 story，就為每個要測試的狀態 export 函式，以此產生 story。Story 就是根據設定好的狀態，回傳 render 出元素的函式（也就是有一組 prop 的元件），這跟 [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components) 一樣。
 
