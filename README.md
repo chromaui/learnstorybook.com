@@ -39,13 +39,19 @@ Currently the Intro to Storybook tutorial features the following translations. S
 |              | Spanish          | ❌      |
 | Ember        | English          | ✅      |
 
-The Design Systems for Developers features the following translations. Some are updated some are not. If you want to expand your Storybook and learn how to build a industry grade component library and you're a native speaker of any of the languages detailed below. Help us out by updating the translations. Comment in the issue above.
+The Design Systems for Developers tutorial features the following translations. Some are updated some are not. If you want to expand your Storybook and learn how to build a industry grade component library and you're a native speaker of any of the languages detailed below. Help us out by updating the translations. Comment in the issue above.
 
 | Translation | Updated |
 | ----------- | ------- |
 | English     | ✅      |
 | Korean      | ✅      |
 | Portuguese  | ❌      |
+
+The Create an Addon tutorial features the following translations. If you want to learn about the addon ecosystem and you're a native speaker of any of the languages detailed below. Help us out by updating the translations. Comment in the issue above.
+| Translation | Updated |
+| ----------- | ------- |
+| English | ✅ |
+| French | ✅ |
 
 ## Who made LearnStorybook.com?
 
