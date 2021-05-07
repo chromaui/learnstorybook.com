@@ -4,54 +4,13 @@ Learn Storybook teaches you how to use Storybook and Component-Driven Developmen
 
 ## Contribute
 
-Contributions to Learn Storybook are encouraged! If it’s something small like grammar, punctuation or even a code snippet, first check the [open pull requests](https://github.com/chromaui/learnstorybook.com/pulls) to see if it's already being addressed, if it's not, then open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started.
+Contributions to Learn Storybook are encouraged! If it’s something small like grammar, punctuation, or even a code snippet, first check the [open pull requests](https://github.com/chromaui/learnstorybook.com/pulls) to see if it's already being addressed, if it's not, then open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started.
 
 You'll find the guides and chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory. Content is organized at the guide level. Within the `/content` directory, you'll find directories for the current guides that are offered. Within each guide directory, you can see the chapters that make up that guide.
 
 We love translations of our guides to new languages. That helps the Storybook community learn in the language they're most comfortable with. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3).
 
 Traditional Chinese translation is converted from Simplified Chinese using [OpenCC](https://github.com/BYVoid/OpenCC). Please help us correct any idiomatic errors.
-
-Currently the Intro to Storybook tutorial features the following translations. Some are updated, others are not. If you want to get acquainted with Storybook and you are a native speaker of any of the languages detailed below. Help us out updating the translation. Comment in the issue above.
-
-| Framework    | Translation      | Updated |
-| ------------ | ---------------- | ------- |
-| React        | English          | ✅      |
-|              | Spanish          | ❌      |
-|              | Portuguese       | ❌      |
-|              | Taiwanese        | ❌      |
-|              | Mainland Chinese | ✅      |
-|              | Dutch            | ❌      |
-|              | Korean           | ✅      |
-|              | Japanese         | ✅      |
-|              | French           | ✅      |
-|              | German           | ❌      |
-| React Native | English          | ❌      |
-|              | Spanish          | ❌      |
-| Vue          | English          | ✅      |
-|              | Spanish          | ✅      |
-|              | Portuguese       | ❌      |
-|              | French           | ❌      |
-| Angular      | English          | ❌      |
-|              | Spanish          | ❌      |
-|              | Portuguese       | ❌      |
-| Svelte       | English          | ✅      |
-|              | Spanish          | ❌      |
-| Ember        | English          | ✅      |
-
-The Design Systems for Developers tutorial features the following translations. Some are updated some are not. If you want to expand your Storybook and learn how to build a industry grade component library and you're a native speaker of any of the languages detailed below. Help us out by updating the translations. Comment in the issue above.
-
-| Translation | Updated |
-| ----------- | ------- |
-| English     | ✅      |
-| Korean      | ✅      |
-| Portuguese  | ❌      |
-
-The Create an Addon tutorial features the following translations. If you want to learn about the addon ecosystem and you're a native speaker of any of the languages detailed below. Help us out by updating the translations. Comment in the issue above.
-| Translation | Updated |
-| ----------- | ------- |
-| English | ✅ |
-| French | ✅ |
 
 ## Who made LearnStorybook.com?
 
@@ -80,11 +39,11 @@ Start development server with `yarn dev`
 - [Carlos Vega](https://twitter.com/__el_Negro)
 - [Matt Rothenberg](https://twitter.com/mattrothenberg)
 - [Kyle Holmberg](https://twitter.com/kylemh_)
-- You? [Become an OSS contributor](https://www.learnstorybook.com/intro-to-storybook/react/en/contribute/)
+- You? [Become an OSS contributor](https://storybook.js.org/tutorials/intro-to-storybook/react/en/contribute/)
 
 ## Adding new content
 
-Thanks for taking the time to contribute and add content to Learn Storybook! The tutorials below reference file paths which will be represented in this format:
+Thanks for taking the time to contribute and add content to Learn Storybook! The tutorials below reference file paths, which will be represented in this format:
 
 `/content/:guide/:framework?/:language/:chapter.md`
 
@@ -108,7 +67,7 @@ themeColor:
 
 3. See the [guide frontmatter](#guide-frontmatter) section for additional customization options, many of which you'll want to use in order to create a guide that feels complete.
 
-4. Populate the guide content in markdown underneath the frontmatter. This content shows up on the guide page after the table of contents. You can insert images, call out frameworks, or provide details about the project contained within the guide.
+4. Populate the guide content in markdown underneath the frontmatter. This content shows up on the guide page after the table of contents. For example, you can insert images, call out frameworks, or provide details about the project contained within the guide.
 
 5. Visit your guide at `http://localhost:8000/:guide`
 
@@ -120,7 +79,7 @@ _If you are writing a new chapter for a language that already exists, skip to st
 
 1. Decide if your guide should be organized by framework. Will the examples and messaging be specific to the reader's framework of choice? If so, add an additional directory for the framework: `/content/:guide/:framework`. If not, carry on to the next step -- you will put your translation directories and chapters inside the `/content/:guide` directory.
 
-2. Add a directory for the language that you will use to write your chapter. The naming of this language directory is important and should mirror what has been used in other guides for similar translations. Additionally, [a helper](https://github.com/chromaui/learnstorybook.com/tree/master/src/lib/getLanguageName.js) is used across the app to transform the language into a human readable name, so make sure to update that helper if you are adding a language which has not yet been used. Know of a better way to convert this language into something more readable? [Start an issue](https://github.com/chromaui/learnstorybook.com/issues) and let us know your idea.
+2. Add a directory for the language that you will use to write your chapter. The naming of this language directory is important and should mirror what has been used in other guides for similar translations. Additionally, [a helper](https://github.com/chromaui/learnstorybook.com/tree/master/src/lib/getLanguageName.js) is used across the app to transform the language into a human readable name, so make sure to update that helper if you are adding a language that has not yet been used. Know of a better way to convert this language into something more readable? [Start an issue](https://github.com/chromaui/learnstorybook.com/issues) and let us know your idea.
 
 3. Add a new file for the chapter that you are going to write:
 
@@ -178,7 +137,7 @@ A list and the corresponding order of the chapters in the guide. Short for "Tabl
 
 #### `codeGithubUrl`
 
-The URL to the repository that has the code examples for your guide. Used in combination with the `commit` frontmatter in the chapter to link chapters to their corresponding code examples .
+The URL to the repository that has the code examples for your guide. Used in combination with the `commit` frontmatter in the chapter to link chapters to their corresponding code examples.
 
 #### `coverImagePath`
 
@@ -224,7 +183,7 @@ contributors:
 
 #### `heroAnimationName`
 
-An animation to use on the guide's hero image which corresponds with a named export from the [animation styles file](https://github.com/chromaui/learnstorybook.com/tree/master/src/styles/animations.js). The export must contain the entire CSS property and value for the animation.
+An animation to use on the guide's hero image, which corresponds with a named export from the [animation styles file](https://github.com/chromaui/learnstorybook.com/tree/master/src/styles/animations.js). The export must contain the entire CSS property and value for the animation.
 
 #### `twitterShareText`
 
@@ -260,4 +219,60 @@ A brief description of the chapter. Shown underneath the chapter title on the ch
 
 The short commit hash that maps to the commit on the code example repo for this chapter.
 
-### Current Guide Status
+---
+
+## Current Guide Status
+
+Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/intro-to-storybook/) features the following translations. Some are updated; others are not. If you want to get acquainted with Storybook and you are a native speaker of any of the languages detailed below. Help us out updating the translations. Leave a comment on the issue above.
+
+| Framework    | Translation      | Updated |
+| ------------ | ---------------- | ------- |
+| React        | English          | ✅      |
+|              | Spanish          | ❌      |
+|              | Portuguese       | ❌      |
+|              | Taiwanese        | ❌      |
+|              | Mainland Chinese | ✅      |
+|              | Dutch            | ❌      |
+|              | Korean           | ✅      |
+|              | Japanese         | ✅      |
+|              | French           | ✅      |
+|              | German           | ❌      |
+| React Native | English          | ❌      |
+|              | Spanish          | ❌      |
+| Vue          | English          | ✅      |
+|              | Spanish          | ✅      |
+|              | Portuguese       | ❌      |
+|              | French           | ❌      |
+| Angular      | English          | ❌      |
+|              | Spanish          | ❌      |
+|              | Portuguese       | ❌      |
+| Svelte       | English          | ✅      |
+|              | Spanish          | ❌      |
+| Ember        | English          | ✅      |
+
+---
+
+The [Design Systems for Developers tutorial](https://storybook.js.org/tutorials/design-systems-for-developers/) features the following translations. Some are updated; some are not. If you want to expand your Storybook knowledge and learn how to build an industry-grade component library, and you're a native speaker of any of the languages, detailed below. Help us out by updating the translations. Comment in the issue above.
+
+| Translation | Updated |
+| ----------- | ------- |
+| English     | ✅      |
+| Korean      | ✅      |
+| Portuguese  | ❌      |
+
+---
+
+The [Create an Addon tutorial](https://storybook.js.org/tutorials/create-an-addon/) features the following translations. If you want to learn about the addon ecosystem and you're a native speaker of any of the languages, detailed below. Help us out by updating the translations. Leave a Comment on the issue above.
+
+| Translation | Updated |
+| ----------- | ------- |
+| English     | ✅      |
+| French      | ✅      |
+
+---
+
+The [Visual Testing handbook](https://storybook.js.org/tutorials/visual-testing-handbook/) features the following translations. If you want to learn more about testing and solid workflows that can help you as a frontend developer, and you're a native speaker of any of the languages, detailed below. Help us out by updating the translations. Leave a comment on the issue above.
+
+| Translation | Updated |
+| ----------- | ------- |
+| English     | ✅      |
