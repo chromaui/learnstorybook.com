@@ -18,7 +18,7 @@ commit: 1a14919
 
 `TaskComponent` の作成を始めるにあたり、事前に上記のそれぞれのタスクに応じたテスト用の状態を作成します。次いで、Storybook で、モックデータを使用し、コンポーネントを切り離して作ります。コンポーネントのそれぞれの状態について「ビジュアルテスト」を行い、見た目を確認しながら進めます。
 
-[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (TDD) に似ているこのプロセスを、“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”と呼んでいます。
+[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (TDD) に似ているこのプロセスを、「[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)」と呼んでいます。
 
 ## セットアップする
 

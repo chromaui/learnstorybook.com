@@ -4,9 +4,9 @@ tocTitle: 'アドオン'
 description: 'アドオンを組み込んで利用する方法を、人気のある例を使って学びましょう'
 ---
 
-Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/addons/introduction/)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
+Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/docs/angular/configure/storybook-addons)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
 
-ここまでチュートリアルを進めてきたのであれば、すでにいくつかのアドオンに遭遇し、[テストの章](/angular/ja/test/)では導入もしています。
+ここまでチュートリアルを進めてきたのであれば、すでにいくつかのアドオンに遭遇し、[テストの章](/intro-to-storybook/angular/ja/test/)では導入もしています。
 
 多様なユースケースに対応するためのアドオンがあるので、それを全て説明することは出来ません。ここでは最も人気のあるアドオンである [コントロールアドオン](https://storybook.js.org/docs/angular/essentials/controls) を導入してみましょう。
 
@@ -80,10 +80,10 @@ LongTitle.args = {
   />
 </video>
 
-[ビジュアルテスト](/angular/ja/test/)を使用している場合は、文字の省略が壊れた場合に分かるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
+[ビジュアルテスト](/intro-to-storybook/angular/ja/test/)を使用している場合は、文字の省略が壊れた場合に分かるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
 
 <div class="aside">
-💡 <p>開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/angular/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。
+<p>💡 開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/angular/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。
 </div>
 
 ### 変更をマージする

@@ -28,7 +28,7 @@ Storybook のチュートリアルをテスト抜きには終われません。�
 
 Storybook は視覚的なリグレッションテスト用の素晴らしいツールです。Storybook において、すべてのストーリーはテスト仕様となるからです。ストーリーを書くたび、仕様が無料でついてきます！
 
-視覚的なリグレッションテスト向けのツールは多々あります。Storybook のメンテナーが作成した無料のホスティングサービスである [**Chromatic**](https://www.chromatic.com/) がおすすめです。Chromatic はクラウド上でビジュアルテストを並列実行します。[前の章](/angular/ja/deploy/)で見たように Storybook をインターネット上に発行出来ます。
+視覚的なリグレッションテスト向けのツールは多々あります。Storybook のメンテナーが作成した無料のホスティングサービスである [**Chromatic**](https://www.chromatic.com/) がおすすめです。Chromatic はクラウド上でビジュアルテストを並列実行します。[前の章](/intro-to-storybook/angular/ja/deploy/)で見たように Storybook をインターネット上に発行出来ます。
 
 ## UI の変更を検知する
 
