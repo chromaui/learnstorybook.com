@@ -1,27 +1,31 @@
 ---
-title: 'Assemble a composite component'
-tocTitle: 'Composite component'
-description: 'Assemble a composite component out of simpler components'
+title: 'جمّع مكون مركب'
+tocTitle: 'مكون مركب'
+description: 'جمّع مكون مركب من مكونات بسيطة'
 commit: 'f9b2cfb'
 ---
 
-Last chapter we built our first component; this chapter extends what we learned to build TaskList, a list of Tasks. Let’s combine components together and see what happens when more complexity is introduced.
+<div style="direction: rtl">
 
-## Tasklist
+بنينا في أخر فصل مكوننا الأول; هذا الفصل يوسع مع تعلمناه لبناء قائمة مهام, قائمة بها مجموعة مهام. لندمج مكونات معا و نرى ما سيحصل عندما يتم إضافة متسوى جديد من التعقيد.
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and pinned items.
+## لائحة المهام
 
-![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
+صندوق المهام يبين المهام المثبتة بوضعهم فوق المهام الإفتراضية. هذا يكون نوعان من لائحة المهام الذان تحتاج لإنشاء ستوريز لهما: عناصر إفتراضية و عناصر مثبتة
 
-Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, an empty state is required when there are no tasks.
+![مهام إفتراضية و مثبتة](/intro-to-storybook/tasklist-states-1.png)
 
-![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
+بما أن بيانات `Task` ترسل بشكل غير متزامن, سنحتاج إلى حالة تحميل للعرض خلال غياب الإتصال. إضافةً إلى ذلك سنحتاج **أيضا** إلى حالة فارغة عندما لا توجد مهام في اللائحة.
 
-## Get setup
+![مهام فارغة و محملة](/intro-to-storybook/tasklist-states-2.png)
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.js` and `src/components/TaskList.stories.js`.
+## الإعداد
 
-Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
+لا يختلف مكون مركب عن مكون بسيط من ناحية المحتوى. قم بإنشاء مكون لائحة مهام مع ملف ستوري المصاحب له: `src/components/TaskList.js` و `src/components/TaskList.stories.js`.
+
+إبدأ بتنفيذ مبسط لـ`لائحة المهام`. ستحتاج لإستيراد مكون `Task` الذي كوناه سابقا و تمرير الخصائص و الأحداث كمدخل
+
+<div style="direction: ltr">
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -52,7 +56,11 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-Next create `Tasklist`’s test states in the story file.
+</div>
+
+ثم قم بإنشاء حالات إختبار `Tasklist` في ملف الستوري.
+
+<div style="direction: ltr">
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -107,13 +115,15 @@ Empty.args = {
 };
 ```
 
-<div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
+<div class="aside">
+💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> هي طريقة أغلفة مجردة للستوريز خصتنا. في هذه الحالة نستخدم `key` للـمزين او decorator مع التصديرة الإفتراضية مع بعض الـ`padding` حول المكون المُغلف. يمكن أيضا إستخدامهم لتغليف الستوريز في "providers" (يقصد بها مكون المكتبة الذي يستخدم مع رياكت context)
+</div>
 
-Now check Storybook for the new `TaskList` stories.
+بإستيراد `TaskStories` نحن قادرون على [جمع](https://storybook.js.org/docs/react/writing-stories/args#args-composition) الحجج (args) في الستوريز خاصتنا بأقل جهد. بهذه الطريقة تبقى البيانات و الأحداث المتوقعة من كلتا المكونين محفوظة
+
+تفقد الأن ستوريبوك لترى الستوريز الخاصة بـ`TaskList`
 
 <video autoPlay muted playsInline loop>
   <source
@@ -122,9 +132,11 @@ Now check Storybook for the new `TaskList` stories.
   />
 </video>
 
-## Build out the states
+## قم ببناء الحالة
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+لا يزال مكوننا في حالته المبدئية و لكننا الأن نملك فكرة عن الستوريز التي سنعمل عليها. قد تعتقد بأن الغلاف `.list-items` مفرط في البساطة. فعلا هو كذلك, غالبا لن نحتاج لإنشاء مكون جديد فقط من أجل غلاف. و لكن **التعقيد الفعلي** لمكون `TaskList` يظهر في الحالات الطرفية `withPinnedTasks`, `loading`, و `empty`.
+
+<div style="direction: ltr">
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -182,7 +194,9 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-The added markup results in the following UI:
+</div>
+
+نص الوصف المٌضاف يٌنتج الواجهة التالية:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -191,11 +205,13 @@ The added markup results in the following UI:
   />
 </video>
 
-Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
+لاحظ موضع العنصر المثبت في اللائحة. نريد إظهار العنصر المثبت في أعلا الائحة لإعطائه أولوية لمستخدمينا.
 
-## Data requirements and props
+## متطلبات البيانات و الدعائم
 
-As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
+كلما نما المكون, نمت معه متطلبات الإدخال. حدد متطلبات الدعائم لـ`TaskList`. لأن `Task` هو مكون تابع, تأكد أن البيانات المعطات في حالة صحيحة للإظهار. لحفظ الجهد و الوقت, أعد إستخدام propTypes التي حددتها في `Task` سابقا.
+
+<div style="direction: ltr">
 
 ```diff:title=src/components/TaskList.js
 import React from 'react';
@@ -222,23 +238,27 @@ export default function TaskList() {
 + };
 ```
 
-## Automated testing
+</div>
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `Task` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [@storybook/testing-react](https://storybook.js.org/addons/@storybook/testing-react).
+## إختبار مميكن
 
-![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
+في الفصل السابق تعلمنا كيفية إجراء إختبار لمحة على الستوريز خاصتنا بإستخدام Storyshots. مع `Task` لا يوجد الكثير من التقيد لإختبار أن الإظهار يجري بشكل صحيح. بما أن `TaskList` تضيف طبق أخرى من التعقيد نريد التأكد من أن بعض المدخلات تنتج إخراجات محددة بطريقة تتيح الإختبار المميكن. للقيام بذلك, سننشئئ إختبارات وحدة بإستخدام [مكتبة رياكت للإختبار](https://testing-library.com/docs/react-testing-library/intro) و [@storybook/testing-react](https://storybook.js.org/addons/@storybook/testing-react).
 
-### Unit tests with React Testing Library
+![شعار مكتبة الإختبار](/intro-to-storybook/testinglibrary-image.jpeg)
 
-Storybook stories, manual tests, and snapshot tests go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
+### إختبارات الوحدة و مكتبة إختبار رياكت
 
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
+ستوريز الخاصة بستوريبوك و الإختبارات اليدوية و إختبارات اللمحة تساعد كثيرا في تجنب أخطاء الواجهات. إذا غطت الستوريز أنواع مختلفة من حالات إستخدان المكون, وإستخدمنا الأدوات التي تضمن أن شخص سيرى التغيير الذي يطرأ على ستوري, تكون إحتمالية وقوع الأخطاء قليلة بشكل ملحوظ.
 
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+و لكن العبرة في التفاصيل, منصة إختبار صريحة حول هذه التفاصيل مطلوبة و هو ما يقودنا إلى إختبارات الوحدة
 
-So, to avoid this problem, we can use React Testing Library to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can simply import the story in our tests, and render it there!
+في حالتنا هذه, نريد من `TaskList` إظهار المهام المثبتة **قبل** المهام الغير مثبتة التي تم تمريرها إلى دعائم `task`. بالرغم من أن لدينا ستوري (`WithPinnedTasks`) لنختبرها في هذا السيناريو إلا أن الأمر قد يبدو مجهولا لشخص ما إذا كان المكون **أوقف** ترتيب المهام بهذا الشكل ام أنه خطأ برمجي فهي بالطبع لن تٌعلم المستخدم بأنها **خطأ**
 
-Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
+لذلك و لتفادي هذه المشكلة يمكننا إستخدام مكتبة إختبار رياكت لإظهار الستوري في الـDOM و تنفيذ بعض أوامر إستعلام حول DOM للتأكد من أن المزايا الظاهرة. ما يميز صيغة الستوري هو أنه يمكننا و بكل بساطة استيراد الستوري إلى أختباراتنا, ثم إظهارها هناك!
+
+أنشئ ملف إختبار إسمه `src/components/TaskList.test.js` هنا سنقوم ببناء إختباراتنا التي ستقوم بتأكيد المخرجات
+
+<div style="direction: ltr">
 
 ```js:title=src/components/TaskList.test.js
 import { render } from '@testing-library/react';
@@ -259,16 +279,20 @@ it('renders pinned tasks at the start of the list', () => {
 });
 ```
 
-<div class="aside">
-💡 <a href="">@storybook/testing-react</a> is a great addon that allows you to reuse your Storybook stories in your unit tests. By reusing your stories in your tests, you have a catalog of component scenarios ready to be tested. Also, all args, decorators, and other information from your story will be composed by this library. As you just saw, all you have to do in your tests is select which story to render.
 </div>
 
-![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
+<div class="aside">
+💡 <a href="">@storybook/testing-react</a> هي إضافة رائعة تسمح لك إعادة إستخدام ستوريز خاصتك في وحدات إختبار. بإعادة إستخدام ستوريز خاصتك في إختباراتك, يكون لديك فهرس من سيناريوهات المكون جاهزة للإختبار. إضافة إلى ذلك كل الحجج (args), مزينات, و المعلومات الأخرى من الستوري سيتم تجميعها عن طريق هذه المكتبة. كما لاحظت, كل ما عليك فعله في إختباراتك هو إختيار أي ستوري لإظهارها
+</div>
 
-Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
+![مشغل إختبار لائحة المهام](/intro-to-storybook/tasklist-testrunner.png)
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful about liberally using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/react/en/test/)) tests where possible.
+لاحظ أننا كنا قادرين على إعادة إستخدام ستوري `WithPinnedTasks` في إختبار الوحدة خاصتنا; بهذه الطريقة يمكننا الإستمرار في الإستفادة من مصادر موجودة بطرق مختلفة
+
+لاحظ أيضا أن هذا الإختبار هش بعض الشيئ, من المحتمل أن بنضوج المشروع و التنفيذ الخاص بـ`Task` بحد ذاته يتبدل -- ربما بإستخدام classname مختلف او `textarea` بدلا من `input`-- سيفشل الإختبار و سيحتاج للتحديث. هذه ليست مشكلة بالضرورة و إنما مؤشر لتوخي الحذر عند إستخدام إختبارات الوحدة بكثرة للواجهات. ذلك لان ليس من السهل متابعتهم. عوضا عن ذلك اعتمد الإختبارات اليدوية و اللمحة و الإنحدار المظهري (يرجى مراجعة [فصل الإختبار](/intro-to-storybook/react/en/test/) ) كلما أتاحت الفرصة.
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 لا تنسى تنفيذ هذه التغييرات إلى git
+</div>
+
 </div>
