@@ -6,7 +6,7 @@ commit: 'ac1ec13'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.
-Ajuda-o a construir componentes de interface (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
+Ajudando-o a construir componentes isolados da lógica de negócio e do contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para React.
 Encontram-se disponíveis outras edições, tanto para [Vue](/intro-to-storybook/vue/pt/get-started), quanto para [Angular](/intro-to-storybook/angular/pt/get-started).
 
