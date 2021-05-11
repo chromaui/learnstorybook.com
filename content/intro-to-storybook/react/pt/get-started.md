@@ -47,7 +47,7 @@ yarn start
 ```
 
 <div class="aside"> 
-💡 Veja o sinalizador (flag) <code>--watchAll</code> no comando de teste, incluindo este sinalizador garante que todos os testes sejam executados. Enquanto avança neste tutorial, você será apresentado a diferentes cenários de testes. Você pode considerar querer ajustar seus scripts <code>package.json</code> de acordo.
+💡 Note que a flag <code>--watchAll</code> no comando de teste garante que todos os testes sejam executados. Enquanto avança neste tutorial, você será apresentado a diferentes cenários de testes. Você pode considerar querer ajustar seus scripts no <code>package.json</code> de acordo.
 </div>
 
 As três modalidades de frontend da aplicação: testes automáticos (Jest), desenvolvimento de componentes (Storybook) e a aplicação em si.
