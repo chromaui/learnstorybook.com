@@ -3,6 +3,7 @@ const languageNameMap = {
   es: 'Español',
   'zh-CN': '简体中文',
   'zh-TW': '繁體中文',
+  ar: 'العربية',
   pt: 'Português',
   nl: 'Nederlands',
   de: 'Deutsch',
@@ -17,6 +18,6 @@ const languageNameMap = {
   it: 'Italiano',
 };
 
-const getLanguageName = language => languageNameMap[language] || language;
+const getLanguageName = (language) => languageNameMap[language] || language;
 
 export default getLanguageName;

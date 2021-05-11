@@ -1,28 +1,32 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: 'قم ببناء مكون بسيط'
+tocTitle: 'مكون بسيط'
+description: 'قم ببناء مكون بسيط بشكل منعزل'
 commit: '97d6750'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+<div style="direction: rtl">
 
-## Task
+سنقم ببناء واجهتنا بإتباع منهجية [التطوير المدفوعة بالمكون](https://www.componentdriven.org/). و هي نهج يبني واجهات المستخدم بشكل تصاعدي بداية بالمكونات و انتهاءً بالشاشات. هذه المنهجية تساعدك على توسيع مقدار التعقيد الذي تواجهه خلال بنائك للواجهات
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+## مهمة
 
-`Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+![مكون المهمة في ثلاث حالات](/intro-to-storybook/task-states-learnstorybook.png)
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+`Task` هوالمكون الجوهري في تطبيقنا. كل مهمة تُعرض بشكل مختلف نوعا ما بناء على الحالة التي هي فيها. نعرض خانة اختيار محددة (او غير مخددة), بعض المعلومات حول المهمة, و زر "تثبيت", الذي يسمح لنا بتحريك المهمة لأعلى و لأسفل اللائحة’ لبناء كل هذا, نحتاج الى هذه الدعائم:
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll manually test the component’s appearance given each state as we go.
+- `title` – نص يصف المهمة
+- `state` - أي لائحة توجد بها المهمة حاليا و هل هي محددة؟
 
-## Get setup
+خلال بنائنا للـ `مهمة`, سنكتب حالاتنا التجريبية التي تتوافق مع الأنواع الموضحة في الصورة أعلاه. ثم سنستخدم ستوريبوك لبناء المكون بشكل منعزل بإستخدام بيانات وهمية. سنختبر مظهر المكون يدويا تبعا لكل حالة اثناء تقدمنا.
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.js` and `src/components/Task.stories.js`.
+## الإعداد
 
-We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+أولا, لننشئ مكون المهمة و ملف ستوري الخاص به
+
+`src/components/Task.js` و `src/components/Task.stories.js`.
+
+سنبدأ بتنفيذ بسيط للمكون `مهمة`, سنأخذ ببساطة الصفات التي نعلم أننا سنحتاج إليها بالإضافة إلى العمليتان اللتان ستنجز على مهمة (تحريكها بين اللوائح)
 
 ```js:title=src/components/Task.js
 import React from 'react';
@@ -36,9 +40,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
+مما سبق, نقوم بإظهار النص لـ`مهمة` بشكل مباشر بناء عن هيكل HTML الخاص بتطبيق مدير المهام
 
-Below we build out Task’s three test states in the story file:
+بالأسفل, نقوم ببناء حالات الإختبار الثلاث الخاصة بالمهمة في ملف ستوري:
 
 ```js:title=src/components/Task.stories.js
 import React from 'react';
@@ -79,41 +83,45 @@ Archived.args = {
 };
 ```
 
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+هناك مستويين بسيطين من التنظيم في ستوريبوك: قصص المكون و قصص الأبناء الخاص به. يمكنك الحصول على كم غير محدود من الستوري لكل مكون تحتاج إليه
 
-- **Component**
-  - Story
-  - Story
-  - Story
+- **مكون**
+  - ستوري
+  - ستوري
+  - ستوري
 
-To tell Storybook about the component we are documenting, we create a `default` export that contains:
+لإعلام ستوريبوك بالمكون الذي نوثقه, نكون:
+`default` export
+و التي تحتوي على:
 
-- `component` -- the component itself,
-- `title` -- how to refer to the component in the sidebar of the Storybook app,
-- `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
-- `argTypes` -- specify the [args](https://storybook.js.org/docs/react/api/argtypes) behavior in each story.
+- `component` -- المكون بحد ذاته,
+- `title` -- كيفية الإشارة إلى المكون في القائمة الجانبية من تطبيق ستوريبوك,
+- `excludeStories` -- التصديريات في ملف ستوري التي لا يجب ان تظهر كستوري عن طريق ستوريبوك.
+- `argTypes` -- تحدد سلوك [الحجج](https://storybook.js.org/docs/react/api/argtypes) في كل ستوري.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component with a set of props) in a given state---exactly like a [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
+لتعريف الستوريز الخاصة بنا, نقوم بتصدير دالة لكل من حالات الإختبار لتوليد ستوري. الستوري هي دالة تقوم بإرجاع عنصر ظاهر (اي مكون مع مجموعة من الدعائم) لحالة معينة - تماما [كمكون وظيفي](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 
-As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
-
-<div class="aside">
-💡 <code>Template.bind({})</code> is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">standard JavaScript</a> technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
-</div>
-
-Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes so does the component.
-
-When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+عندما يكون ليدنا تغييرات متعددة لمكوننا, فإنه من المناسب تعيينه إلى متغير `Template` أو `قالب`. استخدام هذا النمط في الستوريز الخاصة بك يقلل من كملية الكود الذي تحتاج لكتابته و صيانته
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+💡 <code>Template.bind({})</code> هي تقنية <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">جافاسكربت اساسية</a> لإنشاء نسخة من دالة, نستخدم هذه التقنية للإتاحة لكل ستوري مُصدرة تعيين الدعائم الخاصة بها, و لكن بإستخدام نفس التنفيذ
 </div>
 
-## Config
+حجج أو[`args`](https://storybook.js.org/docs/react/writing-stories/args)
+كإختصار, تسمح لنا تعديل مكوناتنا بشكل مباشر مع إضافة الضوابط بدون إعادة تشغيل ستوريبوك. بمجرد ما ان قيم [`args`](https://storybook.js.org/docs/react/writing-stories/args) تتبدل, يتبدل المكون على حدِِ سواء
 
-We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
+عند إنشاء ستوري يمكننا إستخدام حجج `task` أساسية لبناء شكل المهمة التي يتوقع استقبالها المكون. يتم اخد ذلك عادة من الشكل الذي ستبدو عليه البيانات.
+للتذكير, اصدار (`export`) هذا الشكل يمكننا من إعادة إستخدامه في ستوريهات لاحقة.
 
-Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
+<div class="aside">
+💡 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>أحداث</b></a> تساعدك على التأكد من التفاعلات عند بناء مكونات واجهة المستخدم بشكل منعزل. عادة لن تتمكن من الوصول الى الدوال و الحالة التي لديك في سياق التطبيق. استخدم `action()` لإدخالهم.
+</div>
+
+## الإعداد
+
+سنحتاج للقيام ببعض التعديلات على ملفات إعدادات ستوريبوك ليتمكن ستوريبوك من ملاحظة تغييراتنا الأخيرة, ليس ذلك فحسب, بل حتى تمكيننا من استخدام ملف `css` الخاص بالتطبيق (الموجودة في `src/index.css`).
+
+إبدأ بتغيير ملف إعدادات ستوريبوك (`.storybook/main.js`) إلى الآتي:
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -130,7 +138,9 @@ module.exports = {
 };
 ```
 
-After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
+بعد تكملة التغيير أعلاه, داخل مجلد `.storybook` قم بتغيير المظهر (`preview.js`) إلى الآتي:
+
+<div style="direction: ltr">
 
 ```diff:title=.storybook/preview.js
 + import '../src/index.css';
@@ -141,11 +151,13 @@ export const parameters = {
 };
 ```
 
-[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case we're going to use them to configure how the `actions` (mocked callbacks) are handled.
+</div>
 
-`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) عادة تُستخدم للتحكم في سلوك مزايا و إضافات ستوريبوك. في حالتنا هذه سنستخدمهم للإعداد الطريقة التي سيتم التعامل فيها مع `actions`
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
+`actions` تسمح لنا إنشاء دوال تظهر تحت قسم **actions** من واجهة ستوريبوك. بحيث عند بناء زر تثبيت, سنتمكن في اختبار الواجهة من تحديد ما إذا كانت ضغطة زر ناجحة
+
+عند الإنتهاء من ذلك, من المفترض أن إعادة تشغيل خادم ستوريبوك ستظهر لنا حالات الإختبار للحالات الثلاث من مكون `Task`
 
 <video autoPlay muted playsInline loop>
   <source
@@ -154,11 +166,11 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-## Build out the states
+## بناء الحالات
 
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+بما أن تم إعداد ستوريبوك, و تم استيراد الأنماط, و تم بناء حالات الإختبار, يمكننا و بسرعةالبدء بتنفيذ نص `HTML` ليتطابق المكون مع التصميم
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
+<div style="direction: ltr">
 
 ```js:title=src/components/Task.js
 import React from 'react';
@@ -192,7 +204,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+</div>
+
+إضافة النمط الذي تم استيراده ممزوج مع نص الوصف أعلاه يعطينا الواجهة الأتية:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -201,9 +215,11 @@ The additional markup from above combined with the CSS we imported earlier yield
   />
 </video>
 
-## Specify data requirements
+## تحديد متطلبات البيانات
 
-It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
+من أفضل الممارسات إستخدام `propTypes` في رياكت لتحديد شكل البيانات التي يتوقعها مكون. لا يقتصر الأمر على التكوين الذاتي فحسب, بل يساعد أيضا في إكتشاف المشاكل مبكرا
+
+<div style="direction: ltr">
 
 ```diff:title=src/components/Task.js
 import React from 'react';
@@ -230,49 +246,63 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 + };
 ```
 
-Now a warning in development will appear if the Task component is misused.
-
-<div class="aside">
-💡 An alternative way to achieve the same purpose is to use a JavaScript type system like TypeScript to create a type for the component properties.
 </div>
 
-## Component built!
+سيظهر الآن خلال التطوير إنذار في حال أستخدمت المهمة (Task) بشكل خاطئ
 
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
-
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
-
-## Automated Testing
-
-Storybook gave us a great way to manually test our application UI during construction. The ‘stories’ will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
-
-### Snapshot testing
-
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+حل بديل لتحقيق نفس الهدف هو إستخدام TypeScript من أجل دعائم المكون
 
 <div class="aside">
-💡 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+💡 حل بديل لتحقيق نفس الهدف هو إستخدام TypeScript من أجل دعائم المكون
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependencies:
+## تم بناء المكون
+
+قمنا الآن ببناء مكوننا بشكل ناجح بدون الحاجة لخادم أو تشغيل الواجهة الأمامية لتطبيقنا بشكل كامل. الخطوة الآتية هي بناء ما تبقى من صندوق المهام خطوة بخطوة بنفس الطريقة.
+
+كما تلاحظ, من السهل و من السريع البدأ في بناء المكونات بشكل منعزل. يمكننا توقع إنتاج واجهات أمامية ذات جودة عالية و بمشاكل قليلة لأن من الممكن التعمق و إختبار كل حالة لكل مكون.
+
+## إختبار مميكن
+
+ستوريبوك يمككنا من إختبار واجهة تطبيقنا خلال عملية البناء. ستساعدنا الـ`ستوريز` من ضمان أننا لن كسر شكل المهمة (Task) عند تطويرنا للتطبيق. و لكن, هذه عملية يدوية إلى هذه اللحظة, سيحتاج شخص ما من الضغط على كل إختبار حالة لضمان إظهاره بشكل صحيح و بدون أخطاء, ألا يمكننا القيام بذلك ذاتيا؟
+
+### إختبار اللمحة
+
+يقصد به تسجيل الإخراج الجيد لمكون بناء على إدخال معين ثم الإشارة إلى المكون كلما تغير المغرج في المستقبل. هذا يكمل ستوريبوك لأنها طريقة سريعة لعرض نسخ جديدة من المكون و التغييرات التي طرأت عليه.
+
+<div class="aside">
+💡 تأكد من أن بيانات الإظهار الخاصة بالمكون لا تتبدل حتى لا يفشل إختبار اللمحة في كل مرة. إنتبه لأشياء مثل التواريخ أو القيم المولدة عشوائيا.
+</div>
+
+مع [إضافة ستوريبوك](https://github.com/storybooks/storybook/tree/master/addons/storyshots) يتم إنشاء اختبار لمحة لكل ستوري. إستخدمها لأضافة التبعيات التالية:
+
+<div style="direction: ltr">
 
 ```bash
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 
-Then create an `src/storybook.test.js` file with the following in it:
+</div>
+
+ثم أنشئ ملف `src/storybook.test.js` يحتوي على الأتي:
+
+<div style="direction: ltr">
 
 ```js:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-That's it, we can run `yarn test` and see the following output:
+</div>
+
+إنتهينا! يمكنك تنفيذ الأمر `yarn test` و رؤية الإخراج التالي:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+الأن لدينا إختبار لمحة لكل ستوري خاصة بالـ`Task`. إذا غيرنا التنفيذ الخاص بالـ`Task` سوف يٌطلب منا تأكيد هذا التغيير
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 لا تنسى تنفيذ هذه التغييرات إلى git
+</div>
+
 </div>
