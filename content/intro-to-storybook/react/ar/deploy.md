@@ -1,53 +1,67 @@
 ---
-title: 'Deploy Storybook'
-tocTitle: 'Deploy'
-description: 'Learn how to deploy Storybook online'
+title: 'أطلق ستوريبوك'
+tocTitle: 'أطلق'
+description: 'تعلم كيفية إطلاق ستوريبوك أونلاين'
 commit: '8652d73'
 ---
 
-Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.
+<div style="direction: rtl">
 
-## Exporting as a static app
+عبر هذه الدروس, بنينا مكونات على جهاز التطوير المحلي خاصتنا. في نقطة معينة, سنحتاج لإطلاق عملنا للحصول على ملاحظات الفريق. لإطلاق ستوريبوك أونلاين لنساعد زملائنا على مراجعة تنفيذ واجهة المستخدم.
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
+## التصدير كتطبيق ثابت
 
-Running `yarn build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
+لإطلاق ستوريبوك سنحتاج أولا لإصداره كتطبيق ويب ثابت. هذه الوظيفة موجودة و معدة مسبقا في ستوريبوك.
 
-## Publish Storybook
+تنفيذ `yarn build-storybook` سينتج ستوريبوك ثابت في وجهة `storybook-static`, و التي يمكنها بعد ذلك الإطلاق على أي خدمة إستضافة مواقع ثابتة.
 
-This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
+## نشر ستوريبوك
 
-### Setup a repository in GitHub
+هذا الدرس يستخدم <a href="https://www.chromatic.com/">كروماتك</a>, خدمة نشر مجانية صنعت من مراقبي ستوريبوك. تسمح لنا بإطلاق و إستضافة ستوريبوك خاصتنا بشكل أمن في السحابة.
 
-Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/intro-to-storybook/react/en/get-started/), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
+### قم بإعداد مستودع في Github
 
-Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
+قبل أن نبدأ, يحتاج الكود المحلي ان يتزامن مع خدمة التحكم في الإصدار عن بعد. عندما تم تهيئة مشروعنا في [فصل البدأ](/intro-to-storybook/react/en/get-started/), قمنا بتهيئة مستودع محلي. في هذه اللحظة ليدنا بالفعل مجموعة من التنفيذات (commits) التي يمكننا دفعها إلى مستودع عن بعد.
 
-![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
+إذهب إلى GitHub و قم بإنشاء مستودع جديد لمشروعنا [هنا](https://github.com/new). اعط المستودع إسم "taskbox" كما في مشروعنا المحلي.
 
-In the new repo, grab the origin URL of the repo and add it to your git project with this command:
+![إعداد Github](/intro-to-storybook/github-create-taskbox.png)
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
-```
+في المستودع الجديد, خذ رابط المصدر و أضفه إلى مشروع git خاصتك عن طريق هذا الأمر:
 
-Finally, push our local repo to the remote repo on GitHub with:
+<div style="direction: ltr">
 
 ```bash
-$ git push -u origin main
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-### Get Chromatic
+</div>
 
-Add the package as a development dependency.
+أخيرا, إدفع مستودعك المحلي إلى البعيد في Github عن طريق:
+
+<div style="direction: ltr">
+
+```bash
+git push -u origin main
+```
+
+</div>
+
+### إجلب Chromatic
+
+أضف الحزمة إلى تبعيات التطوير.
+
+<div style="direction: ltr">
 
 ```bash
 yarn add -D chromatic
 ```
 
-Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've setup.
+</div>
 
-Click `Choose GitHub repo` under collaborators and select your repo.
+عندما يتم تثبيت الحزمة, [سجل دخولك إلى Chromatic](https://www.chromatic.com/start) بإستخدام حسابك في Github (Chromatic سيطلب سمحيات خفيفة) ثم سننشئ مشروع جديد إسمه "taskbox" و نزامنه مع مستودع Github الذي أعددناه.
+
+إضغط على `Choose GitHub repo` تحت خانة المتعاونون و إختر مستودعك.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -56,29 +70,35 @@ Click `Choose GitHub repo` under collaborators and select your repo.
   />
 </video>
 
-Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
+إنسخ الرمز الفريد `project-token` الذي يتم توليده لمشروعك. ثم قم بتنفيذه عن طريق تنفيذ الأمر التالي لبناء و إطلاق ستوريبوك. تأكد من تبديل كلمة `project-token` برمز مشروعك.
+
+<div style="direction: ltr">
 
 ```bash
 yarn chromatic --project-token=<project-token>
 ```
 
-![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
+</div>
 
-When finished, you'll get a link `https://random-uuid.chromatic.com` to your published Storybook. Share the link with your team to get feedback.
+![Chromatic يشتغل](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
+عند الإنتهاء ستحصل على رابط `https://random-uuid.chromatic.com` للستوريبوك المٌنشر. شارك هذا الرابط مع فريقك للحصول على أرائهم.
 
-Hooray! We published Storybook with one command, but manually running a command every time we want to get feedback on UI implementation is repetitive. Ideally, we'd publish the latest version of components whenever we push code. We'll need to continuously deploy Storybook.
+![ستوريبوك نٌشر بحزمة Chromatic](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
 
-## Continuous deployment with Chromatic
+مرحى! لقد قمنا بنشر ستوريبوك بإستخدام أمر واحد, و لكن تنفيذ أمر كل مرة نريد فيها الحصول على تعليق حول تنفيذ واجهة المستخدم هو أمر تكراري. من ناحية مثالية, نريد نشر أخر نسخة من المكونات كلما دفعنا الكود. سنتحتاج إلى إطلاق إستمراري لستوريبوك.
 
-Now that our project is hosted in a GitHub repository, we can use a continuous integration(CI) service to deploy our Storybook automatically. [GitHub Actions](https://github.com/features/actions) is a free CI service that's built into GitHub that makes automatic publishing easy.
+## الإطلاق الإستمراري مع Chromatic
 
-### Add a GitHub Action to deploy Storybook
+بما أن مشروعنا مستضاف في مستودع Github, يمكننا إستخدام خدمة دمج إستمراري (Continious Integration) لإطلاق ستوريبوك خاصتنا أوتوماتيكيا. [GitHub Actions](https://github.com/features/actions) هي خدمة دمج إستمراري مجانية مبنية في Github تسهل الإطلاق الأوتوماتيكي.
 
-In the root folder of our project, create a new directory called `.github` then create another `workflows` directory inside of it.
+### أضف Github Action لإطلاق ستوريبوك
 
-Create a new file called `chromatic.yml` like the one below. Make sure to replace `CHROMATIC_PROJECT_TOKEN` with your project token.
+في المجلد الرئيسي من المشروع, انشئ وجهة جديدة بإسم `.github` ثم أنشئ وجهة أخرى داخلها بإسم `workflows`
+
+أنشئ ملف جديد بإسم `chromatic.yml` مثل الذي بالأسفل. تأكد من إعادة تسمية `CHROMATIC_PROJECT_TOKEN` إلى الرمز الفريد لمشروعك.
+
+<div style="direction: ltr">
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
@@ -105,36 +125,52 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>💡 For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+</div>
 
-### Commit the action
+<div class="aside"><p>💡 لتبسيط الأمور, لم تٌذكر <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> Secrets او أسرار هي متغيرات بيئة أمنة مقدمة من Github لكي لا تحتاج لكتابة <code>رمز المشروع</code> الفريد يدويا داخل الكود.</p></div>
 
-In the command line, issue the following command to add the changes that were done:
+### نفذ الـ action
+
+في سطر الأوامر, نفذ الأمر التالي لإضافة التغييرات التي تم تنفيذها:
+
+<div style="direction: ltr">
 
 ```bash
 git add .
 ```
 
-Then commit them by issuing:
+</div>
+
+ثم نفذ التغييرات عن طريق:
+
+<div style="direction: ltr">
 
 ```bash
 git commit -m "GitHub action setup"
 ```
 
-Finally push them to the remote repository with:
+</div>
+
+أخيرا, إدفع التغييرات إلى المستودع البعيد عن طريق:
+
+<div style="direction: ltr">
 
 ```bash
 git push origin main
 ```
 
-Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic.
+</div>
 
-![Chromatic user dashboard](/intro-to-storybook/chromatic-user-dashboard.png)
+بمجرد إعدادك Github action سيتم إطلاق ستوريبوك إلى Chromatic كلما تقوم بدفع الكود. يمكنك إيجاد كل الستوريبوك التي تم نشرها في واجهة بناء مشروعك في Chromatic.
 
-Click the latest build, it should be the one at the top.
+![لوحة مستخدم Chromatic](/intro-to-storybook/chromatic-user-dashboard.png)
 
-Then, click the `View Storybook` button to see the latest version of your Storybook.
+أنقر على أخر بناء, يجب أن يكون في الأعلى.
 
-![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
+ثم أنقر على زر `View Storybook` لرؤية أخر نسخة من ستوريبوك خاصتك.
 
-Use the link and share it with your team members. This is helpful as a part of the standard app development process or simply to show off work 💅.
+![رابط ستوريبوك في Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
+
+شارك الرابط مع زملائك. هذا سيساعدك سواء كان جزء من مسار تطوير تطبيق إعتيادي أم فقط من أجل التفاخر بعملك 💅
+
+</div>
