@@ -1,17 +1,21 @@
 ---
-title: 'Construct a screen'
-tocTitle: 'Screens'
-description: 'Construct a screen out of components'
+title: 'أنشئ واجهة'
+tocTitle: 'واجهات'
+description: 'أنشئ واجهة من المكونات'
 commit: '46f29e3'
 ---
 
-We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+<div style="direction: rtl">
 
-In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+ركزنا على بناء الواجهات من الأسفل لأعلى; عن طريق البدأ بشكل صغير ثم إضافة التعقيدات. هذا مكننا من تطوير كل مكون في منعزل, تحديد بياناته, و التلاعب به في ستوريبوك. كل ذلك دون الحاجة لخادم او بناء واجهات.
 
-## Nested container components
+في هذا الفصل سنستمر في إضافة متوى تعقيدي بدمج المكونات في واجهة و تطوير تلك الواجهة في ستوريبوك
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.js` in your `components` folder:
+## مكونات حاوية متداخلة
+
+بما أن تطبيقنا بسيط فإن بناء واجهاتنا سيكون سهلا, مجرد تغليف مكون `TaskList` (الذي يقوم بتزويد بياناته الخاصة عن طريق ريدكس) في نسق و اضافة خانة خطأ `error` من ريدكس (لنعتبر أننا سنملأ هذه الخانة في حالة مواجهتنا لمشكلة في الإتصال بخادمنا). قم بإنشاء `InboxScreen.js` في مجلد `components`:
+
+<div style="direction: ltr">
 
 ```js:title=src/components/InboxScreen.js
 import React from 'react';
@@ -57,7 +61,11 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+</div>
+
+سنغير أيضا مكون `App` ليٌظهر `InboxScreen` (سنستخدم في النهاية موجه لإختيار الواجهة الصحيحة, و لكن سنقوم بذلك في وقت آخر):
+
+<div style="direction: ltr">
 
 ```js:title=src/App.js
 import { Provider } from 'react-redux';
@@ -77,13 +85,17 @@ function App() {
 export default App;
 ```
 
-However, where things get interesting is in rendering the story in Storybook.
+</div>
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
+.إظهار الستوري في ستوريبوك هو حيث تصبح الأمور مثيرة للإهتمام
 
-When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+كما رأينا سابقا, مكون `TaskList` هو **حاوية** تظهر المكون المظهري `PuteTaskList`. حسب التعريف, المكونات الحاوية لا يمكنها ان تظهر في عزلة; تتوقع هذه المكونات استلام سياق أو الإتصال بخدمة. هذا يعني أن لكي تظهر حاوية في ستوريبوك, يجب تزييف (أي إستخدام نسخة غير حقيقية) السياق أو الخدمة التي تتطلبها.
 
-However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `InboxScreen.stories.js`:
+تمكنا عند وضع `TaskList` في ستوريبوك من تجنب هذه المشكلة بإظهار `PureTaskList` و تفادي الحاوية. سنقوم بالأمر ذاته للإظهار `PureInboxScreen` في ستوريبوك.
+
+و لكن لدينا مشكلة لأن بالرغم أن `PureInboxScreen` مظهري بحد ذاته فإن المكون التابع `TaskList` ليس كذلك. أي كأنما المكون `PureInboxScreen` تلوث عندما تحول إلى "حاوية". لذلك عند إعداد ستوريز خاصتنا في `InboxScreen.stories.js`:
+
+<div style="direction: ltr">
 
 ```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
@@ -105,21 +117,25 @@ Error.args = {
 };
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
-
-![Broken inbox](/intro-to-storybook/broken-inboxscreen.png)
-
-One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
-
-However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
-
-<div class="aside">
-💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
-## Supplying context with decorators
+يتضح لنا أنه بالرغم من أن ستوري `error` تعمل دون مشاكل, فإنه لدينا مشكلة في ستوري `default` لأن `TaskList` ليس لديها مخزن ريدكس لتتصل به. (ستواجه مشاكل مشابهة عند إختبار `PureInboxScreen` بإختبار وحدة)
 
-The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
+![صندوق بريد عاطل](/intro-to-storybook/broken-inboxscreen.png)
+
+أحدى الطرق لحل هذه المشكلة هي بتجنب إظهار المكون الحاوية في أي مكان في تطبيقنا إلا في مستوى عال و تمرير متطلبات البيانات عوضا عن ذلك لأسفل هيكل المكون.
+
+و لكن المطورين **سوف** يحتاجون إلى إظهار مكونات خلال هيكل المكون. لو أردنا إظهار معظم أو كل التطبيق في ستوريبوك (نحن بالفعل نريد ذلك!) فإننا سنحتاج لحل لهذه المشكلة.
+
+<div class="aside">
+💡 كملاحظة جانبية, تمرير البيانات لأسفل التسلسل الهرمي هو الطريقة الصحيحة, خاصة عند إستخدام <a href="http://graphql.org/">GraphQL</a>. فهي الطريقة التي بنينا بها <a href="https://www.chromatic.com">Chromatic</a> مع +800 ستوري.
+</div>
+
+## تزويد السياق و المزينات
+
+الخبر الجيد هو أنه من السهل تمرير مخزن ريدكس إلى `InboxScreen` في ستوري! يمكننا بكل بساطة إستخدام نسخة مزيفة من مخزن ريدكس مقدمة في مزين:
+
+<div style="direction: ltr">
 
 ```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
@@ -158,9 +174,11 @@ Error.args = {
 };
 ```
 
-Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
+</div>
 
-Cycling through states in Storybook makes it easy to test we’ve done this correctly:
+توجد طرق أخرى لتزويد سياق مزيف لمكتبات بيانات أخرى. مثل [أبولو](https://www.npmjs.com/package/apollo-storybook-decorator), [ريلاي](https://github.com/orta/react-storybooks-relay-container) و أخرين.
+
+التنقل بين الحالات في ستوريبوك يسهل إختبار ما إذا ما قمنا به صحيح أم لا:
 
 <video autoPlay muted playsInline loop >
 
@@ -170,9 +188,9 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
-## Component-Driven Development
+## التطوير القائم على المكون
 
-We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
+بدأنا من أسفل لأعلى مع `Task`ثم `TaskList`, الأن لدينا واجهة إستخدام كاملة. `InboxScreen` خاصتنا يتشكل من مكون حاوية متداخل و يحتوي على الستوريز التابعة له
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -181,10 +199,12 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**التطوير القائم على المكون**](https://www.componentdriven.org/) تسمح لك توسيع مستوى التعقيد بشكل متدرج كلما تتقدم في السلسلة الهرمية للمكونات. إحدى فوائدها هي مستوى تركيز أعلى في نهج التطوير و تغطية أعلى لكل التغييرات المحتملة على واجهة المستخدم. بإختصار هذه المنهجية تسمح لك بناء واجهات مسخدم معقدة و ذات جودة أعلى
 
-We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+لم ننته بعد - العمل لا ينتهي عند الإنتهاء من بناء واجهة المستخدم. نحتاج أيضا للتأكد أنها تبقى متينة عبر الوقت.
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 لا تنسى تنفيذ هذه التغييرات إلى git
+</div>
+
 </div>
