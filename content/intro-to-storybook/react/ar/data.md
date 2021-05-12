@@ -1,27 +1,35 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
+title: 'إربط البيانات'
+tocTitle: 'البياتات'
+description: 'تعلم كيفية ربط البيانات مع مكون واجهة المستخدم'
 commit: 'd2fca1f'
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+<div style="direction: rtl">
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+أنشأنا إلى حد الأن مكونات بدون حالة و التي تعتبر مناسبة لستوريبوك و لكن ليست ذات جدوى إلا إذا اعطيناها بعض من البيانات في تطبيقنا
 
-## Container components
+هذا الدرس لا يركز على تفاصيل بناء تطبيق لذلك لن نتطرق لهذه التفاصيل. و لكن سنتوقف لحظة لنلقي نظرة على الأنماط المتداولة عند ربط البيانات مع المكونات الحاوية.
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+## المكونات الحاوية
 
-This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+مكون `TaskList` خاصتنا مكتوب في صورة مظهرية (راجع [منشور هذه المدونة](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) أي انه لا يتصل مع أي شيئ خارج محيط تنفيذه. لتمرير البيانات إليه, نحتاج إلى "حاوية".
 
-Add the necessary dependencies to your project with:
+هذا المثال يستخدم [ريدكس](https://redux.js.org/), أشهر مكتبة رياكت لتخزين البيانات, لبناء نموذج بيانات بسيط لتطبيقنا. و لكن هذا النمط المستخدم يمكن تطبيقه على أي مكتبة إدارة بيانات أخرى مثل [أبولو](https://www.apollographql.com/client/) و [موب اكس](https://mobx.js.org/).
+
+أضف التبعيات الضرورية لمشروعك عن طريق:
+
+<div style="direction: ltr">
 
 ```bash
 yarn add react-redux redux
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
+</div>
+
+سنبني أولا مخزن ريدكس يستجيب لأحداث تبدل في حالة المهام خاصتنا, في ملف تحت إسم `lib/redux.js` في مجلد `src` (أٌبقى بسيط عن قصد):
+
+<div style="direction: ltr">
 
 ```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
@@ -75,7 +83,11 @@ const defaultTasks = [
 export default createStore(reducer, { tasks: defaultTasks });
 ```
 
-Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
+</div>
+
+سنغير بعدها في التصديرة الإفتراضية من مكون `TaskList` ليتصل مع مخزن ريدكس و يٌظهر المهام التي نحن مهتمين بهم:
+
+<div style="direction: ltr">
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -116,13 +128,17 @@ export default connect(
 )(PureTaskList);
 ```
 
-Now that we have some real data populating our component, obtained from Redux, we could have wired it to `src/app.js` and render the component there. But for now let's hold off doing that and continue on our component-driven journey.
+</div>
 
-Don't worry about it we'll take care of it in the next chapter.
+بما أن لدينا بيانات حقيقية مأخوذة من ريدكس في مكوننا, يمكننا ربطه مع `src/app.js` و إظهار المكون هناك. و لكن لنتأخر عن ذلك و نستمر في رحلتنا البنية عن المكون.
 
-At this stage, our Storybook tests will have stopped working because `TaskList` is now a container and no longer expects any props. Instead `TaskList` connects to the store and sets the props on the `PureTaskList` component it wraps.
+لا تقلق سنتعامل مع ذلك في الفصل التالي.
 
-However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
+في هذه المرحلة, ستتوقف إختبارات ستوريبوك عن العمل لأن `TaskList` أصبح حاوية و لا يقبل دعائم بعد الآن. تقوم `TaskList` عوضا عن ذلك بالإتصال مع المخزن و تقوم بوضع الدعائم في مكون `PureTaskList` المحيطة به.
+
+و لكن يمكننا حل هذه المشكلة بكل بساطة عن طريق عرض `PureTaskList` -- المكون المظهري الذي أضفناه لتونا في جملة `export` في الخطوة السابقة -- في ستوريز الخاصة بستوريبوك:
+
+<div style="direction: ltr">
 
 ```diff:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -177,6 +193,8 @@ Empty.args = {
 };
 ```
 
+</div>
+
 <video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
@@ -185,5 +203,8 @@ Empty.args = {
 </video>
 
 <div class="aside">
-💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
+💡 مع هذا التغيير ستحتاج اللمحات خاصتك إلى تحديث, قم بإعادة تنفيذ أمر الإختبار عن طريق المؤشر <code>-u</code> لتحديثهم, و لا تنسى أيضا تنفيذ التغييرات إلى git
+
+</div>
+
 </div>
