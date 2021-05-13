@@ -1,21 +1,23 @@
 ---
-title: 'Addons'
-tocTitle: 'Addons'
-description: 'Learn how to integrate and use the popular Controls addon'
+title: 'الإضافات'
+tocTitle: 'الإضافات'
+description: 'تعلم كيفية دمج و إستخدام إضافات ضبط مشهورة'
 commit: 'a23f4d0'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons),
+<div style="direction: rtl">
+
+يمتلك ستوريبوك نظام بيئي قوي من [الإضافات](https://storybook.js.org/docs/react/configure/storybook-addons) التي يمكنك إستخدامها لتحسين تجربة المطور لكل شخص من فريقك. إطلع عليهم كلهم [هنا](https://storybook.js.org/addons).
+
+إذا كنت تتابع هذه الدروس فقد قابلت بالفعل مجموعة من الإضافات و أعددت إحداها في فصل [الإختبار](/intro-to-storybook/react/en/test/)
 
 If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/intro-to-storybook/react/en/test/) chapter.
 
-There are addons for every possible use case. It would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/react/essentials/controls).
+## ما هي الضوابط؟
 
-## What is Controls?
+الضوابط Controls تسمح للمصممين و المطورين إكتشاف سلوك المكون بسهولة عن طريق التلاعب في حججها أو براهينها. لا حاجة للكود. الضوابط تُنشئ لوحة إضافات بجانب ستوريز خاصتك, لكي تتمكن من تعديل حججها مباشرةً
 
-Controls allows designers and developers to easily explore component behavior by _playing_ with its arguments. No code required. Controls creates an addon panel next to your stories, so you can edit their arguments live.
-
-Fresh installs of Storybook include Controls out of the box. No extra configuration needed.
+الضوابط تأتي جاهزة عند تثبيت ستوريبوك لأول مرة. لا حاجة لأي تهيئة.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -24,21 +26,23 @@ Fresh installs of Storybook include Controls out of the box. No extra configurat
   />
 </video>
 
-## Addons unlock new Storybook workflows
+## الإضافات تفتح مسارات عمل ستوريبوك جديدة
 
-Storybook is a wonderful [component-driven development environment](https://www.componentdriven.org/). The Controls addon evolves Storybook into an interactive documentation tool.
+ستوريبوك [بيئة تطوير مبنية على المكون](https://www.componentdriven.org/) رائعة. إضافة الضوابط تجعل من ستوريبوك أداة توثيق تفاعلية.
 
-### Using Controls to find edge cases
+### إستخدام الضوابط لإيجاد الحالات الطرفية
 
-With Controls QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Let's consider the following example, what would happen to our `Task` if we added a **MASSIVE** string?
+بإستخدام الضوابط يكمن لمهندسي ضمان الجودة, مهندسي الواجهات, أو أي صاحب مصلحة من دفع المكون لأقصى حد! لنأخذ في عين الإعتبار المثال التالي, ماذا سيحدث لـ `Task` إذا ضفنا نص **كبير**؟
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
+![أوه لا! المحتوى في الجهة اليمنى مقطوع!](/intro-to-storybook/task-edge-case.png)
 
-That's not right! It looks like the text overflows beyond the bounds of the Task component.
+هذا ليس صحيحا! يبدو أن النص يفيض خارج حدود مكون Task
 
-Controls allowed us to quickly verify different inputs to a component. In this case a long string. This reduces the work required to discover UI problems.
+الضوابط تمكنك من التأكد بسرعة من مدخلات مكون. في هذه الحالة نص طويل. هذا يقلل مقدار العمل المٌتطلب للإكتشاف مشاكل الواجهات.
 
-Now let's fix the issue with overflowing by adding a style to `Task.js`:
+لنقم الآن بإصلاح مشكلة الفيضان بإضافة نمط لـ `Task.js`:
+
+<div style="direction: ltr">
 
 ```diff:title=src/components/Task.js
 <input
@@ -50,15 +54,19 @@ Now let's fix the issue with overflowing by adding a style to `Task.js`:
 />
 ```
 
-![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
+</div>
 
-Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
+![هذا أفضل](/intro-to-storybook/edge-case-solved-with-controls.png)
 
-### Adding a new story to avoid regressions
+حُلّت المشكلة. يُقطع النص الآن عند وصوله لحدود Task بإستخدام قطع جميل.
 
-In the future, We can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
+### أضف ستوري جديدة لتفادي التراجع
 
-Add a new story for the long text case in `Task.stories.js`:
+يمكننا مستقبلاً إعادة إنتاج هذه المشكلة بإدخال نفس النص عن طريق الضوابط. و لكن سيكون أسهل كتابة ستوري تظهر هذه الحالة الطرفية. هذا سيوسع مساحة تخطية إختبار التراجع خاصتنا و يبين حدود المكونات لباقي الفريق.
+
+أضف ستوري جديد من أجل حالة النص الطويل في `Task.stories.js`:
+
+<div style="direction: ltr">
 
 ```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
@@ -72,7 +80,9 @@ LongTitle.args = {
 };
 ```
 
-Now we can reproduce and work on this edge case with ease.
+</div>
+
+يمكننا الآن إعادة إنتاج و العمل على هذه الحالة الطرفية بكل سهولة
 
 <video autoPlay muted playsInline loop>
   <source
@@ -81,10 +91,12 @@ Now we can reproduce and work on this edge case with ease.
   />
 </video>
 
-If we are [visual testing](/intro-to-storybook/react/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge-cases are liable to be forgotten without test coverage!
+إذا قمنا [بالإختبار الظاهري](/intro-to-storybook/react/en/test/) سيتم إعلامنا أيضا عند تعطل حل القطع. تكون الحالات الطرفية الغامضة عرضةََ للنسيان إذا لم يغطيها إختبار.
 
-<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories, and much more than we've seen here, we recommend reading the <a href="https://storybook.js.org/docs/react/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
+<div class="aside"><p>💡 تعتبر الضوابط طريقة رائعة لتمكين غير-المطورين من التلاعب بالمكونات و الستوريز, إضافةً إلى أشياء أخرى لم نرها هنا, نوصي بقراءة <a href="https://storybook.js.org/docs/react/essentials/controls">التوثيق الرسمي</a> لمعرفة المزيد. و لكن يوجد العديد من الطرق لتعديل ستوريبوك ليناسب مسار عملك و إضافاتك. في <a href="/create-an-addon/react/en/introduction/">دليل إنشاء إضافة</a> سنعلمك أنه بإنشائك لإضافة, يساعدك ذلك على تحسين مسار تطويرك.</p></div>
 
-### Merge Changes
+### إدمج التغييرات
 
-Don't forget to merge your changes with git!
+لا تنسى دمج تغييراتك مع git!
+
+</div>
