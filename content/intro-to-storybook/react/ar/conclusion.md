@@ -1,34 +1,41 @@
 ---
-title: 'Conclusion'
-description: 'Put all your knowledge together and learn more Storybook techniques'
+title: 'الخلاصة'
+description: 'لخص معرفتك و تعلم المزيد من تقنيات ستوريبوك'
 ---
 
-Congratulations! You created your first UI in Storybook. Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following, your repo and deployed Storybook should look like this:
+<div style="direction: rtl">
+
+تهانينا! كوّنت أول مكون واجهة لك.
+تعلمت خلال رحلتنا كيف بناء, تجميع, إختبار, و إطلاق مكونات واجهة المستخدم. إذا كنت تتابع فإن مستودعك و ستوريبوك المطلقة يجب أن تبدوا بهذا الشكل:
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **Deployed Storybook**](https://clever-banach-415c03.netlify.app/)
+[🌎 **ستوريبوك المطلق**](https://clever-banach-415c03.netlify.app/)
 
-Storybook is a powerful tool for React, React Native, Vue, Angular, Svelte and many others frameworks. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
+ستوريبوك هو أداة قوية لرياكت, رياكت ناتيف, فيو, أنجيولار, سفيلت, و العديد من المنصات الأخرى. لديه مجتمع مطورين متقدم و مجموعة كبيرة من الإضافات. هذه المقدمة تقوم بمجرد خدش سطح لما هو ممكن. نحن واثقون بأن مجرد تبنيك لستوريبوك ستكن منبهر بمقدار الإنتاجية إذا قمت ببناء واجهات قوية.
 
-## Learn more
+## تعلم المزيد
 
-Want to dive deeper? Here are helpful resources.
+تريد الغوض أكثر في ستوريبوك؟ هذه مصادر مفيدة.
 
-- [**Official Storybook documentation**](https://storybook.js.org/docs/react/get-started/introduction) has API documentation, community links, and the addon gallery.
+- [**التوثيق الرسمي لستوريبوك**](https://storybook.js.org/docs/react/get-started/introduction) لديه توثيق API, روابط مجتمع, و معرض إضافات.
 
-- [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
+- [**مسار عمل ستوريبوك المُفرح**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
+يسلط الضوء على أفضل ممارسات مسار العمل التي تستخدمها فرق عالية السرعة في Squarespace, Major League Soccer, Discovery Network و Apollo GraphQL.
 
-- [**Storybook Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community. Get and give help to other Storybook users.
+- [**كتاب الإختبار البصري**](https://storybook.js.org/tutorials/visual-testing-handbook/) يخوض عميقا في طريقة إستخدام ستوريبوك لإختبار المكونات بصريا. كتاب مجاني يتألف من واحد و ثلاثين صفحة.
 
-- [**Storybook blog**](https://medium.com/storybookjs) showcases the latest releases and features to streamline your UI development workflow.
+- [**محادثات ستوريبوك على ديسكورد**](https://discord.gg/UUt2PJb) تصلك مع مجتمع ستوريبوك. ساعد و احصل على مساعدة من متسخدمي ستوريبوك الأخرين
 
-## Who made the Intro to Storybook tutorial?
+- [**مدونة ستوريبوك**](https://medium.com/storybookjs) تعرض أخر الإصدارات و المزايا التي يمكنك الإستفادة منها في مسار عمل تطويرك للواجهات
 
-The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+## من صنع المقدمة لدروس ستوريبوك؟
 
-Want more tutorials and articles like this? Sign up to the Storybook mailing list.
+النص, الكود, و الإنتاج كلهم تمت المساهمة بهم عن طريق [Chromatic](https://www.chromatic.com/). إستوحيت الدروس من سلسلة Chromatic المشهورة [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+
+تريد دروس و مقالات أكثر مثل هذه؟ اشترك في اللائحة البريدية الخاصة بستوريبوك
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
+
+</div>
