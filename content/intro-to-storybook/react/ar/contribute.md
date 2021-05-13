@@ -1,12 +1,16 @@
 ---
-title: 'Contribute'
-description: 'Help share Storybook with the world'
+title: 'ساهم'
+description: 'ساعدنا في نشر ستوريبوك حول العالم'
 ---
 
-Contributions to Storybook's tutorials are encouraged! If it’s something small like grammar or punctuation, open up a pull request. If it’s a bigger change, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion.
+<div style="direction: rtl">
 
-Storybook's tutorials were created and maintained primarily by the community, so we need everyone's help to keep it up to date and ensure any rough edges are smoothed out over time. All help is appreciated!
+المساهمات في دروس ستوريبوك مرحب بها! سواء كانت شيئا صغيرا مثل إصلاح نحوي أو إملائي, إفتح طلب سحب pull request. إذا كان تغيير أكبر [أضف قضية](https://github.com/chromaui/learnstorybook.com/issues) للنقاش
 
-## Translations
+تم إنشاء و إدارة دروس ستوريبوك بشكل أساسي عن طريق المجتمع, لذلك نحتاج المساعدة من الجميع لإبقاءها جديدة أول بأول, و ضمان أن أي مشكلة يتم حلها عبر الوقت, نحن نقدر مساعدة الجميع.
 
-Our goal is to make Storybook approachable to all people. Help translate this tutorial into other languages. We’re especially open to Chinese and Spanish translations. Comment on the [issue here](https://github.com/chromaui/learnstorybook.com/issues/3).
+## الترجمات
+
+هدفنا هو جعل ستوريبوك سهل الفهم لكل الناس. ساعدنا في ترجمة هذه الدروس إلى لغات أخرى. نرحب بشكل خاص الترجمات الصينية و الإسبانية. اترك تعليق على [هذه القضية](https://github.com/chromaui/learnstorybook.com/issues/3).
+
+</div>
