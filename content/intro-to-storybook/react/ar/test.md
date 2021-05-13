@@ -1,22 +1,24 @@
 ---
-title: 'Test UI components'
-tocTitle: 'Testing'
-description: 'Learn the ways to test UI components'
+title: 'إختبر مكونات واجهة المستخدم'
+tocTitle: 'الإختبار'
+description: 'تعلم الطرق لإختبار مكونات واجهة المستخدم'
 ---
 
-No Storybook tutorial would be complete without testing. Testing is essential to creating high quality UIs. In modular systems, miniscule tweaks can result in major regressions. So far we encountered three types of tests:
+<div style="direction: rtl">
 
-- **Manual tests** rely on developers to manually look at a component to verify it for correctness. They help us sanity check a component’s appearance as we build.
-- **Snapshot tests** with Storyshots capture a component’s rendered markup. They help us stay abreast of markup changes that cause rendering errors and warnings.
-- **Unit tests** with Jest verify that the output of a component remains the same given a fixed input. They’re great for testing the functional qualities of a component.
+لا يكتمل درس ستوريبوك بدون القيام بإختبارات. الإختبار أساسي لإنشاء واجهات ذات جودة عالية. في الأنظمة المركبة, التعديلات المصغرة قد تنتج نتائج كبيرة. تعرفنا إلى الآن على ثلاث أنواع من الإختبارات:
 
-## “But does it look right?”
+- **إختبارات يدوية** تعتمد على المطورين بأن يقوموا يدويا بالتأكد من صحة المكون. هذا يساعدنا على التأكد من نظافة مظهر المكون خلال عملية البناء
+- **إختبارات اللمحة** تلتقط نص مكون الظاهر. تساعدنا على مراقبة تغيرات النص التي قد تسبب أخطاء أو إنذارات.
+- **إختبارات الوحدة** مع Jest تأكد لنا أن ناتج المكون يبقى كما هو بناء عن إدخال معطى ثابت. و هي ممتازة لإختبار الصفات الوظيفية للمكون.
 
-Unfortunately, the aforementioned testing methods alone aren’t enough to prevent UI bugs. UIs are tricky to test because design is subjective and nuanced. Manual tests are, well, manual. Snapshot tests trigger too many false positives when used for UI. Pixel-level unit tests are poor value. A complete Storybook testing strategy also includes visual regression tests.
+## “و لكن هل مظهرها صحيح؟”
 
-## Visual testing for Storybook
+للأسف, طرق الإختبار وحدها لا تكفي لمنع أخطاء واجهية. من الصعب إختبار واجهة المستخدم لأن التصميم ذاتي و دقيق. الإختبارات اليدوية, كما يشير الإسم, يدوية. إختبارات اللمحة تثير الكثير من المؤشرات المزيفة عند إستخدامها مع واجهة المستخدم. إختبارات الوحدة على مستوى البكسل تعتبر ذات قيمة متدنية. الإستراتيجية الكاملة لستوريبوك تتضمن أيضا إختبار تراجع مظهري.
 
-Visual regression tests, also called visual tests, are designed to catch changes in appearance. They work by capturing screenshots of every story and comparing them commit-to-commit to surface changes. This is perfect for verifying graphical elements like layout, color, size, and contrast.
+## الإختبار المظهري لستوريبوك
+
+صممت إختبارات التراجع المظهرية, و التي تسمى أيضا بالإختبارات المظهرية لإلتقاط أي تغيرات في المظهر. تعمل هذه الإختبارات عن طريق إلتقاط screenshots لكل ستوري و مقارنتهم من commit إلى commit للكشف عن التغيرات. هذا مثالي للتأكد من العناصر الرسومية مثل النسق, الألوان, الحجم و التباين.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -25,23 +27,29 @@ Visual regression tests, also called visual tests, are designed to catch changes
   />
 </video>
 
-Storybook is a fantastic tool for visual regression testing because every story is essentially a test specification. Each time we write or update a story we get a spec for free!
+ستوريبوك أداة رائعة لأداء إختبار تراجع مظهري لأن كل ستوري عبارة عن مواصفات إختبار في الأساس. كلما نكتب أو نغير في ستوري, نحصل على مواصفات مجانا!
 
-There are a number of tools for visual regression testing. We recommend [**Chromatic**](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers that runs visual tests in parallelized cloud. It also allows us to publish Storybook online as we saw in the [previous chapter](/intro-to-storybook/react/en/deploy/).
+توجد العديد من الأدوات لإختبار التراجع المظهري. ننصح بإستخدام [**Chromatic**](https://www.chromatic.com/) أداة نشر مجانية صنعت من قِبل مشرفي ستوريبوك و التي يمكنك عن طريقها من إجراء إختبارات واجهية في سحابة متوازية. تسمح لك علاوة على ذلك بنشر ستوريبوك اونلاين كما رأينا في [الفصل السابق](/intro-to-storybook/react/en/deploy/).
 
-## Catch a UI change
+## إلتقط التغيرات في واجهة المستخدم
 
-Visual regression testing relies on comparing images of the new rendered UI code to the baseline images. If a UI change is caught we'll get notified.
+يعتمد إختبار التراجع المظهري على مقانة صور من الواجهات الظاهرة حديثا مع الصور الأساسية. سيتم إعلامنا إذا تم إلتقاط أي تغيير.
 
-Let's see how it works by tweaking the background of the `Task` component.
+لنرى طريقة عمله بتعديل خلفية مكون `Task`
 
-Start by creating a new branch for this change:
+إبدأ بإنشاء فرع git جديد من أجل هذا التغيير:
+
+<div style="direction: ltr">
 
 ```bash
 git checkout -b change-task-background
 ```
 
-Change `src/components/Task.js` to the following:
+</div>
+
+قم بتغيير `src/components/Task.js` إلى الآتي:
+
+<div style="direction: ltr">
 
 ```diff:title=src/components/Task.js
 <div className="title">
@@ -53,51 +61,66 @@ Change `src/components/Task.js` to the following:
 +   style={{ background: 'red' }}
   />
 </div>
+
 ```
 
-This yields a new background color for the item.
+</div>
 
-![task background change](/intro-to-storybook/chromatic-task-change.png)
+هذا سيٌنتج لون خلفية جديد للعنصر
 
-Add the file:
+![تغير خلفية المهمة](/intro-to-storybook/chromatic-task-change.png)
+
+أضف الملف:
+
+<div style="direction: ltr">
 
 ```bash
 git add .
 ```
 
-Commit it:
+</div>
+
+نفذه:
+
+<div style="direction: ltr">
 
 ```bash
 git commit -m "change task background to red"
 ```
 
-And push the changes to the remote repo:
+</div>
+
+و إدفع التغييرات إلى المستودع البعيد:
+
+<div style="direction: ltr">
 
 ```bash
 git push -u origin change-task-background
 ```
 
-Finally, open your GitHub repository and open a pull request for the `change-task-background` branch.
+</div>
 
-![Creating a PR in GitHub for task](/github/pull-request-background.png)
+أخيرا, إفتح مستودع Github و قم بطلب سحب pull request لفرع `change-task-background`
 
-Add a descriptive text to your pull request and click `Create pull request`. Click on the "🟡 UI Tests" PR check at the bottom of the page.
+![إنشاء طلب PR في Github للـ task](/github/pull-request-background.png)
 
-![Created a PR in GitHub for task](/github/pull-request-background-ok.png)
+أضف نص وصف في طلب السحب و إضغط `Create pull request`. إضغط على إختيار "🟡 UI Tests" في أسفل الصفحة.
 
-This will show you the UI changes caught by your commit.
+![إنشاء طلب PR في Github للـ task](/github/pull-request-background-ok.png)
 
-![Chromatic caught changes](/intro-to-storybook/chromatic-catch-changes.png)
+هذا سيٌظهر لك التغيرات في الواجهة التي إلتقطت من تنفيذتك
 
-There are a lot of changes! The component hierarchy where `Task` is a child of `TaskList` and `Inbox` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
+![Chromatic إلتقط التغييرات](/intro-to-storybook/chromatic-catch-changes.png)
 
-![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
+يوجد الكثير من التغييرات! السلسلة الهرمية حيث `Task` عنصر تابع ل `TaskList` و `Inbox` يعني تغيير بسيط يكبر ليصبح تراجع عملاق. هذا الظرف بالتحديد هو السبب الذي يجعل المطورين في حاجة إلى إختبار تراجع مظهري إضافة إلى سبل إختبار أخرى.
 
-## Review changes
+![تغييرات واجهة بسيطة و تراجع عملاق](/intro-to-storybook/minor-major-regressions.gif)
 
-Visual regression testing ensures components don’t change by accident. But it’s still up to us to determine whether changes are intentional or not.
+## راجع التغييرات
 
-If a change is intentional we'll need to update the baseline so that future tests are compared to the latest version of the story. If a change is unintentional it needs to be fixed.
+يضمن إختبار التراجع الظاهري أن المكونات لا تتغير خطأً. و لكن لا يزال الأمر متروكا لنا لتحديد ما إذا كانت هذه التغييرات مقصودة أم لا.
+
+إذا كان التغيير مقصود سنحتاج إلى تبديل الأساس بحيث أن الإختبارات المستقبلية يتم مقارنتها مع أخر نسخة من الستوري. إذا كان التغيير غير مقصود فيجب إصلاحه.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -108,12 +131,14 @@ If a change is intentional we'll need to update the baseline so that future test
 
 Since modern apps are constructed from components, it’s important that we test at the level of component. Doing so helps us pinpoint the root cause of a change, the component, instead of reacting to symptoms of a change, the screens and composite components.
 
-## Merge changes
+## إدمج التغييرات
 
-When we’ve finished reviewing we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs. If you like the new `red` background then accept the changes, if not revert to the previous state.
+بعد مراجعتنا للتغييرات نصبح جاهزين لدمج التغييرات الواجهية بثقة -- بمعرفة أن التحديثات لن تنتج أخطاء بشكل غير مقصود. إذا أعجبتك الخلفية `red` الجديدة قم بقبول التغييرات, وإلا إرجع إلى الحالة السابقة.
 
-![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
+![ـغييرات جاهزة للدمج](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook helps us **build** components; testing helps us **maintain** them. The four types of UI testing covered in this tutorial were manual, snapshot, unit, and visual regression testing. The last three can be automated by adding them to a CI as we've just finished setting up. This helps us ship components without worrying about stowaway bugs. The whole workflow is illustrated below.
+ستوريبوك يساعدنا على **بناء** المكونات; الإختبار يساعدنا على **إدارتهم**. أنواع الإختبار الأربعة التي تم تغطيتها في هذا الدرس هي الإختبارات اليدوية, و اللمحية, و الوحدة, و التراجع المظهري. الأخيرة الثلاث يمكن ميكنتهم بإضافة تكامل مستمر كما فعلنا. هذا يساعد شحن مكونات دون القلق من أخطاء. مسار العمل كامل موضح في الصورة أسفله.
 
-![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)
+![مسار عمل إختبار التراجع المظهري](/intro-to-storybook/cdd-review-workflow.png)
+
+</div>
