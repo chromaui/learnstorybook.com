@@ -5,34 +5,30 @@ description: 'Construção de um componente simples isolado'
 commit: '97d6750'
 ---
 
-Iremos construir o interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://www.componentdriven.org/), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
+Iremos construir a interface de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://www.componentdriven.org/), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces a partir da "base para o topo", iniciando com componentes e terminando com telas. O DOC (CDD nativamente) ajuda a escalar a complexidade que o programador enfrenta á medida que constrói a interface.
 
 ## Tarefa
 
 ![Componente Task ao longo de três estados](/intro-to-storybook/task-states-learnstorybook.png)
 
-A `Task` é o componente nuclear da nossa aplicação. Cada tarefa é apresentada de forma diferente dependendo do estado em que se encontra.
-O que vai ser apresentado é uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que permite a movimentação para cima e para baixo das tarefas ao longo da lista.
+`Task` é o componente principal da nossa aplicação. Cada tarefa é exibida levemente diferente, dependendo do estado em que se encontra.
+Apresentamos uma caixa de confirmação, selecionada (ou não), alguma informação adicional acerca da tarefa e um botão "fixador", que nos permite a movimentação para cima e para baixo das tarefas na lista.
 Para que seja possível implementar isto serão necessárias os seguintes adereços (props):
 
-- `title` - uma cadeia de caracteres que descreve a tarefa
-- `state` - qual a lista em que a tarefa se encontra e se está confirmada?
+- `title` - um texto (string) que descreve a tarefa
+- `state` - qual a lista em que a tarefa se encontra e se está desmarcada?
 
-Á medida que construimos a `Task`, é necessário definir os três estados que correspondem os três tipos de tarefa delineados acima.
-Em seguida usa-se o Storybook para construir este componente isolado, usando dados predefinidos. Irá "testar-se visualmente" a aparência do componente para cada estado á medida que prosseguimos.
-
-Este processo é algo similar ao [Desenvolvimento orientado a testes](https://en.wikipedia.org/wiki/Test-driven_development), ou como é conhecido nativamente (TDD), o que neste caso denominamos de "[DOT Visual](https://www.chromatic.com/blog/visual-test-driven-development)”, nativamente (Visual TDD).
+Com o início da construção de `Task`, primeiro escrevemos nossos testes de estado que correspondem aos diferentes tipos de tarefas descritas acima.
+Em seguida, usamos o Storybook para construir o componente de forma isolada, usando dados simulados (mocados). Testaremos manualmente a aparência do componente de acordo com cada estado à medida que avançamos.
 
 ## Configuração Inicial
 
-Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o acompanha:
-`src/components/Task.js` e `src/components/Task.stories.js` respetivamente.
+Primeiro, criaremos o componente tarefa e o arquivo de história que o acompanha:
+`src/components/Task.js` e `src/components/Task.stories.js`.
 
-Iremos iniciar por uma implementação rudimentar da `Task`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
+Iremos iniciar com uma implementação básica de `Task`, simplesmente pegando os atributos que sabemos que iremos precisar, e as duas ações que podemos realizar em uma tarefa (movê-la entre as listas):
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -44,74 +40,77 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-O bloco de código acima, quando renderizado, não é nada mais nada menos que a estrutura HTML da `Task` na aplicação Todos.
+Acima, renderizamos uma marcação direta para `Task` com base na estrutura HTML existente na aplicação Todos.
 
-Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
+Abaixo, construímos os três testes dos estados da `Task`no arquivo de história:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
 export default {
   component: Task,
   title: 'Task',
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
 };
 
-export const taskData = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+const Template = args => <Task {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2021, 0, 1, 9, 0),
+  },
 };
 
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
 };
 
-export const Default = () => <Task task={{ ...taskData }} {...actionsData} />;
-
-export const Pinned = () => <Task task={{ ...taskData, state: 'TASK_PINNED' }} {...actionsData} />;
-
-export const Archived = () => (
-  <Task task={{ ...taskData, state: 'TASK_ARCHIVED' }} {...actionsData} />
-);
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
+  },
+};
 ```
 
-Existem dois tipos de organização com Storybook. O componente em si e as estórias associadas. É preferível pensar em cada estória como uma permutação de um componente. Como tal podem existir tantas estórias, tantas as que forem necessárias.
+Existem dois tipos de organização com Storybook: O componente e suas histórias associadas. Pense em cada história como uma permutação de um componente. Pode-se ter quantas histórias por componente forem necessárias.
 
 - **Component**
   - Story
   - Story
   - Story
 
-De forma a informar o Storybook acerca do componente que está a ser documentado, é criado um default export que contém:
+Para informar ao Storybook sobre o componente que estamos documentando, criamos um `default export` que contém:
 
 - `component` -- o componente em si,
-- `title` -- o nome que irá ser apresentado na barra lateral da aplicação Storybook,
-- `excludeStories` -- Informação que é necessária à estória, mas que não deverá ser renderizada pela aplicação Storybook.
+- `title` -- o nome que irá ser apresentado na barra lateral da aplicação Storybook
 
-Para definir as nossas estórias, exportamos uma função para cada um dos casos de teste. A estória não é nada mais nada menos que uma função que devolve um elemento renderizado (por exemplo um componente com um conjunto de adereços) num determinado estado -- exatamente tal como um [Componente Funcional](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
+Para definir nossas histórias, exportamos uma função para cada um dos casos de teste para gerar uma história. A história é uma função que devolve um elemento renderizado (por exemplo um componente com um conjunto de adereços) num determinado estado -- exatamente tal como um [Componente Funcional](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 
-A função `action()` permite a criação de um callback, que irá surgir no painel adequado, ou seja o painel **actions** do interface de utilizador Storybook quando for feito o click. Como tal assim que for criado o botão para afixar tarefas, irá ser possível determinar o sucesso ou não do click no interface de utilizador de testes.
-
-Visto que é necessário fornecer o mesmo conjunto de tarefas a todas as permutações do componente, é extremamente conveniente agrupar numa única variável denominada `actionsData` e usar a expansão de adereços (props) em React `{...actions}` de forma que possam ser enviados de uma só vez.
-Usar `<Task {...actions}>` não é nada mais nada menos que `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
-
-Outro aspeto fantástico ao agrupar as `actions` necessárias ao componente na `actionsData`, é que as podemos exportar com recurso à clausula `export` de forma que seja possível serem usadas por estórias que reutilizam este componente, tal como iremos ver posteriormente.
-
-Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a forma da tarefa em questão que é necessária ao componente. Geralmente modelada a partir de dados concretos. Mais uma vez o uso da cláusula `export`, neste caso para a estrutura dos dados irá permitir a sua reutilização em estórias futuras, tal como veremos.
+Como temos várias permutações de nosso componente, é conveniente atribuí-lo a uma variável `Template`. A introdução desse padrão em suas histórias reduzirá a quantidade de código que você precisa escrever e manter.
 
 <div class="aside">
-    <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface de utilizador isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de<code>action()</code> para esta situação.
+💡 <code>Template.bind({})</code> é uma técnica <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">padrão do JavaScript</a> para fazer uma cópia de uma função. Usamos essa técnica para permitir que cada história exportada defina suas próprias propriedades, mas use a mesma implementação.
 </div>
 
+Para resumir os argumentos ou [`args`](https://storybook.js.org/docs/react/writing-stories/args) nos permitem editar nossos componentes em tempo real com o complemento de controles sem reiniciar o Storybook. Uma vez que o valor do [`args`](https://storybook.js.org/docs/react/writing-stories/args) muda o componente muda.
+
+Ao criar uma história, usamos um argumento de tarefa base para construir a forma da tarefa que o componente espera. Isso normalmente é modelado a partir da aparência dos dados verdadeiros. Novamente, `export`-ando esta forma nos permitirá reutilizá-la em histórias posteriores, como veremos.
+
+<div class="aside">
+    <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de<code>action()</code> para esta situação.
+</div>
+//TOdo: continuar daqui!!
 ## Configuração
 
 É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/intro-to-storybook/react/pt/get-started).
@@ -176,7 +175,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={event => event.stopPropagation()}>
+      <div className="actions" onClick={(event) => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>
