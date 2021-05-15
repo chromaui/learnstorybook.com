@@ -6,9 +6,9 @@ commit: 'ac1ec13'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.
-Ajuda-o a construir componentes de interface (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
+Ajudando-o a construir componentes isolados da lógica de negócio e do contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para React.
-Encontram-se disponíveis outras edições quer para [Vue](/intro-to-storybook/vue/pt/get-started), quer para [Angular](/intro-to-storybook/angular/pt/get-started).
+Encontram-se disponíveis outras edições, tanto para [Vue](/intro-to-storybook/vue/pt/get-started), quanto para [Angular](/intro-to-storybook/angular/pt/get-started).
 
 ![Storybook e a aplicação](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -47,7 +47,7 @@ yarn start
 ```
 
 <div class="aside"> 
-💡 Veja o sinalizador (flag) <code>--watchAll</code> no comando de teste, incluindo este sinalizador garante que todos os testes sejam executados. Enquanto avança neste tutorial, você será apresentado a diferentes cenários de testes. Você pode considerar querer ajustar seus scripts <code>package.json</code> de acordo.
+💡 Note que a flag <code>--watchAll</code> no comando de teste garante que todos os testes sejam executados. Enquanto avança neste tutorial, você será apresentado a diferentes cenários de testes. Você pode considerar querer ajustar seus scripts no <code>package.json</code> de acordo.
 </div>
 
 As três modalidades de frontend da aplicação: testes automáticos (Jest), desenvolvimento de componentes (Storybook) e a aplicação em si.
