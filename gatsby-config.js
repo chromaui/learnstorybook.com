@@ -43,6 +43,7 @@ module.exports = {
         },
         angular: {
           en: 6.2,
+          ja: 6.2,
           es: 5.3,
           pt: 5.3,
         },

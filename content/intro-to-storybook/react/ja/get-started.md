@@ -89,13 +89,13 @@ npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 次のコマンドを実行し、今までの変更を追加して、コミットしましょう。
 
 ```shell
-$ git add .
+git add .
 ```
 
 次に以下を実行します:
 
 ```shell
-$ git commit -m "first commit"
+git commit -m "first commit"
 ```
 
 それでは最初のコンポーネントを作り始めましょう！
