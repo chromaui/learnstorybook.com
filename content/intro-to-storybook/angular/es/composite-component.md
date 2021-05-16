@@ -19,7 +19,7 @@ Dado que los datos de nuestro `TaskComponent` pueden enviarse asincrónicamente,
 
 ## Empezar la configuración
 
-Un componente compuesto no es muy diferente de los componentes básicos que contiene. Crea un componente 
+Un componente compuesto no es muy diferente de los componentes básicos que contiene. Crea un componente
 `TaskListComponent` y su correspondiente archivo de historia: `src/tasks/task-list.component.ts` y `src/tasks/task-list.stories.ts`.
 
 Comienza con una implementación aproximada del `TaskListComponent`. Necesitarás utilizar el `TaskComponent` del capítulo anterior y pasarle los atributos y acciones como entradas y eventos.
@@ -65,8 +65,7 @@ export class TaskListComponent {
 A continuación, crea los estados de prueba de `TasklistComponent` en el archivo de historia.
 
 ```ts:title=src/app/components/task-list.stories.ts
-import { moduleMetadata } from '@storybook/angular';
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Story, Meta, componentWrapperDecorator } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -83,21 +82,18 @@ export default {
       declarations: [TaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
+    //👇 Envuelve nuestras historias con un decorador
+    componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
   title: 'TaskList',
 } as Meta;
 
 const Template: Story<TaskListComponent> = args => ({
-  component: TaskListComponent,
   props: {
     ...args,
     onPinTask: TaskStories.actionsData.onPinTask,
     onArchiveTask: TaskStories.actionsData.onArchiveTask,
   },
-  template: `
-    <div style="padding: 3rem">
-      <app-task-list [tasks]="tasks" [loading]=loading (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-task-list>
-    </div> `,
 });
 
 export const Default = Template.bind({});
@@ -150,7 +146,7 @@ Ahora consulte Storybook para ver las nuevas historias de `TaskList`.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -174,13 +170,11 @@ import { Task } from '../models/task.model';
 +       (onPinTask)="onPinTask.emit($event)"
 +     >
 +     </app-task>
-
 +     <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
 +       <span class="icon-check"></span>
 +       <div class="title-message">You have no tasks</div>
 +       <div class="subtitle-message">Sit back and relax</div>
 +     </div>
-
 +     <div *ngIf="loading">
 +       <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
 +         <span class="glow-checkbox"></span>
@@ -220,7 +214,7 @@ El HTML añadido da como resultado la siguiente interfaz de usuario:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -233,11 +227,15 @@ A medida que el componente crece, también lo hacen los parámetros de entrada r
 
 ## Pruebas automatizadas
 
-En el capítulo anterior aprendimos a capturar historias de prueba utilizando Storyshots. Con el componente `TaskComponent` no había mucha complejidad para probar más allá de que se renderice correctamente. Dado que `TaskListComponent` añade otra capa de complejidad, queremos verificar que ciertas entradas produzcan ciertas salidas de una manera adecuada con pruebas automáticas. Para hacer esto crearemos test unitarios utilizando [Jest](https://facebook.github.io/jest/) junto con un renderizador de prueba.
+En el capítulo anterior aprendimos a capturar historias de prueba utilizando Storyshots. Con el componente `TaskComponent` no había mucha complejidad para probar más allá de que se renderice correctamente. Dado que `TaskListComponent` añade otra capa de complejidad, queremos verificar que ciertas entradas produzcan ciertas salidas de una manera adecuada con pruebas automáticas. Para hacer esto crearemos test unitarios utilizando [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
-### Test unitarios con Jest
+<div class="aside">
+TODO:ADD testing library image
+</div>
+
+### Test unitarios con Angular Testing Library
 
 Las historias de Storybook combinadas con pruebas visuales manuales y pruebas de instantáneas (ver arriba) ayudan a prevenir errores de interfaz de usuario. Si las historias cubren una amplia variedad de casos de uso de los componentes, y utilizamos herramientas que aseguran que un humano compruebe cualquier cambio en la historia, es mucho menos probable que sucedan errores.
 
@@ -245,7 +243,7 @@ Sin embargo, a veces el diablo está en los detalles. Se necesita un framework d
 
 En nuestro caso, queremos que nuestro `TaskListComponent` muestre cualquier tarea fijada **antes de** las tareas no fijadas que sean pasadas por medio de la propiedad `tasks`. Aunque tenemos una historia (`withPinnedTasks`) para probar este escenario exacto; un humano podría pasar por alto el hecho de que el componente **no** ordene las tareas de esta manera es un error. Después de todo, para el ojo no entrenado (y que desconoce los requerimientos), el componente esta renderizandose correctamente.
 
-Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar que el resultado es el esperado.
+Por lo tanto, para evitar este problema, podemos usar Angular Testing Library para renderizar la historia en el DOM y ejecutar algún código de consulta del DOM para verificar que el resultado es el esperado.
 
 Crea un archivo de prueba llamado `task-list.component.spec.ts`. Aquí vamos a escribir nuestras pruebas que, básicamente, constituyen un conjunto de validaciones sobre el resultado.
 

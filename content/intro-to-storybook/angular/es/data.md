@@ -230,13 +230,13 @@ También cambiemos el nombre de `srcappcomponentstask-list.stories.ts` a` srcapp
 y asegurémonos de que nuestras historias usen la versión de presentación:
 
 ```ts:title=src/app/components/pure-task-list.stories.ts
-import { moduleMetadata } from '@storybook/angular';
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Story, Meta, componentWrapperDecorator } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
 import { PureTaskListComponent } from './pure-task-list.component';
 import { TaskComponent } from './task.component';
+
 import * as TaskStories from './task.stories';
 
 export default {
@@ -247,21 +247,18 @@ export default {
       declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
+     //👇 Envuelve nuestras historias con un decorador
+    componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
-  title: 'PureTaskList',
+  title: 'PureTaskListComponent',
 } as Meta;
 
 const Template: Story<PureTaskListComponent> = args => ({
-  component: PureTaskListComponent,
   props: {
     ...args,
     onPinTask: TaskStories.actionsData.onPinTask,
     onArchiveTask: TaskStories.actionsData.onArchiveTask,
   },
-  template: `
-    <div style="padding: 3rem">
-      <app-pure-task-list [tasks]="tasks" [loading]=loading (onPinTask)="onPinTask($event)" (onArchiveTask)="onArchiveTask($event)"></app-pure-task-list>
-    </div> `,
 });
 
 export const Default = Template.bind({});
@@ -275,6 +272,7 @@ Default.args = {
     { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
   ],
 };
+
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
   // Dar forma a las historias a través de la composición de argumentos.
@@ -302,7 +300,7 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -311,6 +309,7 @@ De manera similar, necesitamos usar `PureTaskListComponent` en nuestra prueba Je
 
 ```diff:title= src/app/components/task-list.component.spec.ts
 import { render } from '@testing-library/angular';
+
 - import { TaskListComponent } from './task-list.component.ts';
 + import { PureTaskListComponent } from './pure-task-list.component';
 

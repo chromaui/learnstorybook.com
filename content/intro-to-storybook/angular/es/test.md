@@ -29,14 +29,11 @@ Las pruebas de regresión visual están diseñadas para detectar cambios en la a
 
 Storybook es una herramienta fantástica para las pruebas de regresión visual porque cada historia es esencialmente una especificación del test. ¡Cada vez que escribimos o actualizamos una historia recibimos una especificación gratis!
 
-Existen varias herramientas para las pruebas de regresión visual. Para equipos profesionales recomendamos
-[**Chromatic**](https://www.chromatic.com/), un complemento creado por el equipo de Storybook que ejecuta pruebas en
-la nube. También nos permite publicar Storybook online como vimos en el [capítulo anterior](/intro-to-storybook/angular/es/deploy/).
+Existen varias herramientas para las pruebas de regresión visual. Para equipos profesionales recomendamos [**Chromatic**](https://www.chromatic.com/), un complemento creado por el equipo de Storybook que ejecuta pruebas en la nube. También nos permite publicar Storybook online como vimos en el [capítulo anterior](/intro-to-storybook/angular/es/deploy/).
 
 ## Detectar un cambio en la UI
 
-Las pruebas de regresión visual se basan en comparar imágenes del nuevo código de interfaz de usuario renderizado
-con las imágenes de referencia. Si se detecta un cambio en la interfaz de usuario, se nos notificará.
+Las pruebas de regresión visual se basan en comparar imágenes del nuevo código de interfaz de usuario renderizado con las imágenes de referencia. Si se detecta un cambio en la interfaz de usuario, se nos notificará.
 
 Veamos cómo funciona modificando el fondo del componente `Task`.
 
@@ -92,19 +89,15 @@ Esto le mostrará los cambios de la interfaz de usuario detectados por su commit
 
 ![Chromatic caught changes](/intro-to-storybook/chromatic-catch-changes.png)
 
-¡Hay muchos cambios! La jerarquía de componentes donde `TaskComponent` es un elemento secundario de` TaskListComponent` y `InboxScreenComponent` significa que un pequeño ajuste se convierte en una gran regresión. Esta
-circunstancia es precisamente la razón por la que los desarrolladores necesitan pruebas de regresión visual además
-de otros métodos de prueba.
+¡Hay muchos cambios! La jerarquía de componentes donde `TaskComponent` es un elemento secundario de` TaskListComponent` y `InboxScreenComponent` significa que un pequeño ajuste se convierte en una gran regresión. Esta circunstancia es precisamente la razón por la que los desarrolladores necesitan pruebas de regresión visual además de otros métodos de prueba.
 
 ![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
 ## Revisar cambios
 
-Las pruebas de regresión visual garantizan que los componentes no cambien por accidente. Pero aún depende de
-nosotros determinar si los cambios son intencionales o no.
+Las pruebas de regresión visual garantizan que los componentes no cambien por accidente. Pero aún depende de nosotros determinar si los cambios son intencionales o no.
 
-Si un cambio es intencional, necesitaremos actualizar la línea de base para que las pruebas futuras se comparen con
-la última versión de la historia. Si un cambio no es intencional, debe corregirse.
+Si un cambio es intencional, necesitaremos actualizar la línea de base para que las pruebas futuras se comparen con la última versión de la historia. Si un cambio no es intencional, debe corregirse.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -113,21 +106,15 @@ la última versión de la historia. Si un cambio no es intencional, debe corregi
   />
 </video>
 
-Dado que las aplicaciones modernas se crean a partir de componentes, es importante que realicemos pruebas a nivel de
-componente. Hacerlo nos ayuda a identificar la causa raíz de un cambio, el componente, en lugar de reaccionar a los
-síntomas de un cambio, las pantallas y los componentes compuestos.
+Dado que las aplicaciones modernas se crean a partir de componentes, es importante que realicemos pruebas a nivel de componente. Hacerlo nos ayuda a identificar la causa raíz de un cambio, el componente, en lugar de reaccionar a los síntomas de un cambio, las pantallas y los componentes compuestos.
 
 ## Mergear cambios
 
-Cuando hayamos terminado de revisar, estamos listos para fusionar los cambios de la interfaz de usuario con
-confianza, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si le gusta el nuevo fondo
-`rojo`, acepte los cambios, si no, vuelva al estado anterior.
+Cuando hayamos terminado de revisar, estamos listos para fusionar los cambios de la interfaz de usuario con confianza, sabiendo que las actualizaciones no introducirán errores accidentalmente. Si le gusta el nuevo fondo `rojo`, acepte los cambios, si no, vuelva al estado anterior.
 
 ![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
 Storybook nos ayuda a **construir** componentes; las pruebas nos ayudan a **mantenerlos**. Los cuatro tipos de
-pruebas de UI que se tratan en este tutorial fueron pruebas de regresión visual, instantánea, unitaria y visual. Las
-últimas tres se pueden automatizar agregándolos a un CI cuando acabamos de terminar de configurar. Esto nos ayuda a
-enviar componentes sin preocuparnos por los bugs. El flujo de trabajo completo se ilustra a continuación.
+pruebas de UI que se tratan en este tutorial fueron pruebas de regresión manual, instantánea, unitaria y visual. Las últimas tres se pueden automatizar agregándolos a un CI cuando acabamos de terminar de configurar. Esto nos ayuda a enviar componentes sin preocuparnos por los bugs. El flujo de trabajo completo se ilustra a continuación.
 
 ![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)
