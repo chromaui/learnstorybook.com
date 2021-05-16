@@ -18,19 +18,15 @@ This example uses [Vuex](https://vuex.vuejs.org), Vue's default data management 
 First, install vuex with:
 
 ```bash
-yarn add vuex
+yarn add vuex@next --save
 ```
 
 In a file called `src/store.js` we'll construct a standard Vuex store that responds to actions which will change the tasks state:
 
 ```js:title=src/store.js
-import Vue from 'vue';
+import { createStore } from 'vuex';
 
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
+export default createStore({
   state: {
     tasks: [
       { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -58,29 +54,45 @@ export default new Vuex.Store({
 });
 ```
 
-In our top-level app component (`src/App.vue`) we can wire the store into our component hierarchy fairly easily:
+Next, we’ll need to update our app’s entry point (`src/main.js`) so that we can wire the store into our component hierarchy reasonably quick:
 
-```html:title=src/App.vue
+```diff:title=src/main.js
+import { createApp } from 'vue';
+
+import App from './App.vue';
+
++ import store from './store';
+
+- createApp(App).mount('#app')
++ createApp(App).use(store).mount('#app')
+```
+
+Once we've connected the store into our app, we'll need to update the the top-level app component (`src/App.vue`) to display our `TaskList` component:
+
+```diff:title=src/App.vue
 <template>
-  <div id="app">
-    <task-list />
-  </div>
+- <img alt="Vue logo" src="./assets/logo.png">
+- <HelloWorld msg="Welcome to Your Vue.js App"/>
++ <div id="app">
++   <task-list />
++ </div>
 </template>
 
 <script>
-  import store from './store';
-  import TaskList from './components/TaskList.vue';
+- import HelloWorld from './components/HelloWorld.vue'
++ import TaskList from './components/TaskList.vue';
 
-  export default {
-    name: 'app',
-    store,
-    components: {
-      TaskList,
-    },
-  };
+export default {
+  name: 'App',
+  components: {
+-   HelloWorld
++   TaskList
+  }
+}
 </script>
+
 <style>
-  @import './index.css';
+@import "./index.css";
 </style>
 ```
 
@@ -106,19 +118,35 @@ In `src/components/TaskList.vue`:
 
 ```html:title=src/components/TaskList.vue
 <template>
-  <PureTaskList :tasks="tasks" v-on="$listeners" @archive-task="archiveTask" @pin-task="pinTask" />
+  <PureTaskList :tasks="tasks" @archive-task="archiveTask" @pin-task="pinTask" />
 </template>
 
 <script>
   import PureTaskList from './PureTaskList';
-  import { mapState, mapActions } from 'vuex';
+
+  import { computed } from 'vue';
+
+  import { useStore } from 'vuex';
 
   export default {
     components: { PureTaskList },
+    setup() {
+      //👇 Creates a store instance
+      const store = useStore();
 
-    methods: mapActions(['archiveTask', 'pinTask']),
+      //👇 Retrieves the tasks from the store's state
+      const tasks = computed(() => store.state.tasks);
 
-    computed: mapState(['tasks']),
+      //👇 Dispatches the actions back to the store
+      const archiveTask = task => store.dispatch('archiveTask', task);
+      const pinTask = task => store.dispatch('pinTask', task);
+
+      return {
+        tasks,
+        archiveTask,
+        pinTask,
+      };
+    },
   };
 </script>
 ```
@@ -126,22 +154,28 @@ In `src/components/TaskList.vue`:
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
 ```diff:title=src/components/PureTaskList.stories.js
-+ import PureTaskList from './PureTaskList';
++ import PureTaskList from './PureTaskList.vue';
 
 import * as TaskStories from './Task.stories';
 
 export default {
 + component: PureTaskList,
 + title: 'PureTaskList',
-  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
+  decorators: [
+    () => ({ template: '<div style="margin: 3em;"><story/></div>' }),
+  ],
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
 const Template = (args, { argTypes }) => ({
 + components: { PureTaskList },
-  props: Object.keys(argTypes),
-  // We are reusing our actions from task.stories.js
-  methods: TaskStories.actionsData,
-+ template: '<PureTaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+ setup() {
+    return { args, ...TaskStories.actionsData };
+  },
++ template: '<PureTaskList v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -185,7 +219,7 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -193,24 +227,29 @@ Empty.args = {
 Similarly, we need to use `PureTaskList` in our Jest test:
 
 ```diff:title=tests/unit/PureTaskList.spec.js
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
+
+- import TaskList from '../../src/components/TaskList.vue';
 
 + import PureTaskList from '../../src/components/PureTaskList.vue';
 
 //👇 Our story imported here
+- import { WithPinnedTasks } from '../src/components/TaskList.stories.js';
+
 + import { WithPinnedTasks } from '../../src/components/PureTaskList.stories';
 
 it('renders pinned tasks at the start of the list', () => {
   // render PureTaskList
-+ const Constructor = Vue.extend(PureTaskList);
-  const vm = new Constructor({
-    //👇 Story's args used with our test
-    propsData: WithPinnedTasks.args,
-  }).$mount();
-  const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
+- const wrapper = mount(TaskList, {
+-   //👇 Story's args used with our test
+-   propsData: WithPinnedTasks.args,
+- });
++ const wrapper = mount(PureTaskList, {
++   propsData: WithPinnedTasks.args,
++ });
 
-  // We expect the pinned task to be rendered first, not at the end
-  expect(firstTaskPinned).not.toBe(null);
+  const firstPinnedTask = wrapper.find('.list-item:nth-child(1).TASK_PINNED');
+  expect(firstPinnedTask).not.toBe(null);
 });
 ```
 

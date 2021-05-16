@@ -53,15 +53,20 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```js:title=src/components/Task.stories.js
-import Task from './Task';
+import Task from './Task.vue';
 
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Task',
   component: Task,
-  // Our exports that end in "Data" are not stories.
+  //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
+  title: 'Task',
+  //👇 Our events will be mapped in Storybook UI
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
 export const actionsData = {
@@ -69,13 +74,13 @@ export const actionsData = {
   onArchiveTask: action('archive-task'),
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { Task },
-  props: Object.keys(argTypes),
-  methods: actionsData,
-  template: '<Task v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+  setup() {
+    return { args, ...actionsData };
+  },
+  template: '<Task v-bind="args" />',
 });
-
 export const Default = Template.bind({});
 Default.args = {
   task: {
@@ -115,8 +120,9 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `component` -- the component itself,
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
 - `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+- `argTypes` -- specify the [args](https://storybook.js.org/docs/react/api/argtypes) behavior in each story.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Functional Component](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 
@@ -130,7 +136,7 @@ When creating a story we use a base `task` arg to build out the shape of the tas
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time (where they are accessed via the `methods` property).
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time.
 
 Another nice thing about bundling the `actionsData` that a component needs, is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
@@ -146,6 +152,10 @@ Start by changing your Storybook configuration file (`.storybook/main.js`) to th
 
 ```diff:title=.storybook/main.js
 module.exports = {
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
 + stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
@@ -171,7 +181,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -182,25 +192,27 @@ Now we have Storybook setup, styles imported, and test cases built out, we can q
 
 Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
 
-```diff:title=src/components/Task.vue
+```html:title=src/components/Task.vue
 <template>
-+ <div class="list-item" :class="task.state">
-+  <label class="checkbox">
-+    <input type="checkbox" :checked="isChecked" disabled name="checked" />
-+    <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
-+  </label>
-+  <div class="title">
-+    <input type="text" :value="task.title" readonly placeholder="Input title" />
-+  </div>
-+  <div class="actions">
-+   <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
-+    <span class="icon-star" />
-+   </a>
-+  </div>
-+ </div>
+  <div :class="classes">
+    <label class="checkbox">
+      <input type="checkbox" :checked="isChecked" disabled name="checked" />
+      <span class="checkbox-custom" @click="archiveTask" />
+    </label>
+    <div class="title">
+      <input type="text" :value="task.title" readonly placeholder="Input title" />
+    </div>
+    <div class="actions">
+      <a v-if="!isChecked" @click="pinTask">
+        <span class="icon-star" />
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
+  import { reactive, computed } from 'vue';
+
   export default {
     name: 'Task',
     props: {
@@ -211,11 +223,34 @@ Our component is still rather rudimentary at the moment. We're going to make som
         validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
-+   computed: {
-+     isChecked() {
-+       return this.task.state === 'TASK_ARCHIVED';
-+     },
-+   },
+    emits: ['archive-task', 'pin-task'],
+
+    setup(props, { emit }) {
+      props = reactive(props);
+      return {
+        classes: computed(() => ({
+          'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
+          'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
+          'list-item TASK_ARCHIVED': props.task.state === 'TASK_ARCHIVED',
+        })),
+        /**
+         * Computed property for checking the state of the task
+         */
+        isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
+        /**
+         * Event handler for archiving tasks
+         */
+        archiveTask() {
+          emit('archive-task', props.task.id);
+        },
+        /**
+         * Event handler for pinning tasks
+         */
+        pinTask() {
+          emit('pin-task', props.task.id);
+        },
+      };
+    },
   };
 </script>
 ```
@@ -224,7 +259,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

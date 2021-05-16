@@ -1,17 +1,16 @@
 ---
 title: 'Visual Testing Handbook'
-description: '✍️Coming soon: Visual testing is a pragmatic yet precise way to check UI appearance.'
-heroDescription: '✍️Coming soon: Visual testing is a pragmatic yet precise way to verify the look of UI components. It’s practiced by companies like Slack, Lonely Planet, and Walmart. This five chapter handbook gives you an overview of visual testing in Storybook.'
-overview: 'What is visual testing? Visual tests validate the appearance of rendered UI by capturing an image of it in a consistent browser environment. That image is compared to previous images (baselines) to detect visual changes. UIs are more complex, multi-state, and personalized than ever. Visual testing helps you ensure that your app looks and feels right every release.'
+description: 'Visual testing is a pragmatic yet precise way to check UI appearance.'
+heroDescription: 'Visual testing is a pragmatic yet precise way to verify the look of UI components. It’s practiced by companies like Slack, Lonely Planet, and Walmart. This handbook gives you an overview of visual testing in Storybook.'
+overview: 'What is visual testing? Visual tests validate the appearance of rendered UI by capturing an image of it in a consistent browser environment. That image is compared to previous images (baselines) to detect visual changes. UIs are more complex, multi-state, and personalized than ever. Visual testing helps you ensure that your app looks right every release.'
 order: 3
 themeColor: '#129F00'
-codeGithubUrl: 'https://github.com/chromaui/learnstorybook-code'
+codeGithubUrl: 'https://github.com/chromaui/learnstorybook-visual-testing-code'
 heroAnimationName: null
-toc:
-  ['introduction', 'component-explorers', 'visual-test-driven-development', 'tutorial', 'automate']
+toc: ['introduction', 'component-explorers', 'workflow', 'vtdd', 'automate', 'conclusion']
 coverImagePath: '/guide-cover/visual-testing.svg'
 thumbImagePath: '/guide-thumb/visual-testing.svg'
-contributorCount: '+2'
+contributorCount: '33+' # early access readers
 authors:
   [
     {
@@ -26,6 +25,7 @@ authors:
     },
   ]
 contributors: []
+twitterShareText: 'I’m learning how to visual test UIs with Storybook! It’s great for finding UI bugs automatically.'
 ---
 
 <h2>What you'll build</h2>
@@ -38,4 +38,4 @@ contributors: []
 
 ![CommentList](/visual-testing-handbook/commentlist-presentation-data.jpg)
 
-`CommentList` is a list component that you might find in any chat tool. Follow along as we demonstrate how to use Storybook to build discrete UI states including `loading`, `empty`, and `hasData`. Then we'll walk through the process of visual testing by hand and automatically.
+`CommentList` is a list component that you might find in any chat tool. Follow along as we demonstrate how to use Storybook to build discrete UI variations. Then we'll walk through the process of visual testing manually and automatically.

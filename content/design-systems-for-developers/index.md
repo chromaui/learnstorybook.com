@@ -21,7 +21,7 @@ toc:
   ]
 coverImagePath: '/guide-cover/design-system.svg'
 thumbImagePath: '/guide-thumb/design-system.svg'
-contributorCount: '+38'
+contributorCount: '38+'
 authors:
   [
     {
