@@ -113,50 +113,56 @@ Ao criar uma história, usamos um argumento de tarefa base para construir a form
 //TOdo: continuar daqui!!
 ## Configuração
 
-É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/intro-to-storybook/react/pt/get-started).
+Precisaremos fazer algumas mudanças nos arquivos de configuração do Storybook, de forma que ele saiba não só onde procurar nossas histórias criadas recentemente, mas também nos permita usar o arquivo de CSS do aplicativo (localizado em `src/index.css`).
 
-Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
+Comece alterando seu arquivo de configuração do Storybook (`.storybook/main.js`) para o seguinte:
 
-```javascript
-// .storybook/main.js
-
+```diff:title=.storybook/main.js
 module.exports = {
-  //👇 Location of our stories
-  stories: ['../src/components/**/*.stories.js'],
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
++ stories: ['../src/components/**/*.stories.js'],
   addons: [
-    '@storybook/preset-create-react-app',
-    '@storybook/addon-actions',
     '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
   ],
 };
 ```
 
-Após efetuar esta alteração, uma vez mais dentro da pasta (ou diretório) `.storybook`, crie um novo ficheiro (ou arquivo) chamado `preview.js` com o seguinte conteúdo:
+Depois de concluir a alteração acima, dentro da pasta `.storybook`, altere o `preview.js` para o seguinte::
 
-```javascript
-// .storybook/preview.js
+```diff:title=.storybook/preview.js
++ import '../src/index.css';
 
-import '../src/index.css'; //👈 The app's CSS file goes here
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+};
 ```
 
-Após esta alteração, quando reiniciar o servidor Storybook, deverá produzir os casos de teste para os três diferentes estados da tarefa:
+os [`parâmetros`](https://storybook.js.org/docs/react/writing-stories/parameters) são normalmente usados ​​para controlar o comportamento dos recursos e complementos do Storybook. Em nosso caso, vamos usá-los para configurar como as `actions` (callbacks simulados) são tratadas.
 
-<video autoPlay muted playsInline controls >
+`actions` nos permitem criar retornos de chamada que aparecem no painel de **ações** da UI do Storybook quando clicados. Então, quando construímos um botão de fixação, seremos capazes de determinar no teste de UI se um clique de botão foi bem-sucedido.
+
+Depois de fazer isso, reiniciar o servidor do Storybook deve gerar casos de teste para os três estados de Task:
+
+<video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## Construção dos estados
 
-Neste momento já possuímos o Storybook configurado, os elementos de estilo importados, assim como os casos de teste, podemos agora iniciar a implementação HTML do componente de forma a igualar o design.
+Agora que temos a configuração do Storybook, estilos importados e casos de teste construídos, podemos rapidamente iniciar o trabalho de implementação do HTML do componente para corresponder ao design.
 
-O componente neste momento ainda está algo rudimentar. Vamos fazer algumas alterações de forma a atingir o design pretendido, sem entrar em muitos detalhes:
+O componente neste momento ainda é básico. Primeiro escreva o código que corresponda ao design, sem entrar em muitos detalhes:
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -175,7 +181,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={(event) => event.stopPropagation()}>
+      <div className="actions" onClick={event => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>
@@ -188,82 +194,83 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-O markup adicional descrito acima, combinado com o CSS que foi importado anteriormente irá originar o seguinte interface de utilizador:
+A marcação adicional acima combinada com o CSS que importamos anteriormente produz a seguinte interface:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## Especificação de requisitos de dados
 
-É considerada boa prática usar `propTypes` com o React, de forma a especificar a forma que os dados assumem num componente. Não somente é auto documentável, mas ajuda a detetar problemas cedo.
+É uma boa prática usar `propTypes` no React para especificar a forma dos dados que um componente espera. Não é apenas auto documentável, mas também ajuda a detectar problemas o quanto antes.
 
-```javascript
+```diff:title=src/components/Task.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Task() {
-  ...
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+  // ...
 }
 
-Task.propTypes = {
-  task: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired,
-  }),
-  onArchiveTask: PropTypes.func,
-  onPinTask: PropTypes.func,
-};
-
-export default Task;
++ Task.propTypes = {
++  /** Composition of the task */
++  task: PropTypes.shape({
++    /** Id of the task */
++    id: PropTypes.string.isRequired,
++    /** Title of the task */
++    title: PropTypes.string.isRequired,
++    /** Current state of the task */
++    state: PropTypes.string.isRequired,
++  }),
++  /** Event to change the task to archived */
++  onArchiveTask: PropTypes.func,
++  /** Event to change the task to pinned */
++  onPinTask: PropTypes.func,
++ };
 ```
 
-Enquanto estivermos a desenvolver o nosso componente irá ser emitido um aviso sempre que o componente não for usado de forma correta.
+Agora, um aviso em desenvolvimento aparecerá se o componente `Task` for mal utilizado.
 
 <div class="aside">
-  Uma forma alternativa de se atingir o mesmo resultado consiste no uso de um sistema de tipos Javascript tal como o TypeScript para criar um determinado tipo para as propriedades do componente.
+💡 Uma maneira alternativa de atingir o mesmo propósito é usar um sistema de tipo JavaScript como o TypeScript para criar um tipo para as propriedades do componente.
 </div>
 
-## Componente construido!
+## Componente construído!
 
-Construímos com sucesso um componente, sem ser necessário qualquer tipo de servidor, ou que seja necessário executar a aplicação frontend. O próximo passo é construir os restantes componentes da Taskbox um por um de forma similar.
+Construímos com sucesso um componente, sem ser necessário qualquer tipo de servidor, ou que seja necessário executar a aplicação frontend. O próximo passo é construir os componentes restantes do Taskbox, um por um, de forma similar.
 
-Como se pode ver, começar a construir componentes de forma isolada é fácil e rápido.
-Com isto espera-se que seja possível construir um interface de utilizador de qualidade superior com um número de problemas menor e mais polido. Isto devido ao facto que é possível aprofundar e testar qualquer estado possível.
+Como você pode ver, começar a construir componentes isoladamente é fácil e rápido. Podemos esperar produzir uma interface de alta qualidade com menos bugs e mais polimento, porque é possível se aprofundar e testar todos os estados possíveis.
 
 ## Testes automatizados
 
-O Storybook oferece uma forma fantástica de testar visualmente a aplicação durante o desenvolvimento. As "estórias" irão garantir que a tarefa não seja visualmente destruída á medida que a aplicação continua a ser desenvolvida. Mas no entanto continua a ser um processo manual neste momento e alguém terá que fazer o esforço de clicar em cada estado de teste de forma a garantir que irá renderizar sem qualquer tipo de problemas. Não poderíamos automatizar isto?
+O Storybook nos deu uma ótima maneira de testar manualmente a interface do usuário do nosso aplicativo durante a construção. As "histórias" ajudarão a garantir que não quebremos a aparência de nossa Task à medida que continuamos a desenvolver o aplicativo. No entanto, é um processo totalmente manual neste estágio, e alguém precisa se esforçar para clicar em cada teste de estado para garantir que funcione bem e sem erros ou avisos. Não poderíamos automatizar isto?
 
 ## Testes de snapshot
 
-Este tipo de testes refere-se á pratica de guardar o output considerado "bom" de um determinado componente com base num input e marcar o componente caso o output seja alterado. Isto complementa o Storybook, visto que é uma forma rápida de se visualizar a nova versão de um componente e verificar as alterações feitas.
+Este tipo de testes refere-se á pratica de guardar o output considerado "bom" de um determinado componente com base num input e sinalizar o componente caso o output seja alterado. Isto complementa o Storybook, visto que é uma forma rápida de se visualizar a nova versão de um componente e verificar as alterações feitas.
 
 <div class="aside">
-  É necessário garantir que os componentes renderizam dados que não serão alterados, de forma a garantir que os testes snapshot não falhem sempre. É necessário ter atenção a datas ou valores gerados aleatoriamente.
+💡 Certifique-se de que seus componentes renderizam dados que não mudam, para que seus testes de instantâneo não falhem todas as vezes. Fique atento a coisas como datas ou valores gerados aleatoriamente.
 </div>
 
-Com o [extra Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) é criado um teste de snapshot para cada uma das estórias. Para que este possa ser usado, adicionam-se as seguintes dependências de desenvolvimento:
+Com o [extra Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) é criado um teste de snapshot para cada uma das histórias. Use-o adicionando as seguintes dependências de desenvolvimento:
 
 ```bash
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 
-Quando esta operação terminar, será necessário criar o ficheiro `src/storybook.test.js` com o seguinte conteúdo:
+Em seguida, crie um arquivo `src/storybook.test.js` com o seguinte:
 
-```javascript
-// src/storybook.test.js
-
+```js:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-E é só isto, podemos agora executar o comando `yarn test` e verificar o seguinte resultado:
+É isto, podemos agora executar o comando `yarn test` e verificar o seguinte resultado:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
-Temos à nossa disposição um teste de snapshot para cada uma das estórias da `Task`. Se a implementação da `Task` for alterada, será apresentada uma notificação para serem verificadas a alterações que foram feitas.
+Agora temos um teste de snapshot para cada uma das histórias de `Task`. Se a implementação de `Task` for alterada, seremos solicitados a verificar as mudanças.
