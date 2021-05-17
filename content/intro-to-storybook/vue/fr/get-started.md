@@ -49,6 +49,8 @@ Nos trois modalités de notre application : tests automatisés (Jest), le compos
 
 En fonction de la partie de l'application sur laquelle vous travaillez, vous souhaiterez peut-être exécuter une ou plusieurs d'entre elles simultanément. Étant donné que notre objectif actuel est de créer un seul composant d'interface utilisateur, nous allons continuer d'exécuter Storybook.
 
+## Valider les modifications
+
 À ce stade, il est préférable d'ajouter nos fichiers à un référentiel local. Exécutez les commandes suivantes pour initialiser un référentiel local, ajouter et valider les modifications que nous avons effectuées jusqu'à présent.
 
 ```shell
@@ -56,6 +58,12 @@ $ git init
 ```
 
 Et ensuite :
+
+```shell
+$ git add .
+```
+
+Et pour finir :
 
 ```shell
 $ git commit -m "first commit"

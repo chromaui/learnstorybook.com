@@ -53,15 +53,20 @@ Ci-dessus, nous donnons une structure simple du composant `Tâche` basé sur l'e
 Ci-dessous nous construisons les trois états de test d'une Tâche dans le fichier story :
 
 ```js:title=src/components/Task.stories.js
-import Task from './Task';
+import Task from './Task.vue';
 
 import { action } from '@storybook/addon-actions';
 
 export default {
-  title: 'Task',
   component: Task,
-  // Our exports that end in "Data" are not stories.
+  //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
+  title: 'Task',
+  //👇 Our events will be mapped in Storybook UI
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
 export const actionsData = {
@@ -69,13 +74,13 @@ export const actionsData = {
   onArchiveTask: action('archive-task'),
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { Task },
-  props: Object.keys(argTypes),
-  methods: actionsData,
-  template: '<Task v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+  setup() {
+    return { args, ...actionsData };
+  },
+  template: '<Task v-bind="args" />',
 });
-
 export const Default = Template.bind({});
 Default.args = {
   task: {
@@ -112,16 +117,17 @@ Il y a deux niveaux d'organisation de base dans Storybook : le composant et ses 
 
 Pour informer Storybook du composant que nous documentons, nous créons un export `default` qui contient :
 
-- `component` -- le composant,
-- `title` -- le titre mentionné dans la barre latérale de l'application Storybook,
-- `excludeStories` -- informations requises par la story, mais ne doient pas être rendues par l'application Storybook.
+- `component` -- le composant lui-même,
+- `title` -- comment faire référence au composant dans la barre latérale de l'application Storybook,
+- `excludeStories` -- informations requises par la story, mais ne doivent pas être rendues par l'application Storybook,
+- `argTypes` -- spécifie le comportement des [arguments](https://storybook.js.org/docs/react/api/argtypes) dans chaque story.
 
 Pour définir nos stories, nous exportons une fonction pour chacun de nos états de test pour générer une story. La story est une fonction qui retourne a rendu d'élément (c'est-à-dire une classe de composant avec une liste de propriétés) dans un état donné --- exactement comme un [Composant fonctionnel sans état](https://vuejs.org/v2/guide/render-function.html#Functional-Components).
 
 Comme nous avons plusieurs permutations de notre composant, il est pratique de l'attribuer à une variable `Template`. L'introduction de ce pattern dans vos histoires réduira la quantité de code à écrire et à maintenir.
 
 <div class="aside">
-💡 `Template.bind({})` est un [standard JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) pour faire une copie d'une fonction. Nous utilisons cette technique pour permettre à chaque histoire exportée de définir ses propres propriétés, mais utiliser la même implémentation.
+💡 <code>Template.bind({})</code> est un <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">standard JavaScript</a> pour faire une copie d'une fonction. Nous utilisons cette technique pour permettre à chaque histoire exportée de définir ses propres propriétés, mais utiliser la même implémentation.
 </div>
 
 Les arguments ou [`args`](https://storybook.js.org/docs/vue/writing-stories/args) pour faire court, nous permettent de modifier en direct nos composants avec le module complémentaire de contrôle sans redémarrer Storybook. Une fois qu'une valeur [`args`](https://storybook.js.org/docs/vue/writing-stories/args) change, le composant change également.
@@ -145,11 +151,13 @@ Nous devrons effectuer quelques modifications aux fichiers de configuration de S
 Commencez par changer votre fichier de configuration Storybook (`.storybook/main.js`) avec ceci :
 
 ```diff:title=.storybook/main.js
-
 module.exports = {
-  //👇 Location of your stories
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
 + stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
 };
 ```
 
@@ -158,6 +166,7 @@ Après avoir effectué la modification ci-dessus, dans le dossier `.storybook`, 
 ```diff:title=.storybook/preview.js
 
 + import '../src/index.css';
+
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
@@ -172,7 +181,7 @@ Une fois cela fait, le redémarrage du serveur Storybook devrait générer des c
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -183,26 +192,27 @@ Maintenant que nous avons Storybook de configuré, que les styles sont importés
 
 Notre composant est encore assez rudimentaire pour le moment. Nous allons faire quelques modifications pour qu'il corresponde au design attendu sans pour autant rentrer trop dans le détail :
 
-```diff:title=src/components/Task.vue
-
+```html:title=src/components/Task.vue
 <template>
-+ <div class="list-item" :class="task.state">
-+  <label class="checkbox">
-+    <input type="checkbox" :checked="isChecked" disabled name="checked" />
-+    <span class="checkbox-custom" @click="$emit('archive-task', task.id)" />
-+  </label>
-+  <div class="title">
-+    <input type="text" :value="task.title" readonly placeholder="Input title" />
-+  </div>
-+  <div class="actions">
-+   <a v-if="!isChecked" @click="$emit('pin-task', task.id)">
-+    <span class="icon-star" />
-+   </a>
-+  </div>
-+ </div>
+  <div :class="classes">
+    <label class="checkbox">
+      <input type="checkbox" :checked="isChecked" disabled name="checked" />
+      <span class="checkbox-custom" @click="archiveTask" />
+    </label>
+    <div class="title">
+      <input type="text" :value="task.title" readonly placeholder="Input title" />
+    </div>
+    <div class="actions">
+      <a v-if="!isChecked" @click="pinTask">
+        <span class="icon-star" />
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
+  import { reactive, computed } from 'vue';
+
   export default {
     name: 'Task',
     props: {
@@ -213,11 +223,34 @@ Notre composant est encore assez rudimentaire pour le moment. Nous allons faire 
         validator: task => ['id', 'state', 'title'].every(key => key in task),
       },
     },
-+   computed: {
-+     isChecked() {
-+       return this.task.state === 'TASK_ARCHIVED';
-+     },
-+   },
+    emits: ['archive-task', 'pin-task'],
+
+    setup(props, { emit }) {
+      props = reactive(props);
+      return {
+        classes: computed(() => ({
+          'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
+          'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
+          'list-item TASK_ARCHIVED': props.task.state === 'TASK_ARCHIVED',
+        })),
+        /**
+         * Computed property for checking the state of the task
+         */
+        isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
+        /**
+         * Event handler for archiving tasks
+         */
+        archiveTask() {
+          emit('archive-task', props.task.id);
+        },
+        /**
+         * Event handler for pinning tasks
+         */
+        pinTask() {
+          emit('pin-task', props.task.id);
+        },
+      };
+    },
   };
 </script>
 ```
@@ -226,7 +259,7 @@ Le code additionnel ci-dessus combiné avec le CSS importé précédemment donne
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -266,7 +299,6 @@ initStoryshots();
 Nous devons ajouter une ligne dans votre `jest.config.js`:
 
 ```diff:title=jest.config.js
-
 module.exports = {
   ...
 + transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
