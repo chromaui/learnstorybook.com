@@ -23,7 +23,6 @@ Comme notre application est très simple, l'écran que nous allons créer est as
         <div class="subtitle-message">Something went wrong</div>
       </div>
     </div>
-
     <div v-else class="page lists-show">
       <nav>
         <h1 class="title-page">
@@ -55,13 +54,25 @@ Ensuite, nous pouvons créer un conteneur, qui récupère à nouveau les donnée
 </template>
 
 <script>
+  import { computed } from 'vue';
+
+  import { useStore } from 'vuex';
+
   import PureInboxScreen from './PureInboxScreen';
-  import { mapState } from 'vuex';
 
   export default {
     name: 'InboxScreen',
     components: { PureInboxScreen },
-    computed: mapState(['error']),
+    setup() {
+      //👇 Creates a store instance
+      const store = useStore();
+
+      //👇 Retrieves the error from the store's state
+      const error = computed(() => store.state.error);
+      return {
+        error,
+      };
+    },
   };
 </script>
 ```
@@ -77,12 +88,10 @@ Nous modifions également le composant `App` pour intégrer `InboxScreen` (éven
 </template>
 
 <script>
-  import store from './store';
 - import TaskList from './components/TaskList.vue';
 + import InboxScreen from './components/InboxScreen.vue';
   export default {
     name: 'app',
-    store,
     components: {
 -     TaskList
 +     InboxScreen,
@@ -101,20 +110,24 @@ Comme nous l'avons vu précédemment, le composant `TaskList` est un **conteneur
 
 Lors du placement du composant `TaskList` dans Storybook, nous avons pu éviter ce problème simplement en intégrant le composant `PureTaskList` et en évitant le conteneur. Nous allons faire quelque chose de similaire et rendre le composant `PureInboxScreen` dans Storybook également.
 
-Cependant, pour le composant `PureInboxScreen`, nous avons un problème car bien que le `PureInboxScreen` lui-même soit de présentation, son enfant, le composant `TaskList`, ne l'est pas. Dans un sens, `PureInboxScreen` a été pollué par le «container-ness». Ainsi, lorsque nous configurons nos histoires dans `src/components/PureInboxScreen.stories.js` :
+Cependant, pour le composant `PureInboxScreen`, nous avons un problème car bien que le `PureInboxScreen` lui-même soit de présentation, son enfant, le composant `TaskList`, ne l'est pas. Dans un sens, `PureInboxScreen` a été pollué par le "container-ness". Ainsi, lorsque nous configurons nos histoires dans `src/components/PureInboxScreen.stories.js` :
 
 ```js:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 
 export default {
-  title: 'PureInboxScreen',
   component: PureInboxScreen,
+  title: 'PureInboxScreen',
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { PureInboxScreen },
-  props: Object.keys(argTypes),
-  template: '<PureInboxScreen v-bind="$props" />',
+  setup() {
+    return {
+      args,
+    };
+  },
+  template: '<PureInboxScreen v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -137,44 +150,47 @@ Cependant, les développeurs **devront** inévitablement rendre les conteneurs p
 
 ## Fournir du contexte aux histoires
 
-La bonne nouvelle est qu'il est facile de fournir un magasin Vuex au composant `PureInboxScreen` dans une histoire ! Nous pouvons créer un nouveau magasin dans notre fichier d'histoire et le transmettre comme contexte de l'histoire :
+La bonne nouvelle est qu'il est facile de fournir un magasin Vuex au composant `PureInboxScreen` dans une story ! Nous pouvons créer un nouveau magasin dans notre fichier de story et le transmettre comme contexte de la story :
 
 ```diff:title=src/components/PureInboxScreen.stories.js
-+ import Vue from 'vue';
-+ import Vuex from 'vuex';
++ import { app } from '@storybook/vue3';
+
++ import { createStore } from 'vuex';
 
 import PureInboxScreen from './PureInboxScreen.vue';
 
 + import { action } from '@storybook/addon-actions';
 + import * as TaskListStories from './PureTaskList.stories';
 
-+Vue.use(Vuex);
-
-+ export const store = new Vuex.Store({
-+  state: {
-+    tasks: TaskListStories.Default.args.tasks,
-+  },
-+  actions: {
-+    pinTask(context, id) {
-+      action('pin-task')(id);
-+    },
-+    archiveTask(context, id) {
-+      action('archive-task')(id);
-+    },
-+  },
++ const store = createStore({
++   state: {
++     tasks: TaskListStories.Default.args.tasks,
++   },
++   actions: {
++     pinTask(context, id) {
++       action("pin-task")(id);
++     },
++     archiveTask(context, id) {
++       action("archive-task")(id);
++     },
++   },
 + });
+
++ app.use(store);
 
 export default {
   title: 'PureInboxScreen',
   component: PureInboxScreen,
-  excludeStories: /.*store$/,
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = (args) => ({
   components: { PureInboxScreen },
-  props: Object.keys(argTypes),
-  template: '<PureInboxScreen v-bind="$props" />',
-  store,
+  setup() {
+    return {
+      args,
+    };
+  },
+  template: '<PureInboxScreen v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -190,7 +206,7 @@ En parcourant les états dans Storybook, il est facile de tester que nous avons 
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>

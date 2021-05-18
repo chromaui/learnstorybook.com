@@ -5,7 +5,7 @@ description: 'Apprenez à intégrer et à utiliser des modules complémentaires 
 commit: '035d245'
 ---
 
-Storybook dispose d'un solide écosystème d'[addons](https://storybook.js.org/docs/vue/configure/storybook-addons) que vous pouvez utiliser pour améliorer l'expérience des développeurs pour tous les membres de votre équipe. Regardez-les tous [ici](https://storybook.js.org/addons).
+Storybook dispose d'un solide écosystème de [modules complémentaires (ou addons)](https://storybook.js.org/docs/vue/configure/storybook-addons) que vous pouvez utiliser pour améliorer l'expérience des développeurs pour tous les membres de votre équipe. Regardez-les tous [ici](https://storybook.js.org/addons).
 
 Si vous avez suivi ce tutoriel de manière linéaire, nous avons référencé plusieurs addons jusqu'à présent, et vous en aurez déjà implémenté un dans le [chapitre Test](/vue/fr/test/).
 

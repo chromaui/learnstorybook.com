@@ -33,13 +33,21 @@ Commencez par une implémentation approximative de `Tasklist`. Vous devrez impor
       empty
     </template>
     <template v-else>
-      <Task v-for="task in tasks" :key="task.id" :task="task" v-on="$listeners" />
+      <Task
+        v-for="task in tasks"
+        :key="task.id"
+        :task="task"
+        @archive-task="onArchiveTask"
+        @pin-task="onPinTask"
+      />
     </template>
   </div>
 </template>
 
 <script>
   import Task from './Task';
+  import { reactive, computed } from 'vue';
+
   export default {
     name: 'TaskList',
     components: { Task },
@@ -47,10 +55,25 @@ Commencez par une implémentation approximative de `Tasklist`. Vous devrez impor
       tasks: { type: Array, required: true, default: () => [] },
       loading: { type: Boolean, default: false },
     },
-    computed: {
-      isEmpty() {
-        return this.tasks.length === 0;
-      },
+    emits: ['archive-task', 'pin-task'],
+
+    setup(props, { emit }) {
+      props = reactive(props);
+      return {
+        isEmpty: computed(() => props.tasks.length === 0),
+        /**
+         * Event handler for archiving tasks
+         */
+        onArchiveTask(taskId) {
+          emit('archive-task', taskId);
+        },
+        /**
+         * Event handler for pinning tasks
+         */
+        onPinTask(taskId) {
+          emit('pin-task', taskId);
+        },
+      };
     },
   };
 </script>
@@ -59,21 +82,26 @@ Commencez par une implémentation approximative de `Tasklist`. Vous devrez impor
 Créez ensuite les états de `Tasklist` dans le fichier de l'histoire.
 
 ```js:title=src/components/TaskList.stories.js
-import TaskList from './TaskList';
+import TaskList from './TaskList.vue';
+
 import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [() => '<div style="padding: 3rem;"><story /></div>'],
+  decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
+  argTypes: {
+    onPinTask: {},
+    onArchiveTask: {},
+  },
 };
 
-const Template = (args, { argTypes }) => ({
+const Template = args => ({
   components: { TaskList },
-  props: Object.keys(argTypes),
-  // Nous réutilisons nos actions de task.stories.js
-  methods: TaskStories.actionsData,
-  template: '<TaskList v-bind="$props" @pin-task="onPinTask" @archive-task="onArchiveTask" />',
+  setup() {
+    return { args, ...TaskStories.actionsData };
+  },
+  template: '<TaskList v-bind="args" />',
 });
 
 export const Default = Template.bind({});
@@ -116,7 +144,7 @@ Empty.args = {
 ```
 
 <div class="aside">
-💡 Les <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>décorateurs</b></a> sont un moyen de fournir des enveloppes arbitraires aux histoires. Dans ce cas, nous utilisons une `clé` décoratrice sur l'exportation par défaut pour ajouter un `remplissage` autour du composant rendu. Ils peuvent également être utilisés pour encapsuler des stories dans des "fournisseurs" - c'est-à-dire des composants de bibliothèque qui définissent le contexte.
+💡 Les <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>décorateurs</b></a> sont un moyen de fournir des enveloppes arbitraires aux stories. Dans ce cas, nous utilisons une clé décoratrice dans l'exportation par défaut pour ajouter du style. Mais ils peuvent également être utilisés pour ajouter d'autres contextes aux composants, comme nous le verrons plus tard.
 </div>
 
 En important des `TaskStories`, nous avons pu [composer](https://storybook.js.org/docs/vue/writing-stories/args#args-composition) les arguments (args pour faire court) dans nos histoires avec un minimum d'effort. La manière dont les données et les actions (rappels bouchonnés) attendus par les deux composants sont préservées.
@@ -153,32 +181,53 @@ Notre composant est encore difficile, mais nous avons maintenant une idée des h
     </div>
 
     <template v-else>
-+     <Task v-for="task in tasksInOrder" :key="task.id" :task="task" v-on="$listeners" />
++     <Task v-for="task in tasksInOrder"
++       :key="task.id"
++       :task="task"
++       @archive-task="onArchiveTask
++       @pin-task="onPinTask"/>
     </template>
   </div>
 </template>
 
 <script>
-  import Task from './Task';
-  export default {
-    name: 'TaskList',
-    components: { Task },
-    props: {
-      tasks: { type: Array, required: true, default: () => [] },
-      loading: { type: Boolean, default: false },
-    },
-    computed: {
-+     tasksInOrder() {
+import Task from './Task';
+import { reactive, computed } from 'vue';
+
+export default {
+  name: 'TaskList',
+  components: { Task },
+  props: {
+    tasks: { type: Array, required: true, default: () => [] },
+    loading: { type: Boolean, default: false },
+  },
+  emits: ["archive-task", "pin-task"],
+
+  setup(props, { emit }) {
+    props = reactive(props);
+    return {
+      isEmpty: computed(() => props.tasks.length === 0),
++     tasksInOrder:computed(()=>{
 +       return [
-+         ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-+         ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
-+       ];
-+     },
-      isEmpty() {
-        return this.tasks.length === 0;
++         ...props.tasks.filter(t => t.state === 'TASK_PINNED'),
++         ...props.tasks.filter(t => t.state !== 'TASK_PINNED'),
++       ]
++     }),
+      /**
+       * Event handler for archiving tasks
+       */
+      onArchiveTask(taskId) {
+        emit('archive-task',taskId);
       },
-    },
-  };
+      /**
+       * Event handler for pinning tasks
+       */
+      onPinTask(taskId) {
+        emit('pin-task', taskId);
+      },
+    };
+  },
+};
 </script>
 ```
 
@@ -186,7 +235,7 @@ Les ajouts ont entraînés l'interface utilisateur suivante:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -213,23 +262,20 @@ Créez un fichier de test appelé `tests/unit/TaskList.spec.js`. Ici, nous allon
 parfois
 
 ```js:title=tests/unit/TaskList.spec.js
-import Vue from 'vue';
+import { mount } from '@vue/test-utils';
 
 import TaskList from '../../src/components/TaskList.vue';
 
+//👇 Our story imported here
 import { WithPinnedTasks } from '../../src/components/TaskList.stories';
 
-it('rend les tâches épinglées au début de la liste', () => {
-  // rendu Tasklist
-  const Constructor = Vue.extend(TaskList);
-  const vm = new Constructor({
-    // ... en utilisant WithPinnedTasks.args
+test('renders pinned tasks at the start of the list', () => {
+  const wrapper = mount(TaskList, {
+    //👇 Story's args used with our test
     propsData: WithPinnedTasks.args,
-  }).$mount();
-  const firstTaskPinned = vm.$el.querySelector('.list-item:nth-child(1).TASK_PINNED');
-
-  // Nous nous attendons à ce que la tâche épinglée soit rendue en premier, pas à la fin
-  expect(firstTaskPinned).not.toBe(null);
+  });
+  const firstPinnedTask = wrapper.find('.list-item:nth-child(1).TASK_PINNED');
+  expect(firstPinnedTask).not.toBe(null);
 });
 ```
 
