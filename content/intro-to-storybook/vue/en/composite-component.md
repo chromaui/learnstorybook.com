@@ -184,7 +184,7 @@ Our component is still rough but now we have an idea of the stories to work towa
 +     <Task v-for="task in tasksInOrder"
 +       :key="task.id"
 +       :task="task"
-+       @archive-task="onArchiveTask
++       @archive-task="onArchiveTask"
 +       @pin-task="onPinTask"/>
     </template>
   </div>
