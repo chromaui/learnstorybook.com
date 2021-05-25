@@ -175,9 +175,7 @@ que tiene el contexto de la aplicación. Use <code>action()</code> para simularl
 
 ## Configuración
 
-Tendremos que hacer un par de cambios en la configuración de Storybook para que note nuestras historias creadas recientemente y nos permita mostrar correctamente las historias de nuestros componentes.
-
-Comience cambiando su archivo de configuración de Storybook (`.storybook/main.js`) a lo siguiente:
+También tendremos que hacer un pequeño cambio en la configuración de Storybook, por lo que nota nuestras historias recientemente creadas. Cambia tu archivo de configuración (`.storybook/main.js`) a lo siguiente:
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -190,25 +188,7 @@ module.exports = {
 };
 ```
 
-Después de completar el cambio anterior, dentro de la carpeta `.storybook`, cambie se `preview.js` a lo siguiente:
-
-```diff:title=.storybook/preview.js
-import { setCompodocJson } from "@storybook/addon-docs/angular";
-import docJson from "../documentation.json";
-setCompodocJson(docJson);
-
-
-export const parameters = {
-  actions: { argTypesRegex: "^on[A-Z].*" },
-+ angularLegacyRendering: true,
-}
-```
-
-[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) se utilizan normalmente para controlar el comportamiento de las funciones y complementos de Storybook. En nuestro caso los usaremos para configurar cómo `actions` (devoluciones de llamada simuladas) que estamos manejando.
-
-`actions` nos permite crear devoluciones de llamada que aparecen en el panel **actions** de la interfaz de usuario de Storybook al hacer clic. Entonces, cuando creamos un botón de pin, podremos determinar en la UI de prueba si el clic de un botón es exitoso.
-
-Una vez que hayamos hecho esto, reiniciar el servidor de Storybook debería generar casos de prueba para los tres estados de TaskComponent:
+Una vez que hemos hecho esto, reiniciar el servidor de Storybook debe producir casos de prueba para los tres estados de TaskComponent:
 
 <video autoPlay muted playsInline loop>
   <source

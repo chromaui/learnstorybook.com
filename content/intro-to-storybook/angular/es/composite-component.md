@@ -231,10 +231,6 @@ En el capítulo anterior aprendimos a capturar historias de prueba utilizando St
 
 ![Jest logo](/intro-to-storybook/logo-jest.png)
 
-<div class="aside">
-TODO:ADD testing library image
-</div>
-
 ### Test unitarios con Angular Testing Library
 
 Las historias de Storybook combinadas con pruebas visuales manuales y pruebas de instantáneas (ver arriba) ayudan a prevenir errores de interfaz de usuario. Si las historias cubren una amplia variedad de casos de uso de los componentes, y utilizamos herramientas que aseguran que un humano compruebe cualquier cambio en la historia, es mucho menos probable que sucedan errores.
