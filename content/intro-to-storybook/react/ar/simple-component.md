@@ -28,6 +28,8 @@ commit: '97d6750'
 
 سنبدأ بتنفيذ بسيط للمكون `مهمة`, سنأخذ ببساطة الصفات التي نعلم أننا سنحتاج إليها بالإضافة إلى العمليتان اللتان ستنجز على مهمة (تحريكها بين اللوائح)
 
+<div style="direction: ltr">
+
 ```js:title=src/components/Task.js
 import React from 'react';
 
@@ -40,9 +42,13 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
+</div>
+
 مما سبق, نقوم بإظهار النص لـ`مهمة` بشكل مباشر بناء عن هيكل HTML الخاص بتطبيق مدير المهام
 
 بالأسفل, نقوم ببناء حالات الإختبار الثلاث الخاصة بالمهمة في ملف ستوري:
+
+<div style="direction: ltr">
 
 ```js:title=src/components/Task.stories.js
 import React from 'react';
@@ -82,6 +88,8 @@ Archived.args = {
   },
 };
 ```
+
+</div>
 
 هناك مستويين بسيطين من التنظيم في ستوريبوك: قصص المكون و قصص الأبناء الخاص به. يمكنك الحصول على كم غير محدود من الستوري لكل مكون تحتاج إليه
 
@@ -123,6 +131,8 @@ Archived.args = {
 
 إبدأ بتغيير ملف إعدادات ستوريبوك (`.storybook/main.js`) إلى الآتي:
 
+<div style="direction: ltr">
+
 ```diff:title=.storybook/main.js
 module.exports = {
 - stories: [
@@ -137,6 +147,8 @@ module.exports = {
   ],
 };
 ```
+
+</div>
 
 بعد تكملة التغيير أعلاه, داخل مجلد `.storybook` قم بتغيير المظهر (`preview.js`) إلى الآتي:
 

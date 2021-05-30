@@ -11,8 +11,6 @@ commit: 'a23f4d0'
 
 إذا كنت تتابع هذه الدروس فقد قابلت بالفعل مجموعة من الإضافات و أعددت إحداها في فصل [الإختبار](/intro-to-storybook/react/en/test/)
 
-If you've been following along with this tutorial, you've already encountered multiple addons, and set one up in the [Testing](/intro-to-storybook/react/en/test/) chapter.
-
 ## ما هي الضوابط؟
 
 الضوابط Controls تسمح للمصممين و المطورين إكتشاف سلوك المكون بسهولة عن طريق التلاعب في حججها أو براهينها. لا حاجة للكود. الضوابط تُنشئ لوحة إضافات بجانب ستوريز خاصتك, لكي تتمكن من تعديل حججها مباشرةً
