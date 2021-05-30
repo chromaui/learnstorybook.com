@@ -110,7 +110,7 @@ Ao criar uma história, usamos um argumento de tarefa base para construir a form
 <div class="aside">
     <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Ações</b></a> ajudam na verificação das interações quando são construídos componentes de interface isolados. Na grande maioria das vezes não existirá qualquer tipo de acesso ao estado e funções definidas no contexto da aplicação. Como tal é preferível o uso de<code>action()</code> para esta situação.
 </div>
-//TOdo: continuar daqui!!
+
 ## Configuração
 
 Precisaremos fazer algumas mudanças nos arquivos de configuração do Storybook, de forma que ele saiba não só onde procurar nossas histórias criadas recentemente, mas também nos permita usar o arquivo de CSS do aplicativo (localizado em `src/index.css`).
