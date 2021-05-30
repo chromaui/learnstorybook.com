@@ -127,7 +127,7 @@ jobs:
 
 </div>
 
-<div class="aside"><p>💡 لتبسيط الأمور, لم تٌذكر <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> Secrets او أسرار هي متغيرات بيئة أمنة مقدمة من Github لكي لا تحتاج لكتابة <code>رمز المشروع</code> الفريد يدويا داخل الكود.</p></div>
+<div class="aside"><p>💡 لتبسيط الأمور, لم تُذكر <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> Secrets او أسرار هي متغيرات بيئة أمنة مقدمة من Github لكي لا تحتاج لكتابة <code>رمز المشروع</code> الفريد يدويا داخل الكود.</p></div>
 
 ### نفذ الـ action
 

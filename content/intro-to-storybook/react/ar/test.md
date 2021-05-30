@@ -129,7 +129,7 @@ git push -u origin change-task-background
   />
 </video>
 
-Since modern apps are constructed from components, it’s important that we test at the level of component. Doing so helps us pinpoint the root cause of a change, the component, instead of reacting to symptoms of a change, the screens and composite components.
+بما أن التطبيقات الحديثة مبنية من مكونات فإنه من المهم اجراء إختبارات على مستوى المكون. هذا سيساعدنا على تحديد السبب الجذري للتغير, المكون عوضا عن الإستجابة لأعراض التغيير, الشاشات و المكونات المركبة.
 
 ## إدمج التغييرات
 

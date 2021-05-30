@@ -20,9 +20,7 @@ description: 'لخص معرفتك و تعلم المزيد من تقنيات س�
 
 - [**التوثيق الرسمي لستوريبوك**](https://storybook.js.org/docs/react/get-started/introduction) لديه توثيق API, روابط مجتمع, و معرض إضافات.
 
-- [**مسار عمل ستوريبوك المُفرح**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) highlights workflow best practices used by high-velocity teams at Squarespace, Major League Soccer, Discovery Network, and Apollo GraphQL.
-
-يسلط الضوء على أفضل ممارسات مسار العمل التي تستخدمها فرق عالية السرعة في Squarespace, Major League Soccer, Discovery Network و Apollo GraphQL.
+- [**مسار عمل ستوريبوك المُفرح**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) يسلط الضوء على أفضل ممارسات مسار العمل التي تستخدمها فرق عالية السرعة في شركات مثل Squarespace و Major League Soccer و Discovery Network و Apollo GraphQL.
 
 - [**كتاب الإختبار البصري**](https://storybook.js.org/tutorials/visual-testing-handbook/) يخوض عميقا في طريقة إستخدام ستوريبوك لإختبار المكونات بصريا. كتاب مجاني يتألف من واحد و ثلاثين صفحة.
 
@@ -34,7 +32,7 @@ description: 'لخص معرفتك و تعلم المزيد من تقنيات س�
 
 النص, الكود, و الإنتاج كلهم تمت المساهمة بهم عن طريق [Chromatic](https://www.chromatic.com/). إستوحيت الدروس من سلسلة Chromatic المشهورة [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
-تريد دروس و مقالات أكثر مثل هذه؟ اشترك في اللائحة البريدية الخاصة بستوريبوك
+تريد دروس و مقالات أكثر مثل هذه؟ اشترك في اللائحة البريدية الخاصة بستوريبوك.
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
 
