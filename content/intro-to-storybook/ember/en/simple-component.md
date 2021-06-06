@@ -125,7 +125,7 @@ module.exports = {
 -   '../src/**/*.stories.mdx',
 -   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
-+ stories: ['../src/components/**/*.stories.js'],
++ stories: ['../app/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links'],
 };
 ```
