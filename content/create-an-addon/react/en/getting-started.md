@@ -27,7 +27,7 @@ yarn
 The Addon Kit uses TypeScript by default. However, we'll use the eject command to convert the boilerplate code to JavaScript for the purposes of this tutorial.
 
 ```bash
-yarn ejectTS
+yarn eject-ts
 ```
 
 This will convert all code to JS. It is a destructive process, so we recommended running this before you start writing any code.

@@ -27,7 +27,7 @@ yarn
 L'Addon Kit utilise TypeScript par défaut. Toutefois, nous utiliserons la commande eject pour convertir le code standard en JavaScript dans le cadre de ce tutoriel.
 
 ```bash
-yarn ejectTS
+yarn eject-ts
 ```
 
 Enfin, lancez le mode développement afin de démarrer Storybook et Babel en mode watch.
