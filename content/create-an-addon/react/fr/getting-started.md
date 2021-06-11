@@ -21,15 +21,19 @@ Pour commencer, cliquez sur le bouton **Use this template** sur le [dépôt de l
 Ensuite, clonez le dépôt et installez les dépendances.
 
 ```bash
-npm install
-# Utiliser la commande suivante pour npm 7
-npm i --legacy-peer-deps
+yarn
+```
+
+L'Addon Kit est écrit en TypeScript par défaut mais, par soucis de simplification pour ce tutoriel, nous utiliserons la commande eject pour avoir du simple JavaScript.
+
+```bash
+yarn eject-ts
 ```
 
 Enfin, lancez le mode développement afin de démarrer Storybook et Babel en mode watch.
 
 ```bash
-npm run start
+yarn start
 ```
 
 Le code de l'addon se situe dans le répertoire `src`. L'exemple montre le fonctionnement des trois paradigmes UI et d'autres concepts comme la gestion d'état et comment interagir avec une story. Nous y reviendrons plus en détail dans les prochaines sections.
