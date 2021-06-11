@@ -310,7 +310,7 @@ Avatar is used to represent a person or an organization. By default the avatar s
 
 Every design system comes with a cover page. Storybook Docs allows you to create discrete pages using MDX.
 
-Create a new file `src/components/Intro.stories.mdx`:
+Create a new file `src/Intro.stories.mdx`:
 
 ```js:title=src/components/Intro.stories.mdx
 import { Meta } from '@storybook/addon-docs/blocks';
