@@ -24,7 +24,7 @@ Ensuite, clonez le dépôt et installez les dépendances.
 yarn
 ```
 
-L'Addon Kit utilise TypeScript par défaut. Toutefois, nous utiliserons la commande eject pour convertir le code standard en JavaScript dans le cadre de ce tutoriel.
+L'Addon Kit est écrit en TypeScript par défaut mais, par soucis de simplification pour ce tutoriel, nous utiliserons la commande eject pour avoir du simple JavaScript.
 
 ```bash
 yarn eject-ts
