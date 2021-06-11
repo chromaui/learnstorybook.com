@@ -312,7 +312,7 @@ Every design system comes with a cover page. Storybook Docs allows you to create
 
 Create a new file `src/Intro.stories.mdx`:
 
-```js:title=src/components/Intro.stories.mdx
+```js:title=src/Intro.stories.mdx
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Design System/Introduction" />
@@ -335,7 +335,7 @@ module.exports = {
   // Changes the load order of our stories. First loads the Intro page
   // automatically import all files ending in *.stories.js|mdx
   stories: [
-+   '../src/components/Intro.stories.mdx',
++   '../src/Intro.stories.mdx',
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
