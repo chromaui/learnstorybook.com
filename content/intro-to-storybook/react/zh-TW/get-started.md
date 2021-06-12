@@ -63,6 +63,12 @@ $ git init
 接著：
 
 ```shell
+$ git branch -M main
+```
+
+然後：
+
+```shell
 $ git add .
 ```
 
