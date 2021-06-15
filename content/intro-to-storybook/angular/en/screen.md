@@ -73,12 +73,12 @@ export class TasksState {
     return Object.keys(entities).map(id => entities[+id]);
   }
 
-  // Defines a new selector for the error field
-  @Selector()
-  static getError(state: TaskStateModel) {
-    const { error } = state;
-    return error;
-  }
++ // Defines a new selector for the error field
++ @Selector()
++ static getError(state: TaskStateModel) {
++   const { error } = state;
++   return error;
++ }
   //
   // Triggers the PinTask action, similar to redux
   @Action(PinTask)
