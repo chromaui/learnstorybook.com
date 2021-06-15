@@ -24,12 +24,12 @@ Inicie el desarrollo guiado por pruebas visuales mediante la creación de casos 
 Configuremos el proyecto de ejemplo usando [degit](https://github.com/Rich-Harris/degit) para descargar las plantillas repetitivas necesarias (aplicaciones parcialmente construidas con alguna configuración predeterminada). Ejecute los siguientes comandos:
 
 ```shell
-# Clone la plantilla para este tutorial
+# Clone the template for this tutorial
 npx degit chromaui/visual-testing-handbook-react-template commentlist
 
 cd commentlist
 
-# Instale dependencias
+# Install dependencies
 yarn
 ```
 
@@ -58,16 +58,16 @@ export default function CommentList({ loading, comments, totalCount }) {
 
 CommentList.propTypes = {
   /**
-   * Es el componente en estado de carga
+   * Is the component in the loading state
    */
   loading: PropTypes.bool,
 
   /**
-   * Número total de comentarios
+   * Total number of comments
    */
   totalCount: PropTypes.number,
   /**
-   * Lista de comentarios
+   * List of comments
    */
   comments: PropTypes.arrayOf(
     PropTypes.shape({
@@ -168,7 +168,7 @@ Empty.args = {
 Inicie Storybook para ver los casos de prueba. La implementación de nuestros componentes es básica, pero nos permite confirmar que nuestros casos de prueba se procesan según lo previsto.
 
 ```shell
-# Inicie Storybook en modo desarrollo
+# Start Storybook in development mode
 yarn storybook
 ```
 

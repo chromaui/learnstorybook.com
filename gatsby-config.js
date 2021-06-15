@@ -65,6 +65,7 @@ module.exports = {
       'visual-testing-handbook': {
         react: {
           en: 6.2,
+          es: 6.2,
         },
       },
       'create-an-addon': {

@@ -37,8 +37,8 @@ En la práctica, las pruebas visuales utilizan Storybook para probar "visualment
 ```
 test do
   setup
-  execute 👈 Storybook renderiza historias
-  verify 👈 miras historias
+  execute 👈 Storybook renders stories
+  verify 👈 you look at stories
   teardown
 end
 ```
@@ -48,8 +48,8 @@ Y posteriormente, cualquier regresión es atrapada, capturando y comparando inst
 ```
 test do
   setup
-  execute 👈 Storybook renderiza historias
-  verify 👈 captura instantáneas y las compara con las líneas base
+  execute 👈 Storybook renders stories
+  verify 👈 capture image snapshots and compare them to baselines
   teardown
 end
 ```
@@ -86,7 +86,7 @@ InboxTask.args = {
 export const SnoozedTask = Template.bind({});
 SnoozedTask.args = {
   task: {
-    // Dar forma a las historias a través de la composición de argumentos.
+    // Shaping the stories through args composition.
     ...InboxTask.args.task,
     state: 'TASK_SNOOZED',
   },
@@ -95,7 +95,7 @@ SnoozedTask.args = {
 export const PinnedTask = Template.bind({});
 PinnedTask.args = {
   task: {
-    // Dar forma a las historias a través de la composición de argumentos.
+    // Shaping the stories through args composition.
     ...InboxTask.args.task,
     state: 'TASK_PINNED',
   },
