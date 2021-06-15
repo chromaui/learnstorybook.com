@@ -104,7 +104,7 @@ Rendez-vous sur GitHub, vous devriez désormais voir un ensemble de labels qu'Au
 Enfin, la création d'une release
 
 ```bash
-npm run release
+yarn release
 ```
 
 Cette commande va :

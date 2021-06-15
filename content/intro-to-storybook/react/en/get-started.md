@@ -63,6 +63,12 @@ $ git init
 Followed by:
 
 ```shell
+$ git branch -M main
+```
+
+Then:
+
+```shell
 $ git add .
 ```
 
