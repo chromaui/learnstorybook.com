@@ -184,7 +184,7 @@ Our component is still rough but now we have an idea of the stories to work towa
 +     <Task v-for="task in tasksInOrder"
 +       :key="task.id"
 +       :task="task"
-+       @archive-task="onArchiveTask
++       @archive-task="onArchiveTask"
 +       @pin-task="onPinTask"/>
     </template>
   </div>
@@ -282,7 +282,7 @@ test('renders pinned tasks at the start of the list', () => {
 
 Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/vue/en/test/) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `Task` changes --perhaps using a different classname--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/vue/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

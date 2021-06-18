@@ -42,8 +42,10 @@ module.exports = {
           fr: 5.3,
           pt: 5.3,
         },
-        angular: {
+        angul
+        : {
           en: 6.2,
+          ja: 6.2,
           es: 5.3,
           pt: 5.3,
         },
@@ -70,6 +72,7 @@ module.exports = {
       'create-an-addon': {
         react: {
           en: 6.2,
+          fr: 6.2,
         },
       },
     },

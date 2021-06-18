@@ -96,8 +96,6 @@ Storybook 中有两个基本的组织级别。Component 及其 child stories.
 
 - `component` -- component 组件本身
 - `title` -- 如何在 Storybook 侧边栏中引用组件
-- `excludeStories` -- 在 story 文件中导出，但不需要被 Storybook 渲染为 stories
-- `argTypes` -- 每个 story 中指定的 [args](https://storybook.js.org/docs/react/api/argtypes) 行为
 
 为了定义我们的 stories，我们为每个测试状态导出一个函数用于生成一个 story。story 是一个根据传入的 state 返回一个已渲染元素的函数，就像是 [无状态组件](https://reactjs.org/docs/components-and-props.html#function-and-class-components)。
 

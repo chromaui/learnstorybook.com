@@ -25,8 +25,8 @@ git checkout -b create-avatar-list-component
 
 Download `AvatarList` component and story to your machine. Place it in the `/src` directory:
 
-- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/f92f904b7694e4456749f86f8df9699cfb86a47c/src/AvatarList.js)
-- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/f92f904b7694e4456749f86f8df9699cfb86a47c/src/AvatarList.stories.js)
+- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.js)
+- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.stories.js)
 
 Storybook is setup to automatically detect files ending in `\*.stories.js` and show them in the UI.
 

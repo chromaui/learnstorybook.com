@@ -1,23 +1,22 @@
 ---
 title: '測試 UI 元件'
-tocTitle: '測試'
-description: '瞭解測試UI元件的方法'
-commit: '3e283f7'
+tocTitle: '進行測試'
+description: '瞭解測試 UI 元件的方法'
 ---
 
-Storybook 教程沒有測試是不完整的. 測試對於建立高質量的 UI 至關重要. 在模組化系統中,微小的調整可能導致重大的回溯. 到目前為止,我們遇到了三種類型的測試
+每個 Storybook 教學都一定有測試，才算完整，這是打造高品質 UI 的必備事項。在模組化的系統，微小的修改都會造成嚴重回溯。目前為止，已經遇到 3 種測試：
 
-- **視覺測試** 依賴開發人員手動檢視元件以驗證其正確性. 它們幫助我們在構建時檢查元件的外觀.
-- **快照測試** 使用 Storyshots 捕獲元件的渲染標記. 它們可以幫助我們及時瞭解導致 渲染錯誤和警告的標記更改.
-- **單元測試** 使用 Jest 驗證 在給定固定輸入的情況下 元件的輸出保持不變. 它們非常適合測試元件的功能質量.
+- **手動測試**倚賴開發者自行察看元件，驗證是否正確。
+- **快照測試**使用的 Storyshot 攔截元件渲染出來的語法。只要有造成渲染錯誤和警告的語法變動，都能夠第一時間收到。
+- **單元測試**使用 Jest，驗證元件一樣的輸入，會有相同的輸出。這適用於測試元件的功能品質。
 
-## "但看起來不錯嗎?"
+## 「可是，看起來正常嗎？」
 
-不幸的是,單獨的上述測試方法不足以防止 UI 錯誤. 使用者介面很難測試,因為設計是主觀的,細緻入微的. 視覺化測試 過於手動,快照測試在用於 UI 時 會觸發太多誤報,而 畫素級單元測試的價值很低. 完整的 Storybook 測試策略 還包括視覺回溯測試.
+很不幸地，前面提到的測試方法，都無法各自避免 UI 臭蟲。由於設計是主觀的，且差距細微，使得 UI 很難進行測試。手動測試就如同字面的意思，得手動進行。快照測試用在 UI 時會引發許多偽陽性。像素等級的單元測試則沒什麼價值。完整的 Storybook 測試策略，還會包含視覺回溯測試。
 
-## Storybook 的視覺回溯測試
+## Storybook 的視覺測試
 
-視覺回溯測試旨在捕捉外觀的變化. 他們通過捕獲每個故事的螢幕截圖,並將它們提交到 表面更改 進行比較工作. 這非常適合驗證佈局,顏色,大小和對比度等圖形元素.
+視覺回溯測試是用來找出外觀的變動，也可以稱為視覺測試。方法是抓取每個 story 的螢幕截圖，隨著每個提交進行比較，使得變動可以浮上水面。在驗證排版、顏色、尺寸和對比度等圖像元素最適合。
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -26,108 +25,79 @@ Storybook 教程沒有測試是不完整的. 測試對於建立高質量的 UI �
   />
 </video>
 
-Storybook 是視覺回溯測試的絕佳工具,因為每個故事本質上都是一個測試規範. 每次我們編寫或更新故事時,我們都會免費獲得規格!
+Storybook 是優秀的視覺回溯測試工具，因為每個 story 基本上都是測試規格。每次撰寫或更新 story，都可以免費獲得一份規格！
 
-有許多用於視覺回溯測試的工具. 對於專業團隊,我們建議[**Chromatic**](https://www.chromatic.com/),由 Storybook 維護者製作的外掛,在雲中執行測試.
+視覺回溯測試工具有很多種。我們推薦 [**Chromatic**](https://www.chromatic.com/) 這款由 Storybook 維護者製作的免費出版工具，可以在雲端同時進行視覺測試。如同[上一個章節](/intro-to-storybook/react/zh-TW/deploy/)提到的，也可以在線上發布 Storybook。
 
-## 設定視覺回溯測試
+## 找出 UI 變化
 
-Chromatic 是一個無障礙的 Storybook 外掛,用於在雲中進行視覺回溯測試和審查. 由於它是付費服務 (免費試用) ,因此可能並非適合所有人. 但是,Chromatic 是生產視覺測試工作流程的一個有益的例子,我們將免費試用. 我們來看一下.
+視覺回溯測試倚賴原本的圖片跟新渲染的 UI 程式碼之間做比較。如果抓到 UI 變動，就會收到通知。
 
-### 初始化 Git
+以修改 `Task` 元件的背景，來看看是如何運作的。
 
-首先,您要在本地目錄中為專案設定 Git. Chromatic 使用 Git 歷史記錄 來跟蹤您的 UI 元件.
-
-```bash
-$ git init
-```
-
-接下來將檔案新增到第一次提交.
+一開始，為這次的修改新增分支：
 
 ```bash
-$ git add .
+git checkout -b change-task-background
 ```
 
-現在提交檔案.
+把 `src/components/Task.js` 改成以下這樣：
 
-```bash
-$ git commit -m "taskbox UI"
-```
-
-### 獲得 Chromatic
-
-將包新增為依賴項.
-
-```bash
-yarn add chromatic
-```
-
-匯入 Chromatic 到你的`.storybook/config.js`檔案.
-
-```javascript
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'chromatic';
-
-import '../src/index.css';
-
-const req = requireContext('../src/components', true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach(filename => req(filename));
-}
-
-configure(loadStories, module);
-```
-
-然後[登入 Chromatic](https://www.chromatic.com/start)使用您的 GitHub 帳戶 (Chromatic 僅要求輕量級許可權) . 建立名為"taskbox"的專案並複製您的唯一專案`project-token`.
-
-<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
-  <source
-    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
-    type="video/mp4"
+```diff:title=src/components/Task.js
+<div className="title">
+  <input
+    type="text"
+    value={title}
+    readOnly={true}
+    placeholder="Input title"
++   style={{ background: 'red' }}
   />
-</video>
-
-在命令列中執行 test 命令 以設定 Storybook 的視覺化回溯測試. 不要忘記新增您的 唯一應用程式碼 來代替`<project-token>`.
-
-```bash
-npx chromatic --project-token=<project-token>
+</div>
 ```
 
-第一次測試完成後, 我們會為每個故事提供測試基準. 換句話說,每個故事的螢幕截圖都被稱為"good". 這些故事的未來變化 將與 基線進行比較.
-
-![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)
-
-## 捕獲 UI 更改
-
-視覺回溯測試 依賴於將 新呈現的 UI 程式碼的影象 與 基線影象 進行比較. 如果捕獲到 UI 更改,則會收到通知. 通過調整背景 來了解它是如何工作的`Task`元件:
-
-![code change](/intro-to-storybook/chromatic-change-to-task-component.png)
-
-這會為專案生成新的背景顏色.
+項目就冒出新的背景顏色。
 
 ![task background change](/intro-to-storybook/chromatic-task-change.png)
 
-使用之前的 test 命令執行另一個 Chromatic 測試.
+幫這個檔案下 add 指令：
 
 ```bash
-npx chromatic --project-token=<project-token>
+git add .
 ```
 
-點選您將看到 更改的網路使用者介面 連結.
+提交：
 
-![UI changes in Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
+```bash
+git commit -m "change task background to red"
+```
 
-有很多變化! 元件層次結構表明 `Task`是`TaskList`的孩子和`Inbox`意味著一個小小的調整滾雪球成為主要的回溯. 這種情況正是開發人員除了其他測試方法之外,還需要視覺回溯測試的原因.
+把變動推到遠端的 Repo：
+
+```bash
+git push -u origin change-task-background
+```
+
+最後，打開在 GitHub 的 Repository，以 `change-task-background` 分支開啟 Pull Request。
+
+![Creating a PR in GitHub for task](/github/pull-request-background.png)
+
+描述一下 Pull Request，點擊 `Create pull request`。接著再按頁底的 "🟡 UI Tests" PR 檢查。
+
+![Created a PR in GitHub for task](/github/pull-request-background-ok.png)
+
+就會看到提交內容裡的 UI 變動。
+
+![Chromatic caught changes](/intro-to-storybook/chromatic-catch-changes.png)
+
+變動還挺多的！`Task` 在 `TaskList` 和 `Inbox` 底下，代表小小的修改滾起雪球，變成大幅度的回溯。這樣的情境，正是開發者需要視覺回溯測試的原因，其他測試方法還不夠。
 
 ![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
-## 檢視更改
+## 檢查變動
 
-視覺回溯測試確保元件不會意外更改. 但是,您仍然需要確定更改是否是有意的.
+視覺回溯測試確保元件不會意外地改變。但變動是否是有意的，決定權在自己身上。
 
-如果有意更改,則需要更新基線,以便將來的測試與故事的最新版本進行比較. 如果改變是無意的,則需要修復.
+如果是有意的變動，那就要更新基準，日後的測試才會跟 story 的最新版本比較。如果變動不是有意的，那就要修好。
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -136,14 +106,14 @@ npx chromatic --project-token=<project-token>
   />
 </video>
 
-由於現代應用程式是 由元件構建的,因此我們在元件級別 進行測試非常重要. 這樣做有助於我們找出變化的根本原因,即元件,而不是對 變化的症狀,頁面 和 複合元件 做出反應.
+既然現代的應用程式都是以元件蓋起來的，以元件為層級來測試就很重要。這樣的作法有助於點出變動的根本原因，也就是元件本身，而不是變動的表徵、畫面和複合元件。
 
-## 合併更改
+## 合併變動
 
-當我們完成稽核後,我們已準備好自信地合併 UI 更改 - 知道更新不會意外地引入錯誤. 如果你喜歡新的`red`背景色,然後接受更改,如果不需要恢復到以前的狀態.
+檢查完成之後，就可以有自信地準備合併 UI 變動，也就是明白進行更新不會意外引發臭蟲。如果喜歡新來的`紅色`背景，那就同意變動，反之則回復到先前的狀態。
 
 ![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook 可以幫助你 **建立** 元件;測試可以幫助你 **保持** 他們. 本教程介紹了四種類型的 UI 測試,包括 視覺化,快照,單元和視覺化回溯測試. 您可以通過將它們新增到 CI 指令碼 來自動執行最後三個. 這有助於您運輸元件 而不必擔心 偷渡漏洞. 整個工作流程如下所示.
+Storybook 幫助我們**打造**元件，而進行測試則是有助於**維護**。這篇教學裡提到的 4 種 UI 測試，分別是手動、快照、單元與視覺回溯測試。後 3 項就是剛剛設定好的，可以加到 CI 自動進行，在推出元件的時候免於擔心逃票的臭蟲。整個工作流程如下圖。
 
 ![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)

@@ -104,7 +104,7 @@ If you check on GitHub, you’ll now see a set of labels that Auto would like yo
 Finally, creating a release
 
 ```bash
-npm run release
+yarn release
 ```
 
 Which will:
