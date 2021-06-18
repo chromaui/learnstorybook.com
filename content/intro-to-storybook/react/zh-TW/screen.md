@@ -1,21 +1,22 @@
 ---
-title: '構建一個頁面'
+title: '建構頁面'
 tocTitle: '頁面'
-description: '用元件構建一個頁面'
+description: '以元件建構頁面'
 commit: '46f29e3'
 ---
 
-我們專注於從下到上構建 UI; 從小做起並增加複雜性. 這樣做使我們能夠獨立開發每個元件,找出其資料需求,並在 Storybook 中使用它. 所有這些都無需 啟動伺服器或構建出頁面!
+先前專注在由下而上的方式打造 UI，小規模著手，再不斷增加複雜度。這樣能夠以互不干擾的方式開發元件、瞭解資料需求，然後在 Storybook 裡把玩。完全不必設立伺服器，或蓋出畫面！
 
-在本章中,我們通過組合頁面中的元件,並在 Storybook 中開發該頁面 來繼續提高複雜性.
+在這章，我們使用 Storybook 將元件組合在畫面上，複雜度會繼續增加。
 
-## 巢狀的容器元件
+## 巢狀容器元件
 
-由於我們的應用程式非常簡單,我們將構建的頁面非常簡單,只需簡單地包裝`TaskList`元件 (通過 Redux 提供自己的資料) 在某些佈局中並拉出 redux 中頂層`error`的欄位 (假設我們在連線到 伺服器時遇到問題,我們將設定該欄位) . 建立`InboxScreen.js`在你的`components`夾:
+因為 App 非常簡樸，要做的畫面也相當無腦。就只要把 `TaskList` 元件（會透過 Redux 提供自用資料的那個）以某種排版包起來，然後在 Redux 外面的頂層堆上 `error` 欄位（假設連接伺服器的時候出問題，就要放置這個欄位）。在 `components` 資料夾新增 `InboxScreen.js`：
 
-```javascript
+```js:title=src/components/InboxScreen.js
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 
 import TaskList from './TaskList';
@@ -32,7 +33,6 @@ export function PureInboxScreen({ error }) {
       </div>
     );
   }
-
   return (
     <div className="page lists-show">
       <nav>
@@ -46,6 +46,7 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
+  /** The error message */
   error: PropTypes.string,
 };
 
@@ -56,104 +57,122 @@ PureInboxScreen.defaultProps = {
 export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-我們也改變了`App`,用於渲染的元件`InboxScreen` (最終我們會使用路由器來選擇正確的頁面,但不要在此擔心) :
+`App` 元件也要修改成可以渲染 `InboxScreen`（到最後會用 router 來選擇正確的畫面，但在這裡先不用擔心）：
 
-```javascript
-import React, { Component } from 'react';
+```js:title=src/App.js
 import { Provider } from 'react-redux';
 import store from './lib/redux';
 
 import InboxScreen from './components/InboxScreen';
 
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <InboxScreen />
-      </Provider>
-    );
-  }
-}
+import './index.css';
 
+function App() {
+  return (
+    <Provider store={store}>
+      <InboxScreen />
+    </Provider>
+  );
+}
 export default App;
 ```
 
-然而,事情變得有趣的是在 Storybook 中渲染故事.
+然而，有趣的地方就在 Storybook 渲染 story。
 
-正如我們之前看到的那樣`TaskList`元件是一個 **容器**, 這使得`PureTaskList`表示元件. 根據定義,容器元件不能簡單地單獨呈現; 他們希望通過一些上下文或連線到服務. 這意味著要在 Storybook 中呈現容器,我們必須模擬 (即提供假裝版本) 它所需的上下文或服務.
+就像前面已知 `TaskList` 元件是渲染展示元件 `PureTaskList` 的容器。容器元件，在字面上的意思就是不能直接獨立渲染，它們應該要收到一些情境，或連接服務。這意思是在 Storybook，渲染容器時應該要 情境或要用到的服務。
 
-放置`TaskList`進入 Storybook,我們能夠通過簡單地渲染`PureTaskList`,並避開容器來避開這個問題. 我們會渲染`PureInboxScreen`並在 Storybook 中做類似的事情.
+只要把 `TaskList` 放在 Storybook，將 `PureTaskList` 渲染而不使用容器，就能夠避開這個問題。接著還會在 Storybook 渲染類似的 `PureInboxScreen`。
 
-但是,對於`PureInboxScreen`我們有一個問題,因為雖然`PureInboxScreen`本身是表現性的,它的孩子,`TaskList`, 不是. 從某種意義上說`PureInboxScreen`被"容器"汙染了. 所以,當我們設定我們的故事`InboxScreen.stories.js`:
+只不過，`PureInboxScreen` 會遇到的問題是：它本身是只用來展示的，但裡面的 `TaskList`不是。某種程度上來說，`PureInboxScreen` 已經被容器化污染。因此，在 `InboxScreen.stories.js` 設定 story 的時候：
 
-```javascript
+```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
 import { PureInboxScreen } from './InboxScreen';
 
-storiesOf('InboxScreen', module)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+export default {
+  component: PureInboxScreen,
+  title: 'InboxScreen',
+};
+
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
-我們看到了雖然如此`error`故事工作得很好,我們`default`故事有一個問題,因為`TaskList`沒有要連線的 Redux Store . (在嘗試測試時,您也會遇到類似的問題`PureInboxScreen`用單元測試) .
+雖然 `error` 這個 story 運作良好，`default` 卻有問題，因為 `TaskList` 沒有可以連接的 Redux store（想要為 `PureInboxScreen` 進行單元測試的時候也會遇到類似的問題）。
 
 ![Broken inbox](/intro-to-storybook/broken-inboxscreen.png)
 
-避免此問題的一種方法是,永遠不要在應用程式中的任何位置呈現容器元件,除非在最高級別,而是將所有要求的資料 傳遞到 元件層次結構中.
+一種避開這問題的方法，是在 App 裡除了最高層級，其它都絕不渲染容器元件，並且把所有資料需求在元件結構往下傳。
 
-但是,開發人員 **將** 不可避免地需要在元件層次結構中,進一步渲染容器. 如果我們想要在 Storybook 中渲染大部分或全部應用程式 (我們這樣做!) ,我們需要一個解決此問題的方法.
+只不過，開發者們**肯定**無可避免地得要在元件層級下方渲染容器。如果想要在 Storybook 盡可能渲染幾乎所有，或全部 App（我們有做到），這問題就要有解決方案。
 
 <div class="aside">
-另外，在層次結構中 傳遞資料 是合法的方法，尤其是在使用 <a href="http://graphql.org/">GraphQL</a>. 這就是我們的建設 <a href="https://www.chromatic.com">Chromatic</a> 伴隨著670多個故事.
+💡 儘管如此，將資料往結構下方傳遞是容許的，尤其是使用 <a href="http://graphql.org/">GraphQL</a> 的時候。這就是我們以 800+ 個 story 打造出 <a href="https://www.chromatic.com">Chromatic</a> 的方法。
 </div>
 
-## 用裝飾器提供上下文
+## 以 Decorator 提供情境
 
-好訊息是 Redux Store 很容易提供給 一個`InboxScreen`故事! 我們可以使用 Redux Store 的模擬版本 提供給到裝飾器中:
+好消息是：在 story 裡，可以很輕易地為 `InboxScreen` 準備好 Redux store！只要使用在 Decorator 裡，使用虛構版的 Redux store。
 
-```javascript
+```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
-import { Provider } from 'react-redux';
++ import { Provider } from 'react-redux';
 
 import { PureInboxScreen } from './InboxScreen';
-import { defaultTasks } from './TaskList.stories';
 
-// A super-simple mock of a redux store
-const store = {
-  getState: () => {
-    return {
-      tasks: defaultTasks,
-    };
-  },
-  subscribe: () => 0,
-  dispatch: action('dispatch'),
++ import { action } from '@storybook/addon-actions';
+
++ import * as TaskListStories from './TaskList.stories';
+
++ // A super-simple mock of a redux store
++ const store = {
++   getState: () => {
++    return {
++      tasks: TaskListStories.Default.args.tasks,
++    };
++   },
++   subscribe: () => 0,
++   dispatch: action('dispatch'),
++ };
+
+export default {
+  component: PureInboxScreen,
++ decorators: [story => <Provider store={store}>{story()}</Provider>],
+  title: 'InboxScreen',
 };
 
-storiesOf('InboxScreen', module)
-  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
 ```
 
-存在類似的方法來為其他資料庫提供模擬的上下文,例如[阿波羅](https://www.npmjs.com/package/apollo-storybook-decorator),[Relay](https://github.com/orta/react-storybooks-relay-container)和別的.
+其他資料函式庫，像是 [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator) 和 [Relay](https://github.com/orta/react-storybooks-relay-container) …等也有類似提供虛構情境的功能。
 
-在 Storybook 中 迴圈瀏覽狀態 可以輕鬆測試我們是否已正確完成此操作:
+在 Storybook 裡做好狀態的循環，就可以輕鬆、正確地使用做好的測試：
 
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## 元件驅動開發
 
-我們從底部開始`Task`,然後進展到`TaskList`,現在我們在這裡使用全屏 UI. 我們的`InboxScreen`容納巢狀的容器元件,幷包括隨附的故事.
+我們從最底層的 `Task` 開始，進展到 `TaskList`，現在已經是一整個畫面的 UI。`InboxScreen` 容納巢狀容器元件，還有對應的 story。
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -162,6 +181,10 @@ storiesOf('InboxScreen', module)
   />
 </video>
 
-[**元件驅動開發**](https://www.componentdriven.org/)允許您在向上移動元件層次結構時,逐漸擴充套件複雜性. 其中的好處包括 更集中的開發過程 以及 所有可能的 UI 排列 的覆蓋範圍. 簡而言之,CDD 可幫助您構建 更高質量和更復雜 的使用者介面.
+[**元件驅動開發**](https://www.componentdriven.org/)能夠隨著元件結構往上疊加，讓複雜度逐漸擴張。各種好處可以帶來更專注的開發流程、涵蓋所有可能的 UI 排列。簡單來說，CDD 有助於打造更高品質且更複雜的使用者介面。
 
-我們還沒有完成 - 在構建 UI 時,工作不會結束. 我們還需要確保它隨著時間的推移保持持久.
+還沒有搞定。UI 打造出來之前，工作都不算結束。還要確保隨著時間，仍保持可用狀態。
+
+<div class="aside">
+💡 別忘了在 git 提交改好的東西！
+</div>
