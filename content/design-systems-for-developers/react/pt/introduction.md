@@ -10,7 +10,7 @@ description: 'Um guia para as ferramentas mais recentes orientadas para sistemas
 <br/>
 
 Os sistemas de design estão a explodir em termos de popularidade. Desde gigantes da tecnologia tal como a Airbnb até às startups emergentes, organizações de todos os tipos estão a reutilizar padrões de interface de utilizador (IU) de forma a economizar tempo e dinheiro.
-Mas existe um fosso bem grande entre os sistemas de design criados pela Airbnb, Uber ou a Microsoft e os sistemas de design criados pela maioria dos programadores.
+Mas existe um fosso bem grande entre os sistemas de design criados pela BBC,Airbnb ou a Microsoft e os sistemas de design criados pela maioria dos programadores.
 
 Porque é que as equipas na vanguarda dos sistemas de design usam as ferramentas e as técnicas que usam? Eu e o meu co-autor Tom fizemos uma pesquisa com base na comunidade Storybook sobre quais seriam as características para um sistema de design bem sucedido, de forma a identificar as melhores práticas.
 
@@ -46,7 +46,7 @@ A economia de escala associada a um sistema de design funciona a seu favor quand
 
 ## O que estamos a construir
 
-O Storybook alimenta os sistemas de design da [Uber](https://github.com/uber-web/baseui), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/), além de centenas de outras empresas. As recomendações aqui apresentadas são inspiradas nas melhores práticas e ferramentas criadas pelas pessoas mais inteligentes. Vamos construir a seguinte stack de frontend:
+O Storybook alimenta os sistemas de design da [BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/), além de centenas de outras empresas. As recomendações aqui apresentadas são inspiradas nas melhores práticas e ferramentas criadas pelas pessoas mais inteligentes. Vamos construir a seguinte stack de frontend:
 
 #### Construir componentes
 
