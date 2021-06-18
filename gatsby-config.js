@@ -29,7 +29,7 @@ module.exports = {
           nl: 5.3,
           pt: 5.3,
           'zh-CN': 6.1,
-          'zh-TW': 5.3,
+          'zh-TW': 6.2,
           ar: 6.2,
         },
         'react-native': {
@@ -42,8 +42,7 @@ module.exports = {
           fr: 5.3,
           pt: 5.3,
         },
-        angul
-        : {
+        angular: {
           en: 6.2,
           ja: 6.2,
           es: 5.3,
