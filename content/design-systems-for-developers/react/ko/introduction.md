@@ -8,7 +8,7 @@ description: 'A guide to the latest production-ready tools for design systems'
 </div>
 <br/>
 
-디자인 시스템의 인기는 폭발적으로 증가하고 있습니다. Airbnb와 같은 거대 기술 기업부터 신생 스타트업까지, 회사들은 시간과 비용을 절약하기 위해 UI 패턴을 재사용하는 방식을 도입하고 있습니다. 하지만 Airbnb, Uber, Microsoft에서 만든 디자인 시스템과 대부분의 개발자가 만든 디자인 시스템 사이에는 큰 차이가 존재합니다.
+디자인 시스템의 인기는 폭발적으로 증가하고 있습니다. Airbnb와 같은 거대 기술 기업부터 신생 스타트업까지, 회사들은 시간과 비용을 절약하기 위해 UI 패턴을 재사용하는 방식을 도입하고 있습니다. 하지만 BBC, Airbnb, Microsoft에서 만든 디자인 시스템과 대부분의 개발자가 만든 디자인 시스템 사이에는 큰 차이가 존재합니다.
 
 우수한 디자인 시스템을 가진 팀은 왜 그 특정 도구와 기술을 사용할까요? 공동 저자 톰과 함께 스토리북 커뮤니티의 우수 사례들을 통해 성공적인 디자인 시스템의 특성을 연구했습니다.
 
@@ -44,7 +44,7 @@ description: 'A guide to the latest production-ready tools for design systems'
 
 ## 우리가 사용하는 도구들
 
-[Uber](https://github.com/uber-web/baseui), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/)을 비롯한 수백 개가 넘는 기업의 디자인 시스템에 스토리북이 사용되고 있습니다. 여기에서 권장하는 사항들은 가장 똑똑한 팀의 우수 사례 및 도구를 참고했습니다. 아래 프론트엔드 환경을 구성해보세요.
+[BBC]https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/)을 비롯한 수백 개가 넘는 기업의 디자인 시스템에 스토리북이 사용되고 있습니다. 여기에서 권장하는 사항들은 가장 똑똑한 팀의 우수 사례 및 도구를 참고했습니다. 아래 프론트엔드 환경을 구성해보세요.
 
 #### 빌드 컴포넌트
 
