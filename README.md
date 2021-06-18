@@ -230,7 +230,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 | React        | English          | ✅      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
-|              | Taiwanese        | ❌      |
+|              | Taiwanese        | ✅      |
 |              | Mainland Chinese | ✅      |
 |              | Dutch            | ❌      |
 |              | Korean           | ✅      |
