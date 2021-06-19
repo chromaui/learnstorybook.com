@@ -43,7 +43,7 @@ yarn start
 ```
 
 <div class="aside"> 
-💡 請留意測試指令的 flag <code>--watchAll</code>，加上此 flag 可以確保所有測試都有跑到。在這篇教學的過程，會介紹不同的測試情境。也許你會考慮根據情況修改 <code>package.json</code>' 腳本。
+💡 請留意測試指令的 flag <code>--watchAll</code>，加上此 flag 可以確保所有測試都有跑到。在這篇教學的過程，會介紹不同的測試情境。可以考慮根據情況修改 <code>package.json</code> 腳本。
 </div>
 
 現在有 3 種前端應用程式模式：自動化測試 (Jest)、元件開發 (Storybook) 和應用程式本身。
