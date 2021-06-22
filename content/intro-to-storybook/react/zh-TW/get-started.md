@@ -1,5 +1,5 @@
 ---
-title: 'React 的 Storybook 教學'
+title: 'Storybook 教學：React 篇'
 tocTitle: '開始'
 description: '在開發環境設定 Storybook'
 commit: 'ac1ec13'
@@ -11,9 +11,9 @@ Storybook 與 App 的開發模式一起運作，協助將 App 裡 UI 元件的�
 
 ## 設定 React Storybook
 
-只要照著幾個步驟，就可以在環境下開始 build 的流程。一開始，我們喜歡用來設定 build 系統的是 [degit](https://github.com/Rich-Harris/degit)。用了這套件，就可以下載「範本」（已經預設寫好一些設定的應用程式半成品），它有助於快速追蹤開發流程。
+只要照著幾個步驟，就可以在環境下開始 build 的流程。我們喜歡從設定 build 系統的 [degit](https://github.com/Rich-Harris/degit) 開始。用了這套件，就可以下載「範本」（已經預設寫好一些設定的應用程式半成品），它有助於快速追蹤開發流程。
 
-讓我們執行以下指令：
+執行以下指令：
 
 ```bash
 # Clone the template
