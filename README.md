@@ -236,6 +236,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Korean           | ✅      |
 |              | Japanese         | ✅      |
 |              | French           | ✅      |
+|              | Arabic           | ✅      |
 |              | German           | ❌      |
 | React Native | English          | ❌      |
 |              | Spanish          | ❌      |
@@ -277,3 +278,4 @@ The [Visual Testing handbook](https://storybook.js.org/tutorials/visual-testing-
 | Translation | Updated |
 | ----------- | ------- |
 | English     | ✅      |
+| Spanish     | ✅      |
