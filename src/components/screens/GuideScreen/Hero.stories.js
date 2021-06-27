@@ -34,7 +34,7 @@ const storyLanguagesData = [
     tutorial: '/intro-to-storybook/react/zh-CN/get-started/',
   },
   {
-    name: '繁體中文',
+    name: '正體中文',
     tutorial: '/intro-to-storybook/react/zh-TW/get-started/',
   },
   {
