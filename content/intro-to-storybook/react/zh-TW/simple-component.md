@@ -11,18 +11,18 @@ commit: '97d6750'
 
 ![工作事項元件的三種狀態](/intro-to-storybook/task-states-learnstorybook.png)
 
-`工作事項`是應用程式裡的核心元件。每個工作事項只會根據它的狀態，而有一些外觀上的不同。顯示有打鉤（沒打鉤）狀態的 checkbox、工作事項的資訊和可以在清單上把工作事項上下移動的「標記」按鈕 。這樣子，props 就會有：
+`Task` 是應用程式裡的核心元件。每個工作事項只會根據它的狀態，而有一些外觀上的不同。顯示有打鉤（沒打鉤）狀態的 checkbox、工作事項的資訊和可以在清單上把工作事項上下移動的「標記」按鈕 。這樣子，props 就會有：
 
 - `title` - 描述工作事項的字串
 - `state` - 工作事項目前所屬清單，以及是完成的嗎？
 
-開始打造`工作事項`的時候，首先要撰寫狀態的測試，對應上面提到工作事項的類型。接著，使用模擬資料在 Storybook 打造獨立元件。執行每個狀態時，元件的外觀是手動進行測試。
+開始打造 `Task` 的時候，首先要撰寫狀態的測試，對應上面提到工作事項的類型。接著，使用模擬資料在 Storybook 打造獨立元件。執行每個狀態時，元件的外觀是手動進行測試。
 
 ## 做好準備
 
 首先，新增工作項目元件，還有搭檔的 story 檔案：`src/components/Task.js` 和 `src/components/Task.stories.js`。
 
-一開始，先做好`工作事項`的基礎設定，只需帶入知道會用到的屬性，還有兩個在工作事項可以執行的動作（在清單之間移動）：
+一開始，先做好 `Task` 的基礎設定，只需帶入知道會用到的屬性，還有兩個在工作事項可以執行的動作（在清單之間移動）：
 
 ```js:title=src/components/Task.js
 import React from 'react';
@@ -36,7 +36,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-在上面，我們根據待辦事項 app 現有的 HTML 結構，把`工作事項`語法直覺地 render 出來。
+在上面，我們根據待辦事項 app 現有的 HTML 結構，把 `Task` 語法直覺地 render 出來。
 
 接下來，要在 story 檔案蓋出工作事項的 3 種測試狀態：
 
@@ -141,7 +141,7 @@ export const parameters = {
 
 [`parameter`](https://storybook.js.org/docs/react/writing-stories/parameters) 通常使用在控制 Storybook 功能和 addon 的行為。在這裡，是為了要用來設定 `action`（模擬 callback）的處理方式。
 
-`action` 讓我們可以做一些會在 Storybook UI 裡裡，按下 **actions** 區塊出現的 callback。因此，在做圖釘按鈕時，就可以在測試 UI 看出點擊按鈕是否成功。
+按下 `action` 後，就可以在 Storybook UI 裡的 **actions** 區塊產生 callback。因此，在做圖釘按鈕時，就可以在測試 UI 看出點擊按鈕是否成功。
 
 做好這些事情後，重新開啟 Storybook 伺服器，就應該會產生 3 種 Task 狀態的測試案例：
 
