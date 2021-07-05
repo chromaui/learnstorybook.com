@@ -232,7 +232,7 @@ const Services = styled.div`
     transition: all 150ms ease-out;
   }
 
-  
+
 
   ${CircleCI} {
     /* Turn down the pure black of these logos */
@@ -403,6 +403,9 @@ const Footer = ({ ...props }) => (
         </FooterLink>
         <FooterLink tertiary href={youtube}>
           <Icon icon="youtube" /> Youtube
+        </FooterLink>
+        <FooterLink tertiary href="https://componentdriven.org/">
+          Component Driven UIs
         </FooterLink>
       </Column>
       <Subscribe>
