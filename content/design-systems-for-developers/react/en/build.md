@@ -127,21 +127,26 @@ Storybook includes a powerful [addon ecosystem](https://storybook.js.org/addons)
 
 The [actions addon](https://storybook.js.org/docs/react/essentials/actions) gives you UI feedback in Storybook when an action is performed on an interactive element like a Button or Link. Actions comes installed in Storybook by default and you use it simply by passing an “action” as a callback prop to a component.
 
-Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. We have a story that passes an action to that wrapper:
+Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. Let's alter the story to pass an action to that wrapper:
 
-```js:title=src/Button.stories.js
+```diff:title=src/Button.stories.js
 import React from 'react';
 
 import styled from 'styled-components';
 
++ import { action } from '@storybook/addon-actions'
+
++ const onButtonClick = action("onButtonClick")
+
 // When the user clicks a button, it will trigger the `action()`,
 // ultimately showing up in Storybook's addon panel.
 function ButtonWrapper(props) {
-  return <CustomButton {...props} />;
+-  return <CustomButton {...props} />;
++  return <CustomButton onClick={onButtonClick} {...props} />
 }
 
 export const buttonWrapper = (args) => (
-  return <CustomButton {...props}/>;
+  return <Button ButtonWrapper={ButtonWrapper} appearance="primary" />;
 // … etc ..
 )
 ```
