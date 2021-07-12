@@ -522,6 +522,6 @@ const StorybookUIRoot = getStorybookUI({
 export default StorybookUIRoot;
 ```
 
-<div class="aside"><p>We're adding the <code>asyncStorage:null</code> due to the fact that starting with React Native 0.59 Async Storage was deprecated. Should you need to use it in your own app, you'll have to add it manually by installing <code>@react-native-community/async-storage</code> package and adjust the code above accordingly. You can read more about how to setup Storybook with Async Storage in <a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#react-native-async-storage">here</a>. As the tutorial will not use any of the features of Async Storage, we can safely add this element to Storybook configuration.</p></div>
+<div class="aside"><p>We're adding the <code>asyncStorage:null</code> due to the fact that starting with React Native 0.59 Async Storage was deprecated. Should you need to use it in your own app, you'll have to add it manually by installing <code>@react-native-async-storage/async-storage</code> package and adjust the code above accordingly. You can read more about how to setup Storybook with Async Storage in <a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#react-native-async-storage">here</a>. As the tutorial will not use any of the features of Async Storage, we can safely add this element to Storybook configuration.</p></div>
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
