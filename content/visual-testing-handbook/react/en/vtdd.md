@@ -1,7 +1,7 @@
 ---
 title: 'Visual TDD'
 description: 'Write your first visual tests'
-commit: 'e7c8eb9'
+commit: '2aa2ae0'
 ---
 
 Now that the basics are covered let’s jump into the details. This example demonstrates building out a state of a `CommentList` component using **Visual TDD** with Storybook.
@@ -45,10 +45,10 @@ import PropTypes from 'prop-types';
 
 export default function CommentList({ loading, comments, totalCount }) {
   if (loading) {
-    return <div>empty</div>;
+    return <div>loading</div>;
   }
   if (comments.length === 0) {
-    return <div>loading</div>;
+    return <div>empty</div>;
   }
   return (
     <div>
@@ -260,10 +260,10 @@ import PropTypes from 'prop-types';
 
 export default function CommentList({ loading, comments, totalCount }) {
   if (loading) {
-    return <div>empty</div>;
+    return <div>loading</div>;
   }
   if (comments.length === 0) {
-    return <div>loading</div>;
+    return <div>empty</div>;
   }
   return (
 +   <>

@@ -1,6 +1,7 @@
 ---
 title: 'TDD Visual'
 description: 'Escribe tus primeras pruebas visuales'
+commit: '2aa2ae0'
 ---
 
 Ahora que los conceptos básicos fueron cubiertos, veamos los detalles. Este ejemplo muestra la construcción de un estado de un componente `CommentList` usando **TDD Visual** (desarrollo guiado por pruebas visuales) con Storybook.
@@ -35,7 +36,7 @@ yarn
 
 A continuación, crearemos la implementación de `CommentList` más simple posible para que podamos asegurarnos de que nuestras pruebas estén configuradas correctamente.
 
-Dentro de su directorio `src`, cree una nueva carpeta llamada` components`, luego cree un nuevo archivo llamado `CommentList.js` con el siguiente contenido:
+Dentro de su directorio `src`, cree una nueva carpeta llamada`components`, luego cree un nuevo archivo llamado `CommentList.js` con el siguiente contenido:
 
 ```js:title=src/components/CommentList.js
 import React from 'react';
@@ -44,10 +45,10 @@ import PropTypes from 'prop-types';
 
 export default function CommentList({ loading, comments, totalCount }) {
   if (loading) {
-    return <div>empty</div>;
+    return <div>loading</div>;
   }
   if (comments.length === 0) {
-    return <div>loading</div>;
+    return <div>empty</div>;
   }
   return (
     <div>
@@ -259,10 +260,10 @@ import PropTypes from 'prop-types';
 
 export default function CommentList({ loading, comments, totalCount }) {
   if (loading) {
-    return <div>empty</div>;
+    return <div>loading</div>;
   }
   if (comments.length === 0) {
-    return <div>loading</div>;
+    return <div>empty</div>;
   }
   return (
 +   <>
