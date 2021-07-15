@@ -2,7 +2,7 @@
 title: 'Construye un componente simple'
 tocTitle: 'Componente Simple'
 description: 'Construye un componente simple en aislamiento'
-commit: '97d6750'
+commit: '8ce7e80'
 ---
 
 Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://www.componentdriven.org/). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
@@ -81,7 +81,6 @@ Para iniciar Storybook, primero invocamos a la función `storiesOf()` para regis
 Como necesitamos pasarle el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente agruparlas en una sola variable `actions` y utilizar `{...actions}`, la expansión de propiedades de React, para pasarlas todas a la vez. `<Task {...actions}>` es equivalente a `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
 
 Otra cosa positiva acerca de agrupar las `actions` que un componente necesita, es que puedes usar `export` y utilizarlas en historias para otros componentes que reutilicen este componente, como veremos luego.
-
 
 Para definir nuestras historias, llamamos a `add()` una vez para cada uno de nuestros estados del test para generar una historia. La historia de acción - action story - es una función que retorna un elemento renderizado (es decir, una clase componente con un conjunto de props) en un estado dado---exactamente como en React [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 

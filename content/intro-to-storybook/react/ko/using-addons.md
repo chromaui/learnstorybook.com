@@ -2,7 +2,7 @@
 title: '애드온'
 tocTitle: '애드온'
 description: '인기있는 Controls 애드온을 적용하고 사용하는 방법을 배워봅시다.'
-commit: 'a23f4d0'
+commit: '09f3ff3'
 ---
 
 Storybook은 강력한 [애드온(addons)](https://storybook.js.org/docs/react/configure/storybook-addons) 시스템을 통해 팀의 모든 구성원의 개발 경험을 향상할 수 있습니다. [여기](https://storybook.js.org/addons)에서 애드온 목록을 보실 수 있습니다.

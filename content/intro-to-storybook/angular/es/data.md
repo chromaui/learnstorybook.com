@@ -2,7 +2,7 @@
 title: 'Introducir datos'
 tocTitle: 'Datos'
 description: 'Aprende como introducir datos a tus componentes interfaz gráfica'
-commit: 34f1938
+commit: '0bf4edf'
 ---
 
 Hasta ahora hemos creado componentes aislados que no contienen estado propio sino que reciben entradas por medio de sus propiedades y producen un resultado, muy útiles para Storybook, pero no lo son tanto hasta que les proporcionemos algunos datos dentro de nuestra aplicación.

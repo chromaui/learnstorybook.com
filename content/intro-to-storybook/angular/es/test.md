@@ -2,7 +2,6 @@
 title: 'Testear Componentes interfaz gráfica'
 tocTitle: 'Testing'
 description: 'Aprende las formas de probar los componentes de la interfaz gráfica'
-commit: 8fdc779
 ---
 
 Ningún tutorial de Storybook estaría completo sin hacer pruebas. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:

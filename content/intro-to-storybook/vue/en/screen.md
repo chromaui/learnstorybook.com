@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: '99d3d65'
+commit: '01ec436'
 ---
 
 We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!

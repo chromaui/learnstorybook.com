@@ -2,7 +2,7 @@
 title: 'Ensamblar un componente compuesto'
 tocTitle: 'Componente Compuesto'
 description: 'Ensamblar un componente compuesto a partir de componentes simples'
-commit: '98335e5'
+commit: 'ef6a2ed'
 ---
 
 En el último capítulo construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir TaskList, una lista de Tasks (o Tareas). Combinemos componentes en conjunto y veamos qué sucede cuando se añade más complejidad.

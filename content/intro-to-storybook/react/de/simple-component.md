@@ -2,7 +2,7 @@
 title: 'Baue eine einfache Komponente'
 tocTitle: 'Einfache Komponente'
 description: 'Baue eine einfache Komponente in Isolation'
-commit: '97d6750'
+commit: '8ce7e80'
 ---
 
 Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://www.componentdriven.org/) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "bottom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
@@ -94,7 +94,6 @@ Um Storybook die Komponente, die wir dokumentieren, zugänglich zu machen, erste
 - `component` -- die Komponente selbst,
 - `title` -- wie die Komponente in der Sidebar der Storybook App referenziert werden soll,
 - `excludeStories` -- Exporte in der Story Datei, die von Storybook nicht als Stories gerendert werden sollen.
-
 
 Unsere Stories definieren wir, indem wir für jeden unserer Test-Zustände eine Funktion exportieren, um eine Story zu generieren. Die Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) --- genau wie eine [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in React.
 

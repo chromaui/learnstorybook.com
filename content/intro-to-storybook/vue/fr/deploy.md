@@ -2,7 +2,7 @@
 title: 'Déployer Storybook'
 tocTitle: 'Déployer'
 description: 'Déployer Storybook en ligne avvec GitHub et Netlify'
-commit: '107b7ce'
+commit: '809a7fd'
 ---
 
 Dans ce tutoriel, nous avons exécuté Storybook sur notre machine de développement. Vous pouvez également partager ce Storybook avec l'équipe, en particulier avec les membres non techniques. Heureusement, il est facile de déployer Storybook en ligne.

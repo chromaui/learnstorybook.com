@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Apprenez comment intégrer et utiliser les addons en utilisant un exemple populaire'
-commit: 'a23f4d0'
+commit: '09f3ff3'
 ---
 
 Storybook dispose d'un système robuste d'[addons](https://storybook.js.org/docs/react/configure/storybook-addons) avec lequel vous pouvez améliorer l'expérience des développeurs pour

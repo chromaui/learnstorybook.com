@@ -2,7 +2,6 @@
 title: 'Testear Componentes UI'
 tocTitle: 'Testing'
 description: 'Aprende las formas de hacer test a los componentes de la UI'
-commit: 8bf107e
 ---
 
 Ningún tutorial de Storybook estaría completo sin hacer test. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:

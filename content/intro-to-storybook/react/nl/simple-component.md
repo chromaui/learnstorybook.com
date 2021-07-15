@@ -2,7 +2,7 @@
 title: 'Bouw een eenvoudige component'
 tocTitle: 'Eenvoudige component'
 description: 'Bouw een eenvoudige component in isolatie'
-commit: '97d6750'
+commit: '8ce7e80'
 ---
 
 We zullen onze gebruikersinterface bouwen volgens de [Component-Driven Development](https://www.componentdriven.org/)-methodologie. Het is een proces dat UI's van onderaf opbouwt, beginnend met losse componenten en eindigend met schermen. CDD helpt je grip te houden op de complexiteit naarmate je de applicatie verder uitbouwt.
@@ -85,7 +85,6 @@ Met `action()` kunnen we een callback aanmaken die verschijnt in het **acties**-
 Omdat we dezelfde reeks acties moeten doorgeven aan alle permutaties van onze component, is het handig om ze te bundelen in een enkele `actions` variabele en React's`{...actions}` props uitbreiding te gebruiken om ze allemaal in één keer door te geven. `<Task {...actions}>` is gelijk aan `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
 
 Nog iets leuks over het bundelen van de `actions` die een component nodig heeft, is dat je ze kunt `export`-en en ze in stories kunt gebruiken voor componenten die deze component hergebruiken, zoals we later zullen zien.
-
 
 Om onze stories te definiëren, roepen we eenmaal `add()` op voor elk van onze test states om een story te genereren. De action story is een functie die een gerenderd element (dwz een component class met een set props) teruggeeft in een bepaalde state --- precies zoals een React [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 

@@ -2,7 +2,7 @@
 title: 'データを繋ぐ'
 tocTitle: 'データ'
 description: 'UI コンポーネントとデータを繋ぐ方法を学びましょう'
-commit: 34f1938
+commit: '0bf4edf'
 ---
 
 これまでに、Storybook の切り離された環境で、状態を持たないコンポーネントを作成してきました。しかし、究極的には、アプリケーションからコンポーネントにデータを渡さなければ役には立ちません。
@@ -235,7 +235,7 @@ export default {
       declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
-        //👇 Wraps our stories with a decorator
+    //👇 Wraps our stories with a decorator
     componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
   title: 'PureTaskListComponent',

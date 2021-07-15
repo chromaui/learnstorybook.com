@@ -2,7 +2,7 @@
 title: 'Daten einbinden'
 tocTitle: 'Daten'
 description: 'Lerne, Daten in deine UI-Komponente einzubinden'
-commit: 'd2fca1f'
+commit: '167467b'
 ---
 
 Bisher haben wir isolierte, zustandslose Komponenten erstellt - perfekt für Storybook, aber letztlich nutzlos, bis wir ihnen einige Daten in unserer App zur Verfügung stellen.

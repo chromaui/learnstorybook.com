@@ -2,7 +2,7 @@
 title: '組裝複合元件'
 tocTitle: '複合元件'
 description: '從較為簡易的元件，組裝複合元件'
-commit: 'f9b2cfb'
+commit: '567743d'
 ---
 
 上個章節，我們打造出第 1 個元件，而在這章延伸已經學到的，做出 TaskList，也就是 1 組 Task。接著，開始動手把元件組裝起來，看看更複雜的時候會發生什麼事情。
@@ -258,6 +258,7 @@ it('renders pinned tasks at the start of the list', () => {
   ).not.toBe(null);
 });
 ```
+
 <div class="aside">
 💡 <a href="">@storybook/testing-react</a> 是可以在單元測試裡重複利用 Storybook story 的優秀外掛。在測試裡重複利用 story，就是準備好一整組元件情境目錄可供測試。同時，所有 story 裡的參數、decorator 和其他訊息也在此資源庫產生。就如同所見，在測試裡只要選擇要渲染的 story。
 </div>
