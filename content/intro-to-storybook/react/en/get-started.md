@@ -2,7 +2,7 @@
 title: 'Storybook for React tutorial'
 tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
-commit: 'ac1ec13'
+commit: '6fdf7e3'
 ---
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React; other editions exist for [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).

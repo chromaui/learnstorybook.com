@@ -2,7 +2,7 @@
 title: '複合的なコンポーネントを組み立てる'
 tocTitle: '複合的なコンポーネント'
 description: '単純なコンポーネントから複合的なコンポーネントを組み立てましょう'
-commit: d3abd86
+commit: 'e81ad71'
 ---
 
 前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである `TaskList` を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうすればよいか見てみましょう。
@@ -83,7 +83,7 @@ export default {
       declarations: [TaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
-        //👇 Wraps our stories with a decorator
+    //👇 Wraps our stories with a decorator
     componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
   title: 'TaskList',

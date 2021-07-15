@@ -2,7 +2,7 @@
 title: 'Assemble a composite component'
 tocTitle: 'Composite component'
 description: 'Assemble a composite component out of simpler components'
-commit: d3abd86
+commit: 'e81ad71'
 ---
 
 Last chapter we built our first component; this chapter extends what we learned to build TaskListComponent, a list of TaskComponents. Let’s combine components together and see what happens when more complexity is introduced.

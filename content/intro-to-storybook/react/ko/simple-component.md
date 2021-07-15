@@ -2,7 +2,7 @@
 title: '간단한 컴포넌트 만들기'
 tocTitle: '간단한 컴포넌트'
 description: '간단한 컴포넌트를 독립적으로 만들어봅시다'
-commit: '97d6750'
+commit: '8ce7e80'
 ---
 
 우리는 [컴포넌트 기반 개발(Component-Driven Development)](https://www.componentdriven.org/) (CDD) 방법론에 따라 UI를 만들어 볼 것입니다. 이는 컴포넌트로부터 시작하여 마지막 화면에 이르기까지 상향적으로 UI를 개발하는 과정입니다. CDD는 UI를 구축할 때 직면하게 되는 규모의 복잡성을 해결하는 데 도움이 됩니다.

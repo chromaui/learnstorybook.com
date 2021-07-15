@@ -2,7 +2,7 @@
 title: 'Implementar Storybook'
 tocTitle: 'Implementação'
 descrição: 'Implementação online do Storybook com GitHub e Netlify'
-commit: '107b7ce'
+commit: '809a7fd'
 ---
 
 Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessária a partilha com o resto da equipa, em particular com membros considerados não técnicos. Felizmente, é bastante fácil implementar o Storybook online.

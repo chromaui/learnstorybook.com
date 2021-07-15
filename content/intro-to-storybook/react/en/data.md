@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 'd2fca1f'
+commit: '167467b'
 ---
 
 So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.

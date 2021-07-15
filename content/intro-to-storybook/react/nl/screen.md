@@ -2,7 +2,7 @@
 title: 'Bouw een scherm'
 tocTitle: 'Schermen'
 description: 'Bouw een scherm uit componenten'
-commit: '46f29e3'
+commit: 'cec2e05'
 ---
 
 We hebben ons geconcentreerd op het bouwen van UI's van onderaf; klein beginnen en complexiteit toevoegen. Hierdoor konden we elk onderdeel afzonderlijk ontwikkelen, de data behoeften achterhalen en ermee spelen in Storybook. Allemaal zonder een server op te zetten of schermen uit te bouwen!

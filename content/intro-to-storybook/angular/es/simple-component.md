@@ -2,7 +2,7 @@
 title: 'Construye un componente simple'
 tocTitle: 'Componente Simple'
 description: 'Construye un componente simple en aislamiento'
-commit: 1a14919
+commit: '27e1538'
 ---
 
 Construiremos nuestra interfaz gráfica siguiendo la metodología CDD: [Component-Driven Development](https://www.componentdriven.org/) (desarrollo de software guiado por componentes). Es un proceso que construye las interfaces gráficas desde “abajo hacia arriba”, empezando con los componentes individuales y terminando con las vistas. CDD te ayudará a escalar la complejidad con la que te enfrentas a medida que construyes la interfaz gráfica de tu aplicación.

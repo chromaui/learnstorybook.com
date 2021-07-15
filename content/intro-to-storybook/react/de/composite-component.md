@@ -2,7 +2,7 @@
 title: 'Baue eine Komposition'
 tocTitle: 'Komposition'
 description: 'Setze eine Komposition aus einfachen Komponenten zusammen'
-commit: 'f9b2cfb'
+commit: '567743d'
 ---
 
 Im letzten Kapitel haben wir unsere erste Komponente entwickelt; in diesem Kapitel erweitern wir das Gelernte, um `TaskList` zu bauen, eine Liste von Aufgaben. Lass uns Komponenten miteinander kombinieren und sehen, was passiert, wenn mehr Komplexität ins Spiel kommt.
