@@ -2,6 +2,7 @@
 title: 'Automatizar las pruebas visuales'
 tocTitle: 'Automatizar'
 description: 'Automatice las pruebas visuales para detectar regresiones'
+commit: 'd7daf97'
 ---
 
 En el curso natural del desarrollo, los errores son inevitables. La automatización de pruebas visuales utiliza máquinas para detectar cambios en la apariencia de la interfaz de usuario para que los revise un humano.
@@ -160,10 +161,10 @@ const GlobalStyle = createGlobalStyle`
 
 export default function CommentList({ loading, comments, totalCount }) {
   if (loading) {
-    return <div>empty</div>;
+    return <div>loading</div>;
   }
   if (comments.length === 0) {
-    return <div>loading</div>;
+    return <div>empty</div>;
   }
   return (
     <>

@@ -2,7 +2,7 @@
 title: 'Automate visual testing'
 tocTitle: 'Automate'
 description: 'Automate visual testing to catch regressions'
-commit: 'b1b5f0b'
+commit: 'd7daf97'
 ---
 
 Over the natural course of development, bugs are inevitable. Visual test automation uses machines to detect changes in UI appearance for a human to review.
@@ -161,10 +161,10 @@ const GlobalStyle = createGlobalStyle`
 
 export default function CommentList({ loading, comments, totalCount }) {
   if (loading) {
-    return <div>empty</div>;
+    return <div>loading</div>;
   }
   if (comments.length === 0) {
-    return <div>loading</div>;
+    return <div>empty</div>;
   }
   return (
     <>
