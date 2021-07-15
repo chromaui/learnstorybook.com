@@ -2,7 +2,7 @@
 title: 'Document for stakeholders'
 tocTitle: 'Document'
 description: 'Drive design system adoption with documentation'
-commit: 5bc45fb
+commit: '5ff2af9'
 ---
 
 [Professional](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [frontend](https://segment.com/blog/driving-adoption-of-a-design-system/) [teams](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) measure design system success by adoption. To get the full work-saving benefits of a design system, components must be widely circulated. Otherwise, what’s the point?
@@ -158,11 +158,51 @@ Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remo
 <!-- prettier-ignore-start -->
 
 ```js:title=src/Avatar.stories.mdx
-import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
-import { Avatar } from './Avatar';
+import { Avatar } from "./Avatar";
 
-<Meta title="Design System/Avatar" component={Avatar} />
+<Meta
+  title="Design System/Avatar"
+  component={Avatar}
+  argTypes={{
+    loading: {
+      control: "boolean",
+      description:
+        "Use the loading state to indicate that the data Avatar needs is still loading.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: false },
+      },
+    },
+    username: {
+      description:
+        "Avatar falls back to the user’s initial when no image is provided. Supply a `username` and omit `src` to see what this looks like.",
+      table: {
+        defaultValue: {
+          summary: "loading",
+        },
+      },
+    },
+    src: {
+      description: "The URL of the Avatar's image.",
+      table: {
+        defaultValue: {
+          summary: null,
+        },
+      },
+    },
+    size: {
+      description:
+        "Avatar comes in four sizes. In most cases, you’ll be fine with `medium`.",
+      table: {
+        defaultValue: {
+          summary: "medium",
+        },
+      },
+    },
+  }}
+/>
 
 # Avatar
 
@@ -172,12 +212,17 @@ Use an avatar for attributing actions or content to specific users.
 
 The user's name should _always_ be present when using Avatar – either printed beside the avatar or in a tooltip.
 
-<Story name="standard">
-  <Avatar
-    size="large"
-    username="Tom Coleman"
-    src="https://avatars2.githubusercontent.com/u/132554"
-  />
+export const Template = (args) => <Avatar {...args} />;
+
+<Story
+  name="standard"
+  args={{
+    size: "large",
+    username: "Tom Coleman",
+    src: "https://avatars2.githubusercontent.com/u/132554",
+  }}
+>
+  {Template.bind({})}
 </Story>
 
 ### Sizes
@@ -241,15 +286,16 @@ The loading state is used when the image or username is, well, loading.
 
 Experiment with this story with the Controls addon in the Canvas tab.
 
-export const Template = (args) => <Avatar {...args} />
-
 <Canvas>
-  <Story name="controls" args={{
-    loading: false,
-    size: "tiny",
-    username: "Dominic Nguyen",
-    src: "https://avatars2.githubusercontent.com/u/263385"
-  }}>
+  <Story
+    name="controls"
+    args={{
+      loading: false,
+      size: "tiny",
+      username: "Dominic Nguyen",
+      src: "https://avatars2.githubusercontent.com/u/263385",
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -263,24 +309,27 @@ In Storybook your Avatar component’s “Docs” tab should be replaced with ou
 
 Storybook Docs come with [“Doc Blocks”](https://storybook.js.org/docs/react/writing-docs/doc-blocks), readymade components like interactive previews, the args table, and more. By default, they’re used behind the scenes for the auto-generated docs pages. They can also be extracted for individual use. Our goal is to customize Avatar’s docs without redoing everything ourselves so let’s reuse Doc Blocks where possible.
 
-Let’s add the [`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-blocks#mdx) doc block, and wrap our initial story in a `Preview`
+Let’s add the [`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-blocks#mdx) doc block, and wrap our initial story in a `Canvas`.
 
 ```js:title=src/Avatar.stories.mdx
-import { Meta, Story, ArgsTable, Preview } from '@storybook/addon-docs/blocks';
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
 # Same content as before
 
-<Preview withToolbar>
-  <Story name="standard">
-    <Avatar
-      size="large"
-      username="Tom Coleman"
-      src="https://avatars2.githubusercontent.com/u/132554"
-    />
+<Canvas>
+  <Story
+    name="standard"
+    args={{
+      size: "large",
+      username: "Tom Coleman",
+      src: "https://avatars2.githubusercontent.com/u/132554",
+    }}
+  >
+    {Template.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
-<ArgsTable of={Avatar} />
+<ArgsTable story="standard" />
 ```
 
 ![Storybook docs from MDX with blocks](/design-systems-for-developers/storybook-docs-mdx-docblocks-6-0.png)
@@ -293,7 +342,7 @@ Customize Avatar’s docs with a note about use cases. This gives developers con
 
 // Same content as before
 
-<ArgsTable of={Avatar} />
+<ArgsTable story="standard" />
 
 ## Usage
 
@@ -310,10 +359,10 @@ Avatar is used to represent a person or an organization. By default the avatar s
 
 Every design system comes with a cover page. Storybook Docs allows you to create discrete pages using MDX.
 
-Create a new file `src/components/Intro.stories.mdx`:
+Create a new file `src/Intro.stories.mdx`:
 
-```js:title=src/components/Intro.stories.mdx
-import { Meta } from '@storybook/addon-docs/blocks';
+```js:title=src/Intro.stories.mdx
+import { Meta } from "@storybook/addon-docs";
 
 <Meta title="Design System/Introduction" />
 
@@ -335,7 +384,7 @@ module.exports = {
   // Changes the load order of our stories. First loads the Intro page
   // automatically import all files ending in *.stories.js|mdx
   stories: [
-+   '../src/components/Intro.stories.mdx',
++   '../src/Intro.stories.mdx',
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],

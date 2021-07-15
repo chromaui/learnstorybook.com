@@ -2,7 +2,7 @@
 title: 'Documentar para as partes interessadas'
 tocTitle: 'Documentar'
 description: 'Acelere a adoção de sistemas de design através de documentação'
-commit: a032b50
+commit: '5ff2af9'
 ---
 
 [Equipas](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) [profissionais](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) de

@@ -2,7 +2,7 @@
 title: 'Construção de componentes IU'
 tocTitle: 'Construção'
 description: 'Configurar o Storybook para catalogar e construir componentes do sistemas de design'
-commit: e7b6f00
+commit: '583cb5b'
 ---
 
 No capítulo 3 vamos configurar as ferramentas essenciais aos sistemas de design, a começar com o Storybook, o explorador de componentes mais popular.

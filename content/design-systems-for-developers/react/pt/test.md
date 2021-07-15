@@ -2,7 +2,7 @@
 title: 'Testar para manter a qualidade'
 tocTitle: 'Testar'
 description: 'Como testar a aparência,funcionalidade e acessibilidade do sistema de design'
-commit: 5b71208
+commit: '5f4ccf1'
 ---
 
 No capítulo 5, vamos automatizar os testes do sistema de design de forma a prevenir problemas com o IU. Neste capítulo vão ser analisadas quais as caraterísticas dos componentes de IU que justificam aplicar testes e quais as possíveis armadilhas a serem evitadas. Com base na pesquisa feita com equipas profissionais na Wave, BBC e Salesforce, acabámos por criar uma estratégia para testes que equilibra, baixa manutenção, uma configuração simples e uma cobertura abrangente.
