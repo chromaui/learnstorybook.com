@@ -2,7 +2,7 @@
 title: '이해관계자를 위한 문서'
 tocTitle: '문서'
 description: '문서화를 통하여 디자인 시스템 도입을 촉진하기'
-commit: 5bc45fb
+commit: '5ff2af9'
 ---
 
 [전문적인](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [프론트엔드](https://segment.com/blog/driving-adoption-of-a-design-system/) [팀](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7)은 디자인 시스템이 얼마나 채택되었는지를 성공의 척도로 삼고 있습니다. 디자인 시스템 사용을 통한 개발 비용 절감이라는 이점을 완벽하게 누리기 위해서는 컴포넌트가 널리 사용되어야만 합니다. 그렇지 않다면, 이게 다 무슨 소용일까요?
