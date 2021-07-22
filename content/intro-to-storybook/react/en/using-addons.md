@@ -56,7 +56,7 @@ Problem solved! The text is now truncated when it reaches the boundary of the Ta
 
 ### Adding a new story to avoid regressions
 
-In the future, We can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
+In the future, we can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
 
 Add a new story for the long text case in `Task.stories.js`:
 
