@@ -3,7 +3,8 @@ title: 'Conclusión'
 description: 'Pon todo tu conocimiento junto y aprende más técnicas de Storybook'
 ---
 
-¡Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. Mientras la hacías, aprendiste a construir, componer, probar e implementar componentes de interfaz de usuario. Si has estado siguiendo todos los pasos, tu repositorio y Storybook desplegado deberían verse así:
+¡Felicidades! Creaste tu primera interfaz de usuario en Storybook. Mientras lo hacías, aprendiste a construir,
+componer, probar e implementar componentes de interfaz de usuario. Si has estado siguiendo todos los pasos, tu repositorio y Storybook desplegado deberían verse así:
 
 [📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
@@ -29,6 +30,6 @@ Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una 
 
 El texto, código, y producción fueron contribuidos por [Chromatic](https://www.chromatic.com/). Los tutoriales fueron inspirados por la popular [serie de tutoriales GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) de Chromatic.
 
-¿Quieres más tutoriales y artículos como este? Regístratate a la lista de correo de Chromatic.
+¿Quieres más tutoriales y artículos como este? Regístrate a la lista de correo de Chromatic.
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
