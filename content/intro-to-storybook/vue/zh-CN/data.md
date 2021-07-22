@@ -2,7 +2,7 @@
 title: '绑定数据'
 tocTitle: '数据'
 description: '学习如何在您的UI组件中绑定数据'
-commit: 'fa1c954'
+commit: 'bd77a32'
 ---
 
 我们创建了隔离的无状态组件 -这对于 Storybook 来说没问题，但是在真实 app 中只有绑定了数据后这样的组件才有意义。

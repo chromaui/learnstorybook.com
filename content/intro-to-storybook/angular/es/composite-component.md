@@ -229,7 +229,7 @@ A medida que el componente crece, también lo hacen los parámetros de entrada r
 
 En el capítulo anterior aprendimos a capturar historias de prueba utilizando Storyshots. Con el componente `TaskComponent` no había mucha complejidad para probar más allá de que se renderice correctamente. Dado que `TaskListComponent` añade otra capa de complejidad, queremos verificar que ciertas entradas produzcan ciertas salidas de una manera adecuada con pruebas automáticas. Para hacer esto crearemos test unitarios utilizando [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
 
-![Jest logo](/intro-to-storybook/logo-jest.png)
+![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
 
 ### Test unitarios con Angular Testing Library
 

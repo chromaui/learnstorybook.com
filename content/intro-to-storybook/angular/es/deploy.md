@@ -2,6 +2,7 @@
 title: 'Desplegar Storybook'
 tocTitle: 'Desplegar'
 description: 'Aprende a desplegar Storybook'
+commit: '7dd0d78'
 ---
 
 A lo largo de este tutorial, creamos componentes en nuestra máquina de desarrollo local. En algún momento, tendremos
@@ -13,7 +14,7 @@ los compañeros de equipo a revisar la implementación de la interfaz de usuario
 Para implementar Storybook, primero debemos exportarlo como una aplicación web estática. Esta funcionalidad ya está
 integrada en Storybook y preconfigurada.
 
-La ejecución de `npm run build-storybook` generará un Storybook estático en el directorio` storybook-static`, que
+La ejecución de `npm run build-storybook` generará un Storybook estático en el directorio`storybook-static`, que
 luego se puede implementar en cualquier servicio de alojamiento de sitios estáticos.
 
 ## Publicar Storybook
@@ -90,7 +91,7 @@ continua (CI) para implementar nuestro Storybook automáticamente. [GitHub Actio
 
 ### Agregar una acción de GitHub para implementar Storybook
 
-En la carpeta raíz de nuestro proyecto, cree un nuevo directorio llamado `.github` y luego cree otro directorio` workflows` dentro de él.
+En la carpeta raíz de nuestro proyecto, cree un nuevo directorio llamado `.github` y luego cree otro directorio`workflows` dentro de él.
 
 Cree un nuevo archivo llamado `chromatic.yml` como el que se muestra a continuación. Reemplaza `project-token` con el token de tu proyecto.
 
