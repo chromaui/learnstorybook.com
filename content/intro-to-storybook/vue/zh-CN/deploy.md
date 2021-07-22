@@ -2,7 +2,7 @@
 title: '部署Storybook'
 tocTitle: '部署'
 description: '学习如何部署Storybook'
-commit: '107b7ce'
+commit: '809a7fd'
 ---
 
 在此教程中，我们在自己的电脑上构建了组件。某些时候我们还需要和组员分享我们的工作以获得其他人的反馈。让我们部署 Storybook 让其他成员审查实现好的 UI 吧。

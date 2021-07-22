@@ -41,11 +41,12 @@ module.exports = {
           es: 6.1,
           fr: 5.3,
           pt: 5.3,
+          'zh-CN': 6.3,
         },
         angular: {
           en: 6.3,
           ja: 6.3,
-          es: 5.3,
+          es: 6.3,
           pt: 5.3,
         },
         svelte: {
