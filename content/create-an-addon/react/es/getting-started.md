@@ -25,8 +25,6 @@ A continuación, clona tu repositorio e instala las dependencias.
 yarn
 ```
 
-The Addon Kit uses TypeScript by default. However, we'll use the eject command to convert the boilerplate code to JavaScript for the purposes of this tutorial.
-
 El Addon Kit usa TypeScript de forma predeterminada. Sin embargo, para los propósitos de este tutorial usaremos el comando eject para convertir el código en JavaScript .
 
 ```bash
