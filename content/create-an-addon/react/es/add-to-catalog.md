@@ -7,7 +7,6 @@ commit: '927e729'
 
 El [Catálogo de complementos](https://storybook.js.org/addons) es el hogar de todos los complementos de Storybook. Es donde mostramos tus complementos y cómo los desarrolladores descubren otros nuevos. Preparemos tu complemento para su lanzamiento, empaquetado y publicación en el catálogo.
 
-
 ![](../../images/catalog.png)
 
 ## Preparando tu complemento para el lanzamiento
@@ -15,7 +14,7 @@ El [Catálogo de complementos](https://storybook.js.org/addons) es el hogar de t
 Los complementos de Storybook, como la mayoría de los paquetes en el ecosistema de JavaScript, se distribuyen a través de npm. Sin embargo, tienen ciertos criterios:
 
 1. Tienen un directorio dist que contiene código ES5 transpilado
-2. Un archivo `preset.js` en la base (root), escrito como módulo ES5 
+2. Un archivo `preset.js` en la base (root), escrito como módulo ES5
 3. Un archivo `package.json` que declara:
    - Dependencias entre pares
    - Información relacionada con el módulo
@@ -51,8 +50,6 @@ La primera categoría son los metadatos relacionados con el módulo. Esto incluy
 
 #### ¿Por qué las dependencias entre pares?
 
-Let’s say you are building a form library that works with React. If you include React as a dependency then the React code will be packaged along with your library. Your users already install React within their codebase. If that happens to be a different version then, it’ll cause their app to break. It’s the same idea here.
-
 Supongamos que estás creando una biblioteca de formularios que funciona con React. Si incluyes React como una dependencia, el código de React se empaquetará junto con tu biblioteca. Tus usuarios ya instalan React junto a su código base. Si resulta que es una versión diferente, la aplicación no funcionará. Es la misma idea aquí.
 
 ## Metadatos del catálogo
@@ -62,7 +59,6 @@ Junto con la información relacionada con el módulo, también se deben especifi
 ![catalog metadata includes tags, compatibility, authors, etc.](../../images/catalog-metadata.png)
 
 Parte de esta información está preconfigurada por el kit Addon. Cosas como el nombre para mostrar, el icono o la compatibilidad de frameworks se especifican a través de la propiedad de Storybook. Para obtener la especificación completa de la API de metadatos, consulta la [Documentación de Metadatos de Complementos.](https://storybook.js.org/docs/react/addons/addon-catalog/#addon-metadata).
-
 
 ```json:title=package.json
 {
@@ -103,16 +99,15 @@ A continuación, **crea etiquetas en GitHub**. Utilizarás estas etiquetas en el
 npx auto create-labels
 ```
 
-If you check on GitHub, you’ll now see a set of labels that Auto would like you to use. Use these to tag future pull requests.
 Si verificas en GitHub, ahora verás un conjunto de etiquetas que a Auto le gustaría que usaras. Úsalos para etiquetar futuras pull requests.
 
-Finalmente, creando una versión
+Finalmente, crea una versión
 
 ```bash
 yarn release
 ```
 
-Que:
+Este paso hará lo siguiente:
 
 - Construirá y empaquetará el código del complemento
 - Lanzará la versión

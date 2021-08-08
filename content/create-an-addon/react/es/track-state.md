@@ -24,9 +24,7 @@ Los [Globals](https://storybook.js.org/docs/react/essentials/toolbars-and-global
 
 <div class="aside">Echa un vistazo en <a href="https://storybook.js.org/docs/react/addons/addons-api">@storybook/addons</a> para más APIs relacionados con addons</div>
 
-The Addon Kit preconfigures the `Tool` to use globals. Let’s rename the global to more accurately reflect what it does. The `toggleOutline` function allows the user to actually toggle the outline addon on and off 👉🏽🔘
-
-El kit Addon preconfigura `Tool` (herramienta) para utilizar globals. Cambiemos el nombre del global para reflejar con mayor precisión lo que hace. La función `toggleOutline` permite al usuario activar y desactivar el complemento Outline.
+El kit Addon preconfigura `Tool` (herramienta) para utilizar globals. Cambiemos el nombre del global para reflejar con mayor precisión lo que hace. La función `toggleOutline` permite al usuario activar y desactivar el complemento Outline. 👉🏽🔘
 
 ![The tool track toggle state](../../images/track-state.gif)
 
