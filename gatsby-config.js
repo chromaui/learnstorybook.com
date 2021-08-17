@@ -74,6 +74,7 @@ module.exports = {
         react: {
           en: 6.3,
           fr: 6.3,
+          es: 6.3,
         },
       },
     },
