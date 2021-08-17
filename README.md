@@ -271,6 +271,7 @@ The [Create an Addon tutorial](https://storybook.js.org/tutorials/create-an-addo
 | ----------- | ------- |
 | English     | ✅      |
 | French      | ✅      |
+| Spanish     | ✅      |
 
 ---
 
