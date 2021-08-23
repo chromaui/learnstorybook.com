@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: '97fc9a6'
+commit: '167467b'
 ---
 
 So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
@@ -23,9 +23,7 @@ yarn add react-redux redux
 
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -79,13 +77,12 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
 import Task from './Task';
+
 import { connect } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
@@ -127,21 +124,19 @@ At this stage, our Storybook tests will have stopped working because `TaskList` 
 
 However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
 
-```javascript
-// src/components/TaskList.stories.js
-
+```diff:title=src/components/TaskList.stories.js
 import React from 'react';
 
-import { PureTaskList } from './TaskList';
++ import { PureTaskList } from './TaskList';
 import * as TaskStories from './Task.stories';
 
 export default {
-  component: PureTaskList,
++ component: PureTaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <PureTaskList {...args} />;
++ const Template = args => <PureTaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -190,5 +185,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the <code>-u</code> flag. Also as our app is progressively growing it might also a good place to run the tests with the <code> --watchAll</code> flag like mentioned in the <a href="/react/en/get-started/">Get Started</a> section.
+💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
 </div>

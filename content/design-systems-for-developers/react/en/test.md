@@ -2,7 +2,7 @@
 title: 'Test to maintain quality'
 tocTitle: 'Test'
 description: 'How to test design system appearance, functionality, and accessibility'
-commit: 95d7ae7
+commit: '5f4ccf1'
 ---
 
 In chapter 5, we automate design system testing to prevent UI bugs. This chapter dives into what characteristics of UI components warrant testing and potential pitfalls to avoid. We researched professional teams at Wave, BBC, and Salesforce to land on a test strategy that balances comprehensive coverage, straightforward setup, and low maintenance.
@@ -39,7 +39,7 @@ Visual tests capture an image of every UI component in a consistent browser envi
 
 If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions.
 
-In the <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">previous chapter</a> we learned how to publish Storybook using [Chromatic](https://www.chromatic.com/). We added a bold red border around each `Button` component and then requested feedback from teammates.
+In the <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">previous chapter</a> we learned how to publish Storybook using [Chromatic](https://www.chromatic.com/). We added a bold red border around each `Button` component and then requested feedback from teammates.
 
 ![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
@@ -77,27 +77,28 @@ Visually, it isn’t possible to see if the `href` attribute is there and points
 
 Let’s add a unit test for our `Link` component. create-react-app has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
 
-```javascript
-//src/Link.test.js
-
+```js:title=src/Link.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import { Link } from './Link';
 
-// A straightforward link wrapper that renders an <a> with the passed props. What we are testing
-// here is that the Link component passes the right props to the wrapper and itself.
+/**
+ * A straightforward link wrapper that renders an <a> with the passed props.
+ * What we are testing here is that the Link component passes the right props to the wrapper and itself.
+ */
 const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
 it('has a href attribute when rendering with linkWrapper', () => {
   const div = document.createElement('div');
   ReactDOM.render(
-    <Link href="https://learnstorybook.com" LinkWrapper={LinkWrapper}>
+    <Link href="https://storybook.js.org/tutorials/" LinkWrapper={LinkWrapper}>
       Link Text
     </Link>,
     div
   );
 
-  expect(div.querySelector('a[href="https://learnstorybook.com"]')).not.toBeNull();
+  expect(div.querySelector('a[href="https://storybook.js.org/tutorials/"]')).not.toBeNull();
   expect(div.textContent).toEqual('Link Text');
 
   ReactDOM.unmountComponentAtNode(div);
@@ -110,24 +111,22 @@ We can run the above unit test as part of our `yarn test` command.
 
 Earlier we configured our GitHub Action to deploy Storybook, we can now adjust it to include testing as well. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
 
-```yaml
-# .github/workflows/chromatic.yml
-
-# ... same as before
+```diff:title=.github/workflows/chromatic.yml
+# ... Same as before
 jobs:
   test:
-    # the operating system it will run on
+    # The operating system it will run on
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-      - run: yarn test # adds the test command
++     - run: yarn test # Adds the test command
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ (update link)
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -155,24 +154,21 @@ yarn add --dev @storybook/addon-a11y
 
 Add the addon in `.storybook/main.js`:
 
-```javascript
-// .storybook/main.js
-
+```diff:title=.storybook/main.js
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    '@storybook/addon-a11y',
++   '@storybook/addon-a11y',
   ],
 };
 ```
 
 Update your `.storybook/preview.js`'s [parameters](https://storybook.js.org/docs/react/writing-stories/parameters) and add the following `a11y` configuration:
 
-```javascript
-//.storybook/preview.js
+```diff:title=.storybook/preview.js
 
 import React from 'react';
 
@@ -187,16 +183,16 @@ export const decorators = [
   ),
 ];
 
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  // Storybook a11y addon configuration
-  a11y: {
-    // the target DOM element
-    element: '#root',
-    // sets the execution mode for the addon
-    manual: false,
-  },
-};
++ export const parameters = {
++   actions: { argTypesRegex: '^on[A-Z].*' },
++   // Storybook a11y addon configuration
++   a11y: {
++     // the target DOM element
++     element: '#root',
++     // sets the execution mode for the addon
++     manual: false,
++   },
++ };
 ```
 
 Once all is setup, you’ll see a new “Accessibility” tab in the Storybook addons panel.

@@ -9,7 +9,7 @@ Bisher haben wir Storybook in diesem Tutorial immer auf unserer Entwickler-Masch
 <div class="aside">
 <strong>Hast du bereits Tests mit Chromatic eingerichtet?</strong>
 <br/>
-🎉 Deine Stories sind bereits deployed! Chromatic indiziert deine Stories auf sichere Weise online und verfolgt ihren Stand über Branches und Commits hinweg. Überspringe dieses Kapitel und gehe direkt zum <a href="/react/de/conclusion">Fazit</a>.
+🎉 Deine Stories sind bereits deployed! Chromatic indiziert deine Stories auf sichere Weise online und verfolgt ihren Stand über Branches und Commits hinweg. Überspringe dieses Kapitel und gehe direkt zum <a href="/intro-to-storybook/react/de/conclusion">Fazit</a>.
 </div>
 
 ## Eine statische App exportieren
@@ -65,7 +65,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Zuletzt pushe das Repo auf GitHub.
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Netlify
@@ -86,7 +86,7 @@ Wähle nun das `taskbox`-GitHub-Repo aus der Liste aus.
 
 ![Netlify mit Repo verbinden](/intro-to-storybook/netlify-account-picker.png)
 
-Konfiguriere Netlify, indem du angibst, welcher Build-Befehl ("Build command") in der CI ausgeführt werden soll und in welchem Verzeichnis die statische Seite abgelegt wird ("Publish directory"). Als Branch wähle `master`. Das Verzeichnis ist `.storybook-static`. Als Build-Befehl gib `yarn build-storybook` ein.
+Konfiguriere Netlify, indem du angibst, welcher Build-Befehl ("Build command") in der CI ausgeführt werden soll und in welchem Verzeichnis die statische Seite abgelegt wird ("Publish directory"). Als Branch wähle `main`. Das Verzeichnis ist `.storybook-static`. Als Build-Befehl gib `yarn build-storybook` ein.
 
 ![Netlify-Einstellungen](/intro-to-storybook/netlify-settings.png)
 
@@ -96,7 +96,7 @@ Sollte dein Deployment mit Netlify fehlschlagen, füge deinem <code>build-storyb
 </p>
 </div>
 
-Schicke das Formular ab, um den Code auf dem `master`-Branch von `taskbox` zu bauen und zu deployen.
+Schicke das Formular ab, um den Code auf dem `main`-Branch von `taskbox` zu bauen und zu deployen.
 
 Wenn das erledigt ist, sehen wir eine Bestätigungs-Nachricht auf Netlify mit einem Link zum online verfügbaren `taskbox`-Storybook. Hast du alle Anweisungen befolgt, sollte dein Storybook unter einer Subdomain wie [dieser hier](https://clever-banach-415c03.netlify.com/) zu erreichen sein.
 

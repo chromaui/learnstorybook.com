@@ -2,12 +2,12 @@
 title: 'アドオン'
 tocTitle: 'アドオン'
 description: '人気のコントロールアドオンの使用方法を学びましょう'
-commit: '271f39d'
+commit: '09f3ff3'
 ---
 
-Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/addons/introduction/)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
+Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/docs/react/configure/storybook-addons)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
 
-ここまでチュートリアルを進めてきたのであれば、すでにいくつかのアドオンに遭遇し、[テストの章](/react/ja/test/)では導入もしています。
+ここまでチュートリアルを進めてきたのであれば、すでにいくつかのアドオンに遭遇し、[テストの章](/intro-to-storybook/react/ja/test/)では導入もしています。
 
 多様なユースケースに対応するためのアドオンがあるので、それを全て説明することは出来ません。ここでは最も人気のあるアドオンである [コントロールアドオン](https://storybook.js.org/docs/react/essentials/controls) を導入してみましょう。
 
@@ -85,12 +85,12 @@ LongTitle.args = {
   />
 </video>
 
-[ビジュアルテスト](/react/ja/test/)を使用している場合は、文字の省略が壊れた場合に分かるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
+[ビジュアルテスト](/intro-to-storybook/react/ja/test/)を使用している場合は、文字の省略が壊れた場合に分かるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
 
 ### 変更をマージする
 
 変更を忘れずに Git にマージしてください！
 
 <div class="aside">
-<p>開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/react/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="/intro-to-storybook/react/ja/creating-addons">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p>
+<p>開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/react/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="/create-an-addon/react/en/introduction/">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p>
 </div>

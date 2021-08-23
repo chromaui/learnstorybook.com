@@ -2,7 +2,7 @@
 title: '複合的なコンポーネントを組み立てる'
 tocTitle: '複合的なコンポーネント'
 description: '単純なコンポーネントから複合的なコンポーネントを組み立てましょう'
-commit: '3ebec05'
+commit: '567743d'
 ---
 
 前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである `TaskList` を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうすればよいか見てみましょう。
@@ -116,9 +116,6 @@ Empty.args = {
 </div>
 
 `TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/react/writing-stories/args#args-composition)ことができます。そうすることで、2 つのコンポーネントが想定するデータとアクション (呼び出しのモック) の一貫性が保たれます。
-
-<!--
-`taskData` は `Task.stories.js` ファイルでエクスポートした `Task` のデータ構造です。同様に `actionsData` は `Task` コンポーネントが想定するアクション (呼び出しのモック) を定義しています。`TaskList` でも同様に必要となります。 -->
 
 それでは `TaskList` の新しいストーリーを Storybook で確認してみましょう。
 
@@ -258,12 +255,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import '@testing-library/jest-dom/extend-expect';
 
-import { WithPinnedTasks } from './TaskList.stories';
+import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
 
 it('renders pinned tasks at the start of the list', () => {
   const div = document.createElement('div');
-  // Our story will be used for the test.
-  // With the arguments that were created.
+  //👇 Story's args used with our test
   ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
 
   // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
@@ -278,4 +274,8 @@ it('renders pinned tasks at the start of the list', () => {
 
 単体テストで `WithPinnedTasks` ストーリーを再利用出来ていることに注目してください。このように、多様な方法で既存のリソースを活用していくことができます。
 
-ただし、このテストは非常に脆いことにも留意してください。プロジェクトが成熟し、`Task` の実装が変わっていく (たとえば、別のクラス名に変更されたり、`input` 要素ではなく `textarea` に変更されたりする) と、テストが失敗し、更新が必要となる可能性があります。これは必ずしも問題とならないかもしれませんが、UI の単体テストを使用する際の注意点です。UI の単体テストはメンテナンスが難しいのです。可能な限り手動のテストや、スナップショットテスト、視覚的なリグレッションテスト ([テストの章](/react/ja/test/)を参照してください) に頼るようにしてください。
+ただし、このテストは非常に脆いことにも留意してください。プロジェクトが成熟し、`Task` の実装が変わっていく (たとえば、別のクラス名に変更されたり、`input` 要素ではなく `textarea` に変更されたりする) と、テストが失敗し、更新が必要となる可能性があります。これは必ずしも問題とならないかもしれませんが、UI の単体テストを使用する際の注意点です。UI の単体テストはメンテナンスが難しいのです。可能な限り手動のテストや、スナップショットテスト、視覚的なリグレッションテスト ([テストの章](/intro-to-storybook/react/ja/test/)を参照してください) に頼るようにしてください。
+
+<div class="aside">
+Git へのコミットを忘れずに行ってください！
+</div>

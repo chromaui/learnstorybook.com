@@ -2,7 +2,7 @@
 title: 'Review with teams'
 tocTitle: 'Review'
 description: 'Collaborate with continuous integration and visual review'
-commit: 3b28026
+commit: 'd65a6bc'
 ---
 
 In chapter 4, we’ll learn professional workflows for making design system improvements while mitigating inconsistencies. This chapter covers techniques for gathering UI feedback and reaching consensus with your team. These production processes are used by folks at Auth0, Shopify, and Discovery Network.
@@ -88,29 +88,31 @@ Add a `.github` directory at the top level. Then create another directory called
 
 Create a file called chromatic.yml like the one below. This will allow us to script how our CI process behaves. We'll start small for now and continue to improve it as we progress:
 
-```yaml
-# .github/workflows/chromatic.yml
-
-# name of our action
+```yaml:title=.github/workflows/chromatic.yml
+# Name of our action
 name: 'Chromatic'
-# the event that will trigger the action
+# The event that will trigger the action
 on: push
 
-# what the action will do
+# What the action will do
 jobs:
   test:
-    # the operating system it will run on
+    # The operating system it will run on
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          projectToken: project-token
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ to obtain it
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+<div class="aside"><p>💡 For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
 
 Add the change with:
 
@@ -127,7 +129,7 @@ git commit -m "Storybook deployment with GitHub action"
 Finally, push it to the remote repository with:
 
 ```shell
-git push origin master
+git push origin main
 ```
 
 Success! We improved our infrastructure.
@@ -144,9 +146,7 @@ git checkout -b improve-button
 
 First, tweak the Button component. “Make it pop” – our designers will love it.
 
-```javascript
-//src/Button.js
-
+```js:title=src/Button.js
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;
@@ -178,7 +178,7 @@ Assign the issue to your teammates and watch the feedback roll in.
 
 ![Why?!](/design-systems-for-developers/github-visual-review-feedback.gif)
 
-<div class="aside">Chromatic also offers a complete UI Review workflow built into the product as part of its paid offering. The technique of copying Storybook links into a GitHub PR works at a smaller scale (and with any service that hosts your Storybook, not just Chromatic), but as your use increases you may consider that services as it automates the process.</div>
+<div class="aside">💡 Chromatic also offers a complete UI Review workflow built into the product as part of its paid offering. The technique of copying Storybook links into a GitHub PR works at a smaller scale (and with any service that hosts your Storybook, not just Chromatic), but as your use increases you may consider that services as it automates the process.</div>
 
 In software development, most defects stem from miscommunication and not technology. Visual review helps teams gather continuous feedback during development to ship design systems faster.
 

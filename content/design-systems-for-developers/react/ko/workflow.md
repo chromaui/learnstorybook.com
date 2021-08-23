@@ -11,8 +11,8 @@ commit: ab64b4c
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow-horizontal.jpg)
 
-
 ## 빌드
+
 `AvatarList` 컴포넌트는 여러 아바타를 보여줍니다. 다른 디자인 시스템 컴포넌트와 마찬가지로 `AvatarList`는 다양한 프로젝트에 붙여 넣어지면서 사용되었습니다. 그렇기 때문에 더더욱 디자인 시스템에 포함되어야 합니다. 이 데모에서는 `AvatarList` 컴포넌트가 다른 프로젝트에서 이미 개발되었다고 가정하고 바로 완성된 코드부터 설명을 시작할 것입니다.
 
 ![AvatarList](/design-systems-for-developers/AvatarList.jpg)
@@ -32,7 +32,7 @@ git checkout -b create-avatar-list-component
 
 ![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist-6-0.png)
 
-성공! 이제 `AvatarList`에서 지원하는 각 UI 상태를 분별해 봅시다. 우선 `AvatarList`가  `small`이나 `loading` 같은 `Avatar`의 속성을 지원하는 것을 알 수 있습니다.
+성공! 이제 `AvatarList`에서 지원하는 각 UI 상태를 분별해 봅시다. 우선 `AvatarList`가 `small`이나 `loading` 같은 `Avatar`의 속성을 지원하는 것을 알 수 있습니다.
 
 ```javascript
 // src/AvatarList.stories.js
@@ -84,6 +84,7 @@ empty.args = {
   users: [],
 };
 ```
+
 <video autoPlay muted playsInline loop>
   <source
     src="/design-systems-for-developers/storybook-with-all-avatarlist-stories-6-0.mp4"
@@ -145,7 +146,7 @@ AvatarList.propTypes = {
 };
 ```
 
-이제 누워서 떡 먹기입니다. 지금으로서는 이 정도의 자세한 설명이면 충분한 듯 합니다. MDX를 사용해서 나중에 얼마든지 더 수정할 수 있습니다. 
+이제 누워서 떡 먹기입니다. 지금으로서는 이 정도의 자세한 설명이면 충분한 듯 합니다. MDX를 사용해서 나중에 얼마든지 더 수정할 수 있습니다.
 
 ![Storybook docs with full AvatarList info](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
 
@@ -177,15 +178,15 @@ git push -u origin create-avatar-list-component
 
 ![PR check for deployed PR](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
-온라인 스토리북에서 `AvatarList`를 찾아보자. 사용자의 로컬 스토리북과 동일하게 보여야 합니다. 
+온라인 스토리북에서 `AvatarList`를 찾아보자. 사용자의 로컬 스토리북과 동일하게 보여야 합니다.
 
 ![AvatarList in Storybook online](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
 
-온라인 스토리북은 팀이 함께 공유하는 공통 레퍼런스입니다. `AvatarList` 링크를 다른 관계자들과 공유해서 더 빠르게 피드백을 받을 수 있다. 개발 환경을 만들 필요도 없고 코드를 건드릴 필요도 없으니 팀원들이 정말로 좋아할 것입니다. 
+온라인 스토리북은 팀이 함께 공유하는 공통 레퍼런스입니다. `AvatarList` 링크를 다른 관계자들과 공유해서 더 빠르게 피드백을 받을 수 있다. 개발 환경을 만들 필요도 없고 코드를 건드릴 필요도 없으니 팀원들이 정말로 좋아할 것입니다.
 
 ![Looks good, ship it!](/design-systems-for-developers/visual-review-shipit.png)
 
-수많은 팀과 만장일치에 도달하는 과정은 아무짝에도 쓸모없는 것처럼 느껴질 때가 있습니다. 누구는 이전 버전의 코드를 보고 있거나, 개발 환경이 없거나, 어쩌면 피드백이 여러 툴에 흩어져 있을 수도 있습니다. 온라인 스토리북을 사용해서 리뷰한다면 간단하게 URL만 공유하면 됩니다. 
+수많은 팀과 만장일치에 도달하는 과정은 아무짝에도 쓸모없는 것처럼 느껴질 때가 있습니다. 누구는 이전 버전의 코드를 보고 있거나, 개발 환경이 없거나, 어쩌면 피드백이 여러 툴에 흩어져 있을 수도 있습니다. 온라인 스토리북을 사용해서 리뷰한다면 간단하게 URL만 공유하면 됩니다.
 
 ## 테스트
 
@@ -193,11 +194,11 @@ git push -u origin create-avatar-list-component
 
 ![Chromatic changes on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
-`AvatarList`는 새로운 컴포넌트라서 아직 비주얼 테스트가 없습니다. 각 스토리에 최소한의 기준을 만들어 줍니다. Chromatic의 "new stories"에 동의하고 비주얼 테스트 커버리지를 확장합니다. 
+`AvatarList`는 새로운 컴포넌트라서 아직 비주얼 테스트가 없습니다. 각 스토리에 최소한의 기준을 만들어 줍니다. Chromatic의 "new stories"에 동의하고 비주얼 테스트 커버리지를 확장합니다.
 
 ![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
-여기까지 완료되었다면 Chromatic에서 빌드가 통과될 것입니다. 
+여기까지 완료되었다면 Chromatic에서 빌드가 통과될 것입니다.
 
 ![Chromatic changes to the AvatarList stories accepted](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
 
@@ -209,7 +210,7 @@ git push -u origin create-avatar-list-component
 
 ## 배포
 
-`AvatarList`를 디자인 시스템에 추가하겠다는 풀 리퀘스트가 현재 열려있는 상태입니다. 스토리도 작성했고 테스트도 통과했고 문서화도 완성했습니다. 마지막으로 `Auto`와 `npm`을 사용해서 디자인 시스템 패키지를 업데이트하면 됩니다. 
+`AvatarList`를 디자인 시스템에 추가하겠다는 풀 리퀘스트가 현재 열려있는 상태입니다. 스토리도 작성했고 테스트도 통과했고 문서화도 완성했습니다. 마지막으로 `Auto`와 `npm`을 사용해서 디자인 시스템 패키지를 업데이트하면 됩니다.
 
 풀 리퀘스트에 `minor` 라벨을 추가합시다. 이 라벨은 풀 리퀘스트가 머지되면 `Auto`에게 패키지의 minor 버전을 업데이트하도록 지시합니다.
 
@@ -223,7 +224,7 @@ git push -u origin create-avatar-list-component
 
 ## 이제부터 시작입니다
 
-누구나 자신만의 것을 개발할 때 손쉽게 시작할 수 있도록 _개발자를 위한 디자인 시스템_ 은 전문적인 프런트앤드 팀들이 사용하는 엔드 투 엔드 워크플로우를 강조합니다. 
+누구나 자신만의 것을 개발할 때 손쉽게 시작할 수 있도록 _개발자를 위한 디자인 시스템_ 은 전문적인 프런트앤드 팀들이 사용하는 엔드 투 엔드 워크플로우를 강조합니다.
 
 당신의 디자인 시스템이 성장할수록 이 도구들을 당신 팀의 요구에 맞게 추가하고 재배열하고 확장하길 바랍니다.
 

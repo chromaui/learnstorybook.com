@@ -2,7 +2,7 @@
 title: '품질 유지를 위한 테스트'
 tocTitle: '테스트'
 description: '디자인 시스템 외관, 기능성 및 접근성을 테스트하는 방법'
-commit: 95d7ae7
+commit: '5f4ccf1'
 ---
 
 5장에서는 UI 버그를 방지하기 위해 디자인 시스템 테스트를 자동화합니다. 이 장에서는 테스트가 필요한 UI 컴포넌트의 특성과 피해야 할 잠재적 함정에 대해 자세히 설명합니다. Wave, BBC 및 Salesforce의 전문 팀을 조사하여 합리적인 테스트 적용 범위, 직관적인 초기 설정 및 낮은 유지 보수 비용 간의 균형을 고려한 테스트 전략을 수립했습니다.
@@ -39,7 +39,7 @@ commit: 95d7ae7
 
 모던 UI를 구축하는 경우 시각적 테스트를 통해 프런트엔드 팀이 수작업 리뷰에 드는 시간을 절약하고 비용이 많이 드는 UI 회귀 테스트를 수행하는 것을 방지할 수 있습니다.
 
-<a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">이전 장</a>에서 [Chromatic](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 '버튼' 컴포넌트 주위에 굵은 빨간색 테두리를 추가한 다음, 팀원에게 피드백을 요청했습니다.
+<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">이전 장</a>에서 [Chromatic](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 '버튼' 컴포넌트 주위에 굵은 빨간색 테두리를 추가한 다음, 팀원에게 피드백을 요청했습니다.
 
 ![빨간색 테두리 버튼](/design-systems-for-developers/chromatic-button-border-change.png)
 
@@ -86,7 +86,7 @@ import { Link } from './Link';
 
 // 전달된 속성으로 <a>를 렌더링 하는 간단한 링크 래퍼입니다.
 // 여기서 테스트하는 것은 Link 컴포넌트가 올바른 props를 래퍼와 자기 자신에게 전달한다는지 아닌 지입니다.
-const LinkWrapper = props => <a {... props} />; // eslint-disable-line jsx-a11y/anchor-has-content
+const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
 it('has a href attribute when rendering with linkWrapper', () => {
   const div = document.createElement('div');
@@ -127,7 +127,7 @@ jobs:
         # GitHub chromatic action에 필요한 옵션
         with:
           # 우리의 프로젝트 토큰, 이것을 얻는 방법은 다음을 참고하였습니다.
-          # https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/ (업데이트 링크)
+          # https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/ (업데이트 링크)
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

@@ -2,10 +2,10 @@
 title: 'Tutoriel de Storybook pour React'
 tocTitle: 'Débuter'
 description: 'Configurer Storybook dans votre environnement de développement'
-commit: 'b935904'
+commit: '6fdf7e3'
 ---
 
-Storybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants UI(User Interface) qui sont isolées de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/react-native/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) et [Svelte](/svelte/en/get-started).
+Storybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants UI(User Interface) qui sont isolés de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/fr/get-started), [Angular](/intro-to-storybook/angular/en/get-started) et [Svelte](/intro-to-storybook/svelte/en/get-started).
 
 ![Storybook et votre application](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -25,7 +25,7 @@ npx -p @storybook/cli sb init
 
 <div class="aside">
 Tout au long de ce tutoriel, nous allons utiliser <code>yarn</code> pour exécuter la majorité de nos commandes. 
-Si vous avez deja installé <code>yarn</code>, mais vous préfériez utiliser <code>npm</code> à la place, ne vous inquiétez pas, vous pouvez toujours suivre ce tutoriel sans aucun problème. Il suffit d'ajouter le drapeau <code>--use-npm</code> à la première commande ci-dessus, CRA et Storybook en tiendront compte lors de leur initialisation. De plus, pendant que vous progressez dans le tutoriel, n'oubliez pas d'ajuster les commandes utilisées à leurs équivalents <code>npm</code>.
+Si vous avez déjà installé <code>yarn</code>, mais que vous préférez utiliser <code>npm</code> à la place, ne vous inquiétez pas, vous pouvez toujours suivre ce tutoriel sans aucun problème. Il suffit d'ajouter le drapeau <code>--use-npm</code> à la première commande ci-dessus, CRA et Storybook en tiendront compte lors de leur initialisation. De plus, pendant que vous progressez dans le tutoriel, n'oubliez pas d'ajuster les commandes utilisées à leurs équivalents <code>npm</code>.
 </div>
 
 Pour vérifier rapidement que les différents environnements de notre application fonctionnent correctement:
@@ -34,7 +34,7 @@ Pour vérifier rapidement que les différents environnements de notre applicatio
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn storybook
 
 # Run the frontend app proper on port 3000:
@@ -42,7 +42,7 @@ yarn start
 ```
 
 <div class="aside"> 
-Vous avez peut-être remarqué que nous avons ajouté le drapeau <code>--watchAll</code> à notre commande de test, ne vous inquiétez pas, c'est intentionnel, ce petit changement permettra de s'assurer que tous les tests sont effectués et que tout va bien avec notre application. Pendant que vous progressez dans ce tutoriel, vous serez exposé à différents scénarios de test. Pour vous assurer que votre suite de tests fonctionneront dans leur intégralité vous pouvez aussi ajouter ce drapeau à votre script de test dans votre <code>package.json</code> .
+Vous avez peut-être remarqué que nous avons ajouté le drapeau <code>--watchAll</code> à notre commande de test, ne vous inquiétez pas, c'est intentionnel, ce petit changement permettra de s'assurer que tous les tests sont effectués et que tout va bien avec notre application. Pendant que vous progressez dans ce tutoriel, vous serez exposés à différents scénarios de test. Pour vous assurer que votre suite de tests fonctionnera dans son intégralité, vous pouvez aussi ajouter ce drapeau à votre script de test dans votre <code>package.json</code> .
 </div>
 
 Notre application front-end se compose de trois modules: test automatisé (Jest), développement de composants (Storybook) et l'application elle-même.
@@ -63,15 +63,15 @@ Si vous souhaitez modifier le styling, les fichiers sources LESS sont fournis da
 
 ## Ajouter les assets
 
-Pour correspondre au design prévue, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier `public`.
+Pour correspondre au design prévu, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier `src/assets`.
 
 ```bash
-npx degit chromaui/learnstorybook-code/public/font public/font
-npx degit chromaui/learnstorybook-code/public/icon public/icon
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
 
 <div class="aside">
-Nous utilisons <a href="https://github.com/Rich-Harris/degit">degit</a> pour télécharger les dossiers de GitHub. Si vous voulez le faire manuellement, vous pouvez récupérer les dossiers <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">ici</a>.
+Nous utilisons <a href="https://github.com/Rich-Harris/degit">degit</a> pour télécharger les dossiers de GitHub. Si vous voulez le faire manuellement, vous pouvez récupérer les dossiers <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">ici</a>.
 </div>
 
-Après avoir ajouté le styling et les ressources, l'application aura un rendu un peu étrange. Ce n'est pas grave, car nous ne travaillons pas sur l'application pour l'instant. Nous somme d'abord en train de construire notre premier composant!
+Après avoir ajouté le styling et les ressources, l'application aura un rendu un peu étrange. Ce n'est pas grave, car nous ne travaillons pas sur l'application pour l'instant. Nous sommes d'abord en train de construire notre premier composant!

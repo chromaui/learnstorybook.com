@@ -3,7 +3,8 @@ title: 'Conclusión'
 description: 'Pon todo tu conocimiento junto y aprende más técnicas de Storybook'
 ---
 
-¡Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. Mientras la hacías, aprendiste a construir, componer, probar e implementar componentes de interfaz de usuario. Si has estado siguiendo todos los pasos, tu repositorio y Storybook desplegado deberían verse así:
+¡Felicidades! Creaste tu primera interfaz de usuario en Storybook. Mientras lo hacías, aprendiste a construir,
+componer, probar e implementar componentes de interfaz de usuario. Si has estado siguiendo todos los pasos, tu repositorio y Storybook desplegado deberían verse así:
 
 [📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
@@ -19,7 +20,7 @@ Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una 
 
 - [**El delicioso flujo de trabajo de Storybook**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Squarespace, Major League Soccer, Discovery Network y Apollo GraphQL.
 
-- [**Manual de pruebas visuales**](https://www.learnstorybook.com/visual-testing-handbook/) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
+- [**Manual de pruebas visuales**](https://storybook.js.org/tutorials/visual-testing-handbook/) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
 
 - [**Discord de Storybook**](https://discord.gg/UUt2PJb) te pone en contacto con la comunidad de Storybook. Obtenga y brinde ayuda a otros usuarios de Storybook.
 
@@ -29,6 +30,6 @@ Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una 
 
 El texto, código, y producción fueron contribuidos por [Chromatic](https://www.chromatic.com/). Los tutoriales fueron inspirados por la popular [serie de tutoriales GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) de Chromatic.
 
-¿Quieres más tutoriales y artículos como este? Regístratate a la lista de correo de Chromatic.
+¿Quieres más tutoriales y artículos como este? Regístrate a la lista de correo de Chromatic.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

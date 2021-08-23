@@ -2,13 +2,13 @@
 title: 'Tutorial do Storybook para o React'
 tocTitle: 'Introdução'
 description: 'Configuração do React Storybook no ambiente de desenvolvimento React'
-commit: '8741257'
+commit: '6fdf7e3'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.
 Ajuda-o a construir componentes de interface de utilizador (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para React.
-Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started), quer para [Angular](/angular/pt/get-started).
+Encontram-se disponíveis outras edições quer para [Vue](/intro-to-storybook/vue/pt/get-started), quer para [Angular](/intro-to-storybook/angular/pt/get-started).
 
 ![Storybook e a aplicação](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -39,7 +39,7 @@ Podemos rapidamente verificar que os vários ecossistemas da nossa aplicação e
 # Run the test runner (Jest) in a terminal:
 yarn test
 
-# Start the component explorer on port 9009:
+# Start the component explorer on port 6006:
 yarn run storybook
 
 # Run the frontend app proper on port 3000:
@@ -59,7 +59,7 @@ Mas, visto que o nosso foco é a criação de um único componente de interface 
 
 ## Reutilizar CSS
 
-A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/index.css`.
+A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/index.css`.
 
 ![Interface Utilizador Taskbox](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
 
@@ -69,13 +69,15 @@ A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https:/
 
 ## Adicionar recursos
 
-De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `public`.
-
-<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
+De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `src/assets`.
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
+npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```
+
+<div class="aside">
+Foi usado o <a href="https://github.com/Rich-Harris/degit">degit</a> para transferir pastas do GitHub. Se quiser transferir manualmente, pode obtê las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">aqui</a>.
+</div>
 
 Após adicionar os estilos e assets, a aplicação irá renderizar de forma estranha. Tudo bem. Não vamos trabalhar nela agora. Vamos antes começar por construir o nosso primeiro componente.

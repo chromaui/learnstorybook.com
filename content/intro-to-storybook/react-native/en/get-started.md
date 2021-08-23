@@ -4,7 +4,7 @@ tocTitle: 'Get started'
 description: 'Setup Storybook in your development environment'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of Learn Storybook is for React Native; other editions exist for [React](/react/en/get-started), [Vue](/vue/en/get-started), [Angular](/angular/en/get-started) and [Svelte](/svelte/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React Native; other editions exist for [React](/intro-to-storybook/react/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -247,10 +247,10 @@ If you want to modify the styling, the source LESS files are provided in the Git
 To match the intended design, you'll need to download both the font and icon directories and place them inside the `assets` folder.
 
 <div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the icons folder directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">here</a> and the font <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">here</a>.</p></div>
+<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the icons folder directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a> and the font <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">here</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
 svn export https://github.com/google/fonts/trunk/ofl/nunitosans assets/font
 ```
 
@@ -522,6 +522,6 @@ const StorybookUIRoot = getStorybookUI({
 export default StorybookUIRoot;
 ```
 
-<div class="aside"><p>We're adding the <code>asyncStorage:null</code> due to the fact that starting with React Native 0.59 Async Storage was deprecated. Should you need to use it in your own app, you'll have to add it manually by installing <code>@react-native-community/async-storage</code> package and adjust the code above accordingly. You can read more about how to setup Storybook with Async Storage in <a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#react-native-async-storage">here</a>. As the tutorial will not use any of the features of Async Storage, we can safely add this element to Storybook configuration.</p></div>
+<div class="aside"><p>We're adding the <code>asyncStorage:null</code> due to the fact that starting with React Native 0.59 Async Storage was deprecated. Should you need to use it in your own app, you'll have to add it manually by installing <code>@react-native-async-storage/async-storage</code> package and adjust the code above accordingly. You can read more about how to setup Storybook with Async Storage in <a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#react-native-async-storage">here</a>. As the tutorial will not use any of the features of Async Storage, we can safely add this element to Storybook configuration.</p></div>
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!

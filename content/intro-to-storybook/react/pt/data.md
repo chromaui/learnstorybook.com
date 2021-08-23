@@ -2,7 +2,7 @@
 title: 'Ligação de dados'
 tocTitle: 'Dados'
 description: 'Aprenda a efetuar a ligação de dados ao seu componente de interface de utilizador'
-commit: 'f05981b'
+commit: '167467b'
 ---
 
 Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação
@@ -167,5 +167,5 @@ export const Empty = () => <PureTaskList tasks={[]} {...actionsData} />;
 </video>
 
 <div class="aside">
-Se os testes snapshot falharem, deverá ter que atualizar os snapshots existentes, executando o comando de testes de novo com a flag -u. Como a nossa aplicação está a crescer exponencialmente, poderá ser agora um bom momento para executar os testes com a opção <code> --watchAll</code> tal como mencionado na <a href="/react/pt/get-started">introdução</a>
+Se os testes snapshot falharem, deverá ter que atualizar os snapshots existentes, executando o comando de testes de novo com a flag -u. Como a nossa aplicação está a crescer exponencialmente, poderá ser agora um bom momento para executar os testes com a opção <code> --watchAll</code> tal como mencionado na <a href="/intro-to-storybook/react/pt/get-started">introdução</a>
 </div>

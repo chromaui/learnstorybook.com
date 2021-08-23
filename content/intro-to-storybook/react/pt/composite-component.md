@@ -2,7 +2,7 @@
 title: 'Construção de um componente composto'
 tocTitle: 'Componente composto'
 description: 'Construção de um componente composto a partir de componentes simples'
-commit: 'c43580d'
+commit: '567743d'
 ---
 
 No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
@@ -100,7 +100,7 @@ export const Empty = () => <TaskList tasks={[]} {...actionsData} />;
 ```
 
 <div class="aside">
-    Os <a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decoradores</b></a>, oferecem uma forma de envolver arbitráriamente as estórias. Neste caso estamos a usar um decorador para gerar elementos de estilo. Mas podem ser usados para envolver as estórias definidas em "providers", nomeadamente, bibliotecas ou componentes que usam o contexto React.
+    Os <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decoradores</b></a>, oferecem uma forma de envolver arbitráriamente as estórias. Neste caso estamos a usar um decorador para gerar elementos de estilo. Mas podem ser usados para envolver as estórias definidas em "providers", nomeadamente, bibliotecas ou componentes que usam o contexto React.
 </div>
 
 Com a importação da `taskData` para este ficheiro (ou arquivo), está a ser adicionada a forma que uma tarefa (ou `Task`) assume, isto a partir do ficheiro `Task.stories.js` criado anteriormente. Como tal também a `actionsData` que irá definir quais as ações (através de uma callback simulada) que o componente Task se encontra á espera.
@@ -269,4 +269,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 Podemos verificar que foi possível reutilizar a lista de tarefas `withPinnedTasks` quer na estória, quer no teste unitário. Desta forma podemos continuar a aproveitar um recurso existente (os exemplos que representam configurações de um componente) de cada vez mais formas.
 
-Mas também que este teste é algo frágil. É possível que á medida que o projeto amadurece, a implementação concreta do componente `Task` seja alterada; isto quer pelo uso de uma classe com um nome diferente ou um elemento `textarea` ao invés de um `input`, por exemplo--com isto, este teste específico irá falhar e será necessária uma atualização. Isto não é necessariamente um problema, mas um indicador para ser cuidadoso no uso liberal de testes unitários para o interface de utilizador. Visto que não são de fácil manutenção. Ao invés deste tipo de testes, é preferível depender de testes visuais, snapshot ou de regressão visual (ver [capitulo de testes](/react/pt/test/)) sempre que for possível.
+Mas também que este teste é algo frágil. É possível que á medida que o projeto amadurece, a implementação concreta do componente `Task` seja alterada; isto quer pelo uso de uma classe com um nome diferente ou um elemento `textarea` ao invés de um `input`, por exemplo--com isto, este teste específico irá falhar e será necessária uma atualização. Isto não é necessariamente um problema, mas um indicador para ser cuidadoso no uso liberal de testes unitários para o interface de utilizador. Visto que não são de fácil manutenção. Ao invés deste tipo de testes, é preferível depender de testes visuais, snapshot ou de regressão visual (ver [capitulo de testes](/intro-to-storybook/react/pt/test/)) sempre que for possível.

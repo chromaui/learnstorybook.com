@@ -16,16 +16,14 @@ This example uses [Svelte's Stores](https://svelte.dev/docs#svelte_store), Svelt
 
 First we’ll construct a simple Svelte store that responds to actions that change the state of tasks, in a file called `src/store.js` (intentionally kept simple):
 
-```javascript
-// src/store.js
-
+```js:title=src/store.js
 // A simple Svelte store implementation with update methods and initial data.
 // A true app would be more complex and separated into different files.
 
 import { writable } from 'svelte/store';
 
 const TaskBox = () => {
-  // creates a new writable store populated with some initial data
+  // Creates a new writable store populated with some initial data
   const { subscribe, update } = writable([
     { id: '1', title: 'Something', state: 'TASK_INBOX' },
     { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -35,12 +33,12 @@ const TaskBox = () => {
 
   return {
     subscribe,
-    // method to archive a task, think of a action with redux or Vuex
+    // Method to archive a task, think of a action with redux or Vuex
     archiveTask: id =>
       update(tasks =>
         tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task))
       ),
-    // method to archive a task, think of a action with redux or Vuex
+    // Method to archive a task, think of a action with redux or Vuex
     pinTask: id =>
       update(tasks =>
         tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
@@ -55,9 +53,7 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 
 In `src/components/PureTaskList.svelte`:
 
-```svelte
-<!-- src/components/PureTaskList.svelte -->
-
+```svelte:title=src/components/PureTaskList.svelte
 <!--This file moved from TaskList.svelte-->
 <script>
   import Task from './Task.svelte';
@@ -91,14 +87,13 @@ In `src/components/PureTaskList.svelte`:
 </div>
 {/if}
 {#each tasksInOrder as task}
-<Task {task} on:onPinTask on:onArchiveTask />
+  <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
 ```
 
 In `src/components/TaskList.svelte`:
 
-```svelte
-<!-- src/components/TaskList.svelte -->
+```svelte:title=src/components/TaskList.svelte
 
 <script>
   import PureTaskList from './PureTaskList.svelte';
@@ -122,82 +117,99 @@ In `src/components/TaskList.svelte`:
 
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
-```javascript
-// src/components/PureTaskList.stories.js
-
+```js:title=src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList.svelte';
-import { taskData, actionsData } from './Task.stories';
-export default {
-  title: 'PureTaskList',
-  excludeStories: /.*Data$/,
-};
-export const defaultTasksData = [
-  { ...taskData, id: '1', title: 'Task 1' },
-  { ...taskData, id: '2', title: 'Task 2' },
-  { ...taskData, id: '3', title: 'Task 3' },
-  { ...taskData, id: '4', title: 'Task 4' },
-  { ...taskData, id: '5', title: 'Task 5' },
-  { ...taskData, id: '6', title: 'Task 6' },
-];
-export const withPinnedTasksData = [
-  ...defaultTasksData.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-];
-// default TaskList state
-export const Default = () => ({
-  Component: PureTaskList,
-  props: {
-    tasks: defaultTasksData,
-  },
-  on: {
-    ...actionsData,
-  },
-});
+import MarginDecorator from './MarginDecorator.svelte';
 
-export const WithPinnedTasks = () => ({
-  Component: PureTaskList,
-  props: {
-    tasks: withPinnedTasksData,
+import * as TaskStories from './Task.stories';
+
+export default {
+  component: PureTaskList,
+  //👇 The auxiliary component will be added as a decorator to help show the UI correctly
+  decorators: [() => MarginDecorator],
+  title: 'PureTaskList',
+  argTypes: {
+    onPinTask: { action: 'onPinTask' },
+    onArchiveTask: { action: 'onArchiveTask' },
   },
+};
+
+const Template = args => ({
+  Component: PureTaskList,
+  props: args,
   on: {
-    ...actionsData,
+    ...TaskStories.actionsData,
   },
 });
-export const Loading = () => ({
-  Component: PureTaskList,
-  props: {
-    loading: true,
-  },
-});
-export const Empty = () => ({
-  Component: PureTaskList,
-});
+export const Default = Template.bind({});
+Default.args = {
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in task.stories.js.
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+};
+
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
+  tasks: [
+    ...Default.args.tasks.slice(0, 5),
+    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+  ],
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  tasks: [],
+  loading: true,
+};
+
+export const Empty = Template.bind({});
+Empty.args = {
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
+  ...Loading.args,
+  loading: false,
+};
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 Similarly, we need to use `PureTaskList` in our Jest test:
 
-```javascript
-// src/components/TaskList.test.js
+```diff:title=src/components/TaskList.test.js
+- import TaskList from './TaskList.svelte';
 
-import PureTaskList from './PureTaskList.svelte';
++ import PureTaskList from './PureTaskList.svelte';
+
 import { render } from '@testing-library/svelte';
-import { withPinnedTasksData } from './PureTaskList.stories';
 
-test('TaskList', async () => {
-  const { container } = await render(PureTaskList, {
-    props: {
-      tasks: withPinnedTasksData,
-    },
+//👇 Our story imported here
+- import { WithPinnedTasks } from './TaskList.stories';
+
++ import { WithPinnedTasks } from './PureTaskList.stories';
+
+test('PureTaskList', () => {
+  const { container } = render(PureTaskList, {
+    //👇 Story's args used with our test
+    props: WithPinnedTasks.args,
   });
   expect(container.firstChild.children[0].classList.contains('TASK_PINNED')).toBe(true);
 });
 ```
 
-<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>
+<div class="aside">
+💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
+</div>

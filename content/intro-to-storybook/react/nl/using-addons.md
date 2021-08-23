@@ -2,10 +2,10 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Leer hoe je add-ons kunt integreren en gebruiken aan de hand van een populair voorbeeld'
-commit: 'b3bca4a'
+commit: '09f3ff3'
 ---
 
-Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.org/addons/introduction/) waarmee je de developer experience kunt verbeteren voor iedereen in je team. Als je deze tutorial lineair hebt gevolgd, hebben we tot nu toe naar meerdere add-ons verwezen en je zal er al een geïmplementeerd hebben in het [Testing-hoofdstuk](/react/en/test/).
+Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.org/docs/react/configure/storybook-addons) waarmee je de developer experience kunt verbeteren voor iedereen in je team. Als je deze tutorial lineair hebt gevolgd, hebben we tot nu toe naar meerdere add-ons verwezen en je zal er al een geïmplementeerd hebben in het [Testing-hoofdstuk](/intro-to-storybook/react/nl/test/).
 
 <div class="aside">
 <strong> Op zoek naar een lijst met mogelijke add-ons? </strong>
@@ -145,13 +145,8 @@ Nu we de story hebben toegevoegd, kunnen we deze edge-case gemakkelijk reproduce
 
 ![Hier staat het in Storybook.](/intro-to-storybook/addon-knobs-demo-edge-case-in-storybook.png)
 
-Als we [visuele regressietests](/react/en/test/) gebruiken, zullen we ook worden geïnformeerd als we ooit onze ellipsvormende oplossing breken. Dergelijke obscure edge-cases kunnen altijd worden vergeten!
+Als we [visuele regressietests](/intro-to-storybook/react/nl/test/) gebruiken, zullen we ook worden geïnformeerd als we ooit onze ellipsvormende oplossing breken. Dergelijke obscure edge-cases kunnen altijd worden vergeten!
 
 ### Merge de wijzigingen
 
 Vergeet niet je wijzigingen te mergen met git!
-
-<!-- this is commented based on the restructuring that was introduced with pr 341. Once 6.0 lands this needs to be added back based on controls.-->
-<!-- ## Addons delen met het team
-
-Knobs is een geweldige manier om niet-developers met je componenten en stories te laten spelen. Het kan echter moeilijk zijn om het storybook op hun lokale computer uit te voeren. Daarom kan het handig zijn om je storybook naar een online locatie te deployen. In het volgende hoofdstuk zullen we precies dat doen! -->

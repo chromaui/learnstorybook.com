@@ -9,7 +9,7 @@ description: 'A guide to the latest production-ready tools for design systems'
 
 <br/>
 
-Design systems are exploding in popularity. From tech heavyweights like Airbnb to nimble startups, organizations of every shape are reusing UI patterns to save time and money. But there’s a chasm between the design systems created by Airbnb, Uber, or Microsoft and the design systems created by most developers.
+Design systems are exploding in popularity. From tech heavyweights like Airbnb to nimble startups, organizations of every shape are reusing UI patterns to save time and money. But there’s a chasm between the design systems created by BBC, Airbnb, IBM, or Microsoft and the design systems created by most developers.
 
 Why do leading design systems teams use the tools and techniques they use? My co-author Tom and I researched the traits of successful design systems from the Storybook community to identify best practices.
 
@@ -45,7 +45,7 @@ The economy of scale in a design system works in your favor when sharing UI comp
 
 ## What we’re building
 
-Storybook powers the design systems for [Uber](https://github.com/uber-web/baseui), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/), and hundreds more companies. The recommendations here are inspired by best practices and tools from the smartest teams. We’ll be building the following frontend stack:
+Storybook powers the design systems for [BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/), and hundreds more companies. The recommendations here are inspired by best practices and tools from the smartest teams. We’ll be building the following frontend stack:
 
 #### Build components
 
@@ -78,7 +78,7 @@ Design systems are an investment in frontend infrastructure. In addition to show
 
 #### Build UI components in isolation
 
-Every design system is composed of UI components. We’ll use Storybook as a “workbench” to build UI components in isolation outside of our consumer apps. Then we’ll integrate timesaving addons that help you increase component durability (Actions, Source, Knobs).
+Every design system is composed of UI components. We’ll use Storybook as a “workbench” to build UI components in isolation outside of our consumer apps. Then we’ll integrate timesaving addons that help you increase component durability (Actions, A11y, Controls).
 
 #### Review to reach consensus and gather feedback
 

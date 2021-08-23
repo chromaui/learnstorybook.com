@@ -1,65 +1,81 @@
 ---
-title: '開始吧'
-tocTitle: '從頭開始'
-description: '在你的開發環境下, 設定 React Storybook '
-commit: '8741257'
+title: 'Storybook 教學：React 篇'
+tocTitle: '開始'
+description: '在開發環境設定 Storybook'
+commit: '6fdf7e3'
 ---
 
-<div class="aside"><p>
-此翻譯尚未更新！您可以通過單擊頁面底部的鏈接來幫助我們改進它，不僅團隊會感激它，而且整個社區也會感激不盡。
-</p></div>
-Storybook 是在開發模式下 與 您的應用程式一起執行的. 它可以幫助您構建 UI 元件,並與 應用程式的 業務邏輯和上下文 隔離開來. 本期"學習 Storybook"適用於 **React**; `Vue和Angular`版本即將推出.
+Storybook 與 App 的開發模式一起運作，協助將 App 裡 UI 元件的商業邏輯和情境分開來。這裡是 Storybook 入門的 React 版本，其它還有 [React Native](/intro-to-storybook/react-native/en/get-started)、[Vue](/intro-to-storybook/vue/en/get-started)、[Angular](/intro-to-storybook/angular/en/get-started)、[Svelte](/intro-to-storybook/svelte/en/get-started) 和 [Ember](/intro-to-storybook/ember/en/get-started)。
 
-![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
-
-> 整個頁面 -> 拿出各種元件 -> 分隔出 **每個元件** /`元件組合`用來測試與文件說明
+![Storybook 和 App 的關係](/intro-to-storybook/storybook-relationship.jpg)
 
 ## 設定 React Storybook
 
-我們需要按照幾個步驟設定 Storybook 環境. 首先,我們想要使用[Create React App](https://github.com/facebook/create-react-app) (**CRA**) 快速設定我們的環境,並啟用[Storybook](https://storybook.js.org/)和[ jest-笑話 ](https://facebook.github.io/jest/)測試我們建立的應用. 讓我們執行以下命令:
+只要照著幾個步驟，就可以在環境下開始 build 的流程。我們喜歡從設定 build 系統的 [degit](https://github.com/Rich-Harris/degit) 開始。用了這套件，就可以下載「範本」（已經預設寫好一些設定的應用程式半成品），它有助於快速追蹤開發流程。
+
+執行以下指令：
 
 ```bash
-# 建立應用:
-npx create-react-app taskbox
+# Clone the template
+npx degit chromaui/intro-storybook-react-template taskbox
+
 cd taskbox
 
-# 加入 Storybook:
-npx -p @storybook/cli sb init
+# Install dependencies
+yarn
 ```
 
-我們可以快速檢查,我們的應用程式的各種命令是否正常工作:
+<div class="aside">
+💡 範本裡有此版本教學會用到的樣式、檔案和初始設定。
+</div>
+
+現在，可以來快速檢查應用程式的不同環境是否正常運作：
 
 ```bash
-# 執行 測試引擎(Jest):
-yarn test
+# Run the test runner (Jest) in a terminal:
+yarn test --watchAll
 
-# 啟動 storybook 在埠:9009 :
-yarn run storybook
+# Start the component explorer on port 6006:
+yarn storybook
 
-# 啟動 前端 頁面 在埠:3000:
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 
-<div class="aside">
-  注意: 如果 <code>yarn test</code> 執行錯誤, 你可能需要安裝 <code>watchman</code> 具體問題來自 <a href="https://github.com/facebook/create-react-app/issues/871#issuecomment-252297884">這個Issue</a>.
+<div class="aside"> 
+💡 請留意測試指令的 flag <code>--watchAll</code>，加上此 flag 可以確保所有測試都有跑到。在這篇教學的過程，會介紹不同的測試情境。可以考慮根據情況修改 <code>package.json</code> 腳本。
 </div>
 
-我們的三個前端應用程式模式: 自動化測試 (Jest) ,元件開發 (Storybook) 和 應用程式本身.
+現在有 3 種前端應用程式模式：自動化測試 (Jest)、元件開發 (Storybook) 和應用程式本身。
 
-![3 modalities](/intro-to-storybook/app-three-modalities.png)
+![3 種模式](/intro-to-storybook/app-three-modalities.png)
 
-根據您正在處理的應用程式的哪個部分,您可能希望同時執行其中一個或多個. 由於我們目前的重點是建立單個 UI 元件,因此我們將堅持執行 Storybook.
+根據 App 裡開發不同的部分，可能會想要同時執行多個。然而，我們現在專注在建造單一 UI 元件，所以只會說 Storybook。
 
-## 重用 CSS
+## 提交更變
 
-本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例應用](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)中的設計元素,所以我們不需要在本教程中編寫 CSS. 我們只需將 LESS 編譯為單個 CSS 檔案, 並將其包含在我們的應用程式中. 複製和貼上[這個編譯的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根據 **CRA**的規則 進入 **src/index.css** 檔案.
+這時候已經可以安心在本地端 Repository 放進檔案。依照下方指令啟動本地端 Repository，然後將目前做好的東西提交變更。
 
-![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
+```shell
+$ git init
+```
 
-<div class="aside">
-如果要修改樣式，在GitHub儲存庫中有提供 源LESS檔案。
-</div>
+接著：
 
-## 新增資源
+```shell
+$ git branch -M main
+```
 
-我們還需要新增 字型和圖示[資料夾](https://github.com/chromaui/learnstorybook-code/tree/master/public)到了`public/`資料夾. 新增 樣式和靜態資源 後,應用程式會奇奇怪怪的. 沒關係. 因為我們還沒有開發應用程式. 現在我們開始構建我們的第一個元件!
+然後：
+
+```shell
+$ git add .
+```
+
+最後：
+
+```shell
+$ git commit -m "first commit"
+```
+
+開始打造第一個元件吧！

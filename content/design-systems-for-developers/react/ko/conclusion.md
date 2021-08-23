@@ -10,7 +10,7 @@ description: '성장하는 디자인 시스템으로 시간 절약과 생산성 
 
 저희와 함께 배워나가 주셔서 감사합니다. 유익한 글들 및 이와 같은 가이드들이 발행될 때마다 알림을 받을 수 있도록 크로마틱 뉴스레터를 구독해 주세요.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
 
 ## 이 튜토리얼을 위한 예시 코드
 
@@ -19,7 +19,7 @@ description: '성장하는 디자인 시스템으로 시간 절약과 생산성 
 - [디자인 시스템 예제 저장소](https://github.com/chromaui/learnstorybook-design-system)
 - [앱 예제 저장소](https://github.com/chromaui/learnstorybook-design-system-example-app)
 
-예시 코드는 수많은 개발자가 사용자 경험을 향상하는 데 도움을 주는 [스토리북 자체의 디자인 시스템](https://github.com/storybookjs/design-system) (SDS)에 기반하고 있습니다. SDS는 현재 작업 진행 중이며, 기여자(contributor)들을 환영합니다. 기여자로서, 여러분들은 효과적인 디자인 시스템 및 개발 중인 기능들을 직접 체험할 수 있습니다. SDS는 스토리북 팀이 최신 기능들을 시험하는 곳이기도 합니다. 
+예시 코드는 수많은 개발자가 사용자 경험을 향상하는 데 도움을 주는 [스토리북 자체의 디자인 시스템](https://github.com/storybookjs/design-system) (SDS)에 기반하고 있습니다. SDS는 현재 작업 진행 중이며, 기여자(contributor)들을 환영합니다. 기여자로서, 여러분들은 효과적인 디자인 시스템 및 개발 중인 기능들을 직접 체험할 수 있습니다. SDS는 스토리북 팀이 최신 기능들을 시험하는 곳이기도 합니다.
 
 ## 저희들에 대하여
 
@@ -45,12 +45,11 @@ _Design Systems for Developers_ 는 [Dominic Nguyen](https://twitter.com/domyen)
 - [Delightful Storybook Workflow by Dominic Nguyen](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (article)
 - [Visual Testing by Tom Coleman](https://www.chromatic.com/blog/visual-testing-the-pragmatic-way-to-test-uis/) (article)
 
-
 ## FAQ
 
 #### 디자인 시스템에는 다른 것들이 더 있지 않나요?
 
-디자인 시스템에는 디자인 파일, 컴포넌트 라이브러리, 토큰, 문서화, 규칙, 컨트리뷰션 플로우 등이 포함되어 있습니다. 하지만 이들에만 한정된 것은 아닙니다. 이 가이드는 디자인 시스템에 대한 개발자적인 측면에 초점이 맞춰져 있기 때문에 저희는 여러 주제의 일부만 다루었습니다. 더 명확하게는, 개발과 관련된 상세 사항들, API들 및 프로덕션 디자인 시스템에 관한 기반 시스템을 다루었습니다. 
+디자인 시스템에는 디자인 파일, 컴포넌트 라이브러리, 토큰, 문서화, 규칙, 컨트리뷰션 플로우 등이 포함되어 있습니다. 하지만 이들에만 한정된 것은 아닙니다. 이 가이드는 디자인 시스템에 대한 개발자적인 측면에 초점이 맞춰져 있기 때문에 저희는 여러 주제의 일부만 다루었습니다. 더 명확하게는, 개발과 관련된 상세 사항들, API들 및 프로덕션 디자인 시스템에 관한 기반 시스템을 다루었습니다.
 
 #### 디자인 시스템의 거버넌스(Governance)적 측면은요?
 
@@ -64,11 +63,11 @@ _Design Systems for Developers_ 는 [Dominic Nguyen](https://twitter.com/domyen)
 
 #### 하나의 앱에도 디자인 시스템이 필요한가요?
 
-아니요. 디자인 시스템을 생성하고 관리하는 데에는 기회비용이 들어갑니다. 작업의 크기가 작으면, 디자인 시스템의 시간 절약으로 인한 편익보다 시스템을 구축하는 데 드는 비용이 더 큽니다. 
+아니요. 디자인 시스템을 생성하고 관리하는 데에는 기회비용이 들어갑니다. 작업의 크기가 작으면, 디자인 시스템의 시간 절약으로 인한 편익보다 시스템을 구축하는 데 드는 비용이 더 큽니다.
 
 #### 소비자 앱(Consumer apps)들은 예기치 못한 디자인 시스템 변화로부터 어떻게 자신을 보호하나요?
 
-세상에 완벽한 사람은 없습니다. 피치 못하게도 여러분의 디자인 시스템은 소비자 앱들에 영향을 주는 버그를 전달할 것입니다. 저희가 디자인 시스템에서 진행했던 것처럼, 자동화된 테스팅 기법(비주얼 테스트, 단위 테스트 등)을 사용해 클라이언트 앱의 스토리북에 대한 버그를 최소화하세요. 이러한 방법을 사용하면, 브랜치에서 의존관계를 업데이트(일일이 혹은 [Dependabot](https://dependabot.com/)과 같은 자동화된 서비스 사용)할 때 클라이언트 앱의 테스트 케이스들은 디자인 시스템으로부터 오는 회귀들을 잡아낼 것입니다. 
+세상에 완벽한 사람은 없습니다. 피치 못하게도 여러분의 디자인 시스템은 소비자 앱들에 영향을 주는 버그를 전달할 것입니다. 저희가 디자인 시스템에서 진행했던 것처럼, 자동화된 테스팅 기법(비주얼 테스트, 단위 테스트 등)을 사용해 클라이언트 앱의 스토리북에 대한 버그를 최소화하세요. 이러한 방법을 사용하면, 브랜치에서 의존관계를 업데이트(일일이 혹은 [Dependabot](https://dependabot.com/)과 같은 자동화된 서비스 사용)할 때 클라이언트 앱의 테스트 케이스들은 디자인 시스템으로부터 오는 회귀들을 잡아낼 것입니다.
 
 ![Design system updates](/design-systems-for-developers/design-system-update.png)
 

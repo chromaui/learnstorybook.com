@@ -2,7 +2,7 @@
 title: 'Document for stakeholders'
 tocTitle: 'Document'
 description: 'Drive design system adoption with documentation'
-commit: 5bc45fb
+commit: '5ff2af9'
 ---
 
 [Professional](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [frontend](https://segment.com/blog/driving-adoption-of-a-design-system/) [teams](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) measure design system success by adoption. To get the full work-saving benefits of a design system, components must be widely circulated. Otherwise, what’s the point?
@@ -36,7 +36,7 @@ As Storybook users, we have a head start because component variations are alread
 ## Write stories, generate docs
 
 With the Storybook Docs addon, we can generate rich documentation from existing stories to reduce maintenance time and get out of the box defaults.
-Like the addons we've covered in the [build](/react/en/build/) chapter (Controls and Actions), the Docs addon is also included and configured with each Storybook install, so we can focus on writing good documentation.
+Like the addons we've covered in the [build](/design-systems-for-developers/react/en/build/) chapter (Controls and Actions), the Docs addon is also included and configured with each Storybook install, so we can focus on writing good documentation.
 
 Each time you open your Storybook you should see two tabs:
 
@@ -53,28 +53,23 @@ So far we’ve made lots of progress with little effort. Yet, the documentation 
 
 Start by adding more metadata that explains what the component does. In `src/Avatar.stories.js`, add a subtitle that describes what the Avatar is used for:
 
-```javascript
-// src/Avatar.stories.js
-
+```diff:title=src/Avatar.stories.js
 export default {
   title: 'Design System/Avatar',
   component: Avatar,
-  parameters: {
-    componentSubtitle: 'Displays an image that represents a user or organization',
-  },
++ parameters: {
++   componentSubtitle: 'Displays an image that represents a user or organization',
++ },
 };
 ```
 
 Next add JSdoc to the Avatar component (in `src/Avatar.js`) that provides a description to be read:
 
-```javascript
-// src/Avatar.js
-
+```js:title=src/Avatar.js
 /**
 - Use an avatar for attributing actions or content to specific users.
 - The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
 **/
-
 export function Avatar({ loading, username, src, size, ...props }) {
 ```
 
@@ -84,9 +79,7 @@ You should now see this:
 
 Storybook Docs automatically generated the args table that shows types and default values. That’s convenient, but it doesn’t mean Avatar is dummy-proof – several arguments (props) can be misused. Add comments in your proptypes to render them in the auto-generated args table.
 
-```javascript
-// src/components/Avatar.js
-
+```js:title=src/Avatar.js
 Avatar.propTypes = {
   /**
     Use the loading state to indicate that the data Avatar needs is still loading.
@@ -110,10 +103,8 @@ Avatar.propTypes = {
 
 By default, every Avatar story is rendered in the docs. We can’t assume other developers know what each story represents. Write some descriptive text for the stories in `src/Avatar.stories.js`:
 
-```javascript
-// src/Avatar.stories.js
-
-export const Sizes = args => (
+```diff:title=src/Avatar.stories.js
+export const Sizes = (args) => (
   <div>
     <Avatar {...args} size="large" />
     <Avatar {...args} size="medium" />
@@ -127,12 +118,12 @@ Sizes.args = {
   src: 'https://avatars2.githubusercontent.com/u/132554',
 };
 
-Sizes.parameters = {
-  docs: {
-    // The story now contains a description
-    storyDescription: '4 sizes are supported.',
-  },
-};
++ Sizes.parameters = {
++   docs: {
++     // The story now contains a description
++     storyDescription: '4 sizes are supported.',
++   },
++ };
 ```
 
 <video autoPlay muted playsInline loop>
@@ -150,9 +141,7 @@ Markdown is a straightforward format for writing text. MDX allows you to use int
 
 As part of the Storybook install workflow, MDX files are registered by default. Your `.storybook/main.js` should look like so:
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -168,14 +157,52 @@ Create a new `src/Avatar.stories.mdx` file and supply some details. We’ll remo
 
 <!-- prettier-ignore-start -->
 
-```javascript
-// src/Avatar.stories.mdx
+```js:title=src/Avatar.stories.mdx
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
 
-import { Meta, Story, Canvas } from '@storybook/addon-docs/blocks';
+import { Avatar } from "./Avatar";
 
-import { Avatar } from './Avatar';
-
-<Meta title="Design System/Avatar" component={Avatar} />
+<Meta
+  title="Design System/Avatar"
+  component={Avatar}
+  argTypes={{
+    loading: {
+      control: "boolean",
+      description:
+        "Use the loading state to indicate that the data Avatar needs is still loading.",
+      table: {
+        type: { summary: "boolean" },
+        defaultValue: { summary: false },
+      },
+    },
+    username: {
+      description:
+        "Avatar falls back to the user’s initial when no image is provided. Supply a `username` and omit `src` to see what this looks like.",
+      table: {
+        defaultValue: {
+          summary: "loading",
+        },
+      },
+    },
+    src: {
+      description: "The URL of the Avatar's image.",
+      table: {
+        defaultValue: {
+          summary: null,
+        },
+      },
+    },
+    size: {
+      description:
+        "Avatar comes in four sizes. In most cases, you’ll be fine with `medium`.",
+      table: {
+        defaultValue: {
+          summary: "medium",
+        },
+      },
+    },
+  }}
+/>
 
 # Avatar
 
@@ -185,12 +212,17 @@ Use an avatar for attributing actions or content to specific users.
 
 The user's name should _always_ be present when using Avatar – either printed beside the avatar or in a tooltip.
 
-<Story name="standard">
-  <Avatar
-    size="large"
-    username="Tom Coleman"
-    src="https://avatars2.githubusercontent.com/u/132554"
-  />
+export const Template = (args) => <Avatar {...args} />;
+
+<Story
+  name="standard"
+  args={{
+    size: "large",
+    username: "Tom Coleman",
+    src: "https://avatars2.githubusercontent.com/u/132554",
+  }}
+>
+  {Template.bind({})}
 </Story>
 
 ### Sizes
@@ -254,15 +286,16 @@ The loading state is used when the image or username is, well, loading.
 
 Experiment with this story with the Controls addon in the Canvas tab.
 
-export const Template = (args) => <Avatar {...args} />
-
 <Canvas>
-  <Story name="controls" args={{
-    loading: false,
-    size: "tiny",
-    username: "Dominic Nguyen",
-    src: "https://avatars2.githubusercontent.com/u/263385"
-  }}>
+  <Story
+    name="controls"
+    args={{
+      loading: false,
+      size: "tiny",
+      username: "Dominic Nguyen",
+      src: "https://avatars2.githubusercontent.com/u/263385",
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -276,26 +309,27 @@ In Storybook your Avatar component’s “Docs” tab should be replaced with ou
 
 Storybook Docs come with [“Doc Blocks”](https://storybook.js.org/docs/react/writing-docs/doc-blocks), readymade components like interactive previews, the args table, and more. By default, they’re used behind the scenes for the auto-generated docs pages. They can also be extracted for individual use. Our goal is to customize Avatar’s docs without redoing everything ourselves so let’s reuse Doc Blocks where possible.
 
-Let’s add the [`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-blocks#mdx) doc block, and wrap our initial story in a `Preview`
+Let’s add the [`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-blocks#mdx) doc block, and wrap our initial story in a `Canvas`.
 
-```javascript
-// src/Avatar.stories.mdx
+```js:title=src/Avatar.stories.mdx
+import { Meta, Story, Canvas, ArgsTable } from "@storybook/addon-docs";
 
-import { Meta, Story, ArgsTable, Preview } from '@storybook/addon-docs/blocks';
+# Same content as before
 
-# …
-
-<Preview withToolbar>
-  <Story name="standard">
-    <Avatar
-      size="large"
-      username="Tom Coleman"
-      src="https://avatars2.githubusercontent.com/u/132554"
-    />
+<Canvas>
+  <Story
+    name="standard"
+    args={{
+      size: "large",
+      username: "Tom Coleman",
+      src: "https://avatars2.githubusercontent.com/u/132554",
+    }}
+  >
+    {Template.bind({})}
   </Story>
-</Preview>
+</Canvas>
 
-<ArgsTable of={Avatar} />
+<ArgsTable story="standard" />
 ```
 
 ![Storybook docs from MDX with blocks](/design-systems-for-developers/storybook-docs-mdx-docblocks-6-0.png)
@@ -304,12 +338,11 @@ Nice! We’re back to where we started, but now with full control over ordering 
 
 Customize Avatar’s docs with a note about use cases. This gives developers context about how to take advantage of this component. We can just add markdown as we would in any other markdown document:
 
-```javascript
-// src/Avatar.stories.mdx
+```js:title=src/Avatar.stories.mdx
 
 // Same content as before
 
-<ArgsTable of={Avatar} />
+<ArgsTable story="standard" />
 
 ## Usage
 
@@ -318,7 +351,6 @@ Avatar is used to represent a person or an organization. By default the avatar s
 ### Sizes
 
 // Same content as before
-
 ```
 
 ![Storybook docs for MDX with usage info](/design-systems-for-developers/storybook-docs-mdx-usage-6-0.png)
@@ -327,20 +359,18 @@ Avatar is used to represent a person or an organization. By default the avatar s
 
 Every design system comes with a cover page. Storybook Docs allows you to create discrete pages using MDX.
 
-Create a new file `src/components/Intro.stories.mdx`:
+Create a new file `src/Intro.stories.mdx`:
 
-```javascript
-// src/components/Intro.stories.mdx
-
-import { Meta } from '@storybook/addon-docs/blocks';
+```js:title=src/Intro.stories.mdx
+import { Meta } from "@storybook/addon-docs";
 
 <Meta title="Design System/Introduction" />
 
-# Introduction to the Learn Storybook design system
+# Introduction to the Storybook design system tutorial
 
-The Learn Storybook design system is a subset of the full [Storybook design system](https://github.com/storybookjs/design-system/), created as a learning resource for those interested in learning how to write and publish a design system using best practice techniques.
+The Storybook design system tutorial is a subset of the full [Storybook design system](https://github.com/storybookjs/design-system/), created as a learning resource for those interested in learning how to write and publish a design system using best practice techniques.
 
-Learn more at [Learn Storybook](https://learnstorybook.com).
+Learn more in the [Storybook tutorials](https://storybook.js.org/tutorials/).
 ```
 
 This generates a new documentation-only page that is independent of the automated component docs pages from earlier.
@@ -349,14 +379,12 @@ This generates a new documentation-only page that is independent of the automate
 
 To get it to appear first, we have to tell Storybook to load the Introduction file in `.storybook/main.js`:
 
-```javascript
-// .storybook/main.js
-
+```diff:title=.storybook/main.js
 module.exports = {
-  // changes the load order of our stories. First loads the Intro page
+  // Changes the load order of our stories. First loads the Intro page
   // automatically import all files ending in *.stories.js|mdx
   stories: [
-    '../src/components/Intro.stories.mdx',
++   '../src/Intro.stories.mdx',
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],
@@ -377,7 +405,7 @@ If you write documentation that no one reads, is that useful? No. It’s not eno
 
 In a previous chapter, we published Storybook online for visual review. It’s easy to use the same mechanism to publish our component docs as well. Let’s add a new script to `package.json` to build our Storybook in docs mode:
 
-```json
+```json:title=package.json
 {
   "scripts": {
     "build-storybook-docs": "build-storybook -s public --docs"
@@ -389,7 +417,7 @@ Save and commit.
 
 Running `build-storybook-docs` in your command line or continuous integration tool will output a static site in the "docs" configuration. Set up a static site deployment tool [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com/) to deploy the docs site on every commit.
 
-<div class="aside">As your design system grows you may encounter organization-specific requirements that warrant custom tooling or even building your own static site using tools like Gatsby or Next. It’s easy to port markdown and MDX to other solutions.</div>
+<div class="aside">💡 As your design system grows you may encounter organization-specific requirements that warrant custom tooling or even building your own static site using tools like Gatsby or Next. It’s easy to port markdown and MDX to other solutions.</div>
 
 ## Import the design system in other apps
 

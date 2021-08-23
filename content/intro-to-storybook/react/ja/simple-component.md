@@ -2,7 +2,7 @@
 title: '単純なコンポーネントを作る'
 tocTitle: '単純なコンポーネント'
 description: '単純なコンポーネントを切り離して作りましょう'
-commit: 'f433fe5'
+commit: '8ce7e80'
 ---
 
 それでは、[コンポーネント駆動開発](https://www.componentdriven.org/) (CDD) の手法にのっとって UI を作ってみましょう。コンポーネント駆動開発とは、UI を最初にコンポーネントから作り始めて、最後に画面を作り上げる「ボトムアップ」の開発プロセスです。CDD を用いれば UI を作る際に直面する複雑性を軽減することができます。
@@ -94,10 +94,8 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 
 - `component` -- コンポーネント自体
 - `title` -- Storybook のサイドバーにあるコンポーネントを参照する方法
-- `excludeStories` -- ストーリーファイルのエクスポートのうち、Storybook にストーリーとして表示させたくないもの
-- `argTypes` -- 各ストーリーへの引数 ([args](https://storybook.js.org/docs/react/api/argtypes)) の挙動を指定する
 
-ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、React の[状態を持たない関数コンポーネント](https://ja.reactjs.org/docs/components-and-props.html)のようなものです。
+ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、React の[状態を持たない関数コンポーネント](https://reactjs.org/docs/components-and-props.html#function-and-class-components)のようなものです。
 
 コンポーネントにストーリーが複数連なっているので、各ストーリーを単一の `Template` 変数に割り当てるのが便利です。このパターンを導入することで、書くべきコードの量が減り、保守性も上がります。
 
@@ -117,7 +115,7 @@ Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-storie
 
 ## 設定する
 
-作成したストーリーを認識させ、[前の章](/react/ja/get-started)で変更した CSS ファイルを使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
+作成したストーリーを認識させ、[前の章](/intro-to-storybook/react/ja/get-started)で変更した CSS ファイルを使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
 
 まず、設定ファイル (`.storybook/main.js`) を以下のように変更してください:
 
@@ -125,6 +123,7 @@ Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-storie
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/addon-links',
@@ -139,9 +138,9 @@ module.exports = {
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
 
-// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
@@ -285,3 +284,7 @@ initStoryshots();
 ![Task テストランナー](/intro-to-storybook/task-testrunner.png)
 
 これで `Task` の各ストーリーに対するスナップショットテストが出来ました。`Task` の実装を変更するたびに、変更内容の確認を求められるようになります。
+
+<div class="aside">
+Git へのコミットを忘れずに行ってください！
+</div>

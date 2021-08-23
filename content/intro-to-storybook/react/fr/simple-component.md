@@ -2,7 +2,7 @@
 title: 'Créer un simple composant'
 tocTitle: 'Simple composant'
 description: 'Créer un simple composant en isolation'
-commit: 'f433fe5'
+commit: '8ce7e80'
 ---
 
 Nous allons construire notre UI en suivant la méthode [Component-Driven Development](https://www.componentdriven.org/) (CDD). Il s'agit d'un processus qui construit les interfaces utilisateur de "bas en haut" en commençant par les composants et en terminant par les écrans. Le CDD vous permet d'évaluer le degré de complexité auquel vous êtes confronté lors de la construction de l'UI.
@@ -90,15 +90,13 @@ Il y a deux niveaux d'organisation de base dans Storybook : le composant et ses 
   - Story
   - Story
 
-Pour informer Storybook sur le composant que nous documentons, nous créons un `default` export qui contient :
+Pour informer Storybook sur le composant que nous documentons, nous créons un `default` export qui contient:
 
 - `component` -- le composant lui-même,
 - `title` -- comment faire référence au composant dans la barre latérale de l'application Storybook,
-- `excludeStories` -- les export dans le fichier story qui ne doivent pas être rendues comme des story par Storybook.
-- `argTypes` -- spécifiez le comportement des [args](https://storybook.js.org/docs/react/api/argtypes) dans chaque story.
 
 Pour définir nos story, nous exportons une fonction pour chacun de nos états tests afin de générer un story.
-Le story est une fonction qui renvoie un élément qui a été rendu (c'est-à-dire un composant avec un ensemble de props) dans un état donné--exactement comme un [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+Le story est une fonction qui renvoie un élément qui a été rendu (c'est-à-dire un composant avec un ensemble de props) dans un état donné--exactement comme un [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 
 Comme nous avons plusieurs permutations de notre composant, il est pratique de lui assigner une variable `Template`. L'introduction de ce schéma dans vos story réduira la quantité de code que vous devez écrire et maintenir.
 
@@ -113,12 +111,12 @@ Arguments ou [`args`](https://storybook.js.org/docs/react/writing-stories/args) 
 Lors de la création d'un story, nous utilisons un argument de base "task" pour construire la forme de la tâche que le composant attend. Cette tâche est généralement modélisée à partir de ce à quoi ressemblent les données réelles. Encore une fois, "exporter" cette forme nous permettra de la réutiliser dans des story ultérieures, comme nous le verrons.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> vous aident à vérifier les interactions lors de la construction des composants de l'UI en isolation. Souvent, vous n'aurez pas accès aux fonctions et à l'état dont vous disposez dans le contexte de l'application. Utilisez <code>action()</code> pour les simuler.
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> vous aident à vérifier les interactions lors de la construction des composants de l'UI en isolation. Souvent, vous n'aurez pas accès aux fonctions et à l'état dont vous disposez dans le contexte de l'application. Utilisez <code>action()</code> pour les simuler.
 </div>
 
 ## Configuration
 
-Nous devrons apporter quelques modifications à la configuration du Storybook pour qu'il remarque non seulement nos story récemment créées, mais nous permette également d'utiliser le fichier CSS qui a été modifié dans le [chapitre précédent](/react/en/get-started).
+Nous devrons apporter quelques modifications à la configuration du Storybook pour qu'il remarque non seulement nos story récemment créées, mais nous permette également d'utiliser le fichier CSS qui a été modifié dans le [chapitre précédent](/intro-to-storybook/react/fr/get-started).
 
 Commencez par modifier le fichier de configuration de votre Storybook (`.storybook/main.js`) comme suit :
 
@@ -126,6 +124,7 @@ Commencez par modifier le fichier de configuration de votre Storybook (`.storybo
 // .storybook/main.js
 
 module.exports = {
+  //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
   addons: [
     '@storybook/addon-links',
@@ -140,9 +139,9 @@ Après avoir effectué la modification ci-dessus, dans le dossier `storybook`, c
 ```javascript
 // .storybook/preview.js
 
-import '../src/index.css';
+import '../src/index.css'; //👈 The app's CSS file goes here
 
-// Configures Storybook to log the actions(onArchiveTask and onPinTask) in the UI.
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };

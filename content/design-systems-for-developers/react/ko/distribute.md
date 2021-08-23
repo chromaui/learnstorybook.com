@@ -2,7 +2,7 @@
 title: 'UI 배포하기'
 tocTitle: '배포'
 description: '디자인 시스템을 패키징하고 다른 앱에 임포트하는 법 알아보기'
-commit: 2d0450a
+commit: '47f38a2'
 ---
 
 설계 관점에서 보았을 때, 디자인 시스템은 그저 또 다른 프런트엔드 디펜던시입니다. moment나 lodash처럼 유명한 디펜던시들과 다를 바가 없습니다. UI 컴포넌트는 코드로 이루어졌기 때문에 기존의 기술로 코드를 재사용할 수 있습니다.
@@ -13,13 +13,13 @@ commit: 2d0450a
 
 ## 디자인 시스템 패키징하기
 
-조직은 여러 앱에 걸쳐 수천개의 UI 컴포넌트를 가지고 있습니다. 앞 장에서는 가장 흔히 사용하는 컴포넌트들을 디자인 시스템에 포함시켰습니다. 이제는 그 컴포넌트들을 다시 앱으로 불러옵니다. 
+조직은 여러 앱에 걸쳐 수천개의 UI 컴포넌트를 가지고 있습니다. 앞 장에서는 가장 흔히 사용하는 컴포넌트들을 디자인 시스템에 포함시켰습니다. 이제는 그 컴포넌트들을 다시 앱으로 불러옵니다.
 
 우리의 디자인 시스템은 npm이라는 자바스크립트 패키지 매니저를 사용합니다. npm을 사용해서 배포, 버전, 디펜던시를 관리할 수 있습니다.
 
 디자인 시스템을 패키징하는 방법은 여러가지입니다. 다양한 접근 방법을 보고 싶다면 Lonely Planet, Auth0, Salesforce, Github, Microsoft가 갖춘 디자인 시스템을 살펴보세요. 어떤 팀은 각 컴포넌트를 개별적인 패키지로 관리합니다. 다른 팀은 모든 컴포넌트를 하나의 패키지에 넣기도 합니다.
 
-꾸준히 성장할 수 있는 디자인 시스템을 위해 가장 확실한 방법은 다음 사항들을 포함하는 일정한 버전의 패키지를 만드는 것입니다. 
+꾸준히 성장할 수 있는 디자인 시스템을 위해 가장 확실한 방법은 다음 사항들을 포함하는 일정한 버전의 패키지를 만드는 것입니다.
 
 - 🏗 공통 UI 컴포넌트
 - 🎨 디자인 토큰 (예를 들어, style variables)
@@ -27,9 +27,9 @@ commit: 2d0450a
 
 ![Package a design system](/design-systems-for-developers/design-system-package.jpg)
 
-## 디자인 시스템 Export 준비하기 
+## 디자인 시스템 Export 준비하기
 
-[Create React App](https://github.com/facebook/create-react-app) (CRA)을 이용해서 디자인 시스템을 만들고 있기 때문에 create-react-app의 초기 상태와 스크립트 중 자잘한 것을 정리합니다. 
+[Create React App](https://github.com/facebook/create-react-app) (CRA)을 이용해서 디자인 시스템을 만들고 있기 때문에 create-react-app의 초기 상태와 스크립트 중 자잘한 것을 정리합니다.
 
 우선, README.md 파일을 좀 더 자세하게 업데이트합니다.
 
@@ -88,7 +88,7 @@ yarn add --dev @babel/cli cross-env
     "presets": [
       [
         "react-app",
-       {
+        {
           "absoluteRuntime": false
         }
       ]
@@ -142,7 +142,7 @@ question private: no
 
 ## Auto로 배포 관리하기
 
-변경된 부분들을 기록하는 changelog를 업데이트하고, 적정한 버전 숫자를 입력하고, 그 버전 숫자와 repository에 있는 커밋을 연결해주는 git tag를 생성하는 과정을 거쳐서 npm에 릴리즈를 배포합니다. 이때, 이러한 과정을 위해 만들어진 [Auto](https://github.com/intuit/auto)라는 오픈 소스 툴을 이용할 것입니다. 
+변경된 부분들을 기록하는 changelog를 업데이트하고, 적정한 버전 숫자를 입력하고, 그 버전 숫자와 repository에 있는 커밋을 연결해주는 git tag를 생성하는 과정을 거쳐서 npm에 릴리즈를 배포합니다. 이때, 이러한 과정을 위해 만들어진 [Auto](https://github.com/intuit/auto)라는 오픈 소스 툴을 이용할 것입니다.
 
 Auto를 설치합니다.
 
@@ -158,7 +158,7 @@ Auto는 릴리즈 관리에 해당하는 다양한 업무에 유용한 커맨드
 
 npm 토큰은 이 URL에서 생성할 수 있습니다: https://www.npmjs.com/settings/&lt;your-username&gt;/tokens.
 
-'Read and Publish' 기능이 허용되는 토큰을 발급해야 합니다. 
+'Read and Publish' 기능이 허용되는 토큰을 발급해야 합니다.
 
 이 토큰을 프로젝트의 `.env` 파일에 추가합니다.
 
@@ -229,7 +229,7 @@ npm version 0.1.0 -m "Bump version to: %s [skip ci]"
 npm publish
 ```
 
-그리고 Auto를 통해 깃헙에 릴리즈를 생성합니다. 
+그리고 Auto를 통해 깃헙에 릴리즈를 생성합니다.
 
 ```shell
 git push --follow-tags origin main
@@ -244,7 +244,7 @@ yarn auto release
 
 `auto`가 첫 번째 릴리즈에는 릴리즈 노트를 자동 생성해주지만, 우리의 첫번째 버전에 알맞게 조금 수정했다는 걸 유의하세요.
 
-#### Auto 스크립트 설정하기 
+#### Auto 스크립트 설정하기
 
 위와 같은 과정을 나중에 패키지를 배포할 때 똑같이 실행하도록 Auto를 설정해 봅니다. `package.json` 파일에 아래 스크립트를 추가합니다.
 
@@ -266,7 +266,7 @@ yarn auto release
 
 #### Github Secrets에 토큰 추가하기
 
-Github Secrets에 우리의 저장소에 관련된 민감한 정보들을 저장할 수 있습니다. 브라우저에서 깃헙 저장소를 열어보세요. 
+Github Secrets에 우리의 저장소에 관련된 민감한 정보들을 저장할 수 있습니다. 브라우저에서 깃헙 저장소를 열어보세요.
 
 ⚙️ Settings 설정 탭을 클릭하고, 사이드바에 있는 Secrets 링크를 클릭하세요. 다음과 같은 화면이 뜰 것입니다.
 
@@ -280,7 +280,7 @@ npm secret을 리포지터리에 추가하면 `secrets.NPM_TOKEN`을 접근할 �
 
 #### GitHub Actions로 릴리즈 자동화하기
 
-우리는 풀 리퀘스트가 merge 될 때마다 디자인 시스템을 자동으로 배포하고 싶습니다. 이전 장에서 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">스토리북을 배포할 때</a> 사용한 폴더 안에 `push.yml`라는 파일을 생성하고 아래 내용을 추가합니다.
+우리는 풀 리퀘스트가 merge 될 때마다 디자인 시스템을 자동으로 배포하고 싶습니다. 이전 장에서 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">스토리북을 배포할 때</a> 사용한 폴더 안에 `push.yml`라는 파일을 생성하고 아래 내용을 추가합니다.
 
 ```yml
 # .github/workflows/push.yml
@@ -329,7 +329,7 @@ jobs:
 
 이 변경사항을 저장하고 원격 저장소에 커밋합니다.
 
-성공! 이제 사용자가 메인 브랜치에 풀 리퀘스트를 merge 할 때 마다 새로운 버전이 배포되고 사용자가 추가한 레이블에 맞춰서 버전 숫자가 업데이트됩니다. 
+성공! 이제 사용자가 메인 브랜치에 풀 리퀘스트를 머지 할 때 마다 새로운 버전이 배포되고 사용자가 추가한 레이블에 맞춰서 버전 숫자가 업데이트됩니다.
 
 <div class="aside">디자인 시스템을 확장하는데 유용할만한 Auto의 다양한 기능들을 모두 알아보지는 못했습니다. 자세한 정보는 <a href="https://github.com/intuit/auto">이 문서를</a>. 참고하세요. </div>
 
@@ -356,7 +356,7 @@ cd example-app
 # 디펜던시를 설치합니다
 yarn install
 ## 스토리북을 시작합니다
-yarn storybook	
+yarn storybook
 ```
 
 디펜던시를 설치하고 앱에서 스토리북을 시작합니다.
@@ -380,10 +380,10 @@ yarn storybook
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   refs: {
-  'design-system': {
-     title: 'My design system',
-     // 배포되었을 때 Chromatic에서 제공한 url 
-     url: 'https://your-published-url.chromatic.com',
+    'design-system': {
+      title: 'My design system',
+      // 배포되었을 때 Chromatic에서 제공한 url
+      url: 'https://your-published-url.chromatic.com',
     },
   },
   addons: [
@@ -412,7 +412,7 @@ module.exports = {
 yarn add <your-username>-learnstorybook-design-system
 ```
 
-디자인 시스템에 정의된 글로벌 스타일을 사용해야 하므로 [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) 설정 파일을 업데이트 하고 [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators)를 추가합니다. 
+디자인 시스템에 정의된 글로벌 스타일을 사용해야 하므로 [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) 설정 파일을 업데이트 하고 [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators)를 추가합니다.
 
 ```javascript
 // .storybook/preview.js
@@ -422,7 +422,7 @@ import { global as designSystemGlobal } from '<your-username>-learnstorybook-des
 
 // 디자인 시스템에서 임포트한 스타일을 포함하기 위해 글로벌 decorator를 추가합니다.
 export const decorators = [
-    Story => (
+  Story => (
     <>
       <GlobalStyle />
       <Story />
@@ -436,7 +436,6 @@ export const parameters = {
 ```
 
 ![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
-
 
 우리가 만든 디자인 시스템 중 `Avatar` 컴포넌트를 예제 앱의 `UserItem` 컴포넌트에 사용해 보도록 합니다. `UserItem`은 이름과 프로필 사진을 포함한 사용자의 정보를 보여줘야 합니다.
 
@@ -482,7 +481,7 @@ export default ({ user: { name, avatarUrl } }) => (
 
 ![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
 
-짜잔! 디자인 시스템 컴포넌트를 예제 앱에 성공적으로 임포트했습니다. 디자인 시스템에서 Avatart 컴포넌트 관련된 업데이트를 배포하면 앱의 패키지를 업데이트 할 때 예제 앱에서 그 변경 사항을 확인할 수 있습니다. 
+짜잔! 디자인 시스템 컴포넌트를 예제 앱에 성공적으로 임포트했습니다. 디자인 시스템에서 Avatart 컴포넌트 관련된 업데이트를 배포하면 앱의 패키지를 업데이트 할 때 예제 앱에서 그 변경 사항을 확인할 수 있습니다.
 
 ![Distribute design systems](/design-systems-for-developers/design-system-propagation-storybook.png)
 

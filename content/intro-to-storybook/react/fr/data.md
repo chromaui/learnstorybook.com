@@ -2,7 +2,7 @@
 title: 'Transmettre des données'
 tocTitle: 'Données'
 description: "Apprenez comment transmettre des données à votre composant d'interface d'utilisateur"
-commit: '97fc9a6'
+commit: '167467b'
 ---
 
 Jusqu'à présent, nous avons créé des composants sans état isolés - très bien pour Storybook, mais finalement inutiles tant que nous ne leur fournirons pas quelques données dans notre application.
@@ -190,5 +190,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-Si vos captures instantanées échouent à ce stade, vous devez mettre à jour les capture instantanées existants en exécutant le script de test avec le drapeau <code>-u</code>. De plus, comme notre application se développe progressivement, il serait bon d'exécuter les tests avec le drapeau <code> --watchAll</code> comme mentionné dans la section <a href="/react/en/get-started/">Débuter</a>.
+Si vos captures instantanées échouent à ce stade, vous devez mettre à jour les capture instantanées existants en exécutant le script de test avec le drapeau <code>-u</code>. De plus, comme notre application se développe progressivement, il serait bon d'exécuter les tests avec le drapeau <code> --watchAll</code> comme mentionné dans la section <a href="/intro-to-storybook/react/fr/get-started/">Débuter</a>.
 </div>

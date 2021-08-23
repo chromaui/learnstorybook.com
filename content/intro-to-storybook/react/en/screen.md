@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'c117e09'
+commit: 'cec2e05'
 ---
 
 We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -13,11 +13,10 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.js` in your `components` folder:
 
-```javascript
-// src/components/InboxScreen.js
-
+```js:title=src/components/InboxScreen.js
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { connect } from 'react-redux';
 
 import TaskList from './TaskList';
@@ -34,7 +33,6 @@ export function PureInboxScreen({ error }) {
       </div>
     );
   }
-
   return (
     <div className="page lists-show">
       <nav>
@@ -61,16 +59,14 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 
 We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
 
-```javascript
-// src/App.js
-
-import React from 'react';
+```js:title=src/App.js
 import { Provider } from 'react-redux';
 import store from './lib/redux';
 
 import InboxScreen from './components/InboxScreen';
 
 import './index.css';
+
 function App() {
   return (
     <Provider store={store}>
@@ -89,9 +85,7 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `InboxScreen.stories.js`:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
 
 import { PureInboxScreen } from './InboxScreen';
@@ -120,36 +114,37 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context with decorators
 
 The good news is that it is easy to supply a Redux store to the `InboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
-import { Provider } from 'react-redux';
-import { action } from '@storybook/addon-actions';
-import { PureInboxScreen } from './InboxScreen';
-import * as TaskListStories from './TaskList.stories';
++ import { Provider } from 'react-redux';
 
-// A super-simple mock of a redux store
-const store = {
-  getState: () => {
-    return {
-      tasks: TaskListStories.Default.args.tasks,
-    };
-  },
-  subscribe: () => 0,
-  dispatch: action('dispatch'),
-};
+import { PureInboxScreen } from './InboxScreen';
+
++ import { action } from '@storybook/addon-actions';
+
++ import * as TaskListStories from './TaskList.stories';
+
++ // A super-simple mock of a redux store
++ const store = {
++   getState: () => {
++    return {
++      tasks: TaskListStories.Default.args.tasks,
++    };
++   },
++   subscribe: () => 0,
++   dispatch: action('dispatch'),
++ };
 
 export default {
   component: PureInboxScreen,
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
++ decorators: [story => <Provider store={store}>{story()}</Provider>],
   title: 'InboxScreen',
 };
 
@@ -189,3 +184,7 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
 [**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
 We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+
+<div class="aside">
+💡 Don't forget to commit your changes with git!
+</div>

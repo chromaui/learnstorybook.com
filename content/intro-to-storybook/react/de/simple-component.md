@@ -2,7 +2,7 @@
 title: 'Baue eine einfache Komponente'
 tocTitle: 'Einfache Komponente'
 description: 'Baue eine einfache Komponente in Isolation'
-commit: '3d9cd8c'
+commit: '8ce7e80'
 ---
 
 Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://www.componentdriven.org/) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "bottom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
@@ -95,7 +95,7 @@ Um Storybook die Komponente, die wir dokumentieren, zugänglich zu machen, erste
 - `title` -- wie die Komponente in der Sidebar der Storybook App referenziert werden soll,
 - `excludeStories` -- Exporte in der Story Datei, die von Storybook nicht als Stories gerendert werden sollen.
 
-Unsere Stories definieren wir, indem wir für jeden unserer Test-Zustände eine Funktion exportieren, um eine Story zu generieren. Die Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) --- genau wie eine [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html) in React.
+Unsere Stories definieren wir, indem wir für jeden unserer Test-Zustände eine Funktion exportieren, um eine Story zu generieren. Die Story ist eine Funktion, die ein gerendertes Element in einem definierten Zustand zurückgibt (z.B. eine Komponenten-Klasse mit einer Menge an Props) --- genau wie eine [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components) in React.
 
 `action()` erlaubt uns, ein Callback zu erstellen, das im **Actions**-Panel der Storybook-UI erscheint, wenn man auf dieses klickt. Wenn wir also einen Pin-Button bauen, können wir so in der Test-UI sehen, ob ein Button-Klick erfolgreich war.
 
@@ -106,7 +106,7 @@ Ein weiterer Vorteil, die Actions in `actionsData` zusammenzufassen ist, wie wir
 Beim Erstellen einer Story nutzen wir eine Basis-Aufgabe (`taskData`), um die Struktur der Aufgabe zu definieren, die unsere Komponente erwartet. Diese basiert üblicherweise auf realitätsnahen Beispiel-Daten. Noch einmal: Diese Struktur zu `export`-ieren erlaubt uns, sie später in weiteren Stories zu verwenden, wie wir noch sehen werden.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#2-native-addons"><b>Actions</b></a> helfen dir, Interaktionen zu verifizieren, wenn du UI-Komponenten isoliert entwickelst. Oftmals hast du bei der Entwicklung keinen Zugriff auf die Funktionen und den Zustand, die im Kontext deiner App existieren. Nutze <code>action()</code>, um sie als Stub zur Verfügung zu haben.
+<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> helfen dir, Interaktionen zu verifizieren, wenn du UI-Komponenten isoliert entwickelst. Oftmals hast du bei der Entwicklung keinen Zugriff auf die Funktionen und den Zustand, die im Kontext deiner App existieren. Nutze <code>action()</code>, um sie als Stub zur Verfügung zu haben.
 </div>
 
 ## Konfiguration

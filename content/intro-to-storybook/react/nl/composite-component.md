@@ -2,7 +2,7 @@
 title: 'Bouw een samengestelde component'
 tocTitle: 'Samengestelde component'
 description: 'Bouw een samengestelde component uit eenvoudigere componenten'
-commit: 'c43580d'
+commit: '567743d'
 ---
 
 In het vorige hoofdstuk hebben we onze eerste component gebouwd; dit hoofdstuk gaat voort op wat we geleerd hebben bij het bouwen van `TaskList`, een lijst van taken. Laten we nu een aantal componenten combineren en zien wat er gebeurt wanneer de complexiteit toeneemt.
@@ -92,7 +92,7 @@ storiesOf('TaskList', module)
 `addDecorator()` stelt ons in staat om "context" toe te voegen aan het renderen van elke taak. In dit geval voegen we padding toe rond de lijst zodat het makkelijker is om deze visueel te verifiëren.
 
 <div class="aside">
-<a href="https://storybook.js.org/addons/introduction/#1-decorators"><b>Decorators</b></a> zijn een manier om willekeurige wrappers toe te voegen aan _stories_. In dit geval gebruiken we een decorator om styling toe te voegen. Ze kunnen ook gebruikt worden om _stories_ te wrappen in "providers" – d.w.z library componenten die een React context aanmaken.
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> zijn een manier om willekeurige wrappers toe te voegen aan _stories_. In dit geval gebruiken we een decorator om styling toe te voegen. Ze kunnen ook gebruikt worden om _stories_ te wrappen in "providers" – d.w.z library componenten die een React context aanmaken.
 </div>
 
 `task` voorziet de vorm van een `Task` die we gemaakt en geëxporteerd hebben van het `Task.stories.js` bestand. Op een gelijkaardige manier definieren `actions` de acties (mocked callbacks) die een `Task` component verwacht, en de `TaskList` ook nodig heeft.
@@ -258,4 +258,4 @@ it('renders pinned tasks at the start of the list', () => {
 
 Merk op dat we de `withPinnedTasks` lijst van taken hebben kunnen herbruiken in zowel de story als de unit test; zo kunnen we doorgaan met het benutten van een bestaande bron, namelijk de voorbeelden die relevante variaties van een component vertegenwoordigen.
 
-Merk ook op dat deze test veel onderhoud vereist. Het is mogelijk dat naarmate het project volwassen wordt en de exacte implementatie van de `Task` verandert - misschien door gebruik van een andere klassenaam of een`textarea` in plaats van een `input` - de test mislukt en moet worden bijgewerkt. Dit is niet noodzakelijk een probleem, maar eerder een indicatie om voorzichtig te zijn met het royaal gebruiken van unit-tests voor UI componenten. Ze zijn niet makkelijk te onderhouden. Vertrouw in plaats daarvan waar mogelijk op snapshot tests en visuele regressie tests (zie [testhoofdstuk](/test/)).
+Merk ook op dat deze test veel onderhoud vereist. Het is mogelijk dat naarmate het project volwassen wordt en de exacte implementatie van de `Task` verandert - misschien door gebruik van een andere klassenaam of een`textarea` in plaats van een `input` - de test mislukt en moet worden bijgewerkt. Dit is niet noodzakelijk een probleem, maar eerder een indicatie om voorzichtig te zijn met het royaal gebruiken van unit-tests voor UI componenten. Ze zijn niet makkelijk te onderhouden. Vertrouw in plaats daarvan waar mogelijk op snapshot tests en visuele regressie tests (zie [testhoofdstuk](/intro-to-storybook/react/nl/test/)).

@@ -2,7 +2,7 @@
 title: 'Arquitetar sistemas'
 tocTitle: 'Arquitetura'
 description: 'Como extrair um sistema de design a partir de bibliotecas de componentes'
-commit: b696f85
+commit: '1f60988'
 ---
 
 No capítulo 2, vamos extrair um sistema de design de bibliotecas de componentes existentes. Ao longo do trajeto, iremos determinar quais os componentes pertencem ao sistema de design e delinear quais os desafios comuns que os programadores encontram inicialmente.
@@ -52,7 +52,7 @@ Utilize as instruções fornecidas pelo GitHub para adicionar a localização re
 ```bash
 cd learnstorybook-design-system
 git remote add origin https://github.com/chromaui/learnstorybook-design-system.git
-git push -u origin master
+git push -u origin main
 ```
 
 Não se esqueça de substituir `chromaui` pelo seu nome de utilizador.

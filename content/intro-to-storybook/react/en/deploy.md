@@ -2,7 +2,7 @@
 title: 'Deploy Storybook'
 tocTitle: 'Deploy'
 description: 'Learn how to deploy Storybook online'
-commit: '313b27f'
+commit: '73f95be'
 ---
 
 Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.
@@ -19,19 +19,7 @@ This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free pu
 
 ### Setup a repository in GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/react/en/get-started/), Create React App (CRA) already created a local repository for us. At this stage it's safe to add our files to the first commit.
-
-Issue the following commands to add and commit the changes we've done so far.
-
-```bash
-$ git add .
-```
-
-Followed by:
-
-```bash
-$ git commit -m "taskbox UI"
-```
+Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/intro-to-storybook/react/en/get-started/), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
 
 Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
 
@@ -46,7 +34,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Finally, push our local repo to the remote repo on GitHub with:
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Get Chromatic
@@ -90,34 +78,34 @@ Now that our project is hosted in a GitHub repository, we can use a continuous i
 
 In the root folder of our project, create a new directory called `.github` then create another `workflows` directory inside of it.
 
-Create a new file called `chromatic.yml` like the one below. Replace to change `project-token` with your project token.
+Create a new file called `chromatic.yml` like the one below. Make sure to replace `CHROMATIC_PROJECT_TOKEN` with your project token.
 
-```yaml
-# .github/workflows/chromatic.yml
-# name of our action
+```yaml:title=.github/workflows/chromatic.yml
+# Workflow name
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+
+# Event for the workflow
 on: push
 
-# what the action will do
+# List of jobs
 jobs:
   test:
-    # the operating system it will run on
+    # Operating System
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
-          projectToken: project-token
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+<div class="aside"><p>💡 For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
 
 ### Commit the action
 
@@ -136,7 +124,7 @@ git commit -m "GitHub action setup"
 Finally push them to the remote repository with:
 
 ```bash
-git push origin master
+git push origin main
 ```
 
 Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic.
@@ -148,9 +136,5 @@ Click the latest build, it should be the one at the top.
 Then, click the `View Storybook` button to see the latest version of your Storybook.
 
 ![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
-
-<!--
-And that's it, all is required is to commit and push the changes to our repository and we've successfully automated our Storybook deployment
- -->
 
 Use the link and share it with your team members. This is helpful as a part of the standard app development process or simply to show off work 💅.

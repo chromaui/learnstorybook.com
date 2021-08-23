@@ -8,7 +8,7 @@ description: 'A guide to the latest production-ready tools for design systems'
 </div>
 <br/>
 
-디자인 시스템의 인기는 폭발적으로 증가하고 있습니다. Airbnb와 같은 거대 기술 기업부터 신생 스타트업까지, 회사들은 시간과 비용을 절약하기 위해 UI 패턴을 재사용하는 방식을 도입하고 있습니다. 하지만 Airbnb, Uber, Microsoft에서 만든 디자인 시스템과 대부분의 개발자가 만든 디자인 시스템 사이에는 큰 차이가 존재합니다.
+디자인 시스템의 인기는 폭발적으로 증가하고 있습니다. Airbnb와 같은 거대 기술 기업부터 신생 스타트업까지, 회사들은 시간과 비용을 절약하기 위해 UI 패턴을 재사용하는 방식을 도입하고 있습니다. 하지만 BBC, Airbnb, Microsoft에서 만든 디자인 시스템과 대부분의 개발자가 만든 디자인 시스템 사이에는 큰 차이가 존재합니다.
 
 우수한 디자인 시스템을 가진 팀은 왜 그 특정 도구와 기술을 사용할까요? 공동 저자 톰과 함께 스토리북 커뮤니티의 우수 사례들을 통해 성공적인 디자인 시스템의 특성을 연구했습니다.
 
@@ -18,7 +18,7 @@ description: 'A guide to the latest production-ready tools for design systems'
 
 ## 왜 디자인 시스템이 필요할까요?
 
-재사용이 가능한 사용자 인터페이스는 새로운 개념이 아닙니다. 스타일 가이드, UI 키트 및 공유 가능한 위젯은 수십 년 동안 존재해왔습니다. 오늘날 디자이너와 개발자들은 UI 컴포넌트 구조화를 위해 노력하고 있습니다. UI 컴포넌트는 사용자 인터페이스를 이루는 조각들의 시각적이고 기능적인 속성을 캡슐화합니다. 레고(LEGO) 블록을 생각해보세요. 
+재사용이 가능한 사용자 인터페이스는 새로운 개념이 아닙니다. 스타일 가이드, UI 키트 및 공유 가능한 위젯은 수십 년 동안 존재해왔습니다. 오늘날 디자이너와 개발자들은 UI 컴포넌트 구조화를 위해 노력하고 있습니다. UI 컴포넌트는 사용자 인터페이스를 이루는 조각들의 시각적이고 기능적인 속성을 캡슐화합니다. 레고(LEGO) 블록을 생각해보세요.
 
 최근에 등장한 유저 인터페이스들은 다양한 사용자 경험을 제공하기 위해 수백 개의 모듈식 UI 컴포넌트가 재배열된 구조로 이루어져 있습니다.
 
@@ -44,7 +44,7 @@ description: 'A guide to the latest production-ready tools for design systems'
 
 ## 우리가 사용하는 도구들
 
-[Uber](https://github.com/uber-web/baseui), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/)을 비롯한 수백 개가 넘는 기업의 디자인 시스템에 스토리북이 사용되고 있습니다. 여기에서 권장하는 사항들은 가장 똑똑한 팀의 우수 사례 및 도구를 참고했습니다. 아래 프론트엔드 환경을 구성해보세요.
+[BBC]https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/)을 비롯한 수백 개가 넘는 기업의 디자인 시스템에 스토리북이 사용되고 있습니다. 여기에서 권장하는 사항들은 가장 똑똑한 팀의 우수 사례 및 도구를 참고했습니다. 아래 프론트엔드 환경을 구성해보세요.
 
 #### 빌드 컴포넌트
 
@@ -100,4 +100,3 @@ UI 개발은 개발자, 디자이너 및 다른 분야 간의 조정이 필요�
 이 가이드의 예제 디자인 시스템은 스토리북의 자체 [프로덕션 디자인 시스템](https://github.com/storybookjs/design-system)을 참고로 했습니다. 이는 3개의 사이트에서 소비되고 수만 명의 개발자들이 사용하고 있습니다.
 
 다음 장에서는 서로 다른 컴포넌트 라이브러리에서 디자인 시스템을 추출하는 방법에 대해 알아보겠습니다.
-

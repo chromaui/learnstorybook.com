@@ -20,7 +20,7 @@ Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
 - [**Manual de testes visuais**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) enumera as boas práticas de fluxo de trabalho, usadas por equipas que operam a alta velocidade, tal como por exemplo a SquareSpace, a Major League Soccer, a Discovery Network e Apollo GraphQL.
 
-- [**Visual Testing Handbook**](https://www.learnstorybook.com/visual-testing-handbook/) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
+- [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
 
 - [**Discord do Storybook**](https://discord.gg/UUt2PJb) põe-te em contacto direto com a comunidade Storybook. Onde podes oferecer e receber ajuda de outros utilizadores do Storybook.
 
@@ -32,4 +32,4 @@ O texto, código e produção foram contribuídos pela [Chromatic](https://www.c
 
 Quer mais tutoriais e artigos como este? Subscreva a mailing list da Chromatic.
 
-<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/bface0?as_embed"></iframe>
+<iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

@@ -7,7 +7,7 @@ description: 'Configuração do Angular Storybook no ambiente de desenvolvimento
 O Storybook executa paralelamente à aplicação em desenvolvimento.
 Ajuda-o a construir componentes de interface de utilizador (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para Angular.
-Encontram-se disponíveis outras edições quer para [Vue](/vue/pt/get-started), quer para [React](/react/pt/get-started).
+Encontram-se disponíveis outras edições quer para [Vue](/intro-to-storybook/vue/pt/get-started), quer para [React](/intro-to-storybook/react/pt/get-started).
 
 ![Storybook e a aplicação](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -293,11 +293,11 @@ E faça uma pequena alteração de forma que os ícones da fonte `percolate` que
 
 De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `src/assets`.
 
-<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aqui</a>.</p></div>
+<div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aqui</a>.</p></div>
 
 ```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon src/assets/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font src/assets/font
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
+svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
 ```
 
 Após adicionar os estilos e assets, a aplicação irá renderizar de forma estranha. Tudo bem. Não vamos trabalhar nela agora. Vamos antes começar por construir o nosso primeiro componente.

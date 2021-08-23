@@ -2,7 +2,7 @@
 title: 'Déployer Storybook'
 tocTitle: 'Déploiement'
 description: 'Découvrez comment déployer Storybook en ligne'
-commit: '313b27f'
+commit: '73f95be'
 ---
 
 Tout au long de ce tutoriel, nous avons construit des composants sur notre machine de développement local. À un moment donné, nous devrons partager notre travail pour obtenir les réactions de l'équipe. Déployons Storybook en ligne pour aider nos coéquipiers à examiner la mise en œuvre de l'UI.
@@ -19,7 +19,7 @@ Ce tutoriel utilise <a href="https://www.chromatic.com/">Chromatic</a>, un servi
 
 ### Configurer un repo dans GitHub
 
-Avant de commencer, notre code local doit se synchroniser avec un service de contrôle de version à distance. Lorsque notre projet a été initialisé dans le chapitre [Débuter](/react/fr/get-started/), Create React App (CRA) a déjà crée un repo local pour nous. À ce stade, il est sans danger d'ajouter nos fichiers au premier commit.
+Avant de commencer, notre code local doit se synchroniser avec un service de contrôle de version à distance. Lorsque notre projet a été initialisé dans le chapitre [Débuter](/intro-to-storybook/react/fr/get-started/), Create React App (CRA) a déjà crée un repo local pour nous. À ce stade, il est sans danger d'ajouter nos fichiers au premier commit.
 
 Utilisez les commandes suivantes pour ajouter et faire un commit sur les modifications que nous avons effectuées jusqu'à présent.
 
@@ -46,7 +46,7 @@ $ git remote add origin https://github.com/<your username>/taskbox.git
 Enfin, transférer notre repo locale vers la repo à distance sur GitHub avec:
 
 ```bash
-$ git push -u origin master
+$ git push -u origin main
 ```
 
 ### Obtenir Chromatic
@@ -94,26 +94,28 @@ Créez un nouveau fichier appelé `chromatic.yml` comme celui ci-dessous. Rempla
 
 ```yaml
 # .github/workflows/chromatic.yml
-# name of our action
+
+# Workflow name
 name: 'Chromatic Deployment'
-# the event that will trigger the action
+
+# Event for the workflow
 on: push
 
-# what the action will do
+# List of jobs
 jobs:
   test:
-    # the operating system it will run on
+    # Operating System
     runs-on: ubuntu-latest
-    # the list of steps that the action will go through
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # options required to the GitHub chromatic action
+        # Options required for Chromatic's GitHub Action
         with:
-          # our project token, to see how to obtain it
-          # refer to https://www.learnstorybook.com/intro-to-storybook/react/en/deploy/
-          projectToken: project-token
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
@@ -136,7 +138,7 @@ git commit -m "GitHub action setup"
 Enfin, les envoyer vers le repo à distance avec :
 
 ```bash
-git push origin master
+git push origin main
 ```
 
 Une fois que vous avez mis en place l'action GitHub. Votre Storybook sera déployé sur Chromatic chaque fois que vous enverrez du code. Vous pouvez trouver tous les Storybook publiés sur l'écran de compilation de votre projet dans Chromatic.
@@ -148,9 +150,5 @@ Cliquez sur la dernière compilation, elle doit être celle du haut.
 Ensuite, cliquez sur le bouton `View Storybook` pour voir la dernière version de votre Storybook.
 
 ![Lien Storybook sur Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
-
-<!--
-And that's it, all is required is to commit and push the changes to our repository and we've successfully automated our Storybook deployment
- -->
 
 Utilisez le lien et partagez-le avec les membres de votre équipe. Ceci est utile dans le cadre du processus de développement standard d'une application ou simplement pour montrer son travail 💅.

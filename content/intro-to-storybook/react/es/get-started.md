@@ -2,13 +2,10 @@
 title: 'Storybook para React tutorial'
 tocTitle: 'Empezando'
 description: 'Configurar React Storybook en tu entorno de desarrollo'
-commit: '8741257'
+commit: '6fdf7e3'
 ---
 
-<div class="aside"><p>
-¡Esta traducción está desactualizada! Ayúdenos a mejorarlo haciendo clic en el enlace en la parte inferior de la página. No solo el equipo te lo agradece, sino toda la comunidad.</p></div>
-
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; existe otras ediciones para [React Native](/react-native/es/get-started), [Vue](/vue/es/get-started), [Angular](/angular/es/get-started) y [Svelte](/svelte/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; existe otras ediciones para [React Native](/intro-to-storybook/react-native/es/get-started), [Vue](/intro-to-storybook/vue/es/get-started), [Angular](/intro-to-storybook/angular/es/get-started) y [Svelte](/intro-to-storybook/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -31,7 +28,7 @@ Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación
 # Corre el test de prueba (Jest) en una terminal:
 yarn test
 
-# Inicia el explorador de componentes en el puerto 9009:
+# Inicia el explorador de componentes en el puerto 6006:
 yarn run storybook
 
 # Ejecuta el frontend de la aplicación en el puerto 3000:
@@ -55,5 +52,5 @@ Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son 
 
 ## Añade recursos
 
-También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/public) a la carpeta `public/`.
+También necesitamos añadir la fuente y el icono de este [directorio](https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/) a la carpeta `src/assets`.
 Después de añadir los estilos y recursos, nuestra aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. Comenzamos con la construcción de nuestro primer componente!

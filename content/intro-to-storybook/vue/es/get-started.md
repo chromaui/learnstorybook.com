@@ -2,30 +2,29 @@
 title: 'Tutorial Storybook para Vue'
 tocTitle: 'Empezando'
 description: 'Configurar Vue Storybook en tu entorno de desarrollo'
-commit: d1c4858
+commit: 'b218a07'
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para Vue; existe otras ediciones para [React](/react/es/get-started), [React Native](/react-native/es/get-started/), [Angular](/angular/es/get-started) y [Svelte](/svelte/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de interfaz de usuario aislados de la lógica y el contexto de tu aplicación. Esta edición del tutorial de Aprende Storybook es para Vue; existe otras ediciones para [React](/intro-to-storybook/react/es/get-started), [React Native](/intro-to-storybook/react-native/es/get-started/), [Angular](/intro-to-storybook/angular/es/get-started) y [Svelte](/intro-to-storybook/svelte/es/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Configurar Storybook con Vue
 
-Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestro entorno. Para iniciar, vamos a usar [Vue CLI](https://cli.vuejs.org) para configurar nuestro sistema de build, y añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para testear nuestra aplicación creada. Vamos a ejecutar los siguientes comandos:
+Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestro entorno. Para iniciar, vamos a usar [degit](https://github.com/Rich-Harris/degit) para configurar nuestro sistema de build. Con este paquete, puede descargar "plantillas" (aplicaciones parcialmente creadas con alguna configuración predeterminada) para ayudarlo a acelerar su flujo de trabajo de desarrollo.
+
+Vamos a ejecutar los siguientes comandos:
 
 ```bash
-# Create our application, using a preset that contains jest:
-npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
-
+# Clone the template
+npx degit chromaui/intro-storybook-vue-template taskbox
 cd taskbox
-
-# Add Storybook:
-npx -p @storybook/cli sb init
+# Install dependencies
+yarn
 ```
 
 <div class = "aside">
-A lo largo de esta versión del tutorial, usaremos <code>yarn</code> para ejecutar la mayoría de nuestros comandos.
-Si tiene instalado Yarn, pero prefiere usar <code>npm</code>, no se preocupe, puede seguir el tutorial sin ningún problema. Simplemente agregue el indicador <code>--packageManager=npm</code> al primer comando anterior y tanto Vue CLI como Storybook se inicializarán en función de esto. Además, mientras avanza en el tutorial, no olvide ajustar los comandos utilizados a sus contrapartes <code>npm</code>.
+💡 Esta plantilla contiene los estilos, recursos y configuraciones esenciales para esta versión del tutorial.
 </div>
 
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
@@ -33,10 +32,8 @@ Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación
 ```bash
 # Run the test runner (Jest) in a terminal:
 yarn test:unit
-
 # Start the component explorer on port 6006:
 yarn storybook
-
 # Run the frontend app proper on port 8080:
 yarn serve
 ```
@@ -47,40 +44,24 @@ Nuestras tres modalidades del frontend de la aplicación: test automatizado (Jes
 
 Dependiendo de en qué parte de la aplicación estés trabajando, es posible que quieras ejecutar uno o más de estos simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
 
-## Reusa CSS
+## Commitear cambios
 
-Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tutorial de GraphQL y React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), por lo que no necesitaremos escribir CSS en este tutorial. Simplemente compilaremos nuestros archivos LESS en un único archivo CSS y lo incluiremos en nuestra aplicación. Copia y pega [este CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dentro del archivo `src/index.css` y luego importa el CSS a la aplicación editando la etiqueta tag `<style>` en `src/App.vue` entonces se vera así:
+En esta etapa, es seguro agregar nuestros archivos a un repositorio local. Ejecute los siguientes comandos para inicializar un repositorio local, agregue y confirme los cambios que hemos realizado hasta ahora.
 
-```html
-<style>
-  @import './index.css';
-</style>
+```shell
+$ git init
 ```
 
-![Buzón de tareas UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
+Seguido por:
 
-<div class="aside">
-Si deseas modificar los estilos, los archivos fuente de CSS en formato LESS son proporcionados en el mismo repositorio de GitHub.</div>
-
-## Añadiendo recursos
-
-Para que coincida con el diseño previsto del tutorial, deberá transferir las carpetas de los iconos y las fuentes a la carpeta pública.
-
-<div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puede obtener las carpetas directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/public">aquí</a>.</p></div>
-
-```bash
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/icon public/icon
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/public/font public/font
+```shell
+$ git add .
 ```
 
-También necesitamos actualizar nuestro script storybook para servir el directorio `public` (en `package.json`):
+Y finalmente:
 
-```json
-{
-  "scripts": {
-    "storybook": "start-storybook -p 6006 -s public"
-  }
-}
+```shell
+$ git commit -m "first commit"
 ```
 
-Después de añadir los estilos y recursos, nuestra aplicación se renderizará de forma un poco extraña. Está bien. No estamos trabajando en la aplicación ahora mismo. ¡Comenzamos con la construcción de nuestro primer componente!
+¡Comencemos a construir nuestro primer componente!
