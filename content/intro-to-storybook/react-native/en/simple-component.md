@@ -168,6 +168,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 ```
 
 The additional markup from above combined with the styling we created earlier yields the following UI:
+(Does not create the Storybook here, keep going - https://github.com/storybookjs/react-native/issues/58)
 
 <video autoPlay muted playsInline loop>
   <source
