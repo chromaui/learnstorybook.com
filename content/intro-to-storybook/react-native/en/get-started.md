@@ -251,7 +251,7 @@ To match the intended design, you'll need to download both the font and icon dir
 
 ```bash
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
-svn export https://github.com/google/fonts/trunk/ofl/nunitosans assets/font
+svn export https://github.com/google/fonts/tree/main/ofl/nunitosans assets/font
 ```
 
 Next the assets need to be loaded into the app, for that we're going to update `hooks/useCachedResources.js` to the following:
