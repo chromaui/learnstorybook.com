@@ -58,19 +58,19 @@ $ git init
 Followed by:
 
 ```shell
-$ git branch -M main
+$ git add .
 ```
 
 Then:
 
 ```shell
-$ git add .
+$ git commit -m "first commit"
 ```
 
 And finally:
 
 ```shell
-$ git commit -m "first commit"
+$ git branch -M main
 ```
 
 Let's start building our first component!
