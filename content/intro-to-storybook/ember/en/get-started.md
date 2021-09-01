@@ -69,10 +69,16 @@ Followed by:
 $ git add .
 ```
 
-And finally:
+Then:
 
 ```shell
 $ git commit -m "first commit"
+```
+
+And finally:
+
+```shell
+$ git branch -M main
 ```
 
 Let's start building our first component!
