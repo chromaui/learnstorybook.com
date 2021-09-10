@@ -45,7 +45,7 @@ Add the package as a development dependency.
 yarn add -D chromatic
 ```
 
-Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've setup.
+Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called "taskbox" and sync it with the GithHub repository we've setup.
 
 Click `Choose GitHub repo` under collaborators and select your repo.
 
