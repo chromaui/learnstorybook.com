@@ -199,7 +199,7 @@ As the component grows, so too do input requirements. Define the prop requiremen
 
 ```diff:title=src/components/TaskList.js
 import React from 'react';
-import PropTypes from 'prop-types';
++ import PropTypes from 'prop-types';
 
 import Task from './Task';
 
