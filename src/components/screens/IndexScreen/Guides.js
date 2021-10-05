@@ -14,7 +14,7 @@ const GuidesWrapper = styled.div`
 
 const Content = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   flex-wrap: wrap;
 
   @media (min-width: ${breakpoint}px) {

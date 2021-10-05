@@ -157,6 +157,11 @@ export const chapterFormatting = css`
     list-style-type: disc;
   }
 
+  em {
+    font-style: italic;
+    font-weight: normal;
+  }
+
   p a,
   li a,
   .aside a {
@@ -188,7 +193,9 @@ export const chapterFormatting = css`
     margin: 1em 0;
 
     figcaption {
-      font-size: ${typography.size.s1}px;
+      font-size: ${typography.size.s2}px;
+      text-align: center;
+      margin: 1em auto 0;
     }
   }
 

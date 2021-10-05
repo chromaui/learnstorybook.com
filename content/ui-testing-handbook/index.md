@@ -1,21 +1,23 @@
 ---
-title: 'Create an Addon'
+title: 'UI Testing Handbook'
 description: 'Learn how to build your own addons that will super charge your development'
 heroDescription: 'Addons give you superpowers to extend Storybook, automate workflows, and integrate with your favorite tools. This guide shows you how to create an addon.'
 overview: 'While the Storybook community offers over 250 addons, you can also build one tailored to your specific needs. This guide introduces you to the Addon Kit and APIs, along the way you will build an addon from scratch.'
-order: 5
-themeColor: '#FF4785'
-codeGithubUrl: 'https://github.com/chromaui/learnstorybook-addon-code'
+order: 3
+themeColor: '#2A0481'
+codeGithubUrl: 'https://github.com/chromaui/ui-testing-guide-code'
 heroAnimationName: null
 toc:
   [
     'introduction',
-    'getting-started',
-    'register-an-addon',
-    'track-state',
-    'decorators',
-    'preset',
-    'add-to-catalog',
+    'strategy',
+    'visual-testing',
+    'composition-testing',
+    'interaction-testing',
+    'accessibility-testing',
+    'user-flow-testing',
+    'automate',
+    'workflow',
     'conclusion',
   ]
 coverImagePath: '/guide-cover/create-an-addon.svg'
@@ -30,7 +32,7 @@ authors:
     },
   ]
 contributors: []
-twitterShareText: "I’m learning how to build a Storybook addon! They're great for customizing Storybook to fit your UI development workflow."
+twitterShareText: "I’m learning how to test UIs! They're great for customizing Storybook to fit your UI development workflow."
 ---
 
 <h2>What you'll build</h2>
@@ -41,6 +43,6 @@ twitterShareText: "I’m learning how to build a Storybook addon! They're great 
   </div>
 </div>
 
-![Outline Addon](/images/outline-addon-hero.gif)
+![Taskbox UI](/ui-testing-handbook/taskbox.png)
 
-Follow along as we code the Outline addon—used for visually debugging CSS layout and alignment. It adds a toolbar button that outlines all UI elements, making it easy to verify positioning and placement at a glance.
+Follow along as we test the Taskbox app. It's a task management app, similar to Asana, where you can pin, edit and archive tasks. We'll look at how to test visual and functional characteristics of this UI. Each chapter illustrates a different aspect of testing components.
