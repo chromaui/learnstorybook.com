@@ -42,7 +42,7 @@ Now we can quickly check that the various environments of our application are wo
 ember test --server
 
 # Run the frontend app proper on port 4200:
-ember start
+ember serve
 
 # Start the component explorer on port 6006:
 npm run storybook-dev
