@@ -42,29 +42,43 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
-```javascript
+```js:title=src/components/Task.stories.js
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import Task from './Task';
 
-export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+export default {
+  component: Task,
+  title: 'Task',
 };
 
-export const actions = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+const Template = args => <Task {...args} />;
+
+export const Default = Template.bind({});
+Default.args = {
+  task: {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    updatedAt: new Date(2021, 0, 1, 9, 0),
+  },
 };
 
-storiesOf('Task', module)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+export const Pinned = Template.bind({});
+Pinned.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_PINNED',
+  },
+};
+
+export const Archived = Template.bind({});
+Archived.args = {
+  task: {
+    ...Default.args.task,
+    state: 'TASK_ARCHIVED',
+  },
+};
 ```
 
 Existen dos niveles básicos de organización en Storybook. El componente y sus historias hijas. Piensa en cada historia como una permutación posible del componente. Puedes tener tantas historias por componente como se necesite.
