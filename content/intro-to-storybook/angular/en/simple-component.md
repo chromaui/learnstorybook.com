@@ -256,7 +256,7 @@ export class TaskComponent {
 }
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+The additional markup from above combined with the existing CSS (see src/styles.css, which is already used/references by angular.json ) yields the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
