@@ -28,6 +28,11 @@ yarn extract-sb-docs-metadata
 
 Start development server with `yarn dev`
 
+### Fixing problem with node module "sharp" in MacOS M1
+
+On MacOS (M1) you might get an error complaining about the _node_module/sharp_, which in turn comes from an error compiling the _vips_ library that _sharp_ uses.
+To fix this install _vips_ with brew first : `brew install vips` then install packages with `yarn` second and you should be fine.
+
 ## Contributors
 
 - [Tom Coleman @tmeasday](https://twitter.com/tmeasday)
