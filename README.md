@@ -30,8 +30,8 @@ Start development server with `yarn dev`
 
 ### Fixing problem with node module "sharp" in MacOS M1
 
-On MacOS (M1) you might get an error complaining about the _node_module/sharp_, which in turn comes from an error compiling the _vips_ library that _sharp_ uses.
-To fix this install _vips_ with brew first : `brew install vips` then install packages with `yarn` second and you should be fine.
+On MacOS (M1) you might get an error complaining about the _node_module/sharp_, which in turn comes from an error when yarn/npm tries to compile the _vips_ library that _sharp_ uses from the source code.
+To fix this install the _vips_-library with `brew` first : `brew install vips` and after that install packages with `yarn` second and you should be fine.
 
 ## Contributors
 
