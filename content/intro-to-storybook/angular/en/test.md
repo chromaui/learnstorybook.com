@@ -79,7 +79,7 @@ Finally, open your GitHub repository and open a pull request for the `change-tas
 
 ![Creating a PR in GitHub for task](/github/pull-request-background.png)
 
-Add a descriptive text to your pull request and click `Create pull request`. Click on the "🟡 UI Tests" PR check at the bottom of the page.
+Add a descriptive text to your pull request and click `Create pull request`. Click on the **Details** link at the end of the line "🟡 UI Tests" PR check at the bottom of the page.
 
 ![Created a PR in GitHub for task](/github/pull-request-background-ok.png)
 
