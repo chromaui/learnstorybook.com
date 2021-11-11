@@ -195,7 +195,7 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 
 ## Data requirements and props
 
-As the component grows, so too do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the propTypes you defined in `Task` earlier.
+As the component grows, so do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the `propTypes` you defined in `Task` earlier.
 
 ```diff:title=src/components/TaskList.js
 import React from 'react';
