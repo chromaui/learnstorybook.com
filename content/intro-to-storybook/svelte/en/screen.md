@@ -4,43 +4,15 @@ tocTitle: 'Screens'
 description: 'Construct a screen out of components'
 ---
 
-We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
 
-In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+In this chapter, we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
 
 ## Nested container components
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Svelte Store) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Create `InboxScreen.svelte` in your `components` folder:
+As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Svelte Store) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server).
 
-```svelte:title=src/components/InboxScreen.svelte
-<script>
-  import TaskList from './TaskList.svelte';
-  export let error = false;
-</script>
-
-<div>
-  {#if error}
-    <div class="page lists-show">
-      <div class="wrapper-message">
-        <span class="icon-face-sad" />
-        <div class="title-message">Oh no!</div>
-        <div class="subtitle-message">Something went wrong</div>
-      </div>
-    </div>
-  {:else}
-    <div class="page lists-show">
-      <nav>
-        <h1 class="title-page">
-          <span class="title-wrapper">Taskbox</span>
-        </h1>
-      </nav>
-      <TaskList />
-    </div>
-  {/if}
-</div>
-```
-
-We need to update our store (in `src/store.js`) to include our new `error` field, transforming it into :
+Let's start by updating our Svelte store (in `src/store.js`) to include our new `error` field we want:
 
 ```diff:title=src/store.js
 import { writable } from 'svelte/store';
@@ -82,7 +54,37 @@ export const taskStore = TaskBox();
 + export const AppStore = AppState();
 ```
 
-We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+Now that we have the store updated with the new field. Let's create `InboxScreen.svelte` in your `components` directory:
+
+```svelte:title=src/components/InboxScreen.svelte
+<script>
+  import TaskList from './TaskList.svelte';
+  export let error = false;
+</script>
+
+<div>
+  {#if error}
+    <div class="page lists-show">
+      <div class="wrapper-message">
+        <span class="icon-face-sad" />
+        <div class="title-message">Oh no!</div>
+        <div class="subtitle-message">Something went wrong</div>
+      </div>
+    </div>
+  {:else}
+    <div class="page lists-show">
+      <nav>
+        <h1 class="title-page">
+          <span class="title-wrapper">Taskbox</span>
+        </h1>
+      </nav>
+      <TaskList />
+    </div>
+  {/if}
+</div>
+```
+
+We also need to change the `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```svelte:title=src/App.svelte
 <script>
@@ -100,18 +102,18 @@ We also change the `App` component to render the `InboxScreen` (eventually we wo
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition with other frameworks, container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service.
+As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition, container components cannot be simply rendered in isolation; they expect to be passed some context or connected to a service. What this means is that to render a container in Storybook, we must mock (i.e., provide a pretend version) the context or service it requires.
 
-When placing the `TaskList` into Storybook, we were able to illustrate this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `InboxScreen` in Storybook also.
 
-So when we setup our stories in `InboxScreen.stories.js`:
+So when we set up our stories in `InboxScreen.stories.js`:
 
 ```js:title=src/components/InboxScreen.stories.js
 import InboxScreen from './InboxScreen.svelte';
 
 export default {
   component: InboxScreen,
-  title: 'PureInboxScreen',
+  title: 'InboxScreen',
 };
 
 const Template = args => ({
@@ -127,7 +129,7 @@ Error.args = {
 };
 ```
 
-We see that both the `error` and `standard` stories work just fine. (But you will encounter some problems when trying to test the `PureInboxScreen` with a unit test if no data is supplied like we did with `TaskList`).
+We see that both the `error` and `standard` stories work just fine. (But you will encounter some problems when trying to test the `InboxScreen` with a unit test if no data is supplied as we did with `TaskList`).
 
 <div class="aside">
 💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
@@ -143,6 +145,58 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
+## Interactive stories
+
+So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen, continuously testing each change using our stories. But with each story added, we would also need to check each variation manually to ensure the UI doesn't break, which requires extra work.
+
+Couldn't we automate this workflow and interact with our components automatically?
+
+Storybook's [`play`](https://storybook.js.org/docs/6.4/svelte/writing-stories/play-function) function allows us to do just that. They are small snippets of code that run after the story renders. Ideal for scenarios such as ours where we would like to see what happens to our UI when we update our tasks. Since they rely on using framework-agnostic DOM APIs, we can write stories with the play function to interact with the UI and automate human behavior no matter the framework we use.
+
+Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
+
+```diff:title=src/components/InboxScreen.stories.js
++ import { fireEvent, within } from '@storybook/testing-library';
+import InboxScreen from './InboxScreen.svelte';
+
+export default {
+  component: InboxScreen,
+  title: 'InboxScreen',
+};
+
+const Template = args => ({
+  Component: InboxScreen,
+  props: args,
+});
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: true,
+};
+
++ export const WithInteractions = Template.bind({});
++ WithInteractions.play = async ({ canvasElement }) => {
++   const canvas = within(canvasElement);
++   // Simulates pinning the first task
++   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
++   // Simulates pinning the third task
++   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++ };
+```
+
+Check your newly created story, and click the `Interactions` panel, and you'll see the following.
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    type="video/mp4"
+  />
+</video>
+
+As you've seen, we're able to interact with our UI and quickly check how it responds if we update our tasks, ensuring it stays consistent, all of this without needing to spin up a testing environment or add additional packages.
+
 ## Component-Driven Development
 
 We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
@@ -156,7 +210,7 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
 
 [**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
-We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+We’re not done yet - the job doesn't end when the UI is built, and we also need to ensure that it remains durable over time.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

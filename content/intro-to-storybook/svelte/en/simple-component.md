@@ -4,26 +4,24 @@ tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
 ![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`Task` is the core component of our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
 - `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+- `state` - which list is the task currently in, and is it checked off?
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
-
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
 ## Get setup
 
 First, let’s create the task component and its accompanying story file: `src/components/Task.svelte` and `src/components/Task.stories.js`.
 
-We’ll begin with the baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```svelte:title=src/components/Task.svelte
 <script>
@@ -129,22 +127,22 @@ To tell Storybook about the component we are documenting, we create a `default` 
 
 - `component` -- the component itself,
 - `title` -- how to refer to the component in the sidebar of the Storybook app,
-- `excludeStories` -- information required by the story, but should not be rendered by the Storybook app.
+- `excludeStories` -- information required by the story but should not be rendered by the Storybook app.
 - `argTypes` -- specify the [args](https://storybook.js.org/docs/svelte/api/argtypes) behavior in each story.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state.
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e., a component class with a set of props) in a given state.
 
-As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
+As we have multiple permutations of our component, assigning it to a `Template` variable is convenient. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 
 <div class="aside">
 💡 <code>Template.bind({})</code> is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">standard JavaScript</a> technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
 </div>
 
-Arguments or [`args`](https://storybook.js.org/docs/vue/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes, so does the component.
 
-When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
 As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time (where they will be accessed when the `dispatch` function is invoked).
 
@@ -156,7 +154,7 @@ Another nice thing about bundling the `actionsData` that a component needs is th
 
 ## Config
 
-We'll need to make a couple of changes to Storybook's configuration files so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
+We'll need to make a couple of changes to Storybook's configuration files, so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
@@ -169,7 +167,8 @@ module.exports = {
 -   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
 + stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links'],
+  staticDir: ['../public'],
+  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-interactions'],
 };
 ```
 
@@ -181,14 +180,20 @@ After completing the change above, inside the `.storybook` folder, change your `
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
 };
 ```
 
-[`parameters`](https://storybook.js.org/docs/svelte/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case we're going to use them to configure how the `actions` (mocked callbacks) are handled.
+[`parameters`](https://storybook.js.org/docs/svelte/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we're going to use them to configure how the `actions` (mocked callbacks) are handled.
 
-`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
-Once we’ve done these two small changes, restarting Storybook should yield test cases for the three Task states:
+Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -199,9 +204,9 @@ Once we’ve done these two small changes, restarting Storybook should yield tes
 
 ## Build out the states
 
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+Now that we have Storybook setup, styles imported, and test cases built out, we can quickly start implementing the HTML of the component to match the design.
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
+The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 
 ```diff:title=src/components/Task.svelte
 <script>
@@ -239,7 +244,7 @@ The component is still basic at the moment. First write the code that achieves t
 +  <div class="list-item {task.state}">
 +   <label class="checkbox">
 +     <input type="checkbox" checked={isChecked} disabled name="checked" />
-+     <span class="checkbox-custom" on:click={ArchiveTask} />
++     <span class="checkbox-custom" on:click={ArchiveTask} aria-label={`archiveTask-${task.id}`}/>
 +   </label>
 +   <div class="title">
 +     <input type="text" readonly value={task.title} placeholder="Input title" />
@@ -247,7 +252,7 @@ The component is still basic at the moment. First write the code that achieves t
 +   <div class="actions">
 +     {#if task.state !== 'TASK_ARCHIVED'}
 +     <a href="/" on:click|preventDefault={PinTask}>
-+       <span class="icon-star" />
++       <span class="icon-star" aria-label={`pinTask-${task.id}`}/>
 +     </a>
 +     {/if}
 +   </div>
@@ -271,23 +276,23 @@ As you can see, getting started building components in isolation is easy and fas
 
 ## Automated Testing
 
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook gave us a great way to manually test our application UI during construction. The `stories` will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
 
 ### Snapshot testing
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in the future. It complements Storybook because it’s a quick way to view the new version and check out the differences.
 
 <div class="aside">
-💡 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+💡 Make sure your components render data that doesn't change so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
+A snapshot test is created with the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) for each of the stories. Use it by adding the following development dependencies:
 
 ```shell
 yarn add -D @storybook/addon-storyshots
 ```
 
-Then create an `src/storybook.test.js` file with the following:
+Then create a `src/storybook.test.js` file with the following in it:
 
 ```js:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
@@ -295,7 +300,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-And finally we need to make a small adjustment to our `jest` key in `package.json`:
+And finally, we need to make a minor adjustment to our `jest` key in `package.json`:
 
 ```diff:title=package.json
 {
@@ -310,7 +315,7 @@ And finally we need to make a small adjustment to our `jest` key in `package.jso
 }
 ```
 
-Once all the above is done, we can run `yarn test` and see the following output:
+That's it. We can run `yarn test` and see the following output:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 

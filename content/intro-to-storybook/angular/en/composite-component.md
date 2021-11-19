@@ -5,23 +5,23 @@ description: 'Assemble a composite component out of simpler components'
 commit: 'e81ad71'
 ---
 
-Last chapter we built our first component; this chapter extends what we learned to build TaskListComponent, a list of TaskComponents. Let’s combine components together and see what happens when more complexity is introduced.
+Last chapter, we built our first component; this chapter extends what we learned to make TaskList, a list of Tasks. Let’s combine components together and see what happens when we introduce more complexity.
 
-## TasklistComponent
+## Tasklist
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. This yields two variations of `TaskList` you need to create stories for: default items and default and pinned items.
+Taskbox emphasizes pinned tasks by positioning them above default tasks. It yields two variations of `TaskList` you need to create stories for, default and pinned items.
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
-Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, an empty state is required when there are no tasks.
+Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, we require an empty state for when there are no tasks.
 
 ![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
 
 ## Get setup
 
-A composite component isn’t much different than the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/app/components/task-list.component.ts` and `src/app/components/task-list.stories.ts`.
+A composite component isn’t much different from the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/app/components/task-list.component.ts` and `src/app/components/task-list.stories.ts`.
 
-Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs and events.
+Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```ts:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -63,10 +63,10 @@ export class TaskListComponent {
 }
 ```
 
-Next create `Tasklist`’s test states in the story file.
+Next, create `Tasklist`’s test states in the story file.
 
 ```ts:title=src/app/components/task-list.stories.ts
-import { moduleMetadata, Story, Meta, componentWrapperDecorator } from '@storybook/angular';
+import { componentWrapperDecorator, moduleMetadata, Meta, Story } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -89,7 +89,7 @@ export default {
   title: 'TaskList',
 } as Meta;
 
-const Template: Story<TaskListComponent> = args => ({
+const Template: Story = args => ({
   props: {
     ...args,
     onPinTask: TaskStories.actionsData.onPinTask,
@@ -135,10 +135,10 @@ Empty.args = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to configure the necessary modules and components. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers” –i.e. library components that set some context.
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/angular/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way the data and actions (mocked callbacks) expected by both components is preserved.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/angular/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -151,7 +151,7 @@ Now check Storybook for the new `TaskList` stories.
 
 ## Build out the states
 
-Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskListComponent` is revealed in the edge cases `WithPinnedTasks`, `loading`, and `empty`.
+Our component is still rough, but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases, we wouldn’t create a new component just to add a wrapper. But the **real complexity** of the `TaskListComponent` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
 ```diff:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -226,19 +226,19 @@ As the component grows, so too do input requirements. Define the data requiremen
 
 ## Automated testing
 
-In the previous chapter we learned how to snapshot test stories using Storyshots. With `TaskComponent` there wasn’t a lot of complexity to test beyond that it renders OK. Since `TaskListComponent` adds another layer of complexity we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this we’ll create unit tests using [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
+In the previous chapter, we learned how to snapshot test stories using Storyshots. With `TaskComponent`, there wasn’t much complexity to test beyond that it renders OK. Since `TaskListComponent` adds another layer of complexity, we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this, we’ll create unit tests using [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
 
 ![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
 
 ### Unit tests with Angular Testing Library
 
-Storybook stories paired with manual visual tests and snapshot tests (see above) go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
+Storybook stories, manual tests, and snapshot tests go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
 
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed. Which brings us to unit tests.
+However, sometimes the devil is in the details. A test framework that is explicit about those details is needed, bringing us to unit tests.
 
-In our case, we want our `TaskListComponent` to render any pinned tasks **before** unpinned tasks that it is passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario; it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
+In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
 
-So, to avoid this problem, we can use Angular Testing Library to render the story to the DOM and run some DOM querying code to verify salient features of the output.
+So, to avoid this problem, we can use Angular Testing Library to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can import the story in our tests and render it there!
 
 Create a test file called `task-list.component.spec.ts`. Here we’ll build out our tests that make assertions about the output.
 
@@ -274,9 +274,9 @@ describe('TaskList component', () => {
 
 ![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
 
-Note that we’ve been able to reuse the `withPinnedTasksData` list of tasks in both story and unit test; in this way we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in more and more ways.
+Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way, we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures, and the exact implementation of the `TaskComponent` changes --perhaps using a different class name or a `textarea` rather than an `input`--the test will fail, and need to be updated. This is not necessarily a problem, but rather an indication to be careful liberally using unit tests for UI. They're not easy to maintain. Instead rely on visual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/angular/en/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures and the exact implementation of the `TaskComponent` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail and need to be updated. It is not necessarily a problem but rather an indication of being careful about using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/angular/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

@@ -5,23 +5,23 @@ description: 'Learn how to wire in data to your UI component'
 commit: '0bf4edf'
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+So far, we have created isolated stateless components –great for Storybook, but ultimately not helpful until we give them some data in our app.
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
 
 ## Container components
 
-Our `TaskList` as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-This example uses [ngxs](https://ngxs.gitbook.io/ngxs/), a library that embraces Redux/ngrx principles but focuses on reducing boilerplate and provides a more _angular-y_ way of managing state, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [ngrx/store](https://github.com/ngrx/platform) or [Apollo](https://www.apollographql.com/docs/angular/).
+This example uses [ngxs](https://ngxs.gitbook.io/ngxs/), a library that embraces Redux/ngrx principles but focuses on reducing boilerplate and provides a more _angular-y_ way of managing state to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [ngrx/store](https://github.com/ngrx/platform) or [Apollo](https://www.apollographql.com/docs/angular/).
 
-First install ngxs with:
+Add the necessary dependencies to your project with:
 
 ```bash
 npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 ```
 
-Then we'll construct a straightforward store that responds to actions that change the state of tasks, in a file called `src/app/state/task.state.ts` (intentionally kept simple):
+First, we'll create a simple store that responds to actions that change the task's state in a file called `task.state.ts` in the `src/app/state` directory (intentionally kept simple):
 
 ```ts:title=src/app/state/task.state.ts
 import { State, Selector, Action, StateContext } from '@ngxs/store';
@@ -103,14 +103,11 @@ export class TasksState {
 }
 ```
 
-We have the store implemented, we need to take a couple of steps before connecting it to our app.
-
-We're going to update our `TaskListComponent` to read data from the store, but first we're going to move our presentational version to a new file called `pure-task-list.component.ts`, (renaming the `selector` to `app-pure-task-list`) which will be later wrapped in a container.
+Then we'll update our `TaskListComponent` to read data from the store. First, let's move our existing presentational version to the file `src/app/components/pure-task-list.component.ts` and wrap it with a container.
 
 In `src/app/components/pure-task-list.component.ts`:
 
 ```diff:title=src/app/components/pure-task-list.component.ts
-
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 @Component({
@@ -124,7 +121,7 @@ import { Task } from '../models/task.model';
  }
 ```
 
-Afterwards we change `src/app/components/task-list.component.ts` to the following:
+In `src/app/components/task-list.component.ts`:
 
 ```ts:title=src/app/components/task-list.component.ts
 import { Component } from '@angular/core';
@@ -164,9 +161,9 @@ export class TaskListComponent {
 }
 ```
 
-Now we're going to create a angular module to bridge the components and the store.
+Now we're going to create an Angular module to bridge the components and the store.
 
-Create a new file called `task.module.ts` inside the `components` folder and add the following:
+Create a new file called `task.module.ts` inside the `src/app/components` directory and add the following:
 
 ```ts:title=src/app/components/task.module.ts
 import { NgModule } from '@angular/core';
@@ -187,7 +184,7 @@ import { PureTaskListComponent } from './pure-task-list.component';
 export class TaskModule {}
 ```
 
-All the pieces are in place, all that is needed is wire the store to the app. In our top level module (`src/app/app.module.ts`):
+We have what we need. All that is required is to wire the store to the app. Update your top-level module (`src/app/app.module.ts`):
 
 ```diff:title=src/app/app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
@@ -215,10 +212,10 @@ import { AppComponent } from './app.component';
 export class AppModule {}
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's also rename `src/app/components/task-list.stories.ts` into `src/app/components/pure-task-list.stories.ts`, and ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is that it is easier to test and isolate. As it doesn't rely on the presence of a store, it is much easier to deal with from a testing perspective. Let's rename `src/app/components/task-list.stories.ts` into `src/app/components/pure-task-list.stories.ts` and ensure our stories use the presentational version:
 
 ```ts:title=src/app/components/pure-task-list.stories.ts
-import { moduleMetadata, Story, Meta, componentWrapperDecorator } from '@storybook/angular';
+import { componentWrapperDecorator, moduleMetadata, Meta, Story } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -241,7 +238,7 @@ export default {
   title: 'PureTaskListComponent',
 } as Meta;
 
-const Template: Story<PureTaskListComponent> = args => ({
+const Template: Story = args => ({
   props: {
     ...args,
     onPinTask: TaskStories.actionsData.onPinTask,
@@ -293,42 +290,12 @@ Empty.args = {
   />
 </video>
 
-Similarly, we need to use `PureTaskListComponent` in our Jest test:
-
-```diff:title= src/app/components/task-list.component.spec.ts
-import { render } from '@testing-library/angular';
-
-- import { TaskListComponent } from './task-list.component.ts';
-+ import { PureTaskListComponent } from './pure-task-list.component';
-
-import { TaskComponent } from './task.component';
-
-//👇 Our story imported here
-- import { WithPinnedTasks } from './task-list.stories';
-
-+ import { WithPinnedTasks } from './pure-task-list.stories';
-
-describe('TaskList component', () => {
-  it('renders pinned tasks at the start of the list', async () => {
-    const mockedActions = jest.fn();
-    const tree = await render(PureTaskListComponent, {
-      declarations: [TaskComponent],
-      componentProperties: {
-        ...WithPinnedTasks.args,
-        onPinTask: {
-          emit: mockedActions,
-        } as any,
-        onArchiveTask: {
-          emit: mockedActions,
-        } as any,
-      },
-    });
-    const component = tree.fixture.componentInstance;
-    expect(component.tasksInOrder[0].id).toBe('6');
-  });
-});
-```
-
 <div class="aside">
-💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
+💡 With this change, all of our tests will require an update. Update the imports and re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
 </div>
+
+Now that we have some actual data populating our component obtained from the store, we could have wired it to `src/app/app.component.ts` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
+
+## Interactive stories
+
+It needs writing

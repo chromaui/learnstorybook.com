@@ -4,17 +4,17 @@ tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+So far, we have created isolated stateless components –great for Storybook, but ultimately not helpful until we give them some data in our app.
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
 
 ## Container components
 
 Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-This example uses [Svelte's Stores](https://svelte.dev/docs#svelte_store), Svelte's default data management API to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+This example uses [Svelte's Stores](https://svelte.dev/docs#svelte_store), Svelte's default data management API, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
-First we’ll construct a simple Svelte store that responds to actions that change the state of tasks, in a file called `src/store.js` (intentionally kept simple):
+First, we’ll construct a simple Svelte store that responds to actions that change the state of tasks in a file called `store.js` in the `src` directory (intentionally kept simple):
 
 ```js:title=src/store.js
 // A simple Svelte store implementation with update methods and initial data.
@@ -46,10 +46,9 @@ const TaskBox = () => {
   };
 };
 export const taskStore = TaskBox();
-//
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First let's move our existing presentational version to the file `src/components/PureTaskList.svelte`, and wrap it with a container.
+Then we'll update our `TaskList` to read data out of the store. First, let's move our existing presentational version to the file `src/components/PureTaskList.svelte` and wrap it with a container.
 
 In `src/components/PureTaskList.svelte`:
 
@@ -69,22 +68,22 @@ In `src/components/PureTaskList.svelte`:
 </script>
 
 {#if loading}
-<div class="list-items">
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-  <LoadingRow />
-</div>
+  <div class="list-items">
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+  </div>
 {/if}
 {#if noTasks && !loading}
-<div class="list-items">
-  <div class="wrapper-message">
-    <span class="icon-check" />
-    <div class="title-message">You have no tasks</div>
-    <div class="subtitle-message">Sit back and relax</div>
+  <div class="list-items">
+    <div class="wrapper-message">
+      <span class="icon-check" />
+      <div class="title-message">You have no tasks</div>
+      <div class="subtitle-message">Sit back and relax</div>
+    </div>
   </div>
-</div>
 {/if}
 {#each tasksInOrder as task}
   <Task {task} on:onPinTask on:onArchiveTask />
@@ -115,7 +114,7 @@ In `src/components/TaskList.svelte`:
 </div>
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is that it is easier to test and isolate. As it doesn't rely on the presence of a store, it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js` and ensure our stories use the presentational version:
 
 ```js:title=src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList.svelte';
@@ -187,29 +186,12 @@ Empty.args = {
   />
 </video>
 
-Similarly, we need to use `PureTaskList` in our Jest test:
-
-```diff:title=src/components/TaskList.test.js
-- import TaskList from './TaskList.svelte';
-
-+ import PureTaskList from './PureTaskList.svelte';
-
-import { render } from '@testing-library/svelte';
-
-//👇 Our story imported here
-- import { WithPinnedTasks } from './TaskList.stories';
-
-+ import { WithPinnedTasks } from './PureTaskList.stories';
-
-test('PureTaskList', () => {
-  const { container } = render(PureTaskList, {
-    //👇 Story's args used with our test
-    props: WithPinnedTasks.args,
-  });
-  expect(container.firstChild.children[0].classList.contains('TASK_PINNED')).toBe(true);
-});
-```
-
 <div class="aside">
-💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
+💡 With this change, all of our tests will require an update. Update the imports and re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
 </div>
+
+Now that we have some actual data populating our component, obtained from the Svelte store, we could have wired it to `src/App.svelte` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
+
+## Interactive stories
+
+It needs writing

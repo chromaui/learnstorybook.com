@@ -5,20 +5,18 @@ description: 'Build a simple component in isolation'
 commit: '27e1538'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom up” starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
 
 ## Task
 
 ![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`TaskComponent` is the core component in our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`Task` is the core component of our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
 - `title` – a string describing the task
-- `state` - which list is the task currently in and is it checked off?
+- `state` - which list is the task currently in, and is it checked off?
 
-As we start to build `TaskComponent`, we first write our test states that correspond to the different types of tasks sketch above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
-
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
+As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to create the component in isolation using mocked data. We’ll manually test the component’s appearance given each state as we go.
 
 ## Get setup
 
@@ -55,7 +53,7 @@ Above, we render straightforward markup for `TaskComponent` based on the existin
 Below we build out Task’s three test states in the story file:
 
 ```ts:title=src/app/components/task.stories.ts
-import { moduleMetadata, Story, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, Story } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -71,8 +69,8 @@ export default {
       imports: [CommonModule],
     }),
   ],
-  excludeStories: /.*Data$/,
   title: 'Task',
+  excludeStories: /.*Data$/,
 } as Meta;
 
 export const actionsData = {
@@ -80,7 +78,7 @@ export const actionsData = {
   onArchiveTask: action('onArchiveTask'),
 };
 
-const Template: Story<TaskComponent> = args => ({
+const Template: Story = args => ({
   props: {
     ...args,
     onPinTask: actionsData.onPinTask,
@@ -124,27 +122,27 @@ There are two basic levels of organization in Storybook: the component and its c
 
 To tell Storybook about the component we are documenting, we create a `default` export that contains:
 
-- `component` -- the component itself,
-- `title` -- how to refer to the component in the sidebar of the Storybook app,
+- `component` -- the component itself
+- `title` -- how to refer to the component in the sidebar of the Storybook app
 - `excludeStories` -- exports in the story file that should not be rendered as stories by Storybook.
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Functional Component](https://angular.io/guide/component-interaction).
+To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e., a component class with a set of props) in a given state---exactly like a [Functional Component](https://angular.io/guide/component-interaction).
 
-As we have multiple permutations of our component, it's convenient to assign it to a `Template` variable. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
+As we have multiple permutations of our component, assigning it to a `Template` variable is convenient. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
 
 <div class="aside">
 💡 <code>Template.bind({})</code> is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">standard JavaScript</a> technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
 </div>
 
-Arguments or [`args`](https://storybook.js.org/docs/angular/writing-stories/args) for short, allow us to live edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/angular/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/angular/writing-stories/args) value changes, so does the component.
 
-When creating a story we use a base `task` arg to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
 As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time.
 
-Another nice thing about bundling the `actionsData` that a component needs, is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 <div class="aside">
 💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
@@ -152,7 +150,7 @@ Another nice thing about bundling the `actionsData` that a component needs, is t
 
 ## Config
 
-We'll also need to make one small change to the Storybook configuration so it notices our recently created stories. Change your configuration file (`.storybook/main.js`) to the following:
+We'll also need to make one small change to the Storybook configuration to notice our recently created stories. Change your configuration file (`.storybook/main.js`) to the following:
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -161,7 +159,11 @@ module.exports = {
 -   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
 + stories: ['../src/app/components/**/*.stories.ts'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+  ],
 };
 ```
 
@@ -176,9 +178,9 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 ## Specify data requirements
 
-It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early. Here, we'll use Typescript and create an interface for the `Task` model.
+It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, but it also helps catch problems early. Here, we'll use Typescript and create an interface for the `Task` model.
 
-Create a new folder called `models` inside `app` folder and inside a new file called `task.model.ts` with the following content:
+Create a new directory called `models` inside the `app` directory, followed by a new file called `task.model.ts`:
 
 ```ts:title=src/app/models/task.model.ts
 export interface Task {
@@ -190,9 +192,9 @@ export interface Task {
 
 ## Build out the states
 
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+Now that we have Storybook setup, styles imported, and test cases built out, we can quickly start implementing the HTML of the component to match the design.
 
-Our component is still rather rudimentary at the moment. We're going to make some changes so that it matches the intended design without going into too much detail:
+The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 
 ```diff:title=src/app/components/task.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -210,7 +212,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 +         disabled="true"
 +         name="checked"
 +       />
-+       <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
++       <span class="checkbox-custom" (click)="onArchive(task.id)" attr.aria-label="archiveTask-{{ task?.id }}"></span>
 +     </label>
 +     <div class="title">
 +       <input
@@ -222,7 +224,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 +     </div>
 +     <div class="actions">
 +       <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-+         <span class="icon-star"></span>
++         <span class="icon-star" attr.aria-label="pinTask-{{ task?.id }}"></span>
 +       </a>
 +     </div>
 +   </div>
@@ -256,7 +258,7 @@ export class TaskComponent {
 }
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+The additional markup from above, combined with our existing CSS (see src/styles.css and angular.json for configuration), yields the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -273,17 +275,17 @@ As you can see, getting started building components in isolation is easy and fas
 
 ## Automated Testing
 
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook gave us a great way to manually test our application UI during construction. The `stories` will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
 
 ### Snapshot testing
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
+Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in the future. It complements Storybook because it’s a quick way to view the new version and check out the differences.
 
 <div class="aside">
-💡 Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+💡 Make sure your components render data that doesn't change so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
 </div>
 
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding the following development dependency:
+A snapshot test is created with the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) for each of the stories. Use it by adding the following development dependencies:
 
 ```bash
 npm install -D @storybook/addon-storyshots
@@ -297,7 +299,7 @@ import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
-Finally we need to make a small change in the `jest` key in our `package.json`:
+Finally, we need to make a small change in the `jest` key in our `package.json`:
 
 ```diff:title=package.json
 {
@@ -309,13 +311,11 @@ Finally we need to make a small change in the `jest` key in our `package.json`:
 }
 ```
 
-Once the above is done, we can run `npm run test` and see the following output:
+That's it. We can run `npm run test` and see the following output:
 
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
-We now have a snapshot test for each of our `TaskComponent` stories. If we change the implementation of `TaskComponent`, we’ll be prompted to verify the changes.
-
-Additionally, `jest` will also run the test for `app.component.ts`.
+We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

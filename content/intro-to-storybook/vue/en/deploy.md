@@ -9,7 +9,7 @@ Throughout this tutorial, we built components on our local development machine. 
 
 ## Exporting as a static app
 
-To deploy Storybook we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
+To deploy Storybook, we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
 
 Running `yarn build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
 
@@ -19,7 +19,7 @@ This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free pu
 
 ### Setup a repository in GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/intro-to-storybook/vue/en/get-started), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
+Before we begin, our local code needs to sync with a remote version control service. When we set up our project in the [Get started chapter](/intro-to-storybook/vue/en/get-started), we already initialized a local repository. At this stage, we already have a set of commits that we can push to a remote one.
 
 Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
 
@@ -45,7 +45,7 @@ Add the package as a development dependency.
 yarn add -D chromatic
 ```
 
-Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've setup.
+Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions), then we'll create a new project called "taskbox" and sync it with the GitHub repository we've set up.
 
 Click `Choose GitHub repo` under collaborators and select your repo.
 
@@ -56,7 +56,7 @@ Click `Choose GitHub repo` under collaborators and select your repo.
   />
 </video>
 
-Copy the unique `project-token` that was generated for your project. Then execute it, by issuing the following in the command line, to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
+Copy the unique `project-token` that was generated for your project. Then execute it by issuing the following in the command line to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 
 ```bash
 yarn chromatic --project-token=<project-token>
@@ -72,11 +72,11 @@ Hooray! We published Storybook with one command, but manually running a command 
 
 ## Continuous deployment with Chromatic
 
-Now that our project is hosted in a GitHub repository, we can use a continuous integration(CI) service to deploy our Storybook automatically. [GitHub Actions](https://github.com/features/actions) is a free CI service that's built into GitHub that makes automatic publishing easy.
+Now that we've hosted our project in a GitHub repository, we can use a continuous integration (CI) service to deploy our Storybook automatically. [GitHub Actions](https://github.com/features/actions) is a free CI service that's built into GitHub that makes automatic publishing easy.
 
 ### Add a GitHub Action to deploy Storybook
 
-In the root folder of our project, create a new directory called `.github` then create another `workflows` directory inside of it.
+In the root folder of our project, create a new directory called `.github`, then create another `workflows` directory inside of it.
 
 Create a new file called `chromatic.yml` like the one below. Make sure to replace `CHROMATIC_PROJECT_TOKEN` with your project token.
 
@@ -100,7 +100,7 @@ jobs:
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/vue/en/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -109,7 +109,7 @@ jobs:
 
 ### Commit the action
 
-In the command line, issue the following command to add the changes that were done:
+In the command line, issue the following command to add the changes that you've made:
 
 ```bash
 git add .
@@ -121,20 +121,20 @@ Then commit them by issuing:
 git commit -m "GitHub action setup"
 ```
 
-Finally push them to the remote repository with:
+Finally, push them to the remote repository with:
 
 ```bash
 git push origin main
 ```
 
-Once you’ve set up the GitHub action. Your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybook’s on your project’s build screen in Chromatic.
+Once you’ve set up the GitHub action, your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybooks on your project’s build screen in Chromatic.
 
 ![Chromatic user dashboard](/intro-to-storybook/chromatic-user-dashboard.png)
 
-Click the latest build, it should be the one at the top.
+Click the latest build. It should be the one at the top.
 
 Then, click the `View Storybook` button to see the latest version of your Storybook.
 
 ![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
 
-Use the link and share it with your team members. This is helpful as a part of the standard app development process or simply to show off work 💅.
+Use the link and share it with your team members. It's helpful as a part of the standard app development process or simply to show off work 💅.

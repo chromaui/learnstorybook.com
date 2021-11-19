@@ -5,13 +5,13 @@ description: 'Construct a screen out of components'
 commit: '01ec436'
 ---
 
-We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
 
-In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+In this chapter, we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
 
 ## Nested container components
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` container component (which supplies its own data via Vuex) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
+As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
 
 ```html:title=src/components/PureInboxScreen.vue
 <template>
@@ -77,40 +77,56 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 </script>
 ```
 
-We also change the `App` component to render the `InboxScreen` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+Next, we’ll need to update our app’s entry point (`src/main.js`) so that we can wire the store into our component hierarchy reasonably quick:
+
+```diff:title=src/main.js
+import { createApp } from 'vue';
+
+import App from './App.vue';
+
++ import store from './store';
+
+- createApp(App).mount('#app')
++ createApp(App).use(store).mount('#app')
+```
+
+We also need to change the `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```diff:title=src/App.vue
 <template>
   <div id="app">
--   <task-list />
+-   <img alt="Vue logo" src="./assets/logo.png">
+-   <HelloWorld msg="Welcome to Your Vue.js App"/>
 +   <InboxScreen />
   </div>
 </template>
 
 <script>
-- import TaskList from './components/TaskList.vue';
+- import HelloWorld from './components/HelloWorld.vue'
 + import InboxScreen from './components/InboxScreen.vue';
-  export default {
-    name: 'app',
-    components: {
--     TaskList
-+     InboxScreen,
-    },
-  };
+
+export default {
+  name: 'App',
+  components: {
+-   HelloWorld
++   InboxScreen
+  }
+}
 </script>
 
 <style>
-  @import './index.css';
+@import "./index.css";
 </style>
+
 ```
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
+As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition, container components cannot be simply rendered in isolation; they expect to be passed some context or connected to a service. What this means is that to render a container in Storybook, we must mock (i.e., provide a pretend version) the context or service it requires.
 
 When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
-However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we setup our stories in `src/components/PureInboxScreen.stories.js`:
+However, we have a problem with the `PureInboxScreen` because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense, the `PureInboxScreen` has been polluted by “container-ness”. So when we set up our stories in `src/components/PureInboxScreen.stories.js`:
 
 ```js:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
@@ -136,11 +152,11 @@ export const Error = Template.bind({});
 Error.args = { error: true };
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story, because the `TaskList` has no Vuex store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+We see that although the `error` story works just fine, we have an issue in the `default` story because the `TaskList` has no Vuex store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
 
 ![Broken inbox](/intro-to-storybook/broken-inboxscreen-vue.png)
 
-One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
+One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data requirements down the component hierarchy.
 
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
@@ -150,7 +166,7 @@ However, developers **will** inevitably need to render containers further down t
 
 ## Supplying context to stories
 
-The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can create a new store in our story file and pass it in as the context of the story:
+The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can just use a mocked version of the Vuex store provided in a decorator:
 
 ```diff:title=src/components/PureInboxScreen.stories.js
 + import { app } from '@storybook/vue3';
@@ -211,6 +227,85 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
+## Interactive stories
+
+So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen, continuously testing each change using our stories. But with each story added, we would also need to check each variation manually to ensure the UI doesn't break, which requires extra work.
+
+Couldn't we automate this workflow and interact with our components automatically?
+
+Storybook's [`play`](https://storybook.js.org/docs/6.4/vue/writing-stories/play-function) function allows us to do just that. They are small snippets of code that run after the story renders. Ideal for scenarios such as ours where we would like to see what happens to our UI when we update our tasks. Since they rely on using framework-agnostic DOM APIs, we can write stories with the play function to interact with the UI and automate human behavior no matter the framework we use.
+
+Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
+
+```diff:title=src/components/PureInboxScreen.stories.js
+import { app } from '@storybook/vue3';
+
++ import { fireEvent, within } from '@storybook/testing-library';
+
+import { createStore } from 'vuex';
+
+import PureInboxScreen from './PureInboxScreen.vue';
+
+import { action } from '@storybook/addon-actions';
+import * as TaskListStories from './PureTaskList.stories';
+
+const store = createStore({
+  state: {
+    tasks: TaskListStories.Default.args.tasks,
+  },
+  actions: {
+    pinTask(context, id) {
+      action("pin-task")(id);
+    },
+    archiveTask(context, id) {
+      action("archive-task")(id);
+    },
+  },
+});
+
+app.use(store);
+
+export default {
+  title: 'PureInboxScreen',
+  component: PureInboxScreen,
+};
+
+const Template = (args) => ({
+  components: { PureInboxScreen },
+  setup() {
+    return {
+      args,
+    };
+  },
+  template: '<PureInboxScreen v-bind="args" />',
+});
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = { error: true };
+
++ export const WithInteractions = Template.bind({});
++ WithInteractions.play = async ({ canvasElement }) => {
++   const canvas = within(canvasElement);
++   // Simulates pinning the first task
++   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
++   // Simulates pinning the third task
++   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++ };
+```
+
+Check your newly created story, and click the `Interactions` panel, and you'll see the following.
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    type="video/mp4"
+  />
+</video>
+
+As you've seen, we're able to interact with our UI and quickly check how it responds if we update our tasks, ensuring it stays consistent, all of this without needing to spin up a testing environment or add additional packages.
+
 ## Component-Driven Development
 
 We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
@@ -224,7 +319,7 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
 
 [**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
-We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+We’re not done yet - the job doesn't end when the UI is built, and we also need to ensure that it remains durable over time.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!
