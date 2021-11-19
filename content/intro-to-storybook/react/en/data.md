@@ -84,7 +84,7 @@ import PropTypes from 'prop-types';
 
 import Task from './Task';
 
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
