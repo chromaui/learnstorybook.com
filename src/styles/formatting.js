@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
 import { darken } from 'polished';
 

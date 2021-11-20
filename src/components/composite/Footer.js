@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import PropTypes from 'prop-types';
 import { Link as GatsbyLink, withPrefix } from 'gatsby';
 import { Icon, Link, Subheading, styles } from '@storybook/design-system';
@@ -214,14 +214,14 @@ const Services = styled.div`
   a {
     display: inline-block;
     transition: all 150ms ease-out;
-    transform: translate3d(0,0,0);
+    transform: translate3d(0, 0, 0);
 
     &:hover {
-      transform: translate3d(0,-2px,0);
+      transform: translate3d(0, -2px, 0);
     }
 
     &:active {
-      transform: translate3d(0,0,0);
+      transform: translate3d(0, 0, 0);
     }
   }
 
@@ -232,11 +232,9 @@ const Services = styled.div`
     transition: all 150ms ease-out;
   }
 
-
-
   ${CircleCI} {
     /* Turn down the pure black of these logos */
-    opacity: .75;
+    opacity: 0.75;
   }
 `;
 
@@ -307,7 +305,7 @@ const { twitter, chat, youtube, navLinks = {}, gitHub = {} } = urls;
 
 const frontpageUrl = 'https://storybook.js.org';
 
-const absoluteNavLinks = navLinks.map(link => {
+const absoluteNavLinks = navLinks.map((link) => {
   return {
     title: link.title,
     href: link.isGatsby ? `${frontpageUrl}${link.href}` : link.href,
@@ -329,7 +327,7 @@ const Footer = ({ ...props }) => (
                 easier.
               </ResourceDesc>
               <ResourceActions>
-                {coreFrameworks.map(framework => (
+                {coreFrameworks.map((framework) => (
                   <ResourceAction
                     withArrow
                     key={framework}

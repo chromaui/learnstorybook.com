@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { Formik } from 'formik';
 import { Button, Input, styles } from '@storybook/design-system';
 
@@ -73,7 +73,7 @@ const FormWrapper = styled.form`
   max-width: 300px;
 `;
 
-const validateForm = values => {
+const validateForm = (values) => {
   if (!values.email) {
     return { email: 'Required' };
   }
@@ -83,9 +83,9 @@ const validateForm = values => {
 
 const listUrl = 'https://storybook.us18.list-manage.com/subscribe/post';
 
-const MailingListSignup = props => {
+const MailingListSignup = (props) => {
   const [hasSubmitted, setSubmitStatus] = useState(false);
-  const onSubmitForm = async values => {
+  const onSubmitForm = async (values) => {
     const data = new FormData();
     const fullFields = {
       u: '06a6fce3ab1327784d4342396',
@@ -94,7 +94,7 @@ const MailingListSignup = props => {
       MERGE0: values.email,
     };
 
-    Object.keys(fullFields).forEach(key => data.append(key, fullFields[key]));
+    Object.keys(fullFields).forEach((key) => data.append(key, fullFields[key]));
 
     await fetch(listUrl, {
       method: 'POST',

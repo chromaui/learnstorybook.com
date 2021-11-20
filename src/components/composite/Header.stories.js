@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import Header from './Header';
 
 const BlueBackground = styled.div`
@@ -13,7 +13,7 @@ export default {
   title: 'Composite/Header',
 };
 
-const Story = args => <Header {...args} />;
+const Story = (args) => <Header {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   firstChapter: 'get-started',
@@ -40,4 +40,4 @@ Inverted.args = {
   ...Default.args,
   inverse: true,
 };
-Inverted.decorators = [story => <BlueBackground>{story()}</BlueBackground>];
+Inverted.decorators = [(story) => <BlueBackground>{story()}</BlueBackground>];

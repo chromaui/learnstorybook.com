@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import sortBy from 'lodash/sortBy';
 import { Button, Icon, Link, styles, TooltipLinkList, WithTooltip } from '@storybook/design-system';
 import getLanguageName from '../../../../lib/getLanguageName';
@@ -20,7 +20,7 @@ const ButtonContent = styled.div`
   font-weight: ${typography.weight.extrabold};
 `;
 
-const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
+const ChevronDownIcon = styled((props) => <Icon {...props} icon="chevrondown" />)`
   && {
     width: 8px;
     height: 8px;
@@ -69,7 +69,7 @@ TooltipLinkWrapper.propTypes = {
   to: PropTypes.string.isRequired,
 };
 
-const getTranslationLanguages = translationPages =>
+const getTranslationLanguages = (translationPages) =>
   translationPages.edges.reduce(
     (uniqueLanguages, pageEdge) => uniqueLanguages.add(pageEdge.node.fields.language),
     new Set()
@@ -105,7 +105,7 @@ const NonFrameworkMenu = ({
   const translationLanguages = useMemo(() => getTranslationLanguages(translationPages), [
     translationPages,
   ]);
-  const sortedLanguages = sortBy(Array.from(translationLanguages), languageName => languageName);
+  const sortedLanguages = sortBy(Array.from(translationLanguages), (languageName) => languageName);
 
   if (sortedLanguages.length < 2) {
     return (
@@ -133,7 +133,7 @@ const NonFrameworkMenu = ({
           <TooltipList>
             <TooltipLinkList
               links={[
-                ...sortedLanguages.map(translationLanguage => ({
+                ...sortedLanguages.map((translationLanguage) => ({
                   title: getLanguageName(translationLanguage),
                   href: getChapterInOtherLanguage(
                     translationLanguage,

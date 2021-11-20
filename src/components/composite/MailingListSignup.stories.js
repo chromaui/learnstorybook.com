@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import MailingListSignup from './MailingListSignup';
 
 const Wrapper = styled.div`
@@ -7,7 +7,7 @@ const Wrapper = styled.div`
 `;
 export default {
   component: MailingListSignup,
-  decorators: [story => <Wrapper>{story()}</Wrapper>],
+  decorators: [(story) => <Wrapper>{story()}</Wrapper>],
   title: 'Composite/MailingListSignup',
 };
 

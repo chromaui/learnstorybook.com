@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import BoxLink from './BoxLink';
 
 export default {
   component: BoxLink,
-  decorators: [story => <Wrapper>{story()}</Wrapper>],
+  decorators: [(story) => <Wrapper>{story()}</Wrapper>],
   title: 'Basics/BoxLink',
 };
 
@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-const Story = args => <BoxLink {...args} />;
+const Story = (args) => <BoxLink {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   to: '/',

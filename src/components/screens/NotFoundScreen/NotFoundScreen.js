@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { Link, styles } from '@storybook/design-system';
 import Feature from './Feature';
 import FeaturesLayout from './FeaturesLayout';

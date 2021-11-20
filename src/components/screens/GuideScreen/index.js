@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
 import get from 'lodash/get';
 import { graphql, withPrefix } from 'gatsby';
@@ -68,7 +68,7 @@ const Detail = styled.div`
   }
 `;
 
-const getTranslationLanguages = translationPages =>
+const getTranslationLanguages = (translationPages) =>
   translationPages.edges.reduce(
     (uniqueLanguages, pageEdge) => uniqueLanguages.add(pageEdge.node.fields.language),
     new Set()
@@ -99,7 +99,7 @@ const Guide = ({ data, pageContext }) => {
   } = data;
   const { slug } = pageContext;
   const entries = toc && toc.length > 0 ? tocEntries(toc, pages) : [];
-  const languages = Array.from(getTranslationLanguages(translationPages)).map(language => ({
+  const languages = Array.from(getTranslationLanguages(translationPages)).map((language) => ({
     name: getLanguageName(language),
     tutorial:
       slug === '/intro-to-storybook/'

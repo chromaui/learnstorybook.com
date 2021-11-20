@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import pluralize from 'pluralize';
 import { styles, Subheading } from '@storybook/design-system';
 
@@ -8,7 +8,7 @@ const { breakpoint, color, spacing, typography } = styles;
 
 const GuideWrapper = styled.span`
   display: block;
-  background: ${props => props.themeColor};
+  background: ${(props) => props.themeColor};
   color: ${color.lightest};
   padding: 40px;
   border-radius: 8px;

@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { Avatar, styles } from '@storybook/design-system';
 
 const { typography } = styles;
 
 const Section = styled.div`
-  ${props =>
+  ${(props) =>
     !props.isFirst &&
     `
     margin-top: 64px;
@@ -33,7 +33,7 @@ const CommunityAvatars = styled.div`
   flex-wrap: wrap;
 `;
 
-const AvatarWrapper = styled(Avatar).attrs({ size: 'large' })`
+const AvatarWrapper = styled(Avatar)`
   min-width: 40px;
   margin: 10px;
 `;
@@ -49,8 +49,8 @@ const PureCommunity = ({ contributors }) => (
       </Text>
 
       <CommunityAvatars className="chromatic-ignore">
-        {contributors.map(contributor => (
-          <AvatarWrapper key={contributor.id} src={contributor.avatar_url} />
+        {contributors.map((contributor) => (
+          <AvatarWrapper key={contributor.id} src={contributor.avatar_url} size="large" />
         ))}
       </CommunityAvatars>
     </Section>
@@ -78,7 +78,7 @@ const Community = () => {
 
   useEffect(() => {
     async function fetchGithubContributors() {
-      const response = await fetch(contributorsUrl).then(res => res.json());
+      const response = await fetch(contributorsUrl).then((res) => res.json());
       if (response.message) {
         return; // Likely an error
       }

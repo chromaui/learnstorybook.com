@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import pluralize from 'pluralize';
 import { styles } from '@storybook/design-system';
 import { withPrefix } from 'gatsby';
@@ -38,10 +38,10 @@ const SiteStatWrapper = styled.div`
   }
 `;
 
-const AndCountingImage = styled.img.attrs({ src: withPrefix('/frontpage/lsb-andcounting.svg') })`
+const AndCountingImage = styled.img`
   position: absolute;
   top: 0;
-  left: ${props => (props.withMultipleGuides ? 120 : 108)}px;
+  left: ${(props) => (props.withMultipleGuides ? 120 : 108)}px;
 
   @media (min-width: ${breakpoint * 1.25}px) {
     width: 90px;
@@ -54,9 +54,9 @@ const AndCountingImage = styled.img.attrs({ src: withPrefix('/frontpage/lsb-andc
   }
 `;
 
-const getGuideEditions = allEditionsChaptersEdges =>
+const getGuideEditions = (allEditionsChaptersEdges) =>
   allEditionsChaptersEdges.reduce((uniqueEditionsSet, chapterEdge) => {
-    const slugParts = chapterEdge.node.fields.slug.split('/').filter(part => !!part);
+    const slugParts = chapterEdge.node.fields.slug.split('/').filter((part) => !!part);
     const slugPartsWithoutPage = slugParts.slice(0, -1);
     const editionId = slugPartsWithoutPage.join('/');
 
@@ -76,7 +76,10 @@ const SiteStats = ({ allEditionsChaptersEdges, chapterCount, guideCount }) => {
           message="Professional walkthroughs made for frontend devs. Updated all the time."
         />
 
-        <AndCountingImage withMultipleGuides={guideCount > 1} />
+        <AndCountingImage
+          withMultipleGuides={guideCount > 1}
+          src={withPrefix('/frontpage/lsb-andcounting.svg')}
+        />
       </SiteStatWrapper>
 
       <SiteStatWrapper>
