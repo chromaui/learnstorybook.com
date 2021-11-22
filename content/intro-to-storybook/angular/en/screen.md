@@ -351,7 +351,6 @@ export default {
   component:PureInboxScreenComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule,TaskModule],
       imports: [CommonModule,TaskModule,NgxsModule.forRoot([TasksState])],
       providers: [Store],
     }),
