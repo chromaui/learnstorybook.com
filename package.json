@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
-    "@storybook/design-system": "^5.6.0",
+    "@storybook/design-system": "^6.4.1",
     "cheerio": "^1.0.0-rc.5",
     "formik": "^1.5.7",
     "gatsby": "^2.32.3",
