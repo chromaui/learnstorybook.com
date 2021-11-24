@@ -22,7 +22,7 @@ As we start to build `Task`, we first write our test states that correspond to t
 
 First, let’s create the task component and its accompanying story file: `src/app/components/task.component.ts` and `src/app/components/task.stories.ts`.
 
-We’ll begin with the baseline implementation of the `TaskComponent`, simply taking in the inputs we know we’ll need and the two actions you can take on a task (to move it between lists):
+We’ll begin with the baseline implementation of the `Task` component, simply taking in the inputs we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```ts:title=src/app/components/task.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';

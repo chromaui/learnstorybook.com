@@ -151,7 +151,7 @@ Now check Storybook for the new `TaskList` stories.
 
 ## Build out the states
 
-Our component is still rough, but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases, we wouldn’t create a new component just to add a wrapper. But the **real complexity** of the `TaskListComponent` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+Our component is still rough, but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases, we wouldn’t create a new component just to add a wrapper. But the **real complexity** of the `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
 ```diff:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -222,11 +222,11 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 
 ## Data requirements
 
-As the component grows, so too do input requirements. Define the data requirements of `TaskListComponent` using TypeScript. Because `TaskComponent` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the model you defined in `task.model.ts` earlier.
+As the component grows, so too do input requirements. Define the data requirements of `TaskList` component using TypeScript. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the model you defined in `task.model.ts` earlier.
 
 ## Automated testing
 
-In the previous chapter, we learned how to snapshot test stories using Storyshots. With `TaskComponent`, there wasn’t much complexity to test beyond that it renders OK. Since `TaskListComponent` adds another layer of complexity, we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this, we’ll create unit tests using [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
+In the previous chapter, we learned how to snapshot test stories using Storyshots. With `Task`, there wasn’t much complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity, we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this, we’ll create unit tests using [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
 
 ![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
 
@@ -276,7 +276,7 @@ describe('TaskList component', () => {
 
 Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way, we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
 
-Notice as well that this test is quite brittle. It's possible that as the project matures and the exact implementation of the `TaskComponent` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail and need to be updated. It is not necessarily a problem but rather an indication of being careful about using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/angular/en/test/)) tests where possible.
+Notice as well that this test is quite brittle. It's possible that as the project matures and the exact implementation of the `Task` changes --perhaps using a different classname or a `textarea` rather than an `input`--the test will fail and need to be updated. It is not necessarily a problem but rather an indication of being careful about using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/angular/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

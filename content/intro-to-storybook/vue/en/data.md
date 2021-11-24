@@ -188,7 +188,3 @@ Empty.args = {
 </div>
 
 Now that we have some actual data populating our component, obtained from the Vuex store, we could have wired it to `src/App.vue` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
-
-## Interactive stories
-
-It needs writing

@@ -103,7 +103,7 @@ export class TasksState {
 }
 ```
 
-Then we'll update our `TaskListComponent` to read data from the store. First, let's move our existing presentational version to the file `src/app/components/pure-task-list.component.ts` and wrap it with a container.
+Then we'll update our `TaskList` component to read data from the store. First, let's move our existing presentational version to the file `src/app/components/pure-task-list.component.ts` and wrap it with a container.
 
 In `src/app/components/pure-task-list.component.ts`:
 
@@ -295,7 +295,3 @@ Empty.args = {
 </div>
 
 Now that we have some actual data populating our component obtained from the store, we could have wired it to `src/app/app.component.ts` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
-
-## Interactive stories
-
-It needs writing

@@ -11,7 +11,7 @@ In this chapter, we continue to increase the sophistication by combining compone
 
 ## Nested container components
 
-As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskListComponent` (which supplies its own data via ngxs) in some layout and pulling a top-level `error` field out of our store (let's assume we'll set that field if we have some problem connecting to our server).
+As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via ngxs) in some layout and pulling a top-level `error` field out of our store (let's assume we'll set that field if we have some problem connecting to our server).
 
 Let's start by updating our store ( in `src/app/state/task.state.ts`) to include the error field we want:
 
@@ -151,7 +151,7 @@ export class PureInboxScreenComponent {
 }
 ```
 
-Then, we can create a container, which again grabs the data for the `PureInboxScreenComponent` in `inbox-screen.component.ts`:
+Then, we can create a container, which again grabs the data for the `PureInboxScreen` component in `inbox-screen.component.ts`:
 
 ```ts:title=src/app/components/inbox-screen.component.ts
 import { Component } from '@angular/core';
@@ -170,7 +170,7 @@ export class InboxScreenComponent {
 }
 ```
 
-We also need to change the `AppComponent` component to render the `InboxScreenComponent` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
+We also need to change the `AppComponent` component to render the `InboxScreen` component (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```diff:title=src/app/app.component.ts
 import { Component } from '@angular/core';
@@ -222,11 +222,11 @@ export class AppModule {}
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskListComponent` component is a **container** that renders the `PureTaskListComponent` presentational component. By definition, container components cannot be simply rendered in isolation; they expect to be passed some context or connected to a service. What this means is that to render a container in Storybook, we must mock (i.e., provide a pretend version) the context or service it requires.
+As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition, container components cannot be simply rendered in isolation; they expect to be passed some context or connected to a service. What this means is that to render a container in Storybook, we must mock (i.e., provide a pretend version) the context or service it requires.
 
-When placing the `TaskListComponent` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskListComponent` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
-However, we have a problem with the `PureInboxScreenComponent` because although the `PureInboxScreen` itself is presentational, its child, the `TaskListComponent`, is not. In a sense, the `PureInboxScreen` has been polluted by “container-ness”. So when we set up our stories in `pure-inbox-screen.stories.ts`:
+However, we have a problem with the `PureInboxScreen` because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense, the `PureInboxScreen` has been polluted by “container-ness”. So when we set up our stories in `pure-inbox-screen.stories.ts`:
 
 ```ts:title=src/app/components/pure-inbox-screen.stories.ts
 import { moduleMetadata, Meta, Story } from '@storybook/angular';
@@ -274,7 +274,7 @@ However, developers **will** inevitably need to render containers further down t
 
 ## Supplying context with decorators
 
-The good news is that it is easy to supply the `Store` to the `PureInboxScreenComponent` in a story! We can just import our `Store` in a decorator:
+The good news is that it is easy to supply the `Store` to the `PureInboxScreen` component in a story! We can just import our `Store` in a decorator:
 
 ```diff:title=src/app/components/pure-inbox-screen.stories.ts
 import { moduleMetadata, Meta, Story } from '@storybook/angular';

@@ -87,7 +87,7 @@ It will show you the UI changes caught by your commit.
 
 ![Chromatic caught changes](/intro-to-storybook/chromatic-catch-changes.png)
 
-There are a lot of changes! The component hierarchy where `TaskComponent` is a child of `TaskListComponent` and `InboxScreenComponent` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
+There are a lot of changes! The component hierarchy where `Task` is a child of `TaskList` and `InboxScreen` means one small tweak snowballs into major regressions. This circumstance is precisely why developers need visual regression testing in addition to other testing methods.
 
 ![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
