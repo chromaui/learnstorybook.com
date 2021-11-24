@@ -1,10 +1,10 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import LanguageMenu from './index';
 
 export default {
   component: LanguageMenu,
-  decorators: [story => <Wrapper>{story()}</Wrapper>],
+  decorators: [(story) => <Wrapper>{story()}</Wrapper>],
   title: 'Screens/ChapterScreen/LanguageMenu',
   args: {
     chapter: 'chapter',
@@ -18,7 +18,7 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-const Story = args => <LanguageMenu {...args} />;
+const Story = (args) => <LanguageMenu {...args} />;
 
 export const Basic = Story.bind({});
 Basic.storyName = 'w/ framework, 1 translation';

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import pluralize from 'pluralize';
 import { styles } from '@storybook/design-system';
 import Subheading from './SubHeading';
@@ -38,7 +38,7 @@ const Contributors = ({ authors, contributors }) => (
       <CommunityDetailItem>
         <Subheading>{pluralize('Author', authors.length)}</Subheading>
 
-        {authors.map(author => (
+        {authors.map((author) => (
           <UserWrapper {...author} key={author.name} />
         ))}
       </CommunityDetailItem>
@@ -48,7 +48,7 @@ const Contributors = ({ authors, contributors }) => (
       <CommunityDetailItem>
         <Subheading>Reviewed by</Subheading>
 
-        {contributors.map(contributor => (
+        {contributors.map((contributor) => (
           <UserWrapper {...contributor} key={contributor.name} />
         ))}
       </CommunityDetailItem>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import { styled, css } from '@storybook/theming';
 import { Button, styles, Icon } from '@storybook/design-system';
 import GatsbyLink from '../../basics/GatsbyLink';
 import Stat from '../../basics/Stat';
@@ -12,7 +12,7 @@ const HeroWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: ${props => props.themeColor};
+  background: ${(props) => props.themeColor};
   padding-bottom: 80px;
   padding-top: 80px;
   padding-left: ${spacing.padding.medium}px;
@@ -150,7 +150,7 @@ const Figure = styled.div`
 `;
 
 const GuideImage = styled.img`
-  ${props =>
+  ${(props) =>
     props.heroAnimationName &&
     animations[props.heroAnimationName] &&
     css`
@@ -220,7 +220,7 @@ const Hero = ({
         {languages.length > 0 && (
           <Languages>
             <LanguagesLabel>Languages: </LanguagesLabel>
-            {languages.map(language => (
+            {languages.map((language) => (
               <LanguagesLink inverse key={`lang_link_${language.name}`} to={language.tutorial}>
                 {language.name}
               </LanguagesLink>

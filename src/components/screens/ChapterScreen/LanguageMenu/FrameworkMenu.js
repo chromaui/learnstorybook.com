@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import startCase from 'lodash/startCase';
 import sortBy from 'lodash/sortBy';
 import { withPrefix, Link as GatsbyLinkWithoutEffects } from 'gatsby';
@@ -34,7 +34,7 @@ const FrameworkContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
 `;
-const Link = styled(GatsbyLink).attrs({ tertiary: true })`
+const Link = styled(GatsbyLink)`
   && {
     text-decoration: underline;
     margin-right: 10px;
@@ -48,7 +48,7 @@ const ButtonContent = styled.div`
   font-weight: ${typography.weight.extrabold};
 `;
 
-const ChevronDownIcon = styled(Icon).attrs({ icon: 'chevrondown' })`
+const ChevronDownIcon = styled((props) => <Icon {...props} icon="chevrondown" />)`
   && {
     width: 8px;
     height: 8px;
@@ -106,7 +106,7 @@ const getChapterInOtherLanguage = (
   return `/${guide}/${framework}/en/${firstChapter}/`;
 };
 
-const getTranslationPagesByFramework = translationPages =>
+const getTranslationPagesByFramework = (translationPages) =>
   translationPages.edges.reduce((acc, pageEdge) => {
     const pagesByFramework = { ...acc };
     const {
@@ -129,7 +129,7 @@ const getTranslationPagesByFramework = translationPages =>
     return pagesByFramework;
   }, {});
 
-const capitalizeFrameworks = framework => {
+const capitalizeFrameworks = (framework) => {
   return framework === 'react-native'
     ? 'React Native'
     : framework.charAt(0).toUpperCase() + framework.substring(1);
@@ -161,7 +161,7 @@ const FrameworkMenu = ({
     'riot',
   ];
 
-  const frameworks = sortBy(Object.keys(translationPagesByFramework), frameworkName =>
+  const frameworks = sortBy(Object.keys(translationPagesByFramework), (frameworkName) =>
     frameworksByPopularity.indexOf(frameworkName)
   );
   /* console.log(`frameworks:${JSON.stringify(frameworks,null,2)}`) */
@@ -187,9 +187,9 @@ const FrameworkMenu = ({
   }
   const availableTranslations = sortBy(
     Object.keys(translationPagesByFramework[framework]),
-    languageName => languageName
+    (languageName) => languageName
   )
-    .map(translationLanguage => {
+    .map((translationLanguage) => {
       return {
         short: translationLanguage,
         title: getLanguageName(translationLanguage),
@@ -211,9 +211,10 @@ const FrameworkMenu = ({
     <>
       <LanguageMenuTitle>Framework:</LanguageMenuTitle>
       <FrameworkContainer>
-        {frameworks.map(availableFramework => (
+        {frameworks.map((availableFramework) => (
           <Link
             key={`link_${availableFramework}`}
+            tertiary
             to={getChapterInOtherLanguage(
               availableFramework,
               language,

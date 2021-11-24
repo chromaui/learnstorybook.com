@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import PropTypes from 'prop-types';
 import { styles } from '@storybook/design-system';
 import { withPrefix } from 'gatsby';
@@ -52,7 +52,7 @@ const GuideLink = styled(GatsbyLink)`
   }
 `;
 
-const getChapterCountByGuide = chaptersEdges =>
+const getChapterCountByGuide = (chaptersEdges) =>
   chaptersEdges.reduce((acc, { node: { fields: { guide } } }) => {
     const chapterCountByGuide = { ...acc };
 

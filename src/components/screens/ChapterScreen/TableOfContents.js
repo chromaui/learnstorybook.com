@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
 import GatsbyLink from '../../basics/GatsbyLink';
 
@@ -43,7 +43,7 @@ const ListItem = styled.li`
     line-height: 1.5;
     position: relative;
     z-index: 1;
-    ${props => props.isActive && `font-weight: ${typography.weight.bold};`}
+    ${(props) => props.isActive && `font-weight: ${typography.weight.bold};`}
   }
 
   @media screen and (min-width: ${breakpoint}px) {
@@ -65,14 +65,14 @@ const ListItem = styled.li`
       border-radius: 1em;
       text-decoration: none !important;
       content: '';
-      ${props => props.isActive && `background: ${color.secondary};`}
+      ${(props) => props.isActive && `background: ${color.secondary};`}
     }
   }
 `;
 
 const TableOfContents = ({ currentPageSlug, entries, ...rest }) => (
   <List {...rest}>
-    {entries.map(entry => {
+    {entries.map((entry) => {
       const isActive = currentPageSlug === entry.slug;
 
       return (

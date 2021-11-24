@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { Link, styles } from '@storybook/design-system';
 import { rgba } from 'polished';
 import GatsbyLink from './GatsbyLink';
@@ -30,10 +30,7 @@ const InternalBoxLink = styled(GatsbyLink)`
   ${boxLinkStyles}
 `;
 
-const ExternalBoxLink = styled(Link).attrs({
-  target: '_blank',
-  rel: 'noopener',
-})`
+const ExternalBoxLink = styled((props) => <Link target="_blank" rel="noopener" {...props} />)`
   ${boxLinkStyles}
 `;
 

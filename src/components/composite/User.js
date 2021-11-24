@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { Avatar, styles } from '@storybook/design-system';
 
 const { color, typography } = styles;
 
-const AvatarWrapper = styled(Avatar).attrs({ size: 'large' })`
+const AvatarWrapper = styled(Avatar)`
   min-width: 40px;
 `;
 
@@ -35,7 +35,7 @@ const Detail = styled.div`
 
 const User = ({ detail, name, src, ...rest }) => (
   <UserWrapper {...rest}>
-    <AvatarWrapper src={src} />
+    <AvatarWrapper size="large" src={src} />
 
     <Text>
       <Name>{name}</Name>

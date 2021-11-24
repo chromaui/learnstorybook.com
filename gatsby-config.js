@@ -115,7 +115,7 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-emotion`,
     `gatsby-plugin-sitemap`,
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
       ? [
