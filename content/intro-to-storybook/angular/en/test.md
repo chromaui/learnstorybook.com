@@ -104,7 +104,7 @@ If a change is intentional, we'll need to update the baseline to compare future 
   />
 </video>
 
-Since modern apps are constructed from components, it’s important that we test at the level of the component. Doing so helps us pinpoint the root cause of a change, the component, instead of reacting to symptoms of a change, the screens, and composite components.
+Since modern apps are constructed from components, it’s important that we test at the level of the component. Doing so helps us pinpoint the root cause of a change, the component, instead of reacting to symptoms of a change: the screens and composite components.
 
 ## Merge changes
 

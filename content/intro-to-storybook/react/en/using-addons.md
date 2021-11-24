@@ -36,7 +36,7 @@ With Controls, QA Engineers, UI Engineers, or any other stakeholder can push the
 
 That's not right! It looks like the text overflows beyond the bounds of the Task component.
 
-Controls allowed us to quickly verify different inputs to a component. In this case, a long string and reduced the work required to discover UI problems.
+Controls allowed us to quickly verify different inputs to a component--in this case, a long string--and reduced the work required to discover UI problems.
 
 Now let's fix the issue with overflowing by adding a style to `Task.js`:
 
@@ -56,7 +56,7 @@ Problem solved! The text is now truncated when it reaches the boundary of the Ta
 
 ### Adding a new story to avoid regressions
 
-In the future, we can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the component(s) limits for the rest of the team.
+In the future, we can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
 
 Add a new story for the long text case in `Task.stories.js`:
 
@@ -81,9 +81,9 @@ Now we can reproduce and work on this edge case with ease.
   />
 </video>
 
-If we are [visual testing](/intro-to-storybook/react/en/test/), we'll also be informed if the ellipsizing solution breaks. Obscure edge cases are liable to be forgotten without test coverage!
+If we are [visual testing](/intro-to-storybook/react/en/test/), we'll also be informed if the truncating solution breaks. Obscure edge cases are liable to be forgotten without test coverage!
 
-<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories, and much more than we've seen here, we recommend reading the <a href="https://storybook.js.org/docs/react/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
+<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
 
 ### Merge Changes
 

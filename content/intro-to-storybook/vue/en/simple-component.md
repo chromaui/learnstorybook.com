@@ -118,7 +118,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `component`--the component itself
 - `title`--how to refer to the component in the sidebar of the Storybook app
 - `excludeStories`--information required by the story but should not be rendered by the Storybook app
-- `argTypes`--specify the [args](https://storybook.js.org/docs/react/api/argtypes) behavior in each story
+- `argTypes`--specify the [args](https://storybook.js.org/docs/vue/api/argtypes) behavior in each story
 
 To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e., a component class with a set of props) in a given state---exactly like a [Functional Component](https://v3.vuejs.org/guide/render-function.html#functional-components).
 
@@ -130,7 +130,7 @@ As we have multiple permutations of our component, assigning it to a `Template` 
 
 Arguments or [`args`](https://storybook.js.org/docs/vue/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes, so does the component.
 
-When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+When creating a story, we use a base `task` arg to build out the shape of the task the component expects, typically modeled from what the actual data looks like.
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
@@ -279,7 +279,7 @@ As you can see, getting started building components in isolation is easy and fas
 
 ## Automated Testing
 
-Storybook gave us a great way to manually test our application UI during construction. The `stories` will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook gave us a great way to manually test our application UI during construction. The stories will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
 
 ### Snapshot testing
 

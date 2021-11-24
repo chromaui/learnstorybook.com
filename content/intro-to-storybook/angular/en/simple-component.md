@@ -48,7 +48,7 @@ export class TaskComponent {
 }
 ```
 
-Above, we render straightforward markup for `TaskComponent` based on the existing HTML structure of the Todos app.
+Above, we render straightforward markup for the `Task` component based on the existing HTML structure of the Todos app.
 
 Below we build out Task’s three test states in the story file:
 
@@ -122,9 +122,9 @@ There are two basic levels of organization in Storybook: the component and its c
 
 To tell Storybook about the component we are documenting, we create a `default` export that contains:
 
-- `component`-- the component itself
-- `title`-- how to refer to the component in the sidebar of the Storybook app
-- `excludeStories`-- exports in the story file that should not be rendered as stories by Storybook.
+- `component`--the component itself
+- `title`--how to refer to the component in the sidebar of the Storybook app
+- `excludeStories`--exports in the story file that should not be rendered as stories by Storybook.
 
 To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e., a component class with a set of props) in a given state---exactly like a [Functional Component](https://angular.io/guide/component-interaction).
 
@@ -136,7 +136,7 @@ As we have multiple permutations of our component, assigning it to a `Template` 
 
 Arguments, or [`args`](https://storybook.js.org/docs/angular/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/angular/writing-stories/args) value changes, so does the component.
 
-When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+When creating a story, we use a base `task` arg to build out the shape of the task the component expects, typically modeled from what the actual data looks like.
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
@@ -275,7 +275,7 @@ As you can see, getting started building components in isolation is easy and fas
 
 ## Automated Testing
 
-Storybook gave us a great way to manually test our application UI during construction. The `stories` will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook gave us a great way to manually test our application UI during construction. The stories will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
 
 ### Snapshot testing
 

@@ -255,7 +255,7 @@ As you can see, getting started building components in isolation is easy and fas
 
 ## Automated Testing
 
-Storybook gave us a great way to manually test our application UI during construction. The `stories` will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook gave us a great way to manually test our application UI during construction. The stories will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
 
 ### Snapshot testing
 
