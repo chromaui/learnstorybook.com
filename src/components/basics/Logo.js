@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
 
 const { color } = styles;
@@ -10,10 +10,10 @@ const Svg = styled.svg`
   vertical-align: middle;
 
   .learnstorybook-text {
-    fill: ${props => (props.isInverted ? color.lightest : color.darker)};
+    fill: ${(props) => (props.isInverted ? color.lightest : color.darker)};
   }
 
-  ${props =>
+  ${(props) =>
     props.isInverted &&
     `
     .learnstorybook-box {

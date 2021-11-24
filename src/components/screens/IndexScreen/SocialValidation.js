@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
 import { withPrefix } from 'gatsby';
 import User from '../../composite/User';
@@ -123,7 +123,7 @@ const logos = [
     src: '/brands/logo-hashicorp.svg',
     alt: 'Hashicorp',
   },
-].map(logo => ({
+].map((logo) => ({
   ...logo,
   src: withPrefix(logo.src),
 }));
@@ -133,7 +133,7 @@ const SocialValidation = () => (
     <Heading>200,000+ readers so far</Heading>
 
     <Logos>
-      {logos.map(logo => (
+      {logos.map((logo) => (
         <Logo key={logo.src}>
           <img src={logo.src} alt={logo.alt} />
         </Logo>

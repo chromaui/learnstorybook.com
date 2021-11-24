@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import AppLayout from './AppLayout';
 
 const Children = styled.div`
@@ -12,7 +12,7 @@ export default {
   component: AppLayout,
   title: 'Composite/AppLayout',
 };
-const Story = args => <AppLayout {...args} />;
+const Story = (args) => <AppLayout {...args} />;
 
 export const Default = Story.bind({});
 Default.args = {

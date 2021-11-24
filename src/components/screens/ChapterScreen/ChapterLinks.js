@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import isNil from 'lodash/isNil';
 import { Icon, styles } from '@storybook/design-system';
 import BoxLink from '../../basics/BoxLink';

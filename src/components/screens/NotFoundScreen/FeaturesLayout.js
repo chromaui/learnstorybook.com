@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import { styled, css } from '@storybook/theming';
 
 import { styles } from '@storybook/design-system';
 
@@ -24,7 +24,7 @@ const Layout = styled.div`
     }
   }
 
-  ${props =>
+  ${(props) =>
     props.columns === 2 &&
     css`
       ${pageMargins};
@@ -39,7 +39,7 @@ const Layout = styled.div`
       }
     `};
 
-  ${props =>
+  ${(props) =>
     props.columns === 3 &&
     css`
       ${pageMargins};

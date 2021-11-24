@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { graphql } from 'gatsby';
 import { Highlight, Link, styles } from '@storybook/design-system';
 import ChapterLinks from './ChapterLinks';
@@ -71,8 +71,8 @@ const Chapter = ({
   },
 }) => {
   const entries = tocEntries(toc, tocPages);
-  const tocWithMatchingEntries = toc.filter(tocItem =>
-    entries.find(entry => entry.chapter === tocItem)
+  const tocWithMatchingEntries = toc.filter((tocItem) =>
+    entries.find((entry) => entry.chapter === tocItem)
   );
   const nextEntry = entries[tocWithMatchingEntries.indexOf(chapter) + 1];
   const firstChapter = tocWithMatchingEntries[0];

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { Icon, styles } from '@storybook/design-system';
 import GatsbyLink from '../../basics/GatsbyLink';
 import TableOfContents from './TableOfContents';
@@ -33,7 +33,7 @@ const GuideLink = styled(GatsbyLink)`
   }
 `;
 
-const SidebarBackIcon = styled(Icon).attrs({ icon: 'arrowleft' })`
+const SidebarBackIcon = styled((props) => <Icon {...props} icon="arrowleft" />)`
   && {
     width: 1em;
     margin-left: -1.6em;

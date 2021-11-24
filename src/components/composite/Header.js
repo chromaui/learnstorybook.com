@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import PropTypes from 'prop-types';
 import GitHubButton from 'react-github-button';
 import 'react-github-button/assets/style.css';
@@ -85,7 +85,7 @@ const Header = ({ inverse }) => (
       logo={<LogoStorybook inverse={inverse} />}
       links={
         <>
-          {links.map(link => (
+          {links.map((link) => (
             <NavItem key={link.title} showDesktop>
               <NavLink LinkWrapper={LinkWrapper} href={link.href} isGatsby={link.isGatsby}>
                 {link.title}

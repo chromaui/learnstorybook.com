@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { css, keyframes } from 'styled-components';
+import { css, keyframes } from '@storybook/theming';
 
 const floatKeyframes = keyframes`
   from { transform: translate(0,  0px); }

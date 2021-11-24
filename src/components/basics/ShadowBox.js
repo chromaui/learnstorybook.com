@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
 
 const ShadowBox = styled.div`

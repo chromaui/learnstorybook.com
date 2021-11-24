@@ -4,17 +4,20 @@
   "version": "1.0.0",
   "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
-    "@storybook/design-system": "^6.4.1",
+    "@emotion/cache": "^10.0.29",
+    "@storybook/design-system": "6.4.2-canary.305.0ecf375.0",
+    "@storybook/theming": "^6.3.12",
     "cheerio": "^1.0.0-rc.5",
+    "create-emotion-server": "^10.0.27",
     "formik": "^1.5.7",
     "gatsby": "^2.32.3",
+    "gatsby-plugin-emotion": "^4.5.0",
     "gatsby-plugin-facebook-pixel": "^1.0.3",
     "gatsby-plugin-google-analytics": "^2.3.0",
     "gatsby-plugin-layout": "^1.0.15",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-sharp": "^2.14.1",
     "gatsby-plugin-sitemap": "^2.1.0",
-    "gatsby-plugin-styled-components": "^3.0.7",
     "gatsby-remark-code-titles": "^1.1.0",
     "gatsby-remark-copy-linked-files": "^2.10.0",
     "gatsby-remark-images": "^3.11.0",
@@ -28,8 +31,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-github-button": "^0.1.11",
-    "react-helmet": "^5.2.1",
-    "styled-components": "^4.4.1"
+    "react-helmet": "^5.2.1"
   },
   "keywords": [
     "gatsby"
@@ -49,7 +51,8 @@
     "prestorybook": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
     "storybook": "start-storybook -s ./static -p 6006",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "gatsby clean"
+    "clean": "gatsby clean",
+    "postinstall": "patch-package"
   },
   "husky": {
     "hooks": {
@@ -73,8 +76,8 @@
     "@storybook/react": "^6.2.1",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
+    "babel-plugin-emotion": "^10.2.2",
     "babel-plugin-remove-graphql-queries": "^2.16.0",
-    "babel-plugin-styled-components": "^1.10.0",
     "chromatic": "^4.0.2",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
@@ -86,6 +89,7 @@
     "eslint-plugin-react": "^7.7.0",
     "husky": "^3.0.8",
     "lint-staged": "^9.4.2",
+    "patch-package": "^6.4.7",
     "prettier": "^2.1.1",
     "prettier-eslint": "^9.0.0",
     "prettier-eslint-cli": "^5.0.0"

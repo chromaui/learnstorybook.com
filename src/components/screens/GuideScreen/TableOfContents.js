@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
 import Subheading from './SubHeading';
 import BoxLink from '../../basics/BoxLink';
 
 const { color, typography } = styles;
 
-const BoxLinkWrapper = styled(BoxLink).attrs({ isInternal: true })`
+const BoxLinkWrapper = styled(BoxLink)`
   padding: 20px 28px;
   line-height: 20px;
 
@@ -61,7 +61,7 @@ const TableOfContents = ({ entries }) => (
     <ChapterList>
       {entries.map((entry, index) => (
         <ChapterItem key={entry.slug}>
-          <BoxLinkWrapper to={entry.slug}>
+          <BoxLinkWrapper isInternal to={entry.slug}>
             <Chapter>
               <ChapterNumber>{index + 1}</ChapterNumber>
 

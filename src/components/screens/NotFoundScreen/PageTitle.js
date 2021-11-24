@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 
 import { Subheading, styles } from '@storybook/design-system';
 
@@ -12,22 +12,22 @@ export const Heading = styled(Subheading)`
   color: ${color.mediumdark};
   opacity: 0.8;
 
-  ${props =>
+  ${(props) =>
     props.color === 'green' &&
     `
       color: ${color.green};
     `};
-  ${props =>
+  ${(props) =>
     props.color === 'seafoam' &&
     `
       color: ${color.seafoam};
     `};
-  ${props =>
+  ${(props) =>
     props.color === 'purple' &&
     `
       color: ${color.purple};
     `};
-  ${props =>
+  ${(props) =>
     props.color === 'gold' &&
     `
       color: ${color.gold};

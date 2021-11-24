@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import { styled } from '@storybook/theming';
 import { StaticQuery, graphql } from 'gatsby';
 import { Button, styles } from '@storybook/design-system';
 import SiteStats from './SiteStats';
@@ -88,7 +88,7 @@ PureIndexScreen.propTypes = {
   }).isRequired,
 };
 
-const IndexScreen = props => (
+const IndexScreen = (props) => (
   <StaticQuery
     query={graphql`
       query IndexQuery {
@@ -136,7 +136,7 @@ const IndexScreen = props => (
         }
       }
     `}
-    render={data => <PureIndexScreen data={data} {...props} />}
+    render={(data) => <PureIndexScreen data={data} {...props} />}
   />
 );
 

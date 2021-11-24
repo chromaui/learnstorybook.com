@@ -6,7 +6,7 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-viewport',
   ],
-  webpackFinal: async config => {
+  webpackFinal: async (config) => {
     // sets production mode to allow babel plugin remove graphql queries to work properly and prevent Gatsby data layer to trigger
     // and try to fetch something it shouldn't.
     process.env.NODE_ENV = 'production';
@@ -30,6 +30,7 @@ module.exports = {
           staticQueryDir: 'page-data/sq/d',
         },
       ],
+      'babel-plugin-emotion',
     ];
     // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
     config.resolve.mainFields = ['browser', 'module', 'main'];
