@@ -138,7 +138,7 @@ Don't worry about it. We'll take care of it in the next chapter.
 
 Our Storybook tests will have stopped working at this stage because `TaskList` is now a container and no longer expects any props. Instead, `TaskList` connects to the store and sets the props on the `PureTaskList` component it wraps.
 
-However, we can quickly solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
+However, we can quickly solve this problem by simply rendering the `PureTaskList`--the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
 
 ```diff:title=src/components/TaskList.stories.js
 import React from 'react';

@@ -107,7 +107,7 @@ Since modern apps are constructed from components, it’s important that we test
 
 ## Merge changes
 
-When we’ve finished reviewing, we’re ready to merge UI changes with confidence --knowing that updates won’t accidentally introduce bugs. If you like the new `red` background, then accept the changes. If not, revert to the previous state.
+When we’ve finished reviewing, we’re ready to merge UI changes with confidence--knowing that updates won’t accidentally introduce bugs. If you like the new `red` background, then accept the changes. If not, revert to the previous state.
 
 ![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
