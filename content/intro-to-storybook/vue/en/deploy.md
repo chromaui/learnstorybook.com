@@ -105,7 +105,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>💡 For brevity purposes <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+<div class="aside"><p>💡 For brevity purposes <a href=" https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository ">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
 
 ### Commit the action
 
