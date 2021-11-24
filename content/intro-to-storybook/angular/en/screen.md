@@ -388,7 +388,7 @@ Check your newly created story, and click the `Interactions` panel, and you'll s
   />
 </video>
 
-As you've seen, we're able to interact with our UI and quickly check how it responds if we update our tasks, ensuring it stays consistent, all of this without needing to spin up a testing environment or add additional packages.
+As you've seen, we're able to interact with our UI and quickly check how it responds if we update our tasks, ensuring it stays consistent. All without needing to spin up a testing environment or add additional packages.
 
 ## Component-Driven Development
 
