@@ -5,7 +5,7 @@
   "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
     "@emotion/cache": "^10.0.29",
-    "@storybook/design-system": "6.4.2-canary.305.0ecf375.0",
+    "@storybook/design-system": "^7.0.2",
     "@storybook/theming": "^6.3.12",
     "cheerio": "^1.0.0-rc.5",
     "create-emotion-server": "^10.0.27",

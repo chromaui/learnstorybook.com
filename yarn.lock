@@ -3442,10 +3442,10 @@
   dependencies:
     lodash "^4.17.15"
 
-"@storybook/design-system@6.4.2-canary.305.0ecf375.0":
-  version "6.4.2-canary.305.0ecf375.0"
-  resolved "https://registry.yarnpkg.com/@storybook/design-system/-/design-system-6.4.2-canary.305.0ecf375.0.tgz#4e94691e6a766e0317bd1451a0672c17f54ee707"
-  integrity sha512-xYQVBEwRgDNPLKX1NV5uqK7UJwWVCia06Bt9CPFrG5Oq/yG9mQW1xQ6JLiG5ixvN3nujM3IvAcAgRoezECxAoA==
+"@storybook/design-system@^7.0.2":
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/@storybook/design-system/-/design-system-7.0.2.tgz#6daf2beb23f023903dcb059ea4768daf4bbae8fb"
+  integrity sha512-yJH3aadopSR489AMSfcahvfQpmtCkubToQh8HyE4geCdWW6u8Do81OP9cXSKrMftbFukI5xur/C/t0VM9mxyHQ==
   dependencies:
     "@emotion/weak-memoize" "^0.2.5"
     "@storybook/theming" "^6.2.0"
