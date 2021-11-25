@@ -5,13 +5,13 @@ description: 'Learn how to wire in data to your UI component'
 commit: '167467b'
 ---
 
-So far, we have created isolated stateless components –great for Storybook, but ultimately not helpful until we give them some data in our app.
+So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
 
 This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
 
 ## Container components
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
 This example uses [Redux Toolkit](https://redux-toolkit.js.org/), the most effective toolset for developing applications for storing data with [Redux](https://redux.js.org/), to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
