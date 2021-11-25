@@ -1,7 +1,7 @@
 ---
 title: 'Storybook for React tutorial'
 tocTitle: 'Get started'
-description: 'Setup Storybook in your development environment'
+description: 'Set up Storybook in your development environment'
 commit: '6fdf7e3'
 ---
 
@@ -9,9 +9,9 @@ Storybook runs alongside your app in development mode. It helps you build UI com
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
-## Setup React Storybook
+## Set up React Storybook
 
-We'll need to follow a few steps to get the build process set up in our environment. To start with, we want to use [degit](https://github.com/Rich-Harris/degit) to setup our build system. Using this package, you can download "templates" (partially built applications with some default configuration) to help you fast track your development workflow.
+We'll need to follow a few steps to get the build process set up in our environment. To start with, we want to use [degit](https://github.com/Rich-Harris/degit) to set up our build system. Using this package, you can download "templates" (partially built applications with some default configuration) to help you fast track your development workflow.
 
 Let’s run the following commands:
 

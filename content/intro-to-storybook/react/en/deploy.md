@@ -17,7 +17,7 @@ Running `yarn build-storybook` will output a static Storybook in the `storybook-
 
 This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
 
-### Setup a repository in GitHub
+### Set up a repository in GitHub
 
 Before we begin, our local code needs to sync with a remote version control service. When we set up our project in the [Get started chapter](/intro-to-storybook/react/en/get-started/), we already initialized a local repository. At this stage, we already have a set of commits that we can push to a remote one.
 
@@ -45,7 +45,7 @@ Add the package as a development dependency.
 yarn add -D chromatic
 ```
 
-Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions), then we'll create a new project called "taskbox" and sync it with the GitHub repository we've set up.
+Once the package is installed, [log in to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions), then we'll create a new project called "taskbox" and sync it with the GitHub repository we've set up.
 
 Click `Choose GitHub repo` under collaborators and select your repo.
 

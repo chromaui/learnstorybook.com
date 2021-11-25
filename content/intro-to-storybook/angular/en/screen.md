@@ -330,7 +330,7 @@ So far, we've been able to build a fully functional application from the ground 
 
 Couldn't we automate this workflow and interact with our components automatically?
 
-Storybook's [`play`](https://storybook.js.org/docs/6.4/angular/writing-stories/play-function) function allows us to do just that. They are small snippets of code that run after the story renders. Ideal for scenarios such as ours where we would like to see what happens to our UI when we update our tasks. Since they rely on using framework-agnostic DOM APIs, we can write stories with the play function to interact with the UI and automate human behavior no matter the framework we use.
+Storybook's [`play`](https://storybook.js.org/docs/angular/writing-stories/play-function) function allows us to do just that. They are small snippets of code that run after the story renders. Ideal for scenarios such as ours where we would like to see what happens to our UI when we update our tasks. Since they rely on using framework-agnostic DOM APIs, we can write stories with the play function to interact with the UI and automate human behavior no matter the framework we use.
 
 Let's see it in action! Update your newly created `pure-inbox-screen` story, and set up component interactions by adding the following:
 
