@@ -5,7 +5,7 @@ description: 'An overview of the design system workflow for frontend developers'
 commit: ab64b4c
 ---
 
-How frontend tools work together has a significant impact on the ultimate value design and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
+How frontend tools work together has a significant impact on the ultimate value design, and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
 
 This chapter showcases the five-step workflow by introducing a new component AvatarList.
 
@@ -13,26 +13,28 @@ This chapter showcases the five-step workflow by introducing a new component Ava
 
 ## Build
 
-AvatarList is a component that displays multiple avatars. Like the other design system components, AvatarList started off being pasted into many projects. That’s why it warrants inclusion in the design system. For this demo, let’s assume that the component was developed in another project and jump straight to the finished code.
+`AvatarList` is a component that displays multiple avatars. Like the other design system components, `AvatarList` started off being pasted into many projects, and that’s why it warrants inclusion in the design system. Let’s assume that the component was developed in another project and jump straight to the finished code for this demo.
 
 ![AvatarList](/design-systems-for-developers/AvatarList.jpg)
 
-First, make a new branch on git where we’ll be tracking this work.
+First, create a new branch where we’ll be tracking this work.
 
 ```shell
 git checkout -b create-avatar-list-component
 ```
 
-Download `AvatarList` component and story to your machine. Place it in the `/src` directory:
+Download the `AvatarList` component and story to your machine and place them in the `/src` directory:
 
 - [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.js)
 - [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.stories.js)
 
-Storybook is setup to automatically detect files ending in `\*.stories.js` and show them in the UI.
-
 ![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist-6-0.png)
 
-Nice! Now let’s articulate each UI state supported by AvatarList. At a glance, it’s clear that AvatarList supports some of Avatar’s properties like `small` and `loading`.
+<div class="aside">
+💡 Storybook is set up to automatically detect files ending in <code>*.stories.js</code> and show them in the UI.
+</div>
+
+Nice! Now let’s articulate each UI state supported by `AvatarList`. At a glance, it’s clear that `AvatarList` supports some of `Avatar`’s properties like `small` and `loading`.
 
 ```js:title=src/AvatarList.stories.js
 export const SmallSize = Template.bind({});
@@ -49,7 +51,7 @@ Loading.args = {
 
 ![Storybook with more AvatarList stories](/design-systems-for-developers/storybook-with-avatarlist-loading-6-0.png)
 
-Given that it’s a list, it should show many avatars. Let’s add stories that showcase what happens with numerous list items and what happens with few list items.
+Given that it’s a list, it should show many avatars. Let’s add stories that showcase what happens with numerous list items and with few list items.
 
 ```js:title=src/AvatarList.stories.js
 export const Ellipsized = Template.bind({});
@@ -96,7 +98,7 @@ git commit -am "Added AvatarList and stories"
 
 ## Document
 
-Thanks to Storybook Docs, we get customizable documentation with minimal effort. This helps others learn how to use AvatarList by referring to the Docs tab in Storybook.
+Thanks to Storybook Docs, we get customizable documentation with minimal effort. It helps others learn how to use AvatarList by referring to the Docs tab in Storybook.
 
 ![Storybook docs with minimal AvatarList info](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
 
@@ -138,7 +140,7 @@ AvatarList.propTypes = {
 };
 ```
 
-Easy as pie! This level of detail is sufficient for now –we can always customize more using MDX later.
+Easy as pie! This level of detail is sufficient for now-–we can always customize more using MDX later.
 
 ![Storybook docs with full AvatarList info](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
 
@@ -164,29 +166,29 @@ Then navigate to GitHub and open a pull request.
 
 ## Review
 
-At this point, AvatarList is a candidate for design system inclusion. Stakeholders must review the component to see if it meets expectations for functionality and appearance.
+At this point, `AvatarList` is a candidate for design system inclusion. Stakeholders must review the component to see if it meets expectations for functionality and appearance.
 
-The design system’s Storybook is automatically published each pull request to make review dead simple. Scroll down to the PR checks to find a link to the deployed Storybook.
+The design system’s Storybook is automatically published with each pull request to make review dead simple. Scroll down to the PR checks to find a link to the deployed Storybook.
 
 ![PR check for deployed PR](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
-Find the AvatarList in the Storybook online. It should look identical to your local Storybook.
+Find the `AvatarList` in your published Storybook. It should look identical to your local Storybook.
 
 ![AvatarList in Storybook online](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
 
-The online Storybook is a universal reference point for the team. Share the link to AvatarList with other stakeholders to get feedback faster. Your team will love you because they don’t have to deal with code or setting up a development environment.
+The published Storybook is a universal reference point for the team. Share the link to `AvatarList` with other stakeholders to get feedback faster. Your team will love you because they don’t have to deal with code or set up a development environment.
 
 ![Looks good, ship it!](/design-systems-for-developers/visual-review-shipit.png)
 
-Reaching consensus with numerous teams often feels an exercise in futility. Folks reference out of date code, don’t have a development environment, or scatter feedback across multiple tools. Reviewing Storybook online makes it as simple as sharing a URL.
+Reaching consensus with numerous teams often feels like an exercise in futility. Folks reference out-of-date code, don’t have a development environment or scatter feedback across multiple tools. Reviewing Storybook online makes it as simple as sharing a URL.
 
 ## Test
 
-Our test suite runs in the background every commit. AvatarList is a simple presentational component so unit tests aren’t necessary. But if we take a look at the PR check, our visual testing tool Chromatic has already detected changes that need to be reviewed.
+Our test suite runs in the background every commit. `AvatarList` is a simple presentational component, so unit tests aren’t necessary. But if we look at the PR check, our visual testing tool Chromatic has already detected changes that need reviewing.
 
 ![Chromatic changes on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
-Since AvatarList is new there aren’t visual tests for it yet. We’ll need to add baselines for each story. Accept the “new stories” in Chromatic to expand visual test coverage.
+Since AvatarList is new, there aren’t visual tests for it yet. We’ll need to add baselines for each story. Accept the “new stories” in Chromatic to expand visual test coverage.
 
 ![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
@@ -202,13 +204,13 @@ The tests were successfully updated. In the future, regressions will have a toug
 
 ## Distribute
 
-We have an open pull request that adds AvatarList to the design system. Our stories are written, the tests pass, and documentation exists. At last, we’re ready to update our design system package with Auto and npm.
+We have an open pull request that adds `AvatarList` to the design system. We've written our stories, the tests pass, and documentation exists. At last, we’re ready to update our design system package with Auto and npm.
 
-Add the `minor` label to the PR. This tells Auto to update the minor version of the package on merge.
+Add the `minor` label to the PR. It tells Auto to update the minor version of the package on merge.
 
 ![GitHub PR with labels](/design-systems-for-developers/github-pr-labelled.png)
 
-Now merge your PR, and navigate to your package on npm and hang tight for a few minutes while the package is updated.
+Now merge your PR, navigate to your package on npm and hang tight for a few minutes while the package is updated.
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
@@ -216,6 +218,6 @@ Success! Your design system package was updated from the comfort of GitHub. No n
 
 ## Your journey begins
 
-_Design Systems for Developers_ highlights the end-to-end workflow used by professional frontend teams to give you a headstart as you develop your own. As your design system grows add, rearrange, and extend these tools to fit your team’s needs.
+_Design Systems for Developers_ highlights the end-to-end workflow used by professional frontend teams to give you a headstart as you develop your own. As your design system grows, add, rearrange, and extend these tools to fit your team’s needs.
 
 Chapter 9 concludes with the complete sample code, helpful resources, and frequently asked questions from developers.

@@ -5,7 +5,7 @@ description: 'Setup Storybook to build and catalog design system components'
 commit: '583cb5b'
 ---
 
-In chapter 3 we’ll set up the essential design system tooling starting with Storybook, the most popular component explorer. The goal of this guide is to show you how professional teams build design systems, so we’ll also focus on finer details like the code hygiene, timesaving Storybook addons, and directory structure.
+In chapter 3, we’ll set up the essential design system tooling starting with Storybook, the most popular component explorer. The goal of this guide is to show you how professional teams build design systems, so we’ll also focus on finer details like the code hygiene, timesaving Storybook addons, and directory structure.
 
 ![Where Storybook fits in](/design-systems-for-developers/design-system-framework-storybook.jpg)
 
@@ -13,7 +13,7 @@ In chapter 3 we’ll set up the essential design system tooling starting with St
 
 Design systems are collaborative, so tools that fix syntax and standardize formatting serve to improve contribution quality. Enforcing code consistency with tooling is much less work than policing code by hand, a benefit for the resourceful design system author.
 
-We’ll use VSCode as our editor in this tutorial but the same idea can be applied to all modern editors like Atom, Sublime, or IntelliJ.
+In this tutorial, we'll use [VSCode](https://code.visualstudio.com/) as our editor, but you can apply the same principles to other modern editors like [Atom](https://atom.io/), [Sublime](https://www.sublimetext.com/), or [IntelliJ](https://www.jetbrains.com/idea/).
 
 If we add Prettier to our project and set our editor up correctly, we should obtain consistent formatting without having to think much about it:
 
@@ -34,12 +34,15 @@ Storybook is the industry-standard [component explorer](https://www.chromatic.co
 - 📕Catalog UI components
 - 📄Save component variations as stories
 - ⚡️Developer experience tooling like Hot Module Reloading
-- 🛠Supports many view layers including React
+- 🛠Supports many view layers, including React
 
 Install and run Storybook
 
 ```shell
-npx -p @storybook/cli sb init
+# Installs Storybook
+npx sb init
+
+# Starts Storybook in development mode
 yarn storybook
 ```
 
@@ -49,9 +52,9 @@ You should see this:
 
 Nice, we’ve set up a component explorer!
 
-Every time you install Storybook into an application it will add some examples inside the `stories` folder. If you want, take some time and explore them. But we won't be needing them for our design system, so it's safe to delete the `stories` directory.
+Every time you install Storybook into an application, it will add some examples inside the `stories` folder. If you want, take some time and explore them. But we won't be needing them for our design system, so it's safe to delete the `stories` directory.
 
-Now your Storybook should look like this (notice that the font styles are a little off, for instance see the "Avatar: Initials" story):
+Now your Storybook should look like this (notice that the font styles are a little off, for instance, see the "Avatar: Initials" story):
 
 <video autoPlay muted playsInline loop>
   <source
@@ -62,7 +65,7 @@ Now your Storybook should look like this (notice that the font styles are a litt
 
 #### Add global styles
 
-Our design system requires some global styles (a CSS reset) to be applied to the document for components to be rendered correctly. The styles can be added easily via a Styled Components global style tag. Adjust your global styles, located in `src/shared/global.js` to the following:
+Our design system requires some global styles (a CSS reset) to be applied to the document to render our components correctly. We can add them easily with the Styled Components global style tag. Update your `src/shared/global.js` file to the following:
 
 ```diff:title=src/shared/global.js
 import { createGlobalStyle, css } from 'styled-components';
@@ -81,14 +84,18 @@ export const GlobalStyle = createGlobalStyle`
  }`;
 ```
 
-To use the `GlobalStyle` “component” in Storybook, we can make use of a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators) (a component wrapper). In an app we’d place that component in the top-level app layout, but in Storybook we wrap all stories in it using the preview config file [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering).
+To use the `GlobalStyle` “component” in Storybook, we can make use of a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators) (a component wrapper). In an app, we’d place that component in the top-level app layout, but in Storybook, we wrap all stories using the preview config file [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering).
 
 ```diff:title=.storybook/preview.js
 + import React from 'react';
 
 + import { GlobalStyle } from '../src/shared/global';
 
-+ // Global decorator to apply the styles to all stories
+/*
+ * Global decorator to apply the styles to all stories
+ * Read more about them at:
+ * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
+ */
 + export const decorators = [
 +   Story => (
 +     <>
@@ -98,18 +105,22 @@ To use the `GlobalStyle` “component” in Storybook, we can make use of a [dec
 +   ),
 + ];
 
+/*
+ * Read more about global parameters at:
+ * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
+ */
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
 ```
 
-The decorator will ensure the `GlobalStyle` is rendered no matter which story is selected.
+The decorator ensures the `GlobalStyle` renders no matter which story is selected.
 
-<div class="aside">💡 The <code><></code> in the decorator is not a typo -- it’s a <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> that we use here to avoid adding an unnecessary extra HTML tag to our output.</div>
+<div class="aside">💡 The <code><></code> in the decorator is not a typo--it’s a <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> that we use here to avoid adding an unnecessary extra HTML tag to our output.</div>
 
 #### Add font tag
 
-Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook the easiest way to achieve that is to create a file, [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head), to add a `<link>` tag directly to the `<head>` of the page:
+Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook, the easiest way to achieve that is to create a file, [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head), to add a `<link>` tag directly to the `<head>` of the page:
 
 ```html:title=.storybook/preview-head.html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900" />
@@ -123,9 +134,9 @@ Your Storybook should now look like this. Notice the “T” is sans-serif becau
 
 Storybook includes a powerful [addon ecosystem](https://storybook.js.org/addons) created by a massive community. For the pragmatic developer, it’s easier to build our workflow using the ecosystem instead of creating custom tooling ourselves (which can be time-consuming).
 
-<h4>Actions addon to verify interactivity</h4>
+<h4 id="storybook-addon-actions">Actions addon to verify interactivity</h4>
 
-The [actions addon](https://storybook.js.org/docs/react/essentials/actions) gives you UI feedback in Storybook when an action is performed on an interactive element like a Button or Link. Actions comes installed in Storybook by default and you use it simply by passing an “action” as a callback prop to a component.
+The [actions addon](https://storybook.js.org/docs/react/essentials/actions) gives you UI feedback in Storybook when an action is performed on an interactive element like a Button or Link. Actions comes installed in Storybook by default, and you use it simply by passing an “action” as a callback prop to a component.
 
 Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. We have a story that passes an action to that wrapper:
 
@@ -153,19 +164,50 @@ export const buttonWrapper = (args) => (
   />
 </video>
 
-<h4>Controls to stress test components</h4>
+<h4 id="storybook-addon-controls">Controls to stress test components</h4>
 
-Fresh installs of Storybook include the [Controls addon](https://storybook.js.org/docs/react/essentials/controls), it's already configured out of the box.
+Fresh installs of Storybook include the [Controls addon](https://storybook.js.org/docs/react/essentials/controls) already configured out of the box.
 
-It allows you to interact with component inputs (props) dynamically in the Storybook UI. You can supply multiple values to a component prop through [arguments](https://storybook.js.org/docs/react/writing-stories/args) (or args for short) and adjust them through the UI. This helps design systems creators stress test component inputs (props) by adjusting the argument's values. It also gives design systems consumers the ability to try components before integrating them, so they can understand how each input (prop) affects the component.
+It allows you to interact with component inputs (props) dynamically in the Storybook UI. You can supply multiple values to a component prop through [arguments](https://storybook.js.org/docs/react/writing-stories/args) (or args for short) and adjust them through the UI. It helps design systems creators stress test component inputs (props) by adjusting the argument's values. It also gives design systems consumers the ability to try components before integrating them to understand how each input (prop) affects them.
 
-Let's see how they work, by adding a new story in the `Avatar` component, located in `src/Avatar.stories.js`:
+Let's see how they work by adding a new story in the `Avatar` component, located in `src/Avatar.stories.js`:
 
 ```js:title=src/Avatar.stories.js
-// New story using controls
+import React from 'react';
+
+import { Avatar } from './Avatar';
+
+export default {
+  title: 'Design System/Avatar',
+  component: Avatar,
+  /*
+   * More on Storybook argTypes at:
+   * https://storybook.js.org/docs/react/api/argtypes
+   */
+  argTypes: {
+    size: {
+      control: {
+        type: 'select',
+      },
+      options: ['tiny', 'small', 'medium', 'large'],
+    },
+  },
+};
+
+// Other Avatar stories
+
+/*
+ * New story using Controls
+ * Read more about Storybook templates at:
+ * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+ */
 const Template = args => <Avatar {...args} />;
 
 export const Controls = Template.bind({});
+/*
+ * More on args at:
+ * https://storybook.js.org/docs/react/writing-stories/args
+ */
 Controls.args = {
   loading: false,
   size: 'tiny',
@@ -174,7 +216,7 @@ Controls.args = {
 };
 ```
 
-Notice the Controls tab in the addon panel. Controls automatically generates graphical UI to adjust props. For instance, the “size” select element allows us to cycle through the supported Avatar sizes `tiny`, `small`, `medium`, and `large`. The same was applied to the remainder component's props (“loading”,“username” and “src”). This allows us to create a user-friendly way to stress test components.
+Notice the Controls tab in the addon panel. Controls automatically generates graphical UI to adjust props. For instance, the “size” select element allows us to cycle through the supported Avatar sizes `tiny`, `small`, `medium`, and `large`. The same was applied to the remainder component's props (“loading”, “username”, and “src”), allowing us to create a user-friendly way to stress test components.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -183,16 +225,92 @@ Notice the Controls tab in the addon panel. Controls automatically generates gra
   />
 </video>
 
-That said, Controls don’t replace stories. They are great for exploring the edge cases of the components. Stories are used for showcasing the intended cases.
+That said, Controls don’t replace stories. They are great for exploring the edge cases of the components and stories for showcasing the assumed states.
 
+<h4>Interactive stories with addon-interactions </h4>
+
+We've seen how Storybook's addons help us find edge cases with the [Controls](#storybook-addon-controls) addon and how a component behaves when we interact with it using the [Actions](#storybook-addon-actions) addon. Still, with each variation we add with our stories, we must check it manually and see if our design system doesn't break. Let's see how we can automate this by adding the [`@storybook/addon-interactions`](https://storybook.js.org/addons/@storybook/addon-interactions/) addon, and interact with our component using the `play` function:
+
+Run the following command to install the addon and its dependencies:
+
+```shell
+yarn add --dev @storybook/addon-interactions @storybook/testing-library
+```
+
+Next, register it in Storybook's configuration file (i.e., `.storybook/main.js`):
+
+```diff:title=./storybook/main.js
+module.exports = {
+  stories: [
+     '../src/**/*.stories.mdx',
+     '../src/**/*.stories.@(js|jsx|ts|tsx)',
+  ],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
++   '@storybook/addon-interactions',
+  ],
+  framework: "@storybook/react",
+  staticDirs: ["../public"],
+};
+```
+
+Now, let's see how it works by adding a new story for our `Button` component:
+
+```diff:title=src/Button.stories.js
+import React from 'react';
+import styled from 'styled-components';
++ import { userEvent, within } from '@storybook/testing-library';
+
+
+import { Button } from './Button';
+import { StoryLinkWrapper } from './StoryLinkWrapper';
+export default {
+  title: 'Design System/Button',
+  component: Button,
+};
+
+// Other Button stories
+
++ // New story using the play function
++ export const WithInteractions = () => (
++   <Button
++     ButtonWrapper={StoryLinkWrapper}
++     appearance="primary"
++     href="http://storybook.js.org">
++       Button
++    </Button>
++ );
++ WithInteractions.play = async ({ canvasElement }) => {
++   // Assigns canvas to the component root element
++   const canvas = within(canvasElement);
++   await userEvent.click(canvas.getByRole("link"));
++ };
+
++ WithInteractions.storyName = "button with interactions";
+```
+
+<div class="aside">
+ 💡 Play functions are small snippets of code that once the story finishes rendering, aided by the <code>addon-interactions</code>, it allows you to test scenarios otherwise impossible without human intervention. Read more about them in the <a href="https://storybook.js.org/docs/react/writing-stories/play-function"> official documentation</a>.
+</div>
+
+Select your new story and notice how we were able to check how the component behaves and stays consistent—taking one additional step in making our design system more robust and bug-free without relying on human interactions.
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/design-systems-for-developers/storybook-button-interactive-stories.mp4"
+    type="video/mp4"
+  />
+</video>
 We'll visit the Accessibility and Docs addons in later chapters.
 
 > “Storybook is a powerful frontend workshop environment tool that allows teams to design, build, and organize UI components (and even full screens!) without getting tripped up over business logic and plumbing.” – Brad Frost, Author of Atomic Design
 
 ## Learn how to automate maintenance
 
-Now that our design system components are in Storybook, we've taken one more step to create a industry-standard design system. Now it's a good time to commit our work to our remote repository. Then we can start thinking about how we setup the automated tooling that streamlines ongoing maintenance.
+Now that our design system components are in Storybook, we've taken one more step to create an industry-standard design system. Now it's an excellent time to commit our work to our remote repository. Then we can start thinking about how we set up the automated tooling that streamlines ongoing maintenance.
 
 A design system, like all software, should evolve. The challenge is to ensure UI components continue to look and feel as intended as the design system grows.
 
-In chapter 4 we’ll learn how to set up continuous integration and auto-publish the design system online for collaboration.
+In chapter 4, we’ll learn how to set up continuous integration and auto-publish the design system online for collaboration.

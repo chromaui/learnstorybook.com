@@ -260,7 +260,7 @@ The [Design Systems for Developers tutorial](https://storybook.js.org/tutorials/
 | Translation | Updated |
 | ----------- | ------- |
 | English     | ✅      |
-| Korean      | ✅      |
+| Korean      | ❌      |
 | Portuguese  | ❌      |
 
 ---
