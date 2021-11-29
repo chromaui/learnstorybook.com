@@ -11,7 +11,7 @@ In chapter 5, we automate design system testing to prevent UI bugs. This chapter
 
 ## Fundamentals of UI component testing
 
-Before we begin, let’s figure out what makes sense to test. Design systems are composed of UI components, and each UI component includes stories (permutations) that describe the intended look and feel given a set of inputs (props). Stories are then rendered by a browser or device for the end-user.
+Before we begin, let’s figure out what makes sense to test. Design systems are composed of UI components. Each UI component includes stories (permutations) that describe the intended look and feel given a set of inputs (props). Stories are then rendered by a browser or device for the end-user.
 
 ![Component states are combinatorial](/design-systems-for-developers/component-test-cases.png)
 
