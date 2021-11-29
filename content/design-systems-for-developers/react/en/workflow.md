@@ -206,7 +206,7 @@ The tests were successfully updated. In the future, regressions will have a toug
 
 We have an open pull request that adds `AvatarList` to the design system. We've written our stories, the tests pass, and documentation exists. At last, we’re ready to update our design system package with Auto and npm.
 
-Add the `minor` label to the PR. It tells Auto to update the minor version of the package on merge.
+Add the `minor` label to the PR. This tells Auto to update the minor version of the package on merge.
 
 ![GitHub PR with labels](/design-systems-for-developers/github-pr-labelled.png)
 
