@@ -98,7 +98,7 @@ git commit -am "Added AvatarList and stories"
 
 ## Document
 
-Thanks to Storybook Docs, we get customizable documentation with minimal effort. It helps others learn how to use AvatarList by referring to the Docs tab in Storybook.
+Thanks to Storybook Docs, we get customizable documentation with minimal effort. This helps others learn how to use AvatarList by referring to the Docs tab in Storybook.
 
 ![Storybook docs with minimal AvatarList info](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
 
