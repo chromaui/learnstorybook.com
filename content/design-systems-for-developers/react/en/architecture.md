@@ -107,4 +107,4 @@ In addition to UI components, it makes sense to include styling constants for ty
 
 ## Let’s start developing
 
-We’ve defined what to build and how it fits together, and it’s time to get to work. In chapter 3, we’ll scaffold the fundamental tooling for design systems. Our raw directory of UI components will be cataloged and viewable with help from Storybook.
+We’ve defined what to build and how it fits together. Now it’s time to get to work. In chapter 3, we’ll scaffold the fundamental tooling for design systems. Our raw directory of UI components will be cataloged and viewable with help from Storybook.
