@@ -13,7 +13,7 @@ In this chapter, we’ll create a design system “user manual” to help stakeh
 
 ## Documentation is exhausting
 
-It’s obvious – documentation is invaluable for collaborative UI development, and it helps teams learn how and when to use common UI components. But why does it take so much effort?
+It’s obvious – documentation is invaluable for collaborative UI development. It helps teams learn how and when to use common UI components. But why does it take so much effort?
 
 If you’ve ever created docs, you probably sunk time into non-documentation tasks like site infrastructure or wrangling technical writers. And even if you find time to publish those docs, it’s grueling to maintain them while developing new features.
 
