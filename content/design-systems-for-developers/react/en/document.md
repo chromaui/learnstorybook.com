@@ -482,6 +482,6 @@ Running `build-storybook-docs` in your command line or continuous integration to
 
 ## Import the design system in other apps
 
-Up until now, we focused inward, first, on creating durable UI components. Then, on reviewing, testing, and documenting them. Now we’ll shift perspective outward to examine how teams consume design systems.
+Up until now, we focused inward. First, on creating durable UI components. Then, on reviewing, testing, and documenting them. Now we’ll shift perspective outward to examine how teams consume design systems.
 
 Chapter 7 walks through packaging the design system for use in other apps. Learn how to combine npm, the JavaScript package manager, with Auto, a time-saving release management tool.
