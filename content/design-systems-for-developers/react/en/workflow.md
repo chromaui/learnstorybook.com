@@ -5,7 +5,7 @@ description: 'An overview of the design system workflow for frontend developers'
 commit: ab64b4c
 ---
 
-How frontend tools work together has a significant impact on the ultimate value design, and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
+How frontend tools work together has a significant impact on the ultimate value design and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
 
 This chapter showcases the five-step workflow by introducing a new component AvatarList.
 
