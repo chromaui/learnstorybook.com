@@ -51,7 +51,7 @@ Click the **🟡 UI Tests** check to review them.
 
 ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
-Review them to confirm whether they’re intentional (improvements) or unintentional (bugs). If you accept the changes, the test baselines will be updated, which means subsequent commits will be compared to the new baselines to detect bugs.
+Review them to confirm whether they’re intentional (improvements) or unintentional (bugs). If you accept the changes, the test baselines will be updated. That means subsequent commits will be compared to the new baselines to detect bugs.
 
 ![Reviewing changes in Chromatic](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
