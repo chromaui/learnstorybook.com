@@ -210,7 +210,7 @@ Add the `minor` label to the PR. This tells Auto to update the minor version of 
 
 ![GitHub PR with labels](/design-systems-for-developers/github-pr-labelled.png)
 
-Now merge your PR, navigate to your package on npm and hang tight for a few minutes while the package is updated.
+Now merge your PR, navigate to your package on npm, and hang tight for a few minutes while the package is updated.
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
