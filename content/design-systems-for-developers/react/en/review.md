@@ -80,7 +80,7 @@ Congratulations! Now that you set up the infrastructure to publish Storybook let
 
 ### Continuous integration
 
-Continuous integration is the defacto way to maintain modern web apps, and it allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
+Continuous integration is the defacto way to maintain modern web apps. It allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
 
 We'll use GitHub Actions, which is free for our modest usage. The same principles apply to other CI services as well.
 
