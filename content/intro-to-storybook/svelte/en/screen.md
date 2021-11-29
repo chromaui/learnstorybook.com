@@ -147,11 +147,13 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 
 ## Interactive stories
 
-So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen, continuously testing each change using our stories. But with each story added, we would also need to check each variation manually to ensure the UI doesn't break, which requires extra work.
+So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
 
-Couldn't we automate this workflow and interact with our components automatically?
+Can't we automate this workflow and interact with our components automatically?
 
-Storybook's [`play`](https://storybook.js.org/docs/svelte/writing-stories/play-function) function allows us to do just that. They are small snippets of code that run after the story renders. Ideal for scenarios such as ours where we would like to see what happens to our UI when we update our tasks. Since they rely on using framework-agnostic DOM APIs, we can write stories with the play function to interact with the UI and automate human behavior no matter the framework we use.
+Storybook's [`play`](https://storybook.js.org/docs/svelte/writing-stories/play-function) function allows us to do just that. A play function includes small snippets of code that are run after the story renders.
+
+The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, that means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
 
 Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
 
@@ -186,7 +188,7 @@ Error.args = {
 + };
 ```
 
-Check your newly created story, and click the `Interactions` panel, and you'll see the following.
+Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -195,7 +197,7 @@ Check your newly created story, and click the `Interactions` panel, and you'll s
   />
 </video>
 
-As you've seen, we're able to interact with our UI and quickly check how it responds if we update our tasks, ensuring it stays consistent, all of this without needing to spin up a testing environment or add additional packages.
+The play function allows us to interact with our UI and quickly check how it responds if we update our tasks. That keeps the UI consistent at no extra manual effort. All without needing to spin up a testing environment or add additional packages.
 
 ## Component-Driven Development
 
@@ -210,7 +212,7 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
 
 [**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
 
-We’re not done yet - the job doesn't end when the UI is built, and we also need to ensure that it remains durable over time.
+We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!
