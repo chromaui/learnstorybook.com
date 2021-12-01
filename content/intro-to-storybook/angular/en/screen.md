@@ -5,15 +5,15 @@ description: 'Construct a screen out of components'
 commit: 'b5f0de2'
 ---
 
-We've concentrated on building UIs from the bottom up; starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
 
-In this chapter we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+In this chapter, we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
 
 ## Nested container components
 
-As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskListComponent` (which supplies its own data via ngxs) in some layout and pulling a top-level `error` field out of our store (let's assume we'll set that field if we have some problem connecting to our server).
+As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via ngxs) in some layout and pulling a top-level `error` field out of our store (let's assume we'll set that field if we have some problem connecting to our server).
 
-Let's start by updating the store ( in `src/app/state/task.state.ts`) to include the error field we want:
+Let's start by updating our store ( in `src/app/state/task.state.ts`) to include the error field we want:
 
 ```diff:title=src/app/state/task.state.ts
 import { State, Selector, Action, StateContext } from '@ngxs/store';
@@ -120,7 +120,7 @@ export class TasksState {
 }
 ```
 
-The store is updated with the new field. Let's create a presentational `pure-inbox-screen.component.ts` in `src/app/components/` folder:
+Now that we have the store updated with the new field. Let's create `pure-inbox-screen.component.ts` in `src/app/components/` directory:
 
 ```ts:title=src/app/components/pure-inbox-screen.component.ts
 import { Component, Input } from '@angular/core';
@@ -151,7 +151,7 @@ export class PureInboxScreenComponent {
 }
 ```
 
-Then we can create the container, which like before, grabs the data for `PureInboxScreenComponent`. In a new file called `inbox-screen.component.ts`:
+Then, we can create a container, which again grabs the data for the `PureInboxScreen` component in `inbox-screen.component.ts`:
 
 ```ts:title=src/app/components/inbox-screen.component.ts
 import { Component } from '@angular/core';
@@ -170,7 +170,7 @@ export class InboxScreenComponent {
 }
 ```
 
-We also need to change the `AppComponent` to render the `InboxScreenComponent` (eventually we would use a router to choose the correct screen, but let's not worry about that here):
+We also need to change the `AppComponent` component to render the `InboxScreen` component (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```diff:title=src/app/app.component.ts
 import { Component } from '@angular/core';
@@ -189,7 +189,7 @@ export class AppComponent {
 }
 ```
 
-And finally the `app.module.ts`:
+And finally, the `app.module.ts`:
 
 ```diff:title=src/app/app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
@@ -222,14 +222,14 @@ export class AppModule {}
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskListComponent` component is a **container** that renders the `PureTaskListComponent` presentational component. By definition container components cannot be simply rendered in isolation; they expect to be passed some context or to connect to a service. What this means is that to render a container in Storybook, we must mock (i.e. provide a pretend version) the context or service it requires.
+As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition, container components cannot be simply rendered in isolation; they expect to be passed some context or connected to a service. What this means is that to render a container in Storybook, we must mock (i.e., provide a pretend version) the context or service it requires.
 
-When placing the `TaskListComponent` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskListComponent` and avoiding the container. We'll do something similar and create and render the `PureInboxScreen` in Storybook also.
+When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
 
-However, for the `PureInboxScreenComponent` we have a problem because although the `PureInboxScreenComponent` itself is presentational, its child, the `TaskListComponent`, is not. In a sense the `PureInboxScreenComponent` has been polluted by “container-ness”. So when we setup our stories in `pure-inbox-screen.stories.ts`:
+However, we have a problem with the `PureInboxScreen` because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense, the `PureInboxScreen` has been polluted by “container-ness”. So when we set up our stories in `pure-inbox-screen.stories.ts`:
 
 ```ts:title=src/app/components/pure-inbox-screen.stories.ts
-import { moduleMetadata, Story, Meta } from '@storybook/angular';
+import { moduleMetadata, Meta, Story } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -248,7 +248,7 @@ export default {
   title: 'PureInboxScreen',
 } as Meta;
 
-const Template: Story<PureInboxScreenComponent> = args => ({
+const Template: Story = args => ({
   props: args,
 });
 
@@ -260,32 +260,35 @@ Error.args = {
 };
 ```
 
-We see that our stories are broken now. This is due to the fact that both depend on our store and, even though, we're using a "pure" component for the error both stories still need the context.
+We see that all our stories are no longer working. It's to the fact that both depend on our store and, even though we're using a "pure" component for the error, both stories still need context.
 
-One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data-requirements down the component hierarchy.
+![Broken inbox](/intro-to-storybook/broken-inbox-angular.png)
+
+One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data requirements down the component hierarchy.
 
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
 </div>
 
 ## Supplying context with decorators
 
-The good news is that is pretty straightforward to supply the `Store` to the `PureInboxScreenComponent` in a story! We can supply the `Store` provided in a decorator:
+The good news is that it is easy to supply the `Store` to the `PureInboxScreen` component in a story! We can just import our `Store` in a decorator:
 
 ```diff:title=src/app/components/pure-inbox-screen.stories.ts
-import { moduleMetadata } from '@storybook/angular';
-import { Story, Meta } from '@storybook/angular/types-6-0';
+import { moduleMetadata, Meta, Story } from '@storybook/angular';
+
+import { CommonModule } from '@angular/common';
 
 import { PureInboxScreenComponent } from './pure-inbox-screen.component';
+
 import { TaskModule } from './task.module';
 
 + import { Store, NgxsModule } from '@ngxs/store';
 + import { TasksState } from '../state/task.state';
 
 export default {
-  title: 'PureInboxScreen',
   component:PureInboxScreenComponent,
   decorators: [
     moduleMetadata({
@@ -294,10 +297,10 @@ export default {
 +     providers: [Store],
     }),
   ],
+  title: 'PureInboxScreen',
 } as Meta;
 
-const Template: Story<PureInboxScreenComponent> = (args) => ({
-  component: PureInboxScreenComponent,
+const Template: Story = (args) => ({
   props: args,
 });
 
@@ -321,9 +324,77 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
+## Interactive stories
+
+So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
+
+Can't we automate this workflow and interact with our components automatically?
+
+Storybook's [`play`](https://storybook.js.org/docs/angular/writing-stories/play-function) function allows us to do just that. A play function includes small snippets of code that are run after the story renders.
+
+The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, that means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+
+Let's see it in action! Update your newly created `pure-inbox-screen` story, and set up component interactions by adding the following:
+
+```diff:title=src/app/components/pure-inbox-screen.stories.ts
+import { moduleMetadata, Meta, Story } from '@storybook/angular';
+
++ import { fireEvent, within } from '@storybook/testing-library';
+
+import { CommonModule } from '@angular/common';
+
+import { PureInboxScreenComponent } from './pure-inbox-screen.component';
+import { TaskModule } from './task.module';
+
+import { Store, NgxsModule } from '@ngxs/store';
+import { TasksState } from '../state/task.state';
+
+export default {
+  component:PureInboxScreenComponent,
+  decorators: [
+    moduleMetadata({
+      imports: [CommonModule,TaskModule,NgxsModule.forRoot([TasksState])],
+      providers: [Store],
+    }),
+  ],
+  title: 'PureInboxScreen',
+} as Meta;
+
+const Template: Story = (args) => ({
+  props: args,
+});
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: true,
+};
+
++ export const WithInteractions = Template.bind({});
++ WithInteractions.play = async ({ canvasElement }) => {
++   const canvas = within(canvasElement);
++   // Simulates pinning the first task
++   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
++   // Simulates pinning the third task
++   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++ };
+```
+
+Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    type="video/mp4"
+  />
+</video>
+
+The play function allows us to interact with our UI and quickly check how it responds if we update our tasks. That keeps the UI consistent at no extra manual effort. All without needing to spin up a testing environment or add additional packages.
+
 ## Component-Driven Development
 
-We started from the bottom with `TaskComponent`, then progressed to `TaskListComponent`, now we’re here with a whole screen UI. Our `InboxScreenComponent` accommodates a nested component and includes accompanying stories.
+We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source

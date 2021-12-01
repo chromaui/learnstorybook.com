@@ -5,65 +5,34 @@ description: 'Learn how to wire in data to your UI component'
 commit: '167467b'
 ---
 
-So far we created isolated stateless components –great for Storybook, but ultimately not useful until we give them some data in our app.
+So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
 
-This tutorial doesn’t focus on the particulars of building an app so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
 
 ## Container components
 
-Our `TaskList` component as currently written is “presentational” (see [this blog post](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)) in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-This example uses [Redux](https://redux.js.org/), the most popular React library for storing data, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+This example uses [Redux Toolkit](https://redux-toolkit.js.org/), the most effective toolset for developing applications for storing data with [Redux](https://redux.js.org/), to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
 Add the necessary dependencies to your project with:
 
 ```bash
-yarn add react-redux redux
+yarn add @reduxjs/toolkit react-redux
 ```
 
-First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` in the `src` folder (intentionally kept simple):
+First, we’ll construct a simple Redux store that responds to actions that change the task's state in a file called `store.js` in the `src/lib` directory (intentionally kept simple):
 
-```js:title=src/lib/redux.js
-// A simple redux store/actions/reducer implementation.
-// A true app would be more complex and separated into different files.
-import { createStore } from 'redux';
+```js:title=src/lib/store.js
+/* A simple redux store/actions/reducer implementation.
+ * A true app would be more complex and separated into different files.
+ */
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-// The actions are the "names" of the changes that can happen to the store
-export const actions = {
-  ARCHIVE_TASK: 'ARCHIVE_TASK',
-  PIN_TASK: 'PIN_TASK',
-};
-
-// The action creators bundle actions with the data required to execute them
-export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = id => ({ type: actions.PIN_TASK, id });
-
-// All our reducers simply change the state of a single task.
-function taskStateReducer(taskState) {
-  return (state, action) => {
-    return {
-      ...state,
-      tasks: state.tasks.map(task =>
-        task.id === action.id ? { ...task, state: taskState } : task
-      ),
-    };
-  };
-}
-
-// The reducer describes how the contents of the store change for each action
-export const reducer = (state, action) => {
-  switch (action.type) {
-    case actions.ARCHIVE_TASK:
-      return taskStateReducer('TASK_ARCHIVED')(state, action);
-    case actions.PIN_TASK:
-      return taskStateReducer('TASK_PINNED')(state, action);
-    default:
-      return state;
-  }
-};
-
-// The initial state of our store when the app loads.
-// Usually you would fetch this from a server
+/*
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server.
+ */
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -71,11 +40,43 @@ const defaultTasks = [
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-// We export the constructed redux store
-export default createStore(reducer, { tasks: defaultTasks });
+/*
+ * The store is created here.
+ * You can read more about Redux Toolkit's slices in the docs:
+ * https://redux-toolkit.js.org/api/createSlice
+ */
+const TasksSlice = createSlice({
+  name: 'tasks',
+  initialState: defaultTasks,
+  reducers: {
+    updateTaskState: (state, action) => {
+      const { id, newTaskState } = action.payload;
+      const task = state.findIndex(task => task.id === id);
+      if (task >= 0) {
+        state[task].state = newTaskState;
+      }
+    },
+  },
+});
+
+// The actions contained in the slice are exported for usage in our components
+export const { updateTaskState, updateTaskTitle } = TasksSlice.actions;
+
+/*
+ * Our app's store configuration goes here.
+ * Read more about Redux's configureStore in the docs:
+ * https://redux-toolkit.js.org/api/configureStore
+ */
+const store = configureStore({
+  reducer: {
+    tasks: TasksSlice.reducer,
+  },
+});
+
+export default store;
 ```
 
-Then we’ll update the default export from the `TaskList` component to connect to the Redux store and render the tasks we are interested in:
+Then we’ll update our `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -83,7 +84,7 @@ import PropTypes from 'prop-types';
 
 import Task from './Task';
 
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { archiveTask, pinTask } from '../lib/redux';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -105,24 +106,39 @@ PureTaskList.defaultProps = {
   loading: false,
 };
 
-export default connect(
-  ({ tasks }) => ({
-    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
-  }),
-  dispatch => ({
-    onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id)),
-  })
-)(PureTaskList);
+export function TaskList() {
+  // We're retrieving our state from the store
+  const tasks = useSelector(state => state.tasks);
+  // We're defining an variable to handle dispatching the actions back to the store
+  const dispatch = useDispatch();
+
+  const pinTask = value => {
+    // We're dispatching the Pinned event back to our store
+    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
+  };
+  const archiveTask = value => {
+    // We're dispatching the Archive event back to our store
+    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
+  };
+
+  const filteredTasks = tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED');
+  return (
+    <PureTaskList
+      tasks={filteredTasks}
+      onPinTask={task => pinTask(task)}
+      onArchiveTask={task => archiveTask(task)}
+    />
+  );
+}
 ```
 
-Now that we have some real data populating our component, obtained from Redux, we could have wired it to `src/app.js` and render the component there. But for now let's hold off doing that and continue on our component-driven journey.
+Now that we have some actual data populating our component, obtained from the Redux store, we could have wired it to `src/App.js` and render the component there. But for now, let's hold off doing that and continue on our component-driven journey.
 
-Don't worry about it we'll take care of it in the next chapter.
+Don't worry about it. We'll take care of it in the next chapter.
 
-At this stage, our Storybook tests will have stopped working because `TaskList` is now a container and no longer expects any props. Instead `TaskList` connects to the store and sets the props on the `PureTaskList` component it wraps.
+Our Storybook tests will have stopped working at this stage because `TaskList` is now a container and no longer expects any props. Instead, `TaskList` connects to the store and sets the props on the `PureTaskList` component it wraps.
 
-However, we can easily solve this problem by simply rendering the `PureTaskList` --the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
+However, we can quickly solve this problem by simply rendering the `PureTaskList`--the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
 
 ```diff:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -132,7 +148,7 @@ import * as TaskStories from './Task.stories';
 
 export default {
 + component: PureTaskList,
-  title: 'TaskList',
+  title: 'PureTaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
@@ -185,5 +201,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-💡 With this change your snapshots will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
+💡 With this change all of our tests will require an update. Update the imports and re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
 </div>
