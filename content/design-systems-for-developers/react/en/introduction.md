@@ -29,7 +29,7 @@ Design systems contain reusable UI components that help teams build complex, dur
 
 Designers often talk about building design systems inside their tools. The holistic scope of a design system encompasses assets (Sketch, Figma, etc.), overarching design principles, contribution structure, governance, and more. There’s an abundance of designer-oriented guides that dive deep into these topics so we won’t rehash that here.
 
-For developers, a few things are certain, production design systems must include the UI components and the frontend infrastructure behind it all. There are three technical parts to a design system that we’ll talk about in this guide:
+For developers, a few things are certain. Production design systems must include the UI components and the frontend infrastructure behind it all. There are three technical parts to a design system that we’ll talk about in this guide:
 
 - 🏗 Common reusable UI components
 - 🎨 Design tokens: Styling-specific variables such as brand colors and spacing
@@ -69,6 +69,7 @@ Storybook powers the design systems for [BBC](https://www.bbc.co.uk/iplayer/stor
 - 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions) to QA click and tap interactions
 - 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls) to interactively adjust props to experiment with components
 - 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction) for automatic documentation generation from stories
+- 🔍 [Interactions](https://storybook.js.org/addons/@storybook/addon-interactions/) for debugging component interactions
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow.jpg)
 
@@ -78,7 +79,7 @@ Design systems are an investment in frontend infrastructure. In addition to show
 
 #### Build UI components in isolation
 
-Every design system is composed of UI components. We’ll use Storybook as a “workbench” to build UI components in isolation outside of our consumer apps. Then we’ll integrate timesaving addons that help you increase component durability (Actions, A11y, Controls).
+Every design system is composed of UI components. We’ll use Storybook as a “workbench” to build UI components in isolation outside of our consumer apps. Then we’ll integrate timesaving addons that help you increase component durability (Actions, A11y, Controls, Interactions).
 
 #### Review to reach consensus and gather feedback
 
@@ -100,4 +101,4 @@ Once you have well-documented UI components, you need to distribute them to othe
 
 This guide’s example design system was inspired by Storybook’s own [production design system](https://github.com/storybookjs/design-system). It is consumed by three sites and touched by tens of thousands of developers in the Storybook ecosystem.
 
-In the next chapter we’ll show you how to extract a design system from disparate component libraries.
+In the next chapter, we’ll show you how to extract a design system from disparate component libraries.

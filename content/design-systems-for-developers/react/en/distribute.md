@@ -5,19 +5,19 @@ description: 'Learn to package and import your design system into other apps'
 commit: '47f38a2'
 ---
 
-From an architectural perspective, design systems are yet another frontend dependency. They are no different than popular dependencies like moment or lodash. UI components are code so we can rely on established techniques for code reuse.
+From an architectural perspective, design systems are yet another frontend dependency. They are no different from popular dependencies like moment or lodash. UI components are code, so we can rely on established techniques for code reuse.
 
-This chapter walks through design system distribution from packaging UI components to importing them in other apps. We’ll also uncover timesaving techniques to streamline versioning and release.
+This chapter walks through design system distribution from packaging UI components to importing them into other apps. We’ll also uncover time-saving techniques to streamline versioning and release.
 
 ![Propagate components to sites](/design-systems-for-developers/design-system-propagation.png)
 
 ## Package the design system
 
-Organizations have thousands of UI components spread across different apps. Previously, we extracted the most common components into our design system. Now we need to reintroduce those components back into the apps.
+Organizations have thousands of UI components spread across different apps. Previously, we extracted the most common components into our design system, and now we need to reintroduce those components back into the apps.
 
 Our design system uses JavaScript package manager npm to handle distribution, versioning, and dependency management.
 
-There are many valid methods for packaging design systems. Gander at design systems from Lonely Planet, Auth0, Salesforce, GitHub, and Microsoft to see a diversity in approaches. Some folks deliver each component as a separate package. Others ship all components in one package.
+There are many valid methods for packaging design systems. Gander at design systems from Lonely Planet, Auth0, Salesforce, GitHub, and Microsoft to see a diversity in approaches. Some folks deliver each component as a separate package, and others ship all components in one package.
 
 For nascent design systems, the most direct way is to publish a single versioned package that encapsulates:
 
@@ -29,7 +29,7 @@ For nascent design systems, the most direct way is to publish a single versioned
 
 ## Prepare your design system for export
 
-As we used [Create React App](https://github.com/facebook/create-react-app) (CRA) as a starting point for our design system, there are still vestiges of the initial app and scripts that were created for us. Let’s clean them up now.
+As we used [Create React App](https://github.com/facebook/create-react-app) (CRA) as a starting point for our design system, there are still vestiges of the initial app. Let’s clean them up now.
 
 First, update the README.md to something more descriptive:
 
@@ -41,7 +41,7 @@ The Storybook design system tutorial is a subset of the full [Storybook design s
 Learn more in [Storybook tutorials](https://storybook.js.org/tutorials/).
 ```
 
-Then, let’s create a `src/index.js` file to create a common entry point for using our design system. From this file we’ll export all our design tokens and the components:
+Then, let’s create a `src/index.js` file to create a common entry point for our design system. From this file, we’ll export all our design tokens and the components:
 
 ```js:title=src/index.js
 import * as styles from './shared/styles';
@@ -60,7 +60,7 @@ export * from './Link';
 
 We'll need some additional development packages, we're going to use [`@babel/cli`](https://www.npmjs.com/package/@babel/cli) and [`cross-env`](https://www.npmjs.com/package/cross-env) to help us with the build process.
 
-In your command line issue the following command:
+In your command line, issue the following command:
 
 ```shell
 yarn add --dev @babel/cli cross-env
@@ -68,7 +68,7 @@ yarn add --dev @babel/cli cross-env
 
 With the packages installed, we'll need to implement the build process.
 
-Thankfully for us, Create React App (CRA), has already taken care of this for us. We'll use the existing `build` script and change it to build our design system to the `dist` directory:
+Thankfully for us, Create React App (CRA) has already taken care of this for us. We'll use the existing `build` script and change it to build our design system to the `dist` directory:
 
 ```json:title=package.json
 {
@@ -78,7 +78,7 @@ Thankfully for us, Create React App (CRA), has already taken care of this for us
 }
 ```
 
-With our build process implemented. We'll need to fine tune it. Locate the `babel` key in your `package.json` and update it to the following:
+With our build process implemented. We'll need to fine-tune it. Locate the `babel` key in your `package.json` and update it to the following:
 
 ```json:title=package.json
 {
@@ -104,7 +104,7 @@ dist
 
 #### Adding package metadata for publication
 
-To ensure consumers of the package get all the information necessary, some additional work is required on our `package.json`. The easiest way to do it, is simply running `yarn init` -- a command that initializes the package for publication:
+We'll need to make changes to our `package.json` to ensure our package consumers get all the necessary information. The easiest way to do it is simply running `yarn init`--a command that initializes the package for publication:
 
 ```shell
 # Initializes a scoped package
@@ -141,7 +141,7 @@ All in all, it will update `package.json` with new values as a result of those q
 💡 For brevity purposes <a href="https://docs.npmjs.com/creating-and-publishing-scoped-public-packages">package scopes</a> weren't mentioned. Using scopes allows you to create a package with the same name as a package created by another user or organization without conflict.
 </div>
 
-Now we’ve prepared our package, we can publish it to npm for the first time!
+Now that we’ve prepared our package, we can publish it to npm for the first time!
 
 ## Release management with Auto
 
@@ -157,7 +157,7 @@ Auto is a command line tool we can use for various common tasks around release m
 
 #### Getting a GitHub and npm token
 
-For the next few steps, Auto is going to talk to GitHub and npm. In order for that to work correctly, we’ll need a personal access token. You can get one of those on [this page](https://github.com/settings/tokens) for GitHub. The token will need the `repo` scope.
+For the next few steps, Auto is going to talk to GitHub and npm. For that to work correctly, we’ll need a personal access token. You can get one of those on [this page](https://github.com/settings/tokens) for GitHub. The token will need the `repo` scope.
 
 For npm, you can create a token at the URL: https://www.npmjs.com/settings/&lt;your-username&gt;/tokens.
 
@@ -170,7 +170,7 @@ GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
-By adding the file to `.gitignore` we’ll be sure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package from locally (later we’ll set things up to auto publish when PRs are merged to the default branch) they should set up their own `.env` file following this process:
+By adding the file to `.gitignore`, we ensure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package locally (later we’ll set things up to auto-publish when a pull request is merged into the default branch), they should set up their own `.env` file following this process:
 
 ```
 dist
@@ -179,7 +179,7 @@ dist
 
 #### Create labels on GitHub
 
-The first thing we need to do with Auto is to create a set of labels in GitHub. We’ll use these labels in the future when making changes to the package (see the next chapter) and that’ll allow `auto` to update the package version sensibly and create a changelog and release notes.
+The first thing we need to do with Auto is to create a set of labels in GitHub. We’ll use these labels in the future when making changes to the package (see the next chapter), and that’ll allow `auto` to update the package version sensibly and create a changelog and release notes.
 
 ```bash
 yarn auto create-labels
@@ -199,9 +199,9 @@ In the future, we’ll calculate new version numbers with `auto` via scripts, bu
 yarn auto changelog
 ```
 
-This will generate a long changelog entry with every commit we’ve created so far (and a warning we’ve been pushing to the default branch, which we should stop doing soon).
+It will generate a long changelog entry with every commit we’ve created so far (and a warning we’ve been pushing to the default branch, which we should stop doing soon).
 
-Although it is useful to have an auto-generated changelog so you don’t miss things, it’s also a good idea to manually edit it and craft the message in the most useful way for users. In this case, the users don’t need to know about all the commits along the way. Let’s make a nice simple message for our first v0.1.0 version. First undo the commit that Auto just created (but keep the changes:
+Although it is helpful to have an auto-generated changelog, so you don’t miss things, it’s also a good idea to manually edit it and craft the message in the most useful way for users. In this case, the users don’t need to know about all the commits along the way. Let’s make a nice simple message for our first v0.1.0 version. First undo the commit that Auto just created (but keep the changes:
 
 ```shell
 git reset HEAD^
@@ -266,7 +266,7 @@ Let’s set up Auto to follow the same process when we want to publish the packa
 
 Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. All commits to the default branch will be published.
 
-Congratulations! You setup the infrastructure to manually publish your design system releases. Now learn how to automate releases with continuous integration.
+Congratulations! You set up the infrastructure to manually publish your design system releases. Now learn how to automate releases with continuous integration.
 
 ## Publish releases automatically
 
@@ -274,7 +274,7 @@ We use GitHub Actions for continuous integration. But before proceeding, we need
 
 #### Add your tokens to GitHub Secrets
 
-GitHub Secrets allow us to store sensitive information in our repository. In a browser window open your GitHub repository.
+GitHub Secrets allow us to store sensitive information in our repository. In a browser window, open your GitHub repository.
 
 Click the ⚙️ Settings tab then the Secrets link in the sidebar. You'll see the following screen:
 
@@ -284,11 +284,11 @@ Click the **New secret** button. Use `NPM_TOKEN` for the name and paste the toke
 
 ![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
 
-When you add the npm secret to your repository, you'll be able to access it as `secrets.NPM_TOKEN`. You don't need to setup another secret for your GitHub token. All GitHub users automatically get a `secrets.GITHUB_TOKEN` associated with their account.
+When you add the npm secret to your repository, you'll be able to access it as `secrets.NPM_TOKEN`. You don't need to set up another secret for your GitHub token. All GitHub users automatically get a `secrets.GITHUB_TOKEN` associated with their account.
 
 #### Automate releases with GitHub Actions
 
-Every time a pull request is merged we want to publish the design system automatically. Create a new file called `push.yml` in the same folder we used earlier to <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a> and add the following:
+Every time we merge a pull request, we want to publish the design system automatically. Create a new file called `push.yml` in the same folder we used earlier to <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a> and add the following:
 
 ```yml:title=.github/workflows/push.yml
 # Name of our action
@@ -343,15 +343,15 @@ Success! Now every time you merge a PR to the default branch, it will automatica
 
 ## Import the design system in an app
 
-Now that our design system lives online, it’s trivial to install the dependency and start using the UI components.
+Now that our design system lives online installing the dependency and using the UI components is trivial.
 
 #### Get the example app
 
-Earlier in this tutorial, we standardized on a popular frontend stack that includes React and styled-components. That means our example app must also use React and styled-components to take full advantage of the design system.
+Earlier in this tutorial, we standardized on a popular frontend stack that includes React and Styled Components. That means our example app must also use React and Styled Components to take full advantage of the design system.
 
-<div class="aside">💡 Other promising methods like Svelte or web components may allow you to ship framework-agnostic UI components . However, they are relatively new, under-documented, or lack widespread adoption so they’re not included in this guide yet.</div>
+<div class="aside">💡 Other promising methods like Svelte or web components may allow you to ship framework-agnostic UI components. However, they are relatively new, under-documented, or lack widespread adoption, so they’re not included in this guide yet.</div>
 
-The example app uses Storybook to facilitate [Component-Driven Development](https://www.componentdriven.org/), an app development methodology of building UIs from the bottom up starting with components and ending with pages. During the demo, we’ll run two Storybook’s side-by-side: one for our example app and one for our design system.
+The example app uses Storybook to facilitate [Component-Driven Development](https://www.componentdriven.org/), an app development methodology for building UIs from the bottom, starting with components ending with pages. We’ll run two Storybooks side-by-side during the demo: one for our example app and one for our design system.
 
 Run the following commands in your command line to set up the example app:
 
@@ -374,7 +374,7 @@ You should see the Storybook running with the stories for the simple components 
 
 <h4>Integrating the design system</h4>
 
-We have our design system's Storybook published, let's add it to our example app. We can do that by updating example app’s `.storybook/main.js` to the following:
+We have our design system's Storybook published. Let's add it to our example app. We can do that by updating example app’s `.storybook/main.js` to the following:
 
 ```diff:title=.storybook/main.js
 // .storybook/main.js
@@ -393,6 +393,8 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
   ],
+  framework: '@storybook/react',
+  staticDirs: ['../public'],
 };
 ```
 
@@ -425,7 +427,11 @@ import { global as designSystemGlobal } from '@your-npm-username/learnstorybook-
 
 const { GlobalStyle } = designSystemGlobal;
 
-// Adds a global decorator to include the imported styles from the design system.
+/*
+ * Adds a global decorator to include the imported styles from the design system.
+ * More on Storybook decorators at:
+ * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
+ */
 export const decorators = [
   Story => (
     <>
@@ -434,7 +440,10 @@ export const decorators = [
     </>
   ),
 ];
-
+/*
+ * More on Storybook parameters at:
+ * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
+ */
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
@@ -442,9 +451,9 @@ export const parameters = {
 
 ![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
 
-We’ll use the `Avatar` component from our design system in the example app’s `UserItem` component. `UserItem` should render information about a user including a name and profile photo.
+We’ll use the `Avatar` component from our design system in the example app’s `UserItem` component. `UserItem` should render information about a user, including a name and profile photo.
 
-In your editor, open the `UserItem` component located in `src/components/UserItem.js`. Also, select `UserItem` in your Storybook, to see the code changes we're about to make instantly with hot module reload.
+In your editor, open the `UserItem` component located in `src/components/UserItem.js`. Also, select `UserItem` in your Storybook to see the code changes we're about to make instantly with hot module reload.
 
 Import the Avatar component.
 
@@ -487,7 +496,7 @@ export default ({ user: { name, avatarUrl } }) => (
 );
 ```
 
-Upon save, the `UserItem` component will update in Storybook to show the new Avatar component. Since `UserItem` is a part of the `UserList` component, you’ll see the `Avatar` in `UserList` as well.
+Upon save, the `UserItem` component will update in Storybook to show the new Avatar component. Since `UserItem` is a part of the `UserList` component, you’ll also see the `Avatar` in `UserList`.
 
 ![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
 
@@ -497,6 +506,6 @@ There you have it! You just imported a design system component into the example 
 
 ## Master the design system workflow
 
-The design system workflow starts with developing UI components in Storybook and ends with distributing them to client apps. That’s not all though. Design systems must continually evolve to serve ever-changing product requirements. Our work has only just begun.
+The design system workflow starts with developing UI components in Storybook and ends with distributing them to client apps. That’s not all though. Design systems must continually evolve to serve ever-changing product requirements, and our work has only just begun.
 
 Chapter 8 illustrates the end-to-end design system workflow we created in this guide. We’ll see how UI changes ripple outward from the design system.

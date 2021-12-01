@@ -15,7 +15,7 @@ Before we begin, let’s figure out what makes sense to test. Design systems are
 
 ![Component states are combinatorial](/design-systems-for-developers/component-test-cases.png)
 
-Whoa! As you can see, one component contains many states. Multiply the states by the number of design system components and you can see why keeping track of them all is a Sisyphean task. In reality, it’s unsustainable to review each experience by hand, especially as the design system grows.
+Whoa! As you can see, one component contains many states. Multiply the states by the number of design system components, and you can see why keeping track of them all is a Sisyphean task. In reality, it’s unsustainable to review each experience by hand, especially as the design system grows.
 
 All the more reason to set up automated testing **now** to save work in the **future**.
 
@@ -23,9 +23,9 @@ All the more reason to set up automated testing **now** to save work in the **fu
 
 I surveyed 4 frontend teams in a [previous article](https://www.chromatic.com/blog/the-delightful-storybook-workflow) about professional Storybook workflows. They agreed on these best practices for writing stories to make testing easy and comprehensive.
 
-**Articulate supported component states** as stories to clarify which combinations of inputs yields a given state. Ruthlessly omit unsupported states to reduce noise.
+**Articulate supported component states** as stories to clarify which combinations of inputs yield a given state. Ruthlessly omit unsupported states to reduce noise.
 
-**Render components consistently** to mitigate variability that can be triggered by randomized (Math.random) or relative (Date.now) inputs.
+**Render components consistently** to mitigate variability that can be triggered by randomized (Math.random()) or relative (Date.now()) inputs.
 
 > “The best kind of stories allow you to visualize all of the states your component could experience in the wild” – Tim Hingston, Tech lead at Apollo GraphQL
 
@@ -43,11 +43,11 @@ In the <a href="https://storybook.js.org/tutorials/design-systems-for-developers
 
 ![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
-Now let's see how visual testing works using Chromatic's built in [testing tools](https://www.chromatic.com/features/test). When the pull request was created, Chromatic captured images for our changes and compared them to previous versions of the same components. 3 changes were found:
+Now let's see how visual testing works using Chromatic's built-in [testing tools](https://www.chromatic.com/features/test). When we created the pull request, Chromatic captured images for our changes and compared them to previous versions of the same components. Four changes were found:
 
 ![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 
-Click the **🟡UI Tests** check to review them.
+Click the **🟡 UI Tests** check to review them.
 
 ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
@@ -71,37 +71,28 @@ Everything is a component in modern view layers like React, Vue, and Angular. Co
 
 For instance, our Link component is a little complicated when combined with systems that generate link URLs (“LinkWrappers” in ReactRouter, Gatsby, or Next.js). A mistake in the implementation can lead to links without a valid href value.
 
-Visually, it isn’t possible to see if the `href` attribute is there and points to the right location, which is why a unit test can be appropriate to avoid regressions.
+Visually, it isn’t possible to see if the `href` attribute is there and points to the correct location, which is why a unit test can be appropriate to avoid regressions.
 
 #### Unit testing hrefs
 
-Let’s add a unit test for our `Link` component. create-react-app has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
+Let’s add a unit test for our `Link` component. [Create React App](https://create-react-app.dev/) has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
 
 ```js:title=src/Link.test.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-
+import { render } from '@testing-library/react';
 import { Link } from './Link';
 
-/**
- * A straightforward link wrapper that renders an <a> with the passed props.
- * What we are testing here is that the Link component passes the right props to the wrapper and itself.
- */
-const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
-
-it('has a href attribute when rendering with linkWrapper', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(
+test('has a href attribute when rendering with linkWrapper', () => {
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  const LinkWrapper = props => <a {...props} />;
+  const { container } = render(
     <Link href="https://storybook.js.org/tutorials/" LinkWrapper={LinkWrapper}>
       Link Text
-    </Link>,
-    div
+    </Link>
   );
 
-  expect(div.querySelector('a[href="https://storybook.js.org/tutorials/"]')).not.toBeNull();
-  expect(div.textContent).toEqual('Link Text');
-
-  ReactDOM.unmountComponentAtNode(div);
+  const linkElement = container.querySelector('a[href="https://storybook.js.org/tutorials/"]');
+  expect(linkElement).not.toBeNull();
+  expect(linkElement.textContent).toEqual('Link Text');
 });
 ```
 
@@ -109,7 +100,7 @@ We can run the above unit test as part of our `yarn test` command.
 
 ![Running a single Jest test](/design-systems-for-developers/jest-test.png)
 
-Earlier we configured our GitHub Action to deploy Storybook, we can now adjust it to include testing as well. Our contributors will now benefit from this unit test. The Link component will be robust to regressions.
+Earlier, we configured our GitHub Action to deploy Storybook, and we can now adjust it to include testing. Our contributors will now benefit from this unit test, and the Link component will be robust to regressions.
 
 ```diff:title=.github/workflows/chromatic.yml
 # ... Same as before
@@ -133,7 +124,7 @@ jobs:
 
 ![Successful circle build](/design-systems-for-developers/gh-action-with-test-successful-build.png)
 
-<div class="aside"> Note: Watch out for too many unit tests which can make updates cumbersome. We recommend unit testing design systems in moderation.</div>
+<div class="aside"> 💡 <strong>Note: </strong>Watch out for too many unit tests which can make updates cumbersome. We recommend unit testing design systems in moderation.</div>
 
 > "Our enhanced automated test suite has empowered our design systems team to move faster with more confidence." – Dan Green-Leipciger, Senior software engineer at Wave
 
@@ -145,7 +136,7 @@ Disabilities affect 15% of the population according to the [World Health Organiz
 
 ![Storybook accessibility addon](/design-systems-for-developers/storybook-accessibility-addon.png)
 
-Get a headstart on inclusive UI with Storybook’s Accessibility addon, a tool for verifying web accessibility standards (WCAG) in realtime.
+Get a headstart on inclusive UI with Storybook’s Accessibility addon, a tool for verifying web accessibility standards (WCAG) in real time.
 
 ```shell
 yarn add --dev @storybook/addon-a11y
@@ -162,7 +153,10 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
 +   '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
   ],
+  framework: '@storybook/react',
+  staticDirs: ['../public'],
 };
 ```
 
@@ -174,6 +168,10 @@ import React from 'react';
 
 import { GlobalStyle } from '../src/shared/global';
 
+/*
+* More on Storybook global decorators at:
+* https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
+*/
 export const decorators = [
   Story => (
     <>
@@ -183,6 +181,10 @@ export const decorators = [
   ),
 ];
 
+/*
+* More on Storybook global parameters at:
+* https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
+*/
 + export const parameters = {
 +   actions: { argTypesRegex: '^on[A-Z].*' },
 +   // Storybook a11y addon configuration
@@ -199,7 +201,7 @@ Once all is setup, you’ll see a new “Accessibility” tab in the Storybook a
 
 ![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y-6-0.png)
 
-This shows you accessibility levels of DOM elements (violations and passes). Click the “highlight results” checkbox to visualize violations in situ with the UI component.
+It shows you the accessibility levels of DOM elements (violations and passes). Click the “highlight results” checkbox to visualize violations in situ with the UI component.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -218,15 +220,15 @@ Paradoxically, tests can save time but also bog down development velocity with m
 
 This technique captures the code output of UI components and compares it to previous versions. Testing UI component markup ends up testing implementation details (code), not what the user experiences in the browser.
 
-Diffing code snapshots is unpredictable and prone to false positives. At the component level, code snapshotting doesn’t account for global changes like design tokens, CSS, and 3rd party API updates (web fonts, Stripe forms, Google Maps, etc.). In practice, developers resort to “approving all” or ignoring snapshot tests altogether.
+Diffing code snapshots are unpredictable and prone to false positives. At the component level, code snapshotting doesn’t account for global changes like design tokens, CSS, and 3rd party API updates (web fonts, Stripe forms, Google Maps, etc.). In practice, developers resort to “approving all” or ignoring snapshot tests altogether.
 
 > Most component snapshot tests are really just a worse version of screenshot tests. Test your outputs. Snapshot what gets rendered, not the underlying (volatile!) markup. – Mark Dalgliesh, Frontend infrastructure at SEEK, CSS modules creator
 
 #### End-to-end tests (Selenium, Cypress)
 
-End-to-end tests traverse the component DOM to simulate the user flow. They’re best suited for verifying app flows like the signup or checkout process. The more complex functionality the more useful this testing strategy.
+End-to-end tests traverse the component DOM to simulate the user flow. They’re best suited for verifying app flows like the signup or checkout process. The more complex functionality, the more useful this testing strategy is.
 
-Design systems contain atomic components with relatively simple functionality. Validating user flows are often overkill for this task because the tests are time-consuming to create and brittle to maintain. However, in rare situations, components may benefit from end-to-end tests. For instance, validating complex UIs like datepickers or self-contained payment forms.
+Design systems contain atomic components with relatively simple functionality. Validating user flows is often overkill for this task because the tests are time-consuming to create and brittle to maintain. However, in rare situations, components may benefit from end-to-end tests. For instance, validating complex UIs like datepickers or self-contained payment forms.
 
 ## Drive adoption with documentation
 

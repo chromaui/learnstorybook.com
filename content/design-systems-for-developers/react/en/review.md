@@ -5,15 +5,15 @@ description: 'Collaborate with continuous integration and visual review'
 commit: 'd65a6bc'
 ---
 
-In chapter 4, we’ll learn professional workflows for making design system improvements while mitigating inconsistencies. This chapter covers techniques for gathering UI feedback and reaching consensus with your team. These production processes are used by folks at Auth0, Shopify, and Discovery Network.
+In chapter 4, we’ll learn professional workflows for making design system improvements while mitigating inconsistencies. This chapter covers techniques for gathering UI feedback and reaching a consensus with your team. These production processes are used by folks at Auth0, Shopify, and Discovery Network.
 
 ## Single source of truth or single point of failure
 
-Previously, I wrote that design systems are a [single point of failure](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) for frontend teams. In essence, design systems are a dependency. If you change a design system component, that change propagates to dependent apps. The mechanism for distributing changes is unbiased – it ships both improvements and bugs.
+Previously, I wrote that design systems are a [single point of failure](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) for frontend teams. In essence, design systems are a dependency. If you change a design system component, that change propagates to dependent apps. The mechanism for distributing changes is unbiased--it ships both improvements and bugs.
 
 ![Design system dependencies](/design-systems-for-developers/design-system-dependencies.png)
 
-Bugs are an existential risk for design systems so we’ll do everything to prevent them. Small tweaks end up snowballing into innumerable regressions. Without an ongoing maintenance strategy design systems wither.
+Bugs are an existential risk for design systems, so we’ll do everything to prevent them. Minor tweaks end up snowballing into innumerable regressions. Without an ongoing maintenance strategy, design systems wither.
 
 > “But it works on my machine?!” – everyone
 
@@ -25,19 +25,19 @@ Most developers are familiar with code review, the process of gathering code fee
 
 ### Establish a universal reference point
 
-Delete node_modules. Reinstall packages. Clear localstorage. Delete cookies. If these actions sound familiar, you know how tough it is to ensure teammates reference the latest code. When folks don’t have identical dev environments it’s a nightmare to discern issues caused by the local environment from real bugs.
+Delete node_modules. Reinstall packages. Clear localstorage. Delete cookies. If these actions sound familiar, you know how tough it is to ensure teammates reference the latest code. When folks don’t have identical dev environments, it’s a nightmare to discern issues caused by the local environment from actual bugs.
 
-Fortunately, as frontend developers, we have a common compile target: the browser. Savvy teams publish their Storybook online to serve as a universal reference point for visual review. This sidesteps the inherent complications of local dev environments (it’s annoying to be tech support anyways).
+Fortunately, as frontend developers, we have a common compile target: the browser. Savvy teams publish their Storybook online to serve as a universal reference point for visual review, sidestepping the inherent complications of local dev environments (it’s annoying to be tech support anyways).
 
 ![Review your work in the cloud](/design-systems-for-developers/design-system-visual-review.jpg)
 
-When living UI components are accessible via a URL, stakeholders can confirm UI look and feel from the comfort of their own browsers. That means developers, designers, and PMs don’t have to fuss with a local development environment, pass screenshots around, or reference out of date UI.
+When living UI components are accessible via a URL, stakeholders can confirm UI look and feel from the comfort of their browsers. That means developers, designers, and PMs don’t have to fuss with a local development environment, pass screenshots around, or reference outdated UIs.
 
 > "Deploying Storybook each PR makes visual review easier and helps product owners think in components." –Norbert de Langen, Storybook core maintainer
 
 <h2 id="publish-storybook">Publish Storybook</h2>
 
-We will demonstrate a visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/basics/exporting-storybook/) it to other hosting services as well.
+We will demonstrate a visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/react/workflows/publish-storybook) it to other hosting services as well.
 
 ### Get Chromatic
 
@@ -45,7 +45,7 @@ First, go to [chromatic.com](https://chromatic.com) and sign up with your GitHub
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
-From there choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
+From there, choose your design system repo. Behind the scenes, this will sync access permissions and instrument the PR checks.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -60,7 +60,7 @@ Install the [chromatic](https://www.npmjs.com/package/chromatic) package via npm
 yarn add --dev chromatic
 ```
 
-Once it's installed, run the the following command to build and deploy your Storybook (you'll need to use the `project-token` that Chromatic supplies on the website):
+Once it's installed, run the following command to build and deploy your Storybook (you'll need to use the `project-token` that Chromatic supplies on the website):
 
 ```shell
 npx chromatic --project-token=<project-token>
@@ -68,7 +68,7 @@ npx chromatic --project-token=<project-token>
 
 ![Chromatic in the command line](/design-systems-for-developers/chromatic-manual-storybook-console-log.png)
 
-Browse your published Storybook by copying the provided link and paste it in a new browser window. You’ll find that your local Storybook development environment is mirrored online.
+Browse your published Storybook by copying the provided link and pasting it in a new browser window. You’ll find that your local Storybook development environment is mirrored online.
 
 ![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook-6-0.png)
 
@@ -76,7 +76,7 @@ This makes it easy for your team to review the real rendered UI components just 
 
 ![Result of our first Chromatic build](/design-systems-for-developers/chromatic-first-build.png)
 
-Congratulations! Now that you set up the infrastructure to publish Storybook, let's improve it with continuous integration.
+Congratulations! Now that you set up the infrastructure to publish Storybook let's improve it with continuous integration.
 
 ### Continuous integration
 
@@ -86,7 +86,7 @@ We'll use GitHub Actions, which is free for our modest usage. The same principle
 
 Add a `.github` directory at the top level. Then create another directory called `workflows`.
 
-Create a file called chromatic.yml like the one below. This will allow us to script how our CI process behaves. We'll start small for now and continue to improve it as we progress:
+Create a file called chromatic.yml like the one below. It will allow us to script how our CI process behaves. We'll start small for now and continue to improve it as we progress:
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Name of our action
@@ -136,7 +136,7 @@ Success! We improved our infrastructure.
 
 ## Request visual review from your team
 
-Every time a pull request contains UI changes, it’s useful to initiate a visual review process with stakeholders to reach a consensus on what’s being shipped to the user. That way there are no unwanted surprises or expensive rework.
+Whenever a pull request contains UI changes, it’s useful to initiate a visual review process with stakeholders to reach a consensus on what’s being shipped to the user. That way, there are no unwanted surprises or expensive rework.
 
 We’ll demo visual review by making a UI change on a new branch.
 
@@ -170,7 +170,7 @@ In your list of PR checks at the bottom of the page, click **Storybook Publish**
 
 ![Button component changed in deployed site](/design-systems-for-developers/chromatic-deployed-site-with-changed-button.png)
 
-For each component and story that changed, copy the URL from the browser address bar and paste it wherever your team manages tasks (GitHub, Asana, Jira, etc) to help teammates quickly review the relevant stories.
+For each component and story that changed, copy the URL from the browser address bar and paste it wherever your team manages tasks (GitHub, Asana, Jira, etc.) to help teammates quickly review the relevant stories.
 
 ![GitHub PR with links to storybook](/design-systems-for-developers/github-created-pr-with-links-actions.png)
 
@@ -178,7 +178,7 @@ Assign the issue to your teammates and watch the feedback roll in.
 
 ![Why?!](/design-systems-for-developers/github-visual-review-feedback.gif)
 
-<div class="aside">💡 Chromatic also offers a complete UI Review workflow built into the product as part of its paid offering. The technique of copying Storybook links into a GitHub PR works at a smaller scale (and with any service that hosts your Storybook, not just Chromatic), but as your use increases you may consider that services as it automates the process.</div>
+<div class="aside">💡 Chromatic also offers a complete UI Review workflow built into the product as part of its paid offering. The technique of copying Storybook links into a GitHub PR works at a smaller scale (and with any service that hosts your Storybook, not just Chromatic), but as your use increases, you may consider that services as it automates the process.</div>
 
 In software development, most defects stem from miscommunication and not technology. Visual review helps teams gather continuous feedback during development to ship design systems faster.
 
