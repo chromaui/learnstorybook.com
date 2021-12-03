@@ -1,6 +1,6 @@
 ---
 title: 'Testing user flows'
-tocTitle: 'User flow testing'
+tocTitle: 'User flow'
 description: 'Verify that your UI works end-to-end'
 commit: '84af22d'
 ---

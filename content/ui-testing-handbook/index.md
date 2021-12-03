@@ -10,7 +10,6 @@ heroAnimationName: null
 toc:
   [
     'introduction',
-    'strategy',
     'visual-testing',
     'composition-testing',
     'interaction-testing',

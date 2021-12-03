@@ -1,6 +1,6 @@
 ---
 title: 'Accessibility testing with Storybook'
-tocTitle: 'Accessibility testing'
+tocTitle: 'Accessibility'
 description: 'Fast feedback with integrated tooling'
 commit: 'b743f7a'
 ---

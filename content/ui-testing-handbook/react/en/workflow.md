@@ -5,42 +5,13 @@ description: 'A testing workflow that doesn’t slow you down'
 commit: '83c4adf'
 ---
 
-We've covered different aspects of UI that need testing and which tools work best—that's the easy part. But knowing how to combine them into a productive workflow is tricky. If you get it wrong, the UI development process feels like a slog. Your tests break whenever there's an implementation tweak. You have to duplicate test cases for every tool, and it all spirals into a maintenance nightmare.
+It should be seamless to build and test UI components. This workflow reduces maintenance burden while giving flexibility in how you run tests. This chapter showcases the UI testing workflow by adding in the ability to delete a task.
 
-I interviewed ten teams from companies like Twilio, Adobe, Peloton and Shopify to see how they balanced UI testing effort and value. Despite differences in team size and tech stack, folks had similar tactics. This chapter combines those learnings into the pragmatic workflow described below.
+<img style="max-width: 500px;" src="/ui-testing-handbook/ui-testing-workflow.png" />
 
-1.  📚 **Isolate components using** [**Storybook**](http://storybook.js.org/). Write test cases where each state is reproduced using props and mock data.
-2.  ✅ **Catch visual bugs and verify composition** using [Chromatic](https://www.chromatic.com/).
-3.  **🐙 Verify interactions** with [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/).
-4.  ♿️ **Audit accessibility** of your components using [Axe](https://www.deque.com/axe/).
-5.  🔄 **Verify user flows** by writing end-to-end tests with [Cypress](https://www.cypress.io/).
-6.  🚥 **Catch regressions** by automatically running tests with [GitHub Actions](https://github.com/features/actions).
+## Build
 
-## What works
-
-It should be seamless to build and test UI components. That comes down to two considerations: reducing maintenance burden while adding flexibility in how you run tests.
-
-### Test at the component level to find bugs faster
-
-The teams I surveyed also shared that they mostly run tests at the component level. Components allow you to break up the interface into isolated chunks. Testing in isolation makes it easier to pinpoint bugs.
-
-### Reuse stories to reduce maintenance
-
-Each type of test uses different tools. This means you're often replicating the same component state over and over. That's a headache to set up and maintain. Storybook enables you to isolate a component and capture all test cases in a `*.stories.js` file. You can then [import them](https://storybook.js.org/blog/stories-are-tests/) into tools such as Jest and Cypress. The end result, you only have to write your test cases once.
-
-### Test while you code for a faster feedback loop
-
-During development, you're focused on a handful of components related to the feature you're working on. Therefore, you'll want to run targeted tests on just those components.
-
-### Run all checks before you merge
-
-When you're getting ready to merge, you'll want to check for regression bugs. That means running your entire test suite automatically using a CI server.
-
-![](/ui-testing-handbook/ui-testing-workflow.png)
-
-## UI Testing workflow in practice
-
-To demonstrate this process, let's add in the ability to delete a task and step through the entire testing workflow.
+The Task component already allows users to edit, pin and archive a task. We'll add a delete button and wire that up to the application state to add the delete functionality.
 
 ![](/ui-testing-handbook/add-delete-button.png)
 
@@ -189,3 +160,9 @@ You can run targeted E2E tests during development but, that requires you to spin
 Just like all your other tests, Github actions will also run E2E tests using Cypress.
 
 ![](/ui-testing-handbook/user-flow-ci.png)
+
+## Your journey begins
+
+Design Systems for Developers highlights the end-to-end workflow used by professional frontend teams to give you a headstart as you develop your own. As your design system grows, add, rearrange, and extend these tools to fit your team’s needs.
+
+Chapter 9 concludes with the complete sample code, helpful resources, and frequently asked questions from developers.

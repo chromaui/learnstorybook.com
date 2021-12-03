@@ -80,7 +80,7 @@ module.exports = {
       },
       'ui-testing-handbook': {
         react: {
-          en: 6.3,
+          en: 6.4,
         },
       },
     },

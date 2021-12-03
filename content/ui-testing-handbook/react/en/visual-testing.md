@@ -1,6 +1,6 @@
 ---
 title: 'Visual testing in Storybook'
-tocTitle: 'Visual testing'
+tocTitle: 'Visual'
 description: 'Learn how to pinpoint UI bugs automatically'
 commit: '1421db5'
 ---

@@ -1,6 +1,6 @@
 ---
 title: 'Testing composite components'
-tocTitle: 'Composition testing'
+tocTitle: 'Composition'
 description: 'Prevent minor changes from turning into major regressions'
 commit: '31127ed'
 ---

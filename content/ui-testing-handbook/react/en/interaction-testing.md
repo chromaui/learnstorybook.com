@@ -1,6 +1,6 @@
 ---
 title: 'Testing component interactions'
-tocTitle: 'Interaction testing'
+tocTitle: 'Interaction'
 description: 'Learn how to simulate user behaviour and run functional checks'
 commit: '1ec6b03'
 ---
