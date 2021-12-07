@@ -9,7 +9,7 @@ You flip the switch, and the light doesn’t turn on. It could be a burnt-out li
 
 Apps are the same. On the surface is the UI that the user sees and interacts with. Under the hood, the UI is wired up to facilitate the flow of data and events.
 
-As you build more complex UIs like pages, components become responsible for more than just rendering the UI. They fetch data and manage state. This article walks through testing interactive components. You’ll learn how to use a computer to simulate and verify user interactions.
+As you build more complex UIs like pages, components become responsible for more than just rendering the UI. They fetch data and manage state. This chapter will teach you how to use a computer to simulate and verify user interactions.
 
 ![](/ui-testing-handbook/1_bfTfHf-9RSQ_s3FhnRBaeQ.png)
 
@@ -236,12 +236,6 @@ In summary, the setup code lives in the stories file, and the actions and assert
 
 ![](/ui-testing-handbook/yarn-test-all.png)
 
-## Stories are a jumping-off point for all types of tests
+## Catching usability issues
 
-Components aren't static. The user can interact with the UI and trigger state updates. To verify these functional qualities, you write tests that simulate user behaviour. Interaction tests check the connection between the components, i.e., events and data are flowing. And that the underlying logic is correct.
-
-![](/ui-testing-handbook/csf.png)
-
-Writing test cases as stories means that you only need to do the tricky setup once: isolate components, mock their dependencies and capture their use cases. All that setup can then be [imported](https://storybook.js.org/blog/stories-are-tests/) into other testing frameworks which saves you time and headache.
-
-What’s more, the portability of stories also simplifies accessibility testing. The next chapter breaks down how you can automate accessibility checks during dev and QA.
+When you ensure your UI is usable to every user, you impact the business financials and satisfy [legal requirements](https://www.w3.org/WAI/policies/?q=government). It’s a win-win. The next chapter demonstrates how you can leverage the portability of stories to simplify accessibility testing.

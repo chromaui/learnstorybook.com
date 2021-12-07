@@ -237,10 +237,8 @@ Now try changing something in the Task component, something like font size or ba
 
 ![](/ui-testing-handbook/cascading-stories.gif)
 
-The tree-like nature of applications means that any tweak to the Task component will also be caught by tests for higher level components. Testing composite components allows you to catch bugs before you deploy to prod.
+The tree-like nature of applications means that any tweak to the Task component will also be caught by tests for higher level components. Composition testing allows you to understand the potential impact of every small changes.
 
-## Squashing bugs at scale
-
-Given the scale of modern applications, developers can't know all the different places where a component is being used. So you often end up shipping bugs accidentally, which in turn bogs you down. Composition testing allows you to understand the potential impact of small changes. It also catches bugs before they snowball into significant regressions.
+## Verifying component functionality
 
 Next up, we'll go beyond appearance and into testing interactions. When the user checks off a task, how do you ensure that the suitable event was fired and that state updated correctly?

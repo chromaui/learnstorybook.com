@@ -314,17 +314,9 @@ Regression testing ensures that we don’t introduce changes by accident. But it
 
 ❌ If the changes are unintentional, press deny. The build will fail. Fix the code and run Chromatic again.
 
-In our case, the changes were intentional. Go ahead and click accept for all stories.
-
-## Visual testing workflow
-
-Visual tests offer high value and require very little effort to maintain. Unlike other forms of testing, they evaluate the actual rendered output of a component. So you can ensure that the UI looks the way it is intended—when you first build it. And that no inadvertent changes sneak through during subsequent updates.
-
-The whole workflow is illustrated below.
+In our case, the changes were intentional. Go ahead and click accept for all stories. The whole workflow is illustrated below.
 
 ![Build in storybook and run visual tests with Chromatic. If changes look good, then merge your PR.](/ui-testing-handbook/visual-testing-workflow.png)
-
-<div class="aside">For more on this topic, check out: <a href="/visual-testing-handbook">Visual Testing Handbook</a>. It's is an in-depth guide to testing UI appearance—with learnings from leading engineering teams like BBC, Adobe, Target and more.</div>
 
 ## Using visual tests to stop one bug from turning into many
 

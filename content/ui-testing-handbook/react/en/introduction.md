@@ -18,7 +18,7 @@ This guide highlights UI testing techniques used by scaled engineering teams. Yo
 
 ## What needs testing?
 
-All major JavaScript frameworks are component-driven. That means UIs are built from the “bottom-up”, starting with atomic components and progressively composed into pages.
+All major JavaScript frameworks are [component-driven](https://www.componentdriven.org/). That means UIs are built from the “bottom-up”, starting with atomic components and progressively composed into pages.
 
 Remember, every piece of UI is now a component. Yup, that includes pages. The only difference between a page and a button is how they consume data.
 

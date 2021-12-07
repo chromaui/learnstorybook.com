@@ -4,6 +4,10 @@ tocTitle: 'Conclusion'
 description: 'Help automate and extend Storybook'
 ---
 
+<!-- Link to sample code
+Link to live Storybook of the tutorial
+Link to additional resources if necessary -->
+
 Developers spend [21% of their time](https://www.niss.org/sites/default/files/technicalreports/tr81.pdf) fixing bugs. Tests help reduce the amount of work you have to do by catching defects and speeding up debugging. They verify everything from visual appearance to logic and even detect integration issues.
 
 But every new feature introduces more UI and states that need tests. The only way to stay productive is to implement an intuitive testing workflow.
