@@ -7,9 +7,9 @@ commit: 'b1243d0'
 
 Developers spend [4-8 hrs a week](https://www.niss.org/sites/default/files/technicalreports/tr81.pdf) fixing bugs. Things only get worse if a bug sneaks its way into production. It takes [5-10x](https://www.cs.umd.edu/projects/SoftEng/ESEG/papers/82.78.pdf) longer to fix it. That's why UI testing is integral to delivering high-quality experiences, but it can also be a huge time sink. It's too much work to run all your tests manually after every change.
 
-Leading UI engineering teams at Twilio, Target and Adobe automate UI testing. Tests are triggered when a developer pushes code. They execute in the background and report results on completion. That allows you to detect regressions automatically.
+You can automate your workflow to trigger tests when a developer pushes code. The tests execute in the background and report results on completion. That allows you to detect regressions automatically.
 
-This chapter shows you how to automate your testing pipeline with [Github Actions](https://github.com/features/actions) and report their status with pull request checks. Along the way, I'll point out common mistakes to avoid.
+This chapter shows you how to implement such a workflow with [Github Actions](https://github.com/features/actions). Along the way, I'll point out ways to optimize your test runs.
 
 ## Continuous UI testing
 
@@ -196,10 +196,8 @@ Success! You’ve automated your testing workflow. When you open up a PR it’ll
 
 ![](/ui-testing-handbook/image-22.png)
 
-## Merge with confidence
+## Mastering the UI testing workflow
 
-The more often you run tests, the fewer bugs you'll have. Research-backed studies from Microsoft suggest that you can see a [20.9% reduction in defects](https://collaboration.csc.ncsu.edu/laurie/Papers/Unit_testing_cameraReady.pdf) with automated testing.
+The testing workflow starts by isolating components using Storybook. Then run checks while you code to get a faster feedback loop. Finally, execute your entire test suite using continuous integration.
 
-UI tests act as health checks for an app’s look and feel. They verify the visual appearance, confirm underlying logic, and even detect integration issues. Continuous integration helps you test each commit to reduce bugs with no extra effort from you.
-
-When your tests pass, you’ll have confidence that your UI is bug-free.
+Chapter 8 illustrates this complete workflow in action. We'll see how to test a new feature before shipping it to prod.

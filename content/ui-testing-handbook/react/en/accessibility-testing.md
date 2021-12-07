@@ -9,9 +9,9 @@ commit: 'b743f7a'
 
 The most accurate way to check accessibility is manually on real devices. But that requires specialized expertise and a lot of time. Both of which are scarce on frontend teams.
 
-Teams at Twilio, Adobe and Shopify use a combination of automated and manual testing. Automation catches common accessibility issues with low effort from developers. Manual QA is reserved for the trickier issues that require human attention.
+That's why many companies now use a combination of automated and manual testing. Automation catches common accessibility issues with low effort from developers. Manual QA is reserved for trickier problems that require human attention.
 
-There are plenty of resources that deep dive into accessibility principles, so we won’t get into that here. Instead, we'll focus on how to automate accessibility testing with Storybook. It’s a pragmatic way to find and fix the majority of issues you’re likely to encounter.
+There are plenty of resources that deep dive into accessibility principles, so we won't get into that here. Instead, we'll focus on how to automate accessibility testing with Storybook. It's a pragmatic approach to finding and fixing most issues you're likely to encounter.
 
 ## Why automation?
 
@@ -225,7 +225,11 @@ Components are interdependent – changes in one component could break others by
 
 Stories are written in a format based on ES6 modules, allowing you to reuse them with other testing frameworks. In the last chapter, we looked at importing [stories into Jest](../interaction-testing/) and verifying interactions with Testing Library. Similarly, we can use the [Jest Axe integration](https://github.com/nickcolley/jest-axe) to run accessibility tests on the component.
 
-Let’s start by installing it: `yarn add -D jest-axe`
+Let’s start by installing it:
+
+```sh
+yarn add -D jest-axe
+```
 
 Next, add in an `it` block that runs Axe and checks for violations. Jest-axe also gives you a handy assertion, `toHaveNoViolations`, to verify this with one function call.
 
@@ -279,10 +283,6 @@ Run `yarn test` to start up Jest. It'll execute all the interaction tests and ru
 
 ![](/ui-testing-handbook/jest-axe.png)
 
-## Integrating accessibility testing into the UI development workflow
+## Catching integration issues
 
-Web accessibility is not easy – it can be overwhelming to balance accessibility with impending deadlines, business goals, and tech debt.
-
-Tools like Axe and the Storybook Accessibility addon integrate into your existing workflow and provide a fast feedback loop. This does not make your app fully accessible. You still do need to test the interface with assistive technologies such as VoiceOver or NVDA. Automation does, however, save you time. You can find and fix issues as you build UIs. What's more, making the interface accessible leads to a much better experience for all your users!
-
-In the next chapter, we'll look at how to verify tasks performed across multiple components.
+UIs are assembled by composing components and wiring them up to data and APIs. That's a lot of potential points of failure. Next up, we'll look at using Cypress to catch integration issues by testing all layers of your system in one go.

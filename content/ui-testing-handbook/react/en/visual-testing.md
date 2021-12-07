@@ -318,8 +318,6 @@ In our case, the changes were intentional. Go ahead and click accept for all sto
 
 ![Build in storybook and run visual tests with Chromatic. If changes look good, then merge your PR.](/ui-testing-handbook/visual-testing-workflow.png)
 
-## Using visual tests to stop one bug from turning into many
+## Stopping one bug from turning into many
 
-Visual bugs are easy to introduce—leaky CSS or one broken component snowballs into multiple issues. They are particularly frustrating to debug.
-
-In the next chapter, we’ll build upon these concepts to learn how to catch cascading bugs.
+A bit of leaky CSS or one broken component can snowball into multiple issues. These bugs are particularly frustrating to debug. In the next chapter, we'll build upon these concepts to learn how to catch such cascading problems.

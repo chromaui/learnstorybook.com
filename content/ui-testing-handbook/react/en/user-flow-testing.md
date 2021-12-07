@@ -20,8 +20,6 @@ Teams use E2E tests to ensure that the user experience works as intended. To run
   <figcaption>Apps are assembled by connecting components to data, business logic and APIs</figcaption>
 </figure>
 
-<!-- ![](/ui-testing-handbook/e51e5f6924e48ea1bdbf-edgar.scraping-component-driven-stack-component-white.gif) -->
-
 ### Testing the complete application comes with trade-offs
 
 On the surface, E2E and [interaction tests](../interaction-testing) seem pretty similar. But remember, your users interact with the entire app and not just the UI components. E2E tests run at the app level, which allows them to uncover integration issues between the frontend and backend. But that also requires you to maintain test infrastructure for more layers of your tech stack (time-consuming!).
