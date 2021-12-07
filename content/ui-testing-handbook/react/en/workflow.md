@@ -5,7 +5,11 @@ description: 'A testing workflow that doesn’t slow you down'
 commit: '83c4adf'
 ---
 
-It should be seamless to build and test UI components. This workflow reduces maintenance burden while giving flexibility in how you run tests. This chapter showcases the UI testing workflow by adding in the ability to delete a task.
+It's easy to find tools that test different parts of the UI. But knowing how to combine them into a productive workflow is tricky. If you get it wrong, it spirals into a maintenance nightmare.
+
+Our workflow reduces the maintenance burden by reusing stories as test cases. Plus, we can spot bugs faster by testing at the component level.
+
+This chapter demonstrates the entire UI testing workflow by adding in the ability to delete a task.
 
 <img style="max-width: 500px;" src="/ui-testing-handbook/ui-testing-workflow.png" />
 
@@ -163,6 +167,6 @@ Just like all your other tests, Github actions will also run E2E tests using Cyp
 
 ## Your journey begins
 
-Design Systems for Developers highlights the end-to-end workflow used by professional frontend teams to give you a headstart as you develop your own. As your design system grows, add, rearrange, and extend these tools to fit your team’s needs.
+**UI Testing handbook** highlights testing strategies used by professional front-end teams. These tests act as health checks for your app, verify everything from visual appearance to UI logic, and even detect integration issues. What's more, you can reduce bugs by using continuous integration to test each commit automatically.
 
 Chapter 9 concludes with the complete sample code, helpful resources, and frequently asked questions from developers.
