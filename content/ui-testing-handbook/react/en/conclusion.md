@@ -16,15 +16,15 @@ Start by writing test cases as stories. You can reuse them in testing tools such
 
 During development, test while you code to fix obvious bugs. That shortens your feedback loop. It also prevents bugs from hitting production. It's [10x](https://ntrs.nasa.gov/search.jsp?R=20100036670) more expensive to fix bugs in production!
 
-Finally, use a CI server to run all your checks across the entire UI to prevent accidental regressions.
+Finally, use a CI server to run all your checks across the entire UI to prevent accidental regressions. Research-backed studies from Microsoft suggest that you can see a [20.9% reduction in defects](https://collaboration.csc.ncsu.edu/laurie/Papers/Unit_testing_cameraReady.pdf) with automated testing.
 
 I hope distilling these learnings into a pragmatic workflow helps you implement a solid testing strategy of your own. Let this be your starting point.
 
 ## Learn more
 
-The [Visual Testing Handbook](/visual-testing-handbook) is an in-depth guide to testing UI appearance—with learnings from leading engineering teams like BBC, Adobe, Target and more.
-
 If you’re coding along with us, your repositories should look like this: [ui-testing-guide-code](https://github.com/chromaui/ui-testing-guide-code/tree/workflow).
+
+The [Visual Testing Handbook](/visual-testing-handbook) is an in-depth guide to testing UI appearance—with learnings from leading engineering teams like BBC, Adobe, Target and more.
 
 Thanks for learning with us. Subscribe to the Storybook mailing list to get notified when helpful articles and guides like this are published.
 
