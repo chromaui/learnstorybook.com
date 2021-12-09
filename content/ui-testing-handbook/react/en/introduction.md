@@ -1,7 +1,7 @@
 ---
 title: 'Introduction to testing UIs'
 tocTitle: 'Introduction'
-description: 'Latest production-ready techniques used by leading engineering teams'
+description: 'Latest production-ready techniques for testing UIs'
 commit: 'e3c72c0'
 ---
 
@@ -28,23 +28,23 @@ Therefore, testing UI is now synonymous with testing components.
 
 The distinction between various testing methods—unit, integration, e2e—can be blurry for components. Instead, let's focus on different characteristics of UI that we can test.
 
-#### 1. Visual
+#### Visual
 
 Visual tests verify whether a component renders correctly given a set of props and state. They work by taking screenshots of every component and comparing them commit-to-commit to identify changes.
 
-#### 2. Composition
+#### Composition
 
 Components are interconnected, with data flowing between them. You can verify this integration by running visual tests on higher-level components and pages.
 
-#### 3. Interaction
+#### Interaction
 
 Interaction tests verify whether events are handled as intended. They start by rendering the component in isolation. Then simulate user behaviour such as click or input. Finally, verify that the state updated correctly.
 
-#### 4. Accessibility
+#### Accessibility
 
 Accessibility tests uncover usability issues related to visual, hearing, mobility and other disabilities. Use automated tools such as Axe as the first line of QA to catch blatant accessibility violations. Then follow up with manual QA on real devices for trickier issues that require human attention.
 
-#### 5. User flow
+#### User flow
 
 Even the most basic task requires a user to complete a sequence of steps across multiple components. This is yet another potential point of failure. Tools like Cypress and Playwright allow you to run tests against the complete application to verify such interactions.
 
@@ -54,12 +54,12 @@ We've covered different aspects of UI that need testing but knowing how to combi
 
 The teams I interviewed all had similar tactics despite differences in their size and tech stack. I've distilled those learnings into this pragmatic workflow:
 
-1.  📚 **Isolate components using** [Storybook](http://storybook.js.org/). Write test cases where each state is reproduced using props and mock data.
-2.  ✅ **Catch visual bugs and verify composition** using [Chromatic](https://www.chromatic.com/).
-3.  🐙 **Verify interactions** with [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/).
-4.  ♿️ **Audit accessibility** of your components using [Axe](https://www.deque.com/axe/).
-5.  🔄 **Verify user flows** by writing end-to-end tests with [Cypress](https://www.cypress.io/).
-6.  🚥 **Catch regressions** by automatically running tests with [GitHub Actions](https://github.com/features/actions).
+- 📚 **Isolate components using** [Storybook](http://storybook.js.org/). Write test cases where each state is reproduced using props and mock data.
+- ✅ **Catch visual bugs and verify composition** using [Chromatic](https://www.chromatic.com/).
+- 🐙 **Verify interactions** with [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/).
+- ♿️ **Audit accessibility** of your components using [Axe](https://www.deque.com/axe/).
+- 🔄 **Verify user flows** by writing end-to-end tests with [Cypress](https://www.cypress.io/).
+- 🚥 **Catch regressions** by automatically running tests with [GitHub Actions](https://github.com/features/actions).
 
 ![](/ui-testing-handbook/ui-testing-workflow.png)
 

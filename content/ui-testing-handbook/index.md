@@ -1,8 +1,8 @@
 ---
 title: 'UI Testing Handbook'
-description: 'Learn how to build your own addons that will super charge your development'
-heroDescription: 'Addons give you superpowers to extend Storybook, automate workflows, and integrate with your favorite tools. This guide shows you how to create an addon.'
-overview: 'While the Storybook community offers over 250 addons, you can also build one tailored to your specific needs. This guide introduces you to the Addon Kit and APIs, along the way you will build an addon from scratch.'
+description: 'Testing techniques used by leading engineering teams'
+heroDescription: "A guide that highlights UI testing strategies used by scaled front-end teams. You'll learn to verify everything from visual appearance to logic and even detect integration issues. Along the way, we'll demonstrate how you can reduce bugs by using continuous integration to automatically run your tests."
+overview: "UI testing is integral to delivering high-quality experiences. But there are so many ways to test that it can be overwhelming to figure out what's right for your project. This guide distils learnings from leading teams such as Target, Adobe, O'Reilly and Shopify into a pragmatic testing strategy that offers comprehensive coverage, easy setup, and low maintenance. We'll walk through the processes of setting up tooling, writing tests and automating your workflow."
 order: 3
 themeColor: '#2A0481'
 codeGithubUrl: 'https://github.com/chromaui/ui-testing-guide-code'
@@ -31,7 +31,7 @@ authors:
     },
   ]
 contributors: []
-twitterShareText: "I’m learning how to test UIs! They're great for customizing Storybook to fit your UI development workflow."
+twitterShareText: "I'm learning how to test UIs! This will help me ship UIs without worrying about stowaway bugs."
 ---
 
 <h2>What you'll build</h2>
@@ -40,8 +40,26 @@ twitterShareText: "I’m learning how to test UIs! They're great for customizing
   <div class="badge">
     <img src="/frameworks/logo-react.svg"> React
   </div>
+  <div class="badge">
+    <img src="/frameworks/logo-testing-library.svg"> Testing Library
+  </div>
+  <div class="badge">
+    <img src="/icon-chroma.svg"> Chromatic
+  </div>
+  <div class="badge">
+    <img src="/frameworks/logo-axe.png"> Axe
+  </div>
+  <div class="badge">
+    <img src="/frameworks/logo-jest.svg"> Jest
+  </div>
+  <div class="badge">
+    <img src="/frameworks/logo-github.svg"> GitHub Actions
+  </div>
+  <div class="badge">
+    <img src="/frameworks/logo-cypress.svg"> Cypress
+  </div>
 </div>
 
 ![Taskbox UI](/ui-testing-handbook/taskbox.png)
 
-Follow along as we test the Taskbox app. It's a task management app, similar to Asana, where you can pin, edit and archive tasks. We'll look at how to test visual and functional characteristics of this UI. Each chapter illustrates a different aspect of testing components.
+Follow along as we test the Taskbox app. It's a task management app, similar to Asana, where you can pin, edit and archive tasks. We'll look at how to test visual and functional characteristics of this UI.

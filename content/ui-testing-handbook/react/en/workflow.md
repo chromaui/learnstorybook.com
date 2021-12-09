@@ -11,7 +11,7 @@ Our workflow reduces the maintenance burden by reusing stories as test cases. Pl
 
 This chapter demonstrates the entire UI testing workflow by adding in the ability to delete a task.
 
-<img style="max-width: 500px;" src="/ui-testing-handbook/ui-testing-workflow.png" />
+![](/ui-testing-handbook/ui-testing-workflow.png)
 
 ## Build
 
@@ -169,4 +169,4 @@ Just like all your other tests, Github actions will also run E2E tests using Cyp
 
 **UI Testing handbook** highlights testing strategies used by professional front-end teams. These tests act as health checks for your app, verify everything from visual appearance to UI logic, and even detect integration issues. What's more, you can reduce bugs by using continuous integration to test each commit automatically.
 
-Chapter 9 concludes with the complete sample code, helpful resources, and frequently asked questions from developers.
+The final chapter concludes with the complete sample code, helpful resources, and frequently asked questions from developers.
