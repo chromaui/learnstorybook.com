@@ -252,7 +252,7 @@ import { PureInboxScreen } from './InboxScreen';
 
 export default {
   component: PureInboxScreen,
-+ decorators: [story => <Provider store={store}>{Mockstore()}</Provider>],
++ decorators: [story => <Provider store={Mockstore}>{story()}</Provider>],
   title: 'PureInboxScreen',
 };
 
@@ -321,7 +321,7 @@ const Mockstore = configureStore({
 
 export default {
   component: PureInboxScreen,
-  decorators: [story => <Provider store={store}>{Mockstore()}</Provider>],
+  decorators: [story => <Provider store={Mockstore}>{story()}</Provider>],
   title: 'PureInboxScreen',
 };
 
