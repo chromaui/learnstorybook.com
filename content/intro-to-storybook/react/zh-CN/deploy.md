@@ -2,7 +2,7 @@
 title: '部署 Storybook'
 tocTitle: '部署'
 description: '学习如何在线部署 Storybook'
-commit: '73f95be'
+commit: 'd6406e4'
 ---
 
 在本教程中,我们在开发机器上运行了 Storybook. 您可能还想与团队分享该 Storybook,尤其是非技术成员. 值得庆幸的是,在线部署 Storybook 很容易.

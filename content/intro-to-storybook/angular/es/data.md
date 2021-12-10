@@ -2,7 +2,7 @@
 title: 'Introducir datos'
 tocTitle: 'Datos'
 description: 'Aprende como introducir datos a tus componentes interfaz gráfica'
-commit: '0bf4edf'
+commit: 'd4b9c54'
 ---
 
 Hasta ahora hemos creado componentes aislados que no contienen estado propio, sino que reciben entradas por medio de
@@ -112,7 +112,7 @@ export class TasksState {
 Tenemos el store implementado, necesitamos dar un par de pasos antes de conectarlo a nuestra aplicación.
 
 Vamos a actualizar nuestro `TaskListComponent` para leer datos del store, pero primero vamos a mover nuestra versión de
-presentación a un nuevo archivo llamado` pure-task-list.component.ts`, (cambiando el nombre del `selector ` a
+presentación a un nuevo archivo llamado`pure-task-list.component.ts`, (cambiando el nombre del `selector` a
 `app-pure-task-list`) que luego será envuelto en un contenedor.
 
 En `src/app/components/pure-task-list.component.ts`:
@@ -174,7 +174,7 @@ export class TaskListComponent {
 
 Ahora vamos a crear un módulo angular para unir los componentes y el store.
 
-Cree un nuevo archivo llamado `task.module.ts` dentro de la carpeta` components` y agregue lo siguiente:
+Cree un nuevo archivo llamado `task.module.ts` dentro de la carpeta`components` y agregue lo siguiente:
 
 ```ts:title=src/app/components/task.module.ts
 import { NgModule } from '@angular/core';
@@ -226,7 +226,7 @@ export class AppModule {}
 
 La razón para mantener la versión de presentación de la `TaskList` separada es porque es más fácil de probar y
 aislar. Como no depende de la presencia de un store, es mucho más fácil de manejar desde una perspectiva de prueba.  
-También cambiemos el nombre de `srcappcomponentstask-list.stories.ts` a` srcappcomponentspure-task-list.stories.ts`,
+También cambiemos el nombre de `srcappcomponentstask-list.stories.ts` a`srcappcomponentspure-task-list.stories.ts`,
 y asegurémonos de que nuestras historias usen la versión de presentación:
 
 ```ts:title=src/app/components/pure-task-list.stories.ts
@@ -247,7 +247,7 @@ export default {
       declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
-     //👇 Envuelve nuestras historias con un decorador
+    //👇 Envuelve nuestras historias con un decorador
     componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
   title: 'PureTaskListComponent',

@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: '0bf4edf'
+commit: 'd4b9c54'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -235,7 +235,7 @@ export default {
     //👇 Wraps our stories with a decorator
     componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
   ],
-  title: 'PureTaskListComponent',
+  title: 'PureTaskList',
 } as Meta;
 
 const Template: Story = args => ({

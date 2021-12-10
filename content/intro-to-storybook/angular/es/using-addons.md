@@ -2,7 +2,7 @@
 title: 'Complementos'
 tocTitle: 'Complementos'
 description: 'Aprenda a integrar y utilizar el popular complemento de controles'
-commit: 'b3bd2c9'
+commit: '153481b'
 ---
 
 Storybook tiene un ecosistema robusto de [complementos](https://storybook.js.

@@ -2,7 +2,7 @@
 title: 'Construye un componente simple'
 tocTitle: 'Componente simple'
 description: 'Construye un componente simple en aislamiento'
-commit: '27e1538'
+commit: '37404c2'
 ---
 
 Construiremos nuestra UI siguiendo la metodología [Component-Driven Development](https://www.componentdriven.org/)
@@ -165,7 +165,7 @@ Esto generalmente se modela a partir de cómo se ven los datos reales. De nuevo,
 
 Como necesitamos pasar el mismo conjunto de acciones a todas las permutaciones de nuestro componente, es conveniente agruparlas en una sola variable `actionsData` y pasarlas a nuestra definición de historia cada vez.
 
-Otra cosa buena de agrupar los `actionsData` que necesita un componente, es que puedes` exportarlos` y usarlos en historias para componentes que reutilizan este componente, como veremos más adelante.
+Otra cosa buena de agrupar los `actionsData` que necesita un componente, es que puedes`exportarlos` y usarlos en historias para componentes que reutilizan este componente, como veremos más adelante.
 
 <div class="aside">
 💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Actions</b></a> nos ayuda a verificar las 
@@ -202,7 +202,7 @@ Una vez que hemos hecho esto, reiniciar el servidor de Storybook debe producir c
 Es una buena práctica especificar la forma de los datos que espera un componente. No solo se documenta por sí mismo,
 sino que también ayuda a detectar problemas de manera temprana. Aquí, usaremos TypeScript y crearemos una interfaz para el modelo `Task`.
 
-Cree una nueva carpeta llamada `models` dentro de la carpeta` app` y dentro de un nuevo archivo llamado `task.model. ts` con el siguiente contenido:
+Cree una nueva carpeta llamada `models` dentro de la carpeta`app` y dentro de un nuevo archivo llamado `task.model. ts` con el siguiente contenido:
 
 ```ts:title=src/app/models/task.model.ts
 export interface Task {

@@ -2,7 +2,7 @@
 title: 'قم ببناء مكون بسيط'
 tocTitle: 'مكون بسيط'
 description: 'قم ببناء مكون بسيط بشكل منعزل'
-commit: '8ce7e80'
+commit: 'd5d89dd'
 ---
 
 <div style="direction: rtl">

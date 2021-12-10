@@ -2,7 +2,7 @@
 title: '写给干系人的文档'
 tocTitle: '文档'
 description: '通过文档推动设计系统的使用'
-commit: a032b50
+commit: '107bb03'
 ---
 
 [专业的](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [前端](https://segment.com/blog/driving-adoption-of-a-design-system/) [团队](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) 通过采用率来衡量设计系统的成功程度。为了简化所有人的工作量，组件必须是灵活通用的，否则有什么意义呢？

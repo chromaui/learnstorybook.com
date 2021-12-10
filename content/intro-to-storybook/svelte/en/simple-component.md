@@ -167,7 +167,7 @@ module.exports = {
 -   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
 + stories: ['../src/components/**/*.stories.js'],
-  staticDir: ['../public'],
+  staticDirs: ['../public'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-interactions'],
 };
 ```

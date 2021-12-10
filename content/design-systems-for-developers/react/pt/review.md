@@ -2,7 +2,7 @@
 title: 'Revisão com equipas'
 tocTitle: 'Revisão'
 description: 'Colaboração através de integração contínua e revisão visual'
-commit: 'd65a6bc'
+commit: '0273e45'
 ---
 
 No capítulo 4, vamos aprender quais os fluxos de trabalho profissionais para fazer melhoramentos no sistema de design mitigando inconsistências. Este capítulo abrange técnicas para obter feedback sobre o IU e chegar a um consenso na equipa. Estes processos de produção são usados pelas equipas de pessoas da Auth0, Shopify e Discovery Network.

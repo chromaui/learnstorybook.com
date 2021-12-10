@@ -2,7 +2,7 @@
 title: '部署 Storybook'
 tocTitle: '部署'
 description: '學習把 Storybook 部署到線上的方法'
-commit: '73f95be'
+commit: 'd6406e4'
 ---
 
 在這套教學的過程中，我們已經在本地端機器打造元件。有一些進展後，要把成果分享出去，藉以獲得回饋。接下來，要把 Storybook 部署到線上，協助隊友檢查 UI 的實作方法。

@@ -2,7 +2,7 @@
 title: 'Arquitetar sistemas'
 tocTitle: 'Arquitetura'
 description: 'Como extrair um sistema de design a partir de bibliotecas de componentes'
-commit: '1f60988'
+commit: '798276b'
 ---
 
 No capítulo 2, vamos extrair um sistema de design de bibliotecas de componentes existentes. Ao longo do trajeto, iremos determinar quais os componentes pertencem ao sistema de design e delinear quais os desafios comuns que os programadores encontram inicialmente.
