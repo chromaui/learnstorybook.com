@@ -2,7 +2,7 @@
 title: 'Build UI components'
 tocTitle: 'Build'
 description: 'Setup Storybook to build and catalog design system components'
-commit: '583cb5b'
+commit: 'a45c546'
 ---
 
 In chapter 3, we’ll set up the essential design system tooling starting with Storybook, the most popular component explorer. The goal of this guide is to show you how professional teams build design systems, so we’ll also focus on finer details like the code hygiene, timesaving Storybook addons, and directory structure.
@@ -262,8 +262,6 @@ Now, let's see how it works by adding a new story for our `Button` component:
 import React from 'react';
 import styled from 'styled-components';
 + import { userEvent, within } from '@storybook/testing-library';
-
-
 import { Button } from './Button';
 import { StoryLinkWrapper } from './StoryLinkWrapper';
 export default {

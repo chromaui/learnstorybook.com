@@ -2,7 +2,7 @@
 title: '連結資料'
 tocTitle: '資料'
 description: '了解把資料連結到 UI 元件的方法'
-commit: '167467b'
+commit: 'b29407b'
 ---
 
 目前，我們已經做好沒有狀態的獨立元件：對 Storybook 來說很夠用。但到頭來，在 App 加入資料之前是沒什麼用處的。

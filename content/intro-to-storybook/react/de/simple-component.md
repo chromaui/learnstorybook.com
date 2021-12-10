@@ -2,7 +2,7 @@
 title: 'Baue eine einfache Komponente'
 tocTitle: 'Einfache Komponente'
 description: 'Baue eine einfache Komponente in Isolation'
-commit: '8ce7e80'
+commit: 'd5d89dd'
 ---
 
 Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://www.componentdriven.org/) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "bottom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.

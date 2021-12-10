@@ -2,7 +2,7 @@
 title: '打造簡易元件'
 tocTitle: '簡易元件'
 description: '打造獨立的簡易元件'
-commit: '8ce7e80'
+commit: 'd5d89dd'
 ---
 
 我們會按照[元件驅動開發](https://www.componentdriven.org/) (CDD) 方法論來打造 UI，是「由下而上」的流程。從元件開始，一路至各種畫面。CDD 在打造 UI 時，面臨不斷擴大的複雜程度很有幫助。

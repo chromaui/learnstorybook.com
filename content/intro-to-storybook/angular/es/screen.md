@@ -2,7 +2,7 @@
 title: 'Construir una pantalla'
 tocTitle: 'Pantallas'
 description: 'Construir una pantalla utilizando componentes'
-commit: 'b5f0de2'
+commit: '8cb73c6'
 ---
 
 Nos hemos concentrado en crear interfaces de usuario desde "abajo hacia arriba"; empezando con los componentes individuales y añadiendo complejidad gradualmente. Esto nos ha permitido desarrollar cada componente de forma aislada, determinar los datos que necesita y jugar con ellos en Storybook. ¡Todo sin necesidad de utilizar un servidor o, siquiera, construir una sola pantalla!
@@ -12,7 +12,7 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 ## Componentes "contenedores"
 
 Como nuestra aplicación es muy simple, la pantalla que crearemos es bastante trivial, simplemente envuelve el
-`TaskListComponent` (que proporciona sus propios datos a través de ngxs) en un layout y mostrar un campo de` error` de
+`TaskListComponent` (que proporciona sus propios datos a través de ngxs) en un layout y mostrar un campo de`error` de
 nivel superior de nuestro store (supongamos que estableceremos ese campo si tenemos algún problema para conectarnos a nuestro servidor).
 
 Comencemos actualizando el store (en `srcappstatetask.state.tx`) para incluir el campo de error que queremos:
@@ -174,7 +174,7 @@ export class InboxScreenComponent {
 }
 ```
 
-También necesitamos cambiar el `AppComponent` para renderizar el ` InboxScreenComponent` (eventualmente usaríamos un
+También necesitamos cambiar el `AppComponent` para renderizar el `InboxScreenComponent` (eventualmente usaríamos un
 enrutador para elegir la pantalla correcta, pero no nos preocupemos por eso aquí):
 
 ```diff:title=src/app/app.component.ts
@@ -238,7 +238,7 @@ Al colocar el `TaskListComponent` en Storybook, pudimos evitar este problema sim
 `PureTaskListComponent` y evitando el contenedor. Haremos algo similar, crearemos y renderizaremos el
 `PureInboxScreen` en Storybook también.
 
-Sin embargo, para el `PureInboxScreenComponent` tenemos un problema porque aunque el ` PureInboxScreenComponent` en
+Sin embargo, para el `PureInboxScreenComponent` tenemos un problema porque aunque el `PureInboxScreenComponent` en
 sí mismo es presentacional, su hijo, el `TaskListComponent`, no lo es. En cierto sentido, el
 "PureInboxScreenComponent" ha sido contaminado por "container-ness". Entonces, cuando configuramos nuestras
 historias en `pure-inbox-screen.stories.ts`:
@@ -291,7 +291,7 @@ Aparte, pasar datos por la jerarquía es un enfoque legítimo, especialmente cua
 
 ## Proporcionar contexto con decoradores
 
-¡La buena noticia es que es bastante sencillo suministrar el `Store` al` PureInboxScreenComponent` en una historia!
+¡La buena noticia es que es bastante sencillo suministrar el `Store` al`PureInboxScreenComponent` en una historia!
 Podemos suministrar el "Store" proporcionado con un decorador:
 
 ```diff:title=src/app/components/pure-inbox-screen.stories.ts
@@ -342,7 +342,7 @@ Recorrer los estados en Storybook facilita la comprobación de que lo hemos hech
 
 ## Component-Driven Development
 
-Comenzamos desde abajo con `TaskComponent`, luego progresamos a` TaskListComponent`, ahora estamos aquí con una
+Comenzamos desde abajo con `TaskComponent`, luego progresamos a`TaskListComponent`, ahora estamos aquí con una
 interfaz de usuario de pantalla completa. Nuestro `InboxScreenComponent` acomoda un componente anidado e incluye
 historias que lo acompañan.
 

@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'cec2e05'
+commit: '05aa2ef'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -67,7 +67,7 @@ const TasksSlice = createSlice({
 
 
 // The actions contained in the slice are exported for usage in our components
-export const { updateTaskState, updateTaskTitle } = TasksSlice.actions;
+export const { updateTaskState } = TasksSlice.actions;
 
 // The actions contained in the new slice are exported to be used in our components
 + export const { updateAppState } = AppStateSlice.actions;

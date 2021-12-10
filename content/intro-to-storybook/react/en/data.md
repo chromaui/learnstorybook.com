@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: '167467b'
+commit: 'b29407b'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -60,7 +60,7 @@ const TasksSlice = createSlice({
 });
 
 // The actions contained in the slice are exported for usage in our components
-export const { updateTaskState, updateTaskTitle } = TasksSlice.actions;
+export const { updateTaskState } = TasksSlice.actions;
 
 /*
  * Our app's store configuration goes here.
