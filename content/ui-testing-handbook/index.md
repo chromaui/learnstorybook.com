@@ -62,4 +62,4 @@ twitterShareText: "I'm learning how to test UIs! This will help me ship UIs with
 
 ![Taskbox UI](/ui-testing-handbook/taskbox.png)
 
-Follow along as we test the Taskbox app. It's a task management app, similar to Asana, where you can pin, edit and archive tasks. We'll look at how to test visual and functional characteristics of this UI.
+Follow along as we test the Taskbox app. It's a task management app, similar to Asana, where you can pin, edit and archive tasks. We'll look at how to verify the various characteristics of this UI.
