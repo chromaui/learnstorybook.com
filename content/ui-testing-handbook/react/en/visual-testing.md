@@ -67,19 +67,9 @@ Let’s go back to that Task component. To isolate it means that we load up and 
 
 ### Setup Storybook
 
-The repository I shared is preconfigured to use Storybook. However, in other scenarios you can run this command inside your project’s root directory to setup Storybook:
+Our project is preconfigured to use Storybook. The config lives in the `.storybook` folder and all the necessary scripts have been added to `package.json`.
 
-```sh
-npx sb init
-```
-
-The Storybook CLI will try to figure out which front-end framework you are using and based on that:
-
-- 📦 Add the default config and install the required dependencies
-- 🛠 Setup the necessary scripts to run Storybook
-- 📝 Add boilerplate stories to get you started
-
-We then create a story file for the Task component. This registers the component with Storybook and adds in one default test case.
+We can start by creating a story file for the Task component. This registers the component with Storybook and adds in one default test case.
 
 ```javascript:title=src/components/Task.stories.js
 import React from 'react';
