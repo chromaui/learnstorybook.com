@@ -192,7 +192,7 @@ LongTitle.args = {
 
 The Task component looks as we expect it to in all its use cases. But, how do we ensure that a stray line of CSS doesn’t break it in the future? It’s unrealistic to **manually** go through the entire directory of components whenever you make a change.
 
-That’s why developers use a visual regression testing tool to automatically check for regressions. Auth0, Twilio, Adobe and Peloton use [Chromatic](http://chromatic.com/) by the Storybook team.
+That’s why developers use a visual regression testing tool to automatically check for regressions. Auth0, Twilio, Adobe and Peloton use [Chromatic](http://chromatic.com/) (built by the Storybook team).
 
 At this point, we know that the component is in a good state. Chromatic will capture an image snapshot of every story—as it appears in the browser. Then any time you make a change, a new snapshot is captured and compared to the previous one. You then review any visual differences found to decide if they are intentional updates or accidental bugs.
 
