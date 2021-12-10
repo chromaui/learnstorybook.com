@@ -11,7 +11,7 @@ Our workflow reduces the maintenance burden by reusing stories as test cases. Pl
 
 This chapter demonstrates the entire UI testing workflow by adding in the ability to delete a task.
 
-![](/ui-testing-handbook/ui-testing-workflow.png)
+![](/ui-testing-handbook/workflow-ui-testing.png)
 
 ## Build
 
