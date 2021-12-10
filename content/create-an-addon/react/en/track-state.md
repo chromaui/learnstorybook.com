@@ -11,7 +11,7 @@ React has built in [hooks](https://reactjs.org/docs/hooks-state.html#gatsby-focu
 
 ![](../../images/manager-preview.jpg)
 
-On the surface, Storybook presents a unified user interface. However, under the hood it’s divided the into two segments that talk to each other across a **communication channel:**
+On the surface, Storybook presents a unified user interface. However, under the hood it’s divided into two segments that talk to each other across a **communication channel:**
 
 - **A Manager:** the UI where Storybook’s search, navigation, toolbars, and addons are rendered.
 - **Preview:** an iframe where the stories are rendered.
