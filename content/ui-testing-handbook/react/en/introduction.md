@@ -5,7 +5,7 @@ description: 'Latest production-ready techniques for testing UIs'
 commit: 'e3c72c0'
 ---
 
-<div class="aside">This guide is made for <b>professional developers</b> learning how to test UI components. Intermediate experience in JavaScript and React is recommended. You should also know Storybook basics, such as writing a story and editing config files (<a href="/intro-to-storybook">Intro to Storybook</a> covers all the basics).
+<div class="aside">This guide is made for <b>professional developers</b> experienced with JavaScript, React and Storybook. If you're not quite there yet, visit <a href="/intro-to-storybook">Intro to Storybook</a> to learn the basics!
 </div>
 
 <br/>
