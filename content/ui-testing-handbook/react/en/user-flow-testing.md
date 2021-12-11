@@ -13,7 +13,7 @@ UIs help folks navigate a sequence of steps on multiple pages to accomplish thei
 
 User flows aren’t contained to only one component, they involve multiple components working in tandem. Each interaction triggers state updates, route changes, and API calls that affect what’s rendered on screen. With all of these points of failure, it can be tough to QA them one-by-one.
 
-Teams use E2E tests to ensure that the user experience works as intended. To run an E2E test, you start by spinning up a complete instance of an application. Then use tools like Cypress, Playwright, or Selenium to verify the user flow by simulating user behavior.
+Teams use E2E tests to ensure that the user experience works as intended. To run an E2E test, you start by spinning up a complete instance of an application. Then use tools like [Cypress](https://cypress.io), [Playwright](https://playwright.dev/), or [Selenium](https://www.selenium.dev/documentation/webdriver/) to verify the user flow by simulating user behavior.
 
 <figure>
   <img src="/ui-testing-handbook/e51e5f6924e48ea1bdbf-edgar.scraping-component-driven-stack-component-white.gif" />
