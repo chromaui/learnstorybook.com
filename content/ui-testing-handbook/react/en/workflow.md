@@ -73,7 +73,7 @@ Run accessibility checks inside Storybook during development. The [A11y addon](h
 
 #### PR check
 
-To catch regressions you need to run on all your components. You can do that by importing stories into a Jest and then running an accessibility audit using [jest-axe](https://github.com/twilio-labs/paste/blob/cd0ddad508e41cb9982a693a5160f1b7866f4e2a/packages/paste-core/components/checkbox/__tests__/checkboxdisclaimer.test.tsx#L40). All violations will be reported back to the PR page.
+To catch regressions you need to run on all your components. You can do that by importing stories into a test file and then running an accessibility audit using [jest-axe](https://github.com/twilio-labs/paste/blob/cd0ddad508e41cb9982a693a5160f1b7866f4e2a/packages/paste-core/components/checkbox/__tests__/checkboxdisclaimer.test.tsx#L40). All violations will be reported back to the PR page.
 
 ![](/ui-testing-handbook/ci-a11y.png)
 
