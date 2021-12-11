@@ -53,20 +53,15 @@ Storybook’s Accessibility runs Axe on the active story. It visualizes the test
 
 To install the addon, run: `yarn add -D @storybook/addon-a11y`. Then, add `'@storybook/addon-a11y'` to the addons array in your `.storybook/main.js`:
 
-```javascript:title=.storybook/main.js
-const path = require('path');
-
-const toPath = (_path) => path.join(process.cwd(), _path);
-
+```diff:title=.storybook/main.js
 module.exports = {
  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
  addons: [
    '@storybook/addon-links',
    '@storybook/addon-essentials',
    '@storybook/preset-create-react-app',
-   '@storybook/addon-a11y',
++  '@storybook/addon-a11y',
  ],
- webpackFinal: async (config) => {...},
 };
 ```
 
