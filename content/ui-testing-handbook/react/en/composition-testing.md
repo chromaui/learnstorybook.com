@@ -34,7 +34,7 @@ Visual tests catch bugs by capturing and comparing image snapshots of stories—
 
 Composition testing is all about running visual tests on “composite” components higher up in the tree that are made up of several simpler components. That way you can quantify the impact that any change might have on the entire application. And ensure that the system works as a whole.
 
-That key difference is that composite components track application state and pass behaviours down the tree. You’ll have to account for those when writing the test cases.
+The key difference is that composite components track application state and pass behaviours down the tree. You’ll have to account for those when writing the test cases.
 
 Let’s see this process in action by writing tests for the `TaskList` component, which displays the complete list of tasks belonging to the user.
 
