@@ -2,7 +2,7 @@
 title: 'UI Testing Handbook'
 description: 'Testing techniques used by leading engineering teams'
 heroDescription: "A guide that highlights UI testing strategies used by scaled front-end teams. You'll learn to verify everything from visual appearance to logic and even detect integration issues. Along the way, we'll demonstrate how you can reduce bugs by automatically running your tests."
-overview: "UI testing is integral to delivering high-quality experiences. But there are so many ways to test that it can be overwhelming to figure out what's right for your project. This guide distils learnings from leading teams such as Target, Adobe, O'Reilly and Shopify into a pragmatic testing strategy that offers comprehensive coverage, easy setup, and low maintenance. We'll walk through the processes of setting up tooling, writing tests and automating your workflow."
+overview: "UI testing is integral to delivering high-quality experiences. But there are so many ways to test that it can be overwhelming to figure out what's right for your project. This guide distills learnings from leading teams such as Target, Adobe, O'Reilly and Shopify into a pragmatic testing strategy that offers comprehensive coverage, easy setup, and low maintenance. We'll walk through the processes of setting up tooling, writing tests and automating your workflow."
 order: 3
 themeColor: '#2A0481'
 codeGithubUrl: 'https://github.com/chromaui/ui-testing-guide-code'
