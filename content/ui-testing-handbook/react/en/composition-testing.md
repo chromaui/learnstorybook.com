@@ -219,7 +219,7 @@ Error.parameters = {
 
 State has many different forms. Some applications track bits of state globally using libraries such as Redux and MobX. Or by making GraphQL queries. Or they might use container components. Storybook is flexible enough to support all these scenarios. For more on this, see: [Storybook addons to manage data & state](https://storybook.js.org/blog/storybook-addons-to-manage-data-state/).
 
-Building components in isolation curtails the complexity of development. You don't have to spin up the back-end, login as a user and click around the UI just to debug some CSS. You can set it all up as a story and get going. And you can even run automated regression tests on those stories.
+Building components in isolation curtails the complexity of development. You don't have to spin up the back-end, log in as a user, and click around the UI just to debug some CSS. You can set it all up as a story and get going. And you can even run automated regression tests on those stories.
 
 ### Catch regressions
 
