@@ -19,7 +19,7 @@ Every company is now a software company. That means every company is responsible
 
 Visual bugs are the unintentional errors in your UIs appearance that make it look untrustworthy. They’re the regressions that are easy to eyeball but that common testing methods can’t catch.
 
-Most tests are intended to verify logic. Which makes sense. You run a function, get its output and check whether it's correct or not. Computers are great at verifying data. But what about how something looks?
+Most tests are intended to verify logic, which makes sense: you run a function, get its output and check whether it's correct or not. Computers are great at verifying data. But what about how something looks?
 
 Well, there are two layers to this problem.
 
