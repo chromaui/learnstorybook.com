@@ -161,7 +161,7 @@ Archived.args = {
 
 ## 3. Verify
 
-Verification is _you_ evaluating how the component looks in Storybook. That is, does it match the design spec.
+Verification is _you_ evaluating how the component looks in Storybook. That is, does it match the design spec?
 
 The usual development workflow is:
 
