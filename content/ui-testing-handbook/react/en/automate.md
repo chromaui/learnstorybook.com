@@ -35,7 +35,7 @@ The previous five chapters demonstrated how to test the various aspects of the T
 
 ### Setup CI
 
-Create a `.github/workflows/ui-tests.yml` file in your repository to get started. A **workflow** is a set of **jobs** that you want to automate. It is triggered by **events** such as pushing a commit or creating a pull request.
+Create a `.github/workflows/ui-tests.yml` file in your repository to get started. A [**workflow**](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions#workflows) is a set of [**jobs**](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions#jobs) that you want to automate. It is triggered by [**events**](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows) such as pushing a commit or creating a pull request.
 
 Our workflow will run when code is pushed to any branch of our repository and it’ll have three jobs:
 
