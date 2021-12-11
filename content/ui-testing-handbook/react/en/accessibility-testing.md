@@ -11,7 +11,7 @@ The most accurate way to check accessibility is manually on real devices. But th
 
 That's why many companies now use a combination of automated and manual testing. Automation catches common accessibility issues with low effort from developers. Manual QA is reserved for trickier problems that require human attention.
 
-There are plenty of resources that deep dive into accessibility principles, so we won't get into that here. Instead, we'll focus on how to automate accessibility testing with Storybook. It's a pragmatic approach to finding and fixing most issues you're likely to encounter.
+There are plenty of resources that dive deep into accessibility principles, so we won't get into that here. Instead, we'll focus on how to automate accessibility testing with Storybook. It's a pragmatic approach to finding and fixing most issues you're likely to encounter.
 
 ## Why automation?
 
