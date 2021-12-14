@@ -155,7 +155,7 @@ Lastly, you'll need to run E2E tests to ensure that all your critical user flows
 
 #### During development
 
-You can run targeted E2E tests during development but, that requires you to spin up the complete instance of your application and a test browser. It can all get quite resource-heavy. Therefore, you can wait to run Cypress on the CI server unless you're updating a test.
+This new functionality doesn't impact the auth flow. Therefore, you can wait to run Cypress on the CI server. You only need to run targeted E2E tests during development if you add or update a test.
 
 ![](/ui-testing-handbook/auth-flow.png)
 
