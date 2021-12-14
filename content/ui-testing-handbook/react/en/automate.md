@@ -2,7 +2,7 @@
 title: 'How to automate UI tests with Github Actions'
 tocTitle: 'Automate'
 description: 'Speed up your workflow and ship higher quality of code'
-commit: 'b1243d0'
+commit: 'c1c7372'
 ---
 
 Developers spend [4-8 hrs a week](https://www.niss.org/sites/default/files/technicalreports/tr81.pdf) fixing bugs. Things only get worse if a bug sneaks its way into production. It takes [5-10x](https://www.cs.umd.edu/projects/SoftEng/ESEG/papers/82.78.pdf) longer to fix it. That's why UI testing is integral to delivering high-quality experiences, but it can also be a huge time sink. It's too much work to run all your tests manually after every change.

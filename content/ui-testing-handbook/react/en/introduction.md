@@ -2,7 +2,7 @@
 title: 'Introduction to testing UIs'
 tocTitle: 'Introduction'
 description: 'Latest production-ready techniques for testing UIs'
-commit: 'e3c72c0'
+commit: 'f9a12b8'
 ---
 
 <div class="aside">This guide is made for <b>professional developers</b> experienced with JavaScript, React and Storybook. If you're not quite there yet, visit <a href="/intro-to-storybook">Intro to Storybook</a> to learn the basics!

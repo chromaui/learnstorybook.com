@@ -2,7 +2,7 @@
 title: 'Accessibility testing with Storybook'
 tocTitle: 'Accessibility'
 description: 'Fast feedback with integrated tooling'
-commit: 'b743f7a'
+commit: '1681de1'
 ---
 
 [26% of adults](https://www.cdc.gov/ncbddd/disabilityandhealth/infographic-disability-impacts-all.html) in the US have at least one disability. When you improve accessibility, it has an outsized impact on your current and future customers. It’s also a legal requirement.

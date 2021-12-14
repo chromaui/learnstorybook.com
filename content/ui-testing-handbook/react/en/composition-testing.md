@@ -2,7 +2,7 @@
 title: 'Testing composite components'
 tocTitle: 'Composition'
 description: 'Prevent minor changes from turning into major regressions'
-commit: '31127ed'
+commit: '60b8d8f'
 ---
 
 In Jan 2021, [Tesla recalled 158,000 cars](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-s-x-touchscreens-bricked-failure-nhtsa) because one module—the display—malfunctioned. With a broken display console, you can’t access the backup camera, turn signals, or driver assistance. That significantly increases the risk of a crash.
@@ -166,14 +166,41 @@ Then, generate a new service worker in your public folder.
 npx msw init public/
 ```
 
-Enable the MSW addon in Storybook by adding this to your `.storybook/preview.js` file:
+Enable the MSW addon in your `.storybook/preview.js` file:
 
-```javascript:title=.storybook/preview.js
-import { addDecorator } from '@storybook/react';
-import { initialize, mswDecorator } from 'msw-storybook-addon';
+```diff:title=.storybook/preview.js
+ import React from 'react';
+ import { ChakraProvider } from '@chakra-ui/react';
++ import { initialize, mswDecorator } from 'msw-storybook-addon';
+ import { theme } from '../src/theme';
 
-initialize();
-addDecorator(mswDecorator);
++ initialize();
+
+ export const parameters = {
+   actions: { argTypesRegex: '^on[A-Z].*' },
+   controls: {
+     matchers: {
+       color: /(background|color)$/i,
+       date: /Date$/,
+     },
+   },
+   backgrounds: {
+     default: 'blue',
+     values: [
+       { name: 'blue', value: '#2cc5d2' },
+       { name: 'white', value: '#fff' },
+     ],
+   },
+ };
+
+ export const decorators = [
+   (Story) => (
+     <ChakraProvider theme={theme}>
+       <Story />
+     </ChakraProvider>
+   ),
++  mswDecorator,
+ ];
 ```
 
 Lastly, restart the `yarn storybook` command. And we’re all set to mock API requests in stories.
