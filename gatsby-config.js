@@ -78,6 +78,11 @@ module.exports = {
           es: 6.3,
         },
       },
+      'ui-testing-handbook': {
+        react: {
+          en: 6.4,
+        },
+      },
     },
   },
   plugins: [

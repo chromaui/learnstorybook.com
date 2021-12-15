@@ -40,6 +40,7 @@ const query = graphql`
 const guidePaths = [
   'intro-to-storybook',
   'design-systems-for-developers',
+  'ui-testing-handbook',
   'visual-testing-handbook',
   'create-an-addon',
 ];
