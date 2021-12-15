@@ -33,14 +33,19 @@ authors:
 contributors:
   [
     {
+      src: 'https://avatars2.githubusercontent.com/u/658360',
+      name: 'Michael Chan',
+      detail: 'Storybook DX',
+    },
+    {
       src: 'https://avatars2.githubusercontent.com/u/486540',
       name: 'Kyle Gach',
       detail: 'Storybook DX',
     },
     {
-      src: 'https://avatars2.githubusercontent.com/u/658360',
-      name: 'Michael Chan',
-      detail: 'Storybook DX',
+      src: 'https://avatars2.githubusercontent.com/u/263385',
+      name: 'Dominic Nguyen',
+      detail: 'Storybook design',
     },
   ]
 twitterShareText: "I'm learning how to test UIs! This will help me ship UIs without worrying about stowaway bugs."
