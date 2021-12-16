@@ -21,7 +21,7 @@ toc:
   ]
 coverImagePath: '/guide-cover/ui-test.svg'
 thumbImagePath: '/guide-thumb/ui-test.svg'
-contributorCount: '1'
+contributorCount: '4'
 authors:
   [
     {
