@@ -91,7 +91,13 @@ The `it` block describes our test. We start by rendering the component, waiting 
 ```javascript:title=src/InboxScreen.test.js
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, waitFor, cleanup } from '@testing-library/react';
+import {
+  render,
+  waitFor,
+  cleanup,
+  within,
+  fireEvent,
+} from '@testing-library/react';
 import * as stories from './InboxScreen.stories';
 
 describe('InboxScreen', () => {
@@ -151,7 +157,13 @@ Next, update the test to use the `composeStories` utility from `@storybook/testi
 ```javascript:title=src/InboxScreen.test.js
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, waitFor, cleanup } from '@testing-library/react';
+import {
+  render,
+  waitFor,
+  cleanup,
+  within,
+  fireEvent,
+} from '@testing-library/react';
 import { composeStories } from '@storybook/testing-react';
 import { getWorker } from 'msw-storybook-addon';
 import * as stories from './InboxScreen.stories';
