@@ -243,7 +243,7 @@ import { composeStories } from '@storybook/testing-react';
 import { getWorker } from 'msw-storybook-addon';
 import * as stories from './InboxScreen.stories';
 
-expect.extend(toHaveNoViolations);
++ expect.extend(toHaveNoViolations);
 
 describe('InboxScreen', () => {
   afterEach(() => {
