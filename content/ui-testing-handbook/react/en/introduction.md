@@ -71,12 +71,9 @@ In upcoming chapters, we'll dig deeper into each layer of the test stack and get
 
 Note, the implementation details aren’t important since we’re focusing more on how to test this UI. We use React here, but rest assured, these testing concepts extend to all component-based frameworks.
 
-To grab the code, run the following commands:
+To grab the code, fork this repository https://github.com/chromaui/ui-testing-guide-code, and run the following commands:
 
 ```sh
-# fork this repository 
-https://github.com/chromaui/ui-testing-guide-code
-
 # Clone the forked repository
 git clone https://github.com/<your_github_username>/ui-testing-guide-code
 
