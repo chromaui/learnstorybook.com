@@ -74,10 +74,13 @@ Note, the implementation details aren’t important since we’re focusing more 
 To grab the code, run the following commands:
 
 ```sh
-# Clone the template
-npx degit chromaui/ui-testing-guide-code taskbox
+# fork this repository 
+https://github.com/chromaui/ui-testing-guide-code
 
-cd taskbox
+# Clone the forked repository
+https://github.com/<githubusername>/ui-testing-guide-code
+
+cd ui-testing-guide-code
 
 # Install dependencies
 yarn
