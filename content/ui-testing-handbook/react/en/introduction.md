@@ -78,7 +78,7 @@ To grab the code, run the following commands:
 https://github.com/chromaui/ui-testing-guide-code
 
 # Clone the forked repository
-https://github.com/<githubusername>/ui-testing-guide-code
+git clone https://github.com/<your_github_username>/ui-testing-guide-code
 
 cd ui-testing-guide-code
 
