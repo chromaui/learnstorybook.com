@@ -47,6 +47,7 @@ contributors:
       name: 'Dominic Nguyen',
       detail: 'Storybook design',
     },
+    { src: '../reviewers/rob-snow.jpg', name: 'Rob Snow', detail: 'Adobe' },
   ]
 twitterShareText: "I'm learning how to test UIs! This will help me ship UIs without worrying about stowaway bugs."
 ---
