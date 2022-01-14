@@ -7,7 +7,7 @@ commit: '1681de1'
 
 [26% of adults](https://www.cdc.gov/ncbddd/disabilityandhealth/infographic-disability-impacts-all.html) in the US have at least one disability. When you improve accessibility, it has an outsized impact on your current and future customers. It’s also a legal requirement.
 
-The most accurate way to check accessibility is manually on real devices. But that requires specialized expertise and a lot of time. Both of which are scarce on frontend teams.
+The most accurate way to check accessibility is manually on real devices. But that requires specialized expertise and a lot of time, both of which are scarce on frontend teams.
 
 That's why many companies now use a combination of automated and manual testing. Automation catches common accessibility issues with low effort from developers. Manual QA is reserved for trickier problems that require human attention.
 
@@ -33,6 +33,8 @@ Automated tools audit the rendered DOM against a set of heuristics based on [WCA
 For example, Axe, on average, finds [57% of WCAG issues automatically](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/). That allows teams to focus their expert resources on the more complex issues that require manual review.
 
 Many teams use the [Axe library](https://github.com/dequelabs/axe-core) because it integrates with most existing test environments. For example, the [Twilio Paste](https://github.com/twilio-labs/paste) team uses the [jest-axe integration](https://github.com/twilio-labs/paste/blob/cd0ddad508e41cb9982a693a5160f1b7866f4e2a/packages/paste-core/components/checkbox/__tests__/checkboxdisclaimer.test.tsx#L40). Whereas the Shopify Polaris & Adobe Spectrum teams use the [Storybook addon](https://storybook.js.org/addons/@storybook/addon-a11y) version.
+
+The Storybook addon runs checks in the browser (as opposed to jsdom for Jest) and can therefore catch issues such as low contrast. However, it does require you to manually verify each story.
 
 ## Accessibility testing workflow
 
