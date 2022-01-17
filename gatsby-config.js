@@ -67,15 +67,15 @@ module.exports = {
       },
       'visual-testing-handbook': {
         react: {
-          en: 6.3,
+          en: 6.4,
           es: 6.3,
         },
       },
       'create-an-addon': {
         react: {
-          en: 6.3,
-          fr: 6.3,
-          es: 6.3,
+          en: 6.4,
+          fr: 6.4,
+          es: 6.4,
         },
       },
       'ui-testing-handbook': {
