@@ -22,8 +22,31 @@ import { withGlobals } from '../withGlobals';
 export const decorators = [withGlobals];
 ```
 
-<div class="aside"><b>Note:</b> the <code>withRoundTrip</code> decorator from the Addon Kit is an example of two-way communication between the story and an addon. However, we don't require that for our addon and can delete it.</div>
-
-Success! You now have a fully functional addon in your local Storybook. In the final chapter, learn how to list your addon in the catalog. That way you can share with your team and the Storybook community.
+<div class="aside">💡 The <code>withRoundTrip</code> decorator from the Addon Kit is an example of two-way communication between the story and an addon. However, we don't require that for our addon and can delete it.</div>
 
 ![toggling the tool toggles the outlines](../../images/toggle.gif)
+
+## Root-level preset
+
+Before we can add our addon to the catalog, there's one item worth mentioning. Each Storybook addon must include a root-level preset to register the addon without any additional configuration from the user. Luckily for us, this was set up for us when we cloned the repository in the [setup section](/create-an-addon/react/en/getting-started/). If you open your `preset.js` in the root directory, you'll see the following inside:
+
+```js:title=preview.js
+function config(entry = []) {
+  return [...entry, require.resolve("./dist/esm/preset/preview")];
+}
+
+function managerEntries(entry = []) {
+  return [...entry, require.resolve("./dist/esm/preset/manager")];
+}
+
+module.exports = {
+  managerEntries,
+  config,
+};
+```
+
+<div class="aside">
+ 💡 Read the official <a href="https://storybook.js.org/docs/react/addons/writing-presets#manager-entries">Storybook documentation</a> to learn more about presets.
+</div>
+
+Success! You now have a fully functional addon in your local Storybook. In the final chapter, learn how to list your addon in the catalog. That way you can share with your team and the Storybook community.

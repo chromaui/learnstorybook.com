@@ -97,7 +97,7 @@ Ok, that seems like a big jump. Let’s walk through all the changes.
 
 The addon can be active in both docs and story view modes. The actual DOM node for the preview `iframe` is different in these two modes. In fact, the docs mode renders multiple story previews on one page. Therefore, we need to pick the appropriate selector for the DOM node where the styles will be injected. Also, the CSS needs to be scoped to that particular selector.
 
-<div class="aside"><b>Note:</b> the <code>useMemo</code> and <code>useEffect</code> here come from <a href="https://storybook.js.org/docs/react/addons/addons-api">@storybook/addons</a> and not React. This is because the decorator code is running in the preview part of Storybook. That's where the user's code is loaded which may not contain React. Therefore, to be framework agnostic, Storybook implements a React-like hook library which we can use!</div>
+<div class="aside"> 💡 <code>useMemo</code> and <code>useEffect</code> here come from <a href="https://storybook.js.org/docs/react/addons/addons-api">@storybook/addons</a> and not React. This is because the decorator code is running in the preview part of Storybook. That's where the user's code is loaded which may not contain React. Therefore, to be framework agnostic, Storybook implements a React-like hook library which we can use!</div>
 
 Next, as we inject the styles into the DOM, we need to keep track of them to clear them when the user toggles it off or switches the view mode.
 
