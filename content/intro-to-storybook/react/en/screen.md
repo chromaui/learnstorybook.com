@@ -69,7 +69,7 @@ const TasksSlice = createSlice({
 // The actions contained in the slice are exported for usage in our components
 export const { updateTaskState } = TasksSlice.actions;
 
-// The actions contained in the new slice are exported to be used in our components
++ // The actions contained in the new slice are exported to be used in our components
 + export const { updateAppState } = AppStateSlice.actions;
 
 /*
