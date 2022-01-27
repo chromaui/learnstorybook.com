@@ -32,6 +32,12 @@ LinkWrapper.propTypes = {
 };
 
 const navCommunityLinks = [
+  { title: 'Blog', href: 'https://storybook.js.org/blog', isGatsby: false },
+  {
+    title: 'Releases',
+    href: 'https://storybook.js.org/releases/',
+    isGatsby: false,
+  },
   {
     title: 'Get involved',
     href: 'https://storybook.js.org/community/',
@@ -52,6 +58,11 @@ const navCommunityLinks = [
 
 const links = [
   {
+    title: 'Showcase',
+    href: 'https://storybook.js.org/showcase/',
+    isGatsby: false,
+  },
+  {
     title: 'Docs',
     href: 'https://storybook.js.org/docs/react/get-started/introduction',
     isGatsby: false,
@@ -61,13 +72,7 @@ const links = [
     href: '/',
     isGatsby: true,
   },
-  {
-    title: 'Releases',
-    href: 'https://storybook.js.org/releases/',
-    isGatsby: false,
-  },
   { title: 'Addons', href: 'https://storybook.js.org/addons', isGatsby: false },
-  { title: 'Blog', href: 'https://storybook.js.org/blog', isGatsby: false },
 ];
 
 const HeaderWrapper = styled.header`
