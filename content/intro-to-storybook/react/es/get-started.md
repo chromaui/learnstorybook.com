@@ -11,7 +11,7 @@ Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a cre
 
 ## Configurando React Storybook
 
-Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestro entorno. Para iniciar, vamos a usar [Create React App](https://github.com/facebook/create-react-app) (CRA) para configurar nuestro sistema de build, y añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para testear nuestra aplicación creada. Vamos a ejecutar los siguientes comandos:
+Necesitaremos seguir algunos pasos para configurar el proceso de construir nuestro entorno. Para iniciar, vamos a usar [Create React App](https://github.com/facebook/create-react-app) (CRA) para configurar nuestro sistema de build, y añadiremos [Storybook](https://storybook.js.org/) y [Jest](https://facebook.github.io/jest/) para testear nuestra aplicación creada. Vamos a ejecutar los siguientes comandos:
 
 ```bash
 # Crea nuestra aplicación:
