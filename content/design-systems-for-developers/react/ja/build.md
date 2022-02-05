@@ -39,10 +39,10 @@ Storybook は独立して UI コンポーネントを開発するための業界
 Storybook をインストールし実行します。
 
 ```shell
-# Storybookをインストール
+# Installs Storybook
 npx sb init
 
-# 開発モードでStorybookを開始
+# Starts Storybook in development mode
 yarn storybook
 ```
 
@@ -92,8 +92,8 @@ Storybook で`GlobalStyle`「コンポーネント」を使うために、[デ�
 + import { GlobalStyle } from '../src/shared/global';
 
 /*
- * 全てのストーリーにスタイルを適用するグローバルデコレーター
- * 詳細はこちらを参照:
+ * Global decorator to apply the styles to all stories
+ * Read more about them at:
  * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
  */
 + export const decorators = [
@@ -106,7 +106,7 @@ Storybook で`GlobalStyle`「コンポーネント」を使うために、[デ�
 + ];
 
 /*
- * グローバルパラメータについてはこちらを参照:
+ * Read more about global parameters at:
  * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
  */
 export const parameters = {
@@ -145,8 +145,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-// ユーザーがボタンをクリックすると、「action()」をトリガーし、
-// 最終的にStorybookのアドオンパネル内に表示されます。
+// When the user clicks a button, it will trigger the `action()`,
+// ultimately showing up in Storybook's addon panel.
 function ButtonWrapper(props) {
   return <CustomButton {...props} />;
 }
@@ -181,7 +181,7 @@ export default {
   title: 'Design System/Avatar',
   component: Avatar,
   /*
-   * StorybookのargTypesについての詳細はこちら:
+   * More on Storybook argTypes at:
    * https://storybook.js.org/docs/react/api/argtypes
    */
   argTypes: {
@@ -194,18 +194,18 @@ export default {
   },
 };
 
-// 他のAvatarストーリー
+// Other Avatar stories
 
 /*
- * Controlsを使った新しいストーリー
- * Storybookのtemplatesについての詳細はこちら:
+ * New story using Controls
+ * Read more about Storybook templates at:
  * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
  */
 const Template = args => <Avatar {...args} />;
 
 export const Controls = Template.bind({});
 /*
- * argsの詳細はこちら:
+ * More on args at:
  * https://storybook.js.org/docs/react/writing-stories/args
  */
 Controls.args = {
@@ -269,9 +269,9 @@ export default {
   component: Button,
 };
 
-// 他のButtonストーリー
+// Other Button stories
 
-+ // playファンクションを使った新しいストーリー
++ // New story using the play function
 + export const WithInteractions = () => (
 +   <Button
 +     ButtonWrapper={StoryLinkWrapper}

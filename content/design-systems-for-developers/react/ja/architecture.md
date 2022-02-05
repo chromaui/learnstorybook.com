@@ -40,12 +40,12 @@ React は[State of JS](https://stateofjs.com/)の調査によると最も人気�
 コマンドラインで、次のコマンドを実行してください:
 
 ```shell
-# ファイルをクローン
+# Clone the files
 npx degit chromaui/learnstorybook-design-system-template learnstorybook-design-system
 
 cd learnstorybook-design-system
 
-# 依存関係をインストール
+# Install the dependencies
 yarn install
 ```
 

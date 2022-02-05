@@ -103,21 +103,21 @@ test('has a href attribute when rendering with linkWrapper', () => {
 事前に、Storybook をデプロイするために GitHub アクションを設定しました、そして今アクションにテストを含めるよう調整できます。貢献者はこのユニットテストから恩恵を受け、Link コンポーネントはリグレッションに対して強固なものとなるでしょう。
 
 ```diff:title=.github/workflows/chromatic.yml
-# ... 以前と同様
+# ... Same as before
 jobs:
   test:
-    # 実行するオペレーティングシステム
+    # The operating system it will run on
     runs-on: ubuntu-latest
-    # アクションを通すステップの一覧
+    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
 +     - run: yarn test # Adds the test command
-        #👇 ワークフローのステップとしてChromaticを追加
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # ChromaticのGitHubアクションのために必要なオプション
+        # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromaticのプロジェクトトークン、 取得には https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ を参照
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -169,7 +169,7 @@ import React from 'react';
 import { GlobalStyle } from '../src/shared/global';
 
 /*
-* Storybookのグローバルデコレータの詳細は:
+* More on Storybook global decorators at:
 * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
 */
 export const decorators = [
@@ -182,7 +182,7 @@ export const decorators = [
 ];
 
 /*
-* Storybookのグローバルパラメータの詳細は:
+* More on Storybook global parameters at:
 * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 */
 + export const parameters = {

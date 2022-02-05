@@ -89,25 +89,25 @@ npx chromatic --project-token=<project-token>
 以下のような chromatic.yml ファイルを作成します。これにより CI プロセスをどう処理させるかを自動化します。今は小さく始めて進むにしたがって改善を続けます：
 
 ```yaml:title=.github/workflows/chromatic.yml
-# アクションの名前
+# Name of our action
 name: 'Chromatic'
-# アクションをトリガーするイベント
+# The event that will trigger the action
 on: push
 
-# アクション内容
+# What the action will do
 jobs:
   test:
-    # 実行するオペレーティングシステム
+    # The operating system it will run on
     runs-on: ubuntu-latest
-    # アクションを通すステップの一覧
+    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-        #👇 ワークフローのステップとしてChromaticを追加
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # ChromaticのGitHubアクションのために必要なオプション
+        # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromaticのプロジェクトトークン、 取得には https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ を参照
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

@@ -62,7 +62,7 @@ export default {
   title: 'Design System/Avatar',
   component: Avatar,
   /*
-  * StorybookのargTypesについての詳細は:
+  * More on Storybook argTypes at:
   * https://storybook.js.org/docs/react/api/argtypes
   */
   argTypes: {
@@ -74,7 +74,7 @@ export default {
     },
   },
   /*
-  * Storybookのparametersについての詳細は:
+  * More on Storybook parameters at:
   * https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters
   */
 + parameters: {
@@ -132,7 +132,7 @@ export default {
   title: 'Design System/Avatar',
   component: Avatar,
   /*
-  * StorybookのargTypesの詳細については:
+  * More on Storybook argTypes at:
   * https://storybook.js.org/docs/react/api/argtypes
   */
   argTypes: {
@@ -149,7 +149,7 @@ export default {
   },
 };
 
-// 他のAvatarストーリー
+// Other Avatar stories
 
 export const Sizes = (args) => (
   <div>
@@ -161,7 +161,7 @@ export const Sizes = (args) => (
 );
 
 /*
- * Storybookのargsについての詳細は
+ * More on component Storybook args at
  * https://storybook.js.org/docs/react/writing-stories/args#story-args
  */
 Sizes.args = {
@@ -170,7 +170,7 @@ Sizes.args = {
 };
 
 /*
- * Storybookのparametersについての詳細は:
+ * More on component Storybook parameters at:
  * https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters
  */
 + Sizes.parameters = {

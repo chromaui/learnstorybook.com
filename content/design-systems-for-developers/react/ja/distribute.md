@@ -166,8 +166,8 @@ npm は、こちらの URL でトークンを作成することができます: 
 プロジェクトの`.env`ファイルにトークンを追加しましょう：
 
 ```
-GH_TOKEN=<GitHubから取得した値>
-NPM_TOKEN=<npmから取得した値>
+GH_TOKEN=<value you just got from GitHub>
+NPM_TOKEN=<value you just got from npm>
 ```
 
 `.gitignore`に上記ファイルを追加することで、全てのユーザーに見えるオープンソースリポジトリへこの値を間違えてプッシュしないことを確実にします！これはきわめて重要です。他のメンテナーがローカルのパッケージを発行する必要がある場合(後ほどプルリクエストがデフォルトブランチへマージされる時に自動的な発行を設定します)、このプロセスにしたがい彼ら自身の`.env`ファイルに設定するべきです：
@@ -291,22 +291,22 @@ GitHub シークレットはリポジトリに機密情報の格納を許可し�
 プルリクエストをする度に、デザインシステムを自動的に発行したいものです。先に<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">Storybook の発行</a>で使った同じフォルダに`push.yml`という新しいファイルを作成し次の内容を追加します：
 
 ```yml:title=.github/workflows/push.yml
-# アクションの名前
+# Name of our action
 name: Release
 
-# アクションをトリガーするイベント
+# The event that will trigger the action
 on:
   push:
     branches: [main]
 
-# アクション内容
+# what the action will do
 jobs:
   release:
-    # 実行環境となるオペレーティングシステム
+    # The operating system it will run on
     runs-on: ubuntu-latest
-    # autoとgithubアクションシーンで発行ループを防ぐためにこのチェックが必要
+    # This check needs to be in place to prevent a publish loop with auto and github actions
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
-    # アクションを実行するステップのリスト
+    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v2
       - name: Prepare repository
@@ -325,7 +325,7 @@ jobs:
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #👇 npmトークン、取得のために https://storybook.js.org/tutorials/design-systems-for-developers/react/en/distribute/ を参照
+          #👇 npm token, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/distribute/ to obtain it
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           yarn install --frozen-lockfile
@@ -356,15 +356,15 @@ jobs:
 次のコマンドを実行してサンプルアプリをセットアップします：
 
 ```shell
-# ローカルにファイルをクローンする
+# Clones the files locally
 npx degit chromaui/learnstorybook-design-system-example-app example-app
 
 cd example-app
 
-# 依存関係をインストールする
+# Install the dependencies
 yarn install
 
-## Storybookを開始する
+## Start Storybook
 yarn storybook
 ```
 
@@ -384,7 +384,7 @@ module.exports = {
 + refs: {
 +   'design-system': {
 +     title: 'My design system',
-+     //👇 デプロイ時にChromaticが提供したurl
++     //👇 The url provided by Chromatic when it was deployed
 +     url: 'https://your-published-url.chromatic.com',
 +   },
 + },
@@ -428,8 +428,8 @@ import { global as designSystemGlobal } from '@your-npm-username/learnstorybook-
 const { GlobalStyle } = designSystemGlobal;
 
 /*
- * デザインシステムからインポートしたスタイルを含めるためグローバルにデコレータを追加します。Adds a global decorator to include the imported styles from the design system.
- * Storybookのデコレータについての詳細は:
+ * Adds a global decorator to include the imported styles from the design system.
+ * More on Storybook decorators at:
  * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
  */
 export const decorators = [
@@ -441,7 +441,7 @@ export const decorators = [
   ),
 ];
 /*
- * Storybookのパラメータについての詳細は:
+ * More on Storybook parameters at:
  * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
  */
 export const parameters = {
