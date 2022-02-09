@@ -112,6 +112,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+<div class="aside"><p>💡 단기적 용도로는 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 가 언급되지 않습니다. Secrets는 깃허브가 제공하는 안전한 환경변수입니다. 그래서 <code>project-token</code>의 코드를 힘들게 작성할 필요가 없습니다.</p></div>
+
 수정사항을 git add 합니다.
 
 ```shell
@@ -134,7 +136,7 @@ git push origin master
 
 ## 팀에게 비주얼 리뷰 요청하기
 
-풀 리퀘스트가 UI 변동사항을 동반할 때마다, 유저에게 무엇을 전달할지에 관해 합의에 이르기 위해 이해 당사자들과 비주얼 리뷰 과정을 항상 거치는 것이 도움 됩니다.
+풀 리퀘스트가 UI 변동사항을 동반할 때마다, 유저에게 무엇을 전달할지에 관해 합의에 이르기 위해 이해 당사자들과 비주얼 리뷰 과정을 항상 거치는 것이 도움 됩니다. 이 과정을 거치므로써 원치 않는 뜻밖의 일이나 돈이 많이 드는 재작업이 발생하지 않습니다.
 
 우리는 새로운 브랜치에 UI 변경을 함으로써 비주얼 리뷰를 보여주겠습니다.
 
