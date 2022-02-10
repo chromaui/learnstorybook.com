@@ -264,7 +264,7 @@ export const parameters = {
 
 Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that mocks the remote API calls:
 
-```diff:title=src/components/InboxScreen.js
+```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
 
 import InboxScreen from './InboxScreen';
