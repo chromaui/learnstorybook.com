@@ -127,6 +127,13 @@ module.exports = {
     '@storybook/preset-create-react-app',
     '@storybook/addon-interactions',
   ],
+  features: {
+    postcss: false,
+  },
+  framework: '@storybook/react',
+  core: {
+    builder: 'webpack4',
+  },
 };
 ```
 

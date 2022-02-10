@@ -19,7 +19,7 @@ Fresh installs of Storybook include Controls out of the box. No extra configurat
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/controls-in-action.mp4"
+    src="/intro-to-storybook/controls-in-action-6-4.mp4"
     type="video/mp4"
   />
 </video>
@@ -32,7 +32,7 @@ Storybook is a wonderful [component-driven development environment](https://www.
 
 With Controls, QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Considering the following example, what would happen to our `Task` if we added a **MASSIVE** string?
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
+![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case-6-4.png)
 
 That's not right! It looks like the text overflows beyond the bounds of the Task component.
 
@@ -50,7 +50,7 @@ Now let's fix the issue with overflowing by adding a style to `Task.js`:
 />
 ```
 
-![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
+![That's better.](/intro-to-storybook/edge-case-solved-with-controls-6-4.png)
 
 Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
 
@@ -76,7 +76,7 @@ Now we can reproduce and work on this edge case with ease.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/task-stories-long-title.mp4"
+    src="/intro-to-storybook/task-stories-long-title-6-4.mp4"
     type="video/mp4"
   />
 </video>
