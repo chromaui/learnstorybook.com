@@ -38,7 +38,7 @@ const TaskBoxData = {
 
 /*
  * Creates an asyncThunk to fetch tasks from a remote endpoint.
- * You can read more about it Redux Toolkit's thunks in the docs:
+ * You can read more about Redux Toolkit's thunks in the docs:
  * https://redux-toolkit.js.org/api/createAsyncThunk
  */
 
