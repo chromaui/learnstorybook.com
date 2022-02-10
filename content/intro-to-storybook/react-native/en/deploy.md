@@ -30,7 +30,7 @@ We want to share the latest version of components whenever we push code. To do t
 
 ### GitHub
 
-When the project was initialized with Expo, a local repository was already setup for you. At this stage it's safe to add the files to the first commit.
+When the project was initialized with Expo, a local repository was already set up for you. At this stage it's safe to add the files to the first commit.
 
 ```bash
 $ git add .
@@ -42,13 +42,13 @@ Now commit the files.
 $ git commit -m "taskbox UI"
 ```
 
-### Setup a repository in GitHub
+### Set up a repository in GitHub
 
-Go to GitHub and setup a repository [here](https://github.com/new). Name your repo “taskbox”.
+Go to GitHub and set up a repository [here](https://github.com/new). Name your repo “taskbox”.
 
 ![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
 
-In the new repo setup copy the origin URL of the repo and add it to your git project with this command:
+Copy the origin URL of your new repo and add it to your git project with this command:
 
 ```bash
 $ git remote add origin https://github.com/<your username>/taskbox.git

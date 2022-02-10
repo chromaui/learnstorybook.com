@@ -173,7 +173,7 @@ However, where things get interesting is in rendering the story in Storybook.
 
 As `loading` and `error` are states internal to the `InboxScreen` component, they usually aren't controlled from the outside, so we allow those to be passed in as arguments. That will enable us to showcase these variations in Storybook.
 
-So when we setup our stories in `inbox-screen.stories.js`:
+So when we set up our stories in `inbox-screen.stories.js`:
 
 ```js:title=app/components/inbox-screen.stories.js
 import { hbs } from 'ember-cli-htmlbars';

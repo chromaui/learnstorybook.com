@@ -81,7 +81,7 @@ export const store = createStore(reducers);
 
 ## Using a Route
 
-We have our store setup. We can now declare fields on the objects where required.
+We have our store set up. We can now declare fields on the objects where required.
 
 For that we're going to use both a [route](https://guides.emberjs.com/release/routing/defining-your-routes/) and a [controller](https://guides.emberjs.com/release/routing/controllers/). The latter will contain the actions we've created earlier so that we can modify our store with ease.
 
@@ -133,7 +133,7 @@ And one final file called `template.hbs`, in which we'll add the presentational 
  />
 ```
 
-With this we've accomplished what we've set out to do, we've managed to setup a data persistance layer and also we've managed to keep the components decoupled by adopting some best practices.
+With this we've accomplished what we've set out to do, we've managed to set up a data persistance layer and also we've managed to keep the components decoupled by adopting some best practices.
 
 Our implementation is rather rudimentary and requires additional work if we decide to update our application. In the next chapter we'll introduce screen components, which will improve how the data is handled in our small application.
 

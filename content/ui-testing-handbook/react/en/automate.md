@@ -33,7 +33,7 @@ At a glance, you can tell if the pull request passed all quality checks. If yes,
 
 The previous five chapters demonstrated how to test the various aspects of the Taskbox UI. Building on that, we’ll set up continuous integration using GitHub Actions.
 
-### Setup CI
+### Set up CI
 
 Create a `.github/workflows/ui-tests.yml` file in your repository to get started. A [**workflow**](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions#workflows) is a set of [**jobs**](https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions#jobs) that you want to automate. It is triggered by [**events**](https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows) such as pushing a commit or creating a pull request.
 

@@ -19,7 +19,7 @@ As we start to build `Task`, we first write our test states that correspond to t
 
 This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
-## Get setup
+## Get set up
 
 First, let’s create the necessary files for our task component and its accompanying story file: `app/components/task.hbs` and `app/components/task.stories.js`.
 
@@ -141,7 +141,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 ## Build out the states
 
-Now we have Storybook setup, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+Now we have Storybook set up, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 

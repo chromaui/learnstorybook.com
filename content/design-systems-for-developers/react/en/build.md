@@ -1,7 +1,7 @@
 ---
 title: 'Build UI components'
 tocTitle: 'Build'
-description: 'Setup Storybook to build and catalog design system components'
+description: 'Set up Storybook to build and catalog design system components'
 commit: 'a45c546'
 ---
 

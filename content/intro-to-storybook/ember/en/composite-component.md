@@ -16,7 +16,7 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
 
-## Get setup
+## Get set up
 
 A composite component isn’t much different than the basic components it contains. Create a `TaskList` template and an accompanying story file: `app/components/task-list.hbs` and `app/components/task-list.stories.js`.
 

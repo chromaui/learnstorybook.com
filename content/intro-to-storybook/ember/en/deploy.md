@@ -16,7 +16,7 @@ Running `yarn build-storybook`, it will output a static Storybook in the `storyb
 
 This tutorial uses <a href="https://www.chromatic.com/">Chromatic</a>, a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
 
-### Setup a repository in GitHub
+### Set up a repository in GitHub
 
 Before we begin, our local code needs to sync with a remote version control service. When our project was initialized in the [Get started chapter](/intro-to-storybook/ember/en/get-started/), we already initialized a local repository. At this stage we already have a set of commits that we can push to a remote one.
 
@@ -44,7 +44,7 @@ Add the package as a development dependency.
 yarn add -D chromatic
 ```
 
-Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've setup.
+Once the package is installed, [login to Chromatic](https://www.chromatic.com/start) with your GitHub account (Chromatic will only ask for lightweight permissions). Then we'll create a new project called name "taskbox" and sync it with the GithHub repository we've set up.
 
 Click `Choose GitHub repo` under collaborators and select your repo.
 

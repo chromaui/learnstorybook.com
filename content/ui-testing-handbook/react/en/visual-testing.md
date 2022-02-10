@@ -65,7 +65,7 @@ Storybook is the industry-standard for building components in isolation. It’s 
 
 Let’s go back to that Task component. To isolate it means that we load up and render this one component by itself. For that, we need Storybook.
 
-### Setup Storybook
+### Set up Storybook
 
 Our project is preconfigured to use Storybook. The config lives in the `.storybook` folder and all the necessary scripts have been added to `package.json`.
 
@@ -198,7 +198,7 @@ At this point, we know that the component is in a good state. Chromatic will cap
 
 ![](/ui-testing-handbook/visual-regression-testing.gif)
 
-### Setup Chromatic
+### Set up Chromatic
 
 Sign in and [create a new project](https://www.chromatic.com/docs/setup) and grab your project-token.
 

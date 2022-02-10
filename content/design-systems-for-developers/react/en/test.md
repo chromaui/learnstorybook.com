@@ -197,7 +197,7 @@ export const decorators = [
 + };
 ```
 
-Once all is setup, you’ll see a new “Accessibility” tab in the Storybook addons panel.
+Once all is set up, you’ll see a new “Accessibility” tab in the Storybook addons panel.
 
 ![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y-6-0.png)
 
