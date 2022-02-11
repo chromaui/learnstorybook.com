@@ -33,7 +33,6 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
  * The initial state of our store when the app loads.
  * Usually, you would fetch this from a server. Let's not worry about that now
  */
-
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
@@ -172,7 +171,7 @@ Our Storybook stories have stopped working with this change because our `Tasklis
 
 ![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
 
-One way to solve this problem would be to introduce a presentational/container approach and set up the necessary components and stories to test our scenarios, adding another layer of complexity. Instead, let's see how we can do it using a more straightforward approach by adding a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
+We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -185,7 +184,7 @@ import { Provider } from 'react-redux';
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 // A super-simple mock of the state of the store
-const MockedState = {
+export const MockedState = {
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -227,6 +226,7 @@ export default {
   component: TaskList,
   title: 'TaskList',
   decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  excludeStories: /.*MockedState$/,
 };
 
 const Template = () => <TaskList />;
@@ -285,6 +285,10 @@ Empty.decorators = [
   ),
 ];
 ```
+
+<div class="aside">
+💡 <code>excludeStories</code> is a Storybook configuration field that prevents our mocked state to be treated as a story. You can read more about this field in the <a href="https://storybook.js.org/docs/react/api/csf">Storybook documentation</a>.
+</div>
 
 <video autoPlay muted playsInline loop>
   <source

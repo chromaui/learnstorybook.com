@@ -41,7 +41,6 @@ const TaskBoxData = {
  * You can read more about Redux Toolkit's thunks in the docs:
  * https://redux-toolkit.js.org/api/createAsyncThunk
  */
-
 + export const fetchTasks = createAsyncThunk('todos/fetchTodos', async () => {
 +   const response = await fetch(
 +     'https://jsonplaceholder.typicode.com/todos?userId=1'
@@ -270,6 +269,7 @@ import React from 'react';
 import InboxScreen from './InboxScreen';
 import store from '../lib/store';
 + import { rest } from 'msw';
++ import { MockedState } from './TaskList.stories';
 import { Provider } from 'react-redux';
 
 export default {
@@ -287,31 +287,7 @@ export const Default = Template.bind({});
 +       rest.get(
 +         'https://jsonplaceholder.typicode.com/todos?userId=1',
 +         (req, res, ctx) => {
-+           return res(
-+             ctx.json([
-+               {
-+                 id: 1,
-+                 title: 'Task 1',
-+                 completed: false,
-+               },
-+               {
-+                 id: 2,
-+                 title: 'Task 2',
-+                 completed: false,
-+               },
-+               {
-+                 id: 3,
-+                 title: 'Task 3',
-+                 completed: false,
-+               },
-+               {
-+                 id: 4,
-+                 userID: 2,
-+                 title: 'Task 4',
-+                 completed: false,
-+               },
-+             ])
-+           );
++           return res(ctx.json(MockedState.tasks));
 +         }
 +       ),
 +     ],
@@ -366,6 +342,7 @@ import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
 import { rest } from 'msw';
+import { MockedState } from './TaskList.stories';
 import { Provider } from 'react-redux';
 
 + import {
@@ -390,31 +367,7 @@ Default.parameters = {
       rest.get(
         'https://jsonplaceholder.typicode.com/todos?userId=1',
         (req, res, ctx) => {
-          return res(
-            ctx.json([
-              {
-                id: 1,
-                title: 'Task 1',
-                completed: false,
-              },
-              {
-                id: 2,
-                title: 'Task 2',
-                completed: false,
-              },
-              {
-                id: 3,
-                title: 'Task 3',
-                completed: false,
-              },
-              {
-                id: 4,
-                userID: 2,
-                title: 'Task 4',
-                completed: false,
-              },
-            ])
-          );
+          return res(ctx.json(MockedState.tasks));
         }
       ),
     ],
