@@ -66,7 +66,7 @@ yarn chromatic --project-token=<project-token>
 
 When finished, you'll get a link `https://random-uuid.chromatic.com` to your published Storybook. Share the link with your team to get feedback.
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-4.png)
 
 Hooray! We published Storybook with one command, but manually running a command every time we want to get feedback on UI implementation is repetitive. Ideally, we'd publish the latest version of components whenever we push code. We'll need to continuously deploy Storybook.
 
@@ -135,6 +135,6 @@ Click the latest build. It should be the one at the top.
 
 Then, click the `View Storybook` button to see the latest version of your Storybook.
 
-![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
+![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link-6-4-optimized.png)
 
 Use the link and share it with your team members. It's helpful as a part of the standard app development process or simply to show off work 💅.

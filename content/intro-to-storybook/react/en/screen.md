@@ -2,49 +2,57 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: '05aa2ef'
+commit: 'cec2e05'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
 
 In this chapter, we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
 
-## Nested container components
+## Connected screens
 
-As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of Redux (let's assume we'll set that field if we have some problem connecting to our server).
+As our app is straightforward, the screen we'll build is pretty trivial, simply fetching data from a remote API, wrapping the `TaskList` component (which supplies its own data from Redux), and pulling a top-level `error` field out of Redux.
 
-Let's start by updating our Redux store (in `src/lib/store.js`) to include the error field we want:
+We'll start by updating our Redux store (in `src/lib/store.js`) to connect to a remote API and handle the various states for our application (i.e., `error`, `succeeded`):
 
 ```diff:title=src/lib/store.js
- /* A simple redux store/actions/reducer implementation.
+/* A simple redux store/actions/reducer implementation.
  * A true app would be more complex and separated into different files.
  */
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-+ // Our new error field is configured here
-+ const AppStateSlice = createSlice({
-+   name: "appState",
-+   initialState: "",
-+   reducers: {
-+     updateAppState: (state, action) => {
-+       return {
-+         ...state,
-+         isError: action.payload,
-+       };
-+     },
-+   },
-+ });
+import {
+  configureStore,
+  createSlice,
++ createAsyncThunk,
+} from '@reduxjs/toolkit';
 
 /*
  * The initial state of our store when the app loads.
- * Usually, you would fetch this from a server.
+ * Usually, you would fetch this from a server. Let's not worry about that now
  */
-const defaultTasks = [
-  { id: '1', title: 'Something', state: 'TASK_INBOX' },
-  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
-];
+
+const TaskBoxData = {
+  tasks: [],
+  status: "idle",
+  error: null,
+};
+
+/*
+ * Creates an asyncThunk to fetch tasks from a remote endpoint.
+ * You can read more about Redux Toolkit's thunks in the docs:
+ * https://redux-toolkit.js.org/api/createAsyncThunk
+ */
++ export const fetchTasks = createAsyncThunk('todos/fetchTodos', async () => {
++   const response = await fetch(
++     'https://jsonplaceholder.typicode.com/todos?userId=1'
++   );
++   const data = await response.json();
++   const result = data.map((task) => ({
++     id: `${task.id}`,
++     title: task.title,
++     state: task.completed ? 'TASK_ARCHIVED' : 'TASK_INBOX',
++   }));
++   return result;
++ });
 
 /*
  * The store is created here.
@@ -52,25 +60,44 @@ const defaultTasks = [
  * https://redux-toolkit.js.org/api/createSlice
  */
 const TasksSlice = createSlice({
-  name: 'tasks',
-  initialState: defaultTasks,
+  name: 'taskbox',
+  initialState: TaskBoxData,
   reducers: {
     updateTaskState: (state, action) => {
       const { id, newTaskState } = action.payload;
-      const task = state.findIndex(task => task.id === id);
+      const task = state.tasks.findIndex((task) => task.id === id);
       if (task >= 0) {
-        state[task].state = newTaskState;
+        state.tasks[task].state = newTaskState;
       }
     },
   },
+  /*
+   * Extends the reducer for the async actions
+   * You can read more about it at https://redux-toolkit.js.org/api/createAsyncThunk
+   */
++  extraReducers(builder) {
++    builder
++    .addCase(fetchTasks.pending, (state) => {
++      state.status = 'loading';
++      state.error = null;
++      state.tasks = [];
++    })
++    .addCase(fetchTasks.fulfilled, (state, action) => {
++      state.status = 'succeeded';
++      state.error = null;
++      // Add any fetched tasks to the array
++      state.tasks = action.payload;
++     })
++    .addCase(fetchTasks.rejected, (state) => {
++      state.status = 'failed';
++      state.error = "Something went wrong";
++      state.tasks = [];
++    });
++ },
 });
-
 
 // The actions contained in the slice are exported for usage in our components
 export const { updateTaskState } = TasksSlice.actions;
-
-+ // The actions contained in the new slice are exported to be used in our components
-+ export const { updateAppState } = AppStateSlice.actions;
 
 /*
  * Our app's store configuration goes here.
@@ -79,25 +106,30 @@ export const { updateTaskState } = TasksSlice.actions;
  */
 const store = configureStore({
   reducer: {
-    tasks: TasksSlice.reducer,
-+   isError: AppStateSlice.reducer,
+    taskbox: TasksSlice.reducer,
   },
 });
 
 export default store;
-
 ```
 
-Now that we have the store updated with the new field. Let's create our `InboxScreen.js` in the `src/components` directory:
+Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.js` in the `src/components` directory:
 
 ```js:title=src/components/InboxScreen.js
-import React from 'react';
-import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTasks } from '../lib/store';
+import TaskList from './TaskList';
 
-import { TaskList } from './TaskList';
+export default function InboxScreen() {
+  const dispatch = useDispatch();
+  // We're retrieving the error field from our updated store
+  const { error } = useSelector((state) => state.taskbox);
+  // The useEffect triggers the data fetching when the component is mounted
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
 
-export function PureInboxScreen({ error }) {
   if (error) {
     return (
       <div className="page lists-show">
@@ -120,25 +152,9 @@ export function PureInboxScreen({ error }) {
     </div>
   );
 }
-
-PureInboxScreen.propTypes = {
-  /** The error message */
-  error: PropTypes.string,
-};
-
-PureInboxScreen.defaultProps = {
-  error: null,
-};
-
-export function InboxScreen() {
-  // We're retrieving the error field from our updated store
-  const isError = useSelector(state => state.isError);
-
-  return <PureInboxScreen error={isError} />;
-}
 ```
 
-We also need to change the `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
+We also need to change our `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
 ```diff:title=src/App.js
 - import logo from './logo.svg';
@@ -147,7 +163,7 @@ We also need to change the `App` component to render the `InboxScreen` (eventual
 + import store from './lib/store';
 
 + import { Provider } from 'react-redux';
-+ import { InboxScreen } from './components/InboxScreen';
++ import InboxScreen from './components/InboxScreen';
 
 function App() {
   return (
@@ -166,114 +182,143 @@ function App() {
 -         Learn React
 -       </a>
 -     </header>
--    </div>
-+  <Provider store={store}>
-+    <InboxScreen />
+-   </div>
++   <Provider store={store}>
++     <InboxScreen />
 +   </Provider>
   );
 }
-
 export default App;
 ```
 
-<div class="aside"><p>Don't forget to update the test file <code>src/App.test.js</code>. Or the next time you run your tests they will fail.</p></div>
+<div class="aside">
+  💡 Don't forget to update the test file <code>src/App.test.js</code>. Or the next time you run your tests they will fail.
+</div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition, container components cannot be simply rendered in isolation; they expect to be passed some context or connected to a service. What this means is that to render a container in Storybook, we must mock (i.e., provide a pretend version) the context or service it requires.
+As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.js`:
 
-When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
-
-However, we have a problem with the `PureInboxScreen` because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense, the `PureInboxScreen` has been polluted by “container-ness”. So when we set up our stories in `PureInboxScreen.stories.js`:
-
-```js:title=src/components/PureInboxScreen.stories.js
+```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
 
-import { PureInboxScreen } from './InboxScreen';
+import InboxScreen from './InboxScreen';
+import store from '../lib/store';
+
+import { Provider } from 'react-redux';
 
 export default {
-  component: PureInboxScreen,
-  title: 'PureInboxScreen',
+  component: InboxScreen,
+  title: 'InboxScreen',
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = () => <InboxScreen />;
 
 export const Default = Template.bind({});
-
 export const Error = Template.bind({});
-Error.args = {
-  error: 'Something',
+```
+
+We can quickly spot an issue with the `error` story. Instead of displaying the right state, it shows a list of tasks. One way to sidestep this issue would be to provide a mocked version for each state, similar to what we did in the last chapter. Instead, we'll use a well-known API mocking library alongside a Storybook addon to help us solve this issue.
+
+![Broken inbox screen state](/intro-to-storybook/broken-inbox-error-state-optimized.png)
+
+## Mocking API Services
+
+As our application is pretty straightforward and doesn't depend too much on remote API calls, we're going to use [Mock Service Worker](https://mswjs.io/) and [Storybook's MSW addon](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker is an API mocking library. It relies on service workers to capture network requests and provides mocked data in responses.
+
+When we set up our app in the [Get started section](/intro-to-storybook/react/en/get-started) both packages were also installed. All that remains is to configure them and update our stories to use them.
+
+In your terminal, run the following command to generate a generic service worker inside your `public` folder:
+
+```shell
+yarn init-msw
+```
+
+Then, we'll need to update our `.storybook/preview.js` and initialize them:
+
+```diff:title=.storybook/preview.js
+import '../src/index.css';
+
++ // Registers the msw addon
++ import { initialize, mswDecorator } from 'msw-storybook-addon';
+
++ // Initialize MSW
++ initialize();
+
++ // Provide the MSW addon decorator globally
++ export const decorators = [mswDecorator];
+
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
 };
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story because the `TaskList` has no Redux store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that mocks the remote API calls:
 
-![Broken inbox](/intro-to-storybook/broken-inboxscreen.png)
+```diff:title=src/components/InboxScreen.stories.js
+import React from 'react';
 
-One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data requirements down the component hierarchy.
+import InboxScreen from './InboxScreen';
+import store from '../lib/store';
++ import { rest } from 'msw';
++ import { MockedState } from './TaskList.stories';
+import { Provider } from 'react-redux';
 
-However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
+export default {
+  component: InboxScreen,
+  title: 'InboxScreen',
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+};
+
+const Template = () => <InboxScreen />;
+
+export const Default = Template.bind({});
++ Default.parameters = {
++   msw: {
++     handlers: [
++       rest.get(
++         'https://jsonplaceholder.typicode.com/todos?userId=1',
++         (req, res, ctx) => {
++           return res(ctx.json(MockedState.tasks));
++         }
++       ),
++     ],
++   },
++ };
+
+export const Error = Template.bind({});
++ Error.parameters = {
++   msw: {
++     handlers: [
++       rest.get(
++         'https://jsonplaceholder.typicode.com/todos?userId=1',
++         (req, res, ctx) => {
++           return res(ctx.status(403));
++         }
++       ),
++     ],
++   },
++ };
+```
 
 <div class="aside">
-💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
+💡 As an aside, yet another viable approach would be to pass data down the hierarchy, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
+
 </div>
 
-## Supplying context with decorators
+Check your Storybook, and you'll be able to see that the `error` story is now working as intended. MSW intercepted our remote API call and provided the appropriate response.
 
-The good news is that it is easy to supply a Redux store to the `PureInboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
-
-```diff:title=src/components/PureInboxScreen.stories.js
-import React from 'react';
-+ import { Provider } from 'react-redux';
-+ import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-import { PureInboxScreen } from './InboxScreen';
-
-+ import * as TaskListStories from './TaskList.stories';
-
-+ // A super-simple mock of a redux store
-+  const Mockstore = configureStore({
-+    reducer: {
-+      tasks: createSlice({
-+        name: 'tasks',
-+        initialState: TaskListStories.Default.args.tasks,
-+        reducers: {
-+          updateTaskState: (state, action) => {
-+            const { id, newTaskState } = action.payload;
-+            const task = state.findIndex((task) => task.id === id);
-+            if (task >= 0) {
-+              state[task].state = newTaskState;
-+            }
-+          },
-+        },
-+      }).reducer,
-+    },
-+  });
-
-export default {
-  component: PureInboxScreen,
-+ decorators: [story => <Provider store={Mockstore}>{story()}</Provider>],
-  title: 'PureInboxScreen',
-};
-
-const Template = args => <PureInboxScreen {...args} />;
-
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = {
-  error: 'Something',
-};
-```
-
-Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
-
-Cycling through states in Storybook makes it easy to test we’ve done this correctly:
-
-<video autoPlay muted playsInline loop >
-
+<video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
+    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized.mp4"
     type="video/mp4"
   />
 </video>
@@ -288,59 +333,58 @@ Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-fu
 
 The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, that means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
 
-Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
+Let's see it in action! Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
 
-```diff:title=src/components/PureInboxScreen.stories.js
+```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
+
+import InboxScreen from './InboxScreen';
+
+import store from '../lib/store';
+import { rest } from 'msw';
+import { MockedState } from './TaskList.stories';
 import { Provider } from 'react-redux';
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-+ import { fireEvent, within } from '@storybook/testing-library';
 
-import { PureInboxScreen } from './InboxScreen';
-
-import * as TaskListStories from './TaskList.stories';
-
- // A super-simple mock of a redux store
-const Mockstore = configureStore({
-  reducer: {
-    tasks: createSlice({
-      name: 'tasks',
-      initialState: TaskListStories.Default.args.tasks,
-      reducers: {
-        updateTaskState: (state, action) => {
-          const { id, newTaskState } = action.payload;
-          const task = state.findIndex((task) => task.id === id);
-          if (task >= 0) {
-            state[task].state = newTaskState;
-          }
-        },
-      },
-    }).reducer,
-  },
-});
++ import {
++  fireEvent,
++  within,
++  waitFor,
++  waitForElementToBeRemoved
++ } from '@storybook/testing-library';
 
 export default {
-  component: PureInboxScreen,
-  decorators: [story => <Provider store={Mockstore}>{story()}</Provider>],
-  title: 'PureInboxScreen',
+  component: InboxScreen,
+  title: 'InboxScreen',
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = () => <InboxScreen />;
 
 export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = {
-  error: 'Something',
+Default.parameters = {
+  msw: {
+    handlers: [
+      rest.get(
+        'https://jsonplaceholder.typicode.com/todos?userId=1',
+        (req, res, ctx) => {
+          return res(ctx.json(MockedState.tasks));
+        }
+      ),
+    ],
+  },
 };
 
-+ export const WithInteractions = Template.bind({});
-+ WithInteractions.play = async ({ canvasElement }) => {
++ Default.play = async ({ canvasElement }) => {
 +   const canvas = within(canvasElement);
-+   // Simulates pinning the first task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
-+   // Simulates pinning the third task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++   // Waits for the component to transition from the loading state
++   await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
++   // Waits for the component to be updated based on the store
++   await waitFor(async () => {
++     // Simulates pinning the first task
++     await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++     // Simulates pinning the third task
++     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++   });
 + };
 ```
 
@@ -348,7 +392,7 @@ Check your newly created story. Click the `Interactions` panel to see the list o
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    src="/intro-to-storybook/storybook-interactive-stories-play-function-6-4.mp4"
     type="video/mp4"
   />
 </video>
@@ -357,7 +401,8 @@ The play function allows us to interact with our UI and quickly check how it res
 
 ## Component-Driven Development
 
-We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
+We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen`
+accommodates connected components and includes accompanying stories.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source

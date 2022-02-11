@@ -136,7 +136,6 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     onPinTask,
     onArchiveTask,
   };
-
   const LoadingRow = (
     <div className="loading-item">
       <span className="glow-checkbox" />
@@ -147,7 +146,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   );
   if (loading) {
     return (
-      <div className="list-items">
+      <div className="list-items" data-testid="loading" key={"loading"}>
         {LoadingRow}
         {LoadingRow}
         {LoadingRow}
@@ -159,7 +158,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
   if (tasks.length === 0) {
     return (
-      <div className="list-items">
+      <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
           <div className="title-message">You have no tasks</div>
@@ -168,13 +167,14 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
+
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === "TASK_PINNED"),
+    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
   ];
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => (
+      {tasksInOrder.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -203,7 +203,7 @@ import React from 'react';
 
 import Task from './Task';
 
-export default function TaskList() {
+export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   ...
 }
 

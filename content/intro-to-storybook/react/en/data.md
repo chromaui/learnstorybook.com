@@ -7,11 +7,11 @@ commit: 'b29407b'
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
 
-This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data into connected components.
 
-## Container components
+## Connected components
 
-Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. We need to wire it to a data provider to get data into it.
 
 This example uses [Redux Toolkit](https://redux-toolkit.js.org/), the most effective toolset for developing applications for storing data with [Redux](https://redux.js.org/), to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
@@ -31,7 +31,7 @@ import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 /*
  * The initial state of our store when the app loads.
- * Usually, you would fetch this from a server.
+ * Usually, you would fetch this from a server. Let's not worry about that now
  */
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -39,6 +39,11 @@ const defaultTasks = [
   { id: '3', title: 'Something else', state: 'TASK_INBOX' },
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
+const TaskBoxData = {
+  tasks: defaultTasks,
+  status: 'idle',
+  error: null,
+};
 
 /*
  * The store is created here.
@@ -46,14 +51,14 @@ const defaultTasks = [
  * https://redux-toolkit.js.org/api/createSlice
  */
 const TasksSlice = createSlice({
-  name: 'tasks',
-  initialState: defaultTasks,
+  name: 'taskbox',
+  initialState: TaskBoxData,
   reducers: {
     updateTaskState: (state, action) => {
       const { id, newTaskState } = action.payload;
-      const task = state.findIndex(task => task.id === id);
+      const task = state.tasks.findIndex((task) => task.id === id);
       if (task >= 0) {
-        state[task].state = newTaskState;
+        state.tasks[task].state = newTaskState;
       }
     },
   },
@@ -69,7 +74,7 @@ export const { updateTaskState } = TasksSlice.actions;
  */
 const store = configureStore({
   reducer: {
-    tasks: TasksSlice.reducer,
+    taskbox: TasksSlice.reducer,
   },
 });
 
@@ -80,54 +85,78 @@ Then we’ll update our `TaskList` component to connect to the Redux store and r
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import Task from './Task';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTaskState } from '../lib/store';
 
-export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  /* previous implementation of TaskList */
-}
-
-PureTaskList.propTypes = {
-  /** Checks if it's in loading state */
-  loading: PropTypes.bool,
-  /** The list of tasks */
-  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** Event to change the task to pinned */
-  onPinTask: PropTypes.func.isRequired,
-  /** Event to change the task to archived */
-  onArchiveTask: PropTypes.func.isRequired,
-};
-
-PureTaskList.defaultProps = {
-  loading: false,
-};
-
-export function TaskList() {
+export default function TaskList() {
   // We're retrieving our state from the store
-  const tasks = useSelector(state => state.tasks);
-  // We're defining an variable to handle dispatching the actions back to the store
+  const tasks = useSelector((state) => {
+    const tasksInOrder = [
+      ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
+      ...state.taskbox.tasks.filter((t) => t.state !== 'TASK_PINNED'),
+    ];
+    const filteredTasks = tasksInOrder.filter(
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+    );
+    return filteredTasks;
+  });
+
+  const { status } = useSelector((state) => state.taskbox);
+
   const dispatch = useDispatch();
 
-  const pinTask = value => {
+  const pinTask = (value) => {
     // We're dispatching the Pinned event back to our store
     dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
   };
-  const archiveTask = value => {
+  const archiveTask = (value) => {
     // We're dispatching the Archive event back to our store
     dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
   };
+  const LoadingRow = (
+    <div className="loading-item">
+      <span className="glow-checkbox" />
+      <span className="glow-text">
+        <span>Loading</span> <span>cool</span> <span>state</span>
+      </span>
+    </div>
+  );
+  if (status === 'loading') {
+    return (
+      <div className="list-items" data-testid="loading" key={"loading"}>
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+      </div>
+    );
+  }
+  if (tasks.length === 0) {
+    return (
+      <div className="list-items" key={"empty"} data-testid="empty">
+        <div className="wrapper-message">
+          <span className="icon-check" />
+          <div className="title-message">You have no tasks</div>
+          <div className="subtitle-message">Sit back and relax</div>
+        </div>
+      </div>
+    );
+  }
 
-  const filteredTasks = tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED');
   return (
-    <PureTaskList
-      tasks={filteredTasks}
-      onPinTask={task => pinTask(task)}
-      onArchiveTask={task => archiveTask(task)}
-    />
+    <div className="list-items" data-testid="success" key={"success"}>
+      {tasks.map((task) => (
+        <Task
+          key={task.id}
+          task={task}
+          onPinTask={(task) => pinTask(task)}
+          onArchiveTask={(task) => archiveTask(task)}
+        />
+      ))}
+    </div>
   );
 }
 ```
@@ -136,28 +165,26 @@ Now that we have some actual data populating our component, obtained from the Re
 
 Don't worry about it. We'll take care of it in the next chapter.
 
-Our Storybook tests will have stopped working at this stage because `TaskList` is now a container and no longer expects any props. Instead, `TaskList` connects to the store and sets the props on the `PureTaskList` component it wraps.
+## Supplying context with decorators
 
-However, we can quickly solve this problem by simply rendering the `PureTaskList`--the presentational component, to which we've just added the `export` statement in the previous step-- in our Storybook stories:
+Our Storybook stories have stopped working with this change because our `Tasklist` is now a connected component since it relies on a Redux store to retrieve and update our tasks.
 
-```diff:title=src/components/TaskList.stories.js
+![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
+
+We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
+
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
-+ import { PureTaskList } from './TaskList';
+import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
-export default {
-+ component: PureTaskList,
-  title: 'PureTaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
-};
+import { Provider } from 'react-redux';
 
-+ const Template = args => <PureTaskList {...args} />;
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited the Default story in task.stories.js.
+// A super-simple mock of the state of the store
+export const MockedState = {
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -166,40 +193,112 @@ Default.args = {
     { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
     { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
   ],
+  status: 'idle',
+  error: null,
 };
+
+// A super-simple mock of a redux store
+const Mockstore = ({ taskboxState, children }) => (
+  <Provider
+    store={configureStore({
+      reducer: {
+        taskbox: createSlice({
+          name: 'taskbox',
+          initialState: taskboxState,
+          reducers: {
+            updateTaskState: (state, action) => {
+              const { id, newTaskState } = action.payload;
+              const task = state.tasks.findIndex((task) => task.id === id);
+              if (task >= 0) {
+                state.tasks[task].state = newTaskState;
+              }
+            },
+          },
+        }).reducer,
+      },
+    })}
+  >
+    {children}
+  </Provider>
+);
+
+export default {
+  component: TaskList,
+  title: 'TaskList',
+  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  excludeStories: /.*MockedState$/,
+};
+
+const Template = () => <TaskList />;
+
+export const Default = Template.bind({});
+Default.decorators = [
+  (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
+];
 
 export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
-};
+WithPinnedTasks.decorators = [
+  (story) => {
+    const pinnedtasks = [
+      ...MockedState.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ];
+
+    return (
+      <Mockstore
+        taskboxState={{
+          ...MockedState,
+          tasks: pinnedtasks,
+        }}
+      >
+        {story()}
+      </Mockstore>
+    );
+  },
+];
 
 export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
-};
+Loading.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        status: 'loading',
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
 
 export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
-};
+Empty.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        tasks: [],
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
 ```
+
+<div class="aside">
+💡 <code>excludeStories</code> is a Storybook configuration field that prevents our mocked state to be treated as a story. You can read more about this field in the <a href="https://storybook.js.org/docs/react/api/csf">Storybook documentation</a>.
+</div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-4-optimized.mp4"
     type="video/mp4"
   />
 </video>
 
 <div class="aside">
-💡 With this change all of our tests will require an update. Update the imports and re-run the test command with the <code>-u</code> flag to update them. Also don't forget to commit your changes with git!
+💡 With this change, all of our tests will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
 </div>
+
+Success! We're right where we started, our Storybook is now working, and we're able to see how we could supply data into a connected component. In the next chapter, we'll take what we've learned here and apply it to a screen.
