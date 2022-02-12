@@ -191,7 +191,7 @@ yarn add styled-components
 
 Update your `CommentList.js` file to the following:
 
-```diff:title=src/components/CommentList.stories.js
+```diff:title=src/components/CommentList.js
 import React from 'react';
 
 import PropTypes from 'prop-types';
