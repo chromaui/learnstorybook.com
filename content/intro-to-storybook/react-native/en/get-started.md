@@ -37,21 +37,6 @@ npx -p @storybook/cli sb init --type react_native
   <p>During Storybook's install process, you'll be prompted to install react-native-server, do so as this package will help out immensely throughout the tutorial.</p>
 </div>
 
-We'll also want to add another package and make a change to `storybook/rn-addons.js` to allow the actions (you'll see them in action later in the tutorial) to be logged correctly in the Storybook UI.
-
-Run the following command:
-
-```bash
-yarn add -D @storybook/addon-ondevice-actions
-```
-
-Change `storybook/rn-addons.js` to the following:
-
-```javascript
-// storybook/rn-addons.js
-import '@storybook/addon-ondevice-actions/register';
-```
-
 ### Setup Jest with React Native
 
 We have two out of three modalities configured in our app, but we still need one, we need to setup [Jest](https://facebook.github.io/jest/) to enable testing.
