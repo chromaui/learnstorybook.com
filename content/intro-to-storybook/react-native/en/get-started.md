@@ -1,22 +1,22 @@
 ---
 title: 'Storybook for React Native tutorial'
 tocTitle: 'Get started'
-description: 'Setup Storybook in your development environment'
+description: 'Set up Storybook in your development environment'
 ---
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React Native; other editions exist for [React](/intro-to-storybook/react/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
-## Setup React Native Storybook
+## Set Up React Native Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Expo](https://expo.io/tools) to setup our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app.
+We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Expo](https://expo.io/tools) to set up our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app.
 
 Before diving into the tutorial, take into account the following considerations:
 
 - All the code was intended for the Android platform, if you want to use IOS, some components might need to be updated in order to work properly.
 
-- You'll need a working simulator or a physical device correctly setup to maximize your experience, [react-native docs](https://facebook.github.io/react-native/docs/getting-started) has more detailed instructions on how to achieve this.
+- You'll need a working simulator or a physical device correctly set up to maximize your experience, [react-native docs](https://facebook.github.io/react-native/docs/getting-started) has more detailed instructions on how to achieve this.
 
 - Throughout this tutorial, <code>yarn</code> will be used. Should you want to use <code>npm</code>, select the appropriate option when you're initializing the app and replace all subsequent commands with npm.
 
@@ -52,9 +52,9 @@ Change `storybook/rn-addons.js` to the following:
 import '@storybook/addon-ondevice-actions/register';
 ```
 
-### Setup Jest with React Native
+### Set Up Jest with React Native
 
-We have two out of three modalities configured in our app, but we still need one, we need to setup [Jest](https://facebook.github.io/jest/) to enable testing.
+We have two out of three modalities configured in our app, but we still need one, we need to set up [Jest](https://facebook.github.io/jest/) to enable testing.
 
 Create a new folder called `__mocks__` and inside add a new file `globalMock.js` with the following:
 
@@ -94,7 +94,7 @@ yarn web
 
 ![3 modalities](/intro-to-storybook/app-three-modalities-rn.png)
 
-Checking our Storybook at this point, you might see that there's no stories displayed. That's ok, we'll take care of it shortly, for now, let's continue working on getting our application properly setup.
+Checking our Storybook at this point, you might see that there's no stories displayed. That's ok, we'll take care of it shortly, for now, let's continue working on getting our application properly set up.
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 
@@ -522,6 +522,6 @@ const StorybookUIRoot = getStorybookUI({
 export default StorybookUIRoot;
 ```
 
-<div class="aside"><p>We're adding the <code>asyncStorage:null</code> due to the fact that starting with React Native 0.59 Async Storage was deprecated. Should you need to use it in your own app, you'll have to add it manually by installing <code>@react-native-async-storage/async-storage</code> package and adjust the code above accordingly. You can read more about how to setup Storybook with Async Storage in <a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#react-native-async-storage">here</a>. As the tutorial will not use any of the features of Async Storage, we can safely add this element to Storybook configuration.</p></div>
+<div class="aside"><p>We're adding the <code>asyncStorage:null</code> due to the fact that starting with React Native 0.59 Async Storage was deprecated. Should you need to use it in your own app, you'll have to add it manually by installing <code>@react-native-async-storage/async-storage</code> package and adjust the code above accordingly. You can read more about how to set up Storybook with Async Storage in <a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#react-native-async-storage">here</a>. As the tutorial will not use any of the features of Async Storage, we can safely add this element to Storybook configuration.</p></div>
 
 After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!

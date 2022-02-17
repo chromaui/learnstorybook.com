@@ -18,7 +18,7 @@ We’ll build our UI following a [Component-Driven Development](https://www.comp
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to create the component in isolation using mocked data. We’ll manually test the component’s appearance given each state as we go.
 
-## Get setup
+## Get set up
 
 First, let’s create the task component and its accompanying story file: `src/app/components/task.component.ts` and `src/app/components/task.stories.ts`.
 
@@ -192,7 +192,7 @@ export interface Task {
 
 ## Build out the states
 
-Now that we have Storybook setup, styles imported, and test cases built out, we can quickly start implementing the HTML of the component to match the design.
+Now that we have Storybook set up, styles imported, and test cases built out, we can quickly start implementing the HTML of the component to match the design.
 
 The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 

@@ -16,7 +16,7 @@ In a nutshell, an image snapshot is taken of every component variation. This ser
   />
 </video>
 
-## Setup a repository in GitHub
+## Set up a repository in GitHub
 
 Before we start, our local `CommentList` code needs to sync with a remote version control service.
 
@@ -35,7 +35,7 @@ git remote add origin https://github.com/your-username/commentlist.git
 git push -u origin main
 ```
 
-## Setup Chromatic
+## Set up Chromatic
 
 We'll use Chromatic by Storybook maintainers to demonstrate the image snapshotting process. Go to [chromatic.com](https://www.chromatic.com/) and signup with your GitHub account.
 

@@ -181,7 +181,7 @@ yarn storybook
 
 ### 3. Build out the implementation
 
-So far, we scaffolded a rudimentary implementation then setup Storybook to render our test cases. It’s time to start building an implementation of the `HasData` variation in isolation.
+So far, we scaffolded a rudimentary implementation then set up Storybook to render our test cases. It’s time to start building an implementation of the `HasData` variation in isolation.
 
 We use [`styled-components`](https://styled-components.com/) – a library that encapsulates CSS at the component level. Run the following command:
 

@@ -33,7 +33,7 @@ As such, our design system must be independent of any project and also a depende
 
 ![Who uses a design system](/design-systems-for-developers/design-system-consumers.jpg)
 
-## Setup our repository with create-react-app and GitHub
+## Set up our repository with create-react-app and GitHub
 
 React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial along with the [create-react-app](https://github.com/facebook/create-react-app) boilerplate.
 
