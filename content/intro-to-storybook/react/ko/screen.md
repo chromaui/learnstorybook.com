@@ -11,16 +11,92 @@ commit: '79829b2'
 
 ## 중첩된 컨테이너 컴포넌트
 
-앱이 매우 간단하므로 우리가 만들 화면은 매우 사소합니다. 일부 레이아웃에서 `TaskList` 컴포넌트 (Redux를 통해 자체적으로 데이터를 제공함)을 감싸고, 최상위 레벨의 `error` 필드를 Redux에서 가져오는 것입니다(이 에러는 서버 연결에 문제가 있으면 설정되는 항목이라고 가정해봅시다). `InboxScreen.js`를 `components`폴더 안에 생성해주세요.
+앱이 매우 간단하므로 우리가 만들 화면은 매우 사소합니다. 
 
-```javascript
-// src/components/InboxScreen.js
+일부 레이아웃에서 `TaskList` 컴포넌트 (Redux를 통해 자체적으로 데이터를 제공함)을 감싸고, 최상위 레벨의 `error` 필드를 Redux에서 가져오는 것입니다(이 에러는 서버 연결에 문제가 있으면 설정되는 항목이라고 가정해봅시다). `InboxScreen.js`를 `components`폴더 안에 생성해주세요.
 
+Redux 스토어('src/lib/store.js')를 업데이트하여 설정하고자 하는 에러 필드를 포함시켜봅시다.
+
+```diff:title=src/lib/store.js
+ /* 간단한 리덕스 스토어/액션/리듀서 구현
+ * 실제 앱은 훨씬 더 복잡하고 파일들이 분리되어 있습니다.
+ */
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
++ // Our new error field is configured here
++ const AppStateSlice = createSlice({
++   name: "appState",
++   initialState: "",
++   reducers: {
++     updateAppState: (state, action) => {
++       return {
++         ...state,
++         isError: action.payload,
++       };
++     },
++   },
++ });
+
+/*
+ * 앱이 로드될 때의 저장소 초기 상태
+ * 보통은 서버로부터 데이터를 가져옵니다.
+ */
+const defaultTasks = [
+  { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
+];
+
+/*
+ * 여기서 저장소는 만들어집니다.
+ * `slice`의 자세한 정보는 아래 문서에서 확인할 수 있습니다.
+ * https://redux-toolkit.js.org/api/createSlice
+ */
+const TasksSlice = createSlice({
+  name: 'tasks',
+  initialState: defaultTasks,
+  reducers: {
+    updateTaskState: (state, action) => {
+      const { id, newTaskState } = action.payload;
+      const task = state.findIndex(task => task.id === id);
+      if (task >= 0) {
+        state[task].state = newTaskState;
+      }
+    },
+  },
+});
+
+
+// slice 속 포함된 액션 사용을 위해 컴포넌트로부터 내보내집니다. 
+export const { updateTaskState } = TasksSlice.actions;
+
++ // The actions contained in the new slice are exported to be used in our components
++ export const { updateAppState } = AppStateSlice.actions;
+
+/*
+ * 앱의 저장소 환경설정은 다음과 같습니다.
+ * 리덕스의 configureStore 의 자세한 정보는 아래 문서에서 확인할 수 있습니다.
+ * https://redux-toolkit.js.org/api/configureStore
+ */
+const store = configureStore({
+  reducer: {
+    tasks: TasksSlice.reducer,
++   isError: AppStateSlice.reducer,
+  },
+});
+
+export default store;
+
+```
+이제 새롭게 업데이트된 스토어가 생겼습니다. `src/components` 폴더에 `InboxScreen.js` 파일을 만들어봅시다.
+
+```js:title=src/components/InboxScreen.js
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import TaskList from './TaskList';
+import { TaskList } from './TaskList';
 
 export function PureInboxScreen({ error }) {
   if (error) {
@@ -34,7 +110,6 @@ export function PureInboxScreen({ error }) {
       </div>
     );
   }
-
   return (
     <div className="page lists-show">
       <nav>
@@ -48,7 +123,7 @@ export function PureInboxScreen({ error }) {
 }
 
 PureInboxScreen.propTypes = {
-  /** The error message */
+  /** 에러 메시지 */
   error: PropTypes.string,
 };
 
@@ -56,30 +131,53 @@ PureInboxScreen.defaultProps = {
   error: null,
 };
 
-export default connect(({ error }) => ({ error }))(PureInboxScreen);
+export function InboxScreen() {
+  // 업데이트한 스토어로부터 에러를 조회합니다.
+  const isError = useSelector(state => state.isError);
+
+  return <PureInboxScreen error={isError} />;
+}
 ```
 
 또한 `App` 컴포넌트를 변경하여 `InboxScreen`을 렌더링 합니다. (올바른 화면 선택을 위하여 router를 사용해도 되지만 여기서는 걱정하지 않도록 하겠습니다.)
 
-```javascript
-// src/App.js
+```diff:title=src/App.js
+- import logo from './logo.svg';
+- import './App.css';
++ import './index.css';
++ import store from './lib/store';
 
-import React from 'react';
-import { Provider } from 'react-redux';
-import store from './lib/redux';
++ import { Provider } from 'react-redux';
++ import { InboxScreen } from './components/InboxScreen';
 
-import InboxScreen from './components/InboxScreen';
-
-import './index.css';
 function App() {
   return (
-    <Provider store={store}>
-      <InboxScreen />
-    </Provider>
+-   <div className="App">
+-     <header className="App-header">
+-       <img src={logo} className="App-logo" alt="logo" />
+-       <p>
+-         Edit <code>src/App.js</code> and save to reload.
+-       </p>
+-       <a
+-         className="App-link"
+-         href="https://reactjs.org"
+-         target="_blank"
+-         rel="noopener noreferrer"
+-       >
+-         Learn React
+-       </a>
+-     </header>
+-    </div>
++  <Provider store={store}>
++    <InboxScreen />
++   </Provider>
   );
 }
+
 export default App;
 ```
+
+<div class="aside"><p>test 파일을 업데이트하는 것을 잊지마세요 <code>src/App.test.js</code>. 그렇지 않으면 테스트에 실패할 수 있습니다.</p></div>
 
 그러나 여기서 흥미로운 점은 Storybook에서 스토리를 렌더링 할 때입니다.
 
@@ -89,16 +187,14 @@ export default App;
 
 하지만 `PureInboxScreen` 자체는 표상적 컴포넌트이지만 그 하위 컴포넌트인 `TaskList`는 아니기 때문에 문제가 발생합니다. 어떤 의미에서 보면 `PureInboxScreen`는 “컨테이너화”되는 것에 의해 오염되었다고 볼 수 있습니다. 따라서 `InboxScreen.stories.js`에서 스토리를 설정할 때:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/PureInboxScreen.stories.js
 import React from 'react';
 
 import { PureInboxScreen } from './InboxScreen';
 
 export default {
   component: PureInboxScreen,
-  title: 'InboxScreen',
+  title: 'PureInboxScreen',
 };
 
 const Template = (args) => <PureInboxScreen {...args} />;
@@ -127,25 +223,33 @@ Error.args = {
 
 좋은 소식은 스토리 내에서 `InboxScreen`에 Redux store를 제공하기가 매우 쉽다는 것입니다! decorators를 통해 모방된 Redux store를 사용하면 됩니다.
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```diff:title=src/components/PureInboxScreen.stories.js
 import React from 'react';
-import { Provider } from 'react-redux';
-import { action } from '@storybook/addon-actions';
-import { PureInboxScreen } from './InboxScreen';
-import * as TaskListStories from './TaskList.stories';
++ import { Provider } from 'react-redux';
++ import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-// A super-simple mock of a redux store
-const store = {
-  getState: () => {
-    return {
-      tasks: TaskListStories.Default.args.tasks,
-    };
-  },
-  subscribe: () => 0,
-  dispatch: action('dispatch'),
-};
+import { PureInboxScreen } from './InboxScreen';
+
++ import * as TaskListStories from './TaskList.stories';
+
++ // A super-simple mock of a redux store
++  const Mockstore = configureStore({
++    reducer: {
++      tasks: createSlice({
++        name: 'tasks',
++        initialState: TaskListStories.Default.args.tasks,
++        reducers: {
++          updateTaskState: (state, action) => {
++            const { id, newTaskState } = action.payload;
++            const task = state.findIndex((task) => task.id === id);
++            if (task >= 0) {
++              state[task].state = newTaskState;
++            }
++          },
++        },
++      }).reducer,
++    },
++  });
 
 export default {
   component: PureInboxScreen,
@@ -175,6 +279,86 @@ Storybook에서 state를 순환해봄으로써 우리가 올바르게 하고 있
   />
 </video>
 
+
+## 인터랙티브 스토리
+
+지금까지 우리는 간단한 컴포넌트에서 시작하여 화면에 이르기까지 각 변경사항을 지속적으로 테스트하며 처음부터 완벽히 작동하는 애플리케이션을 구축할 수 있었습니다. 그러나 각 새로운 스토리는 UI가 깨지지 않도록 모든 스토리들에 대해 직접 확인되어야 합니다. 추가 작업들이 정말 많네요.
+
+이 워크플로우를 자동화하고 컴포넌트와 자동으로 상호 작용할 수 없을까요?
+
+스토리북의 [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 기능을 활용하면 됩니다. 플레이 기능은 스토리가 렌더링된 후 실행되는 코드 스니펫을 포함합니다.
+
+플레이 기능은 업데이트될 때 UI를 추적하는 데 도움이 됩니다. 프레임워크에 구애받지 않는 DOM API를 사용하므로 플레이 기능으로 스토리를 작성하여 UI와 상호 작용하고 프런트엔드 프레임워크에 상관없이 시뮬레이션할 수 있습니다.
+
+지금부터 살펴봅시다! 새로 만든 `PureInboxScreen` 스토리를 업데이트하고 다음을 추가하여 컴포넌트 상호 작용을 설정합니다.
+
+```diff:title=src/components/PureInboxScreen.stories.js
+import React from 'react';
+import { Provider } from 'react-redux';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
++ import { fireEvent, within } from '@storybook/testing-library';
+
+import { PureInboxScreen } from './InboxScreen';
+
+import * as TaskListStories from './TaskList.stories';
+
+ // A super-simple mock of a redux store
+const Mockstore = configureStore({
+  reducer: {
+    tasks: createSlice({
+      name: 'tasks',
+      initialState: TaskListStories.Default.args.tasks,
+      reducers: {
+        updateTaskState: (state, action) => {
+          const { id, newTaskState } = action.payload;
+          const task = state.findIndex((task) => task.id === id);
+          if (task >= 0) {
+            state[task].state = newTaskState;
+          }
+        },
+      },
+    }).reducer,
+  },
+});
+
+export default {
+  component: PureInboxScreen,
+  decorators: [story => <Provider store={Mockstore}>{story()}</Provider>],
+  title: 'PureInboxScreen',
+};
+
+const Template = args => <PureInboxScreen {...args} />;
+
+export const Default = Template.bind({});
+
+export const Error = Template.bind({});
+Error.args = {
+  error: 'Something',
+};
+
++ export const WithInteractions = Template.bind({});
++ WithInteractions.play = async ({ canvasElement }) => {
++   const canvas = within(canvasElement);
++   // Simulates pinning the first task
++   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
++   // Simulates pinning the third task
++   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++ };
+```
+
+새로 만든 스토리를 확인해주세요. `Interactions` 패널을 클릭하면 스토리의 플레이 기능 내부의 상호 작용 목록을 볼 수 있습니다.
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    type="video/mp4"
+  />
+</video>
+
+The play function allows us to interact with our UI and quickly check how it responds if we update our tasks. That keeps the UI consistent at no extra manual effort. All without needing to spin up a testing environment or add additional packages.
+
+플레이 기능을 통해 UI와 상호 작용하고 작업을 업데이트하면 UI가 어떻게 반응하는지 빠르게 확인할 수 있습니다. 따라서 별도의 작업 없이 UI가 똑같이 유지됩니다. 테스트 환경을 가동하거나 패키지를 추가할 필요가 없습니다.
+
 ## 컴포넌트 기반 개발
 
 우리는 가장 아래에 해당하는 `Task`로부터 시작하여, `TaskList`로 진행하였고 이제 전체 화면을 구성하는 UI를 완성하였습니다. `InboxScreen`은 중첩된 컨테이너 컴포넌트를 수용하고 그에 수반하는 스토리들을 포함하고 있습니다.
@@ -189,3 +373,7 @@ Storybook에서 state를 순환해봄으로써 우리가 올바르게 하고 있
 [**컴포넌트 기반 개발 (Component-Driven Development)**](https://www.componentdriven.org/)은 컴포넌트의 상위 계층으로 올라감에 따른 복잡성을 점진적으로 확장할 수 있도록 해줍니다. 이것의 이점 중 하나는 보다 개발 과정에 집중할 수 있으며 가능한 모든 UI 순열의 적용 범위가 늘어난다는 것입니다. 간단히 말하면, 컴포넌트 기반 개발(CDD)은 더 높은 품질과 복잡성을 가진 사용자 인터페이스를 만들 수 있도록 도와줍니다.
 
 아직 끝이 아닙니다! UI가 완성되었다고 할 일이 모두 끝난 것은 아닙니다. 우리는 또한 시간이 지나도 UI가 내구성을 유지할 수 있도록 해야 합니다.
+
+<div class="aside">
+💡 깃에 변경한 내역들을 커밋 하는 것도 잊지 마세요!
+</div>
