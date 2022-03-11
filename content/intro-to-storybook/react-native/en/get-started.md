@@ -24,7 +24,7 @@ With that out of the way, let’s run the following commands:
 
 ```bash
 # Create our application:
-expo init --template tabs taskbox
+expo init --template tabs@sdk-36 taskbox
 
 cd taskbox
 
