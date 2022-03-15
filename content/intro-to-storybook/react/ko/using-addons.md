@@ -7,7 +7,7 @@ description: '인기있는 Controls 애드온을 적용하고 사용하는 방�
 commit: '3d53594'
 ---
 
-Storybook에는 팀 내 모든 구성원의 개발 경험을 향상시키는 데 사용할 수 있는 강력한 [애드온(addons)](https://storybook.js.org/docs/react/configure/storybook-addons) 에코 시스템이 있습니다. [여기](https://storybook.js.org/addons)에서 볼 수 있습니다.
+Storybook에는 팀 내 모든 구성원의 개발 경험을 향상시키는 데 사용할 수 있는 강력한 [애드온(addons)](https://storybook.js.org/docs/react/configure/storybook-addons) 에코시스템이 있습니다. [여기](https://storybook.js.org/addons)에서 볼 수 있습니다.
 
 이 튜토리얼을 따라했다면 지금까지 여러 애드온을 접했으며, 이미 [테스트](/intro-to-storybook/react/ko/test/)챕터에서 하나를 설정해 보았을 것입니다.
 가능한 모든 사용 사례에 대한 애드온이 있으며 모든 항목을 다룬다면 오래 걸릴 것입니다. 여기서는 가장 인기 있는 애드온인 [Controls](https://storybook.js.org/docs/react/essentials/controls)를 구현해 보도록 하겠습니다.
