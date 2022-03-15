@@ -84,7 +84,7 @@ export function Avatar({ loading, user name, src, size, ... props }) {
 
 ![컴포넌트 세부 정보가 있는 스토리북 문서 탭](/design-systems-for-developers/storybook-docspage-6-0.png)
 
-스토리북 Docs에 스토리 종류와 기본값을 보여주는 인자 테이블이 자동으로 생성되었습니다. 이 방식은 편리하지만, Avatar가 완벽하게 구현되었다는 것을 의미하는 것은 아닙니다. 몇몇 인자들(props)을 오용할 가능성이 있습니다. 자동 생성된 prop 테이블에서 Avatar를 렌더링하려면 프로토타입 내부에 을 추가하면 됩니다.
+StoryBook의 Docs에 스토리 종류와 기본값을 보여주는 인자 테이블이 자동으로 생성되었습니다. 이 방식은 편리하지만,  `Avatar`가 완벽하게 구현되었다는 것을 의미하는 것은 아닙니다. 몇몇 인자들(props)을 오용할 가능성이 있습니다. 자동 생성된 prop 테이블에서 Avatar를 렌더링하려면 `propTypes` 내부에 코멘트를 추가하면 됩니다.
 
 ```javascript
 // src/components/Avatar.js
@@ -110,7 +110,7 @@ Avatar.propTypes = {
 };
 ```
 
-기본적으로 모든 Avatar 스토리는 문서로 렌더링 됩니다. 우리는 다른 개발자들이 각 스토리에 대한 내용을 알고 있다고 가정할 수 없습니다. 스토리에 대한 설명을 'src/Avatar.stories.js'에 작성합니다.
+기본적으로 모든 `Avatar` 스토리는 문서로 렌더링 됩니다. 우리는 다른 개발자들이 각 스토리에 대한 내용을 알고 있다고 가정할 수 없습니다. 스토리에 대한 설명을 `src/Avatar.stories.js`에 작성합니다.
 
 ```javascript
 // src/Avatar.stories.js
@@ -352,7 +352,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ![소개 페이지가 있는 스토리북 문서, 정렬되지 않음](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
-맨 위에 나타나게 하려면 스토리북에 '.storybook/main.js'에 소개 파일을 로드하도록 지시해야 합니다.
+맨 위에 나타나게 하려면 StoryBook에 `.storybook/main.js`에 소개 파일을 로드하도록 지시해야 합니다.
 
 ```javascript
 // .storybook/main.js

@@ -44,9 +44,13 @@ description: 'A guide to the latest production-ready tools for design systems'
 
 ## 우리가 사용하는 도구들
 
+<<<<<<< sieunlee0
+[BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/)을 비롯한 수백 개가 넘는 기업의 디자인 시스템에 스토리북이 사용되고 있습니다. 여기에서 권장하는 사항들은 가장 똑똑한 팀의 우수 사례 및 도구를 참고했습니다. 아래 프론트엔드 환경을 구성해보세요.
+=======
 
 [BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/)을 비롯한 수백 개가 넘는 기업의 디자인 시스템에 스토리북이 사용되고 있습니다. 여기에서 권장하는 사항들은 가장 똑똑한 팀의 우수 사례 및 도구를 참고했습니다. 아래 프론트엔드 환경을 구성해보세요.
 
+>>>>>>> master
 
 #### 빌드 컴포넌트
 
