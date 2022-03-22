@@ -184,7 +184,7 @@ Empty.args = {
 </video>
 
 <div class="aside">
-💡 With this change, all of our tests will require an update. Update the imports and re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
+💡 With this change, all of our tests will require an update. Update the imports (renaming TaskList.spec.js to PureTaskList.spec.js) and re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
 </div>
 
 Now that we have some actual data populating our component, obtained from the Vuex store, we could have wired it to `src/App.vue` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
