@@ -2,7 +2,7 @@
 title: '複合的なコンポーネントを組み立てる'
 tocTitle: '複合的なコンポーネント'
 description: '単純なコンポーネントから複合的なコンポーネントを組み立てましょう'
-commit: 'd622553'
+commit: 'e955d6c'
 ---
 
 前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである `TaskList` を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうすればよいか見てみましょう。
@@ -46,7 +46,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -67,10 +67,10 @@ import * as TaskStories from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <TaskList {...args} />;
+const Template = (args) => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -175,12 +175,12 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     );
   }
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => (
+      {tasksInOrder.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>

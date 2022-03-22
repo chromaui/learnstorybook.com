@@ -2,7 +2,7 @@
 title: '화면 구성하기'
 tocTitle: '화면'
 description: '컴포넌트로 화면을 구성해봅시다'
-commit: '05aa2ef'
+commit: '79829b2'
 ---
 
 지금까지 작은 것에서부터 시작하여 복잡성을 점점 더하는 상향식의 UI를 만드는 것에 집중해왔습니다. 이를 통해 각 컴포넌트를 독립적으로 개발하고 데이터의 요구 사항을 파악하며 Storybook에서 사용해 볼 수 있었습니다. 모두 서버를 구축하거나 화면을 만들 필요가 없었습니다!
@@ -101,7 +101,7 @@ export default {
   title: 'InboxScreen',
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = (args) => <PureInboxScreen {...args} />;
 
 export const Default = Template.bind({});
 
@@ -149,11 +149,11 @@ const store = {
 
 export default {
   component: PureInboxScreen,
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   title: 'InboxScreen',
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = (args) => <PureInboxScreen {...args} />;
 
 export const Default = Template.bind({});
 

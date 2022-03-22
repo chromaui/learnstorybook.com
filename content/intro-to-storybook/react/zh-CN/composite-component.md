@@ -2,7 +2,7 @@
 title: '组装复合组件'
 tocTitle: '合成组件'
 description: '使用更简单的组件 组装复合组件'
-commit: 'd622553'
+commit: 'e955d6c'
 ---
 
 上一章节我们构建了第一个组件；本章节扩展学习如何构建一个 Tasks 列表，TaskList 组件。将组件组合在一起，看看当引入更多复杂性时会发生什么。
@@ -46,7 +46,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -67,10 +67,10 @@ import * as TaskStories from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <TaskList {...args} />;
+const Template = (args) => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -177,12 +177,12 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     );
   }
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => (
+      {tasksInOrder.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>

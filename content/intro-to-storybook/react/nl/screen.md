@@ -2,7 +2,7 @@
 title: 'Bouw een scherm'
 tocTitle: 'Schermen'
 description: 'Bouw een scherm uit componenten'
-commit: '05aa2ef'
+commit: '79829b2'
 ---
 
 We hebben ons geconcentreerd op het bouwen van UI's van onderaf; klein beginnen en complexiteit toevoegen. Hierdoor konden we elk onderdeel afzonderlijk ontwikkelen, de data behoeften achterhalen en ermee spelen in Storybook. Allemaal zonder een server op te zetten of schermen uit te bouwen!
@@ -142,7 +142,7 @@ const store = {
 };
 
 storiesOf('InboxScreen', module)
-  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
+  .addDecorator((story) => <Provider store={store}>{story()}</Provider>)
   .add('default', () => <PureInboxScreen />)
   .add('error', () => <PureInboxScreen error="Something" />);
 ```

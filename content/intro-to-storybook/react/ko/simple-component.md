@@ -2,7 +2,7 @@
 title: '간단한 컴포넌트 만들기'
 tocTitle: '간단한 컴포넌트'
 description: '간단한 컴포넌트를 독립적으로 만들어봅시다'
-commit: 'd5d89dd'
+commit: 'c07ce59'
 ---
 
 우리는 [컴포넌트 기반 개발(Component-Driven Development)](https://www.componentdriven.org/) (CDD) 방법론에 따라 UI를 만들어 볼 것입니다. 이는 컴포넌트로부터 시작하여 마지막 화면에 이르기까지 상향적으로 UI를 개발하는 과정입니다. CDD는 UI를 구축할 때 직면하게 되는 규모의 복잡성을 해결하는 데 도움이 됩니다.
@@ -54,7 +54,7 @@ export default {
   title: 'Task',
 };
 
-const Template = args => <Task {...args} />;
+const Template = (args) => <Task {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -185,7 +185,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={event => event.stopPropagation()}>
+      <div className="actions" onClick={(event) => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>

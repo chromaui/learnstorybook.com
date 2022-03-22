@@ -2,7 +2,7 @@
 title: 'Baue eine einfache Komponente'
 tocTitle: 'Einfache Komponente'
 description: 'Baue eine einfache Komponente in Isolation'
-commit: 'd5d89dd'
+commit: 'c07ce59'
 ---
 
 Beim Bauen unserer UI werden wir nach der [Component-Driven Development](https://www.componentdriven.org/) (CDD) Methodik vorgehen. Das it ein Vorgehen, in dem UIs "bottom up" entwickelt werden. Man beginnt mit Komponenten und endet mit Screens. CDD hilft dabei, die Komplexität zu begrenzen, mit der man beim Bauen einer UI konfrontiert wird.
@@ -158,7 +158,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={event => event.stopPropagation()}>
+      <div className="actions" onClick={(event) => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           <a onClick={() => onPinTask(id)}>
             <span className={`icon-star`} />

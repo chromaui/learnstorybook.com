@@ -2,7 +2,7 @@
 title: 'Construir una pantalla'
 tocTitle: 'Pantallas'
 description: 'Construir una pantalla con componentes'
-commit: '05aa2ef'
+commit: '79829b2'
 ---
 
 Nos hemos concentrado en crear interfaces de usuario de abajo hacia arriba; comenzando por lo pequeño y añadiendo complejidad. Esto nos ha permitido desarrollar cada componente de forma aislada, determinar los datos que necesita y jugar con ellos en Storybook. Todo sin necesidad de levantar un servidor o construir pantallas!
@@ -142,7 +142,7 @@ const store = {
 };
 
 storiesOf('InboxScreen', module)
-  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
+  .addDecorator((story) => <Provider store={store}>{story()}</Provider>)
   .add('default', () => <PureInboxScreen />)
   .add('error', () => <PureInboxScreen error="Something" />);
 ```

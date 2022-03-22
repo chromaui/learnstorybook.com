@@ -2,7 +2,7 @@
 title: 'Assembler un composant complexe'
 tocTitle: 'Composant complexe'
 description: 'Assembler un composant complexe à partir de composants plus simples'
-commit: 'd622553'
+commit: 'e955d6c'
 ---
 
 Dans le précédent chapitre nous avons construit notre premier composant; ce chapitre prolonge ce que nous avons appris pour construire la TaskList, une liste de tâches. Combinons les composants ensemble et voyons ce qui se passe lorsqu'on introduit plus de complexité.
@@ -46,7 +46,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -69,10 +69,10 @@ import * as TaskStories from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <TaskList {...args} />;
+const Template = (args) => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -177,12 +177,12 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     );
   }
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => (
+      {tasksInOrder.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>

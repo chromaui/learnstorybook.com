@@ -2,7 +2,7 @@
 title: 'جمّع مكون مركب'
 tocTitle: 'مكون مركب'
 description: 'جمّع مكون مركب من مكونات بسيطة'
-commit: 'd622553'
+commit: 'e955d6c'
 ---
 
 <div style="direction: rtl">

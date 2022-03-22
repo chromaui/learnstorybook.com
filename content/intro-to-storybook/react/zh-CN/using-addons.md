@@ -2,7 +2,7 @@
 title: '插件'
 tocTitle: '插件'
 description: '学习如何集成并使用热门的 Controls 插件'
-commit: 'b878a40'
+commit: '3d53594'
 ---
 
 Storybook 有一个强大的生态系统 [addons](https://storybook.js.org/docs/react/configure/storybook-addons)，你能够用来增强你的团队中每个人的开发体验。在 [这里](https://storybook.js.org/addons) 浏览全部。

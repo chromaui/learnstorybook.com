@@ -2,7 +2,7 @@
 title: 'Baue eine Komposition'
 tocTitle: 'Komposition'
 description: 'Setze eine Komposition aus einfachen Komponenten zusammen'
-commit: 'd622553'
+commit: 'e955d6c'
 ---
 
 Im letzten Kapitel haben wir unsere erste Komponente entwickelt; in diesem Kapitel erweitern wir das Gelernte, um `TaskList` zu bauen, eine Liste von Aufgaben. Lass uns Komponenten miteinander kombinieren und sehen, was passiert, wenn mehr Komplexität ins Spiel kommt.
@@ -46,7 +46,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -70,7 +70,7 @@ import { taskData, actionsData } from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
   excludeStories: /.*Data$/,
 };
 
@@ -164,13 +164,13 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
 
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => (
+      {tasksInOrder.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
