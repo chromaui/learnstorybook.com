@@ -2,7 +2,7 @@
 title: '데이터 연결하기'
 tocTitle: '데이터'
 description: 'UI 컴포넌트에 데이터를 연결하는 방법을 배워봅시다'
-commit: 'b29407b'
+commit: '5da7c68'
 ---
 
 지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 Storybook에는 적합하지만 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
@@ -37,15 +37,15 @@ export const actions = {
 };
 
 // The action creators bundle actions with the data required to execute them
-export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = id => ({ type: actions.PIN_TASK, id });
+export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
+export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
 
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(task =>
+      tasks: state.tasks.map((task) =>
         task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
@@ -110,11 +110,11 @@ PureTaskList.defaultProps = {
 
 export default connect(
   ({ tasks }) => ({
-    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
+    tasks: tasks.filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
   }),
-  dispatch => ({
-    onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id)),
+  (dispatch) => ({
+    onArchiveTask: (id) => dispatch(archiveTask(id)),
+    onPinTask: (id) => dispatch(pinTask(id)),
   })
 )(PureTaskList);
 ```
@@ -138,10 +138,10 @@ import * as TaskStories from './Task.stories';
 export default {
   component: PureTaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <PureTaskList {...args} />;
+const Template = (args) => <PureTaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

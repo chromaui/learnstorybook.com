@@ -2,7 +2,7 @@
 title: 'Aansluiten data'
 tocTitle: 'Data'
 description: 'Leer hoe je data kunt doorgeven aan je UI component'
-commit: 'b29407b'
+commit: '5da7c68'
 ---
 
 Tot nu toe hebben we geïsoleerde stateless componenten gemaakt - geweldig voor Storybook, maar uiteindelijk niet nuttig totdat we ze wat data geven in onze app.
@@ -37,15 +37,15 @@ export const actions = {
 };
 
 // The action creators bundle actions with the data required to execute them
-export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = id => ({ type: actions.PIN_TASK, id });
+export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
+export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
 
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(task =>
+      tasks: state.tasks.map((task) =>
         task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
@@ -106,11 +106,11 @@ PureTaskList.defaultProps = {
 
 export default connect(
   ({ tasks }) => ({
-    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
+    tasks: tasks.filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
   }),
-  dispatch => ({
-    onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id)),
+  (dispatch) => ({
+    onArchiveTask: (id) => dispatch(archiveTask(id)),
+    onPinTask: (id) => dispatch(pinTask(id)),
   })
 )(PureTaskList);
 ```
@@ -143,7 +143,7 @@ export const withPinnedTasks = [
 ];
 
 storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
+  .addDecorator((story) => <div style={{ padding: '3rem' }}>{story()}</div>)
   .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
   .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
   .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)

@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Leer hoe je add-ons kunt integreren en gebruiken aan de hand van een populair voorbeeld'
-commit: 'b878a40'
+commit: '3d53594'
 ---
 
 Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.org/docs/react/configure/storybook-addons) waarmee je de developer experience kunt verbeteren voor iedereen in je team. Als je deze tutorial lineair hebt gevolgd, hebben we tot nu toe naar meerdere add-ons verwezen en je zal er al een geïmplementeerd hebben in het [Testing-hoofdstuk](/intro-to-storybook/react/nl/test/).
@@ -72,9 +72,7 @@ Geef vervolgens binnen de stories van `Task`, `withKnobs` als parameter door aan
 ```javascript
 // src/components/Task.stories.js
 
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+storiesOf('Task', module).addDecorator(withKnobs).add(/*...*/);
 ```
 
 Integreer ten slotte het knob type `object` in de "standaard"-story:

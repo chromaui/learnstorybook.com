@@ -2,7 +2,7 @@
 title: 'Construção de um componente simples'
 tocTitle: 'Componente simples'
 description: 'Construção de um componente simples isolado'
-commit: 'd5d89dd'
+commit: 'c07ce59'
 ---
 
 Iremos construir o interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://www.componentdriven.org/), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC (CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
@@ -176,7 +176,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={event => event.stopPropagation()}>
+      <div className="actions" onClick={(event) => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>

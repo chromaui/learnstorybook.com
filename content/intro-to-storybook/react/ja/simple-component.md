@@ -2,7 +2,7 @@
 title: '単純なコンポーネントを作る'
 tocTitle: '単純なコンポーネント'
 description: '単純なコンポーネントを切り離して作りましょう'
-commit: 'd5d89dd'
+commit: 'c07ce59'
 ---
 
 それでは、[コンポーネント駆動開発](https://www.componentdriven.org/) (CDD) の手法にのっとって UI を作ってみましょう。コンポーネント駆動開発とは、UI を最初にコンポーネントから作り始めて、最後に画面を作り上げる「ボトムアップ」の開発プロセスです。CDD を用いれば UI を作る際に直面する複雑性を軽減することができます。
@@ -54,7 +54,7 @@ export default {
   title: 'Task',
 };
 
-const Template = args => <Task {...args} />;
+const Template = (args) => <Task {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -186,7 +186,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={event => event.stopPropagation()}>
+      <div className="actions" onClick={(event) => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>

@@ -2,7 +2,7 @@
 title: 'Construção de um ecrã'
 tocTitle: 'Ecrãs'
 description: 'Construção de um ecrã a partir de componentes'
-commit: '05aa2ef'
+commit: '79829b2'
 ---
 
 Tem sido focada a construção de interfaces de utilizador da base para o topo.
@@ -134,7 +134,7 @@ import { defaultTasksData } from './TaskList.stories';
 export default {
   component: PureInboxScreen,
   title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
 
 // A super-simple mock of a redux store

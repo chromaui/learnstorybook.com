@@ -2,7 +2,7 @@
 title: '画面を作る'
 tocTitle: '画面'
 description: 'コンポーネントをまとめて画面を作りましょう'
-commit: '05aa2ef'
+commit: '79829b2'
 ---
 
 今までボトムアップ (小さく始めてから複雑性を追加していく) で UI の作成に集中してきました。ボトムアップで作業することで、Storybook で遊びながら、それぞれのコンポーネントを切り離された環境で、それぞれに必要なデータを考えながら開発することができました。サーバーを立ち上げたり、画面を作ったりする必要は全くありませんでした！
@@ -101,7 +101,7 @@ export default {
   title: 'InboxScreen',
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = (args) => <PureInboxScreen {...args} />;
 
 export const Default = Template.bind({});
 
@@ -149,11 +149,11 @@ const store = {
 
 export default {
   component: PureInboxScreen,
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   title: 'InboxScreen',
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = (args) => <PureInboxScreen {...args} />;
 
 export const Default = Template.bind({});
 

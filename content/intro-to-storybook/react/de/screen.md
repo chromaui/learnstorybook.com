@@ -2,7 +2,7 @@
 title: 'Einen Screen erstellen'
 tocTitle: 'Screens'
 description: 'Stelle einen Screen aus Komponenten zusammen'
-commit: 'd6406e4'
+commit: '79829b2'
 ---
 
 Bisher haben wir uns darauf konzentriert, UIs bottom-up zu bauen; klein starten und Komplexität hinzufügen. Das erlaubte uns, jede Komponente in Isolation zu entwickeln, ihre Anforderungen an Daten zu ermitteln und damit in Storybook herumzuspielen. All das, ohne einen Server aufzusetzen oder Screens zu erstellen.
@@ -136,7 +136,7 @@ import { defaultTasksData } from './TaskList.stories';
 export default {
   component: PureInboxScreen,
   title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
 
 // A super-simple mock of a redux store

@@ -2,7 +2,7 @@
 title: 'Ensamblar un componente compuesto'
 tocTitle: 'Componente Compuesto'
 description: 'Ensamblar un componente compuesto a partir de componentes simples'
-commit: 'd622553'
+commit: 'e955d6c'
 ---
 
 En el último capítulo construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir TaskList, una lista de Tareas. Combinemos componentes en conjunto y veamos qué sucede cuando se añade más complejidad.
@@ -46,7 +46,7 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -82,7 +82,7 @@ export const withPinnedTasks = [
 ];
 
 storiesOf('TaskList', module)
-  .addDecorator(story => <div style={{ padding: '3rem' }}>{story()}</div>)
+  .addDecorator((story) => <div style={{ padding: '3rem' }}>{story()}</div>)
   .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
   .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
   .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
@@ -158,13 +158,13 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
 
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => (
+      {tasksInOrder.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>

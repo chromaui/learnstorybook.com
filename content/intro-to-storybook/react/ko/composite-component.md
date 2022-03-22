@@ -2,7 +2,7 @@
 title: '복합적 컴포넌트 조합하기'
 tocTitle: '복합적 컴포넌트'
 description: '간단한 컴포넌트로 복합적 컴포넌트를 조합해봅시다'
-commit: 'd622553'
+commit: 'e955d6c'
 ---
 
 저희는 지난 챕터에서 첫 번째 컴포넌트를 만들어보았습니다. 이번 챕터에서는 이전에 학습한 내용을 바탕으로 Task의 목록인 TaskList를 만들어보겠습니다. 컴포넌트를 결합하여 복잡성이 커지는 경우 어떤 일이 일어나는지 함께 살펴보겠습니다.
@@ -46,7 +46,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -67,10 +67,10 @@ import * as TaskStories from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = args => <TaskList {...args} />;
+const Template = (args) => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -177,12 +177,12 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     );
   }
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">
-      {tasksInOrder.map(task => (
+      {tasksInOrder.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>

@@ -2,7 +2,7 @@
 title: 'Construire un écran'
 tocTitle: 'Écrans'
 description: 'Construire un écran à partir de composants'
-commit: '05aa2ef'
+commit: '79829b2'
 ---
 
 Nous nous sommes concentrés sur la création d'un UI de bas en haut, en commençant par les plus simples et en ajoutant de la complexité. Cela nous a permis de développer chaque composant séparément, de déterminer ses besoins en données et de jouer avec dans Storybook. Tout cela sans avoir besoin de mettre en place un serveur ou de construire des écrans !
@@ -101,7 +101,7 @@ export default {
   title: 'InboxScreen',
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = (args) => <PureInboxScreen {...args} />;
 
 export const Default = Template.bind({});
 
@@ -140,7 +140,7 @@ import { defaultTasksData } from './TaskList.stories';
 export default {
   component: PureInboxScreen,
   title: 'InboxScreen',
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
 
 // A super-simple mock of a redux store

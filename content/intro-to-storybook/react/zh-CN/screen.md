@@ -2,7 +2,7 @@
 title: '构建一个页面'
 tocTitle: '页面'
 description: '用组件构建一个页面'
-commit: '05aa2ef'
+commit: '79829b2'
 ---
 
 我们专注于从下到上构建 UI; 从小做起并增加复杂性. 这样做使我们能够独立开发每个组件,找出其数据需求,并在 Storybook 中使用它. 所有这些都无需 启动服务器或构建出页面!
@@ -102,7 +102,7 @@ export default {
   title: 'InboxScreen',
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = (args) => <PureInboxScreen {...args} />;
 
 export const Default = Template.bind({});
 
@@ -150,11 +150,11 @@ const store = {
 
 export default {
   component: PureInboxScreen,
-  decorators: [story => <Provider store={store}>{story()}</Provider>],
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   title: 'InboxScreen',
 };
 
-const Template = args => <PureInboxScreen {...args} />;
+const Template = (args) => <PureInboxScreen {...args} />;
 
 export const Default = Template.bind({});
 

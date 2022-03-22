@@ -2,7 +2,7 @@
 title: 'Construye un componente simple'
 tocTitle: 'Componente Simple'
 description: 'Construye un componente simple en aislamiento'
-commit: 'd5d89dd'
+commit: 'c07ce59'
 ---
 
 Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://www.componentdriven.org/). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayudará a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.
@@ -101,7 +101,7 @@ import '../src/index.css';
 const req = require.context('../src', true, /\.stories.js$/);
 
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach((filename) => req(filename));
 }
 
 configure(loadStories, module);
@@ -141,7 +141,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={event => event.stopPropagation()}>
+      <div className="actions" onClick={(event) => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           <a onClick={() => onPinTask(id)}>
             <span className={`icon-star`} />
