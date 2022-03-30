@@ -15,9 +15,9 @@ commit: 'a856d54'
 
 ![결합적인 컴포넌트 상태](/design-systems-for-developers/component-test-cases.png)
 
-우와! 보시다시피 한 컴포넌트에는 여러 상태가 포함되어 있습니다. 상태에 디자인 시스템 컴포넌트의 수를 곱해본다면, 모든 상태를 추적하는 것이 불가능하다는 것을 알 수 있습니다. 특히 디자인 시스템이 점점 커지는 경우에는 각각을 직접 검토하는 것은 현실적으로 지속 불가능합니다.
+우와! 보시다시피 한 컴포넌트에는 여러 상태가 포함되어 있습니다. 상태에 디자인 시스템 컴포넌트의 수를 곱해본다면, 모든 상태를 추적하는 것이 불가능하다는 것을 알 수 있습니다. 특히 디자인 시스템이 점점 커지는 경우에 각각 직접 검토하는 것은 현실적으로 지속 불가능합니다.
 
-그러니까 더더욱 **나중의** 수고를 덜하기 위해 **지금** 자동 테스트를 설정해야 합니다.
+그러니 더더욱 **나중의** 수고를 덜하기 위해 **지금** 자동 테스트를 설정해야 합니다.
 
 ## 테스트 준비
 
@@ -25,9 +25,9 @@ commit: 'a856d54'
 
 어떤 입력 조합이 테스트 항목으로 주어지는지 명확히 하기 위해 **스토리가 지원하는 컴포넌트 상태**들을 표시합니다. 엉뚱한 테스트 범위를 줄이기 위해 지원되지 않는 상태를 가차 없이 제거합니다.
 
-**일관되게 컴포넌트를 렌더링**하여 무작위(Math.random) 또는 상대적(Date.now) 입력에 의해 촉발될 수 있는 가변성을 완화합니다.
+**일관되게 컴포넌트를 렌더링**하여 무작위(Math.random()) 또는 상대적(Date.now()) 입력에 의해 촉발될 수 있는 가변성을 완화합니다.
 
-> "최고의 스토리는 컴포넌트가 실제로 경험할 수 있는 모든 상태를 시각화할 수 있도록 해줍니다."– Tim Hingston, Apollo GraphQL의 기술 책임자
+> "최고의 스토리는 컴포넌트가 실제로 경험할 수 있는 모든 상태를 시각화할 수 있도록 해줍니다." – Tim Hingston, Apollo GraphQL의 기술 책임자
 
 ## 외관에 대한 시각적 테스트
 
@@ -39,7 +39,7 @@ commit: 'a856d54'
 
 모던 UI를 구축하는 경우 시각적 테스트를 통해 프런트엔드 팀이 수작업 리뷰에 드는 시간을 절약하고 비용이 많이 드는 UI 회귀 테스트를 수행하는 것을 방지할 수 있습니다.
 
-<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">이전 장</a>에서 [Chromatic](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 '버튼' 컴포넌트 주위에 굵은 빨간색 테두리(border)를 추가한 다음, 팀원에게 피드백을 요청했습니다.
+<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">이전 장</a>에서 [Chromatic](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 `버튼` 컴포넌트 주위에 굵은 빨간색 테두리(border)를 추가한 다음, 팀원에게 피드백을 요청했습니다.
 
 ![빨간색 테두리 버튼](/design-systems-for-developers/chromatic-button-border-change.png)
 
@@ -47,7 +47,7 @@ commit: 'a856d54'
 
 ![풀 리퀘스트의 체크 목록](/design-systems-for-developers/chromatic-list-of-checks.png)
 
-** 🟡UI 테스트** 체크를 클릭하여 검토합니다.
+**🟡 UI 테스트** 체크를 클릭하여 검토합니다.
 
 ![Chromatic에서 변경된 두 번째 빌드](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
@@ -55,7 +55,7 @@ commit: 'a856d54'
 
 ![Chromatic에서의 변경 검토](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
-이전 장에서 우리 팀원은 어떤 이유로 '버튼'주위에 빨간색 테두리를 원하지 않았습니다. 취소해야 함을 나타 내기 위해 변경 사항을 거부합니다.
+이전 장에서 우리 팀원은 어떤 이유로 `버튼` 주위에 빨간색 테두리를 원하지 않았습니다. 취소해야 함을 나타 내기 위해 변경 사항을 거부합니다.
 
 ![Chromatic에서 거부 검토](/design-systems-for-developers/chromatic-review-deny.png)
 
@@ -65,54 +65,44 @@ commit: 'a856d54'
 
 단위 테스트는 제어된 입력이 주어졌을 때 UI 코드가 올바른 출력을 반환하는지 확인합니다. 컴포넌트와 함께 존재하며 특정 기능을 검증하는 데 도움이 됩니다.
 
-모든 것은 React, Vue 및 Angular와 같은 최신 뷰 레이어의 컴포넌트입니다. 컴포넌트는 단순한 버튼부터 정교한 날짜 선택기까지 다양한 기능을 캡슐화합니다. 컴포넌트가 복잡할수록 시각적 테스트만으로 뉘앙스를 포착하는 것이 더 까다로워집니다. 그래서 단위 테스트가 필요합니다.
+모든 것은 React, Vue 및 Angular와 같은 최신 뷰 레이어의 컴포넌트입니다. 컴포넌트는 단순한 버튼부터 정교한 날짜 선택기까지 다양한 기능을 캡슐화합니다. 컴포넌트가 복잡할수록 시각적 테스트만으로 뉘앙스를 포착하는 것이 더 까다로워집니다. 그렇기 때문에 단위 테스트가 필요합니다.
 
 ![단위 테스트 컴포넌트](/design-systems-for-developers/component-unit-testing.gif)
 
 예를 들어, 링크 컴포넌트는 링크 URL을 생성하는 시스템 (ReactRouter, Gatsby 또는 Next.js의 "LinkWrappers")과 결합할 때 약간 복잡합니다. 구현의 실수는 유효한 href 값이 없는 링크를 초래할 수 있습니다.
 
-시각을 통해서는 'href'속성이 있고 올바른 위치를 가리키는지 확인할 수 없으므로 회귀 테스트를 방지하기 위해 단위 테스트가 적절할 수 있습니다.
+시각을 통해서는 `href` 속성이 있고 올바른 위치를 가리키는지 확인할 수 없으므로 회귀 테스트를 방지하기 위해 단위 테스트가 적절할 수 있습니다.
 
 #### href에 대한 단위 테스트
 
-`Link` 컴포넌트에 대한 단위 테스트를 추가해 봅시다. [Create React App](https://create-react-app.dev/) 은 이미 단위 테스트 환경을 설정했으므로 간단히`src/Link.test.js` 파일을 만들 수 있습니다.
+`Link` 컴포넌트에 대한 단위 테스트를 추가해 봅시다. [Create React App](https://create-react-app.dev/) 은 이미 단위 테스트 환경을 설정했으므로 간단히 `src/Link.test.js` 파일을 만들 수 있습니다.
 
-```javascript
-//src/Link.test.js
-
-import React from 'react';
-import ReactDOM from 'react-dom';
+```js:title=src/Link.test.js
+import { render } from '@testing-library/react';
 import { Link } from './Link';
 
-// 전달된 속성으로 <a>를 렌더링 하는 간단한 링크 래퍼입니다.
-// 여기서 테스트하는 것은 Link 컴포넌트가 올바른 props를 래퍼와 자기 자신에게 전달한다는지 아닌 지입니다.
-const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
-
-it('has a href attribute when rendering with linkWrapper', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(
-    <Link href="https://learnstorybook.com" LinkWrapper={LinkWrapper}>
+test('has a href attribute when rendering with linkWrapper', () => {
+  // eslint-disable-next-line jsx-a11y/anchor-has-content
+  const LinkWrapper = props => <a {...props} />;
+  const { container } = render(
+    <Link href="https://storybook.js.org/tutorials/" LinkWrapper={LinkWrapper}>
       Link Text
-    </Link>,
-    div
+    </Link>
   );
 
-  expect(div.querySelector('a[href="https://learnstorybook.com"]')).not.toBeNull();
-  expect(div.textContent).toEqual('Link Text');
-
-  ReactDOM.unmountComponentAtNode(div);
+  const linkElement = container.querySelector('a[href="https://storybook.js.org/tutorials/"]');
+  expect(linkElement).not.toBeNull();
+  expect(linkElement.textContent).toEqual('Link Text');
 });
 ```
 
-'yarn test'명령의 일부로 위의 단위 테스트를 실행할 수 있습니다.
+`yarn test` 명령의 일부로 위의 단위 테스트를 실행할 수 있습니다.
 
 ![단일 Jest 테스트를 실행합니다](/design-systems-for-developers/jest-test.png)
 
 이전에 Storybook을 배포하도록 GitHub Action을 구성했고, 이제 테스트도 포함하도록 조정할 수 있습니다. 기여자들은 이제 이 단위 테스트의 혜택을 받을 것입니다. 그리고 Link 컴포넌트는 회귀 테스트에 대응할 수 있습니다.
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```diff:title=.github/workflows/chromatic.yml
 # ... 이전과 동일
 jobs:
   test:
@@ -122,12 +112,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-      - run: yarn test # 테스트 명령을 추가합니다.
-      #작업절차 중 한 단게로서 Chromatic을 추가합니다.
++      - run: yarn test # 테스트 명령을 추가합니다.
+      #👇 작업절차 중 한 단게로서 Chromatic을 추가합니다.
       - uses: chromaui/action@v1
         # GitHub chromatic action에 필요한 옵션
         with:
-          # Chromatic 프로젝트 토큰을 얻기 위해서는 다음을 참고하세요.
+          #👇 Chromatic 프로젝트 토큰을 얻기 위해서는 다음을 참고하세요.
           # https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/ (업데이트 링크)
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -135,13 +125,13 @@ jobs:
 
 ![성공적인 Circle 빌드](/design-systems-for-developers/gh-action-with-test-successful-build.png)
 
-<div class="aside"> 참고 : 업데이트를 번거롭게 만들 수 있는 너무 많은 단위 테스트에 주의하십시오. 디자인 시스템에 대한 단위 테스트를 적당한 수준에서 할 것을 권장합니다.</div>
+<div class="aside">💡 <strong>참고 :</strong> 업데이트를 번거롭게 만들 수 있는 너무 많은 단위 테스트에 주의하십시오. 디자인 시스템에 대한 단위 테스트를 적당한 수준에서 할 것을 권장합니다.</div>
 
 > "우리의 향상된 자동화 테스트 모음은 우리의 디자인 시스템 팀이 더 확신을 가지고 더 빠르게 움직일 수 있도록 만들었습니다." – Dan Green-Leipciger, Wave의 선임 소프트웨어 엔지니어
 
 ## 접근성 테스트
 
-"접근성은 장애가 있는 사용자를 포함한 모든 사용자가 애플리케이션을 이해하고 탐색하고 상호 작용할 수 있음을 의미합니다. 온라인 [예제에는] 탭 키나 스크린 리더를 통해 사이트를 탐색하는 것처럼 콘텐츠에 접근할 수 있는 다른 방법들을 포함했습니다." 개발자 [T.Rowe Price의 Alex Wilson]이 (https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347)에 작성하였습니다.
+"접근성은 장애가 있는 사용자를 포함한 모든 사용자가 애플리케이션을 이해하고 탐색하고 상호 작용할 수 있음을 의미합니다. 온라인 [예제에는] 탭 키나 스크린 리더를 통해 사이트를 탐색하는 것처럼 콘텐츠에 접근할 수 있는 다른 방법들을 포함했습니다." 개발자 [T.Rowe Price의 Alex Wilson](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347)이 작성하였습니다.
 
 [세계 보건기구](https://www.who.int/disabilities/world_report/2011/report/en/)에 따르면 장애인은 전체 인구의 15%입니다. 디자인 시스템은 사용자 인터페이스의 컴포넌트를 포함하므로 접근성에 큰 영향을 미칩니다. 단 하나의 컴포넌트에 대한 접근성을 향상시킨다는 것은 회사 전체에서 해당 컴포넌트의 모든 인스턴스의 접근성이 향상된다는 것을 의미합니다.
 
@@ -156,29 +146,33 @@ yarn add --dev @storybook/addon-a11y
 
 애드온을 `.storybook/main.js`에 추가:
 
-```javascript
-// .storybook/main.js
-
+```diff:title=.storybook/main.js
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
-    '@storybook/addon-a11y',
++   '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
   ],
+  framework: '@storybook/react',
+  staticDirs: ['../public'],
 };
 ```
 
 `.storybook/preview.js`파일의 [parameters](https://storybook.js.org/docs/react/writing-stories/parameters)를 업데이트 하고, 다음의 `a11y`설정을 추가하세요.
 
-```javascript
-//.storybook/preview.js
+```diff:title=.storybook/preview.js
 
 import React from 'react';
 
 import { GlobalStyle } from '../src/shared/global';
 
+/*
+* Storybook global-devorators에 대한 자세한 내용은 다음 웹 사이트를 참조하세요. -
+* https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
+*/
 export const decorators = [
   Story => (
     <>
@@ -187,28 +181,18 @@ export const decorators = [
     </>
   ),
 ];
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  // 스토리북 a11y 애드온 설정
-  a11y: {
-    // 타겟 DOM 엘리먼트
-    element: '#root',
-    // 애드온의 실행 모드를 설정
-    manual: false,
-  },
-};
 
 /*
-* Storybook의 더 많은 global parameter들은 여기로:
+* Storybook의 더 많은 global parameter들은 여기로 - 
 * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 */
 + export const parameters = {
 +   actions: { argTypesRegex: '^on[A-Z].*' },
-+   // Storybook a11y addon configuration
++   // 스토리북 a11y 애드온 설정
 +   a11y: {
-+     // the target DOM element
++     // 타겟 DOM 엘리먼트
 +     element: '#root',
-+     // sets the execution mode for the addon
++     // 애드온의 실행 모드를 설정
 +     manual: false,
 +   },
 + };
@@ -249,6 +233,6 @@ DOM 요소 (위반 및 통과)의 접근성 수준을 보여줍니다. UI 컴포
 
 ## 문서화를 통해 디자인 시스템 도입 촉진
 
-디자인 시스템은 테스트만으로는 완성되지 않습니다. 디자인 시스템은 조직 전체의 이해관계자들에게 서비스를 제공하므로 잘 테스트 된 UI 컴포넌트를 최대한 활용하는 방법을 다른 사람들에게 가르쳐야 합니다.
+디자인 시스템은 테스트만으로는 완성되지 않습니다. 디자인 시스템은 조직 전체의 이해 관계자들에게 서비스를 제공하므로 잘 테스트 된 UI 컴포넌트를 최대한 활용하는 방법을 다른 사람들에게 가르쳐야 합니다.
 
 6장에서는 문서를 통해 디자인 시스템 도입을 가속화하는 방법을 배웁니다. 왜 Storybook Docs가 작은 노력으로 이해하기 쉬운 문서를 만드는 비밀 무기인지 알아보세요.

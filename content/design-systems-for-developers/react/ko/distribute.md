@@ -2,7 +2,7 @@
 title: 'UI 배포'
 tocTitle: '배포'
 description: '디자인 시스템을 다른 앱에 패키징하고 import하는 방법을 배웁니다.'
-commit: 
+commit: 'bba7cb0'
 ---
 
 설계적인 관점에서 디자인 시스템은 또 다른 프론트엔드 의존성(dependency)에 불과합니다. 그런 시스템은 유명한 dependencies인 moment나 loadash과 같이 다를 바가 없는데요. UI 컴포넌트 코드이기 때문에, 재사용을 위해 확립된 기술에 의지해 사용할 수 있습니다.
@@ -28,7 +28,7 @@ commit:
 ![Package a design system](/design-systems-for-developers/design-system-package.jpg)
 ## export 하기 위한 디자인 시스템 준비
 
-디자인 시스템의 시작점으로 [Create React App](https://github.com/facebook/create-react-app) (CRA)을 사용했으며, 그것은 여전히 처음 앱의 모습을 가지고 있을텐데 그것을 정리해볼 것 입니다.
+디자인 시스템의 시작점으로 [Create React App](https://github.com/facebook/create-react-app) (CRA)을 사용했으며, 그것은 여전히 초기 앱의 흔적을 가지고 있습니다. 이제 그것을 정리해봅시다.
 
 첫번째로, README.md를 조금 더 구체적으로 업데이트 합니다. -  
 
@@ -71,8 +71,15 @@ yarn add --dev @babel/cli cross-env
 
 ```json:title=package.json
 {
-  "scripts": {
-    "build": "cross-env BABEL_ENV=production babel src -d dist"
+  "babel": {
+    "presets": [
+      [
+        "react-app",
+        {
+          "absoluteRuntime": false
+        }
+      ]
+    ]
   }
 }
 ```
@@ -143,16 +150,17 @@ question private: no
 패키지 준비가 되었으면, npm에 처음으로 배포할 수 있습니다!
 ## Auto로 배포 관리
 
-변경된 부분을 기록하는 changelog를 업데이트하고, 유효한 버전의 숫자를 입력하며, 그리고 레포지토리의 커밋에 있는 버전 숫자와 git 태그가 연결되도록 만드는 과정을 거쳐서 npm에 배포를 합니다. 이 모든 과정을 위해 만들어진 [Auto](https://github.com/intuit/auto)라고 불리는 오픈소스 툴을 사용할 것입니다. 
+변경된 부분을 기록하는 changelog를 업데이트하고, 유효한 버전의 숫자를 입력하며, 레포지토리의 커밋에 있는 버전 숫자와 git 태그가 연결되도록 만드는 과정을 거쳐서 npm에 배포를 합니다. 이 모든 과정을 위해 만들어진 [Auto](https://github.com/intuit/auto)라고 불리는 오픈소스 툴을 사용할 것입니다. 
 
- Auto를 설치해보세요. - 
+Auto를 설치해보세요. - 
 
 ```shell
 yarn add --dev auto
 ```
 
-Auto는 배포 관리시 일어날 수 있는 다양하고 흔한 과제를 수행할 때 사용할 수 있는 명령어라인 툴입니다. [Auto 문서 사이트](https://intuit.github.io/auto/)에서 Auto에 대해 더 알 수 있습니다.
- #### GitHub 토큰과 npm 토큰 생성
+Auto는 배포 관리시 일어날 수 있는 다양하고 흔한 과제를 수행할 때 사용할 수 있는 명령어라인 툴입니다. [Auto 문서 사이트](https://intuit.github.io/auto/)에서 Auto에 대해 더 알 수 있습니다.  
+
+ #### GitHub 토큰과 npm 토큰 생성  
 
 다음 단계로 더 나아가기 위해서 Auto에서 GitHub와 npm과 통신을 해야합니다. 명확한 일처리를 위해 개인적으로 접근이 가능한 토큰이 필요한데요. [깃헙 토큰 페이지](https://github.com/settings/tokens)에서 토큰을 얻을 수 있으며, 이 토큰은 `repo` 스코프를 필요로 합니다.
 
@@ -173,6 +181,7 @@ NPM_TOKEN=<value you just got from npm>
 dist
 .env
 ```
+
 #### GitHub에 라벨 생성
 
 Auto로 가장 우선적으로 해야할 것은 GitHub에 라벨 종류를 생성하는 것입니다. 이 라벨은 나중에 패키지를 수정하거나(다음 챕터에서 볼 수 있습니다.) 때 사용할 것인데, 이는 `auto`로 패키지 버전을 업데이트하고, changelog와 릴리즈 노트를 생성할 수 있도록 해줍니다.
@@ -181,7 +190,7 @@ Auto로 가장 우선적으로 해야할 것은 GitHub에 라벨 종류를 생�
 yarn auto create-labels
 ```
 
-GitHub를 확인해본다면, 이제 `auto`가 추천하는 라벨 종류가 생성된 걸 볼 수 있습니다. 
+GitHub를 확인해본다면, 이제 `auto`가 추천하는 라벨 종류가 생성된 걸 볼 수 있습니다. - 
 
 ![Set of labels created on GitHub by auto](/design-systems-for-developers/github-auto-labels.png)
 
@@ -262,6 +271,7 @@ yarn auto release
  이제, `yarn release`를 실행할 때 (자동 생성 changelog를 사용할 때 제외하고) 자동적으로 위와 같은 모든 과정을 밟을 것입니다. 기본 브랜치에 푸시한 모든 커밋들은 배포됩니다.
 
 축하합니다! 매뉴얼적으로 디자인 시스템을 배포하기위한 기본적인 인프라 구축을 설정했습니다. 이제 지속적인 통합(CI)으로 어떻게 자동으로 배포할 것인지 알아보겠습니다.
+
 ## 자동으로 릴리즈 배포
 
 지속적인 통합을 위해서 GitHub Actions를 사용합니다. 하지만 이 절차를 하기 전에, 앞에서 언급했던 GitHub 토큰과 NPM 토큰을 안전하게 저장해야합니다. 그래야 Actions가 GitHub와 NPM에 접근할 수 있습니다.  
@@ -279,6 +289,7 @@ yarn auto release
 ![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
 
 레포지토리에 npm 토큰을 추가하고, `secrets.NPM_TOKEN`으로써 이를 접근할 수 있습니다. 그러면 GitHub 토큰을 위해 또 다른 secret 설정을 할 필요가 없습니다.
+
 #### GitHub Actions으로 릴리즈 자동화
 
 PR을 매번 merge 할 때마다, 우리는 자동적으로 디자인 시스템이 배포되길 원할 것입니다. `push.yml`이라는 새로운 이름의 파일을 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a>에서 썼던 폴더와 같은 위치에 생성하고 다음과 같이 추가합니다. - 
@@ -445,7 +456,7 @@ export const parameters = {
 };
 ```
 
-![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
+![디자인 시스템 스토리가 포함된 앱 스토리북 예시](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
 
 예제 앱의 `UserItem` 컴포넌트에 있는 디자인 시스템을  `Avatar` 컴포넌트에 사용합니다. `UserItem`은 반드시 사용자의 이름과 프로필 사진을 포함한 정보를 렌더해야 합니다.
 
@@ -494,11 +505,11 @@ export default ({ user: { name, avatarUrl } }) => (
 
 위의 내용을 저장하고, `UserItem` 컴포넌트는 새로운 Avatar 컴포넌트를 보여주기 위해서 Storybook에 업데이트 될 것입니다. `UserItem`이 `UsetList`에 포함되어 있기 때문에 `Avatar`가 `UserList`에 있는 걸 볼 수 있습니다.
 
-![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
+![디자인 시스템을 이용한 샘플 앱 예제](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
 
 됐습니다! 방금 예제 앱에 디자인 시스템 컴포넌트를 import했습니다. Avatar 컴포넌트를 업데이트해서 배포할 때마다, 패키지를 업데이트 할 시 변경된 부분 또한 예제 앱에 반영됩니다.
 
-![Distribute design systems](/design-systems-for-developers/design-system-propagation-storybook.png)
+![디자인 시스템 배포](/design-systems-for-developers/design-system-propagation-storybook.png)
 ## 디자인 시스템 일의 흐름 마스터
 
 디자인 시스템 일의 흐름은 Storybook에 있는 UI 컴포넌트를 개발하는 것에서부터 시작해서 개발한 컴포넌트를 클라이언트 앱에 배포하는 것으로 끝을 맺습니다. 그것이 전부가 아닙니다. 디자인 시스템은 끊임없이 변화하는 제품의 요구사항을 충족하기 위해 지속적으로 발전해야하며, 이것은 시작일 뿐입니다. 
