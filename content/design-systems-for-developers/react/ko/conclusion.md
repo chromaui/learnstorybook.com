@@ -57,9 +57,9 @@ Storybook의 디자인 시스템 테크 리드인 [Kyle Suss](https://github.com
 
 #### Storybook은 다른 디자인 툴과 동기화가 가능한가요?
 
-그럼요! Storybook 커뮤니티는 디자인 툴과 동기화가 더 쉽도록 애드온(addon)을 만들었습니다. 예를 들어, InVision의 [Design System Manager](https://www.invisionapp.com/design-system-manager)는 스토리들을 InVision 앱에서 보여주도록 동기화합니다. [design tokens](https://github.com/UX-and-I/storybook-design-token), [Sketch](https://github.com/chrisvxd/story2sketch) 그리고 [Figma](https://github.com/pocka/storybook-addon-designs) 등, 커뮤니티가 만든 애드온들도 있습니다.
+그럼요! Storybook 커뮤니티는 디자인 툴과 동기화가 더 쉽도록 애드온(addon)을 만들었습니다. 예를 들어, InVision의 [디자인 시스템 메니저(Design System Manager)](https://www.invisionapp.com/design-system-manager)는 스토리들을 InVision 앱에서 보여주도록 동기화합니다. [디자인 토큰(design tokens)](https://github.com/UX-and-I/storybook-design-token), [스케치(Sketch)](https://github.com/chrisvxd/story2sketch) 그리고 [피그마(Figma)](https://github.com/pocka/storybook-addon-designs) 등, 커뮤니티가 만든 애드온들도 있습니다.
 
-![Design tool integrations](/design-systems-for-developers/storybook-integrations-design.jpg)
+![통합 디자인 툴(Design tool integrations)](/design-systems-for-developers/storybook-integrations-design.jpg)
 
 #### 하나의 앱에도 디자인 시스템이 필요할까요?
 

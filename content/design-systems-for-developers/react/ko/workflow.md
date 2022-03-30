@@ -2,14 +2,14 @@
 title: '디자인 시스템을 위한 작업 흐름(workflow)'
 tocTitle: '작업 흐름(workflow)'
 description: '프론트엔드 개발자를 위한 디자인 시스템 작업 흐름(workflow)의 개요'
-commit: 
+commit: 'ab64b4c'
 ---
 
 프론트엔드에서 사용하는 툴이 함께 작동하는 방식은 디자인 및 개발 팀이 실현할 수 있는 궁극적인 가치에 커다란 영향을 끼칩니다.
 
 이번 챕터에서는 새로운 AvatarList 컴포넌트를 소개함으로써 다섯 단계의 작업 흐름(workflow)을 설명합니다.
 
-![Design system workflow](/design-systems-for-developers/design-system-workflow-horizontal.jpg)
+![디자인 시스템 작업 흐름(workflow)](/design-systems-for-developers/design-system-workflow-horizontal.jpg)
 
 ## 설계
 
@@ -28,7 +28,7 @@ git checkout -b create-avatar-list-component
 - [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.js)
 - [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.stories.js)
 
-![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist-6-0.png)
+![AvatarList component가 있는 Storybook](/design-systems-for-developers/storybook-with-avatarlist-6-0.png)
 
 <div class="aside">
 💡 Storybook은 자동적으로 확장자가 <code>*.stories.js</code>로 끝나는 파일을 감지하도록 설정되어 UI에서 보여줍니다.
@@ -49,7 +49,7 @@ Loading.args = {
 };
 ```
 
-![Storybook with more AvatarList stories](/design-systems-for-developers/storybook-with-avatarlist-loading-6-0.png)
+![AvatarList stories가 더 많은 스토리북](/design-systems-for-developers/storybook-with-avatarlist-loading-6-0.png)
 
 리스트인 것을 생각한다면, 여러 아바타들이 보여져야 합니다. 리스템 아이템이 많을 때와 적을 때 어떤 일이 발생하는지 볼 수 있는 스토리를 추가해봅니다.
 
@@ -100,7 +100,7 @@ git commit -am "Added AvatarList and stories"
 
 Storybook 문서 덕분에 최소한의 노력으로 사용자가 커스텀할 수 있는 문서를 얻을 수 있습니다. Storybook 문서를 참고해서 AvatarList를 사용하려는 다른 사람들에게 도움이 됩니다.
 
-![Storybook docs with minimal AvatarList info](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
+![minimal AvatarList info가 있는 Storybook docs](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
 
 최소한의 기능이 담긴 문서가 왼성되었습니다! AvatarList를 어떻게 사용하는지 추가적인 설명을 붙여주세요.
 
@@ -142,7 +142,7 @@ AvatarList.propTypes = {
 
 간단하죠! 지금으로써는 이 정도의 설명이면 충분합니다. 나중에 MDX를 이용하면 언제나 원하는대로 수정할 수 있습니다.
 
-![Storybook docs with full AvatarList info](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
+![full AvatarList info가 있는 Storybook docs](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
 
 문서화는 지루한 작업이 아닙니다. 자동화가 가능한 툴을 사용해서 지루함을 제거하고 글을 바로 쓸 수 있습니다.
 
@@ -162,7 +162,7 @@ git push -u origin create-avatar-list-component
 
 그리고 GitHub로 가서 풀 리퀘스트를 열어보세요.
 
-![PR created in PR for AvatarList](/design-systems-for-developers/github-pr-create-avatarlist.png)
+![Avatar List용 PR에 생성된 PR](/design-systems-for-developers/github-pr-create-avatarlist.png)
 
 ## 리뷰
 
@@ -170,15 +170,15 @@ git push -u origin create-avatar-list-component
 
 Storybook의 디자인 시스템은 각 풀 리퀘스트 때마다 자동으로 배포돼서 리뷰를 쉽게 할 수 있습니다. PR 확인란으로 스크롤을 내려서 배포된 Storybook 링크를 찾아보세요.
 
-![PR check for deployed PR](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
+![deployed PR의 PR 체크](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
 배포된 Storybook에서 `AvatarList`를 찾아보세요. 로컬 Storybook과 동일하게 보여야 합니다.
 
-![AvatarList in Storybook online](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
+![Storybook가 있는 AvatarList를 온라인에 공유](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
 
 배포된 Storybook은 팀이 함께 공유하는 공통의 레퍼런스입니다. 피드백을 빨리 받아보기 위해 다른 관계자들에게 `AvatarList` 링크를 공유해보세요.
 
-![Looks good, ship it!](/design-systems-for-developers/visual-review-shipit.png)
+![보기 좋네요!](/design-systems-for-developers/visual-review-shipit.png)
 
 수 많은 팀들과 합의를 하는 과정이 무의미하게 느껴질 수도 있습니다. 오래된 코드의 레퍼런스를 참고하거나, 적절한 개발 환경을 갖지 못하거나, 피드백이 여러 툴에 흩어져있을 수도 있습니다. 하지만 온라인 Storybook 리뷰하는 것은 URL을 공유하는 것만큼이나 간단합니다.
 
@@ -186,19 +186,19 @@ Storybook의 디자인 시스템은 각 풀 리퀘스트 때마다 자동으로 
 
 테스트는 매 커밋 때마다 눈에 띄지 않는 곳에서 실행됩니다. `AvatarList`은 간단한 프레젠테이션 컴포넌트라서 유닛 테스트는 필수적인 게 아닙니다. 하지만 PR 확인란을 보면 시각적 테스트 툴인 Chromatic이 리뷰가 필요한 수정사항을 이미 감지하고 있습니다.
 
-![Chromatic changes on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
+![Chromatic 변경사항 GitHub PR 체크](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
 AvatarList는 새로운 컴포넌트이기 때문에, 이를 위한 시각적 테스트가 아직 없습니다. 각 스토리마다 최소한의 기준이 필요할 것입니다. 시각적 테스트로 확장하기 위해서 Chromatic에서 "new stories"에 동의합니다.
 
-![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
+![AvatarList stories의 Chromatic 변경사항 허용](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
 여기까지 완료가 되면 Chromatic에서 빌드가 통과할 것입니다.
 
-![Chromatic changes to the AvatarList stories accepted](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
+![AvatarList stories의 Chromatic 변경사항 허용](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
 
 그런 후에, GitHub에서 PR 확인란이 업데이트 됩니다.
 
-![Chromatic changes accepted on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes-accepted.png)
+![GitHub PR check에서 Chromatic 변경사항 허용](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes-accepted.png)
 
 테스트는 성공적으로 업데이트되었습니다. 나중에 회귀 테스트를 하면 디자인 시스템을 파고드느라 꽤나 힘든 시간을 보낼 것입니다.
 
