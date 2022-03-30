@@ -11,7 +11,7 @@ commit: '5da7c68'
 
 ## 컨테이너 컴포넌트
 
-현재 작성된 `TaskList`는 구현됨에 있어서 외부와 어떠한 대화도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. ([이 블로그 포스트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)를 참조해 주세요. 데이터를 얻기 위해서는 “컨테이너(container)”가 필요합니다.)
+현재 작성된 `TaskList`는 구현됨에 있어서 외부와 어떠한 소통도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. ([이 블로그 포스트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)를 참조해 주세요. 데이터를 얻기 위해서는 “컨테이너(container)”가 필요합니다.)
 
 이 예제는 [Redux](https://redux.js.org/)로 데이터를 저장하기 위해 가장 효과적인 도구 집합(toolset)인 [Redux Toolkit](https://redux-toolkit.js.org/)를 사용하여 앱의 간단한 데이터 모델을 만듭니다. 여기서 사용된 패턴은 [Apollo](https://www.apollographql.com/client/)와 [MobX](https://mobx.js.org/) 같은 다른 데이터 관리 라이브러리에도 적용됩니다.
 
@@ -75,7 +75,7 @@ const defaultTasks = [
 
 /*
  * 여기서 저장소는 만들어집니다.
- * `slice`의 자세한 정보는 아래 문서에서 확인할 수 있습니다.
+ * 'slice'의 자세한 정보는 아래 문서에서 확인할 수 있습니다.
  * https://redux-toolkit.js.org/api/createSlice
  */
 const TasksSlice = createSlice({
@@ -109,7 +109,7 @@ const store = configureStore({
 export default store;
 ```
 
-다음 `TaskList` 컴포넌트를 Redux store와 연결하고 알고자 하는 task들을 렌더링 하기 위해 업데이트합니다.
+다음 `TaskList` 컴포넌트를 Redux store와 연결하고, 알고자 하는 task들을 렌더링 하기 위해 업데이트합니다.
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -125,13 +125,13 @@ export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 
 PureTaskList.propTypes = {
-  /** loading 상태인지 확인 */
+  /** loading 상태인지 확인하는 데이터 */
   loading: PropTypes.bool,
-  /** tasks 목록들 */
+  /** 작업 목록 데이터 */
   tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** task를 고정하는 이벤트 */
+  /** 작업을 고정으로 변경하는 이벤트 */
   onPinTask: PropTypes.func.isRequired,
-  /** task를 아카이브 하는 이벤트 */
+  /** 작업 아카이빙을 위한 이벤트 */
   onArchiveTask: PropTypes.func.isRequired,
 };
 
@@ -158,16 +158,14 @@ export default connect(
 
 하지만 이전 단계에서 진행한 Storybook 스토리의 `export` 구문에 `PureTaskList`(표상적인 컴포넌트)를 간단하게 렌더링함으로써 이러한 문제를 쉽게 해결할 수 있습니다.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```diff:title=src/components/TaskList.stories.js
 import React from 'react';
 
-import { PureTaskList } from './TaskList';
++ import { PureTaskList } from './TaskList';
 import * as TaskStories from './Task.stories';
 
 export default {
-  component: PureTaskList,
++ component: PureTaskList,
   title: 'TaskList',
   decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
@@ -177,7 +175,7 @@ const Template = (args) => <PureTaskList {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   // args 컴포지션을 통해 스토리를 구성합니다.
-  // 데이터는 task.stories.js의 Default story를 상속받았습니다.
+  // 이 데이터는 task.stories.js의 Default 스토리를 상속받았습니다.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -191,7 +189,7 @@ Default.args = {
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
   // args 컴포지션을 통해 스토리를 구성합니다.
-  // Default story로부터 상속받은 데이터
+  // 위의 Default 스토리에서 상속받은 데이터입니다.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -207,7 +205,7 @@ Loading.args = {
 export const Empty = Template.bind({});
 Empty.args = {
   // args 컴포지션을 통해 스토리를 구성합니다.
-  // Loading story로부터 상속받은 데이터
+  // 위의 Loading 스토리에서 상속받은 데이터입니다.
   ...Loading.args,
   loading: false,
 };
