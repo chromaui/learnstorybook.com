@@ -1,12 +1,7 @@
 ---
 title: '시각적 테스팅 소개'
-<<<<<<< HEAD
 tocTitle: '소개'
 description: 'UI를 테스트하는 실용적인 방법'
-=======
-tocTitle: 'Introduction | 소개'
-description: 'UI 테스트를 위한 실질적인 방법'/
->>>>>>> 939e468f (Update: Introduction revise)
 commit: ''
 ---
 
