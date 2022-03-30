@@ -1,10 +1,10 @@
 ---
 title: '디자인 시스템 소개'
 tocTitle: '소개'
-description: 'A guide to the latest production-ready tools for design systems'
+description: '디자인 시스템을 위한 최신 개발 방법 도구 가이드'
 ---
 
-<div class="aside">이 가이드는 <b>전문 개발자들을 위한</b> 디자인 시스템 학습법에 대해 다루고 있습니다. 자바스크립트(JavaScript), 깃(Git), 그리고 지속적인 통합 환경(Continuous Integration, CI)에 대해 어느 정도 경험을 하고 읽기를 권합니다. 또한 story 작성이나 설정 파일 수정 등의 Storybook의 기본 사용법을 알고 있어야 합니다.(<a href="/intro-to-storybook">Storybook 소개</a>를 참고해보세요).
+<div class="aside">이 가이드는 <b>전문 개발자들을 위한</b> 디자인 시스템 학습법에 대해 다루고 있습니다. 자바스크립트(JavaScript), 깃(Git), 그리고 지속적인 통합 환경(Continuous Integration, CI)에 대해 어느 정도 경험을 하고 읽기를 권장합니다. 또한 story 작성이나 설정 파일 수정 등의 Storybook의 기본 사용법을 알고 있어야 합니다.(<a href="/intro-to-storybook">Storybook 소개</a>를 참고해보세요).
 </div>
 <br/>
 
@@ -22,7 +22,7 @@ description: 'A guide to the latest production-ready tools for design systems'
 
 최근에 등장한 유저 인터페이스들은 다양한 사용자 경험을 제공하기 위해 수백 개의 모듈식 UI 컴포넌트가 재배열된 구조로 이루어져 있습니다.  
 
-디자인 시스템은 재사용이 가능한 UI 컴포넌트들로 이루어져, 복잡하고 견고하며 사용자가 접근하기에 용이한 사용자 인터페이스를 구축할 수 있습니다. 디자이너와 개발자 모두 UI 컴포넌트를 다루기 때문에, 디자인 시스템은 두 분야를 연결하는 다리이기도 합니다. 또한 조직의 공용 컴포넌트에 대한 "진실의 근원(source of truth)"이 됩니다.
+디자인 시스템은 재사용이 가능한 UI 컴포넌트들로 이루어져, 복잡하고 견고하며 사용자가 접근하기에 용이한 사용자 인터페이스를 구축할 수 있습니다. 디자이너와 개발자 모두 UI 컴포넌트를 다루기 때문에, 디자인 시스템은 두 분야를 연결하는 다리이기도 합니다. 또한 조직의 공용 컴포넌트에 대한 "단일한 진실의 원천(source of truth)"이 됩니다.
 
 ![Design systems bridge design and development](/design-systems-for-developers/design-system-context.jpg)
 
@@ -44,17 +44,13 @@ description: 'A guide to the latest production-ready tools for design systems'
 
 ## 우리가 사용하는 도구들
 
-<<<<<<< sieunlee0
-[BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/)을 비롯한 수백 개가 넘는 기업의 디자인 시스템에 스토리북이 사용되고 있습니다. 여기에서 권장하는 사항들은 가장 똑똑한 팀의 우수 사례 및 도구를 참고했습니다. 아래 프론트엔드 환경을 구성해보세요.
-=======
 
 [BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/)을 비롯한 수백 개가 넘는 기업의 디자인 시스템에 스토리북이 사용되고 있습니다. 여기에서 권장하는 사항들은 가장 똑똑한 팀의 우수 사례 및 도구를 참고했습니다. 아래 프론트엔드 환경을 구성해보세요.
 
->>>>>>> master
 
 #### 빌드 컴포넌트
 
-- 📚 [Storybook](http://storybook.js.org): UI 컴포넌트 개발과 자동으로 문서를 생성할 때 사용합니다.
+- 📚 [스토리북(Storybook)](http://storybook.js.org): UI 컴포넌트 개발과 자동으로 문서를 생성할 때 사용합니다.
 - ⚛️ [리액트(React)](https://reactjs.org/): 선언 중심 컴포넌트 UI(create-react-app)를 사용합니다.
 - 💅 [스타일 컴포넌트(Styled-components)](https://www.styled-components.com/): 컴포넌트 단위의 스타일링에 사용합니다.
 - ✨ [프리티어(Prettier)](https://prettier.io/): 자동화된 코드 포맷팅에 사용합니다.
@@ -71,7 +67,7 @@ description: 'A guide to the latest production-ready tools for design systems'
 #### Storybook 애드온
 
 - ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y): 개발하면서 접근성 체크를 도와줍니다.
-- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions): QA 클릭과 탭 인터렉션이 가능하도록 해줍니다
+- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions): QA 클릭과 탭 인터렉션이 가능하도록 해줍니다.
 - 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls): 컴포넌트의 props를 동적으로 화면에 반영해줍니다.
 - 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction): story에서 자동으로 문서를 생성해줍니다.
 
@@ -91,7 +87,7 @@ UI 개발은 개발자, 디자이너 및 다른 분야 간의 조정이 필요�
 
 #### UI에서 발생하는 버그를 방지하기위해 테스트하는법
 
-디자인 시스템들은 하나의 진실의 원천이며 단일 실패 지점입니다. 기본 컴포넌트에 있는 사소한 UI 버그가 순식간에 회사 전체의 사고로 이어질 수도 있습니다. Storybook은 테스트를 자동화하여 불가피하게 발생하는 버그를 방지하고, 접근성과 내구성이 뛰어난 UI 컴포넌트를 안심하고 사용할 수 있도록 합니다.
+디자인 시스템들은 단일한 진실의 원천(source of truth)이며 단일 실패 지점(single point of failure)입니다. 기본 컴포넌트에 있는 사소한 UI 버그가 순식간에 회사 전체의 사고로 이어질 수도 있습니다. Storybook은 테스트를 자동화하여 불가피하게 발생하는 버그를 방지하고, 접근성과 내구성이 뛰어난 UI 컴포넌트를 안심하고 사용할 수 있도록 합니다.
 
 #### 빠른 채택을 위한 문서
 
@@ -103,6 +99,6 @@ UI 개발은 개발자, 디자이너 및 다른 분야 간의 조정이 필요�
 
 ## Storybook 디자인 시스템
 
-이 가이드의 예제 디자인 시스템은 Storybook의 자체 [프로덕션 디자인 시스템](https://github.com/storybookjs/design-system)을 참고로 했습니다. 이는 3개의 사이트에서 소비되고 수만 명의 개발자들이 사용하고 있습니다.
+이 가이드의 예제 디자인 시스템은 Storybook의 자체 [프로덕션 디자인 시스템](https://github.com/storybookjs/design-system)을 참고 했습니다. 이는 3개의 사이트에서 소비되고, 수만 명의 개발자들이 사용하고 있습니다.
 
 다음 장에서는 서로 다른 컴포넌트 라이브러리에서 디자인 시스템을 추출하는 방법에 대해 알아볼 것입니다.
