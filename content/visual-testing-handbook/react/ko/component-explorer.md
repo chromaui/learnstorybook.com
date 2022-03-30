@@ -1,7 +1,7 @@
 ---
 title: '컴포넌트 탐색기'
 tocTitle: '컴포넌트 탐색기'
-description: 'UI 개발과 시각적 테스팅을 위한 도구'
+description: 'UI 개발과 시각적 테스팅을 위한 도구'/
 commit: ''
 ---
 
