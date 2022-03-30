@@ -57,7 +57,7 @@ development dependency로 패키지를 추가해주세요.
 yarn add -D chromatic
 ```
 
-패키지가 설치되면 GitHub 계정으로 [Chromatic에 로그인](https://www.chromatic.com/start) 해주세요(Chromatic은 간단한 권한 요청만 할 것입니다). 그런 다음 "taskbox"라는 이름의 새로운 프로젝트를 만들고 앞서 설정한 GithHub 저장소와 동기화합니다.
+패키지가 설치되면 GitHub 계정으로 [Chromatic에 로그인](https://www.chromatic.com/start) 해주세요 (Chromatic은 간단한 권한 요청만 할 것입니다). 그런 다음 "taskbox"라는 이름의 새로운 프로젝트를 만들고 앞서 설정한 GithHub 저장소와 동기화합니다.
 
 `Choose GitHub repo`를 클릭하고 저장소를 선택해주세요.
 
@@ -68,7 +68,7 @@ yarn add -D chromatic
   />
 </video>
 
-프로젝트를 위해 생성된 고유한 `project-token`을 복사해주세요. 그런 다음 Storybook을 빌드하고 배포하기 위해 아래 명령어를 실행해주세요. 여러분의 토큰으로 `project-token` 부분을 꼭 바꾸어주세요.
+프로젝트를 위해 생성된 고유한 `project-token`을 복사해주세요. 그런 다음 Storybook을 빌드하고 배포하기 위해 아래 명령어를 실행해주세요. 여러분의 토큰으로 `project-token` 부분을 꼭 바꿔주세요.
 
 ```bash
 yarn chromatic --project-token=<project-token>
@@ -92,29 +92,27 @@ yarn chromatic --project-token=<project-token>
 
 `chromatic.yml`이라는 파일을 아래와 같이 생성해주세요. `project-token` 은 여러분의 프로젝트 토큰으로 바꿔주세요.
 
-```yaml
-# .github/workflows/chromatic.yml
-
-# Workflow name
+```yaml:title=.github/workflows/chromatic.yml
+# 워크플로우 명
 name: 'Chromatic Deployment'
 
-# Event for the workflow
+# 워크플로우 이벤트
 on: push
 
-# List of jobs
+# 작업 리스트
 jobs:
   test:
-    # Operating System
+    # 운영 체제
     runs-on: ubuntu-latest
-    # Job steps
+    # 작업 순서
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-        #👇 Adds Chromatic as a step in the workflow
+        #👇 워크플로우 단계에 Chromatic를 추가합니다.
       - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
+        # Chromatic의 GitHub Action에 필요한 옵션
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
+          #👇 Chromatic 프로젝트 토큰, 프로젝트 토큰을 얻으려면 https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ 링크를 확인해보세요
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -151,4 +149,4 @@ GitHub action을 설정하면 코드를 푸시할 때마다 Storybook이 Chromat
 
 ![Chromatic의 Storybook 링크](/intro-to-storybook/chromatic-build-storybook-link.png)
 
-링크를 사용하여 팀원들과 공유하세요. 이는 표준화된 앱 개발 과정일 뿐만 아니라 여러분의 작업을 팀원들에게 자랑할 수 있게끔 도와줄 것입니다 💅.
+링크를 사용하여 팀원들과 공유하세요. 이는 표준화된 앱 개발 과정일 뿐만 아니라 여러분의 작업을 팀원들에게 자랑할 수 있게끔 도와줄 것입니다. 💅
