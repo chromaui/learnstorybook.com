@@ -3,9 +3,9 @@ title: '기여하기'
 description: 'Storybook을 세상과 함께 나눌 수 있도록 도와주세요'
 ---
 
-'Storybook 배우기'에 기여해주세요! 문법이나 구두점 같은 작은 것이라면, pull request를 해주세요. 보다 큰 변화가 필요하다면 토론을 위해 [이슈를 추가](https://github.com/chromaui/learnstorybook.com/issues)해주세요.
+'Storybook 배우기'에 기여해주세요! 문법이나 문장부호 같은 작은 것이라면, pull request를 해주세요. 보다 큰 변화가 필요하다면 토론을 위해 [이슈를 추가](https://github.com/chromaui/learnstorybook.com/issues)해주세요.
 
-'Storybook 배우기'는 주로 커뮤니티에 의해 만들어지고 유지되어 왔기 때문에, 이를 최신 상태로 유지하고 시간이 지남에 따라 다듬기 위해서는 많은 분의 도움이 필요합니다. 모든 도움에 감사드립니다!
+'Storybook 튜토리얼'은 주로 커뮤니티에 의해 만들어지고 유지되어 왔기 때문에, 이를 최신 상태로 유지하고 시간이 지남에 따라 다듬기 위해서는 많은 분의 도움이 필요합니다. 모든 도움에 감사드립니다!
 
 ## 번역
 
