@@ -2,7 +2,7 @@
 title: 'Storybook의 시각적 테스트'
 tocTitle: '시각적 테스트'
 description: 'UI 버그를 자동으로 찾아내는 방법 알아보기'
-commit: '1421db5'
+commit: ''
 ---
 
 <!-- It's tough to ship bug-free UIs. In the past, developers used unit and snapshot tests to scan for bugs in blobs of HTML. But those methods don't represent what the user actually sees, so bugs never went away. -->
@@ -37,7 +37,7 @@ commit: '1421db5'
 
 <!-- Well, there are two layers to this problem. -->
 
-네, 여기에는 두 가지 문제가 있습니다.
+여기에는 두 가지 문제가 있습니다.
 
 <!-- ### 1. Does it look right? -->
 
@@ -76,7 +76,7 @@ commit: '1421db5'
 
 <!-- Here's what the visual testing workflow looks like: -->
 
-시각적 테스트는 다음과 같은 방식으로 진행됩니다:
+시각적 테스트는 다음과 같은 방식으로 진행됩니다 - 
 
 <!-- 1.  🏷 **Isolate** components. Use [Storybook](https://storybook.js.org/) to focus on and test one component at a time. -->
 
@@ -92,7 +92,7 @@ commit: '1421db5'
 
 <!-- 4.  📸 **Catch UI bugs automatically.** Capture snapshots of each test case and use machine-based diffing to check for regressions. -->
 
-4.  📸 **UI  버그를 자동으로 잡기**  각 테스트 케이스의 스냅샷을 캡처한 뒤 머신 기반 diffing을 사용하여 회귀를 확인합니다.
+4.  📸 **UI  버그를 자동으로 잡기**  각 테스트 케이스의 스냅샷을 캡처한 뒤 머신 기반의 diffing을 사용하여 회귀를 확인합니다.
 
 <!-- The crux of visual testing is isolating the UI from the rest of the app (data, backend, APIs). That allows you to observe each state individually. You can then manually spot check and automatically regression test those states.
 
@@ -120,20 +120,20 @@ Storybook은 컴포넌트를 개별적으로 빌드하기 위한 업계 표준�
 
 <!-- - 🔭 Visualize all its **states** as _stories_ -->
 
-- 🔭  모든 state를 _stories_로 시각화
+- 🔭  모든 **state**를 _stories_로 시각화
 
 <!-- - 📑 **Document** props and usage guidelines for each component -->
 
-- 📑 각 컴포넌트에 대한 props 및 사용 지침에 관한 문서
+- 📑 각 컴포넌트에 대한 props 및 사용 지침에 관한 **문서**
 
 
 <!-- - 🗃️ A **directory** of all your components to make discovery easier -->
 
-- 🗃️ 쉽게 검색할 수 있도록 돕는 모든 컴포넌트의 디렉토리
+- 🗃️ 쉽게 검색할 수 있도록 돕는 모든 컴포넌트의 **디렉토리**
 
 <!-- Let’s go back to that Task component. To isolate it means that we load up and render this one component by itself. For that, we need Storybook. -->
 
-Task component로 다시 돌아가 보겠습니다. "컴포넌트 분리"란 이 하나의 컴포넌트를 자체적으로 로드하고 렌더링한다는 것을 의미합니다. 그러기 위해서는 Storybook이 필요합니다.
+Task 컴포넌트로 다시 돌아가 보겠습니다. "컴포넌트 분리"란 이 하나의 컴포넌트를 자체적으로 불러오고 렌더링한다는 것을 의미합니다. 그러기 위해서는 Storybook이 필요합니다.
 
 <!-- ### Setup Storybook -->
 
@@ -145,7 +145,7 @@ Task component로 다시 돌아가 보겠습니다. "컴포넌트 분리"란 이
 
 <!-- We can start by creating a story file for the Task component. This registers the component with Storybook and adds in one default test case. -->
 
-Task component에 대한 story 파일을 만드는 것으로 시작해볼까요. 이렇게 하면 Task component가 Storybook에 등록되고, 하나의 기본 테스트 사례로 추가됩니다.
+Task 컴포넌트에 대한 story 파일을 만드는 것으로 시작해볼까요. 이렇게 하면 Task 컴포넌트가 Storybook에 등록되고, 하나의 기본 테스트 사례로 추가됩니다.
 
 ```javascript:title=src/components/Task.stories.js
 import React from 'react';
@@ -175,7 +175,7 @@ Default.args = {
 
 <!-- And finally, run the following command to start Storybook in development mode. You should see the Task component load up. -->
 
-마지막으로 다음 커맨드를 실행해 개발 모드에서 Storybook을 시작합시다. Task component가 로드되는 것을 볼 수 있습니다.
+마지막으로 다음 커맨드를 실행해 개발 모드에서 Storybook을 시작합시다. Task 컴포넌트가 로드되는 것을 볼 수 있습니다.
 
 ```
 yarn storybook
@@ -197,7 +197,7 @@ Storybook에서는 테스트 케이스를 story라고 합니다. story는 컴포
 
 <!-- The Task component has three states—default, pinned and archived. We’ll add a story for each one. -->
 
-Task component에는 기본 상태, 북마크 되었을 때, 그리고 완료되었을 때 이렇게 총 세 가지 상태가 있습니다. 이 각 상태에 대한 story를 추가해봅시다.
+Task 컴포넌트에는 기본 상태, 북마크 되었을 때, 그리고 완료되었을 때 이렇게 총 세 가지 상태가 있습니다. 이 각 상태에 대한 story를 추가해봅시다.
 
 ![](/ui-testing-handbook/task-states.png)
 
@@ -247,11 +247,11 @@ Archived.args = {
 
 <!-- ## 3. Verify -->
 
-## 3. 검증
+## 3. 검증하기
 
 <!-- Verification is _you_ evaluating how the component looks in Storybook. That is, does it match the design spec? -->
 
-검증은 컴포넌트가 storybook에서 어떻게 보이는지 개발자가 직접 평가하는 과정입니다. 즉, 디자인 명세와 일치하는지 확인하는 일입니다.
+검증은 컴포넌트가 Storybook에서 어떻게 보이는지 개발자가 직접 평가하는 과정입니다. 즉, 디자인 명세와 일치하는지 확인하는 일입니다.
 
 <!-- The usual development workflow is:
 
@@ -259,11 +259,11 @@ Archived.args = {
 2.  Get the component in the appropriate state
 3.  Evaluate its appearance -->
 
-보통 개발은 다음과 같은 과정으로 진행됩니다:
+보통 개발은 다음과 같은 과정으로 진행됩니다 - 
 
-1. 코드 수정
+1. 코드 수정하기
 2. 적절한 state의 컴포넌트 가져오기
-3. 외관 평가
+3. 외관 평가하기
 
 <!-- And then repeat the whole cycle until you’ve verified all its states. -->
 
@@ -293,7 +293,7 @@ LongTitle.args = {
 
 <!-- ## 4. Catch regressions automatically -->
 
-## 4. 자동으로 회귀 포착
+## 4. 자동으로 회귀 포착하기
 
 <!-- The Task component looks as we expect it to in all its use cases. But, how do we ensure that a stray line of CSS doesn’t break it in the future? It’s unrealistic to **manually** go through the entire directory of components whenever you make a change. -->
 
@@ -301,7 +301,7 @@ Task 컴포넌트는 모든 사용 사례에서 우리가 기대했던 대로 �
 
 <!-- That’s why developers use a visual regression testing tool to automatically check for regressions. Auth0, Twilio, Adobe and Peloton use [Chromatic](http://chromatic.com/) (built by the Storybook team). -->
 
-그래서 현명한 개발자들은 시각적 회귀 테스트 도구를 사용하여 회귀를 자동으로 확인합니다. Auth0, Twilio, Adobe와 Peloton에서는 Storybook팀에서 만든 [Chromatic](http://chromatic.com/)을 사용합니다.
+그래서 개발자들은 시각적 회귀 테스트 도구를 사용하여 회귀를 자동으로 확인합니다. Auth0, Twilio, Adobe와 Peloton에서는 Storybook팀에서 만든 [Chromatic](http://chromatic.com/)을 사용합니다.
 
 <!-- At this point, we know that the component is in a good state. Chromatic will capture an image snapshot of every story—as it appears in the browser. Then any time you make a change, a new snapshot is captured and compared to the previous one. You then review any visual differences found to decide if they are intentional updates or accidental bugs. -->
 
@@ -319,7 +319,7 @@ Task 컴포넌트는 모든 사용 사례에서 우리가 기대했던 대로 �
 
 <!-- Chromatic is built specifically for Storybook and requires no configuration. Running the command below will trigger it to capture a snapshot of each story (using a cloud browser). -->
 
-Chromatic은 Storybook용으로 특별히 제작되었으며 따로 구성( configuration)할 필요가 없습니다. 아래 커맨드를 실행하면 Chromatic이 클라우드 브라우저를 사용해 각 story의 스냅샷을 캡처합니다.
+Chromatic은 Storybook용으로 특별히 제작되었으며 따로 구성(configuration)할 필요가 없습니다. 아래 커맨드를 실행하면 Chromatic이 클라우드 브라우저를 사용해 각 story의 스냅샷을 캡처합니다.
 
 
 ```
@@ -338,7 +338,7 @@ npx chromatic --project-token=<project-token>
 
 <!-- On each commit, new snapshots are captured and compared against existing baselines to detect UI changes. Let’s see that check in action. -->
 
-commit할 때마다 새 스냅샷이 캡처되고, 그 스냅샷을 기존 Baseline과 비교해서 UI 변경 사항을 감지합니다. 직접 보면서 확인해봅시다.
+commit할 때마다 새 스냅샷이 캡처되고, 그 스냅샷을 기존 baseline과 비교해서 UI 변경 사항을 감지합니다. 직접 보면서 확인해봅시다.
 
 <!-- First, make a tweak to the UI. We’re going to change the pinned icon and the text styling. Update the Task component, then make a commit and rerun Chromatic. -->
 
@@ -450,4 +450,4 @@ Task.propTypes = {
 
 <!-- A bit of leaky CSS or one broken component can snowball into multiple issues. These bugs are particularly frustrating to debug. In the next chapter, we'll build upon these concepts to learn how to catch such cascading problems. -->
 
-약간의 CSS 실수 혹은 한 컴포넌트의 문제가 여러 문제로 눈덩이처럼 불어날 수 있습니다. 이런 버그는 디버깅하기가 무척 어렵습니다. 다음 장에서는 이같은 계단식 문제를 잡는 방법을 배워봅시다.
+약간의 CSS 실수 혹은 한 컴포넌트의 문제가 여러 문제로 눈덩이처럼 불어날 수 있습니다. 이런 버그는 디버깅하기가 무척 어렵습니다. 다음 장에서는 이같은 상속된 문제를 잡는 방법을 배워봅시다.

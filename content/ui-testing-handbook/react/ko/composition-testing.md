@@ -1,8 +1,8 @@
 ---
-title: '컴포넌트 구성 테스트'
+title: '구성 테스트'
 tocTitle: '구성'
 description: '사소한 변경이 커다란 회귀로 변하는 것을 방지하기'
-commit: '60b8d8f'
+commit: ''
 ---
 
 <!-- In Jan 2021, [Tesla recalled 158,000 cars](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-s-x-touchscreens-bricked-failure-nhtsa) because one module—the display—malfunctioned. With a broken display console, you can’t access the backup camera, turn signals, or driver assistance. That significantly increases the risk of a crash. -->
@@ -12,7 +12,7 @@ commit: '60b8d8f'
 
 <!-- > One defective module escalated into a major failure. -->
 
-> 모듈 하나의 결함이 심각한 장애로 확대된 것입니다.
+> 모듈 하나의 결함이 심각한 실패작으로 확대된 것입니다.
 
 <!-- UIs suffer from a similar challenge because apps, much like cars, are an interconnected network of parts. A bug in one component affects all others around it. Not to mention every part of the app where it’s used. Testing how UI components are composed helps you to prevent such bugs. -->
 
@@ -20,7 +20,7 @@ commit: '60b8d8f'
 
 <!-- Testing the more complex parts of the UI is tricky. They are created by combining many simpler components and are also wired up to the application state. In this chapter, we'll look at how to isolate and apply visual testing to composite components. Along the way, you'll learn about mocking data and simulating application logic. And ways to test component integration. -->
 
-UI의 복합 컴포넌트를 테스트하는 것은 더욱 까다롭습니다. 복합 컴포넌트는 단순한 컴포넌트 여러 개가 모여 구성되며 애플리케이션의 상태와도 연결됩니다. 이번 챕터에서는 복합 컴포넌트를 분리하고 시각적 테스트를 적용하는 방법을 살펴보겠습니다. 이 과정에서 목 데이터(mocking data)와 애플리케이션 로직을 시뮬레이션 하는 방법을 배우게 됩니다. 또한 컴포넌트 통합 테스트를 하는 방법에 대해서도 알게될 것입니다. 
+UI의 복합 컴포넌트를 테스트하는 것은 더욱 까다롭습니다. 복합 컴포넌트는 단순한 컴포넌트 여러 개가 모여 구성되며 애플리케이션의 상태와도 연결됩니다. 이번 챕터에서는 복합 컴포넌트를 분리하고 시각적 테스트를 적용하는 방법을 살펴보겠습니다. 이 과정에서 mock한 데이터(mocking data)와 애플리케이션 로직을 시뮬레이션 하는 방법을 배우게 됩니다. 또한 컴포넌트 통합 테스트를 하는 방법에 대해서도 배우게 될 것입니다. 
 
 
 
@@ -30,7 +30,7 @@ UI의 복합 컴포넌트를 테스트하는 것은 더욱 까다롭습니다. �
 
 <!-- Applications are built by plugging components into each other. This means a bug in one element can impact its neighbours. For example, renaming a prop can disrupt data flow from parent to child components. Or incorrect CSS in a UI element often leads to broken layouts. -->
 
-애플리케이션은 컴포넌트를 서로 연결하여 구축됩니다. 그렇기 때문에 엘리먼트 하나의 버그 한 개가 그 주변 전체에 영향을 미치기도 합니다. 예를 들어, prop의 이름을 바꾸는 것만으로 부모 컴포넌트에서 자식 컴포넌트로의 데이터 흐름이 중단될 수 있습니다. 혹은 잘못 스타일링된 엘리먼트 하나로 레이아웃 자체가 깨지기도 합니다. 
+애플리케이션은 컴포넌트를 서로 연결하여 구축됩니다. 그렇기 때문에 하나의 엘리먼트의 버그 한 개가 그 주변 전체에 영향을 미치기도 합니다. 예를 들어, prop의 이름을 바꾸는 것만으로 부모 컴포넌트에서 자식 컴포넌트로의 데이터 흐름이 중단될 수 있습니다. 혹은 잘못 스타일링된 엘리먼트 하나로 레이아웃 자체가 깨지기도 합니다. 
 
 <!-- ![minor tweaks cause major regressions](/ui-testing-handbook/minor-major-regressions-1.gif) -->
 
@@ -38,7 +38,7 @@ UI의 복합 컴포넌트를 테스트하는 것은 더욱 까다롭습니다. �
 
 <!-- Consider the Button component from [Storybook’s design system](https://5ccbc373887ca40020446347-oghpnhotjv.chromatic.com/?path=/docs/button--basic). It is used countless times across multiple pages. A bug in `Button` will inadvertently lead to bugs in all those pages. In other words, one failure can compound exponentially. As you move up the component hierarchy towards the level of pages, the impact of these bugs increases. Therefore, we need a way to catch such cascading issues early and figure out the root cause. -->
 
-[Storybook 디자인 시스템](https://5ccbc373887ca40020446347-oghpnhotjv.chromatic.com/?path=/docs/button--basic)의 Button 컴포넌트를 생각해봅시다. 이 컴포넌트는 여러 페이지에서 셀 수 없이 많이 사용됩니다. `Button`의 버그는 곧 버튼이 사용된 모든 페이지의 버그로 이어집니다. 즉, 하나의 실수가 기하급수적인 실수로 번진다는 뜻입니다. 컴포넌트 계층이 페이지 수준으로 올라갈수록 이러한 버그의 영향도 커집니다. 따라서 이런 연속적인 문제를 조기에 포착하고 근본 원인을 파악할 수 있는 방법이 필요합니다.
+[Storybook 디자인 시스템](https://5ccbc373887ca40020446347-oghpnhotjv.chromatic.com/?path=/docs/button--basic)의 Button 컴포넌트를 생각해봅시다. 이 컴포넌트는 여러 페이지에서 셀 수 없이 많이 사용됩니다. `Button`의 버그는 곧 버튼이 사용된 모든 페이지의 버그로 이어집니다. 즉, 하나의 실수가 기하급수적인 실수로 번진다는 뜻입니다. 컴포넌트 계층이 페이지 수준으로 올라갈수록 이러한 버그의 영향도 커집니다. 따라서 이런 상속적인 문제를 일찍 잡아내고 근본 원인을 파악할 수 있는 방법이 필요합니다.
 
 <!-- ![The same button component is being used across multiple pages of an app](/ui-testing-handbook/design-system-inconsistent-buttons.jpg) -->
 
@@ -51,7 +51,7 @@ UI의 복합 컴포넌트를 테스트하는 것은 더욱 까다롭습니다. �
 
 <!-- Visual tests catch bugs by capturing and comparing image snapshots of stories—in a real browser. Which makes them ideal for spotting UI changes and identifying the root cause. Here’s a quick reminder of the process: -->
 
-시각적 테스트는 실제 브라우저에서 story의 이미지 스냅샷을 캡처하고 비교하여 버그를 포착합니다. 따라서 UI 변경 사항을 파악하고 근본 원인을 알아차리는데 유용합니다. 이전 챕터에서 배웠던 테스트 프로세스를 떠올려봅시다:
+시각적 테스트는 실제 브라우저에서 story의 이미지 스냅샷을 캡처하고 비교하여 버그를 포착합니다. 따라서 UI 변경 사항을 파악하고 근본 원인을 알아차리는데 유용합니다. 이전 장에서 배웠던 테스트 과정을 떠올려봅시다 - 
 
 <!-- 1. 🏷 **Isolate** components. Use Storybook to test one component at a time.
 2. ✍🏽 Write out the **test cases**. Each component state is reproduced using props.
@@ -59,9 +59,9 @@ UI의 복합 컴포넌트를 테스트하는 것은 더욱 까다롭습니다. �
 4. 📸 Catch **bugs** automatically using visual regression tests. -->
 
 1. 🏷  컴포넌트 **분리**하기. Storybook을 사용해 한 번에 한 컴포넌트씩 테스트합니다.
-2. ✍🏽 **테스트 케이스 작성하기.** 각 state는 props를 통해 재현됩니다.
-3.  🔍 **수동으로 확인하기.** 각 테스트 케이스의 모양을 수동으로 확인합니다.
-4.  📸 시각적 회귀 테스트를 통해 **UI 버그 자동으로 잡기**  
+2. ✍🏽 **테스트 케이스** 작성하기. 각 state는 props를 통해 재현됩니다.
+3.  🔍 **수동으로 확인**하기. 각 테스트 케이스의 모양을 수동으로 확인합니다.
+4.  📸 시각적 회귀 테스트를 통해 **UI 버그** 자동으로 잡기
 
 <!-- Composition testing is all about running visual tests on “composite” components higher up in the tree that are made up of several simpler components. That way you can quantify the impact that any change might have on the entire application. And ensure that the system works as a whole. -->
 
@@ -120,7 +120,7 @@ Default.args = {
 
 <!-- Notice the `argTypes`. [Args](https://storybook.js.org/docs/react/writing-stories/args) are Storybook's mechanism for defining inputs to a story. Think of them as framework-agnostic props. Args defined at the component level are automatically passed down to each story. In our case, we have defined three event handlers using the [Actions addon](https://storybook.js.org/docs/react/essentials/actions). -->
 
-'argTypes'에 주목하세요. [Args](https://storybook.js.org/docs/react/writing-stories/args)는 story에 대한 입력을 정의하기 위한 Storybook의 메커니즘입니다. 프레임워크에 구애받지 않는 props로 생각하세요. 컴포넌트 수준에서 정의된 인수는 자동으로 각 story에 전달됩니다. 우리의 경우 [Actions addon](https://storybook.js.org/docs/react/essentials/actions)을 사용하여 3개의 이벤트 핸들러를 정의했습니다.
+`argTypes`에 주목하세요. [Args](https://storybook.js.org/docs/react/writing-stories/args)는 story에 대한 입력을 정의하기 위한 Storybook의 메커니즘입니다. 프레임워크에 구애받지 않는 props로 생각하세요. 컴포넌트 수준에서 정의된 인수는 자동으로 각 story에 전달됩니다. 우리의 경우 [Actions addon](https://storybook.js.org/docs/react/essentials/actions)을 사용하여 3개의 이벤트 핸들러를 정의했습니다.
 
 <!-- These simulated actions will show up in the addons panel as you interact with `TaskList`. Allowing you to verify that the components are wired correctly. -->
 
@@ -193,7 +193,7 @@ Empty.args = {
 
 <!-- Shaping stories through args composition is a powerful technique. It allows us to write stories without repeating the same data over and over again. And more importantly, it tests component integration. If you rename one of the `Task` component props, that'll lead to failed test cases for `TaskList`. -->
 
-args 구성을 통해 story를 형성하는 것은 아주 강력한 기술입니다. 이를 통해 동일한 데이터를 반복해서 적지 않아도 story를 작성할 수 있습니다. 더욱 훌륭한 점은 컴포넌트를 통합적으로 테스트를 할 수 있다는 것입니다. 만약 `Task` 컴포넌트의 prop 중 하나의 이름을 바꾸면, `TaskList`에 대한 테스트 케이스가 실패하게 됩니다.
+args 구성을 통해 story를 형성하는 것은 아주 강력한 기술입니다. 이를 통해 동일한 데이터를 반복해서 적지 않아도 story를 작성할 수 있습니다. 더욱 훌륭한 점은 컴포넌트를 통합적으로 테스트를 할 수 있다는 것입니다. 만약 `Task` 컴포넌트의 props 중 하나의 이름을 바꾸면, `TaskList`에 대한 테스트 케이스가 실패하게 됩니다.
 
 ![](/ui-testing-handbook/tasklist-stories.gif)
 
@@ -207,7 +207,7 @@ args 구성을 통해 story를 형성하는 것은 아주 강력한 기술입니
 
 <!-- The `InboxScreen` uses a [custom hook](https://github.com/chromaui/ui-testing-guide-code/blob/composition-testing/src/useTasks.js) to fetch data from the Taskbox API and to manage application state. Much like unit tests, we want to detach components from the real backend and test the features in isolation. -->
 
-'InboxScreen'은 [custom hook](https://github.com/chromaui/ui-testing-guide-code/blob/composition-testing/src/useTasks.js)을 사용해서 Taskbox API에서 데이터를 가져오고 애플리케이션의 상태를 관리합니다. 단위 테스트를 할 때처럼 실제 백엔드로부터 컴포넌트를 분리하고 기능별로 테스트해봅시다.
+`InboxScreen`은 [custom hook](https://github.com/chromaui/ui-testing-guide-code/blob/composition-testing/src/useTasks.js)을 사용해서 Taskbox API에서 데이터를 가져오고 애플리케이션의 상태를 관리합니다. 단위 테스트를 할 때처럼 실제 백엔드로부터 컴포넌트를 분리하고 기능별로 테스트해봅시다.
 
 ![](/ui-testing-handbook/taskbox.png)
 
@@ -238,7 +238,7 @@ npx msw init public/
 
 <!-- Enable the MSW addon in your `.storybook/preview.js` file: -->
 
-`.storybook/preview.js` 파일에서 MSW 애드온을 활성화하세요 :
+`.storybook/preview.js` 파일에서 MSW 애드온을 활성화하세요 - 
 
 ```diff:title=.storybook/preview.js
  import React from 'react';
@@ -277,11 +277,11 @@ npx msw init public/
 
 <!-- Lastly, restart the `yarn storybook` command. And we’re all set to mock API requests in stories. -->
 
-마지막으로 'yarn storybook' 커맨드를 다시 실행하세요. 자, story의 mock API 요청에 관한 설정이 모두 완료되었습니다.
+마지막으로 `yarn storybook` 커맨드를 다시 실행하세요. 자, story의 mock API 요청에 관한 설정이 모두 완료되었습니다.
 
 <!-- `InboxScreen` calls the `useTasks` hook which in-turn fetches data from the `/tasks` endpoint. We can specify the mock responses using the `msw` parameter. Notice how you can return different responses for each story. -->
 
-`InboxScreen`은 `/tasks` 엔드포인트에서 차례로 데이터를 가져오는 `useTasks` hook을 호출합니다. `msw` 매개변수를 사용하여 모의 응답을 지정할 수 있습니다. 각 story에 대해 다른 응답을 반환하는 방법을 확인해보세요.
+`InboxScreen`은 `/tasks` 엔드포인트에서 차례로 데이터를 가져오는 `useTasks` 훅(hook)을 호출합니다. `msw` 매개변수를 사용하여 모의 응답을 지정할 수 있습니다. 각 story에 대해 다른 응답을 반환하는 방법을 확인해보세요.
 
 
 ```javascript:title=src/InboxScreen.stories.js
@@ -323,7 +323,7 @@ Error.parameters = {
 
 <!-- State has many different forms. Some applications track bits of state globally using libraries such as Redux and MobX. Or by making GraphQL queries. Or they might use container components. Storybook is flexible enough to support all these scenarios. For more on this, see: [Storybook addons to manage data & state](https://storybook.js.org/blog/storybook-addons-to-manage-data-state/). -->
 
-state에는 다양한 형태가 있습니다. 일부 애플리케이션은 Redux나 MobX 같은 라이브러리를 사용하여 전역적으로 상태 비트를 추적합니다. 또는 GraphQL 쿼리를 작성하거나 container 컴포넌트를 사용할 수 있습니다. Storybook은 이러한 모든 시나리오를 지원할 만큼 충분히 유연합니다. 이에 대한 자세한 내용은 [데이터 및 상태 관리를 위한 Storybook 애드온](https://storybook.js.org/blog/storybook-addons-to-manage-data-state/)을 참조하세요.
+state에는 다양한 형태가 있습니다. 일부 애플리케이션은 Redux나 MobX 같은 라이브러리를 사용하여 전역적으로 상태를 추적합니다. 또는 GraphQL 쿼리를 작성하거나 container 컴포넌트를 사용할 수 있습니다. Storybook은 이러한 모든 시나리오를 지원할 만큼 충분히 유연합니다. 이에 대한 자세한 내용은 [데이터 및 상태 관리를 위한 Storybook 애드온](https://storybook.js.org/blog/storybook-addons-to-manage-data-state/)을 참조하세요.
 
 <!-- Building components in isolation curtails the complexity of development. You don't have to spin up the back-end, log in as a user, and click around the UI just to debug some CSS. You can set it all up as a story and get going. And you can even run automated regression tests on those stories. -->
 
@@ -335,7 +335,7 @@ state에는 다양한 형태가 있습니다. 일부 애플리케이션은 Redux
 
 <!-- In the [previous chapter](../visual-testing/), we set up Chromatic and went over the basic workflow. Now that we have stories for all our composite components, we can execute the visual tests by running: -->
 
-[이전 챕터](../visual-testing/)에서 Chromatic을 설정하고 기본적인 작업 흐름을 살펴보았습니다. 이제 모든 복합 컴포넌트에 대한 story가 있으므로, 아래 커맨드로 시각적 테스트를 실행할 수 있습니다.
+[이전 장](../visual-testing/)에서 Chromatic을 설정하고 기본적인 작업 흐름을 살펴보았습니다. 이제 모든 복합 컴포넌트에 대한 story가 있으므로, 아래 커맨드로 시각적 테스트를 실행할 수 있습니다.
 
 ```
 npx chromatic --project-token=<project-token>
@@ -355,7 +355,7 @@ TaskList 및 InboxScreen에 대한 story가 포함된 diff가 표시되어야 �
 
 <!-- The tree-like nature of applications means that any tweak to the Task component will also be caught by tests for higher level components. Composition testing allows you to understand the potential impact of every small changes. -->
 
-애플리케이션의 트리 같은 특성은 Task component의 변경사항이 상위 컴포넌트에 대한 테스트에서도 포착된다는 것을 의미합니다. 구성 테스트를 통해 수정한 내용의 모든 부수효과를 알 수 있습니다.
+애플리케이션의 트리 같은 특성은 Task 컴포넌트의 변경사항이 상위 컴포넌트에 대한 테스트에서도 포착된다는 것을 의미합니다. 구성 테스트를 통해 수정한 내용의 모든 부수효과를 알 수 있습니다.
 
 <!-- ## Verifying component functionality -->
 
@@ -363,4 +363,4 @@ TaskList 및 InboxScreen에 대한 story가 포함된 diff가 표시되어야 �
 
 <!-- Next up, we'll go beyond appearance and into testing interactions. When the user checks off a task, how do you ensure that the suitable event was fired and that state updated correctly? -->
 
-다음 챕터에서는 단순한 모양새 뿐만 아니라 인터랙션(interaction)을 테스트할 것입니다. 사용자가 완료한 일정을 체크했을 때, 적절한 이벤트가 발생하고 상태가 올바르게 업데이트되는지 어떻게 확인할 수 있을까요?
+다음 장에서는 단순한 모양새 뿐만 아니라 상호작용(interaction)을 테스트할 것입니다. 사용자가 완료한 일정을 체크했을 때, 적절한 이벤트가 발생하고 상태가 올바르게 업데이트되는지 어떻게 확인할 수 있을까요?
