@@ -11,8 +11,7 @@ commit: 'd7daf97'
 Over the natural course of development, bugs are inevitable. Visual test automation uses machines to detect changes in UI appearance for a human to review.
 -->
 
-핵심만 말하자면, 이미지 스냅샷을 각 컴포넌트의 변화형(variation)마다 찍습니다. 이는 시각적 테스트의 "기준선(baseline)"역할을 합니다. 각 커밋마다 새로운 스냅샷이 캡쳐되고, 픽셀 단위로 기준선과 비교됩니다. UI가 변경된 경우 버그인지 의도적인 업데이트인지 확인하라는 알림을 받습니다.
-
+핵심만 말하자면, 이미지 스냅샷을 각 컴포넌트의 변화형(variation)마다 찍습니다. 이는 시각적 테스트의 "기준선(baseline)"으로 쓰입니다. 각 commit마다, 새 스냅샷을 찍고, 이 기준선과 픽셀 하나하나를 비교합니다. 혹시 UI에 변한 부분이 있으면, 버그인지 의도적인 변경인지 검토해달라고 알림을 받습니다.
 <!--
 In a nutshell, an image snapshot is taken of every component variation. This serves as the visual test "baseline". With each commit, new snapshots are captured then compared pixel-by-pixel to the baselines. If there are UI changes, you get notified to review whether they're bugs or intentional updates.
 -->
