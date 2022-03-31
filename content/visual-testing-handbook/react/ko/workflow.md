@@ -13,7 +13,7 @@ description: '컴포넌트 설계를 위한 테스트 주도(test-driven) 작업
 1. 코드에 자동화된 유닛 테스트를 적용해보세요
 2. 테스트에 "초록불이 들어오는" 코드를 작성해보세요
 
-테스트 주도 방법론(TDD)를 통해 사용자는 정확한 입력값의 측면에서 어떤 코드가 필요한지 명확하게 파악할 수 있게 됩니다. (컴포넌트의 경우, 이를 "상태"라고 합니다.) 이러한 방식으로, 모듈의 모든 사례를 다루게 됩니다.
+테스트 주도 방법론(TDD)를 통해 사용자는 정확한 입력값의 측면에서 어떤 코드가 필요한지 명확하게 파악할 수 있게 됩니다. (컴포넌트의 경우, 이를 "state"라고 합니다.) 이러한 방식으로, 모듈의 모든 사례를 다루게 됩니다.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -38,8 +38,8 @@ UI 테스트의 가장 어려운 부분은 코드만으론 적절한 시각적�
 ```
 테스트 시작
   설정
-  실행 👈 Storybook이 스토리를 렌더합니다
-  확인 👈 이 단계에서 스토리를 확인할 수 있습니다
+  실행 👈 Storybook이 story를 렌더합니다
+  확인 👈 이 단계에서 story를 확인할 수 있습니다
   분해 
 테스트 종료
 ```
@@ -88,7 +88,7 @@ InboxTask.args = {
 export const SnoozedTask = Template.bind({});
 SnoozedTask.args = {
   task: {
-    // 인수(arguments)를 이용해 스토리를 작성해보기
+    // 인수(arguments)를 이용해 story를 작성해보기
     ...InboxTask.args.task,
     state: 'TASK_SNOOZED',
   },
@@ -97,14 +97,14 @@ SnoozedTask.args = {
 export const PinnedTask = Template.bind({});
 PinnedTask.args = {
   task: {
-    // 인수(arguments)를 이용해 스토리를 작성해보기
+    // 인수(arguments)를 이용해 story를 작성해보기
     ...InboxTask.args.task,
     state: 'TASK_PINNED',
   },
 };
 ```
 
-Storybook에서 `Task`와 변경사항을 사이드바에서 확인할 수 있습니다. 이는 테스트 주기에서 _“실행단계(execute)”_ 에 해당합니다. Storybook에서 우리가 눈으로 확인하는 것은 _“확인단계(verify)”_ 에 해당합니다.
+Storybook에서 `Task`와 변경 사항을 사이드바에서 확인할 수 있습니다. 이는 테스트 주기에서 _“실행단계(execute)”_ 에 해당합니다. Storybook에서 우리가 눈으로 확인하는 것은 _“확인단계(verify)”_ 에 해당합니다.
 
 <video autoPlay muted playsInline loop>
   <source
