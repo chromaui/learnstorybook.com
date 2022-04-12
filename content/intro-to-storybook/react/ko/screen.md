@@ -98,7 +98,7 @@ import { PureInboxScreen } from './InboxScreen';
 
 export default {
   component: PureInboxScreen,
-  title: 'InboxScreen',
+  title: 'PureInboxScreen',
 };
 
 const Template = (args) => <PureInboxScreen {...args} />;
@@ -150,7 +150,7 @@ const store = {
 export default {
   component: PureInboxScreen,
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
-  title: 'InboxScreen',
+  title: 'PureInboxScreen',
 };
 
 const Template = (args) => <PureInboxScreen {...args} />;
