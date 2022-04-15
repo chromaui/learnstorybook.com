@@ -1,0 +1,39 @@
+diff --git a/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.cjs.dev.js b/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.cjs.dev.js
+index 5e99fbb..d8ab70e 100644
+--- a/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.cjs.dev.js
++++ b/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.cjs.dev.js
+@@ -37,7 +37,7 @@ var index = (function (api, _temp) {
+   return {
+     plugins: [[pragmatic__default['default'], {
+       "export": 'jsx',
+-      module: '@emotion/react',
++      module: '@storybook/theming',
+       "import": pragmaName
+     }], [jsx__default['default'], _extends__default['default']({
+       pragma: pragmaName,
+diff --git a/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.cjs.prod.js b/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.cjs.prod.js
+index c55277e..57f58d7 100644
+--- a/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.cjs.prod.js
++++ b/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.cjs.prod.js
+@@ -18,7 +18,7 @@ var _extends__default = _interopDefault(_extends), _objectWithoutPropertiesLoose
+   return {
+     plugins: [ [ pragmatic__default.default, {
+       export: "jsx",
+-      module: "@emotion/react",
++      module: "@storybook/theming",
+       import: pragmaName
+     } ], [ jsx__default.default, _extends__default.default({
+       pragma: pragmaName,
+diff --git a/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.esm.js b/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.esm.js
+index 9f881ac..548655a 100644
+--- a/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.esm.js
++++ b/node_modules/@emotion/babel-preset-css-prop/dist/emotion-babel-preset-css-prop.esm.js
+@@ -25,7 +25,7 @@ var index = (function (api, _temp) {
+   return {
+     plugins: [[pragmatic, {
+       "export": 'jsx',
+-      module: '@emotion/react',
++      module: '@storybook/theming',
+       "import": pragmaName
+     }], [jsx, _extends({
+       pragma: pragmaName,
