@@ -5,8 +5,8 @@
   "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
     "@emotion/server": "^11.4.0",
-    "@storybook/design-system": "7.3.4-canary.347.31e6bd7.0",
-    "@storybook/theming": "6.5.0-alpha.61",
+    "@storybook/design-system": "7.3.4-canary.347.4551fe8.0",
+    "@storybook/theming": "6.5.0-alpha.63",
     "cheerio": "^1.0.0-rc.5",
     "formik": "^1.5.7",
     "gatsby": "^2.32.3",
