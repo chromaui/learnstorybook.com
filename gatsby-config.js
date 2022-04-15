@@ -120,20 +120,18 @@ module.exports = {
         ],
       },
     },
-    [
-      {
-        resolve: `gatsby-plugin-emotion`,
-        options: {
-          importMap: {
-            '@storybook/theming': {
-              styled: { canonicalImport: ['@emotion/styled', 'default'] },
-              css: { canonicalImport: ['@emotion/react', 'css'] },
-              Global: { canonicalImport: ['@emotion/react', 'Global'] },
-            },
+    {
+      resolve: `gatsby-plugin-emotion`,
+      options: {
+        importMap: {
+          '@storybook/theming': {
+            styled: { canonicalImport: ['@emotion/styled', 'default'] },
+            css: { canonicalImport: ['@emotion/react', 'css'] },
+            Global: { canonicalImport: ['@emotion/react', 'Global'] },
           },
         },
       },
-    ],
+    },
     `gatsby-plugin-sitemap`,
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
       ? [
