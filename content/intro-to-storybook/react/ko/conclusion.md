@@ -5,7 +5,7 @@ description: '모든 지식을 종합하고 더 많은 Storybook 테크닉을 �
 
 축하드립니다! Storybook에서 첫 UI를 만드셨습니다. 그동안 우리는 UI 컴포넌트를 제작, 구성, 테스트 및 배포하는 방법을 배웠습니다. 잘 따라오셨다면, 여러분의 저장소와 배포된 Storybook은 이런 모습일 것입니다:
 
-[📕 **GitHub 저장소: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
+[📕 **깃허브 저장소: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
 [🌎 **배포된 Storybook**](https://clever-banach-415c03.netlify.app/)
 
@@ -19,8 +19,7 @@ Storybook은 React, React Native, Vue, Angular, Svelte 외 다른 여러 프레�
 
 - [**마음에 드는 Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)는 Squarespace, Major League Soccer, Discovery Network 및 Apollo GraphQL과 같은 빠른 개발 속도를 가진 팀에서 사용하는 Workflow 모범 사례를 보여줍니다.
 
-- [**시각적 테스팅 핸드북**](https://storybook.js.org/tutorials/visual-testing-handbook/)에서는
-  Storybook을 컴포넌트의 시각적 테스트에 사용하는 것에 대해 알아봅니다. 31페이지 분량의 무료 전자책입니다.
+- [**시각적 테스팅 핸드북**](https://storybook.js.org/tutorials/visual-testing-handbook/)에서는 Storybook을 컴포넌트의 시각적 테스트에 사용하는 것에 대해 알아봅니다. 31페이지 분량의 무료 전자책입니다.
 
 - [**Storybook Discord 채널**](https://discord.gg/UUt2PJb)로 Storybook 커뮤니티와 연결될 수 있습니다. Storybook 사용자를 위한 도움을 주고받으세요.
 

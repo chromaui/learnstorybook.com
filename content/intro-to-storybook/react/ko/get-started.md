@@ -23,7 +23,7 @@ npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# 의존성(종속성) 설치
+# 의존성(dependency) 설치
 yarn
 ```
 
@@ -34,13 +34,13 @@ yarn
 이제 다양한 환경에서 애플리케이션이 올바르게 작동하는지 아래 명령어를 통해 빠르게 확인할 수 있습니다:
 
 ```bash
-# 터미널에서 테스트 러너 (Jest)를 실행합니다:
+# 터미널에서 테스트 러너(Jest)를 실행합니다:
 yarn test --watchAll
 
 # 6066 포트에서 구성 요소 탐색기를 시작합니다:
 yarn storybook
 
-# 3000 포트에서 프론트엔드 앱을 실행합니다:
+# 3000 포트에서 프런트엔드 앱을 실행합니다:
 yarn start
 ```
 
@@ -48,15 +48,15 @@ yarn start
 💡 <code>--watchAll</code> 명령어를 포함하여 모든 테스트가 실행되도록 합니다. 이 튜토리얼을 진행하는 동안 다양한 테스트 시나리오가 소개될 것 입니다. 이에 따라 <code>package.json</code>의 scripts를 수정하는 것을 고려해 보는 것이 좋을 것 입니다.
 </div>
 
-프론트엔드 앱의 세 가지 양식: 자동화된 테스트(Jest), 컴포넌트 개발(Storybook), 앱 자체 개발이 있습니다.
+프런트엔드 앱의 세 가지 양식: 자동화된 테스트(Jest), 컴포넌트 개발(Storybook), 앱 자체 개발이 있습니다.
 
 ![3가지 양식](https://storybook.js.org/tutorials/intro-to-storybook/app-three-modalities.png)
 
-당신이 앱(응용 프로그램)의 어떤 부분에 따라 작업하고 있는지에 따라, 이것들 중 하나 이상을 동시에 실행하고 싶을 수 있습니다. 하지만 지금 우리의 초점은 단일 UI 구성 요소를 만드는 것이므로 Storybook을 실행하는데 집중할 것 입니다.
+여러분이 앱(응용 프로그램)의 어떤 부분에 따라 작업하고 있는지에 따라, 이것들 중 하나 이상을 동시에 실행하고 싶을 수 있습니다. 하지만 지금 우리의 초점은 단일 UI 구성 요소를 만드는 것이므로 Storybook을 실행하는데 집중할 것입니다.
 
 
 ## 변경 사항 커밋
-이 단계에서는 파일을 로컬 저장소(repository)에 추가하는 것이 안전합니다. 다음 명령을 실행하여 로컬 저장소를 초기화하고 지금까지 수행한 변경 사항(내용)을 추가, 커밋합니다.
+이 단계에서는 파일을 로컬 저장소(local repository)에 추가하는 것이 안전합니다. 다음 명령을 실행하여 로컬 저장소를 초기화하고 지금까지 수행한 변경 사항(내용)을 추가 및 commit합니다.
 
 ```shell
 $ git init
@@ -77,4 +77,4 @@ $ git commit -m "first commit"
 $ git branch -M main
 ```
 
-그럼 이제 우리의 첫 번째 컴포넌트 만들어봅시다!
+그럼 이제 우리의 첫 번째 컴포넌트를 만들어봅시다!

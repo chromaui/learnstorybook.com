@@ -16,7 +16,7 @@ description: 'UI 컴포넌트 테스트 방법 배우기'
 
 ## Storybook용 시각적 테스트
 
-시각적 테스트라고도 하는 시각적 회귀 테스트(Visual regression test)는 모양의 변화를 포착하도록 설계되었습니다. 모든 스토리의 스크린샷을 캡처하고 commit 간 표면 변경 사항을 비교하며 작동합니다. 레이아웃, 색상, 크기 및 대비와 같은 그래픽 요소를 확인하는데 적합합니다.
+시각적 테스트라고도 하는 시각적 회귀 테스트(Visual regression test)는 모양의 변화를 포착하도록 설계되었습니다. 모든 story의 스크린샷을 캡처하고 commit 간 표면 변경 사항을 비교하며 작동합니다. 레이아웃, 색상, 크기 및 대비와 같은 그래픽 요소를 확인하는데 적합합니다.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -25,7 +25,7 @@ description: 'UI 컴포넌트 테스트 방법 배우기'
   />
 </video>
 
-Storybook은 모든 스토리가 본질적으로 테스트 사양이므로 시각적 회귀 테스트를 위한 환상적인 도구입니다. 스토리를 작성하거나 업데이트할 때마다 무료로 스펙(spec)을 제공합니다.
+Storybook은 모든 story가 본질적으로 테스트 사양이므로 시각적 회귀 테스트를 위한 환상적인 도구입니다. story를 작성하거나 업데이트할 때마다 무료로 스펙(spec)을 제공합니다.
 
 시각적 회귀 테스트를 위한 몇 가지 도구가 있습니다. Storybook 관리자들에 의해 만들어진 무료 배포 서비스로 병렬화된 클라우드에서 시각적 테스트를 실행하는 [**Chromatic**](https://www.chromatic.com/)을 추천합니다. [이전 챕터](/intro-to-storybook/react/ko/deploy/)에서 보았듯이 온라인으로 Storybook을 배포할 수도 있습니다.
 
@@ -65,27 +65,27 @@ git checkout -b change-task-background
 git add .
 ```
 
-그리고 추가된 파일을 커밋합니다:
+그리고 추가된 파일을 commit합니다:
 
 ```bash
 git commit -m "change task background to red"
 ```
 
-그리고 변경 사항을 원격 저장소로 푸시해줍니다:
+그리고 변경 사항을 원격 저장소로 push해줍니다:
 
 ```bash
 git push -u origin change-task-background
 ```
 
-마지막으로 GitHub 저장소를 열어 `change-task-background` 브랜치에 대한 풀리퀘스트를 엽니다.
+마지막으로 깃허브 저장소를 열어 `change-task-background` 브랜치에 대한 풀리퀘스트를 엽니다.
 
-![GitHub 저장소에서 task에 대한 PR 생성](/github/pull-request-background.png)
+![깃허브 저장소에서 task에 대한 PR 생성](/github/pull-request-background.png)
 
 풀리퀘스트에 설명을 추가하고 `Create pull request` 을 클릭합니다. 그리고 페이지 하단에서 "🟡 UI Tests" PR 확인을 클릭합니다.
 
-![GitHub 저장소에서 task에 대한 PR 생성](/github/pull-request-background-ok.png)
+![깃허브 저장소에서 task에 대한 PR 생성](/github/pull-request-background-ok.png)
 
-커밋에 의해 포착된 UI 변경 사항이 표시됩니다.
+commit에 의해 포착된 UI 변경 사항이 표시됩니다.
 
 ![Chromatic이 포착한 변화](/intro-to-storybook/chromatic-catch-changes.png)
 
@@ -97,7 +97,7 @@ git push -u origin change-task-background
 
 시각적 회귀 테스트는 컴포넌트를 실수로 변경되지 않도록 합니다. 그러나 변경이 의도적인지 여부를 결정하는 것은 여전히 우리에게 달렸습니다.
 
-의도적인 변경이라면, 향후 테스트를 가장 최신 버전의 스토리와 비교할 수 있도록 기준을 업데이트해야 합니다. 만약 의도하지 않은 변경이라면 이는 수정해야 합니다.
+의도적인 변경이라면, 향후 테스트를 가장 최신 버전의 story와 비교할 수 있도록 기준을 업데이트해야 합니다. 만약 의도하지 않은 변경이라면 이는 수정해야 합니다.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -108,9 +108,9 @@ git push -u origin change-task-background
 
 최신 앱은 컴포넌트로 구성되기 때문에 컴포넌트 레벨에서 테스트하는 것이 중요합니다. 이는 변경 사항의 증상, 화면 및 복합적 컴포넌트에 반응하는 대신 변경의 근본 원인인 컴포넌트를 정확히 파악할 수 있습니다.
 
-## 변경 사항 병합
+## 변경 사항 병합(merge)
 
-검토를 마치면 업데이트로 인해 실수로 버그가 발생하지 않는다는 것을 알고 자신 있게 UI 변경 사항을 병합할 준비가 된 것입니다. 새 `빨간색` 배경이 마음에 들면 변경을 수락하고 아니라면 이전 상태로 되돌립니다.
+검토를 마치면 업데이트로 인해 실수로 버그가 발생하지 않는다는 것을 알고 자신 있게 UI 변경 사항을 merge할 준비가 된 것입니다. 새 `빨간색` 배경이 마음에 들면 변경을 수락하고 아니라면 이전 상태로 되돌립니다.
 
 ![병합할 수 있는 변경사항](/intro-to-storybook/chromatic-review-finished.png)
 
