@@ -13,7 +13,7 @@ commit: 'ab64b4c'
 
 ## 설계
 
-`AvatarList`는 여러 개의 아바타(avatar)를 보여주는 컴포넌트 입니다. 다른 디자인 시스템 컴포넌트처럼 `AvatarList`는 다른 많은 프로젝트에서 붙여 넣어지며 사용되기 시작했습니다. 그래서 디자인 시스템에 포함되어야 하는 이유입니다. 다른 프로젝트에서 개발된 컴포넌트가 있다는 가정 하에 이 데모의 완성된 코드로 바로 이동하겠습니다.
+`AvatarList`는 여러 개의 아바타(avatar)를 보여주는 컴포넌트 입니다. 다른 디자인 시스템 컴포넌트처럼 `AvatarList`는 다른 많은 프로젝트에 붙여 넣어지며 사용되기 시작했고, 바로 그렇기 때문에 디자인 시스템에 포함되어야 합니다. 다른 프로젝트에서 개발된 컴포넌트가 있다는 가정 하에 이 데모의 완성된 코드로 바로 이동하겠습니다.
 
 ![AvatarList](/design-systems-for-developers/AvatarList.jpg)
 
@@ -51,7 +51,7 @@ Loading.args = {
 
 ![AvatarList stories가 더 많은 스토리북](/design-systems-for-developers/storybook-with-avatarlist-loading-6-0.png)
 
-리스트인 것을 생각한다면, 여러 아바타들이 보여져야 합니다. 리스템 아이템이 많을 때와 적을 때 어떤 일이 발생하는지 볼 수 있는 스토리를 추가해봅니다.
+이것은 목록이기 때문에 여러 아바타를 볼 수 있어야 합니다. 목록 아이템이 많을 때와 적을 때 어떤 일이 발생하는지 볼 수 있는 스토리를 추가해봅니다.
 
 ```js:title=src/AvatarList.stories.js
 export const Ellipsized = Template.bind({});
@@ -98,11 +98,11 @@ git commit -am "Added AvatarList and stories"
 
 ## 문서
 
-Storybook 문서 덕분에 최소한의 노력으로 사용자가 커스텀할 수 있는 문서를 얻을 수 있습니다. Storybook 문서를 참고해서 AvatarList를 사용하려는 다른 사람들에게 도움이 됩니다.
+Storybook 문서 덕분에 최소한의 노력으로 사용자가 커스텀할 수 있는 문서를 얻을 수 있습니다. Storybook의 문서를 참고해서 AvatarList를 사용하려는 다른 사람들에게 도움이 됩니다.
 
 ![minimal AvatarList info가 있는 Storybook docs](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
 
-최소한의 기능이 담긴 문서가 왼성되었습니다! AvatarList를 어떻게 사용하는지 추가적인 설명을 붙여주세요.
+최소한의 기능이 담긴 문서가 완성되었습니다! AvatarList에 활용법에 대한 설명을 추가해서 인간미를 더해봅시다.
 
 ```js:title=src/AvatarList.js
 /**
@@ -134,13 +134,13 @@ AvatarList.propTypes = {
    */
   userCount: PropTypes.number,
   /**
-   * AvatarList는 네 개의 사이즈로 구성됩니다. 대부분의 경우, `medium`을 사용할거에요.
+   * AvatarList는 네 개의 사이즈로 구성됩니다. 대부분의 경우, `medium`을 사용할 거에요.
    */
   size: PropTypes.oneOf(Object.keys(sizes)),
 };
 ```
 
-간단하죠! 지금으로써는 이 정도의 설명이면 충분합니다. 나중에 MDX를 이용하면 언제나 원하는대로 수정할 수 있습니다.
+간단하죠! 지금은 이 정도의 설명이면 충분합니다. 나중에 MDX를 이용하면 언제든 원하는대로 수정할 수 있습니다.
 
 ![full AvatarList info가 있는 Storybook docs](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
 
@@ -166,9 +166,9 @@ git push -u origin create-avatar-list-component
 
 ## 리뷰
 
-현 시점에서 `AvatarList`는 디자인 시스템에 포함될 후보입니다. 관계자들이 기대한 대로 동작하고 모양이 맞는지 컴포넌트를 확인하고 반드시 리뷰를 해야합니다.
+이 때 `AvatarList`는 디자인 시스템에 포함될 후보입니다. 관계자들은 기대한 기능과 외관이 맞는지 반드시 컴포넌트 리뷰를 진행해야합니다.
 
-Storybook의 디자인 시스템은 각 풀 리퀘스트 때마다 자동으로 배포돼서 리뷰를 쉽게 할 수 있습니다. PR 확인란으로 스크롤을 내려서 배포된 Storybook 링크를 찾아보세요.
+Storybook의 디자인 시스템은 각 풀 리퀘스트 때마다 자동으로 배포되어 쉽게 리뷰할 수 있습니다. PR 확인란으로 스크롤을 내려서 배포된 Storybook 링크를 찾아보세요.
 
 ![deployed PR의 PR 체크](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
@@ -180,7 +180,7 @@ Storybook의 디자인 시스템은 각 풀 리퀘스트 때마다 자동으로 
 
 ![보기 좋네요!](/design-systems-for-developers/visual-review-shipit.png)
 
-수 많은 팀들과 합의를 하는 과정이 무의미하게 느껴질 수도 있습니다. 오래된 코드의 레퍼런스를 참고하거나, 적절한 개발 환경을 갖지 못하거나, 피드백이 여러 툴에 흩어져있을 수도 있습니다. 하지만 온라인 Storybook 리뷰하는 것은 URL을 공유하는 것만큼이나 간단합니다.
+수 많은 팀들과 합의를 이루는 과정은 소용없는 노력처럼 느껴질 때도 있습니다. 오래된 코드를 레퍼런스로 참고하는 사람도 있고, 적절한 개발 환경을 갖추지 못한 개발자도 있으며, 피드백을 한 곳에 모아두지 않고 여러 툴에 흩어놓기도 합니다. 하지만 온라인 Storybook 리뷰는 그 과정을 URL을 공유하는 것만큼이나 간단하게 만들어줍니다.
 
 ## 테스트
 
@@ -192,7 +192,7 @@ AvatarList는 새로운 컴포넌트이기 때문에, 이를 위한 시각적 �
 
 ![AvatarList stories의 Chromatic 변경사항 허용](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
-여기까지 완료가 되면 Chromatic에서 빌드가 통과할 것입니다.
+여기까지 완료가 되면 Chromatic에서 빌드가 통과될 것입니다.
 
 ![AvatarList stories의 Chromatic 변경사항 허용](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
 
@@ -200,7 +200,7 @@ AvatarList는 새로운 컴포넌트이기 때문에, 이를 위한 시각적 �
 
 ![GitHub PR check에서 Chromatic 변경사항 허용](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes-accepted.png)
 
-테스트는 성공적으로 업데이트되었습니다. 나중에 회귀 테스트를 하면 디자인 시스템을 파고드느라 꽤나 힘든 시간을 보낼 것입니다.
+테스트가 성공적으로 업데이트되었습니다. 나중에 이 디자인 시스템에 회귀가 침투하기란 쉽지 않을 것입니다.
 
 ## 배포
 
