@@ -8,13 +8,13 @@ description: '스토리북의 확장과 자동화를 도와주세요'
 
 애드온을 만들어서 커뮤니티가 스토리북을 커스텀하고, 자동화할 수 있도록 도와주세요!
 
-시작은 간단합니다. [애드온 키트](https://github.com/storybookjs/addon-kit)는 애드온을 구축하는 데 필요한 모든 것을 제공합니다. [애드온 API](https://storybook.js.org/docs/react/addons/addons-api)를 사용해서 새로운 기능을 추가하고, 작업 흐름(workflow)을 자동화하고, 즐겨 쓰는 라이브러리와 통합할 수 있습니다. 또한, [애드온 목록](https://storybook.js.org/addons)을 통해 애드온을 수천만명의 개발자와 함께 공유할 수 있습니다.
+시작은 간단합니다. [애드온 키트](https://github.com/storybookjs/addon-kit)는 애드온을 구축하는 데 필요한 모든 것을 제공합니다. [애드온 API](https://storybook.js.org/docs/react/addons/addons-api)를 사용해서 새로운 기능을 추가하고, 작업 흐름(workflow)을 자동화하고, 즐겨 쓰는 라이브러리와 통합할 수 있습니다. 또한, [애드온 카탈로그](https://storybook.js.org/addons)를 통해 애드온을 수천만명의 개발자와 함께 공유할 수 있습니다.
 
 ## 더 알아보기
 
 [애드온 공식문서](https://storybook.js.org/docs/react/addons/introduction)는 더 많은 가이드, 코드 샘플, 지식으로 가득한 레시피를 제공합니다.
 
-저희와 함께 코딩한다면, 레포지토리는 다음과 같아야 합니다:[애드온 레포지토리 예시](http://github.com/chromaui/learnstorybook-addon-code). 이 예시는 [스토리북 애드온 outline](https://github.com/chromaui/storybook-addon-outline)을 기반으로 하고 있습니다.
+저희와 함께 코딩한다면, 레포지토리는 다음과 같아야 합니다: [애드온 레포지토리 예시](http://github.com/chromaui/learnstorybook-addon-code). 이 예시는 [스토리북 애드온 개요](https://github.com/chromaui/storybook-addon-outline)를 기반으로 하고 있습니다.
 
 [스토리북 공식 페이지](https://next--storybookjs.netlify.app/official-storybook/) 를 통해 [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [다크 모드](https://github.com/hipstersmoothie/storybook-dark-mode), [다른 모든 공식 애드온](https://github.com/storybookjs/storybook/tree/next/addons)을 참고할 수 있습니다.
 
