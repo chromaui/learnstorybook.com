@@ -10,7 +10,7 @@ commit: '0e7246a'
 
 [데코레이터](https://storybook.js.org/docs/react/writing-stories/decorators)는 스토리를 감싸고 엑스트라 렌더링 기능을 추가합니다. 이번 장에서 글로벌 아웃라인에 대응하고 CSS 인젝션을 처리하는 데코레이터를 만들어 볼 것입니다. 차례로 모든 HTML 요소 주위에 아웃라인을 그려볼 것입니다.
 
-이전 단계에서 `outlineActive`을 전역으로 정의해봤습니다. 이어서 `useGlobals` 훅을 사용하여 데코레이터에서 전역상태를 사용할 수 있습니다.
+이전 단계에서 `outlineActive`을 전역으로 정의해봤습니다. 이어서 `useGlobals` 훅을 사용하여 데코레이터에서 전역 상태를 사용할 수 있습니다.
 
 ```js:title=src/withGlobals.js
 /* eslint-env browser */
@@ -98,7 +98,7 @@ export const withGlobals = (StoryFn, context) => {
 
 애드온은 문서 및 스토리 보기 모드에서 모두 활성화될 수 있습니다. 미리 보기 `iframe`의 실제 DOM 노드는 이 두 모드에서 서로 다릅니다. 실제로, 문서 모드는 한 페이지에 여러 개의 스토리 미리보기를 렌더링합니다. 따라서 스타일이 주입될 DOM 노드에 적합한 셀렉터(selector)를 선택해야 합니다. 또한 CSS는 특정 셀렉터(selector)로 범위를 지정해야 합니다.
 
-<div class="aside"> 💡 여기서 <code>useMemo</code> 및 <code>useEffect</code>는 리액트가 아니라 <a href="https://storybook.js.org/docs/react/addons/addons-api">@storybook/addons</a>에서 가져온 것입니다. 왜냐하면 데코레이터 코드가 Storybook 미리보기에서 실행되기 때문입니다. 리액트를 포함하지 않을 사용자 코드가 불러와지는 곳이기 때문에 Storybook은 우리가 사용하는 리액트와 유사한 훅 라이브러리를 구현합니다.</div>
+<div class="aside"> 💡 여기서 <code>useMemo</code> 및 <code>useEffect</code>는 리액트가 아니라 <a href="https://storybook.js.org/docs/react/addons/addons-api">@storybook/addons</a>에서 가져온 것입니다. 왜냐하면 데코레이터 코드가 스토리북(Storybook) 미리보기에서 실행되기 때문입니다. 리액트를 포함하지 않을 사용자 코드가 불러와지는 곳이기 때문에 스토리북은 우리가 사용하는 리액트와 유사한 훅 라이브러리를 구현합니다.</div>
 
 다음으로, DOM에 스타일을 주입할 때, 사용자가 스타일을 끄거나 보기 모드를 전환할 때 스타일을 초기화 할 수 있도록 스타일을 추적해야 합니다.
 

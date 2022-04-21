@@ -21,7 +21,7 @@ commit: 'a856d54'
 
 ## 테스트 준비
 
-전문적인 Storybook 워크플로우에 대해 [이전 글](https://www.chromatic.com/blog/the-delightful-storybook-workflow)에서 4개의 프런트엔드 팀을 설문 조사했습니다. 그들은 스토리 작성에 대한 이러한 모범 사례들이 쉽고 포괄적인 테스트를 만든다는 것에 동의했습니다.
+전문적인 스토리북(Storybook) 작업 흐름(workflow)에 대해 [이전 글](https://www.chromatic.com/blog/the-delightful-storybook-workflow)에서 4개의 프런트엔드 팀을 설문 조사했습니다. 그들은 스토리(story) 작성에 대한 이러한 모범 사례들이 쉽고 포괄적인 테스트를 만든다는 것에 동의했습니다.
 
 어떤 입력 조합이 테스트 항목으로 주어지는지 명확히 하기 위해 **스토리가 지원하는 컴포넌트 상태**들을 표시합니다. 엉뚱한 테스트 범위를 줄이기 위해 지원되지 않는 상태를 가차 없이 제거합니다.
 
@@ -39,27 +39,27 @@ commit: 'a856d54'
 
 모던 UI를 구축하는 경우 시각적 테스트를 통해 프런트엔드 팀이 수작업 리뷰에 드는 시간을 절약하고 비용이 많이 드는 UI 회귀 테스트를 수행하는 것을 방지할 수 있습니다.
 
-<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">이전 장</a>에서 [Chromatic](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 `버튼` 컴포넌트 주위에 굵은 빨간색 테두리(border)를 추가한 다음, 팀원에게 피드백을 요청했습니다.
+<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">이전 장</a>에서 [크로마틱(Chromatic)](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 `버튼` 컴포넌트 주위에 굵은 빨간색 테두리(border)를 추가한 다음, 팀원에게 피드백을 요청했습니다.
 
 ![빨간색 테두리 버튼](/design-systems-for-developers/chromatic-button-border-change.png)
 
-이제 Chromatic에 내장된 [테스트 도구](https://www.chromatic.com/features/test)를 사용하여 시각적 테스트가 어떻게 작동하는지 살펴보겠습니다. 풀 리퀘스트(PR)가 생성되었을 때 Chromatic은 변경 사항에 대한 이미지를 캡처하여 동일한 컴포넌트의 이전 버전과 비교했습니다. 4가지 변경 사항이 발견되었습니다.
+이제 크로마틱에 내장된 [테스트 도구](https://www.chromatic.com/features/test)를 사용하여 시각적 테스트가 어떻게 작동하는지 살펴보겠습니다. 풀 리퀘스트(pull request)가 생성되었을 때 크로마틱은 변경 사항에 대한 이미지를 캡처하여 동일한 컴포넌트의 이전 버전과 비교했습니다. 4가지 변경 사항이 발견되었습니다.
 
 ![풀 리퀘스트의 체크 목록](/design-systems-for-developers/chromatic-list-of-checks.png)
 
 **🟡 UI 테스트** 체크를 클릭하여 검토합니다.
 
-![Chromatic에서 변경된 두 번째 빌드](/design-systems-for-developers/chromatic-second-build-from-pr.png)
+![크로마틱에서 변경된 두 번째 빌드(build)](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
-검토하여 의도적인 것인지 (개선) 의도하지 않은 것인지 (버그) 확인합니다. 변경 사항을 수락하면 테스트 기준이 업데이트됩니다. 즉, 후속 커밋은 버그를 감지하기 위해 새로운 기준 버전과 비교됩니다.
+검토하여 의도적인 것인지 (개선) 의도하지 않은 것인지 (버그) 확인합니다. 변경 사항을 수락하면 테스트 기준이 업데이트됩니다. 즉, 후속 commit은 버그를 감지하기 위해 새로운 기준 버전과 비교됩니다.
 
-![Chromatic에서의 변경 검토](/design-systems-for-developers/chromatic-review-changes-pr.png)
+![크로마틱에서의 변경 검토](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
 이전 장에서 우리 팀원은 어떤 이유로 `버튼` 주위에 빨간색 테두리를 원하지 않았습니다. 취소해야 함을 나타 내기 위해 변경 사항을 거부합니다.
 
-![Chromatic에서 거부 검토](/design-systems-for-developers/chromatic-review-deny.png)
+![크로마틱에서 거부 검토](/design-systems-for-developers/chromatic-review-deny.png)
 
-변경 사항을 실행 취소하고 다시 커밋하여 시각적 테스트를 다시 통과해보세요.
+변경 사항을 실행 취소하고 다시 commit하여 시각적 테스트를 다시 통과해보세요.
 
 ## 기능성에 대한 단위 테스트
 
@@ -100,7 +100,7 @@ test('has a href attribute when rendering with linkWrapper', () => {
 
 ![단일 Jest 테스트를 실행합니다](/design-systems-for-developers/jest-test.png)
 
-이전에 Storybook을 배포하도록 GitHub Action을 구성했고, 이제 테스트도 포함하도록 조정할 수 있습니다. 기여자들은 이제 이 단위 테스트의 혜택을 누릴 수 있고, Link 컴포넌트는 회귀를 방어할 수 있습니다.
+이전에 스토리북을 배포하도록 GitHub Action을 구성했고, 이제 테스트도 포함하도록 조정할 수 있습니다. 기여자들은 이제 이 단위 테스트의 혜택을 누릴 수 있고, Link 컴포넌트는 회귀를 방어할 수 있습니다.
 
 ```diff:title=.github/workflows/chromatic.yml
 # ... 이전과 동일
@@ -113,11 +113,11 @@ jobs:
       - uses: actions/checkout@v1
       - run: yarn
 +      - run: yarn test # 테스트 명령을 추가합니다.
-      #👇 작업절차 중 한 단게로서 Chromatic을 추가합니다.
+      #👇 작업절차 중 한 단게로서 크로마틱을 추가합니다.
       - uses: chromaui/action@v1
         # GitHub chromatic action에 필요한 옵션
         with:
-          #👇 Chromatic 프로젝트 토큰을 얻기 위해서는 다음을 참고하세요.
+          #👇 크로마틱 프로젝트 토큰을 얻기 위해서는 다음을 참고하세요.
           # https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/ (업데이트 링크)
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -135,9 +135,9 @@ jobs:
 
 [세계 보건기구](https://www.who.int/disabilities/world_report/2011/report/en/)에 따르면 전 인류의 15%가 장애를 가지고 있습니다. 디자인 시스템은 사용자 인터페이스의 컴포넌트를 포함하므로 접근성에 큰 영향을 미칩니다. 단 하나의 컴포넌트에 대한 접근성을 향상시킨다는 것은 회사 전체에서 해당 컴포넌트의 모든 인스턴스의 접근성이 향상된다는 것을 의미합니다.
 
-![Storybook 접근성 애드온(addon)](/design-systems-for-developers/storybook-accessibility-addon.png)
+![스토리북 접근성 애드온(addon)](/design-systems-for-developers/storybook-accessibility-addon.png)
 
-웹 접근성 표준(WCAG)을 실시간으로 확인하기 위한 도구인 Storybook의 접근성 애드온(addon)을 사용하여 포용력 있는 UI를 시작하세요.
+웹 접근성 표준(WCAG)을 실시간으로 확인하기 위한 도구인 스토리북의 접근성 애드온을 사용하여 포용력 있는 UI를 시작하세요.
 
 ```shell
 yarn add --dev @storybook/addon-a11y
@@ -183,7 +183,7 @@ export const decorators = [
 ];
 
 /*
-* Storybook의 더 많은 global parameter들은 여기로 - 
+* 스토리북의 더 많은 global parameter들은 여기로 - 
 * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 */
 + export const parameters = {
@@ -198,9 +198,9 @@ export const decorators = [
 + };
 ```
 
-모든 설정이 완료되면 Storybook 애드온(addon) 패널에 새로운 "접근성"탭이 표시됩니다.
+모든 설정이 완료되면 스토리북 애드온 패널에 새로운 "접근성"탭이 표시됩니다.
 
-![Stotybook A11y 애드온(addon)](/design-systems-for-developers/storybook-addon-a11y-6-0.png)
+![스토리북k A11y 애드온](/design-systems-for-developers/storybook-addon-a11y-6-0.png)
 
 DOM 요소 (위반 및 통과)의 접근성 수준을 보여줍니다. UI 컴포넌트인 "highlight results" 체크박스를 클릭하여 UI 컴포넌트와 관련된 상황에서의 위반 사항을 시각화합니다.
 
@@ -211,7 +211,7 @@ DOM 요소 (위반 및 통과)의 접근성 수준을 보여줍니다. UI 컴포
   />
 </video>
 
-지금부터는 애드온(addon)의 접근성 권장 사항을 따르세요.
+지금부터는 애드온의 접근성 권장 사항을 따르세요.
 
 ## 기타 테스트 전략
 
@@ -225,7 +225,7 @@ DOM 요소 (위반 및 통과)의 접근성 수준을 보여줍니다. UI 컴포
 
 > 대부분의 컴포넌트 스냅샷 테스트는 실제로 스크린샷 테스트의 더 나쁜 버전입니다. 출력을 테스트하십시오. 기본 (휘발성!) 마크업이 아니라 렌더링 되는 항목을 스냅샷 합니다. – Mark Dalgliesh, SEEK의 프런트엔드 인프라, CSS 모듈 작성자
 
-#### 엔드 투 엔드 테스트 (Selenium, Cypress)
+#### 엔드 투 엔드(End to end) 테스트 (Selenium, Cypress)
 
 엔드 투 엔드 테스트는 컴포넌트 DOM을 탐색하여 사용자의 작업 절차를 시뮬레이션합니다. 가입 또는 결제 프로세스와 같은 앱 작업 절차를 확인하는 데 가장 적합합니다. 이 테스트 전략은 기능이 복잡할수록 더 유용합니다.
 

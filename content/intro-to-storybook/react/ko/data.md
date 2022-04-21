@@ -5,7 +5,7 @@ description: 'UI 컴포넌트에 데이터를 연결하는 방법을 배워보�
 commit: '5da7c68'
 ---
 
-지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 Storybook에는 적합하지만 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
+지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 스토리북(Storybook)에는 적합하지만 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
 
 이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트(container components)에 데이터를 연결하는 일반적인 패턴을 살펴보도록 하겠습니다.
 
@@ -21,7 +21,7 @@ commit: '5da7c68'
 yarn add @reduxjs/toolkit react-redux
 ```
 
-먼저 `src/lib` 폴더의 `store.js` 파일(의도적으로 단순하게 작성함)에서 task의 state를 변경하는 동작에 반응하는 간단한 Redux 저장소를 구성해 보겠습니다.
+먼저 `src/lib` 폴더의 `store.js` 파일(의도적으로 단순하게 작성함)에서 task의 상태(state)를 변경하는 동작에 반응하는 간단한 리덕스(Redux) 저장소를 구성해 보겠습니다.
 
 ```js:title=src/lib/store.js
 import { configureStore, createSlice } from '@reduxjs/toolkit';
@@ -150,13 +150,13 @@ export default connect(
 )(PureTaskList);
 ```
 
-이제 컴포넌트를 생성할 실제 데이터를 Redux에서 받았으므로, 이를 `src/app.js`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
+이제 컴포넌트를 생성할 실제 데이터를 리덕스에서 받았으므로, 이를 `src/app.js`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
 
 그에 대한 내용은 다음 챕터에서 다룰 것이므로 걱정하지 않으셔도 됩니다.
 
-이 단계에서 `TaskList`는 컨테이너이며 더 이상 어떠한 props도 받지 않기 때문에 Storybook 테스트는 작동을 멈추었을 것입니다. 대신 `TaskList`는 Redux store에 연결하고 이를 감싸는 `PureTaskList`에서 props를 설정합니다.
+이 단계에서 `TaskList`는 컨테이너이며 더 이상 어떠한 props도 받지 않기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다. 대신 `TaskList`는 Redux store에 연결하고 이를 감싸는 `PureTaskList`에서 props를 설정합니다.
 
-하지만 이전 단계에서 진행한 Storybook story의 `export` 구문에 `PureTaskList`(표상적인 컴포넌트)를 간단하게 렌더링함으로써 이러한 문제를 쉽게 해결할 수 있습니다.
+하지만 이전 단계에서 진행한 스토리북 스토리의 `export` 구문에 `PureTaskList`(표상적인 컴포넌트)를 간단하게 렌더링함으로써 이러한 문제를 쉽게 해결할 수 있습니다.
 
 ```diff:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -174,7 +174,7 @@ const Template = (args) => <PureTaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  // args 컴포지션을 통해 story를 구성합니다.
+  // 인수(args) 컴포지션을 통해 스토리를 구성합니다.
   // 이 데이터는 task.stories.js의 Default story를 상속받았습니다.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
@@ -188,7 +188,7 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // args 컴포지션을 통해 story를 구성합니다.
+  // 인수(args) 컴포지션을 통해 스토리를 구성합니다.
   // 위의 Default story에서 상속받은 데이터입니다.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
@@ -204,7 +204,7 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // args 컴포지션을 통해 story를 구성합니다.
+  // 인수(args) 컴포지션을 통해 스토리를 구성합니다.
   // 위의 Loading story에서 상속받은 데이터입니다.
   ...Loading.args,
   loading: false,
@@ -219,5 +219,5 @@ Empty.args = {
 </video>
 
 <div class="aside">
-💡 변경과 함께 모든 테스트를 업데이트해야 합니다. <code>-u</code> 플래그와 함께 import 문을 업데이트하고 테스트 커맨드를 재실행하세요. Git에 변경한 내역들을 commit 하는 것도 잊지 마세요!
+💡 변경과 함께 모든 테스트를 업데이트해야 합니다. <code>-u</code> 플래그와 함께 import 문을 업데이트하고 테스트 커맨드를 재실행하세요. 깃(Git)에 변경한 내역들을 commit 하는 것도 잊지 마세요!
 </div>

@@ -1,19 +1,19 @@
 
    
 ---
-title: 'React를 위한 Storybook 튜토리얼'
+title: '리액트(React)를 위한 스토리북(Storybook) 튜토리얼'
 tocTitle: '시작하기'
-description: 'Storybook을 개발 환경에 설치해봅시다'
+description: '스토리북(Storybook)을 개발 환경에 설치해보세요'
 commit: 'b66f341'
 ---
 
-Storybook은 개발 모드에서 앱과 함께 실행됩니다. Storybook은 비즈니스 로직과 맥락(context)으로부터 분리된 UI 컴포넌트를 만들 수 있도록 도와줍니다. 현재 문서는 React를 위해 작성되었습니다. 그 밖의 [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started) [Svelte](/intro-to-storybook/svelte/en/get-started) 및 [Ember](/intro-to-storybook/ember/en/get-started)에 대한 다른 문서도 존재합니다.
+스토리북(Storybook)은 개발 모드에서 앱과 함께 실행됩니다. 스토리북은 비즈니스 로직과 맥락(context)으로부터 분리된 UI 컴포넌트를 만들 수 있도록 도와줍니다. 현재 문서는 리액트(React)를 위해 작성되었습니다. 그 밖의 [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started) [Svelte](/intro-to-storybook/svelte/en/get-started) 및 [Ember](/intro-to-storybook/ember/en/get-started)에 대한 다른 문서도 존재합니다.
 
-![Storybook과 여러분의 앱](https://storybook.js.org/tutorials/intro-to-storybook/storybook-relationship.jpg)
+![스토리북과 여러분의 앱](https://storybook.js.org/tutorials/intro-to-storybook/storybook-relationship.jpg)
 
-## React Storybook 설정
+## 리액트 스토리북 설정
 
-우리의 개발 환경에 빌드 프로세스를 설정하려면 몇 가지 단계를 따라야 합니다. 우선 우리는 [degit](https://github.com/Rich-Harris/degit)을 사용하여 빌드 시스템을 설정하려 합니다. 이 패키지를 사용해 "템플릿"(일부 기본 구성으로 부분적으로 구축된 애플리케이션)을 다운로드해 개발 흐름을 빠르게 파악할 수 있습니다.
+우리의 개발 환경에 빌드(build) 프로세스를 설정하려면 몇 가지 단계를 따라야 합니다. 우선 우리는 [degit](https://github.com/Rich-Harris/degit)을 사용하여 빌드 시스템을 설정하려 합니다. 이 패키지를 사용해 "템플릿"(일부 기본 구성으로 부분적으로 구축된 애플리케이션)을 다운로드해 개발 흐름을 빠르게 파악할 수 있습니다.
 
 다음 명령을 실행해봅시다.
 
@@ -52,10 +52,10 @@ yarn start
 
 ![3가지 양식](https://storybook.js.org/tutorials/intro-to-storybook/app-three-modalities.png)
 
-여러분이 앱(응용 프로그램)의 어떤 부분에 따라 작업하고 있는지에 따라, 이것들 중 하나 이상을 동시에 실행하고 싶을 수 있습니다. 하지만 지금 우리의 초점은 단일 UI 구성 요소를 만드는 것이므로 Storybook을 실행하는데 집중할 것입니다.
+여러분이 앱(응용 프로그램)의 어떤 부분에 따라 작업하고 있는지에 따라, 이것들 중 하나 이상을 동시에 실행하고 싶을 수 있습니다. 하지만 지금 우리의 초점은 단일 UI 구성 요소를 만드는 것이므로 스토리북을 실행하는데 집중할 것입니다.
 
 
-## 변경 사항 커밋
+## 변경 사항 커밋(commit)
 이 단계에서는 파일을 로컬 저장소(local repository)에 추가하는 것이 안전합니다. 다음 명령을 실행하여 로컬 저장소를 초기화하고 지금까지 수행한 변경 사항(내용)을 추가 및 commit합니다.
 
 ```shell

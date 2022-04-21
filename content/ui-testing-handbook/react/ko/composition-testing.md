@@ -5,7 +5,7 @@ description: '사소한 변경이 커다란 회귀로 변하는 것을 방지하
 commit: ''
 ---
 
-2021년 1월, Tesla는 디스플레이 모듈의 오작동으로 [158,000대의 자동차를 리콜했습니다.](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-sx-touchscreens-bricked-failure-nhtsa) 
+2021년 1월, 테슬라(Tesla)는 디스플레이 모듈의 오작동으로 [158,000대의 자동차를 리콜했습니다.](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-sx-touchscreens-bricked-failure-nhtsa) 
 디스플레이 콘솔이 고장나면 백업 카메라나 방향 지시등, 또는 운전자 지원에 접근할 수 없습니다. 이는 충돌 위험을 크게 증가시킵니다.
 
 > 모듈 하나의 결함이 심각한 실패작으로 확대된 것입니다.
@@ -22,14 +22,14 @@ UI의 더 복잡한 부분들을 테스트하는 것은 더욱 까다롭습니�
 
 ![사소한 수정이 큰 회귀를 초래합니다.](/ui-testing-handbook/minor-major-regressions-1.gif)
 
-[Storybook 디자인 시스템](https://5ccbc373887ca40020446347-oghpnhotjv.chromatic.com/?path=/docs/button--basic)의 Button 컴포넌트를 생각해봅시다. 이 컴포넌트는 여러 페이지에서 셀 수 없이 많이 사용됩니다. `Button`의 버그는 곧 버튼이 사용된 모든 페이지의 버그로 이어집니다. 즉, 하나의 실수가 기하급수적인 실수로 번진다는 뜻입니다. 컴포넌트 계층이 페이지 수준으로 올라갈수록 이러한 버그의 영향도 커집니다. 따라서 이런 상속적인 문제를 일찍 잡아내고 근본 원인을 파악할 수 있는 방법이 필요합니다.
+[스토리북(Storybook) 디자인 시스템](https://5ccbc373887ca40020446347-oghpnhotjv.chromatic.com/?path=/docs/button--basic)의 Button 컴포넌트를 생각해봅시다. 이 컴포넌트는 여러 페이지에서 셀 수 없이 많이 사용됩니다. `Button`의 버그는 곧 버튼이 사용된 모든 페이지의 버그로 이어집니다. 즉, 하나의 실수가 기하급수적인 실수로 번진다는 뜻입니다. 컴포넌트 계층이 페이지 수준으로 올라갈수록 이러한 버그의 영향도 커집니다. 따라서 이런 상속적인 문제를 일찍 잡아내고 근본 원인을 파악할 수 있는 방법이 필요합니다.
 
 ![앱의 여러 페이지에서 동일한 버튼 컴포넌트가 사용되고 있습니다](/ui-testing-handbook/design-system-inconsistent-buttons.jpg)
 
 
 ## 구성 테스트
 
-시각적 요소 테스트는 실제 브라우저에서 story의 이미지 스냅샷을 캡처하고 비교하여 버그를 포착합니다. 이는 UI 변경 사항을 파악하고 근본 원인을 알아차리는데 유용합니다. 이전 장에서 배웠던 테스트 과정을 떠올려봅시다 - 
+시각적 요소 테스트는 실제 브라우저에서 스토리(story)의 이미지 스냅샷을 캡처하고 비교하여 버그를 포착합니다. 이는 UI 변경 사항을 파악하고 근본 원인을 알아차리는데 유용합니다. 이전 장에서 배웠던 테스트 과정을 떠올려봅시다 - 
 
 1. 🏷  컴포넌트 **분리**하기. Storybook을 사용해 한 번에 한 컴포넌트씩 테스트합니다.
 2. ✍🏽 **테스트 케이스** 작성하기. 각 state는 props를 통해 재현됩니다.
@@ -46,7 +46,7 @@ UI의 더 복잡한 부분들을 테스트하는 것은 더욱 까다롭습니�
 
 ![Task list는 4가지 상태를 가지고 있습니다 - 디폴트 상태일 때, 아무것도 없을 때, 로딩중일 때, 고정됐을 때](/ui-testing-handbook/task-list.png)
 
-story 파일을 생성하고 `TaskList` 컴포넌트를 등록하세요. 그리고 디폴트 케이스에 대한 story를 추가합니다.
+스토리 파일을 생성하고 `TaskList` 컴포넌트를 등록하세요. 그리고 디폴트 케이스에 대한 스토리를 추가합니다.
 
 ```javascript:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -79,17 +79,17 @@ Default.args = {
 };
 ```
 
-`argTypes`에 주목하세요. [Args](https://storybook.js.org/docs/react/writing-stories/args)는 story에 대한 입력을 정의하기 위한 Storybook의 메커니즘입니다. 프레임워크에 구애받지 않는 props로 생각하세요. 컴포넌트 수준에서 정의된 인수는 자동으로 각 story에 전달됩니다. 우리의 경우 [Actions addon](https://storybook.js.org/docs/react/essentials/actions)을 사용하여 3개의 이벤트 핸들러를 정의했습니다.
+`argTypes`에 주목하세요. [Args](https://storybook.js.org/docs/react/writing-stories/args)는 스토리에 대한 입력을 정의하기 위한 스토리북의 메커니즘입니다. 프레임워크에 구애받지 않는 props로 생각하세요. 컴포넌트 수준에서 정의된 인수는 자동으로 각 스토리에 전달됩니다. 우리의 경우 [Actions addon](https://storybook.js.org/docs/react/essentials/actions)을 사용하여 3개의 이벤트 핸들러를 정의했습니다.
 
-이렇게 시뮬레이션된 작업은 `TaskList`와 상호 작용할 때 애드온 패널에 표시됩니다. 컴포넌트가 올바른 위치에 놓였는지 확인할 수 있습니다.
+이렇게 시뮬레이션된 작업은 `TaskList`와 상호 작용할 때 애드온(addon) 패널에 표시됩니다. 컴포넌트가 올바른 위치에 놓였는지 확인할 수 있습니다.
 
 ![](/ui-testing-handbook/tasklist-actions.gif)
 
 ### 인수(args) 구성
 
-컴포넌트를 결합하여 새 UI를 만드는 것과 같은 방식으로 인수를 결합하여 새 story를 만들 수 있습니다. 복합 컴포넌트의 args는 하위 컴포넌트의 args를 결합하는 것이 일반적입니다.
+컴포넌트를 결합하여 새 UI를 만드는 것과 같은 방식으로 인수를 결합하여 새 스토리를 만들 수 있습니다. 복합 컴포넌트의 인수는 하위 컴포넌트의 인수를 결합하는 것이 일반적입니다.
 
-이벤트 핸들러 인수는 재사용 가능한 Task story 파일에 이미 정의되어 있습니다. 마찬가지로 기본 story의 args를 사용하여 고정된 일정에 대한 story를 만들 수도 있습니다.
+이벤트 핸들러 인수는 재사용 가능한 Task story 파일에 이미 정의되어 있습니다. 마찬가지로 기본 스토리의 인수를 사용하여 고정된 일정에 대한 스토리를 만들 수도 있습니다.
 
 ```javascript:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -142,7 +142,7 @@ Empty.args = {
 };
 ```
 
-args 구성을 통해 story를 형성하는 것은 아주 강력한 기술입니다. 이를 통해 동일한 데이터를 반복해서 적지 않아도 story를 작성할 수 있습니다. 더욱 훌륭한 점은 컴포넌트를 통합적으로 테스트를 할 수 있다는 것입니다. 만약 `Task` 컴포넌트의 props 중 하나의 이름을 바꾸면, `TaskList`에 대한 테스트 케이스가 실패하게 됩니다.
+인수 구성을 통해 스토리를 형성하는 것은 아주 강력한 기술입니다. 이를 통해 동일한 데이터를 반복해서 적지 않아도 스토리를 작성할 수 있습니다. 더욱 훌륭한 점은 컴포넌트를 통합적으로 테스트를 할 수 있다는 것입니다. 만약 `Task` 컴포넌트의 props 중 하나의 이름을 바꾸면, `TaskList`에 대한 테스트 케이스가 실패하게 됩니다.
 
 ![](/ui-testing-handbook/tasklist-stories.gif)
 
@@ -150,11 +150,11 @@ args 구성을 통해 story를 형성하는 것은 아주 강력한 기술입니
 
 ### 상태를 가지는(Stateful) 복합 컴포넌트
 
-`InboxScreen`은 [custom hook](https://github.com/chromaui/ui-testing-guide-code/blob/composition-testing/src/useTasks.js)을 사용해서 Taskbox API에서 데이터를 가져오고 애플리케이션의 상태를 관리합니다. 단위 테스트를 할 때처럼 실제 백엔드로부터 컴포넌트를 분리하고 기능별로 테스트해봅시다.
+`InboxScreen`은 [커스텀 훅](https://github.com/chromaui/ui-testing-guide-code/blob/composition-testing/src/useTasks.js)을 사용해서 Taskbox API에서 데이터를 가져오고 애플리케이션의 상태를 관리합니다. 단위 테스트를 할 때처럼 실제 백엔드로부터 컴포넌트를 분리하고 기능별로 테스트해봅시다.
 
 ![](/ui-testing-handbook/taskbox.png)
 
-바로 이런 상황에 Storybook 애드온이 필요합니다. Storybook 애드온을 통해  API 요청, 상태, 컨텍스트, provider 및 컴포넌트가 의존하는 모든 것을 모의할 수 있습니다. [The Guardian](https://5dfcbf3012392c0020e7140b-borimwnbdl.chromatic.com/?path=/story/layouts-showcase--article-story) 과 [Sidewalk Labs](https://www.sidewalklabs.com/) (Google) 같은 회사는 이 애드온을 사용해서 전체 페이지를 개별적으로 구축합니다.
+바로 이런 상황에 스토리북 애드온이 필요합니다. 스토리북 애드온을 통해  API 요청, 상태, 컨텍스트, 프로바이더(provider) 및 컴포넌트가 의존하는 모든 것을 모의할 수 있습니다. [The Guardian](https://5dfcbf3012392c0020e7140b-borimwnbdl.chromatic.com/?path=/story/layouts-showcase--article-story) 과 [Sidewalk Labs](https://www.sidewalklabs.com/) (Google) 같은 회사는 이 애드온을 사용해서 전체 페이지를 개별적으로 구축합니다.
 
 InboxScreen의 경우, [Mock Service Worker(MSW) 애드온](https://storybook.js.org/addons/msw-storybook-addon/)을 통해 네트워크 레벨에서 요청을 가로채고 모의 응답을 반환합니다.
 
@@ -208,9 +208,9 @@ npx msw init public/
  ];
 ```
 
-마지막으로 `yarn storybook` 커맨드를 다시 실행하세요. 자, story의 모의 API 요청에 관한 설정이 모두 완료되었습니다.
+마지막으로 `yarn storybook` 커맨드를 다시 실행하세요. 자, 스토리의 모의 API 요청에 관한 설정이 모두 완료되었습니다.
 
-`InboxScreen`은 `/tasks` 엔드포인트에서 차례로 데이터를 가져오는 `useTasks` 훅(hook)을 호출합니다. `msw` 매개변수를 사용하여 모의 응답을 지정할 수 있습니다. 각 story에 대해 다른 응답을 반환하는 방법을 확인해보세요.
+`InboxScreen`은 `/tasks` 엔드포인트에서 차례로 데이터를 가져오는 `useTasks` 훅(hook)을 호출합니다. `msw` 매개변수를 사용하여 모의 응답을 지정할 수 있습니다. 각 스토리에 대해 다른 응답을 반환하는 방법을 확인해보세요.
 
 
 ```javascript:title=src/InboxScreen.stories.js
@@ -250,23 +250,23 @@ Error.parameters = {
 
 ![](/ui-testing-handbook/inbox-screen.gif)
 
-State에는 다양한 형태가 있습니다. 일부 애플리케이션은 Redux나 MobX 같은 라이브러리를 사용하여 전역적으로 상태를 추적합니다. 또는 GraphQL 쿼리를 작성하거나 컨테이너 컴포넌트를 사용할 수 있습니다. Storybook은 이러한 모든 시나리오를 지원할 만큼 충분히 유연합니다. 이에 대한 자세한 내용은 [데이터 및 상태 관리를 위한 Storybook 애드온](https://storybook.js.org/blog/storybook-addons-to-manage-data-state/)을 참조하세요.
+상태에는 다양한 형태가 있습니다. 일부 애플리케이션은 Redux나 MobX 같은 라이브러리를 사용하여 전역적으로 상태를 추적합니다. 또는 GraphQL 쿼리를 작성하거나 컨테이너 컴포넌트를 사용할 수 있습니다. 스토리북은 이러한 모든 시나리오를 지원할 만큼 충분히 유연합니다. 이에 대한 자세한 내용은 [데이터 및 상태 관리를 위한 스토리북 애드온](https://storybook.js.org/blog/storybook-addons-to-manage-data-state/)을 참조하세요.
 
-컴포넌트를 개별적으로 구축하면 개발의 복잡성이 줄어듭니다. 약간의 CSS를 디버깅하기 위해 백엔드를 실행하고, 사용자로 로그인한 다음 UI를 클릭하는 귀찮은 과정을 거칠 필요가 없습니다. 모든 것을 story로 설정하고 진행할 수 있습니다. 그리고 해당 story에 대해 자동화된 회귀 테스트를 실행할 수도 있습니다.
+컴포넌트를 개별적으로 구축하면 개발의 복잡성이 줄어듭니다. 약간의 CSS를 디버깅하기 위해 백엔드를 실행하고, 사용자로 로그인한 다음 UI를 클릭하는 귀찮은 과정을 거칠 필요가 없습니다. 모든 것을 스토리로 설정하고 진행할 수 있습니다. 그리고 해당 스토리에 대해 자동화된 회귀 테스트를 실행할 수도 있습니다.
 
 ### 회귀 포착하기
 
-[이전 장](../visual-testing/)에서 Chromatic을 설정하고 기본적인 작업 흐름을 살펴보았습니다. 이제 모든 복합 컴포넌트에 대한 story가 있으므로, 아래 커맨드로 시각적 테스트를 실행할 수 있습니다.
+[이전 장](../visual-testing/)에서 크로마틱(Chromatic)을 설정하고 기본적인 작업 흐름을 살펴보았습니다. 이제 모든 복합 컴포넌트에 대한 스토리가 있으므로, 아래 명령어로 시각적 테스트를 실행할 수 있습니다.
 
 ```
 npx chromatic --project-token=<project-token>
 ```
 
-TaskList 및 InboxScreen에 대한 story가 포함된 diff가 표시되어야 합니다.
+TaskList 및 InboxScreen에 대한 스토리가 포함된 diff가 표시되어야 합니다.
 
 ![](/ui-testing-handbook/cascading-changes.png)
 
-이제 Task component에서 폰트 크기나 배경색 같은 것들을 변경해보세요. 그런 다음 커밋하고 Chromatic을 다시 실행해봅시다.
+이제 Task 컴포넌트에서 폰트 크기나 배경색 같은 것들을 변경해보세요. 그런 다음 commit하고 크로마틱을 다시 실행해봅시다.
 
 ![](/ui-testing-handbook/cascading-stories.gif)
 

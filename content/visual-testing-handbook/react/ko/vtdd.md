@@ -4,10 +4,10 @@ description: '첫 번째 시각적 테스트를 만들어보세요'
 commit: '109652d'
 ---
 
-이제 기본기는 다 다뤘으니, 더 세부적인 이야기로 들어가 봅시다. 이 예시에서는 Storybook의 **Visual TDD**를 이용해 `CommentList` 하나의 컴포넌트 state를 만드는 과정을 보여드리겠습니다.
+이제 기본기는 다 다뤘으니, 더 세부적인 이야기로 들어가 봅시다. 이 예시에서는 스토리북(Storybook)의 **Visual TDD**를 이용해 `CommentList` 하나의 컴포넌트 상태(state)를 만드는 과정을 보여드리겠습니다.
 
 1. 시각적 테스트 케이스 구축
-2. Storybook 테스트 검토
+2. 스토리북 테스트 검토
 3. 구현 구축
 4. 디자인에 대한 구현 검토
 5. 반복
@@ -16,13 +16,13 @@ commit: '109652d'
 
 `CommentList`는 galactic freedom fighters의 채팅 도구의 일부분입니다. 디자이너는 우리에게 데이터와 앱의 상태를 바탕으로 댓글 목록이 보여야 할 다양한 방법을 디자인해서 넘겨주었습니다. 우리가 할 일은 목록이 정확한 텍스트, 보여지는 이미지, 시각적인 처리 측면에서 올바르게 렌더링되도록 하는 것입니다.
 
-![Commentlist 디자인 스펙](/visual-testing-handbook/visual-testing-handbook-commentlist-design-optimized.png)
+![Commentlist 디자인 스펙(spec)](/visual-testing-handbook/visual-testing-handbook-commentlist-design-optimized.png)
 
 ### 1. 시각적 테스트 케이스들 구축
 
 테스트 케이스들을 만들면서 시각적 TDD를 시작해봅시다. 우리는 위의 세 이미지에 각각 대응하는 세 가지 케이스를 만들 것입니다. 엄격한 TDD 전문가는 한 번에 하나의 테스트 케이스를 개발하고 구현해야 한다고 말하겠지만 - 이게 여러분의 프로세스에 도움이 되는지는 스스로 생각하고 결정하면 됩니다.
 
-예시 프로젝트를 [degit](https://github.com/Rich-Harris/degit)을 이용해서 설정하고, 필요한 보일러플레이트 템플릿(기본 설정을 가지고 일부만 만들어진 어플리케이션)을 다운로드 하겠습니다. 다음 명령어들을 실행해보세요. -
+예시 프로젝트를 [degit](https://github.com/Rich-Harris/degit)을 이용해서 설정하고, 필요한 보일러 플레이트 템플릿(기본 설정을 가지고 일부만 만들어진 어플리케이션)을 다운로드 하겠습니다. 다음 명령어들을 실행해보세요. -
 
 ```shell
 # 이 튜토리얼을 위한 템플릿을 clone합니다.
@@ -88,7 +88,7 @@ CommentList.defaultProps = {
 };
 ```
 
-이제 기본적인 구현이 있으니, 테스트 state를 만들 수 있습니다. Storybook을 사용하면 이 일을 빠르고 쉽게 할 수 있습니다.
+이제 기본적인 구현이 있으니, 테스트 상태를 만들 수 있습니다. 스토리북을 사용하면 이 일을 빠르고 쉽게 할 수 있습니다.
 
 `CommentList.stories.js`라는 파일을 `src/components` 폴더에 만들고 다음을 추가합니다.
 
@@ -181,7 +181,7 @@ yarn storybook
 
 ### 3. 구현을 구축하기
 
-일단, 기본적인 구현의 비계(scaffolded)를 세웠고 테스트 케이스를 렌더링하도록 Storybook을 설정했습니다.  이제 `HasData`의 변화형(variation)의 구현을 독립적으로 만들어볼 시간입니다.
+일단, 기본적인 구현의 비계(scaffolded)를 세웠고 테스트 케이스를 렌더링하도록 스토리북을 설정했습니다.  이제 `HasData`의 변화형(variation)의 구현을 독립적으로 만들어볼 시간입니다.
 
 우리는 [`styled-components`](https://styled-components.com/)를 사용합니다. CSS를 컴포넌트 수준에서 캡슐화 시켜주는 라이브러리입니다. 다음 명령어를 실행합니다.
 
@@ -317,7 +317,7 @@ CommentList.defaultProps = {
 
 ### 4. 디자인에 대한 구현 검토하기
 
-컴포넌트가 Storybook에서 어떻게 보이는지 검토합시다. 이 예시에서는 CSS를 이미 제공했습니다, 하지만 실제로는 styles을 약간 바꿔보면서 Storybook에서 어떻게 보이는지 확인했습니다.
+컴포넌트가 스토리북에서 어떻게 보이는지 검토합시다. 이 예시에서는 CSS를 이미 제공했습니다, 하지만 실제로는 styles을 약간 바꿔보면서 스토리북에서 어떻게 보이는지 확인했습니다.
 
 <video autoPlay muted playsInline loop>
   <source
