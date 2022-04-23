@@ -2,7 +2,6 @@
 title: '팀과 함께 리뷰하기'
 tocTitle: '리뷰'
 description: '지속적 통합(CI)과 비주얼 리뷰를 통한 협업'
-commit: '0273e45'
 ---
 
 4장에서는 디자인 간 불일치 문제를 해결하며 디자인 시스템을 더 발전시킬 수 있는 전문적인 작업 흐름(workflow)에 대해 배웁니다. 이 장은 팀에서 UI 피드백을 주고받아 의견 합의에 이를 수 있는 여러 방법을 알려줍니다. 이러한 프로덕션 과정은 Auth0, Shopify, 그리고 Discovery Network에서 이용되고 있습니다.
@@ -13,7 +12,7 @@ commit: '0273e45'
 
 ![디자인 시스템 의존성](/design-systems-for-developers/design-system-dependencies.png)
 
-버그는 디자인 시스템에 있어서 치명적인 위험이기 때문에 예방을 위해 최선을 다 할 것입니다. 아주 작은 수정사항의 영향이 눈덩이처럼 불어나서 헤아릴 수 없는 퇴행을 불러올 수도 있습니다. 지속적인 유지보수 없이는 디자인 시스템이 존속할 수 없습니다. 
+버그는 디자인 시스템에 있어서 치명적인 위험이기 때문에 이를 예방하기 위해 최선을 다 할 것입니다. 아주 작은 수정사항의 영향이 눈덩이처럼 불어나서 헤아릴 수 없는 퇴행을 불러올 수도 있습니다. 지속적인 유지보수 없이는 디자인 시스템이 존속할 수 없습니다. 
 
 > “내 컴퓨터에서는 잘 되던데?!” – 모두
 
@@ -31,7 +30,7 @@ node_modules 삭제하기. 패키지 재설치하기. 로컬 저장소 비우기
 
 ![클라우드 내에서 작업 리뷰하기](/design-systems-for-developers/design-system-visual-review.jpg)
 
-UI 컴포넌트가 URL을 통해 접근 가능해지면 관계자들은 UI가 어떻게 보이고 느껴질지 본인의 브라우저라는 익숙한 환경에서 확인할 수 있습니다. 다시 말하면 개발자, 디자이너, PM이 로컬 개발 환경에서의 문제점과 씨름할 일이 없고, 스크린샷을 돌려 볼 필요가 없으며, 예전 UI를 참고할 필요도 없어진다는 얘기입니다.
+UI 컴포넌트가 URL을 통해 접근 가능해지면 관계자들은 UI가 어떻게 보이고 느껴질지 본인의 브라우저라는 익숙한 환경에서 확인할 수 있습니다. 다시 말해 개발자, 디자이너, PM이 로컬 개발 환경에서의 문제점과 씨름할 일이 없고, 스크린샷을 돌려 볼 필요가 없으며, 예전 UI를 참고할 필요도 없어진다는 얘기입니다.
 
 > "각 PR에 스토리북을 배포하는 것은 비주얼 리뷰를 더 원활하게 만들고 프로덕트 소유주가 컴포넌트를 고려할 수 있도록 합니다." –Norbert de Langen, 스토리북 코어 관리자
 
@@ -66,7 +65,7 @@ yarn add --dev chromatic
 npx chromatic --project-token=<project-token>
 ```
 
-![커맨드 라인(command line)안의 크로마틱](/design-systems-for-developers/chromatic-manual-storybook-console-log.png)
+![커맨드 라인(command line)에서의 크로마틱](/design-systems-for-developers/chromatic-manual-storybook-console-log.png)
 
 위 링크를 복사한 후 새로운 브라우저 창에 붙여넣어 발행된 스토리북을 살펴봅니다. 로컬 스토리북 개발환경이 온라인에서 그대로 구현된 것을 볼 수 있습니다.
 

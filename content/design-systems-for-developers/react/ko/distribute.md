@@ -2,7 +2,6 @@
 title: 'UI 배포'
 tocTitle: '배포'
 description: '디자인 시스템을 다른 앱에 패키징하고 import하는 방법을 배웁니다.'
-commit: 'bba7cb0'
 ---
 
 설계적인 관점에서 디자인 시스템은 또 다른 프런트엔드 의존성(dependency)에 불과합니다. 그런 시스템은 유명한 의존성인 moment나 loadash와 다를 바가 없습니다. UI 컴포넌트는 코드이기 때문에 코드 재사용을 위해 확립된 기술을 활용할 수 있습니다.
@@ -150,7 +149,7 @@ question private: no
 패키지 준비가 되었으니 이제 npm에 최초 배포를 할 수 있습니다!
 ## Auto로 배포 관리
 
-변경된 부분을 기록하는 changelog를 업데이트하고, 유효한 버전의 숫자를 입력하며, 저장소의 커밋에 있는 버전 숫자와 git 태그가 연결되도록 만드는 과정을 거쳐서 npm에 배포를 합니다. 이 모든 과정을 위해 만들어진 [Auto](https://github.com/intuit/auto)라고 불리는 오픈소스 툴을 사용할 것입니다. 
+변경된 부분을 기록하는 changelog를 업데이트하고, 유효한 버전의 숫자를 입력하며, 저장소의 commit에 있는 버전 숫자와 깃(git) 태그가 연결되도록 만드는 과정을 거쳐서 npm에 배포를 합니다. 이 모든 과정을 위해 만들어진 [Auto](https://github.com/intuit/auto)라고 불리는 오픈소스 툴을 사용할 것입니다. 
 
 Auto를 설치해보세요. - 
 
@@ -223,7 +222,7 @@ git reset HEAD^
 - [your-username](https://github.com/your-username)
 ```
 
-git에 changelog를 추가해보세요. CI 플랫폼이 이 커밋들을 무시하도록 `[skip ci]`를 사용하는 것을 기억하세요. 그렇지 않으면 빌드와 배포의 순환이 계속 됩니다.
+git에 changelog를 추가해보세요. CI 플랫폼이 이 commit들을 무시하도록 `[skip ci]`를 사용하는 것을 기억하세요. 그렇지 않으면 빌드와 배포의 순환이 계속 됩니다.
 
 ```shell
 git add CHANGELOG.md
@@ -256,7 +255,7 @@ yarn auto release
 
  (`auto`가 자동적으로 첫번째 릴리즈를 릴리즈 노트에 기록해주지만, 첫번째 버전에 맞게 수정했다는 걸 알아두어야 합니다. )
 
-#### Auto를 사용해서 스크립트 설정
+#### Auto를 사용한 스크립트 설정
 
 후에 패키지를 배포하고 싶을 때와 같은 과정을 따라서 Auto를 설정해보세요. 다음과 같은 스크립트를 `package.json`에 추가합니다. - 
 
@@ -448,7 +447,7 @@ export const decorators = [
   ),
 ];
 /*
- * 스토리북의 parameters에 대한 더 많은 정보는 아래를 참고하세요. -
+ * 스토리북의 매개변수(parameters)에 대한 더 많은 정보는 아래를 참고하세요. -
  * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
  */
 export const parameters = {

@@ -2,7 +2,6 @@
 title: '디자인 시스템을 위한 작업 흐름(workflow)'
 tocTitle: '작업 흐름(workflow)'
 description: '프론트엔드 개발자를 위한 디자인 시스템 작업 흐름(workflow)의 개요'
-commit: 'ab64b4c'
 ---
 
 프런트엔드에서 사용하는 툴이 함께 작동하는 방식은 디자인 및 개발 팀이 실현할 수 있는 궁극적인 가치에 커다란 영향을 끼칩니다.
@@ -98,7 +97,7 @@ git commit -am "Added AvatarList and stories"
 
 ## 문서
 
-스토리북 문서 덕분에 최소한의 노력으로 사용자가 커스텀할 수 있는 문서를 얻을 수 있습니다. 스토리북의 문서를 참고해서 AvatarList를 사용하려는 다른 사람들에게 도움이 됩니다.
+스토리북 문서(Storybook Docs) 덕분에 최소한의 노력으로 사용자가 커스텀할 수 있는 문서를 얻을 수 있습니다. 스토리북의 문서를 참고해서 AvatarList를 사용하려는 다른 사람들에게 도움이 됩니다.
 
 ![최소한의 AvatarList 정보가 있는 스토리북 문서](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
 
@@ -162,7 +161,7 @@ git push -u origin create-avatar-list-component
 
 그리고 깃허브로 가서 풀 리퀘스트를 열어보세요.
 
-![Avatar List용 PR에 생성된 PR](/design-systems-for-developers/github-pr-create-avatarlist.png)
+![AvatarList용 PR에 생성된 PR](/design-systems-for-developers/github-pr-create-avatarlist.png)
 
 ## 리뷰
 

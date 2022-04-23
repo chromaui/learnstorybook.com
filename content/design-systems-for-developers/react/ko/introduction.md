@@ -18,7 +18,7 @@ description: '디자인 시스템을 위한 최신 개발 방법 도구 가이�
 
 ## 디자인 시스템이 도대체 뭐길래 다들 호들갑인가요?
 
-먼저 말씀드릴 것이 있습니다. 재사용이 가능한 사용자 인터페이스는 새로운 개념이 아닙니다. 스타일 가이드, UI 키트 및 공유 가능한 위젯은 수십 년 동안 존재해왔습니다. 오늘날 디자이너와 개발자들은 UI 컴포넌트 구조화를 위해 노력하고 있습니다. UI 컴포넌트는 사용자 인터페이스를 이루는 조각들의 시각적이고 기능적인 속성을 캡슐화합니다. 레고(LEGO) 블록을 생각해보세요.
+먼저 말씀드릴 것이 있습니다. 재사용이 가능한 사용자 인터페이스는 새로운 개념이 아닙니다. 스타일 가이드, UI 키트 및 공유 가능한 위젯은 수십 년 동안 존재해왔습니다. 오늘날 디자이너와 개발자들은 UI 컴포넌트 구조화를 위해 노력하고 있습니다. UI 컴포넌트는 사용자 인터페이스를 이루는 조각들의 시각적이고 기능적인 속성을 캡슐화합니다. 레고(LEGO) 블록을 떠올려보세요.
 
 최근에 등장한 유저 인터페이스들은 다양한 사용자 경험을 제공하기 위해 수백 개의 모듈식 UI 컴포넌트가 재배열된 구조로 이루어져 있습니다.  
 
@@ -28,7 +28,7 @@ description: '디자인 시스템을 위한 최신 개발 방법 도구 가이�
 
 디자이너들은 종종 도구 안에서 디자인 시스템을 구축하는 것에 대해 이야기합니다. 디자인 시스템의 전체적 범위는 자산(Sketch, Figma 등), 설계 원리, 기여 구조, 관리체계(governance)와 그 이상을 포괄합니다. 디자이너 중심의 가이드는 이미 충분하기 때문에 여기서는 자세히 다루지 않겠습니다.
 
-개발자의 경우, 확실한 것이 몇 가지 있습니다. 프로덕션 디자인 시스템은 UI 컴포넌트와 프런트엔드 인프라구조를 포함해야 합니다. 디자인 시스템을 위한 3가지 기술적 파트가 있는데, 그것이 우리가 이 가이드에서 다룰 내용입니다. 
+개발자의 경우, 확실한 것이 몇 가지 있습니다. 프로덕션 디자인 시스템은 UI 컴포넌트와 프런트엔드 인프라구조를 포함해야 합니다. 디자인 시스템을 위한 3가지 기술적 파트가 있는데, 바로 우리가 이 가이드에서 다룰 내용입니다. 
 
 - 🏗 재사용이 가능한 공용 UI 컴포넌트
 - 🎨 디자인 토큰: 브랜드 색상, 간격과 같은 스타일 변수
@@ -66,16 +66,16 @@ description: '디자인 시스템을 위한 최신 개발 방법 도구 가이�
 
 #### 스토리북 애드온(addon)
 
-- ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y): 개발하면서 접근성 체크를 도와줍니다.
-- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions): QA 클릭과 탭 인터렉션이 가능하도록 해줍니다.
-- 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls): 컴포넌트의 props를 동적으로 화면에 반영해줍니다.
-- 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction): story에서 자동으로 문서를 생성해줍니다.
+- ♿ [접근성(Accessibility)](https://github.com/storybookjs/storybook/tree/master/addons/a11y): 개발하면서 접근성 체크를 도와줍니다.
+- 💥 [액션(Actions)](https://storybook.js.org/docs/react/essentials/actions): QA 클릭과 탭 인터렉션이 가능하도록 해줍니다.
+- 🎛 [컨트롤(Controls)](https://storybook.js.org/docs/react/essentials/controls): 컴포넌트의 props를 동적으로 화면에 반영해줍니다.
+- 📕 [문서(Docs)](https://storybook.js.org/docs/react/writing-docs/introduction): story에서 자동으로 문서를 생성해줍니다.
 
 ![디자인 시스템 작업 흐름(workflow)](/design-systems-for-developers/design-system-workflow.jpg)
 
 ## 작업 흐름(workflow) 이해하기
 
-디자인 시스템은 프런트엔드 인프라에 대한 투자입니다. 이 가이드에서는 위의 기술을 사용하는 방법 외에도 적용과 유지 보수를 단순화하는 핵심 작업 흐름(workflow)에 대해서도 중점적으로 설명할 예정입니다. 가능하다면 수동 작업은 모두 자동화가 될 것입니다. 다음은 우리가 마주하게 될 활동들입니다.
+디자인 시스템은 프런트엔드 인프라에 대한 투자입니다. 이 가이드에서는 위의 기술을 사용하는 방법 외에도 적용과 유지 보수를 단순화하는 핵심 작업 흐름에 대해서도 중점적으로 설명할 것입니다. 가능한 모든 수동 작업은 자동화가 될 것입니다. 다음은 우리가 마주하게 될 활동들입니다.
 
 #### UI 컴포넌트는 분리하여 작업하기
 

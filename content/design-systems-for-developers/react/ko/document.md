@@ -2,7 +2,6 @@
 title: '이해관계자를 위한 문서'
 tocTitle: '문서'
 description: '문서화를 통하여 디자인 시스템 도입을 촉진하기'
-commit: '107bb03'
 ---
 
 [전문적인](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [프런트엔드](https://segment.com/blog/driving-adoption-of-a-design-system/) [팀](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7)은 디자인 시스템이 얼마나 채택되었는지를 성공의 척도로 삼고 있습니다. 디자인 시스템 사용을 통한 개발 비용 절감이라는 이점을 완벽하게 누리기 위해서는 컴포넌트가 널리 사용되어야만 합니다. 그렇지 않으면 이게 다 무슨 소용이겠습니까?
@@ -51,7 +50,7 @@ UI를 공동으로 개발하는 작업환경에서 문서화가 매우 ​​중
 
 지금까지 우리는 적은 노력으로 많은 진전을 이루었습니다. 그러나 문서에는 여전히 _사람의 손길_ 이 닿지 않았습니다. 우리는 다른 개발자에게 더 많은 문맥(왜, 언제, 어떻게)을 제공할 필요가 있습니다.
 
-컴포넌트의 기능을 설명하는 메타 데이터를 추가는 것으로 시작하세요. `src/Avatar.stories.js`에, Avatar의 용도를 설명하는 부제를 추가하세요.
+컴포넌트의 기능을 설명하는 메타 데이터를 추가하는 것으로 시작하세요. `src/Avatar.stories.js`에, Avatar의 용도를 설명하는 부제를 추가하세요.
 
 ```diff:title=src/Avatar.stories.js
 
@@ -63,7 +62,7 @@ export default {
   title: 'Design System/Avatar',
   component: Avatar,
   /*
-  * Storybook argTypes에 대한 자세한 내용은 다음 사이트를 참조하세요. -
+  * 스토리북 인수 타입(argTypes)에 대한 자세한 내용은 다음 사이트를 참조하세요. -
   * https://storybook.js.org/docs/react/api/argtypes
   */
   argTypes: {
@@ -75,7 +74,7 @@ export default {
     },
   },
   /*
-  * Storybook 파라미터에 대한 자세한 내용은 다음 사이트를 참조하세요. - 
+  * 스토리북 매개변수에 대한 자세한 내용은 다음 사이트를 참조하세요. - 
   * https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters
   */
 + parameters: {
@@ -99,7 +98,7 @@ export function Avatar({ loading, user name, src, size, ... props }) {
 
 ![컴포넌트 세부 정보가 있는 스토리북 문서 탭](/design-systems-for-developers/storybook-docspage-6-0.png)
 
-스토리북의 Docs에 스토리 종류와 기본값을 보여주는 인자 테이블이 자동으로 생성되었습니다. 이 방식은 편리하기는 하지만  `Avatar`가 완벽하게 구현되었다는 것을 의미하는 것은 아닙니다. 몇몇 인자들(props)을 오용할 가능성이 있습니다. 자동 생성된 prop 테이블에서 Avatar를 렌더링하려면 `propTypes` 내부에 코멘트를 추가하면 됩니다.
+스토리북의 문서(Docs)에 스토리 종류와 기본값을 보여주는 인자 테이블이 자동으로 생성되었습니다. 이 방식은 편리하기는 하지만  `Avatar`가 완벽하게 구현되었다는 것을 의미하는 것은 아닙니다. 몇몇 인자들(props)을 오용할 가능성이 있습니다. 자동 생성된 prop 테이블에서 Avatar를 렌더링하려면 `propTypes` 내부에 코멘트를 추가하면 됩니다.
 
 ```javascript:title=src/Avatar.js
 Avatar.propTypes = {
@@ -367,7 +366,7 @@ Canvas 탭에서 Controls 애드온으로 이 스토리를 실험해보세요.
 
 스토리북에서 Avatar 컴포넌트의 "Docs" 탭은 MDX 페이지로 대체되어야 합니다.
 
-![MDX로 생성한 스토리북 docs](/design-systems-for-developers/storybook-docs-mdx-initial-6-0.png)
+![MDX로 생성한 스토리북 문서(docs)](/design-systems-for-developers/storybook-docs-mdx-initial-6-0.png)
 
 스토리북은 대화식 미리 보기, 인자 테이블 등과 같은 미리 만들어진 컴포넌트인 [“Doc Blocks”](https://storybook.js.org/docs/react/writing-docs/doc-blocks)와 함께 제공됩니다. 기본적으로 자동 생성된 문서 페이지에 적용되어 있습니다. 그뿐만 아니라 개별 사용을 위해 추출할 수도 있습니다. 우리의 목표는 모든 것을 직접 다시 작업하지 않고 맞춤형 Avatar의 문서를 생성하는 것이므로, 가능한 곳에서는 Doc Blocks를 재사용하도록 합시다.
 
@@ -395,7 +394,7 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 <ArgsTable story="standard" />
 ```
 
-![doc blocks와 MDX로 만든 스토리북 문서](/design-systems-for-developers/storybook-docs-mdx-docblocks-6-0.png)
+![doc blocks와 MDX로 만든 스토리북 문서(docs)](/design-systems-for-developers/storybook-docs-mdx-docblocks-6-0.png)
 
 좋습니다! 처음 시작했던 곳으로 돌아왔는데 이전과는 다르게 콘텐츠의 내용과 순서를 완벽하게 제어할 수 있습니다. 자동화된 문서 생성의 이점은 우리가 Doc Blocks를 사용하고 있기 때문에 계속 누릴 수 있습니다.
 
@@ -417,7 +416,7 @@ Avatar는 사람이나 조직을 나타내는 데 사용됩니다. Avatar는 기
 
 ```
 
-![사용법 정보가 포함된 MDX 용 스토리북 docs](/design-systems-for-developers/storybook-docs-mdx-usage-6-0.png)
+![사용법 정보가 포함된 MDX 용 스토리북 문서(docs)](/design-systems-for-developers/storybook-docs-mdx-usage-6-0.png)
 
 #### 맞춤 페이지
 
@@ -439,7 +438,7 @@ import { Meta } from "@storybook/addon-docs";
 
 이렇게 하면 이전의 자동화된 컴포넌트 문서 페이지와 독립적인 새로운 문서 전용 페이지가 생성됩니다.
 
-![소개 페이지가 있는 스토리북 문서, 정렬되지 않음](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
+![소개 페이지가 있는 스토리북 문서(docs), 정렬되지 않음](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
 맨 위에 나타나게 하려면 스토리북에 `.storybook/main.js`에 소개 파일을 로드하도록 지시해야 합니다.
 
@@ -464,7 +463,7 @@ module.exports = {
 };
 ```
 
-![소개 페이지가 포함 된 스토리북 문서](/design-systems-for-developers/storybook-docs-introduction-6-0.png)
+![소개 페이지가 포함 된 스토리북 문서(docs)](/design-systems-for-developers/storybook-docs-introduction-6-0.png)
 
 ## 온라인에 문서 퍼블리싱
 
@@ -484,7 +483,7 @@ module.exports = {
 
 커맨드 라인(command line) 또는 지속적 통합 도구에서 `build-storybook-docs`를 실행하면 "docs" 구성에 정적 사이트가 출력됩니다. 정적 사이트 배포 도구 [Netlify](https://www.netlify.com/) 또는 [Vercel](https://vercel.com/)을 설정하여 모든 commit마다 문서 사이트가 배포됩니다.
 
-<div class="aside">💡 디자인 시스템이 성장함에 따라 맞춤화된 도구나 Gatsby 또는 Next와 같은 도구를 사용하여 고유한 정적 사이트를 구축하는 것을 보장하라는 조직별 요구 사항에 직면할 수 있습니다. 마크다운 및 MDX를 다른 솔루션으로 쉽게 이식할 수 있습니다.</div>
+<div class="aside">💡 디자인 시스템이 성장함에 따라 맞춤화된 도구나 Gatsby 또는 Next와 같은 도구를 사용하여 자체 정적 사이트를 구축하라는 조직별 요구 사항이 발생할 수 있습니다. 마크다운 및 MDX를 다른 솔루션에 쉽게 이식할 수 있습니다.</div>
 
 ## 다른 앱으로 디자인 시스템 가져오기
 

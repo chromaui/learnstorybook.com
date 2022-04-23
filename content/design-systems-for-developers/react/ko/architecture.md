@@ -2,12 +2,11 @@
 title: '시스템 설계'
 tocTitle: '설계'
 description: '컴포넌트 라이브러리에서 디자인 시스템을 추출하는 방법'
-commit: '798276b'
 ---
 
-2장에서는 디자인 시스템을 컴포넌트 라이브러리에서 추출하는 방법에 대해 알아봅니다. 그 과정에서 디자인 시스템에 속하게 되는 컴포넌트를 결정하고, 개발자가 흔히 직면하는 문제는 어떤 것이 있는지 살펴보겠습니다.
+2장에서는 디자인 시스템을 컴포넌트 라이브러리에서 추출하는 방법에 대해 알아봅니다. 그 과정에서 디자인 시스템에 속하게 되는 컴포넌트를 결정하고, 개발자가 흔히 마주치는 문제는 어떤 것이 있는지 살펴보겠습니다.
 
-대규모 회사의 경우 디자인팀, 개발팀, 제품팀이 이 과정을 함께 수행합니다. [크로매틱(Chromatic)](https://www.chromatic.com/) (스토리북(Storybook)을 만든 회사)과 [스토리북](https://storybook.js.org/)은 3개 이상의 자산에서 약 1,400명 이상의 오픈 소스 기여자에게 서비스를 제공하는 프런트엔드 인프라팀을 공유하고 있으므로, 이 프로세스를 간략히 설명하겠습니다.
+대규모 회사의 경우 디자인팀, 개발팀, 제품팀이 이 과정을 함께 수행합니다. [크로마틱(Chromatic)](https://www.chromatic.com/) (스토리북(Storybook)을 만든 회사)과 [스토리북](https://storybook.js.org/)은 3개 이상의 자산에서 약 1,400명 이상의 오픈 소스 기여자에게 서비스를 제공하는 프런트엔드 인프라팀을 공유하고 있으므로, 이 프로세스를 간략히 설명하겠습니다.
 
 ## 우리의 도전
 
@@ -15,7 +14,7 @@ commit: '798276b'
 
 우리도 바로 이 난관에 봉착했습니다. 경험이 풍부한 팀이 최선의 결과를 위해 노력하는 것이 분명한데도, UI 컴포넌트를 새로 만들거나 이전 것을 가져다 붙여놓는 일이 끊임없이 반복되었습니다. 동일할 거라고 기대한 UI 패턴들이 외관이나 기능에 차이를 보였습니다. 각각의 컴포넌트는 유일무이한 눈 결정처럼 고유해서 새로운 개발자가 기여를 보태기는 커녕 단일한 진실의 원천(source of truth)이 무엇인지조차 파악할 수 없었습니다.
 
-![UIs diverge](/design-systems-for-developers/design-system-inconsistent-buttons.jpg)
+![UIs diverge(분기)](/design-systems-for-developers/design-system-inconsistent-buttons.jpg)
 
 ## 디자인 시스템 만들기
 
@@ -35,27 +34,27 @@ commit: '798276b'
 
 ## 깃허브(Github)와 create-react-app으로 저장소 만들기
 
-[State of JS](https://stateofjs.com/)의 설문조사에 따르면 가장 인기 있는 뷰 레이어는 리액트(React)입니다. 압도적으로 많은 Storybook에서 리액트를 사용하기 때문에 이 튜토리얼에서도 [create-react-app](https://github.com/facebook/create-react-app) 보일러플레이트(Boilerplate)와 함께 리액트를 사용하겠습니다.
+[JS의 State(상태)](https://stateofjs.com/)의 설문조사에 따르면 가장 인기 있는 뷰 레이어는 리액트(React)입니다. 압도적으로 많은 스토리북에서 리액트를 사용하기 때문에 이 튜토리얼에서도 [create-react-app](https://github.com/facebook/create-react-app) 보일러플레이트(Boilerplate)와 함께 리액트를 사용하겠습니다.
 
 터미널에 아래 명령어를 입력하여 실행해보세요.
 
 ```shell
-# Clone the files
+# 파일들을 복제합니다.
 npx degit chromaui/learnstorybook-design-system#setup learnstorybook-design-system
 
 cd learnstorybook-design-system
 
-# Install the dependencies
+# 의존성(dependencies)를 설치합니다.
 yarn install
 ```
 
 <div class="aside">💡 여기에서는 깃허브(GitHub)로부터 폴더를 다운로드 받기 위해 <a href="https://github.com/Rich-Harris/degit">degit</a>를 사용했습니다. 수동으로 직접 가져오고 싶다면, <a href="https://github.com/chromaui/learnstorybook-design-system/tree/setup">여기</a>를 참고하세요.</div>
 
-설치가 모두 완료되면 이를 깃허브에 푸쉬(push)할 수 있습니다. 이 과정을 통해 우리의 디자인 시스템을 웹에 호스트할 수 있게 됩니다. 먼저 GitHub.com에 가입한 후 새 저장소를 만드세요.
+설치가 모두 완료되면 이를 깃허브에 push할 수 있습니다. 이 과정을 통해 우리의 디자인 시스템을 웹에 호스트할 수 있게 됩니다. 먼저 GitHub.com에 가입한 후 새 저장소를 만드세요.
 
-![Create a GitHub repository](/design-systems-for-developers/create-github-repository.png)
+![깃허브 저장소 만들기](/design-systems-for-developers/create-github-repository.png)
 
-그런 다음 깃허브에서 제공하는 명령어를 사용해 원격 git 저장소를 만듭니다. (처음 생성하면 거의 비어있는 상태일 것입니다.)
+그런 다음 깃허브에서 제공하는 명령어를 사용해 원격 깃(git) 저장소를 만듭니다. (처음 생성하면 거의 비어있는 상태일 것입니다.)
 
 ```shell
 git init
@@ -91,11 +90,11 @@ git push -u origin master
 - 하나의 UI 패턴이 3회 이상 사용되는 경우, 재사용 가능한 UI 컴포넌트로 간주합니다.
 - 하나의 UI 컴포넌트가 3개 이상의 프로젝트/팀에서 사용되는 경우, 디자인 시스템에 포함시킵니다.
 
-![Contents of a design system](/design-systems-for-developers/design-system-grid.png)
+![디자인 시스템의 컨텐츠들](/design-systems-for-developers/design-system-grid.png)
 
 이러한 방법을 따르다 보면 결국 다음과 같은 UI 기본 요소들이 남을 것입니다: 아바타, 뱃지, 버튼, 체크 박스, 입력, 라디오 버튼, 선택 박스, 텍스트 영역, 하이라이트(코드), 아이콘, 링크, 툴팁 등. 이러한 요소들은 클라이언트 앱에서 수많은 고유 기능과 레이아웃을 조합하기 위해 다양한 방식으로 구성됩니다.
 
-![Variants in one component](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
+![컴포넌트 하나의 변형들](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
 
 샘플 코드에서는 저장소를 간단하게 만들기 위해 이러한 컴포넌트들의 일부만 가져왔습니다. 어떤 팀은 표나 폼과 같은 다른 컴포넌트 위해 외부 컴포넌트에 사용자 정의를 적용하여 디자인 시스템에 포함시키도 합니다.
@@ -103,7 +102,7 @@ git push -u origin master
 
 <div class="aside">💡 CSS-in-JS: 이 튜토리얼에서는 <a href="https://www.styled-components.com">Styled-components</a>를 사용합니다. 이 라이브러리를 사용하면 컴포넌트에 스타일링 범위를 지정할 수 있습니다. 컴포넌트를 스타일링하는 다른 유효한 방법으로는 class를 수동으로 지정하는 방법, CSS 모듈을 이용하는 방법 등이 있습니다.</div>
 
-UI 컴포넌트 외에도 여러 프로젝트에 걸쳐 재사용되는 타이포그래피, 색상, 간격 등에 대한 스타일링 상수를 포함하는 것이 좋습니다. 디자인 시스템 명명법에서 전역 스타일 변수를 "디자인 토큰"이라고 합니다. 이 가이드에서는 디자인 토큰에 대한 이론을 다루지 않지만 온라인에서 더 자세히 알아볼 수 있습니다 (이와 관련한 [좋은 글](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)을 첨부합니다).
+UI 컴포넌트 외에도 여러 프로젝트에 걸쳐 재사용되는 타이포그래피, 색상, 간격 등에 대한 스타일링 상수를 포함하는 것이 좋습니다. 디자인 시스템 명명법에서 전역 스타일 변수를 "디자인 토큰(design token)"이라고 합니다. 이 가이드에서는 디자인 토큰에 대한 이론을 다루지 않지만 온라인에서 더 자세히 알아볼 수 있습니다 (이와 관련한 [좋은 글](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)을 첨부합니다).
 
 ## 개발을 시작해봅시다
 
