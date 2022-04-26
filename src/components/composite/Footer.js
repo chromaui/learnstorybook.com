@@ -301,7 +301,12 @@ LinkWrapper.propTypes = {
 };
 
 const { urls = {}, coreFrameworks } = siteMetadata;
-const { twitter, chat, youtube, navLinks = {}, gitHub = {} } = urls;
+const { twitter, chat, youtube, navLinks: _navLinks = {}, gitHub = {} } = urls;
+
+// Insert the Telemetry link immediately following Support
+const navLinks = _navLinks.slice();
+const insertIndex = navLinks.findIndex(({ title }) => title === 'Support');
+navLinks.splice(insertIndex + 1, 0, { title: 'Telemetry', href: urls.telemetry, isGatsby: true });
 
 const frontpageUrl = 'https://storybook.js.org';
 
