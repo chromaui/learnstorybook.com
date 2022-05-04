@@ -1,28 +1,28 @@
 ---
 title: '构建一个简单的组件'
 tocTitle: '简单组件'
-description: '单独构建一个简单的组件'
+description: '构建一个简单的独立组件'
 commit: '893e2c2'
 ---
 
-我们将按照[组件驱动开发](https://www.componentdriven.org/) (CDD)来构建我们的 UI。这是一个自下而上的构建 UI 的过程，我们从组件开始以整个页面结束。CDD 可以帮助您在构建 UI 时衡量其复杂性。
+我们将按照[组件驱动开发](https://www.componentdriven.org/) (CDD)来构建我们的 UI。这是一个自下而上的构建 UI 的过程，我们从组件开始到整个页面结束。CDD 可以帮助您在构建 UI 时衡量其复杂性。
 
 ## 任务
 
 ![任务组件的三个状态](/intro-to-storybook/task-states-learnstorybook.png)
 
-`任务(Task)`是我们应用程序的核心组件。每个任务根据其状态的不同在显示上会略有不同。我们提供一个选中(未选中)的复选框，一些关于 Task 的信息和一个允许我们上下移动任务的“pin”按钮。我们需要下述的 props 来将它们整合起来：
+`任务(Task)`是我们应用程序的核心组件。每个任务根据其状态的不同在显示上会略有不同。我们提供一个选中(未选中)的复选框、一些关于 Task 的信息和一个允许我们上下移动任务的“pin”按钮。我们需要下述的 props 来将它们整合起来：
 
 - `title` – 描述任务的字符串
 - `state` - 当前任务所在列表，以及其是否被选中？
 
-在我们构建`Task`之前，首先我们根据上述的草图编写测试所需的状态(state)。然后我们使用 Storybook 模拟数据并独立的构建组件。我们可以“视觉测试”自己设定好状态的组件外观。
+在我们构建`Task`之前，首先我们根据上述的草图编写测试所需的状态(state)。然后我们使用 Storybook 模拟数据并构建独立的组件。我们可以在设定的每个状态下手动测试组件的外观。
 
 这个过程有点像[驱动测试开发](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) 所以我们可以称之为“[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”
 
 ## 开始设置
 
-首先，让我们创建 task 组件以及它相关的 story 文件：`src/components/Task.vue` 和 `src/components/Task.stories.js`。
+首先，让我们创建 task 组件以及对应的 story 文件：`src/components/Task.vue` 和 `src/components/Task.stories.js`。
 
 首先我们使用已知将会用到的属性为基础实现一个最基本的`Task`：
 
@@ -50,7 +50,7 @@ commit: '893e2c2'
 
 如上所示，我们直接基于现有的 Todos 应用的 HTML 结构创建一个`Task`。
 
-如下，我们在 story 文件中创建 Task 的三个不同测试状态：
+接下来，我们在 story 文件中创建 Task 的三个不同测试状态：
 
 ```js:title=src/components/Task.stories.js
 import Task from './Task.vue';
@@ -108,22 +108,22 @@ Archived.args = {
 };
 ```
 
-Storybook 有两个基本的组织级别：组件和他的 story。可以将每个 story 视作其组件的排列组合。您可以根据需要给每一个组件创建任意个 story。
+Storybook 有两个基本的组织级别：组件和它的 story。可以将每个 story 视作该组件的不同形式。您可以根据需要给每一个组件创建任意个 story。
 
 - **组件**
   - Story
   - Story
   - Story
 
-我们创建了一个`default`来提示 Storybook 我们正在文档化的组件：
+我们创建了一个`default`来通知 Storybook 我们正在为哪个组件编制文档：
 
 - `component` -- 组件本身,
-- `title` -- 在 Storybook 应用侧边栏的显示,
+- `title` -- 在 Storybook 应用侧边栏如何引用这个组件,
 - `excludeStories` -- story 本身需要但是不用在 Storybook 应用中渲染的信息。
 
 我们为每一个我们需要测试的状态导出一个函数，以此来定义我们的 story。Story 实际上就是一个根据给定的状态返回已渲染元素的函数---就像是[函数式组件](https://vuejs.org/v2/guide/render-function.html#Functional-Components)那样。
 
-因为我们的组件存在多种排列组合，所以设置一个`Template`变量不失为一种便捷的做法。使用这样的模式来创建您的 Story 可以大量减少代码量和维护成本。
+因为我们的组件存在多种形式，所以设置一个`Template`变量不失为一种便捷的做法。使用这样的模式来创建您的 Story 可以大量减少代码量和维护成本。
 
 <div class="aside">
 💡 <code>Template.bind({})</code> 是 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">标准JavaScript</a> 中用来复制函数的技术。我们使用这项技术保证了在使用同一份实现的同时，让每一个导出的story可以配置自己的属性。
