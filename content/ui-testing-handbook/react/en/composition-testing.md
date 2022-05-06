@@ -142,7 +142,7 @@ Shaping stories through args composition is a powerful technique. It allows us t
 
 ![](/ui-testing-handbook/tasklist-stories.gif)
 
-So far, we’ve only dealt with components that accept data and callback via props. Things get trickier when your component is wired up to an API or has internal state. Next we'll look at how to isolate and test such connected components.
+So far, we’ve only dealt with components that accept data and callbacks via props. Things get trickier when your component is wired up to an API or has internal state. Next we'll look at how to isolate and test such connected components.
 
 ### Stateful composite components
 
