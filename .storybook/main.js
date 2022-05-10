@@ -30,7 +30,18 @@ module.exports = {
           staticQueryDir: 'page-data/sq/d',
         },
       ],
-      'babel-plugin-emotion',
+      [
+        '@emotion',
+        {
+          importMap: {
+            '@storybook/theming': {
+              styled: { canonicalImport: ['@emotion/styled', 'default'] },
+              css: { canonicalImport: ['@emotion/react', 'css'] },
+              Global: { canonicalImport: ['@emotion/react', 'Global'] },
+            },
+          },
+        },
+      ],
     ];
     // Prefer Gatsby ES6 entrypoint (module) over commonjs (main) entrypoint
     config.resolve.mainFields = ['browser', 'module', 'main'];
