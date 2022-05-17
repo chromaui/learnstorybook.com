@@ -30,7 +30,7 @@ L'Addon Kit pré-configure `Tool` pour utiliser les globales. Renommons la globa
 
 ```diff:title=src/Tool.js
 import React, { useCallback } from 'react';
-import { useGlobals } from '@storybook/api';
+import { useGlobals } from '@storybook/addons';
 import { Icons, IconButton } from '@storybook/components';
 import { TOOL_ID } from './constants';
 
