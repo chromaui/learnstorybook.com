@@ -216,69 +216,43 @@ Integrating accessibility testing into Storybook streamlines your development wo
 
 ![](/ui-testing-handbook/vision-simulator.png)
 
-### Preventing regressions
+### Catch regressions automatically with the test runner
 
-Components are interdependent – changes in one component could break others by accident. To ensure that accessibility violations aren’t introduced, we need to run Axe on all our components before merging changes.
+Often, changes to a component can unintentionally introduce new accessibility issues. To catch such regressions, you'll want to test all your stories before opening a pull request. However, the Accessibility addon only runs checks when you’re viewing a story. To test all stories at once we can use the Storybook test runner. It’s a standalone utility (powered by [Jest](https://jestjs.io/) and [Playwright](https://playwright.dev/)) that checks for rendering errors in stories.
 
-Stories are written in a format based on ES6 modules, allowing you to reuse them with other testing frameworks. In the last chapter, we looked at importing [stories into Jest](../interaction-testing/) and verifying interactions with Testing Library. Similarly, we can use the [Jest Axe integration](https://github.com/nickcolley/jest-axe) to run accessibility tests on the component.
+Let’s go ahead and configure the test runner to run Axe. We’ll start by installing [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright).
 
-Let’s start by installing it:
-
-```sh
-yarn add -D jest-axe
+```bash
+yarn add -D axe-playwright
 ```
 
-Next, add in an `it` block that runs Axe and checks for violations. Jest-axe also gives you a handy assertion, `toHaveNoViolations`, to verify this with one function call.
+Add a new configuration file inside your Storybook directory with the following inside:
 
-```diff:title=src/InboxScreen.test.js
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  waitFor,
-  cleanup,
-  within,
-  fireEvent,
-} from '@testing-library/react';
-+ import { axe, toHaveNoViolations } from 'jest-axe';
-import { composeStories } from '@storybook/testing-react';
-import { getWorker } from 'msw-storybook-addon';
-import * as stories from './InboxScreen.stories';
+```javascript:title=.storybook/test-runner.js
+const { injectAxe, checkA11y } = require('axe-playwright');
 
-+ expect.extend(toHaveNoViolations);
-
-describe('InboxScreen', () => {
-  afterEach(() => {
-    cleanup();
-  });
-
-  // Clean up after all tests are done, preventing this
-  // interception layer from affecting irrelevant tests
-  afterAll(() => getWorker().close());
-
-  const { Default } = composeStories(stories);
-
-  // Run axe
-+  it('Should have no accessibility violations', async () => {
-+    const { container, queryByText } = render(<Default />);
-+
-+    await waitFor(() => {
-+      expect(queryByText('You have no tasks')).not.toBeInTheDocument();
-+    });
-+
-+    const results = await axe(container);
-+    expect(results).toHaveNoViolations();
-+  });
-
-  it('should pin a task', async () => { ... });
-  it('should archive a task', async () => { ... });
-  it('should edit a task', async () => { ... });
-});
+module.exports = {
+ async preRender(page, context) {
+   await injectAxe(page);
+ },
+ async postRender(page, context) {
+   await checkA11y(page, '#root', {
+     detailedReport: true,
+     detailedReportOptions: {
+       html: true,
+     },
+   })
+ },
+};
 ```
 
-Run `yarn test` to start up Jest. It'll execute all the interaction tests and run the accessibility audit too. You can now run this entire test suite any time you modify the code. Allowing you to catch regressions.
+`preRender` and `postRender` are convenient hooks that allow you to configure the test runner to perform additional tasks. We're using those hooks to inject Axe into a story, and then once it renders, run the accessibility test.
 
-![](/ui-testing-handbook/jest-axe.png)
+You’ll notice a few options passed into the `checkA11y` function. We’ve set up Axe to start at the story's root element and then traverse down the DOM tree to check for issues. It will also generate a detailed report based on the issues it encountered and output a list of HTML elements that violated accessibility rules.
+
+To run the tests, start your Storybook in one terminal window with `yarn storybook` and the test runner in another with `yarn test-storybook`.
+
+![](/ui-testing-handbook/test-runner-ally.png)
 
 ## Catching integration issues
 

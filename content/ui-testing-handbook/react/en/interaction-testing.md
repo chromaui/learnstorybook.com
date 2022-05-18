@@ -43,7 +43,7 @@ yarn add -D @storybook/testing-library @storybook/jest @storybook/addon-interact
 
 Update your Storybook configuration to include the interactions addon and enable playback controls for debugging.
 
-```js:title=.storybook/main.js
+```javascript:title=.storybook/main.js
 module.exports = {
   stories: [],
   addons: [
@@ -76,7 +76,7 @@ yarn storybook
 
 In the previous chapter, we catalogued all the use cases of the InboxScreen component in the `InboxScreen.stories.js` file. That allowed us to spot-check appearance during development and catch regressions via visual tests. These stories will now also power our interaction tests.
 
-```js:title=src/InboxScreen.stories.js
+```javascript:title=src/InboxScreen.stories.js
 import React from 'react';
 import { rest } from 'msw';
 import { InboxScreen } from './InboxScreen';
@@ -119,7 +119,7 @@ The test itself will be housed inside a [play function](https://storybook.js.org
 
 Let's add in our first interaction test to verify that the user can pin a task:
 
-```js:title=src/InboxScreen.stories.js
+```javascript:title=src/InboxScreen.stories.js
 import React from 'react';
 import { rest } from 'msw';
 import { InboxScreen } from './InboxScreen';
@@ -163,7 +163,7 @@ When Storybook finishes rendering the story, it executes the steps defined withi
 
 Now that we have our first test down, let's go ahead and add tests for the archive, edit and delete task functionalities.
 
-```js:title=src/InboxScreen.stories.js
+```javascript:title=src/InboxScreen.stories.js
 // ... code omitted for brevity ...
 
 export const ArchiveTask = Template.bind({});
