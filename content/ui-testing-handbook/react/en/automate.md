@@ -39,7 +39,7 @@ Create a `.github/workflows/ui-tests.yml` file in your repository to get started
 
 Our workflow will run when code is pushed to any branch of our repository and it’ll have three jobs:
 
-- Run interaction tests and the accessibility audit with Jest
+- Run interaction and the accessibility tests with the Storybook test runner
 - Run visual and composition tests with Chromatic
 - Run user flow tests with Cypress
 
@@ -49,15 +49,25 @@ name: 'UI Tests'
 on: push
 
 jobs:
-  # Run interaction and accessibility tests with Axe
+  # Run interaction and accessibility tests
   interaction-and-accessibility:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
       - name: Install dependencies
         run: yarn
-      - name: Run test
-        run: yarn test
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Build Storybook
+        run: yarn build-storybook --quiet
+      - name: Serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:6006 && yarn test-storybook"
   # Run visual and composition tests with Chromatic
   visual-and-composition:
     runs-on: ubuntu-latest
@@ -70,7 +80,6 @@ jobs:
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           # Grab this from the Chromatic manage page
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
   # Run user flow tests with Cypress
@@ -86,7 +95,9 @@ jobs:
           start: npm start
 ```
 
-Note, to run Chromatic, you’ll need the `CHROMATIC_PROJECT_TOKEN`. You can grab it from the Chromatic manage page and [add it](https://docs.github.com/en/actions/reference/encrypted-secrets) to your repository secrets. While the `GITHUB_TOKEN` is available by default.
+Couple of things to note here. For the test runner, we're using a combination of [concurrently](https://www.npmjs.com/package/concurrently), [http-server](https://www.npmjs.com/package/http-server) and [wait-on](https://www.npmjs.com/package/wait-on) libraries to build and serve the Storybook to run tests against it.
+
+And to run Chromatic, you’ll need the `CHROMATIC_PROJECT_TOKEN`. You can grab it from the Chromatic manage page and [add it](https://docs.github.com/en/actions/reference/encrypted-secrets) to your repository secrets.
 
 <figure style="display: flex;">
   <img style="flex: 1 1 auto; min-width: 0; margin-right: 0.5em;" src="/ui-testing-handbook/get-token.png" alt="get project token from Chromatic" />
@@ -126,12 +137,15 @@ jobs:
       - name: Install dependencies if cache invalid
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn
-  # Run interaction and accessibility tests with Axe
+  # Run interaction and accessibility tests
   interaction-and-accessibility:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
       - name: Restore yarn dependencies
         uses: actions/cache@v2
         id: yarn-cache
@@ -142,8 +156,15 @@ jobs:
           key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-v1
-      - name: Run test
-        run: yarn test
+     - name: Install Playwright
+       run: npx playwright install --with-deps
+     - name: Build Storybook
+       run: yarn build-storybook --quiet
+     - name: Serve Storybook and run tests
+       run: |
+         npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+           "npx http-server storybook-static --port 6006 --silent" \
+           "npx wait-on tcp:6006 && yarn test-storybook"
   # Run visual and composition tests with Chromatic
   visual-and-composition:
     runs-on: ubuntu-latest
@@ -165,7 +186,6 @@ jobs:
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           # Grab this from the Chromatic manage page
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
   # Run user flow tests with Cypress
@@ -192,7 +212,7 @@ jobs:
 
 We also tweaked the other three jobs to wait for the `install-cache` job to complete to use the cached dependencies. Push another commit to re-run the workflow.
 
-Success! You’ve automated your testing workflow. When you open up a PR it’ll run Jest, Chromatic and Cypress in parallel and display the results on the PR page itself.
+Success! You’ve automated your testing workflow. When you open up a PR it’ll run the test runner, Chromatic and Cypress in parallel and display the results on the PR page itself.
 
 ![](/ui-testing-handbook/image-22.png)
 
