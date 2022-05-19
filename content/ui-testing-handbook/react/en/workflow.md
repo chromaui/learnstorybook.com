@@ -85,69 +85,36 @@ The user can delete a task by clicking on the _trash can_ button, we’ll need t
 
 #### During development
 
-During development, manually verify the interaction using the InboxScreen stories. If it’s working as expected, you can move on to adding in an interaction test using Jest and Testing Library.
+During development, manually verify the interaction using the InboxScreen stories. If it’s working as expected, you can add in an interaction test using a play function.
 
-```diff:title=src/InboxScreen.test.js
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  waitFor,
-  cleanup,
-  within,
-  fireEvent,
-} from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
-import { composeStories } from '@storybook/testing-react';
-import { getWorker } from 'msw-storybook-addon';
-import * as stories from './InboxScreen.stories';
+```javascript:title=src/InboxScreen.stories.js
+// ... code omitted for brevity ...
 
-expect.extend(toHaveNoViolations);
+export const DeleteTask = Template.bind({});
+DeleteTask.parameters = { ...Default.parameters };
+DeleteTask.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const getTask = (name) => canvas.findByRole('listitem', { name });
 
-describe('InboxScreen', () => {
-  afterEach(() => {
-    cleanup();
+  const itemToDelete = await getTask('Build a date picker');
+  const deleteButton = await findByRole(itemToDelete, 'button', {
+    name: 'delete',
   });
+  await userEvent.click(deleteButton);
 
-  afterAll(() => getWorker().close());
-
-  const { Default } = composeStories(stories);
-
-  it('should pin a task', async () => { ... });
-  it('should archive a task', async () => { ... });
-  it('should edit a task', async () => { ... });
-  it('Should have no accessibility violations', async () => { ... });
-
-+ it('should delete a task', async () => {
-+   const { queryByText, getByRole, getAllByRole } = render(<Default />);
-+
-+   await waitFor(() => {
-+     expect(queryByText('You have no tasks')).not.toBeInTheDocument();
-+   });
-+
-+   const getTask = () => getByRole('listitem', { name: 'Export logo' });
-+
-+   const deleteButton = within(getTask()).getByRole('button', {
-+     name: 'delete',
-+   });
-+
-+   fireEvent.click(deleteButton);
-+
-+   expect(getAllByRole('listitem').length).toBe(5);
-+ });
-});
-
+  expect(canvas.getAllByRole('listitem').length).toBe(5);
+};
 ```
 
-Run `yarn test` to confirm that all tests are passing. Notice how Jest runs in watch mode and only executes tests related to files that changed.
+Run `yarn run test-storybook` to confirm that all tests are passing. Notice how Jest runs in watch mode and only executes tests related to files that changed.
 
-![](/ui-testing-handbook/jest.png)
+![](/ui-testing-handbook/test-runner-delete.png)
 
 #### PR check
 
-Github Actions will run Jest when the pull request is created and report status via PR checks.
+Github Actions will run the test runner when the pull request is created and report status via PR checks.
 
-![](/ui-testing-handbook/jest-ci.png)
+![](/ui-testing-handbook/test-runner-ci.png)
 
 ## User flow tests
 

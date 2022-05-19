@@ -222,11 +222,13 @@ const Template = (args) => <InboxScreen {...args} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
-  msw: [
-    rest.get('/tasks', (req, res, ctx) => {
-      return res(ctx.json(TaskListDefault.args));
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.get('/tasks', (req, res, ctx) => {
+        return res(ctx.json(TaskListDefault.args));
+      }),
+    ],
+  },
 };
 
 export const Error = Template.bind({});
@@ -234,11 +236,13 @@ Error.args = {
   error: 'Something',
 };
 Error.parameters = {
-  msw: [
-    rest.get('/tasks', (req, res, ctx) => {
-      return res(ctx.json([]));
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.get('/tasks', (req, res, ctx) => {
+        return res(ctx.json([]));
+      }),
+    ],
+  },
 };
 ```
 

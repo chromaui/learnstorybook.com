@@ -57,12 +57,13 @@ To install the addon, run: `yarn add -D @storybook/addon-a11y`. Then, add `'@sto
 
 ```diff:title=.storybook/main.js
 module.exports = {
- stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+ // ...
  addons: [
    '@storybook/addon-links',
    '@storybook/addon-essentials',
    '@storybook/preset-create-react-app',
 +  '@storybook/addon-a11y',
+   '@storybook/addon-interactions',
  ],
 };
 ```
@@ -184,9 +185,9 @@ Task.propTypes = {
 };
 ```
 
-The second violation, **“Ensures `<li>` elements are used semantically,”** indicates that the DOM structure is incorrect. The Task component renders an `<li>` element. However, it's not wrapped with a `<ul>` in its stories. Which makes sense. These stories are for the Task component. The `<ul>` is actually provided by the TaskList. So the DOM structure gets validated in the TaskList stories. Therefore, it's safe to ignore this error. In fact, we can go ahead and disable this rule for all the Task stories.
+The second violation, **“Ensures `<li>` elements are used semantically,”** indicates incorrect DOM structure. The Task component renders just a `<li>` element. So we need to update its stories template to wrap the component in an `<ul>` element.
 
-```diff:title=src/components/Task.stories.js
+```js:title=src/components/Task.stories.js
 import React from 'react';
 import { Task } from './Task';
 
@@ -198,16 +199,15 @@ export default {
     onTogglePinTask: { action: 'onTogglePinTask' },
     onEditTitle: { action: 'onEditTitle' },
   },
-+  parameters: {
-+    a11y: {
-+      config: {
-+        rules: [{ id: 'listitem', enabled: false }],
-+      },
-+    },
-+  },
 };
 
-// remaining code omitted for brevity
+const Template = (args) => (
+  <ul>
+    <Task {...args} />
+  </ul>
+);
+
+// ... code omitted for brevity
 ```
 
 You can now repeat this process for all other components.

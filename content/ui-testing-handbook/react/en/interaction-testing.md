@@ -38,20 +38,45 @@ We'll start by writing a **story** to set up the component's initial state. Then
 First we need to install the test runner and related packages.
 
 ```bash
-yarn add -D @storybook/testing-library @storybook/jest @storybook/addon-interactions jest @storybook/test-runner
+yarn add -D @storybook/testing-library @storybook/jest @storybook/addon-interactions @storybook/test-runner
 ```
 
 Update your Storybook configuration to include the interactions addon and enable playback controls for debugging.
 
-```javascript:title=.storybook/main.js
+```diff:title=.storybook/main.js
+const path = require('path');
+
+const toPath = (_path) => path.join(process.cwd(), _path);
+
 module.exports = {
-  stories: [],
+  staticDirs: ['../public'],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    // Other Storybook addons
-    '@storybook/addon-interactions', // 👈 addon is registered here
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
++   '@storybook/addon-interactions',
   ],
-  features: {
-    interactionsDebugger: true, // 👈 enable playback controls
+  core: {
+    builder: {
+      name: 'webpack5',
+    },
+  },
++ features: {
++   interactionsDebugger: true,
++ },
+  webpackFinal: async (config) => {
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          '@emotion/core': toPath('node_modules/@emotion/react'),
+          'emotion-theming': toPath('node_modules/@emotion/react'),
+        },
+      },
+    };
   },
 };
 ```
@@ -91,11 +116,13 @@ const Template = (args) => <InboxScreen {...args} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
-  msw: [
-    rest.get('/tasks', (req, res, ctx) => {
-      return res(ctx.json(TaskListDefault.args));
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.get('/tasks', (req, res, ctx) => {
+        return res(ctx.json(TaskListDefault.args));
+      }),
+    ],
+  },
 };
 
 export const Error = Template.bind({});
@@ -103,11 +130,13 @@ Error.args = {
   error: 'Something',
 };
 Error.parameters = {
-  msw: [
-    rest.get('/tasks', (req, res, ctx) => {
-      return res(ctx.json([]));
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.get('/tasks', (req, res, ctx) => {
+        return res(ctx.json([]));
+      }),
+    ],
+  },
 };
 ```
 
@@ -161,7 +190,7 @@ When Storybook finishes rendering the story, it executes the steps defined withi
 
 ### Execute tests with test runner
 
-Now that we have our first test down, let's go ahead and add tests for the archive, edit and delete task functionalities.
+Now that we have our first test down, let's go ahead and add tests for the archive and edit task functionalities.
 
 ```javascript:title=src/InboxScreen.stories.js
 // ... code omitted for brevity ...
@@ -190,21 +219,6 @@ EditTask.play = async ({ canvasElement }) => {
 
   userEvent.type(taskInput, ' and disabled state');
   await expect(taskInput.value).toBe('Fix bug in input error state and disabled state');
-};
-
-export const DeleteTask = Template.bind({});
-DeleteTask.parameters = Default.parameters;
-DeleteTask.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const getTask = (name) => canvas.findByRole('listitem', { name });
-
-  const itemToDelete = await getTask('Build a date picker');
-  const deleteButton = await findByRole(itemToDelete, 'button', {
-    name: 'delete',
-  });
-  await userEvent.click(deleteButton);
-
-  expect(canvas.getAllByRole('listitem').length).toBe(5);
 };
 ```
 
