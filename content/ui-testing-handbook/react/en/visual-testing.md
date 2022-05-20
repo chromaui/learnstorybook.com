@@ -2,7 +2,7 @@
 title: 'Visual testing in Storybook'
 tocTitle: 'Visual'
 description: 'Learn how to pinpoint UI bugs automatically'
-commit: '1421db5'
+commit: '1576028'
 ---
 
 It's tough to ship bug-free UIs. In the past, developers used unit and snapshot tests to scan for bugs in blobs of HTML. But those methods don't represent what the user actually sees, so bugs never went away.

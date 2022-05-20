@@ -2,7 +2,7 @@
 title: 'Testing component interactions'
 tocTitle: 'Interaction'
 description: 'Learn how to simulate user behaviour and run functional checks'
-commit: '20027df'
+commit: '4ad3421'
 ---
 
 You flip the switch, and the light doesn’t turn on. It could be a burnt-out light bulb, or it could be faulty wiring. The switch and the bulb are connected to each other with wires inside the walls.
@@ -23,27 +23,83 @@ On the `InboxScreen`, the user can click on the star icon to pin a task. Or clic
 
 ![](/ui-testing-handbook/interactive-taskbox.gif)
 
-Here's what the interaction testing workflow looks like:
+## How does component testing in Storybook work?
 
-1.  **📝 Setup:** isolate the component and supply the appropriate props for the initial state.
-2.  **🤖 Action:** render the component and simulate interactions.
-3.  ✅ **Run assertions** to verify that the state updated correctly.
-
-The Taskbox app was bootstrapped using Create React App, which comes pre-configured with [Jest](https://jestjs.io/). That's what we'll use to write and run the tests.
-
-### Test what a component does, not how it does it
+Testing interactions is a widespread pattern for verifying user behavior. You provide mock data to set up a test scenario, simulate user interactions using [Testing Library](https://testing-library.com/), and check the resultant DOM structure.
 
 ![](/ui-testing-handbook/1_AyDgC9kxOjUl8Yihq0ltTQ.gif)
 
-Much like unit tests, we want to avoid testing the inner workings of a component. This makes tests brittle because any time you refactor code it'll break the tests, regardless of whether the output changed or not. Which in turn slows you down.
+In Storybook, this familiar workflow happens in your browser. That makes it easier to debug failures because you're running tests in the same environment as you develop components—the browser.
 
-This is why teams at Adobe, Twilio, Gatsby and many more use [Testing-Library](https://testing-library.com/). It allows you to evaluate the rendered output. It works by mounting the component in a virtual browser (JSDOM) and provides utilities that replicate user interactions.
+We'll start by writing a **story** to set up the component's initial state. Then simulate user behavior such as clicks and form entries using the **play function**. Finally, use the Storybook **test runner** to check whether the UI and component state update correctly.
 
-We can write tests that mimic real-world usage, instead of accessing a component’s internal state and methods. And writing tests from the user’s perspective gives us a lot more confidence that our code works.
+## Setup the test runner
+
+First we need to install the test runner and related packages.
+
+```bash
+yarn add -D @storybook/testing-library @storybook/jest @storybook/addon-interactions @storybook/test-runner
+```
+
+Update your Storybook configuration to include the interactions addon and enable playback controls for debugging.
+
+```diff:title=.storybook/main.js
+const path = require('path');
+
+const toPath = (_path) => path.join(process.cwd(), _path);
+
+module.exports = {
+  staticDirs: ['../public'],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
++   '@storybook/addon-interactions',
+  ],
+  core: {
+    builder: {
+      name: 'webpack5',
+    },
+  },
++ features: {
++   interactionsDebugger: true,
++ },
+  webpackFinal: async (config) => {
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          '@emotion/core': toPath('node_modules/@emotion/react'),
+          'emotion-theming': toPath('node_modules/@emotion/react'),
+        },
+      },
+    };
+  },
+};
+```
+
+Then add a test task to your project’s `package.json`:
+
+```json:title=package.json
+{
+  "scripts": {
+    "test-storybook": "test-storybook"
+  }
+}
+```
+
+Lastly, start up your Storybook (the test runner will run against your local Storybook instance):
+
+```
+yarn storybook
+```
 
 ## Reuse stories as interaction test cases
 
-In the previous chapter, we catalogued all the use cases of the `InboxScreen` component in the `InboxScreen.stories.js` file. That allowed us to spot check appearance during development and to catch regressions via visual tests. These stories will now also power our interaction tests.
+In the previous chapter, we catalogued all the use cases of the InboxScreen component in the `InboxScreen.stories.js` file. That allowed us to spot-check appearance during development and catch regressions via visual tests. These stories will now also power our interaction tests.
 
 ```javascript:title=src/InboxScreen.stories.js
 import React from 'react';
@@ -60,11 +116,13 @@ const Template = (args) => <InboxScreen {...args} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
-  msw: [
-    rest.get('/tasks', (req, res, ctx) => {
-      return res(ctx.json(TaskListDefault.args));
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.get('/tasks', (req, res, ctx) => {
+        return res(ctx.json(TaskListDefault.args));
+      }),
+    ],
+  },
 };
 
 export const Error = Template.bind({});
@@ -72,181 +130,117 @@ Error.args = {
   error: 'Something',
 };
 Error.parameters = {
-  msw: [
-    rest.get('/tasks', (req, res, ctx) => {
-      return res(ctx.json([]));
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.get('/tasks', (req, res, ctx) => {
+        return res(ctx.json([]));
+      }),
+    ],
+  },
 };
 ```
 
-Stories are written in a portable format based on standard JavaScript modules. You can reuse them with any JavaScript-based testing library (Jest, Testing Lib, Playwright). That saves you from needing to set up and maintain test cases for each testing tool in your suite. For example, the Adobe Spectrum design system team uses this pattern to [test interactions](https://github.com/adobe/react-spectrum/blob/f6c06605243ad2033fce95f80ae3fecd4a38daeb/packages/%40react-spectrum/dialog/test/DialogContainer.test.js#L62) for their menu and dialog components.
+### Write an interaction test using the play function
 
-![](/ui-testing-handbook/portable-stories.jpg)
+[Testing Library](https://testing-library.com/) offers a convenient API for simulating user interactions—click, drag, tap, type, etc. Whereas [Jest](https://jestjs.io/) provides assertion utilities. We'll use Storybook-instrumented versions of these two tools to write the test. Therefore, you get a familiar developer-friendly syntax to interact with the DOM, but with extra telemetry to help with debugging.
 
-When you write your test cases as stories, any form of assertion can be layered on top. Let’s try that out. Create the `InboxScreen.test.js` file and write the first test. Like the example above, we are importing a story into this test and mounting it using the `render` function from Testing-Library.
+The test itself will be housed inside a [play function](https://storybook.js.org/docs/react/writing-stories/play-function). This snippet of code gets attached to a story and runs after the story is rendered.
 
-The `it` block describes our test. We start by rendering the component, waiting for it to fetch data, finding a particular task, and clicking the pin button. The assertion checks to see if the pinned state has been updated. Finally, the `afterEach` block cleans up by un-mounting React trees mounted during the test.
+Let's add in our first interaction test to verify that the user can pin a task:
 
-```javascript:title=src/InboxScreen.test.js
+```javascript:title=src/InboxScreen.stories.js
 import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  waitFor,
-  cleanup,
-  within,
-  fireEvent,
-} from '@testing-library/react';
-import * as stories from './InboxScreen.stories';
+import { rest } from 'msw';
+import { InboxScreen } from './InboxScreen';
+import { Default as TaskListDefault } from './components/TaskList.stories';
 
-describe('InboxScreen', () => {
-  afterEach(() => {
-    cleanup();
-  });
+import { within, userEvent, findByRole } from '@storybook/testing-library';
+import { expect } from '@storybook/jest';
 
-  const { Default } = stories;
+// ... code omitted for brevity ...
 
-  it('should pin a task', async () => {
-    const { queryByText, getByRole } = render(<Default />);
+export const PinTask = Template.bind({});
+PinTask.parameters = Default.parameters;
+PinTask.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const getTask = (name) => canvas.findByRole('listitem', { name });
 
-    await waitFor(() => {
-      expect(queryByText('You have no tasks')).not.toBeInTheDocument();
-    });
+  // Find the task to pin
+  const itemToPin = await getTask('Export logo');
 
-    const getTask = () => getByRole('listitem', { name: 'Export logo' });
+  // Find the pin button
+  const pinButton = await findByRole(itemToPin, 'button', { name: 'pin' });
 
-    const pinButton = within(getTask()).getByRole('button', { name: 'pin' });
+  // Click the pin button
+  await userEvent.click(pinButton);
 
-    fireEvent.click(pinButton);
-
-    const unpinButton = within(getTask()).getByRole('button', {
-      name: 'unpin',
-    });
-
-    expect(unpinButton).toBeInTheDocument();
-  });
-});
+  // Check that the pin button is now a unpin button
+  const unpinButton = within(itemToPin).getByRole('button', { name: 'unpin' });
+  await expect(unpinButton).toBeInTheDocument();
+};
 ```
 
-Run `yarn test` to start up Jest. You’ll notice that the test fails.
+Each play function receives the Canvas element—the top-level container of the story. You can scope your queries to just within this element, making it easier to find DOM nodes.
 
-![](/ui-testing-handbook/yarn-test-fail.png)
+We're looking for the "Export logo" task in our case. Then find the pin button within it and click it. Finally, we check to see if the button has updated to the unpinned state.
 
-`InboxScreen` fetches data from the back-end. In the [previous chapter](../composition-testing), we set up [Storybook MSW addon](https://storybook.js.org/addons/msw-storybook-addon/) to mock this API request. However, that isn’t available to Jest. We’ll need a way to bring this and other component dependencies along.
+When Storybook finishes rendering the story, it executes the steps defined within the play function, interacting with the component and pinning a task—similar to how a user would do it. If you check your [interactions panel](https://storybook.js.org/docs/react/writing-tests/interaction-testing#interactive-debugger), you'll see the step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
-### Component configs to go
+![](/ui-testing-handbook/pin-task.gif)
 
-Complex components rely on external dependencies such as theme providers and context to share global data. Storybook uses [decorators](https://storybook.js.org/docs/react/writing-stories/decorators) to wrap a story and provide such functionality. To import stories along with all their config, we'll use the [@storybook/testing-react](https://github.com/storybookjs/testing-react) library.
+### Execute tests with test runner
 
-This is usually a two-step process. First, we need to register all global decorators. In our case, we have two: a decorator that provides the Chakra UI theme and one for the MSW addon. Both configured via the [`.storybook/preview`](https://github.com/chromaui/ui-testing-guide-code/blob/interaction-testing/.storybook/preview.js) file.
+Now that we have our first test down, let's go ahead and add tests for the archive and edit task functionalities.
 
-Jest offers a global setup file `setupTests.js`, auto-generated by CRA when the project is bootstrapped. Update that file to register Storybook’s global config.
+```javascript:title=src/InboxScreen.stories.js
+// ... code omitted for brevity ...
 
-```javascript:title=setupTests.js
-import '@testing-library/jest-dom';
+export const ArchiveTask = Template.bind({});
+ArchiveTask.parameters = Default.parameters;
+ArchiveTask.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const getTask = (name) => canvas.findByRole('listitem', { name });
 
-import { setGlobalConfig } from '@storybook/testing-react';
-import * as globalStorybookConfig from '../.storybook/preview';
+  const itemToArchive = await getTask('QA dropdown');
+  const archiveCheckbox = await findByRole(itemToArchive, 'checkbox');
+  await userEvent.click(archiveCheckbox);
 
-setGlobalConfig(globalStorybookConfig);
+  await expect(archiveCheckbox.checked).toBe(true);
+};
+
+export const EditTask = Template.bind({});
+EditTask.parameters = Default.parameters;
+EditTask.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const getTask = (name) => canvas.findByRole('listitem', { name });
+
+  const itemToEdit = await getTask('Fix bug in input error state');
+  const taskInput = await findByRole(itemToEdit, 'textbox');
+
+  userEvent.type(taskInput, ' and disabled state');
+  await expect(taskInput.value).toBe('Fix bug in input error state and disabled state');
+};
 ```
 
-Next, update the test to use the `composeStories` utility from `@storybook/testing-react`. It returns a 1:1 map of the stories with all decorators applied to them. And voilà, our test is passing!
+You should now see stories for these scenarios. Storybook only runs the interaction test when you’re viewing a story. Therefore, you'd have to go through each story to run all your checks.
 
-```javascript:title=src/InboxScreen.test.js
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  waitFor,
-  cleanup,
-  within,
-  fireEvent,
-} from '@testing-library/react';
-import { composeStories } from '@storybook/testing-react';
-import { getWorker } from 'msw-storybook-addon';
-import * as stories from './InboxScreen.stories';
+It's unrealistic to manually review the entire Storybook whenever you make a change. Storybook test runner automates that process. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all your interactions tests and catches broken stories.
 
-describe('InboxScreen', () => {
-  afterEach(() => {
-    cleanup();
-  });
+![](/ui-testing-handbook/more-tests.png)
 
-  // Clean up after all tests are done, preventing this
-  // interception layer from affecting irrelevant tests
-  afterAll(() => getWorker().close());
+Start the test runner (in a separate terminal window):
 
-  const { Default } = composeStories(stories);
-
-  it('should pin a task', async () => {
-    const { queryByText, getByRole } = render(<Default />);
-
-    await waitFor(() => {
-      expect(queryByText('You have no tasks')).not.toBeInTheDocument();
-    });
-
-    const getTask = () => getByRole('listitem', { name: 'Export logo' });
-
-    const pinButton = within(getTask()).getByRole('button', { name: 'pin' });
-
-    fireEvent.click(pinButton);
-
-    const unpinButton = within(getTask()).getByRole('button', {
-      name: 'unpin',
-    });
-
-    expect(unpinButton).toBeInTheDocument();
-  });
-});
+```bash
+yarn test-storybook --watch
 ```
 
-We’ve successfully written a test that loads up a story and renders it using Testing Library. Which then applies simulated user behaviour and checks to see if the component state is updated accurately or not.
+![](/ui-testing-handbook/test-runner.png)
 
-![](/ui-testing-handbook/yarn-test-pass.png)
+It'll verify whether all stories rendered without any errors and that all assertions are passed. If a test fails, you get a link that opens up the failing story in the browser.
 
-Using the same pattern, we can also add tests for the archive and editing scenarios.
+![](/ui-testing-handbook/click-to-debug.gif)
 
-```javascript
-it('should archive a task', async () => {
-  const { queryByText, getByRole } = render(<Default />);
-
-  await waitFor(() => {
-    expect(queryByText('You have no tasks')).not.toBeInTheDocument();
-  });
-
-  const task = getByRole('listitem', { name: 'QA dropdown' });
-  const archiveCheckbox = within(task).getByRole('checkbox');
-  expect(archiveCheckbox.checked).toBe(false);
-
-  fireEvent.click(archiveCheckbox);
-  expect(archiveCheckbox.checked).toBe(true);
-});
-
-it('should edit a task', async () => {
-  const { queryByText, getByRole } = render(<Default />);
-
-  await waitFor(() => {
-    expect(queryByText('You have no tasks')).not.toBeInTheDocument();
-  });
-
-  const task = getByRole('listitem', {
-    name: 'Fix bug in input error state',
-  });
-  const taskInput = within(task).getByRole('textbox');
-
-  const updatedTaskName = 'Fix bug in the textarea error state';
-
-  fireEvent.change(taskInput, {
-    target: { value: 'Fix bug in the textarea error state' },
-  });
-  expect(taskInput.value).toBe(updatedTaskName);
-});
-```
-
-In summary, the setup code lives in the stories file, and the actions and assertions live in the test file. With Testing Library, we interacted with the UI in the way a user would. In the future, if the component implementation changes, it will only break the test if the output or behaviour is modified.
-
-![](/ui-testing-handbook/yarn-test-all.png)
+In summary, the setup code and test both collocated in the stories file. Using a play function, we interacted with the UI the way a user would. Storybook interaction tests combine the intuitive debugging environment of a live browser with the performance and scriptability of headless browsers.
 
 ## Catching usability issues
 
