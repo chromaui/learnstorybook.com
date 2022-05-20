@@ -2,7 +2,7 @@
 title: 'Testing user flows'
 tocTitle: 'User flow'
 description: 'Verify that your UI works end-to-end'
-commit: 'e7a2c1b'
+commit: 'af07d06'
 ---
 
 Debugging in production is a nightmare. You have to check every layer of your app. Is it a component bug, a misfiring event, styling, app state, or perhaps a broken API? It could be any of the above, and you have to untangle why.

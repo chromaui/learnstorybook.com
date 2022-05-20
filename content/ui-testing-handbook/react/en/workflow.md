@@ -2,7 +2,7 @@
 title: 'UI Testing Playbook'
 tocTitle: 'Workflow'
 description: 'A testing workflow that doesn’t slow you down'
-commit: '0fde846'
+commit: '81c0264'
 ---
 
 It's easy to find tools that test different parts of the UI. But knowing how to combine them into a productive workflow is tricky. If you get it wrong, it spirals into a maintenance nightmare.
@@ -21,10 +21,10 @@ The Task component already allows users to edit, pin and archive a task. We'll a
 
 For this demo, let's jump straight to the point where you're ready to test. Download the updated files and place them in the `/src` directory:
 
-- [src/components/Task.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/83c4adfc1f4ccee57278f8cfce539af1c1aa2463/src/components/Task.js)
-- [src/components/TaskList.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/83c4adfc1f4ccee57278f8cfce539af1c1aa2463/src/components/TaskList.js)
-- [src/InboxScreen.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/83c4adfc1f4ccee57278f8cfce539af1c1aa2463/src/InboxScreen.js)
-- [src/useTasks.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/83c4adfc1f4ccee57278f8cfce539af1c1aa2463/src/useTasks.js)
+- [src/components/Task.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/components/Task.js)
+- [src/components/TaskList.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/components/TaskList.js)
+- [src/InboxScreen.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/InboxScreen.js)
+- [src/useTasks.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/useTasks.js)
 
 ### Visual & Composition tests
 

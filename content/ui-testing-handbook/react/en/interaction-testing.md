@@ -2,7 +2,7 @@
 title: 'Testing component interactions'
 tocTitle: 'Interaction'
 description: 'Learn how to simulate user behaviour and run functional checks'
-commit: '20027df'
+commit: '4ad3421'
 ---
 
 You flip the switch, and the light doesn’t turn on. It could be a burnt-out light bulb, or it could be faulty wiring. The switch and the bulb are connected to each other with wires inside the walls.

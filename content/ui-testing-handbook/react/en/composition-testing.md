@@ -2,7 +2,7 @@
 title: 'Testing composite components'
 tocTitle: 'Composition'
 description: 'Prevent minor changes from turning into major regressions'
-commit: '60b8d8f'
+commit: '2c8173d'
 ---
 
 In Jan 2021, [Tesla recalled 158,000 cars](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-s-x-touchscreens-bricked-failure-nhtsa) because one module—the display—malfunctioned. With a broken display console, you can’t access the backup camera, turn signals, or driver assistance. That significantly increases the risk of a crash.
