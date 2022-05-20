@@ -102,7 +102,7 @@ DeleteTask.play = async ({ canvasElement }) => {
   });
   await userEvent.click(deleteButton);
 
-  expect(canvas.getAllByRole('listitem').length).toBe(5);
+  await expect(canvas.getAllByRole('listitem').length).toBe(5);
 };
 ```
 
