@@ -23,9 +23,7 @@ Taskbox はピン留めされたタスクを通常のタスクより上部に表
 
 まずは `TaskList` の大まかな実装から始めます。前の章で作成した `Task` コンポーネントをインポートし、属性とアクションを入力として渡します。
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -46,7 +44,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map((task) => (
+      {tasks.map(task => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -56,9 +54,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 次に `Tasklist` のテスト状態をストーリーファイルに記述します。
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
 import TaskList from './TaskList';
@@ -67,15 +63,15 @@ import * as TaskStories from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = (args) => <TaskList {...args} />;
+const Template = args => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
   // Shaping the stories through args composition.
-  // The data was inherited from the Default story in task.stories.js.
+  // The data was inherited from the Default story in Task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -112,7 +108,7 @@ Empty.args = {
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、<code>decorators</code> というキーをデフォルトエクスポートに追加し、描画するコンポーネントの周りに <code>padding</code> を設定してます。ストーリーで使用する「プロバイダー」(例えば、React のコンテキストを設定するライブラリコンポーネントなど) を使うためにも使用します。
+💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、<code>decorators</code> というキーをデフォルトエクスポートに追加し、描画するコンポーネントの周りに <code>padding</code> を設定してます。ストーリーで使用する「プロバイダー」(例えば、React のコンテキストを設定するライブラリコンポーネントなど) を使うためにも使用します。
 </div>
 
 `TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/react/writing-stories/args#args-composition)ことができます。そうすることで、2 つのコンポーネントが想定するデータとアクション (呼び出しのモック) の一貫性が保たれます。
@@ -130,9 +126,7 @@ Empty.args = {
 
 今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。`TaskList` の**本当の複雑さ**は `withPinnedTasks`、`loading`、`empty` といったエッジケースに現れているのです。
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -142,7 +136,6 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     onPinTask,
     onArchiveTask,
   };
-
   const LoadingRow = (
     <div className="loading-item">
       <span className="glow-checkbox" />
@@ -153,7 +146,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   );
   if (loading) {
     return (
-      <div className="list-items">
+      <div className="list-items" data-testid="loading" key={"loading"}>
         {LoadingRow}
         {LoadingRow}
         {LoadingRow}
@@ -165,7 +158,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
   if (tasks.length === 0) {
     return (
-      <div className="list-items">
+      <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
           <div className="title-message">You have no tasks</div>
@@ -174,9 +167,10 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
+
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === "TASK_PINNED"),
+    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
   ];
   return (
     <div className="list-items">
@@ -203,31 +197,29 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 コンポーネントが大きくなるにつれ、入力の要件も増えていきます。`TaskList` のプロパティの要件を定義しましょう。`Task` が子供のコンポーネントなので、`Task` を表示するのに正しいデータ構造が渡されていることを確認しましょう。時間を節約するため、前の章で `Task` に定義した `propTypes` を再利用しましょう。
 
-```javascript
-// src/components/TaskList.js
-
+```diff:title=src/components/TaskList.js
 import React from 'react';
-import PropTypes from 'prop-types';
++ import PropTypes from 'prop-types';
 
 import Task from './Task';
 
-export default function TaskList() {
+export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   ...
 }
 
-TaskList.propTypes = {
-  /** Checks if it's in loading state */
-  loading: PropTypes.bool,
-  /** The list of tasks */
-  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** Event to change the task to pinned */
-  onPinTask: PropTypes.func,
-  /** Event to change the task to archived */
-  onArchiveTask: PropTypes.func,
-};
-TaskList.defaultProps = {
-  loading: false,
-};
++ TaskList.propTypes = {
++  /** Checks if it's in loading state */
++  loading: PropTypes.bool,
++  /** The list of tasks */
++  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
++  /** Event to change the task to pinned */
++  onPinTask: PropTypes.func,
++  /** Event to change the task to archived */
++  onArchiveTask: PropTypes.func,
++ };
++ TaskList.defaultProps = {
++  loading: false,
++ };
 ```
 
 ## 自動テスト
@@ -248,27 +240,28 @@ Storybook のストーリーと、手動のテスト、スナップショット�
 
 `src/components/TaskList.test.js` にテストファイルを作ります。以下に、出力を検証するテストコードを示します。
 
-```javascript
-// src/components/TaskList.test.js
+```js:title=src/components/TaskList.test.js
+import { render } from '@testing-library/react';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import '@testing-library/jest-dom/extend-expect';
+import { composeStories } from '@storybook/testing-react';
 
-import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
+import * as TaskListStories from './TaskList.stories'; //👈  Our stories imported here
+
+//👇 composeStories will process all information related to the component (e.g., args)
+const { WithPinnedTasks } = composeStories(TaskListStories);
 
 it('renders pinned tasks at the start of the list', () => {
-  const div = document.createElement('div');
-  //👇 Story's args used with our test
-  ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
+  const { container } = render(<WithPinnedTasks />);
 
-  // We expect the task titled "Task 6 (pinned)" to be rendered first, not at the end
-  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
-  expect(lastTaskInput).not.toBe(null);
-
-  ReactDOM.unmountComponentAtNode(div);
+  expect(
+    container.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]')
+  ).not.toBe(null);
 });
 ```
+
+<div class="aside">
+💡 <a href="">@storybook/testing-react</a> は Storybook のストーリーをユニットテストで再利用できる素晴らしいアドオンです。テスト内でストーリーを再利用することで、コンポーネントシナリオのカタログができあがり、テストすることができるようになります。また、ストーリーのすべての引数やデコレータ、その他の情報は、このライブラリによって構成されます。先ほど見たように、テストの中で行うことはどのストーリーをレンダリングするかを選択することだけです。
+</div>
 
 ![TaskList のテストランナー](/intro-to-storybook/tasklist-testrunner.png)
 
@@ -277,5 +270,5 @@ it('renders pinned tasks at the start of the list', () => {
 ただし、このテストは非常に脆いことにも留意してください。プロジェクトが成熟し、`Task` の実装が変わっていく (たとえば、別のクラス名に変更されたり、`input` 要素ではなく `textarea` に変更されたりする) と、テストが失敗し、更新が必要となる可能性があります。これは必ずしも問題とならないかもしれませんが、UI の単体テストを使用する際の注意点です。UI の単体テストはメンテナンスが難しいのです。可能な限り手動のテストや、スナップショットテスト、視覚的なリグレッションテスト ([テストの章](/intro-to-storybook/react/ja/test/)を参照してください) に頼るようにしてください。
 
 <div class="aside">
-Git へのコミットを忘れずに行ってください！
+💡 Git へのコミットを忘れずに行ってください！
 </div>

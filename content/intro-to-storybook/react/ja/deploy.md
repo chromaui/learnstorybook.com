@@ -78,11 +78,9 @@ yarn chromatic --project-token=<project-token>
 
 プロジェクトのルートフォルダーに `.github` というフォルダーを作成し、さらにその中に `workflows` というフォルダーを作成します。
 
-`chromatic.yml` を以下の内容で新規に作成します。`project-token` を先ほどのトークンで置き換えてください。
+`chromatic.yml` を以下の内容で新規に作成します。
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
 name: 'Chromatic Deployment'
 
@@ -107,9 +105,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside">
-<p>簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
-</div>
+<div class="aside"><p>💡 簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p></div>
 
 ### アクションをコミットする
 
