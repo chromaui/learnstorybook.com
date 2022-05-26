@@ -1,7 +1,7 @@
 const JapaneseLanguageMap = {
   guidenotupdated:
-    'このコミュニティの翻訳は、最新のストーリーブックバージョンにまだ更新されていません。この翻訳の日本語ガイドの変更を適用して、更新にご協力ください。',
-  pullrequestmessage: 'Pull requests 彼らは大歓迎です',
+    'このコミュニティの翻訳は、最新の Storybook バージョンに対応していません。英語ガイドの最新の変更を適用して、この日本語ガイドの更新にご協力ください。',
+  pullrequestmessage: 'Pull requests を大歓迎します。',
 };
 
 export default JapaneseLanguageMap;
