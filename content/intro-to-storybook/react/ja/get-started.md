@@ -16,12 +16,12 @@ Storybook を開発プロセスに組み込むにあたり、いくつかの手�
 それでは、次のコマンドを実行してください:
 
 ```bash
-# テンプレートをクローンする:
+# Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# 依存パッケージをインストールする:
+# Install dependencies
 yarn
 ```
 
@@ -32,13 +32,13 @@ yarn
 それでは、さまざまな環境でアプリケーションが問題なく動くことを次のコマンドで確認しましょう:
 
 ```bash
-# ターミナルでテストランナー (Jest) を開始する:
+# Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# ポート 6006 でコンポーネントエクスプローラーを起動する:
+# Start the component explorer on port 6006:
 yarn storybook
 
-# ポート 3000 でフロントエンドアプリケーションを起動する:
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 
