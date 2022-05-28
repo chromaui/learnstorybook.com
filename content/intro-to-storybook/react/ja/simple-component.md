@@ -96,7 +96,7 @@ Storybook にコンポーネントを認識させるには、以下の内容を�
 コンポーネントにストーリーが複数連なっているので、各ストーリーを単一の `Template` 変数に割り当てるのが便利です。このパターンを導入することで、書くべきコードの量が減り、保守性も上がります。
 
 <div class="aside">
-💡 <code>Template.bind({})</code> は関数のコピーを作成する [JavaScript の標準的な](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
+💡 <code>Template.bind({})</code> は関数のコピーを作成する <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">JavaScript の標準的な</a> テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
 </div>
 
 Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-stories/args)) を使用することで、コントロールアドオンを通して、Storybook を再起動することなく、コンポーネントを動的に編集することができるようになります。[`args`](https://storybook.js.org/docs/react/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
