@@ -40,10 +40,10 @@ yarn add --dev prettier
 스토리북을 설치하고 실행해 보세요.
 
 ```shell
-# 스토리북을 설치합니다.
+# Installs Storybook
 npx sb init
 
-# 개발 모드에서 스토리북을 시작합니다.
+# Starts Storybook in development mode
 yarn storybook
 ```
 
@@ -94,8 +94,8 @@ export const GlobalStyle = createGlobalStyle`
 + import { GlobalStyle } from '../src/shared/global';
 
 /*
- * 모든 스토리에 스타일을 적용하는 글로벌 데코레이터
- * 데코레이터에 대해 자세히 알아보기:
+ * Global decorator to apply the styles to all stories
+ * Read more about them at:
  * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
  */
 + export const decorators = [
@@ -108,7 +108,7 @@ export const GlobalStyle = createGlobalStyle`
 + ];
 
 /*
- * 전역 매개변수에 대해 자세히 알아보기:
+ * Read more about global parameters at:
  * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
  */
 export const parameters = {
@@ -148,8 +148,8 @@ import React from 'react';
 
 import styled from 'styled-components';
 
-//사용자가 버튼을 클릭하면, `action()`함수를 호출합니다.
-//결론적으로 스토리북의 애드온 패널에 보여지게 됩니다.
+// When the user clicks a button, it will trigger the `action()`,
+// ultimately showing up in Storybook's addon panel.
 
 function ButtonWrapper(props) {
   return <CustomButton {...props} />;
@@ -185,7 +185,7 @@ export default {
   title: 'Design System/Avatar',
   component: Avatar,
   /*
-   * 더 많은 스토리북 인수 타입 -
+   * More on Storybook argTypes at:
    * https://storybook.js.org/docs/react/api/argtypes
    */
   argTypes: {
@@ -198,18 +198,18 @@ export default {
   },
 };
 
-// 다른 Avatar 스토리
+// Other Avatar stories
 
 /*
- * 새로운 스토리는 Controls를 사용합니다
- * 더 많은 스토리북 템플릿 - 
+ * New story using Controls
+ * Read more about Storybook templates at:
  * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
  */
 const Template = args => <Avatar {...args} />;
 
 export const Controls = Template.bind({});
 /*
- * 더 많은 인수(args)들 -
+ * More on args at:
  * https://storybook.js.org/docs/react/writing-stories/args
  */
 Controls.args = {
@@ -273,9 +273,9 @@ export default {
   component: Button,
 };
 
-// 이외의 버튼 스토리들
+// Other Button stories
 
-+ // play 함수를 사용하는 새로운 스토리
++ // New story using the play function
 + export const WithInteractions = () => (
 +   <Button
 +     ButtonWrapper={StoryLinkWrapper}
@@ -285,7 +285,7 @@ export default {
 +    </Button>
 + );
 + WithInteractions.play = async ({ canvasElement }) => {
-+   //root 엘리먼트에 캔버스 할당
++   // Assigns canvas to the component root element
     
 +   const canvas = within(canvasElement);
 +   await userEvent.click(canvas.getByRole("link"));

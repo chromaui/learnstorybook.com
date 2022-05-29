@@ -53,7 +53,6 @@ UI를 공동으로 개발하는 작업환경에서 문서화가 매우 ​​중
 컴포넌트의 기능을 설명하는 메타 데이터를 추가하는 것으로 시작하세요. `src/Avatar.stories.js`에, Avatar의 용도를 설명하는 부제를 추가하세요.
 
 ```diff:title=src/Avatar.stories.js
-
 import React from 'react';
 
 import { Avatar } from './Avatar';
@@ -62,7 +61,7 @@ export default {
   title: 'Design System/Avatar',
   component: Avatar,
   /*
-  * 스토리북 인수 타입(argTypes)에 대한 자세한 내용은 다음 사이트를 참조하세요. -
+  * More on Storybook argTypes at:
   * https://storybook.js.org/docs/react/api/argtypes
   */
   argTypes: {
@@ -74,11 +73,11 @@ export default {
     },
   },
   /*
-  * 스토리북 매개변수에 대한 자세한 내용은 다음 사이트를 참조하세요. - 
+  * More on Storybook parameters at:
   * https://storybook.js.org/docs/react/writing-stories/parameters#component-parameters
   */
 + parameters: {
-+   componentSubtitle: '사용자 또는 조직을 나타내는 이미지를 표시합니다.',
++   componentSubtitle: 'Displays an image that represents a user or organization',
 + },
 };
 ```
@@ -87,11 +86,10 @@ export default {
 
 ```js:title=src/Avatar.js
 /**
-- Avatar를 사용하여 특정 사용자에게 액션이나 콘텐츠를 제공합니다.
-- Avatar를 사용할 때 사용자 이름은 항상 Avatar 옆에 인쇄되거나 툴팁에 표시되어야 합니다.
+- Use an avatar for attributing actions or content to specific users.
+- The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
 **/
-
-export function Avatar({ loading, user name, src, size, ... props }) {
+export function Avatar({ loading, username, src, size, ...props }) {
 ```
 
 이제 다음을 확인할 수 있습니다.-
@@ -100,23 +98,23 @@ export function Avatar({ loading, user name, src, size, ... props }) {
 
 스토리북의 문서(Docs)에 스토리 종류와 기본값을 보여주는 인자 테이블이 자동으로 생성되었습니다. 이 방식은 편리하기는 하지만  `Avatar`가 완벽하게 구현되었다는 것을 의미하는 것은 아닙니다. 몇몇 인자들(props)을 오용할 가능성이 있습니다. 자동 생성된 prop 테이블에서 Avatar를 렌더링하려면 `propTypes` 내부에 코멘트를 추가하면 됩니다.
 
-```javascript:title=src/Avatar.js
+```js:title=src/Avatar.js
 Avatar.propTypes = {
   /**
-    로딩 상태를 사용하여 Avatar에 필요한 데이터가 아직 로딩 중임을 나타냅니다.
+    Use the loading state to indicate that the data Avatar needs is still loading.
     */
   loading: PropTypes.bool,
   /**
-    Avatar는 이미지가 제공되지 않으면 사용자의 이니셜로 돌아갑니다.
-    `username`을 제공하고 `src`를 생략하는 방법으로 이것이 어떻게 생겼는지 확인해 보세요.
+    Avatar falls back to the user's initial when no image is provided. 
+    Supply a `username` and omit `src` to see what this looks like.
     */
   username: PropTypes.string,
   /**
-    Avatar 이미지의 URL입니다.
+    The URL of the Avatar's image.
     */
   src: PropTypes.string,
   /**
-    Avatar는 4가지 크기로 제공됩니다. 대부분의 경우 '중간'크기로 지정됩니다.
+    Avatar comes in four sizes. In most cases, you'll be fine with `medium`.
     */
   size: PropTypes.oneOf(Object.keys(sizes)),
 };
@@ -133,7 +131,7 @@ export default {
   title: 'Design System/Avatar',
   component: Avatar,
   /*
-  * Storybook argTypes에 대한 자세한 내용은 다음 사이트를 참조하십시오. -
+  * More on Storybook argTypes at:
   * https://storybook.js.org/docs/react/api/argtypes
   */
   argTypes: {
@@ -150,7 +148,7 @@ export default {
   },
 };
 
-// 또다른 Avatar stories
+// Other Avatar stories
 
 export const Sizes = (args) => (
   <div>
@@ -162,7 +160,7 @@ export const Sizes = (args) => (
 );
 
 /*
- * 컴포넌트 Storybook Arg에 대한 자세한 내용은 다음 사이트를 참조하세요. - 
+ * More on component Storybook args at
  * https://storybook.js.org/docs/react/writing-stories/args#story-args
  */
 Sizes.args = {
@@ -171,12 +169,12 @@ Sizes.args = {
 };
 
 /*
- * 컴포넌트 Storybook 파라미터에 대한 자세한 내용은 다음 사이트를 참조하세요. -
+ * More on component Storybook parameters at:
  * https://storybook.js.org/docs/react/writing-stories/parameters#story-parameters
  */
 + Sizes.parameters = {
 +   docs: {
-+     // 스토리는 이제 설명을 포함합니다.
++     // The story now contains a description
 +     storyDescription: '4 sizes are supported.',
 +   },
 + };
@@ -199,7 +197,6 @@ Markdown은 텍스트 작성을 위한 직관적인 서식입니다. MDX를 사�
 
 ```js:title=.storybook/main.js
 module.exports = {
-  // *.stories.js|mdx로 끝나는 모든 파일을 자동으로 가져옵니다.
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
@@ -288,7 +285,7 @@ export const Template = (args) => <Avatar {...args} />;
 
 ### Sizes
 
-4가지 크기가 지원됩니다.
+4 가지 크기가 지원됩니다.
 
 <Story name="sizes">
   <div>

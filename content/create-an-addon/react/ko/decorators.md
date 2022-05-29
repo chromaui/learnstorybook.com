@@ -18,12 +18,12 @@ import { useEffect, useGlobals } from '@storybook/addons';
 
 export const withGlobals = (StoryFn, context) => {
   const [{ outlineActive }, updateGlobals] = useGlobals();
-  // 문서 패널에서 애드온을 사용하는지 여부
+  // Is the addon being used in the docs panel
   const isInDocs = context.viewMode === 'docs';
 
   useEffect(() => {
-    // 이 곳에서 부수 작용(side effect)을 실행하세요.
-    // 예를 들어, 미리보기 콘텐츠를 여기서 다뤄보세요.
+    // Execute your side effect here
+    // For example, to manipulate the contents of the preview
     const selectorId = isInDocs ? `#anchor--${context.id} .docs-story` : `root`;
 
     displayToolState(selectorId, { outlineActive, isInDocs });
@@ -66,7 +66,7 @@ import outlineCSS from './outlineCSS';
 
 export const withGlobals = (StoryFn, context) => {
   const [{ outlineActive }, updateGlobals] = useGlobals();
-  // 문서 패널에서 애드온을 사용하는지 여부
+  // Is the addon being used in the docs panel
   const isInDocs = context.viewMode === 'docs';
 
   const outlineStyles = useMemo(() => {

@@ -102,22 +102,21 @@ test('has a href attribute when rendering with linkWrapper', () => {
 이전에 스토리북을 배포하도록 GitHub Action을 구성했고, 이제 테스트도 포함하도록 조정할 수 있습니다. 기여자들은 이제 이 단위 테스트의 혜택을 누릴 수 있고, Link 컴포넌트는 회귀를 방어할 수 있습니다.
 
 ```diff:title=.github/workflows/chromatic.yml
-# ... 이전과 동일
+# ... Same as before
 jobs:
   test:
-    # 실행할 운영 체제
+    # The operating system it will run on
     runs-on: ubuntu-latest
-    # 작업이 진행될 단계 목록
+    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-+      - run: yarn test # 테스트 명령을 추가합니다.
-      #👇 작업절차 중 한 단게로서 크로마틱을 추가합니다.
++     - run: yarn test # Adds the test command
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # GitHub chromatic action에 필요한 옵션
+        # Options required for Chromatic's GitHub Action
         with:
-          #👇 크로마틱 프로젝트 토큰을 얻기 위해서는 다음을 참고하세요.
-          # https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/ (업데이트 링크)
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ to obtain it
           projectToken: project-token
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -169,7 +168,7 @@ import React from 'react';
 import { GlobalStyle } from '../src/shared/global';
 
 /*
-* Storybook global-devorators에 대한 자세한 내용은 다음 웹 사이트를 참조하세요. -
+* More on Storybook global decorators at:
 * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
 */
 export const decorators = [
@@ -182,16 +181,16 @@ export const decorators = [
 ];
 
 /*
-* 스토리북의 더 많은 global parameter들은 여기로 - 
+* More on Storybook global parameters at:
 * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
 */
 + export const parameters = {
 +   actions: { argTypesRegex: '^on[A-Z].*' },
-+   // 스토리북 a11y 애드온 설정
++   // Storybook a11y addon configuration
 +   a11y: {
-+     // 타겟 DOM 엘리먼트
++     // the target DOM element
 +     element: '#root',
-+     // 애드온의 실행 모드를 설정
++     // sets the execution mode for the addon
 +     manual: false,
 +   },
 + };

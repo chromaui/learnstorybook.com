@@ -111,7 +111,7 @@ dist
 패키지의 사용자가 필요한 모든 정보를 얻을 수 있도록 `package.json`을 수정해야합니다. 가장 쉬운 방법은 `yarn init`을 실행하는 것입니다. -- 이 명령어는 배포를 위한 패키지의 초기 상태를 설정합니다. - 
 
 ```shell
-# 스코프된 패키지 초기화
+# Initializes a scoped package
 yarn init --scope=@your-npm-username
 
 yarn init v1.22.5
@@ -294,22 +294,22 @@ yarn auto release
 PR을 매번 merge 할 때마다, 우리는 자동적으로 디자인 시스템이 배포되길 원할 것입니다. `push.yml`이라는 새로운 이름의 파일을 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a>에서 썼던 폴더와 같은 위치에 생성하고 다음과 같이 추가합니다. - 
 
 ```yml:title=.github/workflows/push.yml
-# action의 이름
+# Name of our action
 name: Release
 
-# action을 발생시킬 이벤트
+# The event that will trigger the action
 on:
   push:
     branches: [main]
 
-# action이 무엇을 할 것인지
+# what the action will do
 jobs:
   release:
-    # 실행될 운영 체제
+    # The operating system it will run on
     runs-on: ubuntu-latest
-    # 자동으로 배포될 루프와 github actions를 방지하려면 이 확인이 필요합니다
+    # This check needs to be in place to prevent a publish loop with auto and github actions
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
-    # action이 진행될 순서 목록
+    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v2
       - name: Prepare repository
@@ -328,7 +328,7 @@ jobs:
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #👇 npm 토큰, https://storybook.js.org/tutorials/design-systems-for-developers/react/en/distribute/ 다음 문서를 참조합니다
+          #👇 npm token, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/distribute/ to obtain it
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           yarn install --frozen-lockfile
@@ -362,15 +362,15 @@ jobs:
 예재 앱을 설정하기 위해서 커맨드 라인에 다음과 같이 명령어를 실행합니다. - 
 
 ```shell
-# 지역적으로 파일을 클론
+# Clones the files locally
 npx degit chromaui/learnstorybook-design-system-example-app example-app
 
 cd example-app
 
-# 의존성(dependencies)을 설치
+# Install the dependencies
 yarn install
 
-## 스토리북 실행
+## Start Storybook
 yarn storybook
 ```
 
@@ -428,14 +428,14 @@ yarn add @your-npm-username/learnstorybook-design-system
 ```js:title=.storybook/preview.js
 import React from 'react';
 
-// 디자인 시스템에서 import된 스타일
+// The styles imported from the design system.
 import { global as designSystemGlobal } from '@your-npm-username/learnstorybook-design-system';
 
 const { GlobalStyle } = designSystemGlobal;
 
 /*
- * 디자인 시스템에서 import된 스타일이 포함된 전역(global) 데코레이터(decorator)를 추가합니다.
- * 스토리북 데코레이터들에 대한 더 많은 정보는 아래를 참고하세요. - 
+ * Adds a global decorator to include the imported styles from the design system.
+ * More on Storybook decorators at:
  * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
  */
 export const decorators = [
@@ -447,7 +447,7 @@ export const decorators = [
   ),
 ];
 /*
- * 스토리북의 매개변수(parameters)에 대한 더 많은 정보는 아래를 참고하세요. -
+ * More on Storybook parameters at:
  * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
  */
 export const parameters = {

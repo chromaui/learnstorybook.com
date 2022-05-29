@@ -1,6 +1,6 @@
 ---
 title: '설치'
-description: '애드온 키트로 시작하기'
+description: '애드온 키트로 시작해보세요'
 commit: ''
 ---
 

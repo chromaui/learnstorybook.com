@@ -63,15 +63,15 @@ import * as TaskStories from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
 
-const Template = (args) => <TaskList {...args} />;
+const Template = args => <TaskList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  // 인수(args)를 통해 스토리를 형성합니다.
-  // 이 데이터는 Task.stories.js의 Default story에서 상속되었습니다.
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in Task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -84,8 +84,8 @@ Default.args = {
 
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // 인수(args)를 통해 스토리를 형성합니다.
-  // 위의 Default story에서 상속된 데이터입니다.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
@@ -100,8 +100,8 @@ Loading.args = {
 
 export const Empty = Template.bind({});
 Empty.args = {
-  // 인수(args)를 통해 스토리를 형성합니다.
-  // 위의 Loading story에서 상속된 데이터입니다.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };
@@ -199,26 +199,24 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 컴포넌트가 커질수록 입력에 필요한 데이터 요구사항도 함께 커집니다. `TaskList`에서 prop의 요구사항을 정의해봅시다. `Task`는 하위 컴포넌트이기 때문에 렌더링에 필요한 적합한 형태의 데이터를 제공해야 합니다. 시간 절약을 위해서 `Task`에서 사용한 `propTypes`를 재사용하겠습니다.
 
-```javascript
-//src/components/TaskList.js
-
+```diff:title=src/components/TaskList.js
 import React from 'react';
 + import PropTypes from 'prop-types';
 
 import Task from './Task';
 
-export default function TaskList() {
+export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   ...
 }
 
 + TaskList.propTypes = {
-+  /** loading 상태인지 확인하는 데이터 */
++  /** Checks if it's in loading state */
 +  loading: PropTypes.bool,
-+  /** 작업 목록 데이터 */
++  /** The list of tasks */
 +  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-+  /** 작업을 고정으로 변경하는 이벤트 */
++  /** Event to change the task to pinned */
 +  onPinTask: PropTypes.func,
-+  /** 작업 보관을 위한 이벤트 */
++  /** Event to change the task to archived */
 +  onArchiveTask: PropTypes.func,
 + };
 + TaskList.defaultProps = {
@@ -244,27 +242,27 @@ export default function TaskList() {
 
 `src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서 출력 값을 검증하는 테스트를 만들어보겠습니다.
 
-```javascript
-// src/components/TaskList.test.js
+```js:title=src/components/TaskList.test.js
+import { render } from '@testing-library/react';
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import '@testing-library/jest-dom/extend-expect';
+import { composeStories } from '@storybook/testing-react';
 
-import { WithPinnedTasks } from './TaskList.stories'; //👈 만든 스토리를 import 해줍니다.
+import * as TaskListStories from './TaskList.stories'; //👈  Our stories imported here
+
+//👇 composeStories will process all information related to the component (e.g., args)
+const { WithPinnedTasks } = composeStories(TaskListStories);
 
 it('renders pinned tasks at the start of the list', () => {
-  const div = document.createElement('div');
-  //👇 스토리의 인수를 테스트에 사용할 예정입니다.
-  ReactDOM.render(<WithPinnedTasks {...WithPinnedTasks.args} />, div);
+  const { container } = render(<WithPinnedTasks />);
 
-  //👇 "(고정된)Task 6" 이라는 작업이 마지막이 아닌, 처음으로 렌더링 되는 것을 예상합니다.
-  const lastTaskInput = div.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]');
-  expect(lastTaskInput).not.toBe(null);
-
-  ReactDOM.unmountComponentAtNode(div);
+  expect(
+    container.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]')
+  ).not.toBe(null);
 });
 ```
+<div class="aside">
+💡 <a href="">@storybook/testing-react</a>은 단위 테스트에서 스토리북 스토리를 재사용하게 해주는 매우 훌륭한 애드온입니다. 스토리를 테스트에서 재사용함으로써 테스트 준비가 된 컴포넌트 시나리오 카탈로그를 갖게 됩니다. 또한, 모든 인수, 데코레이터, 그리고 스토리의 모든 정보들이 이 라이브러리에 의해 조합될 것입니다. 방금 막 봤듯, 테스트에서는 어떤 스토리를 렌더링할 것인지 선택하는 것 뿐입니다.
+</div>
 
 ![TaskList 테스트 러너(runner)](/intro-to-storybook/tasklist-testrunner.png)
 

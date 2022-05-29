@@ -48,9 +48,9 @@ import { addons, types } from '@storybook/addons';
 import { ADDON_ID, TOOL_ID } from '../constants';
 import { Tool } from '../Tool';
 
-// 애드온을 등록하세요
+// Register the addon
 addons.register(ADDON_ID, () => {
-  // 툴을 등록하세요
+  // Register the tool
   addons.add(TOOL_ID, {
     type: types.TOOL,
     title: 'My addon',

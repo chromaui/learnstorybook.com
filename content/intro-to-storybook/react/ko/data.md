@@ -24,85 +24,57 @@ yarn add @reduxjs/toolkit react-redux
 먼저 `src/lib` 폴더의 `store.js` 파일(의도적으로 단순하게 작성함)에서 task의 상태(state)를 변경하는 동작에 반응하는 간단한 리덕스(Redux) 저장소를 구성해 보겠습니다.
 
 ```js:title=src/lib/store.js
+/* A simple redux store/actions/reducer implementation.
+ * A true app would be more complex and separated into different files.
+ */
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-// A simple redux store/actions/reducer implementation
-// The actions are the "names" of the changes that can happen to the store
-export const actions = {
-  ARCHIVE_TASK: 'ARCHIVE_TASK',
-  PIN_TASK: 'PIN_TASK',
-};
-
-// The action creators bundle actions with the data required to execute them
-export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
-
-// All our reducers simply change the state of a single task.
-function taskStateReducer(taskState) {
-  return (state, action) => {
-    return {
-      ...state,
-      tasks: state.tasks.map((task) =>
-        task.id === action.id ? { ...task, state: taskState } : task
-      ),
-    };
-  };
-}
-
-// The reducer describes how the contents of the store change for each action
-export const reducer = (state, action) => {
-  switch (action.type) {
-    case actions.ARCHIVE_TASK:
-      return taskStateReducer('TASK_ARCHIVED')(state, action);
-    case actions.PIN_TASK:
-      return taskStateReducer('TASK_PINNED')(state, action);
-    default:
-      return state;
-  }
-};
-
-// Usually you would fetch this from a server
-// The initial state of our store when the app loads.
-// A true app would be more complex and separated into different files.
-import { createStore } from 'redux';
-// A simple redux store/actions/reducer implementation.
+/*
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
+ */
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
   { id: '3', title: 'Something else', state: 'TASK_INBOX' },
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
+const TaskBoxData = {
+  tasks: defaultTasks,
+  status: 'idle',
+  error: null,
+};
 
 /*
- * 저장소는 여기서 만들어집니다.
- * 'slice'의 자세한 정보는 아래 문서에서 확인할 수 있습니다.
+ * The store is created here.
+ * You can read more about Redux Toolkit's slices in the docs:
  * https://redux-toolkit.js.org/api/createSlice
  */
 const TasksSlice = createSlice({
-  name: 'tasks',
-  initialState: defaultTasks,
+  name: 'taskbox',
+  initialState: TaskBoxData,
   reducers: {
     updateTaskState: (state, action) => {
       const { id, newTaskState } = action.payload;
-      const task = state.findIndex(task => task.id === id);
+      const task = state.tasks.findIndex((task) => task.id === id);
       if (task >= 0) {
-        state[task].state = newTaskState;
+        state.tasks[task].state = newTaskState;
       }
     },
   },
 });
 
-// slice 속 포함된 액션 사용을 위해 컴포넌트로부터 내보내집니다. 
+// The actions contained in the slice are exported for usage in our components
 export const { updateTaskState } = TasksSlice.actions;
 
 /*
- * 앱의 저장소 환경설정은 다음과 같습니다.
- * 리덕스의 configureStore 의 자세한 정보는 아래 문서에서 확인할 수 있습니다.
+ * Our app's store configuration goes here.
+ * Read more about Redux's configureStore in the docs:
  * https://redux-toolkit.js.org/api/configureStore
  */
 const store = configureStore({
   reducer: {
-    tasks: TasksSlice.reducer,
+    taskbox: TasksSlice.reducer,
   },
 });
 
@@ -113,46 +85,87 @@ export default store;
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import Task from './Task';
-
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTaskState } from '../lib/store';
 
-export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  /* TaskList의 이전 구현 */
+export default function TaskList() {
+  // We're retrieving our state from the store
+  const tasks = useSelector((state) => {
+    const tasksInOrder = [
+      ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
+      ...state.taskbox.tasks.filter((t) => t.state !== 'TASK_PINNED'),
+    ];
+    const filteredTasks = tasksInOrder.filter(
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+    );
+    return filteredTasks;
+  });
+
+  const { status } = useSelector((state) => state.taskbox);
+
+  const dispatch = useDispatch();
+
+  const pinTask = (value) => {
+    // We're dispatching the Pinned event back to our store
+    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
+  };
+  const archiveTask = (value) => {
+    // We're dispatching the Archive event back to our store
+    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
+  };
+  const LoadingRow = (
+    <div className="loading-item">
+      <span className="glow-checkbox" />
+      <span className="glow-text">
+        <span>Loading</span> <span>cool</span> <span>state</span>
+      </span>
+    </div>
+  );
+  if (status === 'loading') {
+    return (
+      <div className="list-items" data-testid="loading" key={"loading"}>
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+        {LoadingRow}
+      </div>
+    );
+  }
+  if (tasks.length === 0) {
+    return (
+      <div className="list-items" key={"empty"} data-testid="empty">
+        <div className="wrapper-message">
+          <span className="icon-check" />
+          <div className="title-message">You have no tasks</div>
+          <div className="subtitle-message">Sit back and relax</div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="list-items" data-testid="success" key={"success"}>
+      {tasks.map((task) => (
+        <Task
+          key={task.id}
+          task={task}
+          onPinTask={(task) => pinTask(task)}
+          onArchiveTask={(task) => archiveTask(task)}
+        />
+      ))}
+    </div>
+  );
 }
-
-PureTaskList.propTypes = {
-  /** loading 상태인지 확인하는 데이터 */
-  loading: PropTypes.bool,
-  /** 작업 목록 데이터 */
-  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-  /** 작업을 고정으로 변경하는 이벤트 */
-  onPinTask: PropTypes.func.isRequired,
-  /** 작업 아카이빙을 위한 이벤트 */
-  onArchiveTask: PropTypes.func.isRequired,
-};
-
-PureTaskList.defaultProps = {
-  loading: false,
-};
-
-export default connect(
-  ({ tasks }) => ({
-    tasks: tasks.filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
-  }),
-  (dispatch) => ({
-    onArchiveTask: (id) => dispatch(archiveTask(id)),
-    onPinTask: (id) => dispatch(pinTask(id)),
-  })
-)(PureTaskList);
 ```
 
 이제 컴포넌트를 생성할 실제 데이터를 리덕스에서 받았으므로, 이를 `src/app.js`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
 
 그에 대한 내용은 다음 챕터에서 다룰 것이므로 걱정하지 않으셔도 됩니다.
+
+## 데코레이터로 컨텍스트 제공하기
 
 이 단계에서 `TaskList`는 컨테이너이며 더 이상 어떠한 props도 받지 않기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다. 대신 `TaskList`는 Redux store에 연결하고 이를 감싸는 `PureTaskList`에서 props를 설정합니다.
 
