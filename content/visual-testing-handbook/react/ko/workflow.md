@@ -86,7 +86,7 @@ InboxTask.args = {
 export const SnoozedTask = Template.bind({});
 SnoozedTask.args = {
   task: {
-    // 인수(arguments)를 이용해 스토리를 작성해보기
+    // Shaping the stories through args composition.
     ...InboxTask.args.task,
     state: 'TASK_SNOOZED',
   },
@@ -95,7 +95,7 @@ SnoozedTask.args = {
 export const PinnedTask = Template.bind({});
 PinnedTask.args = {
   task: {
-    // 인수(arguments)를 이용해 스토리를 작성해보기
+    // Shaping the stories through args composition.
     ...InboxTask.args.task,
     state: 'TASK_PINNED',
   },
