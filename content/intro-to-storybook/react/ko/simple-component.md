@@ -127,6 +127,13 @@ module.exports = {
     '@storybook/preset-create-react-app',
     '@storybook/addon-interactions',
   ],
+  features: {
+    postcss: false,
+  },
+  framework: '@storybook/react',
+  core: {
+    builder: 'webpack4',
+  },
 };
 ```
 
@@ -148,7 +155,7 @@ export const parameters = {
 
 [`매개변수(parameters)`](https://storybook.js.org/docs/react/writing-stories/parameters)는 일반적으로 스토리북의 기능과 애드온의 동작을 제어하기 위하여 사용됩니다. 우리의 경우에는 이를 사용하여 `actions`(mocked callbacks)이 처리되는 방식을 구성할 것입니다.
 
-`actions`은 클릭이 되었을 때 스토리북 UI의 actions 패널에 나타날 콜백을 생성할 수 있도록 해줍니다. 따라서 Pin 버튼을 만들 때, 버튼 클릭이 성공적이었는지 테스트 UI에서 확인 할 수 있을 것입니다.
+`actions`은 클릭이 되었을 때 스토리북 UI의 **actions** 패널에 나타날 콜백을 생성할 수 있도록 해줍니다. 따라서 pin 버튼을 만들 때, 버튼 클릭이 성공적이었는지 테스트 UI에서 확인 할 수 있을 것입니다.
 
 이 작업이 끝난 뒤, 스토리북 서버를 재시작하면 세 가지 task 상태에 관한 테스트가 생성됩니다.
 
@@ -178,17 +185,22 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           disabled={true}
           name="checked"
         />
-        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
+        <span
+          className="checkbox-custom"
+          onClick={() => onArchiveTask(id)}
+          id={`archiveTask-${id}`}
+          aria-label={`archiveTask-${id}`}
+        />
       </label>
       <div className="title">
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={(event) => event.stopPropagation()}>
+      <div className="actions" onClick={event => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>
-            <span className={`icon-star`} />
+            <span className={`icon-star`} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} />
           </a>
         )}
       </div>
@@ -243,13 +255,13 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 ## 완성!
 
-지금까지 우리는 서버나 프런트엔드 앱 전체를 실행하지 않고 성공적으로 컴포넌트를 만들었습니다. 다음 단계는 이와 유사한 방법으로 `Taskbox` 컴포넌트의 남은 부분을 하나씩 만드는 것입니다.
+지금까지 우리는 서버나 프런트엔드 앱 전체를 실행하지 않고 성공적으로 컴포넌트를 만들었습니다. 다음 단계는 이와 유사한 방법으로 Taskbox 컴포넌트의 남은 부분을 하나씩 만드는 것입니다.
 
 보시다시피, 독립적인 환경에서 컴포넌트를 제작하는 것은 쉽고 빠릅니다. 가능한 모든 상태를 테스트할 수 있기 때문에 버그가 적은 양질의 UI를 제작할 수 있습니다.
 
 ## 자동화된 테스트
 
-스토리북은 우리 앱의 UI를 만드는 동안 수동으로 테스트할 수 있는 좋은 방법을 제공해 주었습니다. 'story'는 앱을 개발하는 동안 `Task` 컴포넌트의 외관을 망가뜨리지는 않았는지 확인하는 것을 도와줍니다. 그러나 지금 단계는 완전히 수동적인 프로세스이기 때문에 누군가 각 테스트를 일일이 클릭하여 오류나 경고 없이 렌더링 되는지 살펴봐야 합니다. 이를 자동화할 수는 없을까요?
+스토리북은 우리 앱의 UI를 만드는 동안 수동으로 테스트할 수 있는 좋은 방법을 제공해 주었습니다. 'story'는 앱을 개발하는 동안 Task 컴포넌트의 외관을 망가뜨리지는 않았는지 확인하는 것을 도와줍니다. 그러나 지금 단계는 완전히 수동적인 프로세스이기 때문에 누군가 각 테스트를 일일이 클릭하여 오류나 경고 없이 렌더링 되는지 살펴봐야 합니다. 이를 자동화할 수는 없을까요?
 
 ### 스냅샷 테스트
 
