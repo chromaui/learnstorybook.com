@@ -20,7 +20,7 @@ commit: ''
 - ⌨ 키보드 네비게이션
 - 🗣 스크린 리더기 지원
 - 👆 터치 친화성
-- 🎨 충분한 색상 대비
+- 🎨 충분히 높은 색 대비
 - ⚡️ 모션 감소
 - 🔍 확대
 
@@ -57,12 +57,13 @@ commit: ''
 
 ```diff:title=.storybook/main.js
 module.exports = {
- stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+ // ...
  addons: [
    '@storybook/addon-links',
    '@storybook/addon-essentials',
    '@storybook/preset-create-react-app',
 +  '@storybook/addon-a11y',
+   '@storybook/addon-interactions',
  ],
 };
 ```
@@ -113,7 +114,7 @@ Archived.args = {
   },
 };
 
-const longTitleString = `이 일정의 이름은 어마어마하게 길어요. 지금처럼 계속 길어지다가는 내용이 넘칠 수도 있을 것 같습니다. 이렇게 되면 무슨 일이 일어날까요? 고정된 일정을 나타내는 별 모양 아이콘에 텍스트가 겹칠 수도 있습니다. 아니면 아이콘에 도달했을 때 텍스트가 갑자기 잘릴 수도 있겠죠. 부디 그렇지 않기를 바랍니다!`
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});
 LongTitle.args = {
@@ -127,7 +128,7 @@ LongTitle.args = {
 
 ![](/ui-testing-handbook/a11y-addon.png)
 
-애드온이 어떻게 두 개의 위반사항을 발견했는지 보세요. 첫 번째, **"전경색과 배경색의 대비가 WCAG 2 AA 대비율 임계값을 충족하는지 확인하기"**는 `archived` 상태에 한정됩니다. 본질적으로 그것은 글과 배경의 대비가 충분하지 않음을 의미합니다. 텍스트 색상을 `gray.400`에서 `gray.600`으로 약간 더 어두운 회색으로 변경함으로써 이 문제를 해결할 수 있습니다.
+애드온이 어떻게 두 개의 위반사항을 발견했는지 보세요. 첫 번째, **“전경색과 배경색의 대비가 WCAG 2 AA 대비율 임계값을 충족하는지 확인하기”** 는 `archived` 상태에 한정됩니다. 본질적으로 그것은 글과 배경의 대비가 충분하지 않음을 의미합니다. 텍스트 색상을 `gray.400`에서 `gray.600`처럼 약간 더 어두운 회색으로 변경함으로써 이 문제를 해결할 수 있습니다.
 
 ```diff:title=src/components/Task.js
 import React from 'react';
@@ -150,7 +151,7 @@ export const Task = ({
  ...props
 }) => (
 
- // 간결성을 위해 생략된 코드
+ // code omitted for brevity
 
    <Box width="full" as="label">
      <VisuallyHidden>Edit</VisuallyHidden>
@@ -167,7 +168,7 @@ export const Task = ({
      />
    </Box>
 
-   // 간결성을 위해 생략된 코드
+   // code omitted for brevity
  </Flex>
 );
 
@@ -182,9 +183,9 @@ Task.propTypes = {
  onEditTitle: PropTypes.func.isRequired,
 };
 ```
-두 번째 위반사항인 **“`<li>` 요소가 의미있게 사용되도록 하기”**는 DOM 구조가 잘못되었음을 나타냅니다. 작업 컴포넌트는 `<li>` 요소를 렌더링합니다. 하지만 스토리안에서 `<li>` 요소가 자신을 sementic하게 만들어주는  `<ul>` 로 감싸지지 않았습니다. 이 스토리들은 작업 컴포넌트를 위한 것입니다. `<ul>`은 사실 TaskList에 의해 제공됩니다. 따라서 DOM 구조는 TaskList 스토리들 안에서 유효합니다. 그러므로 이 오류는 무시해도 무방합니다. 말하자면, 우리는 모든 Task 스토리에 대한 이러한 규칙을 비활성화할 수 있습니다.
+두 번째 위반사항인 **“`<li>` 요소가 의미있게 사용되도록 하기”** 는 DOM 구조가 잘못되었음을 나타냅니다. Task 컴포넌트는 `<li>` 요소를 렌더링합니다. 따라서 우리는 이 스토리 안의 템플릿을 `<ul>` 엘레멘트가 감싸는 형태로 갱신해야 합니다.
 
-```diff:title=src/components/Task.stories.js
+```js:title=src/components/Task.stories.js
 import React from 'react';
 import { Task } from './Task';
 
@@ -196,16 +197,15 @@ export default {
     onTogglePinTask: { action: 'onTogglePinTask' },
     onEditTitle: { action: 'onEditTitle' },
   },
-+  parameters: {
-+    a11y: {
-+      config: {
-+        rules: [{ id: 'listitem', enabled: false }],
-+      },
-+    },
-+  },
 };
 
-// 간결성을 위해 나머지 코드는 생략함
+const Template = (args) => (
+  <ul>
+    <Task {...args} />
+  </ul>
+);
+
+// ... code omitted for brevity
 ```
 
 이제 다른 모든 컴포넌트에도 이 프로세스를 반복할 수 있습니다.
@@ -214,68 +214,41 @@ export default {
 
 ![](/ui-testing-handbook/vision-simulator.png)
 
-### 회귀 방지
+### 테스트 러너를 이용하여 자동으로 회귀 잡기
 
-컴포넌트는 상호의존적이며 - 한 컴포넌트의 변화가 우연히 다른 컴포넌트를 파괴할 수 있습니다. 접근성 위반이 발생하지 않도록 하려면, 변경사항을 병합하기 전에 모든 컴포넌트에 Axe를 실행해야 합니다.
+때로는 한 컴포넌트의 변화가 우연히 다른 컴포넌트를 파괴할 수 있습니다. 이러한 회귀를 잡기 위해서는, 풀 리퀘스트를 열기 전에 모든 모든 스토리를 테스트하길 원할 것입니다. 그러나 접근성 애드온은 스토리를 볼 때에만 검사를 수행합니다. 테스트 러너를 이용하여 모든 스토리를 한번에 테스트 할 수 있습니다. 이는 독자적인 유틸리티이며([Jest](https://jestjs.io/)와 [Playwright](https://playwright.dev/)에 기반함) 스토리들의 렌더링 에러를 검사합니다.
 
-스토리는 ES6 모듈을 기반으로 작성되므로 다른 테스트 프레임워크와 함께 재사용할 수 있습니다. 마지막 장에서는, [stories into Jest](../interaction-testing/)가져오기 및 테스팅 라이브러리와의 상호작용에 대해 살펴보았습니다. 마찬가지로 [Jest Axe integration](https://github.com/nickcolley/jest-axe)를 사용해 컴포넌트에 대한 접근성 테스트를 실행할 수 있습니다.
+Axe를 실행하기 위해 테스트 러너를 설정해 봅시다. 우선 [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright)를 설치할 것입니다.
 
-먼저 설치부터 해봅시다 - 
-
-```sh
-yarn add -D jest-axe
+```bash
+yarn add -D axe-playwright
 ```
 다음으로, Axe를 실행하고 위반 여부를 확인하는 `it` 블록을 추가합니다. Jest-axe는 `toHaveNoViolations` 라는 편리한 assertion을 제시하여 하나의 함수 호출로 위반 여부를 확인할 수 있습니다. 
 
-```diff:title=src/InboxScreen.test.js
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  waitFor,
-  cleanup,
-  within,
-  fireEvent,
-} from '@testing-library/react';
-+ import { axe, toHaveNoViolations } from 'jest-axe';
-import { composeStories } from '@storybook/testing-react';
-import { getWorker } from 'msw-storybook-addon';
-import * as stories from './InboxScreen.stories';
+```javascript:title=.storybook/test-runner.js
+const { injectAxe, checkA11y } = require('axe-playwright');
 
-+ expect.extend(toHaveNoViolations);
-
-describe('InboxScreen', () => {
-  afterEach(() => {
-    cleanup();
-  });
-
-  // Clean up after all tests are done, preventing this
-  // interception layer from affecting irrelevant tests
-  afterAll(() => getWorker().close());
-
-  const { Default } = composeStories(stories);
-
-  // axe를 실행하세요.
-+  it('Should have no accessibility violations', async () => {
-+    const { container, queryByText } = render(<Default />);
-+
-+    await waitFor(() => {
-+      expect(queryByText('You have no tasks')).not.toBeInTheDocument();
-+    });
-+
-+    const results = await axe(container);
-+    expect(results).toHaveNoViolations();
-+  });
-
-  it('should pin a task', async () => { ... });
-  it('should archive a task', async () => { ... });
-  it('should edit a task', async () => { ... });
-});
+module.exports = {
+ async preRender(page, context) {
+   await injectAxe(page);
+ },
+ async postRender(page, context) {
+   await checkA11y(page, '#root', {
+     detailedReport: true,
+     detailedReportOptions: {
+       html: true,
+     },
+   })
+ },
+};
 ```
-`yarn test`를 실행하여 Jest를 시작합니다. 모든 상호작용 테스트를 실행하고 접근성 검사도 실행합니다. 이제 코드를 수정할 때마다 이 전체 테스트 세트를 실행하고 회귀도 탐색할 수 있습니다.
+`preRender` 와 `postRender`는 태스크 러너에게 추가적인 작업을 수행시키기 위한 설정을 가능하게 하는 편리한 훅들입니다. 우리는 이러한 훅을 이용하여 스토리에 Axe를 주입하고, 그리고 렌더링이 된다면 접근성 테스트를 수행합니다.
 
-![](/ui-testing-handbook/jest-axe.png)
+`checkA11y` 함수에 전달된 몇 옵션들을 주목하세요. 스토리의 루트 엘레멘트에 Axe를 설정하고, DOM 트리를 순회하면서 문제가 있는지 검사할 것입니다. 이것들은 발견한 이슈들에 대해서 자세한 레포트를 만들고, 접근성 규칙을 위반한 HTML 엘레먼트의 목록을 출력할 것입니다.
 
+이 테스트를 수행하기 위해, 하나의 터미널 창에서 `yarn storybook`을 통해 Storybook을 시작하고, 다른 터미널 창에서 `yarn test-storybook`을 통해 테스트 러너러를 수행하세요.
+
+![](/ui-testing-handbook/test-runner-ally.png)
 ## 통합 문제 파악
 
 UI는 컴포넌트를 구성하고 데이터 및 API에 연결함으로써 조립됩니다. 그 과정에는 실패할 수 있는 지점들이 많이 있습니다. 다음에는 Cypress를 사용해 시스템의 모든 계층을 한 번에 테스트하여 통합 문제를 파악하는 방법에 대해 알아보겠습니다. 
