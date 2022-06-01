@@ -49,31 +49,40 @@ name: 'UI Tests'
 on: push
 
 jobs:
-  # 상호작용 테스트와 접근성 검사를 jest와 Axe로 실행
+  # Run interaction and accessibility tests
   interaction-and-accessibility:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
       - name: Install dependencies
         run: yarn
-      - name: Run test
-        run: yarn test
-  # 시각적 요소와 구성 테스트를 크로마틱으로 실행
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Build Storybook
+        run: yarn build-storybook --quiet
+      - name: Serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:6006 && yarn test-storybook"
+  # Run visual and composition tests with Chromatic
   visual-and-composition:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # 깃(git) 기록을 검색하는 데 필요합니다.
+          fetch-depth: 0 # Required to retrieve git history
       - name: Install dependencies
         run: yarn
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # 이 토큰은 크로마틱 관리 페이지(manage page) 에서 가져옵니다.
+          # Grab this from the Chromatic manage page
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-  # 사용자 흐름 테스트를 사이프레스로 실행
+  # Run user flow tests with Cypress
   user-flow:
     runs-on: ubuntu-latest
     steps:
@@ -85,7 +94,10 @@ jobs:
         with:
           start: npm start
 ```
-기억해둡시다. 크로마틱을 실행하려면, `CHROMATIC_PROJECT_TOKEN`이 필요합니다. 이는 크로마틱의 관리 페이지에서 가져올 수 있고 우리의 저장소 secrets에 [넣어둬야 합니다](https://docs.github.com/en/actions/reference/encrypted-secrets). 반면에 `GITHUB_TOKEN`은 기본적으로 이용할 수 있게 되어 있습니다.
+
+여기서 몇 가지 주목할 것이 있습니다. 테스트 러너를 위해서, [concurrently](https://www.npmjs.com/package/concurrently), [http-server](https://www.npmjs.com/package/http-server) 와 [wait-on](https://www.npmjs.com/package/wait-on) 라이브러리들의 조합을 이용해 테스트를 수행할 스토리북을 빌드하고 서빙합니다.
+
+크로마틱을 실행하려면, `CHROMATIC_PROJECT_TOKEN`이 필요합니다. 이는 크로마틱의 관리 페이지에서 가져올 수 있고 우리의 저장소 secrets에 [넣어둬야 합니다](https://docs.github.com/en/actions/reference/encrypted-secrets). 반면에 `GITHUB_TOKEN`은 기본적으로 이용할 수 있게 되어 있습니다.
 
 <figure style="display: flex;">
   <img style="flex: 1 1 auto; min-width: 0; margin-right: 0.5em;" src="/ui-testing-handbook/get-token.png" alt="get project token from Chromatic" />
@@ -106,7 +118,7 @@ name: 'UI Tests'
 on: push
 
 jobs:
-  # npm 의존성을 설치하고 캐시합니다.
+  # Install and cache npm dependencies
   install-cache:
     runs-on: ubuntu-latest
     steps:
@@ -125,12 +137,15 @@ jobs:
       - name: Install dependencies if cache invalid
         if: steps.yarn-cache.outputs.cache-hit != 'true'
         run: yarn
-  # 상호작용 테스트와 접근성 검사를 jest와 Axe로 실행
+  # Run interaction and accessibility tests
   interaction-and-accessibility:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
       - name: Restore yarn dependencies
         uses: actions/cache@v2
         id: yarn-cache
@@ -141,16 +156,23 @@ jobs:
           key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-v1
-      - name: Run test
-        run: yarn test
-  # 시각적 요소와 구성 테스트를 크로마틱으로 실행
+     - name: Install Playwright
+       run: npx playwright install --with-deps
+     - name: Build Storybook
+       run: yarn build-storybook --quiet
+     - name: Serve Storybook and run tests
+       run: |
+         npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+           "npx http-server storybook-static --port 6006 --silent" \
+           "npx wait-on tcp:6006 && yarn test-storybook"
+  # Run visual and composition tests with Chromatic
   visual-and-composition:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
       - uses: actions/checkout@v2
         with:
-          fetch-depth: 0 # 깃(git) 기록을 검색하는 데 필요합니다.
+          fetch-depth: 0 # Required to retrieve git history
       - name: Restore yarn dependencies
         uses: actions/cache@v2
         id: yarn-cache
@@ -164,10 +186,9 @@ jobs:
       - name: Publish to Chromatic
         uses: chromaui/action@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # 이 토큰은 크로마틱 관리 페이지(manage page) 에서 가져옵니다.
+          # Grab this from the Chromatic manage page
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-  # 사용자 흐름 테스트를 사이프레스로 실행
+  # Run user flow tests with Cypress
   user-flow:
     runs-on: ubuntu-latest
     needs: install-cache
@@ -175,7 +196,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Restore yarn dependencies
         uses: actions/cache@v2
-        id: yarn-cache'
+        id: yarn-cache
         with:
           path: |
             ~/.cache/Cypress
