@@ -2,7 +2,7 @@
 title: 'UI 테스팅 플레이북'
 tocTitle: '작업 흐름(workflow)'
 description: '우리를 느리게 하지 않는 테스팅 작업 흐름(workflow)'
-commit: ''
+commit: '81c0264'
 ---
 
 UI의 서로 다른 부분을 테스트 하는 도구를 찾기는 쉽습니다. 하지만 이 모든 걸 생산적인 작업 흐름으로 어떻게 결합하는 방법을 깨닫기는 쉽지 않습니다. 잘못 이해하면, 유지보수의 악몽에 빠질 수도 있습니다.
@@ -21,10 +21,10 @@ UI의 서로 다른 부분을 테스트 하는 도구를 찾기는 쉽습니다.
 
 이 데모를 위해서, 테스트할 준비가 된 지점으로 곧장 건너뛰어봅시다. 업데이트된 파일들을 다운 받고, `/src` 디렉토리에 놓아주세요 -
 
-- [src/components/Task.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/83c4adfc1f4ccee57278f8cfce539af1c1aa2463/src/components/Task.js)
-- [src/components/TaskList.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/83c4adfc1f4ccee57278f8cfce539af1c1aa2463/src/components/TaskList.js)
-- [src/InboxScreen.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/83c4adfc1f4ccee57278f8cfce539af1c1aa2463/src/InboxScreen.js)
-- [src/useTasks.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/83c4adfc1f4ccee57278f8cfce539af1c1aa2463/src/useTasks.js)
+- [src/components/Task.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/components/Task.js)
+- [src/components/TaskList.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/components/TaskList.js)
+- [src/InboxScreen.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/InboxScreen.js)
+- [src/useTasks.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/useTasks.js)
 
 ### 시각적 요소와 구성 테스트
 
@@ -49,7 +49,7 @@ export default {
 
 #### 개발하는 동안
 
-앱 전체를 실행하는 대신에, 스토리북(Storybook)을 이용해서 오직 Task 컴포넌트에만 집중할 수 있습니다. 그 뒤에는 모든 스토리를 돌면서, 손으로 직접 컴포넌트의 모양을 검증할 수 있습니다.
+앱 전체를 실행하는 대신에, 스토리북(Storybook)을 이용해서 오직 Task 컴포넌트에만 집중할 수 있습니다. 그 뒤에는 모든 스토리를 돌면서, 수동으로 직접 컴포넌트의 모양을 검증할 수 있습니다.
 
 ![](/ui-testing-handbook/task-stories.gif)
 
@@ -85,69 +85,36 @@ Task UI를 약간 고쳤을 때, 이를 사용하는 다른 컴포넌트를 의�
 
 #### 개발하는 동안
 
-개발 중에는, InboxScreen story를 이용해서 수동으로 상호작용을 검증합니다. 기대한대로 동작한다면, Jest나 Testing Library를 이용한 상호작용 테스트를 추가하는 단계로 넘어갈 수 있습니다.
+개발 중에는, InboxScreen story를 이용해서 수동으로 상호작용을 검증합니다. 기대한대로 동작한다면, 재생 기능을 이용해 상호 작용 테스트를 추가할 수 있습니다.
 
-```diff:title=src/InboxScreen.test.js
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import {
-  render,
-  waitFor,
-  cleanup,
-  within,
-  fireEvent,
-} from '@testing-library/react';
-import { axe, toHaveNoViolations } from 'jest-axe';
-import { composeStories } from '@storybook/testing-react';
-import { getWorker } from 'msw-storybook-addon';
-import * as stories from './InboxScreen.stories';
+```javascript:title=src/InboxScreen.stories.js
+// ... code omitted for brevity ...
 
-expect.extend(toHaveNoViolations);
+export const DeleteTask = Template.bind({});
+DeleteTask.parameters = { ...Default.parameters };
+DeleteTask.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const getTask = (name) => canvas.findByRole('listitem', { name });
 
-describe('InboxScreen', () => {
-  afterEach(() => {
-    cleanup();
+  const itemToDelete = await getTask('Build a date picker');
+  const deleteButton = await findByRole(itemToDelete, 'button', {
+    name: 'delete',
   });
+  await userEvent.click(deleteButton);
 
-  afterAll(() => getWorker().close());
-
-  const { Default } = composeStories(stories);
-
-  it('should pin a task', async () => { ... });
-  it('should archive a task', async () => { ... });
-  it('should edit a task', async () => { ... });
-  it('Should have no accessibility violations', async () => { ... });
-
-+ it('should delete a task', async () => {
-+   const { queryByText, getByRole, getAllByRole } = render(<Default />);
-+
-+   await waitFor(() => {
-+     expect(queryByText('You have no tasks')).not.toBeInTheDocument();
-+   });
-+
-+   const getTask = () => getByRole('listitem', { name: 'Export logo' });
-+
-+   const deleteButton = within(getTask()).getByRole('button', {
-+     name: 'delete',
-+   });
-+
-+   fireEvent.click(deleteButton);
-+
-+   expect(getAllByRole('listitem').length).toBe(5);
-+ });
-});
-
+  await expect(canvas.getAllByRole('listitem').length).toBe(5);
+};
 ```
 
-`yarn test`를 실행해서 모든 테스트가 통과하는지 확인합니다. Jest가 어떻게 watch 모드에서 실행되며 변경된 파일과 관련된 테스트만 실행하는지 살펴보세요.
-![](/ui-testing-handbook/jest.png)
+`yarn run test-storybook`를 실행해서 모든 테스트가 통과하는지 확인합니다. Jest가 어떻게 watch 모드에서 실행되며 변경된 파일과 관련된 테스트만 실행하는지 살펴보세요.
 
+![](/ui-testing-handbook/test-runner-delete.png)
 
 #### PR 확인
 
-PR이 만들어지면 Github Action은 Jest를 실행해서 PR 확인를 통해서 현재의 상태를 보고합니다.
+PR이 만들어지면 Github Action은 테스트 러너를 실행하고 PR 확인를 통해서 현재의 상태를 보고합니다.
 
-![](/ui-testing-handbook/jest-ci.png)
+![](/ui-testing-handbook/test-runner-ci.png)
 
 ## 사용자 흐름 테스트
 

@@ -2,19 +2,17 @@
 title: '구성 테스트'
 tocTitle: '구성'
 description: '사소한 변경이 커다란 회귀로 변하는 것을 방지하기'
-commit: ''
+commit: '2c8173d'
 ---
 
 2021년 1월, 테슬라(Tesla)는 디스플레이 모듈의 오작동으로 [158,000대의 자동차를 리콜했습니다.](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-sx-touchscreens-bricked-failure-nhtsa) 
-디스플레이 콘솔이 고장나면 백업 카메라나 방향 지시등, 또는 운전자 지원에 접근할 수 없습니다. 이는 충돌 위험을 크게 증가시킵니다.
+디스플레이 콘솔이 고장나면 백업 카메라나 방향 지시등, 또는 운전자 지원에 접근할 수 없습니다. 이러한 고장은 충돌 위험을 크게 증가시킵니다.
 
-> 모듈 하나의 결함이 심각한 실패작으로 확대된 것입니다.
+> 모듈 하나의 결함이 심각한 실패로 확대된 것입니다.
 
 앱이 자동차처럼 각 부분이 서로 연결되어 있기 때문에, UI도 비슷한 문제를 겪고 있습니다. 컴포넌트 하나의 버그가 주변의 다른 부분에도 전부 영향을 미칩니다. 그 컴포넌트가 사용되는 부분은 말할 것도 없죠. UI 컴포넌트가 어떻게 구성되는지 테스트하면 이러한 버그를 방지하는 데 도움이 됩니다.
 
 UI의 더 복잡한 부분들을 테스트하는 것은 더욱 까다롭습니다. 복합 컴포넌트는 단순한 컴포넌트 여러 개가 모여 구성되며 애플리케이션의 상태와도 연결됩니다. 이번 챕터에서는 복합 컴포넌트를 분리하고 시각적 테스트를 적용하는 방법을 살펴보겠습니다. 이 과정에서 모의 데이터(mocking data)와 애플리케이션 로직을 시뮬레이션 하는 방법을 배우게 됩니다. 또한 컴포넌트 통합 테스트를 하는 방법에 대해서도 배우게 될 것입니다. 
-
-
 
 ## 작은 버그가 앱 전체를 망칩니다
 
@@ -228,11 +226,13 @@ const Template = (args) => <InboxScreen {...args} />;
 
 export const Default = Template.bind({});
 Default.parameters = {
-  msw: [
-    rest.get('/tasks', (req, res, ctx) => {
-      return res(ctx.json(TaskListDefault.args));
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.get('/tasks', (req, res, ctx) => {
+        return res(ctx.json(TaskListDefault.args));
+      }),
+    ],
+  },
 };
 
 export const Error = Template.bind({});
@@ -240,11 +240,13 @@ Error.args = {
   error: 'Something',
 };
 Error.parameters = {
-  msw: [
-    rest.get('/tasks', (req, res, ctx) => {
-      return res(ctx.json([]));
-    }),
-  ],
+  msw: {
+    handlers: [
+      rest.get('/tasks', (req, res, ctx) => {
+        return res(ctx.json([]));
+      }),
+    ],
+  },
 };
 ```
 
