@@ -21,8 +21,7 @@ commit: '5da7c68'
 yarn add @reduxjs/toolkit react-redux
 ```
 
-먼저 `src/lib` 폴더의 `store.js` 파일(의도적으로 단순하게 작성함)에서 task의 상태(state)를 변경하는 동작에 반응하는 간단한 리덕스(Redux) 저장소를 구성해 보겠습니다.
-
+먼저 `src/lib` 폴더의 `store.js` 파일(의도적으로 단순하게 작성함)에서 task의 상태(state)를 변경하는 동작에 반응하는 간단한 리덕스(Redux) 저장소를 구성해 보겠습니다:
 ```js:title=src/lib/store.js
 /* A simple redux store/actions/reducer implementation.
  * A true app would be more complex and separated into different files.
@@ -81,7 +80,7 @@ const store = configureStore({
 export default store;
 ```
 
-다음 `TaskList` 컴포넌트를 Redux store와 연결하고, 알고자 하는 task들을 렌더링 하기 위해 업데이트합니다.
+다음 `TaskList` 컴포넌트를 Redux store와 연결하고, 알고자 하는 task들을 렌더링 하기 위해 업데이트합니다:
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
@@ -167,28 +166,24 @@ export default function TaskList() {
 
 ## 데코레이터로 컨텍스트 제공하기
 
-이 단계에서 `TaskList`는 컨테이너이며 더 이상 어떠한 props도 받지 않기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다. 대신 `TaskList`는 Redux store에 연결하고 이를 감싸는 `PureTaskList`에서 props를 설정합니다.
+이 단계에서 `TaskList`는 컨테이너이며 더 이상 어떠한 props도 받지 않기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다. 
 
-하지만 이전 단계에서 진행한 스토리북 스토리의 `export` 구문에 `PureTaskList`(표상적인 컴포넌트)를 간단하게 렌더링함으로써 이러한 문제를 쉽게 해결할 수 있습니다.
+![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
 
-```diff:title=src/components/TaskList.stories.js
+이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/en/composite-component)에서 했던 것과 유사한 데코레이터에 의존하고 모방된 저장소를 스토리북 스토리에 제공할 수 있습니다. 
+
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
-+ import { PureTaskList } from './TaskList';
+import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
-export default {
-+ component: PureTaskList,
-  title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
-};
+import { Provider } from 'react-redux';
 
-const Template = (args) => <PureTaskList {...args} />;
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-export const Default = Template.bind({});
-Default.args = {
-  // 인수(args) 컴포지션을 통해 스토리를 구성합니다.
-  // 이 데이터는 task.stories.js의 Default story를 상속받았습니다.
+// A super-simple mock of the state of the store
+export const MockedState = {
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -197,36 +192,106 @@ Default.args = {
     { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
     { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
   ],
+  status: 'idle',
+  error: null,
 };
+
+// A super-simple mock of a redux store
+const Mockstore = ({ taskboxState, children }) => (
+  <Provider
+    store={configureStore({
+      reducer: {
+        taskbox: createSlice({
+          name: 'taskbox',
+          initialState: taskboxState,
+          reducers: {
+            updateTaskState: (state, action) => {
+              const { id, newTaskState } = action.payload;
+              const task = state.tasks.findIndex((task) => task.id === id);
+              if (task >= 0) {
+                state.tasks[task].state = newTaskState;
+              }
+            },
+          },
+        }).reducer,
+      },
+    })}
+  >
+    {children}
+  </Provider>
+);
+
+export default {
+  component: TaskList,
+  title: 'TaskList',
+  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  excludeStories: /.*MockedState$/,
+};
+
+const Template = () => <TaskList />;
+
+export const Default = Template.bind({});
+Default.decorators = [
+  (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
+];
 
 export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // 인수(args) 컴포지션을 통해 스토리를 구성합니다.
-  // 위의 Default story에서 상속받은 데이터입니다.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
-};
+WithPinnedTasks.decorators = [
+  (story) => {
+    const pinnedtasks = [
+      ...MockedState.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ];
+
+    return (
+      <Mockstore
+        taskboxState={{
+          ...MockedState,
+          tasks: pinnedtasks,
+        }}
+      >
+        {story()}
+      </Mockstore>
+    );
+  },
+];
 
 export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
-};
+Loading.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        status: 'loading',
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
 
 export const Empty = Template.bind({});
-Empty.args = {
-  // 인수(args) 컴포지션을 통해 스토리를 구성합니다.
-  // 위의 Loading story에서 상속받은 데이터입니다.
-  ...Loading.args,
-  loading: false,
-};
+Empty.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        tasks: [],
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
 ```
+
+<div class="aside">
+💡 <code>제외된 스토리</code> 모의 상태과 스토리로 취급되는 것을 방지하기 위한 스토리북 구성 필드 입니다. 이 필드에 대한 자세한 내용은 <a href="https://storybook.js.org/docs/react/api/csf">스토리북 문서 를 참고하세요</a>.
+</div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-4-optimized.mp4"
     type="video/mp4"
   />
 </video>
@@ -234,3 +299,5 @@ Empty.args = {
 <div class="aside">
 💡 변경과 함께 모든 테스트를 업데이트해야 합니다. <code>-u</code> 플래그와 함께 import 문을 업데이트하고 테스트 커맨드를 재실행하세요. 깃(Git)에 변경한 내역들을 commit 하는 것도 잊지 마세요!
 </div>
+
+성공했습니다! 스토리북이 정상적으로 작동하고 있으며 연결된 구성 요소에 데이터를 제공할 수있는 방법을 볼 수 있었습니다. 다음 장에서는 배운 내용을  화면에 적용해 보겠습니다. 

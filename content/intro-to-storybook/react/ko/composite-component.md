@@ -23,37 +23,6 @@ Taskbox는 핀으로 고정된 task를 일반 task 위에 배치하여 강조합
 
 우선 `TaskList`의 대략적인 구현부터 시작하겠습니다. 이전의 `Task` 컴포넌트를 가져온 후, 속성과 액션을 입력값으로 전달해 주세요.
 
-```js:title=src/components/TaskList.js
-import React from 'react';
-
-import Task from './Task';
-
-export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  const events = {
-    onPinTask,
-    onArchiveTask,
-  };
-
-  if (loading) {
-    return <div className="list-items">loading</div>;
-  }
-
-  if (tasks.length === 0) {
-    return <div className="list-items">empty</div>;
-  }
-
-  return (
-    <div className="list-items">
-      {tasks.map((task) => (
-        <Task key={task.id} task={task} {...events} />
-      ))}
-    </div>
-  );
-}
-```
-
-다음으로 `Tasklist`의 test states를 스토리 파일에 작성합니다.
-
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
@@ -107,8 +76,9 @@ Empty.args = {
 };
 ```
 
+
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>데코레이터(Decorators)</b></a>는 스토리에 임의의 래퍼(wrapper)를 제공하는 한 방법입니다. 이 예시에서 우리는 데코레이터 `key`를 사용하여 기본 내보내기에서 렌더링 된 컴포넌트에 `padding`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)에서 스토리를 감싸 줄 때 사용될 수 있습니다.
+💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>데코레이터(Decorators)</b></a>는 스토리에 임의의 래퍼(wrapper)를 제공하는 한 방법입니다. 이 예시에서 우리는 데코레이터 `key`를 사용하여 기본 내보내기에서 렌더링 된 컴포넌트에 `padding`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)에서 스토리를 감싸 줄 때 사용될 수 있습니다.
 </div>
 
 `TaskStories`를 가져옴으로써 최소한의 노력으로 스토리 속의 인수(arguments, 줄임말로 args)를 [구성(compose)](https://storybook.js.org/docs/react/writing-stories/args#args-composition)할 수 있었습니다.
@@ -138,7 +108,6 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     onPinTask,
     onArchiveTask,
   };
-
   const LoadingRow = (
     <div className="loading-item">
       <span className="glow-checkbox" />
@@ -149,7 +118,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   );
   if (loading) {
     return (
-      <div className="list-items">
+      <div className="list-items" data-testid="loading" key={"loading"}>
         {LoadingRow}
         {LoadingRow}
         {LoadingRow}
@@ -161,7 +130,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
   if (tasks.length === 0) {
     return (
-      <div className="list-items">
+      <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
           <div className="title-message">You have no tasks</div>
@@ -170,9 +139,10 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
+
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === "TASK_PINNED"),
+    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
   ];
   return (
     <div className="list-items">
@@ -226,11 +196,11 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 ## 자동화된 테스트
 
-이전 장에서 우리는 Storyshots을 이용하여 스냅샷 테스트하는 법을 배워보았습니다. `Task`에서는 렌더링이 잘 되는지 확인하는 것 이상의 많은 복잡성이 필요하지는 않았습니다. `TaskList`에서는 복잡성이 더해지기 때문에 특정 입력이 자동화된 테스트에 적합한 방식으로 출력되는지 확인해야 합니다. 이를 위해 테스트 렌더러(renderer)와 함께 [Jest](https://facebook.github.io/jest/)를 사용하여 단위 테스트를 만들어 보겠습니다.
+이전 장에서 우리는 Storyshots을 이용하여 스냅샷 테스트하는 법을 배워보았습니다. `Task`에서는 렌더링이 잘 되는지 확인하는 것 이상의 많은 복잡성이 필요하지는 않았습니다. `TaskList`에서는 복잡성이 더해지기 때문에 특정 입력이 자동화된 테스트에 적합한 방식으로 출력되는지 확인해야 합니다. 이를 위해 [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) 와 [@storybook/testing-react](https://storybook.js.org/addons/@storybook/testing-react)를 사용하여 단위 테스트를 만들어 보겠습니다.
 
-![Jest 로고](/intro-to-storybook/logo-jest.png)
+![테스트 라이브러리 로고](/intro-to-storybook/testinglibrary-image.jpeg)
 
-### Jest를 사용한 단위 테스트(Unit test)
+### React 테스트 라이브러리를 사용한 단위 테스트(Unit test)
 
 스토리북 스토리, 수동 테스트, 스냅샷 테스트는 UI 버그를 피하는 데 큰 도움이 됩니다. 스토리가 광범위한 컴포넌트 사용 사례를 다루고 있으며 사람이 스토리의 변경 사항을 확인하도록 하는 도구를 사용한다면 오류 발생 가능성을 훨씬 줄일 수 있습니다.
 
@@ -238,9 +208,9 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 우리는 `TaskList`가`tasks` prop에서 전달된 일반 task보다 핀으로 고정된 task를 **먼저** 렌더링 하기를 원합니다. 이러한 특정 시나리오를 테스트하는 스토리(`WithPinnedTasks`)가 있다 할지라도, 컴포넌트가 task의 순서를 바르게 정렬하지 않는 버그와 같은 경우 사람이 판단하기 애매모호할 수 있습니다. 일반적인 시선에는 딱히 **'틀렸네!'** 라고 보이지 않을 것입니다.
 
-이러한 문제를 피하기 위해 Jest를 사용해 스토리를 DOM에 렌더링 하고, 일부 DOM 쿼리 코드를 실행해 출력 값의 두드러진 특징을 확인할 수 있습니다. 스토리 형식의 좋은 점은 간단히 스토리를 테스트에 가져와 렌더링할 수 있다는 점입니다!
+이러한 문제를 피하기 위해 React 테스트 라이브러리를 사용해 스토리를 DOM에 렌더링 하고, 일부 DOM 쿼리 코드를 실행해 출력 값의 두드러진 특징을 확인할 수 있습니다. 스토리 형식의 좋은 점은 간단히 스토리를 테스트에 가져와 렌더링할 수 있다는 점입니다!
 
-`src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서 출력 값을 검증하는 테스트를 만들어보겠습니다.
+ `src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서 출력 값을 검증하는 테스트를 만들어보겠습니다.
 
 ```js:title=src/components/TaskList.test.js
 import { render } from '@testing-library/react';
