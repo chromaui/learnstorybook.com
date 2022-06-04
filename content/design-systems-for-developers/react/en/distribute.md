@@ -191,6 +191,15 @@ If you check on GitHub, you’ll now see a set of labels that `auto` would like 
 
 We should tag all future PRs with one of the labels: `major`, `minor`, `patch`, `skip-release`, `prerelease`, `internal`, `documentation` before merging them.
 
+You can check the created labels at https://github.com/<your-username>/<repository-name>/labels
+  
+Before advancing to the next steps let's commit and push our design system to github.
+  
+```
+git commit -m "storybook design system created"
+git push
+```
+
 #### Publish our first release with Auto manually
 
 In the future, we’ll calculate new version numbers with `auto` via scripts, but for the first release, let’s run the commands manually to understand what they do. Let’s generate our first changelog entry:
