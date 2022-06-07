@@ -224,11 +224,11 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 ## 自動テスト
 
-前の章で Storyshots を使用してストーリーのスナップショットテストを行う方法を学びました。`Task` では、問題なく描画されるのを確認することは、それほど複雑ではありませんでした。`TaskList` では複雑さが増しているので、ある入力がある出力を生成するかどうかを、自動テスト可能な方法で検証したいと思います。そのためには [Jest](https://facebook.github.io/jest/) をテストレンダラーとともに使用し、単体テストを作ります。
+前の章で Storyshots を使用してストーリーのスナップショットテストを行う方法を学びました。`Task` では、問題なく描画されるのを確認することは、それほど複雑ではありませんでした。`TaskList` では複雑さが増しているので、ある入力がある出力を生成するかどうかを、自動テスト可能な方法で検証したいと思います。そのためには [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) と [@storybook/testing-react](https://storybook.js.org/addons/@storybook/testing-react) を使用し、単体テストを作ります。
 
-![Jest ロゴ](/intro-to-storybook/logo-jest.png)
+![Testing library ロゴ](/intro-to-storybook/testinglibrary-image.jpeg)
 
-### Jest で単体テストする
+### React Testing Library で単体テストする
 
 Storybook のストーリーと、手動のテスト、スナップショットテストがあれば UI のバグを防ぐのに十分でしょう。ストーリーでコンポーネントの様々なユースケースをカバーしており、ストーリーへのどんな変更に対しても、人が確実に確認できるツールを使用していれば、エラーはめったに発生しなくなります。
 
@@ -236,7 +236,7 @@ Storybook のストーリーと、手動のテスト、スナップショット�
 
 `TaskList` の `tasks` プロパティで渡されたタスクのリストのうち、ピン留めされたタスクを通常のタスクの**前に**表示させたいと思います。このシナリオをテストするストーリー (`WithPinnedTasks`) は既にありますが、コンポーネントが並び替えを**しなくなった**場合に、それがバグかどうかを人間のレビュアーでは判別しかねます。ストーリーでは誰にでも分かるように、**間違っているよ！**と叫んではくれません。
 
-この問題を回避するため、Jest を使ってストーリーを DOM に描画し、DOM を検索するコードを実行し、出力から目立った機能を検証します。ストーリー形式のいいところは単純にストーリーをインポートして、そのまま描画できるところです。
+この問題を回避するため、React Testing Library を使ってストーリーを DOM に描画し、DOM を検索するコードを実行し、出力から目立った機能を検証します。ストーリー形式のいいところは単純にストーリーをインポートして、そのまま描画できるところです。
 
 `src/components/TaskList.test.js` にテストファイルを作ります。以下に、出力を検証するテストコードを示します。
 
