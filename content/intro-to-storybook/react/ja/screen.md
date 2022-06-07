@@ -219,11 +219,11 @@ export const Default = Template.bind({});
 export const Error = Template.bind({});
 ```
 
-`Error` ストーリーは正しく動いていますが、`Default` ストーリーには問題があります。それは `TaskList` に接続するべき Redux のストアがないためです。(同様に `PureInboxScreen` を単体テストしようとしても同じことが起こります。)
+私たちは `error` ストーリーですぐに問題を発見することができます。正しい状態が表示されず、タスクのリストが表示されます。この問題を回避する 1 つの方法は、前章で行ったように各状態に対してモックされたバージョンを提供することです。その代わりに、よく知られた API モッキングライブラリを Storybook アドオンと一緒に使用して、この問題を解決するのに役立てます。
 
-![壊れている Inbox](/intro-to-storybook/broken-inboxscreen.png)
+![壊れた Inbox 画面の状態](/intro-to-storybook/broken-inbox-error-state-optimized.png)
 
-## Mocking API Services
+## API をモックする
 
 今回のアプリケーションは単純で、リモート API 呼び出しにあまり依存しないので、[Mock Service Worker](https://mswjs.io/) と [Storybook's MSW addon](https://storybook.js.org/addons/msw-storybook-addon) を使用することにします。Mock Service Worker は、API モックライブラリです。Service Worker に依存してネットワークリクエストを捕捉し、モックデータをレスポンスします。
 
@@ -331,7 +331,7 @@ Storybook で `error` ストーリーが意図したように動作している�
 
 Storybook の [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 関数が可能にしてくれます。play 関数はストーリーのレンダリング後に実行される小さなコードスニペットを含みます。
 
-play 関数はタスクが更新されたときに UI に何が起こるかを検証するのに役立ちます。フレームワークに依存しない DOM APIを使用しています。つまり、 play 関数を使って UI を操作し、人間の行動をシミュレートするストーリーを、フロントエンドのフレームワークに関係なく書くことができるのです。
+play 関数はタスクが更新されたときに UI に何が起こるかを検証するのに役立ちます。フレームワークに依存しない DOM API を使用しています。つまり、 play 関数を使って UI を操作し、人間の行動をシミュレートするストーリーを、フロントエンドのフレームワークに関係なく書くことができるのです。
 
 実際に動かしてみましょう！以下のようにして新しく作成された `InboxScreen` ストーリーを更新し、コンポーネント操作を追加してみましょう:
 
