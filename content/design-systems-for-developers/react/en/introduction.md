@@ -6,7 +6,6 @@ description: 'A guide to the latest production-ready tools for design systems'
 
 <div class="aside">This guide is made for <b>professional developers</b> learning how to build design systems. Intermediate experience in JavaScript, Git, and continuous integration is recommended. You should also know Storybook basics, such as writing a story and editing config files (<a href="/intro-to-storybook">Intro to Storybook</a> teaches basics).
 </div>
-
 <br/>
 
 Design systems are exploding in popularity. From tech heavyweights like Airbnb to nimble startups, organizations of every shape are reusing UI patterns to save time and money. But there’s a chasm between the design systems created by BBC, Airbnb, IBM, or Microsoft and the design systems created by most developers.

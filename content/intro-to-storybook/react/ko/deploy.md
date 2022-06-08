@@ -28,7 +28,7 @@ commit: '27da5f3'
 새로운 저장소에서 origin URL을 가져와서 다음 명령과 같이 깃(git) 프로젝트에 추가해주세요.
 
 ```bash
-$ git remote add origin https://github.com/<사용자명>/taskbox.git
+$ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 마지막으로, 로컬 저장소를 원격 저장소로 푸시해주세요.
@@ -81,26 +81,26 @@ yarn chromatic --project-token=<project-token>
 `chromatic.yml`이라는 파일을 아래와 같이 생성해주세요.
 
 ```yaml:title=.github/workflows/chromatic.yml
-# 작업 흐름(workflow) 명
+# Workflow name
 name: 'Chromatic Deployment'
 
-# 작업 흐름 이벤트
+# Event for the workflow
 on: push
 
-# 작업 리스트
+# List of jobs
 jobs:
   test:
-    # 운영 체제
+    # Operating System
     runs-on: ubuntu-latest
-    # 작업 순서
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-        #👇 작업 흐름의 절차에 크로마틱을 추가합니다.
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # 크로마틱의 깃허브 Action에 필요한 옵션
+        # Options required for Chromatic's GitHub Action
         with:
-          #👇 크로마틱 프로젝트 토큰, 프로젝트 토큰을 얻으려면 https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ 링크를 확인해보세요
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

@@ -129,7 +129,7 @@ git commit -m "Storybook deployment with GitHub action"
 마지막으로, 아래 명령어를 사용해 원격 저장소에 push합니다. - 
 
 ```shell
-git push origin master
+git push origin main
 ```
 
 성공! 인프라를 개선했습니다.
@@ -147,7 +147,6 @@ git checkout -b improve-button
 처음은 버튼 컴포넌트에 약간의 변화를 가하는 것입니다. “눈에 확 들어오게 하세요” – 저희 디자이너들이 정말 좋아하겠네요.
 
 ```js:title=src/Button.js
-
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;

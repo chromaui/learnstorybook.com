@@ -28,7 +28,7 @@ commit: 'ffd9ccb'
 
 ![토글 상태를 추적하기 위한 툴](../../images/track-state.gif)
 
-```diff:title=src/Tool.jsf
+```diff:title=src/Tool.js
 import React, { useCallback } from 'react';
 import { useGlobals } from '@storybook/api';
 import { Icons, IconButton } from '@storybook/components';

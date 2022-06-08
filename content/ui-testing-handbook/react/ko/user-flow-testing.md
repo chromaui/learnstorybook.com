@@ -53,7 +53,7 @@ UI는 목표를 달성하기 위해 여러 페이지에서 일련의 단계를 �
 
 ### 사이프레스(Cypress) 설정
 
-`yarn add sypress --dev`를 실행하여 사이프레스 패키지를 설치합니다. 그런 다음 `package.json` 파일의 스크립트 필드에 Cypress 명령을 추가합니다.
+`yarn add -D cypress`를 실행하여 사이프레스 패키지를 설치합니다. 그런 다음 `package.json` 파일의 스크립트 필드에 Cypress 명령을 추가합니다.
 
 ```json:title=package.json
  "scripts": {
@@ -75,21 +75,21 @@ UI는 목표를 달성하기 위해 여러 페이지에서 일련의 단계를 �
 사이프레스 테스트 구조는 우리에게 익숙할 수 있는 다른 유형의 테스트들과 상당히 유사합니다. 무엇을 테스트할 지 설명하는 것부터 시작합니다. 각 테스트는 명령들을 실행하는 `it` 블록 안에 있습니다. 인증 사용자 플로우는 다음과 같습니다 - 
 
 ```javascript:title=cypress/e2e/auth.spec.js
-describe('로그인 페이지', () => {
-  it('사용자는 이 로그인 폼을 통해 인증할 수 있습니다', () => {
+describe('The Login Page', () => {
+  it('user can authenticate using the login form', () => {
     const email = 'alice.carr@test.com';
     const password = 'k12h1k0$5;lpa@Afn';
 
     cy.visit('/');
 
-    // Form 채우기
+    // Fill out the form
     cy.get('input[name=email]').type(email);
     cy.get('input[name=password]').type(`${password}`);
 
-    // sign-in 버튼 클릭하기
+    // Click the sign-in button
     cy.get('button[type=submit]').click();
 
-    // UI는 사용자의 task 목록을 보여줘야 합니다.
+    // UI should display the user's task list
     cy.get('[aria-label="tasks"] li').should('have.length', 6);
   });
 });
@@ -141,6 +141,7 @@ Default.args = {
   ],
 };
 ```
+
 계속해서 두 개의 네트워크 요청을 모의로 만들기 위해 테스트를 업데이트 합시다.
 
 ```diff:title=cypress/e2e/auth.spec.js
@@ -164,7 +165,7 @@ describe('The Login Page', () => {
 +    });
 +  });
 
-  it('사용자는 이 로그인 폼을 통해 인증할 수 있습니다', () => {
+  it('user can authenticate using the login form', () => {
     const email = 'alice.carr@test.com';
     const password = 'k12h1k0$5;lpa@Afn';
 
@@ -182,6 +183,7 @@ describe('The Login Page', () => {
   });
 });
 ```
+
 테스트를 재실행하면 이제는 테스트가 통과될 것입니다.
 
 ![](/ui-testing-handbook/cypress-success.png)

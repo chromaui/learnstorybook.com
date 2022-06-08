@@ -116,7 +116,7 @@ export const parameters = {
 };
 ```
 
-데코레이터는 어떤 스토리가 선택되었든 간에 GlobalStyle 이 반드시 렌더(render) 되도록 합니다.
+데코레이터는 어떤 스토리가 선택되었든 간에 `GlobalStyle` 이 반드시 렌더(render) 되도록 합니다.
 
 <div class="aside"> 💡 <code><></code> 데코레이터 안의 기호는 오타가 아닙니다 -- <a href="https://reactjs.org/docs/fragments.html">React Fragment 입니다.</a> 불필요한 HTML 태그를 추가하지 않기 위해 그것을 사용합니다. </div>
 
@@ -150,7 +150,6 @@ import styled from 'styled-components';
 
 // When the user clicks a button, it will trigger the `action()`,
 // ultimately showing up in Storybook's addon panel.
-
 function ButtonWrapper(props) {
   return <CustomButton {...props} />;
 }
@@ -176,7 +175,7 @@ Controls 애드온을 이용하면 스토리북 UI에서 컴포넌트 입력값(
 
 `src/Avatar.stories.js`에 있는 `Avatar` 컴포넌트에 새로운 스토리를 추가하여 Controls 애드온이 어떻게 작동하는지 살펴봅시다.
 
-```js:title=src/Avatar.stories.jsx
+```js:title=src/Avatar.stories.js
 import React from 'react';
 
 import { Avatar } from './Avatar';
@@ -260,7 +259,7 @@ module.exports = {
 };
 ```
 
-이제, 'Button' 컴포넌트에 새로운 스토리를 추가하여 어떻게 작동하는지 보겠습니다. -
+이제, `Button` 컴포넌트에 새로운 스토리를 추가하여 어떻게 작동하는지 보겠습니다. -
 
 ```diff:title=src/Button.stories.js
 import React from 'react';

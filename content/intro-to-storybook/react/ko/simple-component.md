@@ -141,7 +141,7 @@ module.exports = {
 ```diff:title=.storybook/preview.js
 + import '../src/index.css';
 
-//👇 UI에 onArchiveTask, onPinTask 액션을 기록할 수 있도록 스토리북에 설정을 추가합니다.
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {

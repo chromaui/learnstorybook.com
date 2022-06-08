@@ -105,7 +105,7 @@ git commit -am "Added AvatarList and stories"
 
 ```js:title=src/AvatarList.js
 /**
- * 아바타 리스트는 최대 3개까지 말줄임표로 표시됩니다. 총 사용자 수보다 작은 수만 전달할 수 있습니다.
+ * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
 export function AvatarList({ loading, users, userCount, size, ...props }) {
 ```
@@ -115,11 +115,11 @@ export function AvatarList({ loading, users, userCount, size, ...props }) {
 ```js:title=src/AvatarList.js
 AvatarList.propTypes = {
   /**
-   * 네트워크에서 받은 아바타 데이터가 로딩되고 있나요?
+   * Are we loading avatar data from the network?
    */
   loading: PropTypes.bool,
   /**
-   * 데이터를 가지고 있는 아바타의 리스트입니다. 노트 : 3개만 보입니다.
+   * A (sub)-list of the users whose avatars we have data for. Note: only 3 will be displayed.
    */
   users: PropTypes.arrayOf(
     PropTypes.shape({
@@ -129,11 +129,11 @@ AvatarList.propTypes = {
     })
   ),
   /**
-   * props가 `users`에게 전달될 경우의 총 사용자 수 입니다.
+   * The total number of users, if a subset is passed to `users`.
    */
   userCount: PropTypes.number,
   /**
-   * AvatarList는 네 개의 사이즈로 구성됩니다. 대부분의 경우, `medium`을 사용할 거에요.
+   * AvatarList comes in four sizes. In most cases, you’ll be fine with `medium`.
    */
   size: PropTypes.oneOf(Object.keys(sizes)),
 };

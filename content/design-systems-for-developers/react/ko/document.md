@@ -69,7 +69,7 @@ export default {
       control: {
         type: 'select',
       },
-      options: ['tiny', 'small', 'medium", 'large'],
+      options: ['tiny', 'small', 'medium', 'large'],
     },
   },
   /*
@@ -441,10 +441,10 @@ import { Meta } from "@storybook/addon-docs";
 
 ```diff:title=.storybook/main.js
 module.exports = {
-  // 스토리의 로드 순서를 변경합니다. Intro 페이지를 첫 번째로 로드하고,
-  // * .stories.js | mdx로 끝나는 모든 파일을 자동으로 가져옵니다.
+  // Changes the load order of our stories. First loads the Intro page
+  // automatically import all files ending in *.stories.js|mdx
   stories: [
-+    '../src/components/Intro.stories.mdx',
++   '../src/Intro.stories.mdx',
     '../src/**/*.stories.mdx',
     '../src/**/*.stories.@(js|jsx|ts|tsx)',
   ],

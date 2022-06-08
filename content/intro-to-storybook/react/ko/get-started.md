@@ -1,5 +1,3 @@
-
-   
 ---
 title: '리액트(React)를 위한 스토리북(Storybook) 튜토리얼'
 tocTitle: '시작하기'
@@ -9,7 +7,7 @@ commit: 'b66f341'
 
 스토리북(Storybook)은 개발 모드에서 앱과 함께 실행됩니다. 스토리북은 비즈니스 로직과 맥락(context)으로부터 분리된 UI 컴포넌트를 만들 수 있도록 도와줍니다. 현재 문서는 리액트(React)를 위해 작성되었습니다. 그 밖의 [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started) [Svelte](/intro-to-storybook/svelte/en/get-started) 및 [Ember](/intro-to-storybook/ember/en/get-started)에 대한 다른 문서도 존재합니다.
 
-![스토리북과 여러분의 앱](https://storybook.js.org/tutorials/intro-to-storybook/storybook-relationship.jpg)
+![스토리북과 여러분의 앱](/intro-to-storybook/storybook-relationship.jpg)
 
 ## 리액트 스토리북 설정
 
@@ -18,29 +16,29 @@ commit: 'b66f341'
 다음 명령을 실행해주세요:
 
 ```bash
-# 템플릿 복제
+# Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# 의존성(dependency) 설치
+# Install dependencies
 yarn
 ```
 
-```
+<div class="aside">
 💡 템플릿에는 이 튜토리얼 버전에 필요한 스타일, assets 및 기본 구성이 포함되어 있습니다.
-```
+</div>
 
 이제 다양한 환경에서 애플리케이션이 올바르게 작동하는지 아래 명령어를 통해 빠르게 확인할 수 있습니다:
 
 ```bash
-# 터미널에서 테스트 러너(Jest)를 실행합니다:
+# Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# 6066 포트에서 구성 요소 탐색기를 시작합니다:
+# Start the component explorer on port 6006:
 yarn storybook
 
-# 3000 포트에서 프런트엔드 앱을 실행합니다:
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 

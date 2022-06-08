@@ -70,15 +70,8 @@ yarn add --dev @babel/cli cross-env
 
 ```json:title=package.json
 {
-  "babel": {
-    "presets": [
-      [
-        "react-app",
-        {
-          "absoluteRuntime": false
-        }
-      ]
-    ]
+  "scripts": {
+    "build": "cross-env BABEL_ENV=production babel src -d dist"
   }
 }
 ```
@@ -215,7 +208,7 @@ git reset HEAD^
 ```
 # v0.1.0 (Tue Mar 09 2021)
 
-- `Avatar`, `Badge`, `Button`, `Icon` 그리고 `Link` 컴포넌트의 첫 디자인 시스템 버전을 만들었습니다.
+- Created first version of the design system, with `Avatar`, `Badge`, `Button`, `Icon` and `Link` components.
 
 #### Authors: 1
 
