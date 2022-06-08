@@ -2,7 +2,7 @@
 title: 'Intro to Storybook'
 description: "Learn to create bulletproof UI components, along the way you'll build an app UI from scratch."
 heroDescription: 'Storybook has become one of the most popular UI component development tools for React, Vue, and Angular and thrives thanks to its many contributors! Storybook can help you develop and design bulletproof UI components from an isolated environment and draft breath-taking concepts for your personal and professional use. This tutorial will help you get started by teaching you to build an app UI from scratch and familiarize you with who we are, and all Storybook can provide you with!'
-overview: 'teaches tried-and-true patterns for component development using the Storybook software! You’ll walk through essential UI component techniques while building a UI from scratch in React, Vue, or Angular. The information here is sourced from professional teams, core maintainers, and the awesome Storybook community. Professional developers from companies such as Airbnb, Dropbox, and Lonely Planet even use Storybook to build their own durable documented UI’s faster!'
+overview: 'Intro to Storybook teaches tried-and-true patterns for component development using the Storybook software! You’ll walk through essential UI component techniques while building a UI from scratch in React, Vue, or Angular. The information here is sourced from professional teams, core maintainers, and the awesome Storybook community. Professional developers from companies such as Airbnb, Dropbox, and Lonely Planet even use Storybook to build their own durable documented UI’s faster!'
 order: 1
 themeColor: '#6F2CAC'
 codeGithubUrl: 'https://github.com/chromaui/learnstorybook-code'
