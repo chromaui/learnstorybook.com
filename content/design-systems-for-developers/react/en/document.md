@@ -70,7 +70,7 @@ export default {
       control: {
         type: 'select',
       },
-      options: ['tiny', 'small', 'medium", 'large'],
+      options: ['tiny', 'small', 'medium', 'large'],
     },
   },
   /*
