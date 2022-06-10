@@ -19,7 +19,7 @@ Storybook を新たにインストールすると、はじめから Contorls が
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/controls-in-action.mp4"
+    src="/intro-to-storybook/controls-in-action-6-4.mp4"
     type="video/mp4"
   />
 </video>
@@ -32,7 +32,7 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 
 コントロールアドオンを使用すれば、品質管理者や、UI エンジニアや、その他のステークホルダーがコンポーネントを限界まで操作できます！例えば `Task` コンポーネントに*大量の*文字列を渡したらどうなるでしょうか。
 
-![しまった！右側の文字列が切れている！](/intro-to-storybook/task-edge-case.png)
+![しまった！右側の文字列が切れている！](/intro-to-storybook/task-edge-case-6-4.png)
 
 これはマズいです。タスクコンポーネントの境界を越えて文字列があふれています。
 
@@ -50,7 +50,7 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 />
 ```
 
-![良くなりました](/intro-to-storybook/edge-case-solved-with-controls.png)
+![良くなりました](/intro-to-storybook/edge-case-solved-with-controls-6-4.png)
 
 問題は解決しました！文字列がタスクの境界に達したらかっこいい省略記号で切り詰められるようになりました。
 
@@ -76,7 +76,7 @@ LongTitle.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/task-stories-long-title.mp4"
+    src="/intro-to-storybook/task-stories-long-title-6-4.mp4"
     type="video/mp4"
   />
 </video>
