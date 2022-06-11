@@ -25,10 +25,10 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 - [**Storybook ブログ**](https://medium.com/storybookjs)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
 
-## LearnStorybook.com について
+## 誰が Intro to Storybook チュートリアルを作成しているのでしょうか？
 
 文書や、コード、製作は [Chromatic](https://www.chromatic.com/) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
 
-このようなチュートリアルや記事をお望みならば、Chromatic のメーリングリストにサインアップしてください。
+このようなチュートリアルや記事をお望みならば、Storybook のメーリングリストにサインアップしてください。
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

@@ -11,39 +11,34 @@ Storybook は開発時にアプリケーションと並行して動きます。S
 
 ## React 向けの Storybook を構築する
 
-Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[Create React App](https://github.com/facebook/create-react-app) (CRA) を使用してアプリケーションを作成し、[Storybook](https://storybook.js.org/) とテストフレームワークの [Jest](https://facebook.github.io/jest/) を有効にしましょう。それでは、次のコマンドを実行してください:
+Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[degit](https://github.com/Rich-Harris/degit) を使用してビルド環境をセットアップしましょう。このパッケージを利用することで、テンプレート（アプリケーションの一部をデフォルト設定で構築したもの）をダウンロードし、開発ワークフローの短縮に役立てることができます。
+
+それでは、次のコマンドを実行してください:
 
 ```bash
-# アプリケーションを作成する:
-npx create-react-app taskbox
+# Clone the template
+npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# Storybook を追加する:
-npx -p @storybook/cli sb init
+# Install dependencies
+yarn
 ```
 
 <div class="aside">
-このチュートリアルでは、コマンドの実行には基本的に <code>yarn</code> を使用します。
-もし <code>yarn</code> ではなく <code>npm</code> を使用したい場合には、上記のコマンドに <code>--use-npm</code> フラグをつけることで、CRA および Storybook の設定を変更することができます。<code>npm</code> を使用してチュートリアルを進めても問題ありませんが、使用するコマンドを <code>npm</code> に合わせて調整するのを忘れないようにしましょう。
+💡 このテンプレートには本バージョンのチュートリアルに必要なスタイル、アセット、最低限の設定が含まれています。
 </div>
 
-プロジェクトのルートフォルダーに `.env` という名前で、以下の内容のファイルを作成してください:
-
-```
-SKIP_PREFLIGHT_CHECK=true
-```
-
-それでは、作成したアプリケーションが問題なく動くことを次のコマンドで確認しましょう:
+それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう:
 
 ```bash
-# ターミナルでテストランナー (Jest) を開始する:
+# Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# ポート 6006 でコンポーネントエクスプローラーを起動する:
+# Start the component explorer on port 6006:
 yarn storybook
 
-# ポート 3000 でフロントエンドアプリケーションを起動する:
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 
@@ -57,36 +52,15 @@ yarn start
 
 作業をする対象に応じて、このモードのうち 1 つまたは複数を同時に動かしながら作業します。今は単一の UI コンポーネントを作るのに集中するため、Storybook を動かすことにしましょう。
 
-## CSS を再利用する
-
-Taskbox はデザイン要素を [GraphQL と React のチュートリアル](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)より再利用しますので、このチュートリアルでは、CSS を書く必要はありません。[このコンパイル済み CSS ファイル](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) をコピーして `src/index.css` に貼り付けてください。
-
-![Taskbox の UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
-
-<div class="aside">
-スタイルをカスタマイズしたければ、LESS のソースファイルが<a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/style">ここ</a>にあります。
-</div>
-
-## アセットを追加する
-
-狙い通りのデザインにするためには、フォントとアイコンのフォルダーをダウンロードし、`src/assets` フォルダーに配置する必要があります。次のコマンドを実行してください:
-
-```bash
-npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
-npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
-```
-
-<div class="aside">
-ここでは GitHub からフォルダーをダウンロードするのに <a href="https://github.com/Rich-Harris/degit">degit</a> を使用しています。手動でダウンロードしたければ、それぞれのフォルダーは<a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">こちら</a>にあります。
-</div>
-
-以上です。これでアプリケーションの設定が完了しました。
-
 ## 変更をコミットする
 
-プロジェクトを初期化したとき、Create React App (CRA) が既にローカルリポジトリーを作ってくれています。この段階で、最初のコミットにファイルを追加しても問題ありません。
+この段階で、ローカルリポジトリにファイルを追加しても大丈夫です。以下のコマンドを実行して、ローカルリポジトリを初期化し、これまでに行った変更を追加してコミットしてください。
 
-次のコマンドを実行し、今までの変更を追加して、コミットしましょう。
+```shell
+$ git init
+```
+
+つづいて:
 
 ```shell
 git add .
@@ -96,6 +70,12 @@ git add .
 
 ```shell
 git commit -m "first commit"
+```
+
+最後に:
+
+```shell
+$ git branch -M main
 ```
 
 それでは最初のコンポーネントを作り始めましょう！

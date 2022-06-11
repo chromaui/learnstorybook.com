@@ -66,7 +66,7 @@ yarn chromatic --project-token=<project-token>
 
 実行が完了すると、Storybook が発行されて、`https://random-uuid.chromatic.com` のようなリンクができます。このリンクをチームに共有すれば、フィードバックが得られるでしょう。
 
-![Chromatic パッケージを使用してデプロイされた Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
+![Chromatic パッケージを使用してデプロイされた Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-6-4.png)
 
 やりました！Storybook が一つのコマンドだけで発行できました。ですが、UI を実装し、フィードバックを得たいと思ったときに、毎回コマンドを手動実行するのは非効率です。理想的なのは、コードをプッシュすると自動的に最新のコンポーネントが発行されることです。それには、Storybook を継続的にデプロイしていく必要があります。
 
@@ -78,11 +78,9 @@ yarn chromatic --project-token=<project-token>
 
 プロジェクトのルートフォルダーに `.github` というフォルダーを作成し、さらにその中に `workflows` というフォルダーを作成します。
 
-`chromatic.yml` を以下の内容で新規に作成します。`project-token` を先ほどのトークンで置き換えてください。
+`chromatic.yml` を以下の内容で新規に作成します。
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
 name: 'Chromatic Deployment'
 
@@ -107,9 +105,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside">
-<p>簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
-</div>
+<div class="aside"><p>💡 簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p></div>
 
 ### アクションをコミットする
 
@@ -139,6 +135,6 @@ git push origin main
 
 次に `View Storybook` ボタンをクリックすれば、最新の Storybook を見ることができます。
 
-![Chromatic の Storybook のリンク](/intro-to-storybook/chromatic-build-storybook-link.png)
+![Chromatic の Storybook のリンク](/intro-to-storybook/chromatic-build-storybook-link-6-4-optimized.png)
 
 このリンクをチームメンバーに共有しましょう。これは標準的な開発プロセスや、単に作業を公開するのに便利です 💅

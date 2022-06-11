@@ -19,7 +19,7 @@ Storybook を新たにインストールすると、はじめから Contorls が
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/controls-in-action.mp4"
+    src="/intro-to-storybook/controls-in-action-6-4.mp4"
     type="video/mp4"
   />
 </video>
@@ -32,7 +32,7 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 
 コントロールアドオンを使用すれば、品質管理者や、UI エンジニアや、その他のステークホルダーがコンポーネントを限界まで操作できます！例えば `Task` コンポーネントに*大量の*文字列を渡したらどうなるでしょうか。
 
-![しまった！右側の文字列が切れている！](/intro-to-storybook/task-edge-case.png)
+![しまった！右側の文字列が切れている！](/intro-to-storybook/task-edge-case-6-4.png)
 
 これはマズいです。タスクコンポーネントの境界を越えて文字列があふれています。
 
@@ -40,19 +40,17 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 
 それでは `Task.js` にスタイルを追加して、この文字切れ問題を解決しましょう:
 
-```javascript
-// src/components/Task.js
-
+```diff:title=src/components/Task.js
 <input
   type="text"
   value={title}
   readOnly={true}
   placeholder="Input title"
-  style={{ textOverflow: 'ellipsis' }}
++ style={{ textOverflow: 'ellipsis' }}
 />
 ```
 
-![良くなりました](/intro-to-storybook/edge-case-solved-with-controls.png)
+![良くなりました](/intro-to-storybook/edge-case-solved-with-controls-6-4.png)
 
 問題は解決しました！文字列がタスクの境界に達したらかっこいい省略記号で切り詰められるようになりました。
 
@@ -62,9 +60,7 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 
 それでは `Task.stories.js` ファイルに長い文字列が指定された場合のストーリーを追加しましょう:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});
@@ -80,17 +76,15 @@ LongTitle.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/task-stories-long-title.mp4"
+    src="/intro-to-storybook/task-stories-long-title-6-4.mp4"
     type="video/mp4"
   />
 </video>
 
 [ビジュアルテスト](/intro-to-storybook/react/ja/test/)を使用している場合は、文字の省略が壊れた場合に分かるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
 
+<div class="aside"><p>💡 開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/react/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="/create-an-addon/react/en/introduction/">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p></div>
+
 ### 変更をマージする
 
 変更を忘れずに Git にマージしてください！
-
-<div class="aside">
-<p>開発者ではない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/react/essentials/controls">公式のドキュメント</a>を見てください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="/create-an-addon/react/en/introduction/">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p>
-</div>
