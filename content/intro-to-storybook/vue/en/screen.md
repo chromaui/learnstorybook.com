@@ -19,15 +19,13 @@ As our app is straightforward, the screen we’ll build is pretty trivial, simpl
     <div v-if="error" class="page lists-show">
       <div class="wrapper-message">
         <span class="icon-face-sad" />
-        <div class="title-message">Oh no!</div>
-        <div class="subtitle-message">Something went wrong</div>
+        <p class="title-message">Oh no!</p>
+        <p class="subtitle-message">Something went wrong</p>
       </div>
     </div>
     <div v-else class="page lists-show">
       <nav>
-        <h1 class="title-page">
-          <span class="title-wrapper">Taskbox</span>
-        </h1>
+        <h1 class="title-page">Taskbox</h1>
       </nav>
       <TaskList />
     </div>
@@ -35,14 +33,14 @@ As our app is straightforward, the screen we’ll build is pretty trivial, simpl
 </template>
 
 <script>
-  import TaskList from './TaskList.vue';
-  export default {
-    name: 'PureInboxScreen',
-    components: { TaskList },
-    props: {
-      error: { type: Boolean, default: false },
-    },
-  };
+import TaskList from "./TaskList.vue";
+export default {
+  name: "PureInboxScreen",
+  components: { TaskList },
+  props: {
+    error: { type: Boolean, default: false },
+  },
+};
 </script>
 ```
 
@@ -181,13 +179,23 @@ import PureInboxScreen from './PureInboxScreen.vue';
 + const store = createStore({
 +   state: {
 +     tasks: TaskListStories.Default.args.tasks,
++     status: 'idle',
++     error: null,
 +   },
++   mutations: {
++     ARCHIVE_TASK(state, id) {
++       state.tasks.find(task => task.id === id).state = 'TASK_ARCHIVED';
++     },
++     PIN_TASK(state, id) {
++       state.tasks.find(task => task.id === id).state = 'TASK_PINNED';
++     },
++    },
 +   actions: {
 +     pinTask(context, id) {
-+       action("pin-task")(id);
++       action('pin-task')(id);
 +     },
 +     archiveTask(context, id) {
-+       action("archive-task")(id);
++       action('archive-task')(id);
 +     },
 +   },
 + });
@@ -227,15 +235,19 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
-## Interactive stories
+## Interaction tests
 
 So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
 
-Can't we automate this workflow and interact with our components automatically?
+Can't we automate this workflow and test our component interactions automatically?
 
-Storybook's [`play`](https://storybook.js.org/docs/vue/writing-stories/play-function) function allows us to do just that. A play function includes small snippets of code that are run after the story renders.
+### Write an interaction test using the play function
 
-The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, that means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+Storybook's [`play`](https://storybook.js.org/docs/vue/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/vue/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+
+The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+
+The `@storybook/addon-interactions` helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
 Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
 
@@ -254,13 +266,23 @@ import * as TaskListStories from './PureTaskList.stories';
 const store = createStore({
   state: {
     tasks: TaskListStories.Default.args.tasks,
+    status: 'idle',
+    error: null,
+  },
+  mutations: {
+    ARCHIVE_TASK(state, id) {
+      state.tasks.find((task) => task.id === id).state = 'TASK_ARCHIVED';
+    },
+    PIN_TASK(state, id) {
+      state.tasks.find((task) => task.id === id).state = 'TASK_PINNED';
+    },
   },
   actions: {
     pinTask(context, id) {
-      action("pin-task")(id);
+      action('pin-task')(id);
     },
     archiveTask(context, id) {
-      action("archive-task")(id);
+      action('archive-task')(id);
     },
   },
 });
@@ -291,9 +313,9 @@ Error.args = { error: true };
 + WithInteractions.play = async ({ canvasElement }) => {
 +   const canvas = within(canvasElement);
 +   // Simulates pinning the first task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
++   await fireEvent.click(canvas.getByLabelText('pinTask-1'));
 +   // Simulates pinning the third task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++   await fireEvent.click(canvas.getByLabelText('pinTask-3'));
 + };
 ```
 
@@ -307,7 +329,39 @@ Check your newly created story. Click the `Interactions` panel to see the list o
   />
 </video>
 
-The play function allows us to interact with our UI and quickly check how it responds if we update our tasks. That keeps the UI consistent at no extra manual effort. All without needing to spin up a testing environment or add additional packages.
+### Automate tests with the test runner
+
+With Storybook's play function, we were able to sidestep our problem, allowing us to interact with our UI and quickly check how it responds if we update our tasks—keeping the UI consistent at no extra manual effort.
+
+But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
+
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/vue/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+
+Let's see how it works! Run the following command to install it:
+
+```bash
+yarn add --dev @storybook/test-runner
+```
+
+Next, update your `package.json` `scripts` and add a new test task:
+
+```json
+{
+  "scripts": {
+    "test-storybook": "test-storybook"
+  }
+}
+```
+
+Finally, with your Storybook running, open up a new terminal window and run the following command:
+
+```bash
+yarn test-storybook --watch
+```
+
+![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+
+Success! Now we have a tool that helps us verify whether all our stories are rendered without errors and all assertions pass automatically. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
 
 ## Component-Driven Development
 

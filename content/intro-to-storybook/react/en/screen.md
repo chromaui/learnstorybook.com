@@ -135,8 +135,8 @@ export default function InboxScreen() {
       <div className="page lists-show">
         <div className="wrapper-message">
           <span className="icon-face-sad" />
-          <div className="title-message">Oh no!</div>
-          <div className="subtitle-message">Something went wrong</div>
+          <p className="title-message">Oh no!</p>
+          <p className="subtitle-message">Something went wrong</p>
         </div>
       </div>
     );
@@ -144,9 +144,7 @@ export default function InboxScreen() {
   return (
     <div className="page lists-show">
       <nav>
-        <h1 className="title-page">
-          <span className="title-wrapper">Taskbox</span>
-        </h1>
+        <h1 className="title-page">Taskbox</h1>
       </nav>
       <TaskList />
     </div>
@@ -190,10 +188,6 @@ function App() {
 }
 export default App;
 ```
-
-<div class="aside">
-  💡 Don't forget to update the test file <code>src/App.test.js</code>. Or the next time you run your tests they will fail.
-</div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
@@ -314,7 +308,7 @@ export const Error = Template.bind({});
 
 </div>
 
-Check your Storybook, and you'll be able to see that the `error` story is now working as intended. MSW intercepted our remote API call and provided the appropriate response.
+Check your Storybook, and you'll see that the `error` story is now working as intended. MSW intercepted our remote API call and provided the appropriate response.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -323,15 +317,19 @@ Check your Storybook, and you'll be able to see that the `error` story is now wo
   />
 </video>
 
-## Interactive stories
+## Interaction tests
 
 So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
 
-Can't we automate this workflow and interact with our components automatically?
+Can't we automate this workflow and test our component interactions automatically?
 
-Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function allows us to do just that. A play function includes small snippets of code that are run after the story renders.
+### Write an interaction test using the play function
 
-The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, that means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+
+The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+
+The `@storybook/addon-interactions` helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
 Let's see it in action! Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
 
@@ -388,7 +386,7 @@ Default.parameters = {
 + };
 ```
 
-Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
+Check the `Default` story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -397,11 +395,43 @@ Check your newly created story. Click the `Interactions` panel to see the list o
   />
 </video>
 
-The play function allows us to interact with our UI and quickly check how it responds if we update our tasks. That keeps the UI consistent at no extra manual effort. All without needing to spin up a testing environment or add additional packages.
+### Automate tests with the test runner
+
+With Storybook's play function, we were able to sidestep our problem, allowing us to interact with our UI and quickly check how it responds if we update our tasks—keeping the UI consistent at no extra manual effort.
+
+But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
+
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+
+Let's see how it works! Run the following command to install it:
+
+```bash
+yarn add --dev @storybook/test-runner
+```
+
+Next, update your `package.json` `scripts` and add a new test task:
+
+```json
+{
+  "scripts": {
+    "test-storybook": "test-storybook"
+  }
+}
+```
+
+Finally, with your Storybook running, open up a new terminal window and run the following command:
+
+```bash
+yarn test-storybook --watch
+```
+
+![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+
+Success! Now we have a tool that helps us verify whether all our stories are rendered without errors and all assertions pass automatically. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
 
 ## Component-Driven Development
 
-We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen`
+We started from the bottom with `Task`, then progressed to `TaskList`, and now we’re here with a whole screen UI. Our `InboxScreen`
 accommodates connected components and includes accompanying stories.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">

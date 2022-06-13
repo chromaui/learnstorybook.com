@@ -43,9 +43,10 @@ Now let's fix the issue with overflowing by adding a style to `Task.vue`:
 ```diff:title=src/components/Task.vue
 <input
   type="text"
-  :value="task.title"
   readonly
-  placeholder="Input title"
+  :value="task.title"
+  :id="'title-' + task.id"
+  name="title"
 + style="text-overflow: ellipsis;"
 />
 ```

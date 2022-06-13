@@ -9,7 +9,7 @@ We’ll build our UI following a [Component-Driven Development](https://www.comp
 
 ## Task
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+![Task component in three states](/intro-to-storybook/task-states-learnstorybook-accessible.png)
 
 `Task` is the core component of our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
@@ -31,7 +31,15 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-task',
   template: `
     <div class="list-item">
-      <input type="text" [value]="task.title" readonly="true" />
+      <label [attr.aria-label]="task.title + ''" for="title">
+        <input
+          type="text"
+          [value]="task.title"
+          readonly="true"
+          id="title"
+          name="title"
+        />
+      </label>
     </div>
   `,
 })
@@ -53,9 +61,7 @@ Above, we render straightforward markup for the `Task` component based on the ex
 Below we build out Task’s three test states in the story file:
 
 ```ts:title=src/app/components/task.stories.ts
-import { moduleMetadata, Meta, Story } from '@storybook/angular';
-
-import { CommonModule } from '@angular/common';
+import { Meta, Story } from '@storybook/angular';
 
 import { action } from '@storybook/addon-actions';
 
@@ -63,12 +69,6 @@ import { TaskComponent } from './task.component';
 
 export default {
   component: TaskComponent,
-  decorators: [
-    moduleMetadata({
-      declarations: [TaskComponent],
-      imports: [CommonModule],
-    }),
-  ],
   title: 'Task',
   excludeStories: /.*Data$/,
 } as Meta;
@@ -92,7 +92,6 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 
@@ -164,6 +163,13 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
   ],
+  framework: '@storybook/angular',
+  core: {
+    builder: '@storybook/builder-webpack5',
+  },
+  features: {
+    interactionsDebugger: true,
+  },
 };
 ```
 
@@ -203,30 +209,44 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-task',
-  template: `
++ template: `
 +   <div class="list-item {{ task?.state }}">
-+     <label class="checkbox">
++     <label
++       [attr.aria-label]="'archiveTask-' + task.id"
++       for="checked-{{ task?.id }}"
++       class="checkbox"
++     >
 +       <input
 +         type="checkbox"
-+         [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
 +         disabled="true"
-+         name="checked"
++         [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
++         name="checked-{{ task?.id }}"
++         id="checked-{{ task?.id }}"
 +       />
-+       <span class="checkbox-custom" (click)="onArchive(task.id)" attr.aria-label="archiveTask-{{ task?.id }}"></span>
++       <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
 +     </label>
-+     <div class="title">
++     <label
++       [attr.aria-label]="task.title + ''"
++       for="title-{{ task?.id }}"
++       class="title"
++     >
 +       <input
 +         type="text"
-+         [value]="task?.title"
++         [value]="task.title"
 +         readonly="true"
++         id="title-{{ task?.id }}"
++         name="title-{{ task?.id }}"
 +         placeholder="Input title"
 +       />
-+     </div>
-+     <div class="actions">
-+       <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-+         <span class="icon-star" attr.aria-label="pinTask-{{ task?.id }}"></span>
-+       </a>
-+     </div>
++     </label>
++     <button
++       *ngIf="task?.state !== 'TASK_ARCHIVED'"
++       class="pin-button"
++       [attr.aria-label]="'pinTask-' + task.id"
++       (click)="onPin(task.id)"
++     >
++       <span class="icon-star"></span>
++     </button>
 +   </div>
   `,
 })
@@ -275,47 +295,55 @@ As you can see, getting started building components in isolation is easy and fas
 
 ## Automated Testing
 
-Storybook gave us a great way to manually test our application UI during construction. The stories will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook gave us a great way to manually test our UI during development. The stories will help ensure we don't break our Task's appearance as we continue to develop our application. However, manual tests can only go so far while building UIs. We must also ensure that our application is accessible to everyone. How can we test it?
 
-### Snapshot testing
+### Accessibility tests
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in the future. It complements Storybook because it’s a quick way to view the new version and check out the differences.
+Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
 
-<div class="aside">
-💡 Make sure your components render data that doesn't change so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
-</div>
+Storybook includes an official [accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y). Powered by Deque's [axe-core](https://github.com/dequelabs/axe-core), it can catch up to [57% of WCAG issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
-A snapshot test is created with the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) for each of the stories. Use it by adding the following development dependencies:
+Let's see how it works! Run the following command to install the addon:
 
 ```bash
-npm install -D @storybook/addon-storyshots
+npm install @storybook/addon-a11y --save-dev
 ```
 
-Then create the `src/storybook.test.js` file with the following in it:
+Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
 
-```ts:title=src/storybook.test.js
-import initStoryshots from '@storybook/addon-storyshots';
+```diff:title=.storybook/main.js
+module.exports = {
 
-initStoryshots();
+  stories: ['../src/app/components/**/*.stories.ts'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
++   '@storybook/addon-a11y',
+  ],
+  framework: '@storybook/angular',
+  core: {
+    builder: '@storybook/builder-webpack5',
+  },
+  features: {
+    interactionsDebugger: true,
+  },
+};
 ```
 
-Finally, we need to make a small change in the `jest` key in our `package.json`:
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
 
-```diff:title=package.json
-{
-   "transform": {
-      "^.+\\.(ts|html)$": "ts-jest",
-      "^.+\\.js$": "babel-jest",
-+     "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
-    },
+Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/styles.css`).
+
+```diff:title=src/styles.css
+.list-item.TASK_ARCHIVED input[type="text"] {
+- color: #a0aec0;
++ color: #4a5568;
+  text-decoration: line-through;
 }
 ```
 
-That's it. We can run `npm run test` and see the following output:
-
-![Task test runner](/intro-to-storybook/task-testrunner.png)
-
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+That's it! We've taken the first step to ensure that UI becomes accessible. As we continue to add complexity to our application, we can repeat this process for all other components without needing to spin up additional tools or testing environments.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

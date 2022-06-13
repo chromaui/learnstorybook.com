@@ -168,25 +168,29 @@ Our component is still rough, but now we have an idea of the stories to work tow
     <template v-if="loading">
 +     <div v-for="n in 6" :key="n" class="loading-item">
 +       <span class="glow-checkbox" />
-+       <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
-+     </div>
++       <span class="glow-text">
++         <span>Loading</span> <span>cool</span> <span>state</span>
++       </span>
+      </div>
     </template>
 
     <div v-else-if="isEmpty" class="list-items">
 +     <div class="wrapper-message">
 +       <span class="icon-check" />
-+       <div class="title-message">You have no tasks</div>
-+       <div class="subtitle-message">Sit back and relax</div>
++       <p class="title-message">You have no tasks</p>
++       <p class="subtitle-message">Sit back and relax</p>
 +     </div>
     </div>
 
     <template v-else>
-+     <Task v-for="task in tasksInOrder"
++     <Task
++       v-for="task in tasksInOrder"
 +       :key="task.id"
 +       :task="task"
 +       @archive-task="onArchiveTask"
-+       @pin-task="onPinTask"/>
-    </template>
++       @pin-task="onPinTask"
++     />
+   </template>
   </div>
 </template>
 
@@ -201,7 +205,7 @@ export default {
     tasks: { type: Array, required: true, default: () => [] },
     loading: { type: Boolean, default: false },
   },
-  emits: ["archive-task", "pin-task"],
+  emits: ['archive-task', 'pin-task'],
 
   setup(props, { emit }) {
     props = reactive(props);
@@ -241,48 +245,6 @@ The added markup results in the following UI:
 </video>
 
 Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
-
-## Automated testing
-
-In the previous chapter, we learned how to snapshot test stories using Storyshots. With `Task`, there wasn’t much complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity, we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this, we’ll create unit tests using [Jest](https://jestjs.io/) and [Vue's Testing Utils](https://vue-test-utils.vuejs.org/).
-
-![Jest logo](/intro-to-storybook/logo-jest.png)
-
-### Unit tests with Jest
-
-Storybook stories, manual tests, and snapshot tests go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
-
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed, bringing us to unit tests.
-
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
-
-So, to avoid this problem, we can use Jest to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can import the story in our tests and render it there!
-
-Create a test file called `tests/unit/TaskList.spec.js`. Here we’ll build out our tests that make assertions about the output.
-
-```js:title=tests/unit/TaskList.spec.js
-import { mount } from '@vue/test-utils';
-
-import TaskList from '../../src/components/TaskList.vue';
-
-//👇 Our story imported here
-import { WithPinnedTasks } from '../../src/components/TaskList.stories';
-
-test('renders pinned tasks at the start of the list', () => {
-  const wrapper = mount(TaskList, {
-    //👇 Story's args used with our test
-    propsData: WithPinnedTasks.args,
-  });
-  const firstPinnedTask = wrapper.find('.list-item:nth-child(1).TASK_PINNED');
-  expect(firstPinnedTask).not.toBe(null);
-});
-```
-
-![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
-
-Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way, we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
-
-Notice as well that this test is quite brittle. It's possible that as the project matures and the exact implementation of the `Task` changes--perhaps using a different classname or a `textarea` rather than an `input`--the test will fail and need to be updated. It is not necessarily a problem but rather an indication of being careful about using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/vue/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

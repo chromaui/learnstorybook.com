@@ -30,7 +30,9 @@ import React from 'react';
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className="list-item">
-      <input type="text" value={title} readOnly={true} />
+      <label htmlFor="title" aria-label={title}>
+        <input type="text" value={title} readOnly={true} name="title" />
+      </label>
     </div>
   );
 }
@@ -58,7 +60,6 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 
@@ -127,12 +128,12 @@ module.exports = {
     '@storybook/preset-create-react-app',
     '@storybook/addon-interactions',
   ],
-  features: {
-    postcss: false,
-  },
   framework: '@storybook/react',
   core: {
-    builder: 'webpack4',
+    builder: '@storybook/builder-webpack5',
+  },
+  features: {
+    interactionsDebugger: true,
   },
 };
 ```
@@ -179,32 +180,45 @@ import React from 'react';
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
-      <label className="checkbox">
+      <label
+        htmlFor="checked"
+        aria-label={`archiveTask-${id}`}
+        className="checkbox"
+      >
         <input
           type="checkbox"
-          defaultChecked={state === 'TASK_ARCHIVED'}
           disabled={true}
           name="checked"
+          id={`archiveTask-${id}`}
+          checked={state === "TASK_ARCHIVED"}
         />
         <span
           className="checkbox-custom"
           onClick={() => onArchiveTask(id)}
-          id={`archiveTask-${id}`}
-          aria-label={`archiveTask-${id}`}
         />
       </label>
-      <div className="title">
-        <input type="text" value={title} readOnly={true} placeholder="Input title" />
-      </div>
 
-      <div className="actions" onClick={event => event.stopPropagation()}>
-        {state !== 'TASK_ARCHIVED' && (
-          // eslint-disable-next-line jsx-a11y/anchor-is-valid
-          <a onClick={() => onPinTask(id)}>
-            <span className={`icon-star`} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} />
-          </a>
-        )}
-      </div>
+      <label htmlFor="title" aria-label={title} className="title">
+        <input
+          type="text"
+          value={title}
+          readOnly={true}
+          name="title"
+          placeholder="Input title"
+        />
+      </label>
+
+      {state !== "TASK_ARCHIVED" && (
+        <button
+          className="pin-button"
+          onClick={() => onPinTask(id)}
+          id={`pinTask-${id}`}
+          aria-label={`pinTask-${id}`}
+          key={`pinTask-${id}`}
+        >
+          <span className={`icon-star`} />
+        </button>
+      )}
     </div>
   );
 }
@@ -221,7 +235,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 ## Specify data requirements
 
-It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, but it also helps catch problems early.
+It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self-documenting, but it also helps catch problems early.
 
 ```diff:title=src/components/Task.js
 import React from 'react';
@@ -262,34 +276,56 @@ As you can see, getting started building components in isolation is easy and fas
 
 ## Automated Testing
 
-Storybook gave us a great way to manually test our application UI during construction. The stories will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Storybook gave us a great way to manually test our UI during development. The stories will help ensure we don't break our Task's appearance as we continue to develop our application. However, manual tests can only go so far while building UIs. We must also ensure that our application is accessible to everyone. How can we test it?
 
-### Snapshot testing
+### Accessibility tests
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in the future. It complements Storybook because it’s a quick way to view the new version and check out the differences.
+Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
 
-<div class="aside">
-💡 Make sure your components render data that doesn't change so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
-</div>
+Storybook includes an official [accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y). Powered by Deque's [axe-core](https://github.com/dequelabs/axe-core), it can catch up to [57% of WCAG issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
-A snapshot test is created with the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) for each of the stories. Use it by adding the following development dependencies:
+Let's see how it works! Run the following command to install the addon:
 
 ```bash
-yarn add -D @storybook/addon-storyshots react-test-renderer
+yarn add --dev @storybook/addon-a11y
 ```
 
-Then create a `src/storybook.test.js` file with the following in it:
+Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
 
-```js:title=src/storybook.test.js
-import initStoryshots from '@storybook/addon-storyshots';
-initStoryshots();
+```diff:title=.storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  staticDirs: ['../public'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-interactions',
++   '@storybook/addon-a11y',
+  ],
+  framework: '@storybook/react',
+  core: {
+    builder: '@storybook/builder-webpack5',
+  },
+  features: {
+    interactionsDebugger: true,
+  },
+};
 ```
 
-That's it. We can run `yarn test` and see the following output:
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
 
-![Task test runner](/intro-to-storybook/task-testrunner.png)
+Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
 
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+```diff:title=src/index.css
+.list-item.TASK_ARCHIVED input[type="text"] {
+- color: #a0aec0;
++ color: #4a5568;
+  text-decoration: line-through;
+}
+```
+
+That's it! We've taken the first step to ensure that UI becomes accessible. As we continue to add complexity to our application, we can repeat this process for all other components without needing to spin up additional tools or testing environments.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!
