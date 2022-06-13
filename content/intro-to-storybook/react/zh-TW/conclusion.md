@@ -7,7 +7,7 @@ description: '總結已學到的，接著學習更多 Storybook 技巧'
 
 [📕 **GitHub 專案：chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **已部署的 Storybook**](https://clever-banach-415c03.netlify.app/)
+[🌎 **已部署的 Storybook**](https://master--5ccbe484c994280020b6d128.chromatic.com)
 
 Storybook 在 React、React Native、Vue、Angular、Svelte 和其它 framework 都是很犀利的工具。有熱鬧的開發者社群以及豐富的外掛。這份介紹擷取其可能性最淺薄的一部份。只要採用 Storybook，我們有自信讓你對效率和打造堅強的 UI 感到驚艷。
 

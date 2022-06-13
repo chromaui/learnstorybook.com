@@ -7,7 +7,7 @@ Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. En el camino
 
 [📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **Storybook Desplegado**](https://clever-banach-415c03.netlify.app/)
+[🌎 **Storybook Desplegado**](https://master--5ccbe484c994280020b6d128.chromatic.com)
 
 Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una próspera comunidad de desarrolladores y una gran cantidad de complementos. Esta introducción nos lleva superficialmente a lo que es posible. Estamos seguros de que una vez que adoptes Storybook, quedarás impresionado por lo productivo que es crear interfaces de usuario duraderas.
 

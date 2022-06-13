@@ -7,7 +7,7 @@ Glückwunsch! Du hast deine erste UI in Storybook erstellt. Dabei hast du gelern
 
 [📕 **GitHub Repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **Deploytes Storybook**](https://clever-banach-415c03.netlify.app/)
+[🌎 **Deploytes Storybook**](https://master--5ccbe484c994280020b6d128.chromatic.com)
 
 Storybook ist ein mächtiges Werkzeug für React, Vue und Angular. Es hat eine gedeihende Entwickler-Community und reichlich viele Addons. Diese Einführung kratzt nur an der Oberfläche dessen, was möglich ist. Wir sind uns sicher, dass sobald du Storybook bei dir etabliert hast, du beeindruckt sein wirst, wie sehr es dich bei der Entwicklung langlebiger UIs beschleunigt.
 
