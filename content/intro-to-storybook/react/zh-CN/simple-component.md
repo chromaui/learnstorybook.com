@@ -133,7 +133,7 @@ module.exports = {
 };
 ```
 
-完成以上修改后，在 `.storybook` 文件夹中修改 `preview.js` 为一下内容：
+完成以上修改后，在 `.storybook` 文件夹中修改 `preview.js` 为以下内容：
 
 ```javascript
 // .storybook/preview.js
