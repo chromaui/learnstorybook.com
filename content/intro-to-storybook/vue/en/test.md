@@ -1,6 +1,6 @@
 ---
-title: 'Test UI components'
-tocTitle: 'Testing'
+title: 'Visual Tests'
+tocTitle: 'Visual Testing'
 description: 'Learn the ways to test UI components'
 ---
 

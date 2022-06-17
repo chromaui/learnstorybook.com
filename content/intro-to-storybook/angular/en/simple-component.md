@@ -293,11 +293,7 @@ We’ve now successfully built out a component without needing a server or runni
 
 As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
 
-## Automated Testing
-
-Storybook gave us a great way to manually test our UI during development. The stories will help ensure we don't break our Task's appearance as we continue to develop our application. However, manual tests can only go so far while building UIs. We must also ensure that our application is accessible to everyone. How can we test it?
-
-### Accessibility tests
+## Catch accessibility issues
 
 Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
 

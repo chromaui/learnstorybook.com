@@ -425,6 +425,10 @@ Finally, with your Storybook running, open up a new terminal window and run the 
 yarn test-storybook --watch
 ```
 
+<div class="aside">
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">official documentation</a> to learn more about it. However, there are more ways you can improve testing. In the <a href="/ui-testing-handbook">Testing Handbook</a>, we'll teach you that, by introducing you to strategies used by scaled-front-end teams that will help supercharge your development workflow.
+</div>
+
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
 
 Success! Now we have a tool that helps us verify whether all our stories are rendered without errors and all assertions pass automatically. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
