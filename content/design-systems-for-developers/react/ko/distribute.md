@@ -383,7 +383,7 @@ module.exports = {
 + refs: {
 +   'design-system': {
 +     title: 'My design system',
-+     //👇 Chromatic으로 배포된 url
++     //👇 The url provided by Chromatic when it was deployed
 +     url: 'https://your-published-url.chromatic.com',
 +   },
 + },

@@ -7,7 +7,7 @@ description: '모든 지식을 종합하고 더 많은 스토리북(Storybook) �
 
 [📕 **깃허브 저장소: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
-[🌎 **배포된 스토리북**](https://clever-banach-415c03.netlify.app/)
+[🌎 **배포된 스토리북**](https://master--5ccbe484c994280020b6d128.chromatic.com)
 
 스토리북은 React, React Native, Vue, Angular, Svelte 외 다른 여러 프레임 워크를 위한 강력한 도구이며 활발한 개발자 커뮤니티와 풍부한 애드온(addon)을 가지고 있습니다. 본 소개에서는 가능한 모든 것들의 극히 일부를 살펴본 것입니다. 스토리북을 채택하면 내구성 있는 UI를 구축하는 것이 얼마나 생산적인지 알게 될 것이라고 확신합니다.
 

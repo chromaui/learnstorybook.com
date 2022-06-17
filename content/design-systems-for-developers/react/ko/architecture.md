@@ -39,12 +39,12 @@ description: '컴포넌트 라이브러리에서 디자인 시스템을 추출�
 터미널에 아래 명령어를 입력하여 실행해보세요.
 
 ```shell
-# 파일들을 복제합니다.
-npx degit chromaui/learnstorybook-design-system#setup learnstorybook-design-system
+# Clone the files
+npx degit chromaui/learnstorybook-design-system-template learnstorybook-design-system
 
 cd learnstorybook-design-system
 
-# 의존성(dependencies)를 설치합니다.
+# Install the dependencies
 yarn install
 ```
 
