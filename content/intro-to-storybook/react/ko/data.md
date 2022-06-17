@@ -11,7 +11,7 @@ commit: '5da7c68'
 
 ## 컨테이너 컴포넌트
 
-현재 구현된 `TaskList`는 외부와 어떠한 소통도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. ([이 블로그 포스트](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)를 참조해 주세요. 데이터를 얻기 위해서는 “컨테이너(container)”가 필요합니다.)
+현재 구현된 `TaskList`는 외부와 어떠한 소통도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. 데이터를 적용하기 위해 데이터 제공자를 연결해야 합니다.
 
 이 예제는 [Redux](https://redux.js.org/)로 데이터를 저장하기 위해 가장 효과적인 도구 집합(toolset)인 [Redux Toolkit](https://redux-toolkit.js.org/)를 사용하여 앱의 간단한 데이터 모델을 만듭니다. 여기서 사용된 패턴은 [Apollo](https://www.apollographql.com/client/)와 [MobX](https://mobx.js.org/) 같은 다른 데이터 관리 라이브러리에도 적용됩니다.
 
@@ -22,6 +22,7 @@ yarn add @reduxjs/toolkit react-redux
 ```
 
 먼저 `src/lib` 폴더의 `store.js` 파일(의도적으로 단순하게 작성함)에서 task의 상태(state)를 변경하는 동작에 반응하는 간단한 리덕스(Redux) 저장소를 구성해 보겠습니다:
+
 ```js:title=src/lib/store.js
 /* A simple redux store/actions/reducer implementation.
  * A true app would be more complex and separated into different files.
