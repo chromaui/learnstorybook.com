@@ -1,51 +1,47 @@
 ---
-title: 'UI 배포하기'
+title: 'UI 배포'
 tocTitle: '배포'
-description: '디자인 시스템을 패키징하고 다른 앱에 임포트하는 법 알아보기'
-commit: 'bba7cb0'
+description: '디자인 시스템을 다른 앱에 패키징하고 import하는 방법을 배웁니다.'
 ---
 
-설계 관점에서 보았을 때, 디자인 시스템은 그저 또 다른 프런트엔드 디펜던시입니다. moment나 lodash처럼 유명한 디펜던시들과 다를 바가 없습니다. UI 컴포넌트는 코드로 이루어졌기 때문에 기존의 기술로 코드를 재사용할 수 있습니다.
+설계적인 관점에서 디자인 시스템은 또 다른 프런트엔드 의존성(dependency)에 불과합니다. 그런 시스템은 유명한 의존성인 moment나 loadash와 다를 바가 없습니다. UI 컴포넌트는 코드이기 때문에 코드 재사용을 위해 확립된 기술을 활용할 수 있습니다.
 
-이 장에서는 UI 컴포넌트를 패키징하는 것부터 다른 앱에 컴포넌트를 임포트하는 것까지 디자인 시스템을 배포할 것입니다. 또한, 릴리즈와 버전 관리를 효율적으로 하면서 시간을 절약하는 기술을 알아봅니다.
+이번 챕터에서는 디자인 시스템을 배포하며 UI 컴포넌트를 패키징하는 것에서부터 그 컴포넌트를 다른 앱에 가져오는 것까지 해볼 것입니다. 또한, 배포와 버전관리의 효율성을 높이기 위한 시간 절약 기술에 대해서도 알아보겠습니다.
 
-![Propagate components to sites](/design-systems-for-developers/design-system-propagation.png)
+![사이트들에 컴포넌트를 전파(propagate)하기](/design-systems-for-developers/design-system-propagation.png)
 
-## 디자인 시스템 패키징하기
+## 디자인 시스템 패키징
 
-조직은 여러 앱에 걸쳐 수천개의 UI 컴포넌트를 가지고 있습니다. 앞 장에서는 가장 흔히 사용하는 컴포넌트들을 디자인 시스템에 포함시켰습니다. 이제는 그 컴포넌트들을 다시 앱으로 불러옵니다.
+조직은 수천 개의 UI 컴포넌트들을 서로 다른 앱에 분산시켜둡니다. 이전에는 디자인 시스템에서 가장 흔한 컴포넌트를 추출해서 디자인 시스템에 포함시켰는데, 이제 이 컴포넌트를 앱에 다시 적용할 차례입니다.
 
-우리의 디자인 시스템은 npm이라는 자바스크립트 패키지 매니저를 사용합니다. npm을 사용해서 배포, 버전, 디펜던시를 관리할 수 있습니다.
+디자인 시스템은 JavaScript 패키지 매니저인 npm을 통해 배포, 버전관리, 의존성(dependency) 관리를 합니다.
 
-디자인 시스템을 패키징하는 방법은 여러가지입니다. 다양한 접근 방법을 보고 싶다면 Lonely Planet, Auth0, Salesforce, Github, Microsoft가 갖춘 디자인 시스템을 살펴보세요. 어떤 팀은 각 컴포넌트를 개별적인 패키지로 관리합니다. 다른 팀은 모든 컴포넌트를 하나의 패키지에 넣기도 합니다.
+패키징 디자인 시스템에는 다양한 방법들이 있는데 이러한 다양한 접근 방법은 Lonely Planet의 디자인 시스템인 Gander, Auth0, Salesforce, GitHub 그리고 Microsoft에서 확인할 수 있습니다. 각각의 컴포넌트를 개별적인 패키지로 관리하거나 하나의 패키지에 모든 컴포넌트를 관리하기도 합니다.
 
-꾸준히 성장할 수 있는 디자인 시스템을 위해 가장 확실한 방법은 다음 사항들을 포함하는 일정한 버전의 패키지를 만드는 것입니다.
+초기 디자인 시스템의 경우 가장 직접적인 방법은 아래의 내용을 포함하는 단일 버전 패키지를 발행하는 것입니다. -  
 
-- 🏗 공통 UI 컴포넌트
-- 🎨 디자인 토큰 (예를 들어, style variables)
+- 🏗 공통적인 UI 컴포넌트
+- 🎨 디자인 토큰 (style variables과 같은)
 - 📕 문서화
 
-![Package a design system](/design-systems-for-developers/design-system-package.jpg)
+![디자인 시스템 패키지](/design-systems-for-developers/design-system-package.jpg)
+## export 하기 위한 디자인 시스템 준비
 
-## 디자인 시스템 Export 준비하기
+디자인 시스템의 출발점으로 [Create React App](https://github.com/facebook/create-react-app) (CRA)을 사용했는데 여전히 초기 앱의 흔적이 남아있습니다. 정리를 좀 해볼까요?
 
-[Create React App](https://github.com/facebook/create-react-app) (CRA)을 이용해서 디자인 시스템을 만들고 있기 때문에 create-react-app의 초기 상태와 스크립트 중 자잘한 것을 정리합니다.
+첫번째로, README.md를 조금 더 구체적으로 업데이트 합니다. -  
 
-우선, README.md 파일을 좀 더 자세하게 업데이트합니다.
+```markdown:title=README.md
+# 스토리북(Storybook) 디자인 시스템 튜토리얼
 
-```markdown
-# 스토리북 디자인 시스템 배우기
+스토리북 디자인 시스템 튜토리얼은 [스토리북 디자인 시스템](https://github.com/storybookjs/design-system/)의 일부로 디자인 시스템을 어떻게 만들고 배포할지 가장 효율적인 방법을 배우고 싶은 사람들을 위한 학습 자료로 제작되었습니다.
 
-스토리북 디자인 시스템 배우기는 [스토리북 디자인 시스템](https://github.com/storybookjs/design-system/)의 일부분입니다. 어떻게 하면 가장 실용적이고 효율적인 방법으로 디자인 시스템을 만들고 배포할 수 있는지 궁금해할 사람들을 위해 만든 교육 자료입니다.
-
-자세한 사항은 [Learn Storybook](https://learnstorybook.com)을 참고하세요.
+더 자세한 내용은 [스토리북 튜토리얼](https://storybook.js.org/tutorials/)를 참고하세요.
 ```
 
-그 다음으로 우리의 디자인 시스템의 공통적인 시작점을 만들기 위해 `src/index.js`파일을 만듭니다. 이 파일로부터 모든 디자인 토큰과 컴포넌트를 export할 것입니다.
+이제 디자인 시스템의 공통 도입부를 생성하기 위해 `src/index.js` 파일을 만듭니다. 이 파일에서부터 모든 디자인 토큰과 컴포넌트를 export 할 것입니다. -  
 
-```javascript
-//src/index.js
-
+```js:title=src/index.js
 import * as styles from './shared/styles';
 import * as global from './shared/global';
 import * as animation from './shared/animation';
@@ -60,19 +56,19 @@ export * from './Icon';
 export * from './Link';
 ```
 
-필요한 몇 가지 개발 패키지를 추가합니다. 빌드 과정에 필요한 [`@babel/cli`](https://www.npmjs.com/package/@babel/cli)와 [`cross-env`](https://www.npmjs.com/package/cross-env)를 사용할 것입니다.
+추가로 개발 패키지가 필요한데, 빌드(build) 과정에서 도와줄 [`@babel/cli`](https://www.npmjs.com/package/@babel/cli)와 [`cross-env`](https://www.npmjs.com/package/cross-env)을 사용할 것입니다.
 
-커맨드 라인에 아래와 같이 명령어를 입력합니다.
+커맨드 라인(command line)에서 다음과 같이 작성합니다. -  
 
 ```shell
 yarn add --dev @babel/cli cross-env
 ```
 
-패키지를 설치했다면 빌드 과정을 구현해야 합니다.
+패키지의 설치가 완료되었으면, 빌드 과정에서 구현해야합니다.
 
-다행히도 이 부분은 Create React App (CRA)이 이미 만들어 놓았습니다. 해당 `build` 스크립트를 사용해서 디자인 시스템을 `dist` 디렉토리에 빌드하도록 수정합니다.
+고맙게도 Create React App가 이 과정을 이미 처리해두었습니다. 디자인 시스템을 `dist` 디렉토리에 구축하기 위해 이미 만들어진 `build` 스크립트를 수정합니다. -  
 
-```json
+```json:title=package.json
 {
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist"
@@ -80,9 +76,9 @@ yarn add --dev @babel/cli cross-env
 }
 ```
 
-빌드 과정 구현이 완료되었습니다. 여기서 조금만 더 다듬으면 됩니다. `babel` 키 값을 `package.json` 파일에 추가해서 아래와 같이 업데이트합니다.
+빌드 과정이 구현되었고, 이를 조금 수정해보겠습니다. `package.json`에서 `babel`의 키를 찾아 다음과 같이 내용을 업데이트합니다. - 
 
-```json
+```json:title=package.json
 {
   "babel": {
     "presets": [
@@ -97,210 +93,216 @@ yarn add --dev @babel/cli cross-env
 }
 ```
 
-이제 `yarn build`를 실행해서 `dist` 디렉터리에 코드를 빌드합니다. 참고로 이 `dist` 디렉터리를 실수로 커밋하지 않도록 `.gitignore` 파일에 추가해야 합니다.
+ 이제 `dist` 디렉토리 안에 코드를 빌드 하기 위해 `yarn build`를 실행할 수 있습니다. -- 원치 않는 commit을 피하기 위해 이 디렉토리를 `gitignore`에 추가합니다. - 
 
 ```
 // ..
 dist
 ```
+#### 퍼블리싱을 위한 패키지 메타데이터 추가
 
-#### 배포를 위해 패키지 메타 데이터 추가하기
-
-패키지 사용자가 필요한 정보를 모두 갖출 수 있도록 `package.json` 파일을 조금 더 손봐야 합니다. 가장 쉬운 방법은 `yarn init` 명령어를 실행하는 것입니다. 이 명령어는 배포를 위해 패키지의 초기 상태를 설정(initialize)합니다.
+패키지의 사용자가 필요한 모든 정보를 얻을 수 있도록 `package.json`을 수정해야합니다. 가장 쉬운 방법은 `yarn init`을 실행하는 것입니다. -- 이 명령어는 배포를 위한 패키지의 초기 상태를 설정합니다. - 
 
 ```shell
-yarn init
+# Initializes a scoped package
+yarn init --scope=@your-npm-username
 
 yarn init v1.22.5
-question name (learnstorybook-design-system):
+question name (learnstorybook-design-system): @your-npm-username/learnstorybook-design-system
 question version (0.1.0):
-question description (Learn Storybook design system):
+question description (Learn Storybook design system):Storybook design systems tutorial
 question entry point (dist/index.js):
-question repository url (https://github.com/chromaui/learnstorybook-design-system.git):
-question author (Tom Coleman <tom@thesnail.org>):
+question repository url (https://github.com/your-username/learnstorybook-design-system.git):
+question author (your-npm-username <your-email-address@email-provider.com>):
 question license (MIT):
 question private: no
 ```
 
-이 명령어는 여러 질문을 하는데, 몇몇 질문은 이미 예상된 답을 제시하고, 다른 몇 개는 우리가 직접 생각해서 적어야 합니다. 사용자는 npm 패키지를 위해 독특한 이름을 정해야 합니다. 예를 들어 `learnstorybook-design-system`은 사용할 수 없고, `<사용자-이름>-learnstorybook-design-system`은 가능합니다.
+명령어가 한 세트의 질문을 할텐데, 이 중에서 일부는 답이 미리 채워져있을 것이고, 나머지는 우리가 고민해야 합니다. npm에 올릴 패키지를 위해 고유한 이름을 만들어주세요. (`learnstorybook-design-system`를 사용할 수 없습니다. -- 그렇기 때문에 앞에 npm의 사용자 이름을 적는 다음과 같은 방식을 추천합니다. `@your-npm-username/learnstorybook-design-system`)
 
-그러고 나면 `package.json`은 우리가 입력한 답변들로 업데이트됩니다.
+모두 완료했으면, `package.json`에 그 질문들에 대한 결과로써 새로운 값들과 함께 업데이트가 될 것입니다. - 
 
-```json
+```json:title=package.json
 {
-  "name": "learnstorybook-design-system",
-  "description": "Learn Storybook design system",
+  "name": "@your-npm-username/learnstorybook-design-system",
+  "description": "Storybook design systems tutorial",
   "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.js",
-  "repository": "https://github.com/chromaui/learnstorybook-design-system.git"
+  "repository": "https://github.com/your-username/learnstorybook-design-system.git"
   // ...
 }
 ```
 
-이제 패키지 준비는 끝났으니, 처음으로 npm에 배포해 볼 수 있습니다!
+<div class="aside">
+💡 간결하게 하기 위해 <a href="https://docs.npmjs.com/creating-and-publishing-scoped-public-packages">패키지의 스코프(package scopes)</a>는 언급하지 않았는데, 스코프를 사용하면 다른 유저나 조직이 생성한 패키지와 동일한 이름의 패키지를 충돌없이 만들 수 있습니다.
+</div>
 
-## Auto로 배포 관리하기
 
-변경된 부분들을 기록하는 changelog를 업데이트하고, 적정한 버전 숫자를 입력하고, 그 버전 숫자와 repository에 있는 커밋을 연결해주는 git tag를 생성하는 과정을 거쳐서 npm에 릴리즈를 배포합니다. 이때, 이러한 과정을 위해 만들어진 [Auto](https://github.com/intuit/auto)라는 오픈 소스 툴을 이용할 것입니다.
+패키지 준비가 되었으니 이제 npm에 최초 배포를 할 수 있습니다!
+## Auto로 배포 관리
 
-Auto를 설치합니다.
+변경된 부분을 기록하는 changelog를 업데이트하고, 유효한 버전의 숫자를 입력하며, 저장소의 commit에 있는 버전 숫자와 깃(git) 태그가 연결되도록 만드는 과정을 거쳐서 npm에 배포를 합니다. 이 모든 과정을 위해 만들어진 [Auto](https://github.com/intuit/auto)라고 불리는 오픈소스 툴을 사용할 것입니다. 
+
+Auto를 설치해보세요. - 
 
 ```shell
 yarn add --dev auto
 ```
 
-Auto는 릴리즈 관리에 해당하는 다양한 업무에 유용한 커맨드 라인 툴입니다. 자세한 사항은 [Auto의 문서 사이트](https://intuit.github.io/auto/)에서 확인할 수 있습니다.
+Auto는 배포 관리시 일어날 수 있는 다양하고 흔한 과제를 수행할 때 사용할 수 있는 커맨드 라인 툴입니다. [Auto 문서 사이트](https://intuit.github.io/auto/)에서 Auto에 대해 더 알 수 있습니다.  
 
-#### 깃헙 토큰, npm 토큰 생성하기
+ #### GitHub 토큰과 npm 토큰 생성  
 
-앞으로의 몇몇 단계에서 Auto는 깃헙과 npm과 통신해야 합니다. 원활한 통신을 위해서 개인 접근 토큰(personal access token)이 필요합니다. [깃헙 토큰 설정 페이지](https://github.com/settings/tokens)에서 토큰을 받을 수 있습니다. 토큰은 `repo` 스코프를 가져야 합니다.
+다음 단계로 더 나아가기 위해서 Auto에서 깃허브(GitHub)와 npm과 통신을 해야합니다. 명확한 일처리를 위해 개인적으로 접근이 가능한 토큰이 필요한데요. [깃허브 토큰 페이지](https://github.com/settings/tokens)에서 토큰을 얻을 수 있으며, 이 토큰은 `repo` 스코프를 필요로 합니다.
 
-npm 토큰은 이 URL에서 생성할 수 있습니다: https://www.npmjs.com/settings/&lt;your-username&gt;/tokens.
+npm에서는, 다음 URL에서 토큰을 생성할 수 있습니다. - https://www.npmjs.com/settings/&lt;your-username&gt;/tokens
 
-'Read and Publish' 기능이 허용되는 토큰을 발급해야 합니다.
+"읽기와 배포"의 허가에 대한 토큰이 필요합니다.
 
-이 토큰을 프로젝트의 `.env` 파일에 추가합니다.
+`.env`라고 불리는 파일을 프로젝트에 추가하고 받은 토큰을 추가해보세요. - 
 
 ```
-GH_TOKEN=<Github에서 발급받은 토큰 값>
-NPM_TOKEN=<npm에서 발급받은 토큰 값>
+GH_TOKEN=<value you just got from GitHub>
+NPM_TOKEN=<value you just got from npm>
 ```
 
-`.env` 파일을 `.gitignore`에 추가해서 혹시나 실수로라도 이 토큰값들을 모든 사람이 볼 수 있는 오픈 소스 리포지터리에 올리는 일이 없도록 주의합니다. 매우 중요한 부분이니 유의하세요. 만약 다른 관리자들이 로컬 환경에서 패키지를 배포해야 한다면 그들은 아래 과정을 통해 따로 본인만의 `.env` 파일을 설정해야 합니다. (이후에, 풀 리퀘스트를 마스터 브랜치에 합쳤을 때 자동으로 배포하는 방법도 알아볼 것입니다.)
+`.env` 를 `.gitignore` 에 추가함을 통해 이 토큰 값을 모든 사용자가 볼 수 있는 오픈소스 저장소에 원치않게 올리는 것을 방지할 수 있습니다. 이 부분은 중요합니다. 다른 관리자가 로컬에서 이 패키지를 배포해야하는 경우(이 부분은 기본 브랜치에 PR을 해서 merge할 때 자동 배포가 되도록 나중에 설정을 할 것입니다.), 관리자는 자신의 `.env` 파일을 아래와 같은 과정에 따라 설정해야합니다. - 
 
 ```
 dist
 .env
 ```
 
-#### 깃헙에 레이블 생성하기
+#### 깃허브에 라벨 생성
 
-Auto를 사용할 때 가장 먼저 깃헙에 몇 가지 레이블을 만들어야 합니다. (다음 장에서 설명할) 패키지를 변경할 때 레이블을 사용하게 될 것입니다. `Auto`는 레이블을 이용해서 패키지 버전을 효율적으로 업데이트하고 changelog와 릴리즈 노트를 생성합니다.
+Auto로 가장 우선적으로 해야할 것은 깃허브에 라벨 종류를 생성하는 것입니다. 이 라벨은 나중에 패키지를 수정할 때 (다음 챕터에서 볼 수 있습니다.) 사용하는데, 덕분에 `auto`가 패키지 버전을 합리적으로 업데이트하고 changelog와 릴리즈 노트를 생성할 수 있습니다.
 
-```shell
+```bash
 yarn auto create-labels
 ```
 
-이제 깃헙을 살펴보면 `Auto`가 추천하는 레이블 종류를 볼 수 있습니다.
+깃허브를 확인해보면 이제 `auto`가 추천하는 라벨 종류가 생성된 것을 볼 수 있습니다. - 
 
-![Set of labels created on GitHub by auto](/design-systems-for-developers/github-auto-labels.png)
+![깃허브에서 Auto로 생성된 라벨 집합](/design-systems-for-developers/github-auto-labels.png)
 
-앞으로의 모든 풀 리퀘스트들은 merge를 하기 전에 이 레이블 중 하나를 선택해서 태그해야 합니다 - `major`, `minor`, `patch`, `skip-release`, `prerelease`, `internal`, `documentation`
+merge 하기 전에 모든 PR시 아래 라벨 중 하나를 선택하여 태그해야 합니다. - `major`, `minor`, `patch`, `skip-release`, `prerelease`, `internal`, `documentation`
+#### 매뉴얼적으로 Auto를 이용해 처음으로 배포
 
-#### 직접 Auto를 이용해서 첫 릴리즈 배포하기
-
-차후에는 `Auto`에서 스크립트를 통해 새로운 버전 숫자들을 계산할 것입니다. 하지만 첫 번째 릴리즈에서는 명령어를 직접 입력해서 릴리즈 배포가 어떻게 실행되는지 알아봅시다. 첫 changelog를 생성합니다.
+ 나중에는 새로운 버전 숫자를 스크립트를 이용해서 `auto`로 계산하겠지만, 처음 배포할 때는 명령어를 실행해서 명령어의 역할을 알아봅시다. changelog를 처음으로 발생시켜봅니다. - 
 
 ```shell
 yarn auto changelog
 ```
 
-이 명령어는 우리가 여태까지 입력한 모든 커밋에 대한 굉장히 긴 changelog 리스트를 만듭니다. 만약 우리가 마스터 브랜치에 계속 푸쉬를 하고 있었다면, 하지 말라는 경고를 합니다.
+생성한 모든 commit마다 장문의 changelog가 발생합니다. (기본 브랜치로 push해 온 경고도 함께 뜨는데, 이는 곧 멈출 예정입니다.)
 
-혹시나 실수하지 않기 위해 자동 생성된 changelog를 사용하는 것이 유용하지만, 사용자에게 가장 알맞도록 changelog를 수정하고 메시지를 변경하는 것도 좋은 방법입니다. 이런 경우에는 사용자가 모든 커밋에 대해 알 필요가 없습니다. 첫 번째로 만든 v0.1.0 버전에 간단한 메시지를 만들어 봅니다. 다음 명령어를 통해 `Auto`가 방금 생성한 커밋을 undo 하되 변경사항은 유지합니다.
+자동으로 생성된 changlog도 유용하지만, 사용자의 편의를 위해 추가적인 편집과 메세지를 수작업으로 더해주는 것도 좋은 방법입니다. 이 상황에서는 사용자가 모든 commit을 알아야할 필요가 없어 첫번째 v0.1.0 버전의 간단한 메세지를 만들어보세요. Auto가 방금 생성한 commit을 되돌리지만, 변경사항은 유지합니다. - 
 
 ```shell
 git reset HEAD^
 ```
 
-그다음 changelog를 업데이트하고 커밋합니다.
+그리고 changelog를 업데이트하고 이를 commit합니다. - 
 
 ```
-# v0.1.0 (Tue Sep 03 2019)
+# v0.1.0 (Tue Mar 09 2021)
 
-- `Avatar`, `Badge`, `Button`, `Icon`, `Link` 컴포넌트를 사용해서 디자인 시스템의 첫 버전을 만들었다.
+- Created first version of the design system, with `Avatar`, `Badge`, `Button`, `Icon` and `Link` components.
 
-#### 작성자: 1
-- Tom Coleman ([@tmeasday](https://github.com/tmeasday))
+#### Authors: 1
+
+- [your-username](https://github.com/your-username)
 ```
 
-이 changelog를 git에 추가합니다. CI 플랫폼이 이 커밋을 무시하도록 `[skip ci]`를 입력해야 합니다. 그렇지 않으면 빌드와 배포 과정에 추가되어 버립니다.
+git에 changelog를 추가해보세요. CI 플랫폼이 이 commit들을 무시하도록 `[skip ci]`를 사용하는 것을 기억하세요. 그렇지 않으면 빌드와 배포의 순환이 계속 됩니다.
 
 ```shell
 git add CHANGELOG.md
 git commit -m "Changelog for v0.1.0 [skip ci]"
 ```
 
-이제 배포 단계입니다.
+이제 배포할 수 있습니다. - 
 
 ```shell
-npm version 0.1.0 -m "Bump version to: %s [skip ci]"
-npm publish
+npm --allow-same-version version 0.1.0 -m "Bump version to: %s [skip ci]"
+npm publish --access=public
 ```
 
-그리고 Auto를 통해 깃헙에 릴리즈를 생성합니다.
+<div class="aside">
+💡 <a href="https://classic.yarnpkg.com/en/docs/cli/">yarn</a>을 사용한다면 그에 알맞게 명령어 사용하는 걸 잊지마세요. 
+</div>
+
+그리고 Auto를 사용해서 깃허브에 릴리즈를 생성합니다. - 
 
 ```shell
-git push --follow-tags origin master
+git push --follow-tags origin main
 yarn auto release
 ```
 
-와우! npm에 패키지를 성공적으로 올리고 깃헙에 릴리즈를 만들었습니다.
+오예! 성공적으로 npm에 배포하고 깃허브에 릴리즈를 만들었습니다.
 
-![Package published on npm](/design-systems-for-developers/npm-published-package.png)
+![npm에 퍼블리쉬된 패키지](/design-systems-for-developers/npm-published-package.png)
 
-![Release published to GitHub](/design-systems-for-developers/github-published-release.png)
+![깃허브에 퍼블리쉬된 릴리즈](/design-systems-for-developers/github-published-release.png)
 
-`auto`가 첫 번째 릴리즈에는 릴리즈 노트를 자동 생성해주지만, 우리의 첫번째 버전에 알맞게 조금 수정했다는 걸 유의하세요.
+ (`auto`가 자동적으로 첫번째 릴리즈를 릴리즈 노트에 기록해주지만, 첫번째 버전에 맞게 수정했다는 걸 알아두어야 합니다. )
 
-#### Auto 스크립트 설정하기
+#### Auto를 사용한 스크립트 설정
 
-위와 같은 과정을 나중에 패키지를 배포할 때 똑같이 실행하도록 Auto를 설정해 봅니다. `package.json` 파일에 아래 스크립트를 추가합니다.
+후에 패키지를 배포하고 싶을 때와 같은 과정을 따라서 Auto를 설정해보세요. 다음과 같은 스크립트를 `package.json`에 추가합니다. - 
 
-```json
+```json:title=package.json
 {
   "scripts": {
-    "release": "auto shipit"
+    "release": "auto shipit --base-branch=main"
   }
 }
 ```
 
-이제 `yarn release` 명령어를 실행하면 (자동 생성된 changelog를 사용하는 것을 제외하고) 위의 단계들이 모두 자동으로 진행됩니다. `master`에 푸쉬 된 모든 커밋들이 배포됩니다.
+ 이제, `yarn release`를 실행할 때 (자동 생성 changelog를 사용할 때 제외하고) 자동적으로 위와 같은 모든 과정을 밟을 것입니다. 기본 브랜치에 push한 모든 commit들은 배포됩니다.
 
-축하합니다! 수동으로 디자인 시스템 릴리즈를 배포할 수 있는 인프라 구조를 구축했습니다! 이제 지속적 통합(CI)을 할 수 있도록 릴리즈를 자동화하는 법을 배워봅니다.
+축하합니다! 매뉴얼적으로 디자인 시스템을 배포하기 위한 기본적인 인프라 설정을 완료했습니다. 이제 지속적인 통합(CI)으로 어떻게 자동으로 배포할 것인지 알아보겠습니다.
 
-## 릴리즈 자동 배포하기
+## 자동으로 릴리즈 배포
 
-우리는 지속적인 통합을 위해 Github Actions를 사용합니다. 하지만 진행하기 이전에, 위에서 발급한 Github 토큰과 npm 토큰을 안전하게 저장합니다. Actions를 사용할 때 이 토큰들이 필요합니다.
+지속적인 통합을 위해서 GitHub Actions를 사용합니다. 하지만 이 절차를 하기 전에, 앞에서 언급했던 깃허브 토큰과 NPM 토큰을 안전하게 저장해야합니다. 그래야 Actions가 깃허브와 NPM에 접근할 수 있습니다.  
 
-#### Github Secrets에 토큰 추가하기
+#### GitHub Secrets에 토큰 저장
 
-Github Secrets에 우리의 저장소에 관련된 민감한 정보들을 저장할 수 있습니다. 브라우저에서 깃헙 저장소를 열어보세요.
+ GitHub Secrets은 저장소에 보안이 필요한 정보를 저장할 수 있게 합니다. 브라우저에서 깃허브 저장소를 열어보세요. 
 
-⚙️ Settings 설정 탭을 클릭하고, 사이드바에 있는 Secrets 링크를 클릭하세요. 다음과 같은 화면이 뜰 것입니다.
+⚙️ 설정 탭을 클릭하고, 사이드바에 있는 Secrets 링크를 클릭합니다. 그러면 다음과 같은 스크린이 보입니다. - 
 
-![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
+![빈 깃허브 secrets 페이지](/design-systems-for-developers/github-empty-secrets-page.png)
 
-**New secret** 버튼을 클릭합니다. `NPM_TOKEN`을 이름으로 지정하고 위에서 사용했던 npm 토큰을 붙여넣습니다.
+ **New secret** 버튼을 클릭해보세요. 이름으로 `NPM_TOKEN`을 사용하고, 이 챕터를 진행하며 npm에서 얻은 토큰을 붙여넣습니다.
 
-![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
+![채워진 깃허브 secrets 양식](/design-systems-for-developers/github-secrets-form-filled.png)
 
-npm secret을 리포지터리에 추가하면 `secrets.NPM_TOKEN`을 접근할 수 있습니다. 깃헙 토큰을 위해 또 다른 secret을 만들 필요는 없습니다. 모든 깃헙 사용자들은 자동으로 본인의 계정과 연동된 `secrets.NPM_TOKEN`를 발급받습니다.
+저장소에 npm 토큰을 추가하고, `secrets.NPM_TOKEN`으로써 이를 접근할 수 있습니다. 그러면 깃허브 토큰을 위해 또 다른 secret 설정을 할 필요가 없습니다.
 
-#### GitHub Actions로 릴리즈 자동화하기
+#### GitHub Actions으로 릴리즈 자동화
 
-우리는 풀 리퀘스트가 merge 될 때마다 디자인 시스템을 자동으로 배포하고 싶습니다. 이전 장에서 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">스토리북을 배포할 때</a> 사용한 폴더 안에 `push.yml`라는 파일을 생성하고 아래 내용을 추가합니다.
+PR을 매번 merge 할 때마다, 우리는 자동적으로 디자인 시스템이 배포되길 원할 것입니다. `push.yml`이라는 새로운 이름의 파일을 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a>에서 썼던 폴더와 같은 위치에 생성하고 다음과 같이 추가합니다. - 
 
-```yml
-# .github/workflows/push.yml
-
-## name of our action
+```yml:title=.github/workflows/push.yml
+# Name of our action
 name: Release
 
-# the event that will trigger the action
+# The event that will trigger the action
 on:
   push:
-    branches: [master]
+    branches: [main]
 
 # what the action will do
 jobs:
   release:
-    # the operating system it will run on
+    # The operating system it will run on
     runs-on: ubuntu-latest
-    # this check needs to be in place to prevent a publish loop with auto and github actions
+    # This check needs to be in place to prevent a publish loop with auto and github actions
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
-    # the list of steps that the action will go through
+    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v2
       - name: Prepare repository
@@ -316,10 +318,10 @@ jobs:
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
-
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          #👇 npm token, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/distribute/ to obtain it
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           yarn install --frozen-lockfile
@@ -327,100 +329,108 @@ jobs:
           yarn release
 ```
 
-이 변경사항을 저장하고 원격 저장소에 커밋합니다.
+저장하고 변화된 부분을 리모트 저장소에 커밋합니다.
 
-성공! 이제 사용자가 마스터에 풀 리퀘스트를 merge 할 때 마다 새로운 버전이 배포되고 사용자가 추가한 레이블에 맞춰서 버전 숫자가 업데이트됩니다.
+성공! 이제 기본 브랜치에 PR을 merge 할 때마다 자동으로 새로운 버전이 배포되며, 추가한 라벨에 맞춰 버전 숫자도 업데이트 됩니다. 
 
-<div class="aside">디자인 시스템을 확장하는데 유용할만한 Auto의 다양한 기능들을 모두 알아보지는 못했습니다. 자세한 정보는 <a href="https://github.com/intuit/auto">이 문서를</a>. 참고하세요. </div>
+<div class="aside">
+💡 디자인 시스템 확장에 도움을 줄 수 있는 Auto의 모든 기능과 통합을 알아보지는 못했습니다. 더 많은 내용을 알고 싶으면 <a href="https://github.com/intuit/auto"> 이 문서를 참고해보세요.
+</div>
 
-![Import the design system](/design-systems-for-developers/design-system-import.png)
+![디자인 시스템 import하기](/design-systems-for-developers/design-system-import.png)
+## 앱에 디자인 시스템 적용
 
-## 앱에 디자인 시스템 임포트하기
+이제 디자인 시스템이 온라인에 있으니 의존성으로 설치하고, UI 컴포넌트로 사용하는 것은 간단합니다.
 
-이제 디자인 시스템이 온라인에서 실행되고 있으니 디펜던시를 설치하고 UI 컴포넌트를 사용하는 것은 어렵지 않습니다.
+#### 예제 앱 준비
 
-#### 예제로 사용할 앱 준비하기
+이 튜토리얼의 앞 부분에서, 많이 쓰이는 프런트엔드 스택을 표준화를 했습니다. 이 스택에는 리액트(React)와 Styled Components가 포함되는데, 즉, 디자인 시스템을 최대한 활용하려면 예제 앱에서도 리액트 및 Styled Components를 사용해야 합니다.
 
-이 튜토리얼의 앞부분에서 우리는 프런트 엔드 기술로 인기가 많은 React와 styled-components를 기준으로 설정했습니다. 즉, 디자인 시스템의 장점을 최대한 많이 사용하기 위해서는 우리의 예제 앱도 React와 styled-components를 사용해야 합니다.
+<div class="aside">
+💡 Svelte나 web components와 같이 다른 유망한 방법을 사용하면 프레임워크에 구애받지 않고 UI 컴포넌트를 구성할 수 있습니다. 그러나 Svelte나 web components는 상대적으로 새로운 방식이라 문서화가 덜 되었거나 널리 채택되지 않았기 때문에 이 가이드에는 아직 포함되지 않았습니다.
+</div>
 
-<div class="aside">Svelte나 다른 웹 컴포넌트들을 사용하면 프레임워크에 구애받지 않는 UI 컴포넌트를 만들 수도 있습니다. 하지만 그 방법들은 만들어진 지 얼마 되지 않았거나, 문서화가 부족하거나 다방면으로 적용되기 어려울 수 있기 때문에 이 가이드에는 아직 포함하지 않았습니다. </div>
+ 예제 앱은 스토리북을 사용하여 [컴포넌트 주도 개발 Component-Driven Development](https://www.componentdriven.org/)를 용이하게 합니다. 이 개발 방법은 UI를 아래에서부터, 즉 컴포넌트 개발부터 시작해서 페이지로 끝내는 방식입니다. 데모하는 동안에 두 개의 스토리북을 번갈아가며 실행합니다. 하나는 예제 앱을 위한 것이고 다른 하나는 디자인 시스템을 위한 것입니다. 
 
-이 예제 앱은 [컴포넌트 주도 개발 Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)를 할 수 있도록 스토리북을 사용합니다. 컴포넌트 주도 개발은 컴포넌트로 바닥부터 시작해서 페이지로 끝내는 UI 구축 방법입니다. 데모에서 우리는 두 개의 스토리북을 번갈아 가며 실행할 것입니다. 하나는 예제 앱, 하나는 디자인 시스템을 위한 것입니다.
-
-예제 앱을 설정하기 위해 커맨드 라인에서 아래 명령어들을 실행합니다;.
+예재 앱을 설정하기 위해서 커맨드 라인에 다음과 같이 명령어를 실행합니다. - 
 
 ```shell
-// 로컬에 파일을 클론합니다.
+# Clones the files locally
 npx degit chromaui/learnstorybook-design-system-example-app example-app
+
 cd example-app
-# 디펜던시를 설치합니다
+
+# Install the dependencies
 yarn install
-## 스토리북을 시작합니다
+
+## Start Storybook
 yarn storybook
 ```
 
-디펜던시를 설치하고 앱에서 스토리북을 시작합니다.
+앱에서 사용되는 단순한 컴포넌트의 스토리들(stories)이 스토리북에서 실행되는 것이 보일 것입니다. - 
 
-```shell
-yarn install
-yarn storybook
-```
+![예제 앱을 위한 초기 스토리북](/design-systems-for-developers/example-app-starting-storybook-6-0.png)
 
-앱이 사용하는 간단한 컴포넌트들의 스토리가 실행되는 게 보일 것입니다.
+<h4>디자인 시스템 통합</h4>
 
-![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook-6-0.png)
+작업한 디자인 시스템의 스토리북이 배포되어 있을 것입니다. 이제 스토리북을 예제 앱에 추가해보세요. 예제 앱의 `.storybook/main.js`를 다음과 같이 업데이트할 수 있습니다. - 
 
-<h4>디자인 시스템 통합하기</h4>
-
-디자인 시스템의 스토리북이 배포되었으니 예제 앱에 추가하도록 합니다. 예제 앱의 `.storybook/main.js` 파일을 아래와 같이 업데이트하면 스토리북을 추가할 수 있습니다.
-
-```javascript
+```diff:title=.storybook/main.js
 // .storybook/main.js
 
 module.exports = {
   stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  refs: {
-    'design-system': {
-      title: 'My design system',
-      // 배포되었을 때 Chromatic에서 제공한 url
-      url: 'https://your-published-url.chromatic.com',
-    },
-  },
++ refs: {
++   'design-system': {
++     title: 'My design system',
++     //👇 The url provided by Chromatic when it was deployed
++     url: 'https://your-published-url.chromatic.com',
++   },
++ },
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
   ],
+  framework: '@storybook/react',
+  staticDirs: ['../public'],
 };
 ```
 
 <video autoPlay muted playsInline loop>
-<source
+  <source
     src="/design-systems-for-developers/storybook-composition-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
 <div class="aside">
-<code>refs</code> 키 값을 <code>.storybook/main.js</code> 파일에 추가해서 <a href="https://storybook.js.org/docs/react/workflows/storybook-composition">여러 스토리북을 하나로 통합합니다.</a> 이 방법은 여러 저장소로 나뉘어져 있거나 다양한 기술 스택을 사용하는 대형 프로젝트를 작업할 때 유용합니다.
+💡 <code>refs</code> 키를 <code>.storybook/main.js</code>에 추가를 하는 것은, 여러 개의 스토리북을 <a href="https://storybook.js.org/docs/react/workflows/storybook-composition">구성</a>에 맞게 하나로 묶어지게 합니다. 이것은 여러 개의 저장소가 분산되어 있거나 다른 기술 스택을 쓰는 규모가 큰 프로젝트를 진행할 때 도움이 됩니다.
+</div>
 
-이제 예제 앱을 개발함과 동시에 디자인 시스템의 컴포넌트와 문서를 둘러볼 수 있습니다. 기능을 구현하는 중에 디자인 시스템을 볼 수 있다면 개발자들이 스스로 컴포넌트를 만드느라 시간을 낭비하지 않고 만들어진 컴포넌트를 재사용할 가능성이 높아집니다.
+이제 예제 앱을 개발하는 동안 디자인 시스템 컴포넌트와 문서를 검색할 수 있습니다. 기능 개발을 하는 도중에 디자인 시스템을 보여주면 개발자가 본인의 컴포넌트를 구성하는데 시간을 낭비하는 대신 기존에 존재하는 컴포넌트를 재사용할 가능성이 높아집니다.
 
-필요한 것을 모두 갖췄으니 디자인 시스템을 추가하고 사용하면 됩니다. 터미널에서 아래 명령어를 실행해 주세요.
+필요한 것을 가지고 있으니 디자인 시스템을 추가하고 사용할 시간입니다. 다음과 같이 터미널에 명령어를 실행합니다. -
 
 ```shell
-yarn add <your-username>-learnstorybook-design-system
+yarn add @your-npm-username/learnstorybook-design-system
 ```
 
-디자인 시스템에 정의된 글로벌 스타일을 사용해야 하므로 [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) 설정 파일을 업데이트 하고 [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators)를 추가합니다.
+디자인 시스템에 정의한 것과 같은 전역 스타일을 사용할 예정이어서 [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) config 파일을 업데이트하고 [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators)을 추가합니다.
 
-```javascript
-// .storybook/preview.js
-
+```js:title=.storybook/preview.js
 import React from 'react';
-import { global as designSystemGlobal } from '<your-username>-learnstorybook-design-system';
 
-// 디자인 시스템에서 임포트한 스타일을 포함하기 위해 글로벌 decorator를 추가합니다.
+// The styles imported from the design system.
+import { global as designSystemGlobal } from '@your-npm-username/learnstorybook-design-system';
+
+const { GlobalStyle } = designSystemGlobal;
+
+/*
+ * Adds a global decorator to include the imported styles from the design system.
+ * More on Storybook decorators at:
+ * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
+ */
 export const decorators = [
   Story => (
     <>
@@ -429,40 +439,48 @@ export const decorators = [
     </>
   ),
 ];
-
+/*
+ * More on Storybook parameters at:
+ * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
+ */
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
 };
 ```
 
-![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
+![디자인 시스템 스토리가 포함된 앱 스토리북 예시](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
 
-우리가 만든 디자인 시스템 중 `Avatar` 컴포넌트를 예제 앱의 `UserItem` 컴포넌트에 사용해 보도록 합니다. `UserItem`은 이름과 프로필 사진을 포함한 사용자의 정보를 보여줘야 합니다.
+예제 앱의 `UserItem` 컴포넌트에 있는 디자인 시스템을  `Avatar` 컴포넌트에 사용합니다. `UserItem`은 반드시 사용자의 이름과 프로필 사진을 포함한 정보를 렌더해야 합니다.
 
-본인의 에디터에서 `src/components/UserItem.js` 파일에 있는 `UserItem` 컴포넌트를 찾아보세요. 그리고 곧이어 변경할 코드가 핫모듈 재로딩으로 업데이트 되는 것을 보기 위해 스토리북에서 `UserItem`를 선택하세요.
+에디터에서 `src/components/UserItem.js`에 위치한 `UserItem` 컴포넌트를 열어보세요. 그리고 곧이어 변경할 코드가 다시 hot module 로딩이 되는 것을 보기 위해 스토리북에 있는 `UserItem`을 선택합니다.
 
-`Avatar` 컴포넌트를 임포트합니다.
+Avatar 컴포넌트를 import합니다.
 
-```javascript
-// src/components/UserItem.js
-
-import { Avatar } from '<your-username>-learnstorybook-design-system';
+```js:title=src/components/UserItem.js
+import { Avatar } from '@your-npm-username/learnstorybook-design-system';
 ```
 
-Avatar를 사용자 이름 옆에 그려줍니다.
+사용자 이름 옆에 Avatar를 보여줍니다.
 
-```javascript
-//src/components/UserItem.js
-
+```diff:title=src/components/UserItem.js
 import React from 'react';
+
 import styled from 'styled-components';
-import { Avatar } from 'learnstorybook-design-system';
+
++ import { Avatar } from '@your-npm-username/learnstorybook-design-system';
 
 const Container = styled.div`
   background: #eee;
   margin-bottom: 1em;
   padding: 0.5em;
 `;
+
+- const Avatar = styled.img`
+-   border: 1px solid black;
+-   width: 30px;
+-   height: 30px;
+-   margin-right: 0.5em;
+- `;
 
 const Name = styled.span`
   color: #333;
@@ -471,22 +489,21 @@ const Name = styled.span`
 
 export default ({ user: { name, avatarUrl } }) => (
   <Container>
-    <Avatar username={name} src={avatarUrl} />
++   <Avatar username={name} src={avatarUrl} />
     <Name>{name}</Name>
   </Container>
 );
 ```
 
-저장하면 `UserItem` 컴포넌트가 스토리북에서 업데이트되고 새로운 `Avatar` 컴포넌트가 보입니다. `UserItem`이 `UserList`에 속해 있기 때문에 `UserList`에서도 `Avatar`를 볼 수 있습니다.
+저장과 동시에 `UserItem` 컴포넌트가 스토리북을 업데이트 하여 새 Avatar 컴포넌트를 보여줄 것입니다. `UserItem`이 `UsetList`에 포함되어 있기 때문에 `UserList`에서도 `Avatar`를 볼 수 있습니다.
 
-![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
+![디자인 시스템을 이용한 샘플 앱 예제](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
 
-짜잔! 디자인 시스템 컴포넌트를 예제 앱에 성공적으로 임포트했습니다. 디자인 시스템에서 Avatart 컴포넌트 관련된 업데이트를 배포하면 앱의 패키지를 업데이트 할 때 예제 앱에서 그 변경 사항을 확인할 수 있습니다.
+됐습니다! 방금 예제 앱에 디자인 시스템 컴포넌트를 import했습니다. Avatar 컴포넌트를 업데이트해서 배포할 때마다 패키지를 업데이트 할 시 변경된 부분 또한 예제 앱에 반영됩니다.
 
-![Distribute design systems](/design-systems-for-developers/design-system-propagation-storybook.png)
+![디자인 시스템 배포](/design-systems-for-developers/design-system-propagation-storybook.png)
+## 디자인 시스템 작업 흐름(workflow) 마스터하기
 
-## 디자인 시스템 워크플로우 마스터하기
+디자인 시스템의 작업 흐름(workflow)는 스토리북에 있는 UI 컴포넌트를 개발하는 것에서부터 시작해서 개발한 컴포넌트를 클라이언트 앱에 배포하는 것으로 끝을 맺습니다. 그런데 그것이 전부가 아닙니다. 디자인 시스템은 끊임없이 변화하는 제품의 요구사항을 충족시키기 위해 지속적으로 발전해야하며, 이제 시작 단계에 들어섰을 뿐입니다. 
 
-디자인 시스템 워크플로우는 스토리북에서 UI 컴포넌트를 개발하는 것에서 시작해 클라이언트 앱에 배포하는 것으로 끝납니다. 하지만 그게 전부는 아닙니다. 디자인 시스템은 제품의 요구사항이 계속 변하는 것에 맞춰 지속해서 발전해야 합니다. 이제부터가 시작입니다.
-
-8장에서는 이 가이드에서 만든 엔드 투 엔드 디자인 시스템 워크플로우를 설명합니다. 외부에서 변경한 UI가 어떻게 디자인 시스템에 영향을 끼치는지 알아볼 것입니다.
+챕터 8은 이 가이드에서 만든 end-to-end 디자인 시스템의 흐름을 소개합니다. 외부에서 변경한 UI가 어떻게 디자인 시스템에 영향을 끼치는지 알아봅니다. 
