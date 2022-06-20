@@ -108,7 +108,7 @@ Empty.args = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers”-–i.e., library components that set React context.
+💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some <code>padding</code> around the rendered component. They can also be used to wrap stories in “providers”-–i.e., library components that set React context.
 </div>
 
 By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
@@ -161,8 +161,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
-          <div className="title-message">You have no tasks</div>
-          <div className="subtitle-message">Sit back and relax</div>
+          <p className="title-message">You have no tasks</p>
+          <p className="subtitle-message">Sit back and relax</p>
         </div>
       </div>
     );
@@ -221,53 +221,6 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 +  loading: false,
 + };
 ```
-
-## Automated testing
-
-In the previous chapter, we learned how to snapshot test stories using Storyshots. With `Task`, there wasn’t much complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity, we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this, we’ll create unit tests using [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) and [@storybook/testing-react](https://storybook.js.org/addons/@storybook/testing-react).
-
-![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
-
-### Unit tests with React Testing Library
-
-Storybook stories, manual tests, and snapshot tests go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
-
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed, bringing us to unit tests.
-
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
-
-So, to avoid this problem, we can use React Testing Library to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can import the story in our tests and render it there!
-
-Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
-
-```js:title=src/components/TaskList.test.js
-import { render } from '@testing-library/react';
-
-import { composeStories } from '@storybook/testing-react';
-
-import * as TaskListStories from './TaskList.stories'; //👈  Our stories imported here
-
-//👇 composeStories will process all information related to the component (e.g., args)
-const { WithPinnedTasks } = composeStories(TaskListStories);
-
-it('renders pinned tasks at the start of the list', () => {
-  const { container } = render(<WithPinnedTasks />);
-
-  expect(
-    container.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]')
-  ).not.toBe(null);
-});
-```
-
-<div class="aside">
-💡 <a href="">@storybook/testing-react</a> is a great addon that allows you to reuse your Storybook stories in your unit tests. By reusing your stories in your tests, you have a catalog of component scenarios ready to be tested. Also, all args, decorators, and other information from your story will be composed by this library. As you just saw, all you have to do in your tests is select which story to render.
-</div>
-
-![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
-
-Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way, we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
-
-Notice as well that this test is quite brittle. It's possible that as the project matures and the exact implementation of the `Task` changes--perhaps using a different classname or a `textarea` rather than an `input`--the test will fail and need to be updated. It is not necessarily a problem but rather an indication of being careful about using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/react/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

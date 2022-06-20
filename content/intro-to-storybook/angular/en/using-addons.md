@@ -46,6 +46,8 @@ Now let's fix the issue with overflowing by adding a style to `task.component`:
   [value]="task?.title"
   readonly="true"
   placeholder="Input title"
+  id="title-{{ task?.id }}"
+  name="title-{{ task?.id }}"
 + style="text-overflow: ellipsis;"
 />
 ```

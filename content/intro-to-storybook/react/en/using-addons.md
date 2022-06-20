@@ -45,6 +45,7 @@ Now let's fix the issue with overflowing by adding a style to `Task.js`:
   type="text"
   value={title}
   readOnly={true}
+  name="title"
   placeholder="Input title"
 + style={{ textOverflow: 'ellipsis' }}
 />

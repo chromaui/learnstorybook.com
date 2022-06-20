@@ -139,8 +139,8 @@ export default function TaskList() {
       <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
-          <div className="title-message">You have no tasks</div>
-          <div className="subtitle-message">Sit back and relax</div>
+          <p className="title-message">You have no tasks</p>
+          <p className="subtitle-message">Sit back and relax</p>
         </div>
       </div>
     );
@@ -298,7 +298,7 @@ Empty.decorators = [
 </video>
 
 <div class="aside">
-💡 With this change, all of our tests will require an update. Re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>
 
 Success! We're right where we started, our Storybook is now working, and we're able to see how we could supply data into a connected component. In the next chapter, we'll take what we've learned here and apply it to a screen.

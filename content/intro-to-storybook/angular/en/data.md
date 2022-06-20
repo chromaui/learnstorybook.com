@@ -24,7 +24,9 @@ npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 First, we'll create a simple store that responds to actions that change the task's state in a file called `task.state.ts` in the `src/app/state` directory (intentionally kept simple):
 
 ```ts:title=src/app/state/task.state.ts
+import { Injectable } from '@angular/core';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
+import { patch, updateItem } from '@ngxs/store/operators';
 import { Task } from '../models/task.model';
 
 // Defines the actions available to the app
@@ -47,58 +49,85 @@ export class PinTask {
 
 // The initial state of our store when the app loads.
 // Usually you would fetch this from a server
-const defaultTasks = {
-  1: { id: '1', title: 'Something', state: 'TASK_INBOX' },
-  2: { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-  3: { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-  4: { id: '4', title: 'Something again', state: 'TASK_INBOX' },
-};
+const defaultTasks = [
+  { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
+];
 
-export class TaskStateModel {
-  entities: { [id: number]: Task };
+export interface TaskStateModel {
+  tasks: Task[];
+  status: 'idle' | 'loading' | 'success' | 'error';
+  error: boolean;
 }
 
 // Sets the default state
 @State<TaskStateModel>({
-  name: 'tasks',
+  name: 'taskbox',
   defaults: {
-    entities: defaultTasks,
+    tasks: defaultTasks,
+    status: 'idle',
+    error: false,
   },
 })
+@Injectable()
 export class TasksState {
+  // Defines a new selector for the error field
   @Selector()
-  static getAllTasks(state: TaskStateModel) {
-    const entities = state.entities;
-    return Object.keys(entities).map(id => entities[+id]);
+  static getError(state: TaskStateModel): boolean {
+    return state.error;
+  }
+
+  @Selector()
+  static getAllTasks(state: TaskStateModel): Task[] {
+    return state.tasks;
   }
 
   // Triggers the PinTask action, similar to redux
   @Action(PinTask)
-  pinTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: PinTask) {
-    const state = getState().entities;
+  pinTask(
+    { getState, setState }: StateContext<TaskStateModel>,
+    { payload }: PinTask
+  ) {
+    const task = getState().tasks.find((task) => task.id === payload);
 
-    const entities = {
-      ...state,
-      [payload]: { ...state[payload], state: 'TASK_PINNED' },
-    };
-
-    patchState({
-      entities,
-    });
+    if (task) {
+      const updatedTask: Task = {
+        ...task,
+        state: 'TASK_PINNED',
+      };
+      setState(
+        patch({
+          tasks: updateItem<Task>(
+            (pinnedTask) => pinnedTask?.id === payload,
+            updatedTask
+          ),
+        })
+      );
+    }
   }
   // Triggers the archiveTask action, similar to redux
   @Action(ArchiveTask)
-  archiveTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: ArchiveTask) {
-    const state = getState().entities;
-
-    const entities = {
-      ...state,
-      [payload]: { ...state[payload], state: 'TASK_ARCHIVED' },
-    };
-
-    patchState({
-      entities,
-    });
+  archiveTask(
+    { getState, setState }: StateContext<TaskStateModel>,
+    { payload }: ArchiveTask
+  ) {
+    const task = getState().tasks.find((task) => task.id === payload);
+    if (task) {
+      const updatedTask: Task = {
+        ...task,
+        state: 'TASK_ARCHIVED',
+      };
+      setState(
+        patch({
+          tasks: updateItem<Task>(
+            (archivedTask) => archivedTask?.id === payload,
+            updatedTask
+          ),
+        })
+      );
+    }
   }
 }
 ```
@@ -125,9 +154,8 @@ In `src/app/components/task-list.component.ts`:
 
 ```ts:title=src/app/components/task-list.component.ts
 import { Component } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
-import { Task } from '../models/task.model';
+import { Store } from '@ngxs/store';
+import { ArchiveTask, PinTask } from '../state/task.state';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -141,9 +169,11 @@ import { Observable } from 'rxjs';
   `,
 })
 export class TaskListComponent {
-  @Select(TasksState.getAllTasks) tasks$: Observable<Task[]>;
+  tasks$?: Observable<any>;
 
-  constructor(private store: Store) {}
+  constructor(private store: Store) {
+     this.tasks$ = store.select((state) => state.taskbox.tasks);
+  }
 
   /**
    * Component method to trigger the archiveTask event
@@ -195,6 +225,7 @@ import { NgModule } from '@angular/core';
 + import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 + import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 
++ import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -202,9 +233,13 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
 +   TaskModule,
-+   NgxsModule.forRoot([]),
++    NgxsModule.forRoot([], {
++     developmentMode: !environment.production,
++   }),
 +   NgxsReduxDevtoolsPluginModule.forRoot(),
-+   NgxsLoggerPluginModule.forRoot(),
++   NgxsLoggerPluginModule.forRoot({
++     disabled: environment.production,
++   }),
   ],
   providers: [],
   bootstrap: [AppComponent],
@@ -249,12 +284,12 @@ const Template: Story = args => ({
 export const Default = Template.bind({});
 Default.args = {
   tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    { ...TaskStories.Default.args?.['task'], id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args?.['task'], id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args?.['task'], id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args?.['task'], id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args?.['task'], id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args?.['task'], id: '6', title: 'Task 6' },
   ],
 };
 
@@ -263,7 +298,7 @@ WithPinnedTasks.args = {
   // Shaping the stories through args composition.
   // Inherited data coming from the Default story.
   tasks: [
-    ...Default.args.tasks.slice(0, 5),
+    ...Default.args['tasks'].slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
   ],
 };
@@ -291,7 +326,7 @@ Empty.args = {
 </video>
 
 <div class="aside">
-💡 With this change, all of our tests will require an update. Update the imports and re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>
 
 Now that we have some actual data populating our component obtained from the store, we could have wired it to `src/app/app.component.ts` and render the component there. Don't worry about it. We'll take care of it in the next chapter.

@@ -100,12 +100,12 @@ const Template: Story = args => ({
 export const Default = Template.bind({});
 Default.args = {
   tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    { ...TaskStories.Default.args?.['task'], id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args?.['task'], id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args?.['task'], id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args?.['task'], id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args?.['task'], id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args?.['task'], id: '6', title: 'Task 6' },
   ],
 };
 
@@ -114,7 +114,7 @@ WithPinnedTasks.args = {
   // Shaping the stories through args composition.
   // Inherited data coming from the Default story.
   tasks: [
-    ...Default.args.tasks.slice(0, 5),
+    ...Default.args['tasks'].slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
   ],
 };
@@ -135,7 +135,7 @@ Empty.args = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add some `padding` around the rendered component. They can also be used to wrap stories in “providers”–-i.e., library components that set some context.
+💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some <code>padding</code> around the rendered component. They can also be used to wrap stories in “providers”–-i.e., library components that set some context.
 </div>
 
 By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/angular/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
@@ -159,7 +159,7 @@ import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-task-list',
-  template: `
++ template: `
 +   <div class="list-items">
 +     <app-task
 +       *ngFor="let task of tasksInOrder"
@@ -168,15 +168,20 @@ import { Task } from '../models/task.model';
 +       (onPinTask)="onPinTask.emit($event)"
 +     >
 +     </app-task>
-+     <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
++     <div
++       *ngIf="tasksInOrder.length === 0 && !loading"
++       class="wrapper-message"
++     >
 +       <span class="icon-check"></span>
-+       <div class="title-message">You have no tasks</div>
-+       <div class="subtitle-message">Sit back and relax</div>
++       <p class="title-message">You have no tasks</p>
++       <p class="subtitle-message">Sit back and relax</p>
 +     </div>
 +     <div *ngIf="loading">
 +       <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
 +         <span class="glow-checkbox"></span>
-+         <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
++         <span class="glow-text">
++           <span>Loading</span> <span>cool</span> <span>state</span>
++         </span>
 +       </div>
 +     </div>
 +   </div>
@@ -201,10 +206,16 @@ export class TaskListComponent {
 
 + @Input()
 + set tasks(arr: Task[]) {
-+   this.tasksInOrder = [
++   const initialTasks = [
 +     ...arr.filter(t => t.state === 'TASK_PINNED'),
 +     ...arr.filter(t => t.state !== 'TASK_PINNED'),
 +   ];
++   const filteredTasks = initialTasks.filter(
++     t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
++   );
++   this.tasksInOrder = filteredTasks.filter(
++     t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
++   );
 + }
 }
 ```
@@ -223,60 +234,6 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 ## Data requirements
 
 As the component grows, so too do input requirements. Define the data requirements of `TaskList` component using TypeScript. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the model you defined in `task.model.ts` earlier.
-
-## Automated testing
-
-In the previous chapter, we learned how to snapshot test stories using Storyshots. With `Task`, there wasn’t much complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity, we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this, we’ll create unit tests using [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro).
-
-![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
-
-### Unit tests with Angular Testing Library
-
-Storybook stories, manual tests, and snapshot tests go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
-
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed, bringing us to unit tests.
-
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
-
-So, to avoid this problem, we can use Angular Testing Library to render the story to the DOM and run some DOM querying code to verify salient features of the output. The nice thing about the story format is that we can import the story in our tests and render it there!
-
-Create a test file called `task-list.component.spec.ts`. Here we’ll build out our tests that make assertions about the output.
-
-```ts:title=src/app/components/task-list.component.spec.ts
-import { render } from '@testing-library/angular';
-
-import { TaskListComponent } from './task-list.component';
-import { TaskComponent } from './task.component';
-
-//👇 Our story imported here
-import { WithPinnedTasks } from './task-list.stories';
-
-describe('TaskList component', () => {
-  it('renders pinned tasks at the start of the list', async () => {
-    const mockedActions = jest.fn();
-    const tree = await render(TaskListComponent, {
-      declarations: [TaskComponent],
-      componentProperties: {
-        ...WithPinnedTasks.args,
-        onPinTask: {
-          emit: mockedActions,
-        } as any,
-        onArchiveTask: {
-          emit: mockedActions,
-        } as any,
-      },
-    });
-    const component = tree.fixture.componentInstance;
-    expect(component.tasksInOrder[0].id).toBe('6');
-  });
-});
-```
-
-![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
-
-Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way, we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
-
-Notice as well that this test is quite brittle. It's possible that as the project matures and the exact implementation of the `Task` changes--perhaps using a different classname or a `textarea` rather than an `input`--the test will fail and need to be updated. It is not necessarily a problem but rather an indication of being careful about using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/angular/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

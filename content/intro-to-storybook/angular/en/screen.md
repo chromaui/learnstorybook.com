@@ -16,14 +16,15 @@ As our app is straightforward, the screen we’ll build is pretty trivial, simpl
 Let's start by updating our store ( in `src/app/state/task.state.ts`) to include the error field we want:
 
 ```diff:title=src/app/state/task.state.ts
+import { Injectable } from '@angular/core';
 import { State, Selector, Action, StateContext } from '@ngxs/store';
+import { patch, updateItem } from '@ngxs/store/operators';
 import { Task } from '../models/task.model';
 
-// defines the actions available to the app
+// Defines the actions available to the app
 export const actions = {
   ARCHIVE_TASK: 'ARCHIVE_TASK',
   PIN_TASK: 'PIN_TASK',
-  // Defines the new error field we need
 + ERROR: 'APP_ERROR',
 };
 
@@ -46,72 +47,92 @@ export class PinTask {
 
 // The initial state of our store when the app loads.
 // Usually you would fetch this from a server
-const defaultTasks = {
-  1: { id: '1', title: 'Something', state: 'TASK_INBOX' },
-  2: { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-  3: { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-  4: { id: '4', title: 'Something again', state: 'TASK_INBOX' },
-};
+const defaultTasks = [
+  { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
+];
 
-export class TaskStateModel {
-  entities: { [id: number]: Task };
-+ error: boolean;
+export interface TaskStateModel {
+  tasks: Task[];
+  status: 'idle' | 'loading' | 'success' | 'error';
+  error: boolean;
 }
 
 // Sets the default state
 @State<TaskStateModel>({
-  name: 'tasks',
+  name: 'taskbox',
   defaults: {
-    entities: defaultTasks,
-+   error: false,
+    tasks: defaultTasks,
+    status: 'idle',
+    error: false,
   },
 })
+@Injectable()
 export class TasksState {
+  // Defines a new selector for the error field
   @Selector()
-  static getAllTasks(state: TaskStateModel) {
-    const entities = state.entities;
-    return Object.keys(entities).map(id => entities[+id]);
+  static getError(state: TaskStateModel): boolean {
+    return state.error;
   }
 
-+ // Defines a new selector for the error field
-+ @Selector()
-+ static getError(state: TaskStateModel) {
-+   const { error } = state;
-+   return error;
-+ }
-  //
+  @Selector()
+  static getAllTasks(state: TaskStateModel): Task[] {
+    return state.tasks;
+  }
+
   // Triggers the PinTask action, similar to redux
   @Action(PinTask)
-  pinTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: PinTask) {
-    const state = getState().entities;
+  pinTask(
+    { getState, setState }: StateContext<TaskStateModel>,
+    { payload }: PinTask
+  ) {
+    const task = getState().tasks.find((task) => task.id === payload);
 
-    const entities = {
-      ...state,
-      [payload]: { ...state[payload], state: 'TASK_PINNED' },
-    };
-
-    patchState({
-      entities,
-    });
+    if (task) {
+      const updatedTask: Task = {
+        ...task,
+        state: 'TASK_PINNED',
+      };
+      setState(
+        patch({
+          tasks: updateItem<Task>(
+            (pinnedTask) => pinnedTask?.id === payload,
+            updatedTask
+          ),
+        })
+      );
+    }
   }
-  // Triggers the PinTask action, similar to redux
+  // Triggers the archiveTask action, similar to redux
   @Action(ArchiveTask)
-  archiveTask({ patchState, getState }: StateContext<TaskStateModel>, { payload }: ArchiveTask) {
-    const state = getState().entities;
-
-    const entities = {
-      ...state,
-      [payload]: { ...state[payload], state: 'TASK_ARCHIVED' },
-    };
-
-    patchState({
-      entities,
-    });
+  archiveTask(
+    { getState, setState }: StateContext<TaskStateModel>,
+    { payload }: ArchiveTask
+  ) {
+    const task = getState().tasks.find((task) => task.id === payload);
+    if (task) {
+      const updatedTask: Task = {
+        ...task,
+        state: 'TASK_ARCHIVED',
+      };
+      setState(
+        patch({
+          tasks: updateItem<Task>(
+            (archivedTask) => archivedTask?.id === payload,
+            updatedTask
+          ),
+        })
+      );
+    }
   }
-
 + // Function to handle how the state should be updated when the action is triggered
 + @Action(AppError)
-+ setAppError({ patchState, getState }: StateContext<TaskStateModel>, { payload }: AppError) {
++ setAppError(
++   { patchState, getState }: StateContext<TaskStateModel>,
++   { payload }: AppError
++ ) {
 +   const state = getState();
 +   patchState({
 +     error: !state.error,
@@ -131,16 +152,14 @@ import { Component, Input } from '@angular/core';
     <div *ngIf="error" class="page lists-show">
       <div class="wrapper-message">
         <span class="icon-face-sad"></span>
-        <div class="title-message">Oh no!</div>
-        <div class="subtitle-message">Something went wrong</div>
+        <p class="title-message">Oh no!</p>
+        <p class="subtitle-message">Something went wrong</p>
       </div>
     </div>
 
     <div *ngIf="!error" class="page lists-show">
       <nav>
-        <h1 class="title-page">
-          <span class="title-wrapper">Taskbox</span>
-        </h1>
+        <h1 class="title-page">Taskbox</h1>
       </nav>
       <app-task-list></app-task-list>
     </div>
@@ -155,8 +174,7 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 
 ```ts:title=src/app/components/inbox-screen.component.ts
 import { Component } from '@angular/core';
-import { Select } from '@ngxs/store';
-import { TasksState } from '../state/task.state';
+import { Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -166,7 +184,10 @@ import { Observable } from 'rxjs';
   `,
 })
 export class InboxScreenComponent {
-  @Select(TasksState.getError) error$: Observable<any>;
+  error$: Observable<boolean>;
+  constructor(private store: Store) {
+    this.error$ = store.select((state) => state.taskbox.error);
+  }
 }
 ```
 
@@ -184,8 +205,7 @@ import { Component } from '@angular/core';
 + `,
 })
 export class AppComponent {
-- title = 'intro-storybook-angular-template';
-+ title = 'taskbox';
+  title = 'taskbox';
 }
 ```
 
@@ -198,6 +218,8 @@ import { TaskModule } from './components/task.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 
 + import { InboxScreenComponent } from './components/inbox-screen.component';
@@ -208,17 +230,15 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     TaskModule,
-    NgxsModule.forRoot([]),
+    NgxsModule.forRoot([], { developmentMode: !environment.production, }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot({ disabled: environment.production, }),
   ],
   providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
-
-<div class="aside"><p>Don't forget to update the test file <code>src/app/app.component.spec.ts</code>. Or the next time you run your tests they will fail.</p></div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
@@ -260,9 +280,9 @@ Error.args = {
 };
 ```
 
-We see that all our stories are no longer working. It's to the fact that both depend on our store and, even though we're using a "pure" component for the error, both stories still need context.
+We see that all our stories are no longer working. It's to the fact that both depend on our store, and even though we're using a "pure" component for the error, both stories still need context.
 
-![Broken inbox](/intro-to-storybook/broken-inbox-angular.png)
+![Broken inbox](/intro-to-storybook/broken-inbox-angular-with-accessibility.png)
 
 One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data requirements down the component hierarchy.
 
@@ -324,15 +344,19 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
-## Interactive stories
+## Interaction tests
 
 So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
 
-Can't we automate this workflow and interact with our components automatically?
+Can't we automate this workflow and test our component interactions automatically?
 
-Storybook's [`play`](https://storybook.js.org/docs/angular/writing-stories/play-function) function allows us to do just that. A play function includes small snippets of code that are run after the story renders.
+### Write an interaction test using the play function
 
-The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, that means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+Storybook's [`play`](https://storybook.js.org/docs/angular/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/angular/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+
+The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+
+The `@storybook/addon-interactions` helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
 Let's see it in action! Update your newly created `pure-inbox-screen` story, and set up component interactions by adding the following:
 
@@ -375,13 +399,13 @@ Error.args = {
 + WithInteractions.play = async ({ canvasElement }) => {
 +   const canvas = within(canvasElement);
 +   // Simulates pinning the first task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
++   await fireEvent.click(canvas.getByLabelText('pinTask-1'));
 +   // Simulates pinning the third task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++   await fireEvent.click(canvas.getByLabelText('pinTask-3'));
 + };
 ```
 
-Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
+Check your newly-created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -390,11 +414,49 @@ Check your newly created story. Click the `Interactions` panel to see the list o
   />
 </video>
 
-The play function allows us to interact with our UI and quickly check how it responds if we update our tasks. That keeps the UI consistent at no extra manual effort. All without needing to spin up a testing environment or add additional packages.
+### Automate tests with the test runner
+
+With Storybook's play function, we were able to sidestep our problem, allowing us to interact with our UI and quickly check how it responds if we update our tasks—keeping the UI consistent at no extra manual effort.
+
+But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
+
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/angular/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+
+Let's see how it works! Run the following command to install it:
+
+```bash
+npm install @storybook/test-runner --save-dev
+```
+
+Next, update your `package.json` `scripts` and add a new test task:
+
+```json
+{
+  "scripts": {
+    "test-storybook": "test-storybook"
+  }
+}
+```
+
+Finally, with your Storybook running, open up a new terminal window and run the following command:
+
+```bash
+npm run test-storybook -- --watch
+```
+
+<div class="aside">
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/angular/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
+<br />
+For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+</div>
+
+![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+
+Success! Now we have a tool that helps us verify whether all our stories are rendered without errors and all assertions pass automatically. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
 
 ## Component-Driven Development
 
-We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
+We started from the bottom with `Task`, then progressed to `TaskList`, and now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source

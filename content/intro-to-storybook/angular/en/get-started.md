@@ -36,10 +36,10 @@ Now we can quickly check that the various environments of our application are wo
 npm run test
 
 # Start the component explorer on port 6006:
-npm run storybook
+ng run taskbox:storybook
 
 # Run the frontend app proper on port 4200:
-npm run start
+ng serve
 ```
 
 Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.

@@ -9,7 +9,7 @@ We’ll build our UI following a [Component-Driven Development](https://www.comp
 
 ## Task
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+![Task component in three states](/intro-to-storybook/task-states-learnstorybook-accessible.png)
 
 `Task` is the core component of our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
 
@@ -27,22 +27,24 @@ We’ll begin with a baseline implementation of the `Task`, simply taking in the
 ```html:title=src/components/Task.vue
 <template>
   <div class="list-item">
-    <input type="text" readonly :value="task.title" />
+    <label for="title" :aria-label="task.title">
+      <input type="text" readonly :value="task.title" id="title" name="title" />
+    </label>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'Task',
-    props: {
-      task: {
-        type: Object,
-        required: true,
-        default: () => ({ id: '', state: '', title: '' }),
-        validator: task => ['id', 'state', 'title'].every(key => key in task),
-      },
+export default {
+  name: "Task",
+  props: {
+    task: {
+      type: Object,
+      required: true,
+      default: () => ({ id: "", state: "", title: "" }),
+      validator: (task) => ["id", "state", "title"].every((key) => key in task),
     },
-  };
+  },
+};
 </script>
 ```
 
@@ -85,7 +87,6 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
   },
 };
 
@@ -155,11 +156,19 @@ module.exports = {
 -   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
 + stories: ['../src/components/**/*.stories.js'],
- addons: [
+  staticDirs: ['../public'],
+  addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
   ],
+  framework: '@storybook/vue3',
+  core: {
+    builder: '@storybook/builder-webpack5',
+  },
+  features: {
+    interactionsDebugger: true,
+  },
 };
 ```
 
@@ -202,63 +211,84 @@ The component is still rudimentary at the moment. First, write the code that ach
 ```html:title=src/components/Task.vue
 <template>
   <div :class="classes">
-    <label class="checkbox">
-      <input type="checkbox" :checked="isChecked" disabled name="checked" />
-      <span class="checkbox-custom" @click="archiveTask" :aria-label="'archiveTask-' + task.id" />
+    <label
+      :for="'checked' + task.id"
+      :aria-label="'archiveTask-' + task.id"
+      class="checkbox"
+    >
+      <input
+        type="checkbox"
+        :checked="isChecked"
+        disabled
+        :name="'checked' + task.id"
+        :id="'archiveTask-' + task.id"
+      />
+      <span class="checkbox-custom" @click="archiveTask" />
     </label>
-    <div class="title">
-      <input type="text" :value="task.title" readonly placeholder="Input title" />
-    </div>
-    <div class="actions">
-      <a v-if="!isChecked" @click="pinTask">
-        <span class="icon-star" :aria-label="'pinTask-' + task.id" />
-      </a>
-    </div>
+    <label :for="'title-' + task.id" :aria-label="task.title" class="title">
+      <input
+        type="text"
+        readonly
+        :value="task.title"
+        :id="'title-' + task.id"
+        name="title"
+        placeholder="Input title"
+      />
+    </label>
+    <button
+      v-if="!isChecked"
+      class="pin-button"
+      @click="pinTask"
+      :id="'pinTask-' + task.id"
+      :aria-label="'pinTask-' + task.id"
+    >
+      <span class="icon-star" />
+    </button>
   </div>
 </template>
 
 <script>
-  import { reactive, computed } from 'vue';
+import { reactive, computed } from 'vue';
 
-  export default {
-    name: 'Task',
-    props: {
-      task: {
-        type: Object,
-        required: true,
-        default: () => ({ id: '', state: '', title: '' }),
-        validator: task => ['id', 'state', 'title'].every(key => key in task),
+export default {
+  name: 'Task',
+  props: {
+    task: {
+      type: Object,
+      required: true,
+      default: () => ({ id: '', state: '', title: '' }),
+      validator: task => ['id', 'state', 'title'].every(key => key in task),
+    },
+  },
+  emits: ['archive-task', 'pin-task'],
+
+  setup(props, { emit }) {
+    props = reactive(props);
+    return {
+      classes: computed(() => ({
+        'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
+        'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
+        'list-item TASK_ARCHIVED': props.task.state === 'TASK_ARCHIVED',
+      })),
+      /**
+       * Computed property for checking the state of the task
+       */
+      isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
+      /**
+       * Event handler for archiving tasks
+       */
+      archiveTask() {
+        emit('archive-task', props.task.id);
       },
-    },
-    emits: ['archive-task', 'pin-task'],
-
-    setup(props, { emit }) {
-      props = reactive(props);
-      return {
-        classes: computed(() => ({
-          'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
-          'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
-          'list-item TASK_ARCHIVED': props.task.state === 'TASK_ARCHIVED',
-        })),
-        /**
-         * Computed property for checking the state of the task
-         */
-        isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
-        /**
-         * Event handler for archiving tasks
-         */
-        archiveTask() {
-          emit('archive-task', props.task.id);
-        },
-        /**
-         * Event handler for pinning tasks
-         */
-        pinTask() {
-          emit('pin-task', props.task.id);
-        },
-      };
-    },
-  };
+      /**
+       * Event handler for pinning tasks
+       */
+      pinTask() {
+        emit('pin-task', props.task.id);
+      },
+    };
+  },
+};
 </script>
 ```
 
@@ -277,46 +307,53 @@ We’ve now successfully built out a component without needing a server or runni
 
 As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
 
-## Automated Testing
+## Catch accessibility issues
 
-Storybook gave us a great way to manually test our application UI during construction. The stories will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
 
-### Snapshot testing
+Storybook includes an official [accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y). Powered by Deque's [axe-core](https://github.com/dequelabs/axe-core), it can catch up to [57% of WCAG issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in the future. It complements Storybook because it’s a quick way to view the new version and check out the differences.
-
-<div class="aside">
-💡 Make sure your components render data that doesn't change so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
-</div>
-
-A snapshot test is created with the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) for each of the stories. Use it by adding the following development dependencies:
+Let's see how it works! Run the following command to install the addon:
 
 ```bash
-yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
+yarn add --dev @storybook/addon-a11y
 ```
 
-Then create a `tests/unit/storybook.spec.js` file with the following in it:
+Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
 
-```js:title=tests/unit/storybook.spec.js
-import initStoryshots from '@storybook/addon-storyshots';
-
-initStoryshots();
-```
-
-We need to add a line to our `jest.config.js`:
-
-```diff:title=jest.config.js
+```diff:title=.storybook/main.js
 module.exports = {
-  ...
-+ transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
+  stories: ['../src/components/**/*.stories.js'],
+  staticDirs: ['../public'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
++   '@storybook/addon-a11y',
+  ],
+  framework: '@storybook/vue3',
+  core: {
+    builder: '@storybook/builder-webpack5',
+  },
+  features: {
+    interactionsDebugger: true,
+  },
 };
 ```
 
-That's it. We can run `yarn test:unit` and see the following output:
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
 
-![Task test runner](/intro-to-storybook/task-testrunner.png)
+Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
 
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+```diff:title=src/index.css
+.list-item.TASK_ARCHIVED input[type="text"] {
+- color: #a0aec0;
++ color: #4a5568;
+  text-decoration: line-through;
+}
+```
+
+That's it! We've taken the first step to ensure that UI becomes accessible. As we continue to add complexity to our application, we can repeat this process for all other components without needing to spin up additional tools or testing environments.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

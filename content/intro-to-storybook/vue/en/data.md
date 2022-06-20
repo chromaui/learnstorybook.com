@@ -26,14 +26,18 @@ First, we'll create a simple Vuex store that responds to actions that change the
 ```js:title=src/store.js
 import { createStore } from 'vuex';
 
+const defaultTasks = [
+  { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  { id: "2", title: 'Something more', state: 'TASK_INBOX' },
+  { id: "3", title: 'Something else', state: 'TASK_INBOX' },
+  { id: "4", title: 'Something again', state: 'TASK_INBOX' },
+];
+
 export default createStore({
   state: {
-    tasks: [
-      { id: '1', title: 'Something', state: 'TASK_INBOX' },
-      { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-      { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-      { id: '4', title: 'Something again', state: 'TASK_INBOX' },
-    ],
+    tasks: defaultTasks,
+    status: 'idle',
+    error: null,
   },
   mutations: {
     ARCHIVE_TASK(state, id) {
@@ -184,7 +188,7 @@ Empty.args = {
 </video>
 
 <div class="aside">
-💡 With this change, all of our tests will require an update. Update the imports and re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>
 
 Now that we have some actual data populating our component, obtained from the Vuex store, we could have wired it to `src/App.vue` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
