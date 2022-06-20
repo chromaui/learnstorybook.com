@@ -426,7 +426,9 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">official documentation</a> to learn more about it. However, there are more ways you can improve testing. In the <a href="/ui-testing-handbook">Testing Handbook</a>, we'll teach you that, by introducing you to strategies used by scaled-front-end teams that will help supercharge your development workflow.
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
+<br />
+For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)

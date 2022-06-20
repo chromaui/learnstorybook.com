@@ -59,6 +59,7 @@ const defaultTasks = [
 export interface TaskStateModel {
   tasks: Task[];
   status: 'idle' | 'loading' | 'success' | 'error';
+  error: boolean;
 }
 
 // Sets the default state
@@ -67,6 +68,7 @@ export interface TaskStateModel {
   defaults: {
     tasks: defaultTasks,
     status: 'idle',
+    error: false,
   },
 })
 @Injectable()
@@ -153,8 +155,7 @@ In `src/app/components/task-list.component.ts`:
 ```ts:title=src/app/components/task-list.component.ts
 import { Component } from '@angular/core';
 import { Store } from '@ngxs/store';
-import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
-import { Task } from '../models/task.model';
+import { ArchiveTask, PinTask } from '../state/task.state';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -232,7 +233,9 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
 +   TaskModule,
-+   NgxsModule.forRoot([],  developmentMode: !environment.production,),
++    NgxsModule.forRoot([], {
++     developmentMode: !environment.production,
++   }),
 +   NgxsReduxDevtoolsPluginModule.forRoot(),
 +   NgxsLoggerPluginModule.forRoot({
 +     disabled: environment.production,

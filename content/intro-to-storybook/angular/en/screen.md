@@ -57,7 +57,7 @@ const defaultTasks = [
 export interface TaskStateModel {
   tasks: Task[];
   status: 'idle' | 'loading' | 'success' | 'error';
-+ error: boolean;
+  error: boolean;
 }
 
 // Sets the default state
@@ -66,7 +66,7 @@ export interface TaskStateModel {
   defaults: {
     tasks: defaultTasks,
     status: 'idle',
-+   error: false,
+    error: false,
   },
 })
 @Injectable()
@@ -205,8 +205,7 @@ import { Component } from '@angular/core';
 + `,
 })
 export class AppComponent {
-- title = 'intro-storybook-angular-template';
-+ title = 'taskbox';
+  title = 'taskbox';
 }
 ```
 
@@ -219,6 +218,8 @@ import { TaskModule } from './components/task.module';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 
 + import { InboxScreenComponent } from './components/inbox-screen.component';
