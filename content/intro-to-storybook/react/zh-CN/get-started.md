@@ -2,7 +2,7 @@
 title: 'Storybook React 教程'
 tocTitle: '开始吧'
 description: '在你的开发环境下设置 Storybook'
-commit: 'b66f341'
+commit: '9245261'
 ---
 
 Storybook 是在开发模式下 与 您的应用程序一起运行的. 它可以帮助您构建 UI 组件,并与 应用程序的 业务逻辑和上下文 隔离开来. 本期"学习 Storybook"适用于 **React**; `Vue和Angular`版本即将推出.

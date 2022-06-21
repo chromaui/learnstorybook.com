@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: '37404c2'
+commit: '9411971'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -202,56 +202,57 @@ Now that we have Storybook set up, styles imported, and test cases built out, we
 
 The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 
-```diff:title=src/app/components/task.component.ts
+```ts:title=src/app/components/task.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-+ import { Task } from '../models/task.model';
+import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-task',
-+ template: `
-+   <div class="list-item {{ task?.state }}">
-+     <label
-+       [attr.aria-label]="'archiveTask-' + task.id"
-+       for="checked-{{ task?.id }}"
-+       class="checkbox"
-+     >
-+       <input
-+         type="checkbox"
-+         disabled="true"
-+         [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
-+         name="checked-{{ task?.id }}"
-+         id="checked-{{ task?.id }}"
-+       />
-+       <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
-+     </label>
-+     <label
-+       [attr.aria-label]="task.title + ''"
-+       for="title-{{ task?.id }}"
-+       class="title"
-+     >
-+       <input
-+         type="text"
-+         [value]="task.title"
-+         readonly="true"
-+         id="title-{{ task?.id }}"
-+         name="title-{{ task?.id }}"
-+         placeholder="Input title"
-+       />
-+     </label>
-+     <button
-+       *ngIf="task?.state !== 'TASK_ARCHIVED'"
-+       class="pin-button"
-+       [attr.aria-label]="'pinTask-' + task.id"
-+       (click)="onPin(task.id)"
-+     >
-+       <span class="icon-star"></span>
-+     </button>
-+   </div>
+  template: `
+    <div class="list-item {{ task?.state }}">
+      <label
+        [attr.aria-label]="'archiveTask-' + task.id"
+        for="checked-{{ task?.id }}"
+        class="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled="true"
+          [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
+          name="checked-{{ task?.id }}"
+          id="checked-{{ task?.id }}"
+        />
+        <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
+      </label>
+      <label
+        [attr.aria-label]="task.title + ''"
+        for="title-{{ task?.id }}"
+        class="title"
+      >
+        <input
+          type="text"
+          [value]="task.title"
+          readonly="true"
+          id="title-{{ task?.id }}"
+          name="title-{{ task?.id }}"
+          placeholder="Input title"
+          style="text-overflow: ellipsis;"
+        />
+      </label>
+      <button
+        *ngIf="task?.state !== 'TASK_ARCHIVED'"
+        class="pin-button"
+        [attr.aria-label]="'pinTask-' + task.id"
+        (click)="onPin(task.id)"
+      >
+        <span class="icon-star"></span>
+      </button>
+    </div>
   `,
 })
 export class TaskComponent {
-+ @Input() task: Task;
+  @Input() task: Task;
 
   // tslint:disable-next-line: no-output-on-prefix
   @Output()
@@ -261,20 +262,20 @@ export class TaskComponent {
   @Output()
   onArchiveTask = new EventEmitter<Event>();
 
-+ /**
-+  * Component method to trigger the onPin event
-+  * @param id string
-+  */
-+ onPin(id: any) {
-+   this.onPinTask.emit(id);
-+ }
-+ /**
-+  * Component method to trigger the onArchive event
-+  * @param id string
-+  */
-+ onArchive(id: any) {
-+   this.onArchiveTask.emit(id);
-+ }
+  /**
+   * Component method to trigger the onPin event
+   * @param id string
+   */
+  onPin(id: any) {
+    this.onPinTask.emit(id);
+  }
+  /**
+   * Component method to trigger the onArchive event
+   * @param id string
+   */
+  onArchive(id: any) {
+    this.onArchiveTask.emit(id);
+  }
 }
 ```
 

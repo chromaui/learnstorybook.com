@@ -2,7 +2,7 @@
 title: 'Storybook Vue 教程'
 tocTitle: '开始吧'
 description: '在你的开发环境下配置Storybook'
-commit: 'b218a07'
+commit: 'db9715f'
 ---
 
 Storybook 是在开发模式下与您的应用程序一同运行的。它可以帮助您构建 UI 组件，并且将其与您应用程序中的业务逻辑和上下文分离开来。这份教程适用于 Vue；其他的则适用于[React](/react/en/get-started)，[React Native](/react-native/en/get-started/)，[Angular](/angular/en/get-started)，[Svelte](/svelte/en/get-started)和[Ember](/ember/en/get-started)。

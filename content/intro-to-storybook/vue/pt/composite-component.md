@@ -2,7 +2,7 @@
 title: 'Construção de um componente composto'
 tocTitle: 'Componente composto'
 description: 'Construção de um componente composto a partir de componentes simples'
-commit: '74366af'
+commit: '3a315d2'
 ---
 
 No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
@@ -217,8 +217,8 @@ O componente ainda se encontra num estado bruto, mas já temos uma ideia de quai
       },
       tasksInOrder() {
         return [
-          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
+          ...this.tasks.filter((t) => t.state === 'TASK_PINNED'),
+          ...this.tasks.filter((t) => t.state !== 'TASK_PINNED'),
         ];
       },
     },

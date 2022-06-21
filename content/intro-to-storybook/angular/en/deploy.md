@@ -2,7 +2,7 @@
 title: 'Deploy Storybook'
 tocTitle: 'Deploy'
 description: 'Learn how to deploy Storybook online'
-commit: '4bed2f6'
+commit: '9373d94'
 ---
 
 Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.

@@ -2,7 +2,7 @@
 title: '连线数据'
 tocTitle: 'Data'
 description: '了解如何将数据连接到UI组件'
-commit: '5da7c68'
+commit: '94b134e'
 ---
 
 到目前为止,我们创建了孤立的无状态组件 - Storybook 很棒,但作用不大,除非我们在应用程序中为他们提供一些数据.

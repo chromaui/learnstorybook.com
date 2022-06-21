@@ -2,7 +2,7 @@
 title: '리액트(React)를 위한 스토리북(Storybook) 튜토리얼'
 tocTitle: '시작하기'
 description: '스토리북(Storybook)을 개발 환경에 설치해보세요'
-commit: 'b66f341'
+commit: '9245261'
 ---
 
 스토리북(Storybook)은 개발 모드에서 앱과 함께 실행됩니다. 스토리북은 비즈니스 로직과 맥락(context)으로부터 분리된 UI 컴포넌트를 만들 수 있도록 도와줍니다. 현재 문서는 리액트(React)를 위해 작성되었습니다. 그 밖의 [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started) [Svelte](/intro-to-storybook/svelte/en/get-started) 및 [Ember](/intro-to-storybook/ember/en/get-started)에 대한 다른 문서도 존재합니다.
@@ -52,8 +52,8 @@ yarn start
 
 여러분이 앱(응용 프로그램)의 어떤 부분에 따라 작업하고 있는지에 따라, 이것들 중 하나 이상을 동시에 실행하고 싶을 수 있습니다. 하지만 지금 우리의 초점은 단일 UI 구성 요소를 만드는 것이므로 스토리북을 실행하는데 집중할 것입니다.
 
-
 ## 변경 사항 커밋(commit)
+
 이 단계에서는 파일을 로컬 저장소(local repository)에 추가하는 것이 안전합니다. 다음 명령을 실행하여 로컬 저장소를 초기화하고 지금까지 수행한 변경 사항(내용)을 추가 및 commit하세요.
 
 ```shell
@@ -61,16 +61,19 @@ $ git init
 ```
 
 뒤이어:
+
 ```shell
 $ git add .
 ```
 
 그 다음에:
+
 ```shell
 $ git commit -m "first commit"
 ```
 
 그리고 마지막으로:
+
 ```shell
 $ git branch -M main
 ```

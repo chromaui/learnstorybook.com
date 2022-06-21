@@ -2,7 +2,7 @@
 title: 'Déployer Storybook'
 tocTitle: 'Déploiement'
 description: 'Découvrez comment déployer Storybook en ligne'
-commit: '27da5f3'
+commit: 'af610d9'
 ---
 
 Tout au long de ce tutoriel, nous avons construit des composants sur notre machine de développement local. À un moment donné, nous devrons partager notre travail pour obtenir les réactions de l'équipe. Déployons Storybook en ligne pour aider nos coéquipiers à examiner la mise en œuvre de l'UI.

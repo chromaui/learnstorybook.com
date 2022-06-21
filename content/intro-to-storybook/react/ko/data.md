@@ -2,7 +2,7 @@
 title: '데이터 연결하기'
 tocTitle: '데이터'
 description: 'UI 컴포넌트에 데이터를 연결하는 방법을 배워보세요'
-commit: '5da7c68'
+commit: '94b134e'
 ---
 
 지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 스토리북(Storybook)에는 적합하지만 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
@@ -167,11 +167,11 @@ export default function TaskList() {
 
 ## 데코레이터로 컨텍스트 제공하기
 
-이 단계에서 `TaskList`는 컨테이너이며 더 이상 어떠한 props도 받지 않기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다. 
+이 단계에서 `TaskList`는 컨테이너이며 더 이상 어떠한 props도 받지 않기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다.
 
 ![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
 
-이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/en/composite-component)에서 했던 것과 유사한 데코레이터에 의존하고 모방된 저장소를 스토리북 스토리에 제공할 수 있습니다. 
+이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/en/composite-component)에서 했던 것과 유사한 데코레이터에 의존하고 모방된 저장소를 스토리북 스토리에 제공할 수 있습니다.
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
@@ -301,4 +301,4 @@ Empty.decorators = [
 💡 변경과 함께 모든 테스트를 업데이트해야 합니다. <code>-u</code> 플래그와 함께 import 문을 업데이트하고 테스트 커맨드를 재실행하세요. 깃(Git)에 변경한 내역들을 commit 하는 것도 잊지 마세요!
 </div>
 
-성공했습니다! 스토리북이 정상적으로 작동하고 있으며 연결된 구성 요소에 데이터를 제공할 수있는 방법을 볼 수 있었습니다. 다음 장에서는 배운 내용을  화면에 적용해 보겠습니다. 
+성공했습니다! 스토리북이 정상적으로 작동하고 있으며 연결된 구성 요소에 데이터를 제공할 수있는 방법을 볼 수 있었습니다. 다음 장에서는 배운 내용을 화면에 적용해 보겠습니다.

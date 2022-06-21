@@ -2,7 +2,6 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Lerne an einem bekannten Beispiel, Addons zu integrieren und zu nutzen'
-commit: '3d53594'
 ---
 
 Storybook rühmt sich eines robuten [Addon-Systems](https://storybook.js.org/docs/react/configure/storybook-addons), über das sich die Entwicklungserfahrung all deiner Teammitglieder verbessern lässt. Wenn du diesem Tutorial linear gefolgt bist, haben wir bereits einige Addons erwähnt und du hast bereits eines im [Kapitel über Tests](/intro-to-storybook/react/de/test/) implementiert.

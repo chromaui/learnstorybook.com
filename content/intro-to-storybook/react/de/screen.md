@@ -2,7 +2,7 @@
 title: 'Einen Screen erstellen'
 tocTitle: 'Screens'
 description: 'Stelle einen Screen aus Komponenten zusammen'
-commit: '79829b2'
+commit: 'e6e6cae'
 ---
 
 Bisher haben wir uns darauf konzentriert, UIs bottom-up zu bauen; klein starten und Komplexität hinzufügen. Das erlaubte uns, jede Komponente in Isolation zu entwickeln, ihre Anforderungen an Daten zu ermitteln und damit in Storybook herumzuspielen. All das, ohne einen Server aufzusetzen oder Screens zu erstellen.

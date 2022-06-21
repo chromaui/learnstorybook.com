@@ -2,7 +2,7 @@
 title: 'Intégrer des données'
 tocTitle: 'Les données'
 description: 'Apprendre comment intégrer des données dans votre composant d interface utilisateur'
-commit: 'c881ddc'
+commit: '022ac7c'
 ---
 
 Jusqu'à présent, nous avons créé des composants isolés sans état - parfait pour Storybook, mais finalement pas utiles jusqu'à ce que nous leur donnions des données dans notre application.
@@ -41,10 +41,10 @@ export default new Vuex.Store({
   },
   mutations: {
     ARCHIVE_TASK(state, id) {
-      state.tasks.find(task => task.id === id).state = 'TASK_ARCHIVED';
+      state.tasks.find((task) => task.id === id).state = 'TASK_ARCHIVED';
     },
     PIN_TASK(state, id) {
-      state.tasks.find(task => task.id === id).state = 'TASK_PINNED';
+      state.tasks.find((task) => task.id === id).state = 'TASK_PINNED';
     },
   },
   actions: {

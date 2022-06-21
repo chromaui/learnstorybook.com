@@ -2,7 +2,7 @@
 title: 'Assembler un composant composite'
 tocTitle: 'Composant composite'
 description: 'Assembler un composant composite à partir de composants plus simples'
-commit: '74366af'
+commit: '3a315d2'
 ---
 
 Le dernier chapitre, nous avons construit notre premier composant; ce chapitre étend ce que nous avons appris pour construire TaskList, une liste de tâches. Combinons les composants ensemble et voyons ce qui se passe lorsque plus de complexité est introduite.
@@ -211,8 +211,8 @@ Notre composant est encore difficile, mais nous avons maintenant une idée des h
       },
       tasksInOrder() {
         return [
-          ...this.tasks.filter(t => t.state === 'TASK_PINNED'),
-          ...this.tasks.filter(t => t.state !== 'TASK_PINNED'),
+          ...this.tasks.filter((t) => t.state === 'TASK_PINNED'),
+          ...this.tasks.filter((t) => t.state !== 'TASK_PINNED'),
         ];
       },
     },
