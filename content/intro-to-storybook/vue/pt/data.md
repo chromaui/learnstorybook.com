@@ -2,7 +2,7 @@
 title: 'Ligação de dados'
 tocTitle: 'Dados'
 description: 'Aprenda a efetuar a ligação de dados ao seu componente de interface de utilizador'
-commit: 'c881ddc'
+commit: '022ac7c'
 ---
 
 Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação
@@ -43,10 +43,10 @@ export default new Vuex.Store({
   },
   mutations: {
     ARCHIVE_TASK(state, id) {
-      state.tasks.find(task => task.id === id).state = 'TASK_ARCHIVED';
+      state.tasks.find((task) => task.id === id).state = 'TASK_ARCHIVED';
     },
     PIN_TASK(state, id) {
-      state.tasks.find(task => task.id === id).state = 'TASK_PINNED';
+      state.tasks.find((task) => task.id === id).state = 'TASK_PINNED';
     },
   },
   actions: {

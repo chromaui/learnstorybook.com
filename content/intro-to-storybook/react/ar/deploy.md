@@ -2,7 +2,7 @@
 title: 'أطلق ستوريبوك'
 tocTitle: 'أطلق'
 description: 'تعلم كيفية إطلاق ستوريبوك أونلاين'
-commit: '27da5f3'
+commit: 'af610d9'
 ---
 
 <div style="direction: rtl">

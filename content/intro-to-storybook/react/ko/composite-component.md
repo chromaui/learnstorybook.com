@@ -2,7 +2,7 @@
 title: '복합적 컴포넌트 조합하기'
 tocTitle: '복합적 컴포넌트'
 description: '간단한 컴포넌트로 복합적 컴포넌트를 조합해보세요'
-commit: 'e955d6c'
+commit: '73d7821'
 ---
 
 지난 챕터에서 첫 번째 컴포넌트를 만들어보았습니다. 이번 챕터에서는 이전에 학습한 내용을 바탕으로 Task의 목록인 TaskList를 만들어보겠습니다. 컴포넌트를 결합하여 복잡성이 커지는 경우 어떤 일이 일어나는지 함께 살펴보겠습니다.
@@ -75,7 +75,6 @@ Empty.args = {
   loading: false,
 };
 ```
-
 
 <div class="aside">
 💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>데코레이터(Decorators)</b></a>는 스토리에 임의의 래퍼(wrapper)를 제공하는 한 방법입니다. 이 예시에서 우리는 데코레이터 `key`를 사용하여 기본 내보내기에서 렌더링 된 컴포넌트에 `padding`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)에서 스토리를 감싸 줄 때 사용될 수 있습니다.
@@ -210,7 +209,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 이러한 문제를 피하기 위해 React 테스트 라이브러리를 사용해 스토리를 DOM에 렌더링 하고, 일부 DOM 쿼리 코드를 실행해 출력 값의 두드러진 특징을 확인할 수 있습니다. 스토리 형식의 좋은 점은 간단히 스토리를 테스트에 가져와 렌더링할 수 있다는 점입니다!
 
- `src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서 출력 값을 검증하는 테스트를 만들어보겠습니다.
+`src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서 출력 값을 검증하는 테스트를 만들어보겠습니다.
 
 ```js:title=src/components/TaskList.test.js
 import { render } from '@testing-library/react';
@@ -230,6 +229,7 @@ it('renders pinned tasks at the start of the list', () => {
   ).not.toBe(null);
 });
 ```
+
 <div class="aside">
 💡 <a href="">@storybook/testing-react</a>은 단위 테스트에서 스토리북 스토리를 재사용하게 해주는 매우 훌륭한 애드온입니다. 스토리를 테스트에서 재사용함으로써 테스트 준비가 된 컴포넌트 시나리오 카탈로그를 갖게 됩니다. 또한, 모든 인수, 데코레이터, 그리고 스토리의 모든 정보들이 이 라이브러리에 의해 조합될 것입니다. 방금 막 봤듯, 테스트에서는 어떤 스토리를 렌더링할 것인지 선택하는 것 뿐입니다.
 </div>

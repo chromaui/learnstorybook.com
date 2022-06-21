@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use the popular Controls addon'
-commit: '153481b'
+commit: 'a4e9728'
 ---
 
 Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/angular/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
@@ -68,7 +68,7 @@ const longTitleString = `This task's name is absurdly large. In fact, I think if
 export const LongTitle = Template.bind({});
 LongTitle.args = {
   task: {
-    ...Default.args.task,
+    ...Default.args['task'],
     title: longTitleString,
   },
 };

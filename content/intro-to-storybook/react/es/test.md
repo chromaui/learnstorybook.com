@@ -2,7 +2,6 @@
 title: 'Testear Componentes UI'
 tocTitle: 'Testing'
 description: 'Aprende las formas de hacer test a los componentes de la UI'
-commit: '3e283f7'
 ---
 
 Ningún tutorial de Storybook estaría completo sin hacer test. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:
@@ -74,7 +73,7 @@ import '../src/index.css';
 const req = requireContext('../src/components', true, /\.stories\.js$/);
 
 function loadStories() {
-  req.keys().forEach(filename => req(filename));
+  req.keys().forEach((filename) => req(filename));
 }
 
 configure(loadStories, module);

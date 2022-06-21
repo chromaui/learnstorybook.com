@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: 'c07ce59'
+commit: 'efa06ff'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
