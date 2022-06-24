@@ -25,7 +25,7 @@ module.exports = {
           es: 5.3,
           fr: 6.1,
           ja: 6.4,
-          ko: 6.1,
+          ko: 6.4,
           nl: 5.3,
           pt: 5.3,
           'zh-CN': 6.1,
@@ -60,27 +60,30 @@ module.exports = {
       'design-systems-for-developers': {
         react: {
           en: 6.4,
-          ko: 6.1,
+          ko: 6.4,
           pt: 5.3,
           'zh-CN': 6.3,
         },
       },
       'visual-testing-handbook': {
         react: {
-          en: 6.4,
-          es: 6.3,
+          en: 6.5,
+          es: 6.5,
+          ko: 6.5,
         },
       },
       'create-an-addon': {
         react: {
-          en: 6.4,
-          fr: 6.4,
-          es: 6.4,
+          en: 6.5,
+          fr: 6.5,
+          es: 6.5,
+          ko: 6.5,
         },
       },
       'ui-testing-handbook': {
         react: {
-          en: 6.4,
+          en: 6.5,
+          ko: 6.5,
         },
       },
     },
