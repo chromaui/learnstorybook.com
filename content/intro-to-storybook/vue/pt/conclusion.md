@@ -7,6 +7,7 @@ Parabéns! Acabou de criar o primeiro interface de utilizador com o Storybook. A
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
+
 [🌎 **Storybook implementado**](https://master--5ccbe484c994280020b6d128.chromatic.com)
 
 O Storybook é uma ferramenta bastante poderosa para React, React Native, Vue, Angular,Svelte entre muitas outras.
@@ -16,7 +17,7 @@ Possui uma comunidade de programadores próspera e uma grande variedade de extra
 
 Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
-- [**Documentação Oficial Storybook**](https://storybook.js.org/docs/react/get-started/introduction) contém a documentação da API, links da comunidade e a galeria de extras.
+- [**Documentação Oficial Storybook**](https://storybook.js.org/docs/vue/get-started/introduction) contém a documentação da API, links da comunidade e a galeria de extras.
 
 - [**Manual de testes visuais**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)
   enumera as boas práticas de fluxo de trabalho, usadas por equipas que operam a alta velocidade, tal como por exemplo a SquareSpace, a Major League Soccer, a Discovery Network e Apollo GraphQL.

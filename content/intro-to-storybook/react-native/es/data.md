@@ -23,7 +23,6 @@ yarn add react-redux redux
 Primero, construiremos un store Redux estándar que responda a acciones que cambien el estado de las tareas, en un archivo llamado `lib/redux.js` (intencionalmente simple):
 
 ```javascript
-
 // lib/redux.js
 
 // A simple redux store/actions/reducer implementation.
@@ -37,15 +36,15 @@ export const actions = {
 };
 
 // The action creators bundle actions with the data required to execute them
-export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = id => ({ type: actions.PIN_TASK, id });
+export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
+export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
 
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(task =>
+      tasks: state.tasks.map((task) =>
         task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
@@ -82,7 +81,6 @@ Luego se cambiará el componente `TaskList` para leer los datos del store. Pero 
 En `components/PureTaskList.js`:
 
 ```javascript
-
 //components/PureTaskList.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
@@ -113,7 +111,6 @@ export default PureTaskList;
 En `components/TaskList.js`:
 
 ```javascript
-
 // components/TaskList.js
 import * as React from 'react';
 import PureTaskList from './PureTaskList';
@@ -130,11 +127,11 @@ function TaskList({ tasks, onPinTask, onArchiveTask }) {
 }
 export default connect(
   ({ tasks }) => ({
-    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
+    tasks: tasks.filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
   }),
-  dispatch => ({
-    onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id)),
+  (dispatch) => ({
+    onArchiveTask: (id) => dispatch(archiveTask(id)),
+    onPinTask: (id) => dispatch(pinTask(id)),
   })
 )(TaskList);
 ```
@@ -142,7 +139,6 @@ export default connect(
 La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `components/TaskList.stories.js` a `components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
 ```javascript
-
 // components/PureTaskList.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
@@ -165,14 +161,14 @@ export const withPinnedTasks = [
 ];
 
 storiesOf('PureTaskList', module)
-  .addDecorator(story => <View style={[styles.TaskBox, { padding: 48 }]}>{story()}</View>)
+  .addDecorator((story) => <View style={[styles.TaskBox, { padding: 48 }]}>{story()}</View>)
   .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
   .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
   .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
   .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
 ```
 
-<div class="aside"><p>No olvide actualizar el archivo de configuración Storybook (en<code>storybook/index.js</code> ) para reflejar estos cambios.</p></div>
+<div class="aside"><p>No olvide actualizar el archivo de configuración Storybook (en <code>storybook/index.js</code> ) para reflejar estos cambios.</p></div>
 
 <video autoPlay muted playsInline loop>
   <source
@@ -184,21 +180,20 @@ storiesOf('PureTaskList', module)
 Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
 ```javascript
-
 // components/__tests__/TaskList.test.js
 import * as React from 'react';
-import {create} from 'react-test-renderer';
+import { create } from 'react-test-renderer';
 import PureTaskList from '../PureTaskList';
 import { withPinnedTasks } from '../PureTaskList.stories';
 import Task from '../Task';
 describe('TaskList', () => {
-    it('renders pinned tasks at the start of the list', () => {
-        const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
-        const tree = renderer.create(<PureTaskList tasks={withPinnedTasks} {...events} />);
-        const rootElement= tree.root;
-        const listofTasks= rootElement.findAllByType(Task);
-        expect(listofTasks[0].props.task.title).toBe('Task 6 (pinned)');
-    });
+  it('renders pinned tasks at the start of the list', () => {
+    const events = { onPinTask: jest.fn(), onArchiveTask: jest.fn() };
+    const tree = renderer.create(<PureTaskList tasks={withPinnedTasks} {...events} />);
+    const rootElement = tree.root;
+    const listofTasks = rootElement.findAllByType(Task);
+    expect(listofTasks[0].props.task.title).toBe('Task 6 (pinned)');
+  });
 });
 ```
 

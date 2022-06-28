@@ -93,7 +93,7 @@ import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
 
-addDecorator(story => (
+addDecorator((story) => (
   <>
     <GlobalStyle />
     {story()}
@@ -126,7 +126,7 @@ O Storybook inclui um sistema de extras bastante poderoso, criado por uma comuni
 
 <h4>Extra Actions addon para verificar a interatividade</h4>
 
-Quando uma ação é despoletada por um elemento interativo, tal como um botão ou link, o [extra actions](https://github.com/storybookjs/storybook/tree/next/addons/actions), fornece feedback no IU. Por defeito o extra Actions é instalado juntamente com o Storybook e pode ser usado de forma extremamente fácil, simplesmente fornecendo a "ação" pretendida como um adereço (prop na forma original) callback ao componente.
+Quando uma ação é despoletada por um elemento interativo, tal como um botão ou link, o [extra actions](https://storybook.js.org/docs/react/essentials/actions), fornece feedback no IU. Por defeito o extra Actions é instalado juntamente com o Storybook e pode ser usado de forma extremamente fácil, simplesmente fornecendo a "ação" pretendida como um adereço (prop na forma original) callback ao componente.
 
 Em seguida vamos ver como o podemos usar no nosso elemento Button, que opcionalmente recebe um componente wrapper que reage aos clicks. Já existe uma estória que fornece uma ação a esse wrapper:
 
@@ -168,7 +168,7 @@ import '@storybook/addon-storysource/register';
 E atualize a configuração do webpack que se encontra em `.storybook/webpack.config.js`:
 
 ```javascript
-module.exports = function({ config }) {
+module.exports = function ({ config }) {
   config.module.rules.unshift({
     test: /\.stories\.jsx?$/,
     loaders: [require.resolve('@storybook/addon-storysource/loader')],
@@ -185,7 +185,7 @@ No Storybook este fluxo de trabalho assemelha-se ao seguinte:
 
 <h4>Knobs fazer testes de stress aos componentes</h4>
 
-O [extra Knobs](https://github.com/storybookjs/storybook/tree/next/addons/knobs) permite que interaja dinamicamente com os adereços (props na forma original) do componente no IU do Storybook. O Knobs permite que sejam fornecidos múltiplos valores ao adereço (prop na forma original) de um componente e ajustá-las de acordo via IU. O que ajuda aos criadores de sistemas de design a fazerem testes de stress aos inputs dos componentes ajustando enfim, knobs. Mas também fornece aos consumidores de sistemas de design uma forma de testar os componentes antes de serem integrados, de forma a que possam compreender como cada adereço (prop na forma original) afeta o componente.
+O [extra Knobs](https://github.com/storybookjs/addon-knobs) permite que interaja dinamicamente com os adereços (props na forma original) do componente no IU do Storybook. O Knobs permite que sejam fornecidos múltiplos valores ao adereço (prop na forma original) de um componente e ajustá-las de acordo via IU. O que ajuda aos criadores de sistemas de design a fazerem testes de stress aos inputs dos componentes ajustando enfim, knobs. Mas também fornece aos consumidores de sistemas de design uma forma de testar os componentes antes de serem integrados, de forma a que possam compreender como cada adereço (prop na forma original) afeta o componente.
 
 Vamos ver como isto funciona, através da configuração dos knobs no componente `Avatar`:
 

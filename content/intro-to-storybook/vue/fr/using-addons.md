@@ -13,7 +13,7 @@ Storybook dispose d'un système robuste de [modules complémentaires](https://st
 😍 Vous pouvez voir la liste des modules complémentaires officiellement supportés et fortement soutenu par la communauté <a href="https://storybook.js.org/addons/addon-gallery/">ici</a>.
 </div>
 
-Nous pourrions écrire éternellement sur la configuration et l'utilisation des modules complémentaires pour tous vos cas d'utilisation particuliers. Pour l'instant, travaillons à l'intégration de l'un des modules complémentaires les plus populaires de l'écosystème de Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+Nous pourrions écrire éternellement sur la configuration et l'utilisation des modules complémentaires pour tous vos cas d'utilisation particuliers. Pour l'instant, travaillons à l'intégration de l'un des modules complémentaires les plus populaires de l'écosystème de Storybook: [knobs](https://github.com/storybookjs/addon-knobs).
 
 ## Configuration de Knobs
 
@@ -99,7 +99,7 @@ export const Default = () => ({
 
 Maintenant, un nouvel onglet "Knobs" devrait apparaître à côté de l'onglet "Action Logger" dans le volet du bas.
 
-Comme documenté [ici](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), l'`objet` know accepte une étiquette et un objet par défaut comme paramètres. L'étiquette est constante et apparaît à gauche d'un champ de texte dans votre panneau de modules complémentaires. L'objet que vous avez transmis sera représenté sous la forme d'un objet blob JSON modifiable. Tant que vous soumettez un JSON valide, votre composant s'ajustera en fonction des données transmises à l'objet!
+Comme documenté [ici](https://github.com/storybookjs/addon-knobs#object), l'`objet` know accepte une étiquette et un objet par défaut comme paramètres. L'étiquette est constante et apparaît à gauche d'un champ de texte dans votre panneau de modules complémentaires. L'objet que vous avez transmis sera représenté sous la forme d'un objet blob JSON modifiable. Tant que vous soumettez un JSON valide, votre composant s'ajustera en fonction des données transmises à l'objet!
 
 ## Les modules complémentaires font évoluer la portée de votre livre de contes
 

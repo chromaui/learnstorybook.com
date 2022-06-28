@@ -8,11 +8,11 @@ description: '지속적 통합(CI)과 비주얼 리뷰를 통한 협업'
 
 ## 단일한 진실 지점(SSOT)인가, 단일한 장애 지점(SPOF)인가
 
-이 전에, 디자인 시스템은 프런트엔드 팀에 있어서 [단일한 장애 지점(single point of failure)](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) 이라고 한 적이 있습니다. 결국 디자인 시스템이란 의존성(Dependency)이기 때문입니다. 디자인 시스템 컴포넌트를 수정하면 그 변화는 개선점이든 버그이든 관계없이 의존 관계에 있는 앱들에 적용됩니다. 
+이 전에, 디자인 시스템은 프런트엔드 팀에 있어서 [단일한 장애 지점(single point of failure)](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) 이라고 한 적이 있습니다. 결국 디자인 시스템이란 의존성(Dependency)이기 때문입니다. 디자인 시스템 컴포넌트를 수정하면 그 변화는 개선점이든 버그이든 관계없이 의존 관계에 있는 앱들에 적용됩니다.
 
 ![디자인 시스템 의존성](/design-systems-for-developers/design-system-dependencies.png)
 
-버그는 디자인 시스템에 있어서 치명적인 위험이기 때문에 이를 예방하기 위해 최선을 다 할 것입니다. 아주 작은 수정사항의 영향이 눈덩이처럼 불어나서 헤아릴 수 없는 퇴행을 불러올 수도 있습니다. 지속적인 유지보수 없이는 디자인 시스템이 존속할 수 없습니다. 
+버그는 디자인 시스템에 있어서 치명적인 위험이기 때문에 이를 예방하기 위해 최선을 다 할 것입니다. 아주 작은 수정사항의 영향이 눈덩이처럼 불어나서 헤아릴 수 없는 퇴행을 불러올 수도 있습니다. 지속적인 유지보수 없이는 디자인 시스템이 존속할 수 없습니다.
 
 > “내 컴퓨터에서는 잘 되던데?!” – 모두
 
@@ -24,7 +24,7 @@ description: '지속적 통합(CI)과 비주얼 리뷰를 통한 협업'
 
 ### 보편적인 레퍼런스 포인트 수립하기
 
-node_modules 삭제하기. 패키지 재설치하기. 로컬 저장소 비우기. 쿠키 삭제하기. 만약 이러한 행동들에 대해 어디서 들어본 듯 하다면, 여러분들은 팀메이트들이 최신 코드를 사용하도록 만든다는 게 얼마나 고된 일인지 알고 있을 것입니다. 팀원들의 개발 환경이 완전히 동일하지 않은 이상 실제 버그와 로컬 개발 환경에서만 발생하는 이슈를 구분하기는 너무나 어렵습니다. 
+node_modules 삭제하기. 패키지 재설치하기. 로컬 저장소 비우기. 쿠키 삭제하기. 만약 이러한 행동들에 대해 어디서 들어본 듯 하다면, 여러분들은 팀메이트들이 최신 코드를 사용하도록 만든다는 게 얼마나 고된 일인지 알고 있을 것입니다. 팀원들의 개발 환경이 완전히 동일하지 않은 이상 실제 버그와 로컬 개발 환경에서만 발생하는 이슈를 구분하기는 너무나 어렵습니다.
 
 다행히도 프런트엔드 개발자로서, 우리는 '브라우저'라는 공통적인 컴파일 목표를 갖고 있습니다. 능숙한 팀들은 비주얼 리뷰를 위한 공통적인 참조 사항으로 스토리북(Storybook)을 온라인으로 발행하기도 합니다. 이는 로컬 개발 환경이 내재한 문제점들을 피해가게 해줍니다. (기술 지원팀 일은 쉽지 않은 게 사실입니다).
 
@@ -36,7 +36,7 @@ UI 컴포넌트가 URL을 통해 접근 가능해지면 관계자들은 UI가 �
 
 <h2 id="publish-storybook">스토리북 퍼블리싱하기</h2>
 
-스토리북 관리자들이 만든 무료 퍼블리싱 서비스인 [크로마틱(Chromatic)](https://www.chromatic.com/) 을 통해 비주얼 리뷰의 예를 살펴보겠습니다. 이는 여러분이 클라우드에 스토리북을 안전하게 그리고 안정적으로 배포하고 호스트 할 수 있게 해줄 뿐만 아니라, [스토리북을 정적 사이트로 만들고 다른 호스팅 서비스에 배포하기](https://storybook.js.org/docs/basics/exporting-storybook/) 도 상당히 수월하게 해줍니다.
+스토리북 관리자들이 만든 무료 퍼블리싱 서비스인 [크로마틱(Chromatic)](https://www.chromatic.com/) 을 통해 비주얼 리뷰의 예를 살펴보겠습니다. 이는 여러분이 클라우드에 스토리북을 안전하게 그리고 안정적으로 배포하고 호스트 할 수 있게 해줄 뿐만 아니라, [스토리북을 정적 사이트로 만들고 다른 호스팅 서비스에 배포하기](https://storybook.js.org/docs/react/sharing/publish-storybook) 도 상당히 수월하게 해줍니다.
 
 ### 크로마틱 시작하기
 
@@ -114,19 +114,19 @@ jobs:
 
 <div class="aside"><p>💡 단기적 용도로는 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 가 언급되지 않습니다. Secrets는 깃허브(Github)가 제공하는 안전한 환경변수입니다. 그래서 <code>project-token</code>의 코드를 힘들게 작성할 필요가 없습니다.</p></div>
 
-수정사항을 git add 합니다. - 
+수정사항을 git add 합니다. -
 
 ```shell
 git add .
 ```
 
-commit합니다. - 
+commit합니다. -
 
 ```shell
 git commit -m "Storybook deployment with GitHub action"
 ```
 
-마지막으로, 아래 명령어를 사용해 원격 저장소에 push합니다. - 
+마지막으로, 아래 명령어를 사용해 원격 저장소에 push합니다. -
 
 ```shell
 git push origin main
@@ -138,7 +138,7 @@ git push origin main
 
 풀 리퀘스트에 UI 변동사항이 있을 때마다 유저에게 전달되는 내용에 대한 합의를 이루기 위해 매번 이해당사자들과 비주얼 리뷰 과정을 거치는 것이 좋습니다. 이 과정을 통해 예상치 못한 사항이나 비용이 많이 드는 재작업을 예방할 수 있습니다.
 
-새로운 브랜치에 UI 변경을 해서 비주얼 리뷰 과정을 시연해 보겠습니다. 
+새로운 브랜치에 UI 변경을 해서 비주얼 리뷰 과정을 시연해 보겠습니다.
 
 ```shell
 git checkout -b improve-button

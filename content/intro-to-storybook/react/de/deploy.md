@@ -92,7 +92,7 @@ Konfiguriere Netlify, indem du angibst, welcher Build-Befehl ("Build command") i
 
 <div class="aside">
 <p>
-Sollte dein Deployment mit Netlify fehlschlagen, füge deinem <code>build-storybook</code>-Script das <code><a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet</a></code>-Flag hinzu.
+Sollte dein Deployment mit Netlify fehlschlagen, füge deinem <code>build-storybook</code>-Script das <code><a href="https://storybook.js.org/docs/react/api/cli-options#build-storybook">--quiet</a></code>-Flag hinzu.
 </p>
 </div>
 

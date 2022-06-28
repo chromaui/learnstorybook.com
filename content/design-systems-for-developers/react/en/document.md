@@ -106,7 +106,7 @@ Avatar.propTypes = {
     */
   loading: PropTypes.bool,
   /**
-    Avatar falls back to the user's initial when no image is provided. 
+    Avatar falls back to the user's initial when no image is provided.
     Supply a `username` and omit `src` to see what this looks like.
     */
   username: PropTypes.string,
@@ -365,9 +365,9 @@ In Storybook, your Avatar component’s “Docs” tab should be replaced with o
 
 ![Storybook docs from MDX](/design-systems-for-developers/storybook-docs-mdx-initial-6-0.png)
 
-Storybook Docs come with [“Doc Blocks”](https://storybook.js.org/docs/react/writing-docs/doc-blocks), readymade components like interactive previews, the args table, and more. By default, they’re used behind the scenes for the auto-generated docs pages, and they can also be extracted for individual use. Our goal is to customize Avatar’s docs without redoing everything ourselves so let’s reuse Doc Blocks where possible.
+Storybook Docs come with “Doc Blocks”, readymade components like interactive previews, the args table, and more. By default, they’re used behind the scenes for the auto-generated docs pages, and they can also be extracted for individual use. Our goal is to customize Avatar’s docs without redoing everything ourselves so let’s reuse Doc Blocks where possible.
 
-Let’s add the [`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-blocks#mdx) doc block and wrap our initial story in a `Canvas`.
+Let’s add the [`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-block-argstable#working-with-mdx) doc block and wrap our initial story in a `Canvas`.
 
 ```js:title=src/Avatar.stories.mdx
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";

@@ -12,7 +12,7 @@ Storybook possui um sistema robusto de [extras](https://storybook.js.org/docs/vu
     😍 A lista de extras oficiais e da comunidade pode ser consultada <a href="https://storybook.js.org/addons">aqui</a>.
 </div>
 
-Poderíamos ficar aqui eternamente a discutir como configurar e usar os extras para todos os casos. Por enquanto, vamos focar-nos em integrar um dos extras mais populares no ecossistema Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+Poderíamos ficar aqui eternamente a discutir como configurar e usar os extras para todos os casos. Por enquanto, vamos focar-nos em integrar um dos extras mais populares no ecossistema Storybook: [knobs](https://github.com/storybookjs/addon-knobs#object).
 
 ## Configuração do extra Knobs
 
@@ -98,7 +98,7 @@ export const Default = () => ({
 
 Agora um novo item denominado "Knobs" deverá surgir próximo do "Action Logger" no painel inferior da aplicação.
 
-Tal como documentado [aqui](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), este tipo aceita uma "etiqueta" e um objeto padrão como parâmetros.
+Tal como documentado [aqui](https://github.com/storybookjs/addon-knobs#object), este tipo aceita uma "etiqueta" e um objeto padrão como parâmetros.
 A etiqueta é constante e irá aparecer no painel de extras á esquerda do campo de texto. O objeto fornecido será representado como um blob JSON que pode ser editado. Desde que seja submetido JSON válido, o componente irá ajustar-se com base na informação fornecida ao objeto!
 
 ## Os extras aumentam a esfera de ação do teu Storybook

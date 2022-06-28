@@ -87,7 +87,7 @@ Configurez Netlify en surlignant la commande de build à construire dans son CI 
 
 ![Paramètres Netlify](/intro-to-storybook/netlify-settings.png)
 
-<div class="aside"><p>Si votre déploiement échoue avec Netlify, ajoutez l'option <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a>  à votre script <code>build-storybook</code>.</p></div>
+<div class="aside"><p>Si votre déploiement échoue avec Netlify, ajoutez l'option <a href="https://storybook.js.org/docs/vue/api/cli-options#build-storybookk">--quiet </a>  à votre script <code>build-storybook</code>.</p></div>
 
 Soumettez le formulaire pour construire et déployer le code de la branche `master` du repo taskbox.
 

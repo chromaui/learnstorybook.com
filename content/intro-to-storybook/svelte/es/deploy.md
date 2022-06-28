@@ -86,7 +86,7 @@ Configura Netlify resaltando el comando build que se ejecutará en tu CI y el di
 
 ![Ajustes Netlify](/intro-to-storybook/netlify-settings-npm.png)
 
-<div class="aside"><p>Si su implementación falla con Netlify, agregue <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> al script <code>build-storybook</code>.</p></div>
+<div class="aside"><p>Si su implementación falla con Netlify, agregue <a href="https://storybook.js.org/docs/svelte/api/cli-options#build-storybook">--quiet </a> al script <code>build-storybook</code>.</p></div>
 
 Ahora envía el formulario para construir e implementar el código en la rama `main` del taskbox.
 

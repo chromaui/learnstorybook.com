@@ -87,7 +87,7 @@ Seguida da seleção do repositório da lista de opções.
 
 ![Configurações Netlify](/intro-to-storybook/netlify-settings.png)
 
-<div class="aside"><p>Caso o deploy no Netlify falhe, adicione a <a href="https://storybook.js.org/docs/configurations/cli-options/#for-build-storybook">--quiet </a> flag ao comando <code>build-storybook</code>.</p></div>
+<div class="aside"><p>Caso o deploy no Netlify falhe, adicione a <a href="https://storybook.js.org/docs/vue/api/cli-options#build-storybook">--quiet </a> flag ao comando <code>build-storybook</code>.</p></div>
 
 Em seguida é feita a submissão do formulário, para que o Netlify compile o código existente no ramo `main` do repositório taskbox.
 

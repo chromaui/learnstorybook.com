@@ -37,7 +37,7 @@ When living UI components are accessible via a URL, stakeholders can confirm UI 
 
 <h2 id="publish-storybook">Publish Storybook</h2>
 
-We will demonstrate a visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/react/workflows/publish-storybook) it to other hosting services as well.
+We will demonstrate a visual review workflow with [Chromatic](https://www.chromatic.com/), a free publishing service made by the Storybook maintainers. This allows you to deploy and host your Storybook safely and securely in the cloud, but it's also pretty straightforward to [build Storybook as a static site and deploy](https://storybook.js.org/docs/react/sharing/publish-storybook) it to other hosting services as well.
 
 ### Get Chromatic
 
