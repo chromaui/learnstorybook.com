@@ -96,7 +96,7 @@ export function Avatar({ loading, username, src, size, ...props }) {
 
 ![컴포넌트 세부 정보가 있는 스토리북 문서 탭](/design-systems-for-developers/storybook-docspage-6-0.png)
 
-스토리북의 문서(Docs)에 스토리 종류와 기본값을 보여주는 인자 테이블이 자동으로 생성되었습니다. 이 방식은 편리하기는 하지만  `Avatar`가 완벽하게 구현되었다는 것을 의미하는 것은 아닙니다. 몇몇 인자들(props)을 오용할 가능성이 있습니다. 자동 생성된 prop 테이블에서 Avatar를 렌더링하려면 `propTypes` 내부에 코멘트를 추가하면 됩니다.
+스토리북의 문서(Docs)에 스토리 종류와 기본값을 보여주는 인자 테이블이 자동으로 생성되었습니다. 이 방식은 편리하기는 하지만 `Avatar`가 완벽하게 구현되었다는 것을 의미하는 것은 아닙니다. 몇몇 인자들(props)을 오용할 가능성이 있습니다. 자동 생성된 prop 테이블에서 Avatar를 렌더링하려면 `propTypes` 내부에 코멘트를 추가하면 됩니다.
 
 ```js:title=src/Avatar.js
 Avatar.propTypes = {
@@ -105,7 +105,7 @@ Avatar.propTypes = {
     */
   loading: PropTypes.bool,
   /**
-    Avatar falls back to the user's initial when no image is provided. 
+    Avatar falls back to the user's initial when no image is provided.
     Supply a `username` and omit `src` to see what this looks like.
     */
   username: PropTypes.string,
@@ -120,7 +120,7 @@ Avatar.propTypes = {
 };
 ```
 
-기본적으로 모든 `Avatar` 스토리는 문서로 렌더링 되기는 하지만 다른 개발자들이 각 스토리에 대한 내용을 알고 있다고 가정할 수 없습니다. 스토리에 대한 설명을 `src/Avatar.stories.js`에 작성합니다. - 
+기본적으로 모든 `Avatar` 스토리는 문서로 렌더링 되기는 하지만 다른 개발자들이 각 스토리에 대한 내용을 알고 있다고 가정할 수 없습니다. 스토리에 대한 설명을 `src/Avatar.stories.js`에 작성합니다. -
 
 ```diff:title=src/Avatar.stories.js
 import React from 'react';
@@ -193,7 +193,7 @@ Sizes.args = {
 
 Markdown은 텍스트 작성을 위한 직관적인 서식입니다. MDX를 사용하면 Markdown 내에서 대화형 코드(JSX)를 사용할 수 있습니다. 스토리북 Docs는 MDX를 사용하여 개발자가 문서 렌더링 방식을 완벽하게 제어할 수 있도록 합니다.
 
-스토리북 설치 절차에서 MDX 파일이 기본적으로 등록됩니다. `.storybook/main.js`는 다음과 같이 생겼습니다. - 
+스토리북 설치 절차에서 MDX 파일이 기본적으로 등록됩니다. `.storybook/main.js`는 다음과 같이 생겼습니다. -
 
 ```js:title=.storybook/main.js
 module.exports = {
@@ -365,9 +365,9 @@ Canvas 탭에서 Controls 애드온으로 이 스토리를 실험해보세요.
 
 ![MDX로 생성한 스토리북 문서(docs)](/design-systems-for-developers/storybook-docs-mdx-initial-6-0.png)
 
-스토리북은 대화식 미리 보기, 인자 테이블 등과 같은 미리 만들어진 컴포넌트인 [“Doc Blocks”](https://storybook.js.org/docs/react/writing-docs/doc-blocks)와 함께 제공됩니다. 기본적으로 자동 생성된 문서 페이지에 적용되어 있습니다. 그뿐만 아니라 개별 사용을 위해 추출할 수도 있습니다. 우리의 목표는 모든 것을 직접 다시 작업하지 않고 맞춤형 Avatar의 문서를 생성하는 것이므로, 가능한 곳에서는 Doc Blocks를 재사용하도록 합시다.
+스토리북은 대화식 미리 보기, 인자 테이블 등과 같은 미리 만들어진 컴포넌트인 “Doc Blocks” 와 함께 제공됩니다. 기본적으로 자동 생성된 문서 페이지에 적용되어 있습니다. 그뿐만 아니라 개별 사용을 위해 추출할 수도 있습니다. 우리의 목표는 모든 것을 직접 다시 작업하지 않고 맞춤형 Avatar의 문서를 생성하는 것이므로, 가능한 곳에서는 Doc Blocks를 재사용하도록 합시다.
 
-[`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-blocks#mdx)과 doc block을 추가하고 초기 스토리를 `Preview`로 래핑(wrapping) 하겠습니다.
+[`ArgsTable`](https://storybook.js.org/docs/react/writing-docs/doc-block-argstable#working-with-mdx)과 doc block을 추가하고 초기 스토리를 `Preview`로 래핑(wrapping) 하겠습니다.
 
 ```js:title=src/Avatar.stories.mdx
 

@@ -67,7 +67,7 @@ Storybook 正在为 [Uber](https://github.com/uber-web/baseui)、 [Airbnb](https
 
 - ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) 用于在开发过程中检查无障碍访问问题
 - 💥 [Actions](https://github.com/storybookjs/storybook/tree/master/addons/actions) 用于检查用户点击和互动
-- 🎛 [Knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs) 用于以交互式的方式预览组件
+- 🎛 [Knobs](https://github.com/storybookjs/addon-knobs) 用于以交互式的方式预览组件
 - 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource) 用于查看组件源代码并粘贴到您的项目中
 - 📕 [Docs](https://github.com/storybookjs/storybook/tree/master/addons/docs) 用于自动生成文档
 

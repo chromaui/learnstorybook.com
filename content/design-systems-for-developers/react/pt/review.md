@@ -76,7 +76,7 @@ Quando os componentes vivos do IU estão acessíveis através de um URL, as part
 
 #### Publicar o Storybook
 
-Utilize o serviço [Netlify](http://netlify.com), que é um serviço de implementação deveras fácil de utilizar para construir o fluxo de trabalho associado à revisão visual. O Netlify é gratuito para o nosso caso de uso, mas também é bastante [fácil implementar o Storybook como um site estático e implementá-lo](https://storybook.js.org/docs/basics/exporting-storybook/) noutros serviços de hospedagem.
+Utilize o serviço [Netlify](http://netlify.com), que é um serviço de implementação deveras fácil de utilizar para construir o fluxo de trabalho associado à revisão visual. O Netlify é gratuito para o nosso caso de uso, mas também é bastante [fácil implementar o Storybook como um site estático e implementá-lo](https://storybook.js.org/docs/react/sharing/publish-storybook) noutros serviços de hospedagem.
 
 ![Escolher o Netlify no GitHub](/design-systems-for-developers/netlify-choose-provider.png)
 

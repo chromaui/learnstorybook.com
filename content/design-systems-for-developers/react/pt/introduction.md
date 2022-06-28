@@ -68,7 +68,7 @@ O Storybook alimenta os sistemas de design da [BBC](https://www.bbc.co.uk/iplaye
 
 - ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) para verificar problemas de acessibilidade durante o desenvolvimento
 - 💥 [Actions](https://github.com/storybookjs/storybook/tree/master/addons/actions) para oferecer uma garantia de qualidade nas interações de click e tap
-- 🎛 [Knobs](https://github.com/storybookjs/storybook/tree/master/addons/knobs) para ajustar os adereços (props na forma original) de forma interativa para ser possível fazer experiências com os componentes
+- 🎛 [Knobs](https://github.com/storybookjs/addon-knobs) para ajustar os adereços (props na forma original) de forma interativa para ser possível fazer experiências com os componentes
 - 📝 [Storysource](https://github.com/storybookjs/storybook/tree/master/addons/storysource) para visualizar o código fonte da estória e copiá-lo para o projeto.
 - 📕 [Docs](https://github.com/storybookjs/storybook/tree/master/addons/docs) para geração automática de documentação a partir das estórias
 

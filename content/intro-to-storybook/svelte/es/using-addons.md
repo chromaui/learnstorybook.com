@@ -12,7 +12,7 @@ Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.o
   😍 Puede ver la lista de complementos de la comunidad con respaldo oficial y con un fuerte respaldo <a href="https://storybook.js.org/addons"> aquí </a>.
 </div>
 
-Podríamos escribir para siempre sobre la configuración y el uso de complementos para todos sus casos de uso particulares. Por ahora, trabajemos para integrar uno de los complementos más populares dentro del ecosistema de Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+Podríamos escribir para siempre sobre la configuración y el uso de complementos para todos sus casos de uso particulares. Por ahora, trabajemos para integrar uno de los complementos más populares dentro del ecosistema de Storybook: [knobs](https://github.com/storybookjs/addon-knobs).
 
 ## Configurando Knobs
 
@@ -97,7 +97,7 @@ export const Default = () => ({
 
 Ahora debería aparecer una nueva pestaña "Knobs" al lado de la pestaña "Action Logger" en el panel inferior.
 
-Como se documenta [aquí](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), el tipo `object` del knob acepta una etiqueta y un objeto predeterminado como parámetros. La etiqueta es constante y se muestra a la izquierda de un campo de texto en el panel de complementos. El objeto que ha pasado se representará como un blob JSON editable. ¡Siempre que envíe un JSON válido, su componente se ajustará en función de los datos que se pasan al objeto!
+Como se documenta [aquí](https://github.com/storybookjs/addon-knobs#object), el tipo `object` del knob acepta una etiqueta y un objeto predeterminado como parámetros. La etiqueta es constante y se muestra a la izquierda de un campo de texto en el panel de complementos. El objeto que ha pasado se representará como un blob JSON editable. ¡Siempre que envíe un JSON válido, su componente se ajustará en función de los datos que se pasan al objeto!
 
 ## Complementos evolucionan el alcance de tus Storybooks
 

@@ -11,7 +11,7 @@ description: '汇总所有的知识并学习更多Storybook技巧'
 
 ## 了解更多
 
-[**Storybook 官方文档**](https://storybook.js.org/docs/react/get-started/introduction) 提供了更多指南,样例代码和一个知识库。
+[**Storybook 官方文档**](https://storybook.js.org/docs/vue/get-started/introduction) 提供了更多指南,样例代码和一个知识库。
 
 如果您和我们一起编写代码的话，您的仓库应该如此所示： [Sample addon repository](http://github.com/chromaui/learnstorybook-addon-code). 此样例基于 [Storybook Addon Outline](https://github.com/chromaui/storybook-addon-outline)。
 

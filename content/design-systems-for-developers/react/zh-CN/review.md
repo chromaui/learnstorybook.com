@@ -37,7 +37,7 @@ commit: '0273e45'
 
 <h2 id="publish-storybook">发布 Storybook</h2>
 
-我们将演示如何使用 Storybook 维护团队免费发布工具 [Chromatic](https://www.chromatic.com/) 来创建一个在线视觉审查。它可以让你安全的在云端部署和托管您的 Storybook，但是我们也可以通过简单明了的[将 storybook 打包为静态网站并部署](https://storybook.js.org/docs/basics/exporting-storybook/)在其他的服务器上。
+我们将演示如何使用 Storybook 维护团队免费发布工具 [Chromatic](https://www.chromatic.com/) 来创建一个在线视觉审查。它可以让你安全的在云端部署和托管您的 Storybook，但是我们也可以通过简单明了的[将 storybook 打包为静态网站并部署](https://storybook.js.org/docs/react/sharing/publish-storybook)在其他的服务器上。
 
 ### 获取 Chromatic
 

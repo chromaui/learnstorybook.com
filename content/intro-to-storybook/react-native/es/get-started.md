@@ -37,21 +37,6 @@ npx -p @storybook/cli sb init --type react_native
   <p>Durante el proceso de instalación de Storybook, se le pedirá que instale react-native-server, hágalo ya que este paquete será de gran ayuda durante todo el tutorial.</p>
 </div>
 
-También queremos agregar otro paquete y hacer un cambio en `storybook/rn-addons.js` para permitir que las acciones (las verá en acción más adelante en el tutorial) se registren correctamente en la IU de Storybook.
-
-Ejecute el siguiente comando:
-
-```bash
-yarn add -D @storybook/addon-ondevice-actions
-```
-
-Cambie `storybook/rn-addons.js` a lo siguiente:
-
-```javascript
-// storybook/rn-addons.js
-import '@storybook/addon-ondevice-actions/register';
-```
-
 ### Configurar Jest con React Native
 
 Tenemos dos de las tres modalidades configuradas en nuestra aplicación, pero aún necesitamos una, necesitamos configurar [Jest](https://facebook.github.io/jest/) para habilitar las pruebas.

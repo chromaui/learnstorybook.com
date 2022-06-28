@@ -12,7 +12,7 @@ Storybook rühmt sich eines robuten [Addon-Systems](https://storybook.js.org/doc
 😍 <a href="https://storybook.js.org/addons">Hier</a> findest du die Liste offiziell unterstützter und von der Community aktiv unterstützer Addons.
 </div>
 
-Wir könnten unendlich viel über die Verwendung von Addons für all deine speziellen Anwendungsfälle schreiben. Fürs Erste, lass uns auf die Integration eines der am weitesten verbreiteten Addons innerhalb des Storybook-Ökosystems hinarbeiten: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+Wir könnten unendlich viel über die Verwendung von Addons für all deine speziellen Anwendungsfälle schreiben. Fürs Erste, lass uns auf die Integration eines der am weitesten verbreiteten Addons innerhalb des Storybook-Ökosystems hinarbeiten: [knobs](https://github.com/storybookjs/addon-knobs).
 
 ## Knobs einrichten
 
@@ -90,7 +90,7 @@ export const Default = () => {
 
 Nun sollte ein "Knobs"-Tab neben dem "Action Logger"-Tab im unteren Bereich der Seite erscheinen.
 
-Wie [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#object) dokumentiert, akzeptiert der `object`-Knob-Typ ein Label und ein Standard-Objekt als Parameter. Das Label ist fix und wird links von einem Textfeld in deinem Addons-Panel angezeigt. Das Standard-Objekt, das du definiert hast, wird als editierbarer JSON-Schnipsel angezeigt. So lange du valides JSON darin einträgst, wird deine Komponente basierend aus den im JSON-Objekt enthaltenen Daten aktualisiert.
+Wie [hier](https://github.com/storybookjs/addon-knobs#object) dokumentiert, akzeptiert der `object`-Knob-Typ ein Label und ein Standard-Objekt als Parameter. Das Label ist fix und wird links von einem Textfeld in deinem Addons-Panel angezeigt. Das Standard-Objekt, das du definiert hast, wird als editierbarer JSON-Schnipsel angezeigt. So lange du valides JSON darin einträgst, wird deine Komponente basierend aus den im JSON-Objekt enthaltenen Daten aktualisiert.
 
 ## Addons erweitern den Umfang deines Storybooks
 

@@ -12,7 +12,7 @@ Storybook beschikt over een robuust systeem van [add-ons](https://storybook.js.o
 😍 Je kunt de lijst met officieel ondersteunde en goede community-add-ons <a href="https://storybook.js.org/addons">hier bekijken</a>.
 </div>
 
-We zouden nog veel kunnen schrijven over het configureren en gebruiken van add-ons voor al je specifieke use-cases. Laten we nu werken aan de integratie van een van de meest populaire add-ons in het ecosysteem van Storybook: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+We zouden nog veel kunnen schrijven over het configureren en gebruiken van add-ons voor al je specifieke use-cases. Laten we nu werken aan de integratie van een van de meest populaire add-ons in het ecosysteem van Storybook: [knobs](https://github.com/storybookjs/addon-knobs).
 
 ## Knobs opzetten
 
@@ -90,7 +90,7 @@ storiesOf('Task', module)
 
 Nu zou een nieuw tabblad "Knobs" moeten verschijnen naast het tabblad "Action Logger" in het onderste paneel.
 
-Zoals [hier](https://github.com/storybooks/storybook/tree/master/addons/knobs#object) gedocumenteerd, accepteert het knoptype `object` een label en een standaardobject als parameters. Het label is constant en verschijnt links van een tekstveld in je add-on paneel. Het object dat je hebt doorgegeven, wordt weergegeven als een editeerbare JSON-blob. Zolang je geldige JSON indient, wordt je component aangepast op basis van de data die aan het object worden doorgegeven!
+Zoals [hier](https://github.com/storybookjs/addon-knobs#object) gedocumenteerd, accepteert het knoptype `object` een label en een standaardobject als parameters. Het label is constant en verschijnt links van een tekstveld in je add-on paneel. Het object dat je hebt doorgegeven, wordt weergegeven als een editeerbare JSON-blob. Zolang je geldige JSON indient, wordt je component aangepast op basis van de data die aan het object worden doorgegeven!
 
 ## Addons evolueren het bereik van je Storybook
 

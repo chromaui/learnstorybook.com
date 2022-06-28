@@ -85,7 +85,7 @@ import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
 
-addDecorator(story => (
+addDecorator((story) => (
   <>
     <GlobalStyle />
     {story()}
@@ -170,7 +170,7 @@ Storybook 的 storysource 如下图所示：
 
 <h4>使用 Knobs 插件测试组件交互性</h4>
 
-在 Storybook UI 中， [knobs 插件](https://github.com/storybookjs/storybook/tree/next/addons/knobs) 可以帮助您动态的与您的组件进行交互。Knobs 允许你传递不同的值给组件并在 UI 上表现出相应的变化。这可以让开发设计系统的人调整不同的值去对组件进行交互测试。而且它也让使用设计系统的人在集成组件到自己的项目之前就可以了解到组件的每个属性是如何去影响它的显示的。
+在 Storybook UI 中， [knobs 插件](https://github.com/storybookjs/addon-knobs) 可以帮助您动态的与您的组件进行交互。Knobs 允许你传递不同的值给组件并在 UI 上表现出相应的变化。这可以让开发设计系统的人调整不同的值去对组件进行交互测试。而且它也让使用设计系统的人在集成组件到自己的项目之前就可以了解到组件的每个属性是如何去影响它的显示的。
 
 让我们来看看如何给 `Avatar` 组件设置 knobs 插件：
 

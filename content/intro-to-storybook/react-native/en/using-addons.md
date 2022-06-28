@@ -12,7 +12,7 @@ Storybook boasts a robust system of [addons](https://storybook.js.org/docs/react
 😍 You can see the list of officially-supported and strongly-supported community addons <a href="https://storybook.js.org/addons">here</a>.
 </div>
 
-We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybooks/storybook/tree/master/addons/knobs).
+We could write forever about configuring and using addons for all of your particular use-cases. For now, let's work towards integrating one of the most popular addons within Storybook's ecosystem: [knobs](https://github.com/storybookjs/addon-knobs).
 
 ## Setting Up Knobs
 
@@ -76,9 +76,7 @@ Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addD
 
 ```javascript
 // components/Task.stories.js
-storiesOf('Task', module)
-  .addDecorator(withKnobs)
-  .add(/*...*/);
+storiesOf('Task', module).addDecorator(withKnobs).add(/*...*/);
 ```
 
 Lastly, integrate the `object` knob type within the "default" story:
@@ -94,7 +92,7 @@ storiesOf('Task', module)
 
 Now a new "Knobs" tab should show up next to the "Action Logger" tab in the bottom pane.
 
-As documented [here](https://github.com/storybooks/storybook/tree/master/addons/knobs#object), the `object` knob type accepts a label and a default object as parameters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
+As documented [here](https://github.com/storybookjs/addon-knobs#object), the `object` knob type accepts a label and a default object as parameters. The label is constant and shows up to the left of a text field in your addons panel. The object you've passed will be represented as an editable JSON blob. As long as you submit valid JSON, your component will adjust based upon the data being passed to the object!
 
 ## Addons Evolve Your Storybook's Scope
 

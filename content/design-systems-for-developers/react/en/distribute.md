@@ -406,7 +406,7 @@ module.exports = {
 </video>
 
 <div class="aside">
-💡 Adding the <code>refs</code> key to <code>.storybook/main.js</code>, allows us to <a href="https://storybook.js.org/docs/react/workflows/storybook-composition">compose</a> multiple Storybooks into one. This is helpful when working with big projects that might spread around multiple repositories or use different tech stacks. 
+💡 Adding the <code>refs</code> key to <code>.storybook/main.js</code>, allows us to <a href="https://storybook.js.org/docs/react/sharing/storybook-composition">compose</a> multiple Storybooks into one. This is helpful when working with big projects that might spread around multiple repositories or use different tech stacks. 
 </div>
 
 You’ll now be able to browse the design system components and docs while developing the example app. Showcasing the design system during feature development increases the likelihood that developers will reuse existing components instead of wasting time inventing their own.
