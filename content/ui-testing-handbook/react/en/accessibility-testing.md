@@ -70,7 +70,7 @@ module.exports = {
 
 ### Testing accessibility as you code
 
-We've already [isolated](../visual-testing/) the Task component and captured all its use cases as stories. During the development phase, you can cycle through these stories to spot accessibility issues.
+We've already [isolated](/ui-testing-handbook/react/en/visual-testing/) the Task component and captured all its use cases as stories. During the development phase, you can cycle through these stories to spot accessibility issues.
 
 ```javascript:title=src/components/Task.stories.js
 import React from 'react';

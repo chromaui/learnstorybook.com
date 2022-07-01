@@ -23,23 +23,24 @@ commit: '4ad3421'
 
 ![](/ui-testing-handbook/interactive-taskbox.gif)
 
-## 스토리북에서 컴포넌트 테스트는 어떻게 이뤄지나요? 
+## 스토리북에서 컴포넌트 테스트는 어떻게 이뤄지나요?
 
 상호 작용 테스트는 널리퍼진 패턴으로 사용자 행동을 확인하기 위한 테스트입니다. 모의 데이터를 제공하여 테스트 시나리오를 설정하고 [Testing Library](https://testing-library.com/)를 사용하여 사용자 상호 작용을 시뮬레이션하고 결과 DOM 구조를 확인합니다.
 
 ![](/ui-testing-handbook/1_AyDgC9kxOjUl8Yihq0ltTQ.gif)
 
-스토리북에서, 이 친숙한 작업 흐름(workflow)는 브라우저 상에서 발생합니다. 이 방식은 컴포넌트를 개발할 때와 동일한 브라우저 환경에서 테스트를 실행하기 때문에 오류를 더 쉽게 디버깅할 수 있습니다. 
+스토리북에서, 이 친숙한 작업 흐름(workflow)는 브라우저 상에서 발생합니다. 이 방식은 컴포넌트를 개발할 때와 동일한 브라우저 환경에서 테스트를 실행하기 때문에 오류를 더 쉽게 디버깅할 수 있습니다.
 
-컴포넌트의 초기 상태를 설정하는 **스토리**를 작성하는 것으로 시작하겠습니다. 그 후 **재생 기능**을 사용해 클릭 및 양식 항목과 같은 사용자 행동을 시큘레이션합니다. 마지막으로 **테스트 러너(runner)**를 사용해 UI 및 컴포넌트 상태가 올바르게 업데이트 되었는지 확인합니다. 
+컴포넌트의 초기 상태를 설정하는 **스토리**를 작성하는 것으로 시작하겠습니다. 그 후 **재생 기능**을 사용해 클릭 및 양식 항목과 같은 사용자 행동을 시큘레이션합니다. 마지막으로 **테스트 러너(runner)**를 사용해 UI 및 컴포넌트 상태가 올바르게 업데이트 되었는지 확인합니다.
 
 ## 테스트 러너 설정
 
-먼저 테스트 러너와 관련 패키지를 설치해야 합니다. 
+먼저 테스트 러너와 관련 패키지를 설치해야 합니다.
 
 ```bash
 yarn add -D @storybook/testing-library @storybook/jest @storybook/addon-interactions @storybook/test-runner
 ```
+
 스토리북 설정을 업데이트해서 상호 작용 애드온을 포함시키고 디버깅을 위한 재생 컨트롤을 활성화하세요.
 
 ```diff:title=.storybook/main.js
@@ -79,6 +80,7 @@ module.exports = {
   },
 };
 ```
+
 그리고 프로젝트의 `package.json`에 테스트 태스크를 추가하세요. -
 
 ```json:title=package.json
@@ -98,7 +100,6 @@ yarn storybook
 ## 스토리(story)를 상호작용 테스트 케이스로 재사용해 보세요
 
 앞 장에서는 `InboxScreen.stories.js` 파일에 `InboxScreen` 컴포넌트의 모든 사용예를 카탈로그로 작성했습니다. 이를 통해 개발 중 모습을 확인하고 비주얼 테스트를 통해 회귀를 포착할 수 있었습니다. 이 스토리(story)는 이제 우리의 상호 작용 테스트에도 힘을 실어줄 것입니다.
-
 
 ```javascript:title=src/InboxScreen.stories.js
 import React from 'react';
@@ -183,7 +184,7 @@ PinTask.play = async ({ canvasElement }) => {
 
 우리의 경우 "로고 내보내기" 작업을 찾고 있습니다. 그런 다음 핀 버튼을 찾아 클릭합니다. 마지막으로 버튼이 고정되지 않은 상태로 업데이트되었는지 확인합니다.
 
-스토리북이 스토리 렌더링을 마치면 플레이 기능 내에서 정의된 단계를 실행하여 구성 요소와 상호 작용하고 작업을 고정합니다 - 사용자가 사용하는 방식과 유사한 방식으로. [상호 작용] 패널(https://storybook.js.org/docs/react/writing-tests/interaction-testing#interactive-debugger),)을 선택하면 단계별 흐름이 표시됩니다. 또한 각 상호 작용을 일시 중지, 재개, 되감기 및 단계별로 수행할 수 있는 편리한 UI 컨트롤 세트를 제공합니다.
+스토리북이 스토리 렌더링을 마치면 플레이 기능 내에서 정의된 단계를 실행하여 구성 요소와 상호 작용하고 작업을 고정합니다 - 사용자가 사용하는 방식과 유사한 방식으로. [상호 작용 패널](https://storybook.js.org/docs/react/writing-tests/interaction-testing#interactive-debugger), 을 선택하면 단계별 흐름이 표시됩니다. 또한 각 상호 작용을 일시 중지, 재개, 되감기 및 단계별로 수행할 수 있는 편리한 UI 컨트롤 세트를 제공합니다.
 
 ![](/ui-testing-handbook/pin-task.gif)
 
