@@ -7,7 +7,7 @@ commit: '9b5a6d7'
 
 Storybook 拥有一个健壮的[插件](https://storybook.js.org/docs/vue/configure/storybook-addons)生态系统来帮助您的团队提高开发体验。在[这里](https://storybook.js.org/addons)查看它们，
 
-如果您完成了教程之前的部分，您实际上已经接触了一些插件，并在[测试](intro-to-storybook/vue/zh-CN/test/)章节配置了其中一个。
+如果您完成了教程之前的部分，您实际上已经接触了一些插件，并在[测试](/intro-to-storybook/vue/zh-CN/test/)章节配置了其中一个。
 
 基本上每一个用例都有对应的插件。想要对每一个插件进行说明几乎是不可能的。让我们来集成其中最受欢迎的一个吧：[Controls](https://storybook.js.org/docs/vue/essentials/controls)。
 

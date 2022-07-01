@@ -28,11 +28,11 @@ commit: ''
 
 ## 작업 흐름(workflow)의 속도를 높여주는 자동화
 
-자동화된 도구는 [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) 규칙 및 업계에서 입증된 기타 모범 사례를 기반으로 일련의 휴리스틱와 비교하여 렌더링된 DOM을 감사합니다. 이들은 노골적인 접근성 위반을 적발하는 QA의 첫번째 라인 역할을 수행합니다. 
+자동화된 도구는 [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) 규칙 및 업계에서 입증된 기타 모범 사례를 기반으로 일련의 휴리스틱와 비교하여 렌더링된 DOM을 감사합니다. 이들은 노골적인 접근성 위반을 적발하는 QA의 첫번째 라인 역할을 수행합니다.
 
 예를 들어, Axe는 평균적으로 [WCAG 이슈의 57%를 자동적으로](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/)찾아냅니다. 이를 통해 팀은 수동 검토가 필요한 더 복잡한 이슈에 전문가 자원을 집중할 수 있습니다.
 
-대부분의 기존 테스트 환경과 통합되므로 [Axe library](https://github.com/dequelabs/axe-core)를 사용하는 팀이 많습니다. 예를 들어, [Twilio Paste](https://github.com/twilio-labs/paste) 팀은 [jest-axe integration](https://github.com/twilio-labs/paste/blob/cd0ddad508e41cb9982a693a5160f1b7866f4e2a/packages/paste-core/components/checkbox/__tests__/checkboxdisclaimer.test.tsx#L40)를 사용합니다. 반면 Shopify Polaris와 Adobe Spectrum 팀들은 [스토리북 애드온(Storybook addon)](https://storybook.js.org/addons/@storybook/addon-a11y) 버전을 사용합니다. 
+대부분의 기존 테스트 환경과 통합되므로 [Axe library](https://github.com/dequelabs/axe-core)를 사용하는 팀이 많습니다. 예를 들어, [Twilio Paste](https://github.com/twilio-labs/paste) 팀은 [jest-axe integration](https://github.com/twilio-labs/paste/blob/cd0ddad508e41cb9982a693a5160f1b7866f4e2a/packages/paste-core/components/checkbox/__tests__/checkboxdisclaimer.test.tsx#L40)를 사용합니다. 반면 Shopify Polaris와 Adobe Spectrum 팀들은 [스토리북 애드온(Storybook addon)](https://storybook.js.org/addons/@storybook/addon-a11y) 버전을 사용합니다.
 
 스토리북 애드온은 (jsdom을 위한 Jest와는 반대로) 브라우저에서 검사를 실행하므로 낮은 대비와 같은 문제들을 발견할 수 있습니다. 하지만 각 스토리(story)를 수동으로 확인해야 합니다.
 
@@ -41,7 +41,7 @@ commit: ''
 개발 프로세스 전반에 걸쳐 이러한 검사를 실행하면 피드백 루프를 단축하고 문제를 더 빠르게 해결할 수 있습니다. 작업 흐름의 모양은 다음과 같습니다.
 
 1.  👨🏽‍💻 **개발 중:** 스토리북을 사용하여 한 번에 하나의 컴포넌트에 집중할 수 있습니다. A11y 애드온을 사용해 시각적 결함을 시뮬레이션하고 컴포넌트 레벨에서 접근성 검사를 실행합니다.
-2.  ✅ **QA의 경우:** Axe 검사를 기능 테스트 파이프라인에 통합합니다. 모든 컴포넌트를 검사해 회귀를 탐지합니다. 
+2.  ✅ **QA의 경우:** Axe 검사를 기능 테스트 파이프라인에 통합합니다. 모든 컴포넌트를 검사해 회귀를 탐지합니다.
 
 ![](/ui-testing-handbook/a11y-workflow.png)
 
@@ -49,7 +49,7 @@ commit: ''
 
 ### 접근성 애드온을 설치해보세요
 
-스토리북의 접근성은 활성 스토리에 Axe를 실행합니다. 테스트 결과를 패널에 시각화하고 규칙을 위반한 모든 DOM 노드를 추려서 나타냅니다. 
+스토리북의 접근성은 활성 스토리에 Axe를 실행합니다. 테스트 결과를 패널에 시각화하고 규칙을 위반한 모든 DOM 노드를 추려서 나타냅니다.
 
 ![](/ui-testing-handbook/a11y-testing.gif)
 
@@ -67,9 +67,10 @@ module.exports = {
  ],
 };
 ```
+
 ### 작성한대로 접근성 테스트하기
 
-우리는 이미 작업 컴포넌트를 [분리](../visual-testing/)했고 해당 사용례를 모두 스토리로 캡쳐했습니다. 개발 단계에서 이러한 사례를 순환하여 접근성 문제를 발견할 수 있습니다.
+우리는 이미 작업 컴포넌트를 [분리](/ui-testing-handbook/react/ko/visual-testing/)했고 해당 사용례를 모두 스토리로 캡쳐했습니다. 개발 단계에서 이러한 사례를 순환하여 접근성 문제를 발견할 수 있습니다.
 
 ```javascript:title=src/components/Task.stories.js
 import React from 'react';
@@ -183,6 +184,7 @@ Task.propTypes = {
  onEditTitle: PropTypes.func.isRequired,
 };
 ```
+
 두 번째 위반사항인 **“`<li>` 요소가 의미있게 사용되도록 하기”** 는 DOM 구조가 잘못되었음을 나타냅니다. Task 컴포넌트는 `<li>` 요소를 렌더링합니다. 따라서 우리는 이 스토리 안의 템플릿을 `<ul>` 엘레멘트가 감싸는 형태로 갱신해야 합니다.
 
 ```js:title=src/components/Task.stories.js
@@ -223,7 +225,8 @@ Axe를 실행하기 위해 테스트 러너를 설정해 봅시다. 우선 [axe-
 ```bash
 yarn add -D axe-playwright
 ```
-다음으로, Axe를 실행하고 위반 여부를 확인하는 `it` 블록을 추가합니다. Jest-axe는 `toHaveNoViolations` 라는 편리한 assertion을 제시하여 하나의 함수 호출로 위반 여부를 확인할 수 있습니다. 
+
+다음으로, Axe를 실행하고 위반 여부를 확인하는 `it` 블록을 추가합니다. Jest-axe는 `toHaveNoViolations` 라는 편리한 assertion을 제시하여 하나의 함수 호출로 위반 여부를 확인할 수 있습니다.
 
 ```javascript:title=.storybook/test-runner.js
 const { injectAxe, checkA11y } = require('axe-playwright');
@@ -242,6 +245,7 @@ module.exports = {
  },
 };
 ```
+
 `preRender` 와 `postRender`는 태스크 러너에게 추가적인 작업을 수행시키기 위한 설정을 가능하게 하는 편리한 훅들입니다. 우리는 이러한 훅을 이용하여 스토리에 Axe를 주입하고, 그리고 렌더링이 된다면 접근성 테스트를 수행합니다.
 
 `checkA11y` 함수에 전달된 몇 옵션들을 주목하세요. 스토리의 루트 엘레멘트에 Axe를 설정하고, DOM 트리를 순회하면서 문제가 있는지 검사할 것입니다. 이것들은 발견한 이슈들에 대해서 자세한 레포트를 만들고, 접근성 규칙을 위반한 HTML 엘레먼트의 목록을 출력할 것입니다.
@@ -249,6 +253,7 @@ module.exports = {
 이 테스트를 수행하기 위해, 하나의 터미널 창에서 `yarn storybook`을 통해 Storybook을 시작하고, 다른 터미널 창에서 `yarn test-storybook`을 통해 테스트 러너러를 수행하세요.
 
 ![](/ui-testing-handbook/test-runner-ally.png)
+
 ## 통합 문제 파악
 
-UI는 컴포넌트를 구성하고 데이터 및 API에 연결함으로써 조립됩니다. 그 과정에는 실패할 수 있는 지점들이 많이 있습니다. 다음에는 Cypress를 사용해 시스템의 모든 계층을 한 번에 테스트하여 통합 문제를 파악하는 방법에 대해 알아보겠습니다. 
+UI는 컴포넌트를 구성하고 데이터 및 API에 연결함으로써 조립됩니다. 그 과정에는 실패할 수 있는 지점들이 많이 있습니다. 다음에는 Cypress를 사용해 시스템의 모든 계층을 한 번에 테스트하여 통합 문제를 파악하는 방법에 대해 알아보겠습니다.

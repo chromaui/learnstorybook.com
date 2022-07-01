@@ -1,6 +1,6 @@
 ---
 title: 'UI 테스팅 플레이북'
-tocTitle: '작업 흐름(workflow)'
+tocTitle: '작업 흐름(Workflow)'
 description: '우리를 느리게 하지 않는 테스팅 작업 흐름(workflow)'
 commit: '81c0264'
 ---

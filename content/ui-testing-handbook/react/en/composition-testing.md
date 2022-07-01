@@ -254,7 +254,7 @@ Building components in isolation curtails the complexity of development. You don
 
 ### Catch regressions
 
-In the [previous chapter](../visual-testing/), we set up Chromatic and went over the basic workflow. Now that we have stories for all our composite components, we can execute the visual tests by running:
+In the [previous chapter](/ui-testing-handbook/react/en/visual-testing/), we set up Chromatic and went over the basic workflow. Now that we have stories for all our composite components, we can execute the visual tests by running:
 
 ```
 npx chromatic --project-token=<project-token>
