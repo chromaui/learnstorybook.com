@@ -7,7 +7,7 @@ commit: 'af07d06'
 
 Debugging in production is a nightmare. You have to check every layer of your app. Is it a component bug, a misfiring event, styling, app state, or perhaps a broken API? It could be any of the above, and you have to untangle why.
 
-UIs help folks navigate a sequence of steps on multiple pages to accomplish their goals. So far, we've seen how Storybook makes it easy to isolate each of those pages and run [visual](../visual-testing), [accessibility](../accessibility-testing) and [interaction](../interaction-testing) tests on them. But to verify the entire flow and catch integration issues, you need end-to-end (E2E) UI tests.
+UIs help folks navigate a sequence of steps on multiple pages to accomplish their goals. So far, we've seen how Storybook makes it easy to isolate each of those pages and run [visual](/ui-testing-handbook/react/en/visual-testing/), [accessibility](/ui-testing-handbook/react/en/accessibility-testing/) and [interaction](/ui-testing-handbook/react/en/interaction-testing/) tests on them. But to verify the entire flow and catch integration issues, you need end-to-end (E2E) UI tests.
 
 ## Does your UI work end-to-end?
 
@@ -22,7 +22,7 @@ Teams use E2E tests to ensure that the user experience works as intended. To run
 
 ### Testing the complete application comes with trade-offs
 
-On the surface, E2E and [interaction tests](../interaction-testing) seem pretty similar. But remember, your users interact with the entire app and not just the UI components. E2E tests run at the app level, which allows them to uncover integration issues between the frontend and backend. But that also requires you to maintain test infrastructure for more layers of your tech stack (time-consuming!).
+On the surface, E2E and [interaction tests](/ui-testing-handbook/react/en/interaction-testing/) seem pretty similar. But remember, your users interact with the entire app and not just the UI components. E2E tests run at the app level, which allows them to uncover integration issues between the frontend and backend. But that also requires you to maintain test infrastructure for more layers of your tech stack (time-consuming!).
 
 Component level testing is done by self-contained tools which can mount, render and test components. With E2E tests, _you're responsible_ for spinning up the application. For which, you have two options:
 
@@ -109,7 +109,7 @@ But, notice that the test failed. That’s because we’re only running the fron
 
 The `cy.intercept` method allows us to intercept network requests and respond with mock data. The auth user flow relies on two requests: `/authenticate` to log in and `/tasks` to fetch the user’s tasks. To stub these requests we're gonna need some mock data.
 
-In the [composition testing chapter](../composition-testing/), we created mock data for the task list stories. We'll now reuse that in our Cypress test.
+In the [composition testing chapter](/ui-testing-handbook/react/en/composition-testing/), we created mock data for the task list stories. We'll now reuse that in our Cypress test.
 
 ```javascript:title=TaskList.stories.js
 import React from 'react';
