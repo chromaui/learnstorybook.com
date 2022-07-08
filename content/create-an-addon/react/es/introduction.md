@@ -15,7 +15,7 @@ Storybook es una herramienta para desarrollar componentes de interfaz de usuario
 
 Es difícil saber si el diseño CSS coincide con el diseño general. La alineación visual es complicada cuando los elementos DOM están muy separados o tienen formas extrañas.
 
-El complemento [Outline addon](https://storybook.js.org/addons/storybook-addon-outline) agrega un botón de barra de herramientas que describe todos los elementos de la interfaz de usuario, utilizando CSS. Eso hace que sea fácil de verificar el posicionamiento y la ubicación de un vistazo. Mira el ejemplo a continuación.
+El complemento [Outline addon](https://storybook.js.org/addons/@storybook/addon-outline) agrega un botón de barra de herramientas que describe todos los elementos de la interfaz de usuario, utilizando CSS. Eso hace que sea fácil de verificar el posicionamiento y la ubicación de un vistazo. Mira el ejemplo a continuación.
 
 ![Outline Addon](../../images/outline-addon-hero.gif)
 

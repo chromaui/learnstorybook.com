@@ -15,7 +15,7 @@ Storybook is a tool for developing UI components outside your app in an isolated
 
 It's tough to tell if your CSS layout matches the design. Eyeballing alignment is tricky when DOM elements are far apart or have odd shapes.
 
-The [Outline addon](https://storybook.js.org/addons/storybook-addon-outline) adds a toolbar button that outlines all UI elements, using CSS. That makes it easy to verify positioning and placement in a glance. Check out the example below.
+The [Outline addon](https://storybook.js.org/addons/@storybook/addon-outline) adds a toolbar button that outlines all UI elements, using CSS. That makes it easy to verify positioning and placement in a glance. Check out the example below.
 
 ![Outline Addon](../../images/outline-addon-hero.gif)
 
