@@ -15,7 +15,7 @@ Storybook est un outil permettant de développer des composants UI dans un envir
 
 Il est difficile de déterminer qu'une mise en page CSS est bien conforme au design. Évaluer à l'œil le bon alignement des éléments du DOM devient compliqué lorsque ceux-ci sont éloignés les uns des autres ou ont des formes particulières.
 
-L'[addon Outline](https://storybook.js.org/addons/storybook-addon-outline) ajoute un bouton à la barre d'outils permettant d'ajouter un contour à tous les éléments UI grâce à du CSS. Cela facilite la vérification de leur positionnement et de leur placement en un coup d'œil. Voyez l'exemple ci-dessous :
+L'[addon Outline](https://storybook.js.org/addons/@storybook/addon-outline) ajoute un bouton à la barre d'outils permettant d'ajouter un contour à tous les éléments UI grâce à du CSS. Cela facilite la vérification de leur positionnement et de leur placement en un coup d'œil. Voyez l'exemple ci-dessous :
 
 ![Addon Outline](../../images/outline-addon-hero.gif)
 
