@@ -5,45 +5,48 @@ description: '在你的开发环境下设置 Storybook'
 commit: 'b66f341'
 ---
 
-Storybook 是在开发模式下 与 您的应用程序一起运行的. 它可以帮助您构建 UI 组件,并与 应用程序的 业务逻辑和上下文 隔离开来. 本期"学习 Storybook"适用于 **React**; `Vue和Angular`版本即将推出.
+Storybook 是在开发模式下 与 您的应用程序一起运行的. 它可以帮助您构建 UI 组件,并与 应用程序的 业务逻辑和上下文 隔离开来. 当前版本的Storybook教程是针对React的,其他版本适用于[React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) 以及 [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## 设置 React Storybook
 
-我们将需要通过几个步骤设置环境。首先，我们需要使用[Create React App](https://github.com/facebook/create-react-app) (CRA) 来设置我们的构建系统，并开启 [Storybook](https://storybook.js.org/) 以及 [Jest](https://facebook.github.io/jest/) 在我们创建的应用程序中进行测试。 让我们运行以下命令：
+我们将需要通过几个步骤设置环境。首先，我们需要使用[degit](https://github.com/Rich-Harris/degit)来设置我们的构建系统，使用这个软件包，你可以下载 "模板"（使用了部分默认配置所构建的应用程序）来帮助你快速跟踪你的开发工作流程。
+
+让我们运行以下命令:
 
 ```bash
-# Create our application:
-npx create-react-app taskbox
+# 克隆模板
+npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# Add Storybook:
-npx -p @storybook/cli sb init
+# 安装依赖
+yarn
 ```
 
 <div class="aside">
-在这个版本的教程中，我们将使用 <code>yarn</code> 来运行大多数命令。
-如果你已经安装了 Yarn，但更偏向使用 <code>npm</code> 替代，不必担心，你仍然可以顺利完成本教程。只需要在上面的命令后添加 <code>--use-npm</code> 标志，CRA 和 Storybook 都将基于此初始化。并且在完成本教程时不要忘记调整其中的命令为 <code>npm</code> 中对应的命令。
+💡 此模板包含此版本教程所需的样式、资产和一些基本配置
 </div>
+
 
 我们可以快速检查应用程序的各种环境是否正常运行：
 
 ```bash
-# Run the test runner (Jest) in a terminal:
+# 在命令行中运行测试(Jest):
 yarn test --watchAll
 
-# Start the component explorer on port 6006:
+# 在6006端口启动组件资源管理器:
 yarn storybook
 
-# Run the frontend app proper on port 3000:
+# 在3000端口正确运行前端项目:
 yarn start
 ```
 
 <div class="aside">
-你或许已经发现了我们给 test 命令添加了 <code>--watchAll</code> 标志，这是故意的，请不用担心，这点小的改动将确保我们应用程序的所有测试用例运行并一切正常。当你在学习本套教程的过程中，将会将你介绍不同的测试场景，因此你可能会考虑为 <code>package.json</code> 中的测试脚本添加该标志以确保你的完整的测试用例能够运行。
+💡 请注意测试命令中的 <code>--watchAll</code> 标志，这个标志将确保我们应用程序的所有测试用例运行并一切正常。当你在学习本套教程的过程中，将会将你介绍不同的测试场景，因此你可能会考虑为 <code>package.json</code> 中的测试脚本添加该标志以确保你的完整的测试用例能够运行。
 </div>
+
 
 我们的三个前端应用程序模式: 自动化测试（Jest），组件开发（Storybook）和 应用程序本身.
 
@@ -51,27 +54,37 @@ yarn start
 
 根据您正在处理的应用程序的哪个部分，您可能希望同时运行其中一个或多个。由于我们目前的重点是创建单个 UI 组件，因此我们将坚持运行 Storybook。
 
-## 重用 CSS
 
-本例子`Taskbox` 重用了 [GraphQL 和 React Tutorial 示例应用](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)中的设计元素,所以我们不需要在本教程中编写 CSS. 我们只需将 LESS 编译为单个 CSS 文件, 并将其包含在我们的应用程序中. 复制和粘贴[这个编译的 CSS](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css)根据 **CRA**的规则 进入 **src/index.css** 文件.
 
-![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
+## 提交更改
 
-<div class="aside">
-如果要修改样式，<a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/style">这里</a> 提供了源LESS文件。
-</div>
+在这个阶段，将我们的文件添加到本地版本库是更加安全的选择。运行下面的命令来初始化本地版本库，添加并提交我们到目前为止所做的修改。
 
-## 添加资源
 
-为了匹配预期的设计，需要你下载字体及图标目录到 `src/assets` 文件夹下。在终端执行以下命令：
 
-```bash
-npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
-npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
+```shell
+$ git init
 ```
 
-<div class="aside">
-我们使用 <a href="https://github.com/Rich-Harris/degit">degit</a> 从 Github 下载文件夹。如果想要手动，可以从 <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets/">这里</a> 抓取。
-</div>
+接着是:
 
-添加完样式和资源后，程序会渲染出一些奇怪的效果。没有关系，我们目前不在开发该应用，我们从构建第一个组件开始！
+```shell
+$ git add .
+```
+
+然后:
+
+```shell
+$ git commit -m "first commit"
+```
+
+最后:
+
+```shell
+$ git branch -M main
+```
+
+
+
+
+让我们开始构建我们的第一个组件!
