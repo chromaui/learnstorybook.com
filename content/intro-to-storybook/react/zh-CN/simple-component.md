@@ -24,7 +24,7 @@ commit: 'c07ce59'
 
 我们将从 `Task` 的基本实现开始，简单传入我们需要的 `属性-props` 以及需要对任务执行的两个 `on` 操作（在列表之间移动它）：
 
-```javascript
+```jsx
 // src/components/Task.js
 
 import React from 'react';
@@ -54,7 +54,7 @@ export default {
   title: 'Task',
 };
 
-const Template = (args) => <Task {...args} />;
+const Template = args => <Task {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
@@ -62,7 +62,7 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2018, 0, 1, 9, 0),
+    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 
@@ -97,52 +97,70 @@ Storybook 中有两个基本的组织级别。Component 及其 child stories.
 - `component` -- component 组件本身
 - `title` -- 如何在 Storybook 侧边栏中引用组件
 
-为了定义我们的 stories，我们为每个测试状态导出一个函数用于生成一个 story。story 是一个根据传入的 state 返回一个已渲染元素的函数，就像是 [无状态组件](https://reactjs.org/docs/components-and-props.html#function-and-class-components)。
+为了定义我们的 stories，我们为每个测试状态导出一个函数用于生成一个 story。story 是一个根据传入的 state 返回一个已渲染元素的函数，就像是 [函数组件](https://reactjs.org/docs/components-and-props.html#function-and-class-components)。
 
 我们的组件有很多排列，因此将其分配给一个 `Template` 变量是很方便的。将这种模式引入你的 stories 将会减少很多需要编写并维护的代码量。
 
 <div class="aside">
-
-`Template.bind({})` 是一个可以用于复制函数的 [JavaScript 标准](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) 技术。我们使用此技术允许每个导出的 story 都使用相同的实现，但能够设置自己的属性。
-
+💡 <code>Template.bind({})</code> 是一个可以用于复制函数的 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">JavaScript 标准</a> 技术。 我们使用此技术允许每个导出的 story 都使用相同的实现，但能够设置自己的属性。
 </div>
 
 Arguments 或者 [`args`](https://storybook.js.org/docs/react/writing-stories/args) 简写，不需要重启 Storybook 就可以通过 controls 插件实时编辑我们的组件。一旦 [`args`](https://storybook.js.org/docs/react/writing-stories/args) 被修改，组件就会更新。
 
-在创建 story 时，我们使用基本任务 (`task`) 构建组件期望的任务的形状。这通常是根据真实数据的模型建模的。再次，正如我们所看到的，`export` 这种形状将使我们能够在以后的 story 中重复使用它。
+在创建 story 时，我们使用基本的`任务 (task)` 参数构建组件期望的任务的形状。这通常是根据真实数据的样子进行建模的。同样，正如我们所看到的，`export` 这种形状将使我们能够在以后的 story 中重复使用它。
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> 帮助您在隔离构建UI组件时验证交互。通，您无法访问应用程序上下文中的函数和状态。使用 <code>action()</code> 将它们存入。
+💡 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> 帮助您在隔离构建UI组件时验证交互。通常，您无法访问应用程序上下文中的函数和状态 所以我们可以使用 <code>action()</code> 将它们插入。
 </div>
+
+
 
 ## 配置
 
-我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用[上个章节](/intro-to-storybook/react/zh-CN/get-started)中修改过的 CSS 文件。
+我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用应用程序的CSS文件(位于`src/index.css`)
 
-```javascript
+```diff
 // .storybook/main.js
 
 module.exports = {
-  //👇 Location of our stories
-  stories: ['../src/components/**/*.stories.js'],
+- stories: [
+-   '../src/**/*.stories.mdx',
+-   '../src/**/*.stories.@(js|jsx|ts|tsx)'
+- ],
++ stories: ['../src/components/**/*.stories.js'],
+  staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/preset-create-react-app',
+    '@storybook/addon-interactions',
   ],
+  features: {
+    postcss: false,
+  },
+  framework: '@storybook/react',
+  core: {
+    builder: 'webpack4',
+  },
 };
 ```
 
-完成以上修改后，在 `.storybook` 文件夹中修改 `preview.js` 为一下内容：
+完成以上修改后，在 `.storybook` 文件夹中修改 `preview.js` 为以下内容：
 
-```javascript
+```diff
 // .storybook/preview.js
 
-import '../src/index.css'; //👈 The app's CSS file goes here
++ import '../src/index.css';
 
-//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
+//👇 配置Storybook来记录用户界面中的动作（onArchiveTask和onPinTask）。
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
 };
 ```
 
@@ -159,15 +177,15 @@ export const parameters = {
   />
 </video>
 
+
 ## 建立状态
 
 现在我们有 Storybook 的设置，样式的导入及测试用例的构建，我们可以快速开始组件的匹配设计的 HTML 实现。
 
 目前该组件仍然很基础。首先编写代码实现设计，而无需关注太多细节。
 
-```javascript
+```jsx
 // src/components/Task.js
-
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -180,17 +198,22 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           disabled={true}
           name="checked"
         />
-        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
+        <span
+          className="checkbox-custom"
+          onClick={() => onArchiveTask(id)}
+          id={`archiveTask-${id}`}
+          aria-label={`archiveTask-${id}`}
+        />
       </label>
       <div className="title">
         <input type="text" value={title} readOnly={true} placeholder="Input title" />
       </div>
 
-      <div className="actions" onClick={(event) => event.stopPropagation()}>
+      <div className="actions" onClick={event => event.stopPropagation()}>
         {state !== 'TASK_ARCHIVED' && (
           // eslint-disable-next-line jsx-a11y/anchor-is-valid
           <a onClick={() => onPinTask(id)}>
-            <span className={`icon-star`} />
+            <span className={`icon-star`} id={`pinTask-${id}`} aria-label={`pinTask-${id}`} />
           </a>
         )}
       </div>
@@ -208,41 +231,40 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
   />
 </video>
 
+
 ## 特别数据要求
 
 最佳实践是在 React 中使用 `propTypes` 指定组件期望的数据形态。不仅可以自我记录文档化，也能帮助我们尽早发现问题。
 
-```javascript
-// src/components/Task.js
-
+```diff
 import React from 'react';
-import PropTypes from 'prop-types';
++ import PropTypes from 'prop-types';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   // ...
 }
 
-Task.propTypes = {
-  /** Composition of the task */
-  task: PropTypes.shape({
-    /** Id of the task */
-    id: PropTypes.string.isRequired,
-    /** Title of the task */
-    title: PropTypes.string.isRequired,
-    /** Current state of the task */
-    state: PropTypes.string.isRequired,
-  }),
-  /** Event to change the task to archived */
-  onArchiveTask: PropTypes.func,
-  /** Event to change the task to pinned */
-  onPinTask: PropTypes.func,
-};
++ Task.propTypes = {
++  /** Composition of the task */
++  task: PropTypes.shape({
++    /** Id of the task */
++    id: PropTypes.string.isRequired,
++    /** Title of the task */
++    title: PropTypes.string.isRequired,
++    /** Current state of the task */
++    state: PropTypes.string.isRequired,
++  }),
++  /** Event to change the task to archived */
++  onArchiveTask: PropTypes.func,
++  /** Event to change the task to pinned */
++  onPinTask: PropTypes.func,
++ };
 ```
 
 现在，如果 Task 组件被滥用，将会在开发环境出现警告。
 
 <div class="aside">
-另一种实现方法是使用类似 TypeScript 的 JavaScript 类型系统来为组件属性创建类型。
+💡 另一种实现方法是使用类似 TypeScript 的 JavaScript 类型系统来为组件属性创建类型。
 </div>
 
 ## 组件构建!
@@ -253,8 +275,7 @@ Task.propTypes = {
 
 ## 自动化测试
 
-Storybook 为我们提供了一种在开发期间，`可视化`测试我们的应用程序。在我们继续开发应用程序时，`stories` 将有助于确保我们不会打破 Task 的外观。
-但是，在这个阶段，这是一个完全手动的过程，有人必须努力点击每个测试状态,并确保它呈现良好且没有错误或警告。我们不能自动这样做吗？
+Storybook 为我们提供了一种在开发期间，`可视化`测试我们的应用程序。`stories` 将有助于确保我们不会打破 Task 的外观。然而，在这个阶段，这完全是一个手动的过程，必须有人去努力点击每个测试状态，并确保它的渲染效果良好，没有错误或警告。难道我们不能自动做到这一点吗？
 
 ### 快照测试
 
@@ -262,8 +283,9 @@ Storybook 为我们提供了一种在开发期间，`可视化`测试我们的�
 这补充了 Storybook，因为快照是查看组件新版本并检查更改的快速方法。
 
 <div class="aside">
-确保您的组件呈现 <b>不变</b> 的数据，以便每次快照测试都不会失败。注意日期或随机生成的值等内容。
+💡 确保您的组件呈现 <b>不变</b> 的数据，以便每次快照测试都不会失败。注意日期或随机生成的值等内容。
 </div>
+
 
 需要[Storyshots 插件](https://github.com/storybooks/storybook/tree/master/addons/storyshots)为每个故事创建快照测试。
 通过添加开发依赖项来使用它：
@@ -286,3 +308,7 @@ initStoryshots();
 ![Task test runner](/intro-to-storybook/task-testrunner.png)
 
 我们现在为每个 `Task` 的 stories 进行快照测试。如果我们改变了 `Task` 的实现,我们会提示您验证更改。
+
+<div class="aside">
+💡 别忘了用git提交你的更改!
+</div>
