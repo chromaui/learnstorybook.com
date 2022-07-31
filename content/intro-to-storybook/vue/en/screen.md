@@ -191,11 +191,13 @@ import PureInboxScreen from './PureInboxScreen.vue';
 +     },
 +    },
 +   actions: {
-+     pinTask(context, id) {
++     pinTask({ commit }, id) {
 +       action('pin-task')(id);
++       commit('PIN_TASK', id);
 +     },
-+     archiveTask(context, id) {
++     archiveTask({ commit }, id) {
 +       action('archive-task')(id);
++       commit('ARCHIVE_TASK', id);
 +     },
 +   },
 + });
@@ -278,11 +280,13 @@ const store = createStore({
     },
   },
   actions: {
-    pinTask(context, id) {
+    pinTask({ commit }, id) {
       action('pin-task')(id);
+      commit('PIN_TASK', id);
     },
-    archiveTask(context, id) {
+    archiveTask({ commit }, id) {
       action('archive-task')(id);
+      commit('ARCHIVE_TASK', id);
     },
   },
 });
