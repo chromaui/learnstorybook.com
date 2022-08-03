@@ -140,7 +140,7 @@ Une autre bonne chose à propos du regroupement des `actionsData` dont un compos
 Lors de la création d'une story, nous utilisons une tâche de base (`taskData`) pour construire la forme de la tâche attendue par le composant. C'est généralement modelisé à partir de réelles données. Encore une fois, l'`export`ation de cette forme nous permettra de la réutiliser dans d'autres stories comme nous le verrons.
 
 <div class="aside">
-Les <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>actions</b></a> vous aident à vérifier les interactions lors de la création des composants d'interface utilisateur de manière isolée. Souvent, vous n'aurez pas accès aux fonctions et aux états que vous dans le contexte de l'application. Utilisez <code>action()</code> pour les insérer.
+Les <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>ns</b></a> vous aident à vérifier les interactions lors de la création des composants d'interface utilisateur de manière isolée. Souvent, vous n'aurez pas accès aux fonctions et aux états que vous dans le contexte de l'application. Utilisez <code>action()</code> pour les insérer.
 </div>
 
 ## Configuration
@@ -192,7 +192,7 @@ Notre composant est encore assez rudimentaire pour le moment. Nous allons faire 
     <div class="title">
       <input type="text" :readonly="true" :value="this.task.title" placeholder="Input title" />
     </div>
-    <div class="actions">
+    <div class="pin-button">
       <a @click="$emit('pinTask', task.id)" v-if="!isChecked">
         <span class="icon-star" />
       </a>
