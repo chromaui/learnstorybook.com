@@ -21,7 +21,7 @@ All the more reason to set up automated testing **now** to save work in the **fu
 
 ## Prepare to test
 
-I surveyed 4 frontend teams in a [previous article](https://www.chromatic.com/blog/the-delightful-storybook-workflow) about professional Storybook workflows. They agreed on these best practices for writing stories to make testing easy and comprehensive.
+I surveyed 4 frontend teams about professional Storybook workflows in a [previous article](https://www.chromatic.com/blog/the-delightful-storybook-workflow). They agreed on these best practices for writing stories to make testing easy and comprehensive.
 
 **Articulate supported component states** as stories to clarify which combinations of inputs yield a given state. Ruthlessly omit unsupported states to reduce noise.
 
@@ -61,89 +61,23 @@ In the last chapter, our teammate did not want a red border around the `Button`'
 
 Undo the changes and commit again to pass your visual tests again.
 
-## Unit test functionality
+## Interaction tests
 
-Unit tests verify whether the UI code returns the correct output given a controlled input. They live alongside the component and help you validate specific functionality.
+So far, we've seen how visual testing enabled us to spot-check appearance and catch UI regressions. But as we continue to develop our design system, our components will eventually become responsible for more than just rendering the UI. At some point, they'll handle state management or even fetch data. That's where testing component interactions will help us.
 
-Everything is a component in modern view layers like React, Vue, and Angular. Components encapsulate diverse functionality from modest buttons to elaborate date pickers. The more intricate a component, the trickier it becomes to capture nuances using visual testing alone. That’s why we need unit tests.
+Interaction testing is a well-known pattern for verifying user behavior. You start by providing mocked data to set up your test, simulate user interactions with a testing library, and verify the UI changes. In Storybook, this happens in the browser, making it easier to debug failures because you're running tests in the same environment as you develop components: the browser.
 
-![Unit test components](/design-systems-for-developers/component-unit-testing.gif)
+To enable it, we're going to rely on Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function and instrumented testing libraries to set up our tests and then use the [test-runner](https://storybook.js.org/docs/react/writing-tests/test-runner) verify our that the component renders correctly.
 
-For instance, our Link component is a little complicated when combined with systems that generate link URLs (“LinkWrappers” in ReactRouter, Gatsby, or Next.js). A mistake in the implementation can lead to links without a valid href value.
+### Setup the test runner
 
-Visually, it isn’t possible to see if the `href` attribute is there and points to the correct location, which is why a unit test can be appropriate to avoid regressions.
-
-#### Unit testing hrefs
-
-Let’s add a unit test for our `Link` component. [Create React App](https://create-react-app.dev/) has set up a unit test environment for us already, so we can simply create a file `src/Link.test.js`:
-
-```js:title=src/Link.test.js
-import { render } from '@testing-library/react';
-import { Link } from './Link';
-
-test('has a href attribute when rendering with linkWrapper', () => {
-  // eslint-disable-next-line jsx-a11y/anchor-has-content
-  const LinkWrapper = props => <a {...props} />;
-  const { container } = render(
-    <Link href="https://storybook.js.org/tutorials/" LinkWrapper={LinkWrapper}>
-      Link Text
-    </Link>
-  );
-
-  const linkElement = container.querySelector('a[href="https://storybook.js.org/tutorials/"]');
-  expect(linkElement).not.toBeNull();
-  expect(linkElement.textContent).toEqual('Link Text');
-});
-```
-
-We can run the above unit test as part of our `yarn test` command.
-
-![Running a single Jest test](/design-systems-for-developers/jest-test.png)
-
-Earlier, we configured our GitHub Action to deploy Storybook, and we can now adjust it to include testing. Our contributors will now benefit from this unit test, and the Link component will be robust to regressions.
-
-```diff:title=.github/workflows/chromatic.yml
-# ... Same as before
-jobs:
-  test:
-    # The operating system it will run on
-    runs-on: ubuntu-latest
-    # The list of steps that the action will go through
-    steps:
-      - uses: actions/checkout@v1
-      - run: yarn
-+     - run: yarn test # Adds the test command
-        #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
-        with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ to obtain it
-          projectToken: project-token
-          token: ${{ secrets.GITHUB_TOKEN }}
-```
-
-![Successful circle build](/design-systems-for-developers/gh-action-with-test-successful-build.png)
-
-<div class="aside"> 💡 <strong>Note: </strong>Watch out for too many unit tests which can make updates cumbersome. We recommend unit testing design systems in moderation.</div>
-
-> "Our enhanced automated test suite has empowered our design systems team to move faster with more confidence." – Dan Green-Leipciger, Senior software engineer at Wave
-
-## Accessibility test
-
-“Accessibility means all people, including those with disabilities, can understand, navigate, and interact with your app... Online [examples include] alternative ways to access content such as using the tab key and a screen reader to traverse a site.” writes developer [Alex Wilson from T.Rowe Price](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347).
-
-Disabilities affect 15% of the population according to the [World Health Organization](https://www.who.int/disabilities/world_report/2011/report/en/). Design systems have an outsized impact on accessibility because they contain the building blocks of user interfaces. Improving accessibility of just one component means every instance of that component across your company benefits.
-
-![Storybook accessibility addon](/design-systems-for-developers/storybook-accessibility-addon.png)
-
-Get a headstart on inclusive UI with Storybook’s Accessibility addon, a tool for verifying web accessibility standards (WCAG) in real time.
+Start by adding the necessary dependencies with:
 
 ```shell
-yarn add --dev @storybook/addon-a11y
-
+yarn add --dev jest@27 @storybook/jest @storybook/test-runner
 ```
 
-Add the addon in `.storybook/main.js`:
+Next, update your Storybook configuration to enable playback controls for debugging.
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -151,50 +85,123 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/preset-create-react-app',
-+   '@storybook/addon-a11y',
     '@storybook/addon-interactions',
+    '@storybook/preset-create-react-app',
   ],
   framework: '@storybook/react',
-  staticDirs: ['../public'],
++ features: {
++   interactionsDebugger: true,
++ },
 };
 ```
 
-Update your `.storybook/preview.js`'s [parameters](https://storybook.js.org/docs/react/writing-stories/parameters) and add the following `a11y` configuration:
+Finally, add a new test task to your `package.json` scripts:
 
-```diff:title=.storybook/preview.js
+```json:title=package.json
+  "scripts": {
+     "test-storybook": "test-storybook"
+  }
+```
 
+### Write an interaction test using the play function
+
+Interaction tests are centered around how the UI handles user actions, either using the keyboard, mouse, or other input devices and checking whether UI visual elements are displayed and working correctly. Testing libraries like [Jest](https://jestjs.io/) provide helpful APIs for simulating human interactions and verifying the UI state. We'll use instrumented versions of these tools to write our tests. Therefore, maintaining a common syntax, but with additional telemetry to help us debug.
+
+The test itself is defined inside a [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function connected to a story. They're small snippets of code that run after the story renders.
+
+Let's see how it works by updating the `Button` story and set up our first interaction test by adding the following:
+
+```diff:title=src/Button.stories.js
 import React from 'react';
 
-import { GlobalStyle } from '../src/shared/global';
++ import { userEvent, within } from '@storybook/testing-library';
++ import { expect } from '@storybook/jest';
+
+import { Button } from './Button';
+import { StoryLinkWrapper } from './StoryLinkWrapper';
+
+export default {
+  title: 'Design System/Button',
+  component: Button,
+};
+
+// Other Button stories
 
 /*
-* More on Storybook global decorators at:
-* https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
-*/
-export const decorators = [
-  Story => (
-    <>
-      <GlobalStyle />
-      <Story />
-    </>
-  ),
-];
-
-/*
-* More on Storybook global parameters at:
-* https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
-*/
-+ export const parameters = {
-+   actions: { argTypesRegex: '^on[A-Z].*' },
-+   // Storybook a11y addon configuration
-+   a11y: {
-+     // the target DOM element
-+     element: '#root',
-+     // sets the execution mode for the addon
-+     manual: false,
-+   },
+ * New story using the play function.
+ * See https://storybook.js.org/docs/react/writing-stories/play-function
+ * to learn more about the play function.
+ */
++ export const WithInteractions = (args) => <Button {...args} />;
++ WithInteractions.args = {
++   appearance: 'primary',
++   href: 'http://storybook.js.org',
++   ButtonWrapper: StoryLinkWrapper,
++   children: 'Button',
 + };
+
++ WithInteractions.play = async ({ canvasElement }) => {
++  // Assigns canvas to the component root element
++   const canvas = within(canvasElement);
++   await userEvent.click(canvas.getByRole('link'));
++   expect(canvas.getByRole('link')).toHaveAttribute(
++     'href',
++     'http://storybook.js.org',
++    );
++ };
+```
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/design-systems-for-developers/dsd-storybook-interaction-testing-with-play-function.mp4"
+    type="video/mp4"
+  />
+</video>
+
+When Storybook finishes rendering the story, it executes the steps defined inside the `play` function, interacting with the component, similar to how a user would do it. Click the [`Interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing#interactive-debugger) panel. You'll see a detailed execution flow while also providing a convenient set of UI controls to pause, resume, rewind, and step through each interaction.
+
+### Automate tests with the test runner
+
+We've seen how interaction tests with the `play` function helped us verify how a component responds when we interact with it. But as design systems evolve, manually verifying every change can quickly become unrealistic. Storybook test runner automates this process. It's a standalone alone utility—powered by [Playwright](https://playwright.dev/)—that runs parallel to your Storybook, executing all interaction tests and catching broken stories.
+
+With Storybook running, open a new terminal window and run the test runner with:
+
+```shell
+yarn test-storybook --watch
+```
+
+![Storybook test runner execution](/design-systems-for-developers/test-runner-execution-optimzed.png)
+
+It will verify whether all our stories render without errors and all assertions pass automatically during execution. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
+
+## Accessibility test
+
+“Accessibility means all people, including those with disabilities, can understand, navigate, and interact with your app... Online [examples include] alternative ways to access content such as using the tab key and a screen reader to traverse a site.” writes developer [Alex Wilson from T.Rowe Price](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347).
+
+Disabilities affect 15% of the population, according to the [World Health Organization](https://www.who.int/disabilities/world_report/2011/report/en/). Design systems have an outsized impact on accessibility because they contain the building blocks of user interfaces. Improving accessibility of just one component means every instance of that component across your company benefits.
+
+![Storybook accessibility addon](/design-systems-for-developers/storybook-accessibility-addon.png)
+
+Get a headstart on inclusive UI with Storybook’s Accessibility addon, a real-time tool for verifying web accessibility standards (WCAG).
+
+```shell
+yarn add --dev @storybook/addon-a11y
+```
+
+Update your Storybook configuration to include the addon.
+
+```diff:title=.storybook/main.js
+module.exports = {
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/preset-create-react-app',
++   '@storybook/addon-a11y',
+  ],
+  framework: '@storybook/react',
+};
 ```
 
 Once all is set up, you’ll see a new “Accessibility” tab in the Storybook addons panel.

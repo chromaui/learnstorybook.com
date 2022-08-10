@@ -40,7 +40,7 @@ Install and run Storybook
 
 ```shell
 # Installs Storybook
-npx sb init
+npx storybook init
 
 # Starts Storybook in development mode
 yarn storybook
@@ -227,80 +227,6 @@ Notice the Controls tab in the addon panel. Controls automatically generates gra
 
 That said, Controls don’t replace stories. They are great for exploring the edge cases of the components and stories for showcasing the assumed states.
 
-<h4>Interactive stories with addon-interactions </h4>
-
-We've seen how Storybook's addons help us find edge cases with the [Controls](#storybook-addon-controls) addon and how a component behaves when we interact with it using the [Actions](#storybook-addon-actions) addon. Still, with each variation we add with our stories, we must check it manually and see if our design system doesn't break. Let's see how we can automate this by adding the [`@storybook/addon-interactions`](https://storybook.js.org/addons/@storybook/addon-interactions/) addon, and interact with our component using the `play` function:
-
-Run the following command to install the addon and its dependencies:
-
-```shell
-yarn add --dev @storybook/addon-interactions @storybook/testing-library
-```
-
-Next, register it in Storybook's configuration file (i.e., `.storybook/main.js`):
-
-```diff:title=./storybook/main.js
-module.exports = {
-  stories: [
-     '../src/**/*.stories.mdx',
-     '../src/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/preset-create-react-app',
-+   '@storybook/addon-interactions',
-  ],
-  framework: "@storybook/react",
-  staticDirs: ["../public"],
-};
-```
-
-Now, let's see how it works by adding a new story for our `Button` component:
-
-```diff:title=src/Button.stories.js
-import React from 'react';
-import styled from 'styled-components';
-+ import { userEvent, within } from '@storybook/testing-library';
-import { Button } from './Button';
-import { StoryLinkWrapper } from './StoryLinkWrapper';
-export default {
-  title: 'Design System/Button',
-  component: Button,
-};
-
-// Other Button stories
-
-+ // New story using the play function
-+ export const WithInteractions = () => (
-+   <Button
-+     ButtonWrapper={StoryLinkWrapper}
-+     appearance="primary"
-+     href="http://storybook.js.org">
-+       Button
-+    </Button>
-+ );
-+ WithInteractions.play = async ({ canvasElement }) => {
-+   // Assigns canvas to the component root element
-+   const canvas = within(canvasElement);
-+   await userEvent.click(canvas.getByRole("link"));
-+ };
-
-+ WithInteractions.storyName = "button with interactions";
-```
-
-<div class="aside">
- 💡 Play functions are small snippets of code that once the story finishes rendering, aided by the <code>addon-interactions</code>, it allows you to test scenarios otherwise impossible without human intervention. Read more about them in the <a href="https://storybook.js.org/docs/react/writing-stories/play-function"> official documentation</a>.
-</div>
-
-Select your new story and notice how we were able to check how the component behaves and stays consistent—taking one additional step in making our design system more robust and bug-free without relying on human interactions.
-
-<video autoPlay muted playsInline loop>
-  <source
-    src="/design-systems-for-developers/storybook-button-interactive-stories.mp4"
-    type="video/mp4"
-  />
-</video>
 We'll visit the Accessibility and Docs addons in later chapters.
 
 > “Storybook is a powerful frontend workshop environment tool that allows teams to design, build, and organize UI components (and even full screens!) without getting tripped up over business logic and plumbing.” – Brad Frost, Author of Atomic Design
