@@ -34,7 +34,7 @@ Visual tests catch bugs by capturing and comparing image snapshots of stories—
 
 Composition testing is all about running visual tests on “composite” components higher up in the tree that are made up of several simpler components. That way you can quantify the impact that any change might have on the entire application. And ensure that the system works as a whole.
 
-The key difference is that composite components track application state and pass behaviours down the tree. You’ll have to account for those when writing the test cases.
+The key difference is that composite components track application state and pass behaviors down the tree. You’ll have to account for those when writing the test cases.
 
 Let’s see this process in action by writing tests for the `TaskList` component, which displays the complete list of tasks belonging to the user.
 
@@ -142,7 +142,7 @@ Shaping stories through args composition is a powerful technique. It allows us t
 
 ![](/ui-testing-handbook/tasklist-stories.gif)
 
-So far, we’ve only dealt with components that accept data and callbacks via props. Things get trickier when your component is wired up to an API or has internal state. Next we'll look at how to isolate and test such connected components.
+So far, we’ve only dealt with components that accept data and callbacks via props. Things get trickier when your component is wired up to an API or has internal state. Next, we'll look at how to isolate and test such connected components.
 
 ### Stateful composite components
 
@@ -154,17 +154,23 @@ That’s where Storybook addons come in. They allow you to mock API requests, st
 
 For the InboxScreen, we are going to use [Mock Service Worker (MSW) addon](https://storybook.js.org/addons/msw-storybook-addon/) to intercept requests at the network level and return mocked responses.
 
-Install msw & its storybook addon.
+Install MSW & its Storybook addon.
 
 ```
 yarn add -D msw msw-storybook-addon
 ```
 
-Then, generate a new service worker in your public folder.
+Then, generate a new service worker in your `public` folder.
 
-```
+```bash
 npx msw init public/
 ```
+
+<div class="aside">
+
+💡 Public directory may differ depending on the project. See MSW's [list of common public directories](https://mswjs.io/docs/getting-started/integrate/browser#where-is-my-public-directory) for reference. To see the changes reflected in Storybook, you'll need to update the [`staticDirs`](https://storybook.js.org/docs/react/configure/overview#using-storybook-api) configuration element in `.storybook/main.js`.
+
+</div>
 
 Enable the MSW addon in your `.storybook/preview.js` file:
 
@@ -256,7 +262,7 @@ Building components in isolation curtails the complexity of development. You don
 
 In the [previous chapter](/ui-testing-handbook/react/en/visual-testing/), we set up Chromatic and went over the basic workflow. Now that we have stories for all our composite components, we can execute the visual tests by running:
 
-```
+```bash
 npx chromatic --project-token=<project-token>
 ```
 
