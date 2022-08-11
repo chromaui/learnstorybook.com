@@ -154,13 +154,13 @@ That’s where Storybook addons come in. They allow you to mock API requests, st
 
 For the InboxScreen, we are going to use [Mock Service Worker (MSW) addon](https://storybook.js.org/addons/msw-storybook-addon/) to intercept requests at the network level and return mocked responses.
 
-Install MSW & its Storybook addon.
+Install msw & its storybook addon.
 
 ```
 yarn add -D msw msw-storybook-addon
 ```
 
-Then, generate a new service worker in your `public` folder.
+Then, generate a new service worker in your public folder.
 
 ```bash
 npx msw init public/
@@ -168,7 +168,7 @@ npx msw init public/
 
 <div class="aside">
 
-💡 Public directory may differ depending on the project. See MSW's [list of common public directories](https://mswjs.io/docs/getting-started/integrate/browser#where-is-my-public-directory) for reference. To see the changes reflected in Storybook, you'll need to update the [`staticDirs`](https://storybook.js.org/docs/react/configure/overview#using-storybook-api) configuration element in `.storybook/main.js`.
+💡 Public directory may differ depending on the project. For custom configurations, we recommend reading MSW's [documentation](https://mswjs.io/docs/getting-started/integrate/browser#where-is-my-public-directory) to learn more about them. To see the changes reflected in Storybook, you'll need to update the [`staticDirs`](https://storybook.js.org/docs/react/configure/overview#using-storybook-api) configuration element in `.storybook/main.js`.
 
 </div>
 
