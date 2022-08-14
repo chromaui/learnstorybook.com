@@ -88,7 +88,7 @@ git push -u origin main
 
 最初のタスクは最も使われるコンポーネントを特定し一覧を作成することです。それはしばしば共通の UI パターンと分かる各種 Web サイトやアプリの画面を手作業で列挙したものを含めます。[Brad Frost](http://bradfrost.com/blog/post/interface-inventory/) や [Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517) のようなデザイナーがコンポーネントを一覧化する手軽な方法を発信しているため当チュートリアルではこれ以上詳細には触れません。
 
-開発者にとって便利な経験則は：
+開発者にとって便利な経験則は:
 
 - ある UI パターンが 3 回以上使われているなら、再利用可能な UI コンポーネントになります。
 - ある UI パターンが 3 つかそれ以上のプロジェクト/チームで使われているなら、デザインシステムに取り入れます。

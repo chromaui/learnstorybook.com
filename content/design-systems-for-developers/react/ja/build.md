@@ -15,13 +15,13 @@ commit: 'a45c546'
 
 当チュートリアルで、私たちはエディタに[VSCode](https://code.visualstudio.com/)を使いますが、[Atom](https://atom.io/)、[Sublime](https://www.sublimetext.com/)、[IntelliJ](https://www.jetbrains.com/idea/)のような他のモダンエディタにも同様の方針を適用できます。
 
-プロジェクトに Prettier を加えエディタを適切にセットアップする場合は、あまり考える必要のない一貫したフォーマッティングを手に入れるべきです：
+プロジェクトに Prettier を加えエディタを適切にセットアップする場合は、あまり考える必要のない一貫したフォーマッティングを手に入れるべきです:
 
 ```shell
 yarn add --dev prettier
 ```
 
-始めて Prettier を使うなら、エディタ向けにそれをセットアップする必要があるかもしれません。VSCode で、Prettier アドオンをインストールしてください：
+始めて Prettier を使うなら、エディタ向けにそれをセットアップする必要があるかもしれません。VSCode で、Prettier アドオンをインストールしてください:
 
 ![Prettier addon for VSCode](/design-systems-for-developers/prettier-addon.png)
 
@@ -29,7 +29,7 @@ yarn add --dev prettier
 
 ## Storybook をインストール
 
-Storybook は独立して UI コンポーネントを開発するための業界標準の[コンポーネントエクスプローラ](https://www.chromatic.com/blog/ui-component-explorers---your-new-favorite-tool)です。デザインシステムは UI コンポーネントに焦点を当てているため、Storybook はそのユースケースに理想のツールです。以下の特徴があります：
+Storybook は独立して UI コンポーネントを開発するための業界標準の[コンポーネントエクスプローラ](https://www.chromatic.com/blog/ui-component-explorers---your-new-favorite-tool)です。デザインシステムは UI コンポーネントに焦点を当てているため、Storybook はそのユースケースに理想のツールです。以下の特徴があります:
 
 - 📕UI コンポーネントの一覧化
 - 📄 ストーリーとしてコンポーネントのバリエーションを保存
@@ -46,7 +46,7 @@ npx sb init
 yarn storybook
 ```
 
-こちらの画面が見えるでしょう：
+こちらの画面が見えるでしょう:
 
 ![Initial Storybook UI](/design-systems-for-developers/storybook-initial-6-0.png)
 
@@ -54,7 +54,7 @@ yarn storybook
 
 アプリケーションに Storybook をインストールするたびに、`stories`フォルダ内にいくつかのサンプルを追加します。興味があれば、それを探索してみてください。しかし私たちのデザインシステムには必要ないでしょうから、`stories`ディレクトリを削除しても問題ありません。
 
-さてあなたの Storybook は次のようになっているでしょう (フォントスタイルがやや小さくなっているのに気づきます、例として、「Avatar：Initials」ストーリーを見てください)：
+さてあなたの Storybook は次のようになっているでしょう (フォントスタイルがやや小さくなっているのに気づきます、例として、「Avatar: Initials」ストーリーを見てください):
 
 <video autoPlay muted playsInline loop>
   <source
@@ -65,7 +65,7 @@ yarn storybook
 
 #### グローバルスタイルを追加する
 
-私たちのデザインシステムにはコンポーネントを正しく描画するためにドキュメントに適用するグローバルスタイル (CSS リセット) が必要です。Styled Components のグローバルスタイルタグで簡単に追加できます。次のように`src/shared/global.js`ファイルを更新します：
+私たちのデザインシステムにはコンポーネントを正しく描画するためにドキュメントに適用するグローバルスタイル (CSS リセット) が必要です。Styled Components のグローバルスタイルタグで簡単に追加できます。次のように`src/shared/global.js`ファイルを更新します:
 
 ```diff:title=src/shared/global.js
 import { createGlobalStyle, css } from 'styled-components';
@@ -120,7 +120,7 @@ export const parameters = {
 
 #### フォントタグを追加する
 
-私たちのデザインシステムはまたアプリにロードした Nunito Sans フォントに依存しています。その実現はアプリのフレームワーク (それについて[ここで](https://github.com/storybookjs/design-system#font-loading)読めます) によりますが、Storybook では、最も簡単な方法はファイル、 [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head)を作成し、ページの`<head>`に直接`<link>`タグを追加することです：
+私たちのデザインシステムはまたアプリにロードした Nunito Sans フォントに依存しています。その実現はアプリのフレームワーク (それについて[ここで](https://github.com/storybookjs/design-system#font-loading)読めます) によりますが、Storybook では、最も簡単な方法はファイル、 [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head)を作成し、ページの`<head>`に直接`<link>`タグを追加することです:
 
 ```html:title=.storybook/preview-head.html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900" />
@@ -138,7 +138,7 @@ Storybook は大規模コミュニティにより作られた強力な[アドオ
 
 [アクションアドオン](https://storybook.js.org/docs/react/essentials/actions)はボタンやリンクのようなインタラクティブな要素でアクションが振る舞われると Storybook で UI フィードバックを提供してくれます。アクションはデフォルトで Storybook にインストールされており、コンポーネントにコールバックプロパティとして「アクション」を渡すだけで使えます。
 
-私たちのボタン要素で使ってみましょう、それはクリックに反応するラッパーコンポーネントを任意で取ります：
+私たちのボタン要素で使ってみましょう、それはクリックに反応するラッパーコンポーネントを任意で取ります:
 
 ```js:title=src/Button.stories.js
 import React from 'react';
@@ -170,7 +170,7 @@ export const buttonWrapper = (args) => (
 
 アドオンは Storybook の UI でコンポーネントのインプット (プロパティ) を動的にインタラクションできるようにします。あなたは [arguments](https://storybook.js.org/docs/react/writing-stories/args) (または短縮形で args) を介してコンポーネントに複数の値を提供し UI に適用できます。argument の値を適用してデザインシステムの作成者がストレステストコンポーネントのインプット (プロパティ) を行う手助けをします。またデザインシステムの利用者が各インプット (プロパティ) がコンポーネントにどう影響するのか組み込む前に理解するのを試す機能を提供します。
 
-`src/Avatar.stories.js`にある`Avatar`コンポーネントに新しいストーリーを加えるとどうなるか見てみましょう：
+`src/Avatar.stories.js`にある`Avatar`コンポーネントに新しいストーリーを加えるとどうなるか見てみましょう:
 
 ```js:title=src/Avatar.stories.js
 import React from 'react';
@@ -229,15 +229,15 @@ Controls.args = {
 
 <h4>addon-interactionsを使った対話型のストーリー</h4>
 
-私たちは [Controls](#storybook-addon-controls) のアドオンを使ってどのように Storybook のアドオンがエッジケースを探す手助けをし [Actions](#storybook-addon-actions) アドオンを使ってコンポーネントがインタラクションした時にどのように振る舞うのかを見てきました。それでも、ストーリーを追加した各バリエーションで、手動で確認してデザインシステムが壊れないかを見なければなりません。[`@storybook/addon-interactions`](https://storybook.js.org/addons/@storybook/addon-interactions/)アドオンを追加してどのようにこれを自動化するか見てみましょう、それから`play`ファンクションを使いコンポーネントとインタラクションします：
+私たちは [Controls](#storybook-addon-controls) のアドオンを使ってどのように Storybook のアドオンがエッジケースを探す手助けをし [Actions](#storybook-addon-actions) アドオンを使ってコンポーネントがインタラクションした時にどのように振る舞うのかを見てきました。それでも、ストーリーを追加した各バリエーションで、手動で確認してデザインシステムが壊れないかを見なければなりません。[`@storybook/addon-interactions`](https://storybook.js.org/addons/@storybook/addon-interactions/)アドオンを追加してどのようにこれを自動化するか見てみましょう、それから`play`ファンクションを使いコンポーネントとインタラクションします:
 
-次のコマンドを実行してアドオンと依存関係をインストールします：
+次のコマンドを実行してアドオンと依存関係をインストールします:
 
 ```shell
 yarn add --dev @storybook/addon-interactions @storybook/testing-library
 ```
 
-次に、Storybook の設定ファイル (この場合は、`.storybook/main.js`) に登録します：
+次に、Storybook の設定ファイル (この場合は、`.storybook/main.js`) に登録します:
 
 ```diff:title=./storybook/main.js
 module.exports = {

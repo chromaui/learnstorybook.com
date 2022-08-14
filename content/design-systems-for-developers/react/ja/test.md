@@ -43,7 +43,7 @@ commit: 'a856d54'
 
 ![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
-これから Chromatic にビルトインされている[テストツール](https://www.chromatic.com/features/test)を使ったビジュアルテストがどう働くか見てみましょう。プルリクエストを作成したら、Chromatic は変更内容のイメージをキャプチャし同じコンポーネントの前のバージョンと比較しました。4 つの変更点が見つかりました：
+これから Chromatic にビルトインされている[テストツール](https://www.chromatic.com/features/test)を使ったビジュアルテストがどう働くか見てみましょう。プルリクエストを作成したら、Chromatic は変更内容のイメージをキャプチャし同じコンポーネントの前のバージョンと比較しました。4 つの変更点が見つかりました:
 
 ![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 
@@ -75,7 +75,7 @@ React、Vue、Angular のようなモダンなビューレイヤーにおいて�
 
 #### href のユニットテスト
 
-`Link`コンポーネントにユニットテストを追加しましょう。 [Create React App](https://create-react-app.dev/) はすでにユニットテストの環境をセットアップしており、単純に`src/Link.test.js`ファイルを作成するだけでテストができます：
+`Link`コンポーネントにユニットテストを追加しましょう。 [Create React App](https://create-react-app.dev/) はすでにユニットテストの環境をセットアップしており、単純に`src/Link.test.js`ファイルを作成するだけでテストができます:
 
 ```js:title=src/Link.test.js
 import { render } from '@testing-library/react';
@@ -124,7 +124,7 @@ jobs:
 
 ![Successful circle build](/design-systems-for-developers/gh-action-with-test-successful-build.png)
 
-<div class="aside"> 💡 <strong>注意事項：</strong>更新が面倒になる多過ぎるユニットテストに注意してください。適度なデザインシステムのユニットテストを推奨します。</div>
+<div class="aside"> 💡 <strong>注意事項: </strong>更新が面倒になる多過ぎるユニットテストに注意してください。適度なデザインシステムのユニットテストを推奨します。</div>
 
 > "私たちの高度に自動化されたテスト体制はデザインシステムチームがより自信を持って早く動けるよう力を与える。" – Dan Green-Leipciger、Wave のシニアソフトウェアエンジニア
 
@@ -143,7 +143,7 @@ yarn add --dev @storybook/addon-a11y
 
 ```
 
-`.storybook/main.js`にアドオンを追加します：
+`.storybook/main.js`にアドオンを追加します:
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -160,7 +160,7 @@ module.exports = {
 };
 ```
 
-`.storybook/preview.js`の[パラメータ](https://storybook.js.org/docs/react/writing-stories/parameters)を更新して次の`a11y`設定を追加します：
+`.storybook/preview.js`の[パラメータ](https://storybook.js.org/docs/react/writing-stories/parameters)を更新して次の`a11y`設定を追加します:
 
 ```diff:title=.storybook/preview.js
 

@@ -21,7 +21,7 @@ commit: '107bb03'
 
 ## 必要条件
 
-私たちのドキュメントは作成と維持との切り離せないあつれきを乗り越えなけばなりません。こちらがなすべきことです：
+私たちのドキュメントは作成と維持との切り離せないあつれきを乗り越えなけばなりません。こちらがなすべきことです:
 
 - **🔄 最新版のままにする**ために最新の本番コードを使います
 - **✍️ ライティングを促進する**ためにマークダウンのような使い慣れたライティングツールを使います
@@ -83,7 +83,7 @@ export default {
 };
 ```
 
-次に、[JSdoc](https://jsdoc.app/) に Avatar コンポーネント (`src/Avatar.js`に) 明確な説明を提供します：
+次に、[JSdoc](https://jsdoc.app/) に Avatar コンポーネント (`src/Avatar.js`に) 明確な説明を提供します:
 
 ```js:title=src/Avatar.js
 /**
@@ -93,7 +93,7 @@ export default {
 export function Avatar({ loading, username, src, size, ...props }) {
 ```
 
-次のように見えるはずです：
+次のように見えるはずです:
 
 ![Storybook docs tab with component details](/design-systems-for-developers/storybook-docspage-6-0.png)
 
@@ -121,7 +121,7 @@ Avatar.propTypes = {
 };
 ```
 
-デフォルトでは、どの`Avatar`ストーリーも docs 内に描画されますが、私たちは他の開発者がストーリーが何を示しているかを推し量ることができません。`src/Avatar.stories.js`のストーリー向けに解説的な文章を書きましょう：
+デフォルトでは、どの`Avatar`ストーリーも docs 内に描画されますが、私たちは他の開発者がストーリーが何を示しているかを推し量ることができません。`src/Avatar.stories.js`のストーリー向けに解説的な文章を書きましょう:
 
 ```diff:title=src/Avatar.stories.js
 import React from 'react';
@@ -211,7 +211,7 @@ module.exports = {
 };
 ```
 
-新しい`src/Avatar.stories.mdx`ファイルを作成して詳細を提供しましょう。`Avatar.stories.js`ファイルを削除して mdx ファイルにストーリーを再作成します：
+新しい`src/Avatar.stories.mdx`ファイルを作成して詳細を提供しましょう。`Avatar.stories.js`ファイルを削除して mdx ファイルにストーリーを再作成します:
 
 <!-- prettier-ignore-start -->
 
@@ -394,7 +394,7 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 
 いいですね！始めたところに戻ってきましたが、今度は順序と内容全般で完全なコントロールをしています。Doc Blocks を使っているため自動化されたドキュメント生成の恩恵を維持しています。
 
-ユースケースの注釈を Avatar のドキュメントに加えましょう。それは開発者にこのコンポーネントの利点に関するコンテキストを提供します。他のマークダウンドキュメントにするようにマークダウンを加えることができます：
+ユースケースの注釈を Avatar のドキュメントに加えましょう。それは開発者にこのコンポーネントの利点に関するコンテキストを提供します。他のマークダウンドキュメントにするようにマークダウンを加えることができます:
 
 ```js:title=src/Avatar.stories.mdx
 
@@ -417,7 +417,7 @@ Avatar is used to represent a person or an organization. By default the avatar s
 
 どのデザインシステムもカバーページがあります。Storybook Docs は MDX を使って別のページを作成できます。
 
-新しい`src/Intro.stories.mdx`ファイルを作成しましょう：
+新しい`src/Intro.stories.mdx`ファイルを作成しましょう:
 
 ```js:title=src/Intro.stories.mdx
 import { Meta } from "@storybook/addon-docs";
@@ -435,7 +435,7 @@ Learn more in the [Storybook tutorials](https://storybook.js.org/tutorials/).
 
 ![Storybook docs with introduction page, unsorted](/design-systems-for-developers/storybook-docs-introduction-unsorted.png)
 
-最初に表示するよう、Storybook に`.storybook/main.js`にイントロダクションファイルをロードするよう伝える必要があります：
+最初に表示するよう、Storybook に`.storybook/main.js`にイントロダクションファイルをロードするよう伝える必要があります:
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -464,7 +464,7 @@ module.exports = {
 
 誰も読まないドキュメンテーションを書くなら、それは役に立つでしょうか？いいえ。高品質な学習教材を作成するには十分ではなく、ステークホルダーと同僚へ教材を提供する必要があります。今や、私たちのドキュメントがリポジトリに入ります、それはみんながドキュメントを見るためにローカルにデザインシステムの Storybook を実行させる必要があることを意味します。
 
-前の章で、ビジュアルレビューのため Storybook を発行しました。同様にコンポーネントドキュメントを発行するために同じメカニズムを使うため簡単です。Storybook をドキュメントモードで構築するために`package.json`に新しいスクリプトを追加しましょう：
+前の章で、ビジュアルレビューのため Storybook を発行しました。同様にコンポーネントドキュメントを発行するために同じメカニズムを使うため簡単です。Storybook をドキュメントモードで構築するために`package.json`に新しいスクリプトを追加しましょう:
 
 ```json:title=package.json
 {

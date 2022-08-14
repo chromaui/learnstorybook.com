@@ -14,7 +14,7 @@ description: 'デザインシステムの成長が時間を節約し生産性を
 
 ## 当チュートリアルのサンプルコード
 
-私たちと一緒にコーティングしているなら、あなたのリポジトリは次のようになっているでしょう：
+私たちと一緒にコーティングしているなら、あなたのリポジトリは次のようになっているでしょう:
 
 - [サンプルデザインシステムリポジトリ](https://github.com/chromaui/learnstorybook-design-system)
 - [サンプルアプリリポジトリ](https://github.com/chromaui/learnstorybook-design-system-example-app)
@@ -37,7 +37,7 @@ _Design Systems for Developers_ は [Dominic Nguyen](https://twitter.com/domyen)
 - [Eightshapes by Nathan Curtis](https://medium.com/eightshapes-llc/tagged/design-systems) (ブログ)
 - [Building Design Systems by Sarrah Vesselov and Taurie Davis ](https://www.amazon.com/Building-Design-Systems-Experiences-Language/dp/148424513X) (本)
 
-われわれの著者からさらに：
+われわれの著者からさらに:
 
 - [Intro to Storybook](http://learnstorybook.com/intro-to-storybook) (ガイド)
 - [Component-Driven Development by Tom Coleman](https://www.componentdriven.org/) (記事)

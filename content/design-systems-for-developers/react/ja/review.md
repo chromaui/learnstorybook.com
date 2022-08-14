@@ -27,7 +27,7 @@ commit: '0273e45'
 
 node_modules を削除する。パッケージを再インストールする。ローカルストレージをクリアする。クッキーを削除する。こうした行動に馴染みがあるなら、チームメートが最新のコードを参照して確かめるのがどんなに大変か分かるでしょう。みんなが同じ開発環境を持っていないと、実際のバグからローカル環境で起こる問題に気づくのは悪夢です。
 
-幸いにも、フロントエンド開発者として、私たちは共通のコンパイルターゲットがあります：ブラウザーです。精通したチームは ビジュアルレビューのための共通の参照ポイントとして Storybook をオンライン上に配信し、ローカル開発環境 (何にせよテクニカルサポートがやっかいです) につきものの複雑さを回避します。
+幸いにも、フロントエンド開発者として、私たちは共通のコンパイルターゲットがあります: ブラウザーです。精通したチームは ビジュアルレビューのための共通の参照ポイントとして Storybook をオンライン上に配信し、ローカル開発環境 (何にせよテクニカルサポートがやっかいです) につきものの複雑さを回避します。
 
 ![Review your work in the cloud](/design-systems-for-developers/design-system-visual-review.jpg)
 
@@ -86,7 +86,7 @@ npx chromatic --project-token=<project-token>
 
 `.github`ディレクトリをトップレベルの階層に加えましょう。それから`workflows`という別のディレクトリを作成します。
 
-以下のような chromatic.yml ファイルを作成します。これにより CI プロセスをどう処理させるかを自動化します。今は小さく始めて進むにしたがって改善を続けます：
+以下のような chromatic.yml ファイルを作成します。これにより CI プロセスをどう処理させるかを自動化します。今は小さく始めて進むにしたがって改善を続けます:
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Name of our action
@@ -114,19 +114,19 @@ jobs:
 
 <div class="aside"><p>💡 簡潔さのため <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHubシークレット</a> には言及しませんでした。シークレットは Github により提供されるセキュアな環境変数であるため<code>project-token</code>をハードコーディングする必要はありません。</p></div>
 
-変更を次のコマンドで追加します：
+変更を次のコマンドで追加します:
 
 ```shell
 git add .
 ```
 
-それをコミットします：
+それをコミットします:
 
 ```shell
 git commit -m "Storybook deployment with GitHub action"
 ```
 
-最後に、次のコマンドでリモートリポジトリへプッシュします：
+最後に、次のコマンドでリモートリポジトリへプッシュします:
 
 ```shell
 git push origin main

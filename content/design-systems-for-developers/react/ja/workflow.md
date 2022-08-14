@@ -154,7 +154,7 @@ git commit -am "Improved AvatarList docs"
 
 #### プルリクエストを作成する
 
-`AvatarList`ブランチを GitHub へプッシュしてプルリクエストを作成します：
+`AvatarList`ブランチを GitHub へプッシュしてプルリクエストを作成します:
 
 ```shell
 git push -u origin create-avatar-list-component

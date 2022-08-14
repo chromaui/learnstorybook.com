@@ -19,7 +19,7 @@ commit: 'bba7cb0'
 
 デザインシステムのパッケージングには多くの有効な方法があります。Gander at design systems from Lonely Planet、Auth0、Salesforce、GitHub、Microsoft にアプローチの多様さを見ます。一方の皆さんは分割したパッケージとして各コンポーネントを配布し、他方では一つのパッケージに全てのコンポーネントを送り出しています。
 
-生まれたてのデザインシステムにとって、最も直接的な方法は次をカプセル化する単一バージョンのパッケージを発行することです：
+生まれたてのデザインシステムにとって、最も直接的な方法は次をカプセル化する単一バージョンのパッケージを発行することです:
 
 - 🏗 共通 UI コンポーネント
 - 🎨 デザイントークン (スタイル変数、として知られる)
@@ -60,7 +60,7 @@ export * from './Link';
 
 いくつか追加の開発パッケージが必要で、ビルドプロセスの手助けに [`@babel/cli`](https://www.npmjs.com/package/@babel/cli) と [`cross-env`](https://www.npmjs.com/package/cross-env) を使います。
 
-コマンドラインで、次のコマンドを発行します：
+コマンドラインで、次のコマンドを発行します:
 
 ```shell
 yarn add --dev @babel/cli cross-env
@@ -104,7 +104,7 @@ dist
 
 #### 発行のためパッケージメタデータを追加する
 
-パッケージの使用者が全ての必要な情報を確認するために`package.json`に変更が必要です。最も簡単な方法は単純に`yarn init`--発行のためにパッケージを初期化するコマンド、を実行します：
+パッケージの使用者が全ての必要な情報を確認するために`package.json`に変更が必要です。最も簡単な方法は単純に`yarn init`--発行のためにパッケージを初期化するコマンド、を実行します:
 
 ```shell
 # Initializes a scoped package
@@ -123,7 +123,7 @@ question private: no
 
 コマンドは上記一覧の質問をたずねます、いくつかは前もって埋められており、他は考える必要があります。npm のパッケージに固有の名前 (`learnstorybook-design-system`は使用できないでしょう --`@your-npm-username/learnstorybook-design-system`が良い選択です) 。
 
-概して、質問の結果新しい値で`package.json`を更新します：
+概して、質問の結果新しい値で`package.json`を更新します:
 
 ```json:title=package.json
 {
@@ -147,7 +147,7 @@ question private: no
 
 npm へリリースを発行するため、私たちはまた変更を記述したチェンジログの更新、意味のあるバージョン番号の設定、リポジトリのコミットにバージョン番号をリンクさせる git タグの作成プロセスを使います。これら全てを手助けするために、[Auto](https://github.com/intuit/auto)という特定の用途にデザインされたオープンソースツールを使います。
 
-Auto をインストールしましょう：
+Auto をインストールしましょう:
 
 ```shell
 yarn add --dev auto
@@ -163,14 +163,14 @@ npm は、こちらの URL でトークンを作成することができます: 
 
 “Read and Publish”パーミッションが必要になるでしょう。
 
-プロジェクトの`.env`ファイルにトークンを追加しましょう：
+プロジェクトの`.env`ファイルにトークンを追加しましょう:
 
 ```
 GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
-`.gitignore`に上記ファイルを追加することで、全てのユーザーに見えるオープンソースリポジトリへこの値を間違えてプッシュしないことを確実にします！これはきわめて重要です。他のメンテナーがローカルのパッケージを発行する必要がある場合(後ほどプルリクエストがデフォルトブランチへマージされる時に自動的な発行を設定します)、このプロセスにしたがい彼ら自身の`.env`ファイルに設定するべきです：
+`.gitignore`に上記ファイルを追加することで、全てのユーザーに見えるオープンソースリポジトリへこの値を間違えてプッシュしないことを確実にします！これはきわめて重要です。他のメンテナーがローカルのパッケージを発行する必要がある場合(後ほどプルリクエストがデフォルトブランチへマージされる時に自動的な発行を設定します)、このプロセスにしたがい彼ら自身の`.env`ファイルに設定するべきです:
 
 ```
 dist
@@ -185,15 +185,15 @@ Auto で最初に必要なのは GitHub にラベルのセットを作成する�
 yarn auto create-labels
 ```
 
-GitHub を確認すると、`auto`が使わせたいラベルのセットが見えます：
+GitHub を確認すると、`auto`が使わせたいラベルのセットが見えます:
 
 ![Set of labels created on GitHub by auto](/design-systems-for-developers/github-auto-labels.png)
 
-マージする前に次のラベルのうちひとつを将来の PR(プルリクエスト)全てにタグ付けすべきです：`major`、`minor`、`patch`、`skip-release`、 `prerelease`、`internal`、`documentation`
+マージする前に次のラベルのうちひとつを将来の PR(プルリクエスト)全てにタグ付けすべきです:`major`、`minor`、`patch`、`skip-release`、 `prerelease`、`internal`、`documentation`
 
 #### Auto で自動的に最初のリリースを発行する
 
-この先、`auto`スクリプトを介して新しいバージョン番号を計算しますが、最初のリリースのために、何をしているのか理解するために手動でコマンドを実行しましょう：
+この先、`auto`スクリプトを介して新しいバージョン番号を計算しますが、最初のリリースのために、何をしているのか理解するために手動でコマンドを実行しましょう:
 
 ```shell
 yarn auto changelog
@@ -201,13 +201,13 @@ yarn auto changelog
 
 上記コマンドは現時点で作成したすべてコミットの長いチェンジログ (そしてデフォルトブランチにプッシュしてきた警告も、それは近いうちに止めるべきでしょう) を生成します。
 
-自動生成されるチェンジログは有用ですが、それだけに失いたくないものなので、手動で編集してユーザに最も役に立つ方法でメッセージを作り上げるのは良い考えです。この場合、ユーザは開発過程のコミットすべてを知る必要はありません。最初の v0.1.0 バージョンのための良い簡単なメッセージを作成しましょう：
+自動生成されるチェンジログは有用ですが、それだけに失いたくないものなので、手動で編集してユーザに最も役に立つ方法でメッセージを作り上げるのは良い考えです。この場合、ユーザは開発過程のコミットすべてを知る必要はありません。最初の v0.1.0 バージョンのための良い簡単なメッセージを作成しましょう:
 
 ```shell
 git reset HEAD^
 ```
 
-それからチェンジログを更新してコミットしましょう：
+それからチェンジログを更新してコミットしましょう:
 
 ```
 # v0.1.0 (Tue Mar 09 2021)
@@ -226,7 +226,7 @@ git add CHANGELOG.md
 git commit -m "Changelog for v0.1.0 [skip ci]"
 ```
 
-これで発行できます：
+これで発行できます:
 
 ```shell
 npm --allow-same-version version 0.1.0 -m "Bump version to: %s [skip ci]"
@@ -237,7 +237,7 @@ npm publish --access=public
 💡 パッケージの発行に <a href="https://classic.yarnpkg.com/en/docs/cli/">yarn</a> を使っているなら適切なコマンドを適用することを忘れないでください。 
 </div>
 
-そして Auto を使って GitHub 上にリリースを作成します：
+そして Auto を使って GitHub 上にリリースを作成します:
 
 ```shell
 git push --follow-tags origin main
@@ -254,7 +254,7 @@ yarn auto release
 
 #### Auto を利用するためにスクリプトを設定する
 
-この先パッケージを発行したい時に同じプロセスを踏むために Auto を設定しましょう。次のスクリプトを`package.json`に追加します：
+この先パッケージを発行したい時に同じプロセスを踏むために Auto を設定しましょう。次のスクリプトを`package.json`に追加します:
 
 ```json:title=package.json
 {
@@ -276,7 +276,7 @@ yarn auto release
 
 GitHub シークレットはリポジトリに機密情報の格納を許可します。ブラウザのウィンドウで、あなたの GitHub リポジトリを開きます。
 
-⚙️ 設定タブをクリックしてサイドバーのシークレットリンクをクリックします。次の画面が見えます：
+⚙️ 設定タブをクリックしてサイドバーのシークレットリンクをクリックします。次の画面が見えます:
 
 ![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
 
@@ -288,7 +288,7 @@ GitHub シークレットはリポジトリに機密情報の格納を許可し�
 
 #### GitHub アクションを使ってリリースを自動化する
 
-プルリクエストをする度に、デザインシステムを自動的に発行したいものです。先に<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">Storybook の発行</a>で使った同じフォルダに`push.yml`という新しいファイルを作成し次の内容を追加します：
+プルリクエストをする度に、デザインシステムを自動的に発行したいものです。先に<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">Storybook の発行</a>で使った同じフォルダに`push.yml`という新しいファイルを作成し次の内容を追加します:
 
 ```yml:title=.github/workflows/push.yml
 # Name of our action
@@ -353,7 +353,7 @@ jobs:
 
 サンプルアプリは[コンポーネント駆動開発](https://www.componentdriven.org/)、コンポーネントに始まりページで終わる下層から UI を開発するためのアプリ開発手法、を促進するために Storybook を使います。デモの最中 2 つの Storybook を並行して実行します、ひとつはサンプルアプリでもう一つはデザインシステムです。
 
-次のコマンドを実行してサンプルアプリをセットアップします：
+次のコマンドを実行してサンプルアプリをセットアップします:
 
 ```shell
 # Clones the files locally
@@ -368,7 +368,7 @@ yarn install
 yarn storybook
 ```
 
-サンプルアプリが使う簡単なコンポーネントのストーリーを実行している Storybook が見えるでしょう：
+サンプルアプリが使う簡単なコンポーネントのストーリーを実行している Storybook が見えるでしょう:
 
 ![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook-6-0.png)
 
@@ -411,7 +411,7 @@ module.exports = {
 
 これでサンプルアプリを開発中にデザインシステムのコンポーネントとドキュメントを閲覧することができます。フィーチャー開発の間デザインシステムを陳列することは開発者が自前で開発して時間を浪費することなく既存のコンポーネントを再利用する可能性を高めます。
 
-必要なものが揃いました、デザインシステムを追加し使う時です。ターミナルで次のコマンドを実行します：
+必要なものが揃いました、デザインシステムを追加し使う時です。ターミナルで次のコマンドを実行します:
 
 ```shell
 yarn add @your-npm-username/learnstorybook-design-system
