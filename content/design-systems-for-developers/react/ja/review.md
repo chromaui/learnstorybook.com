@@ -27,25 +27,25 @@ commit: '0273e45'
 
 node_modules を削除する。パッケージを再インストールする。ローカルストレージをクリアする。クッキーを削除する。こうした行動に馴染みがあるなら、チームメートが最新のコードを参照して確かめるのがどんなに大変か分かるでしょう。みんなが同じ開発環境を持っていないと、実際のバグからローカル環境で起こる問題に気づくのは悪夢です。
 
-幸いにも、フロントエンド開発者として、私たちは共通のコンパイルターゲットがあります：ブラウザーです。精通したチームは ビジュアルレビューのための共通の参照ポイントとして Storybook をオンライン上に配信し、ローカル開発環境(何にせよテクニカルサポートがやっかいです)につきものの複雑さを回避します。
+幸いにも、フロントエンド開発者として、私たちは共通のコンパイルターゲットがあります：ブラウザーです。精通したチームは ビジュアルレビューのための共通の参照ポイントとして Storybook をオンライン上に配信し、ローカル開発環境 (何にせよテクニカルサポートがやっかいです) につきものの複雑さを回避します。
 
 ![Review your work in the cloud](/design-systems-for-developers/design-system-visual-review.jpg)
 
 現存の UI コンポーネントが URL 経由でアクセス可能であると、ステークホルダーは自身のブラウザーで快適に UI のルック＆フィールを確認できます。それは開発者、デザイナー、PM がローカル開発環境をいじる、スクリーンショットを見て回る、古い UI を参照する必要がないことを意味します。
 
-> "それぞれの PR(プルリクエスト)で Storybook のデプロイはビジュアルレビューを容易にしプロダクトオーナーがコンポーネントを考え抜く助けとなります。" –Norbert de Langen, Storybook のコア開発者
+> "それぞれの PR (プルリクエスト) で Storybook のデプロイはビジュアルレビューを容易にしプロダクトオーナーがコンポーネントを考え抜く助けとなります。" –Norbert de Langen, Storybook のコア開発者
 
-<h2 id="publish-storybook">Storybookを発行する</h2>
+<h2 id="publish-storybook">Storybook を発行する</h2>
 
 [Chromatic](https://www.chromatic.com/)、Storybook の開発者により作られた無料の配信サービス、を用いてビジュアルワークフローをデモンストレーションします。これによりクラウド上に安全でセキュアに Storybook をデプロイできますが、他のホスティングサービスへ同様に[静的サイトとして Storybook を構築しデプロイする](https://storybook.js.org/docs/react/workflows/publish-storybook)ことはまた非常に簡単です。
 
 ### Chromatic を入手する
 
-まず最初に、[chromatic.com](https://chromatic.com)に行きあなたの GitHub アカウントでサインアップします。
+まず最初に、[chromatic.com](https://chromatic.com) に行きあなたの GitHub アカウントでサインアップします。
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
-そこから、デザインシステムのリポジトリを選択します。その裏で、アクセス権限の同期と PR(プルリクエスト)チェックの設定を行います。
+そこから、デザインシステムのリポジトリを選択します。その裏で、アクセス権限の同期と PR (プルリクエスト) チェックの設定を行います。
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -54,13 +54,13 @@ node_modules を削除する。パッケージを再インストールする。�
   />
 </video>
 
-npm を経由して[chromatic](https://www.npmjs.com/package/chromatic)パッケージをインストールします。
+npm を経由して [chromatic](https://www.npmjs.com/package/chromatic) パッケージをインストールします。
 
 ```shell
 yarn add --dev chromatic
 ```
 
-インストールしたら、次のコマンドを実行して Storybook を構築しデプロイします(Chromatic がサイト上で提供する`project-token`の使用が必要になるでしょう:
+インストールしたら、次のコマンドを実行して Storybook を構築しデプロイします (Chromatic がサイト上で提供する`project-token`の使用が必要になるでしょう) :
 
 ```shell
 npx chromatic --project-token=<project-token>
@@ -112,7 +112,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>💡 簡潔さのため<a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHubシークレット</a>には言及しませんでした。シークレットはGithubにより提供されるセキュアな環境変数であるため<code>project-token</code>をハードコーディングする必要はありません。</p></div>
+<div class="aside"><p>💡 簡潔さのため <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHubシークレット</a> には言及しませんでした。シークレットは Github により提供されるセキュアな環境変数であるため<code>project-token</code>をハードコーディングする必要はありません。</p></div>
 
 変更を次のコマンドで追加します：
 
@@ -166,11 +166,11 @@ GitHub.com へ移動して`improve-button`ブランチのプルリクエスト�
 
 ![Created a PR in GitHub](/design-systems-for-developers/github-created-pr-actions.png)
 
-ページ下部の PR(プルリクエスト)チェックの一覧のうち、**Storybook Publish**をクリックして発行された Storybook の新しい変更点を閲覧します。
+ページ下部の PR (プルリクエスト)チェックの一覧のうち、**Storybook Publish** をクリックして発行された Storybook の新しい変更点を閲覧します。
 
 ![Button component changed in deployed site](/design-systems-for-developers/chromatic-deployed-site-with-changed-button.png)
 
-変更した各コンポーネントとストーリーについて、ブラウザのアドレスバーから URL をコピーしてチームメイトが素早く関連するストーリーをレビューする助けとなるようタスク管理の場所(GitHub、Asana、Jira、等)に貼り付けます。
+変更した各コンポーネントとストーリーについて、ブラウザのアドレスバーから URL をコピーしてチームメイトが素早く関連するストーリーをレビューする助けとなるようタスク管理の場所 (GitHub、Asana、Jira、等) に貼り付けます。
 
 ![GitHub PR with links to storybook](/design-systems-for-developers/github-created-pr-with-links-actions.png)
 
@@ -178,7 +178,7 @@ GitHub.com へ移動して`improve-button`ブランチのプルリクエスト�
 
 ![Why?!](/design-systems-for-developers/github-visual-review-feedback.gif)
 
-<div class="aside">💡 Chromaticはまた一部有料プロダクトとして完全なUIレビューのワークフローを提供しています。StorybookのリンクをGithubのPRにコピーするテクニックは小規模で(そしてChromaticでなく、Storybookをホストするあらゆるサービスで)有効ですが、利用頻度が増えてくると、プロセスを自動化するサービスを検討するのが良いかもしれません。</div>
+<div class="aside">💡 Chromatic はまた一部有料プロダクトとして完全なUIレビューのワークフローを提供しています。Storybook のリンクを Github の PR にコピーするテクニックは小規模で (そして Chromatic でなく、Storybook をホストするあらゆるサービスで) 有効ですが、利用頻度が増えてくると、プロセスを自動化するサービスを検討するのが良いかもしれません。</div>
 
 ソフトウェア開発において、大抵の欠陥は誤解に起因しており技術ではありません。ビジュアルレビューはチームがデザインシステムをより早く提供するために開発中に継続的にフィードバックを集める助けとなります。
 
@@ -188,6 +188,6 @@ GitHub.com へ移動して`improve-button`ブランチのプルリクエスト�
 
 ## デザインシステムをテストする
 
-ビジュアルレビューは計り知れない価値があります。しかしながら、手作業で数百ものコンポーネントのストーリーをレビューするのは時間がかかります。理想的には、意図的な変更(追加／改善)だけを見て自動的に意図しないリグレッションを捕捉したいのです。
+ビジュアルレビューは計り知れない価値があります。しかしながら、手作業で数百ものコンポーネントのストーリーをレビューするのは時間がかかります。理想的には、意図的な変更 (追加／改善) だけを見て自動的に意図しないリグレッションを捕捉したいのです。
 
 第 5 章では、ビジュアルレビューの最中のノイズを軽減し時間の経過に耐えうるコンポーネントであることを保証するテスト戦略を紹介します。

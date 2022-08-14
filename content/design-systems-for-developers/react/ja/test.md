@@ -11,7 +11,7 @@ commit: 'a856d54'
 
 ## UI コンポーネントテストの基本
 
-始める前に、テストの意味を理解しましょう。各 UI コンポーネントはインプット(プロパティ)のセットを与えられ意図したルック＆フィールを記述するストーリー(順序)を含みます。ストーリーはそれからエンドユーザーのブラウザまたはデバイスで描画されます。
+始める前に、テストの意味を理解しましょう。各 UI コンポーネントはインプット (プロパティ) のセットを与えられ意図したルック＆フィールを記述するストーリー (順序) を含みます。ストーリーはそれからエンドユーザーのブラウザまたはデバイスで描画されます。
 
 ![Component states are combinatorial](/design-systems-for-developers/component-test-cases.png)
 
@@ -25,7 +25,7 @@ commit: 'a856d54'
 
 **サポートされたコンポーネントの状態を明確にすること**はどの入力の組み合わせが与えられた状態を引き起こすのか明らかにします。 ノイズを避けるためにサポートされない状態をきっぱり省きます。
 
-**一貫してコンポーネントを描画すること**は任意に提供される(Math.random())または関連する(Date.now())入力によりトリガーされる変異性を軽減します
+**一貫してコンポーネントを描画すること**は任意に提供される (Math.random()) または関連する (Date.now()) 入力によりトリガーされる変異性を軽減します
 
 > “最適なストーリーはコンポーネントが放し飼いの中で遭遇しうる全てのコンポーネントの状態を提供することだ。” – Tim Hingston、GraphQL のテックリード
 
@@ -39,7 +39,7 @@ commit: 'a856d54'
 
 もしあなたがモダンな UI を構築しているなら、ビジュアルテストは時間を浪費する手作業のレビューからフロントエンドチームを助けコストの高い UI のリグレッションを防ぎます。
 
-<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">前の章</a>で[Chromatic](https://www.chromatic.com/)を使って Storybook を配信する方法を学びました。各`Button`コンポーネントの周りに太い赤線を加えそれからチームメイトからのフィードバックをリクエストしました。
+<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">前の章</a>で [Chromatic](https://www.chromatic.com/) を使って Storybook を配信する方法を学びました。各`Button`コンポーネントの周りに太い赤線を加えそれからチームメイトからのフィードバックをリクエストしました。
 
 ![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
@@ -51,11 +51,11 @@ commit: 'a856d54'
 
 ![Second build in Chromatic with changes](/design-systems-for-developers/chromatic-second-build-from-pr.png)
 
-変更点が意図的なもの(改善)なのか意図しないもの(バグ)なのか確認のためにレビューしましょう。変更点を受け入れたら、テスト基準が更新されます。そのテスト基準は続くコミットがバグを検知するために新しい基準と比較されるでしょう。
+変更点が意図的なもの (改善) なのか意図しないもの (バグ) なのか確認のためにレビューしましょう。変更点を受け入れたら、テスト基準が更新されます。そのテスト基準は続くコミットがバグを検知するために新しい基準と比較されるでしょう。
 
 ![Reviewing changes in Chromatic](/design-systems-for-developers/chromatic-review-changes-pr.png)
 
-前の章で、チームメイトが何らかの理由で`Button`の周りに赤い線を引くことを望みませんでした。未完了であることを示すために変更を否決しましょう。
+前の章で、チームメイトが何らかの理由で `Button` の周りに赤い線を引くことを望みませんでした。未完了であることを示すために変更を否決しましょう。
 
 ![Review deny in Chromatic](/design-systems-for-developers/chromatic-review-deny.png)
 
@@ -69,13 +69,13 @@ React、Vue、Angular のようなモダンなビューレイヤーにおいて�
 
 ![Unit test components](/design-systems-for-developers/component-unit-testing.gif)
 
-例えば、私たちのリンクコンポーネントはリンク URL を生成するシステム(“LinkWrappers”の ReactRouter、Gatsby、Next.js)と組み合わせると少し複雑です。実装のミスが href の値のないリンクを招く可能性があります。
+例えば、私たちのリンクコンポーネントはリンク URL を生成するシステム (“LinkWrappers”の ReactRouter、Gatsby、Next.js) と組み合わせると少し複雑です。実装のミスが href の値のないリンクを招く可能性があります。
 
 視覚的に、`href`属性がそこにある正しい場所を指しているか見るのは不可能です、それがユニットテストがリグレッションを避けるために適切になり得る理由です。
 
 #### href のユニットテスト
 
-`Link`コンポーネントにユニットテストを追加しましょう。 [Create React App](https://create-react-app.dev/)はすでにユニットテストの環境をセットアップしており、単純に`src/Link.test.js`ファイルを作成するだけでテストができます：
+`Link`コンポーネントにユニットテストを追加しましょう。 [Create React App](https://create-react-app.dev/) はすでにユニットテストの環境をセットアップしており、単純に`src/Link.test.js`ファイルを作成するだけでテストができます：
 
 ```js:title=src/Link.test.js
 import { render } from '@testing-library/react';
@@ -130,7 +130,7 @@ jobs:
 
 ## アクセシビリティテスト
 
-“アクセシビリティが意味するのは全ての人が、障害を持つ人をふくめ、アプリを理解し、操作し、インタラクションできることだ...サイトを渡り歩くためにタブキーとスクリーンリーダーを使うようなコンテンツにアクセスするオンライン[例を含む]での別の方法もある。” と述べるのは開発者の[Alex Wilson from T.Rowe Price](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347)です。
+“アクセシビリティが意味するのは全ての人が、障害を持つ人をふくめ、アプリを理解し、操作し、インタラクションできることだ...サイトを渡り歩くためにタブキーとスクリーンリーダーを使うようなコンテンツにアクセスするオンライン [例を含む] での別の方法もある。” と述べるのは開発者の [Alex Wilson from T.Rowe Price](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347) です。
 
 [世界保健機構](https://www.who.int/disabilities/world_report/2011/report/en/)によると人口の 15 パーセントが障害の影響を受けています。デザインシステムはユーザーインターフェースの構築ブロックを含むためアクセシビリティに大きな影響があります。ただ一つのコンポーネントのアクセシビリティを改善することは会社の利益を超えるコンポーネントの実装を意味します。
 
@@ -201,7 +201,7 @@ export const decorators = [
 
 ![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y-6-0.png)
 
-そこに DOM エレメントのアクセシビリティレベル(違反と合格)を表示します。“highlight results”チェックボックスを押して UI コンポーネントの本来の場所に違反を表示します。
+そこに DOM エレメントのアクセシビリティレベル (違反と合格) を表示します。“highlight results”チェックボックスを押して UI コンポーネントの本来の場所に違反を表示します。
 
 <video autoPlay muted playsInline loop>
   <source
@@ -216,15 +216,15 @@ export const decorators = [
 
 逆説的に、テストは時間を節約しますがまた保守に伴い開発速度は停滞します。やるべきテストに賢明でありましょう - 全てではなく。ソフトウェア開発は多くの戦略がありますが、いくつかはデザインシステムに合わない難しい方法でした。
 
-#### スナップショットテスト(Jest)
+#### スナップショットテスト (Jest)
 
-これは UI コンポーネントのコード出力をキャプチャし前のバージョンと比較するテクニックです。UI コンポーネントのマークアップのテストは実装の詳細(コード)をテストすることになります、ブラウザでユーザ体験をテストするものではありません。
+これは UI コンポーネントのコード出力をキャプチャし前のバージョンと比較するテクニックです。UI コンポーネントのマークアップのテストは実装の詳細 (コード) をテストすることになります、ブラウザでユーザ体験をテストするものではありません。
 
-コードスナップショットの差分は予測不可能で擬陽性になる傾向があります。コンポーネントレベルで、コードのスナップショットはデザイントークン、CSS、サードパーティの API の更新(Web フォント、Stripe フォーム、Google マップ、等)のような全体的な変更の理由を説明するものではありません。実際には、開発者は「全て承認する」かスナップショットテストを完全に無視することに頼ります。
+コードスナップショットの差分は予測不可能で擬陽性になる傾向があります。コンポーネントレベルで、コードのスナップショットはデザイントークン、CSS、サードパーティの API の更新 (Web フォント、Stripe フォーム、Google マップ、等) のような全体的な変更の理由を説明するものではありません。実際には、開発者は「全て承認する」かスナップショットテストを完全に無視することに頼ります。
 
-> 多くのコンポーネントスナップショットテストは実際スナップショットテストの悪いバージョンだ。アウトプットをテストしよう。描画したスナップショットで、隠れた(爆発する！)マークアップではなく。 – Mark Dalgliesh、SEEK のフロントエンド基盤、CSS モジュールのクリエイター
+> 多くのコンポーネントスナップショットテストは実際スナップショットテストの悪いバージョンだ。アウトプットをテストしよう。描画したスナップショットで、隠れた (爆発する！) マークアップではなく。 – Mark Dalgliesh、SEEK のフロントエンド基盤、CSS モジュールのクリエイター
 
-#### エンドツーエンドテスト(Selenium、Cypress)
+#### エンドツーエンドテスト (Selenium、Cypress)
 
 エンドツーエンドテストはユーザフローをシミュレートするためにコンポーネントを行き来します。サインアップやチェックアウトのプロセスのようなアプリを検証するフローに最も適しています。機能が複雑になればなるほど、このテスト戦略は役に立ちます。
 

@@ -4,16 +4,16 @@ tocTitle: 'イントロダクション'
 description: 'デザインシステムのために最新のリリース可能なツールのガイド'
 ---
 
-<div class="aside">このガイドはデザインシステムの構築方法を学ぶ<b>プロの開発者</b>向けです。JavaScript、Git、継続的インテグレーションの中級レベルの経験が推奨されます。またStorybookの基本、ストーリーを書くこととコンフィングファイルを編集すること(<a href="/intro-to-storybook">Intro to Storybook</a>で基本を教えています)を知っている必要があります。
+<div class="aside">このガイドはデザインシステムの構築方法を学ぶ<b>プロの開発者</b>向けです。JavaScript、Git、継続的インテグレーションの中級レベルの経験が推奨されます。また Storybook の基本、ストーリーを書くこととコンフィングファイルを編集すること (<a href="/intro-to-storybook">Intro to Storybook</a> で基本を教えています) を知っている必要があります。
 </div>
 
 <br/>
 
-デザインシステムは幅広く拡大しています。Airbnb のようなテックの重鎮からフットワークの軽いスタートアップまで、どんな形態の組織においても時間とお金の節約に UI パターンを再利用しています。しかし BBC、Airbnb、IBM、Microsoft と多くの開発者により作られるデザインシステムの間には隔たりがあります。
+デザインシステムは幅広く拡大しています。Airbnb のようなテック界の重鎮からフットワークの軽いスタートアップまで、どんな形態の組織においても時間とお金の節約のために UI パターンを再利用しています。しかし BBC、Airbnb、IBM、Microsoft により作られるデザインシステムとその他大勢の開発者により作られるものの間には隔たりがあります。
 
 なぜ優れたデザインシステムチームはそれらのツールとテクニックを用いるのでしょうか？共著者の Tom と私はベストプラクティスとみなした Storybook のコミュニティから成功しているデザインシステムの特徴を調べました。
 
-このステップ・バイ・ステップガイドはスケールした本番のデザインシステムで使われている自動化ツールとこまやかなワークフローを明らかにします。既存のコンポーネントライブラリからデザインシステムの組み立てをひと通り行い、それからコアサービス、ライブラリ、ワークフローを構築します。
+このステップ・バイ・ステップガイドは大規模な本番のデザインシステムで使われている自動化ツールとこまやかなワークフローを明らかにします。既存のコンポーネントライブラリからデザインシステムの組み立てをひと通り行い、それからコアサービス、ライブラリー、ワークフローを構築します。
 
 ![Design system overview](/design-systems-for-developers/design-system-overview.jpg)
 
@@ -27,7 +27,7 @@ description: 'デザインシステムのために最新のリリース可能な
 
 ![Design systems bridge design and development](/design-systems-for-developers/design-system-context.jpg)
 
-デザイナーはデザインシステムを構築するツールについてよく話題にします。デザインシステムの全体的なスコープはアセット(Sketch、Figma、その他)、デザイン原則の包括、仕組み作りへの貢献、管理、その他諸々を含みます。これらのトピックを深掘りするデザイナー中心のガイドは他で豊富にあるためここでは繰り返しません。
+デザイナーはデザインシステムを構築するツールについてよく話題にします。デザインシステムの全体的なスコープはアセット (Sketch、Figma、その他) 、デザイン原則の包括、仕組み作りへの貢献、管理、その他諸々を含みます。これらのトピックを深掘りするデザイナー中心のガイドは他で豊富にあるためここでは繰り返しません。
 
 開発者にとってはっきりしていることがいくつかあります。本番のデザインシステムはその背後に UI コンポーネントとフロントエンドの基盤を組み込む必要があることです。当ガイドで触れるデザインシステムは３つのパートに分かれます：
 
@@ -50,7 +50,7 @@ Storybook は[BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/stor
 #### ビルドコンポーネント
 
 - 📚 [Storybook](http://storybook.js.org) UI コンポーネントの開発とドキュメントの自動生成
-- ⚛️ [React](https://reactjs.org/) 宣言的コンポーネント中心の UI(create-react-app を介して)
+- ⚛️ [React](https://reactjs.org/) 宣言的コンポーネント中心の UI (create-react-app を介して)
 - 💅 [Styled-components](https://www.styled-components.com/) コンポーネントスコープのスタイリング
 - ✨ [Prettier](https://prettier.io/) 自動コードフォーマット
 
@@ -58,7 +58,7 @@ Storybook は[BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/stor
 
 - 🚥 [GitHub Actions](https://github.com/features/actions) 継続的インテグレーション
 - 📐 [ESLint](https://eslint.org/) JavaScript 静的解析ツール
-- ✅ [Chromatic](https://chromatic.com) コンポーネント内の目に見えるバグを捕捉(Storybook の保守管理者よる開発)
+- ✅ [Chromatic](https://chromatic.com) コンポーネント内の目に見えるバグを捕捉 (Storybook の保守管理者よる開発)
 - 🃏 [Jest](https://jestjs.io/) ユニットテストコンポーネント
 - 📦 [npm](https://npmjs.com) ライブラリの配布
 - 🛠 [Auto](https://github.com/intuit/auto) リリース管理ワークフロー
@@ -79,7 +79,7 @@ Storybook は[BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/stor
 
 #### 分離した UI コンポーネントを構築する
 
-全てのデザインシステムは UI コンポーネントで構成されています。私たちは Storybook をユーザアプリの外側に分離して構築する「ワークベンチ」として使います。それからコンポーネントの永続性(アクション、A11y、コントロール、インタラクション)の増進を手助けする時間節約アドオンを統合します。
+全てのデザインシステムは UI コンポーネントで構成されています。私たちは Storybook をユーザアプリの外側に分離して構築する「ワークベンチ」として使います。それからコンポーネントの永続性 (アクション、A11y、コントロール、インタラクション) の増進を手助けする時間節約アドオンを統合します。
 
 #### 合意を得てフィードバックを集めるためのレビュー
 

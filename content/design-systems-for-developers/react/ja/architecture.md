@@ -7,7 +7,7 @@ commit: '798276b'
 
 第 2 章では、既存のコンポーネントライブラリからデザインシステムを抽出します。その過程で、どのコンポーネントがデザインに属するのか決定し開発者が着手時に直面する共通の課題を浮き彫りにします。
 
-大企業では、この活動はデザイン、エンジニアリング、そしてプロダクトチームの協働で行われます。[Chromatic](https://www.chromatic.com/) (Storybook の開発会社)と[Storybook](https://storybook.js.org/)は 3 つ以上の領域に渡り 1400 超のオープンソースの貢献者を擁する活発なフロントエンド基盤を共有しているため、あなたのために当プロセスの概略を伝えていきます。
+大企業では、この活動はデザイン、エンジニアリング、そしてプロダクトチームの協働で行われます。[Chromatic](https://www.chromatic.com/) (Storybook の開発会社)と [Storybook](https://storybook.js.org/) は 3 つ以上の領域に渡り 1400 超のオープンソースの貢献者を擁する活発なフロントエンド基盤を共有しているため、あなたのために当プロセスの概略を伝えていきます。
 
 ## 課題
 
@@ -35,7 +35,7 @@ commit: '798276b'
 
 ## create-react-app と GitHub でリポジトリをセットアップする
 
-React は[State of JS](https://stateofjs.com/)の調査によると最も人気のあるビューレイヤーです。Storybook の大多数が React を使っているので、それを[create-react-app](https://github.com/facebook/create-react-app)のボイラープレートにそって使います。
+React は [State of JS](https://stateofjs.com/) の調査によると最も人気のあるビューレイヤーです。Storybook の大多数が React を使っているので、それを [create-react-app](https://github.com/facebook/create-react-app) のボイラープレートにそって使います。
 
 コマンドラインで、次のコマンドを実行してください:
 
@@ -50,14 +50,14 @@ yarn install
 ```
 
 <div class="aside">
-💡 私たちは<a href="https://github.com/Rich-Harris/degit">degit</a>を使ってGitHubからフォルダーをダウンロードします。手動で行いたい場合は、<a href="https://github.com/chromaui/learnstorybook-design-system-template">ここ</a>でコンテンツを取得できます。
+💡 私たちは <a href="https://github.com/Rich-Harris/degit">degit</a> を使って GitHub からフォルダーをダウンロードします。手動で行いたい場合は、<a href="https://github.com/chromaui/learnstorybook-design-system-template">ここ</a>でコンテンツを取得できます。
 </div>
 
-すべてインストールしたら、それを GitHub(デザインシステムのコードをホストするために使います)へプッシュできます。 GitHub.com にサインインして新しいリポジトリの作成から始めましょう:
+すべてインストールしたら、それを GitHub (デザインシステムのコードをホストするために使います) へプッシュできます。 GitHub.com にサインインして新しいリポジトリの作成から始めましょう:
 
 ![Create a GitHub repository](/design-systems-for-developers/create-github-repository.png)
 
-それから GitHub の案内にしたがい(今のところ空っぽの)リポジトリを作成します:
+それから GitHub の案内にしたがい (今のところ空っぽの) リポジトリを作成します:
 
 ```shell
 git init
@@ -72,7 +72,7 @@ git push -u origin main
 
 ![Initial commit to GitHub repository](/design-systems-for-developers/created-github-repository.png)
 
-<div class="aside">💡デザインシステムの作成に有効な他の方法は生のHTML/CSSを配布、他のビューレイヤーを使用、Svelteでコンポーネントをコンパイル、Webコンポーエントの使用を含みます。チームが機能するものを選択してください。</div>
+<div class="aside">💡デザインシステムの作成に有効な他の方法は生の HTML/CSS を配布、他のビューレイヤーを使用、Svelte でコンポーネントをコンパイル、Webコンポーエントの使用を含みます。チームが機能するものを選択してください。</div>
 
 ## 何を含め何を含めないか
 
@@ -86,7 +86,7 @@ git push -u origin main
 
 ## 一覧を作成する
 
-最初のタスクは最も使われるコンポーネントを特定し一覧を作成することです。それはしばしば共通の UI パターンと分かる各種 Web サイトやアプリの画面を手作業で列挙したものを含めます。[Brad Frost](http://bradfrost.com/blog/post/interface-inventory/)や[Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517)のようなデザイナーがコンポーネントを一覧化する手軽な方法を発信しているため当チュートリアルではこれ以上詳細には触れません。
+最初のタスクは最も使われるコンポーネントを特定し一覧を作成することです。それはしばしば共通の UI パターンと分かる各種 Web サイトやアプリの画面を手作業で列挙したものを含めます。[Brad Frost](http://bradfrost.com/blog/post/interface-inventory/) や [Nathan Curtis](https://medium.com/eightshapes-llc/the-component-cut-up-workshop-1378ae110517) のようなデザイナーがコンポーネントを一覧化する手軽な方法を発信しているため当チュートリアルではこれ以上詳細には触れません。
 
 開発者にとって便利な経験則は：
 
@@ -95,15 +95,15 @@ git push -u origin main
 
 ![Contents of a design system](/design-systems-for-developers/design-system-grid.png)
 
-この方法にしたがい、UI の基礎を最終決定します : アバター、バッジ、ボタン、チェックボックス、インプット、ラジオ、セレクト、テキストエリア、(コード向けの)ハイライト、アイコン、リンク、ツールチップ、などなど。これらの組み立てブロックはクライアントアプリにて無数の固有な特徴とレイアウトを構築するために様々な方法で設定されます。
+この方法にしたがい、UI の基礎を最終決定します : アバター、バッジ、ボタン、チェックボックス、インプット、ラジオ、セレクト、テキストエリア、 (コード向けの) ハイライト、アイコン、リンク、ツールチップ、などなど。これらの組み立てブロックはクライアントアプリにて無数の固有な特徴とレイアウトを構築するために様々な方法で設定されます。
 
 ![Variants in one component](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
 私たちはリポジトリをより簡潔に説明するために当チュートリアル向けのコンポーネントのサブセットを選びました。いくつかのチームはまたテーブルやフォームのような他のコンポーネントに対してはサードパーティコンポーネントをデザインシステムに含めます。
 
-<div class="aside">💡 CSS-in-JS: 私たちは<a href="https://www.styled-components.com">styled-components</a>を使っています、コンポーネントのスコープ化ができるライブラリです。それはクラスを手動で絞り込むこと、CSSモジュール、等を含むコンポーネントをスタイリングするための有効な方法です。</div>
+<div class="aside">💡 CSS-in-JS: 私たちは <a href="https://www.styled-components.com">styled-components</a> を使っています、コンポーネントのスコープ化ができるライブラリです。それはクラスを手動で絞り込むこと、CSSモジュール、等を含むコンポーネントをスタイリングするための有効な方法です。</div>
 
-UI コンポーネントに加え、タイポグラフィ、色、スペーシングなどのスタイリング定数を含めることは意味があります、それはプロジェクトを横断して再利用されます。デザインシステムにおいてグローバルスタイル変数の命名体系は「デザイントークン」と呼ばれています。当ガイドではデザイントークンを支える理論は深掘りしませんが、オンラインで詳しく学べます(こちらに[良い記事](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)があります)。
+UI コンポーネントに加え、タイポグラフィ、色、スペーシングなどのスタイリング定数を含めることは意味があります、それはプロジェクトを横断して再利用されます。デザインシステムにおいてグローバルスタイル変数の命名体系は「デザイントークン」と呼ばれています。当ガイドではデザイントークンを支える理論は深掘りしませんが、オンラインで詳しく学べます (こちらに[良い記事](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)があります) 。
 
 ## 開発を始めましょう
 

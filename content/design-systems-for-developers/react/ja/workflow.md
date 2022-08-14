@@ -31,7 +31,7 @@ git checkout -b create-avatar-list-component
 ![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist-6-0.png)
 
 <div class="aside">
-💡 Storybookは<code>*.stories.js</code>で終わるファイルを自動的に検知してそれらを表示します。
+💡 Storybook は <code>*.stories.js</code> で終わるファイルを自動的に検知してそれらを表示します。
 </div>
 
 いいですね！では`AvatarList`をサポートする各 UI の状態と関連付けましょう。一見して、`AvatarList`が`small`と`loading`のような`Avatar`プロパティのいくつかをサポートしているのは明らかです。

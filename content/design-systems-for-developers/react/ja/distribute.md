@@ -22,14 +22,14 @@ commit: 'bba7cb0'
 生まれたてのデザインシステムにとって、最も直接的な方法は次をカプセル化する単一バージョンのパッケージを発行することです：
 
 - 🏗 共通 UI コンポーネント
-- 🎨 デザイントークン(スタイル変数、として知られる)
+- 🎨 デザイントークン (スタイル変数、として知られる)
 - 📕 ドキュメンテーション
 
 ![Package a design system](/design-systems-for-developers/design-system-package.jpg)
 
 ## エクスポートのためデザインシステムを準備する
 
-デザインシステムの出発点に[Create React App](https://github.com/facebook/create-react-app) (CRA)を使ったため、まだ初期アプリの跡が残っています。これからそれらをきれいにしましょう。
+デザインシステムの出発点に [Create React App](https://github.com/facebook/create-react-app) (CRA) を使ったため、まだ初期アプリの跡が残っています。これからそれらをきれいにしましょう。
 
 最初に、より説明的に README.md を更新します。
 
@@ -58,7 +58,7 @@ export * from './Icon';
 export * from './Link';
 ```
 
-いくつか追加の開発パッケージが必要で、ビルドプロセスの手助けに[`@babel/cli`](https://www.npmjs.com/package/@babel/cli)と[`cross-env`](https://www.npmjs.com/package/cross-env)を使います。
+いくつか追加の開発パッケージが必要で、ビルドプロセスの手助けに [`@babel/cli`](https://www.npmjs.com/package/@babel/cli) と [`cross-env`](https://www.npmjs.com/package/cross-env) を使います。
 
 コマンドラインで、次のコマンドを発行します：
 
@@ -68,7 +68,7 @@ yarn add --dev @babel/cli cross-env
 
 パッケージをインストールしたら、ビルドプロセスを実装する必要があります。
 
-ありがたいことに、Create React App (CRA)はすでにこちらを引き受けています。すでにある`build`スクリプトを使って`dist`ディレクトリへデザインシステムをビルドします:
+ありがたいことに、Create React App (CRA) はすでにこちらを引き受けています。すでにある`build`スクリプトを使って`dist`ディレクトリへデザインシステムをビルドします:
 
 ```json:title=package.json
 {
@@ -121,7 +121,7 @@ question license (MIT):
 question private: no
 ```
 
-コマンドは上記一覧の質問をたずねます、いくつかは前もって埋められており、他は考える必要があります。npm のパッケージに固有の名前 (`learnstorybook-design-system`は使用できないでしょう -- `@your-npm-username/learnstorybook-design-system`が良い選択です)。
+コマンドは上記一覧の質問をたずねます、いくつかは前もって埋められており、他は考える必要があります。npm のパッケージに固有の名前 (`learnstorybook-design-system`は使用できないでしょう --`@your-npm-username/learnstorybook-design-system`が良い選択です) 。
 
 概して、質問の結果新しい値で`package.json`を更新します：
 
@@ -199,7 +199,7 @@ GitHub を確認すると、`auto`が使わせたいラベルのセットが見�
 yarn auto changelog
 ```
 
-上記コマンドは現時点で作成したすべてコミットの長いチェンジログ(そしてデフォルトブランチにプッシュしてきた警告も、それは近いうちに止めるべきでしょう)を生成します。
+上記コマンドは現時点で作成したすべてコミットの長いチェンジログ (そしてデフォルトブランチにプッシュしてきた警告も、それは近いうちに止めるべきでしょう) を生成します。
 
 自動生成されるチェンジログは有用ですが、それだけに失いたくないものなので、手動で編集してユーザに最も役に立つ方法でメッセージを作り上げるのは良い考えです。この場合、ユーザは開発過程のコミットすべてを知る必要はありません。最初の v0.1.0 バージョンのための良い簡単なメッセージを作成しましょう：
 
@@ -234,7 +234,7 @@ npm publish --access=public
 ```
 
 <div class="aside">
-💡 パッケージの発行に<a href="https://classic.yarnpkg.com/en/docs/cli/">yarn</a>を使っているなら適切なコマンドを適用することを忘れないでください。 
+💡 パッケージの発行に <a href="https://classic.yarnpkg.com/en/docs/cli/">yarn</a> を使っているなら適切なコマンドを適用することを忘れないでください。 
 </div>
 
 そして Auto を使って GitHub 上にリリースを作成します：
@@ -264,7 +264,7 @@ yarn auto release
 }
 ```
 
-これで、`yarn release`を実行すると、自動化された形式で上記で実行したすべてのステップ(自動生成されたチェンジログの使用を除いて)を通します。デフォルトブランチの全てのコミットが発行されます。
+これで、`yarn release`を実行すると、自動化された形式で上記で実行したすべてのステップ (自動生成されたチェンジログの使用を除いて) を通します。デフォルトブランチの全てのコミットが発行されます。
 
 おめでとうございます！デザインシステムのリリースを自動的に発行するための基盤を設定しました。今度は継続的インテグレーションでリリースを自動化する方法を学びましょう。
 
@@ -280,7 +280,7 @@ GitHub シークレットはリポジトリに機密情報の格納を許可し�
 
 ![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
 
-**New secret**ボタンを押してください。名前に`NPM_TOKEN`を使い本章で先ほど取得したトークンを貼り付けます。
+**New secret**ボタンを押してください。名前に `NPM_TOKEN` を使い本章で先ほど取得したトークンを貼り付けます。
 
 ![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
 
@@ -335,7 +335,7 @@ jobs:
 
 保存してリモートリポジトリへ変更をコミットします。
 
-上手くいきました！これでデフォルトブランチへ PR(プルリクエスト)をマージするたび、自動的に新しいバージョンを発行し、追加したラベルによる適切なバージョン番号を加算します。
+上手くいきました！これでデフォルトブランチへ PR (プルリクエスト) をマージするたび、自動的に新しいバージョンを発行し、追加したラベルによる適切なバージョン番号を加算します。
 
 <div class="aside">💡 成長するデザインシステムに役立つ多くの特徴とインテグレーションのすべてをカバーしませんでした。<a href="https://github.com/intuit/auto">こちらの</a>ドキュメントを参照してください。</div>
 
@@ -349,7 +349,7 @@ jobs:
 
 このチュートリアルの最初で、React と Styled Components を含む人気のフロントエンドスタックを標準化しました。それはサンプルアプリもまたデザインシステムの最大限の利点を得るために React と Styled Components を使う必要があることを意味します。
 
-<div class="aside">💡 SvelteやWebコンポーネントのような他の有望な手段がフレームワークに依存しないUIコンポーネントを送り出すことを可能にするかもしれません。けれども、それらは比較的新しく、明文化されず、ひろく採用されていません、そのため本ガイドにはまだ含まれていません。</div>
+<div class="aside">💡 Svelte や Webコンポーネントのような他の有望な手段がフレームワークに依存しない UIコンポーネントを送り出すことを可能にするかもしれません。けれども、それらは比較的新しく、明文化されず、ひろく採用されていません、そのため本ガイドにはまだ含まれていません。</div>
 
 サンプルアプリは[コンポーネント駆動開発](https://www.componentdriven.org/)、コンポーネントに始まりページで終わる下層から UI を開発するためのアプリ開発手法、を促進するために Storybook を使います。デモの最中 2 つの Storybook を並行して実行します、ひとつはサンプルアプリでもう一つはデザインシステムです。
 
@@ -417,7 +417,7 @@ module.exports = {
 yarn add @your-npm-username/learnstorybook-design-system
 ```
 
-デザインで定義した同じグローバルスタイルを使う必要があります、そのため[`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering)コンフィグファイルを更新し[global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators)を追加する必要があります。
+デザインで定義した同じグローバルスタイルを使う必要があります、そのため[`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering)コンフィグファイルを更新し [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators) を追加する必要があります。
 
 ```js:title=.storybook/preview.js
 import React from 'react';

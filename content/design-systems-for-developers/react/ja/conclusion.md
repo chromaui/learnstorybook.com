@@ -19,15 +19,15 @@ description: 'デザインシステムの成長が時間を節約し生産性を
 - [サンプルデザインシステムリポジトリ](https://github.com/chromaui/learnstorybook-design-system)
 - [サンプルアプリリポジトリ](https://github.com/chromaui/learnstorybook-design-system-example-app)
 
-サンプルコードは[Storybook’s own design system](https://github.com/storybookjs/design-system) (SDS)をベースにしており数万もの開発者に力を与えています。SDS は進行中です – 私たちはコミュニティへの貢献を歓迎します。貢献者として、デザインシステムのベストプラクティスと新しい技術の実践的な経験を手に入れるでしょう。SDS はまた Storybook チームが最前線の特徴を実演する場でもあります。
+サンプルコードは [Storybook’s own design system](https://github.com/storybookjs/design-system) (SDS)をベースにしており数万もの開発者に力を与えています。SDS は進行中です – 私たちはコミュニティへの貢献を歓迎します。貢献者として、デザインシステムのベストプラクティスと新しい技術の実践的な経験を手に入れるでしょう。SDS はまた Storybook チームが最前線の特徴を実演する場でもあります。
 
 ## 私たちについて
 
-_Design Systems for Developers_ は[Dominic Nguyen](https://twitter.com/domyen)と[Tom Coleman](https://twitter.com/tmeasday)によって作成されました。Dominic は Storybook のユーザーインターフェース、ブランド、デザインシステムをデザインしました。Tom はフロントエンドアーキテクチャにおける Storybook のステアリングコミッティーの一員です。彼は Story フォーマットのコンポーネント、アドオン API、パラメータ API に取り組みました。
+_Design Systems for Developers_ は [Dominic Nguyen](https://twitter.com/domyen) と [Tom Coleman](https://twitter.com/tmeasday) によって作成されました。Dominic は Storybook のユーザーインターフェース、ブランド、デザインシステムをデザインしました。Tom はフロントエンドアーキテクチャにおける Storybook のステアリングコミッティーの一員です。彼は Story フォーマットのコンポーネント、アドオン API、パラメータ API に取り組みました。
 
-エキスパートガイダンスは[Kyle Suss](https://github.com/kylesuss)、Storybook のデザインシステムのテックリード、そして[Michael Shilman](https://twitter.com/mshilman)、Storybook Docs の作成者。
+エキスパートガイダンスは [Kyle Suss](https://github.com/kylesuss)、Storybook のデザインシステムのテックリード、そして [Michael Shilman](https://twitter.com/mshilman)、Storybook Docs の作成者。
 
-コンテンツ、コード、本番環境は[Chromatic](https://www.chromatic.com/)によって提供されました。InVision の[Design Forward Fund](https://www.invisionapp.com/design-forward-fund)は承認をもってキックスタートの製品を丁重に助けてくれました。私たちは継続的なメンテナンスとこのような新しいガイドを出来る限り作るためにスポンサーを探しています。詳細は[Dominic](mailto:dom@chromatic.com)へメールをしてください。
+コンテンツ、コード、本番環境は [Chromatic](https://www.chromatic.com/) によって提供されました。InVision の [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) は承認をもってキックスタートの製品を丁重に助けてくれました。私たちは継続的なメンテナンスとこのような新しいガイドを出来る限り作るためにスポンサーを探しています。詳細は [Dominic](mailto:dom@chromatic.com) へメールをしてください。
 
 ## 視点を広げる
 
@@ -57,7 +57,7 @@ _Design Systems for Developers_ は[Dominic Nguyen](https://twitter.com/domyen)�
 
 #### Storybook はデザインツールを統合しますか？
 
-はい！Storybook コミュニティはデザインツールを簡単に統合するアドオンを作成しています。たとえば、InVision の[Design System Manager](https://www.invisionapp.com/design-system-manager)は Storybook を統合して InVision アプリにストーリーを表示します。また[design tokens](https://github.com/UX-and-I/storybook-design-token)、[Sketch](https://github.com/chrisvxd/story2sketch)、[Figma](https://github.com/pocka/storybook-addon-designs)向けのコミュニティが作成したアドオンもあります。
+はい！Storybook コミュニティはデザインツールを簡単に統合するアドオンを作成しています。たとえば、InVision の [Design System Manager](https://www.invisionapp.com/design-system-manager) は Storybook を統合して InVision アプリにストーリーを表示します。また [design tokens](https://github.com/UX-and-I/storybook-design-token)、[Sketch](https://github.com/chrisvxd/story2sketch)、[Figma](https://github.com/pocka/storybook-addon-designs)向けのコミュニティが作成したアドオンもあります。
 
 ![Design tool integrations](/design-systems-for-developers/storybook-integrations-design.jpg)
 
@@ -67,7 +67,7 @@ _Design Systems for Developers_ は[Dominic Nguyen](https://twitter.com/domyen)�
 
 #### ユーザ側のアプリは想定外なデザインシステムの変更からどのように身を守るのでしょうか？
 
-どんなデザインシステムも完璧ではありません。デザインシステムは必然的にユーザアプリに影響を与えるバグと共に送り出されます。デザインシステムにおいて同じことをしたようにクライアントアプリの Storybook にも自動化テスト(ビジュアル、単体、その他)を編成してこの混乱を軽減しましょう。そうしてブランチの依存関係を更新したら(手動か[Dependabot](https://dependabot.com/)のような自動化サービスで)、クライアントアプリのテスト体制はデザインシステムの来たるリグレッションを補足します。
+どんなデザインシステムも完璧ではありません。デザインシステムは必然的にユーザアプリに影響を与えるバグと共に送り出されます。デザインシステムにおいて同じことをしたようにクライアントアプリの Storybook にも自動化テスト (ビジュアル、単体、その他) を編成してこの混乱を軽減しましょう。そうしてブランチの依存関係を更新したら (手動か [Dependabot](https://dependabot.com/) のような自動化サービスで)、クライアントアプリのテスト体制はデザインシステムの来たるリグレッションを補足します。
 
 ![Design system updates](/design-systems-for-developers/design-system-update.png)
 
