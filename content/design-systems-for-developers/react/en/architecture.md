@@ -2,7 +2,7 @@
 title: 'Architecting systems'
 tocTitle: 'Architecture'
 description: 'How to extract a design system from component libraries'
-commit: '798276b'
+commit: 'c9eced8'
 ---
 
 In chapter 2, we extract a design system from existing component libraries. Along the way, we determine which components belong in the design system and outline common challenges developers face getting started.
@@ -76,7 +76,7 @@ Be sure to replace `your-username` with your account name.
 
 ## What belongs and what doesn’t
 
-Design systems should only contain pure and [presentational components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0). These components deal with how UI appears, respond exclusively to props, do not contain app-specific business logic, and are agnostic to how data loads. These properties are essential in allowing the component to be reusable.
+Design systems should only contain pure and presentational components. These components deal with how UI appears, respond exclusively to props, do not contain app-specific business logic, and are agnostic to how data loads. These properties are essential in allowing the component to be reusable.
 
 Design systems aren’t the superset of every component library in an organization. That would be a headache to keep track of.
 

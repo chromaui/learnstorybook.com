@@ -2,7 +2,7 @@
 title: '通过测试来保证质量'
 tocTitle: '测试'
 description: '如何测试设计系统的界面、功能和无障碍访问'
-commit: 'a856d54'
+commit: 'a676146'
 ---
 
 在第五章，我们将通过自动化脚本来测试设计系统以规避 UI 问题。本章将会深入讨论 UI 组件有哪些属性值得去测试以及如何避免潜在的问题。我们通过研究 Wave、BCC 和 Salesforce 这样的专业团队去寻求在高覆盖范围、低设置难度和低维护成本间之间找到一个平衡点。
@@ -88,7 +88,7 @@ import { Link } from './Link';
 
 // A straightforward link wrapper that renders an <a> with the passed props. What we are testing
 // here is that the Link component passes the right props to the wrapper and itselfs
-const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
+const LinkWrapper = (props) => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
 it('has a href attribute when rendering with linkWrapper', () => {
   const div = document.createElement('div');
@@ -184,7 +184,7 @@ import { withA11y } from '@storybook/addon-a11y';
 import { GlobalStyle } from '../src/components/shared/global';
 
 addDecorator(withA11y);
-addDecorator(story => (
+addDecorator((story) => (
   <>
     <GlobalStyle />
     {story()}

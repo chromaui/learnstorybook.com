@@ -58,7 +58,6 @@ Storybook powers the design systems for [BBC](https://www.bbc.co.uk/iplayer/stor
 - 🚥 [GitHub Actions](https://github.com/features/actions) for continuous integration
 - 📐 [ESLint](https://eslint.org/) for JavaScript linting
 - ✅ [Chromatic](https://chromatic.com) to catch visual bugs in components (by Storybook maintainers)
-- 🃏 [Jest](https://jestjs.io/) for unit testing components
 - 📦 [npm](https://npmjs.com) for distributing the library
 - 🛠 [Auto](https://github.com/intuit/auto) for release management workflow
 
@@ -69,6 +68,7 @@ Storybook powers the design systems for [BBC](https://www.bbc.co.uk/iplayer/stor
 - 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls) to interactively adjust props to experiment with components
 - 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction) for automatic documentation generation from stories
 - 🔍 [Interactions](https://storybook.js.org/addons/@storybook/addon-interactions/) for debugging component interactions
+- 🏎 [Test-runner](https://storybook.js.org/docs/react/writing-tests/test-runner) for automated component testing
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow.jpg)
 

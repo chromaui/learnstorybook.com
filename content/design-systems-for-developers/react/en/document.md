@@ -2,7 +2,7 @@
 title: 'Document for stakeholders'
 tocTitle: 'Document'
 description: 'Drive design system adoption with documentation'
-commit: '107bb03'
+commit: '9e4a7d3'
 ---
 
 [Professional](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [frontend](https://segment.com/blog/driving-adoption-of-a-design-system/) [teams](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) measure design system success by adoption. To get the full work-saving benefits of a design system, components must be widely circulated. Otherwise, what’s the point?
@@ -202,12 +202,11 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
     '@storybook/preset-create-react-app',
     '@storybook/addon-a11y',
-    '@storybook/addon-interactions',
   ],
   framework: '@storybook/react',
-  staticDirs: ['../public'],
 };
 ```
 
@@ -449,12 +448,11 @@ module.exports = {
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
     '@storybook/preset-create-react-app',
     '@storybook/addon-a11y',
-    '@storybook/addon-interactions',
   ],
   framework: '@storybook/react',
-  staticDirs: ['../public'],
 };
 ```
 
