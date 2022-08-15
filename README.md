@@ -256,11 +256,12 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 
 The [Design Systems for Developers tutorial](https://storybook.js.org/tutorials/design-systems-for-developers/) features the following translations. Some are updated; some are not. If you want to expand your Storybook knowledge and learn how to build an industry-grade component library, and you're a native speaker of any of the languages, detailed below. Help us out by updating the translations. Comment in the issue above.
 
-| Translation | Updated |
-| ----------- | ------- |
-| English     | ✅      |
-| Korean      | ❌      |
-| Portuguese  | ❌      |
+| Translation      | Updated |
+| ---------------- | ------- |
+| English          | ✅      |
+| Korean           | ❌      |
+| Portuguese       | ❌      |
+| Mainland Chinese | ❌      |
 
 ---
 
