@@ -27,6 +27,7 @@
     "polished": "^3.4.1",
     "prismjs": "^1.25.0",
     "prop-types": "^15.6.1",
+    "query-string": "^7.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-github-button": "^0.1.11",

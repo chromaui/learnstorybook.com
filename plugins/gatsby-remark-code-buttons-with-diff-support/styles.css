@@ -1,0 +1,19 @@
+.gatsby-code-button-container {
+  touch-action: none;
+  position: relative;
+  top: 10px;
+  z-index: 100;
+  pointer-events: none;
+}
+
+.gatsby-code-button {
+  cursor: pointer;
+  pointer-events: initial;
+  border-radius: 8px;
+  padding: 4px;
+  position: absolute;
+  top: 0;
+  right: 5px;
+  z-index: 100;
+  cursor: pointer;
+}
