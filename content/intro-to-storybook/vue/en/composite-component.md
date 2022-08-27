@@ -171,7 +171,7 @@ Our component is still rough, but now we have an idea of the stories to work tow
 +       <span class="glow-text">
 +         <span>Loading</span> <span>cool</span> <span>state</span>
 +       </span>
-      </div>
++     </div>
     </template>
 
     <div v-else-if="isEmpty" class="list-items">
