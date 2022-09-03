@@ -260,36 +260,54 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 見た通り、コンポーネントだけを切り離して作り始めるのは早くて簡単です。あらゆる状態を掘り下げてテストできるので、高品質で、バグが少なく、洗練された UI を作ることができることでしょう。
 
-## 自動化されたテスト
+## アクセシビリティの問題の検知
 
-Storybook はアプリケーションの UI を作成する際に目視でテストする素晴らしい方法を与えてくれます。ストーリーがあれば、タスクの外観が壊れていないことを確認しながらアプリケーションを開発できます。しかしこれは完全に手動の作業なので、警告やエラーがなく表示されていることを、それぞれの状態を確認しながら誰かがクリックしていかなければなりません。なんとか自動化できないものでしょうか。
+アクセシビリティテストとは，[WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/)のルールと他の業界で認めれたベストプラクティスに基づく経験則に対して，自動化ツールを用いることでレンダリングされた DOM を監視することを指します。これは視覚障害，聴覚障害，認知障害などの障害をお持ちの方を含む，できるだけ多くのユーザーがアプリケーションを利用できるように，明らかなアクセシビリティの低下を検知することで QA の第一線として機能します。
 
-### スナップショットテスト
+Storybook には公式の[accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y)があります。これは，Deque の[axe-core](https://github.com/dequelabs/axe-core)を使っており，[WCAG の問題の 57%](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/)に対応しています。
 
-スナップショットテストとは、特定の入力に対してコンポーネントの「既知の良好な」出力を記録し、将来、出力が変化したコンポーネントを特定できるようにするテスト手法です。これで補完することにより、コンポーネントの新しいバージョンでの変化を Storybook で素早く確認できるようになります。
-
-<div class="aside">
-💡 コンポーネントに渡すデータは変化しないものを使用してください。そうすれば毎回スナップショットテストの結果が同じになります。日付や、ランダムに生成された値に気を付けましょう。
-</div>
-
-[Storyshots アドオン](https://github.com/storybooks/storybook/tree/master/addons/storyshots)を使用することで、それぞれのストーリーにスナップショットテストが作成されます。開発時の依存関係を以下のコマンドで追加してください:
+それでは，どのように動かすのかみてみましょう! 以下のコマンドで addon をインストールします:
 
 ```bash
-yarn add -D @storybook/addon-storyshots react-test-renderer
+yarn add --dev @storybook/addon-a11y
 ```
 
-次に、`src/storybook.test.js` ファイルを以下の内容で作成します:
+addon を利用可能にするために，Storybook の設定ファイル(`.storybook/main.js`)を以下のように設定します:
 
-```js:title=src/storybook.test.js
-import initStoryshots from '@storybook/addon-storyshots';
-initStoryshots();
+```diff:title=.storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  staticDirs: ['../public'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-interactions',
++   '@storybook/addon-a11y',
+  ],
+  framework: '@storybook/react',
+  core: {
+    builder: '@storybook/builder-webpack5',
+  },
+  features: {
+    interactionsDebugger: true,
+  },
+};
 ```
 
-これだけです。`yarn test` を実行すれば以下のような出力が得られます:
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
 
-![Task テストランナー](/intro-to-storybook/task-testrunner.png)
+storybook を再起動すると，この addon が一つのアクセシビリティの問題を検知したことがわかります。[**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI)というエラーメッセージは本質的にタイトルと背景に十分なコントラストがないことを指しています。そのため，アプリケーションの CSS (`src/index.css`にある)の中で，テキストカラーをより暗いグレーに修正する必要があります。
 
-これで `Task` の各ストーリーに対するスナップショットテストが出来ました。`Task` の実装を変更するたびに、変更内容の確認を求められるようになります。
+```diff:title=src/index.css
+.list-item.TASK_ARCHIVED input[type="text"] {
+- color: #a0aec0;
++ color: #4a5568;
+  text-decoration: line-through;
+}
+```
+
+以上です！これで，UI のアクセシビリティ向上の最初のステップが完了です。アプリケーションをさらに複雑にしても，他の全てのコンポーネントに対してこのプロセスを繰り返すことができ，追加のツールやテスト環境を準備する必要はありません。
 
 <div class="aside">
 💡 Git へのコミットを忘れずに行ってください！
