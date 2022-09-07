@@ -207,7 +207,7 @@ Storybook nos dio una excelente manera de probar visualmente nuestra aplicación
 
 La prueba de instantáneas se refiere a la práctica de registrar la salida "correcta" de un componente para una entrada dada y luego en el futuro marcar el componente siempre que la salida cambie. Esto complementa a Storybook, porque es una manera rápida de ver la nueva versión de un componente y verificar los cambios.
 
-Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Usalo agregando una dependencia en modo desarrollo en el paquete:
+Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úsalo agregando una dependencia en modo desarrollo en el paquete:
 
 ```bash
 yarn add --dev @storybook/addon-storyshots react-test-renderer
