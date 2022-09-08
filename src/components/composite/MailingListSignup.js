@@ -123,7 +123,7 @@ const MailingListSignup = (props) => {
       {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
         <FormWrapper onSubmit={handleSubmit}>
           <MailingListFormUI
-            value={values.email}
+            value={values && values.email}
             handleChange={handleChange}
             handleBlur={handleBlur}
             isSubmitting={isSubmitting}

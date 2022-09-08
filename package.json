@@ -7,7 +7,7 @@
     "@storybook/design-system": "7.8.5",
     "@storybook/theming": "^6.5.10",
     "cheerio": "^1.0.0-rc.12",
-    "formik": "^1.5.7",
+    "formik": "^2.2.9",
     "gatsby": "^4.22.0",
     "gatsby-plugin-facebook-pixel": "^1.0.8",
     "gatsby-plugin-google-analytics": "^4.22.0",
@@ -22,13 +22,13 @@
     "gatsby-transformer-remark": "^5.22.0",
     "lodash": "^4.17.21",
     "pluralize": "^8.0.0",
-    "polished": "^3.4.1",
+    "polished": "^4.2.2",
     "prismjs": "^1.29.0",
     "prop-types": "^15.8.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-github-button": "^0.1.11",
-    "react-helmet": "^5.2.1"
+    "react-helmet": "^6.1.0"
   },
   "keywords": [
     "gatsby"
@@ -74,7 +74,7 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
     "babel-preset-gatsby": "^2.22.0",
-    "chromatic": "^4.0.2",
+    "chromatic": "^6.9.0",
     "eslint": "^6.5.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-prettier": "^6.4.0",
