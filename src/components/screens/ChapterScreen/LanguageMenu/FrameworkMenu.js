@@ -48,7 +48,7 @@ const ButtonContent = styled.div`
   font-weight: ${typography.weight.extrabold};
 `;
 
-const ChevronDownIcon = styled((props) => <Icon {...props} icon="chevrondown" />)`
+const ArrowDownIcon = styled((props) => <Icon {...props} icon="arrowdown" />)`
   && {
     width: 8px;
     height: 8px;
@@ -242,7 +242,7 @@ function FrameworkMenu({
         <Button appearance="outline" size="small">
           <ButtonContent>
             {`${getLanguageName(language)}`}
-            <ChevronDownIcon />
+            <ArrowDownIcon />
           </ButtonContent>
         </Button>
       </WithTooltip>

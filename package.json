@@ -9,7 +9,6 @@
     "cheerio": "^1.0.0-rc.12",
     "formik": "^2.2.9",
     "gatsby": "^4.22.0",
-    "gatsby-plugin-facebook-pixel": "^1.0.8",
     "gatsby-plugin-google-analytics": "^4.22.0",
     "gatsby-plugin-layout": "^3.22.0",
     "gatsby-plugin-react-helmet": "^5.22.0",

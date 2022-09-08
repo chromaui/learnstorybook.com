@@ -133,15 +133,5 @@ module.exports = {
           },
         ]
       : []),
-    ...(process.env.FACEBOOK_PIXEL_ID && !isDeployPreview
-      ? [
-          {
-            resolve: 'gatsby-plugin-facebook-pixel',
-            options: {
-              pixelId: process.env.FACEBOOK_PIXEL_ID,
-            },
-          },
-        ]
-      : []),
   ],
 };
