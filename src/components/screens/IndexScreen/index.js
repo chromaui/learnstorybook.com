@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@storybook/theming';
-import { StaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import { Button, styles } from '@storybook/design-system';
 import SiteStats from './SiteStats';
 import GatsbyLink from '../../basics/GatsbyLink';
@@ -43,7 +43,7 @@ const CTALineBreak = styled.div`
   }
 `;
 
-function PureIndexScreen({ data }) {
+export function PureIndexScreen({ data }) {
   return (
     <>
       <Pitch />
@@ -91,57 +91,51 @@ PureIndexScreen.propTypes = {
 };
 
 function IndexScreen(props) {
-  return (
-    <StaticQuery
-      query={graphql`
-        query IndexQuery {
-          guides: allMarkdownRemark(
-            filter: { fields: { pageType: { eq: "guide" } } }
-            sort: { order: ASC, fields: [frontmatter___order] }
-          ) {
-            edges {
-              node {
-                frontmatter {
-                  description
-                  order
-                  title
-                  themeColor
-                  thumbImagePath
-                }
-                fields {
-                  guide
-                  slug
-                }
-              }
+  const data = useStaticQuery(graphql`
+    query IndexQuery {
+      guides: allMarkdownRemark(
+        filter: { fields: { pageType: { eq: "guide" } } }
+        sort: { order: ASC, fields: [frontmatter___order] }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              description
+              order
+              title
+              themeColor
+              thumbImagePath
             }
-          }
-          chapters: allMarkdownRemark(
-            filter: { fields: { pageType: { eq: "chapter" }, isDefaultTranslation: { eq: true } } }
-          ) {
-            edges {
-              node {
-                fields {
-                  guide
-                }
-              }
-            }
-          }
-          allEditionsChapters: allMarkdownRemark(
-            filter: { fields: { pageType: { eq: "chapter" } } }
-          ) {
-            edges {
-              node {
-                fields {
-                  slug
-                }
-              }
+            fields {
+              guide
+              slug
             }
           }
         }
-      `}
-      render={(data) => <PureIndexScreen data={data} {...props} />}
-    />
-  );
+      }
+      chapters: allMarkdownRemark(
+        filter: { fields: { pageType: { eq: "chapter" }, isDefaultTranslation: { eq: true } } }
+      ) {
+        edges {
+          node {
+            fields {
+              guide
+            }
+          }
+        }
+      }
+      allEditionsChapters: allMarkdownRemark(filter: { fields: { pageType: { eq: "chapter" } } }) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+  return <PureIndexScreen data={data} {...props} />;
 }
 
 export default IndexScreen;

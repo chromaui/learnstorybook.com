@@ -1,13 +1,13 @@
 import React from 'react';
-import IndexScreen from './index';
+import { PureIndexScreen } from './index';
 
 export default {
-  component: IndexScreen,
+  component: PureIndexScreen,
   title: 'Screens/IndexScreen/index',
 };
 
 function Story(args) {
-  return <IndexScreen {...args} />;
+  return <PureIndexScreen {...args} />;
 }
 export const Default = Story.bind({});
 Default.args = {
