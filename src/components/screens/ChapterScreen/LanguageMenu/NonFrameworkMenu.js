@@ -55,14 +55,14 @@ const ExternalLink = styled(Link)`
   }
 `;
 
-const TooltipLinkWrapper = ({ isExternal, to, ...rest }) => {
+function TooltipLinkWrapper({ isExternal, to, ...rest }) {
   if (isExternal) {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <ExternalLink {...rest} href={to} />;
   }
 
   return <LinkWrapper {...rest} to={to} />;
-};
+}
 
 TooltipLinkWrapper.propTypes = {
   isExternal: PropTypes.bool.isRequired,
@@ -94,17 +94,18 @@ const getChapterInOtherLanguage = (
   return `/${guide}/${language}/${firstChapter}/`;
 };
 
-const NonFrameworkMenu = ({
+function NonFrameworkMenu({
   chapter,
   contributeUrl,
   firstChapter,
   guide,
   language,
   translationPages,
-}) => {
-  const translationLanguages = useMemo(() => getTranslationLanguages(translationPages), [
-    translationPages,
-  ]);
+}) {
+  const translationLanguages = useMemo(
+    () => getTranslationLanguages(translationPages),
+    [translationPages]
+  );
   const sortedLanguages = sortBy(Array.from(translationLanguages), (languageName) => languageName);
 
   if (sortedLanguages.length < 2) {
@@ -165,7 +166,7 @@ const NonFrameworkMenu = ({
       </WithTooltip>
     </>
   );
-};
+}
 
 NonFrameworkMenu.propTypes = {
   chapter: PropTypes.string.isRequired,

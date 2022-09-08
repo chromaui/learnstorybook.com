@@ -6,4 +6,6 @@ export default {
   title: 'Screens/NotFoundScreen/NotFoundScreen',
 };
 
-export const Default = () => <NotFoundScreen />;
+export function Default() {
+  return <NotFoundScreen />;
+}

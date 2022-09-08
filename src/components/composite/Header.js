@@ -17,14 +17,14 @@ import LogoStorybook from '../basics/LogoStorybook';
 
 const { breakpoint } = styles;
 
-const LinkWrapper = ({ href, isGatsby, ...props }) => {
+function LinkWrapper({ href, isGatsby, ...props }) {
   if (isGatsby) {
     return <GatsbyLink to={href} {...props} />;
   }
 
   // eslint-disable-next-line
   return <a href={href} {...props} />;
-};
+}
 
 LinkWrapper.propTypes = {
   href: PropTypes.string.isRequired,
@@ -82,54 +82,56 @@ const HeaderWrapper = styled.header`
   top: 0px;
 `;
 
-const Header = ({ inverse }) => (
-  <HeaderWrapper>
-    <DSHeader
-      navBreakpoint={1.5 * breakpoint}
-      inverse={inverse}
-      logo={<LogoStorybook inverse={inverse} />}
-      links={
-        <>
-          {links.map((link) => (
-            <NavItem key={link.title} showDesktop>
-              <NavLink LinkWrapper={LinkWrapper} href={link.href} isGatsby={link.isGatsby}>
-                {link.title}
-              </NavLink>
+function Header({ inverse }) {
+  return (
+    <HeaderWrapper>
+      <DSHeader
+        navBreakpoint={1.5 * breakpoint}
+        inverse={inverse}
+        logo={<LogoStorybook inverse={inverse} />}
+        links={
+          <>
+            {links.map((link) => (
+              <NavItem key={link.title} showDesktop>
+                <NavLink LinkWrapper={LinkWrapper} href={link.href} isGatsby={link.isGatsby}>
+                  {link.title}
+                </NavLink>
+              </NavItem>
+            ))}
+            <NavItem showDesktop>
+              <WithTooltip
+                tagName="span"
+                placement="bottom"
+                trigger="click"
+                closeOnClick
+                tooltip={<TooltipLinkList links={navCommunityLinks} LinkWrapper={LinkWrapper} />}
+              >
+                <NavLink tertiary>
+                  Community <Icon icon="arrowdown" />
+                </NavLink>
+              </WithTooltip>
             </NavItem>
-          ))}
-          <NavItem showDesktop>
-            <WithTooltip
-              tagName="span"
-              placement="bottom"
-              trigger="click"
-              closeOnClick
-              tooltip={<TooltipLinkList links={navCommunityLinks} LinkWrapper={LinkWrapper} />}
-            >
-              <NavLink tertiary>
-                Community <Icon icon="arrowdown" />
-              </NavLink>
-            </WithTooltip>
-          </NavItem>
-        </>
-      }
-      github={<GitHubButton type="stargazers" namespace="storybookjs" repo="storybook" />}
-      mobileMenu={
-        <TooltipLinkList
-          links={[
-            ...links,
-            ...navCommunityLinks,
-            {
-              title: 'GitHub',
-              href: 'https://github.com/storybookjs/storybook',
-              isGatsby: false,
-            },
-          ]}
-          LinkWrapper={LinkWrapper}
-        />
-      }
-    />
-  </HeaderWrapper>
-);
+          </>
+        }
+        github={<GitHubButton type="stargazers" namespace="storybookjs" repo="storybook" />}
+        mobileMenu={
+          <TooltipLinkList
+            links={[
+              ...links,
+              ...navCommunityLinks,
+              {
+                title: 'GitHub',
+                href: 'https://github.com/storybookjs/storybook',
+                isGatsby: false,
+              },
+            ]}
+            LinkWrapper={LinkWrapper}
+          />
+        }
+      />
+    </HeaderWrapper>
+  );
+}
 
 Header.propTypes = {
   inverse: PropTypes.bool,

@@ -6,7 +6,9 @@ export default {
   title: 'Screens/IndexScreen/index',
 };
 
-const Story = args => <IndexScreen {...args} />;
+function Story(args) {
+  return <IndexScreen {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   data: {

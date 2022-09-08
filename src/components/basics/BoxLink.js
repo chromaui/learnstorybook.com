@@ -34,8 +34,13 @@ const ExternalBoxLink = styled((props) => <Link target="_blank" rel="noopener" {
   ${boxLinkStyles}
 `;
 
-const BoxLink = ({ isInternal, to, ...rest }) =>
-  isInternal ? <InternalBoxLink to={to} {...rest} /> : <ExternalBoxLink href={to} {...rest} />;
+function BoxLink({ isInternal, to, ...rest }) {
+  return isInternal ? (
+    <InternalBoxLink to={to} {...rest} />
+  ) : (
+    <ExternalBoxLink href={to} {...rest} />
+  );
+}
 
 BoxLink.propTypes = {
   isInternal: PropTypes.bool,

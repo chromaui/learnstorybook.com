@@ -6,7 +6,9 @@ export default {
   title: 'Screens/IndexScreen/Guides',
 };
 
-const Story = args => <Guides {...args} />;
+function Story(args) {
+  return <Guides {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   chaptersEdges: [

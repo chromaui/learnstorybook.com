@@ -74,7 +74,7 @@ const getTranslationLanguages = (translationPages) =>
     new Set()
   );
 
-const Guide = ({ data, pageContext }) => {
+function Guide({ data, pageContext }) {
   const {
     currentPage: {
       html,
@@ -160,7 +160,7 @@ const Guide = ({ data, pageContext }) => {
       </Content>
     </>
   );
-};
+}
 
 Guide.propTypes = {
   data: PropTypes.shape({
@@ -174,6 +174,7 @@ Guide.propTypes = {
             src: PropTypes.string.isRequired,
           }).isRequired
         ),
+        // eslint-disable-next-line react/forbid-prop-types
         contributors: PropTypes.arrayOf(PropTypes.any),
         contributorCount: PropTypes.string,
         coverImagePath: PropTypes.string,
@@ -186,7 +187,9 @@ Guide.propTypes = {
         overview: PropTypes.string.isRequired,
       }).isRequired,
       fields: PropTypes.shape({
+        // eslint-disable-next-line react/forbid-prop-types
         guide: PropTypes.any,
+        // eslint-disable-next-line react/forbid-prop-types
         permalink: PropTypes.any,
       }),
     }).isRequired,

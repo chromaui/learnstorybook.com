@@ -45,58 +45,64 @@ const guidePaths = [
   'create-an-addon',
 ];
 
-const getHeaderInvertedState = pathname => {
-  const pathParts = pathname.split('/').filter(p => !!p && p !== 'tutorials');
+const getHeaderInvertedState = (pathname) => {
+  const pathParts = pathname.split('/').filter((p) => !!p && p !== 'tutorials');
   // This will need to get "smarter" if the hierarchy of pages/guides changes.
   return pathParts.length === 1 && guidePaths.includes(pathParts[0]);
 };
 
-const TemplateWrapper = ({ location: { pathname }, children }) => (
-  <StaticQuery
-    query={query}
-    render={({
-      guides,
-      site: {
-        siteMetadata: { title, permalink, description, githubUrl },
-      },
-    }) => (
-      <>
-        <GlobalStyle />
+function TemplateWrapper({ location: { pathname }, children }) {
+  return (
+    <StaticQuery
+      query={query}
+      render={({
+        guides,
+        site: {
+          siteMetadata: { title, permalink, description, githubUrl },
+        },
+      }) => (
+        <>
+          <GlobalStyle />
 
-        <Helmet>
-          <link
-            rel="shortcut icon"
-            type="image/png"
-            href={`${permalink}/icon-storybook.png`}
-            sizes="16x16 32x32 64x64"
+          <Helmet>
+            <link
+              rel="shortcut icon"
+              type="image/png"
+              href={`${permalink}/icon-storybook.png`}
+              sizes="16x16 32x32 64x64"
+            />
+            <title>{title}</title>
+            <meta name="description" content={description} />
+
+            <meta property="og:title" content={title} />
+            <meta property="og:description" content={description} />
+            <meta property="og:image" content={`${permalink}/opengraph-cover.jpg`} />
+            <meta property="og:url" content={permalink} />
+
+            <meta name="twitter:card" content="summary_large_image" />
+            <meta name="twitter:title" content={title} />
+            <meta name="twitter:description" content={description} />
+            <meta name="twitter:image" content={`${permalink}/opengraph-cover.jpg`} />
+
+            <meta
+              name="google-site-verification"
+              content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY"
+            />
+          </Helmet>
+
+          <Header
+            guides={guides}
+            githubUrl={githubUrl}
+            inverse={getHeaderInvertedState(pathname)}
           />
-          <title>{title}</title>
-          <meta name="description" content={description} />
 
-          <meta property="og:title" content={title} />
-          <meta property="og:description" content={description} />
-          <meta property="og:image" content={`${permalink}/opengraph-cover.jpg`} />
-          <meta property="og:url" content={permalink} />
-
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={title} />
-          <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={`${permalink}/opengraph-cover.jpg`} />
-
-          <meta
-            name="google-site-verification"
-            content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY"
-          />
-        </Helmet>
-
-        <Header guides={guides} githubUrl={githubUrl} inverse={getHeaderInvertedState(pathname)} />
-
-        {children}
-        <Footer guides={guides} />
-      </>
-    )}
-  />
-);
+          {children}
+          <Footer guides={guides} />
+        </>
+      )}
+    />
+  );
+}
 
 TemplateWrapper.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types

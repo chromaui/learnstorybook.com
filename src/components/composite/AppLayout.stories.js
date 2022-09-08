@@ -12,7 +12,9 @@ export default {
   component: AppLayout,
   title: 'Composite/AppLayout',
 };
-const Story = (args) => <AppLayout {...args} />;
+function Story(args) {
+  return <AppLayout {...args} />;
+}
 
 export const Default = Story.bind({});
 Default.args = {

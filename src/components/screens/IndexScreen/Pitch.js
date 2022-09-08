@@ -39,14 +39,16 @@ const PitchDescription = styled.div`
   }
 `;
 
-const Pitch = () => (
-  <PitchWrapper>
-    <IconLearnStorybook />
+function Pitch() {
+  return (
+    <PitchWrapper>
+      <IconLearnStorybook />
 
-    <PitchTitle>Tutorials</PitchTitle>
+      <PitchTitle>Tutorials</PitchTitle>
 
-    <PitchDescription>Learn to develop UIs with components and design systems.</PitchDescription>
-  </PitchWrapper>
-);
+      <PitchDescription>Learn to develop UIs with components and design systems.</PitchDescription>
+    </PitchWrapper>
+  );
+}
 
 export default Pitch;

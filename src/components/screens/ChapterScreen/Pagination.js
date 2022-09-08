@@ -21,8 +21,8 @@ const PaginationShadowBoxCTA = styled(ShadowBoxCTA)`
   margin-top: 17px;
 `;
 
-const Pagination = ({ nextEntry }) =>
-  nextEntry ? (
+function Pagination({ nextEntry }) {
+  return nextEntry ? (
     <PaginationWrapper>
       <PaginationSubheading>Next Chapter</PaginationSubheading>
 
@@ -37,6 +37,7 @@ const Pagination = ({ nextEntry }) =>
       />
     </PaginationWrapper>
   ) : null;
+}
 
 Pagination.propTypes = {
   nextEntry: PropTypes.shape({

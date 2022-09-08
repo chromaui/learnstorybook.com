@@ -70,21 +70,23 @@ const ListItem = styled.li`
   }
 `;
 
-const TableOfContents = ({ currentPageSlug, entries, ...rest }) => (
-  <List {...rest}>
-    {entries.map((entry) => {
-      const isActive = currentPageSlug === entry.slug;
+function TableOfContents({ currentPageSlug, entries, ...rest }) {
+  return (
+    <List {...rest}>
+      {entries.map((entry) => {
+        const isActive = currentPageSlug === entry.slug;
 
-      return (
-        <ListItem key={entry.slug} isActive={isActive}>
-          <GatsbyLink to={entry.slug} tertiary={!isActive}>
-            {entry.title}
-          </GatsbyLink>
-        </ListItem>
-      );
-    })}
-  </List>
-);
+        return (
+          <ListItem key={entry.slug} isActive={isActive}>
+            <GatsbyLink to={entry.slug} tertiary={!isActive}>
+              {entry.title}
+            </GatsbyLink>
+          </ListItem>
+        );
+      })}
+    </List>
+  );
+}
 
 TableOfContents.propTypes = {
   currentPageSlug: PropTypes.string.isRequired,

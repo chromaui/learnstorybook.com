@@ -19,7 +19,9 @@ export default {
   title: 'Composite/ShadowBoxCTA',
 };
 
-const Story = (args) => <ShadowBoxCTA {...args} />;
+function Story(args) {
+  return <ShadowBoxCTA {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   action: ctaAction,

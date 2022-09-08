@@ -13,7 +13,9 @@ const Wrapper = styled.div`
   background: ${styles.color.green};
   padding: 20px;
 `;
-const Story = (args) => <Stat {...args} />;
+function Story(args) {
+  return <Stat {...args} />;
+}
 
 export const Default = Story.bind({});
 Default.args = {

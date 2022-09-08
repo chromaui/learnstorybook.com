@@ -179,18 +179,20 @@ const BreadcrumbLink = styled(GatsbyLink)`
   }
 `;
 
-const Breadcrumb = ({ children, ...props }) => (
-  <BreadcrumbLink withIcon {...props}>
-    <Icon icon="arrowleft" />
-    {children}
-  </BreadcrumbLink>
-);
+function Breadcrumb({ children, ...props }) {
+  return (
+    <BreadcrumbLink withIcon {...props}>
+      <Icon icon="arrowleft" />
+      {children}
+    </BreadcrumbLink>
+  );
+}
 
 Breadcrumb.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const Hero = ({
+function Hero({
   heroAnimationName,
   contributorCount,
   chapterCount,
@@ -201,45 +203,47 @@ const Hero = ({
   themeColor,
   title,
   ...rest
-}) => (
-  <HeroWrapper themeColor={themeColor} {...rest}>
-    <HeroContent>
-      <Pitch>
-        <Breadcrumb to="/">Tutorials</Breadcrumb>
+}) {
+  return (
+    <HeroWrapper themeColor={themeColor} {...rest}>
+      <HeroContent>
+        <Pitch>
+          <Breadcrumb to="/">Tutorials</Breadcrumb>
 
-        <PitchTitle>{title}</PitchTitle>
+          <PitchTitle>{title}</PitchTitle>
 
-        {description && <PitchDescription>{description}</PitchDescription>}
+          {description && <PitchDescription>{description}</PitchDescription>}
 
-        {ctaHref && (
-          <GatsbyLink to={ctaHref}>
-            <GetStartedButton>Get started</GetStartedButton>
-          </GatsbyLink>
-        )}
+          {ctaHref && (
+            <GatsbyLink to={ctaHref}>
+              <GetStartedButton>Get started</GetStartedButton>
+            </GatsbyLink>
+          )}
 
-        {languages.length > 0 && (
-          <Languages>
-            <LanguagesLabel>Languages: </LanguagesLabel>
-            {languages.map((language) => (
-              <LanguagesLink inverse key={`lang_link_${language.name}`} to={language.tutorial}>
-                {language.name}
-              </LanguagesLink>
-            ))}
-          </Languages>
-        )}
-        <StatWrapper>
-          {contributorCount && <Stat value={contributorCount} label="Contributors" />}
-          {chapterCount && <Stat value={chapterCount} label="Chapters" />}
-        </StatWrapper>
-      </Pitch>
-      <Figure>
-        {imagePath && (
-          <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
-        )}
-      </Figure>
-    </HeroContent>
-  </HeroWrapper>
-);
+          {languages.length > 0 && (
+            <Languages>
+              <LanguagesLabel>Languages: </LanguagesLabel>
+              {languages.map((language) => (
+                <LanguagesLink inverse key={`lang_link_${language.name}`} to={language.tutorial}>
+                  {language.name}
+                </LanguagesLink>
+              ))}
+            </Languages>
+          )}
+          <StatWrapper>
+            {contributorCount && <Stat value={contributorCount} label="Contributors" />}
+            {chapterCount && <Stat value={chapterCount} label="Chapters" />}
+          </StatWrapper>
+        </Pitch>
+        <Figure>
+          {imagePath && (
+            <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
+          )}
+        </Figure>
+      </HeroContent>
+    </HeroWrapper>
+  );
+}
 
 Hero.propTypes = {
   contributorCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

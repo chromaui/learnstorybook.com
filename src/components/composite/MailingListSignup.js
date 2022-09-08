@@ -26,28 +26,30 @@ const SendButton = styled(Button)`
   border-bottom-right-radius: ${styles.spacing.borderRadius.small}px;
 `;
 
-const MailingListFormUI = ({ handleBlur, handleChange, isSubmitting, value, ...rest }) => (
-  <MailingListFormUIWrapper {...rest}>
-    <EmailInput
-      id="email"
-      icon="email"
-      type="email"
-      name="email"
-      value={value}
-      placeholder="Your email"
-      onChange={handleChange}
-      onBlur={handleBlur}
-      autoCapitalize="off"
-      autoCorrect="off"
-      label="Your email"
-      hideLabel
-    />
+function MailingListFormUI({ handleBlur, handleChange, isSubmitting, value, ...rest }) {
+  return (
+    <MailingListFormUIWrapper {...rest}>
+      <EmailInput
+        id="email"
+        icon="email"
+        type="email"
+        name="email"
+        value={value}
+        placeholder="Your email"
+        onChange={handleChange}
+        onBlur={handleBlur}
+        autoCapitalize="off"
+        autoCorrect="off"
+        label="Your email"
+        hideLabel
+      />
 
-    <SendButton appearance="secondary" type="submit" isUnclickable={isSubmitting}>
-      Send
-    </SendButton>
-  </MailingListFormUIWrapper>
-);
+      <SendButton appearance="secondary" type="submit" isUnclickable={isSubmitting}>
+        Send
+      </SendButton>
+    </MailingListFormUIWrapper>
+  );
+}
 
 MailingListFormUI.propTypes = {
   handleBlur: PropTypes.func.isRequired,
@@ -83,7 +85,7 @@ const validateForm = (values) => {
 
 const listUrl = 'https://storybook.us18.list-manage.com/subscribe/post';
 
-const MailingListSignup = (props) => {
+function MailingListSignup(props) {
   const [hasSubmitted, setSubmitStatus] = useState(false);
   const onSubmitForm = async (values) => {
     const data = new FormData();
@@ -133,6 +135,6 @@ const MailingListSignup = (props) => {
       )}
     </Formik>
   );
-};
+}
 
 export default MailingListSignup;

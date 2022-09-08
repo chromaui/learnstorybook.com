@@ -18,7 +18,9 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-const Story = (args) => <LanguageMenu {...args} />;
+function Story(args) {
+  return <LanguageMenu {...args} />;
+}
 
 export const Basic = Story.bind({});
 Basic.storyName = 'w/ framework, 1 translation';

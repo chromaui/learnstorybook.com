@@ -6,4 +6,6 @@ export default {
   title: 'Basics/LogoChroma',
 };
 
-export const Default = () => <LogoChroma />;
+export function Default() {
+  return <LogoChroma />;
+}

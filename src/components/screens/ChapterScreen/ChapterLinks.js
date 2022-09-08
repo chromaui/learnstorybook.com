@@ -61,7 +61,7 @@ const buildTwitterUrl = (guide, text) =>
     text
   )}&tw_p=tweetbutton&url=https%3A%2F%2Fstorybook.js.org%2Ftutorials%2F${guide}&via=storybookjs`;
 
-const ChapterLinks = ({ codeGithubUrl, commit, guide, twitterShareText }) => {
+function ChapterLinks({ codeGithubUrl, commit, guide, twitterShareText }) {
   const withCommitLink = !isNil(codeGithubUrl) && !isNil(commit);
 
   if (!withCommitLink && !twitterShareText) {
@@ -95,7 +95,7 @@ const ChapterLinks = ({ codeGithubUrl, commit, guide, twitterShareText }) => {
       )}
     </BoxLinksWrapper>
   );
-};
+}
 
 ChapterLinks.propTypes = {
   codeGithubUrl: PropTypes.string,

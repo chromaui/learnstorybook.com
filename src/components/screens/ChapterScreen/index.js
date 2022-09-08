@@ -55,7 +55,7 @@ const Description = styled.div`
   margin-bottom: 24px;
 `;
 
-const Chapter = ({
+function Chapter({
   data: {
     currentPage: {
       html,
@@ -69,7 +69,7 @@ const Chapter = ({
     tocPages,
     translationPages,
   },
-}) => {
+}) {
   const entries = tocEntries(toc, tocPages);
   const tocWithMatchingEntries = toc.filter((tocItem) =>
     entries.find((entry) => entry.chapter === tocItem)
@@ -140,7 +140,7 @@ const Chapter = ({
       </Content>
     </ChapterWrapper>
   );
-};
+}
 
 Chapter.propTypes = {
   data: PropTypes.shape({

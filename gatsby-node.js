@@ -7,7 +7,7 @@ const defaultLanguage = 'en';
 const defaultFramework = 'react';
 
 // slug starts and ends with '/' so parts[0] and parts[-1] will be empty
-const getSlugParts = slug => slug.split('/').filter(p => !!p);
+const getSlugParts = (slug) => slug.split('/').filter((p) => !!p);
 
 const onCreateGuideNode = ({ actions, node, slug }) => {
   const { createNodeField } = actions;
@@ -78,7 +78,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     });
 
     // slug starts and ends with '/' so parts[0] and parts[-1] will be empty
-    const parts = slug.split('/').filter(p => !!p);
+    const parts = slug.split('/').filter((p) => !!p);
 
     if (parts.length === 1) {
       onCreateGuideNode({ actions, node, slug });
@@ -100,16 +100,8 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 };
 
 const createChapterPage = ({ createPage, node }) => {
-  const {
-    guide,
-    slug,
-    framework,
-    language,
-    chapter,
-    pageType,
-    isDefaultTranslation,
-    permalink,
-  } = node.fields;
+  const { guide, slug, framework, language, chapter, pageType, isDefaultTranslation, permalink } =
+    node.fields;
 
   createPage({
     path: slug,
@@ -147,7 +139,7 @@ const createGuidePage = ({ createPage, node }) => {
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions;
 
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     graphql(`
       {
         pages: allMarkdownRemark {
@@ -165,23 +157,29 @@ exports.createPages = ({ graphql, actions }) => {
           }
         }
       }
-    `).then(({ data: { pages: { edges } } }) => {
-      edges.forEach(({ node }) => {
-        const { pageType, slug } = node.fields;
+    `).then(
+      ({
+        data: {
+          pages: { edges },
+        },
+      }) => {
+        edges.forEach(({ node }) => {
+          const { pageType, slug } = node.fields;
 
-        if (pageType === 'chapter') {
-          createChapterPage({ createPage, node });
-          return;
-        }
+          if (pageType === 'chapter') {
+            createChapterPage({ createPage, node });
+            return;
+          }
 
-        if (pageType === 'guide') {
-          createGuidePage({ createPage, node });
-          return;
-        }
+          if (pageType === 'guide') {
+            createGuidePage({ createPage, node });
+            return;
+          }
 
-        throw new Error(`Unexpected pageType !== 'chapter' || !== 'guide': ${slug}`);
-      });
-      resolve();
-    });
+          throw new Error(`Unexpected pageType !== 'chapter' || !== 'guide': ${slug}`);
+        });
+        resolve();
+      }
+    );
   });
 };

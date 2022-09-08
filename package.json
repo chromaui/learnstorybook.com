@@ -48,12 +48,8 @@
     "prestorybook": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
     "storybook": "start-storybook -s ./static -p 6006",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "gatsby clean"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "clean": "gatsby clean",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.md": [
@@ -63,6 +59,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.0",
+    "@babel/eslint-parser": "^7.18.9",
     "@emotion/babel-plugin": "^11.10.2",
     "@storybook/addon-a11y": "^6.5.10",
     "@storybook/addon-essentials": "^6.5.10",
@@ -71,23 +68,21 @@
     "@storybook/builder-webpack5": "^6.5.10",
     "@storybook/manager-webpack5": "^6.5.10",
     "@storybook/react": "^6.5.10",
-    "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.5",
     "babel-preset-gatsby": "^2.22.0",
     "chromatic": "^6.9.0",
-    "eslint": "^6.5.1",
-    "eslint-config-airbnb": "^18.0.1",
-    "eslint-config-prettier": "^6.4.0",
+    "eslint": "^8.23.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "^22.20.0",
     "eslint-plugin-jsx-a11y": "^6.6.1",
-    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.31.7",
     "eslint-plugin-storybook": "^0.6.4",
-    "husky": "^3.0.8",
-    "lint-staged": "^9.4.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
-    "prettier-eslint": "^9.0.0",
-    "prettier-eslint-cli": "^5.0.0"
+    "prettier-eslint": "^15.0.1",
+    "prettier-eslint-cli": "^7.1.0"
   }
 }

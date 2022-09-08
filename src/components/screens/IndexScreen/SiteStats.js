@@ -63,10 +63,11 @@ const getGuideEditions = (allEditionsChaptersEdges) =>
     return uniqueEditionsSet.add(editionId);
   }, new Set());
 
-const SiteStats = ({ allEditionsChaptersEdges, chapterCount, guideCount }) => {
-  const uniqueEditionsSet = useMemo(() => getGuideEditions(allEditionsChaptersEdges), [
-    allEditionsChaptersEdges,
-  ]);
+function SiteStats({ allEditionsChaptersEdges, chapterCount, guideCount }) {
+  const uniqueEditionsSet = useMemo(
+    () => getGuideEditions(allEditionsChaptersEdges),
+    [allEditionsChaptersEdges]
+  );
 
   return (
     <SiteStatsWrapper>
@@ -97,7 +98,7 @@ const SiteStats = ({ allEditionsChaptersEdges, chapterCount, guideCount }) => {
       </SiteStatWrapper>
     </SiteStatsWrapper>
   );
-};
+}
 
 SiteStats.propTypes = {
   chapterCount: PropTypes.number.isRequired,

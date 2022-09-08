@@ -6,7 +6,9 @@ export default {
   title: 'Basics/GatsbyLink',
 };
 
-const Story = args => <GatsbyLink {...args} />;
+function Story(args) {
+  return <GatsbyLink {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   to: '/',
