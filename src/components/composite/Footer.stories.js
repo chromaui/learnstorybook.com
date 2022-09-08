@@ -7,7 +7,9 @@ export default {
   title: 'Composite/Footer',
 };
 
-const Story = args => <Footer {...args} />;
+function Story(args) {
+  return <Footer {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   guides: {

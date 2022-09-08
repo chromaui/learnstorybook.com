@@ -53,19 +53,29 @@ const GuideLink = styled(GatsbyLink)`
 `;
 
 const getChapterCountByGuide = (chaptersEdges) =>
-  chaptersEdges.reduce((acc, { node: { fields: { guide } } }) => {
-    const chapterCountByGuide = { ...acc };
+  chaptersEdges.reduce(
+    (
+      acc,
+      {
+        node: {
+          fields: { guide },
+        },
+      }
+    ) => {
+      const chapterCountByGuide = { ...acc };
 
-    if (chapterCountByGuide[guide]) {
-      chapterCountByGuide[guide] += 1;
-    } else {
-      chapterCountByGuide[guide] = 1;
-    }
+      if (chapterCountByGuide[guide]) {
+        chapterCountByGuide[guide] += 1;
+      } else {
+        chapterCountByGuide[guide] = 1;
+      }
 
-    return chapterCountByGuide;
-  }, {});
+      return chapterCountByGuide;
+    },
+    {}
+  );
 
-const Guides = ({ chaptersEdges, guidesEdges }) => {
+function Guides({ chaptersEdges, guidesEdges }) {
   const chapterCountByGuide = useMemo(() => getChapterCountByGuide(chaptersEdges), [chaptersEdges]);
 
   return (
@@ -85,7 +95,7 @@ const Guides = ({ chaptersEdges, guidesEdges }) => {
       </Content>
     </GuidesWrapper>
   );
-};
+}
 
 Guides.propTypes = {
   chaptersEdges: PropTypes.arrayOf(

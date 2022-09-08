@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@storybook/theming';
-import { StaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql } from 'gatsby';
 import { Button, styles } from '@storybook/design-system';
 import SiteStats from './SiteStats';
 import GatsbyLink from '../../basics/GatsbyLink';
@@ -43,36 +43,38 @@ const CTALineBreak = styled.div`
   }
 `;
 
-const PureIndexScreen = ({ data }) => (
-  <>
-    <Pitch />
-    <Guides chaptersEdges={data.chapters.edges} guidesEdges={data.guides.edges} />
-    <SiteStats
-      allEditionsChaptersEdges={data.allEditionsChapters.edges}
-      chapterCount={data.chapters.edges.length}
-      guideCount={data.guides.edges.length}
-    />
-
-    <WhatIsLSB />
-    <SocialValidation />
-    <SocialValidationLineBreak />
-
-    <BottomSection>
-      <Community />
-
-      <CTALineBreak />
-
-      <CTA
-        text="Learn to build UIs with components and libraries now"
-        action={
-          <GatsbyLink to="/intro-to-storybook">
-            <Button appearance="secondary">Get started</Button>
-          </GatsbyLink>
-        }
+export function PureIndexScreen({ data }) {
+  return (
+    <>
+      <Pitch />
+      <Guides chaptersEdges={data.chapters.edges} guidesEdges={data.guides.edges} />
+      <SiteStats
+        allEditionsChaptersEdges={data.allEditionsChapters.edges}
+        chapterCount={data.chapters.edges.length}
+        guideCount={data.guides.edges.length}
       />
-    </BottomSection>
-  </>
-);
+
+      <WhatIsLSB />
+      <SocialValidation />
+      <SocialValidationLineBreak />
+
+      <BottomSection>
+        <Community />
+
+        <CTALineBreak />
+
+        <CTA
+          text="Learn to build UIs with components and libraries now"
+          action={
+            <GatsbyLink to="/intro-to-storybook">
+              <Button appearance="secondary">Get started</Button>
+            </GatsbyLink>
+          }
+        />
+      </BottomSection>
+    </>
+  );
+}
 
 PureIndexScreen.propTypes = {
   data: PropTypes.shape({
@@ -88,56 +90,52 @@ PureIndexScreen.propTypes = {
   }).isRequired,
 };
 
-const IndexScreen = (props) => (
-  <StaticQuery
-    query={graphql`
-      query IndexQuery {
-        guides: allMarkdownRemark(
-          filter: { fields: { pageType: { eq: "guide" } } }
-          sort: { order: ASC, fields: [frontmatter___order] }
-        ) {
-          edges {
-            node {
-              frontmatter {
-                description
-                order
-                title
-                themeColor
-                thumbImagePath
-              }
-              fields {
-                guide
-                slug
-              }
+function IndexScreen(props) {
+  const data = useStaticQuery(graphql`
+    query IndexQuery {
+      guides: allMarkdownRemark(
+        filter: { fields: { pageType: { eq: "guide" } } }
+        sort: { order: ASC, fields: [frontmatter___order] }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              description
+              order
+              title
+              themeColor
+              thumbImagePath
             }
-          }
-        }
-        chapters: allMarkdownRemark(
-          filter: { fields: { pageType: { eq: "chapter" }, isDefaultTranslation: { eq: true } } }
-        ) {
-          edges {
-            node {
-              fields {
-                guide
-              }
-            }
-          }
-        }
-        allEditionsChapters: allMarkdownRemark(
-          filter: { fields: { pageType: { eq: "chapter" } } }
-        ) {
-          edges {
-            node {
-              fields {
-                slug
-              }
+            fields {
+              guide
+              slug
             }
           }
         }
       }
-    `}
-    render={(data) => <PureIndexScreen data={data} {...props} />}
-  />
-);
+      chapters: allMarkdownRemark(
+        filter: { fields: { pageType: { eq: "chapter" }, isDefaultTranslation: { eq: true } } }
+      ) {
+        edges {
+          node {
+            fields {
+              guide
+            }
+          }
+        }
+      }
+      allEditionsChapters: allMarkdownRemark(filter: { fields: { pageType: { eq: "chapter" } } }) {
+        edges {
+          node {
+            fields {
+              slug
+            }
+          }
+        }
+      }
+    }
+  `);
+  return <PureIndexScreen data={data} {...props} />;
+}
 
 export default IndexScreen;

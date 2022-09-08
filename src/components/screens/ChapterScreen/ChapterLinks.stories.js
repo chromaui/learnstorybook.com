@@ -9,7 +9,9 @@ export default {
   },
 };
 
-const Story = args => <ChapterLinks {...args} />;
+function Story(args) {
+  return <ChapterLinks {...args} />;
+}
 
 export const WithCommit = Story.bind({});
 WithCommit.args = {

@@ -11,4 +11,6 @@ export default {
   title: 'Composite/MailingListSignup',
 };
 
-export const Default = () => <MailingListSignup />;
+export function Default() {
+  return <MailingListSignup />;
+}

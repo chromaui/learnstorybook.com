@@ -6,7 +6,9 @@ export default {
   title: 'Basics/ShadowBox',
 };
 
-const Story = args => <ShadowBox {...args} />;
+function Story(args) {
+  return <ShadowBox {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   children: 'Shadow box content',

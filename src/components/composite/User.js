@@ -33,16 +33,18 @@ const Detail = styled.div`
   text-align: left;
 `;
 
-const User = ({ detail, name, src, ...rest }) => (
-  <UserWrapper {...rest}>
-    <AvatarWrapper size="large" src={src} />
+function User({ detail, name, src, ...rest }) {
+  return (
+    <UserWrapper {...rest}>
+      <AvatarWrapper size="large" src={src} />
 
-    <Text>
-      <Name>{name}</Name>
-      <Detail>{detail}</Detail>
-    </Text>
-  </UserWrapper>
-);
+      <Text>
+        <Name>{name}</Name>
+        <Detail>{detail}</Detail>
+      </Text>
+    </UserWrapper>
+  );
+}
 
 User.propTypes = {
   detail: PropTypes.oneOfType([PropTypes.string, PropTypes.node]).isRequired,

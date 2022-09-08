@@ -5,7 +5,9 @@ export default {
   component: Chapter,
   title: 'Screens/ChapterScreen/index',
 };
-const Story = args => <Chapter {...args} />;
+function Story(args) {
+  return <Chapter {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   data: {

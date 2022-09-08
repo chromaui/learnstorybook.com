@@ -15,16 +15,18 @@ const LinkWrapper = styled(Link)`
   font-size: ${typography.size.s2}px;
 `;
 
-const GithubLink = ({ githubFileUrl }) => (
-  <GithubLinkWrapper>
-    <LinkWrapper tertiary href={githubFileUrl} target="_blank" rel="noopener">
-      <span role="img" aria-label="write">
-        ✍️
-      </span>{' '}
-      Edit on GitHub – PRs welcome!
-    </LinkWrapper>
-  </GithubLinkWrapper>
-);
+function GithubLink({ githubFileUrl }) {
+  return (
+    <GithubLinkWrapper>
+      <LinkWrapper tertiary href={githubFileUrl} target="_blank" rel="noopener">
+        <span role="img" aria-label="write">
+          ✍️
+        </span>{' '}
+        Edit on GitHub – PRs welcome!
+      </LinkWrapper>
+    </GithubLinkWrapper>
+  );
+}
 
 GithubLink.propTypes = {
   githubFileUrl: PropTypes.string.isRequired,

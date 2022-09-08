@@ -7,7 +7,9 @@ export default {
   title: 'Screens/ChapterScreen/Sidebar',
 };
 
-const Story = args => <Sidebar {...args} />;
+function Story(args) {
+  return <Sidebar {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   entries: TableOfContentsData.entries,

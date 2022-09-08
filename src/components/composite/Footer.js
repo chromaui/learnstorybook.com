@@ -286,14 +286,14 @@ const FooterWrapper = styled.div`
   margin-top: 80px;
 `;
 
-const LinkWrapper = ({ href, isGatsby, ...props }) => {
+function LinkWrapper({ href, isGatsby, ...props }) {
   if (isGatsby) {
     return <GatsbyLink to={href} {...props} />;
   }
 
   // eslint-disable-next-line
   return <a href={href} {...props} />;
-};
+}
 
 LinkWrapper.propTypes = {
   href: PropTypes.string.isRequired,
@@ -310,137 +310,137 @@ navLinks.splice(insertIndex + 1, 0, { title: 'Telemetry', href: urls.telemetry, 
 
 const frontpageUrl = 'https://storybook.js.org';
 
-const absoluteNavLinks = navLinks.map((link) => {
-  return {
-    title: link.title,
-    href: link.isGatsby ? `${frontpageUrl}${link.href}` : link.href,
-    isGatsby: false,
-  };
-});
+const absoluteNavLinks = navLinks.map((link) => ({
+  title: link.title,
+  href: link.isGatsby ? `${frontpageUrl}${link.href}` : link.href,
+  isGatsby: false,
+}));
 
-const Footer = ({ ...props }) => (
-  <FooterWrapper {...props}>
-    <Upper>
-      <UpperColumn>
-        <Resources>
-          <Resource>
-            <img src={withPrefix('/repo.svg')} alt="Docs" />
-            <Meta>
-              <ResourceTitle>Documentation</ResourceTitle>
-              <ResourceDesc>
-                Add Storybook to your project in less than a minute to build components faster and
-                easier.
-              </ResourceDesc>
-              <ResourceActions>
-                {coreFrameworks.map((framework) => (
-                  <ResourceAction
-                    withArrow
-                    key={framework}
-                    href={`${frontpageUrl}/docs/${framework}/get-started/introduction`}
-                  >
-                    {framework}
-                  </ResourceAction>
-                ))}
-              </ResourceActions>
-            </Meta>
-          </Resource>
-        </Resources>
-      </UpperColumn>
-      <UpperColumn>
-        <Resources>
-          <Resource>
-            <img src={withPrefix('/direction.svg')} alt="Tutorial" />
-            <Meta>
-              <ResourceTitle>Tutorials</ResourceTitle>
-              <ResourceDesc>
-                Learn Storybook with in-depth tutorials that teaches Storybook best practices.
-                Follow along with code samples.
-              </ResourceDesc>
-              <ResourceActions>
-                <Link withArrow isGatsby LinkWrapper={LinkWrapper} href="/">
-                  Learn Storybook now
-                </Link>
-              </ResourceActions>
-            </Meta>
-          </Resource>
-        </Resources>
-      </UpperColumn>
-    </Upper>
-    <Lower>
-      <Colophon>
-        <LogotypeWrapper isGatsby to="/">
-          <img src={withPrefix('/storybook-logo.svg')} alt="Storybook" />
-        </LogotypeWrapper>
-        <Text>
-          The MIT License (MIT). Website design by{' '}
-          <Link tertiary href="https://twitter.com/domyen" target="_blank">
-            <b>@domyen</b>
-          </Link>{' '}
-          and the awesome Storybook community.
-        </Text>
-      </Colophon>
-      <Column>
-        <Title>Storybook</Title>
-        {absoluteNavLinks.map(({ title, href, isGatsby }) => (
-          <FooterLink
-            tertiary
-            key={title}
-            href={href}
-            isGatsby={isGatsby}
-            LinkWrapper={LinkWrapper}
-          >
-            {title}
+function Footer({ ...props }) {
+  return (
+    <FooterWrapper {...props}>
+      <Upper>
+        <UpperColumn>
+          <Resources>
+            <Resource>
+              <img src={withPrefix('/repo.svg')} alt="Docs" />
+              <Meta>
+                <ResourceTitle>Documentation</ResourceTitle>
+                <ResourceDesc>
+                  Add Storybook to your project in less than a minute to build components faster and
+                  easier.
+                </ResourceDesc>
+                <ResourceActions>
+                  {coreFrameworks.map((framework) => (
+                    <ResourceAction
+                      withArrow
+                      key={framework}
+                      href={`${frontpageUrl}/docs/${framework}/get-started/introduction`}
+                    >
+                      {framework}
+                    </ResourceAction>
+                  ))}
+                </ResourceActions>
+              </Meta>
+            </Resource>
+          </Resources>
+        </UpperColumn>
+        <UpperColumn>
+          <Resources>
+            <Resource>
+              <img src={withPrefix('/direction.svg')} alt="Tutorial" />
+              <Meta>
+                <ResourceTitle>Tutorials</ResourceTitle>
+                <ResourceDesc>
+                  Learn Storybook with in-depth tutorials that teaches Storybook best practices.
+                  Follow along with code samples.
+                </ResourceDesc>
+                <ResourceActions>
+                  <Link withArrow isGatsby LinkWrapper={LinkWrapper} href="/">
+                    Learn Storybook now
+                  </Link>
+                </ResourceActions>
+              </Meta>
+            </Resource>
+          </Resources>
+        </UpperColumn>
+      </Upper>
+      <Lower>
+        <Colophon>
+          <LogotypeWrapper isGatsby to="/">
+            <img src={withPrefix('/storybook-logo.svg')} alt="Storybook" />
+          </LogotypeWrapper>
+          <Text>
+            The MIT License (MIT). Website design by{' '}
+            <Link tertiary href="https://twitter.com/domyen" target="_blank">
+              <b>@domyen</b>
+            </Link>{' '}
+            and the awesome Storybook community.
+          </Text>
+        </Colophon>
+        <Column>
+          <Title>Storybook</Title>
+          {absoluteNavLinks.map(({ title, href, isGatsby }) => (
+            <FooterLink
+              tertiary
+              key={title}
+              href={href}
+              isGatsby={isGatsby}
+              LinkWrapper={LinkWrapper}
+            >
+              {title}
+            </FooterLink>
+          ))}
+        </Column>
+        <Column>
+          <Title>Community</Title>
+          <FooterLink tertiary href={gitHub.repo}>
+            <Icon icon="github" /> GitHub
           </FooterLink>
-        ))}
-      </Column>
-      <Column>
-        <Title>Community</Title>
-        <FooterLink tertiary href={gitHub.repo}>
-          <Icon icon="github" /> GitHub
-        </FooterLink>
-        <FooterLink tertiary href={twitter}>
-          <Icon icon="twitter" /> Twitter
-        </FooterLink>
-        <FooterLink tertiary href={chat}>
-          <Icon icon="discord" /> Discord chat
-        </FooterLink>
-        <FooterLink tertiary href={youtube}>
-          <Icon icon="youtube" /> Youtube
-        </FooterLink>
-        <FooterLink tertiary href="https://componentdriven.org/">
-          <Icon icon="componentdriven" /> Component Driven UIs
-        </FooterLink>
-      </Column>
-      <Subscribe>
-        <Title>Subscribe</Title>
-        <Text>Get news, free tutorials, and Storybook tips emailed to you.</Text>
-        <MailingListSignup />
-      </Subscribe>
-    </Lower>
-    <HrWrapper>
-      <hr />
-    </HrWrapper>
-    <Services>
-      <Service>
-        <Text>Maintained by</Text>
-        <a href="https://www.chromatic.com/">
-          <Chromatic src={withPrefix('/logo-chromatic.svg')} alt="Chromatic" />
-        </a>
-      </Service>
-      <Service>
-        <Text>Continuous integration by</Text>
-        <a href="https://circleci.com/">
-          <CircleCI src={withPrefix('/logo-circleci.svg')} alt="CircleCI" />
-        </a>
-      </Service>
-      <Service>
-        <Text>Hosting by</Text>
-        <a href="https://netlify.com">
-          <Netlify src={withPrefix('/logo-netlify.svg')} alt="Netlify" />
-        </a>
-      </Service>
-    </Services>
-  </FooterWrapper>
-);
+          <FooterLink tertiary href={twitter}>
+            <Icon icon="twitter" /> Twitter
+          </FooterLink>
+          <FooterLink tertiary href={chat}>
+            <Icon icon="discord" /> Discord chat
+          </FooterLink>
+          <FooterLink tertiary href={youtube}>
+            <Icon icon="youtube" /> Youtube
+          </FooterLink>
+          <FooterLink tertiary href="https://componentdriven.org/">
+            <Icon icon="componentdriven" /> Component Driven UIs
+          </FooterLink>
+        </Column>
+        <Subscribe>
+          <Title>Subscribe</Title>
+          <Text>Get news, free tutorials, and Storybook tips emailed to you.</Text>
+          <MailingListSignup />
+        </Subscribe>
+      </Lower>
+      <HrWrapper>
+        <hr />
+      </HrWrapper>
+      <Services>
+        <Service>
+          <Text>Maintained by</Text>
+          <a href="https://www.chromatic.com/">
+            <Chromatic src={withPrefix('/logo-chromatic.svg')} alt="Chromatic" />
+          </a>
+        </Service>
+        <Service>
+          <Text>Continuous integration by</Text>
+          <a href="https://circleci.com/">
+            <CircleCI src={withPrefix('/logo-circleci.svg')} alt="CircleCI" />
+          </a>
+        </Service>
+        <Service>
+          <Text>Hosting by</Text>
+          <a href="https://netlify.com">
+            <Netlify src={withPrefix('/logo-netlify.svg')} alt="Netlify" />
+          </a>
+        </Service>
+      </Services>
+    </FooterWrapper>
+  );
+}
 
 export default Footer;

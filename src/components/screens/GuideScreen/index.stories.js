@@ -7,7 +7,9 @@ export default {
   title: 'Screens/GuideScreen/index',
 };
 
-const Story = args => <GuideScreen {...args} />;
+function Story(args) {
+  return <GuideScreen {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   data: {

@@ -21,35 +21,37 @@ const Features = styled(FeaturesLayout)`
   }
 `;
 
-const NotFoundScreen = () => (
-  <Wrapper>
-    <PageTitle
-      heading="404"
-      title="Yikes, this is embarassing"
-      desc="Try double-checking the link or going back."
-      color="purple"
-    />
-    <Features columns={2}>
-      <Feature
-        image={<img src={GitHubSVG} alt="GitHub" />}
-        title="Report an issue on GitHub"
-        desc="If you encounter an issue with this site, do us a favor and report it."
-      >
-        <Link withArrow href={siteMetadata.urls.gitHub.frontpage}>
-          Report an issue
-        </Link>
-      </Feature>
-      <Feature
-        image={<img src={DiscordSVG} alt="Discord" />}
-        title="Not finding something?"
-        desc="Ask community members in chat. A maintainer is usually online."
-      >
-        <Link withArrow href={siteMetadata.urls.chat}>
-          Chat now
-        </Link>
-      </Feature>
-    </Features>
-  </Wrapper>
-);
+function NotFoundScreen() {
+  return (
+    <Wrapper>
+      <PageTitle
+        heading="404"
+        title="Yikes, this is embarassing"
+        desc="Try double-checking the link or going back."
+        color="purple"
+      />
+      <Features columns={2}>
+        <Feature
+          image={<img src={GitHubSVG} alt="GitHub" />}
+          title="Report an issue on GitHub"
+          desc="If you encounter an issue with this site, do us a favor and report it."
+        >
+          <Link withArrow href={siteMetadata.urls.gitHub.frontpage}>
+            Report an issue
+          </Link>
+        </Feature>
+        <Feature
+          image={<img src={DiscordSVG} alt="Discord" />}
+          title="Not finding something?"
+          desc="Ask community members in chat. A maintainer is usually online."
+        >
+          <Link withArrow href={siteMetadata.urls.chat}>
+            Chat now
+          </Link>
+        </Feature>
+      </Features>
+    </Wrapper>
+  );
+}
 
 export default NotFoundScreen;

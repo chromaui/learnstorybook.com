@@ -43,12 +43,14 @@ const Action = styled.div`
   }
 `;
 
-const CTA = ({ text, action, ...rest }) => (
-  <Wrapper {...rest}>
-    <Text>{text}</Text>
-    <Action>{action}</Action>
-  </Wrapper>
-);
+function CTA({ text, action, ...rest }) {
+  return (
+    <Wrapper {...rest}>
+      <Text>{text}</Text>
+      <Action>{action}</Action>
+    </Wrapper>
+  );
+}
 
 CTA.propTypes = {
   text: PropTypes.node.isRequired,

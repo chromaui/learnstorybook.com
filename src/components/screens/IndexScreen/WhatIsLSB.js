@@ -48,25 +48,27 @@ const BannerText = styled.div`
   margin-top: 8px;
 `;
 
-const WhatIsLSB = () => (
-  <WhatIsLSBWrapper>
-    <Content>
-      <div>
-        <BannerHeading>What&rsquo;s inside</BannerHeading>
-        <BannerText>
-          You get tried-and-true development techniques for UI components. Our research is based on
-          interviews with professional teams, Storybook maintainers, and the larger community.
-        </BannerText>
-      </div>
+function WhatIsLSB() {
+  return (
+    <WhatIsLSBWrapper>
+      <Content>
+        <div>
+          <BannerHeading>What&rsquo;s inside</BannerHeading>
+          <BannerText>
+            You get tried-and-true development techniques for UI components. Our research is based
+            on interviews with professional teams, Storybook maintainers, and the larger community.
+          </BannerText>
+        </div>
 
-      <video autoPlay muted playsInline loop>
-        <source
-          src={withPrefix('/frontpage/learnstorybook-componentdrivendevelopment-optimized.mp4')}
-          type="video/mp4"
-        />
-      </video>
-    </Content>
-  </WhatIsLSBWrapper>
-);
+        <video autoPlay muted playsInline loop>
+          <source
+            src={withPrefix('/frontpage/learnstorybook-componentdrivendevelopment-optimized.mp4')}
+            type="video/mp4"
+          />
+        </video>
+      </Content>
+    </WhatIsLSBWrapper>
+  );
+}
 
 export default WhatIsLSB;

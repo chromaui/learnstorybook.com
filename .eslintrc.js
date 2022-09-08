@@ -1,12 +1,11 @@
 const prettierConfig = require('./.prettierrc');
 
 module.exports = {
-  parser: 'babel-eslint',
-  extends: ['airbnb', 'prettier', 'plugin:jest/recommended'],
-  plugins: ['prettier', 'jest'],
+  parser: '@babel/eslint-parser',
+  extends: ['airbnb', 'prettier', 'plugin:storybook/recommended'],
+  plugins: ['prettier'],
   env: {
     browser: true,
-    'jest/globals': true,
   },
   globals: {
     graphql: 'readonly',
@@ -39,6 +38,6 @@ module.exports = {
       },
     ],
     'react/jsx-props-no-spreading': 0,
-    'react/jsx-one-expression-per-line': 0
+    'react/jsx-one-expression-per-line': 0,
   },
 };

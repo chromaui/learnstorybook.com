@@ -19,12 +19,14 @@ const Message = styled.div`
   margin-top: 8px;
 `;
 
-const SiteStat = ({ heading, message }) => (
-  <>
-    <Heading>{heading}</Heading>
-    <Message>{message}</Message>
-  </>
-);
+function SiteStat({ heading, message }) {
+  return (
+    <>
+      <Heading>{heading}</Heading>
+      <Message>{message}</Message>
+    </>
+  );
+}
 
 SiteStat.propTypes = {
   heading: PropTypes.string.isRequired,

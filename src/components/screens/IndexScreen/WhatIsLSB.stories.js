@@ -6,4 +6,6 @@ export default {
   title: 'Screens/IndexScreen/WhatIsLSB',
 };
 
-export const Default = () => <WhatIsLSB />;
+export function Default() {
+  return <WhatIsLSB />;
+}

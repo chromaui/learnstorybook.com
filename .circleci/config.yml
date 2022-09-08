@@ -3,7 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/node:12
+      - image: circleci/node:14
 
     working_directory: ~/repo
 
@@ -19,5 +19,5 @@ jobs:
             - node_modules
           key: v2-dependencies-{{ checksum "package.json" }}
 
+      - run: GATSBY_CPU_COUNT=1 yarn build
       - run: yarn lint
-      - run: yarn build

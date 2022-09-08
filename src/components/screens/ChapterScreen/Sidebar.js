@@ -53,7 +53,7 @@ const StickyWrapper = styled.div`
   top: 3rem;
 `;
 
-const Sidebar = ({
+function Sidebar({
   chapter,
   contributeUrl,
   entries,
@@ -64,30 +64,32 @@ const Sidebar = ({
   language,
   slug,
   translationPages,
-}) => (
-  <SidebarWrapper>
-    <StickyWrapper>
-      <GuideLink tertiary to={`/${guide}`} title={`Back to ${guideTitle}`}>
-        <SidebarBackIcon icon="arrowleft" />
-        {guideTitle}
-      </GuideLink>
+}) {
+  return (
+    <SidebarWrapper>
+      <StickyWrapper>
+        <GuideLink tertiary to={`/${guide}`} title={`Back to ${guideTitle}`}>
+          <SidebarBackIcon icon="arrowleft" />
+          {guideTitle}
+        </GuideLink>
 
-      <TableOfContentsWrapper entries={entries} currentPageSlug={slug} />
+        <TableOfContentsWrapper entries={entries} currentPageSlug={slug} />
 
-      <div>
-        <LanguageMenu
-          chapter={chapter}
-          contributeUrl={contributeUrl}
-          guide={guide}
-          firstChapter={firstChapter}
-          framework={framework}
-          language={language}
-          translationPages={translationPages}
-        />
-      </div>
-    </StickyWrapper>
-  </SidebarWrapper>
-);
+        <div>
+          <LanguageMenu
+            chapter={chapter}
+            contributeUrl={contributeUrl}
+            guide={guide}
+            firstChapter={firstChapter}
+            framework={framework}
+            language={language}
+            translationPages={translationPages}
+          />
+        </div>
+      </StickyWrapper>
+    </SidebarWrapper>
+  );
+}
 
 Sidebar.propTypes = {
   chapter: PropTypes.string.isRequired,
@@ -100,6 +102,7 @@ Sidebar.propTypes = {
   language: PropTypes.string.isRequired,
   slug: PropTypes.string.isRequired,
   translationPages: PropTypes.shape({
+    // eslint-disable-next-line react/forbid-prop-types
     edges: PropTypes.arrayOf(PropTypes.any).isRequired,
   }).isRequired,
 };

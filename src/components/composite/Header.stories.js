@@ -13,7 +13,9 @@ export default {
   title: 'Composite/Header',
 };
 
-const Story = (args) => <Header {...args} />;
+function Story(args) {
+  return <Header {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   firstChapter: 'get-started',

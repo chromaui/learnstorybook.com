@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import { global } from '@storybook/design-system';
 import Helmet from 'react-helmet';
 import Header from './Header';
@@ -45,60 +45,65 @@ const guidePaths = [
   'create-an-addon',
 ];
 
-const getHeaderInvertedState = pathname => {
-  const pathParts = pathname.split('/').filter(p => !!p && p !== 'tutorials');
+const getHeaderInvertedState = (pathname) => {
+  const pathParts = pathname.split('/').filter((p) => !!p && p !== 'tutorials');
   // This will need to get "smarter" if the hierarchy of pages/guides changes.
   return pathParts.length === 1 && guidePaths.includes(pathParts[0]);
 };
 
-const TemplateWrapper = ({ location: { pathname }, children }) => (
-  <StaticQuery
-    query={query}
-    render={({
-      guides,
-      site: {
-        siteMetadata: { title, permalink, description, githubUrl },
-      },
-    }) => (
-      <>
-        <GlobalStyle />
+export function PureAppLayout({ location: { pathname }, children, data }) {
+  const {
+    guides,
+    site: {
+      siteMetadata: { title, permalink, description, githubUrl },
+    },
+  } = data;
 
-        <Helmet>
-          <link
-            rel="shortcut icon"
-            type="image/png"
-            href={`${permalink}/icon-storybook.png`}
-            sizes="16x16 32x32 64x64"
-          />
-          <title>{title}</title>
-          <meta name="description" content={description} />
+  return (
+    <>
+      <GlobalStyle />
 
-          <meta property="og:title" content={title} />
-          <meta property="og:description" content={description} />
-          <meta property="og:image" content={`${permalink}/opengraph-cover.jpg`} />
-          <meta property="og:url" content={permalink} />
+      <Helmet>
+        <link
+          rel="shortcut icon"
+          type="image/png"
+          href={`${permalink}/icon-storybook.png`}
+          sizes="16x16 32x32 64x64"
+        />
+        <title>{title}</title>
+        <meta name="description" content={description} />
 
-          <meta name="twitter:card" content="summary_large_image" />
-          <meta name="twitter:title" content={title} />
-          <meta name="twitter:description" content={description} />
-          <meta name="twitter:image" content={`${permalink}/opengraph-cover.jpg`} />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={`${permalink}/opengraph-cover.jpg`} />
+        <meta property="og:url" content={permalink} />
 
-          <meta
-            name="google-site-verification"
-            content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY"
-          />
-        </Helmet>
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+        <meta name="twitter:image" content={`${permalink}/opengraph-cover.jpg`} />
 
-        <Header guides={guides} githubUrl={githubUrl} inverse={getHeaderInvertedState(pathname)} />
+        <meta
+          name="google-site-verification"
+          content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY"
+        />
+      </Helmet>
 
-        {children}
-        <Footer guides={guides} />
-      </>
-    )}
-  />
-);
+      <Header guides={guides} githubUrl={githubUrl} inverse={getHeaderInvertedState(pathname)} />
 
-TemplateWrapper.propTypes = {
+      {children}
+      <Footer guides={guides} />
+    </>
+  );
+}
+
+function AppLayout(props) {
+  const data = useStaticQuery(query);
+
+  return <PureAppLayout data={data} {...props} />;
+}
+
+const appLayoutPropTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   children: PropTypes.any.isRequired,
   location: PropTypes.shape({
@@ -106,4 +111,35 @@ TemplateWrapper.propTypes = {
   }).isRequired,
 };
 
-export default TemplateWrapper;
+AppLayout.propTypes = appLayoutPropTypes;
+
+PureAppLayout.propTypes = {
+  ...appLayoutPropTypes,
+  data: PropTypes.shape({
+    guides: PropTypes.shape({
+      edges: PropTypes.arrayOf(
+        PropTypes.shape({
+          node: PropTypes.shape({
+            fields: PropTypes.shape({
+              slug: PropTypes.string.isRequired,
+            }).isRequired,
+            frontmatter: PropTypes.shape({
+              description: PropTypes.string.isRequired,
+              title: PropTypes.string.isRequired,
+            }).isRequired,
+          }).isRequired,
+        })
+      ).isRequired,
+    }).isRequired,
+    site: PropTypes.shape({
+      siteMetadata: PropTypes.shape({
+        description: PropTypes.string.isRequired,
+        githubUrl: PropTypes.string.isRequired,
+        permalink: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+      }).isRequired,
+    }).isRequired,
+  }).isRequired,
+};
+
+export default AppLayout;

@@ -32,29 +32,31 @@ const UserWrapper = styled(User)`
   }
 `;
 
-const Contributors = ({ authors, contributors }) => (
-  <ContributorsWrapper>
-    {authors && (
-      <CommunityDetailItem>
-        <Subheading>{pluralize('Author', authors.length)}</Subheading>
+function Contributors({ authors, contributors }) {
+  return (
+    <ContributorsWrapper>
+      {authors && (
+        <CommunityDetailItem>
+          <Subheading>{pluralize('Author', authors.length)}</Subheading>
 
-        {authors.map((author) => (
-          <UserWrapper {...author} key={author.name} />
-        ))}
-      </CommunityDetailItem>
-    )}
+          {authors.map((author) => (
+            <UserWrapper {...author} key={author.name} />
+          ))}
+        </CommunityDetailItem>
+      )}
 
-    {contributors && contributors.length > 0 && (
-      <CommunityDetailItem>
-        <Subheading>Reviewed by</Subheading>
+      {contributors && contributors.length > 0 && (
+        <CommunityDetailItem>
+          <Subheading>Reviewed by</Subheading>
 
-        {contributors.map((contributor) => (
-          <UserWrapper {...contributor} key={contributor.name} />
-        ))}
-      </CommunityDetailItem>
-    )}
-  </ContributorsWrapper>
-);
+          {contributors.map((contributor) => (
+            <UserWrapper {...contributor} key={contributor.name} />
+          ))}
+        </CommunityDetailItem>
+      )}
+    </ContributorsWrapper>
+  );
+}
 
 Contributors.propTypes = {
   authors: PropTypes.arrayOf(

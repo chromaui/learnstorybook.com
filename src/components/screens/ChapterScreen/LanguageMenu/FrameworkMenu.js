@@ -48,7 +48,7 @@ const ButtonContent = styled.div`
   font-weight: ${typography.weight.extrabold};
 `;
 
-const ChevronDownIcon = styled((props) => <Icon {...props} icon="chevrondown" />)`
+const ArrowDownIcon = styled((props) => <Icon {...props} icon="arrowdown" />)`
   && {
     width: 8px;
     height: 8px;
@@ -56,13 +56,13 @@ const ChevronDownIcon = styled((props) => <Icon {...props} icon="chevrondown" />
   }
 `;
 
-const TooltipLinkListLinkWrapper = ({ href, to, ...rest }) => {
+function TooltipLinkListLinkWrapper({ href, to, ...rest }) {
   if (href) {
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     return <a {...rest} href={href} />;
   }
   return <GatsbyLinkWithoutEffects {...rest} to={to} />;
-};
+}
 
 TooltipLinkListLinkWrapper.propTypes = {
   href: PropTypes.string,
@@ -129,12 +129,11 @@ const getTranslationPagesByFramework = (translationPages) =>
     return pagesByFramework;
   }, {});
 
-const capitalizeFrameworks = (framework) => {
-  return framework === 'react-native'
+const capitalizeFrameworks = (framework) =>
+  framework === 'react-native'
     ? 'React Native'
     : framework.charAt(0).toUpperCase() + framework.substring(1);
-};
-const FrameworkMenu = ({
+function FrameworkMenu({
   chapter,
   contributeUrl,
   firstChapter,
@@ -142,7 +141,7 @@ const FrameworkMenu = ({
   guide,
   language,
   translationPages,
-}) => {
+}) {
   const translationPagesByFramework = useMemo(
     () => getTranslationPagesByFramework(translationPages),
     [translationPages]
@@ -189,22 +188,20 @@ const FrameworkMenu = ({
     Object.keys(translationPagesByFramework[framework]),
     (languageName) => languageName
   )
-    .map((translationLanguage) => {
-      return {
-        short: translationLanguage,
-        title: getLanguageName(translationLanguage),
-        href: withPrefix(
-          getChapterInOtherLanguage(
-            framework,
-            translationLanguage,
-            guide,
-            chapter,
-            firstChapter,
-            translationPages
-          )
-        ),
-      };
-    })
+    .map((translationLanguage) => ({
+      short: translationLanguage,
+      title: getLanguageName(translationLanguage),
+      href: withPrefix(
+        getChapterInOtherLanguage(
+          framework,
+          translationLanguage,
+          guide,
+          chapter,
+          firstChapter,
+          translationPages
+        )
+      ),
+    }))
     .concat([{ short: 'zz', title: 'Help us translate!', href: contributeUrl }]);
 
   return (
@@ -245,13 +242,13 @@ const FrameworkMenu = ({
         <Button appearance="outline" size="small">
           <ButtonContent>
             {`${getLanguageName(language)}`}
-            <ChevronDownIcon />
+            <ArrowDownIcon />
           </ButtonContent>
         </Button>
       </WithTooltip>
     </>
   );
-};
+}
 
 FrameworkMenu.propTypes = {
   chapter: PropTypes.string.isRequired,

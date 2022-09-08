@@ -55,8 +55,7 @@ const translationMap = {
  * @param {String} language will retrieve the necessary information based on the language supplied
  * @returns {Object} with the necessary text to be added to the tutorial
  */
-const fetchTutorialNotUpdatedText = (language) => {
-  return translationMap[language] ? translationMap[language] : translationMap.en;
-};
+const fetchTutorialNotUpdatedText = (language) =>
+  translationMap[language] ? translationMap[language] : translationMap.en;
 
 export default fetchTutorialNotUpdatedText;

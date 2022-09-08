@@ -128,53 +128,55 @@ const logos = [
   src: withPrefix(logo.src),
 }));
 
-const SocialValidation = () => (
-  <SocialValidationWrapper>
-    <Heading>200,000+ readers so far</Heading>
+function SocialValidation() {
+  return (
+    <SocialValidationWrapper>
+      <Heading>200,000+ readers so far</Heading>
 
-    <Logos>
-      {logos.map((logo) => (
-        <Logo key={logo.src}>
-          <img src={logo.src} alt={logo.alt} />
-        </Logo>
-      ))}
-    </Logos>
+      <Logos>
+        {logos.map((logo) => (
+          <Logo key={logo.src}>
+            <img src={logo.src} alt={logo.alt} />
+          </Logo>
+        ))}
+      </Logos>
 
-    <Testimonials>
-      <Testimonial>
-        Storybook is such a pivotal tool not just for workbenching a component in isolation, but
-        also to communicate your component&#39;s use cases and API to your whole team. You NEED to
-        learn how to use Storybook, and this is the place to learn.
-        <UserWrapper
-          src="https://avatars2.githubusercontent.com/u/9523719"
-          name="Kyle Holmberg"
-          detail="Engineer at Air"
-        />
-      </Testimonial>
+      <Testimonials>
+        <Testimonial>
+          Storybook is such a pivotal tool not just for workbenching a component in isolation, but
+          also to communicate your component&#39;s use cases and API to your whole team. You NEED to
+          learn how to use Storybook, and this is the place to learn.
+          <UserWrapper
+            src="https://avatars2.githubusercontent.com/u/9523719"
+            name="Kyle Holmberg"
+            detail="Engineer at Air"
+          />
+        </Testimonial>
 
-      <Testimonial>
-        I was amazed at how easy it was to build a Design System with Storybook! The guide provided
-        here is just perfect. Everything is explained step by step, from the setup of the repository
-        to the deployment, including the tests and the generation of the documentation.
-        <UserWrapper
-          src="https://avatars2.githubusercontent.com/u/19664438"
-          name="Michèle Legait"
-          detail="Engineer at PROS"
-        />
-      </Testimonial>
+        <Testimonial>
+          I was amazed at how easy it was to build a Design System with Storybook! The guide
+          provided here is just perfect. Everything is explained step by step, from the setup of the
+          repository to the deployment, including the tests and the generation of the documentation.
+          <UserWrapper
+            src="https://avatars2.githubusercontent.com/u/19664438"
+            name="Michèle Legait"
+            detail="Engineer at PROS"
+          />
+        </Testimonial>
 
-      <Testimonial>
-        Design systems are rapidly growing in popularity. It can be overwhelming for developers to
-        understand where to start. This guide will kickstart your design system using industry
-        standard best practices.
-        <UserWrapper
-          src="https://avatars2.githubusercontent.com/u/9113740"
-          name="Lee Robinson"
-          detail="Engineer at Vercel"
-        />
-      </Testimonial>
-    </Testimonials>
-  </SocialValidationWrapper>
-);
+        <Testimonial>
+          Design systems are rapidly growing in popularity. It can be overwhelming for developers to
+          understand where to start. This guide will kickstart your design system using industry
+          standard best practices.
+          <UserWrapper
+            src="https://avatars2.githubusercontent.com/u/9113740"
+            name="Lee Robinson"
+            detail="Engineer at Vercel"
+          />
+        </Testimonial>
+      </Testimonials>
+    </SocialValidationWrapper>
+  );
+}
 
 export default SocialValidation;

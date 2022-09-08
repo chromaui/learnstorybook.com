@@ -38,24 +38,26 @@ const AvatarWrapper = styled(Avatar)`
   margin: 10px;
 `;
 
-const PureCommunity = ({ contributors }) => (
-  <div>
-    <Section isFirst>
-      <Heading>Peer reviewed and updated all the time</Heading>
+function PureCommunity({ contributors }) {
+  return (
+    <div>
+      <Section isFirst>
+        <Heading>Peer reviewed and updated all the time</Heading>
 
-      <Text>
-        Our guides are peer reviewed by leading folks at Shopify, Auth0, and New York Times. Our
-        amazing community of learners keep the guides up to date with industry best practices.
-      </Text>
+        <Text>
+          Our guides are peer reviewed by leading folks at Shopify, Auth0, and New York Times. Our
+          amazing community of learners keep the guides up to date with industry best practices.
+        </Text>
 
-      <CommunityAvatars className="chromatic-ignore">
-        {contributors.map((contributor) => (
-          <AvatarWrapper key={contributor.id} src={contributor.avatar_url} size="large" />
-        ))}
-      </CommunityAvatars>
-    </Section>
-  </div>
-);
+        <CommunityAvatars className="chromatic-ignore">
+          {contributors.map((contributor) => (
+            <AvatarWrapper key={contributor.id} src={contributor.avatar_url} size="large" />
+          ))}
+        </CommunityAvatars>
+      </Section>
+    </div>
+  );
+}
 
 PureCommunity.propTypes = {
   contributors: PropTypes.arrayOf(
@@ -73,7 +75,7 @@ PureCommunity.defaultProps = {
 const contributorsUrl = 'https://api.github.com/repos/chromaui/learnstorybook.com/contributors';
 const sessionStorageKey = 'lsbGithubContributors';
 
-const Community = () => {
+function Community() {
   const [contributors, setContributors] = useState([]);
 
   useEffect(() => {
@@ -96,7 +98,7 @@ const Community = () => {
   }, []);
 
   return <PureCommunity contributors={contributors} />;
-};
+}
 
 export { PureCommunity };
 

@@ -6,7 +6,9 @@ export default {
   title: 'Screens/IndexScreen/SiteStats',
 };
 
-const Story = args => <SiteStats {...args} />;
+function Story(args) {
+  return <SiteStats {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   chapterCount: 5,
