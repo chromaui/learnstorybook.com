@@ -3,9 +3,7 @@ const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://
 
 module.exports = {
   flags: {
-    PRESERVE_WEBPACK_CACHE: true,
     FAST_DEV: true,
-    QUERY_ON_DEMAND: true,
   },
   pathPrefix: `/tutorials`,
   siteMetadata: {
@@ -121,18 +119,6 @@ module.exports = {
           // A custom plugin in /plugins directory
           `gatsby-remark-prefix-links`,
         ],
-      },
-    },
-    {
-      resolve: `gatsby-plugin-emotion`,
-      options: {
-        importMap: {
-          '@storybook/theming': {
-            styled: { canonicalImport: ['@emotion/styled', 'default'] },
-            css: { canonicalImport: ['@emotion/react', 'css'] },
-            Global: { canonicalImport: ['@emotion/react', 'Global'] },
-          },
-        },
       },
     },
     `gatsby-plugin-sitemap`,
