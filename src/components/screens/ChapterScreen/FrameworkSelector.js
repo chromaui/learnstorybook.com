@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withPrefix } from 'gatsby';
 import { Menu } from '@storybook/components-marketing';
 import { styled } from '@storybook/theming';
 import { sortBy } from 'lodash';
@@ -46,7 +47,7 @@ function stylizeFramework(framework) {
 
 const getFrameworkLogo = (framework) => {
   if (framework === 'rax') return '/frameworks/logo-rax.png';
-  return `/frameworks/logo-${framework}.svg`;
+  return withPrefix(`/frameworks/logo-${framework}.svg`);
 };
 
 const FrameworkLogo = styled.img`
@@ -72,7 +73,9 @@ function FrameworkSelector({
   ).map((f) => ({
     link: {
       LinkWrapper: GatsbyLinkWrapper,
-      url: getChapterInOtherLanguage(language, guide, chapter, firstChapter, translationPages, f),
+      url: withPrefix(
+        getChapterInOtherLanguage(language, guide, chapter, firstChapter, translationPages, f)
+      ),
     },
     icon: <FrameworkLogo src={getFrameworkLogo(f)} alt="" />,
     label: stylizeFramework(f),

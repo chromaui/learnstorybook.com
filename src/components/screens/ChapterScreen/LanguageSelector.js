@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withPrefix } from 'gatsby';
 import { Menu, SubNavCTA } from '@storybook/components-marketing';
 import { sortBy } from 'lodash';
 
@@ -44,7 +45,7 @@ function LanguageSelector({
   const items = sortBy(Array.from(translationLanguages), (l) => l).map((l) => ({
     link: {
       LinkWrapper: GatsbyLinkWrapper,
-      url: getChapterInOtherLanguage(l, guide, chapter, firstChapter, translationPages),
+      url: withPrefix(getChapterInOtherLanguage(l, guide, chapter, firstChapter, translationPages)),
     },
     label: getLanguageName(l),
   }));
