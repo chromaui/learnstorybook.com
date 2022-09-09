@@ -6,20 +6,17 @@ import { withPrefix } from 'gatsby';
 import Guide from './Guide';
 import GatsbyLink from '../../basics/GatsbyLink';
 
-const { breakpoint, pageMargins } = styles;
-
-const GuidesWrapper = styled.div`
-  ${pageMargins}
-`;
+const { breakpoint } = styles;
 
 const Content = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin: -20px 0;
 
   @media (min-width: ${breakpoint}px) {
-    margin-left: -25px;
-    margin-right: -25px;
+    margin-left: -20px;
+    margin-right: -20px;
   }
 
   > * {
@@ -79,21 +76,19 @@ function Guides({ chaptersEdges, guidesEdges }) {
   const chapterCountByGuide = useMemo(() => getChapterCountByGuide(chaptersEdges), [chaptersEdges]);
 
   return (
-    <GuidesWrapper>
-      <Content>
-        {guidesEdges.map(({ node: guideNode }) => (
-          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-            <StyledGuide
-              chapterCount={chapterCountByGuide[guideNode.fields.guide]}
-              description={guideNode.frontmatter.description}
-              imagePath={withPrefix(guideNode.frontmatter.thumbImagePath)}
-              themeColor={guideNode.frontmatter.themeColor}
-              title={guideNode.frontmatter.title}
-            />
-          </GuideLink>
-        ))}
-      </Content>
-    </GuidesWrapper>
+    <Content>
+      {guidesEdges.map(({ node: guideNode }) => (
+        <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+          <StyledGuide
+            chapterCount={chapterCountByGuide[guideNode.fields.guide]}
+            description={guideNode.frontmatter.description}
+            imagePath={withPrefix(guideNode.frontmatter.thumbImagePath)}
+            themeColor={guideNode.frontmatter.themeColor}
+            title={guideNode.frontmatter.title}
+          />
+        </GuideLink>
+      ))}
+    </Content>
   );
 }
 

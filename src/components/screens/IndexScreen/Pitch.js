@@ -1,52 +1,38 @@
 import React from 'react';
-import { styled } from '@storybook/theming';
+import { styles as marketingStyles } from '@storybook/components-marketing';
 import { styles } from '@storybook/design-system';
-import IconLearnStorybook from '../../basics/IconLearnStorybook';
+import { styled } from '@storybook/theming';
 
-const { breakpoint, color, typography } = styles;
+const { breakpoint, color } = styles;
 
 const PitchWrapper = styled.div`
-  color: ${color.darkest};
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 9rem 20px 3rem;
+  margin-bottom: 40px;
 `;
 
 const PitchTitle = styled.h1`
-  margin-top: 1rem;
-
-  font-size: ${typography.size.m3}px;
-  font-weight: ${typography.weight.black};
-  line-height: 24px;
-  margin-bottom: 0.5rem;
+  ${marketingStyles.marketing.subheading}
+  color: ${color.darkest};
+  margin-bottom: 12px;
 
   @media (min-width: ${breakpoint}px) {
-    font-size: ${typography.size.l2}px;
-    line-height: 1;
-    margin-bottom: 1rem;
+    ${marketingStyles.marketing.hero2}
   }
 `;
 
-const PitchDescription = styled.div`
-  font-size: ${typography.size.s3}px;
-  line-height: 1.5;
+const PitchDescription = styled.p`
+  ${marketingStyles.marketing.textLarge}
   color: ${color.darker};
-
-  @media (min-width: ${breakpoint}px) {
-    font-size: ${typography.size.m1}px;
-    line-height: 32px;
-  }
+  margin: 0;
 `;
 
 function Pitch() {
   return (
     <PitchWrapper>
-      <IconLearnStorybook />
-
       <PitchTitle>Tutorials</PitchTitle>
 
-      <PitchDescription>Learn to develop UIs with components and design systems.</PitchDescription>
+      <PitchDescription>
+        Free in-depth guides with code samples. Made for professional frontend developers.{' '}
+      </PitchDescription>
     </PitchWrapper>
   );
 }

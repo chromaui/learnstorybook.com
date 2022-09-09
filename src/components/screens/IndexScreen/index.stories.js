@@ -4,6 +4,9 @@ import { PureIndexScreen } from './index';
 export default {
   component: PureIndexScreen,
   title: 'Screens/IndexScreen/index',
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
 function Story(args) {

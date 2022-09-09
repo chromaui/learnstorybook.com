@@ -1,7 +1,9 @@
 const path = require('path');
-const config = require('./gatsby-config');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
+
+const sourceDXData = require('./src/utils/source-dx-data');
+const config = require('./gatsby-config');
 
 const defaultLanguage = 'en';
 const defaultFramework = 'react';
@@ -182,4 +184,8 @@ exports.createPages = ({ graphql, actions }) => {
       }
     );
   });
+};
+
+exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
+  await sourceDXData({ actions, createNodeId, createContentDigest });
 };

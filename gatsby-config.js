@@ -87,12 +87,6 @@ module.exports = {
     },
   },
   plugins: [
-    {
-      resolve: 'gatsby-plugin-layout',
-      options: {
-        component: require.resolve(`./src/components/composite/AppLayout.js`),
-      },
-    },
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,

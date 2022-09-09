@@ -1,61 +1,51 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, useStaticQuery } from 'gatsby';
-import { global } from '@storybook/design-system';
+import { LinksContextProvider, defaultLinks } from '@storybook/components-marketing';
+import { global, styles } from '@storybook/design-system';
+import { css, styled } from '@storybook/theming';
 import Helmet from 'react-helmet';
+
+import { GatsbyLinkWrapper } from '../basics/GatsbyLink';
 import Header from './Header';
 import Footer from './Footer';
 
+import '@docsearch/css';
+
 const { GlobalStyle } = global;
 
-const query = graphql`
-  query TemplateWrapper {
-    site {
-      siteMetadata {
-        title
-        description
-        githubUrl
-        permalink
-      }
-    }
-    guides: allMarkdownRemark(
-      filter: { fields: { pageType: { eq: "guide" } } }
-      sort: { order: ASC, fields: [frontmatter___order] }
-    ) {
-      edges {
-        node {
-          frontmatter {
-            title
-            description
-          }
-          fields {
-            slug
-          }
-        }
-      }
-    }
-  }
-`;
-
-const guidePaths = [
-  'intro-to-storybook',
-  'design-systems-for-developers',
-  'ui-testing-handbook',
-  'visual-testing-handbook',
-  'create-an-addon',
-];
-
-const getHeaderInvertedState = (pathname) => {
-  const pathParts = pathname.split('/').filter((p) => !!p && p !== 'tutorials');
-  // This will need to get "smarter" if the hierarchy of pages/guides changes.
-  return pathParts.length === 1 && guidePaths.includes(pathParts[0]);
+const navLinks = {
+  ...defaultLinks,
+  tutorials: {
+    url: '/',
+    linkWrapper: GatsbyLinkWrapper,
+  },
 };
 
-export function PureAppLayout({ location: { pathname }, children, data }) {
+const Main = styled('main', {
+  shouldForwardProp: (prop) => !['includePaddingTop', 'includePageMargins'].includes(prop),
+})`
+  ${(props) => props.includePageMargins && styles.pageMargins};
+  ${(props) =>
+    props.includePaddingTop &&
+    css`
+      padding-top: ${4 + 9.5}rem;
+    `};
+  padding-bottom: 4rem;
+`;
+
+export function PureAppLayout({
+  children,
+  data,
+  includePaddingTop,
+  includePageMargins,
+  inverseHeader,
+  subNav,
+}) {
   const {
-    guides,
+    dxData,
     site: {
-      siteMetadata: { title, permalink, description, githubUrl },
+      siteMetadata: { title, permalink, description },
     },
   } = data;
 
@@ -89,16 +79,62 @@ export function PureAppLayout({ location: { pathname }, children, data }) {
         />
       </Helmet>
 
-      <Header guides={guides} githubUrl={githubUrl} inverse={getHeaderInvertedState(pathname)} />
-
-      {children}
-      <Footer guides={guides} />
+      <LinksContextProvider value={navLinks}>
+        <Header
+          framework="react"
+          githubStars={dxData.githubStars}
+          inverse={inverseHeader}
+          latestPost={dxData.latestPost}
+          subNav={subNav}
+          versionString={dxData.latestVersion}
+        />
+        <Main includePaddingTop={includePaddingTop} includePageMargins={includePageMargins}>
+          {children}
+        </Main>
+        <Footer subscriberCount={dxData.subscriberCount} />
+      </LinksContextProvider>
     </>
   );
 }
 
 function AppLayout(props) {
-  const data = useStaticQuery(query);
+  const data = useStaticQuery(graphql`
+    query TemplateWrapper {
+      site {
+        siteMetadata {
+          title
+          description
+          githubUrl
+          permalink
+        }
+      }
+      guides: allMarkdownRemark(
+        filter: { fields: { pageType: { eq: "guide" } } }
+        sort: { order: ASC, fields: [frontmatter___order] }
+      ) {
+        edges {
+          node {
+            frontmatter {
+              title
+              description
+            }
+            fields {
+              slug
+            }
+          }
+        }
+      }
+      dxData {
+        githubStars
+        latestPost {
+          title
+          url
+        }
+        latestVersion
+        subscriberCount
+      }
+    }
+  `);
 
   return <PureAppLayout data={data} {...props} />;
 }
@@ -106,16 +142,33 @@ function AppLayout(props) {
 const appLayoutPropTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   children: PropTypes.any.isRequired,
-  location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired,
-  }).isRequired,
+  includePaddingTop: PropTypes.bool,
+  includePageMargins: PropTypes.bool,
+  inverseHeader: PropTypes.bool,
 };
 
 AppLayout.propTypes = appLayoutPropTypes;
 
+const appLayoutDefaultProps = {
+  includePaddingTop: true,
+  includePageMargins: true,
+  inverseHeader: false,
+};
+
+AppLayout.defaultProps = appLayoutDefaultProps;
+
 PureAppLayout.propTypes = {
   ...appLayoutPropTypes,
   data: PropTypes.shape({
+    dxData: PropTypes.shape({
+      githubStars: PropTypes.number.isRequired,
+      latestPost: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+      }).isRequired,
+      latestVersion: PropTypes.string.isRequired,
+      subscriberCount: PropTypes.number.isRequired,
+    }).isRequired,
     guides: PropTypes.shape({
       edges: PropTypes.arrayOf(
         PropTypes.shape({
@@ -140,6 +193,10 @@ PureAppLayout.propTypes = {
       }).isRequired,
     }).isRequired,
   }).isRequired,
+};
+
+PureAppLayout.defaultProps = {
+  ...appLayoutDefaultProps,
 };
 
 export default AppLayout;
