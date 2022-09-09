@@ -2,7 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 import { graphql } from 'gatsby';
-import { SubNavBreadcrumb, styles as marketingStyles } from '@storybook/components-marketing';
+import {
+  SubNavBreadcrumb,
+  SubNavDivider,
+  SubNavMenus,
+  styles as marketingStyles,
+} from '@storybook/components-marketing';
 import { Highlight, Icon, Link, styles } from '@storybook/design-system';
 import { styled } from '@storybook/theming';
 
@@ -12,9 +17,11 @@ import { chapterFormatting } from '../../../styles/formatting';
 import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
 import AppLayout from '../../composite/AppLayout';
 import ChapterLinks from './ChapterLinks';
+import FrameworkSelector from './FrameworkSelector';
 import GithubLink from './GithubLink';
 import Pagination from './Pagination';
 import Sidebar from './Sidebar';
+import LanguageSelector from './LanguageSelector';
 
 const { breakpoint, typography } = styles;
 
@@ -102,24 +109,38 @@ function Chapter({
       </Helmet>
       <AppLayout
         subNav={
-          <SubNavBreadcrumb tertiary to={`/${guide}`} LinkWrapper={GatsbyLinkWrapper}>
-            <Icon icon="arrowleft" />
-            Back to {currentGuideTitle}
-          </SubNavBreadcrumb>
+          <>
+            <SubNavBreadcrumb tertiary to={`/${guide}`} LinkWrapper={GatsbyLinkWrapper}>
+              <Icon icon="arrowleft" />
+              Back to {currentGuideTitle}
+            </SubNavBreadcrumb>
+            <SubNavDivider />
+            <SubNavMenus>
+              {framework && (
+                <FrameworkSelector
+                  chapter={chapter}
+                  firstChapter={firstChapter}
+                  framework={framework}
+                  guide={guide}
+                  language={language}
+                  translationPages={translationPages}
+                />
+              )}
+              <LanguageSelector
+                chapter={chapter}
+                contributeUrl={siteMetadata.contributeUrl}
+                firstChapter={firstChapter}
+                framework={framework}
+                guide={guide}
+                language={language}
+                translationPages={translationPages}
+              />
+            </SubNavMenus>
+          </>
         }
       >
         <ChapterWrapper>
-          <Sidebar
-            chapter={chapter}
-            contributeUrl={siteMetadata.contributeUrl}
-            entries={entries}
-            firstChapter={firstChapter}
-            framework={framework}
-            guide={guide}
-            language={language}
-            slug={slug}
-            translationPages={translationPages}
-          />
+          <Sidebar entries={entries} slug={slug} />
 
           <Content>
             <Title>{title}</Title>

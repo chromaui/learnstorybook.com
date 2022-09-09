@@ -2,7 +2,12 @@ const webpack = require('webpack');
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-links'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
+    '@storybook/addon-links',
+  ],
   core: {
     builder: 'webpack5',
   },
@@ -10,6 +15,9 @@ module.exports = {
     ...config,
     GATSBY_ALGOLIA_API_KEY: process.env.GATSBY_ALGOLIA_API_KEY || 'GATSBY_ALGOLIA_API_KEY',
   }),
+  features: {
+    interactionsDebugger: true,
+  },
   webpackFinal: async (config) => {
     config.module.rules[0].exclude = [/node_modules\/(?!(gatsby)\/)/];
 
