@@ -145,5 +145,3 @@ OnlyOneFramework.args = {
     ],
   },
 };
-OnlyOneFramework.decorators = [(story) => <Height height={100}>{story()}</Height>];
-OnlyOneFramework.play = Default.play;

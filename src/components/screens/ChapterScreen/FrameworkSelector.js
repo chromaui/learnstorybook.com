@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withPrefix } from 'gatsby';
-import { Menu } from '@storybook/components-marketing';
+import { Menu, styles as marketingStyles } from '@storybook/components-marketing';
 import { styled } from '@storybook/theming';
 import { sortBy } from 'lodash';
 
@@ -50,6 +50,16 @@ const getFrameworkLogo = (framework) => {
   return withPrefix(`/frameworks/logo-${framework}.svg`);
 };
 
+const Label = styled.span`
+  ${marketingStyles.text.regular};
+  display: inline-flex;
+  align-items: center;
+  text-align: center;
+  padding: 6px 8px;
+  color: ${marketingStyles.color.darkest};
+  margin-right: 12px;
+`;
+
 const FrameworkLogo = styled.img`
   width: 12;
   height: 12;
@@ -67,6 +77,10 @@ function FrameworkSelector({
     () => getTranslationPagesByFramework(translationPages),
     [translationPages]
   );
+
+  if (Object.keys(translationPagesByFramework).length < 2) {
+    return <Label>{stylizeFramework(framework)}</Label>;
+  }
 
   const items = sortBy(Object.keys(translationPagesByFramework), (f) =>
     frameworksByPopularity.indexOf(f)

@@ -77,8 +77,7 @@ const Logos = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: ${48 - 20}px;
-  margin-bottom: -20px;
+  margin-top: 3rem;
   filter: grayscale(1);
   opacity: 0.5;
 

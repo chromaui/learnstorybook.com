@@ -22,9 +22,16 @@ const navLinks = {
   },
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+`;
+
 const Main = styled('main', {
   shouldForwardProp: (prop) => !['includePaddingTop', 'includePageMargins'].includes(prop),
 })`
+  flex: 1 1 auto;
   ${(props) => props.includePageMargins && styles.pageMargins};
   ${(props) =>
     props.includePaddingTop &&
@@ -80,18 +87,20 @@ export function PureAppLayout({
       </Helmet>
 
       <LinksContextProvider value={navLinks}>
-        <Header
-          framework="react"
-          githubStars={dxData.githubStars}
-          inverse={inverseHeader}
-          latestPost={dxData.latestPost}
-          subNav={subNav}
-          versionString={dxData.latestVersion}
-        />
-        <Main includePaddingTop={includePaddingTop} includePageMargins={includePageMargins}>
-          {children}
-        </Main>
-        <Footer subscriberCount={dxData.subscriberCount} />
+        <Wrapper>
+          <Header
+            framework="react"
+            githubStars={dxData.githubStars}
+            inverse={inverseHeader}
+            latestPost={dxData.latestPost}
+            subNav={subNav}
+            versionString={dxData.latestVersion}
+          />
+          <Main includePaddingTop={includePaddingTop} includePageMargins={includePageMargins}>
+            {children}
+          </Main>
+          <Footer subscriberCount={dxData.subscriberCount} />
+        </Wrapper>
       </LinksContextProvider>
     </>
   );
