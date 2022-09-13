@@ -19,14 +19,13 @@ No entanto o padrão a ser usado aqui, pode ser aplicado a outras bibliotecas de
 
 Adiciona-se a nova dependência com:
 
-```bash
+```shell
 yarn add vuex
 ```
 
 Num ficheiro denominado `src/store.js` vai ser implementada uma loja Vuex padrão, que irá reagir ao desencadear de ações que alteram o estado das tarefas.
 
-```javascript
-// src/store.js
+```js:title=src/store.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -62,8 +61,7 @@ export default new Vuex.Store({
 
 Para ser possível conectar a nossa aplicação á loja recém criada e fornecer dados á hierarquia de componentes de forma extremamente fácil, o componente de topo (`src/App.vue`) vai ser alterado para:
 
-```html
-<!--src/App.vue-->
+```html:title=src/App.vue
 <template>
   <div id="app">
     <task-list />
@@ -92,9 +90,7 @@ Mas primeiro, vamos mover a versão existente do componente que é considerada d
 
 No ficheiro `src/components/PureTaskList.vue`:
 
-```html
-
-<!--src/components/PureTaskList.vue-->
+```html:title=src/components/PureTaskList.vue
 <template>
 <!--same content as before-->
 </template>
@@ -108,8 +104,7 @@ export default {
 
 No ficheiro `src/components/TaskList.vue`:
 
-```html
-<!--src/components/TaskList.vue`-->
+```html:title=src/components/TaskList.vue
 <template>
   <div>
     <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask" />
@@ -137,8 +132,7 @@ No ficheiro `src/components/TaskList.vue`:
 
 A razão porque irá ser mantida a versão de apresentação do `TaskList` em separado, não é nada mais nada menos pelo facto que é porque é mais fácil para testar e isolar. Visto que não depende da existência de uma loja, logo torna-se mais fácil de lidar do ponto de vista de testes. O ficheiro de estórias `src/components/TaskList.stories.js` vai ser renomeado também para `src/components/PureTaskList.stories.js`, com isto garantimos que as nossas estórias usam a versão de apresentação:
 
-```javascript
-//src/components/PureTaskList.stories.js
+```js:title=src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList';
 import { taskData, actionsData } from './Task.stories';
 
@@ -209,8 +203,7 @@ export const Empty = () => ({
 
 Similarmente, será usado o `PureTaskList` nos testes com Jest:
 
-```js
-//tests/unit/TaskList.spec.js
+```js:title=tests/unit/PureTaskList.spec.js
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
 import { withPinnedTasksData } from '../../src/components/PureTaskList.stories';

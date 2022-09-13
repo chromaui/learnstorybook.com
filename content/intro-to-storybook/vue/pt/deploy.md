@@ -17,7 +17,7 @@ Neste tutorial o Storybook foi executado na máquina local. Poderá ser necessá
 
 Para implementar o Storybook será necessário ser exportado como uma aplicação estática para a web. Esta funcionalidade já está implementada, somente será necessário alterar o script tal como quando o projeto foi inicializado [na introdução](/intro-to-storybook/vue/pt/get-started).
 
-```javascript
+```json:clipboard=false
 {
   "scripts": {
    "build-storybook": "build-storybook -s public"
@@ -37,14 +37,14 @@ Se estiver a seguir o tutorial a partir da secção anterior de testes pode salt
 
 Quando o projeto foi inicializado pelo Vue CLI, foi criado um repositório local. Nesta altura é seguro adicionar os ficheiros ao primeiro commit.
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 Agora pode ser feito o commit dos ficheiros.
 
-```bash
-$ git commit -m "taskbox UI";
+```shell
+git commit -m "taskbox UI";
 ```
 
 ### Criar um repositório no GitHub
@@ -55,14 +55,14 @@ Navegue até ao GitHub e configure [aqui](https://github.com/new) um repositóri
 
 No novo repositório de código, copie o URL de origem, e adicione-o ao projeto com o seguinte comando:
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Finalmente injeta-se o repositório no GitHub
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### Netlify

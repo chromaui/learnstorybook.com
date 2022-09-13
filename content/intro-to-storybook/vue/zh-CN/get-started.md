@@ -15,7 +15,7 @@ Storybook 是在开发模式下与您的应用程序一同运行的。它可以�
 
 让我们运行下述的命令：
 
-```bash
+```shell:clipboard=false
 # Clone the template
 npx degit chromaui/intro-storybook-vue-template taskbox
 
@@ -31,7 +31,7 @@ yarn
 
 现在通过下述的命令行我们可以快速查看应用程序中的各个环境是否正常运行：
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test:unit
 
@@ -55,19 +55,19 @@ yarn serve
 执行下述的命令行将我们目前为止的修改添加到 commit 中。
 
 ```shell
-$ git init
+git init
 ```
 
 下一行：
 
 ```shell
-$ git add .
+git add .
 ```
 
 最后：
 
 ```shell
-$ git commit -m "first commit"
+git commit -m "first commit"
 ```
 
 让我们创建第一个组件吧！

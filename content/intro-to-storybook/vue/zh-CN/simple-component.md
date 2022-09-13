@@ -163,7 +163,6 @@ module.exports = {
 完成上述的修改后，如下所示修改您`.storybook`文件夹中的`preview.js` ：
 
 ```diff:title=.storybook/preview.js
-
 + import '../src/index.css';
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
@@ -299,7 +298,6 @@ initStoryshots();
 
 ```diff:title=jest.config.js
 module.exports = {
-  ...
 + transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 };
 ```
