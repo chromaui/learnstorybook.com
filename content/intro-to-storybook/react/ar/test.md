@@ -41,7 +41,7 @@ description: 'تعلم الطرق لاختبار مكونات واجهة الم�
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
@@ -74,7 +74,7 @@ git checkout -b change-task-background
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git add .
 ```
 
@@ -84,7 +84,7 @@ git add .
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
@@ -94,7 +94,7 @@ git commit -m "change task background to red"
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

@@ -38,21 +38,21 @@ Chromatic ist ein leicht anzubindendes Storybook-Addon für visuelle Regressions
 
 `create-react-app` hat ein Git Repo für unser Projekt angelegt; lass uns unsere bisherigen Änderungen mal einchecken:
 
-```bash
-$ git add -A
+```shell
+git add -A
 ```
 
 Nun committe die Dateien.
 
 ```bash
-$ git commit -m "taskbox UI"
+git commit -m "taskbox UI"
 ```
 
 ### Chromatic installieren
 
 Füge das Paket als Abhängigkeit hinzu.
 
-```bash
+```shell
 yarn add chromatic
 ```
 
@@ -87,7 +87,7 @@ Hierdurch erhalten wir eine neue Hintergrundfarbe für die Aufgabe.
 
 Führe den Befehl von vorhin aus, um einen weiteren Chromatic-Test zu starten.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 

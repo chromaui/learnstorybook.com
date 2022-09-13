@@ -16,9 +16,7 @@ Bisher haben wir Storybook in diesem Tutorial immer auf unserer Entwickler-Masch
 
 Um Storybook zu deployen, müssen wir zunächst eine statische Web-App exportieren. Die Funktionalität dafür ist bereits in Storybook integriert, wir müssen sie nur aktivieren, indem wir ein Script in der `package.json` hinzufügen.
 
-```javascript
-// package.json
-
+```json:clipboard=false
 {
   "scripts": {
     "build-storybook": "build-storybook -c .storybook"
@@ -36,20 +34,20 @@ Wir wollen die neueste Version unserer Komponenten verfügbar machen, wann immer
 
 Als Erstes musst du Git für dein lokales Projekt-Verzeichnis einrichten. Wenn du bereits das vorherige Kapitel "Tests" gelesen hast, springe zum Aufsetzen eines GitHub-Repository.
 
-```bash
-$ git init
+```shell
+git init
 ```
 
 Füge Dateien zum ersten Commit hinzu.
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 Committe die Dateien.
 
-```bash
-$ git commit -m "taskbox UI"
+```shell
+git commit -m "taskbox UI"
 ```
 
 Gehe auf GitHub und setze [hier](https://github.com/new) ein Repository auf. Nenne es "taskbox".
@@ -58,14 +56,14 @@ Gehe auf GitHub und setze [hier](https://github.com/new) ein Repository auf. Nen
 
 Kopiere die Origin-URL des neu aufgesetzten Repos und füge es deinem Git-Projekt mit folgendem Befehl hinzu:
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Zuletzt pushe das Repo auf GitHub.
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### Netlify

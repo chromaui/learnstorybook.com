@@ -15,7 +15,7 @@ commit: '9245261'
 
 다음 명령을 실행해주세요:
 
-```bash
+```shell:clipboard=false
 # Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
@@ -31,7 +31,7 @@ yarn
 
 이제 다양한 환경에서 애플리케이션이 올바르게 작동하는지 아래 명령어를 통해 빠르게 확인할 수 있습니다:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 

@@ -17,7 +17,7 @@ commit: '94b134e'
 
 프로젝트에 필수 의존성(dependency)을 다음과 같이 설치해 주세요.
 
-```bash
+```shell
 yarn add @reduxjs/toolkit react-redux
 ```
 

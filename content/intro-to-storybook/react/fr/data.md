@@ -17,15 +17,13 @@ Cet exemple utilise [Redux](https://redux.js.org/), la bibliothèque React la pl
 
 Ajoutez les dependencies nécessaires à votre projet avec:
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 
 Nous allons d'abord construire un stockage Redux simple qui répond aux actions qui changent l'état des tâches, dans un fichier appelé `lib/redux.js` dans le dossier `src` (intentionnellement simple):
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -79,9 +77,7 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 Ensuite, nous mettrons à jour le default export du composant `TaskList` pour nous connecter au stockage Redux et faire le rendu des tâches qui nous intéressent:
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -127,9 +123,7 @@ Ne vous inquiétez pas, nous nous en occuperons dans le prochain chapitre.
 
 Cependant, nous pouvons facilement résoudre ce problème en rendant simplement la `PureTaskList` --le composant de présentation, auquel nous venons d'ajouter la déclaration `export` à l'étape précédente-- dans nos story de Storybook :
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
 import { PureTaskList } from './TaskList';

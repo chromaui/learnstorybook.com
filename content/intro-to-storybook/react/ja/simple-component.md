@@ -274,7 +274,7 @@ Storybook はアプリケーションの UI を作成する際に目視でテス
 
 [Storyshots アドオン](https://github.com/storybooks/storybook/tree/master/addons/storyshots)を使用することで、それぞれのストーリーにスナップショットテストが作成されます。開発時の依存関係を以下のコマンドで追加してください:
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 

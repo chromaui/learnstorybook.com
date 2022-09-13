@@ -24,9 +24,7 @@ commit: 'efa06ff'
 
 我们将从 `Task` 的基本实现开始，简单传入我们需要的 `属性-props` 以及需要对任务执行的两个 `on` 操作（在列表之间移动它）：
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -42,9 +40,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 下面, 我们在 story 文件中构建 Task 的三个测试状态:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import React from 'react';
 
 import Task from './Task';
@@ -119,9 +115,7 @@ Arguments 或者 [`args`](https://storybook.js.org/docs/react/writing-stories/ar
 
 我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用[上个章节](/intro-to-storybook/react/zh-CN/get-started)中修改过的 CSS 文件。
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
@@ -135,9 +129,7 @@ module.exports = {
 
 完成以上修改后，在 `.storybook` 文件夹中修改 `preview.js` 为一下内容：
 
-```javascript
-// .storybook/preview.js
-
+```js:title=.storybook/preview.js
 import '../src/index.css'; //👈 The app's CSS file goes here
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
@@ -165,9 +157,7 @@ export const parameters = {
 
 目前该组件仍然很基础。首先编写代码实现设计，而无需关注太多细节。
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -212,9 +202,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 最佳实践是在 React 中使用 `propTypes` 指定组件期望的数据形态。不仅可以自我记录文档化，也能帮助我们尽早发现问题。
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -268,15 +256,13 @@ Storybook 为我们提供了一种在开发期间，`可视化`测试我们的�
 需要[Storyshots 插件](https://github.com/storybooks/storybook/tree/master/addons/storyshots)为每个故事创建快照测试。
 通过添加开发依赖项来使用它：
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 
 然后创建一个`src/storybook.test.js`文件中包含以下内容：
 
-```javascript
-// src/storybook.test.js
-
+```js:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```

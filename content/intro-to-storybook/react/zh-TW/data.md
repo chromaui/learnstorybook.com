@@ -17,7 +17,7 @@ commit: '94b134e'
 
 在專案裡加入要用到的相依套件：
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 

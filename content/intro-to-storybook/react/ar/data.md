@@ -21,7 +21,7 @@ commit: '94b134e'
 
 <div style="direction: ltr">
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 

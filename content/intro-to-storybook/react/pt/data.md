@@ -19,15 +19,13 @@ No entanto o padrão a ser usado aqui, pode ser aplicado a outras bibliotecas de
 
 Adicione as dependências necessárias ao projeto através de:
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 
 Irá ser construída (intencionalmente definida de forma simples) uma loja Redux, que responde ao desencadear de ações que alteram o estado das tarefas. Isto no ficheiro `lib/redux.js`, contido dentro de `src`
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -81,9 +79,7 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 Em seguida o componente `Tasklist` irá ser alterado, para receber dados oriundos da loja e apresentar as tarefas que pretendemos:
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -121,9 +117,7 @@ Nesta altura os testes com Storybook terão deixado de funcionar, visto que `Tas
 
 No entanto este problema pode ser resolvido com relativa facilidade, ao renderizar-se o componente de apresentação `PureTaskList` nas estórias do Storybook:
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
 import { PureTaskList } from './TaskList';

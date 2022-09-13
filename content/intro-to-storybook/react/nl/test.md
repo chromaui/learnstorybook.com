@@ -37,14 +37,13 @@ Laten we zien hoe het werkt door the achtergrond van de `Task` component aan te 
 
 Start met het aanmaken van een nieuwe branch voor deze verandering:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
 Verander `Task` naar het volgende:
 
-```js
-// src/components/Task.js
+```js:title=src/components/Task.js
 <div className="title">
   <input
     type="text"
@@ -62,19 +61,19 @@ Dit geeft een nieuwe achtergrondkleur weer voor het item.
 
 Voeg het bestand toe:
 
-```bash
+```shell
 git add src\components\Task.js
 ```
 
 Commit het:
 
-```bash
+```shell
 git commit -m “change task background to red”
 ```
 
 En push de wijzigingen naar de remote repo:
 
-```bash
+```shell
 git push -u origin head
 ```
 

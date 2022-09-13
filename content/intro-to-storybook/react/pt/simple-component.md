@@ -30,9 +30,7 @@ Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o aco
 
 Iremos iniciar por uma implementação rudimentar da `Task`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
 
-```javascript
-// src/components/Task.js
-
+```jsx:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -48,9 +46,7 @@ O bloco de código acima, quando renderizado, não é nada mais nada menos que a
 
 Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
@@ -118,9 +114,7 @@ Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a
 
 Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
@@ -134,9 +128,7 @@ module.exports = {
 
 Após efetuar esta alteração, uma vez mais dentro da pasta (ou diretório) `.storybook`, crie um novo ficheiro (ou arquivo) chamado `preview.js` com o seguinte conteúdo:
 
-```javascript
-// .storybook/preview.js
-
+```js:title=.storybook/preview.js
 import '../src/index.css'; //👈 The app's CSS file goes here
 ```
 
@@ -155,9 +147,7 @@ Neste momento já possuímos o Storybook configurado, os elementos de estilo imp
 
 O componente neste momento ainda está algo rudimentar. Vamos fazer algumas alterações de forma a atingir o design pretendido, sem entrar em muitos detalhes:
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -202,7 +192,7 @@ O markup adicional descrito acima, combinado com o CSS que foi importado anterio
 
 É considerada boa prática usar `propTypes` com o React, de forma a especificar a forma que os dados assumem num componente. Não somente é auto documentável, mas ajuda a detetar problemas cedo.
 
-```javascript
+```js:title=src/components/Task.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -250,15 +240,13 @@ Este tipo de testes refere-se á pratica de guardar o output considerado "bom" d
 
 Com o [extra Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) é criado um teste de snapshot para cada uma das estórias. Para que este possa ser usado, adicionam-se as seguintes dependências de desenvolvimento:
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 
 Quando esta operação terminar, será necessário criar o ficheiro `src/storybook.test.js` com o seguinte conteúdo:
 
-```javascript
-// src/storybook.test.js
-
+```js:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```

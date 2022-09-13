@@ -29,15 +29,13 @@ Knobs (Knöpfe) sind eine tolle Möglichkeit für Designer und Entwickler, um in
 
 Als Erstes müssen wir die nötigen Abhängigkeiten installieren.
 
-```bash
+```shell
 yarn add -D @storybook/addon-knobs
 ```
 
 Registriere Knobs in deiner `.storybook/addons.js` Datei.
 
-```javascript
-// .storybook/addons.js
-
+```js:title=.storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
 import '@storybook/addon-links/register';
@@ -57,9 +55,7 @@ Lass uns den Knob-Typ "Objekt" in der `Task`-Komponente benutzen.
 
 Importiere zunächst den `withKnobs`-Decorator und den `object`-Knob-Typ in `Task.stories.js`:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
@@ -67,9 +63,7 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 Füge als Nächstes `withKnobs` in das `decorators`-Array des `default`-Exports von `Task.stories.js` hinzu:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 export default {
   component: Task,
   title: 'Task',
@@ -80,9 +74,7 @@ export default {
 
 Zuletzt integriere noch den `object`-Knob-Typ in die "default"-Story:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 export const Default = () => {
   return <Task task={object('task', { ...taskData })} {...actionsData} />;
 };
@@ -104,9 +96,7 @@ Hinzu kommt, dass QA-Engineers oder präventive UI-Engineers mit der einfachen M
 
 Dank der Möglichkeit, sehr schnell verschiedene Inputs an einer Komponente auszuprobieren, können wir solche Probleme relativ einfach finden und lösen. Lass uns das Problem des Überlaufens lösen, indem wir ein `style`-Attribut in `Task.js` ergänzen:
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 // This is the input for our task title. In practice we would probably update the styles for this element
 // but for this tutorial, let's fix the problem with an inline style:
 <input
@@ -126,9 +116,7 @@ Natürlich können wir das Problem immer reproduzieren, indem wir wieder die gle
 
 Lass uns eine Story für den Fall von langem Text in `Task.stories.js` hinzufügen:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = () => (
