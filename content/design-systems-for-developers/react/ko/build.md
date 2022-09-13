@@ -39,7 +39,7 @@ yarn add --dev prettier
 
 ```shell:clipboard=false
 # Installs Storybook
-npx sb init
+npx storybook init
 
 # Starts Storybook in development mode
 yarn storybook

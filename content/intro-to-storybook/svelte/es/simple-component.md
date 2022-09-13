@@ -274,11 +274,11 @@ initStoryshots();
 
 Finalmente, necesitamos hacer un pequeño ajuste a nuestro campo `jest` en `package.json`:
 
-```json
+```diff:title=package.json
 "jest": {
   "transform": {
     "^.+\\.js$": "babel-jest",
-    "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
++    "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
      "^.+\\.svelte$": "jest-transform-svelte"
   },
   "setupFilesAfterEnv": ["@testing-library/jest-dom/extend-expect"]
