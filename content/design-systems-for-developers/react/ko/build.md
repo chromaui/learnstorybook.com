@@ -8,29 +8,27 @@ description: '스토리북에서 디자인 시스템 컴포넌트를 구축하�
 
 ![스토리북을 쓰기 좋은 곳](/design-systems-for-developers/design-system-framework-storybook.jpg)
 
-
 ## 깔끔한 코드를 위한 형식과 린트(Lint)
 
 디자인 시스템은 협업의 결과물이기 때문에 문법을 수정하거나 형식을 표준화하는 툴은 협업 품질 개선에 기여합니다. 툴을 사용해서 코드의 일관성을 확보하는 것이 수작업으로 직접 코드를 관리하는 것 보다 훨씬 효율적입니다. 따라서 디자인 시스템 작성자는 자료를 많이 확보하면 유용하게 활용하는데 도움이 됩니다.
 
 이 튜토리얼에서는 [VSCode](https://code.visualstudio.com/) 에디터를 사용합니다만, 같은 원칙이 적용되는 [Atom](https://atom.io/), [Sublime](https://www.sublimetext.com/), [IntelliJ](https://www.jetbrains.com/idea/) 등 다른 최신 에디터들을 사용해도 무방합니다.
 
-이 프로젝트에 프리티어(Prettier) 애드온을 설치해서 편집기에 올바르게 적용하면 특별히 추가적인 노력을 하지 않아도 코드 형식이 일관되게 유지됩니다. - 
+이 프로젝트에 프리티어(Prettier) 애드온을 설치해서 편집기에 올바르게 적용하면 특별히 추가적인 노력을 하지 않아도 코드 형식이 일관되게 유지됩니다. -
 
 ```shell
 yarn add --dev prettier
 ```
 
-프리티어를 처음 사용하는 경우 에디터에 프리티어를 설치해야 할 수도 있습니다. VScode를 사용한다면 프리티어 애드온을 추가하면 됩니다. - 
+프리티어를 처음 사용하는 경우 에디터에 프리티어를 설치해야 할 수도 있습니다. VScode를 사용한다면 프리티어 애드온을 추가하면 됩니다. -
 
 ![VSCode를 위한 프리티어 애드온](/design-systems-for-developers/prettier-addon.png)
 
 `editor.formatOnSave` 아직 설정을 하지 않았다면 Preference 설정에서 'format on save'를 활성화하세요. 프리티어 설치를 완료하고 나면 파일을 저장할 때마다 에디터가 코드 형식을 자동으로 정리해 주는 것을 확인할 수 있습니다.
 
-
 ## 스토리북 설치하기
 
-스토리북은 독자적인 UI 컴포넌트를 개발을 위한 업계 표준 [컴포넌트 탐색기](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a)입니다. 디자인 시스템은 UI 컴포넌트에 집중하기 때문에 스토리북은 용례를 위한 이상적인 도구입니다. 다음 기능을 주로 사용합니다. - 
+스토리북은 독자적인 UI 컴포넌트를 개발을 위한 업계 표준 [컴포넌트 탐색기](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a)입니다. 디자인 시스템은 UI 컴포넌트에 집중하기 때문에 스토리북은 용례를 위한 이상적인 도구입니다. 다음 기능을 주로 사용합니다. -
 
 - 📕UI 컴포넌트들을 카탈로그화 하기
 - 📄컴포넌트 변화를 스토리들(Stories)로 저장하기
@@ -39,7 +37,7 @@ yarn add --dev prettier
 
 스토리북을 설치하고 실행해 보세요.
 
-```shell
+```shell:clipboard=false
 # Installs Storybook
 npx sb init
 
@@ -55,7 +53,7 @@ yarn storybook
 
 어플리케이션에 스토리북을 설치할 때마다 `stories` 폴더에 예제가 몇 가지 추가됩니다. 원한다면 예제들을 천천히 살펴보아도 좋습니다. 하지만 디자인 시스템 챕터에서는 사용하지 않으므로 `stories` 디렉토리를 지워도 무방합니다.
 
-스토리북은 아래와 같이 보여야 합니다. (스토리(story) 목록 중 "Avatar: Initials"의 폰트 스타일이 살짝 어긋나 있습니다. 대신 "Avatar:Initials" 스토리를 참고하세요) - 
+스토리북은 아래와 같이 보여야 합니다. (스토리(story) 목록 중 "Avatar: Initials"의 폰트 스타일이 살짝 어긋나 있습니다. 대신 "Avatar:Initials" 스토리를 참고하세요) -
 
 <video autoPlay muted playsInline loop>
   <source
@@ -86,7 +84,6 @@ export const GlobalStyle = createGlobalStyle`
 ```
 
 스토리북의 `GlobalStyle` 컴포넌트를 사용하기 위해 컴포넌트 래퍼(wrapper)인 [데코레이터(decorator)](https://storybook.js.org/docs/react/writing-stories/decorators)를 활용할 수 있습니다. 하나의 앱 안이라면 그 컴포넌트를 앱 레이아웃 최상단에 놓겠지만 스토리북에서는 프리뷰 설정 파일을 사용해서 모든 스토리를 그 컴포넌트 안에 넣고 감싸도록 합니다. [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering)
-
 
 ```diff:title=.storybook/preview.js
 + import React from 'react';
@@ -141,7 +138,6 @@ export const parameters = {
 버튼이나 링크 같은 인터렉티브한 엘리먼트를 실행했을 때, 스토리북의 [액션 애드온](https://storybook.js.org/docs/react/essentials/actions)은 UI 피드백을 제공합니다. 액션 애드온은 스토리북을 설치할 때 기본으로 같이 설치되며, "액션"을 콜백 prop으로 컴포넌트에 전달하여 사용할 수 있습니다.
 
 버튼 엘리먼트의 사용방법을 알아보겠습니다. 클릭에 반응하기 위해 래퍼(wrapper) 컴포넌트로 버튼 엘리먼트를 감싸기도 하는데, 우리는 래퍼(wrapper)에 액션에 따른 스토리를 전달하게 됩니다. -
-
 
 ```js:title=src/Button.stories.js
 import React from 'react';
@@ -230,9 +226,9 @@ Controls.args = {
 
 단, Controls가 스토리들을 대체하지는 않습니다. Controls는 특수한 컴포넌트를 탐색할 때, 그리고 스토리들이 원래 의도한 상태가 무엇인지 보여줄 때 유용합니다.
 
-<h4>애드온 인터렉션(interaction)을 통한 인터랙티브한 스토리들</h4>  
+<h4>애드온 인터렉션(interaction)을 통한 인터랙티브한 스토리들</h4>
 
-스토리북의 애드온이 [Controls](#storybook-addon-controls)을 통해 특수 케이스를 찾아내는데 어떻게 도움이 되는지, 그리고 [Actions](#storybook-addon-actions) 애드온을 통해 컴포넌트가 어떻게 상호작용 하는지 알아보았습니다. 이때 스토리에 변화를 하나씩 적용할 때마다 그것이 디자인 시스템을 망가뜨리지 않았는지 매번 수동으로 확인해야 합니다. [`@storybook/addon-interactions`](https://storybook.js.org/addons/@storybook/addon-interactions/) 애드온을 사용하여 이를 어떻게 자동화 할 수 있는지 알아보고 `play` 함수를 사용하여 컴포넌트를 작동시켜봅시다. - 
+스토리북의 애드온이 [Controls](#storybook-addon-controls)을 통해 특수 케이스를 찾아내는데 어떻게 도움이 되는지, 그리고 [Actions](#storybook-addon-actions) 애드온을 통해 컴포넌트가 어떻게 상호작용 하는지 알아보았습니다. 이때 스토리에 변화를 하나씩 적용할 때마다 그것이 디자인 시스템을 망가뜨리지 않았는지 매번 수동으로 확인해야 합니다. [`@storybook/addon-interactions`](https://storybook.js.org/addons/@storybook/addon-interactions/) 애드온을 사용하여 이를 어떻게 자동화 할 수 있는지 알아보고 `play` 함수를 사용하여 컴포넌트를 작동시켜봅시다. -
 
 다음 명령어를 사용하여 애드온 및 의존성을 설치합니다. -
 
@@ -285,7 +281,7 @@ export default {
 + );
 + WithInteractions.play = async ({ canvasElement }) => {
 +   // Assigns canvas to the component root element
-    
+
 +   const canvas = within(canvasElement);
 +   await userEvent.click(canvas.getByRole("link"));
 + };
@@ -306,14 +302,14 @@ export default {
   />
 </video>
 
-다음 챕터에서는 접근성과 문서 애드온에 대해 알아봅니다. 
+다음 챕터에서는 접근성과 문서 애드온에 대해 알아봅니다.
 
 > “스토리북은 팀이 비즈니스 로직에 걸려 넘어지거나 고민하는 일 없이 UI를 설계,구축,구성 할 수 있도록 돕는 강력한 프런트엔드 작업 환경 도구입니다. (심지어 전체화면입니다!) .” – Brad Frost, Atomic Design의 저자
 
 ## 유지보수 자동화 방법 알아보기
 
-디자인 시스템 컴포넌트가 스토리북 안에 들어갔으니 산업표준을 준수하는 디자인 시스템 구축을 향해 한 단계 더 나아간 것 입니다. 이제 원격저장소에 작업물을 commit 하기 좋은 시점입니다. Commit을 수행하고 나면 지속적인 유지관리를 위한 자동화 도구 설정 방법을 알아볼 준비가 된 것입니다. 
+디자인 시스템 컴포넌트가 스토리북 안에 들어갔으니 산업표준을 준수하는 디자인 시스템 구축을 향해 한 단계 더 나아간 것 입니다. 이제 원격저장소에 작업물을 commit 하기 좋은 시점입니다. Commit을 수행하고 나면 지속적인 유지관리를 위한 자동화 도구 설정 방법을 알아볼 준비가 된 것입니다.
 
-디자인 시스템은 소프트웨어와 마찬가지로 진화해야 합니다. 이 때 중요한 점은 디자인 시스템 진화하는 동안에도 UI 컴포넌트가 원래 의도한 룩앤필(look and feel)이  유지되도록 하는 것 입니다.
+디자인 시스템은 소프트웨어와 마찬가지로 진화해야 합니다. 이 때 중요한 점은 디자인 시스템 진화하는 동안에도 UI 컴포넌트가 원래 의도한 룩앤필(look and feel)이 유지되도록 하는 것 입니다.
 
-챕터 4에서는 온라인 협업을 위해 디자인 시스템을 자동으로 통합 및 배포하는 설정법을 배웁니다. 
+챕터 4에서는 온라인 협업을 위해 디자인 시스템을 자동으로 통합 및 배포하는 설정법을 배웁니다.

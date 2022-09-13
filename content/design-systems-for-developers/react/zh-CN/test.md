@@ -79,9 +79,7 @@ commit: 'a676146'
 
 让我们为 `Link` 组件添加一个单元测试。 create-react-app 已经配置好了一个单元测试的运行环境，所以我们只需要创建一个文件 `src/Link.test.js`：
 
-```javascript
-//src/Link.test.js
-
+```js:title=src/Link.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from './Link';
@@ -112,8 +110,7 @@ it('has a href attribute when rendering with linkWrapper', () => {
 
 之前我们已经配置了我们的 GitHub action 来部署 Storybook。现在我们可以修改它来让它帮助我们运行测试。代码贡献者也会从中获益，我们也会对强大的 Link 组件保持信心。
 
-```yaml
-# .github/workflows/chromatic.yml
+```yaml:title=.github/workflows/chromatic.yml
 # ... same as before
 jobs:
   test:
@@ -149,16 +146,14 @@ jobs:
 
 为相关的 UI 组件添加 Storybook 的无障碍访问插件，它是一个实时验证 Web 可访问性标准（WCAG）的工具
 
-```bash
+```shell
 yarn add --dev @storybook/addon-a11y
 
 ```
 
 在文件 `.storybook/main.js` 中添加插件:
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -174,9 +169,7 @@ module.exports = {
 
 并且在文件 `.storybook/preview.js` 添加 `withA11y` 修饰器
 
-```javascript
-//.storybook/preview.js
-
+```js:title=.storybook/preview.js
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';

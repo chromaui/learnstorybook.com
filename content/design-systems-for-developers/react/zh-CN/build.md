@@ -17,7 +17,7 @@ commit: 'dc246ee'
 
 如果我们将 Prettier 添加到我们的项目中并且正确的配置了编辑器，那么 Prettier 会保证我们所有人的代码格式一致。
 
-```bash
+```shell
 yarn add --dev prettier
 ```
 
@@ -38,8 +38,11 @@ Storybook [组件资源管理器](https://blog.hichroma.com/the-crucial-tool-for
 
 安装并运行 Storybook
 
-```bash
-npx -p @storybook/cli sb init
+```shell:clipboard=false
+# Installs Storybook
+npx storybook init
+
+# Starts Storybook in development mode
 yarn storybook
 ```
 
@@ -57,9 +60,7 @@ yarn storybook
 
 我们的设计系统需要一些全局样式（CSS 样式重载） 应用于整个文档以保证组件可以被正常的显示出来。您可以通过全局通用标签的形式轻易的添加全局样式。在该文件中 `src/shared/global.js` 调整您的全局样式：
 
-```javascript
-// src/shared/global.js
-
+```js:title=src/shared/global.js
 import { createGlobalStyle, css } from 'styled-components';
 import { color, typography } from './styles';
 
@@ -78,9 +79,7 @@ export const GlobalStyle = createGlobalStyle`
 
 为了在 Storybook 的组件中使用 `GlobalStyle`，我们可以使用修饰器（一个组件的封装）。如果在一个应用程序中，我们需要将该样式放在顶层组件中，在 Storybook 中我们可以通过修改预配置文件 `.storybook/preview.js` 来封装所有的组件。
 
-```javascript
-// .storybook/preview.js
-
+```js:title=.storybook/preview.js
 import React from 'react';
 import { addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
@@ -101,7 +100,7 @@ addDecorator((story) => (
 
 我们的设计系统也需要将 Nunito Sans 字体加载到应用程序中。实现此目标的方式取决于我们采用怎样的应用程序框架（详情可阅读[此篇文章](https://github.com/storybookjs/design-system#font-loading))，但是在 Storybook 中最简单的实现方式是在配置文件 `.storybook/preview-head.html` 中添加一个 `<link>` 标签：
 
-```javascript
+```html:title=.storybook/preview-head.html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900">
 ```
 
@@ -119,9 +118,7 @@ Storybook 的插件是由一个庞大的社区生态系统来共同维护的。�
 
 让我们看看如何在 Button 组件中使用它，该 Button 组件接受一个封装的组件来响应它的点击事件。我们的 story 给封装组件的 click 事件上传入了 action 回调：
 
-```javascript
-// src/Button.js
-
+```js:title:src/components/Button.stories.js
 import React from 'react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
@@ -150,7 +147,7 @@ yarn add --dev  @storybook/addon-storysource
 
 在配置文件 `.storybook/main.js` 中加载插件:
 
-```javascript
+```js:title=.storybook/main.js
 //.storybook/main.js
 
 module.exports = {
@@ -174,15 +171,13 @@ Storybook 的 storysource 如下图所示：
 
 让我们来看看如何给 `Avatar` 组件设置 knobs 插件：
 
-```bash
+```shell
 yarn add --dev @storybook/addon-knobs
 ```
 
 将插件添加到 `.storybook/main.js`:
 
-```javascript
-//.storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -197,9 +192,7 @@ module.exports = {
 
 在文件 `src/Avatar.stories.js` 中添加一个使用 knobs 插件的组件:
 
-```javascript
-//src/Avatar.stories.js
-
+```js:title=src/Avatar.stories.js
 import React from 'react';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 

@@ -108,7 +108,7 @@ Minimum viable docs! Let’s make AvatarList a bit more human by supplying addit
 /**
  * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
-export function AvatarList({ loading, users, userCount, size, ...props }) {
+export function AvatarList({ loading, users, userCount, size, ...props }) {}
 ```
 
 Sprinkle in some additional details about the supported props.

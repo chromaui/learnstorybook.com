@@ -56,13 +56,13 @@ commit: 'd6c6038'
 
 通过 npm 安装 [chromatic](https://www.npmjs.com/package/chromatic).
 
-```bash
+```shell
 yarn add --dev chromatic
 ```
 
 完成安装后，运行如下命令来构建和部署您的 Storybook（您将需要 Chromatic 网站上提供给您的项目代码）
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -88,9 +88,7 @@ npx chromatic --project-token=<project-token>
 
 创建一个名为 `chromatic.yml` 文件，该文件将描述我们持续集成的流程。我们将循序渐进地来提高它：
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # name of our action
 name: 'Chromatic'
 # the event that will trigger the action
@@ -115,19 +113,19 @@ jobs:
 
 通过命令来添加这些变更:
 
-```bash
+```shell
 git add .
 ```
 
 并对变更进行提交:
 
-```bash
+```shell
 git commit -m "Storybook deployment with GitHub action"
 ```
 
 最后通过如下命令将您的提交上传到远端代码仓库:
 
-```bash
+```shell
 git push origin master
 ```
 
@@ -139,15 +137,13 @@ git push origin master
 
 我们将在一个新的分支上演示如何做一个视觉审查
 
-```bash
+```shell
 git checkout -b improve-button
 ```
 
 首先，给 Button 组件做一个小小的修改。 “把它变为流行的样式” —— 我们的设计师应该会喜欢它
 
-```javascript
-//src/Button.js
-
+```js:title=src/Button.js
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;

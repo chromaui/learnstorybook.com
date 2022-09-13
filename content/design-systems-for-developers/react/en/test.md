@@ -97,7 +97,7 @@ module.exports = {
 
 Finally, add a new test task to your `package.json` scripts:
 
-```json:title=package.json
+```json:clipboard=false:title=package.json
   "scripts": {
      "test-storybook": "test-storybook"
   }

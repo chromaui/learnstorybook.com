@@ -43,9 +43,7 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 
 然后我们需要创建一个名为 `src/index.js` 的文件作为设计系统的入口，从这个文件中我们将导出我们所有的设计变量和组件：
 
-```javascript
-//src/index.js
-
+```js:title=src/index.js
 import * as styles from './shared/styles';
 import * as global from './shared/global';
 import * as animation from './shared/animation';
@@ -62,13 +60,13 @@ export * from './Link';
 
 让我们在开发环境依赖项中添加 `@babel/cli` 和 `cross-env` 这两个库来帮助我们构建发布版本：
 
-```bash
+```shell
 yarn add --dev @babel/cli cross-env
 ```
 
 我们需要在 `package.json` 文件中添加一些命令来帮助我们将设计系统打包到 `dist` 文件夹：
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist",
@@ -94,7 +92,7 @@ dist
 
 最终，我们需要对文件 `package.json` 做一些修改来保证使用者获得所有他们所需的信息。最简单的方法是通过运行 `yarn init` —— 一个发布软件包的初始化命令：
 
-```bash
+```shell:clipboard=false
 yarn init
 
 yarn init v1.16.0
@@ -112,7 +110,7 @@ question private: no
 
 总而言之, 上述步骤将会用问题中输入的新值来替换 `package.json` 中原来的值:
 
-```json
+```json:clipboard=false
 {
   "name": "learnstorybook-design-system",
   "description": "Learn Storybook design system",
@@ -132,7 +130,7 @@ question private: no
 
 让我们安装 Auto:
 
-```bash
+```shell
 yarn add --dev auto
 ```
 
@@ -164,7 +162,7 @@ dist
 
 我们要对 Auto 做的第一件事情是在 GitHub 中创建一组标签，将来我们在对软件包进行更改时将使用这些标签（请参阅下一章）来帮助 `auto` 合理的更新软件包的版本，并创建更改日志和发行说明。
 
-```bash
+```shell
 yarn auto create-labels
 ```
 
@@ -178,7 +176,7 @@ yarn auto create-labels
 
 在未来，我们将使用 `auto` 通过脚本来计算新的版本号。但是在第一次发布的时候，让我们手动运行命令来理解它是如何做的。让我们来创建我们第一个修改日志条目：
 
-```bash
+```shell
 yarn auto changelog
 ```
 
@@ -186,13 +184,13 @@ yarn auto changelog
 
 自动生成改动日志也是很有用的，这样您就不会错过任何东西，而且我们也推荐手动去修改和编写成对用户更有用的消息，这样一来，用户则不用知道所有的提交内容。让我们来为第一个版本 v0.1.0 写一个简单的信息。首先撤销 Auto 刚刚创建的提交（但是保留更改）：
 
-```bash
+```shell
 git reset HEAD^
 ```
 
 然后我们修改更新日志并提交它：
 
-```
+```markdown:title:CHANGELOG.md
 # v0.1.0 (Tue Sep 03 2019)
 
 - Created first version of the design system, with `Avatar`, `Badge`, `Button`, `Icon` and `Link` components.
@@ -203,21 +201,21 @@ git reset HEAD^
 
 让我们添加更新日志到 git。请注意：我们需要使用 `[skip ci]` 来告诉 CI 平台忽略本次提交，否则我们将会触发构建和发布。
 
-```bash
+```shell:clipboard=false
 git add CHANGELOG.md
 git commit -m "Changelog for v0.1.0 [skip ci]"
 ```
 
 现在我们可以发布了:
 
-```bash
+```shell:clipboard=false
 npm version 0.1.0 -m "Bump version to: %s [skip ci]"
 npm publish
 ```
 
 并且使用 Auto 工具在 GitHub 上创建一个 release：
 
-```bash
+```shell:clipboard=false
 git push --follow-tags origin master
 yarn auto release
 ```
@@ -234,7 +232,7 @@ yarn auto release
 
 让我们对 Auto 进行配置，保证之后我们在发布软件包的时候遵循一样的流程。我们将在 `package.json` 中添加如下代码：
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "release": "auto shipit"
@@ -270,8 +268,7 @@ yarn auto release
 
 在与之前提到的<a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">发布 Storybook</a>章节的相同文件夹下， 我们可以添加一个名为 `push.yml` 的 Github action 文件：
 
-```yml
-# .github/workflows/push.yml
+```yml:title=.github/workflows/push.yml
 ## name of our action
 name: Release
 # the event that will trigger the action
@@ -337,13 +334,13 @@ jobs:
 
 从 GitHub 上克隆示例应用程序的代码仓库到本地：
 
-```bash
+```shell
 git clone https://github.com/chromaui/learnstorybook-design-system-example-app.git
 ```
 
 安装依赖项并且启动程序的 Storybook：
 
-```bash
+```shell:clipboard=false
 yarn install
 yarn storybook
 ```
@@ -356,15 +353,13 @@ yarn storybook
 
 将您发布的设计系统添加为依赖项：
 
-```bash
+```shell
 yarn add <your-username>-learnstorybook-design-system
 ```
 
 现在，让我们更新示例程序的 `.storybook/main.js` 文件来引入设计系统的组件：
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   stories: [
     '../src/**/*.stories.js',
@@ -380,8 +375,7 @@ module.exports = {
 
 同样的我们可以在新配置文件 `.storybook/preview.js` 中添加全局修饰器来使用设计系统定义的全局样式。在文件中做如下修改：
 
-```javascript
-// .storybook/preview.js
+```js:title=.storybook/preview.js
 
 import React from 'react';
 import { addDecorator } from '@storybook/react';
@@ -409,17 +403,13 @@ addDecorator((story) => (
 
 引入 Avatar 组件：
 
-```javascript
-// src/components/UserItem.js
-
+```js:title=src/components/UserItem.js
 import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 我们要在用户名的旁边显示头像：
 
-```javascript
-//src/components/UserItem.js
-
+```js:title=src/components/UserItem.js
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar } from 'learnstorybook-design-system';

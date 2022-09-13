@@ -33,7 +33,7 @@ Utilizámos como ponto de partida para o nosso sistema de design o create-react-
 
 Primeiro deveremos adicionar um ficheiro README.md básico:
 
-```markdown
+```markdown:title=README.md
 # The Learn Storybook design system
 
 The Learn Storybook design system is a subset of the full [Storybook design system](https://github.com/storybookjs/design-system/),
@@ -44,7 +44,7 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 
 Em seguida, vamos criar o ficheiro `src/index.js`, como ponto de partida para o nosso sistema de design. Neste ficheiro vão ser exportados todos os tokens de design e também os componentes:
 
-```javascript
+```js:title=src/index.js
 import * as styles from './shared/styles';
 import * as global from './shared/global';
 import * as animation from './shared/animation';
@@ -61,13 +61,13 @@ export * from './Link';
 
 Após isto, vamos adicionar uma nova dependência de desenvolvimento `@babel/cli` para ser possível compilar o nosso Javascript para publicação:
 
-```bash
+```shell
 yarn add --dev @babel/cli
 ```
 
 Para ser possível compilar o nosso pacote, vamos adicionar ainda um script no ficheiro `package.json`, que irá compilar o conteúdo da pasta de código diretamente para a pasta `dist`:
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "build": "BABEL_ENV=production babel src -d dist",
@@ -93,7 +93,7 @@ dist
 
 Finalmente, vamos fazer algumas alterações adicionais ao ficheiro `package.json`, de forma a garantir que todos os consumidores do pacote, obtenham todas as informações necessárias. A forma mais simples para isto é executar `yarn init`: um comando que inicializa o pacote para ser publicado:
 
-```bash
+```shell:clipboard=false
 yarn init
 
 yarn init v1.16.0
@@ -111,7 +111,7 @@ Ao executar este comando, irão ser apresentados um conjunto de questões, algum
 
 Em resumo, com base nas respostas fornecidas o ficheiro `package.json` irá ser atualizado com os novos valores:
 
-```json
+```json:clipboard=false
 {
   "name": "learnstorybook-design-system",
   "description": "Learn Storybook design system",
@@ -131,7 +131,7 @@ De forma a publicar diversas versões para o npm, vamos utilizar um processo que
 
 Vamos instalar o Auto:
 
-```bash
+```shell
 yarn add --dev auto
 ```
 
@@ -164,7 +164,7 @@ dist
 
 A primeira coisa que temos que fazer com o Auto é criar um conjunto de etiquetas no GitHub. Vamos usar estas etiquetas futuramente, quando forem feitas alterações ao pacote (veja o próximo capítulo), o que irá permitir ao `auto` atualizar a versão de forma sensata e criar um registo de alterações e notas de lançamento.
 
-```bash
+```shell
 yarn auto create-labels
 ```
 
@@ -178,7 +178,7 @@ Antes de ser fundido, cada pull request (PR) deverá ser etiquetado com uma das 
 
 Futuramente os novos valores das versões irão ser calculados pelo `auto`, recorrendo a scripts, mas para a primeira versão, vamos executar os comandos manualmente de forma a entender o que cada um faz. Vamos gerar a primeira entrada no registo de alterações:
 
-```bash
+```shell
 yarn auto changelog
 ```
 
@@ -186,13 +186,13 @@ O que o comando faz, é gerar uma entrada no registo de alterações bem grande,
 
 No entanto é extremamente útil manter um registo de alterações gerado automaticamente, de forma que não se percam pitada do que está a acontecer, é também uma muito boa ideia, editá-lo manualmente e gerar uma mensagem útil para os utilizadores. Neste caso, os utilizadores não precisam ter conhecimento de todo e qualquer submissão feita até agora. Vamos criar uma mensagem simples e agradável para a primeira versão v0.1.0. Para isto, primeiro desfaça a alteração feita Auto (mas mantenha-a):
 
-```bash
+```shell
 git reset HEAD^
 ```
 
 Em seguida atualize o registo de alterações e faça a submissão:
 
-```
+```markdown:title:CHANGELOG.md
 # v0.1.0 (Tue Sep 03 2019)
 
 - Created first version of the design system, with `Avatar`, `Badge`, `Button`, `Icon` and `Link` components.
@@ -203,21 +203,21 @@ Em seguida atualize o registo de alterações e faça a submissão:
 
 Vamos agora sim adicionar o registo de alterações ao git. Tenham em atenção que usamos `[skip ci]` para notificar toda e qualquer plataforma de integração contínua (IC) para ignorar este tipo de submissões, caso contrário acabamos por entrar num loop the compilação e publicação.
 
-```bash
+```shell:clipboard=false
 git add CHANGELOG.md
 git commit -m "Changelog for v0.1.0 [skip ci]"
 ```
 
 E agora sim podemos publicar:
 
-```bash
+```shell:clipboard=false
 npm version 0.1.0 -m "Bump version to: %s [skip ci]"
 npm publish
 ```
 
 E usamos o Auto para gerar uma versão de lançamento no GitHub:
 
-```bash
+```shell:clipboard=false
 git push --follow-tags origin main
 yarn auto release
 ```
@@ -235,7 +235,7 @@ de lançamento no GitHub (com muita sorte!).
 
 Vamos agora configurar o Auto para seguir o mesmo processo quando for necessário publicar o nosso pacote no futuro. Vamos alterar o ficheiro `package.json` e adicionar o seguinte script:
 
-```json
+```json:clipboard=false:title=package.json
 {
   "scripts": {
     "release": "auto shipit --base-branch=main"
@@ -245,7 +245,7 @@ Vamos agora configurar o Auto para seguir o mesmo processo quando for necessári
 
 Agora, quando for executado o `yarn release`, irão ser percorridos quase todos os passos mencionados anteriormente (sendo a exceção, a utilização do registo de alterações que foi gerado automaticamente), de forma automática. Iremos garantir que todas as submissões para o ramo master do repositório são publicados através da adição de um comando ao ficheiro de configuração do circle:
 
-```yml
+```yml:title=.circleci/config.yml
 # ...
 - run: yarn test
 - run: npx chromatic --project-token=2wix88i1ziu
@@ -280,13 +280,13 @@ A aplicação de exemplo usa o Storybook de forma a facilitar o [desenvolvimento
 
 Clone a aplicação de exemplo do repositório do GitHub
 
-```bash
+```shell
 git clone chromaui/learnstorybook-design-system-example-app
 ```
 
 Instale as dependências e inicie o Storybook da aplicação de exemplo
 
-```bash
+```shell:clipboard=false
 yarn install
 yarn storybook
 ```
@@ -299,13 +299,13 @@ Deverá ver o Storybook a ser executado com as estórias associadas aos componen
 
 Adicione o seu sistema de design que foi publicado anteriormente como uma dependência.
 
-```bash
+```shell
 yarn add <your-username>-learnstorybook-design-system
 ```
 
 Em seguida, vamos alterar o ficheiro `.storybook/config.js` da aplicação de exemplo, de forma a listar os componentes utilizados no sistema de design e também os estilos globais que foram definidos. Faça a alteração seguinte:
 
-```javascript
+```js:title=.storybook/config.js
 import React from 'react';
 import { configure. addDecorator } from '@storybook/react';
 import { GlobalStyles } from '<your-username>-learnstorybook-design-system';
@@ -337,13 +337,13 @@ No vosso editor, abram o ficheiro UserItem.js. Mas procurem também pelo UserIte
 
 Importe o componente Avatar.
 
-```javascript
+```js:title=src/components/UserItem.js
 import { Avatar } from '<your-username>-learnstorybook-design-system';
 ```
 
 Como queremos renderizar o Avatar lado a lado com o username, faça a seguinte alteração.
 
-```javascript
+```javascript:title=src/components/UserItem.js
 import React from 'react';
 import styled from 'styled-components';
 import { Avatar } from 'learnstorybook-design-system';
