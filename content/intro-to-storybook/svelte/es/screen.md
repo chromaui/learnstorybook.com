@@ -12,9 +12,7 @@ En este capítulo aumentaremos la sofisticación al combinar los componentes que
 
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Svelte Store) en alguna maqueta y sacando un campo `error` de el store (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor). Ahora crearemos `InboxScreen.svelte` dentro de la carpeta `components`:
 
-```svelte
-<!-- src/components/InboxScreen.svelte -->
-
+```svelte:title=components/InboxScreen.svelte
 <script>
   import TaskList from './TaskList.svelte';
   export let error = false;
@@ -44,9 +42,7 @@ Como nuestra aplicación es muy simple, la pantalla que construiremos es bastant
 
 Necesitamos actualizar nuestro store (en `src/store.js`) para incluir nuestro nuevo campo `error`, transformándolo en:
 
-```javascript
-// src/store.js
-
+```js:title=src/store.js
 import { writable } from 'svelte/store';
 const TaskBox = () => {
   // creates a new writable store populated with some initial data
@@ -60,14 +56,14 @@ const TaskBox = () => {
   return {
     subscribe,
     // method to archive a task, think of a action with redux or Vuex
-    archiveTask: id =>
-      update(tasks =>
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task))
+    archiveTask: (id) =>
+      update((tasks) =>
+        tasks.map((task) => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task))
       ),
     // method to archive a task, think of a action with redux or Vuex
-    pinTask: id =>
-      update(tasks =>
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
+    pinTask: (id) =>
+      update((tasks) =>
+        tasks.map((task) => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
       ),
   };
 };
@@ -78,7 +74,7 @@ const appState = () => {
   const { subscribe, update } = writable(false);
   return {
     subscribe,
-    error: () => update(error => !error),
+    error: () => update((error) => !error),
   };
 };
 
@@ -87,9 +83,7 @@ export const AppStore = appState();
 
 También cambiamos nuestro componente `App` para que incluya `InboxScreen` (en una aplicación real esto sería manejado por el enrutador pero podemos obviarlo):
 
-```svelte
-<!-- src/App.svelte -->
-
+```svelte:title=App.svelte
 <script>
   import { AppStore } from './store';
   import InboxScreen from './components/InboxScreen.svelte';
@@ -108,9 +102,7 @@ Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este p
 
 Entonces, cuando configuramos nuestras historias en `InboxScreen.stories.js`:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=InboxScreen.stories.js
 import InboxScreen from './InboxScreen.svelte';
 
 export default {
