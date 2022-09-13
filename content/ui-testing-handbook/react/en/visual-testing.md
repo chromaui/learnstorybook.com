@@ -99,7 +99,7 @@ Default.args = {
 
 And finally, run the following command to start Storybook in development mode. You should see the Task component load up.
 
-```
+```shell
 yarn storybook
 ```
 
@@ -175,7 +175,7 @@ By writing a story for each state, you cut out that second step. You can go righ
 
 Writing out stories also surfaces scenarios that you wouldn't have considered had you developed it in a more ad-hoc way. For example, what happens if the user enters a really long task? Let's add in that story to find out.
 
-```javascript
+```javascript:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});
@@ -204,7 +204,7 @@ Sign in and [create a new project](https://www.chromatic.com/docs/setup) and gra
 
 Chromatic is built specifically for Storybook and requires no configuration. Running the command below will trigger it to capture a snapshot of each story (using a cloud browser).
 
-```
+```shell
 npx chromatic --project-token=<project-token>
 ```
 

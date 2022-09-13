@@ -57,14 +57,36 @@ To install the addon, run: `yarn add -D @storybook/addon-a11y`. Then, add `'@sto
 
 ```diff:title=.storybook/main.js
 module.exports = {
- // ...
- addons: [
-   '@storybook/addon-links',
-   '@storybook/addon-essentials',
-   '@storybook/preset-create-react-app',
-+  '@storybook/addon-a11y',
-   '@storybook/addon-interactions',
- ],
+  staticDirs: ['../public'],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
++   '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
+  ],
+  core: {
+    builder: {
+      name: 'webpack5',
+    },
+  },
+  features:{
+    interactionsDebugger: true,
+  },
+  webpackFinal: async (config) => {
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          '@emotion/core': toPath('node_modules/@emotion/react'),
+          'emotion-theming': toPath('node_modules/@emotion/react'),
+        },
+      },
+    };
+  },
 };
 ```
 
@@ -222,7 +244,7 @@ Often, changes to a component can unintentionally introduce new accessibility is
 
 Let’s go ahead and configure the test runner to run Axe. We’ll start by installing [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright).
 
-```bash
+```shell
 yarn add -D axe-playwright
 ```
 

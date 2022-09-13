@@ -37,7 +37,7 @@ We'll start by writing a **story** to set up the component's initial state. Then
 
 First we need to install the test runner and related packages.
 
-```bash
+```shell
 yarn add -D @storybook/testing-library @storybook/jest @storybook/addon-interactions @storybook/test-runner
 ```
 
@@ -83,7 +83,7 @@ module.exports = {
 
 Then add a test task to your project’s `package.json`:
 
-```json:title=package.json
+```json:clipboard=false:title=package.json
 {
   "scripts": {
     "test-storybook": "test-storybook"
@@ -93,7 +93,7 @@ Then add a test task to your project’s `package.json`:
 
 Lastly, start up your Storybook (the test runner will run against your local Storybook instance):
 
-```
+```shell
 yarn storybook
 ```
 
@@ -230,7 +230,7 @@ It's unrealistic to manually review the entire Storybook whenever you make a cha
 
 Start the test runner (in a separate terminal window):
 
-```bash
+```shell
 yarn test-storybook --watch
 ```
 

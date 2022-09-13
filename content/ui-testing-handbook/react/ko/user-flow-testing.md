@@ -55,7 +55,7 @@ UI는 목표를 달성하기 위해 여러 페이지에서 일련의 단계를 �
 
 `yarn add -D cypress`를 실행하여 사이프레스 패키지를 설치합니다. 그런 다음 `package.json` 파일의 스크립트 필드에 Cypress 명령을 추가합니다.
 
-```json:title=package.json
+```json:clipboard=false:title=package.json
  "scripts": {
    "cypress": "cypress open"
  }
