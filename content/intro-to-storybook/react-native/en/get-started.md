@@ -22,7 +22,7 @@ Before diving into the tutorial, take into account the following considerations:
 
 With that out of the way, let’s run the following commands:
 
-```bash
+```shell:clipboard=false
 # Create our application:
 expo init --template tabs@sdk-36 taskbox
 
@@ -52,7 +52,7 @@ jest.mock('global', () => ({
 
 Update the `jest` field in `package.json`:
 
-```json
+```json:clipboard=false
 "jest": {
     "preset": "jest-expo",
     "transformIgnorePatterns": [
@@ -66,7 +66,7 @@ Update the `jest` field in `package.json`:
 
 Now we can quickly check that the various environments of our application are working properly:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test
 
@@ -90,8 +90,7 @@ Taskbox reuses design elements from the GraphQL and React Tutorial [example app]
 <details>
   <summary>Click to expand and see the full file contents</summary>
 
-```javascript
-// /constants/globalStyles.js
+```js:title=constants/globalStyles.js
 import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
@@ -234,15 +233,14 @@ To match the intended design, you'll need to download both the font and icon dir
 <div class="aside">
 <p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the icons folder directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a> and the font <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">here</a>.</p></div>
 
-```bash
+```shell:clipboard=false
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
 svn export https://github.com/google/fonts/trunk/ofl/nunitosans assets/font
 ```
 
 Next the assets need to be loaded into the app, for that we're going to update `hooks/useCachedResources.js` to the following:
 
-```javascript
-// hooks/useCachedResources.js
+```js:title=hooks/useCachedResources.js
 async function loadResourcesAndDataAsync() {
   try {
     SplashScreen.preventAutoHideAsync();
@@ -273,8 +271,7 @@ Create a new file `/constants/Percolate.js` with the following:
 <details>
   <summary>Click to expand and see the full file contents</summary>
 
-```javascript
-// constants/Percolate.js
+```js:title=constants/Percolate.js
 /**
  * PercolateIcons icon set component.
  * Usage: <PercolateIcons name="icon-name" size={20} color="#4F8EF7" />
@@ -428,8 +425,7 @@ export const getImageSource = iconSet.getImageSource;
 
 In order to see Storybook in React Native we're going to update `screens/LinksScreen.js` to the following:
 
-```javascript
-// screens/LinksScreen.js
+```js:title=screens/LinksScreen.js
 import * as React from 'react';
 import StorybookUIRoot from '../storybook';
 
@@ -440,8 +436,7 @@ export default function LinksScreen() {
 
 And finally `navigation/BottomTabNavigator.js` to the following:
 
-```javascript
-// navigation/BottomTabNavigator.js
+```js:title=navigation/BottomTabNavigator.js
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
@@ -489,8 +484,7 @@ function getHeaderTitle(route) {
 
 And finally, we'll need to make a small change to our Storybook configuration. As we're using Expo to build our app, we can safely remove some items from the configuration as they are not required. Turning the file contents into the following:
 
-```javascript
-// /storybook/index.js
+```js:title=storybook/index.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
 import './rn-addons';

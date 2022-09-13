@@ -301,7 +301,7 @@ Storybook includes an official [accessibility addon](https://storybook.js.org/ad
 
 Let's see how it works! Run the following command to install the addon:
 
-```bash
+```shell
 npm install @storybook/addon-a11y --save-dev
 ```
 

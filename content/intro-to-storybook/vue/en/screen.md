@@ -33,9 +33,9 @@ As our app is straightforward, the screen we’ll build is pretty trivial, simpl
 </template>
 
 <script>
-import TaskList from "./TaskList.vue";
+import TaskList from './TaskList.vue';
 export default {
-  name: "PureInboxScreen",
+  name: 'PureInboxScreen',
   components: { TaskList },
   props: {
     error: { type: Boolean, default: false },
@@ -52,26 +52,26 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 </template>
 
 <script>
-  import { computed } from 'vue';
+import { computed } from 'vue';
 
-  import { useStore } from 'vuex';
+import { useStore } from 'vuex';
 
-  import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from './PureInboxScreen';
 
-  export default {
-    name: 'InboxScreen',
-    components: { PureInboxScreen },
-    setup() {
-      //👇 Creates a store instance
-      const store = useStore();
+export default {
+  name: 'InboxScreen',
+  components: { PureInboxScreen },
+  setup() {
+    //👇 Creates a store instance
+    const store = useStore();
 
-      //👇 Retrieves the error from the store's state
-      const error = computed(() => store.state.error);
-      return {
-        error,
-      };
-    },
-  };
+    //👇 Retrieves the error from the store's state
+    const error = computed(() => store.state.error);
+    return {
+      error,
+    };
+  },
+};
 </script>
 ```
 
@@ -115,7 +115,6 @@ export default {
 <style>
 @import "./index.css";
 </style>
-
 ```
 
 However, where things get interesting is in rendering the story in Storybook.
@@ -339,13 +338,13 @@ The good news is that we can! Storybook's [test runner](https://storybook.js.org
 
 Let's see how it works! Run the following command to install it:
 
-```bash
+```shell
 yarn add --dev @storybook/test-runner
 ```
 
 Next, update your `package.json` `scripts` and add a new test task:
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "test-storybook": "test-storybook"
@@ -355,7 +354,7 @@ Next, update your `package.json` `scripts` and add a new test task:
 
 Finally, with your Storybook running, open up a new terminal window and run the following command:
 
-```bash
+```shell
 yarn test-storybook --watch
 ```
 

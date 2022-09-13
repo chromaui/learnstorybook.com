@@ -424,13 +424,13 @@ The good news is that we can! Storybook's [test runner](https://storybook.js.org
 
 Let's see how it works! Run the following command to install it:
 
-```bash
+```shell
 npm install @storybook/test-runner --save-dev
 ```
 
 Next, update your `package.json` `scripts` and add a new test task:
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "test-storybook": "test-storybook"
@@ -440,7 +440,7 @@ Next, update your `package.json` `scripts` and add a new test task:
 
 Finally, with your Storybook running, open up a new terminal window and run the following command:
 
-```bash
+```shell
 npm run test-storybook -- --watch
 ```
 

@@ -17,7 +17,7 @@ This example uses [Redux Toolkit](https://redux-toolkit.js.org/), the most effec
 
 Add the necessary dependencies to your project with:
 
-```bash
+```shell
 yarn add @reduxjs/toolkit react-redux
 ```
 

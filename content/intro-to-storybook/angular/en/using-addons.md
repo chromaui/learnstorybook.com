@@ -41,15 +41,50 @@ Controls allowed us to quickly verify different inputs to a component--in this c
 Now let's fix the issue with overflowing by adding a style to `task.component`:
 
 ```diff:title=src/app/components/task.component.ts
-<input
-  type="text"
-  [value]="task?.title"
-  readonly="true"
-  placeholder="Input title"
-  id="title-{{ task?.id }}"
-  name="title-{{ task?.id }}"
-+ style="text-overflow: ellipsis;"
-/>
+@Component({
+  selector: 'app-task',
+  template: `
+    <div class="list-item {{ task?.state }}">
+      <label
+        [attr.aria-label]="'archiveTask-' + task.id"
+        for="checked-{{ task?.id }}"
+        class="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled="true"
+          [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
+          name="checked-{{ task?.id }}"
+          id="checked-{{ task?.id }}"
+        />
+        <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
+      </label>
+      <label
+        [attr.aria-label]="task.title + ''"
+        for="title-{{ task?.id }}"
+        class="title"
+      >
+        <input
+          type="text"
+          [value]="task?.title"
+          readonly="true"
+          id="title-{{ task?.id }}"
+          name="title-{{ task?.id }}"
+          placeholder="Input title"
++         style="text-overflow: ellipsis;"
+        />
+      </label>
+      <button
+        *ngIf="task?.state !== 'TASK_ARCHIVED'"
+        class="pin-button"
+        [attr.aria-label]="'pinTask-' + task.id"
+        (click)="onPin(task.id)"
+      >
+        <span class="icon-star"></span>
+      </button>
+    </div>
+  `,
+})
 ```
 
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)

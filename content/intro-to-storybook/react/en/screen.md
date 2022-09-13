@@ -384,6 +384,20 @@ Default.parameters = {
 +     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
 +   });
 + };
+
+export const Error = Template.bind({});
+Error.parameters = {
+  msw: {
+    handlers: [
+      rest.get(
+        'https://jsonplaceholder.typicode.com/todos?userId=1',
+        (req, res, ctx) => {
+          return res(ctx.status(403));
+        }
+       ),
+    ],
+  },
+};
 ```
 
 Check the `Default` story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
@@ -405,13 +419,13 @@ The good news is that we can! Storybook's [test runner](https://storybook.js.org
 
 Let's see how it works! Run the following command to install it:
 
-```bash
+```shell
 yarn add --dev @storybook/test-runner
 ```
 
 Next, update your `package.json` `scripts` and add a new test task:
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "test-storybook": "test-storybook"
@@ -421,7 +435,7 @@ Next, update your `package.json` `scripts` and add a new test task:
 
 Finally, with your Storybook running, open up a new terminal window and run the following command:
 
-```bash
+```shell
 yarn test-storybook --watch
 ```
 
