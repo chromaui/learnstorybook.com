@@ -29,8 +29,7 @@ Primeiro irá ser criado o componente tarefa e o ficheiro de estórias que o aco
 
 Iremos iniciar por uma implementação básica do `TaskComponent`, que recebe os atributos conhecidos até agora, assim como as duas ações que podem ser desencadeadas (a movimentação entre listas):
 
-```typescript
-// src/app/components/task.component.ts
+```ts:title=src/app/components/task.component.ts
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -57,8 +56,7 @@ O bloco de código acima, quando renderizado, não é nada mais nada menos que a
 
 Em seguida irão ser criados os três testes ao estado da tarefa no ficheiro de estórias correspondente:
 
-```typescript
-// src/app/components/task.stories.ts
+```ts:title=src/app/components/task.stories.ts
 import { action } from '@storybook/addon-actions';
 import { TaskComponent } from './task.component';
 export default {
@@ -142,8 +140,7 @@ Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a
 
 É necessário efetuar uma alteração minúscula á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar. Altere o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
 
-```javascript
-// .storybook/main.js
+```js:title=.storybook/main.js
 module.exports = {
   stories: ['../src/app/components/**/*.stories.ts'],
   addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-notes'],
@@ -165,8 +162,7 @@ Após esta alteração, quando reiniciar o servidor Storybook, deverá produzir 
 
 Crie uma nova pasta (ou diretório) chamada `models` dentro da pasta (ou diretório) `app` e crie um novo ficheiro (ou arquivo) chamado `task.model.ts` com o conteúdo seguinte:
 
-```typescript
-// src/app/models/task.model.ts
+```ts:title=src/app/models/task.model.ts
 export interface Task {
   id: string;
   title: string;
@@ -180,8 +176,7 @@ Neste momento já possuímos o Storybook configurado, os elementos de estilo imp
 
 O componente neste momento ainda está algo rudimentar. Vamos fazer algumas alterações de forma a atingir o design pretendido, sem entrar em muitos detalhes:
 
-```typescript
-// src/app/components/task.component.ts
+```ts:title=src/app/components/task.component.ts
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from './task.model';
 
@@ -260,14 +255,13 @@ Este tipo de testes refere-se á pratica de guardar o output considerado "bom" d
 
 Com o [extra Storyshots](https://github.com/storybooks/storybook/tree/master/addons/storyshots) é criado um teste de snapshot para cada uma das estórias. Para que este possa ser usado, adiciona-se a dependência de desenvolvimento:
 
-```bash
+```shell
 npm install -D @storybook/addon-storyshots
 ```
 
 Em seguida é criado o ficheiro `src/storybook.test.ts` com o seguinte:
 
-```typescript
-// src/storybook.test.js
+```ts:title=src/storybook.test.ts
 import initStoryshots from '@storybook/addon-storyshots';
 
 initStoryshots();
@@ -276,15 +270,12 @@ initStoryshots();
 E finalmente um pequeno ajuste ao elemento `jest` do ficheiro `package.json`.
 
 ```json
-{
-  ....
-   "transform": {
-      "^.+\\.(ts|html)$": "ts-jest",
-      "^.+\\.js$": "babel-jest",
-      "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
+  "transform": {
+    "^.+\\.(ts|html)$": "ts-jest",
+    "^.+\\.js$": "babel-jest",
+     "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
 
-    },
-}
+},
 ```
 
 Assim que os passos descritos acima estiverem concluídos, poderá ser executado `npm run jest` e constatar o seguinte output:

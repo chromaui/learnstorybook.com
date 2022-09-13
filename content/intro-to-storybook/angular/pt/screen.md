@@ -15,9 +15,7 @@ Visto que a aplicação é deveras simples, o ecrã a ser construído é bastant
 
 Vamos começar por atualizar a nossa loja (no ficheiro (ou arquivo) `src/app/state/task.state.ts`) para incluir o campo de erro que pretendemos:
 
-```typescript
-// src/app/state/task.state.ts
-
+```ts:title=src/app/state/task.state.ts
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { Task } from '../models/task.model';
 
@@ -124,9 +122,7 @@ export class TasksState {
 
 Já temos a loja atualizada com o novo campo. Vamos criar um novo ficheiro (ou arquivo) chamado `pure-inbox-screen.component.ts` no interior da pasta (ou diretório) `src/app/components`:
 
-```typescript
-// src/app/components/pure-inbox-screen.component.ts
-
+```ts:title=src/app/components/pure-inbox-screen.component.ts
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -161,9 +157,7 @@ export class PureInboxScreenComponent implements OnInit {
 
 Em seguida podemos criar o contentor, que tal como anteriormente, obtém os dados oriundos da loja para o componente `PureInboxScreenComponent`. Num novo ficheiro (ou arquivo) chamado `inbox-screen.component.ts`:
 
-```typescript
-// src/app/components/inbox-screen.component.ts
-
+```ts:title=src/app/components/inbox-screen.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { TasksState } from '../state/task.state';
@@ -171,9 +165,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-inbox-screen',
-  template: `
-    <app-pure-inbox-screen [error]="error$ | async"></app-pure-inbox-screen>
-  `,
+  template: ` <app-pure-inbox-screen [error]="error$ | async"></app-pure-inbox-screen> `,
 })
 export class InboxScreenComponent implements OnInit {
   @Select(TasksState.getError) error$: Observable<any>;
@@ -186,16 +178,12 @@ export class InboxScreenComponent implements OnInit {
 
 Vai ser necessário alterar o componente `AppComponent` de forma a ser possível renderizar o `InboxScreenComponent` (eventualmente iria ser usado um roteador para escolher o ecrã apropriado, mas não é necessário preocupar-nos com isto agora):
 
-```typescript
-//src/app/app.component.ts
-
+```ts:title=src/app/app.component.ts
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <app-inbox-screen></app-inbox-screen>
-  `,
+  template: ` <app-inbox-screen></app-inbox-screen> `,
 })
 export class AppComponent {
   title = 'taskbox';
@@ -204,9 +192,7 @@ export class AppComponent {
 
 E com isto uma última alteração, esta no ficheiro (ou arquivo) `app.module.ts`:
 
-```typescript
-//src/app/app.module.ts
-
+```ts:title=src/app/app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TaskModule } from './components/task.module';
@@ -243,9 +229,7 @@ Irá ser feito algo similar para o `PureInboxScreen` no Storybook também.
 
 No entanto para o `PureInboxScreenComponent` existe um problema, isto porque apesar deste ser de apresentação, o seu "filho", ou seja a `TaskListComponent` não o é. De certa forma o `PureInboxScreenComponent` foi poluído pelo "container-ness". Com isto as estórias no ficheiro `inbox-screen.stories.ts` terão que ser definidas da seguinte forma:
 
-```typescript
-// src/app/components/pure-inbox-screen.stories.ts
-
+```ts:title=src/app/components/inbox-screen.stories.ts
 import { moduleMetadata } from '@storybook/angular';
 import { PureInboxScreenComponent } from './pure-inbox-screen.component';
 import { TaskModule } from './task.module';
@@ -285,9 +269,7 @@ No entanto, algum programador **irá querer** renderizar contentores num nível 
 
 As boas notícias é que é extremamente fácil injetar a loja ao `PureInboxScreenComponent` numa estória! Podemos instanciar uma nova instância da loja e fornecê-la como contexto da estória através de um decorador.
 
-```typescript
-// src/app/components/pure-inbox-screen.stories.ts
-
+```ts:title=src/app/components/inbox-screen.stories.ts
 import { moduleMetadata } from '@storybook/angular';
 import { PureInboxScreenComponent } from './pure-inbox-screen.component';
 import { TaskModule } from './task.module';
