@@ -10,9 +10,7 @@ En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. Ta
 
 Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook y Expo, solo necesitamos activarlo agregando un script a `package.json`.
 
-```javascript
-// package.json
-
+```json:clipboard=false
 {
   "scripts": {
     "build-static-webapp":"expo build:web"
@@ -32,14 +30,14 @@ Queremos compartir la última versión de los componentes cada vez que hagamos p
 
 Cuando el proyecto se inicializó con Expo, ya se configuró un repositorio local para usted. En esta etapa, es seguro agregar los archivos al primer commit.
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 Ahora haz commit de los archivos.
 
-```bash
-$ git commit -m "taskbox UI"
+```shell
+git commit -m "taskbox UI"
 ```
 
 ### Configurar un repositorio en GitHub
@@ -50,13 +48,13 @@ Ve a Github y configura un repositorio [aquí](https://github.com/new). Nombra t
 
 En la nueva configuración del repositorio copia la URL de origen del repositorio y añádelo a tu proyecto git con este comando:
 
-```bash
+```shell
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Finalmente haz push al repo en GitHub.
 
-```bash
+```shell
 $ git push -u origin main
 ```
 

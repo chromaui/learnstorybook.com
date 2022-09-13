@@ -16,15 +16,13 @@ Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de
 
 Agregue las dependencias necesarias a su proyecto con:
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 
 Primero, construiremos un store Redux estándar que responda a acciones que cambien el estado de las tareas, en un archivo llamado `lib/redux.js` (intencionalmente simple):
 
-```javascript
-// lib/redux.js
-
+```js:title=lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -80,8 +78,7 @@ Luego se cambiará el componente `TaskList` para leer los datos del store. Pero 
 
 En `components/PureTaskList.js`:
 
-```javascript
-//components/PureTaskList.js
+```js:title=components/PureTaskList.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Task from './Task';
@@ -110,8 +107,7 @@ export default PureTaskList;
 
 En `components/TaskList.js`:
 
-```javascript
-// components/TaskList.js
+```js:title=components/TaskList.js
 import * as React from 'react';
 import PureTaskList from './PureTaskList';
 import { connect } from 'react-redux';
@@ -138,8 +134,7 @@ export default connect(
 
 La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `components/TaskList.stories.js` a `components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
-```javascript
-// components/PureTaskList.stories.js
+```js:title=components/PureTaskList.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
 import { styles } from '../constants/globalStyles';
@@ -179,7 +174,7 @@ storiesOf('PureTaskList', module)
 
 Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
-```javascript
+```js:title=src/components/PureTaskList.test.js
 // components/__tests__/TaskList.test.js
 import * as React from 'react';
 import { create } from 'react-test-renderer';
