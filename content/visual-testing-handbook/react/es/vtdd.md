@@ -24,7 +24,7 @@ Inicie el desarrollo guiado por pruebas visuales mediante la creación de casos 
 
 Configuremos el proyecto de ejemplo usando [degit](https://github.com/Rich-Harris/degit) para descargar las plantillas repetitivas necesarias (aplicaciones parcialmente construidas con alguna configuración predeterminada). Ejecute los siguientes comandos:
 
-```shell
+```shell:clipboard=false
 # Clone the template for this tutorial
 npx degit chromaui/visual-testing-handbook-react-template commentlist
 
@@ -169,7 +169,6 @@ Empty.args = {
 Inicie Storybook para ver los casos de prueba. La implementación de nuestros componentes es básica, pero nos permite confirmar que nuestros casos de prueba se procesan según lo previsto.
 
 ```shell
-# Start Storybook in development mode
 yarn storybook
 ```
 
