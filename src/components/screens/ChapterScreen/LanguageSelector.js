@@ -62,6 +62,7 @@ LanguageSelector.propTypes = {
   firstChapter: PropTypes.string.isRequired,
   guide: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
+  framework: PropTypes.string.isRequired,
   translationPages: PropTypes.shape({
     edges: PropTypes.arrayOf(
       PropTypes.shape({
