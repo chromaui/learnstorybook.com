@@ -21,6 +21,7 @@ function LanguageSelector({
   guide,
   language,
   translationPages,
+  framework,
 }) {
   const translationLanguages = React.useMemo(
     () => getTranslationLanguages(translationPages),
@@ -45,7 +46,9 @@ function LanguageSelector({
   const items = sortBy(Array.from(translationLanguages), (l) => l).map((l) => ({
     link: {
       LinkWrapper: GatsbyLinkWrapper,
-      url: withPrefix(getChapterInOtherLanguage(l, guide, chapter, firstChapter, translationPages)),
+      url: withPrefix(
+        getChapterInOtherLanguage(l, guide, chapter, firstChapter, translationPages, framework)
+      ),
     },
     label: getLanguageName(l),
   }));
@@ -59,6 +62,7 @@ LanguageSelector.propTypes = {
   firstChapter: PropTypes.string.isRequired,
   guide: PropTypes.string.isRequired,
   language: PropTypes.string.isRequired,
+  framework: PropTypes.string.isRequired,
   translationPages: PropTypes.shape({
     edges: PropTypes.arrayOf(
       PropTypes.shape({
