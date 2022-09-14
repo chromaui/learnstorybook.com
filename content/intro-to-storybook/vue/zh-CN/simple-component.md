@@ -282,7 +282,7 @@ Storybook 给我们提供了一个在开发期间可视化测试应用程序的�
 
 通过[Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots)我们可以为每一个 story 创建一个快照测试。通过下述方式追加依赖：
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 ```
 

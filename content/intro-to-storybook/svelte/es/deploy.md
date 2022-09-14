@@ -42,7 +42,7 @@ git add .
 
 Ahora haz commit de los archivos.
 
-```bash
+```shell
 git commit -m "taskbox UI"
 ```
 

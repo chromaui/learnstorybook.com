@@ -53,7 +53,7 @@ git remote add origin https://github.com/<your username>/taskbox.git
 
 Finalmente injeta-se o repositório no GitHub
 
-```bash
+```shell
 git push -u origin main
 ```
 

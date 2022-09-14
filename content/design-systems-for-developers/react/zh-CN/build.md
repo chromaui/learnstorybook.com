@@ -141,7 +141,7 @@ export const buttonWrapper = () => (
 
 当您浏览一个 story 时，您常常希望查看该 story 的源代码以了解其工作原理并将其粘贴到您的项目中。Storysource 插件在插件面板中为您显示了当前您所选 story 的源代码。
 
-```bash
+```shell
 yarn add --dev  @storybook/addon-storysource
 ```
 

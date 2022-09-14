@@ -44,7 +44,7 @@ git add -A
 
 Nun committe die Dateien.
 
-```bash
+```shell
 git commit -m "taskbox UI"
 ```
 
@@ -67,7 +67,7 @@ Jetzt melde dich mit deinem GitHub Account [in Chromatic an](https://www.chromat
 
 Führe den Test-Befehl in der Kommandozeile aus, um visuelle Regressions-Tests für Storybook einzurichten. Vergiss nicht, deinen eindeutigen project-token anstelle von `<project-token>` einzusetzen.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 

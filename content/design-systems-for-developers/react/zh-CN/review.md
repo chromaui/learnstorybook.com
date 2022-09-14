@@ -154,7 +154,7 @@ const StyledButton = styled.button`
 
 提交您的修改并把它发布到您的 Github 仓库中
 
-```bash
+```shell:clipboard=false
 git commit -am “make Button pop”
 git push -u origin improve-button
 ```
