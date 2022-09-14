@@ -11,7 +11,6 @@ Los [Decoradores](https://storybook.js.org/docs/react/writing-stories/decorators
 
 En el paso anterior definimos el `outlineActive` (esquema activo) global, ¡ahora conectémoslo! Podemos consumir globales en un decorador usando el hook `useGlobals`.
 
-
 ```js:title=src/withGlobals.js
 /* eslint-env browser */
 import { useEffect, useGlobals } from '@storybook/addons';
@@ -76,7 +75,7 @@ export const withGlobals = (StoryFn, context) => {
   }, [context.id]);
 
   useEffect(() => {
-    const selectorId = isInDocs ? `addon-outline-docs-${context.id}` : `addon-outline`;
+    const selectorId = isInDocs ? `addon-outline-docs-${context.id}` : `my-addon-outline`;
 
     if (!outlineActive) {
       clearStyles(selectorId);

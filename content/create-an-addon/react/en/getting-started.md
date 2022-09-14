@@ -20,13 +20,13 @@ To start, click the **Use this template** button on the [Addon Kit repository](h
 
 Next, clone your repository and install dependencies.
 
-```bash
+```shell
 yarn
 ```
 
 The Addon Kit uses TypeScript by default. However, we'll use the eject command to convert the boilerplate code to JavaScript for the purposes of this tutorial.
 
-```bash
+```shell
 yarn eject-ts
 ```
 
@@ -34,7 +34,7 @@ This will convert all code to JS. It is a destructive process, so we recommended
 
 Finally, start the development mode. This starts up Storybook and runs babel in watch mode.
 
-```bash
+```shell
 yarn start
 ```
 

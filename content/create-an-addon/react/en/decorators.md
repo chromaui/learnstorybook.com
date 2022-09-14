@@ -75,7 +75,7 @@ export const withGlobals = (StoryFn, context) => {
   }, [context.id]);
 
   useEffect(() => {
-    const selectorId = isInDocs ? `addon-outline-docs-${context.id}` : `addon-outline`;
+    const selectorId = isInDocs ? `addon-outline-docs-${context.id}` : `my-addon-outline`;
 
     if (!outlineActive) {
       clearStyles(selectorId);
