@@ -69,7 +69,7 @@ yarn add --dev @babel/cli cross-env
 
 고맙게도 Create React App가 이 과정을 이미 처리해두었습니다. 디자인 시스템을 `dist` 디렉토리에 구축하기 위해 이미 만들어진 `build` 스크립트를 수정합니다. -
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist"
@@ -94,7 +94,7 @@ yarn add --dev @babel/cli cross-env
 
 이제 `dist` 디렉토리 안에 코드를 빌드 하기 위해 `yarn build`를 실행할 수 있습니다. -- 원치 않는 commit을 피하기 위해 이 디렉토리를 `gitignore`에 추가합니다. -
 
-```
+```TEXT:title=.gitignore
 // ..
 dist
 ```
@@ -122,7 +122,7 @@ question private: no
 
 모두 완료했으면, `package.json`에 그 질문들에 대한 결과로써 새로운 값들과 함께 업데이트가 될 것입니다. -
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "name": "@your-npm-username/learnstorybook-design-system",
   "description": "Storybook design systems tutorial",
@@ -162,14 +162,14 @@ npm에서는, 다음 URL에서 토큰을 생성할 수 있습니다. - https://w
 
 `.env`라고 불리는 파일을 프로젝트에 추가하고 받은 토큰을 추가해보세요. -
 
-```
+```TEXT:title=.env
 GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
 `.env` 를 `.gitignore` 에 추가함을 통해 이 토큰 값을 모든 사용자가 볼 수 있는 오픈소스 저장소에 원치않게 올리는 것을 방지할 수 있습니다. 이 부분은 중요합니다. 다른 관리자가 로컬에서 이 패키지를 배포해야하는 경우(이 부분은 기본 브랜치에 PR을 해서 merge할 때 자동 배포가 되도록 나중에 설정을 할 것입니다.), 관리자는 자신의 `.env` 파일을 아래와 같은 과정에 따라 설정해야합니다. -
 
-```
+```TEXT:title=.gitignore
 dist
 .env
 ```
@@ -253,7 +253,7 @@ yarn auto release
 
 후에 패키지를 배포하고 싶을 때와 같은 과정을 따라서 Auto를 설정해보세요. 다음과 같은 스크립트를 `package.json`에 추가합니다. -
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "release": "auto shipit --base-branch=main"

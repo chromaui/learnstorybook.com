@@ -83,7 +83,7 @@ module.exports = {
 
 Then add a test task to your project’s `package.json`:
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "test-storybook": "test-storybook"

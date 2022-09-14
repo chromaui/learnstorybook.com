@@ -55,10 +55,12 @@ UI는 목표를 달성하기 위해 여러 페이지에서 일련의 단계를 �
 
 `yarn add -D cypress`를 실행하여 사이프레스 패키지를 설치합니다. 그런 다음 `package.json` 파일의 스크립트 필드에 Cypress 명령을 추가합니다.
 
-```json:clipboard=false:title=package.json
- "scripts": {
-   "cypress": "cypress open"
- }
+```json:clipboard=false
+{
+  "scripts": {
+    "cypress": "cypress open"
+  }
+}
 ```
 
 다음으로 프로젝트의 루트에 `cypress.json` 파일을 추가하세요. 여기서는 실제 테스트 명령을 작성할 때 반복할 필요가 없도록 애플리케이션의 기본 URL을 구성할 수 있습니다.

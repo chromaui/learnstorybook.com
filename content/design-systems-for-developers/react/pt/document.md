@@ -352,7 +352,7 @@ Se escreve documentação que ninguém lê, será útil? Não. Não chega soment
 
 Num capítulo anterior, publicámos o Storybook online para revisão visual. É bastante fácil usar o mesmo mecanismo para publicar a nossa documentação dos componentes também. Vamos adicionar um novo script ao ficheiro `package.json` para poder construir o nosso Storybook em modo de documentação:
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "build-storybook-docs": "build-storybook -s public --docs"

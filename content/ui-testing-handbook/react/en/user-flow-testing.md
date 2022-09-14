@@ -54,10 +54,12 @@ Start the app in development mode by running `yarn start`. Then open [http://loc
 
 Run: `yarn add -D cypress` to install the Cypress package. Then add the Cypress command to the scripts field of your `package.json` file.
 
-```json:clipboard=false:title=package.json
- "scripts": {
-   "cypress": "cypress open"
- }
+```json:clipboard=false
+{
+  "scripts": {
+    "cypress": "cypress open"
+  }
+}
 ```
 
 Next, add a `cypress.json` file at the root of your project. Here we can configure the base URL for our application so that we don’t have to repeat ourselves when writing out actual test commands.

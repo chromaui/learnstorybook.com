@@ -466,7 +466,7 @@ module.exports = {
 
 이전 장에서는 시각적 검토를 위해 온라인으로 스토리북을 퍼블리쉬했습니다. 컴포넌트 문서도 동일한 방식을 사용하여 쉽게 퍼블리쉬할 수 있습니다. docs 모드에서 스토리북을 빌드하기 위해 `package.json`에 새 스크립트를 추가해 보겠습니다.
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "build-storybook-docs": "build-storybook  --docs"

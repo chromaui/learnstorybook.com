@@ -70,7 +70,7 @@ With the packages installed, we'll need to implement the build process.
 
 Thankfully for us, Create React App (CRA) has already taken care of this for us. We'll use the existing `build` script and change it to build our design system to the `dist` directory:
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist"
@@ -95,8 +95,8 @@ With our build process implemented. We'll need to fine-tune it. Locate the `babe
 
 Now we can run `yarn build` to build our code into the `dist` directory -- we should add that directory to `.gitignore` too, so we don't accidentally commit it:
 
-```
-// ..
+```TEXT:title=.gitignore
+// ...
 dist
 ```
 
@@ -123,7 +123,7 @@ The command will ask us a set of questions, some of which will be prefilled with
 
 All in all, it will update `package.json` with new values as a result of those questions:
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "name": "@your-npm-username/learnstorybook-design-system",
   "description": "Storybook design systems tutorial",
@@ -163,14 +163,14 @@ You’ll need a token with “Read and Publish” permissions.
 
 Let’s add that token to a file called `.env` in our project:
 
-```
+```TEXT:title=.env
 GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
 By adding the file to `.gitignore`, we ensure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package locally (later we’ll set things up to auto-publish when a pull request is merged into the default branch), they should set up their own `.env` file following this process:
 
-```
+```TEXT:title=.gitignore
 dist
 .env
 ```
@@ -254,7 +254,7 @@ Yay! We’ve successfully published our package to npm and created a release on 
 
 Let’s set up Auto to follow the same process when we want to publish the package in the future. We’ll add the following scripts to our `package.json`:
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "release": "auto shipit --base-branch=main"

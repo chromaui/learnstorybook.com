@@ -464,7 +464,7 @@ If you write documentation that no one reads, is that useful? No. It’s not eno
 
 In a previous chapter, we published Storybook online for visual review. It’s easy to use the same mechanism to publish our component docs as well. Let’s add a new script to `package.json` to build our Storybook in docs mode:
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "build-storybook-docs": "build-storybook  --docs"

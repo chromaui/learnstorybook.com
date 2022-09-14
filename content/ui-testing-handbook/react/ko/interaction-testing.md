@@ -83,7 +83,7 @@ module.exports = {
 
 그리고 프로젝트의 `package.json`에 테스트 태스크를 추가하세요. -
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "test-storybook": "test-storybook"

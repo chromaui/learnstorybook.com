@@ -235,7 +235,7 @@ de lançamento no GitHub (com muita sorte!).
 
 Vamos agora configurar o Auto para seguir o mesmo processo quando for necessário publicar o nosso pacote no futuro. Vamos alterar o ficheiro `package.json` e adicionar o seguinte script:
 
-```json:clipboard=false:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "release": "auto shipit --base-branch=main"
