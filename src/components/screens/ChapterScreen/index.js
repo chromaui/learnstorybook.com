@@ -1,18 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
-import { styled } from '@storybook/theming';
 import { graphql } from 'gatsby';
-import { Highlight, Link, styles } from '@storybook/design-system';
-import ChapterLinks from './ChapterLinks';
-import GithubLink from './GithubLink';
-import Pagination from './Pagination';
-import Sidebar from './Sidebar';
+import {
+  SubNavBreadcrumb,
+  SubNavDivider,
+  SubNavMenus,
+  styles as marketingStyles,
+} from '@storybook/components-marketing';
+import { Highlight, Icon, Link, styles } from '@storybook/design-system';
+import { styled } from '@storybook/theming';
+
 import fetchTutorialNotUpdatedText from '../../../lib/getTranslationMessages';
 import tocEntries from '../../../lib/tocEntries';
 import { chapterFormatting } from '../../../styles/formatting';
+import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
+import AppLayout from '../../composite/AppLayout';
+import ChapterLinks from './ChapterLinks';
+import FrameworkSelector from './FrameworkSelector';
+import GithubLink from './GithubLink';
+import Pagination from './Pagination';
+import Sidebar from './Sidebar';
+import LanguageSelector from './LanguageSelector';
 
-const { pageMargins, breakpoint, typography } = styles;
+const { breakpoint, typography } = styles;
 
 const HighlightWrapper = styled(Highlight)`
   margin-bottom: 3rem;
@@ -30,29 +41,23 @@ const Content = styled.div`
 `;
 
 const ChapterWrapper = styled.div`
-  ${pageMargins};
   display: flex;
   flex-direction: column;
-  padding-bottom: 3rem;
-  padding-top: 4rem;
 
   @media screen and (min-width: ${breakpoint}px) {
     flex-direction: row;
-    padding-top: 165px;
   }
 `;
 
 const Title = styled.h1`
-  font-size: ${typography.size.l1}px;
-  font-weight: ${typography.weight.black};
+  ${marketingStyles.marketing.heading}
   margin-bottom: 8px;
-  line-height: 40px !important;
 `;
 
 const Description = styled.div`
   font-size: ${typography.size.m1}px;
   line-height: 32px !important;
-  margin-bottom: 24px;
+  margin-bottom: ${styles.spacing.padding.large}px;
 `;
 
 function Chapter({
@@ -82,7 +87,7 @@ function Chapter({
   )}.md`;
   const fetchStatusUpdate = fetchTutorialNotUpdatedText(language);
   return (
-    <ChapterWrapper>
+    <>
       <Helmet>
         <title>{`${title} | ${siteMetadata.title}`}</title>
         <meta name="description" content={description} />
@@ -102,43 +107,66 @@ function Chapter({
           content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
         />
       </Helmet>
+      <AppLayout
+        subNav={
+          <>
+            <SubNavBreadcrumb tertiary to={`/${guide}`} LinkWrapper={GatsbyLinkWrapper}>
+              <Icon icon="arrowleft" />
+              Back to {currentGuideTitle}
+            </SubNavBreadcrumb>
+            <SubNavDivider />
+            <SubNavMenus>
+              {framework && (
+                <FrameworkSelector
+                  chapter={chapter}
+                  firstChapter={firstChapter}
+                  framework={framework}
+                  guide={guide}
+                  language={language}
+                  translationPages={translationPages}
+                />
+              )}
+              <LanguageSelector
+                chapter={chapter}
+                contributeUrl={siteMetadata.contributeUrl}
+                firstChapter={firstChapter}
+                framework={framework}
+                guide={guide}
+                language={language}
+                translationPages={translationPages}
+              />
+            </SubNavMenus>
+          </>
+        }
+      >
+        <ChapterWrapper>
+          <Sidebar entries={entries} slug={slug} />
 
-      <Sidebar
-        chapter={chapter}
-        contributeUrl={siteMetadata.contributeUrl}
-        entries={entries}
-        firstChapter={firstChapter}
-        framework={framework}
-        guide={guide}
-        guideTitle={currentGuideTitle}
-        language={language}
-        slug={slug}
-        translationPages={translationPages}
-      />
-
-      <Content>
-        <Title>{title}</Title>
-        <Description>{description}</Description>
-        {!tutorialUpToDate && (
-          <div className="translation-aside">
-            {fetchStatusUpdate.guidenotupdated}{' '}
-            <Link tertiary href={githubFileUrl} target="_blank" rel="noopener">
-              {fetchStatusUpdate.pullrequestmessage}
-            </Link>
-            .
-          </div>
-        )}
-        <HighlightWrapper>{html}</HighlightWrapper>
-        <ChapterLinks
-          codeGithubUrl={codeGithubUrl}
-          commit={commit}
-          guide={guide}
-          twitterShareText={twitterShareText}
-        />
-        <Pagination nextEntry={nextEntry} />
-        <GithubLink githubFileUrl={githubFileUrl} />
-      </Content>
-    </ChapterWrapper>
+          <Content>
+            <Title>{title}</Title>
+            <Description>{description}</Description>
+            {!tutorialUpToDate && (
+              <div className="translation-aside">
+                {fetchStatusUpdate.guidenotupdated}{' '}
+                <Link tertiary href={githubFileUrl} target="_blank" rel="noopener">
+                  {fetchStatusUpdate.pullrequestmessage}
+                </Link>
+                .
+              </div>
+            )}
+            <HighlightWrapper>{html}</HighlightWrapper>
+            <ChapterLinks
+              codeGithubUrl={codeGithubUrl}
+              commit={commit}
+              guide={guide}
+              twitterShareText={twitterShareText}
+            />
+            <Pagination nextEntry={nextEntry} />
+            <GithubLink githubFileUrl={githubFileUrl} />
+          </Content>
+        </ChapterWrapper>
+      </AppLayout>
+    </>
   );
 }
 

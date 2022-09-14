@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { styles as marketingStyles } from '@storybook/components-marketing';
+import { Avatar } from '@storybook/design-system';
 import { styled } from '@storybook/theming';
-import { Avatar, styles } from '@storybook/design-system';
-
-const { typography } = styles;
 
 const Section = styled.div`
   ${(props) =>
@@ -14,19 +13,16 @@ const Section = styled.div`
 `;
 
 const Heading = styled.div`
-  font-size: ${typography.size.m2}px;
-  font-weight: ${typography.weight.extrabold};
-  line-height: 28px;
+  ${marketingStyles.marketing.subheading};
+  margin-bottom: 12px;
 `;
 
 const Text = styled.div`
-  font-size: ${typography.size.s3}px;
-  line-height: 28px;
-  margin-top: 12px;
+  ${marketingStyles.marketing.textLarge}
+  margin-bottom: 32px;
 `;
 
 const CommunityAvatars = styled.div`
-  margin-top: 24px;
   margin-left: -10px;
   margin-right: -10px;
   display: flex;

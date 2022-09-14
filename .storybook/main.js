@@ -2,9 +2,21 @@ const webpack = require('webpack');
 
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
-  addons: ['@storybook/addon-essentials', '@storybook/addon-a11y', '@storybook/addon-links'],
+  addons: [
+    '@storybook/addon-essentials',
+    '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
+    '@storybook/addon-links',
+  ],
   core: {
     builder: 'webpack5',
+  },
+  env: (config) => ({
+    ...config,
+    GATSBY_ALGOLIA_API_KEY: process.env.GATSBY_ALGOLIA_API_KEY || 'GATSBY_ALGOLIA_API_KEY',
+  }),
+  features: {
+    interactionsDebugger: true,
   },
   webpackFinal: async (config) => {
     config.module.rules[0].exclude = [/node_modules\/(?!(gatsby)\/)/];
@@ -15,16 +27,10 @@ module.exports = {
     config.module.rules[0].use[0].options.plugins.push([
       require.resolve('babel-plugin-remove-graphql-queries'),
       {
-        stage: config.mode === `development` ? 'develop-html' : 'build-html',
+        stage: 'develop-html',
         staticQueryDir: 'page-data/sq/d',
       },
     ]);
-
-    config.plugins.unshift(
-      new webpack.DefinePlugin({
-        'process.env.GATSBY_ALGOLIA_API_KEY': JSON.stringify(process.env.GATSBY_ALGOLIA_API_KEY),
-      })
-    );
 
     return config;
   },

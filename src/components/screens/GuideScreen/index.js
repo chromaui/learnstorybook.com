@@ -2,25 +2,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
+import { SubNavBreadcrumb, styles as marketingStyles } from '@storybook/components-marketing';
+import { styles, Icon } from '@storybook/design-system';
 import { styled } from '@storybook/theming';
-import { styles } from '@storybook/design-system';
 import get from 'lodash/get';
 import { graphql, withPrefix } from 'gatsby';
 import { darken } from 'polished';
+
+import tocEntries from '../../../lib/tocEntries';
+import getLanguageName from '../../../lib/getLanguageName';
+import { guideFormatting } from '../../../styles/formatting';
+import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
+import AppLayout from '../../composite/AppLayout';
 import Contributors from './Contributors';
 import Hero from './Hero';
 import TableOfContents from './TableOfContents';
-import { guideFormatting } from '../../../styles/formatting';
-import tocEntries from '../../../lib/tocEntries';
-import getLanguageName from '../../../lib/getLanguageName';
 
 const { breakpoint, color, pageMargins, typography } = styles;
 
 const Content = styled.div`
   ${guideFormatting}
   ${pageMargins}
-  padding-top: 66px;
-  padding-bottom: 66px;
+  padding-top: 64px;
+  padding-bottom: 64px;
 
   @media (min-width: ${breakpoint * 1.5}px) {
     display: flex;
@@ -35,27 +39,30 @@ const Overview = styled.div`
 `;
 
 const OverviewTitle = styled.h2`
-  font-size: ${typography.size.m2}px;
-  font-weight: ${typography.weight.black};
+  ${marketingStyles.marketing.subheading}
+  margin-bottom: 12px;
 `;
 
-const OverviewDesc = styled.p``;
+const OverviewDesc = styled.p`
+  ${marketingStyles.marketing.textLarge}
+  margin: 0;
+`;
 
 const Detail = styled.div`
-  margin-top: 66px;
-
-  h2 {
-    font-size: ${typography.size.m2}px;
-    font-weight: ${typography.weight.black};
-  }
-
-  code {
-    font-size: ${typography.size.s3 - 1}px;
-  }
+  margin-top: 64px;
 
   @media (min-width: ${breakpoint * 1.5}px) {
     margin-top: 0;
     width: 50%;
+  }
+
+  h2 {
+    ${marketingStyles.marketing.subheading}
+    margin-bottom: 12px;
+  }
+
+  code {
+    font-size: ${typography.size.s3 - 1}px;
   }
 
   a {
@@ -107,7 +114,17 @@ function Guide({ data, pageContext }) {
         : `${slug}react/${language}/introduction/`,
   }));
   return (
-    <>
+    <AppLayout
+      includePageMargins={false}
+      includePaddingTop={false}
+      inverseHeader
+      subNav={
+        <SubNavBreadcrumb inverse tertiary to="/" LinkWrapper={GatsbyLinkWrapper}>
+          <Icon icon="arrowleft" />
+          Back to tutorials
+        </SubNavBreadcrumb>
+      }
+    >
       <Helmet>
         <title>{`${title} | ${siteMetadata.title}`}</title>
         <meta name="description" content={description} />
@@ -158,7 +175,7 @@ function Guide({ data, pageContext }) {
           <Contributors authors={authors} contributors={contributors} />
         </Detail>
       </Content>
-    </>
+    </AppLayout>
   );
 }
 

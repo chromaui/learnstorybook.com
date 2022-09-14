@@ -4,6 +4,9 @@ import Chapter from './index';
 export default {
   component: Chapter,
   title: 'Screens/ChapterScreen/index',
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 function Story(args) {
   return <Chapter {...args} />;

@@ -1,13 +1,28 @@
 import React from 'react';
+import { SubNavTabs } from '@storybook/components-marketing';
 import { styled } from '@storybook/theming';
 import { PureAppLayout } from './AppLayout';
+
+const navItems = [
+  {
+    key: '0',
+    label: 'Guides',
+    href: '#',
+  },
+  {
+    key: '1',
+    label: 'Tutorials',
+    href: '#',
+    isActive: true,
+  },
+];
 
 const Children = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 169px 0 100px;
 `;
+
 export default {
   component: PureAppLayout,
   title: 'Composite/AppLayout',
@@ -18,6 +33,15 @@ export default {
         default: <Children>I am the app.</Children>,
       },
     },
+    subNav: {
+      options: ['default'],
+      mapping: {
+        default: <SubNavTabs label="Docs nav" items={navItems} />,
+      },
+    },
+  },
+  parameters: {
+    layout: 'fullscreen',
   },
 };
 function Story(args) {
@@ -98,6 +122,16 @@ Default.args = {
         },
       ],
     },
+    dxData: {
+      githubStars: 99999,
+      latestPost: {
+        title: 'Why Storybook in 2022?',
+        url: 'https://storybook.js.org/blog/why-storybook-in-2022',
+      },
+      versionString: '6.5',
+      subscriberCount: 9999,
+    },
   },
   location: { pathname: '' },
+  subNav: 'default',
 };

@@ -5,6 +5,9 @@ import { ContributorsData } from './Contributors.stories';
 export default {
   component: GuideScreen,
   title: 'Screens/GuideScreen/index',
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
 function Story(args) {
