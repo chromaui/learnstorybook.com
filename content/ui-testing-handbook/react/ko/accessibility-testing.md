@@ -57,14 +57,36 @@ commit: ''
 
 ```diff:title=.storybook/main.js
 module.exports = {
- // ...
- addons: [
-   '@storybook/addon-links',
-   '@storybook/addon-essentials',
-   '@storybook/preset-create-react-app',
-+  '@storybook/addon-a11y',
-   '@storybook/addon-interactions',
- ],
+  staticDirs: ['../public'],
+  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
++   '@storybook/addon-a11y',
+    '@storybook/addon-interactions',
+  ],
+  core: {
+    builder: {
+      name: 'webpack5',
+    },
+  },
+  features:{
+    interactionsDebugger: true,
+  },
+  webpackFinal: async (config) => {
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          '@emotion/core': toPath('node_modules/@emotion/react'),
+          'emotion-theming': toPath('node_modules/@emotion/react'),
+        },
+      },
+    };
+  },
 };
 ```
 
@@ -222,7 +244,7 @@ const Template = (args) => (
 
 Axe를 실행하기 위해 테스트 러너를 설정해 봅시다. 우선 [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright)를 설치할 것입니다.
 
-```bash
+```shell
 yarn add -D axe-playwright
 ```
 

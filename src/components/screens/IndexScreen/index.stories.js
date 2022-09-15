@@ -1,12 +1,17 @@
 import React from 'react';
-import IndexScreen from './index';
+import { PureIndexScreen } from './index';
 
 export default {
-  component: IndexScreen,
+  component: PureIndexScreen,
   title: 'Screens/IndexScreen/index',
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
-const Story = args => <IndexScreen {...args} />;
+function Story(args) {
+  return <PureIndexScreen {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   data: {

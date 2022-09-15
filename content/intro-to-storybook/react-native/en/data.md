@@ -16,16 +16,13 @@ This example uses [Redux](https://redux.js.org/), the most popular React library
 
 Add the necessary dependencies to your project with:
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 
 First we’ll construct a simple Redux store that responds to actions that change the state of tasks, in a file called `lib/redux.js` (intentionally kept simple):
 
-```javascript
-
-// lib/redux.js
-
+```js:title=lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -37,15 +34,15 @@ export const actions = {
 };
 
 // The action creators bundle actions with the data required to execute them
-export const archiveTask = id => ({ type: actions.ARCHIVE_TASK, id });
-export const pinTask = id => ({ type: actions.PIN_TASK, id });
+export const archiveTask = (id) => ({ type: actions.ARCHIVE_TASK, id });
+export const pinTask = (id) => ({ type: actions.PIN_TASK, id });
 
 // All our reducers simply change the state of a single task.
 function taskStateReducer(taskState) {
   return (state, action) => {
     return {
       ...state,
-      tasks: state.tasks.map(task =>
+      tasks: state.tasks.map((task) =>
         task.id === action.id ? { ...task, state: taskState } : task
       ),
     };
@@ -81,9 +78,7 @@ Then we'll update our `TaskList` to read data out of the store. First let's move
 
 In `components/PureTaskList.js`:
 
-```javascript
-
-//components/PureTaskList.js
+```js:title=components/PureTaskList.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Task from './Task';
@@ -93,7 +88,47 @@ import { FlatList, Text, SafeAreaView, View } from 'react-native';
 import { styles } from '../constants/globalStyles';
 
 export function PureTaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  /* previous implementation of TaskList */
+  const events = {
+    onPinTask,
+    onArchiveTask,
+  };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.ListItems}>
+        <LoadingRow />
+        <LoadingRow />
+        <LoadingRow />
+        <LoadingRow />
+        <LoadingRow />
+        <LoadingRow />
+      </SafeAreaView>
+    );
+  }
+  if (tasks.length === 0) {
+    return (
+      <SafeAreaView style={styles.ListItems}>
+        <View style={styles.WrapperMessage}>
+          <PercolateIcons name="check" size={64} color={'#2cc5d2'} />
+          <Text style={styles.TitleMessage}>You have no tasks</Text>
+          <Text style={styles.SubtitleMessage}>Sit back and relax</Text>
+        </View>
+      </SafeAreaView>
+    );
+  }
+  const tasksInOrder = [
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
+  ];
+  return (
+    <SafeAreaView style={styles.ListItems}>
+      <FlatList
+        data={tasksInOrder}
+        keyExtractor={(task) => task.id}
+        renderItem={({ item }) => <Task key={item.id} task={item} {...events} />}
+      />
+    </SafeAreaView>
+  );
 }
 
 PureTaskList.propTypes = {
@@ -112,9 +147,7 @@ export default PureTaskList;
 
 In `components/TaskList.js`:
 
-```javascript
-
-// components/TaskList.js
+```js:title=components/TaskList.js
 import * as React from 'react';
 import PureTaskList from './PureTaskList';
 import { connect } from 'react-redux';
@@ -130,20 +163,18 @@ function TaskList({ tasks, onPinTask, onArchiveTask }) {
 }
 export default connect(
   ({ tasks }) => ({
-    tasks: tasks.filter(t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
+    tasks: tasks.filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'),
   }),
-  dispatch => ({
-    onArchiveTask: id => dispatch(archiveTask(id)),
-    onPinTask: id => dispatch(pinTask(id)),
+  (dispatch) => ({
+    onArchiveTask: (id) => dispatch(archiveTask(id)),
+    onPinTask: (id) => dispatch(pinTask(id)),
   })
 )(TaskList);
 ```
 
 The reason to keep the presentational version of the `TaskList` separate is because it is easier to test and isolate. As it doesn't rely on the presence of a store it is much easier to deal with from a testing perspective. Let's rename `components/TaskList.stories.js` into `components/PureTaskList.stories.js`, and ensure our stories use the presentational version:
 
-```javascript
-
-// components/PureTaskList.stories.js
+```js:title=components/PureTaskList.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
 import { styles } from '../constants/globalStyles';
@@ -165,7 +196,7 @@ export const withPinnedTasks = [
 ];
 
 storiesOf('PureTaskList', module)
-  .addDecorator(story => <View style={[styles.TaskBox, { padding: 48 }]}>{story()}</View>)
+  .addDecorator((story) => <View style={[styles.TaskBox, { padding: 48 }]}>{story()}</View>)
   .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
   .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
   .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
@@ -183,11 +214,9 @@ storiesOf('PureTaskList', module)
 
 Similarly, we need to use `PureTaskList` in our Jest test:
 
-```javascript
-
-// components/__tests__/TaskList.test.js
+```js:title=src/components/__tests__/PureTaskList.test.js
 import * as React from 'react';
-import {create} from 'react-test-renderer';
+import { create } from 'react-test-renderer';
 import PureTaskList from '../PureTaskList';
 import { withPinnedTasks } from '../PureTaskList.stories';
 import Task from '../Task';

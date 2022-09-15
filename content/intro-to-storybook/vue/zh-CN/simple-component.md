@@ -163,7 +163,6 @@ module.exports = {
 完成上述的修改后，如下所示修改您`.storybook`文件夹中的`preview.js` ：
 
 ```diff:title=.storybook/preview.js
-
 + import '../src/index.css';
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
@@ -283,7 +282,7 @@ Storybook 给我们提供了一个在开发期间可视化测试应用程序的�
 
 通过[Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots)我们可以为每一个 story 创建一个快照测试。通过下述方式追加依赖：
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots jest-vue-preprocessor
 ```
 
@@ -299,7 +298,6 @@ initStoryshots();
 
 ```diff:title=jest.config.js
 module.exports = {
-  ...
 + transformIgnorePatterns: ["/node_modules/(?!(@storybook/.*\\.vue$))"],
 };
 ```

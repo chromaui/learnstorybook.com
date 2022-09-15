@@ -38,7 +38,7 @@ Veamos cómo funciona modificando el fondo del componente `Task`.
 
 Comience creando una nueva rama para este cambio:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
@@ -60,19 +60,19 @@ Esto produce un nuevo color de fondo para el elemento.
 
 Agrega el archivo:
 
-```bash
+```shell
 git add .
 ```
 
 Commit del archivo:
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
 Y "push" de los cambios al repositorio remoto:
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

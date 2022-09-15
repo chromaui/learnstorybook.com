@@ -13,14 +13,14 @@ Storybook s'éxécute parallèlement à votre application en mode développement
 
 Voici les étapes pour configurer le processus de compilation dans votre environnement. Pour commencer, nous allons utiliser [Create React App](https://github.com/facebook/create-react-app) (CRA) pour mettre en place notre système de compilation, et ensuite ajouter [Storybook](https://storybook.js.org/) et l'outil de test [Jest](https://facebook.github.io/jest/) dans notre application. Exécutons les commandes suivantes:
 
-```bash
+```shell:clipboard=false
 # Create our application:
 npx create-react-app taskbox
 
 cd taskbox
 
 # Add Storybook:
-npx -p @storybook/cli sb init
+npx storybook init
 ```
 
 <div class="aside">
@@ -30,7 +30,7 @@ Si vous avez déjà installé <code>yarn</code>, mais que vous préférez utilis
 
 Pour vérifier rapidement que les différents environnements de notre application fonctionnent correctement:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
@@ -65,7 +65,7 @@ Si vous souhaitez modifier le styling, les fichiers sources LESS sont fournis da
 
 Pour correspondre au design prévu, vous devrez télécharger les répertoires des polices et des icônes et placer leur contenu dans votre dossier `src/assets`.
 
-```bash
+```shell:clipboard=false
 npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
 npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```

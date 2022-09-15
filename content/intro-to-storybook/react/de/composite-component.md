@@ -23,9 +23,7 @@ Eine Komposition unterscheidet sich nicht allzu sehr von den einfachen Komponent
 
 Beginne mit einer groben Implementierung der `TaskList`. Du musst die `Task`-Komponente importieren, die du zuvor erstellt hast, und die Attribute und Actions als Props übergeben.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -58,9 +56,7 @@ export default TaskList;
 
 Lege als Nächstes die Test-Zustände für `TaskList` in der Story-Datei an.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -116,9 +112,7 @@ Sieh dir jetzt die neuen `TaskList`-Stories in Storybook an.
 
 Unsere Komponente ist noch sehr roh, aber wir können uns jetzt ein Bild von den Stories machen, auf die wir hinarbeiten wollen. Vielleicht denkst du, dass der `.list-items`-Wrapper kaum eine eigene Komponente rechtfertigt. Du hast Recht - in den meisten Fällen würden wir keine neue Komponente erstellen, nur um einen Wrapper hinzuzufügen. Aber die **wahre Komplexität** der `TaskList`-Komponente kommt erst mit den Grenzfällen `withPinnedTasks`, `loading` und `empty` zum Vorschein.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -195,9 +189,7 @@ Achte auf die Position der angehefteten Aufgabe in der Liste. Wir wollen, dass a
 
 Mit einer wachsenden Komponente wachsen auch die Anforderungen an ihren Input. Definiere die Prop-Anforderungen der `TaskList`. Da `Task` eine Kind-Komponente ist, sollte sichergestellt sein, dass Daten in der passenden Struktur geliefert werden, um diese zu rendern. Um Zeit zu sparen und Kopfschmerzen vorzubeugen, solltest du die propTypes wiederverwenden, die du zuvor in `Task` definiert hast.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -240,9 +232,7 @@ Um diesem Problem entgegenzuwirken, können wir Jest verwenden, um die Story im 
 
 Erstelle eine Test-Datei namens `src/components/TaskList.test.js`. Darin schreiben wir unsere Tests, die Annahmen über den Output treffen.
 
-```javascript
-// src/components/TaskList.test.js
-
+```js:title=src/components/TaskList.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { WithPinnedTasks } from './TaskList.stories';

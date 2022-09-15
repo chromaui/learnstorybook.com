@@ -6,4 +6,6 @@ export default {
   title: 'Screens/IndexScreen/SocialValidation',
 };
 
-export const Default = () => <SocialValidation />;
+export function Default() {
+  return <SocialValidation />;
+}

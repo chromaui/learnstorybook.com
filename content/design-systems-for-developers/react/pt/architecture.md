@@ -37,7 +37,7 @@ Como tal, o nosso sistema de design deverá ser independente de qualquer projeto
 
 De acordo com a pesquisa feita pelo [State of JS](https://stateofjs.com/) o React continua a ser a camada de visualização mais popular. Um número extremamente grande de Storybooks usam o React e como tal, neste tutorial vamos usar React também, em conjunção com o popular [create-react-app](https://github.com/facebook/create-react-app) para gerar o código base para o nosso projeto.
 
-```bash
+```shell
 npx create-react-app learnstorybook-design-system
 ```
 
@@ -49,7 +49,7 @@ Assim que o create-react-app inicializar o repositório, este pode ser adicionad
 
 Utilize as instruções fornecidas pelo GitHub para adicionar a localização remota do seu repositório (que neste momento estará quase vazio) e também submeter o código existente.
 
-```bash
+```shell:clipboard:false
 cd learnstorybook-design-system
 git remote add origin https://github.com/chromaui/learnstorybook-design-system.git
 git push -u origin main
@@ -86,7 +86,7 @@ Seguindo este método, ficamos com as seguintes primitivas do IU: Avatar, Badge,
 
 Adicione os componentes que foram encontrados, transferindo-os localmente e adicione-os ao seu repositório, além de remover os ficheiros gerados pelo Create React App:
 
-```bash
+```shell
 rm -rf src/*
 
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
@@ -100,7 +100,7 @@ Para o exemplo de código fornecido, selecionámos somente um subconjunto destes
 
 Será necessário atualizar as dependências dos nossos componentes.
 
-```bash
+```shell
 yarn add prop-types styled-components polished
 ```
 
@@ -110,7 +110,7 @@ Além dos componentes do IU, faz sentido incluír também constantes para tipogr
 
 Faça o download dos nossos tokens de design e adicione-os ao seu repositório.
 
-```bash
+```shell
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared
 ```
 

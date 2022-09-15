@@ -90,7 +90,7 @@ Next, add [JSdoc](https://jsdoc.app/) to the Avatar component (in `src/Avatar.js
 - Use an avatar for attributing actions or content to specific users.
 - The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
 **/
-export function Avatar({ loading, username, src, size, ...props }) {
+export function Avatar({ loading, username, src, size, ...props }) {}
 ```
 
 You should now see this:
@@ -464,7 +464,7 @@ If you write documentation that no one reads, is that useful? No. It’s not eno
 
 In a previous chapter, we published Storybook online for visual review. It’s easy to use the same mechanism to publish our component docs as well. Let’s add a new script to `package.json` to build our Storybook in docs mode:
 
-```json:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "build-storybook-docs": "build-storybook  --docs"

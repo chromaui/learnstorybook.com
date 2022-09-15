@@ -41,14 +41,44 @@ Controls allowed us to quickly verify different inputs to a component--in this c
 Now let's fix the issue with overflowing by adding a style to `Task.vue`:
 
 ```diff:title=src/components/Task.vue
-<input
-  type="text"
-  readonly
-  :value="task.title"
-  :id="'title-' + task.id"
-  name="title"
-+ style="text-overflow: ellipsis;"
-/>
+<template>
+  <div :class="classes">
+    <label
+      :for="'checked' + task.id"
+      :aria-label="'archiveTask-' + task.id"
+      class="checkbox"
+    >
+      <input
+        type="checkbox"
+        :checked="isChecked"
+        disabled
+        :name="'checked' + task.id"
+        :id="'archiveTask-' + task.id"
+      />
+      <span class="checkbox-custom" @click="archiveTask" />
+    </label>
+    <label :for="'title-' + task.id" :aria-label="task.title" class="title">
+      <input
+        type="text"
+        readonly
+        :value="task.title"
+        :id="'title-' + task.id"
+        name="title"
+        placeholder="Input title"
++       style="text-overflow: ellipsis;" />
+      />
+    </label>
+    <button
+      v-if="!isChecked"
+      class="pin-button"
+      @click="pinTask"
+      :id="'pinTask-' + task.id"
+      :aria-label="'pinTask-' + task.id"
+    >
+      <span class="icon-star" />
+    </button>
+  </div>
+</template>
 ```
 
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)

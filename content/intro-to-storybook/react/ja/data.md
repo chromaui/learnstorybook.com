@@ -17,7 +17,7 @@ commit: '94b134e'
 
 以下のコマンドを実行し必要な依存関係を追加しましょう:
 
-```bash
+```shell
 yarn add @reduxjs/toolkit react-redux
 ```
 

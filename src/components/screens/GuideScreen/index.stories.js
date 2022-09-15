@@ -5,9 +5,14 @@ import { ContributorsData } from './Contributors.stories';
 export default {
   component: GuideScreen,
   title: 'Screens/GuideScreen/index',
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
-const Story = args => <GuideScreen {...args} />;
+function Story(args) {
+  return <GuideScreen {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   data: {

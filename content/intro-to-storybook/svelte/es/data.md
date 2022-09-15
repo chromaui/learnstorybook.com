@@ -16,9 +16,7 @@ Este ejemplo utiliza [Svelte Stores](https://svelte.dev/docs#svelte_store), API 
 
 Primero construiremos un store Svelte estandar que responda a acciones que cambien el estado de las tareas, en un archivo llamado `src/store.js` (intencionalmente simple):
 
-```javascript
-// src/store.js
-
+```js:title=src/store.js
 // A simple Svelte store implementation with update methods and initial data.
 // A true app would be more complex and separated into different files.
 
@@ -55,9 +53,7 @@ Luego se cambiará el componente `TaskList` para leer los datos del store. Pero 
 
 En `src/components/PureTaskList.svelte`:
 
-```svelte
-<!-- src/components/PureTaskList.svelte -->
-
+```svelte:title=src/components/PureTaskList.svelte
 <!--This file moved from TaskList.svelte-->
 <script>
   import Task from './Task.svelte';
@@ -97,9 +93,7 @@ En `src/components/PureTaskList.svelte`:
 
 En `src/components/TaskList.svelte`:
 
-```svelte
-<!-- src/components/TaskList.svelte -->
-
+```svelte:title=src/components/TaskList.svelte
 <script>
   import PureTaskList from './PureTaskList.svelte';
   import { taskStore } from '../store';
@@ -122,9 +116,7 @@ En `src/components/TaskList.svelte`:
 
 La razón para mantener separada la versión de la `TaskList` es porque es más fácil de probar y aislar. Como no depende de la presencia de un store, es mucho más fácil tratar desde una perspectiva de prueba. Cambiemos el nombre de `src/components/TaskList.stories.js` a`src/components/PureTaskList.stories.js`, con esto garantizamos que nuestras stories usen la versión actual:
 
-```javascript
-// src/components/PureTaskList.stories.js
-
+```js:title=src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList.svelte';
 import { taskData, actionsData } from './Task.stories';
 export default {
@@ -183,9 +175,7 @@ export const Empty = () => ({
 
 Del mismo modo, necesitamos usar `PureTaskList` en nuestra prueba de Jest:
 
-```javascript
-// src/components/TaskList.test.js
-
+```js:title=src/components/PureTaskList.test.js
 import PureTaskList from './PureTaskList.svelte';
 import { render } from '@testing-library/svelte';
 import { withPinnedTasksData } from './PureTaskList.stories';

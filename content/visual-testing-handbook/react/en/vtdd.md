@@ -24,7 +24,7 @@ Start visual TDD by building test cases. We’ll create three cases that match t
 
 Let's set up the example project using [degit](https://github.com/Rich-Harris/degit) to download the necessary boilerplate templates (partially built applications with some default configuration). Run the following commands:
 
-```shell
+```shell:clipboard=false
 # Clone the template for this tutorial
 npx degit chromaui/visual-testing-handbook-react-template commentlist
 
@@ -169,7 +169,6 @@ Empty.args = {
 Start Storybook to see the test cases. Our component implementation is bare bones, but it allows us to confirm our test cases render as intended.
 
 ```shell
-# Start Storybook in development mode
 yarn storybook
 ```
 

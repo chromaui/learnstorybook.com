@@ -17,7 +17,7 @@ commit: '022ac7c'
 
 首先通过下面的命令安装 vuex：
 
-```bash
+```shell
 yarn add vuex@next --save
 ```
 

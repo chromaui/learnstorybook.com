@@ -15,7 +15,7 @@ Storybook を開発プロセスに組み込むにあたり、いくつかの手�
 
 それでは、次のコマンドを実行してください:
 
-```bash
+```shell:clipboard=false
 # Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
@@ -31,7 +31,7 @@ yarn
 
 それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
@@ -57,7 +57,7 @@ yarn start
 この段階で、ローカルリポジトリにファイルを追加しても大丈夫です。以下のコマンドを実行して、ローカルリポジトリを初期化し、これまでに行った変更を追加してコミットしてください。
 
 ```shell
-$ git init
+git init
 ```
 
 つづいて:

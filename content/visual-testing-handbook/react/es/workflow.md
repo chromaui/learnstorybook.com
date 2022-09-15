@@ -34,7 +34,7 @@ La parte complicada de las pruebas de interfaz de usuario es que no es posible v
 
 En la práctica, las pruebas visuales utilizan Storybook para probar "visualmente" un componente en un conjunto de estados de prueba definidos. Las pruebas visuales comparten los mismos pasos de configuración, ejecución y desmontaje que cualquier otro tipo de prueba, pero el paso de verificación recae en el usuario.
 
-```
+```shell:clipboard=false
 test do
   setup
   execute 👈 Storybook renders stories
@@ -45,7 +45,7 @@ end
 
 Y posteriormente, cualquier regresión es atrapada, capturando y comparando instantáneas de imágenes automáticamente.
 
-```
+```shell:clipboard=false
 test do
   setup
   execute 👈 Storybook renders stories

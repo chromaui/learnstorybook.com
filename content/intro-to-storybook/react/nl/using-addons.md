@@ -29,15 +29,13 @@ Knobs is een geweldige bron voor designers en developers om te experimenteren en
 
 Eerst moeten we alle benodigde dependencies installeren.
 
-```bash
+```shell
 yarn add -D @storybook/addon-knobs
 ```
 
 Registreer Knobs in je `.storybook/addons.js` bestand.
 
-```javascript
-// .storybook/addons.js
-
+```javascript:title=.storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
 import '@storybook/addon-links/register';
@@ -57,9 +55,7 @@ Laten we het object knob type gebruiken in de `Task` component.
 
 Importeer eerst de `withKnobs` decorator en de `object` knob in `Task.stories.js`:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -68,17 +64,13 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 Geef vervolgens binnen de stories van `Task`, `withKnobs` als parameter door aan de functie `addDecorator()`:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 storiesOf('Task', module).addDecorator(withKnobs).add(/*...*/);
 ```
 
 Integreer ten slotte het knob type `object` in de "standaard"-story:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 storiesOf('Task', module)
   .addDecorator(withKnobs)
   .add('default', () => {
@@ -104,9 +96,7 @@ Bovendien, met gemakkelijke toegang tot het bewerken van doorgegeven data aan ee
 
 Dankzij het feit dat we snel verschillende inputs van een component kunnen proberen, kunnen we dergelijke problemen relatief gemakkelijk vinden en oplossen! Laten we het afbrekingsprobleem oplossen door een style toe te voegen aan `Task.js`:
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 // This is the input for our task title. In practice we would probably update the styles for this element
 // but for this tutorial, let's fix the problem with an inline style:
 <input
@@ -126,9 +116,7 @@ Natuurlijk kunnen we dit probleem altijd reproduceren door dezelfde input in de 
 
 Laten we een story toevoegen voor het lange tekst geval in `Task.stories.js`:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not`;
 
 storiesOf('Task', module)

@@ -6,7 +6,9 @@ export default {
   title: 'Composite/User',
 };
 
-const Story = args => <User {...args} />;
+function Story(args) {
+  return <User {...args} />;
+}
 
 export const Default = Story.bind({});
 Default.args = {

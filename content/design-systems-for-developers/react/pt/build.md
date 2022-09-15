@@ -18,7 +18,7 @@ Neste tutorial vamos usar o VSCode, mas a mesma ideia pode ser aplicada a outros
 
 Se adicionarmos o Prettier ao projeto e configurarmos o editor corretamente, deveremos obter uma formatação consistente sem precisar pensar muito:
 
-```bash
+```shell
 yarn add --dev prettier
 ```
 
@@ -40,8 +40,11 @@ O Storybook é o [explorador de componentes](https://www.chromatic.com/blog/ui-c
 
 Instalar e executar o Storybook
 
-```bash
-npx -p @storybook/cli sb init
+```shell:clipboard=false
+# Installs Storybook
+npx storybook init
+
+# Starts Storybook in development mode
 yarn storybook
 ```
 
@@ -54,7 +57,7 @@ Fantástico, acabámos de configurar o explorador de componentes!
 Por defeito, o Storybook, cria uma pasta `src/stories` com alguns exemplos de estórias. No entanto, quando copiámos os nossos componentes, foram copiadas também as suas estórias. Podemos indexá-las no nosso Storybook através da alteração
 da localização das estórias no ficheiro `.storybook/config.js` para `’src/components’` ao invés de `’src/stories’` e com isto podemos remover a pasta ou diretório `src/stories` sem qualquer repercussão:
 
-```javascript
+```js:title=.storybook/config.js
 import { configure } from '@storybook/react';
 
 // automatically import all files ending in *.stories.js
@@ -69,7 +72,7 @@ Com isto o vosso Storybook deverá recarregar (notem que os estilos associados �
 
 O nosso sistema de design precisa de estilos globais (um reset CSS) que terão que ser aplicados ao documento de forma que os componentes renderizem de forma correta. Estes estilos podem ser facilmente adicionados através da tag style global do Styled Componentes. Como referência, o seguinte excerto demonstra como o código é exportado de `src/shared/global.js`
 
-```javascript
+```js:title=src/shared/global.js
 import { createGlobalStyle, css } from 'styled-components';
 import { color, typography } from './styles';
 
@@ -88,7 +91,7 @@ export const GlobalStyle = createGlobalStyle`
 
 Para utilizar o "componente" `GlobalStyle` no Storybook, podemos recorrer a um decorador (um wrapper de componentes). Hierarquicamente em termos de layout, numa aplicação, este componente seria adicionado no topo.
 
-```javascript
+```js:title=.storybook/preview.js
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { GlobalStyle } from '../src/shared/global';
@@ -112,7 +115,7 @@ O decorador irá garantir que o `GlobalStyle` seja renderizado independentemente
 
 O nosso sistema de design depende também da injeção da fonte Nunito Sans na aplicação. A forma como é injetada numa aplicação depende da framework usada (leia mais acerca deste tópico [aqui](https://github.com/storybookjs/design-system#font-loading)), mas no Storybook a forma mais simples para isto é através da utilização de `.storybook/preview-head.html` que adiciona uma tag `<link>` diretamente no elemento `<head>` de uma página.
 
-```javascript
+```html:title=.storybook/preview-head.html
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900">
 ```
 
@@ -130,7 +133,7 @@ Quando uma ação é despoletada por um elemento interativo, tal como um botão 
 
 Em seguida vamos ver como o podemos usar no nosso elemento Button, que opcionalmente recebe um componente wrapper que reage aos clicks. Já existe uma estória que fornece uma ação a esse wrapper:
 
-```javascript
+```js:title:src/Button.stories.js
 import React from 'react';
 import styled from 'styled-components';
 import { action } from '@storybook/addon-actions';
@@ -153,13 +156,13 @@ export const buttonWrapper = () => (
 
 Muitas vezes, quando visualiza uma estória, gostaria de olhar para o código subjacente, perceber como funciona e colá-lo no projeto. O extra Storysource faz isso mesmo, mostra o código associado á estória que está selecionada no painel extras.
 
-```bash
+```shell
 yarn add --dev  @storybook/addon-storysource
 ```
 
 Registe-o em `.storybook/addons.js`:
 
-```javascript
+```js:title=.storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-links/register';
 import '@storybook/addon-storysource/register';
@@ -167,7 +170,7 @@ import '@storybook/addon-storysource/register';
 
 E atualize a configuração do webpack que se encontra em `.storybook/webpack.config.js`:
 
-```javascript
+```js:title=.storybook/webpack.config.js
 module.exports = function ({ config }) {
   config.module.rules.unshift({
     test: /\.stories\.jsx?$/,
@@ -189,13 +192,13 @@ O [extra Knobs](https://github.com/storybookjs/addon-knobs) permite que interaja
 
 Vamos ver como isto funciona, através da configuração dos knobs no componente `Avatar`:
 
-```bash
+```shell
 yarn add --dev @storybook/addon-knobs
 ```
 
 Registe-o em `.storybook/addons.js`:
 
-```javascript
+```js:title=.storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-links/register';
 import '@storybook/addon-storysource/register';
@@ -204,7 +207,7 @@ import '@storybook/addon-knobs/register';
 
 Adicione uma estória que usa os knobs em `src/Avatar.stories.js`:
 
-```javascript
+```js:title=src/Avatar.stories.js
 import React from 'react';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 

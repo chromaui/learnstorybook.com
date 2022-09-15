@@ -97,10 +97,12 @@ module.exports = {
 
 Finally, add a new test task to your `package.json` scripts:
 
-```json:title=package.json
+```json:clipboard=false
+{
   "scripts": {
-     "test-storybook": "test-storybook"
+    "test-storybook": "test-storybook"
   }
+}
 ```
 
 ### Write an interaction test using the play function

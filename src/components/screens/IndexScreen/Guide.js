@@ -59,20 +59,24 @@ const GuideImage = styled.img`
   max-height: 170px;
 `;
 
-const Guide = ({ chapterCount, description, imagePath, themeColor, title, ...props }) => (
-  <GuideWrapper themeColor={themeColor} {...props}>
-    <div>
-      <GuideTitle>{title}</GuideTitle>
-      <GuideDescription>{description}</GuideDescription>
+function Guide({ chapterCount, description, imagePath, themeColor, title, ...props }) {
+  return (
+    <GuideWrapper themeColor={themeColor} {...props}>
+      <div>
+        <GuideTitle>{title}</GuideTitle>
+        <GuideDescription>{description}</GuideDescription>
 
-      {chapterCount && (
-        <GuideChapterCount>{pluralize('Chapter', chapterCount, true)}</GuideChapterCount>
-      )}
-    </div>
+        {chapterCount && (
+          <GuideChapterCount>{pluralize('Chapter', chapterCount, true)}</GuideChapterCount>
+        )}
+      </div>
 
-    <GuideImageWrapper>{imagePath && <GuideImage src={imagePath} alt={title} />}</GuideImageWrapper>
-  </GuideWrapper>
-);
+      <GuideImageWrapper>
+        {imagePath && <GuideImage src={imagePath} alt={title} />}
+      </GuideImageWrapper>
+    </GuideWrapper>
+  );
+}
 
 Guide.propTypes = {
   chapterCount: PropTypes.number,

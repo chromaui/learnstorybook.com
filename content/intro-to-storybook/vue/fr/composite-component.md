@@ -23,8 +23,7 @@ Un composant composite n’est pas très différent des composants de base qu’
 
 Commencez par une implémentation approximative de `Tasklist`. Vous devrez importer le composant `Task` et transmettre les attributs et les actions en tant qu'entrées.
 
-```html
-<!--src/components/TaskList.vue-->
+```html:title=src/components/TaskList.vue
 <template>
   <div>
     <div class="list-items" v-if="loading">loading</div>
@@ -72,8 +71,7 @@ Commencez par une implémentation approximative de `Tasklist`. Vous devrez impor
 
 Créez ensuite les états de `Tasklist` dans le fichier de l'histoire.
 
-```javascript
-//src/components/TaskList.stories.js
+```js:title=src/components/TaskList.stories.js
 import TaskList from './TaskList';
 import { taskData, actionsData } from './Task.stories';
 
@@ -156,8 +154,7 @@ Vérifiez maintenant Storybook pour les nouvelles histoires de `Tasklist`.
 
 Notre composant est encore difficile, mais nous avons maintenant une idée des histoires sur lesquelles travailler. Vous pensez peut-être que le wrapper `.list-items est` trop simpliste. Vous avez raison: dans la plupart des cas, nous ne créerions pas de nouveau composant uniquement pour ajouter un wrapper. Mais la **vraie complexité** du composant `TaskList` est révélée dans les cas marginaux `WithPinnedTasks`, `loadgin` et `empty`.
 
-```html
-<!--src/components/TaskList.vue-->
+```html:title=src/components/TaskList.vue
 <template>
   <div>
     <div v-if="loading">
@@ -250,8 +247,7 @@ Ainsi, pour éviter ce problème, nous pouvons utiliser Jest pour rendre l'histo
 Créez un fichier de test appelé `tests/unit/TaskList.spec.js`. Ici, nous allons construire nos tests qui font des affirmations sur la sortie.
 parfois
 
-```javascript
-//tests/unit/TaskList.spec.js
+```js:title=tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
 import { withPinnedTasksData } from '../../src/components/TaskList.stories';

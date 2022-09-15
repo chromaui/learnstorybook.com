@@ -6,20 +6,17 @@ import { withPrefix } from 'gatsby';
 import Guide from './Guide';
 import GatsbyLink from '../../basics/GatsbyLink';
 
-const { breakpoint, pageMargins } = styles;
-
-const GuidesWrapper = styled.div`
-  ${pageMargins}
-`;
+const { breakpoint } = styles;
 
 const Content = styled.div`
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  margin: -20px 0;
 
   @media (min-width: ${breakpoint}px) {
-    margin-left: -25px;
-    margin-right: -25px;
+    margin-left: -20px;
+    margin-right: -20px;
   }
 
   > * {
@@ -53,39 +50,47 @@ const GuideLink = styled(GatsbyLink)`
 `;
 
 const getChapterCountByGuide = (chaptersEdges) =>
-  chaptersEdges.reduce((acc, { node: { fields: { guide } } }) => {
-    const chapterCountByGuide = { ...acc };
+  chaptersEdges.reduce(
+    (
+      acc,
+      {
+        node: {
+          fields: { guide },
+        },
+      }
+    ) => {
+      const chapterCountByGuide = { ...acc };
 
-    if (chapterCountByGuide[guide]) {
-      chapterCountByGuide[guide] += 1;
-    } else {
-      chapterCountByGuide[guide] = 1;
-    }
+      if (chapterCountByGuide[guide]) {
+        chapterCountByGuide[guide] += 1;
+      } else {
+        chapterCountByGuide[guide] = 1;
+      }
 
-    return chapterCountByGuide;
-  }, {});
+      return chapterCountByGuide;
+    },
+    {}
+  );
 
-const Guides = ({ chaptersEdges, guidesEdges }) => {
+function Guides({ chaptersEdges, guidesEdges }) {
   const chapterCountByGuide = useMemo(() => getChapterCountByGuide(chaptersEdges), [chaptersEdges]);
 
   return (
-    <GuidesWrapper>
-      <Content>
-        {guidesEdges.map(({ node: guideNode }) => (
-          <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
-            <StyledGuide
-              chapterCount={chapterCountByGuide[guideNode.fields.guide]}
-              description={guideNode.frontmatter.description}
-              imagePath={withPrefix(guideNode.frontmatter.thumbImagePath)}
-              themeColor={guideNode.frontmatter.themeColor}
-              title={guideNode.frontmatter.title}
-            />
-          </GuideLink>
-        ))}
-      </Content>
-    </GuidesWrapper>
+    <Content>
+      {guidesEdges.map(({ node: guideNode }) => (
+        <GuideLink key={guideNode.fields.slug} to={guideNode.fields.slug}>
+          <StyledGuide
+            chapterCount={chapterCountByGuide[guideNode.fields.guide]}
+            description={guideNode.frontmatter.description}
+            imagePath={withPrefix(guideNode.frontmatter.thumbImagePath)}
+            themeColor={guideNode.frontmatter.themeColor}
+            title={guideNode.frontmatter.title}
+          />
+        </GuideLink>
+      ))}
+    </Content>
   );
-};
+}
 
 Guides.propTypes = {
   chaptersEdges: PropTypes.arrayOf(

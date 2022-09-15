@@ -22,7 +22,7 @@ igualmente a otras bibliotecas de gestión de estado como [ngrx/store](https://g
 
 Primero instala ngxs con:
 
-```bash
+```shell
 npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 ```
 

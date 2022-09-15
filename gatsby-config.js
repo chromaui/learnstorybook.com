@@ -3,9 +3,7 @@ const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://
 
 module.exports = {
   flags: {
-    PRESERVE_WEBPACK_CACHE: true,
     FAST_DEV: true,
-    QUERY_ON_DEMAND: true,
   },
   pathPrefix: `/tutorials`,
   siteMetadata: {
@@ -89,12 +87,6 @@ module.exports = {
     },
   },
   plugins: [
-    {
-      resolve: 'gatsby-plugin-layout',
-      options: {
-        component: require.resolve(`./src/components/composite/AppLayout.js`),
-      },
-    },
     'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
@@ -124,18 +116,6 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: `gatsby-plugin-emotion`,
-      options: {
-        importMap: {
-          '@storybook/theming': {
-            styled: { canonicalImport: ['@emotion/styled', 'default'] },
-            css: { canonicalImport: ['@emotion/react', 'css'] },
-            Global: { canonicalImport: ['@emotion/react', 'Global'] },
-          },
-        },
-      },
-    },
     `gatsby-plugin-sitemap`,
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
       ? [
@@ -144,16 +124,6 @@ module.exports = {
             options: {
               trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
               head: true,
-            },
-          },
-        ]
-      : []),
-    ...(process.env.FACEBOOK_PIXEL_ID && !isDeployPreview
-      ? [
-          {
-            resolve: 'gatsby-plugin-facebook-pixel',
-            options: {
-              pixelId: process.env.FACEBOOK_PIXEL_ID,
             },
           },
         ]

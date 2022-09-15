@@ -78,7 +78,7 @@ module.exports = function gatsbyRemarkPrefixLinks({ markdownAST, pathPrefix }) {
     return path;
   }
 
-  visit(markdownAST, ['image', 'html'], node => {
+  visit(markdownAST, ['image', 'html'], (node) => {
     if (!node) return;
 
     switch (node.type) {

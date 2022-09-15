@@ -17,7 +17,7 @@ commit: 'eb8da4c'
 
 まず、ngxs をインストールします:
 
-```bash
+```shell
 npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 ```
 

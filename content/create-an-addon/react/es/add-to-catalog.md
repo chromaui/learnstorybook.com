@@ -88,14 +88,14 @@ El último paso es publicar el complemento. El kit Addon viene preconfigurado co
 3. Del mismo modo, genera un [token de Github](https://github.com/settings/tokens). Este token necesitará el alcance del repositorio.
 4. Crea un archivo `.env` en la base del proyecto (root) y agrega estos dos tokens:
 
-```bash
+```TEXT:title=.env
 GH_TOKEN=valor_recibido_de_github
 NPM_TOKEN=valor_recibido_de_npm
 ```
 
 A continuación, **crea etiquetas en GitHub**. Utilizarás estas etiquetas en el futuro cuando realices cambios en el paquete.
 
-```bash
+```shell
 npx auto create-labels
 ```
 
@@ -103,7 +103,7 @@ Si verificas en GitHub, ahora verás un conjunto de etiquetas que a Auto le gust
 
 Finalmente, crea una versión
 
-```bash
+```shell
 yarn release
 ```
 

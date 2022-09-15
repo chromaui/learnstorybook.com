@@ -157,7 +157,7 @@ const StyledButton = styled.button`
 
 Commit the change and push it to your GitHub repo.
 
-```shell
+```shell:clipboard=false
 git commit -am "make Button pop"
 git push -u origin improve-button
 ```

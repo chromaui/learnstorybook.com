@@ -40,7 +40,21 @@ Controls allowed us to quickly verify different inputs to a component. In this c
 Now let's fix the issue with overflowing by adding a style to `task.hbs`:
 
 ```diff:title=app/components/task.hbs
-<div class="title">
+<div class="list-item {{@task.state}}" data-test-task>
+  <label class="checkbox">
+    <input
+      type="checkbox"
+      disabled
+      name="checked"
+      checked={{this.isArchived}}
+    />
+    <span
+      class="checkbox-custom"
+      data-test-task-archive
+      {{on "click" this.archive}}
+    ></span>
+  </label>
+  <div class="title">
     <input
       type="text"
       readonly
@@ -49,6 +63,14 @@ Now let's fix the issue with overflowing by adding a style to `task.hbs`:
 +     style="text-overflow: ellipsis;"
     />
   </div>
+  <div class="actions">
+    {{#unless this.isArchived}}
+      <span data-test-task-pin {{on "click" this.pin}}>
+        <span class="icon-star"></span>
+      </span>
+    {{/unless}}
+  </div>
+</div>
 ```
 
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)

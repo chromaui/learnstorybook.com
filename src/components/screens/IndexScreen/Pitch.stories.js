@@ -6,4 +6,6 @@ export default {
   title: 'Screens/IndexScreen/Pitch',
 };
 
-export const Default = () => <Pitch />;
+export function Default() {
+  return <Pitch />;
+}

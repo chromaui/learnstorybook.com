@@ -40,9 +40,7 @@ Controls 允许我们快速验证不同输入下组件的情况。如很长的�
 
 现在通过给 `Task.js` 添加样式解决这个溢出问题：
 
-```js
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 <input
   type="text"
   value={title}
@@ -62,9 +60,7 @@ Controls 允许我们快速验证不同输入下组件的情况。如很长的�
 
 在 `Task.stories.js` 中为长文本添加新的故事：
 
-```js
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});

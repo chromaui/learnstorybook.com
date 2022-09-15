@@ -73,7 +73,7 @@ Note, the implementation details aren’t important since we’re focusing more 
 
 To grab the code, fork this repository https://github.com/chromaui/ui-testing-guide-code, and run the following commands:
 
-```sh
+```shell:clipboard=false
 # Clone the forked repository
 git clone https://github.com/<your_github_username>/ui-testing-guide-code
 

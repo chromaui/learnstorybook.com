@@ -1,4 +1,4 @@
-const languageNameMap = {
+export const languageNameMap = {
   en: 'English',
   es: 'Español',
   'zh-CN': '简体中文',

@@ -13,9 +13,7 @@ In dit hoofdstuk blijven we de complexiteit vergroten door componenten in een sc
 
 Omdat onze app heel eenvoudig is, is het scherm dat we bouwen vrij triviaal, gewoon de component `TaskList` (die zijn eigen data via Redux levert) in een bepaalde lay-out wrappen en een `error` veld op het hoogste niveau uit redux halen (laten we aannemen dat we dat veld instellen als we een probleem hebben met de verbinding met onze server). Maak `InboxScreen.js` aan in je folder `components`:
 
-```javascript
-// src/components/InboxScreen.js
-
+```js:title=src/components/InboxScreen.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -60,9 +58,7 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 
 We veranderen ook de component `App` om het`InboxScreen` te renderen (uiteindelijk zouden we een router gebruiken om het juiste scherm te kiezen, maar laten we ons hier geen zorgen over maken):
 
-```javascript
-// src/App.js
-
+```js:title=src/App.js
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
@@ -90,9 +86,7 @@ Toen we de `TaskList` in Storybook plaatsten, konden we dit probleem omzeilen do
 
 Voor de `PureInboxScreen` hebben we echter een probleem omdat, hoewel de`PureInboxScreen` zelf presentational is, het child, de `TaskList` dat niet is. In zekere zin is de `PureInboxScreen` vervuild door "container-ness". Dus wanneer we onze stories instellen in `InboxScreen.stories.js`:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -119,9 +113,7 @@ Terzijde: het doorgeven van data door de hiërarchie is een legitieme manier, vo
 
 Het goede nieuws is dat het gemakkelijk is om een Redux store te leveren aan de `InboxScreen` in een story! We kunnen gewoon een gemockte versie van de Redux store gebruiken in een decorator:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';

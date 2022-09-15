@@ -30,15 +30,13 @@ Knobs est une ressource incroyable pour les concepteurs et les développeurs pou
 
 Tout d'abord, nous devrons l'ajouter en tant que dépendance.
 
-```bash
+```shell
 yarn add -D @storybook/addon-knobs
 ```
 
 Enregistrez Knobs dans votre fichier `.storybook/main.js`.
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
@@ -59,17 +57,14 @@ Utilisons le type de bouton d'objet dans le composant `Task`.
 
 Tout d'abord, importez le décorateur `withKnobs` et l'`objet` knob dans `Task.stories.js`:
 
-```javascript
-// src/components/Task.stories.js
+```js:title=src/components/Task.stories.js
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
 Ensuite, dans l'exportation par `défaut` du fichier `Task.stories`, ajoutez `withKnobs` à la clé `decorators`:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 export default {
   title: 'Task',
   decorators: [withKnobs],
@@ -79,9 +74,7 @@ export default {
 
 Enfin, intégrez l'`objet` know dans l'histoire "par défaut":
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 // état de la tâche par défaut
 export const Default = () => ({
   components: { Task },
@@ -113,11 +106,9 @@ De plus, avec un accès facile à l'édition des données transmises à un compo
 
 Grâce à la possibilité d'essayer rapidement différentes entrées d'un composant, nous pouvons trouver et résoudre de tels problèmes avec une relative facilité! Résolvons le problème de débordement en ajoutant un style à `Task.vue`:
 
-```html
-<!--src/components/Task.vue>-->
-
-<!-- Ceci est l'entrée pour notre titre de tâche. 
-    En pratique, nous mettrions probablement à jour les styles de cet élément mais pour ce tutoriel, 
+```html:title=src/components/Task.vue
+<!-- Ceci est l'entrée pour notre titre de tâche.
+    En pratique, nous mettrions probablement à jour les styles de cet élément mais pour ce tutoriel,
     résolvons le problème avec un style en ligne:-->
 <input
   type="text"
@@ -136,9 +127,7 @@ Bien sûr, nous pouvons toujours reproduire ce problème en entrant la même ent
 
 Ajoutons une histoire pour le cas de texte long dans `Task.stories.js`:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 // pareil qu'avant

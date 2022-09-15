@@ -26,8 +26,7 @@ Um componente composto não é em nada diferente do componente básico contido d
 
 Comece por uma implementação em bruto da `TaskList`. Será necessário importar o componente `Task` criado anteriormente e injetar os atributos e as respetivas ações como inputs.
 
-```html
-<!--src/components/TaskList.vue-->
+```html:title=src/components/TaskList.vue
 <template>
   <div>
     <div class="list-items" v-if="loading">loading</div>
@@ -75,8 +74,7 @@ Comece por uma implementação em bruto da `TaskList`. Será necessário importa
 
 Em seguida iremos criar os estados de teste do `TaskList` no ficheiro de estórias respetivo.
 
-```javascript
-//src/components/TaskList.stories.js
+```js:title=src/components/TaskList.stories.js
 import TaskList from './TaskList';
 import { taskData, actionsData } from './Task.stories';
 
@@ -162,8 +160,7 @@ Pode agora verificar-se o Storybook com as estórias novas associadas á `Taskli
 
 O componente ainda se encontra num estado bruto, mas já temos uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que ao usar-se o `.list-items` no componente como invólucro é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um invólucro. A **verdadeira complexidade** do componente `TaskList` é revelada com os casos extremos `WithPinnedTasks`, `loading` e `empty`.
 
-```html
-<!--src/components/TaskList.vue-->
+```html:title=src/components/TaskList.vue
 <template>
   <div>
     <div v-if="loading">
@@ -256,9 +253,7 @@ De forma a evitar este problema em concreto, podemos usar o Jest, de forma que e
 
 Iremos começar por criar um ficheiro de testes denominado `tests/unit/TaskList.spec.js`. Aqui estarão contidos os testes que irão fazer asserções acerca do valor de saída.
 
-```javascript
-//tests/unit/TaskList.spec.js
-
+```js:title=tests/unit/TaskList.spec.js
 import Vue from 'vue';
 import TaskList from '../../src/components/TaskList.vue';
 import { withPinnedTasksData } from '../../src/components/TaskList.stories';

@@ -26,7 +26,7 @@ Vaya a GitHub y cree un nuevo repositorio para el proyecto [aquí](https://githu
 
 Luego, siga las instrucciones para configurar el repositorio. Reemplace `your-username` con el nombre de tu cuenta de GitHub.
 
-```
+```shell:clipboard=false
 git init
 git add .
 git commit -m "first commit"
@@ -60,7 +60,7 @@ yarn add -D chromatic
 
 Una vez que termine de instalarse, tendremos todo lo que necesitamos. Ahora es un excelente momento para confirmar y enviar los cambios al repositorio remoto.
 
-```shell
+```shell:clipboard=false
 git add .
 git commit -m "Added Chromatic"
 git push
@@ -219,7 +219,7 @@ CommentList.defaultProps = {
 
 Confirme el cambio, envíelo al repositorio y ejecute Chromatic:
 
-```shell
+```shell:clipboard=false
 git commit -am "make CommentList sparkle"
 git push -u origin change-commentlist-outline
 yarn chromatic --project-token=<project-token>

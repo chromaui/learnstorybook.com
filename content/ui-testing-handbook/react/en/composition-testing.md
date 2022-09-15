@@ -156,13 +156,13 @@ For the InboxScreen, we are going to use [Mock Service Worker (MSW) addon](https
 
 Install msw & its storybook addon.
 
-```
+```shell
 yarn add -D msw msw-storybook-addon
 ```
 
 Then, generate a new service worker in your public folder.
 
-```bash
+```shell
 npx msw init public/
 ```
 
@@ -262,7 +262,7 @@ Building components in isolation curtails the complexity of development. You don
 
 In the [previous chapter](/ui-testing-handbook/react/en/visual-testing/), we set up Chromatic and went over the basic workflow. Now that we have stories for all our composite components, we can execute the visual tests by running:
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 

@@ -17,14 +17,13 @@ Este exemplo utiliza [ngxs](https://ngxs.gitbook.io/ngxs/), que é a biblioteca 
 
 Vamos começar por instalar o ngxs através do comando:
 
-```bash
+```shell
 npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
 ```
 
 Em seguida vamos implementar uma loja considerada padrão, que irá reagir ao desencadear de ações que alteram o estado das tarefas. Num ficheiro (ou arquivo) `src/app/state/task.state.ts` (esta irá manter-se simples intencionalmente)adicione o seguinte:
 
-```typescript
-// src/app/state/task.state.ts
+```ts:title=src/app/state/task.state.ts
 import { State, Selector, Action, StateContext } from '@ngxs/store';
 import { Task } from '../models/task.model';
 
@@ -110,9 +109,7 @@ Vamos atualizar o nosso `TaskListComponent` para obter dados da nossa loja, mas 
 
 No ficheiro (ou arquivo) `src/app/components/pure-task-list.component.ts` adicione o seguinte:
 
-```typescript
-//src/app/components/pure-task-list.component.ts
-
+```ts:title=src/app/components/pure-task-list.component.ts
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 
@@ -127,9 +124,7 @@ export class PureTaskListComponent implements OnInit {
 
 Em seguida alteramos o conteúdo do ficheiro (ou arquivo) `src/app/components/task-list.component.ts` para o seguinte:
 
-```typescript
-// src/app/components/task-list.component.ts
-
+```ts:title=src/app/components/task-list.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { TasksState, ArchiveTask, PinTask } from '../state/task.state';
@@ -166,9 +161,7 @@ Vamos criar agora um módulo em angular para efetuar a ponte entre os componente
 
 Crie novo ficheiro (ou arquivo) chamado `task.module.ts` dentro da pasta (ou diretório) `components` e adicione o seguinte:
 
-```typescript
-//src/app/components/task.module.ts
-
+```ts:title=src/app/components/task.module.ts
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxsModule } from '@ngxs/store';
@@ -189,9 +182,7 @@ export class TaskModule {}
 
 Temos as peças todas no seu lugar, ficando somente a faltar ligar a loja à aplicação. Para isto, no módulo de topo (`src/app/app.module.ts`):
 
-```typescript
-// src/app/app.module.ts
-
+```ts:title=src/app/app.module.ts
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { TaskModule } from './components/task.module';
@@ -217,9 +208,7 @@ export class AppModule {}
 
 A razão porque irá ser mantida a versão de apresentação do TaskList em separado, não é nada mais nada menos pelo facto que é mais fácil para testar e isolar. Visto que não depende da existência de uma loja, logo torna-se mais fácil de lidar do ponto de vista de testes. O ficheiro de estórias `src/app/components/task-list.stories.ts` vai ser renomeado para `src/app/components/pure-task-list.stories.ts`, com isto garantimos que as nossas estórias usam a versão de apresentação:
 
-```typescript
-// src/app/components/pure-task-list.stories.ts
-
+```ts:title=src/app/components/pure-task-list.stories.ts
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { PureTaskListComponent } from './pure-task-list.component';
@@ -305,9 +294,7 @@ export const Empty = () => ({
 
 Similarmente, será usado o `PureTaskListComponent` nos testes com Jest.
 
-```typescript
-// src/app/components/task-list.component.spec.ts
-
+```ts:title=src/app/components/pure-task-list.component.spec.ts
 import { render } from '@testing-library/angular';
 import { PureTaskListComponent } from './pure-task-list.component';
 import { TaskComponent } from './task.component';

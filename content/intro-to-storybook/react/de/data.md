@@ -17,15 +17,13 @@ Dieses Beispiel nutzt [Redux](https://redux.js.org/), die bekannteste React-Bibl
 
 Füge eine neue Abhängigkeit zur `package.json` hinzu mit:
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 
 Als Erstes konstruieren wir einen einfachen Redux Store, der auf Actions reagiert, die den Zustand von Aufgaben verändern. Dazu legen wir die Datei `src/lib/redux.js` an (absichtlich einfach gehalten):
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -79,9 +77,7 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 Anschließend aktualisieren wir den `default`-Export der `TaskList`-Komponente, damit dieser sich zum Redux Store verbindet, und die Aufgaben rendert, die uns interessieren:
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -119,9 +115,7 @@ Ab jetzt werden unsere Storybook Tests fehlschlagen, da die `TaskList` jetzt ein
 
 Dieses Problem lässt sich aber leicht lösen, indem wir einfach die `PureTaskList` -- die darstellende Komponente, der wir im vorherigen Schritt ja ein `export`-Statement hinzugefügt haben -- in unseren Storybook-Stories rendern:
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
 import { PureTaskList } from './TaskList';

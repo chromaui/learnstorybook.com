@@ -38,21 +38,21 @@ Em seguida vai ser elaborada uma breve introdução desta.
 
 Quando o projeto foi inicializado, o cli do angular criou um repositório local. Vamos adicionar as alterações efetuadas:
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 É feito o commit dos ficheiros:
 
-```bash
-$ git commit -m "taskbox UI"
+```shell
+git commit -m "taskbox UI"
 ```
 
 ### Obter o Chromatic
 
 Adiciona-se o pacote como dependência.
 
-```bash
+```shell
 npm install -D chromatic
 ```
 
@@ -69,7 +69,7 @@ Um aspeto fantástico acerca deste extra é que recorre á Git history para se m
 
 Execute o comando de testes na consola de forma a configurar os testes visuais de regressão para o Storybook. Não esquecer de adicionar o `project-token` fornecido ao invés de `<project-token>`.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -91,7 +91,7 @@ O que irá gerar uma nova cor de fundo para o item.
 
 Usando agora o comando de testes, para efetuar um outro teste com o Chromatic.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 

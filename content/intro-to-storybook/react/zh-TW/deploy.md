@@ -27,21 +27,21 @@ commit: 'af610d9'
 
 在新的 Repo 裡，用以下指令加上 repo 的 git 專案 origin 網址：
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 最後，把本地端 repo 推到在 GitHub 的遠端 repo。
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### 安裝 Chromatic
 
 新增開發模式的 dependency。
 
-```bash
+```shell
 yarn add -D chromatic
 ```
 
@@ -58,7 +58,7 @@ yarn add -D chromatic
 
 複製專案裡產生，識別用的 'project-token'。在文字指令列執行下方那行，即可 build 和部署 Storybook。記得要把 'project-token' 換成專案的 token。
 
-```bash
+```shell
 yarn chromatic --project-token=<project-token>
 ```
 
@@ -111,19 +111,19 @@ jobs:
 
 在文字指令列，用以下的指令來把做好的修改送出去：
 
-```bash
+```shell
 git add .
 ```
 
 接著，進行提交：
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
 最後，推上遠端 Repository：
 
-```bash
+```shell
 git push origin main
 ```
 

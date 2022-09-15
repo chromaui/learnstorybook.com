@@ -19,16 +19,18 @@ export default {
   decorators: [(story) => <Wrapper>{story()}</Wrapper>],
 };
 
-export const All = (args) => (
-  <>
-    <CTA text="Get started with our thing today!" {...args} />
+export function All(args) {
+  return (
+    <>
+      <CTA text="Get started with our thing today!" {...args} />
 
-    <CTA
-      text="Get started with our really long thing that will potentially break lines today!"
-      {...args}
-    />
-  </>
-);
+      <CTA
+        text="Get started with our really long thing that will potentially break lines today!"
+        {...args}
+      />
+    </>
+  );
+}
 All.args = {
   action: ctaAction,
 };

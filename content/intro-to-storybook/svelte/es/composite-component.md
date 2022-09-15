@@ -22,9 +22,7 @@ Un componente compuesto no es muy diferente de los componentes básicos que cont
 
 Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Task` del capítulo anterior y pasarle los atributos y acciones como entrada.
 
-```svelte
-<!-- src/components/TaskList.svelte -->
-
+```svelte:title=src/components/TaskList.svelte
 <script>
   import Task from './Task.svelte';
   export let loading = false;
@@ -47,9 +45,7 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
 
 A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import TaskList from './TaskList.svelte';
 import { taskData, actionsData } from './Task.stories';
 export default {
@@ -122,8 +118,7 @@ Para el caso del borde de carga, crearemos un nuevo componente que mostrará el 
 
 Cree un nuevo archivo llamado `LoadingRow.svelte` y agregue el siguiente marcado:
 
-```html
-<!-- src/components/LoadingRow.svelte -->
+```svelte:title=src/components/LoadingRow.svelte
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -136,9 +131,7 @@ Cree un nuevo archivo llamado `LoadingRow.svelte` y agregue el siguiente marcado
 
 Y actualice `TaskList.svelte` a lo siguiente:
 
-```svelte
-<!-- src/components/TaskList.svelte -->
-
+```svelte:title=src/components/TaskList.svelte
 <script>
   import Task from './Task.svelte';
   import LoadingRow from './LoadingRow.svelte';
@@ -205,9 +198,7 @@ Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la hi
 
 Crea un archivo de prueba llamado `src/components/TaskList.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
-```javascript
-// src/components/TaskList.test.js
-
+```js:title=src/components/TaskList.test.js
 import TaskList from './TaskList.svelte';
 import { render } from '@testing-library/svelte';
 import { withPinnedTasksData } from './TaskList.stories';

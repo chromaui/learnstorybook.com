@@ -37,7 +37,7 @@ description: 'UI 컴포넌트 테스트 방법 배우기'
 
 변경을 위한 새로운 브랜치를 만드는 것부터 시작하세요:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
@@ -61,19 +61,19 @@ git checkout -b change-task-background
 
 파일을 추가합니다:
 
-```bash
+```shell
 git add .
 ```
 
 그리고 추가된 파일을 commit합니다:
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
 그리고 변경 사항을 원격 저장소로 push해줍니다:
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 
