@@ -27,21 +27,21 @@ commit: '99b2158'
 
 在新的仓库中，获得仓库的 URL 并执行下述命令将其应用于您的 git 项目中：
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 最后，执行下述命令将本地仓库提交到远程 GitHub 仓库中：
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### 使用 Chromatic
 
 追加下述包到 development dependency 中：
 
-```bash
+```shell
 yarn add -D chromatic
 ```
 
@@ -58,7 +58,7 @@ yarn add -D chromatic
 
 复制为您的项目所创建的唯一`project-token`。使用下述的命令来构建并部署我们的 Storybook。请确保替换`project-token`为您项目的 token。
 
-```bash
+```shell
 yarn chromatic --project-token=<project-token>
 ```
 
@@ -111,19 +111,19 @@ jobs:
 
 在命令行中输入下述命令添加我们的修改：
 
-```bash
+```shell
 git add .
 ```
 
 然后提交：
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
 最后提交到远程仓库：
 
-```bash
+```shell
 git push origin main
 ```
 

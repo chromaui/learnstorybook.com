@@ -87,14 +87,14 @@ description: '커뮤니티에 스토리북 애드온을 공유해보세요'
 3. 마찬가지로 [깃허브 토큰](https://github.com/settings/tokens)을 생성하기. 이 토큰에는 레포지토리 범위가 필요합니다.
 4. 프로젝트 최상위 위치에 `.env`파일을 생성하고, 다음 토큰을 모두 추가하기:
 
-```bash
+```TEXT:title=.env
 GH_TOKEN=깃허브에서 받아오는 토큰
 NPM_TOKEN=npm에서 받아오는 토큰
 ```
 
 다음으로, **깃허브에서 라벨을 생성해보세요**. 나중에 패키지를 변경할 때 이 라벨을 사용하게 됩니다.
 
-```bash
+```shell
 npx auto create-labels
 ```
 
@@ -102,7 +102,7 @@ npx auto create-labels
 
 마지막으로, 배포 단계 입니다.
 
-```bash
+```shell
 yarn release
 ```
 

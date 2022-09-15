@@ -13,14 +13,14 @@ Storybook 是在开发模式下 与 您的应用程序一起运行的. 它可以
 
 我们将需要通过几个步骤设置环境。首先，我们需要使用[Create React App](https://github.com/facebook/create-react-app) (CRA) 来设置我们的构建系统，并开启 [Storybook](https://storybook.js.org/) 以及 [Jest](https://facebook.github.io/jest/) 在我们创建的应用程序中进行测试。 让我们运行以下命令：
 
-```bash
+```shell:clipboard=false
 # Create our application:
 npx create-react-app taskbox
 
 cd taskbox
 
 # Add Storybook:
-npx -p @storybook/cli sb init
+npx storybook init
 ```
 
 <div class="aside">
@@ -30,7 +30,7 @@ npx -p @storybook/cli sb init
 
 我们可以快速检查应用程序的各种环境是否正常运行：
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
@@ -65,7 +65,7 @@ yarn start
 
 为了匹配预期的设计，需要你下载字体及图标目录到 `src/assets` 文件夹下。在终端执行以下命令：
 
-```bash
+```shell
 npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
 npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```

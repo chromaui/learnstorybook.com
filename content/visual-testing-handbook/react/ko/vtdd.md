@@ -24,7 +24,7 @@ commit: '109652d'
 
 예시 프로젝트를 [degit](https://github.com/Rich-Harris/degit)을 이용해서 설정하고, 필요한 보일러 플레이트 템플릿(기본 설정을 가지고 일부만 만들어진 어플리케이션)을 다운로드 하겠습니다. 다음 명령어들을 실행해보세요. -
 
-```shell
+```shell:clipboard=false
 # Clone the template for this tutorial
 npx degit chromaui/visual-testing-handbook-react-template commentlist
 
@@ -37,6 +37,7 @@ yarn
 다음으로, 우리는 가장 간단한 `CommentList`을 구현해서 테스트가 정확하게 설정되었는지 확인하겠습니다.
 
 `src` 디렉토리 안에, `components`라는 새 폴더를 만듭니다, 그리고 `CommentList.js`라는 이름으로 새 파일을 하나 만들고 다음 내용을 적습니다. -
+
 ```js:title=src/components/CommentList.js
 import React from 'react';
 
@@ -168,7 +169,6 @@ Empty.args = {
 테스트 케이스를 보려면 Storybook을 시작하세요. 우리의 컴포넌트 구현은 뼈대 뿐이지만, 테스트 케이스가 의도대로 렌더링되는지 확인할 수는 있습니다.
 
 ```shell
-# Start Storybook in development mode
 yarn storybook
 ```
 
@@ -180,7 +180,7 @@ yarn storybook
 
 ### 3. 구현을 구축하기
 
-일단, 기본적인 구현의 비계(scaffolded)를 세웠고 테스트 케이스를 렌더링하도록 스토리북을 설정했습니다.  이제 `HasData`의 변화형(variation)의 구현을 독립적으로 만들어볼 시간입니다.
+일단, 기본적인 구현의 비계(scaffolded)를 세웠고 테스트 케이스를 렌더링하도록 스토리북을 설정했습니다. 이제 `HasData`의 변화형(variation)의 구현을 독립적으로 만들어볼 시간입니다.
 
 우리는 [`styled-components`](https://styled-components.com/)를 사용합니다. CSS를 컴포넌트 수준에서 캡슐화 시켜주는 라이브러리입니다. 다음 명령어를 실행합니다.
 

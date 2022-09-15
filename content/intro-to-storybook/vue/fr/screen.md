@@ -13,8 +13,7 @@ Dans ce chaptre, nous continuons d'améliorer la sophistication en combinant des
 
 Comme notre application est très simple, l'écran que nous allons créer est assez trivial, il suffit d'encapsuler le composant conteneur `TaskList` (qui fournit ses propres données via Vuex) dans une mise en page et d'extraire un champ d'erreur de niveau supérieur du magasin (supposons nous allons définir ce champ si nous avons un problème de connexion à notre serveur). Créons une vue `PureInboxScreen.vue` dans votre dossier `src/components/` :
 
-```html
-<!--src/components/PureInboxScreen.vue-->
+```html:title=src/components/PureInboxScreen.vue
 <template>
   <div>
     <div class="page lists-show" v-if="error">
@@ -55,8 +54,7 @@ Comme notre application est très simple, l'écran que nous allons créer est as
 
 Ensuite, nous pouvons créer un conteneur, qui récupère à nouveau les données pour `PureInboxScreen` dans `src/components/InboxScreen.vue`:
 
-```html
-<!--src/components/InboxScreen.vue-->
+```html:title=src/components/InboxScreen.vue
 <template>
   <div>
     <pure-inbox-screen :error="error" />
@@ -81,8 +79,7 @@ Ensuite, nous pouvons créer un conteneur, qui récupère à nouveau les donnée
 
 Nous modifions également le composant `App` pour intégrer `InboxScreen` (éventuellement, nous utiliserions un routeur pour choisir le bon écran, mais ne nous inquiétons pas à ce sujet ici):
 
-```html
-<!--src/App.vue-->
+```html:title=src/App.vue
 <template>
   <div id="app">
     <inbox-screen />
@@ -113,8 +110,7 @@ Lors du placement du composant `TaskList` dans Storybook, nous avons pu éviter 
 
 Cependant, pour le composant `PureInboxScreen`, nous avons un problème car bien que le `PureInboxScreen` lui-même soit de présentation, son enfant, le composant `TaskList`, ne l'est pas. Dans un sens, `PureInboxScreen` a été pollué par le «container-ness». Ainsi, lorsque nous configurons nos histoires dans `src/components/PureInboxScreen.stories.js` :
 
-```javascript
-//src/components/PureInboxScreen.stories.js
+```js:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 export default {
   title: 'PureInboxScreen',
@@ -149,8 +145,7 @@ En passant, la transmission des données dans la hiérarchie est une approche l�
 
 La bonne nouvelle est qu'il est facile de fournir un magasin Vuex au composant `PureInboxScreen` dans une histoire! Nous pouvons créer un nouveau magasin dans notre fichier d'histoire et le transmettre comme contexte de l'histoire:
 
-```javascript
-//src/components/PureInboxScreen.stories.js
+```js:title=src/components/PureInboxScreen.stories.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 import PureInboxScreen from './PureInboxScreen.vue';

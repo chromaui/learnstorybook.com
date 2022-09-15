@@ -93,7 +93,6 @@ In `src/components/PureTaskList.svelte`:
 In `src/components/TaskList.svelte`:
 
 ```svelte:title=src/components/TaskList.svelte
-
 <script>
   import PureTaskList from './PureTaskList.svelte';
   import { taskStore } from '../store';

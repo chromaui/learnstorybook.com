@@ -2,7 +2,7 @@
 title: '시각적 테스트 자동화'
 tocTitle: '자동화'
 description: '회귀 오류를 잡기 위해 시각적 테스트를 자동화하기'
-commit: 
+commit:
 ---
 
 자연스러운 개발 과정에서 버그(bug)가 생기는 것을 막을 수는 없습니다. 시각적 테스트 자동화는 기계를 사용해 사용자가 검토할 UI 외관의 변화를 감지합니다.
@@ -26,7 +26,7 @@ commit:
 
 그런 다음 지침에 따라 저장소를 설정합니다. `your-username`을 깃허브 계정명으로 바꿉니다.
 
-```
+```shell:clipboard=false
 git init
 git add .
 git commit -m "first commit"
@@ -60,7 +60,7 @@ yarn add -D chromatic
 
 설치가 완료되면 필요한 모든 것을 얻을 수 있습니다. 지금이야말로 변경을 리모트 저장소로 commit하고 push할 절호의 기회입니다.
 
-```shell
+```shell:clipboard=false
 git add .
 git commit -m "Added Chromatic"
 git push
@@ -245,7 +245,7 @@ yarn chromatic --project-token=<project-token>
 
 ### 변경 사항을 merge하기
 
-버그가 수정되고 기준선이 최신 상태가 되면, 코드를 target 브랜치로 다시 merge할 수 있습니다. 크로마틱은 브랜치 사이에서 승인된 기준선을 전송하므로 기준선을 한 번만 승인해주면 됩니다. 
+버그가 수정되고 기준선이 최신 상태가 되면, 코드를 target 브랜치로 다시 merge할 수 있습니다. 크로마틱은 브랜치 사이에서 승인된 기준선을 전송하므로 기준선을 한 번만 승인해주면 됩니다.
 
 ![시각적 테스팅 작업 흐름(workflow)](/visual-testing-handbook/workflow-uitest.png)
 

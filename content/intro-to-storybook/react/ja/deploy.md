@@ -27,21 +27,21 @@ Storybook をデプロイするには、まず静的サイトとしてエクス�
 
 新しいリポジトリーを作ったら origin の URL をコピーして、次のコマンドを実行し、ローカルの Git プロジェクトにリモートを追加します:
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 最後にローカルリポジトリーを GitHub のリモートリポジトリーにプッシュします:
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### Chromatic を使う
 
 パッケージを開発時の依存関係に追加します。
 
-```bash
+```shell
 yarn add -D chromatic
 ```
 
@@ -58,7 +58,7 @@ yarn add -D chromatic
 
 作成したプロジェクト用に生成された一意の `project-token` をコピーします。次に、Storybook をビルドし、デプロイするため、以下のコマンドを実行します。その際、コマンドの `<project-token>` の場所にコピーしたトークンを貼り付けてください。
 
-```bash
+```shell
 yarn chromatic --project-token=<project-token>
 ```
 
@@ -111,19 +111,19 @@ jobs:
 
 コマンドラインで以下のコマンドを実行し、今までの内容をステージングします:
 
-```bash
+```shell
 git add .
 ```
 
 さらに以下のコマンドでコミットします:
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
 最後にリモートリポジトリーにプッシュします:
 
-```bash
+```shell
 git push origin main
 ```
 

@@ -23,13 +23,13 @@ Avant de commencer, notre code local doit se synchroniser avec un service de con
 
 Utilisez les commandes suivantes pour ajouter et faire un commit sur les modifications que nous avons effectuées jusqu'à présent.
 
-```bash
+```shell
 $ git add .
 ```
 
 Followed by:
 
-```bash
+```shell
 $ git commit -m "taskbox UI"
 ```
 
@@ -39,13 +39,13 @@ Allez sur GitHub et créez un nouveau repo pour notre projet [ici](https://githu
 
 Dans le nouveau repo, saisissez l'URL d'origine du repo et ajoutez-le à votre projet git avec cette commande :
 
-```bash
+```shell
 $ git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Enfin, transférer notre repo locale vers la repo à distance sur GitHub avec:
 
-```bash
+```shell
 $ git push -u origin main
 ```
 
@@ -53,7 +53,7 @@ $ git push -u origin main
 
 Ajoutez le paquet comme une dev dependency.
 
-```bash
+```shell
 yarn add -D chromatic
 ```
 
@@ -70,7 +70,7 @@ Cliquez sur `Choisir le dépôt GitHub` sous collaborateurs et sélectionnez vot
 
 Copiez l'unique `projet-token` qui a été généré pour votre projet. Puis exécutez-le, en émettant ce qui suit dans la ligne de commande, pour construire et déployer notre Storybook. Veillez à remplacer le `project-token` par votre token de votre projet.
 
-```bash
+```shell
 yarn chromatic --project-token=<project-token>
 ```
 
@@ -92,9 +92,7 @@ Dans le dossier racine de notre projet, créez un nouveau répertoire appelé `.
 
 Créez un nouveau fichier appelé `chromatic.yml` comme celui ci-dessous. Remplacez ce fichier par votre token de projet pour changer `project-token`.
 
-```yaml
-# .github/workflows/chromatic.yml
-
+```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
 name: 'Chromatic Deployment'
 
@@ -125,19 +123,19 @@ jobs:
 
 Dans la ligne de commande, lancez la commande suivante pour ajouter les modifications qui ont été effectuées :
 
-```bash
+```shell
 git add .
 ```
 
 Faite un commit:
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
 Enfin, les envoyer vers le repo à distance avec :
 
-```bash
+```shell
 git push origin main
 ```
 

@@ -34,7 +34,7 @@ The tricky part of UI testing is that it’s not possible to verify the relevant
 
 In practice, visual testing uses Storybook to “visually” test a component across a set of defined test states. Visual tests share the same setup, execute, and teardown steps as any other type of testing, but the verification step falls to the user.
 
-```
+```shell:clipboard=false
 test do
   setup
   execute 👈 Storybook renders stories
@@ -45,7 +45,7 @@ end
 
 And subsequently, any regressions are caught by automatically capturing and comparing image snapshots.
 
-```
+```shell:clipboard=false
 test do
   setup
   execute 👈 Storybook renders stories

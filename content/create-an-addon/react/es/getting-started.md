@@ -6,7 +6,7 @@ commit: 'd3b6651'
 
 ![](../../images/addon-kit-demo.gif)
 
-Usaremos el kit de complementos [Addon Kit](https://github.com/storybookjs/addon-kit)  para iniciar nuestro proyecto. Nos brinda todo lo necesario para crear un complemento de Storybook:
+Usaremos el kit de complementos [Addon Kit](https://github.com/storybookjs/addon-kit) para iniciar nuestro proyecto. Nos brinda todo lo necesario para crear un complemento de Storybook:
 
 - 📝 Edición en vivo en modo de desarrollo
 - ⚛️ Soporte de React / JSX para el UI
@@ -16,18 +16,17 @@ Usaremos el kit de complementos [Addon Kit](https://github.com/storybookjs/addon
 
 Para comenzar, clickea en el botón **Use this template** (Usar esta plantilla) en el repositorio del kit de complementos: [Addon Kit repository](https://github.com/storybookjs/addon-kit). Esto generará un nuevo repositorio con todo el código del kit de complementos.
 
-
 ![](../../images/addon-kit.png)
 
 A continuación, clona tu repositorio e instala las dependencias.
 
-```bash
+```shell
 yarn
 ```
 
 El Addon Kit usa TypeScript de forma predeterminada. Sin embargo, para los propósitos de este tutorial usaremos el comando eject para convertir el código en JavaScript .
 
-```bash
+```shell
 yarn eject-ts
 ```
 
@@ -35,7 +34,7 @@ Esto convertirá todo el código a JS. Es un proceso destructivo, por lo que rec
 
 Finalmente, inicia el modo de desarrollo. Esto da inicio a Storybook y ejecuta Babel en modo observador (Watch Mode).
 
-```bash
+```shell
 yarn start
 ```
 

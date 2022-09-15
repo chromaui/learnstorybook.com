@@ -89,13 +89,13 @@ La dernière étape est de publier l'addon. L'Addon Kit est pré-configuré avec
 3. De la même manière, générez un [token Github](https://github.com/settings/tokens). Ce token nécessitera les droits sur le dépôt.
 4. Créez un fichier `.env` à la racine de votre projet et ajoutez-y les deux tokens :
 
-````bash
+````TEXT:title=.env
 GH_TOKEN=valeur_récupérée_depuis_GitHub
 NPM_TOKEN=valeur_récupérée_depuis_NPM
 
 **Créez ensuite des labels sur GitHub**. Vous utiliserez ces labels plus tard lorsque vous apporterez des modifications à votre package.
 
-```bash
+```shell
 npx auto create-labels
 ````
 
@@ -103,7 +103,7 @@ Rendez-vous sur GitHub, vous devriez désormais voir un ensemble de labels qu'Au
 
 Enfin, la création d'une release
 
-```bash
+```shell
 yarn release
 ```
 

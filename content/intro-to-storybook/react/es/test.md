@@ -37,33 +37,33 @@ Chromatic es un complemento de Storybook para pruebas de regresión visual y rev
 
 Primero tienes que configurar Git para tu proyecto en el directorio local. Chromatic usa el historial de Git para hacer un seguimiento de los componentes de tu interfaz de usuario.
 
-```bash
-$ git init
+```shell
+git init
 ```
 
 Luego agrega archivos al primer commit.
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 Ahora haz commit de los archivos.
 
-```bash
-$ git commit -m "taskbox UI"
+```shell
+git commit -m "taskbox UI"
 ```
 
 ### Añadiendo Chromatic
 
 Agregando el paquete como una dependencia.
 
-```bash
+```shell
 yarn add chromatic
 ```
 
 Importa Chromatic en tu archivo `.storybook/config.js`.
 
-```javascript
+```js:title=.storybook/config.js
 import { configure } from '@storybook/react';
 import requireContext from 'require-context.macro';
 import 'chromatic';
@@ -90,7 +90,7 @@ Ahora [logueate en Chromatic](https://www.chromatic.com/start) con tú cuenta de
 
 Ejecuta el comando de prueba en la línea de comandos para configurar las pruebas de regresión visual para Storybook. No olvides añadir tu código de aplicación único en el `<project-token>`.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -112,7 +112,7 @@ Esto produce un nuevo color de fondo para el artículo.
 
 Usa el comando de prueba anterior para ejecutar otra prueba cromática.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 

@@ -38,21 +38,21 @@ Chromatic est un module complémentaire de Storybook sans tracas pour les tests 
 
 Vue CLI a déjà créé un répertoire pour votre projet; vérifions les modifications que nous avons apportées:
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 Maintenant soumettez les fichiers.
 
-```bash
-$ git commit -m "taskbox UI"
+```shell
+git commit -m "taskbox UI"
 ```
 
 ### Obtenir Chromatic
 
 Ajoutez le paquetage comme une dépendance.
 
-```bash
+```shell
 yarn add -D chromatic
 ```
 
@@ -69,7 +69,7 @@ Ensuite [connectez-vous Chromatic](https://bit.ly/2Is93Ez) avec votre compte Git
 
 Exécutez la commande de test dans la ligne de commande pour configurer des tests de régression visuelle pour Storybook. N'oubliez pas d'ajouter votre code d'application unique à la place de `<project-token>`.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -93,7 +93,7 @@ Cela donne une nouvelle couleur d'arrière-plan pour l'élément.
 
 Utilisez la commande de test précédente pour exécuter un autre test chromatique.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 

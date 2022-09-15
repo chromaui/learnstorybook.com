@@ -254,7 +254,7 @@ Storybook 讓我們在建造應用程式的 UI 過程中，方便進行手動測
 
 使用 [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) 就可以為每個 story 做好快照測試。加入以下的開發套件即可：
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 

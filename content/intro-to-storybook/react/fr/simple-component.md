@@ -24,9 +24,7 @@ Tout d'abord, créons la composante "tâche" et le fichier story qui l'accompagn
 
 Nous commencerons par une mise en œuvre de base de `Task` (Tâche), en prenant simplement en compte les attributs dont nous savons que nous en aurons besoin et les deux actions que vous pouvez entreprendre sur une tâche (pour la déplacer entre les listes) :
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -42,9 +40,7 @@ Ci-dessus, nous rendons un balisage simple pour `Task` basé sur la structure HT
 
 Ci-dessous, nous allons construire les trois états de test de Task dans le fichier story:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import React from 'react';
 
 import Task from './Task';
@@ -120,9 +116,7 @@ Nous devrons apporter quelques modifications à la configuration du Storybook po
 
 Commencez par modifier le fichier de configuration de votre Storybook (`.storybook/main.js`) comme suit :
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   //👇 Location of our stories
   stories: ['../src/components/**/*.stories.js'],
@@ -136,9 +130,7 @@ module.exports = {
 
 Après avoir effectué la modification ci-dessus, dans le dossier `storybook`, changez votre `preview.js` en ce qui suit :
 
-```javascript
-// .storybook/preview.js
-
+```js:title=.storybook/preview.js
 import '../src/index.css'; //👈 The app's CSS file goes here
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
@@ -166,9 +158,7 @@ Maintenant que nous avons configuré Storybook, importé des styles et élaboré
 
 Le composant est encore basique pour le moment. Tout d'abord, écrivons le code qui permettra de réaliser la conception sans trop entrer dans les détails:
 
-```javascript
-// src/components/Task.js
-
+```jsx:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -213,9 +203,7 @@ La balisage supplémentaire ci-dessus, combiné avec le CSS que nous avons impor
 
 La meilleure pratique consiste à utiliser les "propTypes" dans React pour spécifier la forme des données qu'un composant attend. Non seulement il s'agit d'une méthode d'auto-documentation, mais elle permet également de détecter les problèmes à un stade précoce.
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -266,13 +254,13 @@ Assurez-vous que vos composants rendent des données qui ne changent pas, afin q
 
 Avec le [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots), une capture d'instantané est créé pour chacune des story. Utilisez-le en ajoutant les dependencies de développement suivantes :
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 
 Créez ensuite un fichier `src/storybook.test.js` contenant ce qui suit:
 
-```javascript
+```shell
 // src/storybook.test.js
 
 import initStoryshots from '@storybook/addon-storyshots';

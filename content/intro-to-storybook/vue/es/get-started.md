@@ -15,7 +15,7 @@ Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestr
 
 Vamos a ejecutar los siguientes comandos:
 
-```bash
+```shell:clipboard=false
 # Clone the template
 npx degit chromaui/intro-storybook-vue-template taskbox
 cd taskbox
@@ -29,7 +29,7 @@ yarn
 
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test:unit
 # Start the component explorer on port 6006:
@@ -49,19 +49,19 @@ Dependiendo de en qué parte de la aplicación estés trabajando, es posible que
 En esta etapa, es seguro agregar nuestros archivos a un repositorio local. Ejecute los siguientes comandos para inicializar un repositorio local, agregue y confirme los cambios que hemos realizado hasta ahora.
 
 ```shell
-$ git init
+git init
 ```
 
 Seguido por:
 
 ```shell
-$ git add .
+git add .
 ```
 
 Y finalmente:
 
 ```shell
-$ git commit -m "first commit"
+git commit -m "first commit"
 ```
 
 ¡Comencemos a construir nuestro primer componente!

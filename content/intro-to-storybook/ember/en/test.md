@@ -43,7 +43,21 @@ git checkout -b change-task-background
 Change `Task` to the following:
 
 ```diff:title=app/components/task.hbs
-<div class="title">
+<div class="list-item {{@task.state}}" data-test-task>
+  <label class="checkbox">
+    <input
+      type="checkbox"
+      disabled
+      name="checked"
+      checked={{this.isArchived}}
+    />
+    <span
+      class="checkbox-custom"
+      data-test-task-archive
+      {{on "click" this.archive}}
+    ></span>
+  </label>
+  <div class="title">
     <input
       type="text"
       readonly
@@ -51,6 +65,14 @@ Change `Task` to the following:
       placeholder="Input title"
 +     style="background:red;"
     />
+  </div>
+  <div class="actions">
+    {{#unless this.isArchived}}
+      <span data-test-task-pin {{on "click" this.pin}}>
+        <span class="icon-star"></span>
+      </span>
+    {{/unless}}
+  </div>
 </div>
 ```
 

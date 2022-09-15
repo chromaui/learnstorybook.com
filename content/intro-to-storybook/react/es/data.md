@@ -17,15 +17,13 @@ Este ejemplo utiliza [Redux](https://redux.js.org/), la librería mas popular de
 
 Agrega una nueva dependencia en `package.json` con:
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 
 Primero construiremos un simple store Redux que responde a acciones que cambian el estado de una tarea, en un archivo llamado `lib/redux.js` dentro del folder `src`, (intencionalmente lo mantendremos simple):
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // Una implementación simple de los store/actions/reducer de Redux.
 // Una verdadera aplicación sería más compleja y se dividiría en diferentes archivos.
 import { createStore } from 'redux';
@@ -79,9 +77,7 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 Luego actualizaremos lo exportado por defecto en el componente `TaskList` para conectarlo al Store de Redux y renderizar las tareas en las que estamos interesados.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -119,9 +115,7 @@ En esta etapa, nuestras pruebas de Storybook habrán dejado de funcionar, ya que
 
 Sin embargo, podemos resolver este problema fácilmente renderizando `PureTaskList` --el componente de presentación-- en nuestras historias de Storybook:
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 

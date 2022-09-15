@@ -157,7 +157,7 @@ const StyledButton = styled.button`
 
 변동사항을 commit하고 여러분의 깃허브 저장소에 push합니다.
 
-```shell
+```shell:clipboard=false
 git commit -am "make Button pop"
 git push -u origin improve-button
 ```

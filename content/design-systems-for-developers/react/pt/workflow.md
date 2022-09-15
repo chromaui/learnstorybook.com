@@ -5,9 +5,9 @@ description: 'Uma visão geral do fluxo de trabalho associado ao sistema de desi
 commit: 5fb832a
 ---
 
-A forma como as ferramentas de trabalho frontend trabalham em conjunto, tem um impacto significativo no valor final que as equipas de design e programação poderão atingir. Quando bem feito, é bastante fácil implementar e reutilizar componentes de IU. 
+A forma como as ferramentas de trabalho frontend trabalham em conjunto, tem um impacto significativo no valor final que as equipas de design e programação poderão atingir. Quando bem feito, é bastante fácil implementar e reutilizar componentes de IU.
 
-Este capítulo ilustra o fluxo de trabalho que assenta em 5 passos, através 
+Este capítulo ilustra o fluxo de trabalho que assenta em 5 passos, através
 da introdução de um novo componente, o AvatarList.
 
 ![Fluxo de trabalho do sistema de design](/design-systems-for-developers/design-system-workflow-horizontal.jpg)
@@ -20,7 +20,7 @@ O AvatarList é um componente que apresenta uma lista de múltiplos avatars. Tal
 
 Primeiro, crie um novo ramo no git, onde este trabalho será acompanhado.
 
-```bash
+```shell
 git checkout -b create-avatar-list-component
 ```
 
@@ -35,7 +35,7 @@ O Storybook está configurado de forma a reconhecer automaticamente ficheiros qu
 
 Fantástico! Vamos articular agora cada estado do IU que é suportado pelo AvatarList. De relance podemos verificar que este suporta algumas das propriedades do componente Avatar, tais como `small` e `loading`.
 
-```javascript
+```js:title=src/AvatarList.stories.js
 export const smallSize = () => <AvatarList users={users.slice(0, 2)} size="small" />;
 export const loading = () => <AvatarList loading />;
 ```
@@ -44,7 +44,7 @@ export const loading = () => <AvatarList loading />;
 
 Dado que é uma lista, deverá apresentar inúmeros avatars. Vamos adicionar algumas estórias que demonstram o que acontece quando adicionamos muitos itens à lista e o que acontece quando existem poucos itens na lista.
 
-```javascript
+```js:title=src/AvatarList.stories.js
 export const ellipsized = () => <AvatarList users={users} />;
 export const bigUserCount = () => <AvatarList users={users} userCount={100} />;
 export const empty = () => <AvatarList users={[]} />;
@@ -54,7 +54,7 @@ export const empty = () => <AvatarList users={[]} />;
 
 Guarde o seu progresso e faça a submissão da alteração.
 
-```bash
+```shell
 git commit -am "Added AvatarList and stories"
 ```
 
@@ -66,16 +66,16 @@ Graças ao Storybook Docs, obtemos documentação costumizada, requerendo um esf
 
 Documentação mínima viável! Vamos tornar o AvatarList um pouco mais humano, através da inclusão de contexto adicional em como o utilizar.
 
-```javascript
+```js:title=src/AvatarList.js
 /**
  * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
-export function AvatarList({ loading, users, userCount, size, ...props }) {
+export function AvatarList({ loading, users, userCount, size, ...props }) {}
 ```
 
 Adicione uns detalhes extra sobre os adereços (props na forma original) suportados
 
-```javascript
+```js:title=src/AvatarList.js
 AvatarList.propTypes = {
   /**
    * Are we loading avatar data from the network?
@@ -101,6 +101,7 @@ AvatarList.propTypes = {
   size: PropTypes.oneOf(Object.keys(sizes)),
 };
 ```
+
 Facílimo! Por agora, este nível de detalhe é mais que suficiente, podemos costumizar mais ainda posteriormente através de MDX.
 
 ![Documentação Storybook com a informação completa do AvatarList](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
@@ -109,7 +110,7 @@ A documentação não tem que ser enfadonha. Através de ferramentas automatizad
 
 Faça a submissão das alterações para o GitHub.
 
-```bash
+```shell
 git commit -am “Improved AvatarList docs”
 ```
 
@@ -117,7 +118,7 @@ git commit -am “Improved AvatarList docs”
 
 Vamos adicionar o nosso ramo que contém o `AvatarList` e criar um pull request:
 
-```bash
+```shell
 git push -u origin `create-avatar-list-component`
 ```
 
@@ -172,7 +173,6 @@ Adicione a etiqueta `minor` ao PR, isto faz com que o Auto atualize a versão se
 ![PR GitHub com etiquetas](/design-systems-for-developers/github-pr-labelled.png)
 
 Agora sim funda o seu PR e no seu browser, navegue para a página do npm associada ao seu pacote e aguarde uns minutos enquanto o pacote é atualizado.
-
 
 ![Pacote publicado no npm](/design-systems-for-developers/npm-published-package.png)
 

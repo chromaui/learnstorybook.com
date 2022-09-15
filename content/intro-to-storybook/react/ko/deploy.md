@@ -27,21 +27,21 @@ commit: 'af610d9'
 
 새로운 저장소에서 origin URL을 가져와서 다음 명령과 같이 깃(git) 프로젝트에 추가해주세요.
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 마지막으로, 로컬 저장소를 원격 저장소로 푸시해주세요.
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### 크로마틱(Chromatic) 설치
 
 development dependency로 패키지를 추가해주세요.
 
-```bash
+```shell
 yarn add -D chromatic
 ```
 
@@ -58,7 +58,7 @@ yarn add -D chromatic
 
 프로젝트를 위해 생성된 고유한 `project-token`을 복사해주세요. 그런 다음 스토리북을 빌드(build)하고 배포하기 위해 아래 명령어를 실행해주세요. 여러분의 토큰으로 `project-token` 부분을 꼭 바꿔주세요.
 
-```bash
+```shell
 yarn chromatic --project-token=<project-token>
 ```
 
@@ -111,19 +111,19 @@ jobs:
 
 다음의 명령어를 실행하여 변경된 사항을 추가해주세요.
 
-```bash
+```shell
 git add .
 ```
 
 그런 다음 commit을 해주세요:
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
 마지막으로 원격 저장소에 push해주세요:
 
-```bash
+```shell
 git push origin main
 ```
 

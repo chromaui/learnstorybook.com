@@ -37,7 +37,7 @@ Storybook 是一个完全适用于视觉回归测试的工具，因为每一个 
 
 先创建一个新的分支：
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
@@ -59,19 +59,19 @@ git checkout -b change-task-background
 
 添加文件：
 
-```bash
+```shell
 git add .
 ```
 
 提交：
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
 提交到远程仓库：
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

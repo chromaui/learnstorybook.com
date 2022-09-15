@@ -19,7 +19,7 @@ AvatarList 是一个显示多个 avatar 的组件。和其他设计系统的组�
 
 首先，在 git 上创建一个新的分支来追踪后续工作：
 
-```bash
+```shell
 git checkout -b create-avatar-list-component
 ```
 
@@ -34,9 +34,7 @@ Storybook 被配置为默认识别以 `\*.stories.js` 结尾的文件，并将�
 
 赞！我们来看一下 AvatarList 支持的 UI 状态。乍一看，它支持一些和 Avatar 组件一样的属性（如： `small` 和 `loading`）。
 
-```javascript
-// src/AvatarList.stories.js
-
+```js:title=src/AvatarList.js
 export const smallSize = () => <AvatarList users={users.slice(0, 2)} size="small" />;
 export const loading = () => <AvatarList loading />;
 ```
@@ -45,9 +43,7 @@ export const loading = () => <AvatarList loading />;
 
 由于它是一个列表，所以应该显示多个头像。让我们添加 stories 去分别演示很多个头像和只有几个头像的情况。
 
-```javascript
-// src/AvatarList.stories.js
-
+```js:title=src/AvatarList.js
 export const ellipsized = () => <AvatarList users={users} />;
 export const bigUserCount = () => <AvatarList users={users} userCount={100} />;
 export const empty = () => <AvatarList users={[]} />;
@@ -57,7 +53,7 @@ export const empty = () => <AvatarList users={[]} />;
 
 添加您的修改并提交.
 
-```bash
+```shell
 git commit -am "Added AvatarList and stories"
 ```
 
@@ -69,9 +65,7 @@ git commit -am "Added AvatarList and stories"
 
 最小可行的文档！让我们添加如何使用 AvatarList 的上下文来让它更加易读：
 
-```javascript
-// src/AvatarList.stories.js
-
+```js:title=src/AvatarList.stories.js
 /**
  * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
@@ -80,9 +74,7 @@ export function AvatarList({ loading, users, userCount, size, ...props }) {
 
 添加一些组件支持属性的详细信息：
 
-```javascript
-// src/AvatarList.stories.js
-
+```js:title=src/AvatarList.stories.js
 AvatarList.propTypes = {
   /**
    * Are we loading avatar data from the network?
@@ -117,7 +109,7 @@ AvatarList.propTypes = {
 
 提交您的修改到 GitHub 上：
 
-```bash
+```shell
 git commit -am “Improved AvatarList docs”
 ```
 
@@ -125,7 +117,7 @@ git commit -am “Improved AvatarList docs”
 
 让我们将 `AvatarList` 分支提交到 GitHub 上并创建一个 pull request ：
 
-```bash
+```shell
 git push -u origin `create-avatar-list-component`
 ```
 

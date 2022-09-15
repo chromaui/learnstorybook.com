@@ -25,9 +25,7 @@ Um componente composto não é em nada diferente do componente básico contido d
 
 Comece por uma implementação em bruto da `TaskList`. Será necessário importar o componente `Task` criado anteriormente e injetar os atributos e as respetivas ações como inputs, assim como os eventos.
 
-```typescript
-// src/app/components/task-list.component.ts
-
+```ts:title=src/app/components/task-list.component.ts
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 
@@ -64,9 +62,7 @@ export class TaskListComponent implements OnInit {
 
 Em seguida iremos criar os estados de teste do `TaskList` no ficheiro de estórias respetivo.
 
-```typescript
-// src/app/components/task-list.stories.ts
-
+```ts:title=src/app/components/task-list.stories.ts
 import { moduleMetadata } from '@storybook/angular';
 import { CommonModule } from '@angular/common';
 import { TaskListComponent } from './task-list.component';
@@ -165,9 +161,7 @@ Pode agora verificar-se o Storybook com as estórias novas associadas á `Taskli
 
 O componente ainda se encontra num estado bruto, mas já temos uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que ao usar-se o `.list-items` no componente como invólucro é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um invólucro. A **verdadeira complexidade** do componente `TaskList` é revelada com os casos extremos `WithPinnedTasks`, `loading` e `empty`.
 
-```typescript
-// src/app/components/task-list.component.ts
-
+```ts:title=src/app/components/task-list.component.ts
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
 
@@ -211,8 +205,8 @@ export class TaskListComponent implements OnInit {
   @Input()
   set tasks(arr: Task[]) {
     this.tasksInOrder = [
-      ...arr.filter(t => t.state === 'TASK_PINNED'),
-      ...arr.filter(t => t.state !== 'TASK_PINNED'),
+      ...arr.filter((t) => t.state === 'TASK_PINNED'),
+      ...arr.filter((t) => t.state !== 'TASK_PINNED'),
     ];
   }
 
@@ -257,9 +251,7 @@ De forma a evitar este problema em concreto, podemos usar o Jest, de forma que e
 
 Iremos começar por criar um ficheiro de testes denominado `task-list.component.spec.ts`. Neste ficheiro estarão contidos os testes que irão fazer asserções acerca do valor de saída.
 
-```typescript
-// src/app/components/task-list.component.spec.ts
-
+```ts:title=src/app/components/task-list.component.spec.ts
 import { render } from '@testing-library/angular';
 import { TaskListComponent } from './task-list.component';
 import { TaskComponent } from './task.component';

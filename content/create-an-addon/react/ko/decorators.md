@@ -5,7 +5,6 @@ description: '스토리와의 상호작용'
 commit: '0e7246a'
 ---
 
-
 이제 거의 끝났습니다. 지금까지 우리는 상태를 추적할 수 있는 툴을 만들어 툴바에 추가했고, 이제는 이 상태에 대응하여 아웃라인을 표시하고, 숨겨야 합니다.
 
 [데코레이터](https://storybook.js.org/docs/react/writing-stories/decorators)는 스토리를 감싸고 엑스트라 렌더링 기능을 추가합니다. 이번 장에서 글로벌 아웃라인에 대응하고 CSS 인젝션을 처리하는 데코레이터를 만들어 볼 것입니다. 차례로 모든 HTML 요소 주위에 아웃라인을 그려볼 것입니다.
@@ -76,7 +75,7 @@ export const withGlobals = (StoryFn, context) => {
   }, [context.id]);
 
   useEffect(() => {
-    const selectorId = isInDocs ? `addon-outline-docs-${context.id}` : `addon-outline`;
+    const selectorId = isInDocs ? `my-addon-outline-docs-${context.id}` : `my-addon-outline`;
 
     if (!outlineActive) {
       clearStyles(selectorId);

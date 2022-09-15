@@ -27,7 +27,7 @@ Primeiro, registe-se no CircleCI se ainda não o fez. Uma vez feito o registo, i
 
 Crie uma pasta ou diretório chamado `.circleci` na raíz do seu projeto e no seu interior crie um ficheiro chamado config.yml. Isto irá permitir definir qual o comportamento do processo de integração contínua (IC). Por agora pode simplesmente utilizar a recomendação fornecida pela Circle para Node:
 
-```yml
+```yml:title:.circleci/config.yml
 version: 2
 jobs:
   build:
@@ -109,7 +109,7 @@ storybook-static
 
 E faça a submissão da alteração.
 
-```bash
+```shell
 git commit -am “ignore storybook static”
 ```
 
@@ -119,13 +119,13 @@ Sempre que for feito um pull request que contém alterações ao interface de ut
 
 Iremos demonstrar a revisão visual através de uma alteração no interface de utilizador, feita num novo ramo.
 
-```bash
+```shell
 git checkout -b improve-button
 ```
 
 Primeiro, faça uma alteração no componente Button. "Faça com que brilhe" - os designers irão adorar.
 
-```javascript
+```js:title=src/Button.js
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;
@@ -136,7 +136,7 @@ const StyledButton = styled.button`
 
 Submeta a alteração para o repositório GitHub.
 
-```bash
+```shell:clipboard=false
 git commit -am “make Button pop”
 git push -u origin improve-button
 ```

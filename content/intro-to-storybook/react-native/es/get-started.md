@@ -22,7 +22,7 @@ Antes de sumergirse en el tutorial, tenga en cuenta las siguientes consideracion
 
 Con eso fuera del camino, ejecutemos los siguientes comandos:
 
-```bash
+```shell:clipboard=false
 # Create our application:
 expo init --template tabs taskbox
 
@@ -43,7 +43,7 @@ Tenemos dos de las tres modalidades configuradas en nuestra aplicación, pero a�
 
 Cree una nueva carpeta llamada `__mocks__` y agregue un nuevo archivo `globalMock.js` con lo siguiente:
 
-```javascript
+```js:title=src/__mocks__/globalMock.js
 jest.mock('global', () => ({
   ...global,
   WebSocket: function WebSocket() {},
@@ -52,7 +52,7 @@ jest.mock('global', () => ({
 
 Actualice el campo `jest` en`package.json`:
 
-```json
+```json:title=package.json
 "jest": {
     "preset": "jest-expo",
     "transformIgnorePatterns": [
@@ -66,7 +66,7 @@ Actualice el campo `jest` en`package.json`:
 
 Ahora podemos comprobar rápidamente que los diversos entornos de nuestra aplicación funcionan correctamente:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test
 
@@ -88,8 +88,7 @@ Taskbox reutiliza elementos de diseño de la aplicación de ejemplo de este [Tut
 <details>
   <summary>Haga clic para expandir y ver el contenido completo del archivo</summary>
 
-```javascript
-// /constants/globalStyles.js
+```js:title=src/constants/globalStyles.js
 import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
@@ -231,15 +230,14 @@ Para que coincida con el diseño previsto, deberá descargar los directorios de 
 
 <div class="aside"> Svn (Subversion) se usó para facilitar la transferencia de carpetas (o directorios) de GitHub. Si no tiene instalado Subversion o simplemente desea hacerlo manualmente, puedes tomar la carpeta de iconos directamente <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aquí</a> y la fuente <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">aquí</a>.</p></div>
 
-```bash
+```shell
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
 svn export <https://github.com/google/fonts/trunk/ofl/nunitosans> assets/font
 ```
 
 A continuación, los recursos deben cargarse en la aplicación, para eso vamos a actualizar `hooks/useCachedResources.js` a lo siguiente:
 
-```javascript
-// hooks/useCachedResources.js
+```js:title=src/hooks/useCachedResources.js
 async function loadResourcesAndDataAsync() {
   try {
     SplashScreen.preventAutoHideAsync();
@@ -270,8 +268,7 @@ Cree un nuevo archivo `/constants/Percolate.js` con lo siguiente:
 <details>
   <summary>Haga clic para expandir y ver el contenido completo del archivo</summary>
 
-```javascript
-// constants/Percolate.js
+```js:title=src/constants/Percolate.js
 /**
  * PercolateIcons icon set component.
  * Usage: <PercolateIcons name="icon-name" size={20} color="#4F8EF7" />
@@ -425,8 +422,7 @@ export const getImageSource = iconSet.getImageSource;
 
 Para ver Storybook en React Native vamos a actualizar `screens/LinksScreen.js` a lo siguiente:
 
-```javascript
-// screens/LinksScreen.js
+```js:title=src/screens/LinksScreen.js
 import * as React from 'react';
 import StorybookUIRoot from '../storybook';
 
@@ -437,8 +433,7 @@ export default function LinksScreen() {
 
 Y finalmente `navigation\BottomTabNavigator.js` a lo siguiente:
 
-```javascript
-// navigation/BottomTabNavigator.js
+```js:title=src/navigation/BottomTabNavigator.js
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
@@ -486,8 +481,7 @@ function getHeaderTitle(route) {
 
 Y finalmente, necesitaremos hacer un pequeño cambio en nuestra configuración de Storybook. Como estamos utilizando Expo para crear nuestra aplicación, podemos eliminar de forma segura algunos elementos de la configuración, ya que no son necesarios. Convirtiendo el contenido del archivo en lo siguiente:
 
-```javascript
-// /storybook/index.js
+```js:title=storybook/index.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
 import './rn-addons';

@@ -27,13 +27,13 @@ Go to GitHub and create a new repository for our project [here](https://github.c
 In the new repo, grab the origin URL of the repo and add it to your git project with this command:
 
 ```shell
-$ git remote add origin https://github.com/<your username>/taskbox.git
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Finally, push our local repo to the remote repo on GitHub with:
 
 ```shell
-$ git push -u origin main
+git push -u origin main
 ```
 
 ### Get Chromatic

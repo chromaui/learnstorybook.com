@@ -13,9 +13,7 @@ En este capítulo continuaremos aumentando la sofisticación combinando componen
 
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Redux) en alguna maqueta y sacando un campo `error` de primer nivel de redux (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor):
 
-```javascript
-// src/components/InboxScreen.js
-
+```js:title=src/components/screens/TaskListScreen.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -60,9 +58,7 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 
 También cambiamos el componente `App` para renderizar la pantalla de la bandeja de entrada `InboxScreen` (normalmente usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
 
-```javascript
-// src/App.js
-
+```js:title=src/App.js
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
@@ -90,9 +86,7 @@ Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este p
 
 Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Así que cuando preparamos nuestras historias:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/screens/TaskListScreen.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -119,9 +113,7 @@ Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legít
 
 La buena noticia es que es fácil suministrar una store de Redux a la `InboxScreen` en una historia! Podemos usar una versión mockeada de la store de Redux provista en un decorador:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/screens/TaskListScreen.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';

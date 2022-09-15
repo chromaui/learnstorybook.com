@@ -29,15 +29,13 @@ Knobs é um recurso fantástico quer para designers quer para programadores, par
 
 Primeiro irá ser necessário adicioná-lo como dependência de desenvolvimento.
 
-```bash
+```shell
 yarn add -D @storybook/addon-knobs
 ```
 
 Registe o Knobs no ficheiro `.storybook/main.js`.
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   stories: ['../src/app/components/**/*.stories.ts'],
   addons: ['@storybook/addon-actions', '@storybook/addon-knobs', '@storybook/addon-links'],
@@ -58,16 +56,14 @@ Vamos usar o objeto knob no componente `Task`.
 
 Primeiro, importamos o decorador `withKnobs` e o tipo `object` de knob para o ficheiro `task.stories.js`:
 
-```javascript
-// src/app/components/task.stories.ts
+```js:title=src/app/components/task.stories.ts
 import { action } from '@storybook/addon-actions';
 import { withKnobs, object } from '@storybook/addon-knobs';
 ```
 
 Em seguida, dentro do `default` export do ficheiro `task.stories.ts`, vamos fornecer `withKnobs` como elemento do `decorators`:
 
-```javascript
-// src/app/components/task.stories.ts
+```ts:title=src/app/components/task.stories.ts
 export default {
   title: 'Task',
   decorators: [withKnobs],
@@ -77,9 +73,7 @@ export default {
 
 Finalmente, integramos o tipo `object` do knob na estória "padrão":
 
-```javascript
-// src/app/components/task.stories.ts
-
+```ts:title=src/app/components/task.stories.ts
 // default task state
 export const Default = () => ({
   component: TaskComponent,
@@ -110,9 +104,7 @@ Adicionalmente com a facilidade de edição de dados fornecidos ao componente, e
 
 Devido a facilidade com que é possível testar inputs diferentes podemos descobrir e resolver estes problemas com facilidade! Vamos então resolver o nosso problema, através da adição de um elemento de estilo ao `task.component.ts`:
 
-```html
-<!-- src/app/components/task.component.ts -->
-
+```html:title=src/app/components/task.component.ts
 <!-- This is the input for our task title. In practice we would probably update the styles for this element
 but for this tutorial, let's fix the problem with an inline style:
  -->
@@ -135,9 +127,7 @@ Isto irá expandir os testes de regressão e delinear com maior facilidade quais
 
 Vamos então adicionar uma estória para o caso da ocorrência de um texto grande no ficheiro `task.stories.ts`:
 
-```javascript
-// src/app/components/task.stories.ts
-
+```ts:title=src/app/components/task.stories.ts
 // tslint:disable-next-line: max-line-length
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 

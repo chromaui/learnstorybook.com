@@ -16,7 +16,7 @@ description: '프론트엔드 개발자를 위한 디자인 시스템 작업 흐
 
 ![AvatarList](/design-systems-for-developers/AvatarList.jpg)
 
-우선, 작업을 진행할 새로운 브랜치를 생성합니다. 
+우선, 작업을 진행할 새로운 브랜치를 생성합니다.
 
 ```shell
 git checkout -b create-avatar-list-component
@@ -107,7 +107,7 @@ git commit -am "Added AvatarList and stories"
 /**
  * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
-export function AvatarList({ loading, users, userCount, size, ...props }) {
+export function AvatarList({ loading, users, userCount, size, ...props }) {}
 ```
 
 지원되는 props에 대한 추가적인 설명을 제공합니다.
@@ -153,7 +153,7 @@ git commit -am "Improved AvatarList docs"
 
 #### 풀 리퀘스트 생성
 
-깃허브에 있는 `AvatarList` 브랜치에 push하고 풀 리퀘스트(pull request)를 생성해봅니다. - 
+깃허브에 있는 `AvatarList` 브랜치에 push하고 풀 리퀘스트(pull request)를 생성해봅니다. -
 
 ```shell
 git push -u origin create-avatar-list-component

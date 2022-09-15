@@ -17,7 +17,7 @@ Dans ce tutoriel, nous avons exécuté Storybook sur notre machine de développe
 
 Pour déployer Storybook, nous commençons premièrement par l'exporter comme une application web statique. Cette fonctionnalité est déjà intégrée dans Storybook, nous devons juste la changer comme nous l'avons fait auparavant lorsque le projet a été initialisé dans la [section de démarrage](/intro-to-storybook/vue/fr/get-started).
 
-```javascript
+```json::clipboard=false
 {
   "scripts": {
    "build-storybook": "build-storybook -s public"
@@ -37,14 +37,14 @@ Si vous suivez le chapitre de test précédent, passez à la fconfiguration d'un
 
 Lorsque le projet a été initialisée avec le Vue CLI, un référentiel local était déjà configuré pour vous. A ce stade, il est sûr d'ajouter les fichiers au premier commit.
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 Maintenant, commitez les fichiers.
 
-```bash
-$ git commit -m "taskbox UI"
+```shell
+git commit -m "taskbox UI"
 ```
 
 ### Configurez un référentiel GitHub
@@ -55,14 +55,14 @@ Allez sur GitHub et configurez un référentiel [ici](https://github.com/new). N
 
 Dans la nouvelle configuration du repo, copiez l'URL d'origin du repo et ajoutez-la à votre projet git avec cette commande :
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Et pour finir pousser vos modifications sur le repo GitHub
 
-```bash
-$ git push -u origin master
+```shell
+git push -u origin master
 ```
 
 ### Netlify

@@ -23,9 +23,7 @@ Een samengestelde component is niet heel verschillend van het basis component di
 
 Start met een ruwe implementatie van `TaskList`. Je zal de `Task` component van eerder moeten importeren en de attributen en acties als input doorgeven.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -58,9 +56,7 @@ export default TaskList;
 
 Maak vervolgens de teststatussen van `TaskList` aan in het `stories` bestand.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -110,9 +106,7 @@ Controleer nu Storybook voor de nieuwe `TaskList` stories.
 
 Onze component is nog steeds onvolledig, maar nu hebben we een idee van de _stories_ waar we naartoe willen werken. Misschien denk je dat de `.list-items` wrapper te simplistisch is. Dat klopt - in de meeste gevallen zouden we geen nieuwe component aanmaken alleen maar om een wrapper toe te voegen. De **echte complexiteit** van de `TaskList` component wordt echter pas zichtbaar in de randgevallen `withPinnedTasks`, `loading` en `empty`.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -189,9 +183,7 @@ Merk de positie van de gepinde item in de lijst op. We willen het gepinde item b
 
 Naarmate de component groeit, doen de input vereisten dat ook. Definieer nu de vereiste _props_ van `TaskList`. Omdat `Task` een child component is, moeten we zeker zijn dat de data in de juiste vorm wordt aangeleverd om deze te renderen. Om tijd en zorgen te besparen, kunnen we de `propTypes` herbruiken die je eerder in `Task` gedefinieerd hebt.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -233,9 +225,7 @@ Om dit probleem te voorkomen, kunnen we Jest gebruiken om de story te renderen n
 
 Maak een test bestand `src/components/TaskList.test.js` aan. Hier zullen we onze testen schrijven die de output controleren.
 
-```javascript
-// src/components/TaskList.test.js
-
+```js:title=src/components/TaskList.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TaskList from './TaskList';

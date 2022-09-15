@@ -26,7 +26,7 @@ Primero, vamos a crear el componente Task y el archivo de historias de storybook
 
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
-```javascript
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -42,7 +42,7 @@ Arriba, renderizamos directamente `Task` basándonos en la estructura HTML exist
 
 A continuación creamos los tres estados de prueba de Task dentro del archivo de historia:
 
-```javascript
+```js:title=src/components/Task.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -94,7 +94,7 @@ Las <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Acciones
 
 También necesitamos hacer un pequeño cambio en la configuración de Storybook (`.storybook/config.js`) para que tenga en cuenta nuestros archivos `.stories.js` y use nuestro archivo CSS. Por defecto, Storybook busca historias en el directorio `/stories`; este tutorial usa un esquema de nombres que es similar al esquema de nombres `.test.js` preferido por CRA para pruebas -tests- automatizadas.
 
-```javascript
+```js:title=.storybook/config.js
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
@@ -122,7 +122,7 @@ Ahora tenemos configurado Storybook, los estilos importados y los casos de prueb
 
 El componente todavía es básico. Primero escribiremos el código que se aproxima al diseño sin entrar en demasiados detalles:
 
-```javascript
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -166,9 +166,7 @@ El maquetado adicional de arriba, combinado con el CSS que hemos importado antes
 
 Es una buena práctica en React utilizar `propTypes` para especificar la forma de los datos que espera recibir un componente. No sólo se auto documenta, sino que también ayuda a detectar problemas rápidamente.
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -209,13 +207,13 @@ La prueba de instantáneas se refiere a la práctica de registrar la salida "cor
 
 Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úsalo agregando una dependencia en modo desarrollo en el paquete:
 
-```bash
+```shell
 yarn add --dev @storybook/addon-storyshots react-test-renderer
 ```
 
 Luego crea un archivo `src/storybook.test.js` con el siguiente contenido:
 
-```javascript
+```shell
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```

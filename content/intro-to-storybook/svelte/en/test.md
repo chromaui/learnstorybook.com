@@ -37,19 +37,37 @@ Let's see how it works by tweaking the background of the `Task` component.
 
 Start by creating a new branch for this change:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
 Change `src/components/Task.svelte` to the following:
 
 ```diff:title=src/components/Task.svelte
-<input
-  type="text"
-  readonly value={task.title}
-  placeholder="Input title"
-+ style="background: red;"
-/>
+<div class="list-item">
+   <input type="text" value={task.title} readonly />
+</div>
+<div class="list-item {task.state}">
+  <label class="checkbox">
+    <input type="checkbox" checked={isChecked} disabled name="checked" />
+    <span class="checkbox-custom" on:click={ArchiveTask} aria-label={`archiveTask-${task.id}`}/>
+  </label>
+  <div class="title">
+    <input type="text"
+      readonly
+      value={task.title}
+      placeholder="Input title"
++     style="background: red;"
+    />
+  </div>
+  <div class="actions">
+    {#if task.state !== 'TASK_ARCHIVED'}
+      <a href="/" on:click|preventDefault={PinTask}>
+        <span class="icon-star" aria-label={`pinTask-${task.id}`}/>
+      </a>
+     {/if}
+  </div>
+</div>
 ```
 
 This yields a new background color for the item.
@@ -58,19 +76,19 @@ This yields a new background color for the item.
 
 Add the file:
 
-```bash
+```shell
 git add .
 ```
 
 Commit it:
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
 And push the changes to the remote repo:
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

@@ -13,14 +13,14 @@ Storybook fonctionne avec votre application en mode développement. Il vous aide
 
 Nous allons suivre quelques étapes pour configurer votre environnement. Pour commencer, nous allons utiliser le [Vue CLI](https://cli.vuejs.org) pour créer notre application et activer [Storybook](https://storybook.js.org/) ainsi que les tests avec [Jest](https://facebook.github.io/jest/). Exécutons les commandes suivantes :
 
-```bash
+```shell:clipboard=false
 # Création de notre application, utilisant une configuration utilisant jest :
 npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
 
 cd taskbox
 
 # Ajout de Storybook:
-npx -p @storybook/cli sb init
+npx storybook init
 ```
 
 <div class="aside">
@@ -32,7 +32,7 @@ Si vous avez Yarn d'installé, mais préférez utiliser <code>npm</code>, pas de
 
 Nous pouvons rapidement vérifier que les différentes parties de votre application fonctionnent correctement :
 
-```bash
+```shell:clipboard=false
 # Exécutez les tests (Jest) dans un terminal :
 yarn test:unit
 
@@ -53,7 +53,7 @@ En fonction de la partie de l'application sur laquelle vous travaillez, vous sou
 
 Taskbox réutilise les éléments de conception du tutoriel de GraphQL et de React [application exemple](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), nous n'aurons donc pas besoin d'écrire du CSS dans ce tutoriel. Copiez et collez [ce CSS compilé](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dans `src/index.css` puis importez le dans l'application en modifiant la balise `<style>` dans le fichier `src/App.vue` pour qu'elle ressemble à ceci :
 
-```html
+```html:title=src/App.vue
 <style>
   @import './index.css';
 </style>
@@ -72,14 +72,14 @@ Pour correspondre à la conception souhaitée, vous devrez télécharger les ré
 <div class="aside">
 <p>Nous avons utilisé <code>svn</code> (Subversion) pour télécharger facilement des fichiers d'un répertoire à partir de GitHub. Si vous n'avez pas subversion d'installé ou si vous voulez le faire manuellement, vous pouvez récupérer les fichiers directement <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">ici</a>.</p></div>
 
-```bash
+```shell
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
 ```
 
 Nous devons également mettre à jour nos scripts Storybook pour pointer vers le répertoire `public` (dans le fichier `package.json`):
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public"

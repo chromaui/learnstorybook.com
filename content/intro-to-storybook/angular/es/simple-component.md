@@ -323,7 +323,7 @@ Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addon
 automáticamente, una prueba de instantánea para cada una de las historias. Úsalo agregando el siguiente paquete en
 modo desarrollo a las dependencias del proyecto:
 
-```bash
+```shell
 npm install -D @storybook/addon-storyshots
 ```
 
@@ -338,13 +338,11 @@ initStoryshots();
 Finalmente, necesitamos hacer un pequeño cambio para `jest` en nuestro `package.json`:
 
 ```diff:title=package.json
-{
-   "transform": {
-      "^.+\\.(ts|html)$": "ts-jest",
-      "^.+\\.js$": "babel-jest",
-+     "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
-    },
-}
+"transform": {
+  "^.+\\.(ts|html)$": "ts-jest",
+   "^.+\\.js$": "babel-jest",
++   "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
+},
 ```
 
 Una vez hecho lo anterior, podemos ejecutar `npm run test` y ver el siguiente resultado:

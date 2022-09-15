@@ -39,28 +39,57 @@ Let's see how it works by tweaking the background of the `Task` component.
 
 Start by creating a new branch for this change:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
 Change `src/app/components/task.component` to the following:
 
 ```diff:title=src/app/components/task.component.ts
-<label
-  [attr.aria-label]="task.title + ''"
-  for="title-{{ task?.id }}"
-  class="title"
-  >
-    <input
-      type="text"
-      [value]="task.title"
-      readonly="true"
-      id="title-{{ task?.id }}"
-      name="title-{{ task?.id }}"
-      placeholder="Input title"
-+     style="background: red;"
-    />
-</label>
+@Component({
+  selector: 'app-task',
+  template: `
+    <div class="list-item {{ task?.state }}">
+      <label
+        [attr.aria-label]="'archiveTask-' + task.id"
+        for="checked-{{ task?.id }}"
+        class="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled="true"
+          [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
+          name="checked-{{ task?.id }}"
+          id="checked-{{ task?.id }}"
+        />
+        <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
+      </label>
+      <label
+        [attr.aria-label]="task.title + ''"
+        for="title-{{ task?.id }}"
+        class="title"
+      >
+        <input
+          type="text"
+          [value]="task.title"
+          readonly="true"
+          id="title-{{ task?.id }}"
+          name="title-{{ task?.id }}"
+          placeholder="Input title"
++         style="background: red;"
+        />
+      </label>
+      <button
+        *ngIf="task?.state !== 'TASK_ARCHIVED'"
+        class="pin-button"
+        [attr.aria-label]="'pinTask-' + task.id"
+        (click)="onPin(task.id)"
+      >
+        <span class="icon-star"></span>
+      </button>
+    </div>
+  `,
+})
 ```
 
 This yields a new background color for the item.
@@ -69,19 +98,19 @@ This yields a new background color for the item.
 
 Add the file:
 
-```bash
+```shell
 git add .
 ```
 
 Commit it:
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
 And push the changes to the remote repo:
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

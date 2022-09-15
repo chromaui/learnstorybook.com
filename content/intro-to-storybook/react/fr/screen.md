@@ -13,9 +13,7 @@ Dans ce chapitre, nous continuons à accroître la sophistication en combinant d
 
 Comme notre application est très simple, l'écran que nous allons construire est assez trivial, il suffit d'envelopper le composant `TaskList` (qui fournit ses propres données via Redux) dans une certaine disposition et de tirer un champ d'erreur de haut niveau de Redux (supposons que nous allons définir ce champ si nous avons des problèmes de connexion à notre serveur). Créez `InboxScreen.js` dans votre dossier `components`:
 
-```javascript
-// src/components/InboxScreen.js
-
+```js:title=src/components/InboxScreen.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -61,9 +59,7 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 
 Nous changeons également le composant `App` pour rendre le `InboxScreen` (éventuellement nous utiliserions un routeur pour choisir le bon écran, mais ne nous inquiétons pas de cela ici):
 
-```javascript
-// src/App.js
-
+```js:title=src/App.js
 import React from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
@@ -89,7 +85,7 @@ Lorsque nous avons placé la `TaskList` dans Storybook, nous avons pu éviter ce
 
 Cependant, pour le `PureInboxScreen`, nous avons un problème car, bien que le `PureInboxScreen` lui-même soit présenté, son enfant, la `TaskList`, ne l'est pas. Dans un sens, le `PureInboxScreen` a été pollué par son caractère "conteneur". Ainsi, lorsque nous mettons en place nos stories dans `InboxScreen.stories.js`:
 
-```javascript
+```js:title=src/components/InboxScreen.stories.js
 // src/components/InboxScreen.stories.js
 
 import React from 'react';
@@ -127,9 +123,7 @@ Soit dit en passant, la transmission de données en descendant dans la hiérarch
 
 La bonne nouvelle, c'est qu'il est facile de fournir un stockage Redux à `InboxScreen` dans un story! Il suffit d'utiliser une version fictive du stockage Redux fournie par un décorateur:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';

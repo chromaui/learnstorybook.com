@@ -289,7 +289,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 <div style="direction: ltr">
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 

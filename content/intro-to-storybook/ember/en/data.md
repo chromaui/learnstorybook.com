@@ -19,7 +19,7 @@ By default you should use a route and a data persistance layer, such as [ember-d
 
 Add the necessary dependency to your project with:
 
-```bash
+```shell
 ember install tracked-redux
 ```
 

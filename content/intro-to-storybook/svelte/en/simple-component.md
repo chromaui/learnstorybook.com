@@ -303,15 +303,13 @@ initStoryshots();
 And finally, we need to make a minor adjustment to our `jest` key in `package.json`:
 
 ```diff:title=package.json
-{
-  "jest": {
-    "transform": {
-      "^.+\\.js$": "babel-jest",
-+     "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
-      "^.+\\.svelte$": "jest-transform-svelte"
-    },
-+   "transformIgnorePatterns": ["node_modules/(?!(@storybook/svelte)/)"],
-  }
+"jest": {
+  "transform": {
+    "^.+\\.js$": "babel-jest",
++    "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
+    "^.+\\.svelte$": "jest-transform-svelte"
+  },
++  "transformIgnorePatterns": ["node_modules/(?!(@storybook/svelte)/)"],
 }
 ```
 

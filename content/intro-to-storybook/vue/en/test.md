@@ -39,22 +39,51 @@ Let's see how it works by tweaking the background of the `Task` component.
 
 Start by creating a new branch for this change:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
 Change `src/components/Task` to the following:
 
 ```diff:title=src/components/Task.vue
-<label :for="'title-' + task.id" :aria-label="task.title" class="title">
-  <input
-    type="text"
-    readonly
-    :value="task.title"
-    :id="'title-' + task.id"
-    name="title"
-+   style="background: red" />
-</label>
+<template>
+  <div :class="classes">
+    <label
+      :for="'checked' + task.id"
+      :aria-label="'archiveTask-' + task.id"
+      class="checkbox"
+    >
+      <input
+        type="checkbox"
+        :checked="isChecked"
+        disabled
+        :name="'checked' + task.id"
+        :id="'archiveTask-' + task.id"
+      />
+      <span class="checkbox-custom" @click="archiveTask" />
+    </label>
+    <label :for="'title-' + task.id" :aria-label="task.title" class="title">
+      <input
+        type="text"
+        readonly
+        :value="task.title"
+        :id="'title-' + task.id"
+        name="title"
+        placeholder="Input title"
++       style="background: red" />
+      />
+    </label>
+    <button
+      v-if="!isChecked"
+      class="pin-button"
+      @click="pinTask"
+      :id="'pinTask-' + task.id"
+      :aria-label="'pinTask-' + task.id"
+    >
+      <span class="icon-star" />
+    </button>
+  </div>
+</template>
 ```
 
 This yields a new background color for the item.
@@ -63,19 +92,19 @@ This yields a new background color for the item.
 
 Add the file:
 
-```bash
+```shell
 git add .
 ```
 
 Commit it:
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
 And push the changes to the remote repo:
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

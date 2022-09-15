@@ -37,7 +37,7 @@ Storybook 是優秀的視覺回溯測試工具，因為每個 story 基本上都
 
 一開始，為這次的修改新增分支：
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
@@ -61,19 +61,19 @@ git checkout -b change-task-background
 
 幫這個檔案下 add 指令：
 
-```bash
+```shell
 git add .
 ```
 
 提交：
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
 把變動推到遠端的 Repo：
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

@@ -40,13 +40,30 @@ Controls allowed us to quickly verify different inputs to a component--in this c
 Now let's fix the issue with overflowing by adding a style to `Task.svelte`:
 
 ```diff:title=src/components/Task.svelte
-<input
-  type="text"
-  value={task.title}
-  readonly
-  placeholder="Input title"
-+ style="text-overflow: ellipsis;"
-/>
+<div class="list-item">
+   <input type="text" value={task.title} readonly />
+</div>
+<div class="list-item {task.state}">
+  <label class="checkbox">
+    <input type="checkbox" checked={isChecked} disabled name="checked" />
+    <span class="checkbox-custom" on:click={ArchiveTask} aria-label={`archiveTask-${task.id}`}/>
+  </label>
+  <div class="title">
+    <input type="text"
+      readonly
+      value={task.title}
+      placeholder="Input title"
++     style="text-overflow: ellipsis;"
+    />
+  </div>
+  <div class="actions">
+    {#if task.state !== 'TASK_ARCHIVED'}
+      <a href="/" on:click|preventDefault={PinTask}>
+        <span class="icon-star" aria-label={`pinTask-${task.id}`}/>
+      </a>
+     {/if}
+  </div>
+</div>
 ```
 
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)

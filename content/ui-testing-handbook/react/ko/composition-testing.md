@@ -157,13 +157,13 @@ InboxScreen의 경우, [Mock Service Worker(MSW) 애드온](https://storybook.js
 
 MSW와 MSW 애드온을 설치하세요.
 
-```
+```shell
 yarn add -D msw msw-storybook-addon
 ```
 
 그런 다음, public 폴더에 새 서비스 워커를 생성하세요.
 
-```
+```shell
 npx msw init public/
 ```
 
@@ -257,7 +257,7 @@ Error.parameters = {
 
 [이전 장](/ui-testing-handbook/react/ko/visual-testing/)에서 크로마틱(Chromatic)을 설정하고 기본적인 작업 흐름을 살펴보았습니다. 이제 모든 복합 컴포넌트에 대한 스토리가 있으므로, 아래 명령어로 시각적 테스트를 실행할 수 있습니다.
 
-```
+```shell
 npx chromatic --project-token=<project-token>
 ```
 

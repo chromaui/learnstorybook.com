@@ -39,7 +39,7 @@ React is the most popular view layer according to the [State of JS](https://stat
 
 In your command line, run the following commands:
 
-```shell
+```shell:clipboard=false
 # Clone the files
 npx degit chromaui/learnstorybook-design-system-template learnstorybook-design-system
 
@@ -59,7 +59,7 @@ Once everything is installed, we can push it to GitHub (which we’ll use to hos
 
 Then follow GitHub's instructions to create the (the so-far mostly empty) repository:
 
-```shell
+```shell:clipboard=false
 git init
 git add .
 git commit -m "first commit"
