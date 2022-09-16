@@ -41,18 +41,19 @@ Storybook は視覚的なリグレッションテスト用の素晴らしいツ�
 git checkout -b change-task-background
 ```
 
-`Task` を以下のように変更します:
+`src/components/Task.js` を以下のように変更します:
 
 ```diff:title=src/components/Task.js
-<div className="title">
+ <label htmlFor="title" aria-label={title} className="title">
   <input
     type="text"
     value={title}
     readOnly={true}
+    name="title"
     placeholder="Input title"
 +   style={{ background: 'red' }}
-  />
-</div>
+    />
+</label>
 ```
 
 これでタスクの背景色が変更されます。
@@ -62,13 +63,13 @@ git checkout -b change-task-background
 この変更をステージングします:
 
 ```bash
-git add src/components/Task.js
+git add .
 ```
 
 コミットします:
 
 ```bash
-git commit -m “change task background to red”
+git commit -m "change task background to red"
 ```
 
 そして変更をリモートリポジトリーにプッシュします:
