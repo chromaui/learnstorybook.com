@@ -216,7 +216,7 @@ Controls.args = {
 };
 ```
 
-アドオンパネルの Controls タブを見てください。Controls はプロパティを適用するグラフィカル UI を自動生成します。例えば、「size」セレクト要素が提供されている Avatar のサイズ`tiny`、`small`、`medium`、`large`を通しで確認できます。残りのコンポーネントプロパティ (“loading”、“username”、“src”) も同様に、コンポーネントのストレステストにユーザフレンドリーな方法を提供してくれます。
+アドオンパネルの Controls タブを見てください。Controls はプロパティを適用するグラフィカル UI を自動生成します。例えば、「size」セレクト要素が提供されている Avatar のサイズ`tiny`、`small`、`medium`、`large`を通しで確認できます。残りのコンポーネントプロパティ (“loading”、“username”、“src”) も同様に、コンポーネントのストレステストにユーザーフレンドリーな方法を提供してくれます。
 
 <video autoPlay muted playsInline loop>
   <source

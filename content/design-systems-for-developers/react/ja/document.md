@@ -7,7 +7,7 @@ commit: '107bb03'
 
 [専門的な](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system)[フロントエンド](https://segment.com/blog/driving-adoption-of-a-design-system/)[チーム](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7)はデザインシステムの成功を採択によって測ります。デザインシステムから最大限に仕事の省力化の恩恵を得るために、コンポーネントは広く循環しなければなりません。そうでなければ、何の意味があるのでしょうか?
 
-本章では、ステークホルダーがアプリでコンポーネントを再利用する助けとなるデザインシステムの「ユーザマニュアル」を作成します。その過程で、Shopify、Microsoft、Auth0、イギリス政府のチームによる UI ドキュメンテーションのベストプラクティスを明らかにします。
+本章では、ステークホルダーがアプリでコンポーネントを再利用する助けとなるデザインシステムの「ユーザーマニュアル」を作成します。その過程で、Shopify、Microsoft、Auth0、イギリス政府のチームによる UI ドキュメンテーションのベストプラクティスを明らかにします。
 
 ![Generate docs with Storybook automatically](/design-systems-for-developers/design-system-generate-docs.jpg)
 
