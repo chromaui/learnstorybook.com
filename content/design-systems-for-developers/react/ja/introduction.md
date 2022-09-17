@@ -27,9 +27,9 @@ description: 'デザインシステムのために最新のリリース可能な
 
 ![Design systems bridge design and development](/design-systems-for-developers/design-system-context.jpg)
 
-デザイナーはデザインシステムを構築するツールについてよく話題にします。デザインシステムの全体的なスコープはアセット (Sketch、Figma、その他) 、デザイン原則の包括、仕組み作りへの貢献、管理、その他諸々を含みます。これらのトピックを深掘りするデザイナー中心のガイドは他で豊富にあるためここでは繰り返しません。
+デザイナーはデザインシステムを構築するツールについてよく話題にします。デザインシステムの全体的なスコープにはアセット (Sketch、Figma、その他) 、横断的なデザイン原則、貢献の仕組み作り、管理、その他色々な要素を含みます。これらのトピックを深掘りするデザイナー向けのガイドは他で豊富にあるためここでは繰り返しません。
 
-開発者にとってはっきりしていることがいくつかあります。本番のデザインシステムはその背後に UI コンポーネントとフロントエンドの基盤を組み込む必要があることです。当ガイドで触れるデザインシステムは３つのパートに分かれます:
+開発者に明確なことは少ないです。本番のデザインシステムは UI コンポーネントだけでなく、その背後にはフロントエンドの基盤を組み込む必要があります。当ガイドで触れるデザインシステムは３つのパートに分かれます:
 
 - 🏗 共通の再利用可能な UI コンポーネント
 - 🎨 デザイントークン: ブランドカラーやスペーシングのようなスタイリングに特化した変数
@@ -47,7 +47,7 @@ description: 'デザインシステムのために最新のリリース可能な
 
 Storybook は[BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours)、[Airbnb](https://github.com/airbnb/lunar)、[IBM](https://www.carbondesignsystem.com/)、[GitHub](https://primer.style/css/)、そして数百もの企業のデザインシステムを推進しています。ここでおすすめする内容は最も賢明なチームのベストプラクティスと手法から着想を得ています。私たちは次のフロントエンドスタックを構築していきます:
 
-#### ビルドコンポーネント
+#### コンポーネントビルド
 
 - 📚 [Storybook](http://storybook.js.org) UI コンポーネントの開発とドキュメントの自動生成
 - ⚛️ [React](https://reactjs.org/) 宣言的コンポーネント中心の UI (create-react-app を介して)
@@ -65,11 +65,11 @@ Storybook は[BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/stor
 
 #### Storybook アドオン
 
-- ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) 開発中のアクセシビリティの課題をチェックする
-- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions) 品質保証のためのクリックとタップのインタラクション
-- 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls) コンポーネントの検証にプロパティを対話的に適用する
+- ♿ [Accessibility](https://github.com/storybookjs/storybook/tree/master/addons/a11y) 開発時のアクセシビリティの課題をチェックする
+- 💥 [Actions](https://storybook.js.org/docs/react/essentials/actions) クリックとタップの品質を対話的に検査する
+- 🎛 [Controls](https://storybook.js.org/docs/react/essentials/controls) 対話的にプロパティを変更しコンポーネントを検証する
 - 📕 [Docs](https://storybook.js.org/docs/react/writing-docs/introduction) ストーリーから自動的に文書生成
-- 🔍 [Interactions](https://storybook.js.org/addons/@storybook/addon-interactions/) コンポーネントデバッグのインタラクション
+- 🔍 [Interactions](https://storybook.js.org/addons/@storybook/addon-interactions/) コンポーネントへのインタラクションのデバッグ
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow.jpg)
 
