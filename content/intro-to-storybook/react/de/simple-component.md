@@ -26,9 +26,7 @@ Lass uns zunächst eine Komponente für die Aufgaben anlegen sowie die zugehöri
 
 Zunächst starten wir mit dem Grundgerüst von `Task`, in dem wir einfach die benötigten Attribute und die zwei Aktionen mitnehmen, die auf einer Aufgabe ausgeführt werden können (um sie zwischen Listen hin und her zu bewegen):
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -44,9 +42,7 @@ Oben rendern wir ein einfaches Markup für `Task`, basierend auf der bestehenden
 
 Unten bilden wir die drei Test-Zustände, die `Task` einnehmen kann, in einer Story-Datei ab:
 
-```javascript
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -113,9 +109,7 @@ Beim Erstellen einer Story nutzen wir eine Basis-Aufgabe (`taskData`), um die St
 
 Wir müssen auch noch eine kleine Anpassung an der Storybook-Konfiguration (`.storybook/config.js`) vornehmen, so dass unsere `.stories.js`-Dateien und unsere CSS-Datei berücksichtigt werden. Standardmäßig sucht Storybook im Verzeichnis `/stories` nach Stories; dieses Tutorial verwendet ein Namens-Schema äquivalent zum `.test.js`-Namens-Schema, das von CRA für automatisierte Tests bevorzugt wird.
 
-```javascript
-// .storybook/config.js
-
+```js:title=.storybook/config.js
 import { configure } from '@storybook/react';
 import '../src/index.css';
 
@@ -137,9 +131,7 @@ Da wir Storybook jetzt eingerichtet, die Styles importiert und die Testfälle an
 
 Die Komponente ist noch immer sehr einfach gehalten. Schreib zunächst den Code, um das Design zu erhalten, ohne dass wir zu sehr ins Detail gehen:
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -183,9 +175,7 @@ Das obige zusätzliche Markup, zusammen mit dem CSS, das wir zuvor imporiert hab
 
 Es ist üblich, `propTypes` in React zu verwenden, um die Struktur der Daten zu spezifizieren, die eine Komponente erwartet. Das dient nicht nur als Dokumentation, sondern hilft auch dabei, Probleme früh abzufangen.
 
-```javascript
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -230,22 +220,20 @@ Stelle sicher, dass deine Kompoenten ein Output rendern, das sich nicht verände
 
 Mit dem [Storyshots-Addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) wird ein Snapshot-Test für jede deiner Stories generiert. Um es zu verwenden, füge eine `devDependency` in deiner `package.json` hinzu:
 
-```bash
+```shell
 yarn add --dev @storybook/addon-storyshots react-test-renderer require-context.macro
 ```
 
 Erstelle dann die Datei `src/storybook.test.js` mit folgendem Inhalt:
 
-```javascript
-// src/storybook.test.js
-
+```js:title=src/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```
 
 Du wirst auch ein [babel-Macro](https://github.com/kentcdodds/babel-plugin-macros) verwenden müssen, um sicherzustellen, dass `require.context` (etwas Webpack-Magie) in Jest (unser Test-Kontext) ausgeführt wird. Installiere es mit:
 
-```bash
+```shell
 yarn add --dev babel-plugin-macros
 ```
 
@@ -261,9 +249,7 @@ Und aktiviere es, indem du eine `.babelrc` Datei im Root-Ordner deiner App (dies
 
 Danach aktualisiere `.storybook/config.js` wie folgt:
 
-```js
-// .storybook/config.js
-
+```js:title=.storybook/config.js
 import { configure } from '@storybook/react';
 import requireContext from 'require-context.macro';
 

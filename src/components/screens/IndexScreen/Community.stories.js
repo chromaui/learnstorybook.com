@@ -6,7 +6,9 @@ export default {
   title: 'Screens/IndexScreen/Community',
 };
 
-const Story = args => <PureCommunity {...args} />;
+function Story(args) {
+  return <PureCommunity {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   contributors: [...Array(30)].map((_, index) => ({

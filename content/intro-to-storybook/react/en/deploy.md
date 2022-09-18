@@ -27,21 +27,21 @@ Go to GitHub and create a new repository for our project [here](https://github.c
 
 In the new repo, grab the origin URL of the repo and add it to your git project with this command:
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Finally, push our local repo to the remote repo on GitHub with:
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### Get Chromatic
 
 Add the package as a development dependency.
 
-```bash
+```shell
 yarn add -D chromatic
 ```
 
@@ -58,7 +58,7 @@ Click `Choose GitHub repo` under collaborators and select your repo.
 
 Copy the unique `project-token` that was generated for your project. Then execute it by issuing the following in the command line to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 
-```bash
+```shell
 yarn chromatic --project-token=<project-token>
 ```
 
@@ -111,19 +111,19 @@ jobs:
 
 In the command line, issue the following command to add the changes that you've made:
 
-```bash
+```shell
 git add .
 ```
 
 Then commit them by issuing:
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
 Finally, push them to the remote repository with:
 
-```bash
+```shell
 git push origin main
 ```
 

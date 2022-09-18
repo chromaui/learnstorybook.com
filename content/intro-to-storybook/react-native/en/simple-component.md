@@ -25,8 +25,7 @@ First, let’s create the task component and its accompanying story file: `compo
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```javascript
-// components/Task.js
+```js:title=components/Task.js
 import * as React from 'react';
 import { TextInput, SafeAreaView } from 'react-native';
 import { styles } from '../constants/globalStyles';
@@ -44,8 +43,7 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```javascript
-// components/Task.stories.js
+```js:title=components/Task.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
 import { styles } from '../constants/globalStyles';
@@ -64,7 +62,7 @@ export const actions = {
   onArchiveTask: action('onArchiveTask'),
 };
 storiesOf('Task', module)
-  .addDecorator(story => <View style={styles.TaskBox}>{story()}</View>)
+  .addDecorator((story) => <View style={styles.TaskBox}>{story()}</View>)
   .add('default', () => <Task task={task} {...actions} />)
   .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
   .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
@@ -97,8 +95,7 @@ When creating a story we use a base task (`task`) to build out the shape of the 
 
 We also have to make one small change to the Storybook configuration setup (`storybook/index.js`) so it notices our recently created stories.
 
-```javascript
-// storybook/index.js
+```js:title=storybook/index.js
 import { getStorybookUI, configure } from '@storybook/react-native';
 
 import './rn-addons';
@@ -130,8 +127,7 @@ Now we have Storybook set up, styles imported, and test cases built out, we can 
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```javascript
-// components/Task.js
+```js:title=components/Task.js
 import * as React from 'react';
 import { TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
 import { styles } from '../constants/globalStyles';
@@ -180,8 +176,7 @@ The additional markup from above combined with the styling we created earlier yi
 
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
 
-```javascript
-// src/components/Task.js
+```js:title=components/Task.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
@@ -226,14 +221,13 @@ Make sure your components render data that doesn't change, so that your snapshot
 
 With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots
 ```
 
 Then create an `components/__tests__/storybook.test.js` file with the following:
 
-```javascript
-// components/__tests__/storybook.test.js
+```js:title=components/__tests__/storybook.test.js
 import initStoryshots from '@storybook/addon-storyshots';
 initStoryshots();
 ```

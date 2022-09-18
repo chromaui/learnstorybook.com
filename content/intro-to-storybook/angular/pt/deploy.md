@@ -29,14 +29,14 @@ Se estiver a seguir o tutorial a partir da secção anterior de testes pode salt
 
 Quando o projeto foi inicializado pelo cli do angular, foi criado um repositório local. Nesta altura é seguro adicionar os ficheiros ao primeiro commit.
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 Agora pode ser feito o commit dos ficheiros.
 
-```bash
-$ git commit -m "taskbox UI";
+```shell
+git commit -m "taskbox UI";
 ```
 
 Navegue até ao GitHub e configure [aqui](https://github.com/new) um repositório. E vai ser atribuído o nome “taskbox”.
@@ -45,14 +45,14 @@ Navegue até ao GitHub e configure [aqui](https://github.com/new) um repositóri
 
 No novo repositório de código, copia-se o URL original deste, e adicionado ao projeto com o seguinte comando:
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Finalmente injeta-se o repositório no GitHub
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### Netlify

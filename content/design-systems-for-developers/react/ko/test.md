@@ -139,7 +139,6 @@ jobs:
 
 ```shell
 yarn add --dev @storybook/addon-a11y
-
 ```
 
 애드온을 `.storybook/main.js`에 추가:
@@ -162,7 +161,6 @@ module.exports = {
 `.storybook/preview.js`파일의 [parameters](https://storybook.js.org/docs/react/writing-stories/parameters)를 업데이트 하고, 다음의 `a11y`설정을 추가하세요.
 
 ```diff:title=.storybook/preview.js
-
 import React from 'react';
 
 import { GlobalStyle } from '../src/shared/global';

@@ -274,7 +274,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 [Storyshots 애드온(addon)](https://github.com/storybooks/storybook/tree/master/addons/storyshots)을 사용하면 각 스토리에 대한 스냅샷이 생성됩니다. 다음의 development dependencies를 추가해주세요.
 
-```bash
+```shell
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 

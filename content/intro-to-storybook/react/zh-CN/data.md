@@ -17,15 +17,13 @@ commit: '94b134e'
 
 在你的项目中添加必要的依赖：
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 
 首先,我们将构建一个简单的 Redux 存储,它在一个`src/lib/redux.js`中定义改变任务状态的操作 (故意保持简单) :
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -79,7 +77,7 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 然后我们将更新默认导出`TaskList`组件连接到 Redux 存储,并呈现我们感兴趣的任务:
 
-```javascript
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -125,8 +123,7 @@ export default connect(
 
 但是,我们可以通过简单地渲染`PureTaskList`来轻松解决这个问题 - 我们的 Storybook 故事中的表现部分:
 
-```javascript
-// src/components/TaskList.stories.js
+```js:title=src/components/TaskList.stories.js
 
 import React from 'react';
 

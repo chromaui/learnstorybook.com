@@ -36,9 +36,9 @@ Storybook is the industry-standard [component explorer](https://www.chromatic.co
 - ⚡️Developer experience tooling like Hot Module Reloading
 - 🛠Supports many view layers, including React
 
-Install and run Storybook
+Install and run Storybook with the following commands:
 
-```shell
+```shell:clipboard=false
 # Installs Storybook
 npx storybook init
 

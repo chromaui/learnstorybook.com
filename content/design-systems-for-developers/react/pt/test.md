@@ -49,13 +49,13 @@ A partir daí, escolha o seu repositório que contêm o sistema de design. Nos b
 
 Instale o pacote [chromatic](https://www.npmjs.com/package/chromatic) package via npm.
 
-```bash
+```shell
 yarn add --dev chromatic
 ```
 
 Abra uma nova consola e navegue até à pasta ou diretório do `design-system`. Em seguida execute o seu primeiro teste para gerar uma linha de base para os seus testes visuais posteriores (não se esqueça que terá que usar o app code fornecido pelo site da Chromatic)
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -63,7 +63,7 @@ npx chromatic --project-token=<project-token>
 
 A Chromatic gerou uma imagem como linha de base para cada estória! Iterações posteriores da execução de testes irão gerar um novo conjunto de imagens que irão ser comparadas contra as imagens da linha de base. Pode verificar isto através da alteração de um componente do IU e guardar as alterações. Abra o ficheiro (`src/shared/styles.js`) que contém os elementos de estilo globais e altere o tamanho da fonte.
 
-```javascript
+```js:title=src/shared/styles.js
 // …
 export const typography = {
   // ...
@@ -77,7 +77,7 @@ export const typography = {
 
 Execute o comando de testes de novo.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -89,7 +89,7 @@ Os testes visuais ajudam a identificar alterações do IU no Storybook. Reveja a
 
 Vamos agora adicionar testes visuais ao processo de integração contínua. Abra o ficheiro `.circleci/config.yml` e adicione o comand test
 
-```yml
+```yml:title=.circleci/config.yml
 version: 2
 jobs:
   build:
@@ -135,14 +135,14 @@ Visualmente, não é possível "ver" se o atributo `href` existe e aponta para a
 
 Vamos adicionar um teste unitário para o componente `Link`. Inicialmente o create-react-app configurou um ambiente de testes unitários, como tal será somente necessário criar o ficheiro `src/Link.test.js`:
 
-```javascript
+```js:title=src/Link.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from './Link';
 
 // A straightforward link wrapper that renders an <a> with the passed props. What we are testing
 // here is that the Link component passes the right props to the wrapper and itselfs
-const LinkWrapper = props => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
+const LinkWrapper = (props) => <a {...props} />; // eslint-disable-line jsx-a11y/anchor-has-content
 
 it('has a href attribute when rendering with linkWrapper', () => {
   const div = document.createElement('div');
@@ -183,14 +183,14 @@ De acordo com a [World Health Organization](https://www.who.int/disabilities/wor
 
 Obtenha um avanço com um IU inclusivo através do extra Accessibility do Storybook, uma ferramenta que verifica em tempo real os padrões standard de acessibilidade na Web (WCAG).
 
-```bash
+```shell
 yarn add --dev @storybook/addon-a11y
 
 ```
 
 Registe o extra em `.storybook/addons.js`:
 
-```javascript
+```js:title=.storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-links/register';
 import '@storybook/addon-storysource/register';
@@ -200,7 +200,7 @@ import '@storybook/addon-a11y/register';
 
 Em seguida adicione o decorador `withA11y` no ficheiro `.storybook/config.js`:
 
-```javascript
+```js:title=.storybook/config.js
 import React from 'react';
 import { configure, addDecorator } from '@storybook/react';
 import { withA11y } from '@storybook/addon-a11y';
@@ -209,7 +209,7 @@ import 'chromatic';
 import { GlobalStyle } from '../src/shared/global';
 
 addDecorator(withA11y);
-addDecorator(story => (
+addDecorator((story) => (
   <>
     <GlobalStyle />
     {story()}

@@ -38,13 +38,13 @@ Como utilizadores do Storybook, já temos um avanço, visto que as variações d
 
 Com o extra Docs do Storybook, podemos gerar documentação bastante rica a partir das estórias existentes, de forma a reduzir tempo associado a manutenção e obter os padrões prontos a usar. Com a consola aberta, navegue até à sua pasta ou diretório do sistema de design. E instale o extra de documentação:
 
-```bash
+```shell
 yarn add --dev @storybook/addon-docs
 ```
 
 Mas também iremos adicionar um _preset_ para este extra, crie o ficheiro `.storybook/presets.js` se ainda não existir. Note que a utilização deste ficheiro de preset, elimina a necessidade do `.storybook/webpack.config.js` e como tal pode ser eliminado:
 
-```javascript
+```js:title=.storybook/presets.js
 module.exports = ['@storybook/addon-docs/react/preset'];
 ```
 
@@ -60,7 +60,7 @@ Até agora foram feitos progressos enormes sem ser necessário muito esforço da
 
 Começe por adicionar metadados adicionais que explicam o que o componente faz. No ficheiro `src/Avatar.stories.js`, adicione uma legenda que descreve para que o Avatar é usado:
 
-```javascript
+```js:title=src/Avatar.stories.js
 export default {
   title: 'Design System|Avatar',
 
@@ -73,14 +73,14 @@ export default {
 
 Em seguida adicione JSdoc ao componente Avatar (no ficheiro `src/components/Avatar.js`) sob a forma de uma descrição que será posteriormente lida:
 
-```javascript
+```js:title=src/components/Avatar.js
 /**
 - Use an avatar for attributing actions or content to specific users.
 - The user's name should always be present when using Avatar – either printed beside
 - the avatar or in a tooltip.
 **/
 
-export function Avatar({ loading, username, src, size, ...props }) {
+export function Avatar({ loading, username, src, size, ...props }) {}
 ```
 
 Deverá ver algo do género:
@@ -89,14 +89,14 @@ Deverá ver algo do género:
 
 O Docs do Storybook gerou automaticamente a tabela de adereços (props na forma original) que apresenta quais os tipos e os valores por defeito. O que é extremamente conveniente, mas não garante que seja "á prova de bala"; diversos adereços (props na forma original) podem ser usados incorretamente. Adicione comentários aos proptypes para que sejam também renderizados na tabela de adereços (props na forma original) que é gerada automaticamente.
 
-```javascript
+```js:title=src/components/Avatar.js
 Avatar.propTypes = {
   /**
     Use the loading state to indicate that the data Avatar needs is still loading.
     */
   loading: PropTypes.bool,
   /**
-    Avatar falls back to the user's initial when no image is provided. 
+    Avatar falls back to the user's initial when no image is provided.
     Supply a `username` and omit `src` to see what this looks like.
     */
   username: PropTypes.string,
@@ -113,7 +113,7 @@ Avatar.propTypes = {
 
 Por defeito, cada estória associada ao Avatar é renderizada na tab docs já mencionada. Não podemos assumir que os outros programadores saibam o que representa cada uma delas. No ficheiro `src/Avatar.stories.js` escreva um texto descritivo para cada uma das estórias:
 
-```javascript
+```js:title=src/Avatar.stories.js
 export const sizes = () => (
   <div>
     <Avatar
@@ -153,14 +153,16 @@ O Markdown é um formato para escrita de texto bastante linear. O MDX permite-no
 
 Primeiro, vamos controlar a geração de documentação do Avatar a partir do padrão existente. Registe o tipo de ficheiros MDX em `.storybook/config.js` da seguinte forma.
 
-```javascript
+```js:title=.storybook/config.js
 // automatically import all files ending in *.stories.js|mdx
 configure(require.context('../src', true, /\.stories\.(js|mdx)$/), module);
 ```
 
 Crie um novo ficheiro `src/Avatar.stories.mdx` e adicione alguns detalhes. Em seguida vamos remover o ficheiro `Avatar.stories.js` e recriar as estórias existentes nesse ficheiro diretamente no ficheiro mdx:
 
-```mdx
+<!-- prettier-ignore-start -->
+
+```js:title=src/Avatar.stories.mdx
 import { Meta, Story } from '@storybook/addon-docs/blocks';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 
@@ -253,6 +255,8 @@ Experiment with this story with Knobs addon in Canvas mode.
 </Story>
 ```
 
+<!-- prettier-ignore-end -->
+
 No seu Storybook, a tab "Docs" associada ao componente Avatar, deverá ter sido substituída pela nova página que se encontra ainda algo "crua".
 
 ![documentação Storybook a partir de MDX](/design-systems-for-developers/storybook-docs-mdx-initial.png)
@@ -261,7 +265,7 @@ O Docs do Storybook vem com o "Doc Blocks", um conjunto de componentes prontos a
 
 Vamos adicionar o bloco de documentação `Props` e envolver a estória inicial num `Preview`
 
-```mdx
+```js:title=src/Avatar.stories.mdx
 import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
 
 # …
@@ -286,7 +290,7 @@ Fantástico! Voltámos ao ponto de partida, mas agora com controlo absoluto da o
 Altere a documentação do Avatar introduzindo uma nota acerca dos casos de uso. Isto
 oferece contexto aos programadores, sobre como tirar partido deste componente. Podemos adicionar apenas algum markdown tal como noutro documento qualquer:
 
-```mdx
+```js:title=src/Avatar.stories.mdx
 // As before
 
 <Props of={Avatar} />
@@ -311,7 +315,7 @@ Cada sistema de design vem com uma página de rosto. O Storybook Docs permite a 
 
 Crie um novo ficheiro `src/components/Intro.stories.mdx`:
 
-```mdx
+```js:title=src/components/Intro.stories.mdx
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Design System|Introduction" />
@@ -330,7 +334,7 @@ Isto gera uma nova página somente de documentação, que é independente das re
 
 Para que esta apareça primeiro, precisamos notificar o Storybook para carregar esta página primeiro:
 
-```javascript
+```js:title=.storybook/config.js
 configure(
   [
     require.context('../src', false, /Intro\.stories\.mdx/),
@@ -348,7 +352,7 @@ Se escreve documentação que ninguém lê, será útil? Não. Não chega soment
 
 Num capítulo anterior, publicámos o Storybook online para revisão visual. É bastante fácil usar o mesmo mecanismo para publicar a nossa documentação dos componentes também. Vamos adicionar um novo script ao ficheiro `package.json` para poder construir o nosso Storybook em modo de documentação:
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "build-storybook-docs": "build-storybook -s public --docs"

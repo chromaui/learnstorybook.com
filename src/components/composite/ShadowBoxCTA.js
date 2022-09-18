@@ -52,16 +52,18 @@ const Action = styled.div`
   }
 `;
 
-const ShadowBoxCTA = ({ action, headingText, messageText, ...rest }) => (
-  <ShadowBoxCTAWrapper {...rest}>
-    <TextWrapper>
-      <HeadingText>{headingText}</HeadingText>
-      <MessageText>{messageText}</MessageText>
-    </TextWrapper>
+function ShadowBoxCTA({ action, headingText, messageText, ...rest }) {
+  return (
+    <ShadowBoxCTAWrapper {...rest}>
+      <TextWrapper>
+        <HeadingText>{headingText}</HeadingText>
+        <MessageText>{messageText}</MessageText>
+      </TextWrapper>
 
-    <Action>{action}</Action>
-  </ShadowBoxCTAWrapper>
-);
+      <Action>{action}</Action>
+    </ShadowBoxCTAWrapper>
+  );
+}
 
 ShadowBoxCTA.propTypes = {
   headingText: PropTypes.node.isRequired,

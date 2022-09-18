@@ -38,7 +38,7 @@ description: '컴포넌트 라이브러리에서 디자인 시스템을 추출�
 
 터미널에 아래 명령어를 입력하여 실행해보세요.
 
-```shell
+```shell:clipboard=false
 # Clone the files
 npx degit chromaui/learnstorybook-design-system-template learnstorybook-design-system
 
@@ -56,7 +56,7 @@ yarn install
 
 그런 다음 깃허브에서 제공하는 명령어를 사용해 원격 깃(git) 저장소를 만듭니다. (처음 생성하면 거의 비어있는 상태일 것입니다.)
 
-```shell
+```shell:clipboard=false
 git init
 git add .
 git commit -m "first commit"
@@ -96,9 +96,7 @@ git push -u origin master
 
 ![컴포넌트 하나의 변형들](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
-
 샘플 코드에서는 저장소를 간단하게 만들기 위해 이러한 컴포넌트들의 일부만 가져왔습니다. 어떤 팀은 표나 폼과 같은 다른 컴포넌트 위해 외부 컴포넌트에 사용자 정의를 적용하여 디자인 시스템에 포함시키도 합니다.
-
 
 <div class="aside">💡 CSS-in-JS: 이 튜토리얼에서는 <a href="https://www.styled-components.com">Styled-components</a>를 사용합니다. 이 라이브러리를 사용하면 컴포넌트에 스타일링 범위를 지정할 수 있습니다. 컴포넌트를 스타일링하는 다른 유효한 방법으로는 class를 수동으로 지정하는 방법, CSS 모듈을 이용하는 방법 등이 있습니다.</div>
 

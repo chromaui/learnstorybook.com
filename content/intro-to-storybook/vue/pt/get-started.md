@@ -15,14 +15,14 @@ Ajuda-o a construir componentes de interface de utilizador (UI na forma original
 Precisamos de alguns passos extra para configurar o processo de compilação no nosso ambiente de desenvolvimento. Para começar queremos usar o pacote [Vue CLI](https://cli.vuejs.org), para compilação e permitir ao [Storybook](https://storybook.js.org/) e
 [Jest](https://facebook.github.io/jest/) fazerem testes na nossa aplicação. Vamos executar os seguintes comandos:
 
-```bash
+```shell:clipboard=false
 # Create our application, using a preset that contains jest:
 npx -p @vue/cli vue create taskbox --preset chromaui/vue-preset-learnstorybook
 
 cd taskbox
 
 # Add Storybook:
-npx -p @storybook/cli sb init
+npx storybook init
 ```
 
 <div class="aside">
@@ -32,7 +32,7 @@ Se tiver o Yarn instalado, mas preferir usar <code>npm</code>, não há qualquer
 
 Podemos rapidamente verificar que os vários ambientes da nossa aplicação estão a funcionar corretamente:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test:unit
 
@@ -54,7 +54,7 @@ Mas, visto que o nosso foco é a criação de um único componente de interface 
 
 A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), logo não precisamos escrever CSS neste tutorial. Copie e cole o [CSS compilado](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) no ficheiro (ou arquivo) `src/index.css` e em seguida importe o CSS para a aplicação editando a tag `<style>` no ficheiro (ou arquivo) `src/App.vue` para que fique assim:
 
-```html
+```html:title=src/App.vue
 <style>
   @import './index.css';
 </style>
@@ -72,14 +72,14 @@ De forma a igualar o design pretendido do tutorial, terá que transferir as past
 
 <div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aqui</a>.</p></div>
 
-```bash
+```shell
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
 ```
 
 E também atualizar o nosso script de execução do storybook (no `package.json`) para servir a pasta `public`
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "storybook": "start-storybook -p 6006 -s public"

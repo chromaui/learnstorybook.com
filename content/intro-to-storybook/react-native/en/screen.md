@@ -12,14 +12,14 @@ In this chapter we continue to increase the sophistication by combining componen
 
 As our app is very simple, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Redux) in some layout and pulling a top-level `error` field out of redux (let's assume we'll set that field if we have some problem connecting to our server). Create `PureInboxScreen.js` in your `components` folder:
 
-```javascript
-// components/PureInboxScreen.js
+```js:title=components/PureInboxScreen.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import PercolateIcons from '../constants/Percolate';
 import TaskList from './TaskList';
 import { Text, SafeAreaView, View } from 'react-native';
 import { styles } from '../constants/globalStyles';
+
 const PureInboxScreen = ({ error }) => {
   if (error) {
     return (
@@ -56,8 +56,7 @@ export default PureInboxScreen;
 
 Then we create a container which grabs the data for `PureInboxScreen` in `screens/InboxScreen.js`
 
-```javascript
-// screens/InboxScreen.js
+```js:title=screens/InboxScreen.js
 import * as React from 'react';
 import { connect } from 'react-redux';
 import PureInboxScreen from '../components/PureInboxScreen';
@@ -71,8 +70,7 @@ export default connect(({ error }) => ({ error }))(InboxScreen);
 
 We also change the `HomeScreen` component to render the `InboxScreen` (eventually we would use a more complex structure to choose the correct screen, but let's not worry about that here):
 
-```javascript
-// screens/HomeScreen.js
+```js:title=screens/HomeScreen.js
 import * as React from 'react';
 import { Provider } from 'react-redux';
 import store from '../lib/redux';
@@ -96,8 +94,7 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 
 However, for the `PureInboxScreen` we have a problem because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense the `PureInboxScreen` has been polluted by “container-ness”. So when we set up our stories in `PureInboxScreen.stories.js`:
 
-```javascript
-// components/PureInboxScreen.stories.js
+```js:title=components/PureInboxScreen.stories.js
 import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import PureInboxScreen from './PureInboxScreen';
@@ -123,8 +120,7 @@ As an aside, passing data down the hierarchy is a legitimate approach, especiall
 
 The good news is that it is easy to supply a Redux store to the `PureInboxScreen` in a story! We can just use a mocked version of the Redux store provided in a decorator:
 
-```javascript
-// components/PureInboxScreen.stories.js
+```js:title=components/PureInboxScreen.stories.js
 import * as React from 'react';
 import { storiesOf } from '@storybook/react-native';
 import { action } from '@storybook/addon-actions';
@@ -144,7 +140,7 @@ const store = {
 };
 
 storiesOf('PureInboxScreen', module)
-  .addDecorator(story => <Provider store={store}>{story()}</Provider>)
+  .addDecorator((story) => <Provider store={store}>{story()}</Provider>)
   .add('default', () => <PureInboxScreen />)
   .add('error', () => <PureInboxScreen error="Something" />);
 ```

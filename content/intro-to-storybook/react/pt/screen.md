@@ -14,9 +14,7 @@ Neste capitulo, irá ser acrescida um pouco mais a sofisticação, através da c
 
 Visto que a aplicação é deveras simples, o ecrã a ser construído é bastante trivial, simplesmente envolvendo o componente `TaskList` (que fornece os seus dados via Redux), a um qualquer layout e extraindo o campo de topo `erro` oriundo do Redux (assumindo que este irá ser definido caso exista algum problema na ligação ao servidor). Dentro da pasta `components` vai ser adicionado o ficheiro `InboxScreen.js`:
 
-```javascript
-// src/components/InboxScreen.js
-
+```js:title=src/components/InboxScreen.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -61,7 +59,7 @@ export default connect(({ error }) => ({ error }))(PureInboxScreen);
 
 Vai ser necessário alterar o componente `App` de forma a ser possível renderizar o `InboxScreen` (eventualmente iria ser usado um roteador para escolher o ecrã apropriado, mas não é necessário preocupar-se com isso agora):
 
-```javascript
+```js:title=src/App.js
 import React from 'react';
 import { Provider } from 'react-redux';
 import store from './lib/redux';
@@ -88,9 +86,7 @@ Irá ser feito algo similar para o `PureInboxScreen` no Storybook também.
 
 No entanto para o `PureInboxScreen` existe um problema, isto porque apesar deste ser de apresentação, o seu "filho", ou seja a `TaskList` não o é. De certa forma o `PureInboxScreen` foi poluído pelo "container-ness". Com isto quando forem adicionadas as estórias ao ficheiro `InboxScreen.stories.js`:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
 
 import { PureInboxScreen } from './InboxScreen';
@@ -121,9 +117,7 @@ No entanto, algum programador **irá querer** renderizar contentores num nível 
 
 As boas noticias é que é extremamente fácil fornecer uma loja Redux ao componente `InboxScreen` numa estória! Pode ser usada uma versão simulada, que é fornecida através de um decorador:
 
-```javascript
-// src/components/InboxScreen.stories.js
-
+```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 import { Provider } from 'react-redux';

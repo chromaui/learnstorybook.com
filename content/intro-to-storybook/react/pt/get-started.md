@@ -18,14 +18,14 @@ Precisamos de alguns passos extra para configurar o processo de compilação no 
 Para começar queremos usar o pacote [Create React App](https://github.com/facebook/create-react-app) ou como é vulgarmente conhecido (CRA), para compilação e permitir ao [Storybook](https://storybook.js.org/) e
 [Jest](https://facebook.github.io/jest/) fazerem testes na nossa aplicação. Vamos executar os seguintes comandos:
 
-```bash
+```shell:clipboard=false
 # Create our application:
 npx create-react-app taskbox
 
 cd taskbox
 
 # Add Storybook:
-npx -p @storybook/cli sb init
+npx storybook init
 ```
 
 <div class="aside">
@@ -35,7 +35,7 @@ Se tiver o Yarn instalado, mas preferir usar <code>npm</code>, não há qualquer
 
 Podemos rapidamente verificar que os vários ecossistemas da nossa aplicação estão a funcionar corretamente:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test
 
@@ -71,7 +71,7 @@ A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https:/
 
 De forma a igualar o design pretendido do tutorial, terá que transferir as pastas (ou diretórios) dos ícones e fontes para dentro da pasta `src/assets`.
 
-```bash
+```shell
 npx degit chromaui/learnstorybook-code/src/assets/font src/assets/font
 npx degit chromaui/learnstorybook-code/src/assets/icon src/assets/icon
 ```

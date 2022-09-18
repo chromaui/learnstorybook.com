@@ -21,12 +21,14 @@ const Label = styled.div`
   margin-top: 5px;
 `;
 
-const Stat = ({ label, value, ...rest }) => (
-  <StatWrapper {...rest}>
-    <Value>{value}</Value>
-    <Label>{label}</Label>
-  </StatWrapper>
-);
+function Stat({ label, value, ...rest }) {
+  return (
+    <StatWrapper {...rest}>
+      <Value>{value}</Value>
+      <Label>{label}</Label>
+    </StatWrapper>
+  );
+}
 
 Stat.propTypes = {
   label: PropTypes.string.isRequired,

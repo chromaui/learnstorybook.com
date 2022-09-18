@@ -15,7 +15,7 @@ Storybook 與 App 的開發模式一起運作，協助將 App 裡 UI 元件的�
 
 執行以下指令：
 
-```bash
+```shell:clipboard=false
 # Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
@@ -31,7 +31,7 @@ yarn
 
 現在，可以來快速檢查應用程式的不同環境是否正常運作：
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
@@ -57,25 +57,25 @@ yarn start
 這時候已經可以安心在本地端 Repository 放進檔案。依照下方指令啟動本地端 Repository，然後將目前做好的東西提交變更。
 
 ```shell
-$ git init
+git init
 ```
 
 接著：
 
 ```shell
-$ git branch -M main
+git branch -M main
 ```
 
 然後：
 
 ```shell
-$ git add .
+git add .
 ```
 
 最後：
 
 ```shell
-$ git commit -m "first commit"
+git commit -m "first commit"
 ```
 
 開始打造第一個元件吧！

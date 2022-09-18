@@ -18,14 +18,14 @@ Precisamos de alguns passos extra para configurar o processo de compilação no 
 
 Para tal vamos executar os seguintes comandos:
 
-```bash
+```shell:clipboard=false
 # Create our application (using less as the style pre processor):
 npx -p @angular/cli ng new taskbox --style css
 
 cd taskbox
 
 # Add Storybook:
-npx -p @storybook/cli sb init
+npx storybook init
 ```
 
 ## Configurar o Jest para funcionar com Angular
@@ -34,7 +34,7 @@ Já temos dois dos três ambientes configurados na nossa aplicação, mas ainda 
 
 Execute o comando seguinte numa consola:
 
-```bash
+```shell
 npm install -D jest @types/jest jest-preset-angular@7.1.1 @testing-library/angular @testing-library/jest-dom @babel/preset-env @babel/preset-typescript
 ```
 
@@ -42,14 +42,13 @@ Uma vez terminado o processo de instalação destes novos pacotes, crie uma past
 
 Vamos começar por adicionar um ficheiro (ou arquivo) chamado `globalMocks.ts` com o seguinte:
 
-```typescript
-// src/jest-config/globalMocks.ts
+```ts:title=src/jest-config/globalMocks.ts
 const mock = () => {
   let storage = {};
   return {
-    getItem: key => (key in storage ? storage[key] : null),
+    getItem: (key) => (key in storage ? storage[key] : null),
     setItem: (key, value) => (storage[key] = value || ''),
-    removeItem: key => delete storage[key],
+    removeItem: (key) => delete storage[key],
     clear: () => (storage = {}),
   };
 };
@@ -63,8 +62,7 @@ Object.defineProperty(window, 'getComputedStyle', {
 
 Adicionamos um outro chamado `setup.ts` com o seguinte conteúdo:
 
-```typescript
-// src/jest-config/setup.ts
+```ts:title=src/jest-config/setup.ts
 import 'jest-preset-angular';
 import './globalMocks';
 
@@ -73,23 +71,20 @@ Object.defineProperty(global, 'Promise', { writable: false, value: global.Promis
 
 Em seguida, uma vez mais dentro da mesma pasta (ou diretório) um outro ficheiro chamado `styleMock.js` com o seguinte conteúdo:
 
-```javascript
-// src/jest-config/styleMock.js
+```js:title=src/jest-config/styleMock.js
 module.exports = {};
 ```
 
 E finalmente dentro desta pasta (ou diretório), um último ficheiro chamado `fileMock.js` com o conteúdo seguinte:
 
-```javascript
-// src/jest-config/fileMock.js
+```js:title=src/jest-config/fileMock.js
 module.exports = 'file-stub';
 ```
 
 E finalmente na raíz do projeto crie um ficheiro chamado `babel.config.js` com o conteúdo seguinte:
 
-```javascript
-// babel.config.js
-module.exports = function(api) {
+```js:title=babel.config.js
+module.exports = function (api) {
   process.env.NODE_ENV === 'development' ? api.cache(false) : api.cache(true);
   const presets = [
     [
@@ -112,7 +107,7 @@ module.exports = function(api) {
 
 Uma vez criados estes ficheiros (ou arquivos) vamos ter que adicionar um novo elemento ao ficheiro `package.json` com o seguinte:
 
-```json
+```json:clipboard=false
 {
   ....
    "jest": {
@@ -173,7 +168,7 @@ Em seguida vão ter que ser feitas algumas alterações aos ficheiros (ou arquiv
 
 Começando pelo `tsconfig.spec.json` adicione os elementos seguintes ao `compilerOptions`:
 
-```json
+```json:clipboard=false
 {
  "compilerOptions": {
   ....
@@ -185,7 +180,7 @@ Começando pelo `tsconfig.spec.json` adicione os elementos seguintes ao `compile
 
 E altere o elemento `types` para o seguinte:
 
-```json
+```json:clipboard=false
 {
   "compilerOptions": {
     "types": ["jest", "jquery", "jsdom", "node"]
@@ -197,7 +192,7 @@ Uma vez terminadas estas alterações passamos agora para o ficheiro (ou arquivo
 
 E finalmente no ficheiro (ou arquivo) `tsconfig.app.json`, adicione a referência à pasta (ou diretório) que acabámos de criar, dentro do elemento `exclude`. Transformando o conteúdo deste elemento no seguinte:
 
-```json
+```json:clipboard=false
 {
   "exclude": ["src/test.ts", "src/**/*.spec.ts", "**/*.stories.ts", "src/jest-config"]
 }
@@ -207,7 +202,7 @@ Estamos quase lá, faltam somente três alterações adicionais para terminar a 
 
 Adicione o seguinte ao ficheiro `.storybook/tsconfig.json`:
 
-```json
+```json:clipboard=false
 {
   ...
   "compilerOptions": {
@@ -221,7 +216,7 @@ Adicione o seguinte ao ficheiro `.storybook/tsconfig.json`:
 
 Com estas alterações todas, vamos precisar de um script para que os nossos testes possam ser feitos, então vamos adicionar o script seguinte no ficheiro `package.json`:
 
-```json
+```json:clipboard=false
 {
   ....
   "scripts":{
@@ -233,7 +228,7 @@ Com estas alterações todas, vamos precisar de um script para que os nossos tes
 
 E finalmente atualizar o ficheiro (ou arquivo) de testes que foi criado durante a inicialização da nossa aplicação, mas especificamente o ficheiro (ou arquivo) `src/app/app.component.spec.ts` para o seguinte:
 
-```typescript
+```ts:title=src/app/app.component.spec.ts
 import { render } from '@testing-library/angular';
 import { AppComponent } from './app.component';
 
@@ -247,7 +242,7 @@ describe('AppComponent', () => {
 
 Podemos rapidamente verificar que os vários ambientes da nossa aplicação estão a funcionar corretamente:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal (we will add Jest along the way):
 npm run jest
 
@@ -271,7 +266,7 @@ A Taskbox reutiliza elementos de design deste [tutorial React e GraphQL](https:/
 
 E faça uma pequena alteração de forma que os ícones da fonte `percolate` que vamos usar sejam adicionados de forma correta na nossa aplicação Angular.
 
-```css
+```css:title=src/styles.css
 @font-face {
   font-family: 'percolate';
   src: url('/assets/icon/percolate.eot?-5w3um4');
@@ -295,7 +290,7 @@ De forma a igualar o design pretendido do tutorial, terá que transferir as past
 
 <div class="aside"> Foi usado o svn (Subversion) para facilitar a transferência das pastas (ou diretórios) do GitHub. Se não tiver o subversion instalado, ou pretender transferir manualmente, pode obtê-las <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">aqui</a>.</p></div>
 
-```bash
+```shell:clipboard=false
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon src/assets/icon
 svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/font src/assets/font
 ```

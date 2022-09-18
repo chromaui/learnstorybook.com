@@ -17,7 +17,7 @@ Este ejemplo utiliza [Vuex](https://vuex.vuejs.org), la librería mas popular de
 
 Primero, instala vuex con:
 
-```bash
+```shell
 yarn add vuex
 ```
 

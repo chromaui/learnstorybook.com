@@ -41,9 +41,7 @@ Controls nous a permis de vérifier rapidement les différentes entrées d'un co
 
 Maintenant, réglons le problème du débordement en ajoutant un style à `Task.js`:
 
-```js
-// src/components/Task.js
-
+```js:title=src/components/Task.js
 <input
   type="text"
   value={title}
@@ -63,9 +61,7 @@ Problème résolu! Le texte est maintenant tronqué lorsqu'il atteint la limite 
 
 Ajoutez un nouveau story pour le cas du texte long dans `Task.stories.js`:
 
-```js
-// src/components/Task.stories.js
-
+```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 export const LongTitle = Template.bind({});

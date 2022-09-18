@@ -15,7 +15,7 @@ We'll need to follow a few steps to get the build process set up in our environm
 
 Let’s run the following commands:
 
-```bash
+```shell:clipboard=false
 # Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
@@ -31,7 +31,7 @@ yarn
 
 Now we can quickly check that the various environments of our application are working properly:
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
@@ -57,25 +57,25 @@ Depending on what part of the app you’re working on, you may want to run one o
 At this stage it's safe to add our files to a local repository. Run the following commands to initialize a local repository, add and commit the changes we've done so far.
 
 ```shell
-$ git init
+git init
 ```
 
 Followed by:
 
 ```shell
-$ git add .
+git add .
 ```
 
 Then:
 
 ```shell
-$ git commit -m "first commit"
+git commit -m "first commit"
 ```
 
 And finally:
 
 ```shell
-$ git branch -M main
+git branch -M main
 ```
 
 Let's start building our first component!

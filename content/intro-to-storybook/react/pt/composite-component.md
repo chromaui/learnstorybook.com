@@ -26,9 +26,7 @@ Um componente composto não é em nada diferente do componente básico contido d
 
 Comece por uma implementação em bruto da `TaskList`. Será necessário importar o componente `Task` criado anteriormente e injetar os atributos e as respetivas ações como inputs.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -61,9 +59,7 @@ export default TaskList;
 
 Em seguida iremos criar os estados de teste do `TaskList` no ficheiro de estórias respetivo.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
 import TaskList from './TaskList';
@@ -120,9 +116,7 @@ Pode agora verificar-se o Storybook com as estórias novas associadas á `Taskli
 
 O componente ainda se encontra num estado bruto, mas já temos uma ideia de quais são as estórias com que temos que trabalhar. Poderá estar a pensar que ao usar-se o `.list-items` no componente como invólucro é deveras simples. Mas tem razão, na maioria dos casos não iria ser criado um novo componente somente para adicionar um invólucro. A **verdadeira complexidade** do componente `TaskList` é revelada com os casos extremos `WithPinnedTasks`, `loading` e `empty`.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -200,9 +194,7 @@ Repare na posição do item que está confirmado na lista. Pretende-se que este 
 À medida que o componente tem tendência em crescer, o mesmo irá acontecer com os seus requisitos. Visto que `Task` é um componente filho, é necessário fornecer os dados estruturados corretamente ao componente `TaskList` de forma que possa ser renderizado corretamente.
 De forma a poupar tempo podemos reutilizar os adereços (propTypes) que foram definidos anteriormente no componente `Task`.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -246,9 +238,7 @@ De forma a evitar este problema em concreto, podemos usar o Jest, de forma que e
 
 Iremos começar por criar um ficheiro de testes denominado `TaskList.test.js`. Neste ficheiro estarão contidos os testes que irão fazer asserções acerca do valor de saída.
 
-```javascript
-// src/components/TaskList.test.js
-
+```js:title=src/components/__tests__/TaskList.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { WithPinnedTasks } from './TaskList.stories';

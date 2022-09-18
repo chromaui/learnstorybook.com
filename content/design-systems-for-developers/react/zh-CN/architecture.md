@@ -37,7 +37,7 @@ commit: 'c9eced8'
 
 根据 [State of JS](https://stateofjs.com/) 的调查，React 是目前最受欢迎的视图层（view layer）。大量的 Storybook 都是使用 React 的，因此我们在本教程中将使用与 React 一起流行的 [create-react-app](https://github.com/facebook/create-react-app) 来创建基于 React 的设计系统。
 
-```bash
+```shell
 npx create-react-app learnstorybook-design-system
 ```
 
@@ -49,7 +49,7 @@ npx create-react-app learnstorybook-design-system
 
 然后按照 GitHub 的说明将远程服务器添加到您的 git 仓库中，并提交（到目前为止大部分为空）仓库：
 
-```bash
+```shell:clipboard:false
 cd learnstorybook-design-system
 git remote add origin https://github.com/chromaui/learnstorybook-design-system.git
 git push -u origin master
@@ -86,7 +86,7 @@ git push -u origin master
 
 将我们方才下载的组件添加到您的组件库中并且删除 Create React App 默认提供的应用程序文件。
 
-```bash
+```shell:clipboard:false
 rm -rf src
 
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-1/src
@@ -101,7 +101,7 @@ svn export https://github.com/chromaui/learnstorybook-design-system/tags/downloa
 
 接下来我们还需要更新组件所依赖的依赖项。
 
-```bash
+```shell
 yarn add prop-types styled-components polished
 ```
 
@@ -111,7 +111,7 @@ yarn add prop-types styled-components polished
 
 下载我们的设计变量并添加到您的组件库中
 
-```bash
+```shell
 svn export https://github.com/chromaui/learnstorybook-design-system/tags/download-2/src/shared src/shared
 ```
 

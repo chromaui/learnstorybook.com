@@ -20,19 +20,19 @@ Pour commencer, cliquez sur le bouton **Use this template** sur le [dépôt de l
 
 Ensuite, clonez le dépôt et installez les dépendances.
 
-```bash
+```shell
 yarn
 ```
 
 L'Addon Kit est écrit en TypeScript par défaut mais, par soucis de simplification pour ce tutoriel, nous utiliserons la commande eject pour avoir du simple JavaScript.
 
-```bash
+```shell
 yarn eject-ts
 ```
 
 Enfin, lancez le mode développement afin de démarrer Storybook et Babel en mode watch.
 
-```bash
+```shell
 yarn start
 ```
 

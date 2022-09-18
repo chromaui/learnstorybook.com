@@ -31,7 +31,7 @@ commit: 'af610d9'
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
@@ -41,7 +41,7 @@ git remote add origin https://github.com/<your username>/taskbox.git
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git push -u origin main
 ```
 
@@ -53,7 +53,7 @@ git push -u origin main
 
 <div style="direction: ltr">
 
-```bash
+```shell
 yarn add -D chromatic
 ```
 
@@ -74,7 +74,7 @@ yarn add -D chromatic
 
 <div style="direction: ltr">
 
-```bash
+```shell
 yarn chromatic --project-token=<project-token>
 ```
 
@@ -135,7 +135,7 @@ jobs:
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git add .
 ```
 
@@ -145,7 +145,7 @@ git add .
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
@@ -155,7 +155,7 @@ git commit -m "GitHub action setup"
 
 <div style="direction: ltr">
 
-```bash
+```shell
 git push origin main
 ```
 

@@ -29,14 +29,13 @@ Knobs is an amazing resource for designers and developers to experiment and play
 
 First, we will need to install all the necessary dependencies.
 
-```bash
+```shell
 yarn add -D @storybook/addon-knobs @storybook/addon-ondevice-knobs
 ```
 
 Register Knobs in your `storybook/addons.js` file.
 
-```javascript
-// storybook/addons.js
+```js:title=storybook/addons.js
 import '@storybook/addon-actions/register';
 import '@storybook/addon-knobs/register';
 import '@storybook/addon-links/register';
@@ -44,8 +43,7 @@ import '@storybook/addon-links/register';
 
 And also in `storybook/rn-addons.js`.
 
-```javascript
-// storybook/rn-addons.js
+```js:title=storybook/rn-addons.js
 import '@storybook/addon-ondevice-actions/register';
 import '@storybook/addon-ondevice-knobs/register';
 ```
@@ -64,8 +62,7 @@ Let's use the object knob type in the `Task` component.
 
 First, import the `withKnobs` decorator and the `object` knob type to `Task.stories.js`:
 
-```javascript
-// components/Task.stories.js
+```js:title=components/Task.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
@@ -74,15 +71,13 @@ import { withKnobs, object } from '@storybook/addon-knobs';
 
 Next, within the stories of `Task`, pass `withKnobs` as a parameter to the `addDecorator()` function:
 
-```javascript
-// components/Task.stories.js
+```js:title=components/Task.stories.js
 storiesOf('Task', module).addDecorator(withKnobs).add(/*...*/);
 ```
 
 Lastly, integrate the `object` knob type within the "default" story:
 
-```javascript
-// components/Task.stories.js
+```js:title=components/Task.stories.js
 storiesOf('Task', module)
   .addDecorator(withKnobs)
   .add('default', () => <Task task={object('task', { ...task })} {...actions} />)
@@ -106,8 +101,7 @@ Additionally, with easy access to editing passed data to a component, QA Enginee
 
 Thanks to quickly being able to try different inputs to a component we can find and fix such problems with relative ease! Let's fix the issue with overflowing by adding a style to `Task.js`:
 
-```javascript
-// components/Task.js
+```js:title=components/Task.js
 // This is the input for our task title. It was changed to a simple text contrary to textinput,
 // to illustrate how to see what's intended
 <Text
@@ -129,8 +123,7 @@ Of course we can always reproduce this problem by entering the same input into t
 
 Let's add a story for the long text case in Task.stories.js:
 
-```javascript
-// components/Task.stories.js
+```js:title=components/Task.stories.js
 const longTitle = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
 storiesOf('Task', module)

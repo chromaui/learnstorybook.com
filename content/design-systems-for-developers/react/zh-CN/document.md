@@ -37,15 +37,13 @@ commit: '9e4a7d3'
 
 借助于 Storybook 的文档插件，我们可以从现有的 stories 中生成丰富的文档，它可以减少您的维护时间且默认情况下开箱即用。首先，跳转到您的设计系统根目录下，我们将安装文档插件：
 
-```bash
+```shell
 yarn add --dev @storybook/addon-docs
 ```
 
 在文件 `.storybook/main.js` 中添加插件:
 
-```javascript
-// .storybook/main.js
-
+```js:title:.storybook/main.js
 module.exports = {
   stories: ['../src/**/*.stories.js'],
   addons: [
@@ -76,9 +74,7 @@ Storybook Docs 插件在运行时帮您的每个组件创建了一个 "Docs" 选
 
 首先添加更多的元数据来阐述组件到底是做什么的。 在文件 `src/Avatar.stories.js` 中添加一个副标题来阐述 Avatar 组件是做什么的：
 
-```javascript
-// src/Avatar.stories.js
-
+```js:title=src/Avatar.stories.js
 export default {
   title: 'Design System|Avatar',
 
@@ -91,15 +87,14 @@ export default {
 
 然后给 Avatar 添加 JSDoc（在文件 `src/components/Avatar.js` 中），它为该组件提供了相应的描述。
 
-```javascript
-// src/components/Avatar.js
+```js:title=src/components/Avatar.js
 
 /**
 - Use an avatar for attributing actions or content to specific users.
 - The user's name should always be present when using Avatar – either printed beside the avatar or in a tooltip.
 **/
 
-export function Avatar({ loading, username, src, size, ...props }) {
+export function Avatar({ loading, username, src, size, ...props }) {}
 ```
 
 您应该可以看到下图:
@@ -108,14 +103,14 @@ export function Avatar({ loading, username, src, size, ...props }) {
 
 Storybook Docs 插件会自动生成表示组件属性类型和默认值的表格，这看起来很方便，但是这并不意味着不会有人用错 —— 很多人都可能会错用某些属性。所以我们可以在自动生成的表格中给您的每个属性添加标注。
 
-```javascript
+```js:title=src/components/Avatar.js
 Avatar.propTypes = {
   /**
     Use the loading state to indicate that the data Avatar needs is still loading.
     */
   loading: PropTypes.bool,
   /**
-    Avatar falls back to the user's initial when no image is provided. 
+    Avatar falls back to the user's initial when no image is provided.
     Supply a `username` and omit `src` to see what this looks like.
     */
   username: PropTypes.string,
@@ -132,9 +127,7 @@ Avatar.propTypes = {
 
 默认情况下，每个 Avatar story 都会被渲染在文档中，我们不能假设其他的开发人员知道每个 story 代表什么。您可以在 `src/Avatar.stories.js` 文件中为每个 story 添加一些描述文本：
 
-```javascript
-// src/Avatar.stories.js
-
+```js:src/Avatar.stories.js
 export const sizes = () => (
   <div>
     <Avatar
@@ -174,9 +167,7 @@ Markdown 是一个格式简单的文本编辑工具，MDX 允许您在 Markdown 
 
 首先我们修改由插件生成默认的 Avatar 文档。如下在文件 `.storybook/main.js` 中注册 MDX。
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   // automatically import all files ending in *.stories.js|mdx
   stories: ['../src/**/*.stories.(js|mdx)'],
@@ -194,9 +185,9 @@ module.exports = {
 
 创建一个新文件 `src/Avatar.stories.mdx` 并提供一些组件详细信息。我们将删除 `Avatar.stories.js` 文件并重新使用 mdx 来创建 stories。
 
-```javascript
-// src/Avatar.stories.mdx
+<!-- prettier-ignore-start -->
 
+```js:title=src/Avatar.stories.mdx
 import { Meta, Story } from '@storybook/addon-docs/blocks';
 import { withKnobs, select, boolean } from '@storybook/addon-knobs';
 
@@ -287,6 +278,8 @@ Experiment with this story with Knobs addon in Canvas mode.
 </Story>
 ```
 
+<!-- prettier-ignore-end -->
+
 在 Storybook 中，您的 Avatar 组件的“docs”选项卡的内容应该被替换为 MDX 的内容。
 
 ![Storybook docs from MDX](/design-systems-for-developers/storybook-docs-mdx-initial.png)
@@ -295,9 +288,7 @@ Storybook Docs 插件随附“文档块”和现成的组件如：交互预览�
 
 让我们来添加`属性`文档块，并将我们的原始组件封装在`预览`中
 
-```javascript
-// src/Avatar.stories.mdx
-
+```js:title=src/Avatar.stories.mdx
 import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
 
 # …
@@ -321,8 +312,7 @@ import { Meta, Story, Props, Preview } from '@storybook/addon-docs/blocks';
 
 通过添加用例的方式自定义 Avatar 文档可以为开发者提供更多如何使用该组件的上下文。我们可以像在其他 markdown 文档中一样为组件的文档添加 markdown：
 
-```javascript
-// src/Avatar.stories.mdx
+```js:title=src/Avatar.stories.mdx
 
 // 和之前内容相同
 
@@ -346,9 +336,7 @@ Avatar is used to represent a person or an organization. By default the avatar s
 
 创建一个新文件 `src/components/Intro.stories.mdx`:
 
-```javascript
-// src/components/Intro.stories.mdx
-
+```js:title=src/components/Intro.stories.mdx
 import { Meta } from '@storybook/addon-docs/blocks';
 
 <Meta title="Design System|Introduction" />
@@ -366,9 +354,7 @@ Learn more at [Learn Storybook](https://learnstorybook.com).
 
 为了让它出现在首页，我们需要在文件 `.storybook/main.js` 文件中告诉 Storybook 去加载封面文件：
 
-```javascript
-// .storybook/main.js
-
+```js:title=.storybook/main.js
 module.exports = {
   // changes the load order of our stories. First loads the Intro page
   // automatically import all files ending in *.stories.js|mdx
@@ -393,7 +379,7 @@ module.exports = {
 
 在之前的章节里，我们为了做视觉审查发布了在线版的 Storybook。我们也可以使用同样的机制去发布我们的组件文档。让我们在 `package.json` 添加一个新的脚本并用文档模式来构建我们的 Storybook：
 
-```json
+```json:clipboard=false
 {
   "scripts": {
     "build-storybook-docs": "build-storybook -s public --docs"

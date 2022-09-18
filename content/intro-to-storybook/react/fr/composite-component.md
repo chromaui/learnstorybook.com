@@ -23,9 +23,7 @@ Un composant complexe n'est pas très différent des composants de base qu'il co
 
 Commencez par une implémentation grossière de la `TaskList`. Vous devrez importer le composant `Task` de la version précédente et lui passer les attributs et les actions en entrée.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -58,9 +56,7 @@ export default TaskList;
 
 Ensuite, créez les états de test de la `Tasklist` dans le fichier story.
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
 import TaskList from './TaskList';
@@ -132,9 +128,7 @@ Maintenant, regardez dans Storybook pour les nouveau story de la `TaskList`.
 
 Notre composant est encore rudimentaire, mais nous avons maintenant une idée des story à travailler. Vous pensez peut-être que la présentation de la `.list-items` est trop simpliste. Vous avez raison - dans la plupart des cas, nous ne créerions pas un nouveau composant juste pour ajouter une enveloppe. Mais la **réelle complexité** du composant `TaskList` est révélée dans les cas particuliers `withPinnedTasks`, `loading`, et `empty`.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 
 import Task from './Task';
@@ -205,9 +199,7 @@ Notez la position de l'élément épinglé dans la liste. Nous voulons que l'él
 
 Au fur et à mesure que le composant grossit, les quantités de données a l'entrée(input requirements) augmentent également. Définissez les exigences en matière de props de la `TaskList`. Comme `Task` est un composant enfant, assurez-vous de fournir des données dans la bonne forme pour le rendu. Pour gagner du temps et épargner des soucis, réutilisez les propTypes que vous avez définis dans `Task` plus tôt.
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -251,9 +243,7 @@ L'avantage du format utilisé pour les story, est que nous pouvons simplement im
 
 Créez un fichier de test appelé `src/components/TaskList.test.js`. Ici, nous allons construire nos tests qui font des assertions sur le resultat.
 
-```javascript
-// src/components/TaskList.test.js
-
+```js:title=src/components/TaskList.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import '@testing-library/jest-dom/extend-expect';

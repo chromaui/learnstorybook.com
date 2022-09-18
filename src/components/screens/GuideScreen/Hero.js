@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { styles as marketingStyles } from '@storybook/components-marketing';
+import { Button, styles } from '@storybook/design-system';
 import { styled, css } from '@storybook/theming';
-import { Button, styles, Icon } from '@storybook/design-system';
 import GatsbyLink from '../../basics/GatsbyLink';
 import Stat from '../../basics/Stat';
 import * as animations from '../../../styles/animations';
@@ -14,12 +15,16 @@ const HeroWrapper = styled.div`
   justify-content: center;
   background: ${(props) => props.themeColor};
   padding-bottom: 80px;
-  padding-top: 80px;
+  padding-top: ${7 + 2}rem;
   padding-left: ${spacing.padding.medium}px;
   padding-right: ${spacing.padding.medium}px;
 
+  @media (min-width: ${marketingStyles.breakpoints[0]}px) {
+    padding-top: ${9.5 + 2}rem;
+  }
+
   @media (min-width: ${breakpoint * 1.5}px) {
-    padding-top: 220px;
+    padding-top: ${9.5 + 4}rem;
     padding-bottom: 180px;
     padding-left: 0;
     padding-right: 0;
@@ -55,33 +60,21 @@ const Pitch = styled.div`
 `;
 
 const PitchTitle = styled.h1`
-  font-weight: ${typography.weight.black};
-  font-size: ${typography.size.l1}px;
-  line-height: 44px;
+  ${marketingStyles.marketing.subheading}
+  margin-bottom: 12px;
 
   @media (min-width: ${breakpoint * 1.5}px) {
-    font-size: 36px;
-    line-height: 48px;
+    ${marketingStyles.marketing.hero2}
   }
 `;
 
 const PitchDescription = styled.div`
-  font-size: ${typography.size.s3}px;
-  line-height: 28px;
-  margin-top: 0.5rem;
-
-  @media (min-width: ${breakpoint * 1.5}px) {
-    margin-top: 0.75rem;
-  }
+  ${marketingStyles.marketing.textLarge}
+  margin-bottom: 24px;
 `;
 
 const GetStartedButton = styled(Button)`
-  margin-top: 24px;
-  font-size: ${typography.size.s3}px;
-  font-weight: ${typography.weight.black};
-  padding-top: 16px;
-  padding-bottom: 16px;
-  width: 180px;
+  width: 200px;
 
   &,
   &:hover,
@@ -158,39 +151,7 @@ const GuideImage = styled.img`
     `}
 `;
 
-const BreadcrumbLink = styled(GatsbyLink)`
-  font-size: ${typography.size.s3}px;
-  line-height: ${typography.size.m1}px;
-  font-weight: ${typography.weight.bold};
-  margin-top: 16px;
-  margin-bottom: 20px;
-  color: ${color.lightest};
-  margin-left: -22px; // optical for rebalancing for centered layout. This accounts for the arrow
-
-  &:hover,
-  &:focus,
-  &:active {
-    color: ${color.lightest};
-  }
-
-  @media (min-width: ${breakpoint * 1.333}px) {
-    margin-top: 0;
-    margin-left: 0;
-  }
-`;
-
-const Breadcrumb = ({ children, ...props }) => (
-  <BreadcrumbLink withIcon {...props}>
-    <Icon icon="arrowleft" />
-    {children}
-  </BreadcrumbLink>
-);
-
-Breadcrumb.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-const Hero = ({
+function Hero({
   heroAnimationName,
   contributorCount,
   chapterCount,
@@ -201,45 +162,45 @@ const Hero = ({
   themeColor,
   title,
   ...rest
-}) => (
-  <HeroWrapper themeColor={themeColor} {...rest}>
-    <HeroContent>
-      <Pitch>
-        <Breadcrumb to="/">Tutorials</Breadcrumb>
+}) {
+  return (
+    <HeroWrapper themeColor={themeColor} {...rest}>
+      <HeroContent>
+        <Pitch>
+          <PitchTitle>{title}</PitchTitle>
 
-        <PitchTitle>{title}</PitchTitle>
+          {description && <PitchDescription>{description}</PitchDescription>}
 
-        {description && <PitchDescription>{description}</PitchDescription>}
+          {ctaHref && (
+            <GatsbyLink to={ctaHref}>
+              <GetStartedButton>Get started</GetStartedButton>
+            </GatsbyLink>
+          )}
 
-        {ctaHref && (
-          <GatsbyLink to={ctaHref}>
-            <GetStartedButton>Get started</GetStartedButton>
-          </GatsbyLink>
-        )}
-
-        {languages.length > 0 && (
-          <Languages>
-            <LanguagesLabel>Languages: </LanguagesLabel>
-            {languages.map((language) => (
-              <LanguagesLink inverse key={`lang_link_${language.name}`} to={language.tutorial}>
-                {language.name}
-              </LanguagesLink>
-            ))}
-          </Languages>
-        )}
-        <StatWrapper>
-          {contributorCount && <Stat value={contributorCount} label="Contributors" />}
-          {chapterCount && <Stat value={chapterCount} label="Chapters" />}
-        </StatWrapper>
-      </Pitch>
-      <Figure>
-        {imagePath && (
-          <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
-        )}
-      </Figure>
-    </HeroContent>
-  </HeroWrapper>
-);
+          {languages.length > 0 && (
+            <Languages>
+              <LanguagesLabel>Languages: </LanguagesLabel>
+              {languages.map((language) => (
+                <LanguagesLink inverse key={`lang_link_${language.name}`} to={language.tutorial}>
+                  {language.name}
+                </LanguagesLink>
+              ))}
+            </Languages>
+          )}
+          <StatWrapper>
+            {contributorCount && <Stat value={contributorCount} label="Contributors" />}
+            {chapterCount && <Stat value={chapterCount} label="Chapters" />}
+          </StatWrapper>
+        </Pitch>
+        <Figure>
+          {imagePath && (
+            <GuideImage alt={title} heroAnimationName={heroAnimationName} src={imagePath} />
+          )}
+        </Figure>
+      </HeroContent>
+    </HeroWrapper>
+  );
+}
 
 Hero.propTypes = {
   contributorCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

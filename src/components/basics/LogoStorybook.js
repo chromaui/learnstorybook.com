@@ -31,11 +31,13 @@ const LogotypeWrapper = styled(Link)`
   }
 `;
 
-const LogoStorybook = ({ inverse }) => (
-  <LogotypeWrapper href="https://storybook.js.org/">
-    <img src={inverse ? storybookLogoInverted : storybookLogo} alt="Storybook" />
-  </LogotypeWrapper>
-);
+function LogoStorybook({ inverse }) {
+  return (
+    <LogotypeWrapper href="https://storybook.js.org/">
+      <img src={inverse ? storybookLogoInverted : storybookLogo} alt="Storybook" />
+    </LogotypeWrapper>
+  );
+}
 
 LogoStorybook.propTypes = {
   inverse: PropTypes.bool,

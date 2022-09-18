@@ -37,7 +37,7 @@ commit: '4ad3421'
 
 먼저 테스트 러너와 관련 패키지를 설치해야 합니다.
 
-```bash
+```shell
 yarn add -D @storybook/testing-library @storybook/jest @storybook/addon-interactions @storybook/test-runner
 ```
 
@@ -83,7 +83,7 @@ module.exports = {
 
 그리고 프로젝트의 `package.json`에 테스트 태스크를 추가하세요. -
 
-```json:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "test-storybook": "test-storybook"
@@ -93,7 +93,7 @@ module.exports = {
 
 마지막으로 스토리북을 시작합니다.(테스트 러너는 로컬 스토리북 인스턴스에 대해 실행됩니다.) -
 
-```
+```shell
 yarn storybook
 ```
 
@@ -230,7 +230,7 @@ EditTask.play = async ({ canvasElement }) => {
 
 테스트 러너를 시작하세요. (별도의 터미널 창에서):
 
-```bash
+```shell
 yarn test-storybook --watch
 ```
 

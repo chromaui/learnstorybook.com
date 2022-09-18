@@ -20,7 +20,7 @@ commit: '9245261'
 
 <div style="direction: ltr">
 
-```bash
+```shell:clipboard=false
 # Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
@@ -40,7 +40,7 @@ yarn
 
 <div style="direction: ltr">
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 

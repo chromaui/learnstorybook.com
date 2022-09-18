@@ -15,7 +15,7 @@ Storybook を開発プロセスに組み込むにあたり、いくつかの手�
 
 次のコマンドを実行してください。
 
-```bash
+```shell:clipboard=false
 # Clone the template
 npx degit chromaui/intro-storybook-angular-template taskbox
 
@@ -31,7 +31,7 @@ npm install
 
 ここでアプリケーションのいくつかの環境が正常に動作しているかクイックに確認できます。
 
-```bash
+```shell:clipboard=false
 # Run the test runner (Jest) in a terminal:
 npm run test
 

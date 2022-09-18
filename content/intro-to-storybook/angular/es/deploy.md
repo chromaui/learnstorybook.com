@@ -35,21 +35,21 @@ repositorio "tasks", igual que nuestro proyecto local.
 
 En el nuevo repositorio, tome la URL de origen del repositorio y agréguela a su proyecto git con este comando:
 
-```bash
-$ git remote add origin https://github.com/<su usuario>/taskbox.git
+```shell
+git remote add origin https://github.com/<su usuario>/taskbox.git
 ```
 
 Finalmente, hacer "push" de nuestro repositorio local al repositorio remoto en GitHub con:
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### Obtener Chromatic
 
 Agregue el paquete como una dependencia de desarrollo.
 
-```bash
+```shell
 npm install -D chromatic
 ```
 
@@ -69,7 +69,7 @@ Click `Choose GitHub repo` como colaboradores y seleccione su repositorio.
 Copie el "token de proyecto" único que se generó para su proyecto. Luego ejecútelo, emitiendo lo siguiente en la
 línea de comando, para construir e implementar nuestro Storybook. Asegúrate de reemplazar `project-token` con el token de tu proyecto.
 
-```bash
+```shell
 npx chromatic --project-token=<project-token>
 ```
 
@@ -126,19 +126,19 @@ jobs:
 
 En la línea de comando, emita el siguiente comando para agregar los cambios que se realizaron:
 
-```bash
+```shell
 git add .
 ```
 
 Luego, confírmelo emitiendo:
 
-```bash
+```shell
 git commit -m "GitHub action setup"
 ```
 
 Finalmente, envíelos al repositorio remoto con:
 
-```bash
+```shell
 git push origin main
 ```
 

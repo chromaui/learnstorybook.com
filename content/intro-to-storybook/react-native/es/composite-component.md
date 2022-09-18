@@ -22,8 +22,7 @@ Un componente compuesto no es muy diferente de los componentes básicos que cont
 
 Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Task` del capítulo anterior y pasarle los atributos y acciones como entrada.
 
-```javascript
-// components/TaskList.js
+```js:title=src/components/TaskList.js
 import * as React from 'react';
 import Task from './Task';
 import { FlatList, Text, SafeAreaView } from 'react-native';
@@ -64,8 +63,7 @@ export default TaskList;
 
 A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
 
-```javascript
-// components/TaskList.stories.js
+```js:title=src/components/TaskList.stories.js
 import * as React from 'react';
 import { View } from 'react-native';
 import { styles } from '../constants/globalStyles';
@@ -87,7 +85,7 @@ export const withPinnedTasks = [
 ];
 
 storiesOf('TaskList', module)
-  .addDecorator(story => <View style={[styles.Taskbox, { padding: 42 }]}>{story()}</View>)
+  .addDecorator((story) => <View style={[styles.Taskbox, { padding: 42 }]}>{story()}</View>)
   .add('default', () => <TaskList tasks={defaultTasks} {...actions} />)
   .add('withPinnedTasks', () => <TaskList tasks={withPinnedTasks} {...actions} />)
   .add('loading', () => <TaskList loading tasks={[]} {...actions} />)
@@ -106,8 +104,7 @@ No olvide que esta historia también debe agregarse a `storybook/index.js` para 
 
 Cambie el método `configure()` a lo siguiente:
 
-```javascript
-// storybook/config.js
+```js:title=storybook/index.js
 configure(() => {
   require('../components/Task.stories.js');
   require('../components/TaskList.stories.js');
@@ -131,13 +128,12 @@ Para el caso del borde de carga, crearemos un nuevo componente que mostrará el 
 
 Cree un nuevo archivo llamado `LoadingRow.js` con el siguiente contenido:
 
-```javascript
-// components/LoadingRow.js
+```js:title=src/components/LoadingRow.js
 import React, { useState, useEffect } from 'react';
 import { Animated, Text, View, Easing, SafeAreaView } from 'react-native';
 import { styles } from '../constants/globalStyles';
 
-const GlowView = props => {
+const GlowView = (props) => {
   const [glowAnim] = useState(new Animated.Value(0));
 
   useEffect(() => {
@@ -179,8 +175,7 @@ export default LoadingRow;
 
 Y actualice `TaskList.js` a lo siguiente:
 
-```javascript
-// components/TaskList.js
+```js:title=src/components/TaskList.js
 import * as React from 'react';
 import Task from './Task';
 import PercolateIcons from '../constants/Percolate';
@@ -218,14 +213,14 @@ function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     );
   }
   const tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <SafeAreaView style={styles.ListItems}>
       <FlatList
         data={tasksInOrder}
-        keyExtractor={task => task.id}
+        keyExtractor={(task) => task.id}
         renderItem={({ item }) => <Task key={item.id} task={item} {...events} />}
       />
     </SafeAreaView>
@@ -250,9 +245,7 @@ Tenga en cuenta la posición del elemento anclado en la lista. Queremos que el e
 
 A medida que el componente crece, también lo hacen los requisitos de entrada. Defina los props requeridos de `TaskList`. Debido a que `Task` es un componente secundario, asegúrese de proporcionar datos en la forma correcta para representarlo. Para ahorrar tiempo y dolor de cabeza, reutilice los propTypes que definió en `Task` anteriormente.
 
-```javascript
-
-// components/TaskList.js
+```js:title=src/components/TaskList.js
 import * as React from 'react';
 import PropTypes from 'prop-types';
 
@@ -295,8 +288,7 @@ Por lo tanto, para evitar este problema, podemos usar Jest para renderizar la hi
 
 Crea un archivo de prueba llamado `components/__tests__/TaskList.test.js`. Aquí vamos a construir nuestras pruebas que hacen afirmaciones acerca del resultado.
 
-```javascript
-// components/__tests__/TaskList.test.js
+```js:title=src/components/__tests__/TaskList.test.js
 import * as React from 'react';
 import { create } from 'react-test-renderer';
 import TaskList from '../TaskList';

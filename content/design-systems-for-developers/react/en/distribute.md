@@ -70,7 +70,7 @@ With the packages installed, we'll need to implement the build process.
 
 Thankfully for us, Create React App (CRA) has already taken care of this for us. We'll use the existing `build` script and change it to build our design system to the `dist` directory:
 
-```json:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "build": "cross-env BABEL_ENV=production babel src -d dist"
@@ -81,24 +81,22 @@ Thankfully for us, Create React App (CRA) has already taken care of this for us.
 With our build process implemented. We'll need to fine-tune it. Locate the `babel` key in your `package.json` and update it to the following:
 
 ```json:title=package.json
-{
-  "babel": {
-    "presets": [
-      [
-        "react-app",
-        {
-          "absoluteRuntime": false
-        }
-      ]
+"babel": {
+  "presets": [
+    [
+      "react-app",
+      {
+        "absoluteRuntime": false
+      }
     ]
-  }
+  ]
 }
 ```
 
 Now we can run `yarn build` to build our code into the `dist` directory -- we should add that directory to `.gitignore` too, so we don't accidentally commit it:
 
-```
-// ..
+```TEXT:title=.gitignore
+// ...
 dist
 ```
 
@@ -106,7 +104,7 @@ dist
 
 We'll need to make changes to our `package.json` to ensure our package consumers get all the necessary information. The easiest way to do it is simply running `yarn init`--a command that initializes the package for publication:
 
-```shell
+```shell:clipboard=false
 # Initializes a scoped package
 yarn init --scope=@your-npm-username
 
@@ -125,7 +123,7 @@ The command will ask us a set of questions, some of which will be prefilled with
 
 All in all, it will update `package.json` with new values as a result of those questions:
 
-```json:title=package.json
+```json:clipboard=false
 {
   "name": "@your-npm-username/learnstorybook-design-system",
   "description": "Storybook design systems tutorial",
@@ -165,14 +163,14 @@ You’ll need a token with “Read and Publish” permissions.
 
 Let’s add that token to a file called `.env` in our project:
 
-```
+```TEXT:title=.env
 GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
 By adding the file to `.gitignore`, we ensure that we don’t accidentally push this value to an open-source repository that all our users can see! This is crucial. If other maintainers need to publish the package locally (later we’ll set things up to auto-publish when a pull request is merged into the default branch), they should set up their own `.env` file following this process:
 
-```
+```TEXT:title=.gitignore
 dist
 .env
 ```
@@ -181,7 +179,7 @@ dist
 
 The first thing we need to do with Auto is to create a set of labels in GitHub. We’ll use these labels in the future when making changes to the package (see the next chapter), and that’ll allow `auto` to update the package version sensibly and create a changelog and release notes.
 
-```bash
+```shell
 yarn auto create-labels
 ```
 
@@ -209,7 +207,7 @@ git reset HEAD^
 
 Then we’ll update the changelog and commit it:
 
-```
+```markdown:title=CHANGELOG.md
 # v0.1.0 (Tue Mar 09 2021)
 
 - Created first version of the design system, with `Avatar`, `Badge`, `Button`, `Icon` and `Link` components.
@@ -221,14 +219,14 @@ Then we’ll update the changelog and commit it:
 
 Let’s add that changelog to git. Note that we use `[skip ci]` to tell CI platforms to ignore these commits, else we end up in their build and publish loop.
 
-```shell
+```shell:clipboard=false
 git add CHANGELOG.md
 git commit -m "Changelog for v0.1.0 [skip ci]"
 ```
 
 Now we can publish:
 
-```shell
+```shell:clipboard=false
 npm --allow-same-version version 0.1.0 -m "Bump version to: %s [skip ci]"
 npm publish --access=public
 ```
@@ -239,7 +237,7 @@ npm publish --access=public
 
 And use Auto to create a release on GitHub:
 
-```shell
+```shell:clipboard=false
 git push --follow-tags origin main
 yarn auto release
 ```
@@ -256,7 +254,7 @@ Yay! We’ve successfully published our package to npm and created a release on 
 
 Let’s set up Auto to follow the same process when we want to publish the package in the future. We’ll add the following scripts to our `package.json`:
 
-```json:title=package.json
+```json:clipboard=false
 {
   "scripts": {
     "release": "auto shipit --base-branch=main"
@@ -355,7 +353,7 @@ The example app uses Storybook to facilitate [Component-Driven Development](http
 
 Run the following commands in your command line to set up the example app:
 
-```shell
+```shell:clipboard=false
 # Clones the files locally
 npx degit chromaui/learnstorybook-design-system-example-app example-app
 

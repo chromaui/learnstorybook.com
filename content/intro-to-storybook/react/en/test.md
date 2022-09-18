@@ -39,23 +39,59 @@ Let's see how it works by tweaking the background of the `Task` component.
 
 Start by creating a new branch for this change:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
 Change `src/components/Task.js` to the following:
 
 ```diff:title=src/components/Task.js
- <label htmlFor="title" aria-label={title} className="title">
-  <input
-    type="text"
-    value={title}
-    readOnly={true}
-    name="title"
-    placeholder="Input title"
-+   style={{ background: 'red' }}
-    />
-</label>
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+  return (
+    <div className={`list-item ${state}`}>
+      <label
+        htmlFor="checked"
+        aria-label={`archiveTask-${id}`}
+        className="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled={true}
+          name="checked"
+          id={`archiveTask-${id}`}
+          checked={state === "TASK_ARCHIVED"}
+        />
+        <span
+          className="checkbox-custom"
+          onClick={() => onArchiveTask(id)}
+        />
+      </label>
+
+      <label htmlFor="title" aria-label={title} className="title">
+        <input
+          type="text"
+          value={title}
+          readOnly={true}
+          name="title"
+          placeholder="Input title"
++         style={{ background: 'red' }}
+        />
+      </label>
+
+      {state !== "TASK_ARCHIVED" && (
+        <button
+          className="pin-button"
+          onClick={() => onPinTask(id)}
+          id={`pinTask-${id}`}
+          aria-label={`pinTask-${id}`}
+          key={`pinTask-${id}`}
+        >
+          <span className={`icon-star`} />
+        </button>
+      )}
+    </div>
+  );
+}
 ```
 
 This yields a new background color for the item.
@@ -64,19 +100,19 @@ This yields a new background color for the item.
 
 Add the file:
 
-```bash
+```shell
 git add .
 ```
 
 Commit it:
 
-```bash
+```shell
 git commit -m "change task background to red"
 ```
 
 And push the changes to the remote repo:
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

@@ -4,8 +4,13 @@ import Chapter from './index';
 export default {
   component: Chapter,
   title: 'Screens/ChapterScreen/index',
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
-const Story = args => <Chapter {...args} />;
+function Story(args) {
+  return <Chapter {...args} />;
+}
 export const Default = Story.bind({});
 Default.args = {
   data: {

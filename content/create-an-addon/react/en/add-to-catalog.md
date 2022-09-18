@@ -88,14 +88,14 @@ The last step is to actually publish the addon. The Addon Kit comes pre-configur
 3. Similarly, generate a [Github token](https://github.com/settings/tokens). This token will need the repo scope.
 4. Create a `.env` file at the root of your project and add both these tokens to it:
 
-```bash
+```TEXT:title=.env
 GH_TOKEN=value_you_just_got_from_github
 NPM_TOKEN=value_you_just_got_from_npm
 ```
 
 Next, **create labels on GitHub**. You’ll use these labels in the future when making changes to the package.
 
-```bash
+```shell
 npx auto create-labels
 ```
 
@@ -103,7 +103,7 @@ If you check on GitHub, you’ll now see a set of labels that Auto would like yo
 
 Finally, creating a release
 
-```bash
+```shell
 yarn release
 ```
 

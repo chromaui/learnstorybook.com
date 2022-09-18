@@ -73,7 +73,7 @@ UI를 테스트하는 방법에 집중하고 있으므로, 구현의 세부 정�
 
 코드를 가져오기 위해 이 저장소 https://github.com/chromaui/ui-testing-guide-code 를 fork한 다음, 아래의 명령어를 따라해보세요.
 
-```sh
+```shell:clipboard=false
 # fork한 저장소 복제
 git clone https://github.com/<your_github_username>/ui-testing-guide-code
 

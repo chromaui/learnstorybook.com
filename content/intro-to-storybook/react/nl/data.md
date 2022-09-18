@@ -17,15 +17,13 @@ Dit voorbeeld gebruikt [Redux](https://redux.js.org/), de meest populaire React 
 
 Voeg een nieuwe dependency aan `package.json` toe met:
 
-```bash
+```shell
 yarn add react-redux redux
 ```
 
 Eerst zullen we een eenvoudige Redux store bouwen die reageert op acties die de status van taken veranderen, in een bestand met de naam `lib/redux.js` in de folder`src` (opzettelijk eenvoudig gehouden):
 
-```javascript
-// src/lib/redux.js
-
+```js:title=src/lib/redux.js
 // A simple redux store/actions/reducer implementation.
 // A true app would be more complex and separated into different files.
 import { createStore } from 'redux';
@@ -79,9 +77,7 @@ export default createStore(reducer, { tasks: defaultTasks });
 
 Vervolgens zullen we de default export van de component `TaskList` bijwerken om verbinding te maken met de Redux store en de taken te renderen waarin we geïnteresseerd zijn:
 
-```javascript
-// src/components/TaskList.js
-
+```js:title=src/components/TaskList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -119,9 +115,7 @@ In dit stadium werken onze Storybook testen niet meer, omdat de `TaskList` nu ee
 
 We kunnen dit probleem echter eenvoudig oplossen door simpelweg de `PureTaskList` - de presentional component, waaraan we zojuist het `export` statement in de vorige stap hebben toegevoegd - in onze Storybook stories te renderen:
 
-```javascript
-// src/components/TaskList.stories.js
-
+```js:title=src/components/TaskList.stories.js
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 
@@ -159,9 +153,7 @@ storiesOf('TaskList', module)
 
 Op een gelijkaardige manier moeten we `PureTaskList` gebruiken in onze Jest testen:
 
-```js
-// src/components/TaskList.test.js
-
+```js:title=src/components/TaskList.test.js
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { PureTaskList } from './TaskList';

@@ -17,14 +17,13 @@ Cet exemple utilise [Vuex](https://vuex.vuejs.org), librairie de gestion des don
 
 Pour commencer, installez vuex avec :
 
-```bash
+```shell
 yarn add vuex
 ```
 
 Dans un fichier `src/store.js` nous allons construire un magasin standard Vuex qui répond aux actions qui changeront les états des tâches :
 
-```javascript
-// src/store.js
+```js:title=src/store.js
 import Vue from 'vue';
 import Vuex from 'vuex';
 
@@ -62,8 +61,7 @@ Dans notre composant d'application de niveau supérieur (src / App.vue), nous po
 
 Dans notre composant de plus haut niveau (`src/App.vue`), nous pouvons connecter le magasin à notre hiérarchie de composants assez facilement:
 
-```html
-<!--src/App.vue-->
+```html:title=src/App.vue
 <template>
   <div id="app">
     <task-list />
@@ -91,9 +89,7 @@ Ensuite nous mettrons à jour notre `TaskList` pour lire les données du magasin
 
 Dans `src/components/PureTaskList.vue`:
 
-```html
-
-<!--src/components/PureTaskList.vue-->
+```html:title=src/components/PureTaskList.vue
 <template>
 <!--same content as before-->
 </template>
@@ -108,8 +104,7 @@ export default {
 
 In `src/components/TaskList.vue`:
 
-```html
-<!--src/components/TaskList.vue`-->
+```html:title=src/components/TaskList.vue
 <template>
   <div>
     <pure-task-list :tasks="tasks" @archiveTask="archiveTask" @pinTask="pinTask" />
@@ -137,8 +132,7 @@ In `src/components/TaskList.vue`:
 
 La raison pour laquelle la version de présentation de `TaskList` est séparée est qu'il est plus facile à tester et à isoler. Comme il ne dépend pas de la présence d'un magasin, il est beaucoup plus facile de le gérer du point de vue des tests. Renommons `src/components/TaskList.stories.js` en `src/components/PureTaskList.stories.js`, et assurons nous que nos stories utilisent la version de présentation :
 
-```javascript
-//src/components/PureTaskList.stories.js
+```js:title=src/components/PureTaskList.stories.js
 import PureTaskList from './PureTaskList';
 import { taskData, actionsData } from './Task.stories';
 
@@ -210,8 +204,7 @@ export const Empty = () => ({
 
 De même, nous devons utiliser `PureTaskList` dans notre test Jest :
 
-```js
-//tests/unit/TaskList.spec.js
+```js:title=src/components/PureTaskList.test.js
 import Vue from 'vue';
 import PureTaskList from '../../src/components/PureTaskList.vue';
 import { withPinnedTasksData } from '../../src/components/PureTaskList.stories';

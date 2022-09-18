@@ -54,28 +54,30 @@ const ChapterList = styled.ol`
   margin: 0;
 `;
 
-const TableOfContents = ({ entries }) => (
-  <>
-    <Subheading>Table of Contents</Subheading>
+function TableOfContents({ entries }) {
+  return (
+    <>
+      <Subheading>Table of Contents</Subheading>
 
-    <ChapterList>
-      {entries.map((entry, index) => (
-        <ChapterItem key={entry.slug}>
-          <BoxLinkWrapper isInternal to={entry.slug}>
-            <Chapter>
-              <ChapterNumber>{index + 1}</ChapterNumber>
+      <ChapterList>
+        {entries.map((entry, index) => (
+          <ChapterItem key={entry.slug}>
+            <BoxLinkWrapper isInternal to={entry.slug}>
+              <Chapter>
+                <ChapterNumber>{index + 1}</ChapterNumber>
 
-              <div>
-                <ChapterTitle>{entry.tocTitle || entry.title}</ChapterTitle>
-                <ChapterDescription>{entry.description}</ChapterDescription>
-              </div>
-            </Chapter>
-          </BoxLinkWrapper>
-        </ChapterItem>
-      ))}
-    </ChapterList>
-  </>
-);
+                <div>
+                  <ChapterTitle>{entry.tocTitle || entry.title}</ChapterTitle>
+                  <ChapterDescription>{entry.description}</ChapterDescription>
+                </div>
+              </Chapter>
+            </BoxLinkWrapper>
+          </ChapterItem>
+        ))}
+      </ChapterList>
+    </>
+  );
+}
 
 TableOfContents.propTypes = {
   entries: PropTypes.arrayOf(

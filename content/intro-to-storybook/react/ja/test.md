@@ -37,7 +37,7 @@ Storybook は視覚的なリグレッションテスト用の素晴らしいツ�
 
 変更する前に新しいブランチを作成します:
 
-```bash
+```shell
 git checkout -b change-task-background
 ```
 
@@ -62,19 +62,19 @@ git checkout -b change-task-background
 
 この変更をステージングします:
 
-```bash
-git add .
+```shell
+git add src/components/Task.js
 ```
 
 コミットします:
 
-```bash
-git commit -m "change task background to red"
+```shell
+git commit -m “change task background to red”
 ```
 
 そして変更をリモートリポジトリーにプッシュします:
 
-```bash
+```shell
 git push -u origin change-task-background
 ```
 

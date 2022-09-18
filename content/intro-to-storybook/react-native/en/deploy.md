@@ -10,7 +10,7 @@ In this tutorial we ran Storybook on our development machine. You may also want 
 
 To deploy Storybook we first need to export it as a static web app. This functionality is already built into Storybook and Expo, we just need to activate it by adding a script to `package.json`.
 
-```javascript
+```json:clipboard=false
 // package.json
 
 {
@@ -32,14 +32,14 @@ We want to share the latest version of components whenever we push code. To do t
 
 When the project was initialized with Expo, a local repository was already set up for you. At this stage it's safe to add the files to the first commit.
 
-```bash
-$ git add .
+```shell
+git add .
 ```
 
 Now commit the files.
 
-```bash
-$ git commit -m "taskbox UI"
+```shell
+git commit -m "taskbox UI"
 ```
 
 ### Set up a repository in GitHub
@@ -50,14 +50,14 @@ Go to GitHub and set up a repository [here](https://github.com/new). Name your r
 
 Copy the origin URL of your new repo and add it to your git project with this command:
 
-```bash
-$ git remote add origin https://github.com/<your username>/taskbox.git
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
 Finally push the repo to GitHub
 
-```bash
-$ git push -u origin main
+```shell
+git push -u origin main
 ```
 
 ### Netlify

@@ -35,14 +35,13 @@ Storybook 是视觉回溯测试的绝佳工具,因为每个故事本质上都是
 
 首先为此次修改创建一个新的分支：
 
-```shell script
+```shell
 git checkout -b change-task-background
 ```
 
 按照下面修改 `Task` 组件：
 
-```js
-// src/components/Task.js
+```js:title=src/components/Task.js
 <div className="title">
   <input
     type="text"
@@ -60,19 +59,19 @@ git checkout -b change-task-background
 
 添加文件：
 
-```shell script
+```shell
 git add .
 ```
 
 提交：
 
-```shell script
+```shell
 git commit -m "change task background to red"
 ```
 
 将修改推送至远程仓库：
 
-```shell script
+```shell
 git push -u origin change-task-background
 ```
 
