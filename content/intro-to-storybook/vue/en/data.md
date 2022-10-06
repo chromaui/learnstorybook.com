@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: '022ac7c'
+commit: '4aee860'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -13,46 +13,65 @@ This tutorial doesn’t focus on the particulars of building an app, so we won�
 
 Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-This example uses [Vuex](https://vuex.vuejs.org), Vue's default data management library, to build a straightforward data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+This example uses [Pinia](https://pinia.vuejs.org/), Vue's default data management library, to build a straightforward data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
 Add the necessary dependency to your project with:
 
 ```shell
-yarn add vuex@next --save
+yarn add pinia
 ```
 
-First, we'll create a simple Vuex store that responds to actions that change the task's state in a file called `store.js` in the `src` directory (intentionally kept simple):
+First, we'll create a simple Pinia store that responds to actions that change the task's state in a file called `store.js` in the `src` directory (intentionally kept simple):
 
 ```js:title=src/store.js
-import { createStore } from 'vuex';
+/* A simple Pinia store/actions implementation.
+ * A true app would be more complex and separated into different files.
+ */
+import { defineStore } from 'pinia';
 
+/*
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
+ */
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
-  { id: "2", title: 'Something more', state: 'TASK_INBOX' },
-  { id: "3", title: 'Something else', state: 'TASK_INBOX' },
-  { id: "4", title: 'Something again', state: 'TASK_INBOX' },
+  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-export default createStore({
-  state: {
+/*
+ * The store is created here.
+ * You can read more about Pinia defineStore in the docs:
+ * https://pinia.vuejs.org/core-concepts/
+ */
+export const useTaskStore = defineStore({
+  id: 'taskbox',
+  state: () => ({
     tasks: defaultTasks,
     status: 'idle',
     error: null,
-  },
-  mutations: {
-    ARCHIVE_TASK(state, id) {
-      state.tasks.find(task => task.id === id).state = 'TASK_ARCHIVED';
-    },
-    PIN_TASK(state, id) {
-      state.tasks.find(task => task.id === id).state = 'TASK_PINNED';
-    },
-  },
+  }),
   actions: {
-    archiveTask({ commit }, id) {
-      commit('ARCHIVE_TASK', id);
+    archiveTask(id) {
+      const task = this.tasks.find((task) => task.id === id);
+      if (task) {
+        task.state = 'TASK_ARCHIVED';
+      }
     },
-    pinTask({ commit }, id) {
-      commit('PIN_TASK', id);
+    pinTask(id) {
+      const task = this.tasks.find((task) => task.id === id);
+      if (task) {
+        task.state = 'TASK_PINNED';
+      }
+    },
+  },
+  getters: {
+    getFilteredTasks: (state) => {
+      const filteredTasks = state.tasks.filter(
+        (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+      );
+      return filteredTasks;
     },
   },
 });
@@ -146,21 +165,21 @@ import PureTaskList from './PureTaskList';
 
 import { computed } from 'vue';
 
-import { useStore } from 'vuex';
+import { useTaskStore } from '../store';
 
 export default {
   components: { PureTaskList },
   name: 'TaskList',
   setup() {
     //👇 Creates a store instance
-    const store = useStore();
+    const store = useTaskStore();
 
-    //👇 Retrieves the tasks from the store's state
-    const tasks = computed(() => store.state.tasks);
+    //👇 Retrieves the tasks from the store's state auxiliary getter function
+    const tasks = computed(() => store.getFilteredTasks);
 
     //👇 Dispatches the actions back to the store
-    const archiveTask = task => store.dispatch('archiveTask', task);
-    const pinTask = task => store.dispatch('pinTask', task);
+    const archiveTask= task => store.archiveTask(task);
+    const pinTask = task => store.pinTask(task);
 
     return {
       tasks,
@@ -249,4 +268,4 @@ Empty.args = {
 💡 Don't forget to commit your changes with git!
 </div>
 
-Now that we have some actual data populating our component, obtained from the Vuex store, we could have wired it to `src/App.vue` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
+Now that we have some actual data populating our component, obtained from the Pinia store, we could have wired it to `src/App.vue` and render the component there. Don't worry about it. We'll take care of it in the next chapter.

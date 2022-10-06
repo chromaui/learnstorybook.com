@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: '2450b37'
+commit: '97f73c6'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -11,7 +11,7 @@ In this chapter, we continue to increase the sophistication by combining compone
 
 ## Nested container components
 
-As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Vuex) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
+As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Pinia) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
 
 ```html:title=src/components/PureInboxScreen.vue
 <template>
@@ -48,27 +48,27 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 
 ```html:title=src/components/InboxScreen.vue
 <template>
-  <PureInboxScreen :error="error" />
+  <PureInboxScreen :error="isError" />
 </template>
 
 <script>
+import PureInboxScreen from './PureInboxScreen';
+
 import { computed } from 'vue';
 
-import { useStore } from 'vuex';
-
-import PureInboxScreen from './PureInboxScreen';
+import { useTaskStore } from '../store';
 
 export default {
   name: 'InboxScreen',
   components: { PureInboxScreen },
   setup() {
     //👇 Creates a store instance
-    const store = useStore();
+    const store = useTaskStore();
 
     //👇 Retrieves the error from the store's state
-    const error = computed(() => store.state.error);
+    const isError = computed(() => store.status==='error');
     return {
-      error,
+      isError,
     };
   },
 };
@@ -79,13 +79,12 @@ Next, we’ll need to update our app’s entry point (`src/main.js`) so that we 
 
 ```diff:title=src/main.js
 import { createApp } from 'vue';
++ import { createPinia } from 'pinia';
 
 import App from './App.vue';
 
-+ import store from './store';
-
 - createApp(App).mount('#app')
-+ createApp(App).use(store).mount('#app')
++ createApp(App).use(createPinia()).mount('#app');
 ```
 
 We also need to change the `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
@@ -149,9 +148,9 @@ export const Error = Template.bind({});
 Error.args = { error: true };
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story because the `TaskList` has no Vuex store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+We see that although the `error` story works just fine, we have an issue in the `default` story because the `TaskList` has no Pinia store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
 
-![Broken inbox](/intro-to-storybook/broken-inboxscreen-vue.png)
+![Broken inbox](/intro-to-storybook/broken-inboxscreen-vue-pinia.png)
 
 One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data requirements down the component hierarchy.
 
@@ -163,43 +162,16 @@ However, developers **will** inevitably need to render containers further down t
 
 ## Supplying context to stories
 
-The good news is that it is easy to supply a Vuex store to the `PureInboxScreen` in a story! We can just use a mocked version of the Vuex store provided in a decorator:
+The good news is that it is easy to supply a Pinia store to the `PureInboxScreen` in a story! We can update our story and import the Pinia store we've set up in the previous chapter directly:
 
 ```diff:title=src/components/PureInboxScreen.stories.js
 + import { app } from '@storybook/vue3';
 
-+ import { createStore } from 'vuex';
++ import { createPinia } from 'pinia';
+
++ app.use(createPinia());
 
 import PureInboxScreen from './PureInboxScreen.vue';
-
-+ import { action } from '@storybook/addon-actions';
-+ import * as TaskListStories from './PureTaskList.stories';
-
-+ const store = createStore({
-+   state: {
-+     tasks: TaskListStories.Default.args.tasks,
-+     status: 'idle',
-+     error: null,
-+   },
-+   mutations: {
-+     ARCHIVE_TASK(state, id) {
-+       state.tasks.find(task => task.id === id).state = 'TASK_ARCHIVED';
-+     },
-+     PIN_TASK(state, id) {
-+       state.tasks.find(task => task.id === id).state = 'TASK_PINNED';
-+     },
-+    },
-+   actions: {
-+     pinTask(context, id) {
-+       action('pin-task')(id);
-+     },
-+     archiveTask(context, id) {
-+       action('archive-task')(id);
-+     },
-+   },
-+ });
-
-+ app.use(store);
 
 export default {
   title: 'PureInboxScreen',
@@ -255,38 +227,11 @@ import { app } from '@storybook/vue3';
 
 + import { fireEvent, within } from '@storybook/testing-library';
 
-import { createStore } from 'vuex';
+import { createPinia } from 'pinia';
+
+app.use(createPinia());
 
 import PureInboxScreen from './PureInboxScreen.vue';
-
-import { action } from '@storybook/addon-actions';
-import * as TaskListStories from './PureTaskList.stories';
-
-const store = createStore({
-  state: {
-    tasks: TaskListStories.Default.args.tasks,
-    status: 'idle',
-    error: null,
-  },
-  mutations: {
-    ARCHIVE_TASK(state, id) {
-      state.tasks.find((task) => task.id === id).state = 'TASK_ARCHIVED';
-    },
-    PIN_TASK(state, id) {
-      state.tasks.find((task) => task.id === id).state = 'TASK_PINNED';
-    },
-  },
-  actions: {
-    pinTask(context, id) {
-      action('pin-task')(id);
-    },
-    archiveTask(context, id) {
-      action('archive-task')(id);
-    },
-  },
-});
-
-app.use(store);
 
 export default {
   title: 'PureInboxScreen',
