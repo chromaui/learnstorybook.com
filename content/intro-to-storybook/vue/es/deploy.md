@@ -2,7 +2,7 @@
 title: 'Desplegar Storybook'
 tocTitle: 'Desplegar'
 description: 'Aprenda a desplegar Storybook en línea'
-commit: '99b2158'
+commit: 'ae564af'
 ---
 
 A lo largo de este tutorial, creamos componentes en nuestra máquina de desarrollo. En algún momento, tendremos que compartir nuestro trabajo para recibir comentarios del equipo. Despleguemos Storybook en línea para ayudar a los compañeros de equipo a revisar la implementación de la interfaz de usuario.

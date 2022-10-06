@@ -2,7 +2,7 @@
 title: 'Construção de um ecrã'
 tocTitle: 'Ecrãs'
 description: 'Construção de um ecrã a partir de componentes'
-commit: '2450b37'
+commit: '97f73c6'
 ---
 
 Tem sido focada a construção de interfaces de utilizador da base para o topo.
