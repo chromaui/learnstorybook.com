@@ -2,7 +2,7 @@
 title: 'Construire un simple composant'
 tocTitle: 'Un simple composant'
 description: 'Construire un simple composant en isolation'
-commit: 'c350cdf'
+commit: '6cb2cb5'
 ---
 
 Nous allons construire notre propre interface utilisateur en suivant la méthode [Component-Driven Development](https://www.componentdriven.org/). C'est un processus qui créé des interfaces utilisateurs du début à la fin, en commençant par les composants et terminant avec les écrans. CDD vous aide à adapter la complexité à laquelle vous êtes confronté lors de la création de l'interface utilisateur.
