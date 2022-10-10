@@ -262,17 +262,17 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 ## アクセシビリティの問題の検知
 
-アクセシビリティテストとは，[WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/)のルールと他の業界で認めれたベストプラクティスに基づく経験則に対して，自動化ツールを用いることでレンダリングされた DOM を監視することを指します。これは視覚障害，聴覚障害，認知障害などの障害をお持ちの方を含む，できるだけ多くのユーザーがアプリケーションを利用できるように，明らかなアクセシビリティの低下を検知することで QA の第一線として機能します。
+アクセシビリティテストとは、[WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/)のルールと他の業界で認めれたベストプラクティスに基づく経験則に対して、自動化ツールを用いることでレンダリングされた DOM を監視することを指します。これは視覚障害、聴覚障害、認知障害などの障害をお持ちの方を含む、できるだけ多くのユーザーがアプリケーションを利用できるように、明らかなアクセシビリティの違反を検知するために QA の第一線として機能します。
 
-Storybook には公式の[accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y)があります。これは，Deque の[axe-core](https://github.com/dequelabs/axe-core)を使っており，[WCAG の問題の 57%](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/)に対応しています。
+Storybook には公式の[アクセシビリティアドオン](https://storybook.js.org/addons/@storybook/addon-a11y)があります。これは、Deque の[axe-core](https://github.com/dequelabs/axe-core)を使っており、[WCAG の問題の 57%](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/)に対応しています。
 
-それでは，どのように動かすのかみてみましょう! 以下のコマンドで addon をインストールします:
+それでは、どのように動かすのかみてみましょう! 以下のコマンドでアドオンをインストールします:
 
 ```shell
 yarn add -D @storybook/addon-storyshots react-test-renderer
 ```
 
-addon を利用可能にするために，Storybook の設定ファイル(`.storybook/main.js`)を以下のように設定します:
+アドオンを利用可能にするために、Storybook の設定ファイル(`.storybook/main.js`)を以下のように設定します:
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -297,7 +297,7 @@ module.exports = {
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
 
-storybook を再起動すると，この addon が一つのアクセシビリティの問題を検知したことがわかります。[**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI)というエラーメッセージは本質的にタイトルと背景に十分なコントラストがないことを指しています。そのため，アプリケーションの CSS (`src/index.css`にある)の中で，テキストカラーをより暗いグレーに修正する必要があります。
+ストーリーを一通り見てみると、このアドオンが一つのアクセシビリティの問題を検知したことがわかります。[**「Elements must have sufficient color contrast」**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI)というエラーメッセージは本質的にタイトルと背景に十分なコントラストがないことを指しています。そのため、アプリケーションの CSS (`src/index.css`にある)の中で、テキストカラーをより暗いグレーに修正する必要があります。
 
 ```diff:title=src/index.css
 .list-item.TASK_ARCHIVED input[type="text"] {
@@ -307,7 +307,7 @@ storybook を再起動すると，この addon が一つのアクセシビリテ
 }
 ```
 
-以上です！これで，UI のアクセシビリティ向上の最初のステップが完了です。アプリケーションをさらに複雑にしても，他の全てのコンポーネントに対してこのプロセスを繰り返すことができ，追加のツールやテスト環境を準備する必要はありません。
+以上です！これで、UI のアクセシビリティ向上の最初のステップが完了です。アプリケーションをさらに複雑にしても、他の全てのコンポーネントに対してこのプロセスを繰り返すことができ、追加のツールやテスト環境を準備する必要はありません。
 
 <div class="aside">
 💡 Git へのコミットを忘れずに行ってください！
