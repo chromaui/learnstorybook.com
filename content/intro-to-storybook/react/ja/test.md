@@ -7,8 +7,8 @@ description: 'UI コンポーネントのテスト手法について学びまし
 Storybook のチュートリアルをテスト抜きには終われません。テストは高品質な UI を作成するのに必要なことです。疎結合なシステムにおいては、些細な変更で大きなリグレッション (手戻り) をもたらすことがあるのです。既に 3 種類のテストについて学びました:
 
 - **手動テスト**では、コンポーネントの正しさを開発者が手動で確認します。コンポーネントを作成する際、見た目が問題ないかチェックするのに役立ちます。
-- **スナップショットテスト**では、Storyshots を使用し、コンポーネントのマークアップを記録します。描画時のエラーや警告の原因となるマークアップの変更を常に把握するのに役立ちます。
-- **単体テスト**では、Jest を使用し、コンポーネントへの決まった入力より同様の出力が出ていることを確認します。コンポーネントの機能性をテストするのに優れています。
+- **アクセシビリティテスト**では、a11y アドオンを使用し、コンポーネントがみなさんに受け入れやすいか検証します。これらは、どのように障害を持つ人々が私たちのコンポーネントを使うのかという情報を取得するのに大いに役立ちます。
+- **インタラクションテスト**では、play 関数を使用し、コンポーネントが期待通りの動作をすることを検証します。これらは、コンポーネントの挙動をテストするのに適しています。
 
 ## 「でも、見た目は大丈夫？」
 
@@ -44,16 +44,52 @@ git checkout -b change-task-background
 `src/components/Task.js` を以下のように変更します:
 
 ```diff:title=src/components/Task.js
- <label htmlFor="title" aria-label={title} className="title">
-  <input
-    type="text"
-    value={title}
-    readOnly={true}
-    name="title"
-    placeholder="Input title"
-+   style={{ background: 'red' }}
-    />
-</label>
+export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+  return (
+    <div className={`list-item ${state}`}>
+      <label
+        htmlFor="checked"
+        aria-label={`archiveTask-${id}`}
+        className="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled={true}
+          name="checked"
+          id={`archiveTask-${id}`}
+          checked={state === "TASK_ARCHIVED"}
+        />
+        <span
+          className="checkbox-custom"
+          onClick={() => onArchiveTask(id)}
+        />
+      </label>
+
+      <label htmlFor="title" aria-label={title} className="title">
+        <input
+          type="text"
+          value={title}
+          readOnly={true}
+          name="title"
+          placeholder="Input title"
++         style={{ background: 'red' }}
+        />
+      </label>
+
+      {state !== "TASK_ARCHIVED" && (
+        <button
+          className="pin-button"
+          onClick={() => onPinTask(id)}
+          id={`pinTask-${id}`}
+          aria-label={`pinTask-${id}`}
+          key={`pinTask-${id}`}
+        >
+          <span className={`icon-star`} />
+        </button>
+      )}
+    </div>
+  );
+}
 ```
 
 これでタスクの背景色が変更されます。
