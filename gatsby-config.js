@@ -22,7 +22,7 @@ module.exports = {
           en: 6.5,
           es: 5.3,
           fr: 6.1,
-          ja: 6.4,
+          ja: 6.5,
           ko: 6.4,
           nl: 5.3,
           pt: 5.3,

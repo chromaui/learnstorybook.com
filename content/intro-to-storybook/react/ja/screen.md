@@ -13,7 +13,7 @@ commit: 'e6e6cae'
 
 このアプリケーションはとても単純なので、作る画面は些細なものです。リモート API からデータを取得し、(Redux から自分でデータを取得する) `TaskList` をラップして、Redux からの `error` フィールドを追加するだけです。
 
-まず、リモート API に接続して様々な状態 (i.e., `error`, `succeeded`) をアプリケーションで扱えるようにするために、Redux ストア (`src/lib/store.js` 内) をアップデートするところから始めましょう:
+まず、リモート API に接続して様々な状態 (すなわち、`error`、`succeeded`) をアプリケーションで扱えるようにするために、Redux ストア (`src/lib/store.js` 内) をアップデートするところから始めましょう:
 
 ```diff:title=src/lib/store.js
 /* A simple redux store/actions/reducer implementation.
@@ -191,10 +191,6 @@ function App() {
 export default App;
 ```
 
-<div class="aside">
-  💡 <code>src/App.test.js</code> をアップデートすることを忘れないでください。そうしなければ、テストが通らなくなります。
-</div>
-
 しかし、面白くなるのは Storybook でストーリーをレンダリングするときです。
 
 前回見たように、`TaskList` コンポーネントは現在 **接続された** コンポーネントで、タスクのレンダリングは Redux ストアに依存しています。`InboxScreen` も接続されたコンポーネントなので、同じように、ストーリーにストアを渡します。以下のように `InboxScreen.stories.js` でストーリーを設定します:
@@ -323,15 +319,19 @@ Storybook で `error` ストーリーが意図したように動作している�
   />
 </video>
 
-## Interactive stories
+## インタラクションテスト
 
-これまでで、シンプルなコンポーネントから画面まで、完全に機能するアプリケーションを作り上げ、ストーリーを用いてそれぞれの変更を継続的にテストすることができるようになりました。しかし、新しいストーリーを作るたびに、UI が壊れないように、他のすべてのストーリーを手作業でチェックする必要もあります。これは、とても大変な作業です。
+これまでで、シンプルなコンポーネントから画面まで、完全に機能するアプリケーションを作り上げ、ストーリーを用いてそれぞれの変更を継続的にテストすることができるようになりました。しかし、新しいストーリーを作るたびに、UI が壊れていないかどうか、他のすべてのストーリーを手作業でチェックする必要もあります。これは、とても大変な作業です。
 
 この作業や操作を自動化することはできないのでしょうか？
 
-Storybook の [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 関数が可能にしてくれます。play 関数はストーリーのレンダリング後に実行される小さなコードスニペットを含みます。
+### play 関数を使ったインタラクションテスト
+
+Storybook の [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 関数と [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) が役立ちます。play 関数はストーリーのレンダリング後に実行される小さなコードスニペットを含んでいます。
 
 play 関数はタスクが更新されたときに UI に何が起こるかを検証するのに役立ちます。フレームワークに依存しない DOM API を使用しています。つまり、 play 関数を使って UI を操作し、人間の行動をシミュレートするストーリーを、フロントエンドのフレームワークに関係なく書くことができるのです。
+
+`@storybook/addon-interactions`は、一つ一つのステップごとに Storybook のテストを可視化するのに役立ちます。さらに、各インタラクションの一時停止、再開、巻き戻し、ステップ実行といった便利な UI の制御機能が備わっています。
 
 実際に動かしてみましょう！以下のようにして新しく作成された `InboxScreen` ストーリーを更新し、コンポーネント操作を追加してみましょう:
 
@@ -397,7 +397,45 @@ Default.parameters = {
   />
 </video>
 
-play 関数を利用して、UI を操作し、タスクを更新した場合の反応を素早く確認することができます。これによって、余計な手間をかけずに UI の一貫性を保つことができます。テスト環境を立ち上げたり、パッケージを追加したりする必要はありません。
+### テスト自動化
+
+play 関数を利用して、UI を操作し、タスクを更新した場合の反応を素早く確認することができます。これによって、余計な手間をかけずに UI の一貫性を保つことができます。
+
+しかし、Storybook をよく見ると、ストーリーを見るときだけインタラクションテストが実行されることがわかります。そのため、変更時に各ストーリーを全てチェックしなければなりません。これは自動化できないのでしょうか？
+
+可能です！Storybook の[テストランナー](https://storybook.js.org/docs/react/writing-tests/test-runner)は可能にしてくれます。それは [Playwright](https://playwright.dev/) によって実現されたスタンドアロンなパッケージで、全てのインタラクションテストを実行し、壊れたストーリーを検知してくれます。
+
+それではどのように動くのかみてみましょう！次のコマンドでインストールして走らせます:
+
+```bash
+yarn add --dev @storybook/test-runner
+```
+
+次に、 `package.json` の `scripts` をアップデートし、新しいテストタスクを追加してください:
+
+```json
+{
+  "scripts": {
+    "test-storybook": "test-storybook"
+  }
+}
+```
+
+最後に、Storybook を起動し、新しいターミナルで以下のコマンドを実行してください:
+
+```bash
+yarn test-storybook --watch
+```
+
+<div class="aside">
+💡 play 関数でのインタラクションテストはUIコンポーネントをテストするための素晴らしい手法です。ここで紹介したもの以外にも、さまざまなことができます。もっと深く学ぶには<a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">公式ドキュメント</a>を読むことをお勧めします。
+<br />
+テストをさらにもっと深く知るためには、<a href="/ui-testing-handbook">Testing Handbook</a> をチェックしてみてください。これは開発ワークフローを加速させるために、スケーラブルなフロントエンドチームが採用しているテスト戦略について解説しています。
+</div>
+
+![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+
+成功です！これで、全てのストーリーがエラーなくレンダリングされ、全てのテストが自動的に通過するかどうか検証するためのツールができました。さらに、テストが失敗した場合、失敗したストーリーをブラウザで開くリンクを提供してくれます。
 
 ## コンポーネント駆動開発
 
