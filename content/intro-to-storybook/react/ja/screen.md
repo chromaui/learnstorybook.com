@@ -11,9 +11,9 @@ commit: 'e6e6cae'
 
 ## 繋がれた画面
 
-このアプリケーションはとても単純なので、作る画面は些細なものです。リモート API からデータを取得し、(Redux から自分でデータを取得する) `TaskList` をラップして、 Redux からの `error` フィールドを追加するだけです。
+このアプリケーションはとても単純なので、作る画面は些細なものです。リモート API からデータを取得し、(Redux から自分でデータを取得する) `TaskList` をラップして、Redux からの `error` フィールドを追加するだけです。
 
-まず、リモート API に接続して様々な状態 (すなわち、`error`、`succeeded`) をアプリケーションで扱えるようにするために、 Redux ストア (`src/lib/store.js` 内) をアップデートするところから始めましょう:
+まず、リモート API に接続して様々な状態 (すなわち、`error`、`succeeded`) をアプリケーションで扱えるようにするために、Redux ストア (`src/lib/store.js` 内) をアップデートするところから始めましょう:
 
 ```diff:title=src/lib/store.js
 /* A simple redux store/actions/reducer implementation.
@@ -403,7 +403,7 @@ play 関数を利用して、UI を操作し、タスクを更新した場合の
 
 しかし、Storybook をよく見ると、ストーリーを見るときだけインタラクションテストが実行されることがわかります。そのため、変更時に各ストーリーを全てチェックしなければなりません。これは自動化できないのでしょうか？
 
-可能です！Storybook の [テストランナー](https://storybook.js.org/docs/react/writing-tests/test-runner) は可能にしてくれます。それは [Playwright](https://playwright.dev/) によって実現されたスタンドアロンなパッケージで、全てのインタラクションテストを実行し、壊れたストーリーを検知してくれます。
+可能です！Storybook の[テストランナー](https://storybook.js.org/docs/react/writing-tests/test-runner)は可能にしてくれます。それは [Playwright](https://playwright.dev/) によって実現されたスタンドアロンなパッケージで、全てのインタラクションテストを実行し、壊れたストーリーを検知してくれます。
 
 それではどのように動くのかみてみましょう！次のコマンドでインストールして走らせます:
 
@@ -430,7 +430,7 @@ yarn test-storybook --watch
 <div class="aside">
 💡 play 関数でのインタラクションテストはUIコンポーネントをテストするための素晴らしい手法です。ここで紹介したもの以外にも、さまざまなことができます。もっと深く学ぶには<a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">公式ドキュメント</a>を読むことをお勧めします。
 <br />
-テストをさらにもっと深く知るためには、 <a href="/ui-testing-handbook">Testing Handbook</a>をチェックしてみてください。これは開発ワークフローを加速させるために、スケーラブルなフロントエンドチームが採用しているテスト戦略について解説しています。
+テストをさらにもっと深く知るためには、<a href="/ui-testing-handbook">Testing Handbook</a> をチェックしてみてください。これは開発ワークフローを加速させるために、スケーラブルなフロントエンドチームが採用しているテスト戦略について解説しています。
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
