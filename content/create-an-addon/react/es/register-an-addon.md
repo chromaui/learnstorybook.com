@@ -4,7 +4,7 @@ description: 'Crea el UI del complemento y regístralo en Storybook'
 commit: '5db9bc9'
 ---
 
-Empecemos por el archivo `src/Tool.js`. Aquí es donde vivirá el código UI de la herramienta Outline. Observa la importación de [@storybook/components](https://www.npmjs.com/package/@storybook/components). Esta es la biblioteca de componentes propia de Storybooks, construida con React y Emotion. Se usa para construir, bueno, el propio Storybook ([demo](https://next--storybookjs.netlify.app/official-storybook/)). También podemos usarlo para construir nuestro complemento.
+Empecemos por el archivo `src/Tool.js`. Aquí es donde vivirá el código UI de la herramienta Outline. Observa la importación de [@storybook/components](https://www.npmjs.com/package/@storybook/components). Esta es la biblioteca de componentes propia de Storybooks, construida con React y Emotion. Se usa para construir, bueno, el propio Storybook. También podemos usarlo para construir nuestro complemento.
 
 En este caso, usaremos los componentes `Icons` y `IconButton` para crear la herramienta de selección de contorno. Modifica tu código para usar el ícono `outline` y dale un título apropiado.
 
