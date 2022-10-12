@@ -110,7 +110,7 @@ When creating a story, we use a base `task` arg to build out the shape of the ta
 
 ## Config
 
-We'll need to make a couple of changes to Storybook's configuration files, so it notices not only our recently created stories and allow us to use the application's CSS file (located in `src/index.css`).
+We'll need to make a couple of changes to Storybook's configuration files so it notices our recently created stories and allows us to use the application's CSS file (located in `src/index.css`).
 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
