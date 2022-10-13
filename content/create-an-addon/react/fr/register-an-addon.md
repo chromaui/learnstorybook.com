@@ -4,7 +4,7 @@ description: "Créer l'UI de l'addon et l'enregistrer dans Storybook"
 commit: '5db9bc9'
 ---
 
-Commençons par le fichier `src/Tool.js`. C'est dans ce fichier que se trouvera tout le code de l'UI pour l'outil Outline. Notez l'import de [@storybook/components](https://www.npmjs.com/package/@storybook/components). Il s'agit de la bibliothèque de composants de Storybook, créée avec React et Emotion. Elle sert à construire, eh bien, Storybook lui-même ([démo](https://next--storybookjs.netlify.app/official-storybook/)). Nous pouvons également l'utiliser pour créer notre addon.
+Commençons par le fichier `src/Tool.js`. C'est dans ce fichier que se trouvera tout le code de l'UI pour l'outil Outline. Notez l'import de [@storybook/components](https://www.npmjs.com/package/@storybook/components). Il s'agit de la bibliothèque de composants de Storybook, créée avec React et Emotion. Elle sert à construire, eh bien, Storybook lui-même. Nous pouvons également l'utiliser pour créer notre addon.
 
 Dans notre cas, nous utiliserons les composants `Icons` et `IconButton` pour créer le bouton de notre outil de contour. Modifiez votre code afin d'utiliser l'icône `outline` et donnez au bouton un nom approprié.
 

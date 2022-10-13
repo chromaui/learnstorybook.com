@@ -16,7 +16,7 @@ The [addon documentation](https://storybook.js.org/docs/react/addons/introductio
 
 If you’re coding along with us, your repositories should look like this: [Sample addon repository](http://github.com/chromaui/learnstorybook-addon-code). This example was based on the [Storybook Addon Outline](https://github.com/chromaui/storybook-addon-outline).
 
-You can also reference other addons such as [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [Dark Mode](https://github.com/hipstersmoothie/storybook-dark-mode) and all [other official addons](https://github.com/storybookjs/storybook/tree/next/addons) and play with them in the [official Storybook](https://next--storybookjs.netlify.app/official-storybook/).
+You can also reference other addons such as [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [Dark Mode](https://github.com/hipstersmoothie/storybook-dark-mode) and all [other official addons](https://github.com/storybookjs/storybook/tree/next/addons).
 
 Thanks for learning with us. Subscribe to the Storybook mailing list to get notified when helpful articles and guides like this are published.
 

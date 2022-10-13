@@ -15,7 +15,7 @@ description: '汇总所有的知识并学习更多Storybook技巧'
 
 如果您和我们一起编写代码的话，您的仓库应该如此所示： [Sample addon repository](http://github.com/chromaui/learnstorybook-addon-code). 此样例基于 [Storybook Addon Outline](https://github.com/chromaui/storybook-addon-outline)。
 
-您也可以参考其他的插件，例如 [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [Dark Mode](https://github.com/hipstersmoothie/storybook-dark-mode) 和所有 [其他的官方插件](https://github.com/storybookjs/storybook/tree/next/addons) 并结合 [official Storybook](https://next--storybookjs.netlify.app/official-storybook/)使用它们。
+您也可以参考其他的插件，例如 [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [Dark Mode](https://github.com/hipstersmoothie/storybook-dark-mode) 和所有 [其他的官方插件](https://github.com/storybookjs/storybook/tree/next/addons) 并结合 使用它们。
 
 感谢与我们共同学习。 通过订阅 Storybook 的邮件列表来获取其他有用的文章或者像此指南一样的信息。
 
