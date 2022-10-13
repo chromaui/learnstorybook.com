@@ -35,6 +35,7 @@ Nous allons commencer avec l'implémentation de base de la `Tâche`, en prenant 
 
 <script>
   export default {
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'task',
     props: {
       task: {
@@ -196,6 +197,7 @@ Notre composant est encore assez rudimentaire pour le moment. Nous allons faire 
 
 <script>
   export default {
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'task',
     props: {
       task: {
