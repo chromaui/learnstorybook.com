@@ -114,7 +114,7 @@ Storybook 的插件是由一个庞大的社区生态系统来共同维护的。�
 
 <h4>用于验证交互的 Actions 插件</h4>
 
-当您与 Button 或 Link 之类的交互式组件进行交互时，[actions 插件](https://github.com/storybookjs/storybook/tree/next/addons/actions) 可以在 Storybook 中为您的组件提供 UI 反馈。默认情况下，Actions 应该已经安装在您的 Storybook 中了，您只需要将 “action” 作为回调传给您的组件即可。
+当您与 Button 或 Link 之类的交互式组件进行交互时，[actions 插件](https://github.com/storybookjs/storybook/tree/next/code/addons/actions) 可以在 Storybook 中为您的组件提供 UI 反馈。默认情况下，Actions 应该已经安装在您的 Storybook 中了，您只需要将 “action” 作为回调传给您的组件即可。
 
 让我们看看如何在 Button 组件中使用它，该 Button 组件接受一个封装的组件来响应它的点击事件。我们的 story 给封装组件的 click 事件上传入了 action 回调：
 

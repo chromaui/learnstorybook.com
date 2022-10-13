@@ -16,7 +16,7 @@ La [documentation](https://storybook.js.org/docs/react/addons/introduction) prop
 
 Si vous suivez nos guides, votre dépôt devrait ressembler à ça : [exemple de dépôt d'un addon](http://github.com/chromaui/learnstorybook-addon-code). Cet exemple repose sur l'addon [Outline](https://github.com/chromaui/storybook-addon-outline) de Storybook.
 
-Vous pouvez également vous baser sur d'autres addons tels que [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [Dark Mode](https://github.com/hipstersmoothie/storybook-dark-mode) et tous les [autres addons officiels](https://github.com/storybookjs/storybook/tree/next/addons).
+Vous pouvez également vous baser sur d'autres addons tels que [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [Dark Mode](https://github.com/hipstersmoothie/storybook-dark-mode) et tous les [autres addons officiels](https://github.com/storybookjs/storybook/tree/next/code/addons).
 
 Merci d'apprendre à nos côtés. Inscrivez-vous à la mailing list de Storybook pour être averti lorsque de nouveaux articles et guides utiles comme celui-ci sont publiés.
 

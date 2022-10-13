@@ -16,7 +16,7 @@ La [documentación de complementos](https://storybook.js.org/docs/react/addons/i
 
 Si estás codificando junto a nosotros, tus repositorios deberían verse así: [Repositorio de muestra](http://github.com/chromaui/learnstorybook-addon-code). Este ejemplo está basado en el [Storybook Addon Outline](https://github.com/chromaui/storybook-addon-outline).
 
-También puedes hacer referencia a otros complementos como [Pseudo Estados](https://github.com/chromaui/storybook-addon-pseudo-states), [Modo Oscuro](https://github.com/hipstersmoothie/storybook-dark-mode) y todos los demás [complementos oficiales](https://github.com/storybookjs/storybook/tree/next/addons).
+También puedes hacer referencia a otros complementos como [Pseudo Estados](https://github.com/chromaui/storybook-addon-pseudo-states), [Modo Oscuro](https://github.com/hipstersmoothie/storybook-dark-mode) y todos los demás [complementos oficiales](https://github.com/storybookjs/storybook/tree/next/code/addons).
 
 Gracias por aprender con nosotros. Suscríbete a la lista de correo de Storybook para recibir notificaciones cuando se publiquen artículos y guías útiles como esta.
 

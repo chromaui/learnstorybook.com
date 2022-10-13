@@ -16,7 +16,7 @@ description: '스토리북의 확장과 자동화를 도와주세요'
 
 저희와 함께 코딩한다면, 저장소는 다음과 같아야 합니다: [애드온 저장소 예시](http://github.com/chromaui/learnstorybook-addon-code). 이 예시는 [스토리북 애드온 개요](https://github.com/chromaui/storybook-addon-outline)를 기반으로 하고 있습니다.
 
-스토리북 공식 페이지 를 통해 [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [다크 모드](https://github.com/hipstersmoothie/storybook-dark-mode), [다른 모든 공식 애드온](https://github.com/storybookjs/storybook/tree/next/addons)을 참고할 수 있습니다.
+스토리북 공식 페이지 를 통해 [Pseudo States](https://github.com/chromaui/storybook-addon-pseudo-states), [다크 모드](https://github.com/hipstersmoothie/storybook-dark-mode), [다른 모든 공식 애드온](https://github.com/storybookjs/storybook/tree/next/code/addons)을 참고할 수 있습니다.
 
 여기까지 함께해주셔서 감사합니다. 유용한 블로그와 가이드가 게시될 때 알림을 받으려면 스토리북 이메일 구독 계정을 등록해주세요.
 
