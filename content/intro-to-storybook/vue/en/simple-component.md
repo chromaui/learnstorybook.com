@@ -35,6 +35,7 @@ We’ll begin with a baseline implementation of the `Task`, simply taking in the
 
 <script>
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: "Task",
   props: {
     task: {
@@ -251,6 +252,7 @@ The component is still rudimentary at the moment. First, write the code that ach
 import { reactive, computed } from 'vue';
 
 export default {
+  // eslint-disable-next-line vue/multi-word-component-names
   name: 'Task',
   props: {
     task: {

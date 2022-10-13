@@ -34,6 +34,7 @@ Comenzaremos con una implementación básica de `Task`, simplemente teniendo en 
 </template>
 <script>
   export default {
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'Task',
     props: {
       task: {
@@ -191,6 +192,7 @@ Nuestro componente todavía es bastante rudimentario en este momento. Vamos a ha
 </template>
 <script>
   export default {
+    // eslint-disable-next-line vue/multi-word-component-names
     name: 'Task',
     props: {
       task: {
