@@ -269,7 +269,7 @@ Storybook には公式の[アクセシビリティアドオン](https://storyboo
 それでは、どのように動かすのかみてみましょう! 以下のコマンドでアドオンをインストールします:
 
 ```shell
-yarn add -D @storybook/addon-storyshots react-test-renderer
+yarn add --dev @storybook/addon-a11y
 ```
 
 アドオンを利用可能にするために、Storybook の設定ファイル(`.storybook/main.js`)を以下のように設定します:
