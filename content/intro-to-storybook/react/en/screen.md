@@ -319,7 +319,7 @@ Check your Storybook, and you'll see that the `error` story is now working as in
 
 ## Interaction tests
 
-So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
+So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new change also requires a manual check on all the other related stories to ensure the UI doesn't break. That's a lot of extra work.
 
 Can't we automate this workflow and test our component interactions automatically?
 
