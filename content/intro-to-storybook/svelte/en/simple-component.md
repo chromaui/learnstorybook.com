@@ -23,7 +23,7 @@ First, let’s create the task component and its accompanying story file: `src/c
 
 We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```svelte:title=src/components/Task.svelte
+```html:title=src/components/Task.svelte
 <script>
   import { createEventDispatcher } from 'svelte';
 
@@ -48,12 +48,13 @@ We’ll begin with a baseline implementation of the `Task`, simply taking in the
     id: '',
     title: '',
     state: '',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
   };
 </script>
 
 <div class="list-item">
-  <input type="text" value={task.title} readonly />
+  <label for="title" aria-label={task.title}>
+    <input type="text" value={task.title} name="title" readonly />
+  </label>
 </div>
 ```
 
@@ -96,7 +97,6 @@ Default.args = {
     id: '1',
     title: 'Test Task',
     state: 'TASK_INBOX',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
   },
 };
 export const Pinned = Template.bind({});
@@ -168,7 +168,20 @@ module.exports = {
 - ],
 + stories: ['../src/components/**/*.stories.js'],
   staticDirs: ['../public'],
-  addons: ['@storybook/addon-actions', '@storybook/addon-links', '@storybook/addon-interactions'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-svelte-csf',
+    '@storybook/addon-interactions',
+  ],
+  features: {
+    postcss: false,
+    interactionsDebugger: true,
+  },
+  framework: '@storybook/svelte',
+  core: {
+    builder: '@storybook/builder-webpack4',
+  },
 };
 ```
 
@@ -208,55 +221,67 @@ Now that we have Storybook set up, styles imported, and test cases built out, we
 
 The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 
-```diff:title=src/components/Task.svelte
+```html:title=src/components/Task.svelte
 <script>
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher } from "svelte";
 
   const dispatch = createEventDispatcher();
 
   // Event handler for Pin Task
   function PinTask() {
-    dispatch('onPinTask', {
+    dispatch("onPinTask", {
       id: task.id,
     });
   }
   // Event handler for Archive Task
   function ArchiveTask() {
-    dispatch('onArchiveTask', {
+    dispatch("onArchiveTask", {
       id: task.id,
     });
   }
 
   // Task props
   export let task = {
-    id: '',
-    title: '',
-    state: '',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
+    id: "",
+    title: "",
+    state: "",
   };
 
-+ // Reactive declaration (computed prop in other frameworks)
-+ $: isChecked = task.state === 'TASK_ARCHIVED';
+  // Reactive declaration (computed prop in other frameworks)
+  $: isChecked = task.state === "TASK_ARCHIVED";
 </script>
--  <div class="list-item">
--   <input type="text" value={task.title} readonly />
--  </div>
-+  <div class="list-item {task.state}">
-+   <label class="checkbox">
-+     <input type="checkbox" checked={isChecked} disabled name="checked" />
-+     <span class="checkbox-custom" on:click={ArchiveTask} aria-label={`archiveTask-${task.id}`}/>
-+   </label>
-+   <div class="title">
-+     <input type="text" readonly value={task.title} placeholder="Input title" />
-+   </div>
-+   <div class="actions">
-+     {#if task.state !== 'TASK_ARCHIVED'}
-+     <a href="/" on:click|preventDefault={PinTask}>
-+       <span class="icon-star" aria-label={`pinTask-${task.id}`}/>
-+     </a>
-+     {/if}
-+   </div>
-+  </div>
+
+<div class="list-item {task.state}">
+  <label for="checked" class="checkbox" aria-label={`archiveTask-${task.id}`}>
+    <input
+      type="checkbox"
+      checked={isChecked}
+      disabled
+      name="checked"
+      id={`archiveTask-${task.id}`}
+    />
+    <span class="checkbox-custom" on:click={ArchiveTask} />
+  </label>
+  <label for="title" aria-label={task.title} class="title">
+    <input
+      type="text"
+      value={task.title}
+      readonly
+      name="title"
+      placeholder="Input title"
+    />
+  </label>
+  {#if task.state !== "TASK_ARCHIVED"}
+    <button
+      class="pin-button"
+      on:click|preventDefault={PinTask}
+      id={`pinTask-${task.id}`}
+      aria-label={`pinTask-${task.id}`}
+    >
+      <span class="icon-star" />
+    </button>
+  {/if}
+</div>
 ```
 
 The additional markup from above combined with the CSS we imported earlier yields the following UI:
@@ -274,50 +299,55 @@ We’ve now successfully built out a component without needing a server or runni
 
 As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
 
-## Automated Testing
+## Catch accessibility issues
 
-Storybook gave us a great way to manually test our application UI during construction. The stories will help ensure we don’t break our Task's appearance as we continue to develop the app. However, it is an entirely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
+Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
 
-### Snapshot testing
+Storybook includes an official [accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y). Powered by Deque's [axe-core](https://github.com/dequelabs/axe-core), it can catch up to [57% of WCAG issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in the future. It complements Storybook because it’s a quick way to view the new version and check out the differences.
-
-<div class="aside">
-💡 Make sure your components render data that doesn't change so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
-</div>
-
-A snapshot test is created with the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) for each of the stories. Use it by adding the following development dependencies:
+Let's see how it works! Run the following command to install the addon:
 
 ```shell
-yarn add -D @storybook/addon-storyshots
+yarn add --dev @storybook/addon-a11y
 ```
 
-Then create a `src/storybook.test.js` file with the following in it:
+Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
 
-```js:title=src/storybook.test.js
-import initStoryshots from '@storybook/addon-storyshots';
-
-initStoryshots();
-```
-
-And finally, we need to make a minor adjustment to our `jest` key in `package.json`:
-
-```diff:title=package.json
-"jest": {
-  "transform": {
-    "^.+\\.js$": "babel-jest",
-+    "^.+\\.stories\\.[jt]sx?$": "<rootDir>node_modules/@storybook/addon-storyshots/injectFileName",
-    "^.+\\.svelte$": "jest-transform-svelte"
+```diff:title=.storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  staticDirs: ['../public'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-svelte-csf',
+    '@storybook/addon-interactions',
++   '@storybook/addon-a11y',
+  ],
+  features: {
+    postcss: false,
+    interactionsDebugger: true,
   },
-+  "transformIgnorePatterns": ["node_modules/(?!(@storybook/svelte)/)"],
+  framework: '@storybook/svelte',
+  core: {
+    builder: '@storybook/builder-webpack4',
+  },
+};
+```
+
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
+
+Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
+
+```diff:title=src/index.css
+.list-item.TASK_ARCHIVED input[type="text"] {
+- color: #a0aec0;
++ color: #4a5568;
+  text-decoration: line-through;
 }
 ```
 
-That's it. We can run `yarn test` and see the following output:
-
-![Task test runner](/intro-to-storybook/task-testrunner.png)
-
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
+That's it! We've taken the first step to ensure that UI becomes accessible. As we continue to add complexity to our application, we can repeat this process for all other components without needing to spin up additional tools or testing environments.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

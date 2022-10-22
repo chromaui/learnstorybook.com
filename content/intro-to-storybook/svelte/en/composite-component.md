@@ -22,7 +22,7 @@ A composite component isn’t much different from the basic components it contai
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```svelte:title=src/components/TaskList.svelte
+```html:title=src/components/TaskList.svelte
 <script>
   import Task from './Task.svelte';
   export let loading = false;
@@ -45,7 +45,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 Next, create `MarginDecorator` with the following inside:
 
-```svelte:title=src/components/MarginDecorator.svelte
+```html:title=src/components/MarginDecorator.svelte
 <div>
   <slot />
 </div>
@@ -146,7 +146,7 @@ For the loading edge case, we will create a new component that will display the 
 
 Create a new file called `LoadingRow.svelte` and inside add the following markup:
 
-```svelte:title=src/components/LoadingRow.svelte
+```html:title=src/components/LoadingRow.svelte
 <div class="loading-item">
   <span class="glow-checkbox" />
   <span class="glow-text">
@@ -159,42 +159,43 @@ Create a new file called `LoadingRow.svelte` and inside add the following markup
 
 And update `TaskList.svelte` to the following:
 
-```diff:title=src/components/TaskList.svelte
+```html:title=src/components/TaskList.svelte
 <script>
   import Task from './Task.svelte';
-+ import LoadingRow from './LoadingRow.svelte';
+  import LoadingRow from './LoadingRow.svelte';
   export let loading = false;
   export let tasks = [];
 
   //👇 Reactive declarations (computed props in other frameworks)
   $: noTasks = tasks.length === 0;
   $: emptyTasks = noTasks && !loading;
-+ $: tasksInOrder = [
-+   ...tasks.filter(t => t.state === 'TASK_PINNED'),
-+   ...tasks.filter(t => t.state !== 'TASK_PINNED'),
-+ ];
+  $: tasksInOrder = [
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
+  ];
 </script>
-+ {#if loading}
-+   <div class="list-items">
-+     <LoadingRow />
-+     <LoadingRow />
-+     <LoadingRow />
-+     <LoadingRow />
-+     <LoadingRow />
-+   </div>
-+ {/if}
-+ {#if emptyTasks}
-+   <div class="list-items">
-+     <div class="wrapper-message">
-+       <span class="icon-check" />
-+       <div class="title-message">You have no tasks</div>
-+       <div class="subtitle-message">Sit back and relax</div>
-+     </div>
-+   </div>
-+ {/if}
-+ {#each tasksInOrder as task}
-+   <Task {task} on:onPinTask on:onArchiveTask />
-+ {/each}
+
+{#if loading}
+  <div class="list-items">
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+    <LoadingRow />
+  </div>
+{/if}
+{#if emptyTasks}
+  <div class="list-items">
+    <div class="wrapper-message">
+      <span class="icon-check" />
+      <p class="title-message">You have no tasks</p>
+      <p class="subtitle-message">Sit back and relax</p>
+    </div>
+  </div>
+{/if}
+{#each tasksInOrder as task}
+  <Task {task} on:onPinTask on:onArchiveTask />
+{/each}
 ```
 
 The added markup results in the following UI:
@@ -207,46 +208,6 @@ The added markup results in the following UI:
 </video>
 
 Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
-
-## Automated testing
-
-In the previous chapter, we learned how to snapshot test stories using Storyshots. With `Task`, there wasn’t much complexity to test beyond that it renders OK. Since `TaskList` adds another layer of complexity, we want to verify that certain inputs produce certain outputs in a way amenable to automatic testing. To do this, we’ll create unit tests using [Svelte Testing Library](https://testing-library.com/docs/svelte-testing-library/intro).
-
-![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
-
-### Unit tests with Svelte Testing Library
-
-Storybook stories, manual tests, and snapshot tests go a long way to avoiding UI bugs. If stories cover a wide variety of component use cases, and we use tools that ensure a human checks any change to the story, errors are much less likely.
-
-However, sometimes the devil is in the details. A test framework that is explicit about those details is needed, bringing us to unit tests.
-
-In our case, we want our `TaskList` to render any pinned tasks **before** unpinned tasks that it has passed in the `tasks` prop. Although we have a story (`WithPinnedTasks`) to test this exact scenario, it can be ambiguous to a human reviewer that if the component **stops** ordering the tasks like this, it is a bug. It certainly won’t scream **“Wrong!”** to the casual eye.
-
-So, to avoid this problem, we can use Svelte Testing Library to render the story to the DOM and run some DOM querying code to verify salient features of the output.
-
-Create a test file called `src/components/TaskList.test.js`. Here, we’ll build out our tests that make assertions about the output.
-
-```js:title=src/components/TaskList.test.js
-import TaskList from './TaskList.svelte';
-
-import { render } from '@testing-library/svelte';
-
-import { WithPinnedTasks } from './TaskList.stories'; //👈  Our story imported here
-
-test('renders pinned tasks at the start of the list', () => {
-  //👇 Story's args used with our test
-  const { container } = render(TaskList, {
-    props: WithPinnedTasks.args,
-  });
-  expect(container.firstChild.children[0].classList.contains('TASK_PINNED')).toBe(true);
-});
-```
-
-![TaskList test runner](/intro-to-storybook/tasklist-testrunner.png)
-
-Note that we’ve been able to reuse the `WithPinnedTasks` story in our unit test; in this way, we can continue to leverage an existing resource (the examples that represent interesting configurations of a component) in many ways.
-
-Notice as well that this test is quite brittle. It's possible that as the project matures and the exact implementation of the `Task` changes--perhaps using a different classname or a `textarea` rather than an `input`--the test will fail and need to be updated. It is not necessarily a problem but rather an indication of being careful about using unit tests for UI. They're not easy to maintain. Instead rely on manual, snapshot, and visual regression (see [testing chapter](/intro-to-storybook/svelte/en/test/)) tests where possible.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

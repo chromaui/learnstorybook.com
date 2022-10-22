@@ -40,29 +40,37 @@ Controls allowed us to quickly verify different inputs to a component--in this c
 Now let's fix the issue with overflowing by adding a style to `Task.svelte`:
 
 ```diff:title=src/components/Task.svelte
-<div class="list-item">
-   <input type="text" value={task.title} readonly />
-</div>
 <div class="list-item {task.state}">
-  <label class="checkbox">
-    <input type="checkbox" checked={isChecked} disabled name="checked" />
-    <span class="checkbox-custom" on:click={ArchiveTask} aria-label={`archiveTask-${task.id}`}/>
+  <label for="checked" class="checkbox" aria-label={`archiveTask-${task.id}`}>
+    <input
+      type="checkbox"
+      checked={isChecked}
+      disabled
+      name="checked"
+      id={`archiveTask-${task.id}`}
+    />
+    <span class="checkbox-custom" on:click={ArchiveTask} />
   </label>
-  <div class="title">
-    <input type="text"
-      readonly
+  <label for="title" aria-label={task.title} class="title">
+    <input
+      type="text"
       value={task.title}
+      readonly
+      name="title"
       placeholder="Input title"
 +     style="text-overflow: ellipsis;"
     />
-  </div>
-  <div class="actions">
-    {#if task.state !== 'TASK_ARCHIVED'}
-      <a href="/" on:click|preventDefault={PinTask}>
-        <span class="icon-star" aria-label={`pinTask-${task.id}`}/>
-      </a>
-     {/if}
-  </div>
+  </label>
+  {#if task.state !== "TASK_ARCHIVED"}
+    <button
+      class="pin-button"
+      on:click|preventDefault={PinTask}
+      id={`pinTask-${task.id}`}
+      aria-label={`pinTask-${task.id}`}
+    >
+      <span class="icon-star" />
+    </button>
+  {/if}
 </div>
 ```
 

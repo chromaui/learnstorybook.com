@@ -33,15 +33,21 @@ const TaskBox = () => {
 
   return {
     subscribe,
-    // Method to archive a task, think of a action with redux or Vuex
-    archiveTask: id =>
-      update(tasks =>
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task))
+    // Method to archive a task, think of a action with redux or Pinia
+    archiveTask: (id) =>
+      update((tasks) =>
+        tasks
+          .map((task) =>
+            task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task
+          )
+          .filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED')
       ),
-    // Method to archive a task, think of a action with redux or Vuex
-    pinTask: id =>
-      update(tasks =>
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
+    // Method to archive a task, think of a action with redux or Pinia
+    pinTask: (id) =>
+      update((tasks) =>
+        tasks.map((task) =>
+          task.id === id ? { ...task, state: 'TASK_PINNED' } : task
+        )
       ),
   };
 };
@@ -52,18 +58,20 @@ Then we'll update our `TaskList` to read data out of the store. First, let's mov
 
 In `src/components/PureTaskList.svelte`:
 
-```svelte:title=src/components/PureTaskList.svelte
+```html:title=src/components/PureTaskList.svelte
 <!--This file moved from TaskList.svelte-->
 <script>
   import Task from './Task.svelte';
   import LoadingRow from './LoadingRow.svelte';
   export let loading = false;
   export let tasks = [];
+
+  //👇 Reactive declarations (computed props in other frameworks)
   $: noTasks = tasks.length === 0;
-  $: emptyTasks = tasks.length === 0 && !loading;
+  $: emptyTasks = noTasks && !loading;
   $: tasksInOrder = [
-    ...tasks.filter(t => t.state === 'TASK_PINNED'),
-    ...tasks.filter(t => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
 </script>
 
@@ -76,26 +84,28 @@ In `src/components/PureTaskList.svelte`:
     <LoadingRow />
   </div>
 {/if}
-{#if noTasks && !loading}
+{#if emptyTasks}
   <div class="list-items">
     <div class="wrapper-message">
       <span class="icon-check" />
-      <div class="title-message">You have no tasks</div>
-      <div class="subtitle-message">Sit back and relax</div>
+      <p class="title-message">You have no tasks</p>
+      <p class="subtitle-message">Sit back and relax</p>
     </div>
   </div>
 {/if}
 {#each tasksInOrder as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
+
 ```
 
 In `src/components/TaskList.svelte`:
 
-```svelte:title=src/components/TaskList.svelte
+```html:title=src/components/TaskList.svelte
 <script>
   import PureTaskList from './PureTaskList.svelte';
   import { taskStore } from '../store';
+
   function onPinTask(event) {
     taskStore.pinTask(event.detail.id);
   }
@@ -104,13 +114,11 @@ In `src/components/TaskList.svelte`:
   }
 </script>
 
-<div>
-  <PureTaskList
-    tasks={$taskStore}
-    on:onPinTask={onPinTask}
-    on:onArchiveTask={onArchiveTask}
-  />
-</div>
+<PureTaskList
+  tasks={$taskStore}
+  on:onPinTask={onPinTask}
+  on:onArchiveTask={onArchiveTask}
+/>
 ```
 
 The reason to keep the presentational version of the `TaskList` separate is that it is easier to test and isolate. As it doesn't rely on the presence of a store, it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js` and ensure our stories use the presentational version:
@@ -186,7 +194,7 @@ Empty.args = {
 </video>
 
 <div class="aside">
-💡 With this change, all of our tests will require an update. Update the imports and re-run the test command with the <code>-u</code> flag to update them. Also, don't forget to commit your changes with git!
+💡 Don't forget to commit your changes with git!
 </div>
 
 Now that we have some actual data populating our component, obtained from the Svelte store, we could have wired it to `src/App.svelte` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
