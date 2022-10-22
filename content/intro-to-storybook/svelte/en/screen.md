@@ -15,6 +15,9 @@ As our app is straightforward, the screen we’ll build is pretty trivial, simpl
 Let's start by updating our Svelte store (in `src/store.js`) to include our new `error` field we want:
 
 ```diff:title=src/store.js
+// A simple Svelte store implementation with update methods and initial data.
+// A true app would be more complex and separated into different files.
+
 import { writable } from 'svelte/store';
 
 const TaskBox = () => {
@@ -28,14 +31,14 @@ const TaskBox = () => {
 
   return {
     subscribe,
-    // Method to archive a task, think of a action with redux or Vuex
-    archiveTask: id =>
-      update(tasks =>
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task))
+    // Method to archive a task, think of a action with redux or Pinia
+    archiveTask: (id) =>
+      update((tasks) =>
+        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task)).filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED')
       ),
-    // Method to archive a task, think of a action with redux or Vuex
-    pinTask: id =>
-      update(tasks =>
+    // Method to archive a task, think of a action with redux or Pinia
+    pinTask: (id) =>
+      update((tasks) =>
         tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
       ),
   };
@@ -56,7 +59,7 @@ export const taskStore = TaskBox();
 
 Now that we have the store updated with the new field. Let's create `InboxScreen.svelte` in your `components` directory:
 
-```svelte:title=src/components/InboxScreen.svelte
+```html:title=src/components/InboxScreen.svelte
 <script>
   import TaskList from './TaskList.svelte';
   export let error = false;
@@ -86,7 +89,7 @@ Now that we have the store updated with the new field. Let's create `InboxScreen
 
 We also need to change the `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
-```svelte:title=src/App.svelte
+```html:title=src/App.svelte
 <script>
   import './index.css'
   import { AppStore } from './store';
@@ -95,10 +98,6 @@ We also need to change the `App` component to render the `InboxScreen` (eventual
 
 <InboxScreen error="{$AppStore}" />
 ```
-
-<div class="aside">
-💡 Don't forget to update the <code>TaskList</code> component and your unit tests to reflect the changes that were introduced.
-</div>
 
 However, where things get interesting is in rendering the story in Storybook.
 
@@ -129,7 +128,7 @@ Error.args = {
 };
 ```
 
-We see that both the `error` and `standard` stories work just fine. (But you will encounter some problems when trying to test the `InboxScreen` with a unit test if no data is supplied as we did with `TaskList`).
+We see that both the `Error` and `Default` stories work just fine.
 
 <div class="aside">
 💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
@@ -145,15 +144,19 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
-## Interactive stories
+## Interaction tests
 
 So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
 
-Can't we automate this workflow and interact with our components automatically?
+Can't we automate this workflow and test our component interactions automatically?
 
-Storybook's [`play`](https://storybook.js.org/docs/svelte/writing-stories/play-function) function allows us to do just that. A play function includes small snippets of code that are run after the story renders.
+### Write an interaction test using the play function
 
-The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, that means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+Storybook's [`play`](https://storybook.js.org/docs/svelte/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/svelte/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+
+The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+
+The `@storybook/addon-interactions` helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
 Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
 
@@ -197,7 +200,45 @@ Check your newly created story. Click the `Interactions` panel to see the list o
   />
 </video>
 
-The play function allows us to interact with our UI and quickly check how it responds if we update our tasks. That keeps the UI consistent at no extra manual effort. All without needing to spin up a testing environment or add additional packages.
+### Automate tests with the test runner
+
+With Storybook's play function, we were able to sidestep our problem, allowing us to interact with our UI and quickly check how it responds if we update our tasks—keeping the UI consistent at no extra manual effort.
+
+But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
+
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/vue/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+
+Let's see how it works! Run the following command to install it:
+
+```shell
+yarn add --dev @storybook/test-runner
+```
+
+Next, update your `package.json` `scripts` and add a new test task:
+
+```json:clipboard=false
+{
+  "scripts": {
+    "test-storybook": "test-storybook"
+  }
+}
+```
+
+Finally, with your Storybook running, open up a new terminal window and run the following command:
+
+```shell
+yarn test-storybook --watch
+```
+
+<div class="aside">
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/svelte/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
+<br />
+For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+</div>
+
+![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+
+Success! Now we have a tool that helps us verify whether all our stories are rendered without errors and all assertions pass automatically. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
 
 ## Component-Driven Development
 
