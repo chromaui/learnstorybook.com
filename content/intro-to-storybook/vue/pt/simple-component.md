@@ -1,7 +1,7 @@
 ---
-title: 'Construção de um componente simples'
-tocTitle: 'Componente simples'
-description: 'Construção de um componente simples em isolamento'
+title: 'Construção de um componente simple'
+tocTitle: 'Componente simple'
+description: 'Construção de um componente simple em isolamento'
 commit: '6cb2cb5'
 ---
 

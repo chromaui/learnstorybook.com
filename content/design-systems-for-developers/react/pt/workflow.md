@@ -146,7 +146,7 @@ Chegar a um consenso com várias equipas muitas vezes assemelha-se a um exercíc
 
 ## Testar
 
-O nosso conjunto de testes é executado nos bastidores a cada submissão. O AvatarList é um componente simples de apresentação, como tal testes unitários não são necessários. Mas se olharmos para as verificações do PR, o Chromatic, a nossa ferramenta de testes visuais já detetou que existem alterações que precisam de revisão.
+O nosso conjunto de testes é executado nos bastidores a cada submissão. O AvatarList é um componente simple de apresentação, como tal testes unitários não são necessários. Mas se olharmos para as verificações do PR, o Chromatic, a nossa ferramenta de testes visuais já detetou que existem alterações que precisam de revisão.
 
 ![Alterações Chromatic nas verificações do PR no GitHub](/design-systems-for-developers/github-pr-checks-chromatic-changes.png)
 

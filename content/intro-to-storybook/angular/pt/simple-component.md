@@ -1,7 +1,7 @@
 ---
-title: 'Construção de um componente simples'
-tocTitle: 'Componente simples'
-description: 'Construção de um componente simples em isolamento'
+title: 'Construção de um componente simple'
+tocTitle: 'Componente simple'
+description: 'Construção de um componente simple em isolamento'
 ---
 
 Iremos construir o interface de utilizador de acordo com a metodologia de [Desenvolvimento orientada a componentes](https://www.componentdriven.org/), ou nativamente por (CDD, Component-Driven Development). É um processo que cria interfaces de utilizador a partir da base para o topo, iniciando com componentes e terminando com ecrãs. O DOC(CDD nativamente) ajuda no escalonamento da complexidade á qual o programador é sujeito á medida que constrói o interface de utilizador.
