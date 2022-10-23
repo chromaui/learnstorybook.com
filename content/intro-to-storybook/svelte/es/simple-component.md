@@ -1,6 +1,6 @@
 ---
-title: 'Construye un componente simples'
-tocTitle: 'Componente Simples'
+title: 'Construye un componente simple'
+tocTitle: 'Componente Simple'
 description: 'Construye un componente simple en aislamiento'
 ---
 
