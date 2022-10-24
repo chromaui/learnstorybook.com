@@ -217,7 +217,7 @@ EditTask.play = async ({ canvasElement }) => {
   const itemToEdit = await getTask('Fix bug in input error state');
   const taskInput = await findByRole(itemToEdit, 'textbox');
 
-  userEvent.type(taskInput, ' and disabled state');
+  await userEvent.type(taskInput, ' and disabled state');
   await expect(taskInput.value).toBe('Fix bug in input error state and disabled state');
 };
 ```
