@@ -221,3 +221,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 +  loading: false,
 + };
 ```
+
+<div class="aside">
+💡 Git へのコミットを忘れずに行ってください！
+</div>
