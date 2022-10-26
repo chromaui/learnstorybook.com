@@ -222,53 +222,6 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 + };
 ```
 
-## 自動テスト
-
-前の章で Storyshots を使用してストーリーのスナップショットテストを行う方法を学びました。`Task` では、問題なく描画されるのを確認することは、それほど複雑ではありませんでした。`TaskList` では複雑さが増しているので、ある入力がある出力を生成するかどうかを、自動テスト可能な方法で検証したいと思います。そのためには [React Testing Library](https://testing-library.com/docs/react-testing-library/intro) と [@storybook/testing-react](https://storybook.js.org/addons/@storybook/testing-react) を使用し、単体テストを作ります。
-
-![Testing library ロゴ](/intro-to-storybook/testinglibrary-image.jpeg)
-
-### React Testing Library で単体テストする
-
-Storybook のストーリーと、手動のテスト、スナップショットテストがあれば UI のバグを防ぐのに十分でしょう。ストーリーでコンポーネントの様々なユースケースをカバーしており、ストーリーへのどんな変更に対しても、人が確実に確認できるツールを使用していれば、エラーはめったに発生しなくなります。
-
-けれども、悪魔は細部に宿ります。そういった細部を明確にするテストフレームワークが必要です。単体テストを始めましょう。
-
-`TaskList` の `tasks` プロパティで渡されたタスクのリストのうち、ピン留めされたタスクを通常のタスクの**前に**表示させたいと思います。このシナリオをテストするストーリー (`WithPinnedTasks`) は既にありますが、コンポーネントが並び替えを**しなくなった**場合に、それがバグかどうかを人間のレビュアーでは判別しかねます。ストーリーでは誰にでも分かるように、**間違っているよ！**と叫んではくれません。
-
-この問題を回避するため、React Testing Library を使ってストーリーを DOM に描画し、DOM を検索するコードを実行し、出力から目立った機能を検証します。ストーリー形式のいいところは単純にストーリーをインポートして、そのまま描画できるところです。
-
-`src/components/TaskList.test.js` にテストファイルを作ります。以下に、出力を検証するテストコードを示します。
-
-```js:title=src/components/TaskList.test.js
-import { render } from '@testing-library/react';
-
-import { composeStories } from '@storybook/testing-react';
-
-import * as TaskListStories from './TaskList.stories'; //👈  Our stories imported here
-
-//👇 composeStories will process all information related to the component (e.g., args)
-const { WithPinnedTasks } = composeStories(TaskListStories);
-
-it('renders pinned tasks at the start of the list', () => {
-  const { container } = render(<WithPinnedTasks />);
-
-  expect(
-    container.querySelector('.list-item:nth-child(1) input[value="Task 6 (pinned)"]')
-  ).not.toBe(null);
-});
-```
-
-<div class="aside">
-💡 <a href="">@storybook/testing-react</a> は Storybook のストーリーをユニットテストで再利用できる素晴らしいアドオンです。テスト内でストーリーを再利用することで、コンポーネントシナリオのカタログができあがり、テストすることができるようになります。また、ストーリーのすべての引数やデコレータ、その他の情報は、このライブラリによって構成されます。先ほど見たように、テストの中で行うことはどのストーリーをレンダリングするかを選択することだけです。
-</div>
-
-![TaskList のテストランナー](/intro-to-storybook/tasklist-testrunner.png)
-
-単体テストで `WithPinnedTasks` ストーリーを再利用出来ていることに注目してください。このように、多様な方法で既存のリソースを活用していくことができます。
-
-ただし、このテストは非常に脆いことにも留意してください。プロジェクトが成熟し、`Task` の実装が変わっていく (たとえば、別のクラス名に変更されたり、`input` 要素ではなく `textarea` に変更されたりする) と、テストが失敗し、更新が必要となる可能性があります。これは必ずしも問題とならないかもしれませんが、UI の単体テストを使用する際の注意点です。UI の単体テストはメンテナンスが難しいのです。可能な限り手動のテストや、スナップショットテスト、視覚的なリグレッションテスト ([テストの章](/intro-to-storybook/react/ja/test/)を参照してください) に頼るようにしてください。
-
 <div class="aside">
 💡 Git へのコミットを忘れずに行ってください！
 </div>
