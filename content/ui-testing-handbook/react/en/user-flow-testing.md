@@ -62,12 +62,16 @@ Run: `yarn add -D cypress` to install the Cypress package. Then add the Cypress 
 }
 ```
 
-Next, add a `cypress.json` file at the root of your project. Here we can configure the base URL for our application so that we don’t have to repeat ourselves when writing out actual test commands.
+Next, add a `cypress.config.js` file at the root of your project. Here we can configure the base URL for our application so that we don’t have to repeat ourselves when writing out actual test commands.
 
-```json:title=cypress.json
-{
-  "baseUrl": "http://localhost:3000"
-}
+```json:title=cypress.config.js
+const { defineConfig } = require("cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    baseUrl: "http://localhost:3000/",
+  },
+});
 ```
 
 And finally, run `yarn cypress` to finish up the setup process. This will add a `cypress` folder to your project. All the test files will live here. It will also start the Cypress test runner.
@@ -76,7 +80,7 @@ And finally, run `yarn cypress` to finish up the setup process. This will add a 
 
 Cypress test structure is quite similar to other types of testing you might be familiar with. You start by describing what you’re going to test. Each test lives in an `it` block where you run assertions. Here’s what the authentication user flow test looks like:
 
-```javascript:title=cypress/e2e/auth.spec.js
+```javascript:title=cypress/e2e/auth.cy.js
 describe('The Login Page', () => {
   it('user can authenticate using the login form', () => {
     const email = 'alice.carr@test.com';
@@ -146,7 +150,7 @@ Default.args = {
 
 Let’s go ahead and update the test to mock those two network requests.
 
-```diff:title=cypress/e2e/auth.spec.js
+```diff:title=cypress/e2e/auth.cy.js
 + import { Default as TaskListDefault } from '../../src/components/TaskList.stories';
 
 describe('The Login Page', () => {
