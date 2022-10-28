@@ -30,7 +30,7 @@ export const decorators = [withGlobals];
 
 Before we can add our addon to the catalog, there's one item worth mentioning. Each Storybook addon must include a root-level preset to register the addon without any additional configuration from the user. Luckily for us, this was set up for us when we cloned the repository in the [setup section](/create-an-addon/react/en/getting-started/). If you open your `preset.js` in the root directory, you'll see the following inside:
 
-```js:title=preview.js
+```js:title=preset.js
 function config(entry = []) {
   return [...entry, require.resolve("./dist/esm/preset/preview")];
 }
