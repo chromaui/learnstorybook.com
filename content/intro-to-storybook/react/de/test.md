@@ -28,7 +28,7 @@ Visuelle Regressions-Tests dienen dazu, optische Veränderungen zu identifiziere
 
 Storybook eignet sich prima für visuelle Regressions-Tests, da jede Story im Grunde eine eigene Test-Spezifikation darstellt. Immer, wenn wir eine Story schreiben oder aktualisieren, bekommen wir dadurch auch gleich eine Spec geliefert.
 
-Es gibt eine ganze Reihe von Tools für visuelle Regressions-Tests. Für professionelle Teams empfehlen wir [**Chromatic**](https://www.chromatic.com/), eine von den Autoren hinter Storybook entwickelte Erweiterung, die Tests in der Cloud ausführt.
+Es gibt eine ganze Reihe von Tools für visuelle Regressions-Tests. Für professionelle Teams empfehlen wir [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), eine von den Autoren hinter Storybook entwickelte Erweiterung, die Tests in der Cloud ausführt.
 
 ## Einrichtung visueller Regressions-Tests
 
@@ -56,7 +56,7 @@ Füge das Paket als Abhängigkeit hinzu.
 yarn add chromatic
 ```
 
-Jetzt melde dich mit deinem GitHub Account [in Chromatic an](https://www.chromatic.com/start) (Chromatic erfordert nur wenige Berechtigungen). Erstelle ein Projekt namens "taskbox" und kopiere deinen eindeutigen `project-token`.
+Jetzt melde dich mit deinem GitHub Account [in Chromatic an](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) (Chromatic erfordert nur wenige Berechtigungen). Erstelle ein Projekt namens "taskbox" und kopiere deinen eindeutigen `project-token`.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source

@@ -28,7 +28,7 @@ Las pruebas de regresión visual están diseñadas para detectar cambios en la a
 
 Storybook es una herramienta fantástica para las pruebas de regresión visual porque cada historia es esencialmente una especificación del test. ¡Cada vez que escribimos o actualizamos una historia recibimos una especificación gratis!
 
-Existen varias herramientas para las pruebas de regresión visual. Para equipos profesionales recomendamos [**Chromatic**](https://www.chromatic.com/), un complemento creado por el equipo de Storybook que ejecuta pruebas en la nube. También nos permite publicar Storybook online como vimos en el [capítulo anterior](/intro-to-storybook/angular/es/deploy/).
+Existen varias herramientas para las pruebas de regresión visual. Para equipos profesionales recomendamos [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), un complemento creado por el equipo de Storybook que ejecuta pruebas en la nube. También nos permite publicar Storybook online como vimos en el [capítulo anterior](/intro-to-storybook/angular/es/deploy/).
 
 ## Detectar un cambio en la UI
 

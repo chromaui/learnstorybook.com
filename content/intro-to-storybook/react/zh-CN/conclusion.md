@@ -28,7 +28,7 @@ Storybook 是 React,Vue 和 Angular 的强大工具. 它拥有蓬勃发展的开
 
 ## 谁制作了 LearnStorybook.com?
 
-文本,代码和制作都是由[Chromatic](https://www.chromatic.com/). 该教程的灵感来自 Chromatic 的流行[GraphQL + React 教程系列](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+文本,代码和制作都是由[Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). 该教程的灵感来自 Chromatic 的流行[GraphQL + React 教程系列](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 想要更多这样的教程和文章吗? 注册 Chromatic 邮件列表.
 

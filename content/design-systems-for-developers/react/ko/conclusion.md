@@ -27,7 +27,7 @@ _개발자를 위한 디자인 시스템_ 은 [Dominic Nguyen](https://twitter.c
 
 스토리북의 디자인 시스템 테크 리드인 [Kyle Suss](https://github.com/kylesuss)와 스토리북 문서를 만든 [Michael Shilman](https://twitter.com/mshilman)는 전문적인 가이드를 해주었습니다.
 
-내용, 코드, 제작은 [크로마틱(Chromatic)](https://www.chromatic.com/)에서 제공했습니다. InVision의 [Design Forward Fund](https://www.invisionapp.com/design-forward-fund)는 제작을 시작할 수 있게 보조금을 지원해 주었습니다. 스토리북을 지속적으로 관리하고 이와 같은 새로운 가이드를 만들 수 있도록 후원자들을 찾고 있습니다. 더 자세한 사항을 원하신다면 [Dominic](mailto:dom@chromatic.com)에게 메일을 보내주세요.
+내용, 코드, 제작은 [크로마틱(Chromatic)](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)에서 제공했습니다. InVision의 [Design Forward Fund](https://www.invisionapp.com/design-forward-fund)는 제작을 시작할 수 있게 보조금을 지원해 주었습니다. 스토리북을 지속적으로 관리하고 이와 같은 새로운 가이드를 만들 수 있도록 후원자들을 찾고 있습니다. 더 자세한 사항을 원하신다면 [Dominic](mailto:dom@chromatic.com)에게 메일을 보내주세요.
 
 ## 시야 넓히기
 
@@ -37,7 +37,7 @@ _개발자를 위한 디자인 시스템_ 은 [Dominic Nguyen](https://twitter.c
 - [Eightshapes by Nathan Curtis](https://medium.com/eightshapes-llc/tagged/design-systems) (blog)
 - [Building Design Systems by Sarrah Vesselov and Taurie Davis ](https://www.amazon.com/Building-Design-Systems-Experiences-Language/dp/148424513X) (book)
 
-위의 저자들이 쓴 다른 글 입니다. - 
+위의 저자들이 쓴 다른 글 입니다. -
 
 - [스토리북 소개(Intro to Storybook)](http://learnstorybook.com/intro-to-storybook) (guide)
 - [컴포넌트 주도 개발 by 톰 콜먼(Component-Driven Development by Tom Coleman)](https://www.componentdriven.org/) (article)
@@ -47,9 +47,9 @@ _개발자를 위한 디자인 시스템_ 은 [Dominic Nguyen](https://twitter.c
 
 ## FAQ
 
-#### 지금까지 연급되지 않은 디자인 시스템의 기능이나 역할은 무엇인가요? 
+#### 지금까지 연급되지 않은 디자인 시스템의 기능이나 역할은 무엇인가요?
 
-디자인 시스템은 디자인 파일, 컴포넌트 라이브러리, 토큰, 문서, 원칙, 기여의 흐름 등을 포함합니다. 본 가이드는 디자인 시스템을 보는 개발자들의 관점으로 그 범위를 한정하여 제작되었습니다. 더 구체적으로 언급하자면 개발과 관련된 상세한 사항들, API, 디자인 시스템 프로덕션에 필요한 인프라 등을 다루었다고 보시면 됩니다. 
+디자인 시스템은 디자인 파일, 컴포넌트 라이브러리, 토큰, 문서, 원칙, 기여의 흐름 등을 포함합니다. 본 가이드는 디자인 시스템을 보는 개발자들의 관점으로 그 범위를 한정하여 제작되었습니다. 더 구체적으로 언급하자면 개발과 관련된 상세한 사항들, API, 디자인 시스템 프로덕션에 필요한 인프라 등을 다루었다고 보시면 됩니다.
 
 #### 디자인 시스템의 관리적인(governance) 측면은요?
 

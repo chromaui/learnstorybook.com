@@ -55,7 +55,7 @@ We've covered different aspects of UI that need testing but knowing how to combi
 The teams I interviewed all had similar tactics despite differences in their size and tech stack. I've distilled those learnings into this pragmatic workflow:
 
 - 📚 **Isolate components using** [Storybook](http://storybook.js.org/). Write test cases where each state is reproduced using props and mock data.
-- ✅ **Catch visual bugs and verify composition** using [Chromatic](https://www.chromatic.com/).
+- ✅ **Catch visual bugs and verify composition** using [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook).
 - 🐙 **Verify interactions** with [Jest](https://jestjs.io/) and [Testing Library](https://testing-library.com/).
 - ♿️ **Audit accessibility** of your components using [Axe](https://www.deque.com/axe/).
 - 🔄 **Verify user flows** by writing end-to-end tests with [Cypress](https://www.cypress.io/).

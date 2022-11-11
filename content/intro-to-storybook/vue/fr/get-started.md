@@ -51,7 +51,7 @@ En fonction de la partie de l'application sur laquelle vous travaillez, vous sou
 
 ## Réutiliser CSS
 
-Taskbox réutilise les éléments de conception du tutoriel de GraphQL et de React [application exemple](https://blog.hichroma.com/graphql-react-tutorial-part-1-6-d0691af25858), nous n'aurons donc pas besoin d'écrire du CSS dans ce tutoriel. Copiez et collez [ce CSS compilé](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dans `src/index.css` puis importez le dans l'application en modifiant la balise `<style>` dans le fichier `src/App.vue` pour qu'elle ressemble à ceci :
+Taskbox réutilise les éléments de conception du tutoriel de GraphQL et de React [application exemple](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6/), nous n'aurons donc pas besoin d'écrire du CSS dans ce tutoriel. Copiez et collez [ce CSS compilé](https://github.com/chromaui/learnstorybook-code/blob/master/src/index.css) dans `src/index.css` puis importez le dans l'application en modifiant la balise `<style>` dans le fichier `src/App.vue` pour qu'elle ressemble à ceci :
 
 ```html:title=src/App.vue
 <style>

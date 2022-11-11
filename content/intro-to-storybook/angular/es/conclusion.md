@@ -28,7 +28,7 @@ Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una 
 
 ## ¿Quién creó LearnStorybook.com?
 
-El texto, código, y producción fueron contribuidos por [Chromatic](https://www.chromatic.com/). Los tutoriales fueron inspirados por la popular [serie de tutoriales GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) de Chromatic.
+El texto, código, y producción fueron contribuidos por [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). Los tutoriales fueron inspirados por la popular [serie de tutoriales GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) de Chromatic.
 
 ¿Quieres más tutoriales y artículos como este? Regístrate a la lista de correo de Chromatic.
 

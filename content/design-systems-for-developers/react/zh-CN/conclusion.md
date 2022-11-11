@@ -27,7 +27,7 @@ _针对开发人员的设计系统_ 是由 [Dominic Nguyen](https://twitter.com/
 
 [Kyle Suss](https://github.com/kylesuss) （Storybook 设计系统的技术主管） 和 [Michael Shilman](https://twitter.com/mshilman)（Storybook Docs 插件的创始人）提供专业的技术指导。
 
-[Chromatic](https://www.chromatic.com/) 为我们提供的内容、代码和产品。InVision 的 [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) 慷慨的为我们提供了启动资金。我们仍然在寻求其他的赞助商来帮助我们持续维护和提出类似的新指南。更多详情请致邮：[Dominic](mailto:dom@chromatic.com)
+[Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 为我们提供的内容、代码和产品。InVision 的 [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) 慷慨的为我们提供了启动资金。我们仍然在寻求其他的赞助商来帮助我们持续维护和提出类似的新指南。更多详情请致邮：[Dominic](mailto:dom@chromatic.com)
 
 ## 拓宽视野
 
@@ -40,10 +40,10 @@ _针对开发人员的设计系统_ 是由 [Dominic Nguyen](https://twitter.com/
 该作者的更多文章：
 
 - [Intro to Storybook](http://learnstorybook.com/intro-to-storybook) (guide)
-- [Component-Driven Development by Tom Coleman](https://blog.hichroma.com/component-driven-development-ce1109d56c8e) (article)
-- [Why design systems are a single point of failure by Dominic Nguyen](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2) (article)
-- [Delightful Storybook Workflow by Dominic Nguyen](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) (article)
-- [Visual Testing by Tom Coleman](https://blog.hichroma.com/visual-testing-the-pragmatic-way-to-test-uis-18c8da617ecf) (article)
+- [Component-Driven Development by Tom Coleman](https://www.chromatic.com/blog/component-driven-development/) (article)
+- [Why design systems are a single point of failure by Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure/) (article)
+- [UI Testing Playbook by Varun Vachhar](https://storybook.js.org/blog/ui-testing-playbook/) (article)
+- [Visual Testing by Varun Vachhar](https://storybook.js.org/blog/visual-testing-in-storybook/) (article)
 
 ## 常见问题
 

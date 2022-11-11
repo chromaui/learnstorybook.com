@@ -308,7 +308,7 @@ export const Error = Template.bind({});
 ```
 
 <div class="aside">
-💡 또 다른 방법으로, 가능한 접근 방식은 데이터를 계층 구조 아래로 전달하는 것입니다. 특히 <a href="http://graphql.org/">GraphQL</a> 을 사용할 때. 이것은 저희 <a href="https://www.chromatic.com">Chromatic</a> 이 800개 이상의 스토리를 구축한 방법입니다.
+💡 또 다른 방법으로, 가능한 접근 방식은 데이터를 계층 구조 아래로 전달하는 것입니다. 특히 <a href="http://graphql.org/">GraphQL</a> 을 사용할 때. 이것은 저희 <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> 이 800개 이상의 스토리를 구축한 방법입니다.
 </div>
 
 스토리북을 확인하면 `error` 스토리가 의도한 대로 작동하는지 확인 할 수있습니다. MSW 는 원격 API 호출을 가로채 적절한 응답을 제공합니다.

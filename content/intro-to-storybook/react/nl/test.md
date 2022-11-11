@@ -27,7 +27,7 @@ Visuele regressie tests, ook visuele tests genoemd, zijn ontworpen om veranderin
 
 Storybook is een fantastisch hulpmiddel voor visuele regressie tests, omdat elke story in wezen een testspecificatie is. Elke keer dat we een story schrijven of bijwerken, krijgen we gratis een specificatie!
 
-Er zijn een aantal hulpmiddelen voor visuele regressie tests. Voor professionele teams raden we [**Chromatic**](https://www.chromatic.com/) aan, een add-on gemaakt door de ontwikkelaars van Storybook die tests in de cloud uitvoert. Het laat ons ook toe om Storybook online te publiceren zoals we gezien hebben in het [vorige hoofdstuk](/intro-to-storybook/react/nl/deploy/)
+Er zijn een aantal hulpmiddelen voor visuele regressie tests. Voor professionele teams raden we [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) aan, een add-on gemaakt door de ontwikkelaars van Storybook die tests in de cloud uitvoert. Het laat ons ook toe om Storybook online te publiceren zoals we gezien hebben in het [vorige hoofdstuk](/intro-to-storybook/react/nl/deploy/)
 
 ## Een UI wijziging opmerken
 

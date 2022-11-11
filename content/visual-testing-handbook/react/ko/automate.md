@@ -37,7 +37,7 @@ git push -u origin main
 
 ## 크로마틱(Chromatic) 설정
 
-Chromatic by Storybook maintainers를 사용하여 이미지 스냅샷 프로세스를 시연합니다. [chromatic.com](https://www.chromatic.com/))에 접속하여 깃허브 계정으로 가입하세요.
+Chromatic by Storybook maintainers를 사용하여 이미지 스냅샷 프로세스를 시연합니다. [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook))에 접속하여 깃허브 계정으로 가입하세요.
 
 ![크로마틱 로그인](/visual-testing-handbook/chromatic-sign-in-optimized.png)
 
@@ -251,7 +251,7 @@ yarn chromatic --project-token=<project-token>
 
 ### 지속적 통합
 
-변경사항을 만들 때마다 이 명령어를 로컬에서 실행하는 건 귀찮습니다. 프로덕션 팀은 코드를 CI/CD 파이프라인에 push할 때마다 시각적 테스트가 실행되게 트리거(trigger)를 설정합니다. 이 튜토리얼에서는 설정하지 않지만[크로마틱의 CI docs](https://www.chromatic.com/docs/ci)에서 자세한 내용을 확인할 수 있습니다.
+변경사항을 만들 때마다 이 명령어를 로컬에서 실행하는 건 귀찮습니다. 프로덕션 팀은 코드를 CI/CD 파이프라인에 push할 때마다 시각적 테스트가 실행되게 트리거(trigger)를 설정합니다. 이 튜토리얼에서는 설정하지 않지만[크로마틱의 CI docs](https://www.chromatic.com/docs/ci?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)에서 자세한 내용을 확인할 수 있습니다.
 
 ## 여정의 시작
 

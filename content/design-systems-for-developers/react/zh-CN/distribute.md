@@ -330,7 +330,7 @@ jobs:
 
 <div class="aside">其他的方法如 Svelte 和 web components 也许允许您采用与框架无关的 UI 组件。 但是，他们相对较新、文档不足或者缺乏广泛使用。因此本指南中未包含这些部分。</div>
 
-该示例应用程序采用 Storybook 去简化[组件驱动开发](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)（一种软件开发方法，采用自下而上的方式，先构建组件再构建页面）。在演示过程中，我们将运行两个 Storybook，一个用于示例应用程序，另一个用于设计系统。
+该示例应用程序采用 Storybook 去简化[组件驱动开发](https://www.chromatic.com/blog/component-driven-development/)（一种软件开发方法，采用自下而上的方式，先构建组件再构建页面）。在演示过程中，我们将运行两个 Storybook，一个用于示例应用程序，另一个用于设计系统。
 
 从 GitHub 上克隆示例应用程序的代码仓库到本地：
 

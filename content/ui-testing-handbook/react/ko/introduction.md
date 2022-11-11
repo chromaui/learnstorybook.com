@@ -55,7 +55,7 @@ UI에서 테스트가 필요한 다양한 측면을 다루었지만, 이를 실�
 우리가 조사한 팀들은 팀의 규모와 기술 스택이 각기 달랐음에도 비슷한 전략을 가지고 있었습니다. 그 내용을 취합해 효율적인 작업 흐름을 만들면 다음과 같습니다 -
 
 - 📚 [Storybook](http://storybook.js.org/)을 이용한 **컴포넌트 분리**. props와 모의 데이터를 사용하여 각 상태를 재현하는 테스트 케이스를 작성합니다.
-- ✅ [Chromatic](https://www.chromatic.com/)을 이용한 **시각적 요소 버그 포착 및 구성 확인**.
+- ✅ [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)을 이용한 **시각적 요소 버그 포착 및 구성 확인**.
 - 🐙 [Jest](https://jestjs.io/)와 [Testing Library](https://testing-library.com/)를 이용한 **상호작용 검증**.
 - ♿️ [Axe](https://www.deque.com/axe/)를 이용한 **접근성 심사**.
 - 🔄 [Cypress](https://www.cypress.io/)를 이용해 e2e 테스트 코드를 작성하여 **사용자 흐름 검증**.

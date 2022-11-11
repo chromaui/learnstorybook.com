@@ -30,7 +30,7 @@ description: 'لخص معرفتك وتعلم المزيد من تقنيات ست
 
 ## من صنع المقدمة لدروس ستوريبوك؟
 
-النص والكود والإنتاج كلهم تمت المساهمة بهم عن طريق [Chromatic](https://www.chromatic.com/). استوحيت الدروس من سلسلة Chromatic المشهورة [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+النص والكود والإنتاج كلهم تمت المساهمة بهم عن طريق [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). استوحيت الدروس من سلسلة Chromatic المشهورة [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 تريد دروس ومقالات أكثر مثل هذه؟ اشترك في اللائحة البريدية الخاصة بستوريبوك.
 

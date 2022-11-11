@@ -116,7 +116,7 @@ Une façon de contourner ce problème est de ne jamais rendre les composants con
 Cependant, les développeurs **devront** inévitablement rendre les conteneurs plus bas dans la hiérarchie des composants. Si nous voulons rendre la plupart ou la totalité de l'application dans Storybook (c'est ce que nous voulons !), nous devons trouver une solution à ce problème.
 
 <div class="aside">
-Soit dit en passant, la transmission de données en descendant dans la hiérarchie est une approche légitime, surtout lorsqu'on utilise <a href="http://graphql.org/">GraphQL</a>. C'est ainsi que nous avons construit <a href="https://www.chromatic.com">Chromatique</a> à côté de plus de 800 story.
+Soit dit en passant, la transmission de données en descendant dans la hiérarchie est une approche légitime, surtout lorsqu'on utilise <a href="http://graphql.org/">GraphQL</a>. C'est ainsi que nous avons construit <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatique</a> à côté de plus de 800 story.
 </div>
 
 ## Fournir un contexte aux décorateurs

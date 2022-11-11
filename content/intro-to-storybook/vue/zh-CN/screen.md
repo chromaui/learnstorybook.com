@@ -145,7 +145,7 @@ Error.args = { error: true };
 但是，开发人员**将会**不可避免的在下层结构中渲染容器组件。如果我们想要在 Storybook 中渲染应用中大部分或者全部的组件（我们想！），我们仍需要一个解决方案。
 
 <div class="aside">
-💡 需要说明的是，自顶而下的传递数据是一种合理的解决方案，尤其是使用<a href="http://graphql.org/">GraphQL</a>时。这也是我们在<a href="https://www.chromatic.com">Chromatic</a>中构建超过800个story的方式。
+💡 需要说明的是，自顶而下的传递数据是一种合理的解决方案，尤其是使用<a href="http://graphql.org/">GraphQL</a>时。这也是我们在<a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>中构建超过800个story的方式。
 </div>
 
 ## 在 story 中提供上下文

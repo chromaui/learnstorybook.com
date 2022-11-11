@@ -124,7 +124,7 @@ export const error = () => ({
 Vemos que aunque la historia de `error` y `standard` funciona bien. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario si no se proporcionan datos como lo hicimos con`TaskList`).
 
 <div class="aside">
-Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromatic.com">Chromatic</a> junto a más de 800+ historias.
+Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> junto a más de 800+ historias.
 </div>
 
 Recorrer los estados en Storybook hace que sea fácil comprobar que lo hemos hecho correctamente:

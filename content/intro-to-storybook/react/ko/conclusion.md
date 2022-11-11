@@ -27,7 +27,7 @@ description: '모든 지식을 종합하고 더 많은 스토리북(Storybook) �
 
 ## LearnStorybook.com은 누가 만들었나요?
 
-내용, 코드, 제작은 [Chromatic](https://www.chromatic.com/)에서 기여해주셨습니다. 튜토리얼은 Chromatic의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)에서 영감을 얻었습니다.
+내용, 코드, 제작은 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)에서 기여해주셨습니다. 튜토리얼은 Chromatic의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)에서 영감을 얻었습니다.
 
 이와 같은 튜토리얼과 기사를 더 원하시나요? 크로마틱(Chromatic)의 메일링 목록에 등록하세요.
 

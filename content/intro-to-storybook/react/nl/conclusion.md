@@ -23,7 +23,7 @@ Wil je wat dieper gaan? Hier zijn behulpzame bronnen.
 
 ## Who made the Intro to Storybook tutorial?
 
-De tekst, code en productie zijn bijgedragen door [Chromatic](https://www.chromatic.com/). De tutorial was geinspireerd door Chromatic's populaire [GraphQL + React tutorial serie](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+De tekst, code en productie zijn bijgedragen door [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). De tutorial was geinspireerd door Chromatic's populaire [GraphQL + React tutorial serie](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 Wil je meer tutorials en artikels zoals dit? Meld je aan voor de Storybook mailing list.
 

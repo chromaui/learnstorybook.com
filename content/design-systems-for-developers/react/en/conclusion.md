@@ -27,7 +27,7 @@ _Design Systems for Developers_ was created by [Dominic Nguyen](https://twitter.
 
 Expert guidance from [Kyle Suss](https://github.com/kylesuss), tech lead of Storybook’s design system, and [Michael Shilman](https://twitter.com/mshilman), creator of Storybook Docs.
 
-Content, code, and production brought to you by [Chromatic](https://www.chromatic.com/). InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) graciously helped kickstart production with a grant. We’re seeking sponsors to make continued maintenance and new guides like this possible. Email [Dominic](mailto:dom@chromatic.com) for more details.
+Content, code, and production brought to you by [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) graciously helped kickstart production with a grant. We’re seeking sponsors to make continued maintenance and new guides like this possible. Email [Dominic](mailto:dom@chromatic.com) for more details.
 
 ## Broaden your perspective
 
@@ -40,10 +40,10 @@ It’s worth expanding your focus to get a holistic design system perspective.
 More from the authors:
 
 - [Intro to Storybook](http://learnstorybook.com/intro-to-storybook) (guide)
-- [Component-Driven Development by Tom Coleman](https://www.componentdriven.org/) (article)
-- [Why design systems are a single point of failure by Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) (article)
-- [Delightful Storybook Workflow by Dominic Nguyen](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (article)
-- [Visual Testing by Tom Coleman](https://www.chromatic.com/blog/visual-testing-the-pragmatic-way-to-test-uis/) (article)
+- [Component-Driven Development by Tom Coleman](https://www.chromatic.com/blog/component-driven-development/) (article)
+- [Why design systems are a single point of failure by Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure/) (article)
+- [UI Testing Playbook by Varun Vachhar](https://storybook.js.org/blog/ui-testing-playbook/) (article)
+- [Visual Testing by Varun Vachhar](https://storybook.js.org/blog/visual-testing-in-storybook/) (article)
 
 ## FAQ
 

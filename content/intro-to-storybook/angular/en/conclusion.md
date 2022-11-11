@@ -27,7 +27,7 @@ Want to dive deeper? Here are helpful resources.
 
 ## Who made the Intro to Storybook tutorial?
 
-The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 Want more tutorials and articles like this? Sign up to the Storybook mailing list.
 

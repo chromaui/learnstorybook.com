@@ -29,7 +29,7 @@ Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
 ## Quem fez LearnStorybook.com?
 
-O texto, código e produção foram contribuídos pela [Chromatic](https://www.chromatic.com/). O tutorial foi inspirado pela [série de tutoriais populares de GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+O texto, código e produção foram contribuídos pela [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). O tutorial foi inspirado pela [série de tutoriais populares de GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 Quer mais tutoriais e artigos como este? Subscreva a mailing list da Chromatic.
 

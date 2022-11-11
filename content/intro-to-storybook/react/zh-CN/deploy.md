@@ -15,7 +15,7 @@ commit: 'af610d9'
 
 ## 发布 Storybook
 
-本教程使用 <a href="https://www.chromatic.com/">Chromatic</a>，这是一个有 Storybook 维护者提供的一个免费发布托管服务。它允许我们安全可靠的部署和托管我们的 Storybook。
+本教程使用 <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>，这是一个有 Storybook 维护者提供的一个免费发布托管服务。它允许我们安全可靠的部署和托管我们的 Storybook。
 
 ### GitHub 仓库设置
 
@@ -57,7 +57,7 @@ git push -u origin main
 yarn add -D chromatic
 ```
 
-当依赖包安装完成时，[登录 Chromatic](https://www.chromatic.com/start) 以及 Github 账号（Chromatic 仅要求一些轻量的权限）。接下来我们将创建一个新仓库命名为“taskbox”并同步到我们设置好的 Github 仓库。
+当依赖包安装完成时，[登录 Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 以及 Github 账号（Chromatic 仅要求一些轻量的权限）。接下来我们将创建一个新仓库命名为“taskbox”并同步到我们设置好的 Github 仓库。
 
 点击协作者下的 `Choose GitHub repo` 并选择你的仓库。
 

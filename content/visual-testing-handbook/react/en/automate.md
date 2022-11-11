@@ -37,7 +37,7 @@ git push -u origin main
 
 ## Set up Chromatic
 
-We'll use Chromatic by Storybook maintainers to demonstrate the image snapshotting process. Go to [chromatic.com](https://www.chromatic.com/) and signup with your GitHub account.
+We'll use Chromatic by Storybook maintainers to demonstrate the image snapshotting process. Go to [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) and signup with your GitHub account.
 
 ![Chromatic sign in](/visual-testing-handbook/chromatic-sign-in-optimized.png)
 
@@ -251,7 +251,7 @@ Once bugs are fixed and baselines are up to date, you're ready to merge code bac
 
 ### Continuous integration
 
-Running this command locally each time we make a change is tiresome. Productions teams trigger visual test runs when code is pushed in their CI/CD pipeline. While we won't set that up in this tutorial, you can learn more in [Chromatic's CI docs](https://www.chromatic.com/docs/ci).
+Running this command locally each time we make a change is tiresome. Productions teams trigger visual test runs when code is pushed in their CI/CD pipeline. While we won't set that up in this tutorial, you can learn more in [Chromatic's CI docs](https://www.chromatic.com/docs/ci?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook).
 
 ## Your journey begins
 

@@ -18,7 +18,7 @@ Nous allons construire notre propre interface utilisateur en suivant la méthode
 
 Pour débuter la construction du composant `Tâche`, nous écrivons d'abord nos tests d'état correspondant aux différents types de taches visibles ci-dessus. Ensuite, nous utilisons Storybook pour construire le composant de manière isolée avec des données bouchonnées. Nous pourrons “tester visuellement“ l'apparence du composant pour chaque état que nous avons.
 
-Le procédure est similaire au [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que nous pouvons appeler “[Visual TDD](https://blog.hichroma.com/visual-test-driven-development-aec1c98bed87)”.
+Le procédure est similaire au [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que nous pouvons appeler “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development/)”.
 
 ## Configuration
 

@@ -28,7 +28,7 @@ Les tests de régression visuelle sont conçus pour détecter les changements d'
 
 Storybook est un outil fantastique pour les tests de régression visuelle, car chaque histoire est essentiellement une spécification de test. Chaque fois que nous écrivons ou mettons à jour une histoire, nous obtenons une spécification gratuitement!
 
-Il existe de nombreux outils pour les tests de régression visuelle. Pour les équipes professionnelles, nous recommandons [**Chromatic**](https://www.chromatic.com/), un addon créé par les mainteneurs de Storybook qui exécute des tests dans le cloud.
+Il existe de nombreux outils pour les tests de régression visuelle. Pour les équipes professionnelles, nous recommandons [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), un addon créé par les mainteneurs de Storybook qui exécute des tests dans le cloud.
 
 ## Configurer les tests de régression visuelle
 
@@ -74,7 +74,9 @@ npx chromatic --project-token=<project-token>
 ```
 
 <div class="aside">
-Si votre Storybook a un script de construction personnalisé, vous devrez peut-être [ajouter des options](https://www.chromatic.com/docs/setup#command-options) à cette commande.
+
+Si votre Storybook a un script de construction personnalisé, vous devrez peut-être [ajouter des options](https://www.chromatic.com/docs/setup?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook#command-options) à cette commande.
+
 </div>
 
 Une fois le premier test terminé, nous avons des références de test pour chaque histoire. En d'autres termes, des captures d'écran de chaque histoire connue pour être «bonne». Les futurs changements apportés à ces histoires seront comparés aux références.

@@ -28,7 +28,7 @@ O Dominic desenhou o interface de utilizador, todo o branding e o sistema de des
 
 Orientação especializada por parte do [Kyle Suss](https://github.com/kylesuss), líder técnico do sistema de design do Storybook e também [Michael Shilman](https://twitter.com/mshilman), o criador do Storybook Docs.
 
-O conteúdo, código e produção são fornecidos pela [Chromatic](https://www.chromatic.com/). A InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) ajudou de forma graciosa com uma doação que ajudou no ínicio do processo. Estamos à procura de patrocinadores para uma manutenção contínua e também guias novos tais como este sempre que possível. Enviem um email ao [Dominic](mailto:dom@chromatic.com), para mais detalhes.
+O conteúdo, código e produção são fornecidos pela [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). A InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) ajudou de forma graciosa com uma doação que ajudou no ínicio do processo. Estamos à procura de patrocinadores para uma manutenção contínua e também guias novos tais como este sempre que possível. Enviem um email ao [Dominic](mailto:dom@chromatic.com), para mais detalhes.
 
 ## Expanda a sua perspetiva
 
