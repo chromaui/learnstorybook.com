@@ -332,4 +332,4 @@ Mientras iteramos a través de este flujo de trabajo, verifique regularmente cad
 
 ## Aprenda a automatizar las pruebas visuales
 
-En el próximo capítulo, veremos cómo podemos automatizar el proceso VTDD con [Chromatic](https://chromatic.com/), un servicio gratuito de prueba visual creado por los mantenedores de Storybook.
+En el próximo capítulo, veremos cómo podemos automatizar el proceso VTDD con [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), un servicio gratuito de prueba visual creado por los mantenedores de Storybook.

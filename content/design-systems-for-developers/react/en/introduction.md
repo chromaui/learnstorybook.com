@@ -57,7 +57,7 @@ Storybook powers the design systems for [BBC](https://www.bbc.co.uk/iplayer/stor
 
 - 🚥 [GitHub Actions](https://github.com/features/actions) for continuous integration
 - 📐 [ESLint](https://eslint.org/) for JavaScript linting
-- ✅ [Chromatic](https://chromatic.com) to catch visual bugs in components (by Storybook maintainers)
+- ✅ [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) to catch visual bugs in components (by Storybook maintainers)
 - 📦 [npm](https://npmjs.com) for distributing the library
 - 🛠 [Auto](https://github.com/intuit/auto) for release management workflow
 

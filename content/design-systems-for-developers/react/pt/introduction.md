@@ -59,7 +59,7 @@ O Storybook alimenta os sistemas de design da [BBC](https://www.bbc.co.uk/iplaye
 
 - 🚥 [CircleCI](https://circleci.com/) para integração contínua
 - 📐 [ESLint](https://eslint.org/) para o linting de JavaScript
-- ✅ [Chromatic](https://chromatic.com) para capturar erros visuais nos componentes (pela equipa de manutenção do Storybook)
+- ✅ [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) para capturar erros visuais nos componentes (pela equipa de manutenção do Storybook)
 - 🃏 [Jest](https://jestjs.io/) para testes unitários dos componentes
 - 📦 [npm](https://npmjs.com) para distribuição da biblioteca
 - 🛠 [Auto](https://github.com/intuit/auto) para gestão do fluxo de trabalho associado ao lançamento de versões

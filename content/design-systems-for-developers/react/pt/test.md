@@ -39,7 +39,7 @@ Os testes visuais capturam uma imagem de cada componente do IU, num ambiente con
 
 Se está a construir um interface de utilizador moderno, os testes visuais irão poupar a sua equipa de frontend de revisões manuais dispendiosas em termos de tempo e prevenir regressões no IU que podem ser também dispendiosas. Vai ser usado o Chromatic, um serviço de nível industrial mantido pela equipa por detrás do Storybook, para demonstrar testes visuais.
 
-Primeiro, vá a [chromatic.com](https://chromatic.com) e registe-se usando a sua conta GitHub.
+Primeiro, vá a [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) e registe-se usando a sua conta GitHub.
 
 ![Registo na Chromatic](/design-systems-for-developers/chromatic-signup.png)
 

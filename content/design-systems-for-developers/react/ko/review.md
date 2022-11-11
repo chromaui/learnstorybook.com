@@ -40,7 +40,7 @@ UI 컴포넌트가 URL을 통해 접근 가능해지면 관계자들은 UI가 �
 
 ### 크로마틱 시작하기
 
-첫 단계는 [chromatic.com](https://chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 에 가셔서 깃허브 계정으로 로그인 하는 것입니다.
+첫 단계는 [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 에 가셔서 깃허브 계정으로 로그인 하는 것입니다.
 
 ![크로마틱에 가입하기](/design-systems-for-developers/chromatic-signup.png)
 

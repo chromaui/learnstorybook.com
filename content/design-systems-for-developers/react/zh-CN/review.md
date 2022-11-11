@@ -41,7 +41,7 @@ commit: 'd6c6038'
 
 ### 获取 Chromatic
 
-首先，打开网站： [chromatic.com](https://chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 并使用您的 Github 账号进行注册。
+首先，打开网站： [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 并使用您的 Github 账号进行注册。
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 

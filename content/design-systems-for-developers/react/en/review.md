@@ -41,7 +41,7 @@ We will demonstrate a visual review workflow with [Chromatic](https://www.chroma
 
 ### Get Chromatic
 
-First, go to [chromatic.com](https://chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) and sign up with your GitHub account.
+First, go to [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) and sign up with your GitHub account.
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 
