@@ -285,7 +285,7 @@ GitHub Secrets은 저장소에 보안이 필요한 정보를 저장할 수 있�
 
 #### GitHub Actions으로 릴리즈 자동화
 
-PR을 매번 merge 할 때마다, 우리는 자동적으로 디자인 시스템이 배포되길 원할 것입니다. `push.yml`이라는 새로운 이름의 파일을 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">publish Storybook</a>에서 썼던 폴더와 같은 위치에 생성하고 다음과 같이 추가합니다. -
+PR을 매번 merge 할 때마다, 우리는 자동적으로 디자인 시스템이 배포되길 원할 것입니다. `push.yml`이라는 새로운 이름의 파일을 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">publish Storybook</a>에서 썼던 폴더와 같은 위치에 생성하고 다음과 같이 추가합니다. -
 
 ```yml:title=.github/workflows/push.yml
 # Name of our action

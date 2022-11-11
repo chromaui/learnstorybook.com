@@ -39,7 +39,7 @@ commit: 'a676146'
 
 如果您在创建现代化 UI，视觉测试可帮助您的前端开发团队节省人工审查的时间，也可以避免昂贵的 UI 回归测试。我们将使用 Storybook 维护者提供的工业级服务 Chromatic 来演示视觉测试。
 
-在 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">之前的章节</a> 我们学习到如何使用 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 去发布一个 Storybook。 我们为 `Button` 组件添加了一个红色边框并向同事来寻求反馈。
+在 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/zh-cn/review/#publish-storybook">之前的章节</a> 我们学习到如何使用 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 去发布一个 Storybook。 我们为 `Button` 组件添加了一个红色边框并向同事来寻求反馈。
 
 ![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
