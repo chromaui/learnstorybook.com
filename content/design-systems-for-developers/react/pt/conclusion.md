@@ -40,7 +40,7 @@ Vale muito a pena expandir o vosso foco, de forma a obter uma perspetiva holíst
 
 Mais acerca dos autores:
 
-- [Introdução ao Storybook](http://learnstorybook.com/intro-to-storybook) (guia)
+- [Introdução ao Storybook](https://storybook.js.org/tutorials/intro-to-storybook/) (guia)
 - [Component-Driven Development por Tom Coleman](https://www.componentdriven.org/) (artigo)
 - [Why design systems are a single point of failure por Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) (artigo)
 - [Delightful Storybook Workflow por Dominic Nguyen](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (artigo)

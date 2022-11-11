@@ -39,7 +39,7 @@ _개발자를 위한 디자인 시스템_ 은 [Dominic Nguyen](https://twitter.c
 
 위의 저자들이 쓴 다른 글 입니다. -
 
-- [스토리북 소개(Intro to Storybook)](http://learnstorybook.com/intro-to-storybook) (guide)
+- [스토리북 소개(Intro to Storybook)](https://storybook.js.org/tutorials/intro-to-storybook/) (guide)
 - [컴포넌트 주도 개발 by 톰 콜먼(Component-Driven Development by Tom Coleman)](https://www.componentdriven.org/) (article)
 - [설계 시스템이 단일 장애 지점인 이유 by 도미닉 응우옌(Why design systems are a single point of failure by Dominic Nguyen)](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) (article)
 - [재밌는 스토리북 작업 흐름 by 도미닉 응우옌(Delightful Storybook Workflow by Dominic Nguyen)](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (article)

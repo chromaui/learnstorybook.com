@@ -39,7 +39,7 @@ It’s worth expanding your focus to get a holistic design system perspective.
 
 More from the authors:
 
-- [Intro to Storybook](http://learnstorybook.com/intro-to-storybook) (guide)
+- [Intro to Storybook](https://storybook.js.org/tutorials/intro-to-storybook/) (guide)
 - [Component-Driven Development by Tom Coleman](https://www.chromatic.com/blog/component-driven-development/) (article)
 - [Why design systems are a single point of failure by Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure/) (article)
 - [UI Testing Playbook by Varun Vachhar](https://storybook.js.org/blog/ui-testing-playbook/) (article)

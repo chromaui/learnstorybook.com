@@ -39,7 +39,7 @@ _针对开发人员的设计系统_ 是由 [Dominic Nguyen](https://twitter.com/
 
 该作者的更多文章：
 
-- [Intro to Storybook](http://learnstorybook.com/intro-to-storybook) (guide)
+- [Intro to Storybook](https://storybook.js.org/tutorials/intro-to-storybook/) (guide)
 - [Component-Driven Development by Tom Coleman](https://www.chromatic.com/blog/component-driven-development/) (article)
 - [Why design systems are a single point of failure by Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure/) (article)
 - [UI Testing Playbook by Varun Vachhar](https://storybook.js.org/blog/ui-testing-playbook/) (article)

@@ -266,7 +266,7 @@ yarn auto release
 
 ## 使用 GitHub actions 来自动发布
 
-在与之前提到的<a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">发布 Storybook</a>章节的相同文件夹下， 我们可以添加一个名为 `push.yml` 的 Github action 文件：
+在与之前提到的<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/zh-cn/review/#publish-storybook">发布 Storybook</a>章节的相同文件夹下， 我们可以添加一个名为 `push.yml` 的 Github action 文件：
 
 ```yml:title=.github/workflows/push.yml
 ## name of our action
@@ -395,7 +395,7 @@ addDecorator((story) => (
 
 现在在您的开发过程中，您将可以通过浏览器去浏览您的设计系统和文档。在开发功能的过程中展示设计系统会增加开发人员重用现有组件的可能性，而不是浪费时间开发自己组件。
 
-另外，如果您之前已经在 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">Chromatic</a> 中部署了您的设计系统（请参阅第四章），您可以在线浏览您设计系统的 Storybook。
+另外，如果您之前已经在 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/zh-cn/review/#publish-storybook">Chromatic</a> 中部署了您的设计系统（请参阅第四章），您可以在线浏览您设计系统的 Storybook。
 
 我们将在示例应用程序的 UserItem 组件中使用设计系统中的 Avatar 组件。UserItem 应该渲染包含用户名和头像的信息。
 
