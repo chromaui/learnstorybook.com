@@ -23,7 +23,7 @@ Envie de creuser plus? Voici des ressources utiles.
 
 - [**Storybook Discord chat**](https://discord.gg/UUt2PJb) vous met en contact avec la communauté Storybook. Obtenez et donnez de l'aide aux autres utilisateurs de Storybook.
 
-- [**Blog Storybook**](https://medium.com/storybookjs) présente les dernières versions et les fonctionnalités permettant de fluidifier votre workflow de développement d'UI.
+- [**Blog Storybook**](https://storybook.js.org/blog/) présente les dernières versions et les fonctionnalités permettant de fluidifier votre workflow de développement d'UI.
 
 ## Qui a créé LearnStorybook.com ?
 

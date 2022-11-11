@@ -23,7 +23,7 @@ description: '모든 지식을 종합하고 더 많은 스토리북(Storybook) �
 
 - [**스토리북 디스코드(Discord) 채널**](https://discord.gg/UUt2PJb)로 스토리북 커뮤니티와 연결될 수 있습니다. 스토리북 사용자를 위한 도움을 주고받으세요.
 
-- [**스토리북 블로그**](https://medium.com/storybookjs)는 UI 개발을 위한 작업 흐름(workflow)를 간소화할 수 있는 최신 릴리즈(release)와 기능들을 보여줍니다.
+- [**스토리북 블로그**](https://storybook.js.org/blog)는 UI 개발을 위한 작업 흐름(workflow)를 간소화할 수 있는 최신 릴리즈(release)와 기능들을 보여줍니다.
 
 ## LearnStorybook.com은 누가 만들었나요?
 

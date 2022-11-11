@@ -29,4 +29,4 @@ Si lo ha estado siguiendo, su repositorio y Storybook implementado deberían ver
 
 - [**Discord de Storybook**](https://discord.gg/UUt2PJb) te pone en contacto con la comunidad y los mantenedores de Storybook.
 
-- [**Blog de Storybook**](https://medium.com/storybookjs) muestra las últimas versiones y funciones para optimizar el flujo de trabajo de desarrollo de la interfaz de usuario.
+- [**Blog de Storybook**](https://storybook.js.org/blog) muestra las últimas versiones y funciones para optimizar el flujo de trabajo de desarrollo de la interfaz de usuario.

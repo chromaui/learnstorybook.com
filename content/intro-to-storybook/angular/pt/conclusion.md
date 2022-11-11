@@ -25,7 +25,7 @@ Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
 - [**Discord do Storybook**](https://discord.gg/UUt2PJb) põe-te em contacto direto com a comunidade Storybook. Onde podes oferecer e receber ajuda de outros utilizadores do Storybook.
 
-- [**Blog Storybook**](https://medium.com/storybookjs) demonstra tanto as novidades acerca das versões mais recentes, como as últimas funcionalidades existentes, de forma a otimizar o teu fluxo de trabalho no desenvolvimento de interface de utilizador
+- [**Blog Storybook**](https://storybook.js.org/blog) demonstra tanto as novidades acerca das versões mais recentes, como as últimas funcionalidades existentes, de forma a otimizar o teu fluxo de trabalho no desenvolvimento de interface de utilizador
 
 ## Quem fez LearnStorybook.com?
 

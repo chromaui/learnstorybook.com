@@ -23,7 +23,7 @@ Storybook 在 React、React Native、Vue、Angular、Svelte 和其它 framework 
 
 - 在 [**Discord**](https://discord.gg/UUt2PJb) 與 Storybook 社群聊天互動。只要你幫助其他 Storybook 使用者，Storybook 使用者也會幫你。
 
-- [**Storybook 部落格**](https://medium.com/storybookjs)展示能夠讓 UI 開發工作流程一致的最新版本與功能。
+- [**Storybook 部落格**](https://storybook.js.org/blogs)展示能夠讓 UI 開發工作流程一致的最新版本與功能。
 
 ## Storybook 入門教學是誰做的？
 

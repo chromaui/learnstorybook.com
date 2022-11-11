@@ -23,7 +23,7 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 - [**Storybook Discord**](https://discord.gg/UUt2PJb) では Storybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
 
-- [**Storybook ブログ**](https://medium.com/storybookjs)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
+- [**Storybook ブログ**](https://storybook.js.org/blog)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
 
 ## 誰が Intro to Storybook チュートリアルを作成しているのでしょうか？
 

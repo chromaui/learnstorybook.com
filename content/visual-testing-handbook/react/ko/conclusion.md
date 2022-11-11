@@ -21,7 +21,7 @@ description: '시각적 버그들에 안녕을'
 
 ## 더 많은 자료들
 
-더 깊이 파고들고 싶나요? 여기 유용한 추가 자료들이 있습니다 - 
+더 깊이 파고들고 싶나요? 여기 유용한 추가 자료들이 있습니다 -
 
 - [**스토리북 공식 문서들**](https://storybook.js.org/docs/react/get-started/introduction) 에는 API 문서와, 예시들, 그리고 애드온(Addon) 갤러리가 있습니다.
 
@@ -29,4 +29,4 @@ description: '시각적 버그들에 안녕을'
 
 - [**디스코드(Discord) 채팅**](https://discord.gg/UUt2PJb)을 통해 스토리북 커뮤니티 및 메인테이너들과 연락할 수 있습니다.
 
-- [**블로그**](https://medium.com/storybookjs)는 UI 개발 작업 흐름(workflow)를 간소화하는 최신 릴리스 및 기능을 보여줍니다.
+- [**블로그**](https://storybook.js.org/blog)는 UI 개발 작업 흐름(workflow)를 간소화하는 최신 릴리스 및 기능을 보여줍니다.

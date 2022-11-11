@@ -23,7 +23,7 @@ Quieres bucear más profundo? Aquí algunos recursos útiles:
 
 - [**Discord de Storybook**](https://discord.gg/UUt2PJb) te pone en contacto con la comunidad de Storybook. Obtenga y brinde ayuda a otros usuarios de Storybook.
 
-- [**Blog de Storybook**](https://medium.com/storybookjs) muestra las últimas versiones y características para optimizar su flujo de trabajo de desarrollo de UI.
+- [**Blog de Storybook**](https://storybook.js.org/blog) muestra las últimas versiones y características para optimizar su flujo de trabajo de desarrollo de UI.
 
 ## Quién hizo LearnStorybook.com?
 
