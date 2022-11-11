@@ -17,7 +17,7 @@ Quieres bucear más profundo? Aquí algunos recursos útiles:
 
 - [**Documentación oficial de Storybook**](https://storybook.js.org/docs/react/get-started/introduction) tiene la documentación del API, links comunitarios y una galería de complementos.
 
-- [**El delicioso flujo de trabajo de Storybook**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Squarespace, Major League Soccer, Discovery Network y Apollo GraphQL.
+- [**Manual the pruebas IU**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Twilio, Adobe, Peloton Network y Shopify.
 
 - [**Manual de pruebas visuales**](https://storybook.js.org/tutorials/visual-testing-handbook/) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
 

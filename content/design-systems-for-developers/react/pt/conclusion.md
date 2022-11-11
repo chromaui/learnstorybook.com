@@ -43,8 +43,8 @@ Mais acerca dos autores:
 - [Introdução ao Storybook](https://storybook.js.org/tutorials/intro-to-storybook/) (guia)
 - [Component-Driven Development por Tom Coleman](https://www.componentdriven.org/) (artigo)
 - [Why design systems are a single point of failure por Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) (artigo)
-- [Delightful Storybook Workflow por Dominic Nguyen](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (artigo)
-- [Visual Testing por Tom Coleman](https://www.chromatic.com/blog/visual-testing-the-pragmatic-way-to-test-uis) (artigo)
+- [UI Testing Playbook by Varun Vachhar](https://storybook.js.org/blog/ui-testing-playbook/) (artigo)
+- [Visual Testing by Varun Vachhar](https://storybook.js.org/blog/visual-testing-in-storybook/) (artigo)
 
 ## Perguntas frequentes
 

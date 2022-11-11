@@ -29,4 +29,4 @@ Want to dive deeper? Here are some additional helpful resources:
 
 - [**Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community and maintainers.
 
-- [**Blog**](https://medium.com/storybookjs) showcases the latest releases and features to streamline your UI development workflow.
+- [**Blog**](https://storybook.js.org/blog/) showcases the latest releases and features to streamline your UI development workflow.

@@ -17,13 +17,13 @@ Vous voulez en apprendre plus ? Voici des ressources utiles :
 
 - [**Documentation Officielle de Storybook**](https://storybook.js.org/docs/vue/get-started/introduction) possède une documentation de l'API, des liens de la communauté et une galerie d'addons.
 
-- [**UI Testing Workflow**](ttps://storybook.js.org/blog/ui-testing-playbook/) met en évidence les meilleures pratiques de workflow utilisées par les équipes de haute vélocité de Squarespace, Major League Soccer, Discovery Network, et Apollo GraphQL.
+- [**UI Testing Playbook**](ttps://storybook.js.org/blog/ui-testing-playbook/) met en évidence les meilleures pratiques de workflow utilisées par les équipes de haute vélocité de Twilio, Adobe, Peloton, et Shopify.
 
 - [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) plonge profondément dans l'utilisation de Storybook pour visualiser les composants de test. Livre numérique gratui de 31 pages.
 
 - [**Le chat Discord de Storybook**](https://discord.gg/UUt2PJb) vous met en contact avec la communauté Storybook. Obtenez et aidez d'autres utilisateurs de Storybook.
 
-- [**Le blog de Storybook**](https://medium.com/storybookjs) présente les dernières versions et fonctionnalités pour rationaliser votre workflow de développement d'interface utilisateur.
+- [**Le blog de Storybook**](https://storybook.js.org/blog/) présente les dernières versions et fonctionnalités pour rationaliser votre workflow de développement d'interface utilisateur.
 
 ## Qui a fait LearnStorybook.com?
 

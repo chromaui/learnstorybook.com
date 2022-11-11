@@ -17,7 +17,7 @@ Envie de creuser plus? Voici des ressources utiles.
 
 - [**Documentation officielle de Storybook**](https://storybook.js.org/docs/react/get-started/introduction) comprend la documentation de l'API, les liens de la communauté et la galerie d'addons.
 
-- [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) met en évidence les meilleures pratiques de workflow utilisées par les équipes à grande vitesse de Squarespace, Major League Soccer, Discovery Network, et Apollo GraphQL.
+- [**UI Testing Playbook**](https://storybook.js.org/blog/ui-testing-playbook/) highlights workflow best practices used by high-velocity teams at Twilio, Adobe, Peloton, and Shopify.
 
 - [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) plonge dans l'utilisation de Storybook pour tester visuellement les composants. Livre électronique gratuit de 31 pages.
 
