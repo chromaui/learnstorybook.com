@@ -200,7 +200,7 @@ At this point, we know that the component is in a good state. Chromatic will cap
 
 ### Set up Chromatic
 
-Sign in and [create a new project](https://www.chromatic.com/docs/setup/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) and grab your project-token.
+Sign in and [create a new project](https://www.chromatic.com/docs/setup?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) and grab your project-token.
 
 Chromatic is built specifically for Storybook and requires no configuration. Running the command below will trigger it to capture a snapshot of each story (using a cloud browser).
 
