@@ -266,7 +266,7 @@ yarn auto release
 
 ## 使用 GitHub actions 来自动发布
 
-在与之前提到的<a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">发布 Storybook</a>章节的相同文件夹下， 我们可以添加一个名为 `push.yml` 的 Github action 文件：
+在与之前提到的<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/zh-cn/review/#publish-storybook">发布 Storybook</a>章节的相同文件夹下， 我们可以添加一个名为 `push.yml` 的 Github action 文件：
 
 ```yml:title=.github/workflows/push.yml
 ## name of our action
@@ -330,7 +330,7 @@ jobs:
 
 <div class="aside">其他的方法如 Svelte 和 web components 也许允许您采用与框架无关的 UI 组件。 但是，他们相对较新、文档不足或者缺乏广泛使用。因此本指南中未包含这些部分。</div>
 
-该示例应用程序采用 Storybook 去简化[组件驱动开发](https://blog.hichroma.com/component-driven-development-ce1109d56c8e)（一种软件开发方法，采用自下而上的方式，先构建组件再构建页面）。在演示过程中，我们将运行两个 Storybook，一个用于示例应用程序，另一个用于设计系统。
+该示例应用程序采用 Storybook 去简化[组件驱动开发](https://www.chromatic.com/blog/component-driven-development/)（一种软件开发方法，采用自下而上的方式，先构建组件再构建页面）。在演示过程中，我们将运行两个 Storybook，一个用于示例应用程序，另一个用于设计系统。
 
 从 GitHub 上克隆示例应用程序的代码仓库到本地：
 
@@ -395,7 +395,7 @@ addDecorator((story) => (
 
 现在在您的开发过程中，您将可以通过浏览器去浏览您的设计系统和文档。在开发功能的过程中展示设计系统会增加开发人员重用现有组件的可能性，而不是浪费时间开发自己组件。
 
-另外，如果您之前已经在 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">Chromatic</a> 中部署了您的设计系统（请参阅第四章），您可以在线浏览您设计系统的 Storybook。
+另外，如果您之前已经在 <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/zh-cn/review/#publish-storybook">Chromatic</a> 中部署了您的设计系统（请参阅第四章），您可以在线浏览您设计系统的 Storybook。
 
 我们将在示例应用程序的 UserItem 组件中使用设计系统中的 Avatar 组件。UserItem 应该渲染包含用户名和头像的信息。
 

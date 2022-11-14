@@ -332,4 +332,4 @@ CommentList.defaultProps = {
 
 ## 시각적 테스트 자동화하는 법을 배우기
 
-다음 챕터에서는, VTDD 과정을 스토리북 메인테이너들이 만든 무료 시각적 테스팅 서비스인 [Chromatic](https://chromatic.com/)으로 어떻게 자동화할 수 있는지 보겠습니다.
+다음 챕터에서는, VTDD 과정을 스토리북 메인테이너들이 만든 무료 시각적 테스팅 서비스인 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)으로 어떻게 자동화할 수 있는지 보겠습니다.

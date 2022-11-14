@@ -21,7 +21,7 @@ commit: 'a676146'
 
 ## 测前须知
 
-在[之前的文章](https://blog.hichroma.com/the-delightful-storybook-workflow-b322b76fd07) 我对 4 个涉及到专业的 Storybook 工作流程的前端团队做过调查。他们认为开发 stories 是一个最佳实践，它让测试变得容易和全面。
+在 [之前的文章](https://storybook.js.org/blog/ui-testing-playbook/) 中，我们调查了 10 个参与专业 Storybook 工作流程的前端团队。 他们认为开发故事是一种最佳实践，可以使测试变得简单而全面。
 
 **清楚地将组件支持的状态**表达为 stories 可以阐明不同的输入组合所对应的组件状态，尽可能去忽略不支持的状态来降低干扰。
 
@@ -39,11 +39,11 @@ commit: 'a676146'
 
 如果您在创建现代化 UI，视觉测试可帮助您的前端开发团队节省人工审查的时间，也可以避免昂贵的 UI 回归测试。我们将使用 Storybook 维护者提供的工业级服务 Chromatic 来演示视觉测试。
 
-在 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/en/review/#publish-storybook">之前的章节</a> 我们学习到如何使用 [Chromatic](https://www.chromatic.com/) 去发布一个 Storybook。 我们为 `Button` 组件添加了一个红色边框并向同事来寻求反馈。
+在 <a href="https://www.learnstorybook.com/design-systems-for-developers/react/zh-cn/review/#publish-storybook">之前的章节</a> 我们学习到如何使用 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 去发布一个 Storybook。 我们为 `Button` 组件添加了一个红色边框并向同事来寻求反馈。
 
 ![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
-现在我们使用 Chromatic 内置的工具 [testing tools](https://www.chromatic.com/features/test) 来看看视觉测试是如何工作的。当合并请求被创建的时候，Chromatic 获取到我们组件和之前组件的变化差异图。有 3 个改动被发现：
+现在我们使用 Chromatic 内置的工具 [testing tools](https://www.chromatic.com/features/test/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 来看看视觉测试是如何工作的。当合并请求被创建的时候，Chromatic 获取到我们组件和之前组件的变化差异图。有 3 个改动被发现：
 
 ![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 

@@ -38,11 +38,11 @@ description: '디자인 시스템 외관, 기능성 및 접근성을 테스트�
 
 모던 UI를 구축하는 경우 시각적 테스트를 통해 프런트엔드 팀이 수작업 리뷰에 드는 시간을 절약하고 비용이 많이 드는 UI 회귀 테스트를 수행하는 것을 방지할 수 있습니다.
 
-<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">이전 장</a>에서 [크로마틱(Chromatic)](https://www.chromatic.com/)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 `버튼` 컴포넌트 주위에 굵은 빨간색 테두리(border)를 추가한 다음, 팀원에게 피드백을 요청했습니다.
+<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/ko/review/#publish-storybook">이전 장</a>에서 [크로마틱(Chromatic)](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)을 사용하여 스토리북을 게시하는 방법을 배웠습니다. 각 `버튼` 컴포넌트 주위에 굵은 빨간색 테두리(border)를 추가한 다음, 팀원에게 피드백을 요청했습니다.
 
 ![빨간색 테두리 버튼](/design-systems-for-developers/chromatic-button-border-change.png)
 
-이제 크로마틱에 내장된 [테스트 도구](https://www.chromatic.com/features/test)를 사용하여 시각적 테스트가 어떻게 작동하는지 살펴보겠습니다. 풀 리퀘스트(pull request)가 생성되었을 때 크로마틱은 변경 사항에 대한 이미지를 캡처하여 동일한 컴포넌트의 이전 버전과 비교했습니다. 4가지 변경 사항이 발견되었습니다.
+이제 크로마틱에 내장된 [테스트 도구](https://www.chromatic.com/features/test/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)를 사용하여 시각적 테스트가 어떻게 작동하는지 살펴보겠습니다. 풀 리퀘스트(pull request)가 생성되었을 때 크로마틱은 변경 사항에 대한 이미지를 캡처하여 동일한 컴포넌트의 이전 버전과 비교했습니다. 4가지 변경 사항이 발견되었습니다.
 
 ![풀 리퀘스트의 체크 목록](/design-systems-for-developers/chromatic-list-of-checks.png)
 

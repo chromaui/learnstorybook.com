@@ -17,7 +17,7 @@ commit: 'af610d9'
 
 ## نشر ستوريبوك
 
-هذا الدرس يستخدم <a href="https://www.chromatic.com/">كروماتك</a>, خدمة نشر مجانية صنعت من مراقبي ستوريبوك. تسمح لنا بإطلاق واستضافة ستوريبوك خاصتنا بشكل أمن في السحابة.
+هذا الدرس يستخدم <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">كروماتك</a>, خدمة نشر مجانية صنعت من مراقبي ستوريبوك. تسمح لنا بإطلاق واستضافة ستوريبوك خاصتنا بشكل أمن في السحابة.
 
 ### قم بإعداد مستودع في Github
 
@@ -59,7 +59,7 @@ yarn add -D chromatic
 
 </div>
 
-عندما يتم تثبيت الحزمة, [سجل دخولك إلى Chromatic](https://www.chromatic.com/start) باستخدام حسابك في Github (Chromatic سيطلب أذونات خفيفة) ثم سننشئ مشروع جديد اسمه "taskbox" ونزامنه مع مستودع Github الذي أعددناه.
+عندما يتم تثبيت الحزمة, [سجل دخولك إلى Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) باستخدام حسابك في Github (Chromatic سيطلب أذونات خفيفة) ثم سننشئ مشروع جديد اسمه "taskbox" ونزامنه مع مستودع Github الذي أعددناه.
 
 إضغط على `Choose GitHub repo` تحت خانة المتعاونون واختر مستودعك.
 

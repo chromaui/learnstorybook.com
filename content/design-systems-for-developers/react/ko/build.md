@@ -28,7 +28,7 @@ yarn add --dev prettier
 
 ## 스토리북 설치하기
 
-스토리북은 독자적인 UI 컴포넌트를 개발을 위한 업계 표준 [컴포넌트 탐색기](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a)입니다. 디자인 시스템은 UI 컴포넌트에 집중하기 때문에 스토리북은 용례를 위한 이상적인 도구입니다. 다음 기능을 주로 사용합니다. -
+스토리북은 독자적인 UI 컴포넌트를 개발을 위한 업계 표준 [컴포넌트 탐색기](https://www.chromatic.com/blog/ui-component-explorers---your-new-favorite-tool/)입니다. 디자인 시스템은 UI 컴포넌트에 집중하기 때문에 스토리북은 용례를 위한 이상적인 도구입니다. 다음 기능을 주로 사용합니다. -
 
 - 📕UI 컴포넌트들을 카탈로그화 하기
 - 📄컴포넌트 변화를 스토리들(Stories)로 저장하기

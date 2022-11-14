@@ -15,7 +15,7 @@ L'exécution de `yarn build-storybook` produira un Storybook statique dans le r�
 
 ## Publier Storybook
 
-Ce tutoriel utilise <a href="https://www.chromatic.com/">Chromatic</a>, un service de publication gratuit réalisé par les mainteneurs de Storybook. Il nous permet de déployer et d'héberger notre Storybook en toute sécurité dans le cloud.
+Ce tutoriel utilise <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un service de publication gratuit réalisé par les mainteneurs de Storybook. Il nous permet de déployer et d'héberger notre Storybook en toute sécurité dans le cloud.
 
 ### Configurer un repo dans GitHub
 
@@ -57,7 +57,7 @@ Ajoutez le paquet comme une dev dependency.
 yarn add -D chromatic
 ```
 
-Une fois le paquet installé, [connectez-vous à Chromatic](https://www.chromatic.com/start) avec votre compte GitHub (Chromatic ne vous demandera que des permissions légères). Ensuite, nous créerons un nouveau projet appelé "taskbox" et le synchroniserons avec le dépôt GithHub que nous avons mis en place.
+Une fois le paquet installé, [connectez-vous à Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) avec votre compte GitHub (Chromatic ne vous demandera que des permissions légères). Ensuite, nous créerons un nouveau projet appelé "taskbox" et le synchroniserons avec le dépôt GithHub que nous avons mis en place.
 
 Cliquez sur `Choisir le dépôt GitHub` sous collaborateurs et sélectionnez votre dépôt.
 

@@ -29,7 +29,7 @@ yarn add --dev prettier
 
 ## 安装 Storybook
 
-Storybook [组件资源管理器](https://blog.hichroma.com/the-crucial-tool-for-modern-frontend-engineers-fb849b06187a) 是用于独立开发 UI 组件的行业标准。由于设计系统专注于 UI 组件，因此使用 Storybook 在此场景下是非常合适的。我们将使用以下功能：
+Storybook [组件资源管理器](https://www.chromatic.com/blog/ui-component-explorers---your-new-favorite-tool/) 是用于独立开发 UI 组件的行业标准。由于设计系统专注于 UI 组件，因此使用 Storybook 在此场景下是非常合适的。我们将使用以下功能：
 
 - 📕 对 UI 组件进行分类
 - 📄 将所有组件转换成 stories

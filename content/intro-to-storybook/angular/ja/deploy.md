@@ -15,7 +15,7 @@ Storybook をデプロイするには、まず静的サイトとしてエクス�
 
 ## Storybook を発行する
 
-このチュートリアルでは、Storybook のメンテナーが作成した、無料のホスティングサービスである <a href="https://www.chromatic.com/">Chromatic</a> を使用します。Chromatic を使えば、クラウド上に Storybook を安全に、デプロイしホストすることができます。
+このチュートリアルでは、Storybook のメンテナーが作成した、無料のホスティングサービスである <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> を使用します。Chromatic を使えば、クラウド上に Storybook を安全に、デプロイしホストすることができます。
 
 ### GitHub にリポジトリーを作成する
 
@@ -45,7 +45,7 @@ git push -u origin main
 npm install -D chromatic
 ```
 
-パッケージをインストールしたら、GitHub のアカウントを使用して [Chromatic にログイン](https://www.chromatic.com/start)します。(Chromatic は一部のアクセス許可を要求します。) 「taskbox」という名前でプロジェクトを作成し、GitHub のリポジトリーと同期させます。
+パッケージをインストールしたら、GitHub のアカウントを使用して [Chromatic にログイン](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)します。(Chromatic は一部のアクセス許可を要求します。) 「taskbox」という名前でプロジェクトを作成し、GitHub のリポジトリーと同期させます。
 
 「colaborators」の下にある `Choose from GitHub` をクリックし、リポジトリーを選択します。
 

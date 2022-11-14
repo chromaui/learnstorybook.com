@@ -23,11 +23,11 @@ description: '모든 지식을 종합하고 더 많은 스토리북(Storybook) �
 
 - [**스토리북 디스코드(Discord) 채널**](https://discord.gg/UUt2PJb)로 스토리북 커뮤니티와 연결될 수 있습니다. 스토리북 사용자를 위한 도움을 주고받으세요.
 
-- [**스토리북 블로그**](https://medium.com/storybookjs)는 UI 개발을 위한 작업 흐름(workflow)를 간소화할 수 있는 최신 릴리즈(release)와 기능들을 보여줍니다.
+- [**스토리북 블로그**](https://storybook.js.org/blog)는 UI 개발을 위한 작업 흐름(workflow)를 간소화할 수 있는 최신 릴리즈(release)와 기능들을 보여줍니다.
 
 ## LearnStorybook.com은 누가 만들었나요?
 
-내용, 코드, 제작은 [Chromatic](https://www.chromatic.com/)에서 기여해주셨습니다. 튜토리얼은 Chromatic의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)에서 영감을 얻었습니다.
+내용, 코드, 제작은 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)에서 기여해주셨습니다. 튜토리얼은 Chromatic의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)에서 영감을 얻었습니다.
 
 이와 같은 튜토리얼과 기사를 더 원하시나요? 크로마틱(Chromatic)의 메일링 목록에 등록하세요.
 

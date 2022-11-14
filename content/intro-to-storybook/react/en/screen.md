@@ -304,7 +304,7 @@ export const Error = Template.bind({});
 ```
 
 <div class="aside">
-💡 As an aside, yet another viable approach would be to pass data down the hierarchy, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com">Chromatic</a> alongside 800+ stories.
+💡 As an aside, yet another viable approach would be to pass data down the hierarchy, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> alongside 800+ stories.
 
 </div>
 

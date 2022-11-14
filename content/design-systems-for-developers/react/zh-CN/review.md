@@ -9,7 +9,7 @@ commit: 'd6c6038'
 
 ## 真理之源或失败之源
 
-之前我写过一篇为何设计系统可能成为前端团队的[失败之源](https://blog.hichroma.com/why-design-systems-are-a-single-point-of-failure-ec9d30c107c2), 本质上，设计系统是一个依赖项， 如果您修改了设计系统中的一个组件，其相对应的应用程序都会受影响。采用版本变更的方式是一把双刃剑，它既能帮您改进设计系统，也可能为您的设计系统带来问题。
+之前我写过一篇为何设计系统可能成为前端团队的[失败之源](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure/), 本质上，设计系统是一个依赖项， 如果您修改了设计系统中的一个组件，其相对应的应用程序都会受影响。采用版本变更的方式是一把双刃剑，它既能帮您改进设计系统，也可能为您的设计系统带来问题。
 
 ![Design system dependencies](/design-systems-for-developers/design-system-dependencies.png)
 
@@ -37,11 +37,11 @@ commit: 'd6c6038'
 
 <h2 id="publish-storybook">发布 Storybook</h2>
 
-我们将演示如何使用 Storybook 维护团队免费发布工具 [Chromatic](https://www.chromatic.com/) 来创建一个在线视觉审查。它可以让你安全的在云端部署和托管您的 Storybook，但是我们也可以通过简单明了的[将 storybook 打包为静态网站并部署](https://storybook.js.org/docs/react/sharing/publish-storybook)在其他的服务器上。
+我们将演示如何使用 Storybook 维护团队免费发布工具 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 来创建一个在线视觉审查。它可以让你安全的在云端部署和托管您的 Storybook，但是我们也可以通过简单明了的[将 storybook 打包为静态网站并部署](https://storybook.js.org/docs/react/sharing/publish-storybook)在其他的服务器上。
 
 ### 获取 Chromatic
 
-首先，打开网站： [chromatic.com](https://chromatic.com) 并使用您的 Github 账号进行注册。
+首先，打开网站： [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 并使用您的 Github 账号进行注册。
 
 ![Signing up at Chromatic](/design-systems-for-developers/chromatic-signup.png)
 

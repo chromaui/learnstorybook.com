@@ -53,7 +53,7 @@ Durante el desarrollo, “ejecute” una verificación manual rápida de un comp
     type="video/mp4"/>
 </video>
 
-En QA, utilice la automatización para detectar regresiones y reforzar la coherencia de la interfaz de usuario. Herramientas como [Chromatic](https://www.chromatic.com/) capturan una instantánea de cada caso de prueba, completa con marcado, estilo y otros activos, en un entorno de navegador coherente.
+En QA, utilice la automatización para detectar regresiones y reforzar la coherencia de la interfaz de usuario. Herramientas como [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) capturan una instantánea de cada caso de prueba, completa con marcado, estilo y otros activos, en un entorno de navegador coherente.
 
 En cada commit, nuevas instantáneas se comparan automáticamente con instantáneas de línea base aceptadas previamente. Cuando la máquina detecta diferencias visuales, el desarrollador recibe una notificación para aprobar el cambio intencional o corregir el error accidental.
 

@@ -39,11 +39,11 @@ Visual tests capture an image of every UI component in a consistent browser envi
 
 If you’re building a modern UI, visual testing saves your frontend team from time-consuming manual review and prevents expensive UI regressions.
 
-In the <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">previous chapter</a> we learned how to publish Storybook using [Chromatic](https://www.chromatic.com/). We added a bold red border around each `Button` component and then requested feedback from teammates.
+In the <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">previous chapter</a> we learned how to publish Storybook using [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). We added a bold red border around each `Button` component and then requested feedback from teammates.
 
 ![Button red border](/design-systems-for-developers/chromatic-button-border-change.png)
 
-Now let's see how visual testing works using Chromatic's built-in [testing tools](https://www.chromatic.com/features/test). When we created the pull request, Chromatic captured images for our changes and compared them to previous versions of the same components. Four changes were found:
+Now let's see how visual testing works using Chromatic's built-in [testing tools](https://www.chromatic.com/features/test/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). When we created the pull request, Chromatic captured images for our changes and compared them to previous versions of the same components. Four changes were found:
 
 ![List of checks in the pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
 

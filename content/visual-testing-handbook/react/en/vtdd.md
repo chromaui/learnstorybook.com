@@ -332,4 +332,4 @@ As we iterate through this workflow, regularly check each story to ensure that t
 
 ## Learn how to automate visual testing
 
-In the next chapter, we’ll see how we can automate the VTDD process with [Chromatic](https://chromatic.com/), a free visual testing service made by the Storybook maintainers.
+In the next chapter, we’ll see how we can automate the VTDD process with [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), a free visual testing service made by the Storybook maintainers.

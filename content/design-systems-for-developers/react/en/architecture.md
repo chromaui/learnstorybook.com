@@ -7,7 +7,7 @@ commit: 'c9eced8'
 
 In chapter 2, we extract a design system from existing component libraries. Along the way, we determine which components belong in the design system and outline common challenges developers face getting started.
 
-In large companies, this exercise is done in conjunction with design, engineering, and product teams. [Chromatic](https://www.chromatic.com/) (the company behind Storybook) and [Storybook](https://storybook.js.org/) share a sprightly frontend infrastructure team that serves 1400+ open source contributors across 3+ properties, so we’re going to outline the process for you.
+In large companies, this exercise is done in conjunction with design, engineering, and product teams. [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) (the company behind Storybook) and [Storybook](https://storybook.js.org/) share a sprightly frontend infrastructure team that serves 1400+ open source contributors across 3+ properties, so we’re going to outline the process for you.
 
 ## The challenge
 

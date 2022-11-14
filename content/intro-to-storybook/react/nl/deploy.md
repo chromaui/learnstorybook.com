@@ -14,7 +14,7 @@ Om Storybook te deployen, moeten we het eerst exporteren als een statische web-a
 
 ## Storybook publiceren
 
-Deze tutorial gebruikt <a href="https://www.chromatic.com/">Chromatic</a>, een gratis dienst gemaakt door de mensen die Storybook onderhouden. Het laat ons toe om Storybook veilig in de cloud te deployen.
+Deze tutorial gebruikt <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, een gratis dienst gemaakt door de mensen die Storybook onderhouden. Het laat ons toe om Storybook veilig in de cloud te deployen.
 
 ### Een GitHub repository opzetten
 
@@ -50,7 +50,7 @@ Voeg de package toe als een development dependency.
 yarn add -D chromatic
 ```
 
-Eenmaal de package is geïnstalleerd, [log je in op Chromatic](https://www.chromatic.com/start) met je Github account (Chromatic zal je voor enkele niet-intrusieve permissies vragen). Dan creëren we ons nieuw project, genoemd "taskbox" en synchroniseren we het met de Github repository die we hebben opgezet.
+Eenmaal de package is geïnstalleerd, [log je in op Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) met je Github account (Chromatic zal je voor enkele niet-intrusieve permissies vragen). Dan creëren we ons nieuw project, genoemd "taskbox" en synchroniseren we het met de Github repository die we hebben opgezet.
 
 Klik `Choose Github repo` onder "collaborators" en selecteer je repo.
 

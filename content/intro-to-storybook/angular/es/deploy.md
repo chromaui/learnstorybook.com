@@ -19,7 +19,7 @@ luego se puede implementar en cualquier servicio de alojamiento de sitios estát
 
 ## Publicar Storybook
 
-Este tutorial utiliza <a href="https://www.chromatic.com/">Chromatic</a>, un servicio de publicación gratuito
+Este tutorial utiliza <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un servicio de publicación gratuito
 realizado por los mantenedores de Storybook. Nos permite implementar y alojar nuestro Storybook de forma segura en la nube.
 
 ### Configurar un repositorio en GitHub
@@ -53,7 +53,7 @@ Agregue el paquete como una dependencia de desarrollo.
 npm install -D chromatic
 ```
 
-Una vez que el paquete está instalado, [login en Chromatic](https://www.chromatic.com/start) con su cuenta de GitHub
+Una vez que el paquete está instalado, [login en Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) con su cuenta de GitHub
 (Chromatic solo solicitará permisos ligeros). Luego crearemos un nuevo proyecto llamado "taskbox" y lo
 sincronizaremos con el repositorio de GithHub que hemos configurado.
 

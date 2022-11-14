@@ -23,11 +23,11 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 - [**Storybook Discord**](https://discord.gg/UUt2PJb) では Storybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
 
-- [**Storybook ブログ**](https://medium.com/storybookjs)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
+- [**Storybook ブログ**](https://storybook.js.org/blog)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
 
 ## Storybook チュートリアルについて
 
-文書や、コード、製作は [Chromatic](https://www.chromatic.com/) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
+文書や、コード、製作は [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
 
 このようなチュートリアルや記事をお望みならば、Storybook のメーリングリストにサインアップしてください。
 

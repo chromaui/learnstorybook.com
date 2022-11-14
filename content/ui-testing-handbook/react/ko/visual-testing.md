@@ -206,7 +206,7 @@ Task 컴포넌트는 모든 사용 사례에서 우리가 기대했던 대로 �
 
 ### 크로마틱 설정하기
 
-[새 프로젝트 만들기](https://www.chromatic.com/docs/setup)에 로그인하고 프로젝트 token을 받아오세요.
+[새 프로젝트 만들기](https://www.chromatic.com/docs/setup?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)에 로그인하고 프로젝트 token을 받아오세요.
 
 크로마틱은 스토리북용으로 특별히 제작되었으며 따로 구성(configuration)할 필요가 없습니다. 아래 커맨드를 실행하면 크로마틱이 클라우드 브라우저를 사용해 각 스토리의 스냅샷을 캡처합니다.
 

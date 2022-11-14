@@ -114,7 +114,7 @@ Error.args = {
 只不過，開發者們**肯定**無可避免地得要在元件層級下方渲染容器。如果想要在 Storybook 盡可能渲染幾乎所有，或全部 App（我們有做到），這問題就要有解決方案。
 
 <div class="aside">
-💡 儘管如此，將資料往結構下方傳遞是容許的，尤其是使用 <a href="http://graphql.org/">GraphQL</a> 的時候。這就是我們以 800+ 個 story 打造出 <a href="https://www.chromatic.com">Chromatic</a> 的方法。
+💡 儘管如此，將資料往結構下方傳遞是容許的，尤其是使用 <a href="http://graphql.org/">GraphQL</a> 的時候。這就是我們以 800+ 個 story 打造出 <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> 的方法。
 </div>
 
 ## 以 Decorator 提供情境

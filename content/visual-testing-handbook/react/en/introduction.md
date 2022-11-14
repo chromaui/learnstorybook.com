@@ -52,7 +52,7 @@ During development, “run” a quick manual verification of a component by rend
     type="video/mp4"/>
 </video>
 
-In QA, use automation to detect regressions and enforce UI consistency. Tools like [Chromatic](https://www.chromatic.com/) capture an image snapshot of each test case, complete with markup, styling, and other assets, in a consistent browser environment.
+In QA, use automation to detect regressions and enforce UI consistency. Tools like [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) capture an image snapshot of each test case, complete with markup, styling, and other assets, in a consistent browser environment.
 
 Each commit, new image snapshots are automatically compared to previously accepted baseline snapshots. When the machine detects visual differences, the developer gets notified to approve the intentional change or fix the accidental bug.
 

@@ -27,7 +27,7 @@ description: '瞭解測試 UI 元件的方法'
 
 Storybook 是優秀的視覺回溯測試工具，因為每個 story 基本上都是測試規格。每次撰寫或更新 story，都可以免費獲得一份規格！
 
-視覺回溯測試工具有很多種。我們推薦 [**Chromatic**](https://www.chromatic.com/) 這款由 Storybook 維護者製作的免費出版工具，可以在雲端同時進行視覺測試。如同[上一個章節](/intro-to-storybook/react/zh-TW/deploy/)提到的，也可以在線上發布 Storybook。
+視覺回溯測試工具有很多種。我們推薦 [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 這款由 Storybook 維護者製作的免費出版工具，可以在雲端同時進行視覺測試。如同[上一個章節](/intro-to-storybook/react/zh-TW/deploy/)提到的，也可以在線上發布 Storybook。
 
 ## 找出 UI 變化
 

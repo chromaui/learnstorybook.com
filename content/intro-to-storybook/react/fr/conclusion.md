@@ -17,17 +17,17 @@ Envie de creuser plus? Voici des ressources utiles.
 
 - [**Documentation officielle de Storybook**](https://storybook.js.org/docs/react/get-started/introduction) comprend la documentation de l'API, les liens de la communauté et la galerie d'addons.
 
-- [**The Delightful Storybook Workflow**](https://www.chromatic.com/blog/the-delightful-storybook-workflow) met en évidence les meilleures pratiques de workflow utilisées par les équipes à grande vitesse de Squarespace, Major League Soccer, Discovery Network, et Apollo GraphQL.
+- [**UI Testing Playbook**](https://storybook.js.org/blog/ui-testing-playbook/) highlights workflow best practices used by high-velocity teams at Twilio, Adobe, Peloton, and Shopify.
 
 - [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) plonge dans l'utilisation de Storybook pour tester visuellement les composants. Livre électronique gratuit de 31 pages.
 
 - [**Storybook Discord chat**](https://discord.gg/UUt2PJb) vous met en contact avec la communauté Storybook. Obtenez et donnez de l'aide aux autres utilisateurs de Storybook.
 
-- [**Blog Storybook**](https://medium.com/storybookjs) présente les dernières versions et les fonctionnalités permettant de fluidifier votre workflow de développement d'UI.
+- [**Blog Storybook**](https://storybook.js.org/blog/) présente les dernières versions et les fonctionnalités permettant de fluidifier votre workflow de développement d'UI.
 
 ## Qui a créé LearnStorybook.com ?
 
-Le texte, le code et la production ont été fournis par [Chromatic](https://www.chromatic.com/). Le tutoriel a été inspiré par la populaire [série de tutoriels de Chromatic GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+Le texte, le code et la production ont été fournis par [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). Le tutoriel a été inspiré par la populaire [série de tutoriels de Chromatic GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 Vous voulez d'autres tutoriels et articles comme celui-ci ? Inscrivez-vous à la liste de diffusion de Chromatic.
 

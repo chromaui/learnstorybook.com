@@ -28,7 +28,7 @@ O Dominic desenhou o interface de utilizador, todo o branding e o sistema de des
 
 Orientação especializada por parte do [Kyle Suss](https://github.com/kylesuss), líder técnico do sistema de design do Storybook e também [Michael Shilman](https://twitter.com/mshilman), o criador do Storybook Docs.
 
-O conteúdo, código e produção são fornecidos pela [Chromatic](https://www.chromatic.com/). A InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) ajudou de forma graciosa com uma doação que ajudou no ínicio do processo. Estamos à procura de patrocinadores para uma manutenção contínua e também guias novos tais como este sempre que possível. Enviem um email ao [Dominic](mailto:dom@chromatic.com), para mais detalhes.
+O conteúdo, código e produção são fornecidos pela [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). A InVision’s [Design Forward Fund](https://www.invisionapp.com/design-forward-fund) ajudou de forma graciosa com uma doação que ajudou no ínicio do processo. Estamos à procura de patrocinadores para uma manutenção contínua e também guias novos tais como este sempre que possível. Enviem um email ao [Dominic](mailto:dom@chromatic.com), para mais detalhes.
 
 ## Expanda a sua perspetiva
 
@@ -40,11 +40,11 @@ Vale muito a pena expandir o vosso foco, de forma a obter uma perspetiva holíst
 
 Mais acerca dos autores:
 
-- [Introdução ao Storybook](http://learnstorybook.com/intro-to-storybook) (guia)
+- [Introdução ao Storybook](https://storybook.js.org/tutorials/intro-to-storybook/) (guia)
 - [Component-Driven Development por Tom Coleman](https://www.componentdriven.org/) (artigo)
 - [Why design systems are a single point of failure por Dominic Nguyen](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) (artigo)
-- [Delightful Storybook Workflow por Dominic Nguyen](https://www.chromatic.com/blog/the-delightful-storybook-workflow) (artigo)
-- [Visual Testing por Tom Coleman](https://www.chromatic.com/blog/visual-testing-the-pragmatic-way-to-test-uis) (artigo)
+- [UI Testing Playbook by Varun Vachhar](https://storybook.js.org/blog/ui-testing-playbook/) (artigo)
+- [Visual Testing by Varun Vachhar](https://storybook.js.org/blog/visual-testing-in-storybook/) (artigo)
 
 ## Perguntas frequentes
 

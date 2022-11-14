@@ -138,7 +138,7 @@ Une façon d'éviter ce problème consiste à ne jamais afficher les composants 
 Cependant, les développeurs **devront** inévitablement rendre les conteneurs plus bas dans la hiérarchie des composants. Si nous voulons afficher la plupart ou la totalité de l'application dans Storybook (nous le faisons!), Nous avons besoin d'une solution à ce problème.
 
 <div class="aside">
-En passant, la transmission des données dans la hiérarchie est une approche légitime, en particulier lors de l'utilisation de <a href="http://graphql.org/">GraphQL</a>. C'est ainsi que nous avons construit <a href="https://www.chromatic.com">Chromatic</a> aux côtés de plus de 800 histoires.
+En passant, la transmission des données dans la hiérarchie est une approche légitime, en particulier lors de l'utilisation de <a href="http://graphql.org/">GraphQL</a>. C'est ainsi que nous avons construit <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> aux côtés de plus de 800 histoires.
 </div>
 
 ## Fournir du contexte aux histoires

@@ -36,11 +36,11 @@ UI 컴포넌트가 URL을 통해 접근 가능해지면 관계자들은 UI가 �
 
 <h2 id="publish-storybook">스토리북 퍼블리싱하기</h2>
 
-스토리북 관리자들이 만든 무료 퍼블리싱 서비스인 [크로마틱(Chromatic)](https://www.chromatic.com/) 을 통해 비주얼 리뷰의 예를 살펴보겠습니다. 이는 여러분이 클라우드에 스토리북을 안전하게 그리고 안정적으로 배포하고 호스트 할 수 있게 해줄 뿐만 아니라, [스토리북을 정적 사이트로 만들고 다른 호스팅 서비스에 배포하기](https://storybook.js.org/docs/react/sharing/publish-storybook) 도 상당히 수월하게 해줍니다.
+스토리북 관리자들이 만든 무료 퍼블리싱 서비스인 [크로마틱(Chromatic)](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 을 통해 비주얼 리뷰의 예를 살펴보겠습니다. 이는 여러분이 클라우드에 스토리북을 안전하게 그리고 안정적으로 배포하고 호스트 할 수 있게 해줄 뿐만 아니라, [스토리북을 정적 사이트로 만들고 다른 호스팅 서비스에 배포하기](https://storybook.js.org/docs/react/sharing/publish-storybook) 도 상당히 수월하게 해줍니다.
 
 ### 크로마틱 시작하기
 
-첫 단계는 [chromatic.com](https://chromatic.com) 에 가셔서 깃허브 계정으로 로그인 하는 것입니다.
+첫 단계는 [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 에 가셔서 깃허브 계정으로 로그인 하는 것입니다.
 
 ![크로마틱에 가입하기](/design-systems-for-developers/chromatic-signup.png)
 

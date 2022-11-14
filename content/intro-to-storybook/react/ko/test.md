@@ -27,7 +27,7 @@ description: 'UI 컴포넌트 테스트 방법 배우기'
 
 스토리북은 모든 스토리가 본질적으로 테스트 사양이므로 시각적 회귀 테스트를 위한 환상적인 도구입니다. 스토리를 작성하거나 업데이트할 때마다 무료로 스펙(spec)을 제공합니다.
 
-시각적 회귀 테스트를 위한 몇 가지 도구가 있습니다. 스토리북 관리자들에 의해 만들어진 무료 배포 서비스로 병렬화된 클라우드에서 시각적 테스트를 실행하는 [**크로마틱(Chromatic)**](https://www.chromatic.com/)을 추천합니다. [이전 장](/intro-to-storybook/react/ko/deploy/)에서 보았듯이 온라인으로 스토리북을 배포할 수도 있습니다.
+시각적 회귀 테스트를 위한 몇 가지 도구가 있습니다. 스토리북 관리자들에 의해 만들어진 무료 배포 서비스로 병렬화된 클라우드에서 시각적 테스트를 실행하는 [**크로마틱(Chromatic)**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook/)을 추천합니다. [이전 장](/intro-to-storybook/react/ko/deploy/)에서 보았듯이 온라인으로 스토리북을 배포할 수도 있습니다.
 
 ## UI 변화 파악
 

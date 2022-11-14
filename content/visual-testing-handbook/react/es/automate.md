@@ -37,7 +37,7 @@ git push -u origin main
 
 ## Configure Chromatic
 
-Usaremos los mantenedores de Chromatic by Storybook para demostrar el proceso de captura de imágenes. Vaya a [chromatic.com](https://www.chromatic.com/) y regístrese con su cuenta de GitHub.
+Usaremos los mantenedores de Chromatic by Storybook para demostrar el proceso de captura de imágenes. Vaya a [chromatic.com](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) y regístrese con su cuenta de GitHub.
 
 ![Inicio de sesión de Chromatic](/visual-testing-handbook/chromatic-sign-in-optimized.png)
 
@@ -251,7 +251,7 @@ Una vez que los errores se corrijan y las líneas base estén actualizadas, est�
 
 ### Integración continua
 
-Ejecutar este comando localmente cada vez que hacemos un cambio es tedioso. Los equipos de producción activan ejecuciones de pruebas visuales cuando se inserta el código en su CI/CD pipeline. Si bien no lo configuraremos en este tutorial, puede obtener más información en [Chromatic's CI docs](https://www.chromatic.com/docs/ci).
+Ejecutar este comando localmente cada vez que hacemos un cambio es tedioso. Los equipos de producción activan ejecuciones de pruebas visuales cuando se inserta el código en su CI/CD pipeline. Si bien no lo configuraremos en este tutorial, puede obtener más información en [Chromatic's CI docs](https://www.chromatic.com/docs/ci?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook).
 
 ## Su viaje comienza
 

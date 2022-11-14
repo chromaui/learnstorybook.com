@@ -15,7 +15,7 @@ commit: 'af610d9'
 
 ## 스토리북(Storybook) 배포하기
 
-이번 튜토리얼은 스토리북 관리자가 만든 무료 배포 서비스인 <a href="https://www.chromatic.com/">Chromatic</a>을 사용하겠습니다. 크로마틱(Chromatic)으로 클라우드에서 스토리북을 안전하게 배포하고 호스팅 할 수 있습니다.
+이번 튜토리얼은 스토리북 관리자가 만든 무료 배포 서비스인 <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>을 사용하겠습니다. 크로마틱(Chromatic)으로 클라우드에서 스토리북을 안전하게 배포하고 호스팅 할 수 있습니다.
 
 ### 깃허브(Github) 저장소 설정
 
@@ -45,7 +45,7 @@ development dependency로 패키지를 추가해주세요.
 yarn add -D chromatic
 ```
 
-패키지가 설치되면 깃허브 계정으로 [크로마틱에 로그인](https://www.chromatic.com/start) 해주세요 (크로마틱은 간단한 권한 요청만 할 것입니다). 그런 다음 'taskbox'라는 이름의 새로운 프로젝트를 만들고, 앞서 설정한 깃허브 저장소와 동기화합니다.
+패키지가 설치되면 깃허브 계정으로 [크로마틱에 로그인](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 해주세요 (크로마틱은 간단한 권한 요청만 할 것입니다). 그런 다음 'taskbox'라는 이름의 새로운 프로젝트를 만들고, 앞서 설정한 깃허브 저장소와 동기화합니다.
 
 `Choose GitHub repo`를 클릭하고 저장소를 선택해주세요.
 

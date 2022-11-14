@@ -15,7 +15,7 @@ commit: 'af610d9'
 
 ## 發布 Storybook
 
-這一份教學使用 Storybook 維護團隊製作的免費發布服務：<a href="https://www.chromatic.com/">Chromatic</a>，可以在雲端安全地部署與放置 Storybook。
+這一份教學使用 Storybook 維護團隊製作的免費發布服務：<a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>，可以在雲端安全地部署與放置 Storybook。
 
 ### 在 Github 設定 Repository
 
@@ -45,7 +45,7 @@ git push -u origin main
 yarn add -D chromatic
 ```
 
-安裝好套件後即可使用 Github 帳號[登入 Chromatic](https://www.chromatic.com/start)（Chromatic 只會要求一點權限）。接著，新增名為 "taskbox" 的專案，與剛剛設定好的 Github Repository 同步。
+安裝好套件後即可使用 Github 帳號[登入 Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)（Chromatic 只會要求一點權限）。接著，新增名為 "taskbox" 的專案，與剛剛設定好的 Github Repository 同步。
 
 點擊在 collaborator 下方的 'Choose GitHub repo'，接著選擇 Repo。
 
