@@ -188,6 +188,15 @@ export const chapterFormatting = css`
     }
   }
 
+  p code,
+  li code,
+  .aside code {
+    padding-inline: 6px;
+    border-radius: 4px;
+    background-color: ${color.light};
+    line-height: 24px;
+  }
+
   figure {
     clear: both;
     margin: 1em 0;
