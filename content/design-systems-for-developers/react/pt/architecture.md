@@ -27,13 +27,13 @@ A maioria dos sistemas de design não são construídos de raíz. Pelo contrári
 
 ## Onde é que o sistema de design vive?
 
-Pode pensar num sistema de design como uma outra biblioteca de componentes qualquer, mas ao invés de servir uma só aplicação, irá servir toda uma organização. O sistema de design foca-se nas primitivas do IU enquanto que as bibliotecas de componentes especificas ao projeto podem conter tudo desde componentes compostos até ecrãs.
+Pode pensar num sistema de design como uma outra biblioteca de componentes qualquer, mas ao invés de servir uma só aplicação, irá servir toda uma organização. O sistema de design foca-se nas primitivas do IU enquanto que as bibliotecas de componentes específicas ao projeto podem conter tudo desde componentes compostos até ecrãs.
 
 Como tal, o nosso sistema de design deverá ser independente de qualquer projeto, mas também uma dependência de todos os projetos. Todas as alterações efetuadas, propagam-se ao longo da organização através de um pacote com um número de versão associado que é distribuído através de um gestor de pacotes. Caso seja necessário, os projetos podem reutilizar os componentes do sistema de design e customizá-los consoante as necessidades. Estas restrições oferecem-nos o plano para organizar os nossos projetos de frontend.
 
 ![Quem usa um sistema de design](/design-systems-for-developers/design-system-consumers.jpg)
 
-## Configuração do nosso repositório com o create-react-app e Gitub
+## Configuração do nosso repositório com o create-react-app e Github
 
 De acordo com a pesquisa feita pelo [State of JS](https://stateofjs.com/) o React continua a ser a camada de visualização mais popular. Um número extremamente grande de Storybooks usam o React e como tal, neste tutorial vamos usar React também, em conjunção com o popular [create-react-app](https://github.com/facebook/create-react-app) para gerar o código base para o nosso projeto.
 
