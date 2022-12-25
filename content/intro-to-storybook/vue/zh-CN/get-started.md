@@ -58,16 +58,22 @@ yarn serve
 git init
 ```
 
-下一行：
+接着是：
 
 ```shell
 git add .
 ```
 
-最后：
+然后：
 
 ```shell
 git commit -m "first commit"
+```
+
+最后：
+
+```shell
+git branch -M main
 ```
 
 让我们创建第一个组件吧！
