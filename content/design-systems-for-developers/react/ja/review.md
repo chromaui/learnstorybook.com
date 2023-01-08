@@ -9,11 +9,11 @@ commit: '0273e45'
 
 ## 信頼できる唯一の情報源か単一の障害点か
 
-以前、私はデザインシステムがフロントエンドチームにとって[単一の障害点](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure)だと書きました。本質的に、デザインシステムは依存すべき対象です。デザインシステムのコンポーネントを変えたら、その変更が依存しているアプリへ伝播します。変更の配布の仕組みは公平です--改善とバグの両方を送り出しているのです。
+以前、私はデザインシステムがフロントエンドチームにとって[単一の障害点](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure)だと書きました。本質的に、デザインシステムは依存すべき対象です。デザインシステムのコンポーネントを変えたら、その変更が依存しているアプリへ伝播します。変更の配布の仕組みは公平です—改善とバグの両方を送り出しているのです。
 
 ![Design system dependencies](/design-systems-for-developers/design-system-dependencies.png)
 
-バグはデザインシステムにとって目に見えるリスクのため、それを阻止するために手を尽くします。些細な調整は挙げ句数えきれない手戻りとなって雪だるま式に増えることになります。継続するメンテナンス戦略なくしては、デザインシステムは枯れ果ててしまいます。
+バグはデザインシステムにとって目に見えるリスクのため、それを阻止するために手を尽くします。ささいな調整は雪だるま式に膨れあがり、数えきれない手戻りとなるのです。継続するメンテナンス戦略なくしては、デザインシステムは枯れ果ててしまいます。
 
 > “でも私のマシンでは動いてるけど？！” – みんな
 
@@ -60,7 +60,7 @@ npm を経由して [chromatic](https://www.npmjs.com/package/chromatic) パッ�
 yarn add --dev chromatic
 ```
 
-インストールしたら、次のコマンドを実行して Storybook を構築しデプロイします (直前の操作で Chromatic から提供された`project-token`の使用が必要になるでしょう) :
+インストールしたら、次のコマンドを実行して Storybook をビルドしデプロイします (直前の操作で Chromatic から提供された`project-token`の使用が必要になるでしょう) :
 
 ```shell
 npx chromatic --project-token=<project-token>
@@ -84,9 +84,9 @@ npx chromatic --project-token=<project-token>
 
 私たちは GitHub アクションを使います、適度に利用すれば無料です。同様の原則は他の CI サービスにも適用できます。
 
-`.github`ディレクトリをトップレベルの階層に加えましょう。それから`workflows`という別のディレクトリを作成します。
+`.github`ディレクトリを最上位の階層に加えましょう。それから `workflows` という別のディレクトリを作成します。
 
-以下のような chromatic.yml ファイルを作成します。これにより CI プロセスをどう処理させるかを自動化します。今は小さく始めて進むにしたがって改善を続けます:
+以下のような chromatic.yml ファイルを作成します。これにより CI プロセスをどう処理させるかを記述します。今は小さく始めて進むにしたがって改善を続けます:
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Name of our action
@@ -144,7 +144,7 @@ git push origin main
 git checkout -b improve-button
 ```
 
-最初に、ボタンコンポーネントを微調整します。「ポップにする」- われらのデザイナー達が気に入るでしょう。
+最初に、ボタンコンポーネントを微調整します。「ポップにする」とデザイナー達が気に入るでしょう。
 
 ```js:title=src/Button.js
 // ...
@@ -162,7 +162,7 @@ git commit -am "make Button pop"
 git push -u origin improve-button
 ```
 
-GitHub.com へ移動して`improve-button`ブランチのプルリクエストをオープンします。一度オープンになると、Storybook を発行する CI ジョブが走ります。
+GitHub.com へ移動して`improve-button`ブランチのプルリクエストをオープンします。オープンになると、Storybook を発行する CI ジョブが走ります。
 
 ![Created a PR in GitHub](/design-systems-for-developers/github-created-pr-actions.png)
 
@@ -180,7 +180,7 @@ GitHub.com へ移動して`improve-button`ブランチのプルリクエスト�
 
 <div class="aside">💡 Chromatic はまた一部有料プロダクトとして完全なUIレビューのワークフローを提供しています。Storybook のリンクを Github のプルリクエストにコピーするテクニックは小規模で (そして Chromatic でなく、Storybook をホストするあらゆるサービスで) 有効ですが、利用頻度が増えてくると、プロセスを自動化するサービスを検討するのが良いかもしれません。</div>
 
-ソフトウェア開発において、大抵の欠陥は誤解に起因しており技術ではありません。ビジュアルレビューはチームがデザインシステムをより早く提供するために開発中に継続的にフィードバックを集める助けとなります。
+ソフトウェア開発において、大抵の欠陥は伝達ミスに起因しており技術ではありません。ビジュアルレビューはチームがデザインシステムをより早く提供するために開発中に継続的にフィードバックを集める助けとなります。
 
 ![Visual review process](/design-systems-for-developers/visual-review-loop.jpg)
 
