@@ -1,37 +1,37 @@
 ---
 title: '組織を横断してUIを配布する'
 tocTitle: '配布'
-description: '他のアプリへデザインシステムをパッケージングしインポートする方法を学ぶ'
+description: 'デザインシステムをパッケージングし他のアプリへインポートする方法を学ぶ'
 commit: 'bba7cb0'
 ---
 
-アーキテクチャの観点から、デザインシステムはれっきとした別なフロントエンドの依存関係です。moment や lodash のような人気の依存関係と何ら違いはありません。UI コンポーネントはコードであり、コードの再利用に築かれた技術に頼ることができます。
+アーキテクチャの観点から、デザインシステムはさらに別のフロントエンドの依存関係です。moment や lodash のような人気の依存関係とまったく違いがありません。UI コンポーネントはコードであり、コードの再利用を基盤とした技術に頼ることができます。
 
-本章は UI コンポーネントのパッケージングから他のアプリへのインポートまでデザインシステムの配布をデモンストレーションします。またバージョン管理とリリースを流れ化する時間節約のテクニックも明らかにします。
+本章は UI コンポーネントのパッケージングから他のアプリへのインポートまでデザインシステムの配布をデモンストレーションします。またバージョニングとリリースを合理化する時間節約のテクニックも明らかにします。
 
 ![Propagate components to sites](/design-systems-for-developers/design-system-propagation.png)
 
 ## デザインシステムをパッケージ化する
 
-組織は様々なアプリに渡り数千もの UI コンポーネントを持っています。以前、私たちはデザインシステムに最も共通するコンポーネントを抽出しました、今度はそれらのコンポーネントアプリへ再導入する必要があります。
+組織はさまざまなアプリにまたがり数千もの UI コンポーネントを持っています。以前、私たちはデザインシステムに最も共通するコンポーネントを抽出しました。今度はそれらのコンポーネントをアプリへ再導入する必要があります。
 
-私たちのデザインシステムは Javascript のパッケージマネージャである npm を使って配布、バージョン管理、依存関係管理を制御しています。
+私たちのデザインシステムは Javascript のパッケージマネージャである npm を使って配布、バージョニング、依存関係をコントロールします。
 
-デザインシステムのパッケージングには多くの有効な方法があります。Gander at design systems from Lonely Planet、Auth0、Salesforce、GitHub、Microsoft にアプローチの多様さを見ます。一方の皆さんは分割したパッケージとして各コンポーネントを配布し、他方では一つのパッケージに全てのコンポーネントを送り出しています。
+デザインシステムのパッケージングには多くの有効な手段があります。Lonely Planet、Auth0、Salesforce、GitHub、Microsoft のデザインシステムからアプローチの多様さがうかがえます。各コンポーネントを分割したパッケージとして配布する人がいれば、全てのコンポーネントを一つのパッケージで送り出す人もいます。
 
-生まれたてのデザインシステムにとって、最も直接的な方法は次をカプセル化する単一バージョンのパッケージを発行することです:
+初期のデザインシステムにとって、最も端的な手段はカプセル化した単一バージョンのパッケージを発行することです:
 
 - 🏗 共通 UI コンポーネント
-- 🎨 デザイントークン (スタイル変数、として知られる)
+- 🎨 デザイントークン (別称、スタイル変数)
 - 📕 ドキュメンテーション
 
 ![Package a design system](/design-systems-for-developers/design-system-package.jpg)
 
-## エクスポートのためデザインシステムを準備する
+## デザインシステムをエクスポートするために準備する
 
-デザインシステムの出発点に [Create React App](https://github.com/facebook/create-react-app) (CRA) を使ったため、まだ初期アプリの跡が残っています。これからそれらをきれいにしましょう。
+デザインシステムの起点として [Create React App](https://github.com/facebook/create-react-app) (CRA) を使ったため、まだ初期アプリの形跡が残っています。今からそれをきれいにしましょう。
 
-最初に、より説明的に README.md を更新します。
+まず、README.md の内容をより説明的に更新します。
 
 ```markdown:title=README.md
 # Storybook design system tutorial
@@ -41,7 +41,7 @@ The Storybook design system tutorial is a subset of the full [Storybook design s
 Learn more in [Storybook tutorials](https://storybook.js.org/tutorials/).
 ```
 
-それから、`src/index.js`ファイルを作成してデザインシステムのために共通のエントリーポイントを作成しましょう。このファイルから、すべてのデザイントークンとコンポーネントをエクスポートします。
+それから、`src/index.js` ファイルを作成してデザインシステム向けに共通のエントリーポイントを作成しましょう。このファイルから、すべてのデザイントークンとコンポーネントをエクスポートします。
 
 ```js:title=src/index.js
 import * as styles from './shared/styles';
@@ -58,9 +58,9 @@ export * from './Icon';
 export * from './Link';
 ```
 
-いくつか追加の開発パッケージが必要で、ビルドプロセスの手助けに [`@babel/cli`](https://www.npmjs.com/package/@babel/cli) と [`cross-env`](https://www.npmjs.com/package/cross-env) を使います。
+いくつか追加の開発パッケージが必要で、ビルドプロセスの補助に [`@babel/cli`](https://www.npmjs.com/package/@babel/cli) と [`cross-env`](https://www.npmjs.com/package/cross-env) を使います。
 
-コマンドラインで、次のコマンドを発行します:
+コマンドラインで、次のコマンドを実行します:
 
 ```shell
 yarn add --dev @babel/cli cross-env
@@ -68,7 +68,7 @@ yarn add --dev @babel/cli cross-env
 
 パッケージをインストールしたら、ビルドプロセスを実装する必要があります。
 
-ありがたいことに、Create React App (CRA) はすでにこちらを引き受けています。すでにある`build`スクリプトを使って`dist`ディレクトリへデザインシステムをビルドします:
+ありがたいことに、Create React App (CRA) はすでにビルドプロセスを処理しています。既存の `build` スクリプトを使って `dist` ディレクトリへデザインシステムをビルドします:
 
 ```json:title=package.json
 {
@@ -78,7 +78,7 @@ yarn add --dev @babel/cli cross-env
 }
 ```
 
-ビルドプロセスが実装されました。微調整が必要です。`package.json`内に`babel`キーを配置し次のように更新してください:
+ビルドプロセスの実装にともない、微調整が必要です。`package.json` 内に `babel` キーを記載し次のように更新してください:
 
 ```json:title=package.json
 {
@@ -95,7 +95,7 @@ yarn add --dev @babel/cli cross-env
 }
 ```
 
-これで`yarn build`を実行して`dist`ディレクトリへコードをビルドできます -- `.gitignore`にこのディレクトリを加えるべきでしょう、そうして間違えてコミットしないようにします:
+これで `yarn build` を実行して `dist` ディレクトリへコードをビルドできます — `.gitignore` にこのディレクトリを加えるべきです、そうして誤ってコミットしないようにします:
 
 ```
 // ..
@@ -104,7 +104,7 @@ dist
 
 #### 発行のためパッケージメタデータを追加する
 
-パッケージの使用者が全ての必要な情報を確認するために`package.json`に変更が必要です。最も簡単な方法は単純に`yarn init`--発行のためにパッケージを初期化するコマンド、を実行します:
+パッケージの利用者が必要な情報を全て確認するために `package.json` に変更が必要です。最も簡単な方法は単純に `yarn init` — 発行のためにパッケージを初期化するコマンドを実行します:
 
 ```shell
 # Initializes a scoped package
@@ -121,9 +121,9 @@ question license (MIT):
 question private: no
 ```
 
-コマンドは上記一覧の質問をたずねます、いくつかは前もって埋められており、他は考える必要があります。npm のパッケージに固有の名前 (`learnstorybook-design-system`は使用できないでしょう --`@your-npm-username/learnstorybook-design-system`が良い選択です) 。
+コマンドはひと通り質問をします。いくつかは回答があらかじめ埋められており、その他は考える必要があります。npm のパッケージに固有の名前を選ぶ必要があります (`learnstorybook-design-system` は使用できないでしょう — `@your-npm-username/learnstorybook-design-system` が良い選択です) 。
 
-概して、質問の結果新しい値で`package.json`を更新します:
+まとめると、質問の回答を受けて新しい値で `package.json` が更新されます:
 
 ```json:title=package.json
 {
@@ -138,14 +138,14 @@ question private: no
 ```
 
 <div class="aside">
-💡 簡潔さを目的に<a href="https://docs.npmjs.com/creating-and-publishing-scoped-public-packages">パッケージスコープ</a>には触れませんでした。スコープの利用は衝突することなく別のユーザーや組織による同じ名前のパッケージの作成を可能にします。
+💡 説明を分かりやすくするため<a href="https://docs.npmjs.com/creating-and-publishing-scoped-public-packages">パッケージスコープ</a>には触れませんでした。スコープを利用すると別のユーザーや組織により作成された同じ名前のパッケージと衝突せずにパッケージを作成できます。
 </div>
 
-さあパッケージを準備しました、これで初めて npm へ発行できます！
+さあパッケージを準備しました。これで初めて npm へパッケージを発行できます！
 
 ## Auto を使ったリリース管理
 
-npm へリリースを発行するため、私たちはまた変更を記述したチェンジログの更新、意味のあるバージョン番号の設定、リポジトリのコミットにバージョン番号をリンクさせる git タグの作成プロセスを使います。これら全てを手助けするために、[Auto](https://github.com/intuit/auto)という特定の用途にデザインされたオープンソースツールを使います。
+npm へリリースを発行するため、私たちはまた変更を記述した変更履歴の更新、意味のあるバージョン番号の設定、リポジトリのコミットのバージョン番号とリンクさせる git タグの作成といったプロセスを使います。これら全てを補助するために、[Auto](https://github.com/intuit/auto) という特定の用途にデザインされたオープンソースツールを使います。
 
 Auto をインストールしましょう:
 
@@ -153,24 +153,24 @@ Auto をインストールしましょう:
 yarn add --dev auto
 ```
 
-Auto はリリース管理周りの各種共通タスクが使えるコマンドラインツールです。[ドキュメンテーションサイト](https://intuit.github.io/auto/)で Auto の詳細を学ぶことができます。
+Auto はリリース管理まわりの各種共通タスクが使えるコマンドラインツールです。[ドキュメンテーションサイト](https://intuit.github.io/auto/)で Auto の詳細を学ぶことができます。
 
 #### GitHub と npm のトークンを取得する
 
-次の幾つかのステップで、Auto は GitHub と npm と対話します。適切に動作させるために、個人のアクセストークンが必要です。GitHub は[このページ](https://github.com/settings/tokens)で取得することができます。トークンは`repo`スコープが必要です。
+次のいくつかのステップで、Auto は GitHub 、npm とやり取りします。正しく動作させるために、パーソナルアクセストークンが必要です。GitHub は[このページ](https://github.com/settings/tokens)で発行されるトークンのうちひとつを取得することができます。トークンには `repo` スコープが必要です。
 
 npm は、こちらの URL でトークンを作成することができます: https://www.npmjs.com/settings/&lt;your-username&gt;/tokens.
 
-“Read and Publish”パーミッションが必要になるでしょう。
+“Read and Publish” パーミッションが必要になるでしょう。
 
-プロジェクトの`.env`ファイルにトークンを追加しましょう:
+プロジェクトの `.env` ファイルにトークンを追加しましょう:
 
 ```
 GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
-`.gitignore`に上記ファイルを追加することで、全てのユーザーに見えるオープンソースリポジトリへこの値を間違えてプッシュしないことを確実にします！これはきわめて重要です。他のメンテナーがローカルのパッケージを発行する必要がある場合(後ほどプルリクエストがデフォルトブランチへマージされる時に自動的な発行を設定します)、このプロセスにしたがい彼ら自身の`.env`ファイルに設定するべきです:
+`.gitignore` に上記ファイルを追加することで、全てのユーザーに見えるオープンソースリポジトリへこの値をうっかりプッシュしないことを確実にします！これはきわめて重要です。他のメンテナーがローカルのパッケージを発行する必要がある場合 (後ほどプルリクエストがデフォルトブランチへマージされる時に自動的な発行を設定します)、このプロセスにしたがい彼ら自身の `.env` ファイルに設定するべきです:
 
 ```
 dist
@@ -179,35 +179,35 @@ dist
 
 #### GitHub にラベルを作成する
 
-Auto で最初に必要なのは GitHub にラベルのセットを作成することです。 将来これらのラベルをパッケージの変更の際(次の章を見てください)に使い、そして`auto`が実用的にパッケージのバージョンを更新しチェンジログとリリースノートを作らせることができます。
+Auto で最初に必要なのは GitHub にラベルのセットを作成することです。 将来これらのラベルをパッケージの変更のさい (次の章を見てください) に使い、`auto` が実用的にパッケージのバージョンを更新し変更履歴とリリースノートを作らせることができます。
 
 ```bash
 yarn auto create-labels
 ```
 
-GitHub を確認すると、`auto`が使わせたいラベルのセットが見えます:
+GitHub をチェックすると、`auto` が使わせたいラベルのセットが確認できます:
 
 ![Set of labels created on GitHub by auto](/design-systems-for-developers/github-auto-labels.png)
 
-マージする前に次のラベルのうちひとつを将来の PR(プルリクエスト)全てにタグ付けすべきです:`major`、`minor`、`patch`、`skip-release`、 `prerelease`、`internal`、`documentation`
+マージする前に次のラベルのうちひとつを今後のプルリクエストすべてにタグ付けすべきです: `major`、`minor`、`patch`、`skip-release`、 `prerelease`、`internal`、`documentation`
 
-#### Auto で自動的に最初のリリースを発行する
+#### 手動で Auto を用いて最初のリリースを発行する
 
-この先、`auto`スクリプトを介して新しいバージョン番号を計算しますが、最初のリリースのために、何をしているのか理解するために手動でコマンドを実行しましょう:
+この先、`auto` スクリプトを介して新しいバージョン番号を計算しますが、最初のリリースに向け、何をしているのか理解するために手動でコマンドを実行しましょう。最初の変更履歴のエントリーを生成します:
 
 ```shell
 yarn auto changelog
 ```
 
-上記コマンドは現時点で作成したすべてコミットの長いチェンジログ (そしてデフォルトブランチにプッシュしてきた警告も、それは近いうちに止めるべきでしょう) を生成します。
+上記コマンドは現時点で作成した各コミットの長い変更履歴を生成します (それとデフォルトブランチにプッシュしてきた警告も生成します。これは近いうちに止めるべきでしょう)。
 
-自動生成されるチェンジログは有用ですが、それだけに失いたくないものなので、手動で編集してユーザーに最も役に立つ方法でメッセージを作り上げるのは良い考えです。この場合、ユーザーは開発過程のコミットすべてを知る必要はありません。最初の v0.1.0 バージョンのための良い簡単なメッセージを作成しましょう:
+自動生成された変更履歴があるのは便利ですが、見落としがないように、手動で編集してユーザーに最も役に立つ方法でメッセージを作成するのは良い考えです。この場合、ユーザーは開発過程のコミットをすべて知る必要はありません。最初の v0.1.0 バージョンのための良い簡潔なメッセージを作成しましょう (ただし変更は保持します):
 
 ```shell
 git reset HEAD^
 ```
 
-それからチェンジログを更新してコミットしましょう:
+それから変更履歴を更新してコミットしましょう:
 
 ```
 # v0.1.0 (Tue Mar 09 2021)
@@ -219,7 +219,7 @@ git reset HEAD^
 - [your-username](https://github.com/your-username)
 ```
 
-チェンジログを git へ追加しましょう。`[skip ci]`を使って CI プラットフォームにこれらのコミットを無視していることに注意してください、でなければ構築と発行のループになってしまいます。
+変更履歴を git へ追加しましょう。`[skip ci]` を使って CI プラットフォームにこれらのコミットを無視していることに注意してください、でなければビルドと発行のループになってしまいます。
 
 ```shell
 git add CHANGELOG.md
@@ -234,7 +234,7 @@ npm publish --access=public
 ```
 
 <div class="aside">
-💡 パッケージの発行に <a href="https://classic.yarnpkg.com/en/docs/cli/">yarn</a> を使っているなら適切なコマンドを適用することを忘れないでください。 
+💡 パッケージの発行に <a href="https://classic.yarnpkg.com/en/docs/cli/">yarn</a> を使っている場合は、それに応じて適切なコマンドを調整することを忘れないでください。 
 </div>
 
 そして Auto を使って GitHub 上にリリースを作成します:
@@ -244,17 +244,17 @@ git push --follow-tags origin main
 yarn auto release
 ```
 
-やりました！上手くパッケージを npm へ発行し GitHub 上にリリースを作成しました(幸運にも！)。
+やりました！無事にパッケージを npm へ発行し GitHub にリリースを作成しました (幸運にも！)。
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
 ![Release published to GitHub](/design-systems-for-developers/github-published-release.png)
 
-(`auto`が最初のリリースのためにリリースノートを自動生成しましたが、最初のバージョンのためにそれらを理解しやすいよう編集したことに留意してください)。
+(なお、最初のリリースでは `auto` がリリースノートを自動生成しましたが、最初のバージョンで意味が分かるよう編集しました)。
 
 #### Auto を利用するためにスクリプトを設定する
 
-この先パッケージを発行したい時に同じプロセスを踏むために Auto を設定しましょう。次のスクリプトを`package.json`に追加します:
+今後パッケージを発行したい時に同じプロセスを踏むために Auto を設定しましょう。次のスクリプトを `package.json` に追加します:
 
 ```json:title=package.json
 {
@@ -264,31 +264,31 @@ yarn auto release
 }
 ```
 
-これで、`yarn release`を実行すると、自動化された形式で上記で実行したすべてのステップ (自動生成されたチェンジログの使用を除いて) を通します。デフォルトブランチの全てのコミットが発行されます。
+これで、`yarn release` を実行すると、上で実行したすべてのステップ (自動生成された変更履歴の使用を除く) を自動で実行することになります。デフォルトブランチの全てのコミットが発行されます。
 
-おめでとうございます！デザインシステムのリリースを自動的に発行するための基盤を設定しました。今度は継続的インテグレーションでリリースを自動化する方法を学びましょう。
+おめでとうございます！デザインシステムのリリースを手動で発行するための基盤をセットアップしました。継続的インテグレーションでリリースを自動化する方法を学びましょう。
 
 ## 自動的にリリースを発行する
 
-継続的インテグレーションのために GitHub アクションを使います。けれど進める前に、アクションがアクセスできるように GitHub と NPM トークンを前もって安全に格納する必要があります。
+継続的インテグレーションには GitHub アクションを使います。しかし進める前に、先ほどの GitHub と NPM トークンを安全に格納して Actions がアクセスできるようにする必要があります。
 
-#### GitHub シークレットにトークンを追加する
+#### GitHub Secrets にトークンを追加する
 
-GitHub シークレットはリポジトリに機密情報の格納を許可します。ブラウザのウィンドウで、あなたの GitHub リポジトリを開きます。
+GitHub Secrets はリポジトリに機密情報の格納を許可します。ブラウザのウィンドウで、あなたの GitHub リポジトリを開きます。
 
-⚙️ 設定タブをクリックしてサイドバーのシークレットリンクをクリックします。次の画面が見えます:
+⚙️ 設定タブをクリックしてサイドバーのシークレットリンクをクリックします。以下の画面が表示されます:
 
 ![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
 
-**New secret**ボタンを押してください。名前に `NPM_TOKEN` を使い本章で先ほど取得したトークンを貼り付けます。
+**New secret** ボタンを押してください。名前に `NPM_TOKEN` を使い本章で先ほどの npm から取得したトークンを貼り付けます。
 
 ![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
 
-リポジトリに npm シークレットを追加すると、`secrets.NPM_TOKEN`としてアクセスできるようになります。あなたの GitHub トークンに別のシークレットを設定する必要はありません。すべての GitHub ユーザーはアカウントに紐づく`secrets.GITHUB_TOKEN`を自動的に取得します。
+リポジトリに npm シークレットを追加すると、`secrets.NPM_TOKEN` でアクセスできるようになります。あなたの GitHub トークンに別のシークレットをセットアップする必要はありません。すべての GitHub ユーザーはアカウントに紐づく `secrets.GITHUB_TOKEN` を自動的に取得します。
 
 #### GitHub アクションを使ってリリースを自動化する
 
-プルリクエストをする度に、デザインシステムを自動的に発行したいものです。先に<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">Storybook の発行</a>で使った同じフォルダに`push.yml`という新しいファイルを作成し次の内容を追加します:
+プルリクエストをするたびに、デザインシステムを自動的に発行したいものです。先に<a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">Storybook の発行</a>で使った同じフォルダに `push.yml` という新しいファイルを作成し次の内容を追加します:
 
 ```yml:title=.github/workflows/push.yml
 # Name of our action
@@ -335,23 +335,23 @@ jobs:
 
 保存してリモートリポジトリへ変更をコミットします。
 
-上手くいきました！これでデフォルトブランチへ PR (プルリクエスト) をマージするたび、自動的に新しいバージョンを発行し、追加したラベルによる適切なバージョン番号を加算します。
+上手くいきました！これでデフォルトブランチへプルリクエストをマージするたび、自動的に新しいバージョンを発行し、追加したラベルによる適切なバージョン番号を加算します。
 
-<div class="aside">💡 成長するデザインシステムに役立つ多くの特徴とインテグレーションのすべてをカバーしませんでした。<a href="https://github.com/intuit/auto">こちらの</a>ドキュメントを参照してください。</div>
+<div class="aside">💡 成長するデザインシステムに役立つ多くの機能とインテグレーションのすべてをカバーしたわけではありません。<a href="https://github.com/intuit/auto">こちらの</a>ドキュメントを参照してください。</div>
 
 ![Import the design system](/design-systems-for-developers/design-system-import.png)
 
 ## アプリにデザインシステムをインポートする
 
-これでデザインシステムが依存関係をインストールしたオンライン上にあり UI コンポーネントの利用が明らかとなりました。
+これでデザインシステムがオンラインになったので、依存関係をインストールし UI コンポーネントを利用するのは簡単なことです。
 
 #### サンプルアプリを取得する
 
-このチュートリアルの最初で、React と Styled Components を含む人気のフロントエンドスタックを標準化しました。それはサンプルアプリもまたデザインシステムの最大限の利点を得るために React と Styled Components を使う必要があることを意味します。
+このチュートリアルの最初で、React と Styled Components を含む人気のフロントエンドスタックを標準化しました。それはサンプルアプリもまたデザインシステムのすべての利点を得るために React と Styled Components を使う必要があることになります。
 
-<div class="aside">💡 Svelte や Webコンポーネントのような他の有望な手段がフレームワークに依存しない UIコンポーネントを送り出すことを可能にするかもしれません。けれども、それらは比較的新しく、明文化されず、ひろく採用されていません、そのため本ガイドにはまだ含まれていません。</div>
+<div class="aside">💡 Svelte や Webコンポーネントのような他の有望な手段がフレームワークに依存しない UI コンポーネントの出荷を可能にするかもしれません。しかし、それらは比較的新しく、文書化されておらず、また広く採用されていないため、まだこのガイドには含まれていません。</div>
 
-サンプルアプリは[コンポーネント駆動開発](https://www.componentdriven.org/)、コンポーネントに始まりページで終わる下層から UI を開発するためのアプリ開発手法、を促進するために Storybook を使います。デモの最中 2 つの Storybook を並行して実行します、ひとつはサンプルアプリでもう一つはデザインシステムです。
+サンプルアプリはコンポーネントから始まりページで終わる UI を下層から開発するためのアプリ開発手法である[コンポーネント駆動開発](https://www.componentdriven.org/)を促進するために Storybook を使います。デモの中で 2 つの Storybook を並行して実行します。ひとつはサンプルアプリでもう一つはデザインシステムです。
 
 次のコマンドを実行してサンプルアプリをセットアップします:
 
@@ -368,13 +368,13 @@ yarn install
 yarn storybook
 ```
 
-サンプルアプリが使う簡単なコンポーネントのストーリーを実行している Storybook が見えるでしょう:
+アプリが使うシンプルなコンポーネントのストーリーが表示され Storybook が実行されているのが確認できるはずです:
 
 ![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook-6-0.png)
 
-<h4>デザインシステムを統合する</h4>
+<h4>デザインシステムの統合</h4>
 
-私たちのデザインシステムの Storybook を発行しました。それをサンプルアプリに追加しましょう。サンプルアプリの`.storybook/main.js`へ次の内容を追加しましょう:
+私たちのデザインシステムの Storybook を発行しました。それをサンプルアプリに追加しましょう。サンプルアプリの `.storybook/main.js` に次の内容を更新すればそれが可能になります:
 
 ```diff:title=.storybook/main.js
 // .storybook/main.js
@@ -406,10 +406,10 @@ module.exports = {
 </video>
 
 <div class="aside">
-💡 <code>refs</code>キーを<code>.storybook/main.js</code>に追加して、複数のStorybookをひとつに<a href="https://storybook.js.org/docs/react/workflows/storybook-composition">構成</a>できます。これは複数のプロジェクト広がったり異なる技術スタックを使ったりする大きなプロジェクトで働くときに役に立ちます。
+💡 <code>refs</code>キーを<code>.storybook/main.js</code>に追加して、複数のStorybookをひとつに<a href="https://storybook.js.org/docs/react/workflows/storybook-composition">構成</a>できます。これは複数のリポジトリに分散していたり、異なる技術スタックを使ったりするような大きなプロジェクトで作業する場合に便利です。
 </div>
 
-これでサンプルアプリを開発中にデザインシステムのコンポーネントとドキュメントを閲覧することができます。フィーチャー開発の間デザインシステムを陳列することは開発者が自前で開発して時間を浪費することなく既存のコンポーネントを再利用する可能性を高めます。
+これでサンプルアプリを開発中にデザインシステムのコンポーネントとドキュメントを閲覧することができます。機能開発のさいデザインシステムを公開することで開発者が独自に開発して時間を浪費することなく既存のコンポーネントを再利用する可能性を高めます。
 
 必要なものが揃いました、デザインシステムを追加し使う時です。ターミナルで次のコマンドを実行します:
 
@@ -417,7 +417,7 @@ module.exports = {
 yarn add @your-npm-username/learnstorybook-design-system
 ```
 
-デザインで定義した同じグローバルスタイルを使う必要があります、そのため[`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering)コンフィグファイルを更新し [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators) を追加する必要があります。
+デザインシステムで定義した同じグローバルスタイルを使う必要があります。そのため[`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering)コンフィグファイルを更新し [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators) を追加する必要があります。
 
 ```js:title=.storybook/preview.js
 import React from 'react';
@@ -451,9 +451,9 @@ export const parameters = {
 
 ![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
 
-サンプルアプリの`UserItem`コンポーネントにデザインシステムの`Avatar`コンポーネントを使います。`UserItem`はユーザー、名前とプロフィール写真を含む、についての情報を描画します。
+サンプルアプリの `UserItem` コンポーネントにデザインシステムの `Avatar` コンポーネントを使います。`UserItem` は名前とプロフィール写真を含むユーザーについての情報を描画します。
 
-エディターで、`src/components/UserItem.js`にある`UserItem`を開きます。また、Storybook の`UserItem`を選択してホットモジュールリロードで即座に手掛けるコードの変更を見ます。
+エディターで、`src/components/UserItem.js` にある `UserItem` を開きます。また、Storybook の `UserItem` を選択して、これから行うコードの変更をホットモジュールリロードで即座に確認することができます。
 
 Avatar コンポーネントをインポートします。
 
@@ -461,7 +461,7 @@ Avatar コンポーネントをインポートします。
 import { Avatar } from '@your-npm-username/learnstorybook-design-system';
 ```
 
-ユーザー名のそばに Abatar を描画したいと思います。
+ユーザー名のそばに Avatar を描画したいと思います。
 
 ```diff:title=src/components/UserItem.js
 import React from 'react';
@@ -496,16 +496,16 @@ export default ({ user: { name, avatarUrl } }) => (
 );
 ```
 
-保存に続いて、`UserItem`コンポーネントは新しいアバターコンポーネントを表示するために Storybook 内で更新します。`UserItem`は`UserList`コンポーネントの一部なので、`UserList`内でも`Avatar`が見えます。
+保存すると、Storybook の `UserItem` コンポーネントが更新され新しいアバターコンポーネントが表示されます。`UserItem` は `UserList` コンポーネントの一部なので、`UserList` でも `Avatar` が確認できます。
 
 ![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
 
-ほらありましたね！サンプルアプリにデザインシステムコンポーネントをインポートしました。デザインシステムにてアバターコンポーネントに対して更新を発行すればいつでも、その変更はパッケージの更新時にサンプルアプリにも反映されます。
+ほらありましたね！サンプルアプリにデザインシステムのコンポーネントをインポートしました。デザインシステムでアバターコンポーネントに対して更新を発行すればいつでも、その変更もまたパッケージの更新時にサンプルアプリに反映されます。
 
 ![Distribute design systems](/design-systems-for-developers/design-system-propagation-storybook.png)
 
 ## デザインシステムのワークフローをマスターする
 
-デザインシステムのワークフローは Storybook に UI コンポーネントの開発に始まりクライアントアプリへそれを配布することで終わります。もっともそれがすべてではありません。デザインシステムは変わり続けるプロダクト要件を提供するために継続して進化しなければなりません、仕事はまさに始まったばかりなのです。
+デザインシステムのワークフローは Storybook で UI コンポーネントの開発をすることから始まりクライアントアプリへ配布することで終わります。もっともそれがすべてではありません。デザインシステムは変わり続けるプロダクト要件を満たすために継続して進化しなければなりません。私たちの仕事はまだ始まったばかりなのです。
 
-第 8 章は当ガイドで作成したエンド・ツー・エンドのデザインシステムを説明します。どのように UI の変更がデザインシステムから外へ伝播するのか見てゆきます。
+第 8 章は当ガイドで作成したエンド・ツー・エンドのデザインシステムを説明します。UI の変化がデザインシステムからどのように波及するのか見てゆきます。
