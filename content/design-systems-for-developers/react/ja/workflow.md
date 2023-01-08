@@ -5,25 +5,25 @@ description: 'フロントエンド開発者のためのデザインシステム
 commit: ab64b4c
 ---
 
-いかにフロントエンドツールに取り組むかは最終的に価値のあるデザインと開発チームが現実化するかに重要なインパクトがあります。うまくできると、UI コンポーネントを開発し再利用することが円滑になります。
+いかにフロントエンドのツール群を使いこなすかは、デザインと開発チームが実現しうる究極の価値に大きく影響します。上手くいくと、UI コンポーネントを開発し再利用することが円滑になるはずです。
 
-本章では新しいコンポーネントである AvatarList の導入による 5 つのステップのワークフローを紹介します。
+本章は AvatarList という新しいコンポーネントの導入によるワークフローの 5 つのステップを紹介します。
 
 ![Design system workflow](/design-systems-for-developers/design-system-workflow-horizontal.jpg)
 
-## 構築
+## ビルド
 
-`AvatarList`は複数のアバターを表示するコンポーネントです。他のデザインシステムコンポーネントのように、`AvatarList`は多くのプロジェクトへ貼り付けられることから始まります、それがデザインシステムへ取り込む十分な理由です。このデモでコンポーネントが別のプロジェクトで開発され完成したコードに至ったと想定しましょう。
+`AvatarList` は複数のアバターを表示するコンポーネントです。他のデザインシステムのコンポーネントのように、`AvatarList` は数多くのプロジェクトで貼り付けられるところから始まりました。それがデザインシステムへ導入するには十分な理由です。当デモのため、コンポーネントが他のプロジェクトで開発され完成コードがすでにあるとしましょう。
 
 ![AvatarList](/design-systems-for-developers/AvatarList.jpg)
 
-最初に、この仕事を追跡する新しいブランチを作成します。
+最初に、この作業を追跡する新しいブランチを作成してください。
 
 ```shell
 git checkout -b create-avatar-list-component
 ```
 
-`AvatarList`コンポーネントとストーリーをあなたの PC へダウンロードして`/src`ディレクトリにそれらを配置します:
+あなたの PC に `AvatarList` コンポーネントとストーリーをダウンロードして `/src` ディレクトリに配置します:
 
 - [コンポーネントファイル](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.js)
 - [ストーリーファイル](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.stories.js)
@@ -31,10 +31,10 @@ git checkout -b create-avatar-list-component
 ![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist-6-0.png)
 
 <div class="aside">
-💡 Storybook は <code>*.stories.js</code> で終わるファイルを自動的に検知してそれらを表示します。
+💡 Storybook は <code>*.stories.js</code> で終わるファイルを自動的に検知して設定し UI 上に表示します。
 </div>
 
-いいですね！では`AvatarList`をサポートする各 UI の状態と関連付けましょう。一見して、`AvatarList`が`small`と`loading`のような`Avatar`プロパティのいくつかをサポートしているのは明らかです。
+いいですね！では `AvatarList` に支えられる各 UI の状態と関連付けましょう。見たところ、`AvatarList` が `small` と `loading` のような `Avatar` プロパティをいくつかサポートしているのは明らかです。
 
 ```js:title=src/AvatarList.stories.js
 export const SmallSize = Template.bind({});
@@ -51,7 +51,7 @@ Loading.args = {
 
 ![Storybook with more AvatarList stories](/design-systems-for-developers/storybook-with-avatarlist-loading-6-0.png)
 
-リストを与えると、多くのアバターを表示します。ストーリーを追加して多数のリストアイテムと少数のリストアイテムで何が起こるか閲覧するストーリーを追加しましょう。
+プロパティがリストなら、多数のアバターを表示するべきです。多数と少数のリストアイテムを表示するストーリーを追加しましょう。
 
 ```js:title=src/AvatarList.stories.js
 export const Ellipsized = Template.bind({});
@@ -90,7 +90,7 @@ Empty.args = {
   />
 </video>
 
-できたものを保存してコミットします。
+進んだものを保存してコミットします。
 
 ```shell
 git commit -am "Added AvatarList and stories"
@@ -98,11 +98,11 @@ git commit -am "Added AvatarList and stories"
 
 ## ドキュメント
 
-Storybook ドキュメントのおかげで、最小の労力でカスタマイズされたドキュメンテーションを手に入れます。他の人が Storybook の Docs タブを参照して AvatarList の使い方を学ぶ助けになります。
+Storybook Docs のおかげで、最小限の労力でカスタマイズ可能なドキュメンテーションが手に入ります。他の人が Storybook Docs タブを参照して AvatarList の使い方を学ぶことを助けます。
 
 ![Storybook docs with minimal AvatarList info](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
 
-最小限の価値あるドキュメント！AvatarList に使い方の補足的なコンテキストを提供してやや人間味を加えましょう。
+最小限の価値あるドキュメント！ AvatarList に使い方の補足的な背景を提供してもう少し親近感を加えましょう。
 
 ```js:title=src/AvatarList.js
 /**
@@ -111,7 +111,7 @@ Storybook ドキュメントのおかげで、最小の労力でカスタマイ�
 export function AvatarList({ loading, users, userCount, size, ...props }) {
 ```
 
-サポートされるプロパティについていくつか補足的な詳細を散布します。
+サポートされるプロパティについていくつか補足的な詳細を書き散らします。
 
 ```js:title=src/AvatarList.js
 AvatarList.propTypes = {
@@ -140,11 +140,11 @@ AvatarList.propTypes = {
 };
 ```
 
-パイを食べるくらい簡単ですね！今の詳細はこの水準で十分です-–MDX を使っていつでもカスタマイズできます。
+パイを食べるくらい簡単ですね！今のところ、この詳細の水準で十分です—後で MDX を使っていつでもカスタマイズできます。
 
 ![Storybook docs with full AvatarList info](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
 
-ドキュメンテーションは退屈なものである必要はありません。自動化されたツールで、ライティングに直結するために退屈さを取り除きました。
+ドキュメンテーションは面倒である必要はありません。自動化されたツールを使い、すぐにライティングに取りかかるために単調な作業を省きました。
 
 変更をコミットし GitHub へプッシュします。
 
@@ -154,7 +154,7 @@ git commit -am "Improved AvatarList docs"
 
 #### プルリクエストを作成する
 
-`AvatarList`ブランチを GitHub へプッシュしてプルリクエストを作成します:
+`AvatarList` ブランチを GitHub へプッシュしてプルリクエストを作成しましょう:
 
 ```shell
 git push -u origin create-avatar-list-component
@@ -166,58 +166,58 @@ git push -u origin create-avatar-list-component
 
 ## レビュー
 
-この時点で、`AvatarList`はデザインシステムへ取り込む候補です。ステークホルダーは機能性と外観が期待に沿うかレビューしなければなりません。
+この時点で、`AvatarList` はデザインシステムに取り込む候補です。ステークホルダーは機能性と見た目が期待通りなのか確かめるためにコンポーネントをレビューしなければなりません。
 
-デザインシステムの Storybook は極めて簡単にレビューするための各プルリクエストを自動的に発行します。PR チェックまでスクロールしデプロイされた Storybook へのリンクを見つけます。
+デザインシステムの Storybook はレビューをごく簡単にするそれぞれのプルリクエストを自動的に発行します。PR チェックまでスクロールしデプロイされた Storybook へのリンクを探してください。
 
 ![PR check for deployed PR](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
-`AvatarList`を発行した Storybook で見つけましょう。ローカルの Storybook に同じものが見えます。
+発行された Storybook で `AvatarList`を探してください。ローカルの Storybook と同じように見えるはずです。
 
 ![AvatarList in Storybook online](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
 
-発行された Storybook はチームにとって共通の参照ポイントです。早くフィードバックを得るために他のステークホルダーに`AvatarList`へのリンクをシェアしましょう。コードを扱うか開発環境をセットアップする必要がないのであなたを気に入るでしょう。
+発行された Storybook はチームにとって共通の参照ポイントです。より早くフィードバックを得るために他のステークホルダーに `AvatarList` へのリンクをシェアしましょう。コードを読むことに取り掛かったり開発環境をセットアップしたりする必要がないのでチームはあなたを気に入るでしょう。
 
 ![Looks good, ship it!](/design-systems-for-developers/visual-review-shipit.png)
 
-数多くのチームと合意に至ることはよく骨折りなエクササイズのように感じます。みんな有効期限切れのコードを参照し、開発環境を持たないか複数のツールでフィードバックをばらまきます。オンラインで Storybook のレビューは URL をシェアするくらい簡単になります。
+多くのチームと合意に至るのはしばしば無駄な活動のように感じます。みんな開発環境を持たないで有効期限切れのコードを参照したり複数のツールをまたがりフィードバックを撒き散らします。オンラインで Storybook のレビューは URL を共有するだけの簡単なものになります。
 
 ## テスト
 
-私たちのテストパッケージはコミットのたび背後で実行します。`AvatarList`はシンプルなプレゼンテーショナルコンポーネントで、単体テストは必要ありません。しかし PR チェックを見れば、ビジュアルテストツールである Chromatic はレビューが必要な変更をすでに検知しています。
+私たちのテストパッケージはコミットのたびに裏で動いています。`AvatarList` はシンプルなプレゼンテーショナルコンポーネントのため、単体テストは必要ありません。しかし PR チェックを見れば、ビジュアルテストツールである Chromatic がすでにレビューが必要な変更を検知しています。
 
 ![Chromatic changes on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
-AvatarList は新しいので、まだビジュアルテストがありません。各ストーリーの基準を追加する必要があります。ビジュアルテストの範囲を広げるために Chromatic で“new stories”を受け入れます。
+AvatarList は新しいため、まだビジュアルテストはありません。ストーリーそれぞれにテスト基準を追加する必要があります。ビジュアルテストの範囲を広げるために Chromatic で “new stories” を受け入れます。
 
 ![Chromatic changes to the AvatarList stories](/design-systems-for-developers/chromatic-avatarlist-changes.png)
 
-完了すると、ビルドが Chromatic で通過します。
+受け入れが完了すると、 Chromatic でビルドが通るでしょう。
 
 ![Chromatic changes to the AvatarList stories accepted](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
 
-そうして、順番に、GitHub で PR チェックを更新します。
+それから順次、GitHub で PR チェックが更新されます。
 
 ![Chromatic changes accepted on the GitHub PR check](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes-accepted.png)
 
-テストがうまく更新されました。これ以降、リグレッションがデザインシステムへこそこそ入り込むのは困難でしょう。
+テストが首尾よく更新されました。今後、リグレッションがデザインシステムへ忍び込むのは難しいでしょう。
 
 ## 配布
 
-デザインシステムへ`AvatarList`を加えるプルリクエストをオープンしました。ストーリーを書いて、テストを通過し、ドキュメンテーションがあります。ようやく、デザインシステムパッケージを Auto と npm へ更新する準備が整いました。
+デザインシステムに `AvatarList` を加えるプルリクエストをオープンしました。ストーリーを書いて、テストを通し、ドキュメンテーションがあります。ようやく、Auto と npm を用いてデザインシステムのパッケージを更新する準備が整いました。
 
-プルリクエストに`minor`ラベルを追加しましょう。これはマージの際 Auto にパッケージのマイナーバージョンの更新を伝えます。
+プルリクエストに `minor` ラベルを追加しましょう。これはマージの際 Auto にパッケージのマイナーバージョンの更新を伝えます。
 
 ![GitHub PR with labels](/design-systems-for-developers/github-pr-labelled.png)
 
-さて PR をマージして、npm 上であなたのパッケージへ移動し、パッケージが更新されるまで数分待ちましょう。
+さてプルリクエストをマージして、npm 上であなたのパッケージへ移動し、パッケージが更新されるまで数分待ちましょう。
 
 ![Package published on npm](/design-systems-for-developers/npm-published-package.png)
 
-上手くいきました！デザインシステムは Github の快適さにより更新されました。コマンドラインを触ったり npm に手間取る必要は一切ありません。AvatarList を使い始めるためにサンプルアプリで`learnstorybook-design-system`の依存関係を更新しましょう。
+上手くいきました！デザインシステムのパッケージが Github の快適さにより更新されました。コマンドラインを触ったり npm に手間取る必要は一切ありません。AvatarList を使い始めるためにサンプルアプリで `learnstorybook-design-system` の依存関係を更新しましょう。
 
 ## 旅の始まり
 
-_Design Systems for Developers_ はプロのフロントエンドチームにより使われるエンド・ツー・エンドのワークフローがあなた自身の開発で有利なスタートが切れるよう焦点を当てました。デザインシステムの成長にともない、チームの求めに応じてこれらのツールを追加、再編成、拡張してゆきましょう。
+_Design Systems for Developers_ はあなた自身の開発が有利なスタートを切れるようプロのフロントエンドチームに使われるエンド・ツー・エンドのワークフローに焦点を当てました。デザインシステムの成長にともない、チームの求めに応じるためこれらのツールを追加、再編成、拡張してゆきましょう。
 
-第 9 章は完成したサンプルコード、補助的な資料、開発者からのよくある質問で締めくくります。
+第 9 章は完成したサンプルコード、参考資料、開発者からのよくある質問で締めくくります。
