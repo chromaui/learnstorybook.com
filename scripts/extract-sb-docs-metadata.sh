@@ -1,6 +1,6 @@
 #!/bin/bash -
 
-BRANCH='master'
+BRANCH='main'
 
 MONOREPO_CODELOAD_URL='https://codeload.github.com/storybookjs/storybook/tar.gz'
 DOCS_TAR_NAME="storybook-$BRANCH"
