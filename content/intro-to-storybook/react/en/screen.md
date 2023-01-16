@@ -128,7 +128,7 @@ export default function InboxScreen() {
   // The useEffect triggers the data fetching when the component is mounted
   useEffect(() => {
     dispatch(fetchTasks());
-  }, []);
+  }, [dispatch]);
 
   if (error) {
     return (
