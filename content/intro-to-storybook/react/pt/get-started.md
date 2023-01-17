@@ -81,3 +81,7 @@ Foi usado o <a href="https://github.com/Rich-Harris/degit">degit</a> para transf
 </div>
 
 Após adicionar os estilos e assets, a aplicação irá renderizar de forma estranha. Tudo bem. Não vamos trabalhar nela agora. Vamos antes começar por construir o nosso primeiro componente.
+
+<div class="aside">
+Não se esqueça de executar <code>yarn test</code> para garantir que todos os testes estão a funcionar corretamente.
+</div>
