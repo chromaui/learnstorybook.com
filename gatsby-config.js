@@ -128,5 +128,15 @@ module.exports = {
           },
         ]
       : []),
+    ...(process.env.GOOGLE_TAG_TRACKING_ID && !isDeployPreview
+      ? [
+          {
+            resolve: `gatsby-plugin-google-gtag`,
+            options: {
+              trackingIds: [process.env.GOOGLE_TAG_TRACKING_ID],
+            },
+          },
+        ]
+      : []),
   ],
 };
