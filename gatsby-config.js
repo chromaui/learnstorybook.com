@@ -1,6 +1,5 @@
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
 const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://storybook.js.org';
-const isProduction = process.env.CONTEXT === 'production';
 
 module.exports = {
   flags: {
@@ -129,7 +128,7 @@ module.exports = {
           },
         ]
       : []),
-    ...(process.env.GOOGLE_TAG_TRACKING_ID && isProduction
+    ...(process.env.GOOGLE_TAG_TRACKING_ID && !isDeployPreview
       ? [
           {
             resolve: `gatsby-plugin-google-gtag`,
