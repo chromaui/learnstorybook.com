@@ -27,7 +27,7 @@ description: '学习如何测试您的UI组件'
 
 Storybook 是一个非常棒的视觉回归测试的工具，因为每一个 story 本质上都是一个测试规格。每次对 story 的创建或修改时，我们都可以获取一个新的规格！
 
-有几种视觉回归测试的工具。我们推荐使用 [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)，一个由 Storybook 维护者提供的免费发布服务，可以在云端浏览器环境中快速进行运行视觉测试。同时正如[前一章](/intro-to-storybook/vue/en/deploy/)所示，此服务也允许我们在线发布 Storybook。
+有几种视觉回归测试的工具。我们推荐使用 [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)，一个由 Storybook 维护者提供的免费发布服务，可以在云端浏览器环境中快速进行运行视觉测试。同时正如[前一章](/intro-to-storybook/vue/zh-CN/deploy/)所示，此服务也允许我们在线发布 Storybook。
 
 ## 捕获 UI 改变
 
