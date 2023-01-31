@@ -7,8 +7,8 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v3
-          with:
-            node-version: 18
+        with:
+          node-version: 18
       - run: yarn
       - run: yarn gatsby telemetry --disable
       - run: yarn build-storybook
