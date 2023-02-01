@@ -243,7 +243,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | French           | ❌      |
-|              | Mainland Chinese | ❌      |
+|              | Mainland Chinese | ✅      |
 | Angular      | English          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
