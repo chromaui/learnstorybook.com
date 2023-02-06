@@ -67,7 +67,7 @@ This should generate a folder in your project called .storybook, this is where t
 
 Now add this to your App.js file and comment out the App function for now.
 
-```js
+```js:title=App.js
 export { default } from './.storybook';
 ```
 
@@ -87,7 +87,7 @@ One way we can do that is to use an environment variable, for this we'll follow 
 
 First we want to rename our app.json to app.config.js and edit the file so it looks something like this:
 
-```js
+```js:title=app.config.js
 module.exports = {
   name: 'my-app',
   slug: 'my-app',
@@ -121,7 +121,7 @@ module.exports = {
 
 Add the `extra` config option like this
 
-```js
+```js:title=app.config.js
 module.exports = {
   name: 'MyApp',
   version: '1.0.0',
@@ -143,7 +143,7 @@ Earlier I said to comment out the app function in the App.js file and this where
 
 Edit App.js so that it looks like this:
 
-```jsx
+```jsx:title=App.js
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import Constants from 'expo-constants';
@@ -177,7 +177,7 @@ export default AppEntryPoint;
 
 Now in package.json we can add a script like this
 
-```json
+```json:title=package.json
 "scripts": {
 	"storybook": "sb-rn-get-stories && STORYBOOK_ENABLED='true' expo start",
 }
