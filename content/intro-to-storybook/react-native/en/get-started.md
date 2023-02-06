@@ -4,503 +4,187 @@ tocTitle: 'Get started'
 description: 'Set up Storybook in your development environment'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React Native; other editions exist for [React](/intro-to-storybook/react/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
+Storybook helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React; other editions exist for [React](https://storybook.js.org/tutorials/intro-to-storybook/react/en/get-started/) [Vue](https://storybook.js.org/tutorials/intro-to-storybook/vue/en/get-started), [Angular](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started), [Svelte](https://storybook.js.org/tutorials/intro-to-storybook/svelte/en/get-started) and [Ember](https://storybook.js.org/tutorials/intro-to-storybook/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Set Up React Native Storybook
 
-We’ll need to follow a few steps to get the build process set up in your environment. To start with, we want to use [Expo](https://expo.io/tools) to set up our build system, and enable [Storybook](https://storybook.js.org/) and [Jest](https://facebook.github.io/jest/) testing in our created app.
+We’ll need to follow a few steps to get started. In this tutorial we'll be using [Expo](https://expo.io/tools) to set up our React Native app and we'll add [Storybook](https://storybook.js.org/) to the project.
 
-Before diving into the tutorial, take into account the following considerations:
+Before starting heres some things to take into consideration:
 
-- All the code was intended for the Android platform, if you want to use IOS, some components might need to be updated in order to work properly.
+- This tutorial will be focused on ios/android. React Native can target other platforms but that won't be covered in this tutorial.
+- You'll need a phone, ios simulator or android emulator to run the app.
+- You need nodejs setup on your machine
+- Throughout this tutorial yarn will be used, you can swap out yarn for the subsequent command in npm or pnpm.
+- In this tutorial we use Expo because its great but its not required to use storybook.
 
-- You'll need a working simulator or a physical device correctly set up to maximize your experience, [react-native docs](https://facebook.github.io/react-native/docs/getting-started) has more detailed instructions on how to achieve this.
+First lets initialise a react native app
 
-- Throughout this tutorial, <code>yarn</code> will be used. Should you want to use <code>npm</code>, select the appropriate option when you're initializing the app and replace all subsequent commands with npm.
+```shell
+yarn create expo-app my-app
+cd my-app
+```
 
-With that out of the way, let’s run the following commands:
+There are 2 other libraries we want to use in this tutorial so add them like this:
 
-```shell:clipboard=false
-# Create our application:
-expo init --template tabs@sdk-36 taskbox
+```shell
+npx expo install expo-constants @expo/vector-icons
+```
 
-cd taskbox
+Now that the project is created lets run the app to make sure everything is working as expected.
 
-# Add Storybook:
+You can pick ios or android, just run either and make sure the app is working.
+
+For ios
+
+```
+yarn ios
+```
+
+For android
+
+```
+yarn android
+```
+
+You should see this rendered on the device:
+
+![iphone with the text open up app.js to start working on your app!](/intro-to-storybook/react-native-expo-getting-started.png)
+
+If your screen looks like this then your expo app intialized started correctly.
+
+## Lets setup storybook
+
+Run this command to automatically add the files needed.
+
+```shell
 npx -p @storybook/cli sb init --type react_native
-
 ```
 
-<div class="aside">
-  <p>During Storybook's install process, you'll be prompted to install react-native-server, do so as this package will help out immensely throughout the tutorial.</p>
-</div>
+This should generate a folder in your project called .storybook, this is where the config for storybook goes.
 
-### Set Up Jest with React Native
+Now add this to your App.js file and comment out the App function for now.
 
-We have two out of three modalities configured in our app, but we still need one, we need to set up [Jest](https://facebook.github.io/jest/) to enable testing.
-
-Create a new folder called `__mocks__` and inside add a new file `globalMock.js` with the following:
-
-```javascript
-jest.mock('global', () => ({
-  ...global,
-  WebSocket: function WebSocket() {},
-}));
+```js
+export { default } from './.storybook';
 ```
 
-Update the `jest` field in `package.json`:
+If you run the app again with `yarn ios` you should now see this:
 
-```json:clipboard=false
-"jest": {
-    "preset": "jest-expo",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?@react-native|react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base)"
-    ],
-    "setupFilesAfterEnv": [
-      "<rootDir>/__mocks__/globalMock.js"
-    ]
-  }
-```
+![image showing button in the storybook ui](/intro-to-storybook/react-native-hello-world.png)
 
-Now we can quickly check that the various environments of our application are working properly:
+If what you see on your device matches this image then you've successfully setup storybook.
 
-```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test
+## Swap between storybook and app development
 
-# Start the component explorer on port 7007:
-yarn storybook
+Storybook in react native is a component that you can slot into your app and isn't its own separate runtime which you might be used to on the web.
 
-# Run the frontend app proper on port 19002:
-yarn web
-```
+If you want to run storybook in the same environment as your app we're going to need a simple way to switch between them.
 
-![3 modalities](/intro-to-storybook/app-three-modalities-rn.png)
+One way we can do that is to use an environment variable, for this we'll follow the steps from [expo](https://docs.expo.dev/guides/environment-variables/). If you aren't using expo I still recommend following that link to the expo docs since they show the steps to use babel-plugin-transform-inline-environment-variables which should work for any setup.
 
-Checking our Storybook at this point, you might see that there's no stories displayed. That's ok, we'll take care of it shortly, for now, let's continue working on getting our application properly set up.
+First we want to rename our app.json to app.config.js and edit the file so it looks something like this:
 
-Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
-
-## Reuse CSS
-
-Taskbox reuses design elements from the GraphQL and React Tutorial [example app](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6), so we won’t need to write CSS in this tutorial. Contrary to the other tutorials, we wont copy over the compiled CSS, as React Native handles styling in a whole different way, but instead create a new file `constants/globalStyles.js` and add the following:
-
-<details>
-  <summary>Click to expand and see the full file contents</summary>
-
-```js:title=constants/globalStyles.js
-import { StyleSheet } from 'react-native';
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    width: '100%',
+```js
+module.exports = {
+  name: 'my-app',
+  slug: 'my-app',
+  version: '1.0.0',
+  orientation: 'portrait',
+  icon: './assets/icon.png',
+  userInterfaceStyle: 'light',
+  splash: {
+    image: './assets/splash.png',
+    resizeMode: 'contain',
+    backgroundColor: '#ffffff',
   },
-  TaskBox: {
-    flex: 1,
-    color: '#333',
-    fontSize: 16,
-    backgroundColor: '#26c6da',
+  updates: {
+    fallbackToCacheTimeout: 0,
   },
-  CheckBox: {
-    borderColor: '#26c6da',
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderRadius: 1,
-    backgroundColor: 'transparent',
-    height: 18,
-    width: 18,
+  assetBundlePatterns: ['**/*'],
+  ios: {
+    supportsTablet: true,
   },
-  GlowCheckbox: {
-    borderColor: '#eee',
-    borderStyle: 'solid',
-    borderWidth: 2,
-    borderRadius: 1,
-    backgroundColor: '#eee',
-    color: 'transparent',
-    height: 20,
-    width: 20,
+  android: {
+    adaptiveIcon: {
+      foregroundImage: './assets/adaptive-icon.png',
+      backgroundColor: '#FFFFFF',
+    },
   },
-  GlowText: {
-    backgroundColor: '#eee',
-    color: 'transparent',
+  web: {
+    favicon: './assets/favicon.png',
   },
-  ListItem: {
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    height: 48,
-    width: '100%',
-    backgroundColor: 'white',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  ListItemInputTask: {
-    backgroundColor: 'transparent',
-    width: '95%',
-    padding: 10,
-    fontFamily: 'NunitoSans',
-    fontSize: 14,
-    lineHeight: 20,
-    fontStyle: 'normal',
-  },
-  ListItemInputTaskArchived: {
-    color: '#aaa',
-    width: '95%',
-    padding: 10,
-    fontFamily: 'NunitoSans',
-    fontSize: 14,
-    lineHeight: 20,
-    fontStyle: 'normal',
-  },
-  LoadingItem: {
-    alignItems: 'center',
-    backgroundColor: 'white',
-    flexWrap: 'nowrap',
-    flexDirection: 'row',
-    flex: 1,
-    height: 48,
-    justifyContent: 'space-around',
-    paddingLeft: 16,
-    width: '100%',
-  },
-  ListItems: {
-    flex: 1,
-    backgroundColor: 'white',
-    minHeight: 288,
-  },
-  WrapperMessage: {
-    position: 'absolute',
-    top: '40%',
-    right: 0,
-    bottom: 'auto',
-    left: 0,
-    width: 'auto',
-    height: 'auto',
-    textAlign: 'center',
-  },
-  PageListsShow: {
-    minHeight: '100vh',
-    backgroundColor: 'white',
-  },
-  PageListsShowhead: {
-    backgroundColor: '#d3edf4',
-    paddingTop: 24,
-    paddingBottom: 24,
-    paddingLeft: 20,
-    paddingRight: 20,
-    textAlign: 'center',
-  },
-  TitleMessage: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontFamily: 'NunitoSans',
-    fontWeight: '800',
-    color: '#555',
-  },
-  SubtitleMessage: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: '#666',
-    fontFamily: 'NunitoSans',
-  },
-  titlepage: {
-    fontSize: 20,
-    lineHeight: 24,
-  },
-  TitleWrapper: {
-    fontFamily: 'NunitoSans',
-    fontWeight: '800',
-    color: '#1c3f53',
-    maxWidth: '100%',
-  },
-});
-```
-
-</details>
-
-![Taskbox UI](/intro-to-storybook/ss-browserchrome-taskbox-learnstorybook.png)
-
-<div class="aside">
-If you want to modify the styling, the source LESS files are provided in the GitHub repo. And adjust accordingly for React Native styling.
-</div>
-
-## Add assets
-
-To match the intended design, you'll need to download both the font and icon directories and place them inside the `assets` folder.
-
-<div class="aside">
-<p>We’ve used <code>svn</code> (Subversion) to easily download a folder of files from GitHub. If you don’t have subversion installed or want to just do it manually, you can grab the icons folder directly <a href="https://github.com/chromaui/learnstorybook-code/tree/master/src/assets">here</a> and the font <a href="https://github.com/google/fonts/tree/master/ofl/nunitosans">here</a>.</p></div>
-
-```shell:clipboard=false
-svn export https://github.com/chromaui/learnstorybook-code/branches/master/src/assets/icon assets/icon
-svn export https://github.com/google/fonts/trunk/ofl/nunitosans assets/font
-```
-
-Next the assets need to be loaded into the app, for that we're going to update `hooks/useCachedResources.js` to the following:
-
-```js:title=hooks/useCachedResources.js
-async function loadResourcesAndDataAsync() {
-  try {
-    SplashScreen.preventAutoHideAsync();
-
-    // Load fonts
-    await Font.loadAsync({
-      ...Ionicons.font,
-      'space-mono': require('../assets/fonts/SpaceMono-Regular.ttf'),
-      percolate: require('../assets/icon/percolate.ttf'),
-      'NunitoSans-Bold': require('../assets/font/NunitoSans-Bold.ttf'),
-      'NunitoSans-Italic': require('../assets/font/NunitoSans-Italic.ttf'),
-      NunitoSans: require('../assets/font/NunitoSans-Regular.ttf'),
-    });
-  } catch (e) {
-    // We might want to provide this error information to an error reporting service
-    console.warn(e);
-  } finally {
-    setLoadingComplete(true);
-    SplashScreen.hideAsync();
-  }
-}
-```
-
-In order to use the icons from the `percolate` font safely and correctly in React Native we need to create a bridge that will map each individual icon to it's correspondent in the font file.
-
-Create a new file `/constants/Percolate.js` with the following:
-
-<details>
-  <summary>Click to expand and see the full file contents</summary>
-
-```js:title=constants/Percolate.js
-/**
- * PercolateIcons icon set component.
- * Usage: <PercolateIcons name="icon-name" size={20} color="#4F8EF7" />
- */
-
-import { createIconSet } from '@expo/vector-icons';
-const glyphMap = {
-  graphql: 59658,
-  redux: 59656,
-  grid: 59657,
-  redirect: 59655,
-  grow: 59651,
-  lightning: 59652,
-  'request-change': 59653,
-  transfer: 59654,
-  calendar: 59650,
-  sidebar: 59648,
-  tablet: 59649,
-  atmosphere: 58993,
-  browser: 58994,
-  database: 58995,
-  'expand-alt': 58996,
-  mobile: 58997,
-  watch: 58998,
-  home: 58880,
-  'user-alt': 58881,
-  user: 58882,
-  'user-add': 58883,
-  users: 58884,
-  profile: 58885,
-  bookmark: 58886,
-  'bookmark-hollow': 58887,
-  star: 58888,
-  'star-hollow': 58889,
-  circle: 58890,
-  'circle-hollow': 58891,
-  heart: 58892,
-  'heart-hollow': 58893,
-  'face-happy': 58894,
-  'face-sad': 58895,
-  'face-neutral': 58896,
-  lock: 58897,
-  unlock: 58898,
-  key: 58899,
-  'arrow-left-alt': 58900,
-  'arrow-right-alt': 58901,
-  sync: 58902,
-  reply: 58903,
-  expand: 58904,
-  'arrow-left': 58905,
-  'arrow-up': 58906,
-  'arrow-down': 58907,
-  'arrow-right': 58908,
-  'chevron-down': 58909,
-  back: 58910,
-  download: 58911,
-  upload: 58912,
-  proceed: 58913,
-  info: 58914,
-  question: 58915,
-  alert: 58916,
-  edit: 58917,
-  paintbrush: 58918,
-  close: 58919,
-  trash: 58920,
-  cross: 58921,
-  delete: 58922,
-  power: 58923,
-  add: 58924,
-  plus: 58925,
-  document: 58926,
-  'graph-line': 58927,
-  'doc-chart': 58928,
-  'doc-list': 58929,
-  category: 58930,
-  copy: 58931,
-  book: 58932,
-  certificate: 58934,
-  print: 58935,
-  'list-unordered': 58936,
-  'graph-bar': 58937,
-  menu: 58938,
-  filter: 58939,
-  ellipsis: 58940,
-  cog: 58941,
-  wrench: 58942,
-  nut: 58943,
-  camera: 58944,
-  eye: 58945,
-  photo: 58946,
-  video: 58947,
-  speaker: 58948,
-  phone: 58949,
-  flag: 58950,
-  pin: 58951,
-  compass: 58952,
-  globe: 58953,
-  location: 58954,
-  search: 58955,
-  timer: 58956,
-  time: 58957,
-  dashboard: 58958,
-  hourglass: 58959,
-  play: 58960,
-  stop: 58961,
-  email: 58962,
-  comment: 58963,
-  link: 58964,
-  paperclip: 58965,
-  box: 58966,
-  structure: 58967,
-  commit: 58968,
-  cpu: 58969,
-  memory: 58970,
-  outbox: 58971,
-  share: 58972,
-  button: 58973,
-  check: 58974,
-  form: 58975,
-  admin: 58976,
-  paragraph: 58977,
-  bell: 58978,
-  rss: 58979,
-  basket: 58980,
-  credit: 58981,
-  support: 58982,
-  shield: 58983,
-  beaker: 58984,
-  google: 58985,
-  gdrive: 58986,
-  youtube: 58987,
-  facebook: 58988,
-  'thumbs-up': 58989,
-  twitter: 58990,
-  github: 58991,
-  meteor: 58992,
 };
-
-const iconSet = createIconSet(glyphMap, 'percolate');
-
-export default iconSet;
-
-export const Button = iconSet.Button;
-export const TabBarItem = iconSet.TabBarItem;
-export const TabBarItemIOS = iconSet.TabBarItemIOS;
-export const ToolbarAndroid = iconSet.ToolbarAndroid;
-export const getImageSource = iconSet.getImageSource;
 ```
 
-</details>
+Add the `extra` config option like this
 
-In order to see Storybook in React Native we're going to update `screens/LinksScreen.js` to the following:
-
-```js:title=screens/LinksScreen.js
-import * as React from 'react';
-import StorybookUIRoot from '../storybook';
-
-export default function LinksScreen() {
-  return <StorybookUIRoot />;
-}
+```js
+module.exports = {
+  name: 'MyApp',
+  version: '1.0.0',
+  extra: {
+    storybookEnabled: process.env.STORYBOOK_ENABLED,
+  },
+  ...
+};
 ```
 
-And finally `navigation/BottomTabNavigator.js` to the following:
+Now we can access the storybookEnabled variable from our app using expo constants like this:
 
-```js:title=navigation/BottomTabNavigator.js
-import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+```js
+import Constants from 'expo-constants';
+const apiUrl = Constants.expoConfig.extra.storybookEnabled;
+```
 
-const BottomTab = createBottomTabNavigator();
-const INITIAL_ROUTE_NAME = 'Home';
+Earlier I said to comment out the app function in the App.js file and this where we go back and fix that.
 
-export default function BottomTabNavigator({ navigation, route }) {
-  navigation.setOptions({ headerTitle: getHeaderTitle(route) });
+Edit App.js so that it looks like this:
+
+```jsx
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
+import Constants from 'expo-constants';
+
+function App() {
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
-      <BottomTab.Screen
-        name="Taskbox"
-        component={HomeScreen}
-        options={{
-          title: 'Taskbox',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
-        options={{
-          title: 'Storybook',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
-        }}
-      />
-    </BottomTab.Navigator>
+    <View style={styles.container}>
+      <Text>Open up App.js to start working on your app!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
-function getHeaderTitle(route) {
-  const routeName = route.state?.routes[route.state.index]?.name ?? INITIAL_ROUTE_NAME;
+let AppEntryPoint = App;
 
-  switch (routeName) {
-    case 'Home':
-      return 'How to get started';
-    case 'Links':
-      return 'Your Storybook';
-  }
+if (Constants.expoConfig.extra.storybookEnabled === 'true') {
+  AppEntryPoint = require('./.storybook').default;
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
+
+export default AppEntryPoint;
+```
+
+Now in package.json we can add a script like this
+
+```json
+"scripts": {
+	"storybook": "sb-rn-get-stories && STORYBOOK_ENABLED='true' expo start",
 }
 ```
 
-And finally, we'll need to make a small change to our Storybook configuration. As we're using Expo to build our app, we can safely remove some items from the configuration as they are not required. Turning the file contents into the following:
+We've added a new command that will update our stories and run our app with the STORYBOOK_ENABLED flag set to true.
 
-```js:title=storybook/index.js
-import { getStorybookUI, configure } from '@storybook/react-native';
+Now when you run `yarn start` you should see the app code and `yarn storybook` should show you storybook.
 
-import './rn-addons';
-
-// import stories
-configure(() => {
-  require('./stories');
-}, module);
-
-const StorybookUIRoot = getStorybookUI({
-  asyncStorage: null,
-});
-
-export default StorybookUIRoot;
-```
-
-<div class="aside"><p>We're adding the <code>asyncStorage:null</code> due to the fact that starting with React Native 0.59 Async Storage was deprecated. Should you need to use it in your own app, you'll have to add it manually by installing <code>@react-native-async-storage/async-storage</code> package and adjust the code above accordingly. You can read more about how to set up Storybook with Async Storage in <a href="https://github.com/storybookjs/storybook/blob/next/MIGRATION.md#react-native-async-storage">here</a>. As the tutorial will not use any of the features of Async Storage, we can safely add this element to Storybook configuration.</p></div>
-
-After adding styling and assets, the app will render a bit strangely. That’s OK. We aren’t working on the app right now. We’re starting off with building our first component!
+You can pass the option `--ios` or `--android` to have the simulator autmatically open up otherwise press `i` or `a` after the command finishes running to open the simulator.
