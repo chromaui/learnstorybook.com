@@ -91,23 +91,23 @@ Para contarle a Storybook sobre el componente que estamos documentando, creamos 
 - `component` -- el propio componente
 - `title` -- como hacer referencia al componente en la barra lateral de la aplicación Storybook
 
-Para definir nuestras historias, exportamos una función para cada uno de nuestros estados del test para generar una historia. La historia es una función que retorna un elemento renderizado (es decir, un component con un conjunto de props) en un estado dado --- exactamente como en React [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
+Para definir nuestras historias, exportamos una función para cada uno de nuestros estados del test para generar una historia. La historia es una función que retorna un elemento renderizado (es decir, un componente con un conjunto de props) en un estado dado --- exactamente como en React [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
 
-Como tenemos múltiples permutaciones de nuestro componente, es conveniente asignarlo a un variable `Template`. Introducir este patrón en tus historias reducirá la cantidad de código que necesitas escribir y mantener
+Como tenemos múltiples permutaciones de nuestro componente, es conveniente asignarlo a un variable `Template`. Introducir este patrón en tus historias reducirá la cantidad de código que necesitas escribir y mantener.
 
 
 <div class="aside">
-💡 <code>Template.bind({})</code> es una técnica <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">estándar de JavaScript</a> para hacer una copia de una funcion. Usamos esta técnica para permitir que cada historia exportada establezca sus propios propiedades, pero use la misma implementación. 
+💡 <code>Template.bind({})</code> es una técnica <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">estándar de JavaScript</a> para hacer una copia de una funcion. Usamos esta técnica para permitir que cada historia exportada establezca sus propios propiedades, pero usa la misma implementación. 
 </div>
 
 
 Argumentos o [`args`](https://storybook.js.org/docs/react/writing-stories/args), nos permiten editar en vivo nuestros componentes con el controls addon sin reiniciar Storybook. Una vez que cambia el valor de un [`args`](https://storybook.js.org/docs/react/writing-stories/args), el componente también cambia.
 
-Al crear una historia utilizamos un argumento base (`task`) para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
+Al crear una historia utilizamos un argumento base de `task` para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
 
 
 <div class="aside">
-Las <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes UI en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para agregarlas.
+Las <a href="https://storybook.js.org/docs/react/essentials/actions"><b>acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes UI en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para agregarlas.
 </div>
 
 
@@ -146,7 +146,7 @@ Una vez que hayamos hecho esto, dentro de la carpeta `.storybook`, cambia tu `pr
 
 ```diff:title=.storybook/preview.js
 + import '../src/index.css';
-//👇 Configura a Storybook a documentar las acciones( onArchiveTask and onPinTask ) en el UI.
+//👇 Configura a Storybook a documentar las acciones( onArchiveTask and onPinTask ) en la UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -158,11 +158,9 @@ export const parameters = {
 };
 ```
 
-Los [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) se utilizan normalmente para controlar el comportamiento de las funciones y complementos (addons) de Storybook. En nuestro caso, vamos a utilizarlos para configurar cómo se manejan las `actions` (retrollamadas simuladas)
+Los [`parametros`](https://storybook.js.org/docs/react/writing-stories/parameters) se utilizan normalmente para controlar el comportamiento de las funciones y complementos (addons) de Storybook. En nuestro caso, vamos a utilizarlos para configurar cómo se manejan las `actions` (llamadas simuladas)
 
-`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
-
-`actions` nos permiten crear callbacks que aparecen en el panel de **actions** de la UI de Storybook cuando se hace clic.
+`actions` nos permiten crear llamadas o "callbacks" que aparecen en el panel de **actions** de la UI de Storybook cuando se hace clic.
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
 
@@ -299,7 +297,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 +  }),
 +  /** Evento para cambiar la tarea a archivada */
 +  onArchiveTask: PropTypes.func,
-+  /** Evento para cambiar la tarea a pinned */
++  /** Evento para cambiar la tarea a anclada */
 +  onPinTask: PropTypes.func,
 + };
 ```
@@ -354,7 +352,7 @@ module.exports = {
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
 
-Mirando nuestras historias, podemos ver que el addon encontró un problema de accesibilidad con uno de nuestros estados de prueba. El mensaje [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI), "Los elementos deben tener suficiente contraste de color", significa que no hay suficiente contraste entre el título de la tarea y el fondo. Podemos solucionarlo rápidamente cambiando el color de texto a un gris más oscuro en el CSS de nuestra aplicación (ubicado en `src/index.css`).
+Mirando nuestras historias, podemos ver que el addon encontró un problema de accesibilidad con uno de nuestros estados de prueba. El mensaje [**"Los elementos deben tener suficiente contraste de color"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI), significa que no hay suficiente contraste entre el título de la tarea y el fondo. Podemos solucionarlo rápidamente cambiando el color de texto a un gris más oscuro en el CSS de nuestra aplicación (ubicado en `src/index.css`).
 
 ```diff:title=src/index.css
 .list-item.TASK_ARCHIVED input[type="text"] {
