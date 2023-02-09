@@ -114,15 +114,9 @@ Las <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Acciones
 
 ## Configuración
 
-__
-
-
-__
-NEW TRANSLATION
-
 Necesitamos hacer un par de cambios en los archivos de configuración de Storybook para que reconozca nuestras historias recién creadas y nos permite usar el archivo CSS de la aplicación (ubicado en `src/index.css`).
 
-Comenzamos cambiando tu archivo de configuración de Storybook (`.storybook/main.js`) a lo siguiente:
+Comenzaremos cambiando tu archivo de configuración de Storybook (`.storybook/main.js`) a lo siguiente:
 
 ```diff:title=.storybook/main.js
 module.exports = {
@@ -152,7 +146,7 @@ Una vez que hayamos hecho esto, dentro de la carpeta `.storybook`, cambia tu `pr
 
 ```diff:title=.storybook/preview.js
 + import '../src/index.css';
-//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
+//👇 Configura a Storybook a documentar las acciones( onArchiveTask and onPinTask ) en el UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -163,20 +157,25 @@ export const parameters = {
   },
 };
 ```
-__
 
+Los [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) se utilizan normalmente para controlar el comportamiento de las funciones y complementos (addons) de Storybook. En nuestro caso, vamos a utilizarlos para configurar cómo se manejan las `actions` (retrollamadas simuladas)
 
+`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+
+`actions` nos permiten crear callbacks que aparecen en el panel de **actions** de la UI de Storybook cuando se hace clic.
 
 Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
 
-<video autoPlay muted playsInline controls >
+<video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
+    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
 
+
 ## Construyendo los estados
+
 
 Ahora tenemos configurado Storybook, los estilos importados y los casos de prueba construidos; podemos comenzar rápidamente el trabajo de implementar el HTML del componente para que coincida con el diseño.
 
@@ -184,102 +183,189 @@ El componente todavía es básico. Primero escribiremos el código que se aproxi
 
 ```js:title=src/components/Task.js
 import React from 'react';
-
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
-      <label className="checkbox">
+      <label
+        htmlFor="checked"
+        aria-label={`archiveTask-${id}`}
+        className="checkbox"
+      >
         <input
           type="checkbox"
-          defaultChecked={state === 'TASK_ARCHIVED'}
           disabled={true}
           name="checked"
+          id={`archiveTask-${id}`}
+          checked={state === "TASK_ARCHIVED"}
         />
-        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
+        <span
+          className="checkbox-custom"
+          onClick={() => onArchiveTask(id)}
+        />
       </label>
-      <div className="title">
-        <input type="text" value={title} readOnly={true} placeholder="Input title" />
-      </div>
-
-      <div className="actions" onClick={(event) => event.stopPropagation()}>
-        {state !== 'TASK_ARCHIVED' && (
-          <a onClick={() => onPinTask(id)}>
-            <span className={`icon-star`} />
-          </a>
-        )}
-      </div>
+      <label htmlFor="title" aria-label={title} className="title">
+        <input
+          type="text"
+          value={title}
+          readOnly={true}
+          name="title"
+          placeholder="Input title"
+        />
+      </label>
+      {state !== "TASK_ARCHIVED" && (
+        <button
+          className="pin-button"
+          onClick={() => onPinTask(id)}
+          id={`pinTask-${id}`}
+          aria-label={`pinTask-${id}`}
+          key={`pinTask-${id}`}
+        >
+          <span className={`icon-star`} />
+        </button>
+      )}
     </div>
   );
 }
 ```
-
 El maquetado adicional de arriba, combinado con el CSS que hemos importado antes, produce la siguiente UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states.mp4"
+    src="/intro-to-storybook/finished-task-states-6-0.mp4"
     type="video/mp4"
   />
 </video>
+
 
 ## Especificar los requerimientos de datos
 
 Es una buena práctica en React utilizar `propTypes` para especificar la forma de los datos que espera recibir un componente. No sólo se auto documenta, sino que también ayuda a detectar problemas rápidamente.
 
-```js:title=src/components/Task.js
+```diff:title=src/components/Task.js
 import React from 'react';
-import PropTypes from 'prop-types';
-
++ import PropTypes from 'prop-types';
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
-  // ...
+  return (
+    <div className={`list-item ${state}`}>
+      <label
+        htmlFor="checked"
+        aria-label={`archiveTask-${id}`}
+        className="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled={true}
+          name="checked"
+          id={`archiveTask-${id}`}
+          checked={state === "TASK_ARCHIVED"}
+        />
+        <span
+          className="checkbox-custom"
+          onClick={() => onArchiveTask(id)}
+        />
+      </label>
+      <label htmlFor="title" aria-label={title} className="title">
+        <input
+          type="text"
+          value={title}
+          readOnly={true}
+          name="title"
+          placeholder="Input title"
+        />
+      </label>
+      {state !== "TASK_ARCHIVED" && (
+        <button
+          className="pin-button"
+          onClick={() => onPinTask(id)}
+          id={`pinTask-${id}`}
+          aria-label={`pinTask-${id}`}
+          key={`pinTask-${id}`}
+        >
+          <span className={`icon-star`} />
+        </button>
+      )}
+    </div>
+  );
 }
-
-Task.propTypes = {
-  task: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired,
-  }),
-  onArchiveTask: PropTypes.func,
-  onPinTask: PropTypes.func,
-};
++ Task.propTypes = {
++  /** Composición de la tarea */
++  task: PropTypes.shape({
++    /** Id de la tarea */
++    id: PropTypes.string.isRequired,
++    /** Título de la tarea */
++    title: PropTypes.string.isRequired,
++    /** Estado actual de la tarea */
++    state: PropTypes.string.isRequired,
++  }),
++  /** Evento para cambiar la tarea a archivada */
++  onArchiveTask: PropTypes.func,
++  /** Evento para cambiar la tarea a pinned */
++  onPinTask: PropTypes.func,
++ };
 ```
-
 Ahora aparecerá una advertencia en modo desarrollo si el componente Task se utiliza incorrectamente.
 
+
 <div class="aside">
-Una forma alternativa de lograr el mismo propósito es utilizando un sistema de tipos de JavaScript como TypeScript, para crear un tipo para las propiedades del componente.
+💡 Una forma alternativa de lograr el mismo propósito es utilizando un sistema de tipos de JavaScript como TypeScript, para crear un tipo para las propiedades del componente.
 </div>
+
 
 ## Componente construido!
 
 Ahora hemos construido con éxito un componente sin necesidad de un servidor o sin ejecutar toda la aplicación frontend. El siguiente paso es construir los componentes restantes de la Taskbox, uno por uno de manera similar.
 
-Como puedes ver, comenzar a construir componentes de forma aislada es fácil y rápido. Podemos esperar producir una UI de mayor calidad con menos errores y más pulida porque es posible profundizar y probar todos los estados posibles.
+Como puedes ver, comenzar a construir componentes de forma aislada es fácil y rápido. Podemos esperar producir una UI de mayor calidad con menos errores y más elegancia porque es posible profundizar y probar todos los estados posibles.
 
-## Pruebas automatizadas
+## Detectar problemas de accesibilidad
 
-Storybook nos dio una excelente manera de probar visualmente nuestra aplicación durante su construcción. Las 'historias' ayudarán a asegurar que no rompamos nuestra Task visualmente, a medida que continuamos desarrollando la aplicación. Sin embargo, en esta etapa, es un proceso completamente manual y alguien tiene que hacer el esfuerzo de hacer clic en cada estado de prueba y asegurarse de que se visualice bien y sin errores ni advertencias. ¿No podemos hacer eso automáticamente?
+Las pruebas de accesibilidad se refieren a la práctica de auditar el DOM renderizado con herramientas automatizadas contra un conjunto de heurísticas basadas en las reglas [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) y otras mejores prácticas aceptadas por la industria. Actuán como la primera línea de control de calidad (QA) para detectar infracciones obvias de accesibilidad y aseguran que una aplicación sea utilizable por la mayor cantidad de personas posible, incluidas personas con discapacidades como problems de visión, problemas auditivos y condiciones cognitivas. 
 
-### Pruebas de instantáneas
+Storybook también tiene un [addon oficial de accesibilidad](https://storybook.js.org/addons/@storybook/addon-a11y). Desarrollado con el [axe-core](https://github.com/dequelabs/axe-core) de Deque, puede detecar hasta [57% de los problemas de WCAG](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
-La prueba de instantáneas se refiere a la práctica de registrar la salida "correcta" de un componente para una entrada dada y luego en el futuro marcar el componente siempre que la salida cambie. Esto complementa a Storybook, porque es una manera rápida de ver la nueva versión de un componente y verificar los cambios.
-
-Con [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) se crea una prueba de instantánea para cada una de las historias. Úsalo agregando una dependencia en modo desarrollo en el paquete:
+Vamos a ver como funciona! Ejecuta el comando siguiente para instalar el addon:
 
 ```shell
-yarn add --dev @storybook/addon-storyshots react-test-renderer
+yarn add --dev @storybook/addon-a11y
 ```
 
-Luego crea un archivo `src/storybook.test.js` con el siguiente contenido:
+Luego, actualiza tu archivo de configuración de Storybook (`.storybook/main.js`) para activarlo:
 
-```shell
-import initStoryshots from '@storybook/addon-storyshots';
-initStoryshots();
+```diff:title=.storybook/main.js
+module.exports = {
+  stories: ['../src/components/**/*.stories.js'],
+  staticDirs: ['../public'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-interactions',
++   '@storybook/addon-a11y',
+  ],
+  framework: '@storybook/react',
+  core: {
+    builder: '@storybook/builder-webpack5',
+  },
+  features: {
+    interactionsDebugger: true,
+  },
+};
 ```
 
-Una vez hecho lo anterior, podemos ejecutar `yarn test` y veremos el siguiente resultado:
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
 
-![Task test runner](/intro-to-storybook/task-testrunner.png)
+Mirando nuestras historias, podemos ver que el addon encontró un problema de accesibilidad con uno de nuestros estados de prueba. El mensaje [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI), "Los elementos deben tener suficiente contraste de color", significa que no hay suficiente contraste entre el título de la tarea y el fondo. Podemos solucionarlo rápidamente cambiando el color de texto a un gris más oscuro en el CSS de nuestra aplicación (ubicado en `src/index.css`).
 
-Ahora tenemos una prueba de instantánea para cada una de las historias de `Task`. Si cambiamos la implementación de `Task`, se nos pedirá que verifiquemos los cambios.
+```diff:title=src/index.css
+.list-item.TASK_ARCHIVED input[type="text"] {
+- color: #a0aec0;
++ color: #4a5568;
+  text-decoration: line-through;
+}
+```
+
+Terminamos! Hemos dado el primer paso para garantizar que la UI sea accesible. Mientras continuamos agregando complejidad a nuestra aplicación, podemos repetir este proceso para todos los demás componentes sin necesidad de usar herramientas adicionales o entornos de prueba.
+
+<div class="aside">
+💡 No olvides hacer commit para guardar tus cambios con git!
+</div>
