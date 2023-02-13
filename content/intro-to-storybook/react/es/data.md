@@ -155,7 +155,7 @@ Ahora que tenemos algunos datos reales que llenan nuestro componente obtenidos d
 
 No te preocupes por eso. Nos ocuparemos de ello en el próximo capítulo.
 
-## Proveyendo contexto con decoradores
+## Suministrando contexto con decoradores
 
 Nuestras historias de Storybook han dejado de funcionar con este cambio, porque nuestro `TaskList` ahora es un componente conectado, ya que depende de un store de Redux para recuperar y actualizar nuestras tareas.
 
