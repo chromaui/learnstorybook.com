@@ -11,76 +11,209 @@ En este capítulo continuaremos aumentando la sofisticación combinando componen
 
 ## Componentes de contenedor anidados
 
-Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Redux) en alguna maqueta y sacando un campo `error` de primer nivel de redux (asumamos que pondremos ese campo si tenemos algún problema para conectarnos a nuestro servidor):
+Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente obteniendo datos de una API remota, envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Redux) y sacando un campo `error` de primer nivel de Redux.
 
-```js:title=src/components/screens/TaskListScreen.js
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+We'll start by updating our Redux store (in `src/lib/store.js`) to connect to a remote API and handle the various states for our application (i.e., `error`, `succeeded`):
 
+Empezamos actualizando nuestro store de Redux (en `src/lib/store.js`) para conectar a una API remota y manejar los diversos estados de nuestra aplicación (es decir, `error`, `succeeded`):
+
+```diff:title=src/lib/store.js
+/* Una implementación simple de store/actions/reducer de Redux.
+ * Una verdadera aplicación sería más compleja y estaría separada en diferentes archivos.
+ */
+import {
+  configureStore,
+  createSlice,
++ createAsyncThunk,
+} from '@reduxjs/toolkit';
+/*
+ * El estado inicial de nuestro store cuando se carga la aplicacion.
+ * Normalmente, obtendría esto de un servidor. No nos preocupemos por eso ahora.
+ */
+const TaskBoxData = {
+  tasks: [],
+  status: "idle",
+  error: null,
+};
+/*
+ * Crea un asyncThunk para recuperar tareas desde un endpoint remoto.
+ * Puedes leer más sobre thunks de Redux Toolskit en la documentación:
+ * https://redux-toolkit.js.org/api/createAsyncThunk
+ */
++ export const fetchTasks = createAsyncThunk('todos/fetchTodos', async () => {
++   const response = await fetch(
++     'https://jsonplaceholder.typicode.com/todos?userId=1'
++   );
++   const data = await response.json();
++   const result = data.map((task) => ({
++     id: `${task.id}`,
++     title: task.title,
++     state: task.completed ? 'TASK_ARCHIVED' : 'TASK_INBOX',
++   }));
++   return result;
++ });
+/*
+ * El store se crea aquí
+ * Puedes leer mas sobre slices de Redux Toolkit en la documentación:
+ * https://redux-toolkit.js.org/api/createSlice
+ */
+const TasksSlice = createSlice({
+  name: 'taskbox',
+  initialState: TaskBoxData,
+  reducers: {
+    updateTaskState: (state, action) => {
+      const { id, newTaskState } = action.payload;
+      const task = state.tasks.findIndex((task) => task.id === id);
+      if (task >= 0) {
+        state.tasks[task].state = newTaskState;
+      }
+    },
+  },
+  /*
+   * Extiende el reducer para las acciones async
+   * Puedes leer más sobre esto en https://redux-toolkit.js.org/api/createAsyncThunk
+   */
++  extraReducers(builder) {
++    builder
++    .addCase(fetchTasks.pending, (state) => {
++      state.status = 'loading';
++      state.error = null;
++      state.tasks = [];
++    })
++    .addCase(fetchTasks.fulfilled, (state, action) => {
++      state.status = 'succeeded';
++      state.error = null;
++      // Add any fetched tasks to the array
++      state.tasks = action.payload;
++     })
++    .addCase(fetchTasks.rejected, (state) => {
++      state.status = 'failed';
++      state.error = "Something went wrong";
++      state.tasks = [];
++    });
++ },
+});
+// Las acciones contenidas en el slice se exportan para su uso en nuestros componentes
+export const { updateTaskState } = TasksSlice.actions;
+/*
+ * La configuración del store de nuestra aplicación va aquí.
+ * Lee más sobre configureStore de Redux en la documentación:
+ * https://redux-toolkit.js.org/api/configureStore
+ */
+const store = configureStore({
+  reducer: {
+    taskbox: TasksSlice.reducer,
+  },
+});
+export default store;
+```
+
+Ahora que hemos actualizado nuestro store para recuperar datos de un endpoint de una API remota y lo hemos preparado para manejar los diversos estados de nuestra aplicación, vamos a crear nuestro `InboxScreen.js` en el directorio `src/components`:
+
+```js:title=src/components/InboxScreen.js
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchTasks } from '../lib/store';
 import TaskList from './TaskList';
-
-export function PureInboxScreen({ error }) {
+export default function InboxScreen() {
+  const dispatch = useDispatch();
+  // Estamos recuperando el campo de error de nuestro store actualizado
+  const { error } = useSelector((state) => state.taskbox);
+  // El useEffect activa la obtención de datos cuando se monta el componente.
+  useEffect(() => {
+    dispatch(fetchTasks());
+  }, []);
   if (error) {
     return (
       <div className="page lists-show">
         <div className="wrapper-message">
           <span className="icon-face-sad" />
-          <div className="title-message">Oh no!</div>
-          <div className="subtitle-message">Algo va mal</div>
+          <p className="title-message">Oh no!</p>
+          <p className="subtitle-message">Something went wrong</p>
         </div>
       </div>
     );
   }
-
   return (
     <div className="page lists-show">
       <nav>
-        <h1 className="title-page">
-          <span className="title-wrapper">Taskbox</span>
-        </h1>
+        <h1 className="title-page">Taskbox</h1>
       </nav>
       <TaskList />
     </div>
   );
 }
-
-PureInboxScreen.propTypes = {
-  error: PropTypes.string,
-};
-
-PureInboxScreen.defaultProps = {
-  error: null,
-};
-
-export default connect(({ error }) => ({ error }))(PureInboxScreen);
 ```
 
-También cambiamos el componente `App` para renderizar la pantalla de la bandeja de entrada `InboxScreen` (normalmente usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
 
-```js:title=src/App.js
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import store from './lib/redux';
+También tenemos que cambiar nuestro component `App` para renderizar la pantalla `InboxScreen` (al final usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
 
-import InboxScreen from './components/InboxScreen';
-
-class App extends Component {
-  render() {
-    return (
-      <Provider store={store}>
-        <InboxScreen />
-      </Provider>
-    );
-  }
+```diff:title=src/App.js
+- import logo from './logo.svg';
+- import './App.css';
++ import './index.css';
++ import store from './lib/store';
++ import { Provider } from 'react-redux';
++ import InboxScreen from './components/InboxScreen';
+function App() {
+  return (
+-   <div className="App">
+-     <header className="App-header">
+-       <img src={logo} className="App-logo" alt="logo" />
+-       <p>
+-         Edit <code>src/App.js</code> and save to reload.
+-       </p>
+-       <a
+-         className="App-link"
+-         href="https://reactjs.org"
+-         target="_blank"
+-         rel="noopener noreferrer"
+-       >
+-         Learn React
+-       </a>
+-     </header>
+-   </div>
++   <Provider store={store}>
++     <InboxScreen />
++   </Provider>
+  );
 }
-
 export default App;
 ```
 
-Sin embargo, donde las cosas se ponen interesantes es en la representación de la historia en Storybook.
+Sin embargo, donde las cosas se ponen interesantes es en la renderización de la historia en Storybook.
 
-Como vimos anteriormente, el componente `TaskList` es un **contenedor** que renderiza el componente de presentación `PureTaskList`. Por definición, los componentes de un contenedor no pueden simplemente hacer render de forma aislada; esperan que se les pase algún contexto o que se conecten a un servicio. Lo que esto significa es que para hacer render de un contenedor en Storybook, debemos mockearlo (es decir, proporcionar una versión ficticia) del contexto o servicio que requiere.
+Como vimos anteriormente, el componente `TaskList` ahora es un **contenedor** que depende de un store de Redux para renderizar las tareas. Ya que `InboxScreen` también en un componente contenedor haremos algo similar y proporcionamos un store a la historia. Entonces cuando configuramos nuestras historias en `InboxScreen.stories.js`:
+
+```js:title=src/components/InboxScreen.stories.js
+import React from 'react';
+import InboxScreen from './InboxScreen';
+import store from '../lib/store';
+import { Provider } from 'react-redux';
+export default {
+  component: InboxScreen,
+  title: 'InboxScreen',
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+};
+const Template = () => <InboxScreen />;
+export const Default = Template.bind({});
+export const Error = Template.bind({});
+```
+
+We can quickly spot an issue with the `error` story. Instead of displaying the right state, it shows a list of tasks. One way to sidestep this issue would be to provide a mocked version for each state, similar to what we did in the last chapter. Instead, we'll use a well-known API mocking library alongside a Storybook addon to help us solve this issue.
+
+Podemos detectar rápidamente un problema con la historia de `error`. En lugar de mostrar el estado correcto, muestra una lista de tareas. Una formar de evitar este problema sería proporcionar una versión mockeada para cada estado, similar a lo que hicimos en el último capítulo. En lugar de esto, utilizaremos una conocida librería de simulación de API junto con un addon de Storybook para ayudarnos a resolver este problema.
+
+![Broken inbox screen state](/intro-to-storybook/broken-inbox-error-state-optimized.png)
+
+## Simulación de servicios de API
+
+
+___
+
+
+
+
 
 Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este problema simplemente renderizando la `PureTaskList` y evadiendo el contenedor. Haremos algo similar y renderizaremos la `PureInboxScreen` en Storybook también.
 
