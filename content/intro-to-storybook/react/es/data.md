@@ -13,7 +13,7 @@ Este tutorial no se centra en los detalles de la construcción de una aplicació
 
 Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (ver [artículo al respecto](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), en el sentido que no se comunica con nada externo a su implementación. Para poder pasarle datos, necesitaremos un "contenedor".
 
-Este ejemplo utiliza [Redux Toolkit](https://redux-toolkit.js.org/), el conjunto de herramientas más efctivo para desarrollar aplicaciones para almacenar datos con [Redux](https://redux.js.org/), para construir un modelo de datos para nuestra aplicación. Sin embargo, el patrón que utilizaremos también se aplica a aquí se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
+Este ejemplo utiliza [Redux Toolkit](https://redux-toolkit.js.org/), el conjunto de herramientas más efectivo para desarrollar aplicaciones para almacenar datos con [Redux](https://redux.js.org/), para construir un modelo de datos para nuestra aplicación. Sin embargo, el patrón que utilizaremos también se aplica a aquí se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
 Agrega las dependencias necesarias a tu proyecto con:
 
@@ -31,7 +31,7 @@ Primero construiremos un simple store Redux que responde a acciones que cambian 
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 /*
  * El estado inicial de nuestro store cuando la aplicación carga.
- * Usualmente obtendrías esto de un servidor. No preocupemos de esto ahora.
+ * Usualmente obtendrías esto de un servidor. No nos preocupemos por eso ahora.
  */
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -151,51 +151,133 @@ export default function TaskList() {
   );
 }
 ```
-Ahora que tenemos algunos datos reales que llenan nuestro componente, obtenidos del store de Redux, podríamos haberlo conectado a `src/App.js` y renderizar el componente allí. Pero por ahora, dejemos de hacer eso y continuaremos con nuestro viaje basado en componentes.
+Ahora que tenemos algunos datos reales que llenan nuestro componente obtenidos del store de Redux, podríamos haberlo conectado a `src/App.js` y renderizar el componente allí. Pero por ahora, dejemos de hacer eso y continuaremos con nuestro viaje basado en componentes.
 
 No te preocupes por eso. Nos ocuparemos de ello en el próximo capítulo.
 
-END OF NEW TRANSLATION
-__
+## Proveyendo contexto con decoradores
 
+Nuestras historias de Storybook han dejado de funcionar con este cambio, porque nuestro `TaskList` ahora es un componente conectado, ya que depende de un store de Redux para recuperar y actualizar nuestras tareas.
 
+![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
 
-En esta etapa, nuestras pruebas de Storybook habrán dejado de funcionar, ya que la `TaskList` ahora es un contenedor y ya no espera ninguna de las props pasadas como parámetros, sino que se conecta a la store y establece las props en el componente `PureTaskList` que envuelve.
-
-Sin embargo, podemos resolver este problema fácilmente renderizando `PureTaskList` --el componente de presentación-- en nuestras historias de Storybook:
+Podemos utilizar varios enfoques para resolver este problema. Ya que nuestra aplicación es bastante sencilla, podemos confiar de un decorador, similar a lo que hicimos en el [capítulo anterior](/intro-to-storybook/react/en/composite-component) y proporcionar un store simulada en nuestras historias de Storybook:
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-
-import { PureTaskList } from './TaskList';
-import { task, actions } from './Task.stories';
-
-export const defaultTasks = [
-  { ...task, id: '1', title: 'Task 1' },
-  { ...task, id: '2', title: 'Task 2' },
-  { ...task, id: '3', title: 'Task 3' },
-  { ...task, id: '4', title: 'Task 4' },
-  { ...task, id: '5', title: 'Task 5' },
-  { ...task, id: '6', title: 'Task 6' },
+import TaskList from './TaskList';
+import * as TaskStories from './Task.stories';
+import { Provider } from 'react-redux';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+// Una simulación super sencilla del estado del store
+export const MockedState = {
+  tasks: [
+    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+  ],
+  status: 'idle',
+  error: null,
+};
+// Una simulación super sencilla del store de redux
+const Mockstore = ({ taskboxState, children }) => (
+  <Provider
+    store={configureStore({
+      reducer: {
+        taskbox: createSlice({
+          name: 'taskbox',
+          initialState: taskboxState,
+          reducers: {
+            updateTaskState: (state, action) => {
+              const { id, newTaskState } = action.payload;
+              const task = state.tasks.findIndex((task) => task.id === id);
+              if (task >= 0) {
+                state.tasks[task].state = newTaskState;
+              }
+            },
+          },
+        }).reducer,
+      },
+    })}
+  >
+    {children}
+  </Provider>
+);
+export default {
+  component: TaskList,
+  title: 'TaskList',
+  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  excludeStories: /.*MockedState$/,
+};
+const Template = () => <TaskList />;
+export const Default = Template.bind({});
+Default.decorators = [
+  (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
 ];
-
-export const withPinnedTasks = [
-  ...defaultTasks.slice(0, 5),
-  { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+export const WithPinnedTasks = Template.bind({});
+WithPinnedTasks.decorators = [
+  (story) => {
+    const pinnedtasks = [
+      ...MockedState.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ];
+    return (
+      <Mockstore
+        taskboxState={{
+          ...MockedState,
+          tasks: pinnedtasks,
+        }}
+      >
+        {story()}
+      </Mockstore>
+    );
+  },
 ];
-
-storiesOf('TaskList', module)
-  .addDecorator((story) => <div style={{ padding: '3rem' }}>{story()}</div>)
-  .add('default', () => <PureTaskList tasks={defaultTasks} {...actions} />)
-  .add('withPinnedTasks', () => <PureTaskList tasks={withPinnedTasks} {...actions} />)
-  .add('loading', () => <PureTaskList loading tasks={[]} {...actions} />)
-  .add('empty', () => <PureTaskList tasks={[]} {...actions} />);
+export const Loading = Template.bind({});
+Loading.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        status: 'loading',
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
+export const Empty = Template.bind({});
+Empty.decorators = [
+  (story) => (
+    <Mockstore
+      taskboxState={{
+        ...MockedState,
+        tasks: [],
+      }}
+    >
+      {story()}
+    </Mockstore>
+  ),
+];
 ```
+
+
+<div class="aside">
+💡 <code>excludeStories</code> es un campo de configuración de Storybook que evita que nuestro estado simulado sea tratado como una historia. Puedes leer más sobre este campo en la <a href="https://storybook.js.org/docs/react/api/csf">documentación de Storybook</a>.
+</div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-6-4-optimized.mp4"
     type="video/mp4"
   />
 </video>
+
+<div class="aside">
+💡 No olvides hacer commit para guardar tus cambios con git!
+</div>
+
+Éxito! Estamos justo donde comenzamos, nuestro Storybook ahora está funcionando y podemos ver cómo podemos suministrar datos a un componente conectado. En el próximo capítulo tomaremos lo que hemos aprendido aquí y lo aplicaremos a una pantalla.
