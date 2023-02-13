@@ -280,4 +280,4 @@ Empty.decorators = [
 💡 No olvides hacer commit para guardar tus cambios con git!
 </div>
 
-Éxito! Estamos justo donde comenzamos, nuestro Storybook ahora está funcionando y podemos ver cómo podemos suministrar datos a un componente conectado. En el próximo capítulo tomaremos lo que hemos aprendido aquí y lo aplicaremos a una pantalla.
+Éxito! Estamos justo donde comenzamos, nuestro Storybook ahora está funcionando y podemos ver cómo podemos suministrar datos a un componente contenedor. En el próximo capítulo tomaremos lo que hemos aprendido aquí y lo aplicaremos a una pantalla.
