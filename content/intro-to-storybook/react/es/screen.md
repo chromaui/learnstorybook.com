@@ -208,6 +208,107 @@ Podemos detectar rápidamente un problema con la historia de `error`. En lugar d
 
 ## Simulación de servicios de API
 
+Ya que nuestra aplicación es bastante sencilla y no depende mucho en llamadas APIs remotas vamos a utilizar [Mock Service Worker](https://mswjs.io/) y el [addon de Storybook "MSW"](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker es una librería de simulación de API. Depende de Service Workers para capturar solicitudes de red y proporciona datos simulados en las respuestas.
+
+Cuando configuramos nuestra aplicación en [la sección Empezando](/intro-to-storybook/react/es/get-started) se instalaron ambos paquetes. Solo queda configurarlos y actualizar nuestras historias para usarlos.
+
+En tu terminal, ejecuta el siguiente comando para generar un Service Worker genérico dentro de tu carpeta `public`:
+
+```shell
+yarn init-msw
+```
+
+Luego, necesitamos actualizar nuestro `.storybook/preview.js` e inicializarlos:
+
+```diff:title=.storybook/preview.js
+import '../src/index.css';
++ // Registra el addon msw
++ import { initialize, mswDecorator } from 'msw-storybook-addon';
++ // Initializa MSW
++ initialize();
++ // Proporciona el decorador del addon MSW a nivel global
++ export const decorators = [mswDecorator];
+//👇 Configura Storybook para registar las acciones (onArchiveTask y onPinTask) en la interfaz de usuario.
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+};
+```
+
+Por último, actualiza las historias `InboxScreen` y incluye un [parámetro](https://storybook.js.org/docs/react/writing-stories/parameters) que simula las llamadas API remotas:
+
+```diff:title=src/components/InboxScreen.stories.js
+import React from 'react';
+import InboxScreen from './InboxScreen';
+import store from '../lib/store';
++ import { rest } from 'msw';
++ import { MockedState } from './TaskList.stories';
+import { Provider } from 'react-redux';
+export default {
+  component: InboxScreen,
+  title: 'InboxScreen',
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+};
+const Template = () => <InboxScreen />;
+export const Default = Template.bind({});
++ Default.parameters = {
++   msw: {
++     handlers: [
++       rest.get(
++         'https://jsonplaceholder.typicode.com/todos?userId=1',
++         (req, res, ctx) => {
++           return res(ctx.json(MockedState.tasks));
++         }
++       ),
++     ],
++   },
++ };
+export const Error = Template.bind({});
++ Error.parameters = {
++   msw: {
++     handlers: [
++       rest.get(
++         'https://jsonplaceholder.typicode.com/todos?userId=1',
++         (req, res, ctx) => {
++           return res(ctx.status(403));
++         }
++       ),
++     ],
++   },
++ };
+```
+
+
+<div class="aside">
+💡 Aparte, otro enfoque viable sería pasar datos a la jerarquía, especialmente cuando se usa <a href="http://graphql.org/">GraphQL</a>. Es como hemos construido <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> junto con más de 800 historias.
+
+</div>
+
+Revisa tu Storybook y vas a ver que la historia de `error` está funcionando. MSW interceptó nuestra llamada API remota y proporcionó la respuesta adecuada.
+
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized.mp4"
+    type="video/mp4"
+  />
+</video>
+
+## Pruebas de interacción
+
+
+Hasta ahora, hemos podido crear una aplicación completamente funcional desde cero, empezando desde un componente simple hasta una pantalla y probando continuamente cada cambio usando nuestras historias. Pero cada nueva historia también requiere una verificación manual de todas las demás historias para asegurar que la intefaz de usuario no se rompa. Eso es mucho trabajo extra.
+
+¿No podemos automatizar este flujo de trabajo y probar las interacciones de nuestros componentes automáticamente?
+
+### Escribe una prueba de interacción usando la función "play"
+
+Una función [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) de Storybook y [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) nos ayuda con esto. Una función `play` incluye pequeños fragmentos de código que se ejecutan después de que se renderiza la historia.
+
 
 ___
 
