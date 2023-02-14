@@ -300,7 +300,6 @@ Revisa tu Storybook y vas a ver que la historia de `error` está funcionando. MS
 
 ## Pruebas de interacción
 
-
 Hasta ahora, hemos podido crear una aplicación completamente funcional desde cero, empezando desde un componente simple hasta una pantalla y probando continuamente cada cambio usando nuestras historias. Pero cada nueva historia también requiere una verificación manual de todas las demás historias para asegurar que la intefaz de usuario no se rompa. Eso es mucho trabajo extra.
 
 ¿No podemos automatizar este flujo de trabajo y probar las interacciones de nuestros componentes automáticamente?
@@ -309,81 +308,121 @@ Hasta ahora, hemos podido crear una aplicación completamente funcional desde ce
 
 Una función [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) de Storybook y [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) nos ayuda con esto. Una función `play` incluye pequeños fragmentos de código que se ejecutan después de que se renderiza la historia.
 
+La función play nos ayuda verificar lo que sucede a la interfaz de usuario cuando se actualizan las tareas. Usa APIs del DOM que son "framework-agnostic", lo que significa que podemos escribir historias con la función play para interactuar con la interfaz de usuario y simular el comportamiento humano sin importar el framework del frontend.
 
-___
+`@storybook/addon-interactions` nos ayuda a visualizar nuestras pruebas en Storybook, dando un flujo paso a paso. También ofrece un práctico conjunto de controles de IU para pausar, continuar, retroceder y pasar paso a paso cada interacción.
 
+Veámoslo en acción! Actualiza su historia `InboxScreen` recién creada y configura las interacciones de componentes agregando lo siguiente:
 
-
-
-
-Al colocar la "Lista de tareas" `TaskList` en Storybook, pudimos esquivar este problema simplemente renderizando la `PureTaskList` y evadiendo el contenedor. Haremos algo similar y renderizaremos la `PureInboxScreen` en Storybook también.
-
-Sin embargo, para la `PureInboxScreen` tenemos un problema porque aunque la `PureInboxScreen` en si misma es presentacional, su hijo, la `TaskList`, no lo es. En cierto sentido la `PureInboxScreen` ha sido contaminada por la "contenedorización". Así que cuando preparamos nuestras historias:
-
-```js:title=src/components/screens/TaskListScreen.stories.js
+```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-
-import { PureInboxScreen } from './InboxScreen';
-
-storiesOf('InboxScreen', module)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
-```
-
-Vemos que aunque la historia de `error` funciona bien, tenemos un problema en la historia `default`, porque la `TaskList` no tiene una store de Redux a la que conectarse. (También encontrarás problemas similares cuando intentes probar la `PureInboxScreen` con un test unitario).
-
-![Broken inbox](/intro-to-storybook/broken-inboxscreen.png)
-
-Una forma de evitar este problema es nunca renderizar componentes contenedores en ninguna parte de tu aplicación excepto en el nivel más alto y en su lugar pasar todos los datos requeridos bajo la jerarquía de componentes.
-
-Sin embargo, los desarrolladores **necesitarán** inevitablemente renderizar los contenedores más abajo en la jerarquía de componentes. Si queremos renderizar la mayor parte o la totalidad de la aplicación en Storybook (¡lo hacemos!), necesitamos una solución a este problema.
-
-<div class="aside">
-Por otro lado, la transmisión de datos a nivel jerárquico es un enfoque legítimo, especialmente cuando utilizas <a href="http://graphql.org/">GraphQL</a>. Así es como hemos construido <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> junto a más de 800+ historias.
-</div>
-
-## Suministrando contexto con decoradores
-
-La buena noticia es que es fácil suministrar una store de Redux a la `InboxScreen` en una historia! Podemos usar una versión mockeada de la store de Redux provista en un decorador:
-
-```js:title=src/components/screens/TaskListScreen.stories.js
-import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import InboxScreen from './InboxScreen';
+import store from '../lib/store';
+import { rest } from 'msw';
+import { MockedState } from './TaskList.stories';
 import { Provider } from 'react-redux';
-
-import { PureInboxScreen } from './InboxScreen';
-import { defaultTasks } from './TaskList.stories';
-
-// Un mock super simple de un store de redux
-const store = {
-  getState: () => {
-    return {
-      tasks: defaultTasks,
-    };
-  },
-  subscribe: () => 0,
-  dispatch: action('dispatch'),
++ import {
++  fireEvent,
++  within,
++  waitFor,
++  waitForElementToBeRemoved
++ } from '@storybook/testing-library';
+export default {
+  component: InboxScreen,
+  title: 'InboxScreen',
+  decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
-
-storiesOf('InboxScreen', module)
-  .addDecorator((story) => <Provider store={store}>{story()}</Provider>)
-  .add('default', () => <PureInboxScreen />)
-  .add('error', () => <PureInboxScreen error="Something" />);
+const Template = () => <InboxScreen />;
+export const Default = Template.bind({});
+Default.parameters = {
+  msw: {
+    handlers: [
+      rest.get(
+        'https://jsonplaceholder.typicode.com/todos?userId=1',
+        (req, res, ctx) => {
+          return res(ctx.json(MockedState.tasks));
+        }
+      ),
+    ],
+  },
+};
++ Default.play = async ({ canvasElement }) => {
++   const canvas = within(canvasElement);
++   // Espera a que el componente pase del estado de carga
++   await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
++   // Espera a que el componente se actualice en función del store
++   await waitFor(async () => {
++     // Simula anclando la primera tarea
++     await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++     // Simula anclando la tercera tarea
++     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++   });
++ };
+export const Error = Template.bind({});
+Error.parameters = {
+  msw: {
+    handlers: [
+      rest.get(
+        'https://jsonplaceholder.typicode.com/todos?userId=1',
+        (req, res, ctx) => {
+          return res(ctx.status(403));
+        }
+       ),
+    ],
+  },
+};
 ```
 
-Existen enfoques similares para proporcionar un contexto simulado para otras bibliotecas de datos, tales como [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) y algunas otras.
+Revisa la historia `Default`. Hace click en el panel de `Interactions` para ver la lista de interacciones dentro de la función play de la historia.
 
-Recorrer los estados en Storybook hace que sea fácil comprobar que lo hemos hecho correctamente:
-
-<video autoPlay muted playsInline loop >
-
+<video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states.mp4"
+    src="/intro-to-storybook/storybook-interactive-stories-play-function-6-4.mp4"
     type="video/mp4"
   />
 </video>
+
+### Automatizar pruebas con el correder de pruebas
+
+Con la función de `play` de Storybook, pudimos eludir nuestro problema, permitiéndonos interactuar con nuestra interfaz de usuario y verificar rápidamente cómo responde si actualizamos nuestras tareas, manteniendo la interfaz de usuario consistente sin ningún esfuerzo manual adicional.
+
+Pero, si miramos a Storybook más a fondo, podemos ver que solo ejecuta las pruebas de interacción al ver la historia. Por lo tanto, todavía tendríamos que revisar cada historia para ejecutar todas los checks si hacemos un cambio. ¿No podríamos automatizarlo?
+
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+
+La buena noticia es que podemos! El [corredor de prueba](https://storybook.js.org/docs/react/writing-tests/test-runner) de Storybook nos permite hacer precisamente eso. Es una utilidad independiente accionado por [Playwright](https://playwright.dev/) que ejecuta todas nuestras pruebas de interacciones y detecta historias rotas.
+
+Vamos a ver cómo funciona. Ejecuta el siguiente comando para instalarlo:
+
+```shell
+yarn add --dev @storybook/test-runner
+```
+
+Luego, actualiza tu `package.json` `scripts` y añade una nueva tarea de prueba:
+
+```json:clipboard=false
+{
+  "scripts": {
+    "test-storybook": "test-storybook"
+  }
+}
+```
+
+Por último, con Storybook corriendo, abre una nueva ventana de teminal y ejecuta el siguiente comando:
+
+```shell
+yarn test-storybook --watch
+```
+
+<div class="aside">
+💡 Las pruebas de interacción con la función play son una forma fantástica para probar los componentes de la interfaz de usuario. Puede hacer mucho más de lo que hemos visto aquí. Recomendamos leer la <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">documentación oficial</a> para aprender más al respecto.
+<br />
+Para profundizar aún más en las pruebas, puedes mirar el <a href="/ui-testing-handbook">Manual de pruebas</a>. Cubre las estrategias de prueba utilizadas por los equipos de front-end escalados para potenciar tu flujo de trabajo de desarrollo.
+</div>
+
+![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+
+Éxito! Ahora tenemos una herramienta que nos ayuda a verificar si todas nuestras historias se renderizan sin errores y si todas las afirmaciones pasan automáticamente. Además, si una prueba falla, nos proporcionará un enlace en que abre la historia fallida en el navegador.
 
 ## Desarrollo basado en componentes
 
@@ -396,6 +435,10 @@ Empezamos desde abajo con `Task`, luego progresamos a `TaskList`, ahora estamos 
   />
 </video>
 
-[**El desarrollo basado en componentes**](https://www.componentdriven.org/) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
+[**El desarrollo basado en componentes (CDD)**](https://www.componentdriven.org/) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
 
 Aún no hemos terminado, el trabajo no termina cuando se construye la interfaz de usuario. También tenemos que asegurarnos de que siga siendo duradero a lo largo del tiempo.
+
+<div class="aside">
+💡 No olvides hacer commit para guardar tus cambios con git!
+</div>
