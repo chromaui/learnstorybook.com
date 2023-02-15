@@ -23,9 +23,58 @@ Este tutorial usa <a href="https://www.chromatic.com/?utm_source=storybook_websi
 
 ### Configurar un repositorio en GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When we set up our project in the [Get started chapter](/intro-to-storybook/react/en/get-started/), we already initialized a local repository. At this stage, we already have a set of commits that we can push to a remote one.
-
 Antes de empezar, nuestro código local tiene que sincronizar con un servicio de control de versiones remoto. Cuando configuramos nuestro proyecto en el capítulo de [Empezando](/intro-to-storybook/react/es/get-started/), ya inicializamos un repositorio local. En este punto del tutorial ya tenemos varios commits que podemos enviar a un repositorio remoto.
+
+Ve a GitHub y cree un nuevo repositorio para nuestro proyecto [aquí](https://github.com/new). Nombra tu repo “taskbox”, igual que nuestro proyecto local.
+
+![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
+
+En la nueva configuración del repositorio copia la URL de origen del repositorio y añádelo a tu proyecto git con este comando:
+
+```shell
+git remote add origin https://github.com/<your username>/taskbox.git
+```
+
+Por último, haz push para enviar nuestro repositorio local al repositorio remoto en GitHub con:
+
+```shell
+git push -u origin main
+```
+
+### Usa Chromatic
+
+Agregue el paquete como una dependencia de desarrollo.
+
+```shell
+yarn add -D chromatic
+```
+
+Once the package is installed, [log in to Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) with your GitHub account (Chromatic will only ask for lightweight permissions), then we'll create a new project called "taskbox" and sync it with the GitHub repository we've set up.
+
+Una vez que el paquete esté instalada, [inicia sesión con Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) con tu cuenta de GitHub (Chromatic solo solicitará permisos muy ligeros), luego crearemos un nuevo proyecto que se llama "taskbox" y lo sincronizaremos con el repositorio de GitHub que hemos configurado.
+
+Haz click en `Choose GitHub repo` abajo de colaboradores y selecciona tu repositorio.
+
+<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
+    type="video/mp4"
+  />
+</video>
+
+Copia el `project-token` único que se generó para tu proyecto. Después ejecútala con el siguiente comando para construir e implementar nuestro Storybook. Asegúrate de reemplazar `project-token` con su token de proyecto.
+
+```shell
+yarn chromatic --project-token=<project-token>
+```
+
+![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
+
+Cuando termines, vas a recibir un enlace `https://random-uuid.chromatic.com` a tu Storybook publicado. Comparte el enlace con tu equipo para recibir comentarios.
+
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-4.png)
+
+Hurra! Publicamos Storybook con un comando, pero ejecutar un comando manualmente cada vez que queremos obtener feedback sobre la implementación de la interfaz de usuario es repetitivo. Idealmente, publicaríamos la última versión de los componentes cada vez que hacemos push a GitHub. Tendremos que desplegar continuamente Storybook.
 
 ___
 
