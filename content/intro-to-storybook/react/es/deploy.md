@@ -21,6 +21,12 @@ This tutorial uses <a href="https://www.chromatic.com/?utm_source=storybook_webs
 
 Este tutorial usa <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un servicio de publicación gratuito hecho por los mantenedores de Storybook. Nos permite desplegar y alojar nuestro Storybook de forma segura en la nube.
 
+### Configurar un repositorio en GitHub
+
+Before we begin, our local code needs to sync with a remote version control service. When we set up our project in the [Get started chapter](/intro-to-storybook/react/en/get-started/), we already initialized a local repository. At this stage, we already have a set of commits that we can push to a remote one.
+
+Antes de empezar, nuestro código local tiene que sincronizar con un servicio de control de versiones remoto. Cuando configuramos nuestro proyecto en el capítulo de [Empezando](/intro-to-storybook/react/es/get-started/), ya inicializamos un repositorio local. En este punto del tutorial ya tenemos varios commits que podemos enviar a un repositorio remoto.
+
 ___
 
 
