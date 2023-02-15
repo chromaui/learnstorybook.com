@@ -4,27 +4,25 @@ tocTitle: 'Desplegar'
 description: 'Desplegar Storybook online con GitHub y Netlify'
 ---
 
-En este tutorial hemos ejecutado Storybook en nuestra máquina de desarrollo. También se puede compartir ese Storybook con el equipo, especialmente con los miembros no técnicos. Afortunadamente, es fácil implementar Storybook en línea.
+Durante este tutorial, construimos componentes en nuestra máquina de desarrollo local. En algún momento, vamos a necesitar compartir nuestro trabajo para obtener feedback del equipo. Vamos a desplegar Storybook para ayudar a nuestros compañeros a revisar la implementación de la interfaz de usuario.
 
-<div class="aside">
-<strong>¿Hiciste los test con Chromatic antes?</strong>
-<br/>
-🎉 Sus historias ya están desplegadas! Chromatic indexa de forma segura sus historias en línea y las rastrea a través de ramas y commits. Salta este capítulo y ve a la <a href="/intro-to-storybook/react/es/conclusion">conclusión</a>.
-</div>
 
 ## Exportando como una app estática
 
-Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook, sólo necesitamos activarla añadiendo un script al `package.json`.
+Para desplegar Storybook primero necesitamos exportarlo como una aplicación web estática. Esta funcionalidad ya está incorporada en Storybook y preconfigurada.
 
-```json:clipboard=false
-{
-  "scripts": {
-    "storybook": "build-storybook -c .storybook"
-  }
-}
-```
+Running `yarn build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
 
-Ahora, cuando ejecutes Storybook a través de `npm run storybook`, obtendrás un Storybook estático en el directorio `storybook-static`.
+Ejecutando `yarn build-storybook` generará un Storybook estático en el directorio `storybook-static`, que luego se puede desplegar en cualquier servicio de hosting de sitios estáticos.
+
+## Publicar Storybook
+
+This tutorial uses <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
+
+Este tutorial usa <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un servicio de publicación gratuito hecho por los mantenedores de Storybook. Nos permite desplegar y alojar nuestro Storybook de forma segura en la nube.
+
+___
+
 
 ## Despliegue continuo
 
