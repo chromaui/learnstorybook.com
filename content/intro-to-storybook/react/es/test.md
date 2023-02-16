@@ -126,111 +126,13 @@ Le mostrará los cambios en la interfaz de usuario detectados por su commit.
 
 ![Chromatic caught changes](/intro-to-storybook/chromatic-catch-changes.png)
 
-Hay muchos cambios. La jerarquía de componentes donde `Task` es un elemento hijo de `TaskList` y `Inbox` significa que un pequeño cambio se convierte en grandes regresiones. Esta circunstancia es precisamente la razón por la cual los desarrolladores necesitan pruebas de regresión visual además de otros métodos de prueba.
-
-![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
-
-
-__
-
-## Configurar pruebas de regresión visual
-
-Chromatic es un complemento de Storybook para pruebas de regresión visual y revisión en la nube. Dado que es un servicio de pago (con una prueba gratuita), puede que no sea para todos. Sin embargo, Chromatic es un ejemplo instructivo de un flujo de trabajo de pruebas visuales de producción que probaremos gratuitamente. Echemos un vistazo.
-
-### Iniciando Git
-
-Primero tienes que configurar Git para tu proyecto en el directorio local. Chromatic usa el historial de Git para hacer un seguimiento de los componentes de tu interfaz de usuario.
-
-```shell
-git init
-```
-
-Luego agrega archivos al primer commit.
-
-```shell
-git add .
-```
-
-Ahora haz commit de los archivos.
-
-```shell
-git commit -m "taskbox UI"
-```
-
-### Añadiendo Chromatic
-
-Agregando el paquete como una dependencia.
-
-```shell
-yarn add chromatic
-```
-
-Importa Chromatic en tu archivo `.storybook/config.js`.
-
-```js:title=.storybook/config.js
-import { configure } from '@storybook/react';
-import requireContext from 'require-context.macro';
-import 'chromatic';
-
-import '../src/index.css';
-
-const req = requireContext('../src/components', true, /\.stories\.js$/);
-
-function loadStories() {
-  req.keys().forEach((filename) => req(filename));
-}
-
-configure(loadStories, module);
-```
-
-Ahora [logueate en Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) con tú cuenta de GitHub (Chromatic solo te pedirá algunos permisos simples). Crea un proyecto con nombre "taskbox" y copia tu `project-token` único.
-
-<video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
-  <source
-    src="/intro-to-storybook/chromatic-setup-learnstorybook.mp4"
-    type="video/mp4"
-  />
-</video>
-
-Ejecuta el comando de prueba en la línea de comandos para configurar las pruebas de regresión visual para Storybook. No olvides añadir tu código de aplicación único en el `<project-token>`.
-
-```shell
-npx chromatic --project-token=<project-token>
-```
-
-<div class="aside"> Si su Storybook tiene un script de compilación personalizado, es posible que deba <a href="https://www.chromatic.com/docs/setup?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook#command-options"> agregar opciones </a> a este comando. </div>
-
-Una vez el primer test esté completo, tenemos líneas base de prueba para cada historia. En otras palabras, capturas de cada historia que ya se conocen como "buenas". Los futuros cambios a estas historias serán comparados con estás lineas base.
-
-![Chromatic baselines](/intro-to-storybook/chromatic-baselines.png)
-
-## Capturando un cambio en la interfaz de usuario
-
-La prueba de regresión visual se basa en la comparación de imágenes del nuevo código de la interfaz de usuario renderizado con las imágenes de la línea base. Si se detecta un cambio en la interfaz de usuario, se notificará. Vea cómo funciona ajustando el fondo del componente `Tareas`:
-
-![code change](/intro-to-storybook/chromatic-change-to-task-component.png)
-
-Esto produce un nuevo color de fondo para el artículo.
-
-![task background change](/intro-to-storybook/chromatic-task-change.png)
-
-Usa el comando de prueba anterior para ejecutar otra prueba cromática.
-
-```shell
-npx chromatic --project-token=<project-token>
-```
-
-Sigue el enlace a la interfaz de usuario web donde verá los cambios.
-
-![UI changes in Chromatic](/intro-to-storybook/chromatic-catch-changes.png)
-
-Hay muchos cambios! La jerarquía de componentes donde `Task` es hijo de `TaskList` y `Inbox` significa un pequeño giro de bolas de nieve en regresiones mayores. Esta circunstancia es precisamente la razón por la que los desarrolladores necesitan pruebas de regresión visual además de otros métodos de pruebas.
+Hay muchos cambios. La jerarquía de componentes donde `Task` es hijo de `TaskList` y `Inbox` significa que un pequeño cambio se convierte en grandes regresiones. Esta circunstancia es precisamente la razón por la que los desarrolladores necesitan pruebas de regresión visual además de otros métodos de prueba.
 
 ![UI minor tweaks major regressions](/intro-to-storybook/minor-major-regressions.gif)
 
 ## Revisando cambios
 
-Las pruebas de regresión visual aseguran que los componentes no cambien por accidente. Pero todavía depende de ti determinar si los cambios son intencionales o no.
+Las pruebas de regresión visual aseguran que los componentes no cambien por accidente. Pero todavía depende de nosotros determinar si los cambios son intencionales o no.
 
 Si un cambio es intencional, es necesario actualizar la línea base para que las pruebas futuras se comparen con la última versión de la historia. Si un cambio no es intencional, debe ser corregido.
 
@@ -249,6 +151,6 @@ Cuando hayamos terminado de revisar, estaremos listos para fusionar o hacer "mer
 
 ![Changes ready to be merged](/intro-to-storybook/chromatic-review-finished.png)
 
-Storybook te ayuda a **construir** componentes; las pruebas te ayudan a **mantenerlos**. Los cuatro tipos de pruebas de interfaz de usuario que se tratan en este tutorial son las pruebas visuales, de instantánea, unitarios y de regresión visual. Puede automatizar los tres últimos añadiéndolos a su script CI. Esto le ayuda a enviar componentes sin tener que preocuparse por los bugs polizones. A continuación se ilustra todo el flujo de trabajo.
+Storybook te ayuda a **construir** componentes; las pruebas te ayudan a **mantenerlos**. Los cuatro tipos de pruebas de interfaz de usuario que se tratan en este tutorial son las pruebas visuales, de accessibilidad, de interacción y de regresión visual. Puedes automatizar los últimos tres añadiéndolos a un CI como acabamos de terminar de configurar, y nos ayuda a crear componentes sin preocuparnos por los errores ocultos. Todo el flujo de trabajo se ilustra a continuación.
 
 ![Visual regression testing workflow](/intro-to-storybook/cdd-review-workflow.png)
