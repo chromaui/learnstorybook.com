@@ -5,23 +5,17 @@ description: 'Ensamblar un componente compuesto a partir de componentes simples'
 commit: '73d7821'
 ---
 
-
 En el último capítulo construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir `TaskList`, una lista de `Tasks`. Combinemos componentes en conjunto y veamos qué sucede cuando se añade más complejidad.
 
-
 ## Lista de Tareas
-
 
 Taskbox enfatiza las tareas ancladas colocándolas por encima de las tareas predeterminadas. Esto produce dos variaciones de `TaskList` para las que necesita crear historias: ítems por defecto e ítems por defecto y anclados.
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
-
 Dado que los datos de `Task` pueden enviarse asincrónicamente, **también** necesitamos un estado de cargando para renderizar en ausencia de alguna conexión. Además, también se requiere un estado vacío para cuando no hay tareas.
 
-
 ![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
-
 
 ## Empezar la configuración
 
@@ -104,7 +98,6 @@ Empty.args = {
 <div class="aside">
 💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador para añadir algo de <code>padding</code> alrededor del componente renderizado. También se pueden utilizar para envolver historias en "proveedores", es decir, componentes de la librería que establecen el contexto de React.
 </div>
-
 
 Al importar `TaskStories`, pudimos [componer](https://storybook.js.org/docs/react/writing-stories/args#args-composition) los argumentos (o `args`) en nuestras historias con poco esfuerzo. De esa forma, se conservan los datos y las acciones (llamadas simuladas) que esperan ambos componentes.
 
