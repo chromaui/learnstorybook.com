@@ -7,9 +7,7 @@ description: 'Aprende las formas de hacer test a los componentes de la UI'
 Ningún tutorial de Storybook estaría completo sin hacer testing. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:
 
 - **Pruebas visuales** confían en que los desarrolladores examinen manualmente un componente para verificar que esté correcto. Nos ayudan a comprobar la aparencia de un componente a medida que lo construimos.
-
 - **Pruebas de accessibilidad** verifican que los componentes sean accesible a todos usando el complemento a11y. Nos ayudan recolectar información sobre cómo las personas con ciertos tipos de discapacidades usan nuestros componentes.
-
 - **Pruebas de interacción** con la función de play verifican que el componente se comporta como se espera al interactuar con él. Son excelentes para probar el comportamiento de un componente cuando está en uso.
 
 ## "¿Pero se ve bien?"
