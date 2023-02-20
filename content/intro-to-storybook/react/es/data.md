@@ -13,7 +13,7 @@ Este tutorial no se centra en los detalles de la construcción de una aplicació
 
 Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (ver [artículo al respecto](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), en el sentido que no se comunica con nada externo a su implementación. Para poder pasarle datos, necesitaremos un "contenedor".
 
-Este ejemplo utiliza [Redux Toolkit](https://redux-toolkit.js.org/), el conjunto de herramientas más efectivo para desarrollar aplicaciones para almacenar datos con [Redux](https://redux.js.org/), para construir un modelo de datos para nuestra aplicación. Sin embargo, el patrón que utilizaremos también se aplica a aquí se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
+Este ejemplo utiliza [Redux Toolkit](https://redux-toolkit.js.org/), el conjunto de herramientas más efectivo para desarrollar aplicaciones para almacenar datos con [Redux](https://redux.js.org/), para construir un modelo de datos para nuestra aplicación. Sin embargo, el patrón utilizado aquí también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
 Agrega las dependencias necesarias a tu proyecto con:
 
@@ -151,6 +151,7 @@ export default function TaskList() {
   );
 }
 ```
+
 Ahora que tenemos algunos datos reales que llenan nuestro componente obtenidos del store de Redux, podríamos haberlo conectado a `src/App.js` y renderizar el componente allí. Pero por ahora, dejemos de hacer eso y continuaremos con nuestro viaje basado en componentes.
 
 No te preocupes por eso. Nos ocuparemos de ello en el próximo capítulo.
@@ -263,7 +264,6 @@ Empty.decorators = [
   ),
 ];
 ```
-
 
 <div class="aside">
 💡 <code>excludeStories</code> es un campo de configuración de Storybook que evita que nuestro estado simulado sea tratado como una historia. Puedes leer más sobre este campo en la <a href="https://storybook.js.org/docs/react/api/csf">documentación de Storybook</a>.
