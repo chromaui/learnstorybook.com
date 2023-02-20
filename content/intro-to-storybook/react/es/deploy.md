@@ -4,8 +4,7 @@ tocTitle: 'Desplegar'
 description: 'Desplegar Storybook online con GitHub y Netlify'
 ---
 
-Durante este tutorial, construimos componentes en nuestra máquina de desarrollo local. En algún momento, vamos a necesitar compartir nuestro trabajo para obtener feedback del equipo. Vamos a desplegar Storybook para ayudar a nuestros compañeros a revisar la implementación de la interfaz de usuario.
-
+En este tutorial, hemos construido componentes en nuestra máquina de desarrollo local. En algún momento, vamos a necesitar compartir nuestro trabajo para obtener feedback del equipo. Vamos a desplegar Storybook para ayudar a nuestros compañeros a revisar la implementación de la interfaz de usuario.
 
 ## Exportando como una app estática
 
@@ -104,7 +103,6 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
-
 
 <div class="aside"><p>💡 Para mantener el tutorial breve no mencionamos a <a href=" https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository ">secretos de GitHub</a>. Secretos son variables de entorno seguras proporcionadas por GitHub para que no tengas que codificar el <code>project-token</code>.</p></div>
 
