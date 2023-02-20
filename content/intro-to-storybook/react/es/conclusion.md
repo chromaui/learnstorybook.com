@@ -5,7 +5,6 @@ description: 'Pon todo tu conocimiento junto y aprende más técnicas de Storybo
 
 Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. En el camino, aprendiste a construir, componer, probar e implementar componentes de interfaz de usuario. Si lo has estado siguiendo, tu repositorio y Storybook desplegado debería verse así:
 
-
 [📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
 [🌎 **Storybook Desplegado**](https://master--5ccbe484c994280020b6d128.chromatic.com)
