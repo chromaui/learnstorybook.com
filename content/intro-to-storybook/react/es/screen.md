@@ -13,8 +13,6 @@ En este capítulo continuaremos aumentando la sofisticación combinando componen
 
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente obteniendo datos de una API remota, envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Redux) y sacando un campo `error` de primer nivel de Redux.
 
-We'll start by updating our Redux store (in `src/lib/store.js`) to connect to a remote API and handle the various states for our application (i.e., `error`, `succeeded`):
-
 Empezamos actualizando nuestro store de Redux (en `src/lib/store.js`) para conectar a una API remota y manejar los diversos estados de nuestra aplicación (es decir, `error`, `succeeded`):
 
 ```diff:title=src/lib/store.js
@@ -145,7 +143,6 @@ export default function InboxScreen() {
 }
 ```
 
-
 También tenemos que cambiar nuestro component `App` para renderizar la pantalla `InboxScreen` (al final usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
 
 ```diff:title=src/App.js
@@ -199,8 +196,6 @@ const Template = () => <InboxScreen />;
 export const Default = Template.bind({});
 export const Error = Template.bind({});
 ```
-
-We can quickly spot an issue with the `error` story. Instead of displaying the right state, it shows a list of tasks. One way to sidestep this issue would be to provide a mocked version for each state, similar to what we did in the last chapter. Instead, we'll use a well-known API mocking library alongside a Storybook addon to help us solve this issue.
 
 Podemos detectar rápidamente un problema con la historia de `error`. En lugar de mostrar el estado correcto, muestra una lista de tareas. Una formar de evitar este problema sería proporcionar una versión mockeada para cada estado, similar a lo que hicimos en el último capítulo. En lugar de esto, utilizaremos una conocida librería de simulación de API junto con un addon de Storybook para ayudarnos a resolver este problema.
 
@@ -283,10 +278,8 @@ export const Error = Template.bind({});
 + };
 ```
 
-
 <div class="aside">
 💡 Aparte, otro enfoque viable sería pasar datos a la jerarquía, especialmente cuando se usa <a href="http://graphql.org/">GraphQL</a>. Es como hemos construido <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> junto con más de 800 historias.
-
 </div>
 
 Revisa tu Storybook y vas a ver que la historia de `error` está funcionando. MSW interceptó nuestra llamada API remota y proporcionó la respuesta adecuada.
@@ -373,7 +366,7 @@ Error.parameters = {
 };
 ```
 
-Revisa la historia `Default`. Hace click en el panel de `Interactions` para ver la lista de interacciones dentro de la función play de la historia.
+Revisa la historia `Default`. Haz click en el panel de `Interactions` para ver la lista de interacciones dentro de la función play de la historia.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -387,8 +380,6 @@ Revisa la historia `Default`. Hace click en el panel de `Interactions` para ver 
 Con la función de `play` de Storybook, pudimos eludir nuestro problema, permitiéndonos interactuar con nuestra interfaz de usuario y verificar rápidamente cómo responde si actualizamos nuestras tareas, manteniendo la interfaz de usuario consistente sin ningún esfuerzo manual adicional.
 
 Pero, si miramos a Storybook más a fondo, podemos ver que solo ejecuta las pruebas de interacción al ver la historia. Por lo tanto, todavía tendríamos que revisar cada historia para ejecutar todas los checks si hacemos un cambio. ¿No podríamos automatizarlo?
-
-The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
 
 La buena noticia es que podemos! El [corredor de prueba](https://storybook.js.org/docs/react/writing-tests/test-runner) de Storybook nos permite hacer precisamente eso. Es una utilidad independiente accionado por [Playwright](https://playwright.dev/) que ejecuta todas nuestras pruebas de interacciones y detecta historias rotas.
 
