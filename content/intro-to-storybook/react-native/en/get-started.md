@@ -21,13 +21,19 @@ Before we get started, there are some things we’ll need to consider:
 First download the template we've created for this tutorial.
 
 ```shell
-# Clone the template
 npx degit chromaui/intro-storybook-react-native-template#main taskbox
+```
+
+Next, let's install the dependencies and run the app to make sure everything is working as expected.
+
+```shell
+cd taskbox
+yarn install
 ```
 
 Now you have the app lets run it to make sure everything is working as expected.
 
-You can pick ios or android, just run either and make sure the app is working.
+You can pick ios or android and run either and make sure the app is working.
 
 ```shell:clipboard=false
 
