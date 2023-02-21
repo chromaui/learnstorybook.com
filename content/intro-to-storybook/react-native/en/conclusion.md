@@ -26,7 +26,7 @@ Want to dive deeper? Here are helpful resources.
 
 ## Who made the Intro to Storybook tutorial?
 
-This tutorial was contributed by [Daniel Williams](https://github.com/dannyhw) in collaboration with the [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) team. The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+This tutorial was contributed by [Daniel Williams](https://github.com/dannyhw) in collaboration with the [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) team. The tutorial was inspired by the [React tutorial](https://storybook.js.org/tutorials/intro-to-storybook/react/en/get-started/).
 
 Want more tutorials and articles like this? Sign up to the Storybook mailing list.
 

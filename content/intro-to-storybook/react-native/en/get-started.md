@@ -43,10 +43,10 @@ yarn ios
 # Run the application on Android
 yarn android
 
-# Run storybook on ios
+# Run Storybook on ios
 yarn storybook:ios
 
-# Run storybook on android
+# Run Storybook on android
 yarn storybook:android
 ```
 
@@ -58,7 +58,7 @@ When running the application with `yarn ios` you should see this rendered on the
 
 <img src="/intro-to-storybook/react-native-expo-getting-started.png" alt="expo starter screen" height="600">
 
-When running storybook with `yarn storybook:ios` you should see this:
+When running Storybook with `yarn storybook:ios` you should see this:
 
 <img src="/intro-to-storybook/react-native-hello-world.png" alt="Storybook UI" height="600">
 
@@ -68,7 +68,7 @@ When initialized the template already provides the required configuration to hel
 
 Storybook in react native is a component that you can render in your app, as opposed to other framework versions where Storybook runs on its own.
 
-Because of this distinction we need a way to switch between the app and storybook. To do this we use environment variables, and we'll go over that quickly now.
+Because of this distinction we need a way to switch between the app and Storybook. To do this we use environment variables, and we'll go over that quickly now.
 
 <div class="aside">
 💡 See the <a href="https://docs.expo.dev/guides/environment-variables/">expo documentation</a> for more details on how to use environment variables.
@@ -101,7 +101,7 @@ function App() {
 // Default to rendering your app
 let AppEntryPoint = App;
 
-// Render storybook if storybookEnabled is true
+// Render Storybook if storybookEnabled is true
 if (Constants.expoConfig.extra.storybookEnabled === 'true') {
   AppEntryPoint = require('./.storybook').default;
 }
@@ -122,7 +122,7 @@ In package.json we see a few Storybook scripts. We use these to pass that enviro
 This is where our `STORYBOOK_ENABLED` environment variable is set to true, which then tells our app to render Storybook instead of our app.
 
 <div class="aside">
-💡 There are other ways to configure storybook, this is just the simplest way to get started.
+💡 There are other ways to configure Storybook, this is just the simplest way to get started.
 </div>
 
 ## Commit changes

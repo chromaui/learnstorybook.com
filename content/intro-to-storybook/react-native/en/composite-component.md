@@ -25,13 +25,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 ```jsx:title=components/TaskList.jsx
 import { Task } from "./Task";
 import { FlatList, StyleSheet, Text, View } from "react-native";
-
-const styles = StyleSheet.create({
-  listItems: {
-    backgroundColor: "white",
-    minHeight: 288,
-  },
-});
+import { styles } from './styles';
 
 export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }) => {
   const events = {
@@ -81,7 +75,7 @@ export default {
   title: "TaskList",
   decorators: [
     (Story) => (
-      <View style={{ padding: 42, backgroundColor: "#26c6da", flex: 1 }}>
+      <View style={{ padding: 42, flex: 1 }}>
         <Story />
       </View>
     ),
@@ -139,11 +133,7 @@ As you may have noticed, a decorator was used in this story, a decorator allows 
 
 `task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actions` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
 
-React Native storybook uses a script to generate imports for story files due to how dynamic imports are not supported in React Native. Lets run that script so our new story shows up:
-
-```sh
-yarn sb-rn-get-stories
-```
+Since we've added new a new Story file we need to run `yarn storybook-generate` again to regenerate the `storybook.require.js` file.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -153,51 +143,17 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough but now we have an idea of the stories to work toward. You might be thinking that the `listitems` wrapper is overly simplistic. You're right – in most cases we wouldn’t create a new component just to add a wrapper. But the **real complexity** of `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
-For the loading case, we're going to create a new component that will display the correct markup.
+For the loading case, we're going to create a new component that will display the loading animation.
 
 Create a new file called `LoadingRow.jsx` with the following content:
 
 ```jsx:title=components/LoadingRow.jsx
 import { useState, useEffect } from "react";
 import { Animated, Text, View, Easing, StyleSheet } from "react-native";
-
-const styles = StyleSheet.create({
-  loadingItem: {
-    alignItems: "center",
-    backgroundColor: "white",
-    flexWrap: "nowrap",
-    flexDirection: "row",
-    flex: 1,
-    height: 48,
-    justifyContent: "space-around",
-    paddingHorizontal: 10,
-    width: "100%",
-  },
-  glowCheckbox: {
-    borderColor: "#eee",
-    borderStyle: "solid",
-    borderWidth: 2,
-    borderRadius: 1,
-    backgroundColor: "#eee",
-    color: "transparent",
-    height: 24,
-    width: 24,
-  },
-  glowText: {
-    backgroundColor: "#eee",
-    color: "transparent",
-    padding: 10,
-    fontSize: 14,
-    height: 24,
-  },
-  container: {
-    paddingHorizontal: 10,
-    paddingVertical: 22,
-  },
-});
+import { styles } from "./styles";
 
 const GlowView = ({ style, children }) => {
-  const [glowAnim] = useState(new Animated.Value(0));
+  const [glowAnim] = useState(new Animated.Value(0.3));
 
   useEffect(() => {
     Animated.loop(
@@ -209,7 +165,7 @@ const GlowView = ({ style, children }) => {
           useNativeDriver: true,
         }),
         Animated.timing(glowAnim, {
-          toValue: 0,
+          toValue: 0.3,
           duration: 1500,
           easing: Easing.ease,
           useNativeDriver: true,
@@ -251,30 +207,7 @@ import { Task } from "./Task";
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import { LoadingRow } from "./LoadingRow";
 import { MaterialIcons } from "@expo/vector-icons";
-
-const styles = StyleSheet.create({
-  listItems: {
-    backgroundColor: "white",
-    minHeight: 288,
-  },
-  wrapperMessage: {
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    flex: 1,
-  },
-  titleMessage: {
-    fontSize: 16,
-    lineHeight: 24,
-    fontWeight: "800",
-    color: "#555",
-  },
-  subtitleMessage: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: "#666",
-  },
-});
+import { styles } from './styles'
 
 export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }) => {
   const events = {
@@ -307,10 +240,14 @@ export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }) => {
     );
   }
 
+  const tasksInOrder = [
+    ...tasks.filter((t) => t.state === "TASK_PINNED"),
+    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+  ];
   return (
     <View style={styles.listItems}>
       <FlatList
-        data={tasks}
+        data={tasksInOrder}
         keyExtractor={(task) => task.id}
         renderItem={({ item }) => (
           <Task key={item.id} task={item} {...events} />
@@ -325,9 +262,7 @@ These changes result in the following UI:
 
 ![TaskList with loading state](/intro-to-storybook/react-native-tasklist-loading.gif)
 
-Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
-
-Success! We accomplished what we set out to do. If we check our updated UI, we can quickly see that our pinned tasks are now featured at the top of the list, matching the intended design. In the next chapters, we'll expand on what we've learned and continue adding complexity to our application by applying these principles to more complex UIs.
+Success! We accomplished what we set out to do. If we check our updated UI, we can quickly see that our pinned tasks are now featured at the top of the list, matching the intended design.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!
