@@ -125,4 +125,30 @@ This is where our `STORYBOOK_ENABLED` environment variable is set to true, which
 💡 There are other ways to configure storybook, this is just the simplest way to get started.
 </div>
 
-Now that we've seen how Storybook works in a React Native application, let's start building our UI!
+## Commit changes
+
+At this stage it's safe to add our files to a local repository. Run the following commands to initialize a local repository, add and commit the changes we've done so far.
+
+```shell
+git init
+```
+
+Followed by:
+
+```shell
+git add .
+```
+
+Then:
+
+```shell
+git commit -m "first commit"
+```
+
+And finally:
+
+```shell
+git branch -M main
+```
+
+Let's start building our first component!

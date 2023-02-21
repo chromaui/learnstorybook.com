@@ -130,31 +130,7 @@ The component is still basic at the moment. First write the code that achieves t
 ```jsx:title=components/Task.jsx
 import { MaterialIcons } from "@expo/vector-icons";
 import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-
-const styles = StyleSheet.create({
-  listItem: {
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    height: 48,
-    width: "100%",
-    backgroundColor: "white",
-    alignItems: "center",
-    paddingHorizontal: 10,
-    justifyContent: "space-around",
-  },
-  listItemInputTask: {
-    backgroundColor: "transparent",
-    flex: 1,
-    padding: 10,
-    fontSize: 14,
-  },
-  listItemInputTaskArchived: {
-    color: "#aaa",
-    flex: 1,
-    padding: 10,
-    fontSize: 14,
-  },
-});
+import { styles } from "./styles";
 
 export const Task = ({
   task: { id, title, state },
@@ -205,3 +181,7 @@ When you're done, it should look like this:
 We’ve now successfully built out a component without needing a server or running the entire application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
 As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
+
+<div class="aside">
+💡 Don't forget to commit your changes with git!
+</div>
