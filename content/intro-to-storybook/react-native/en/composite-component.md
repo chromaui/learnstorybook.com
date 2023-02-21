@@ -266,7 +266,7 @@ These changes result in the following UI:
 
 ![TaskList with loading state](/intro-to-storybook/react-native-tasklist-loading.gif)
 
-Success! We accomplished what we set out to do. If we check our updated UI, we can quickly see that our pinned tasks are now featured at the top of the list, matching the intended design.
+Success! We accomplished what we set out to do. If we check our updated UI, we can quickly see that our pinned tasks are now featured at the top of the list, matching the intended design. In the next chapters, we'll expand on what we've learned and continue adding complexity to our application by applying these principles to more complex UIs.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!
