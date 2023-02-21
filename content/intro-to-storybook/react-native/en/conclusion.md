@@ -3,14 +3,12 @@ title: 'Conclusion'
 description: 'Put all your knowledge together and learn more Storybook techniques'
 ---
 
-Congratulations! You created your first UI in Storybook. Along the way you learned how to build, compose, test, and deploy UI components. If you’ve been following, your repo and deployed Storybook should look like this:
+Congratulations! You created your first UI in Storybook. Along the way you learned how to build and compose UI components.
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
 
-[🌎 **Deployed Storybook**](https://master--5ccbe484c994280020b6d128.chromatic.com)
-
-Storybook is a powerful tool for React, Vue, Angular, Svelte and many others frameworks. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
+Storybook is a powerful tool for React Native, React, Vue, Angular, Svelte and many others frameworks. It has a thriving developer community and a wealth of addons. This introduction scratches the surface of what’s possible. We’re confident that once you adopt Storybook, you’ll be impressed by how productive it is to build durable UIs.
 
 ## Learn more
 
@@ -18,7 +16,7 @@ Want to dive deeper? Here are helpful resources.
 
 - [**Official Storybook documentation**](https://storybook.js.org/docs/react/get-started/introduction) has API documentation, community links, and the addon gallery.
 
-- [**UI Testing Playbook**](https://storybook.js.org/blog/ui-testing-playbook/) highlights workflow best practices used by high-velocity teams at Twilio, Adobe, Peloton, and Shopify.
+- [**React Native Storybook Github**](https://github.com/storybookjs/react-native) has documentation and all the source code for React Native Storybook and it's addsons
 
 - [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
@@ -28,7 +26,7 @@ Want to dive deeper? Here are helpful resources.
 
 ## Who made the Intro to Storybook tutorial?
 
-The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
+This tutorial was contributed by [Daniel Williams](https://github.com/dannyhw) in collaboration with the [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) team. The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6).
 
 Want more tutorials and articles like this? Sign up to the Storybook mailing list.
 
