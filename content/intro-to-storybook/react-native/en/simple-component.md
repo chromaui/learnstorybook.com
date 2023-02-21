@@ -94,6 +94,8 @@ export const Archived = {
 };
 ```
 
+In our stories files we use a syntax called Component Story Format (CSF). In this case we are using CSF3 which is a new updated version of CSF supported by the latest versions of Storybook. In this version of CSF there is a lot less boilerplate which makes it easier to get started.
+
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 - **Component**
