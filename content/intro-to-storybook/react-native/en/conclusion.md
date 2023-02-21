@@ -16,7 +16,7 @@ Want to dive deeper? Here are helpful resources.
 
 - [**Official Storybook documentation**](https://storybook.js.org/docs/react/get-started/introduction) has API documentation, community links, and the addon gallery.
 
-- [**React Native Storybook Github**](https://github.com/storybookjs/react-native) has documentation and all the source code for React Native Storybook and it's addsons
+- [**React Native Storybook Github**](https://github.com/storybookjs/react-native) has documentation and all the source code for React Native Storybook and it's addons
 
 - [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) dives deep into using Storybook to visual test components. Free 31-page ebook.
 
