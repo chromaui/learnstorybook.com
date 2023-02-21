@@ -21,9 +21,7 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 ## Get set up
 
-When we ran the init command a `.storybook` folder and `.storybook/stories` folder were created. We're not going to be using the stories folder so you can delete `.storybook/stories`, don't delete the `.storybook` folder though!
-
-Now open `.storybook/main.js` and edit the config so that it looks like this:
+Let's open `.storybook/main.js` and take a look
 
 ```js:title=.storybook/main.js
 module.exports = {
@@ -35,7 +33,11 @@ module.exports = {
 };
 ```
 
-This tells storybook to look for stories in the `components` folder. You should now also create a `components` folder in the root of your project.
+If you check the `stories` property you'll see that Storybook is looking for stories in the `components` folder.
+
+In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires.js`, this is because React Native doesn't support dynamic imports yet. This file is used to load all the stories in the project and it also imports your addons.
+
+This file gets generated when you run `yarn storybook` to start storybook or `yarn storybook-generate` if you just want to regenerate the `storybook.requires.js` file. Whenever you find that a story is not being loaded, you can try regenerating this file and it should show up.
 
 Now let’s create the task component and its accompanying story file: `components/Task.jsx` and `components/Task.stories.jsx`.
 
@@ -43,18 +45,7 @@ We’ll begin with a basic implementation of the `Task`, simply taking in the at
 
 ```jsx:title=components/Task.jsx
 import { StyleSheet, TextInput, View } from "react-native";
-
-const styles = StyleSheet.create({
-  ListItem: {
-    flexDirection: "row",
-    flexWrap: "nowrap",
-    height: 48,
-    width: "100%",
-    backgroundColor: "white",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-});
+import { styles } from "./styles";
 
 export const Task = ({
   task: { id, title, state },
@@ -62,36 +53,21 @@ export const Task = ({
   onPinTask,
 }) => {
   return (
-    <View style={styles.ListItem}>
+    <View style={styles.listItem}>
       <TextInput value={title} editable={false} />
     </View>
   );
 };
 ```
 
-Add another file calles `Task.stories.jsx` with this content:
+Now add the story file:
 
 ```jsx:title=components/Task.stories.jsx
-import { View } from "react-native";
-
 import { Task } from "./Task";
 
 export default {
   title: "Task",
   component: Task,
-  decorators: [
-    (Story) => (
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "#26c6da",
-          padding: 8,
-        }}
-      >
-        <Story />
-      </View>
-    ),
-  ],
   argTypes: {
     onPinTask: { action: "onPinTask" },
     onArchiveTask: { action: "onArchiveTask" },
@@ -132,14 +108,13 @@ To tell Storybook about the component we are documenting, we create a `default`
 
 Some optional values we also added were
 
-- decorators -- allows you to wrap a component and in this case apply some styling
 - argTypes -- allows us to specify the types of our args, here we use it to define actions which will log whenever that interaction takes place
 
 To define our stories we export an object with an `args` property. Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes, so does the component.
 
 When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
-Now that we've set up the basics lets re-run `yarn storybook` and see our changes.
+Now that we've set up the basics lets re-run `yarn storybook` and see our changes. If you already have Storybook running you can also run `yarn storybook-generate` to regenerate the `storybook.requires.js` file.
 
 You should see a UI that looks like this:
 ![a gif showing the task component in storybook](/intro-to-storybook/react-native-task-component.gif)
