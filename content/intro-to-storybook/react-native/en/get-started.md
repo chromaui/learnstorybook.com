@@ -45,14 +45,14 @@ yarn storybook:android
 ```
 
 <div class="aside">
-💡Throughout this tutorial, Yarn will be used. If you're following along this tutorial but don't have it configured, you can easily swap out the commands to match your package manager of choice (e.g., npm, pnpm)(add links to both package managers
+💡 Throughout this tutorial, Yarn will be used. If you're following along this tutorial but don't have it configured, you can easily swap out the commands to match your package manager of choice (e.g., npm, pnpm)(add links to both package managers
 </div>
 
-When running the application (`yarn ios`) you should see this rendered on the device:
+When running the application with `yarn ios` you should see this rendered on the device:
 
 <img src="/intro-to-storybook/react-native-expo-getting-started.png" alt="expo starter screen" height="600">
 
-When running storybook (`yarn storybook:ios`) you should see this:
+When running storybook with `yarn storybook:ios` you should see this:
 
 <img src="/intro-to-storybook/react-native-hello-world.png" alt="Storybook UI" height="600">
 
