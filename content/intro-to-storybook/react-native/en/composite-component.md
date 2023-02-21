@@ -80,6 +80,10 @@ export default {
       </View>
     ),
   ],
+  argTypes: {
+    onPinTask: { action: "onPinTask" },
+    onArchiveTask: { action: "onArchiveTask" },
+  },
 };
 
 export const Default = {
