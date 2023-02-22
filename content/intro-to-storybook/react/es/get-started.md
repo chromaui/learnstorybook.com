@@ -32,7 +32,7 @@ yarn
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 
 ```shell:clipboard=false
-# Corre el corredor de pruebas (Jest) en una terminal:
+# Ejecuta el corredor de pruebas (Jest) en una terminal:
 yarn test --watchAll
 
 # Inicia el explorador de componentes en el puerto 6006:
@@ -43,18 +43,18 @@ yarn start
 ```
 
 <div class="aside"> 
-💡 Observe el indicador --watchAll en el comando de prueba. Si incluyes este indicador en tu comando, garantizarás que se ejecuten todas las pruebas. Mientras avanzas en este tutorial, vas a ver diferentes escenarios de test y es posible que quieras considerar ajustar los scripts de su package.json en consecuencia.
+💡 Observa el indicador --watchAll en el comando de prueba. Si incluyes este indicador en tu comando, garantizarás que se ejecuten todas las pruebas. Mientras avanzas en este tutorial, vas a ver diferentes escenarios de prueba. Es posible que desees considerar ajustar los scripts de tu archivo package.json en consecuencia.
 </div>
 
-Nuestras tres modalidades del frontend de la aplicación: test automatizado (Jest), desarrollo de componentes (Storybook) y la propia aplicación.
+Nuestras tres modalidades para la aplicación frontend son: el test automatizado (Jest), el desarrollo de componentes (Storybook) y la propia aplicación.
 
 ![3 modalidades](/intro-to-storybook/app-three-modalities.png)
 
-Dependiendo de en qué parte de la aplicación estés trabajando, es posible que quieras ejecutar uno o más de estos simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
+Dependiendo de la parte de la aplicación en la que estés trabajando, es posible que desees ejecutar una o varias de estas herramientas simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
 
 ## Guardar cambios
 
-Ahora vamos a añadir nuestros archivos a un repositorio local. Ejecute los siguientes comandos para inicializar un repositorio local, agregue y confirme los cambios que hemos hecho hasta ahora.
+Ahora vamos a añadir nuestros archivos a un repositorio local. Ejecuta los siguientes comandos para inicializar un repositorio local, agregar y hacer commit de los cambios que hemos hecho hasta ahora.
 
 ```shell
 git init
