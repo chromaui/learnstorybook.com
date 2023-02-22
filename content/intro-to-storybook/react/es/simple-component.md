@@ -101,7 +101,7 @@ Como tenemos múltiples permutaciones de nuestro componente, es conveniente asig
 </div>
 
 
-Argumentos o [`args`](https://storybook.js.org/docs/react/writing-stories/args), nos permiten editar en vivo nuestros componentes con el controls addon sin reiniciar Storybook. Una vez que cambia el valor de un [`args`](https://storybook.js.org/docs/react/writing-stories/args), el componente también cambia.
+Argumentos o [`args`](https://storybook.js.org/docs/react/writing-stories/args), nos permiten editar en vivo nuestros componentes con el complemento "Controls" sin reiniciar Storybook. Una vez que cambia el valor de un [`args`](https://storybook.js.org/docs/react/writing-stories/args), el componente también cambia.
 
 Al crear una historia utilizamos un argumento base de `task` para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
 
@@ -319,9 +319,9 @@ Como puedes ver, comenzar a construir componentes de forma aislada es fácil y r
 
 Las pruebas de accesibilidad se refieren a la práctica de auditar el DOM renderizado con herramientas automatizadas contra un conjunto de heurísticas basadas en las reglas [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) y otras mejores prácticas aceptadas por la industria. Actuán como la primera línea de control de calidad (QA) para detectar infracciones obvias de accesibilidad y aseguran que una aplicación sea utilizable por la mayor cantidad de personas posible, incluidas personas con discapacidades como problems de visión, problemas auditivos y condiciones cognitivas. 
 
-Storybook también tiene un [addon oficial de accesibilidad](https://storybook.js.org/addons/@storybook/addon-a11y). Desarrollado con el [axe-core](https://github.com/dequelabs/axe-core) de Deque, puede detecar hasta [57% de los problemas de WCAG](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
+Storybook también tiene un [complemento oficial de accesibilidad](https://storybook.js.org/addons/@storybook/addon-a11y). Desarrollado con el [axe-core](https://github.com/dequelabs/axe-core) de Deque, puede detecar hasta [57% de los problemas de WCAG](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
-Vamos a ver como funciona! Ejecuta el comando siguiente para instalar el addon:
+Vamos a ver como funciona! Ejecuta el comando siguiente para instalar el complemento:
 
 ```shell
 yarn add --dev @storybook/addon-a11y
@@ -352,7 +352,7 @@ module.exports = {
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
 
-Mirando nuestras historias, podemos ver que el addon encontró un problema de accesibilidad con uno de nuestros estados de prueba. El mensaje [**"Los elementos deben tener suficiente contraste de color"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI), significa que no hay suficiente contraste entre el título de la tarea y el fondo. Podemos solucionarlo rápidamente cambiando el color de texto a un gris más oscuro en el CSS de nuestra aplicación (ubicado en `src/index.css`).
+Mirando nuestras historias, podemos ver que el complemento encontró un problema de accesibilidad con uno de nuestros estados de prueba. El mensaje [**"Los elementos deben tener suficiente contraste de color"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI), significa que no hay suficiente contraste entre el título de la tarea y el fondo. Podemos solucionarlo rápidamente cambiando el color de texto a un gris más oscuro en el CSS de nuestra aplicación (ubicado en `src/index.css`).
 
 ```diff:title=src/index.css
 .list-item.TASK_ARCHIVED input[type="text"] {
