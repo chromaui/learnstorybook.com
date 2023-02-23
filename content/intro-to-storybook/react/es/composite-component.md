@@ -9,11 +9,11 @@ En el último capítulo construimos nuestro primer componente; este capítulo ex
 
 ## Lista de Tareas
 
-Taskbox enfatiza las tareas ancladas colocándolas por encima de las tareas predeterminadas. Esto produce dos variaciones de `TaskList` para las que necesita crear historias: ítems por defecto e ítems por defecto y anclados.
+Taskbox enfatiza las tareas ancladas colocándolas por encima de las tareas predeterminadas. Esto produce dos variaciones de `TaskList` para las que necesita crear historias: ítems predeterminados y anclados.
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
-Dado que los datos de `Task` pueden enviarse asincrónicamente, **también** necesitamos un estado de cargando para renderizar en ausencia de alguna conexión. Además, también se requiere un estado vacío para cuando no hay tareas.
+Dado que los datos de `Task` pueden enviarse asincrónicamente, **también** necesitamos un estado de carga para renderizar en ausencia de alguna conexión. Además, también se requiere un estado vacío para cuando no hay tareas.
 
 ![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
 
@@ -180,7 +180,7 @@ Observa la posición del elemento anclado en la lista. Queremos que el elemento 
 
 ## Requisitos de data y props
 
-A medida que el componente crece, también lo hacen los parámetros de entrada requeridos de `TaskList`. Define las props requeridas de `TaskList`. Debido a que `Task` es un componente hijo, asegúrate de proporcionar los datos en la forma correcta para renderizarlo. Para ahorrar tiempo y dolores de cabeza, reutiliza los `propTypes` que definiste en `Task` anteriormente.
+A medida que el componente crece, también lo hacen los parámetros de entrada requeridos de `TaskList`. Define las props requeridas de `TaskList`. Debido a que `Task` es un componente hijo, asegúrate de proporcionar los datos en la forma correcta para renderizarlo. Para ahorrar tiempo y dolores de cabeza, reutiliza los `propTypes` que definimos en `Task` anteriormente.
 
 ```diff:title=src/components/TaskList.js
 import React from 'react';
