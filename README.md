@@ -261,6 +261,7 @@ The [Design Systems for Developers tutorial](https://storybook.js.org/tutorials/
 | English          | ✅      |
 | Korean           | ❌      |
 | Portuguese       | ❌      |
+| Japanese         | ❌      |
 | Mainland Chinese | ❌      |
 
 ---

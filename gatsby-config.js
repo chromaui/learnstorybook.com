@@ -61,6 +61,7 @@ module.exports = {
           ko: 6.4,
           pt: 5.3,
           'zh-CN': 6.3,
+          ja: 6.4,
         },
       },
       'visual-testing-handbook': {
