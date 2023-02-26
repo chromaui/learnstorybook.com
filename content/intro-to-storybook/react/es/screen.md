@@ -13,7 +13,7 @@ En este capítulo continuaremos aumentando la sofisticación combinando componen
 
 Como nuestra aplicación es muy simple, la pantalla que construiremos es bastante trivial, simplemente obteniendo datos de una API remota, envolviendo el componente `TaskList` (que proporciona sus propios datos a través de Redux) y sacando un campo `error` de primer nivel de Redux.
 
-Empezamos actualizando nuestro store de Redux (en `src/lib/store.js`) para conectar a una API remota y manejar los diversos estados de nuestra aplicación (es decir, `error`, `succeeded`):
+Empezamos actualizando nuestro store de Redux (en `src/lib/store.js`) para conectar a una API remota y manejar los diversos estados de nuestra aplicación (por ejemplo, `error`, `succeeded`):
 
 ```diff:title=src/lib/store.js
 /* Una implementación simple de store/actions/reducer de Redux.
@@ -26,7 +26,7 @@ import {
 } from '@reduxjs/toolkit';
 /*
  * El estado inicial de nuestro store cuando se carga la aplicacion.
- * Normalmente, obtendría esto de un servidor. No nos preocupemos por eso ahora.
+ * Normalmente, se obtendría esto desde un servidor. Pero no nos preocupemos por eso ahora.
  */
 const TaskBoxData = {
   tasks: [],
@@ -106,7 +106,7 @@ const store = configureStore({
 export default store;
 ```
 
-Ahora que hemos actualizado nuestro store para recuperar datos de un endpoint de una API remota y lo hemos preparado para manejar los diversos estados de nuestra aplicación, vamos a crear nuestro `InboxScreen.js` en el directorio `src/components`:
+Ahora que hemos actualizado nuestro store para recuperar los datos desde un endpoint de una API remota y lo hemos preparado para manejar los diversos estados de nuestra aplicación, vamos a crear nuestro `InboxScreen.js` en el directorio `src/components`:
 
 ```js:title=src/components/InboxScreen.js
 import React, { useEffect } from 'react';
@@ -143,7 +143,7 @@ export default function InboxScreen() {
 }
 ```
 
-También tenemos que cambiar nuestro component `App` para renderizar la pantalla `InboxScreen` (al final usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
+También tenemos que cambiar nuestro componente `App` para renderizar la pantalla `InboxScreen` (al final usaríamos un router para elegir la pantalla correcta, pero no nos preocupemos por ello aquí):
 
 ```diff:title=src/App.js
 - import logo from './logo.svg';
@@ -180,7 +180,7 @@ export default App;
 
 Sin embargo, donde las cosas se ponen interesantes es en la renderización de la historia en Storybook.
 
-Como vimos anteriormente, el componente `TaskList` ahora es un **contenedor** que depende de un store de Redux para renderizar las tareas. Ya que `InboxScreen` también en un componente contenedor haremos algo similar y proporcionamos un store a la historia. Entonces cuando configuramos nuestras historias en `InboxScreen.stories.js`:
+Como vimos anteriormente, el componente `TaskList` ahora es un **contenedor** que depende de un store de Redux para renderizar las tareas. Como `InboxScreen` también es un componente contenedor, haremos algo similar y proporcionaremos un store a la historia. Entonces cuando configuramos nuestras historias en `InboxScreen.stories.js`:
 
 ```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
@@ -197,13 +197,13 @@ export const Default = Template.bind({});
 export const Error = Template.bind({});
 ```
 
-Podemos detectar rápidamente un problema con la historia de `error`. En lugar de mostrar el estado correcto, muestra una lista de tareas. Una formar de evitar este problema sería proporcionar una versión mockeada para cada estado, similar a lo que hicimos en el último capítulo. En lugar de esto, utilizaremos una conocida librería de simulación de API junto con un addon de Storybook para ayudarnos a resolver este problema.
+Podemos detectar rápidamente un problema con la historia de `error`. En lugar de mostrar el estado correcto, muestra una lista de tareas. Una formar de evitar este problema sería proporcionar una versión simulada para cada estado, similar a lo que hicimos en el último capítulo. En lugar de esto, utilizaremos una conocida librería de simulación de API junto con un complemento de Storybook para ayudarnos a resolver este problema.
 
 ![Broken inbox screen state](/intro-to-storybook/broken-inbox-error-state-optimized.png)
 
 ## Simulación de servicios de API
 
-Ya que nuestra aplicación es bastante sencilla y no depende mucho en llamadas APIs remotas vamos a utilizar [Mock Service Worker](https://mswjs.io/) y el [addon de Storybook "MSW"](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker es una librería de simulación de API. Depende de Service Workers para capturar solicitudes de red y proporciona datos simulados en las respuestas.
+Ya que nuestra aplicación es bastante sencilla y no depende mucho en llamadas APIs remotas vamos a utilizar [Mock Service Worker](https://mswjs.io/) y el [complemento de Storybook "MSW"](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker es una librería de simulación de API. Depende de Service Workers para capturar solicitudes de red y proporciona datos simulados en las respuestas.
 
 Cuando configuramos nuestra aplicación en [la sección Empezando](/intro-to-storybook/react/es/get-started) se instalaron ambos paquetes. Solo queda configurarlos y actualizar nuestras historias para usarlos.
 
@@ -217,11 +217,11 @@ Luego, necesitamos actualizar nuestro `.storybook/preview.js` e inicializarlos:
 
 ```diff:title=.storybook/preview.js
 import '../src/index.css';
-+ // Registra el addon msw
++ // Registra el complemento msw
 + import { initialize, mswDecorator } from 'msw-storybook-addon';
 + // Initializa MSW
 + initialize();
-+ // Proporciona el decorador del addon MSW a nivel global
++ // Proporciona el decorador del complemento MSW a nivel global
 + export const decorators = [mswDecorator];
 //👇 Configura Storybook para registar las acciones (onArchiveTask y onPinTask) en la interfaz de usuario.
 export const parameters = {
@@ -293,7 +293,7 @@ Revisa tu Storybook y vas a ver que la historia de `error` está funcionando. MS
 
 ## Pruebas de interacción
 
-Hasta ahora, hemos podido crear una aplicación completamente funcional desde cero, empezando desde un componente simple hasta una pantalla y probando continuamente cada cambio usando nuestras historias. Pero cada nueva historia también requiere una verificación manual de todas las demás historias para asegurar que la intefaz de usuario no se rompa. Eso es mucho trabajo extra.
+Hasta ahora, hemos podido crear una aplicación completamente funcional desde cero, empezando desde un componente simple hasta una pantalla y probando continuamente cada cambio usando nuestras historias. Pero cada nueva historia también requiere una verificación manual de todas las demás historias para asegurar que la interfaz de usuario no se rompa. Eso es mucho trabajo extra.
 
 ¿No podemos automatizar este flujo de trabajo y probar las interacciones de nuestros componentes automáticamente?
 
@@ -301,11 +301,11 @@ Hasta ahora, hemos podido crear una aplicación completamente funcional desde ce
 
 Una función [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) de Storybook y [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) nos ayuda con esto. Una función `play` incluye pequeños fragmentos de código que se ejecutan después de que se renderiza la historia.
 
-La función play nos ayuda verificar lo que sucede a la interfaz de usuario cuando se actualizan las tareas. Usa APIs del DOM que son "framework-agnostic", lo que significa que podemos escribir historias con la función play para interactuar con la interfaz de usuario y simular el comportamiento humano sin importar el framework del frontend.
+La función play nos ayuda a verificar lo que sucede a la interfaz de usuario cuando se actualizan las tareas. Usa APIs del DOM que son "framework-agnostic", lo que significa que podemos escribir historias con la función play para interactuar con la interfaz de usuario y simular el comportamiento humano sin importar el framework del frontend.
 
 `@storybook/addon-interactions` nos ayuda a visualizar nuestras pruebas en Storybook, dando un flujo paso a paso. También ofrece un práctico conjunto de controles de IU para pausar, continuar, retroceder y pasar paso a paso cada interacción.
 
-Veámoslo en acción! Actualiza su historia `InboxScreen` recién creada y configura las interacciones de componentes agregando lo siguiente:
+Veámoslo en acción! Actualiza tu historia `InboxScreen` recién creada y configura las interacciones de componentes agregando lo siguiente:
 
 ```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
@@ -375,7 +375,7 @@ Revisa la historia `Default`. Haz click en el panel de `Interactions` para ver l
   />
 </video>
 
-### Automatizar pruebas con el correder de pruebas
+### Automatizar pruebas con el corredor de pruebas
 
 Con la función de `play` de Storybook, pudimos eludir nuestro problema, permitiéndonos interactuar con nuestra interfaz de usuario y verificar rápidamente cómo responde si actualizamos nuestras tareas, manteniendo la interfaz de usuario consistente sin ningún esfuerzo manual adicional.
 
@@ -426,7 +426,7 @@ Empezamos desde abajo con `Task`, luego progresamos a `TaskList`, ahora estamos 
   />
 </video>
 
-[**El desarrollo basado en componentes (CDD)**](https://www.componentdriven.org/) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, la CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
+[**El desarrollo basado en componentes (CDD)**](https://www.componentdriven.org/) te permite expandir gradualmente la complejidad a medida que asciendes en la jerarquía de componentes. Entre los beneficios están un proceso de desarrollo más enfocado y una mayor cobertura de todas las posibles mutaciones de la interfaz de usuario. En resumen, el CDD te ayuda a construir interfaces de usuario de mayor calidad y complejidad.
 
 Aún no hemos terminado, el trabajo no termina cuando se construye la interfaz de usuario. También tenemos que asegurarnos de que siga siendo duradero a lo largo del tiempo.
 
