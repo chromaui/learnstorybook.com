@@ -9,11 +9,11 @@ Storybook tiene un ecosistema sólido de [complementos, o "addons"](https://stor
 
 Si has estado siguiendo este tutorial, ya encontraste varios complementos y configuraste uno en el capítulo [Testing](/intro-to-storybook/react/es/test/).
 
-Hay complementos para cada posibile caso de uso, y demoraría una eternidad en escribir sobre todos. Vamos a integrar uno de los complementos más populares: [Controls](https://storybook.js.org/docs/react/essentials/controls).
+Hay complementos para cada posible caso de uso, y demoraría una eternidad en escribir sobre todos. Vamos a integrar uno de los complementos más populares: [Controls](https://storybook.js.org/docs/react/essentials/controls).
 
 ## Que es Controls?
 
-Controls permite a los diseñadores y desarrolladores explorar el comportamiento de los componentes _jugando_ con sus argumentos. No se requiere código. Controls crea un panel adicional junto a tus historia para que puedes editar sus argumentos en vivo.
+Controls permite a los diseñadores y desarrolladores explorar el comportamiento de los componentes _jugando_ con sus argumentos. No se requiere código. Controls crea un panel adicional junto a tus historias para que puedes editar sus argumentos en vivo.
 
 Las nuevas instalaciones de Storybook incluyen Controls listo para usar. No se necesita configuración adicional.
 
@@ -36,7 +36,7 @@ Con Controls, ingenieros de control de calidad (QA), ingenieros de UI o cualquie
 
 Eso no está bien. Parece que el texto se desborda más alla de los límites del componente Task.
 
-Controls nos permitió verificar rápidamente diferentes entradas a un componente (en este caso, una cadena larga) y redujo el trabajo requerido para descubrir problems de interfaz de usuario.
+Controls nos permitió verificar rápidamente diferentes entradas a un componente (en este caso, una cadena larga) y redujo el trabajo requerido para descubrir problemas de interfaz de usuario.
 
 Ahora solucionemos el problema con el desbordamiento agregando un estilo a `Task.js`:
 
@@ -92,7 +92,7 @@ Hemos resuelto el problema. Cuando el texto alcanza el límite del área de Task
 
 ### Agregando una nueva historia para evitar regresiones
 
-En el futuro, podemos reproducir manualmente este problem ingresando la misma cadena a través de Controls. Pero es más fácil escribir una historia que muestre este caso extremo. Eso amplía nuestra cobertura de pruebas de regresión y describe claramente los límites de los componentes para el resto del equipo.
+En el futuro, podemos reproducir manualmente este problema ingresando la misma cadena a través de Controls. Pero es más fácil escribir una historia que muestre este caso extremo. Eso amplia nuestra cobertura de pruebas de regresión y describe claramente los límites de los componentes para el resto del equipo.
 
 Agrega una nueva historia para el caso de texto largo en `Task.stories.js`:
 
@@ -106,7 +106,7 @@ LongTitle.args = {
   },
 };
 ```
-Ahora podemos reproducir y trabajar en este caso extremos con facilidad.
+Ahora podemos reproducir y trabajar en este caso extremo con facilidad.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -117,7 +117,7 @@ Ahora podemos reproducir y trabajar en este caso extremos con facilidad.
 
 Si estamos haciendo [pruebas visuales](/intro-to-storybook/react/es/test/), las pruebas nos dirán si la solución de truncamiento se rompe. Los casos extremos oscuros pueden olvidarse sin la cobertura de prueba.
 
-<div class="aside"><p>💡 Controls es una excelente manera de hacer que los que no son desarrolladores jueguen con tus componentes e historias. Puede hacer mucho más que hemos visto aquí; recomendamos leer la <a href="https://storybook.js.org/docs/react/essentials/controls">documentación oficial</a> para aprender más al respecto. Sin embargo, hay muchas más formas de personalizar Storybook para que se adapte a tu flujo de trabajo con complementos. En el <a href="/create-an-addon/react/es/introduction/">guía de crear un complemento</a> te enseñaremos eso, mediante la creación de un complemento que te ayudará a potenciar tu flujo de trabajo de desarrollo.</p></div>
+<div class="aside"><p>💡 Controls es una excelente manera de hacer que los que no son desarrolladores jueguen con tus componentes e historias. Puede hacer mucho más que hemos visto aquí; recomendamos leer la <a href="https://storybook.js.org/docs/react/essentials/controls">documentación oficial</a> para aprender más al respecto. Sin embargo, hay muchas más formas de personalizar Storybook para que se adapte a tu flujo de trabajo con complementos. En la <a href="/create-an-addon/react/es/introduction/">guía de crear un complemento</a> te enseñaremos eso, mediante la creación de un complemento que te ayudará a potenciar tu flujo de trabajo de desarrollo.</p></div>
 
 ### Fusionar cambios
 
