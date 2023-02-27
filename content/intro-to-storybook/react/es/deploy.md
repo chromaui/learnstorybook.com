@@ -1,7 +1,8 @@
 ---
 title: 'Desplegar Storybook'
 tocTitle: 'Desplegar'
-description: 'Desplegar Storybook online con GitHub y Netlify'
+description: 'Aprender como desplegar Storybook'
+commit: 'af610d9'
 ---
 
 En este tutorial, hemos construido componentes en nuestra máquina de desarrollo local. En algún momento, vamos a necesitar compartir nuestro trabajo para obtener feedback del equipo. Vamos a desplegar Storybook para ayudar a nuestros compañeros a revisar la implementación de la interfaz de usuario.
@@ -14,9 +15,7 @@ Ejecutando `yarn build-storybook` generará un Storybook estático en el directo
 
 ## Publicar Storybook
 
-This tutorial uses <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
-
-Este tutorial usa <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un servicio de publicación gratuito hecho por los mantenedores de Storybook. Nos permite desplegar y alojar nuestro Storybook de forma segura en la nube.
+Este tutorial usa <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un servicio de publicación gratuito hecho por los maintainers de Storybook. Nos permite desplegar y alojar nuestro Storybook de forma segura en la nube.
 
 ### Configurar un repositorio en GitHub
 
@@ -46,7 +45,7 @@ Agrega el paquete como una dependencia de desarrollo.
 yarn add -D chromatic
 ```
 
-Una vez que el paquete esté instalada, [inicia sesión con Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) con tu cuenta de GitHub (Chromatic solo solicitará permisos muy ligeros), luego crearemos un nuevo proyecto que se llama "taskbox" y lo sincronizaremos con el repositorio de GitHub que hemos configurado.
+Una vez que el paquete esté instalado, [inicia sesión con Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) con tu cuenta de GitHub (Chromatic solo solicitará permisos muy ligeros), luego crearemos un nuevo proyecto que se llama "taskbox" y lo sincronizaremos con el repositorio de GitHub que hemos configurado.
 
 Haz click en `Choose GitHub repo` abajo de colaboradores y selecciona tu repositorio.
 
@@ -75,9 +74,9 @@ Hurra! Publicamos Storybook con un comando, pero ejecutar un comando manualmente
 
 Ahora que alojamos nuestro proyecto en un repositorio GitHub, podemos usar un servicio de integración continua (CI) para desplegar nuestro Storybook automáticamente. [GitHub Actions](https://github.com/features/actions) es un servicio de CI gratuito integrado en GitHub que facilita la publicación automática.
 
-### Añadir un Accion de GitHub para desplegar Storybook
+### Añadir una Acción de GitHub para desplegar Storybook
 
-En la carpeta raíz de nuestro proyecto, cree un nuevo directorio que se llama `.github`. Luego cree otro directorio `workflows` dentro de él.
+En la carpeta raíz de nuestro proyecto, crea un nuevo directorio que se llama `.github`. Luego crea otro directorio `workflows` dentro de él.
 
 Crea un nuevo archivo llamado `chromatic.yml` como este ejemplo:
 
@@ -99,12 +98,12 @@ jobs:
       - uses: chromaui/action@v1
         # Opciones requeridas para el GitHub Action de Chromatic
         with:
-          #👇 projectToken de Chromatic, revisar https://storybook.js.org/tutorials/intro-to-storybook/react/es/deploy/ para información sobre como obtenerlo
+          #👇 projectToken de Chromatic, revisa https://storybook.js.org/tutorials/intro-to-storybook/react/es/deploy/ para información sobre como obtenerlo
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>💡 Para mantener el tutorial breve no mencionamos a <a href=" https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository ">secretos de GitHub</a>. Secretos son variables de entorno seguras proporcionadas por GitHub para que no tengas que codificar el <code>project-token</code>.</p></div>
+<div class="aside"><p>💡 Para mantener el tutorial breve no mencionamos a <a href=" https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository ">GitHub secrets</a>. Secretos son variables de entorno seguras proporcionadas por GitHub para que no tengas que codificar el <code>project-token</code>.</p></div>
 
 ### Hace commit la acción
 
@@ -126,13 +125,13 @@ Por último, haz push al repositorio remoto con:
 git push origin main
 ```
 
-Una vez que hayas configurado el GitHub action, tu Storybook se desplegará a Chromatic cada vez que haces push. Puedes encontrar todos los Storybooks publicados en la pantalla de compilación de su proyecto en Chromatic.
+Una vez que hayas configurado el GitHub Action, tu Storybook se desplegará a Chromatic cada vez que haces push. Puedes encontrar todos los Storybooks publicados en la pantalla de compilación de su proyecto en Chromatic.
 
 ![Chromatic user dashboard](/intro-to-storybook/chromatic-user-dashboard.png)
 
 Haz click en la última compilación. Debería ser el de arriba.
 
-Luego, haz click en el botón `View Storybook` para ver la última versión de su Storybook.
+Luego, haz click en el botón `View Storybook` para ver la última versión de tu Storybook.
 
 ![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link-6-4-optimized.png)
 
