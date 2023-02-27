@@ -7,8 +7,8 @@ description: 'Aprende las formas de hacer test a los componentes de la UI'
 Ningún tutorial de Storybook estaría completo sin hacer testing. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:
 
 - **Pruebas visuales** confían en que los desarrolladores examinen manualmente un componente para verificar que esté correcto. Nos ayudan a comprobar la aparencia de un componente a medida que lo construimos.
-- **Pruebas de accessibilidad** verifican que los componentes sean accesible a todos usando el complemento a11y. Nos ayudan recolectar información sobre cómo las personas con ciertos tipos de discapacidades usan nuestros componentes.
-- **Pruebas de interacción** con la función de play verifican que el componente se comporta como se espera al interactuar con él. Son excelentes para probar el comportamiento de un componente cuando está en uso.
+- **Pruebas de accessibilidad** verifican que los componentes sean accesible a todos usando el complemento a11y. Nos ayudan a recolectar información sobre cómo las personas con ciertos tipos de discapacidades usan nuestros componentes.
+- **Pruebas de interacción** con la función "play" verifican que el componente se comporta como se espera cuando se interactúa con él. Son excelentes para probar el comportamiento de un componente cuando se está usando.
 
 ## "¿Pero se ve bien?"
 
@@ -141,7 +141,7 @@ Si un cambio es intencional, es necesario actualizar la línea base para que las
   />
 </video>
 
-Dado que las aplicaciones modernas se construyen a partir de componentes, es importante que probemos a nivel de componentes. Hacerlo nos ayuda a identificar la causa raíz de un cambio, el componente, en lugar de reaccionar a los síntomas de un cambio, las pantallas y los componentes compuestos.
+Dado que las aplicaciones modernas se construyen a partir de componentes, es importante que probemos a nivel de componentes. Hacerlo nos ayuda a identificar la causa raíz de un cambio (el componente) en lugar de reaccionar a los síntomas de un cambio, las pantallas y los componentes compuestos.
 
 ## Fusionando cambios
 
