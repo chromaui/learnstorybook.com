@@ -15,7 +15,7 @@ Ejecutando `yarn build-storybook` generará un Storybook estático en el directo
 
 ## Publicar Storybook
 
-Este tutorial usa <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un servicio de publicación gratuito hecho por los maintainers de Storybook. Nos permite desplegar y alojar nuestro Storybook de forma segura en la nube.
+Este tutorial usa <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un servicio de publicación gratuito hecho por los mantenedores de Storybook. Nos permite desplegar y alojar nuestro Storybook de forma segura en la nube.
 
 ### Configurar un repositorio en GitHub
 
