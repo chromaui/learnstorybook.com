@@ -27,8 +27,8 @@ Quieres bucear más profundo? Aquí algunos recursos útiles:
 
 ## Quién hizo LearnStorybook.com?
 
-El texto, código, y producción fueron contribuidos por [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook).
+El texto, código, y producción fueron contribuidos por [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). El tutorial fue inspirado por la popular [serie de tutoriales de GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) de Chromatic.
 
-Quieres más tutoriales y artículos como este? Regístratate a la lista de correo de Chromatic.
+Quieres más tutoriales y artículos como este? Regístratate a la lista de correo de Storybook.
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
