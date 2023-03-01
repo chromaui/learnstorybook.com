@@ -47,7 +47,6 @@ const HeroContent = styled.div`
 
 const Pitch = styled.div`
   position: relative;
-  z-index: 1;
   flex: 1;
   color: ${color.lightest};
   margin-top: ${spacing.padding.medium}px;
