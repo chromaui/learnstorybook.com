@@ -4,7 +4,7 @@ tocTitle: 'Get started'
 description: 'Set up Storybook in your development environment'
 ---
 
-Storybook helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React Native; other editions exist for [React](https://storybook.js.org/tutorials/intro-to-storybook/react/en/get-started/) [Vue](https://storybook.js.org/tutorials/intro-to-storybook/vue/en/get-started), [Angular](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started), [Svelte](https://storybook.js.org/tutorials/intro-to-storybook/svelte/en/get-started) and [Ember](https://storybook.js.org/tutorials/intro-to-storybook/ember/en/get-started).
+Storybook helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React Native; other editions exist for [React](https://storybook.js.org/tutorials/intro-to-storybook/react/en/get-started/), [Vue](https://storybook.js.org/tutorials/intro-to-storybook/vue/en/get-started), [Angular](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started), [Svelte](https://storybook.js.org/tutorials/intro-to-storybook/svelte/en/get-started) and [Ember](https://storybook.js.org/tutorials/intro-to-storybook/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -14,7 +14,7 @@ We’ll need to follow a few steps to get started. In this tutorial we'll be usi
 
 Before we get started, there are some things we’ll need to consider:
 
-- To help you throughout the tutorial, you’ll need a phone or a simulator already configured to allow you to run the application. For more information see the Expo documentation on [running on ios](https://docs.expo.dev/workflow/ios-simulator/) and [android](https://docs.expo.dev/workflow/android-studio-emulator/).
+- To help you throughout the tutorial, you’ll need a phone or a simulator already configured to allow you to run the application. For more information see the Expo documentation on [running on IOS](https://docs.expo.dev/workflow/ios-simulator/) and [Android](https://docs.expo.dev/workflow/android-studio-emulator/).
 - This tutorial will be focused on IOS/Android. React Native can target other platforms that this tutorial won't cover.
 - You’ll also need [nodejs](https://nodejs.org/en/download/) configured on your machine.
 
@@ -66,7 +66,7 @@ When running Storybook with `yarn storybook:ios` you should see this:
 
 When initialized the template already provides the required configuration to help us get started developing our application with React Native. Before we start to build our UI from the ground up, let's take a moment and see how Storybook functions inside a React Native application and whats different.
 
-Storybook in react native is a component that you can render in your app, as opposed to other framework versions where Storybook runs on its own.
+Storybook in React Native is a component that you can render in your app, as opposed to other framework versions where Storybook runs on its own.
 
 Because of this distinction we need a way to switch between the app and Storybook. To do this we use environment variables, and we'll go over that quickly now.
 

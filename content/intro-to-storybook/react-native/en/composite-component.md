@@ -129,13 +129,11 @@ export const Empty = {
 };
 ```
 
-As you may have noticed, a decorator was used in this story, a decorator allows us to add some “context” to the rendering of each task. In this case we add padding around the list to make it easier to visually verify.
-
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add styling. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
+<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator to add padding around the list to make it easier to visually verify. They can also be used to wrap stories in “providers” –i.e. library components that set React context.
 </div>
 
-`task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, `actions` defines the actions (mocked callbacks) that a `Task` component expects, which the `TaskList` also needs.
+`TaskStory.args.task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, the `argTypes` we added for `onPinTask` and `onArchiveTask` tell Storybook to provide actions (mocked callbacks) that the `TaskList` component needs.
 
 Since we've added new a new Story file we need to run `yarn storybook-generate` again to regenerate the `storybook.require.js` file.
 

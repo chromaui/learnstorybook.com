@@ -35,9 +35,7 @@ module.exports = {
 
 If you check the `stories` property you'll see that Storybook is looking for stories in the `components` folder.
 
-In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires.js`, this is because React Native doesn't support dynamic imports yet. This file is used to load all the stories in the project and it also imports your addons.
-
-This file gets generated when you run `yarn storybook` to start storybook or `yarn storybook-generate` if you just want to regenerate the `storybook.requires.js` file. Whenever you find that a story is not being loaded, you can try regenerating this file and it should show up.
+In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires.js`, this is because React Native doesn't support dynamic imports yet. This file gets generated when you run `yarn storybook` to start storybook or `yarn storybook-generate` if you just want to regenerate the `storybook.requires.js` file. This file is used to load all the stories in the project and it also imports your addons, whenever you find that a story is not being loaded you can try regenerating this file.
 
 Now let’s create the task component and its accompanying story file: `components/Task.jsx` and `components/Task.stories.jsx`.
 
@@ -106,10 +104,7 @@ To tell Storybook about the component we are documenting, we create a `default`
 
 - `component` -- the component itself
 - `title` -- how to refer to the component in the sidebar of the Storybook app
-
-Some optional values we also added were
-
-- argTypes -- allows us to specify the types of our args, here we use it to define actions which will log whenever that interaction takes place
+- `argTypes` -- allows us to specify the types of our args, here we use it to define actions which will log whenever that interaction takes place
 
 To define our stories we export an object with an `args` property. Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes, so does the component.
 
