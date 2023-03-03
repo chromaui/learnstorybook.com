@@ -16,12 +16,12 @@ Necesitaremos seguir algunos pasos para configurar el proceso de build de nuestr
 Vamos a ejecutar los siguientes comandos:
 
 ```shell:clipboard=false
-# Clona la plantilla
+# Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# Instala dependencias
+# Install dependencies
 yarn
 ```
 
@@ -32,13 +32,13 @@ yarn
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 
 ```shell:clipboard=false
-# Ejecuta el corredor de pruebas (Jest) en una terminal:
+# Run the test runner (Jest) in a terminal:
 yarn test --watchAll
 
-# Inicia el explorador de componentes en el puerto 6006:
+# Start the component explorer on port 6006:
 yarn storybook
 
-# Ejecuta el frontend de la aplicación en el puerto 3000:
+# Run the frontend app proper on port 3000:
 yarn start
 ```
 

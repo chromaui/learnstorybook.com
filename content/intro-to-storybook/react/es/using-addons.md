@@ -61,6 +61,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           onClick={() => onArchiveTask(id)}
         />
       </label>
+
       <label htmlFor="title" aria-label={title} className="title">
         <input
           type="text"
@@ -71,6 +72,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 +         style={{ textOverflow: 'ellipsis' }}
         />
       </label>
+
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
@@ -86,6 +88,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
   );
 }
 ```
+
 ![That's better.](/intro-to-storybook/edge-case-solved-with-controls-6-4.png)
 
 Hemos resuelto el problema. Cuando el texto alcanza el límite del área de Task, usamos unos puntos suspensivos para truncar el texto.
@@ -98,6 +101,7 @@ Agrega una nueva historia para el caso de texto largo en `Task.stories.js`:
 
 ```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+
 export const LongTitle = Template.bind({});
 LongTitle.args = {
   task: {
@@ -106,6 +110,7 @@ LongTitle.args = {
   },
 };
 ```
+
 Ahora podemos reproducir y trabajar en este caso extremo con facilidad.
 
 <video autoPlay muted playsInline loop>

@@ -25,18 +25,23 @@ Comienza con una implementación aproximada de la `TaskList`. Necesitarás impor
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
+
 import Task from './Task';
+
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
     onArchiveTask,
   };
+
   if (loading) {
     return <div className="list-items">loading</div>;
   }
+
   if (tasks.length === 0) {
     return <div className="list-items">empty</div>;
   }
+
   return (
     <div className="list-items">
       {tasks.map(task => (
@@ -51,18 +56,22 @@ A continuación, crea los estados de prueba de `Tasklist` en el archivo de histo
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
+
 import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
+
 export default {
   component: TaskList,
   title: 'TaskList',
   decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
 };
+
 const Template = args => <TaskList {...args} />;
+
 export const Default = Template.bind({});
 Default.args = {
-  // Dar forma a las historias a través de la composición de args.
-  // Los datos se heredaron de la historia predeterminada en Task.stories.js.
+  // Shaping the stories through args composition.
+  // The data was inherited from the Default story in Task.stories.js.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -72,24 +81,27 @@ Default.args = {
     { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
   ],
 };
+
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.args = {
-  // Dar forma a las historias a través de la composición de args.
-  // Datos heredados provenientes de la historia Default.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Default story.
   tasks: [
     ...Default.args.tasks.slice(0, 5),
     { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
   ],
 };
+
 export const Loading = Template.bind({});
 Loading.args = {
   tasks: [],
   loading: true,
 };
+
 export const Empty = Template.bind({});
 Empty.args = {
-  // Dar forma a las historias a través de la composición de args.
-  // Datos heredados provenientes de la historia Loading.
+  // Shaping the stories through args composition.
+  // Inherited data coming from the Loading story.
   ...Loading.args,
   loading: false,
 };
@@ -116,7 +128,9 @@ Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de
 
 ```js:title=src/components/TaskList.js
 import React from 'react';
+
 import Task from './Task';
+
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
@@ -153,6 +167,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
+
   const tasksInOrder = [
     ...tasks.filter((t) => t.state === "TASK_PINNED"),
     ...tasks.filter((t) => t.state !== "TASK_PINNED"),
@@ -185,7 +200,9 @@ A medida que el componente crece, también lo hacen los parámetros de entrada r
 ```diff:title=src/components/TaskList.js
 import React from 'react';
 + import PropTypes from 'prop-types';
+
 import Task from './Task';
+
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   const events = {
     onPinTask,
@@ -222,6 +239,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
       </div>
     );
   }
+
   const tasksInOrder = [
     ...tasks.filter((t) => t.state === "TASK_PINNED"),
     ...tasks.filter((t) => t.state !== "TASK_PINNED"),
@@ -234,14 +252,15 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
     </div>
   );
 }
+
 + TaskList.propTypes = {
-+  /** Comprueba si está en estado de cargando */
++  /** Checks if it's in loading state */
 +  loading: PropTypes.bool,
-+  /** La lista de tareas */
++  /** The list of tasks */
 +  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-+  /** Evento para cambiar la tarea a anclada */
++  /** Event to change the task to pinned */
 +  onPinTask: PropTypes.func,
-+  /** Evento para cambiar la tarea a archivada */
++  /** Event to change the task to archived */
 +  onArchiveTask: PropTypes.func,
 + };
 + TaskList.defaultProps = {

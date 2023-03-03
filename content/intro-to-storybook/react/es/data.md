@@ -11,7 +11,7 @@ Este tutorial no se centra en los detalles de la construcción de una aplicació
 
 ## Componentes contenedores
 
-Nuestro componente `TaskList` como lo hemos escrito es de “presentación” (ver [artículo al respecto](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)), en el sentido que no se comunica con nada externo a su implementación. Para poder pasarle datos, necesitaremos un "contenedor".
+Nuestro componente `TaskList` como lo hemos escrito es “presentacional”, en el sentido de que no se comunica con nada externo a su implementación. Necesitamos conectarlo a un proveedor de datos para obtener datos dentro de él.
 
 Este ejemplo utiliza [Redux Toolkit](https://redux-toolkit.js.org/), el conjunto de herramientas más efectivo para desarrollar aplicaciones para almacenar datos con [Redux](https://redux.js.org/), para construir un modelo de datos para nuestra aplicación. Sin embargo, el patrón utilizado aquí también se aplica a otras librerías de manejo de datos como [Apollo](https://www.apollographql.com/client/) y [MobX](https://mobx.js.org/).
 
@@ -24,14 +24,14 @@ yarn add @reduxjs/toolkit react-redux
 Primero construiremos un simple store Redux que responde a acciones que cambian el estado de una tarea, en un archivo llamado `store.js` dentro del folder `src/lib`, (intencionalmente lo mantendremos simple):
 
 ```js:title=src/lib/store.js
-
-/* Una implementación simple de los store/actions/reducer de Redux.
- * Una verdadera aplicación sería más compleja y se dividiría en diferentes archivos.
+/* A simple redux store/actions/reducer implementation.
+ * A true app would be more complex and separated into different files.
  */
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+
 /*
- * El estado inicial de nuestro store cuando la aplicación carga.
- * Usualmente obtendrías esto de un servidor. No nos preocupemos por eso ahora.
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
  */
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -44,9 +44,10 @@ const TaskBoxData = {
   status: 'idle',
   error: null,
 };
+
 /*
- * La tienda se crea aquí
- * Puedes aprender más de "slices" de Redux Toolkit en la documentación:
+ * The store is created here.
+ * You can read more about Redux Toolkit's slices in the docs:
  * https://redux-toolkit.js.org/api/createSlice
  */
 const TasksSlice = createSlice({
@@ -62,11 +63,13 @@ const TasksSlice = createSlice({
     },
   },
 });
-// Las acciones contenidas en el slice se exportan para su uso en nuestros componentes
+
+// The actions contained in the slice are exported for usage in our components
 export const { updateTaskState } = TasksSlice.actions;
+
 /*
- * La configuración del store de nuestra aplicación va aquí.
- * Lee más sobre configureStore de Redux en la documentación:
+ * Our app's store configuration goes here.
+ * Read more about Redux's configureStore in the docs:
  * https://redux-toolkit.js.org/api/configureStore
  */
 const store = configureStore({
@@ -74,6 +77,7 @@ const store = configureStore({
     taskbox: TasksSlice.reducer,
   },
 });
+
 export default store;
 ```
 
@@ -84,8 +88,9 @@ import React from 'react';
 import Task from './Task';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTaskState } from '../lib/store';
+
 export default function TaskList() {
-  // Estamos recuperando el estado del store
+  // We're retrieving our state from the store
   const tasks = useSelector((state) => {
     const tasksInOrder = [
       ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
@@ -96,14 +101,17 @@ export default function TaskList() {
     );
     return filteredTasks;
   });
+
   const { status } = useSelector((state) => state.taskbox);
+
   const dispatch = useDispatch();
+
   const pinTask = (value) => {
-    // Estamos despachando el evento Pinned (anclado) de regreso a nuestro store
+    // We're dispatching the Pinned event back to our store
     dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
   };
   const archiveTask = (value) => {
-    // Estamos despachando el evento Archived (archivado) de regreso a nuestro store
+    // We're dispatching the Archive event back to our store
     dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
   };
   const LoadingRow = (
@@ -137,6 +145,7 @@ export default function TaskList() {
       </div>
     );
   }
+
   return (
     <div className="list-items" data-testid="success" key={"success"}>
       {tasks.map((task) => (
@@ -166,11 +175,15 @@ Podemos utilizar varios enfoques para resolver este problema. Ya que nuestra apl
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
+
 import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
+
 import { Provider } from 'react-redux';
+
 import { configureStore, createSlice } from '@reduxjs/toolkit';
-// Una simulación super sencilla del estado del store
+
+// A super-simple mock of the state of the store
 export const MockedState = {
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
@@ -183,7 +196,8 @@ export const MockedState = {
   status: 'idle',
   error: null,
 };
-// Una simulación super sencilla del store de redux
+
+// A super-simple mock of a redux store
 const Mockstore = ({ taskboxState, children }) => (
   <Provider
     store={configureStore({
@@ -207,17 +221,21 @@ const Mockstore = ({ taskboxState, children }) => (
     {children}
   </Provider>
 );
+
 export default {
   component: TaskList,
   title: 'TaskList',
   decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
   excludeStories: /.*MockedState$/,
 };
+
 const Template = () => <TaskList />;
+
 export const Default = Template.bind({});
 Default.decorators = [
   (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
 ];
+
 export const WithPinnedTasks = Template.bind({});
 WithPinnedTasks.decorators = [
   (story) => {
@@ -225,6 +243,7 @@ WithPinnedTasks.decorators = [
       ...MockedState.tasks.slice(0, 5),
       { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
     ];
+
     return (
       <Mockstore
         taskboxState={{
@@ -237,6 +256,7 @@ WithPinnedTasks.decorators = [
     );
   },
 ];
+
 export const Loading = Template.bind({});
 Loading.decorators = [
   (story) => (
@@ -250,6 +270,7 @@ Loading.decorators = [
     </Mockstore>
   ),
 ];
+
 export const Empty = Template.bind({});
 Empty.decorators = [
   (story) => (

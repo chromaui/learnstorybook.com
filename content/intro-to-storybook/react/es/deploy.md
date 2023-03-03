@@ -81,24 +81,26 @@ En la carpeta raíz de nuestro proyecto, crea un nuevo directorio que se llama `
 Crea un nuevo archivo llamado `chromatic.yml` como este ejemplo:
 
 ```yaml:title=.github/workflows/chromatic.yml
-# Nombre de workflow
+# Workflow name
 name: 'Chromatic Deployment'
-# Evento para el workflow
+
+# Event for the workflow
 on: push
-# Lista de trabajos
+
+# List of jobs
 jobs:
   test:
-    # Sistema operativo
+    # Operating System
     runs-on: ubuntu-latest
-    # Pasos del trabajo
+    # Job steps
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-        #👇 Añade Chromatic como un paso en el workflow
+        #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
-        # Opciones requeridas para el GitHub Action de Chromatic
+        # Options required for Chromatic's GitHub Action
         with:
-          #👇 projectToken de Chromatic, revisa https://storybook.js.org/tutorials/intro-to-storybook/react/es/deploy/ para información sobre como obtenerlo
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```

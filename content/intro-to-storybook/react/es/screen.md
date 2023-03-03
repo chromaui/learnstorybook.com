@@ -16,26 +16,29 @@ Como nuestra aplicación es muy simple, la pantalla que construiremos es bastant
 Empezamos actualizando nuestro store de Redux (en `src/lib/store.js`) para conectar a una API remota y manejar los diversos estados de nuestra aplicación (por ejemplo, `error`, `succeeded`):
 
 ```diff:title=src/lib/store.js
-/* Una implementación simple de store/actions/reducer de Redux.
- * Una verdadera aplicación sería más compleja y estaría separada en diferentes archivos.
+/* A simple redux store/actions/reducer implementation.
+ * A true app would be more complex and separated into different files.
  */
 import {
   configureStore,
   createSlice,
 + createAsyncThunk,
 } from '@reduxjs/toolkit';
+
 /*
- * El estado inicial de nuestro store cuando se carga la aplicacion.
- * Normalmente, se obtendría esto desde un servidor. Pero no nos preocupemos por eso ahora.
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
  */
+
 const TaskBoxData = {
   tasks: [],
   status: "idle",
   error: null,
 };
+
 /*
- * Crea un asyncThunk para recuperar tareas desde un endpoint remoto.
- * Puedes leer más sobre thunks de Redux Toolskit en la documentación:
+ * Creates an asyncThunk to fetch tasks from a remote endpoint.
+ * You can read more about Redux Toolkit's thunks in the docs:
  * https://redux-toolkit.js.org/api/createAsyncThunk
  */
 + export const fetchTasks = createAsyncThunk('todos/fetchTodos', async () => {
@@ -50,9 +53,10 @@ const TaskBoxData = {
 +   }));
 +   return result;
 + });
+
 /*
- * El store se crea aquí
- * Puedes leer mas sobre slices de Redux Toolkit en la documentación:
+ * The store is created here.
+ * You can read more about Redux Toolkit's slices in the docs:
  * https://redux-toolkit.js.org/api/createSlice
  */
 const TasksSlice = createSlice({
@@ -68,8 +72,8 @@ const TasksSlice = createSlice({
     },
   },
   /*
-   * Extiende el reducer para las acciones async
-   * Puedes leer más sobre esto en https://redux-toolkit.js.org/api/createAsyncThunk
+   * Extends the reducer for the async actions
+   * You can read more about it at https://redux-toolkit.js.org/api/createAsyncThunk
    */
 +  extraReducers(builder) {
 +    builder
@@ -91,11 +95,13 @@ const TasksSlice = createSlice({
 +    });
 + },
 });
-// Las acciones contenidas en el slice se exportan para su uso en nuestros componentes
+
+// The actions contained in the slice are exported for usage in our components
 export const { updateTaskState } = TasksSlice.actions;
+
 /*
- * La configuración del store de nuestra aplicación va aquí.
- * Lee más sobre configureStore de Redux en la documentación:
+ * Our app's store configuration goes here.
+ * Read more about Redux's configureStore in the docs:
  * https://redux-toolkit.js.org/api/configureStore
  */
 const store = configureStore({
@@ -103,6 +109,7 @@ const store = configureStore({
     taskbox: TasksSlice.reducer,
   },
 });
+
 export default store;
 ```
 
@@ -113,14 +120,16 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks } from '../lib/store';
 import TaskList from './TaskList';
+
 export default function InboxScreen() {
   const dispatch = useDispatch();
-  // Estamos recuperando el campo de error de nuestro store actualizado
+  // We're retrieving the error field from our updated store
   const { error } = useSelector((state) => state.taskbox);
-  // El useEffect activa la obtención de datos cuando se monta el componente.
+  // The useEffect triggers the data fetching when the component is mounted
   useEffect(() => {
     dispatch(fetchTasks());
   }, []);
+
   if (error) {
     return (
       <div className="page lists-show">
@@ -150,8 +159,10 @@ También tenemos que cambiar nuestro componente `App` para renderizar la pantall
 - import './App.css';
 + import './index.css';
 + import store from './lib/store';
+
 + import { Provider } from 'react-redux';
 + import InboxScreen from './components/InboxScreen';
+
 function App() {
   return (
 -   <div className="App">
@@ -184,15 +195,20 @@ Como vimos anteriormente, el componente `TaskList` ahora es un **contenedor** qu
 
 ```js:title=src/components/InboxScreen.stories.js
 import React from 'react';
+
 import InboxScreen from './InboxScreen';
 import store from '../lib/store';
+
 import { Provider } from 'react-redux';
+
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
+
 const Template = () => <InboxScreen />;
+
 export const Default = Template.bind({});
 export const Error = Template.bind({});
 ```
@@ -217,13 +233,17 @@ Luego, necesitamos actualizar nuestro `.storybook/preview.js` e inicializarlos:
 
 ```diff:title=.storybook/preview.js
 import '../src/index.css';
-+ // Registra el complemento msw
+
++ // Registers the msw addon
 + import { initialize, mswDecorator } from 'msw-storybook-addon';
-+ // Initializa MSW
+
++ // Initialize MSW
 + initialize();
-+ // Proporciona el decorador del complemento MSW a nivel global
+
++ // Provide the MSW addon decorator globally
 + export const decorators = [mswDecorator];
-//👇 Configura Storybook para registar las acciones (onArchiveTask y onPinTask) en la interfaz de usuario.
+
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -239,17 +259,21 @@ Por último, actualiza las historias `InboxScreen` y incluye un [parámetro](htt
 
 ```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
+
 import InboxScreen from './InboxScreen';
 import store from '../lib/store';
 + import { rest } from 'msw';
 + import { MockedState } from './TaskList.stories';
 import { Provider } from 'react-redux';
+
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
+
 const Template = () => <InboxScreen />;
+
 export const Default = Template.bind({});
 + Default.parameters = {
 +   msw: {
@@ -263,6 +287,7 @@ export const Default = Template.bind({});
 +     ],
 +   },
 + };
+
 export const Error = Template.bind({});
 + Error.parameters = {
 +   msw: {
@@ -309,23 +334,29 @@ Veámoslo en acción! Actualiza tu historia `InboxScreen` recién creada y confi
 
 ```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
+
 import InboxScreen from './InboxScreen';
+
 import store from '../lib/store';
 import { rest } from 'msw';
 import { MockedState } from './TaskList.stories';
 import { Provider } from 'react-redux';
+
 + import {
 +  fireEvent,
 +  within,
 +  waitFor,
 +  waitForElementToBeRemoved
 + } from '@storybook/testing-library';
+
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
 };
+
 const Template = () => <InboxScreen />;
+
 export const Default = Template.bind({});
 Default.parameters = {
   msw: {
@@ -339,18 +370,20 @@ Default.parameters = {
     ],
   },
 };
+
 + Default.play = async ({ canvasElement }) => {
 +   const canvas = within(canvasElement);
-+   // Espera a que el componente pase del estado de carga
++   // Waits for the component to transition from the loading state
 +   await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
-+   // Espera a que el componente se actualice en función del store
++   // Waits for the component to be updated based on the store
 +   await waitFor(async () => {
-+     // Simula anclando la primera tarea
++     // Simulates pinning the first task
 +     await fireEvent.click(canvas.getByLabelText('pinTask-1'));
-+     // Simula anclando la tercera tarea
++     // Simulates pinning the third task
 +     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
 +   });
 + };
+
 export const Error = Template.bind({});
 Error.parameters = {
   msw: {

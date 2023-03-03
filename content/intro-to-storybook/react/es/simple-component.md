@@ -88,6 +88,7 @@ Existen dos niveles básicos de organización en Storybook: el componente y sus 
   - Historia
 
 Para contarle a Storybook sobre el componente que estamos documentando, creamos un export `default` que contiene:
+
 - `component` -- el propio componente
 - `title` -- como hacer referencia al componente en el sidebar de la aplicación Storybook
 
@@ -95,22 +96,17 @@ Para definir nuestras historias, exportamos una función para cada uno de nuestr
 
 Como tenemos múltiples permutaciones de nuestro componente, es conveniente asignarlo a un variable `Template`. Introducir este patrón en tus historias reducirá la cantidad de código que necesitas escribir y mantener.
 
-
 <div class="aside">
 💡 <code>Template.bind({})</code> es una técnica <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">estándar de JavaScript</a> para hacer una copia de una función. Usamos esta técnica para permitir que cada historia exportada establezca sus propios propiedades, pero usa la misma implementación. 
 </div>
-
 
 Argumentos o [`args`](https://storybook.js.org/docs/react/writing-stories/args), nos permiten editar en vivo nuestros componentes con el complemento "Controls" sin reiniciar Storybook. Una vez que cambia el valor de un [`arg`](https://storybook.js.org/docs/react/writing-stories/args), el componente también cambia.
 
 Al crear una historia utilizamos un argumento base de `task` para construir la forma de la task que el componente espera. Esto generalmente se modela a partir del aspecto de los datos verdaderos. Nuevamente, `export`-ando esta función nos permitirá reutilizarla en historias posteriores, como veremos.
 
-
 <div class="aside">
 Las <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Acciones</b></a> ayudan a verificar las interacciones cuando creamos componentes UI en aislamiento. A menudo no tendrás acceso a las funciones y el estado que tienes en el contexto de la aplicación. Utiliza <code>action()</code> para agregarlas.
 </div>
-
-
 
 ## Configuración
 
@@ -146,7 +142,8 @@ Una vez que hayamos hecho esto, dentro de la carpeta `.storybook`, cambia tu `pr
 
 ```diff:title=.storybook/preview.js
 + import '../src/index.css';
-//👇 Configura a Storybook a documentar las acciones (onArchiveTask and onPinTask) en la UI.
+
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   controls: {
@@ -171,7 +168,6 @@ Una vez que hayamos hecho esto, reiniciando el servidor de Storybook debería pr
   />
 </video>
 
-
 ## Construyendo los estados
 
 Ahora tenemos configurado Storybook, los estilos importados y los casos de prueba construidos; podemos comenzar rápidamente el trabajo de implementar el HTML del componente para que coincida con el diseño.
@@ -180,6 +176,7 @@ El componente todavía es básico. Primero escribiremos el código que se aproxi
 
 ```js:title=src/components/Task.js
 import React from 'react';
+
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
@@ -200,6 +197,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           onClick={() => onArchiveTask(id)}
         />
       </label>
+
       <label htmlFor="title" aria-label={title} className="title">
         <input
           type="text"
@@ -209,6 +207,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           placeholder="Input title"
         />
       </label>
+
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
@@ -234,7 +233,6 @@ El maquetado adicional de arriba, combinado con el CSS que hemos importado antes
   />
 </video>
 
-
 ## Especificar los requerimientos de datos
 
 Es una buena práctica en React utilizar `propTypes` para especificar la forma de los datos que espera recibir un componente. No sólo se auto documenta, sino que también ayuda a detectar problemas rápidamente.
@@ -242,6 +240,7 @@ Es una buena práctica en React utilizar `propTypes` para especificar la forma d
 ```diff:title=src/components/Task.js
 import React from 'react';
 + import PropTypes from 'prop-types';
+
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
@@ -262,6 +261,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           onClick={() => onArchiveTask(id)}
         />
       </label>
+
       <label htmlFor="title" aria-label={title} className="title">
         <input
           type="text"
@@ -271,6 +271,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           placeholder="Input title"
         />
       </label>
+
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
@@ -285,30 +286,29 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
     </div>
   );
 }
+
 + Task.propTypes = {
-+  /** Composición de la tarea */
++  /** Composition of the task */
 +  task: PropTypes.shape({
-+    /** Id de la tarea */
++    /** Id of the task */
 +    id: PropTypes.string.isRequired,
-+    /** Título de la tarea */
++    /** Title of the task */
 +    title: PropTypes.string.isRequired,
-+    /** Estado actual de la tarea */
++    /** Current state of the task */
 +    state: PropTypes.string.isRequired,
 +  }),
-+  /** Evento para cambiar la tarea a archivada */
++  /** Event to change the task to archived */
 +  onArchiveTask: PropTypes.func,
-+  /** Evento para cambiar la tarea a anclada */
++  /** Event to change the task to pinned */
 +  onPinTask: PropTypes.func,
 + };
 ```
 
 Ahora aparecerá una advertencia en modo desarrollo si el componente Task se utiliza incorrectamente.
 
-
 <div class="aside">
 💡 Una forma alternativa de lograr el mismo propósito es utilizando un sistema de tipos de JavaScript como TypeScript, para crear un tipo para las propiedades del componente.
 </div>
-
 
 ## Componente construido!
 
@@ -318,7 +318,7 @@ Como puedes ver, comenzar a construir componentes de forma aislada es fácil y r
 
 ## Detectar problemas de accesibilidad
 
-Las pruebas de accesibilidad se refieren a la práctica de auditar el DOM renderizado con herramientas automatizadas contra un conjunto de heurísticas basadas en las reglas [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) y otras mejores prácticas aceptadas por la industria. Actuán como la primera línea de control de calidad (QA) para detectar infracciones obvias de accesibilidad y aseguran que una aplicación sea utilizable por la mayor cantidad de personas posible, incluidas personas con discapacidades como problemas de visión, problemas auditivos y condiciones cognitivas. 
+Las pruebas de accesibilidad se refieren a la práctica de auditar el DOM renderizado con herramientas automatizadas contra un conjunto de heurísticas basadas en las reglas [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) y otras mejores prácticas aceptadas por la industria. Actuán como la primera línea de control de calidad (QA) para detectar infracciones obvias de accesibilidad y aseguran que una aplicación sea utilizable por la mayor cantidad de personas posible, incluidas personas con discapacidades como problemas de visión, problemas auditivos y condiciones cognitivas.
 
 Storybook también tiene un [complemento oficial de accesibilidad](https://storybook.js.org/addons/@storybook/addon-a11y). Desarrollado con el [axe-core](https://github.com/dequelabs/axe-core) de Deque, puede detectar hasta [57% de los problemas de WCAG](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 

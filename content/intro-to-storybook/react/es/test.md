@@ -6,13 +6,15 @@ description: 'Aprende las formas de hacer test a los componentes de la UI'
 
 Ningún tutorial de Storybook estaría completo sin hacer testing. Las pruebas son esenciales para crear interfaces de usuario de alta calidad. En los sistemas modulares, los ajustes minúsculos pueden dar lugar a regresiones importantes. Hasta ahora hemos encontrado tres tipos de pruebas:
 
-- **Pruebas visuales** confían en que los desarrolladores examinen manualmente un componente para verificar que esté correcto. Nos ayudan a comprobar la aparencia de un componente a medida que lo construimos.
+- **Pruebas manuales** confían en que los desarrolladores examinen manualmente un componente para verificar que esté correcto. Nos ayudan a comprobar la aparencia de un componente a medida que lo construimos.
+
 - **Pruebas de accessibilidad** verifican que los componentes sean accesible a todos usando el complemento a11y. Nos ayudan a recolectar información sobre cómo las personas con ciertos tipos de discapacidades usan nuestros componentes.
+
 - **Pruebas de interacción** con la función "play" verifican que el componente se comporta como se espera cuando se interactúa con él. Son excelentes para probar el comportamiento de un componente cuando se está usando.
 
 ## "¿Pero se ve bien?"
 
-Desafortunadamente, los métodos de testing mencionados no son suficientes para prevenir errores de interfaz. Las interfaces de usuario son difíciles de probar porque el diseño es subjetivo y matizado. Otras pruebas de interfaz como pruebas instantáneas desencadenan demasiados falsos positivos, y las pruebas unitarias a nivel de píxel son de poco valor. Una estrategia completa de pruebas de Storybook también incluye pruebas de regresión visual.
+Desafortunadamente, los métodos de testing mencionados no son suficientes para prevenir errores de interfaz de usuario. Las interfaces de usuario son difíciles de probar porque el diseño es subjetivo y matizado. Pruebas manuales necesitan mucho esfuerzo. Otros tipos de pruebas de interfaz de usuario, como las pruebas instantáneas (snapshot), provocan demasiado falsos positivos, y las pruebas unitarias a nivel de píxel son de poco valor. Una estrategia completa de pruebas de Storybook también incluye pruebas de regresión visual.
 
 ## Pruebas de regresión visual para Storybook
 
@@ -31,7 +33,7 @@ Existen varias herramientas para la prueba de regresión visual. Recomendamos [*
 
 ## Capturando un cambio en la interfaz de usuario
 
-La prueba de regresión visual se basa en la comparación de imágenes del nuevo código de la interfaz de usuario renderizado con las imágenes de la línea base. Si se detecta un cambio en la interfaz de usuario, se notificará. 
+La prueba de regresión visual se basa en la comparación de imágenes del nuevo código de la interfaz de usuario renderizado con las imágenes de la línea base. Si se detecta un cambio en la interfaz de usuario, se notificará.
 
 Vea cómo funciona ajustando el fondo del componente `Task`:
 
@@ -64,6 +66,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           onClick={() => onArchiveTask(id)}
         />
       </label>
+
       <label htmlFor="title" aria-label={title} className="title">
         <input
           type="text"
@@ -74,6 +77,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 +         style={{ background: 'red' }}
         />
       </label>
+
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
