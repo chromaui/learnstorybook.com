@@ -408,13 +408,13 @@ Revisa la historia `Default`. Haz click en el panel de `Interactions` para ver l
   />
 </video>
 
-### Automatizar pruebas con el corredor de pruebas
+### Automatizar pruebas con el "test runner"
 
 Con la función de `play` de Storybook, pudimos eludir nuestro problema, permitiéndonos interactuar con nuestra interfaz de usuario y verificar rápidamente cómo responde si actualizamos nuestras tareas, manteniendo la interfaz de usuario consistente sin ningún esfuerzo manual adicional.
 
 Pero, si miramos a Storybook más a fondo, podemos ver que solo ejecuta las pruebas de interacción al ver la historia. Por lo tanto, todavía tendríamos que revisar cada historia para ejecutar todas los checks si hacemos un cambio. ¿No podríamos automatizarlo?
 
-La buena noticia es que podemos! El [corredor de prueba](https://storybook.js.org/docs/react/writing-tests/test-runner) de Storybook nos permite hacer precisamente eso. Es una utilidad independiente accionado por [Playwright](https://playwright.dev/) que ejecuta todas nuestras pruebas de interacciones y detecta historias rotas.
+La buena noticia es que podemos! El [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) de Storybook nos permite hacer precisamente eso. Es una utilidad independiente accionado por [Playwright](https://playwright.dev/) que ejecuta todas nuestras pruebas de interacciones y detecta historias rotas.
 
 Vamos a ver cómo funciona. Ejecuta el siguiente comando para instalarlo:
 
