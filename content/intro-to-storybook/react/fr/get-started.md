@@ -5,7 +5,7 @@ description: 'Configurer Storybook dans votre environnement de développement'
 commit: '9245261'
 ---
 
-Storybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants d'interface utilisateur (User Interface ou UI) isolés de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/fr/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) et [Ember](/intro-to-storybook/ember/en/get-started).
+sStorybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants d'interface utilisateur (User Interface ou UI) isolés de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/fr/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) et [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook et votre application](/intro-to-storybook/storybook-relationship.jpg)
 
