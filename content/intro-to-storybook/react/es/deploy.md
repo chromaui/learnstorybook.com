@@ -68,7 +68,7 @@ Cuando termines, vas a recibir un enlace `https://random-uuid.chromatic.com` a t
 
 ![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-4.png)
 
-Hurra! Publicamos Storybook con un comando, pero ejecutar un comando manualmente cada vez que queremos obtener feedback sobre la implementación de la interfaz de usuario es repetitivo. Idealmente, publicaríamos la última versión de los componentes cada vez que hacemos push a GitHub. Tendremos que desplegar continuamente Storybook.
+¡Hurra! Publicamos Storybook con un comando, pero ejecutar un comando manualmente cada vez que queremos obtener feedback sobre la implementación de la interfaz de usuario es repetitivo. Idealmente, publicaríamos la última versión de los componentes cada vez que hacemos push a GitHub. Tendremos que desplegar continuamente Storybook.
 
 ## Despliegue continuo con Chromatic
 

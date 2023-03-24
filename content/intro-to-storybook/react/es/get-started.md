@@ -78,4 +78,4 @@ Y, por último:
 git branch -M main
 ```
 
-Comenzamos con la construcción de nuestro primer componente!
+¡Comenzamos con la construcción de nuestro primer componente!

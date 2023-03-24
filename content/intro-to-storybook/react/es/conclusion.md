@@ -3,7 +3,7 @@ title: 'Conclusion'
 description: 'Pon todo tu conocimiento junto y aprende más técnicas de Storybook'
 ---
 
-Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. En el camino, aprendiste a construir, componer, probar e implementar componentes de interfaz de usuario. Si lo has estado siguiendo, tu repositorio y Storybook desplegado debería verse así:
+¡Felicitaciones! Creaste tu primer interfaz de usuario en Storybook. En el camino, aprendiste a construir, componer, probar e implementar componentes de interfaz de usuario. Si lo has estado siguiendo, tu repositorio y Storybook desplegado debería verse así:
 
 [📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
@@ -13,7 +13,7 @@ Storybook es una poderosa herramienta para React, React Native, Vue, Angular, Sv
 
 ## Aprende más
 
-Quieres bucear más profundo? Aquí algunos recursos útiles:
+¿Quieres bucear más profundo? Aquí algunos recursos útiles:
 
 - [**Documentación oficial de Storybook**](https://storybook.js.org/docs/react/get-started/introduction) tiene la documentación del API, links comunitarios y una galería de complementos.
 
@@ -25,10 +25,10 @@ Quieres bucear más profundo? Aquí algunos recursos útiles:
 
 - [**Blog de Storybook**](https://storybook.js.org/blog) muestra las últimas versiones y características para optimizar su flujo de trabajo de desarrollo de UI.
 
-## Quién hizo LearnStorybook.com?
+## ¿Quién hizo LearnStorybook.com?
 
 El texto, código, y producción fueron contribuidos por [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). El tutorial fue inspirado por la popular [serie de tutoriales de GraphQL + React](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) de Chromatic.
 
-Quieres más tutoriales y artículos como este? Regístratate a la lista de correo de Storybook.
+¿Quieres más tutoriales y artículos como este? Regístratate a la lista de correo de Storybook.
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>

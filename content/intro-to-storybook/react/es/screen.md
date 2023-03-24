@@ -5,7 +5,7 @@ description: 'Construir una pantalla con componentes'
 commit: 'e6e6cae'
 ---
 
-Nos hemos concentrado en crear interfaces de usuario de abajo hacia arriba; comenzando por lo pequeño y añadiendo complejidad. Esto nos ha permitido desarrollar cada componente de forma aislada, determinar los datos que necesita y jugar con ellos en Storybook. Todo sin necesidad de levantar un servidor o construir pantallas!
+Nos hemos concentrado en crear interfaces de usuario de abajo hacia arriba; comenzando por lo pequeño y añadiendo complejidad. Esto nos ha permitido desarrollar cada componente de forma aislada, determinar los datos que necesita y jugar con ellos en Storybook. ¡Todo sin necesidad de levantar un servidor o construir pantallas!
 
 En este capítulo continuaremos aumentando la sofisticación combinando componentes en una pantalla y desarrollando esa pantalla en Storybook.
 
@@ -330,7 +330,7 @@ La función play nos ayuda a verificar lo que sucede a la interfaz de usuario cu
 
 `@storybook/addon-interactions` nos ayuda a visualizar nuestras pruebas en Storybook, dando un flujo paso a paso. También ofrece un práctico conjunto de controles de IU para pausar, continuar, retroceder y pasar paso a paso cada interacción.
 
-Veámoslo en acción! Actualiza tu historia `InboxScreen` recién creada y configura las interacciones de componentes agregando lo siguiente:
+¡Veámoslo en acción! Actualiza tu historia `InboxScreen` recién creada y configura las interacciones de componentes agregando lo siguiente:
 
 ```diff:title=src/components/InboxScreen.stories.js
 import React from 'react';
@@ -414,7 +414,7 @@ Con la función de `play` de Storybook, pudimos eludir nuestro problema, permiti
 
 Pero, si miramos a Storybook más a fondo, podemos ver que solo ejecuta las pruebas de interacción al ver la historia. Por lo tanto, todavía tendríamos que revisar cada historia para ejecutar todas los checks si hacemos un cambio. ¿No podríamos automatizarlo?
 
-La buena noticia es que podemos! El [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) de Storybook nos permite hacer precisamente eso. Es una utilidad independiente accionado por [Playwright](https://playwright.dev/) que ejecuta todas nuestras pruebas de interacciones y detecta historias rotas.
+¡La buena noticia es que podemos! El [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) de Storybook nos permite hacer precisamente eso. Es una utilidad independiente accionado por [Playwright](https://playwright.dev/) que ejecuta todas nuestras pruebas de interacciones y detecta historias rotas.
 
 Vamos a ver cómo funciona. Ejecuta el siguiente comando para instalarlo:
 
@@ -446,7 +446,7 @@ Para profundizar aún más en las pruebas, puedes mirar el <a href="/ui-testing-
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
 
-Éxito! Ahora tenemos una herramienta que nos ayuda a verificar si todas nuestras historias se renderizan sin errores y si todas las afirmaciones pasan automáticamente. Además, si una prueba falla, nos proporcionará un enlace en que abre la historia fallida en el navegador.
+¡Éxito! Ahora tenemos una herramienta que nos ayuda a verificar si todas nuestras historias se renderizan sin errores y si todas las afirmaciones pasan automáticamente. Además, si una prueba falla, nos proporcionará un enlace en que abre la historia fallida en el navegador.
 
 ## Desarrollo basado en componentes
 
@@ -464,5 +464,5 @@ Empezamos desde abajo con `Task`, luego progresamos a `TaskList`, ahora estamos 
 Aún no hemos terminado, el trabajo no termina cuando se construye la interfaz de usuario. También tenemos que asegurarnos de que siga siendo duradero a lo largo del tiempo.
 
 <div class="aside">
-💡 No olvides hacer commit para guardar tus cambios con git!
+💡 ¡No olvides hacer commit para guardar tus cambios con git!
 </div>

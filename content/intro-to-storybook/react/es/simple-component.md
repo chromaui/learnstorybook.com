@@ -310,7 +310,7 @@ Ahora aparecerá una advertencia en modo desarrollo si el componente Task se uti
 💡 Una forma alternativa de lograr el mismo propósito es utilizando un sistema de tipos de JavaScript como TypeScript, para crear un tipo para las propiedades del componente.
 </div>
 
-## Componente construido!
+## ¡Componente construido!
 
 Ahora hemos construido con éxito un componente sin necesidad de un servidor o sin ejecutar toda la aplicación frontend. El siguiente paso es construir los componentes restantes de la Taskbox, uno por uno de manera similar.
 
@@ -322,7 +322,7 @@ Las pruebas de accesibilidad se refieren a la práctica de auditar el DOM render
 
 Storybook también tiene un [complemento oficial de accesibilidad](https://storybook.js.org/addons/@storybook/addon-a11y). Desarrollado con el [axe-core](https://github.com/dequelabs/axe-core) de Deque, puede detectar hasta [57% de los problemas de WCAG](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
-Vamos a ver como funciona! Ejecuta el comando siguiente para instalar el complemento:
+¡Vamos a ver como funciona! Ejecuta el comando siguiente para instalar el complemento:
 
 ```shell
 yarn add --dev @storybook/addon-a11y
@@ -363,8 +363,8 @@ Mirando nuestras historias, podemos ver que el complemento encontró un problema
 }
 ```
 
-Terminamos! Hemos dado el primer paso para garantizar que la UI sea accesible. Mientras continuamos agregando complejidad a nuestra aplicación, podemos repetir este proceso para todos los demás componentes sin necesidad de usar herramientas adicionales o entornos de prueba.
+¡Terminamos! Hemos dado el primer paso para garantizar que la UI sea accesible. Mientras continuamos agregando complejidad a nuestra aplicación, podemos repetir este proceso para todos los demás componentes sin necesidad de usar herramientas adicionales o entornos de prueba.
 
 <div class="aside">
-💡 No olvides hacer commit para guardar tus cambios con git!
+💡 ¡No olvides hacer commit para guardar tus cambios con git!
 </div>

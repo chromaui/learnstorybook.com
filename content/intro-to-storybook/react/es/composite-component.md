@@ -269,5 +269,5 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 ```
 
 <div class="aside">
-💡 No olvides hacer commit para guardar tus cambios con git!
+💡¡No olvides hacer commit para guardar tus cambios con git!
 </div>
