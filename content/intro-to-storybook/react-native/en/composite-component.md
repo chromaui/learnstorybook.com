@@ -262,7 +262,7 @@ export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }) => {
 
 These changes result in the following UI:
 
-![TaskList with loading state](/intro-to-storybook/react-native-tasklist-loading.gif)
+![TaskList with loading state](/intro-to-storybook/react-native-tasklist-completed.gif)
 
 Success! We accomplished what we set out to do. If we check our updated UI, we can quickly see that our pinned tasks are now featured at the top of the list, matching the intended design. In the next chapters, we'll expand on what we've learned and continue adding complexity to our application by applying these principles to more complex UIs.
 
