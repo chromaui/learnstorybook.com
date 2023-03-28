@@ -21,52 +21,77 @@ This process is similar to [Test-driven development](https://en.wikipedia.org/wi
 
 ## Get set up
 
-First, let’s create the task component and its accompanying story file: `components/Task.js` and `components/Task.stories.js`.
+Let's open `.storybook/main.js` and take a look
+
+```js:title=.storybook/main.js
+module.exports = {
+  stories: ["../components/**/*.stories.?(ts|tsx|js|jsx)"],
+  addons: [
+    "@storybook/addon-ondevice-controls",
+    "@storybook/addon-ondevice-actions",
+  ],
+};
+```
+
+If you check the `stories` property you'll see that Storybook is looking for stories in the `components` folder.
+
+In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires.js`, this is because React Native doesn't support dynamic imports yet. This file gets generated when you run `yarn storybook` to start storybook or `yarn storybook-generate` if you just want to regenerate the `storybook.requires.js` file. This file is used to load all the stories in the project and it also imports your addons, whenever you find that a story is not being loaded you can try regenerating this file.
+
+Now let’s create the task component and its accompanying story file: `components/Task.jsx` and `components/Task.stories.jsx`.
 
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```js:title=components/Task.js
-import * as React from 'react';
-import { TextInput, SafeAreaView } from 'react-native';
-import { styles } from '../constants/globalStyles';
+```jsx:title=components/Task.jsx
+import { StyleSheet, TextInput, View } from "react-native";
+import { styles } from "./styles";
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+export const Task = ({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}) => {
   return (
-    <SafeAreaView style={styles.ListItem}>
+    <View style={styles.listItem}>
       <TextInput value={title} editable={false} />
-    </SafeAreaView>
+    </View>
   );
-}
+};
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
+Now add the story file:
 
-Below we build out Task’s three test states in the story file:
+```jsx:title=components/Task.stories.jsx
+import { Task } from "./Task";
 
-```js:title=components/Task.stories.js
-import * as React from 'react';
-import { View } from 'react-native';
-import { styles } from '../constants/globalStyles';
-import { storiesOf } from '@storybook/react-native';
-import { action } from '@storybook/addon-actions';
-import Task from './Task';
-export const task = {
-  id: '1',
-  title: 'Test Task',
-  state: 'TASK_INBOX',
-  updatedAt: new Date(2018, 0, 1, 9, 0),
+export default {
+  title: "Task",
+  component: Task,
+  argTypes: {
+    onPinTask: { action: "onPinTask" },
+    onArchiveTask: { action: "onArchiveTask" },
+  },
 };
 
-export const actions = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+export const Default = {
+  args: {
+    task: {
+      id: "1",
+      title: "Test Task",
+      state: "TASK_INBOX"
+    },
+  },
 };
-storiesOf('Task', module)
-  .addDecorator((story) => <View style={styles.TaskBox}>{story()}</View>)
-  .add('default', () => <Task task={task} {...actions} />)
-  .add('pinned', () => <Task task={{ ...task, state: 'TASK_PINNED' }} {...actions} />)
-  .add('archived', () => <Task task={{ ...task, state: 'TASK_ARCHIVED' }} {...actions} />);
+
+export const Pinned = {
+  args: { task: { ...Default.args.task, state: "TASK_PINNED" } },
+};
+
+export const Archived = {
+  args: { task: { ...Default.args.task, state: "TASK_ARCHIVED" } },
+};
 ```
+
+In our stories files we use a syntax called Component Story Format (CSF). In this case we are using CSF3 which is a new updated version of CSF supported by the latest versions of Storybook. In this version of CSF there is a lot less boilerplate which makes it easier to get started.
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
@@ -75,167 +100,84 @@ There are two basic levels of organization in Storybook: the component and its c
   - Story
   - Story
 
-To initiate Storybook we first call the `storiesOf()` function to register the component. We add a display name for the component –the name that appears on the sidebar in the Storybook app.
+To tell Storybook about the component we are documenting, we create a `default` export that contains:
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine in the test UI if a button click is successful.
+- `component` -- the component itself
+- `title` -- how to refer to the component in the sidebar of the Storybook app
+- `argTypes` -- allows us to specify the types of our args, here we use it to define actions which will log whenever that interaction takes place
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actions` variable and use React's `{...actions}` props expansion to pass them all at once. `<Task {...actions}>` is equivalent to `<Task onPinTask={actions.onPinTask} onArchiveTask={actions.onArchiveTask}>`.
+To define our stories we export an object with an `args` property. Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes, so does the component.
 
-Another nice thing about bundling the `actions` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
-To define our stories, we call `add()` once for each of our test states to generate a story. The action story is a function that returns a rendered element (i.e. a component class with a set of props) in a given state---exactly like a [Stateless Functional Component](https://reactjs.org/docs/components-and-props.html).
+Now that we've set up the basics lets re-run `yarn storybook` and see our changes. If you already have Storybook running you can also run `yarn storybook-generate` to regenerate the `storybook.requires.js` file.
 
-When creating a story we use a base task (`task`) to build out the shape of the task the component expects. This is typically modelled from what the true data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+You should see a UI that looks like this:
+![a gif showing the task component in storybook](/intro-to-storybook/react-native-task-component.gif)
 
-<div class="aside">
-<a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
-</div>
-
-## Config
-
-We also have to make one small change to the Storybook configuration setup (`storybook/index.js`) so it notices our recently created stories.
-
-```js:title=storybook/index.js
-import { getStorybookUI, configure } from '@storybook/react-native';
-
-import './rn-addons';
-
-// import stories
-configure(() => {
-  require('../components/Task.stories.js');
-}, module);
-
-const StorybookUIRoot = getStorybookUI({
-  asyncStorage: null,
-});
-
-export default StorybookUIRoot;
-```
-
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states in your simulator:
-
-<video autoPlay muted playsInline loop>
-  <source
-    src="/intro-to-storybook//inprogress-task-states.mp4"
-    type="video/mp4"
-  />
-</video>
+You can use the Sidebar tab to swap between stories, the Canvas tab to see the current story and the addons tab to interact with args and actions.
 
 ## Build out the states
 
-Now we have Storybook set up, styles imported, and test cases built out, we can quickly start the work of implementing the HTML of the component to match the design.
+Now we can start building out our component to match the designs.
 
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
-```js:title=components/Task.js
-import * as React from 'react';
-import { TextInput, SafeAreaView, View, TouchableOpacity } from 'react-native';
-import { styles } from '../constants/globalStyles';
-import PercolateIcons from '../constants/Percolate';
+```jsx:title=components/Task.jsx
+import { MaterialIcons } from "@expo/vector-icons";
+import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { styles } from "./styles";
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+export const Task = ({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}) => {
   return (
-    <SafeAreaView style={styles.ListItem}>
+    <View style={styles.listItem}>
       <TouchableOpacity onPress={() => onArchiveTask(id)}>
-        {state !== 'TASK_ARCHIVED' ? (
-          <View style={styles.CheckBox} />
+        {state !== "TASK_ARCHIVED" ? (
+          <MaterialIcons
+            name="check-box-outline-blank"
+            size={24}
+            color="#26c6da"
+          />
         ) : (
-          <PercolateIcons name="check" size={20} color={'#2cc5d2'} />
+          <MaterialIcons name="check-box" size={24} color="#26c6da" />
         )}
       </TouchableOpacity>
       <TextInput
         placeholder="Input Title"
-        style={
-          state === 'TASK_ARCHIVED' ? styles.ListItemInputTaskArchived : styles.ListItemInputTask
-        }
         value={title}
         editable={false}
+        style={
+          state === "TASK_ARCHIVED"
+            ? styles.listItemInputTaskArchived
+            : styles.listItemInputTask
+        }
       />
       <TouchableOpacity onPress={() => onPinTask(id)}>
-        <PercolateIcons
+        <MaterialIcons
           name="star"
-          size={20}
-          color={state !== 'TASK_PINNED' ? '#eee' : '#26c6da'}
+          size={24}
+          color={state !== "TASK_PINNED" ? "#eee" : "#26c6da"}
         />
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
-}
-```
-
-The additional markup from above combined with the styling we created earlier yields the following UI:
-
-<video autoPlay muted playsInline loop>
-  <source
-    src="/intro-to-storybook/finished-task-states.mp4"
-    type="video/mp4"
-  />
-</video>
-
-## Specify data requirements
-
-It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self documenting, it also helps catch problems early.
-
-```js:title=components/Task.js
-import * as React from 'react';
-import PropTypes from 'prop-types';
-
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
-  // ...
-}
-
-Task.propTypes = {
-  task: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired,
-  }),
-  onArchiveTask: PropTypes.func,
-  onPinTask: PropTypes.func,
 };
 ```
 
-Now a warning in development will appear if the Task component is misused.
+When you're done, it should look like this:
 
-<div class="aside">
-An alternative way to achieve the same purpose is to use a JavaScript type system like TypeScript to create a type for the component properties.
-</div>
+![a gif showing the task component in storybook](/intro-to-storybook/react-native-task-component-completed.gif)
 
 ## Component built!
 
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
+We’ve now successfully built out a component without needing a server or running the entire application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
 As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
 
-## Automated Testing
-
-Storybook gave us a great way to visually test our application during construction. The ‘stories’ will help ensure we don’t break our Task visually as we continue to develop the app. However, it is a completely manual process at this stage, and someone has to go to the effort of clicking through each test state and ensuring it renders well and without errors or warnings. Can’t we do that automatically?
-
-### Snapshot testing
-
-Snapshot testing refers to the practice of recording the “known good” output of a component for a given input and then flagging the component whenever the output changes in future. This complements Storybook, because it’s a quick way to view the new version of a component and check out the changes.
-
 <div class="aside">
-Make sure your components render data that doesn't change, so that your snapshot tests won't fail each time. Watch out for things like dates or randomly generated values.
+💡 Don't forget to commit your changes with git!
 </div>
-
-With the [Storyshots addon](https://github.com/storybooks/storybook/tree/master/addons/storyshots) a snapshot test is created for each of the stories. Use it by adding a development dependency on the package:
-
-```shell
-yarn add -D @storybook/addon-storyshots
-```
-
-Then create an `components/__tests__/storybook.test.js` file with the following:
-
-```js:title=components/__tests__/storybook.test.js
-import initStoryshots from '@storybook/addon-storyshots';
-initStoryshots();
-```
-
-Once the above is done, we can run `yarn test` and see the following output:
-
-![Task test runner](/intro-to-storybook/task-testrunner.png)
-
-We now have a snapshot test for each of our `Task` stories. If we change the implementation of `Task`, we’ll be prompted to verify the changes.
-
-<div class="aside">Should your snapshot tests fail at this stage, you must update the existing snapshots by running the test script with the flag -u. Or create a new script to address this issue.</div>

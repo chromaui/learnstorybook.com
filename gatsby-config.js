@@ -31,7 +31,7 @@ module.exports = {
           ar: 6.3,
         },
         'react-native': {
-          en: 5.3,
+          en: 6.5,
           es: 5.3,
         },
         vue: {
