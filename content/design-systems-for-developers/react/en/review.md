@@ -101,7 +101,15 @@ jobs:
     runs-on: ubuntu-latest
     # The list of steps that the action will go through
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        #In order for Chromatic to correctly determine baseline commits, we need access to the full Git history graph
+        with: 
+          fetch-depth: 0
+        #👇 This tutorial is using node 16
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: 'yarn'
       - run: yarn
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
