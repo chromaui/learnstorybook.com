@@ -61,8 +61,6 @@ The same test case is used in both scenarios, only the method of verification ch
 Let's focus on that first scenario for now. In Storybook, a test is as simple as rendering a React element. To write a visual test case, a "story" in Storybook parlance, we outline the states of the component we're interested in. The code sample below shows how you'd write visual tests for `InboxTask`, `SnoozedTask`, and `PinnedTask`.
 
 ```js:title=src/components/Task.stories.js
-import React from 'react';
-
 import Task from './Task';
 
 export default {
@@ -70,34 +68,35 @@ export default {
   title: 'Task',
 };
 
-const Template = args => <Task {...args} />;
-
-export const InboxTask = Template.bind({});
-InboxTask.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
-    boardName: 'on Test Board',
+export const InboxTask = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Test Task',
+      state: 'TASK_INBOX',
+      updatedAt: new Date(2023, 0, 1, 9, 0),
+      boardName: 'On Test Board',
+    },
   },
 };
 
-export const SnoozedTask = Template.bind({});
-SnoozedTask.args = {
-  task: {
-    // Shaping the stories through args composition.
-    ...InboxTask.args.task,
-    state: 'TASK_SNOOZED',
+export const SnoozedTask = {
+  args: {
+    task: {
+      // Shaping the stories through args composition.
+      ...InboxTask.args.task,
+      state: 'TASK_SNOOZED',
+    },
   },
 };
 
-export const PinnedTask = Template.bind({});
-PinnedTask.args = {
-  task: {
-    // Shaping the stories through args composition.
-    ...InboxTask.args.task,
-    state: 'TASK_PINNED',
+export const PinnedTask = {
+  args: {
+    task: {
+      // Shaping the stories through args composition.
+      ...InboxTask.args.task,
+      state: 'TASK_PINNED',
+    },
   },
 };
 ```
