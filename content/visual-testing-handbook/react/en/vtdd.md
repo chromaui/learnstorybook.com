@@ -1,7 +1,7 @@
 ---
 title: 'Visual TDD'
 description: 'Write your first visual tests'
-commit: '109652d'
+commit: '5031fdf'
 ---
 
 Now that the basics are covered let’s jump into the details. This example demonstrates building out a state of a `CommentList` component using **Visual TDD** with Storybook.
@@ -36,11 +36,9 @@ yarn
 
 Next, we’ll build the simplest-possible `CommentList` implementation so that we can ensure our tests are set up correctly.
 
-Inside your `src` directory, create a new folder called `components`, then by a new file called `CommentList.js` with the following content:
+Inside your `src` directory, create a new folder called `components`, then by a new file called `CommentList.jsx` with the following content:
 
-```js:title=src/components/CommentList.js
-import React from 'react';
-
+```jsx:title=src/components/CommentList.jsx
 import PropTypes from 'prop-types';
 
 export default function CommentList({ loading, comments, totalCount }) {
@@ -93,8 +91,6 @@ Now that we have a basic implementation, we can build our test states. Storybook
 Create a new file called `CommentList.stories.js` in `src/components` and add the following:
 
 ```js:title=src/components/CommentList.stories.js
-import React from 'react';
-
 import CommentList from './CommentList';
 
 export default {
@@ -102,65 +98,68 @@ export default {
   title: 'CommentList',
 };
 
-const Template = args => <CommentList {...args} />;
-
-export const Paginated = Template.bind({});
-Paginated.args = {
-  comments: [
-    {
-      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-      author: {
-        name: 'Luke',
-        avatar: 'luke.jpeg',
+export const Paginated = {
+  args: {
+    comments: [
+      {
+        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        author: {
+          name: 'Luke',
+          avatar: 'luke.jpeg',
+        },
       },
-    },
-    {
-      text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-      author: {
-        name: 'Leah',
-        avatar: 'leah.jpeg',
+      {
+        text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+        author: {
+          name: 'Leah',
+          avatar: 'leah.jpeg',
+        },
       },
-    },
-    {
-      text: 'Duis aute irure dolor in reprehenderit in voluptate.',
-      author: {
-        name: 'Han',
-        avatar: 'han.jpeg',
+      {
+        text: 'Duis aute irure dolor in reprehenderit in voluptate.',
+        author: {
+          name: 'Han',
+          avatar: 'han.jpeg',
+        },
       },
-    },
-    {
-      text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-      author: {
-        name: 'Poe',
-        avatar: 'poe.jpeg',
+      {
+        text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+        author: {
+          name: 'Poe',
+          avatar: 'poe.jpeg',
+        },
       },
-    },
-    {
-      text: 'Duis aute irure dolor in reprehenderit in voluptate.',
-      author: {
-        name: 'Finn',
-        avatar: 'finn.jpeg',
+      {
+        text: 'Duis aute irure dolor in reprehenderit in voluptate.',
+        author: {
+          name: 'Finn',
+          avatar: 'finn.jpeg',
+        },
       },
-    },
-  ],
-  totalCount: 10,
+    ],
+    totalCount: 10,
+  },
 };
 
-export const HasData = Template.bind({});
-HasData.args = {
-  comments: [...Paginated.args.comments.slice(0, 3)],
-  totalCount: 3,
-};
-export const Loading = Template.bind({});
-Loading.args = {
-  comments: [],
-  loading: true,
+export const HasData = {
+  args: {
+    comments: [...Paginated.args.comments.slice(0, 3)],
+    totalCount: 3,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  ...Loading.args,
-  loading: false,
+export const Loading = {
+  args: {
+    comments: [],
+    Loading: true,
+  },
+};
+
+export const Empty = {
+  args: {
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
@@ -190,9 +189,7 @@ yarn add styled-components
 
 Update your `CommentList.js` file to the following:
 
-```diff:title=src/components/CommentList.js
-import React from 'react';
-
+```diff:title=src/components/CommentList.jsx
 import PropTypes from 'prop-types';
 
 + import styled, { createGlobalStyle } from 'styled-components';
