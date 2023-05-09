@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: '94b134e'
+commit: '87a5a91'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -83,7 +83,7 @@ export default store;
 
 Then we’ll update our `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
-```js:title=src/components/TaskList.js
+```jsx:title=src/components/TaskList.jsx
 import React from 'react';
 import Task from './Task';
 import { useDispatch, useSelector } from 'react-redux';
@@ -169,13 +169,11 @@ Don't worry about it. We'll take care of it in the next chapter.
 
 Our Storybook stories have stopped working with this change because our `Tasklist` is now a connected component since it relies on a Redux store to retrieve and update our tasks.
 
-![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
+![Broken tasklist](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
 
 We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
 
-```js:title=src/components/TaskList.stories.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
@@ -225,65 +223,69 @@ const Mockstore = ({ taskboxState, children }) => (
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+  tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };
 
-const Template = () => <TaskList />;
+export const Default = {
+  decorators: [
+    (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
+  ],
+};
 
-export const Default = Template.bind({});
-Default.decorators = [
-  (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
-];
+export const WithPinnedTasks = {
+  decorators: [
+    (story) => {
+      const pinnedtasks = [
+        ...MockedState.tasks.slice(0, 5),
+        { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+      ];
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.decorators = [
-  (story) => {
-    const pinnedtasks = [
-      ...MockedState.tasks.slice(0, 5),
-      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-    ];
+      return (
+        <Mockstore
+          taskboxState={{
+            ...MockedState,
+            tasks: pinnedtasks,
+          }}
+        >
+          {story()}
+        </Mockstore>
+      );
+    },
+  ],
+};
 
-    return (
+export const Loading = {
+  decorators: [
+    (story) => (
       <Mockstore
         taskboxState={{
           ...MockedState,
-          tasks: pinnedtasks,
+          status: 'loading',
         }}
       >
         {story()}
       </Mockstore>
-    );
-  },
-];
+    ),
+  ],
+};
 
-export const Loading = Template.bind({});
-Loading.decorators = [
-  (story) => (
-    <Mockstore
-      taskboxState={{
-        ...MockedState,
-        status: 'loading',
-      }}
-    >
-      {story()}
-    </Mockstore>
-  ),
-];
+export const Empty = {
+  decorators: [
+    (story) => (
+      <Mockstore
+        taskboxState={{
+          ...MockedState,
+          tasks: [],
+        }}
+      >
+        {story()}
+      </Mockstore>
+    ),
+  ],
+};
 
-export const Empty = Template.bind({});
-Empty.decorators = [
-  (story) => (
-    <Mockstore
-      taskboxState={{
-        ...MockedState,
-        tasks: [],
-      }}
-    >
-      {story()}
-    </Mockstore>
-  ),
-];
 ```
 
 <div class="aside">
@@ -292,7 +294,7 @@ Empty.decorators = [
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-4-optimized.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0-optimized.mp4"
     type="video/mp4"
   />
 </video>

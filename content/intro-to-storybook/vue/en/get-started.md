@@ -2,7 +2,7 @@
 title: 'Storybook for Vue tutorial'
 tocTitle: 'Get started'
 description: 'Set up Vue Storybook in your development environment'
-commit: '68c6ac9'
+commit: '42ac63a'
 ---
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for Vue; other editions exist for [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
@@ -32,19 +32,16 @@ yarn
 Now we can quickly check that the various environments of our application are working properly:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test:unit
-
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 8080:
-yarn serve
+# Run the frontend app proper on a port 5173:
+yarn dev
 ```
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
+Our main frontend app modalities: component development (Storybook), and the application itself.
 
-![3 modalities](/intro-to-storybook/app-three-modalities-vue.png)
+![Main modalities](/intro-to-storybook/app-main-modalities-vue.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 

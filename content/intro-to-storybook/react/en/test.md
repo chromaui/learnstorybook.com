@@ -45,7 +45,9 @@ git checkout -b change-task-background
 
 Change `src/components/Task.js` to the following:
 
-```diff:title=src/components/Task.js
+```diff:title=src/components/Task.jsx
+import React from 'react';
+
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
@@ -96,7 +98,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 This yields a new background color for the item.
 
-![task background change](/intro-to-storybook/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change-7-0.png)
 
 Add the file:
 

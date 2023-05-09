@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'e6e6cae'
+commit: 'bb2471f'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -32,7 +32,7 @@ import {
 
 const TaskBoxData = {
   tasks: [],
-  status: "idle",
+  status: 'idle',
   error: null,
 };
 
@@ -115,10 +115,13 @@ export default store;
 
 Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.js` in the `src/components` directory:
 
-```js:title=src/components/InboxScreen.js
+```jsx:title=src/components/InboxScreen.jsx
 import React, { useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import { fetchTasks } from '../lib/store';
+
 import TaskList from './TaskList';
 
 export default function InboxScreen() {
@@ -154,9 +157,12 @@ export default function InboxScreen() {
 
 We also need to change our `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
-```diff:title=src/App.js
-- import logo from './logo.svg';
-- import './App.css';
+```diff:title=src/App.jsx
+- import { useState } from 'react'
+- import reactLogo from './assets/react.svg'
+- import viteLogo from '/vite.svg'
+- import './App.css'
+
 + import './index.css';
 + import store from './lib/store';
 
@@ -164,22 +170,29 @@ We also need to change our `App` component to render the `InboxScreen` (eventual
 + import InboxScreen from './components/InboxScreen';
 
 function App() {
+- const [count, setCount] = useState(0)
   return (
 -   <div className="App">
--     <header className="App-header">
--       <img src={logo} className="App-logo" alt="logo" />
--       <p>
--         Edit <code>src/App.js</code> and save to reload.
--       </p>
--       <a
--         className="App-link"
--         href="https://reactjs.org"
--         target="_blank"
--         rel="noopener noreferrer"
--       >
--         Learn React
+-     <div>
+-       <a href="https://vitejs.dev" target="_blank">
+-         <img src={viteLogo} className="logo" alt="Vite logo" />
 -       </a>
--     </header>
+-       <a href="https://reactjs.org" target="_blank">
+-         <img src={reactLogo} className="logo react" alt="React logo" />
+-       </a>
+-     </div>
+-     <h1>Vite + React</h1>
+-     <div className="card">
+-       <button onClick={() => setCount((count) => count + 1)}>
+-         count is {count}
+-       </button>
+-       <p>
+-         Edit <code>src/App.jsx</code> and save to test HMR
+-       </p>
+-     </div>
+-     <p className="read-the-docs">
+-       Click on the Vite and React logos to learn more
+-     </p>
 -   </div>
 +   <Provider store={store}>
 +     <InboxScreen />
@@ -193,9 +206,7 @@ However, where things get interesting is in rendering the story in Storybook.
 
 As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.js`:
 
-```js:title=src/components/InboxScreen.stories.js
-import React from 'react';
-
+```jsx:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
 import store from '../lib/store';
 
@@ -205,17 +216,18 @@ export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+  tags: ['autodocs'],
 };
 
-const Template = () => <InboxScreen />;
+export const Default = {};
 
-export const Default = Template.bind({});
-export const Error = Template.bind({});
+export const Error = {};
+
 ```
 
 We can quickly spot an issue with the `error` story. Instead of displaying the right state, it shows a list of tasks. One way to sidestep this issue would be to provide a mocked version for each state, similar to what we did in the last chapter. Instead, we'll use a well-known API mocking library alongside a Storybook addon to help us solve this issue.
 
-![Broken inbox screen state](/intro-to-storybook/broken-inbox-error-state-optimized.png)
+![Broken inbox screen state](/intro-to-storybook/broken-inbox-error-state-7-0-optimized.png)
 
 ## Mocking API Services
 
@@ -240,26 +252,27 @@ import '../src/index.css';
 + // Initialize MSW
 + initialize();
 
-+ // Provide the MSW addon decorator globally
-+ export const decorators = [mswDecorator];
-
-//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
+/** @type { import('@storybook/react').Preview } */
+const preview = {
++ decorators: [mswDecorator],
+  parameters: {
+    actions: { argTypesRegex: "^on[A-Z].*" },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
     },
   },
 };
+
+export default preview;
+
 ```
 
 Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that mocks the remote API calls:
 
-```diff:title=src/components/InboxScreen.stories.js
-import React from 'react';
-
+```diff:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
 import store from '../lib/store';
 + import { rest } from 'msw';
@@ -270,37 +283,37 @@ export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+  tags: ['autodocs'],
 };
 
-const Template = () => <InboxScreen />;
-
-export const Default = Template.bind({});
-+ Default.parameters = {
+export const Default = {
++ parameters: {
 +   msw: {
 +     handlers: [
 +       rest.get(
-+         'https://jsonplaceholder.typicode.com/todos?userId=1',
++         "https://jsonplaceholder.typicode.com/todos?userId=1",
 +         (req, res, ctx) => {
 +           return res(ctx.json(MockedState.tasks));
 +         }
 +       ),
 +     ],
 +   },
-+ };
-
-export const Error = Template.bind({});
-+ Error.parameters = {
++ },
+};
+export const Error = {
++ parameters: {
 +   msw: {
 +     handlers: [
 +       rest.get(
-+         'https://jsonplaceholder.typicode.com/todos?userId=1',
++         "https://jsonplaceholder.typicode.com/todos?userId=1",
 +         (req, res, ctx) => {
 +           return res(ctx.status(403));
 +         }
 +       ),
 +     ],
 +   },
-+ };
++ },
+};
 ```
 
 <div class="aside">
@@ -312,7 +325,7 @@ Check your Storybook, and you'll see that the `error` story is now working as in
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized.mp4"
+    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized-7.0.mp4"
     type="video/mp4"
   />
 </video>
@@ -333,9 +346,7 @@ The `@storybook/addon-interactions` helps us visualize our tests in Storybook, p
 
 Let's see it in action! Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
 
-```diff:title=src/components/InboxScreen.stories.js
-import React from 'react';
-
+```diff:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
@@ -354,28 +365,26 @@ export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+  tags: ['autodocs'],
 };
 
-const Template = () => <InboxScreen />;
-
-export const Default = Template.bind({});
-Default.parameters = {
-  msw: {
-    handlers: [
-      rest.get(
-        'https://jsonplaceholder.typicode.com/todos?userId=1',
-        (req, res, ctx) => {
-          return res(ctx.json(MockedState.tasks));
-        }
-      ),
-    ],
+export const Default = {
+  parameters: {
+    msw: {
+      handlers: [
+        rest.get(
+          'https://jsonplaceholder.typicode.com/todos?userId=1',
+          (req, res, ctx) => {
+            return res(ctx.json(MockedState.tasks));
+          }
+        ),
+      ],
+    },
   },
-};
-
-+ Default.play = async ({ canvasElement }) => {
++ play: async ({ canvasElement }) => {
 +   const canvas = within(canvasElement);
 +   // Waits for the component to transition from the loading state
-+   await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
++   await waitForElementToBeRemoved(await canvas.findByTestId("loading"));
 +   // Waits for the component to be updated based on the store
 +   await waitFor(async () => {
 +     // Simulates pinning the first task
@@ -383,19 +392,20 @@ Default.parameters = {
 +     // Simulates pinning the third task
 +     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
 +   });
-+ };
-
-export const Error = Template.bind({});
-Error.parameters = {
-  msw: {
-    handlers: [
-      rest.get(
-        'https://jsonplaceholder.typicode.com/todos?userId=1',
-        (req, res, ctx) => {
-          return res(ctx.status(403));
-        }
-       ),
-    ],
++ },
+};
+export const Error = {
+  parameters: {
+    msw: {
+      handlers: [
+        rest.get(
+          'https://jsonplaceholder.typicode.com/todos?userId=1',
+          (req, res, ctx) => {
+            return res(ctx.status(403));
+          }
+        ),
+      ],
+    },
   },
 };
 ```
@@ -404,7 +414,7 @@ Check the `Default` story. Click the `Interactions` panel to see the list of int
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function-6-4.mp4"
+    src="/intro-to-storybook/storybook-interactive-stories-play-function-7-0.mp4"
     type="video/mp4"
   />
 </video>
