@@ -8,7 +8,7 @@ description: '汇总所有的知识并学习更多 Storybook 技巧'
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/vue)
 <br/>
 
-[🌎 **Deployed Storybook**](https://master--5ccbe484c994280020b6d128.chromatic.com)
+[🌎 **Deployed Storybook**](https://vue--5ccbe484c994280020b6d128.chromatic.com/)
 
 Storybook 对于 React，React Native，Vue，Angular，Svelte 及其他许多框架是一个强大的工具。它有一个蓬勃发展的社区人员和大量的插件。这篇介绍只是触及了其可能性的表面。我们相信，一旦您采用了 Storybook，你将会对其如何构建可靠 UI 的工作效率产生深刻的印象。
 

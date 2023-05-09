@@ -2,7 +2,6 @@
 title: 'Tester les composants UI'
 tocTitle: 'Les tests'
 description: 'Apprenez à tester les composants UI'
-commit: 8bf107e
 ---
 
 Aucun tutoriel de Storybook ne serait complet sans test. Les tests sont essentiels pour créer des interfaces utilisateur de haute qualité. Dans les systèmes modulaires, de minuscules ajustements peuvent entraîner des régressions majeures. Jusqu'à présent, nous avons rencontré trois types de tests:
