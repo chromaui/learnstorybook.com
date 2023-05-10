@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use the popular Controls addon'
-commit: '9b5a6d7'
+commit: '40befd8'
 ---
 
 Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
@@ -19,7 +19,7 @@ Fresh installs of Storybook include Controls out of the box. No extra configurat
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/controls-in-action-6-4.mp4"
+    src="/intro-to-storybook/controls-in-action-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -32,15 +32,17 @@ Storybook is a wonderful [component-driven development environment](https://www.
 
 With Controls, QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Considering the following example, what would happen to our `Task` if we added a **MASSIVE** string?
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case-6-4.png)
+![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case-7-0.png)
 
 That's not right! It looks like the text overflows beyond the bounds of the Task component.
 
 Controls allowed us to quickly verify different inputs to a component--in this case, a long string--and reduced the work required to discover UI problems.
 
-Now let's fix the issue with overflowing by adding a style to `Task.js`:
+Now let's fix the issue with overflowing by adding a style to `Task.jsx`:
 
-```diff:title=src/components/Task.js
+```diff:title=src/components/Task.jsx
+import React from 'react';
+
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
@@ -89,7 +91,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-![That's better.](/intro-to-storybook/edge-case-solved-with-controls-6-4.png)
+![That's better.](/intro-to-storybook/edge-case-solved-with-controls-7-0.png)
 
 Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
 
@@ -97,16 +99,17 @@ Problem solved! The text is now truncated when it reaches the boundary of the Ta
 
 In the future, we can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
 
-Add a new story for the long text case in `Task.stories.js`:
+Add a new story for the long text case in `Task.stories.jsx`:
 
-```js:title=src/components/Task.stories.js
+```js:title=src/components/Task.stories.jsx
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle = Template.bind({});
-LongTitle.args = {
-  task: {
-    ...Default.args.task,
-    title: longTitleString,
+export const LongTitle = {
+  args: {
+    task: {
+      ...Default.args.task,
+      title: longTitleString,
+    },
   },
 };
 ```
@@ -115,12 +118,12 @@ Now we can reproduce and work on this edge case with ease.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/task-stories-long-title-6-4.mp4"
+    src="/intro-to-storybook/task-stories-long-title-7-0.mp4"
     type="video/mp4"
   />
 </video>
 
-If we are [visual testing](/intro-to-storybook/react/en/test/), we'll also be informed if the truncating solution breaks. Obscure edge cases are liable to be forgotten without test coverage!
+If we are [visual testing](/intro-to-storybook/react/en/test/), we'll also be informed if the truncating solution breaks. Extreme edge cases are liable to be forgotten without test coverage!
 
 <div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
 

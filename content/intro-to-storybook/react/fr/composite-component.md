@@ -2,7 +2,7 @@
 title: 'Assembler un composant complexe'
 tocTitle: 'Composant complexe'
 description: 'Assembler un composant complexe à partir de composants plus simples'
-commit: '73d7821'
+commit: 'af8ccd1'
 ---
 
 Dans le précédent chapitre nous avons construit notre premier composant; ce chapitre prolonge ce que nous avons appris pour construire la TaskList, une liste de tâches. Combinons les composants ensemble et voyons ce qui se passe lorsqu'on introduit plus de complexité.

@@ -2,7 +2,7 @@
 title: 'Assemble a composite component'
 tocTitle: 'Composite component'
 description: 'Assemble a composite component out of simpler components'
-commit: '73d7821'
+commit: 'af8ccd1'
 ---
 
 Last chapter, we built our first component; this chapter extends what we learned to make TaskList, a list of Tasks. Let’s combine components together and see what happens when we introduce more complexity.
@@ -19,11 +19,11 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ## Get set up
 
-A composite component isn’t much different from the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.js` and `src/components/TaskList.stories.js`.
+A composite component isn’t much different from the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.jsx` and `src/components/TaskList.stories.jsx`.
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```js:title=src/components/TaskList.js
+```jsx:title=src/components/TaskList.jsx
 import React from 'react';
 
 import Task from './Task';
@@ -54,56 +54,56 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 Next, create `Tasklist`’s test states in the story file.
 
-```js:title=src/components/TaskList.stories.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
+
 import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+  tags: ['autodocs'],
 };
 
-const Template = args => <TaskList {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in Task.stories.js.
-  tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ],
+export const Default = {
+  args: {
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in Task.stories.jsx.
+    tasks: [
+      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    ],
+  },
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const WithPinnedTasks = {
+  args: {
+    tasks: [
+      ...Default.args.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
+export const Loading = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
@@ -117,7 +117,7 @@ Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -126,7 +126,7 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough, but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases, we wouldn’t create a new component just to add a wrapper. But the **real complexity** of the `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
-```js:title=src/components/TaskList.js
+```jsx:title=src/components/TaskList.jsx
 import React from 'react';
 
 import Task from './Task';
@@ -169,8 +169,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === "TASK_PINNED"),
-    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">
@@ -186,7 +186,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -197,7 +197,7 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 
 As the component grows, so do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the `propTypes` you defined in `Task` earlier.
 
-```diff:title=src/components/TaskList.js
+```diff:title=src/components/TaskList.jsx
 import React from 'react';
 + import PropTypes from 'prop-types';
 
@@ -241,8 +241,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === "TASK_PINNED"),
-    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">

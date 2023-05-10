@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: 'efa06ff'
+commit: '4355037'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -20,11 +20,11 @@ As we start to build `Task`, we first write our test states that correspond to t
 
 ## Get set up
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.js` and `src/components/Task.stories.js`.
+First, let’s create the task component and its accompanying story file: `src/components/Task.jsx` and `src/components/Task.stories.jsx`.
 
 We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```js:title=src/components/Task.js
+```jsx:title=src/components/Task.jsx
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -38,44 +38,44 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos app.
+Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos application.
 
 Below we build out Task’s three test states in the story file:
 
-```js:title=src/components/Task.stories.js
-import React from 'react';
-
+```jsx:title=src/components/Task.stories.jsx
 import Task from './Task';
 
 export default {
   component: Task,
   title: 'Task',
+  tags: ['autodocs'],
 };
 
-const Template = args => <Task {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
+export const Default = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Test Task',
+      state: 'TASK_INBOX',
+    },
   },
 };
 
-export const Pinned = Template.bind({});
-Pinned.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_PINNED',
+export const Pinned = {
+  args: {
+    task: {
+      ...Default.args.task,
+      state: 'TASK_PINNED',
+    },
   },
 };
 
-export const Archived = Template.bind({});
-Archived.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_ARCHIVED',
+export const Archived = {
+  args: {
+    task: {
+      ...Default.args.task,
+      state: 'TASK_ARCHIVED',
+    },
   },
 };
 ```
@@ -87,26 +87,17 @@ There are two basic levels of organization in Storybook: the component and its c
   - Story
   - Story
 
-To tell Storybook about the component we are documenting, we create a `default` export that contains:
+To tell Storybook about the component we are documenting and testing, we create a `default` export that contains:
 
-- `component`-- the component itself
-- `title`-- how to refer to the component in the sidebar of the Storybook app
+- `component` -- the component itself
+- `title` -- how to group or categorize the component in the Storybook sidebar
+- `tags` -- to automatically generate documentation for our components
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e., a component with a set of props) in a given state---exactly like a [Functional Component](https://reactjs.org/docs/components-and-props.html#function-and-class-components).
-
-As we have multiple permutations of our component, assigning it to a `Template` variable is convenient. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
-
-<div class="aside">
-💡 <code>Template.bind({})</code> is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">standard JavaScript</a> technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
-</div>
+To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/react/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
 
 Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes, so does the component.
 
 When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
-
-<div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
-</div>
 
 ## Config
 
@@ -115,27 +106,25 @@ We'll need to make a couple of changes to Storybook's configuration files so it 
 Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
 
 ```diff:title=.storybook/main.js
-module.exports = {
-- stories: [
--   '../src/**/*.stories.mdx',
--   '../src/**/*.stories.@(js|jsx|ts|tsx)'
-- ],
-+ stories: ['../src/components/**/*.stories.js'],
+/** @type { import('@storybook/react-vite').StorybookConfig } */
+const config = {
+- stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
++ stories: ['../src/components/**/*.stories.@(js|jsx)'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/preset-create-react-app',
     '@storybook/addon-interactions',
   ],
-  framework: '@storybook/react',
-  core: {
-    builder: '@storybook/builder-webpack5',
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
   },
-  features: {
-    interactionsDebugger: true,
+  docs: {
+    autodocs: 'tag',
   },
 };
+export default config;
 ```
 
 After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
@@ -144,15 +133,20 @@ After completing the change above, inside the `.storybook` folder, change your `
 + import '../src/index.css';
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
+/** @type { import('@storybook/react').Preview } */
+const preview = {
+  parameters: {
+    actions: { argTypesRegex: "^on[A-Z].*" },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
     },
   },
 };
+
+export default preview;
 ```
 
 [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we're going to use them to configure how the `actions` (mocked callbacks) are handled.
@@ -163,7 +157,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -174,7 +168,7 @@ Now that we have Storybook set up, styles imported, and test cases built out, we
 
 The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 
-```js:title=src/components/Task.js
+```jsx:title=src/components/Task.jsx
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -228,7 +222,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states-6-0.mp4"
+    src="/intro-to-storybook/finished-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -237,7 +231,7 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self-documenting, but it also helps catch problems early.
 
-```diff:title=src/components/Task.js
+```diff:title=src/components/Task.jsx
 import React from 'react';
 + import PropTypes from 'prop-types';
 
@@ -331,27 +325,28 @@ yarn add --dev @storybook/addon-a11y
 Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
 
 ```diff:title=.storybook/main.js
-module.exports = {
-  stories: ['../src/components/**/*.stories.js'],
+/** @type { import('@storybook/react-vite').StorybookConfig } */
+const config = {
+  stories: ['../src/components/**/*.stories.@(js|jsx)'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/preset-create-react-app',
     '@storybook/addon-interactions',
 +   '@storybook/addon-a11y',
   ],
-  framework: '@storybook/react',
-  core: {
-    builder: '@storybook/builder-webpack5',
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
   },
-  features: {
-    interactionsDebugger: true,
+  docs: {
+    autodocs: 'tag',
   },
 };
+export default config;
 ```
 
-![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
 Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
 

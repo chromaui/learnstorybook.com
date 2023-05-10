@@ -2,7 +2,7 @@
 title: 'Storybook for React tutorial'
 tocTitle: 'Get started'
 description: 'Set up Storybook in your development environment'
-commit: '9245261'
+commit: 'b3cfa66'
 ---
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React; other editions exist for [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
@@ -32,23 +32,16 @@ yarn
 Now we can quickly check that the various environments of our application are working properly:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test --watchAll
-
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 3000:
-yarn start
+# Run the frontend app proper on port 5173:
+yarn dev
 ```
 
-<div class="aside"> 
-💡 Notice the <code>--watchAll</code> flag in the test command, including this flag ensures all tests run. While you progress through this tutorial you will be introduced to different test scenarios. You might want to consider adjusting your <code>package.json</code>'s scripts accordingly.
-</div>
+Our main frontend app modalities: component development (Storybook), and the application itself.
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
-
-![3 modalities](/intro-to-storybook/app-three-modalities.png)
+![Main modalities](/intro-to-storybook/app-main-modalities-react.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 

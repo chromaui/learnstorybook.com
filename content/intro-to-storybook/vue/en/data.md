@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: '4aee860'
+commit: '77762bd'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -113,7 +113,7 @@ In `src/components/PureTaskList.vue`:
   </div>
 </template>
 <script>
-import Task from './Task';
+import Task from './Task.vue';
 import { reactive, computed } from 'vue';
 
 export default {
@@ -161,7 +161,7 @@ In `src/components/TaskList.vue`:
 </template>
 
 <script>
-import PureTaskList from './PureTaskList';
+import PureTaskList from './PureTaskList.vue';
 
 import { computed } from 'vue';
 
@@ -178,8 +178,8 @@ export default {
     const tasks = computed(() => store.getFilteredTasks);
 
     //👇 Dispatches the actions back to the store
-    const archiveTask= task => store.archiveTask(task);
-    const pinTask = task => store.pinTask(task);
+    const archiveTask = (task) => store.archiveTask(task);
+    const pinTask = (task) => store.pinTask(task);
 
     return {
       tasks,
@@ -201,65 +201,60 @@ import * as TaskStories from './Task.stories';
 export default {
 + component: PureTaskList,
 + title: 'PureTaskList',
-  decorators: [
-    () => ({ template: '<div style="margin: 3em;"><story/></div>' }),
-  ],
+  tags: ['autodocs'],
+  decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
   argTypes: {
     onPinTask: {},
     onArchiveTask: {},
   },
 };
 
-const Template = (args, { argTypes }) => ({
-+ components: { PureTaskList },
- setup() {
-    return { args, ...TaskStories.actionsData };
+export const Default = {
+  args: {
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in task.stories.js.
+    tasks: [
+      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    ],
   },
-+ template: '<PureTaskList v-bind="args" />',
-});
-
-export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in task.stories.js.
-  tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ],
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const WithPinnedTasks = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Default story.
+    tasks: [
+      ...Default.args.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
+export const Loading = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-puretasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>

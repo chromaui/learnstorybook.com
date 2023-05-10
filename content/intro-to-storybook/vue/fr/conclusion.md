@@ -7,7 +7,7 @@ Félicitations ! Vous avez créé votre première interface utilisateur avec Sto
 
 [📕 **Projet GitHub : chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/vue)
 <br/>
-[🌎 **Instance Storybook déployée**](https://master--5ccbe484c994280020b6d128.chromatic.com)
+[🌎 **Instance Storybook déployée**](https://vue--5ccbe484c994280020b6d128.chromatic.com/)
 
 Storybook est un outil puissant pour React, React Native, Vue, Angular, Svelte et beaucoup d'autres frameworks. Il possède une importante communauté de développeurs et un nombre important d'extensions. Cette introduction survole la surface de ce qui est possible de faire. Nous sommes convaincus qu'une fois que vous aurez adopté Storybook, vous serez impressionnés par la manière de produire des interfaces utilisateurs durables.
 
