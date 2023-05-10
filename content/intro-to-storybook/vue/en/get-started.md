@@ -35,7 +35,7 @@ Now we can quickly check that the various environments of our application are wo
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on a port 5173:
+# Run the frontend app proper on port 5173:
 yarn dev
 ```
 

@@ -222,7 +222,6 @@ export default {
 export const Default = {};
 
 export const Error = {};
-
 ```
 
 We can quickly spot an issue with the `error` story. Instead of displaying the right state, it shows a list of tasks. One way to sidestep this issue would be to provide a mocked version for each state, similar to what we did in the last chapter. Instead, we'll use a well-known API mocking library alongside a Storybook addon to help us solve this issue.
@@ -252,6 +251,7 @@ import '../src/index.css';
 + // Initialize MSW
 + initialize();
 
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 /** @type { import('@storybook/react').Preview } */
 const preview = {
 + decorators: [mswDecorator],
@@ -267,7 +267,6 @@ const preview = {
 };
 
 export default preview;
-
 ```
 
 Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that mocks the remote API calls:

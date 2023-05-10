@@ -105,7 +105,6 @@ export const Empty = {
     loading: false,
   },
 };
-
 ```
 
 <div class="aside">

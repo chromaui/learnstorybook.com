@@ -285,7 +285,6 @@ export const Empty = {
     ),
   ],
 };
-
 ```
 
 <div class="aside">
