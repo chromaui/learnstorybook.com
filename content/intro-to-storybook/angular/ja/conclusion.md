@@ -5,9 +5,10 @@ description: '今までの知識をまとめて、Storybook のテクニック�
 
 Storybook で最初の UI を作成しましたね。お疲れ様でした！ここまでの章で UI コンポーネントを作成し、複合させ、テストし、デプロイする方法を学びました。同じように進めていれば、リポジトリーとデプロイされた Storybook は以下のリンクと同じようになっていることでしょう。
 
-[📕 **GitHub のリポジトリー: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
+[📕 **GitHub のリポジトリー: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/angular)
 <br/>
-[🌎 **デプロイされた Storybook**](https://master--5ccbe484c994280020b6d128.chromatic.com)
+
+[🌎 **デプロイされた Storybook**](https://angular--5ccbe484c994280020b6d128.chromatic.com/)
 
 Storybook は React、React Native、Vue、Angular、Svelte、その他のフレームワークにとって強力なツールです。開発者コミュニティーも活発でアドオンも充実しています。このチュートリアルで紹介した内容は、Storybook で出来ることの一部にすぎません。一度 Storybook を導入すれば、強固な UI を効率的に作れることに驚くことでしょう。
 

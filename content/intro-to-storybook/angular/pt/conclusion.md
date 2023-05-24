@@ -5,9 +5,10 @@ description: 'Fusão de todo o conhecimento adquirido e aprendizagem de técnica
 
 Parabéns! Acabou de criar o primeiro interface de utilizador com o Storybook. Ao longo do caminho, aprendeu a criar, compor, testar e implementar componentes de interface de utilizador. Se seguiu o tutorial o repositório e o Storybook deverão ficar assim:
 
-[📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
+[📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/angular)
 <br/>
-[🌎 **Storybook implementado**](https://master--5ccbe484c994280020b6d128.chromatic.com)
+
+[🌎 **Storybook implementado**](https://angular--5ccbe484c994280020b6d128.chromatic.com/)
 
 O Storybook é uma ferramenta bastante poderosa para React, Vue e Angular.
 Possui uma comunidade de programadores próspera e uma grande variedade de extras. Esta introdução arranha a superfície do que é possível fazer. Estamos confiantes que ao adotar o Storybook, ficará impressionado com o quão produtivo é construir IUs duradouros.

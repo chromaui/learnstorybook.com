@@ -124,7 +124,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `excludeStories`-- additional information required by the story but should not be rendered in Storybook
 - `argTypes` -- specify the [args](https://storybook.js.org/docs/vue/api/argtypes) behavior in each story
 
-To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/react/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
+To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/vue/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
 
 Arguments or [`args`](https://storybook.js.org/docs/vue/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes, so does the component.
 

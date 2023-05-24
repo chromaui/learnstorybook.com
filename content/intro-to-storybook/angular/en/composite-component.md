@@ -2,7 +2,7 @@
 title: 'Assemble a composite component'
 tocTitle: 'Composite component'
 description: 'Assemble a composite component out of simpler components'
-commit: '8e6d35e'
+commit: '6fab2bd'
 ---
 
 Last chapter, we built our first component; this chapter extends what we learned to make TaskList, a list of Tasks. Let’s combine components together and see what happens when we introduce more complexity.
@@ -44,7 +44,7 @@ import { Task } from '../models/task.model';
     </div>
   `,
 })
-export class TaskListComponent {
+export default class TaskListComponent {
   /** The list of tasks */
   @Input() tasks: Task[] = [];
 
@@ -66,17 +66,21 @@ export class TaskListComponent {
 Next, create `Tasklist`’s test states in the story file.
 
 ```ts:title=src/app/components/task-list.stories.ts
-import { componentWrapperDecorator, moduleMetadata, Meta, Story } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
+
+import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
-import { TaskListComponent } from './task-list.component';
-import { TaskComponent } from './task.component';
+import TaskListComponent from './task-list.component';
+import TaskComponent from './task.component';
 
 import * as TaskStories from './task.stories';
 
-export default {
+const meta: Meta<TaskListComponent> = {
   component: TaskListComponent,
+  title: 'TaskList',
+  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       //👇 Imports both components to allow component composition with Storybook
@@ -84,53 +88,59 @@ export default {
       imports: [CommonModule],
     }),
     //👇 Wraps our stories with a decorator
-    componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
+    componentWrapperDecorator(
+      (story) => `<div style="margin: 3em">${story}</div>`
+    ),
   ],
-  title: 'TaskList',
-} as Meta;
+  render: (args: TaskListComponent) => ({
+    props: {
+      ...args,
+      onPinTask: TaskStories.actionsData.onPinTask,
+      onArchiveTask: TaskStories.actionsData.onArchiveTask,
+    },
+  }),
+};
+export default meta;
+type Story = StoryObj<TaskListComponent>;
 
-const Template: Story = args => ({
-  props: {
-    ...args,
-    onPinTask: TaskStories.actionsData.onPinTask,
-    onArchiveTask: TaskStories.actionsData.onArchiveTask,
+export const Default: Story = {
+  args: {
+    tasks: [
+      { ...TaskStories.Default.args?.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args?.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args?.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args?.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args?.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args?.task, id: '6', title: 'Task 6' },
+    ],
   },
-});
-
-export const Default = Template.bind({});
-Default.args = {
-  tasks: [
-    { ...TaskStories.Default.args?.['task'], id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args?.['task'], id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args?.['task'], id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args?.['task'], id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args?.['task'], id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args?.['task'], id: '6', title: 'Task 6' },
-  ],
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args['tasks'].slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const WithPinnedTasks: Story = {
+  args: {
+    tasks: [
+      // Shaping the stories through args composition.
+      // Inherited data coming from the Default story.
+      ...(Default.args?.tasks?.slice(0, 5) || []),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
+export const Loading: Story = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty: Story = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
@@ -144,7 +154,7 @@ Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -187,7 +197,8 @@ import { Task } from '../models/task.model';
 +   </div>
   `,
 })
-export class TaskListComponent {
+export default class TaskListComponent {
+- /** The list of tasks */
 - @Input() tasks: Task[] = [];
 
 +  /**

@@ -51,7 +51,7 @@ Change `src/app/components/task.component` to the following:
   template: `
     <div class="list-item {{ task?.state }}">
       <label
-        [attr.aria-label]="'archiveTask-' + task.id"
+        [attr.aria-label]="'archiveTask-' + task?.id"
         for="checked-{{ task?.id }}"
         class="checkbox"
       >
@@ -62,16 +62,16 @@ Change `src/app/components/task.component` to the following:
           name="checked-{{ task?.id }}"
           id="checked-{{ task?.id }}"
         />
-        <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
+        <span class="checkbox-custom" (click)="onArchive(task?.id)"></span>
       </label>
       <label
-        [attr.aria-label]="task.title + ''"
+        [attr.aria-label]="task?.title + ''"
         for="title-{{ task?.id }}"
         class="title"
       >
         <input
           type="text"
-          [value]="task.title"
+          [value]="task?.title"
           readonly="true"
           id="title-{{ task?.id }}"
           name="title-{{ task?.id }}"
@@ -82,8 +82,8 @@ Change `src/app/components/task.component` to the following:
       <button
         *ngIf="task?.state !== 'TASK_ARCHIVED'"
         class="pin-button"
-        [attr.aria-label]="'pinTask-' + task.id"
-        (click)="onPin(task.id)"
+        [attr.aria-label]="'pinTask-' + task?.id"
+        (click)="onPin(task?.id)"
       >
         <span class="icon-star"></span>
       </button>
@@ -94,7 +94,7 @@ Change `src/app/components/task.component` to the following:
 
 This yields a new background color for the item.
 
-![task background change](/intro-to-storybook/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change-7-0.png)
 
 Add the file:
 

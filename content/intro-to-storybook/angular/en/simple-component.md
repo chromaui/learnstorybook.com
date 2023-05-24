@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: '9411971'
+commit: '3feace5'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -43,7 +43,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
     </div>
   `,
 })
-export class TaskComponent {
+export default class TaskComponent {
+  /**
+   * The shape of the task object
+  */
   @Input() task: any;
 
   // tslint:disable-next-line: no-output-on-prefix
@@ -61,56 +64,66 @@ Above, we render straightforward markup for the `Task` component based on the ex
 Below we build out Task’s three test states in the story file:
 
 ```ts:title=src/app/components/task.stories.ts
-import { Meta, Story } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
 
 import { action } from '@storybook/addon-actions';
 
-import { TaskComponent } from './task.component';
-
-export default {
-  component: TaskComponent,
-  title: 'Task',
-  excludeStories: /.*Data$/,
-} as Meta;
+import TaskComponent from './task.component';
 
 export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-const Template: Story = args => ({
-  props: {
-    ...args,
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
+const meta: Meta<TaskComponent> = {
+  title: 'Task',
+  component: TaskComponent,
+  excludeStories: /.*Data$/,
+  tags: ['autodocs'],
+  render: (args: TaskComponent) => ({
+    props: {
+      ...args,
+      onPinTask: actionsData.onPinTask,
+      onArchiveTask: actionsData.onArchiveTask,
+    },
+  }),
+};
 
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
+export default meta;
+type Story = StoryObj<TaskComponent>;
+
+export const Default: Story = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Test Task',
+      state: 'TASK_INBOX',
+    },
   },
 };
 
-export const Pinned = Template.bind({});
-Pinned.args = {
-  task: {
-    ...Default.args['task'],
-    state: 'TASK_PINNED',
+export const Pinned: Story = {
+  args: {
+    task: {
+      ...Default.args?.task,
+      state: 'TASK_PINNED',
+    },
   },
 };
 
-export const Archived = Template.bind({});
-Archived.args = {
-  task: {
-    ...Default.args['task'],
-    state: 'TASK_ARCHIVED',
+export const Archived: Story = {
+  args: {
+    task: {
+      ...Default.args?.task,
+      state: 'TASK_ARCHIVED',
+    },
   },
 };
 ```
+
+<div class="aside">
+💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+</div>
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
@@ -121,63 +134,52 @@ There are two basic levels of organization in Storybook: the component and its c
 
 To tell Storybook about the component we are documenting, we create a `default` export that contains:
 
-- `component`--the component itself
-- `title`--how to refer to the component in the sidebar of the Storybook app
-- `excludeStories`--exports in the story file that should not be rendered as stories by Storybook.
+- `component` -- the component itself
+- `title` -- how to group or categorize the component in the Storybook sidebar
+- `tags` -- to automatically generate documentation for our components
+- `excludeStories`-- additional information required by the story but should not be rendered in Storybook
+- `render` -- a custom [render function](https://storybook.js.org/docs/angular/api/csf#custom-render-functions) that allows us how the component is rendered in Storybook
 
-To define our stories, we export a function for each of our test states to generate a story. The story is a function that returns a rendered element (i.e., a component class with a set of props) in a given state---exactly like a [Functional Component](https://angular.io/guide/component-interaction).
+To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/angular/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
 
-As we have multiple permutations of our component, assigning it to a `Template` variable is convenient. Introducing this pattern in your stories will reduce the amount of code you need to write and maintain.
-
-<div class="aside">
-💡 <code>Template.bind({})</code> is a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">standard JavaScript</a> technique for making a copy of a function. We use this technique to allow each exported story to set its own properties, but use the same implementation.
-</div>
-
-Arguments, or [`args`](https://storybook.js.org/docs/angular/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/angular/writing-stories/args) value changes, so does the component.
-
-When creating a story, we use a base `task` arg to build out the shape of the task the component expects, typically modeled from what the actual data looks like.
+Arguments or [`args`](https://storybook.js.org/docs/angular/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/angular/writing-stories/args) value changes, so does the component.
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time.
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
-Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
-
-<div class="aside">
-💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
-</div>
+When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
 ## Config
 
-We'll also need to make one small change to the Storybook configuration to notice our recently created stories. Change your configuration file (`.storybook/main.js`) to the following:
+We'll also need to make one small change to the Storybook configuration to notice our recently created stories. Change your configuration file (`.storybook/main.ts`) to the following:
 
-```diff:title=.storybook/main.js
-module.exports = {
-- stories: [
--   '../src/**/*.stories.mdx',
--   '../src/**/*.stories.@(js|jsx|ts|tsx)'
-- ],
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/angular';
+const config: StorybookConfig = {
+- stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
 + stories: ['../src/app/components/**/*.stories.ts'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
   ],
-  framework: '@storybook/angular',
-  core: {
-    builder: '@storybook/builder-webpack5',
+  framework: {
+    name: '@storybook/angular',
+    options: {},
   },
-  features: {
-    interactionsDebugger: true,
+  docs: {
+    autodocs: 'tag',
   },
 };
+export default config;
 ```
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three states of TaskComponent:
 
-<video autoPlay muted playsInline controls >
+<video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -186,13 +188,13 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 It’s best practice to specify the shape of data that a component expects. Not only is it self documenting, but it also helps catch problems early. Here, we'll use Typescript and create an interface for the `Task` model.
 
-Create a new directory called `models` inside the `app` directory, followed by a new file called `task.model.ts`:
+Inside the `app` directory, add a new directory called `models`, followed by a new file called `task.model.ts`:
 
 ```ts:title=src/app/models/task.model.ts
 export interface Task {
-  id: string;
-  title: string;
-  state: string;
+  id?: string;
+  title?: string;
+  state?: string;
 }
 ```
 
@@ -204,7 +206,6 @@ The component is still rudimentary at the moment. First, write the code that ach
 
 ```ts:title=src/app/components/task.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
 import { Task } from '../models/task.model';
 
 @Component({
@@ -212,7 +213,7 @@ import { Task } from '../models/task.model';
   template: `
     <div class="list-item {{ task?.state }}">
       <label
-        [attr.aria-label]="'archiveTask-' + task.id"
+        [attr.aria-label]="'archiveTask-' + task?.id"
         for="checked-{{ task?.id }}"
         class="checkbox"
       >
@@ -223,16 +224,16 @@ import { Task } from '../models/task.model';
           name="checked-{{ task?.id }}"
           id="checked-{{ task?.id }}"
         />
-        <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
+        <span class="checkbox-custom" (click)="onArchive(task?.id)"></span>
       </label>
       <label
-        [attr.aria-label]="task.title + ''"
+        [attr.aria-label]="task?.title + ''"
         for="title-{{ task?.id }}"
         class="title"
       >
         <input
           type="text"
-          [value]="task.title"
+          [value]="task?.title"
           readonly="true"
           id="title-{{ task?.id }}"
           name="title-{{ task?.id }}"
@@ -242,16 +243,19 @@ import { Task } from '../models/task.model';
       <button
         *ngIf="task?.state !== 'TASK_ARCHIVED'"
         class="pin-button"
-        [attr.aria-label]="'pinTask-' + task.id"
-        (click)="onPin(task.id)"
+        [attr.aria-label]="'pinTask-' + task?.id"
+        (click)="onPin(task?.id)"
       >
         <span class="icon-star"></span>
       </button>
     </div>
   `,
 })
-export class TaskComponent {
-  @Input() task: Task;
+export default class TaskComponent {
+  /**
+   * The shape of the task object
+  */
+  @Input() task?: Task;
 
   // tslint:disable-next-line: no-output-on-prefix
   @Output()
@@ -262,6 +266,7 @@ export class TaskComponent {
   onArchiveTask = new EventEmitter<Event>();
 
   /**
+   * @ignore
    * Component method to trigger the onPin event
    * @param id string
    */
@@ -269,6 +274,7 @@ export class TaskComponent {
     this.onPinTask.emit(id);
   }
   /**
+   * @ignore
    * Component method to trigger the onArchive event
    * @param id string
    */
@@ -282,7 +288,7 @@ The additional markup from above, combined with our existing CSS (see src/styles
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states-6-0.mp4"
+    src="/intro-to-storybook/finished-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -305,11 +311,11 @@ Let's see how it works! Run the following command to install the addon:
 npm install @storybook/addon-a11y --save-dev
 ```
 
-Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
+Then, update your Storybook configuration file (`.storybook/main.ts`) to enable it:
 
-```diff:title=.storybook/main.js
-module.exports = {
-
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/angular';
+const config: StorybookConfig = {
   stories: ['../src/app/components/**/*.stories.ts'],
   addons: [
     '@storybook/addon-links',
@@ -317,17 +323,19 @@ module.exports = {
     '@storybook/addon-interactions',
 +   '@storybook/addon-a11y',
   ],
-  framework: '@storybook/angular',
-  core: {
-    builder: '@storybook/builder-webpack5',
+  framework: {
+    name: '@storybook/angular',
+    options: {},
   },
-  features: {
-    interactionsDebugger: true,
+  docs: {
+    autodocs: 'tag',
   },
 };
+export default config;
+
 ```
 
-![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
 Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/styles.css`).
 
