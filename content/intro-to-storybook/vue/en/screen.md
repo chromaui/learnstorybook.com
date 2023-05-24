@@ -234,7 +234,6 @@ export const Error = {
 Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 
 <video autoPlay muted playsInline loop>
-
   <source
     src="/intro-to-storybook/storybook-pureinboxscreen-interactive-stories.mp4"
     type="video/mp4"
