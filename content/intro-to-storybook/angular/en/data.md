@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 'eb8da4c'
+commit: 'f1717d7'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -170,8 +170,8 @@ import { Task } from '../models/task.model';
     </div>
   `,
 })
-- export class TaskListComponent {
-+ export class PureTaskListComponent {
+- export default class TaskListComponent {
++ export default class PureTaskListComponent {
     /**
      * @ignore
      * Component property to define ordering of tasks
@@ -220,7 +220,7 @@ import { Observable } from 'rxjs';
     ></app-pure-task-list>
   `,
 })
-export class TaskListComponent {
+export default class TaskListComponent {
   tasks$?: Observable<any>;
 
   constructor(private store: Store) {
@@ -252,10 +252,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgxsModule } from '@ngxs/store';
 
-import { TaskComponent } from './task.component';
-import { TaskListComponent } from './task-list.component';
+import TaskComponent from './task.component';
+import TaskListComponent from './task-list.component';
 import { TasksState } from '../state/task.state';
-import { PureTaskListComponent } from './pure-task-list.component';
+import PureTaskListComponent from './pure-task-list.component';
 
 @NgModule({
   imports: [CommonModule, NgxsModule.forFeature([TasksState])],
@@ -302,77 +302,88 @@ export class AppModule {}
 The reason to keep the presentational version of the `TaskList` separate is that it is easier to test and isolate. As it doesn't rely on the presence of a store, it is much easier to deal with from a testing perspective. Let's rename `src/app/components/task-list.stories.ts` into `src/app/components/pure-task-list.stories.ts` and ensure our stories use the presentational version:
 
 ```ts:title=src/app/components/pure-task-list.stories.ts
-import { componentWrapperDecorator, moduleMetadata, Meta, Story } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
+
+import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
-import { PureTaskListComponent } from './pure-task-list.component';
-import { TaskComponent } from './task.component';
+import PureTaskListComponent from './pure-task-list.component';
+
+import TaskComponent from './task.component';
 
 import * as TaskStories from './task.stories';
 
-export default {
+const meta: Meta<PureTaskListComponent> = {
   component: PureTaskListComponent,
+  title: 'PureTaskList',
+  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      //👇 Imports both components to allow component composition with storybook
+      //👇 Imports both components to allow component composition with Storybook
       declarations: [PureTaskListComponent, TaskComponent],
       imports: [CommonModule],
     }),
     //👇 Wraps our stories with a decorator
-    componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
+    componentWrapperDecorator(
+      (story) => `<div style="margin: 3em">${story}</div>`
+    ),
   ],
-  title: 'PureTaskList',
-} as Meta;
+  render: (args: PureTaskListComponent) => ({
+    props: {
+      ...args,
+      onPinTask: TaskStories.actionsData.onPinTask,
+      onArchiveTask: TaskStories.actionsData.onArchiveTask,
+    },
+  }),
+};
+export default meta;
+type Story = StoryObj<PureTaskListComponent>;
 
-const Template: Story = args => ({
-  props: {
-    ...args,
-    onPinTask: TaskStories.actionsData.onPinTask,
-    onArchiveTask: TaskStories.actionsData.onArchiveTask,
+export const Default: Story = {
+  args: {
+    tasks: [
+      { ...TaskStories.Default.args?.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args?.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args?.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args?.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args?.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args?.task, id: '6', title: 'Task 6' },
+    ],
   },
-});
-
-export const Default = Template.bind({});
-Default.args = {
-  tasks: [
-    { ...TaskStories.Default.args?.['task'], id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args?.['task'], id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args?.['task'], id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args?.['task'], id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args?.['task'], id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args?.['task'], id: '6', title: 'Task 6' },
-  ],
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args['tasks'].slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const WithPinnedTasks: Story = {
+  args: {
+    tasks: [
+      // Shaping the stories through args composition.
+      // Inherited data coming from the Default story.
+      ...(Default.args?.tasks?.slice(0, 5) || []),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
+export const Loading: Story = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty: Story = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-puretasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>

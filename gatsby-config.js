@@ -42,7 +42,7 @@ module.exports = {
           'zh-CN': 6.5,
         },
         angular: {
-          en: 6.5,
+          en: 7.0,
           ja: 6.3,
           es: 6.3,
           pt: 5.3,

@@ -2,7 +2,7 @@
 title: 'Deploy Storybook'
 tocTitle: 'Deploy'
 description: 'Learn how to deploy Storybook online'
-commit: '9373d94'
+commit: '9fe8b9a'
 ---
 
 Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.
@@ -42,7 +42,7 @@ git push -u origin main
 Add the package as a development dependency.
 
 ```shell
-npm install -D chromatic
+npm install chromatic --save-dev
 ```
 
 Once the package is installed, [log in to Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) with your GitHub account (Chromatic will only ask for lightweight permissions), then we'll create a new project called "taskbox" and sync it with the GitHub repository we've set up.
@@ -66,7 +66,7 @@ npx chromatic --project-token=<project-token>
 
 When finished, you'll get a link `https://random-uuid.chromatic.com` to your published Storybook. Share the link with your team to get feedback.
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 
 Hooray! We published Storybook with one command, but manually running a command every time we want to get feedback on UI implementation is repetitive. Ideally, we'd publish the latest version of components whenever we push code. We'll need to continuously deploy Storybook.
 
@@ -82,7 +82,7 @@ Create a new file called `chromatic.yml` like the one below.
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
-name: 'Chromatic Deployment'
+name: "Chromatic Deployment"
 
 # Event for the workflow
 on: push
@@ -94,7 +94,9 @@ jobs:
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - run: yarn
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
