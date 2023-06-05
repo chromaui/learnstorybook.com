@@ -2,7 +2,7 @@
 title: 'Visual testing in Storybook'
 tocTitle: 'Visual'
 description: 'Learn how to pinpoint UI bugs automatically'
-commit: '1576028'
+commit: '019cebc'
 ---
 
 It's tough to ship bug-free UIs. In the past, developers used unit and snapshot tests to scan for bugs in blobs of HTML. But those methods don't represent what the user actually sees, so bugs never went away.
@@ -71,9 +71,8 @@ Our project is preconfigured to use Storybook. The config lives in the `.storybo
 
 We can start by creating a story file for the Task component. This registers the component with Storybook and adds in one default test case.
 
-```javascript:title=src/components/Task.stories.js
-import React from 'react';
-import { Task } from './Task';
+```javascript:title=src/components/Task.stories.jsx
+import Task from './Task';
 
 export default {
   component: Task,
@@ -85,14 +84,13 @@ export default {
   },
 };
 
-const Template = (args) => <Task {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Buy milk',
-    state: 'TASK_INBOX',
+export const Default = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Buy milk',
+      state: 'TASK_INBOX',
+    },
   },
 };
 ```
@@ -103,7 +101,7 @@ And finally, run the following command to start Storybook in development mode. Y
 yarn storybook
 ```
 
-![](/ui-testing-handbook/sb-register.png)
+![](/ui-testing-handbook/initial-task-state.png)
 
 We're now ready to write out the test cases.
 
@@ -115,9 +113,8 @@ The Task component has three states—default, pinned and archived. We’ll add 
 
 ![](/ui-testing-handbook/task-states.png)
 
-```javascript:title=src/components/Task.stories.js
-import React from 'react';
-import { Task } from './Task';
+```javascript:title=src/components/Task.stories.jsx
+import Task from './Task';
 
 export default {
   component: Task,
@@ -129,32 +126,33 @@ export default {
   },
 };
 
-const Template = (args) => <Task {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Buy milk',
-    state: 'TASK_INBOX',
+export const Default = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Buy milk',
+      state: 'TASK_INBOX',
+    },
   },
 };
 
-export const Pinned = Template.bind({});
-Pinned.args = {
-  task: {
-    id: '2',
-    title: 'QA dropdown',
-    state: 'TASK_PINNED',
+export const Pinned = {
+  args: {
+    task: {
+      id: '2',
+      title: 'QA dropdown',
+      state: 'TASK_PINNED',
+    },
   },
 };
 
-export const Archived = Template.bind({});
-Archived.args = {
-  task: {
-    id: '3',
-    title: 'Write schema for account menu',
-    state: 'TASK_ARCHIVED',
+export const Archived = {
+  args: {
+    task: {
+      id: '3',
+      title: 'Write schema for account menu',
+      state: 'TASK_ARCHIVED',
+    },
   },
 };
 ```
@@ -175,18 +173,21 @@ By writing a story for each state, you cut out that second step. You can go righ
 
 Writing out stories also surfaces scenarios that you wouldn't have considered had you developed it in a more ad-hoc way. For example, what happens if the user enters a really long task? Let's add in that story to find out.
 
-```javascript:title=src/components/Task.stories.js
+```javascript:title=src/components/Task.stories.jsx
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle = Template.bind({});
-LongTitle.args = {
-  task: {
-    id: '4',
-    title: longTitleString,
-    state: 'TASK_INBOX',
+export const LongTitle = {
+  args: {
+    task: {
+      id: '4',
+      title: longTitleString,
+      state: 'TASK_INBOX',
+    },
   },
 };
 ```
+
+Now that we've verified the appearance of each test case, we can move on to the next step. Catching regressions automatically. But first, commit your changes.
 
 ## 4. Catch regressions automatically
 
@@ -210,7 +211,7 @@ npx chromatic --project-token=<project-token>
 
 The first run will be set as the baseline i.e., the starting point. And each story has its own baseline.
 
-![](/ui-testing-handbook/baselines.png)
+![](/ui-testing-handbook/ui-testing-chromatic-first-build.png)
 
 ### Run tests
 
@@ -218,85 +219,93 @@ On each commit, new snapshots are captured and compared against existing baselin
 
 First, make a tweak to the UI. We’re going to change the pinned icon and the text styling. Update the Task component, then make a commit and rerun Chromatic.
 
-```diff:title=src/components/Task.js
-import React from 'react';
+```diff:title=src/components/Task.jsx
 import PropTypes from 'prop-types';
-import { Checkbox, Flex, IconButton, Input, Box, VisuallyHidden } from '@chakra-ui/react';
--import { BellIcon } from '@chakra-ui/icons';
-+import { StarIcon } from '@chakra-ui/icons';
-
-export const Task = ({
+export default function Task({
   task: { id, title, state },
   onArchiveTask,
   onTogglePinTask,
   onEditTitle,
-  ...props
-}) => (
-  <Flex
-    as="li"
-    _notLast={{
-      borderBottom: '1px',
-      borderColor: 'gray.200',
-    }}
-    h={12}
-    bg="white"
-    alignItems="center"
-    _hover={{
-      bgGradient: 'linear(to-b,  brand.100,  brand.50)',
-    }}
-    aria-label={title}
-    tabIndex="0"
-    {...props}
-  >
-    <Checkbox
-      px={4}
-      isChecked={state === 'TASK_ARCHIVED'}
-      onChange={(e) => onArchiveTask(e.target.checked, id)}
+}) {
+  return (
+    <div
+      className={`list-item ${state}`}
+      role="listitem"
+      aria-label={`task-${id}`}
     >
-      <VisuallyHidden>Archive</VisuallyHidden>
-    </Checkbox>
-    <Box width="full" as="label">
-      <VisuallyHidden>Edit</VisuallyHidden>
-      <Input
-        variant="unstyled"
-        flex="1 1 auto"
-        color={state === 'TASK_ARCHIVED' ? 'gray.400' : 'gray.700'}
-        textDecoration={state === 'TASK_ARCHIVED' ? 'line-through' : 'none'}
--       fontSize="md"
--       fontWeight="bold"
-+       fontSize="sm"
-        isTruncated
-        value={title}
-        onChange={(e) => onEditTitle(e.target.value, id)}
-      />
-    </Box>
-    <IconButton
-      p={5}
-      flex="none"
-      aria-label={state === 'TASK_PINNED' ? 'unpin' : 'pin'}
-      variant={state === 'TASK_PINNED' ? 'unpin' : 'pin'}
--     icon={<BellIcon />}
-+     icon={<StarIcon />}
-      onClick={() => onTogglePinTask(state, id)}
-    />
-  </Flex>
-);
+      <label
+        htmlFor="checked"
+        aria-label={`archiveTask-${id}`}
+        className="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled={true}
+          name="checked"
+          id={`archiveTask-${id}`}
+          checked={state === "TASK_ARCHIVED"}
+        />
+        <span
+          className="checkbox-custom"
+          onClick={() => onArchiveTask("ARCHIVE_TASK", id)}
+          role="button"
+          aria-label={`archiveButton-${id}`}
+        />
+      </label>
+
+      <label htmlFor="title" aria-label={title} className="title">
+        <input
+          type="text"
+          value={title}
+          name="title"
+          placeholder="Input title"
+          style={{ textOverflow: "ellipsis" }}
+          onChange={(e) => onEditTitle(e.target.value, id)}
+        />
+      </label>
+
+      {state !== "TASK_ARCHIVED" && (
+        <button
+          className="pin-button"
+          onClick={() => onTogglePinTask(state, id)}
+          id={`pinTask-${id}`}
+          aria-label={state === "TASK_PINNED" ? "unpin" : "pin"}
+          key={`pinTask-${id}`}
+        >
++         <span className={`icon-star`} />
+        </button>
+      )}
+    </div>
+  );
+}
 
 Task.propTypes = {
+  /** Composition of the task */
   task: PropTypes.shape({
+    /** Id of the task */
     id: PropTypes.string.isRequired,
+    /** Title of the task */
     title: PropTypes.string.isRequired,
+    /** Current state of the task */
     state: PropTypes.string.isRequired,
   }),
+  /** Event to change the task to archived */
   onArchiveTask: PropTypes.func.isRequired,
+  /** Event to change the task to pinned */
   onTogglePinTask: PropTypes.func.isRequired,
+  /** Event to change the task title */
   onEditTitle: PropTypes.func.isRequired,
 };
 ```
 
 You’ll now be presented with a diff.
 
-![](/ui-testing-handbook/task-diff.gif)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/ui-testing-handbook/chromatic-task-diff.mp4"
+    type="video/mp4"
+  />
+</video>
 
 Regression testing ensures that we don’t introduce changes by accident. But it’s still up to you to decide whether changes are intentional or not.
 

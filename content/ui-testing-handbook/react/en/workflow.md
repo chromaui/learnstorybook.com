@@ -2,7 +2,7 @@
 title: 'UI Testing Playbook'
 tocTitle: 'Workflow'
 description: 'A testing workflow that doesn’t slow you down'
-commit: '81c0264'
+commit: '5c40424'
 ---
 
 It's easy to find tools that test different parts of the UI. But knowing how to combine them into a productive workflow is tricky. If you get it wrong, it spirals into a maintenance nightmare.
@@ -21,18 +21,17 @@ The Task component already allows users to edit, pin and archive a task. We'll a
 
 For this demo, let's jump straight to the point where you're ready to test. Download the updated files and place them in the `/src` directory:
 
-- [src/components/Task.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/components/Task.js)
-- [src/components/TaskList.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/components/TaskList.js)
-- [src/InboxScreen.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/InboxScreen.js)
-- [src/useTasks.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/useTasks.js)
+- [src/components/Task.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/5c404243b4b7bfef13c6a6f87da0890dbcc22173/src/components/Task.jsx)
+- [src/components/TaskList.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/5c404243b4b7bfef13c6a6f87da0890dbcc22173/src/components/TaskList.jsx)
+- [src/InboxScreen.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/5c404243b4b7bfef13c6a6f87da0890dbcc22173/src/InboxScreen.jsx)
 
 ### Visual & Composition tests
 
 First, we're going to ensure that the updated UI styles match the spec. The Task component now requires the `onDeleteTask` prop to handle deletions. Let's mock that out as an action in the Task stories.
 
-```diff:title=src/components/Task.stories.js
-import React from 'react';
-import { Task } from './Task';
+```diff:title=src/components/Task.stories.jsx
+import Task from './Task';
+
 export default {
   component: Task,
   title: 'Task',
@@ -42,16 +41,19 @@ export default {
     onEditTitle: { action: 'onEditTitle' },
 +   onDeleteTask: { action: 'onDeleteTask' },
   },
-  parameters: {
-    a11y: {
- ...
+};
 ```
 
 #### During development
 
 Instead of booting up the entire application, you can use Storybook to focus on just the Task component. Then cycle through all its stories to manually verify their appearance.
 
-![](/ui-testing-handbook/task-stories.gif)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/ui-testing-handbook/task-story-workflow-initial-7-0.mp4"
+    type="video/mp4"
+  />
+</video>
 
 #### PR check
 
@@ -65,7 +67,12 @@ Chromatic will be triggered automatically when you create a pull request. On com
 
 ### Accessibility tests
 
-![](/ui-testing-handbook/task-a11y.gif)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/ui-testing-handbook/task-story-workflow-a11y.mp4"
+    type="video/mp4"
+  />
+</video>
 
 #### During development
 
@@ -81,28 +88,37 @@ To catch regressions you need to run on all your components. You can do that by 
 
 The user can delete a task by clicking on the _trash can_ button, we’ll need to add in a test to verify that behaviour.
 
-![](/ui-testing-handbook/manual-interaction.gif)
+<video autoPlay muted playsInline loop>
+  <source
+    src="/ui-testing-handbook/inbox-screen-story-workflow-delete-task-7-0.mp4"
+    type="video/mp4"
+  />
+</video>
 
 #### During development
 
 During development, manually verify the interaction using the InboxScreen stories. If it’s working as expected, you can add in an interaction test using a play function.
 
-```javascript:title=src/InboxScreen.stories.js
+```javascript:title=src/InboxScreen.stories.jsx
 // ... code omitted for brevity ...
 
-export const DeleteTask = Template.bind({});
-DeleteTask.parameters = { ...Default.parameters };
-DeleteTask.play = async ({ canvasElement }) => {
-  const canvas = within(canvasElement);
-  const getTask = (name) => canvas.findByRole('listitem', { name });
+export const DeleteTask = {
+  parameters: {
+    ...Default.parameters,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const getTask = (id) => canvas.findByRole('listitem', { name: id });
 
-  const itemToDelete = await getTask('Build a date picker');
-  const deleteButton = await findByRole(itemToDelete, 'button', {
-    name: 'delete',
-  });
-  await userEvent.click(deleteButton);
+    const itemToDelete = await getTask('task-1');
+    const deleteButton = await findByRole(itemToDelete, 'button', {
+      name: 'delete',
+    });
 
-  await expect(canvas.getAllByRole('listitem').length).toBe(5);
+    // Click the pin button
+    await userEvent.click(deleteButton);
+    await expect(canvas.getAllByRole('listitem').length).toBe(5);
+  },
 };
 ```
 

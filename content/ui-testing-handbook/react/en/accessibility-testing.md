@@ -2,7 +2,7 @@
 title: 'Accessibility testing with Storybook'
 tocTitle: 'Accessibility'
 description: 'Fast feedback with integrated tooling'
-commit: 'e77f771'
+commit: 'bed2064'
 ---
 
 [26% of adults](https://www.cdc.gov/ncbddd/disabilityandhealth/infographic-disability-impacts-all.html) in the US have at least one disability. When you improve accessibility, it has an outsized impact on your current and future customers. It’s also a legal requirement.
@@ -53,50 +53,36 @@ Storybook’s Accessibility runs Axe on the active story. It visualizes the test
 
 ![](/ui-testing-handbook/a11y-testing.gif)
 
-To install the addon, run: `yarn add -D @storybook/addon-a11y`. Then, add `'@storybook/addon-a11y'` to the addons array in your `.storybook/main.js`:
+To install the addon, run: `yarn add --dev @storybook/addon-a11y`. Then, add `'@storybook/addon-a11y'` to the addons array in your `.storybook/main.js`:
 
 ```diff:title=.storybook/main.js
-module.exports = {
+/** @type { import('@storybook/react-vite').StorybookConfig } */
+const config = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   staticDirs: ['../public'],
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/preset-create-react-app',
-+   '@storybook/addon-a11y',
     '@storybook/addon-interactions',
++   '@storybook/addon-a11y',
   ],
-  core: {
-    builder: {
-      name: 'webpack5',
-    },
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
   },
-  features:{
-    interactionsDebugger: true,
-  },
-  webpackFinal: async (config) => {
-    return {
-      ...config,
-      resolve: {
-        ...config.resolve,
-        alias: {
-          ...config.resolve.alias,
-          '@emotion/core': toPath('node_modules/@emotion/react'),
-          'emotion-theming': toPath('node_modules/@emotion/react'),
-        },
-      },
-    };
+  docs: {
+    autodocs: 'tag',
   },
 };
+export default config;
 ```
 
 ### Testing accessibility as you code
 
 We've already [isolated](/ui-testing-handbook/react/en/visual-testing/) the Task component and captured all its use cases as stories. During the development phase, you can cycle through these stories to spot accessibility issues.
 
-```javascript:title=src/components/Task.stories.js
-import React from 'react';
-import { Task } from './Task';
+```javascript:title=src/components/Task.stories.jsx
+import Task from './Task';
 
 export default {
   component: Task,
@@ -108,110 +94,65 @@ export default {
   },
 };
 
-const Template = (args) => <Task {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Buy milk',
-    state: 'TASK_INBOX',
+export const Default = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Buy milk',
+      state: 'TASK_INBOX',
+    },
   },
 };
 
-export const Pinned = Template.bind({});
-Pinned.args = {
-  task: {
-    id: '2',
-    title: 'QA dropdown',
-    state: 'TASK_PINNED',
+export const Pinned = {
+  args: {
+    task: {
+      id: '2',
+      title: 'QA dropdown',
+      state: 'TASK_PINNED',
+    },
   },
 };
 
-export const Archived = Template.bind({});
-Archived.args = {
-  task: {
-    id: '3',
-    title: 'Write schema for account menu',
-    state: 'TASK_ARCHIVED',
+export const Archived = {
+  args: {
+    task: {
+      id: '3',
+      title: 'Write schema for account menu',
+      state: 'TASK_ARCHIVED',
+    },
   },
 };
 
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle = Template.bind({});
-LongTitle.args = {
-  task: {
-    id: '4',
-    title: longTitleString,
-    state: 'TASK_INBOX',
+export const LongTitle = {
+  args: {
+    task: {
+      id: '4',
+      title: longTitleString,
+      state: 'TASK_INBOX',
+    },
   },
 };
 ```
 
-![](/ui-testing-handbook/a11y-addon.png)
+![](/ui-testing-handbook/task-story-a11y-issue.png)
 
-Notice how the addon found two violations. The first, **“Ensures the contrast between foreground and background colors meets WCAG 2 AA contrast ratio thresholds,”** is specific to the `archived` state. Essentially what it means is that there isn’t enough contrast between the text and the background. We can fix that by changing the text color to a slightly darker gray—from `gray.400` to `gray.600`.
+Notice how the addon found two violations. The first, **“Elements must meet minimum color contrast ratio thresholds,”** is specific to the `archived` state. Essentially what it means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
 
-```diff:title=src/components/Task.js
-import React from 'react';
-import PropTypes from 'prop-types';
-import {
- Checkbox,
- Flex,
- IconButton,
- Input,
- Box,
- VisuallyHidden,
-} from '@chakra-ui/react';
-import { StarIcon } from '@chakra-ui/icons';
-
-export const Task = ({
- task: { id, title, state },
- onArchiveTask,
- onTogglePinTask,
- onEditTitle,
- ...props
-}) => (
-
- // code omitted for brevity
-
-   <Box width="full" as="label">
-     <VisuallyHidden>Edit</VisuallyHidden>
-     <Input
-       variant="unstyled"
-       flex="1 1 auto"
--      color={state === 'TASK_ARCHIVED' ? 'gray.400' : 'gray.700'}
-+      color={state === 'TASK_ARCHIVED' ? 'gray.600' : 'gray.700'}
-       textDecoration={state === 'TASK_ARCHIVED' ? 'line-through' : 'none'}
-       fontSize="sm"
-       isTruncated
-       value={title}
-       onChange={(e) => onEditTitle(e.target.value, id)}
-     />
-   </Box>
-
-   // code omitted for brevity
- </Flex>
-);
-
-Task.propTypes = {
- task: PropTypes.shape({
-   id: PropTypes.string.isRequired,
-   title: PropTypes.string.isRequired,
-   state: PropTypes.string.isRequired,
- }),
- onArchiveTask: PropTypes.func.isRequired,
- onTogglePinTask: PropTypes.func.isRequired,
- onEditTitle: PropTypes.func.isRequired,
-};
+```diff:title=src/index.css
+.list-item.TASK_ARCHIVED input[type="text"] {
+- color: #a0aec0;
++ color: #4a5568;
+  text-decoration: line-through;
+}
 ```
 
-The second violation, **“Ensures `<li>` elements are used semantically,”** indicates incorrect DOM structure. The Task component renders just a `<li>` element. So we need to update its stories template to wrap the component in an `<ul>` element.
+The second violation, **“Certain ARIA roles must be contained by particular parents”** indicates incorrect DOM structure. The Task component renders just a `<li>` element. So we need to update our stories to wrap the component in an `<ul>` element.
 
-```js:title=src/components/Task.stories.js
-import React from 'react';
-import { Task } from './Task';
+```js:title=src/components/Task.stories.jsx
+import Task from './Task';
 
 export default {
   component: Task,
@@ -223,20 +164,80 @@ export default {
   },
 };
 
-const Template = (args) => (
-  <ul>
-    <Task {...args} />
-  </ul>
-);
 
-// ... code omitted for brevity
+/*
+*👇 Wraps the component with a custom render function.
+* See https://storybook.js.org/docs/react/api/csf
+* to learn how to use render functions.
+*/
+export const Default = {
+  render: (args) => (
+    <ul>
+      <Task {...args} />
+    </ul>
+  ),
+  args: {
+    task: {
+      id: '1',
+      title: 'Buy milk',
+      state: 'TASK_INBOX',
+    },
+  },
+};
+
+export const Pinned = {
+  render: (args) => (
+    <ul>
+      <Task {...args} />
+    </ul>
+  ),
+  args: {
+    task: {
+      id: '2',
+      title: 'QA dropdown',
+      state: 'TASK_PINNED',
+    },
+  },
+};
+
+export const Archived = {
+  render: (args) => (
+    <ul>
+      <Task {...args} />
+    </ul>
+  ),
+  args: {
+    task: {
+      id: '3',
+      title: 'Write schema for account menu',
+      state: 'TASK_ARCHIVED',
+    },
+  },
+};
+
+const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
+
+export const LongTitle = {
+  render: (args) => (
+    <ul>
+      <Task {...args} />
+    </ul>
+  ),
+  args: {
+    task: {
+      id: '4',
+      title: longTitleString,
+      state: 'TASK_INBOX',
+    },
+  },
+};
 ```
 
 You can now repeat this process for all other components.
 
 Integrating accessibility testing into Storybook streamlines your development workflow. You don’t have to jump between different tools while working on a component. Everything you need is right there in the browser. You can even simulate visual impairments such as deuteranomaly, protanomaly or tritanopia.
 
-![](/ui-testing-handbook/vision-simulator.png)
+![](/ui-testing-handbook/inbox-screen-gray-scale.png)
 
 ### Catch regressions automatically with the test runner
 
@@ -245,7 +246,7 @@ Often, changes to a component can unintentionally introduce new accessibility is
 Let’s go ahead and configure the test runner to run Axe. We’ll start by installing [axe-playwright](https://github.com/abhinaba-ghosh/axe-playwright).
 
 ```shell
-yarn add -D axe-playwright
+yarn add --dev axe-playwright
 ```
 
 Add a new configuration file inside your Storybook directory with the following inside:
@@ -254,18 +255,19 @@ Add a new configuration file inside your Storybook directory with the following 
 const { injectAxe, checkA11y } = require('axe-playwright');
 
 module.exports = {
- async preRender(page, context) {
-   await injectAxe(page);
- },
- async postRender(page, context) {
-   await checkA11y(page, '#root', {
-     detailedReport: true,
-     detailedReportOptions: {
-       html: true,
-     },
-   })
- },
+  async preRender(page) {
+    await injectAxe(page);
+  },
+  async postRender(page) {
+    await checkA11y(page, "#storybook-root", {
+      detailedReport: true,
+      detailedReportOptions: {
+        html: true,
+      },
+    });
+  },
 };
+
 ```
 
 `preRender` and `postRender` are convenient hooks that allow you to configure the test runner to perform additional tasks. We're using those hooks to inject Axe into a story, and then once it renders, run the accessibility test.

@@ -22,8 +22,8 @@ I hope condensing these learnings into a pragmatic workflow helps you implement 
 
 If you've been coding along, your repository and deployed Storybook should look like this:
 
-- 📕 [GitHub repository](https://github.com/chromaui/ui-testing-guide-code/tree/workflow)
-- 🌎 [Deployed Storybook](https://main--60876bbe754b7b0021704b3d.chromatic.com)
+- 📕 [GitHub repository](https://github.com/chromaui/ui-testing-guide-code/tree/Storybook-7-0)
+- 🌎 [Deployed Storybook](https://storybook-7-0--60876bbe754b7b0021704b3d.chromatic.com/)
 
 ## More resources
 
