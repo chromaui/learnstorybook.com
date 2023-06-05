@@ -81,7 +81,7 @@ module.exports = {
       },
       'ui-testing-handbook': {
         react: {
-          en: 6.5,
+          en: 7.0,
           ko: 6.5,
         },
       },

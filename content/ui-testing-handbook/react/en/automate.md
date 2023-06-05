@@ -2,7 +2,7 @@
 title: 'How to automate UI tests with Github Actions'
 tocTitle: 'Automate'
 description: 'Speed up your workflow and ship higher quality of code'
-commit: '8f0a4cf'
+commit: '93e8306'
 ---
 
 Developers spend [4-8 hrs a week](https://www.niss.org/sites/default/files/technicalreports/tr81.pdf) fixing bugs. Things only get worse if a bug sneaks its way into production. It takes [5-10x](https://www.cs.umd.edu/projects/SoftEng/ESEG/papers/82.78.pdf) longer to fix it. That's why UI testing is integral to delivering high-quality experiences, but it can also be a huge time sink. It's too much work to run all your tests manually after every change.
@@ -43,7 +43,7 @@ Our workflow will run when code is pushed to any branch of our repository and it
 - Run visual and composition tests with Chromatic
 - Run user flow tests with Cypress
 
-```yaml:title=.github/workflows/ui-tests.yml
+```yaml:clipboard=false
 name: 'UI Tests'
 
 on: push
@@ -56,7 +56,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '16.x'
       - name: Install dependencies
         run: yarn
       - name: Install Playwright
@@ -90,9 +90,9 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
-          start: npm start
+          start: npm run dev
 ```
 
 Couple of things to note here. For the test runner, we're using a combination of [concurrently](https://www.npmjs.com/package/concurrently), [http-server](https://www.npmjs.com/package/http-server) and [wait-on](https://www.npmjs.com/package/wait-on) libraries to build and serve the Storybook to run tests against it.
@@ -112,7 +112,7 @@ Finally, create a new commit, push your changes to GitHub, and you should see yo
 
 Each job runs independently, which means the CI server has to install dependencies in all three jobs. That slows down the test run. We can cache dependencies and only run `yarn install` if the lock file changes to avoid that. Let’s update the workflow to include the `install-cache` job.
 
-```yaml:title=.github/workflows/ui-tests.yml
+```yaml:clipboard=false
 name: 'UI Tests'
 
 on: push
@@ -145,7 +145,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          node-version: '14.x'
+          node-version: '16.x'
       - name: Restore yarn dependencies
         uses: actions/cache@v2
         id: yarn-cache
@@ -156,15 +156,15 @@ jobs:
           key: ${{ runner.os }}-yarn-v1-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-v1
-     - name: Install Playwright
-       run: npx playwright install --with-deps
-     - name: Build Storybook
-       run: yarn build-storybook --quiet
-     - name: Serve Storybook and run tests
-       run: |
-         npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
-           "npx http-server storybook-static --port 6006 --silent" \
-           "npx wait-on tcp:6006 && yarn test-storybook"
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Build Storybook
+        run: yarn build-storybook --quiet
+      - name: Serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:6006 && yarn test-storybook"
   # Run visual and composition tests with Chromatic
   visual-and-composition:
     runs-on: ubuntu-latest
@@ -205,9 +205,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-v1
       - name: Cypress run
-        uses: cypress-io/github-action@v2
+        uses: cypress-io/github-action@v4
         with:
-          start: npm start
+          start: npm run dev
 ```
 
 We also tweaked the other three jobs to wait for the `install-cache` job to complete to use the cached dependencies. Push another commit to re-run the workflow.
