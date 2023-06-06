@@ -15,3 +15,7 @@ storybook-static
 # Pulled from monorepo & frontpage
 src/content/docs
 site-metadata.js
+
+.env
+.env.development
+.env.production
