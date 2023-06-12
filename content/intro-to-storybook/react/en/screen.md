@@ -449,7 +449,7 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">official documentation</a> to learn more about it.
 <br />
 For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
 </div>
@@ -460,8 +460,7 @@ Success! Now we have a tool that helps us verify whether all our stories are ren
 
 ## Component-Driven Development
 
-We started from the bottom with `Task`, then progressed to `TaskList`, and now we’re here with a whole screen UI. Our `InboxScreen`
-accommodates connected components and includes accompanying stories.
+We started from the bottom with `Task`, then progressed to `TaskList`, and now we’re here with a whole screen UI. Our `InboxScreen` accommodates connected components and includes accompanying stories.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
