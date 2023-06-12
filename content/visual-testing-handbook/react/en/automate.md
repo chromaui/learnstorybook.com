@@ -2,7 +2,7 @@
 title: 'Automate visual testing'
 tocTitle: 'Automate'
 description: 'Automate visual testing to catch regressions'
-commit: 'd7daf97'
+commit: 'e479199'
 ---
 
 Over the natural course of development, bugs are inevitable. Visual test automation uses machines to detect changes in UI appearance for a human to review.
@@ -214,7 +214,6 @@ CommentList.defaultProps = {
   totalCount: 10,
   comments: [],
 };
-
 ```
 
 Commit the change, push it to the repo and run Chromatic:

@@ -6,9 +6,10 @@ description: 'Pon todo tu conocimiento junto y aprende más técnicas de Storybo
 ¡Felicidades! Creaste tu primera interfaz de usuario en Storybook. Mientras lo hacías, aprendiste a construir,
 componer, probar e implementar componentes de interfaz de usuario. Si has estado siguiendo todos los pasos, tu repositorio y Storybook desplegado deberían verse así:
 
-[📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
+[📕 **Repositorio de GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/angular)
 <br/>
-[🌎 **Storybook Desplegado**](https://master--5ccbe484c994280020b6d128.chromatic.com)
+
+[🌎 **Storybook Desplegado**](https://angular--5ccbe484c994280020b6d128.chromatic.com/)
 
 Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una próspera comunidad de desarrolladores y una gran cantidad de complementos. Esta introducción demuestra una pequeña parte de todo lo que es posible con Storybook. Estamos seguros de que una vez que adoptes Storybook, quedarás impresionado por lo productivo que es crear interfaces de usuario duraderas.
 

@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'b4ab0c0'
+commit: 'e97246e'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -165,7 +165,7 @@ import { Component, Input } from '@angular/core';
     </div>
   `,
 })
-export class PureInboxScreenComponent {
+export default class PureInboxScreenComponent {
   @Input() error: any;
 }
 ```
@@ -183,7 +183,7 @@ import { Observable } from 'rxjs';
     <app-pure-inbox-screen [error]="error$ | async"></app-pure-inbox-screen>
   `,
 })
-export class InboxScreenComponent {
+export default class InboxScreenComponent {
   error$: Observable<boolean>;
   constructor(private store: Store) {
     this.error$ = store.select((state) => state.taskbox.error);
@@ -222,8 +222,8 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 
-+ import { InboxScreenComponent } from './components/inbox-screen.component';
-+ import { PureInboxScreenComponent } from './components/pure-inbox-screen.component';
++ import InboxScreenComponent from './components/inbox-screen.component';
++ import PureInboxScreenComponent from './components/pure-inbox-screen.component';
 
 @NgModule({
 + declarations: [AppComponent, InboxScreenComponent, PureInboxScreenComponent],
@@ -249,40 +249,42 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 However, we have a problem with the `PureInboxScreen` because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense, the `PureInboxScreen` has been polluted by “container-ness”. So when we set up our stories in `pure-inbox-screen.stories.ts`:
 
 ```ts:title=src/app/components/pure-inbox-screen.stories.ts
-import { moduleMetadata, Meta, Story } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
+
+import { moduleMetadata } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
-import { PureInboxScreenComponent } from './pure-inbox-screen.component';
+import PureInboxScreenComponent from './pure-inbox-screen.component';
 
 import { TaskModule } from './task.module';
 
-export default {
+const meta: Meta<PureInboxScreenComponent> = {
   component: PureInboxScreenComponent,
+  title: 'PureInboxScreen',
+  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      declarations: [PureInboxScreenComponent],
       imports: [CommonModule, TaskModule],
     }),
   ],
-  title: 'PureInboxScreen',
-} as Meta;
+};
 
-const Template: Story = args => ({
-  props: args,
-});
+export default meta;
+type Story = StoryObj<PureInboxScreenComponent>;
 
-export const Default = Template.bind({});
+export const Default: Story = {};
 
-export const Error = Template.bind({});
-Error.args = {
-  error: true,
+export const Error: Story = {
+  args: {
+    error: true,
+  },
 };
 ```
 
 We see that all our stories are no longer working. It's to the fact that both depend on our store, and even though we're using a "pure" component for the error, both stories still need context.
 
-![Broken inbox](/intro-to-storybook/broken-inbox-angular-with-accessibility.png)
+![Broken inbox](/intro-to-storybook/broken-inbox-angular.png)
 
 One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data requirements down the component hierarchy.
 
@@ -294,41 +296,47 @@ However, developers **will** inevitably need to render containers further down t
 
 ## Supplying context with decorators
 
-The good news is that it is easy to supply the `Store` to the `PureInboxScreen` component in a story! We can just import our `Store` in a decorator:
+The good news is that it is easy to supply the `Store` to the `PureInboxScreen` component in a story! We can import our `Store` in a decorator and enable it via the `applicationConfig` API and pass it to the `PureInboxScreen` component.
 
 ```diff:title=src/app/components/pure-inbox-screen.stories.ts
-import { moduleMetadata, Meta, Story } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
 
-import { CommonModule } from '@angular/common';
-
-import { PureInboxScreenComponent } from './pure-inbox-screen.component';
-
-import { TaskModule } from './task.module';
++ import { importProvidersFrom } from '@angular/core';
 
 + import { Store, NgxsModule } from '@ngxs/store';
 + import { TasksState } from '../state/task.state';
 
-export default {
-  component:PureInboxScreenComponent,
++ import { moduleMetadata, applicationConfig } from '@storybook/angular';
+
+import { CommonModule } from '@angular/common';
+
+import PureInboxScreenComponent from './pure-inbox-screen.component';
+
+import { TaskModule } from './task.module';
+
+const meta: Meta<PureInboxScreenComponent> = {
+  component: PureInboxScreenComponent,
+  title: 'PureInboxScreen',
+  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
--     imports: [CommonModule,TaskModule],
-+     imports: [CommonModule,TaskModule,NgxsModule.forRoot([TasksState])],
-+     providers: [Store],
+      imports: [CommonModule, TaskModule],
+    }),
++   applicationConfig({
++     providers: [Store, importProvidersFrom(NgxsModule.forRoot([TasksState]))],
     }),
   ],
-  title: 'PureInboxScreen',
-} as Meta;
+};
 
-const Template: Story = (args) => ({
-  props: args,
-});
+export default meta;
+type Story = StoryObj<PureInboxScreenComponent>;
 
-export const Default = Template.bind({});
+export const Default: Story = {};
 
-export const Error = Template.bind({});
-Error.args = {
-  error: true,
+export const Error: Story = {
+  args: {
+    error: true,
+  },
 };
 ```
 
@@ -339,7 +347,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
+    src="/intro-to-storybook/finished-pureinboxscreen-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -361,47 +369,56 @@ The `@storybook/addon-interactions` helps us visualize our tests in Storybook, p
 Let's see it in action! Update your newly created `pure-inbox-screen` story, and set up component interactions by adding the following:
 
 ```diff:title=src/app/components/pure-inbox-screen.stories.ts
-import { moduleMetadata, Meta, Story } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
+
+import { importProvidersFrom } from '@angular/core';
+
+import { Store, NgxsModule } from '@ngxs/store';
+import { TasksState } from '../state/task.state';
+
+import { moduleMetadata, applicationConfig } from '@storybook/angular';
 
 + import { fireEvent, within } from '@storybook/testing-library';
 
 import { CommonModule } from '@angular/common';
 
-import { PureInboxScreenComponent } from './pure-inbox-screen.component';
+import PureInboxScreenComponent from './pure-inbox-screen.component';
+
 import { TaskModule } from './task.module';
 
-import { Store, NgxsModule } from '@ngxs/store';
-import { TasksState } from '../state/task.state';
-
-export default {
-  component:PureInboxScreenComponent,
+const meta: Meta<PureInboxScreenComponent> = {
+  component: PureInboxScreenComponent,
+  title: 'PureInboxScreen',
+  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
-      imports: [CommonModule,TaskModule,NgxsModule.forRoot([TasksState])],
-      providers: [Store],
+      imports: [CommonModule, TaskModule],
+    }),
+    applicationConfig({
+      providers: [Store, importProvidersFrom(NgxsModule.forRoot([TasksState]))],
     }),
   ],
-  title: 'PureInboxScreen',
-} as Meta;
-
-const Template: Story = (args) => ({
-  props: args,
-});
-
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = {
-  error: true,
 };
 
-+ export const WithInteractions = Template.bind({});
-+ WithInteractions.play = async ({ canvasElement }) => {
-+   const canvas = within(canvasElement);
-+   // Simulates pinning the first task
-+   await fireEvent.click(canvas.getByLabelText('pinTask-1'));
-+   // Simulates pinning the third task
-+   await fireEvent.click(canvas.getByLabelText('pinTask-3'));
+export default meta;
+type Story = StoryObj<PureInboxScreenComponent>;
+
+export const Default: Story = {};
+
+export const Error: Story = {
+  args: {
+    error: true,
+  },
+};
+
++ export const WithInteractions: Story = {
++   play: async ({ canvasElement }) => {
++     const canvas = within(canvasElement);
++     // Simulates pinning the first task
++     await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++     // Simulates pinning the third task
++     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++   },
 + };
 ```
 
@@ -409,7 +426,7 @@ Check your newly-created story. Click the `Interactions` panel to see the list o
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    src="/intro-to-storybook/storybook-pureinboxscreen-interactive-stories.mp4"
     type="video/mp4"
   />
 </video>

@@ -2,7 +2,7 @@
 title: 'Introduction to testing UIs'
 tocTitle: 'Introduction'
 description: 'Latest production-ready techniques for testing UIs'
-commit: 'f9a12b8'
+commit: '2572b07'
 ---
 
 <div class="aside">This guide is made for <b>professional developers</b> experienced with JavaScript, React and Storybook. If you're not quite there yet, visit <a href="/intro-to-storybook">Intro to Storybook</a> to learn the basics!
@@ -65,20 +65,31 @@ The teams I interviewed all had similar tactics despite differences in their siz
 
 ## Let's get testing
 
-In upcoming chapters, we'll dig deeper into each layer of the test stack and get into the mechanics implementing this testing strategy. But first, we’re going to need something to test. I’ll be using the Taskbox app as an example. It’s a task management app similar to Asana.
+In upcoming chapters, we'll dig deeper into each layer of the test stack and get into the mechanics implementing this testing strategy. But first, we’re going to need something to test. I’ll be using the Taskbox aplication as an example. It’s a task management app similar to Asana.
 
 ![](/ui-testing-handbook/taskbox.png)
 
-Note, the implementation details aren’t important since we’re focusing more on how to test this UI. We use React here, but rest assured, these testing concepts extend to all component-based frameworks.
+Note, the implementation details aren’t important since we’re focusing more on how to test this UI. We use React here, but rest assured; these testing concepts extend to all component-based frameworks.
 
-To grab the code, fork this repository https://github.com/chromaui/ui-testing-guide-code, and run the following commands:
+To grab the code, run the following commands:
 
 ```shell:clipboard=false
-# Clone the forked repository
-git clone https://github.com/<your_github_username>/ui-testing-guide-code
+# Clone the template
+npx degit chromaui/ui-testing-handbook-react-template ui-testing-guide-code
 
 cd ui-testing-guide-code
 
 # Install dependencies
 yarn
+```
+
+Initialize a new [GitHub repository](https://github.com/new) and synchronize it with your local project.
+
+```shell:clipboard=false
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/<your username>/ui-testing-guide-code.git
+git push -u origin main
 ```

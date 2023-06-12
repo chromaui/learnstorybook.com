@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: '97f73c6'
+commit: '602c2d6'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -52,7 +52,7 @@ Then, we can create a container, which again grabs the data for the `PureInboxSc
 </template>
 
 <script>
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from './PureInboxScreen.vue';
 
 import { computed } from 'vue';
 
@@ -89,30 +89,19 @@ import App from './App.vue';
 
 We also need to change the `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
-```diff:title=src/App.vue
+```html:title=src/App.vue
+<script setup>
+import InboxScreen from './components/InboxScreen.vue';
+</script>
+
 <template>
   <div id="app">
--   <img alt="Vue logo" src="./assets/logo.png">
--   <HelloWorld msg="Welcome to Your Vue.js App"/>
-+   <InboxScreen />
+    <InboxScreen />
   </div>
 </template>
 
-<script>
-- import HelloWorld from './components/HelloWorld.vue'
-+ import InboxScreen from './components/InboxScreen.vue';
-
-export default {
-  name: 'App',
-  components: {
--   HelloWorld
-+   InboxScreen
-  }
-}
-</script>
-
 <style>
-@import "./index.css";
+@import './index.css';
 </style>
 ```
 
@@ -130,27 +119,20 @@ import PureInboxScreen from './PureInboxScreen.vue';
 export default {
   component: PureInboxScreen,
   title: 'PureInboxScreen',
+  tags: ['autodocs'],
 };
 
-const Template = args => ({
-  components: { PureInboxScreen },
-  setup() {
-    return {
-      args,
-    };
-  },
-  template: '<PureInboxScreen v-bind="args" />',
-});
+export const Default = {};
 
-export const Default = Template.bind({});
+export const Error = {
+  args: { error: true },
+};
 
-export const Error = Template.bind({});
-Error.args = { error: true };
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story because the `TaskList` has no Pinia store to connect to. (You also would encounter similar problems when trying to test the `PureInboxScreen` with a unit test).
+We see that although the `error` story works just fine, we have an issue in the `default` story because the `TaskList` has no Pinia store to connect to.
 
-![Broken inbox](/intro-to-storybook/broken-inboxscreen-vue-pinia.png)
+![Broken inbox](/intro-to-storybook/pure-inboxscreen-vue-pinia-tasks-issue.png)
 
 One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data requirements down the component hierarchy.
 
@@ -162,36 +144,35 @@ However, developers **will** inevitably need to render containers further down t
 
 ## Supplying context to stories
 
-The good news is that it is easy to supply a Pinia store to the `PureInboxScreen` in a story! We can update our story and import the Pinia store we've set up in the previous chapter directly:
+The good news is that it is easy to connect Storybook to a Pinia store and reuse it across stories! We can
+update our `.storybook/preview.js` configuration file and rely on Storybook's `setup` function to register our existing Pinia store:
 
-```diff:title=src/components/PureInboxScreen.stories.js
-+ import { app } from '@storybook/vue3';
+```diff:title=.storybook/preview.js
++ import { setup } from '@storybook/vue3';
 
 + import { createPinia } from 'pinia';
 
-+ app.use(createPinia());
+import '../src/index.css';
 
-import PureInboxScreen from './PureInboxScreen.vue';
+//👇 Registers a global Pinia instance inside Storybook to be consumed by existing stories
++ setup((app) => {
++   app.use(createPinia());
++ });
 
-export default {
-  title: 'PureInboxScreen',
-  component: PureInboxScreen,
+/** @type { import('@storybook/vue3').Preview } */
+const preview = {
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+  },
 };
 
-const Template = (args) => ({
-  components: { PureInboxScreen },
-  setup() {
-    return {
-      args,
-    };
-  },
-  template: '<PureInboxScreen v-bind="args" />',
-});
-
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = { error: true };
+export default preview;
 ```
 
 Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
@@ -201,7 +182,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
+    src="/intro-to-storybook/finished-pureinboxscreen-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -223,52 +204,38 @@ The `@storybook/addon-interactions` helps us visualize our tests in Storybook, p
 Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
 
 ```diff:title=src/components/PureInboxScreen.stories.js
-import { app } from '@storybook/vue3';
+import PureInboxScreen from './PureInboxScreen.vue';
 
 + import { fireEvent, within } from '@storybook/testing-library';
 
-import { createPinia } from 'pinia';
-
-app.use(createPinia());
-
-import PureInboxScreen from './PureInboxScreen.vue';
-
 export default {
-  title: 'PureInboxScreen',
   component: PureInboxScreen,
+  title: 'PureInboxScreen',
+  tags: ['autodocs'],
 };
 
-const Template = (args) => ({
-  components: { PureInboxScreen },
-  setup() {
-    return {
-      args,
-    };
-  },
-  template: '<PureInboxScreen v-bind="args" />',
-});
+export const Default = {};
 
-export const Default = Template.bind({});
+export const Error = {
+  args: { error: true },
+};
 
-export const Error = Template.bind({});
-Error.args = { error: true };
-
-+ export const WithInteractions = Template.bind({});
-+ WithInteractions.play = async ({ canvasElement }) => {
-+   const canvas = within(canvasElement);
-+   // Simulates pinning the first task
-+   await fireEvent.click(canvas.getByLabelText('pinTask-1'));
-+   // Simulates pinning the third task
-+   await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++ export const WithInteractions = {
++  play: async ({ canvasElement }) => {
++    const canvas = within(canvasElement);
++    // Simulates pinning the first task
++    await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++    // Simulates pinning the third task
++    await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++  },
 + };
 ```
 
 Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 
 <video autoPlay muted playsInline loop>
-
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    src="/intro-to-storybook/storybook-pureinboxscreen-interactive-stories.mp4"
     type="video/mp4"
   />
 </video>

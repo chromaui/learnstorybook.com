@@ -2,7 +2,7 @@
 title: 'Construire un écran'
 tocTitle: 'Ecrans'
 description: 'Construire un écran à partir de composants'
-commit: '97f73c6'
+commit: '602c2d6'
 ---
 
 Nous nous sommes concentrés sur la création d'interfaces utilisateur de bas en haut; commencer petit et ajouter de la complexité. Cela nous a permis de développer chaque composant de manière isolée, comprendre ses besoins en données, et jouer avec dans Storybook. Tout cela sans avoir besoin de monter un serveur ou de créer des écrans!

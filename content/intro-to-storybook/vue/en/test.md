@@ -88,7 +88,7 @@ Change `src/components/Task` to the following:
 
 This yields a new background color for the item.
 
-![task background change](/intro-to-storybook/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change-7-0.png)
 
 Add the file:
 
