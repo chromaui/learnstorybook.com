@@ -2,7 +2,7 @@
 title: 'Workflow for design systems'
 tocTitle: 'Workflow'
 description: 'An overview of the design system workflow for frontend developers'
-commit: 'ab64b4c'
+commit: '9d13d12'
 ---
 
 How frontend tools work together has a significant impact on the ultimate value design and development teams can realize. When done well, it should be seamless to develop and reuse UI components.
@@ -23,69 +23,78 @@ First, create a new branch where we’ll be tracking this work.
 git checkout -b create-avatar-list-component
 ```
 
-Download the `AvatarList` component and story to your machine and place them in the `/src` directory:
+Download the `AvatarList` component and story to your machine and place them in the `/src/AvatarList` directory:
 
-- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.js)
-- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/716a4c22160eaeaabb8e2c78241f2807844deed0/src/AvatarList.stories.js)
+- [Component file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/bd9a7647bfa61717c2388153955756e1591227de/src/AvatarList/AvatarList.jsx)
+- [Story file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/bd9a7647bfa61717c2388153955756e1591227de/src/AvatarList/AvatarList.stories.jsx)
+- [Index file](https://raw.githubusercontent.com/chromaui/learnstorybook-design-system/bd9a7647bfa61717c2388153955756e1591227de/src/AvatarList/index.js)
 
-![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist-6-0.png)
+![Storybook with AvatarList component](/design-systems-for-developers/storybook-with-avatarlist-7-0.png)
 
 <div class="aside">
-💡 Storybook is set up to automatically detect files ending in <code>*.stories.js</code> and show them in the UI.
+
+💡 Storybook is set up to automatically detect files ending in `*.stories.js|jsx` and show them in the UI.
+
 </div>
 
 Nice! Now let’s articulate each UI state supported by `AvatarList`. At a glance, it’s clear that `AvatarList` supports some of `Avatar`’s properties like `small` and `loading`.
 
-```js:title=src/AvatarList.stories.js
-export const SmallSize = Template.bind({});
-SmallSize.args = {
-  users: Short.args.users,
-  size: 'small',
+```jsx:title=src/AvatarList/AvatarList.stories.jsx
+export const SmallSize = {
+  args: {
+    ...Short.args,
+    size: 'small',
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  loading: true,
+export const Loading = {
+  args: {
+    ...Short.args,
+    loading: true,
+  },
 };
 ```
 
-![Storybook with more AvatarList stories](/design-systems-for-developers/storybook-with-avatarlist-loading-6-0.png)
+![Storybook with more AvatarList stories](/design-systems-for-developers/storybook-with-avatarlist-loading-7-0.png)
 
 Given that it’s a list, it should show many avatars. Let’s add stories that showcase what happens with numerous list items and with few list items.
 
-```js:title=src/AvatarList.stories.js
-export const Ellipsized = Template.bind({});
-Ellipsized.args = {
-  users: [
-    ...Short.args.users,
-    {
-      id: '3',
-      name: 'Zoltan Olah',
-      avatarUrl: 'https://avatars0.githubusercontent.com/u/81672',
-    },
-    {
-      id: '4',
-      name: 'Tim Hingston',
-      avatarUrl: 'https://avatars3.githubusercontent.com/u/1831709',
-    },
-  ],
+```jsx:title=src/AvatarList/AvatarList.stories.jsx
+export const Ellipsized = {
+  args: {
+    users: [
+      ...Short.args.users,
+      {
+        id: '3',
+        name: 'Zoltan Olah',
+        avatarUrl: 'https://avatars0.githubusercontent.com/u/81672',
+      },
+      {
+        id: '4',
+        name: 'Tim Hingston',
+        avatarUrl: 'https://avatars3.githubusercontent.com/u/1831709',
+      },
+    ],
+  },
 };
 
-export const BigUserCount = Template.bind({});
-BigUserCount.args = {
-  users: Ellipsized.args.users,
-  userCount: 100,
+export const BigUserCount = {
+  args: {
+    users: Ellipsized.args.users,
+    userCount: 100,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  users: [],
+export const Empty = {
+  args: {
+    users: [],
+  },
 };
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/design-systems-for-developers/storybook-with-all-avatarlist-stories-6-0.mp4"
+    src="/design-systems-for-developers/storybook-with-all-avatarlist-stories-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -98,13 +107,13 @@ git commit -am "Added AvatarList and stories"
 
 ## Document
 
-Thanks to Storybook Docs, we get customizable documentation with minimal effort. This helps others learn how to use AvatarList by referring to the Docs tab in Storybook.
+With the Storybook's [auto-documentation](https://storybook.js.org/docs/react/writing-docs/autodocs) feature, creating customizable documentation is effortless. This is beneficial for others who want to learn how to use AvatarList, as they can easily refer to the Docs entry in the Storybook UI.
 
-![Storybook docs with minimal AvatarList info](/design-systems-for-developers/storybook-docs-minimal-avatarlist.png)
+![Storybook docs with minimal AvatarList info](/design-systems-for-developers/storybook-docs-minimal-avatarlist-7-0.png)
 
 Minimum viable docs! Let’s make AvatarList a bit more human by supplying additional context on how to use it.
 
-```js:title=src/AvatarList.js
+```jsx:title=src/AvatarList/AvatarList.jsx
 /**
  * A list of Avatars, ellipsized to at most 3. Supports passing only a subset of the total user count.
  */
@@ -113,7 +122,7 @@ export function AvatarList({ loading, users, userCount, size, ...props }) {}
 
 Sprinkle in some additional details about the supported props.
 
-```js:title=src/AvatarList.js
+```jsx:title=src/AvatarList/AvatarList.jsx
 AvatarList.propTypes = {
   /**
    * Are we loading avatar data from the network?
@@ -142,7 +151,7 @@ AvatarList.propTypes = {
 
 Easy as pie! This level of detail is sufficient for now-–we can always customize more using MDX later.
 
-![Storybook docs with full AvatarList info](/design-systems-for-developers/storybook-docs-full-avatarlist.png)
+![Storybook docs with full AvatarList info](/design-systems-for-developers/storybook-docs-full-avatarlist-7-0.png)
 
 Documentation doesn’t have to be tiresome. With automated tooling, we removed the tedium to get straight to writing.
 
@@ -150,6 +159,28 @@ Commit the changes and push to GitHub.
 
 ```shell
 git commit -am "Improved AvatarList docs"
+```
+
+### Prepare for publishing
+
+Before publishing our component to the design system, we must ensure it’s available once installed. Let’s add it to the design system’s `index.js` file.
+
+```diff:title=src/index.js
+import * as styles from './shared/styles';
+import * as animation from './shared/animation';
+import * as icons from './shared/icons';
+import * as global from './shared/global';
+
+export { styles, animation, icons, global };
+
+export * from './Avatar';
++ export * from './AvatarList';
+export * from './Badge';
+export * from './Button';
+export * from './Icon';
+export * from './Link';
+export * from './LinkWrapper';
+
 ```
 
 #### Create a Pull Request
@@ -174,7 +205,7 @@ The design system’s Storybook is automatically published with each pull reques
 
 Find the `AvatarList` in your published Storybook. It should look identical to your local Storybook.
 
-![AvatarList in Storybook online](/design-systems-for-developers/netlify-deployed-avatarlist-stories.png)
+![AvatarList in Storybook online](/design-systems-for-developers/chromatic-deployed-avatarlist-stories-7-0.png)
 
 The published Storybook is a universal reference point for the team. Share the link to `AvatarList` with other stakeholders to get feedback faster. Your team will love you because they don’t have to deal with code or set up a development environment.
 
@@ -212,7 +243,7 @@ Add the `minor` label to the PR. This tells Auto to update the minor version of 
 
 Now merge your PR, navigate to your package on npm, and hang tight for a few minutes while the package is updated.
 
-![Package published on npm](/design-systems-for-developers/npm-published-package.png)
+![Package published on npm](/design-systems-for-developers/npm-published-package-minor.png)
 
 Success! Your design system package was updated from the comfort of GitHub. No need to touch the command line or fuss with npm. Update the `learnstorybook-design-system` dependency in the example app to start using AvatarList.
 

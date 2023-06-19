@@ -2,7 +2,7 @@
 title: 'Review with teams'
 tocTitle: 'Review'
 description: 'Collaborate with continuous integration and visual review'
-commit: 'd6c6038'
+commit: '0b7a8a9'
 ---
 
 In chapter 4, we’ll learn professional workflows for making design system improvements while mitigating inconsistencies. This chapter covers techniques for gathering UI feedback and reaching a consensus with your team. These production processes are used by folks at Auth0, Shopify, and Discovery Network.
@@ -70,7 +70,7 @@ npx chromatic --project-token=<project-token>
 
 Browse your published Storybook by copying the provided link and pasting it in a new browser window. You’ll find that your local Storybook development environment is mirrored online.
 
-![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook-6-0.png)
+![Storybook built with Chromatic](/design-systems-for-developers/chromatic-published-storybook-7-0.png)
 
 This makes it easy for your team to review the real rendered UI components just as you see them locally. And here's the confirmation you'll see in Chromatic.
 
@@ -78,7 +78,7 @@ This makes it easy for your team to review the real rendered UI components just 
 
 Congratulations! Now that you set up the infrastructure to publish Storybook let's improve it with continuous integration.
 
-### Continuous integration
+<h3 id="chromatic-ci">Continuous integration</h3>
 
 Continuous integration is the defacto way to maintain modern web apps. It allows you to script behavior like tests, analysis, and deployment whenever you push code. We’ll borrow this technique to save ourselves from repetitive manual work.
 
@@ -101,7 +101,14 @@ jobs:
     runs-on: ubuntu-latest
     # The list of steps that the action will go through
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
+        with:
+          #👇 Fetches all history so Chromatic can compare against previous builds
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          #👇 Sets the version of Node.js to use
+          node-version: 16
       - run: yarn
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
@@ -146,7 +153,7 @@ git checkout -b improve-button
 
 First, tweak the Button component. “Make it pop” – our designers will love it.
 
-```js:title=src/Button.js
+```jsx:title=src/Button/Button.jsx
 // ...
 const StyledButton = styled.button`
   border: 10px solid red;

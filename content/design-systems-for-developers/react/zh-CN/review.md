@@ -2,7 +2,7 @@
 title: '与团队一起审查'
 tocTitle: '审查'
 description: '视觉审查与持续集成并进'
-commit: 'd6c6038'
+commit: '0b7a8a9'
 ---
 
 在第四章中，我们将学习专业的工作流程是如何改进设计系统来减少不一致性。本章介绍如何去收集反馈并与团队达成共识，Auth0， Shopify 和 Discovery Network 都在使用这种方法。
