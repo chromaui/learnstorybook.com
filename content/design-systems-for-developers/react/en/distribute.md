@@ -2,7 +2,7 @@
 title: 'Distribute UI across an organization'
 tocTitle: 'Distribute'
 description: 'Learn to package and import your design system into other apps'
-commit: '5911000'
+commit: 'd70e3da'
 ---
 
 From an architectural perspective, design systems are yet another frontend dependency. They are no different from popular dependencies like moment or lodash. UI components are code, so we can rely on established techniques for code reuse.
@@ -29,9 +29,7 @@ For nascent design systems, the most direct way is to publish a single versioned
 
 ## Prepare your design system for export
 
-As we used [Create React App](https://github.com/facebook/create-react-app) (CRA) as a starting point for our design system, there are still vestiges of the initial app. Let’s clean them up now.
-
-First, update the README.md to something more descriptive:
+We have utilized a custom template for our development, testing, and documentation purposes. However, we need to improve its descriptive nature before publishing our design system. It's crucial to tidy up some initial artifacts and update the README.md with a detailed description of our design system.
 
 ```markdown:title=README.md
 # Storybook design system tutorial
@@ -41,9 +39,11 @@ The Storybook design system tutorial is a subset of the full [Storybook design s
 Learn more in [Storybook tutorials](https://storybook.js.org/tutorials/).
 ```
 
-Then, let’s create a `src/index.js` file to create a common entry point for our design system. From this file, we’ll export all our design tokens and the components:
+Now, let's examine how we will build the package system. To compile our design system, we'll use [Rollup](https://rollupjs.org/), a JavaScript module bundler that combines small code fragments into bigger libraries or applications. The great thing is that the required settings and common entry points are already included in the `src/index.js` file and `rollup.config.mjs`, so there's no need to configure them ourselves.
 
-```js:title=src/index.js
+```js:clipboard=false
+// src/index.js
+
 import * as styles from './shared/styles';
 import * as global from './shared/global';
 import * as animation from './shared/animation';
@@ -58,39 +58,53 @@ export * from './Icon';
 export * from './Link';
 ```
 
-We'll need some additional development packages, we're going to use [`@babel/cli`](https://www.npmjs.com/package/@babel/cli) and [`cross-env`](https://www.npmjs.com/package/cross-env) to help us with the build process.
+```js:clipboard=false
+// rollup.config.mjs
 
-In your command line, issue the following command:
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import terser from '@rollup/plugin-terser';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import { babel } from '@rollup/plugin-babel';
 
-```shell
-yarn add --dev @babel/cli cross-env
-```
+// This is required to read package.json file when
+// using Native ES modules in Node.js
+// https://rollupjs.org/command-line-interface/#importing-package-json
+import { createRequire } from 'node:module';
+const requireFile = createRequire(import.meta.url);
+const packageJson = requireFile('./package.json');
 
-With the packages installed, we'll need to implement the build process.
-
-Thankfully for us, Create React App (CRA) has already taken care of this for us. We'll use the existing `build` script and change it to build our design system to the `dist` directory:
-
-```json:clipboard=false
-{
-  "scripts": {
-    "build": "cross-env BABEL_ENV=production babel src -d dist"
-  }
-}
-```
-
-With our build process implemented. We'll need to fine-tune it. Locate the `babel` key in your `package.json` and update it to the following:
-
-```json:title=package.json
-"babel": {
-  "presets": [
-    [
-      "react-app",
+export default [
+  {
+    input: 'src/index.js',
+    output: [
       {
-        "absoluteRuntime": false
-      }
-    ]
-  ]
-}
+        file: packageJson.main,
+        format: 'cjs',
+        sourcemap: true,
+      },
+      {
+        file: packageJson.module,
+        format: 'esm',
+        exports: 'named',
+        sourcemap: true,
+      },
+    ],
+    plugins: [
+      peerDepsExternal(),
+      resolve({
+        extensions: ['.js', '.jsx'],
+      }),
+      commonjs(),
+      terser(),
+      babel({
+        extensions: ['.js', '.jsx'],
+        exclude: 'node_modules/**',
+      }),
+    ],
+    external: ['react', 'react-dom', '@emotion/react', '@emotion/styled'],
+  },
+];
 ```
 
 Now we can run `yarn build` to build our code into the `dist` directory -- we should add that directory to `.gitignore` too, so we don't accidentally commit it:
@@ -112,7 +126,7 @@ yarn init v1.22.5
 question name (learnstorybook-design-system): @your-npm-username/learnstorybook-design-system
 question version (0.1.0):
 question description (Learn Storybook design system):Storybook design systems tutorial
-question entry point (dist/index.js):
+question entry point (dist/cjs/index.js):
 question repository url (https://github.com/your-username/learnstorybook-design-system.git):
 question author (your-npm-username <your-email-address@email-provider.com>):
 question license (MIT):
@@ -129,7 +143,7 @@ All in all, it will update `package.json` with new values as a result of those q
   "description": "Storybook design systems tutorial",
   "version": "0.1.0",
   "license": "MIT",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
   "repository": "https://github.com/your-username/learnstorybook-design-system.git"
   // ...
 }
@@ -143,19 +157,11 @@ Now that we’ve prepared our package, we can publish it to npm for the first ti
 
 ## Release management with Auto
 
-To publish releases to npm, we’ll use a process that also updates a changelog describing changes, sets a sensible version number, and creates git tag linking that version number to a commit in our repository. To help with all those things, we’ll use an open-source tool called [Auto](https://github.com/intuit/auto), designed for this very purpose.
-
-Let’s install Auto:
-
-```shell
-yarn add --dev auto
-```
-
-Auto is a command line tool we can use for various common tasks around release management. You can learn more about Auto on [their documentation site](https://intuit.github.io/auto/).
+To publish releases to npm, we’ll use a process that also updates a changelog describing changes, sets a sensible version number, and creates git tag linking that version number to a commit in our repository. To help with all those things, we’ll use an open-source tool called [Auto](https://github.com/intuit/auto), designed for this very purpose. Auto is a command line tool we can use for various common tasks around release management. You can learn more about Auto on [their documentation site](https://intuit.github.io/auto/).
 
 #### Getting a GitHub and npm token
 
-For the next few steps, Auto is going to talk to GitHub and npm. For that to work correctly, we’ll need a personal access token. You can get one of those on [this page](https://github.com/settings/tokens) for GitHub. The token will need the `repo` scope.
+For the next few steps, Auto will talk to GitHub and npm. For that to work correctly, we’ll need a personal access token. You can get one of those on [this page](https://github.com/settings/tokens) for GitHub. The token will need both `repo` and `workflow` scopes.
 
 For npm, you can create a token at the URL: https://www.npmjs.com/settings/&lt;your-username&gt;/tokens.
 
@@ -208,7 +214,7 @@ git reset HEAD^
 Then we’ll update the changelog and commit it:
 
 ```markdown:title=CHANGELOG.md
-# v0.1.0 (Tue Mar 09 2021)
+# v0.1.0 (Mon Jun 12 2023)
 
 - Created first version of the design system, with `Avatar`, `Badge`, `Button`, `Icon` and `Link` components.
 
@@ -239,7 +245,7 @@ And use Auto to create a release on GitHub:
 
 ```shell:clipboard=false
 git push --follow-tags origin main
-yarn auto release
+yarn release
 ```
 
 Yay! We’ve successfully published our package to npm and created a release on GitHub (with luck!).
@@ -248,21 +254,13 @@ Yay! We’ve successfully published our package to npm and created a release on 
 
 ![Release published to GitHub](/design-systems-for-developers/github-published-release.png)
 
-(Note that although `auto` auto-generated the release notes for the first release, we've also modified them to make sense for a first version).
+<div class="aside">
 
-#### Set up scripts to use Auto
+💡 Although we modified the initial release notes to make sense for the first version, `auto` automatically generates the release notes based on the commit messages for future releases.
 
-Let’s set up Auto to follow the same process when we want to publish the package in the future. We’ll add the following scripts to our `package.json`:
+</div>
 
-```json:clipboard=false
-{
-  "scripts": {
-    "release": "auto shipit --base-branch=main"
-  }
-}
-```
-
-Now, when we run `yarn release`, we'll go through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. All commits to the default branch will be published.
+Now, when we run `yarn release`, we’ll go through all the steps we ran above (except using the auto-generated changelog) in an automated fashion. All commits to the default branch will be published.
 
 Congratulations! You set up the infrastructure to manually publish your design system releases. Now learn how to automate releases with continuous integration.
 
@@ -274,11 +272,11 @@ We use GitHub Actions for continuous integration. But before proceeding, we need
 
 GitHub Secrets allow us to store sensitive information in our repository. In a browser window, open your GitHub repository.
 
-Click the ⚙️ Settings tab then the Secrets link in the sidebar. You'll see the following screen:
+Click the ⚙️ Settings tab then the `Secrets and variables` dropdown in the sidebar, followed by the `Actions` link. You'll see the following screen:
 
 ![Empty GitHub secrets page](/design-systems-for-developers/github-empty-secrets-page.png)
 
-Click the **New secret** button. Use `NPM_TOKEN` for the name and paste the token you got from npm earlier in this chapter.
+Click the **New repository secret** button. Use `NPM_TOKEN` for the name and paste the token you got from npm earlier in this chapter.
 
 ![Filled GitHub secrets form](/design-systems-for-developers/github-secrets-form-filled.png)
 
@@ -300,36 +298,31 @@ on:
 # what the action will do
 jobs:
   release:
-    # The operating system it will run on
     runs-on: ubuntu-latest
-    # This check needs to be in place to prevent a publish loop with auto and github actions
     if: "!contains(github.event.head_commit.message, 'ci skip') && !contains(github.event.head_commit.message, 'skip ci')"
-    # The list of steps that the action will go through
     steps:
       - uses: actions/checkout@v2
+
       - name: Prepare repository
         run: git fetch --unshallow --tags
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
         with:
-          node-version: 12.x
-      - name: Cache node modules
-        uses: actions/cache@v1
-        with:
-          path: node_modules
-          key: yarn-deps-${{ hashFiles('yarn.lock') }}
-          restore-keys: |
-            yarn-deps-${{ hashFiles('yarn.lock') }}
+          node-version: 16
+      - name: Install dependencies
+        uses: bahmutov/npm-install@v1
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           #👇 npm token, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/distribute/ to obtain it
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
-          yarn install --frozen-lockfile
-          yarn build
           yarn release
 ```
+
+<div class="aside">
+Additional permissions may be required to allow GitHub Actions to fetch the repository contents and publish the package to npm. See <a href="https://docs.github.com/en/actions/using-jobs/assigning-permissions-to-jobs">GitHub's documentation</a> for more information.
+</div>
 
 Save and commit your changes to the remote repository.
 
@@ -345,11 +338,15 @@ Now that our design system lives online installing the dependency and using the 
 
 #### Get the example app
 
-Earlier in this tutorial, we standardized on a popular frontend stack that includes React and Styled Components. That means our example app must also use React and Styled Components to take full advantage of the design system.
+Earlier in this tutorial, we standardized on a popular frontend stack that includes React and Emotion. That means our example app must also use React and Emotion to take full advantage of the design system.
 
-<div class="aside">💡 Other promising methods like Svelte or web components may allow you to ship framework-agnostic UI components. However, they are relatively new, under-documented, or lack widespread adoption, so they’re not included in this guide yet.</div>
+<div class="aside">
 
-The example app uses Storybook to facilitate [Component-Driven Development](https://www.componentdriven.org/), an app development methodology for building UIs from the bottom, starting with components ending with pages. We’ll run two Storybooks side-by-side during the demo: one for our example app and one for our design system.
+💡 Although other techniques, such as Svelte or Web Components, can help distribute UI components without relying on a specific framework, we have focused on the most commonly used and extensively documented methods to ensure a quick start in this tutorial. Rest assured, we will explore other methods in upcoming updates.
+
+</div>
+
+The example application uses Storybook to facilitate [Component-Driven Development](https://www.componentdriven.org/), an application development methodology for building UIs from the bottom, starting with components ending with pages. We’ll run two Storybooks side-by-side during the demo: one for our example app and one for our design system.
 
 Run the following commands in your command line to set up the example app:
 
@@ -368,36 +365,42 @@ yarn storybook
 
 You should see the Storybook running with the stories for the simple components the app uses:
 
-![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook-6-0.png)
+![Initial storybook for example app](/design-systems-for-developers/example-app-starting-storybook-7-0.png)
 
 <h4>Integrating the design system</h4>
 
 We have our design system's Storybook published. Let's add it to our example app. We can do that by updating example app’s `.storybook/main.js` to the following:
 
 ```diff:title=.storybook/main.js
-// .storybook/main.js
-
-module.exports = {
-  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
+/** @type { import('@storybook/react-vite').StorybookConfig } */
+const config = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+  ],
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
+  },
+  docs: {
+    autodocs: 'tag',
+  },
 + refs: {
-+   'design-system': {
++   "design-system": {
 +     title: 'My design system',
 +     //👇 The url provided by Chromatic when it was deployed
 +     url: 'https://your-published-url.chromatic.com',
 +   },
 + },
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/preset-create-react-app',
-  ],
-  framework: '@storybook/react',
 };
+export default config;
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/design-systems-for-developers/storybook-composition-6-0.mp4"
+    src="/design-systems-for-developers/storybook-composition-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -414,39 +417,50 @@ We have what we need, time to add our design system and start using it. Run the 
 yarn add @your-npm-username/learnstorybook-design-system
 ```
 
-We'll need to use the same global styles defined in the design system, so we'll need to update [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) config file and add a [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators).
+We'll need to use the same global styles defined in the design system, so we'll need to update [`.storybook/preview.jsx`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering) config file and add a [global decorator](https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators).
 
-```js:title=.storybook/preview.js
-import React from 'react';
+```jsx:title=.storybook/preview.jsx
+import { Global } from '@emotion/react';
 
 // The styles imported from the design system.
 import { global as designSystemGlobal } from '@your-npm-username/learnstorybook-design-system';
 
 const { GlobalStyle } = designSystemGlobal;
 
-/*
- * Adds a global decorator to include the imported styles from the design system.
- * More on Storybook decorators at:
- * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
- */
-export const decorators = [
-  Story => (
-    <>
-      <GlobalStyle />
-      <Story />
-    </>
-  ),
-];
-/*
- * More on Storybook parameters at:
- * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
- */
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
+/** @type { import('@storybook/react').Preview } */
+const preview = {
+  /*
+  * Adds a global decorator to include the imported styles from the design system.
+  * More on Storybook decorators at:
+  * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
+  */
+  decorators: [
+    (Story) => (
+      <>
+        <Global styles={GlobalStyle} />
+        <Story />
+      </>
+    ),
+  ],
+  /*
+  * More on Storybook parameters at:
+  * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
+  */
+  parameters: {
+    actions: { argTypesRegex: "^on[A-Z].*" },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+  },
 };
+
+export default preview;
 ```
 
-![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories-6-0.png)
+![Example app storybook with design system stories](/design-systems-for-developers/example-app-storybook-with-design-system-stories-7-0.png)
 
 We’ll use the `Avatar` component from our design system in the example app’s `UserItem` component. `UserItem` should render information about a user, including a name and profile photo.
 
@@ -454,16 +468,16 @@ In your editor, open the `UserItem` component located in `src/components/UserIte
 
 Import the Avatar component.
 
-```js:title=src/components/UserItem.js
+```js:title=src/components/UserItem.jsx
 import { Avatar } from '@your-npm-username/learnstorybook-design-system';
 ```
 
 We want to render the Avatar beside the username.
 
-```diff:title=src/components/UserItem.js
-import React from 'react';
+```diff:title=src/components/UserItem.jsx
+import PropTypes from 'prop-types';
 
-import styled from 'styled-components';
+import styled from '@emotion/styled';
 
 + import { Avatar } from '@your-npm-username/learnstorybook-design-system';
 
@@ -491,11 +505,19 @@ export default ({ user: { name, avatarUrl } }) => (
     <Name>{name}</Name>
   </Container>
 );
+
+UserItem.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    avatarUrl: PropTypes.string,
+  }),
+};
+
 ```
 
 Upon save, the `UserItem` component will update in Storybook to show the new Avatar component. Since `UserItem` is a part of the `UserList` component, you’ll also see the `Avatar` in `UserList`.
 
-![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system-6-0.png)
+![Example app using the Design System](/design-systems-for-developers/example-app-storybook-using-design-system-7-0.png)
 
 There you have it! You just imported a design system component into the example app. Whenever you publish an update to the Avatar component in the design system, that change will also be reflected in the example app when you update the package.
 

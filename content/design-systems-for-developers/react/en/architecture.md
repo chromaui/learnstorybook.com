@@ -2,7 +2,7 @@
 title: 'Architecting systems'
 tocTitle: 'Architecture'
 description: 'How to extract a design system from component libraries'
-commit: 'c9eced8'
+commit: '5aa78f3'
 ---
 
 In chapter 2, we extract a design system from existing component libraries. Along the way, we determine which components belong in the design system and outline common challenges developers face getting started.
@@ -33,9 +33,9 @@ As such, our design system must be independent of any project and also a depende
 
 ![Who uses a design system](/design-systems-for-developers/design-system-consumers.jpg)
 
-## Set up our repository with create-react-app and GitHub
+## Set up a repository in GitHub
 
-React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial along with the [create-react-app](https://github.com/facebook/create-react-app) boilerplate.
+React is the most popular view layer according to the [State of JS](https://stateofjs.com/) survey. An overwhelming number of Storybooks use React, so we’re using it in this tutorial to build our design system.
 
 In your command line, run the following commands:
 
@@ -101,7 +101,7 @@ Following this method, we end up with UI primitives: Avatar, Badge, Button, Chec
 
 We’ve selected a subset of these components for this tutorial to make reasoning about the repository simpler. Some teams also include customized third-party components in their design systems for other components like Tables and Forms.
 
-<div class="aside">💡 CSS-in-JS: We use <a href="https://www.styled-components.com">styled-components</a>, a library that allows us to scope styling to the component. There are other valid methods to style components including targeting classes manually, CSS modules, etc.</div>
+<div class="aside">💡 CSS-in-JS: We use <a href="https://emotion.sh/docs/introduction">Emotion</a>, a library designed for writing CSS styles with JavaScript. It provides a powerful and predictable style composition model. There are other valid methods to style components, including targeting classes manually, CSS modules, etc.</div>
 
 In addition to UI components, it makes sense to include styling constants for typography, colors, spacing, etc., that are reused across projects. In design system nomenclature global style variables are called “design tokens”. We won’t dive into the theory behind design tokens in this guide, but you can learn more online (here’s a [good article](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)).
 

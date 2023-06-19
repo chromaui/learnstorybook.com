@@ -2,7 +2,7 @@
 title: 'Build UI components'
 tocTitle: 'Build'
 description: 'Set up Storybook to build and catalog design system components'
-commit: 'dc246ee'
+commit: '13351cf'
 ---
 
 In chapter 3, we’ll set up the essential design system tooling starting with Storybook, the most popular component explorer. The goal of this guide is to show you how professional teams build design systems, so we’ll also focus on finer details like the code hygiene, timesaving Storybook addons, and directory structure.
@@ -15,13 +15,7 @@ Design systems are collaborative, so tools that fix syntax and standardize forma
 
 In this tutorial, we'll use [VSCode](https://code.visualstudio.com/) as our editor, but you can apply the same principles to other modern editors like [Atom](https://atom.io/), [Sublime](https://www.sublimetext.com/), or [IntelliJ](https://www.jetbrains.com/idea/).
 
-If we add Prettier to our project and set our editor up correctly, we should obtain consistent formatting without having to think much about it:
-
-```shell
-yarn add --dev prettier
-```
-
-If you are using Prettier for the first time, you may need to set it up for your editor. In VSCode, install the Prettier addon:
+To ensure a consistent code style, we will be utilizing [Prettier](https://prettier.io/). This code formatter is widely used and supports multiple languages. It seamlessly integrates with most editors, including the one we are using, and was included in the template we cloned earlier in this guide when we initialized our design system. If you are a first-time user of Prettier, you may need to configure it for your editor. For VSCode, install the Prettier addon.
 
 ![Prettier addon for VSCode](/design-systems-for-developers/prettier-addon.png)
 
@@ -40,7 +34,7 @@ Install and run Storybook with the following commands:
 
 ```shell:clipboard=false
 # Installs Storybook
-npx storybook init
+npx storybook@latest init
 
 # Starts Storybook in development mode
 yarn storybook
@@ -48,7 +42,7 @@ yarn storybook
 
 You should see this:
 
-![Initial Storybook UI](/design-systems-for-developers/storybook-initial-6-0.png)
+![Initial Storybook UI](/design-systems-for-developers/storybook-initial-7-0.png)
 
 Nice, we’ve set up a component explorer!
 
@@ -58,17 +52,17 @@ Now your Storybook should look like this (notice that the font styles are a litt
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/design-systems-for-developers/storybook-initial-stories-without-styles-6-0.mp4"
+    src="/design-systems-for-developers/storybook-initial-stories-without-styles-7-0.mp4"
     type="video/mp4"
   />
 </video>
 
-#### Add global styles
+### Add global styles
 
-Our design system requires some global styles (a CSS reset) to be applied to the document to render our components correctly. We can add them easily with the Styled Components global style tag. Update your `src/shared/global.js` file to the following:
+Our design system requires some global styles (a CSS reset) to be applied to the document to render our components correctly. We can add them easily with Emotion's [global style prop](https://emotion.sh/docs/globals). Update your `src/shared/global.js` file to the following:
 
 ```diff:title=src/shared/global.js
-import { createGlobalStyle, css } from 'styled-components';
+import { css } from '@emotion/react';
 
 import { color, typography } from './styles';
 
@@ -78,57 +72,49 @@ export const bodyStyles = css`
   /* Same as before */
 `;
 
-export const GlobalStyle = createGlobalStyle`
- body {
-   ${bodyStyles}
- }`;
+export const GlobalStyle = css`
+  body {
+    ${bodyStyles}
+  }
+`;
 ```
 
-To use the `GlobalStyle` “component” in Storybook, we can make use of a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators) (a component wrapper). In an app, we’d place that component in the top-level app layout, but in Storybook, we wrap all stories using the preview config file [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering).
+To use the `Global` “component” in Storybook, we can make use of a [decorator](https://storybook.js.org/docs/react/writing-stories/decorators) (a component wrapper). In an app, we’d place that component in the top-level app layout, but in Storybook, we wrap all stories using the preview config file [`.storybook/preview.js`](https://storybook.js.org/docs/react/configure/overview#configure-story-rendering). Rename the file to `.storybook/preview.jsx` and update it to the following:
 
-```diff:title=.storybook/preview.js
-+ import React from 'react';
+```diff:title=.storybook/preview.jsx
++ import { Global } from '@emotion/react';
 
 + import { GlobalStyle } from '../src/shared/global';
 
-/*
- * Global decorator to apply the styles to all stories
- * Read more about them at:
- * https://storybook.js.org/docs/react/writing-stories/decorators#global-decorators
- */
-+ export const decorators = [
-+   Story => (
+/** @type { import('@storybook/react').Preview } */
+const preview = {
++ decorators: [
++   (Story) => (
 +     <>
-+       <GlobalStyle />
++       <Global styles={GlobalStyle} />
 +       <Story />
 +     </>
 +   ),
-+ ];
-
-/*
- * Read more about global parameters at:
- * https://storybook.js.org/docs/react/writing-stories/parameters#global-parameters
- */
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
++ ],
+  parameters: {
+    actions: { argTypesRegex: '^on[A-Z].*' },
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+  },
 };
-```
 
-The decorator ensures the `GlobalStyle` renders no matter which story is selected.
+export default preview;
+```
 
 <div class="aside">💡 The <code><></code> in the decorator is not a typo--it’s a <a href="https://reactjs.org/docs/fragments.html">React Fragment</a> that we use here to avoid adding an unnecessary extra HTML tag to our output.</div>
 
-#### Add font tag
+The decorator ensures the `GlobalStyle` renders no matter which story is selected.
 
-Our design system also relies on the font Nunito Sans to be loaded into the app. The way to achieve that in an app depends on the app framework (read more about it [here](https://github.com/storybookjs/design-system#font-loading)), but in Storybook, the easiest way to achieve that is to create a file, [`.storybook/preview-head.html`](https://storybook.js.org/docs/react/configure/story-rendering#adding-to-head), to add a `<link>` tag directly to the `<head>` of the page:
-
-```html:title=.storybook/preview-head.html
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,700,800,900" />
-```
-
-Your Storybook should now look like this. Notice the “T” is sans-serif because we added global font styles.
-
-![Storybook with global styles loaded](/design-systems-for-developers/storybook-global-styles-6-0.png)
+![Storybook with global styles loaded](/design-systems-for-developers/storybook-global-styles-7-0.png)
 
 ## Supercharge Storybook with addons
 
@@ -140,10 +126,14 @@ The [actions addon](https://storybook.js.org/docs/react/essentials/actions) give
 
 Let’s see how to use it in our Button element, which optionally takes a wrapper component to respond to clicks. We have a story that passes an action to that wrapper:
 
-```js:title=src/Button.stories.js
-import React from 'react';
+```jsx:title=src/Button/Button.stories.jsx
+import styled from '@emotion/styled';
 
-import styled from 'styled-components';
+import { Button } from './Button';
+
+import { Icon } from '../Icon/Icon';
+
+import { StoryLinkWrapper } from '../LinkWrapper';
 
 // When the user clicks a button, it will trigger the `action()`,
 // ultimately showing up in Storybook's addon panel.
@@ -151,15 +141,24 @@ function ButtonWrapper(props) {
   return <CustomButton {...props} />;
 }
 
-export const buttonWrapper = (args) => (
-  return <CustomButton {...props}/>;
-// … etc ..
-)
+export const buttonWrapper = {
+  name: 'button wrapper',
+  render: () => (
+    <div>
+      <ButtonWrapper>Original Button Wrapper</ButtonWrapper>
+      <br />
+      <Button ButtonWrapper={ButtonWrapper} appearance='primary'>
+        Primary
+      </Button>
+      /* Removed for brevity */
+    </div>
+  ),
+};
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/design-systems-for-developers/storybook-addon-actions-6-0.mp4"
+    src="/design-systems-for-developers/storybook-addon-actions-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -170,11 +169,9 @@ Fresh installs of Storybook include the [Controls addon](https://storybook.js.or
 
 It allows you to interact with component inputs (props) dynamically in the Storybook UI. You can supply multiple values to a component prop through [arguments](https://storybook.js.org/docs/react/writing-stories/args) (or args for short) and adjust them through the UI. It helps design systems creators stress test component inputs (props) by adjusting the argument's values. It also gives design systems consumers the ability to try components before integrating them to understand how each input (prop) affects them.
 
-Let's see how they work by adding a new story in the `Avatar` component, located in `src/Avatar.stories.js`:
+Let's see how they work by adding a new story in the `Avatar` component, located in `src/Avatar/Avatar.stories.jsx`:
 
-```js:title=src/Avatar.stories.js
-import React from 'react';
-
+```jsx:title=src/Avatar/Avatar.stories.jsx
 import { Avatar } from './Avatar';
 
 export default {
@@ -201,18 +198,13 @@ export default {
  * Read more about Storybook templates at:
  * https://storybook.js.org/docs/react/writing-stories/introduction#using-args
  */
-const Template = args => <Avatar {...args} />;
-
-export const Controls = Template.bind({});
-/*
- * More on args at:
- * https://storybook.js.org/docs/react/writing-stories/args
- */
-Controls.args = {
-  loading: false,
-  size: 'tiny',
-  username: 'Dominic Nguyen',
-  src: 'https://avatars2.githubusercontent.com/u/263385',
+export const Controls = {
+  args: {
+    loading: false,
+    size: 'tiny',
+    username: 'Dominic Nguyen',
+    src: 'https://avatars.githubusercontent.com/u/263385',
+  },
 };
 ```
 
@@ -220,7 +212,7 @@ Notice the Controls tab in the addon panel. Controls automatically generates gra
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/design-systems-for-developers/storybook-addon-controls-6-0.mp4"
+    src="/design-systems-for-developers/storybook-addon-controls-7-0.mp4"
     type="video/mp4"
   />
 </video>

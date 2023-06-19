@@ -2,6 +2,7 @@
 title: 'UI 배포'
 tocTitle: '배포'
 description: '디자인 시스템을 다른 앱에 패키징하고 import하는 방법을 배웁니다.'
+commit: 'd70e3da'
 ---
 
 설계적인 관점에서 디자인 시스템은 또 다른 프런트엔드 의존성(dependency)에 불과합니다. 그런 시스템은 유명한 의존성인 moment나 loadash와 다를 바가 없습니다. UI 컴포넌트는 코드이기 때문에 코드 재사용을 위해 확립된 기술을 활용할 수 있습니다.

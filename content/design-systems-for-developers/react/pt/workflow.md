@@ -2,7 +2,7 @@
 title: 'Fluxo de trabalho associado ao sistema de design'
 tocTitle: 'Fluxo de trabalho'
 description: 'Uma visão geral do fluxo de trabalho associado ao sistema de design para programadores frontend'
-commit: 5fb832a
+commit: '9d13d12'
 ---
 
 A forma como as ferramentas de trabalho frontend trabalham em conjunto, tem um impacto significativo no valor final que as equipas de design e programação poderão atingir. Quando bem feito, é bastante fácil implementar e reutilizar componentes de IU.

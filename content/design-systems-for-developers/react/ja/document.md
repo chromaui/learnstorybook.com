@@ -2,7 +2,7 @@
 title: 'ステークホルダーに向けたドキュメント'
 tocTitle: 'ドキュメント'
 description: 'ドキュメンテーションでデザインシステムの採用を推進する'
-commit: '107bb03'
+commit: '8b82096'
 ---
 
 [専門的な](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system)[フロントエンド](https://segment.com/blog/driving-adoption-of-a-design-system/)[チーム](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7)はデザインシステムの成功を採用によって測ります。デザインシステムから最大限に仕事の省力化の恩恵を得るために、コンポーネントは広く循環しなければなりません。そうでなければ、何の意味があるのでしょうか？

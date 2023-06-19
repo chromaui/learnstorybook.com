@@ -2,7 +2,7 @@
 title: 'Test to maintain quality'
 tocTitle: 'Test'
 description: 'How to test design system appearance, functionality, and accessibility'
-commit: 'a676146'
+commit: '30853f5'
 ---
 
 In chapter 5, we automate design system testing to prevent UI bugs. This chapter dives into what characteristics of UI components warrant testing and potential pitfalls to avoid. We researched professional teams at Wave, BBC, and Salesforce to land on a test strategy that balances comprehensive coverage, straightforward setup, and low maintenance.
@@ -74,28 +74,10 @@ To enable it, we're going to rely on Storybook's [`play`](https://storybook.js.o
 Start by adding the necessary dependencies with:
 
 ```shell
-yarn add --dev jest@27 @storybook/jest @storybook/test-runner
+yarn add --dev @storybook/jest @storybook/test-runner
 ```
 
-Next, update your Storybook configuration to enable playback controls for debugging.
-
-```diff:title=.storybook/main.js
-module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/preset-create-react-app',
-  ],
-  framework: '@storybook/react',
-+ features: {
-+   interactionsDebugger: true,
-+ },
-};
-```
-
-Finally, add a new test task to your `package.json` scripts:
+Next, add a new test task to your `package.json` scripts:
 
 ```json:clipboard=false
 {
@@ -113,14 +95,15 @@ The test itself is defined inside a [`play`](https://storybook.js.org/docs/react
 
 Let's see how it works by updating the `Button` story and set up our first interaction test by adding the following:
 
-```diff:title=src/Button.stories.js
-import React from 'react';
+```diff:title=src/Button/Button.stories.jsx
+import styled from '@emotion/styled';
+
+import { Button } from './Button';
+import { Icon } from '../Icon/Icon';
+import { StoryLinkWrapper } from '../LinkWrapper';
 
 + import { userEvent, within } from '@storybook/testing-library';
 + import { expect } from '@storybook/jest';
-
-import { Button } from './Button';
-import { StoryLinkWrapper } from './StoryLinkWrapper';
 
 export default {
   title: 'Design System/Button',
@@ -134,28 +117,28 @@ export default {
  * See https://storybook.js.org/docs/react/writing-stories/play-function
  * to learn more about the play function.
  */
-+ export const WithInteractions = (args) => <Button {...args} />;
-+ WithInteractions.args = {
-+   appearance: 'primary',
-+   href: 'http://storybook.js.org',
-+   ButtonWrapper: StoryLinkWrapper,
-+   children: 'Button',
-+ };
-
-+ WithInteractions.play = async ({ canvasElement }) => {
-+  // Assigns canvas to the component root element
-+   const canvas = within(canvasElement);
-+   await userEvent.click(canvas.getByRole('link'));
-+   expect(canvas.getByRole('link')).toHaveAttribute(
-+     'href',
-+     'http://storybook.js.org',
-+    );
++ export const WithInteractions = {
++   args: {
++     appearance: 'primary',
++     href: 'http://storybook.js.org',
++     ButtonWrapper: StoryLinkWrapper,
++     children: 'Button',
++   },
++   play: async ({ canvasElement }) => {
++     // Assigns canvas to the component root element
++     const canvas = within(canvasElement);
++     await userEvent.click(canvas.getByRole('link'));
++     expect(canvas.getByRole('link')).toHaveAttribute(
++       'href',
++       'http://storybook.js.org',
++     );
++   },
 + };
 ```
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/design-systems-for-developers/dsd-storybook-interaction-testing-with-play-function.mp4"
+    src="/design-systems-for-developers/dsd-storybook-interaction-testing-with-play-function-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -172,9 +155,69 @@ With Storybook running, open a new terminal window and run the test runner with:
 yarn test-storybook --watch
 ```
 
-![Storybook test runner execution](/design-systems-for-developers/test-runner-execution-optimzed.png)
+![Storybook test runner execution](/design-systems-for-developers/test-runner-execution.png)
 
 It will verify whether all our stories render without errors and all assertions pass automatically during execution. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
+
+### Run interaction tests in CI
+
+Interaction tests with the `play` function and automation with the test runner helped us simulate user interactions and verify the UI state of our components. However, running them locally can be a time-consuming and repetitive task, even as our design system continues to grow. Once again, that's where CI comes in. Let's see how to set it up with our existing CI workflow.
+
+Update the existing workflow that we created in the [previous chapter](/design-systems-for-developers/react/en/review/#chromatic-ci) and enable interaction testing as follows:
+
+```yaml:title=.github/workflows/chromatic.yml
+# Name of our action
+name: 'Chromatic'
+# The event that will trigger the action
+on: push
+
+# What the action will do
+jobs:
+  # Run interaction tests
+  interaction-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3
+        with:
+          #👇 Sets the version of Node.js to use
+          node-version: 16
+      - name: Install dependencies
+        run: yarn
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Build Storybook
+        run: yarn build-storybook --quiet
+      - name: Serve Storybook and run tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:6006 && yarn test-storybook"
+  visual-tests:
+    # The operating system it will run on
+    runs-on: ubuntu-latest
+    # The list of steps that the action will go through
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          #👇 Fetches all history so Chromatic can compare against previous builds
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          #👇 Sets the version of Node.js to use
+          node-version: 16
+      - run: yarn
+        #👇 Adds Chromatic as a step in the workflow
+      - uses: chromaui/action@v1
+        # Options required for Chromatic's GitHub Action
+        with:
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/ to obtain it
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
+Our workflow will run when code is pushed to any branch of our design system repository, and it will have two jobs; one for interaction tests and one for visual tests. The interaction test job starts by building Storybook and then
+runs the test runner, notifying us of broken tests. The visual test job will function as before, running Chromatic to verify the visual state of our components.
 
 ## Accessibility test
 
@@ -182,7 +225,7 @@ It will verify whether all our stories render without errors and all assertions 
 
 Disabilities affect 15% of the population, according to the [World Health Organization](https://www.who.int/disabilities/world_report/2011/report/en/). Design systems have an outsized impact on accessibility because they contain the building blocks of user interfaces. Improving accessibility of just one component means every instance of that component across your company benefits.
 
-![Storybook accessibility addon](/design-systems-for-developers/storybook-accessibility-addon.png)
+![Storybook accessibility addon](/design-systems-for-developers/a11y-workflow.png)
 
 Get a headstart on inclusive UI with Storybook’s Accessibility addon, a real-time tool for verifying web accessibility standards (WCAG).
 
@@ -193,28 +236,36 @@ yarn add --dev @storybook/addon-a11y
 Update your Storybook configuration to include the addon.
 
 ```diff:title=.storybook/main.js
-module.exports = {
-  stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+/** @type { import('@storybook/react-vite').StorybookConfig } */
+const config = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@storybook/preset-create-react-app',
 +   '@storybook/addon-a11y',
   ],
-  framework: '@storybook/react',
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
+  },
+  docs: {
+    autodocs: 'tag',
+  },
 };
+export default config;
+
 ```
 
 Once all is set up, you’ll see a new “Accessibility” tab in the Storybook addons panel.
 
-![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y-6-0.png)
+![Storybook a11y addon](/design-systems-for-developers/storybook-addon-a11y-7-0.png)
 
 It shows you the accessibility levels of DOM elements (violations and passes). Click the “highlight results” checkbox to visualize violations in situ with the UI component.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/design-systems-for-developers/storybook-addon-a11y-6-0-highlighted.mp4"
+    src="/design-systems-for-developers/storybook-addon-a11y-7-0-highlighted.mp4"
     type="video/mp4"
   />
 </video>
@@ -224,6 +275,50 @@ From here, follow the addon’s accessibility recommendations.
 ## Other testing strategies
 
 Paradoxically, tests can save time but also bog down development velocity with maintenance. Be judicious about testing the right things – not everything. Even though software development has many test strategies, we discovered the hard way that some aren’t suited for design systems.
+
+### Code coverage tests
+
+Code coverage tests measure how much of your codebase is covered by tests. They're a good way to ensure that your tests are actually testing something. However, they're not a good way to measure the quality of your tests, but they can be beneficial to verify all the components and utilities provided by the design system are functioning as expected, helping to identify any potential gaps or issues in the design system's implementation. Storybook provides an [addon](https://storybook.js.org/addons/@storybook/addon-coverage/) to help us with this. Powered by [Istanbul](https://istanbul.js.org/), the Storybook coverage addon generates a code coverage report for your Storybook stories. Let's see how.
+
+Start by running the following command to install the coverage addon:
+
+```shell
+yarn add --dev @storybook/addon-coverage
+```
+
+Next, update your Storybook configuration to include the addon:
+
+```diff:title=.storybook/main.js
+/** @type { import('@storybook/react-vite').StorybookConfig } */
+const config = {
+  stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
++   '@storybook/addon-coverage',
+  ],
+  framework: {
+    name: '@storybook/react-vite',
+    options: {},
+  },
+  docs: {
+    autodocs: 'tag',
+  },
+};
+export default config;
+```
+
+Finally, with Storybook running, start the test runner (in a separate terminal window) with the `--coverage` flag:
+
+```shell
+yarn test-storybook --coverage
+```
+
+![Storybook coverage tests report](/design-systems-for-developers/test-runner-coverage-testing.png)
+
+From here, follow the recommendations to improve your code coverage.
 
 #### Snapshot tests (Jest)
 

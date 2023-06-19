@@ -73,7 +73,7 @@ twitterShareText: "I’m learning about building design systems! They're great f
     <img src="/frameworks/logo-react.svg"> React
   </div>
   <div class="badge">
-    styled-components
+    Emotion
   </div>
   <div class="badge">
     Prettier
@@ -88,7 +88,7 @@ twitterShareText: "I’m learning about building design systems! They're great f
     Chromatic
   </div>
   <div class="badge">
-    Jest
+    Rollup
   </div>
   <div class="badge">
     npm
