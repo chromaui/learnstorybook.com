@@ -1,3 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+require('dotenv').config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 const path = require('path');
 
 const { createFilePath } = require(`gatsby-source-filesystem`);
@@ -187,5 +192,13 @@ exports.createPages = ({ graphql, actions }) => {
 };
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {
-  await sourceDXData({ actions, createNodeId, createContentDigest });
+  // Skip DX data retrieval if SKIP_DX_DATA environment variable is set
+  const isSkipDataEnabled = process.env.SKIP_DX_DATA;
+
+  await sourceDXData({
+    actions,
+    createNodeId,
+    createContentDigest,
+    isDxDataEnabled: isSkipDataEnabled,
+  });
 };

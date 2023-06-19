@@ -2,31 +2,9 @@
 
 Learn Storybook teaches you how to use Storybook and Component-Driven Development to build UIs from scratch. We walk through core concepts from building and testing to deployment. Using engaging guides and content, we hope to get you up to speed on Storybook best practices in a fast and approachable way.
 
-## Contribute
-
-Contributions to Learn Storybook are encouraged! If it’s something small like grammar, punctuation, or even a code snippet, first check the [open pull requests](https://github.com/chromaui/learnstorybook.com/pulls) to see if it's already being addressed, if it's not, then open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started.
-
-You'll find the guides and chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory. Content is organized at the guide level. Within the `/content` directory, you'll find directories for the current guides that are offered. Within each guide directory, you can see the chapters that make up that guide.
-
-We love translations of our guides to new languages. That helps the Storybook community learn in the language they're most comfortable with. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3).
-
-Traditional Chinese translation is converted from Simplified Chinese using [OpenCC](https://github.com/BYVoid/OpenCC). Please help us correct any idiomatic errors.
-
 ## Who made LearnStorybook.com?
 
 The text, code, and production were contributed by [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). The tutorial was inspired by Chromatic’s popular [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)
-
-## Develop
-
-Install packages `yarn`
-
-This project relies on some content from the main Storybook repo. To fetch it, run:
-
-```bash
-yarn extract-sb-docs-metadata
-```
-
-Start development server with `yarn dev`
 
 ## Contributors
 
@@ -41,7 +19,40 @@ Start development server with `yarn dev`
 - [Kyle Holmberg](https://twitter.com/kylemh_)
 - You? [Become an OSS contributor](https://storybook.js.org/tutorials/intro-to-storybook/react/en/contribute/)
 
-## Adding new content
+## Contribute
+
+Contributions to Learn Storybook are encouraged! If it’s something small like grammar, punctuation, or even a code snippet, first check the [open pull requests](https://github.com/chromaui/learnstorybook.com/pulls) to see if it's already being addressed, if it's not, then open up a pull request. If it’s a bigger change like adding a new guide or chapter, [add an issue](https://github.com/chromaui/learnstorybook.com/issues) for discussion before getting started.
+
+You'll find the guides and chapters in the [`/content`](https://github.com/chromaui/learnstorybook.com/tree/master/content) directory. Content is organized at the guide level. Within the `/content` directory, you'll find directories for the current guides that are offered. Within each guide directory, you can see the chapters that make up that guide.
+
+We love translations of our guides to new languages. That helps the Storybook community learn in the language they're most comfortable with. [Find out more »](https://github.com/chromaui/learnstorybook.com/issues/3).
+
+Traditional Chinese translation is converted from Simplified Chinese using [OpenCC](https://github.com/BYVoid/OpenCC). Please help us correct any idiomatic errors.
+
+### Running the project locally
+
+#### Storybook instructions
+
+The Storybook for Storybook contains every UI component. The UI is built following [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), a process that builds UIs from the “bottom up” starting with components and ending with screens. That means contributors should compose UIs in Storybook _before_ integration with the Gatsby app.
+
+1. Run `yarn install` to install dependencies
+2. Run `yarn storybook` to start Storybook on `localhost:6006`
+
+#### Gatsby instructions
+
+Gatsby is used for static site generation. To run the project locally, you'll need to:
+
+1. Run `yarn install` to install dependencies
+2. Run `yarn extract-sb-docs-metadata` to fetch content from the main Storybook repo
+3. Set up a `.env.development` file with the following environment variables:
+
+```plaintext
+SKIP_DX_DATA=true
+```
+
+4. Run `yarn dev` to start the development server
+
+### Adding new content
 
 Thanks for taking the time to contribute and add content to Learn Storybook! The tutorials below reference file paths, which will be represented in this format:
 
@@ -228,7 +239,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 | Framework    | Translation      | Updated |
 | ------------ | ---------------- | ------- |
 | React        | English          | ✅      |
-|              | Spanish          | ✅      |
+|              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | ZH-TW            | ❌      |
 |              | Mainland Chinese | ❌      |
@@ -237,18 +248,18 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Japanese         | ❌      |
 |              | French           | ✅      |
 |              | German           | ❌      |
-| React Native | English          | ❌      |
+| React Native | English          | ✅      |
 |              | Spanish          | ❌      |
 | Vue          | English          | ✅      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | French           | ❌      |
-|              | Mainland Chinese | ✅      |
-| Angular      | English          | ❌      |
+|              | Mainland Chinese | ❌      |
+| Angular      | English          | ✅      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | Japanese         | ❌      |
-| Svelte       | English          | ✅      |
+| Svelte       | English          | ❌      |
 |              | Spanish          | ❌      |
 | Ember        | English          | ❌      |
 
@@ -270,9 +281,9 @@ The [Create an Addon tutorial](https://storybook.js.org/tutorials/create-an-addo
 
 | Translation | Updated |
 | ----------- | ------- |
-| English     | ✅      |
-| French      | ✅      |
-| Spanish     | ✅      |
+| English     | ❌      |
+| French      | ❌      |
+| Spanish     | ❌      |
 
 ---
 
@@ -281,4 +292,11 @@ The [Visual Testing handbook](https://storybook.js.org/tutorials/visual-testing-
 | Translation | Updated |
 | ----------- | ------- |
 | English     | ✅      |
-| Spanish     | ✅      |
+| Spanish     | ❌      |
+
+The [UI Testing handbook](https://storybook.js.org/tutorials/ui-testing-handbook/) features the following translations. If you want to learn more about industry-grade testing patterns and workflows, and you're a native speaker of any of the languages, detailed below. Help us out by updating the translations. Leave a comment on the issue above.
+
+| Translation | Updated |
+| ----------- | ------- |
+| English     | ✅      |
+| Korean      | ❌      |
