@@ -113,7 +113,7 @@ const store = configureStore({
 export default store;
 ```
 
-Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.js` in the `src/components` directory:
+Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.jsx` in the `src/components` directory:
 
 ```jsx:title=src/components/InboxScreen.jsx
 import React, { useEffect } from 'react';
