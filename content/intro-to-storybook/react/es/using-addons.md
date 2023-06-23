@@ -122,7 +122,7 @@ Ahora podemos reproducir y trabajar en este caso extremo con facilidad.
 
 Si estamos haciendo [pruebas visuales](/intro-to-storybook/react/es/test/), las pruebas nos dirán si la solución de truncamiento se rompe. Los casos extremos podrían ser ignorados sin la cobertura de prueba.
 
-<div class="aside"><p>💡 Controls es una excelente manera de hacer que los que no son desarrolladores jueguen con tus componentes e historias. Puede hacer mucho más que hemos visto aquí; recomendamos leer la <a href="https://storybook.js.org/docs/react/essentials/controls">documentación oficial</a> para aprender más al respecto. Sin embargo, hay muchas más formas de personalizar Storybook para que se adapte a tu flujo de trabajo con complementos. En la <a href="/create-an-addon/react/es/introduction/">guía de crear un complemento</a> te enseñaremos eso, mediante la creación de un complemento que te ayudará a potenciar tu flujo de trabajo de desarrollo.</p></div>
+<div class="aside"><p>💡 Controls es una excelente manera de hacer que los que no son desarrolladores jueguen con tus componentes e historias. Puede hacer mucho más que hemos visto aquí; recomendamos leer la <a href="https://storybook.js.org/docs/react/essentials/controls">documentación oficial</a> para aprender más al respecto. Sin embargo, hay muchas más formas de personalizar Storybook para que se adapte a tu flujo de trabajo con complementos. En la <a href="https://storybook.js.org/docs/react/addons/writing-addons">guía de crear un complemento</a> te enseñaremos eso, mediante la creación de un complemento que te ayudará a potenciar tu flujo de trabajo de desarrollo.</p></div>
 
 ### Fusionar cambios
 

@@ -277,16 +277,6 @@ The [Design Systems for Developers tutorial](https://storybook.js.org/tutorials/
 
 ---
 
-The [Create an Addon tutorial](https://storybook.js.org/tutorials/create-an-addon/) features the following translations. If you want to learn about the addon ecosystem and you're a native speaker of any of the languages, detailed below. Help us out by updating the translations. Leave a Comment on the issue above.
-
-| Translation | Updated |
-| ----------- | ------- |
-| English     | ❌      |
-| French      | ❌      |
-| Spanish     | ❌      |
-
----
-
 The [Visual Testing handbook](https://storybook.js.org/tutorials/visual-testing-handbook/) features the following translations. If you want to learn more about testing and solid workflows that can help you as a frontend developer, and you're a native speaker of any of the languages, detailed below. Help us out by updating the translations. Leave a comment on the issue above.
 
 | Translation | Updated |

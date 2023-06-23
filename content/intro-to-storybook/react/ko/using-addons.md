@@ -82,7 +82,7 @@ LongTitle.args = {
 
 만약 [시각적 테스팅(visual testing)](/intro-to-storybook/react/ko/test/)이면, 말줄임표 솔루션이 작동 중단되는 경우에도 알림이 표시됩니다. 모호한 edge case들은 테스트 커버리지 없이는 잊혀지기가 쉽습니다!
 
-<div class="aside"><p>💡 Controls는 비개발자가 만든 컴포넌트와 스토리를 맘껏 테스트할 수 있도록하는 훌륭한 방법입니다. 우리가 여기서 본 것보다 더 많은 것을 하려면 다양한 것들을 배우기 위해 <a href="https://storybook.js.org/docs/react/essentials/controls">공식문서</a>를 보는 것을 추천합니다. 그러나, 애드온를 사용하여 작업 흐름(workflow)에 맞게 스토리북을 사용자 정의할 수 있는 여러 방법이 있습니다. <a href="/create-an-addon/react/ko/introduction/">애드온 작업 가이드</a>에선 개발 작업 흐름(workflow)의 향상을 지원하는 애드온을 만듦으로써 얻는 장점에 대해 설명합니다.</p></div>
+<div class="aside"><p>💡 Controls는 비개발자가 만든 컴포넌트와 스토리를 맘껏 테스트할 수 있도록하는 훌륭한 방법입니다. 우리가 여기서 본 것보다 더 많은 것을 하려면 다양한 것들을 배우기 위해 <a href="https://storybook.js.org/docs/react/essentials/controls">공식문서</a>를 보는 것을 추천합니다. 그러나, 애드온를 사용하여 작업 흐름(workflow)에 맞게 스토리북을 사용자 정의할 수 있는 여러 방법이 있습니다. <a href="https://storybook.js.org/docs/react/addons/writing-addons">애드온 작업 가이드</a>에선 개발 작업 흐름(workflow)의 향상을 지원하는 애드온을 만듦으로써 얻는 장점에 대해 설명합니다.</p></div>
 
 ### 변경 사항을 병합하기(merge)
 

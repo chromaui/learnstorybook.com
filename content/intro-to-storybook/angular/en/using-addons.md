@@ -121,7 +121,7 @@ Now we can reproduce and work on this edge case with ease.
 
 If we are [visual testing](/intro-to-storybook/angular/en/test/), we'll also be informed if the truncating solution breaks. Extreme edge cases are liable to be forgotten without test coverage!
 
-<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/angular/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="/create-an-addon/react/en/introduction/">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
+<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/angular/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="https://storybook.js.org/docs/angular/addons/writing-addons">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
 
 ### Merge Changes
 

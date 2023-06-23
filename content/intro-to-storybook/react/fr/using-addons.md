@@ -122,7 +122,7 @@ Nous pouvons maintenant reproduire et travailler sur ce cas limite avec facilit�
 
 Si nous faisons un [test visuel](/intro-to-storybook/react/fr/test/), nous serons également informés si la solution elliptique se brise. Les cas limites sont susceptibles d'être oubliés sans la couverture de test!
 
-<div class="aside"><p>💡 Controls est un excellent moyen de faire jouer les non-développeurs avec vos composants et vos stories. Il peut faire bien plus que ce que nous avons vu ici; nous vous recommandons de lire la <a href="https://storybook.js.org/docs/react/essentials/controls">documentation officielle</a> pour en savoir plus. Cependant, il existe de nombreuses autres façons de personnaliser Storybook pour l'adapter à votre flux de travail grâce à des addons. Dans le <a href="/create-an-addon/react/en/introduction/">guide de création d'addon</a>, nous vous apprendrons cela, en créant un addon qui vous aidera à améliorer votre flux de développement.</p></div>
+<div class="aside"><p>💡 Controls est un excellent moyen de faire jouer les non-développeurs avec vos composants et vos stories. Il peut faire bien plus que ce que nous avons vu ici; nous vous recommandons de lire la <a href="https://storybook.js.org/docs/react/essentials/controls">documentation officielle</a> pour en savoir plus. Cependant, il existe de nombreuses autres façons de personnaliser Storybook pour l'adapter à votre flux de travail grâce à des addons. Dans le <a href="https://storybook.js.org/docs/react/addons/writing-addons">guide de création d'addon</a>, nous vous apprendrons cela, en créant un addon qui vous aidera à améliorer votre flux de développement.</p></div>
 
 ### Fusionner les changements
 
