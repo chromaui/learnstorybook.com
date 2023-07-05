@@ -114,7 +114,7 @@ LongTitle.args = {
 
 如果我们在进行[视觉测试](/intro-to-storybook/vue/zh-CN/test/)，那么在截断方案失效时我们也会得到提示。如果没有覆盖测试，这样的模糊的边缘用例很容易被忽视。
 
-<div class="aside"><p>💡 Controls 非常适合让一些非开发人员测试您的组件和 story，它远比您想象的要强大。我们推荐您阅读<a href="https://storybook.js.org/docs/vue/essentials/controls">官方文档</a>来了解更多。此外您还可以使用很多别的方式来定制  Storybook，以通过插件来适应您的工作流程。在<a href="/create-an-addon/react/zh-CN/introduction/">创建组件指导</a>中我们将会教您，通过创建一个插件来帮助增强您的开发工作流程。</div>
+<div class="aside"><p>💡 Controls 非常适合让一些非开发人员测试您的组件和 story，它远比您想象的要强大。我们推荐您阅读<a href="https://storybook.js.org/docs/vue/essentials/controls">官方文档</a>来了解更多。此外您还可以使用很多别的方式来定制  Storybook，以通过插件来适应您的工作流程。在<a href="https://storybook.js.org/docs/vue/addons/writing-addons">创建组件指导</a>中我们将会教您，通过创建一个插件来帮助增强您的开发工作流程。</div>
 
 ### 合并修改
 

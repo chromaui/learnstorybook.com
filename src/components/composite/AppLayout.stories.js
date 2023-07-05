@@ -108,18 +108,6 @@ Default.args = {
             },
           },
         },
-        {
-          node: {
-            frontmatter: {
-              title: 'Create an Addon',
-              description:
-                'Learn how to build your own addons that will super charge your development',
-            },
-            fields: {
-              slug: '/create-an-addon/',
-            },
-          },
-        },
       ],
     },
     dxData: {

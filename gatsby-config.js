@@ -71,14 +71,6 @@ module.exports = {
           ko: 6.5,
         },
       },
-      'create-an-addon': {
-        react: {
-          en: 6.5,
-          fr: 6.5,
-          es: 6.5,
-          ko: 6.5,
-        },
-      },
       'ui-testing-handbook': {
         react: {
           en: 7.0,

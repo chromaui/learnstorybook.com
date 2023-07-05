@@ -1,3 +1,7 @@
 # See https://www.netlify.com/docs/redirects/
 
 / /tutorials/
+
+# Adds redirect for new addon docs location
+
+/tutorials/create-an-addon https://storybook.js.org/docs/react/addons/writing-addons 301
