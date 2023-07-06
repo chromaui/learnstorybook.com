@@ -24,7 +24,7 @@ commit: '4355037'
 
 `Task`의 기본 구현부터 시작하겠습니다. 우리가 필요로 하는 속성들과 여러분이 task에 대해 취할 수 있는 두 가지 액션(목록 간 이동하는 것)을 간단히 살펴보도록 하겠습니다.
 
-```js:title=src/components/Task.js
+```js:title=src/components/Task.jsx
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -40,7 +40,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 아래의 코드는 `Task`의 세 가지 테스트 상태를 스토리 파일에 작성한 것입니다.
 
-```js:title=src/components/Task.stories.js
+```js:title=src/components/Task.stories.jsx
 import React from 'react';
 
 import Task from './Task';
