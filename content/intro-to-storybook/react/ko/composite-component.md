@@ -23,6 +23,37 @@ Taskbox는 핀으로 고정된 task를 일반 task 위에 배치하여 강조합
 
 우선 `TaskList`의 대략적인 구현부터 시작하겠습니다. 이전의 `Task` 컴포넌트를 가져온 후, 속성과 액션을 입력값으로 전달해 주세요.
 
+```jsx:title=src/components/TaskList.jsx
+import React from 'react';
+
+import Task from './Task';
+
+export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+  const events = {
+    onPinTask,
+    onArchiveTask,
+  };
+
+  if (loading) {
+    return <div className="list-items">loading</div>;
+  }
+
+  if (tasks.length === 0) {
+    return <div className="list-items">empty</div>;
+  }
+
+  return (
+    <div className="list-items">
+      {tasks.map(task => (
+        <Task key={task.id} task={task} {...events} />
+      ))}
+    </div>
+  );
+}
+```
+
+그리고, 스토리 파일 안에 `TaskList`의 테스트 상태값들을 만들어 보세요.
+
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';
 
