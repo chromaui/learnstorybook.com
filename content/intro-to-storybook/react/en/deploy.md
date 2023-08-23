@@ -11,7 +11,7 @@ Throughout this tutorial, we built components on our local development machine. 
 
 To deploy Storybook, we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
 
-Running `yarn build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
+Running `yarn storybook build` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
 
 ## Publish Storybook
 
