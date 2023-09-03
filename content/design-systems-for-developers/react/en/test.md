@@ -67,7 +67,7 @@ So far, we've seen how visual testing enabled us to spot-check appearance and ca
 
 Interaction testing is a well-known pattern for verifying user behavior. You start by providing mocked data to set up your test, simulate user interactions with a testing library, and verify the UI changes. In Storybook, this happens in the browser, making it easier to debug failures because you're running tests in the same environment as you develop components: the browser.
 
-To enable it, we're going to rely on Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function and instrumented testing libraries to set up our tests and then use the [test-runner](https://storybook.js.org/docs/react/writing-tests/test-runner) verify our that the component renders correctly.
+To enable it, we're going to rely on Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function and instrumented testing libraries to set up our tests and then use the [test-runner](https://storybook.js.org/docs/react/writing-tests/test-runner) to verify that our component renders correctly.
 
 ### Setup the test runner
 
