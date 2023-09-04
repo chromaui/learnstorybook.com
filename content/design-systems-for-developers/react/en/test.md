@@ -67,7 +67,7 @@ So far, we've seen how visual testing enabled us to spot-check appearance and ca
 
 Interaction testing is a well-known pattern for verifying user behavior. You start by providing mocked data to set up your test, simulate user interactions with a testing library, and verify the UI changes. In Storybook, this happens in the browser, making it easier to debug failures because you're running tests in the same environment as you develop components: the browser.
 
-To enable it, we're going to rely on Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function and instrumented testing libraries to set up our tests and then use the [test-runner](https://storybook.js.org/docs/react/writing-tests/test-runner) verify our that the component renders correctly.
+To enable it, we're going to rely on Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) function and instrumented testing libraries to set up our tests and then use the [test-runner](https://storybook.js.org/docs/react/writing-tests/test-runner) to verify that our component renders correctly.
 
 ### Setup the test runner
 
@@ -147,7 +147,7 @@ When Storybook finishes rendering the story, it executes the steps defined insid
 
 ### Automate tests with the test runner
 
-We've seen how interaction tests with the `play` function helped us verify how a component responds when we interact with it. But as design systems evolve, manually verifying every change can quickly become unrealistic. Storybook test runner automates this process. It's a standalone alone utility—powered by [Playwright](https://playwright.dev/)—that runs parallel to your Storybook, executing all interaction tests and catching broken stories.
+We've seen how interaction tests with the `play` function helped us verify how a component responds when we interact with it. But as design systems evolve, manually verifying every change can quickly become unrealistic. Storybook test runner automates this process. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs parallel to your Storybook, executing all interaction tests and catching broken stories.
 
 With Storybook running, open a new terminal window and run the test runner with:
 
@@ -157,7 +157,7 @@ yarn test-storybook --watch
 
 ![Storybook test runner execution](/design-systems-for-developers/test-runner-execution.png)
 
-It will verify whether all our stories render without errors and all assertions pass automatically during execution. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
+It will verify whether all our stories render without errors and that all assertions pass automatically during execution. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
 
 ### Run interaction tests in CI
 
@@ -278,7 +278,7 @@ Paradoxically, tests can save time but also bog down development velocity with m
 
 ### Code coverage tests
 
-Code coverage tests measure how much of your codebase is covered by tests. They're a good way to ensure that your tests are actually testing something. However, they're not a good way to measure the quality of your tests, but they can be beneficial to verify all the components and utilities provided by the design system are functioning as expected, helping to identify any potential gaps or issues in the design system's implementation. Storybook provides an [addon](https://storybook.js.org/addons/@storybook/addon-coverage/) to help us with this. Powered by [Istanbul](https://istanbul.js.org/), the Storybook coverage addon generates a code coverage report for your Storybook stories. Let's see how.
+Code coverage tests measure how much of your codebase is covered by tests. They're a good way to ensure that your tests are actually testing something. However, they're not a good way to measure the quality of your tests, but they can be beneficial to verify that all the components and utilities provided by the design system are functioning as expected, helping to identify any potential gaps or issues in the design system's implementation. Storybook provides an [addon](https://storybook.js.org/addons/@storybook/addon-coverage/) to help us with this. Powered by [Istanbul](https://istanbul.js.org/), the Storybook coverage addon generates a code coverage report for your Storybook stories. Let's see how.
 
 Start by running the following command to install the coverage addon:
 
