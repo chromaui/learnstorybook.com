@@ -23,7 +23,7 @@ Want to dive deeper? Here are helpful resources.
 
 - [**Storybook Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community. Get and give help to other Storybook users.
 
-- [**Storybook blog**](storybook.js.org/blog/) showcases the latest releases and features to streamline your UI development workflow.
+- [**Storybook blog**](https://storybook.js.org/blog/) showcases the latest releases and features to streamline your UI development workflow.
 
 ## Who made the Intro to Storybook tutorial?
 
