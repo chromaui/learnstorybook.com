@@ -216,7 +216,7 @@ Controls.args = {
 };
 ```
 
-애드온 목록에 있는 Controls 탭에 주목하세다. Controls는 props를 조정하기 위해 자동으로 그래픽 UI를 생성합니다. 예를 들어, 사이즈를 선택하는 엘리먼트("size")를 이용해서 아바타 사이즈를 `tiny`, `small`, `medium`, `large` 중에서 고를 수 있습니다. 이 방식은 컴포넌트의 나머지 props에도 ("loading", "username", "src") 동일하게 적용됩니다. 이렇게 사용자 친화적인 방법으로 스트레스 테스트를 컴포넌트에 적용할 수 있습니다.
+애드온 목록에 있는 Controls 탭에 주목하세요. Controls는 props를 조정하기 위해 자동으로 그래픽 UI를 생성합니다. 예를 들어, 사이즈를 선택하는 엘리먼트("size")를 이용해서 아바타 사이즈를 `tiny`, `small`, `medium`, `large` 중에서 고를 수 있습니다. 이 방식은 컴포넌트의 나머지 props에도 ("loading", "username", "src") 동일하게 적용됩니다. 이렇게 사용자 친화적인 방법으로 스트레스 테스트를 컴포넌트에 적용할 수 있습니다.
 
 <video autoPlay muted playsInline loop>
   <source
