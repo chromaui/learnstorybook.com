@@ -6,13 +6,13 @@ description: 'Montar um componente composto a partir de componentes mais simples
 
 No capítulo anterior, construímos nosso primeiro componente; este capítulo extende o que aprendemos para construir ListaTarefas, uma lista de tarefas. Vamos combinar componentes e ver o que acontece quando mais complexidade é introduzida.
 
-## Listadetarefas
+## Lista de tarefas
 
 A caixa de tarefas enfatiza as tarefas fixadas, posicionando-as acima das tarefas padrão. Isso produz duas variações de `TaskList` para as quais você precisa criar histórias: itens padrão e itens padrão e fixados.
 
 ![tarefas padrão e fixadas](/intro-to-storybook/tasklist-states-1.png)
 
-Como os dados da `Tarefa` podem ser enviados de forma assíncrona, **também** precisamos de um estado de carregamento para renderizar na ausência de uma conexão. Além disso, um estado vazio é necessário quando não há tarefas.
+Como os dados da `Task` podem ser enviados de forma assíncrona, **também** precisamos de um estado de carregamento para renderizar na ausência de uma conexão. Além disso, um estado vazio é necessário quando não há tarefas.
 
 ![Tarefas vazias e carregando](/intro-to-storybook/tasklist-states-2.png)
 

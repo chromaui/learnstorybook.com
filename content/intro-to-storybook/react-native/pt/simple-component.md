@@ -10,12 +10,12 @@ Construiremos nossa interface do usuário seguindo uma metodologia de Desenvolvi
 
 ![Componente de tarefas em três estados](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Tarefa` é o componente principal em nosso aplicativo. Cada tarefa é exibida de maneira ligeiramente diferente, dependendo exatamente do estado em que está. Exibimos uma caixa de seleção marcada (ou desmarcada), algumas informações sobre a tarefa e um botão "fixar", permitindo mover as tarefas para cima e para baixo na lista. Juntando tudo isso, vamos precisar dessas propriedades:
+`Task` é o componente principal em nosso aplicativo. Cada tarefa é exibida de maneira ligeiramente diferente, dependendo exatamente do estado em que está. Exibimos uma caixa de seleção marcada (ou desmarcada), algumas informações sobre a tarefa e um botão "fixar", permitindo mover as tarefas para cima e para baixo na lista. Juntando tudo isso, vamos precisar dessas propriedades:
 
 - `title` – uma string que descreve a tarefa
 - `state` - em qual lista está a tarefa atualmente e ela está marcada?
 
-Quando começamos a construir `Tarefa`, primeiro escrevemos nossos estados de teste que correspondem aos diferentes tipos de tarefas esboçadas acima. Em seguida, usamos o Storybook para construir o componente isoladamente usando dados fictícios. Faremos um “teste visual” da aparência do componente em cada estado à medida que avançamos.
+Quando começamos a construir `Task`, primeiro escrevemos nossos estados de teste que correspondem aos diferentes tipos de tarefas esboçadas acima. Em seguida, usamos o Storybook para construir o componente isoladamente usando dados fictícios. Faremos um “teste visual” da aparência do componente em cada estado à medida que avançamos.
 
 Esse processo é semelhante ao [desenvolvimento orientado a testes](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que podemos chamar de “Visual TDD” “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
@@ -39,7 +39,7 @@ No React Native Storybook, usamos a configuração em `main.js` para gerar um ar
 
 Agora vamos criar o componente de tarefa e o arquivo de história que o acompanha: `components/Task.jsx` e `components/Task.stories.jsx`.
 
-Começaremos com uma implementação básica da `Tarefa`, simplesmente pegando os atributos que sabemos que precisaremos e as duas ações que você pode realizar em uma tarefa (para movê-la entre as listas):
+Começaremos com uma implementação básica da `Task`, simplesmente pegando os atributos que sabemos que precisaremos e as duas ações que você pode realizar em uma tarefa (para movê-la entre as listas):
 
 ```jsx:title=components/Task.jsx
 import { StyleSheet, TextInput, View } from "react-native";
@@ -102,7 +102,7 @@ Existem dois níveis básicos de organização no Storybook: o componente e suas
   - História
   - História
 
-Para informar ao Storybook sobre o componente que estamos documentando, criamos uma exportação `padrão` que contém:
+Para informar ao Storybook sobre o componente que estamos documentando, criamos uma exportação padrão `default` que contém:
 
 - `component` -- o próprio componente
 - `title` -- como se referir ao componente na barra lateral do aplicativo Storybook
@@ -110,7 +110,7 @@ Para informar ao Storybook sobre o componente que estamos documentando, criamos 
 
 Para definir nossas histórias, exportamos um objeto com uma propriedade `args`. Argumentos ou [`args`](https://storybook.js.org/docs/react/writing-stories/args) para abreviar, nos permitem editar ao vivo nossos componentes com o complemento de controles sem reiniciar o Storybook. Uma vez que um valor [`args`](https://storybook.js.org/docs/react/writing-stories/args) muda, o mesmo acontece com o componente.
 
-Ao criar uma história, usamos um arg de `tarefa` base para criar a forma da tarefa que o componente espera. Normalmente modelado a partir da aparência dos dados reais. Novamente, `exportar` essa forma nos permitirá reutilizá-la em histórias posteriores, como veremos.
+Ao criar uma história, usamos um arg base `tarefa` para criar a forma da tarefa que o componente espera. Normalmente modelado a partir da aparência dos dados reais. Novamente, exportar `export` essa forma nos permitirá reutilizá-la em histórias posteriores, como veremos.
 
 Agora que configuramos o básico, vamos reexecutar o `yarn storybook` e ver nossas alterações. Se você já tiver o Storybook em execução, também poderá executar `yarn storybook-generate` para gerar novamente o arquivo `storybook.requires.js`.
 
