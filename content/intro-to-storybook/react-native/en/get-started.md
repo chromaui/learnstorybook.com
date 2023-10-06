@@ -51,7 +51,9 @@ yarn storybook:android
 ```
 
 <div class="aside">
-💡 Throughout this tutorial, Yarn will be used. If you're following along this tutorial but don't have it configured, you can easily swap out the commands to match your package manager of choice (e.g., npm, pnpm)(add links to both package managers
+
+💡 Throughout this tutorial, [Yarn](https://yarnpkg.com/) will be used. If you're following along this tutorial but don't have it configured, you can easily swap out the commands to match your package manager of choice (e.g., [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/)).
+
 </div>
 
 When running the application with `yarn ios` you should see this rendered on the device:
