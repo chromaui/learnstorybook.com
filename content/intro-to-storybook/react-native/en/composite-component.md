@@ -135,7 +135,7 @@ export const Empty = {
 
 `TaskStory.args.task` supplies the shape of a `Task` that we created and exported from the `Task.stories.js` file. Similarly, the `argTypes` we added for `onPinTask` and `onArchiveTask` tell Storybook to provide actions (mocked callbacks) that the `TaskList` component needs.
 
-Since we've added new a new Story file we need to run `yarn storybook-generate` again to regenerate the `storybook.require.js` file.
+Since we've added a new story file, we need to run `yarn storybook-generate` again to regenerate the `storybook.require.js` file.
 
 Now check Storybook for the new `TaskList` stories.
 
