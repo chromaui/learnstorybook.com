@@ -1,7 +1,7 @@
 ---
-title: 'Tutorial Storybook para o Svelte'
-tocTitle: 'Get started'
-description: 'Configure o Storybook em seu ambiente de desenvolvimento'
+title: 'Tutorial do Storybook para o Svelte'
+tocTitle: 'Introdução'
+description: 'Configuração do Storybook em seu ambiente de desenvolvimento Svelte'
 ---
 
 Storybook executa paralelamente à aplicação em modo de desenvolvimento. Ajuda a construir componentes de interface de usuário (UI) isolados à lógica de negócio e contexto da aplicação. Esta edição do tutorial Introdução ao Storybook é para Svelte; outras edições existem para [Vue](/intro-to-storybook/vue/pt/get-started), [Angular](/intro-to-storybook/angular/pt/get-started), [React](/intro-to-storybook/react/pt/get-started), [React Native](/intro-to-storybook/react-native/pt/get-started) e [Ember](/intro-to-storybook/ember/pt/get-started).
@@ -15,12 +15,12 @@ Precisaremos seguir alguns passos para configurar o processo de compilação em 
 Execute os seguintes comandos:
 
 ```shell:clipboard=false
-# Criar nossa aplicação:
+# Create our application:
 npx degit chromaui/intro-storybook-svelte-template taskbox
 
 cd taskbox
 
-# Instalar dependências
+# Install dependencies
 yarn
 ```
 
@@ -31,13 +31,13 @@ yarn
 Agora é possível verificar que os diversos ambientes de nossa aplicação estão funcionando corretamente:
 
 ```shell:clipboard=false
-# Executar o testador (Jest) em linha de comando:
+# Run the test runner (Jest) in a terminal:
 yarn test
 
-# Iniciar o explorador de componentes na porta 6006:
+# Start the component explorer on port 6006:
 yarn storybook
 
-# Executar a aplicação frontend em si na porta 5000:
+# Run the frontend app proper on port 5000:
 yarn dev
 ```
 
