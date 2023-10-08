@@ -35,7 +35,7 @@ module.exports = {
 
 If you check the `stories` property you'll see that Storybook is looking for stories in the `components` folder.
 
-In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires.js`, this is because React Native doesn't support dynamic imports yet. This file gets generated when you run `yarn storybook` to start storybook or `yarn storybook-generate` if you just want to regenerate the `storybook.requires.js` file. This file is used to load all the stories in the project and it also imports your addons, whenever you find that a story is not being loaded you can try regenerating this file.
+In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires.js`, this is because React Native doesn't support dynamic imports yet. This file gets generated when you run `yarn storybook` to start Storybook or `yarn storybook-generate` if you just want to regenerate the `storybook.requires.js` file. This file is used to load all the stories in the project and it also imports your addons, whenever you find that a story is not being loaded you can try regenerating this file.
 
 Now let’s create the task component and its accompanying story file: `components/Task.jsx` and `components/Task.stories.jsx`.
 
