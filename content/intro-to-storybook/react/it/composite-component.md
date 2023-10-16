@@ -1,27 +1,27 @@
 ---
-title: 'Assemble a composite component'
-tocTitle: 'Composite component'
-description: 'Assemble a composite component out of simpler components'
+title: 'Assembla un componente composito'
+tocTitle: 'Componente composito'
+description: 'Assembla un componente composito da componenti più semplici'
 commit: 'af8ccd1'
 ---
 
-Last chapter, we built our first component; this chapter extends what we learned to make TaskList, a list of Tasks. Let’s combine components together and see what happens when we introduce more complexity.
+Nell'ultimo capitolo, abbiamo costruito il nostro primo componente; questo capitolo estende ciò che abbiamo imparato per realizzare TaskList, una lista di Task. Uniamoli insieme e vediamo cosa succede quando introduciamo più complessità.
 
 ## Tasklist
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. It yields two variations of `TaskList` you need to create stories for, default and pinned items.
+Taskbox enfatizza i task in evidenza posizionandoli sopra i task predefiniti. Ciò produce due variazioni di `TaskList` per cui devi creare storie, elementi predefiniti e in evidenza.
 
-![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
+![task predefiniti e in evidenza](/intro-to-storybook/tasklist-states-1.png)
 
-Since `Task` data can be sent asynchronously, we **also** need a loading state to render in the absence of a connection. In addition, we require an empty state for when there are no tasks.
+Poiché i dati di `Task` possono essere inviati in modo asincrono, abbiamo **anche** bisogno di uno stato di caricamento da renderizzare in assenza di una connessione. Inoltre, abbiamo bisogno di uno stato vuoto per quando non ci sono task.
 
-![empty and loading tasks](/intro-to-storybook/tasklist-states-2.png)
+![task vuoti e in caricamento](/intro-to-storybook/tasklist-states-2.png)
 
-## Get set up
+## Prepariamoci
 
-A composite component isn’t much different from the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.jsx` and `src/components/TaskList.stories.jsx`.
+Un componente composito non è molto diverso dai componenti di base che contiene. Crea un componente `TaskList` e un file di storia associato: `src/components/TaskList.jsx` e `src/components/TaskList.stories.jsx`.
 
-Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
+Inizia con un'implementazione approssimativa di `TaskList`. Dovrai importare il componente `Task` di prima e passare gli attributi e le azioni come input.
 
 ```jsx:title=src/components/TaskList.jsx
 import React from 'react';
@@ -52,7 +52,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-Next, create `Tasklist`’s test states in the story file.
+Successivamente, crea gli stati di test di `TaskList` nel file di storia.
 
 ```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
@@ -68,8 +68,8 @@ export default {
 
 export const Default = {
   args: {
-    // Shaping the stories through args composition.
-    // The data was inherited from the Default story in Task.stories.jsx.
+    // Modellare le storie attraverso la composizione degli args.
+    // I dati sono ereditati dalla storia Default in Task.stories.jsx.
     tasks: [
       { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
       { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -99,8 +99,8 @@ export const Loading = {
 
 export const Empty = {
   args: {
-    // Shaping the stories through args composition.
-    // Inherited data coming from the Loading story.
+    // Modellare le storie attraverso la composizione degli args.
+    // Dati ereditati provenienti dalla storia Loading.
     ...Loading.args,
     loading: false,
   },
@@ -108,12 +108,12 @@ export const Empty = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some <code>padding</code> around the rendered component. They can also be used to wrap stories in “providers”-–i.e., library components that set React context.
+💡 I <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorator</b></a> sono un modo per fornire wrapper arbitrari alle storie. In questo caso, stiamo usando una chiave decorator sull'export predefinito per aggiungere un po' di <code>padding</code> intorno al componente renderizzato. Possono anche essere usati per avvolgere le storie in "provider" - cioè, componenti di libreria che impostano il contesto React.
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
+Importando `TaskStories`, siamo stati in grado di [comporre](https://storybook.js.org/docs/react/writing-stories/args#args-composition) gli argomenti (args in breve) nelle nostre storie con minimo sforzo. In questo modo, i dati e le azioni (callback simulate) attesi da entrambi i componenti sono conservati.
 
-Now check Storybook for the new `TaskList` stories.
+Ora controlla Storybook per le nuove storie di `TaskList`.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -122,9 +122,9 @@ Now check Storybook for the new `TaskList` stories.
   />
 </video>
 
-## Build out the states
+## Sviluppa gli stati
 
-Our component is still rough, but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases, we wouldn’t create a new component just to add a wrapper. But the **real complexity** of the `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
+Il nostro componente è ancora grezzo, ma ora abbiamo un'idea delle storie a cui puntare. Potresti pensare che il wrapper `.list-items` sia eccessivamente semplicistico. Hai ragione: nella maggior parte dei casi, non creeremmo un nuovo componente solo per aggiungere un wrapper. Ma la **complessità reale** del componente `TaskList` è rivelata nei casi limite `withPinnedTasks`, `loading` e `empty`.
 
 ```jsx:title=src/components/TaskList.jsx
 import React from 'react';
@@ -182,7 +182,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-The added markup results in the following UI:
+Il markup aggiunto produce la seguente UI:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -191,11 +191,11 @@ The added markup results in the following UI:
   />
 </video>
 
-Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
+Nota la posizione dell'elemento bloccato nella lista. Vogliamo che l'elemento bloccato venga renderizzato in cima alla lista per renderlo una priorità per i nostri utenti.
 
-## Data requirements and props
+## Requisiti dei dati e props
 
-As the component grows, so do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the `propTypes` you defined in `Task` earlier.
+Man mano che il componente cresce, anche i requisiti di input aumentano. Definisci i requisiti delle prop di `TaskList`. Poiché `Task` è un componente figlio, assicurati di fornire dati nella forma giusta per renderizzarlo. Per risparmiare tempo e mal di testa, riutilizza le `propTypes` che hai definito in `Task` in precedenza.
 
 ```diff:title=src/components/TaskList.jsx
 import React from 'react';
@@ -269,5 +269,5 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 ```
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 Non dimenticare di committare le tue modifiche con git!
 </div>
