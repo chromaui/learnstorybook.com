@@ -1,27 +1,27 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
+title: 'Collegare i dati'
+tocTitle: 'Dati'
+description: 'Impara come collegare i dati al tuo componente UI'
 commit: '87a5a91'
 ---
 
-So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
+Finora, abbiamo creato componenti senza stato isolati, ottimi per Storybook, ma alla fine non utili finché non gli forniamo alcuni dati nella nostra app.
 
-This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data into connected components.
+Questo tutorial non si concentra sui particolari della costruzione di un'app, quindi non approfondiremo quei dettagli qui. Ma prenderemo un momento per esaminare un modello comune per il collegamento dei dati nei componenti connessi.
 
-## Connected components
+## Componenti connessi
 
-Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. We need to wire it to a data provider to get data into it.
+Il nostro componente `TaskList` così come è scritto attualmente è "presentazionale", nel senso che non interagisce con nulla di esterno alla sua propria implementazione. Dobbiamo collegarlo a un provider di dati per far entrare i dati al suo interno.
 
-This example uses [Redux Toolkit](https://redux-toolkit.js.org/), the most effective toolset for developing applications for storing data with [Redux](https://redux.js.org/), to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+Questo esempio utilizza [Redux Toolkit](https://redux-toolkit.js.org/), il set di strumenti più efficace per sviluppare applicazioni per la memorizzazione dei dati con [Redux](https://redux.js.org/), per costruire un semplice modello di dati per la nostra app. Tuttavia, il modello utilizzato qui si applica altrettanto bene ad altre librerie di gestione dei dati come [Apollo](https://www.apollographql.com/client/) e [MobX](https://mobx.js.org/).
 
-Add the necessary dependencies to your project with:
+Aggiungi le dipendenze necessarie al tuo progetto con:
 
 ```shell
 yarn add @reduxjs/toolkit react-redux
 ```
 
-First, we’ll construct a simple Redux store that responds to actions that change the task's state in a file called `store.js` in the `src/lib` directory (intentionally kept simple):
+Prima di tutto, costruiremo un semplice store Redux che risponde alle azioni che cambiano lo stato del task. Questo sarà fatto in un file chiamato `store.js` nella directory `src/lib` (mantenuto intenzionalmente semplice):
 
 ```js:title=src/lib/store.js
 /* A simple redux store/actions/reducer implementation.
@@ -81,7 +81,7 @@ const store = configureStore({
 export default store;
 ```
 
-Then we’ll update our `TaskList` component to connect to the Redux store and render the tasks we are interested in:
+Poi aggiorneremo il nostro componente `TaskList` per connettersi allo store Redux e renderizzare i task che ci interessano:
 
 ```jsx:title=src/components/TaskList.jsx
 import React from 'react';
@@ -161,17 +161,17 @@ export default function TaskList() {
 }
 ```
 
-Now that we have some actual data populating our component, obtained from the Redux store, we could have wired it to `src/App.js` and render the component there. But for now, let's hold off doing that and continue on our component-driven journey.
+Ora che abbiamo dei dati effettivi che popolano il nostro componente, ottenuti dallo store Redux, avremmo potuto collegarlo a `src/App.js` e renderizzare il componente lì. Ma per ora, rimandiamo questa operazione e continuiamo nel nostro percorso incentrato sui componenti.
 
-Don't worry about it. We'll take care of it in the next chapter.
+Non preoccuparti. Ne terremo conto nel prossimo capitolo.
 
-## Supplying context with decorators
+## Fornire contesto con i decoratori
 
-Our Storybook stories have stopped working with this change because our `Tasklist` is now a connected component since it relies on a Redux store to retrieve and update our tasks.
+Le nostre storie di Storybook hanno smesso di funzionare con questa modifica perché il nostro `Tasklist` è ora un componente connesso, dato che si basa su uno store Redux per recuperare e aggiornare i nostri task.
 
-![Broken tasklist](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
+![Tasklist interrotto](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
 
-We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
+Possiamo utilizzare vari approcci per risolvere questo problema. Tuttavia, dato che la nostra app è piuttosto semplice, possiamo fare affidamento su un decoratore, in modo simile a quanto fatto nel [capitolo precedente](/intro-to-storybook/react/en/composite-component), e fornire uno store simulato nelle nostre storie di Storybook:
 
 ```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
@@ -288,7 +288,7 @@ export const Empty = {
 ```
 
 <div class="aside">
-💡 <code>excludeStories</code> is a Storybook configuration field that prevents our mocked state to be treated as a story. You can read more about this field in the <a href="https://storybook.js.org/docs/react/api/csf">Storybook documentation</a>.
+💡 <code>excludeStories</code> è un campo di configurazione di Storybook che impedisce al nostro stato simulato di essere trattato come una storia. Puoi saperne di più su questo campo nella [documentazione di Storybook](https://storybook.js.org/docs/react/api/csf).
 </div>
 
 <video autoPlay muted playsInline loop>
@@ -299,7 +299,7 @@ export const Empty = {
 </video>
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 Non dimenticare di committare le tue modifiche con git!
 </div>
 
-Success! We're right where we started, our Storybook is now working, and we're able to see how we could supply data into a connected component. In the next chapter, we'll take what we've learned here and apply it to a screen.
+Successo! Siamo tornati al punto di partenza, il nostro Storybook ora funziona e siamo in grado di vedere come potremmo fornire dati a un componente connesso. Nel prossimo capitolo, prenderemo ciò che abbiamo imparato qui e lo applicheremo a uno schermo.
