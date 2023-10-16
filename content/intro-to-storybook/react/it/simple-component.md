@@ -1,28 +1,28 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
+title: 'Costruisci un componente semplice'
+tocTitle: 'Componente semplice'
+description: 'Costruisci un componente semplice in isolamento'
 commit: '4355037'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+Costruiremo la nostra UI seguendo una metodologia [Component-Driven Development](https://www.componentdriven.org/) (CDD). È un processo che costruisce le UI dal "basso verso l'alto", partendo dai componenti e terminando con gli schermi. Il CDD ti aiuta a gestire la quantità di complessità a cui sei sottoposto mentre costruisci la UI.
 
 ## Task
 
-![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
+![Componente Task in tre stati](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` is the core component of our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`Task` è il componente principale della nostra app. Ogni task viene visualizzato leggermente diversamente a seconda dello stato in cui si trova. Visualizziamo una casella di controllo selezionata (o deselezionata), alcune informazioni sul task e un pulsante "pin", che ci permette di spostare i compiti su e giù nella lista. Mettendo insieme tutto ciò, avremo bisogno di queste props:
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in, and is it checked off?
+- `titolo` - una stringa che descrive il task
+- `stato` - in quale lista si trova attualmente il task, ed è stato completato?
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to create the component in isolation using mocked data. We’ll manually test the component’s appearance given each state as we go.
+Quando iniziamo a creare `Task`, scriviamo prima i nostri stati di test che corrispondono ai diversi tipi di attività delineati sopra. Quindi utilizziamo Storybook per creare il componente in isolamento utilizzando dati simulati. Testeremo manualmente l'aspetto del componente in base a ciascuno stato man mano che procediamo.
 
-## Get set up
+## Configurazione Iniziale
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.jsx` and `src/components/Task.stories.jsx`.
+Prima di tutto, creiamo il componente del task e il relativo file di storia: `src/components/Task.jsx` e `src/components/Task.stories.jsx`.
 
-We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+Inizieremo con una implementazione di base del `Task`, prendendo semplicemente gli attributi che sappiamo ci serviranno e le due azioni che puoi fare su un compito (per spostarlo tra le liste):
 
 ```jsx:title=src/components/Task.jsx
 import React from 'react';
@@ -38,9 +38,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos application.
+Sopra, mostriamo un markup semplice per `Task` basato sulla struttura HTML esistente dell'applicazione Todos.
 
-Below we build out Task’s three test states in the story file:
+Di seguito costruiamo i tre stati di test di Task nel file della storia:
 
 ```jsx:title=src/components/Task.stories.jsx
 import Task from './Task';
@@ -80,30 +80,30 @@ export const Archived = {
 };
 ```
 
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+Ci sono due livelli base di organizzazione in Storybook: il componente e le sue storie figlie. Pensa a ogni storia come a una permutazione di un componente. Puoi avere quante storie per componente ti servono.
 
-- **Component**
-  - Story
-  - Story
-  - Story
+- **Componente**
+  - Storia
+  - Storia
+  - Storia
 
-To tell Storybook about the component we are documenting and testing, we create a `default` export that contains:
+Per informare Storybook sul componente che stiamo documentando e testando, creiamo un `export` predefinito che contiene:
 
-- `component` -- the component itself
-- `title` -- how to group or categorize the component in the Storybook sidebar
-- `tags` -- to automatically generate documentation for our components
+- `component` -- il componente stesso
+- `title` -- come raggruppare o categorizzare il componente nella barra laterale di Storybook
+- `tags` -- per generare automaticamente la documentazione per i nostri componenti
 
-To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/react/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
+Per definire le nostre storie, useremo il Component Story Format 3 (noto anche come [CSF3](https://storybook.js.org/docs/react/api/csf)) per costruire ciascuno dei nostri casi di test. Questo formato è progettato per costruire ciascuno dei nostri casi di test in modo conciso. Esportando un oggetto contenente ciascuno stato del componente, possiamo definire i nostri test in modo più intuitivo e creare e riutilizzare le storie in modo più efficiente.
 
-Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes, so does the component.
+Gli argomenti o [`args`](https://storybook.js.org/docs/react/writing-stories/args) ci permettono di modificare dal vivo i nostri componenti con l'addon dei controlli senza dover riavviare Storybook. Una volta che un valore di [`args`](https://storybook.js.org/docs/react/writing-stories/args) cambia, anche il componente cambia.
 
-When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+Quando creiamo una storia, usiamo un argomento `task` di base per costruire la forma del compito che il componente si aspetta. Tipicamente modellato da come appare effettivamente il dato. Ancora una volta, esportare questa forma ci permetterà di riutilizzarla nelle storie successive, come vedremo.
 
-## Config
+## Configurazione
 
-We'll need to make a couple of changes to Storybook's configuration files so it notices our recently created stories and allows us to use the application's CSS file (located in `src/index.css`).
+Dovremo apportare un paio di modifiche ai file di configurazione di Storybook in modo che noti le nostre storie recentemente create e ci permetta di utilizzare il file CSS dell'applicazione (situato in `src/index.css`).
 
-Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
+Inizia modificando il tuo file di configurazione di Storybook (`.storybook/main.js`) come segue:
 
 ```diff:title=.storybook/main.js
 /** @type { import('@storybook/react-vite').StorybookConfig } */
@@ -127,7 +127,7 @@ const config = {
 export default config;
 ```
 
-After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
+Dopo aver completato la modifica sopra, all'interno della cartella `.storybook`, modifica il tuo file `preview.js` come segue:
 
 ```diff:title=.storybook/preview.js
 + import '../src/index.css';
@@ -149,11 +149,11 @@ const preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we're going to use them to configure how the `actions` (mocked callbacks) are handled.
+I [`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) sono tipicamente utilizzati per controllare il comportamento delle funzionalità e degli addon di Storybook. Nel nostro caso, li useremo per configurare come vengono gestite le `actions` (callback simulate).
 
-`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+Le `actions` ci permettono di creare callback che appaiono nel pannello **actions** dell'interfaccia utente di Storybook quando vengono cliccate. Quindi, quando costruiamo un pulsante pin, saremo in grado di determinare se un clic sul pulsante è stato eseguito con successo nell'interfaccia utente.
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
+Una volta fatto ciò, riavviando il server di Storybook dovrebbero apparire i casi di test per i tre stati del Task:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -162,11 +162,11 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-## Build out the states
+## Sviluppo degli Stati
 
-Now that we have Storybook set up, styles imported, and test cases built out, we can quickly start implementing the HTML of the component to match the design.
+Ora che abbiamo configurato Storybook, importato gli stili e creato i casi di test, possiamo iniziare rapidamente a implementare l'HTML del componente per farlo corrispondere al design.
 
-The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
+Il componente è ancora rudimentale al momento. Prima di tutto, scrivi il codice che raggiunge il design senza entrare troppo nei dettagli:
 
 ```jsx:title=src/components/Task.jsx
 import React from 'react';
@@ -218,7 +218,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+Il markup aggiuntivo di cui sopra, combinato con il CSS che abbiamo importato in precedenza, produce la seguente interfaccia utente:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -227,9 +227,9 @@ The additional markup from above combined with the CSS we imported earlier yield
   />
 </video>
 
-## Specify data requirements
+## Specificare i Requisiti dei Dati
 
-It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self-documenting, but it also helps catch problems early.
+È considerata una buona pratica utilizzare `propTypes` in React per specificare la forma dei dati che un componente si aspetta. Non solo è auto-documentante, ma aiuta anche a individuare i problemi in anticipo.
 
 ```diff:title=src/components/Task.jsx
 import React from 'react';
@@ -298,31 +298,31 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 + };
 ```
 
-Now a warning in development will appear if the Task component is misused.
+Ora apparirà un avviso in fase di sviluppo se il componente Task viene utilizzato in modo errato.
 
 <div class="aside">
-💡 An alternative way to achieve the same purpose is to use a JavaScript type system like TypeScript to create a type for the component properties.
+💡 Un modo alternativo per raggiungere lo stesso obiettivo è utilizzare un sistema di tipi JavaScript come TypeScript per creare un tipo per le proprietà del componente.
 </div>
 
-## Component built!
+## Componente Costruito!
 
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
+Abbiamo ora costruito con successo un componente senza aver bisogno di un server o di eseguire l'intera applicazione frontend. Il passo successivo è costruire uno per uno i restanti componenti di Taskbox in modo simile.
 
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
+Come puoi vedere, iniziare a costruire componenti in isolamento è facile e veloce. Possiamo aspettarci di produrre un'interfaccia utente di maggiore qualità con meno bug e più rifinita perché è possibile scavare e testare ogni stato possibile.
 
-## Catch accessibility issues
+## Individuare Problemi di Accessibilità
 
-Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
+I test di accessibilità si riferiscono alla pratica di esaminare il DOM renderizzato con strumenti automatizzati rispetto a un insieme di euristiche basate su regole [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) e altre best practice accettate dall'industria. Agiscono come prima linea di QA per individuare evidenti violazioni dell'accessibilità, garantendo che un'applicazione sia utilizzabile dal maggior numero possibile di persone, inclusi individui con disabilità come problemi di vista, udito e condizioni cognitive.
 
-Storybook includes an official [accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y). Powered by Deque's [axe-core](https://github.com/dequelabs/axe-core), it can catch up to [57% of WCAG issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
+Storybook include un [addon ufficiale per l'accessibilità](https://storybook.js.org/addons/@storybook/addon-a11y). Alimentato dal [core dell'ascia di Deque](https://github.com/dequelabs/axe-core), può individuare fino al [57% dei problemi WCAG](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
-Let's see how it works! Run the following command to install the addon:
+Vediamo come funziona! Esegui il seguente comando per installare l'addon:
 
 ```shell
 yarn add --dev @storybook/addon-a11y
 ```
 
-Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
+Poi, aggiorna il tuo file di configurazione di Storybook (`.storybook/main.js`) per abilitarlo:
 
 ```diff:title=.storybook/main.js
 /** @type { import('@storybook/react-vite').StorybookConfig } */
@@ -346,9 +346,9 @@ const config = {
 export default config;
 ```
 
-![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
+![Problema di accessibilità del Task in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
-Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
+Scorrendo le nostre storie, possiamo vedere che l'addon ha individuato un problema di accessibilità in uno dei nostri stati di test. Il messaggio [**"Gli elementi devono avere un contrasto di colore sufficiente"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) significa essenzialmente che non c'è abbastanza contrasto tra il titolo del task e lo sfondo. Possiamo correggerlo rapidamente cambiando il colore del testo in un grigio più scuro nel CSS della nostra applicazione (situato in `src/index.css`).
 
 ```diff:title=src/index.css
 .list-item.TASK_ARCHIVED input[type="text"] {
@@ -358,8 +358,8 @@ Cycling through our stories, we can see that the addon found an accessibility is
 }
 ```
 
-That's it! We've taken the first step to ensure that UI becomes accessible. As we continue to add complexity to our application, we can repeat this process for all other components without needing to spin up additional tools or testing environments.
+Ecco fatto! Abbiamo compiuto il primo passo per garantire che l'interfaccia utente sia accessibile. Man mano che continuiamo ad aggiungere complessità alla nostra applicazione, possiamo ripetere questo processo per tutti gli altri componenti senza dover avviare strumenti o ambienti di test aggiuntivi.
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 Non dimenticare di committare le tue modifiche con git!
 </div>
