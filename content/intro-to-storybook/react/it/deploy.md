@@ -1,53 +1,53 @@
 ---
-title: 'Deploy Storybook'
+title: 'Effettuare il deploy di Storybook'
 tocTitle: 'Deploy'
-description: 'Learn how to deploy Storybook online'
+description: 'Impara come effettuare il deploy di Storybook online'
 commit: '5cc3b2c'
 ---
 
-Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.
+Durante questo tutorial, abbiamo costruito componenti sulla nostra macchina di sviluppo locale. Ad un certo punto, avremo bisogno di condividere il nostro lavoro per ottenere feedback dal team. Effettuiamo il deploy di Storybook online per aiutare i membri del team a revisionare l'implementazione dell'UI.
 
-## Exporting as a static app
+## Esportare come app statica
 
-To deploy Storybook, we first need to export it as a static web app. This functionality is already built-in to Storybook and pre-configured.
+Per effettuare il deploy di Storybook, dobbiamo prima esportarlo come un'app web statica. Questa funzionalità è già integrata in Storybook e preconfigurata.
 
-Running `yarn build-storybook` will output a static Storybook in the `storybook-static` directory, which can then be deployed to any static site hosting service.
+Eseguendo `yarn build-storybook` verrà generato un Storybook statico nella directory `storybook-static`, che può poi essere effettuato il deploy su qualsiasi servizio di hosting per siti statici.
 
-## Publish Storybook
+## Pubblicare Storybook
 
-This tutorial uses <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
+Questo tutorial utilizza [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), un servizio di pubblicazione gratuito realizzato dai manutentori di Storybook. Ci permette di effettuare il deploy e ospitare il nostro Storybook in modo sicuro e protetto nel cloud.
 
-### Set up a repository in GitHub
+### Configura un repository su GitHub
 
-Before we begin, our local code needs to sync with a remote version control service. When we set up our project in the [Get started chapter](/intro-to-storybook/react/en/get-started/), we already initialized a local repository. At this stage, we already have a set of commits that we can push to a remote one.
+Prima di iniziare, il nostro codice locale deve essere sincronizzato con un servizio remoto di controllo versione. Quando abbiamo impostato il nostro progetto nel [capitolo di introduzione](/intro-to-storybook/react/en/get-started/), abbiamo già inizializzato un repository locale. A questo punto, abbiamo già un set di commit che possiamo inviare a un repository remoto.
 
-Go to GitHub and create a new repository for our project [here](https://github.com/new). Name the repo “taskbox”, same as our local project.
+Vai su GitHub e crea un nuovo repository per il nostro progetto [qui](https://github.com/new). Nominare il repo "taskbox", come il nostro progetto locale.
 
-![GitHub setup](/intro-to-storybook/github-create-taskbox.png)
+![Configurazione GitHub](/intro-to-storybook/github-create-taskbox.png)
 
-In the new repo, grab the origin URL of the repo and add it to your git project with this command:
+Nel nuovo repo, prendi l'URL origin del repository e aggiungilo al tuo progetto git con questo comando:
 
 ```shell
 git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-Finally, push our local repo to the remote repo on GitHub with:
+Infine, invia il nostro repository locale al repository remoto su GitHub con:
 
 ```shell
 git push -u origin main
 ```
 
-### Get Chromatic
+### Ottieni Chromatic
 
-Add the package as a development dependency.
+Aggiungi il pacchetto come dipendenza di sviluppo.
 
 ```shell
 yarn add -D chromatic
 ```
 
-Once the package is installed, [log in to Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) with your GitHub account (Chromatic will only ask for lightweight permissions), then we'll create a new project called "taskbox" and sync it with the GitHub repository we've set up.
+Una volta installato il pacchetto, [accedi a Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) con il tuo account GitHub (Chromatic chiederà solo permessi leggeri), poi creeremo un nuovo progetto chiamato "taskbox" e lo sincronizzeremo con il repository GitHub che abbiamo configurato.
 
-Click `Choose GitHub repo` under collaborators and select your repo.
+Clicca su `Scegli repo GitHub` sotto la sezione collaboratori e seleziona il tuo repo.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -56,29 +56,29 @@ Click `Choose GitHub repo` under collaborators and select your repo.
   />
 </video>
 
-Copy the unique `project-token` that was generated for your project. Then execute it by issuing the following in the command line to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
+Copia l'unico `project-token` che è stato generato per il tuo progetto. Poi eseguilo emettendo il seguente comando nella riga di comando per costruire ed effettuare il deploy del nostro Storybook. Assicurati di sostituire `project-token` con il tuo token di progetto.
 
 ```shell
 yarn chromatic --project-token=<project-token>
 ```
 
-![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
+![Esecuzione di Chromatic](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-When finished, you'll get a link `https://random-uuid.chromatic.com` to your published Storybook. Share the link with your team to get feedback.
+Quando avrai terminato, otterrai un link `https://random-uuid.chromatic.com` al tuo Storybook pubblicato. Condividi il link con il tuo team per ottenere feedback.
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+![Storybook pubblicato con il pacchetto chromatic](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 
-Hooray! We published Storybook with one command, but manually running a command every time we want to get feedback on UI implementation is repetitive. Ideally, we'd publish the latest version of components whenever we push code. We'll need to continuously deploy Storybook.
+Evviva! Abbiamo pubblicato Storybook con un solo comando, ma eseguire manualmente un comando ogni volta che vogliamo avere un feedback sull'implementazione dell'UI è ripetitivo. Idealmente, pubblicheremmo la versione più recente dei componenti ogni volta che inviamo del codice. Avremo bisogno di effettuare il deploy continuo di Storybook.
 
-## Continuous deployment with Chromatic
+## Deploy continuo con Chromatic
 
-Now that we've hosted our project in a GitHub repository, we can use a continuous integration (CI) service to deploy our Storybook automatically. [GitHub Actions](https://github.com/features/actions) is a free CI service that's built into GitHub that makes automatic publishing easy.
+Ora che abbiamo ospitato il nostro progetto in un repository GitHub, possiamo utilizzare un servizio di integrazione continua (CI) per effettuare automaticamente il deploy del nostro Storybook. [GitHub Actions](https://github.com/features/actions) è un servizio CI gratuito integrato in GitHub che rende la pubblicazione automatica facile.
 
-### Add a GitHub Action to deploy Storybook
+### Aggiungi una GitHub Action per effettuare il deploy di Storybook
 
-In the root folder of our project, create a new directory called `.github`, then create another `workflows` directory inside of it.
+Nella cartella radice del nostro progetto, crea una nuova directory chiamata `.github`, poi crea un'altra directory `workflows` al suo interno.
 
-Create a new file called `chromatic.yml` like the one below.
+Crea un nuovo file chiamato `chromatic.yml` come quello di seguito.
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
@@ -107,36 +107,38 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>💡 For brevity purposes <a href="https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository">GitHub secrets</a> weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the <code>project-token</code>.</p></div>
+<div class="aside">
+💡 Per brevità, non sono stati menzionati i [segreti di GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository). I segreti sono variabili d'ambiente sicure fornite da GitHub in modo da non dover inserire direttamente nel codice il `project-token`.
+</div>
 
-### Commit the action
+### Esegui il commit dell'azione
 
-In the command line, issue the following command to add the changes that you've made:
+Nella riga di comando, emetti il seguente comando per aggiungere le modifiche che hai effettuato:
 
 ```shell
 git add .
 ```
 
-Then commit them by issuing:
+Poi esegui il commit scrivendo:
 
 ```shell
 git commit -m "GitHub action setup"
 ```
 
-Finally, push them to the remote repository with:
+Infine, inviali al repository remoto con:
 
 ```shell
 git push origin main
 ```
 
-Once you’ve set up the GitHub action, your Storybook will be deployed to Chromatic whenever you push code. You can find all the published Storybooks on your project’s build screen in Chromatic.
+Una volta configurata l'azione di GitHub, il tuo Storybook verrà effettuato il deploy su Chromatic ogni volta che invii del codice. Puoi trovare tutti gli Storybook pubblicati nella schermata di build del tuo progetto su Chromatic.
 
-![Chromatic user dashboard](/intro-to-storybook/chromatic-user-dashboard.png)
+![Dashboard utente di Chromatic](/intro-to-storybook/chromatic-user-dashboard.png)
 
-Click the latest build. It should be the one at the top.
+Clicca sulla build più recente. Dovrebbe essere quella in cima alla lista.
 
-Then, click the `View Storybook` button to see the latest version of your Storybook.
+Poi, clicca sul pulsante `Visualizza Storybook` per vedere la versione più recente del tuo Storybook.
 
-![Storybook link on Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
+![Link a Storybook su Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
 
-Use the link and share it with your team members. It's helpful as a part of the standard app development process or simply to show off work 💅.
+Usa il link e condividilo con i membri del tuo team. È utile come parte del processo standard di sviluppo dell'app o semplicemente per mostrare il lavoro 💅.
