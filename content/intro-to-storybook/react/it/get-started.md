@@ -16,12 +16,12 @@ Dovremo seguire alcuni passi per configurare il processo di build nel nostro amb
 Esegui i seguenti comandi:
 
 ```shell:clipboard=false
-# Clona il template
+# Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# Installa le dipendenze
+# Install dependencies
 yarn
 ```
 
@@ -32,10 +32,10 @@ yarn
 Ora possiamo rapidamente verificare che i vari ambienti della nostra applicazione stiano funzionando correttamente:
 
 ```shell:clipboard=false
-# Avvia il component explorer sulla porta 6006:
+# Start the component explorer on port 6006:
 yarn storybook
 
-# Esegui l'app frontend sulla porta 5173:
+# Run the frontend app proper on port 5173:
 yarn dev
 ```
 
@@ -62,7 +62,7 @@ git add .
 Poi:
 
 ```shell
-git commit -m "primo commit"
+git commit -m "first commit"
 ```
 
 E infine:

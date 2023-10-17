@@ -108,7 +108,7 @@ jobs:
 ```
 
 <div class="aside">
-💡 Per brevità, non sono stati menzionati i [segreti di GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository). I segreti sono variabili d'ambiente sicure fornite da GitHub in modo da non dover inserire direttamente nel codice il `project-token`.
+💡 Per brevità, non sono stati menzionati i <a href="https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions#creating-encrypted-secrets-for-a-repository">segreti di GitHub</a>. I segreti sono variabili d'ambiente sicure fornite da GitHub in modo da non dover inserire direttamente nel codice il <code>project-token</code>.
 </div>
 
 ### Esegui il commit dell'azione

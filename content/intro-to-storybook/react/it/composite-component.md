@@ -68,8 +68,8 @@ export default {
 
 export const Default = {
   args: {
-    // Modellare le storie attraverso la composizione degli args.
-    // I dati sono ereditati dalla storia Default in Task.stories.jsx.
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in Task.stories.jsx.
     tasks: [
       { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
       { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -99,8 +99,8 @@ export const Loading = {
 
 export const Empty = {
   args: {
-    // Modellare le storie attraverso la composizione degli args.
-    // Dati ereditati provenienti dalla storia Loading.
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
     ...Loading.args,
     loading: false,
   },

@@ -288,7 +288,7 @@ export const Empty = {
 ```
 
 <div class="aside">
-💡 <code>excludeStories</code> è un campo di configurazione di Storybook che impedisce al nostro stato simulato di essere trattato come una storia. Puoi saperne di più su questo campo nella [documentazione di Storybook](https://storybook.js.org/docs/react/api/csf).
+💡 <code>excludeStories</code> è un campo di configurazione di Storybook che impedisce al nostro stato simulato di essere trattato come una storia. Puoi saperne di più su questo campo nella <a href="https://storybook.js.org/docs/react/api/csf">documentazione di Storybook</a>.
 </div>
 
 <video autoPlay muted playsInline loop>
