@@ -1,19 +1,19 @@
 ---
-title: 'Construct a screen'
-tocTitle: 'Screens'
-description: 'Construct a screen out of components'
+title: 'Costruisci una schermata'
+tocTitle: 'Schermate'
+description: 'Costruisci una schermata da componenti'
 commit: 'bb2471f'
 ---
 
-We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+Ci siamo concentrati sulla costruzione di interfacce utente dal basso verso l'alto, partendo da piccole e aggiungendo complessità. Farlo ci ha permesso di sviluppare ogni componente in isolamento, capire le sue esigenze di dati e giocare con esso in Storybook. Tutto senza dover avviare un server o costruire schermate!
 
-In this chapter, we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+In questo capitolo, continuiamo ad aumentare la sofisticazione combinando i componenti in una schermata e sviluppando quella schermata in Storybook.
 
-## Connected screens
+## Schermate collegate
 
-As our app is straightforward, the screen we'll build is pretty trivial, simply fetching data from a remote API, wrapping the `TaskList` component (which supplies its own data from Redux), and pulling a top-level `error` field out of Redux.
+Poiché la nostra app è semplice, la schermata che costruiremo è piuttosto banale, semplicemente recuperando dati da un'API remota, avvolgendo il componente `TaskList` (che fornisce i propri dati da Redux) e tirando fuori un campo `error` di livello superiore da Redux.
 
-We'll start by updating our Redux store (in `src/lib/store.js`) to connect to a remote API and handle the various states for our application (i.e., `error`, `succeeded`):
+Inizieremo aggiornando il nostro Redux store (in `src/lib/store.js`) per connettersi a un'API remota e gestire i vari stati per la nostra applicazione (cioè, `error`, `succeeded`):
 
 ```diff:title=src/lib/store.js
 /* A simple redux store/actions/reducer implementation.
@@ -113,7 +113,7 @@ const store = configureStore({
 export default store;
 ```
 
-Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.jsx` in the `src/components` directory:
+Ora che abbiamo aggiornato il nostro store per recuperare i dati da un endpoint API remoto e lo abbiamo preparato per gestire i vari stati della nostra app, creiamo il nostro `InboxScreen.jsx` nella directory `src/components`:
 
 ```jsx:title=src/components/InboxScreen.jsx
 import React, { useEffect } from 'react';
@@ -155,7 +155,7 @@ export default function InboxScreen() {
 }
 ```
 
-We also need to change our `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
+Dovremo anche modificare il nostro componente `App` per renderizzare `InboxScreen`. Alla fine, useremmo un router per scegliere lo schermo corretto, ma non preoccupiamoci di questo ora.
 
 ```diff:title=src/App.jsx
 - import { useState } from 'react'
@@ -202,9 +202,9 @@ function App() {
 export default App;
 ```
 
-However, where things get interesting is in rendering the story in Storybook.
+Tuttavia, le cose diventano interessanti quando si tratta di renderizzare la storia in Storybook.
 
-As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.js`:
+Come abbiamo visto in precedenza, il componente `TaskList` è ora un componente **connesso** e si basa su un Redux store per renderizzare i task. Poiché anche il nostro `InboxScreen` è un componente connesso, faremo qualcosa di simile e forniremo uno store alla storia. Quindi, quando impostiamo le nostre storie in `InboxScreen.stories.js`:
 
 ```jsx:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
@@ -224,23 +224,23 @@ export const Default = {};
 export const Error = {};
 ```
 
-We can quickly spot an issue with the `error` story. Instead of displaying the right state, it shows a list of tasks. One way to sidestep this issue would be to provide a mocked version for each state, similar to what we did in the last chapter. Instead, we'll use a well-known API mocking library alongside a Storybook addon to help us solve this issue.
+Possiamo rapidamente individuare un problema con la storia dell'`errore`. Invece di mostrare il giusto stato, mostra una lista di task. Un modo per aggirare questo problema sarebbe fornire una versione simulata per ciascuno stato, simile a quanto abbiamo fatto nel capitolo precedente. Invece, useremo una nota libreria di mocking delle API insieme a un addon di Storybook per aiutarci a risolvere questo problema.
 
-![Broken inbox screen state](/intro-to-storybook/broken-inbox-error-state-7-0-optimized.png)
+![Stato schermo inbox rotto](/intro-to-storybook/broken-inbox-error-state-7-0-optimized.png)
 
-## Mocking API Services
+## Simulazione dei Servizi API
 
-As our application is pretty straightforward and doesn't depend too much on remote API calls, we're going to use [Mock Service Worker](https://mswjs.io/) and [Storybook's MSW addon](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker is an API mocking library. It relies on service workers to capture network requests and provides mocked data in responses.
+Poiché la nostra applicazione è piuttosto semplice e non dipende troppo dalle chiamate API remote, useremo [Mock Service Worker](https://mswjs.io/) e [l'addon MSW di Storybook](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker è una libreria di mocking delle API. Si basa sui service worker per catturare le richieste di rete e fornire dati simulati nelle risposte.
 
-When we set up our app in the [Get started section](/intro-to-storybook/react/en/get-started) both packages were also installed. All that remains is to configure them and update our stories to use them.
+Quando abbiamo impostato la nostra app nella [sezione Introduzione](/intro-to-storybook/react/en/get-started), entrambi i pacchetti sono stati anche installati. Tutto ciò che rimane è configurarli e aggiornare le nostre storie per utilizzarli.
 
-In your terminal, run the following command to generate a generic service worker inside your `public` folder:
+Nel tuo terminale, esegui il seguente comando per generare un service worker generico all'interno della tua cartella `public`:
 
 ```shell
 yarn init-msw
 ```
 
-Then, we'll need to update our `.storybook/preview.js` and initialize them:
+Successivamente, dovremo aggiornare il nostro file `.storybook/preview.js` e inizializzare le librerie:
 
 ```diff:title=.storybook/preview.js
 import '../src/index.css';
@@ -269,7 +269,7 @@ const preview = {
 export default preview;
 ```
 
-Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that mocks the remote API calls:
+Infine, aggiorna le storie di `InboxScreen` e includi un [parametro](https://storybook.js.org/docs/react/writing-stories/parameters) che simula le chiamate API remote:
 
 ```diff:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
@@ -316,11 +316,10 @@ export const Error = {
 ```
 
 <div class="aside">
-💡 As an aside, yet another viable approach would be to pass data down the hierarchy, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> alongside 800+ stories.
-
+💡 Come suggerimento aggiuntivo, un altro approccio valido sarebbe quello di passare i dati lungo la gerarchia, specialmente quando si utilizza <a href="http://graphql.org/">GraphQL</a>. È così che abbiamo costruito <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> insieme a più di 800 storie.
 </div>
 
-Check your Storybook, and you'll see that the `error` story is now working as intended. MSW intercepted our remote API call and provided the appropriate response.
+Controlla il tuo Storybook e vedrai che la storia `error` ora funziona come previsto. MSW ha intercettato la nostra chiamata API remota e fornito la risposta appropriata.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -329,21 +328,21 @@ Check your Storybook, and you'll see that the `error` story is now working as in
   />
 </video>
 
-## Interaction tests
+## Test sulle interazioni
 
-So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
+Finora, siamo stati in grado di costruire un'applicazione completamente funzionale partendo da zero, iniziando da un semplice componente fino ad arrivare a uno schermo, testando continuamente ogni modifica con le nostre storie. Ma ogni nuova storia richiede anche un controllo manuale su tutte le altre storie per assicurarsi che l'interfaccia utente non si rompa. È un sacco di lavoro extra.
 
-Can't we automate this workflow and test our component interactions automatically?
+Non possiamo automatizzare questo flusso di lavoro e testare automaticamente le interazioni dei nostri componenti?
 
-### Write an interaction test using the play function
+### Scrivi un test di interazione usando la funzione play
 
-Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+Gli strumenti di Storybook [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) e [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) ci aiutano in questo. Una funzione play include piccoli frammenti di codice che vengono eseguiti dopo il rendering della storia.
 
-The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+La funzione play ci aiuta a verificare cosa succede all'UI quando i task vengono aggiornati. Utilizza API DOM indipendenti dal framework, il che significa che possiamo scrivere storie con la funzione play per interagire con l'UI e simulare il comportamento umano indipendentemente dal framework frontend utilizzato.
 
-The `@storybook/addon-interactions` helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
+L'`@storybook/addon-interactions` ci aiuta a visualizzare i nostri test in Storybook, fornendo un flusso passo-passo. Offre anche un pratico set di controlli dell'interfaccia utente per mettere in pausa, riprendere, riavvolgere e passare attraverso ogni interazione.
 
-Let's see it in action! Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
+Vediamolo in azione! Aggiorna la tua storia `InboxScreen` appena creata e configura le interazioni del componente aggiungendo quanto segue:
 
 ```diff:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
@@ -409,7 +408,7 @@ export const Error = {
 };
 ```
 
-Check the `Default` story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
+Controlla la storia `Default`. Clicca sul pannello `Interazioni` per vedere l'elenco delle interazioni all'interno della funzione play della storia.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -418,21 +417,21 @@ Check the `Default` story. Click the `Interactions` panel to see the list of int
   />
 </video>
 
-### Automate tests with the test runner
+### Automatizzare i test con il test runner
 
-With Storybook's play function, we were able to sidestep our problem, allowing us to interact with our UI and quickly check how it responds if we update our tasks—keeping the UI consistent at no extra manual effort.
+Con la funzione play di Storybook, siamo riusciti a evitare il nostro problema, permettendoci di interagire con la nostra UI e di controllare rapidamente come reagisce se aggiorniamo i nostri task—mantenendo l'UI coerente senza sforzo manuale aggiuntivo.
 
-But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
+Tuttavia, se osserviamo più da vicino il nostro Storybook, possiamo vedere che esegue i test di interazione solo quando visualizziamo la storia. Quindi, dovremmo comunque passare attraverso ogni storia per eseguire tutti i controlli se apportiamo una modifica. Non potremmo automatizzarlo?
 
-The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+La buona notizia è che possiamo! Il [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) di Storybook ci permette di fare proprio questo. È uno strumento autonomo—alimentato da [Playwright](https://playwright.dev/)—che esegue tutti i nostri test di interazione e individua le storie rotte.
 
-Let's see how it works! Run the following command to install it:
+Vediamo come funziona! Esegui il seguente comando per installarlo:
 
 ```shell
 yarn add --dev @storybook/test-runner
 ```
 
-Next, update your `package.json` `scripts` and add a new test task:
+Successivamente, aggiorna la sezione `scripts` del tuo `package.json` e aggiungi un nuovo task di test:
 
 ```json:clipboard=false
 {
@@ -442,25 +441,25 @@ Next, update your `package.json` `scripts` and add a new test task:
 }
 ```
 
-Finally, with your Storybook running, open up a new terminal window and run the following command:
+Infine, con il tuo Storybook in esecuzione, apri una nuova finestra del terminale ed esegui il seguente comando:
 
 ```shell
 yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">official documentation</a> to learn more about it.
+💡 Il testing delle interazioni con la funzione play è un modo fantastico per testare i tuoi componenti UI. Può fare molto di più di quanto abbiamo visto qui; ti consigliamo di leggere la <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">documentazione ufficiale</a> per saperne di più.
 <br />
-For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+Per un'analisi ancora più approfondita sui test, dai un'occhiata al <a href="/ui-testing-handbook">Manuale dei Test</a>. Copre le strategie di test utilizzate dai team di frontend scalabili per potenziare il tuo flusso di lavoro di sviluppo.
 </div>
 
-![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+![Il test runner di Storybook esegue con successo tutti i test](/intro-to-storybook/storybook-test-runner-execution.png)
 
-Success! Now we have a tool that helps us verify whether all our stories are rendered without errors and all assertions pass automatically. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
+Successo! Ora abbiamo uno strumento che ci aiuta a verificare se tutte le nostre storie vengono renderizzate senza errori e tutte le asserzioni passano automaticamente. Inoltre, se un test fallisce, fornirà un link che apre la storia fallita nel browser.
 
-## Component-Driven Development
+## Sviluppo guidato dai componenti
 
-We started from the bottom with `Task`, then progressed to `TaskList`, and now we’re here with a whole screen UI. Our `InboxScreen` accommodates connected components and includes accompanying stories.
+Abbiamo iniziato dal basso con `Task`, poi siamo passati a `TaskList`, e ora siamo qui con un'intera interfaccia utente dello schermo. Il nostro `InboxScreen` ospita componenti connessi e include storie di accompagnamento.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -469,10 +468,10 @@ We started from the bottom with `Task`, then progressed to `TaskList`, and now w
   />
 </video>
 
-[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Sviluppo guidato dai componenti**](https://www.componentdriven.org/) ti permette di espandere gradualmente la complessità mentre sali nella gerarchia dei componenti. Tra i vantaggi ci sono un processo di sviluppo più focalizzato e una copertura maggiore di tutte le possibili permutazioni dell'UI. In breve, il CDD ti aiuta a costruire interfacce utente di qualità superiore e più complesse.
 
-We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+Non abbiamo ancora finito - il lavoro non termina quando l'UI è costruita. Dobbiamo anche assicurarci che rimanga solida nel tempo.
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 Non dimenticare di committare le tue modifiche con git!
 </div>
