@@ -5,13 +5,13 @@ description: 'Costruisci un componente semplice in isolamento'
 commit: '4355037'
 ---
 
-Costruiremo la nostra UI seguendo una metodologia [Component-Driven Development](https://www.componentdriven.org/) (CDD). È un processo che costruisce le UI dal "basso verso l'alto", partendo dai componenti e terminando con gli schermi. Il CDD ti aiuta a gestire la quantità di complessità a cui sei sottoposto mentre costruisci la UI.
+Costruiremo la nostra UI seguendo una metodologia [Component-Driven Development](https://www.componentdriven.org/) (CDD). È un processo che costruisce le UI dal "basso verso l'alto", partendo dai componenti e terminando con gli schermi. Il CDD ti aiuta a gestire l'ammontare di complessità a cui sei sottoposto mentre costruisci la UI.
 
 ## Task
 
 ![Componente Task in tre stati](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` è il componente principale della nostra app. Ogni task viene visualizzato leggermente diversamente a seconda dello stato in cui si trova. Visualizziamo una casella di controllo selezionata (o deselezionata), alcune informazioni sul task e un pulsante "pin", che ci permette di spostare i compiti su e giù nella lista. Mettendo insieme tutto ciò, avremo bisogno di queste props:
+`Task` è il componente principale della nostra app. Ogni task viene visualizzato leggermente diversamente a seconda dello stato in cui si trova. Visualizziamo una casella di controllo selezionata (o deselezionata), alcune informazioni sul task e un pulsante "pin", che ci permette di spostare i task su e giù nella lista. Mettendo insieme tutto ciò, avremo bisogno di queste props:
 
 - `titolo` - una stringa che descrive il task
 - `stato` - in quale lista si trova attualmente il task, ed è stato completato?
@@ -229,7 +229,7 @@ Il markup aggiuntivo di cui sopra, combinato con il CSS che abbiamo importato in
 
 ## Specificare i Requisiti dei Dati
 
-È considerata una buona pratica utilizzare `propTypes` in React per specificare la forma dei dati che un componente si aspetta. Non solo è auto-documentante, ma aiuta anche a individuare i problemi in anticipo.
+È considerata una buona pratica utilizzare `propTypes` in React per specificare la forma dei dati che un componente si aspetta. Non solo è autodocumentante, ma aiuta anche a individuare i problemi in anticipo.
 
 ```diff:title=src/components/Task.jsx
 import React from 'react';
@@ -308,13 +308,13 @@ Ora apparirà un avviso in fase di sviluppo se il componente Task viene utilizza
 
 Abbiamo ora costruito con successo un componente senza aver bisogno di un server o di eseguire l'intera applicazione frontend. Il passo successivo è costruire uno per uno i restanti componenti di Taskbox in modo simile.
 
-Come puoi vedere, iniziare a costruire componenti in isolamento è facile e veloce. Possiamo aspettarci di produrre un'interfaccia utente di maggiore qualità con meno bug e più rifinita perché è possibile scavare e testare ogni stato possibile.
+Come puoi vedere, iniziare a costruire componenti in isolamento è facile e veloce. Possiamo aspettarci di produrre un'interfaccia utente di maggiore qualità con meno bug e più rifinita perché è possibile approfondire e testare ogni stato possibile.
 
 ## Individuare Problemi di Accessibilità
 
 I test di accessibilità si riferiscono alla pratica di esaminare il DOM renderizzato con strumenti automatizzati rispetto a un insieme di euristiche basate su regole [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) e altre best practice accettate dall'industria. Agiscono come prima linea di QA per individuare evidenti violazioni dell'accessibilità, garantendo che un'applicazione sia utilizzabile dal maggior numero possibile di persone, inclusi individui con disabilità come problemi di vista, udito e condizioni cognitive.
 
-Storybook include un [addon ufficiale per l'accessibilità](https://storybook.js.org/addons/@storybook/addon-a11y). Alimentato dal [core dell'ascia di Deque](https://github.com/dequelabs/axe-core), può individuare fino al [57% dei problemi WCAG](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
+Storybook include un [addon ufficiale per l'accessibilità](https://storybook.js.org/addons/@storybook/addon-a11y). Alimentato da Deque's [axe-core](https://github.com/dequelabs/axe-core), può individuare fino al [57% dei problemi WCAG](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
 
 Vediamo come funziona! Esegui il seguente comando per installare l'addon:
 

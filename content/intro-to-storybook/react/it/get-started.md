@@ -11,7 +11,7 @@ Storybook funziona in parallelo con la tua app in modalità di sviluppo. Ti aiut
 
 ## Configura Storybook per React
 
-Dovremo seguire alcuni passi per configurare il processo di build nel nostro ambiente. Per iniziare, vogliamo utilizzare [degit](https://github.com/Rich-Harris/degit) per configurare il nostro sistema di build. Utilizzando questo pacchetto, puoi scaricare "modelli" (applicazioni parzialmente costruite con alcune configurazioni predefinite) per aiutarti a velocizzare il tuo flusso di lavoro di sviluppo.
+Dovremo seguire alcuni passi per configurare il processo di build nel nostro ambiente. Per iniziare, vogliamo utilizzare [degit](https://github.com/Rich-Harris/degit) per configurare il nostro sistema di build. Utilizzando questo pacchetto, puoi scaricare dei "modelli" (applicazioni parzialmente costruite con alcune configurazioni predefinite) per aiutarti a velocizzare il tuo flusso di lavoro di sviluppo.
 
 Esegui i seguenti comandi:
 

@@ -7,7 +7,7 @@ commit: 'bb2471f'
 
 Ci siamo concentrati sulla costruzione di interfacce utente dal basso verso l'alto, partendo da piccole e aggiungendo complessità. Farlo ci ha permesso di sviluppare ogni componente in isolamento, capire le sue esigenze di dati e giocare con esso in Storybook. Tutto senza dover avviare un server o costruire schermate!
 
-In questo capitolo, continuiamo ad aumentare la sofisticazione combinando i componenti in una schermata e sviluppando quella schermata in Storybook.
+In questo capitolo, continuiamo ad aumentare la sofisticatezza combinando i componenti in una schermata e sviluppando quella schermata in Storybook.
 
 ## Schermate collegate
 
@@ -155,7 +155,7 @@ export default function InboxScreen() {
 }
 ```
 
-Dovremo anche modificare il nostro componente `App` per renderizzare `InboxScreen`. Alla fine, useremmo un router per scegliere lo schermo corretto, ma non preoccupiamoci di questo ora.
+Dovremo anche modificare il nostro componente `App` per renderizzare `InboxScreen`. Alla fine, useremmo un router per scegliere la schermata corretta, ma non preoccupiamoci di questo ora.
 
 ```diff:title=src/App.jsx
 - import { useState } from 'react'
@@ -226,7 +226,7 @@ export const Error = {};
 
 Possiamo rapidamente individuare un problema con la storia dell'`errore`. Invece di mostrare il giusto stato, mostra una lista di task. Un modo per aggirare questo problema sarebbe fornire una versione simulata per ciascuno stato, simile a quanto abbiamo fatto nel capitolo precedente. Invece, useremo una nota libreria di mocking delle API insieme a un addon di Storybook per aiutarci a risolvere questo problema.
 
-![Stato schermo inbox rotto](/intro-to-storybook/broken-inbox-error-state-7-0-optimized.png)
+![Stato schermata inbox rotta](/intro-to-storybook/broken-inbox-error-state-7-0-optimized.png)
 
 ## Simulazione dei Servizi API
 
@@ -330,7 +330,7 @@ Controlla il tuo Storybook e vedrai che la storia `error` ora funziona come prev
 
 ## Test sulle interazioni
 
-Finora, siamo stati in grado di costruire un'applicazione completamente funzionale partendo da zero, iniziando da un semplice componente fino ad arrivare a uno schermo, testando continuamente ogni modifica con le nostre storie. Ma ogni nuova storia richiede anche un controllo manuale su tutte le altre storie per assicurarsi che l'interfaccia utente non si rompa. È un sacco di lavoro extra.
+Finora, siamo stati in grado di costruire un'applicazione completamente funzionale partendo da zero, iniziando da un semplice componente fino ad arrivare a una schermata, testando continuamente ogni modifica con le nostre storie. Ma ogni nuova storia richiede anche un controllo manuale su tutte le altre storie per assicurarsi che l'interfaccia utente non si rompa. È un sacco di lavoro extra.
 
 Non possiamo automatizzare questo flusso di lavoro e testare automaticamente le interazioni dei nostri componenti?
 
@@ -459,7 +459,7 @@ Successo! Ora abbiamo uno strumento che ci aiuta a verificare se tutte le nostre
 
 ## Sviluppo guidato dai componenti
 
-Abbiamo iniziato dal basso con `Task`, poi siamo passati a `TaskList`, e ora siamo qui con un'intera interfaccia utente dello schermo. Il nostro `InboxScreen` ospita componenti connessi e include storie di accompagnamento.
+Abbiamo iniziato dal basso con `Task`, poi siamo passati a `TaskList`, e ora siamo qui con un'intera interfaccia utente della schermata. Il nostro `InboxScreen` ospita componenti connessi e include storie di accompagnamento.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source

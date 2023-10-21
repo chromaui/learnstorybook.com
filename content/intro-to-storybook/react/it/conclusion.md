@@ -3,7 +3,7 @@ title: 'Conclusione'
 description: 'Metti insieme tutte le tue conoscenze e scopri altre tecniche di Storybook'
 ---
 
-Complimenti! Hai creato la tua prima UI in Storybook. Lungo il percorso hai imparato a costruire, comporre, testare e distribuire componenti UI. Se hai seguito, il tuo repository e Storybook distribuito dovrebbero assomigliare a questo:
+Complimenti! Hai creato la tua prima UI in Storybook. Lungo il percorso hai imparato a costruire, comporre, testare e distribuire componenti UI. Se hai seguito, il tuo repository e distribuito Storybook dovrebbero assomigliare a questo:
 
 [📕 **Repository GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
@@ -17,7 +17,7 @@ Vuoi approfondire? Ecco alcune risorse utili.
 
 - [**Documentazione ufficiale di Storybook**](https://storybook.js.org/docs/react/get-started/introduction) ha documentazione API, collegamenti alla comunità e la galleria degli addon.
 
-- [**Manuale sul Testing dell'UI**](https://storybook.js.org/blog/ui-testing-playbook/) evidenzia le migliori pratiche di flusso di lavoro utilizzate da team ad alta velocità come Twilio, Adobe, Peloton e Shopify.
+- [**Manuale sul Testing dell'UI**](https://storybook.js.org/blog/ui-testing-playbook/) evidenzia le migliori pratiche di flusso di lavoro utilizzate da team altamente veloci come Twilio, Adobe, Peloton e Shopify.
 
 - [**Manuale sul Testing Visivo**](https://storybook.js.org/tutorials/visual-testing-handbook/) approfondisce l'uso di Storybook per il test visivo dei componenti. Ebook gratuito di 31 pagine.
 
