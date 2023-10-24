@@ -29,7 +29,7 @@ I test di regressione visiva, chiamati anche test visivi, sono progettati per in
 
 Storybook è uno strumento fantastico per i test di regressione visiva perché ogni storia è essenzialmente una specifica di test. Ogni volta che scriviamo o aggiorniamo una storia, otteniamo una specifica gratuitamente!
 
-Ci sono diversi strumenti per i test di regressione visiva. Raccomandiamo [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), un servizio di pubblicazione gratuito realizzato dai manutentori di Storybook che esegue test visivi in un ambiente di browser cloud ultraveloce. Ci permette anche di pubblicare Storybook online, come abbiamo visto nel [capitolo precedente](/intro-to-storybook/react/en/deploy/).
+Ci sono diversi strumenti per i test di regressione visiva. Raccomandiamo [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), un servizio di pubblicazione gratuito realizzato dai manutentori di Storybook che esegue test visivi in un ambiente di browser cloud ultraveloce. Ci permette anche di pubblicare Storybook online, come abbiamo visto nel [capitolo precedente](/intro-to-storybook/react/it/deploy/).
 
 ## Individuare una modifica dell'UI
 

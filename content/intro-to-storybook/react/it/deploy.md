@@ -19,7 +19,7 @@ Questo tutorial utilizza [Chromatic](https://www.chromatic.com/?utm_source=story
 
 ### Configura un repository su GitHub
 
-Prima di iniziare, il nostro codice locale deve essere sincronizzato con un servizio remoto di controllo versione. Quando abbiamo impostato il nostro progetto nel [capitolo di introduzione](/intro-to-storybook/react/en/get-started/), abbiamo già inizializzato un repository locale. A questo punto, abbiamo già un set di commit che possiamo inviare a un repository remoto.
+Prima di iniziare, il nostro codice locale deve essere sincronizzato con un servizio remoto di controllo versione. Quando abbiamo impostato il nostro progetto nel [capitolo di introduzione](/intro-to-storybook/react/it/get-started/), abbiamo già inizializzato un repository locale. A questo punto, abbiamo già un set di commit che possiamo inviare a un repository remoto.
 
 Vai su GitHub e crea un nuovo repository per il nostro progetto [qui](https://github.com/new). Nominare il repo "taskbox", come il nostro progetto locale.
 
