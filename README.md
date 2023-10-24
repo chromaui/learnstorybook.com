@@ -247,6 +247,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Korean           | ❌      |
 |              | Japanese         | ❌      |
 |              | French           | ✅      |
+|              | Italian          | ✅      |
 |              | German           | ❌      |
 | React Native | English          | ✅      |
 |              | Spanish          | ❌      |
