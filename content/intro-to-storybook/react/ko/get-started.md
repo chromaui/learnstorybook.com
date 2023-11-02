@@ -32,14 +32,11 @@ yarn
 이제 다양한 환경에서 애플리케이션이 올바르게 작동하는지 아래 명령어를 통해 빠르게 확인할 수 있습니다:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test --watchAll
-
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 3000:
-yarn start
+# Run the frontend app proper on port 5173:
+yarn dev
 ```
 
 <div class="aside"> 
