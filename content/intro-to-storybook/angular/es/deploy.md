@@ -2,7 +2,7 @@
 title: 'Desplegar Storybook'
 tocTitle: 'Desplegar'
 description: 'Aprende a desplegar Storybook'
-commit: '9fe8b9a'
+commit: '1586781'
 ---
 
 A lo largo de este tutorial, creamos componentes en nuestra máquina de desarrollo local. En algún momento, tendremos

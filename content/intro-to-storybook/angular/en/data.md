@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 'f1717d7'
+commit: 'c416f74'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -304,7 +304,7 @@ The reason to keep the presentational version of the `TaskList` separate is that
 ```ts:title=src/app/components/pure-task-list.stories.ts
 import type { Meta, StoryObj } from '@storybook/angular';
 
-import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
+import { argsToTemplate, componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -335,6 +335,7 @@ const meta: Meta<PureTaskListComponent> = {
       onPinTask: TaskStories.actionsData.onPinTask,
       onArchiveTask: TaskStories.actionsData.onArchiveTask,
     },
+    template: `<app-pure-task-list ${argsToTemplate(args)}></app-pure-task-list>`,
   }),
 };
 export default meta;

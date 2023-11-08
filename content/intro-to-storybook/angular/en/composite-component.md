@@ -2,7 +2,7 @@
 title: 'Assemble a composite component'
 tocTitle: 'Composite component'
 description: 'Assemble a composite component out of simpler components'
-commit: '6fab2bd'
+commit: '3da0d0a'
 ---
 
 Last chapter, we built our first component; this chapter extends what we learned to make TaskList, a list of Tasks. Let’s combine components together and see what happens when we introduce more complexity.
@@ -68,7 +68,7 @@ Next, create `Tasklist`’s test states in the story file.
 ```ts:title=src/app/components/task-list.stories.ts
 import type { Meta, StoryObj } from '@storybook/angular';
 
-import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
+import { argsToTemplate, componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -98,6 +98,7 @@ const meta: Meta<TaskListComponent> = {
       onPinTask: TaskStories.actionsData.onPinTask,
       onArchiveTask: TaskStories.actionsData.onArchiveTask,
     },
+    template: `<app-task-list ${argsToTemplate(args)}></app-task-list>`,
   }),
 };
 export default meta;

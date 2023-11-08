@@ -2,7 +2,7 @@
 title: 'アドオン'
 tocTitle: 'アドオン'
 description: 'アドオンを組み込んで利用する方法を、人気のある例を使って学びましょう'
-commit: 'b81f529'
+commit: 'f39e46b'
 ---
 
 Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/docs/angular/configure/storybook-addons)のエコシステムがあります。[こちら](https://storybook.js.org/addons) でアドオンのリストが見られます。
