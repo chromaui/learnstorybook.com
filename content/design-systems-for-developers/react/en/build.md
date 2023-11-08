@@ -2,7 +2,7 @@
 title: 'Build UI components'
 tocTitle: 'Build'
 description: 'Set up Storybook to build and catalog design system components'
-commit: '13351cf'
+commit: 'f4c9bb5'
 ---
 
 In chapter 3, we’ll set up the essential design system tooling starting with Storybook, the most popular component explorer. The goal of this guide is to show you how professional teams build design systems, so we’ll also focus on finer details like the code hygiene, timesaving Storybook addons, and directory structure.

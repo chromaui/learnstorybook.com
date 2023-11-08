@@ -2,7 +2,7 @@
 title: 'Distribuir o IU numa organização'
 tocTitle: 'Distribuição'
 description: 'Aprenda como empacotar e importar o seu sistema de design para outras aplicações'
-commit: 'd70e3da'
+commit: 'dabd221'
 ---
 
 De uma perspetiva arquitetónica, os sistemas de design são apenas mais uma dependência de frontend. Não são tão diferentes de outras dependências populares, tais como moment ou lodash. Os componentes de IU são apenas código, como tal podemos utilizar técnicas estabelecidas para reutilização de código.
