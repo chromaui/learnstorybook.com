@@ -2,7 +2,7 @@
 title: 'Testing composite components'
 tocTitle: 'Composition'
 description: 'Prevent minor changes from turning into major regressions'
-commit: 'cb51fc2'
+commit: 'c8e7bdd'
 ---
 
 In Jan 2021, [Tesla recalled 158,000 cars](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-s-x-touchscreens-bricked-failure-nhtsa) because one module—the display—malfunctioned. With a broken display console, you can’t access the backup camera, turn signals, or driver assistance. That significantly increases the risk of a crash.
@@ -177,16 +177,12 @@ That’s where Storybook addons come in. They allow you to mock API requests, st
 
 For the InboxScreen, we are going to use [Mock Service Worker (MSW) addon](https://storybook.js.org/addons/msw-storybook-addon/) to intercept requests at the network level and return mocked responses.
 
-Install msw & its storybook addon.
+This is already provided in the template transferred in the [introduction chapter](/ui-testing-handbook/react/en/introduction/). We'll need to set it up. Let's see how.
+
+Run the following command to generate a new service worker in your `public` folder.
 
 ```shell
-yarn add --dev msw msw-storybook-addon
-```
-
-Then, generate a new service worker in your public folder.
-
-```shell
-npx msw init public/
+yarn init-msw
 ```
 
 <div class="aside">

@@ -2,7 +2,7 @@
 title: '깃허브(Github) 액션으로 UI 테스트 자동화하기'
 tocTitle: '자동화(Automate)'
 description: '작업 흐름(workflow)을 더 빠르게 만들고, 더 고품질의 코드를 전달하기'
-commit: ''
+commit: 'c5c2d6d'
 ---
 
 개발자는 평균적으로 버그를 고치는데 [매주 4-8 시간 정도](https://www.niss.org/sites/default/files/technicalreports/tr81.pdf)를 사용한다고 합니다. 버그가 프로덕션(production)에 몰래 끼어들기 시작하면, 상황은 나빠지기만 합니다. 이 경우, 버그를 고치는데에는 [5-10배](https://www.cs.umd.edu/projects/SoftEng/ESEG/papers/82.78.pdf) 더 많은 시간이 듭니다. 이러한 이유로 UI 테스팅이 질 높은 사용자 경험을 전달하는데 필수적이지만, 동시에 엄청난 시간 낭비가 될 수 있습니다. 코드를 변경할 때마다 모든 테스트를 수작업으로 하나하나 하려하면 일이 지나치게 커집니다.

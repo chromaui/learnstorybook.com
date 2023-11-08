@@ -2,7 +2,7 @@
 title: 'UI 테스팅 플레이북'
 tocTitle: '작업 흐름(Workflow)'
 description: '우리를 느리게 하지 않는 테스팅 작업 흐름(workflow)'
-commit: '81c0264'
+commit: '910607e'
 ---
 
 UI의 서로 다른 부분을 테스트 하는 도구를 찾기는 쉽습니다. 하지만 이 모든 걸 생산적인 작업 흐름으로 어떻게 결합하는 방법을 깨닫기는 쉽지 않습니다. 잘못 이해하면, 유지보수의 악몽에 빠질 수도 있습니다.
@@ -21,10 +21,9 @@ UI의 서로 다른 부분을 테스트 하는 도구를 찾기는 쉽습니다.
 
 이 데모를 위해서, 테스트할 준비가 된 지점으로 곧장 건너뛰어봅시다. 업데이트된 파일들을 다운 받고, `/src` 디렉토리에 놓아주세요 -
 
-- [src/components/Task.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/components/Task.js)
-- [src/components/TaskList.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/components/TaskList.js)
-- [src/InboxScreen.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/InboxScreen.js)
-- [src/useTasks.js](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/81c0264/src/useTasks.js)
+- [src/components/Task.jsx](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/910607eb1d6c9a593c9577ad6eb0e074a9b762d8/src/components/Task.jsx)
+- [src/components/TaskList.jsx](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/910607eb1d6c9a593c9577ad6eb0e074a9b762d8/src/components/TaskList.jsx)
+- [src/InboxScreen.jsx](https://raw.githubusercontent.com/chromaui/ui-testing-guide-code/910607eb1d6c9a593c9577ad6eb0e074a9b762d8/src/InboxScreen.jsx)
 
 ### 시각적 요소와 구성 테스트
 
