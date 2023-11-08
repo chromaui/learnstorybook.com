@@ -2,7 +2,7 @@
 title: 'أنشئ واجهة'
 tocTitle: 'واجهات'
 description: 'أنشئ واجهة من المكونات'
-commit: 'bb2471f'
+commit: 'fef715f'
 ---
 
 <div style="direction: rtl">

@@ -2,7 +2,7 @@
 title: 'الإضافات'
 tocTitle: 'الإضافات'
 description: 'تعلم كيفية دمج و استخدام إضافات ضبط مشهورة'
-commit: '40befd8'
+commit: '5deb9f7'
 ---
 
 <div style="direction: rtl">

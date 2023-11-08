@@ -2,7 +2,7 @@
 title: '애드온(Addon)'
 tocTitle: '애드온(Addon)'
 description: '인기있는 Controls 애드온(Addon)을 적용하고 사용하는 방법을 배워봅니다.'
-commit: '40befd8'
+commit: '5deb9f7'
 ---
 
 스토리북(Storybook)에는 팀 내 모든 구성원의 개발 경험을 향상시키는 데 사용할 수 있는 강력한 [애드온(addons)](https://storybook.js.org/docs/react/configure/storybook-addons) 생태계가 있습니다. [여기](https://storybook.js.org/addons)에서 볼 수 있습니다.

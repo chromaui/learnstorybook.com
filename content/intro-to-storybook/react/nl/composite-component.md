@@ -2,7 +2,7 @@
 title: 'Bouw een samengestelde component'
 tocTitle: 'Samengestelde component'
 description: 'Bouw een samengestelde component uit eenvoudigere componenten'
-commit: 'af8ccd1'
+commit: 'b2e85fb'
 ---
 
 In het vorige hoofdstuk hebben we onze eerste component gebouwd; dit hoofdstuk gaat voort op wat we geleerd hebben bij het bouwen van `TaskList`, een lijst van taken. Laten we nu een aantal componenten combineren en zien wat er gebeurt wanneer de complexiteit toeneemt.
