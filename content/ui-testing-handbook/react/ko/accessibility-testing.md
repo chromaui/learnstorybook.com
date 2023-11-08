@@ -2,7 +2,7 @@
 title: '스토리북(Storybook)을 통한 접근성 테스트'
 tocTitle: '접근성'
 description: '통합적인 툴 사용(integrated tooling)으로 빠른 피드백 제공'
-commit: ''
+commit: 'ef3fa29'
 ---
 
 미국에 있는 [성인의 26%](https://www.cdc.gov/ncbddd/disabilityandhealth/infographic-disability-impacts-all.html)는 적어도 하나의 장애를 가지고 있습니다. 접근성을 개선하면, 현재 그리고 미래의 고객들에게 아주 커다란 영향을 미칩니다. 또한 접근성은 법적 요구 사항이기도 합니다.

@@ -2,7 +2,7 @@
 title: 'Assembla un componente composito'
 tocTitle: 'Componente composito'
 description: 'Assembla un componente composito da componenti più semplici'
-commit: 'af8ccd1'
+commit: 'b2e85fb'
 ---
 
 Nell'ultimo capitolo, abbiamo costruito il nostro primo componente; questo capitolo estende ciò che abbiamo imparato per realizzare TaskList, una lista di Task. Uniamoli insieme e vediamo cosa succede quando introduciamo più complessità.

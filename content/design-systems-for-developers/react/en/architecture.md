@@ -2,7 +2,7 @@
 title: 'Architecting systems'
 tocTitle: 'Architecture'
 description: 'How to extract a design system from component libraries'
-commit: '5aa78f3'
+commit: 'f856c77'
 ---
 
 In chapter 2, we extract a design system from existing component libraries. Along the way, we determine which components belong in the design system and outline common challenges developers face getting started.

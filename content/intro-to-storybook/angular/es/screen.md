@@ -2,7 +2,7 @@
 title: 'Construir una pantalla'
 tocTitle: 'Pantallas'
 description: 'Construir una pantalla utilizando componentes'
-commit: 'e97246e'
+commit: 'f8d168d'
 ---
 
 Nos hemos concentrado en crear interfaces de usuario desde "abajo hacia arriba"; empezando con los componentes individuales y añadiendo complejidad gradualmente. Esto nos ha permitido desarrollar cada componente de forma aislada, determinar los datos que necesita y jugar con ellos en Storybook. ¡Todo sin necesidad de utilizar un servidor o, siquiera, construir una sola pantalla!

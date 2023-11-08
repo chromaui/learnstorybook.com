@@ -2,7 +2,7 @@
 title: 'Review with teams'
 tocTitle: 'Review'
 description: 'Collaborate with continuous integration and visual review'
-commit: '0b7a8a9'
+commit: '5bbfa8c'
 ---
 
 In chapter 4, we’ll learn professional workflows for making design system improvements while mitigating inconsistencies. This chapter covers techniques for gathering UI feedback and reaching a consensus with your team. These production processes are used by folks at Auth0, Shopify, and Discovery Network.

@@ -2,7 +2,7 @@
 title: 'Automate visual testing'
 tocTitle: 'Automate'
 description: 'Automate visual testing to catch regressions'
-commit: 'e479199'
+commit: '2c4f211'
 ---
 
 Over the natural course of development, bugs are inevitable. Visual test automation uses machines to detect changes in UI appearance for a human to review.

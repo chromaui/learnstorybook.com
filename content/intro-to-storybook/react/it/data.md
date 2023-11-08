@@ -2,7 +2,7 @@
 title: 'Collegare i dati'
 tocTitle: 'Dati'
 description: 'Impara come collegare i dati al tuo componente UI'
-commit: '87a5a91'
+commit: '9788acc'
 ---
 
 Finora, abbiamo creato componenti senza stato isolati, ottimi per Storybook, ma alla fine non utili finché non gli forniamo alcuni dati nella nostra app.

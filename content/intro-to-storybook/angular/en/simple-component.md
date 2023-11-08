@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: '3feace5'
+commit: '6ba8a4e'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -66,6 +66,8 @@ Below we build out Task’s three test states in the story file:
 ```ts:title=src/app/components/task.stories.ts
 import type { Meta, StoryObj } from '@storybook/angular';
 
+import { argsToTemplate } from '@storybook/angular';
+
 import { action } from '@storybook/addon-actions';
 
 import TaskComponent from './task.component';
@@ -86,6 +88,7 @@ const meta: Meta<TaskComponent> = {
       onPinTask: actionsData.onPinTask,
       onArchiveTask: actionsData.onArchiveTask,
     },
+    template: `<app-task ${argsToTemplate(args)}></app-task>`,
   }),
 };
 
@@ -139,6 +142,7 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `tags` -- to automatically generate documentation for our components
 - `excludeStories`-- additional information required by the story but should not be rendered in Storybook
 - `render` -- a custom [render function](https://storybook.js.org/docs/angular/api/csf#custom-render-functions) that allows us how the component is rendered in Storybook
+- `argsToTemplate` -- a helper function that converts the args to property and event bindings for the component, providing robust workflow support for Storybook's controls and the component's inputs and outputs
 
 To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/angular/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
 

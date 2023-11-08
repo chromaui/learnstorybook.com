@@ -2,7 +2,7 @@
 title: 'UI 테스트 소개'
 tocTitle: '소개'
 description: 'UI 테스트를 위한 최신 개발 방법'
-commit: ''
+commit: 'b832fa9'
 ---
 
 <div class="aside">이 가이드는 JavaScript와 React, 그리고 스토리북(Storybook)에 <b>숙련된 개발자</b>를 위해 작성되었습니다. 만약 스토리북 사용에 익숙하지 않다면 <a href="/intro-to-storybook">Intro to Storybook</a>을 방문해 기초부터 배워보기를 추천합니다!

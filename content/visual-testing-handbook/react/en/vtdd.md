@@ -1,7 +1,7 @@
 ---
 title: 'Visual TDD'
 description: 'Write your first visual tests'
-commit: '5031fdf'
+commit: 'd260c8d'
 ---
 
 Now that the basics are covered let’s jump into the details. This example demonstrates building out a state of a `CommentList` component using **Visual TDD** with Storybook.

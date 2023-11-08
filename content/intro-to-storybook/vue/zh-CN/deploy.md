@@ -2,7 +2,7 @@
 title: '部署Storybook'
 tocTitle: '部署'
 description: '学习如何线上部署Storybook'
-commit: '8d3e9ad'
+commit: 'a7c79ed'
 ---
 
 在此教程中，我们在我们本地开发环境构建了组件。某些时候，我们还需要和组员分享我们的工作以获得其他人的反馈。让我们部署 Storybook 到线上，帮助同事对 UI 实现进行 review。

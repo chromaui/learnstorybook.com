@@ -14,15 +14,15 @@ module.exports = {
     siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
-    storybookVersion: 7.0,
+    storybookVersion: 7.5,
     tutorialStatus: {
       'intro-to-storybook': {
         react: {
           de: 5.3,
-          en: 7.0,
+          en: 7.5,
           es: 6.5,
           fr: 6.5,
-          it: 7.0,
+          it: 7.5,
           ja: 6.5,
           ko: 6.4,
           nl: 5.3,
@@ -36,14 +36,14 @@ module.exports = {
           es: 5.3,
         },
         vue: {
-          en: 7.0,
+          en: 7.5,
           es: 6.1,
           fr: 5.3,
           pt: 5.3,
           'zh-CN': 6.5,
         },
         angular: {
-          en: 7.0,
+          en: 7.5,
           ja: 6.3,
           es: 6.3,
           pt: 5.3,
@@ -58,7 +58,7 @@ module.exports = {
       },
       'design-systems-for-developers': {
         react: {
-          en: 7.0,
+          en: 7.5,
           ko: 6.4,
           pt: 5.3,
           'zh-CN': 6.3,
@@ -67,14 +67,14 @@ module.exports = {
       },
       'visual-testing-handbook': {
         react: {
-          en: 7.0,
+          en: 7.5,
           es: 6.5,
           ko: 6.5,
         },
       },
       'ui-testing-handbook': {
         react: {
-          en: 7.0,
+          en: 7.5,
           ko: 6.5,
         },
       },

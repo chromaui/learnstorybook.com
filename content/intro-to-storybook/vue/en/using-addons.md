@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use the popular Controls addon'
-commit: '279d8d6'
+commit: 'b9761e7'
 ---
 
 Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/vue/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).

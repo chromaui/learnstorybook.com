@@ -1,7 +1,7 @@
 ---
 title: '시각적 TDD'
 description: '첫 번째 시각적 테스트를 만들어보세요'
-commit: '5031fdf'
+commit: 'd260c8d'
 ---
 
 이제 기본기는 다 다뤘으니, 더 세부적인 이야기로 들어가 봅시다. 이 예시에서는 스토리북(Storybook)의 **Visual TDD**를 이용해 `CommentList` 하나의 컴포넌트 상태(state)를 만드는 과정을 보여드리겠습니다.
