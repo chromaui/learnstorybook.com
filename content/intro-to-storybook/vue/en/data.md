@@ -21,6 +21,22 @@ Add the necessary dependency to your project with:
 yarn add pinia
 ```
 
+Create a pinia instance (the root store) and pass it to the app as a plugin:
+
+```js:title=src/main.js
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+
+import App from './App.vue'
+import './assets/main.css'
+
+const pinia = createPinia()
+const app = createApp(App)
+
+app.use(pinia)
+app.mount('#app')
+```
+
 First, we'll create a simple Pinia store that responds to actions that change the task's state in a file called `store.js` in the `src` directory (intentionally kept simple):
 
 ```js:title=src/store.js
