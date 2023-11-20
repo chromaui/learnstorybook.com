@@ -49,7 +49,7 @@ git checkout -b change-task-background
   [value]="task?.title"
   readonly="true"
   placeholder="Input title"
-+ style="background: red;"
++ style="background-color: red;"
 />
 ```
 

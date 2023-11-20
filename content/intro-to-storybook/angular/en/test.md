@@ -76,7 +76,7 @@ Change `src/app/components/task.component` to the following:
           id="title-{{ task?.id }}"
           name="title-{{ task?.id }}"
           placeholder="Input title"
-+         style="background: red;"
++         style="background-color: red;"
         />
       </label>
       <button
