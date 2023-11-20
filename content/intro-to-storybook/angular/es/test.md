@@ -50,7 +50,7 @@ Cambie `TaskComponent` a lo siguiente:
   [value]="task?.title"
   readonly="true"
   placeholder="Input title"
-+ style="background: red;"
++ style="background-color: red;"
 />
 ```
 

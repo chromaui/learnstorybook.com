@@ -64,7 +64,7 @@ Change `src/components/Task.svelte` to the following:
       readonly
       name="title"
       placeholder="Input title"
-+     style="background: red;"
++     style="background-color: red;"
     />
   </label>
   {#if task.state !== "TASK_ARCHIVED"}

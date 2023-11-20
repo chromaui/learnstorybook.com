@@ -63,7 +63,7 @@ Change `Task` to the following:
       readonly
       value={{@task.title}}
       placeholder="Input title"
-+     style="background:red;"
++     style="background-color: red;"
     />
   </div>
   <div class="actions">

@@ -68,7 +68,7 @@ git checkout -b change-task-background
         :id="'title-' + task.id"
         name="title"
         placeholder="Input title"
-+       style="background: red" />
++       style="background-color: red" />
       />
     </label>
     <button

@@ -49,7 +49,7 @@ Cambie "Task" a lo siguiente:
   :value="task.title"
   readonly
   placeholder="Input title"
-+ style="background: red;"
++ style="background-color: red"
 />
 ```
 

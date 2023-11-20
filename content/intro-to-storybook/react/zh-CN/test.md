@@ -48,7 +48,7 @@ git checkout -b change-task-background
     value={title}
     readOnly={true}
     placeholder="Input title"
-    style={{ background: 'red' }}
+    style={{ backgroundColor: 'red' }}
   />
 </div>
 ```
