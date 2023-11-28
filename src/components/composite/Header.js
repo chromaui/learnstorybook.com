@@ -30,7 +30,7 @@ const HeaderWrapper = styled.header`
   top: 0px;
 `;
 
-function Header({ framework, githubStars, inverse, latestPost, subNav, versionString }) {
+function Header({ githubStars, inverse, latestPost, subNav, versionString }) {
   return (
     <HeaderWrapper>
       <Eyebrow
@@ -41,7 +41,6 @@ function Header({ framework, githubStars, inverse, latestPost, subNav, versionSt
       />
       <Nav
         apiKey={ALGOLIA_API_KEY}
-        framework={framework}
         inverse={inverse}
         monochrome={inverse}
         version={versionString}
@@ -59,7 +58,6 @@ function Header({ framework, githubStars, inverse, latestPost, subNav, versionSt
 }
 
 Header.propTypes = {
-  framework: PropTypes.string.isRequired,
   githubStars: PropTypes.number.isRequired,
   inverse: PropTypes.bool,
   latestPost: PropTypes.shape({

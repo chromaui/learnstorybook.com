@@ -55,7 +55,6 @@ function Story(args) {
 }
 export const Default = Story.bind({});
 Default.args = {
-  framework: 'react',
   githubStars: 99999,
   latestPost: {
     title: 'Why Storybook in 2022?',
