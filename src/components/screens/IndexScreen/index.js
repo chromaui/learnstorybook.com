@@ -14,7 +14,7 @@ import SocialValidation from './SocialValidation';
 const navItems = [
   {
     key: '0',
-    label: 'Guides',
+    label: 'Documentation',
     href: 'https://storybook.js.org/docs',
   },
   {

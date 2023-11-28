@@ -89,7 +89,6 @@ export function PureAppLayout({
       <LinksContextProvider value={navLinks}>
         <Wrapper>
           <Header
-            framework="react"
             githubStars={dxData.githubStars}
             inverse={inverseHeader}
             latestPost={dxData.latestPost}
