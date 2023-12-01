@@ -3,7 +3,7 @@ title: 'Contribuir'
 description: 'Ajude a compartilhar o Storybook com o mundo'
 ---
 
-Contribuições para os tutoriais do Storybook são bem-vindas! Se for algo pequeno, como gramática ou pontuação, abra uma solicitação pull. Se for uma mudança maior, adicione uma [issue](https://github.com/chromaui/learnstorybook.com/issues) para discussão.
+Contribuições para os tutoriais do Storybook são bem-vindas! Se for algo pequeno, tal como falhas na pontuação ou erros gramaticais, criem um pull request. Se for uma alteração maior, [crie um issue](https://github.com/chromaui/learnstorybook.com/issues)  para que seja possível a discussão.
 
 Os tutoriais do Storybook foram criados e mantidos principalmente pela comunidade, por isso precisamos da ajuda de todos para mantê-lo atualizado e garantir que quaisquer arestas sejam eliminadas ao longo do tempo. Toda ajuda é apreciada!
 

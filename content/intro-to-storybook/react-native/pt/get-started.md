@@ -12,13 +12,12 @@ O Storybook ajuda você a criar componentes de interface do usuário isolados da
 
 Precisamos seguir alguns passos para começar. Neste tutorial, usaremos este [template](https://github.com/chromaui/intro-storybook-react-native-template) onde já configuramos um aplicativo React Native usando o [Expo](https://expo.io/tools) e adicionamos o [Storybook](https://storybook.js.org/) ao projeto.
 
-Antes de começarmos, há algumas coisas que precisamos considerar:
-
-- Para ajudá-lo ao longo do tutorial, você precisará de um telefone ou simulador já configurado para permitir a execução do aplicativo. Para obter mais informações, consulte a documentação da Expo sobre execução em [rodando no IOS](https://docs.expo.dev/workflow/ios-simulator/) e [Android](https://docs.expo.dev/workflow/android-studio-emulator/).
+Antes de prosseguir-mos, alguns tópicos importantes que temos que ter em mente:
+- Para ajudá-lo ao longo do tutorial, você precisará de um telefone ou simulador previamente configurado para permitir a execução do aplicativo. Para obter mais informações, consulte a documentação da Expo sobre execução em [rodando no IOS](https://docs.expo.dev/workflow/ios-simulator/) e [Android](https://docs.expo.dev/workflow/android-studio-emulator/).
 - Este tutorial será focado em IOS/Android. O React Native pode ter como alvo outras plataformas que este tutorial não cobrirá.
-- Você também precisará do [nodejs](https://nodejs.org/en/download/) configurado em sua máquina.
+- Você  precisará do [nodejs](https://nodejs.org/en/download/) configurado no seu ambiente de desenvolvimento.
 
-Primeiro baixe o template que criamos para este tutorial.
+Comece por fazer o download do template que criámos para este tutorial:
 
 ```shell
 npx degit chromaui/intro-storybook-react-native-template#main taskbox
@@ -51,7 +50,7 @@ yarn storybook:android
 ```
 
 <div class="aside">
-💡 Ao longo deste tutorial, o Yarn será usado. Se você está seguindo este tutorial, mas não o configurou, você pode facilmente trocar os comandos para corresponder ao gerenciador de pacotes de sua escolha (por exemplo, npm, pnpm) (adicione links para ambos os gerenciadores de pacotes)
+💡 Ao longo desta versão do tutorial, vai ser usado o Yarn para executar a maioria dos comandos. Se estiveres a seguir este tutorial e não tiveres o Yarn configurado, podes substituir os comandos para o teu gestor de pacotes preferido (por exemplo, [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/)). 
 </div>
 
 Ao executar o aplicativo com `yarn ios`, você deve ver isso renderizado no dispositivo:
@@ -64,9 +63,9 @@ Ao executar o Storybook com `yarn storybook:ios`, você deve ver isto:
 
 ## Como funciona
 
-Quando inicializado, o modelo já fornece a configuração necessária para nos ajudar a começar a desenvolver nosso aplicativo com o React Native. Antes de começarmos a construir nossa IU do zero, vamos dar uma olhada e ver como o Storybook funciona dentro de um aplicativo React Native e o que há de diferente.
+Á partida, quando inicializado, o template fornece toda a configuração necessária para que possamos começar a desenvolver a nossa aplicação com React Native. No entanto, antes de começarmos a desenvolver o nosso IU do zero, vamos ver como funciona o Storybook dentro de um aplicativo React Native e o que há de diferente.
 
-O Storybook no React Native é um componente que você pode renderizar em seu aplicativo, ao contrário de outras versões de estrutura em que o Storybook é executado por conta própria.
+Com o React Native, o Storybook é um componente que você pode renderizar no seu aplicativo, ao contrário de outras versoões do Storybook, onde você pode executar o Storybook como um aplicativo separado de forma independente.
 
 Por causa dessa distinção, precisamos de uma maneira de alternar entre o aplicativo e o Storybook. Para fazer isso, usamos variáveis ​​de ambiente e veremos isso rapidamente agora.
 

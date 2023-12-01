@@ -4,10 +4,9 @@ tocTitle: 'Dados'
 description: 'Aprenda como conectar dados ao seu componente de UI'
 ---
 
-Até agora, criamos componentes sem estado isolados – ótimos para o Storybook, mas, em última análise, não são úteis até fornecermos a eles alguns dados em nosso aplicativo.
+Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação
 
-Este tutorial não tem foco nos detalhes da criação de um aplicativo, então não vamos nos aprofundar nesses detalhes aqui. Mas vamos dedicar um momento para examinar um padrão comum de possibilitar dados em componentes conectados.
-
+Este tutorial não foca particularmente na construção de uma aplicação, como tal não vamos aprofundar muito este aspeto. Mas será feito um aparte para olhar para um padrão comum para ligação de dados com componentes conectados.
 ## Componentes conectados
 
 Atualmente o nosso componente `TaskList`, conforme escrito, é “apresentativo” no sentido de que não fala com nada externo à sua própria implementação. Precisamos conectá-lo a um provedor de dados para obter dados nele.
@@ -163,15 +162,15 @@ export const TaskList = () => {
 
 ```
 
-Agora que temos alguns dados reais preenchendo nosso componente, obtidos na store Redux, poderíamos ter conectado nosso aplicativo `App.jsx` e renderizado o componente lá. Mas, por enquanto, vamos adiar isso e continuar nossa jornada orientada a componentes.
+"Agora que temos dados reais,obtidos da store Redux, para visualizar no nosso componente, poderíamos tê-lo conectado ao arquivo `App.jsx`. Mas, por enquanto, vamos adiar e continuar nossa jornada orientada a componentes.
 
 ## Fornecendo contexto com decoradores
 
-Nossas histórias do Storybook pararam de funcionar com essa mudança porque nossa `Tasklist` agora é um componente conectado, pois depende de uma store Redux para recuperar e atualizar nossas tarefas.
+Com esta alteração as nossas histórias do Storybook pararam de funcionar, visto que a nossa `Tasklist` é um componente conectado, dependendo de uma store Redux para obter e atualizar o estado das tarefas.
 
 <img src="/intro-to-storybook/react-native-broken-tasklist.png" alt="error screen" height="600">
 
-Podemos usar várias abordagens para resolver esse problema. Ainda assim, como nosso aplicativo é bastante simples, podemos contar com um decorador, semelhante ao que fizemos no [capítulo anterior](/intro-to-storybook/react-native/en/composite-component), e fornecer uma store mocada – em nossas histórias do Storybook:
+Poderíamos usar várias abordagens para resolver este problema. Mas, visto que a nossa aplicação é bastante simples, podemos usar um decorador, tal como fizemos no [capítulo anterior](/intro-to-storybook/react-native/en/composite-component), e fornecer uma store simulada – em nossas histórias do Storybook:
 
 ```js:title=src/components/TaskList.stories.jsx
 import { TaskList } from "./TaskList";

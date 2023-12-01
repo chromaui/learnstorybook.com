@@ -12,17 +12,13 @@ Storybook é uma ferramenta poderosa para React Native, React, Vue, Angular, Sve
 
 ## Aprenda mais
 
-Quer se aprofundar mais? Aqui estão recursos úteis.
+Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
-- [**A documentação oficial do Storybook**](https://storybook.js.org/docs/react/get-started/introduction) contém documentação da API, links da comunidade e galeria de complementos.
-
+- [**Documentação Oficial Storybook**](https://storybook.js.org/docs/react/get-started/introduction) contém a documentação da API, links da comunidade e a galeria de complementos.
 - [**React Native Storybook Github**](https://github.com/storybookjs/react-native) possui documentação e todo o código fonte do React Native Storybook e seus complementos.
-
-- [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) se aprofunda no uso do Storybook para componentes de teste visual. E-book gratuito de 31 páginas.
-
-- [**Bate-papo do Storybook Discord**](https://discord.gg/UUt2PJb) coloca você em contato com a comunidade do Storybook. Obtenha e dê ajuda a outros usuários do Storybook.
-
-- [**Blog Storybook**](https://storybook.js.org/blog/) apresenta os lançamentos e recursos mais recentes para agilizar seu fluxo de trabalho de desenvolvimento de UI.
+- [**Visual Testing Handbook**](https://storybook.js.org/tutorials/visual-testing-handbook/) aprofunda o uso de Storybook para testes visuais. Livro eletrónico livre de 31 páginas.
+- [**Discord do Storybook**](https://discord.gg/UUt2PJb) põe-te em contacto direto com a comunidade Storybook. Onde podes oferecer e receber ajuda de outros utilizadores do Storybook.
+- [**Blog Storybook**](https://storybook.js.org/blog/) demonstra tanto as novidades acerca das versões mais recentes, como as últimas funcionalidades existentes, de forma a otimizar o teu fluxo de trabalho no desenvolvimento de interface de utilizador.
 
 ## Quem fez o tutorial de introdução ao Storybook?
 
