@@ -65,7 +65,7 @@ The teams I interviewed all had similar tactics despite differences in their siz
 
 ## Let's get testing
 
-In upcoming chapters, we'll dig deeper into each layer of the test stack and get into the mechanics implementing this testing strategy. But first, we’re going to need something to test. I’ll be using the Taskbox aplication as an example. It’s a task management app similar to Asana.
+In upcoming chapters, we'll dig deeper into each layer of the test stack and get into the mechanics implementing this testing strategy. But first, we’re going to need something to test. I’ll be using the Taskbox application as an example. It’s a task management app similar to Asana.
 
 ![](/ui-testing-handbook/taskbox.png)
 
