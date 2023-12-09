@@ -263,7 +263,7 @@ const preview = {
       },
     },
   },
-  loaders: [mswLoader],
++ loaders: [mswLoader],
 };
 
 export default preview;
