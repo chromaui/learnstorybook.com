@@ -246,7 +246,7 @@ Then, we'll need to update our `.storybook/preview.js` and initialize them:
 import '../src/index.css';
 
 + // Registers the msw addon
-+ import { initialize, mswDecorator } from 'msw-storybook-addon';
++ import { initialize, mswLoader } from "msw-storybook-addon";
 
 + // Initialize MSW
 + initialize();
@@ -254,7 +254,6 @@ import '../src/index.css';
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 /** @type { import('@storybook/react').Preview } */
 const preview = {
-+ decorators: [mswDecorator],
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
@@ -264,6 +263,7 @@ const preview = {
       },
     },
   },
+  loaders: [mswLoader],
 };
 
 export default preview;
