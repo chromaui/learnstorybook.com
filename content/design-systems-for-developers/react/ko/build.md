@@ -13,7 +13,7 @@ commit: 'f4c9bb5'
 
 디자인 시스템은 협업의 결과물이기 때문에 문법을 수정하거나 형식을 표준화하는 툴은 협업 품질 개선에 기여합니다. 툴을 사용해서 코드의 일관성을 확보하는 것이 수작업으로 직접 코드를 관리하는 것 보다 훨씬 효율적입니다. 따라서 디자인 시스템 작성자는 자료를 많이 확보하면 유용하게 활용하는데 도움이 됩니다.
 
-이 튜토리얼에서는 [VSCode](https://code.visualstudio.com/) 에디터를 사용합니다만, 같은 원칙이 적용되는 [Atom](https://atom.io/), [Sublime](https://www.sublimetext.com/), [IntelliJ](https://www.jetbrains.com/idea/) 등 다른 최신 에디터들을 사용해도 무방합니다.
+이 튜토리얼에서는 [VSCode](https://code.visualstudio.com/) 에디터를 사용합니다만, 같은 원칙이 적용되는 [Atom](https://atom.io/), [Sublime](https://www.sublimetext.com/), [CodeLobster](https://codelobster.com/), [IntelliJ](https://www.jetbrains.com/idea/) 등 다른 최신 에디터들을 사용해도 무방합니다.
 
 이 프로젝트에 프리티어(Prettier) 애드온을 설치해서 편집기에 올바르게 적용하면 특별히 추가적인 노력을 하지 않아도 코드 형식이 일관되게 유지됩니다. -
 
