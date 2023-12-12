@@ -111,6 +111,16 @@ module.exports = {
       },
     },
     `gatsby-plugin-sitemap`,
+    ...(!isDeployPreview
+      ? [
+          {
+            resolve: `gatsby-plugin-plausible`,
+            options: {
+              domain: 'storybook.js.org',
+            },
+          },
+        ]
+      : []),
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
       ? [
           {
