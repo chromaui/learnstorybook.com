@@ -1,4 +1,5 @@
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
+const isProduction = process.env.CONTEXT === 'production';
 const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://storybook.js.org';
 
 module.exports = {
@@ -111,7 +112,7 @@ module.exports = {
       },
     },
     `gatsby-plugin-sitemap`,
-    ...(!isDeployPreview
+    ...(isProduction
       ? [
           {
             resolve: `gatsby-plugin-plausible`,
