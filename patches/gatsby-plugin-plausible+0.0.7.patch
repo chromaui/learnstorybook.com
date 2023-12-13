@@ -1,0 +1,24 @@
+diff --git a/node_modules/gatsby-plugin-plausible/gatsby-ssr.js b/node_modules/gatsby-plugin-plausible/gatsby-ssr.js
+index c00d563..785cddd 100755
+--- a/node_modules/gatsby-plugin-plausible/gatsby-ssr.js
++++ b/node_modules/gatsby-plugin-plausible/gatsby-ssr.js
+@@ -7,8 +7,8 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
+ var _react = _interopRequireDefault(require("react"));
+
+ var getOptions = function getOptions(pluginOptions) {
+-  var plausibleDomain = pluginOptions.customDomain || 'plausible.io';
+-  var scriptURI = plausibleDomain === 'plausible.io' ? '/js/plausible.js' : '/js/index.js';
++  var plausibleDomain = 'plausible.io';
++  var scriptURI = '/js/script.js';
+   var domain = pluginOptions.domain;
+   var excludePaths = pluginOptions.excludePaths || [];
+   var trackAcquisition = pluginOptions.trackAcquisition || false;
+@@ -44,7 +44,7 @@ exports.onRenderBody = function (_ref, pluginOptions) {
+       async: true,
+       defer: true,
+       'data-domain': domain,
+-      src: "https://" + plausibleDomain + scriptURI
++      src: scriptURI
+     };
+
+     if (trackAcquisition) {

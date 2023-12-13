@@ -5,3 +5,7 @@
 # Adds redirect for new addon docs location
 
 /tutorials/create-an-addon https://storybook.js.org/docs/react/addons/writing-addons 301
+
+# Plausible analytics
+/js/script.js      https://plausible.io/js/script.js      200
+/api/event         https://plausible.io/api/event         200
