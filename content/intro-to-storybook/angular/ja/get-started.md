@@ -11,9 +11,9 @@ Storybook は開発時にアプリケーションと並行して動きます。S
 
 ## Angular 向けの Storybook を構築する
 
-Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[degit](https://github.com/Rich-Harris/degit) を使用してビルドシステムをセットアップします。このパッケージを使うと、テンプレート (既定の設定で部分的に構築されているアプリケーション) をダウンロードできるので、開発フローを加速できます。
+Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[degit](https://github.com/Rich-Harris/degit) を使用してビルド環境をセットアップしましょう。このパッケージを利用することで、テンプレート（アプリケーションの一部をデフォルト設定で構築したもの）をダウンロードし、開発ワークフローの短縮に役立てることができます。
 
-次のコマンドを実行してください。
+それでは、次のコマンドを実行してください:
 
 ```shell:clipboard=false
 # Clone the template
@@ -26,46 +26,49 @@ npm install
 ```
 
 <div class="aside">
-💡 テンプレートにはこのチュートリアルに必要なスタイル、アセット、最低限の設定が含まれています。
+💡 このテンプレートには本バージョンのチュートリアルに必要なスタイル、アセット、最低限の設定が含まれています。
 </div>
 
-ここでアプリケーションのいくつかの環境が正常に動作しているかクイックに確認できます。
+それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-npm run test
-
 # Start the component explorer on port 6006:
-npm run storybook
+ng run taskbox:storybook
 
 # Run the frontend app proper on port 4200:
-npm run start
+ng serve
 ```
 
-フロントエンド開発の 3 つのモード: 自動化されたテスト (Jest)、コンポーネント開発 (Storybook)、アプリケーション自体
+フロントエンド開発での主なモード: コンポーネント開発(Storybook)とアプリケーションそのものの。
 
-![3 つのモード](/intro-to-storybook/app-three-modalities.png)
+![主なモード](/intro-to-storybook/app-main-modalities-angular.png)
 
 作業をする対象に応じて、このモードのうち 1 つまたは複数を同時に動かしながら作業します。今は単一の UI コンポーネントを作るのに集中するため、Storybook を動かすことにしましょう。
 
 ## 変更をコミットする
 
-この段階で、ローカルのリポジトリーにファイルを追加しても問題ありません。次のコマンドを実行し、リポジトリーの初期化と今までの変更の追加を行い、コミットしましょう。
+この段階で、ローカルリポジトリにファイルを追加しても大丈夫です。以下のコマンドを実行して、ローカルリポジトリを初期化し、これまでに行った変更を追加してコミットしてください。
 
 ```shell
 git init
 ```
 
-次に:
+つづいて:
 
 ```shell
 git add .
 ```
 
-最後に:
+次に以下を実行します:
 
 ```shell
 git commit -m "first commit"
+```
+
+最後に:
+
+```shell
+git branch -M main
 ```
 
 それでは最初のコンポーネントを作り始めましょう！

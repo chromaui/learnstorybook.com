@@ -9,22 +9,20 @@ commit: '6ba8a4e'
 
 ## Task (タスク)
 
-![Task コンポーネントの 3 つの状態](/intro-to-storybook/task-states-learnstorybook.png)
+![Task コンポーネントの 3 つの状態](/intro-to-storybook/task-states-learnstorybook-accessible.png)
 
-`TaskComponent` は今回作るアプリケーションのコアとなるコンポーネントです。タスクはその状態によって見た目が微妙に異なります。タスクにはチェックされた (または未チェックの) チェックボックスと、タスクについての説明と、リストの上部に固定したり解除したりするためのピン留めボタンがあります。これをまとめると、以下のプロパティが必要となります:
+`Task` は今回作るアプリケーションのコアとなるコンポーネントです。タスクはその状態によって見た目が微妙に異なります。タスクにはチェックされた (または未チェックの) チェックボックスと、タスクについての説明と、リストの上部に固定したり解除したりするためのピン留めボタンがあります。これをまとめると、以下のプロパティが必要となります:
 
 - `title` – タスクを説明する文字列
 - `state` - タスクがどのリストに存在するか。またチェックされているかどうか。
 
-`TaskComponent` の作成を始めるにあたり、事前に上記のそれぞれのタスクに応じたテスト用の状態を作成します。次いで、Storybook で、モックデータを使用し、コンポーネントを切り離して作ります。コンポーネントのそれぞれの状態について「ビジュアルテスト」を行い、見た目を確認しながら進めます。
-
-[テスト駆動開発](https://ja.wikipedia.org/wiki/%E3%83%86%E3%82%B9%E3%83%88%E9%A7%86%E5%8B%95%E9%96%8B%E7%99%BA) (TDD) に似ているこのプロセスを、「[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)」と呼んでいます。
+`Task` の作成を始めるにあたり、事前に上記のそれぞれのタスクに応じたテスト用の状態を作成します。次いで、Storybook で、モックデータを使用し、コンポーネントを切り離して作ります。コンポーネントのそれぞれの状態について見た目を確認しながら進めます。
 
 ## セットアップする
 
 まずは、タスクのコンポーネントと、対応するストーリーファイル `src/app/components/task.component.ts` と `src/app/components/task.stories.ts` を作成しましょう。
 
-`TaskComponent` の基本的な実装から始めます。必要と分かっているインプットと、タスクに対して実行できる 2 つの (リスト間を移動させる) アクションを受け取ります:
+`Task` コンポーネントのベースとなる実装から始めます。`Task` は上述したインプットと、タスクに対して実行できる 2 つの (リスト間を移動させる) アクションを引数として取ります:
 
 ```ts:title=src/app/components/task.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -33,11 +31,22 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-task',
   template: `
     <div class="list-item">
-      <input type="text" [value]="task.title" readonly="true" />
+      <label [attr.aria-label]="task.title + ''" for="title">
+        <input
+          type="text"
+          [value]="task.title"
+          readonly="true"
+          id="title"
+          name="title"
+        />
+      </label>
     </div>
   `,
 })
-export class TaskComponent {
+export default class TaskComponent {
+  /**
+   * The shape of the task object
+  */
   @Input() task: any;
 
   // tslint:disable-next-line: no-output-on-prefix
@@ -50,70 +59,74 @@ export class TaskComponent {
 }
 ```
 
-上のコードは Todo アプリケーションの HTML を基にした `TaskComponent` の簡単なマークアップです。
+上のコードは Todo アプリケーションの HTML を基にした `Task` component の簡単なマークアップです。
 
-下のコードは `TaskComponent` に対する 3 つのテスト用の状態をストーリーファイルに書いています:
+下のコードは `Task` に対する 3 つのテスト用の状態をストーリーファイルに書いています:
 
 ```ts:title=src/app/components/task.stories.ts
-import { moduleMetadata, Story, Meta } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
 
-import { CommonModule } from '@angular/common';
+import { argsToTemplate } from '@storybook/angular';
 
 import { action } from '@storybook/addon-actions';
 
-import { TaskComponent } from './task.component';
-
-export default {
-  component: TaskComponent,
-  decorators: [
-    moduleMetadata({
-      declarations: [TaskComponent],
-      imports: [CommonModule],
-    }),
-  ],
-  excludeStories: /.*Data$/,
-  title: 'Task',
-} as Meta;
+import TaskComponent from './task.component';
 
 export const actionsData = {
   onPinTask: action('onPinTask'),
   onArchiveTask: action('onArchiveTask'),
 };
 
-const Template: Story<TaskComponent> = args => ({
-  props: {
-    ...args,
-    onPinTask: actionsData.onPinTask,
-    onArchiveTask: actionsData.onArchiveTask,
-  },
-});
+const meta: Meta<TaskComponent> = {
+  title: 'Task',
+  component: TaskComponent,
+  excludeStories: /.*Data$/,
+  tags: ['autodocs'],
+  render: (args: TaskComponent) => ({
+    props: {
+      ...args,
+      onPinTask: actionsData.onPinTask,
+      onArchiveTask: actionsData.onArchiveTask,
+    },
+    template: `<app-task ${argsToTemplate(args)}></app-task>`,
+  }),
+};
 
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
+export default meta;
+type Story = StoryObj<TaskComponent>;
+
+export const Default: Story = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Test Task',
+      state: 'TASK_INBOX',
+    },
   },
 };
 
-export const Pinned = Template.bind({});
-Pinned.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_PINNED',
+export const Pinned: Story = {
+  args: {
+    task: {
+      ...Default.args?.task,
+      state: 'TASK_PINNED',
+    },
   },
 };
 
-export const Archived = Template.bind({});
-Archived.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_ARCHIVED',
+export const Archived: Story = {
+  args: {
+    task: {
+      ...Default.args?.task,
+      state: 'TASK_ARCHIVED',
+    },
   },
 };
 ```
+
+<div class="aside">
+💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>アクション</b></a>は、UIコンポーネントを単独で構築する際にインタラクションを検証するのに役立ちます。多くの場合、アプリのコンテキストで使用している関数や状態にアクセスできないことがあります。<code>action()</code>を使用して、それらをスタブとして用います。
+</div>
 
 Storybook には基本となる 2 つの階層があります。コンポーネントとその子供となるストーリーです。各ストーリーはコンポーネントに連なるものだと考えてください。コンポーネントには必要なだけストーリーを記述することができます。
 
@@ -122,56 +135,57 @@ Storybook には基本となる 2 つの階層があります。コンポーネ�
   - ストーリー
   - ストーリー
 
-Storybook にコンポーネントを認識させるには、以下の内容を含む `default export` を記述します:
+テストやドキュメントを書いているのはどのコンポーネントなのかを Storybook に認識させるには、以下の内容を含む `default` export を記述します:
 
 - `component` -- コンポーネント自体
-- `title` -- Storybook のサイドバーにあるコンポーネントを参照する方法
-- `excludeStories` -- ストーリーファイルのエクスポートのうち、Storybook にストーリーとして表示させたくないもの
+- `title` -- Storybook のサイドバーにあるコンポーネントをグループ化またはカテゴライズする方法
+- `tags` -- コンポーネントのドキュメントを生成するために使用
+- `excludeStories` -- ストーリーに必要だが、Storybook でレンダリングされるべきでない追加情報
+- `render` -- コンポーネントが Storybook でどのようにレンダリングされるかを指定するカスタム[render 関数](https://storybook.js.org/docs/angular/api/csf#custom-render-functions)
+- `argsToTemplate` -- args をコンポーネントのプロパティとイベントバインディングに変換するヘルパー関数で、Storybook のコントロールとコンポーネントの入出力に対する堅牢なワークフローのサポートを提供
+
+ストーリーを定義するために、Component Story Format 3（[CSF3](https://storybook.js.org/docs/angular/api/csf) とも呼ばれます）を使用し各テストケースを構築します。このフォーマットは、各テストケースを簡潔に構築するために設計されています。各コンポーネントの状態を含むオブジェクトをエクスポートすることで、私たちはテストをより直感的に定義し、ストーリーをより効率的に作成および再利用することができます。
 
 ストーリーを定義するには、テスト用の状態ごとにストーリーを生成する関数をエクスポートします。ストーリーとは、特定の状態で描画された要素 (例えば、プロパティを指定したコンポーネントなど) を返す関数で、[関数コンポーネント](https://angular.jp/guide/component-interaction)のようなものです。
 
-コンポーネントにストーリーが複数連なっているので、各ストーリーを単一の `Template` 変数に割り当てるのが便利です。このパターンを導入することで、書くべきコードの量が減り、保守性も上がります。
-
-<div class="aside">
-
-💡 `Template.bind({})` は関数のコピーを作成する [JavaScript の標準的な](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Function/bind) テクニックで、同じ実装を使いながら、エクスポートされたそれぞれのストーリーに独自のプロパティを設定することができます。
-
-</div>
-
 Arguments (略して [`args`](https://storybook.js.org/docs/angular/writing-stories/args)) を使用することで、コントロールアドオンを通して、Storybook を再起動することなく、コンポーネントを動的に編集することができるようになります。 [`args`](https://storybook.js.org/docs/angular/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
-
-ストーリーを作る際には素となるタスク (`task`) を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。さらに、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となります。
 
 `action()` を使うと、クリックされたときに Storybook の画面の **actions** パネルに表示されるコールバックを作ることができます。なのでピン留めボタンを作るときに、クリックがうまくいっているかテスト UI 上で分かります。
 
-コンポーネントの全てのストーリーに同じアクションを渡す必要があるので、 `actionsData` という 1 つの変数にまとめて各ストーリーの定義に渡すと便利です。
+コンポーネントの全てのストーリーに同じアクションを渡す必要があるので、 `actionsData` という 1 つの変数にまとめて各ストーリーの定義に渡すと便利です。コンポーネントに必要な `actionsData` を作るもう一つの利点は、後ほど見るように、 `export` してこのコンポーネントを再利用するコンポーネントのストーリーで使える点です。
 
-コンポーネントに必要な `actionsData` を作るもう一つの利点は、後ほど見るように、 `export` してこのコンポーネントを再利用するコンポーネントのストーリーで使える点です。
-
-<div class="aside">
-💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>アクションアドオン</b></a>は切り離された環境で UI コンポーネントを開発する際の動作確認に役立ちます。アプリケーションの実行中には状態や関数を参照出来ないことがよくあります。 <code>action()</code> はそのスタブとして使用できます。
-</div>
+ストーリーを作る際には素となるタスク引数を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。さらに、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となります。
 
 ## 設定する
 
-作成したストーリーを認識させるため、若干の変更を加える必要があります。Storybook 用設定ファイル (`.storybook/main.js`) を以下のように変更してください:
+作成したストーリーを認識させるため、1 つ小さな変更を加える必要があります。Storybook 用設定ファイル (`.storybook/main.s`) を以下のように変更してください:
 
-```diff:title=.storybook/main.js
-module.exports = {
-- stories: [
--   '../src/**/*.stories.mdx',
--   '../src/**/*.stories.@(js|jsx|ts|tsx)'
-- ],
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/angular';
+const config: StorybookConfig = {
+- stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
 + stories: ['../src/app/components/**/*.stories.ts'],
-  addons: ['@storybook/addon-links', '@storybook/addon-essentials'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+  ],
+  framework: {
+    name: '@storybook/angular',
+    options: {},
+  },
+  docs: {
+    autodocs: 'tag',
+  },
 };
+export default config;
 ```
 
 Storybook のサーバーを再起動すると、タスクの 3 つの状態のテストケースが生成されているはずです:
 
-<video autoPlay muted playsInline controls >
+<video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -184,9 +198,9 @@ Storybook のサーバーを再起動すると、タスクの 3 つの状態の�
 
 ```ts:title=src/app/models/task.model.ts
 export interface Task {
-  id: string;
-  title: string;
-  state: string;
+  id?: string;
+  title?: string;
+  state?: string;
 }
 ```
 
@@ -196,42 +210,58 @@ export interface Task {
 
 今のところコンポーネントは簡素な状態です。まずはデザインを実現するために最低限必要なコードを書いてみましょう:
 
-```diff:title=src/app/components/task.component.ts
+```ts:title=src/app/components/task.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-+ import { Task } from '../models/task.model';
+import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-task',
   template: `
-+   <div class="list-item {{ task?.state }}">
-+     <label class="checkbox">
-+       <input
-+         type="checkbox"
-+         [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
-+         disabled="true"
-+         name="checked"
-+       />
-+       <span class="checkbox-custom" (click)="onArchive(task.id)"></span>
-+     </label>
-+     <div class="title">
-+       <input
-+         type="text"
-+         [value]="task?.title"
-+         readonly="true"
-+         placeholder="Input title"
-+       />
-+     </div>
-+     <div class="actions">
-+       <a *ngIf="task?.state !== 'TASK_ARCHIVED'" (click)="onPin(task.id)">
-+         <span class="icon-star"></span>
-+       </a>
-+     </div>
-+   </div>
+    <div class="list-item {{ task?.state }}">
+      <label
+        [attr.aria-label]="'archiveTask-' + task?.id"
+        for="checked-{{ task?.id }}"
+        class="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled="true"
+          [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
+          name="checked-{{ task?.id }}"
+          id="checked-{{ task?.id }}"
+        />
+        <span class="checkbox-custom" (click)="onArchive(task?.id)"></span>
+      </label>
+      <label
+        [attr.aria-label]="task?.title + ''"
+        for="title-{{ task?.id }}"
+        class="title"
+      >
+        <input
+          type="text"
+          [value]="task?.title"
+          readonly="true"
+          id="title-{{ task?.id }}"
+          name="title-{{ task?.id }}"
+          placeholder="Input title"
+        />
+      </label>
+      <button
+        *ngIf="task?.state !== 'TASK_ARCHIVED'"
+        class="pin-button"
+        [attr.aria-label]="'pinTask-' + task?.id"
+        (click)="onPin(task?.id)"
+      >
+        <span class="icon-star"></span>
+      </button>
+    </div>
   `,
 })
-export class TaskComponent {
-+ @Input() task: Task;
+export default class TaskComponent {
+  /**
+   * The shape of the task object
+  */
+  @Input() task?: Task;
 
   // tslint:disable-next-line: no-output-on-prefix
   @Output()
@@ -241,28 +271,30 @@ export class TaskComponent {
   @Output()
   onArchiveTask = new EventEmitter<Event>();
 
-+ /**
-+  * Component method to trigger the onPin event
-+  * @param id string
-+  */
-+ onPin(id: any) {
-+   this.onPinTask.emit(id);
-+ }
-+ /**
-+  * Component method to trigger the onArchive event
-+  * @param id string
-+  */
-+ onArchive(id: any) {
-+   this.onArchiveTask.emit(id);
-+ }
+  /**
+   * @ignore
+   * Component method to trigger the onPin event
+   * @param id string
+   */
+  onPin(id: any) {
+    this.onPinTask.emit(id);
+  }
+  /**
+   * @ignore
+   * Component method to trigger the onArchive event
+   * @param id string
+   */
+  onArchive(id: any) {
+    this.onArchiveTask.emit(id);
+  }
 }
 ```
 
-追加したマークアップとインポートした CSS により以下のような UI ができます:
+追加したマークアップと既存の CSS(設定は src/styles.css と angular.json を確認してください) により以下のような UI ができます:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states-6-0.mp4"
+    src="/intro-to-storybook/finished-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -273,50 +305,55 @@ export class TaskComponent {
 
 見た通り、コンポーネントだけを切り離して作り始めるのは早くて簡単です。あらゆる状態を掘り下げてテストできるので、高品質で、バグが少なく、洗練された UI を作ることができることでしょう。
 
-## 自動化されたテスト
+## アクセシビリティの問題の検知
 
-Storybook はアプリケーションの UI を作成する際に目視でテストする素晴らしい方法を与えてくれます。ストーリーがあれば、タスクの外観が壊れていないことを確認しながらアプリケーションを開発できます。しかしこれは完全に手動の作業なので、警告やエラーがなく表示されていることを、それぞれの状態を確認しながら誰かがクリックしていかなければなりません。なんとか自動化できないものでしょうか。
+アクセシビリティテストとは、[WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) のルールと他の業界で認めれたベストプラクティスに基づく経験則に対して、自動化ツールを用いることでレンダリングされた DOM を監視することを指します。これは視覚障害、聴覚障害、認知障害などの障害をお持ちの方を含む、できるだけ多くのユーザーがアプリケーションを利用できるように、明らかなアクセシビリティの違反を検知するために QA の第一線として機能します。
 
-### スナップショットテスト
+Storybook には公式の[アクセシビリティアドオン](https://storybook.js.org/addons/@storybook/addon-a11y)があります。これは、Deque の [axe-core](https://github.com/dequelabs/axe-core) を使っており、[WCAG の問題の 57%](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/) に対応しています。
 
-スナップショットテストとは、特定の入力に対してコンポーネントの「既知の良好な」出力を記録し、将来、出力が変化したコンポーネントを特定できるようにするテスト手法です。
-これで補完することにより、コンポーネントの新しいバージョンでの変化を Storybook で素早く確認できるようになります。
-
-<div class="aside">
-💡 コンポーネントに渡すデータは変化しないものを使用してください。そうすれば毎回スナップショットテストの結果が同じになります。日付や、ランダムに生成された値に気を付けましょう。
-</div>
-
-[Storyshots アドオン](https://github.com/storybooks/storybook/tree/master/addons/storyshots)を使用することで、それぞれのストーリーにスナップショットテストが作成されます。開発時の依存関係を以下のコマンドで追加してください:
+それでは、どのように動かすのかみてみましょう! 以下のコマンドでアドオンをインストールします:
 
 ```shell
-npm install -D @storybook/addon-storyshots
+npm install @storybook/addon-a11y --save-dev
 ```
 
-次に、`src/storybook.test.js` ファイルを以下の内容で作成します:
+アドオンを利用可能にするために、Storybook の設定ファイル(`.storybook/main.ts`)を以下のように設定します:
 
-```ts:title=src/storybook.test.js
-import initStoryshots from '@storybook/addon-storyshots';
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/angular';
+const config: StorybookConfig = {
+  stories: ['../src/app/components/**/*.stories.ts'],
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
++   '@storybook/addon-a11y',
+  ],
+  framework: {
+    name: '@storybook/angular',
+    options: {},
+  },
+  docs: {
+    autodocs: 'tag',
+  },
+};
+export default config;
 
-initStoryshots();
 ```
 
-最後に、`package.json`の`jest`キーに小さな変更を加える必要があります。
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
-```diff:title=package.json
-"transform": {
-  "^.+\\.(ts|html)$": "ts-jest",
-   "^.+\\.js$": "babel-jest",
-+  "^.+\\.stories\\.[jt]sx?$": "@storybook/addon-storyshots/injectFileName"
-},
+ストーリーを一通り見てみると、このアドオンが一つのアクセシビリティの問題を検知したことがわかります。[**「Elements must have sufficient color contrast」**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI)というエラーメッセージは本質的にはタイトルと背景に十分なコントラストがないことを指しています。そのため、アプリケーションの CSS (`src/styles.css` にある)の中で、テキストカラーをより暗いグレーに修正する必要があります。
+
+```diff:title=src/styles.css
+.list-item.TASK_ARCHIVED input[type="text"] {
+- color: #a0aec0;
++ color: #4a5568;
+  text-decoration: line-through;
+}
 ```
 
-以上の修正をしてから`npm run test` を実行すると、以下のような出力が得られます。
-
-![Task テストランナー](/intro-to-storybook/task-testrunner.png)
-
-これで `TaskComponent` の各ストーリーに対するスナップショットテストが出来ました。`TaskComponent` の実装を変更するたびに、変更内容の確認を求められるようになります。
-
-上記のテストに加えて、`jest`は`app.component.ts`に対してのテストも実行します。
+以上です！これで、UI のアクセシビリティ向上の最初のステップが完了です。アプリケーションをさらに複雑にしても、他の全てのコンポーネントに対してこのプロセスを繰り返すことができ、追加のツールやテスト環境を準備する必要はありません。
 
 <div class="aside">
 💡 Git へのコミットを忘れずに行ってください！

@@ -42,12 +42,12 @@ git push -u origin main
 パッケージを開発時の依存関係に追加します。
 
 ```shell
-npm install -D chromatic
+npm install chromatic --save-dev
 ```
 
 パッケージをインストールしたら、GitHub のアカウントを使用して [Chromatic にログイン](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)します。(Chromatic は一部のアクセス許可を要求します。) 「taskbox」という名前でプロジェクトを作成し、GitHub のリポジトリーと同期させます。
 
-「colaborators」の下にある `Choose from GitHub` をクリックし、リポジトリーを選択します。
+「colaborators」の下にある `Choose GitHub repo` をクリックし、リポジトリーを選択します。
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -78,11 +78,11 @@ npx chromatic --project-token=<project-token>
 
 プロジェクトのルートフォルダーに `.github` というフォルダーを作成し、さらにその中に `workflows` というフォルダーを作成します。
 
-`chromatic.yml` を以下の内容で新規に作成します。`CHROMATIC_PROJECT_TOKEN` を先ほどのトークンで置き換えてください。
+`chromatic.yml` を以下の内容で新規に作成します。
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
-name: 'Chromatic Deployment'
+name: "Chromatic Deployment"
 
 # Event for the workflow
 on: push
@@ -94,19 +94,21 @@ jobs:
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v1
-      - run: npm install
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: yarn
         #👇 Adds Chromatic as a step in the workflow
       - uses: chromaui/action@v1
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/angular/ja/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/angular/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 <div class="aside">
-<p>💡 簡潔にするため <a href="https://help.github.com/ja/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
+<p>💡 簡潔にするため <a href=" https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository ">GitHub secrets</a> には言及していません。GitHub secrets は GitHub によって提供されるセキュアな環境変数なので、<code>project-token</code> をハードコードする必要はありません。</p>
 </div>
 
 ### アクションをコミットする

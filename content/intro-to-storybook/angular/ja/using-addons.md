@@ -41,13 +41,50 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 それでは `task.component.ts` にスタイルを追加して、この文字切れ問題を解決しましょう:
 
 ```diff:title=src/app/components/task.component.ts
-<input
-  type="text"
-  [value]="task?.title"
-  readonly="true"
-  placeholder="Input title"
-+ style="text-overflow: ellipsis;"
-/>
+@Component({
+  selector: 'app-task',
+  template: `
+    <div class="list-item {{ task?.state }}">
+      <label
+        [attr.aria-label]="'archiveTask-' + task?.id"
+        for="checked-{{ task?.id }}"
+        class="checkbox"
+      >
+        <input
+          type="checkbox"
+          disabled="true"
+          [defaultChecked]="task?.state === 'TASK_ARCHIVED'"
+          name="checked-{{ task?.id }}"
+          id="checked-{{ task?.id }}"
+        />
+        <span class="checkbox-custom" (click)="onArchive(task?.id)"></span>
+      </label>
+      <label
+        [attr.aria-label]="task?.title + ''"
+        for="title-{{ task?.id }}"
+        class="title"
+      >
+        <input
+          type="text"
+          [value]="task?.title"
+          readonly="true"
+          id="title-{{ task?.id }}"
+          name="title-{{ task?.id }}"
+          placeholder="Input title"
++         style="text-overflow: ellipsis;"
+        />
+      </label>
+      <button
+        *ngIf="task?.state !== 'TASK_ARCHIVED'"
+        class="pin-button"
+        [attr.aria-label]="'pinTask-' + task?.id"
+        (click)="onPin(task?.id)"
+      >
+        <span class="icon-star"></span>
+      </button>
+    </div>
+  `,
+})
 ```
 
 ![良くなりました](/intro-to-storybook/edge-case-solved-with-controls.png)
@@ -63,11 +100,12 @@ Storybook はすばらしい[コンポーネント駆動開発](https://www.comp
 ```ts:title=src/app/components/task.stories.ts
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle = Template.bind({});
-LongTitle.args = {
-  task: {
-    ...Default.args.task,
-    title: longTitleString,
+export const LongTitle: Story = {
+  args: {
+    task: {
+      ...Default.args?.task,
+      title: longTitleString,
+    },
   },
 };
 ```
@@ -76,7 +114,7 @@ LongTitle.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/task-stories-long-title.mp4"
+    src="/intro-to-storybook/task-stories-long-title-non-react.mp4"
     type="video/mp4"
   />
 </video>

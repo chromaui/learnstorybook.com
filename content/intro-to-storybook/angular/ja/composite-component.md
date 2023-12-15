@@ -5,9 +5,9 @@ description: '単純なコンポーネントから複合的なコンポーネン
 commit: '3da0d0a'
 ---
 
-前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである `TaskList` を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうすればよいか見てみましょう。
+前の章では、最初のコンポーネントを作成しました。この章では、学習した内容を基にタスクのリストである TaskList を作成します。それではコンポーネントを組み合わせて、複雑になった場合にどうすればよいか見てみましょう。
 
-## TaskListComponent
+## Tasklist (タスクリスト)
 
 Taskbox はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskList` に、タスクのリストが、通常のタスクのみである場合と、ピン留めされたタスクとの組み合わせである場合という、ストーリーを追加するべき 2 つのバリエーションができます。
 
@@ -21,7 +21,7 @@ Taskbox はピン留めされたタスクを通常のタスクより上部に表
 
 複合的なコンポーネントも基本的なコンポーネントと大きな違いはありません。`TaskList` のコンポーネントとそのストーリーファイル、`src/app/components/task-list-component.ts` と `src/app/components/task-list.stories.ts` を作成しましょう。
 
-まずは `TaskList` の大まかな実装から始めます。前の章で作成した `Task` コンポーネントをインポートし、属性とアクションを入力とイベントとして渡します。
+まずは `TaskList` の大まかな実装から始めます。前の章で作成した `Task` コンポーネントをインポートし、属性とアクションを入力として渡します。
 
 ```ts:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -44,7 +44,7 @@ import { Task } from '../models/task.model';
     </div>
   `,
 })
-export class TaskListComponent {
+export default class TaskListComponent {
   /** The list of tasks */
   @Input() tasks: Task[] = [];
 
@@ -66,17 +66,21 @@ export class TaskListComponent {
 次に `TaskList` のテスト状態をストーリーファイルに記述します。
 
 ```ts:title=src/app/components/task-list.stories.ts
-import { moduleMetadata, Story, Meta, componentWrapperDecorator } from '@storybook/angular';
+import type { Meta, StoryObj } from '@storybook/angular';
+
+import { argsToTemplate, componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
-import { TaskListComponent } from './task-list.component';
-import { TaskComponent } from './task.component';
+import TaskListComponent from './task-list.component';
+import TaskComponent from './task.component';
 
 import * as TaskStories from './task.stories';
 
-export default {
+const meta: Meta<TaskListComponent> = {
   component: TaskListComponent,
+  title: 'TaskList',
+  tags: ['autodocs'],
   decorators: [
     moduleMetadata({
       //👇 Imports both components to allow component composition with Storybook
@@ -84,58 +88,65 @@ export default {
       imports: [CommonModule],
     }),
     //👇 Wraps our stories with a decorator
-    componentWrapperDecorator(story => `<div style="margin: 3em">${story}</div>`),
+    componentWrapperDecorator(
+      (story) => `<div style="margin: 3em">${story}</div>`
+    ),
   ],
-  title: 'TaskList',
-} as Meta;
+  render: (args: TaskListComponent) => ({
+    props: {
+      ...args,
+      onPinTask: TaskStories.actionsData.onPinTask,
+      onArchiveTask: TaskStories.actionsData.onArchiveTask,
+    },
+    template: `<app-task-list ${argsToTemplate(args)}></app-task-list>`,
+  }),
+};
+export default meta;
+type Story = StoryObj<TaskListComponent>;
 
-const Template: Story<TaskListComponent> = args => ({
-  props: {
-    ...args,
-    onPinTask: TaskStories.actionsData.onPinTask,
-    onArchiveTask: TaskStories.actionsData.onArchiveTask,
+export const Default: Story = {
+  args: {
+    tasks: [
+      { ...TaskStories.Default.args?.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args?.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args?.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args?.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args?.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args?.task, id: '6', title: 'Task 6' },
+    ],
   },
-});
-
-export const Default = Template.bind({});
-Default.args = {
-  tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ],
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const WithPinnedTasks: Story = {
+  args: {
+    tasks: [
+      // Shaping the stories through args composition.
+      // Inherited data coming from the Default story.
+      ...(Default.args?.tasks?.slice(0, 5) || []),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
+export const Loading: Story = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty: Story = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、 <code>decorators</code> というキーをデフォルトエクスポートで使用し、必要なモジュールやコンポーネントを設定するために使っています。ストーリーで使用する「プロバイダー」(例えば、 React のコンテキストを設定するライブラリコンポーネントなど) を使うためにも使用します。
+💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>デコレーター</b></a>を使ってストーリーに任意のラッパーを設定できます。上記のコードでは、decoratorというキーをデフォルトエクスポートで使用し、レンダリングされたコンポーネントの周りに<code>余白</code>を追加するために使っています。ストーリーで使用する「プロバイダー」(例えば、コンテキストを設定するライブラリコンポーネントなど) でストーリーをラップするにも使用します。
 </div>
 
 `TaskStories` をインポートすることで、ストーリーに必要な引数 (args) を最小限の労力で[組み合わせる](https://storybook.js.org/docs/angular/writing-stories/args#args-composition)ことができます。そうすることで、2 つのコンポーネントが想定するデータとアクション (呼び出しのモック) の一貫性が保たれます。
@@ -144,14 +155,14 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## 状態を作りこむ
 
-今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。 `TaskListComponent` の**本当の複雑さ**は `WithPinnedTasks`、`loading`、`empty` といったエッジケースに現われているのです。
+今のコンポーネントはまだ粗削りですが、ストーリーは見えています。単に `.list-items` だけのためにラッパーを作るのは単純すぎると思うかもしれません。実際にその通りです。ほとんどの場合単なるラッパーのためだけに新しいコンポーネントは作りません。 `TaskList`コンポーネント の**本当の複雑さ**は `WithPinnedTasks`、`loading`、`empty` といったエッジケースに現われているのです。
 
 ```diff:title=src/app/components/task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -159,7 +170,7 @@ import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-task-list',
-  template: `
++ template: `
 +   <div class="list-items">
 +     <app-task
 +       *ngFor="let task of tasksInOrder"
@@ -168,21 +179,27 @@ import { Task } from '../models/task.model';
 +       (onPinTask)="onPinTask.emit($event)"
 +     >
 +     </app-task>
-+     <div *ngIf="tasksInOrder.length === 0 && !loading" class="wrapper-message">
++     <div
++       *ngIf="tasksInOrder.length === 0 && !loading"
++       class="wrapper-message"
++     >
 +       <span class="icon-check"></span>
-+       <div class="title-message">You have no tasks</div>
-+       <div class="subtitle-message">Sit back and relax</div>
++       <p class="title-message">You have no tasks</p>
++       <p class="subtitle-message">Sit back and relax</p>
 +     </div>
 +     <div *ngIf="loading">
 +       <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
 +         <span class="glow-checkbox"></span>
-+         <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
++         <span class="glow-text">
++           <span>Loading</span> <span>cool</span> <span>state</span>
++         </span>
 +       </div>
 +     </div>
 +   </div>
   `,
 })
-export class TaskListComponent {
+export default class TaskListComponent {
+- /** The list of tasks */
 - @Input() tasks: Task[] = [];
 
 +  /**
@@ -201,10 +218,16 @@ export class TaskListComponent {
 
 + @Input()
 + set tasks(arr: Task[]) {
-+   this.tasksInOrder = [
++   const initialTasks = [
 +     ...arr.filter(t => t.state === 'TASK_PINNED'),
 +     ...arr.filter(t => t.state !== 'TASK_PINNED'),
 +   ];
++   const filteredTasks = initialTasks.filter(
++     t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
++   );
++   this.tasksInOrder = filteredTasks.filter(
++     t => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
++   );
 + }
 }
 ```
@@ -222,61 +245,7 @@ export class TaskListComponent {
 
 ## データ要件
 
-コンポーネントが大きくなるにつれ、入力の要件も増えていきます。`TaskListComponent` のプロパティの要件を Typescript で定義しましょう。`TaskComponent` が子供のコンポーネントなので、表示するのに正しいデータ構造が渡されていることを確認しましょう。時間を節約するため、前の章で `task.model.ts` に定義したモデルを再利用しましょう。
-
-## 自動テスト
-
-前の章で Storyshots を使用してストーリーのスナップショットテストを行う方法を学びました。`TaskComponent` では、問題なく描画されるのを確認することは、それほど複雑ではありませんでした。`TaskListComponent` では複雑さが増しているので、ある入力がある出力を生成するかどうかを、自動テスト可能な方法で検証したいと思います。そのためには [Angular Testing Library](https://testing-library.com/docs/angular-testing-library/intro) を使用し、単体テストを作ります。
-
-![Testing library logo](/intro-to-storybook/testinglibrary-image.jpeg)
-
-### Angular Testing Library で単体テストする
-
-Storybook のストーリーと、手動のテスト、スナップショットテストがあれば UI のバグを防ぐのに十分でしょう。ストーリーでコンポーネントの様々なユースケースをカバーしており、ストーリーへのどんな変更に対しても、人が確実に確認できるツールを使用していれば、エラーはめったに発生しなくなります。
-
-けれども、悪魔は細部に宿ります。そういった細部を明確にするテストフレームワークが必要です。単体テストを始めましょう。
-
-`TaskListComponent` の `tasks` プロパティで渡されたタスクのリストのうち、ピン留めされたタスクを通常のタスクの**前に**表示させたいと思います。このシナリオをテストするストーリー (`WithPinnedTasks`) は既にありますが、コンポーネントが並び替えを**しなくなった**場合に、それがバグかどうかを人間のレビュアーでは判別しかねます。ストーリーでは誰にでも分かるように、**間違っているよ！**と叫んではくれません。
-
-この問題を回避するため、Angular Testing Library を使ってストーリーを DOM に描画し、DOM を検索するコードを実行し、出力から目立った機能を検証します。
-
-`task-list.component.spec.ts` にテストファイルを作ります。以下に、出力を検証するテストコードを示します。
-
-```ts:title=src/app/components/task-list.component.spec.ts
-import { render } from '@testing-library/angular';
-
-import { TaskListComponent } from './task-list.component';
-import { TaskComponent } from './task.component';
-
-//👇 Our story imported here
-import { WithPinnedTasks } from './task-list.stories';
-
-describe('TaskList component', () => {
-  it('renders pinned tasks at the start of the list', async () => {
-    const mockedActions = jest.fn();
-    const tree = await render(TaskListComponent, {
-      declarations: [TaskComponent],
-      componentProperties: {
-        ...WithPinnedTasks.args,
-        onPinTask: {
-          emit: mockedActions,
-        } as any,
-        onArchiveTask: {
-          emit: mockedActions,
-        } as any,
-      },
-    });
-    const component = tree.fixture.componentInstance;
-    expect(component.tasksInOrder[0].id).toBe('6');
-  });
-});
-```
-
-![TaskList のテストランナー](/intro-to-storybook/tasklist-testrunner.png)
-
-単体テストで `WithPinnedTasks` ストーリーを再利用出来ていることに注目してください。このように、多様な方法で既存のリソースを活用していくことができます。
-
-ただし、このテストは非常に脆いことにも留意してください。プロジェクトが成熟し、`Task` の実装が変わっていく (たとえば、別のクラス名に変更されたり、`input` 要素ではなく `textarea` に変更されたりする) と、テストが失敗し、更新が必要となる可能性があります。これは必ずしも問題とならないかもしれませんが、UI の単体テストを使用する際の注意点です。UI の単体テストはメンテナンスが難しいのです。可能な限り手動のテストや、スナップショットテスト、視覚的なリグレッションテスト ([テストの章](/intro-to-storybook/angular/ja/test/)を参照してください) に頼るようにしてください。
+コンポーネントが大きくなるにつれ、入力の要件も増えていきます。`TaskList`コンポーネントのプロパティの要件を Typescript で定義しましょう。`Task` が子供のコンポーネントなので、表示するのに正しいデータ構造が渡されていることを確認しましょう。時間を節約するため、前の章で `task.model.ts` に定義したモデルを再利用しましょう。
 
 <div class="aside">
 💡 Git へのコミットを忘れずに行ってください！
