@@ -204,7 +204,7 @@ export default App;
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.js`:
+As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.jsx`:
 
 ```jsx:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
