@@ -2,7 +2,7 @@
 title: 'Document for stakeholders'
 tocTitle: 'Document'
 description: 'Drive design system adoption with documentation'
-commit: '2f95d89'
+commit: '4af4d77'
 ---
 
 [Professional](https://product.hubspot.com/blog/how-to-gain-widespread-adoption-of-your-design-system) [frontend](https://segment.com/blog/driving-adoption-of-a-design-system/) [teams](https://medium.com/@didoo/measuring-the-impact-of-a-design-system-7f925af090f7) measure design system success by adoption. To get the full work-saving benefits of a design system, components must be widely circulated. Otherwise, what’s the point?
