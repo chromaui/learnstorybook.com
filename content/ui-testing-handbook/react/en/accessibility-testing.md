@@ -2,7 +2,7 @@
 title: 'Accessibility testing with Storybook'
 tocTitle: 'Accessibility'
 description: 'Fast feedback with integrated tooling'
-commit: 'ef3fa29'
+commit: 'd16be74'
 ---
 
 [26% of adults](https://www.cdc.gov/ncbddd/disabilityandhealth/infographic-disability-impacts-all.html) in the US have at least one disability. When you improve accessibility, it has an outsized impact on your current and future customers. It’s also a legal requirement.
@@ -255,10 +255,10 @@ Add a new configuration file inside your Storybook directory with the following 
 const { injectAxe, checkA11y } = require('axe-playwright');
 
 module.exports = {
-  async preRender(page) {
+  async preVisit(page) {
     await injectAxe(page);
   },
-  async postRender(page) {
+  async postVisit(page) {
     await checkA11y(page, "#storybook-root", {
       detailedReport: true,
       detailedReportOptions: {
@@ -267,10 +267,9 @@ module.exports = {
     });
   },
 };
-
 ```
 
-`preRender` and `postRender` are convenient hooks that allow you to configure the test runner to perform additional tasks. We're using those hooks to inject Axe into a story, and then once it renders, run the accessibility test.
+`preVisit` and `postVisit` are convenient hooks that allow you to configure the test runner to perform additional tasks. We're using those hooks to inject Axe into a story, and then once it renders, run the accessibility test.
 
 You’ll notice a few options passed into the `checkA11y` function. We’ve set up Axe to start at the story's root element and then traverse down the DOM tree to check for issues. It will also generate a detailed report based on the issues it encountered and output a list of HTML elements that violated accessibility rules.
 

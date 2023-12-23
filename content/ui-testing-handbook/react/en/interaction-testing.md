@@ -2,7 +2,7 @@
 title: 'Testing component interactions'
 tocTitle: 'Interaction'
 description: 'Learn how to simulate user behaviour and run functional checks'
-commit: 'fa3353e'
+commit: '4aff15f'
 ---
 
 You flip the switch, and the light doesn’t turn on. It could be a burnt-out light bulb, or it could be faulty wiring. The switch and the bulb are connected to each other with wires inside the walls.
@@ -59,7 +59,7 @@ yarn storybook
 
 ## Reuse stories as interaction test cases
 
-In the previous chapter, we catalogued all the use cases of the InboxScreen component in the `InboxScreen.stories.js` file. That allowed us to spot-check appearance during development and catch regressions via visual tests. These stories will now also power our interaction tests.
+In the previous chapter, we catalogued all the use cases of the InboxScreen component in the `InboxScreen.stories.jsx` file. That allowed us to spot-check appearance during development and catch regressions via visual tests. These stories will now also power our interaction tests.
 
 ```javascript:title=src/InboxScreen.stories.jsx
 import { rest } from 'msw';
@@ -116,9 +116,7 @@ import InboxScreen from './InboxScreen';
 
 import { Default as TaskListDefault } from './components/TaskList.stories';
 
-import { within, userEvent, findByRole } from '@storybook/testing-library';
-
-import { expect } from '@storybook/jest';
+import { expect, userEvent, findByRole, within } from '@storybook/test';
 
 // ... code omitted for brevity ...
 
@@ -143,6 +141,12 @@ export const PinTask = {
   },
 };
 ```
+
+<div class="aside">
+
+💡 The `@storybook/test` package replaces the `@storybook/jest` and `@storybook/testing-library` testing packages, offering a smaller bundle size and a more straightforward API based on the [Vitest](https://vitest.dev/) package.
+
+</div>
 
 Each play function receives the Canvas element—the top-level container of the story. You can scope your queries to just within this element, making it easier to find DOM nodes.
 
