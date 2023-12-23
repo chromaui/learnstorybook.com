@@ -2,7 +2,7 @@
 title: 'Introducir datos'
 tocTitle: 'Datos'
 description: 'Aprende como introducir datos a tus componentes UI'
-commit: '6436a64'
+commit: '30e306d'
 ---
 
 Hasta ahora hemos creado componentes aislados sin estado, muy útiles para Storybook, pero finalmente no son útiles hasta que les proporcionemos algunos datos en nuestra aplicación.
