@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'fef715f'
+commit: '2275632'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -204,7 +204,7 @@ export default App;
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.js`:
+As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.jsx`:
 
 ```jsx:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
@@ -246,7 +246,7 @@ Then, we'll need to update our `.storybook/preview.js` and initialize them:
 import '../src/index.css';
 
 + // Registers the msw addon
-+ import { initialize, mswDecorator } from 'msw-storybook-addon';
++ import { initialize, mswLoader } from 'msw-storybook-addon';
 
 + // Initialize MSW
 + initialize();
@@ -254,7 +254,6 @@ import '../src/index.css';
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 /** @type { import('@storybook/react').Preview } */
 const preview = {
-+ decorators: [mswDecorator],
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
@@ -264,6 +263,7 @@ const preview = {
       },
     },
   },
++ loaders: [mswLoader],
 };
 
 export default preview;
@@ -355,10 +355,10 @@ import { Provider } from 'react-redux';
 
 + import {
 +  fireEvent,
-+  within,
 +  waitFor,
++  within,
 +  waitForElementToBeRemoved
-+ } from '@storybook/testing-library';
++ } from '@storybook/test';
 
 export default {
   component: InboxScreen,
@@ -408,6 +408,12 @@ export const Error = {
   },
 };
 ```
+
+<div class="aside">
+
+💡 The `@storybook/test` package replaces the `@storybook/jest` and `@storybook/testing-library` testing packages, offering a smaller bundle size and a more straightforward API based on the [Vitest](https://vitest.dev/) package.
+
+</div>
 
 Check the `Default` story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 

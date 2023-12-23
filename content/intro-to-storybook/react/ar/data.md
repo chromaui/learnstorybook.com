@@ -2,7 +2,7 @@
 title: 'اربط البيانات'
 tocTitle: 'البياتات'
 description: 'تعلم كيفية ربط البيانات مع مكون واجهة المستخدم'
-commit: '9788acc'
+commit: 'c70ec15'
 ---
 
 <div style="direction: rtl">

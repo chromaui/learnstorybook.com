@@ -2,7 +2,7 @@
 title: 'Test to maintain quality'
 tocTitle: 'Test'
 description: 'How to test design system appearance, functionality, and accessibility'
-commit: '5f69e5c'
+commit: 'f5a815f'
 ---
 
 In chapter 5, we automate design system testing to prevent UI bugs. This chapter dives into what characteristics of UI components warrant testing and potential pitfalls to avoid. We researched professional teams at Wave, BBC, and Salesforce to land on a test strategy that balances comprehensive coverage, straightforward setup, and low maintenance.
@@ -74,7 +74,7 @@ To enable it, we're going to rely on Storybook's [`play`](https://storybook.js.o
 Start by adding the necessary dependencies with:
 
 ```shell
-yarn add --dev @storybook/jest @storybook/test-runner
+yarn add --dev @storybook/test-runner
 ```
 
 Next, add a new test task to your `package.json` scripts:
@@ -102,8 +102,7 @@ import { Button } from './Button';
 import { Icon } from '../Icon/Icon';
 import { StoryLinkWrapper } from '../LinkWrapper';
 
-+ import { userEvent, within } from '@storybook/testing-library';
-+ import { expect } from '@storybook/jest';
++ import { expect, userEvent, within } from '@storybook/test';
 
 export default {
   title: 'Design System/Button',
@@ -135,6 +134,12 @@ export default {
 +   },
 + };
 ```
+
+<div class="aside">
+
+💡 The `@storybook/test` package replaces the `@storybook/jest` and `@storybook/testing-library` testing packages, offering a smaller bundle size and a more straightforward API based on the [Vitest](https://vitest.dev/) package.
+
+</div>
 
 <video autoPlay muted playsInline loop>
   <source

@@ -2,7 +2,7 @@
 title: 'Intégrer des données'
 tocTitle: 'Les données'
 description: 'Apprendre comment intégrer des données dans votre composant d interface utilisateur'
-commit: '6436a64'
+commit: '30e306d'
 ---
 
 Jusqu'à présent, nous avons créé des composants isolés sans état - parfait pour Storybook, mais finalement pas utiles jusqu'à ce que nous leur donnions des données dans notre application.

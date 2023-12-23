@@ -2,7 +2,7 @@
 title: 'Aansluiten data'
 tocTitle: 'Data'
 description: 'Leer hoe je data kunt doorgeven aan je UI component'
-commit: '9788acc'
+commit: 'c70ec15'
 ---
 
 Tot nu toe hebben we geïsoleerde stateless componenten gemaakt - geweldig voor Storybook, maar uiteindelijk niet nuttig totdat we ze wat data geven in onze app.

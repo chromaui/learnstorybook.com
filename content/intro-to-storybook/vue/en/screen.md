@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'e2fcd79'
+commit: 'af51337'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -206,7 +206,7 @@ Let's see it in action! Update your newly created `PureInboxScreen` story, and s
 ```diff:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
 
-+ import { fireEvent, within } from '@storybook/testing-library';
++ import { fireEvent, within } from '@storybook/test';
 
 export default {
   component: PureInboxScreen,
@@ -230,6 +230,12 @@ export const Error = {
 +  },
 + };
 ```
+
+<div class="aside">
+
+💡 The `@storybook/test` package replaces the `@storybook/jest` and `@storybook/testing-library` testing packages, offering a smaller bundle size and a more straightforward API based on the [Vitest](https://vitest.dev/) package.
+
+</div>
 
 Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 

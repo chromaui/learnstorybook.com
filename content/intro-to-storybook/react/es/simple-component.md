@@ -2,7 +2,7 @@
 title: 'Construye un componente simple'
 tocTitle: 'Componente Simple'
 description: 'Construye un componente simple en aislamiento'
-commit: '428c6f2'
+commit: '9b36e1a'
 ---
 
 Construiremos nuestra UI siguiendo la metodología (CDD) [Component-Driven Development](https://www.componentdriven.org/). Es un proceso que construye UIs de “abajo hacia arriba”, empezando con los componentes y terminando con las vistas. CDD te ayuda a escalar la cantidad de complejidad con la que te enfrentas a medida que construyes la UI.

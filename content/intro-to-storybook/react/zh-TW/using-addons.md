@@ -2,7 +2,7 @@
 title: '外掛'
 tocTitle: '外掛'
 description: '了解整合、使用熱門功能：Control 外掛的方法'
-commit: '5deb9f7'
+commit: 'f89cfe0'
 ---
 
 Storybook 有精美的[外掛](https://storybook.js.org/docs/react/configure/storybook-addons)生態系，可以用來加強團隊裡的開發者體驗。[在這裡](https://storybook.js.org/addons)可以翻閱。

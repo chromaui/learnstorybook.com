@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use the popular Controls addon'
-commit: 'f39e46b'
+commit: 'd648b74'
 ---
 
 Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/angular/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
