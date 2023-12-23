@@ -247,7 +247,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Korean           | ❌      |
 |              | Japanese         | ❌      |
 |              | French           | ❌      |
-|              | Italian          | ✅      |
+|              | Italian          | ❌      |
 |              | German           | ❌      |
 | React Native | English          | ✅      |
 |              | Spanish          | ❌      |
@@ -259,7 +259,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 | Angular      | English          | ✅      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
-|              | Japanese         | ❌      |
+|              | Japanese         | ✅      |
 | Svelte       | English          | ❌      |
 |              | Spanish          | ❌      |
 | Ember        | English          | ❌      |
