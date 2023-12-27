@@ -2,7 +2,7 @@
 title: 'UI Testing Playbook'
 tocTitle: 'Workflow'
 description: 'A testing workflow that doesn’t slow you down'
-commit: '910607e'
+commit: 'f330642'
 ---
 
 It's easy to find tools that test different parts of the UI. But knowing how to combine them into a productive workflow is tricky. If you get it wrong, it spirals into a maintenance nightmare.

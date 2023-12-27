@@ -14,6 +14,7 @@
     "gatsby": "^4.22.0",
     "gatsby-plugin-google-analytics": "^4.22.0",
     "gatsby-plugin-google-gtag": "^5.4.0",
+    "gatsby-plugin-plausible": "^0.0.7",
     "gatsby-plugin-react-helmet": "^5.22.0",
     "gatsby-plugin-sharp": "^4.22.0",
     "gatsby-plugin-sitemap": "^5.22.0",
@@ -38,21 +39,22 @@
   ],
   "license": "MIT",
   "scripts": {
-    "extract-sb-docs-metadata": "./scripts/extract-sb-docs-metadata.sh",
-    "prebuild": "yarn extract-sb-docs-metadata && mkdir -p public/tutorials",
     "build": "gatsby build --prefix-paths",
-    "postbuild": "bash scripts/move-to-build.sh",
-    "prebuild-storybook": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
     "build-storybook": "build-storybook -s ./static",
+    "clean": "gatsby clean",
     "dev": "gatsby develop",
-    "serve": "gatsby serve --prefix-paths",
+    "extract-sb-docs-metadata": "./scripts/extract-sb-docs-metadata.sh",
     "format": "prettier-eslint --write '**/*.js'",
     "lint": "eslint .",
+    "postbuild": "bash scripts/move-to-build.sh",
+    "postinstall": "patch-package",
+    "prebuild": "yarn extract-sb-docs-metadata && mkdir -p public/tutorials",
+    "prebuild-storybook": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
+    "prepare": "husky install",
     "prestorybook": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
+    "serve": "gatsby serve --prefix-paths",
     "storybook": "start-storybook -s ./static -p 6006",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "gatsby clean",
-    "prepare": "husky install"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "lint-staged": {
     "*.md": [
@@ -88,6 +90,7 @@
     "husky": "^8.0.0",
     "lint-staged": "^13.0.3",
     "node-fetch": "^2.6.7",
+    "patch-package": "^8.0.0",
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0"

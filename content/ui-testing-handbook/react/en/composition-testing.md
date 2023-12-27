@@ -2,7 +2,7 @@
 title: 'Testing composite components'
 tocTitle: 'Composition'
 description: 'Prevent minor changes from turning into major regressions'
-commit: 'c8e7bdd'
+commit: '9c49e13'
 ---
 
 In Jan 2021, [Tesla recalled 158,000 cars](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-s-x-touchscreens-bricked-failure-nhtsa) because one module—the display—malfunctioned. With a broken display console, you can’t access the backup camera, turn signals, or driver assistance. That significantly increases the risk of a crash.
@@ -196,14 +196,13 @@ Enable the MSW addon in your `.storybook/preview.js` file:
 ```diff:title=.storybook/preview.js
 import '../src/index.css';
 
-+ import { initialize, mswDecorator } from 'msw-storybook-addon';
++ import { initialize, mswLoader } from 'msw-storybook-addon';
 
 + // Initialize MSW
 + initialize();
 
 /** @type { import('@storybook/react').Preview } */
 const preview = {
-+ decorators: [mswDecorator],
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
@@ -213,6 +212,7 @@ const preview = {
       },
     },
   },
++ loaders: [mswLoader],
 };
 
 export default preview;

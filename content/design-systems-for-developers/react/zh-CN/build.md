@@ -2,7 +2,7 @@
 title: '创建 UI 组件'
 tocTitle: '创建'
 description: '使用 Storybook 来创建和分类您设计系统中的组件'
-commit: 'f4c9bb5'
+commit: 'c5f4c8d'
 ---
 
 在第三章中，我们将使用最受欢迎的组件资源管理器 Storybook 来创建我们的设计系统。 本指南目的是向您展示专业团队如何构建他们的设计系统。和他们一样，我们也会详细关注：代码整洁、帮助节省时间的 Storybook 插件和目录结构。

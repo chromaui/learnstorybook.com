@@ -2,7 +2,7 @@
 title: '构建一个简单的组件'
 tocTitle: '简单组件'
 description: '单独构建一个简单的组件'
-commit: 'dad25c9'
+commit: 'b586083'
 ---
 
 我们将按照[组件驱动开发](https://www.componentdriven.org/) (CDD)来构建我们的 UI。这是一个自下而上的构建 UI 的过程，我们从组件开始以整个页面结束。CDD 可以帮助您在构建 UI 时衡量其复杂性。

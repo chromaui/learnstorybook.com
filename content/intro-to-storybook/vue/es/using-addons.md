@@ -2,7 +2,7 @@
 title: 'Complementos'
 tocTitle: 'Complementos'
 description: 'Aprende a integrar y usar complementos usando un ejemplo popular'
-commit: 'b9761e7'
+commit: '13da85f'
 ---
 
 Storybook cuenta con un sistema robusto de [complementos](https://storybook.js.org/docs/vue/configure/storybook-addons) con el que puede mejorar la experiencia del desarrollador para todos en tu equipo. Véalos todos [aquí](https://storybook.js.org/addons).

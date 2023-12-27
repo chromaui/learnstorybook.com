@@ -2,7 +2,7 @@
 title: '구성 테스트'
 tocTitle: '구성'
 description: '사소한 변경이 커다란 회귀로 변하는 것을 방지하기'
-commit: 'c8e7bdd'
+commit: '9c49e13'
 ---
 
 2021년 1월, 테슬라(Tesla)는 디스플레이 모듈의 오작동으로 [158,000대의 자동차를 리콜했습니다.](https://www.theverge.com/2021/1/13/22229854/tesla-recall-model-sx-touchscreens-bricked-failure-nhtsa)

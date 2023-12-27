@@ -1,4 +1,5 @@
 const isDeployPreview = process.env.CONTEXT === 'deploy-preview';
+const isProduction = process.env.CONTEXT === 'production';
 const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://storybook.js.org';
 
 module.exports = {
@@ -14,12 +15,12 @@ module.exports = {
     siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
-    storybookVersion: 7.5,
+    storybookVersion: 7.6,
     tutorialStatus: {
       'intro-to-storybook': {
         react: {
           de: 5.3,
-          en: 7.5,
+          en: 7.6,
           es: 6.5,
           fr: 6.5,
           it: 7.5,
@@ -36,14 +37,14 @@ module.exports = {
           es: 5.3,
         },
         vue: {
-          en: 7.5,
+          en: 7.6,
           es: 6.1,
           fr: 5.3,
           pt: 5.3,
           'zh-CN': 6.5,
         },
         angular: {
-          en: 7.5,
+          en: 7.6,
           ja: 6.3,
           es: 6.3,
           pt: 5.3,
@@ -58,7 +59,7 @@ module.exports = {
       },
       'design-systems-for-developers': {
         react: {
-          en: 7.5,
+          en: 7.6,
           ko: 6.4,
           pt: 5.3,
           'zh-CN': 6.3,
@@ -67,14 +68,14 @@ module.exports = {
       },
       'visual-testing-handbook': {
         react: {
-          en: 7.5,
+          en: 7.6,
           es: 6.5,
           ko: 6.5,
         },
       },
       'ui-testing-handbook': {
         react: {
-          en: 7.5,
+          en: 7.6,
           ko: 6.5,
         },
       },
@@ -111,6 +112,16 @@ module.exports = {
       },
     },
     `gatsby-plugin-sitemap`,
+    ...(isProduction
+      ? [
+          {
+            resolve: `gatsby-plugin-plausible`,
+            options: {
+              domain: 'storybook.js.org',
+            },
+          },
+        ]
+      : []),
     ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
       ? [
           {

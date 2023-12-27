@@ -2,7 +2,7 @@
 title: 'Deploy Storybook'
 tocTitle: 'Deploy'
 description: 'Leren hoe we Storybook online deployen'
-commit: 'b80201f'
+commit: '59da1ac'
 ---
 
 Doorheen deze tutorial hebben we componenten lokaal op onze development machine gebouwd. Er komt een punt waar we ons werk willen delen met het team om zo feedback te verkrijgen. Laten we Storybook online deployen om ons team te helpen met het reviewen van de UI implementatie.

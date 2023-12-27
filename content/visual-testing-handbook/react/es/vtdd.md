@@ -1,7 +1,7 @@
 ---
 title: 'TDD Visual'
 description: 'Escribe tus primeras pruebas visuales'
-commit: 'd260c8d'
+commit: 'bab74c1'
 ---
 
 Ahora que los conceptos básicos fueron cubiertos, veamos los detalles. Este ejemplo muestra la construcción de un estado de un componente `CommentList` usando **TDD Visual** (desarrollo guiado por pruebas visuales) con Storybook.
