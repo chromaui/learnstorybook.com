@@ -2,7 +2,7 @@
 title: '画面を作る'
 tocTitle: '画面'
 description: 'コンポーネントをまとめて画面を作りましょう'
-commit: 'f8d168d'
+commit: 'ec8b30a'
 ---
 
 今までボトムアップ (小さく始めてから複雑性を追加していく) で UI の作成に集中してきました。ボトムアップで作業することで、Storybook で遊びながら、それぞれのコンポーネントを切り離された環境で、それぞれに必要なデータを考えながら開発することができました。サーバーを立ち上げたり、画面を作ったりする必要は全くありませんでした！
@@ -378,7 +378,7 @@ import { TasksState } from '../state/task.state';
 
 import { moduleMetadata, applicationConfig } from '@storybook/angular';
 
-+ import { fireEvent, within } from '@storybook/testing-library';
++ import { fireEvent, within } from '@storybook/test';
 
 import { CommonModule } from '@angular/common';
 
@@ -421,6 +421,12 @@ export const Error: Story = {
 +   },
 + };
 ```
+
+<div class="aside">
+
+💡 `@storybook/test`が `@storybook/jest`と`@storybook/testing-library`を置き換え、 [Vitest](https://vitest.dev/) に基づいたより小さいバンドルサイズと直感的なAPIを提供します。
+
+</div>
 
 新しく作成したストーリーを確認します。`Interactions` パネルをクリックすると、ストーリーの play 関数内のインタラクションのリストが表示されます。
 
