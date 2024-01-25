@@ -35,7 +35,9 @@ module.exports = {
 
 If you check the `stories` property you'll see that Storybook is looking for stories in the `components` folder.
 
-In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires.js`, this is because React Native doesn't support dynamic imports yet. This file gets generated when you run `yarn storybook` to start Storybook or `yarn storybook-generate` if you just want to regenerate the `storybook.requires.js` file. This file is used to load all the stories in the project and it also imports your addons, whenever you find that a story is not being loaded you can try regenerating this file.
+In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires.ts`, this is due to some limitations with the metro bundler. This file gets generated when you run `yarn storybook` to start Storybook or `yarn storybook-generate` which just regenerates the `storybook.requires.ts` file. This file is used to load all the stories in the project and it also imports your addons, whenever you find that a story is not being loaded you can try regenerating this file. Since v7 we are now able to dynamically import new stories that match your config so you shouldn't need to regenerate this file unless you change your `main.js` config.
+
+You'll also find the generate function in metro.config.js that will run the generation whenever you start metro.
 
 Now let’s create the task component and its accompanying story file: `components/Task.jsx` and `components/Task.stories.jsx`.
 
@@ -110,7 +112,7 @@ To define our stories we export an object with an `args` property. Arguments or�
 
 When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
-Now that we've set up the basics lets re-run `yarn storybook` and see our changes. If you already have Storybook running you can also run `yarn storybook-generate` to regenerate the `storybook.requires.js` file.
+Now that we've set up the basics lets re-run `yarn storybook` and see our changes. If you already have Storybook running you can also run `yarn storybook-generate` to regenerate the `storybook.requires.ts` file.
 
 You should see a UI that looks like this:
 ![a gif showing the task component in storybook](/intro-to-storybook/react-native-task-component.gif)
