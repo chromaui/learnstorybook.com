@@ -37,7 +37,7 @@ If you check the `stories` property you'll see that Storybook is looking for sto
 
 In React Native Storybook we use the config in `main.js` to generate a file called `storybook.requires`, this is due to some limitations with the metro bundler. This file gets generated when you run `yarn storybook` to start Storybook or `yarn storybook-generate` which just regenerates the `storybook.requires` file. This file is used to load all the stories in the project and it also imports your addons, whenever you find that a story is not being loaded you can try regenerating this file. Since v7 we are now able to dynamically import new stories that match your config so you shouldn't need to regenerate this file unless you change your `main.js` config.
 
-You'll also find the generate function in metro.config.js that will run the generation whenever you start metro.
+You'll also find the generate function in `metro.config.js` that will run the generation whenever you start metro.
 
 Now let’s create the task component and its accompanying story file: `components/Task.jsx` and `components/Task.stories.jsx`.
 
