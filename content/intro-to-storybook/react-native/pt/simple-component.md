@@ -6,7 +6,7 @@ description: 'Crie um componente simples isoladamente'
 
 Construiremos nossa interface do usuário seguindo uma metodologia de Desenvolvimento Orientado a Componentes [Component-Driven Development](https://www.componentdriven.org/) (CDD). É um processo que constrói UIs de "baixo para cima", começando com componentes e terminando com telas. O CDD nos ajuda a dimensionar a quantidade de complexidade que você enfrenta ao criar a interface do usuário.
 
-## Tarefas
+## Tarefa
 
 ![Componente de tarefas em três estados](/intro-to-storybook/task-states-learnstorybook.png)
 
@@ -19,7 +19,7 @@ Quando começamos a construir `Task`, primeiro escrevemos nossos estados de test
 
 Esse processo é semelhante ao [desenvolvimento orientado a testes](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) que podemos chamar de “Visual TDD” “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
 
-## Prepare-se
+## Preparação
 
 Vamos abrir `.storybook/main.js` e dar uma olhada
 
@@ -35,7 +35,7 @@ module.exports = {
 
 Se você verificar a propriedade `stories`, verá que o Storybook está procurando histórias na pasta de `components`.
 
-No React Native Storybook, usamos a configuração em `main.js` para gerar um arquivo chamado `storybook.requires.js`, porque o React Native ainda não suporta importações dinâmicas. Este arquivo é gerado quando você executa `yarn storybook` para iniciar o storybook ou `yarn storybook-generate` se desejar apenas gerar novamente o arquivo `storybook.requires.js`. Este arquivo é usado para carregar todas as histórias do projeto e também importar seus addons, sempre que você achar que uma história não está sendo carregada, você pode tentar regenerar este arquivo.
+No React Native Storybook, usamos a configuração em `main.js` para gerar um arquivo chamado `storybook.requires.js`, porque o React Native ainda não suporta importações dinâmicas. Este arquivo é gerado quando você executa `yarn storybook` para iniciar o Storybook ou `yarn storybook-generate` se desejar apenas gerar novamente o arquivo `storybook.requires.js`. Este arquivo é usado para carregar todas as histórias do projeto e também importar seus addons, sempre que você achar que uma história não está sendo carregada, você pode tentar regenerar este arquivo.
 
 Agora vamos criar o componente de tarefa e o arquivo de história que o acompanha: `components/Task.jsx` e `components/Task.stories.jsx`.
 
@@ -91,9 +91,7 @@ export const Archived = {
 };
 ```
 
-Em nossos arquivos de histórias, usamos uma sintaxe chamada Component Story Format (CSF). Neste caso, estamos usando o CSF3, que é uma nova versão atualizada do CSF ​​compatível com as versões mais recentes do Storybook. Nesta versão do CSF, há muito menos clichê, o que facilita o início.
-
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+Para os nossos arquivos de histórias, usamos uma sintaxe chamada Component Story Format (CSF). Neste caso, CSF3, que é uma versão mais recente do CSF suportada pelas versões mais recentes do Storybook. Esta versão do CSF permite que você escreva histórias em um formato mais conciso e legível, o que é ótimo para iniciantes.
 
 Existem dois níveis básicos de organização no Storybook: o componente e suas histórias filhas. Pense em cada história como uma permutação de um componente. Você pode ter quantas histórias por componente precisar.
 
@@ -102,30 +100,28 @@ Existem dois níveis básicos de organização no Storybook: o componente e suas
   - História
   - História
 
-Para informar ao Storybook sobre o componente que estamos documentando, criamos uma exportação padrão `default` que contém:
+De forma a informar o Storybook acerca do componente que está a ser documentado, é criado um `default export` que contém:
 
 - `component` -- o próprio componente
 - `title` -- como se referir ao componente na barra lateral do aplicativo Storybook
 - `argTypes` -- nos permite especificar os tipos de nossos args, aqui usamos para definir ações que serão registradas sempre que essa interação ocorrer
 
-Para definir nossas histórias, exportamos um objeto com uma propriedade `args`. Argumentos ou [`args`](https://storybook.js.org/docs/react/writing-stories/args) para abreviar, nos permitem editar ao vivo nossos componentes com o complemento de controles sem reiniciar o Storybook. Uma vez que um valor [`args`](https://storybook.js.org/docs/react/writing-stories/args) muda, o mesmo acontece com o componente.
+Para definir nossas histórias, exportamos um objeto com uma propriedade `args`. Argumentos ou [`args`](https://storybook.js.org/docs/react/writing-stories/args) para abreviar, nos permitem editar ao vivo nossos componentes com o `controls addon` sem reiniciar o Storybook. Uma vez que um valor [`args`](https://storybook.js.org/docs/react/writing-stories/args) muda, o mesmo acontece com o componente.
 
-Ao criar uma história, usamos um arg base `tarefa` para criar a forma da tarefa que o componente espera. Normalmente modelado a partir da aparência dos dados reais. Novamente, exportar `export` essa forma nos permitirá reutilizá-la em histórias posteriores, como veremos.
+Ao criar uma história, estamos a usar um arg de base task para definir o formato de tarefa que o componente necessita. Este, normalmente modelado a partir de dados reais. Uma vez mais, ao exportarmos os dados na nossa história, podemos reutilizá-los em histórias futuras, como veremos.
 
 Agora que configuramos o básico, vamos reexecutar o `yarn storybook` e ver nossas alterações. Se você já tiver o Storybook em execução, também poderá executar `yarn storybook-generate` para gerar novamente o arquivo `storybook.requires.js`.
 
 Você deve ver uma IU semelhante a esta:
 ![uma animação mostrando o componente task no storybook](/intro-to-storybook/react-native-task-component.gif)
 
-Você pode usar a guia Barra lateral para alternar entre histórias, a aba Tela para ver a história atual e a aba complementos para interagir com argumentos e ações.
+Você pode usar a aba "Sidebar" para alternar ente as histórias, a aba "Canvas" para ver a história atual e a aba "Addons" para interagir com os args e actions.
 
 ## Construir os estados
 
 Agora podemos começar a construir nosso componente para combinar com os designs.
 
-The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
-
-O componente ainda é básico no momento. Primeiro escreva o código que alcança o design sem entrar em muitos detalhes:
+Neste momento, o componente ainda está básico. Vamos começar por fazer algumas alterações de forma a atingir o design pretendido, sem que entremos em muitos detalhes:
 
 ```jsx:title=components/Task.jsx
 import { MaterialIcons } from "@expo/vector-icons";

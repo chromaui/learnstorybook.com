@@ -1,10 +1,10 @@
 ---
-title: 'Montar um componente composto'
+title: 'Construção de um componente composto'
 tocTitle: 'Componente Composto'
-description: 'Montar um componente composto a partir de componentes mais simples'
+description: 'Construção de um componente composto a partir de componentes mais simples'
 ---
 
-No capítulo anterior, construímos nosso primeiro componente; este capítulo extende o que aprendemos para construir ListaTarefas, uma lista de tarefas. Vamos combinar componentes e ver o que acontece quando mais complexidade é introduzida.
+No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
 
 ## Lista de tarefas
 
@@ -16,11 +16,11 @@ Como os dados da `Task` podem ser enviados de forma assíncrona, **também** pre
 
 ![Tarefas vazias e carregando](/intro-to-storybook/tasklist-states-2.png)
 
-## Prepare-se
+## Preparação
 
 Um componente composto não é muito diferente do que contém os componentes básicos. Crie um componente `TaskList` e um arquivo de história em conjunto: `components/TaskList.jsx` e `components/TaskList.stories.jsx`.
 
-Comece com uma implementação aproximada da `TaskList`. Você precisará importar o componente `Task` anterior e passar os atributos e ações como entradas.
+Comece com uma implementação aproximada da `TaskList`. Você precisará importar o componente `Task` anterior e passar os atributos e ações como `inputs`.
 
 ```jsx:title=components/TaskList.jsx
 import { Task } from "./Task";
@@ -130,12 +130,13 @@ export const Empty = {
 ```
 
 <div class="aside">
-Os <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decoradores</b></a> são uma maneira de fornecer wrappers arbitrários para as histórias. Neste caso, estamos usando um decorador para adicionar preenchimento ao redor da lista para facilitar a verificação visual. Eles também podem ser usados ​​para agrupar histórias em “provedores” – ou seja, componentes da biblioteca que definem o contexto do React.
+Os <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decoradores</b></a> permitem que você envolva histórias com funcionalidades adicionais. Neste caso, estamos a usar um decorador para adicionar preenchimento ao redor da lista para facilitar a verificação visual. Mas podem ser usados para envolver as histórias definidas em "providers", nomeadamente, bibliotecas ou componentes que usam o contexto React.
 </div>
+
 
 `TaskStory.args.task` fornece a forma de uma `Task` que criamos e exportamos do arquivo `Task.stories.js`. Da mesma forma, os `argTypes` que adicionamos para `onPinTask` e `onArchiveTask` dizem ao Storybook para fornecer ações (callbacks simulados) que o componente `TaskList` precisa.
 
-Como adicionamos um novo arquivo Story, precisamos executar `yarn storybook-generate` novamente para gerar novamente o arquivo `storybook.require.js`.
+Visto que adicionámos um novo arquivo de história, precisamos executar `yarn storybook-generate` novamente para gerar novamente o arquivo `storybook.require.js`.
 
 Agora verifique o Storybook para as novas histórias da `TaskList`.
 
