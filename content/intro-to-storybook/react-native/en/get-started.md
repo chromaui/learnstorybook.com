@@ -111,7 +111,7 @@ if (Constants.expoConfig.extra.storybookEnabled === 'true') {
 export default AppEntryPoint;
 ```
 
-In package.json we see a few Storybook scripts. We use these to pass that environment variable to our app which swaps the entry point to the storybook UI. Note that we use `cross-env` to make sure this works on all platforms (Windows/Mac/Linux).
+In the `package.json` file, we see a few new Storybook scripts. We use these to pass that environment variable to our application, which swaps the entry point to the Storybook UI using `cross-env` to make sure this works on all platforms (Windows/macOS/Linux).
 
 ```json:title=package.json
 "scripts": {
