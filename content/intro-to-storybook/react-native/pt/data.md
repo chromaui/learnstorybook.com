@@ -7,6 +7,7 @@ description: 'Aprenda como conectar dados ao seu componente de UI'
 Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação
 
 Este tutorial não foca particularmente na construção de uma aplicação, como tal não vamos aprofundar muito este aspeto. Mas será feito um aparte para olhar para um padrão comum para ligação de dados com componentes conectados.
+
 ## Componentes conectados
 
 Atualmente o nosso componente `TaskList`, conforme escrito, é “apresentativo” no sentido de que não fala com nada externo à sua própria implementação. Precisamos conectá-lo a um provedor de dados para obter dados nele.
@@ -162,7 +163,7 @@ export const TaskList = () => {
 
 ```
 
-"Agora que temos dados reais,obtidos da store Redux, para visualizar no nosso componente, poderíamos tê-lo conectado ao arquivo `App.jsx`. Mas, por enquanto, vamos adiar e continuar nossa jornada orientada a componentes.
+Agora que temos dados reais,obtidos da store Redux, para visualizar no nosso componente, poderíamos tê-lo conectado ao arquivo `App.jsx`. Mas, por enquanto, vamos adiar e continuar nossa jornada orientada a componentes.
 
 ## Fornecendo contexto com decoradores
 
