@@ -65,7 +65,7 @@ Ao executar o Storybook com `yarn storybook:ios`, você deve ver isto:
 
 Á partida, quando inicializado, o template fornece toda a configuração necessária para que possamos começar a desenvolver a nossa aplicação com React Native. No entanto, antes de começarmos a desenvolver o nosso IU do zero, vamos ver como funciona o Storybook dentro de um aplicativo React Native e o que há de diferente.
 
-Com o React Native, o Storybook é um componente que você pode renderizar no seu aplicativo, ao contrário de outras versoões do Storybook, onde você pode executar o Storybook como um aplicativo separado de forma independente.
+Com o React Native, o Storybook é um componente que você pode renderizar no seu aplicativo, ao contrário de outras versões do Storybook, onde você pode executar o Storybook como um aplicativo separado de forma independente.
 
 Por causa dessa distinção, precisamos de uma maneira de alternar entre o aplicativo e o Storybook. Para fazer isso, usamos variáveis ​​de ambiente e veremos isso rapidamente agora.
 
