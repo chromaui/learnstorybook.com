@@ -4,7 +4,7 @@ tocTitle: 'Get started'
 description: 'Set up Storybook in your development environment'
 ---
 
-Storybook helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React Native; other editions exist for [React](https://storybook.js.org/tutorials/intro-to-storybook/react/en/get-started/), [Vue](https://storybook.js.org/tutorials/intro-to-storybook/vue/en/get-started), [Angular](https://storybook.js.org/tutorials/intro-to-storybook/angular/en/get-started), [Svelte](https://storybook.js.org/tutorials/intro-to-storybook/svelte/en/get-started) and [Ember](https://storybook.js.org/tutorials/intro-to-storybook/ember/en/get-started).
+Storybook helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React Native; other editions exist for [React](/intro-to-storybook/react/en/get-started/), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -15,8 +15,8 @@ We’ll need to follow a few steps to get started. In this tutorial we'll be usi
 Before we get started, there are some things we’ll need to consider:
 
 - To help you throughout the tutorial, you’ll need a phone or a simulator already configured to allow you to run the application. For more information see the Expo documentation on [running on IOS](https://docs.expo.dev/workflow/ios-simulator/) and [Android](https://docs.expo.dev/workflow/android-studio-emulator/).
-- This tutorial will be focused on IOS/Android. React Native can target other platforms that this tutorial won't cover.
-- You’ll also need [nodejs](https://nodejs.org/en/download/) configured on your machine.
+- This tutorial will be focused on iOS/Android. React Native can target other platforms that this tutorial won't cover.
+- You’ll also need [Node.js](https://nodejs.org/en/download/) configured on your machine.
 
 First download the template we've created for this tutorial.
 
@@ -37,16 +37,16 @@ You can pick ios or android and run either and make sure the app is working.
 
 ```shell:clipboard=false
 
-# Run the application on IOS
+# Run the application on iOS
 yarn ios
 
 # Run the application on Android
 yarn android
 
-# Run Storybook on ios
+# Run Storybook on iOS
 yarn storybook:ios
 
-# Run Storybook on android
+# Run Storybook on Android
 yarn storybook:android
 ```
 
@@ -73,18 +73,20 @@ Storybook in React Native is a component that you can render in your app, as opp
 Because of this distinction we need a way to switch between the app and Storybook. To do this we use environment variables, and we'll go over that quickly now.
 
 <div class="aside">
-💡 See the <a href="https://docs.expo.dev/guides/environment-variables/">expo documentation</a> for more details on how to use environment variables.
+
+💡 See the [Expo documentation](https://docs.expo.dev/guides/environment-variables/) for more details on how to use environment variables.
+
 </div>
 
-In our project there is a configuration file for expo called `app.config.js` this file is where we configure things like our app name and constants that we can use throughout the app.
+In our project there is a configuration file for Expo called `app.config.js`, this file is where we configure things like our app name and constants that we can use throughout the app.
 
 In this file we set the `storybookEnabled` constant to the value of the environment variable `STORYBOOK_ENABLED` which we'll go over shortly.
 
 ```js:title=app.config.js
 export default ({ config }) => ({
   ...config,
-  name: "Storybook Tutorial Template",
-  slug: "storybook-tutorial-template",
+  name: 'Storybook Tutorial Template',
+  slug: 'storybook-tutorial-template',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
@@ -114,10 +116,12 @@ export default AppEntryPoint;
 In the `package.json` file, we see a few new Storybook scripts. We use these to pass that environment variable to our application, which swaps the entry point to the Storybook UI using `cross-env` to make sure this works on all platforms (Windows/macOS/Linux).
 
 ```json:title=package.json
-"scripts": {
-  "storybook": "cross-env STORYBOOK_ENABLED='true' expo start",
-  "storybook:ios": "cross-env STORYBOOK_ENABLED='true' expo ios",
-  "storybook:android": "cross-env STORYBOOK_ENABLED='true' expo android"
+{
+  "scripts": {
+    "storybook": "cross-env STORYBOOK_ENABLED='true' expo start",
+    "storybook:ios": "cross-env STORYBOOK_ENABLED='true' expo ios",
+    "storybook:android": "cross-env STORYBOOK_ENABLED='true' expo android"
+  }
 }
 ```
 
