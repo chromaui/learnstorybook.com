@@ -17,7 +17,7 @@ We’ll build our UI following a [Component-Driven Development](https://www.comp
 
 As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
-This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/visual-test-driven-development)”.
+This process is similar to [Test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) (TDD) that we can call “[Visual TDD](https://www.chromatic.com/blog/how-to-run-visual-regression-tests-in-2023/)”.
 
 ## Get set up
 
@@ -25,10 +25,10 @@ Let's open `.storybook/main.js` and take a look
 
 ```js:title=.storybook/main.js
 module.exports = {
-  stories: ["../components/**/*.stories.?(ts|tsx|js|jsx)"],
+  stories: ['../components/**/*.stories.?(ts|tsx|js|jsx)'],
   addons: [
-    "@storybook/addon-ondevice-controls",
-    "@storybook/addon-ondevice-actions",
+    '@storybook/addon-ondevice-controls',
+    '@storybook/addon-ondevice-actions',
   ],
 };
 ```
@@ -48,8 +48,8 @@ Now let’s create the task component and its accompanying story file: `componen
 We’ll begin with a basic implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```jsx:title=components/Task.jsx
-import { StyleSheet, TextInput, View } from "react-native";
-import { styles } from "./styles";
+import { StyleSheet, TextInput, View } from 'react-native';
+import { styles } from './styles';
 
 export const Task = ({
   task: { id, title, state },
@@ -67,33 +67,33 @@ export const Task = ({
 Now add the story file:
 
 ```jsx:title=components/Task.stories.jsx
-import { Task } from "./Task";
+import { Task } from './Task';
 
 export default {
-  title: "Task",
+  title: 'Task',
   component: Task,
   argTypes: {
-    onPinTask: { action: "onPinTask" },
-    onArchiveTask: { action: "onArchiveTask" },
+    onPinTask: { action: 'onPinTask' },
+    onArchiveTask: { action: 'onArchiveTask' },
   },
 };
 
 export const Default = {
   args: {
     task: {
-      id: "1",
-      title: "Test Task",
-      state: "TASK_INBOX"
+      id: '1',
+      title: 'Test Task',
+      state: 'TASK_INBOX',
     },
   },
 };
 
 export const Pinned = {
-  args: { task: { ...Default.args.task, state: "TASK_PINNED" } },
+  args: { task: { ...Default.args.task, state: 'TASK_PINNED' } },
 };
 
 export const Archived = {
-  args: { task: { ...Default.args.task, state: "TASK_ARCHIVED" } },
+  args: { task: { ...Default.args.task, state: 'TASK_ARCHIVED' } },
 };
 ```
 
@@ -130,9 +130,9 @@ Now we can start building out our component to match the designs.
 The component is still basic at the moment. First write the code that achieves the design without going into too much detail:
 
 ```jsx:title=components/Task.jsx
-import { MaterialIcons } from "@expo/vector-icons";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
-import { styles } from "./styles";
+import { MaterialIcons } from '@expo/vector-icons';
+import { StyleSheet, TextInput, TouchableOpacity, View } from 'react-native';
+import { styles } from './styles';
 
 export const Task = ({
   task: { id, title, state },

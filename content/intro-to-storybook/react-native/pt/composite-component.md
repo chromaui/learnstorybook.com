@@ -4,11 +4,11 @@ tocTitle: 'Componente Composto'
 description: 'Construção de um componente composto a partir de componentes mais simples'
 ---
 
-No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
+No capítulo anterior, construímos o nosso primeiro componente, neste capítulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.
 
 ## Lista de tarefas
 
-A caixa de tarefas enfatiza as tarefas fixadas, posicionando-as acima das tarefas padrão. Isso produz duas variações de `TaskList` para as quais você precisa criar histórias: itens padrão e itens padrão e fixados.
+A lista de tarefas enfatiza as tarefas fixadas, posicionando-as acima das tarefas padrão. Isso produz duas variações de `TaskList` para as quais você precisa criar histórias: itens padrão e itens padrão e fixados.
 
 ![tarefas padrão e fixadas](/intro-to-storybook/tasklist-states-1.png)
 
@@ -20,11 +20,11 @@ Como os dados da `Task` podem ser enviados de forma assíncrona, **também** pre
 
 Um componente composto não é muito diferente do que contém os componentes básicos. Crie um componente `TaskList` e um arquivo de história em conjunto: `components/TaskList.jsx` e `components/TaskList.stories.jsx`.
 
-Comece com uma implementação aproximada da `TaskList`. Você precisará importar o componente `Task` anterior e passar os atributos e ações como `inputs`.
+Comece com uma implementação aproximada da `TaskList`. Você precisará importar o componente `Task` que foi criado anteriormente e passar os atributos e ações como `inputs`.
 
 ```jsx:title=components/TaskList.jsx
-import { Task } from "./Task";
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { Task } from './Task';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import { styles } from './styles';
 
 export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }) => {
@@ -66,13 +66,13 @@ export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }) => {
 Em seguida, crie os estados de teste da `Tasklist` no arquivo da história.
 
 ```jsx:title=components/TaskList.stories.jsx
-import { TaskList } from "./TaskList";
-import { Default as TaskStory } from "./Task.stories";
-import { View } from "react-native";
+import { TaskList } from './TaskList';
+import { Default as TaskStory } from './Task.stories';
+import { View } from 'react-native';
 
 export default {
   component: TaskList,
-  title: "TaskList",
+  title: 'TaskList',
   decorators: [
     (Story) => (
       <View style={{ padding: 42, flex: 1 }}>
@@ -81,8 +81,8 @@ export default {
     ),
   ],
   argTypes: {
-    onPinTask: { action: "onPinTask" },
-    onArchiveTask: { action: "onArchiveTask" },
+    onPinTask: { action: 'onPinTask' },
+    onArchiveTask: { action: 'onArchiveTask' },
   },
 };
 
@@ -91,23 +91,21 @@ export const Default = {
     // Shaping the stories through args composition.
     // The data was inherited from the Default story in Task.stories.js.
     tasks: [
-      { ...TaskStory.args.task, id: "1", title: "Task 1" },
-      { ...TaskStory.args.task, id: "2", title: "Task 2" },
-      { ...TaskStory.args.task, id: "3", title: "Task 3" },
-      { ...TaskStory.args.task, id: "4", title: "Task 4" },
-      { ...TaskStory.args.task, id: "5", title: "Task 5" },
-      { ...TaskStory.args.task, id: "6", title: "Task 6" },
+      { ...TaskStory.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStory.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStory.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStory.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStory.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStory.args.task, id: '6', title: 'Task 6' },
     ],
   },
 };
 
 export const WithPinnedTasks = {
   args: {
-    // Shaping the stories through args composition.
-    // Inherited data coming from the Default story.
     tasks: [
       ...Default.args.tasks.slice(0, 5),
-      { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" },
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
     ],
   },
 };
@@ -130,13 +128,14 @@ export const Empty = {
 ```
 
 <div class="aside">
-Os <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decoradores</b></a> permitem que você envolva histórias com funcionalidades adicionais. Neste caso, estamos a usar um decorador para adicionar preenchimento ao redor da lista para facilitar a verificação visual. Mas podem ser usados para envolver as histórias definidas em "providers", nomeadamente, bibliotecas ou componentes que usam o contexto React.
-</div>
 
+[**Decoradores**](https://storybook.js.org/docs/react/writing-stories/decorators) permitem que você envolva histórias com funcionalidades adicionais. Neste caso, estamos a usar um decorador para adicionar preenchimento ao redor da lista para facilitar a verificação visual. Mas podem ser usados para envolver as histórias definidas em "providers", nomeadamente, bibliotecas ou componentes que usam o contexto React.
+
+</div>
 
 `TaskStory.args.task` fornece a forma de uma `Task` que criamos e exportamos do arquivo `Task.stories.js`. Da mesma forma, os `argTypes` que adicionamos para `onPinTask` e `onArchiveTask` dizem ao Storybook para fornecer ações (callbacks simulados) que o componente `TaskList` precisa.
 
-Visto que adicionámos um novo arquivo de história, precisamos executar `yarn storybook-generate` novamente para gerar novamente o arquivo `storybook.require.js`.
+Se a sua história não surgir automaticamente, tente recarregar a aplicação. Se isso não functionar, execute o commando `yarn storybook-generate` para gerar o ficheiro `storybook.requires` novamente.
 
 Agora verifique o Storybook para as novas histórias da `TaskList`.
 
@@ -151,9 +150,9 @@ Para o caso de carregamento, vamos criar um novo componente que exibirá a anima
 Crie um novo arquivo chamado `LoadingRow.jsx` com o seguinte conteúdo:
 
 ```jsx:title=components/LoadingRow.jsx
-import { useState, useEffect } from "react";
-import { Animated, Text, View, Easing, StyleSheet } from "react-native";
-import { styles } from "./styles";
+import { useState, useEffect } from 'react';
+import { Animated, Text, View, Easing, StyleSheet } from 'react-native';
+import { styles } from './styles';
 
 const GlowView = ({ style, children }) => {
   const [glowAnim] = useState(new Animated.Value(0.3));
@@ -206,11 +205,11 @@ export const LoadingRow = () => (
 E atualize `TaskList.jsx` dessa forma:
 
 ```jsx:title=components/TaskList.jsx
-import { Task } from "./Task";
-import { FlatList, StyleSheet, Text, View } from "react-native";
-import { LoadingRow } from "./LoadingRow";
-import { MaterialIcons } from "@expo/vector-icons";
-import { styles } from './styles'
+import { Task } from './Task';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { LoadingRow } from './LoadingRow';
+import { MaterialIcons } from '@expo/vector-icons';
+import { styles } from './styles';
 
 export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }) => {
   const events = {
@@ -244,8 +243,8 @@ export const TaskList = ({ loading, tasks, onPinTask, onArchiveTask }) => {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === "TASK_PINNED"),
-    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <View style={styles.listItems}>

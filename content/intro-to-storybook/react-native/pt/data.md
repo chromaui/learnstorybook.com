@@ -20,7 +20,7 @@ Adicione as dependências necessárias ao seu projeto com:
 yarn add @reduxjs/toolkit react-redux
 ```
 
-Primeiro, construiremos uma store Redux simples que responde a ações que alteram o estado da tarefa em um arquivo chamado `store.js` na raiz do nosso projeto.
+Primeiro, construiremos uma store Redux simples que responde a ações que alteram o estado da tarefa num arquivo chamado `store.js` na raiz do nosso projeto.
 
 ```js:title=store.js
 /* A simple redux store/actions/reducer implementation.
@@ -80,26 +80,26 @@ const store = configureStore({
 export default store;
 ```
 
-Em seguida, atualizaremos nosso componente `TaskList` para conectar-se à store Redux e renderizar as tarefas nas quais estamos interessados:
+Em seguida, atualizamos o nosso componente `TaskList` para conectar-se à store Redux e renderizar as tarefas nas quais estamos interessados:
 
 ```js:title=components/TaskList.jsx
-import { Task } from "./Task";
-import { FlatList, Text, View } from "react-native";
-import { LoadingRow } from "./LoadingRow";
-import { MaterialIcons } from "@expo/vector-icons";
-import { styles } from "./styles";
-import { useDispatch, useSelector } from "react-redux";
-import { updateTaskState } from "../store";
+import { Task } from './Task';
+import { FlatList, Text, View } from 'react-native';
+import { LoadingRow } from './LoadingRow';
+import { MaterialIcons } from '@expo/vector-icons';
+import { styles } from './styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateTaskState } from '../store';
 
 export const TaskList = () => {
   // We're retrieving our state from the store
   const tasks = useSelector((state) => {
     const tasksInOrder = [
-      ...state.taskbox.tasks.filter((t) => t.state === "TASK_PINNED"),
-      ...state.taskbox.tasks.filter((t) => t.state !== "TASK_PINNED"),
+      ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
+      ...state.taskbox.tasks.filter((t) => t.state !== 'TASK_PINNED'),
     ];
     const filteredTasks = tasksInOrder.filter(
-      (t) => t.state === "TASK_INBOX" || t.state === "TASK_PINNED"
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
     );
     return filteredTasks;
   });
@@ -110,12 +110,12 @@ export const TaskList = () => {
 
   const pinTask = (value) => {
     // We're dispatching the Pinned event back to our store
-    dispatch(updateTaskState({ id: value, newTaskState: "TASK_PINNED" }));
+    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
   };
 
   const archiveTask = (value) => {
     // We're dispatching the Archive event back to our store
-    dispatch(updateTaskState({ id: value, newTaskState: "TASK_ARCHIVED" }));
+    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
   };
 
   if (status === "loading") {
@@ -160,7 +160,6 @@ export const TaskList = () => {
     </View>
   );
 };
-
 ```
 
 Agora que temos dados reais,obtidos da store Redux, para visualizar no nosso componente, poderíamos tê-lo conectado ao arquivo `App.jsx`. Mas, por enquanto, vamos adiar e continuar nossa jornada orientada a componentes.
@@ -171,27 +170,27 @@ Com esta alteração as nossas histórias do Storybook pararam de funcionar, vis
 
 <img src="/intro-to-storybook/react-native-broken-tasklist.png" alt="error screen" height="600">
 
-Poderíamos usar várias abordagens para resolver este problema. Mas, visto que a nossa aplicação é bastante simples, podemos usar um decorador, tal como fizemos no [capítulo anterior](/intro-to-storybook/react-native/en/composite-component), e fornecer uma store simulada – em nossas histórias do Storybook:
+Poderíamos usar várias abordagens para resolver este problema. Mas, visto que a nossa aplicação é bastante simples, podemos usar um decorador, tal como fizemos no [capítulo anterior](/intro-to-storybook/react-native/pt/composite-component), e fornecer uma store simulada – nas nossas histórias do Storybook:
 
 ```js:title=src/components/TaskList.stories.jsx
-import { TaskList } from "./TaskList";
-import { Default as TaskStory } from "./Task.stories";
-import { View } from "react-native";
-import { Provider } from "react-redux";
+import { TaskList } from './TaskList';
+import { Default as TaskStory } from './Task.stories';
+import { View } from 'react-native';
+import { Provider } from 'react-redux';
 
-import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 // A super-simple mock of the state of the store
 const MockedState = {
   tasks: [
-    { ...TaskStory.args.task, id: "1", title: "Task 1" },
-    { ...TaskStory.args.task, id: "2", title: "Task 2" },
-    { ...TaskStory.args.task, id: "3", title: "Task 3" },
-    { ...TaskStory.args.task, id: "4", title: "Task 4" },
-    { ...TaskStory.args.task, id: "5", title: "Task 5" },
-    { ...TaskStory.args.task, id: "6", title: "Task 6" },
+    { ...TaskStory.args.task, id: '1', title: 'Task 1' },
+    { ...TaskStory.args.task, id: '2', title: 'Task 2' },
+    { ...TaskStory.args.task, id: '3', title: 'Task 3' },
+    { ...TaskStory.args.task, id: '4', title: 'Task 4' },
+    { ...TaskStory.args.task, id: '5', title: 'Task 5' },
+    { ...TaskStory.args.task, id: '6', title: 'Task 6' },
   ],
-  status: "idle",
+  status: 'idle',
   error: null,
 };
 
@@ -201,7 +200,7 @@ const Mockstore = ({ taskboxState, children }) => (
     store={configureStore({
       reducer: {
         taskbox: createSlice({
-          name: "taskbox",
+          name: 'taskbox',
           initialState: taskboxState,
           reducers: {
             updateTaskState: (state, action) => {
@@ -222,7 +221,7 @@ const Mockstore = ({ taskboxState, children }) => (
 
 export default {
   component: TaskList,
-  title: "TaskList",
+  title: 'TaskList',
   decorators: [
     (Story) => (
       <View style={{ padding: 42, flex: 1 }}>
@@ -231,8 +230,8 @@ export default {
     ),
   ],
   argTypes: {
-    onPinTask: { action: "onPinTask" },
-    onArchiveTask: { action: "onArchiveTask" },
+    onPinTask: { action: 'onPinTask' },
+    onArchiveTask: { action: 'onArchiveTask' },
   },
 };
 
@@ -244,12 +243,12 @@ export const Default = {
     // Shaping the stories through args composition.
     // The data was inherited from the Default story in Task.stories.js.
     tasks: [
-      { ...TaskStory.args.task, id: "1", title: "Task 1" },
-      { ...TaskStory.args.task, id: "2", title: "Task 2" },
-      { ...TaskStory.args.task, id: "3", title: "Task 3" },
-      { ...TaskStory.args.task, id: "4", title: "Task 4" },
-      { ...TaskStory.args.task, id: "5", title: "Task 5" },
-      { ...TaskStory.args.task, id: "6", title: "Task 6" },
+      { ...TaskStory.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStory.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStory.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStory.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStory.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStory.args.task, id: '6', title: 'Task 6' },
     ],
   },
 };
@@ -259,7 +258,7 @@ export const WithPinnedTasks = {
     (story) => {
       const pinnedtasks = [
         ...MockedState.tasks.slice(0, 5),
-        { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" },
+        { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
       ];
 
       return (
@@ -279,7 +278,7 @@ export const WithPinnedTasks = {
     // Inherited data coming from the Default story.
     tasks: [
       ...Default.args.tasks.slice(0, 5),
-      { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" },
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
     ],
   },
 };
@@ -290,7 +289,7 @@ export const Loading = {
       <Mockstore
         taskboxState={{
           ...MockedState,
-          status: "loading",
+          status: 'loading',
         }}
       >
         {story()}

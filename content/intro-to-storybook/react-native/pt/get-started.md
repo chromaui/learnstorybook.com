@@ -4,7 +4,7 @@ tocTitle: 'Introdução'
 description: 'Configurando o Storybook em seu ambiente de desenvolvimento'
 ---
 
-O Storybook ajuda você a criar componentes de interface do usuário isolados da lógica de negócios e do contexto do seu aplicativo. Esta edição do tutorial Introdução ao Storybook é para React Native; existem outras edições para [React](https://storybook.js.org/tutorials/intro-to-storybook/react/pt/get-started/), [Vue](https://storybook.js.org/tutorials/intro-to-storybook/vue/pt/get-started/), [Angular](https://storybook.js.org/tutorials/intro-to-storybook/angular/pt/get-started/), [Svelte](https://storybook.js.org/tutorials/intro-to-storybook/svelte/en/get-started) e [Ember](https://storybook.js.org/tutorials/intro-to-storybook/ember/en/get-started).
+O Storybook ajuda você a criar componentes de interface do usuário isolados da lógica de negócios e do contexto do seu aplicativo. Esta edição do tutorial Introdução ao Storybook é para React Native; existem outras edições para [React](/intro-to-storybook/react/pt/get-started/), [Vue](/intro-to-storybook/vue/pt/get-started/), [Angular](/intro-to-storybook/angular/pt/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started) e [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook e seu aplicativo](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -13,9 +13,10 @@ O Storybook ajuda você a criar componentes de interface do usuário isolados da
 Precisamos seguir alguns passos para começar. Neste tutorial, usaremos este [template](https://github.com/chromaui/intro-storybook-react-native-template) onde já configuramos um aplicativo React Native usando o [Expo](https://expo.io/tools) e adicionamos o [Storybook](https://storybook.js.org/) ao projeto.
 
 Antes de prosseguir-mos, alguns tópicos importantes que temos que ter em mente:
-- Para ajudá-lo ao longo do tutorial, você precisará de um telefone ou simulador previamente configurado para permitir a execução do aplicativo. Para obter mais informações, consulte a documentação da Expo sobre execução em [rodando no IOS](https://docs.expo.dev/workflow/ios-simulator/) e [Android](https://docs.expo.dev/workflow/android-studio-emulator/).
-- Este tutorial será focado em IOS/Android. O React Native pode ter como alvo outras plataformas que este tutorial não cobrirá.
-- Você  precisará do [nodejs](https://nodejs.org/en/download/) configurado no seu ambiente de desenvolvimento.
+
+- Para ajudá-lo ao longo do tutorial, você precisará de um telefone ou simulador previamente configurado para permitir a execução do aplicativo. Para obter mais informações, consulte a documentação do Expo para configurar [iOS](https://docs.expo.dev/workflow/ios-simulator/) e [Android](https://docs.expo.dev/workflow/android-studio-emulator/).
+- Este tutorial será focado em iOS/Android. O React Native pode ter como alvo outras plataformas que este tutorial não cobrirá.
+- Você precisará do [Node.js](https://nodejs.org/en/download/) configurado no seu ambiente de desenvolvimento.
 
 Comece por fazer o download do template que criámos para este tutorial:
 
@@ -36,21 +37,23 @@ Você pode escolher ios ou android e executar qualquer um deles e verificar se o
 
 ```shell:clipboard=false
 
-# Run the application on IOS
+# Run the application on iOS
 yarn ios
 
 # Run the application on Android
 yarn android
 
-# Run Storybook on ios
+# Run Storybook on iOS
 yarn storybook:ios
 
-# Run Storybook on android
+# Run Storybook on Android
 yarn storybook:android
 ```
 
 <div class="aside">
-💡 Ao longo desta versão do tutorial, vai ser usado o Yarn para executar a maioria dos comandos. Se estiveres a seguir este tutorial e não tiveres o Yarn configurado, podes substituir os comandos para o teu gestor de pacotes preferido (por exemplo, [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/)). 
+
+💡 Ao longo desta versão do tutorial, vai ser usado o [Yarn](https://yarnpkg.com/) para executar a maioria dos comandos. Se estiveres a seguir este tutorial e não tiveres o Yarn configurado, podes substituir os comandos para o teu gestor de pacotes preferido (por exemplo, [npm](https://www.npmjs.com/), [pnpm](https://pnpm.io/)).
+
 </div>
 
 Ao executar o aplicativo com `yarn ios`, você deve ver isso renderizado no dispositivo:
@@ -70,25 +73,27 @@ Com o React Native, o Storybook é um componente que você pode renderizar no se
 Por causa dessa distinção, precisamos de uma maneira de alternar entre o aplicativo e o Storybook. Para fazer isso, usamos variáveis ​​de ambiente e veremos isso rapidamente agora.
 
 <div class="aside">
-💡 Consulte a <a href="https://docs.expo.dev/guides/environment-variables/">documentação do expo</a> para obter mais detalhes sobre como usar variáveis ​​de ambiente.
+
+💡 Consulte a [documentação do Expo](https://docs.expo.dev/guides/environment-variables/) para obter mais detalhes sobre como usar variáveis ​​de ambiente.
+
 </div>
 
-Em nosso projeto existe um arquivo de configuração para expo chamado `app.config.js` este arquivo é onde configuramos coisas como o nome do nosso aplicativo e constantes que podemos usar em todo o aplicativo.
+No nosso projeto existe um arquivo de configuração para Expo chamado `app.config.js`, este arquivo é onde configuramos coisas como o nome do nosso aplicativo e constantes que podemos usar em todo o aplicativo.
 
-Isso nos permite acessar a variável `storybookEnabled` para o valor da variável de ambiente `STORYBOOK_ENABLED`, que veremos em breve.
+E é aqui que configuramos a variável `storybookEnabled` com o valor obtido da variável de ambiente `STORYBOOK_ENABLED`, que veremos em breve como fazer.
 
 ```js:title=app.config.js
 export default ({ config }) => ({
   ...config,
-  name: "Storybook Tutorial Template",
-  slug: "storybook-tutorial-template",
+  name: 'Storybook Tutorial Template',
+  slug: 'storybook-tutorial-template',
   extra: {
     storybookEnabled: process.env.STORYBOOK_ENABLED,
   },
 });
 ```
 
-Isso nos permite acessar a variável `storybookEnabled` em nosso aplicativo usando o pacote `expo-constants` e usamos isso para determinar se renderizamos o Storybook ou seu aplicativo.
+Isso nos permite acessar a variável `storybookEnabled` em nosso aplicativo usando a biblioteca `expo-constants` e usamos isso para determinar se renderizamos o Storybook ou seu aplicativo.
 
 ```jsx:title=App.js
 import Constants from 'expo-constants';
@@ -108,17 +113,19 @@ if (Constants.expoConfig.extra.storybookEnabled === 'true') {
 export default AppEntryPoint;
 ```
 
-Em package.json, vemos alguns scripts do Storybook. Nós os usamos para passar essa variável de ambiente para nosso aplicativo e executar algumas configurações.
+Podemos verificar no nosso ficheiro `package.json` que temos alguns scripts novos vindos do Storybook. Estes scripts são usados para passar os valores da variável de ambiente para a aplicação, que vai ser usada para determinar se o Storybook deve ser renderizado ou não. Tudo isto usando a biblioteca `cross-env` para garantir que as variáveis de ambiente funcionam em todos os sistemas operativos (Windows, MacOS, Linux).
 
 ```json:title=package.json
-"scripts": {
-  "storybook": "sb-rn-get-stories && STORYBOOK_ENABLED='true' expo start",
-  "storybook:ios": "sb-rn-get-stories && STORYBOOK_ENABLED='true' expo ios",
-  "storybook:android": "sb-rn-get-stories && STORYBOOK_ENABLED='true' expo android"
+{
+  "scripts": {
+    "storybook": "cross-env STORYBOOK_ENABLED='true' expo start",
+    "storybook:ios": "cross-env STORYBOOK_ENABLED='true' expo ios",
+    "storybook:android": "cross-env STORYBOOK_ENABLED='true' expo android"
+  }
 }
 ```
 
-É aqui que nossa variável de ambiente `STORYBOOK_ENABLED` é definida como true, o que informa nosso aplicativo para renderizar o Storybook em vez de nosso aplicativo.
+É aqui que nossa variável de ambiente `STORYBOOK_ENABLED` é definida como true, o que informa nosso aplicativo para renderizar o Storybook em vez da nossa aplicação.
 
 <div class="aside">
 💡 Existem outras maneiras de configurar o Storybook, esta é apenas a maneira mais simples de começar.
@@ -132,19 +139,19 @@ Nesta fase, é seguro adicionar nossos arquivos a um repositório local. Execute
 git init
 ```
 
-Seguido pela:
+Seguido por:
 
 ```shell
 git add .
 ```
 
-Então:
+E em seguida:
 
 ```shell
 git commit -m "first commit"
 ```
 
-E finalmente:
+Finalmente:
 
 ```shell
 git branch -M main

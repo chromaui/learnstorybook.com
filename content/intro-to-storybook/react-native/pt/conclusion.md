@@ -22,7 +22,7 @@ Pretende saber mais? Aqui ficam alguns recursos que irão ajudar.
 
 ## Quem fez o tutorial de introdução ao Storybook?
 
-Este tutorial foi contribuído por [Daniel Williams](https://github.com/dannyhw) em colaboração com a equipe [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). O tutorial foi inspirado no tutorial React [Tutorial React](https://storybook.js.org/tutorials/intro-to-storybook/react/en/get-started/).
+Este tutorial foi contribuído por [Daniel Williams](https://github.com/dannyhw) em colaboração com a equipe [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook). O tutorial foi inspirado pelo [tutorial de React](/intro-to-storybook/react/en/get-started/).
 
 Quer mais tutoriais e artigos como este? Inscreva-se na lista de discussão do Storybook.
 
