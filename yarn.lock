@@ -3062,10 +3062,10 @@
     core-js "^3.8.2"
     global "^4.4.0"
 
-"@storybook/components-marketing@^2.2.1":
-  version "2.2.1"
-  resolved "https://registry.npmjs.org/@storybook/components-marketing/-/components-marketing-2.2.1.tgz#20063cc688b453ea4fd3f2b71487b20b8b3a3325"
-  integrity sha512-ucwRIyQbKAwu2cp66sP+rK8wwaLRBuJKE2ZsZgdJOeOGwKqW+Lotpj34fdVEavyjHtLKC9jH+ZlZDALM+PYm6w==
+"@storybook/components-marketing@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.npmjs.org/@storybook/components-marketing/-/components-marketing-2.3.0.tgz#7ab322138084e62ad869970aa74791b7522c1da8"
+  integrity sha512-7xjYyWcDyU8cBe6sCLoJoBQvW8llyuPqrEciP9BQPkEFYzacekTen1W8pcraXfiqSMMNq/6INinr4lTwQzl0KA==
   dependencies:
     "@docsearch/react" "^3.1.0"
     "@emotion/weak-memoize" "^0.2.5"
