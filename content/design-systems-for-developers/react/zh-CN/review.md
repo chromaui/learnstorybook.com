@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     # the list of steps that the action will go through
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - run: yarn
       #- run: yarn build-storybook
       - uses: chromaui/action@v1
