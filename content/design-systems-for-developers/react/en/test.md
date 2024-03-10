@@ -182,7 +182,7 @@ jobs:
   interaction-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           #👇 Sets the version of Node.js to use
@@ -203,7 +203,7 @@ jobs:
     runs-on: ubuntu-latest
     # The list of steps that the action will go through
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           #👇 Fetches all history so Chromatic can compare against previous builds
           fetch-depth: 0
