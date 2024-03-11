@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Eyebrow, Nav, SubNav, SubNavRight, SubNavLinkList } from '@storybook/components-marketing';
+import { Nav, SubNav, SubNavRight, SubNavLinkList } from '@storybook/components-marketing';
 import { styled } from '@storybook/theming';
 
 const ALGOLIA_API_KEY = process.env.GATSBY_ALGOLIA_API_KEY;
@@ -30,17 +30,12 @@ const HeaderWrapper = styled.header`
   top: 0px;
 `;
 
-function Header({ githubStars, inverse, latestPost, subNav, versionString }) {
+function Header({ githubStars, inverse, subNav, versionString }) {
   return (
     <HeaderWrapper>
-      <Eyebrow
-        githubStarCount={githubStars}
-        inverse={inverse}
-        label={latestPost.title}
-        link={latestPost.url}
-      />
       <Nav
         apiKey={ALGOLIA_API_KEY}
+        githubStarCount={githubStars}
         inverse={inverse}
         monochrome={inverse}
         version={versionString}
@@ -60,10 +55,6 @@ function Header({ githubStars, inverse, latestPost, subNav, versionString }) {
 Header.propTypes = {
   githubStars: PropTypes.number.isRequired,
   inverse: PropTypes.bool,
-  latestPost: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
-  }).isRequired,
   subNav: PropTypes.node,
   versionString: PropTypes.string.isRequired,
 };

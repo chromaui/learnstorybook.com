@@ -56,10 +56,6 @@ function Story(args) {
 export const Default = Story.bind({});
 Default.args = {
   githubStars: 99999,
-  latestPost: {
-    title: 'Why Storybook in 2022?',
-    url: 'https://storybook.js.org/blog/why-storybook-in-2022',
-  },
   subNav: 'default',
   versionString: '6.5',
 };
