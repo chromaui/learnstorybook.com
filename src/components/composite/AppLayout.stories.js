@@ -112,10 +112,6 @@ Default.args = {
     },
     dxData: {
       githubStars: 99999,
-      latestPost: {
-        title: 'Why Storybook in 2022?',
-        url: 'https://storybook.js.org/blog/why-storybook-in-2022',
-      },
       versionString: '6.5',
       subscriberCount: 9999,
     },

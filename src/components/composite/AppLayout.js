@@ -36,7 +36,7 @@ const Main = styled('main', {
   ${(props) =>
     props.includePaddingTop &&
     css`
-      padding-top: ${4 + 9.5}rem;
+      padding-top: ${4 + 7}rem;
     `};
   padding-bottom: 4rem;
 `;
@@ -91,7 +91,6 @@ export function PureAppLayout({
           <Header
             githubStars={dxData.githubStars}
             inverse={inverseHeader}
-            latestPost={dxData.latestPost}
             subNav={subNav}
             versionString={dxData.latestVersion}
           />
@@ -134,10 +133,6 @@ function AppLayout(props) {
       }
       dxData {
         githubStars
-        latestPost {
-          title
-          url
-        }
         latestVersion
         subscriberCount
       }
@@ -170,10 +165,6 @@ PureAppLayout.propTypes = {
   data: PropTypes.shape({
     dxData: PropTypes.shape({
       githubStars: PropTypes.number.isRequired,
-      latestPost: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-      }).isRequired,
       latestVersion: PropTypes.string.isRequired,
       subscriberCount: PropTypes.number.isRequired,
     }).isRequired,

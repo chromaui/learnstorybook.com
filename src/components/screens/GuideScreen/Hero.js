@@ -19,12 +19,8 @@ const HeroWrapper = styled.div`
   padding-left: ${spacing.padding.medium}px;
   padding-right: ${spacing.padding.medium}px;
 
-  @media (min-width: ${marketingStyles.breakpoints[0]}px) {
-    padding-top: ${9.5 + 2}rem;
-  }
-
   @media (min-width: ${breakpoint * 1.5}px) {
-    padding-top: ${9.5 + 4}rem;
+    padding-top: ${7 + 4}rem;
     padding-bottom: 180px;
     padding-left: 0;
     padding-right: 0;

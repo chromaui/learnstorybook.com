@@ -5,10 +5,6 @@ const apiURL = 'https://storybook-dx.netlify.app/.netlify/functions/dx-data';
 
 const DefaultDXData = {
   subscriberCount: 6197,
-  latestPost: {
-    title: 'Community Showcase #5',
-    url: 'https://storybook.js.org/blog/community-showcase-5',
-  },
   npmDownloads: 19889108,
   githubStars: 78998,
   latestVersion: '7.0',
