@@ -16,17 +16,17 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 もっと深く掘り下げたいですか？役に立つリソースを紹介します。
 
-- [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/angular/get-started/introduction)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
+- [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/get-started/install)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
 
-- [**楽しい Storybook のワークフロー**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)では Squarespace や、メジャーリーグサッカー、ディスカバリーネットワーク、 Apollo GraphQL といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
+- [**UIテストのレシピ集**](https://storybook.js.org/blog/ui-testing-playbook/)では Twilio や、Adobe、Peloton、Shopifyといった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
 
 - [**視覚的なテストのハンドブック**](https://storybook.js.org/tutorials/visual-testing-handbook/)では、コンポーネントを Storybook で視覚的にテストする方法を掘り下げています。無料の 31 ページある eBook です。
 
-- [**Storybook Discord**](https://discord.gg/UUt2PJb) では Storybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
+- [**Storybook Discord チャット**](https://discord.gg/UUt2PJb) では Storybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
 
-- [**Storybook ブログ**](https://storybook.js.org/blog)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
+- [**Storybook ブログ**](https://storybook.js.org/blog/)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
 
-## Storybook チュートリアルについて
+## 誰が Intro to Storybook チュートリアルを作成しているのでしょうか？
 
 文書や、コード、製作は [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
 
