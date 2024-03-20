@@ -53,7 +53,7 @@ jobs:
   interaction-and-accessibility:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
@@ -72,7 +72,7 @@ jobs:
   visual-and-composition:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required to retrieve git history
       - name: Install dependencies
@@ -86,7 +86,7 @@ jobs:
   user-flow:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Install dependencies
         run: yarn
       - name: Cypress run
@@ -123,7 +123,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Cache yarn dependencies and cypress
         uses: actions/cache@v2
         id: yarn-cache
@@ -142,7 +142,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v2
         with:
           node-version: '16.x'
@@ -170,7 +170,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required to retrieve git history
       - name: Restore yarn dependencies
@@ -193,7 +193,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Restore yarn dependencies
         uses: actions/cache@v2
         id: yarn-cache

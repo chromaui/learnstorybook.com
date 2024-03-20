@@ -110,7 +110,7 @@ jobs:
     runs-on: ubuntu-latest
     # The list of steps that the action will go through
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
       - run: yarn
 +     - run: yarn test # Adds the test command
         #👇 Adds Chromatic as a step in the workflow
