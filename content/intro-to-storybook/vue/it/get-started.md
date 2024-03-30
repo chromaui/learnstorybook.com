@@ -1,19 +1,19 @@
 ---
-title: 'Storybook for Vue tutorial'
-tocTitle: 'Get started'
-description: 'Set up Vue Storybook in your development environment'
+title: 'Tutorial di Storybook per Vue'
+tocTitle: 'Inizia'
+description: 'Configura Vue Storybook nel tuo ambiente di sviluppo'
 commit: 'e2984d1'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for Vue; other editions exist for [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
+Storybook funziona in parallelo con la tua app in modalità di sviluppo. Ti aiuta a costruire componenti dell'interfaccia utente isolati dalla logica aziendale e dal contesto della tua app. Questa edizione del tutorial Intro to Storybook è per Vue; esistono altre edizioni per [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) ed [Ember](/intro-to-storybook/ember/en/get-started).
 
-![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
+![Storybook e la tua app](/intro-to-storybook/storybook-relationship.jpg)
 
-## Set up Vue Storybook
+## Configura Storybook per React
 
-We'll need to follow a few steps to get the build process set up in our environment. To start with, we want to use [degit](https://github.com/Rich-Harris/degit) to set up our build system. Using this package, you can download "templates" (partially built applications with some default configuration) to help you fast track your development workflow.
+Dovremo seguire alcuni passi per configurare il processo di build nel nostro ambiente. Per iniziare, vogliamo utilizzare [degit](https://github.com/Rich-Harris/degit) per configurare il nostro sistema di build. Utilizzando questo pacchetto, puoi scaricare dei "modelli" (applicazioni parzialmente costruite con alcune configurazioni predefinite) per aiutarti a velocizzare il tuo flusso di lavoro di sviluppo.
 
-Let’s run the following commands:
+Esegui i seguenti comandi:
 
 ```shell:clipboard=false
 # Clone the template
@@ -26,10 +26,10 @@ yarn
 ```
 
 <div class="aside">
-💡 This template contains the necessary styles, assets and bare essential configurations for this version of the tutorial.
+💡 Questo modello contiene gli stili necessari, le risorse e le configurazioni essenziali per questa versione del tutorial.
 </div>
 
-Now we can quickly check that the various environments of our application are working properly:
+Ora possiamo rapidamente verificare che i vari ambienti della nostra applicazione stiano funzionando correttamente:
 
 ```shell:clipboard=false
 # Start the component explorer on port 6006:
@@ -39,36 +39,36 @@ yarn storybook
 yarn dev
 ```
 
-Our main frontend app modalities: component development (Storybook), and the application itself.
+Le principali modalità della nostra app frontend sono: sviluppo di componenti (Storybook) e l'applicazione stessa.
 
-![Main modalities](/intro-to-storybook/app-main-modalities-vue.png)
+![Principali modalità](/intro-to-storybook/app-main-modalities-vue.png)
 
-Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
+A seconda della parte dell'app su cui stai lavorando, potresti voler eseguire uno o più di questi contemporaneamente. Dato che il nostro focus attuale è la creazione di un singolo componente dell'interfaccia utente, continueremo con l'esecuzione di Storybook.
 
-## Commit changes
+## Applica i cambiamenti
 
-At this stage it's safe to add our files to a local repository. Run the following commands to initialize a local repository, add and commit the changes we've done so far.
+A questo punto è sicuro aggiungere i nostri file a un repository locale. Esegui i seguenti comandi per inizializzare un repository locale, aggiungi e applica le modifiche fatte fino ad ora.
 
 ```shell
 git init
 ```
 
-Followed by:
+Seguito da:
 
 ```shell
 git add .
 ```
 
-Then:
+Poi:
 
 ```shell
 git commit -m "first commit"
 ```
 
-And finally:
+E infine:
 
 ```shell
 git branch -M main
 ```
 
-Let's start building our first component!
+Iniziamo a costruire il nostro primo componente!
