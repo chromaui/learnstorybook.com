@@ -7,6 +7,7 @@ Complimenti! Hai creato la tua prima UI in Storybook. Lungo il percorso hai impa
 
 [📕 **Repository GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
+
 [🌎 **Storybook Distribuito**](https://master--5ccbe484c994280020b6d128.chromatic.com)
 
 Storybook è uno strumento potente per React, React Native, Vue, Angular, Svelte e molti altri framework. Ha una fiorente comunità di sviluppatori e una ricchezza di addon. Questa introduzione graffia appena la superficie di ciò che è possibile. Siamo fiduciosi che una volta adottato Storybook, sarai impressionato da quanto sia produttivo costruire UI durevoli.
