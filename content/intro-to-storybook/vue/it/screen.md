@@ -1,17 +1,17 @@
 ---
-title: 'Construct a screen'
-tocTitle: 'Screens'
-description: 'Construct a screen out of components'
+title: 'Costruisci una schermata'
+tocTitle: 'Schermate'
+description: 'Costruisci una schermata da componenti'
 commit: 'af51337'
 ---
 
-We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
+Ci siamo concentrati sulla costruzione di interfacce utente dal basso verso l'alto, partendo da piccole e aggiungendo complessità. Farlo ci ha permesso di sviluppare ogni componente in isolamento, capire le sue esigenze di dati e giocare con esso in Storybook. Tutto senza dover avviare un server o costruire schermate!
 
-In this chapter, we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
+In questo capitolo, continuiamo ad aumentare la sofisticatezza combinando i componenti in una schermata e sviluppando quella schermata in Storybook.
 
-## Nested container components
+## Componenti del contenitore annidati
 
-As our app is straightforward, the screen we’ll build is pretty trivial, simply wrapping the `TaskList` component (which supplies its own data via Pinia) in some layout and pulling a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server). Let's create a presentational `PureInboxScreen.vue` in your `src/components/` folder:
+Siccome la nostra applicazione è semplice, lo schermo che costruiremo è abbastanza banale, semplicemente avvolgendo il componente `TaskList` (che fornisce i propri dati tramite Pinia) in qualche layout e lancia un `errore di primo livello` fuori dallo store (supponendo di impostare quel campo se abbiamo qualche problema di connessione al nostro server). Creiamo un `PureInboxScreen.vue` di presentazione nella cartella `src/components/` :
 
 ```html:title=src/components/PureInboxScreen.vue
 <template>
@@ -44,7 +44,7 @@ export default {
 </script>
 ```
 
-Then, we can create a container, which again grabs the data for the `PureInboxScreen` in `src/components/InboxScreen.vue`:
+Poi, possiamo creare un contenitore, che di nuovo prende i dati per la `PureInboxScreen` in `src/components/InboxScreen.vue`:
 
 ```html:title=src/components/InboxScreen.vue
 <template>
@@ -75,7 +75,7 @@ export default {
 </script>
 ```
 
-Next, we’ll need to update our app’s entry point (`src/main.js`) so that we can wire the store into our component hierarchy reasonably quick:
+Successivamente, dovremo aggiornare il punto di ingresso della nostra app (`src/main.js`) in modo da poter collegare lo store nella nostra gerarchia di componenti velocemente:
 
 ```diff:title=src/main.js
 import { createApp } from 'vue';
@@ -87,7 +87,7 @@ import App from './App.vue';
 + createApp(App).use(createPinia()).mount('#app');
 ```
 
-We also need to change the `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
+Dobbiamo anche cambiare il componente `App` per rendere la `InboxScreen` (alla fine, useremmo un router per scegliere la schermata corretta, ma non preoccupiamoci di questo ora):
 
 ```html:title=src/App.vue
 <script setup>
@@ -105,13 +105,15 @@ import InboxScreen from './components/InboxScreen.vue';
 </style>
 ```
 
-However, where things get interesting is in rendering the story in Storybook.
+Tuttavia, le cose diventano interessanti quando si tratta di renderizzare la storia in Storybook.
 
-As we saw previously, the `TaskList` component is a **container** that renders the `PureTaskList` presentational component. By definition, container components cannot be simply rendered in isolation; they expect to be passed some context or connected to a service. What this means is that to render a container in Storybook, we must mock (i.e., provide a pretend version) the context or service it requires.
+Come abbiamo visto in precedenza, il componente `TaskList` è un *container** che renderizza il componente di presentazione `PureTaskList`. Per definizione, i componenti del container non possono essere semplicemente renderrizzati in modo isolato; si aspettano di essere passati a qualche contesto o connessi a un servizio. Ciò significa che per renderizzare un contenitore in Storybook, dobbiamo simulare (cioè fornire una versione finta) il contesto o il servizio che richiede.
 
-When placing the `TaskList` into Storybook, we were able to dodge this issue by simply rendering the `PureTaskList` and avoiding the container. We'll do something similar and render the `PureInboxScreen` in Storybook also.
+Posizionando la `TaskList` in Storybook, siamo stati in grado di evitare questo problema semplicemente renderizzando la `PureTaskList` ed evitando il contenitore. Faremo qualcosa di simile e renderizzeremo anche il `PureInboxScreen` in Storybook.
 
-However, we have a problem with the `PureInboxScreen` because although the `PureInboxScreen` itself is presentational, its child, the `TaskList`, is not. In a sense, the `PureInboxScreen` has been polluted by “container-ness”. So when we set up our stories in `src/components/PureInboxScreen.stories.js`:
+Mettendo la `TaskList` in Storybook, siamo stati in grado di schivare questo problema semplicemente renderizzando la `PureTaskList` ed evitando il contenitore. Faremo qualcosa di simile e rendere il `PureInboxScreen` in Storybook anche.
+
+Tuttavia, abbiamo un problema con la `PureInboxScreen` perché anche se la `PureInboxScreen` stessa è presentazionale, il figlio, `TaskList`, non lo è. In un certo senso, il `PureInboxScreen` è stato inquinato dal fatto di non avere un contenitore. Così quando abbiamo impostato le nostre storie in `src/components/PureInboxScreen.stories.js`:
 
 ```js:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
@@ -130,22 +132,22 @@ export const Error = {
 
 ```
 
-We see that although the `error` story works just fine, we have an issue in the `default` story because the `TaskList` has no Pinia store to connect to.
+Vediamo che anche se la storia d'`errore` funziona bene, abbiamo un problema nella storia `default` perché la `TaskList` non ha lo store di Pinia per connettersi.
 
-![Broken inbox](/intro-to-storybook/pure-inboxscreen-vue-pinia-tasks-issue.png)
+![Inbox rotto](/intro-to-storybook/pure-inboxscreen-vue-pinia-tasks-issue.png)
 
-One way to sidestep this problem is to never render container components anywhere in your app except at the highest level and instead pass all data requirements down the component hierarchy.
+Un modo per eludere questo problema è quello di non renderizzare mai i componenti del contenitore in qualsiasi punto della vostra applicazione, tranne al più alto livello e invece passare tutti i dati necessari lungo la gerarchia dei componenti.
 
-However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
+Tuttavia, gli sviluppatori **dovranno** inevitabilmente renderizzare i contenitori più in basso nella gerarchia dei componenti. Se vogliamo renderizzare la maggior parte dell'app o tutta in Storybook (lo vogliamo!), abbiamo bisogno di una soluzione a questo problema.
 
 <div class="aside">
-💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> alongside 800+ stories.
+💡 Come suggerimento aggiuntivo, un altro approccio valido sarebbe quello di passare i dati lungo la gerarchia, specialmente quando si utilizza <a href="http://graphql.org/">GraphQL</a>. È così che abbiamo costruito <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> insieme a più di 800 storie.
 </div>
 
-## Supplying context to stories
+## Fornire contesto alle storie
 
-The good news is that it is easy to connect Storybook to a Pinia store and reuse it across stories! We can
-update our `.storybook/preview.js` configuration file and rely on Storybook's `setup` function to register our existing Pinia store:
+La buona notizia è che è facile collegare Storybook ad uno store Pinia e riutilizzarlo tra storie! Possiamo
+aggiornare il nostro file di configurazione `.storybook/preview.js` e fare affidamento sulla funzione `setup` di Storybook per registrare il nostro negozio Pinia:
 
 ```diff:title=.storybook/preview.js
 + import { setup } from '@storybook/vue3';
@@ -175,9 +177,9 @@ const preview = {
 export default preview;
 ```
 
-Similar approaches exist to provide mocked context for other data libraries, such as [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) and others.
+Approcci simili esistono per fornire un contesto finto per altre librerie di dati, come [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) e altre.
 
-Cycling through states in Storybook makes it easy to test we’ve done this correctly:
+Scorrere attraverso gli stati di Storybook rende facile testare, abbiamo fatto questo correttamente:
 
 <video autoPlay muted playsInline loop >
 
@@ -187,21 +189,21 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
-## Interaction tests
+## Test sulle interazioni
 
-So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
+Finora, siamo stati in grado di costruire un'applicazione completamente funzionale partendo da zero, iniziando da un semplice componente fino ad arrivare a una schermata, testando continuamente ogni modifica con le nostre storie. Ma ogni nuova storia richiede anche un controllo manuale su tutte le altre storie per assicurarsi che l'interfaccia utente non si rompa. È un sacco di lavoro extra.
 
-Can't we automate this workflow and test our component interactions automatically?
+Non possiamo automatizzare questo flusso di lavoro e testare automaticamente le interazioni dei nostri componenti?
 
-### Write an interaction test using the play function
+### Scrivi un test di interazione usando la funzione play
 
-Storybook's [`play`](https://storybook.js.org/docs/vue/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/vue/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+Gli strumenti di Storybook [`play`](https://storybook.js.org/docs/vue/writing-stories/play-function) e [`@storybook/addon-interactions`](https://storybook.js.org/docs/vue/writing-tests/interaction-testing) ci aiutano in questo. Una funzione play include piccoli frammenti di codice che vengono eseguiti dopo il rendering della storia.
 
-The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
+La funzione play ci aiuta a verificare cosa succede all'UI quando i task vengono aggiornati. Utilizza API DOM indipendenti dal framework, il che significa che possiamo scrivere storie con la funzione play per interagire con l'UI e simulare il comportamento umano indipendentemente dal framework frontend utilizzato.
 
-The `@storybook/addon-interactions` helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
+L'`@storybook/addon-interactions` ci aiuta a visualizzare i nostri test in Storybook, fornendo un flusso passo-passo. Offre anche un pratico set di controlli dell'interfaccia utente per mettere in pausa, riprendere, riavvolgere e passare attraverso ogni interazione.
 
-Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
+Vediamolo in azione! Aggiorna la tua storia `PureInboxScreen` appena creata e configura le interazioni del componente aggiungendo quanto segue:
 
 ```diff:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
@@ -233,11 +235,11 @@ export const Error = {
 
 <div class="aside">
 
-💡 The `@storybook/test` package replaces the `@storybook/jest` and `@storybook/testing-library` testing packages, offering a smaller bundle size and a more straightforward API based on the [Vitest](https://vitest.dev/) package.
+💡 Il pacchetto `@storybook/test` sostituisce i pacchetti di test `@storybook/jest` e `@storybook/testing-library` offrendo una dimensione bundle più piccola e un'API più semplice basata sul pacchetto [Vitest](https://vitest.dev/).
 
 </div>
 
-Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
+Controlla la storia `Default`. Clicca sul pannello `Interazioni` per vedere l'elenco delle interazioni all'interno della funzione play della storia.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -246,21 +248,21 @@ Check your newly created story. Click the `Interactions` panel to see the list o
   />
 </video>
 
-### Automate tests with the test runner
+### Automatizzare i test con il test runner
 
-With Storybook's play function, we were able to sidestep our problem, allowing us to interact with our UI and quickly check how it responds if we update our tasks—keeping the UI consistent at no extra manual effort.
+Con la funzione play di Storybook, siamo riusciti a evitare il nostro problema, permettendoci di interagire con la nostra UI e di controllare rapidamente come reagisce se aggiorniamo i nostri task—mantenendo l'UI coerente senza sforzo manuale aggiuntivo.
 
-But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
+Tuttavia, se osserviamo più da vicino il nostro Storybook, possiamo vedere che esegue i test di interazione solo quando visualizziamo la storia. Quindi, dovremmo comunque passare attraverso ogni storia per eseguire tutti i controlli se apportiamo una modifica. Non potremmo automatizzarlo?
 
-The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/vue/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+La buona notizia è che possiamo! Il [test runner](https://storybook.js.org/docs/vue/writing-tests/test-runner) di Storybook ci permette di fare proprio questo. È uno strumento autonomo—alimentato da [Playwright](https://playwright.dev/)—che esegue tutti i nostri test di interazione e individua le storie rotte.
 
-Let's see how it works! Run the following command to install it:
+Vediamo come funziona! Esegui il seguente comando per installarlo:
 
 ```shell
 yarn add --dev @storybook/test-runner
 ```
 
-Next, update your `package.json` `scripts` and add a new test task:
+Successivamente, aggiorna la sezione `scripts` del tuo `package.json` e aggiungi un nuovo task di test:
 
 ```json:clipboard=false
 {
@@ -270,25 +272,25 @@ Next, update your `package.json` `scripts` and add a new test task:
 }
 ```
 
-Finally, with your Storybook running, open up a new terminal window and run the following command:
+Infine, con il tuo Storybook in esecuzione, apri una nuova finestra del terminale ed esegui il seguente comando:
 
 ```shell
 yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/vue/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
+💡 Il testing delle interazioni con la funzione play è un modo fantastico per testare i tuoi componenti UI. Può fare molto di più di quanto abbiamo visto qui; ti consigliamo di leggere la <a href="https://storybook.js.org/docs/vue/writing-tests/interaction-testing">documentazione ufficiale</a> per saperne di più.
 <br />
-For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+Per un'analisi ancora più approfondita sui test, dai un'occhiata al <a href="/ui-testing-handbook">Manuale dei Test</a>. Copre le strategie di test utilizzate dai team di frontend scalabili per potenziare il tuo flusso di lavoro di sviluppo.
 </div>
 
-![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+![Il test runner di Storybook esegue con successo tutti i test](/intro-to-storybook/storybook-test-runner-execution.png)
 
-Success! Now we have a tool that helps us verify whether all our stories are rendered without errors and all assertions pass automatically. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
+Successo! Ora abbiamo uno strumento che ci aiuta a verificare se tutte le nostre storie vengono renderizzate senza errori e tutte le asserzioni passano automaticamente. Inoltre, se un test fallisce, fornirà un link che apre la storia fallita nel browser.
 
-## Component-Driven Development
+## Sviluppo guidato dai componenti
 
-We started from the bottom with `Task`, then progressed to `TaskList`, now we’re here with a whole screen UI. Our `InboxScreen` accommodates a nested container component and includes accompanying stories.
+Abbiamo iniziato dal basso con `Task`, poi siamo passati a `TaskList`, e ora siamo qui con un'intera interfaccia utente della schermata. Il nostro `InboxScreen` ospita componenti connessi e include storie di accompagnamento.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -297,10 +299,10 @@ We started from the bottom with `Task`, then progressed to `TaskList`, now we’
   />
 </video>
 
-[**Component-Driven Development**](https://www.componentdriven.org/) allows you to gradually expand complexity as you move up the component hierarchy. Among the benefits are a more focused development process and increased coverage of all possible UI permutations. In short, CDD helps you build higher-quality and more complex user interfaces.
+[**Sviluppo guidato dai componenti**](https://www.componentdriven.org/) ti permette di espandere gradualmente la complessità mentre sali nella gerarchia dei componenti. Tra i vantaggi ci sono un processo di sviluppo più focalizzato e una copertura maggiore di tutte le possibili permutazioni dell'UI. In breve, il CDD ti aiuta a costruire interfacce utente di qualità superiore e più complesse.
 
-We’re not done yet - the job doesn't end when the UI is built. We also need to ensure that it remains durable over time.
+Non abbiamo ancora finito - il lavoro non termina quando l'UI è costruita. Dobbiamo anche assicurarci che rimanga solida nel tempo.
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 Non dimenticare di committare le tue modifiche con git!
 </div>
