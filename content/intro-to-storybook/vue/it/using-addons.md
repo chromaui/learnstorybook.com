@@ -1,21 +1,21 @@
 ---
 title: 'Addons'
 tocTitle: 'Addons'
-description: 'Learn how to integrate and use the popular Controls addon'
+description: 'Impara come integrare e utilizzare il popolare addon Controls'
 commit: '13da85f'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/vue/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
+Storybook ha un robusto ecosistema di [addons](https://storybook.js.org/docs/vue/configure/storybook-addons) che puoi utilizzare per migliorare l'esperienza dello sviluppatore per tutti nel tuo team. Visualizzali tutti [qui](https://storybook.js.org/addons).
 
-If you've been following this tutorial, you've already encountered multiple addons and set one up in the [Testing](/intro-to-storybook/vue/en/test/) chapter.
+Se hai seguito questo tutorial, hai già incontrato diversi addon e ne hai configurato uno nel capitolo [Testing](/intro-to-storybook/vue/it/test/).
 
-There are addons for every possible use case, and it would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/vue/essentials/controls).
+Esistono addon per ogni possibile caso d'uso, e ci vorrebbe una vita per scrivere su tutti. Integriamo uno degli addon più popolari: [Controls](https://storybook.js.org/docs/vue/essentials/controls).
 
-## What is Controls?
+## Cos'è Controls?
 
-Controls allows designers and developers to easily explore component behavior by _playing_ with its arguments. No code required. Controls creates an addon panel next to your stories, so you can edit their arguments live.
+Controls permette a designer e sviluppatori di esplorare facilmente il comportamento dei componenti _giocando_ con i suoi argomenti. Nessun codice richiesto. Controls crea un pannello addon accanto alle tue storie, così puoi modificarne gli argomenti in tempo reale.
 
-Fresh installs of Storybook include Controls out of the box. No extra configuration needed.
+Le installazioni fresche di Storybook includono Controls di serie. Nessuna configurazione extra necessaria.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -24,21 +24,21 @@ Fresh installs of Storybook include Controls out of the box. No extra configurat
   />
 </video>
 
-## Addons unlock new Storybook workflows
+## Gli Addons sbloccano nuovi flussi di lavoro in Storybook
 
-Storybook is a wonderful [component-driven development environment](https://www.componentdriven.org/). The Controls addon evolves Storybook into an interactive documentation tool.
+Storybook è un meraviglioso [ambiente di sviluppo guidato dai componenti](https://www.componentdriven.org/). L'addon Controls evolve Storybook in uno strumento di documentazione interattiva.
 
-### Using Controls to find edge cases
+### Utilizzare Controls per trovare casi limite
 
-With Controls, QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Considering the following example, what would happen to our `Task` if we added a **MASSIVE** string?
+Con Controls, gli ingegneri QA, gli ingegneri UI o qualsiasi altro stakeholder possono spingere il componente al limite! Considerando l'esempio seguente, cosa succederebbe al nostro `Task` se aggiungessimo una stringa **ENORME**?
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case-non-react.png)
+![Oh no! Il contenuto più a destra è tagliato!](/intro-to-storybook/task-edge-case-non-react.png)
 
-That's not right! It looks like the text overflows beyond the bounds of the Task component.
+Non va bene! Sembra che il testo fuoriesca oltre i limiti del componente Task.
 
-Controls allowed us to quickly verify different inputs to a component--in this case, a long string--and reduced the work required to discover UI problems.
+Controls ci ha permesso di verificare rapidamente diversi input per un componente, in questo caso, una stringa lunga, e ha ridotto il lavoro necessario per scoprire problemi dell'UI.
 
-Now let's fix the issue with overflowing by adding a style to `Task.vue`:
+Ora risolviamo il problema del fuoriuscire aggiungendo uno stile a `Task.vue`:
 
 ```diff:title=src/components/Task.vue
 <template>
@@ -81,15 +81,15 @@ Now let's fix the issue with overflowing by adding a style to `Task.vue`:
 </template>
 ```
 
-![That's better.](/intro-to-storybook/edge-case-solved-controls-non-react.png)
+![Molto meglio.](/intro-to-storybook/edge-case-solved-controls-non-react.png)
 
-Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
+Problema risolto! Il testo viene ora troncato quando raggiunge il limite dell'area del Task, utilizzando un elegante ellissi.
 
-### Adding a new story to avoid regressions
+### Aggiungere una nuova storia per evitare regressioni
 
-In the future, we can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
+In futuro, potremo riprodurre manualmente questo problema inserendo la stessa stringa tramite Controls. Ma è più facile scrivere una storia che mette in mostra questo caso limite. Ciò espande la nostra copertura dei test di regressione e delinea chiaramente i limiti del componente (o dei componenti) per il resto del team.
 
-Add a new story for the long text case in `Task.stories.js`:
+Aggiungi una nuova storia per il caso del testo lungo in `Task.stories.js`:
 
 ```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
@@ -104,7 +104,7 @@ export const LongTitle = {
 };
 ```
 
-Now we can reproduce and work on this edge case with ease.
+Ora possiamo riprodurre e lavorare su questo caso limite con facilità.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -113,10 +113,10 @@ Now we can reproduce and work on this edge case with ease.
   />
 </video>
 
-If we are [visual testing](/intro-to-storybook/vue/en/test/), we'll also be informed if the truncating solution breaks. Extreme edge cases are liable to be forgotten without test coverage!
+Se stiamo facendo [test visivi](/intro-to-storybook/vue/it/test/), saremo anche informati se la soluzione di troncamento si rompe. I casi limite estremi sono inclini a essere dimenticati senza copertura dei test!
 
-<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/vue/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="https://storybook.js.org/docs/vue/addons/writing-addons">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
+<div class="aside"><p>💡 Controls è un ottimo modo per far giocare con i tuoi componenti e storie anche chi non è uno sviluppatore. Può fare molto di più di quanto abbiamo visto qui; ti consigliamo di leggere la <a href="https://storybook.js.org/docs/vue/essentials/controls">documentazione ufficiale</a> per saperne di più. Tuttavia, ci sono molti altri modi per personalizzare Storybook in modo che si adatti al tuo flusso di lavoro con gli addon. Nella <a href="https://storybook.js.org/docs/vue/addons/writing-addons">guida alla creazione di un addon</a> ti insegneremo a farlo, creando un addon che ti aiuterà a potenziare il tuo flusso di lavoro di sviluppo.</p></div>
 
-### Merge Changes
+### Merge delle Modifiche
 
-Don't forget to merge your changes with git!
+Non dimenticare di fare merge alle tue modifiche con git!
