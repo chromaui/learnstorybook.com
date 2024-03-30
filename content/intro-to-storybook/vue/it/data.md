@@ -1,27 +1,27 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
+title: 'Collegare i dati'
+tocTitle: 'Dati'
+description: 'Impara come collegare i dati al tuo componente UI'
 commit: '30e306d'
 ---
 
-So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
+Finora, abbiamo creato componenti senza stato isolati, ottimi per Storybook, ma alla fine non utili finché non gli forniamo alcuni dati nella nostra app.
 
-This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data with container components.
+Questo tutorial non si concentra sui particolari della costruzione di un'app, quindi non approfondiremo quei dettagli qui. Ma prenderemo un momento per esaminare un modello comune per il collegamento dei dati nei componenti connessi.
 
-## Container components
+## Componenti connessi
 
-Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+Il nostro componente `TaskList` così come è scritto attualmente è "presentazionale", nel senso che non interagisce con nulla di esterno alla sua propria implementazione. Per far entrare i dati al suo interno, abbiamo bisogno di un “contenitore”.
 
-This example uses [Pinia](https://pinia.vuejs.org/), Vue's default data management library, to build a straightforward data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+Questo esempio utilizza [Pinia](https://pinia.vuejs.org/), la libreria default di Vue per la gestione dei dati, per creare un modello di dati semplice per la nostra app. Tuttavia, il modello utilizzato qui si applica altrettanto bene ad altre librerie di gestione dei dati come [Apollo](https://www.apollographql.com/client/) e [MobX](https://mobx.js.org/).
 
-Add the necessary dependency to your project with:
+Aggiungi le dipendenze necessarie al tuo progetto con:
 
 ```shell
 yarn add pinia
 ```
 
-First, we'll create a simple Pinia store that responds to actions that change the task's state in a file called `store.js` in the `src` directory (intentionally kept simple):
+Prima di tutto, costruiremo un semplice store di Pinia che risponde alle azioni che cambiano lo stato del task in un file chiamato `store.js` nella stessa directory `src` (mantenuto intenzionalmente semplice):
 
 ```js:title=src/store.js
 /* A simple Pinia store/actions implementation.
@@ -77,7 +77,7 @@ export const useTaskStore = defineStore({
 });
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First, let's move our existing presentational version to the file `src/components/PureTaskList.vue` (renaming the component to `PureTaskList`) and wrap it with a container.
+Poi aggiorneremo la nostra `Tasklist` per leggere i dati fuori dallo store. Per prima cosa spostiamo la nostra versione presentazionale esistente nel file `src/components/PureTaskList.vue` (rinominando il componente in `PureTaskList`) e avvolgiamola con un contenitore.
 
 In `src/components/PureTaskList.vue`:
 
@@ -191,7 +191,7 @@ export default {
 </script>
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is that it is easier to test and isolate. As it doesn't rely on the presence of a store, it is much easier to deal with from a testing perspective. Let's rename `src/components/TaskList.stories.js` into `src/components/PureTaskList.stories.js` and ensure our stories use the presentational version:
+La ragione per mantenere la versione presentazionale della `TaskList` separata è che è più facile da testare e isolare. Poiché non si basa sulla presenza di uno store, è molto più facile da affrontare da una prospettiva di test. Rinominiamo `src/components/TaskList.stories.js` in `src/components/PureTaskList.stories.js` e assicuriamoci che le nostre storie usino la versione presentazionale:
 
 ```diff:title=src/components/PureTaskList.stories.js
 + import PureTaskList from './PureTaskList.vue';
@@ -260,7 +260,7 @@ export const Empty = {
 </video>
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 Non dimenticare di committare le tue modifiche con git!
 </div>
 
-Now that we have some actual data populating our component, obtained from the Pinia store, we could have wired it to `src/App.vue` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
+Ora che abbiamo alcuni dati reali che popolano il nostro componente, ottenuti dallo store Pinia, potremmo collegarlo a `src/App.vue` e renderizzarlo lì. Non preoccuparti. Ce ne occuperemo nel prossimo capitolo.
