@@ -5,7 +5,7 @@
   "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
     "@docsearch/css": "^3.2.1",
-    "@storybook/components-marketing": "^3.0.0",
+    "@storybook/components-marketing": "^3.1.0",
     "@storybook/design-system": "7.8.5",
     "@storybook/theming": "^6.5.10",
     "cheerio": "^1.0.0-rc.12",
