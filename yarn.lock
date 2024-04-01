@@ -3062,17 +3062,17 @@
     core-js "^3.8.2"
     global "^4.4.0"
 
-"@storybook/components-marketing@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@storybook/components-marketing/-/components-marketing-3.0.0.tgz#72df73388999d81df91305a17efac438dfbd86a8"
-  integrity sha512-DvhdK4mA2CCJdAavkDDQSmWhwcUt7L/fV9JJ93fITC1lEDs5UihZCoHSzuJwbSbBKVUHGe3zjk2Yqfm5r25PZA==
+"@storybook/components-marketing@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/@storybook/components-marketing/-/components-marketing-3.1.0.tgz#d72bc4a6db91e13d38691b502c89b82fb02f8346"
+  integrity sha512-OVYS+rHb8gOhniKcT/vGRJyFjMLJookpmd/IQOoDheDTlYx90KQlJCYU9EhwBESpT+nhNvjiWAVbSe9+6YtVpg==
   dependencies:
     "@docsearch/react" "^3.1.0"
     "@emotion/weak-memoize" "^0.2.5"
     "@floating-ui/react-dom-interactions" "^0.6.5"
     "@storybook/api" "^6.5.9"
     "@storybook/design-system" "^7.9.0"
-    "@storybook/icons" "^1.2.9"
+    "@storybook/icons" "1.2.8"
     "@storybook/theming" "^6.5.9"
     formik "^2.1.5"
     human-format "^0.11.0"
@@ -3336,10 +3336,10 @@
   dependencies:
     "@types/jest" ">=26.0.0"
 
-"@storybook/icons@^1.2.9":
-  version "1.2.9"
-  resolved "https://registry.npmjs.org/@storybook/icons/-/icons-1.2.9.tgz#bb4a51a79e186b62e2dd0e04928b8617ac573838"
-  integrity sha512-cOmylsz25SYXaJL/gvTk/dl3pyk7yBFRfeXTsHvTA3dfhoU/LWSq0NKL9nM7WBasJyn6XPSGnLS4RtKXLw5EUg==
+"@storybook/icons@1.2.8":
+  version "1.2.8"
+  resolved "https://registry.npmjs.org/@storybook/icons/-/icons-1.2.8.tgz#f530688ee000b487783f2d9cf7bced92e2c32915"
+  integrity sha512-YMF5DiBvMiAVH6qd6Cf6WCwZq3D1OZNxsKtZVFBlzJXqlZb1CLEuCHy5MwL4WI5mzb6q8MJsLYpVMoH84OzUpQ==
 
 "@storybook/instrumenter@6.5.10", "@storybook/instrumenter@^6.4.0":
   version "6.5.10"
