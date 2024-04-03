@@ -239,7 +239,7 @@ export const Error = {
 
 </div>
 
-Controlla la storia `Default`. Clicca sul pannello `Interazioni` per vedere l'elenco delle interazioni all'interno della funzione play della storia.
+Controlla la storia `Default`. Clicca sul pannello `Interactions` per vedere l'elenco delle interazioni all'interno della funzione play della storia.
 
 <video autoPlay muted playsInline loop>
   <source
