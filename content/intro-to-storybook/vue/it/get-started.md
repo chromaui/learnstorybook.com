@@ -1,7 +1,7 @@
 ---
 title: 'Tutorial di Storybook per Vue'
 tocTitle: 'Inizia'
-description: 'Configura Vue Storybook nel tuo ambiente di sviluppo'
+description: 'Configura Storybook nel tuo ambiente di sviluppo'
 commit: 'e2984d1'
 ---
 
@@ -9,7 +9,7 @@ Storybook funziona in parallelo con la tua app in modalità di sviluppo. Ti aiut
 
 ![Storybook e la tua app](/intro-to-storybook/storybook-relationship.jpg)
 
-## Configura Storybook per React
+## Configura Storybook per Vue
 
 Dovremo seguire alcuni passi per configurare il processo di build nel nostro ambiente. Per iniziare, vogliamo utilizzare [degit](https://github.com/Rich-Harris/degit) per configurare il nostro sistema di build. Utilizzando questo pacchetto, puoi scaricare dei "modelli" (applicazioni parzialmente costruite con alcune configurazioni predefinite) per aiutarti a velocizzare il tuo flusso di lavoro di sviluppo.
 
