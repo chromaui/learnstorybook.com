@@ -106,7 +106,7 @@ export const Archived = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/vue/essentials/actions">Le <b>Actions</b></a> aiutano a verificare le interazioni durante la costruzione di componenti UI in isolamento. Spesso non avrai accesso alle funzioni e allo stato che hai nel contesto dell'app. Usa <code>action()</code> per simularle.
+💡 <a href="https://storybook.js.org/docs/vue/essentials/actions">Le <b>Actions</b></a> ti aiutano a verificare le interazioni quando costruisci componenti UI in isolamento. Spesso non avrai accesso alle funzioni e allo state che hai nel contesto dell'app. Usa <code>action()</code> per simularli.
 </div>
 
 Ci sono due livelli base di organizzazione in Storybook: il componente e le sue storie figlie. Pensa a ogni storia come a una permutazione di un componente. Puoi avere quante storie per componente ti servono.
@@ -121,16 +121,16 @@ Per informare Storybook sul componente che stiamo documentando e testando, creia
 - `component` -- il componente stesso
 - `title` -- come raggruppare o categorizzare il componente nella barra laterale di Storybook
 - `tags` -- per generare automaticamente la documentazione per i nostri componenti
-- `excludeStories`-- informazioni aggiuntive richieste dalla storia, ma che non devono essere mostrate in Storybook
-- `argTypes` -- specifica il comportamento degli [args](https://storybook.js.org/docs/vue/api/argtypes) in ciascuna storia
+- `excludeStories`-- informazioni aggiuntive richieste dalla storia, che non dovrebbero essere renderizzate in Storybook
+- `argTypes` -- specifica il comportamento degli [args](https://storybook.js.org/docs/vue/api/argtypes) in ogni storia
 
-Per definire le nostre storie, useremo il Component Story Format 3 (noto anche come [CSF3](https://storybook.js.org/docs/vue/api/csf)) per costruire ciascuno dei nostri casi di test. Questo formato è progettato per costruire ciascuno dei nostri casi di test in modo conciso. Esportando un oggetto contenente ciascuno stato del componente, possiamo definire i nostri test in modo più intuitivo e creare e riutilizzare le storie in modo più efficiente.
+Per definire le nostre storie, utilizzeremo il Component Story Format 3 (noto anche come [CSF3](https://storybook.js.org/docs/vue/api/csf)) per sviluppare ciascuno dei nostri casi di test. Questo formato è progettato per costruire ogni caso di test in modo conciso. Esportando un oggetto contenente ciascuno stato del componente, possiamo definire i nostri test in modo più intuitivo e creare e riutilizzare storie in modo più efficiente.
 
-Gli argomenti o [`args`](https://storybook.js.org/docs/vue/writing-stories/args) ci permettono di modificare dal vivo i nostri componenti con l'addon dei controlli senza dover riavviare Storybook. Una volta che un valore di [`args`](https://storybook.js.org/docs/vue/writing-stories/args) cambia, anche il componente cambia.
+Gli Arguments, o [`args`](https://storybook.js.org/docs/vue/writing-stories/args) per brevità, ci permettono di modificare in tempo reale i nostri componenti con l'addon dei controlli senza dover riavviare Storybook. Una volta che il valore di un [`args`](https://storybook.js.org/docs/vue/writing-stories/args) cambia, anche il componente cambia.
 
-`action()` ci permettono di creare callback che appaiono nel pannello **actions** dell'interfaccia utente di Storybook quando vengono cliccate. Quindi, quando costruiamo un pulsante aggiungi, saremo in grado di determinare se un clic sul pulsante è stato eseguito con successo nell'interfaccia utente.
+`action()` ci permette di creare un callback che appare nel pannello delle azioni dell'interfaccia utente di Storybook quando cliccato. Quindi, quando costruiamo un pulsante pin, saremo in grado di determinare se un clic sul pulsante è stato eseguito con successo nell'interfaccia utente.
 
-Poiché abbiamo bisogno di passare lo stesso insieme di azioni a tutte le permutazioni del nostro componente, è conveniente raggrupparle in una singola variabile `actionsData` e passarle nella nostra definizione di storia ogni volta. Un'altra cosa bella di raggruppare le `actionsData` di cui un componente ha bisogno è che puoi esportarle e usarle in storie per componenti che riutilizzano questo componente, come vedremo più avanti.
+Poiché dobbiamo passare lo stesso insieme di azioni a tutte le permutazioni del nostro componente, è conveniente raggrupparle in una singola variabile `actionsData` e passarle ogni volta nella nostra definizione di storia. Un altro vantaggio di raggruppare le `actionsData` necessarie a un componente è che puoi esportarle e usarle in storie per componenti che riutilizzano questo componente, come vedremo in seguito.
 
 Quando creiamo una storia, usiamo un argomento `task` di base per costruire la forma del compito che il componente si aspetta. Tipicamente modellato da come appare effettivamente il dato. Ancora una volta, esportare questa forma ci permetterà di riutilizzarla nelle storie successive, come vedremo.
 
