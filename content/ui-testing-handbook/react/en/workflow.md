@@ -115,7 +115,7 @@ export const DeleteTask = {
       name: 'delete',
     });
 
-    // Click the pin button
+    // Click the delete button
     await userEvent.click(deleteButton);
     await expect(canvas.getAllByRole('listitem').length).toBe(5);
   },
