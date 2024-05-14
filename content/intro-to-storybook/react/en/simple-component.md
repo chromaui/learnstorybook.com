@@ -346,6 +346,12 @@ const config = {
 export default config;
 ```
 
+After updating your Storybook configuration file (`.storybook/main.js`), restart the Storybook server to apply the new addon configuration and have the UI updated accordingly. Run the following command again.
+
+```shell
+yarn storybook
+```
+
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
 Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
