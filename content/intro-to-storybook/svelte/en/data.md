@@ -63,10 +63,14 @@ In `src/components/PureTaskList.svelte`:
 <script>
   import Task from './Task.svelte';
   import LoadingRow from './LoadingRow.svelte';
+
+  /* Sets the loading state */
   export let loading = false;
+
+  /* Defines a list of tasks */
   export let tasks = [];
 
-  //👇 Reactive declarations (computed props in other frameworks)
+  /* Reactive declaration (computed prop in other frameworks) */
   $: noTasks = tasks.length === 0;
   $: emptyTasks = noTasks && !loading;
   $: tasksInOrder = [
@@ -188,7 +192,7 @@ Empty.args = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-puretasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>

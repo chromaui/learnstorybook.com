@@ -31,9 +31,6 @@ yarn
 Now we can quickly check that the various environments of our application are working properly:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test
-
 # Start the component explorer on port 6006:
 yarn storybook
 
@@ -41,9 +38,11 @@ yarn storybook
 yarn dev
 ```
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
+Our main frontend app modalities: component development (Storybook), and the application itself.
 
-![3 modalities](/intro-to-storybook/app-three-modalities-svelte.png)
+<!-- Needs to be created -->
+
+![Main modalities](/intro-to-storybook/app-main-modalities-svelte.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 

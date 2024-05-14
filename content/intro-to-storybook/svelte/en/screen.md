@@ -89,6 +89,8 @@ Now that we have the store updated with the new field. Let's create `InboxScreen
 
 We also need to change the `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
+<!-- index.css is on main.js -->
+
 ```html:title=src/App.svelte
 <script>
   import './index.css'
@@ -113,25 +115,23 @@ import InboxScreen from './InboxScreen.svelte';
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
+  tags: ['autodocs'],
 };
 
-const Template = args => ({
-  Component: InboxScreen,
-  props: args,
-});
+export const Default = {};
 
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = {
-  error: true,
+export const Error = {
+  args: { error: true },
 };
 ```
 
 We see that both the `Error` and `Default` stories work just fine.
 
 <div class="aside">
-💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> alongside 800+ stories.
+
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using [GraphQL](http://graphql.org/). It’s how we have built [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) alongside 800+ stories.
+stories.
+
 </div>
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
@@ -139,7 +139,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
+    src="/intro-to-storybook/finished-pureinboxscreen-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -161,41 +161,45 @@ The `@storybook/addon-interactions` helps us visualize our tests in Storybook, p
 Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
 
 ```diff:title=src/components/InboxScreen.stories.js
-+ import { fireEvent, within } from '@storybook/testing-library';
 import InboxScreen from './InboxScreen.svelte';
+
++ import { fireEvent, within } from '@storybook/test';
 
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
+  tags: ['autodocs'],
 };
 
-const Template = args => ({
-  Component: InboxScreen,
-  props: args,
-});
+export const Default = {};
 
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = {
-  error: true,
+export const Error = {
+  args: { error: true },
 };
 
-+ export const WithInteractions = Template.bind({});
-+ WithInteractions.play = async ({ canvasElement }) => {
-+   const canvas = within(canvasElement);
-+   // Simulates pinning the first task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
-+   // Simulates pinning the third task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++ export const WithInteractions = {
++  play: async ({ canvasElement }) => {
++    const canvas = within(canvasElement);
++    // Simulates pinning the first task
++    await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++    // Simulates pinning the third task
++    await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++  },
 + };
 ```
 
+<div class="aside">
+
+💡 The `@storybook/test` package replaces the `@storybook/jest` and `@storybook/testing-library` testing packages, offering a smaller bundle size and a more straightforward API based on the [Vitest](https://vitest.dev/) package.
+
+</div>
+
 Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 
+<!-- record video and get the preset-->
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    src="/intro-to-storybook/storybook-interactive-stories-play-function-svelte.mp4"
     type="video/mp4"
   />
 </video>
@@ -231,9 +235,14 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/svelte/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/svelte/writing-tests/interaction-testing) to learn more about it.
+
+For an even deeper dive into testing, check out the [Testing Handbook](/ui-testing-handbook). It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
+<!-- 💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/svelte/writing-tests/interaction-testing">official documentation</a> to learn more about it.
 <br />
-For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow. -->
+
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
