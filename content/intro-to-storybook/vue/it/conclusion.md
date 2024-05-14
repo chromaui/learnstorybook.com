@@ -5,10 +5,10 @@ description: 'Metti insieme tutte le tue conoscenze e scopri altre tecniche di S
 
 Complimenti! Hai creato la tua prima UI in Storybook. Lungo il percorso hai imparato a costruire, comporre, testare e distribuire componenti UI. Se hai seguito, il tuo repository e distribuito Storybook dovrebbero assomigliare a questo:
 
-[📕 **Repository GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
+[📕 **Repository GitHub: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code/tree/vue)
 <br/>
 
-[🌎 **Storybook Distribuito**](https://master--5ccbe484c994280020b6d128.chromatic.com)
+[🌎 **Storybook Distribuito**](https://vue--5ccbe484c994280020b6d128.chromatic.com/)
 
 Storybook è uno strumento potente per React, React Native, Vue, Angular, Svelte e molti altri framework. Ha una fiorente comunità di sviluppatori e una ricchezza di addon. Questa introduzione graffia appena la superficie di ciò che è possibile. Siamo fiduciosi che una volta adottato Storybook, sarai impressionato da quanto sia produttivo costruire UI durevoli.
 
@@ -16,7 +16,7 @@ Storybook è uno strumento potente per React, React Native, Vue, Angular, Svelte
 
 Vuoi approfondire? Ecco alcune risorse utili.
 
-- [**Documentazione ufficiale di Storybook**](https://storybook.js.org/docs/react/get-started/introduction) ha documentazione API, collegamenti alla comunità e la galleria degli addon.
+- [**Documentazione ufficiale di Storybook**](https://storybook.js.org/docs/vue/get-started/introduction) ha documentazione API, collegamenti alla comunità e la galleria degli addon.
 
 - [**Manuale sul Testing dell'UI**](https://storybook.js.org/blog/ui-testing-playbook/) evidenzia le migliori pratiche di flusso di lavoro utilizzate da team altamente veloci come Twilio, Adobe, Peloton e Shopify.
 
