@@ -23,7 +23,7 @@ module.exports = {
           en: 7.6,
           es: 6.5,
           fr: 6.5,
-          it: 7.5,
+          it: 7.6,
           ja: 6.5,
           ko: 6.4,
           nl: 5.3,
@@ -42,6 +42,7 @@ module.exports = {
           es: 6.1,
           fr: 5.3,
           pt: 5.3,
+          it: 7.6,
           'zh-CN': 6.5,
         },
         angular: {
