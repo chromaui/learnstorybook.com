@@ -106,7 +106,7 @@ export const Archived = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/vue/essentials/actions">Le <b>Actions</b></a> ti aiutano a verificare le interazioni quando costruisci componenti UI in isolamento. Spesso non avrai accesso alle funzioni e allo state che hai nel contesto dell'app. Usa <code>action()</code> per simularli.
+💡 Le <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>Actions</b></a> ti aiutano a verificare le interazioni quando costruisci componenti UI in isolamento. Spesso non avrai accesso alle funzioni e allo state che hai nel contesto dell'app. Usa <code>action()</code> per simularli.
 </div>
 
 Ci sono due livelli base di organizzazione in Storybook: il componente e le sue storie figlie. Pensa a ogni storia come a una permutazione di un componente. Puoi avere quante storie per componente ti servono.

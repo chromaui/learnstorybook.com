@@ -246,7 +246,7 @@ Successivamente, dovremo aggiornare il nostro file `.storybook/preview.js` e ini
 import '../src/index.css';
 
 + // Registers the msw addon
-+ import { initialize, mswDecorator } from 'msw-storybook-addon';
++ import { initialize, mswLoader } from 'msw-storybook-addon';
 
 + // Initialize MSW
 + initialize();
@@ -254,7 +254,6 @@ import '../src/index.css';
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 /** @type { import('@storybook/react').Preview } */
 const preview = {
-+ decorators: [mswDecorator],
   parameters: {
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
@@ -264,6 +263,7 @@ const preview = {
       },
     },
   },
++ loaders: [mswLoader],
 };
 
 export default preview;
@@ -354,10 +354,10 @@ import { Provider } from 'react-redux';
 
 + import {
 +  fireEvent,
-+  within,
 +  waitFor,
++  within,
 +  waitForElementToBeRemoved
-+ } from '@storybook/testing-library';
++ } from '@storybook/test';
 
 export default {
   component: InboxScreen,
@@ -407,6 +407,12 @@ export const Error = {
   },
 };
 ```
+
+<div class="aside">
+
+💡 Il pacchetto `@storybook/test` sostituisce i pacchetti di test `@storybook/jest` e `@storybook/testing-library` offrendo una dimensione bundle più piccola e un'API più semplice basata sul pacchetto [Vitest](https://vitest.dev/).
+
+</div>
 
 Controlla la storia `Default`. Clicca sul pannello `Interazioni` per vedere l'elenco delle interazioni all'interno della funzione play della storia.
 
