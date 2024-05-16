@@ -16,12 +16,12 @@ Storybook を開発プロセスに組み込むにあたり、いくつかの手�
 それでは、次のコマンドを実行してください:
 
 ```shell:clipboard=false
-# Clone the template
+# テンプレートをクローンする
 npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# Install dependencies
+# 依存関係をインストールする
 yarn
 ```
 
@@ -32,23 +32,16 @@ yarn
 それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test --watchAll
-
-# Start the component explorer on port 6006:
+# コンポーネントエクスプローラを6006番ポートで起動する
 yarn storybook
 
-# Run the frontend app proper on port 3000:
-yarn start
+# フロントエンドアプリケーションを5173番ポートで起動する
+yarn dev
 ```
 
-<div class="aside">
-テストのコマンドに <code>--watchAll</code> フラグを付けているのに気づいたでしょうか。これは間違いではありません。このフラグを付けることにより、すべてのテストが実行され、アプリケーションに問題ないことを確実にできます。チュートリアルを進めると、別のテストシナリオも出てきます。必要ならばこのフラグを <code>package.json</code> のテストコマンドに追加することで、テストスイートのすべてのテストが実行されるようになります。
-</div>
+フロントエンド開発の 2 つのモード: コンポーネント開発 (Storybook)、アプリケーション自体
 
-フロントエンド開発の 3 つのモード: 自動化されたテスト (Jest)、コンポーネント開発 (Storybook)、アプリケーション自体
-
-![3 つのモード](/intro-to-storybook/app-three-modalities.png)
+![2つのモード](/intro-to-storybook/app-main-modalities-react.png)
 
 作業をする対象に応じて、このモードのうち 1 つまたは複数を同時に動かしながら作業します。今は単一の UI コンポーネントを作るのに集中するため、Storybook を動かすことにしましょう。
 
@@ -75,7 +68,7 @@ git commit -m "first commit"
 最後に:
 
 ```shell
-$ git branch -M main
+git branch -M main
 ```
 
 それでは最初のコンポーネントを作り始めましょう！
