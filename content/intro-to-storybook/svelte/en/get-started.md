@@ -34,15 +34,15 @@ Now we can quickly check that the various environments of our application are wo
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 5000:
+# Run the frontend app proper on port 5173:
 yarn dev
 ```
 
 Our main frontend app modalities: component development (Storybook), and the application itself.
 
-<!-- Needs to be created -->
+<!-- Needs to be updated and the link updated to ![Main modalities](/intro-to-storybook/app-main-modalities-svelte.png) -->
 
-![Main modalities](/intro-to-storybook/app-main-modalities-svelte.png)
+![3 modalities](/intro-to-storybook/app-three-modalities-svelte.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 

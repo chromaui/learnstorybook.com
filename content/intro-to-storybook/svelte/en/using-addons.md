@@ -4,11 +4,11 @@ tocTitle: 'Addons'
 description: 'Learn how to integrate and use the popular Controls addon'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/svelte/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
+Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/integrations).
 
 If you've been following this tutorial, you've already encountered multiple addons and set one up in the [Testing](/intro-to-storybook/svelte/en/test/) chapter.
 
-There are addons for every possible use case, and it would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/svelte/essentials/controls).
+There are addons for every possible use case, and it would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/essentials/controls).
 
 ## What is Controls?
 
@@ -19,7 +19,7 @@ Fresh installs of Storybook include Controls out of the box. No extra configurat
 <!-- record video  -->
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/controls-in-action.mp4"
+    src="/intro-to-storybook/controls-in-action-svelte-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -32,7 +32,7 @@ Storybook is a wonderful [component-driven development environment](https://www.
 
 With Controls, QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Considering the following example, what would happen to our `Task` if we added a **MASSIVE** string?
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case.png)
+![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case-7-0.png)
 
 That's not right! It looks like the text overflows beyond the bounds of the Task component.
 
@@ -87,7 +87,7 @@ Now let's fix the issue with overflowing by adding a style to `Task.svelte`:
 </div>
 ```
 
-![That's better.](/intro-to-storybook/edge-case-solved-with-controls.png)
+![That's better.](/intro-to-storybook/edge-case-solved-with-controls-7-0.png)
 
 Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
 
@@ -115,7 +115,7 @@ Now we can reproduce and work on this edge case with ease.
 <!-- record new video -->
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/task-stories-long-title.mp4"
+    src="/intro-to-storybook/task-stories-long-title-svelte-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -124,9 +124,7 @@ If we are [visual testing](/intro-to-storybook/svelte/en/test/), we'll also be i
 
 <div class="aside">
 
-💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/svelte/essentials/controls) to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the [create an addon guide](https://storybook.js.org/docs/svelte/addons/writing-addons) we'll teach you that, by creating an addon that will help you supercharge your development workflow.
-
-<!-- <p>💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/svelte/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="https://storybook.js.org/docs/svelte/addons/writing-addons">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p> -->
+💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/essentials/controls) to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the [create an addon guide](https://storybook.js.org/docs/addons/writing-addons) we'll teach you that, by creating an addon that will help you supercharge your development workflow.
 
 </div>
 

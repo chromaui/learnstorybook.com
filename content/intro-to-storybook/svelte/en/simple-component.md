@@ -76,11 +76,6 @@ export default {
   component: Task,
   title: 'Task',
   tags: ['autodocs'],
-  //👇 Our events will be mapped in Storybook UI
-  argTypes: {
-    onPinTask: { action: 'onPinTask' },
-    onArchiveTask: { action: 'onArchiveTask' },
-  },
   //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
   render: (args) => ({
@@ -136,15 +131,15 @@ There are two basic levels of organization in Storybook: the component and its c
 
 To tell Storybook about the component we are documenting, we create a `default` export that contains:
 
-- `component`--the component itself,
-- `title`--how to refer to the component in the sidebar of the Storybook app,
-- `excludeStories`--information required by the story but should not be rendered by the Storybook app.
-- `argTypes`--specify the [args](https://storybook.js.org/docs/svelte/api/argtypes) behavior in each story.
-- `render`--a function that gives additional control over how the story is rendered.
+- `component` -- the component itself
+- `title` -- how to refer to the component in the sidebar of the Storybook app
+- `excludeStories` -- information required by the story but should not be rendered by the Storybook app
+- `tags` -- to automatically generate documentation for our components
+- `render` -- a function that gives additional control over how the story is rendered
 
-To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/vue/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
+To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
 
-Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes, so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/writing-stories/args) value changes, so does the component.
 
 `action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
@@ -172,13 +167,9 @@ const config = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
   ],
-
   framework: {
     name: '@storybook/svelte-vite',
     options: {},
-  },
-  docs: {
-    autodocs: 'tag',
   },
 };
 export default config;
@@ -193,7 +184,6 @@ After completing the change above, inside the `.storybook` folder, change your `
 /** @type { import('@storybook/svelte').Preview } */
 const preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -206,9 +196,7 @@ const preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/svelte/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we're going to use them to configure how the `actions` (mocked callbacks) are handled.
-
-`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+[`parameters`](https://storybook.js.org/docs/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we're going to use them to configure how the `actions` (mocked callbacks) are handled.
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
@@ -340,12 +328,11 @@ const config = {
     name: "@storybook/svelte-vite",
     options: {},
   },
-  docs: {
-    autodocs: "tag",
-  },
 };
 export default config;
 ```
+
+Finally, restart your Storybook to see the new addon enabled in the UI.
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 

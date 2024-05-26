@@ -74,14 +74,10 @@ import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
-  title: "TaskList",
-  tags: ["autodocs"],
+  title: 'TaskList',
+  tags: ['autodocs'],
   //👇 The auxiliary component will be added as a decorator to help show the UI correctly
   decorators: [() => MarginDecorator],
-  argTypes: {
-    onPinTask: {},
-    onArchiveTask: {},
-  },
   render: (args) => ({
     Component: TaskList,
     props: args,
@@ -96,12 +92,12 @@ export const Default = {
     // Shaping the stories through args composition.
     // The data was inherited from the Default story in task.stories.js.
     tasks: [
-      { ...TaskStories.Default.args.task, id: "1", title: "Task 1" },
-      { ...TaskStories.Default.args.task, id: "2", title: "Task 2" },
-      { ...TaskStories.Default.args.task, id: "3", title: "Task 3" },
-      { ...TaskStories.Default.args.task, id: "4", title: "Task 4" },
-      { ...TaskStories.Default.args.task, id: "5", title: "Task 5" },
-      { ...TaskStories.Default.args.task, id: "6", title: "Task 6" },
+      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
     ],
   },
 };
@@ -112,7 +108,7 @@ export const WithPinnedTasks = {
     // Inherited data coming from the Default story.
     tasks: [
       ...Default.args.tasks.slice(0, 5),
-      { id: "6", title: "Task 6 (pinned)", state: "TASK_PINNED" },
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
     ],
   },
 };
@@ -136,11 +132,11 @@ export const Empty = {
 
 <div class="aside">
 
-[**Decorators**](https://storybook.js.org/docs/svelte/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add styling around the rendered component. They can also be used to add other context to components.
+[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add styling around the rendered component. They can also be used to add other context to components.
 
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/svelte/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
 
 Now check Storybook for the new `TaskList` stories.
 

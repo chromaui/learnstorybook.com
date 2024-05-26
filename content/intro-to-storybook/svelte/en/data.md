@@ -12,7 +12,7 @@ This tutorial doesn’t focus on the particulars of building an app, so we won�
 
 Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-This example uses [Svelte's Stores](https://svelte.dev/docs#svelte_store), Svelte's default data management API, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+This example uses [Svelte's Stores](https://svelte.dev/docs/svelte-store), Svelte's default data management API, to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
 
 First, we’ll construct a simple Svelte store that responds to actions that change the state of tasks in a file called `store.js` in the `src` directory (intentionally kept simple):
 
@@ -21,34 +21,48 @@ First, we’ll construct a simple Svelte store that responds to actions that cha
 // A true app would be more complex and separated into different files.
 
 import { writable } from 'svelte/store';
+/*
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
+ */
+const defaultTasks = [
+  { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
+];
 
 const TaskBox = () => {
   // Creates a new writable store populated with some initial data
-  const { subscribe, update } = writable([
-    { id: '1', title: 'Something', state: 'TASK_INBOX' },
-    { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-    { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-    { id: '4', title: 'Something again', state: 'TASK_INBOX' },
-  ]);
+  const { subscribe, update } = writable({
+    tasks: defaultTasks,
+    status: 'idle',
+    error: false,
+  });
 
   return {
     subscribe,
     // Method to archive a task, think of a action with redux or Pinia
     archiveTask: (id) =>
-      update((tasks) =>
-        tasks
+      update((store) => {
+        const filteredTasks = store.tasks
           .map((task) =>
             task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task
           )
-          .filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED')
-      ),
+          .filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED');
+
+        return { ...store, tasks: filteredTasks };
+      }),
     // Method to archive a task, think of a action with redux or Pinia
-    pinTask: (id) =>
-      update((tasks) =>
-        tasks.map((task) =>
-          task.id === id ? { ...task, state: 'TASK_PINNED' } : task
-        )
-      ),
+    pinTask: (id) => {
+      update((store) => {
+        const task = store.tasks.find((t) => t.id === id);
+        if (task) {
+          task.state = 'TASK_PINNED';
+        }
+        return store;
+      });
+    },
   };
 };
 export const taskStore = TaskBox();
@@ -100,7 +114,6 @@ In `src/components/PureTaskList.svelte`:
 {#each tasksInOrder as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
-
 ```
 
 In `src/components/TaskList.svelte`:
@@ -119,7 +132,7 @@ In `src/components/TaskList.svelte`:
 </script>
 
 <PureTaskList
-  tasks={$taskStore}
+  tasks={$taskStore.tasks}
   on:onPinTask={onPinTask}
   on:onArchiveTask={onArchiveTask}
 />
@@ -135,58 +148,59 @@ import * as TaskStories from './Task.stories';
 
 export default {
   component: PureTaskList,
+  title: 'PureTaskList',
+  tags: ['autodocs'],
   //👇 The auxiliary component will be added as a decorator to help show the UI correctly
   decorators: [() => MarginDecorator],
-  title: 'PureTaskList',
-  argTypes: {
-    onPinTask: { action: 'onPinTask' },
-    onArchiveTask: { action: 'onArchiveTask' },
+  render: (args) => ({
+    Component: PureTaskList,
+    props: args,
+    on: {
+      ...TaskStories.actionsData,
+    },
+  }),
+};
+
+export const Default = {
+  args: {
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in task.stories.js.
+    tasks: [
+      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    ],
   },
 };
 
-const Template = args => ({
-  Component: PureTaskList,
-  props: args,
-  on: {
-    ...TaskStories.actionsData,
+export const WithPinnedTasks = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Default story.
+    tasks: [
+      ...Default.args.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
   },
-});
-export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in task.stories.js.
-  tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ],
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const Loading = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
-};
-
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
