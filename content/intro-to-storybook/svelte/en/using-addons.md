@@ -112,7 +112,6 @@ export const LongTitle = {
 
 Now we can reproduce and work on this edge case with ease.
 
-<!-- record new video -->
 <video autoPlay muted playsInline loop>
   <source
     src="/intro-to-storybook/task-stories-long-title-svelte-7-0.mp4"
