@@ -47,27 +47,39 @@ Change `src/components/Task.svelte` to the following:
 
 ```diff:title=src/components/Task.svelte
 <div class="list-item {task.state}">
-  <label for="checked" class="checkbox" aria-label={`archiveTask-${task.id}`}>
+  <label
+    for={`checked-${task.id}`}
+    class="checkbox"
+    aria-label={`archiveTask-${task.id}`}
+  >
     <input
       type="checkbox"
       checked={isChecked}
       disabled
-      name="checked"
+      name={`checked-${task.id}`}
       id={`archiveTask-${task.id}`}
     />
-    <span class="checkbox-custom" on:click={ArchiveTask} />
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
+    <span
+      class="checkbox-custom"
+      role="button"
+      on:click={ArchiveTask}
+      tabindex="-1"
+      aria-label={`archiveTask-${task.id}`}
+    />
   </label>
-  <label for="title" aria-label={task.title} class="title">
+  <label for={`title-${task.id}`} aria-label={task.title} class="title">
     <input
       type="text"
       value={task.title}
       readonly
       name="title"
+      id={`title-${task.id}`}
       placeholder="Input title"
 +     style="background-color: red;"
     />
   </label>
-  {#if task.state !== "TASK_ARCHIVED"}
+  {#if task.state !== 'TASK_ARCHIVED'}
     <button
       class="pin-button"
       on:click|preventDefault={PinTask}
@@ -82,7 +94,7 @@ Change `src/components/Task.svelte` to the following:
 
 This yields a new background color for the item.
 
-![task background change](/intro-to-storybook/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change-7-0.png)
 
 Add the file:
 
