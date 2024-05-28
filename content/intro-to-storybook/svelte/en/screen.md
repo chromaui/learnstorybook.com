@@ -149,7 +149,6 @@ We see that both the `Error` and `Default` stories work just fine.
 <div class="aside">
 
 💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using [GraphQL](http://graphql.org/). It’s how we have built [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) alongside 800+ stories.
-stories.
 
 </div>
 

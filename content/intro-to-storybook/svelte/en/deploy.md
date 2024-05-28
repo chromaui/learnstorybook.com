@@ -89,8 +89,8 @@ on: push
 
 # List of jobs
 jobs:
-  test:
-    # Operating System
+  chromatic:
+    name: "Run Chromatic"
     runs-on: ubuntu-latest
     # Job steps
     steps:
