@@ -82,15 +82,15 @@ Create a new file called `chromatic.yml` like the one below.
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
-name: "Chromatic Deployment"
+name: 'Chromatic Deployment'
 
 # Event for the workflow
 on: push
 
 # List of jobs
 jobs:
-  test:
-    # Operating System
+  chromatic:
+    name: 'Run Chromatic'
     runs-on: ubuntu-latest
     # Job steps
     steps:
