@@ -86,10 +86,10 @@ export default {
   component: TaskList,
   title: 'TaskList',
   tags: ['autodocs'],
-    decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
-    args: {
-     ...TaskStories.ActionsData,
-    }
+  decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
+  args: {
+    ...TaskStories.ActionsData,
+  }
 }
 
 export const Default = {
