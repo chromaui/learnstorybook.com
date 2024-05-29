@@ -348,11 +348,7 @@ const config = {
 export default config;
 ```
 
-After updating your Storybook configuration file (`.storybook/main.js`), restart the Storybook server to apply the new addon configuration and have the UI updated accordingly. Run the following command again:
-
-```shell
-yarn storybook
-```
+Finally, restart your Storybook to see the new addon enabled in the UI.
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
