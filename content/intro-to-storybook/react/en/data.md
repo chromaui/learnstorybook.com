@@ -84,9 +84,10 @@ export default store;
 Then we’ll update our `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
 ```jsx:title=src/components/TaskList.jsx
-import React from 'react';
 import Task from './Task';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import { updateTaskState } from '../lib/store';
 
 export default function TaskList() {
@@ -175,6 +176,7 @@ We can use various approaches to solve this issue. Still, as our app is pretty s
 
 ```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
+
 import * as TaskStories from './Task.stories';
 
 import { Provider } from 'react-redux';
@@ -223,7 +225,7 @@ const Mockstore = ({ taskboxState, children }) => (
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
   tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };
@@ -288,7 +290,9 @@ export const Empty = {
 ```
 
 <div class="aside">
-💡 <code>excludeStories</code> is a Storybook configuration field that prevents our mocked state to be treated as a story. You can read more about this field in the <a href="https://storybook.js.org/docs/react/api/csf">Storybook documentation</a>.
+
+💡 `excludeStories` is a Storybook configuration field that prevents our mocked state to be treated as a story. You can read more about this field in the [Storybook documentation](https://storybook.js.org/docs/api/csf).
+
 </div>
 
 <video autoPlay muted playsInline loop>

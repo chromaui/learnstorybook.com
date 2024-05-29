@@ -116,7 +116,7 @@ export default store;
 Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.jsx` in the `src/components` directory:
 
 ```jsx:title=src/components/InboxScreen.jsx
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -245,17 +245,16 @@ Then, we'll need to update our `.storybook/preview.js` and initialize them:
 ```diff:title=.storybook/preview.js
 import '../src/index.css';
 
-+ // Registers the msw addon
+// Registers the msw addon
 + import { initialize, mswLoader } from 'msw-storybook-addon';
 
-+ // Initialize MSW
+// Initialize MSW
 + initialize();
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -269,13 +268,17 @@ const preview = {
 export default preview;
 ```
 
-Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/react/writing-stories/parameters) that mocks the remote API calls:
+Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/writing-stories/parameters) that mocks the remote API calls:
 
 ```diff:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
+
 import store from '../lib/store';
-+ import { rest } from 'msw';
+
++ import { http, HttpResponse } from 'msw';
+
 + import { MockedState } from './TaskList.stories';
+
 import { Provider } from 'react-redux';
 
 export default {
@@ -289,26 +292,23 @@ export const Default = {
 + parameters: {
 +   msw: {
 +     handlers: [
-+       rest.get(
-+         'https://jsonplaceholder.typicode.com/todos?userId=1',
-+         (req, res, ctx) => {
-+           return res(ctx.json(MockedState.tasks));
-+         }
-+       ),
++       http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
++         return HttpResponse.json(MockedState.tasks);
++       }),
 +     ],
 +   },
 + },
 };
+
 export const Error = {
 + parameters: {
 +   msw: {
 +     handlers: [
-+       rest.get(
-+         'https://jsonplaceholder.typicode.com/todos?userId=1',
-+         (req, res, ctx) => {
-+           return res(ctx.status(403));
-+         }
-+       ),
++       http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
++         return new HttpResponse(null, {
++           status: 403,
++         });
++       }),
 +     ],
 +   },
 + },
@@ -316,7 +316,8 @@ export const Error = {
 ```
 
 <div class="aside">
-💡 As an aside, yet another viable approach would be to pass data down the hierarchy, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> alongside 800+ stories.
+
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using [GraphQL](http://graphql.org/). It’s how we have built [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) alongside 800+ stories.
 
 </div>
 
@@ -337,7 +338,7 @@ Can't we automate this workflow and test our component interactions automaticall
 
 ### Write an interaction test using the play function
 
-Storybook's [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
 
 The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
 
@@ -349,8 +350,11 @@ Let's see it in action! Update your newly created `InboxScreen` story, and set u
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
-import { rest } from 'msw';
+
+import { http, HttpResponse } from 'msw';
+
 import { MockedState } from './TaskList.stories';
+
 import { Provider } from 'react-redux';
 
 + import {
@@ -371,12 +375,9 @@ export const Default = {
   parameters: {
     msw: {
       handlers: [
-        rest.get(
-          'https://jsonplaceholder.typicode.com/todos?userId=1',
-          (req, res, ctx) => {
-            return res(ctx.json(MockedState.tasks));
-          }
-        ),
+        http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
+          return HttpResponse.json(MockedState.tasks);
+        }),
       ],
     },
   },
@@ -393,16 +394,16 @@ export const Default = {
 +   });
 + },
 };
+
 export const Error = {
   parameters: {
     msw: {
       handlers: [
-        rest.get(
-          'https://jsonplaceholder.typicode.com/todos?userId=1',
-          (req, res, ctx) => {
-            return res(ctx.status(403));
-          }
-        ),
+        http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
+          return new HttpResponse(null, {
+            status: 403,
+          });
+        }),
       ],
     },
   },
@@ -430,7 +431,7 @@ With Storybook's play function, we were able to sidestep our problem, allowing u
 
 But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
 
-The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/react/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
 
 Let's see how it works! Run the following command to install it:
 
@@ -455,9 +456,11 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">official documentation</a> to learn more about it.
-<br />
-For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/writing-tests/interaction-testing) to learn more about it.
+
+For an even deeper dive into testing, check out the [Testing Handbook](/ui-testing-handbook). It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)

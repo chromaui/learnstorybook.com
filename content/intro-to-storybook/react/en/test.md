@@ -43,16 +43,14 @@ Start by creating a new branch for this change:
 git checkout -b change-task-background
 ```
 
-Change `src/components/Task.js` to the following:
+Change `src/components/Task.jsx` to the following:
 
 ```diff:title=src/components/Task.jsx
-import React from 'react';
-
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
       <label
-        htmlFor="checked"
+        htmlFor={`archiveTask-${id}`}
         aria-label={`archiveTask-${id}`}
         className="checkbox"
       >
@@ -69,12 +67,13 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         />
       </label>
 
-      <label htmlFor="title" aria-label={title} className="title">
+      <label htmlFor={`title-${id}`} aria-label={title} className="title">
         <input
           type="text"
           value={title}
           readOnly={true}
           name="title"
+          id={`title-${id}`}
           placeholder="Input title"
 +         style={{ backgroundColor: 'red' }}
         />

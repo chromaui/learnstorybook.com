@@ -24,8 +24,6 @@ A composite component isn’t much different from the basic components it contai
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
 ```jsx:title=src/components/TaskList.jsx
-import React from 'react';
-
 import Task from './Task';
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -62,8 +60,11 @@ import * as TaskStories from './Task.stories';
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
   tags: ['autodocs'],
+  args: {
+    ...TaskStories.ActionsData,
+  },
 };
 
 export const Default = {
@@ -108,10 +109,12 @@ export const Empty = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some <code>padding</code> around the rendered component. They can also be used to wrap stories in “providers”-–i.e., library components that set React context.
+
+💡[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some `margin` around the rendered component. They can also be used to wrap stories in “providers”-–i.e., library components that set React context.
+
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/react/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -127,8 +130,6 @@ Now check Storybook for the new `TaskList` stories.
 Our component is still rough, but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases, we wouldn’t create a new component just to add a wrapper. But the **real complexity** of the `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
 ```jsx:title=src/components/TaskList.jsx
-import React from 'react';
-
 import Task from './Task';
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -198,7 +199,6 @@ Note the position of the pinned item in the list. We want the pinned item to ren
 As the component grows, so do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the `propTypes` you defined in `Task` earlier.
 
 ```diff:title=src/components/TaskList.jsx
-import React from 'react';
 + import PropTypes from 'prop-types';
 
 import Task from './Task';

@@ -5,11 +5,11 @@ description: 'Learn how to integrate and use the popular Controls addon'
 commit: 'f89cfe0'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/react/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
+Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/integrations).
 
 If you've been following this tutorial, you've already encountered multiple addons and set one up in the [Testing](/intro-to-storybook/react/en/test/) chapter.
 
-There are addons for every possible use case, and it would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/react/essentials/controls).
+There are addons for every possible use case, and it would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/essentials/controls).
 
 ## What is Controls?
 
@@ -41,13 +41,11 @@ Controls allowed us to quickly verify different inputs to a component--in this c
 Now let's fix the issue with overflowing by adding a style to `Task.jsx`:
 
 ```diff:title=src/components/Task.jsx
-import React from 'react';
-
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
       <label
-        htmlFor="checked"
+        htmlFor={`archiveTask-${id}`}
         aria-label={`archiveTask-${id}`}
         className="checkbox"
       >
@@ -64,12 +62,13 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         />
       </label>
 
-      <label htmlFor="title" aria-label={title} className="title">
+      <label htmlFor={`title-${id}`} aria-label={title} className="title">
         <input
           type="text"
           value={title}
           readOnly={true}
           name="title"
+          id={`title-${id}`}
           placeholder="Input title"
 +         style={{ textOverflow: 'ellipsis' }}
         />
@@ -125,7 +124,11 @@ Now we can reproduce and work on this edge case with ease.
 
 If we are [visual testing](/intro-to-storybook/react/en/test/), we'll also be informed if the truncating solution breaks. Extreme edge cases are liable to be forgotten without test coverage!
 
-<div class="aside"><p>💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/react/essentials/controls">official documentation</a> to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the <a href="https://storybook.js.org/docs/react/addons/writing-addons">create an addon guide</a> we'll teach you that, by creating an addon that will help you supercharge your development workflow.</p></div>
+<div class="aside">
+
+💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/essentials/controls) to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the [create an addon guide](https://storybook.js.org/docs/addons/writing-addons) we'll teach you that, by creating an addon that will help you supercharge your development workflow.
+
+</div>
 
 ### Merge Changes
 

@@ -25,8 +25,6 @@ First, let’s create the task component and its accompanying story file: `src/c
 We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
 ```jsx:title=src/components/Task.jsx
-import React from 'react';
-
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className="list-item">
@@ -43,12 +41,24 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```jsx:title=src/components/Task.stories.jsx
+import { fn } from "@storybook/test";
+
 import Task from './Task';
+
+export const ActionsData = {
+  onArchiveTask: fn(),
+  onPinTask: fn(),
+};
 
 export default {
   component: Task,
   title: 'Task',
   tags: ['autodocs'],
+  //👇 Our exports that end in "Data" are not stories.
+  excludeStories: /.*Data$/,
+  args: {
+    ...ActionsData,
+  },
 };
 
 export const Default = {
@@ -80,6 +90,12 @@ export const Archived = {
 };
 ```
 
+<div class="aside">
+
+💡 [**Actions**](https://storybook.js.org/docs/essentials/actions) help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `fn()` to stub them in.
+
+</div>
+
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
 - **Component**
@@ -92,10 +108,16 @@ To tell Storybook about the component we are documenting and testing, we create 
 - `component` -- the component itself
 - `title` -- how to group or categorize the component in the Storybook sidebar
 - `tags` -- to automatically generate documentation for our components
+- `excludeStories`-- additional information required by the story but should not be rendered in Storybook
+- `args` -- define the action [args](https://storybook.js.org/docs/essentials/actions#action-args) that the component expects to mock out the custom events
 
-To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/react/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
+To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
 
-Arguments or [`args`](https://storybook.js.org/docs/react/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/react/writing-stories/args) value changes, so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/writing-stories/args) value changes, so does the component.
+
+`fn()` allows us to create a callback that appears in the **Actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `ActionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `ActionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
@@ -120,9 +142,6 @@ const config = {
     name: '@storybook/react-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
 };
 export default config;
 ```
@@ -136,7 +155,6 @@ After completing the change above, inside the `.storybook` folder, change your `
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
-    actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -149,9 +167,7 @@ const preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we're going to use them to configure how the `actions` (mocked callbacks) are handled.
-
-`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+[`parameters`](https://storybook.js.org/docs/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we won't use them for that purpose. Instead, we will import our application's CSS file.
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
@@ -169,8 +185,6 @@ Now that we have Storybook set up, styles imported, and test cases built out, we
 The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 
 ```jsx:title=src/components/Task.jsx
-import React from 'react';
-
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
@@ -202,7 +216,6 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           placeholder="Input title"
         />
       </label>
-
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
@@ -233,7 +246,6 @@ The additional markup from above combined with the CSS we imported earlier yield
 It’s best practice to use `propTypes` in React to specify the shape of data that a component expects. Not only is it self-documenting, but it also helps catch problems early.
 
 ```diff:title=src/components/Task.jsx
-import React from 'react';
 + import PropTypes from 'prop-types';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -267,7 +279,6 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           placeholder="Input title"
         />
       </label>
-
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
@@ -282,7 +293,6 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
     </div>
   );
 }
-
 + Task.propTypes = {
 +  /** Composition of the task */
 +  task: PropTypes.shape({
@@ -340,9 +350,6 @@ const config = {
   framework: {
     name: '@storybook/react-vite',
     options: {},
-  },
-  docs: {
-    autodocs: 'tag',
   },
 };
 export default config;

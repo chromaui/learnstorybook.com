@@ -20,7 +20,7 @@ module.exports = {
       'intro-to-storybook': {
         react: {
           de: 5.3,
-          en: 7.6,
+          en: 8.1,
           es: 6.5,
           fr: 6.5,
           it: 7.6,
