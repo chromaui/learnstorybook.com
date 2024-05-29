@@ -31,17 +31,16 @@ yarn
 Now we can quickly check that the various environments of our application are working properly:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test
-
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 5000:
+# Run the frontend app proper on port 5173:
 yarn dev
 ```
 
-Our three frontend app modalities: automated test (Jest), component development (Storybook), and the app itself.
+Our main frontend app modalities: component development (Storybook), and the application itself.
+
+<!-- Needs to be updated and the link updated to ![Main modalities](/intro-to-storybook/app-main-modalities-svelte.png) -->
 
 ![3 modalities](/intro-to-storybook/app-three-modalities-svelte.png)
 

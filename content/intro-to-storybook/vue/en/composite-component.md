@@ -87,16 +87,15 @@ export default {
   title: 'TaskList',
   tags: ['autodocs'],
   decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
-  argTypes: {
-    onPinTask: {},
-    onArchiveTask: {},
-  },
-};
+  args: {
+    ...TaskStories.ActionsData,
+  }
+}
 
 export const Default = {
   args: {
     // Shaping the stories through args composition.
-    // The data was inherited from the Default story in task.stories.js.
+    // The data was inherited from the Default story in Task.stories.js.
     tasks: [
       { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
       { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -137,10 +136,12 @@ export const Empty = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/vue/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some <code>margin</code> around the rendered component. But they can also be used to add other context to components, as we'll see later.
+
+💡[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some `margin` around the rendered component. But they can also be used to add other context to components, as we'll see later.
+
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/vue/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
 
 Now check Storybook for the new `TaskList` stories.
 

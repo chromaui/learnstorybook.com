@@ -80,6 +80,7 @@ Next, we’ll need to update our app’s entry point (`src/main.js`) so that we 
 ```diff:title=src/main.js
 import { createApp } from 'vue';
 + import { createPinia } from 'pinia';
+- import './assets/main.css';
 
 import App from './App.vue';
 
@@ -126,8 +127,7 @@ export const Default = {};
 
 export const Error = {
   args: { error: true },
-};
-
+}
 ```
 
 We see that although the `error` story works just fine, we have an issue in the `default` story because the `TaskList` has no Pinia store to connect to.
@@ -139,7 +139,9 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> alongside 800+ stories.
+
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using [GraphQL](http://graphql.org/). It’s how we have built [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) alongside 800+ stories.
+
 </div>
 
 ## Supplying context to stories
@@ -162,7 +164,6 @@ import '../src/index.css';
 /** @type { import('@storybook/vue3').Preview } */
 const preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -195,7 +196,7 @@ Can't we automate this workflow and test our component interactions automaticall
 
 ### Write an interaction test using the play function
 
-Storybook's [`play`](https://storybook.js.org/docs/vue/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/vue/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
 
 The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
 
@@ -277,9 +278,11 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/vue/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
-<br />
-For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/writing-tests/interaction-testing) to learn more about it.
+
+For an even deeper dive into testing, check out the [Testing Handbook](/ui-testing-handbook). It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)

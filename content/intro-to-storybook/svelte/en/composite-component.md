@@ -25,13 +25,18 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 ```html:title=src/components/TaskList.svelte
 <script>
   import Task from './Task.svelte';
+
+  /* Sets the loading state */
   export let loading = false;
+
+  /* Defines a list of tasks */
   export let tasks = [];
 
-  //👇 Reactive declarations (computed prop in other frameworks)
+  /* Reactive declaration (computed prop in other frameworks) */
   $: noTasks = tasks.length === 0;
   $: emptyTasks = noTasks && !loading;
 </script>
+
 {#if loading}
   <div class="list-items">loading</div>
 {/if}
@@ -41,6 +46,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 {#each tasks as task}
   <Task {task} on:onPinTask on:onArchiveTask />
 {/each}
+
 ```
 
 Next, create `MarginDecorator` with the following inside:
@@ -68,72 +74,75 @@ import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
+  title: 'TaskList',
+  tags: ['autodocs'],
   //👇 The auxiliary component will be added as a decorator to help show the UI correctly
   decorators: [() => MarginDecorator],
-  title: 'TaskList',
-  argTypes: {
-    onPinTask: { action: 'onPinTask' },
-    onArchiveTask: { action: 'onArchiveTask' },
+  render: (args) => ({
+    Component: TaskList,
+    props: args,
+    on: {
+      ...TaskStories.actionsData,
+    },
+  }),
+};
+
+export const Default = {
+  args: {
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in task.stories.js.
+    tasks: [
+      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    ],
   },
 };
 
-const Template = args => ({
-  Component: TaskList,
-  props: args,
-  on: {
-    ...TaskStories.actionsData,
+export const WithPinnedTasks = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Default story.
+    tasks: [
+      ...Default.args.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
   },
-});
-export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in task.stories.js.
-  tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ],
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const Loading = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
-};
-
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/svelte/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add styling around the rendered component. They can also be used to add other context to components.
+
+[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add styling around the rendered component. They can also be used to add other context to components.
+
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/svelte/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -163,15 +172,19 @@ And update `TaskList.svelte` to the following:
 <script>
   import Task from './Task.svelte';
   import LoadingRow from './LoadingRow.svelte';
+
+  /* Sets the loading state */
   export let loading = false;
+
+  /* Defines a list of tasks */
   export let tasks = [];
 
-  //👇 Reactive declarations (computed props in other frameworks)
+  /* Reactive declaration (computed prop in other frameworks) */
   $: noTasks = tasks.length === 0;
   $: emptyTasks = noTasks && !loading;
   $: tasksInOrder = [
     ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED')
   ];
 </script>
 
@@ -202,7 +215,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>

@@ -18,50 +18,60 @@ Let's start by updating our Svelte store (in `src/store.js`) to include our new 
 // A simple Svelte store implementation with update methods and initial data.
 // A true app would be more complex and separated into different files.
 
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
+
+/*
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
+ */
+const defaultTasks = [
+  { id: '1', title: 'Something', state: 'TASK_INBOX' },
+  { id: '2', title: 'Something more', state: 'TASK_INBOX' },
+  { id: '3', title: 'Something else', state: 'TASK_INBOX' },
+  { id: '4', title: 'Something again', state: 'TASK_INBOX' },
+];
 
 const TaskBox = () => {
   // Creates a new writable store populated with some initial data
-  const { subscribe, update } = writable([
-    { id: '1', title: 'Something', state: 'TASK_INBOX' },
-    { id: '2', title: 'Something more', state: 'TASK_INBOX' },
-    { id: '3', title: 'Something else', state: 'TASK_INBOX' },
-    { id: '4', title: 'Something again', state: 'TASK_INBOX' },
-  ]);
-
+  const { subscribe, update } = writable({
+    tasks: defaultTasks,
+    status: 'idle',
+    error: false,
+  });
   return {
     subscribe,
     // Method to archive a task, think of a action with redux or Pinia
     archiveTask: (id) =>
-      update((tasks) =>
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task)).filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED')
-      ),
+      update((store) => {
+        const filteredTasks = store.tasks
+          .map((task) =>
+            task.id === id ? { ...task, state: 'TASK_ARCHIVED' } : task
+          )
+          .filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED');
+
+        return { ...store, tasks: filteredTasks };
+      }),
     // Method to archive a task, think of a action with redux or Pinia
-    pinTask: (id) =>
-      update((tasks) =>
-        tasks.map(task => (task.id === id ? { ...task, state: 'TASK_PINNED' } : task))
-      ),
+    pinTask: (id) => {
+      update((store) => {
+        const task = store.tasks.find((t) => t.id === id);
+        if (task) {
+          task.state = 'TASK_PINNED';
+        }
+        return store;
+      });
+    },
++   isError: () => update((store) => ({ ...store, error: true })),
   };
 };
 export const taskStore = TaskBox();
-
-+ // Store to handle the app state
-+ const AppState = () => {
-+  const { subscribe, update } = writable(false);
-+  return {
-+    subscribe,
-+    error: () => update(error => !error),
-+  };
-+ };
-
-+ export const AppStore = AppState();
 ```
 
 Now that we have the store updated with the new field. Let's create `InboxScreen.svelte` in your `components` directory:
 
 ```html:title=src/components/InboxScreen.svelte
 <script>
-  import TaskList from './TaskList.svelte';
+  import TaskList from "./TaskList.svelte";
   export let error = false;
 </script>
 
@@ -70,16 +80,14 @@ Now that we have the store updated with the new field. Let's create `InboxScreen
     <div class="page lists-show">
       <div class="wrapper-message">
         <span class="icon-face-sad" />
-        <div class="title-message">Oh no!</div>
-        <div class="subtitle-message">Something went wrong</div>
+        <p class="title-message">Oh no!</p>
+        <p class="subtitle-message">Something went wrong</p>
       </div>
     </div>
   {:else}
     <div class="page lists-show">
       <nav>
-        <h1 class="title-page">
-          <span class="title-wrapper">Taskbox</span>
-        </h1>
+        <h1 class="title-page">Taskbox</h1>
       </nav>
       <TaskList />
     </div>
@@ -91,12 +99,25 @@ We also need to change the `App` component to render the `InboxScreen` (eventual
 
 ```html:title=src/App.svelte
 <script>
-  import './index.css'
-  import { AppStore } from './store';
   import InboxScreen from './components/InboxScreen.svelte';
+  import { taskStore } from './store';
 </script>
 
-<InboxScreen error="{$AppStore}" />
+<InboxScreen error={$taskStore.error} />
+```
+
+And finally, the `src/main.js`:
+
+```diff:title=src/main.js
+- import './app.css';
++ import './index.css';
+import App from './App.svelte';
+
+const app = new App({
+  target: document.getElementById("app"),
+});
+
+export default app;
 ```
 
 However, where things get interesting is in rendering the story in Storybook.
@@ -113,33 +134,29 @@ import InboxScreen from './InboxScreen.svelte';
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
+  tags: ['autodocs'],
 };
 
-const Template = args => ({
-  Component: InboxScreen,
-  props: args,
-});
+export const Default = {};
 
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = {
-  error: true,
+export const Error = {
+  args: { error: true },
 };
 ```
 
 We see that both the `Error` and `Default` stories work just fine.
 
 <div class="aside">
-💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> alongside 800+ stories.
+
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using [GraphQL](http://graphql.org/). It’s how we have built [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) alongside 800+ stories.
+
 </div>
 
 Cycling through states in Storybook makes it easy to test we’ve done this correctly:
 
 <video autoPlay muted playsInline loop >
-
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
+    src="/intro-to-storybook/finished-inbox-screen-states-svelte-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -152,7 +169,7 @@ Can't we automate this workflow and test our component interactions automaticall
 
 ### Write an interaction test using the play function
 
-Storybook's [`play`](https://storybook.js.org/docs/svelte/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/svelte/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
 
 The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
 
@@ -161,41 +178,44 @@ The `@storybook/addon-interactions` helps us visualize our tests in Storybook, p
 Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
 
 ```diff:title=src/components/InboxScreen.stories.js
-+ import { fireEvent, within } from '@storybook/testing-library';
 import InboxScreen from './InboxScreen.svelte';
+
++ import { fireEvent, within } from '@storybook/test';
 
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
+  tags: ['autodocs'],
 };
 
-const Template = args => ({
-  Component: InboxScreen,
-  props: args,
-});
+export const Default = {};
 
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = {
-  error: true,
+export const Error = {
+  args: { error: true },
 };
 
-+ export const WithInteractions = Template.bind({});
-+ WithInteractions.play = async ({ canvasElement }) => {
-+   const canvas = within(canvasElement);
-+   // Simulates pinning the first task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-1"));
-+   // Simulates pinning the third task
-+   await fireEvent.click(canvas.getByLabelText("pinTask-3"));
++ export const WithInteractions = {
++  play: async ({ canvasElement }) => {
++    const canvas = within(canvasElement);
++    // Simulates pinning the first task
++    await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++    // Simulates pinning the third task
++    await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++  },
 + };
 ```
+
+<div class="aside">
+
+💡 The `@storybook/test` package replaces the `@storybook/jest` and `@storybook/testing-library` testing packages, offering a smaller bundle size and a more straightforward API based on the [Vitest](https://vitest.dev/) package.
+
+</div>
 
 Check your newly created story. Click the `Interactions` panel to see the list of interactions inside the story's play function.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    src="/intro-to-storybook/storybook-interactive-stories-play-function-svelte.mp4"
     type="video/mp4"
   />
 </video>
@@ -206,7 +226,7 @@ With Storybook's play function, we were able to sidestep our problem, allowing u
 
 But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
 
-The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/vue/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
 
 Let's see how it works! Run the following command to install it:
 
@@ -231,9 +251,11 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/svelte/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
-<br />
-For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
+💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/writing-tests/interaction-testing) to learn more about it.
+
+For an even deeper dive into testing, check out the [Testing Handbook](/ui-testing-handbook). It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)

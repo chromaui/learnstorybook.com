@@ -15,7 +15,7 @@ module.exports = {
     siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
-    storybookVersion: 7.6,
+    storybookVersion: 8.1,
     tutorialStatus: {
       'intro-to-storybook': {
         react: {
@@ -38,7 +38,7 @@ module.exports = {
           pt: 7.6,
         },
         vue: {
-          en: 7.6,
+          en: 8.1,
           es: 6.1,
           fr: 5.3,
           pt: 5.3,
@@ -52,7 +52,7 @@ module.exports = {
           pt: 5.3,
         },
         svelte: {
-          en: 6.5,
+          en: 8.1,
           es: 5.3,
         },
         ember: {

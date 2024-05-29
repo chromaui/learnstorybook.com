@@ -16,7 +16,7 @@ Storybook is a powerful tool for React, React Native, Vue, Angular, Svelte and m
 
 Want to dive deeper? Here are helpful resources.
 
-- [**Official Storybook documentation**](https://storybook.js.org/docs/vue/get-started/introduction) has API documentation, community links, and the addon gallery.
+- [**Official Storybook documentation**](https://storybook.js.org/docs/get-started/install) has API documentation, community links, and the addon gallery.
 
 - [**UI Testing Playbook**](https://storybook.js.org/blog/ui-testing-playbook/) highlights workflow best practices used by high-velocity teams at Twilio, Adobe, Peloton, and Shopify.
 

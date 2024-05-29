@@ -54,26 +54,24 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 Below we build out Task’s three test states in the story file:
 
 ```js:title=src/components/Task.stories.js
+import { fn } from '@storybook/test';
+
 import Task from './Task.vue';
 
-import { action } from '@storybook/addon-actions';
+export const ActionsData = {
+  onPinTask: fn(),
+  onArchiveTask: fn(),
+};
 
 export default {
   component: Task,
   title: 'Task',
   tags: ['autodocs'],
-  //👇 Our events will be mapped in Storybook UI
-  argTypes: {
-    onPinTask: {},
-    onArchiveTask: {},
-  },
   //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
-};
-
-export const actionsData = {
-  onPinTask: action('pin-task'),
-  onArchiveTask: action('archive-task'),
+  args: {
+    ...ActionsData
+  }
 };
 
 export const Default = {
@@ -106,7 +104,9 @@ export const Archived = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+
+💡 [**Actions**](https://storybook.js.org/docs/essentials/actions) help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `fn()` to stub them in.
+
 </div>
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -122,15 +122,15 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `title` -- how to group or categorize the component in the Storybook sidebar
 - `tags` -- to automatically generate documentation for our components
 - `excludeStories`-- additional information required by the story but should not be rendered in Storybook
-- `argTypes` -- specify the [args](https://storybook.js.org/docs/vue/api/argtypes) behavior in each story
+- `args` -- define the action [args](https://storybook.js.org/docs/essentials/actions#action-args) that the component expects to mock out the custom events
 
 To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/vue/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
 
-Arguments or [`args`](https://storybook.js.org/docs/vue/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/vue/writing-stories/args) value changes, so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/writing-stories/args) value changes, so does the component.
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+`fn()` allows us to create a callback that appears in the **Actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `ActionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `ActionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
@@ -155,9 +155,6 @@ const config = {
     name: '@storybook/vue3-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
 };
 export default config;
 ```
@@ -171,7 +168,6 @@ After completing the change above, inside the `.storybook` folder, change your `
 /** @type { import('@storybook/vue3').Preview } */
 const preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -184,9 +180,7 @@ const preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/vue/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we're going to use them to configure how the `actions` (mocked callbacks) are handled.
-
-`actions` allows us to create callbacks that appear in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+[`parameters`](https://storybook.js.org/docs/vue/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we won't use them for that purpose. Instead, we will import our application's CSS file.
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
@@ -332,18 +326,11 @@ const config = {
     name: '@storybook/vue3-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
 };
 export default config;
 ```
 
-After updating your Storybook configuration file (`.storybook/main.js`), restart the Storybook server to apply the new addon configuration and have the UI updated accordingly. Run the following command again:
-
-```shell
-yarn storybook
-```
+Finally, restart your Storybook to see the new addon enabled in the UI.
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
