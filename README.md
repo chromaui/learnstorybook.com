@@ -247,13 +247,13 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Korean           | ❌      |
 |              | Japanese         | ❌      |
 |              | French           | ❌      |
-|              | Italian          | ✅      |
+|              | Italian          | ❌      |
 |              | German           | ❌      |
 | React Native | English          | ✅      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ✅      |
 | Vue          | English          | ✅      |
-|              | Italian          | ✅      |
+|              | Italian          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | French           | ❌      |

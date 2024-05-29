@@ -43,7 +43,7 @@ Start by creating a new branch for this change:
 git checkout -b change-task-background
 ```
 
-Change `src/components/Task` to the following:
+Change `src/components/Task.vue` to the following:
 
 ```diff:title=src/components/Task.vue
 <template>

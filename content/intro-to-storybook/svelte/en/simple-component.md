@@ -118,7 +118,7 @@ export const Archived = {
 
 <div class="aside">
 
-💡 [**Actions**](https://storybook.js.org/docs/svelte/essentials/actions) help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `action()` to stub them in.
+💡 [**Actions**](https://storybook.js.org/docs/essentials/actions) help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `action()` to stub them in.
 
 </div>
 

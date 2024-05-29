@@ -253,7 +253,7 @@ With Storybook's play function, we were able to sidestep our problem, allowing u
 
 But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
 
-The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/vue/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
 
 Let's see how it works! Run the following command to install it:
 
