@@ -15,7 +15,7 @@ Running `yarn build-storybook` will output a static Storybook in the `storybook-
 
 ## Publish Storybook
 
-This tutorial uses [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storyboo), a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
+This tutorial uses [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), a free publishing service made by the Storybook maintainers. It allows us to deploy and host our Storybook safely and securely in the cloud.
 
 ### Set up a repository in GitHub
 
