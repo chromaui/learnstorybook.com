@@ -31,7 +31,7 @@ Storybook をデプロイするには、まず静的サイトとしてエクス�
 git remote add origin https://github.com/<GitHubのユーザ名>/taskbox.git
 ```
 
-最後にローカルリポジトリを GitHub のリモートリポジトリにプッシュします:
+最後にローカルリポジトリを GitHub のリモートリポジトリにプッシュします。
 
 ```shell
 git push -u origin main
@@ -81,28 +81,28 @@ yarn chromatic --project-token=<project-token>
 `chromatic.yml` を以下の内容で新規に作成します。
 
 ```yaml:title=.github/workflows/chromatic.yml
-# ワークフローの名前
+# Workflow name
 name: 'Chromatic Deployment'
 
-# ワークフローのトリガー
+# Event for the workflow
 on: push
 
-# ジョブの定義
+# List of jobs
 jobs:
   test:
-    # OS
+    # Operating System
     runs-on: ubuntu-latest
-    # ステップの定義
+    # Job steps
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - run: yarn
-        #👇 Chromaticをワークフローのステップとして追加
-      - uses: chromaui/action@v1
-        # ChromaticのGitHub アクションに必要な設定
+        #👇 Adds Chromatic as a step in the workflow
+      - uses: chromaui/action@latest
+        # Options required for Chromatic's GitHub Action
         with:
-          #👇 先ほど取得したChromaticのprojectToken
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
