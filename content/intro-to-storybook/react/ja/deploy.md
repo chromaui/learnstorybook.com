@@ -17,15 +17,15 @@ Storybook をデプロイするには、まず静的サイトとしてエクス�
 
 このチュートリアルでは、Storybook のメンテナーが作成した、無料のホスティングサービスである <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> を使用します。Chromatic を使えば、クラウド上に Storybook を安全にデプロイし、またホストできます。
 
-### GitHub にリポジトリーを作成する
+### GitHub にリポジトリを作成する
 
-デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。[はじめの章](/intro-to-storybook/react/ja/get-started/)でプロジェクトを初期化した際に、ローカルのリポジトリーはすでに作成されています。この段階に来れば、リモートリポジトリーにプッシュできるコミットがあるはずです。
+デプロイの前に、リモートのバージョン管理サービスへローカルのコードを同期しなければなりません。[はじめの章](/intro-to-storybook/react/ja/get-started/)でプロジェクトを初期化した際に、ローカルのリポジトリはすでに作成されています。この段階に来れば、リモートリポジトリにプッシュできるコミットがあるはずです。
 
 [ここから](https://github.com/new) GitHub にアクセスし、リポジトリを作りましょう。リポジトリの名前はローカルと同じく「taskbox」とします。
 
 ![GitHub のセットアップ](/intro-to-storybook/github-create-taskbox.png)
 
-新しいリポジトリを作ったら origin の URL をコピーして、次のコマンドを実行し、ローカルの Git リポジトリを GitHub のリモートリポジトリーに追加します。
+新しいリポジトリを作ったら origin の URL をコピーして、次のコマンドを実行し、ローカルの Git リポジトリを GitHub のリモートリポジトリに追加します。
 
 ```shell
 git remote add origin https://github.com/<GitHubのユーザ名>/taskbox.git
@@ -123,7 +123,7 @@ git add .
 git commit -m "GitHub action setup"
 ```
 
-最後にリモートリポジトリーにプッシュします。
+最後にリモートリポジトリにプッシュします。
 
 ```shell
 git push origin main

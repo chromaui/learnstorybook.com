@@ -99,7 +99,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 今後もコントロールアドオンを使用して、手動で同じ入力をすればいつでもこの問題は再現可能です。ですが、このエッジケースに対応するストーリーを書く方が簡単です。ストーリーを書くことにより、リグレッションテストのカバレッジが向上しますし、コンポーネントの限界をチームメンバーに明示できます。
 
-それでは `Task.stories.jsx` ファイルに長い文字列が指定された場合のストーリーを追加しましょう:
+それでは `Task.stories.jsx` ファイルに長い文字列が指定された場合のストーリーを追加しましょう。
 
 ```js:title=src/components/Task.stories.jsx
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
@@ -114,7 +114,7 @@ export const LongTitle = {
 };
 ```
 
-これで、このエッジケースをいつでも再現できるようになりました:
+これで、このエッジケースをいつでも再現できるようになりました。
 
 <video autoPlay muted playsInline loop>
   <source

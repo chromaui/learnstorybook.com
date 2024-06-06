@@ -16,8 +16,8 @@ commit: '2275632'
 まず、リモート API に接続してさまざまな状態 (すなわち、`error`、`succeeded`) をアプリケーションで扱えるようにするために、Redux ストア (`src/lib/store.js` 内) をアップデートするところから始めましょう。
 
 ```diff:title=src/lib/store.js
-/* シンプルなreduxのストア/アクション/リデューサーの実装です。
- * 本当のアプリケーションはもっと複雑で、異なるファイルに分けられます。
+/* A simple redux store/actions/reducer implementation.
+ * A true app would be more complex and separated into different files.
  */
 import {
   configureStore,
@@ -26,8 +26,8 @@ import {
 } from '@reduxjs/toolkit';
 
 /*
- * アプリケーションのロード時のストアの初期状態です。
- * 通常、サーバーから取得しますが、今回は気にしないでください(ファイルに直書きしています)。
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
  */
 
 const TaskBoxData = {
@@ -37,8 +37,8 @@ const TaskBoxData = {
 };
 
 /*
- * AsyncThunkを使ってリモートエンドポイントからタスクを取得します。
- * Redux Toolkitのthunkについて詳しくはドキュメントを参照してください:
+ * Creates an asyncThunk to fetch tasks from a remote endpoint.
+ * You can read more about Redux Toolkit's thunks in the docs:
  * https://redux-toolkit.js.org/api/createAsyncThunk
  */
 + export const fetchTasks = createAsyncThunk('todos/fetchTodos', async () => {
@@ -55,8 +55,8 @@ const TaskBoxData = {
 + });
 
 /*
- * ストアはここで作成されます。
- * Redux Toolkitのスライスについて詳しくはドキュメントを参照してください:
+ * The store is created here.
+ * You can read more about Redux Toolkit's slices in the docs:
  * https://redux-toolkit.js.org/api/createSlice
  */
 const TasksSlice = createSlice({
@@ -72,8 +72,8 @@ const TasksSlice = createSlice({
     },
   },
   /*
-   * 非同期アクション用のリデューサを追加します。
-   * 詳しくは https://redux-toolkit.js.org/api/createAsyncThunk を参照してください。
+   * Extends the reducer for the async actions
+   * You can read more about it at https://redux-toolkit.js.org/api/createAsyncThunk
    */
 +  extraReducers(builder) {
 +    builder
@@ -96,12 +96,12 @@ const TasksSlice = createSlice({
 + },
 });
 
-// スライスに含まれるアクションはコンポーネントで使用するためにエクスポートされます
+// The actions contained in the slice are exported for usage in our components
 export const { updateTaskState } = TasksSlice.actions;
 
 /*
- * アプリケーションのストアの設定はここにあります。
- * ReduxのconfigureStoreについて詳しくはドキュメントを参照してください:
+ * Our app's store configuration goes here.
+ * Read more about Redux's configureStore in the docs:
  * https://redux-toolkit.js.org/api/configureStore
  */
 const store = configureStore({
@@ -113,7 +113,7 @@ const store = configureStore({
 export default store;
 ```
 
-リモート API エンドポイントからデータを取得するようにストアを更新し、アプリのさまざまな状態を処理できるように準備したので、`InboxScreen.jsx` を `src/components` ディレクトリに作成しましょう:
+リモート API エンドポイントからデータを取得するようにストアを更新し、アプリのさまざまな状態を処理できるように準備したので、`InboxScreen.jsx` を `src/components` ディレクトリに作成しましょう。
 
 ```jsx:title=src/components/InboxScreen.jsx
 import React, { useEffect } from 'react';
@@ -155,7 +155,7 @@ export default function InboxScreen() {
 }
 ```
 
-さらに、`App` コンポーネントを `InboxScreen` を描画するように変更します (いずれはルーターにどの画面を表示するか決めてもらいますが、今は気にしないでください):
+さらに、`App` コンポーネントを `InboxScreen` を描画するように変更します (いずれはルーターにどの画面を表示するか決めてもらいますが、今は気にしないでください)。
 
 ```diff:title=src/App.jsx
 - import { useState } from 'react'
@@ -204,7 +204,7 @@ export default App;
 
 しかし、面白くなるのは Storybook でストーリーをレンダリングするときです。
 
-前回見たように、`TaskList` コンポーネントは現在 **接続された** コンポーネントで、タスクのレンダリングは Redux ストアに依存しています。`InboxScreen` も接続されたコンポーネントなので、同じように、ストーリーにストアを渡します。以下のように `InboxScreen.stories.jsx` でストーリーを設定します:
+前回見たように、`TaskList` コンポーネントは現在 **接続された** コンポーネントで、タスクのレンダリングは Redux ストアに依存しています。`InboxScreen` も接続されたコンポーネントなので、同じように、ストーリーにストアを渡します。以下のように `InboxScreen.stories.jsx` でストーリーを設定します。
 
 ```jsx:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
@@ -241,15 +241,15 @@ export const Error = {};
 yarn init-msw
 ```
 
-その後、`.storybook/preview.js` をアップデートしてそれらを初期化する必要があります:
+その後、`.storybook/preview.js` をアップデートして初期化してください。
 
 ```diff:title=.storybook/preview.js
 import '../src/index.css';
 
-+ // mswアドオンを登録
++ // Registers the msw addon
 + import { initialize, mswLoader } from 'msw-storybook-addon';
 
-+ // MSWを初期化
++ // Initialize MSW
 + initialize();
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
@@ -383,13 +383,13 @@ export const Default = {
   },
 + play: async ({ canvasElement }) => {
 +   const canvas = within(canvasElement);
-+   //  コンポーネントのローディング状態からの遷移を待機
++   // Waits for the component to transition from the loading state
 +   await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
-+   // ストアに基づいたコンポーネントの更新を待機
++   // Waits for the component to be updated based on the store
 +   await waitFor(async () => {
-+     // 最初のタスクのピン止めをシミュレート
++     // Simulates pinning the first task
 +     await fireEvent.click(canvas.getByLabelText('pinTask-1'));
-+     // 3つ目のタスクのピン止めをシミュレート
++     // Simulates pinning the third task
 +     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
 +   });
 + },
@@ -462,7 +462,7 @@ yarn test-storybook --watch
 テストをさらにもっと深く知るためには、<a href="/ui-testing-handbook">Testing Handbook</a> をチェックしてみてください。これは開発ワークフローを加速させるために、スケーラブルなフロントエンドチームが採用しているテスト戦略について解説しています。
 </div>
 
-![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
+![Storybook のテストランナーがすべてのテストの実行を成功させる様子](/intro-to-storybook/storybook-test-runner-execution.png)
 
 成功です！これで、すべてのストーリーがエラーなくレンダリングされ、すべてのテストが自動的に通過するかどうか検証するためのツールができました。さらに、テストが失敗した場合、失敗したストーリーをブラウザで開くリンクを提供してくれます。
 

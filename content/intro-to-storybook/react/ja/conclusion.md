@@ -27,7 +27,7 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 ## 誰が Intro to Storybook チュートリアルを作成しているのでしょうか？
 
-文書や、コード、製作は [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) の貢献です。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
+文書や、コード、製作は [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) の貢献によるものです。このチュートリアルは Chromatic の [GraphQL + React tutorial series](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6) を参考にしています。
 
 このようなチュートリアルや記事をさらに読みたい場合は、Storybook のメーリングリストに登録することをオススメします。
 

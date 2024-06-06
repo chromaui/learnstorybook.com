@@ -13,15 +13,15 @@ Storybook は開発時にアプリケーションと並行して動きます。S
 
 Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[degit](https://github.com/Rich-Harris/degit) を使用してビルド環境をセットアップしましょう。このパッケージを利用することで、テンプレート（アプリケーションの一部をデフォルト設定で構築したもの）をダウンロードし、開発ワークフローの短縮に役立てることができます。
 
-それでは、次のコマンドを実行してください:
+それでは、次のコマンドを実行してください。
 
 ```shell:clipboard=false
-# テンプレートをクローンする
+# Clone the template
 npx degit chromaui/intro-storybook-react-template taskbox
 
 cd taskbox
 
-# 依存関係をインストールする
+# Install dependencies
 yarn
 ```
 
@@ -29,13 +29,13 @@ yarn
 💡 このテンプレートには本バージョンのチュートリアルに必要なスタイル、アセット、最低限の設定が含まれています。
 </div>
 
-それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう:
+それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう。
 
 ```shell:clipboard=false
-# コンポーネントエクスプローラを6006番ポートで起動する
+# Start the component explorer on port 6006:
 yarn storybook
 
-# フロントエンドアプリケーションを5173番ポートで起動する
+# Run the frontend app proper on port 5173:
 yarn dev
 ```
 
@@ -59,7 +59,7 @@ git init
 git add .
 ```
 
-次に以下を実行します:
+さらに:
 
 ```shell
 git commit -m "first commit"

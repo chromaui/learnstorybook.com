@@ -9,11 +9,11 @@ commit: '429780a'
 
 ## TaskList (タスクリスト)
 
-Taskbox はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskList` に、タスクのリストが通常のタスクのみである場合とピン留めされたタスクとの組み合わせである場合という、ストーリーを追加するべき 2 つのバリエーションができます。
+Taskbox はピン留めされたタスクを通常のタスクより上部に表示することで強調します。これにより `TaskList` に、タスクのリストが通常のタスクのみである場合と、ピン留めされたタスクとの組み合わせである場合というストーリーを追加するべき 2 つのバリエーションができます。
 
 ![通常のタスクとピン留めされたタスク](/intro-to-storybook/tasklist-states-1.png)
 
-`Task` のデータは非同期的に送信されるので、接続がないことを示すため、読み込み中の状態**も併せて**必要となります。さらにタスクがない場合に備え、空の状態も必要です。
+`Task` のデータは非同期に送信されるので、接続がないことを示すため、読み込み中の状態**も併せて**必要となります。さらにタスクがない場合に備え、空の状態も必要です。
 
 ![空の状態と読み込み中の状態](/intro-to-storybook/tasklist-states-2.png)
 
@@ -68,8 +68,8 @@ export default {
 
 export const Default = {
   args: {
-    // argsによってストーリーを形成します。
-    // データはTask.stories.jsxのDefaultストーリーから継承しています。
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in Task.stories.jsx.
     tasks: [
       { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
       { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -99,8 +99,8 @@ export const Loading = {
 
 export const Empty = {
   args: {
-    // argsによってストーリーを形成します。
-    // データは上のLoadingストーリーから継承しています。
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
     ...Loading.args,
     loading: false,
   },
@@ -182,7 +182,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-追加したマークアップで UI は以下のようになります:
+追加したマークアップで UI は以下のようになります。
 
 <video autoPlay muted playsInline loop>
   <source
@@ -254,13 +254,13 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 
 + TaskList.propTypes = {
-+  /** ローディング状態かどうかをチェックする */
++  /** Checks if it's in loading state */
 +  loading: PropTypes.bool,
-+  /** タスクの配列 */
++  /** The list of tasks */
 +  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-+  /** タスクのをの状態を「ピン留め済」に変更するイベント */
++  /** Event to change the task to pinned */
 +  onPinTask: PropTypes.func,
-+  /** タスクの状態を「アーカイブ済」に変更するイベント */
++  /** Event to change the task to archived */
 +  onArchiveTask: PropTypes.func,
 + };
 + TaskList.defaultProps = {

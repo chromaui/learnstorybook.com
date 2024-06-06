@@ -22,7 +22,7 @@ commit: '9b36e1a'
 
 まずは、タスクのコンポーネントと、対応するストーリーファイル `src/components/Task.jsx` と `src/components/Task.stories.jsx` を作成しましょう。
 
-`Task` の基本的な実装から始めます。`Task` は上述したプロパティと、タスクに対して実行できる 2 つの (リスト間を移動させる) アクションを引数として取ります:
+`Task` の基本的な実装から始めます。`Task` は上述したプロパティと、タスクに対して実行できる 2 つの (リスト間を移動させる) アクションを引数として取ります。
 
 ```js:title=src/components/Task.jsx
 import React from 'react';
@@ -40,7 +40,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 上のコードは Todo アプリケーションの HTML を基にした `Task` の簡単なマークアップです。
 
-下のコードは `Task` に対する 3 つのテスト用の状態をストーリーファイルに書いています:
+下のコードは `Task` に対する 3 つのテスト用の状態をストーリーファイルに書くものです。
 
 ```js:title=src/components/Task.stories.jsx
 import Task from './Task';
@@ -103,7 +103,7 @@ Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-storie
 
 作成したストーリーを認識させたり、CSS ファイル (`src/index.css`にあります) をStorybook上で使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
 
-まず、設定ファイル (`.storybook/main.js`) を以下のように変更してください:
+まず、設定ファイル (`.storybook/main.js`) を以下のように変更してください。
 
 ```diff:title=.storybook/main.js
 /** @type { import('@storybook/react-vite').StorybookConfig } */
@@ -127,12 +127,12 @@ const config = {
 export default config;
 ```
 
-上記の変更が完了したら、`.storybook` フォルダー内の `preview.js` を、以下のように変更してください:
+上記の変更が完了したら、`.storybook` フォルダー内の `preview.js` を、以下のように変更してください。
 
 ```diff:title=.storybook/preview.js
 + import '../src/index.css';
 
-//👇 Storybookのアクション（onArchiveTaskとonPinTask）をUIに記録するように設定します。
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
 /** @type { import('@storybook/react').Preview } */
 const preview = {
   parameters: {
@@ -166,7 +166,7 @@ Storybook のサーバーを再起動すると、タスクの 3 つの状態の�
 
 ここまでで、Storybook のセットアップが完了し、スタイルをインポートし、テストケースを作りました。早速、デザインに合わせてコンポーネントの HTML を実装していきましょう。
 
-今のところコンポーネントは簡素な状態です。まずはデザインを実現するために最低限必要なコードを書いてみましょう:
+今のところコンポーネントは簡素な状態です。まずはデザインを実現するために最低限必要なコードを書いてみましょう。
 
 ```jsx:title=src/components/Task.jsx
 import React from 'react';
@@ -218,7 +218,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 ```
 
-追加したマークアップとインポートした CSS により以下のような UI ができます:
+追加したマークアップとインポートした CSS により以下のような UI ができます。
 
 <video autoPlay muted playsInline loop>
   <source
@@ -282,18 +282,18 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 }
 
 + Task.propTypes = {
-+  /** タスクの構成 */
++  /** Composition of the task */
 +  task: PropTypes.shape({
-+    /** タスクのID */
++    /** Id of the task */
 +    id: PropTypes.string.isRequired,
-+    /** タスクのタイトル */
++    /** Title of the task */
 +    title: PropTypes.string.isRequired,
-+    /** タスクの現在の状態 */
++    /** Current state of the task */
 +    state: PropTypes.string.isRequired,
 +  }),
-+  /** タスクの状態を「アーカイブ済」に変更するイベント */
++  /** Event to change the task to archived */
 +  onArchiveTask: PropTypes.func,
-+  /** タスクのをの状態を「ピン留め済」に変更するイベント */
++  /** Event to change the task to pinned */
 +  onPinTask: PropTypes.func,
 + };
 ```

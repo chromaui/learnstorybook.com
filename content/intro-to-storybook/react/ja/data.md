@@ -15,23 +15,23 @@ commit: 'c70ec15'
 
 ここでは、[Redux](https://redux.js.org/) でデータを保存するためにもっとも効果的な開発用ツールセットである [Redux Toolkit](https://redux-toolkit.js.org/)を使用し、アプリケーションにシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
-以下のコマンドを実行し必要な依存関係を追加しましょう:
+以下のコマンドを実行し必要な依存関係を追加しましょう。
 
 ```shell
 yarn add @reduxjs/toolkit react-redux
 ```
 
-まず、タスクの状態を変更するアクションを処理する単純な Redux のストアを作ります。`src/lib` フォルダの `store.js` というファイルを作ってください (あえて簡単にしています):
+まず、タスクの状態を変更するアクションを処理する単純な Redux のストアを作ります。`src/lib` フォルダの `store.js` というファイルを作ってください (あえて簡単にしています)。
 
 ```js:title=src/lib/store.js
-/* シンプルなreduxのストア/アクション/リデューサーの実装です。
- * 本当のアプリケーションはもっと複雑で、異なるファイルに分けられます。
+/* A simple redux store/actions/reducer implementation.
+ * A true app would be more complex and separated into different files.
  */
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
 /*
- * アプリケーションのロード時のストアの初期状態です。
- * 通常、サーバーから取得しますが、今回は気にしないでください(ファイルに直書きしています)。
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
  */
 const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
@@ -46,8 +46,8 @@ const TaskBoxData = {
 };
 
 /*
- * ストアはここで作成されます。
- * Redux Toolkitのスライスについて詳しくはドキュメントを参照してください:
+ * The store is created here.
+ * You can read more about Redux Toolkit's slices in the docs:
  * https://redux-toolkit.js.org/api/createSlice
  */
 const TasksSlice = createSlice({
@@ -64,12 +64,12 @@ const TasksSlice = createSlice({
   },
 });
 
-// スライスに含まれるアクションはコンポーネントで使用するためにエクスポートされます
+// The actions contained in the slice are exported for usage in our components
 export const { updateTaskState } = TasksSlice.actions;
 
 /*
- * アプリケーションのストアの設定はここにあります。
- * ReduxのconfigureStoreについて詳しくはドキュメントを参照してください:
+ * Our app's store configuration goes here.
+ * Read more about Redux's configureStore in the docs:
  * https://redux-toolkit.js.org/api/configureStore
  */
 const store = configureStore({
@@ -90,7 +90,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateTaskState } from '../lib/store';
 
 export default function TaskList() {
-  // ストアから状態を取得します
+  // We're retrieving our state from the store
   const tasks = useSelector((state) => {
     const tasksInOrder = [
       ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
@@ -107,11 +107,11 @@ export default function TaskList() {
   const dispatch = useDispatch();
 
   const pinTask = (value) => {
-    // ストアにピン留めされたタスクを送信します
+    // We're dispatching the Pinned event back to our store
     dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
   };
   const archiveTask = (value) => {
-    // ストアにアーカイブされたタスクを送信します
+    // We're dispatching the Archive event back to our store
     dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
   };
   const LoadingRow = (
@@ -181,7 +181,7 @@ import { Provider } from 'react-redux';
 
 import { configureStore, createSlice } from '@reduxjs/toolkit';
 
-// 超シンプルなストアの状態のモック
+// A super-simple mock of the state of the store
 export const MockedState = {
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
@@ -195,7 +195,7 @@ export const MockedState = {
   error: null,
 };
 
-// 超シンプルなreduxストアのモック
+// A super-simple mock of a redux store
 const Mockstore = ({ taskboxState, children }) => (
   <Provider
     store={configureStore({
