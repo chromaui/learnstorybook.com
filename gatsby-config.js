@@ -70,7 +70,7 @@ module.exports = {
       },
       'visual-testing-handbook': {
         react: {
-          en: 7.6,
+          en: 8.1,
           es: 6.5,
           ko: 6.5,
         },

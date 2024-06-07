@@ -69,7 +69,7 @@ git push
 Build and publish our Storybook with the `chromatic` command. Don't forget to replace the <code>project-token</code> with one Chromatic supplies on the website.
 
 ```shell
-yarn chromatic --project-token=<project-token>
+npx chromatic --project-token=<project-token>
 ```
 
 ![Chromatic running](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
@@ -92,10 +92,9 @@ git checkout -b change-commentlist-outline
 
 Tweak the `CommentList` component
 
-```diff:title=src/components/CommentList.js
-import React from 'react';
-
+```diff:title=src/components/CommentList.jsx
 import PropTypes from 'prop-types';
+
 import styled, { createGlobalStyle } from 'styled-components';
 
 const CommentListDiv = styled.div`
@@ -221,7 +220,7 @@ Commit the change, push it to the repo and run Chromatic:
 ```shell:clipboard=false
 git commit -am "make CommentList sparkle"
 git push -u origin change-commentlist-outline
-yarn chromatic --project-token=<project-token>
+npx chromatic --project-token=<project-token>
 ```
 
 Open a pull request for the new branch in your GitHub repository.

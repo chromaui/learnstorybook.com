@@ -36,7 +36,7 @@ yarn
 
 Next, we’ll build the simplest-possible `CommentList` implementation so that we can ensure our tests are set up correctly.
 
-Inside your `src` directory, create a new folder called `components`, then by a new file called `CommentList.jsx` with the following content:
+Inside your `src` directory, create a new folder called `components`, then create a new file called `CommentList.jsx` with the following content:
 
 ```jsx:title=src/components/CommentList.jsx
 import PropTypes from 'prop-types';
@@ -187,7 +187,7 @@ We use [`styled-components`](https://styled-components.com/) – a library that 
 yarn add styled-components
 ```
 
-Update your `CommentList.js` file to the following:
+Update your `CommentList.jsx` file to the following:
 
 ```diff:title=src/components/CommentList.jsx
 import PropTypes from 'prop-types';
