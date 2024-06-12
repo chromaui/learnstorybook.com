@@ -221,6 +221,7 @@ First, make a tweak to the UI. We’re going to change the pinned icon and the t
 
 ```diff:title=src/components/Task.jsx
 import PropTypes from 'prop-types';
+
 export default function Task({
   task: { id, title, state },
   onArchiveTask,
