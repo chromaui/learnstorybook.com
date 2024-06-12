@@ -52,7 +52,7 @@ Start the app in development mode by running `yarn dev`. Then open [http://local
 
 ### Set up Cypress
 
-Run: `yarn add --dev cypress` to install the Cypress package. Then add the Cypress command to the scripts field of your `package.json` file.
+Run `yarn add --dev cypress` to install the Cypress package. Then add the Cypress command to the scripts field of your `package.json` file.
 
 ```json:clipboard=false
 {

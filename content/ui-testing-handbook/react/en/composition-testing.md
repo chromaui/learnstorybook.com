@@ -19,7 +19,7 @@ Applications are built by plugging components into each other. This means a bug 
 
 ![minor tweaks cause major regressions](/ui-testing-handbook/minor-major-regressions-1.gif)
 
-Consider the Button component from [Storybook’s design system](https://5ccbc373887ca40020446347-oghpnhotjv.chromatic.com/?path=/docs/button--basic). It is used countless times across multiple pages. A bug in `Button` will inadvertently lead to bugs in all those pages. In other words, one failure can compound exponentially. As you move up the component hierarchy towards the level of pages, the impact of these bugs increases. Therefore, we need a way to catch such cascading issues early and figure out the root cause.
+Consider the Button component from [Storybook’s design system](https://5ccbc373887ca40020446347-idzavsdems.chromatic.com/?path=/story/button--basic). It is used countless times across multiple pages. A bug in `Button` will inadvertently lead to bugs in all those pages. In other words, one failure can compound exponentially. As you move up the component hierarchy towards the level of pages, the impact of these bugs increases. Therefore, we need a way to catch such cascading issues early and figure out the root cause.
 
 ![The same button component is being used across multiple pages of an app](/ui-testing-handbook/design-system-inconsistent-buttons.jpg)
 
@@ -79,7 +79,7 @@ export const Default = {
 };
 ```
 
-Notice the `argTypes`. [Args](https://storybook.js.org/docs/react/writing-stories/args) are Storybook's mechanism for defining inputs to a story. Think of them as framework-agnostic props. Args defined at the component level are automatically passed down to each story. In our case, we have defined three event handlers using the [Actions addon](https://storybook.js.org/docs/react/essentials/actions).
+Notice the `argTypes`. [Args](https://storybook.js.org/docs/writing-stories/args) are Storybook's mechanism for defining inputs to a story. Think of them as framework-agnostic props. Args defined at the component level are automatically passed down to each story. In our case, we have defined three event handlers using the [Actions addon](https://storybook.js.org/docs/essentials/actions).
 
 These simulated actions will show up in the addons panel as you interact with `TaskList`. Allowing you to verify that the components are wired correctly.
 
@@ -187,7 +187,7 @@ yarn init-msw
 
 <div class="aside">
 
-💡 Public directory may differ depending on the project. For custom configurations, we recommend reading MSW's [documentation](https://mswjs.io/docs/getting-started/integrate/browser#where-is-my-public-directory) to learn more about them. To see the changes reflected in Storybook, you'll need to update the [`staticDirs`](https://storybook.js.org/docs/react/configure/overview#using-storybook-api) configuration element in `.storybook/main.js`.
+💡 Public directory may differ depending on the project. For custom configurations, we recommend reading MSW's [documentation](https://mswjs.io/docs/getting-started/integrate/browser#where-is-my-public-directory) to learn more about them. To see the changes reflected in Storybook, you'll need to update the [`staticDirs`](https://storybook.js.org/docs/configure/images-and-assets#serving-static-files-via-storybook-configuration) configuration element in `.storybook/main.js`.
 
 </div>
 
@@ -223,7 +223,7 @@ Lastly, restart the `yarn storybook` command. And we’re all set to mock API re
 `InboxScreen` calls the `useTasks` hook which in-turn fetches data from the `/tasks` endpoint. We can specify the mock responses using the `msw` parameter. Notice how you can return different responses for each story.
 
 ```javascript:title=src/InboxScreen.stories.jsx
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import InboxScreen from './InboxScreen';
 
@@ -238,8 +238,8 @@ export const Default = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/tasks', (req, res, ctx) => {
-          return res(ctx.json(TaskListDefault.args));
+        http.get('/tasks', () => {
+          return HttpResponse.json(TaskListDefault.args);
         }),
       ],
     },
@@ -253,8 +253,8 @@ export const Error = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/tasks', (req, res, ctx) => {
-          return res(ctx.json([]));
+        http.get('/tasks', () => {
+          return HttpResponse.json([]);
         }),
       ],
     },

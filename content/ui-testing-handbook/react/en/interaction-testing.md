@@ -62,7 +62,7 @@ yarn storybook
 In the previous chapter, we catalogued all the use cases of the InboxScreen component in the `InboxScreen.stories.jsx` file. That allowed us to spot-check appearance during development and catch regressions via visual tests. These stories will now also power our interaction tests.
 
 ```javascript:title=src/InboxScreen.stories.jsx
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import InboxScreen from './InboxScreen';
 
@@ -77,8 +77,8 @@ export const Default = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/tasks', (req, res, ctx) => {
-          return res(ctx.json(TaskListDefault.args));
+        http.get('/tasks', () => {
+          return HttpResponse.json(TaskListDefault.args);
         }),
       ],
     },
@@ -92,8 +92,8 @@ export const Error = {
   parameters: {
     msw: {
       handlers: [
-        rest.get('/tasks', (req, res, ctx) => {
-          return res(ctx.json([]));
+        http.get('/tasks', () => {
+          return HttpResponse.json([]);
         }),
       ],
     },
@@ -105,12 +105,12 @@ export const Error = {
 
 [Testing Library](https://testing-library.com/) offers a convenient API for simulating user interactions—click, drag, tap, type, etc. Whereas [Jest](https://jestjs.io/) provides assertion utilities. We'll use Storybook-instrumented versions of these two tools to write the test. Therefore, you get a familiar developer-friendly syntax to interact with the DOM, but with extra telemetry to help with debugging.
 
-The test itself will be housed inside a [play function](https://storybook.js.org/docs/react/writing-stories/play-function). This snippet of code gets attached to a story and runs after the story is rendered.
+The test itself will be housed inside a [play function](https://storybook.js.org/docs/writing-stories/play-function). This snippet of code gets attached to a story and runs after the story is rendered.
 
 Let's add in our first interaction test to verify that the user can pin a task:
 
 ```javascript:title=src/InboxScreen.stories.jsx
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 
 import InboxScreen from './InboxScreen';
 
@@ -152,7 +152,7 @@ Each play function receives the Canvas element—the top-level container of the 
 
 We're looking for the "Export logo" task in our case. Then find the pin button within it and click it. Finally, we check to see if the button has updated to the unpinned state.
 
-When Storybook finishes rendering the story, it executes the steps defined within the play function, interacting with the component and pinning a task—similar to how a user would do it. If you check your [interactions panel](https://storybook.js.org/docs/react/writing-tests/interaction-testing#interactive-debugger), you'll see the step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
+When Storybook finishes rendering the story, it executes the steps defined within the play function, interacting with the component and pinning a task—similar to how a user would do it. If you check your [interactions panel](https://storybook.js.org/docs/writing-tests/interaction-testing#interactive-debugger), you'll see the step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
 <video autoPlay muted playsInline loop>
   <source

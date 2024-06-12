@@ -44,6 +44,8 @@ Our workflow will run when code is pushed to any branch of our repository and it
 - Run user flow tests with Cypress
 
 ```yaml:clipboard=false
+# .github/workflows/ui-tests.yml
+
 name: 'UI Tests'
 
 on: push
@@ -53,10 +55,12 @@ jobs:
   interaction-and-accessibility:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
         with:
-          node-version: '16.x'
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
       - name: Install dependencies
         run: yarn
       - name: Install Playwright
@@ -72,13 +76,13 @@ jobs:
   visual-and-composition:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Required to retrieve git history
+          fetch-depth: 0 # Required to retrieve Git history
       - name: Install dependencies
         run: yarn
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
         with:
           # Grab this from the Chromatic manage page
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -86,11 +90,13 @@ jobs:
   user-flow:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Install dependencies
         run: yarn
       - name: Cypress run
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v6
         with:
           start: npm run dev
 ```
@@ -113,6 +119,8 @@ Finally, create a new commit, push your changes to GitHub, and you should see yo
 Each job runs independently, which means the CI server has to install dependencies in all three jobs. That slows down the test run. We can cache dependencies and only run `yarn install` if the lock file changes to avoid that. Let’s update the workflow to include the `install-cache` job.
 
 ```yaml:clipboard=false
+# .github/workflows/ui-tests.yml
+
 name: 'UI Tests'
 
 on: push
@@ -123,9 +131,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Commit
-        uses: actions/checkout@v2
-      - name: Cache yarn dependencies and cypress
-        uses: actions/cache@v2
+        uses: actions/checkout@v4
+      - name: Cache Yarn dependencies and Cypress
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: |
@@ -142,12 +150,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v4
         with:
-          node-version: '16.x'
-      - name: Restore yarn dependencies
-        uses: actions/cache@v2
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Restore Yarn dependencies
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: |
@@ -170,11 +180,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Required to retrieve git history
-      - name: Restore yarn dependencies
-        uses: actions/cache@v2
+          fetch-depth: 0 # Required to retrieve Git history
+      - name: Restore Yarn dependencies
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: |
@@ -184,7 +194,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-v1
       - name: Publish to Chromatic
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
         with:
           # Grab this from the Chromatic manage page
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -193,9 +203,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: install-cache
     steps:
-      - uses: actions/checkout@v2
-      - name: Restore yarn dependencies
-        uses: actions/cache@v2
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Restore Yarn dependencies
+        uses: actions/cache@v4
         id: yarn-cache
         with:
           path: |
@@ -205,7 +217,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-v1
       - name: Cypress run
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v6
         with:
           start: npm run dev
 ```
