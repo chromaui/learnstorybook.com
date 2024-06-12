@@ -70,9 +70,6 @@ const config = {
     name: '@storybook/react-vite',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
 };
 export default config;
 ```
@@ -164,10 +161,9 @@ export default {
   },
 };
 
-
 /*
 *👇 Wraps the component with a custom render function.
-* See https://storybook.js.org/docs/react/api/csf
+* See https://storybook.js.org/docs/api/csf
 * to learn how to use render functions.
 */
 export const Default = {
