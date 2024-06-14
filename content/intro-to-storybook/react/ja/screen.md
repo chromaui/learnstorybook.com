@@ -222,7 +222,6 @@ export default {
 export const Default = {};
 
 export const Error = {};
-``` const Error = Template.bind({});
 ```
 
 私たちは `error` ストーリーですぐに問題を発見できます。正しい状態が表示されず、タスクのリストが表示されます。この問題を回避する 1 つの方法は、前章で行ったように各状態に対してモックされたバージョンを提供することです。その代わりに、よく知られた API モッキングライブラリを Storybook アドオンと一緒に使用して、この問題を解決するのに役立てます。
@@ -413,7 +412,7 @@ export const Error = {
 <div class="aside">
 
 💡 The `@storybook/test` パッケージは `@storybook/jest`と`@storybook/testing-library`を置き換えるものです。
-より小さなバンドルサイズと、VitestパッケージをベースにしたよりわかりやすいAPIを提供します。
+より小さなバンドルサイズと、Vitest パッケージをベースにしたよりわかりやすい API を提供します。
 
 </div>
 
@@ -426,7 +425,7 @@ export const Error = {
   />
 </video>
 
-### test runnerによるテストの自動化
+### test runner によるテストの自動化
 
 play 関数を利用して、UI を操作し、タスクを更新した場合の反応を素早く確認できます。これによって、余計な手間をかけずに UI の一貫性を保つことができます。
 
