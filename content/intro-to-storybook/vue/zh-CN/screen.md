@@ -165,11 +165,11 @@ Error.args = { error: true };
 好消息是在 story 中的 `PureInboxScreen` 中使用 Pinia store 十分容易！我们可以更新 story 并直接导入在上一章中创建的 Pinia store。
 
 ```diff:title=src/components/PureInboxScreen.stories.js
-+ import { app } from '@storybook/vue3';
++ import { setup } from '@storybook/vue3';
 
 + import { createPinia } from 'pinia';
 
-+ app.use(createPinia());
++ setup((app) => {app.use(createPinia())});
 
 import PureInboxScreen from './PureInboxScreen.vue';
 
