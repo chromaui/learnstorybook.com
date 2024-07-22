@@ -175,7 +175,7 @@ The play function helps us verify what happens to the UI when tasks are updated.
 
 The `@storybook/addon-interactions` helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
-Let's see it in action! Update your newly created `PureInboxScreen` story, and set up component interactions by adding the following:
+Let's see it in action! Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
 
 ```diff:title=src/components/InboxScreen.stories.js
 import InboxScreen from './InboxScreen.svelte';
