@@ -89,30 +89,19 @@ import App from './App.vue';
 
 我们同样需要修改 `App` 组件让其渲染 `InboxScreen`（最终，我们将会使用路由来决定渲染哪个页面，现在我们暂时不需要关注这些）：
 
-```diff:title=src/App.vue
+```html:title=src/App.vue
+<script setup>
+import InboxScreen from './components/InboxScreen.vue';
+</script>
+
 <template>
   <div id="app">
--   <img alt="Vue logo" src="./assets/logo.png">
--   <HelloWorld msg="Welcome to Your Vue.js App"/>
-+   <InboxScreen />
+    <InboxScreen />
   </div>
 </template>
 
-<script>
-- import HelloWorld from './components/HelloWorld.vue'
-+ import InboxScreen from './components/InboxScreen.vue';
-
-export default {
-  name: 'App',
-  components: {
--   HelloWorld
-+   InboxScreen
-  }
-}
-</script>
-
 <style>
-@import "./index.css";
+@import './index.css';
 </style>
 ```
 
@@ -130,68 +119,59 @@ import PureInboxScreen from './PureInboxScreen.vue';
 export default {
   component: PureInboxScreen,
   title: 'PureInboxScreen',
+  tags: ['autodocs'],
 };
 
-const Template = args => ({
-  components: { PureInboxScreen },
-  setup() {
-    return {
-      args,
-    };
-  },
-  template: '<PureInboxScreen v-bind="args" />',
-});
+export const Default = {};
 
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = { error: true };
+export const Error = {
+  args: { error: true },
+}
 ```
 
-我们可以发现尽管 `error` story 运作正常，但因为 `TaskList` 没有连接相对应的 Pinia store，所以 `default` 的 story 出错了。（你同样会遇到类似的问题当试图对 `PureInboxScreen` 进行单元测试时）。
+我们可以发现尽管 `error` story 运作正常，但因为 `TaskList` 没有连接相对应的 Pinia store，所以 `default` 的 story 出错了。
 
-![Broken inbox](/intro-to-storybook/broken-inboxscreen-vue-pinia.png)
+![Broken inbox](/intro-to-storybook/pure-inboxscreen-vue-pinia-tasks-issue.png)
 
 回避此问题的一种方法是永远不要在您应用中渲染容器组件，除非该组件是最高层组件，并且在最高层组件中自顶而下的传递所有需要的数据。
 
 但是，开发人员**将会**不可避免的在下层结构中渲染容器组件。如果我们想要在 Storybook 中渲染应用中大部分或者全部的组件（我们想！），我们仍需要一个解决方案。
 
 <div class="aside">
-💡 需要说明的是，自顶而下的传递数据是一种合理的解决方案，尤其是使用 <a href="http://graphql.org/">GraphQL</a> 时。这也是我们在 <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> 中构建超过 800 个 story 的方式。
+
+💡 需要说明的是，自顶而下的传递数据是一种合理的解决方案，尤其是使用 [GraphQL](http://graphql.org/) 时。这也是我们在 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 中构建超过 800 个 story 的方式。
+
 </div>
 
 ## 在 story 中提供上下文
 
-好消息是在 story 中的 `PureInboxScreen` 中使用 Pinia store 十分容易！我们可以更新 story 并直接导入在上一章中创建的 Pinia store。
+好消息是在 story 中使用 Pinia store 十分容易！我们可以更新 `.storybook/preview.js` 配置文件并依赖于Storybook's `setup` 函数以注册我们的 Pinia store。
 
-```diff:title=src/components/PureInboxScreen.stories.js
+```diff:title=.storybook/preview.js
 + import { setup } from '@storybook/vue3';
 
 + import { createPinia } from 'pinia';
 
-+ setup((app) => {app.use(createPinia())});
+import '../src/index.css';
 
-import PureInboxScreen from './PureInboxScreen.vue';
+//👇 Registers a global Pinia instance inside Storybook to be consumed by existing stories
++ setup((app) => {
++   app.use(createPinia());
++ });
 
-export default {
-  title: 'PureInboxScreen',
-  component: PureInboxScreen,
+/** @type { import('@storybook/vue3').Preview } */
+const preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+  },
 };
 
-const Template = (args) => ({
-  components: { PureInboxScreen },
-  setup() {
-    return {
-      args,
-    };
-  },
-  template: '<PureInboxScreen v-bind="args" />',
-});
-
-export const Default = Template.bind({});
-
-export const Error = Template.bind({});
-Error.args = { error: true };
+export default preview;
 ```
 
 在其它库中也存在类似的方法提供模拟上下文，例如 [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator)，[Relay](https://github.com/orta/react-storybooks-relay-container) 或者其他库。
@@ -201,7 +181,7 @@ Error.args = { error: true };
 <video autoPlay muted playsInline loop >
 
   <source
-    src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
+    src="/intro-to-storybook/finished-pureinboxscreen-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -218,57 +198,49 @@ Storybook 的 [`play`](https://storybook.js.org/docs/vue/writing-stories/play-fu
 
 play 函数帮助我们验证当 task 更新后 UI 的变化。它使用与框架无关的 DOM API，这意味着不管什么框架，我们都可以通过编写 story 的 play 函数来与 UI 进行交互并模拟人类行为。
 
-`@storybook/addon-interactions` 帮助我们在 Storybok 中可视化我们的测试，提供一个循序渐进的流程。它还提供了一些方便的 UI 控件，可以暂停、恢复、倒带并逐步完成每个交互。
+`@storybook/addon-interactions` 帮助我们在 Storybook 中可视化我们的测试，提供一个循序渐进的流程。它还提供了一些方便的 UI 控件，可以暂停、恢复、倒带并逐步完成每个交互。
 
 让我们来看看它的实际应用，更新你新创建的 `PureInboxScreen` 文件，并通过添加以下内容来创建组件交互：
 
 ```diff:title=src/components/PureInboxScreen.stories.js
-import { app } from '@storybook/vue3';
-
-+ import { fireEvent, within } from '@storybook/testing-library';
-
-import { createPinia } from 'pinia';
-
-app.use(createPinia());
-
 import PureInboxScreen from './PureInboxScreen.vue';
 
++ import { fireEvent, within } from '@storybook/test';
+
 export default {
-  title: 'PureInboxScreen',
   component: PureInboxScreen,
+  title: 'PureInboxScreen',
+  tags: ['autodocs'],
 };
 
-const Template = (args) => ({
-  components: { PureInboxScreen },
-  setup() {
-    return {
-      args,
-    };
-  },
-  template: '<PureInboxScreen v-bind="args" />',
-});
+export const Default = {};
 
-export const Default = Template.bind({});
+export const Error = {
+  args: { error: true },
+};
 
-export const Error = Template.bind({});
-Error.args = { error: true };
-
-+ export const WithInteractions = Template.bind({});
-+ WithInteractions.play = async ({ canvasElement }) => {
-+   const canvas = within(canvasElement);
-+   // Simulates pinning the first task
-+   await fireEvent.click(canvas.getByLabelText('pinTask-1'));
-+   // Simulates pinning the third task
-+   await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++ export const WithInteractions = {
++  play: async ({ canvasElement }) => {
++    const canvas = within(canvasElement);
++    // Simulates pinning the first task
++    await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++    // Simulates pinning the third task
++    await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++  },
 + };
 ```
+
+<div class="aside">
+
+💡 `@storybook/test` 包取代了 `@storybook/jest` 及 `@storybook/testing-library` 测试包，提供了大小近似且基于 [Vitest](https://vitest.dev/) 更清晰的 API 的包。
+
+</div>
 
 检查你最新创建的 story。点击 `Interactions` 面板来查看在 story play 函数中的交互列表。
 
 <video autoPlay muted playsInline loop>
-
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function.mp4"
+    src="/intro-to-storybook/storybook-pureinboxscreen-interactive-stories.mp4"
     type="video/mp4"
   />
 </video>
@@ -304,9 +276,9 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 使用 play 函数的交互测试时测试 UI 组件的绝佳方式。它能做的远比目前看到的多；我们推荐您阅读<a href="https://storybook.js.org/docs/vue/writing-tests/interaction-testing">官方文档</a>进行深入了解。
+💡 使用 play 函数的交互测试时测试 UI 组件的绝佳方式。它能做的远比目前看到的多；我们推荐您阅读 [官方文档](https://storybook.js.org/docs/writing-tests/interaction-testing) 进行深入了解。
 <br />
-为了深入了解测试，请查看<a href="/ui-testing-handbook">测试手册</a>。它涵盖了缩放前端（scaled-front-end）团队所使用的测试策略，以增强您的开发工作流程。
+为了深入了解测试，请查看 [测试手册](/ui-testing-handbook)。它涵盖了缩放前端（scaled-front-end）团队所使用的测试策略，以增强您的开发工作流程。
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
