@@ -83,10 +83,11 @@ export default store;
 
 Luego actualizaremos nuestro componente `TaskList` para conectarnos al store de Redux y renderizar las tareas en las que estamos interesados:
 
-```js:title=src/components/TaskList.js
-import React from 'react';
+```jsx:title=src/components/TaskList.jsx
 import Task from './Task';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import { updateTaskState } from '../lib/store';
 
 export default function TaskList() {
@@ -169,14 +170,13 @@ No te preocupes por eso. Nos ocuparemos de ello en el próximo capítulo.
 
 Nuestras historias de Storybook han dejado de funcionar con este cambio, porque nuestro `TaskList` ahora es un componente conectado, ya que depende de un store de Redux para recuperar y actualizar nuestras tareas.
 
-![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
+![Broken tasklist](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
 
 Podemos utilizar varios enfoques para resolver este problema. Ya que nuestra aplicación es bastante sencilla, podemos confiar de un decorador, similar a lo que hicimos en el [capítulo anterior](/intro-to-storybook/react/es/composite-component) y proporcionar un store simulada en nuestras historias de Storybook:
 
-```js:title=src/components/TaskList.stories.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
+
 import * as TaskStories from './Task.stories';
 
 import { Provider } from 'react-redux';
@@ -225,74 +225,79 @@ const Mockstore = ({ taskboxState, children }) => (
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
+  tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };
 
-const Template = () => <TaskList />;
+export const Default = {
+  decorators: [
+    (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
+  ],
+};
 
-export const Default = Template.bind({});
-Default.decorators = [
-  (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
-];
+export const WithPinnedTasks = {
+  decorators: [
+    (story) => {
+      const pinnedtasks = [
+        ...MockedState.tasks.slice(0, 5),
+        { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+      ];
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.decorators = [
-  (story) => {
-    const pinnedtasks = [
-      ...MockedState.tasks.slice(0, 5),
-      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-    ];
+      return (
+        <Mockstore
+          taskboxState={{
+            ...MockedState,
+            tasks: pinnedtasks,
+          }}
+        >
+          {story()}
+        </Mockstore>
+      );
+    },
+  ],
+};
 
-    return (
+export const Loading = {
+  decorators: [
+    (story) => (
       <Mockstore
         taskboxState={{
           ...MockedState,
-          tasks: pinnedtasks,
+          status: 'loading',
         }}
       >
         {story()}
       </Mockstore>
-    );
-  },
-];
+    ),
+  ],
+};
 
-export const Loading = Template.bind({});
-Loading.decorators = [
-  (story) => (
-    <Mockstore
-      taskboxState={{
-        ...MockedState,
-        status: 'loading',
-      }}
-    >
-      {story()}
-    </Mockstore>
-  ),
-];
-
-export const Empty = Template.bind({});
-Empty.decorators = [
-  (story) => (
-    <Mockstore
-      taskboxState={{
-        ...MockedState,
-        tasks: [],
-      }}
-    >
-      {story()}
-    </Mockstore>
-  ),
-];
+export const Empty = {
+  decorators: [
+    (story) => (
+      <Mockstore
+        taskboxState={{
+          ...MockedState,
+          tasks: [],
+        }}
+      >
+        {story()}
+      </Mockstore>
+    ),
+  ],
+};
 ```
 
 <div class="aside">
-💡 <code>excludeStories</code> es un campo de configuración de Storybook que evita que nuestro estado simulado sea tratado como una historia. Puedes leer más sobre este campo en la <a href="https://storybook.js.org/docs/react/api/csf">documentación de Storybook</a>.
+
+💡 `excludeStories` es un campo de configuración de Storybook que evita que nuestro estado simulado sea tratado como una historia. Puedes leer más sobre este campo en la [documentación de Storybook](https://storybook.js.org/docs/api/csf).
+
 </div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-4-optimized.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0-optimized.mp4"
     type="video/mp4"
   />
 </video>
