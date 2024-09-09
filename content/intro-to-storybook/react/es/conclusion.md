@@ -13,13 +13,13 @@ Storybook es una poderosa herramienta para React, React Native, Vue, Angular, Sv
 
 ## Aprende más
 
-¿Quieres bucear más profundo? Aquí algunos recursos útiles:
+¿Quieres explorar más a fondo? Aquí algunos recursos útiles:
 
-- [**Documentación oficial de Storybook**](https://storybook.js.org/docs/react/get-started/introduction) tiene la documentación del API, links comunitarios y una galería de complementos.
+- [**Documentación oficial de Storybook**](https://storybook.js.org/docs/react/get-started/install) tiene la documentación del API, links comunitarios y una galería de complementos.
 
 - [**Manual de pruebas de IU**](https://storybook.js.org/blog/ui-testing-playbook/) destaca las mejores prácticas del flujo de trabajo utilizado por equipos de alta velocidad en Twilio, Adobe, Peloton y Shopify.
 
-- [**Manual de pruebas visuales**](https://storybook.js.org/tutorials/visual-testing-handbook/) se sumerge profundamente en el uso de Storybook para probar componentes visuales. Libro electrónico gratuito de 31 páginas.
+- [**Manual de pruebas visuales**](https://storybook.js.org/tutorials/visual-testing-handbook/) profundiza en el uso de Storybook para realizar pruebas visuales en componentes. Ebook gratuito de 31 páginas.
 
 - [**Discord de Storybook**](https://discord.gg/UUt2PJb) te pone en contacto con la comunidad de Storybook. Obtenga y brinde ayuda a otros usuarios de Storybook.
 
