@@ -41,9 +41,9 @@ description: 'UI 컴포넌트 테스트 방법 배우기'
 git checkout -b change-task-background
 ```
 
-`src/components/Task.js`를 다음과 같이 변경하세요:
+`src/components/Task.jsx`를 다음과 같이 변경하세요:
 
-```diff:title=src/components/Task.js
+```diff:title=src/components/Task.jsx
 <div className="title">
   <input
     type="text"

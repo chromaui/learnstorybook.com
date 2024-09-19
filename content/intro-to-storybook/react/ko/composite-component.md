@@ -19,7 +19,7 @@ Taskbox는 핀으로 고정된 task를 일반 task 위에 배치하여 강조합
 
 ## 설정하기
 
-복합 컴포넌트는 기본 컴포넌트와 크게 다르지 않습니다. `TaskList` 컴포넌트와 그에 해당하는 스토리 파일을 만들어보겠습니다. `src/components/TaskList.js` 와 `src/components/TaskList.stories.js`를 생성해 주세요.
+복합 컴포넌트는 기본 컴포넌트와 크게 다르지 않습니다. `TaskList` 컴포넌트와 그에 해당하는 스토리 파일을 만들어보겠습니다. `src/components/TaskList.jsx` 와 `src/components/TaskList.stories.jsx`를 생성해 주세요.
 
 우선 `TaskList`의 대략적인 구현부터 시작하겠습니다. 이전의 `Task` 컴포넌트를 가져온 후, 속성과 액션을 입력값으로 전달해 주세요.
 
@@ -54,7 +54,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 그리고, 스토리 파일 안에 `TaskList`의 테스트 상태값들을 만들어 보세요.
 
-```js:title=src/components/TaskList.stories.js
+```jsx:title=src/components/TaskList.stories.jsx
 import React from 'react';
 
 import TaskList from './TaskList';
@@ -71,7 +71,7 @@ const Template = args => <TaskList {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   // Shaping the stories through args composition.
-  // The data was inherited from the Default story in Task.stories.js.
+  // The data was inherited from the Default story in Task.stories.jsx.
   tasks: [
     { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
     { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -128,7 +128,7 @@ Empty.args = {
 
 우리의 컴포넌트는 아직 기본 뼈대만을 갖추었지만, 앞으로 작업하게 될 스토리에 대한 아이디어를 얻었습니다. `.list-items` 래퍼(wrapper)가 지나치게 단순하다고 생각할 수도 있습니다. 맞습니다! 대부분의 경우에 우리는 단지 래퍼(wrapper)를 추가하기 위해서 새로운 컴포넌트를 만들지 않습니다. 하지만 `TaskList` 컴포넌트의 **진정한 복잡성**은 `withPinnedTasks`, `loading` 그리고 `empty`에서 드러날 것입니다.
 
-```js:title=src/components/TaskList.js
+```jsx:title=src/components/TaskList.jsx
 import React from 'react';
 
 import Task from './Task';
@@ -199,7 +199,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 컴포넌트가 커질수록 입력에 필요한 데이터 요구사항도 함께 커집니다. `TaskList`에서 prop의 요구사항을 정의해봅시다. `Task`는 하위 컴포넌트이기 때문에 렌더링에 필요한 적합한 형태의 데이터를 제공해야 합니다. 시간 절약을 위해서 `Task`에서 사용한 `propTypes`를 재사용하겠습니다.
 
-```diff:title=src/components/TaskList.js
+```diff:title=src/components/TaskList.jsx
 import React from 'react';
 + import PropTypes from 'prop-types';
 
@@ -242,7 +242,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 `src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서 출력 값을 검증하는 테스트를 만들어보겠습니다.
 
-```js:title=src/components/TaskList.test.js
+```jsx:title=src/components/TaskList.test.js
 import { render } from '@testing-library/react';
 
 import { composeStories } from '@storybook/testing-react';
