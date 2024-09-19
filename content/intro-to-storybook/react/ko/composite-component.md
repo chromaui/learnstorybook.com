@@ -242,7 +242,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 `src/components/TaskList.test.js`라는 테스트 파일을 만들어주세요. 여기서 출력 값을 검증하는 테스트를 만들어보겠습니다.
 
-```jsx:title=src/components/TaskList.test.js
+```js:title=src/components/TaskList.test.js
 import { render } from '@testing-library/react';
 
 import { composeStories } from '@storybook/testing-react';
