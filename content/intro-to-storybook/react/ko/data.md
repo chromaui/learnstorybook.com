@@ -83,7 +83,7 @@ export default store;
 
 다음 `TaskList` 컴포넌트를 Redux store와 연결하고, 알고자 하는 task들을 렌더링 하기 위해 업데이트합니다:
 
-```js:title=src/components/TaskList.js
+```js:title=src/components/TaskList.jsx
 import React from 'react';
 import Task from './Task';
 import { useDispatch, useSelector } from 'react-redux';
@@ -161,7 +161,7 @@ export default function TaskList() {
 }
 ```
 
-이제 컴포넌트를 생성할 실제 데이터를 리덕스에서 받았으므로, 이를 `src/app.js`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
+이제 컴포넌트를 생성할 실제 데이터를 리덕스에서 받았으므로, 이를 `src/app.jsx`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
 
 그에 대한 내용은 다음 챕터에서 다룰 것이므로 걱정하지 않으셔도 됩니다.
 
@@ -173,7 +173,7 @@ export default function TaskList() {
 
 이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/en/composite-component)에서 했던 것과 유사한 데코레이터에 의존하고 모방된 저장소를 스토리북 스토리에 제공할 수 있습니다.
 
-```js:title=src/components/TaskList.stories.js
+```jsx:title=src/components/TaskList.stories.jsx
 import React from 'react';
 
 import TaskList from './TaskList';

@@ -20,11 +20,11 @@ commit: '9b36e1a'
 
 ## 설정하기
 
-먼저 `Task` 컴포넌트와 그에 해당하는 스토리 파일을 만들어 봅시다. `src/components/Task.js`와 `src/components/Task.stories.js`을 생성해 주세요.
+먼저 `Task` 컴포넌트와 그에 해당하는 스토리 파일을 만들어 봅시다. `src/components/Task.jsx`와 `src/components/Task.stories.jsx`을 생성해 주세요.
 
 `Task`의 기본 구현부터 시작하겠습니다. 우리가 필요로 하는 속성들과 여러분이 task에 대해 취할 수 있는 두 가지 액션(목록 간 이동하는 것)을 간단히 살펴보도록 하겠습니다.
 
-```js:title=src/components/Task.js
+```jsx:title=src/components/Task.jsx
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -40,7 +40,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 아래의 코드는 `Task`의 세 가지 테스트 상태를 스토리 파일에 작성한 것입니다.
 
-```js:title=src/components/Task.stories.js
+```jsx:title=src/components/Task.stories.jsx
 import React from 'react';
 
 import Task from './Task';
@@ -119,7 +119,7 @@ module.exports = {
 -   '../src/**/*.stories.mdx',
 -   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
-+ stories: ['../src/components/**/*.stories.js'],
++ stories: ['../src/components/**/*.stories.jsx'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
@@ -173,7 +173,7 @@ export const parameters = {
 
 컴포넌트는 아직 기본만 갖춘 상태입니다. 먼저, 너무 자세하지 않지만 우선 디자인을 이룰 수 있는 코드를 적어보겠습니다.
 
-```js:title=src/components/Task.js
+```jsx:title=src/components/Task.jsx
 import React from 'react';
 
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
@@ -223,7 +223,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 컴포넌트에 필요한 데이터 형태를 명시하려면 리액트(React)에서 `propTypes`를 사용하는 것이 가장 좋습니다. 이는 자체적 문서화일 뿐만 아니라, 문제를 조기에 발견하는 데 도움이 됩니다.
 
-```diff:title=src/components/Task.js
+```diff:title=src/components/Task.jsx
 import React from 'react';
 + import PropTypes from 'prop-types';
 

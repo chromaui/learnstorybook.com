@@ -113,9 +113,9 @@ const store = configureStore({
 export default store;
 ```
 
-이제 원격 API 엔드포인트에서 데이터를 검색하여 스토어를 새롭게 업데이트 하고 앱의 다양한 상태를 처리하도록 준비했습니다. 이제 `src/components` 폴더에 `InboxScreen.js` 파일을 만들어봅시다:
+이제 원격 API 엔드포인트에서 데이터를 검색하여 스토어를 새롭게 업데이트 하고 앱의 다양한 상태를 처리하도록 준비했습니다. 이제 `src/components` 폴더에 `InboxScreen.jsx` 파일을 만들어봅시다:
 
-```js:title=src/components/InboxScreen.js
+```jsx:title=src/components/InboxScreen.jsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchTasks } from '../lib/store';
@@ -156,7 +156,7 @@ export default function InboxScreen() {
 
 또한 `App` 컴포넌트를 변경하여 `InboxScreen`을 렌더링 합니다. (올바른 화면 선택을 위하여 router를 사용해도 되지만 여기서는 고려하지 않도록 하겠습니다.)
 
-```diff:title=src/App.js
+```diff:title=src/App.jsx
 - import logo from './logo.svg';
 - import './App.css';
 + import './index.css';
@@ -171,7 +171,7 @@ function App() {
 -     <header className="App-header">
 -       <img src={logo} className="App-logo" alt="logo" />
 -       <p>
--         Edit <code>src/App.js</code> and save to reload.
+-         Edit <code>src/App.jsx</code> and save to reload.
 -       </p>
 -       <a
 -         className="App-link"
@@ -195,9 +195,9 @@ export default App;
 
 그러나 여기서 흥미로운 점은 스토리북에서 스토리를 렌더링 할 때입니다.
 
-앞에서 살펴보았듯이 `TaskList` 컴포넌트는 이제 **연결된** 컴포넌트가 되었습니다. 그리고 Redux 저장소에 의존하여 작업을 렌더링하고 있습니다.`InboxScreen` 또한 연결된 컴포넌트 이므로 비슷한 작업을 수행하고 따라서 `InboxScreen.stories.js`에서 스토리를 설정할 때에도 스토어를 제공할 수 있습니다.
+앞에서 살펴보았듯이 `TaskList` 컴포넌트는 이제 **연결된** 컴포넌트가 되었습니다. 그리고 Redux 저장소에 의존하여 작업을 렌더링하고 있습니다.`InboxScreen` 또한 연결된 컴포넌트 이므로 비슷한 작업을 수행하고 따라서 `InboxScreen.stories.jsx`에서 스토리를 설정할 때에도 스토어를 제공할 수 있습니다.
 
-```js:title=src/components/InboxScreen.stories.js
+```jsx:title=src/components/InboxScreen.stories.jsx
 import React from 'react';
 
 import InboxScreen from './InboxScreen';
@@ -261,7 +261,7 @@ export const parameters = {
 
 마지막으로 `InboxScreen` 스토리를 업데이트하고 모의 원격 API 호출 파라미터를 [parameter](https://storybook.js.org/docs/react/writing-stories/parameters) 포함합니다.
 
-```diff:title=src/components/InboxScreen.stories.js
+```diff:title=src/components/InboxScreen.stories.jsx
 import React from 'react';
 
 import InboxScreen from './InboxScreen';
@@ -332,7 +332,7 @@ play 기능은 UI가 업데이트 될 때 어떤 일이 발생하는지 확인�
 
 그럼 이제 실행해 봅시다. 새로만든 `InboxScreen` 스토리를 업데이트하고 다음을 추가하여 컴포넌트 상호작용을 추가해 봅시다.
 
-```diff:title=src/components/InboxScreen.stories.js
+```diff:title=src/components/InboxScreen.stories.jsx
 import React from 'react';
 
 import InboxScreen from './InboxScreen';
