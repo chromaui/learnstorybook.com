@@ -121,7 +121,7 @@ Now that we've set up the basics lets re-run `yarn storybook` and see our change
 You should see a UI that looks like this:
 ![a gif showing the task component in storybook](/intro-to-storybook/react-native-task-component.gif)
 
-You can use the menu at the bottom of your screen to open the navigation menu and tap to swap between stories, then you can tap away or drag down to dismiss the menu. You'll find addons by pressing the icon on the far right of the bottom bar.
+You can use the menu at the bottom of your screen to open the navigation menu and tap to swap between stories. Then you can tap away or drag down to dismiss the menu. You'll find addons by pressing the icon on the far right of the bottom bar.
 
 ## Build out the states
 
