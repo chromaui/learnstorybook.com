@@ -57,9 +57,9 @@ Lastly, start up your Storybook (the test runner will run against your local Sto
 yarn storybook
 ```
 
-## Reuse stories as interaction test cases
+## Reuse stories as component test cases
 
-In the previous chapter, we catalogued all the use cases of the InboxScreen component in the `InboxScreen.stories.jsx` file. That allowed us to spot-check appearance during development and catch regressions via visual tests. These stories will now also power our interaction tests.
+In the previous chapter, we catalogued all the use cases of the InboxScreen component in the `InboxScreen.stories.jsx` file. That allowed us to spot-check appearance during development and catch regressions via visual tests. These stories will now also power our component tests.
 
 ```javascript:title=src/InboxScreen.stories.jsx
 import { http, HttpResponse } from 'msw';
@@ -101,13 +101,13 @@ export const Error = {
 };
 ```
 
-### Write an interaction test using the play function
+### Write a component test using the play function
 
-[Testing Library](https://testing-library.com/) offers a convenient API for simulating user interactions—click, drag, tap, type, etc. Whereas [Jest](https://jestjs.io/) provides assertion utilities. We'll use Storybook-instrumented versions of these two tools to write the test. Therefore, you get a familiar developer-friendly syntax to interact with the DOM, but with extra telemetry to help with debugging.
+[Testing Library](https://testing-library.com/) offers a convenient API for simulating user interactions—click, drag, tap, type, etc. Whereas [Vitest](https://vitest.dev/) provides assertion utilities. We'll use Storybook-instrumented versions of these two tools to write the test. Therefore, you get a familiar developer-friendly syntax to interact with the DOM, but with extra telemetry to help with debugging.
 
 The test itself will be housed inside a [play function](https://storybook.js.org/docs/writing-stories/play-function). This snippet of code gets attached to a story and runs after the story is rendered.
 
-Let's add in our first interaction test to verify that the user can pin a task:
+Let's add in our first component test to verify that the user can pin a task:
 
 ```javascript:title=src/InboxScreen.stories.jsx
 import { http, HttpResponse } from 'msw';
@@ -152,7 +152,7 @@ Each play function receives the Canvas element—the top-level container of the 
 
 We're looking for the "Export logo" task in our case. Then find the pin button within it and click it. Finally, we check to see if the button has updated to the unpinned state.
 
-When Storybook finishes rendering the story, it executes the steps defined within the play function, interacting with the component and pinning a task—similar to how a user would do it. If you check your [interactions panel](https://storybook.js.org/docs/writing-tests/interaction-testing#interactive-debugger), you'll see the step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
+When Storybook finishes rendering the story, it executes the steps defined within the play function, interacting with the component and pinning a task—similar to how a user would do it. If you check your [interactions panel](https://storybook.js.org/docs/writing-tests/component-testing#interactive-debugger), you'll see the step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -202,9 +202,9 @@ export const EditTask = {
 };
 ```
 
-You should now see stories for these scenarios. Storybook only runs the interaction test when you’re viewing a story. Therefore, you'd have to go through each story to run all your checks.
+You should now see stories for these scenarios. Storybook only runs the component test when you’re viewing a story. Therefore, you'd have to review each story to run all your checks.
 
-It's unrealistic to manually review the entire Storybook whenever you make a change. Storybook test runner automates that process. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all your interactions tests and catches broken stories.
+It's unrealistic to manually review the entire Storybook whenever you make a change. Storybook test runner automates that process. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all your tests and catches broken stories.
 
 ![](/ui-testing-handbook/inbox-screen-interaction-test.png)
 
@@ -220,7 +220,7 @@ It'll verify whether all stories rendered without any errors and that all assert
 
 ![](/ui-testing-handbook/storybook-test-runner-story-error.png)
 
-In summary, the setup code and test both collocated in the stories file. Using a play function, we interacted with the UI the way a user would. Storybook interaction tests combine the intuitive debugging environment of a live browser with the performance and scriptability of headless browsers.
+In summary, the setup code and test are both located in the stories file. Using a play function, we interacted with the UI as a user would. Storybook component tests combine the intuitive debugging environment of a live browser with the performance and scriptability of headless browsers.
 
 ## Catching usability issues
 

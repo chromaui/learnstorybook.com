@@ -187,7 +187,7 @@ yarn init-msw
 
 <div class="aside">
 
-💡 Public directory may differ depending on the project. For custom configurations, we recommend reading MSW's [documentation](https://mswjs.io/docs/getting-started/integrate/browser#where-is-my-public-directory) to learn more about them. To see the changes reflected in Storybook, you'll need to update the [`staticDirs`](https://storybook.js.org/docs/configure/images-and-assets#serving-static-files-via-storybook-configuration) configuration element in `.storybook/main.js`.
+💡 Public directory may differ depending on the project. For custom configurations, we recommend reading MSW's [documentation](https://mswjs.io/docs/getting-started/integrate/browser#where-is-my-public-directory) to learn more about them. To see the changes reflected in Storybook, you'll need to update the [`staticDirs`](https://storybook.js.org/docs/configure/integration/images-and-assets#serving-static-files-via-storybook-configuration) configuration element in `.storybook/main.js`.
 
 </div>
 
