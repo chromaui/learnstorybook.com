@@ -58,7 +58,7 @@ To install the addon, run: `yarn add --dev @storybook/addon-a11y`. Then, add `'@
 ```diff:title=.storybook/main.js
 /** @type { import('@storybook/react-vite').StorybookConfig } */
 const config = {
-  stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
+  stories: ['../src/**/*.stories.@(js|jsx|ts|tsx)'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
