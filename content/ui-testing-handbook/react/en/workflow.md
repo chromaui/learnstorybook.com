@@ -84,7 +84,7 @@ To catch regressions you need to run on all your components. You can do that by 
 
 ![](/ui-testing-handbook/ci-a11y.png)
 
-### Interaction tests
+### Component tests
 
 The user can delete a task by clicking on the _trash can_ button, we’ll need to add in a test to verify that behaviour.
 
@@ -97,7 +97,7 @@ The user can delete a task by clicking on the _trash can_ button, we’ll need t
 
 #### During development
 
-During development, manually verify the interaction using the InboxScreen stories. If it’s working as expected, you can add in an interaction test using a play function.
+During development, manually verify the interaction using the InboxScreen stories. If it works as expected, you can add a component test using a play function.
 
 ```javascript:title=src/InboxScreen.stories.jsx
 // ... code omitted for brevity ...
