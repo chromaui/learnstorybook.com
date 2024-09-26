@@ -139,6 +139,7 @@ In `src/app/components/pure-task-list.component.ts`:
 ```diff:title=src/app/components/pure-task-list.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../models/task.model';
+
 @Component({
 - selector:'app-task-list',
 + selector: 'app-pure-task-list',
@@ -304,12 +305,11 @@ The reason to keep the presentational version of the `TaskList` separate is that
 ```ts:title=src/app/components/pure-task-list.stories.ts
 import type { Meta, StoryObj } from '@storybook/angular';
 
-import { argsToTemplate, componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
+import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
 import PureTaskListComponent from './pure-task-list.component';
-
 import TaskComponent from './task.component';
 
 import * as TaskStories from './task.stories';
@@ -329,14 +329,9 @@ const meta: Meta<PureTaskListComponent> = {
       (story) => `<div style="margin: 3em">${story}</div>`
     ),
   ],
-  render: (args: PureTaskListComponent) => ({
-    props: {
-      ...args,
-      onPinTask: TaskStories.actionsData.onPinTask,
-      onArchiveTask: TaskStories.actionsData.onArchiveTask,
-    },
-    template: `<app-pure-task-list ${argsToTemplate(args)}></app-pure-task-list>`,
-  }),
+  args: {
+    ...TaskStories.ActionsData,
+  },
 };
 export default meta;
 type Story = StoryObj<PureTaskListComponent>;
