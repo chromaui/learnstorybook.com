@@ -66,30 +66,24 @@ Below we build out Task’s three test states in the story file:
 ```ts:title=src/app/components/task.stories.ts
 import type { Meta, StoryObj } from '@storybook/angular';
 
-import { argsToTemplate } from '@storybook/angular';
-
-import { action } from '@storybook/addon-actions';
+import { fn } from '@storybook/test';
 
 import TaskComponent from './task.component';
 
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
+export const ActionsData = {
+  onArchiveTask: fn(),
+  onPinTask: fn(),
 };
 
 const meta: Meta<TaskComponent> = {
   title: 'Task',
   component: TaskComponent,
+  //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
   tags: ['autodocs'],
-  render: (args: TaskComponent) => ({
-    props: {
-      ...args,
-      onPinTask: actionsData.onPinTask,
-      onArchiveTask: actionsData.onArchiveTask,
-    },
-    template: `<app-task ${argsToTemplate(args)}></app-task>`,
-  }),
+  args: {
+    ...ActionsData,
+  },
 };
 
 export default meta;
@@ -125,7 +119,9 @@ export const Archived: Story = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/angular/essentials/actions"><b>Actions</b></a> help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use <code>action()</code> to stub them in.
+
+💡 [**Actions**](https://storybook.js.org/docs/essentials/actions) help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `fn()` to stub them in.
+
 </div>
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
@@ -141,16 +137,15 @@ To tell Storybook about the component we are documenting, we create a `default` 
 - `title` -- how to group or categorize the component in the Storybook sidebar
 - `tags` -- to automatically generate documentation for our components
 - `excludeStories`-- additional information required by the story but should not be rendered in Storybook
-- `render` -- a custom [render function](https://storybook.js.org/docs/angular/api/csf#custom-render-functions) that allows us how the component is rendered in Storybook
-- `argsToTemplate` -- a helper function that converts the args to property and event bindings for the component, providing robust workflow support for Storybook's controls and the component's inputs and outputs
+- `args` -- define the action [args](https://storybook.js.org/docs/essentials/actions#action-args) that the component expects to mock out the custom events
 
-To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/angular/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
+To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
 
-Arguments or [`args`](https://storybook.js.org/docs/angular/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/angular/writing-stories/args) value changes, so does the component.
+Arguments or [`args`](https://storybook.js.org/docs/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/writing-stories/args) value changes, so does the component.
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+`fn()` allows us to create a callback that appears in the **Actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `ActionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `ActionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
 
@@ -171,9 +166,6 @@ const config: StorybookConfig = {
   framework: {
     name: '@storybook/angular',
     options: {},
-  },
-  docs: {
-    autodocs: 'tag',
   },
 };
 export default config;
@@ -331,12 +323,8 @@ const config: StorybookConfig = {
     name: '@storybook/angular',
     options: {},
   },
-  docs: {
-    autodocs: 'tag',
-  },
 };
 export default config;
-
 ```
 
 Finally, restart your Storybook to see the new addon enabled in the UI.

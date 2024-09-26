@@ -33,7 +33,7 @@ Now we can quickly check that the various environments of our application are wo
 
 ```shell:clipboard=false
 # Start the component explorer on port 6006:
-ng run taskbox:storybook
+npm run storybook
 
 # Run the frontend app proper on port 4200:
 ng serve
