@@ -9,7 +9,7 @@ commit: '2275632'
 
 이번 챕터에서는 화면에서 컴포넌트를 결합하고 스토리북에서 그 화면을 개발함으로써 계속하여 완성도를 높여보겠습니다.
 
-## 화면에 연결
+## 화면에 연결하기
 
 우리 앱은 간단하기 때문에 만들 화면도 매우 간단합니다. 원격 API에서 데이터를 가져와 `TaskList` 컴포넌트(리덕스(Redux)를 통해 자체적으로 데이터를 제공함)를 감싸고, 최상위 레벨의 `error` 필드를 리덕스에서 가져오는 것입니다.
 
@@ -204,7 +204,7 @@ export default App;
 
 그러나 여기서 흥미로운 점은 스토리북에서 스토리를 렌더링 할 때입니다.
 
-앞에서 살펴보았듯이 `TaskList` 컴포넌트는 이제 **연결된** 컴포넌트가 되었습니다. 그리고 Redux 저장소에 의존하여 작업을 렌더링하고 있습니다.`InboxScreen` 또한 연결된 컴포넌트 이므로 비슷한 작업을 수행하고 따라서 `InboxScreen.stories.jsx`에서 스토리를 설정할 때에도 스토어를 제공할 수 있습니다:
+앞에서 살펴보았듯이 `TaskList` 컴포넌트는 이제 **연결된** 컴포넌트가 되었습니다. 그리고 Redux 저장소에 의존하여 작업을 렌더링하고 있습니다.`InboxScreen` 또한 연결된 컴포넌트이므로 비슷한 작업을 수행하고 따라서 `InboxScreen.stories.jsx`에서 스토리를 설정할 때에도 스토어를 제공할 수 있습니다:
 
 ```jsx:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
