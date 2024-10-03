@@ -9,9 +9,9 @@ commit: 'c70ec15'
 
 이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트(container components)에 데이터를 연결하는 일반적인 패턴을 살펴보도록 하겠습니다.
 
-## 컨테이너 컴포넌트
+## 연결된 컴포넌트
 
-현재 구현된 `TaskList`는 외부와 어떠한 소통도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. 데이터를 적용하기 위해 데이터 제공자를 연결해야 합니다.
+현재 구현된 `TaskList`는 외부와 어떠한 소통도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. 데이터를 적용하기 위해 데이터 제공자(data provider)와 연결해야 합니다.
 
 이 예제는 [Redux](https://redux.js.org/)로 데이터를 저장하기 위해 가장 효과적인 도구 집합(toolset)인 [Redux Toolkit](https://redux-toolkit.js.org/)를 사용하여 앱의 간단한 데이터 모델을 만듭니다. 여기서 사용된 패턴은 [Apollo](https://www.apollographql.com/client/)와 [MobX](https://mobx.js.org/) 같은 다른 데이터 관리 라이브러리에도 적용됩니다.
 
@@ -83,10 +83,11 @@ export default store;
 
 다음 `TaskList` 컴포넌트를 Redux store와 연결하고, 알고자 하는 task들을 렌더링 하기 위해 업데이트합니다:
 
-```js:title=src/components/TaskList.jsx
-import React from 'react';
+```jsx:title=src/components/TaskList.jsx
 import Task from './Task';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import { updateTaskState } from '../lib/store';
 
 export default function TaskList() {
@@ -139,8 +140,8 @@ export default function TaskList() {
       <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
-          <div className="title-message">You have no tasks</div>
-          <div className="subtitle-message">Sit back and relax</div>
+          <p className="title-message">You have no tasks</p>
+          <p className="subtitle-message">Sit back and relax</p>
         </div>
       </div>
     );
@@ -161,22 +162,21 @@ export default function TaskList() {
 }
 ```
 
-이제 컴포넌트를 생성할 실제 데이터를 리덕스에서 받았으므로, 이를 `src/app.jsx`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
+이제 컴포넌트를 생성할 실제 데이터를 리덕스 스토어에서 받았으므로, 이를 `src/App.jsx`에 연결하여 컴포넌트를 렌더링 할 수 있습니다. 그러나 지금은 먼저 컴포넌트 중심의 여정을 계속해나가도록 하겠습니다.
 
 그에 대한 내용은 다음 챕터에서 다룰 것이므로 걱정하지 않으셔도 됩니다.
 
 ## 데코레이터로 컨텍스트 제공하기
 
-이 단계에서 `TaskList`는 컨테이너이며 더 이상 어떠한 props도 받지 않기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다.
+이 변경으로 인해 스토리북 스토리가 작동을 멈추게 되었습니다. 왜냐하면 `TaskList`는 이제 리덕스 스토어에 의존하여 task를 가져오고 업데이트하는 연결된 컴포넌트이기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다.
 
 ![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
 
-이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/en/composite-component)에서 했던 것과 유사한 데코레이터에 의존하고 모방된 저장소를 스토리북 스토리에 제공할 수 있습니다.
+이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/en/composite-component)에서 했던 것처럼 데코레이터에 의존하여 스토리북 스토리에서 모의(mocked) 스토어를 제공할 수 있습니다:
 
 ```jsx:title=src/components/TaskList.stories.jsx
-import React from 'react';
-
 import TaskList from './TaskList';
+
 import * as TaskStories from './Task.stories';
 
 import { Provider } from 'react-redux';
@@ -225,80 +225,85 @@ const Mockstore = ({ taskboxState, children }) => (
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
+  tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };
 
-const Template = () => <TaskList />;
+export const Default = {
+  decorators: [
+    (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
+  ],
+};
 
-export const Default = Template.bind({});
-Default.decorators = [
-  (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
-];
+export const WithPinnedTasks = {
+  decorators: [
+    (story) => {
+      const pinnedtasks = [
+        ...MockedState.tasks.slice(0, 5),
+        { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+      ];
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.decorators = [
-  (story) => {
-    const pinnedtasks = [
-      ...MockedState.tasks.slice(0, 5),
-      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-    ];
+      return (
+        <Mockstore
+          taskboxState={{
+            ...MockedState,
+            tasks: pinnedtasks,
+          }}
+        >
+          {story()}
+        </Mockstore>
+      );
+    },
+  ],
+};
 
-    return (
+export const Loading = {
+  decorators: [
+    (story) => (
       <Mockstore
         taskboxState={{
           ...MockedState,
-          tasks: pinnedtasks,
+          status: 'loading',
         }}
       >
         {story()}
       </Mockstore>
-    );
-  },
-];
+    ),
+  ],
+};
 
-export const Loading = Template.bind({});
-Loading.decorators = [
-  (story) => (
-    <Mockstore
-      taskboxState={{
-        ...MockedState,
-        status: 'loading',
-      }}
-    >
-      {story()}
-    </Mockstore>
-  ),
-];
-
-export const Empty = Template.bind({});
-Empty.decorators = [
-  (story) => (
-    <Mockstore
-      taskboxState={{
-        ...MockedState,
-        tasks: [],
-      }}
-    >
-      {story()}
-    </Mockstore>
-  ),
-];
+export const Empty = {
+  decorators: [
+    (story) => (
+      <Mockstore
+        taskboxState={{
+          ...MockedState,
+          tasks: [],
+        }}
+      >
+        {story()}
+      </Mockstore>
+    ),
+  ],
+};
 ```
 
 <div class="aside">
-💡 <code>제외된 스토리</code> 모의 상태과 스토리로 취급되는 것을 방지하기 위한 스토리북 구성 필드 입니다. 이 필드에 대한 자세한 내용은 <a href="https://storybook.js.org/docs/react/api/csf">스토리북 문서 를 참고하세요</a>.
+
+💡 `excludeStories`는 모의된 상태(mocked state)가 스토리로 처리되는 것을 방지하기 위한 스토리북 구성 필드 입니다. 이 필드에 대한 자세한 내용은 [스토리북 문서](https://storybook.js.org/docs/api/csf)를 참고하세요.
+
 </div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-4-optimized.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0-optimized.mp4"
     type="video/mp4"
   />
 </video>
 
 <div class="aside">
-💡 변경과 함께 모든 테스트를 업데이트해야 합니다. <code>-u</code> 플래그와 함께 import 문을 업데이트하고 테스트 커맨드를 재실행하세요. 깃(Git)에 변경한 내역들을 commit 하는 것도 잊지 마세요!
+💡 깃(Git)에 변경 내역을 commit하는 것을 잊지 마세요!
 </div>
 
-성공했습니다! 스토리북이 정상적으로 작동하고 있으며 연결된 구성 요소에 데이터를 제공할 수있는 방법을 볼 수 있었습니다. 다음 장에서는 배운 내용을 화면에 적용해 보겠습니다.
+성공했습니다! 스토리북이 정상적으로 작동하고 있으며 연결된 컴포넌트에 데이터를 제공할 수있는 방법을 볼 수 있었습니다. 다음 장에서는 배운 내용을 화면에 적용해 보겠습니다.
