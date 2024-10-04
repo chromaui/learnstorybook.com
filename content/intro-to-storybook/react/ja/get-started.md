@@ -13,7 +13,7 @@ Storybook は開発時にアプリケーションと並行して動きます。S
 
 Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[degit](https://github.com/Rich-Harris/degit) を使用してビルド環境をセットアップしましょう。このパッケージを利用することで、テンプレート（アプリケーションの一部をデフォルト設定で構築したもの）をダウンロードし、開発ワークフローの短縮に役立てることができます。
 
-それでは、次のコマンドを実行してください:
+それでは、次のコマンドを実行してください。
 
 ```shell:clipboard=false
 # Clone the template
@@ -29,26 +29,19 @@ yarn
 💡 このテンプレートには本バージョンのチュートリアルに必要なスタイル、アセット、最低限の設定が含まれています。
 </div>
 
-それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう:
+それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう。
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test --watchAll
-
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 3000:
-yarn start
+# Run the frontend app proper on port 5173:
+yarn dev
 ```
 
-<div class="aside">
-テストのコマンドに <code>--watchAll</code> フラグを付けているのに気づいたでしょうか。これは間違いではありません。このフラグを付けることにより、すべてのテストが実行され、アプリケーションに問題ないことを確実にできます。チュートリアルを進めると、別のテストシナリオも出てきます。必要ならばこのフラグを <code>package.json</code> のテストコマンドに追加することで、テストスイートのすべてのテストが実行されるようになります。
-</div>
+フロントエンド開発の 2 つのモード: コンポーネント開発 (Storybook)、アプリケーション自体
 
-フロントエンド開発の 3 つのモード: 自動化されたテスト (Jest)、コンポーネント開発 (Storybook)、アプリケーション自体
-
-![3 つのモード](/intro-to-storybook/app-three-modalities.png)
+![2つのモード](/intro-to-storybook/app-main-modalities-react.png)
 
 作業をする対象に応じて、このモードのうち 1 つまたは複数を同時に動かしながら作業します。今は単一の UI コンポーネントを作るのに集中するため、Storybook を動かすことにしましょう。
 
@@ -66,7 +59,7 @@ git init
 git add .
 ```
 
-次に以下を実行します:
+さらに:
 
 ```shell
 git commit -m "first commit"
@@ -75,7 +68,7 @@ git commit -m "first commit"
 最後に:
 
 ```shell
-$ git branch -M main
+git branch -M main
 ```
 
 それでは最初のコンポーネントを作り始めましょう！
