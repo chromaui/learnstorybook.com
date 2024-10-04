@@ -33,7 +33,7 @@ module.exports = {
           ar: 6.3,
         },
         'react-native': {
-          en: 7.6,
+          en: 8.1,
           es: 5.3,
           pt: 7.6,
         },
