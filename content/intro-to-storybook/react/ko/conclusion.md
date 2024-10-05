@@ -15,20 +15,20 @@ description: '모든 지식을 종합하고 더 많은 스토리북(Storybook) �
 
 더 알아보고 싶으신가요? 여기 도움이 될만한 것들이 있습니다.
 
-- [**공식 스토리북 문서**](https://storybook.js.org/docs/react/get-started/introduction)는 API 설명서, 커뮤니티 링크와 애드온(addon) 갤러리가 있습니다.
+- [**공식 스토리북 문서**](https://storybook.js.org/docs/get-started/install)는 API 설명서, 커뮤니티 링크와 애드온(addon) 갤러리가 있습니다.
 
-- [**마음에 드는 스토리북 작업 흐름(workflow)**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)는 Squarespace, Major League Soccer, Discovery Network 및 Apollo GraphQL과 같은 빠른 개발 속도를 가진 팀에서 사용하는 작업 흐름(Workflow)의 모범 사례를 보여줍니다.
+- [**UI 테스트 플레이북**](https://storybook.js.org/blog/ui-testing-playbook/)은 Twilio, Adobe, Peloton, Shopify와 같은 열정적인 팀들이 사용하는 작업 흐름(workflow) 모범 사례를 강조합니다.
 
 - [**시각적 테스팅 핸드북**](https://storybook.js.org/tutorials/visual-testing-handbook/)에서는 스토리북을 컴포넌트의 시각적 테스트에 사용하는 것에 대해 알아봅니다. 31페이지 분량의 무료 전자책입니다.
 
 - [**스토리북 디스코드(Discord) 채널**](https://discord.gg/UUt2PJb)로 스토리북 커뮤니티와 연결될 수 있습니다. 스토리북 사용자를 위한 도움을 주고받으세요.
 
-- [**스토리북 블로그**](https://storybook.js.org/blog)는 UI 개발을 위한 작업 흐름(workflow)를 간소화할 수 있는 최신 릴리즈(release)와 기능들을 보여줍니다.
+- [**스토리북 블로그**](https://storybook.js.org/blog/)는 UI 개발을 위한 작업 흐름(workflow)를 간소화할 수 있는 최신 릴리즈(release)와 기능들을 보여줍니다.
 
-## LearnStorybook.com은 누가 만들었나요?
+## Intro to Storybook 튜토리얼은 누가 만들었나요?
 
 내용, 코드, 제작은 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)에서 기여해주셨습니다. 튜토리얼은 Chromatic의 인기 있는 [GraphQL + React 튜토리얼 시리즈](https://www.chromatic.com/blog/graphql-react-tutorial-part-1-6)에서 영감을 얻었습니다.
 
-이와 같은 튜토리얼과 기사를 더 원하시나요? 크로마틱(Chromatic)의 메일링 목록에 등록하세요.
+이와 같은 튜토리얼과 기사를 더 원하시나요? 스토리북의 메일링 목록에 등록하세요.
 
 <iframe style="height:400px;width:100%;max-width:800px;margin:0px auto;" src="https://upscri.be/d42fc0?as_embed"></iframe>
