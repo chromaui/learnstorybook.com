@@ -60,15 +60,20 @@ The same test case is used in both scenarios, only the method of verification ch
 
 Let's focus on that first scenario for now. In Storybook, a test is as simple as rendering a React element. To write a visual test case, a "story" in Storybook parlance, we outline the states of the component we're interested in. The code sample below shows how you'd write visual tests for `InboxTask`, `SnoozedTask`, and `PinnedTask`.
 
-```js:title=src/components/Task.stories.js
+```ts:title=src/components/Task.stories.ts
+import type { Meta, StoryObj } from '@storybook/react';
+
 import Task from './Task';
 
-export default {
+const meta: Meta = {
   component: Task,
   title: 'Task',
-};
+} satisfies Meta<typeof Task>;
 
-export const InboxTask = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const InboxTask: Story = {
   args: {
     task: {
       id: '1',
@@ -80,21 +85,21 @@ export const InboxTask = {
   },
 };
 
-export const SnoozedTask = {
+export const SnoozedTask: Story = {
   args: {
     task: {
       // Shaping the stories through args composition.
-      ...InboxTask.args.task,
+      ...InboxTask.args?.task,
       state: 'TASK_SNOOZED',
     },
   },
 };
 
-export const PinnedTask = {
+export const PinnedTask: Story = {
   args: {
     task: {
       // Shaping the stories through args composition.
-      ...InboxTask.args.task,
+      ...InboxTask.args?.task,
       state: 'TASK_PINNED',
     },
   },

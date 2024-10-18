@@ -60,44 +60,48 @@ Se utiliza el mismo caso de prueba en ambos escenarios, solo cambia el método d
 
 Centrémonos en ese primer escenario por ahora. En Storybook, una prueba es tan simple como renderizar un elemento React. Para escribir un caso de prueba visual, una "historia" en el lenguaje de Storybook, describimos los estados del componente que nos interesa. El siguiente ejemplo de código muestra cómo escribirías pruebas visuales para `InboxTask`,` SnoozedTask` y `PinnedTask`.
 
-```js:title=src/components/Task.stories.js
-import React from 'react';
+```ts:title=src/components/Task.stories.ts
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Task from './Task';
 
-export default {
+const meta: Meta = {
   component: Task,
   title: 'Task',
-};
+} satisfies Meta<typeof Task>;
 
-const Template = args => <Task {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const InboxTask = Template.bind({});
-InboxTask.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
-    boardName: 'on Test Board',
+export const InboxTask: Story = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Test Task',
+      state: 'TASK_INBOX',
+      updatedAt: new Date(2023, 0, 1, 9, 0),
+      boardName: 'On Test Board',
+    },
   },
 };
 
-export const SnoozedTask = Template.bind({});
-SnoozedTask.args = {
-  task: {
-    // Shaping the stories through args composition.
-    ...InboxTask.args.task,
-    state: 'TASK_SNOOZED',
+export const SnoozedTask: Story = {
+  args: {
+    task: {
+      // Shaping the stories through args composition.
+      ...InboxTask.args?.task,
+      state: 'TASK_SNOOZED',
+    },
   },
 };
 
-export const PinnedTask = Template.bind({});
-PinnedTask.args = {
-  task: {
-    // Shaping the stories through args composition.
-    ...InboxTask.args.task,
-    state: 'TASK_PINNED',
+export const PinnedTask: Story = {
+  args: {
+    task: {
+      // Shaping the stories through args composition.
+      ...InboxTask.args?.task,
+      state: 'TASK_PINNED',
+    },
   },
 };
 ```

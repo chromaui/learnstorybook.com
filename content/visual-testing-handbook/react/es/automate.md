@@ -2,7 +2,7 @@
 title: 'Automatizar las pruebas visuales'
 tocTitle: 'Automatizar'
 description: 'Automatice las pruebas visuales para detectar regresiones'
-commit: 'b9671fb'
+commit: '198ca0f'
 ---
 
 En el curso natural del desarrollo, los errores son inevitables. La automatización de pruebas visuales utiliza máquinas para detectar cambios en la apariencia de la interfaz de usuario para que los revise un humano.
@@ -55,7 +55,7 @@ Las pruebas de interfaz de usuario capturan una instantánea de cada historia en
 Agregue Chromatic como paquete de desarrollo a su proyecto:
 
 ```shell
-yarn add -D chromatic
+yarn add --dev chromatic
 ```
 
 Una vez que termine de instalarse, tendremos todo lo que necesitamos. Ahora es un excelente momento para confirmar y enviar los cambios al repositorio remoto.
@@ -92,13 +92,37 @@ git checkout -b change-commentlist-outline
 
 Ajuste el componente `CommentList`
 
-```diff:title=src/components/CommentList.js
-import React from 'react';
+```diff:title=src/components/CommentList.tsx
+import styled, { createGlobalStyle } from "styled-components";
 
-import PropTypes from 'prop-types';
-import styled, { createGlobalStyle } from 'styled-components';
+interface Author {
+  name: string;
+  avatar: string;
+}
 
-const CommentListDiv = styled.div`
+interface Comment {
+  text: string;
+  author: Author;
+}
+
+export interface CommentListProps {
+  /**
+   * Is the component in the loading state
+   */
+  loading?: boolean;
+
+  /**
+   * Total number of comments
+   */
+  totalCount?: number;
+
+  /**
+   * List of comments
+   */
+  comments?: Comment[];
+}
+
+const CommentListWrapper = styled.div`
   font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
   display: inline-block;
@@ -106,7 +130,7 @@ const CommentListDiv = styled.div`
   width: 265px;
 `;
 
-const CommentItemDiv = styled.div`
+const CommentItem = styled.div`
   font-size: 12px;
   line-height: 14px;
   clear: both;
@@ -123,7 +147,7 @@ const CommentItemDiv = styled.div`
 + font-weight: bold;
 `;
 
-const AvatarDiv = styled.div`
+const Avatar = styled.div`
   float: left;
   position: relative;
   overflow: hidden;
@@ -144,22 +168,30 @@ const AvatarImg = styled.img`
   background: #999;
 `;
 
-const MessageDiv = styled.div`
+const Message = styled.div`
   overflow: hidden;
   padding-top: 10px;
   padding-right: 20px;
 `;
 
-const AuthorSpan = styled.span`
+const Author = styled.span`
   font-weight: bold;
 `;
-const TextSpan = styled.span``;
+
+const CommentText = styled.span``;
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,800');
-`;
+   @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,800');
+ `;
 
-export default function CommentList({ loading, comments, totalCount }) {
+/**
+* The Commentlist component should display the comments from the user.
+*/
+export default function CommentList({
+  loading = false,
+  comments = [],
+  totalCount = 10,
+}: CommentListProps) {
   if (loading) {
     return <div>loading</div>;
   }
@@ -168,53 +200,22 @@ export default function CommentList({ loading, comments, totalCount }) {
   }
   return (
     <>
-    <GlobalStyle/>
-    <CommentListDiv>
-      {comments.map(({ text, author: { name, avatar } }) => (
-        <CommentItemDiv key={`comment_${name}`}>
-          <AvatarDiv>
-            <AvatarImg src={avatar} />
-          </AvatarDiv>
-          <MessageDiv>
-            <AuthorSpan>{name}</AuthorSpan> <TextSpan>{text}</TextSpan>
-          </MessageDiv>
-        </CommentItemDiv>
-      ))}
-    </CommentListDiv>
+      <GlobalStyle />
+      <CommentListWrapper>
+        {comments.map(({ text, author: { name, avatar } }) => (
+          <CommentItem key={`comment_${name}`}>
+            <Avatar>
+              <AvatarImg src={avatar} />
+            </Avatar>
+            <Message>
+              <Author>{name}</Author> <CommentText>{text}</CommentText>
+            </Message>
+          </CommentItem>
+        ))}
+      </CommentListWrapper>
     </>
   );
 }
-
-CommentList.propTypes = {
-  /**
-   * Is the component in the loading state
-   */
-  loading: PropTypes.bool,
-
-  /**
-   * Total number of comments
-   */
-  totalCount: PropTypes.number,
-  /**
-   * List of comments
-   */
-  comments: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string,
-      author: PropTypes.shape({
-        name: PropTypes.string,
-        avatar: PropTypes.string,
-      }),
-    })
-  ),
-};
-
-CommentList.defaultProps = {
-  loading: false,
-  totalCount: 10,
-  comments: [],
-};
-
 ```
 
 Confirme el cambio, envíelo al repositorio y ejecute Chromatic:

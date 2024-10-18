@@ -23,7 +23,7 @@ description: '시각적 버그들에 안녕을'
 
 더 깊이 파고들고 싶나요? 여기 유용한 추가 자료들이 있습니다 -
 
-- [**스토리북 공식 문서들**](https://storybook.js.org/docs/react/get-started/why-storybook) 에는 API 문서와, 예시들, 그리고 애드온(Addon) 갤러리가 있습니다.
+- [**스토리북 공식 문서들**](https://storybook.js.org/docs/get-started/why-storybook) 에는 API 문서와, 예시들, 그리고 애드온(Addon) 갤러리가 있습니다.
 
 - [**UI들을 실제로 테스트하는 방법**](https://storybook.js.org/blog/how-to-actually-test-uis/) 에서는 Shopify, Adobe, Twilio 등의 실용적인 UI 테스팅 전략을 요약한 것입니다.
 

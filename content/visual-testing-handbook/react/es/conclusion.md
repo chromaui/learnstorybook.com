@@ -23,7 +23,7 @@ Si lo ha estado siguiendo, su repositorio y Storybook implementado deberían ver
 
 ¿Quieres sumergirte más profundo? A continuación, se incluyen algunos recursos útiles adicionales:
 
-- [**Documentación oficial de Storybook**](https://storybook.js.org/docs/react/get-started/why-storybook) tiene documentación de API, ejemplos y la galería de complementos.
+- [**Documentación oficial de Storybook**](https://storybook.js.org/docs/get-started/why-storybook) tiene documentación de API, ejemplos y la galería de complementos.
 
 - [**Cómo probar realmente las IU**](https://storybook.js.org/blog/how-to-actually-test-uis/) es un resumen de las estrategias prácticas de prueba de interfaz de usuario de Shopify, Adobe, Twilio y más.
 

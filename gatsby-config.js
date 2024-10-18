@@ -71,8 +71,8 @@ module.exports = {
       'visual-testing-handbook': {
         react: {
           en: 8.3,
-          es: 6.5,
-          ko: 6.5,
+          es: 8.3,
+          ko: 8.3,
         },
       },
       'ui-testing-handbook': {

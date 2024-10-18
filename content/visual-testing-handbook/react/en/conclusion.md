@@ -23,7 +23,7 @@ If you've been following along, your repository and deployed Storybook should lo
 
 Want to dive deeper? Here are some additional helpful resources:
 
-- [**Official Storybook docs**](https://storybook.js.org/docs/react/get-started/why-storybook) has API documentation, examples, and the addon gallery.
+- [**Official Storybook docs**](https://storybook.js.org/docs/get-started/why-storybook) has API documentation, examples, and the addon gallery.
 
 - [**How to actually test UIs**](https://storybook.js.org/blog/how-to-actually-test-uis/) is a summary of practical UI testing strategies from Shopify, Adobe, Twilio, and more.
 

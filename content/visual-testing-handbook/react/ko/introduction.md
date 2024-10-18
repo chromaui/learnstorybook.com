@@ -21,9 +21,9 @@ description: 'UI를 테스트하는 실용적인 방법'
 유닛 테스트는 모듈을 분리하고 모듈의 작동방식을 검증합니다. 이는 입력값(props, state 등)을 제공하며 기댓값과 출력값을 비교합니다. 유닛 테스트는 바람직한 테스팅 방식입니다. 왜냐하면 개별적으로 모듈을 테스트하면서 edge case들을 쉽게 다루고 실패의 원인을 잡아낼 수 있기 때문입니다.
 
 <video autoPlay muted playsInline loop>
-  <source 
-  src="/tutorials/visual-testing-handbook/component-unit-testing.mp4"
-  type="video/mp4" />
+  <source
+    src="/visual-testing-handbook/component-unit-testing.mp4"
+    type="video/mp4"/>
 </video>
 
 핵심 문제는 UI의 고유한 복잡성의 상당 부분이 시각적, 즉 생성된 HTML 및 CSS가 사용자 화면에서 어떻게 렌더링 되는지에 대한 세부 사항이라는 것입니다.
@@ -34,7 +34,7 @@ description: 'UI를 테스트하는 실용적인 방법'
 
 스냅샷 테스트[Snapshot tests](https://reactjs.org/docs/testing-recipes.html#snapshot-testing)는 UI 모양을 확인하는 대안적 접근법을 제공합니다. 스냅샷 테스트는 컴포넌트를 렌더링한 다음 생성된 DOM을 '기준값'으로 포착합니다. 그다음에 일어나는 변경 사항은 기준값과 새로운 DOM을 비교합니다. 만약 변경 사항이 있다면, 개발자는 기준점을 명시적으로 업데이트해야 합니다.
 
-![축소된 컴포넌트 코드](/tutorials/visual-testing-handbook/code-visual-testing-optimized.png)
+![축소된 컴포넌트 코드](/visual-testing-handbook/code-visual-testing-optimized.png)
 
 실제로 DOM 스냅샷은 HTML blob을 평가하여 UI가 렌더링 되는 방식을 결정하기 어렵기 때문에 불편합니다.
 
@@ -48,7 +48,7 @@ description: 'UI를 테스트하는 실용적인 방법'
 
 <video autoPlay muted playsInline loop>
   <source 
-  src="/tutorials/visual-testing-handbook/storybook-toggling-stories.mp4"
+  src="/visual-testing-handbook/storybook-toggling-stories.mp4"
   type="video/mp4" />
 </video>
 
@@ -58,7 +58,7 @@ commit할 때마다 새 이미지 스냅샷이 이전에 승인된 기준 스냅
 
 <video autoPlay muted playsInline loop>
   <source 
-  src="/tutorials/visual-testing-handbook/component-visual-testing.mp4"
+  src="/visual-testing-handbook/component-visual-testing.mp4"
   type="video/mp4" />
 </video>
 

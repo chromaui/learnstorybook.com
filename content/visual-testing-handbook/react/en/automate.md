@@ -2,7 +2,7 @@
 title: 'Automate visual testing'
 tocTitle: 'Automate'
 description: 'Automate visual testing to catch regressions'
-commit: 'b9671fb'
+commit: '198ca0f'
 ---
 
 Over the natural course of development, bugs are inevitable. Visual test automation uses machines to detect changes in UI appearance for a human to review.
@@ -55,7 +55,7 @@ UI tests capture an image snapshot of every story in a cloud browser environment
 Add Chromatic as a development package to your project:
 
 ```shell
-yarn add -D chromatic
+yarn add --dev chromatic
 ```
 
 Once it’s finished installing, we have all that we need. Now is an excellent time to commit and push the changes to the remote repository.
@@ -92,12 +92,37 @@ git checkout -b change-commentlist-outline
 
 Tweak the `CommentList` component
 
-```diff:title=src/components/CommentList.jsx
-import PropTypes from 'prop-types';
+```diff:title=src/components/CommentList.tsx
+import styled, { createGlobalStyle } from "styled-components";
 
-import styled, { createGlobalStyle } from 'styled-components';
+interface Author {
+  name: string;
+  avatar: string;
+}
 
-const CommentListDiv = styled.div`
+interface Comment {
+  text: string;
+  author: Author;
+}
+
+export interface CommentListProps {
+  /**
+   * Is the component in the loading state
+   */
+  loading?: boolean;
+
+  /**
+   * Total number of comments
+   */
+  totalCount?: number;
+
+  /**
+   * List of comments
+   */
+  comments?: Comment[];
+}
+
+const CommentListWrapper = styled.div`
   font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
   display: inline-block;
@@ -105,7 +130,7 @@ const CommentListDiv = styled.div`
   width: 265px;
 `;
 
-const CommentItemDiv = styled.div`
+const CommentItem = styled.div`
   font-size: 12px;
   line-height: 14px;
   clear: both;
@@ -122,7 +147,7 @@ const CommentItemDiv = styled.div`
 + font-weight: bold;
 `;
 
-const AvatarDiv = styled.div`
+const Avatar = styled.div`
   float: left;
   position: relative;
   overflow: hidden;
@@ -143,22 +168,30 @@ const AvatarImg = styled.img`
   background: #999;
 `;
 
-const MessageDiv = styled.div`
+const Message = styled.div`
   overflow: hidden;
   padding-top: 10px;
   padding-right: 20px;
 `;
 
-const AuthorSpan = styled.span`
+const Author = styled.span`
   font-weight: bold;
 `;
-const TextSpan = styled.span``;
+
+const CommentText = styled.span``;
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,800');
-`;
+   @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,800');
+ `;
 
-export default function CommentList({ loading, comments, totalCount }) {
+/**
+* The Commentlist component should display the comments from the user.
+*/
+export default function CommentList({
+  loading = false,
+  comments = [],
+  totalCount = 10,
+}: CommentListProps) {
   if (loading) {
     return <div>loading</div>;
   }
@@ -167,52 +200,22 @@ export default function CommentList({ loading, comments, totalCount }) {
   }
   return (
     <>
-    <GlobalStyle/>
-    <CommentListDiv>
-      {comments.map(({ text, author: { name, avatar } }) => (
-        <CommentItemDiv key={`comment_${name}`}>
-          <AvatarDiv>
-            <AvatarImg src={avatar} />
-          </AvatarDiv>
-          <MessageDiv>
-            <AuthorSpan>{name}</AuthorSpan> <TextSpan>{text}</TextSpan>
-          </MessageDiv>
-        </CommentItemDiv>
-      ))}
-    </CommentListDiv>
+      <GlobalStyle />
+      <CommentListWrapper>
+        {comments.map(({ text, author: { name, avatar } }) => (
+          <CommentItem key={`comment_${name}`}>
+            <Avatar>
+              <AvatarImg src={avatar} />
+            </Avatar>
+            <Message>
+              <Author>{name}</Author> <CommentText>{text}</CommentText>
+            </Message>
+          </CommentItem>
+        ))}
+      </CommentListWrapper>
     </>
   );
 }
-
-CommentList.propTypes = {
-  /**
-   * Is the component in the loading state
-   */
-  loading: PropTypes.bool,
-
-  /**
-   * Total number of comments
-   */
-  totalCount: PropTypes.number,
-  /**
-   * List of comments
-   */
-  comments: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string,
-      author: PropTypes.shape({
-        name: PropTypes.string,
-        avatar: PropTypes.string,
-      }),
-    })
-  ),
-};
-
-CommentList.defaultProps = {
-  loading: false,
-  totalCount: 10,
-  comments: [],
-};
 ```
 
 Commit the change, push it to the repo and run Chromatic:
