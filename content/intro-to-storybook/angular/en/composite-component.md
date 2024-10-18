@@ -142,7 +142,7 @@ export const Empty: Story = {
 
 <div class="aside">
 
-💡[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some `margin` around the rendered component. hey can also be used to wrap stories in “providers”–-i.e., library components that set some context.
+💡[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some `margin` around the rendered component. They can also be used to wrap stories in “providers”–-i.e., library components that set some context.
 
 </div>
 
