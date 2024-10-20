@@ -11,7 +11,7 @@ Dans les grandes entreprises, cette étape est faite en collaboration avec les �
 
 ## Le défi
 
-Si vous travaillez au sein d'une équipe de développement, vous avez probablement remarqué que grandes les équipes ne sont pas les plus efficaces. Une mauvaise communication peut vite s'installer au fur et à mesure que les équipes grandissent. Les modèles d'interface utilisateur existants ne sont pas documentés ou sont totalement abandonnés. En d'autres termes, les développeurs tentent de réinventer la roue plutôt que de développer de nouvelles fonctionnalités. Au fil du temps, les projets sont remplis de composants uniques.
+Si vous travaillez au sein d'une équipe de développement, vous avez probablement remarqué que les grandes équipes ne sont pas les plus efficaces. Une mauvaise communication peut vite s'installer au fur et à mesure que les équipes grandissent. Les modèles d'interface utilisateur existants ne sont pas documentés ou sont totalement abandonnés. En d'autres termes, les développeurs tentent de réinventer la roue plutôt que de développer de nouvelles fonctionnalités. Au fil du temps, les projets sont remplis de composants uniques.
 
 Nous nous sommes heurtés à cette situation inconfortable. Malgré de bonnes intentions au sein d'un équipe expérimentée, les composants UI étaient sans cesse refactorisés ou recopiés. Les modèles d'interface utilisateur, qui étaient censés être identiques, différaient en termes d'apparence ou de fonctionnalités. Chaque composant était une entité unique, ce qui rendait impossible pour les nouveaux développeurs de discerner la source de vérité, et encore moins de contribuer.
 
@@ -35,7 +35,7 @@ Ainsi, notre design system doit être à la fois indépendant de n'importe quel 
 
 ## Créer un dépôt dans GitHub
 
-React est la couche de visualisation (view layer) la plus populaire selon l'enquête de [State of JS](https://stateofjs.com/). Un nombre incalculable de Storybooks utilisent React : c'est la raison pour laquelle nous l'utiliserons dans ce tutoriel pour créer notre design system.
+React est la couche de visualisation (view layer) la plus populaire selon l'enquête de [State of JS](https://stateofjs.com/). Un nombre incalculable de composants Storybook utilisent React : c'est la raison pour laquelle nous l'utiliserons dans ce tutoriel pour créer notre design system.
 
 Dans votre ligne de commande, exécutez les commandes suivantes :
 
@@ -72,11 +72,11 @@ Veillez à remplacer `votre-nom-d'utilisateur` par le nom de votre compte.
 
 ![Commit initial dans le dépôt GitHub](/design-systems-for-developers/created-github-repository.png)
 
-<div class="aside">💡 D'autres méthodes valables existent pour créer un design system comme le HTML/CSS bruts, l'utilisation d'autres couches de visualisation, la compilation de composants avec Svelte ou l'utilisation de composants web. Choisissez ce qui convient le mieux à votre équipe.</div>
+<div class="aside">💡 D'autres méthodes valables existent pour créer un design system comme le HTML/CSS brut, l'utilisation d'autres couches de visualisation, la compilation de composants avec Svelte ou l'utilisation de composants web. Choisissez ce qui convient le mieux à votre équipe.</div>
 
 ## Ce qui appartient au design system et ce qui n’en fait pas partie
 
-Les design systems ne devraient contenir que des composants purs et destinés à l'affichage. Ces composants sont liés à l'affichage au sein de l'interface utilisateur, ne fonctionnent qu'avec des propriétés et ne contiennent pas de logique métier ou spécifique à une application, ils ne sont pas déterminants dans le chargement de données. Ces propriétés sont essentielles pour rendre un composant réutilisable.
+Les design systems ne devraient contenir que des composants dits « purs » (composants qui se réactualisent uniquement si leurs propriétés changent) et destinés à l'affichage. Ces composants sont liés à l'affichage au sein de l'interface utilisateur, ne fonctionnent qu'avec des propriétés et ne contiennent pas de logique métier ou spécifique à une application, ils ne sont pas déterminants dans le chargement de données. Ces propriétés sont essentielles pour rendre un composant réutilisable.
 
 Les design systems ne sont pas un ensemble de librairies de composants au sein d'une organisation. Ce serait un véritable casse-tête.
 
