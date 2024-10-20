@@ -26,7 +26,7 @@ La plupart des développeurs connaissent bien la revue du code, qui consiste à 
 
 ### Établir un point de référence universel
 
-Supprimer les node_modules. Réinstaller les packages. Effacer le stockage local.
+Supprimer le contenu du répertoire node_modules. Réinstaller les packages. Effacer le stockage local.
 Supprimer les cookies. Si ces actions vous semblent familières, vous savez à quel point il est difficile de s'assurer que les coéquipiers se réfèrent au code le plus récent. Lorsque les gens n'ont pas des environnements de développement identiques, c'est un cauchemar de discerner les problèmes causés par l'environnement local des bugs réels.
 
 Heureusement, en tant que développeurs frontend, nous avons une cible de compilation commune : le navigateur. Les équipes avisées publient leur Storybook en ligne pour servir de point de référence universel lors de la revue visuelle, évitant ainsi les complications inhérentes aux environnements de développement locaux (il est de toute façon ennuyeux d'être le support technique).
