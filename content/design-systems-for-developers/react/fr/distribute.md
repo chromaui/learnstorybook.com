@@ -176,7 +176,7 @@ GH_TOKEN=<value you just got from GitHub>
 NPM_TOKEN=<value you just got from npm>
 ```
 
-En ajoutant le fichier à `.gitignore`, nous nous assurons que nous ne poussons pas accidentellement cette valeur dans un référentiel open-source que tous nos utilisateurs peuvent voir ! Ce point est crucial. Si d'autres mainteneurs ont besoin de publier le package localement (plus tard, nous mettrons en place une publication automatique lorsqu'une pull request est mergée dans la branche par défaut), ils doivent configurer leur propre fichier `.env` en suivant ce processus :
+En ajoutant le fichier à `.gitignore`, nous nous assurons que nous ne poussons pas accidentellement cette valeur dans un référentiel open-source que tous nos utilisateurs peuvent voir ! Ce point est crucial. Si d'autres mainteneurs ont besoin de publier le package localement (plus tard, nous mettrons en place une publication automatique lorsqu'une Pull Request (PR) est mergée dans la branche par défaut), ils doivent configurer leur propre fichier `.env` en suivant ce processus :
 
 ```TEXT:title=.gitignore
 dist
@@ -195,7 +195,7 @@ Si vous vérifiez sur GitHub, vous verrez maintenant un ensemble de labels que `
 
 ![Ensemble de labels créés sur GitHub par auto](/design-systems-for-developers/github-auto-labels.png)
 
-Nous devrions attribuer l'un des labels suivants à chaque prochaine PR : `major`, `minor`, `patch`, `skip-release`, `prerelease`, `internal`, `documentation` avant de la merger.
+Nous devrions attribuer l'un des labels suivants à chaque prochaine Pull Request (PR) : `major`, `minor`, `patch`, `skip-release`, `prerelease`, `internal`, `documentation` avant de la merger.
 
 #### Publier notre première mise en production avec Auto manuellement
 
@@ -287,7 +287,7 @@ Lorsque vous ajoutez le secret npm à votre référentiel, vous pourrez y accéd
 
 #### Automatiser les mises en production avec GitHub Actions
 
-Chaque fois que nous mergeons une pull request, nous voulons publier automatiquement le design system. Créez un nouveau fichier appelé `push.yml` dans le même dossier que nous avons utilisé plus tôt pour <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">publier Storybook</a> et ajoutez le code suivant :
+Chaque fois que nous mergeons une Pull Request (PR), nous voulons publier automatiquement le design system. Créez un nouveau fichier appelé `push.yml` dans le même dossier que nous avons utilisé plus tôt pour <a href="https://storybook.js.org/tutorials/design-systems-for-developers/react/en/review/#publish-storybook">publier Storybook</a> et ajoutez le code suivant :
 
 ```yml:title=.github/workflows/push.yml
 # Name of our action
@@ -329,7 +329,7 @@ Des permissions supplémentaires peuvent être nécessaires pour permettre à Gi
 
 Enregistrez et effectuez un commit de vos modifications vers le dépôt distant.
 
-Bravo ! Désormais, chaque fois que vous mergerez une PR dans la branche par défaut, une nouvelle version sera automatiquement publiée, en incrémentant le numéro de version comme il se doit grâce aux labels que vous avez ajoutés.
+Bravo ! Désormais, chaque fois que vous mergerez une Pull Request (PR) dans la branche par défaut, une nouvelle version sera automatiquement publiée, en incrémentant le numéro de version comme il se doit grâce aux labels que vous avez ajoutés.
 
 <div class="aside">💡 Nous n'avons pas parcouru toutes les fonctionnalités et intégrations d'Auto qui pourraient être utiles pour les design systems en devenir. Consultez la documentation <a href="https://github.com/intuit/auto">ici</a>.</div>
 

@@ -200,7 +200,7 @@ Ensuite, allez sur GitHub et ouvrez une PR.
 ## Relecture
 
 A ce stade, `AvatarList` est une proposition d'ajout dans le design system.
-Les membres de l'équipe doivent relire le code du composant pour voir s'il répond aux attentes en matière de fonctionnalités et d'apparence. Le Storybook du design system est automatiquement publié avec chaque PR afin de simplifier la revue. Faites défiler la page jusqu'aux vérifications de la PR pour y trouver un lien vers le Storybook déployé.
+Les membres de l'équipe doivent relire le code du composant pour voir s'il répond aux attentes en matière de fonctionnalités et d'apparence. Le Storybook du design system est automatiquement publié avec chaque Pull Request (PR) afin de simplifier la revue. Faites défiler la page jusqu'aux vérifications de la PR pour y trouver un lien vers le Storybook déployé.
 
 ![Vérifications de la PR déployée](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
@@ -218,7 +218,7 @@ Parvenir à un consensus avec de nombreuses équipes ressemble souvent à un exe
 
 Notre série de tests s'exécute en arrière-plan à chaque validation.
 
-`AvatarList` est un simple composant d'affichage, les tests unitaires ne sont donc pas nécessaires. Mais si nous examinons les vérifications des PR, notre outil de test visuel Chromatic a déjà détecté des changements qui doivent être revus.
+`AvatarList` est un simple composant d'affichage, les tests unitaires ne sont donc pas nécessaires. Mais si nous examinons les vérifications des Pull Request (PR), notre outil de test visuel Chromatic a déjà détecté des changements qui doivent être revus.
 
 ![Changements Chromatic affichés dans les vérifications de la PR Github](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes.png)
 
@@ -230,7 +230,7 @@ Une fois que vous avez terminé, la compilation passera dans Chromatic.
 
 ![Changements Chromatic validés pour les stories du composant AvatarList](/design-systems-for-developers/chromatic-avatarlist-changes-accepted.png)
 
-Ce qui, à son tour, met à jour la vérification du PR dans GitHub.
+Ce qui, à son tour, met à jour la vérification de la Pull Request (PR) dans GitHub.
 
 ![Changements Chromatic pour les stories du composant AvatarList validés sur Github](/design-systems-for-developers/avatarlist-github-pr-checks-chromatic-changes-accepted.png)
 
@@ -238,7 +238,7 @@ Les tests ont été mis à jour avec succès. À l'avenir, les régressions auro
 
 ## Partager
 
-Nous avons une pull request ouverte qui ajoute `AvatarList` au design system. Nous avons écrit nos stories, les tests sont passés et la documentation existe. Enfin, nous sommes prêts à mettre à jour notre design system avec Auto et npm. Ajouter le label « minor » à la PR. Cela indique à Auto de mettre à jour la version mineure du paquet lors du merge.
+Nous avons une Pull Request (PR) ouverte qui ajoute `AvatarList` au design system. Nous avons écrit nos stories, les tests sont passés et la documentation existe. Enfin, nous sommes prêts à mettre à jour notre design system avec Auto et npm. Ajouter le label « minor » à la PR. Cela indique à Auto de mettre à jour la version mineure du paquet lors du merge.
 
 ![PR GitHub avec les labels](/design-systems-for-developers/github-pr-labelled.png)
 

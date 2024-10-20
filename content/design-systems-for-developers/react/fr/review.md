@@ -35,7 +35,7 @@ Heureusement, en tant que développeurs frontend, nous avons une cible de compil
 
 Lorsque les composants existants de l'interface utilisateur sont accessibles via une URL, les utilisateurs peuvent confirmer l'aspect et la fonctionnalité de l'interface utilisateur simplement depuis leur navigateur. Cela signifie que les développeurs, les designers et les chefs de produit n'ont pas à se préoccuper d'un environnement de développement local, à faire circuler des captures d'écran ou à se référer à des interfaces utilisateur obsolètes.
 
-> « Déployer Storybook à chaque PR rend la revue visuelle plus facile et aide les chefs de produits à penser en matière de composants ». - Norbert de Langen, mainteneur principal de Storybook
+> « Déployer Storybook à chaque Pull Request (PR) rend la revue visuelle plus facile et aide les chefs de produits à penser en matière de composants ». - Norbert de Langen, mainteneur principal de Storybook
 
 <h2 id="publish-storybook">Publier le Storybook</h2>
 
@@ -49,7 +49,7 @@ Tout d'abord, allez sur [chromatic.com](https://www.chromatic.com/?utm_source=st
 
 A partir de là, sélectionnez le dépôt de votre design system.
 
-En arrière-plan, les autorisations d'accès seront synchronisées et les pull request (PR) vérifiées.
+En arrière-plan, les autorisations d'accès seront synchronisées et les Pull Request (PR) vérifiées.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -176,7 +176,7 @@ git commit -am "make Button pop"
 git push -u origin improve-button
 ```
 
-Allez sur GitHub.com et ouvrez une pull request pour la branche `improve-button`.
+Allez sur GitHub.com et ouvrez une Pull Request (PR) pour la branche `improve-button`.
 Une fois la PR ouverte, le build de CI de Storybook s'exécutera.
 
 ![PR créées dans GitHub](/design-systems-for-developers/github-created-pr-actions.png)
@@ -189,7 +189,7 @@ Pour chaque composant et story modifiés, copiez l'URL depuis la barre d'adresse
 
 ![PR Github avec un lien vers le Storybook](/design-systems-for-developers/github-created-pr-with-links-actions.png)
 
-Attribuez la PR à vos coéquipiers et observez leurs retours.
+Attribuez la Pull Request (PR) à vos coéquipiers et observez leurs retours.
 
 ![Pourquoi ?!](/design-systems-for-developers/github-visual-review-feedback.gif)
 

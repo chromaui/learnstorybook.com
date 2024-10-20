@@ -41,9 +41,9 @@ Dans le <a href="https://storybook.js.org/tutorials/design-systems-for-developer
 
 ![Bouton avec une bordure rouge](/design-systems-for-developers/chromatic-button-border-change.png)
 
-Voyons maintenant comment fonctionnent les tests visuels à l'aide des [outils de test](https://www.chromatic.com/features/test/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) intégrés de Chromatic. Lorsque nous avons créé la PR, Chromatic a capturé des images de nos modifications et les a comparées aux versions précédentes des mêmes composants. Quatre changements ont été trouvés :
+Voyons maintenant comment fonctionnent les tests visuels à l'aide des [outils de test](https://www.chromatic.com/features/test/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) intégrés de Chromatic. Lorsque nous avons créé la Pull Request (PR), Chromatic a capturé des images de nos modifications et les a comparées aux versions précédentes des mêmes composants. Quatre changements ont été trouvés :
 
-![Liste des vérifications dans la pull request](/design-systems-for-developers/chromatic-list-of-checks.png)
+![Liste des vérifications dans la Pull Request](/design-systems-for-developers/chromatic-list-of-checks.png)
 
 Cliquez sur la partie **🟡 UI Tests** pour les passer en revue.
 
