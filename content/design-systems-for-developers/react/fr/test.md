@@ -11,7 +11,7 @@ Dans ce chapitre 5, nous automatisons les tests du design system pour éviter le
 
 ## Les fondamentaux des tests de composants UI
 
-Avant de commencer, déterminons ce qu'il est judicieux de tester. Les design systems sont composés d'éléments d'interface utilisateur. Chaque composant UI comprend des stories (variations) qui décrivent l'apparence et la fonctionnalité souhaitées en fonction d'un ensemble de paramètres (propriétés). Les stories sont ensuite affichées par le navigateur ou l'appareil à l'utilisateur final.
+Avant de commencer, déterminons ce qu'il est judicieux de tester. Les design system sont composés d'éléments d'interface utilisateur. Chaque composant UI comprend des stories (variations) qui décrivent l'apparence et la fonctionnalité souhaitées en fonction d'un ensemble de paramètres (propriétés). Les stories sont ensuite affichées par le navigateur ou l'appareil à l'utilisateur final.
 
 ![Les états des composants sont combinatoires](/design-systems-for-developers/component-test-cases.png)
 
@@ -29,7 +29,7 @@ J'ai interrogé 4 équipes équipes frontend sur les flux de travail professionn
 
 ## Tests visuels
 
-Les design systems contiennent des composants d'interface utilisateur dédiés à de l'affichage, qui sont intrinsèquement visuels. Les tests visuels valident les aspects visuels de l'interface utilisateur affichée.
+Les design system contiennent des composants d'interface utilisateur dédiés à de l'affichage, qui sont intrinsèquement visuels. Les tests visuels valident les aspects visuels de l'interface utilisateur affichée.
 
 Les tests visuels capturent une image de chaque composant de l'interface utilisateur dans un environnement de navigation cohérent. Les nouvelles captures d'écran sont automatiquement comparées aux captures d'écran de référence précédemment acceptées. Lorsqu'il y a des différences visuelles, vous en êtes informé.
 
@@ -150,7 +150,7 @@ Lorsque Storybook a fini d'afficher la story, il exécute les étapes définies 
 
 ### Automatiser les tests avec le test runner
 
-Nous avons vu de quelle manière les tests d'interaction avec la fonction `play` nous ont aidé à vérifier comment un composant réagit lorsque nous interagissons avec lui. Mais avec l'évolution des design systems, la vérification manuelle de chaque modification peut rapidement devenir irréaliste. Storybook test runner automatise ce processus. Il s'agit d'un utilitaire autonome alimenté par [Playwright](https://playwright.dev/), qui fonctionne en parallèle de votre Storybook, exécutant tous les tests d'interaction et détectant les stories cassées. Avec Storybook en cours d'exécution, ouvrez une nouvelle fenêtre dans votre terminal et exécutez le test runner avec :
+Nous avons vu de quelle manière les tests d'interaction avec la fonction `play` nous ont aidé à vérifier comment un composant réagit lorsque nous interagissons avec lui. Mais avec l'évolution des design system, la vérification manuelle de chaque modification peut rapidement devenir irréaliste. Storybook test runner automatise ce processus. Il s'agit d'un utilitaire autonome alimenté par [Playwright](https://playwright.dev/), qui fonctionne en parallèle de votre Storybook, exécutant tous les tests d'interaction et détectant les stories cassées. Avec Storybook en cours d'exécution, ouvrez une nouvelle fenêtre dans votre terminal et exécutez le test runner avec :
 
 ```shell
 yarn test-storybook --watch
@@ -221,7 +221,7 @@ Notre flux de travail s'exécutera lorsque le code sera ajouté sur n'importe qu
 
 « L'accessibilité signifie que toutes les personnes, y compris les personnes en situation de handicap, peuvent comprendre, naviguer et interagir avec votre application ... En ligne, [des exemples présentent] des moyens alternatifs d'accéder au contenu, comme l'utilisation de la touche de tabulation et d'un lecteur d'écran pour parcourir un site », écrit le développeur [Alex Wilson de T.Rowe Price](https://medium.com/storybookjs/instant-accessibility-qa-linting-in-storybook-4a474b0f5347).
 
-Les handicaps touchent 15 % de la population, selon [l'Organisation mondiale de la santé](https://www.who.int/disabilities/world_report/2011/report/en/). Les design systems ont un impact considérable sur l'accessibilité car ils contiennent les éléments constitutifs des interfaces utilisateur. L'amélioration de l'accessibilité d'un seul composant signifie que toutes les instances de ce composant dans votre entreprise en bénéficient.
+Les handicaps touchent 15 % de la population, selon [l'Organisation mondiale de la santé](https://www.who.int/disabilities/world_report/2011/report/en/). Les design system ont un impact considérable sur l'accessibilité car ils contiennent les éléments constitutifs des interfaces utilisateur. L'amélioration de l'accessibilité d'un seul composant signifie que toutes les instances de ce composant dans votre entreprise en bénéficient.
 
 ![addon Accessibility de Storybook](/design-systems-for-developers/a11y-workflow.png)
 
@@ -272,7 +272,7 @@ Il vous montre les niveaux d'accessibilité des éléments DOM (violations et va
 
 ## Autres stratégies de test
 
-Paradoxalement, les tests peuvent faire gagner du temps mais aussi ralentir la vitesse de développement en raison de la maintenance. Faites preuve de discernement en testant les bons éléments uniquement. Bien que le développement de logiciels comporte de nombreuses stratégies de test, nous avons découvert à nos dépens que certaines d'entre elles ne sont pas adaptées aux design systems.
+Paradoxalement, les tests peuvent faire gagner du temps mais aussi ralentir la vitesse de développement en raison de la maintenance. Faites preuve de discernement en testant les bons éléments uniquement. Bien que le développement de logiciels comporte de nombreuses stratégies de test, nous avons découvert à nos dépens que certaines d'entre elles ne sont pas adaptées aux design system.
 
 ### Tests de couverture du code
 
@@ -330,10 +330,10 @@ Les tests instantanés (snapshots) sont imprévisibles et sujets à des faux pos
 
 Les tests end-to-end traversent le DOM du composant pour simuler le parcours de l'utilisateur. Ils conviennent mieux à la vérification des parcours d'applications tels que le processus d'inscription ou de paiement. Plus la fonctionnalité est complexe, plus cette stratégie de test est utile.
 
-Les design systems contiennent des composants atomiques dotés d'une fonctionnalité relativement simple. La validation des parcours utilisateurs est souvent exagérée pour cette tâche, car les tests sont longs à créer et difficiles à maintenir. Toutefois, dans de rares cas, les composants peuvent bénéficier de tests end-to-end. Par exemple, la validation d'interfaces utilisateur complexes telles que les sélecteurs de date ou les formulaires de paiement autonomes.
+Les design system contiennent des composants atomiques dotés d'une fonctionnalité relativement simple. La validation des parcours utilisateurs est souvent exagérée pour cette tâche, car les tests sont longs à créer et difficiles à maintenir. Toutefois, dans de rares cas, les composants peuvent bénéficier de tests end-to-end. Par exemple, la validation d'interfaces utilisateur complexes telles que les sélecteurs de date ou les formulaires de paiement autonomes.
 
 ## Favoriser la prise en main grâce à la documentation
 
-Un design system n'est pas complet si l'on se contente de tests. Étant donné que les design systems sont au service des acteurs de l'ensemble de l'équipe, nous devons enseigner aux autres comment tirer le meilleur parti de nos composants d'interface utilisateur bien testés.
+Un design system n'est pas complet si l'on se contente de tests. Étant donné que les design system sont au service des acteurs de l'ensemble de l'équipe, nous devons enseigner aux autres comment tirer le meilleur parti de nos composants d'interface utilisateur bien testés.
 
-Dans le chapitre 6, nous apprendrons comment faciliter la prise en main des design systems grâce à la documentation. Découvrez pourquoi Storybook Docs est l'arme secrète pour créer une documentation complète en un claquement de doigts.
+Dans le chapitre 6, nous apprendrons comment faciliter la prise en main des design system grâce à la documentation. Découvrez pourquoi Storybook Docs est l'arme secrète pour créer une documentation complète en un claquement de doigts.

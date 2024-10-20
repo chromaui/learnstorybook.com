@@ -5,9 +5,9 @@ description: "Apprenez à packager et à importer votre design system dans d'aut
 commit: '7a53150'
 ---
 
-D'un point de vue architectural, les design systems constituent une autre dépendance frontend. Ils ne sont pas tant différents des dépendances populaires telles que moment ou lodash. Les composants UI sont du code, nous pouvons donc nous appuyer sur des techniques établies pour la réutilisation du code.
+D'un point de vue architectural, les design system constituent une autre dépendance frontend. Ils ne sont pas tant différents des dépendances populaires telles que moment ou lodash. Les composants UI sont du code, nous pouvons donc nous appuyer sur des techniques établies pour la réutilisation du code.
 
-Ce chapitre traite du partage des design systems, du packaging des composants de l'interface utilisateur à leur import dans d'autres applications. Nous découvrirons également des techniques permettant de gagner du temps pour simplifier la gestion des mises en production et les processus de publication.
+Ce chapitre traite du partage des design system, du packaging des composants de l'interface utilisateur à leur import dans d'autres applications. Nous découvrirons également des techniques permettant de gagner du temps pour simplifier la gestion des mises en production et les processus de publication.
 
 ![Propager des composants dans les sites](/design-systems-for-developers/design-system-propagation.png)
 
@@ -17,9 +17,9 @@ Les entreprises disposent de milliers de composants d'interface utilisateur rép
 
 Notre design system utilise npm, le gestionnaire de packages JavaScript pour gérer la distribution, les versions et la gestion des dépendances.
 
-Il existe de nombreuses méthodes valables pour packager les design systems. Jetez un coup d'œil aux design systems de Lonely Planet, Auth0, Salesforce, GitHub et Microsoft pour voir la diversité des approches. Certains livrent chaque élément séparément, tandis que d'autres livrent tous les éléments dans un seul package.
+Il existe de nombreuses méthodes valables pour packager les design system. Jetez un coup d'œil aux design system de Lonely Planet, Auth0, Salesforce, GitHub et Microsoft pour voir la diversité des approches. Certains livrent chaque élément séparément, tandis que d'autres livrent tous les éléments dans un seul package.
 
-Pour les design systems naissants, la méthode la plus directe consiste à publier une version unique d'un package qui comprend :
+Pour les design system naissants, la méthode la plus directe consiste à publier une version unique d'un package qui comprend :
 
 - 🏗 Les composants communs de l'interface utilisateur
 - 🎨 Les design tokens (également appelés variables de style)
@@ -127,7 +127,7 @@ yarn init --scope=@your-npm-username
 yarn init v1.22.5
 question name (learnstorybook-design-system): @your-npm-username/learnstorybook-design-system
 question version (0.1.0):
-question description (Learn Storybook design system):Storybook design systems tutorial
+question description (Learn Storybook design system):Storybook design system tutorial
 question entry point (dist/cjs/index.js):
 question repository url (https://github.com/your-username/learnstorybook-design-system.git):
 question author (your-npm-username <your-email-address@email-provider.com>):
@@ -142,7 +142,7 @@ En résumé, il mettra à jour le `package.json` avec les nouvelles valeurs rés
 ```json:clipboard=false
 {
   "name": "@your-npm-username/learnstorybook-design-system",
-  "description": "Storybook design systems tutorial",
+  "description": "Storybook design system tutorial",
   "version": "0.1.0",
   "license": "MIT",
   "main": "dist/cjs/index.js",
@@ -331,7 +331,7 @@ Enregistrez et effectuez un commit de vos modifications vers le dépôt distant.
 
 Bravo ! Désormais, chaque fois que vous mergerez une Pull Request (PR) dans la branche par défaut, une nouvelle version sera automatiquement publiée, en incrémentant le numéro de version comme il se doit grâce aux labels que vous avez ajoutés.
 
-<div class="aside">💡 Nous n'avons pas parcouru toutes les fonctionnalités et intégrations d'Auto qui pourraient être utiles pour les design systems en devenir. Consultez la documentation <a href="https://github.com/intuit/auto">ici</a>.</div>
+<div class="aside">💡 Nous n'avons pas parcouru toutes les fonctionnalités et intégrations d'Auto qui pourraient être utiles pour les design system en devenir. Consultez la documentation <a href="https://github.com/intuit/auto">ici</a>.</div>
 
 ![Importer le design system](/design-systems-for-developers/design-system-import.png)
 
@@ -536,10 +536,10 @@ Lors de la sauvegarde, le composant `UserItem` sera mis à jour dans Storybook p
 
 Et voilà ! Vous venez d'importer un composant du design system dans l'application d'exemple. Chaque fois que vous publierez une mise à jour du composant Avatar dans le design system, cette modification sera également répercutée dans l'application d'exemple lorsque vous mettrez à jour le package.
 
-![Partager des design systems](/design-systems-for-developers/design-system-propagation-storybook.png)
+![Partager des design system](/design-systems-for-developers/design-system-propagation-storybook.png)
 
 ## Maîtriser le flux de travail du design system
 
-Le flux de travail du design system commence par le développement de composants d'interface utilisateur dans Storybook et se termine par leur distribution aux applications clientes. Mais ce n'est pas tout. Les design systems doivent évoluer en permanence pour répondre aux exigences toujours changeantes des produits, et notre travail ne fait que commencer.
+Le flux de travail du design system commence par le développement de composants d'interface utilisateur dans Storybook et se termine par leur distribution aux applications clientes. Mais ce n'est pas tout. Les design system doivent évoluer en permanence pour répondre aux exigences toujours changeantes des produits, et notre travail ne fait que commencer.
 
 Le chapitre 8 illustre le flux de travail du design system de bout en bout que nous avons créé dans ce guide. Nous verrons comment les modifications de l'interface utilisateur se répercutent sur le design system.

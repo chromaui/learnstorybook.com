@@ -5,13 +5,13 @@ description: 'Configurer Storybook pour construire et classer les composants du 
 commit: 'c5f4c8d'
 ---
 
-Dans ce chapitre 3, nous mettrons en place les outils essentiels au design system en commençant par Storybook, l'outil de visualisation de composants le plus populaire. L'objectif de ce guide est de vous montrer comment les équipes professionnelles construisent des design systems. Nous nous concentrerons donc sur des détails plus précis comme la qualité du code, les modules complémentaires (addons) Storybook qui permettent de gagner du temps, et la structure des dossiers.
+Dans ce chapitre 3, nous mettrons en place les outils essentiels au design system en commençant par Storybook, l'outil de visualisation de composants le plus populaire. L'objectif de ce guide est de vous montrer comment les équipes professionnelles construisent des design system. Nous nous concentrerons donc sur des détails plus précis comme la qualité du code, les modules complémentaires (addons) Storybook qui permettent de gagner du temps, et la structure des dossiers.
 
 ![La place de Storybook](/design-systems-for-developers/design-system-framework-storybook.jpg)
 
 ## Formatage et linting pour l'hygiène du code
 
-Les design systems étant collaboratifs, les outils qui corrigent la syntaxe et normalisent le formatage permettent d'améliorer la qualité des contributions. Garantir une cohérence du code à l'aide d'outils est beaucoup moins laborieuse que de corriger le code à la main, ce qui est un avantage pour l'auteur du design system qui sait comment s'y prendre.
+Les design system étant collaboratifs, les outils qui corrigent la syntaxe et normalisent le formatage permettent d'améliorer la qualité des contributions. Garantir une cohérence du code à l'aide d'outils est beaucoup moins laborieuse que de corriger le code à la main, ce qui est un avantage pour l'auteur du design system qui sait comment s'y prendre.
 
 Dans ce tutoriel, nous utiliserons [VSCode](https://code.visualstudio.com/) comme éditeur de code, mais vous pouvez appliquer les mêmes principes à d'autres éditeurs modernes comme [Atom](https://atom.io/), [Sublime](https://www.sublimetext.com/), ou [IntelliJ](https://www.jetbrains.com/idea/).
 
@@ -23,7 +23,7 @@ Activez le format de sauvegarde `editor.formatOnSave` si vous ne l'avez pas déj
 
 ## Installer Storybook
 
-Storybook est [l'outil de visualisation de composants](https://www.chromatic.com/blog/ui-component-explorers---your-new-favorite-tool) standard de l'industrie pour développer des composants UI en isolation. Puisque les design systems se concentrent sur les composants UI, Storybook est l'outil idéal pour ce cas d'utilisation. Nous nous appuierons sur les caractéristiques suivantes :
+Storybook est [l'outil de visualisation de composants](https://www.chromatic.com/blog/ui-component-explorers---your-new-favorite-tool) standard de l'industrie pour développer des composants UI en isolation. Puisque les design system se concentrent sur les composants UI, Storybook est l'outil idéal pour ce cas d'utilisation. Nous nous appuierons sur les caractéristiques suivantes :
 
 - 📕Cataloguer les composants de l'interface utilisateur
 - 📄Enregistrer les variations de composants sous forme de stories
@@ -168,7 +168,7 @@ export const buttonWrapper = {
 
 Les nouvelles fonctionnalités de Storybook incluent l'[addon Controls](https://storybook.js.org/docs/react/essentials/controls) configuré par défaut.
 
-Il vous permet d'interagir avec les entrées des composants (props) de façon dynamique dans l'interface utilisateur de Storybook. Vous pouvez fournir plusieurs valeurs à une propriété du composant via des [arguments](https://storybook.js.org/docs/react/writing-stories/args) (ou args en abrégé) et les ajuster via l'interface utilisateur. Il aide les créateurs de design systems à tester les entrées des composants (props) en ajustant les valeurs de l'argument. Il permet également aux utilisateurs des design systems de tester les composants avant de les intégrer afin de comprendre comment chaque entrée (prop) les affecte.
+Il vous permet d'interagir avec les entrées des composants (props) de façon dynamique dans l'interface utilisateur de Storybook. Vous pouvez fournir plusieurs valeurs à une propriété du composant via des [arguments](https://storybook.js.org/docs/react/writing-stories/args) (ou args en abrégé) et les ajuster via l'interface utilisateur. Il aide les créateurs de design system à tester les entrées des composants (props) en ajustant les valeurs de l'argument. Il permet également aux utilisateurs des design system de tester les composants avant de les intégrer afin de comprendre comment chaque entrée (prop) les affecte.
 
 Voyons comment ils fonctionnent en ajoutant une nouvelle story dans le composant `Avatar`, situé dans `src/Avatar/Avatar.stories.jsx` :
 

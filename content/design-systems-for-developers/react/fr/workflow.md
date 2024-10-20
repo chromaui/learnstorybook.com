@@ -1,5 +1,5 @@
 ---
-title: 'Flux de travail pour les design systems'
+title: 'Flux de travail pour les design system'
 tocTitle: 'Flux de travail'
 description: "Un aperçu du flux de travail d'un design system pour les développeurs frontend"
 commit: '9d13d12'
@@ -252,6 +252,6 @@ Mettez à jour la dépendance `learnstorybook-design-system` dans l'application 
 
 ## Votre voyage commence
 
-_Design Systems for Developers_ met en évidence le flux de travail de bout en bout utilisé par les équipes frontend professionnelles pour vous donner une longueur d'avance lorsque vous développez le vôtre. Au fur et à mesure que votre design system se développe, ajoutez, réorganisez et étendez ces outils pour répondre aux besoins de votre équipe.
+_design system for Developers_ met en évidence le flux de travail de bout en bout utilisé par les équipes frontend professionnelles pour vous donner une longueur d'avance lorsque vous développez le vôtre. Au fur et à mesure que votre design system se développe, ajoutez, réorganisez et étendez ces outils pour répondre aux besoins de votre équipe.
 
 Le chapitre 9 se termine par un exemple de code complet, des ressources utiles et une liste de questions fréquemment posées par les développeurs.

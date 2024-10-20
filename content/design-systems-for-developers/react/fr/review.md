@@ -10,11 +10,11 @@ Ces processus de production sont utilisés par des personnes travaillant pour Au
 
 ## Source unique de vérité ou point de défaillance unique
 
-Précédemment, j'ai écrit que les design systems sont un [point de défaillance unique](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) pour les équipes frontend. Par essence, les design systems sont des dépendances. Si vous modifiez un composant du design system, cette modification se propage aux applications dépendantes. Le mécanisme de publication des modifications n'est pas biaisé : il renvoie à la fois les améliorations et les bugs.
+Précédemment, j'ai écrit que les design system sont un [point de défaillance unique](https://www.chromatic.com/blog/why-design-systems-are-a-single-point-of-failure) pour les équipes frontend. Par essence, les design system sont des dépendances. Si vous modifiez un composant du design system, cette modification se propage aux applications dépendantes. Le mécanisme de publication des modifications n'est pas biaisé : il renvoie à la fois les améliorations et les bugs.
 
 ![Dépendances du design system](/design-systems-for-developers/design-system-dependencies.png)
 
-Les bugs constituent un risque existentiel pour les design systems, c'est pourquoi nous ferons tout pour les éviter. Des ajustements mineurs finissent par avoir des impacts et peuvent entraîner d'innombrables régressions. En l'absence d'une stratégie de maintenance continue, les design systems se détériorent.
+Les bugs constituent un risque existentiel pour les design system, c'est pourquoi nous ferons tout pour les éviter. Des ajustements mineurs finissent par avoir des impacts et peuvent entraîner d'innombrables régressions. En l'absence d'une stratégie de maintenance continue, les design system se détériorent.
 
 > « Mais ça marche sur mon ordinateur ?! » - tout le monde
 
@@ -196,7 +196,7 @@ Attribuez la Pull Request (PR) à vos coéquipiers et observez leurs retours.
 <div class="aside">💡 Chromatic propose également un flux de travail complet de revue de l'interface utilisateur intégré au produit avec son offre payante. La technique qui consiste à copier les liens Storybook dans une PR GitHub fonctionne à plus petite échelle (et avec n'importe quel service qui héberge votre Storybook, pas seulement Chromatic), mais au fur et à mesure que votre utilisation augmente, vous pouvez considérer ce service car il automatise le processus.
 </div>
 
-Dans le domaine du développement de logiciels, la plupart des défauts sont dus à une mauvaise communication et non à la technologie. La revue visuelle permet aux équipes de recueillir un retour d'information continu pendant le développement afin de livrer plus rapidement les design systems.
+Dans le domaine du développement de logiciels, la plupart des défauts sont dus à une mauvaise communication et non à la technologie. La revue visuelle permet aux équipes de recueillir un retour d'information continu pendant le développement afin de livrer plus rapidement les design system.
 
 ![Processus de revue visuelle](/design-systems-for-developers/visual-review-loop.jpg)
 

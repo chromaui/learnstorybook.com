@@ -1,34 +1,34 @@
 ---
-title: 'Introduction aux design systems'
+title: 'Introduction aux design system'
 tocTitle: 'Introduction'
-description: "Un guide sur les derniers outils pour créer des design systems prêts à l'emploi"
+description: "Un guide sur les derniers outils pour créer des design system prêts à l'emploi"
 ---
 
-<div class="aside">Ce guide a été créé pour <b>les développeurs professionnels</b> qui souhaitent apprendre à créer des design systems. Un niveau intermédiaire en JavaScript, Git et en intégration continue est recommandé. Vous devriez également avoir quelques bases en matière de Storybook, comme par exemple savoir écrire une story et éditer des fichiers de configuration (<a href="/intro-to-storybook">Rendez-vous sur Introduction à Storybook pour apprendre les bases</a>).
+<div class="aside">Ce guide a été créé pour <b>les développeurs professionnels</b> qui souhaitent apprendre à créer des design system. Un niveau intermédiaire en JavaScript, Git et en intégration continue est recommandé. Vous devriez également avoir quelques bases en matière de Storybook, comme par exemple savoir écrire une story et éditer des fichiers de configuration (<a href="/intro-to-storybook">Rendez-vous sur Introduction à Storybook pour apprendre les bases</a>).
 </div>
 <br />
 
-Les design systems connaissent une popularité fulgurante. Des poids lourds en matière de tech comme Airbnb aux petites startups, les entreprises de toutes tailles réutilisent des modèles d'interface utilisateur (User Interface ou UI) dans le but de faire des économies de temps et d'argent. Il y a cependant une grande différence entre les design systems créés par la BBC, Airbnb, IBM ou Microsoft et les design systems créés par la plupart des développeurs.
+Les design system connaissent une popularité fulgurante. Des poids lourds en matière de tech comme Airbnb aux petites startups, les entreprises de toutes tailles réutilisent des modèles d'interface utilisateur (User Interface ou UI) dans le but de faire des économies de temps et d'argent. Il y a cependant une grande différence entre les design system créés par la BBC, Airbnb, IBM ou Microsoft et les design system créés par la plupart des développeurs.
 
-Pourquoi les équipes en charge des design systems utilisent ces outils et ces techniques en particulier ? Mon co-auteur Tom et moi avons recherché les caractéristiques des design systems les plus réussis de la communauté Storybook afin d'identifier les meilleures pratiques.
+Pourquoi les équipes en charge des design system utilisent ces outils et ces techniques en particulier ? Mon co-auteur Tom et moi avons recherché les caractéristiques des design system les plus réussis de la communauté Storybook afin d'identifier les meilleures pratiques.
 
-Ce guide en plusieurs étapes présente les outils automatisés et les flux de travail minutieux utilisés dans les design systems à grande échelle. Nous passerons en revue l'assemblage d'un design system à partir de librairies de composants existantes, puis nous mettrons en place les services de base, les librairies et les flux de travail.
+Ce guide en plusieurs étapes présente les outils automatisés et les flux de travail minutieux utilisés dans les design system à grande échelle. Nous passerons en revue l'assemblage d'un design system à partir de librairies de composants existantes, puis nous mettrons en place les services de base, les librairies et les flux de travail.
 
 ![Aperçu d'un design system](/design-systems-for-developers/design-system-overview.jpg)
 
-## Pourquoi autant d'engouement autour des design systems ?
+## Pourquoi autant d'engouement autour des design system ?
 
 Soyons clairs : le concept d'interface utilisateur réutilisable n'est pas nouveau. Les guides de style, les kits d'interface utilisateur et les widgets à partager existent depuis des décennies. Aujourd'hui, les designers et développeurs s'orientent vers la construction de composants d'interface utilisateur (UI). Un composant d'interface utilisateur encapsule les propriétés visuelles et fonctionnelles d'éléments distincts de l'interface utilisateur. Pensez aux LEGO.
 
 Les interfaces utilisateurs modernes sont constituées de centaines de composants modulaires qui sont réorganisés pour offrir différentes expériences utilisateurs.
 
-Les design systems contiennent des composants d'interface utilisateur réutilisables qui aident les équipes à créer des interfaces utilisateur complexes, durables et accessibles pour tous les projets. Étant donné que les designers et les développeurs contribuent aux composants de l'interface utilisateur, le design system sert de lien entre les métiers. Il est également la « source de vérité » pour les composants communs d'une organisation.
+Les design system contiennent des composants d'interface utilisateur réutilisables qui aident les équipes à créer des interfaces utilisateur complexes, durables et accessibles pour tous les projets. Étant donné que les designers et les développeurs contribuent aux composants de l'interface utilisateur, le design system sert de lien entre les métiers. Il est également la « source de vérité » pour les composants communs d'une organisation.
 
-![Les design systems sont un lien entre design et dévelopement](/design-systems-for-developers/design-system-context.jpg)
+![Les design system sont un lien entre design et dévelopement](/design-systems-for-developers/design-system-context.jpg)
 
-Les designers parlent souvent de la création des design systems au sein de leurs outils. Dans son entièreté, un design system englobe les images (Sketch, Figma, etc.), les principes généraux de conception, la structure de contribution, la gouvernance, etc. Il existe une multitude de guides destinés aux designers qui traitent ces sujets en profondeur, nous n'y reviendrons donc pas ici.
+Les designers parlent souvent de la création des design system au sein de leurs outils. Dans son entièreté, un design system englobe les images (Sketch, Figma, etc.), les principes généraux de conception, la structure de contribution, la gouvernance, etc. Il existe une multitude de guides destinés aux designers qui traitent ces sujets en profondeur, nous n'y reviendrons donc pas ici.
 
-Pour les développeurs, plusieurs choses sont certaines. Les design systems de production doivent inclure les composants de l'interface utilisateur et l'infrastructure frontend qui les gère. Un design system comporte trois parties techniques dont nous parlerons dans ce guide :
+Pour les développeurs, plusieurs choses sont certaines. Les design system de production doivent inclure les composants de l'interface utilisateur et l'infrastructure frontend qui les gère. Un design system comporte trois parties techniques dont nous parlerons dans ce guide :
 
 - 🏗 Des composants d'interface utilisateur réutilisables mis en commun
 - 🎨 Des jetons de conception (design tokens): Variables spécifiques au style telles que les couleurs de la marque et les espacements
@@ -44,7 +44,7 @@ Les économies d'échelles avec un design system jouent en votre faveur lorsque 
 
 ## Ce que nous construisons
 
-Storybook alimente les design systems de la [BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/), et de centaines d'autres entreprises. Les recommandations formulées ici s'inspirent des meilleures pratiques et des outils des équipes les plus performantes. Pour ce faire, nous utiliserons les outils frontend suivants :
+Storybook alimente les design system de la [BBC](https://www.bbc.co.uk/iplayer/storybook/index.html?path=/story/style-guide--colours), [Airbnb](https://github.com/airbnb/lunar), [IBM](https://www.carbondesignsystem.com/), [GitHub](https://primer.style/css/), et de centaines d'autres entreprises. Les recommandations formulées ici s'inspirent des meilleures pratiques et des outils des équipes les plus performantes. Pour ce faire, nous utiliserons les outils frontend suivants :
 
 #### Construire des composants
 
@@ -74,7 +74,7 @@ Storybook alimente les design systems de la [BBC](https://www.bbc.co.uk/iplayer/
 
 ## Comprendre le flux de travail
 
-Les design systems sont un investissement dans l'infrastructure frontend. En plus de montrer comment utiliser la technologie ci-dessus, ce guide se concentre également sur les flux de travail de base qui favorisent la prise en main et simplifient la maintenance. Dans la mesure du possible, les tâches manuelles seront automatisées. Vous trouverez ci-dessous les activités que nous rencontrerons.
+Les design system sont un investissement dans l'infrastructure frontend. En plus de montrer comment utiliser la technologie ci-dessus, ce guide se concentre également sur les flux de travail de base qui favorisent la prise en main et simplifient la maintenance. Dans la mesure du possible, les tâches manuelles seront automatisées. Vous trouverez ci-dessous les activités que nous rencontrerons.
 
 #### Construire des composants d'interface utilisateur isolés
 
@@ -87,7 +87,7 @@ Le développement de l'interface utilisateur est un travail d'équipe qui néces
 
 #### Tester pour éviter les bugs de l'interface utilisateur
 
-Les design systems sont une source de vérité et un point unique de défaillance. Des bugs mineurs dans des composants de base peuvent provoquer des incidents à l'échelle de l'entreprise. Nous automatiserons les tests pour vous aider à atténuer les bugs inévitables et à livrer en toute confiance des composants d'interface utilisateur durables et accessibles.
+Les design system sont une source de vérité et un point unique de défaillance. Des bugs mineurs dans des composants de base peuvent provoquer des incidents à l'échelle de l'entreprise. Nous automatiserons les tests pour vous aider à atténuer les bugs inévitables et à livrer en toute confiance des composants d'interface utilisateur durables et accessibles.
 
 #### Documenter pour accélérer la prise en main
 

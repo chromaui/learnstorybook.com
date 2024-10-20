@@ -461,6 +461,6 @@ Lancer `build-storybook-docs` dans votre ligne de commande ou votre outil d'int�
 
 ## Importer le design system dans d'autres applications
 
-Jusqu'à présent, nous nous sommes concentrés sur l'aspect interne. Tout d'abord, en créant des composants d'interface utilisateur durables. Ensuite, en les examinant, les testant et les documentant. Nous allons maintenant nous tourner vers l'extérieur pour examiner la manière dont les équipes utilisent les design systems.
+Jusqu'à présent, nous nous sommes concentrés sur l'aspect interne. Tout d'abord, en créant des composants d'interface utilisateur durables. Ensuite, en les examinant, les testant et les documentant. Nous allons maintenant nous tourner vers l'extérieur pour examiner la manière dont les équipes utilisent les design system.
 
 Le chapitre 7 traite de la transformation du design system sous forme de paquet en vue de son utilisation dans d'autres applications. Apprenez à combiner npm, le gestionnaire de paquets JavaScript, avec Auto, un outil de gestion des versions qui permet de gagner du temps.

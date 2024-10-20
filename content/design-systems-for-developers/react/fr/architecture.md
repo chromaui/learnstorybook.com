@@ -21,7 +21,7 @@ Nous nous sommes heurtés à cette situation inconfortable. Malgré de bonnes in
 
 Un design system rassemble les composants communs de l'interface utilisateur dans un répertoire central correctement maintenu et partagé via un gestionnaire de packages. Les développeurs importent ces composants UI standardisés au lieu de copier le même code dans plusieurs projets.
 
-La plupart des design systems ne sont pas créés de A à Z. Ils sont plutôt assemblés à partir de composants UI testés, approuvés et utilisés dans toute l'entreprise, et sont ensuite regroupés sous la forme d'un design system. Notre projet ne fait pas exception. Nous sélectionnerons des composants à partir de librairies existantes en production afin de gagner du temps et de mettre à disposition le design system plus rapidement.
+La plupart des design system ne sont pas créés de A à Z. Ils sont plutôt assemblés à partir de composants UI testés, approuvés et utilisés dans toute l'entreprise, et sont ensuite regroupés sous la forme d'un design system. Notre projet ne fait pas exception. Nous sélectionnerons des composants à partir de librairies existantes en production afin de gagner du temps et de mettre à disposition le design system plus rapidement.
 
 ![Que contient un design system](/design-systems-for-developers/design-system-contents.jpg)
 
@@ -76,9 +76,9 @@ Veillez à remplacer `votre-nom-d'utilisateur` par le nom de votre compte.
 
 ## Ce qui appartient au design system et ce qui n’en fait pas partie
 
-Les design systems ne devraient contenir que des composants dits « purs » (composants qui se réactualisent uniquement si leurs propriétés changent) et destinés à l'affichage. Ces composants sont liés à l'affichage au sein de l'interface utilisateur, ne fonctionnent qu'avec des propriétés et ne contiennent pas de logique métier ou spécifique à une application, ils ne sont pas déterminants dans le chargement de données. Ces propriétés sont essentielles pour rendre un composant réutilisable.
+Les design system ne devraient contenir que des composants dits « purs » (composants qui se réactualisent uniquement si leurs propriétés changent) et destinés à l'affichage. Ces composants sont liés à l'affichage au sein de l'interface utilisateur, ne fonctionnent qu'avec des propriétés et ne contiennent pas de logique métier ou spécifique à une application, ils ne sont pas déterminants dans le chargement de données. Ces propriétés sont essentielles pour rendre un composant réutilisable.
 
-Les design systems ne sont pas un ensemble de librairies de composants au sein d'une organisation. Ce serait un véritable casse-tête.
+Les design system ne sont pas un ensemble de librairies de composants au sein d'une organisation. Ce serait un véritable casse-tête.
 
 Les composants spécifiques à une application qui contiennent de la logique métier ne devraient pas être inclus de part leur difficulté à être réutilisés : ils fonctionnent dans des projets qui ont des contraintes métiers similaires.
 
@@ -99,12 +99,12 @@ En suivant cette méthode, nous obtenons des composants UI primitifs : Avatar, B
 
 ![Variantes dans un seul composant](/design-systems-for-developers/design-system-consolidate-into-one-button.jpg)
 
-Nous avons sélectionné un sous-ensemble de ces composants pour ce tutoriel afin de simplifier la compréhension du dépôt. Certaines équipes utilisent aussi des composants tiers dans leurs design systems pour d'autres composants comme les Tableaux ou les Formulaires.
+Nous avons sélectionné un sous-ensemble de ces composants pour ce tutoriel afin de simplifier la compréhension du dépôt. Certaines équipes utilisent aussi des composants tiers dans leurs design system pour d'autres composants comme les Tableaux ou les Formulaires.
 
 <div class="aside">💡 CSS-in-JS : Nous utilisons <a href="https://emotion.sh/docs/introduction">Emotion</a>, une librairie conçue pour écrire du CSS avec du JavaScript. Elle fournit un modèle de composition de style puissant et intuitif. Il existe d'autres méthodes valables pour styliser les composants, notamment l'utilisation de classes, les modules CSS, etc.</div>
 
-En plus de nos composants UI, il est pertinent d'ajouter des constantes liées au style comme la typographie, les couleurs, les espacements, etc., qui sont réutilisées dans les projets. Selon la nomenclature des design systems, les variables de styles globales sont appelées «design tokens». Nous ne nous attarderons pas ici dans la théorie derrière ces design tokens, mais vous pouvez en apprendre plus en ligne (voici un [article intéressant](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)).
+En plus de nos composants UI, il est pertinent d'ajouter des constantes liées au style comme la typographie, les couleurs, les espacements, etc., qui sont réutilisées dans les projets. Selon la nomenclature des design system, les variables de styles globales sont appelées «design tokens». Nous ne nous attarderons pas ici dans la théorie derrière ces design tokens, mais vous pouvez en apprendre plus en ligne (voici un [article intéressant](https://medium.com/eightshapes-llc/tokens-in-design-systems-25dd82d58421)).
 
 ## Commençons à développer
 
-Nous avons défini ce qu'il faut construire et comment tout s'assemble. Rentrons dans le vif du sujet. Dans le chapitre 3, nous mettrons en place les outils fondamentaux pour les design systems. Notre dossier de composants d'interface utilisateur sera organisé et consultable grâce à Storybook.
+Nous avons défini ce qu'il faut construire et comment tout s'assemble. Rentrons dans le vif du sujet. Dans le chapitre 3, nous mettrons en place les outils fondamentaux pour les design system. Notre dossier de composants d'interface utilisateur sera organisé et consultable grâce à Storybook.
