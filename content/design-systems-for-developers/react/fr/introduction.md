@@ -10,7 +10,7 @@ description: "Un guide sur les derniers outils pour créer des design system pr�
 
 Les design system connaissent une popularité fulgurante. Des poids lourds en matière de tech comme Airbnb aux petites startups, les entreprises de toutes tailles réutilisent des modèles d'interface utilisateur (User Interface ou UI) dans le but de faire des économies de temps et d'argent. Il y a cependant une grande différence entre les design system créés par la BBC, Airbnb, IBM ou Microsoft et les design system créés par la plupart des développeurs.
 
-Pourquoi les équipes en charge des design system utilisent ces outils et ces techniques en particulier ? Mon co-auteur Tom et moi avons recherché les caractéristiques des design system les plus réussis de la communauté Storybook afin d'identifier les meilleures pratiques.
+Pourquoi les équipes en charge des design system utilisent ces outils et ces techniques en particulier ? Mon co-auteur Tom et moi (Dominic) avons recherché les caractéristiques des design system les plus réussis de la communauté Storybook afin d'identifier les meilleures pratiques.
 
 Ce guide en plusieurs étapes présente les outils automatisés et les flux de travail minutieux utilisés dans les design system à grande échelle. Nous passerons en revue l'assemblage d'un design system à partir de librairies de composants existantes, puis nous mettrons en place les services de base, les librairies et les flux de travail.
 

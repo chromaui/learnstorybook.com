@@ -6,7 +6,7 @@ description: "Les design system efficaces permettent de gagner du temps et d'aug
 
 Des études appuyées par des recherches suggèrent que la réutilisation du code peut permettre de gagner [42-81% de temps](https://www.researchgate.net/publication/3188437_Evaluating_Software_Reuse_Alternatives_A_Model_and_Its_Application_to_an_Industrial_Case_Study?ev=publicSearchHeader&_sg=g8WraNGZNGPw0R-1-jGpy0XwUDeAr3qb472J6lhisyQ3l24pSmndO6anMdX2L3HdWHifsczPegR9wjA) et d'augmenter la productivité de [40%](http://www.cin.ufpe.br/~in1045/papers/art03.pdf). Il n'est donc pas surprenant que les design system, qui facilitent le partage du **code de l'interface utilisateur**, soient de plus en plus populaires auprès des développeurs.
 
-Au cours des dernières années, Tom et moi avons vu d'innombrables équipes chevronnées ancrer leur design system autour de Storybook. Ils se sont concentrés sur la réduction des frais généraux de communication, sur une architecture durable et sur l'automatisation des tâches manuelles répétitives.
+Au cours des dernières années, Tom et moi (Dominic) avons vu d'innombrables équipes chevronnées ancrer leur design system autour de Storybook. Ils se sont concentrés sur la réduction des frais généraux de communication, sur une architecture durable et sur l'automatisation des tâches manuelles répétitives.
 Nous espérons que le partage de ces bonnes pratiques contribuera à l'épanouissement de votre design system.
 
 Merci d'apprendre avec nous. Abonnez-vous à la newsletter de Storybook pour être informé de la publication d'articles et de guides utiles comme celui-ci.
