@@ -362,7 +362,7 @@ Can't we automate this workflow and test our component interactions automaticall
 
 ### Write a component test using the play function
 
-Storybook's [`play`](https://storybook.js.org/docs/angular/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) help us with that. A play function includes small snippets of code that run after the story renders.
 
 The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
 
