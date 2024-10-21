@@ -20,7 +20,7 @@ module.exports = {
       'intro-to-storybook': {
         react: {
           de: 5.3,
-          en: 8.1,
+          en: 8.3,
           es: 6.5,
           fr: 6.5,
           it: 7.6,
@@ -38,7 +38,7 @@ module.exports = {
           pt: 7.6,
         },
         vue: {
-          en: 8.1,
+          en: 8.3,
           es: 6.1,
           fr: 5.3,
           pt: 5.3,
@@ -52,7 +52,7 @@ module.exports = {
           pt: 5.3,
         },
         svelte: {
-          en: 8.1,
+          en: 8.3,
           es: 5.3,
         },
         ember: {
