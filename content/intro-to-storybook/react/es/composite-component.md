@@ -5,11 +5,11 @@ description: 'Ensamblar un componente compuesto a partir de componentes simples'
 commit: '429780a'
 ---
 
-En el último capítulo construimos nuestro primer componente; este capítulo extiende lo que aprendimos para construir `TaskList`, una lista de `Tasks`. Combinemos componentes en conjunto y veamos qué sucede cuando se añade más complejidad.
+En el capítulo anterior, construimos nuestro primer componente; en este capítulo, ampliamos lo que aprendimos para construir TaskList, una lista de Tasks. Vamos a combinar componentes y ver qué sucede cuando introducimos más complejidad.
 
-## Lista de Tareas
+## Lista de Tareas (TaskList)
 
-Taskbox enfatiza las tareas ancladas colocándolas por encima de las tareas predeterminadas. Esto produce dos variaciones de `TaskList` para las que necesita crear historias: ítems predeterminados y anclados.
+Taskbox enfatiza las tareas ancladas colocándolas por encima de las tareas predeterminadas. Esto produce dos variaciones de `TaskList` para las que necesitas crear historias: ítems predeterminados y anclados.
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
@@ -19,13 +19,11 @@ Dado que los datos de `Task` pueden enviarse asincrónicamente, **también** nec
 
 ## Empezar la configuración
 
-Un componente compuesto no es muy diferente de los componentes básicos que contiene. Crea un componente `TaskList` y un archivo de historia que lo acompañe: `src/components/TaskList.js` y `src/components/TaskList.stories.js`.
+Un componente compuesto no es muy diferente de los componentes básicos que contiene. Crea un componente `TaskList` y un archivo de historia que lo acompañe: `src/components/TaskList.jsx` y `src/components/TaskList.stories.jsx`.
 
-Comienza con una implementación aproximada de la `TaskList`. Necesitarás importar el componente `Task` del capítulo anterior y pasarle los atributos y acciones como entrada.
+Comienza con una implementación básica del `TaskList`. Necesitarás importar el componente `Task` del capítulo anterior y pasar los atributos y acciones como entradas.
 
-```js:title=src/components/TaskList.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.jsx
 import Task from './Task';
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -52,83 +50,86 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-A continuación, crea los estados de prueba de `Tasklist` en el archivo de historia.
+A continuación, crea los estados de prueba de `Tasklist` en el archivo de historias.
 
-```js:title=src/components/TaskList.stories.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
+
 import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
+  tags: ['autodocs'],
+  args: {
+    ...TaskStories.ActionsData,
+  },
 };
 
-const Template = args => <TaskList {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in Task.stories.js.
-  tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ],
+export const Default = {
+  args: {
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in Task.stories.jsx.
+    tasks: [
+      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    ],
+  },
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const WithPinnedTasks = {
+  args: {
+    tasks: [
+      ...Default.args.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
+export const Loading = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Decoradores</b></a> son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso estamos usando un decorador para añadir algo de <code>padding</code> alrededor del componente renderizado. También se pueden utilizar para envolver historias en "proveedores", es decir, componentes de la librería que establecen el contexto de React.
+
+💡 [**Decoradores**](https://storybook.js.org/docs/writing-stories/decorators) son una forma de proporcionar envoltorios arbitrarios a las historias. En este caso, estamos usando una clave de decorador en el default export para añadir un `margin` alrededor del componente renderizado. También se pueden utilizar para envolver historias en "proveedores", es decir, componentes de la librería que establecen el contexto de React.
+
 </div>
 
-Al importar `TaskStories`, pudimos [componer](https://storybook.js.org/docs/react/writing-stories/args#args-composition) los argumentos (o `args`) en nuestras historias con poco esfuerzo. De esa forma, se conservan los datos y las acciones (llamadas simuladas) que esperan ambos componentes.
+Al importar `TaskStories`, pudimos [componer](https://storybook.js.org/docs/react/writing-stories/args#args-composition) los argumentos (o args) en nuestras historias con poco esfuerzo. De esa forma, se conservan los datos y las acciones (llamadas simuladas) que esperan ambos componentes.
 
 Ahora hay que revisar Storybook para ver las nuevas historias de `TaskList`.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## Construir los estados
 
-Nuestro componente sigue siendo muy rudimentario, pero ahora tenemos una idea de las historias en las que trabajaremos. Podrías estar pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón, en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **complejidad real** del componente `TaskList` se revela en los casos extremos `withPinnedTasks`, `loading`, y `empty`.
+Nuestro componente todavía es rudimentario,  pero ahora tenemos una idea de las historias en las que trabajaremos. Puede que estés pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón: en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **verdadera complejidad** del componente `TaskList` se revela en los casos extremos `withPinnedTasks`, `loading`, y `empty`.
 
-```js:title=src/components/TaskList.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.jsx
 import Task from './Task';
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -169,8 +170,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === "TASK_PINNED"),
-    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">
@@ -182,11 +183,11 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 }
 ```
 
-Este nuevo código da como resultado la siguiente interfaz de usuario:
+Este nuevo código da como resultado la siguiente UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -197,8 +198,7 @@ Observa la posición del elemento anclado en la lista. Queremos que el elemento 
 
 A medida que el componente crece, también lo hacen los parámetros de entrada requeridos de `TaskList`. Define las props requeridas de `TaskList`. Debido a que `Task` es un componente hijo, asegúrate de proporcionar los datos en la forma correcta para renderizarlo. Para ahorrar tiempo y dolores de cabeza, reutiliza los `propTypes` que definimos en `Task` anteriormente.
 
-```diff:title=src/components/TaskList.js
-import React from 'react';
+```diff:title=src/components/TaskList.jsx
 + import PropTypes from 'prop-types';
 
 import Task from './Task';
@@ -241,8 +241,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === "TASK_PINNED"),
-    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">

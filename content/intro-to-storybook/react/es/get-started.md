@@ -32,9 +32,6 @@ yarn
 Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación funcionan correctamente:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test --watchAll
-
 # Start the component explorer on port 6006:
 yarn storybook
 
@@ -46,15 +43,15 @@ yarn start
 💡 Observa el indicador --watchAll en el comando de prueba. Si incluyes este indicador en tu comando, garantizarás que se ejecuten todas las pruebas. Mientras avanzas en este tutorial, vas a ver diferentes escenarios de prueba. Es posible que desees considerar ajustar los scripts de tu archivo package.json en consecuencia.
 </div>
 
-Nuestras tres modalidades para la aplicación frontend son: el test automatizado (Jest), el desarrollo de componentes (Storybook) y la propia aplicación.
+Nuestras principales modalidades para la aplicación frontend son: el desarrollo de componentes (Storybook) y la propia aplicación.
 
-![3 modalidades](/intro-to-storybook/app-three-modalities.png)
+![Main modalities](/intro-to-storybook/app-main-modalities-react.png)
 
-Dependiendo de la parte de la aplicación en la que estés trabajando, es posible que desees ejecutar una o varias de estas herramientas simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
+Según la parte de la aplicación en la que estés trabajando, es posible que quieras ejecutar uno o más de estos elementos simultáneamente. Dado que nuestro objetivo actual es crear un único componente de UI, seguiremos ejecutando Storybook.
 
 ## Guardar cambios
 
-Ahora vamos a añadir nuestros archivos a un repositorio local. Ejecuta los siguientes comandos para inicializar un repositorio local, agregar y hacer commit de los cambios que hemos hecho hasta ahora.
+En este momento, es seguro agregar nuestros archivos a un repositorio local. Ejecuta los siguientes comandos para inicializar un repositorio local, agregar y hacer commit de los cambios que hemos hecho hasta ahora.
 
 ```shell
 git init
