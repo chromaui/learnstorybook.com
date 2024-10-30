@@ -330,17 +330,17 @@ export const Error = {
   />
 </video>
 
-## 상호작용 테스트
+## 컴포넌트 테스트
 
 지금까지 간단한 구성 요소에서 시작하여 화면에 이르기까지 완전히 작동하는 응용 프로그램을 처음부터 구축하고 스토리를 사용하여 각 변경 사항을 지속적으로 테스트할 수 있었습니다. 그러나 각각의 새로운 스토리는 UI가 깨지지 않도록 다른 모든 스토리를 수동으로 확인해야 합니다. 그것은 많은 추가 작업입니다.
 
 이 워크플로우를 자동화하고 컴포넌트 상호작용을 자동으로 테스트할 수 없을까요?
 
-### play function을 사용하여 상호작용 테스트 작성하기
+### play 함수를 사용하여 상호작용 테스트 작성하기
 
-스토리북의 [`play`](https://storybook.js.org/docs/react/writing-stories/play-function)와 [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/interaction-testing)가 이를 돕습니다. play function은 스토리가 렌더링된 후 실행되는 작은 코드 스니펫이 포함됩니다.
+스토리북의 [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 함수와 [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/interaction-testing)가 이를 돕습니다. play 함수는 스토리가 렌더링된 후 실행되는 작은 코드 스니펫이 포함됩니다.
 
-play function은 작업이 업데이트 될 때 UI에 어떤 일이 발생하는지 확인하는 데 도움이 됩니다. 이 기능은 프레임워크에 구애받지 않는 DOM API를 사용합니다. 따라서 play function을 사용하면 프레임워크에 구애받지 않고 UI와 상호작용하고 사용자의 동작을 시뮬레이션하는 스토리를 작성할 수 있습니다.
+play 함수는 작업이 업데이트 될 때 UI에 어떤 일이 발생하는지 확인하는 데 도움이 됩니다. 이 기능은 프레임워크에 구애받지 않는 DOM API를 사용합니다. 따라서 play 함수를 사용하면 프레임워크에 구애받지 않고 UI와 상호작용하고 사용자의 동작을 시뮬레이션하는 스토리를 작성할 수 있습니다.
 
 이제 실제로 살펴보겠습니다! 새로 만든 `InboxScreen` 스토리를 업데이트하고 다음을 추가하여 컴포넌트 상호작용을 추가해 봅시다:
 
@@ -410,7 +410,7 @@ export const Error = {
 
 <div class="aside">
 
-💡 `@storybook/test` 패키지는 `@storybook/jest`와 `@storybook/testing-library` 테스트 패키지를 대체하며, 더 작은 번들 크기와 [Vitest](https://vitest.dev/) 패키지를 기반으로 한 더 간단한 API를 제공합니다.
+💡 `@storybook/test` 패키지는 `@storybook/jest`와 `@storybook/testing-library` 테스트 패키지를 대체하며, [Vitest](https://vitest.dev/) 패키지를 기반으로 더 작은 번들 크기와 더 간단한 API를 제공합니다.
 
 </div>
 
