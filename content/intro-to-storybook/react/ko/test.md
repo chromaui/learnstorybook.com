@@ -18,6 +18,13 @@ description: 'UI 컴포넌트 테스트 방법 배우기'
 
 시각 회귀 테스트(Visual regression test), 또는 시각 테스트라고도 불리는 이 테스트는 외관의 변화를 포착하기 위해 설계되었습니다. 각 스토리의 스크린샷을 캡처하고 커밋 간 비교를 통해 변화를 찾아냅니다. 이는 레이아웃, 색상, 크기 및 대비와 같은 그래픽 요소를 검증하는 데 적합합니다.
 
+<video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/visual-regression-testing.mp4"
+    type="video/mp4"
+  />
+</video>
+
 스토리북은 시각 회귀 테스트에 훌륭한 도구입니다. 왜냐하면 각 스토리가 본질적으로 테스트 사양이기 때문입니다. 스토리를 작성하거나 업데이트할 때마다 자동으로 사양을 얻는 셈이죠!
 
 시각 회귀 테스트를 위한 여러 도구가 있지만, 스토리북 유지 관리자가 만든 무료 퍼블리싱 서비스인 [**크로마틱(Chromatic)**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook/)을 추천합니다. 이 서비스는 빠른 클라우드 브라우저 환경에서 시각 테스트를 실행하며, [이전 챕터](/intro-to-storybook/react/ko/deploy/)에서 보았듯이 온라인에서 스토리북을 퍼블리싱할 수 있는 기능도 제공합니다.
@@ -129,6 +136,13 @@ commit에 의해 포착된 UI 변경 사항이 표시됩니다.
 시각 회귀 테스트는 컴포넌트가 우연히 변경되지 않도록 보장하지만, 변화가 의도된 것인지 아닌지는 여전히 우리에게 달려 있습니다.
 
 변화가 의도된 경우, 우리는 기준선을 업데이트하여 앞으로의 테스트가 최신 버전의 스토리와 비교될 수 있도록 해야 합니다. 반면, 변화가 의도치 않은 경우에는 수정이 필요합니다.
+
+<video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
+  <source
+    src="/intro-to-storybook/website-workflow-review-merge-optimized.mp4"
+    type="video/mp4"
+  />
+</video>
 
 현대 앱은 컴포넌트로 구성되기 때문에, 컴포넌트 수준에서 테스트하는 것이 중요합니다. 이렇게 하면 변경의 근본 원인인 컴포넌트를 정확히 찾아낼 수 있으며, 변경의 증상인 화면이나 복합 컴포넌트에 반응하는 대신 문제를 해결할 수 있습니다.
 

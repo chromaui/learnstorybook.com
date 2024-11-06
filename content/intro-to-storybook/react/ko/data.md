@@ -172,7 +172,7 @@ export default function TaskList() {
 
 ![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
 
-이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/en/composite-component)에서 했던 것처럼 데코레이터에 의존하여 스토리북 스토리에서 모의(mocked) 스토어를 제공할 수 있습니다:
+이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/ko/composite-component)에서 했던 것처럼 데코레이터에 의존하여 스토리북 스토리에서 모의(mocked) 스토어를 제공할 수 있습니다:
 
 ```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';

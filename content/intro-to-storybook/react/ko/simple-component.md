@@ -122,7 +122,6 @@ Arguments(인수) 혹은 줄여서 [`args`](https://storybook.js.org/docs/writin
 
 스토리를 만들 때, 컴포넌트가 기대하는 작업의 형태를 만들기 위해 우리는 기본 `task` 인수를 사용합니다. 이 인수는 일반적으로 실제 데이터의 형태를 기반으로 모델링됩니다. 다시 말해, 이 형태를 `export` 하면 나중에 다른 스토리에서 재사용할 수 있습니다.
 
-
 ## 환경설정
 
 최근에 생성한 스토리를 인식하고 애플리케이션의 CSS 파일(`src/index.css`에 위치한)을 사용하기 위해 스토리북 구성 파일에 몇 가지 변경 사항이 필요합니다.
@@ -169,7 +168,7 @@ const preview = {
 export default preview;
 ```
 
-[`매개변수(parameters)`](https://storybook.js.org/docs/react/writing-stories/parameters)는 일반적으로 스토리북의 기능과 애드온의 동작을 제어하는 데 사용됩니다. 하지만 이번 경우에는 그 목적으로 사용하지 않을 것입니다. 대신에 우리는 애플리케이션의 CSS 파일을 import할 것입니다.
+[`매개변수(parameters)`](https://storybook.js.org/docs/writing-stories/parameters)는 일반적으로 스토리북의 기능과 애드온의 동작을 제어하는 데 사용됩니다. 하지만 이번 경우에는 그 목적으로 사용하지 않을 것입니다. 대신에 우리는 애플리케이션의 CSS 파일을 import할 것입니다.
 
 `actions`은 클릭이 되었을 때 스토리북 UI의 **actions** 패널에 나타날 콜백을 생성할 수 있도록 해줍니다. 따라서 pin 버튼을 만들 때, 버튼 클릭이 성공적이었는지 테스트 UI에서 확인 할 수 있을 것입니다.
 
