@@ -39,15 +39,11 @@ yarn storybook
 yarn dev
 ```
 
-<div class="aside"> 
-💡 <code>--watchAll</code> 명령어를 포함하여 모든 테스트가 실행되도록 합니다. 이 튜토리얼을 진행하는 동안 다양한 테스트 시나리오가 소개될 것 입니다. 이에 따라 <code>package.json</code>의 scripts를 수정하는 것을 고려해 보는 것이 좋을 것 입니다.
-</div>
+우리의 주요 프론트엔드 애플리케이션 방식: 컴포넌트 개발(Storybook)과 애플리케이션 자체 개발이 있습니다.
 
-프런트엔드 앱의 세 가지 양식: 자동화된 테스트(Jest), 컴포넌트 개발(Storybook), 앱 자체 개발이 있습니다.
+![2가지 양식](https://storybook.js.org/tutorials/intro-to-storybook/app-main-modalities-react.png)
 
-![3가지 양식](https://storybook.js.org/tutorials/intro-to-storybook/app-three-modalities.png)
-
-여러분이 앱(응용 프로그램)의 어떤 부분에 따라 작업하고 있는지에 따라, 이것들 중 하나 이상을 동시에 실행하고 싶을 수 있습니다. 하지만 지금 우리의 초점은 단일 UI 구성 요소를 만드는 것이므로 스토리북을 실행하는데 집중할 것입니다.
+앱의 어느 부분을 작업하느냐에 따라, 이 중 하나 또는 여러 개를 동시에 실행하고 싶을 수 있습니다. 현재 우리의 초점은 단일 UI 컴포넌트를 만드는 것이므로, Storybook만 실행할 것입니다.
 
 ## 변경 사항 커밋(commit)
 
