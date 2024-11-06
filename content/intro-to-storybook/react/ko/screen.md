@@ -232,7 +232,7 @@ export const Error = {};
 
 우리의 애플리케이션은 매우 간단하고 원격 API 호출에 크게 의존하지 않기 때문에 [Mock Service Worker](https://mswjs.io/) 와 [Storybook's MSW addon](https://storybook.js.org/addons/msw-storybook-addon)를 사용할 예정입니다. Mock Service Worker 는 모의 API 라이브러리입니다. 서비스 워커에 의존하여 네트워크 요청을 캡처하고 그 응답으로 모의 데이터를 제공합니다.
 
-[Get started section](/intro-to-storybook/react/en/get-started)에서 앱을 설정할 때 두 패키지들이 함께 설치됩니다. 남은 것은 이를 구성하고 사용하도록 스토리를 업데이트 하는 것입니다.
+[Get started section](/intro-to-storybook/react/ko/get-started)에서 앱을 설정할 때 두 패키지들이 함께 설치됩니다. 남은 것은 이를 구성하고 사용하도록 스토리를 업데이트 하는 것입니다.
 
 터미널에서 다음 명령을 실행하여 `public` 폴더 안에 일반 서비스 워커를 생성합니다:
 
@@ -268,7 +268,7 @@ const preview = {
 export default preview;
 ```
 
-마지막으로 `InboxScreen` 스토리를 업데이트하고 모의 원격 API 호출 [파라미터(parameter)](https://storybook.js.org/docs/react/writing-stories/parameters)를 포함합니다.
+마지막으로 `InboxScreen` 스토리를 업데이트하고 모의 원격 API 호출 [파라미터(parameter)](https://storybook.js.org/docs/writing-stories/parameters)를 포함합니다.
 
 ```diff:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
