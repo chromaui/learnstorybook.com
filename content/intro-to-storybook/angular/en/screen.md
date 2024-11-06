@@ -291,7 +291,9 @@ One way to sidestep this problem is to never render container components anywher
 However, developers **will** inevitably need to render containers further down the component hierarchy. If we want to render most or all of the app in Storybook (we do!), we need a solution to this issue.
 
 <div class="aside">
-💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using <a href="http://graphql.org/">GraphQL</a>. It’s how we have built <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> alongside 800+ stories.
+
+💡 As an aside, passing data down the hierarchy is a legitimate approach, especially when using [GraphQL](http://graphql.org/). It’s how we have built [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) alongside 800+ stories.
+
 </div>
 
 ## Supplying context with decorators
@@ -352,15 +354,15 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
   />
 </video>
 
-## Interaction tests
+## Component tests
 
 So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
 
 Can't we automate this workflow and test our component interactions automatically?
 
-### Write an interaction test using the play function
+### Write a component test using the play function
 
-Storybook's [`play`](https://storybook.js.org/docs/angular/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/angular/writing-tests/interaction-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) help us with that. A play function includes small snippets of code that run after the story renders.
 
 The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
 
@@ -441,9 +443,9 @@ Check your newly-created story. Click the `Interactions` panel to see the list o
 
 With Storybook's play function, we were able to sidestep our problem, allowing us to interact with our UI and quickly check how it responds if we update our tasks—keeping the UI consistent at no extra manual effort.
 
-But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
+But, if we take a closer look at our Storybook, we can see that it only runs the component tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
 
-The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/angular/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
 
 Let's see how it works! Run the following command to install it:
 
@@ -464,13 +466,15 @@ Next, update your `package.json` `scripts` and add a new test task:
 Finally, with your Storybook running, open up a new terminal window and run the following command:
 
 ```shell
-npm run test-storybook -- --watch
+npm run test-storybook -- --url http://localhost:6006/ -- --watch
 ```
 
 <div class="aside">
-💡 Interaction testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the <a href="https://storybook.js.org/docs/angular/writing-tests/interaction-testing">official documentation</a> to learn more about it. 
-<br />
-For an even deeper dive into testing, check out the <a href="/ui-testing-handbook">Testing Handbook</a>. It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
+💡 Component testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/writing-tests/component-testing) to learn more about it.
+
+For an even deeper dive into testing, check out the [Testing Handbook](/ui-testing-handbook). It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)

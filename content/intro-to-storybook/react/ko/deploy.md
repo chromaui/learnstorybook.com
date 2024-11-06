@@ -15,23 +15,23 @@ commit: '59da1ac'
 
 ## 스토리북(Storybook) 배포하기
 
-이번 튜토리얼은 스토리북 관리자가 만든 무료 배포 서비스인 <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>을 사용하겠습니다. 크로마틱(Chromatic)으로 클라우드에서 스토리북을 안전하게 배포하고 호스팅 할 수 있습니다.
+이번 튜토리얼은 스토리북 관리자가 만든 무료 배포 서비스인 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)을 사용하겠습니다. 이를 통해 스토리북을 클라우드에 안전하게 배포하고 호스팅 할 수 있습니다.
 
 ### 깃허브(Github) 저장소 설정
 
-시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 장](/intro-to-storybook/react/ko/get-started/)에서 프로젝트를 시작하셨을 때, 이미 로컬 저장소를 초기화했습니다. 이 단계에서, 우리는 원격 저장소에 push할 commit들을 이미 가지고 있습니다.
+시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 장](/intro-to-storybook/react/ko/get-started/)에서 프로젝트를 설정할 때, 이미 로컬 저장소를 초기화했습니다. 이 단계에서, 우리는 원격 저장소에 push할 commit들을 이미 가지고 있습니다.
 
 깃허브로 이동하여 [여기](https://github.com/new)에서 프로젝트를 위한 새로운 저장소를 만듭니다. 저장소의 이름은 프로젝트명과 동일하게 'taskbox'로 하겠습니다.
 
 ![깃허브 설정](/intro-to-storybook/github-create-taskbox.png)
 
-새로운 저장소에서 origin URL을 가져와서 다음 명령과 같이 깃(git) 프로젝트에 추가해주세요.
+새로운 저장소에서 origin URL을 가져와서 다음 명령과 같이 깃(git) 프로젝트에 추가해주세요:
 
 ```shell
 git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-마지막으로, 로컬 저장소를 원격 저장소로 푸시해주세요.
+마지막으로, 로컬 저장소를 원격 저장소로 푸시해주세요:
 
 ```shell
 git push -u origin main
@@ -39,13 +39,13 @@ git push -u origin main
 
 ### 크로마틱(Chromatic) 설치
 
-development dependency로 패키지를 추가해주세요.
+development dependency로 패키지를 추가해주세요:
 
 ```shell
 yarn add -D chromatic
 ```
 
-패키지가 설치되면 깃허브 계정으로 [크로마틱에 로그인](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) 해주세요 (크로마틱은 간단한 권한 요청만 할 것입니다). 그런 다음 'taskbox'라는 이름의 새로운 프로젝트를 만들고, 앞서 설정한 깃허브 저장소와 동기화합니다.
+패키지가 설치되면 깃허브 계정으로 [크로마틱에 로그인](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)합니다(크로마틱은 간단한 권한 요청만 할 것입니다). 그런 다음 'taskbox'라는 이름의 새로운 프로젝트를 만들고, 앞서 설정한 깃허브 저장소와 동기화합니다.
 
 `Choose GitHub repo`를 클릭하고 저장소를 선택해주세요.
 
@@ -64,11 +64,11 @@ yarn chromatic --project-token=<project-token>
 
 ![스토리북 실행](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-완료되면 배포된 스토리북의 `https://random-uuid.chromatic.com`링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
+완료되면 배포된 스토리북의 `https://random-uuid.chromatic.com` 링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
 
-![크로마틱 패키지와 함께 배포된 스토리북](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
+![크로마틱 패키지와 함께 배포된 스토리북](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 
-만세! 하나의 명령어를 사용하여 스토리북을 배포해보았습니다. 하지만 UI 구현 후 피드백을 얻기 위해 매번 이러한 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 push할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. 스토리북을 지속적으로 배포할 필요가 있습니다.
+오예! 우리는 하나의 명령어를 사용하여 스토리북을 배포해보았습니다. 하지만 UI 구현 후 피드백을 받을 때마다 매번 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 push할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. 따라서 스토리북을 지속적으로 배포할 필요가 있습니다.
 
 ## 크로마틱을 통한 지속적 배포
 
@@ -89,15 +89,17 @@ on: push
 
 # List of jobs
 jobs:
-  test:
-    # Operating System
+  chromatic:
+    name: 'Run Chromatic'
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: yarn
         #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
+      - uses: chromaui/action@latest
         # Options required for Chromatic's GitHub Action
         with:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/ko/deploy/ to obtain it
@@ -105,11 +107,15 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>간단하게 진행하고자 <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 은 언급되지 않았습니다. 이는 깃허브에서 제공하는 안전한 환경 변수이며 이를 사용하면 <code>project-token</code>을 직접 입력할 필요가 없습니다.</p></div>
+<div class="aside">
+
+💡 간결성을 위해 [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)은 언급되지 않았습니다. 이는 깃허브에서 제공하는 안전한 환경 변수이며 이를 사용하면 `project-token`을 직접 입력할 필요가 없습니다.
+
+</div>
 
 ### 깃허브 액션 커밋하기
 
-다음의 명령어를 실행하여 변경된 사항을 추가해주세요.
+다음의 명령어를 실행하여 변경된 사항을 추가해주세요:
 
 ```shell
 git add .

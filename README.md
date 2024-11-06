@@ -244,14 +244,14 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | ZH-TW            | ❌      |
 |              | Mainland Chinese | ❌      |
 |              | Dutch            | ❌      |
-|              | Korean           | ❌      |
+|              | Korean           | ✅      |
 |              | Japanese         | ❌      |
 |              | French           | ❌      |
 |              | Italian          | ❌      |
 |              | German           | ❌      |
 | React Native | English          | ✅      |
 |              | Spanish          | ❌      |
-|              | Portuguese       | ✅      |
+|              | Portuguese       | ❌      |
 | Vue          | English          | ✅      |
 |              | Italian          | ❌      |
 |              | Spanish          | ❌      |

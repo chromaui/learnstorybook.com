@@ -10,7 +10,7 @@ No Storybook tutorial would be complete without testing. Testing is essential to
 
 - **Accessibility tests** with a11y addon verify that the component is accessible to everyone. They're great for allowing us to collect information about how people with certain types of disabilities use our components.
 
-- **Interaction tests** with the play function verify that the component behaves as expected when interacting with it. They're great for testing the behavior of a component when it's in use.
+- **Component tests** with the play function verify that the component behaves as expected when interacting with it. They're great for testing the behavior of a component when it's in use.
 
 ## “But does it look right?”
 

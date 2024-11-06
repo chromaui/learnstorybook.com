@@ -151,7 +151,7 @@ export const HasData = {
 export const Loading = {
   args: {
     comments: [],
-    Loading: true,
+    loading: true,
   },
 };
 

@@ -68,7 +68,7 @@ Next, create `Tasklist`’s test states in the story file.
 ```ts:title=src/app/components/task-list.stories.ts
 import type { Meta, StoryObj } from '@storybook/angular';
 
-import { argsToTemplate, componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
+import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
 
 import { CommonModule } from '@angular/common';
 
@@ -92,14 +92,9 @@ const meta: Meta<TaskListComponent> = {
       (story) => `<div style="margin: 3em">${story}</div>`
     ),
   ],
-  render: (args: TaskListComponent) => ({
-    props: {
-      ...args,
-      onPinTask: TaskStories.actionsData.onPinTask,
-      onArchiveTask: TaskStories.actionsData.onArchiveTask,
-    },
-    template: `<app-task-list ${argsToTemplate(args)}></app-task-list>`,
-  }),
+  args: {
+    ...TaskStories.ActionsData,
+  },
 };
 export default meta;
 type Story = StoryObj<TaskListComponent>;
@@ -146,10 +141,12 @@ export const Empty: Story = {
 ```
 
 <div class="aside">
-💡 <a href="https://storybook.js.org/docs/angular/writing-stories/decorators"><b>Decorators</b></a> are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some <code>padding</code> around the rendered component. They can also be used to wrap stories in “providers”–-i.e., library components that set some context.
+
+💡[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator key on the default export to add some `margin` around the rendered component. They can also be used to wrap stories in “providers”–-i.e., library components that set some context.
+
 </div>
 
-By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/angular/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
+By importing `TaskStories`, we were able to [compose](https://storybook.js.org/docs/writing-stories/args#args-composition) the arguments (args for short) in our stories with minimal effort. That way, the data and actions (mocked callbacks) expected by both components are preserved.
 
 Now check Storybook for the new `TaskList` stories.
 
@@ -236,7 +233,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>

@@ -39,7 +39,7 @@ In Storybook for React Native, due to current limitations with the Metro bundler
 
 <div class="aside">
 
-💡 You can also manually generate the `storybook.requires` file by running `yarn storybook-generate`. However, you shouldn't need to re-create this file unless you see that a story is not being loaded or notice that a change in your `main.js` config is not reflected in your Storybook. To learn more about how the `storybook.requires` file is generated, you can check out the `generate` function in your `metro.config.js` file.
+💡 You can also manually generate the `storybook.requires` file by running `yarn storybook-generate`. However, you shouldn't need to re-create this file unless you see that a story is not being loaded or notice that a change in your `main.js` config is not reflected in your Storybook. To learn more about how the `storybook.requires` file is generated, you can check out the `withStorybook` function in your `metro.config.js` file.
 
 </div>
 
@@ -97,7 +97,7 @@ export const Archived = {
 };
 ```
 
-In our stories files we use a syntax called Component Story Format (CSF). In this case we are using CSF3 which is a new updated version of CSF supported by the latest versions of Storybook. In this version of CSF there is a lot less boilerplate which makes it easier to get started.
+In our stories files we use a syntax called Component Story Format (CSF). This syntax makes it easier to write stories and is supported by the latest versions of Storybook.
 
 There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
 
@@ -121,7 +121,7 @@ Now that we've set up the basics lets re-run `yarn storybook` and see our change
 You should see a UI that looks like this:
 ![a gif showing the task component in storybook](/intro-to-storybook/react-native-task-component.gif)
 
-You can use the Sidebar tab to swap between stories, the Canvas tab to see the current story and the addons tab to interact with args and actions.
+You can use the menu at the bottom of your screen to open the navigation menu and tap to swap between stories. Then you can tap away or drag down to dismiss the menu. You'll find addons by pressing the icon on the far right of the bottom bar.
 
 ## Build out the states
 
