@@ -330,15 +330,15 @@ Revisa tu Storybook y vas a ver que la historia de `error` está funcionando. MS
   />
 </video>
 
-## Pruebas de interacción
+## Pruebas de componentes
 
 Hasta ahora, hemos podido crear una aplicación completamente funcional desde cero, empezando desde un componente simple hasta una pantalla y probando continuamente cada cambio usando nuestras historias. Pero cada nueva historia también requiere una verificación manual de todas las demás historias para asegurar que la interfaz de usuario no se rompa. Eso es mucho trabajo extra.
 
 ¿No podemos automatizar este flujo de trabajo y probar las interacciones de nuestros componentes automáticamente?
 
-### Escribe una prueba de interacción usando la función "play"
+### Escribe una prueba de componente usando la función "play"
 
-La función [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) de Storybook y [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) nos ayuda con esto. La función `play` incluye pequeños fragmentos de código que se ejecutan después de que se renderiza la historia.
+La función [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) de Storybook y [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/component-testing) nos ayuda con esto. La función `play` incluye pequeños fragmentos de código que se ejecutan después de que se renderiza la historia.
 
 La función play nos ayuda a verificar lo que sucede a la interfaz de usuario cuando se actualizan las tareas. Usa APIs del DOM que son "framework-agnostic", lo que significa que podemos escribir historias con la función play para interactuar con la interfaz de usuario y simular el comportamiento humano sin importar el framework del frontend.
 
@@ -457,7 +457,7 @@ yarn test-storybook --watch
 
 <div class="aside">
 
-💡 Las pruebas de interacción con la función play son una forma fantástica para probar los componentes de la interfaz de usuario. Puede hacer mucho más de lo que hemos visto aquí. Recomendamos leer la [documentación oficial](https://storybook.js.org/docs/react/writing-tests/interaction-testing) para aprender más al respecto.
+💡 Las pruebas de componentes con la función play son una forma fantástica para probar los componentes de la interfaz de usuario. Puede hacer mucho más de lo que hemos visto aquí. Recomendamos leer la [documentación oficial](https://storybook.js.org/docs/react/writing-tests/component-testing) para aprender más al respecto.
 
 Para profundizar aún más en las pruebas, puedes mirar el [Manual de pruebas](/ui-testing-handbook). Cubre las estrategias de prueba utilizadas por los equipos de front-end escalados para potenciar tu flujo de trabajo de desarrollo.
 

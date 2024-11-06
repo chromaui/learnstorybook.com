@@ -10,7 +10,7 @@ Ningún tutorial de Storybook estaría completo sin hacer testing. Las pruebas s
 
 - **Pruebas de accessibilidad** verifican que los componentes sean accesible a todos usando el complemento a11y. Nos ayudan a recolectar información sobre cómo las personas con ciertos tipos de discapacidades usan nuestros componentes.
 
-- **Pruebas de interacción** con la función "play" verifican que el componente se comporta como se espera cuando se interactúa con él. Son excelentes para probar el comportamiento de un componente cuando se está usando.
+- **Pruebas de componentes** con la función "play" verifican que el componente se comporta como se espera cuando se interactúa con él. Son excelentes para probar el comportamiento de un componente cuando se está usando.
 
 ## "¿Pero se ve bien?"
 
