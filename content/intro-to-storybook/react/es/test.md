@@ -10,7 +10,7 @@ Ningún tutorial de Storybook estaría completo sin hacer testing. Las pruebas s
 
 - **Pruebas de accessibilidad** verifican que los componentes sean accesible a todos usando el complemento a11y. Nos ayudan a recolectar información sobre cómo las personas con ciertos tipos de discapacidades usan nuestros componentes.
 
-- **Pruebas de interacción** con la función "play" verifican que el componente se comporta como se espera cuando se interactúa con él. Son excelentes para probar el comportamiento de un componente cuando se está usando.
+- **Pruebas de componentes** con la función "play" verifican que el componente se comporta como se espera cuando se interactúa con él. Son excelentes para probar el comportamiento de un componente cuando se está usando.
 
 ## "¿Pero se ve bien?"
 
@@ -45,12 +45,12 @@ git checkout -b change-task-background
 
 Cambia `src/components/Task.js` al siguiente:
 
-```diff:title=src/components/Task.js
+```diff:title=src/components/Task.jsx
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
       <label
-        htmlFor="checked"
+        htmlFor={`archiveTask-${id}`}
         aria-label={`archiveTask-${id}`}
         className="checkbox"
       >
@@ -67,12 +67,13 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         />
       </label>
 
-      <label htmlFor="title" aria-label={title} className="title">
+      <label htmlFor={`title-${id}`} aria-label={title} className="title">
         <input
           type="text"
           value={title}
           readOnly={true}
           name="title"
+          id={`title-${id}`}
           placeholder="Input title"
 +         style={{ backgroundColor: 'red' }}
         />
@@ -96,7 +97,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 Esto produce un nuevo color de fondo para el elemento.
 
-![task background change](/intro-to-storybook/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change-7-0.png)
 
 Agrega el archivo:
 
@@ -120,7 +121,7 @@ Por último, abre tu repositorio de GitHub y abre un pull request para la rama `
 
 ![Creating a PR in GitHub for task](/github/pull-request-background.png)
 
-Agrega un texto descriptivo a tu pull request y haz clic en "Create pull request". Haga click en el PR check "🟡 UI Tests" en la parte inferior de la página.
+Agrega un texto descriptivo a tu pull request y haz clic en `Create pull request`. Haga click en el PR check "🟡 UI Tests" en la parte inferior de la página.
 
 ![Created a PR in GitHub for task](/github/pull-request-background-ok.png)
 
