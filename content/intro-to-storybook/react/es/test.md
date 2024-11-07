@@ -43,7 +43,7 @@ Empieza creando una nueva rama para este cambio:
 git checkout -b change-task-background
 ```
 
-Cambia `src/components/Task.js` al siguiente:
+Cambia `src/components/Task.jsx` al siguiente:
 
 ```diff:title=src/components/Task.jsx
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {

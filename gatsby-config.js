@@ -21,7 +21,7 @@ module.exports = {
         react: {
           de: 5.3,
           en: 8.3,
-          es: 6.5,
+          es: 8.3,
           fr: 6.5,
           it: 7.6,
           ja: 6.5,

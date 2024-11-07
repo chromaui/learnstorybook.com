@@ -20,7 +20,7 @@ A medida que comencemos a construir `Task`, primero escribiremos nuestros tests 
 
 ## Ajustes iniciales
 
-Primero, vamos a crear el componente Task y el archivo de historias de Storybook que lo acompaña: `src/components/Task.js` y `src/components/Task.stories.js`.
+Primero, vamos a crear el componente Task y el archivo de historias de Storybook que lo acompaña: `src/components/Task.js` y `src/components/Task.stories.jsx`.
 
 Comenzaremos con una implementación básica de `Task`, simplemente teniendo en cuenta los atributos que sabemos que necesitaremos y las dos acciones que puedes realizar con una tarea (para moverla entre las listas):
 
@@ -113,7 +113,7 @@ Para contarle a Storybook sobre el componente que estamos documentando, creamos 
 
 Para definir nuestras historias, utilizaremos el formato Component Story Format 3 (también conocido como [CSF3](https://storybook.js.org/docs/api/csf) ) para crear cada uno de nuestros casos de prueba. Este formato está diseñado para crear cada uno de nuestros casos de prueba de manera concisa. Al exportar un objeto que contiene cada estado del componente, podemos definir nuestras pruebas de manera más intuitiva y crear y reutilizar historias de manera más eficiente.
 
-Argumentos o [`args`](https://storybook.js.org/docs/react/writing-stories/args), nos permiten editar en vivo nuestros componentes con el complemento "Controls" sin reiniciar Storybook. Una vez que cambia el valor de un [`arg`](https://storybook.js.org/docs/react/writing-stories/args), el componente también cambia.
+Argumentos o [`args`](https://storybook.js.org/docs/writing-stories/args), nos permiten editar en vivo nuestros componentes con el complemento "Controls" sin reiniciar Storybook. Una vez que cambia el valor de un [`arg`](https://storybook.js.org/docs/writing-stories/args), el componente también cambia.
 
 `fn()` nos permite crear llamadas o "callbacks" que aparecen en el panel de **actions** de la UI de Storybook cuando se hace clic. Así que cuando construyamos un botón de pin, podremos determinar si un clic en el botón es exitoso en la interfaz de usuario.
 
@@ -167,13 +167,13 @@ const preview = {
 export default preview;
 ```
 
-Los [`parametros`](https://storybook.js.org/docs/react/writing-stories/parameters) se utilizan normalmente para controlar el comportamiento de las funciones y complementos (addons) de Storybook. En nuestro caso, no los usaremos para ese propósito. En su lugar, importaremos el archivo CSS de nuestra aplicación.
+Los [`parametros`](https://storybook.js.org/docs/writing-stories/parameters) se utilizan normalmente para controlar el comportamiento de las funciones y complementos (addons) de Storybook. En nuestro caso, no los usaremos para ese propósito. En su lugar, importaremos el archivo CSS de nuestra aplicación.
 
 Una vez que hayamos hecho esto, reiniciar el servidor de Storybook debería producir casos de prueba para los tres estados de Task:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -243,7 +243,7 @@ El maquetado adicional de arriba, combinado con el CSS que hemos importado antes
 
 ## Especificar los requerimientos de datos
 
-Es una buena práctica utilizar `propTypes` en React para especificar la forma de los datos que  un componente espera. No sólo se auto documenta, sino que también ayuda a detectar problemas de manera temprana.
+Es una buena práctica utilizar `propTypes` en React para especificar la forma de los datos que un componente espera. No sólo se auto documenta, sino que también ayuda a detectar problemas de manera temprana.
 
 ```diff:title=src/components/Task.jsx
 + import PropTypes from 'prop-types';

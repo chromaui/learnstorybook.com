@@ -35,13 +35,9 @@ Podemos comprobar rápidamente que los distintos entornos de nuestra aplicación
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 3000:
-yarn start
+# Run the frontend app proper on port 5173:
+yarn dev
 ```
-
-<div class="aside"> 
-💡 Observa el indicador --watchAll en el comando de prueba. Si incluyes este indicador en tu comando, garantizarás que se ejecuten todas las pruebas. Mientras avanzas en este tutorial, vas a ver diferentes escenarios de prueba. Es posible que desees considerar ajustar los scripts de tu archivo package.json en consecuencia.
-</div>
 
 Nuestras principales modalidades para la aplicación frontend son: el desarrollo de componentes (Storybook) y la propia aplicación.
 

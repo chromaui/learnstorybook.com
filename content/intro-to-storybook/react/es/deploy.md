@@ -108,7 +108,8 @@ jobs:
 ```
 
 <div class="aside">
-💡 Para mantener el tutorial breve no mencionamos a [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Secretos son variables de entorno seguras proporcionadas por GitHub para que no tengas que codificar el `project-token`. 
+
+💡 Para mantener el tutorial breve no mencionamos a [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository). Secretos son variables de entorno seguras proporcionadas por GitHub para que no tengas que codificar el `project-token`.
 
 </div>
 

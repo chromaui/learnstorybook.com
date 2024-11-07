@@ -5,7 +5,7 @@ description: 'Learn how to integrate and use the popular Controls addon'
 commit: 'f89cfe0'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/configure/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/integrations).
+Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/configure/user-interface/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/integrations).
 
 If you've been following this tutorial, you've already encountered multiple addons and set one up in the [Testing](/intro-to-storybook/react/en/test/) chapter.
 
