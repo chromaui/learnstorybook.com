@@ -2,7 +2,7 @@
 title: '시각적 테스트 자동화'
 tocTitle: '자동화'
 description: '회귀 오류를 잡기 위해 시각적 테스트를 자동화하기'
-commit: 'b9671fb'
+commit: '198ca0f'
 ---
 
 자연스러운 개발 과정에서 버그(bug)가 생기는 것을 막을 수는 없습니다. 시각적 테스트 자동화는 기계를 사용해 사용자가 검토할 UI 외관의 변화를 감지합니다.
@@ -92,13 +92,37 @@ git checkout -b change-commentlist-outline
 
 `CommentList` 컴포넌트를 약간 뒤틀어봅니다.
 
-```diff:title=src/components/CommentList.js
-import React from 'react';
+```diff:title=src/components/CommentList.tsx
+import styled, { createGlobalStyle } from "styled-components";
 
-import PropTypes from 'prop-types';
-import styled, { createGlobalStyle } from 'styled-components';
+interface Author {
+  name: string;
+  avatar: string;
+}
 
-const CommentListDiv = styled.div`
+interface Comment {
+  text: string;
+  author: Author;
+}
+
+export interface CommentListProps {
+  /**
+   * Is the component in the loading state
+   */
+  loading?: boolean;
+
+  /**
+   * Total number of comments
+   */
+  totalCount?: number;
+
+  /**
+   * List of comments
+   */
+  comments?: Comment[];
+}
+
+const CommentListWrapper = styled.div`
   font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #333;
   display: inline-block;
@@ -106,7 +130,7 @@ const CommentListDiv = styled.div`
   width: 265px;
 `;
 
-const CommentItemDiv = styled.div`
+const CommentItem = styled.div`
   font-size: 12px;
   line-height: 14px;
   clear: both;
@@ -123,7 +147,7 @@ const CommentItemDiv = styled.div`
 + font-weight: bold;
 `;
 
-const AvatarDiv = styled.div`
+const Avatar = styled.div`
   float: left;
   position: relative;
   overflow: hidden;
@@ -144,22 +168,30 @@ const AvatarImg = styled.img`
   background: #999;
 `;
 
-const MessageDiv = styled.div`
+const Message = styled.div`
   overflow: hidden;
   padding-top: 10px;
   padding-right: 20px;
 `;
 
-const AuthorSpan = styled.span`
+const Author = styled.span`
   font-weight: bold;
 `;
-const TextSpan = styled.span``;
+
+const CommentText = styled.span``;
 
 const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,800');
-`;
+   @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,800');
+ `;
 
-export default function CommentList({ loading, comments, totalCount }) {
+/**
+* The Commentlist component should display the comments from the user.
+*/
+export default function CommentList({
+  loading = false,
+  comments = [],
+  totalCount = 10,
+}: CommentListProps) {
   if (loading) {
     return <div>loading</div>;
   }
@@ -168,53 +200,22 @@ export default function CommentList({ loading, comments, totalCount }) {
   }
   return (
     <>
-    <GlobalStyle/>
-    <CommentListDiv>
-      {comments.map(({ text, author: { name, avatar } }) => (
-        <CommentItemDiv key={`comment_${name}`}>
-          <AvatarDiv>
-            <AvatarImg src={avatar} />
-          </AvatarDiv>
-          <MessageDiv>
-            <AuthorSpan>{name}</AuthorSpan> <TextSpan>{text}</TextSpan>
-          </MessageDiv>
-        </CommentItemDiv>
-      ))}
-    </CommentListDiv>
+      <GlobalStyle />
+      <CommentListWrapper>
+        {comments.map(({ text, author: { name, avatar } }) => (
+          <CommentItem key={`comment_${name}`}>
+            <Avatar>
+              <AvatarImg src={avatar} />
+            </Avatar>
+            <Message>
+              <Author>{name}</Author> <CommentText>{text}</CommentText>
+            </Message>
+          </CommentItem>
+        ))}
+      </CommentListWrapper>
     </>
   );
 }
-
-CommentList.propTypes = {
-  /**
-   * Is the component in the loading state
-   */
-  loading: PropTypes.bool,
-
-  /**
-   * Total number of comments
-   */
-  totalCount: PropTypes.number,
-  /**
-   * List of comments
-   */
-  comments: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string,
-      author: PropTypes.shape({
-        name: PropTypes.string,
-        avatar: PropTypes.string,
-      }),
-    })
-  ),
-};
-
-CommentList.defaultProps = {
-  loading: false,
-  totalCount: 10,
-  comments: [],
-};
-
 ```
 
 변경사항을 commit하고, 저장소에 push한 뒤에 크로마틱을 실행합니다.

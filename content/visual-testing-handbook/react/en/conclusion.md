@@ -17,13 +17,13 @@ This guide introduced you to the basics of visual testing. Tom and I hope you ca
 If you've been following along, your repository and deployed Storybook should look like this:
 
 - 📕 [**GitHub repository**](https://github.com/chromaui/learnstorybook-visual-testing-code)
-- 🌎 [**Deployed Storybook**](https://6070d9288779ab00214a9831-edgtavyhhd.chromatic.com/?path=/story/commentlist--paginated)
+- 🌎 [**Deployed Storybook**](https://6070d9288779ab00214a9831-pqbtsnhqei.chromatic.com/)
 
 ## More resources
 
 Want to dive deeper? Here are some additional helpful resources:
 
-- [**Official Storybook docs**](https://storybook.js.org/docs/react/get-started/why-storybook) has API documentation, examples, and the addon gallery.
+- [**Official Storybook docs**](https://storybook.js.org/docs/get-started/why-storybook) has API documentation, examples, and the addon gallery.
 
 - [**How to actually test UIs**](https://storybook.js.org/blog/how-to-actually-test-uis/) is a summary of practical UI testing strategies from Shopify, Adobe, Twilio, and more.
 

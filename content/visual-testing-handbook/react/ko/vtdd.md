@@ -1,7 +1,7 @@
 ---
 title: '시각적 TDD'
 description: '첫 번째 시각적 테스트를 만들어보세요'
-commit: 'bab74c1'
+commit: 'bbdb86d'
 ---
 
 이제 기본기는 다 다뤘으니, 더 세부적인 이야기로 들어가 봅시다. 이 예시에서는 스토리북(Storybook)의 **Visual TDD**를 이용해 `CommentList` 하나의 컴포넌트 상태(state)를 만드는 과정을 보여드리겠습니다.
@@ -36,14 +36,44 @@ yarn
 
 다음으로, 우리는 가장 간단한 `CommentList`을 구현해서 테스트가 정확하게 설정되었는지 확인하겠습니다.
 
-`src` 디렉토리 안에, `components`라는 새 폴더를 만듭니다, 그리고 `CommentList.js`라는 이름으로 새 파일을 하나 만들고 다음 내용을 적습니다. -
+`src` 디렉토리 안에, `components`라는 새 폴더를 만듭니다, 그리고 `CommentList.tsx`라는 이름으로 새 파일을 하나 만들고 다음 내용을 적습니다. -
 
-```js:title=src/components/CommentList.js
-import React from 'react';
+```tsx:title=src/components/CommentList.tsx
+interface Author {
+  name: string;
+  avatar: string;
+}
 
-import PropTypes from 'prop-types';
+interface Comment {
+  text: string;
+  author: Author;
+}
 
-export default function CommentList({ loading, comments, totalCount }) {
+export interface CommentListProps {
+  /**
+   * Is the component in the loading state
+   */
+  loading?: boolean;
+
+  /**
+   * Total number of comments
+   */
+  totalCount?: number;
+
+  /**
+   * List of comments
+   */
+  comments?: Comment[];
+}
+
+/**
+* The Commentlist component should display the comments from the users.
+*/
+export default function CommentList({
+  loading = false,
+  comments = [],
+  totalCount = 10,
+}: CommentListProps) {
   if (loading) {
     return <div>loading</div>;
   }
@@ -56,111 +86,87 @@ export default function CommentList({ loading, comments, totalCount }) {
     </div>
   );
 }
-
-CommentList.propTypes = {
-  /**
-   * Is the component in the loading state
-   */
-  loading: PropTypes.bool,
-
-  /**
-   * Total number of comments
-   */
-  totalCount: PropTypes.number,
-  /**
-   * List of comments
-   */
-  comments: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string,
-      author: PropTypes.shape({
-        name: PropTypes.string,
-        avatar: PropTypes.string,
-      }),
-    })
-  ),
-};
-
-CommentList.defaultProps = {
-  loading: false,
-  totalCount: 10,
-  comments: [],
-};
 ```
 
 이제 기본적인 구현이 있으니, 테스트 상태를 만들 수 있습니다. 스토리북을 사용하면 이 일을 빠르고 쉽게 할 수 있습니다.
 
-`CommentList.stories.js`라는 파일을 `src/components` 폴더에 만들고 다음을 추가합니다.
+`CommentList.stories.ts`라는 파일을 `src/components` 폴더에 만들고 다음을 추가합니다.
 
-```js:title=src/components/CommentList.stories.js
-import React from 'react';
+```ts:title=src/components/CommentList.stories.ts
+import type { Meta, StoryObj } from '@storybook/react';
 
 import CommentList from './CommentList';
 
-export default {
+const meta = {
   component: CommentList,
   title: 'CommentList',
+} satisfies Meta<typeof CommentList>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Paginated: Story = {
+  args: {
+    comments: [
+      {
+        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+        author: {
+          name: 'Luke',
+          avatar: 'luke.jpeg',
+        },
+      },
+      {
+        text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+        author: {
+          name: 'Leah',
+          avatar: 'leah.jpeg',
+        },
+      },
+      {
+        text: 'Duis aute irure dolor in reprehenderit in voluptate.',
+        author: {
+          name: 'Han',
+          avatar: 'han.jpeg',
+        },
+      },
+      {
+        text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
+        author: {
+          name: 'Poe',
+          avatar: 'poe.jpeg',
+        },
+      },
+      {
+        text: 'Duis aute irure dolor in reprehenderit in voluptate.',
+        author: {
+          name: 'Finn',
+          avatar: 'finn.jpeg',
+        },
+      },
+    ],
+    totalCount: 10,
+  },
 };
 
-const Template = args => <CommentList {...args} />;
-
-export const Paginated = Template.bind({});
-Paginated.args = {
-  comments: [
-    {
-      text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-      author: {
-        name: 'Luke',
-        avatar: 'luke.jpeg',
-      },
-    },
-    {
-      text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-      author: {
-        name: 'Leah',
-        avatar: 'leah.jpeg',
-      },
-    },
-    {
-      text: 'Duis aute irure dolor in reprehenderit in voluptate.',
-      author: {
-        name: 'Han',
-        avatar: 'han.jpeg',
-      },
-    },
-    {
-      text: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco.',
-      author: {
-        name: 'Poe',
-        avatar: 'poe.jpeg',
-      },
-    },
-    {
-      text: 'Duis aute irure dolor in reprehenderit in voluptate.',
-      author: {
-        name: 'Finn',
-        avatar: 'finn.jpeg',
-      },
-    },
-  ],
-  totalCount: 10,
+export const HasData: Story = {
+  args: {
+    comments: [...(Paginated?.args?.comments?.slice(0, 3) || [])],
+    totalCount: 3,
+  },
 };
 
-export const HasData = Template.bind({});
-HasData.args = {
-  comments: [...Paginated.args.comments.slice(0, 3)],
-  totalCount: 3,
-};
-export const Loading = Template.bind({});
-Loading.args = {
-  comments: [],
-  loading: true,
+export const Loading: Story = {
+  args: {
+    comments: [],
+    loading: true,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  ...Loading.args,
-  loading: false,
+export const Empty: Story = {
+  args: {
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
@@ -188,16 +194,39 @@ yarn storybook
 yarn add styled-components
 ```
 
-`CommentList.js` 파일을 다음과 같이 수정하세요.
+`CommentList.tsx` 파일을 다음과 같이 수정하세요.
 
-```diff:title=src/components/CommentList.js
-import React from 'react';
-
-import PropTypes from 'prop-types';
-
+```diff:title=src/components/CommentList.tsx
 + import styled, { createGlobalStyle } from 'styled-components';
 
-+ const CommentListDiv = styled.div`
+interface Author {
+  name: string;
+  avatar: string;
+}
+
+interface Comment {
+  text: string;
+  author: Author;
+}
+
+export interface CommentListProps {
+  /**
+   * Is the component in the loading state
+   */
+  loading?: boolean;
+
+  /**
+   * Total number of comments
+   */
+  totalCount?: number;
+
+  /**
+   * List of comments
+   */
+  comments?: Comment[];
+}
+
++ const CommentListWrapper = styled.div`
 +   font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 +   color: #333;
 +   display: inline-block;
@@ -205,7 +234,7 @@ import PropTypes from 'prop-types';
 +   width: 265px;
 + `;
 
-+ const CommentItemDiv = styled.div`
++ const CommentItem = styled.div`
 +   font-size: 12px;
 +   line-height: 14px;
 +   clear: both;
@@ -220,7 +249,7 @@ import PropTypes from 'prop-types';
 +   border-radius: 48px;
 + `;
 
-+ const AvatarDiv = styled.div`
++ const Avatar = styled.div`
 +   float: left;
 +   position: relative;
 +   overflow: hidden;
@@ -241,23 +270,30 @@ import PropTypes from 'prop-types';
 +   background: #999;
 + `;
 
-+ const MessageDiv = styled.div`
++ const Message = styled.div`
 +   overflow: hidden;
 +   padding-top: 10px;
 +   padding-right: 20px;
 + `;
 
-+ const AuthorSpan = styled.span`
++ const Author = styled.span`
 +   font-weight: bold;
 + `;
 
-+ const TextSpan = styled.span``;
++ const CommentText = styled.span``;
 
 + const GlobalStyle = createGlobalStyle`
 +   @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,800');
 + `;
 
-export default function CommentList({ loading, comments, totalCount }) {
+/**
+ * The Commentlist component should display the comments from the user.
+*/
+export default function CommentList({
+  loading = false,
+  comments = [],
+  totalCount = 10,
+}: CommentListProps) {
   if (loading) {
     return <div>loading</div>;
   }
@@ -266,52 +302,22 @@ export default function CommentList({ loading, comments, totalCount }) {
   }
   return (
 +   <>
-+   <GlobalStyle/>
-+   <CommentListDiv>
-+     {comments.map(({ text, author: { name, avatar } }) => (
-+       <CommentItemDiv key={`comment_${name}`}>
-+         <AvatarDiv>
-+           <AvatarImg src={avatar} />
-+         </AvatarDiv>
-+         <MessageDiv>
-+           <AuthorSpan>{name}</AuthorSpan> <TextSpan>{text}</TextSpan>
-+         </MessageDiv>
-+       </CommentItemDiv>
-+     ))}
-+   </CommentListDiv>
++     <GlobalStyle />
++     <CommentListWrapper>
++       {comments.map(({ text, author: { name, avatar } }) => (
++         <CommentItem key={`comment_${name}`}>
++           <Avatar>
++             <AvatarImg src={avatar} />
++           </Avatar>
++           <Message>
++             <Author>{name}</Author> <CommentText>{text}</CommentText>
++           </Message>
++         </CommentItem>
++       ))}
++     </CommentListWrapper>
 +   </>
   );
 }
-
-CommentList.propTypes = {
-  /**
-   * Is the component in the loading state
-   */
-  loading: PropTypes.bool,
-
-  /**
-   * Total number of comments
-   */
-  totalCount: PropTypes.number,
-  /**
-   * List of comments
-   */
-  comments: PropTypes.arrayOf(
-    PropTypes.shape({
-      text: PropTypes.string,
-      author: PropTypes.shape({
-        name: PropTypes.string,
-        avatar: PropTypes.string,
-      }),
-    })
-  ),
-};
-
-CommentList.defaultProps = {
-  loading: false,
-  totalCount: 10,
-  comments: [],
-};
 ```
 
 ### 4. 디자인에 대한 구현 검토하기

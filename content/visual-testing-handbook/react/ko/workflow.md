@@ -1,5 +1,5 @@
 ---
-title: '작업 흐름(Work Flow)'
+title: '작업 흐름(WorkFlow)'
 description: '컴포넌트 설계를 위한 테스트 주도(test-driven) 작업 흐름(workflow)'
 ---
 
@@ -35,23 +35,23 @@ UI 테스트의 가장 까다로운 부분은 코드만으론 적절한 시각�
 실제로, 시각적 테스트는 스토리북(Storybook)을 사용해 정의된 테스트의 상태의 전체에 걸쳐 컴포넌트를 '시각적인' 방법으로 테스트 합니다. 시각적 테스트는 다른 유형의 테스트 방식과 동일한 설정, 실행과 분해 단계를 공유하지만, 확인단계는 사용자의 몫입니다.
 
 ```shell:clipboard=false
-테스트 시작
-  설정
-  실행 👈 스토리북이 스토리(story)를 렌더링합니다
-  확인 👈 이 단계에서 스토리를 확인할 수 있습니다
-  분해
-테스트 종료
+test do
+  setup
+  execute 👈 Storybook renders stories
+  verify 👈 you look at stories
+  teardown
+end
 ```
 
 그런 다음 이미지 스냅샷을 자동으로 캡처하고 비교하면서 회귀합니다.
 
 ```shell:clipboard=false
-테스트 시작
-  설정
-  실행 👈 스토리북이 스토리를 렌더링합니다
-  확인 👈 이미지 스냅샷을 캡쳐해 기준점과 비교합니다
-  분해
-테스트 종료
+test do
+  setup
+  execute 👈 Storybook renders stories
+  verify 👈 capture image snapshots and compare them to baselines
+  teardown
+end
 ```
 
 위의 두 가지 경우 모두 동일한 테스트 케이스를 사용하며, 확인단계에서만 차이가 있습니다.
@@ -60,44 +60,48 @@ UI 테스트의 가장 까다로운 부분은 코드만으론 적절한 시각�
 
 첫번째 경우부터 살펴봅시다. 스토리북에서 테스트는 리액트(React)의 요소를 렌더링하는 것만큼 간단합니다. 시각적 테스트 케이스를 작성하려면 컴포넌트와 관련된 상태에 대해 짚고 넘어가봐야 합니다. 이것을 스토리북 용어로는 '스토리'라고 합니다. 아래의 예시 코드를 통해 `InboxTask`, `SnoozedTask`, `PinnedTask`에 대한 시각적 테스트를 작성하는 방법을 알아봅시다.
 
-```js:title=src/components/Task.stories.js
-import React from 'react';
+```ts:title=src/components/Task.stories.ts
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Task from './Task';
 
-export default {
+const meta: Meta = {
   component: Task,
   title: 'Task',
-};
+} satisfies Meta<typeof Task>;
 
-const Template = args => <Task {...args} />;
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const InboxTask = Template.bind({});
-InboxTask.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
-    updatedAt: new Date(2021, 0, 1, 9, 0),
-    boardName: 'on Test Board',
+export const InboxTask: Story = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Test Task',
+      state: 'TASK_INBOX',
+      updatedAt: new Date(2023, 0, 1, 9, 0),
+      boardName: 'On Test Board',
+    },
   },
 };
 
-export const SnoozedTask = Template.bind({});
-SnoozedTask.args = {
-  task: {
-    // Shaping the stories through args composition.
-    ...InboxTask.args.task,
-    state: 'TASK_SNOOZED',
+export const SnoozedTask: Story = {
+  args: {
+    task: {
+      // Shaping the stories through args composition.
+      ...InboxTask.args?.task,
+      state: 'TASK_SNOOZED',
+    },
   },
 };
 
-export const PinnedTask = Template.bind({});
-PinnedTask.args = {
-  task: {
-    // Shaping the stories through args composition.
-    ...InboxTask.args.task,
-    state: 'TASK_PINNED',
+export const PinnedTask: Story = {
+  args: {
+    task: {
+      // Shaping the stories through args composition.
+      ...InboxTask.args?.task,
+      state: 'TASK_PINNED',
+    },
   },
 };
 ```
