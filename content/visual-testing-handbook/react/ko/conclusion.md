@@ -17,7 +17,7 @@ description: '시각적 버그들에 안녕을'
 지금까지 잘 따라왔다면, 당신의 저장소와 배포한 스토리북은 다음과 같이 보여야 합니다.
 
 - 📕 [**깃허브 저장소**](https://github.com/chromaui/learnstorybook-visual-testing-code)
-- 🌎 [**배포된 스토리북**](https://6070d9288779ab00214a9831-edgtavyhhd.chromatic.com/?path=/story/commentlist--paginated)
+- 🌎 [**배포된 스토리북**](https://6070d9288779ab00214a9831-pqbtsnhqei.chromatic.com/)
 
 ## 더 많은 자료들
 

@@ -17,7 +17,7 @@ This guide introduced you to the basics of visual testing. Tom and I hope you ca
 If you've been following along, your repository and deployed Storybook should look like this:
 
 - 📕 [**GitHub repository**](https://github.com/chromaui/learnstorybook-visual-testing-code)
-- 🌎 [**Deployed Storybook**](https://6070d9288779ab00214a9831-edgtavyhhd.chromatic.com/?path=/story/commentlist--paginated)
+- 🌎 [**Deployed Storybook**](https://6070d9288779ab00214a9831-pqbtsnhqei.chromatic.com/)
 
 ## More resources
 

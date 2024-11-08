@@ -17,7 +17,7 @@ Esta guía te presentó los conceptos básicos de las pruebas visuales. Tom y yo
 Si lo ha estado siguiendo, su repositorio y Storybook implementado deberían verse así:
 
 - 📕 [**Repositorio de GitHub**](https://github.com/chromaui/learnstorybook-visual-testing-code)
-- 🌎 [**Storybook desplegado**](https://6070d9288779ab00214a9831-edgtavyhhd.chromatic.com/?path=/story/commentlist--paginated)
+- 🌎 [**Storybook desplegado**](https://6070d9288779ab00214a9831-pqbtsnhqei.chromatic.com/)
 
 ## Más recursos
 
