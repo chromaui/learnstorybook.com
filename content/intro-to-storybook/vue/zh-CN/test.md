@@ -86,7 +86,7 @@ git checkout -b change-task-background
 
 这为每个 task 项提供了一个新的背景色。
 
-![task background change](/intro-to-storybook/chromatic-task-change.png)
+![task background change](/intro-to-storybook/chromatic-task-change-7-0.png)
 
 添加文件：
 
