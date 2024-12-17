@@ -9028,7 +9028,7 @@ gatsby-plugin-page-creator@^4.22.0:
 
 gatsby-plugin-plausible@^0.0.7:
   version "0.0.7"
-  resolved "https://registry.npmjs.org/gatsby-plugin-plausible/-/gatsby-plugin-plausible-0.0.7.tgz#6f8c922bbc672a73bd8e9a39add61fb62ec96566"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-plausible/-/gatsby-plugin-plausible-0.0.7.tgz#6f8c922bbc672a73bd8e9a39add61fb62ec96566"
   integrity sha512-pWCXsrWal8lWMmZ1wJ2dolbwZZR1CZU1LVR/K1rYC8NeA+uqTLY8h3uH3hFgP5n8jmRRenOSJ9SjWM9OIdCjOA==
   dependencies:
     "@babel/runtime" "^7.9.2"
