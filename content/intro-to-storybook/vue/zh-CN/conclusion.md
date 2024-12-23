@@ -16,7 +16,7 @@ Storybook 对于 React，React Native，Vue，Angular，Svelte 及其他许多�
 
 想要更加深入？这些是一些有用的资源。
 
-- [**Storybook 官方文档**](https://storybook.js.org/docs/vue/get-started/introduction)拥有 API 文档，社区链接和插件游廊。
+- [**Storybook 官方文档**](https://storybook.js.org/docs/get-started/install)拥有 API 文档，社区链接和插件游廊。
 - [**UI 测试手册**](https://storybook.js.org/blog/ui-testing-playbook/)重点介绍了 Twilio，Adobe，Peloton，和 Shopify 高速团队使用的最佳实践。
 - [**回归测试手册**](https://storybook.js.org/tutorials/visual-testing-handbook/)深入描述使用 Storybook 对组件进行视觉测试。免费的 31 页电子书。
 - [**Storybook Discord 聊天室**](https://discord.gg/UUt2PJb)使您与 Storybook 社区交流。从其他 Storybook 用户获取或提供帮助。
