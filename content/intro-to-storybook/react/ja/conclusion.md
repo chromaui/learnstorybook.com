@@ -7,6 +7,7 @@ Storybook で最初の UI を作成しましたね。お疲れ様でした！こ
 
 [📕 **GitHub のリポジトリ: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
+
 [🌎 **デプロイされた Storybook**](https://master--5ccbe484c994280020b6d128.chromatic.com)
 
 Storybook は React、React Native、Vue、Angular、Svelte、その他のフレームワークにとって強力なツールです。開発者コミュニティーも活発でアドオンも充実しています。このチュートリアルで紹介した内容は、Storybook でできることのほんの一部にすぎません。一度 Storybook を導入すれば、強固な UI を効率的に作れることにきっと驚くことでしょう。
@@ -15,13 +16,13 @@ Storybook は React、React Native、Vue、Angular、Svelte、その他のフレ
 
 もっと深く掘り下げたい方のために役に立つリソースを紹介します。
 
-- [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/react/get-started/introduction)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
+- [**Storybook の公式ドキュメント**](https://storybook.js.org/docs/get-started/install)には API ドキュメント、コミュニティのリンク、アドオンのギャラリーがあります。
 
-- [**楽しい Storybook のワークフロー**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)では Twilio、Adobe、Peloton、Shopifyといった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
+- [**楽しい Storybook のワークフロー**](https://www.chromatic.com/blog/the-delightful-storybook-workflow)では Twilio、Adobe、Peloton、Shopify といった効率の良いチームにおけるワークフローのベストプラクティスを紹介しています。
 
 - [**視覚的なテストのハンドブック (Visual Testing Handbook)**](https://storybook.js.org/tutorials/visual-testing-handbook)では、コンポーネントを Storybook で視覚的にテストする方法を掘り下げています。無料の 31 ページある eBook です。
 
-- [**Storybook Discord**](https://discord.gg/UUt2PJb) ではStorybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
+- [**Storybook Discord**](https://discord.gg/UUt2PJb) では Storybook のコミュニティに参加できます。他の Storybook ユーザーと協力しましょう。
 
 - [**Storybook ブログ**](https://storybook.js.org/blog)ではリリース情報や、UI 開発のワークフローを合理的にするための機能を紹介します。
 

@@ -272,7 +272,8 @@ The [Design Systems for Developers tutorial](https://storybook.js.org/tutorials/
 
 | Translation      | Updated |
 | ---------------- | ------- |
-| English          | ✅      |
+| English          | ❌      |
+| French           | ❌      |
 | Korean           | ❌      |
 | Portuguese       | ❌      |
 | Japanese         | ❌      |
@@ -291,5 +292,5 @@ The [UI Testing handbook](https://storybook.js.org/tutorials/ui-testing-handbook
 
 | Translation | Updated |
 | ----------- | ------- |
-| English     | ✅      |
+| English     | ❌      |
 | Korean      | ❌      |

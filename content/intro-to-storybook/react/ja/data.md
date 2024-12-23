@@ -288,7 +288,7 @@ export const Empty = {
 ```
 
 <div class="aside">
-💡 <code>excludeStories</code> は Storybook の設定のフィールドで、モックされた状態がストーリーとして扱われるのを防ぐためのものです。このフィールドについては <a href="https://storybook.js.org/docs/react/api/csf">ドキュメント</a> で詳しく説明されています。
+💡 <code>excludeStories</code> は Storybook の設定のフィールドで、モックされた状態がストーリーとして扱われるのを防ぐためのものです。このフィールドについては <a href="https://storybook.js.org/docs/api/csf">ドキュメント</a> で詳しく説明されています。
 </div>
 
 <video autoPlay muted playsInline loop>

@@ -90,18 +90,18 @@ Storybook には基本となる 2 つの階層があります。コンポーネ�
 Storybook にコンポーネントを認識させるには、以下の内容を含む `default export` を記述します:
 
 - `component` -- コンポーネント自体
-- `title` -- Storybookのサイドバーでコンポーネントをグループ化または分類するためのタイトル
+- `title` -- Storybook のサイドバーでコンポーネントをグループ化または分類するためのタイトル
 - `tags` -- このコンポーネントのドキュメントを自動生成するためのタグ
 
-ストーリーを定義するには、コンポーネント ストーリー フォーマット 3 ( [CSF3](https://storybook.js.org/docs/react/api/csf) )を使用してテストケースを構築します。このフォーマットは、各テストケースを簡潔に構築するために設計されています。各コンポーネントの状態を含むオブジェクトをエクスポートすることで、テストをより直感的に定義し、ストーリーをより効率的に作成・再利用できます。
+ストーリーを定義するには、コンポーネント ストーリー フォーマット 3 ( [CSF3](https://storybook.js.org/docs/api/csf) )を使用してテストケースを構築します。このフォーマットは、各テストケースを簡潔に構築するために設計されています。各コンポーネントの状態を含むオブジェクトをエクスポートすることで、テストをより直感的に定義し、ストーリーをより効率的に作成・再利用できます。
 
-Arguments (略して [`args`](https://storybook.js.org/docs/react/writing-stories/args)) を使用することで、コントロールアドオンを通して、Storybook を再起動することなく、コンポーネントを動的に編集することができるようになります。[`args`](https://storybook.js.org/docs/react/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
+Arguments (略して [`args`](https://storybook.js.org/docs/writing-stories/args)) を使用することで、コントロールアドオンを通して、Storybook を再起動することなく、コンポーネントを動的に編集することができるようになります。[`args`](https://storybook.js.org/docs/writing-stories/args) の値が変わるとコンポーネントもそれに合わせて変わります。
 
 ストーリーを作る際には素となるタスク引数を使用してコンポーネントが想定するタスクの状態を作成します。想定されるデータは実際のデータと同じように作ります。さらに、このデータをエクスポートすることで、今後作成するストーリーで再利用することが可能となります。
 
 ## 設定する
 
-作成したストーリーを認識させたり、CSS ファイル (`src/index.css`にあります) をStorybook上で使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
+作成したストーリーを認識させたり、CSS ファイル (`src/index.css`にあります) を Storybook 上で使用できるようにするため、Storybook の設定をいくつか変更する必要があります。
 
 まず、設定ファイル (`.storybook/main.js`) を以下のように変更してください。
 
@@ -149,7 +149,7 @@ const preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/react/writing-stories/parameters) は Storybook の機能やアドオンの振る舞いをコントロールするのに使用します。この例では、アクション (`actions`、呼び出しのモック) がどのように扱われるかを設定しています。
+[`parameters`](https://storybook.js.org/docs/writing-stories/parameters) は Storybook の機能やアドオンの振る舞いをコントロールするのに使用します。この例では、アクション (`actions`、呼び出しのモック) がどのように扱われるかを設定しています。
 
 アクションアドオンを使用することで、クリックした時などに Storybook の **actions** パネルにその情報を表示するコールバックを作成できます。これにより、ピン留めボタンを作成するとき、ボタンがクリックされたことがテスト用の UI 上で確認できます。
 

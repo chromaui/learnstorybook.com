@@ -24,7 +24,7 @@ module.exports = {
           es: 8.3,
           fr: 6.5,
           it: 7.6,
-          ja: 6.5,
+          ja: 8.1,
           ko: 8.3,
           nl: 5.3,
           pt: 5.3,
@@ -62,6 +62,7 @@ module.exports = {
       'design-systems-for-developers': {
         react: {
           en: 7.6,
+          fr: 7.6,
           ko: 6.4,
           pt: 5.3,
           'zh-CN': 6.3,
