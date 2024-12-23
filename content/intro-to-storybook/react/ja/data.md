@@ -13,15 +13,15 @@ commit: 'c70ec15'
 
 `TaskList` コンポーネントは、今のところ「presentational (表示用)」として書かれており、その実装以外の外部とは何もやりとりをしません。データを中に入れるためにはデータプロバイダに繋ぐ必要があります。
 
-ここではデータを保存する際に使用される React で人気のライブラリーである [Redux](https://redux.js.org/) を使用し、アプリケーションにシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
+ここでは、[Redux](https://redux.js.org/) でデータを保存するためにもっとも効果的な開発用ツールセットである [Redux Toolkit](https://redux-toolkit.js.org/)を使用し、アプリケーションにシンプルなデータモデルを作ります。[Apollo](https://www.apollographql.com/client/) や [MobX](https://mobx.js.org/) といった他のデータ管理用のライブラリーでもここでのパターンが使用できます。
 
-以下のコマンドを実行し必要な依存関係を追加しましょう:
+以下のコマンドを実行し必要な依存関係を追加しましょう。
 
 ```shell
 yarn add @reduxjs/toolkit react-redux
 ```
 
-まず、タスクの状態を変更するアクションを処理する単純な Redux のストアを作ります。`src/lib` フォルダの `store.js` というファイルを作ってください (あえて簡単にしています):
+まず、タスクの状態を変更するアクションを処理する単純な Redux のストアを作ります。`src/lib` フォルダの `store.js` というファイルを作ってください (あえて簡単にしています)。
 
 ```js:title=src/lib/store.js
 /* A simple redux store/actions/reducer implementation.
@@ -81,9 +81,9 @@ const store = configureStore({
 export default store;
 ```
 
-次に、`TaskList` コンポーネントのデフォルトエクスポートを更新し、Redux のストアに 「connect (接続)」し、ストアから、気になるタスクのリストを描画します。
+次に、`TaskList` コンポーネントのデフォルトエクスポートを更新し、Redux のストアに「connect (接続)」し、ストアから気になるタスクのリストを描画します。
 
-```js:title=src/components/TaskList.js
+```jsx:title=src/components/TaskList.jsx
 import React from 'react';
 import Task from './Task';
 import { useDispatch, useSelector } from 'react-redux';
@@ -139,8 +139,8 @@ export default function TaskList() {
       <div className="list-items" key={"empty"} data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
-          <div className="title-message">You have no tasks</div>
-          <div className="subtitle-message">Sit back and relax</div>
+          <p className="title-message">You have no tasks</p>
+          <p className="subtitle-message">Sit back and relax</p>
         </div>
       </div>
     );
@@ -161,21 +161,19 @@ export default function TaskList() {
 }
 ```
 
-これで、Redux からデータを取得し、実際のデータでコンポ―ネントを生成できるようになりました。`src/app.js` に接続してコンポーネントを描画することも可能ですが、今のところはこのままにして、コンポーネント駆動の旅を続けましょう。
+これで、Redux からデータを取得し、実際のデータでコンポーネントを生成できるようになりました。`src/app.js` に接続してコンポーネントを描画することも可能ですが、今のところはこのままにして、コンポーネント駆動の旅を続けましょう。
 
-アプリケーションで表示する方法は次の章で説明しますのでご心配なく。
+アプリケーションで表示する方法は次の章で説明しますので心配ありません。
 
 ## デコレーターにコンテキストを渡す
 
 この段階で、Storybook のテストが動かなくなりました。`TaskList` が繋がれたコンポーネントとなって、タスクを取得しアップデートするのに Redux ストアに依存しているからです。
 
-![壊れたタスクリスト](/intro-to-storybook/broken-tasklist-optimized.png)
+![壊れたタスクリスト](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
 
-この問題を解決するために、さまざまなアプローチができます。しかし、私たちのアプリは非常に単純なので、[前の章](/intro-to-storybook/react/ja/composite-component)で行ったのと同様に、デコレーターに頼ることができ、Storybook の中でモックストアを利用できます:
+この問題を解決するために、さまざまなアプローチができます。しかし、このアプリは非常に単純なので、[前の章](/intro-to-storybook/react/ja/composite-component)で行ったのと同様にデコレーターに頼ることができ、Storybook の中でモックストアを利用できます。
 
-```js:title=src/components/TaskList.stories.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
 import * as TaskStories from './Task.stories';
 
@@ -225,80 +223,83 @@ const Mockstore = ({ taskboxState, children }) => (
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [(story) => <div style={{ padding: "3rem" }}>{story()}</div>],
+  decorators: [(story) => <div style={{ padding: '3rem' }}>{story()}</div>],
+  tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
 };
 
-const Template = () => <TaskList />;
+export const Default = {
+  decorators: [
+    (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
+  ],
+};
 
-export const Default = Template.bind({});
-Default.decorators = [
-  (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
-];
+export const WithPinnedTasks = {
+  decorators: [
+    (story) => {
+      const pinnedtasks = [
+        ...MockedState.tasks.slice(0, 5),
+        { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+      ];
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.decorators = [
-  (story) => {
-    const pinnedtasks = [
-      ...MockedState.tasks.slice(0, 5),
-      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-    ];
+      return (
+        <Mockstore
+          taskboxState={{
+            ...MockedState,
+            tasks: pinnedtasks,
+          }}
+        >
+          {story()}
+        </Mockstore>
+      );
+    },
+  ],
+};
 
-    return (
+export const Loading = {
+  decorators: [
+    (story) => (
       <Mockstore
         taskboxState={{
           ...MockedState,
-          tasks: pinnedtasks,
+          status: 'loading',
         }}
       >
         {story()}
       </Mockstore>
-    );
-  },
-];
+    ),
+  ],
+};
 
-export const Loading = Template.bind({});
-Loading.decorators = [
-  (story) => (
-    <Mockstore
-      taskboxState={{
-        ...MockedState,
-        status: 'loading',
-      }}
-    >
-      {story()}
-    </Mockstore>
-  ),
-];
-
-export const Empty = Template.bind({});
-Empty.decorators = [
-  (story) => (
-    <Mockstore
-      taskboxState={{
-        ...MockedState,
-        tasks: [],
-      }}
-    >
-      {story()}
-    </Mockstore>
-  ),
-];
+export const Empty = {
+  decorators: [
+    (story) => (
+      <Mockstore
+        taskboxState={{
+          ...MockedState,
+          tasks: [],
+        }}
+      >
+        {story()}
+      </Mockstore>
+    ),
+  ],
+};
 ```
 
 <div class="aside">
-💡 <code>excludeStories</code> は Storybook の設定のフィールドで、モックされた状態がストーリーとして扱われるのを防ぐためのものです。このフィールドについては <a href="https://storybook.js.org/docs/react/api/csf">Storybook documentation</a> で詳しく説明されています。
+💡 <code>excludeStories</code> は Storybook の設定のフィールドで、モックされた状態がストーリーとして扱われるのを防ぐためのものです。このフィールドについては <a href="https://storybook.js.org/docs/react/api/csf">ドキュメント</a> で詳しく説明されています。
 </div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-4-optimized.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0-optimized.mp4"
     type="video/mp4"
   />
 </video>
 
 <div class="aside">
-💡 この変更により、全てのテストはアップデートが必要になります。<code>-u</code> フラグをつけてテストを再実行し、アップデートしてください。 Git へのコミットを忘れずに行ってください！
+💡 Git へのコミットを忘れずに行ってください！
 </div>
 
 成功です! Storybook が動作し、接続されたコンポーネントにデータを渡す方法を確認することができました。次の章では、ここで学んだことを画面に適用してみましょう。
