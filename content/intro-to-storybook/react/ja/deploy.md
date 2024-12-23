@@ -137,6 +137,6 @@ git push origin main
 
 次に `View Storybook` ボタンをクリックすれば、最新の Storybook を見ることができます。
 
-![Chromatic の Storybook リンク](/intro-to-storybook/chromatic-build-storybook-link-6-4-optimized.png)
+![Chromatic の Storybook リンク](/intro-to-storybook/chromatic-build-storybook-link.png)
 
 このリンクをチームメンバーに共有しましょう。これは標準的な開発プロセスや、単に作業を公開するのに便利です 💅

@@ -101,13 +101,13 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 この変更をステージングします。
 
 ```shell
-git add src/components/Task.js
+git add .
 ```
 
 コミットします。
 
 ```shell
-git commit -m “change task background to red”
+git commit -m "change task background to red"
 ```
 
 そして変更をリモートリポジトリにプッシュします。
@@ -116,7 +116,7 @@ git commit -m “change task background to red”
 git push -u origin change-task-background
 ```
 
-最後に、ブラウザでGitHub のリポジトリを開き `change-task-background` ブランチのプルリクエストを作成します。
+最後に、ブラウザで GitHub のリポジトリを開き `change-task-background` ブランチのプルリクエストを作成します。
 
 ![GitHub にタスクの PR を作成する](/github/pull-request-background.png)
 
