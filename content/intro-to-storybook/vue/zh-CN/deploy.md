@@ -15,7 +15,7 @@ commit: '4b1cd77'
 
 ## 发布 Storybook
 
-此教程使用 <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>，一个 Storybook 维护者提供的免费发布服务。它使得我们可以安全的将我们的 Storybook 部署到云端。
+此教程使用 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)，一个 Storybook 维护者提供的免费发布服务。它使得我们可以安全的将我们的 Storybook 部署到云端。
 
 ### 在 GitHub 中创建一个仓库
 
@@ -66,7 +66,7 @@ yarn chromatic --project-token=<project-token>
 
 执行完成后，您会收到一个已经发布的 Storybook 对应的链接 `https://random-uuid.chromatic.com`。请与您的团队分享链接并获得反馈。
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-6-0.png)
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
 
 太好了！现在我们只需要一条命令就可以发布我们的 Storybook，但是每次我们需要获取团队关于 UI 的反馈时，我们都要重复的手动执行一次命令。理想情况下，我们希望每次我们提交代码时都可以同步发布最新版本的组件。我们需要持续部署 Storybook。
 
@@ -89,23 +89,29 @@ on: push
 
 # List of jobs
 jobs:
-  test:
-    # Operating System
+  chromatic:
+    name: 'Run Chromatic'
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: yarn
         #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
+      - uses: chromaui/action@latest
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/vue/zh-CN/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/vue/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>出于文章的简洁起见，<a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets">GitHub secrets</a> 并没有被提及。Secrets 实际上是 GitHub 提供的安全环境变量，这样我们就不需要硬编码 <code>project-token</code> 了。</p></div>
+<div class="aside">
+
+、出于文章的简洁起见，[GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) 并没有被提及。Secrets 实际上是 GitHub 提供的安全环境变量，这样我们就不需要硬编码 `project-token` 了。、
+
+</div>
 
 ### 提交 action
 

@@ -54,59 +54,61 @@ export default {
 如下所示，我们在 story 文件中创建 Task 的三个不同测试状态：
 
 ```js:title=src/components/Task.stories.js
+import { fn } from '@storybook/test';
+
 import Task from './Task.vue';
 
-import { action } from '@storybook/addon-actions';
+export const ActionsData = {
+  onPinTask: fn(),
+  onArchiveTask: fn(),
+};
 
 export default {
   component: Task,
+  tags: ['autodocs'],
   //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
   title: 'Task',
   //👇 Our events will be mapped in Storybook UI
   argTypes: {
-    onPinTask: {},
-    onArchiveTask: {},
+    ...ActionsData
   },
 };
 
-export const actionsData = {
-  onPinTask: action('pin-task'),
-  onArchiveTask: action('archive-task'),
-};
-
-const Template = args => ({
-  components: { Task },
-  setup() {
-    return { args, ...actionsData };
-  },
-  template: '<Task v-bind="args" />',
-});
-export const Default = Template.bind({});
-Default.args = {
-  task: {
-    id: '1',
-    title: 'Test Task',
-    state: 'TASK_INBOX',
+export const Default = {
+  args: {
+    task: {
+      id: '1',
+      title: 'Test Task',
+      state: 'TASK_INBOX',
+    },
   },
 };
 
-export const Pinned = Template.bind({});
-Pinned.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_PINNED',
+export const Pinned = {
+  args: {
+    task: {
+      ...Default.args.task,
+      state: 'TASK_PINNED',
+    },
   },
 };
 
-export const Archived = Template.bind({});
-Archived.args = {
-  task: {
-    ...Default.args.task,
-    state: 'TASK_ARCHIVED',
+export const Archived = {
+  args: {
+    task: {
+      ...Default.args.task,
+      state: 'TASK_ARCHIVED',
+    },
   },
 };
 ```
+
+<div class="aside">
+
+💡 [**Actions**](https://storybook.js.org/docs/essentials/actions) 可以帮助一在构建独立的 UI 组件时进行交互验证。一般来说，你无法访问程序上下文中的函数及状态。使用 `fn()` 可以做到。
+
+</div>
 
 Storybook 有两个基本的组织级别：组件和他的 story。可以将每个 story 视作其组件的排列组合。您可以根据需要给每一个组件创建任意个 story。
 
@@ -122,30 +124,21 @@ Storybook 有两个基本的组织级别：组件和他的 story。可以将每�
 
 - `component` -- 组件本身
 - `title` -- 如何在 Storybook 应用侧边栏中引用组件
+- `tags` -- 自动为我们的组件生成文档
 - `excludeStories` -- story 本身需要但是不用在 Storybook 应用中渲染的信息
-- `argTypes` -- 在每个 story 中具体说明 [args](https://storybook.js.org/docs/vue/api/argtypes) 的行为
+- `args` -- 在每个 story 中具体说明 [args](https://storybook.js.org/docs/essentials/actions#action-args) 的行为
 
-为了定义我们的 stories，我们为每个测试状态导出一个函数用于生成一个 story。Story 实际上就是一个根据给定的状态返回已渲染元素（例如：一个具有一组 props 的类组件）的函数---就像是[函数式组件](https://vuejs.org/v2/guide/render-function.html#Functional-Components)。
-
-因为我们的组件存在多种排列组合，所以设置一个 `Template` 变量不失为一种便捷的做法。使用这样的模式来创建您的 Story 可以大量减少代码量和维护成本。
-
-<div class="aside">
-💡 <code>Template.bind({})</code> 是 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind">标准JavaScript</a> 中用来复制函数的技术。我们使用这项技术保证了在使用同一份实现的同时，让每一个导出的story可以配置自己的属性。
-</div>
+为了定义我们的 stories，我们将使用 Component Story Format 3 （也即 [CSF3](https://storybook.js.org/docs/api/csf) ）构建所有的测试用例。这种形式被设计用来以一种简洁的方式构建我们所用到的测试用例。通过导出包含每个组件状态的对象，我们可以更直观地定义测试，并更有效地创建和复用 story。
 
 Arguments 或者简写 [`args`](https://storybook.js.org/docs/vue/writing-stories/args) ，让我们可以在不重启 Storybook 的前提下实时编辑我们的组件。一旦 [`args`](https://storybook.js.org/docs/vue/writing-stories/args) 的值被修改我们的组件也会进行相应的更新。
 
-当创建一个 story，我们使用一个基本的 `task` 变量来构建 task 组件所期望的形状。通常是根据真实数据来进行建模的。
-
-`actions` 允许我们创建 Storybook UI 的 **actions** 面板被点击时显示的回调。因此当我们构建一个 pin button 时，我们能够在 UI 上验证 button 点击是否成功。
+`fn()` 允许我们创建 Storybook UI 的 **actions** 面板被点击时显示的回调。因此当我们构建一个 pin button 时，我们能够在 UI 上验证 button 点击是否成功。
 
 由于我们需要将相同的一组 actions 传入到组件的所有排列组合中，将它们合并到一个 `actionsData` 变量中，并在我们每次定义 story 的时候传入将会变得非常方便。
 
 值得一提的是当我们将组件所需的操作都合并到 `actionsData` 之后，我们可以在其他组件复用此组件时，让其他组件的 story 也可以复用 `export` 的 `actionsData`，详见下文。
 
-<div class="aside">
-💡 <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>Actions</b></a> 帮助您在独立构建UI组件时验证交互。通常情况下您无法访问应用程序上下文中的函数和状态。请使用 <code>action()</code> 将他们插入。
-</div>
+当创建一个 story 时，我们使用一个基本的 `task` 变量来构建 task 组件所期望的形状。通常是根据真实数据来进行建模的。再次说明，`export`-ing 这个语法将让我们在之后的 story 中复用，之后将会看到。
 
 ## 配置
 
@@ -154,11 +147,9 @@ Arguments 或者简写 [`args`](https://storybook.js.org/docs/vue/writing-storie
 首先，修改您的 Storybook 配置文件(`.storybook/main.js`) 为以下内容：
 
 ```diff:title=.storybook/main.js
-module.exports = {
-- stories: [
--   '../src/**/*.stories.mdx',
--   '../src/**/*.stories.@(js|jsx|ts|tsx)'
-- ],
+/** @type { import('@storybook/vue3-vite').StorybookConfig } */
+const config = {
+- stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
 + stories: ['../src/components/**/*.stories.js'],
   staticDirs: ['../public'],
   addons: [
@@ -166,14 +157,12 @@ module.exports = {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
   ],
-  framework: '@storybook/vue3',
-  core: {
-    builder: '@storybook/builder-webpack5',
-  },
-  features: {
-    interactionsDebugger: true,
+  framework: {
+    name: '@storybook/vue3-vite',
+    options: {},
   },
 };
+export default config;
 ```
 
 完成上述的修改后，修改位于 `.storybook`文件夹中的 `preview.js` 为以下内容：
@@ -182,26 +171,28 @@ module.exports = {
 + import '../src/index.css';
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
+/** @type { import('@storybook/vue3').Preview } */
+const preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
     },
   },
 };
+
+export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/vue/writing-stories/parameters) 通常用来控制 Storybook 功能和插件的行为。在我们的例子中，我们使用它们来配置 `actions` （模拟回调）如何被处理。
-
-`actions` 允许我们创建 Storybook UI 的 **actions** 面板被点击时显示的回调。因此当我们构建一个 pin button 时，我们能够在 UI 上验证 button 点击是否成功。
+[`parameters`](https://storybook.js.org/docs/vue/writing-stories/parameters) 通常用来控制 Storybook 功能和插件的行为。在我们的例子中，我们并不需要用到这个能力。相反，我们将会导入我们应用的 CSS 文件。
 
 当我们完成这些，重启 Storybook 服务将会生成三种 Task 状态的测试用例：
 
 <video autoPlay muted playsInline controls >
   <source
-    src="/intro-to-storybook/inprogress-task-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -301,7 +292,7 @@ export default {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states-6-0.mp4"
+    src="/intro-to-storybook/finished-task-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -327,6 +318,7 @@ yarn add --dev @storybook/addon-a11y
 然后，更新 Storybook 配置文件（`.storybook/main.js`）来启用它：
 
 ```diff:title=.storybook/main.js
+/** @type { import('@storybook/vue3-vite').StorybookConfig } */
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   staticDirs: ['../public'],
@@ -336,17 +328,16 @@ module.exports = {
     '@storybook/addon-interactions',
 +   '@storybook/addon-a11y',
   ],
-  framework: '@storybook/vue3',
-  core: {
-    builder: '@storybook/builder-webpack5',
-  },
-  features: {
-    interactionsDebugger: true,
+  framework: {
+    name: '@storybook/vue3-vite',
+    options: {},
   },
 };
+export default config;
 ```
+最终，重启你的 Storybook 服务，就可以在 UI 中看到新的插件。
 
-![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue.png)
+![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
 回顾我们的 stories，我们可以发现插件在我们的一个测试状态中发现可访问性问题。 [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) 信息实质上意味着在 task 标题和背景之间没有足够的差异性。我们可以快速的修复这个问题，通过修改应用程序的 CSS（位于`src/index.css`），将文本颜色改为 darker gray 。
 

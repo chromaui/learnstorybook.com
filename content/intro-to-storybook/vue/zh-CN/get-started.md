@@ -32,19 +32,16 @@ yarn
 现在通过下述的命令行我们可以快速查看应用程序中的各个环境是否正常运行：
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test:unit
-
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 8080:
-yarn serve
+# Run the frontend app proper on port 5173:
+yarn dev
 ```
 
 我们的三个前端应用程序模式：自动化测试(Jest)，组件开发(Storybook)和应用程序本身。
 
-![3 modalities](/intro-to-storybook/app-three-modalities-vue.png)
+![3 modalities](/intro-to-storybook/app-main-modalities-vue.png)
 
 您可以根据您目前所处理的应用程序的不同部分来决定同时运行上述三个中的一个或者多个。因为我们现在专注于创建一个简单的 UI 组件，所以我们继续运行 Storybook。
 
