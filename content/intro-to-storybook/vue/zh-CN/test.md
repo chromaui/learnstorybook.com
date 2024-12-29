@@ -41,7 +41,7 @@ Storybook 是一个非常棒的视觉回归测试的工具，因为每一个 sto
 git checkout -b change-task-background
 ```
 
-按如下所示修改 `src/components/Task`：
+按如下所示修改 `src/components/Task.vue`：
 
 ```diff:title=src/components/Task.vue
 <template>

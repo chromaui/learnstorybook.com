@@ -113,7 +113,7 @@ export const useTaskStore = defineStore({
   </div>
 </template>
 <script>
-import Task from './Task';
+import Task from './Task.vue';
 import { reactive, computed } from 'vue';
 
 export default {
@@ -161,7 +161,7 @@ export default {
 </template>
 
 <script>
-import PureTaskList from './PureTaskList';
+import PureTaskList from './PureTaskList.vue';
 
 import { computed } from 'vue';
 
@@ -178,8 +178,8 @@ export default {
     const tasks = computed(() => store.getFilteredTasks);
 
     //👇 Dispatches the actions back to the store
-    const archiveTask= task => store.archiveTask(task);
-    const pinTask = task => store.pinTask(task);
+    const archiveTask = (task) => store.archiveTask(task);
+    const pinTask = (task) => store.pinTask(task);
 
     return {
       tasks,
@@ -202,21 +202,11 @@ export default {
 + component: PureTaskList,
 + title: 'PureTaskList',
   tags: ['autodocs'],
-  decorators: [
-    () => ({ template: '<div style="margin: 3em;"><story/></div>' }),
-  ],
-  argTypes: {
+  decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
+  args: {
     ...TaskStories.ActionsData,
-  },
+  }
 };
-
-const Template = (args, { argTypes }) => ({
-+ components: { PureTaskList },
- setup() {
-    return { args, ...TaskStories.actionsData };
-  },
-+ template: '<PureTaskList v-bind="args" />',
-});
 
 export const Default = {
   args: {

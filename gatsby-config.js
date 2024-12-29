@@ -43,7 +43,7 @@ module.exports = {
           fr: 5.3,
           pt: 5.3,
           it: 7.6,
-          'zh-CN': 6.5,
+          'zh-CN': 8.1,
         },
         angular: {
           en: 8.3,

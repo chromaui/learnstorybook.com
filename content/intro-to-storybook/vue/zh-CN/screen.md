@@ -52,7 +52,7 @@ export default {
 </template>
 
 <script>
-import PureInboxScreen from './PureInboxScreen';
+import PureInboxScreen from './PureInboxScreen.vue';
 
 import { computed } from 'vue';
 
@@ -80,6 +80,7 @@ export default {
 ```diff:title=src/main.js
 import { createApp } from 'vue';
 + import { createPinia } from 'pinia';
+- import './assets/main.css';
 
 import App from './App.vue';
 
@@ -145,7 +146,7 @@ export const Error = {
 
 ## 在 story 中提供上下文
 
-好消息是在 story 中使用 Pinia store 十分容易！我们可以更新 `.storybook/preview.js` 配置文件并依赖于Storybook's `setup` 函数以注册我们的 Pinia store。
+好消息是在 story 中使用 Pinia store 十分容易！我们可以更新 `.storybook/preview.js` 配置文件并依赖于 Storybook's `setup` 函数以注册我们的 Pinia store。
 
 ```diff:title=.storybook/preview.js
 + import { setup } from '@storybook/vue3';
@@ -276,9 +277,11 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
+
 💡 使用 play 函数的交互测试时测试 UI 组件的绝佳方式。它能做的远比目前看到的多；我们推荐您阅读 [官方文档](https://storybook.js.org/docs/writing-tests/interaction-testing) 进行深入了解。
-<br />
+
 为了深入了解测试，请查看 [测试手册](/ui-testing-handbook)。它涵盖了缩放前端（scaled-front-end）团队所使用的测试策略，以增强您的开发工作流程。
+
 </div>
 
 ![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)

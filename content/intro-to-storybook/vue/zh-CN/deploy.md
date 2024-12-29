@@ -102,14 +102,14 @@ jobs:
       - uses: chromaui/action@latest
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/vue/en/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/vue/zh-CN/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 <div class="aside">
 
-、出于文章的简洁起见，[GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) 并没有被提及。Secrets 实际上是 GitHub 提供的安全环境变量，这样我们就不需要硬编码 `project-token` 了。、
+、出于文章的简洁起见，[GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) 并没有被提及。Secrets 实际上是 GitHub 提供的安全环境变量，这样我们就不需要硬编码 `project-token` 了。
 
 </div>
 

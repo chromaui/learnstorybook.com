@@ -26,12 +26,8 @@ Taskbox 通过将固定 task（pinned tasks）置于其他默认 task 之上来�
 ```html:title=src/components/TaskList.vue
 <template>
   <div class="list-items">
-    <template v-if="loading">
-      loading
-    </template>
-    <template v-else-if="isEmpty">
-      empty
-    </template>
+    <template v-if="loading"> loading </template>
+    <template v-else-if="isEmpty"> empty </template>
     <template v-else>
       <Task
         v-for="task in tasks"
@@ -45,7 +41,7 @@ Taskbox 通过将固定 task（pinned tasks）置于其他默认 task 之上来�
 </template>
 
 <script>
-import Task from './Task';
+import Task from './Task.vue';
 import { reactive, computed } from 'vue';
 
 export default {
@@ -62,14 +58,14 @@ export default {
     return {
       isEmpty: computed(() => props.tasks.length === 0),
       /**
-      * Event handler for archiving tasks
-      */
+       * Event handler for archiving tasks
+       */
       onArchiveTask(taskId) {
         emit('archive-task', taskId);
       },
       /**
-      * Event handler for pinning tasks
-      */
+       * Event handler for pinning tasks
+       */
       onPinTask(taskId) {
         emit('pin-task', taskId);
       },
@@ -91,7 +87,7 @@ export default {
   title: 'TaskList',
   tags: ['autodocs'],
   decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
-  argTypes: {
+  args: {
     ...TaskStories.ActionsData,
   },
 };
@@ -141,7 +137,7 @@ export const Empty = {
 
 <div class="aside">
 
-[**Decorators - 装饰器**](https://storybook.js.org/docs/writing-stories/decorators) 提供了一种任意包装 story 的方法。上述例子中我们使用默认导出的 decorator 关键字给渲染的组件周围添加一些 `margin`。但是装饰器也可以给组件添加其他上下文，详见下文。
+💡 [**Decorators - 装饰器**](https://storybook.js.org/docs/writing-stories/decorators) 提供了一种任意包装 story 的方法。上述例子中我们使用默认导出的 decorator 关键字给渲染的组件周围添加一些 `margin`。但是装饰器也可以给组件添加其他上下文，详见下文。
 
 </div>
 
@@ -193,7 +189,7 @@ export const Empty = {
 </template>
 
 <script>
-import Task from './Task';
+import Task from './Task.vue';
 import { reactive, computed } from 'vue';
 
 export default {

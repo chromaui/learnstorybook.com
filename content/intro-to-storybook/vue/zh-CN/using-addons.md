@@ -94,11 +94,12 @@ Controls 使得我们可以快速验证组件的各种输入。在这个例子�
 ```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle = Template.bind({});
-LongTitle.args = {
-  task: {
-    ...Default.args.task,
-    title: longTitleString,
+export const LongTitle = {
+  args: {
+    task: {
+      ...Default.args.task,
+      title: longTitleString,
+    },
   },
 };
 ```
@@ -116,7 +117,7 @@ LongTitle.args = {
 
 <div class="aside">
 
-Controls 非常适合让一些非开发人员测试您的组件和 story，它远比您想象的要强大。我们推荐您阅读[官方文档](https://storybook.js.org/docs/essentials/controls) 来了解更多。此外您还可以使用很多别的方式来定制  Storybook，以通过插件来适应您的工作流程。在[创建组件指导](https://storybook.js.org/docs/addons/writing-addons)中我们将会教您，通过创建一个插件来帮助增强您的开发工作流程。
+💡 Controls 非常适合让一些非开发人员测试您的组件和 story，它远比您想象的要强大。我们推荐您阅读[官方文档](https://storybook.js.org/docs/essentials/controls) 来了解更多。此外您还可以使用很多别的方式来定制 Storybook，以通过插件来适应您的工作流程。在[创建组件指导](https://storybook.js.org/docs/addons/writing-addons)中我们将会教您，通过创建一个插件来帮助增强您的开发工作流程。
 
 </div>
 

@@ -70,7 +70,7 @@ export default {
   excludeStories: /.*Data$/,
   title: 'Task',
   //👇 Our events will be mapped in Storybook UI
-  argTypes: {
+  args: {
     ...ActionsData
   },
 };
@@ -335,6 +335,7 @@ module.exports = {
 };
 export default config;
 ```
+
 最终，重启你的 Storybook 服务，就可以在 UI 中看到新的插件。
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
