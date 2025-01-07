@@ -329,13 +329,13 @@ Storybook で `error` ストーリーが意図したように動作している�
   />
 </video>
 
-## インタラクションテスト
+## コンポーネントのテスト
 
 これまでで、シンプルなコンポーネントから画面まで、完全に機能するアプリケーションを作り上げ、ストーリーを用いてそれぞれの変更を継続的にテストすることができるようになりました。しかし、新しいストーリーを作るたびに、UI が壊れていないかどうか、他のすべてのストーリーを手作業でチェックする必要もあります。これは、とても大変な作業です。
 
 この作業や操作を自動化することはできないのでしょうか？
 
-### play 関数を使ったインタラクションテスト
+### play 関数を使ったコンポーネントのテスト
 
 Storybook の [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 関数と [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) が役立ちます。play 関数はストーリーのレンダリング後に実行される小さなコードスニペットを含んでいます。
 
@@ -456,7 +456,7 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 play 関数でのインタラクションテストはUIコンポーネントをテストするための素晴らしい手法です。ここで紹介したもの以外にも、さまざまなことができます。もっと深く学ぶには<a href="https://storybook.js.org/docs/writing-tests/component-testing">公式ドキュメント</a>を読むことをお勧めします。
+💡 play 関数を用いたコンポーネントのテストはUIコンポーネントをテストするための素晴らしい手法です。ここで紹介したもの以外にも、さまざまなことができます。もっと深く学ぶには<a href="https://storybook.js.org/docs/writing-tests/component-testing">公式ドキュメント</a>を読むことをお勧めします。
 <br />
 テストをさらにもっと深く知るためには、<a href="/ui-testing-handbook">Testing Handbook</a> をチェックしてみてください。これは開発ワークフローを加速させるために、スケーラブルなフロントエンドチームが採用しているテスト戦略について解説しています。
 </div>
