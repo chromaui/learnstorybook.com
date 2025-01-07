@@ -24,7 +24,7 @@ module.exports = {
           es: 8.3,
           fr: 6.5,
           it: 7.6,
-          ja: 8.1,
+          ja: 8.3,
           ko: 8.3,
           nl: 5.3,
           pt: 5.3,

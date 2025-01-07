@@ -245,7 +245,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Mainland Chinese | ❌      |
 |              | Dutch            | ❌      |
 |              | Korean           | ✅      |
-|              | Japanese         | ❌      |
+|              | Japanese         | ✅      |
 |              | French           | ❌      |
 |              | Italian          | ❌      |
 |              | German           | ❌      |
