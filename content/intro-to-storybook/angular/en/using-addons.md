@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use the popular Controls addon'
-commit: 'd648b74'
+commit: 'f6d3d1c'
 ---
 
 Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/configure/user-interface/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/addons).
@@ -43,6 +43,7 @@ Now let's fix the issue with overflowing by adding a style to `task.component`:
 ```diff:title=src/app/components/task.component.ts
 @Component({
   selector: 'app-task',
+  standalone: false,
   template: `
     <div class="list-item {{ task?.state }}">
       <label

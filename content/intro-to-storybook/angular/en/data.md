@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: '33e3597'
+commit: 'db7a1a2'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -143,6 +143,7 @@ import { Task } from '../models/task.model';
 @Component({
 - selector:'app-task-list',
 + selector: 'app-pure-task-list',
+  standalone: false,
   template: `
     <div class="list-items">
       <app-task
@@ -213,6 +214,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-task-list',
+  standalone: false,
   template: `
     <app-pure-task-list
       [tasks]="tasks$ | async"

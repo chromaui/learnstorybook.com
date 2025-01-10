@@ -48,6 +48,7 @@ Change `src/app/components/task.component` to the following:
 ```diff:title=src/app/components/task.component.ts
 @Component({
   selector: 'app-task',
+  standalone: false,
   template: `
     <div class="list-item {{ task?.state }}">
       <label

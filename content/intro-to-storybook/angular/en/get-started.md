@@ -2,7 +2,7 @@
 title: 'Storybook for Angular tutorial'
 tocTitle: 'Get started'
 description: 'Set up Angular Storybook in your development environment'
-commit: 'e14c490'
+commit: '20f5b89'
 ---
 
 Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for Angular; other editions exist for [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) and [Ember](/intro-to-storybook/ember/en/get-started).
