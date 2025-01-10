@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'ec8b30a'
+commit: 'da405c1'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -148,6 +148,7 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-pure-inbox-screen',
+  standalone: false,
   template: `
     <div *ngIf="error" class="page lists-show">
       <div class="wrapper-message">
@@ -179,6 +180,7 @@ import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-inbox-screen',
+  standalone: false,
   template: `
     <app-pure-inbox-screen [error]="error$ | async"></app-pure-inbox-screen>
   `,
@@ -198,6 +200,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
+  standalone: false,
 - templateUrl: './app.component.html',
 - styleUrls: ['./app.component.css']
 + template: `

@@ -2,7 +2,7 @@
 title: 'Build a simple component'
 tocTitle: 'Simple component'
 description: 'Build a simple component in isolation'
-commit: 'b4ebe43'
+commit: 'a4bf2a8'
 ---
 
 We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
@@ -29,6 +29,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-task',
+  standalone: false,
   template: `
     <div class="list-item">
       <label [attr.aria-label]="task.title + ''" for="title">
@@ -206,6 +207,7 @@ import { Task } from '../models/task.model';
 
 @Component({
   selector: 'app-task',
+  standalone: false,
   template: `
     <div class="list-item {{ task?.state }}">
       <label
