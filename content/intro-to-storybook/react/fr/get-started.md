@@ -5,15 +5,15 @@ description: 'Configurer Storybook dans votre environnement de développement'
 commit: 'bf3514f'
 ---
 
-sStorybook s'éxécute parallèlement à votre application en mode développement. Il vous aide à construire des composants d'interface utilisateur (User Interface ou UI) isolés de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/fr/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) et [Ember](/intro-to-storybook/ember/en/get-started).
+Storybook s'exécute parallèlement à votre application en mode développement. Il vous aide à construire des composants d'interface utilisateur (User Interface ou UI) isolés de la logique applicative et du contexte de votre application. Cette édition de Learn Storybook est pour React; d'autres éditions existent pour [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/fr/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) et [Ember](/intro-to-storybook/ember/en/get-started).
 
 ![Storybook et votre application](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Configurer React Storybook
 
-Voici les étapes pour configurer le processus de compilation dans votre environnement. Pour commencer, nous allons utiliser [degit](https://github.com/Rich-Harris/degit) pour mettre en place notre système de buid. L'usage de cette librairie permet de télécharger des "templates" (des mini applications construites avec une configuration par défaut) et de vous aider à développer plus vite.
+Voici les étapes pour configurer le processus de compilation dans votre environnement. Pour commencer, nous allons utiliser [degit](https://github.com/Rich-Harris/degit) pour mettre en place notre système de build. L'usage de cette librairie permet de télécharger des "templates" (des mini applications construites avec une configuration par défaut) et de vous aider à développer plus vite.
 
-Executez les commandes suivantes:
+Exécutez les commandes suivantes:
 
 ```shell:clipboard=false
 # Clone the template
@@ -26,7 +26,7 @@ yarn
 ```
 
 <div class="aside">
-💡 Ce template contient les styles necéssaires, images et toute configuration essentiels au fonctionnement de cette version du tutoriel.
+💡 Ce template contient les styles nécessaires, images et toute configuration essentiels au fonctionnement de cette version du tutoriel.
 </div>
 
 Maintenant, nous pouvons vérifier rapidement que les différents environnements de notre application fonctionnent correctement:
@@ -54,7 +54,7 @@ Selon la partie de l'application sur laquelle vous travaillez, vous voudriez peu
 
 ## Commiter les changements
 
-A cette étape, il est préférable d'ajouter les fichiers modifiés à notre environnement de développement en local. Executez les commandes suivantes pour initialiser notre dépôt, et commiter les changements que nous avons faits jusque là.
+À cette étape, il est préférable d'ajouter les fichiers modifiés à notre environnement de développement en local. Exécutez les commandes suivantes pour initialiser notre dépôt, et commiter les changements que nous avons faits jusque là.
 
 ```shell
 git init
@@ -78,4 +78,4 @@ Et enfin:
 git branch -M main
 ```
 
-Il est temps maintenant développer notre premier composant!
+Il est temps maintenant de développer notre premier composant !
