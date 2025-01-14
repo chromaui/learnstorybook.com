@@ -30,11 +30,11 @@ Storybook est un merveilleux [environnement de développement axé sur les compo
 
 ### Utiliser Controls pour trouver les cas limites
 
-Avec Controls, les analystes en QA, les designers ou tout autre intervenant peuvent pousser le composant à sa limite! Considérons l'exemple suivant, qu'arriverait-il à notre `Task` si nous ajoutions une chaîne de caractères **GIGANTESQUE** ?
+Avec Controls, les analystes en QA, les designers ou tout autre intervenant peuvent pousser le composant à sa limite ! Considérons l'exemple suivant, qu'arriverait-il à notre `Task` si nous ajoutions une chaîne de caractères **GIGANTESQUE** ?
 
 ![Oh non! le contenu à l'extrême droite est coupé](/intro-to-storybook/task-edge-case-7-0.png)
 
-Ce n'est pas correct! Il semble que le texte déborde les limites du composant Task.
+Ce n'est pas correct ! Il semble que le texte déborde les limites du composant Task.
 
 Controls nous a permis de vérifier rapidement les différentes entrées d'un composant --dans ce cas, une longue chaîne. Cela réduit le travail nécessaire pour découvrir les problèmes d'UI.
 
@@ -92,7 +92,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 ![C'est mieux.](/intro-to-storybook/edge-case-solved-with-controls-7-0.png)
 
-Problème résolu! Le texte est maintenant tronqué lorsqu'il atteint la limite de la zone de la tâche grâce à une belle ellipse.
+Problème résolu ! Le texte est maintenant tronqué lorsqu'il atteint la limite de la zone de la tâche grâce à une belle ellipse.
 
 ### Ajouter une nouvelle story pour éviter les régressions
 
@@ -122,7 +122,7 @@ Nous pouvons maintenant reproduire et travailler sur ce cas limite avec facilit�
   />
 </video>
 
-Si nous faisons un [test visuel](/intro-to-storybook/react/fr/test/), nous serons également informés si la solution elliptique se brise. Les cas limites sont susceptibles d'être oubliés sans la couverture de test!
+Si nous faisons un [test visuel](/intro-to-storybook/react/fr/test/), nous serons également informés si la solution elliptique se brise. Les cas limites sont susceptibles d'être oubliés sans la couverture de test !
 
 <div class="aside">
 
