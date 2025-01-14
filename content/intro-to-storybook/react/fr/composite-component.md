@@ -110,7 +110,7 @@ export const Empty = {
 
 <div class="aside">
 
-💡 Les [**Décorateurs**](https://storybook.js.org/docs/writing-stories/decorators) sont un moyen de fournir des enveloppes arbitraires aux stories. Dans ce cas, nous utilisons une clé de décorateur dans l'export par défaut pour ajouter une `margin` autour du composant rendu. Ils peuvent également être utilisés pour encapsuler des stories dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte React.
+💡 Les [**décorateurs**](https://storybook.js.org/docs/writing-stories/decorators) sont un moyen de fournir des enveloppes arbitraires aux stories. Dans ce cas, nous utilisons une clé de décorateur dans l'export par défaut pour ajouter une `margin` autour du composant rendu. Ils peuvent également être utilisés pour encapsuler des stories dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte React.
 
 </div>
 
