@@ -32,23 +32,16 @@ yarn
 Maintenant, nous pouvons vérifier rapidement que les différents environnements de notre application fonctionnent correctement:
 
 ```shell:clipboard=false
-# Run the test runner (Jest) in a terminal:
-yarn test --watchAll
-
 # Start the component explorer on port 6006:
 yarn storybook
 
-# Run the frontend app proper on port 3000:
-yarn start
+# Run the frontend app proper on port 5173:
+yarn dev
 ```
 
-<div class="aside">
-💡 Nous avons ajouté le drapeau <code>--watchAll</code> à notre commande de test, pour s'assurer que tous les tests sont effectués. Pendant que vous progressez dans ce tutoriel, vous serez exposés à différents scénarios de test. Vous pouvez aussi ajouter ce drapeau à votre script de test dans votre <code>package.json</code> .
-</div>
+Les principales modalités de notre application frontend : développement de composants (Storybook) et l'application elle-même.
 
-Notre application front-end se compose de trois modules: test automatisé (Jest), développement de composants (Storybook) et l'application elle-même.
-
-![les 3 modules](/intro-to-storybook/app-three-modalities.png)
+![Modalités principales](/intro-to-storybook/app-main-modalities-react.png)
 
 Selon la partie de l'application sur laquelle vous travaillez, vous voudriez peut-être exécuter un ou plusieurs de ces modules simultanément. Comme nous nous concentrerons actuellement sur la création d'un seul composant d'UI, nous continuerons à exécuter Storybook.
 

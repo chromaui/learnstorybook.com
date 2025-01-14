@@ -43,14 +43,14 @@ Commencez par créer une nouvelle branche pour ce changement:
 git checkout -b change-task-background
 ```
 
-Modifiez `src/components/Task.js` comme suit:
+Modifiez `src/components/Task.jsx` comme suit:
 
-```diff:title=src/components/Task.js
+```diff:title=src/components/Task.jsx
 export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
   return (
     <div className={`list-item ${state}`}>
       <label
-        htmlFor="checked"
+        htmlFor={`archiveTask-${id}`}
         aria-label={`archiveTask-${id}`}
         className="checkbox"
       >
@@ -67,12 +67,13 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
         />
       </label>
 
-      <label htmlFor="title" aria-label={title} className="title">
+      <label htmlFor={`title-${id}`} aria-label={title} className="title">
         <input
           type="text"
           value={title}
           readOnly={true}
           name="title"
+          id={`title-${id}`}
           placeholder="Input title"
 +         style={{ backgroundColor: 'red' }}
         />
@@ -96,7 +97,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 Cela donne une nouvelle couleur de fond pour l'objet.
 
-![Changement de fond de la tâche](/intro-to-storybook/chromatic-task-change.png)
+![Changement de fond de la tâche](/intro-to-storybook/chromatic-task-change-7-0.png)
 
 Ajoutez le fichier:
 
