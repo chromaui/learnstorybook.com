@@ -330,15 +330,15 @@ Regardez votre Storybook, et vous verrez que la story `error` fonctionne doréna
   />
 </video>
 
-## Tests d'intéraction
+## Tests des composants
 
 Jusque là, nous avons été capable de construire une application fonctionnelle, en construisant de simples composants jusqu'à un écran, en testant continuellement les changements grâce à nos stories. Mais chaque nouvelle story nécessite aussi une vérification manuelle sur les autres stories, pour s'assurer que l'interface utilisateur n'a pas été changé. Ceci donne beaucoup de travail supplémentaire.
 
 Ne pouvons-nous pas automatiser ce flux et tester nos interactions entre les composants de manière automatique?
 
-### Ecrire un test d'interaction en utilisant la fonction play
+### Écrire un test de composant en utilisant la fonction play
 
-La fonction de Storybook [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) et [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) nous aide à faire des tests d'interactions. Une fonction play inclue de petits exemples de code qui s'exécutent après que les stories se rendent.
+La fonction [`play`](https://storybook.js.org/docs/writing-stories/play-function) de Storybook et [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) nous aident avec cela. Une fonction play inclut de petits extraits de code qui s'exécutent après le rendu de la story.
 
 La fonction play nous aide à vérifier les changements d'UI quand les tâches sont mises à jour. Elle utilise les API du DOM, agnostiques du type de librairie utilisé, ce qui signifie que nous pouvons écrire des stories avec cette fonction pour interagir avec l'UI et simuler des actions utilisateurs, quelque soit la librarie front utilisée.
 
