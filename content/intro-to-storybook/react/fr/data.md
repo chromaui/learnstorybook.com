@@ -83,10 +83,11 @@ export default store;
 
 Ensuite, mettons à jour le composant `TaskList` pour se connecter au store Redux et rendre les tâches qui nous intéressent:
 
-```js:title=src/components/TaskList.js
-import React from 'react';
+```jsx:title=src/components/TaskList.jsx
 import Task from './Task';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import { updateTaskState } from '../lib/store';
 
 export default function TaskList() {
@@ -287,18 +288,20 @@ Empty.decorators = [
 ```
 
 <div class="aside">
-💡 <code>excludeStories</code> est un champ de la configuration Storybook qui empêche notre état simulé d'être traité comme une story. Vous pouvez en savoir plus sur ce champ dans la <a href="https://storybook.js.org/docs/react/api/csf">documentation Storybook</a>.
+
+💡 `excludeStories` est un champ de la configuration Storybook qui empêche notre état simulé d'être traité comme une story. Vous pouvez en savoir plus sur ce champ dans la [documentation Storybook](https://storybook.js.org/docs/api/csf).
+
 </div>
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-4-optimized.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0-optimized.mp4"
     type="video/mp4"
   />
 </video>
 
 <div class="aside">
-💡 N'oubliez pas de commiter vos changements avec git!
+💡 N'oubliez pas de commiter vos changements avec git !
 </div>
 
 Félicitations ! Nous sommes de nouveau opérationnel, notre Storybook fonctionne, et nous sommes capables de récupérer de la donnée à travers un composant connecté. Dans le prochain chapitre, nous utiliserons ce que nous avons appris and nous l'appliquerons à un écran.

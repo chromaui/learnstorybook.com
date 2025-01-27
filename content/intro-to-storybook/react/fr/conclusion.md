@@ -3,10 +3,11 @@ title: 'Conclusion'
 description: 'Combinez toutes vos connaissances et apprenez plus de techniques de Storybook'
 ---
 
-Félicitations! Vous avez créé votre premiere interface utilisateur dans Storybook. En cours de route, vous avez appris à construire, assembler, tester et déployer des composants graphiques. Si vous avez suivi les étapes, votre projet et votre Storybook déployé devraient ressembler à ceci:
+Félicitations ! Vous avez créé votre premiere interface utilisateur dans Storybook. En cours de route, vous avez appris à construire, assembler, tester et déployer des composants graphiques. Si vous avez suivi les étapes, votre projet et votre Storybook déployé devraient ressembler à ceci :
 
 [📕 **GitHub repo: chromaui/learnstorybook-code**](https://github.com/chromaui/learnstorybook-code)
 <br/>
+
 [🌎 **Storybook déployé**](https://master--5ccbe484c994280020b6d128.chromatic.com)
 
 Storybook est un outil puissant pour React, React Native, Vue, Angular, Svelte et bien d'autres. Il dispose d'une communauté de développeurs florissante et d'une multitude d'addons. Cette introduction décrit brièvement une infime partie de ce qu'il est possible de faire. Nous sommes persuadés qu'une fois que vous aurez adopté Storybook, vous serez impressionné de voir comme il est fructueux de créer des UI durables.

@@ -113,12 +113,15 @@ const store = configureStore({
 export default store;
 ```
 
-Maintenant que nous avons mis à jour notre store pour récupérer les données de l'API et que nous gérons les différents états de notre application, nous pouvons créer `InboxScreen.js` dans le dossier `src/components`:
+Maintenant que nous avons mis à jour notre store pour récupérer les données de l'API et que nous gérons les différents états de notre application, nous pouvons créer `InboxScreen.jsx` dans le dossier `src/components`:
 
-```js:title=src/components/InboxScreen.js
-import React, { useEffect } from 'react';
+```jsx:title=src/components/InboxScreen.jsx
+import { useEffect } from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
+
 import { fetchTasks } from '../lib/store';
+
 import TaskList from './TaskList';
 
 export default function InboxScreen() {
@@ -154,9 +157,12 @@ export default function InboxScreen() {
 
 Nous avons aussi besoin de changer le composant `App` pour rendre le `InboxScreen` (nous utiliserons à la fin un routeur pour choisir le bon écran, mais ne nous inquiétons pas de cela ici):
 
-```diff:title=src/App.js
-- import logo from './logo.svg';
-- import './App.css';
+```diff:title=src/App.jsx
+- import { useState } from 'react'
+- import reactLogo from './assets/react.svg'
+- import viteLogo from '/vite.svg'
+- import './App.css'
+
 + import './index.css';
 + import store from './lib/store';
 
@@ -164,22 +170,29 @@ Nous avons aussi besoin de changer le composant `App` pour rendre le `InboxScree
 + import InboxScreen from './components/InboxScreen';
 
 function App() {
+- const [count, setCount] = useState(0)
   return (
 -   <div className="App">
--     <header className="App-header">
--       <img src={logo} className="App-logo" alt="logo" />
--       <p>
--         Edit <code>src/App.js</code> and save to reload.
--       </p>
--       <a
--         className="App-link"
--         href="https://reactjs.org"
--         target="_blank"
--         rel="noopener noreferrer"
--       >
--         Learn React
+-     <div>
+-       <a href="https://vitejs.dev" target="_blank">
+-         <img src={viteLogo} className="logo" alt="Vite logo" />
 -       </a>
--     </header>
+-       <a href="https://reactjs.org" target="_blank">
+-         <img src={reactLogo} className="logo react" alt="React logo" />
+-       </a>
+-     </div>
+-     <h1>Vite + React</h1>
+-     <div className="card">
+-       <button onClick={() => setCount((count) => count + 1)}>
+-         count is {count}
+-       </button>
+-       <p>
+-         Edit <code>src/App.jsx</code> and save to test HMR
+-       </p>
+-     </div>
+-     <p className="read-the-docs">
+-       Click on the Vite and React logos to learn more
+-     </p>
 -   </div>
 +   <Provider store={store}>
 +     <InboxScreen />
@@ -191,11 +204,9 @@ export default App;
 
 Cependant, c'est dans le rendu de la story dans Storybook que les choses deviennent intéressantes.
 
-Comme nous l'avons vu précédemment, le composant `TaskList` est un composant **connecté** et se fonde sur le store Redux pour rendre ses tâches. Comme `InboxScreen` est aussi un composant connecté, nous allons faire un travail similaire et fournir un store à la story. Voici comment rendre les stories dans `InboxScreen.stories.js`:
+Comme nous l'avons vu précédemment, le composant `TaskList` est un composant **connecté** et se fonde sur le store Redux pour rendre ses tâches. Comme `InboxScreen` est aussi un composant connecté, nous allons faire un travail similaire et fournir un store à la story. Voici comment rendre les stories dans `InboxScreen.stories.jsx`:
 
-```js:title=src/components/InboxScreen.stories.js
-import React from 'react';
-
+```jsx:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
 import store from '../lib/store';
 
@@ -205,12 +216,12 @@ export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+  tags: ['autodocs'],
 };
 
-const Template = () => <InboxScreen />;
+export const Default = {};
 
-export const Default = Template.bind({});
-export const Error = Template.bind({});
+export const Error = {};
 ```
 
 Nous pouvons constater une erreur dans la story de `error`. Au lieu d'afficher le bon état, il montre une liste de tâches. Une manière de corriger ce problème est de fournir une version simulée (qu'on appelle un "mock") de chaque étape, comme nous avons fait dans le chapitre précédent. Ici, pour nous aider à corriger cette erreur, nous allons utiliser une librairie de simulation d'API bien connue, grâce à un addon de Storybook.
@@ -234,77 +245,79 @@ Ensuite, nous devons mettre à jour `.storybook/preview.js` et les initialiser:
 ```diff:title=.storybook/preview.js
 import '../src/index.css';
 
-+ // Registers the msw addon
-+ import { initialize, mswDecorator } from 'msw-storybook-addon';
+// Registers the msw addon
++ import { initialize, mswLoader } from 'msw-storybook-addon';
 
-+ // Initialize MSW
+// Initialize MSW
 + initialize();
 
-+ // Provide the MSW addon decorator globally
-+ export const decorators = [mswDecorator];
-
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-export const parameters = {
-  actions: { argTypesRegex: '^on[A-Z].*' },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
+/** @type { import('@storybook/react').Preview } */
+const preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
     },
   },
++ loaders: [mswLoader],
 };
+
+export default preview;
 ```
 
 Enfin, mettez à jour les stories de `InboxScreen` en incluant un [paramètre](https://storybook.js.org/docs/react/writing-stories/parameters) qui simule les appels à l'API:
 
-```diff:title=src/components/InboxScreen.stories.js
-import React from 'react';
-
+```diff:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
+
 import store from '../lib/store';
-+ import { rest } from 'msw';
+
++ import { http, HttpResponse } from 'msw';
+
 + import { MockedState } from './TaskList.stories';
+
 import { Provider } from 'react-redux';
 
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+  tags: ['autodocs'],
 };
 
-const Template = () => <InboxScreen />;
-
-export const Default = Template.bind({});
-+ Default.parameters = {
+export const Default = {
++ parameters: {
 +   msw: {
 +     handlers: [
-+       rest.get(
-+         'https://jsonplaceholder.typicode.com/todos?userId=1',
-+         (req, res, ctx) => {
-+           return res(ctx.json(MockedState.tasks));
-+         }
-+       ),
++       http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
++         return HttpResponse.json(MockedState.tasks);
++       }),
 +     ],
 +   },
-+ };
++ },
+};
 
-export const Error = Template.bind({});
-+ Error.parameters = {
+export const Error = {
++ parameters: {
 +   msw: {
 +     handlers: [
-+       rest.get(
-+         'https://jsonplaceholder.typicode.com/todos?userId=1',
-+         (req, res, ctx) => {
-+           return res(ctx.status(403));
-+         }
-+       ),
++       http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
++         return new HttpResponse(null, {
++           status: 403,
++         });
++       }),
 +     ],
 +   },
-+ };
++ },
+};
 ```
 
 <div class="aside">
-💡 En complément, une autre approche valable serait de passer la donnée à travers la hiérarchie des composants, d'autant plus si vous utilisez <a href="http://graphql.org/">GraphQL</a>. C'est comment nous avons construit <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a> à travers plus de 800 stories.
+
+💡 En complément, une autre approche valable serait de passer la donnée à travers la hiérarchie des composants, d'autant plus si vous utilisez [GraphQL](http://graphql.org/). C'est comment nous avons construit [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook) à travers plus de 800 stories.
 
 </div>
 
@@ -312,20 +325,20 @@ Regardez votre Storybook, et vous verrez que la story `error` fonctionne doréna
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized.mp4"
+    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized-7.0.mp4"
     type="video/mp4"
   />
 </video>
 
-## Tests d'intéraction
+## Tests des composants
 
 Jusque là, nous avons été capable de construire une application fonctionnelle, en construisant de simples composants jusqu'à un écran, en testant continuellement les changements grâce à nos stories. Mais chaque nouvelle story nécessite aussi une vérification manuelle sur les autres stories, pour s'assurer que l'interface utilisateur n'a pas été changé. Ceci donne beaucoup de travail supplémentaire.
 
 Ne pouvons-nous pas automatiser ce flux et tester nos interactions entre les composants de manière automatique?
 
-### Ecrire un test d'interaction en utilisant la fonction play
+### Écrire un test de composant en utilisant la fonction play
 
-La fonction de Storybook [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) et [`@storybook/addon-interactions`](https://storybook.js.org/docs/react/writing-tests/interaction-testing) nous aide à faire des tests d'interactions. Une fonction play inclue de petits exemples de code qui s'exécutent après que les stories se rendent.
+La fonction [`play`](https://storybook.js.org/docs/writing-stories/play-function) de Storybook et [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) nous aident avec cela. Une fonction play inclut de petits extraits de code qui s'exécutent après le rendu de la story.
 
 La fonction play nous aide à vérifier les changements d'UI quand les tâches sont mises à jour. Elle utilise les API du DOM, agnostiques du type de librairie utilisé, ce qui signifie que nous pouvons écrire des stories avec cette fonction pour interagir avec l'UI et simuler des actions utilisateurs, quelque soit la librarie front utilisée.
 
@@ -333,46 +346,42 @@ L'addon `@storybook/addon-interactions` nous aide à visualiser nos tests dans S
 
 Regardons cela! Mettez à jour votre nouvelle story `InboxScreen`, et créer les interactions avec le composant en ajoutant le code suivant:
 
-```diff:title=src/components/InboxScreen.stories.js
-import React from 'react';
-
+```diff:title=src/components/InboxScreen.stories.jsx
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
-import { rest } from 'msw';
+
+import { http, HttpResponse } from 'msw';
+
 import { MockedState } from './TaskList.stories';
+
 import { Provider } from 'react-redux';
 
 + import {
 +  fireEvent,
-+  within,
 +  waitFor,
++  within,
 +  waitForElementToBeRemoved
-+ } from '@storybook/testing-library';
++ } from '@storybook/test';
 
 export default {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
+  tags: ['autodocs'],
 };
 
-const Template = () => <InboxScreen />;
-
-export const Default = Template.bind({});
-Default.parameters = {
-  msw: {
-    handlers: [
-      rest.get(
-        'https://jsonplaceholder.typicode.com/todos?userId=1',
-        (req, res, ctx) => {
-          return res(ctx.json(MockedState.tasks));
-        }
-      ),
-    ],
+export const Default = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
+          return HttpResponse.json(MockedState.tasks);
+        }),
+      ],
+    },
   },
-};
-
-+ Default.play = async ({ canvasElement }) => {
++ play: async ({ canvasElement }) => {
 +   const canvas = within(canvasElement);
 +   // Waits for the component to transition from the loading state
 +   await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
@@ -383,28 +392,35 @@ Default.parameters = {
 +     // Simulates pinning the third task
 +     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
 +   });
-+ };
++ },
+};
 
-export const Error = Template.bind({});
-Error.parameters = {
-  msw: {
-    handlers: [
-      rest.get(
-        'https://jsonplaceholder.typicode.com/todos?userId=1',
-        (req, res, ctx) => {
-          return res(ctx.status(403));
-        }
-       ),
-    ],
+export const Error = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
+          return new HttpResponse(null, {
+            status: 403,
+          });
+        }),
+      ],
+    },
   },
 };
 ```
+
+<div class="aside">
+
+💡 Le package `@storybook/test` remplace les packages de test `@storybook/jest` et `@storybook/testing-library`, offrant une taille de bundle plus petite et une API plus simple basée sur le package [Vitest](https://vitest.dev/).
+
+</div>
 
 Regardez la story `Default` . Cliquer sur le section `Interactions` pour voir la liste des interactions de votre fonction play de votre story.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function-6-4.mp4"
+    src="/intro-to-storybook/storybook-interactive-stories-play-function-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -440,9 +456,11 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 Les tests d'interactions avec la fonction play sont une manière fantastique de tester vos composants d'UI. Ils peuvent faire plein plus que ce que nous avons parcouru. Nous vous encourageons à lire la <a href="https://storybook.js.org/docs/react/writing-tests/interaction-testing">documentation officielle</a> pour apprendre plus à ce sujet.
-<br />
-Pour creuser encore plus les tests, vous pouvez lire <a href="/ui-testing-handbook">Le livre du test</a>. Il agrège les stratégies de tests utilisées par les équipes front reconnues afin de vous faire accélérer votre flux de développement.
+
+💡 Les tests d'interactions avec la fonction play sont une manière fantastique de tester vos composants d'UI. Ils peuvent faire plein plus que ce que nous avons parcouru. Nous vous encourageons à lire la [documentation officielle](https://storybook.js.org/docs/writing-tests/component-testing) pour en savoir plus.
+
+Pour creuser encore plus les tests, vous pouvez lire le [Guide des Tests](/ui-testing-handbook). Il agrège les stratégies de tests utilisées par les équipes front reconnues afin de vous faire accélérer votre flux de développement.
+
 </div>
 
 ![Le lanceur de test Storybook a lancé tous les tests](/intro-to-storybook/storybook-test-runner-execution.png)
@@ -465,5 +483,5 @@ Nous avons commencé du bas avec une `Task`, puis progressé avec `TaskList`, et
 Nous n'avons pas encore terminé - le travail ne s'arrête pas à la construction de l'UI. Nous devons également veiller à ce qu'elle reste durable dans le temps.
 
 <div class="aside">
-💡 N'oubliez pas de commiter vos changements avec git!
+💡 N'oubliez pas de commiter vos changements avec git !
 </div>

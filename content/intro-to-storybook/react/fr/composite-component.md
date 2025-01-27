@@ -19,13 +19,11 @@ Comme les données de `Task` peuvent être envoyées de manière asynchrone, nou
 
 ## Se préparer
 
-Un composant complexe n'est pas très différent des composants de base qu'il contient. Créez un composant `TaskList` et sa story associée: `src/components/TaskList.js` et `src/components/TaskList.stories.js`.
+Un composant complexe n'est pas très différent des composants de base qu'il contient. Créez un composant `TaskList` et sa story associée: `src/components/TaskList.jsx` et `src/components/TaskList.stories.jsx`.
 
 Commencez par une implémentation simpliste de la `TaskList`. Vous devrez importer le composant `Task` de la version précédente, puis lui passer les attributs et les actions en entrée.
 
-```js:title=src/components/TaskList.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.jsx
 import Task from './Task';
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -54,61 +52,66 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 Ensuite, créez les états de test de la `Tasklist` dans la story.
 
-```js:title=src/components/TaskList.stories.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';
+
 import * as TaskStories from './Task.stories';
 
 export default {
   component: TaskList,
   title: 'TaskList',
-  decorators: [story => <div style={{ padding: '3rem' }}>{story()}</div>],
+  decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
+  tags: ['autodocs'],
+  args: {
+    ...TaskStories.ActionsData,
+  },
 };
 
-const Template = args => <TaskList {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  // Shaping the stories through args composition.
-  // The data was inherited from the Default story in Task.stories.js.
-  tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ],
+export const Default = {
+  args: {
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in Task.stories.jsx.
+    tasks: [
+      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    ],
+  },
 };
 
-export const WithPinnedTasks = Template.bind({});
-WithPinnedTasks.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Default story.
-  tasks: [
-    ...Default.args.tasks.slice(0, 5),
-    { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-  ],
+export const WithPinnedTasks = {
+  args: {
+    tasks: [
+      ...Default.args.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
+  },
 };
 
-export const Loading = Template.bind({});
-Loading.args = {
-  tasks: [],
-  loading: true,
+export const Loading = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
 };
 
-export const Empty = Template.bind({});
-Empty.args = {
-  // Shaping the stories through args composition.
-  // Inherited data coming from the Loading story.
-  ...Loading.args,
-  loading: false,
+export const Empty = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
 <div class="aside">
-<a href="https://storybook.js.org/docs/react/writing-stories/decorators"><b>Les décorateurs</b></a> sont un moyen de fournir une encapsulation arbitraire aux stories. Dans notre cas, nous utilisons une clé (`key`) de décorateur dans l'export par défaut pour ajouter du `padding` autour du composant rendu. Ils peuvent également être utilisés pour encapsuler des stories dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte de React.
+
+💡 Les [**décorateurs**](https://storybook.js.org/docs/writing-stories/decorators) sont un moyen de fournir des enveloppes arbitraires aux stories. Dans ce cas, nous utilisons une clé de décorateur dans l'export par défaut pour ajouter une `margin` autour du composant rendu. Ils peuvent également être utilisés pour encapsuler des stories dans des "providers" - c'est-à-dire des composants de bibliothèque qui définissent le contexte React.
+
 </div>
 
 En important `TaskStories`, nous avons pu [composer](https://storybook.js.org/docs/react/writing-stories/args#args-composition) les arguments (args pour faire court) de nos stories avec un minimum d'effort. De cette façon, les données et les actions (callbacks simulés) attendues par les deux composants sont préservées.
@@ -117,7 +120,7 @@ Maintenant, regardez les nouvelles stories de la `TaskList` dans Storybook.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -126,9 +129,7 @@ Maintenant, regardez les nouvelles stories de la `TaskList` dans Storybook.
 
 Notre composant est encore rudimentaire, mais nous avons maintenant une idée des stories à travailler. Vous pensez peut-être que la présentation de la `.list-items` est trop simpliste. Vous avez raison - dans la plupart des cas, nous ne créerions pas un nouveau composant juste pour ajouter une enveloppe. Mais la **réelle complexité** du composant `TaskList` est révélée dans les cas particuliers `withPinnedTasks`, `loading`, et `empty`.
 
-```js:title=src/components/TaskList.js
-import React from 'react';
-
+```jsx:title=src/components/TaskList.jsx
 import Task from './Task';
 
 export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
@@ -169,8 +170,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === "TASK_PINNED"),
-    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">
@@ -186,7 +187,7 @@ Les balises ajoutées donnent l'interface suivante :
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-6-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -197,8 +198,7 @@ Notez la position de l'élément épinglé dans la liste. Nous voulons que l'él
 
 Au fur et à mesure que le composant grossit, le nombre de données à l'entrée augmente également. Définissez les exigences en matière de props de la `TaskList`. Comme `Task` est un composant enfant, assurez-vous de fournir des données de la bonne manière pour le rendu. Pour gagner du temps et épargner des soucis, réutilisez les `propTypes` que vous avez définis dans `Task` précédemment.
 
-```diff:title=src/components/TaskList.js
-import React from 'react';
+```diff:title=src/components/TaskList.jsx
 + import PropTypes from 'prop-types';
 
 import Task from './Task';
@@ -241,8 +241,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === "TASK_PINNED"),
-    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
+    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ];
   return (
     <div className="list-items">
@@ -269,5 +269,5 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 ```
 
 <div class="aside">
-💡 N'oubliez pas de commiter vos changements avec git!
+💡 N'oubliez pas de commiter vos changements avec git !
 </div>

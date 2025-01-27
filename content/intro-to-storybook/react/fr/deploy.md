@@ -15,7 +15,7 @@ L'exécution de `yarn build-storybook` produira un Storybook statique dans le r�
 
 ## Publier Storybook
 
-Ce tutoriel utilise <a href="https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook">Chromatic</a>, un service de publication gratuit réalisé par les mainteneurs de Storybook. Il nous permet de déployer et d'héberger notre Storybook en toute sécurité dans le cloud.
+Ce tutoriel utilise [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), un service de publication gratuit réalisé par les mainteneurs de Storybook. Il nous permet de déployer et d'héberger notre Storybook en toute sécurité dans le cloud.
 
 ### Configurer un dépôt dans GitHub
 
@@ -89,15 +89,17 @@ on: push
 
 # List of jobs
 jobs:
-  test:
-    # Operating System
+  chromatic:
+    name: 'Run Chromatic'
     runs-on: ubuntu-latest
     # Job steps
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - run: yarn
         #👇 Adds Chromatic as a step in the workflow
-      - uses: chromaui/action@v1
+      - uses: chromaui/action@latest
         # Options required for Chromatic's GitHub Action
         with:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/fr/deploy/ to obtain it
@@ -105,7 +107,11 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-<div class="aside"><p>💡 Pour des raisons de sécurité <a href="https://docs.github.com/fr/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository">les secrets de GitHub</a> n'ont pas été mentionnés. Les secrets sont des variables d'environnement sécurisées fournies par GitHub afin que vous n'ayez pas besoin de coder directement le <code>projet-token</code>.</p></div>
+<div class="aside">
+
+💡 Pour des raisons de sécurité les [secrets GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) n'ont pas été mentionnés. Les secrets sont des variables d'environnement sécurisées fournies par GitHub afin que vous n'ayez pas besoin de coder directement le `project-token`.
+
+</div>
 
 ### Commiter l'action
 
@@ -135,6 +141,6 @@ Cliquez sur le dernier build, cela doit être celui du haut.
 
 Ensuite, cliquez sur le bouton `View Storybook` pour voir la dernière version de votre Storybook.
 
-![Lien Storybook sur Chromatic](/intro-to-storybook/chromatic-build-storybook-link-6-4-optimized.png)
+![Lien Storybook sur Chromatic](/intro-to-storybook/chromatic-build-storybook-link.png)
 
 Utilisez le lien et partagez-le avec les membres de votre équipe. Ceci est utile dans le cadre du processus de développement standard d'une application ou simplement pour montrer son travail 💅.
