@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Learn how to integrate and use the popular Controls addon'
-commit: 'f89cfe0'
+commit: '17d3ab9'
 ---
 
 Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/configure/user-interface/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/integrations).
@@ -38,10 +38,25 @@ That's not right! It looks like the text overflows beyond the bounds of the Task
 
 Controls allowed us to quickly verify different inputs to a component--in this case, a long string--and reduced the work required to discover UI problems.
 
-Now let's fix the issue with overflowing by adding a style to `Task.jsx`:
+Now let's fix the issue with overflowing by adding a style to `Task.tsx`:
 
-```diff:title=src/components/Task.jsx
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+```diff:title=src/components/Task.tsx
+import type { TaskData } from '../types';
+
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+};
+
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}: TaskProps) {
   return (
     <div className={`list-item ${state}`}>
       <label
@@ -56,10 +71,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           id={`archiveTask-${id}`}
           checked={state === "TASK_ARCHIVED"}
         />
-        <span
-          className="checkbox-custom"
-          onClick={() => onArchiveTask(id)}
-        />
+        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
 
       <label htmlFor={`title-${id}`} aria-label={title} className="title">
@@ -70,10 +82,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           name="title"
           id={`title-${id}`}
           placeholder="Input title"
-+         style={{ textOverflow: 'ellipsis' }}
++         style={{ textOverflow: "ellipsis" }}
         />
       </label>
-
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
@@ -98,12 +109,12 @@ Problem solved! The text is now truncated when it reaches the boundary of the Ta
 
 In the future, we can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
 
-Add a new story for the long text case in `Task.stories.jsx`:
+Add a new story for the long text case in `Task.stories.tsx`:
 
-```js:title=src/components/Task.stories.jsx
+```js:title=src/components/Task.stories.tsx
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle = {
+export const LongTitle: Story = {
   args: {
     task: {
       ...Default.args.task,

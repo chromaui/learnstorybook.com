@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 'c70ec15'
+commit: 'f9eaeef'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -21,25 +21,34 @@ Add the necessary dependencies to your project with:
 yarn add @reduxjs/toolkit react-redux
 ```
 
-First, we’ll construct a simple Redux store that responds to actions that change the task's state in a file called `store.js` in the `src/lib` directory (intentionally kept simple):
+First, we’ll construct a simple Redux store that responds to actions that change the task's state in a file called `store.ts` in the `src/lib` directory (intentionally kept simple):
 
-```js:title=src/lib/store.js
+```ts:title=src/lib/store.ts
 /* A simple redux store/actions/reducer implementation.
  * A true app would be more complex and separated into different files.
  */
-import { configureStore, createSlice } from '@reduxjs/toolkit';
+import type { TaskData } from '../types';
+
+import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+interface TaskBoxState {
+  tasks: TaskData[];
+  status: 'idle' | 'loading' | 'failed';
+  error: string | null;
+}
 
 /*
  * The initial state of our store when the app loads.
  * Usually, you would fetch this from a server. Let's not worry about that now
  */
-const defaultTasks = [
+const defaultTasks: TaskData[] = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
   { id: '3', title: 'Something else', state: 'TASK_INBOX' },
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
-const TaskBoxData = {
+
+const TaskBoxData: TaskBoxState = {
   tasks: defaultTasks,
   status: 'idle',
   error: null,
@@ -54,11 +63,13 @@ const TasksSlice = createSlice({
   name: 'taskbox',
   initialState: TaskBoxData,
   reducers: {
-    updateTaskState: (state, action) => {
-      const { id, newTaskState } = action.payload;
-      const task = state.tasks.findIndex((task) => task.id === id);
-      if (task >= 0) {
-        state.tasks[task].state = newTaskState;
+    updateTaskState: (
+      state,
+      action: PayloadAction<{ id: string; newTaskState: TaskData['state'] }>
+    ) => {
+      const task = state.tasks.find((task) => task.id === action.payload.id);
+      if (task) {
+        task.state = action.payload.newTaskState;
       }
     },
   },
@@ -72,46 +83,48 @@ export const { updateTaskState } = TasksSlice.actions;
  * Read more about Redux's configureStore in the docs:
  * https://redux-toolkit.js.org/api/configureStore
  */
+
 const store = configureStore({
   reducer: {
     taskbox: TasksSlice.reducer,
   },
 });
 
+// Define RootState and AppDispatch types
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export default store;
 ```
 
 Then we’ll update our `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
-```jsx:title=src/components/TaskList.jsx
+```tsx:title=src/components/TaskList.tsx
 import Task from './Task';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateTaskState } from '../lib/store';
+import { updateTaskState, RootState, AppDispatch } from '../lib/store';
 
 export default function TaskList() {
   // We're retrieving our state from the store
-  const tasks = useSelector((state) => {
+  const tasks = useSelector((state: RootState) => {
     const tasksInOrder = [
       ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
       ...state.taskbox.tasks.filter((t) => t.state !== 'TASK_PINNED'),
     ];
     const filteredTasks = tasksInOrder.filter(
-      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+      (t) => t.state === "TASK_INBOX" || t.state === 'TASK_PINNED'
     );
     return filteredTasks;
   });
-
-  const { status } = useSelector((state) => state.taskbox);
-
-  const dispatch = useDispatch();
-
-  const pinTask = (value) => {
+  const { status } = useSelector((state: RootState) => state.taskbox);
+  const dispatch = useDispatch<AppDispatch>();
+  const pinTask = (value: string) => {
     // We're dispatching the Pinned event back to our store
     dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
   };
-  const archiveTask = (value) => {
+  const archiveTask = (value: string) => {
     // We're dispatching the Archive event back to our store
     dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
   };
@@ -123,9 +136,9 @@ export default function TaskList() {
       </span>
     </div>
   );
-  if (status === 'loading') {
+  if (status === "loading") {
     return (
-      <div className="list-items" data-testid="loading" key={"loading"}>
+      <div className="list-items" data-testid="loading" key="loading">
         {LoadingRow}
         {LoadingRow}
         {LoadingRow}
@@ -137,7 +150,7 @@ export default function TaskList() {
   }
   if (tasks.length === 0) {
     return (
-      <div className="list-items" key={"empty"} data-testid="empty">
+      <div className="list-items" key="empty" data-testid="empty">
         <div className="wrapper-message">
           <span className="icon-check" />
           <p className="title-message">You have no tasks</p>
@@ -148,13 +161,13 @@ export default function TaskList() {
   }
 
   return (
-    <div className="list-items" data-testid="success" key={"success"}>
+    <div className="list-items" data-testid="success" key="success">
       {tasks.map((task) => (
         <Task
           key={task.id}
           task={task}
-          onPinTask={(task) => pinTask(task)}
-          onArchiveTask={(task) => archiveTask(task)}
+          onPinTask={pinTask}
+          onArchiveTask={archiveTask}
         />
       ))}
     </div>
@@ -162,7 +175,7 @@ export default function TaskList() {
 }
 ```
 
-Now that we have some actual data populating our component, obtained from the Redux store, we could have wired it to `src/App.js` and render the component there. But for now, let's hold off doing that and continue on our component-driven journey.
+Now that we have some actual data populating our component, obtained from the Redux store, we could have wired it to `src/App.tsx` and render the component there. But for now, let's hold off doing that and continue on our component-driven journey.
 
 Don't worry about it. We'll take care of it in the next chapter.
 
@@ -174,7 +187,11 @@ Our Storybook stories have stopped working with this change because our `Tasklis
 
 We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
 
-```jsx:title=src/components/TaskList.stories.jsx
+```tsx:title=src/components/TaskList.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
+import type { TaskData } from '../types';
+
 import TaskList from './TaskList';
 
 import * as TaskStories from './Task.stories';
@@ -192,18 +209,24 @@ export const MockedState = {
     { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
     { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
     { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ],
+  ] as TaskData[],
   status: 'idle',
   error: null,
 };
 
 // A super-simple mock of a redux store
-const Mockstore = ({ taskboxState, children }) => (
+const Mockstore = ({
+  taskboxState,
+  children,
+}: {
+  taskboxState: typeof MockedState;
+  children: React.ReactNode;
+}) => (
   <Provider
     store={configureStore({
       reducer: {
         taskbox: createSlice({
-          name: 'taskbox',
+          name: "taskbox",
           initialState: taskboxState,
           reducers: {
             updateTaskState: (state, action) => {
@@ -222,24 +245,27 @@ const Mockstore = ({ taskboxState, children }) => (
   </Provider>
 );
 
-export default {
+const meta = {
   component: TaskList,
   title: 'TaskList',
   decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
   tags: ['autodocs'],
   excludeStories: /.*MockedState$/,
-};
+} satisfies Meta<typeof TaskList>;
 
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   decorators: [
     (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
   ],
 };
 
-export const WithPinnedTasks = {
+export const WithPinnedTasks: Story = {
   decorators: [
     (story) => {
-      const pinnedtasks = [
+      const pinnedtasks: TaskData[] = [
         ...MockedState.tasks.slice(0, 5),
         { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
       ];
@@ -258,7 +284,7 @@ export const WithPinnedTasks = {
   ],
 };
 
-export const Loading = {
+export const Loading: Story = {
   decorators: [
     (story) => (
       <Mockstore
@@ -273,7 +299,7 @@ export const Loading = {
   ],
 };
 
-export const Empty = {
+export const Empty: Story = {
   decorators: [
     (story) => (
       <Mockstore
