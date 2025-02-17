@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: '2275632'
+commit: '6262d7f'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -13,46 +13,55 @@ In this chapter, we continue to increase the sophistication by combining compone
 
 As our app is straightforward, the screen we'll build is pretty trivial, simply fetching data from a remote API, wrapping the `TaskList` component (which supplies its own data from Redux), and pulling a top-level `error` field out of Redux.
 
-We'll start by updating our Redux store (in `src/lib/store.js`) to connect to a remote API and handle the various states for our application (i.e., `error`, `succeeded`):
+We'll start by updating our Redux store (in `src/lib/store.ts`) to connect to a remote API and handle the various states for our application (i.e., `error`, `succeeded`):
 
-```diff:title=src/lib/store.js
+```ts:title=src/lib/store.ts
 /* A simple redux store/actions/reducer implementation.
  * A true app would be more complex and separated into different files.
  */
+import type { TaskData } from '../types';
+
 import {
   configureStore,
   createSlice,
-+ createAsyncThunk,
+  createAsyncThunk,
+  PayloadAction,
 } from '@reduxjs/toolkit';
+
+interface TaskBoxState {
+  tasks: TaskData[];
+  status: 'idle' | 'loading' | 'failed' | 'succeeded';
+  error: string | null;
+}
 
 /*
  * The initial state of our store when the app loads.
  * Usually, you would fetch this from a server. Let's not worry about that now
  */
-
-const TaskBoxData = {
+const TaskBoxData: TaskBoxState = {
   tasks: [],
   status: 'idle',
   error: null,
 };
-
 /*
  * Creates an asyncThunk to fetch tasks from a remote endpoint.
  * You can read more about Redux Toolkit's thunks in the docs:
  * https://redux-toolkit.js.org/api/createAsyncThunk
  */
-+ export const fetchTasks = createAsyncThunk('todos/fetchTodos', async () => {
-+   const response = await fetch(
-+     'https://jsonplaceholder.typicode.com/todos?userId=1'
-+   );
-+   const data = await response.json();
-+   const result = data.map((task) => ({
-+     id: `${task.id}`,
-+     title: task.title,
-+     state: task.completed ? 'TASK_ARCHIVED' : 'TASK_INBOX',
-+   }));
-+   return result;
-+ });
+export const fetchTasks = createAsyncThunk('taskbox/fetchTasks', async () => {
+  const response = await fetch(
+    'https://jsonplaceholder.typicode.com/todos?userId=1'
+  );
+  const data = await response.json();
+  const result = data.map(
+    (task: { id: number; title: string; completed: boolean }) => ({
+      id: `${task.id}`,
+      title: task.title,
+      state: task.completed ? 'TASK_ARCHIVED' : 'TASK_INBOX',
+    })
+  );
+  return result;
+});
 
 /*
  * The store is created here.
@@ -63,11 +72,13 @@ const TasksSlice = createSlice({
   name: 'taskbox',
   initialState: TaskBoxData,
   reducers: {
-    updateTaskState: (state, action) => {
-      const { id, newTaskState } = action.payload;
-      const task = state.tasks.findIndex((task) => task.id === id);
-      if (task >= 0) {
-        state.tasks[task].state = newTaskState;
+    updateTaskState: (
+      state,
+      action: PayloadAction<{ id: string; newTaskState: TaskData['state'] }>
+    ) => {
+      const task = state.tasks.find((task) => task.id === action.payload.id);
+      if (task) {
+        task.state = action.payload.newTaskState;
       }
     },
   },
@@ -75,25 +86,25 @@ const TasksSlice = createSlice({
    * Extends the reducer for the async actions
    * You can read more about it at https://redux-toolkit.js.org/api/createAsyncThunk
    */
-+  extraReducers(builder) {
-+    builder
-+    .addCase(fetchTasks.pending, (state) => {
-+      state.status = 'loading';
-+      state.error = null;
-+      state.tasks = [];
-+    })
-+    .addCase(fetchTasks.fulfilled, (state, action) => {
-+      state.status = 'succeeded';
-+      state.error = null;
-+      // Add any fetched tasks to the array
-+      state.tasks = action.payload;
-+     })
-+    .addCase(fetchTasks.rejected, (state) => {
-+      state.status = 'failed';
-+      state.error = "Something went wrong";
-+      state.tasks = [];
-+    });
-+ },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchTasks.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+        state.tasks = [];
+      })
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.error = null;
+        // Add any fetched tasks to the array
+        state.tasks = action.payload;
+      })
+      .addCase(fetchTasks.rejected, (state) => {
+        state.status = 'failed';
+        state.error = 'Something went wrong';
+        state.tasks = [];
+      });
+  },
 });
 
 // The actions contained in the slice are exported for usage in our components
@@ -110,24 +121,28 @@ const store = configureStore({
   },
 });
 
+// Define RootState and AppDispatch types
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export default store;
 ```
 
-Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.jsx` in the `src/components` directory:
+Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.tsx` in the `src/components` directory:
 
-```jsx:title=src/components/InboxScreen.jsx
+```tsx:title=src/components/InboxScreen.tsx
 import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchTasks } from '../lib/store';
+import { AppDispatch, fetchTasks, RootState } from '../lib/store';
 
-import TaskList from './TaskList';
+import TaskList from "./TaskList";
 
 export default function InboxScreen() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   // We're retrieving the error field from our updated store
-  const { error } = useSelector((state) => state.taskbox);
+  const { error } = useSelector((state: RootState) => state.taskbox);
   // The useEffect triggers the data fetching when the component is mounted
   useEffect(() => {
     dispatch(fetchTasks());
@@ -153,11 +168,12 @@ export default function InboxScreen() {
     </div>
   );
 }
+
 ```
 
 We also need to change our `App` component to render the `InboxScreen` (eventually, we would use a router to choose the correct screen, but let's not worry about that here):
 
-```diff:title=src/App.jsx
+```diff:title=src/App.tsx
 - import { useState } from 'react'
 - import reactLogo from './assets/react.svg'
 - import viteLogo from '/vite.svg'
@@ -204,24 +220,30 @@ export default App;
 
 However, where things get interesting is in rendering the story in Storybook.
 
-As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.jsx`:
+As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.tsx`:
 
-```jsx:title=src/components/InboxScreen.stories.jsx
+```tsx:title=src/components/InboxScreen.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
 import InboxScreen from './InboxScreen';
+
 import store from '../lib/store';
 
 import { Provider } from 'react-redux';
 
-export default {
+const meta = {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof InboxScreen>;
 
-export const Default = {};
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Error = {};
+export const Default: Story = {};
+
+export const Error: Story = {};
 ```
 
 We can quickly spot an issue with the `error` story. Instead of displaying the right state, it shows a list of tasks. One way to sidestep this issue would be to provide a mocked version for each state, similar to what we did in the last chapter. Instead, we'll use a well-known API mocking library alongside a Storybook addon to help us solve this issue.
@@ -240,20 +262,19 @@ In your terminal, run the following command to generate a generic service worker
 yarn init-msw
 ```
 
-Then, we'll need to update our `.storybook/preview.js` and initialize them:
+Then, we'll need to update our `.storybook/preview.ts` and initialize them:
 
-```diff:title=.storybook/preview.js
+```diff:title=.storybook/preview.ts
+import type { Preview } from '@storybook/react';
+
+import { initialize, mswLoader } from 'msw-storybook-addon';
+
 import '../src/index.css';
 
 // Registers the msw addon
-+ import { initialize, mswLoader } from 'msw-storybook-addon';
+initialize();
 
-// Initialize MSW
-+ initialize();
-
-//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-/** @type { import('@storybook/react').Preview } */
-const preview = {
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -262,7 +283,7 @@ const preview = {
       },
     },
   },
-+ loaders: [mswLoader],
+  loaders: [mswLoader],
 };
 
 export default preview;
@@ -270,7 +291,9 @@ export default preview;
 
 Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/writing-stories/parameters) that mocks the remote API calls:
 
-```diff:title=src/components/InboxScreen.stories.jsx
+```diff:title=src/components/InboxScreen.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
@@ -281,14 +304,17 @@ import store from '../lib/store';
 
 import { Provider } from 'react-redux';
 
-export default {
+const meta = {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof InboxScreen>;
 
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
 + parameters: {
 +   msw: {
 +     handlers: [
@@ -300,7 +326,7 @@ export const Default = {
 + },
 };
 
-export const Error = {
+export const Error: Story = {
 + parameters: {
 +   msw: {
 +     handlers: [
@@ -346,7 +372,9 @@ The `@storybook/addon-interactions` helps us visualize our tests in Storybook, p
 
 Let's see it in action! Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
 
-```diff:title=src/components/InboxScreen.stories.jsx
+```diff:title=src/components/InboxScreen.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
@@ -364,14 +392,17 @@ import { Provider } from 'react-redux';
 +  waitForElementToBeRemoved
 + } from '@storybook/test';
 
-export default {
+const meta = {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof InboxScreen>;
 
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   parameters: {
     msw: {
       handlers: [
@@ -395,7 +426,7 @@ export const Default = {
 + },
 };
 
-export const Error = {
+export const Error: Story = {
   parameters: {
     msw: {
       handlers: [

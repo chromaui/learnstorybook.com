@@ -2,7 +2,7 @@
 title: 'Ligação de dados'
 tocTitle: 'Dados'
 description: 'Aprenda a efetuar a ligação de dados ao seu componente de interface de utilizador'
-commit: 'c70ec15'
+commit: 'f9eaeef'
 ---
 
 Até agora foram criados componentes sem estado e isolados, o que é fantástico para Storybook, mas em última análise não são úteis até que for fornecido algum tipo de dados da aplicação

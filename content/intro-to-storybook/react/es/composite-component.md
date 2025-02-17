@@ -2,7 +2,7 @@
 title: 'Ensamblar un componente compuesto'
 tocTitle: 'Componente Compuesto'
 description: 'Ensamblar un componente compuesto a partir de componentes simples'
-commit: '429780a'
+commit: 'cfa25b6'
 ---
 
 En el capítulo anterior, construimos nuestro primer componente; en este capítulo, ampliamos lo que aprendimos para construir TaskList, una lista de Tasks. Vamos a combinar componentes y ver qué sucede cuando introducimos más complejidad.
@@ -127,7 +127,7 @@ Ahora hay que revisar Storybook para ver las nuevas historias de `TaskList`.
 
 ## Construir los estados
 
-Nuestro componente todavía es rudimentario,  pero ahora tenemos una idea de las historias en las que trabajaremos. Puede que estés pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón: en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **verdadera complejidad** del componente `TaskList` se revela en los casos extremos `withPinnedTasks`, `loading`, y `empty`.
+Nuestro componente todavía es rudimentario, pero ahora tenemos una idea de las historias en las que trabajaremos. Puede que estés pensando que el envoltorio de `.list-items` es demasiado simplista. Tienes razón: en la mayoría de los casos no crearíamos un nuevo componente sólo para añadir un envoltorio. Pero la **verdadera complejidad** del componente `TaskList` se revela en los casos extremos `withPinnedTasks`, `loading`, y `empty`.
 
 ```jsx:title=src/components/TaskList.jsx
 import Task from './Task';

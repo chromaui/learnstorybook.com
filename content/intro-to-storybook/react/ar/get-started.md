@@ -2,7 +2,7 @@
 title: 'دروس ستوريبوك مع رياكت'
 tocTitle: '!ابدأ'
 description: 'جهّز ستوريبوك في بيئة التطوير الخاصة بك'
-commit: 'bf3514f'
+commit: '2407c3c'
 ---
 
 <div style="direction: rtl">

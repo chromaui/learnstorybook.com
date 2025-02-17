@@ -2,7 +2,7 @@
 title: 'Costruisci una schermata'
 tocTitle: 'Schermate'
 description: 'Costruisci una schermata da componenti'
-commit: '2275632'
+commit: '6262d7f'
 ---
 
 Ci siamo concentrati sulla costruzione di interfacce utente dal basso verso l'alto, partendo da piccole e aggiungendo complessità. Farlo ci ha permesso di sviluppare ogni componente in isolamento, capire le sue esigenze di dati e giocare con esso in Storybook. Tutto senza dover avviare un server o costruire schermate!

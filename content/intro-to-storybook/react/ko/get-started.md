@@ -2,7 +2,7 @@
 title: '리액트(React)를 위한 스토리북(Storybook) 튜토리얼'
 tocTitle: '시작하기'
 description: '스토리북(Storybook)을 개발 환경에 설치해보세요'
-commit: 'bf3514f'
+commit: '2407c3c'
 ---
 
 스토리북(Storybook)은 개발 모드에서 앱과 함께 실행됩니다. 스토리북은 비즈니스 로직과 맥락(context)으로부터 분리된 UI 컴포넌트를 만들 수 있도록 도와줍니다. 현재 문서는 리액트(React)를 위해 작성되었습니다. 그 밖의 [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) 및 [Ember](/intro-to-storybook/ember/en/get-started)에 대한 다른 문서도 존재합니다.

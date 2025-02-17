@@ -2,7 +2,7 @@
 title: 'Assemble a composite component'
 tocTitle: 'Composite component'
 description: 'Assemble a composite component out of simpler components'
-commit: '429780a'
+commit: 'cfa25b6'
 ---
 
 Last chapter, we built our first component; this chapter extends what we learned to make TaskList, a list of Tasks. Let’s combine components together and see what happens when we introduce more complexity.
@@ -19,14 +19,32 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ## Get set up
 
-A composite component isn’t much different from the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.jsx` and `src/components/TaskList.stories.jsx`.
+A composite component isn’t much different from the basic components it contains. Create a `TaskList` component and an accompanying story file: `src/components/TaskList.tsx` and `src/components/TaskList.stories.tsx`.
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```jsx:title=src/components/TaskList.jsx
+```tsx:title=src/components/TaskList.tsx
+import type { TaskData } from '../types';
+
 import Task from './Task';
 
-export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+type TaskListProps = {
+  /** Checks if it's in loading state */
+  loading?: boolean;
+  /** The list of tasks */
+  tasks: TaskData[];
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+};
+
+export default function TaskList({
+  loading = false,
+  tasks,
+  onPinTask,
+  onArchiveTask,
+}: TaskListProps) {
   const events = {
     onPinTask,
     onArchiveTask,
@@ -42,7 +60,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -52,25 +70,30 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 Next, create `Tasklist`’s test states in the story file.
 
-```jsx:title=src/components/TaskList.stories.jsx
+```tsx:title=src/components/TaskList.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
 import TaskList from './TaskList';
 
 import * as TaskStories from './Task.stories';
 
-export default {
+const meta = {
   component: TaskList,
   title: 'TaskList',
   decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
     ...TaskStories.ActionsData,
   },
-};
+} satisfies Meta<typeof TaskList>;
 
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     // Shaping the stories through args composition.
-    // The data was inherited from the Default story in Task.stories.jsx.
+    // The data was inherited from the Default story in Task.stories.tsx.
     tasks: [
       { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
       { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -82,7 +105,7 @@ export const Default = {
   },
 };
 
-export const WithPinnedTasks = {
+export const WithPinnedTasks: Story = {
   args: {
     tasks: [
       ...Default.args.tasks.slice(0, 5),
@@ -91,14 +114,14 @@ export const WithPinnedTasks = {
   },
 };
 
-export const Loading = {
+export const Loading: Story = {
   args: {
     tasks: [],
     loading: true,
   },
 };
 
-export const Empty = {
+export const Empty: Story = {
   args: {
     // Shaping the stories through args composition.
     // Inherited data coming from the Loading story.
@@ -129,10 +152,28 @@ Now check Storybook for the new `TaskList` stories.
 
 Our component is still rough, but now we have an idea of the stories to work toward. You might be thinking that the `.list-items` wrapper is overly simplistic. You're right – in most cases, we wouldn’t create a new component just to add a wrapper. But the **real complexity** of the `TaskList` component is revealed in the edge cases `withPinnedTasks`, `loading`, and `empty`.
 
-```jsx:title=src/components/TaskList.jsx
+```tsx:title=src/components/TaskList.tsx
+import type { TaskData } from '../types';
+
 import Task from './Task';
 
-export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+type TaskListProps = {
+  /** Checks if it's in loading state */
+  loading?: boolean;
+  /** The list of tasks */
+  tasks: TaskData[];
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+};
+
+export default function TaskList({
+  loading = false,
+  tasks,
+  onPinTask,
+  onArchiveTask,
+}: TaskListProps) {
   const events = {
     onPinTask,
     onArchiveTask,
@@ -170,8 +211,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === "TASK_PINNED"),
+    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
   ];
   return (
     <div className="list-items">
@@ -193,80 +234,6 @@ The added markup results in the following UI:
 </video>
 
 Note the position of the pinned item in the list. We want the pinned item to render at the top of the list to make it a priority for our users.
-
-## Data requirements and props
-
-As the component grows, so do input requirements. Define the prop requirements of `TaskList`. Because `Task` is a child component, make sure to provide data in the right shape to render it. To save time and headache, reuse the `propTypes` you defined in `Task` earlier.
-
-```diff:title=src/components/TaskList.jsx
-+ import PropTypes from 'prop-types';
-
-import Task from './Task';
-
-export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  const events = {
-    onPinTask,
-    onArchiveTask,
-  };
-  const LoadingRow = (
-    <div className="loading-item">
-      <span className="glow-checkbox" />
-      <span className="glow-text">
-        <span>Loading</span> <span>cool</span> <span>state</span>
-      </span>
-    </div>
-  );
-  if (loading) {
-    return (
-      <div className="list-items" data-testid="loading" key={"loading"}>
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-      </div>
-    );
-  }
-  if (tasks.length === 0) {
-    return (
-      <div className="list-items" key={"empty"} data-testid="empty">
-        <div className="wrapper-message">
-          <span className="icon-check" />
-          <p className="title-message">You have no tasks</p>
-          <p className="subtitle-message">Sit back and relax</p>
-        </div>
-      </div>
-    );
-  }
-
-  const tasksInOrder = [
-    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
-  ];
-  return (
-    <div className="list-items">
-      {tasksInOrder.map((task) => (
-        <Task key={task.id} task={task} {...events} />
-      ))}
-    </div>
-  );
-}
-
-+ TaskList.propTypes = {
-+  /** Checks if it's in loading state */
-+  loading: PropTypes.bool,
-+  /** The list of tasks */
-+  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-+  /** Event to change the task to pinned */
-+  onPinTask: PropTypes.func,
-+  /** Event to change the task to archived */
-+  onArchiveTask: PropTypes.func,
-+ };
-+ TaskList.defaultProps = {
-+  loading: false,
-+ };
-```
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

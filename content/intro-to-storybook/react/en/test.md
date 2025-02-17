@@ -43,10 +43,26 @@ Start by creating a new branch for this change:
 git checkout -b change-task-background
 ```
 
-Change `src/components/Task.jsx` to the following:
+Change `src/components/Task.tsx` to the following:
 
-```diff:title=src/components/Task.jsx
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+```diff:title=src/components/Task.tsx
+import type { TaskData } from '../types';
+
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+};
+
+
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}: TaskProps) {
   return (
     <div className={`list-item ${state}`}>
       <label
@@ -61,10 +77,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           id={`archiveTask-${id}`}
           checked={state === "TASK_ARCHIVED"}
         />
-        <span
-          className="checkbox-custom"
-          onClick={() => onArchiveTask(id)}
-        />
+        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
 
       <label htmlFor={`title-${id}`} aria-label={title} className="title">
@@ -78,7 +91,6 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 +         style={{ backgroundColor: 'red' }}
         />
       </label>
-
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
