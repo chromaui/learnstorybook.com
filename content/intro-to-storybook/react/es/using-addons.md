@@ -2,7 +2,7 @@
 title: 'Complementos'
 tocTitle: 'Complementos'
 description: 'Aprende como integrar y utilizar el popular complemento Controls'
-commit: 'f89cfe0'
+commit: '17d3ab9'
 ---
 
 Storybook tiene un ecosistema sólido de [complementos, o "addons"](https://storybook.js.org/docs/configure/user-interface/storybook-addons) que puedes utilizar para mejorar la experiencia del desarrollador para todos en tu equipo. Puedes ver todo los complementos [aquí](https://storybook.js.org/integrations).

@@ -2,7 +2,7 @@
 title: 'Construção de um componente composto'
 tocTitle: 'Componente composto'
 description: 'Construção de um componente composto a partir de componentes simples'
-commit: '429780a'
+commit: 'cfa25b6'
 ---
 
 No capitulo anterior, construímos o nosso primeiro componente, neste capitulo iremos estender o que foi dito até agora, para que possamos construir a nossa TaskList, ou seja uma lista de Tasks. Vamos combinar componentes e ver o que irá acontecer quando é adicionada alguma complexidade.

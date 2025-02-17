@@ -2,7 +2,7 @@
 title: 'Addons'
 tocTitle: 'Addons'
 description: 'Impara come integrare e utilizzare il popolare addon Controls'
-commit: 'f89cfe0'
+commit: '17d3ab9'
 ---
 
 Storybook ha un robusto ecosistema di [addons](https://storybook.js.org/docs/react/configure/storybook-addons) che puoi utilizzare per migliorare l'esperienza dello sviluppatore per tutti nel tuo team. Visualizzali tutti [qui](https://storybook.js.org/addons).
