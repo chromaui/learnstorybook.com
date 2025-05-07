@@ -264,7 +264,6 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Japanese         | ✅      |
 | Svelte       | English          | ✅      |
 |              | Spanish          | ❌      |
-| Ember        | English          | ❌      |
 
 ---
 
