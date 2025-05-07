@@ -7,7 +7,7 @@ commit: '2407c3c'
 
 <div style="direction: rtl">
 
-ستوريبوك يعمل جنبا إلى جنب مع تطبيقك في بيئة التطوير. يساعدك على بناء مكونات واجهة مستخدم منعزلة عن منطق العمل وسياق التطبيق الخاص بك. هذه النسخة من درس "مقدمة عن ستوريبوك" مخصصة لرياكت, نسخ اخرى من هذا الدرس: [رياكت نايتف](/intro-to-storybook/react-native/en/get-started), [فيو](/intro-to-storybook/vue/en/get-started), [انجيولار](/intro-to-storybook/angular/en/get-started), [سفيلت](/intro-to-storybook/svelte/en/get-started) و[إمبر](/intro-to-storybook/ember/en/get-started).
+ستوريبوك يعمل جنبا إلى جنب مع تطبيقك في بيئة التطوير. يساعدك على بناء مكونات واجهة مستخدم منعزلة عن منطق العمل وسياق التطبيق الخاص بك. هذه النسخة من درس "مقدمة عن ستوريبوك" مخصصة لرياكت, نسخ اخرى من هذا الدرس: [رياكت نايتف](/intro-to-storybook/react-native/en/get-started), [فيو](/intro-to-storybook/vue/en/get-started), [انجيولار](/intro-to-storybook/angular/en/get-started), [سفيلت](/intro-to-storybook/svelte/en/get-started).
 
 ![ستوريبوك وتطبيقك](/intro-to-storybook/storybook-relationship.jpg)
 

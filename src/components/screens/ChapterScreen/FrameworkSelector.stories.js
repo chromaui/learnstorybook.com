@@ -75,15 +75,6 @@ Default.args = {
       {
         node: {
           fields: {
-            framework: 'ember',
-            language: 'en',
-            slug: '/chapter',
-          },
-        },
-      },
-      {
-        node: {
-          fields: {
             framework: 'html',
             language: 'en',
             slug: '/chapter',
