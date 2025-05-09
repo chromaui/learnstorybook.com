@@ -10,7 +10,7 @@ module.exports = {
   siteMetadata: {
     title: 'Storybook Tutorials',
     description:
-      'Learn how to develop UIs with components and design systems. Our in-depth frontend guides are created by Storybook maintainers and peer-reviewed by the open source community.',
+      'Learn how to build and test UI components with Storybook. Our in-depth frontend guides are created by Storybook maintainers and peer-reviewed by the open source community.',
     permalink: `${permalinkBase}/tutorials`,
     siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
@@ -54,16 +54,6 @@ module.exports = {
         svelte: {
           en: 8.3,
           es: 5.3,
-        },
-      },
-      'design-systems-for-developers': {
-        react: {
-          en: 7.6,
-          fr: 7.6,
-          ko: 6.4,
-          pt: 5.3,
-          'zh-CN': 6.3,
-          ja: 6.4,
         },
       },
       'visual-testing-handbook': {

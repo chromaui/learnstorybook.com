@@ -56,7 +56,7 @@ Default.args = {
       siteMetadata: {
         title: 'Storybook Tutorials',
         description:
-          'Learn how to develop UIs with components and design systems. Our in-depth frontend guides are created by Storybook maintainers and peer-reviewed by the open source community.',
+          'Learn how to build and test UI components with Storybook. Our in-depth frontend guides are created by Storybook maintainers and peer-reviewed by the open source community.',
         githubUrl: 'https://github.com/chromaui/learnstorybook.com',
         permalink: 'https://storybook.js.org/tutorials',
       },
@@ -72,17 +72,6 @@ Default.args = {
             },
             fields: {
               slug: '/intro-to-storybook/',
-            },
-          },
-        },
-        {
-          node: {
-            frontmatter: {
-              title: 'Design Systems for Developers',
-              description: 'Discover how to build and maintain design systems using Storybook.',
-            },
-            fields: {
-              slug: '/design-systems-for-developers/',
             },
           },
         },
