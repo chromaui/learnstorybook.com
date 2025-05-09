@@ -52,20 +52,6 @@ Default.args = {
         {
           node: {
             frontmatter: {
-              description: 'Discover how to build and maintain design systems using Storybook.',
-              title: 'Design Systems for Developers',
-              themeColor: '#0079FF',
-              thumbImagePath: '/guide-thumb/design-system.svg',
-            },
-            fields: {
-              guide: 'guide',
-              slug: '/guide',
-            },
-          },
-        },
-        {
-          node: {
-            frontmatter: {
               description:
                 '✍️Coming soon: Visual testing is a pragmatic yet precise way to check UI appearance.',
               title: 'Visual Testing Handbook',
