@@ -65,7 +65,7 @@ Below we build out Task’s three test states in the story file:
 ```tsx:title=src/components/Task.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 
 import Task from './Task';
 
