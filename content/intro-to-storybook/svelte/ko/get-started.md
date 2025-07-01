@@ -4,7 +4,7 @@ tocTitle: '시작하기'
 description: '개발 환경에 Storybook을 설정해보세요.'
 ---
 
-Storybook은 개발 모드에서 애플리케이션과 함께 실행됩니다. 이를 통해 비즈니스 로직이나 애플리케이션의 컨텍스트(context)에서 분리된 상태로 UI 컴포넌트를 구축할 수 있습니다. 현재 문서는 Intro to Storybook 튜토리얼의 Svelte 버전이며, 다른 프레임워크에 대한 튜토리얼도 제공됩니다; [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started).
+Storybook은 개발 모드에서 애플리케이션과 함께 실행됩니다. 이를 통해 비즈니스 로직이나 애플리케이션의 컨텍스트(context)에서 분리된 상태로 UI 컴포넌트를 구축할 수 있습니다. 현재 문서는 Intro to Storybook 튜토리얼의 Svelte 버전입니다; 다른 프레임워크에 대한 튜토리얼도 제공됩니다: [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
