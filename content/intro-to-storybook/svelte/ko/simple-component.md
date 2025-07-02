@@ -4,13 +4,13 @@ tocTitle: '간단한 컴포넌트'
 description: '컴포넌트를 독립적으로 빌드하기'
 ---
 
-우리는 컴포넌트 주도 개발[Component-Driven Development](https://www.componentdriven.org/) (CDD) 방법론을 따라 UI를 구축할 겁니다. CDD는 컴포넌트로 시작하여 마지막 화면에 이르기까지 "상향식(bottom-up)"으로 UI를 구성하는 프로세스입니다. 이렇게 하면 UI를 구축할 때 마주치는 복잡도를 단계적으로 관리할 수 있습니다.
+우리는 [컴포넌트 주도 개발](https://www.componentdriven.org/) (Component-Driven Development, CDD) 방법론을 따라 UI를 구축할 겁니다. CDD는 컴포넌트로 시작하여 마지막 화면에 이르기까지 "상향식(bottom-up)"으로 UI를 구성하는 프로세스입니다. 이렇게 하면 UI를 구축할 때 마주치는 복잡도를 단계적으로 관리할 수 있습니다.
 
 ## Task 컴포넌트
 
 ![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task`는 우리 앱의 핵심 컴포넌트입니다. 각 task는 상태에 따라 다르게 표시됩니다. 체크박스(체크 여부), task 정보, 목록 상단/하단으로 이동시키는 "pin" 버튼이 필요합니다. 이를 위해 다음과 같은 props가 필요합니다:
+`Task`는 우리 앱의 핵심 컴포넌트입니다. 각 task는 상태에 따라 다르게 표시됩니다. 체크박스(체크 여부), task 정보, 목록 상단/하단으로 이동시키는 "pin" 버튼이 필요합니다. 이를 위해 다음과 같은 속성(prop)들이 필요합니다:
 
 - `title` – task를 설명하는 문자열
 - `state` - task가 현재 어떤 목록에 있는지, 체크되었는지 여부
@@ -141,7 +141,7 @@ Storybook에게 어떤 컴포넌트를 문서화 중인지 알려주기 위해, 
 
 [`args`](https://storybook.js.org/docs/writing-stories/args)(arguments)를 사용하면 Storybook을 다시 시작하지 않고도 controls addon을 통해 컴포넌트 속성을 실시간으로 편집할 수 있습니다. [`args`](https://storybook.js.org/docs/writing-stories/args) 값이 변경되면, 해당 컴포넌트도 변경됩니다.
 
-`action()`을 사용하면 Storybook UI의 **Actions** 패널에 클릭시 나타나는 콜백을 생성할 수 있습니다. 예를 들어, 핀 버튼을 만들 때, UI에서 버튼 클릭이 잘 작동하는지 확인할 수 있습니다.
+`action()`을 사용하면 Storybook UI의 **Actions** 패널에 클릭 시 나타나는 콜백을 생성할 수 있습니다. 예를 들어, 핀 버튼을 만들 때, UI에서 버튼 클릭이 잘 작동하는지 확인할 수 있습니다.
 
 컴포넌트의 모든 상태 변형에서 여러 액션의 동작을 확인하고 싶다면, 하나의 `actionData` 변수로 액션들을 묶어서 스토리 정의에 전달하는 것이 좋습니다. 또한, `actionData`를 `export`해서 해당 컴포넌트가 사용되는 곳에서 재사용할 수 있습니다.
 
@@ -199,7 +199,7 @@ export default preview;
 
 [`parameters`](https://storybook.js.org/docs/writing-stories/parameters)는 Storybook의 기능과 addon 동작을 제어하는 설정입니다. 여기서는 `actions`(모의 콜백) 처리 방식을 지정합니다.
 
-`action()`을 사용하면 Storybook UI의 **Actions** 패널에 클릭시 나타나는 콜백을 생성할 수 있습니다. 예를 들어, 핀 버튼을 만들 때, UI에서 버튼 클릭이 잘 작동하는지 확인할 수 있습니다.
+`action()`을 사용하면 Storybook UI의 **Actions** 패널에 클릭 시 나타나는 콜백을 생성할 수 있습니다. 예를 들어, 핀 버튼을 만들 때, UI에서 버튼 클릭이 잘 작동하는지 확인할 수 있습니다.
 
 위 설정을 마친 뒤, Storybook 서버를 재시작하면 세 가지 `Task` 컴포넌트 상태에 대한 테스트 케이스가 보일 것입니다.
 
@@ -336,7 +336,6 @@ export default config;
 ```
 
 마지막으로, UI에서 새로운 애드온이 활성화되도록 Storybook을 재시작 하세요.
-Finally, restart your Storybook to see the new addon enabled in the UI.
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
@@ -350,7 +349,7 @@ Finally, restart your Storybook to see the new addon enabled in the UI.
 }
 ```
 
-이제 끝입니다! UI에 접근하기 좋게 하는 첫 번째 단계를 밟았습니다. 애플리케이션이 더 복잡해지더라도, 추가적인 도구나 테스트 환경을 고려할 필요 없이 위의 프로세스를 반복하여 문제를 해결할 수 있습니다.
+이제 끝입니다! UI에 접근성을 더하는 첫 번째 단계를 밟았습니다. 애플리케이션이 더 복잡해지더라도, 추가적인 도구나 테스트 환경을 고려할 필요 없이 위의 프로세스를 반복하여 문제를 해결할 수 있습니다.
 
 <div class="aside">
 💡 git에 변경 사항 커밋하는 것을 잊지 마세요!
