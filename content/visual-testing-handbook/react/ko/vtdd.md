@@ -93,7 +93,7 @@ export default function CommentList({
 `CommentList.stories.ts`라는 파일을 `src/components` 폴더에 만들고 다음을 추가합니다.
 
 ```ts:title=src/components/CommentList.stories.ts
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import CommentList from './CommentList';
 

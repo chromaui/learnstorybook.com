@@ -93,7 +93,7 @@ Ahora que tenemos una implementación básica, podemos construir nuestros estado
 Cree un nuevo archivo llamado `CommentList.stories.ts` en `src/components` y agregue lo siguiente:
 
 ```ts:title=src/components/CommentList.stories.ts
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import CommentList from './CommentList';
 

@@ -61,11 +61,11 @@ end
 첫번째 경우부터 살펴봅시다. 스토리북에서 테스트는 리액트(React)의 요소를 렌더링하는 것만큼 간단합니다. 시각적 테스트 케이스를 작성하려면 컴포넌트와 관련된 상태에 대해 짚고 넘어가봐야 합니다. 이것을 스토리북 용어로는 '스토리'라고 합니다. 아래의 예시 코드를 통해 `InboxTask`, `SnoozedTask`, `PinnedTask`에 대한 시각적 테스트를 작성하는 방법을 알아봅시다.
 
 ```ts:title=src/components/Task.stories.ts
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Task from './Task';
 
-const meta: Meta = {
+const meta = {
   component: Task,
   title: 'Task',
 } satisfies Meta<typeof Task>;

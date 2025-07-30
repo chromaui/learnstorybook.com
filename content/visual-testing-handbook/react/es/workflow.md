@@ -61,11 +61,11 @@ Se utiliza el mismo caso de prueba en ambos escenarios, solo cambia el método d
 Centrémonos en ese primer escenario por ahora. En Storybook, una prueba es tan simple como renderizar un elemento React. Para escribir un caso de prueba visual, una "historia" en el lenguaje de Storybook, describimos los estados del componente que nos interesa. El siguiente ejemplo de código muestra cómo escribirías pruebas visuales para `InboxTask`,` SnoozedTask` y `PinnedTask`.
 
 ```ts:title=src/components/Task.stories.ts
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import Task from './Task';
 
-const meta: Meta = {
+const meta = {
   component: Task,
   title: 'Task',
 } satisfies Meta<typeof Task>;
