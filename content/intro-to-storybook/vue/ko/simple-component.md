@@ -1,94 +1,81 @@
 ---
-title: 'Build a simple component'
-tocTitle: 'Simple component'
-description: 'Build a simple component in isolation'
-commit: 'bc897c5'
+title: '간단한 컴포넌트 만들기'
+tocTitle: '간단한 컴포넌트'
+description: '독립적으로 간단한 컴포넌트 만들기'
+commit: 'b586083'
 ---
 
-We’ll build our UI following a [Component-Driven Development](https://www.componentdriven.org/) (CDD) methodology. It’s a process that builds UIs from the “bottom-up”, starting with components and ending with screens. CDD helps you scale the amount of complexity you’re faced with as you build out the UI.
+우리는 컴포넌트 기반 개발(Component-Driven Development)(CDD) 방법론에 따라 UI를 만들어 볼 것입니다. 이는 컴포넌트부터 시작하여 마지막 화면에 이르기까지 상향식(bottom-up)으로 UI를 개발하는 과정입니다. CDD는 UI를 구현할 때 직면하게 되는 규모의 복잡성을 해결하는 데 도움이 됩니다.
 
 ## Task
 
 ![Task component in three states](/intro-to-storybook/task-states-learnstorybook.png)
 
-`Task` is the core component of our app. Each task displays slightly differently depending on exactly what state it’s in. We display a checked (or unchecked) checkbox, some information about the task, and a “pin” button, allowing us to move tasks up and down the list. Putting this together, we’ll need these props:
+`Task`는 앱의 핵심 컴포넌트입니다. 각 Task는 상태에 따라 조금씩 다르게 표시됩니다. 체크박스(선택/해제), Task 정보, Task를 목록의 위아래로 이동시키는 “pin” 버튼이 포함됩니다. 이를 위해 필요한 props는 다음과 같습니다.
 
-- `title` – a string describing the task
-- `state` - which list is the task currently in, and is it checked off?
+- `title` – Task를 설명하는 문자열
+- `state` – Task가 현재 속한 목록과 체크 여부
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to create the component in isolation using mocked data. We’ll manually test the component’s appearance given each state as we go.
+`Task`를 만들 때 먼저 위 그림과 같은 테스트 상태를 정의합니다. 그다음 Storybook에서 모의(mock) 데이터를 사용해 컴포넌트를 독립적으로 생성하고, 각 상태에 따라 UI가 올바르게 표시되는지 수동으로 확인합니다.
 
-## Get set up
+## 설정하기
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.tsx` and `src/components/Task.stories.tsx`.
+먼저 Task 컴포넌트와 해당 Story 파일을 생성합니다.  
+파일 경로: `src/components/Task.vue` 및 `src/components/Task.stories.js`
 
-We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
+아래는 `Task`의 기본 구현으로, 필요한 속성(props)과 Task에 대해 수행할 수 있는 두 가지 액션(목록 간 이동)을 포함합니다.
 
-```tsx:title=src/components/Task.tsx
-type TaskData = {
-  id: string;
-  title: string;
-  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
-};
+```html:title=src/components/Task.vue
+<template>
+  <div class="list-item">
+    <label for="title" :aria-label="task.title">
+      <input type="text" readonly :value="task.title" id="title" name="title" />
+    </label>
+  </div>
+</template>
 
-type TaskProps = {
-  task: TaskData;
-  onArchiveTask: (id: string) => void;
-  onPinTask: (id: string) => void;
-};
-
-export default function Task({
-  task: { id, title, state },
-  onArchiveTask,
-  onPinTask,
-}: TaskProps) {
-  return (
-    <div className="list-item">
-      <label htmlFor={`title-${id}`} aria-label={title}>
-        <input
-          type="text"
-          value={title}
-          readOnly={true}
-          name="title"
-          id={`title-${id}`}
-        />
-      </label>
-    </div>
-  );
+<script>
+export default {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Task',
+  props: {
+    task: {
+      type: Object,
+      required: true,
+      default: () => ({ id: '', state: '', title: '' }),
+      validator: (task) => ['id', 'state', 'title'].every((key) => key in task)
+    }
+  }
 }
+</script>
 ```
 
-Above, we render straightforward markup for `Task` based on the existing HTML structure of the Todos application.
+위 예시는 Todos 애플리케이션의 HTML 구조를 기반으로 Task를 단순하게 렌더링한 것입니다.
 
-Below we build out Task’s three test states in the story file:
+다음으로, Story 파일에서 Task의 세 가지 테스트 상태를 정의합니다:
 
-```tsx:title=src/components/Task.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
-
+```js:title=src/components/Task.stories.js
 import { fn } from '@storybook/test';
 
-import Task from './Task';
+import Task from './Task.vue';
 
 export const ActionsData = {
-  onArchiveTask: fn(),
   onPinTask: fn(),
+  onArchiveTask: fn(),
 };
 
-const meta = {
+export default {
   component: Task,
   title: 'Task',
   tags: ['autodocs'],
   //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
   args: {
-    ...ActionsData,
-  },
-} satisfies Meta<typeof Task>;
+    ...ActionsData
+  }
+};
 
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
+export const Default = {
   args: {
     task: {
       id: '1',
@@ -98,7 +85,7 @@ export const Default: Story = {
   },
 };
 
-export const Pinned: Story = {
+export const Pinned = {
   args: {
     task: {
       ...Default.args.task,
@@ -107,7 +94,7 @@ export const Pinned: Story = {
   },
 };
 
-export const Archived: Story = {
+export const Archived = {
   args: {
     task: {
       ...Default.args.task,
@@ -119,47 +106,47 @@ export const Archived: Story = {
 
 <div class="aside">
 
-💡 [**Actions**](https://storybook.js.org/docs/essentials/actions) help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `fn()` to stub them in.
+💡 [**Actions**](https://storybook.js.org/docs/essentials/actions)는 UI 컴포넌트를 독립적으로 만들 때 상호작용을 검증하는 데 도움을 줍니다. 앱 컨텍스트 내의 함수와 상태에 접근할 수 없는 경우, `fn()`을 사용해 이를 대체할 수 있습니다.
 
 </div>
 
-There are two basic levels of organization in Storybook: the component and its child stories. Think of each story as a permutation of a component. You can have as many stories per component as you need.
+Storybook에는 두 가지 기본 구성 단위가 있습니다. 컴포넌트와 그 하위의 스토리입니다.
+스토리는 컴포넌트의 다양한 상태를 나타내며, 필요한 만큼 생성할 수 있습니다.
 
 - **Component**
   - Story
   - Story
   - Story
 
-To tell Storybook about the component we are documenting and testing, we create a `default` export that contains:
+스토리북에게 우리가 문서화하고 테스트하고 있는 컴포넌트에 대해 알려주기 위해, 아래 사항들을 포함하는 `default` export를 생성합니다:
 
-- `component` -- the component itself
-- `title` -- how to group or categorize the component in the Storybook sidebar
-- `tags` -- to automatically generate documentation for our components
-- `excludeStories`-- additional information required by the story but should not be rendered in Storybook
-- `args` -- define the action [args](https://storybook.js.org/docs/essentials/actions#action-args) that the component expects to mock out the custom events
+- `component` -- 컴포넌트 자체
+- `title` -- 스토리북 사이드바에서 컴포넌트를 그룹화하거나 분류하는 방법
+- `tags` -- 컴포넌트에 대한 문서를 자동으로 생성하기 위한 태그
+- `excludeStories`-- 스토리에 필요하지만 스토리북에서 렌더링되지 않아야 하는 추가 정보
+- `args` -- 컴포넌트가 사용자 정의 이벤트를 모킹하기 위해 기대하는 액션 [args](https://storybook.js.org/docs/essentials/actions#action-args)를 정의
 
-To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
+스토리를 정의하기 위해, 우리는 Component Story Format 3 ([CSF3](https://storybook.js.org/docs/api/csf)로도 알려진)를 사용하여 각 테스트 케이스를 구현할 것입니다. 이 포맷은 각 테스트 케이스를 간결하게 구현하도록 설계되었습니다. 각 컴포넌트의 상태를 포함하는 객체를 내보냄으로써, 우리는 테스트를 보다 직관적으로 정의하고 스토리를 더 효율적으로 작성 및 재사용할 수 있습니다.
 
-Arguments or [`args`](https://storybook.js.org/docs/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/writing-stories/args) value changes, so does the component.
+Arguments(인수) 혹은 줄여서 [`args`](https://storybook.js.org/docs/writing-stories/args)를 사용하면 스토리북을 다시 시작하지 않고도 스토리북의 controls addon을 통해 컴포넌트를 라이브로 편집할 수 있습니다. [`args`](https://storybook.js.org/docs/writing-stories/args)값이 변경되면 컴포넌트도 함께 변경됩니다.
 
-`fn()` allows us to create a callback that appears in the **Actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+`fn()`을 사용하면 클릭 시 스토리북 UI의 **Actions** 패널에 나타나는 콜백을 생성할 수 있습니다. 따라서 핀 버튼을 만들 때 버튼 클릭이 UI에서 성공적으로 이루어졌는지를 확인할 수 있습니다.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `ActionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `ActionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
+모든 컴포넌트의 모든 조합에 동일한 액션 세트를 전달해야 하므로, 이를 하나의 `ActionsData` 변수로 묶어 매번 스토리 정의에 전달하는 것이 편리합니다. 컴포넌트가 필요로 하는 `ActionsData`를 묶는 또 다른 장점은, 이를 `export`하고 나중에 이 컴포넌트를 재사용하는 컴포넌트의 스토리에서 사용할 수 있다는 것입니다. 나중에 살펴보겠습니다.
 
-When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+스토리를 만들 때, 컴포넌트가 기대하는 작업의 형태를 만들기 위해 우리는 기본 `task` 인수를 사용합니다. 이 인수는 일반적으로 실제 데이터의 형태를 기반으로 모델링됩니다. 다시 말해, 이 형태를 `export` 하면 나중에 다른 스토리에서 재사용할 수 있습니다.
 
-## Config
+## 환경설정
 
-We'll need to make a couple of changes to Storybook's configuration files so it notices our recently created stories and allows us to use the application's CSS file (located in `src/index.css`).
+최근에 생성한 스토리를 인식하고 애플리케이션의 CSS 파일(`src/index.css`에 위치한)을 사용하기 위해 스토리북 구성 파일에 몇 가지 변경 사항이 필요합니다.
 
-Start by changing your Storybook configuration file (`.storybook/main.ts`) to the following:
+먼저 스토리북 구성 파일(`.storybook/main.js`)을 다음과 같이 변경합니다:
 
-```diff:title=.storybook/main.ts
-import type { StorybookConfig } from '@storybook/react-vite';
-
-const config: StorybookConfig = {
+```diff:title=.storybook/main.js
+/** @type { import('@storybook/vue3-vite').StorybookConfig } */
+const config = {
 - stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-+ stories: ['../src/components/**/*.stories.@(ts|tsx)'],
++ stories: ['../src/components/**/*.stories.js'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
@@ -167,15 +154,14 @@ const config: StorybookConfig = {
     '@storybook/addon-interactions',
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: '@storybook/vue3-vite',
     options: {},
   },
 };
-
 export default config;
 ```
 
-After completing the change above, inside the `.storybook` folder, change your `preview.ts` to the following:
+위와 같이 변경을 마치셨다면, `.storybook` 폴더 내의 `preview.ts`를 다음과 같이 변경합니다:
 
 ```diff:title=.storybook/preview.ts
 import type { Preview } from '@storybook/react';
@@ -196,9 +182,11 @@ const preview: Preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we won't use them for that purpose. Instead, we will import our application's CSS file.
+[`매개변수(parameters)`](https://storybook.js.org/docs/writing-stories/parameters)는 일반적으로 스토리북의 기능과 애드온의 동작을 제어하는 데 사용됩니다. 하지만 이번 경우에는 그 목적으로 사용하지 않을 것입니다. 대신에 우리는 애플리케이션의 CSS 파일을 import할 것입니다.
 
-Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
+`actions`은 클릭이 되었을 때 스토리북 UI의 **actions** 패널에 나타날 콜백을 생성할 수 있도록 해줍니다. 따라서 pin 버튼을 만들 때, 버튼 클릭이 성공적이었는지 테스트 UI에서 확인 할 수 있을 것입니다.
+
+이 작업을 완료하면 스토리북 서버를 재시작할 때 세 가지 작업(Task) 상태에 대한 테스트 케이스가 생성될 것입니다:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -207,77 +195,98 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
   />
 </video>
 
-## Build out the states
+## 상태(States) 구현하기
 
-Now that we have Storybook set up, styles imported, and test cases built out, we can quickly start implementing the HTML of the component to match the design.
+이제 스토리북 설정, 스타일 가져오기, 테스트 케이스를 구현했으므로 디자인에 맞춰 컴포넌트의 HTML을 빠르게 구현할 수 있습니다.
 
-The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
+컴포넌트는 아직 기본만 갖춘 상태입니다. 우선, 자세한 사항은 생략하고 디자인 코드를 작성해보겠습니다.
 
-```tsx:title=src/components/Task.tsx
-type TaskData = {
-  id: string;
-  title: string;
-  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
+```html:title=src/components/Task.vue
+<template>
+  <div :class="classes">
+    <label
+      :for="'checked' + task.id"
+      :aria-label="'archiveTask-' + task.id"
+      class="checkbox"
+    >
+      <input
+        type="checkbox"
+        :checked="isChecked"
+        disabled
+        :name="'checked' + task.id"
+        :id="'archiveTask-' + task.id"
+      />
+      <span class="checkbox-custom" @click="archiveTask" />
+    </label>
+    <label :for="'title-' + task.id" :aria-label="task.title" class="title">
+      <input
+        type="text"
+        readonly
+        :value="task.title"
+        :id="'title-' + task.id"
+        name="title"
+        placeholder="Input title"
+      />
+    </label>
+    <button
+      v-if="!isChecked"
+      class="pin-button"
+      @click="pinTask"
+      :id="'pinTask-' + task.id"
+      :aria-label="'pinTask-' + task.id"
+    >
+      <span class="icon-star" />
+    </button>
+  </div>
+</template>
+
+<script>
+import { reactive, computed } from 'vue';
+
+export default {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Task',
+  props: {
+    task: {
+      type: Object,
+      required: true,
+      default: () => ({ id: '', state: '', title: '' }),
+      validator: task => ['id', 'state', 'title'].every(key => key in task),
+    },
+  },
+  emits: ['archive-task', 'pin-task'],
+
+  setup(props, { emit }) {
+    props = reactive(props);
+    return {
+      classes: computed(() => ({
+        'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
+        'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
+        'list-item TASK_ARCHIVED': props.task.state === 'TASK_ARCHIVED',
+      })),
+      /**
+       * Computed property for checking the state of the task
+       */
+      isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
+      /**
+       * Event handler for archiving tasks
+       */
+      archiveTask() {
+        emit('archive-task', props.task.id);
+      },
+      /**
+       * Event handler for pinning tasks
+       */
+      pinTask() {
+        emit('pin-task', props.task.id);
+      },
+    };
+  },
 };
-
-type TaskProps = {
-  /** Composition of the task */
-  task: TaskData;
-  /** Event to change the task to archived */
-  onArchiveTask: (id: string) => void;
-  /** Event to change the task to pinned */
-  onPinTask: (id: string) => void;
-};
-
-export default function Task({
-  task: { id, title, state },
-  onArchiveTask,
-  onPinTask,
-}: TaskProps) {
-  return (
-    <div className={`list-item ${state}`}>
-      <label
-        htmlFor={`archiveTask-${id}`}
-        aria-label={`archiveTask-${id}`}
-        className="checkbox"
-      >
-        <input
-          type="checkbox"
-          disabled={true}
-          name="checked"
-          id={`archiveTask-${id}`}
-          checked={state === "TASK_ARCHIVED"}
-        />
-        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
-      </label>
-
-      <label htmlFor={`title-${id}`} aria-label={title} className="title">
-        <input
-          type="text"
-          value={title}
-          readOnly={true}
-          name="title"
-          id={`title-${id}`}
-          placeholder="Input title"
-        />
-      </label>
-      {state !== "TASK_ARCHIVED" && (
-        <button
-          className="pin-button"
-          onClick={() => onPinTask(id)}
-          id={`pinTask-${id}`}
-          aria-label={`pinTask-${id}`}
-          key={`pinTask-${id}`}
-        >
-          <span className={`icon-star`} />
-        </button>
-      )}
-    </div>
-  );
-}
+</script>
 ```
 
-The additional markup from above combined with the CSS we imported earlier yields the following UI:
+위의 추가 마크업과 앞서 가져온 CSS를 결합하면 다음과 같은 UI가 생성됩니다:
 
 <video autoPlay muted playsInline loop>
   <source
@@ -286,133 +295,50 @@ The additional markup from above combined with the CSS we imported earlier yield
   />
 </video>
 
-## Specify data requirements
+## 컴포넌트 완성!
 
-As we continue to build out our components, we can specify the shape of the data that the `Task` component expects by defining a TypeScript type. This way, we can catch errors early and ensure the component is used correctly when adding more complexity. Start by creating a `types.ts` file in the `src` folder and move our existing `TaskData` type there:
+지금까지 우리는 서버나 프런트엔드 앱 전체를 실행하지 않고도 성공적으로 컴포넌트를 만들었습니다. 다음 단계는 비슷한 방식으로 나머지 Taskbox 컴포넌트를 하나씩 만드는 것입니다.
 
-```ts:title=src/types.ts
-export type TaskData = {
-  id: string;
-  title: string;
-  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
-};
-```
+보시다시피, 컴포넌트를 독립적으로 구현하는 것은 쉽고 빠릅니다. 가능한 모든 상태를 테스트할 수 있기 때문에 버그가 적은 고품질 UI를 만들 수 있을 것입니다.
 
-Then, update the `Task` component to use our newly created type:
+## 접근성 문제 발견하기
 
-```diff:title=src/components/Task.tsx
-+ import type { TaskData } from '../types';
+접근성 테스트는 [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) 규칙 및 기타 업계의 모범 사례를 기반한 일련의 경험적 방법(heuristics)과 함께 자동화 도구를 사용하여 렌더링된 DOM을 감사하는 관행을 의미합니다. 이 테스트는 명백한 접근성 위반을 적발하는 QA의 첫 번째 역할을 하며, 애플리케이션이 시각 장애인, 청각 장애인, 인지 장애인 등 가능한 많은 사람들이 애플리케이션을 사용할 수 있도록 보장합니다.
 
-- type Task = {
--   id: string;
--   title: string;
--   state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
-- };
+스토리북에는 공식 [접근성 애드온](https://storybook.js.org/addons/@storybook/addon-a11y)이 포함되어 있습니다. Deque의 [axe-core](https://github.com/dequelabs/axe-core)를 기반으로 하며, [최대 57%의 WCAG 문제](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/)를 포착할 수 있습니다.
 
-type TaskProps = {
-  /** Composition of the task */
-  task: TaskData;
-  /** Event to change the task to archived */
-  onArchiveTask: (id: string) => void;
-  /** Event to change the task to pinned */
-  onPinTask: (id: string) => void;
-};
-
-export default function Task({
-  task: { id, title, state },
-  onArchiveTask,
-  onPinTask,
-}: TaskProps) {
-  return (
-    <div className={`list-item ${state}`}>
-      <label
-        htmlFor={`archiveTask-${id}`}
-        aria-label={`archiveTask-${id}`}
-        className="checkbox"
-      >
-        <input
-          type="checkbox"
-          disabled={true}
-          name="checked"
-          id={`archiveTask-${id}`}
-          checked={state === "TASK_ARCHIVED"}
-        />
-        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
-      </label>
-
-      <label htmlFor={`title-${id}`} aria-label={title} className="title">
-        <input
-          type="text"
-          value={title}
-          readOnly={true}
-          name="title"
-          id={`title-${id}`}
-          placeholder="Input title"
-        />
-      </label>
-      {state !== "TASK_ARCHIVED" && (
-        <button
-          className="pin-button"
-          onClick={() => onPinTask(id)}
-          id={`pinTask-${id}`}
-          aria-label={`pinTask-${id}`}
-          key={`pinTask-${id}`}
-        >
-          <span className={`icon-star`} />
-        </button>
-      )}
-    </div>
-  );
-}
-```
-
-Now, an error in development will appear if the Task component is misused.
-
-## Component built!
-
-We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
-
-As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
-
-## Catch accessibility issues
-
-Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
-
-Storybook includes an official [accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y). Powered by Deque's [axe-core](https://github.com/dequelabs/axe-core), it can catch up to [57% of WCAG issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
-
-Let's see how it works! Run the following command to install the addon:
+어떻게 작동하는지 봅시다! 다음 명령을 실행하여 애드온을 설치하세요:
 
 ```shell
 yarn add --dev @storybook/addon-a11y
 ```
 
-Then, update your Storybook configuration file (`.storybook/main.ts`) to enable it:
+그 다음, 스토리북 구성 파일(`.storybook/main.js`)을 업데이트하여 활성화합니다:
 
-```diff:title=.storybook/main.ts
-import type { StorybookConfig } from '@storybook/react-vite';
-
-const config: StorybookConfig = {
-  stories: ['../src/components/**/*.stories.@(ts|tsx)'],
+```diff:title=.storybook/main.js
+/** @type { import('@storybook/vue3-vite').StorybookConfig } */
+const config = {
+  stories: ['../src/components/**/*.stories.js'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-+   '@storybook/addon-a11y'
++   '@storybook/addon-a11y',
   ],
   framework: {
-    name: '@storybook/react-vite',
+    name: '@storybook/vue3-vite',
     options: {},
   },
 };
 export default config;
 ```
 
-Finally, restart your Storybook to see the new addon enabled in the UI.
+마지막으로, 스토리북을 재시작하여 UI에서 새로운 애드온이 활성화되었는지 확인하세요.
 
 ![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
 
-Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
+스토리를 순환하면서, 애드온이 우리의 테스트 상태 중 하나에서 접근성 문제를 발견한 것을 볼 수 있습니다. [**"요소는 충분한 색 대비를 가져야 합니다"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI)라는 메시지는 기본적으로 작업 제목과 배경 간의 대비가 충분하지 않다는 의미입니다. 애플리케이션의 CSS(`src/index.css`)에 있는 텍스트 색상을 더 어두운 회색으로 변경하여 이를 빠르게 수정할 수 있습니다.
 
 ```diff:title=src/index.css
 .list-item.TASK_ARCHIVED input[type="text"] {
@@ -422,8 +348,8 @@ Cycling through our stories, we can see that the addon found an accessibility is
 }
 ```
 
-That's it! We've taken the first step to ensure that UI becomes accessible. As we continue to add complexity to our application, we can repeat this process for all other components without needing to spin up additional tools or testing environments.
+이제 끝입니다! 우리는 UI가 접근성을 확보하도록 첫 번째 단계를 밟았습니다. 애플리케이션의 복잡성이 올라가도 추가 도구나 테스트 환경을 구동할 필요 없이 다른 모든 컴포넌트에서도 이 과정을 반복할 수 있습니다.
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 변경된 사항을 깃(Git)에 commit하는 것을 잊지 마세요!
 </div>
