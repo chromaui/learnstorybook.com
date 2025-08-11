@@ -50,7 +50,7 @@ export default {
 </script>
 ```
 
-위 예시는 Todos 애플리케이션의 HTML 구조를 기반으로 Task를 단순하게 렌더링한 것입니다.
+위 예시는 Todos 애플리케이션의 HTML 구조를 기반으로 `Task`를 단순하게 렌더링한 것입니다.
 
 다음으로, Story 파일에서 Task의 세 가지 테스트 상태를 정의합니다:
 
@@ -161,14 +161,14 @@ const config = {
 export default config;
 ```
 
-위와 같이 변경을 마치셨다면, `.storybook` 폴더 내의 `preview.ts`를 다음과 같이 변경합니다:
+위와 같이 변경을 마치셨다면, `.storybook` 폴더 내의 `preview.js`를 다음과 같이 변경합니다:
 
-```diff:title=.storybook/preview.ts
-import type { Preview } from '@storybook/react';
-
+```diff:title=.storybook/preview.js
 + import '../src/index.css';
 
-const preview: Preview = {
+//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
+/** @type { import('@storybook/vue3').Preview } */
+const preview = {
   parameters: {
     controls: {
       matchers: {
@@ -184,9 +184,7 @@ export default preview;
 
 [`매개변수(parameters)`](https://storybook.js.org/docs/writing-stories/parameters)는 일반적으로 스토리북의 기능과 애드온의 동작을 제어하는 데 사용됩니다. 하지만 이번 경우에는 그 목적으로 사용하지 않을 것입니다. 대신에 우리는 애플리케이션의 CSS 파일을 import할 것입니다.
 
-`actions`은 클릭이 되었을 때 스토리북 UI의 **actions** 패널에 나타날 콜백을 생성할 수 있도록 해줍니다. 따라서 pin 버튼을 만들 때, 버튼 클릭이 성공적이었는지 테스트 UI에서 확인 할 수 있을 것입니다.
-
-이 작업을 완료하면 스토리북 서버를 재시작할 때 세 가지 작업(Task) 상태에 대한 테스트 케이스가 생성될 것입니다:
+이 작업을 마친 후 Storybook 서버를 재시작하면 세 가지 Task 상태에 대한 테스트 케이스가 표시됩니다:
 
 <video autoPlay muted playsInline loop>
   <source
