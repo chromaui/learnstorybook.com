@@ -11,7 +11,7 @@ commit: 'af51337'
 
 ## 화면에 연결하기
 
-앱이 단순하기 때문에 이번에 만들 화면은 꽤 간단합니다. `TaskList` 컴포넌트(Pinia를 통해 자체적으로 데이터를 제공)를 레이아웃에 감싸고, 스토어에서 최상위 `error` 필드를 가져옵니다(서버 연결에 문제가 있으면 해당 필드가 설정된다고 가정). 먼저 `src/components/` 폴더에 프레젠테이셔널 컴포넌트 `PureInboxScreen.vue`를 생성합니다.
+앱이 단순하기 때문에 이번에 만들 화면은 꽤 간단합니다. `TaskList` 컴포넌트(Pinia를 통해 자체적으로 데이터를 제공)를 레이아웃에 감싸고, 스토어에서 최상위 `error` 필드를 가져옵니다(서버 연결에 문제가 있으면 해당 필드가 설정된다고 가정). 먼저 `src/components/` 폴더에 프레젠테이셔널 컴포넌트 `PureInboxScreen.vue`를 생성합니다:
 
 ```html:title=src/components/PureInboxScreen.vue
 <template>
@@ -76,7 +76,7 @@ export default {
 </script>
 ```
 
-다음으로 앱의 진입점(`src/main.js`)을 수정하여 스토어를 컴포넌트 계층에 연결합니다.
+다음으로 앱의 진입점(`src/main.js`)을 수정하여 스토어를 컴포넌트 계층에 연결합니다:
 
 ```diff:title=src/main.js
 import { createApp } from 'vue';
@@ -89,7 +89,8 @@ import App from './App.vue';
 + createApp(App).use(createPinia()).mount('#app');
 ```
 
-또한 `App` 컴포넌트를 수정하여 `InboxScreen`을 렌더링하도록 합니다(나중에 라우터를 사용해 화면을 선택할 수 있지만, 여기서는 생략).
+또한 `App` 컴포넌트를 수정하여 `InboxScreen`을 렌더링하도록 합니다
+(나중에 라우터를 사용해 화면을 선택할 수 있지만, 여기서는 생략).
 
 ```html:title=src/App.vue
 <script setup>
@@ -148,7 +149,7 @@ error 스토리는 잘 동작하지만, default 스토리는 TaskList가 연결�
 ## 스토리에 컨텍스트 제공하기
 
 다행히 Storybook에서 Pinia 스토어를 쉽게 연결하고 스토리 간에 재사용할 수 있습니다!
-`.storybook/preview.js` 설정 파일을 수정하고 Storybook의 `setup` 함수를 이용해 Pinia 스토어를 등록합니다.
+`.storybook/preview.js` 설정 파일을 수정하고 Storybook의 `setup` 함수를 이용해 Pinia 스토어를 등록합니다:
 
 ```diff:title=.storybook/preview.js
 + import { setup } from '@storybook/vue3';
@@ -179,7 +180,7 @@ export default preview;
 
 이와 비슷하게 [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) 등의 다른 데이터 라이브러리에도 모의 컨텍스트를 제공할 수 있습니다.
 
-이제 Storybook에서 상태를 변경하며 올바르게 동작하는지 쉽게 확인할 수 있습니다.:
+이제 Storybook에서 상태를 변경하며 올바르게 동작하는지 쉽게 확인할 수 있습니다:
 
 <video autoPlay muted playsInline loop >
 
@@ -203,7 +204,7 @@ play 함수는 Task가 업데이트될 때 UI에서 무슨 일이 일어나는�
 
 `@storybook/addon-interactions`는 Storybook에서 테스트를 시각화하며, 단계별 진행 흐름과 일시정지, 재개, 되감기, 단계 이동 등의 UI 컨트롤을 제공합니다.
 
-다음과 같이 새로 만든 `PureInboxScreen` 스토리에 컴포넌트 상호작용을 설정:
+다음과 같이 새로 만든 `PureInboxScreen` 스토리에 컴포넌트 상호작용을 설정합니다:
 
 ```diff:title=src/components/PureInboxScreen.stories.js
 import PureInboxScreen from './PureInboxScreen.vue';
