@@ -1,7 +1,7 @@
 ---
-title: 'Storybook for Vue tutorial'
-tocTitle: 'Get started'
-description: 'Set up Vue Storybook in your development environment'
+title: '뷰(Vue)를 위한 스토리북(Storybook) 튜토리얼'
+tocTitle: '시작하기'
+description: '스토리북(Storybook)을 개발 환경에 설치해보세요'
 commit: 'e2984d1'
 ---
 
