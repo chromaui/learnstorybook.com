@@ -11,7 +11,7 @@ commit: '30e306d'
 
 ## 컨테이너 컴포넌트
 
-현재 구현된 TaskList는 외부와 어떠한 소통도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. 데이터 주입을 위해서는 “컨테이너”가 필요합니다.
+현재 구현된 `TaskList`는 외부와 어떠한 소통도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. 데이터 주입을 위해서는 “컨테이너”가 필요합니다.
 
 이 예제에서는 Vue의 기본 상태 관리 라이브러리인 [Pinia](https://pinia.vuejs.org/)를 사용하여 앱의 단순한 데이터 모델을 만듭니다. 그러나 이 패턴은 [Apollo](https://www.apollographql.com/client/), [MobX](https://mobx.js.org/)와 같은 다른 상태 관리 라이브러리에도 동일하게 적용할 수 있습니다.
 
