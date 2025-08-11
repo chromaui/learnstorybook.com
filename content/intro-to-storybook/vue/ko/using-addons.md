@@ -1,21 +1,21 @@
 ---
-title: 'Addons'
-tocTitle: 'Addons'
-description: 'Learn how to integrate and use the popular Controls addon'
+title: '애드온(Addon)'
+tocTitle: '애드온(Addon)'
+description: '인기있는 Controls 애드온(Addon)을 적용하고 사용하는 방법을 배워봅니다.'
 commit: '17d3ab9'
 ---
 
-Storybook has a robust ecosystem of [addons](https://storybook.js.org/docs/configure/user-interface/storybook-addons) that you can use to enhance the developer experience for everybody in your team. View them all [here](https://storybook.js.org/integrations).
+스토리북(Storybook)에는 팀 내 모든 구성원의 개발 경험을 향상시키는 데 사용할 수 있는 강력한 [애드온(addons)](https://storybook.js.org/docs/configure/storybook-addons) 생태계가 있습니다. [여기](https://storybook.js.org/integrations)에서 볼 수 있습니다.
 
-If you've been following this tutorial, you've already encountered multiple addons and set one up in the [Testing](/intro-to-storybook/react/en/test/) chapter.
+여러분이 이 튜토리얼을 따라했다면 지금까지 이미 여러 애드온을 접했으며, [테스트](/intro-to-storybook/react/ko/test/)챕터에서 하나를 설정해 보았을 것입니다.
 
-There are addons for every possible use case, and it would take forever to write about them all. Let's integrate one of the most popular addons: [Controls](https://storybook.js.org/docs/essentials/controls).
+가능한 모든 사용 사례에 대한 애드온이 있으며 모든 항목을 다룬다면 오래 걸릴 것입니다. 여기서는 가장 인기 있는 애드온인 [Controls](https://storybook.js.org/docs/essentials/controls)를 구현해 보도록 하겠습니다.
 
-## What is Controls?
+## Controls는 무엇인가요?
 
-Controls allows designers and developers to easily explore component behavior by _playing_ with its arguments. No code required. Controls creates an addon panel next to your stories, so you can edit their arguments live.
+Controls로 디자이너와 개발자가 인수(arguments)를 바꿔보며 컴포넌트의 동작을 쉽게 탐색할 수 있습니다. 코드가 필요하지 않습니다. Controls는 스토리(story) 옆에 애드온 패널을 생성하므로 실시간으로 인수(arguments)를 편집할 수 있습니다.
 
-Fresh installs of Storybook include Controls out of the box. No extra configuration needed.
+스토리북을 새로 설치하면 즉시 사용할 수 있는 Controls도 설치됩니다. 추가 설정이 필요하지 않습니다.
 
 <video autoPlay muted playsInline loop>
   <source
@@ -24,97 +24,77 @@ Fresh installs of Storybook include Controls out of the box. No extra configurat
   />
 </video>
 
-## Addons unlock new Storybook workflows
+## 새로운 스토리북 작업 흐름(workflows)을 열어주는 애드온
 
-Storybook is a wonderful [component-driven development environment](https://www.componentdriven.org/). The Controls addon evolves Storybook into an interactive documentation tool.
+스토리북은 훌륭한 [컴포넌트 기반 개발 환경(component-driven development environment)](https://www.componentdriven.org/)입니다. Controls 애드온은 스토리북을 상호작용형 문서 도구로 발전시킵니다.
 
-### Using Controls to find edge cases
+## Controls를 사용하여 Edge cases를 찾기
 
-With Controls, QA Engineers, UI Engineers, or any other stakeholder can push the component to the limit! Considering the following example, what would happen to our `Task` if we added a **MASSIVE** string?
+Controls을 사용하면 QA 엔지니어, UI 엔지니어 또는 기타 이해 관계자가 컴포넌트의 한계를 시험해 볼 수 있습니다! 다음의 예를 들어, `Task` 컴포넌트에 **대량의** 문자열을 추가하면 어떻게 될까요?
 
-![Oh no! The far right content is cut-off!](/intro-to-storybook/task-edge-case-7-0.png)
+![이런! 가장 오른쪽에 있는 내용이 잘렸네요!](/intro-to-storybook/task-edge-case-7-0.png)
 
-That's not right! It looks like the text overflows beyond the bounds of the Task component.
+화면이 정상적이지 않습니다! Task 컴포넌트의 경계를 넘어 글자가 넘친 것 같습니다.
 
-Controls allowed us to quickly verify different inputs to a component--in this case, a long string--and reduced the work required to discover UI problems.
+Controls을 통해 컴포넌트에 대한 다양한 입력(이 경우, 긴 문자열)을 신속하게 확인할 수 있었고, UI 문제를 발견하는 데 필요한 작업이 줄었습니다.
 
-Now let's fix the issue with overflowing by adding a style to `Task.tsx`:
+이제 `Task.vue`에 스타일을 추가하여 글자가 넘치는 문제를 해결하겠습니다.
 
-```diff:title=src/components/Task.tsx
-import type { TaskData } from '../types';
-
-type TaskProps = {
-  /** Composition of the task */
-  task: TaskData;
-  /** Event to change the task to archived */
-  onArchiveTask: (id: string) => void;
-  /** Event to change the task to pinned */
-  onPinTask: (id: string) => void;
-};
-
-export default function Task({
-  task: { id, title, state },
-  onArchiveTask,
-  onPinTask,
-}: TaskProps) {
-  return (
-    <div className={`list-item ${state}`}>
-      <label
-        htmlFor={`archiveTask-${id}`}
-        aria-label={`archiveTask-${id}`}
-        className="checkbox"
-      >
-        <input
-          type="checkbox"
-          disabled={true}
-          name="checked"
-          id={`archiveTask-${id}`}
-          checked={state === "TASK_ARCHIVED"}
-        />
-        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
-      </label>
-
-      <label htmlFor={`title-${id}`} aria-label={title} className="title">
-        <input
-          type="text"
-          value={title}
-          readOnly={true}
-          name="title"
-          id={`title-${id}`}
-          placeholder="Input title"
-+         style={{ textOverflow: "ellipsis" }}
-        />
-      </label>
-      {state !== "TASK_ARCHIVED" && (
-        <button
-          className="pin-button"
-          onClick={() => onPinTask(id)}
-          id={`pinTask-${id}`}
-          aria-label={`pinTask-${id}`}
-          key={`pinTask-${id}`}
-        >
-          <span className={`icon-star`} />
-        </button>
-      )}
-    </div>
-  );
-}
+```diff:title=src/components/Task.vue
+<template>
+  <div :class="classes">
+    <label
+      :for="'checked' + task.id"
+      :aria-label="'archiveTask-' + task.id"
+      class="checkbox"
+    >
+      <input
+        type="checkbox"
+        :checked="isChecked"
+        disabled
+        :name="'checked' + task.id"
+        :id="'archiveTask-' + task.id"
+      />
+      <span class="checkbox-custom" @click="archiveTask" />
+    </label>
+    <label :for="'title-' + task.id" :aria-label="task.title" class="title">
+      <input
+        type="text"
+        readonly
+        :value="task.title"
+        :id="'title-' + task.id"
+        name="title"
+        placeholder="Input title"
++       style="text-overflow: ellipsis;" />
+      />
+    </label>
+    <button
+      v-if="!isChecked"
+      class="pin-button"
+      @click="pinTask"
+      :id="'pinTask-' + task.id"
+      :aria-label="'pinTask-' + task.id"
+    >
+      <span class="icon-star" />
+    </button>
+  </div>
+</template>
 ```
 
-![That's better.](/intro-to-storybook/edge-case-solved-with-controls-7-0.png)
+![훨씬 좋습니다](/intro-to-storybook/edge-case-solved-with-controls-7-0.png)
 
-Problem solved! The text is now truncated when it reaches the boundary of the Task area using a handsome ellipsis.
+문제가 해결되었습니다! 이제 Task 영역의 경계에 도달하면 말줄임표를 이용해 문자열을 보여줍니다.
 
-### Adding a new story to avoid regressions
+## 회귀를 피하기 위해 새로운 스토리 추가하기
 
-In the future, we can manually reproduce this problem by entering the same string via Controls. But it's easier to write a story that showcases this edge case. That expands our regression test coverage and clearly outlines the limits of the component(s) for the rest of the team.
+앞으로는 Controls를 통해 동일한 문자열을 입력하여 수동으로 이 문제를 재현할 수 있습니다. 그러나 이 edge case를 보여주는 story를 작성하는 것이 더 쉽습니다. 이는 회귀 테스트(regression test) 커버리지를 확장하고 팀에게 컴포넌트의 한계를 명확하게 설명할 수 있습니다.
 
-Add a new story for the long text case in `Task.stories.tsx`:
+긴 문자열 케이스에 대한 새로운 스토리를 `Task.stories.js` 에 추가해봅시다.
 
-```js:title=src/components/Task.stories.tsx
+```js:title=src/components/Task.stories.js
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle: Story = {
+export const LongTitle = {
   args: {
     task: {
       ...Default.args.task,
@@ -124,23 +104,23 @@ export const LongTitle: Story = {
 };
 ```
 
-Now we can reproduce and work on this edge case with ease.
+이제 이 edge case를 쉽게 재현하고 작업할 수 있습니다.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/task-stories-long-title-7-0.mp4"
+    src="/intro-to-storybook/task-stories-long-title-non-react.mp4"
     type="video/mp4"
   />
 </video>
 
-If we are [visual testing](/intro-to-storybook/react/en/test/), we'll also be informed if the truncating solution breaks. Extreme edge cases are liable to be forgotten without test coverage!
+만약 [시각적 테스팅(visual testing)](/intro-to-storybook/react/ko/test/)이면, 말줄임표 솔루션이 작동 중단되는 경우에도 알림이 표시됩니다. 모호한 edge case들은 테스트 커버리지 없이는 잊혀지기가 쉽습니다!
 
 <div class="aside">
 
-💡 Controls is a great way to get non-developers playing with your components and stories. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/essentials/controls) to learn more about it. However, there are many more ways you can customize Storybook to fit your workflow with addons. In the [create an addon guide](https://storybook.js.org/docs/addons/writing-addons) we'll teach you that, by creating an addon that will help you supercharge your development workflow.
+💡 Controls는 비개발자가 만든 컴포넌트와 스토리를 맘껏 테스트할 수 있도록하는 훌륭한 방법입니다. 우리가 여기서 본 것보다 더 많은 것을 하려면 다양한 것들을 배우기 위해 [공식 문서](https://storybook.js.org/docs/essentials/controls)를 보는 것을 추천합니다. 그러나, 애드온를 사용하여 작업 흐름(workflow)에 맞게 스토리북을 사용자 정의할 수 있는 여러 방법이 있습니다. [애드온 작업 가이드](https://storybook.js.org/docs/addons/writing-addons)에선 개발 작업 흐름(workflow)의 향상을 지원하는 애드온을 만듦으로써 얻는 장점에 대해 설명합니다.
 
 </div>
 
 ### Merge Changes
 
-Don't forget to merge your changes with git!
+변경된 사항을 깃(Git)에 commit하는 것을 잊지 마세요!
