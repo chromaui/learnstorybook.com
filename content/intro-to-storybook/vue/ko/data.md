@@ -1,335 +1,267 @@
 ---
-title: 'Wire in data'
-tocTitle: 'Data'
-description: 'Learn how to wire in data to your UI component'
-commit: 'f9eaeef'
+title: '데이터 연결하기'
+tocTitle: '데이터'
+description: 'UI 컴포넌트에 데이터를 연결하는 방법을 배워보세요'
+commit: '30e306d'
 ---
 
-So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
+지금까지 우리는 독립된 환경에서 상태를 가지지 않는(stateless) 컴포넌트를 만들어보았습니다. 이는 스토리북(Storybook)에는 적합하지만 앱에 데이터를 제공하기 전까지는 유용하지 않습니다.
 
-This tutorial doesn’t focus on the particulars of building an app, so we won’t dig into those details here. But we will take a moment to look at a common pattern for wiring in data into connected components.
+이번 튜토리얼에서는 앱 제작의 세부 사항에 중점을 두지 않기 때문에 자세히 설명하지 않을 것입니다. 그보다 컨테이너 컴포넌트(container components)에 데이터를 연결하는 일반적인 패턴을 살펴보도록 하겠습니다.
 
-## Connected components
+## 컨테이너 컴포넌트
 
-Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. We need to wire it to a data provider to get data into it.
+현재 구현된 TaskList는 외부와 어떠한 소통도 하지 않기 때문에 “표상적(presentational)”이라고 할 수 있습니다. 데이터 주입을 위해서는 “컨테이너”가 필요합니다.
 
-This example uses [Redux Toolkit](https://redux-toolkit.js.org/), the most effective toolset for developing applications for storing data with [Redux](https://redux.js.org/), to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [Apollo](https://www.apollographql.com/client/) and [MobX](https://mobx.js.org/).
+이 예제에서는 Vue의 기본 상태 관리 라이브러리인 [Pinia](https://pinia.vuejs.org/)를 사용하여 앱의 단순한 데이터 모델을 만듭니다. 그러나 이 패턴은 [Apollo](https://www.apollographql.com/client/), [MobX](https://mobx.js.org/)와 같은 다른 상태 관리 라이브러리에도 동일하게 적용할 수 있습니다.
 
-Add the necessary dependencies to your project with:
+다음 명령으로 필요한 의존성을 프로젝트에 추가합니다.
 
 ```shell
-yarn add @reduxjs/toolkit react-redux
+yarn add pinia
 ```
 
-First, we’ll construct a simple Redux store that responds to actions that change the task's state in a file called `store.ts` in the `src/lib` directory (intentionally kept simple):
+먼저, `src` 디렉터리에 `store.js` 파일을 생성하고 Task의 상태를 변경하는 액션에 반응하는 간단한 Pinia 스토어를 만듭니다(일부러 단순하게 유지).
 
-```ts:title=src/lib/store.ts
-/* A simple redux store/actions/reducer implementation.
+```js:title=src/store.js
+/* A simple Pinia store/actions implementation.
  * A true app would be more complex and separated into different files.
  */
-import type { TaskData } from '../types';
-
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-interface TaskBoxState {
-  tasks: TaskData[];
-  status: 'idle' | 'loading' | 'failed';
-  error: string | null;
-}
+import { defineStore } from 'pinia';
 
 /*
  * The initial state of our store when the app loads.
  * Usually, you would fetch this from a server. Let's not worry about that now
  */
-const defaultTasks: TaskData[] = [
+const defaultTasks = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
   { id: '3', title: 'Something else', state: 'TASK_INBOX' },
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-const TaskBoxData: TaskBoxState = {
-  tasks: defaultTasks,
-  status: 'idle',
-  error: null,
-};
-
 /*
  * The store is created here.
- * You can read more about Redux Toolkit's slices in the docs:
- * https://redux-toolkit.js.org/api/createSlice
+ * You can read more about Pinia defineStore in the docs:
+ * https://pinia.vuejs.org/core-concepts/
  */
-const TasksSlice = createSlice({
-  name: 'taskbox',
-  initialState: TaskBoxData,
-  reducers: {
-    updateTaskState: (
-      state,
-      action: PayloadAction<{ id: string; newTaskState: TaskData['state'] }>
-    ) => {
-      const task = state.tasks.find((task) => task.id === action.payload.id);
+export const useTaskStore = defineStore({
+  id: 'taskbox',
+  state: () => ({
+    tasks: defaultTasks,
+    status: 'idle',
+    error: null,
+  }),
+  actions: {
+    archiveTask(id) {
+      const task = this.tasks.find((task) => task.id === id);
       if (task) {
-        task.state = action.payload.newTaskState;
+        task.state = 'TASK_ARCHIVED';
+      }
+    },
+    pinTask(id) {
+      const task = this.tasks.find((task) => task.id === id);
+      if (task) {
+        task.state = 'TASK_PINNED';
       }
     },
   },
-});
-
-// The actions contained in the slice are exported for usage in our components
-export const { updateTaskState } = TasksSlice.actions;
-
-/*
- * Our app's store configuration goes here.
- * Read more about Redux's configureStore in the docs:
- * https://redux-toolkit.js.org/api/configureStore
- */
-
-const store = configureStore({
-  reducer: {
-    taskbox: TasksSlice.reducer,
+  getters: {
+    getFilteredTasks: (state) => {
+      const filteredTasks = state.tasks.filter(
+        (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+      );
+      return filteredTasks;
+    },
   },
 });
-
-// Define RootState and AppDispatch types
-export type RootState = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
-
-export default store;
 ```
 
-Then we’ll update our `TaskList` component to connect to the Redux store and render the tasks we are interested in:
+그런 다음, `TaskList`가 스토어에서 데이터를 읽도록 수정합니다.
+먼저 기존 프레젠테이셔널 버전을 `src/components/PureTaskList.vue`로 이동하고 컴포넌트 이름을 `PureTaskList`로 변경한 뒤, 컨테이너로 감쌉니다.
 
-```tsx:title=src/components/TaskList.tsx
-import Task from './Task';
+`src/components/PureTaskList.vue`:
 
-import { useDispatch, useSelector } from 'react-redux';
-
-import { updateTaskState, RootState, AppDispatch } from '../lib/store';
-
-export default function TaskList() {
-  // We're retrieving our state from the store
-  const tasks = useSelector((state: RootState) => {
-    const tasksInOrder = [
-      ...state.taskbox.tasks.filter((t) => t.state === 'TASK_PINNED'),
-      ...state.taskbox.tasks.filter((t) => t.state !== 'TASK_PINNED'),
-    ];
-    const filteredTasks = tasksInOrder.filter(
-      (t) => t.state === "TASK_INBOX" || t.state === 'TASK_PINNED'
-    );
-    return filteredTasks;
-  });
-  const { status } = useSelector((state: RootState) => state.taskbox);
-  const dispatch = useDispatch<AppDispatch>();
-  const pinTask = (value: string) => {
-    // We're dispatching the Pinned event back to our store
-    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_PINNED' }));
-  };
-  const archiveTask = (value: string) => {
-    // We're dispatching the Archive event back to our store
-    dispatch(updateTaskState({ id: value, newTaskState: 'TASK_ARCHIVED' }));
-  };
-  const LoadingRow = (
-    <div className="loading-item">
-      <span className="glow-checkbox" />
-      <span className="glow-text">
-        <span>Loading</span> <span>cool</span> <span>state</span>
-      </span>
-    </div>
-  );
-  if (status === "loading") {
-    return (
-      <div className="list-items" data-testid="loading" key="loading">
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
+```html:title=src/components/PureTaskList.vue
+<template>
+  <div class="list-items">
+    <template v-if="loading">
+      <div v-for="n in 6" :key="n" class="loading-item">
+        <span class="glow-checkbox" />
+        <span class="glow-text">
+          <span>Loading</span> <span>cool</span> <span>state</span>
+        </span>
       </div>
-    );
-  }
-  if (tasks.length === 0) {
-    return (
-      <div className="list-items" key="empty" data-testid="empty">
-        <div className="wrapper-message">
-          <span className="icon-check" />
-          <p className="title-message">You have no tasks</p>
-          <p className="subtitle-message">Sit back and relax</p>
-        </div>
-      </div>
-    );
-  }
+    </template>
 
-  return (
-    <div className="list-items" data-testid="success" key="success">
-      {tasks.map((task) => (
-        <Task
-          key={task.id}
-          task={task}
-          onPinTask={pinTask}
-          onArchiveTask={archiveTask}
-        />
-      ))}
+    <div v-else-if="isEmpty" class="list-items">
+      <div class="wrapper-message">
+        <span class="icon-check" />
+        <p class="title-message">You have no tasks</p>
+        <p class="subtitle-message">Sit back and relax</p>
+      </div>
     </div>
-  );
-}
+
+    <template v-else>
+      <Task
+        v-for="task in tasksInOrder"
+        :key="task.id"
+        :task="task"
+        @archive-task="onArchiveTask"
+        @pin-task="onPinTask"
+      />
+    </template>
+  </div>
+</template>
+<script>
+import Task from './Task.vue';
+import { reactive, computed } from 'vue';
+
+export default {
+  name: 'PureTaskList',
+  components: { Task },
+  props: {
+    tasks: { type: Array, required: true, default: () => [] },
+    loading: { type: Boolean, default: false },
+  },
+  emits: ['archive-task', 'pin-task'],
+
+  setup(props, { emit }) {
+    props = reactive(props);
+    return {
+      isEmpty: computed(() => props.tasks.length === 0),
+      tasksInOrder: computed(() => {
+        return [
+          ...props.tasks.filter((t) => t.state === 'TASK_PINNED'),
+          ...props.tasks.filter((t) => t.state !== 'TASK_PINNED'),
+        ];
+      }),
+      /**
+       * Event handler for archiving tasks
+       */
+      onArchiveTask(taskId) {
+        emit('archive-task', taskId);
+      },
+      /**
+       * Event handler for pinning tasks
+       */
+      onPinTask(taskId) {
+        emit('pin-task', taskId);
+      },
+    };
+  },
+};
+</script>
 ```
 
-Now that we have some actual data populating our component, obtained from the Redux store, we could have wired it to `src/App.tsx` and render the component there. But for now, let's hold off doing that and continue on our component-driven journey.
+`src/components/TaskList.vue`:
 
-Don't worry about it. We'll take care of it in the next chapter.
+```html:title=src/components/TaskList.vue
+<template>
+  <PureTaskList :tasks="tasks" @archive-task="archiveTask" @pin-task="pinTask" />
+</template>
 
-## Supplying context with decorators
+<script>
+import PureTaskList from './PureTaskList.vue';
 
-Our Storybook stories have stopped working with this change because our `Tasklist` is now a connected component since it relies on a Redux store to retrieve and update our tasks.
+import { computed } from 'vue';
 
-![Broken tasklist](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
+import { useTaskStore } from '../store';
 
-We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
+export default {
+  components: { PureTaskList },
+  name: 'TaskList',
+  setup() {
+    //👇 Creates a store instance
+    const store = useTaskStore();
 
-```tsx:title=src/components/TaskList.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+    //👇 Retrieves the tasks from the store's state auxiliary getter function
+    const tasks = computed(() => store.getFilteredTasks);
 
-import type { TaskData } from '../types';
+    //👇 Dispatches the actions back to the store
+    const archiveTask = (task) => store.archiveTask(task);
+    const pinTask = (task) => store.pinTask(task);
 
-import TaskList from './TaskList';
+    return {
+      tasks,
+      archiveTask,
+      pinTask,
+    };
+  },
+};
+</script>
+```
+
+`TaskList`의 프레젠테이셔널 버전을 별도로 유지하는 이유는 테스트와 분리가 쉽기 때문입니다. 스토어에 의존하지 않으므로 테스트 환경에서 다루기 훨씬 편합니다.
+`src/components/TaskList.stories.js`를 `src/components/PureTaskList.stories.js`로 변경하고, 스토리가 프레젠테이셔널 버전을 사용하도록 수정합니다.
+
+```diff:title=src/components/PureTaskList.stories.js
++ import PureTaskList from './PureTaskList.vue';
 
 import * as TaskStories from './Task.stories';
 
-import { Provider } from 'react-redux';
-
-import { configureStore, createSlice } from '@reduxjs/toolkit';
-
-// A super-simple mock of the state of the store
-export const MockedState = {
-  tasks: [
-    { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-    { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-    { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-    { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-    { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-    { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-  ] as TaskData[],
-  status: 'idle',
-  error: null,
-};
-
-// A super-simple mock of a redux store
-const Mockstore = ({
-  taskboxState,
-  children,
-}: {
-  taskboxState: typeof MockedState;
-  children: React.ReactNode;
-}) => (
-  <Provider
-    store={configureStore({
-      reducer: {
-        taskbox: createSlice({
-          name: "taskbox",
-          initialState: taskboxState,
-          reducers: {
-            updateTaskState: (state, action) => {
-              const { id, newTaskState } = action.payload;
-              const task = state.tasks.findIndex((task) => task.id === id);
-              if (task >= 0) {
-                state.tasks[task].state = newTaskState;
-              }
-            },
-          },
-        }).reducer,
-      },
-    })}
-  >
-    {children}
-  </Provider>
-);
-
-const meta = {
-  component: TaskList,
-  title: 'TaskList',
-  decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
+export default {
++ component: PureTaskList,
++ title: 'PureTaskList',
   tags: ['autodocs'],
-  excludeStories: /.*MockedState$/,
-} satisfies Meta<typeof TaskList>;
-
-export default meta;
-type Story = StoryObj<typeof meta>;
-
-export const Default: Story = {
-  decorators: [
-    (story) => <Mockstore taskboxState={MockedState}>{story()}</Mockstore>,
-  ],
+  decorators: [() => ({ template: '<div style="margin: 3em;"><story/></div>' })],
+  args: {
+    ...TaskStories.ActionsData,
+  }
 };
 
-export const WithPinnedTasks: Story = {
-  decorators: [
-    (story) => {
-      const pinnedtasks: TaskData[] = [
-        ...MockedState.tasks.slice(0, 5),
-        { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
-      ];
-
-      return (
-        <Mockstore
-          taskboxState={{
-            ...MockedState,
-            tasks: pinnedtasks,
-          }}
-        >
-          {story()}
-        </Mockstore>
-      );
-    },
-  ],
+export const Default = {
+  args: {
+    // Shaping the stories through args composition.
+    // The data was inherited from the Default story in Task.stories.js.
+    tasks: [
+      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
+      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
+      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
+      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
+      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
+      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
+    ],
+  },
 };
 
-export const Loading: Story = {
-  decorators: [
-    (story) => (
-      <Mockstore
-        taskboxState={{
-          ...MockedState,
-          status: 'loading',
-        }}
-      >
-        {story()}
-      </Mockstore>
-    ),
-  ],
+export const WithPinnedTasks = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Default story.
+    tasks: [
+      ...Default.args.tasks.slice(0, 5),
+      { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
+    ],
+  },
 };
 
-export const Empty: Story = {
-  decorators: [
-    (story) => (
-      <Mockstore
-        taskboxState={{
-          ...MockedState,
-          tasks: [],
-        }}
-      >
-        {story()}
-      </Mockstore>
-    ),
-  ],
+export const Loading = {
+  args: {
+    tasks: [],
+    loading: true,
+  },
+};
+
+export const Empty = {
+  args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Loading story.
+    ...Loading.args,
+    loading: false,
+  },
 };
 ```
 
-<div class="aside">
-
-💡 `excludeStories` is a Storybook configuration field that prevents our mocked state to be treated as a story. You can read more about this field in the [Storybook documentation](https://storybook.js.org/docs/api/csf).
-
-</div>
-
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-7-0-optimized.mp4"
+    src="/intro-to-storybook/finished-puretasklist-states-7-0.mp4"
     type="video/mp4"
   />
 </video>
 
 <div class="aside">
-💡 Don't forget to commit your changes with git!
+💡 변경 사항을 Git에 커밋하는 것을 잊지 마세요!
 </div>
 
-Success! We're right where we started, our Storybook is now working, and we're able to see how we could supply data into a connected component. In the next chapter, we'll take what we've learned here and apply it to a screen.
+이제 Pinia 스토어에서 가져온 실제 데이터로 컴포넌트를 채웠습니다. 원한다면 이를 `src/App.vue`에 연결하여 컴포넌트를 렌더링할 수도 있습니다. 이는 다음 장에서 다루겠습니다.
