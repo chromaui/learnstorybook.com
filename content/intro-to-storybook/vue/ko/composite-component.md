@@ -21,7 +21,7 @@ Taskbox는 핀으로 고정된 task를 일반 task 위에 배치하여 강조합
 
 복합 컴포넌트는 기본 컴포넌트와 크게 다르지 않습니다. `TaskList` 컴포넌트와 그에 해당하는 스토리 파일을 만들어보겠습니다. `src/components/TaskList.vue` 와 `src/components/TaskList.stories.js`를 생성해 주세요.
 
-우선 `TaskList`의 대략적인 구현부터 시작하겠습니다. 이전의 `Task` 컴포넌트를 가져온 후, 속성과 액션을 입력값으로 전달해 주세요.
+우선 `TaskList`의 대략적인 구현부터 시작하겠습니다. 이전의 `Task` 컴포넌트를 가져온 후, 속성과 액션을 입력값으로 전달해 주세요:
 
 ```html:title=src/components/TaskList.vue
 <template>
@@ -141,7 +141,8 @@ export const Empty = {
 
 </div>
 
-`TaskStories`를 import하면 args composition을 통해 손쉽게 스토리 데이터를 재사용할 수 있습니다. 이렇게 하면 두 컴포넌트가 기대하는 데이터와 액션(mock 콜백)을 모두 유지할 수 있습니다.
+`TaskStories`를 import하면 args [구성(compose)](https://storybook.js.org/docs/react/writing-stories/args#args-composition)을 통해 손쉽게 스토리 데이터를 재사용할 수 있습니다.
+이를 통해 두 컴포넌트가 받을 수 있는 데이터와 액션(mocked callbacks)이 모두 보존됩니다.
 
 이제 Storybook에서 새 `TaskList` 스토리를 확인합니다.
 
