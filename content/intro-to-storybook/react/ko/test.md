@@ -41,10 +41,26 @@ description: 'UI 컴포넌트 테스트 방법 배우기'
 git checkout -b change-task-background
 ```
 
-`src/components/Task.jsx`를 다음과 같이 변경하세요:
+`src/components/Task.tsx`를 다음과 같이 변경하세요:
 
-```diff:title=src/components/Task.jsx
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+```diff:title=src/components/Task.tsx
+import type { TaskData } from '../types';
+
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+};
+
+
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}: TaskProps) {
   return (
     <div className={`list-item ${state}`}>
       <label
@@ -59,10 +75,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           id={`archiveTask-${id}`}
           checked={state === "TASK_ARCHIVED"}
         />
-        <span
-          className="checkbox-custom"
-          onClick={() => onArchiveTask(id)}
-        />
+        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
 
       <label htmlFor={`title-${id}`} aria-label={title} className="title">
@@ -76,7 +89,6 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 +         style={{ backgroundColor: 'red' }}
         />
       </label>
-
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
