@@ -52,7 +52,7 @@ module.exports = {
           pt: 5.3,
         },
         svelte: {
-          en: 8.3,
+          en: 9.0,
           es: 5.3,
         },
       },

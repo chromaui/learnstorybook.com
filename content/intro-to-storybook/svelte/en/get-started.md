@@ -40,7 +40,13 @@ yarn dev
 
 Our main frontend app modalities: component development (Storybook), and the application itself.
 
-<!-- Needs to be updated and the link updated to ![Main modalities](/intro-to-storybook/app-main-modalities-svelte.png) -->
+<!--
+
+TODO:
+- Update the image  to include the default Vite start screen and updated Storybook UI
+- Link and description updated to ![Main modalities](/intro-to-storybook/app-main-modalities-svelte.png)
+
+-->
 
 ![3 modalities](/intro-to-storybook/app-three-modalities-svelte.png)
 

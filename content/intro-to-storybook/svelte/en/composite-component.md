@@ -18,42 +18,59 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ## Get set up
 
-A composite component isn’t much different from the basic components it contains. Create a `TaskList` component, an auxiliary component to help us display the correct markup, and an accompanying story file: `src/components/TaskList.svelte`, `src/components/MarginDecorator.svelte`, and `src/components/TaskList.stories.js`.
+A composite component isn’t much different from the basic components it contains. Create a `TaskList` component, an auxiliary component to help us display the correct markup, and an accompanying story file: `src/lib/TaskList.svelte`, `src/lib/MarginDecorator.svelte`, and `src/lib/TaskList.stories.svelte`.
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```html:title=src/components/TaskList.svelte
-<script>
+```html:title=src/lib/TaskList.svelte
+<script lang="ts">
+  import type { TaskData } from '../types';
+
   import Task from './Task.svelte';
 
-  /* Sets the loading state */
-  export let loading = false;
+  interface Props {
+    /** Checks if it's in loading state */
+    loading?: boolean;
+    /** The list of tasks */
+    tasks: TaskData[];
+    /** Event to change the task to pinned */
+    onPinTask: (id: string) => void;
+    /** Event to change the task to archived */
+    onArchiveTask: (id: string) => void;
+  }
 
-  /* Defines a list of tasks */
-  export let tasks = [];
+  const {
+    loading = false,
+    tasks = [],
+    onPinTask,
+    onArchiveTask,
+  }: Props = $props();
 
-  /* Reactive declaration (computed prop in other frameworks) */
-  $: noTasks = tasks.length === 0;
-  $: emptyTasks = noTasks && !loading;
+  const noTasks = $derived(tasks.length === 0);
 </script>
 
 {#if loading}
   <div class="list-items">loading</div>
 {/if}
-{#if emptyTasks}
+
+{#if !loading && noTasks}
   <div class="list-items">empty</div>
 {/if}
-{#each tasks as task}
-  <Task {task} on:onPinTask on:onArchiveTask />
-{/each}
 
+{#each tasks as task}
+  <Task {task} {onPinTask} {onArchiveTask} />
+{/each}
 ```
 
 Next, create `MarginDecorator` with the following inside:
 
-```html:title=src/components/MarginDecorator.svelte
+```html:title=src/lib/MarginDecorator.svelte
+<script>
+  let { children } = $props();
+</script>
+
 <div>
-  <slot />
+  {@render children()}
 </div>
 
 <style>
@@ -65,74 +82,73 @@ Next, create `MarginDecorator` with the following inside:
 
 Finally, create `Tasklist`’s test states in the story file.
 
-```js:title=src/components/TaskList.stories.js
-import TaskList from './TaskList.svelte';
+```html:title=src/lib/TaskList.stories.svelte
+<script module>
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
-import MarginDecorator from './MarginDecorator.svelte';
+  import TaskList from './TaskList.svelte';
+  import MarginDecorator from './MarginDecorator.svelte';
 
-import * as TaskStories from './Task.stories';
+  import * as TaskStories from './Task.stories.svelte';
 
-export default {
-  component: TaskList,
-  title: 'TaskList',
-  tags: ['autodocs'],
-  //👇 The auxiliary component will be added as a decorator to help show the UI correctly
-  decorators: [() => MarginDecorator],
-  render: (args) => ({
-    Component: TaskList,
-    props: args,
-    on: {
-      ...TaskStories.actionsData,
+  export const TaskListData = [
+    { ...TaskStories.TaskData, id: '1', title: 'Task 1' },
+    { ...TaskStories.TaskData, id: '2', title: 'Task 2' },
+    { ...TaskStories.TaskData, id: '3', title: 'Task 3' },
+    { ...TaskStories.TaskData, id: '4', title: 'Task 4' },
+    { ...TaskStories.TaskData, id: '5', title: 'Task 5' },
+    { ...TaskStories.TaskData, id: '6', title: 'Task 6' },
+  ];
+
+  const { Story } = defineMeta({
+    component: TaskList,
+    title: 'TaskList',
+    tags: ['autodocs'],
+    excludeStories: /.*Data$/,
+    decorators: [() => MarginDecorator],
+    args: {
+      ...TaskStories.TaskData.events,
     },
-  }),
-};
+  });
+</script>
 
-export const Default = {
-  args: {
-    // Shaping the stories through args composition.
-    // The data was inherited from the Default story in task.stories.js.
+<Story
+  name="Default"
+  args={{
+    tasks: TaskListData,
+     loading: false,
+  }}
+/>
+<Story
+  name="WithPinnedTasks"
+  args={{
     tasks: [
-      { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
-      { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
-      { ...TaskStories.Default.args.task, id: '3', title: 'Task 3' },
-      { ...TaskStories.Default.args.task, id: '4', title: 'Task 4' },
-      { ...TaskStories.Default.args.task, id: '5', title: 'Task 5' },
-      { ...TaskStories.Default.args.task, id: '6', title: 'Task 6' },
-    ],
-  },
-};
-
-export const WithPinnedTasks = {
-  args: {
-    // Shaping the stories through args composition.
-    // Inherited data coming from the Default story.
-    tasks: [
-      ...Default.args.tasks.slice(0, 5),
+      ...TaskListData.slice(0, 5),
       { id: '6', title: 'Task 6 (pinned)', state: 'TASK_PINNED' },
     ],
-  },
-};
+  }}
+/>
 
-export const Loading = {
-  args: {
+<Story
+  name="Loading"
+  args={{
     tasks: [],
     loading: true,
-  },
-};
+  }}
+/>
 
-export const Empty = {
-  args: {
-    // Shaping the stories through args composition.
-    // Inherited data coming from the Loading story.
-    ...Loading.args,
+<Story
+  name="Empty"
+  args={{
+    tasks: TaskListData.slice(0, 0),
     loading: false,
-  },
-};
+  }}
+/>
 ```
 
 <div class="aside">
 
-[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case we’re using a decorator `key` on the default export to add styling around the rendered component. They can also be used to add other context to components.
+[**Decorators**](https://storybook.js.org/docs/writing-stories/decorators) are a way to provide arbitrary wrappers to stories. In this case, we're using Svelte's CSF's `decorators` property to add styling around the rendered component. They can also be used to add other context to components.
 
 </div>
 
@@ -142,7 +158,7 @@ Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -155,9 +171,9 @@ For the loading edge case, we will create a new component that will display the 
 
 Create a new file called `LoadingRow.svelte` and inside add the following markup:
 
-```html:title=src/components/LoadingRow.svelte
+```html:title=src/lib/LoadingRow.svelte
 <div class="loading-item">
-  <span class="glow-checkbox" />
+  <span class="glow-checkbox"></span>
   <span class="glow-text">
     <span>Loading</span>
     <span>cool</span>
@@ -168,28 +184,40 @@ Create a new file called `LoadingRow.svelte` and inside add the following markup
 
 And update `TaskList.svelte` to the following:
 
-```html:title=src/components/TaskList.svelte
-<script>
+```html:title=src/lib/TaskList.svelte
+<script lang="ts">
+  import type { TaskData } from '../types';
+
   import Task from './Task.svelte';
   import LoadingRow from './LoadingRow.svelte';
 
-  /* Sets the loading state */
-  export let loading = false;
+  interface Props {
+    /** Checks if it's in loading state */
+    loading?: boolean;
+    /** The list of tasks */
+    tasks: TaskData[];
+    /** Event to change the task to pinned */
+    onPinTask: (id: string) => void;
+    /** Event to change the task to archived */
+    onArchiveTask: (id: string) => void;
+  }
 
-  /* Defines a list of tasks */
-  export let tasks = [];
+  const {
+    loading = false,
+    tasks = [],
+    onPinTask,
+    onArchiveTask,
+  }: Props = $props();
 
-  /* Reactive declaration (computed prop in other frameworks) */
-  $: noTasks = tasks.length === 0;
-  $: emptyTasks = noTasks && !loading;
-  $: tasksInOrder = [
+  const noTasks = $derived(tasks.length === 0);
+  const tasksInOrder = $derived([
     ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED')
-  ];
+    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
+  ]);
 </script>
 
 {#if loading}
-  <div class="list-items">
+  <div class="list-items" data-testid="loading" id="loading">
     <LoadingRow />
     <LoadingRow />
     <LoadingRow />
@@ -197,17 +225,18 @@ And update `TaskList.svelte` to the following:
     <LoadingRow />
   </div>
 {/if}
-{#if emptyTasks}
+{#if !loading && noTasks}
   <div class="list-items">
     <div class="wrapper-message">
-      <span class="icon-check" />
+      <span class="icon-check"></span>
       <p class="title-message">You have no tasks</p>
       <p class="subtitle-message">Sit back and relax</p>
     </div>
   </div>
 {/if}
+
 {#each tasksInOrder as task}
-  <Task {task} on:onPinTask on:onArchiveTask />
+  <Task {task} {onPinTask} {onArchiveTask} />
 {/each}
 ```
 
@@ -215,7 +244,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
