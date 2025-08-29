@@ -40,11 +40,11 @@ Start by creating a new branch for this change:
 git checkout -b change-task-background
 ```
 
-Change `src/lib/Task.svelte` to the following:
+Change `src/lib/components/Task.svelte` to the following:
 
-```diff:title=src/lib/Task.svelte
+```diff:title=src/lib/components/Task.svelte
 <script lang="ts">
-  import type { TaskData } from '../types';
+  import type { TaskData } from '../../types';
 
   interface Props {
     /** Composition of the task */

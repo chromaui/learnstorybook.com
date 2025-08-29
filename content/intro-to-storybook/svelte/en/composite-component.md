@@ -18,13 +18,13 @@ Since `Task` data can be sent asynchronously, we **also** need a loading state t
 
 ## Get set up
 
-A composite component isn’t much different from the basic components it contains. Create a `TaskList` component, an auxiliary component to help us display the correct markup, and an accompanying story file: `src/lib/TaskList.svelte`, `src/lib/MarginDecorator.svelte`, and `src/lib/TaskList.stories.svelte`.
+A composite component isn’t much different from the basic components it contains. Create a `TaskList` component, an auxiliary component to help us display the correct markup, and an accompanying story file: `src/lib/components/TaskList.svelte`, `src/lib/components/MarginDecorator.svelte`, and `src/lib/components/TaskList.stories.svelte`.
 
 Start with a rough implementation of the `TaskList`. You’ll need to import the `Task` component from earlier and pass in the attributes and actions as inputs.
 
-```html:title=src/lib/TaskList.svelte
+```html:title=src/lib/components/TaskList.svelte
 <script lang="ts">
-  import type { TaskData } from '../types';
+  import type { TaskData } from '../../types';
 
   import Task from './Task.svelte';
 
@@ -64,7 +64,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
 
 Next, create `MarginDecorator` with the following inside:
 
-```html:title=src/lib/MarginDecorator.svelte
+```html:title=src/lib/components/MarginDecorator.svelte
 <script>
   let { children } = $props();
 </script>
@@ -82,7 +82,7 @@ Next, create `MarginDecorator` with the following inside:
 
 Finally, create `Tasklist`’s test states in the story file.
 
-```html:title=src/lib/TaskList.stories.svelte
+```html:title=src/lib/components/TaskList.stories.svelte
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
 
@@ -171,7 +171,7 @@ For the loading edge case, we will create a new component that will display the 
 
 Create a new file called `LoadingRow.svelte` and inside add the following markup:
 
-```html:title=src/lib/LoadingRow.svelte
+```html:title=src/lib/components/LoadingRow.svelte
 <div class="loading-item">
   <span class="glow-checkbox"></span>
   <span class="glow-text">
@@ -184,9 +184,9 @@ Create a new file called `LoadingRow.svelte` and inside add the following markup
 
 And update `TaskList.svelte` to the following:
 
-```html:title=src/lib/TaskList.svelte
+```html:title=src/lib/components/TaskList.svelte
 <script lang="ts">
-  import type { TaskData } from '../types';
+  import type { TaskData } from '../../types';
 
   import Task from './Task.svelte';
   import LoadingRow from './LoadingRow.svelte';

@@ -8,7 +8,7 @@ We've concentrated on building UIs from the bottom up, starting small and adding
 
 In this chapter, we continue to increase the sophistication by combining components in a screen and developing that screen in Storybook.
 
-## Connected screens
+## Connected pages
 
 As our application is straightforward, the screen we'll build is pretty trivial. It simply fetches data from a remote API, wraps the `TaskList` component (which supplies its own data via a custom store using the `$state` rune) in some layout, and pulls a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server).
 
@@ -82,13 +82,13 @@ export function pinTask(id: string) {
 }
 ```
 
-Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.svelte` in the `src/lib` directory:
+Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.svelte` in the `src/lib/components` directory:
 
-```html:title=src/lib/InboxScreen.svelte
+```html:title=src/lib/components/InboxScreen.svelte
 <script lang="ts">
   import TaskList from './TaskList.svelte';
 
-  import { fetchTasks, store } from './state/store.svelte';
+  import { fetchTasks, store } from '../state/store.svelte';
 
   $effect(() => {
     fetchTasks();
@@ -117,7 +117,7 @@ We also need to change the `App` component to render the `InboxScreen` (eventual
 
 ```html:title=src/App.svelte
 <script lang="ts">
-  import InboxScreen from "./lib/InboxScreen.svelte";
+  import InboxScreen from "./lib/components/InboxScreen.svelte";
 </script>
 
 <InboxScreen />
@@ -148,7 +148,7 @@ When placing the `TaskList` into Storybook, we were able to dodge this issue by 
 
 So when we set up our stories in `InboxScreen.stories.svelte`:
 
-```html:title=src/lib/InboxScreen.stories.svelte
+```html:title=src/lib/components/InboxScreen.stories.svelte
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
 
@@ -218,7 +218,7 @@ export default preview;
 
 Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/writing-stories/parameters) that mocks the remote API calls:
 
-```diff:title=src/lib/InboxScreen.stories.svelte
+```diff:title=src/lib/components/InboxScreen.stories.svelte
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
 
@@ -285,13 +285,13 @@ So far, we've been able to build a fully functional application from the ground 
 
 Can't we automate this workflow and test our component interactions automatically?
 
-### Write a interaction test using the play function
+### Write an interaction test using the play function
 
 Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) can help us with that. A play function includes small snippets of code that run after the story renders. It uses framework-agnostic DOM APIs, meaning we can write stories with the play function to interact with the UI and simulate human behavior, regardless of the frontend framework. We'll use them to verify that the UI behaves as expected when we update our tasks.
 
 Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
 
-```diff:title=src/lib/InboxScreen.stories.svelte
+```diff:title=src/lib/components/InboxScreen.stories.svelte
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
 

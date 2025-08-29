@@ -12,7 +12,7 @@ This tutorial doesn’t focus on the particulars of building an app, so we won�
 
 Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
 
-For this tutorial, we'll use Svelte's [runes](https://svelte.dev/docs/svelte/what-are-runes), a powerful reactivity system that provides explicit, fine-grained reactive primitives to implement a simple store. We'll use the [`$state`](https://svelte.dev/docs/svelte/$state) rune to build a simple data model for our application and help us manage the state of our tasks. However, this pattern could be applied with other data management libraries such as [Svelte Query](https://sveltequery.vercel.app/).
+For this tutorial, we'll use Svelte's [runes](https://svelte.dev/docs/svelte/what-are-runes), a powerful reactivity system that provides explicit, fine-grained reactive primitives to implement a simple store. We'll use the [`$state`](https://svelte.dev/docs/svelte/$state) rune to build a simple data model for our application and help us manage the state of our tasks.
 
 First, we’ll construct a simple store that responds to actions that change the state of tasks in a file called `store.svelte.ts` in the `src/lib/state` directory (intentionally kept simple):
 
@@ -65,14 +65,14 @@ export function pinTask(id: string) {
 }
 ```
 
-Then we'll update our `TaskList` to read data out of the store. First, let's move our existing presentational version to the file `src/lib/PureTaskList.svelte` and wrap it with a container.
+Then we'll update our `TaskList` to read data out of the store. First, let's move our existing presentational version to the file `src/lib/components/PureTaskList.svelte` and wrap it with a container.
 
-In `src/lib/PureTaskList.svelte`:
+In `src/lib/components/PureTaskList.svelte`:
 
-```html:title=src/lib/PureTaskList.svelte
+```html:title=src/lib/components/PureTaskList.svelte
 <!--This file moved from TaskList.svelte-->
 <script lang="ts">
-  import type { TaskData } from '../types';
+  import type { TaskData } from '../../types';
 
   import Task from './Task.svelte';
 
@@ -127,11 +127,11 @@ In `src/lib/PureTaskList.svelte`:
 {/each}
 ```
 
-In `src/lib/TaskList.svelte`:
+In `src/lib/components/TaskList.svelte`:
 
-```html:title=src/lib/TaskList.svelte
+```html:title=src/lib/components/TaskList.svelte
 <script lang="ts">
-  import { archiveTask, pinTask, store } from './state/store.svelte';
+  import { archiveTask, pinTask, store } from '../state/store.svelte';
 
   import PureTaskList from './PureTaskList.svelte';
 </script>
@@ -144,9 +144,9 @@ In `src/lib/TaskList.svelte`:
 />
 ```
 
-The reason to keep the presentational version of the `TaskList` separate is that it is easier to test and isolate. As it doesn't rely on the presence of a store, it is much easier to deal with from a testing perspective. Let's rename `src/lib/TaskList.stories.svelte` into `src/lib/PureTaskList.stories.svelte` and ensure our stories use the presentational version:
+The reason to keep the presentational version of the `TaskList` separate is that it is easier to test and isolate. As it doesn't rely on the presence of a store, it is much easier to deal with from a testing perspective. Let's rename `src/lib/components/TaskList.stories.svelte` into `src/lib/components/PureTaskList.stories.svelte` and ensure our stories use the presentational version:
 
-```html:title=src/lib/PureTaskList.stories.svelte
+```html:title=src/lib/components/PureTaskList.stories.svelte
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
 

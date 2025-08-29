@@ -19,11 +19,11 @@ As we start to build `Task`, we first write our test states that correspond to t
 
 ## Get set up
 
-First, let’s create the task component and its accompanying story file: `src/lib/Task.svelte` and `src/lib/Task.stories.svelte`.
+First, let’s create the task component and its accompanying story file: `src/lib/components/Task.svelte` and `src/lib/components/Task.stories.svelte`.
 
 We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```html:title=src/lib/Task.svelte
+```html:title=src/lib/components/Task.svelte
 <script lang="ts">
   type TaskData = {
     id?: string;
@@ -65,7 +65,7 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```html:title=src/lib/Task.stories.svelte
+```html:title=src/lib/components/Task.stories.svelte
 <script module>
   import { defineMeta } from '@storybook/addon-svelte-csf';
 
@@ -202,7 +202,7 @@ Now that we have Storybook set up, styles imported, and test cases built out, we
 
 The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 
-```html:title=src/lib/Task.svelte
+```html:title=src/lib/components/Task.svelte
 <script lang="ts">
   type TaskData = {
     id: string;
@@ -308,9 +308,9 @@ export type TaskData = {
 
 Then, update the `Task` component to use our newly created type:
 
-```html:title=src/lib/Task.stories.svelte
+```html:title=src/lib/components/Task.svelte
 <script lang="ts">
-  import type { TaskData } from '../types';
+  import type { TaskData } from '../../types';
 
   interface Props {
     /** Composition of the task */
