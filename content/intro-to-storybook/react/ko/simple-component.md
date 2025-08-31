@@ -334,7 +334,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 어떻게 작동하는지 봅시다! 다음 명령을 실행하여 애드온을 설치하세요:
 
 ```shell
-yarn add --dev @storybook/addon-a11y
+yarn add --dev @storybook/addon-a11y@8.5.6
 ```
 
 그 다음, 스토리북 구성 파일(`.storybook/main.js`)을 업데이트하여 활성화합니다:

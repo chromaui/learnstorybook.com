@@ -319,7 +319,7 @@ Storybook には公式の[アクセシビリティアドオン](https://storyboo
 それでは、どのように動かすのか見てみましょう! 以下のコマンドでアドオンをインストールします。
 
 ```shell
-yarn add --dev @storybook/addon-a11y
+yarn add --dev @storybook/addon-a11y@8.5.6
 ```
 
 アドオンを利用可能にするために、Storybook の設定ファイル(`.storybook/main.js`)を以下のように設定します。

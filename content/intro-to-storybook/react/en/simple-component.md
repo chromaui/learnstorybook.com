@@ -383,7 +383,7 @@ Storybook includes an official [accessibility addon](https://storybook.js.org/ad
 Let's see how it works! Run the following command to install the addon:
 
 ```shell
-yarn add --dev @storybook/addon-a11y
+yarn add --dev @storybook/addon-a11y@8.5.6
 ```
 
 Then, update your Storybook configuration file (`.storybook/main.ts`) to enable it:

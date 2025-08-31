@@ -331,7 +331,7 @@ Storybook inclut un [addon d'accessibilité officiel](https://storybook.js.org/a
 Regardons comment cela marche ! Executez la commande suivante pour installer l'addon:
 
 ```shell
-yarn add --dev @storybook/addon-a11y
+yarn add --dev @storybook/addon-a11y@8.5.6
 ```
 
 Ensuite, mettez à jour le fichier de configuration de Storybook (`.storybook/main.js`):
