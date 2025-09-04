@@ -5,7 +5,7 @@
   "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
     "@docsearch/css": "^3.2.1",
-    "@storybook/components-marketing": "^3.1.2",
+    "@storybook/components-marketing": "^3.2.0",
     "@storybook/design-system": "7.8.5",
     "@storybook/theming": "^6.5.10",
     "cheerio": "^1.0.0-rc.12",
@@ -94,5 +94,8 @@
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
     "prettier-eslint-cli": "^7.1.0"
+  },
+  "resolutions": {
+    "deepmerge": "^4.3.0"
   }
 }

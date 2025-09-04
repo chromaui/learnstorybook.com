@@ -93,7 +93,7 @@ git checkout -b change-commentlist-outline
 Tweak the `CommentList` component
 
 ```diff:title=src/components/CommentList.tsx
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components';
 
 interface Author {
   name: string;

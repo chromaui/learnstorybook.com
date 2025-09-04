@@ -238,30 +238,30 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 
 | Framework    | Translation      | Updated |
 | ------------ | ---------------- | ------- |
-| React        | English          | ✅      |
-|              | Spanish          | ✅      |
+| React        | English          | ❌      |
+|              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | ZH-TW            | ❌      |
 |              | Mainland Chinese | ❌      |
 |              | Dutch            | ❌      |
-|              | Korean           | ✅      |
-|              | Japanese         | ✅      |
-|              | French           | ✅      |
+|              | Korean           | ❌      |
+|              | Japanese         | ❌      |
+|              | French           | ❌      |
 |              | Italian          | ❌      |
 |              | German           | ❌      |
-| React Native | English          | ✅      |
+| React Native | English          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
-| Vue          | English          | ✅      |
+| Vue          | English          | ❌      |
 |              | Italian          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | French           | ❌      |
 |              | Mainland Chinese | ❌      |
-| Angular      | English          | ✅      |
+| Angular      | English          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
-|              | Japanese         | ✅      |
+|              | Japanese         | ❌      |
 | Svelte       | English          | ✅      |
 |              | Spanish          | ❌      |
 
@@ -272,7 +272,8 @@ The [Visual Testing handbook](https://storybook.js.org/tutorials/visual-testing-
 | Translation | Updated |
 | ----------- | ------- |
 | English     | ✅      |
-| Spanish     | ❌      |
+| Spanish     | ✅      |
+| Korean      | ✅      |
 
 The [UI Testing handbook](https://storybook.js.org/tutorials/ui-testing-handbook/) features the following translations. If you want to learn more about industry-grade testing patterns and workflows, and you're a native speaker of any of the languages, detailed below. Help us out by updating the translations. Leave a comment on the issue above.
 

@@ -93,7 +93,7 @@ Now that we have a basic implementation, we can build our test states. Storybook
 Create a new file called `CommentList.stories.ts` in `src/components` and add the following:
 
 ```ts:title=src/components/CommentList.stories.ts
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import CommentList from './CommentList';
 
