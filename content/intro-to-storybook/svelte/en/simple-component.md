@@ -19,41 +19,44 @@ As we start to build `Task`, we first write our test states that correspond to t
 
 ## Get set up
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.svelte` and `src/components/Task.stories.js`.
+First, let’s create the task component and its accompanying story file: `src/lib/components/Task.svelte` and `src/lib/components/Task.stories.svelte`.
 
 We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
-```html:title=src/components/Task.svelte
-<script>
-  import { createEventDispatcher } from 'svelte';
-
-  const dispatch = createEventDispatcher();
-
-  /** Event handler for the Pin Task */
-  function PinTask() {
-    dispatch('onPinTask', {
-      id: task.id,
-    });
-  }
-
-  /** Event handler for the Archive Task */
-  function ArchiveTask() {
-    dispatch('onArchiveTask', {
-      id: task.id,
-    });
-  }
-
-  /** Composition of the task */
-  export let task = {
-    id: '',
-    title: '',
-    state: '',
+```html:title=src/lib/components/Task.svelte
+<script lang="ts">
+  type TaskData = {
+    id?: string;
+    title?: string;
+    state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
   };
+
+  interface Props {
+    task: TaskData;
+    onArchiveTask: (id: string) => void;
+    onPinTask: (id: string) => void;
+  }
+
+  const {
+    task = {
+      id: '',
+      title: '',
+      state: 'TASK_INBOX',
+    },
+    onArchiveTask,
+    onPinTask,
+  }: Props = $props();
 </script>
 
 <div class="list-item">
-  <label for="title" aria-label={task.title}>
-    <input type="text" value={task.title} name="title" readonly />
+  <label for={`title-${task.id}`} aria-label={task.title}>
+    <input
+      type="text"
+      value={task.title}
+      readOnly
+      name="title"
+      id={`title-${task.id}`}
+    />
   </label>
 </div>
 ```
@@ -62,63 +65,48 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```js:title=src/components/Task.stories.js
-import Task from './Task.svelte';
+```html:title=src/lib/components/Task.stories.svelte
+<script module>
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
-import { action } from '@storybook/addon-actions';
+  import { fn } from 'storybook/test';
 
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
-};
+  import Task from './Task.svelte';
 
-export default {
-  component: Task,
-  title: 'Task',
-  tags: ['autodocs'],
-  //👇 Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
-  render: (args) => ({
-    Component: Task,
-    props: args,
-    on: {
-      ...actionsData,
+  export const TaskData = {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    events: {
+      onArchiveTask: fn(),
+      onPinTask: fn(),
     },
-  }),
-};
+  };
 
-export const Default = {
-  args: {
-    task: {
-      id: "1",
-      title: "Test Task",
-      state: "TASK_INBOX",
+  const { Story } = defineMeta({
+    component: Task,
+    title: 'Task',
+    tags: ['autodocs'],
+    excludeStories: /.*Data$/,
+    args: {
+      ...TaskData.events,
     },
-  },
-};
+  });
+</script>
 
-export const Pinned = {
-  args: {
-    task: {
-      ...Default.args.task,
-      state: "TASK_PINNED",
-    },
-  },
-};
+<Story name="Default" args={{ task: TaskData }} />
 
-export const Archived = {
-  args: {
-    task: {
-      ...Default.args.task,
-      state: "TASK_ARCHIVED",
-    },
-  },
-};
+<Story name="Pinned" args={{ task: { ...TaskData, state: 'TASK_PINNED' } }} />
+
+<Story
+  name="Archived"
+  args={{ task: { ...TaskData, state: 'TASK_ARCHIVED' } }}
+/>
 ```
 
 <div class="aside">
 
-💡 [**Actions**](https://storybook.js.org/docs/essentials/actions) help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `action()` to stub them in.
+💡 [**Actions**](https://storybook.js.org/docs/essentials/actions) help you verify interactions when building UI components in isolation. Oftentimes you won't have access to the functions and state you have in context of the app. Use `fn()` to stub them in.
 
 </div>
 
@@ -129,61 +117,61 @@ There are two basic levels of organization in Storybook: the component and its c
   - Story
   - Story
 
-To tell Storybook about the component we are documenting, we create a `default` export that contains:
+To tell Storybook about the component we're testing, we'll use the `defineMeta` function from the community-driven [Svelte CSF format](https://github.com/storybookjs/addon-svelte-csf), which allows us to define metadata for our component, including the following properties:
 
 - `component` -- the component itself
-- `title` -- how to refer to the component in the sidebar of the Storybook app
-- `excludeStories` -- information required by the story but should not be rendered by the Storybook app
+- `title` -- how to refer to the component in the Storybook sidebar
+- `excludeStories` -- information required by the story but should not be rendered by Storybook
 - `tags` -- to automatically generate documentation for our components
-- `render` -- a function that gives additional control over how the story is rendered
+- `args` -- define the action [args](https://storybook.js.org/docs/essentials/actions#action-args) that the component expects to mock out the custom events
 
-To define our stories, we'll use Component Story Format 3 (also known as [CSF3](https://storybook.js.org/docs/api/csf) ) to build out each of our test cases. This format is designed to build out each of our test cases in a concise way. By exporting an object containing each component state, we can define our tests more intuitively and author and reuse stories more efficiently.
+To define our stories, we'll use the `Story` component returned from the `defineMeta` function to build out each of our test cases.
 
 Arguments or [`args`](https://storybook.js.org/docs/writing-stories/args) for short, allow us to live-edit our components with the controls addon without restarting Storybook. Once an [`args`](https://storybook.js.org/docs/writing-stories/args) value changes, so does the component.
 
-`action()` allows us to create a callback that appears in the **actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+`fn()` allows us to create a callback that appears in the **Actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `actionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `actionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
-
-When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `TaskData` variable and pass them into our story definition each time. Another nice thing about bundling the `TaskData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 ## Config
 
 We'll need to make a couple of changes to Storybook's configuration files so it notices our recently created stories and allows us to use the application's CSS file (located in `src/index.css`).
 
-Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
+Start by changing your Storybook configuration file (`.storybook/main.ts`) to the following:
 
-```diff:title=.storybook/main.js
-/** @type { import('@storybook/svelte-vite').StorybookConfig } */
-const config = {
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/svelte-vite';
+
+const config: StorybookConfig = {
 - stories: [
 -   '../src/**/*.stories.mdx',
 -   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
-+ stories: ['../src/components/**/*.stories.js'],
++ stories: ['../src/lib/**/*.stories.@(js|ts|svelte)'],
   staticDirs: ['../public'],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    '@storybook/addon-svelte-csf',
+    '@chromatic-com/storybook',
+    '@storybook/addon-docs',
+    '@storybook/addon-vitest',
   ],
   framework: {
     name: '@storybook/svelte-vite',
     options: {},
   },
 };
+
 export default config;
 ```
 
-After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
+After completing the change above, inside the `.storybook` folder, change your `preview.ts` to the following:
 
-```diff:title=.storybook/preview.js
+```diff:title=.storybook/preview.ts
+import type { Preview } from '@storybook/svelte-vite';
+
 + import '../src/index.css';
 
-//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-/** @type { import('@storybook/svelte').Preview } */
-const preview = {
-  actions: { argTypesRegex: "^on.*" },
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -197,15 +185,13 @@ const preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we're going to use them to configure how the `actions` (mocked callbacks) are handled.
-
-`actions` allows us to create callbacks that appear in the **Actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
+[`parameters`](https://storybook.js.org/docs/writing-stories/parameters) are typically used to control the behavior of Storybook's features and addons. In our case, we won't use them for that purpose. Instead, we will import our application's CSS file.
 
 Once we’ve done this, restarting the Storybook server should yield test cases for the three Task states:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -216,30 +202,34 @@ Now that we have Storybook set up, styles imported, and test cases built out, we
 
 The component is still rudimentary at the moment. First, write the code that achieves the design without going into too much detail:
 
-```html:title=src/components/Task.svelte
-<script>
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-
-  /** Event handler for the Pin Task */
-  function PinTask() {
-    dispatch('onPinTask', { id: task.id });
-  }
-
-  /** Event handler for the Archive Task */
-  function ArchiveTask() {
-    dispatch('onArchiveTask', { id: task.id });
-  }
-
-  /** Composition of the task */
-  export let task = {
-    id: '',
-    title: '',
-    state: ''
+```html:title=src/lib/components/Task.svelte
+<script lang="ts">
+  type TaskData = {
+    id: string;
+    title: string;
+    state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
   };
 
-  /* Reactive declaration (computed prop in other frameworks) */
-  $: isChecked = task.state === "TASK_ARCHIVED";
+  interface Props {
+    /** Composition of the task */
+    task: TaskData;
+    /** Event to change the task to archived */
+    onArchiveTask: (id: string) => void;
+    /** Event to change the task to pinned */
+    onPinTask: (id: string) => void;
+  }
+
+  const {
+    task = {
+      id: '',
+      title: '',
+      state: 'TASK_INBOX',
+    },
+    onArchiveTask,
+    onPinTask,
+  }: Props = $props();
+
+  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
 </script>
 
 <div class="list-item {task.state}">
@@ -255,14 +245,19 @@ The component is still rudimentary at the moment. First, write the code that ach
       name={`checked-${task.id}`}
       id={`archiveTask-${task.id}`}
     />
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <span
-      class="checkbox-custom"
       role="button"
-      on:click={ArchiveTask}
+      class="checkbox-custom"
+      aria-label={`archivedTask-${task.id}`}
+      onclick={() => onArchiveTask(task.id ?? "")}
+      onkeydown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onArchiveTask(task.id ?? "");
+        }
+      }}
       tabindex="-1"
-      aria-label={`archiveTask-${task.id}`}
-    />
+    ></span>
   </label>
   <label for={`title-${task.id}`} aria-label={task.title} class="title">
     <input
@@ -274,14 +269,17 @@ The component is still rudimentary at the moment. First, write the code that ach
       placeholder="Input title"
     />
   </label>
-  {#if task.state !== 'TASK_ARCHIVED'}
+  {#if task.state !== "TASK_ARCHIVED"}
     <button
       class="pin-button"
-      on:click|preventDefault={PinTask}
+      onclick={(e) => {
+        e.preventDefault();
+        onPinTask(task.id ?? "");
+      }}
       id={`pinTask-${task.id}`}
       aria-label={`pinTask-${task.id}`}
     >
-      <span class="icon-star" />
+      <span class="icon-star"></span>
     </button>
   {/if}
 </div>
@@ -291,65 +289,111 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
+    src="/intro-to-storybook/finished-task-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
+
+## Specify data requirements
+
+As we continue to build out our components, we can specify the shape of the data that the `Task` component expects by defining a TypeScript type. This way, we can catch errors early and ensure the component is used correctly when adding more complexity. Start by creating a `types.ts` file in the `src` folder and move our existing `TaskData` type there:
+
+```ts:title=src/types.ts
+export type TaskData = {
+  id: string;
+  title: string;
+  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
+};
+```
+
+Then, update the `Task` component to use our newly created type:
+
+```html:title=src/lib/components/Task.svelte
+<script lang="ts">
+  import type { TaskData } from '../../types';
+
+  interface Props {
+    /** Composition of the task */
+    task: TaskData;
+    /** Event to change the task to archived */
+    onArchiveTask: (id: string) => void;
+    /** Event to change the task to pinned */
+    onPinTask: (id: string) => void;
+  }
+
+  const {
+    task = {
+      id: '',
+      title: '',
+      state: 'TASK_INBOX',
+    },
+    onArchiveTask,
+    onPinTask,
+  }: Props = $props();
+
+  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
+</script>
+
+<div class="list-item {task.state}">
+  <label
+    for={`checked-${task.id}`}
+    class="checkbox"
+    aria-label={`archiveTask-${task.id}`}
+  >
+    <input
+      type="checkbox"
+      checked={isChecked}
+      disabled
+      name={`checked-${task.id}`}
+      id={`archiveTask-${task.id}`}
+    />
+    <span
+      role="button"
+      class="checkbox-custom"
+      aria-label={`archivedTask-${task.id}`}
+      onclick={() => onArchiveTask(task.id ?? "")}
+      onkeydown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onArchiveTask(task.id ?? "");
+        }
+      }}
+      tabindex="-1"
+    ></span>
+  </label>
+  <label for={`title-${task.id}`} aria-label={task.title} class="title">
+    <input
+      type="text"
+      value={task.title}
+      readonly
+      name="title"
+      id={`title-${task.id}`}
+      placeholder="Input title"
+    />
+  </label>
+  {#if task.state !== "TASK_ARCHIVED"}
+    <button
+      class="pin-button"
+      onclick={(e) => {
+        e.preventDefault();
+        onPinTask(task.id ?? "");
+      }}
+      id={`pinTask-${task.id}`}
+      aria-label={`pinTask-${task.id}`}
+    >
+      <span class="icon-star"></span>
+    </button>
+  {/if}
+</div>
+```
+
+Now, an error in development will appear if the Task component is misused.
 
 ## Component built!
 
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
 As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
-
-## Catch accessibility issues
-
-Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
-
-Storybook includes an official [accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y). Powered by Deque's [axe-core](https://github.com/dequelabs/axe-core), it can catch up to [57% of WCAG issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
-
-Let's see how it works! Run the following command to install the addon:
-
-```shell
-yarn add --dev @storybook/addon-a11y
-```
-
-Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
-
-```diff:title=.storybook/main.js
-/** @type { import('@storybook/svelte-vite').StorybookConfig } */
-const config = {
-  stories: ['../src/components/**/*.stories.js'],
-  staticDirs: ['../public'],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-+   '@storybook/addon-a11y',
-  ],
-  framework: {
-    name: "@storybook/svelte-vite",
-    options: {},
-  },
-};
-export default config;
-```
-
-Finally, restart your Storybook to see the new addon enabled in the UI.
-
-![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
-
-Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
-
-```diff:title=src/index.css
-.list-item.TASK_ARCHIVED input[type="text"] {
-- color: #a0aec0;
-+ color: #4a5568;
-  text-decoration: line-through;
-}
-```
-
-That's it! We've taken the first step to ensure that UI becomes accessible. As we continue to add complexity to our application, we can repeat this process for all other components without needing to spin up additional tools or testing environments.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!

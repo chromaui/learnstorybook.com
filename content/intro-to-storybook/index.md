@@ -16,6 +16,7 @@ toc:
     'screen',
     'deploy',
     'test',
+    'accessibility-testing',
     'using-addons',
     'conclusion',
     'contribute',

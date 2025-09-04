@@ -262,7 +262,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | Japanese         | ❌      |
-| Svelte       | English          | ❌      |
+| Svelte       | English          | ✅      |
 |              | Spanish          | ❌      |
 
 ---
