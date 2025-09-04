@@ -42,7 +42,7 @@ yarn dev
 
 <!-- Needs to be updated and the link updated to ![Main modalities](/intro-to-storybook/app-main-modalities-svelte.png) -->
 
-![3 modalities](/intro-to-storybook/app-three-modalities-svelte.png)
+![3 modalities](/intro-to-storybook/app-main-modalities-svelte.png)
 
 앱의 어느 부분을 작업하느냐에 따라 하나 또는 여러 개의 모드를 동시에 실행할 수 있습니다. 현재는 단일 UI 컴포넌트를 만드는 것이 목표이므로, Storybook만 실행하겠습니다.
 

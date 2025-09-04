@@ -15,7 +15,7 @@ description: '컴포넌트를 독립적으로 빌드하기'
 - `title` – task를 설명하는 문자열
 - `state` - task가 현재 어떤 목록에 있는지, 체크되었는지 여부
 
-`Task` 컴포넌트를 만들기 위해, 먼저 위에서 살펴본 상태에 대응되는 테스트 상태를 작성합니다. 그런 다음 Storybook을 사용해 모의 데이터가 들어간 컴포넌트를 독립적으로 빌드합니다. 아래에서는 각 상태에 대해 컴포넌트가 어떻게 보이는지 테스트해볼 것입니다.
+`Task` 컴포넌트를 만들기 위해, 먼저 위에서 살펴본 상태에 대응되는 테스트 상태를 작성합니다. 그런 다음 Storybook을 사용해 모의 데이터가 들어간 컴포넌트를 독립적으로 빌드합니다. 아래에서는 각 상태에 대해 컴포넌트가 "어떻게 보이는지 테스트"해볼 것입니다.
 
 ## 준비하기
 
@@ -24,36 +24,39 @@ description: '컴포넌트를 독립적으로 빌드하기'
 `Task` 컴포넌트의 기본 구현으로, 현재 필요한 속성과 두 가지 액션(목록 간 이동)을 처리할 수 있도록 합니다:
 
 ```html:title=src/components/Task.svelte
-<script>
-  import { createEventDispatcher } from 'svelte';
-
-  const dispatch = createEventDispatcher();
-
-  /** Event handler for the Pin Task */
-  function PinTask() {
-    dispatch('onPinTask', {
-      id: task.id,
-    });
-  }
-
-  /** Event handler for the Archive Task */
-  function ArchiveTask() {
-    dispatch('onArchiveTask', {
-      id: task.id,
-    });
-  }
-
-  /** Composition of the task */
-  export let task = {
-    id: '',
-    title: '',
-    state: '',
+<script lang="ts">
+  type TaskData = {
+    id?: string;
+    title?: string;
+    state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
   };
+
+  interface Props {
+    task: TaskData;
+    onArchiveTask: (id: string) => void;
+    onPinTask: (id: string) => void;
+  }
+
+  const {
+    task = {
+      id: '',
+      title: '',
+      state: 'TASK_INBOX',
+    },
+    onArchiveTask,
+    onPinTask,
+  }: Props = $props();
 </script>
 
 <div class="list-item">
-  <label for="title" aria-label={task.title}>
-    <input type="text" value={task.title} name="title" readonly />
+  <label for={`title-${task.id}`} aria-label={task.title}>
+    <input
+      type="text"
+      value={task.title}
+      readOnly
+      name="title"
+      id={`title-${task.id}`}
+    />
   </label>
 </div>
 ```
@@ -63,57 +66,42 @@ description: '컴포넌트를 독립적으로 빌드하기'
 아래에서는 스토리 파일에 `Task` 컴포넌트의 세 가지 상태를 작성합니다:
 
 ```js:title=src/components/Task.stories.js
-import Task from './Task.svelte';
+<script module>
+  import { defineMeta } from '@storybook/addon-svelte-csf';
 
-import { action } from '@storybook/addon-actions';
+  import { fn } from 'storybook/test';
 
-export const actionsData = {
-  onPinTask: action('onPinTask'),
-  onArchiveTask: action('onArchiveTask'),
-};
+  import Task from './Task.svelte';
 
-export default {
-  component: Task,
-  title: 'Task',
-  tags: ['autodocs'],
-  //👇 "Data"로 끝나는 export들은 스토리가 아닙니다.
-  excludeStories: /.*Data$/,
-  render: (args) => ({
-    Component: Task,
-    props: args,
-    on: {
-      ...actionsData,
+  export const TaskData = {
+    id: '1',
+    title: 'Test Task',
+    state: 'TASK_INBOX',
+    events: {
+      onArchiveTask: fn(),
+      onPinTask: fn(),
     },
-  }),
-};
+  };
 
-export const Default = {
-  args: {
-    task: {
-      id: "1",
-      title: "Test Task",
-      state: "TASK_INBOX",
+  const { Story } = defineMeta({
+    component: Task,
+    title: 'Task',
+    tags: ['autodocs'],
+    excludeStories: /.*Data$/,
+    args: {
+      ...TaskData.events,
     },
-  },
-};
+  });
+</script>
 
-export const Pinned = {
-  args: {
-    task: {
-      ...Default.args.task,
-      state: "TASK_PINNED",
-    },
-  },
-};
+<Story name="Default" args={{ task: TaskData }} />
 
-export const Archived = {
-  args: {
-    task: {
-      ...Default.args.task,
-      state: "TASK_ARCHIVED",
-    },
-  },
-};
+<Story name="Pinned" args={{ task: { ...TaskData, state: 'TASK_PINNED' } }} />
+
+<Story
+  name="Archived"
+  args={{ task: { ...TaskData, state: 'TASK_ARCHIVED' } }}
+/>
 ```
 
 <div class="aside">
@@ -153,37 +141,39 @@ Storybook에게 어떤 컴포넌트를 문서화 중인지 알려주기 위해, 
 
 먼저 `.storybook/main.js`를 다음과 같이 변경하세요:
 
-```diff:title=.storybook/main.js
-/** @type { import('@storybook/svelte-vite').StorybookConfig } */
-const config = {
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/svelte-vite';
+
+const config: StorybookConfig = {
 - stories: [
 -   '../src/**/*.stories.mdx',
 -   '../src/**/*.stories.@(js|jsx|ts|tsx)'
 - ],
-+ stories: ['../src/components/**/*.stories.js'],
++ stories: ['../src/lib/**/*.stories.@(js|ts|svelte)'],
   staticDirs: ['../public'],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    '@storybook/addon-svelte-csf',
+    '@chromatic-com/storybook',
+    '@storybook/addon-docs',
+    '@storybook/addon-vitest',
   ],
   framework: {
     name: '@storybook/svelte-vite',
     options: {},
   },
 };
+
 export default config;
 ```
 
-변경 후, `.storybook/preview.js`를 다음과 같이 변경하세요:
+변경을 완료한 후, `.storybook` 폴더 안에 있는 `preview.ts`를 다음과 같이 변경하세요:
 
-```diff:title=.storybook/preview.js
+```diff:title=.storybook/preview.ts
+import type { Preview } from '@storybook/svelte-vite';
+
 + import '../src/index.css';
 
-//👇 UI에서 액션(onArchiveTask, onPinTask)의 로그를 남기는 설정입니다.
-/** @type { import('@storybook/svelte').Preview } */
-const preview = {
-  actions: { argTypesRegex: "^on.*" },
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -197,15 +187,13 @@ const preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/writing-stories/parameters)는 Storybook의 기능과 addon 동작을 제어하는 설정입니다. 여기서는 `actions`(모의 콜백) 처리 방식을 지정합니다.
-
-`action()`을 사용하면 Storybook UI의 **Actions** 패널에 클릭 시 나타나는 콜백을 생성할 수 있습니다. 예를 들어, 핀 버튼을 만들 때, UI에서 버튼 클릭이 잘 작동하는지 확인할 수 있습니다.
+[`parameters`](https://storybook.js.org/docs/writing-stories/parameters)는 Storybook의 기능과 addon 동작을 제어하는 설정입니다. 여기서는 그 목적으로 사용하지 않을 것입니다. 대신, 애플리케이션의 CSS 파일을 import 할 것입니다.
 
 위 설정을 마친 뒤, Storybook 서버를 재시작하면 세 가지 `Task` 컴포넌트 상태에 대한 테스트 케이스가 보일 것입니다.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -216,30 +204,34 @@ Storybook 설정, CSS 로드, 테스트 케이스 작성이 완료되었으니, 
 
 컴포넌트는 현재 기본적인 형태만 가지고 있습니다. 먼저, 자세한 사항은 넘어가고, 디자인을 위한 코드를 작성해봅시다.
 
-```html:title=src/components/Task.svelte
-<script>
-  import { createEventDispatcher } from 'svelte';
-  const dispatch = createEventDispatcher();
-
-  /** Pin Task 이벤트 핸들러 */
-  function PinTask() {
-    dispatch('onPinTask', { id: task.id });
-  }
-
-  /** Archive Task 이벤트 핸들러 */
-  function ArchiveTask() {
-    dispatch('onArchiveTask', { id: task.id });
-  }
-
-  /** Task 데이터 */
-  export let task = {
-    id: '',
-    title: '',
-    state: ''
+```html:title=src/lib/components/Task.svelte
+<script lang="ts">
+  type TaskData = {
+    id: string;
+    title: string;
+    state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
   };
 
-  /* 반응형 선언(다른 프레임워크의 prop) */
-  $: isChecked = task.state === "TASK_ARCHIVED";
+  interface Props {
+    /** Composition of the task */
+    task: TaskData;
+    /** Event to change the task to archived */
+    onArchiveTask: (id: string) => void;
+    /** Event to change the task to pinned */
+    onPinTask: (id: string) => void;
+  }
+
+  const {
+    task = {
+      id: '',
+      title: '',
+      state: 'TASK_INBOX',
+    },
+    onArchiveTask,
+    onPinTask,
+  }: Props = $props();
+
+  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
 </script>
 
 <div class="list-item {task.state}">
@@ -255,14 +247,19 @@ Storybook 설정, CSS 로드, 테스트 케이스 작성이 완료되었으니, 
       name={`checked-${task.id}`}
       id={`archiveTask-${task.id}`}
     />
-    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <span
-      class="checkbox-custom"
       role="button"
-      on:click={ArchiveTask}
+      class="checkbox-custom"
+      aria-label={`archivedTask-${task.id}`}
+      onclick={() => onArchiveTask(task.id ?? "")}
+      onkeydown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onArchiveTask(task.id ?? "");
+        }
+      }}
       tabindex="-1"
-      aria-label={`archiveTask-${task.id}`}
-    />
+    ></span>
   </label>
   <label for={`title-${task.id}`} aria-label={task.title} class="title">
     <input
@@ -274,82 +271,131 @@ Storybook 설정, CSS 로드, 테스트 케이스 작성이 완료되었으니, 
       placeholder="Input title"
     />
   </label>
-  {#if task.state !== 'TASK_ARCHIVED'}
+  {#if task.state !== "TASK_ARCHIVED"}
     <button
       class="pin-button"
-      on:click|preventDefault={PinTask}
+      onclick={(e) => {
+        e.preventDefault();
+        onPinTask(task.id ?? "");
+      }}
       id={`pinTask-${task.id}`}
       aria-label={`pinTask-${task.id}`}
     >
-      <span class="icon-star" />
+      <span class="icon-star"></span>
     </button>
   {/if}
 </div>
 ```
 
-위의 마크업과 CSS를 적용하면 다음과 같은 UI가 완성됩니다:
+위에서 가져온 추가 마크업과 이전에 가져온 CSS가 결합되어 다음과 같은 UI가 생성됩니다:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
 
+## 데이터 요구 사항 지정하기
+
+컴포넌트를 만들 때, `Task` 컴포넌트에 필요한 데이터의 형태를 TypeScript 타입을 정의하여 지정할 수 있습니다. 이렇게 하면 오류를 일찍 잡아낼 수 있고, 더 복잡한 기능을 추가할 때 컴포넌트가 올바르게 사용되고 있음을 보장할 수 있습니다. 먼저 `src` 폴더에 `types.ts` 파일을 만들고, 기존의 `TaskData` 타입을 그곳으로 옮기세요:
+
+```ts:title=src/types.ts
+export type TaskData = {
+  id: string;
+  title: string;
+  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
+};
+```
+
+그리고, `Task` 컴포넌트를 새롭게 만든 타입을 사용하도록 변경하세요:
+
+```html:title=src/lib/components/Task.svelte
+<script lang="ts">
+  import type { TaskData } from '../../types';
+
+  interface Props {
+    /** Composition of the task */
+    task: TaskData;
+    /** Event to change the task to archived */
+    onArchiveTask: (id: string) => void;
+    /** Event to change the task to pinned */
+    onPinTask: (id: string) => void;
+  }
+
+  const {
+    task = {
+      id: '',
+      title: '',
+      state: 'TASK_INBOX',
+    },
+    onArchiveTask,
+    onPinTask,
+  }: Props = $props();
+
+  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
+</script>
+
+<div class="list-item {task.state}">
+  <label
+    for={`checked-${task.id}`}
+    class="checkbox"
+    aria-label={`archiveTask-${task.id}`}
+  >
+    <input
+      type="checkbox"
+      checked={isChecked}
+      disabled
+      name={`checked-${task.id}`}
+      id={`archiveTask-${task.id}`}
+    />
+    <span
+      role="button"
+      class="checkbox-custom"
+      aria-label={`archivedTask-${task.id}`}
+      onclick={() => onArchiveTask(task.id ?? "")}
+      onkeydown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onArchiveTask(task.id ?? "");
+        }
+      }}
+      tabindex="-1"
+    ></span>
+  </label>
+  <label for={`title-${task.id}`} aria-label={task.title} class="title">
+    <input
+      type="text"
+      value={task.title}
+      readonly
+      name="title"
+      id={`title-${task.id}`}
+      placeholder="Input title"
+    />
+  </label>
+  {#if task.state !== "TASK_ARCHIVED"}
+    <button
+      class="pin-button"
+      onclick={(e) => {
+        e.preventDefault();
+        onPinTask(task.id ?? "");
+      }}
+      id={`pinTask-${task.id}`}
+      aria-label={`pinTask-${task.id}`}
+    >
+      <span class="icon-star"></span>
+    </button>
+  {/if}
+</div>
+```
+
+이제, `Task` 컴포넌트가 잘못 사용된다면 개발 중 오류가 발생할 겁니다.
+
 ## 컴포넌트 완성!
 
-서버나 전체 애플리케이션을 띄우지 않고도 성공적으로 컴포넌트를 완성했습니다. 다음으로는 나머지 Taskbox 컴포넌트들을 같은 방식으로 구현합니다.
+서버나 전체 프론트엔드 애플리케이션을 실행하지 않고도 성공적으로 컴포넌트를 완성했습니다. 다음으로는 나머지 Taskbox 컴포넌트들을 같은 방식으로 구현합니다.
 
-이처럼 컴포넌트를 독립적으로 빌드하면 빠르고 쉽게 높은 품질의 UI를 만들 수 있습니다. 그리고 모든 가능한 상태에 대해 테스트해볼 수 있기 때문에,, 버그를 줄이고 세련된 결과물을 얻을 수 있습니다.
-
-## 접근성 테스트
-
-접근성 테스트는 자동화 도구와 함께 [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) 규칙 및 업계 표준 지침을 기반의 경험적 방법(heuristics)으로 렌더링 된 DOM을 검사하는 관행입니다. 이 테스트는 시각 장애, 청력 문제, 인지 상태와 같은 장애가 있는 사람들을 포함하여 가능한 한 많은 사람들이 애플리케이션을 사용할 수 있도록 노골적인 접근성 위반을 감지하는 첫 번째 QA 역할을 합니다.
-
-Storybook에는 공식 [접근성 애드온](https://storybook.js.org/addons/@storybook/addon-a11y)이 포함되어 있습니다. Deque의 [axe-core](https://github.com/dequelabs/axe-core)를 기반으로 하며, [최대 57% 의 WCAG 이슈](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/)를 감지할 수 있습니다.
-
-어떻게 작동하는지 봅시다! 다음 명령을 실행하여 애드온을 설치하세요:
-
-```shell
-yarn add --dev @storybook/addon-a11y
-```
-
-다음으로, Storybook 설정 파일(`.storybook/main.js`)을 다음과 같이 수정하여 활성화할 수 있습니다:
-
-```diff:title=.storybook/main.js
-/** @type { import('@storybook/svelte-vite').StorybookConfig } */
-const config = {
-  stories: ['../src/components/**/*.stories.js'],
-  staticDirs: ['../public'],
-  addons: [
-    "@storybook/addon-links",
-    "@storybook/addon-essentials",
-    "@storybook/addon-interactions",
-+   '@storybook/addon-a11y',
-  ],
-  framework: {
-    name: "@storybook/svelte-vite",
-    options: {},
-  },
-};
-export default config;
-```
-
-마지막으로, UI에서 새로운 애드온이 활성화되도록 Storybook을 재시작 하세요.
-
-![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
-
-스토리를 살펴보면, 테스트 상태 중 접근성 이슈를 발견한 것을 볼 수 있습니다. [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI)라는 메시지는 기본적으로 task 제목과 배경 간의 대비가 충분하지 않다는 것을 의미합니다. 애플리케이션의 CSS(`src/index.css`)에 있는 텍스트 색상을 더 어두운 회색으로 변경하여 이것을 고칠 수 있습니다.
-
-```diff:title=src/index.css
-.list-item.TASK_ARCHIVED input[type="text"] {
-- color: #a0aec0;
-+ color: #4a5568;
-  text-decoration: line-through;
-}
-```
-
-이제 끝입니다! UI에 접근성을 더하는 첫 번째 단계를 밟았습니다. 애플리케이션이 더 복잡해지더라도, 추가적인 도구나 테스트 환경을 고려할 필요 없이 위의 프로세스를 반복하여 문제를 해결할 수 있습니다.
+이처럼 컴포넌트를 독립적으로 만들며 시작하는 것은 쉽고 빠릅니다. 가능한 모든 상태를 파악하고 테스트할 수 있기 때문에 버그가 적고 더 윤기나는 고품질 UI를 만들 수 있습니다.
 
 <div class="aside">
 💡 git으로 변경 사항 커밋하는 것을 잊지 마세요!
