@@ -28,7 +28,7 @@ yarn exec storybook add @storybook/addon-a11y
 
 Restart your Storybook to see the new addon enabled in the UI.
 
-![Task accessibility issue in Storybook](/intro-to-storybook/accessibility-issue-task-non-react-9-0.png)
+![Task accessibility issue in Storybook](/intro-to-storybook/accessibility-issue-task-react-9-0.png)
 
 Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The [**Color contrast**](https://dequeuniversity.com/rules/axe/4.10/color-contrast?application=axeAPI) violation essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
 
@@ -44,7 +44,7 @@ That's it. We've taken the first step to ensure our UI remains accessible. Howev
 
 ## Accessibility tests with Chromatic
 
-With Storybook's accessibility addon, we can test and get instant feedback on accessibility issues during development. However, keeping track of accessibility issues can be challenging, and prioritizing which issues to address first may require a dedicated effort. This is where Chromatic can help us. As we've already seen, it helped us [visually test](/intro-to-storybook/svelte/en/test/) our components to prevent regressions. We'll use its [accessibility testing feature](https://www.chromatic.com/docs/accessibility) to ensure our UI remains accessible and we don't accidentally introduce new violations.
+With Storybook's accessibility addon, we can test and get instant feedback on accessibility issues during development. However, keeping track of accessibility issues can be challenging, and prioritizing which issues to address first may require a dedicated effort. This is where Chromatic can help us. As we've already seen, it helped us [visually test](/intro-to-storybook/react/en/test/) our components to prevent regressions. We'll use its [accessibility testing feature](https://www.chromatic.com/docs/accessibility) to ensure our UI remains accessible and we don't accidentally introduce new violations.
 
 ### Enable accessibility tests
 
@@ -70,6 +70,6 @@ TODO: Follow up with Design for an updated asset
  - Needs a React and non-React version to ensure parity with the tutorial
  -->
 
-![Chromatic build with accessibility tests](/intro-to-storybook/chromatic-build-a11y-tests-non-react.png)
+![Chromatic build with accessibility tests](/intro-to-storybook/chromatic-build-a11y-tests-react.png)
 
 We've now successfully built a workflow that ensures our UI remains accessible at each stage of development. Storybook will help us catch accessibility issues during development, while Chromatic keeps track of accessibility regressions, making it easier to fix them incrementally over time.

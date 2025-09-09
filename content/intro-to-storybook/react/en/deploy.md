@@ -66,7 +66,12 @@ yarn chromatic --project-token=<project-token>
 
 When finished, you'll get a link `https://random-uuid.chromatic.com` to your published Storybook. Share the link with your team to get feedback.
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+<!--
+ TOOO:
+   - Follow up Design to get updated versions of this assets for React that showcases the following structure (i.e., Task, TaskList and InboxScreen)
+ -->
+
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-react.png)
 
 Hooray! We published Storybook with one command, but manually running a command every time we want to get feedback on UI implementation is repetitive. Ideally, we'd publish the latest version of components whenever we push code. We'll need to continuously deploy Storybook.
 
