@@ -11,7 +11,7 @@ In this chapter, we continue to increase the sophistication by combining compone
 
 ## Connected screens
 
-As our app is straightforward, the screen we'll build is pretty trivial, simply fetching data from a remote API, wrapping the `TaskList` component (which supplies its own data from Redux), and pulling a top-level `error` field out of Redux.
+As our application is straightforward, the screen we'll build is pretty trivial. It simply fetches data from a remote API, wraps the `TaskList` component (which supplies its own data from Redux) in some layout, and pulls a top-level `error` field out of the store (let's assume we'll set that field if we have some problem connecting to our server).
 
 We'll start by updating our Redux store (in `src/lib/store.ts`) to connect to a remote API and handle the various states for our application (i.e., `error`, `succeeded`):
 
@@ -223,13 +223,13 @@ However, where things get interesting is in rendering the story in Storybook.
 As we saw previously, the `TaskList` component is now a **connected** component and relies on a Redux store to render the tasks. As our `InboxScreen` is also a connected component, we'll do something similar and provide a store to the story. So when we set our stories in `InboxScreen.stories.tsx`:
 
 ```tsx:title=src/components/InboxScreen.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+import { Provider } from 'react-redux';
 
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
-
-import { Provider } from 'react-redux';
 
 const meta = {
   component: InboxScreen,
@@ -248,7 +248,11 @@ export const Error: Story = {};
 
 We can quickly spot an issue with the `error` story. Instead of displaying the right state, it shows a list of tasks. One way to sidestep this issue would be to provide a mocked version for each state, similar to what we did in the last chapter. Instead, we'll use a well-known API mocking library alongside a Storybook addon to help us solve this issue.
 
-![Broken inbox screen state](/intro-to-storybook/broken-inbox-error-state-7-0-optimized.png)
+<!-- TODO:
+  - Follow up with Design to get an updated image that showcases Task, TaskList, and InboxScreen
+-->
+
+![Broken inbox screen state](/intro-to-storybook/broken-inbox-error-state-9-0-optimized.png)
 
 ## Mocking API Services
 
@@ -265,7 +269,7 @@ yarn init-msw
 Then, we'll need to update our `.storybook/preview.ts` and initialize them:
 
 ```diff:title=.storybook/preview.ts
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 
 import { initialize, mswLoader } from 'msw-storybook-addon';
 
@@ -292,17 +296,17 @@ export default preview;
 Finally, update the `InboxScreen` stories and include a [parameter](https://storybook.js.org/docs/writing-stories/parameters) that mocks the remote API calls:
 
 ```diff:title=src/components/InboxScreen.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
-
-import InboxScreen from './InboxScreen';
-
-import store from '../lib/store';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 + import { http, HttpResponse } from 'msw';
 
 + import { MockedState } from './TaskList.stories';
 
 import { Provider } from 'react-redux';
+
+import InboxScreen from './InboxScreen';
+
+import store from '../lib/store';
 
 const meta = {
   component: InboxScreen,
@@ -351,33 +355,27 @@ Check your Storybook, and you'll see that the `error` story is now working as in
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized-7.0.mp4"
+    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized-9.0.mp4"
     type="video/mp4"
   />
 </video>
 
-## Component tests
+## Interaction tests
 
 So far, we've been able to build a fully functional application from the ground up, starting from a simple component up to a screen and continuously testing each change using our stories. But each new story also requires a manual check on all the other stories to ensure the UI doesn't break. That's a lot of extra work.
 
 Can't we automate this workflow and test our component interactions automatically?
 
-### Write a component test using the play function
+### Write an interaction test using the play function
 
-Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) and [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) help us with that. A play function includes small snippets of code that run after the story renders.
+Storybook's [`play`](https://storybook.js.org/docs/writing-stories/play-function) can help us with that. A play function includes small snippets of code that run after the story renders. It uses framework-agnostic DOM APIs, meaning we can write stories with the play function to interact with the UI and simulate human behavior, regardless of the frontend framework. We'll use them to verify that the UI behaves as expected when we update our tasks.
 
-The play function helps us verify what happens to the UI when tasks are updated. It uses framework-agnostic DOM APIs, which means we can write stories with the play function to interact with the UI and simulate human behavior no matter the frontend framework.
-
-The `@storybook/addon-interactions` helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
-
-Let's see it in action! Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
+Update your newly created `InboxScreen` story, and set up component interactions by adding the following:
 
 ```diff:title=src/components/InboxScreen.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import InboxScreen from './InboxScreen';
-
-import store from '../lib/store';
++ import { waitFor, waitForElementToBeRemoved } from 'storybook/test';
 
 import { http, HttpResponse } from 'msw';
 
@@ -385,12 +383,9 @@ import { MockedState } from './TaskList.stories';
 
 import { Provider } from 'react-redux';
 
-+ import {
-+  fireEvent,
-+  waitFor,
-+  within,
-+  waitForElementToBeRemoved
-+ } from '@storybook/test';
+import InboxScreen from './InboxScreen';
+
+import store from '../lib/store';
 
 const meta = {
   component: InboxScreen,
@@ -412,16 +407,15 @@ export const Default: Story = {
       ],
     },
   },
-+ play: async ({ canvasElement }) => {
-+   const canvas = within(canvasElement);
++ play: async ({ canvas, userEvent }) => {
 +   // Waits for the component to transition from the loading state
 +   await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
 +   // Waits for the component to be updated based on the store
 +   await waitFor(async () => {
 +     // Simulates pinning the first task
-+     await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++     await userEvent.click(canvas.getByLabelText('pinTask-1'));
 +     // Simulates pinning the third task
-+     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++     await userEvent.click(canvas.getByLabelText('pinTask-3'));
 +   });
 + },
 };
@@ -443,7 +437,7 @@ export const Error: Story = {
 
 <div class="aside">
 
-💡 The `@storybook/test` package replaces the `@storybook/jest` and `@storybook/testing-library` testing packages, offering a smaller bundle size and a more straightforward API based on the [Vitest](https://vitest.dev/) package.
+💡 The `Interactions` panel helps us visualize our tests in Storybook, providing a step-by-step flow. It also offers a handy set of UI controls to pause, resume, rewind, and step through each interaction.
 
 </div>
 
@@ -451,52 +445,33 @@ Check the `Default` story. Click the `Interactions` panel to see the list of int
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function-7-0.mp4"
+    src="/intro-to-storybook/storybook-play-function-react.mp4"
     type="video/mp4"
   />
 </video>
 
-### Automate tests with the test runner
+### Automate test with the Vitest addon
 
-With Storybook's play function, we were able to sidestep our problem, allowing us to interact with our UI and quickly check how it responds if we update our tasks—keeping the UI consistent at no extra manual effort.
+With the play function, we were able to quickly simulate user interactions with our component and verify how it behaves when we update our tasks—keeping the UI consistent. However, if we look into our Storybook, we can see that our interaction tests only run when viewing the story. This means that if we make a change, we still have to go through each story to run all checks manually. Couldn't we automate it?
 
-But, if we take a closer look at our Storybook, we can see that it only runs the interaction tests when viewing the story. Therefore, we'd still have to go through each story to run all checks if we make a change. Couldn't we automate it?
+We can! Storybook's [Vitest addon](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) allows us to run our interaction tests in a more automated way, leveraging the power of Vitest for a faster and more efficient testing experience. Let's see how it works!
 
-The good news is that we can! Storybook's [test runner](https://storybook.js.org/docs/writing-tests/test-runner) allows us to do just that. It's a standalone utility—powered by [Playwright](https://playwright.dev/)—that runs all our interactions tests and catches broken stories.
+With your Storybook running, click the "Run Tests" in the sidebar. This will run tests on our stories, how they render, their behavior, and the interactions defined in the play function, including the one we just added to the `InboxScreen` story.
 
-Let's see how it works! Run the following command to install it:
-
-```shell
-yarn add --dev @storybook/test-runner
-```
-
-Next, update your `package.json` `scripts` and add a new test task:
-
-```json:clipboard=false
-{
-  "scripts": {
-    "test-storybook": "test-storybook"
-  }
-}
-```
-
-Finally, with your Storybook running, open up a new terminal window and run the following command:
-
-```shell
-yarn test-storybook --watch
-```
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/storybook-vitest-addon-react.mp4"
+    type="video/mp4"
+  />
+</video>
 
 <div class="aside">
 
-💡 Component testing with the play function is a fantastic way to test your UI components. It can do much more than we've seen here; we recommend reading the [official documentation](https://storybook.js.org/docs/writing-tests/component-testing) to learn more about it.
-
-For an even deeper dive into testing, check out the [Testing Handbook](/ui-testing-handbook). It covers testing strategies used by scaled-front-end teams to supercharge your development workflow.
+💡 The Vitest addon can do much more than we've seen here, including other types of testing. We recommend reading the [official documentation](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon) to learn more about it.
 
 </div>
 
-![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
-
-Success! Now we have a tool that helps us verify whether all our stories are rendered without errors and all assertions pass automatically. What's more, if a test fails, it will provide us with a link that opens up the failing story in the browser.
+Now, we have a tool that helps us automate our UI testing without the need for manual checks. This is a great way to ensure that our UI remains consistent and functional as we continue to build out our application. What's more, if our tests fail, we'll be notified immediately, allowing us to fix any outstanding issues quickly and easily.
 
 ## Component-Driven Development
 

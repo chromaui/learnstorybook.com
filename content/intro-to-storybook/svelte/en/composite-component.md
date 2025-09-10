@@ -116,7 +116,7 @@ Finally, create `Tasklist`’s test states in the story file.
   name="Default"
   args={{
     tasks: TaskListData,
-     loading: false,
+    loading: false,
   }}
 />
 <Story
