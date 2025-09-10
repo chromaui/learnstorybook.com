@@ -38,7 +38,7 @@ module.exports = {
           pt: 7.6,
         },
         vue: {
-          en: 8.3,
+          en: 9.0,
           es: 6.1,
           fr: 5.3,
           pt: 5.3,

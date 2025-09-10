@@ -252,7 +252,7 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 | React Native | English          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
-| Vue          | English          | ❌      |
+| Vue          | English          | ✅      |
 |              | Italian          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
