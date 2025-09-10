@@ -160,7 +160,6 @@ const config: StorybookConfig = {
 + stories: ['../src/components/**/*.stories.@(ts|tsx)'],
   staticDirs: ['../public'],
   addons: [
-    '@storybook/addon-links',
     '@storybook/addon-docs',
     '@storybook/addon-vitest',
     '@chromatic-com/storybook',
