@@ -16,11 +16,11 @@ We’ll build our UI following a [Component-Driven Development](https://www.comp
 - `title` – a string describing the task
 - `state` - which list is the task currently in, and is it checked off?
 
-As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to create the component in isolation using mocked data. We’ll manually test the component’s appearance given each state as we go.
+As we start to build `Task`, we first write our test states that correspond to the different types of tasks sketched above. Then we use Storybook to build the component in isolation using mocked data. We’ll “visual test” the component’s appearance given each state as we go.
 
 ## Get set up
 
-First, let’s create the task component and its accompanying story file: `src/components/Task.vue` and `src/components/Task.stories.js`.
+First, let’s create the task component and its accompanying story file: `src/components/Task.vue` and `src/components/Task.stories.ts`.
 
 We’ll begin with a baseline implementation of the `Task`, simply taking in the attributes we know we’ll need and the two actions you can take on a task (to move it between lists):
 
@@ -33,19 +33,21 @@ We’ll begin with a baseline implementation of the `Task`, simply taking in the
   </div>
 </template>
 
-<script>
-export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Task',
-  props: {
-    task: {
-      type: Object,
-      required: true,
-      default: () => ({ id: '', state: '', title: '' }),
-      validator: (task) => ['id', 'state', 'title'].every((key) => key in task)
-    }
-  }
+<script lang="ts" setup>
+type TaskData = {
+  id: string
+  title: string
+  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED'
 }
+
+type TaskProps = {
+  task: TaskData
+  onArchiveTask: (id: string) => void
+  onPinTask: (id: string) => void
+}
+const props = withDefaults(defineProps<TaskProps>(), {
+  task: { id: '', title: '', state: 'TASK_INBOX' },
+})
 </script>
 ```
 
@@ -53,54 +55,60 @@ Above, we render straightforward markup for `Task` based on the existing HTML st
 
 Below we build out Task’s three test states in the story file:
 
-```js:title=src/components/Task.stories.js
-import { fn } from '@storybook/test';
+```ts:title=src/components/Task.stories.ts
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
 
-import Task from './Task.vue';
+import { fn } from 'storybook/test'
 
-export const ActionsData = {
-  onPinTask: fn(),
-  onArchiveTask: fn(),
-};
+import Task from './Task.vue'
 
-export default {
+export const TaskData = {
+  id: '1',
+  title: 'Test Task',
+  state: 'TASK_INBOX' as 'TASK_INBOX' | 'TASK_ARCHIVED' | 'TASK_PINNED',
+  events: {
+    onArchiveTask: fn(),
+    onPinTask: fn(),
+  },
+}
+
+const meta = {
   component: Task,
   title: 'Task',
   tags: ['autodocs'],
   //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
   args: {
-    ...ActionsData
-  }
-};
-
-export const Default = {
-  args: {
-    task: {
-      id: '1',
-      title: 'Test Task',
-      state: 'TASK_INBOX',
-    },
+    ...TaskData.events,
   },
-};
+} satisfies Meta<typeof Task>
 
-export const Pinned = {
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  args: {
+    task: TaskData,
+  },
+}
+
+export const Pinned: Story = {
   args: {
     task: {
       ...Default.args.task,
       state: 'TASK_PINNED',
     },
   },
-};
+}
 
-export const Archived = {
+export const Archived: Story = {
   args: {
     task: {
       ...Default.args.task,
       state: 'TASK_ARCHIVED',
     },
   },
-};
+}
 ```
 
 <div class="aside">
@@ -116,7 +124,7 @@ There are two basic levels of organization in Storybook: the component and its c
   - Story
   - Story
 
-To tell Storybook about the component we are documenting, we create a `default` export that contains:
+To tell Storybook about the component we are testing, we create a `default` export that contains:
 
 - `component` -- the component itself
 - `title` -- how to group or categorize the component in the Storybook sidebar
@@ -130,26 +138,25 @@ Arguments or [`args`](https://storybook.js.org/docs/writing-stories/args) for sh
 
 `fn()` allows us to create a callback that appears in the **Actions** panel of the Storybook UI when clicked. So when we build a pin button, we’ll be able to determine if a button click is successful in the UI.
 
-As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `ActionsData` variable and pass them into our story definition each time. Another nice thing about bundling the `ActionsData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
-
-When creating a story, we use a base `task` arg to build out the shape of the task the component expects. Typically modeled from what the actual data looks like. Again, `export`-ing this shape will enable us to reuse it in later stories, as we'll see.
+As we need to pass the same set of actions to all permutations of our component, it is convenient to bundle them up into a single `TaskData` variable and pass them into our story definition each time. Another nice thing about bundling the `TaskData` that a component needs is that you can `export` them and use them in stories for components that reuse this component, as we'll see later.
 
 ## Config
 
 We'll need to make a couple of changes to Storybook's configuration files, so it notices our recently created stories and allows us to use the application's CSS file (located in `src/index.css`).
 
-Start by changing your Storybook configuration file (`.storybook/main.js`) to the following:
+Start by changing your Storybook configuration file (`.storybook/main.ts`) to the following:
 
-```diff:title=.storybook/main.js
-/** @type { import('@storybook/vue3-vite').StorybookConfig } */
-const config = {
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/vue3-vite'
+
+const config: StorybookConfig = {
 - stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-+ stories: ['../src/components/**/*.stories.js'],
++ stories: ['../src/components/**/*.stories.ts'],
   staticDirs: ['../public'],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    '@chromatic-com/storybook',
+    '@storybook/addon-docs',
+    '@storybook/addon-vitest',
   ],
   framework: {
     name: '@storybook/vue3-vite',
@@ -159,14 +166,15 @@ const config = {
 export default config;
 ```
 
-After completing the change above, inside the `.storybook` folder, change your `preview.js` to the following:
+After completing the change above, inside the `.storybook` folder, change your `preview.ts` to the following:
 
-```diff:title=.storybook/preview.js
-+ import '../src/index.css';
+```diff:title=.storybook/preview.ts
+import type { Preview } from '@storybook/vue3-vite'
+
++ import '../src/index.css'
 
 //👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-/** @type { import('@storybook/vue3').Preview } */
-const preview = {
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -186,7 +194,7 @@ Once we’ve done this, restarting the Storybook server should yield test cases 
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -200,11 +208,7 @@ The component is still rudimentary at the moment. First, write the code that ach
 ```html:title=src/components/Task.vue
 <template>
   <div :class="classes">
-    <label
-      :for="'checked' + task.id"
-      :aria-label="'archiveTask-' + task.id"
-      class="checkbox"
-    >
+    <label :for="'checked' + task.id" :aria-label="'archiveTask-' + task.id" class="checkbox">
       <input
         type="checkbox"
         :checked="isChecked"
@@ -236,49 +240,55 @@ The component is still rudimentary at the moment. First, write the code that ach
   </div>
 </template>
 
-<script>
-import { reactive, computed } from 'vue';
+<script lang="ts" setup>
+import { computed } from 'vue'
 
-export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Task',
-  props: {
-    task: {
-      type: Object,
-      required: true,
-      default: () => ({ id: '', state: '', title: '' }),
-      validator: task => ['id', 'state', 'title'].every(key => key in task),
-    },
-  },
-  emits: ['archive-task', 'pin-task'],
+type TaskData = {
+  id: string
+  title: string
+  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED'
+}
 
-  setup(props, { emit }) {
-    props = reactive(props);
-    return {
-      classes: computed(() => ({
-        'list-item TASK_INBOX': props.task.state === 'TASK_INBOX',
-        'list-item TASK_PINNED': props.task.state === 'TASK_PINNED',
-        'list-item TASK_ARCHIVED': props.task.state === 'TASK_ARCHIVED',
-      })),
-      /**
-       * Computed property for checking the state of the task
-       */
-      isChecked: computed(() => props.task.state === 'TASK_ARCHIVED'),
-      /**
-       * Event handler for archiving tasks
-       */
-      archiveTask() {
-        emit('archive-task', props.task.id);
-      },
-      /**
-       * Event handler for pinning tasks
-       */
-      pinTask() {
-        emit('pin-task', props.task.id);
-      },
-    };
-  },
-};
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void
+}
+
+const props = withDefaults(defineProps<TaskProps>(), {
+  task: { id: '', title: '', state: 'TASK_INBOX' },
+})
+
+const classes = computed(() => {
+  return `list-item ${props.task.state}`
+})
+
+/*
+ * Computed property for checking the state of the task
+ */
+const isChecked = computed(() => props.task.state === 'TASK_ARCHIVED')
+
+const emit = defineEmits<{
+  (e: 'archive-task', id: string): void
+  (e: 'pin-task', id: string): void
+}>()
+
+/**
+ * Event handler for archiving tasks
+ */
+function archiveTask() {
+  emit('archive-task', props.task.id)
+}
+
+/**
+ * Event handler for pinning tasks
+ */
+function pinTask(): void {
+  emit('pin-task', props.task.id)
+}
 </script>
 ```
 
@@ -286,65 +296,111 @@ The additional markup from above combined with the CSS we imported earlier yield
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states-7-0.mp4"
+    src="/intro-to-storybook/finished-task-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
+
+## Specify data requirements
+
+As we continue to build out our components, we can specify the shape of the data that the `Task` component expects by defining a TypeScript type. This way, we can catch errors early and ensure the component is used correctly when adding more complexity. Start by creating a `types.ts` file in the `src` folder and move our existing `TaskData` type there:
+
+```ts:title=src/types.ts
+export type TaskData = {
+  id: string;
+  title: string;
+  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
+};
+```
+
+Then, update the `Task` component to use our newly created type:
+
+```html:title=src/components/Task.vue
+<template>
+  <div :class="classes">
+    <label :for="'checked' + task.id" :aria-label="'archiveTask-' + task.id" class="checkbox">
+      <input
+        type="checkbox"
+        :checked="isChecked"
+        disabled
+        :name="'checked' + task.id"
+        :id="'archiveTask-' + task.id"
+      />
+      <span class="checkbox-custom" @click="archiveTask" />
+    </label>
+    <label :for="'title-' + task.id" :aria-label="task.title" class="title">
+      <input
+        type="text"
+        readonly
+        :value="task.title"
+        :id="'title-' + task.id"
+        name="title"
+        placeholder="Input title"
+      />
+    </label>
+    <button
+      v-if="!isChecked"
+      class="pin-button"
+      @click="pinTask"
+      :id="'pinTask-' + task.id"
+      :aria-label="'pinTask-' + task.id"
+    >
+      <span class="icon-star" />
+    </button>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import type { TaskData } from '../types'
+
+import { computed } from 'vue'
+
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void
+}
+
+const props = defineProps<TaskProps>()
+
+const classes = computed(() => {
+  return `list-item ${props.task.state}`
+})
+
+/*
+ * Computed property for checking the state of the task
+ */
+const isChecked = computed(() => props.task.state === 'TASK_ARCHIVED')
+
+const emit = defineEmits<{
+  (e: 'archive-task', id: string): void
+  (e: 'pin-task', id: string): void
+}>()
+
+/**
+ * Event handler for archiving tasks
+ */
+function archiveTask() {
+  emit('archive-task', props.task.id)
+}
+
+/**
+ * Event handler for pinning tasks
+ */
+function pinTask(): void {
+  emit('pin-task', props.task.id)
+}
+</script>
+```
 
 ## Component built!
 
 We’ve now successfully built out a component without needing a server or running the entire frontend application. The next step is to build out the remaining Taskbox components one by one in a similar fashion.
 
 As you can see, getting started building components in isolation is easy and fast. We can expect to produce a higher-quality UI with fewer bugs and more polish because it’s possible to dig in and test every possible state.
-
-## Catch accessibility issues
-
-Accessibility tests refer to the practice of auditing the rendered DOM with automated tools against a set of heuristics based on [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) rules and other industry-accepted best practices. They act as the first line of QA to catch blatant accessibility violations ensuring that an application is usable for as many people as possible, including people with disabilities such as vision impairment, hearing problems, and cognitive conditions.
-
-Storybook includes an official [accessibility addon](https://storybook.js.org/addons/@storybook/addon-a11y). Powered by Deque's [axe-core](https://github.com/dequelabs/axe-core), it can catch up to [57% of WCAG issues](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/).
-
-Let's see how it works! Run the following command to install the addon:
-
-```shell
-yarn add --dev @storybook/addon-a11y
-```
-
-Then, update your Storybook configuration file (`.storybook/main.js`) to enable it:
-
-```diff:title=.storybook/main.js
-/** @type { import('@storybook/vue3-vite').StorybookConfig } */
-const config = {
-  stories: ['../src/components/**/*.stories.js'],
-  staticDirs: ['../public'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-+   '@storybook/addon-a11y',
-  ],
-  framework: {
-    name: '@storybook/vue3-vite',
-    options: {},
-  },
-};
-export default config;
-```
-
-Finally, restart your Storybook to see the new addon enabled in the UI.
-
-![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
-
-Cycling through our stories, we can see that the addon found an accessibility issue with one of our test states. The message [**"Elements must have sufficient color contrast"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI) essentially means there isn't enough contrast between the task title and the background. We can quickly fix it by changing the text color to a darker gray in our application's CSS (located in `src/index.css`).
-
-```diff:title=src/index.css
-.list-item.TASK_ARCHIVED input[type="text"] {
-- color: #a0aec0;
-+ color: #4a5568;
-  text-decoration: line-through;
-}
-```
-
-That's it! We've taken the first step to ensure that UI becomes accessible. As we continue to add complexity to our application, we can repeat this process for all other components without needing to spin up additional tools or testing environments.
 
 <div class="aside">
 💡 Don't forget to commit your changes with git!
