@@ -41,6 +41,13 @@ ng serve
 
 Our main frontend app modalities: component development (Storybook), and the application itself.
 
+<!--
+
+TODO:
+- Update the image  to include the default Vite start screen and updated Storybook UI
+
+-->
+
 ![Main modalities](/intro-to-storybook/app-main-modalities-angular.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
