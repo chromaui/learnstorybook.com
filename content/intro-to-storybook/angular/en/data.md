@@ -11,140 +11,103 @@ This tutorial doesn’t focus on the particulars of building an app, so we won�
 
 ## Container components
 
-Our `TaskList` component as currently written is “presentational” in that it doesn’t talk to anything external to its own implementation. To get data into it, we need a “container”.
+For this tutorial, we'll use Angular's [signals](https://angular.dev/guide/signals), a powerful reactivity system that provides explicit, fine-grained reactive primitives to implement a simple store. We'll use the `signal` to build a simple data model for our application and help us manage the state of our tasks.
 
-This example uses [ngxs](https://ngxs.gitbook.io/ngxs/), a library that embraces Redux/ngrx principles but focuses on reducing boilerplate and provides a more _angular-y_ way of managing state to build a simple data model for our app. However, the pattern used here applies just as well to other data management libraries like [ngrx/store](https://github.com/ngrx/platform) or [Apollo](https://www.apollographql.com/docs/angular/).
+First, we’ll construct a simple store that responds to actions that change the state of tasks in a file called `store.ts` in the `src/app/state` directory (intentionally kept simple):
 
-Add the necessary dependencies to your project with:
+```ts:title=src/app/state/store.ts
+// A simple Angular state management implementation using signals update methods and initial data.
+// A true app would be more complex and separated into different files.
+import type { TaskData } from '../types';
 
-```shell
-npm install @ngxs/store @ngxs/logger-plugin @ngxs/devtools-plugin
-```
+import { Injectable, signal, computed } from '@angular/core';
 
-First, we'll create a simple store that responds to actions that change the task's state in a file called `task.state.ts` in the `src/app/state` directory (intentionally kept simple):
-
-```ts:title=src/app/state/task.state.ts
-import { Injectable } from '@angular/core';
-import { State, Selector, Action, StateContext } from '@ngxs/store';
-import { patch, updateItem } from '@ngxs/store/operators';
-import { Task } from '../models/task.model';
-
-// Defines the actions available to the app
-export const actions = {
-  ARCHIVE_TASK: 'ARCHIVE_TASK',
-  PIN_TASK: 'PIN_TASK',
-};
-
-export class ArchiveTask {
-  static readonly type = actions.ARCHIVE_TASK;
-
-  constructor(public payload: string) {}
+interface TaskBoxState {
+  tasks: TaskData[];
+  status: 'idle' | 'loading' | 'error' | 'success';
+  error: string | null;
 }
 
-export class PinTask {
-  static readonly type = actions.PIN_TASK;
-
-  constructor(public payload: string) {}
-}
-
-// The initial state of our store when the app loads.
-// Usually you would fetch this from a server
-const defaultTasks = [
+/*
+ * The initial state of our store when the app loads.
+ * Usually, you would fetch this from a server. Let's not worry about that now
+ */
+const defaultTasks: TaskData[] = [
   { id: '1', title: 'Something', state: 'TASK_INBOX' },
   { id: '2', title: 'Something more', state: 'TASK_INBOX' },
   { id: '3', title: 'Something else', state: 'TASK_INBOX' },
   { id: '4', title: 'Something again', state: 'TASK_INBOX' },
 ];
 
-export interface TaskStateModel {
-  tasks: Task[];
-  status: 'idle' | 'loading' | 'success' | 'error';
-  error: boolean;
-}
+const initialState: TaskBoxState = {
+  tasks: defaultTasks,
+  status: 'idle',
+  error: null,
+};
 
-// Sets the default state
-@State<TaskStateModel>({
-  name: 'taskbox',
-  defaults: {
-    tasks: defaultTasks,
-    status: 'idle',
-    error: false,
-  },
+@Injectable({
+  providedIn: 'root',
 })
-@Injectable()
-export class TasksState {
-  // Defines a new selector for the error field
-  @Selector()
-  static getError(state: TaskStateModel): boolean {
-    return state.error;
-  }
+export class Store {
+  private state = signal<TaskBoxState>(initialState);
 
-  @Selector()
-  static getAllTasks(state: TaskStateModel): Task[] {
-    return state.tasks;
-  }
+  // Public readonly signal for components to subscribe to
+  readonly tasks = computed(() => this.state().tasks);
+  readonly status = computed(() => this.state().status);
+  readonly error = computed(() => this.state().error);
 
-  // Triggers the PinTask action, similar to redux
-  @Action(PinTask)
-  pinTask(
-    { getState, setState }: StateContext<TaskStateModel>,
-    { payload }: PinTask
-  ) {
-    const task = getState().tasks.find((task) => task.id === payload);
+  readonly getFilteredTasks = computed(() => {
+    const filteredTasks = this.state().tasks.filter(
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+    );
+    return filteredTasks;
+  });
 
-    if (task) {
-      const updatedTask: Task = {
-        ...task,
-        state: 'TASK_PINNED',
+  archiveTask(id: string): void {
+    this.state.update((currentState) => {
+      const filteredTasks = currentState.tasks
+        .map(
+          (task): TaskData =>
+            task.id === id ? { ...task, state: 'TASK_ARCHIVED' as TaskData['state'] } : task
+        )
+        .filter((t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED');
+
+      return {
+        ...currentState,
+        tasks: filteredTasks,
       };
-      setState(
-        patch({
-          tasks: updateItem<Task>(
-            (pinnedTask) => pinnedTask?.id === payload,
-            updatedTask
-          ),
-        })
-      );
-    }
+    });
   }
-  // Triggers the archiveTask action, similar to redux
-  @Action(ArchiveTask)
-  archiveTask(
-    { getState, setState }: StateContext<TaskStateModel>,
-    { payload }: ArchiveTask
-  ) {
-    const task = getState().tasks.find((task) => task.id === payload);
-    if (task) {
-      const updatedTask: Task = {
-        ...task,
-        state: 'TASK_ARCHIVED',
-      };
-      setState(
-        patch({
-          tasks: updateItem<Task>(
-            (archivedTask) => archivedTask?.id === payload,
-            updatedTask
-          ),
-        })
-      );
-    }
+
+  pinTask(id: string): void {
+    this.state.update((currentState) => ({
+      ...currentState,
+      tasks: currentState.tasks.map((task) =>
+        task.id === id ? { ...task, state: 'TASK_PINNED' } : task
+      ),
+    }));
   }
 }
 ```
 
-Then we'll update our `TaskList` component to read data from the store. First, let's move our existing presentational version to the file `src/app/components/pure-task-list.component.ts` and wrap it with a container.
+Then we'll update our `TaskList` to read data out of the store. First, let's move our existing presentational version to the file `src/app/components/pure-task-list.component.ts` and wrap it with a container.
 
 In `src/app/components/pure-task-list.component.ts`:
 
-```diff:title=src/app/components/pure-task-list.component.ts
+```ts:title=src/app/components/pure-task-list.component.ts
+/* This file was moved from task-list.component.ts */
+import type { TaskData } from '../types';
+
+import { CommonModule } from '@angular/common';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { Task } from '../models/task.model';
+
+import { TaskComponent } from './task.component';
 
 @Component({
-- selector:'app-task-list',
-+ selector: 'app-pure-task-list',
-  standalone: false,
-  template: `
+  selector: 'app-pure-task-list',
+  standalone: true,
+  imports: [CommonModule, TaskComponent],
+    template: `
     <div class="list-items">
       <app-task
         *ngFor="let task of tasksInOrder"
@@ -156,6 +119,7 @@ import { Task } from '../models/task.model';
       <div
         *ngIf="tasksInOrder.length === 0 && !loading"
         class="wrapper-message"
+        data-testid="empty"
       >
         <span class="icon-check"></span>
         <p class="title-message">You have no tasks</p>
@@ -164,142 +128,80 @@ import { Task } from '../models/task.model';
       <div *ngIf="loading">
         <div *ngFor="let i of [1, 2, 3, 4, 5, 6]" class="loading-item">
           <span class="glow-checkbox"></span>
-          <span class="glow-text">
-            <span>Loading</span> <span>cool</span> <span>state</span>
-          </span>
+          <span class="glow-text"> <span>Loading</span> <span>cool</span> <span>state</span> </span>
         </div>
       </div>
     </div>
   `,
 })
-- export default class TaskListComponent {
-+ export default class PureTaskListComponent {
-    /**
-     * @ignore
-     * Component property to define ordering of tasks
-    */
-    tasksInOrder: Task[] = [];
+export class PureTaskListComponent {
+  /**
+   * @ignore
+   * Component property to define ordering of tasks
+   */
+  tasksInOrder: TaskData[] = [];
 
-    @Input() loading = false;
+  /**
+   * Checks if it's in loading state
+   */
+  @Input() loading = false;
 
-    // tslint:disable-next-line: no-output-on-prefix
-    @Output() onPinTask: EventEmitter<any> = new EventEmitter();
+  /**
+   * Event to change the task to pinned
+   */
+  @Output()
+  onPinTask = new EventEmitter<Event>();
 
-    // tslint:disable-next-line: no-output-on-prefix
-    @Output() onArchiveTask: EventEmitter<any> = new EventEmitter();
+  /**
+   * Event to change the task to archived
+   */
+  @Output()
+  onArchiveTask = new EventEmitter<Event>();
 
-    @Input()
-    set tasks(arr: Task[]) {
-      const initialTasks = [
-        ...arr.filter((t) => t.state === 'TASK_PINNED'),
-        ...arr.filter((t) => t.state !== 'TASK_PINNED'),
-      ];
-      const filteredTasks = initialTasks.filter(
-        (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
-      );
-      this.tasksInOrder = filteredTasks.filter(
-        (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
-      );
-    }
- }
+  /**
+   * The list of tasks
+   */
+  @Input()
+  set tasks(arr: TaskData[]) {
+    const initialTasks = [
+      ...arr.filter((t) => t.state === 'TASK_PINNED'),
+      ...arr.filter((t) => t.state !== 'TASK_PINNED'),
+    ];
+    const filteredTasks = initialTasks.filter(
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+    );
+    this.tasksInOrder = filteredTasks.filter(
+      (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED'
+    );
+  }
+}
 ```
 
 In `src/app/components/task-list.component.ts`:
 
 ```ts:title=src/app/components/task-list.component.ts
-import { Component } from '@angular/core';
-import { Store } from '@ngxs/store';
-import { ArchiveTask, PinTask } from '../state/task.state';
-import { Observable } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+
+import { Store } from '../state/store';
+
+import { PureTaskListComponent } from './pure-task-list.component';
 
 @Component({
   selector: 'app-task-list',
-  standalone: false,
+  standalone: true,
+  imports: [CommonModule, PureTaskListComponent],
   template: `
     <app-pure-task-list
-      [tasks]="tasks$ | async"
-      (onArchiveTask)="archiveTask($event)"
-      (onPinTask)="pinTask($event)"
+      [tasks]="store.getFilteredTasks()"
+      (onArchiveTask)="store.archiveTask($event)"
+      (onPinTask)="store.pinTask($event)"
     ></app-pure-task-list>
   `,
 })
-export default class TaskListComponent {
-  tasks$?: Observable<any>;
-
-  constructor(private store: Store) {
-     this.tasks$ = store.select((state) => state.taskbox.tasks);
-  }
-
-  /**
-   * Component method to trigger the archiveTask event
-   */
-  archiveTask(id: string) {
-    this.store.dispatch(new ArchiveTask(id));
-  }
-
-  /**
-   * Component method to trigger the pinTask event
-   */
-  pinTask(id: string) {
-    this.store.dispatch(new PinTask(id));
-  }
+export class TaskListComponent {
+  store = inject(Store);
 }
-```
-
-Now we're going to create an Angular module to bridge the components and the store.
-
-Create a new file called `task.module.ts` inside the `src/app/components` directory and add the following:
-
-```ts:title=src/app/components/task.module.ts
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NgxsModule } from '@ngxs/store';
-
-import TaskComponent from './task.component';
-import TaskListComponent from './task-list.component';
-import { TasksState } from '../state/task.state';
-import PureTaskListComponent from './pure-task-list.component';
-
-@NgModule({
-  imports: [CommonModule, NgxsModule.forFeature([TasksState])],
-  exports: [TaskComponent, TaskListComponent],
-  declarations: [TaskComponent, TaskListComponent, PureTaskListComponent],
-  providers: [],
-})
-export class TaskModule {}
-```
-
-We have what we need. All that is required is to wire the store to the app. Update your top-level module (`src/app/app.module.ts`):
-
-```diff:title=src/app/app.module.ts
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-
-+ import { TaskModule } from './components/task.module';
-+ import { NgxsModule } from '@ngxs/store';
-+ import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-+ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
-
-+ import { environment } from '../environments/environment';
-import { AppComponent } from './app.component';
-
-@NgModule({
-  declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-+   TaskModule,
-+    NgxsModule.forRoot([], {
-+     developmentMode: !environment.production,
-+   }),
-+   NgxsReduxDevtoolsPluginModule.forRoot(),
-+   NgxsLoggerPluginModule.forRoot({
-+     disabled: environment.production,
-+   }),
-  ],
-  providers: [],
-  bootstrap: [AppComponent],
-})
-export class AppModule {}
 ```
 
 The reason to keep the presentational version of the `TaskList` separate is that it is easier to test and isolate. As it doesn't rely on the presence of a store, it is much easier to deal with from a testing perspective. Let's rename `src/app/components/task-list.stories.ts` into `src/app/components/pure-task-list.stories.ts` and ensure our stories use the presentational version:
@@ -307,52 +209,50 @@ The reason to keep the presentational version of the `TaskList` separate is that
 ```ts:title=src/app/components/pure-task-list.stories.ts
 import type { Meta, StoryObj } from '@storybook/angular';
 
-import { componentWrapperDecorator, moduleMetadata } from '@storybook/angular';
+import { componentWrapperDecorator } from '@storybook/angular';
 
-import { CommonModule } from '@angular/common';
-
-import PureTaskListComponent from './pure-task-list.component';
-import TaskComponent from './task.component';
+import { PureTaskListComponent } from './pure-task-list.component';
 
 import * as TaskStories from './task.stories';
+
+export const TaskListData = [
+  { ...TaskStories.TaskData, id: '1', title: 'Task 1' },
+  { ...TaskStories.TaskData, id: '2', title: 'Task 2' },
+  { ...TaskStories.TaskData, id: '3', title: 'Task 3' },
+  { ...TaskStories.TaskData, id: '4', title: 'Task 4' },
+  { ...TaskStories.TaskData, id: '5', title: 'Task 5' },
+  { ...TaskStories.TaskData, id: '6', title: 'Task 6' },
+];
 
 const meta: Meta<PureTaskListComponent> = {
   component: PureTaskListComponent,
   title: 'PureTaskList',
   tags: ['autodocs'],
+  excludeStories: /.*Data$/,
   decorators: [
-    moduleMetadata({
-      //👇 Imports both components to allow component composition with Storybook
-      declarations: [PureTaskListComponent, TaskComponent],
-      imports: [CommonModule],
-    }),
     //👇 Wraps our stories with a decorator
-    componentWrapperDecorator(
-      (story) => `<div style="margin: 3em">${story}</div>`
-    ),
+    componentWrapperDecorator((story) => `<div style="margin: 3em">${story}</div>`),
   ],
   args: {
-    ...TaskStories.ActionsData,
+    ...TaskStories.TaskData.events,
   },
 };
+
 export default meta;
 type Story = StoryObj<PureTaskListComponent>;
 
 export const Default: Story = {
   args: {
-    tasks: [
-      { ...TaskStories.Default.args?.task, id: '1', title: 'Task 1' },
-      { ...TaskStories.Default.args?.task, id: '2', title: 'Task 2' },
-      { ...TaskStories.Default.args?.task, id: '3', title: 'Task 3' },
-      { ...TaskStories.Default.args?.task, id: '4', title: 'Task 4' },
-      { ...TaskStories.Default.args?.task, id: '5', title: 'Task 5' },
-      { ...TaskStories.Default.args?.task, id: '6', title: 'Task 6' },
-    ],
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Default story.
+    tasks: TaskListData,
   },
 };
 
 export const WithPinnedTasks: Story = {
   args: {
+    // Shaping the stories through args composition.
+    // Inherited data coming from the Default story.
     tasks: [
       // Shaping the stories through args composition.
       // Inherited data coming from the Default story.
@@ -381,7 +281,7 @@ export const Empty: Story = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-puretasklist-states-7-0.mp4"
+    src="/intro-to-storybook/angular-finished-puretasklist-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -390,4 +290,4 @@ export const Empty: Story = {
 💡 Don't forget to commit your changes with git!
 </div>
 
-Now that we have some actual data populating our component obtained from the store, we could have wired it to `src/app/app.component.ts` and render the component there. Don't worry about it. We'll take care of it in the next chapter.
+Now that we have some actual data populating our component obtained from the store, we could have wired it to `src/app.ts` and render the component there. Don't worry about it. We'll take care of it in the next chapter.

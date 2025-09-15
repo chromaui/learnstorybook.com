@@ -48,7 +48,7 @@ TODO:
 
 -->
 
-![3 modalities](/intro-to-storybook/app-main-modalities-svelte.png)
+![Main modalities](/intro-to-storybook/app-main-modalities-svelte.png)
 
 Depending on what part of the app you’re working on, you may want to run one or more of these simultaneously. Since our current focus is creating a single UI component, we’ll stick with running Storybook.
 
