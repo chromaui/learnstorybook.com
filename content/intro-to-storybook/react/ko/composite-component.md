@@ -19,14 +19,33 @@ Taskbox는 핀으로 고정된 task를 일반 task 위에 배치하여 강조합
 
 ## 설정하기
 
-복합 컴포넌트는 기본 컴포넌트와 크게 다르지 않습니다. `TaskList` 컴포넌트와 그에 해당하는 스토리 파일을 만들어보겠습니다. `src/components/TaskList.jsx` 와 `src/components/TaskList.stories.jsx`를 생성해 주세요.
+복합 컴포넌트는 기본 컴포넌트와 크게 다르지 않습니다. `TaskList` 컴포넌트와 그에 해당하는 스토리 파일을 만들어보겠습니다. `src/components/TaskList.tsx` 와 `src/components/TaskList.stories.tsx`를 생성해 주세요.
 
 우선 `TaskList`의 대략적인 구현부터 시작하겠습니다. 이전의 `Task` 컴포넌트를 가져온 후, 속성과 액션을 입력값으로 전달해 주세요.
 
-```jsx:title=src/components/TaskList.jsx
+```tsx:title=src/components/TaskList.tsx
+
+import type { TaskData } from '../types';
+
 import Task from './Task';
 
-export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+type TaskListProps = {
+  /** Checks if it's in loading state */
+  loading?: boolean;
+  /** The list of tasks */
+  tasks: TaskData[];
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+};
+
+export default function TaskList({
+  loading = false,
+  tasks,
+  onPinTask,
+  onArchiveTask,
+}: TaskListProps) {
   const events = {
     onPinTask,
     onArchiveTask,
@@ -42,7 +61,7 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
   return (
     <div className="list-items">
-      {tasks.map(task => (
+      {tasks.map((task) => (
         <Task key={task.id} task={task} {...events} />
       ))}
     </div>
@@ -52,25 +71,31 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 그리고, 스토리 파일 안에 `TaskList`의 테스트 상태값들을 만들어 보세요.
 
-```jsx:title=src/components/TaskList.stories.jsx
+```tsx:title=src/components/TaskList.stories.tsx
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import TaskList from './TaskList';
 
 import * as TaskStories from './Task.stories';
 
-export default {
+const meta = {
   component: TaskList,
   title: 'TaskList',
   decorators: [(story) => <div style={{ margin: '3rem' }}>{story()}</div>],
-  tags: ['autodocs'],
+  tags: ["autodocs"],
   args: {
     ...TaskStories.ActionsData,
   },
-};
+} satisfies Meta<typeof TaskList>;
 
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     // Shaping the stories through args composition.
-    // The data was inherited from the Default story in Task.stories.jsx.
+    // The data was inherited from the Default story in Task.stories.tsx.
     tasks: [
       { ...TaskStories.Default.args.task, id: '1', title: 'Task 1' },
       { ...TaskStories.Default.args.task, id: '2', title: 'Task 2' },
@@ -82,7 +107,7 @@ export const Default = {
   },
 };
 
-export const WithPinnedTasks = {
+export const WithPinnedTasks: Story = {
   args: {
     tasks: [
       ...Default.args.tasks.slice(0, 5),
@@ -91,14 +116,14 @@ export const WithPinnedTasks = {
   },
 };
 
-export const Loading = {
+export const Loading: Story = {
   args: {
     tasks: [],
     loading: true,
   },
 };
 
-export const Empty = {
+export const Empty: Story = {
   args: {
     // Shaping the stories through args composition.
     // Inherited data coming from the Loading story.
@@ -110,7 +135,7 @@ export const Empty = {
 
 <div class="aside">
   
-💡 [**데코레이터(Decorators)**](https://storybook.js.org/docs/writing-stories/decorators)는 스토리에 임의의 래퍼(wrapper)를 제공하는 하나의 방법입니다. 이 예시에서 우리는 데코레이터 `key`를 사용하여 기본 내보내기에서 렌더링 된 컴포넌트에 `padding`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)에서 스토리를 감싸 줄 때 사용될 수 있습니다.
+💡 [**데코레이터(Decorators)**](https://storybook.js.org/docs/writing-stories/decorators)는 스토리에 임의의 래퍼(wrapper)를 제공하는 하나의 방법입니다. 이 예시에서 우리는 데코레이터 key를 사용하여 기본 내보내기에서 렌더링 된 컴포넌트에 `margin`을 추가합니다. 또한 데코레이터는 “providers”(React context를 설정하는 라이브러리 컴포넌트)로 스토리를 감쌀 때 사용될 수 있습니다.
 
 </div>
 
@@ -122,19 +147,38 @@ export const Empty = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
 
 ## 상태(States) 구현하기
 
-우리의 컴포넌트는 아직 기본 뼈대만을 갖추었지만, 앞으로 작업하게 될 스토리에 대한 아이디어를 얻었습니다. `.list-items` 래퍼(wrapper)가 지나치게 단순하다고 생각할 수도 있습니다. 맞습니다! 대부분의 경우에 우리는 단지 래퍼(wrapper)를 추가하기 위해서 새로운 컴포넌트를 만들지 않습니다. 하지만 `TaskList` 컴포넌트의 **진정한 복잡성**은 `withPinnedTasks`, `loading` 그리고 `empty`에서 드러날 것입니다.
+우리의 컴포넌트는 아직 기본 뼈대만을 갖추었지만, 앞으로 작업하게 될 스토리에 대한 아이디어를 얻었습니다. `.list-items` 래퍼(wrapper)가 지나치게 단순하다고 생각할 수도 있습니다. 맞습니다! 대부분의 경우에 우리는 단지 래퍼(wrapper)를 추가하기 위해서 새로운 컴포넌트를 만들지 않습니다. 하지만 `TaskList` 컴포넌트의 **진정한 복잡성**은 예외 케이스인 `withPinnedTasks`, `loading` 그리고 `empty`에서 드러날 것입니다.
 
-```jsx:title=src/components/TaskList.jsx
+```tsx:title=src/components/TaskList.tsx
+
+import type { TaskData } from '../types';
+
 import Task from './Task';
 
-export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
+type TaskListProps = {
+  /** Checks if it's in loading state */
+  loading?: boolean;
+  /** The list of tasks */
+  tasks: TaskData[];
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+};
+
+export default function TaskList({
+  loading = false,
+  tasks,
+  onPinTask,
+  onArchiveTask,
+}: TaskListProps) {
   const events = {
     onPinTask,
     onArchiveTask,
@@ -172,8 +216,8 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
   }
 
   const tasksInOrder = [
-    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
+    ...tasks.filter((t) => t.state === "TASK_PINNED"),
+    ...tasks.filter((t) => t.state !== "TASK_PINNED"),
   ];
   return (
     <div className="list-items">
@@ -189,86 +233,12 @@ export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
 
 목록에서 핀으로 고정된 task의 위치를 확인해 주세요. 핀으로 고정된 task를 사용자를 위해 목록의 맨 위에 위치하도록 우선순위를 부여합니다.
-
-## 데이터 요구사항 및 props
-
-컴포넌트가 커질수록 입력에 필요한 데이터 요구사항도 함께 커집니다. `TaskList`에서 prop의 요구사항을 정의해봅시다. `Task`는 하위 컴포넌트이기 때문에 렌더링에 필요한 적합한 형태의 데이터를 제공해야 합니다. 시간 절약을 위해서 `Task`에서 사용한 `propTypes`를 재사용하겠습니다.
-
-```diff:title=src/components/TaskList.jsx
-+ import PropTypes from 'prop-types';
-
-import Task from './Task';
-
-export default function TaskList({ loading, tasks, onPinTask, onArchiveTask }) {
-  const events = {
-    onPinTask,
-    onArchiveTask,
-  };
-  const LoadingRow = (
-    <div className="loading-item">
-      <span className="glow-checkbox" />
-      <span className="glow-text">
-        <span>Loading</span> <span>cool</span> <span>state</span>
-      </span>
-    </div>
-  );
-  if (loading) {
-    return (
-      <div className="list-items" data-testid="loading" key={"loading"}>
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-        {LoadingRow}
-      </div>
-    );
-  }
-  if (tasks.length === 0) {
-    return (
-      <div className="list-items" key={"empty"} data-testid="empty">
-        <div className="wrapper-message">
-          <span className="icon-check" />
-          <p className="title-message">You have no tasks</p>
-          <p className="subtitle-message">Sit back and relax</p>
-        </div>
-      </div>
-    );
-  }
-
-  const tasksInOrder = [
-    ...tasks.filter((t) => t.state === 'TASK_PINNED'),
-    ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
-  ];
-  return (
-    <div className="list-items">
-      {tasksInOrder.map((task) => (
-        <Task key={task.id} task={task} {...events} />
-      ))}
-    </div>
-  );
-}
-
-+ TaskList.propTypes = {
-+  /** Checks if it's in loading state */
-+  loading: PropTypes.bool,
-+  /** The list of tasks */
-+  tasks: PropTypes.arrayOf(Task.propTypes.task).isRequired,
-+  /** Event to change the task to pinned */
-+  onPinTask: PropTypes.func,
-+  /** Event to change the task to archived */
-+  onArchiveTask: PropTypes.func,
-+ };
-+ TaskList.defaultProps = {
-+  loading: false,
-+ };
-```
 
 <div class="aside">
 💡 깃(Git)에 변경된 사항을 commit하는 것을 잊지 마세요!
