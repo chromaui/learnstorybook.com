@@ -49,13 +49,13 @@ We’ll begin with a baseline implementation of the `Task`, simply taking in the
 </script>
 
 <div class="list-item">
-  <label for={`title-${task.id}`} aria-label={task.title}>
+  <label for="title-{task.id}" aria-label={task.title}>
     <input
       type="text"
       value={task.title}
       readOnly
       name="title"
-      id={`title-${task.id}`}
+      id="title-{task.id}"
     />
   </label>
 </div>
@@ -229,26 +229,26 @@ The component is still rudimentary at the moment. First, write the code that ach
     onPinTask,
   }: Props = $props();
 
-  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
+  let isChecked = $derived(task.state === 'TASK_ARCHIVED');
 </script>
 
 <div class="list-item {task.state}">
   <label
-    for={`checked-${task.id}`}
+    for="checked-{task.id}"
     class="checkbox"
-    aria-label={`archiveTask-${task.id}`}
+    aria-label="archiveTask-{task.id}"
   >
     <input
       type="checkbox"
       checked={isChecked}
       disabled
-      name={`checked-${task.id}`}
-      id={`archiveTask-${task.id}`}
+      name="checked-{task.id}"
+      id="archiveTask-{task.id}"
     />
     <span
       role="button"
       class="checkbox-custom"
-      aria-label={`archivedTask-${task.id}`}
+      aria-label="archivedTask-{task.id}"
       onclick={() => onArchiveTask(task.id ?? "")}
       onkeydown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -259,13 +259,13 @@ The component is still rudimentary at the moment. First, write the code that ach
       tabindex="-1"
     ></span>
   </label>
-  <label for={`title-${task.id}`} aria-label={task.title} class="title">
+  <label for="title-{task.id}" aria-label={task.title} class="title">
     <input
       type="text"
       value={task.title}
       readonly
       name="title"
-      id={`title-${task.id}`}
+      id="title-{task.id}"
       placeholder="Input title"
     />
   </label>
@@ -276,8 +276,8 @@ The component is still rudimentary at the moment. First, write the code that ach
         e.preventDefault();
         onPinTask(task.id ?? "");
       }}
-      id={`pinTask-${task.id}`}
-      aria-label={`pinTask-${task.id}`}
+      id="pinTask-{task.id}"
+      aria-label="pinTask-{task.id}"
     >
       <span class="icon-star"></span>
     </button>
@@ -331,26 +331,26 @@ Then, update the `Task` component to use our newly created type:
     onPinTask,
   }: Props = $props();
 
-  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
+  let isChecked = $derived(task.state === 'TASK_ARCHIVED');
 </script>
 
 <div class="list-item {task.state}">
   <label
-    for={`checked-${task.id}`}
+    for="checked-{task.id}"
     class="checkbox"
-    aria-label={`archiveTask-${task.id}`}
+    aria-label="archiveTask-{task.id}"
   >
     <input
       type="checkbox"
       checked={isChecked}
       disabled
-      name={`checked-${task.id}`}
-      id={`archiveTask-${task.id}`}
+      name="checked-{task.id}"
+      id="archiveTask-{task.id}"
     />
     <span
       role="button"
       class="checkbox-custom"
-      aria-label={`archivedTask-${task.id}`}
+      aria-label="archivedTask-{task.id}"
       onclick={() => onArchiveTask(task.id ?? "")}
       onkeydown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -361,13 +361,13 @@ Then, update the `Task` component to use our newly created type:
       tabindex="-1"
     ></span>
   </label>
-  <label for={`title-${task.id}`} aria-label={task.title} class="title">
+  <label for="title-{task.id}" aria-label={task.title} class="title">
     <input
       type="text"
       value={task.title}
       readonly
       name="title"
-      id={`title-${task.id}`}
+      id="title-{task.id}"
       placeholder="Input title"
     />
   </label>
@@ -378,8 +378,8 @@ Then, update the `Task` component to use our newly created type:
         e.preventDefault();
         onPinTask(task.id ?? "");
       }}
-      id={`pinTask-${task.id}`}
-      aria-label={`pinTask-${task.id}`}
+      id="pinTask-{task.id}"
+      aria-label="pinTask-{task.id}"
     >
       <span class="icon-star"></span>
     </button>

@@ -46,7 +46,7 @@ Start with a rough implementation of the `TaskList`. You’ll need to import the
     onArchiveTask,
   }: Props = $props();
 
-  const noTasks = $derived(tasks.length === 0);
+  let noTasks = $derived(tasks.length === 0);
 </script>
 
 {#if loading}
@@ -209,8 +209,8 @@ And update `TaskList.svelte` to the following:
     onArchiveTask,
   }: Props = $props();
 
-  const noTasks = $derived(tasks.length === 0);
-  const tasksInOrder = $derived([
+  let noTasks = $derived(tasks.length === 0);
+  let tasksInOrder = $derived([
     ...tasks.filter((t) => t.state === 'TASK_PINNED'),
     ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ]);

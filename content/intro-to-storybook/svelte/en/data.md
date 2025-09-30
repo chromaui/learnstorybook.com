@@ -44,7 +44,7 @@ const initialState: TaskBoxState = {
 };
 
 
-export const store = $state<TaskBoxState>(initialState);
+export const store: TaskBoxState = $state(initialState);
 
 // Function that archives a task
 export function archiveTask(id: string) {
@@ -96,8 +96,8 @@ In `src/lib/components/PureTaskList.svelte`:
     onArchiveTask,
   }: Props = $props();
 
-  const noTasks = $derived(tasks.length === 0);
-  const tasksInOrder = $derived([
+  let noTasks = $derived(tasks.length === 0);
+  let tasksInOrder = $derived([
     ...tasks.filter((t) => t.state === 'TASK_PINNED'),
     ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ]);
