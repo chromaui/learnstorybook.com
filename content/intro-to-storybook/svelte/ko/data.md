@@ -44,7 +44,7 @@ const initialState: TaskBoxState = {
 };
 
 
-export const store = $state<TaskBoxState>(initialState);
+export const store: TaskBoxState = $state(initialState);
 
 // 작업을 보관하는 함수
 export function archiveTask(id: string) {
@@ -96,8 +96,8 @@ export function pinTask(id: string) {
     onArchiveTask,
   }: Props = $props();
 
-  const noTasks = $derived(tasks.length === 0);
-  const tasksInOrder = $derived([
+  let noTasks = $derived(tasks.length === 0);
+  let tasksInOrder = $derived([
     ...tasks.filter((t) => t.state === 'TASK_PINNED'),
     ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ]);

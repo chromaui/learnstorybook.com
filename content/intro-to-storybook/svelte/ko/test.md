@@ -66,26 +66,26 @@ git checkout -b change-task-background
     onPinTask,
   }: Props = $props();
 
-  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
+  let isChecked = $derived(task.state === 'TASK_ARCHIVED');
 </script>
 
 <div class="list-item {task.state}">
   <label
-    for={`checked-${task.id}`}
+    for="checked-${task.id}"
     class="checkbox"
-    aria-label={`archiveTask-${task.id}`}
+    aria-label="archiveTask-${task.id}"
   >
     <input
       type="checkbox"
       checked={isChecked}
       disabled
-      name={`checked-${task.id}`}
-      id={`archiveTask-${task.id}`}
+      name="checked-${task.id}"
+      id="archiveTask-${task.id}"
     />
     <span
       role="button"
       class="checkbox-custom"
-      aria-label={`archivedTask-${task.id}`}
+      aria-label="archivedTask-${task.id}"
       onclick={() => onArchiveTask(task.id ?? "")}
       onkeydown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -96,13 +96,13 @@ git checkout -b change-task-background
       tabindex="-1"
     ></span>
   </label>
-  <label for={`title-${task.id}`} aria-label={task.title} class="title">
+  <label for="title-${task.id}" aria-label={task.title} class="title">
     <input
       type="text"
       value={task.title}
       readonly
       name="title"
-      id={`title-${task.id}`}
+      id="title-${task.id}"
       placeholder="Input title"
 +     style="background-color: red;"
     />
@@ -114,8 +114,8 @@ git checkout -b change-task-background
         e.preventDefault();
         onPinTask(task.id ?? "");
       }}
-      id={`pinTask-${task.id}`}
-      aria-label={`pinTask-${task.id}`}
+      id="pinTask-${task.id}"
+      aria-label="pinTask-${task.id}"
     >
       <span class="icon-star"></span>
     </button>

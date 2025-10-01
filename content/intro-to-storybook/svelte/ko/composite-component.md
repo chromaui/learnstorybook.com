@@ -46,7 +46,7 @@ Taskbox는 핀 된 작업을 기본 작업 위에 위치시켜서 강조합니�
     onArchiveTask,
   }: Props = $props();
 
-  const noTasks = $derived(tasks.length === 0);
+  let noTasks = $derived(tasks.length === 0);
 </script>
 
 {#if loading}
@@ -209,8 +209,8 @@ Taskbox는 핀 된 작업을 기본 작업 위에 위치시켜서 강조합니�
     onArchiveTask,
   }: Props = $props();
 
-  const noTasks = $derived(tasks.length === 0);
-  const tasksInOrder = $derived([
+  let noTasks = $derived(tasks.length === 0);
+  let tasksInOrder = $derived([
     ...tasks.filter((t) => t.state === 'TASK_PINNED'),
     ...tasks.filter((t) => t.state !== 'TASK_PINNED'),
   ]);

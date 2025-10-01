@@ -32,7 +32,7 @@ const initialState: TaskBoxState = {
 };
 
 
-export const store = $state<TaskBoxState>(initialState);
+export const store: TaskBoxState = $state(initialState);
 
 // API에서 task를 가져와서 스토어를 채우는 함수
 export async function fetchTasks() {

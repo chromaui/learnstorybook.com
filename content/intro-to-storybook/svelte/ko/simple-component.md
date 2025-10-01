@@ -49,13 +49,13 @@ description: '컴포넌트를 독립적으로 빌드하기'
 </script>
 
 <div class="list-item">
-  <label for={`title-${task.id}`} aria-label={task.title}>
+  <label for="title-{task.id}" aria-label={task.title}>
     <input
       type="text"
       value={task.title}
       readOnly
       name="title"
-      id={`title-${task.id}`}
+      id="title-${task.id}"
     />
   </label>
 </div>
@@ -229,21 +229,21 @@ Storybook 설정, CSS 로드, 테스트 케이스 작성이 완료되었으니, 
     onPinTask,
   }: Props = $props();
 
-  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
+  let isChecked = $derived(task.state === 'TASK_ARCHIVED');
 </script>
 
 <div class="list-item {task.state}">
   <label
-    for={`checked-${task.id}`}
+    for="checked-${task.id}"
     class="checkbox"
-    aria-label={`archiveTask-${task.id}`}
+    aria-label="archiveTask-${task.id}"
   >
     <input
       type="checkbox"
       checked={isChecked}
       disabled
-      name={`checked-${task.id}`}
-      id={`archiveTask-${task.id}`}
+      name="checked-${task.id}"
+      id="archiveTask-${task.id}"
     />
     <span
       role="button"
@@ -259,13 +259,13 @@ Storybook 설정, CSS 로드, 테스트 케이스 작성이 완료되었으니, 
       tabindex="-1"
     ></span>
   </label>
-  <label for={`title-${task.id}`} aria-label={task.title} class="title">
+  <label for="title-${task.id}" aria-label={task.title} class="title">
     <input
       type="text"
       value={task.title}
       readonly
       name="title"
-      id={`title-${task.id}`}
+      id="title-${task.id}"
       placeholder="Input title"
     />
   </label>
@@ -276,8 +276,8 @@ Storybook 설정, CSS 로드, 테스트 케이스 작성이 완료되었으니, 
         e.preventDefault();
         onPinTask(task.id ?? "");
       }}
-      id={`pinTask-${task.id}`}
-      aria-label={`pinTask-${task.id}`}
+      id="pinTask-${task.id}"
+      aria-label="pinTask-${task.id}"
     >
       <span class="icon-star"></span>
     </button>
@@ -331,26 +331,26 @@ export type TaskData = {
     onPinTask,
   }: Props = $props();
 
-  const isChecked = $derived(task.state === 'TASK_ARCHIVED');
+  let isChecked = $derived(task.state === 'TASK_ARCHIVED');
 </script>
 
 <div class="list-item {task.state}">
   <label
-    for={`checked-${task.id}`}
+    for="checked-${task.id}"
     class="checkbox"
-    aria-label={`archiveTask-${task.id}`}
+    aria-label="archiveTask-${task.id}"
   >
     <input
       type="checkbox"
       checked={isChecked}
       disabled
-      name={`checked-${task.id}`}
-      id={`archiveTask-${task.id}`}
+      name="checked-${task.id}"
+      id="archiveTask-${task.id}"
     />
     <span
       role="button"
       class="checkbox-custom"
-      aria-label={`archivedTask-${task.id}`}
+      aria-label="archivedTask-${task.id}"
       onclick={() => onArchiveTask(task.id ?? "")}
       onkeydown={(e) => {
         if (e.key === "Enter" || e.key === " ") {
@@ -367,7 +367,7 @@ export type TaskData = {
       value={task.title}
       readonly
       name="title"
-      id={`title-${task.id}`}
+      id="title-${task.id}"
       placeholder="Input title"
     />
   </label>
@@ -378,8 +378,8 @@ export type TaskData = {
         e.preventDefault();
         onPinTask(task.id ?? "");
       }}
-      id={`pinTask-${task.id}`}
-      aria-label={`pinTask-${task.id}`}
+      id="pinTask-${task.id}"
+      aria-label="pinTask-${task.id}"
     >
       <span class="icon-star"></span>
     </button>
