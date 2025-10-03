@@ -70,6 +70,6 @@ TODO: Follow up with Design for an updated asset
  - Needs a React and non-React version to ensure parity with the tutorial
  -->
 
-![Chromatic build with accessibility tests](/intro-to-storybook/chromatic-build-a11y-tests.png)
+![Chromatic build with accessibility tests](/intro-to-storybook/chromatic-build-a11y-tests-non-react.png)
 
 We've now successfully built a workflow that ensures our UI remains accessible at each stage of development. Storybook will help us catch accessibility issues during development, while Chromatic keeps track of accessibility regressions, making it easier to fix them incrementally over time.
