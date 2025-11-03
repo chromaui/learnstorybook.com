@@ -38,10 +38,25 @@ Controls을 사용하면 QA 엔지니어, UI 엔지니어 또는 기타 이해 �
 
 Controls을 통해 컴포넌트에 대한 다양한 입력(이 경우, 긴 문자열)을 신속하게 확인할 수 있었고, UI 문제를 발견하는 데 필요한 작업이 줄었습니다.
 
-이제 `Task.jsx`에 스타일을 추가하여 글자가 넘치는 문제를 해결하겠습니다.
+이제 `Task.tsx`에 스타일을 추가하여 글자가 넘치는 문제를 해결하겠습니다.
 
-```diff:title=src/components/Task.jsx
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+```diff:title=src/components/Task.tsx
+import type { TaskData } from '../types';
+
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+};
+
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}: TaskProps) {
   return (
     <div className={`list-item ${state}`}>
       <label
@@ -56,10 +71,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           id={`archiveTask-${id}`}
           checked={state === "TASK_ARCHIVED"}
         />
-        <span
-          className="checkbox-custom"
-          onClick={() => onArchiveTask(id)}
-        />
+        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
 
       <label htmlFor={`title-${id}`} aria-label={title} className="title">
@@ -70,10 +82,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           name="title"
           id={`title-${id}`}
           placeholder="Input title"
-+         style={{ textOverflow: 'ellipsis' }}
++         style={{ textOverflow: "ellipsis" }}
         />
       </label>
-
       {state !== "TASK_ARCHIVED" && (
         <button
           className="pin-button"
@@ -98,12 +109,12 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 앞으로는 Controls를 통해 동일한 문자열을 입력하여 수동으로 이 문제를 재현할 수 있습니다. 그러나 이 edge case를 보여주는 story를 작성하는 것이 더 쉽습니다. 이는 회귀 테스트(regression test) 커버리지를 확장하고 팀에게 컴포넌트의 한계를 명확하게 설명할 수 있습니다.
 
-긴 문자열 케이스에 대한 새로운 스토리를 `Task.stories.jsx` 에 추가해봅시다.
+긴 문자열 케이스에 대한 새로운 스토리를 `Task.stories.tsx` 에 추가해봅시다.
 
-```js:title=src/components/Task.stories.jsx
+```js:title=src/components/Task.stories.tsx
 const longTitleString = `This task's name is absurdly large. In fact, I think if I keep going I might end up with content overflow. What will happen? The star that represents a pinned task could have text overlapping. The text could cut-off abruptly when it reaches the star. I hope not!`;
 
-export const LongTitle = {
+export const LongTitle: Story = {
   args: {
     task: {
       ...Default.args.task,

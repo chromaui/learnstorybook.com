@@ -13,46 +13,55 @@ commit: '6262d7f'
 
 우리 앱은 간단하기 때문에 만들 화면도 매우 간단합니다. 원격 API에서 데이터를 가져와 `TaskList` 컴포넌트(리덕스(Redux)를 통해 자체적으로 데이터를 제공함)를 감싸고, 최상위 레벨의 `error` 필드를 리덕스에서 가져오는 것입니다.
 
-우리는 먼저 Redux 스토어(src/lib/store.js)를 업데이트하여 원격 API에 연결하고, 애플리케이션의 다양한 상태(예: `error`, `succeeded`)를 처리하도록 하겠습니다.
+우리는 먼저 Redux 스토어(`src/lib/store.ts`)를 업데이트하여 원격 API에 연결하고, 애플리케이션의 다양한 상태(예: `error`, `succeeded`)를 처리하도록 하겠습니다.
 
-```diff:title=src/lib/store.js
+```ts:title=src/lib/store.ts
 /* A simple redux store/actions/reducer implementation.
  * A true app would be more complex and separated into different files.
  */
+import type { TaskData } from '../types';
+
 import {
   configureStore,
   createSlice,
-+ createAsyncThunk,
+  createAsyncThunk,
+  PayloadAction,
 } from '@reduxjs/toolkit';
+
+interface TaskBoxState {
+  tasks: TaskData[];
+  status: 'idle' | 'loading' | 'failed' | 'succeeded';
+  error: string | null;
+}
 
 /*
  * The initial state of our store when the app loads.
  * Usually, you would fetch this from a server. Let's not worry about that now
  */
-
-const TaskBoxData = {
+const TaskBoxData: TaskBoxState = {
   tasks: [],
   status: 'idle',
   error: null,
 };
-
 /*
  * Creates an asyncThunk to fetch tasks from a remote endpoint.
  * You can read more about Redux Toolkit's thunks in the docs:
  * https://redux-toolkit.js.org/api/createAsyncThunk
  */
-+ export const fetchTasks = createAsyncThunk('todos/fetchTodos', async () => {
-+   const response = await fetch(
-+     'https://jsonplaceholder.typicode.com/todos?userId=1'
-+   );
-+   const data = await response.json();
-+   const result = data.map((task) => ({
-+     id: `${task.id}`,
-+     title: task.title,
-+     state: task.completed ? 'TASK_ARCHIVED' : 'TASK_INBOX',
-+   }));
-+   return result;
-+ });
+export const fetchTasks = createAsyncThunk('taskbox/fetchTasks', async () => {
+  const response = await fetch(
+    'https://jsonplaceholder.typicode.com/todos?userId=1'
+  );
+  const data = await response.json();
+  const result = data.map(
+    (task: { id: number; title: string; completed: boolean }) => ({
+      id: `${task.id}`,
+      title: task.title,
+      state: task.completed ? 'TASK_ARCHIVED' : 'TASK_INBOX',
+    })
+  );
+  return result;
+});
 
 /*
  * The store is created here.
@@ -63,11 +72,13 @@ const TasksSlice = createSlice({
   name: 'taskbox',
   initialState: TaskBoxData,
   reducers: {
-    updateTaskState: (state, action) => {
-      const { id, newTaskState } = action.payload;
-      const task = state.tasks.findIndex((task) => task.id === id);
-      if (task >= 0) {
-        state.tasks[task].state = newTaskState;
+    updateTaskState: (
+      state,
+      action: PayloadAction<{ id: string; newTaskState: TaskData['state'] }>
+    ) => {
+      const task = state.tasks.find((task) => task.id === action.payload.id);
+      if (task) {
+        task.state = action.payload.newTaskState;
       }
     },
   },
@@ -75,25 +86,25 @@ const TasksSlice = createSlice({
    * Extends the reducer for the async actions
    * You can read more about it at https://redux-toolkit.js.org/api/createAsyncThunk
    */
-+  extraReducers(builder) {
-+    builder
-+    .addCase(fetchTasks.pending, (state) => {
-+      state.status = 'loading';
-+      state.error = null;
-+      state.tasks = [];
-+    })
-+    .addCase(fetchTasks.fulfilled, (state, action) => {
-+      state.status = 'succeeded';
-+      state.error = null;
-+      // Add any fetched tasks to the array
-+      state.tasks = action.payload;
-+     })
-+    .addCase(fetchTasks.rejected, (state) => {
-+      state.status = 'failed';
-+      state.error = "Something went wrong";
-+      state.tasks = [];
-+    });
-+ },
+  extraReducers(builder) {
+    builder
+      .addCase(fetchTasks.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+        state.tasks = [];
+      })
+      .addCase(fetchTasks.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        state.error = null;
+        // Add any fetched tasks to the array
+        state.tasks = action.payload;
+      })
+      .addCase(fetchTasks.rejected, (state) => {
+        state.status = 'failed';
+        state.error = 'Something went wrong';
+        state.tasks = [];
+      });
+  },
 });
 
 // The actions contained in the slice are exported for usage in our components
@@ -110,24 +121,28 @@ const store = configureStore({
   },
 });
 
+// Define RootState and AppDispatch types
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 export default store;
 ```
 
-이제 원격 API 엔드포인트에서 데이터를 검색하여 스토어를 새롭게 업데이트 하고 앱의 다양한 상태를 처리하도록 준비했습니다. 이제 `src/components` 폴더에 `InboxScreen.jsx` 파일을 만들어봅시다:
+이제 원격 API 엔드포인트에서 데이터를 검색하여 스토어를 새롭게 업데이트 하고 앱의 다양한 상태를 처리하도록 준비했습니다. 이제 `src/components` 폴더에 `InboxScreen.tsx` 파일을 만들어봅시다:
 
-```jsx:title=src/components/InboxScreen.jsx
+```tsx:title=src/components/InboxScreen.tsx
 import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchTasks } from '../lib/store';
+import { AppDispatch, fetchTasks, RootState } from '../lib/store';
 
-import TaskList from './TaskList';
+import TaskList from "./TaskList";
 
 export default function InboxScreen() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   // We're retrieving the error field from our updated store
-  const { error } = useSelector((state) => state.taskbox);
+  const { error } = useSelector((state: RootState) => state.taskbox);
   // The useEffect triggers the data fetching when the component is mounted
   useEffect(() => {
     dispatch(fetchTasks());
@@ -153,11 +168,12 @@ export default function InboxScreen() {
     </div>
   );
 }
+
 ```
 
 또한 `App` 컴포넌트를 변경하여 `InboxScreen`을 렌더링 합니다. (올바른 화면 선택을 위하여 router를 사용해도 되지만 여기서는 고려하지 않도록 하겠습니다.)
 
-```diff:title=src/App.jsx
+```diff:title=src/App.tsx
 - import { useState } from 'react'
 - import reactLogo from './assets/react.svg'
 - import viteLogo from '/vite.svg'
@@ -204,24 +220,30 @@ export default App;
 
 그러나 여기서 흥미로운 점은 스토리북에서 스토리를 렌더링 할 때입니다.
 
-앞에서 살펴보았듯이 `TaskList` 컴포넌트는 이제 **연결된** 컴포넌트가 되었습니다. 그리고 Redux 저장소에 의존하여 작업을 렌더링하고 있습니다.`InboxScreen` 또한 연결된 컴포넌트이므로 비슷한 작업을 수행하고 따라서 `InboxScreen.stories.jsx`에서 스토리를 설정할 때에도 스토어를 제공할 수 있습니다:
+앞에서 살펴보았듯이 `TaskList` 컴포넌트는 이제 **연결된** 컴포넌트가 되었습니다. 그리고 Redux 저장소에 의존하여 작업을 렌더링하고 있습니다.`InboxScreen` 또한 연결된 컴포넌트이므로 비슷한 작업을 수행하고 따라서 `InboxScreen.stories.tsx`에서 스토리를 설정할 때에도 스토어를 제공할 수 있습니다:
 
-```jsx:title=src/components/InboxScreen.stories.jsx
+```tsx:title=src/components/InboxScreen.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
 import InboxScreen from './InboxScreen';
+
 import store from '../lib/store';
 
 import { Provider } from 'react-redux';
 
-export default {
+const meta = {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof InboxScreen>;
 
-export const Default = {};
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Error = {};
+export const Default: Story = {};
+
+export const Error: Story = {};
 ```
 
 `error` 스토리에서 문제를 빠르게 찾아 낼 수 있습니다. 올바른 상태를 표시하는 대신 작업 목록을 표시해 줍니다. 이 문제를 피하는 한 가지 방법은 지난 장에서와 유사하게 각 상태에 대해 모의 버전을 제공하는 것이지만, 대신 이 문제를 해결하는데 도움이 되도록 잘 알려진 API mocking 라이브러리를 스토리북 애드온과 함께 사용합니다.
@@ -240,20 +262,19 @@ export const Error = {};
 yarn init-msw
 ```
 
-그리고 나서, `.storybook/preview.js` 를 업데이트 하고 초기화해야 합니다:
+그리고 나서, `.storybook/preview.ts` 를 업데이트 하고 초기화해야 합니다:
 
-```diff:title=.storybook/preview.js
+```diff:title=.storybook/preview.ts
+import type { Preview } from '@storybook/react';
+
+import { initialize, mswLoader } from 'msw-storybook-addon';
+
 import '../src/index.css';
 
 // Registers the msw addon
-+ import { initialize, mswLoader } from 'msw-storybook-addon';
+initialize();
 
-// Initialize MSW
-+ initialize();
-
-//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-/** @type { import('@storybook/react').Preview } */
-const preview = {
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -262,7 +283,7 @@ const preview = {
       },
     },
   },
-+ loaders: [mswLoader],
+  loaders: [mswLoader],
 };
 
 export default preview;
@@ -270,7 +291,9 @@ export default preview;
 
 마지막으로 `InboxScreen` 스토리를 업데이트하고 모의 원격 API 호출 [파라미터(parameter)](https://storybook.js.org/docs/writing-stories/parameters)를 포함합니다.
 
-```diff:title=src/components/InboxScreen.stories.jsx
+```diff:title=src/components/InboxScreen.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
@@ -281,14 +304,17 @@ import store from '../lib/store';
 
 import { Provider } from 'react-redux';
 
-export default {
+const meta = {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof InboxScreen>;
 
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
 + parameters: {
 +   msw: {
 +     handlers: [
@@ -300,7 +326,7 @@ export const Default = {
 + },
 };
 
-export const Error = {
+export const Error: Story = {
 + parameters: {
 +   msw: {
 +     handlers: [
@@ -344,7 +370,9 @@ play 함수는 작업이 업데이트 될 때 UI에 어떤 일이 발생하는�
 
 이제 실제로 살펴보겠습니다! 새로 만든 `InboxScreen` 스토리를 업데이트하고 다음을 추가하여 컴포넌트 상호작용을 추가해 봅시다:
 
-```diff:title=src/components/InboxScreen.stories.jsx
+```diff:title=src/components/InboxScreen.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
@@ -362,14 +390,17 @@ import { Provider } from 'react-redux';
 +  waitForElementToBeRemoved
 + } from '@storybook/test';
 
-export default {
+const meta = {
   component: InboxScreen,
   title: 'InboxScreen',
   decorators: [(story) => <Provider store={store}>{story()}</Provider>],
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof InboxScreen>;
 
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   parameters: {
     msw: {
       handlers: [
@@ -393,7 +424,7 @@ export const Default = {
 + },
 };
 
-export const Error = {
+export const Error: Story = {
   parameters: {
     msw: {
       handlers: [
