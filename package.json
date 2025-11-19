@@ -5,7 +5,7 @@
   "author": "Tom Coleman <tom@chromatic.com>, Dominic Nguyen <dom@chromatic.com>",
   "dependencies": {
     "@docsearch/css": "^3.2.1",
-    "@storybook/components-marketing": "^3.2.0",
+    "@storybook/components-marketing": "3.2.1--canary.85.e4426e5.0",
     "@storybook/design-system": "7.8.5",
     "@storybook/theming": "^6.5.10",
     "cheerio": "^1.0.0-rc.12",
@@ -29,8 +29,8 @@
     "prismjs": "^1.29.0",
     "prop-types": "^15.8.1",
     "query-string": "^7.1.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "react-github-button": "^0.1.11",
     "react-helmet": "^6.1.0"
   },
