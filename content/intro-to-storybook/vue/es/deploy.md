@@ -19,7 +19,7 @@ Este tutorial utiliza <a href="https://www.chromatic.com/?utm_source=storybook_w
 
 ### Configurar un repositorio en GitHub
 
-Antes de comenzar, nuestro código local debe sincronizarse con un servicio de control de versiones remoto. Cuando nuestro proyecto se inicializó en el [Empezando](/intro-to-storybook/vue/es/get-started), ya inicializamos un repositorio local. En esta etapa, ya tenemos un conjunto de commits que podemos enviar remotamente.
+Antes de comenzar, nuestro código local debe sincronizarse con un servicio de control de versiones remoto. Cuando nuestro proyecto se inicializó en el [Empezando](/intro-to-storybook/vue/es/get-started/), ya inicializamos un repositorio local. En esta etapa, ya tenemos un conjunto de commits que podemos enviar remotamente.
 
 Ve a Github y configura un repositorio [aquí](https://github.com/new). Nombra tu repo “taskbox”, igual que nuestro proyecto local.
 

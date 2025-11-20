@@ -171,7 +171,7 @@ Le nostre storie di Storybook hanno smesso di funzionare con questa modifica per
 
 ![Tasklist interrotto](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
 
-Possiamo utilizzare vari approcci per risolvere questo problema. Tuttavia, dato che la nostra app è piuttosto semplice, possiamo fare affidamento su un decoratore, in modo simile a quanto fatto nel [capitolo precedente](/intro-to-storybook/react/en/composite-component), e fornire uno store simulato nelle nostre storie di Storybook:
+Possiamo utilizzare vari approcci per risolvere questo problema. Tuttavia, dato che la nostra app è piuttosto semplice, possiamo fare affidamento su un decoratore, in modo simile a quanto fatto nel [capitolo precedente](/intro-to-storybook/react/en/composite-component/), e fornire uno store simulato nelle nostre storie di Storybook:
 
 ```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';

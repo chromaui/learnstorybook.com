@@ -15,7 +15,7 @@ Dans ce tutoriel, nous avons exécuté Storybook sur notre machine de développe
 
 ## Exportation en tant qu'application statique
 
-Pour déployer Storybook, nous commençons premièrement par l'exporter comme une application web statique. Cette fonctionnalité est déjà intégrée dans Storybook, nous devons juste la changer comme nous l'avons fait auparavant lorsque le projet a été initialisé dans la [section de démarrage](/intro-to-storybook/vue/fr/get-started).
+Pour déployer Storybook, nous commençons premièrement par l'exporter comme une application web statique. Cette fonctionnalité est déjà intégrée dans Storybook, nous devons juste la changer comme nous l'avons fait auparavant lorsque le projet a été initialisé dans la [section de démarrage](/intro-to-storybook/vue/fr/get-started/).
 
 ```json::clipboard=false
 {

@@ -4,7 +4,7 @@ tocTitle: 'Introdução'
 description: 'Configurando o Storybook em seu ambiente de desenvolvimento'
 ---
 
-O Storybook ajuda você a criar componentes de interface do usuário isolados da lógica de negócios e do contexto do seu aplicativo. Esta edição do tutorial Introdução ao Storybook é para React Native; existem outras edições para [React](/intro-to-storybook/react/pt/get-started/), [Vue](/intro-to-storybook/vue/pt/get-started/), [Angular](/intro-to-storybook/angular/pt/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started).
+O Storybook ajuda você a criar componentes de interface do usuário isolados da lógica de negócios e do contexto do seu aplicativo. Esta edição do tutorial Introdução ao Storybook é para React Native; existem outras edições para [React](/intro-to-storybook/react/pt/get-started/), [Vue](/intro-to-storybook/vue/pt/get-started/), [Angular](/intro-to-storybook/angular/pt/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/).
 
 ![Storybook e seu aplicativo](/intro-to-storybook/storybook-relationship.jpg)
 

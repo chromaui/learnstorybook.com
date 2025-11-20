@@ -230,7 +230,7 @@ Now that we have our store registered, we can see that our `InboxScreen` story r
 
 As our application is pretty straightforward and doesn't depend too much on remote API calls, we're going to use [Mock Service Worker](https://mswjs.io/) and [Storybook's MSW addon](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker is an API mocking library. It relies on service workers to capture network requests and provides mocked data in responses.
 
-When we set up our app in the [Get started section](/intro-to-storybook/vue/en/get-started) both packages were also installed. All that remains is to configure them and update our stories to use them.
+When we set up our app in the [Get started section](/intro-to-storybook/vue/en/get-started/) both packages were also installed. All that remains is to configure them and update our stories to use them.
 
 In your terminal, run the following command to generate a generic service worker inside your `public` folder:
 

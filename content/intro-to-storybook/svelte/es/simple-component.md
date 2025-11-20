@@ -150,7 +150,7 @@ Las <a href="https://storybook.js.org/docs/svelte/essentials/actions"><b>Accione
 
 ## Configuración
 
-Es necesario realizar algunos cambios en la configuración del Storybook, para que sepa no solo dónde buscar las historias que acabamos de crear, sino también usar el CSS que se agregó en el [capítulo anterior](/intro-to-storybook/svelte/es/get-started).
+Es necesario realizar algunos cambios en la configuración del Storybook, para que sepa no solo dónde buscar las historias que acabamos de crear, sino también usar el CSS que se agregó en el [capítulo anterior](/intro-to-storybook/svelte/es/get-started/).
 
 Comencemos cambiando el archivo de configuración de Storybook (`.storybook/main.js`) a lo siguiente:
 

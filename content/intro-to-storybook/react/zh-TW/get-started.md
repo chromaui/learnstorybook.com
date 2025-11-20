@@ -5,7 +5,7 @@ description: '在開發環境設定 Storybook'
 commit: '2407c3c'
 ---
 
-Storybook 與 App 的開發模式一起運作，協助將 App 裡 UI 元件的商業邏輯和情境分開來。這裡是 Storybook 入門的 React 版本，其它還有 [React Native](/intro-to-storybook/react-native/en/get-started)、[Vue](/intro-to-storybook/vue/en/get-started)、[Angular](/intro-to-storybook/angular/en/get-started)、[Svelte](/intro-to-storybook/svelte/en/get-started)。
+Storybook 與 App 的開發模式一起運作，協助將 App 裡 UI 元件的商業邏輯和情境分開來。這裡是 Storybook 入門的 React 版本，其它還有 [React Native](/intro-to-storybook/react-native/en/get-started/)、[Vue](/intro-to-storybook/vue/en/get-started/)、[Angular](/intro-to-storybook/angular/en/get-started/)、[Svelte](/intro-to-storybook/svelte/en/get-started/)。
 
 ![Storybook 和 App 的關係](/intro-to-storybook/storybook-relationship.jpg)
 

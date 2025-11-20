@@ -232,7 +232,7 @@ Possiamo rapidamente individuare un problema con la storia dell'`errore`. Invece
 
 Poiché la nostra applicazione è piuttosto semplice e non dipende troppo dalle chiamate API remote, useremo [Mock Service Worker](https://mswjs.io/) e [l'addon MSW di Storybook](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker è una libreria di mocking delle API. Si basa sui service worker per catturare le richieste di rete e fornire dati simulati nelle risposte.
 
-Quando abbiamo impostato la nostra app nella [sezione Introduzione](/intro-to-storybook/react/it/get-started), entrambi i pacchetti sono stati anche installati. Tutto ciò che rimane è configurarli e aggiornare le nostre storie per utilizzarli.
+Quando abbiamo impostato la nostra app nella [sezione Introduzione](/intro-to-storybook/react/it/get-started/), entrambi i pacchetti sono stati anche installati. Tutto ciò che rimane è configurarli e aggiornare le nostre storie per utilizzarli.
 
 Nel tuo terminale, esegui il seguente comando per generare un service worker generico all'interno della tua cartella `public`:
 

@@ -170,7 +170,7 @@ Our Storybook stories have stopped working with this change because our `Tasklis
 
 <img src="/intro-to-storybook/react-native-broken-tasklist.png" alt="error screen" height="600">
 
-We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react-native/en/composite-component) and provide a mocked store-- in our Storybook stories:
+We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react-native/en/composite-component/) and provide a mocked store-- in our Storybook stories:
 
 ```js:title=src/components/TaskList.stories.jsx
 import { TaskList } from './TaskList';

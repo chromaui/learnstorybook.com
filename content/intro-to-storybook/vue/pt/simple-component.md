@@ -148,7 +148,7 @@ Ao ser criada uma estória, é usada uma tarefa base (`taskData`) para definir a
 
 ## Configuração
 
-É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/intro-to-storybook/vue/pt/get-started).
+É necessário efetuar algumas alterações á configuração do Storybook, de forma que saiba não só onde procurar onde estão as estórias que acabámos de criar, mas também usar o CSS que foi adicionado no [capítulo anterior](/intro-to-storybook/vue/pt/get-started/).
 
 Vamos começar por alterar o ficheiro de configuração do Storybook(`.storybook/main.js`) para o seguinte:
 

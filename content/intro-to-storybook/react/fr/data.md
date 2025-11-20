@@ -172,7 +172,7 @@ Ne vous inquiétez pas, nous nous en occuperons dans le prochain chapitre.
 
 ![Tasklist cassée](/intro-to-storybook/broken-tasklist-optimized.png)
 
-Il y a plusieurs approches pour résoudre ce problème. Comme notre application est assez simple, nous pouvons utiliser un décorateur, comme lors du [précédent chapitre](/intro-to-storybook/react/fr/composite-component) et utiliser un store Redux simulé dans nos stories Storybook:
+Il y a plusieurs approches pour résoudre ce problème. Comme notre application est assez simple, nous pouvons utiliser un décorateur, comme lors du [précédent chapitre](/intro-to-storybook/react/fr/composite-component/) et utiliser un store Redux simulé dans nos stories Storybook:
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';

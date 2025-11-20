@@ -189,7 +189,7 @@ Our Storybook stories have stopped working with this change because our `Tasklis
 
 ![Broken tasklist](/intro-to-storybook/broken-tasklist-9-0-optimized.png)
 
-We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
+We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component/) and provide a mocked store-- in our Storybook stories:
 
 ```tsx:title=src/components/TaskList.stories.tsx
 import type { Meta, StoryObj } from '@storybook/react-vite';

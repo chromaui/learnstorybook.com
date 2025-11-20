@@ -280,7 +280,7 @@ yarn test-storybook --watch
 
 💡 使用 play 函数的交互测试时测试 UI 组件的绝佳方式。它能做的远比目前看到的多；我们推荐您阅读 [官方文档](https://storybook.js.org/docs/writing-tests/interaction-testing) 进行深入了解。
 
-为了深入了解测试，请查看 [测试手册](/ui-testing-handbook)。它涵盖了缩放前端（scaled-front-end）团队所使用的测试策略，以增强您的开发工作流程。
+为了深入了解测试，请查看 [测试手册](/ui-testing-handbook/)。它涵盖了缩放前端（scaled-front-end）团队所使用的测试策略，以增强您的开发工作流程。
 
 </div>
 

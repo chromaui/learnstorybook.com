@@ -110,7 +110,7 @@ function Chapter({
       <AppLayout
         subNav={
           <>
-            <SubNavBreadcrumb tertiary to={`/${guide}`} LinkWrapper={GatsbyLinkWrapper}>
+            <SubNavBreadcrumb tertiary to={`/${guide}/`} LinkWrapper={GatsbyLinkWrapper}>
               <Icon icon="arrowleft" />
               Back to {currentGuideTitle}
             </SubNavBreadcrumb>

@@ -19,7 +19,7 @@ commit: '4b1cd77'
 
 ### 在 GitHub 中创建一个仓库
 
-在我们开始之前，我们首先需要将本地代码和一个远程版本控制服务关联起来。当我们在[开始吧章节](/intro-to-storybook/vue/zh-CN/get-started)中构建我们的项目时，已经初始化了了一个本地仓库。在此阶段，我们已经拥有了一系列可以推送到远程仓库的 commits。
+在我们开始之前，我们首先需要将本地代码和一个远程版本控制服务关联起来。当我们在[开始吧章节](/intro-to-storybook/vue/zh-CN/get-started/)中构建我们的项目时，已经初始化了了一个本地仓库。在此阶段，我们已经拥有了一系列可以推送到远程仓库的 commits。
 
 进入 GitHub 然后在[这里](https://github.com/new)创建一个新的仓库。和我们的本地项目一样，命名为“taskbox”。
 
