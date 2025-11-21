@@ -3191,10 +3191,10 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
-"@storybook/components-marketing@3.2.1--canary.85.e4426e5.0":
-  version "3.2.1--canary.85.e4426e5.0"
-  resolved "https://registry.yarnpkg.com/@storybook/components-marketing/-/components-marketing-3.2.1--canary.85.e4426e5.0.tgz#4463709ddc9bf7e90835daa43d7a9a2ec4587ac3"
-  integrity sha512-BdyNlrSsJq+bKN0A1ccXJT8XfglP2s9LmpYaYfWrpTZV4FNpnglSuxE92xIEVk0vATgpvrz7SrH4T2XjIa9Gdw==
+"@storybook/components-marketing@3.2.1--canary.85.abb8be4.0":
+  version "3.2.1--canary.85.abb8be4.0"
+  resolved "https://registry.yarnpkg.com/@storybook/components-marketing/-/components-marketing-3.2.1--canary.85.abb8be4.0.tgz#8d986257cec27686abee954710175f1eedc15016"
+  integrity sha512-WwHQCYMZh2Tz9T1jIJqy4SZ4PafG0YQN2a0/EWcaNSmFrl3vmbpjyDZmcDFFUIlubXlsU8UXHfkcNL+6vuvNBw==
   dependencies:
     "@docsearch/css" "^3.9.0"
     "@docsearch/react" "^3.9.0"
