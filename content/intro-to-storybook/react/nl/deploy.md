@@ -19,7 +19,7 @@ Deze tutorial gebruikt <a href="https://www.chromatic.com/?utm_source=storybook_
 
 ### Een GitHub repository opzetten
 
-Voor we beginnen, moet onze lokale code synchroniseren met een remote versiecontrolesysteem. Toen we ons project initialiseerden in het [Get started hoofdstuk](/intro-to-storybook/react/nl/get-started), had Create React App (CRA) alreeds een lokale repository voor ons gemaakt. Op dit moment is het oké om onze bestanden toe te voegen aan de eerste commit.
+Voor we beginnen, moet onze lokale code synchroniseren met een remote versiecontrolesysteem. Toen we ons project initialiseerden in het [Get started hoofdstuk](/intro-to-storybook/react/nl/get-started/), had Create React App (CRA) alreeds een lokale repository voor ons gemaakt. Op dit moment is het oké om onze bestanden toe te voegen aan de eerste commit.
 
 Voor de volgende commando's uit om de veranderingen die we tot dusver hebben gemaakt toe te voegen en te committen.
 

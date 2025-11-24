@@ -5,7 +5,7 @@ description: 'Configura Storybook nel tuo ambiente di sviluppo'
 commit: '2407c3c'
 ---
 
-Storybook funziona in parallelo con la tua app in modalità di sviluppo. Ti aiuta a costruire componenti dell'interfaccia utente isolati dalla logica aziendale e dal contesto della tua app. Questa edizione del tutorial Intro to Storybook è per React; esistono altre edizioni per [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/it/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) .
+Storybook funziona in parallelo con la tua app in modalità di sviluppo. Ti aiuta a costruire componenti dell'interfaccia utente isolati dalla logica aziendale e dal contesto della tua app. Questa edizione del tutorial Intro to Storybook è per React; esistono altre edizioni per [React Native](/intro-to-storybook/react-native/en/get-started/), [Vue](/intro-to-storybook/vue/it/get-started/), [Angular](/intro-to-storybook/angular/en/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/) .
 
 ![Storybook e la tua app](/intro-to-storybook/storybook-relationship.jpg)
 

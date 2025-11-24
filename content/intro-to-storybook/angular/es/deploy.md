@@ -25,7 +25,7 @@ realizado por los mantenedores de Storybook. Nos permite implementar y alojar nu
 ### Configurar un repositorio en GitHub
 
 Antes de comenzar, nuestro código local debe sincronizarse con un servicio de control de versiones remoto. Cuando
-nuestro proyecto se inicializó en el [capítulo "Empezando"](/intro-to-storybook/angular/es/get-started), ya
+nuestro proyecto se inicializó en el [capítulo "Empezando"](/intro-to-storybook/angular/es/get-started/), ya
 inicializamos un repositorio local. En esta etapa, ya tenemos un conjunto de confirmaciones que podemos enviar a una remota.
 
 Vaya a GitHub y cree un nuevo repositorio para nuestro proyecto [aquí](https://github.com/new). Nombra el

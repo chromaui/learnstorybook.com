@@ -87,11 +87,42 @@ function Chapter({
   )}.md`;
   const fetchStatusUpdate = fetchTutorialNotUpdatedText(language);
   return (
-    <>
+    <AppLayout
+      subNav={
+        <>
+          <SubNavBreadcrumb tertiary to={`/${guide}/`} LinkWrapper={GatsbyLinkWrapper}>
+            <Icon icon="arrowleft" />
+            Back to {currentGuideTitle}
+          </SubNavBreadcrumb>
+          <SubNavDivider />
+          <SubNavMenus>
+            {framework && (
+              <FrameworkSelector
+                chapter={chapter}
+                firstChapter={firstChapter}
+                framework={framework}
+                guide={guide}
+                language={language}
+                translationPages={translationPages}
+              />
+            )}
+            <LanguageSelector
+              chapter={chapter}
+              contributeUrl={siteMetadata.contributeUrl}
+              firstChapter={firstChapter}
+              framework={framework}
+              guide={guide}
+              language={language}
+              translationPages={translationPages}
+            />
+          </SubNavMenus>
+        </>
+      }
+    >
       <Helmet>
         <title>{`${title} | ${siteMetadata.title}`}</title>
         <meta name="description" content={description} />
-
+        <link rel="canonical" href={permalink} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={permalink} />
@@ -107,66 +138,33 @@ function Chapter({
           content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
         />
       </Helmet>
-      <AppLayout
-        subNav={
-          <>
-            <SubNavBreadcrumb tertiary to={`/${guide}`} LinkWrapper={GatsbyLinkWrapper}>
-              <Icon icon="arrowleft" />
-              Back to {currentGuideTitle}
-            </SubNavBreadcrumb>
-            <SubNavDivider />
-            <SubNavMenus>
-              {framework && (
-                <FrameworkSelector
-                  chapter={chapter}
-                  firstChapter={firstChapter}
-                  framework={framework}
-                  guide={guide}
-                  language={language}
-                  translationPages={translationPages}
-                />
-              )}
-              <LanguageSelector
-                chapter={chapter}
-                contributeUrl={siteMetadata.contributeUrl}
-                firstChapter={firstChapter}
-                framework={framework}
-                guide={guide}
-                language={language}
-                translationPages={translationPages}
-              />
-            </SubNavMenus>
-          </>
-        }
-      >
-        <ChapterWrapper>
-          <Sidebar entries={entries} slug={slug} />
+      <ChapterWrapper>
+        <Sidebar entries={entries} slug={slug} />
 
-          <Content>
-            <Title>{title}</Title>
-            <Description>{description}</Description>
-            {!tutorialUpToDate && (
-              <div className="translation-aside">
-                {fetchStatusUpdate.guidenotupdated}{' '}
-                <Link tertiary href={githubFileUrl} target="_blank" rel="noopener">
-                  {fetchStatusUpdate.pullrequestmessage}
-                </Link>
-                .
-              </div>
-            )}
-            <HighlightWrapper>{html}</HighlightWrapper>
-            <ChapterLinks
-              codeGithubUrl={codeGithubUrl}
-              commit={commit}
-              guide={guide}
-              twitterShareText={twitterShareText}
-            />
-            <Pagination nextEntry={nextEntry} />
-            <GithubLink githubFileUrl={githubFileUrl} />
-          </Content>
-        </ChapterWrapper>
-      </AppLayout>
-    </>
+        <Content>
+          <Title>{title}</Title>
+          <Description>{description}</Description>
+          {!tutorialUpToDate && (
+            <div className="translation-aside">
+              {fetchStatusUpdate.guidenotupdated}{' '}
+              <Link tertiary href={githubFileUrl} target="_blank" rel="noopener">
+                {fetchStatusUpdate.pullrequestmessage}
+              </Link>
+              .
+            </div>
+          )}
+          <HighlightWrapper>{html}</HighlightWrapper>
+          <ChapterLinks
+            codeGithubUrl={codeGithubUrl}
+            commit={commit}
+            guide={guide}
+            twitterShareText={twitterShareText}
+          />
+          <Pagination nextEntry={nextEntry} />
+          <GithubLink githubFileUrl={githubFileUrl} />
+        </Content>
+      </ChapterWrapper>
+    </AppLayout>
   );
 }
 

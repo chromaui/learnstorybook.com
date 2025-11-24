@@ -5,7 +5,7 @@ description: 'Set up Vue Storybook in your development environment'
 commit: 'e2984d1'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for Vue; other editions exist for [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for Vue; other editions exist for [React](/intro-to-storybook/react/en/get-started/), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 

@@ -232,7 +232,7 @@ Nous pouvons constater une erreur dans la story de `error`. Au lieu d'afficher l
 
 Comme notre application est assez simpliste et ne dépend pas trop des appels à des API, nous allons utiliser [Mock Service Worker](https://mswjs.io/) et [Storybook's MSW addon](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker est une librairie de simulation d'API. Il se repose sur les service workers pour capturer les appels faits au réseau et fournir des données simulées en réponse.
 
-Quand nous avons initialisé notre application dans [Débuter](/intro-to-storybook/react/fr/get-started), ces deux librairies ont été installées. Il reste alors à les configurer et mettre à jour nos stories pour les utiliser.
+Quand nous avons initialisé notre application dans [Débuter](/intro-to-storybook/react/fr/get-started/), ces deux librairies ont été installées. Il reste alors à les configurer et mettre à jour nos stories pour les utiliser.
 
 Dans votre terminal, exécutez les commandes suivants pour générer un service worker générique à l'intérieur du dossier `public`:
 
@@ -459,7 +459,7 @@ yarn test-storybook --watch
 
 💡 Les tests d'interactions avec la fonction play sont une manière fantastique de tester vos composants d'UI. Ils peuvent faire plein plus que ce que nous avons parcouru. Nous vous encourageons à lire la [documentation officielle](https://storybook.js.org/docs/writing-tests/component-testing) pour en savoir plus.
 
-Pour creuser encore plus les tests, vous pouvez lire le [Guide des Tests](/ui-testing-handbook). Il agrège les stratégies de tests utilisées par les équipes front reconnues afin de vous faire accélérer votre flux de développement.
+Pour creuser encore plus les tests, vous pouvez lire le [Guide des Tests](/ui-testing-handbook/). Il agrège les stratégies de tests utilisées par les équipes front reconnues afin de vous faire accélérer votre flux de développement.
 
 </div>
 

@@ -171,7 +171,7 @@ export default function TaskList() {
 
 ![壊れたタスクリスト](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
 
-この問題を解決するために、さまざまなアプローチができます。しかし、このアプリは非常に単純なので、[前の章](/intro-to-storybook/react/ja/composite-component)で行ったのと同様にデコレーターに頼ることができ、Storybook の中でモックストアを利用できます。
+この問題を解決するために、さまざまなアプローチができます。しかし、このアプリは非常に単純なので、[前の章](/intro-to-storybook/react/ja/composite-component/)で行ったのと同様にデコレーターに頼ることができ、Storybook の中でモックストアを利用できます。
 
 ```jsx:title=src/components/TaskList.stories.jsx
 import TaskList from './TaskList';

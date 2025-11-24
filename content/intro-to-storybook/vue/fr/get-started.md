@@ -5,7 +5,7 @@ description: 'Configurer Vue Storybook dans votre environnement de développemen
 commit: 'e2984d1'
 ---
 
-Storybook fonctionne avec votre application en mode développement. Il vous aide à créer des composants graphiques isolés de la logique métier et du contexte de votre application. Cette édition de Learn Storybook est pour Vue. D'autres éditions existent pour [React](/intro-to-storybook/react/fr/get-started), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started) et [Svelte](/intro-to-storybook/svelte/en/get-started).
+Storybook fonctionne avec votre application en mode développement. Il vous aide à créer des composants graphiques isolés de la logique métier et du contexte de votre application. Cette édition de Learn Storybook est pour Vue. D'autres éditions existent pour [React](/intro-to-storybook/react/fr/get-started/), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started/) et [Svelte](/intro-to-storybook/svelte/en/get-started/).
 
 ![Storybook et votre application](/intro-to-storybook/storybook-relationship.jpg)
 

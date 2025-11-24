@@ -113,7 +113,7 @@ Arguments 或者 [`args`](https://storybook.js.org/docs/react/writing-stories/ar
 
 ## 配置
 
-我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用[上个章节](/intro-to-storybook/react/zh-CN/get-started)中修改过的 CSS 文件。
+我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用[上个章节](/intro-to-storybook/react/zh-CN/get-started/)中修改过的 CSS 文件。
 
 ```js:title=.storybook/main.js
 module.exports = {

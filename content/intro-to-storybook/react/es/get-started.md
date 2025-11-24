@@ -5,7 +5,7 @@ description: 'Configurar React Storybook en tu entorno de desarrollo'
 commit: '2407c3c'
 ---
 
-Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; existe otras ediciones para [React Native](/intro-to-storybook/react-native/es/get-started), [Vue](/intro-to-storybook/vue/es/get-started), [Angular](/intro-to-storybook/angular/es/get-started) y [Svelte](/intro-to-storybook/svelte/es/get-started).
+Storybook se ejecuta junto con tu aplicación en modo desarrollo. Te ayuda a crear componentes de UI aislados de la lógica y el contexto de tu aplicación. Esta edición de Aprende Storybook es para React; existe otras ediciones para [React Native](/intro-to-storybook/react-native/es/get-started/), [Vue](/intro-to-storybook/vue/es/get-started/), [Angular](/intro-to-storybook/angular/es/get-started/) y [Svelte](/intro-to-storybook/svelte/es/get-started/).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
