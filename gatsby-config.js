@@ -4,7 +4,7 @@ const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://
 
 module.exports = {
   flags: {
-    FAST_DEV: true,
+    FAST_DEV: false,
   },
   pathPrefix: `/tutorials`,
   siteMetadata: {
