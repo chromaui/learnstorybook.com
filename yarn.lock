@@ -2622,7 +2622,7 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@prettier/eslint@npm:prettier-eslint@^15.0.1", prettier-eslint@^15.0.1:
+"@prettier/eslint@npm:prettier-eslint@^15.0.1":
   version "15.0.1"
   resolved "https://registry.npmjs.org/prettier-eslint/-/prettier-eslint-15.0.1.tgz#2543a43e9acec2a9767ad6458165ce81f353db9c"
   integrity sha512-mGOWVHixSvpZWARqSDXbdtTL54mMBxc5oQYQ6RAqy8jecuNJBgN3t9E5a81G66F8x8fsKNiR1HWaBV66MJDOpg==
@@ -3191,10 +3191,10 @@
   dependencies:
     "@storybook/global" "^5.0.0"
 
-"@storybook/components-marketing@3.2.1--canary.85.abb8be4.0":
-  version "3.2.1--canary.85.abb8be4.0"
-  resolved "https://registry.yarnpkg.com/@storybook/components-marketing/-/components-marketing-3.2.1--canary.85.abb8be4.0.tgz#8d986257cec27686abee954710175f1eedc15016"
-  integrity sha512-WwHQCYMZh2Tz9T1jIJqy4SZ4PafG0YQN2a0/EWcaNSmFrl3vmbpjyDZmcDFFUIlubXlsU8UXHfkcNL+6vuvNBw==
+"@storybook/components-marketing@3.3.0":
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/@storybook/components-marketing/-/components-marketing-3.3.0.tgz#9c914fc533c335518a13f95f7527f3877ad568a2"
+  integrity sha512-oDX+akZU1tCdShhcLHdtbvgo2PCtUBebgTX2nS7mfOptuk5I/s5N41T67OPORnHc99Hx/3jbrS0Q/S+3U7tVVw==
   dependencies:
     "@docsearch/css" "^3.9.0"
     "@docsearch/react" "^3.9.0"
@@ -14207,6 +14207,26 @@ prettier-eslint-cli@^7.1.0:
     loglevel-colored-level-prefix "^1.0.0"
     rxjs "^7.5.6"
     yargs "^13.1.1"
+
+prettier-eslint@^15.0.1:
+  version "15.0.1"
+  resolved "https://registry.npmjs.org/prettier-eslint/-/prettier-eslint-15.0.1.tgz#2543a43e9acec2a9767ad6458165ce81f353db9c"
+  integrity sha512-mGOWVHixSvpZWARqSDXbdtTL54mMBxc5oQYQ6RAqy8jecuNJBgN3t9E5a81G66F8x8fsKNiR1HWaBV66MJDOpg==
+  dependencies:
+    "@types/eslint" "^8.4.2"
+    "@types/prettier" "^2.6.0"
+    "@typescript-eslint/parser" "^5.10.0"
+    common-tags "^1.4.0"
+    dlv "^1.1.0"
+    eslint "^8.7.0"
+    indent-string "^4.0.0"
+    lodash.merge "^4.6.0"
+    loglevel-colored-level-prefix "^1.0.0"
+    prettier "^2.5.1"
+    pretty-format "^23.0.1"
+    require-relative "^0.8.7"
+    typescript "^4.5.4"
+    vue-eslint-parser "^8.0.1"
 
 prettier-linter-helpers@^1.0.0:
   version "1.0.0"
