@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: '6262d7f'
+commit: '12a7932'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -25,7 +25,7 @@ import {
   configureStore,
   createSlice,
   createAsyncThunk,
-  PayloadAction,
+  type PayloadAction,
 } from '@reduxjs/toolkit';
 
 interface TaskBoxState {
@@ -131,13 +131,15 @@ export default store;
 Now that we've updated our store to retrieve the data from a remote API endpoint and prepared it to handle the various states of our app, let's create our `InboxScreen.tsx` in the `src/components` directory:
 
 ```tsx:title=src/components/InboxScreen.tsx
+import type { RootState, AppDispatch } from '../lib/store';
+
 import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch, fetchTasks, RootState } from '../lib/store';
+import { fetchTasks } from '../lib/store';
 
-import TaskList from "./TaskList";
+import TaskList from './TaskList';
 
 export default function InboxScreen() {
   const dispatch = useDispatch<AppDispatch>();
