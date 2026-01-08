@@ -2,7 +2,7 @@
 title: 'Construye un componente simple'
 tocTitle: 'Componente simple'
 description: 'Construye un componente simple en aislamiento'
-commit: 'a4bf2a8'
+commit: '0b2da1f'
 ---
 
 Construiremos nuestra UI siguiendo la metodología [Component-Driven Development](https://www.componentdriven.org/)

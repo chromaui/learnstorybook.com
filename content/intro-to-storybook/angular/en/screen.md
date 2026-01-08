@@ -2,7 +2,7 @@
 title: 'Construct a screen'
 tocTitle: 'Screens'
 description: 'Construct a screen out of components'
-commit: 'da405c1'
+commit: '45615b4'
 ---
 
 We've concentrated on building UIs from the bottom up, starting small and adding complexity. Doing so has allowed us to develop each component in isolation, figure out its data needs, and play with it in Storybook. All without needing to stand up a server or build out screens!
@@ -151,7 +151,7 @@ We also need to change the `app.ts` component to render the `InboxScreen` compon
 
 ```diff:title=src/app/app.ts
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+- import { RouterOutlet } from '@angular/router';
 
 + import { InboxScreenComponent } from './components/inbox-screen.component';
 
@@ -160,7 +160,7 @@ import { RouterOutlet } from '@angular/router';
 - imports: [RouterOutlet],
 -  templateUrl: './app.html',
 -  styleUrl: './app.css'
-+  imports: [RouterOutlet, InboxScreenComponent],
++  imports: [InboxScreenComponent],
 +  template: `<app-inbox-screen></app-inbox-screen>`,
 })
 

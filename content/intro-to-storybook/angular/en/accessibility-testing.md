@@ -2,6 +2,7 @@
 title: 'Accessibility tests'
 tocTitle: 'Accessibility Testing'
 description: 'Learn how to integrate accessibility tests into your workflow'
+commit: '63ec452'
 ---
 
 So far, we've been focused on building our UI components with a strong emphasis on functionality and visual testing, adding complexity as we go. But we've not yet addressed an important aspect of UI development: accessibility.
