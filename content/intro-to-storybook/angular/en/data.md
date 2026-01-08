@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 'db7a1a2'
+commit: 'f75d1f4'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -112,8 +112,8 @@ import { TaskComponent } from './task.component';
       <app-task
         *ngFor="let task of tasksInOrder"
         [task]="task"
-        (onArchiveTask)="onArchiveTask.emit($event)"
-        (onPinTask)="onPinTask.emit($event)"
+        (onArchiveTask)="store.archiveTask($any($event))"
+        (onPinTask)="store.pinTask($any($event))"
       >
       </app-task>
       <div

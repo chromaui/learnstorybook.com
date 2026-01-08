@@ -2,7 +2,7 @@
 title: 'Tutorial do Storybook para o Vue'
 tocTitle: 'Introdução'
 description: 'Configuração do Storybook num ambiente de desenvolvimento Vue'
-commit: 'e2984d1'
+commit: '7bff3f5'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.

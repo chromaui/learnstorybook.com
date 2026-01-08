@@ -2,7 +2,7 @@
 title: 'Tutorial de Storybook para Angular'
 tocTitle: 'Empezando'
 description: 'Configurar Angular Storybook en tu entorno de desarrollo'
-commit: '20f5b89'
+commit: 'bc34d9c'
 ---
 
 Storybook se ejecuta junto con su aplicación en modo de desarrollo. Le ayuda a crear componentes de interfaz de

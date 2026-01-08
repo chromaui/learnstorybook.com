@@ -2,7 +2,6 @@
 title: '插件'
 tocTitle: '插件'
 description: '学习如何集成并使用热门插件'
-commit: '13da85f'
 ---
 
 Storybook 拥有一个健壮的[插件](https://storybook.js.org/docs/configure/storybook-addons)生态系统来帮助您的团队提高开发体验。在[这里](https://storybook.js.org/integrations)查看它们，

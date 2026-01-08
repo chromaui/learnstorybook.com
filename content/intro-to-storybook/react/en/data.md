@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 'f9eaeef'
+commit: 'acf26d6'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -29,7 +29,7 @@ First, we’ll construct a simple Redux store that responds to actions that chan
  */
 import type { TaskData } from '../types';
 
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { configureStore, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface TaskBoxState {
   tasks: TaskData[];
@@ -100,11 +100,13 @@ export default store;
 Then we’ll update our `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
 ```tsx:title=src/components/TaskList.tsx
+import type { RootState, AppDispatch } from '../lib/store';
+
 import Task from './Task';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateTaskState, RootState, AppDispatch } from '../lib/store';
+import { updateTaskState } from '../lib/store';
 
 export default function TaskList() {
   // We're retrieving our state from the store

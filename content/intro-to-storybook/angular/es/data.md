@@ -2,7 +2,7 @@
 title: 'Introducir datos'
 tocTitle: 'Datos'
 description: 'Aprende como introducir datos a tus componentes interfaz gráfica'
-commit: 'db7a1a2'
+commit: 'f75d1f4'
 ---
 
 Hasta ahora hemos creado componentes aislados que no contienen estado propio, sino que reciben entradas por medio de
