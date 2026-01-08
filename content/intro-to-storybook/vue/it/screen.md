@@ -2,7 +2,7 @@
 title: 'Costruisci una schermata'
 tocTitle: 'Schermate'
 description: 'Costruisci una schermata da componenti'
-commit: 'af51337'
+commit: 'ce81973'
 ---
 
 Ci siamo concentrati sulla costruzione di interfacce utente dal basso verso l'alto, partendo da piccole e aggiungendo complessità. Farlo ci ha permesso di sviluppare ogni componente in isolamento, capire le sue esigenze di dati e giocare con esso in Storybook. Tutto senza dover avviare un server o costruire schermate!
@@ -107,7 +107,7 @@ import InboxScreen from './components/InboxScreen.vue';
 
 Tuttavia, le cose diventano interessanti quando si tratta di renderizzare la storia in Storybook.
 
-Come abbiamo visto in precedenza, il componente `TaskList` è un *container** che renderizza il componente di presentazione `PureTaskList`. Per definizione, i componenti del container non possono essere semplicemente renderrizzati in modo isolato; si aspettano di essere passati a qualche contesto o connessi a un servizio. Ciò significa che per renderizzare un contenitore in Storybook, dobbiamo simulare (cioè fornire una versione finta) il contesto o il servizio che richiede.
+Come abbiamo visto in precedenza, il componente `TaskList` è un \*container\*\* che renderizza il componente di presentazione `PureTaskList`. Per definizione, i componenti del container non possono essere semplicemente renderrizzati in modo isolato; si aspettano di essere passati a qualche contesto o connessi a un servizio. Ciò significa che per renderizzare un contenitore in Storybook, dobbiamo simulare (cioè fornire una versione finta) il contesto o il servizio che richiede.
 
 Posizionando la `TaskList` in Storybook, siamo stati in grado di evitare questo problema semplicemente renderizzando la `PureTaskList` ed evitando il contenitore. Faremo qualcosa di simile e renderizzeremo anche il `PureInboxScreen` in Storybook.
 
