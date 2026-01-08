@@ -15,12 +15,12 @@ module.exports = {
     siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
-    storybookVersion: 9.0,
+    storybookVersion: 10,
     tutorialStatus: {
       'intro-to-storybook': {
         react: {
           de: 5.3,
-          en: 9.0,
+          en: 10,
           es: 8.3,
           fr: 8.3,
           it: 7.6,
@@ -38,7 +38,7 @@ module.exports = {
           pt: 7.6,
         },
         vue: {
-          en: 9.0,
+          en: 10,
           es: 6.1,
           fr: 5.3,
           pt: 5.3,
@@ -46,19 +46,19 @@ module.exports = {
           'zh-CN': 8.1,
         },
         angular: {
-          en: 9.0,
+          en: 10,
           ja: 6.3,
           es: 6.3,
           pt: 5.3,
         },
         svelte: {
-          en: 9.0,
+          en: 10,
           es: 5.3,
         },
       },
       'visual-testing-handbook': {
         react: {
-          en: 9.0,
+          en: 10,
           es: 9.0,
           ko: 9.0,
         },
