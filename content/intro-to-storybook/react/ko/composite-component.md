@@ -19,7 +19,7 @@ Taskbox는 핀으로 고정된 task를 일반 task 위에 배치하여 강조합
 
 ## 설정하기
 
-복합 컴포넌트는 기본 컴포넌트와 크게 다르지 않습니다. `TaskList` 컴포넌트와 그에 해당하는 스토리 파일을 만들어보겠습니다. `src/components/TaskList.jsx` 와 `src/components/TaskList.stories.jsx`를 생성해 주세요.
+복합 컴포넌트는 기본 컴포넌트와 크게 다르지 않습니다. `TaskList` 컴포넌트와 그에 해당하는 스토리 파일을 만들어보겠습니다. `src/components/TaskList.tsx` 와 `src/components/TaskList.stories.tsx`를 생성해 주세요.
 
 우선 `TaskList`의 대략적인 구현부터 시작하겠습니다. 이전의 `Task` 컴포넌트를 가져온 후, 속성과 액션을 입력값으로 전달해 주세요.
 
@@ -71,7 +71,7 @@ export default function TaskList({
 그리고, 스토리 파일 안에 `TaskList`의 테스트 상태값들을 만들어 보세요.
 
 ```tsx:title=src/components/TaskList.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import TaskList from './TaskList';
 
@@ -145,7 +145,7 @@ export const Empty: Story = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -230,7 +230,7 @@ export default function TaskList({
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-9-0.mp4""
     type="video/mp4"
   />
 </video>
