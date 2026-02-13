@@ -16,7 +16,7 @@ commit: '1e576c5'
 - `title` – task를 설명해주는 문자열
 - `state` - 현재 어떤 task가 목록에 있으며, 선택되어 있는지의 여부
 
-`Task` 컴포넌트를 만들기 위해, 위에서 살펴본 여러 유형의 task에 해당하는 테스트 상태를 작성합니다. 그런 다음 모의 데이터를 사용하여 독립적 환경에서 컴포넌트를 구현하기 위해 스토리북(Storybook)을 사용합니다. 각각의 상태에 따라 컴포넌트의 모습을 수동으로 테스트하면서 진행할 것입니다.
+`Task` 컴포넌트를 만들기 위해, 위에서 살펴본 여러 유형의 task에 해당하는 테스트 상태를 작성합니다. 그런 다음 모의 데이터를 사용하여 독립적 환경에서 컴포넌트를 구축하기 위해 스토리북(Storybook)을 사용합니다. 각각의 상태에 따른 컴포넌트의 모습을 "시각적으로 테스트" 하며 진행할 것입니다.
 
 ## 설정하기
 
@@ -63,9 +63,9 @@ export default function Task({
 아래의 코드는 `Task`의 세 가지 테스트 상태를 스토리 파일에 작성한 것입니다.
 
 ```tsx:title=src/components/Task.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 
 import Task from './Task';
 
@@ -130,7 +130,7 @@ export const Archived: Story = {
   - 스토리(story)
   - 스토리(story)
 
-스토리북에게 우리가 문서화하고 테스트하고 있는 컴포넌트에 대해 알려주기 위해, 아래 사항들을 포함하는 `default` export를 생성합니다:
+스토리북에게 우리가 테스트하고 있는 컴포넌트에 대해 알려주기 위해, 아래 사항들을 포함하는 `default` export를 생성합니다:
 
 - `component` -- 컴포넌트 자체
 - `title` -- 스토리북 사이드바에서 컴포넌트를 그룹화하거나 분류하는 방법
@@ -145,8 +145,6 @@ Arguments(인수) 혹은 줄여서 [`args`](https://storybook.js.org/docs/writin
 `fn()`을 사용하면 클릭 시 스토리북 UI의 **Actions** 패널에 나타나는 콜백을 생성할 수 있습니다. 따라서 핀 버튼을 만들 때 버튼 클릭이 UI에서 성공적으로 이루어졌는지를 확인할 수 있습니다.
 
 모든 컴포넌트의 모든 조합에 동일한 액션 세트를 전달해야 하므로, 이를 하나의 `ActionsData` 변수로 묶어 매번 스토리 정의에 전달하는 것이 편리합니다. 컴포넌트가 필요로 하는 `ActionsData`를 묶는 또 다른 장점은, 이를 `export`하고 나중에 이 컴포넌트를 재사용하는 컴포넌트의 스토리에서 사용할 수 있다는 것입니다. 나중에 살펴보겠습니다.
-
-스토리를 만들 때, 컴포넌트가 기대하는 작업의 형태를 만들기 위해 우리는 기본 `task` 인수를 사용합니다. 이 인수는 일반적으로 실제 데이터의 형태를 기반으로 모델링됩니다. 다시 말해, 이 형태를 `export` 하면 나중에 다른 스토리에서 재사용할 수 있습니다.
 
 ## 환경설정
 
@@ -163,11 +161,12 @@ const config: StorybookConfig = {
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
+    '@storybook/addon-docs',
+    '@storybook/addon-vitest',
+    '@chromatic-com/storybook',
   ],
   framework: {
-    name: "@storybook/react-vite",
+    name: '@storybook/react-vite',
     options: {},
   },
 };
@@ -178,7 +177,7 @@ export default config;
 위와 같이 변경을 마치셨다면, `.storybook` 폴더 내의 `preview.ts`를 다음과 같이 변경합니다:
 
 ```diff:title=.storybook/preview.ts
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 
 + import '../src/index.css';
 
@@ -204,7 +203,7 @@ export default preview;
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-task-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-task-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -283,7 +282,7 @@ export default function Task({
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-task-states-7-0.mp4"
+    src="/intro-to-storybook/finished-task-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -305,14 +304,8 @@ export type TaskData = {
 
 그 다음, 방금 생성한 타입을 `Task` 컴포넌트에서 사용하도록 업데이트하세요:
 
-```diff:title=src/components/Task.tsx
-+ import type { TaskData } from '../types';
-
-- type Task = {
--   id: string;
--   title: string;
--   state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
-- };
+```tsx:title=src/components/Task.tsx
+import type { TaskData } from '../types';
 
 type TaskProps = {
   /** Composition of the task */
@@ -378,56 +371,6 @@ export default function Task({
 지금까지 우리는 서버나 프런트엔드 앱 전체를 실행하지 않고도 성공적으로 컴포넌트를 만들었습니다. 다음 단계는 비슷한 방식으로 나머지 Taskbox 컴포넌트를 하나씩 만드는 것입니다.
 
 보시다시피, 컴포넌트를 독립적으로 구현하는 것은 쉽고 빠릅니다. 가능한 모든 상태를 테스트할 수 있기 때문에 버그가 적은 고품질 UI를 만들 수 있을 것입니다.
-
-## 접근성 문제 발견하기
-
-접근성 테스트는 [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/) 규칙 및 기타 업계의 모범 사례를 기반한 일련의 경험적 방법(heuristics)과 함께 자동화 도구를 사용하여 렌더링된 DOM을 감사하는 관행을 의미합니다. 이 테스트는 명백한 접근성 위반을 적발하는 QA의 첫 번째 역할을 하며, 애플리케이션이 시각 장애인, 청각 장애인, 인지 장애인 등 가능한 많은 사람들이 애플리케이션을 사용할 수 있도록 보장합니다.
-
-스토리북에는 공식 [접근성 애드온](https://storybook.js.org/addons/@storybook/addon-a11y)이 포함되어 있습니다. Deque의 [axe-core](https://github.com/dequelabs/axe-core)를 기반으로 하며, [최대 57%의 WCAG 문제](https://www.deque.com/blog/automated-testing-study-identifies-57-percent-of-digital-accessibility-issues/)를 포착할 수 있습니다.
-
-어떻게 작동하는지 봅시다! 다음 명령을 실행하여 애드온을 설치하세요:
-
-```shell
-yarn add --dev @storybook/addon-a11y
-```
-
-그 다음, 스토리북 구성 파일(`.storybook/main.ts`)을 업데이트하여 활성화합니다:
-
-```diff:title=.storybook/main.ts
-import type { StorybookConfig } from '@storybook/react-vite';
-
-const config: StorybookConfig = {
-  stories: ['../src/components/**/*.stories.@(ts|tsx)'],
-  staticDirs: ['../public'],
-  addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-+   '@storybook/addon-a11y'
-  ],
-  framework: {
-    name: '@storybook/react-vite',
-    options: {},
-  },
-};
-export default config;
-```
-
-마지막으로, 스토리북을 재시작하여 UI에서 새로운 애드온이 활성화되었는지 확인하세요.
-
-![Task accessibility issue in Storybook](/intro-to-storybook/finished-task-states-accessibility-issue-7-0.png)
-
-스토리를 순환하면서, 애드온이 우리의 테스트 상태 중 하나에서 접근성 문제를 발견한 것을 볼 수 있습니다. [**"요소는 충분한 색 대비를 가져야 합니다"**](https://dequeuniversity.com/rules/axe/4.4/color-contrast?application=axeAPI)라는 메시지는 기본적으로 작업 제목과 배경 간의 대비가 충분하지 않다는 의미입니다. 애플리케이션의 CSS(`src/index.css`)에 있는 텍스트 색상을 더 어두운 회색으로 변경하여 이를 빠르게 수정할 수 있습니다.
-
-```diff:title=src/index.css
-.list-item.TASK_ARCHIVED input[type="text"] {
-- color: #a0aec0;
-+ color: #4a5568;
-  text-decoration: line-through;
-}
-```
-
-이제 끝입니다! 우리는 UI가 접근성을 확보하도록 첫 번째 단계를 밟았습니다. 애플리케이션의 복잡성이 올라가도 추가 도구나 테스트 환경을 구동할 필요 없이 다른 모든 컴포넌트에서도 이 과정을 반복할 수 있습니다.
 
 <div class="aside">
 💡 변경된 사항을 깃(Git)에 commit하는 것을 잊지 마세요!
