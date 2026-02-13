@@ -41,6 +41,12 @@ yarn dev
 
 우리의 주요 프론트엔드 애플리케이션 방식: 컴포넌트 개발(Storybook)과 애플리케이션 자체 개발이 있습니다.
 
+<!--
+
+TODO:
+- Update the image  to include the default Vite start screen and updated Storybook UI
+-->
+
 ![2가지 양식](https://storybook.js.org/tutorials/intro-to-storybook/app-main-modalities-react.png)
 
 앱의 어느 부분을 작업하느냐에 따라, 이 중 하나 또는 여러 개를 동시에 실행하고 싶을 수 있습니다. 현재 우리의 초점은 단일 UI 컴포넌트를 만드는 것이므로, Storybook만 실행할 것입니다.
