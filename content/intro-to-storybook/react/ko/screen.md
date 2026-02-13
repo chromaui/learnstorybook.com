@@ -11,7 +11,7 @@ commit: '12a7932'
 
 ## 화면에 연결하기
 
-우리 앱은 간단하기 때문에 만들 화면도 매우 간단합니다. 원격 API에서 데이터를 가져와 `TaskList` 컴포넌트(리덕스(Redux)를 통해 자체적으로 데이터를 제공함)를 감싸고, 최상위 레벨의 `error` 필드를 리덕스에서 가져오는 것입니다.
+우리 애플리케이션은 간단하기 때문에 만들 화면도 매우 간단합니다. 원격 API에서 데이터를 가져와 `TaskList` 컴포넌트(리덕스(Redux)를 통해 자체적으로 데이터를 제공함)를 레이아웃으로 감싸고, 최상위 레벨의 `error` 필드를 스토어에서 가져오는 것입니다. (서버 연결에 문제가 발생할 경우를 대비해 해당 필드를 설정한다고 가정해 봅시다.)
 
 우리는 먼저 Redux 스토어(`src/lib/store.ts`)를 업데이트하여 원격 API에 연결하고, 애플리케이션의 다양한 상태(예: `error`, `succeeded`)를 처리하도록 하겠습니다.
 
@@ -25,7 +25,7 @@ import {
   configureStore,
   createSlice,
   createAsyncThunk,
-  PayloadAction,
+  type PayloadAction,
 } from '@reduxjs/toolkit';
 
 interface TaskBoxState {
@@ -131,13 +131,15 @@ export default store;
 이제 원격 API 엔드포인트에서 데이터를 검색하여 스토어를 새롭게 업데이트 하고 앱의 다양한 상태를 처리하도록 준비했습니다. 이제 `src/components` 폴더에 `InboxScreen.tsx` 파일을 만들어봅시다:
 
 ```tsx:title=src/components/InboxScreen.tsx
+import type { RootState, AppDispatch } from '../lib/store';
+
 import { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppDispatch, fetchTasks, RootState } from '../lib/store';
+import { fetchTasks } from '../lib/store';
 
-import TaskList from "./TaskList";
+import TaskList from './TaskList';
 
 export default function InboxScreen() {
   const dispatch = useDispatch<AppDispatch>();
@@ -223,13 +225,13 @@ export default App;
 앞에서 살펴보았듯이 `TaskList` 컴포넌트는 이제 **연결된** 컴포넌트가 되었습니다. 그리고 Redux 저장소에 의존하여 작업을 렌더링하고 있습니다.`InboxScreen` 또한 연결된 컴포넌트이므로 비슷한 작업을 수행하고 따라서 `InboxScreen.stories.tsx`에서 스토리를 설정할 때에도 스토어를 제공할 수 있습니다:
 
 ```tsx:title=src/components/InboxScreen.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+import { Provider } from 'react-redux';
 
 import InboxScreen from './InboxScreen';
 
 import store from '../lib/store';
-
-import { Provider } from 'react-redux';
 
 const meta = {
   component: InboxScreen,
@@ -248,7 +250,11 @@ export const Error: Story = {};
 
 `error` 스토리에서 문제를 빠르게 찾아 낼 수 있습니다. 올바른 상태를 표시하는 대신 작업 목록을 표시해 줍니다. 이 문제를 피하는 한 가지 방법은 지난 장에서와 유사하게 각 상태에 대해 모의 버전을 제공하는 것이지만, 대신 이 문제를 해결하는데 도움이 되도록 잘 알려진 API mocking 라이브러리를 스토리북 애드온과 함께 사용합니다.
 
-![고장난 inbox 스크린 상태](/intro-to-storybook/broken-inbox-error-state-7-0-optimized.png)
+<!-- TODO:
+  - Follow up with Design to get an updated image that showcases Task, TaskList, and InboxScreen
+-->
+
+![고장난 inbox 스크린 상태](/intro-to-storybook/broken-inbox-error-state-9-0-optimized.png)
 
 ## API 서비스 모킹(Mocking)
 
@@ -265,7 +271,7 @@ yarn init-msw
 그리고 나서, `.storybook/preview.ts` 를 업데이트 하고 초기화해야 합니다:
 
 ```diff:title=.storybook/preview.ts
-import type { Preview } from '@storybook/react';
+import type { Preview } from '@storybook/react-vite';
 
 import { initialize, mswLoader } from 'msw-storybook-addon';
 
@@ -292,17 +298,17 @@ export default preview;
 마지막으로 `InboxScreen` 스토리를 업데이트하고 모의 원격 API 호출 [파라미터(parameter)](https://storybook.js.org/docs/writing-stories/parameters)를 포함합니다.
 
 ```diff:title=src/components/InboxScreen.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
-
-import InboxScreen from './InboxScreen';
-
-import store from '../lib/store';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 + import { http, HttpResponse } from 'msw';
 
 + import { MockedState } from './TaskList.stories';
 
 import { Provider } from 'react-redux';
+
+import InboxScreen from './InboxScreen';
+
+import store from '../lib/store';
 
 const meta = {
   component: InboxScreen,
@@ -351,31 +357,27 @@ export const Error: Story = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized-7.0.mp4"
+    src="/intro-to-storybook/inbox-screen-with-working-msw-addon-optimized-9.0.mp4"
     type="video/mp4"
   />
 </video>
 
-## 컴포넌트 테스트
+## 상호작용 테스트
 
 지금까지 간단한 구성 요소에서 시작하여 화면에 이르기까지 완전히 작동하는 응용 프로그램을 처음부터 구축하고 스토리를 사용하여 각 변경 사항을 지속적으로 테스트할 수 있었습니다. 그러나 각각의 새로운 스토리는 UI가 깨지지 않도록 다른 모든 스토리를 수동으로 확인해야 합니다. 그것은 많은 추가 작업입니다.
 
 이 워크플로우를 자동화하고 컴포넌트 상호작용을 자동으로 테스트할 수 없을까요?
 
-### play 함수를 사용하여 컴포넌트 테스트 작성하기
+### play 함수를 사용하여 상호작용 테스트 작성하기
 
-스토리북의 [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 함수와 [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing)가 이를 돕습니다. play 함수는 스토리가 렌더링된 후 실행되는 작은 코드 스니펫이 포함됩니다.
+스토리북의 [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 함수가 이를 돕습니다. play 함수는 스토리가 렌더링된 후 실행되는 작은 코드 스니펫이 포함됩니다.이 함수는 프레임워크에 구애받지 않는 DOM API를 사용하므로, 프론트엔드 프레임워크의 종류와 상관없이 play 함수를 작성하여 UI와 상호작용하고 사용자의 동작을 시뮬레이션하는 스토리를 작성할 수 있습니다. 우리는 이 함수를 사용하여 태스크를 업데이트할 때 UI가 예상대로 작동하는지 확인할 것입니다.
 
-play 함수는 작업이 업데이트 될 때 UI에 어떤 일이 발생하는지 확인하는 데 도움이 됩니다. 이 기능은 프레임워크에 구애받지 않는 DOM API를 사용합니다. 따라서 play 함수를 사용하면 프레임워크에 구애받지 않고 UI와 상호작용하고 사용자의 동작을 시뮬레이션하는 스토리를 작성할 수 있습니다.
-
-이제 실제로 살펴보겠습니다! 새로 만든 `InboxScreen` 스토리를 업데이트하고 다음을 추가하여 컴포넌트 상호작용을 추가해 봅시다:
+새로 만든 `InboxScreen` 스토리를 업데이트하고 다음을 추가하여 컴포넌트 상호작용을 추가해 봅시다:
 
 ```diff:title=src/components/InboxScreen.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import InboxScreen from './InboxScreen';
-
-import store from '../lib/store';
++ import { waitFor, waitForElementToBeRemoved } from 'storybook/test';
 
 import { http, HttpResponse } from 'msw';
 
@@ -383,12 +385,9 @@ import { MockedState } from './TaskList.stories';
 
 import { Provider } from 'react-redux';
 
-+ import {
-+  fireEvent,
-+  waitFor,
-+  within,
-+  waitForElementToBeRemoved
-+ } from '@storybook/test';
+import InboxScreen from './InboxScreen';
+
+import store from '../lib/store';
 
 const meta = {
   component: InboxScreen,
@@ -410,16 +409,15 @@ export const Default: Story = {
       ],
     },
   },
-+ play: async ({ canvasElement }) => {
-+   const canvas = within(canvasElement);
++ play: async ({ canvas, userEvent }) => {
 +   // Waits for the component to transition from the loading state
 +   await waitForElementToBeRemoved(await canvas.findByTestId('loading'));
 +   // Waits for the component to be updated based on the store
 +   await waitFor(async () => {
 +     // Simulates pinning the first task
-+     await fireEvent.click(canvas.getByLabelText('pinTask-1'));
++     await userEvent.click(canvas.getByLabelText('pinTask-1'));
 +     // Simulates pinning the third task
-+     await fireEvent.click(canvas.getByLabelText('pinTask-3'));
++     await userEvent.click(canvas.getByLabelText('pinTask-3'));
 +   });
 + },
 };
@@ -441,7 +439,7 @@ export const Error: Story = {
 
 <div class="aside">
 
-💡 `@storybook/test` 패키지는 `@storybook/jest`와 `@storybook/testing-library` 테스트 패키지를 대체하며, [Vitest](https://vitest.dev/) 패키지를 기반으로 더 작은 번들 크기와 더 간단한 API를 제공합니다.
+💡 `Interactions` 패널은 각 단계별 흐름을 제공해 스토리북 테스트를 시각화하는데 도움을 줍니다. 또한 상호작용을 일시 정지하고, 재개하고, 되감기 하거나 각 단계별로 실행할 수 있는 유용한 UI 제어 기능을 제공합니다.
 
 </div>
 
@@ -449,52 +447,36 @@ export const Error: Story = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-interactive-stories-play-function-7-0.mp4"
+    src="/intro-to-storybook/storybook-play-function-react.mp4"
     type="video/mp4"
   />
 </video>
 
-## 테스트 러너를 사용한 테스트 자동화
+## Vitest 애드온을 사용한 테스트 자동화
 
-스토리북의 play function을 통해 UI와 상호작용하면서 작업을 업데이트할 때 UI가 어떻게 반응하는지 빠르게 확인할 수 있었고, 추가적인 수작업 없이 UI 일관성을 유지할 수 있었습니다.
+play function을 통해 우리는 빠르게 컴포넌트와 사용자 의 상호작용을 시뮬레이션 하고, 작업을 업데이트할 때 컴포넌트가 어떻게 동작하는지 검증하여 UI 일관성을 유지할 수 있었습니다.
+하지만 스토리북을 자세히 살펴보면, 상호작용 테스트는 스토리를 볼 때만 실행되는 것을 알 수 있습니다. 이는 변경사항이 있을때마다 모든 스토리를 직접 살펴봐야 한다는 뜻입니다. 자동화할 수 없을까요?
 
-하지만 스토리북을 자세히 살펴보면, 상호작용 테스트는 스토리를 볼 때만 실행되는 것을 알 수 있습니다. 따라서 변경 사항이 있을 경우 모든 검사를 위해 각 스토리를 살펴봐야 합니다. 자동화할 수 없을까요?
+가능합니다! 스토리북의 [Vitest 애드온](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon)은 상호작용 테스트를 더 자동화된 방식으로 실행할 수 있도록 해주고 Vitest의 강력한 기능을 활용하여 효율적이고 빠른 테스트를 경험할 수 있게 합니다. 작동 방식을 살펴보겠습니다!
 
-좋은 소식은 가능하다는 것입니다! 스토리북의 [test runner](https://storybook.js.org/docs/writing-tests/test-runner)가 바로 그 역할을 수행할 수 있습니다. 이는 [Playwright](https://playwright.dev/)로 구동되는 독립형 유틸리티로, 모든 상호작용 테스트를 실행하고 오류가 있는 스토리를 포착합니다.
+스토리북을 실행한 상태에서 사이드바에서 "Run tests" 버튼을 클릭합니다. 그러면 스토리의 렌더링 방식, 동작 방식, play function에 정의되어있는 상호작용(`InboxScreen`스토리에 방금 추가한 것을 포함)에 대한 테스트가 실행됩니다.
 
-작동 방식을 살펴보겠습니다! 아래 명령어를 실행하여 설치하세요:
-
-```shell
-yarn add --dev @storybook/test-runner
-```
-
-그 다음, `package.json`의 `scripts`를 업데이트하고 새로운 테스트 작업을 추가합니다:
-
-```json:clipboard=false
-{
-  "scripts": {
-    "test-storybook": "test-storybook"
-  }
-}
-```
-
-마지막으로, 스토리북을 실행한 상태에서 새 터미널 창을 열고 다음 명령을 실행합니다:
-
-```shell
-yarn test-storybook --watch
-```
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/storybook-vitest-addon-react.mp4"
+    type="video/mp4"
+  />
+</video>
 
 <div class="aside">
 
-💡 play 함수를 이용한 컴포넌트 테스트는 UI 컴포넌트를 테스트하는 훌륭한 방법입니다. 여기에서 본 것보다 훨씬 더 많은 기능을 수행할 수 있으며, 이에 대한 더 많은 정보를 얻으려면 [공식 문서](https://storybook.js.org/docs/writing-tests/component-testing)를 읽어보는 것이 좋습니다.
+💡 Vitest 애드온은 여기에서 본 것 외에도 다른 종류의 테스트를 포함하여 훨씬 더 많은 기능을 제공합니다. 이에 대한 더 많은 정보를 얻으려면 [공식 문서](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon)를 읽어보는 것이 좋습니다.
 
 더 깊이 있는 테스트를 원하신다면, [테스트 핸드북](/ui-testing-handbook/)을 확인해보세요. 이 핸드북은 규모가 큰 프론트엔드 팀이 사용하는 테스트 전략을 다루고 있어 개발 워크플로우를 향상시키는 데 도움을 줄 것입니다.
 
 </div>
 
-![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
-
-성공입니다! 이제 모든 스토리가 오류 없이 렌더링되고 자동으로 모든 검증이 통과되는지 확인할 수 있는 도구를 갖게 되었습니다. 더군다나, 만약 테스트가 실패하면, 실패한 스토리를 브라우저에서 열 수 있는 링크를 제공합니다.
+이제 우리는 일일히 확인할 필요 없이 UI 테스트를 자동화하는 도구를 갖게 되었습니다. 이는 우리가 애플리케이션을 만들어가면서 UI의 일관성과 기능성을 유지할 수 있게 해주는 훌륭한 방식입니다. 무엇보다도 테스트가 실패할 경우에 즉시 알 수 있어 해결하지 못한 문제들을 쉽고 빠르게 해결할 수 있습니다.
 
 ## 컴포넌트 주도 개발
 
