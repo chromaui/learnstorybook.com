@@ -29,11 +29,11 @@ yarn add @reduxjs/toolkit react-redux
  */
 import type { TaskData } from '../types';
 
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { configureStore, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface TaskBoxState {
   tasks: TaskData[];
-  status: 'idle' | 'loading' | 'failed';
+  status: 'idle' | 'loading' | 'failed' | 'succeeded';
   error: string | null;
 }
 
@@ -100,11 +100,13 @@ export default store;
 다음 `TaskList` 컴포넌트를 Redux store와 연결하고, 알고자 하는 task들을 렌더링 하기 위해 업데이트합니다:
 
 ```tsx:title=src/components/TaskList.tsx
+import type { RootState, AppDispatch } from '../lib/store';
+
 import Task from './Task';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateTaskState, RootState, AppDispatch } from '../lib/store';
+import { updateTaskState } from '../lib/store';
 
 export default function TaskList() {
   // We're retrieving our state from the store
@@ -183,22 +185,26 @@ export default function TaskList() {
 
 이 변경으로 인해 스토리북 스토리가 작동을 멈추게 되었습니다. 왜냐하면 `TaskList`는 이제 리덕스 스토어에 의존하여 task를 가져오고 업데이트하는 연결된 컴포넌트이기 때문에 스토리북 테스트는 작동을 멈추었을 것입니다.
 
-![Broken tasklist](/intro-to-storybook/broken-tasklist-optimized.png)
+<!--
+  TODO: Follow up with Design for an updated asset
+ -->
+
+![Broken tasklist](/intro-to-storybook/broken-tasklist-9-0-optimized.png)
 
 이 문제를 해결하기 위해 다양한 접근 방식을 사용할 수 있습니다. 우리 앱은 매우 간단하기 때문에 [이전 장](/intro-to-storybook/react/ko/composite-component/)에서 했던 것처럼 데코레이터에 의존하여 스토리북 스토리에서 모의(mocked) 스토어를 제공할 수 있습니다:
 
 ```tsx:title=src/components/TaskList.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import type { TaskData } from '../types';
-
-import TaskList from './TaskList';
-
-import * as TaskStories from './Task.stories';
 
 import { Provider } from 'react-redux';
 
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+import TaskList from './TaskList';
+
+import * as TaskStories from './Task.stories';
 
 // A super-simple mock of the state of the store
 export const MockedState = {
@@ -323,7 +329,7 @@ export const Empty: Story = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-7-0-optimized.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-9-0-optimized.mp4"
     type="video/mp4"
   />
 </video>
