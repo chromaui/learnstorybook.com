@@ -66,7 +66,12 @@ yarn chromatic --project-token=<project-token>
 
 완료되면 배포된 스토리북의 `https://random-uuid.chromatic.com` 링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
 
-![크로마틱 패키지와 함께 배포된 스토리북](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+<!--
+ TOOO:
+   - Follow up Design to get updated versions of this assets for React that showcases the following structure (i.e., Task, TaskList and InboxScreen)
+ -->
+
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-react.png)
 
 오예! 우리는 하나의 명령어를 사용하여 스토리북을 배포해보았습니다. 하지만 UI 구현 후 피드백을 받을 때마다 매번 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 push할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. 따라서 스토리북을 지속적으로 배포할 필요가 있습니다.
 
