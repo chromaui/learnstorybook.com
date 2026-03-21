@@ -53,7 +53,7 @@ const props = withDefaults(defineProps<TaskProps>(), {
 
 上記のコードは Todo アプリケーションの HTML を基にした `Task` の簡単なマークアップです。
 
-下のコードは `Task` に対する 3 つのテスト用の状態をストーリーファイルに書くものです。
+下記のコードは `Task` に対する 3 つのテスト用の状態をストーリーファイルに書くものです。
 
 ```ts:title=src/components/Task.stories.ts
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
