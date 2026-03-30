@@ -41,6 +41,7 @@ module.exports = {
           en: 10,
           es: 6.1,
           fr: 5.3,
+          ja: 10,
           pt: 5.3,
           it: 7.6,
           'zh-CN': 8.1,
