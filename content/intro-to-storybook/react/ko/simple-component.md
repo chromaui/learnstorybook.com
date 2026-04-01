@@ -20,16 +20,38 @@ commit: '1e576c5'
 
 ## 설정하기
 
-먼저 `Task` 컴포넌트와 그에 해당하는 스토리 파일을 만들어 봅시다. `src/components/Task.jsx`와 `src/components/Task.stories.jsx`을 생성해 주세요.
+먼저 `Task` 컴포넌트와 그에 해당하는 스토리 파일을 만들어 봅시다. `src/components/Task.tsx`와 `src/components/Task.stories.tsx`을 생성해 주세요.
 
 `Task`의 기본 구현부터 시작하겠습니다. 우리가 필요로 하는 속성들과 여러분이 task에 대해 취할 수 있는 두 가지 액션(목록 간 이동하는 것)을 간단히 살펴보도록 하겠습니다.
 
-```jsx:title=src/components/Task.jsx
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+```tsx:title=src/components/Task.tsx
+type TaskData = {
+  id: string;
+  title: string;
+  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
+};
+
+type TaskProps = {
+  task: TaskData;
+  onArchiveTask: (id: string) => void;
+  onPinTask: (id: string) => void;
+};
+
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}: TaskProps) {
   return (
     <div className="list-item">
       <label htmlFor={`title-${id}`} aria-label={title}>
-        <input type="text" value={title} readOnly={true} name="title" id={`title-${id}`} />
+        <input
+          type="text"
+          value={title}
+          readOnly={true}
+          name="title"
+          id={`title-${id}`}
+        />
       </label>
     </div>
   );
@@ -40,9 +62,10 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 아래의 코드는 `Task`의 세 가지 테스트 상태를 스토리 파일에 작성한 것입니다.
 
-```jsx:title=src/components/Task.stories.jsx
+```tsx:title=src/components/Task.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
 
-import { fn } from "@storybook/test";
+import { fn } from '@storybook/test';
 
 import Task from './Task';
 
@@ -51,18 +74,21 @@ export const ActionsData = {
   onPinTask: fn(),
 };
 
-export default {
+const meta = {
   component: Task,
   title: 'Task',
   tags: ['autodocs'],
-  //👇 "Data"로 끝나는 export들은 스토리가 아닙니다.
+  //👇 Our exports that end in "Data" are not stories.
   excludeStories: /.*Data$/,
   args: {
     ...ActionsData,
   },
-};
+} satisfies Meta<typeof Task>;
 
-export const Default = {
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {
   args: {
     task: {
       id: '1',
@@ -72,7 +98,7 @@ export const Default = {
   },
 };
 
-export const Pinned = {
+export const Pinned: Story = {
   args: {
     task: {
       ...Default.args.task,
@@ -81,7 +107,7 @@ export const Pinned = {
   },
 };
 
-export const Archived = {
+export const Archived: Story = {
   args: {
     task: {
       ...Default.args.task,
@@ -126,13 +152,14 @@ Arguments(인수) 혹은 줄여서 [`args`](https://storybook.js.org/docs/writin
 
 최근에 생성한 스토리를 인식하고 애플리케이션의 CSS 파일(`src/index.css`에 위치한)을 사용하기 위해 스토리북 구성 파일에 몇 가지 변경 사항이 필요합니다.
 
-먼저 스토리북 구성 파일(`.storybook/main.js`)을 다음과 같이 변경합니다:
+먼저 스토리북 구성 파일(`.storybook/main.ts`)을 다음과 같이 변경합니다:
 
-```diff:title=.storybook/main.js
-/** @type { import('@storybook/react-vite').StorybookConfig } */
-const config = {
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/react-vite';
+
+const config: StorybookConfig = {
 - stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
-+ stories: ['../src/components/**/*.stories.@(js|jsx)'],
++ stories: ['../src/components/**/*.stories.@(ts|tsx)'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
@@ -140,21 +167,22 @@ const config = {
     '@storybook/addon-interactions',
   ],
   framework: {
-    name: '@storybook/react-vite',
+    name: "@storybook/react-vite",
     options: {},
   },
 };
+
 export default config;
 ```
 
-위와 같이 변경을 마치셨다면, `.storybook` 폴더 내의 `preview.js`를 다음과 같이 변경합니다:
+위와 같이 변경을 마치셨다면, `.storybook` 폴더 내의 `preview.ts`를 다음과 같이 변경합니다:
 
-```diff:title=.storybook/preview.js
+```diff:title=.storybook/preview.ts
+import type { Preview } from '@storybook/react';
+
 + import '../src/index.css';
 
-//👇 Configures Storybook to log the actions( onArchiveTask and onPinTask ) in the UI.
-/** @type { import('@storybook/react').Preview } */
-const preview = {
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -187,8 +215,27 @@ export default preview;
 
 컴포넌트는 아직 기본만 갖춘 상태입니다. 우선, 자세한 사항은 생략하고 디자인 코드를 작성해보겠습니다.
 
-```jsx:title=src/components/Task.jsx
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+```tsx:title=src/components/Task.tsx
+type TaskData = {
+  id: string;
+  title: string;
+  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
+};
+
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+};
+
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}: TaskProps) {
   return (
     <div className={`list-item ${state}`}>
       <label
@@ -203,10 +250,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           id={`archiveTask-${id}`}
           checked={state === "TASK_ARCHIVED"}
         />
-        <span
-          className="checkbox-custom"
-          onClick={() => onArchiveTask(id)}
-        />
+        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
 
       <label htmlFor={`title-${id}`} aria-label={title} className="title">
@@ -246,12 +290,44 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 
 ## 데이터 요구 사항 명시하기
 
-컴포넌트에 필요한 데이터 형태를 명시하려면 리액트(React)에서 `propTypes`를 사용하는 것이 가장 좋습니다. 이는 자체적 문서화일 뿐만 아니라, 문제를 조기에 발견하는 데 도움이 됩니다.
+컴포넌트를 확장해 나가면서 `Task` 컴포넌트가 어떤 형태의 데이터를 기대하는지 TypeScript 타입으로 정의해 두면 좋습니다.  
+이렇게 하면 에러를 미리 방지할 수 있고, 컴포넌트가 점점 복잡해져도 올바르게 사용할 수 있습니다.
 
-```diff:title=src/components/Task.jsx
-+ import PropTypes from 'prop-types';
+우선 `src` 폴더에 `types.ts` 파일을 만들고, 기존에 사용하던 `TaskData` 타입을 해당 파일로 옮겨주세요:
 
-export default function Task({ task: { id, title, state }, onArchiveTask, onPinTask }) {
+```ts:title=src/types.ts
+export type TaskData = {
+  id: string;
+  title: string;
+  state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
+};
+```
+
+그 다음, 방금 생성한 타입을 `Task` 컴포넌트에서 사용하도록 업데이트하세요:
+
+```diff:title=src/components/Task.tsx
++ import type { TaskData } from '../types';
+
+- type Task = {
+-   id: string;
+-   title: string;
+-   state: 'TASK_ARCHIVED' | 'TASK_INBOX' | 'TASK_PINNED';
+- };
+
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData;
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void;
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void;
+};
+
+export default function Task({
+  task: { id, title, state },
+  onArchiveTask,
+  onPinTask,
+}: TaskProps) {
   return (
     <div className={`list-item ${state}`}>
       <label
@@ -266,10 +342,7 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
           id={`archiveTask-${id}`}
           checked={state === "TASK_ARCHIVED"}
         />
-        <span
-          className="checkbox-custom"
-          onClick={() => onArchiveTask(id)}
-        />
+        <span className="checkbox-custom" onClick={() => onArchiveTask(id)} />
       </label>
 
       <label htmlFor={`title-${id}`} aria-label={title} className="title">
@@ -296,28 +369,9 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
     </div>
   );
 }
-+ Task.propTypes = {
-+  /** Composition of the task */
-+  task: PropTypes.shape({
-+    /** Id of the task */
-+    id: PropTypes.string.isRequired,
-+    /** Title of the task */
-+    title: PropTypes.string.isRequired,
-+    /** Current state of the task */
-+    state: PropTypes.string.isRequired,
-+  }),
-+  /** Event to change the task to archived */
-+  onArchiveTask: PropTypes.func,
-+  /** Event to change the task to pinned */
-+  onPinTask: PropTypes.func,
-+ };
 ```
 
 이제 Task 컴포넌트가 잘못 사용된다면 경고가 나타날 것입니다.
-
-<div class="aside">
-💡 동일한 목적을 달성하는 다른 방법으로는 TypeScript 같은 JavaScript의 타입 시스템을 사용하여 컴포넌트의 속성에 대한 타입을 만드는 것입니다.
-</div>
 
 ## 컴포넌트 완성!
 
@@ -337,18 +391,19 @@ export default function Task({ task: { id, title, state }, onArchiveTask, onPinT
 yarn add --dev @storybook/addon-a11y
 ```
 
-그 다음, 스토리북 구성 파일(`.storybook/main.js`)을 업데이트하여 활성화합니다:
+그 다음, 스토리북 구성 파일(`.storybook/main.ts`)을 업데이트하여 활성화합니다:
 
-```diff:title=.storybook/main.js
-/** @type { import('@storybook/react-vite').StorybookConfig } */
-const config = {
-  stories: ['../src/components/**/*.stories.@(js|jsx)'],
+```diff:title=.storybook/main.ts
+import type { StorybookConfig } from '@storybook/react-vite';
+
+const config: StorybookConfig = {
+  stories: ['../src/components/**/*.stories.@(ts|tsx)'],
   staticDirs: ['../public'],
   addons: [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-+   '@storybook/addon-a11y',
++   '@storybook/addon-a11y'
   ],
   framework: {
     name: '@storybook/react-vite',
