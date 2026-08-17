@@ -56,7 +56,7 @@ Click `Choose GitHub repo` under collaborators and select your repo.
   />
 </video>
 
-Copy the unique `project-token` that was generated for your project. Then execute it by issuing the following in the command line to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
+Copy the Project token generated for your project. You can also access it later from your project's **Manage → Configure** page. Then execute it by issuing the following in the command line to build and deploy our Storybook. Make sure to replace `project-token` with your project token.
 
 ```shell
 yarn chromatic --project-token=<project-token>
@@ -112,9 +112,38 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
+### Get your Chromatic project token
+
+Before this workflow can run, you need to provide your Chromatic project token to GitHub Actions.
+
+Go to your project in [Chromatic](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook), then open **Manage** → **Configure**. Copy the **Project token** shown on the Configure page.
+
+![Get your Chromatic project token](/intro-to-storybook/get-your-chromatic-project-token.png)
+
+Do not add the token directly to the workflow file.
+
+### Add the token to GitHub
+
+In your GitHub repository, go to **Settings** → **Secrets and variables** → **Actions** and click **New repository secret**.
+
+
+
+For **Name**, enter:
+```text
+CHROMATIC_PROJECT_TOKEN
+```
+
+For **Secret**, paste the project token you copied from Chromatic, then click **Add secret**.
+
+GitHub will securely store the token and make it available to the workflow through:
+```yaml
+${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+```
+
+
 <div class="aside">
 
-💡 For brevity purposes [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository) weren't mentioned. Secrets are secure environment variables provided by GitHub so that you don't need to hard code the `project-token`.
+💡 For more information, see GitHub's documentation on [encrypted secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
 
 </div>
 
