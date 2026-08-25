@@ -8,11 +8,13 @@ import getLanguageName from '../../../lib/getLanguageName';
 import getChapterInOtherLanguage from '../../../lib/getChapterInOtherLanguage';
 import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
 
-const getTranslationLanguages = (translationPages) =>
-  translationPages.edges.reduce(
-    (uniqueLanguages, pageEdge) => uniqueLanguages.add(pageEdge.node.fields.language),
-    new Set()
-  );
+const getTranslationLanguages = (translationPages, framework) =>
+  translationPages.edges.reduce((uniqueLanguages, pageEdge) => {
+    if (!framework || pageEdge.node.fields.framework === framework) {
+      uniqueLanguages.add(pageEdge.node.fields.language);
+    }
+    return uniqueLanguages;
+  }, new Set());
 
 function LanguageSelector({
   chapter,
@@ -24,8 +26,8 @@ function LanguageSelector({
   framework,
 }) {
   const translationLanguages = React.useMemo(
-    () => getTranslationLanguages(translationPages),
-    [translationPages]
+    () => getTranslationLanguages(translationPages, framework),
+    [translationPages, framework]
   );
 
   if (translationLanguages.size < 2) {
