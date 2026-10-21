@@ -1,20 +1,19 @@
 ---
-title: '뷰(Vue)를 위한 스토리북(Storybook) 튜토리얼'
+title: 'Vue를 위한 Storybook 튜토리얼'
 tocTitle: '시작하기'
-description: '스토리북(Storybook)을 개발 환경에 설치해보세요'
-commit: 'e2984d1'
+description: '개발 환경에 Vue Storybook을 설정해보세요'
+commit: '7bff3f5'
 ---
 
-Storybook은 개발 모드에서 애플리케이션과 함께 실행됩니다. 이를 통해 애플리케이션의 비즈니스 로직이나 컨텍스트와 분리된 상태에서 UI 컴포넌트를 개발할 수 있습니다. 이 튜토리얼은 Vue 버전에 해당하며, [React](/intro-to-storybook/react/ko/get-started), [React Native](/intro-to-storybook/react-native/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started) 버전도 있습니다.
+Storybook은 개발 모드에서 애플리케이션과 함께 실행됩니다. 애플리케이션의 비즈니스 로직이나 컨텍스트와 분리된 상태에서 UI 컴포넌트를 개발할 수 있도록 도와줍니다. 이 Storybook 입문 튜토리얼은 Vue를 다루며, [React](/intro-to-storybook/react/ko/get-started/), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/) 버전도 있습니다.
 
-![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
+![Storybook과 애플리케이션의 관계](/intro-to-storybook/storybook-relationship.jpg)
 
 ## Vue Storybook 설정하기
 
-우리는 몇 가지 단계를 거쳐 빌드 프로세스를 개발 환경에 설정해야 합니다.  
-먼저 [degit](https://github.com/Rich-Harris/degit)을 사용해 빌드 시스템을 구성하겠습니다. 이 패키지를 사용하면 "템플릿"(기본 설정이 포함된 일부 완성된 애플리케이션)을 다운로드하여 개발 작업을 빠르게 시작할 수 있습니다.
+먼저 개발에 필요한 빌드 환경을 준비하겠습니다. [degit](https://github.com/Rich-Harris/degit)을 사용하면 기본 설정과 일부 코드가 갖춰진 "템플릿"을 내려받아 개발을 빠르게 시작할 수 있습니다.
 
-다음 명령어를 실행해주세요:
+다음 명령어를 실행하세요:
 
 ```shell:clipboard=false
 # Clone the template
@@ -27,10 +26,10 @@ yarn
 ```
 
 <div class="aside">
-💡 이 템플릿에는 이 튜토리얼 버전에 필요한 스타일, 에셋, 최소한의 필수 설정이 포함되어 있습니다.
+💡 이 템플릿에는 튜토리얼을 따라 하는 데 필요한 스타일, 에셋, 기본 설정이 포함되어 있습니다.
 </div>
 
-이제 다양한 환경에서 애플리케이션이 올바르게 작동하는지 아래 명령어를 통해 빠르게 확인할 수 있습니다:
+다음 명령어로 Storybook과 애플리케이션이 정상적으로 실행되는지 확인하세요:
 
 ```shell:clipboard=false
 # Start the component explorer on port 6006:
@@ -40,16 +39,21 @@ yarn storybook
 yarn dev
 ```
 
-우리의 주요 프론트엔드 애플리케이션 방식: 컴포넌트 개발(Storybook)과 애플리케이션 자체 개발이 있습니다.
+컴포넌트를 개발할 때는 Storybook을, 애플리케이션 전체를 확인할 때는 개발 서버를 사용합니다.
 
-![Main modalities](/intro-to-storybook/app-main-modalities-vue.png)
+<!--
 
-현재 작업하는 앱의 부분에 따라 하나 이상의 모드를 동시에 실행할 수도 있습니다.
-하지만 지금은 단일 UI 컴포넌트를 만드는 것이 목표이므로 Storybook만 실행하겠습니다.
+TODO:
+- Update the image  to include the default Vite start screen and updated Storybook UI
+-->
 
-## 변경 사항 커밋하기(commit)
+![애플리케이션의 주요 실행 환경](/intro-to-storybook/app-main-modalities-vue.png)
 
-이 시점에서 작업한 파일을 로컬 저장소에 추가해도 안전합니다. 다음 명령어로 로컬 저장소를 초기화하고, 변경 사항을 추가 및 커밋하세요.
+애플리케이션의 어느 부분을 작업하느냐에 따라 여러 환경을 동시에 실행할 수도 있습니다. 지금은 단일 UI 컴포넌트를 만드는 데 집중할 것이므로 Storybook만 실행하겠습니다.
+
+## 변경 사항 커밋하기
+
+이제 작업한 파일을 로컬 저장소에 추가해도 좋습니다. 다음 명령어를 실행하여 로컬 저장소를 초기화하고 지금까지의 변경 사항을 추가하고 커밋하세요.
 
 ```shell
 git init
@@ -61,7 +65,7 @@ git init
 git add .
 ```
 
-그리고:
+이어서:
 
 ```shell
 git commit -m "first commit"
