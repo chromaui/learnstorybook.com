@@ -2,7 +2,7 @@
 title: '构建一个页面'
 tocTitle: '页面'
 description: '用组件构建一个页面'
-commit: 'af51337'
+commit: 'ce81973'
 ---
 
 我们关注于自底向上构建 UI，从小规模起步逐渐增加复杂性。这样我们可以独立的开发每个组件，弄清其所需的数据，以及如何将其应用于 Storybook。所有的这些操作都不需要我们启动一个服务器或者创建一个页面！
@@ -280,7 +280,7 @@ yarn test-storybook --watch
 
 💡 使用 play 函数的交互测试时测试 UI 组件的绝佳方式。它能做的远比目前看到的多；我们推荐您阅读 [官方文档](https://storybook.js.org/docs/writing-tests/interaction-testing) 进行深入了解。
 
-为了深入了解测试，请查看 [测试手册](/ui-testing-handbook)。它涵盖了缩放前端（scaled-front-end）团队所使用的测试策略，以增强您的开发工作流程。
+为了深入了解测试，请查看 [测试手册](/ui-testing-handbook/)。它涵盖了缩放前端（scaled-front-end）团队所使用的测试策略，以增强您的开发工作流程。
 
 </div>
 

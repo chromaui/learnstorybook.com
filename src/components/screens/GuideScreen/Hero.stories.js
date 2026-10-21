@@ -6,7 +6,7 @@ export default {
   excludeStories: /.*Data$/,
   title: 'Screens/GuideScreen/Hero',
   args: {
-    ctaHref: '/get-started',
+    ctaHref: '/get-started/',
     description:
       "Visual testing is a pragmatic yet precise way to verify the look of UI components. It's practiced by companies like Slack, Lonely Planet and Walmart. This 31-page handbook gives you an overview of visual testing in React.",
     imagePath: '/guide-cover/intro.svg',

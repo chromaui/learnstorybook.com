@@ -2,10 +2,10 @@
 title: 'Storybook for React tutorial'
 tocTitle: 'Get started'
 description: 'Set up Storybook in your development environment'
-commit: '2407c3c'
+commit: 'afe05db'
 ---
 
-Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React; other editions exist for [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started).
+Storybook runs alongside your app in development mode. It helps you build UI components isolated from the business logic and context of your app. This edition of the Intro to Storybook tutorial is for React; other editions exist for [React Native](/intro-to-storybook/react-native/en/get-started/), [Vue](/intro-to-storybook/vue/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -40,6 +40,12 @@ yarn dev
 ```
 
 Our main frontend app modalities: component development (Storybook), and the application itself.
+
+<!--
+
+TODO:
+- Update the image  to include the default Vite start screen and updated Storybook UI
+-->
 
 ![Main modalities](/intro-to-storybook/app-main-modalities-react.png)
 

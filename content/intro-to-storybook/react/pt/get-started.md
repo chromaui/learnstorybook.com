@@ -2,13 +2,13 @@
 title: 'Tutorial do Storybook para o React'
 tocTitle: 'Introdução'
 description: 'Configuração do React Storybook no ambiente de desenvolvimento React'
-commit: '2407c3c'
+commit: 'afe05db'
 ---
 
 O Storybook executa paralelamente à aplicação em desenvolvimento.
 Ajuda-o a construir componentes de interface de utilizador (UI na forma original) isolados da lógica de negócio e contexto da aplicação.
 Esta edição de Aprendizagem de Storybook é destinada para React.
-Encontram-se disponíveis outras edições quer para [Vue](/intro-to-storybook/vue/pt/get-started), quer para [Angular](/intro-to-storybook/angular/pt/get-started).
+Encontram-se disponíveis outras edições quer para [Vue](/intro-to-storybook/vue/pt/get-started/), quer para [Angular](/intro-to-storybook/angular/pt/get-started/).
 
 ![Storybook e a aplicação](/intro-to-storybook/storybook-relationship.jpg)
 

@@ -2,7 +2,7 @@
 title: '画面を作る'
 tocTitle: '画面'
 description: 'コンポーネントをまとめて画面を作りましょう'
-commit: '6262d7f'
+commit: '12a7932'
 ---
 
 今までボトムアップ (小規模な状態から複雑さを追加していく) で UI の作成に集中してきました。ボトムアップで作業することで、Storybook で遊びながら、それぞれのコンポーネントを切り離された環境で、それぞれに必要なデータを考えながら開発することができました。サーバーを立ち上げたり、画面を作ったりする必要はまったくありませんでした！
@@ -337,7 +337,7 @@ Storybook で `error` ストーリーが意図したように動作している�
 
 ### play 関数を使ったコンポーネントのテスト
 
-Storybook の [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 関数と [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) が役立ちます。play 関数はストーリーのレンダリング後に実行される小さなコードスニペットを含んでいます。
+Storybook の [`play`](https://storybook.js.org/docs/react/writing-stories/play-function) 関数と [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/interaction-testing) が役立ちます。play 関数はストーリーのレンダリング後に実行される小さなコードスニペットを含んでいます。
 
 play 関数はタスクが更新されたときに UI に何が起こるかを検証するのに役立ちます。フレームワークに依存しない DOM API を使用しています。つまり、 play 関数を使って UI を操作し、人間の行動をシミュレートするストーリーを、フロントエンドのフレームワークに関係なく書くことができるのです。
 
@@ -431,7 +431,7 @@ play 関数を利用して、UI を操作し、タスクを更新した場合の
 
 しかし、Storybook をよく見ると、ストーリーを見るときだけインタラクションテストが実行されることがわかります。そのため、変更時に各ストーリーをすべてチェックしなければなりません。これは自動化できないのでしょうか？
 
-結論から言うと、それは可能です！Storybook の[テストランナー](https://storybook.js.org/docs/writing-tests/test-runner)は [Playwright](https://playwright.dev/) によって実現されたスタンドアロンなパッケージで、すべのインタラクションテストを実行し、壊れたストーリーを検知してくれます。
+結論から言うと、それは可能です！Storybook の[テストランナー](https://storybook.js.org/docs/writing-tests/integrations/test-runner)は [Playwright](https://playwright.dev/) によって実現されたスタンドアロンなパッケージで、すべのインタラクションテストを実行し、壊れたストーリーを検知してくれます。
 
 それではどのように動くのかみてみましょう！次のコマンドでインストールします。
 
@@ -456,7 +456,7 @@ yarn test-storybook --watch
 ```
 
 <div class="aside">
-💡 play 関数を用いたコンポーネントのテストはUIコンポーネントをテストするための素晴らしい手法です。ここで紹介したもの以外にも、さまざまなことができます。もっと深く学ぶには<a href="https://storybook.js.org/docs/writing-tests/component-testing">公式ドキュメント</a>を読むことをお勧めします。
+💡 play 関数を用いたコンポーネントのテストはUIコンポーネントをテストするための素晴らしい手法です。ここで紹介したもの以外にも、さまざまなことができます。もっと深く学ぶには<a href="https://storybook.js.org/docs/writing-tests/interaction-testing">公式ドキュメント</a>を読むことをお勧めします。
 <br />
 テストをさらにもっと深く知るためには、<a href="/ui-testing-handbook">Testing Handbook</a> をチェックしてみてください。これは開発ワークフローを加速させるために、スケーラブルなフロントエンドチームが採用しているテスト戦略について解説しています。
 </div>

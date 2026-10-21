@@ -2,7 +2,7 @@
 title: 'Wire in data'
 tocTitle: 'Data'
 description: 'Learn how to wire in data to your UI component'
-commit: 'f9eaeef'
+commit: 'acf26d6'
 ---
 
 So far, we have created isolated stateless components-–great for Storybook, but ultimately not helpful until we give them some data in our app.
@@ -29,11 +29,11 @@ First, we’ll construct a simple Redux store that responds to actions that chan
  */
 import type { TaskData } from '../types';
 
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { configureStore, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 interface TaskBoxState {
   tasks: TaskData[];
-  status: 'idle' | 'loading' | 'failed';
+  status: 'idle' | 'loading' | 'failed' | 'succeeded';
   error: string | null;
 }
 
@@ -100,11 +100,13 @@ export default store;
 Then we’ll update our `TaskList` component to connect to the Redux store and render the tasks we are interested in:
 
 ```tsx:title=src/components/TaskList.tsx
+import type { RootState, AppDispatch } from '../lib/store';
+
 import Task from './Task';
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateTaskState, RootState, AppDispatch } from '../lib/store';
+import { updateTaskState } from '../lib/store';
 
 export default function TaskList() {
   // We're retrieving our state from the store
@@ -183,22 +185,26 @@ Don't worry about it. We'll take care of it in the next chapter.
 
 Our Storybook stories have stopped working with this change because our `Tasklist` is now a connected component since it relies on a Redux store to retrieve and update our tasks.
 
-![Broken tasklist](/intro-to-storybook/broken-tasklist-7-0-optimized.png)
+<!--
+  TODO: Follow up with Design for an updated asset
+ -->
 
-We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component) and provide a mocked store-- in our Storybook stories:
+![Broken tasklist](/intro-to-storybook/broken-tasklist-9-0-optimized.png)
+
+We can use various approaches to solve this issue. Still, as our app is pretty straightforward, we can rely on a decorator, similar to what we did in the [previous chapter](/intro-to-storybook/react/en/composite-component/) and provide a mocked store-- in our Storybook stories:
 
 ```tsx:title=src/components/TaskList.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import type { TaskData } from '../types';
-
-import TaskList from './TaskList';
-
-import * as TaskStories from './Task.stories';
 
 import { Provider } from 'react-redux';
 
 import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+import TaskList from './TaskList';
+
+import * as TaskStories from './Task.stories';
 
 // A super-simple mock of the state of the store
 export const MockedState = {
@@ -323,7 +329,7 @@ export const Empty: Story = {
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-7-0-optimized.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-9-0-optimized.mp4"
     type="video/mp4"
   />
 </video>

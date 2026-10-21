@@ -2,7 +2,7 @@
 title: 'Deploy Storybook'
 tocTitle: 'Deploy'
 description: 'Learn how to deploy Storybook online'
-commit: '359daa2'
+commit: '0107aa6'
 ---
 
 Throughout this tutorial, we built components on our local development machine. At some point, we'll need to share our work to get team feedback. Let's deploy Storybook online to help teammates review UI implementation.
@@ -66,7 +66,14 @@ npx chromatic --project-token=<project-token>
 
 When finished, you'll get a link `https://random-uuid.chromatic.com` to your published Storybook. Share the link with your team to get feedback.
 
-![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+<!--
+ TOOO:
+   - Follow up Design to get updated versions of this assets
+     - One for non-React versions that showcase the same structure (i.e., Task, PureTaskList and InboxScreen)
+     Recapture it as the VTA is not available
+ -->
+
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-non-react.png)
 
 Hooray! We published Storybook with one command, but manually running a command every time we want to get feedback on UI implementation is repetitive. Ideally, we'd publish the latest version of components whenever we push code. We'll need to continuously deploy Storybook.
 

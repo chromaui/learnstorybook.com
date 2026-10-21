@@ -2,7 +2,7 @@
 title: 'Construire un simple composant'
 tocTitle: 'Un simple composant'
 description: 'Construire un simple composant en isolation'
-commit: 'b586083'
+commit: '18e218e'
 ---
 
 Nous allons construire notre propre interface utilisateur en suivant la méthode [Component-Driven Development](https://www.componentdriven.org/). C'est un processus qui créé des interfaces utilisateurs du début à la fin, en commençant par les composants et terminant avec les écrans. CDD vous aide à adapter la complexité à laquelle vous êtes confronté lors de la création de l'interface utilisateur.
@@ -144,7 +144,7 @@ Les <a href="https://storybook.js.org/docs/vue/essentials/actions"><b>actions</b
 
 ## Configuration
 
-Nous devons effectuer quelques modifications à la configuration de Storybook afin qu'il remarque non seulement nos stories récemment créées, mais aussi nous permettre d'utiliser les fichiers CSS modifiés dans le [chapitre précédent](/intro-to-storybook/vue/fr/get-started).
+Nous devons effectuer quelques modifications à la configuration de Storybook afin qu'il remarque non seulement nos stories récemment créées, mais aussi nous permettre d'utiliser les fichiers CSS modifiés dans le [chapitre précédent](/intro-to-storybook/vue/fr/get-started/).
 
 Commencez par changer votre fichier de configuration Storybook (`.storybook/main.js`) avec ceci :
 

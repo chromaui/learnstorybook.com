@@ -29,7 +29,7 @@ If you've been coding along, your repository and deployed Storybook should look 
 
 Want more? Here are some additional helpful resources:
 
-- [**Visual Testing Handbook**](/visual-testing-handbook) is an in-depth guide to testing UI appearance—with learnings from leading engineering teams like BBC, Adobe, Target and more.
+- [**Visual Testing Handbook**](/visual-testing-handbook/) is an in-depth guide to testing UI appearance—with learnings from leading engineering teams like BBC, Adobe, Target and more.
 - [**How to test UIs with Storybook**](https://storybook.js.org/docs/writing-tests) details how you can use Storybook for UI testing.
 - [**Discord chat**](https://discord.gg/UUt2PJb) puts you in contact with the Storybook community and maintainers.
 - [**Blog**](https://storybook.js.org/blog/) showcases the latest releases and features to streamline your UI development workflow.

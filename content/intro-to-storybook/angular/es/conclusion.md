@@ -25,7 +25,7 @@ Storybook es una poderosa herramienta para React, Vue y Angular. Cuenta con una 
 
 - [**Discord de Storybook**](https://discord.gg/UUt2PJb) te pone en contacto con la comunidad de Storybook. Obtenga y brinde ayuda a otros usuarios de Storybook.
 
-- [**Blog de Storybook**](storybook.js.org/blog/) muestra las últimas versiones y características para optimizar su flujo de trabajo de desarrollo de UI.
+- [**Blog de Storybook**](https://storybook.js.org/blog/) muestra las últimas versiones y características para optimizar su flujo de trabajo de desarrollo de UI.
 
 ## ¿Quién creó LearnStorybook.com?
 

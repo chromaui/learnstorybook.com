@@ -2,7 +2,7 @@
 title: '构建一个简单的组件'
 tocTitle: '简单 组件'
 description: '单独构建一个简单的组件'
-commit: 'bc897c5'
+commit: '1e576c5'
 ---
 
 我们将按照[组件驱动开发](https://www.componentdriven.org/) (CDD) 方法论来 构建我们的 UI。这是一个从“自下而上”开始构建 UI 的过程，从组件开始到整个页面结束。CDD 可帮助您在构建 UI 时，摆列您所面临的复杂程度。
@@ -113,7 +113,7 @@ Arguments 或者 [`args`](https://storybook.js.org/docs/react/writing-stories/ar
 
 ## 配置
 
-我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用[上个章节](/intro-to-storybook/react/zh-CN/get-started)中修改过的 CSS 文件。
+我们需要对 Storybook 配置进行几处修改，使其不仅可以注意到我们刚创建的 stories，而且还能允许我们使用[上个章节](/intro-to-storybook/react/zh-CN/get-started/)中修改过的 CSS 文件。
 
 ```js:title=.storybook/main.js
 module.exports = {

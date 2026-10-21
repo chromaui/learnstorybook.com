@@ -2,7 +2,7 @@
 title: 'Construir una pantalla'
 tocTitle: 'Pantallas'
 description: 'Construir una pantalla con componentes'
-commit: '6262d7f'
+commit: '12a7932'
 ---
 
 Nos hemos concentrado en crear interfaces de usuario de abajo hacia arriba; comenzando por lo pequeño y añadiendo complejidad. Esto nos ha permitido desarrollar cada componente de forma aislada, determinar los datos que necesita y jugar con ellos en Storybook. ¡Todo sin necesidad de levantar un servidor o construir pantallas!
@@ -232,7 +232,7 @@ Podemos detectar rápidamente un problema con la historia de `error`. En lugar d
 
 Ya que nuestra aplicación es bastante sencilla y no depende mucho en llamadas APIs remotas vamos a utilizar [Mock Service Worker](https://mswjs.io/) y el [complemento de Storybook "MSW"](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker es una librería de simulación de API. Depende de Service Workers para capturar solicitudes de red y proporciona datos simulados en las respuestas.
 
-Cuando configuramos nuestra aplicación en [la sección Empezando](/intro-to-storybook/react/es/get-started) se instalaron ambos paquetes. Solo queda configurarlos y actualizar nuestras historias para usarlos.
+Cuando configuramos nuestra aplicación en [la sección Empezando](/intro-to-storybook/react/es/get-started/) se instalaron ambos paquetes. Solo queda configurarlos y actualizar nuestras historias para usarlos.
 
 En tu terminal, ejecuta el siguiente comando para generar un Service Worker genérico dentro de tu carpeta `public`:
 
@@ -338,7 +338,7 @@ Hasta ahora, hemos podido crear una aplicación completamente funcional desde ce
 
 ### Escribe una prueba de componente usando la función "play"
 
-La función [`play`](https://storybook.js.org/docs/writing-stories/play-function) de Storybook y [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) nos ayuda con esto. La función `play` incluye pequeños fragmentos de código que se ejecutan después de que se renderiza la historia.
+La función [`play`](https://storybook.js.org/docs/writing-stories/play-function) de Storybook y [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/interaction-testing) nos ayuda con esto. La función `play` incluye pequeños fragmentos de código que se ejecutan después de que se renderiza la historia.
 
 La función play nos ayuda a verificar lo que sucede a la interfaz de usuario cuando se actualizan las tareas. Usa APIs del DOM que son "framework-agnostic", lo que significa que podemos escribir historias con la función play para interactuar con la interfaz de usuario y simular el comportamiento humano sin importar el framework del frontend.
 
@@ -431,7 +431,7 @@ Con la función de `play` de Storybook, pudimos eludir nuestro problema, permiti
 
 Pero, si miramos a Storybook más a fondo, podemos ver que solo ejecuta las pruebas de interacción al ver la historia. Por lo tanto, todavía tendríamos que revisar cada historia para ejecutar todas los checks si hacemos un cambio. ¿No podríamos automatizarlo?
 
-¡La buena noticia es que podemos! El [test runner](https://storybook.js.org/docs/writing-tests/test-runner) de Storybook nos permite hacer precisamente eso. Es una utilidad independiente accionado por [Playwright](https://playwright.dev/) que ejecuta todas nuestras pruebas de interacciones y detecta historias rotas.
+¡La buena noticia es que podemos! El [test runner](https://storybook.js.org/docs/writing-tests/integrations/test-runner) de Storybook nos permite hacer precisamente eso. Es una utilidad independiente accionado por [Playwright](https://playwright.dev/) que ejecuta todas nuestras pruebas de interacciones y detecta historias rotas.
 
 Vamos a ver cómo funciona. Ejecuta el siguiente comando para instalarlo:
 
@@ -457,9 +457,9 @@ yarn test-storybook --watch
 
 <div class="aside">
 
-💡 Las pruebas de componentes con la función play son una forma fantástica para probar los componentes de la interfaz de usuario. Puede hacer mucho más de lo que hemos visto aquí. Recomendamos leer la [documentación oficial](https://storybook.js.org/docs/writing-tests/component-testing) para aprender más al respecto.
+💡 Las pruebas de componentes con la función play son una forma fantástica para probar los componentes de la interfaz de usuario. Puede hacer mucho más de lo que hemos visto aquí. Recomendamos leer la [documentación oficial](https://storybook.js.org/docs/writing-tests/interaction-testing) para aprender más al respecto.
 
-Para profundizar aún más en las pruebas, puedes mirar el [Manual de pruebas](/ui-testing-handbook). Cubre las estrategias de prueba utilizadas por los equipos de front-end escalados para potenciar tu flujo de trabajo de desarrollo.
+Para profundizar aún más en las pruebas, puedes mirar el [Manual de pruebas](/ui-testing-handbook/). Cubre las estrategias de prueba utilizadas por los equipos de front-end escalados para potenciar tu flujo de trabajo de desarrollo.
 
 </div>
 

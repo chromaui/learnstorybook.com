@@ -238,13 +238,13 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 
 | Framework    | Translation      | Updated |
 | ------------ | ---------------- | ------- |
-| React        | English          | ❌      |
+| React        | English          | ✅      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | ZH-TW            | ❌      |
 |              | Mainland Chinese | ❌      |
 |              | Dutch            | ❌      |
-|              | Korean           | ❌      |
+|              | Korean           | ✅      |
 |              | Japanese         | ❌      |
 |              | French           | ❌      |
 |              | Italian          | ❌      |
@@ -252,17 +252,17 @@ Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/
 | React Native | English          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
-| Vue          | English          | ❌      |
+| Vue          | English          | ✅      |
 |              | Italian          | ❌      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | French           | ❌      |
 |              | Mainland Chinese | ❌      |
-| Angular      | English          | ❌      |
+| Angular      | English          | ✅      |
 |              | Spanish          | ❌      |
 |              | Portuguese       | ❌      |
 |              | Japanese         | ❌      |
-| Svelte       | English          | ❌      |
+| Svelte       | English          | ✅      |
 |              | Spanish          | ❌      |
 
 ---

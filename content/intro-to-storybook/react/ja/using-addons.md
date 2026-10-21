@@ -2,7 +2,6 @@
 title: 'アドオン'
 tocTitle: 'アドオン'
 description: '人気のコントロールアドオンの使用方法を学びましょう'
-commit: '17d3ab9'
 ---
 
 Storybook にはチームの開発効率を向上する堅牢な[アドオン](https://storybook.js.org/docs/configure/user-interface/storybook-addons)のエコシステムがあります。[こちら](https://storybook.js.org/integrations) でアドオンのリストが見られます。
@@ -125,7 +124,7 @@ export const LongTitle = {
 
 [ビジュアルテスト](/intro-to-storybook/react/ja/test/)を使用している場合は、文字の省略が壊れた場合にわかるようになります。このように曖昧なエッジケースはテストなしには忘れてしまいがちです！
 
-<div class="aside"><p>💡 開発者でない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/essentials/controls">公式ドキュメント</a>を参照してください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="(https://storybook.js.org/docs/addons/writing-addons">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p></div>
+<div class="aside"><p>💡 開発者でない人でも、コントロールアドオンを使うことでコンポーネントやストーリーを触れるようになります。さらに理解を深めるためには<a href="https://storybook.js.org/docs/essentials/controls">公式ドキュメント</a>を参照してください。アドオンを使用して Storybook をカスタマイズする方法は 1 つではありません。おまけの章である、<a href="https://storybook.js.org/docs/addons/writing-addons">アドオンを作る</a>ではアドオンを使用して開発を加速する方法を説明します。</p></div>
 
 <div class="aside">
 💡 Git へのコミットを忘れずに行ってください！

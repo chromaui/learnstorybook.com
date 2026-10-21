@@ -2,7 +2,7 @@
 title: 'Transmettre des données'
 tocTitle: 'Données'
 description: "Apprenez comment transmettre des données à votre composant d'interface d'utilisateur"
-commit: 'f9eaeef'
+commit: 'acf26d6'
 ---
 
 Jusqu'à présent, nous avons créé des composants isolés et sans états - très bien pour Storybook, mais finalement inutiles tant que nous ne fournissons pas de données dans notre application.
@@ -172,7 +172,7 @@ Ne vous inquiétez pas, nous nous en occuperons dans le prochain chapitre.
 
 ![Tasklist cassée](/intro-to-storybook/broken-tasklist-optimized.png)
 
-Il y a plusieurs approches pour résoudre ce problème. Comme notre application est assez simple, nous pouvons utiliser un décorateur, comme lors du [précédent chapitre](/intro-to-storybook/react/fr/composite-component) et utiliser un store Redux simulé dans nos stories Storybook:
+Il y a plusieurs approches pour résoudre ce problème. Comme notre application est assez simple, nous pouvons utiliser un décorateur, comme lors du [précédent chapitre](/intro-to-storybook/react/fr/composite-component/) et utiliser un store Redux simulé dans nos stories Storybook:
 
 ```js:title=src/components/TaskList.stories.js
 import React from 'react';

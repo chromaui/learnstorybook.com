@@ -2,10 +2,9 @@
 title: '插件'
 tocTitle: '插件'
 description: '学习如何集成并使用热门插件'
-commit: '13da85f'
 ---
 
-Storybook 拥有一个健壮的[插件](https://storybook.js.org/docs/configure/storybook-addons)生态系统来帮助您的团队提高开发体验。在[这里](https://storybook.js.org/integrations)查看它们，
+Storybook 拥有一个健壮的[插件](https://storybook.js.org/docs/configure/user-interface/storybook-addons)生态系统来帮助您的团队提高开发体验。在[这里](https://storybook.js.org/integrations)查看它们，
 
 如果您完成了教程之前的部分，您实际上已经接触了一些插件，并在[测试](/intro-to-storybook/vue/zh-CN/test/)章节配置了其中一个。
 

@@ -2,14 +2,14 @@
 title: 'Assemble a composite component'
 tocTitle: 'Composite component'
 description: 'Assemble a composite component out of simpler components'
-commit: 'cfa25b6'
+commit: '83d639e'
 ---
 
 Last chapter, we built our first component; this chapter extends what we learned to make TaskList, a list of Tasks. Let’s combine components together and see what happens when we introduce more complexity.
 
 ## Tasklist
 
-Taskbox emphasizes pinned tasks by positioning them above default tasks. It yields two variations of `TaskList` you need to create stories for, default and pinned items.
+Taskbox emphasizes pinned tasks by positioning them above default tasks. It yields two variations of `TaskList` you need to create stories for: default and pinned items.
 
 ![default and pinned tasks](/intro-to-storybook/tasklist-states-1.png)
 
@@ -71,7 +71,7 @@ export default function TaskList({
 Next, create `Tasklist`’s test states in the story file.
 
 ```tsx:title=src/components/TaskList.stories.tsx
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 import TaskList from './TaskList';
 
@@ -143,7 +143,7 @@ Now check Storybook for the new `TaskList` stories.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/inprogress-tasklist-states-7-0.mp4"
+    src="/intro-to-storybook/inprogress-tasklist-states-9-0.mp4"
     type="video/mp4"
   />
 </video>
@@ -228,7 +228,7 @@ The added markup results in the following UI:
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/finished-tasklist-states-7-0.mp4"
+    src="/intro-to-storybook/finished-tasklist-states-9-0.mp4"
     type="video/mp4"
   />
 </video>

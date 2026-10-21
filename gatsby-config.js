@@ -4,7 +4,7 @@ const permalinkBase = isDeployPreview ? process.env.DEPLOY_PRIME_URL : 'https://
 
 module.exports = {
   flags: {
-    FAST_DEV: true,
+    FAST_DEV: false,
   },
   pathPrefix: `/tutorials`,
   siteMetadata: {
@@ -15,17 +15,17 @@ module.exports = {
     siteUrl: permalinkBase,
     githubUrl: 'https://github.com/chromaui/learnstorybook.com',
     contributeUrl: 'https://github.com/chromaui/learnstorybook.com/#contribute',
-    storybookVersion: 9.0,
+    storybookVersion: 10,
     tutorialStatus: {
       'intro-to-storybook': {
         react: {
           de: 5.3,
-          en: 8.3,
+          en: 10,
           es: 8.3,
           fr: 8.3,
           it: 7.6,
           ja: 8.3,
-          ko: 8.3,
+          ko: 10,
           nl: 5.3,
           pt: 5.3,
           'zh-CN': 6.1,
@@ -38,27 +38,28 @@ module.exports = {
           pt: 7.6,
         },
         vue: {
-          en: 8.3,
+          en: 10,
           es: 6.1,
           fr: 5.3,
+          ja: 10,
           pt: 5.3,
           it: 7.6,
           'zh-CN': 8.1,
         },
         angular: {
-          en: 8.3,
+          en: 10,
           ja: 6.3,
           es: 6.3,
           pt: 5.3,
         },
         svelte: {
-          en: 8.3,
+          en: 10,
           es: 5.3,
         },
       },
       'visual-testing-handbook': {
         react: {
-          en: 9.0,
+          en: 10,
           es: 9.0,
           ko: 9.0,
         },

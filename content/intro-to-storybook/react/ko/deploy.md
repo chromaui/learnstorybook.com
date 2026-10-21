@@ -2,7 +2,7 @@
 title: '스토리북(Storybook) 배포하기'
 tocTitle: '배포하기'
 description: 'Storybook을 온라인으로 배포하는 방법을 배워보세요'
-commit: '4531813'
+commit: 'ca9b814'
 ---
 
 이 튜토리얼을 통해 우리는 로컬 개발 환경에서 컴포넌트를 만들었습니다. 언젠가 팀의 피드백을 얻기 위해 작업을 공유해야 할 필요가 있을 것입니다. 다른 팀원들이 UI 구현을 검토할 수 있도록 스토리북(Storybook)을 온라인으로 배포해봅시다.
@@ -66,7 +66,12 @@ yarn chromatic --project-token=<project-token>
 
 완료되면 배포된 스토리북의 `https://random-uuid.chromatic.com` 링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
 
-![크로마틱 패키지와 함께 배포된 스토리북](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+<!--
+ TOOO:
+   - Follow up Design to get updated versions of this assets for React that showcases the following structure (i.e., Task, TaskList and InboxScreen)
+ -->
+
+![Storybook deployed with chromatic package](/intro-to-storybook/chromatic-manual-storybook-deploy-react.png)
 
 오예! 우리는 하나의 명령어를 사용하여 스토리북을 배포해보았습니다. 하지만 UI 구현 후 피드백을 받을 때마다 매번 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 push할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. 따라서 스토리북을 지속적으로 배포할 필요가 있습니다.
 

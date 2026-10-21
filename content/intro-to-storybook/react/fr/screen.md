@@ -2,7 +2,7 @@
 title: 'Construire un écran'
 tocTitle: 'Écrans'
 description: 'Construire un écran à partir de composants'
-commit: '6262d7f'
+commit: '12a7932'
 ---
 
 Nous nous sommes concentrés sur la création d'une UI de bas en haut, en commençant simplement et en ajoutant de la complexité. Cela nous a permis de développer chaque composant séparément, de déterminer ses besoins en données et de jouer avec dans Storybook. Tout cela sans avoir besoin de mettre en place un serveur ou de construire des écrans!
@@ -232,7 +232,7 @@ Nous pouvons constater une erreur dans la story de `error`. Au lieu d'afficher l
 
 Comme notre application est assez simpliste et ne dépend pas trop des appels à des API, nous allons utiliser [Mock Service Worker](https://mswjs.io/) et [Storybook's MSW addon](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker est une librairie de simulation d'API. Il se repose sur les service workers pour capturer les appels faits au réseau et fournir des données simulées en réponse.
 
-Quand nous avons initialisé notre application dans [Débuter](/intro-to-storybook/react/fr/get-started), ces deux librairies ont été installées. Il reste alors à les configurer et mettre à jour nos stories pour les utiliser.
+Quand nous avons initialisé notre application dans [Débuter](/intro-to-storybook/react/fr/get-started/), ces deux librairies ont été installées. Il reste alors à les configurer et mettre à jour nos stories pour les utiliser.
 
 Dans votre terminal, exécutez les commandes suivants pour générer un service worker générique à l'intérieur du dossier `public`:
 
@@ -338,7 +338,7 @@ Ne pouvons-nous pas automatiser ce flux et tester nos interactions entre les com
 
 ### Écrire un test de composant en utilisant la fonction play
 
-La fonction [`play`](https://storybook.js.org/docs/writing-stories/play-function) de Storybook et [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing) nous aident avec cela. Une fonction play inclut de petits extraits de code qui s'exécutent après le rendu de la story.
+La fonction [`play`](https://storybook.js.org/docs/writing-stories/play-function) de Storybook et [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/interaction-testing) nous aident avec cela. Une fonction play inclut de petits extraits de code qui s'exécutent après le rendu de la story.
 
 La fonction play nous aide à vérifier les changements d'UI quand les tâches sont mises à jour. Elle utilise les API du DOM, agnostiques du type de librairie utilisé, ce qui signifie que nous pouvons écrire des stories avec cette fonction pour interagir avec l'UI et simuler des actions utilisateurs, quelque soit la librarie front utilisée.
 
@@ -457,9 +457,9 @@ yarn test-storybook --watch
 
 <div class="aside">
 
-💡 Les tests d'interactions avec la fonction play sont une manière fantastique de tester vos composants d'UI. Ils peuvent faire plein plus que ce que nous avons parcouru. Nous vous encourageons à lire la [documentation officielle](https://storybook.js.org/docs/writing-tests/component-testing) pour en savoir plus.
+💡 Les tests d'interactions avec la fonction play sont une manière fantastique de tester vos composants d'UI. Ils peuvent faire plein plus que ce que nous avons parcouru. Nous vous encourageons à lire la [documentation officielle](https://storybook.js.org/docs/writing-tests/interaction-testing) pour en savoir plus.
 
-Pour creuser encore plus les tests, vous pouvez lire le [Guide des Tests](/ui-testing-handbook). Il agrège les stratégies de tests utilisées par les équipes front reconnues afin de vous faire accélérer votre flux de développement.
+Pour creuser encore plus les tests, vous pouvez lire le [Guide des Tests](/ui-testing-handbook/). Il agrège les stratégies de tests utilisées par les équipes front reconnues afin de vous faire accélérer votre flux de développement.
 
 </div>
 

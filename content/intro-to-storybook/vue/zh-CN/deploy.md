@@ -2,7 +2,7 @@
 title: '部署Storybook'
 tocTitle: '部署'
 description: '学习如何线上部署Storybook'
-commit: '4b1cd77'
+commit: 'd32196c'
 ---
 
 在此教程中，我们在我们本地开发环境构建了组件。某些时候，我们还需要和组员分享我们的工作以获得其他人的反馈。让我们部署 Storybook 到线上，帮助同事对 UI 实现进行 review。
@@ -19,7 +19,7 @@ commit: '4b1cd77'
 
 ### 在 GitHub 中创建一个仓库
 
-在我们开始之前，我们首先需要将本地代码和一个远程版本控制服务关联起来。当我们在[开始吧章节](/intro-to-storybook/vue/zh-CN/get-started)中构建我们的项目时，已经初始化了了一个本地仓库。在此阶段，我们已经拥有了一系列可以推送到远程仓库的 commits。
+在我们开始之前，我们首先需要将本地代码和一个远程版本控制服务关联起来。当我们在[开始吧章节](/intro-to-storybook/vue/zh-CN/get-started/)中构建我们的项目时，已经初始化了了一个本地仓库。在此阶段，我们已经拥有了一系列可以推送到远程仓库的 commits。
 
 进入 GitHub 然后在[这里](https://github.com/new)创建一个新的仓库。和我们的本地项目一样，命名为“taskbox”。
 

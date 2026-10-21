@@ -2,10 +2,10 @@
 title: '리액트(React)를 위한 스토리북(Storybook) 튜토리얼'
 tocTitle: '시작하기'
 description: '스토리북(Storybook)을 개발 환경에 설치해보세요'
-commit: '2407c3c'
+commit: 'afe05db'
 ---
 
-스토리북(Storybook)은 개발 모드에서 앱과 함께 실행됩니다. 스토리북은 비즈니스 로직과 맥락(context)으로부터 분리된 UI 컴포넌트를 만들 수 있도록 도와줍니다. 현재 문서는 리액트(React)를 위해 작성되었습니다. 그 밖의 [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Angular](/intro-to-storybook/angular/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started).
+스토리북(Storybook)은 개발 모드에서 앱과 함께 실행됩니다. 스토리북은 비즈니스 로직과 맥락(context)으로부터 분리된 UI 컴포넌트를 만들 수 있도록 도와줍니다. 현재 문서는 리액트(React)를 위해 작성되었습니다. 그 밖의 [React Native](/intro-to-storybook/react-native/en/get-started/), [Vue](/intro-to-storybook/vue/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/).
 
 ![스토리북과 여러분의 앱](/intro-to-storybook/storybook-relationship.jpg)
 
@@ -40,6 +40,12 @@ yarn dev
 ```
 
 우리의 주요 프론트엔드 애플리케이션 방식: 컴포넌트 개발(Storybook)과 애플리케이션 자체 개발이 있습니다.
+
+<!--
+
+TODO:
+- Update the image  to include the default Vite start screen and updated Storybook UI
+-->
 
 ![2가지 양식](https://storybook.js.org/tutorials/intro-to-storybook/app-main-modalities-react.png)
 

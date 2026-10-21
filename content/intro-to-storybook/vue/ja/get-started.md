@@ -1,0 +1,80 @@
+---
+title: 'Vue 向け Storybook のチュートリアル'
+tocTitle: 'はじめに'
+description: '開発環境に Vue Storybook を導入しましょう'
+commit: '7bff3f5'
+---
+
+Storybook は開発時にアプリケーションと並行して動きます。Storybook を使用することで、UI コンポーネントをビジネスロジックやコンテキストから切り離して開発できるようになります。この文書は Vue 向けです。他にも [React](/intro-to-storybook/react/en/get-started/)、[React Native](/intro-to-storybook/react-native/en/get-started/)、[Angular](/intro-to-storybook/angular/en/get-started/)、[Svelte](/intro-to-storybook/svelte/en/get-started/) 向けのものがあります。
+
+![Storybook と開発中のアプリの関係](/intro-to-storybook/storybook-relationship.jpg)
+
+## Vue 向けの Storybook を構築する
+
+Storybook を開発プロセスに組み込むにあたり、いくつかの手順を踏む必要があります。まずは、[degit](https://github.com/Rich-Harris/degit) を使用してビルド環境をセットアップしましょう。このパッケージを利用することで、テンプレート（あらかじめ一部の構成が設定された構築済みのアプリケーション）をダウンロードし、開発ワークフローの短縮に役立てることができます。
+
+それでは、次のコマンドを実行してください。
+
+```shell:clipboard=false
+# Clone the template
+npx degit chromaui/intro-storybook-vue-template taskbox
+
+cd taskbox
+
+# Install dependencies
+yarn
+```
+
+<div class="aside">
+💡 このテンプレートには本バージョンのチュートリアルに必要なスタイル、アセット、最低限の設定が含まれています。
+</div>
+
+それでは、アプリケーションのさまざまな環境が問題なく動くことを次のコマンドで確認しましょう。
+
+```shell:clipboard=false
+# Start the component explorer on port 6006:
+yarn storybook
+
+# Run the frontend app proper on port 5173:
+yarn dev
+```
+
+フロントエンド開発の 2 つのモード: コンポーネント開発 (Storybook)、アプリケーション自体
+
+<!--
+
+TODO:
+- Update the image  to include the default Vite start screen and updated Storybook UI
+-->
+
+![2つのモード](/intro-to-storybook/app-main-modalities-vue.png)
+
+作業をする対象に応じて、このモードのうち 1 つまたは複数を同時に動かしながら作業します。今は単一の UI コンポーネントを作るのに集中するため、Storybook を動かすことにしましょう。
+
+## 変更をコミットする
+
+この段階で、ローカルリポジトリにファイルを追加しておくと安全です。以下のコマンドを実行して、ローカルリポジトリを初期化し、これまでに行った変更を追加してコミットしてください。
+
+```shell
+git init
+```
+
+つづいて:
+
+```shell
+git add .
+```
+
+さらに:
+
+```shell
+git commit -m "first commit"
+```
+
+最後に:
+
+```shell
+git branch -M main
+```
+
+それでは最初のコンポーネントを作り始めましょう！

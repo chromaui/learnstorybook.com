@@ -170,7 +170,7 @@ Com esta alteração as nossas histórias do Storybook pararam de funcionar, vis
 
 <img src="/intro-to-storybook/react-native-broken-tasklist.png" alt="error screen" height="600">
 
-Poderíamos usar várias abordagens para resolver este problema. Mas, visto que a nossa aplicação é bastante simples, podemos usar um decorador, tal como fizemos no [capítulo anterior](/intro-to-storybook/react-native/pt/composite-component), e fornecer uma store simulada – nas nossas histórias do Storybook:
+Poderíamos usar várias abordagens para resolver este problema. Mas, visto que a nossa aplicação é bastante simples, podemos usar um decorador, tal como fizemos no [capítulo anterior](/intro-to-storybook/react-native/pt/composite-component/), e fornecer uma store simulada – nas nossas histórias do Storybook:
 
 ```js:title=src/components/TaskList.stories.jsx
 import { TaskList } from './TaskList';

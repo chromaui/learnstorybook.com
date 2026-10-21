@@ -21,7 +21,8 @@ module.exports = {
   webpackFinal: async (config) => {
     config.module.rules[0].exclude = [/node_modules\/(?!(gatsby)\/)/];
 
-    config.externals = ['react-dom/client'];
+    // Remove this if not needed (to avoid issues with React 18, Storybook and Chromatic)
+    //config.externals = ['react-dom/client'];
 
     // use babel-plugin-remove-graphql-queries to remove static queries from components when rendering in storybook
     config.module.rules[0].use[0].options.plugins.push([

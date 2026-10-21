@@ -128,7 +128,7 @@ function Guide({ data, pageContext }) {
       <Helmet>
         <title>{`${title} | ${siteMetadata.title}`}</title>
         <meta name="description" content={description} />
-
+        <link rel="canonical" href={permalink} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={permalink} />

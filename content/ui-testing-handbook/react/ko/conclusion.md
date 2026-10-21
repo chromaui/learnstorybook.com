@@ -29,7 +29,7 @@ description: '적게 손대고 더 많은 게 해결되도록 하자'
 
 더 많은 걸 원하나요? 여기 유용한 몇몇 추가 자료가 있습니다.
 
-- [**시각적 요소 테스팅 핸드북**](/visual-testing-handbook)은 UI 모습을 테스팅하는 방법을 BBC, Adobe, Target 그리고 더 많은 선도적인 엔지니어링 팀들에서 배운 교훈들과 함께 깊이 있게 다루는 가이드입니다.
+- [**시각적 요소 테스팅 핸드북**](/visual-testing-handbook/)은 UI 모습을 테스팅하는 방법을 BBC, Adobe, Target 그리고 더 많은 선도적인 엔지니어링 팀들에서 배운 교훈들과 함께 깊이 있게 다루는 가이드입니다.
 - [**스토리북으로 UI 테스트하기**](https://storybook.js.org/docs/react/writing-tests/introduction) UI 테스팅을 위해 Storybook을 어떻게 사용하는지 자세히 설명합니다.
 - [**디스코드(Discord) 채팅**](https://discord.gg/UUt2PJb)에서는 스토리북 커뮤니티와 메인테이너들과 연락을 유지할 수 있게 해줍니다.
 - [**블로그**](https://storybook.js.org/blog)에서는 최신 릴리즈(release)와 기능을 보여주고 당신의 UI 개발 작업흐름을 최신으로 유지시켜줍니다.

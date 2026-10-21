@@ -2,7 +2,7 @@
 title: 'Effettuare il deploy di Storybook'
 tocTitle: 'Deploy'
 description: 'Impara come effettuare il deploy di Storybook online'
-commit: '4b1cd77'
+commit: 'd32196c'
 ---
 
 Durante questo tutorial, abbiamo costruito componenti sulla nostra macchina di sviluppo locale. Ad un certo punto, avremo bisogno di condividere il nostro lavoro per ottenere feedback dal team. Effettuiamo il deploy di Storybook online per aiutare i membri del team a revisionare l'implementazione dell'UI.
@@ -19,7 +19,7 @@ Questo tutorial utilizza <a href="https://www.chromatic.com/?utm_source=storyboo
 
 ### Configura un repository su GitHub
 
-Prima di iniziare, il nostro codice locale deve essere sincronizzato con un servizio remoto di controllo versione. Quando abbiamo impostato il nostro progetto nel [capitolo di introduzione](/intro-to-storybook/vue/it/get-started), abbiamo già inizializzato un repository locale. A questo punto, abbiamo già un set di commit che possiamo inviare a un repository remoto.
+Prima di iniziare, il nostro codice locale deve essere sincronizzato con un servizio remoto di controllo versione. Quando abbiamo impostato il nostro progetto nel [capitolo di introduzione](/intro-to-storybook/vue/it/get-started/), abbiamo già inizializzato un repository locale. A questo punto, abbiamo già un set di commit che possiamo inviare a un repository remoto.
 
 Vai su GitHub e crea un nuovo repository per il nostro progetto [qui](https://github.com/new). Nominare il repo "taskbox", come il nostro progetto locale.
 

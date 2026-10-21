@@ -2,13 +2,13 @@
 title: 'Tutorial de Storybook para Angular'
 tocTitle: 'Empezando'
 description: 'Configurar Angular Storybook en tu entorno de desarrollo'
-commit: '20f5b89'
+commit: 'bc34d9c'
 ---
 
 Storybook se ejecuta junto con su aplicación en modo de desarrollo. Le ayuda a crear componentes de interfaz de
 usuario aislados de la lógica de negocio y el contexto de su aplicación. Esta edición del tutorial de Storybook es para
 Angular;
-existen otras ediciones para [React](/intro-to-storybook/react/en/get-started), [React Native](/intro-to-storybook/react-native/en/get-started), [Vue](/intro-to-storybook/vue/en/get-started), [Svelte](/intro-to-storybook/svelte/en/get-started).
+existen otras ediciones para [React](/intro-to-storybook/react/en/get-started/), [React Native](/intro-to-storybook/react-native/en/get-started/), [Vue](/intro-to-storybook/vue/en/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/).
 
 ![Storybook and your app](/intro-to-storybook/storybook-relationship.jpg)
 

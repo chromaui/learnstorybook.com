@@ -2,7 +2,7 @@
 title: 'Déployer Storybook'
 tocTitle: 'Déployer'
 description: 'Déployer Storybook en ligne avvec GitHub et Netlify'
-commit: '4b1cd77'
+commit: 'd32196c'
 ---
 
 Dans ce tutoriel, nous avons exécuté Storybook sur notre machine de développement. Vous pouvez également partager ce Storybook avec l'équipe, en particulier avec les membres non techniques. Heureusement, il est facile de déployer Storybook en ligne.
@@ -15,7 +15,7 @@ Dans ce tutoriel, nous avons exécuté Storybook sur notre machine de développe
 
 ## Exportation en tant qu'application statique
 
-Pour déployer Storybook, nous commençons premièrement par l'exporter comme une application web statique. Cette fonctionnalité est déjà intégrée dans Storybook, nous devons juste la changer comme nous l'avons fait auparavant lorsque le projet a été initialisé dans la [section de démarrage](/intro-to-storybook/vue/fr/get-started).
+Pour déployer Storybook, nous commençons premièrement par l'exporter comme une application web statique. Cette fonctionnalité est déjà intégrée dans Storybook, nous devons juste la changer comme nous l'avons fait auparavant lorsque le projet a été initialisé dans la [section de démarrage](/intro-to-storybook/vue/fr/get-started/).
 
 ```json::clipboard=false
 {

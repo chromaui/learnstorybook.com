@@ -2,7 +2,7 @@
 title: 'Costruisci una schermata'
 tocTitle: 'Schermate'
 description: 'Costruisci una schermata da componenti'
-commit: '6262d7f'
+commit: '12a7932'
 ---
 
 Ci siamo concentrati sulla costruzione di interfacce utente dal basso verso l'alto, partendo da piccole e aggiungendo complessità. Farlo ci ha permesso di sviluppare ogni componente in isolamento, capire le sue esigenze di dati e giocare con esso in Storybook. Tutto senza dover avviare un server o costruire schermate!
@@ -232,7 +232,7 @@ Possiamo rapidamente individuare un problema con la storia dell'`errore`. Invece
 
 Poiché la nostra applicazione è piuttosto semplice e non dipende troppo dalle chiamate API remote, useremo [Mock Service Worker](https://mswjs.io/) e [l'addon MSW di Storybook](https://storybook.js.org/addons/msw-storybook-addon). Mock Service Worker è una libreria di mocking delle API. Si basa sui service worker per catturare le richieste di rete e fornire dati simulati nelle risposte.
 
-Quando abbiamo impostato la nostra app nella [sezione Introduzione](/intro-to-storybook/react/it/get-started), entrambi i pacchetti sono stati anche installati. Tutto ciò che rimane è configurarli e aggiornare le nostre storie per utilizzarli.
+Quando abbiamo impostato la nostra app nella [sezione Introduzione](/intro-to-storybook/react/it/get-started/), entrambi i pacchetti sono stati anche installati. Tutto ciò che rimane è configurarli e aggiornare le nostre storie per utilizzarli.
 
 Nel tuo terminale, esegui il seguente comando per generare un service worker generico all'interno della tua cartella `public`:
 
