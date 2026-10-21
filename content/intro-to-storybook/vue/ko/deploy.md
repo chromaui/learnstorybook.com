@@ -1,53 +1,52 @@
 ---
-title: '스토리북(Storybook) 배포하기'
-tocTitle: '배포하기'
-description: 'Storybook을 온라인으로 배포하는 방법을 배워보세요'
-commit: '4531813'
+title: 'Storybook 배포하기'
+tocTitle: '배포'
+description: 'Storybook을 온라인에 배포하는 방법을 배워보세요'
 ---
 
-이 튜토리얼을 통해 우리는 로컬 개발 환경에서 컴포넌트를 만들었습니다. 언젠가 팀의 피드백을 얻기 위해 작업을 공유해야 할 필요가 있을 것입니다. 다른 팀원들이 UI 구현을 검토할 수 있도록 스토리북(Storybook)을 온라인으로 배포해봅시다.
+지금까지 로컬 개발 환경에서 컴포넌트를 만들었습니다. 이제 팀원들의 의견을 받을 수 있도록 결과물을 공유해봅시다. Storybook을 온라인에 배포하면 팀원들도 구현된 UI를 살펴볼 수 있습니다.
 
-## 정적 앱으로 내보내기
+## 정적 웹 앱으로 내보내기
 
-스토리북을 배포하기 위해서는 먼저 정적인 웹 앱으로 내보내야 합니다. 이 기능은 이미 스토리북에 내장되어 있으며 미리 구성되어 있습니다.
+Storybook을 배포하려면 먼저 정적 웹 앱으로 내보내야 합니다. 이 기능은 Storybook에 기본으로 포함되어 있으며 설정도 되어 있습니다.
 
-`yarn build-storybook`을 실행하면 `storybook-static` 디렉토리에 정적인 스토리북이 생성될 것이며 이를 정적 사이트 호스팅 서비스에 배포할 수 있습니다.
+`yarn build-storybook`을 실행하면 `storybook-static` 디렉터리에 정적 Storybook 파일이 생성됩니다. 이 파일들을 원하는 정적 사이트 호스팅 서비스에 배포하면 됩니다.
 
-## 스토리북(Storybook) 배포하기
+## Storybook 게시하기
 
-이번 튜토리얼은 스토리북 관리자가 만든 무료 배포 서비스인 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)을 사용하겠습니다. 이를 통해 스토리북을 클라우드에 안전하게 배포하고 호스팅 할 수 있습니다.
+이 튜토리얼에서는 Storybook 유지 관리팀이 만든 무료 배포 서비스인 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)을 사용합니다. Chromatic을 이용하면 Storybook을 클라우드에 안전하게 배포하고 호스팅할 수 있습니다.
 
-### 깃허브(Github) 저장소 설정
+### GitHub 저장소 만들기
 
-시작하기 전에 로컬 코드가 원격 버전 제어 서비스와 동기화되어야 합니다. [시작하기 장](/intro-to-storybook/react/ko/get-started/)에서 프로젝트를 설정할 때, 이미 로컬 저장소를 초기화했습니다. 이 단계에서, 우리는 원격 저장소에 push할 commit들을 이미 가지고 있습니다.
+먼저 로컬 코드를 원격 버전 관리 서비스에 연결해야 합니다. [시작하기](/intro-to-storybook/vue/ko/get-started/)에서 프로젝트를 설정할 때 로컬 저장소를 초기화했으므로, 지금까지 만든 커밋을 원격 저장소에 올리면 됩니다.
 
-깃허브로 이동하여 [여기](https://github.com/new)에서 프로젝트를 위한 새로운 저장소를 만듭니다. 저장소의 이름은 프로젝트명과 동일하게 'taskbox'로 하겠습니다.
+GitHub의 [새 저장소 만들기 페이지](https://github.com/new)에서 프로젝트 저장소를 만드세요. 저장소 이름은 로컬 프로젝트와 같은 "taskbox"로 지정합니다.
 
-![깃허브 설정](/intro-to-storybook/github-create-taskbox.png)
+![GitHub 저장소 만들기](/intro-to-storybook/github-create-taskbox.png)
 
-새로운 저장소에서 origin URL을 가져와서 다음 명령과 같이 깃(git) 프로젝트에 추가해주세요:
+새 저장소의 URL을 복사한 뒤, 다음 명령어로 git 프로젝트의 원격 저장소를 등록합니다:
 
 ```shell
 git remote add origin https://github.com/<your username>/taskbox.git
 ```
 
-마지막으로, 로컬 저장소를 원격 저장소로 푸시해주세요:
+마지막으로 로컬 저장소의 내용을 GitHub에 푸시합니다:
 
 ```shell
 git push -u origin main
 ```
 
-### 크로마틱(Chromatic) 설치
+### Chromatic 설치하기
 
-development dependency로 패키지를 추가해주세요:
+Chromatic 패키지를 개발 의존성으로 추가합니다.
 
 ```shell
 yarn add -D chromatic
 ```
 
-패키지가 설치되면 깃허브 계정으로 [크로마틱에 로그인](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)합니다(크로마틱은 간단한 권한 요청만 할 것입니다). 그런 다음 'taskbox'라는 이름의 새로운 프로젝트를 만들고, 앞서 설정한 깃허브 저장소와 동기화합니다.
+설치가 끝나면 GitHub 계정으로 [Chromatic에 로그인](https://www.chromatic.com/start/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)하세요. Chromatic은 최소한의 권한만 요청합니다. 그런 다음 "taskbox"라는 프로젝트를 만들고, 앞서 생성한 GitHub 저장소와 연결합니다.
 
-`Choose GitHub repo`를 클릭하고 저장소를 선택해주세요.
+collaborators 항목 아래에서 `Choose GitHub repo`를 클릭하고 저장소를 선택하세요.
 
 <video autoPlay muted playsInline loop style="width:520px; margin: 0 auto;">
   <source
@@ -56,29 +55,35 @@ yarn add -D chromatic
   />
 </video>
 
-프로젝트를 위해 생성된 고유한 `project-token`을 복사해주세요. 그런 다음 스토리북을 빌드(build)하고 배포하기 위해 아래 명령어를 실행해주세요. 여러분의 토큰으로 `project-token` 부분을 꼭 바꿔주세요.
+프로젝트에 발급된 고유한 `project-token`을 복사하세요. 그런 다음 아래 명령어로 Storybook을 빌드하고 배포합니다. `project-token`은 복사한 프로젝트 토큰으로 바꿔주세요.
 
 ```shell
 yarn chromatic --project-token=<project-token>
 ```
 
-![스토리북 실행](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
+![Chromatic 실행 화면](/intro-to-storybook/chromatic-manual-storybook-console-log.png)
 
-완료되면 배포된 스토리북의 `https://random-uuid.chromatic.com` 링크를 받으실 것입니다. 해당 링크를 팀과 공유하여 피드백을 받으세요.
+완료되면 배포된 Storybook에 접속할 수 있는 `https://random-uuid.chromatic.com` 형태의 링크가 나옵니다. 팀에 공유하고 피드백을 받아보세요.
 
-![크로마틱 패키지와 함께 배포된 스토리북](/intro-to-storybook/chromatic-manual-storybook-deploy.png)
+<!--
+ TODO:
+   - Follow up Design to get updated versions of this assets
+     - One for non-React versions that showcase the same structure (i.e., Task, PureTaskList and InboxScreen)
+ -->
 
-오예! 우리는 하나의 명령어를 사용하여 스토리북을 배포해보았습니다. 하지만 UI 구현 후 피드백을 받을 때마다 매번 명령어를 수동적으로 실행하는 것은 반복적인 일입니다. 코드를 push할 때마다 최신 버전의 컴포넌트를 배포하는 것이 더 이상적입니다. 따라서 스토리북을 지속적으로 배포할 필요가 있습니다.
+![Chromatic으로 배포한 Storybook](/intro-to-storybook/chromatic-manual-storybook-deploy-non-react.png)
 
-## 크로마틱을 통한 지속적 배포
+명령어 하나로 Storybook을 배포했습니다. 하지만 UI를 공유할 때마다 직접 명령어를 실행하는 것은 번거롭습니다. 코드를 푸시할 때마다 최신 컴포넌트가 자동으로 배포되도록 설정해봅시다.
 
-이제 프로젝트가 깃허브 저장소에 호스팅 되었으므로 자동으로 스토리북을 배포하기 위하여 지속적 통합(continuous integration, CI) 서비스를 이용할 수 있습니다. [GitHub Actions](https://github.com/features/actions)는 깃허브에 내장된 무료 CI 서비스로, 쉽게 자동으로 배포할 수 있도록 합니다.
+## Chromatic으로 지속적 배포 설정하기
 
-### 스토리북을 배포하기 위해 깃허브 액션 추가하기
+코드를 GitHub 저장소에 올렸으므로, 지속적 통합(CI) 서비스를 이용해 Storybook을 자동으로 배포할 수 있습니다. GitHub에 내장된 무료 CI 서비스인 [GitHub Actions](https://github.com/features/actions)를 사용하면 간단하게 설정할 수 있습니다.
 
-프로젝트의 기본 폴더에 `.github`라는 새로운 디렉토리를 만들고 그 안에 `workflows`라는 디렉토리를 만들어주세요.
+### Storybook 배포용 GitHub Actions 워크플로 추가하기
 
-`chromatic.yml`이라는 파일을 아래와 같이 생성해주세요.
+프로젝트 루트에 `.github` 디렉터리를 만들고, 그 안에 `workflows` 디렉터리를 만듭니다.
+
+`chromatic.yml` 파일을 만들고 아래 내용을 작성하세요.
 
 ```yaml:title=.github/workflows/chromatic.yml
 # Workflow name
@@ -102,45 +107,45 @@ jobs:
       - uses: chromaui/action@latest
         # Options required for Chromatic's GitHub Action
         with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/ko/deploy/ to obtain it
+          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/svelte/en/deploy/ to obtain it
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 <div class="aside">
 
-💡 간결성을 위해 [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)은 언급되지 않았습니다. 이는 깃허브에서 제공하는 안전한 환경 변수이며 이를 사용하면 `project-token`을 직접 입력할 필요가 없습니다.
+💡 여기서는 [GitHub secrets](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository)의 자세한 설정 방법은 다루지 않습니다. Secrets는 GitHub에서 안전하게 관리하는 환경 변수로, `project-token`을 코드에 직접 적지 않아도 됩니다.
 
 </div>
 
-### 깃허브 액션 커밋하기
+### 워크플로 커밋하기
 
-다음의 명령어를 실행하여 변경된 사항을 추가해주세요:
+터미널에서 다음 명령어로 변경한 파일을 스테이징합니다:
 
 ```shell
 git add .
 ```
 
-그런 다음 commit을 해주세요:
+이어서 변경 사항을 커밋합니다:
 
 ```shell
 git commit -m "GitHub action setup"
 ```
 
-마지막으로 원격 저장소에 push해주세요:
+마지막으로 원격 저장소에 푸시합니다:
 
 ```shell
 git push origin main
 ```
 
-깃허브 action을 설정하면 코드를 push할 때마다 스토리북이 크로마틱에 배포될 것입니다. 크로마틱의 프로젝트 빌드 화면에서 배포된 모든 스토리북을 보실 수 있습니다.
+GitHub Actions를 설정하면 코드를 푸시할 때마다 Storybook이 Chromatic에 배포됩니다. 배포된 Storybook은 Chromatic 프로젝트의 빌드 화면에서 확인할 수 있습니다.
 
-![크로마틱 사용자 대시보드](/intro-to-storybook/chromatic-user-dashboard.png)
+![Chromatic 사용자 대시보드](/intro-to-storybook/chromatic-user-dashboard.png)
 
-맨 위에 있는 최신 빌드를 클릭해주세요.
+맨 위에 있는 최신 빌드를 클릭하세요.
 
-그런 다음, 최신 버전의 스토리북을 보시려면 `View Storybook` 버튼을 클릭해주세요.
+그런 다음 `View Storybook` 버튼을 클릭하면 최신 Storybook이 열립니다.
 
-![크로마틱의 스토리북 링크](/intro-to-storybook/chromatic-build-storybook-link.png)
+![Chromatic의 Storybook 링크](/intro-to-storybook/chromatic-build-storybook-link.png)
 
-링크를 사용하여 팀원들과 공유하세요. 이는 표준화된 앱 개발 과정일 뿐만 아니라 여러분의 작업을 팀원들에게 자랑할 수 있게끔 도와줄 것입니다. 💅
+이 링크를 팀원들에게 공유하세요. 개발 중에 의견을 주고받을 때도, 완성한 작업물을 보여줄 때도 유용합니다 💅.

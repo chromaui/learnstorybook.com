@@ -1,22 +1,21 @@
 ---
-title: 'UI 컴포넌트 테스트'
-tocTitle: '테스트'
-description: 'UI 컴포넌트 테스트 방법 배우기'
+title: '시각적 테스트'
+tocTitle: '시각적 테스트'
+description: 'UI 컴포넌트를 테스트하는 방법을 배워보세요'
 ---
 
-테스팅 없이는 스토리북(Storybook) 튜토리얼을 완료했다고 할 수 없습니다. 테스팅은 고품질의 UI를 만드는 데 필수적입니다. 모듈식 시스템에서는 미세한 변화가 중대한 회귀를 초래할 수도 있습니다. 지금까지 우리는 세 가지 유형의 테스트를 경험했습니다.
+완성도 높은 UI를 만들려면 테스트가 필요합니다. 여러 컴포넌트가 맞물려 동작하는 시스템에서는 작은 수정 하나가 기존 기능을 크게 망가뜨릴 수도 있습니다. 지금까지 다음 두 가지 테스트를 살펴봤습니다:
 
-- **수동 테스트**는 개발자가 컴포넌트의 정확성을 수동으로 확인하여 정확성을 검증합니다. 빌드 시 컴포넌트의 모양이 온전한지 확인하는 데 도움이 됩니다.
-- **접근성 테스트**는 a11y 애드온을 사용하여 컴포넌트가 모두에게 접근 가능한지 확인합니다. 특정 장애가 있는 사용자들이 컴포넌트를 어떻게 사용하는지에 대한 정보를 수집하는 데 도움이 됩니다.
-- **컴포넌트 테스트**는 play 함수를 통해 상호작용 시 컴포넌트가 예상대로 동작하는지 검증합니다. 컴포넌트의 실제 사용 시 동작을 테스트하는 데 유용합니다.
+- Storybook과 Vitest를 연동한 **컴포넌트 테스트**는 실제 브라우저 환경에서 컴포넌트의 렌더링과 동작을 자동으로 확인합니다.
+- `play` 함수를 사용하는 **상호작용 테스트**는 사용자가 컴포넌트를 조작했을 때 예상대로 동작하는지 확인합니다. 실제 사용 중에 나타나는 컴포넌트의 동작을 테스트하기에 적합합니다.
 
-## “자동 테스트만 진행해도 괜찮을까요?”
+## 제대로 보이는지도 확인해야 합니다
 
-안타깝게도 위에서 언급한 테스트 방법만으로는 UI 버그를 예방하기에 충분하지 않습니다. UI는 디자인이 주관적이고 미묘해서 테스트하기 까다롭습니다. 수동 테스트는 말 그대로 수동입니다. 스냅샷 테스트와 같은 기타 UI 테스트들은 너무 많은 false positive를 유발하고, 픽셀 수준 단위 테스트는 가치가 습니다. 완전한 스토리북 테스트 전략에는 시각적 회귀 테스트도 포함됩니다.
+앞서 살펴본 테스트만으로는 UI 버그를 모두 막을 수 없습니다. 디자인에는 주관적인 판단과 미묘한 차이가 있어 테스트가 까다롭습니다. 수동 테스트는 매번 사람이 확인해야 하고, 스냅샷 테스트는 문제가 아닌 변경까지 오류로 잡아내는 경우가 많습니다. 픽셀 단위의 유닛 테스트도 들이는 노력에 비해 얻는 효과가 적습니다. 따라서 Storybook의 테스트 전략에는 시각적 회귀 테스트도 포함되어야 합니다.
 
-## 스토리북용 시각적 테스트
+## Storybook으로 시각적 테스트하기
 
-시각 회귀 테스트(Visual regression test), 또는 시각 테스트라고도 불리는 이 테스트는 외관의 변화를 포착하기 위해 설계되었습니다. 각 스토리의 스크린샷을 캡처하고 커밋 간 비교를 통해 변화를 찾아냅니다. 이는 레이아웃, 색상, 크기 및 대비와 같은 그래픽 요소를 검증하는 데 적합합니다.
+시각적 테스트는 UI의 모습이 의도치 않게 바뀌는 문제를 찾아냅니다. 각 테스트의 화면을 캡처하고 커밋 간에 비교해 달라진 부분을 보여줍니다. 레이아웃, 색상, 크기, 대비처럼 눈에 보이는 요소를 확인하는 데 적합합니다.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -25,32 +24,28 @@ description: 'UI 컴포넌트 테스트 방법 배우기'
   />
 </video>
 
-스토리북은 시각 회귀 테스트에 훌륭한 도구입니다. 왜냐하면 각 스토리가 본질적으로 테스트 사양이기 때문입니다. 스토리를 작성하거나 업데이트할 때마다 자동으로 사양을 얻는 셈이죠!
+Storybook의 각 스토리는 그 자체로 테스트 명세이기도 합니다. 스토리를 작성하거나 수정할 때마다 별도의 작업 없이 시각적 테스트에 필요한 명세가 마련됩니다.
 
-시각 회귀 테스트를 위한 여러 도구가 있지만, 스토리북 유지 관리자가 만든 무료 퍼블리싱 서비스인 [**크로마틱(Chromatic)**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook/)을 추천합니다. 이 서비스는 빠른 클라우드 브라우저 환경에서 시각 테스트를 실행하며, [이전 챕터](/intro-to-storybook/react/ko/deploy/)에서 보았듯이 온라인에서 스토리북을 퍼블리싱할 수 있는 기능도 제공합니다.
+시각적 테스트 도구는 여러 가지가 있습니다. 여기서는 Storybook 유지 관리팀이 만든 무료 배포 서비스인 [**Chromatic**](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)을 권장합니다. 클라우드 브라우저 환경에서 시각적 테스트를 빠르게 실행하며, [이전 장](/intro-to-storybook/vue/ko/deploy/)에서 살펴본 것처럼 Storybook을 온라인에 배포할 수도 있습니다.
 
-## UI 변화 파악
+## UI 변경 감지하기
 
-시각적 회귀 테스트는 새로 렌더링 된 UI 코드의 이미지를 기준 이미지와 비교하는 것에 의존합니다. UI 변경이 포착되면 알림을 받게 됩니다.
+시각적 테스트는 새 코드로 렌더링한 UI 이미지를 기준 이미지와 비교합니다. UI가 달라졌다면 알림을 받게 됩니다.
 
-`Task` 컴포넌트의 배경을 변경하여 작동 방식을 살펴보겠습니다.
+`Task` 컴포넌트의 배경색을 바꿔 어떻게 동작하는지 살펴보겠습니다.
 
-변경을 위한 새로운 브랜치를 만드는 것부터 시작하세요:
+먼저 이 작업을 위한 새 브랜치를 만듭니다:
 
 ```shell
 git checkout -b change-task-background
 ```
 
-`src/components/Task.vue`를 다음과 같이 변경하세요:
+`src/components/Task.vue`를 다음과 같이 수정하세요:
 
 ```diff:title=src/components/Task.vue
 <template>
   <div :class="classes">
-    <label
-      :for="'checked' + task.id"
-      :aria-label="'archiveTask-' + task.id"
-      class="checkbox"
-    >
+    <label :for="'checked' + task.id" :aria-label="'archiveTask-' + task.id" class="checkbox">
       <input
         type="checkbox"
         :checked="isChecked"
@@ -68,7 +63,7 @@ git checkout -b change-task-background
         :id="'title-' + task.id"
         name="title"
         placeholder="Input title"
-+       style="background-color: red" />
++       style="background-color: red"
       />
     </label>
     <button
@@ -82,51 +77,108 @@ git checkout -b change-task-background
     </button>
   </div>
 </template>
+
+<script lang="ts" setup>
+import type { TaskData } from '../types'
+
+import { computed } from 'vue'
+
+type TaskProps = {
+  /** Composition of the task */
+  task: TaskData
+  /** Event to change the task to archived */
+  onArchiveTask: (id: string) => void
+  /** Event to change the task to pinned */
+  onPinTask: (id: string) => void
+}
+
+const props = defineProps<TaskProps>()
+
+const classes = computed(() => {
+  return `list-item ${props.task.state}`
+})
+
+/*
+ * Computed property for checking the state of the task
+ */
+const isChecked = computed(() => props.task.state === 'TASK_ARCHIVED')
+
+const emit = defineEmits<{
+  (e: 'archive-task', id: string): void
+  (e: 'pin-task', id: string): void
+}>()
+
+/**
+ * Event handler for archiving tasks
+ */
+function archiveTask() {
+  emit('archive-task', props.task.id)
+}
+
+/**
+ * Event handler for pinning tasks
+ */
+function pinTask(): void {
+  emit('pin-task', props.task.id)
+}
+</script>
 ```
 
-항목에 대한 새로운 배경색이 생성됩니다.
+이렇게 하면 작업의 배경색이 바뀝니다.
 
-![task 배경 변경](/intro-to-storybook/chromatic-task-change-7-0.png)
+<!--
+ TODO: Follow up with Design for:
+   - A non-React version of this asset to include PureTaskList to align with the overall design and tutorial structure
+   - Filename should be as follows:
+     - chromatic-task-changes-non-react-9-0.png
+ -->
 
-파일을 추가합니다:
+![작업의 배경색 변경](/intro-to-storybook/chromatic-task-changes-non-react-9-0.png)
+
+변경한 파일을 스테이징합니다:
 
 ```shell
 git add .
 ```
 
-그리고 추가된 파일을 commit합니다:
+변경 사항을 커밋합니다:
 
 ```shell
 git commit -m "change task background to red"
 ```
 
-그리고 변경 사항을 원격 저장소로 push해줍니다:
+이어서 원격 저장소에 푸시합니다:
 
 ```shell
 git push -u origin change-task-background
 ```
 
-마지막으로 깃허브(Github) 저장소를 열어 `change-task-background` 브랜치에 대한 풀 리퀘스트(pull request)를 엽니다.
+마지막으로 GitHub 저장소에서 `change-task-background` 브랜치의 풀 리퀘스트를 만듭니다.
 
-![깃허브 저장소에서 task에 대한 PR 생성](/github/pull-request-background.png)
+![GitHub에서 풀 리퀘스트 만들기](/github/pull-request-background.png)
 
-풀 리퀘스트에 설명을 추가하고 `Create pull request` 을 클릭합니다. 그리고 페이지 하단에서 "🟡 UI Tests" PR 확인을 클릭합니다.
+변경 내용을 설명하고 `Create pull request`를 클릭하세요. 그런 다음 페이지 아래쪽의 PR 검사 항목에서 "🟡 UI Tests"를 클릭합니다.
 
-![깃허브 저장소에서 task에 대한 PR 생성](/github/pull-request-background-ok.png)
+![GitHub에 생성된 풀 리퀘스트](/github/pull-request-background-ok.png)
 
-commit에 의해 포착된 UI 변경 사항이 표시됩니다.
+이번 커밋에서 감지된 UI 변경 사항이 표시됩니다.
 
-![크로마틱이 포착한 변화](/intro-to-storybook/chromatic-catch-changes.png)
+<!--
+ TODO: Follow up with Design for:
+   - A non-React version of this asset to include PureTaskList to align with the overall design and tutorial structure
+ -->
 
-많은 변화가 있습니다! `Task` 컴포넌트가 `TaskList`와 `Inbox`의 자식인 컴포넌트의 계층 구조를 통해 작은 변화가 눈덩이처럼 불어나 큰 회귀로 이어지는 것을 알 수 있습니다. 이러한 상황이 바로 개발자가 다른 테스트 방법 이외에도 시각적 회귀 테스트가 필요한 이유입니다.
+![Chromatic이 감지한 변경 사항](/intro-to-storybook/chromatic-catch-changes.png)
 
-![작은 UI 변화와 큰 회귀](/intro-to-storybook/minor-major-regressions.gif)
+생각보다 많은 곳이 바뀌었습니다. `Task`는 `PureTaskList`와 `InboxScreen` 안에서 사용되므로, 작은 수정 하나가 여러 컴포넌트와 화면에 영향을 줍니다. 시각적 테스트를 다른 테스트와 함께 사용해야 하는 이유입니다.
 
-## 변경사항 검토
+![작은 UI 수정이 여러 화면에 미치는 영향](/intro-to-storybook/minor-major-regressions.gif)
 
-시각 회귀 테스트는 컴포넌트가 우연히 변경되지 않도록 보장하지만, 변화가 의도된 것인지 아닌지는 여전히 우리에게 달려 있습니다.
+## 변경 사항 검토하기
 
-변화가 의도된 경우, 우리는 기준선을 업데이트하여 앞으로의 테스트가 최신 버전의 스토리와 비교될 수 있도록 해야 합니다. 반면, 변화가 의도치 않은 경우에는 수정이 필요합니다.
+시각적 테스트는 컴포넌트가 의도치 않게 바뀌는 것을 막아줍니다. 다만 감지된 변경이 의도한 것인지 판단하는 일은 여전히 개발자의 몫입니다.
+
+의도한 변경이라면 다음 테스트부터 최신 스토리를 기준으로 비교하도록 기준 이미지를 갱신합니다. 의도하지 않은 변경이라면 코드를 수정해야 합니다.
 
 <video autoPlay muted playsInline loop style="width:480px; margin: 0 auto;">
   <source
@@ -135,14 +187,17 @@ commit에 의해 포착된 UI 변경 사항이 표시됩니다.
   />
 </video>
 
-현대 앱은 컴포넌트로 구성되기 때문에, 컴포넌트 수준에서 테스트하는 것이 중요합니다. 이렇게 하면 변경의 근본 원인인 컴포넌트를 정확히 찾아낼 수 있으며, 변경의 증상인 화면이나 복합 컴포넌트에 반응하는 대신 문제를 해결할 수 있습니다.
+컴포넌트로 구성된 애플리케이션은 컴포넌트 단위로 테스트하는 것이 중요합니다. 그래야 화면이나 복합 컴포넌트에 나타난 증상만 보고 대응하는 대신, 변경의 원인이 된 컴포넌트를 정확히 찾을 수 있습니다.
 
-## 변경 사항 병합(merge)
+## 변경 사항 병합하기
 
-검토를 마치면 업데이트로 인해 실수로 버그가 발생하지 않는다는 것을 알고 자신 있게 UI 변경 사항을 merge할 준비가 된 것입니다. 새 `빨간색` 배경이 마음에 들면 변경을 수락하고 아니라면 이전 상태로 되돌립니다.
+검토를 마쳤다면 의도치 않은 버그가 없는지 확인한 상태에서 UI 변경 사항을 병합할 수 있습니다. 새로 바꾼 빨간 배경색(`red`)을 적용하려면 변경을 승인하고, 그렇지 않다면 이전 상태로 되돌리세요.
 
-![병합할 수 있는 변경사항](/intro-to-storybook/chromatic-review-finished.png)
+<!--
+ TODO: Follow up with Design for:
+   - A non-React version of this asset to include PureTaskList to align with the overall design and tutorial structure
+ -->
 
-스토리북은 컴포넌트를 **제작**하는 데 도움을 주며, 테스트는 이를 **유지**하는 데 도움이 됩니다. 본 튜토리얼에서 다루는 네 가지 유형의 UI 테스트는 수동, 스냅샷, 단위 및 시각적 회귀 테스트였습니다. 방금 설정을 마친 대로 마지막 3개를 CI에 추가하여 자동화할 수 있었으며 숨은 버그에 대한 걱정 없이 컴포넌트를 배포하는 데 도움이 되었습니다. 전체 작업 흐름이 아래에 나와 있습니다.
+![검토를 마치고 병합을 기다리는 변경 사항](/intro-to-storybook/chromatic-review-finished.png)
 
-![시각적 회귀 테스트 작업 흐름](/intro-to-storybook/cdd-review-workflow.png)
+Storybook은 컴포넌트를 **만드는** 데, 테스트는 컴포넌트를 **유지 관리하는** 데 도움을 줍니다. 지금까지 UI를 직접 확인하는 방법과 시각적 테스트를 살펴봤고, 앞서 설정한 CI를 통해 검사 과정을 자동화할 수 있게 되었습니다. 덕분에 미처 발견하지 못한 버그에 대한 걱정을 줄일 수 있습니다. 하지만 테스트할 부분은 더 남아 있습니다. 장애가 있는 사용자를 포함해 누구나 컴포넌트를 사용할 수 있는지도 확인해야 합니다. 다음 장에서는 개발 과정에 접근성 테스트를 추가하겠습니다.

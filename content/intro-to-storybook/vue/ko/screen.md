@@ -1,22 +1,99 @@
 ---
-title: '화면 구성하기'
+title: '화면 만들기'
 tocTitle: '화면'
-description: '컴포넌트로 화면을 구성해봅시다'
-commit: 'af51337'
+description: '컴포넌트를 조합해 화면을 만들어보세요'
+commit: 'ce81973'
 ---
 
-우리는 지금까지 작은 것에서부터 시작하여 복잡성을 점점 더하는 방식으로 UI를 만들었습니다. 이를 통해 각 컴포넌트를 독립적으로 개발하고 데이터의 요구 사항을 파악하며 스토리북(Storybook)에서 사용해 볼 수 있었습니다. 모두 서버를 구축하거나 화면을 만들 필요가 없었습니다!
+지금까지 작은 컴포넌트에서 시작해 점차 복잡한 UI를 만들어왔습니다. 각 컴포넌트를 독립적으로 개발하면서 어떤 데이터가 필요한지 파악하고, Storybook에서 직접 동작을 확인할 수 있었습니다. 서버를 띄우거나 화면 전체를 만들 필요도 없었죠.
 
-이번 챕터에서는 화면에서 컴포넌트를 결합하고 스토리북에서 그 화면을 개발함으로써 계속하여 완성도를 높여보겠습니다.
+이번 장에서는 한 단계 더 나아가 컴포넌트를 조합해 화면을 만들고, 그 화면을 Storybook에서 개발하겠습니다.
 
-## 화면에 연결하기
+## 데이터에 연결된 화면
 
-앱이 단순하기 때문에 이번에 만들 화면은 꽤 간단합니다. `TaskList` 컴포넌트(Pinia를 통해 자체적으로 데이터를 제공)를 레이아웃에 감싸고, 스토어에서 최상위 `error` 필드를 가져옵니다(서버 연결에 문제가 있으면 해당 필드가 설정된다고 가정). 먼저 `src/components/` 폴더에 프레젠테이셔널 컴포넌트 `PureInboxScreen.vue`를 생성합니다:
+애플리케이션이 단순한 만큼 이번에 만들 화면도 간단합니다. 원격 API에서 데이터를 가져오고, Pinia를 통해 데이터를 받는 `TaskList` 컴포넌트를 레이아웃 안에 배치합니다. 또 스토어의 최상위 `error` 필드를 읽어 오류를 표시합니다. 서버에 연결하는 데 문제가 생기면 이 필드에 오류 정보가 저장된다고 가정하겠습니다.
 
-```html:title=src/components/PureInboxScreen.vue
+먼저 `src/store.ts`의 스토어를 수정해 원격 API에 연결하고, 오류나 성공 등 애플리케이션의 여러 상태를 처리하도록 합니다:
+
+```ts:title=src/store.ts
+import type { TaskData } from './types'
+
+/* A simple Pinia store/actions implementation.
+ * A true app would be more complex and separated into different files.
+ */
+import { defineStore } from 'pinia'
+
+interface TaskBoxState {
+  tasks: TaskData[]
+  status: 'idle' | 'loading' | 'failed' | 'succeeded'
+  error: string | null
+}
+
+/*
+ * The store is created here.
+ * You can read more about Pinia defineStore in the docs:
+ * https://pinia.vuejs.org/core-concepts/
+ */
+export const useTaskStore = defineStore('taskbox', {
+  state: (): TaskBoxState => ({
+    tasks: [],
+    status: 'idle',
+    error: null,
+  }),
+  actions: {
+    archiveTask(id: string) {
+      const task = this.tasks.find((task) => task.id === id)
+      if (task) {
+        task.state = 'TASK_ARCHIVED'
+      }
+    },
+    pinTask(id: string) {
+      const task = this.tasks.find((task) => task.id === id)
+      if (task) {
+        task.state = 'TASK_PINNED'
+      }
+    },
+    async fetchTasks() {
+      this.status = 'loading'
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/todos?userId=1')
+        const data = await response.json()
+        const result = data
+          .map((task: { id: number; title: string; completed: boolean }) => ({
+            id: `${task.id}`,
+            title: task.title,
+            state: task.completed ? 'TASK_ARCHIVED' : 'TASK_INBOX',
+          }))
+          .filter((task: TaskData) => task.state === 'TASK_INBOX' || task.state === 'TASK_PINNED')
+        this.tasks = result
+        this.status = 'succeeded'
+      } catch (error) {
+        if (error && typeof error === 'object' && 'message' in error) {
+          this.error = (error as Error).message
+        } else {
+          this.error = String(error)
+        }
+        this.status = 'failed'
+      }
+    },
+  },
+  getters: {
+    getFilteredTasks: (state) => {
+      const filteredTasks = state.tasks.filter(
+        (t) => t.state === 'TASK_INBOX' || t.state === 'TASK_PINNED',
+      )
+      return filteredTasks
+    },
+  },
+})
+```
+
+이제 스토어가 원격 API에서 데이터를 가져오고 애플리케이션의 여러 상태를 처리할 수 있습니다. `src/components` 디렉터리에 `InboxScreen.vue`를 만듭니다:
+
+```html:title=src/components/InboxScreen.vue
 <template>
   <div>
-    <div v-if="error" class="page lists-show">
+    <div v-if="isError" class="page lists-show">
       <div class="wrapper-message">
         <span class="icon-face-sad" />
         <p class="title-message">Oh no!</p>
@@ -31,130 +108,98 @@ commit: 'af51337'
     </div>
   </div>
 </template>
+<script lang="ts" setup>
+import { computed } from 'vue'
 
-<script>
-import TaskList from './TaskList.vue';
-export default {
-  name: 'PureInboxScreen',
-  components: { TaskList },
-  props: {
-    error: { type: Boolean, default: false },
-  },
-};
+import { useTaskStore } from '../store'
+
+import TaskList from './TaskList.vue'
+
+//👇 Creates a store instance
+const store = useTaskStore()
+// 👇 Fetches tasks for the store
+store.fetchTasks()
+
+//👇 Retrieves the error from the store's state
+const isError = computed(() => store.status === 'failed')
 </script>
 ```
 
-다음으로 `PureInboxScreen`의 데이터를 가져오는 컨테이너를 만듭니다.
-`src/components/InboxScreen.vue`:
+이어서 하위 컴포넌트에서도 스토어를 사용할 수 있도록 애플리케이션의 진입점인 `src/main.ts`를 수정합니다:
 
-```html:title=src/components/InboxScreen.vue
-<template>
-  <PureInboxScreen :error="isError" />
-</template>
+```diff:title=src/main.ts
+import { createApp } from 'vue'
++ import { createPinia } from 'pinia'
+- import './style.css'
 
-<script>
-import PureInboxScreen from './PureInboxScreen.vue';
+import App from './App.vue'
 
-import { computed } from 'vue';
-
-import { useTaskStore } from '../store';
-
-export default {
-  name: 'InboxScreen',
-  components: { PureInboxScreen },
-  setup() {
-    //👇 Creates a store instance
-    const store = useTaskStore();
-
-    //👇 Retrieves the error from the store's state
-    const isError = computed(() => store.status==='error');
-    return {
-      isError,
-    };
-  },
-};
-</script>
-```
-
-다음으로 앱의 진입점(`src/main.js`)을 수정하여 스토어를 컴포넌트 계층에 연결합니다:
-
-```diff:title=src/main.js
-import { createApp } from 'vue';
-+ import { createPinia } from 'pinia';
-- import './assets/main.css';
-
-import App from './App.vue';
 
 - createApp(App).mount('#app')
-+ createApp(App).use(createPinia()).mount('#app');
++ createApp(App).use(createPinia()).mount('#app')
 ```
 
-또한 `App` 컴포넌트를 수정하여 `InboxScreen`을 렌더링하도록 합니다
-(나중에 라우터를 사용해 화면을 선택할 수 있지만, 여기서는 생략).
+`InboxScreen`을 렌더링하도록 `App` 컴포넌트도 수정해야 합니다. 실제 애플리케이션에서는 라우터로 표시할 화면을 선택하겠지만, 여기서는 다루지 않겠습니다:
 
 ```html:title=src/App.vue
-<script setup>
-import InboxScreen from './components/InboxScreen.vue';
+<script setup lang="ts">
+import InboxScreen from './components/InboxScreen.vue'
 </script>
 
 <template>
-  <div id="app">
-    <InboxScreen />
-  </div>
+  <InboxScreen />
 </template>
-
 <style>
 @import './index.css';
 </style>
 ```
 
-흥미로운 부분은 Storybook에서 화면을 렌더링할 때 발생합니다.
+이제 이 화면을 Storybook에 띄우려면 무엇이 필요한지 살펴보겠습니다.
 
-앞서 본 것처럼 `TaskList` 컴포넌트는 컨테이너로, 프레젠테이셔널 컴포넌트인 `PureTaskList`를 렌더링합니다. 컨테이너 컴포넌트는 정의상 단독으로 렌더링할 수 없고, 일부 컨텍스트나 서비스에 연결되어야 합니다. 즉, Storybook에서 컨테이너를 렌더링하려면 필요한 컨텍스트나 서비스의 모의(mock) 버전을 제공해야 합니다.
+앞서 살펴본 것처럼 `TaskList`는 프레젠테이셔널 컴포넌트인 `PureTaskList`를 렌더링하는 **컨테이너**입니다. 컨테이너 컴포넌트는 컨텍스트를 전달받거나 외부 서비스에 연결되어 있어야 하므로, 컴포넌트만 따로 렌더링할 수는 없습니다. Storybook에서 컨테이너를 렌더링하려면 필요한 컨텍스트나 서비스를 모의 구현해야 합니다.
 
-`TaskList`를 Storybook에 넣을 때는 `PureTaskList`를 렌더링함으로써 이 문제를 피했습니다. 이번에도 비슷하게 `PureInboxScreen`을 렌더링할 것입니다.
+`TaskList`를 Storybook에 추가할 때는 컨테이너 대신 `PureTaskList`를 렌더링해 이 문제를 피했습니다. 하지만 애플리케이션이 커지면 데이터에 연결된 컴포넌트마다 별도의 프레젠테이셔널 컴포넌트를 만들어 관리하기가 어려워집니다. `InboxScreen` 역시 데이터에 연결된 컴포넌트이므로, 스토어와 스토어가 제공하는 데이터를 모의 구현할 방법이 필요합니다.
 
-하지만 `PureInboxScreen`은 자체적으로는 프레젠테이셔널이지만, 자식인 `TaskList`는 그렇지 않기 때문에 문제가 발생합니다. 즉, `PureInboxScreen`이 “컨테이너 성격”에 오염된 셈입니다. 따라서 `src/components/PureInboxScreen.stories.js`에 스토리를 작성하면:
+우선 `InboxScreen.stories.ts`에 다음과 같이 스토리를 작성해봅시다:
 
-```js:title=src/components/PureInboxScreen.stories.js
-import PureInboxScreen from './PureInboxScreen.vue';
+```ts:title=src/components/InboxScreen.stories.ts
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
 
-export default {
-  component: PureInboxScreen,
-  title: 'PureInboxScreen',
+import InboxScreen from './InboxScreen.vue'
+
+const meta = {
+  component: InboxScreen,
+  title: 'InboxScreen',
   tags: ['autodocs'],
-};
+} satisfies Meta<typeof InboxScreen>
 
-export const Default = {};
+export default meta
+type Story = StoryObj<typeof meta>
 
-export const Error = {
-  args: { error: true },
-}
+export const Default: Story = {}
+
+export const Error: Story = {}
 ```
 
-error 스토리는 잘 동작하지만, default 스토리는 TaskList가 연결할 Pinia 스토어가 없어 문제가 발생합니다.
+스토리를 확인하면 작업 목록이 나와야 할 자리에 빈 화면이 보입니다. 지난 장처럼 작업 목록과 오류 상태를 props로 받는 `PureInboxScreen`을 만들 수도 있습니다. 하지만 앞서 설명했듯이, 데이터에 연결된 컴포넌트가 많아질수록 이런 방식은 관리하기 어려워집니다. 이번에는 스토리에 필요한 컨텍스트를 제공해 문제를 해결해보겠습니다.
 
-![Broken inbox](/intro-to-storybook/pure-inboxscreen-vue-pinia-tasks-issue.png)
+<!-- TODO:
+  - Follow up with Design to get an updated image for this section
+  - Update the image to include the Storybook UI based on the latest version and story names
+-->
 
-이 문제를 피하는 한 가지 방법은 앱에서 컨테이너 컴포넌트를 최상위에서만 렌더링하고, 필요한 모든 데이터를 컴포넌트 계층 아래로 전달하는 것입니다.
-
-그러나 개발자는 **결국** 계층 아래쪽에서도 컨테이너를 렌더링해야 하는 경우가 생깁니다. 앱 전체를 Storybook에서 렌더링하려면 이 문제를 해결해야 합니다.
-
-<div class="aside">
-
-💡 참고로, [GraphQL](http://graphql.org/)을 사용할 때는 데이터 전달 방식을 많이 씁니다. [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)도 800개 이상의 스토리를 이런 방식으로 구축했습니다.
-
-</div>
+![작업 목록이 표시되지 않는 화면](/intro-to-storybook/inboxscreen-vue-pinia-tasks-issue.png)
 
 ## 스토리에 컨텍스트 제공하기
 
-다행히 Storybook에서 Pinia 스토어를 쉽게 연결하고 스토리 간에 재사용할 수 있습니다!
-`.storybook/preview.js` 설정 파일을 수정하고 Storybook의 `setup` 함수를 이용해 Pinia 스토어를 등록합니다:
+`InboxScreen`이 제대로 렌더링되려면 필요한 상태와 액션을 가진 Pinia 스토어를 여러 스토리에서 사용할 수 있어야 합니다. `.storybook/preview.ts`를 수정하고, Storybook의 `setup` 함수로 Pinia 스토어를 등록합니다:
 
-```diff:title=.storybook/preview.js
-+ import { setup } from '@storybook/vue3';
+```diff:title=.storybook/preview.ts
+import type { Preview } from '@storybook/vue3-vite'
 
-+ import { createPinia } from 'pinia';
++ import { setup } from '@storybook/vue3-vite'
+
++ import { createPinia } from 'pinia'
 
 import '../src/index.css';
 
@@ -163,8 +208,7 @@ import '../src/index.css';
 +   app.use(createPinia());
 + });
 
-/** @type { import('@storybook/vue3').Preview } */
-const preview = {
+const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
@@ -173,127 +217,232 @@ const preview = {
       },
     },
   },
-};
+}
 
 export default preview;
 ```
 
-이와 비슷하게 [Apollo](https://www.npmjs.com/package/apollo-storybook-decorator), [Relay](https://github.com/orta/react-storybooks-relay-container) 등의 다른 데이터 라이브러리에도 모의 컨텍스트를 제공할 수 있습니다.
+스토어를 등록하니 `InboxScreen` 스토리는 렌더링되지만, `Error` 스토리는 여전히 오류 화면 대신 작업 목록을 보여줍니다. 스토어의 상태와 액션을 모의 구현하는 방법은 여러 가지입니다. 여기서는 널리 쓰이는 API 모킹 라이브러리와 Storybook 애드온을 함께 사용해 해결하겠습니다.
 
-이제 Storybook에서 상태를 변경하며 올바르게 동작하는지 쉽게 확인할 수 있습니다:
+![오류 상태 대신 작업 목록을 보여주는 화면](/intro-to-storybook/broken-inbox-error-state-9-0-non-react.png)
 
-<video autoPlay muted playsInline loop >
+## API 모킹하기
 
-  <source
-    src="/intro-to-storybook/finished-pureinboxscreen-states-7-0.mp4"
-    type="video/mp4"
-  />
-</video>
+애플리케이션이 단순하고 원격 API 호출에 크게 의존하지 않으므로, [Mock Service Worker](https://mswjs.io/)와 [Storybook MSW 애드온](https://storybook.js.org/addons/msw-storybook-addon)을 사용하겠습니다. Mock Service Worker는 서비스 워커로 네트워크 요청을 가로채고 미리 준비한 데이터를 응답으로 보내주는 API 모킹 라이브러리입니다.
 
-## 컴포넌트 테스트
+[시작하기](/intro-to-storybook/vue/ko/get-started/)에서 애플리케이션을 설정할 때 두 패키지가 함께 설치되었습니다. 이제 설정을 추가하고 스토리에서 사용하면 됩니다.
 
-지금까지 우리는 단순한 컴포넌트에서 화면까지, 그리고 각 변경 사항을 스토리를 통해 계속 테스트하며 완전한 애플리케이션을 구축했습니다. 하지만 새 스토리를 추가할 때마다 다른 모든 스토리를 수동으로 확인해야 UI가 깨지지 않는지 알 수 있습니다. 이는 많은 추가 작업이 필요합니다.
+터미널에서 다음 명령어를 실행해 `public` 폴더에 서비스 워커를 생성하세요:
 
-이 과정을 자동화해 컴포넌트 상호작용을 자동으로 테스트할 수 없을까요?
+```shell
+yarn init-msw
+```
 
-### play 함수를 사용한 컴포넌트 테스트 작성
+그런 다음 `.storybook/preview.ts`를 수정하여 MSW를 초기화합니다:
 
-Storybook의 [`play`](https://storybook.js.org/docs/writing-stories/play-function)와 [`@storybook/addon-interactions`](https://storybook.js.org/docs/writing-tests/component-testing)는 이를 도와줍니다. play 함수는 스토리가 렌더링된 후 실행되는 간단한 코드 조각을 포함합니다.
+```diff:title=.storybook/preview.ts
+import type { Preview } from '@storybook/vue3-vite'
 
-play 함수는 Task가 업데이트될 때 UI에서 무슨 일이 일어나는지 확인하는 데 도움이 됩니다. 프레임워크에 구애받지 않는 DOM API를 사용하므로, 어떤 프론트엔드 프레임워크를 사용하든 UI와 상호작용하고 사용자 행동을 시뮬레이션할 수 있습니다.
+import { setup } from '@storybook/vue3-vite'
 
-`@storybook/addon-interactions`는 Storybook에서 테스트를 시각화하며, 단계별 진행 흐름과 일시정지, 재개, 되감기, 단계 이동 등의 UI 컨트롤을 제공합니다.
++ import { initialize, mswLoader } from 'msw-storybook-addon'
 
-다음과 같이 새로 만든 `PureInboxScreen` 스토리에 컴포넌트 상호작용을 설정합니다:
+import { createPinia } from 'pinia'
 
-```diff:title=src/components/PureInboxScreen.stories.js
-import PureInboxScreen from './PureInboxScreen.vue';
+import '../src/index.css'
 
-+ import { fireEvent, within } from '@storybook/test';
+//👇 Registers a global Pinia instance inside Storybook to be consumed by existing stories
+setup((app) => {
+  app.use(createPinia())
+})
 
-export default {
-  component: PureInboxScreen,
-  title: 'PureInboxScreen',
+// Registers the msw addon
++ initialize()
+
+const preview: Preview = {
+  parameters: {
+    controls: {
+      matchers: {
+        color: /(background|color)$/i,
+        date: /Date$/,
+      },
+    },
+  },
++ loaders: [mswLoader],
+}
+
+export default preview
+```
+
+마지막으로 `InboxScreen` 스토리에 원격 API 호출을 모의 구현하는 [파라미터](https://storybook.js.org/docs/writing-stories/parameters)를 추가합니다:
+
+```diff:title=src/components/InboxScreen.stories.ts
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+
++ import { http, HttpResponse } from 'msw'
+
+import InboxScreen from './InboxScreen.vue'
+
++ import * as PureTaskListStories from './PureTaskList.stories.ts'
+
+const meta = {
+  component: InboxScreen,
+  title: 'InboxScreen',
   tags: ['autodocs'],
+} satisfies Meta<typeof InboxScreen>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
++ parameters: {
++   msw: {
++     handlers: [
++       http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
++         return HttpResponse.json(PureTaskListStories.TaskListData);
++       }),
++     ],
++   },
++ },
 };
 
-export const Default = {};
-
-export const Error = {
-  args: { error: true },
+export const Error: Story = {
++ parameters: {
++   msw: {
++     handlers: [
++       http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
++         return new HttpResponse(null, {
++           status: 403,
++         });
++       }),
++     ],
++   },
++ },
 };
-
-+ export const WithInteractions = {
-+  play: async ({ canvasElement }) => {
-+    const canvas = within(canvasElement);
-+    // Simulates pinning the first task
-+    await fireEvent.click(canvas.getByLabelText('pinTask-1'));
-+    // Simulates pinning the third task
-+    await fireEvent.click(canvas.getByLabelText('pinTask-3'));
-+  },
-+ };
 ```
 
 <div class="aside">
 
-💡 `@storybook/test` 패키지는 `@storybook/jest`와 `@storybook/testing-library`를 대체하며, [Vitest](https://vitest.dev/) 기반의 더 가볍고 단순한 API를 제공합니다.
+💡 참고로, 상위 컴포넌트에서 하위 컴포넌트로 데이터를 전달하는 것도 좋은 방법입니다. 특히 [GraphQL](http://graphql.org/)을 사용할 때 유용합니다. [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)도 이 방식으로 개발했으며, 800개가 넘는 스토리를 함께 관리하고 있습니다.
 
 </div>
 
-스토리의 `Interactions` 패널을 클릭하면 play 함수 안의 상호작용 목록을 확인할 수 있습니다.
+Storybook을 확인하면 이제 `Error` 스토리가 의도대로 동작합니다. MSW가 원격 API 호출을 가로채고 알맞은 응답을 반환한 덕분입니다.
+
+<video autoPlay muted playsInline loop >
+  <source
+    src="/intro-to-storybook/inbox-screen-with-msw-addon-non-react-9.0.mp4"
+    type="video/mp4"
+  />
+</video>
+
+## 상호작용 테스트
+
+간단한 컴포넌트에서 시작해 화면까지 만들면서, 스토리로 변경 사항을 확인해왔습니다. 이제 실제로 동작하는 애플리케이션이 완성됐습니다. 하지만 스토리를 추가할 때마다 다른 스토리의 UI가 깨지지 않았는지 일일이 확인해야 한다면 손이 많이 갑니다.
+
+컴포넌트의 상호작용도 자동으로 테스트할 수 없을까요?
+
+### play 함수로 상호작용 테스트 작성하기
+
+Storybook의 [`play`](https://storybook.js.org/docs/writing-stories/play-function) 함수를 사용하면 됩니다. `play` 함수에는 스토리가 렌더링된 후 실행할 짧은 코드를 작성합니다. 특정 프레임워크에 의존하지 않는 DOM API를 사용하므로, 어떤 프론트엔드 프레임워크에서든 사용자처럼 UI를 조작하는 코드를 작성할 수 있습니다. 이를 이용해 작업 상태를 바꿨을 때 UI가 예상대로 동작하는지 확인하겠습니다.
+
+방금 만든 `InboxScreen` 스토리에 다음 코드를 추가해 컴포넌트와의 상호작용을 정의하세요:
+
+```diff:title=src/components/InboxScreen.stories.ts
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
+
++ import { waitFor, waitForElementToBeRemoved } from 'storybook/test'
+
+import { http, HttpResponse } from 'msw'
+
+import InboxScreen from './InboxScreen.vue'
+
+import * as PureTaskListStories from './PureTaskList.stories.ts'
+
+const meta = {
+  component: InboxScreen,
+  title: 'InboxScreen',
+  tags: ['autodocs'],
+} satisfies Meta<typeof InboxScreen>
+
+export default meta
+type Story = StoryObj<typeof meta>
+
+export const Default: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
+          return HttpResponse.json(PureTaskListStories.TaskListData);
+        }),
+      ],
+    },
+  },
++ play: async ({ canvas, userEvent }: any) => {
++   await waitForElementToBeRemoved(await canvas.findByTestId('empty'))
++   await waitFor(async () => {
++     await userEvent.click(canvas.getByLabelText('pinTask-1'))
++     await userEvent.click(canvas.getByLabelText('pinTask-3'))
++   })
++ },
+};
+
+export const Error: Story = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('https://jsonplaceholder.typicode.com/todos?userId=1', () => {
+          return new HttpResponse(null, {
+            status: 403,
+          });
+        }),
+      ],
+    },
+  },
+};
+```
+
+<div class="aside">
+
+💡 `Interactions` 패널에서는 테스트의 진행 과정을 단계별로 확인할 수 있습니다. 테스트를 일시 정지하거나 다시 실행하고, 이전 단계로 돌아가거나 한 단계씩 실행하는 기능도 제공합니다.
+
+</div>
+
+`Default` 스토리를 열고 `Interactions` 패널을 클릭하면 `play` 함수에 정의한 상호작용 목록을 볼 수 있습니다.
 
 <video autoPlay muted playsInline loop>
   <source
-    src="/intro-to-storybook/storybook-pureinboxscreen-interactive-stories.mp4"
+    src="/intro-to-storybook/storybook-play-function-non-react.mp4"
     type="video/mp4"
   />
 </video>
 
-### 테스트 러너를 사용한 테스트 자동화
+### Vitest 애드온으로 테스트 자동화하기
 
-play 함수를 사용하면 UI와 상호작용하며 Task 업데이트 시 반응을 빠르게 확인할 수 있고, UI 일관성을 추가 작업 없이 유지할 수 있습니다.
+`play` 함수로 사용자 동작을 재현하고, 작업 상태를 바꿨을 때 컴포넌트가 제대로 동작하는지 확인했습니다. 그런데 이 테스트는 해당 스토리를 열어야만 실행됩니다. 코드를 수정할 때마다 모든 테스트를 실행하려면 여전히 스토리를 하나씩 열어봐야 합니다. 이 과정도 자동화해봅시다.
 
-하지만 Storybook은 스토리를 볼 때만 상호작용 테스트를 실행하므로, 변경 사항이 있을 때 모든 스토리를 일일이 확인해야 합니다. 이를 자동화할 수 없을까요?
+Storybook의 [Vitest 애드온](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon)을 사용하면 상호작용 테스트를 자동으로 실행할 수 있습니다. Vitest를 기반으로 동작해 테스트를 빠르고 효율적으로 실행합니다. 직접 사용해보겠습니다.
 
-좋은 소식은 Storybook의 [test runner](https://storybook.js.org/docs/writing-tests/test-runner)를 사용하면 가능합니다. Playwright 기반의 독립 실행 유틸리티로, 모든 상호작용 테스트를 실행하고 깨진 스토리를 잡아냅니다.
+Storybook이 실행 중인 상태에서 사이드바의 "Run Tests"를 클릭하세요. 스토리의 렌더링과 동작, `play` 함수에 정의된 상호작용을 테스트합니다. 방금 `InboxScreen` 스토리에 추가한 테스트도 함께 실행됩니다.
 
-다음 명령으로 설치합니다.
-
-```shell
-yarn add --dev @storybook/test-runner
-```
-
-그런 다음 `package.json`의 `scripts`에 새 테스트 작업을 추가합니다.
-
-```json:clipboard=false
-{
-  "scripts": {
-    "test-storybook": "test-storybook"
-  }
-}
-```
-
-마지막으로 Storybook을 실행한 상태에서 새 터미널 창을 열고 다음 명령을 실행합니다.
-
-```shell
-yarn test-storybook --watch
-```
+<video autoPlay muted playsInline loop>
+  <source
+    src="/intro-to-storybook/storybook-vitest-addon-non-react.mp4"
+    type="video/mp4"
+  />
+</video>
 
 <div class="aside">
 
-💡 play 함수를 활용한 컴포넌트 테스트는 매우 강력하며, 여기서 다룬 것보다 훨씬 많은 기능을 제공합니다. 자세한 내용은 [공식 문서](https://storybook.js.org/docs/writing-tests/component-testing)를 참고하세요.
-
-더 자세한 테스트 전략은 [Testing Handbook](/ui-testing-handbook)에서 확인할 수 있습니다.
+💡 Vitest 애드온은 여기서 다룬 것 외에도 여러 종류의 테스트를 지원합니다. 자세한 내용은 [공식 문서](https://storybook.js.org/docs/writing-tests/integrations/vitest-addon)를 참고하세요.
 
 </div>
 
-![Storybook test runner successfully runs all tests](/intro-to-storybook/storybook-test-runner-execution.png)
-
-성공입니다! 이제 모든 스토리가 오류 없이 렌더링되고 모든 검증이 자동으로 통과하는지 확인할 수 있는 도구를 갖추었습니다. 테스트 실패 시, 실패한 스토리를 브라우저에서 열 수 있는 링크도 제공합니다.
+이제 스토리를 하나씩 확인하지 않아도 UI 테스트를 자동으로 실행할 수 있습니다. 애플리케이션에 기능을 추가하면서도 기존 UI가 제대로 동작하는지 확인할 수 있고, 테스트가 실패하면 바로 알 수 있어 문제를 빠르게 수정할 수 있습니다.
 
 ## 컴포넌트 주도 개발
 
-우리는 `Task`에서 시작해 `TaskList`를 거쳐, 이제 전체 화면 UI에 도달했습니다. `InboxScreen`은 중첩된 컨테이너 컴포넌트를 포함하고, 이에 맞는 스토리도 함께 갖추었습니다.
+가장 작은 단위인 `Task`에서 시작해 `TaskList`를 거쳐 화면 전체를 완성했습니다. `InboxScreen`은 데이터에 연결된 컴포넌트들을 포함하며, 이를 확인할 스토리도 갖추고 있습니다.
 
 <video autoPlay muted playsInline loop style="width:480px; height:auto; margin: 0 auto;">
   <source
@@ -302,10 +451,10 @@ yarn test-storybook --watch
   />
 </video>
 
-[**Component-Driven Development**](https://www.componentdriven.org/)를 사용하면 구성 요소 계층 구조를 위로 이동하면서 복잡성을 점진적으로 확장할 수 있습니다. 다양한 이점 중 특히 개발 프로세스와 가능한 모든 UI 를 적용할 수 있도록 집중 되었습니다. 간단히 말해서 CDD는 고품질의 복잡한 사용자 인터페이스를 구축하는 데 도움이 됩니다.
+[**컴포넌트 주도 개발**](https://www.componentdriven.org/)을 따르면 작은 컴포넌트부터 상위 컴포넌트로 올라가면서 복잡성을 단계적으로 다룰 수 있습니다. 한 번에 하나의 컴포넌트에 집중하고, UI가 가질 수 있는 다양한 상태를 더 꼼꼼하게 확인할 수 있다는 장점이 있습니다. 덕분에 복잡한 UI도 완성도 있게 만들 수 있습니다.
 
-아직 완료되지 않았습니다. UI가 빌드되었다고 작업이 끝난 것이 아닙니다. 또한 시간이 지나도 내구성이 유지되도록 보장해주어야 합니다.
+하지만 UI를 만들었다고 끝은 아닙니다. 앞으로 코드를 수정해도 UI가 안정적으로 동작하는지 확인해야 합니다.
 
 <div class="aside">
-💡 변경 사항을 Git에 커밋하는 것을 잊지 마세요!
+💡 변경 사항을 git으로 커밋하는 것을 잊지 마세요!
 </div>
