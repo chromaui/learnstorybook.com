@@ -1,12 +1,12 @@
 ---
 title: '기여하기'
-description: '스토리북(Storybook)을 세상과 함께 나눌 수 있도록 도와주세요'
+description: '더 많은 사람이 Storybook을 배울 수 있도록 도와주세요'
 ---
 
-'스토리북(Storybook) 배우기'에 기여해주세요! 문법이나 문장 부호 같은 작은 것이라면, 풀 리퀘스트(pull request)를 해주세요. 보다 큰 변화가 필요하다면 토론을 위해 [이슈를 추가](https://github.com/chromaui/learnstorybook.com/issues)해주세요.
+Storybook 튜토리얼에 기여해주세요! 오탈자나 문장 부호처럼 간단한 수정은 바로 풀 리퀘스트를 보내주시면 됩니다. 큰 변경이 필요하다면 먼저 [이슈를 등록](https://github.com/chromaui/learnstorybook.com/issues)해 함께 논의해주세요.
 
-'스토리북 튜토리얼'은 주로 커뮤니티에 의해 만들어지고 유지되어 왔기 때문에, 시간이 흐를수록 불완전한 부분을 다듬고, 최신 상태로 유지하기 위해서는 많은 분의 도움이 필요합니다. 모든 도움에 감사드립니다!
+Storybook 튜토리얼은 주로 커뮤니티의 힘으로 만들어지고 관리됩니다. 내용을 최신 상태로 유지하고 부족한 부분을 개선하려면 여러분의 도움이 필요합니다. 작은 기여도 환영합니다!
 
 ## 번역
 
-저희의 목표는 모든 분들이 스토리북에 쉽게 접근하실 수 있도록 하는 것입니다. 이 튜토리얼을 다른 언어로 번역하는 데 도움을 주세요. 특히 중국어와 스페인어 번역에 열려있습니다. [이슈](https://github.com/chromaui/learnstorybook.com/issues/3)에 댓글을 남겨주세요.
+누구나 쉽게 Storybook을 배울 수 있도록 이 튜토리얼을 다른 언어로 번역하는 데 참여해주세요. 특히 중국어와 스페인어 번역을 기다리고 있습니다. 관심이 있다면 [이 이슈](https://github.com/chromaui/learnstorybook.com/issues/3)에 댓글을 남겨주세요.
