@@ -1,7 +1,7 @@
 ---
-title: '화면 만들기'
+title: '화면 구성하기'
 tocTitle: '화면'
-description: '컴포넌트를 조합해 화면을 만들어보세요'
+description: '컴포넌트로 화면을 구성해봅시다'
 commit: 'ce81973'
 ---
 
@@ -13,7 +13,7 @@ commit: 'ce81973'
 
 애플리케이션이 단순한 만큼 이번에 만들 화면도 간단합니다. 원격 API에서 데이터를 가져오고, Pinia를 통해 데이터를 받는 `TaskList` 컴포넌트를 레이아웃 안에 배치합니다. 또 스토어의 최상위 `error` 필드를 읽어 오류를 표시합니다. 서버에 연결하는 데 문제가 생기면 이 필드에 오류 정보가 저장된다고 가정하겠습니다.
 
-먼저 `src/store.ts`의 스토어를 수정해 원격 API에 연결하고, 오류나 성공 등 애플리케이션의 여러 상태를 처리하도록 합니다:
+먼저 `src/store.ts`의 스토어를 수정해 원격 API에 연결하고, 오류 정보(`error`)와 요청 성공 상태(`succeeded`) 등 애플리케이션의 여러 상태를 처리하도록 합니다:
 
 ```ts:title=src/store.ts
 import type { TaskData } from './types'
@@ -181,7 +181,7 @@ export const Default: Story = {}
 export const Error: Story = {}
 ```
 
-스토리를 확인하면 작업 목록이 나와야 할 자리에 빈 화면이 보입니다. 지난 장처럼 작업 목록과 오류 상태를 props로 받는 `PureInboxScreen`을 만들 수도 있습니다. 하지만 앞서 설명했듯이, 데이터에 연결된 컴포넌트가 많아질수록 이런 방식은 관리하기 어려워집니다. 이번에는 스토리에 필요한 컨텍스트를 제공해 문제를 해결해보겠습니다.
+스토리를 확인하면 각 스토리에 맞는 상태 대신 작업 목록이 없는 빈 화면이 보입니다. 지난 장처럼 작업 목록과 오류 상태를 props로 받는 프레젠테이셔널 컴포넌트인 `PureInboxScreen`을 만들 수도 있습니다. 하지만 앞서 설명했듯이, 데이터에 연결된 컴포넌트가 많아질수록 이런 방식은 관리하기 어려워집니다. 이번에는 스토리에 필요한 컨텍스트를 제공해 문제를 해결해보겠습니다.
 
 <!-- TODO:
   - Follow up with Design to get an updated image for this section
@@ -226,7 +226,7 @@ export default preview;
 
 ![오류 상태 대신 작업 목록을 보여주는 화면](/intro-to-storybook/broken-inbox-error-state-9-0-non-react.png)
 
-## API 모킹하기
+## API 서비스 모킹(Mocking)
 
 애플리케이션이 단순하고 원격 API 호출에 크게 의존하지 않으므로, [Mock Service Worker](https://mswjs.io/)와 [Storybook MSW 애드온](https://storybook.js.org/addons/msw-storybook-addon)을 사용하겠습니다. Mock Service Worker는 서비스 워커로 네트워크 요청을 가로채고 미리 준비한 데이터를 응답으로 보내주는 API 모킹 라이브러리입니다.
 
@@ -342,7 +342,7 @@ Storybook을 확인하면 이제 `Error` 스토리가 의도대로 동작합니�
 
 컴포넌트의 상호작용도 자동으로 테스트할 수 없을까요?
 
-### play 함수로 상호작용 테스트 작성하기
+### play 함수를 사용하여 상호작용 테스트 작성하기
 
 Storybook의 [`play`](https://storybook.js.org/docs/writing-stories/play-function) 함수를 사용하면 됩니다. `play` 함수에는 스토리가 렌더링된 후 실행할 짧은 코드를 작성합니다. 특정 프레임워크에 의존하지 않는 DOM API를 사용하므로, 어떤 프론트엔드 프레임워크에서든 사용자처럼 UI를 조작하는 코드를 작성할 수 있습니다. 이를 이용해 작업 상태를 바꿨을 때 UI가 예상대로 동작하는지 확인하겠습니다.
 
@@ -404,7 +404,7 @@ export const Error: Story = {
 
 <div class="aside">
 
-💡 `Interactions` 패널에서는 테스트의 진행 과정을 단계별로 확인할 수 있습니다. 테스트를 일시 정지하거나 다시 실행하고, 이전 단계로 돌아가거나 한 단계씩 실행하는 기능도 제공합니다.
+💡 `Interactions` 패널에서는 테스트의 진행 과정을 단계별로 확인할 수 있습니다. 테스트를 일시 정지하거나 멈춘 지점부터 이어서 실행하고, 이전 단계로 돌아가거나 상호작용을 한 단계씩 실행하는 기능도 제공합니다.
 
 </div>
 
@@ -417,7 +417,7 @@ export const Error: Story = {
   />
 </video>
 
-### Vitest 애드온으로 테스트 자동화하기
+### Vitest 애드온을 사용한 테스트 자동화
 
 `play` 함수로 사용자 동작을 재현하고, 작업 상태를 바꿨을 때 컴포넌트가 제대로 동작하는지 확인했습니다. 그런데 이 테스트는 해당 스토리를 열어야만 실행됩니다. 코드를 수정할 때마다 모든 테스트를 실행하려면 여전히 스토리를 하나씩 열어봐야 합니다. 이 과정도 자동화해봅시다.
 

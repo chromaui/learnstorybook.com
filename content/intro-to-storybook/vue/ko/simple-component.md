@@ -1,13 +1,13 @@
 ---
 title: '간단한 컴포넌트 만들기'
 tocTitle: '간단한 컴포넌트'
-description: '컴포넌트를 독립적으로 만들어보세요'
+description: '간단한 컴포넌트를 독립적으로 만들어봅시다'
 commit: '18e218e'
 ---
 
 [컴포넌트 주도 개발(Component-Driven Development, CDD)](https://www.componentdriven.org/) 방법론에 따라 UI를 만들겠습니다. 컴포넌트부터 시작해 화면까지 만드는 "상향식" 개발 방식입니다. CDD를 사용하면 UI를 구축하면서 마주하는 복잡성을 단계적으로 다룰 수 있습니다.
 
-## Task
+## Task 컴포넌트
 
 ![세 가지 상태의 Task 컴포넌트](/intro-to-storybook/task-states-learnstorybook-accessible.png)
 
@@ -117,7 +117,7 @@ export const Archived: Story = {
 
 </div>
 
-Storybook은 기본적으로 컴포넌트와 그 하위 스토리라는 두 단계로 구성됩니다. 각 스토리는 컴포넌트가 가질 수 있는 상태 중 하나라고 생각하면 됩니다. 컴포넌트마다 필요한 만큼 스토리를 만들 수 있습니다.
+Storybook에는 두 가지 기본 구성 단계가 있습니다. 컴포넌트와 그 하위 스토리입니다. 각 스토리를 컴포넌트의 변형이라고 생각해보세요. 한 컴포넌트는 필요한 만큼 많은 스토리를 가질 수 있습니다.
 
 - **컴포넌트**
   - 스토리
@@ -134,13 +134,13 @@ Storybook은 기본적으로 컴포넌트와 그 하위 스토리라는 두 단�
 
 스토리는 Component Story Format 3([CSF3](https://storybook.js.org/docs/api/csf)) 형식으로 작성합니다. 컴포넌트의 상태를 객체에 담아 내보내는 방식이라 테스트 케이스를 간결하고 직관적으로 표현할 수 있습니다. 스토리를 작성하고 재사용하기도 편리합니다.
 
-인자(arguments), 줄여서 [`args`](https://storybook.js.org/docs/writing-stories/args)를 사용하면 Storybook을 재시작하지 않고도 Controls 애드온으로 컴포넌트를 실시간으로 수정할 수 있습니다. [`args`](https://storybook.js.org/docs/writing-stories/args) 값이 바뀌면 컴포넌트에도 바로 반영됩니다.
+인수(arguments), 줄여서 [`args`](https://storybook.js.org/docs/writing-stories/args)를 사용하면 Storybook을 다시 시작하지 않고도 Controls 애드온으로 컴포넌트를 실시간으로 편집할 수 있습니다. [`args`](https://storybook.js.org/docs/writing-stories/args) 값이 변경되면 컴포넌트도 함께 변경됩니다.
 
-`fn()`으로 만든 콜백은 클릭 시 Storybook UI의 **Actions** 패널에 호출 내역을 표시합니다. 따라서 고정 버튼을 만들 때 UI에서 버튼 클릭이 제대로 처리되는지 확인할 수 있습니다.
+`fn()`을 사용하면 클릭 시 Storybook UI의 **Actions** 패널에 호출 내역이 나타나는 콜백을 생성할 수 있습니다. 따라서 핀으로 고정하는 버튼을 만들 때 버튼 클릭이 UI에서 제대로 처리되는지 확인할 수 있습니다.
 
 모든 스토리에 같은 액션이 필요하므로, `TaskData` 변수에 한데 묶어 전달하면 편리합니다. 이렇게 묶은 `TaskData`를 `export`하면 Task를 사용하는 다른 컴포넌트의 스토리에서도 재사용할 수 있습니다. 이 방법은 뒤에서 살펴보겠습니다.
 
-## 설정
+## 환경 설정
 
 새로 만든 스토리를 인식하고 애플리케이션의 CSS 파일(`src/index.css`)을 사용할 수 있도록 Storybook 설정 파일을 몇 군데 수정해야 합니다.
 
@@ -188,7 +188,7 @@ const preview: Preview = {
 export default preview;
 ```
 
-[`parameters`](https://storybook.js.org/docs/writing-stories/parameters)는 보통 Storybook 기능과 애드온의 동작을 제어하는 데 사용합니다. 여기서는 해당 설정을 변경하는 대신 애플리케이션의 CSS 파일을 가져옵니다.
+[매개변수(`parameters`)](https://storybook.js.org/docs/writing-stories/parameters)는 일반적으로 Storybook의 기능과 애드온의 동작을 제어하는 데 사용됩니다. 이번에는 그 용도로 사용하지 않고, 애플리케이션의 CSS 파일을 가져오겠습니다.
 
 설정을 마친 뒤 Storybook 서버를 재시작하면 Task의 세 가지 상태에 대한 테스트 케이스를 볼 수 있습니다:
 
@@ -199,7 +199,7 @@ export default preview;
   />
 </video>
 
-## 상태 구현하기
+## 상태(States) 구현하기
 
 Storybook 설정, 스타일 가져오기, 테스트 케이스 작성이 끝났으므로 이제 디자인에 맞게 컴포넌트의 HTML을 구현할 수 있습니다.
 
@@ -301,7 +301,7 @@ function pinTask(): void {
   />
 </video>
 
-## 필요한 데이터 정의하기
+## 데이터 요구 사항 명시하기
 
 컴포넌트를 계속 만들어가면서 TypeScript 타입을 정의해 `Task` 컴포넌트가 요구하는 데이터의 형태를 명시할 수 있습니다. 이렇게 하면 오류를 일찍 발견하고, 복잡성이 늘어나도 컴포넌트를 올바르게 사용할 수 있습니다. 먼저 `src` 폴더에 `types.ts` 파일을 만들고 기존 `TaskData` 타입을 옮깁니다:
 

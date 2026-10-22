@@ -1,11 +1,11 @@
 ---
-title: 'Vue를 위한 Storybook 튜토리얼'
+title: '뷰(Vue)를 위한 스토리북(Storybook) 튜토리얼'
 tocTitle: '시작하기'
-description: '개발 환경에 Vue Storybook을 설정해보세요'
+description: 'Vue 스토리북(Storybook)을 개발 환경에 설정해보세요'
 commit: '7bff3f5'
 ---
 
-Storybook은 개발 모드에서 애플리케이션과 함께 실행됩니다. 애플리케이션의 비즈니스 로직이나 컨텍스트와 분리된 상태에서 UI 컴포넌트를 개발할 수 있도록 도와줍니다. 이 Storybook 입문 튜토리얼은 Vue를 다루며, [React](/intro-to-storybook/react/ko/get-started/), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/) 버전도 있습니다.
+스토리북(Storybook)은 개발 모드에서 앱과 함께 실행됩니다. 비즈니스 로직과 컨텍스트(context)로부터 분리된 환경에서 UI 컴포넌트를 만들 수 있도록 도와줍니다. 이 Storybook 입문 튜토리얼은 Vue를 위해 작성되었습니다. 그 밖에 [React](/intro-to-storybook/react/ko/get-started/), [React Native](/intro-to-storybook/react-native/en/get-started/), [Angular](/intro-to-storybook/angular/en/get-started/), [Svelte](/intro-to-storybook/svelte/en/get-started/) 버전도 있습니다.
 
 ![Storybook과 애플리케이션의 관계](/intro-to-storybook/storybook-relationship.jpg)
 

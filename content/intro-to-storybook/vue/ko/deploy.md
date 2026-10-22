@@ -1,7 +1,7 @@
 ---
-title: 'Storybook 배포하기'
-tocTitle: '배포'
-description: 'Storybook을 온라인에 배포하는 방법을 배워보세요'
+title: '스토리북(Storybook) 배포하기'
+tocTitle: '배포하기'
+description: 'Storybook을 온라인으로 배포하는 방법을 배워보세요'
 ---
 
 지금까지 로컬 개발 환경에서 컴포넌트를 만들었습니다. 이제 팀원들의 의견을 받을 수 있도록 결과물을 공유해봅시다. Storybook을 온라인에 배포하면 팀원들도 구현된 UI를 살펴볼 수 있습니다.
@@ -14,7 +14,7 @@ Storybook을 배포하려면 먼저 정적 웹 앱으로 내보내야 합니다.
 
 ## Storybook 게시하기
 
-이 튜토리얼에서는 Storybook 유지 관리팀이 만든 무료 배포 서비스인 [Chromatic](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)을 사용합니다. Chromatic을 이용하면 Storybook을 클라우드에 안전하게 배포하고 호스팅할 수 있습니다.
+이번 튜토리얼에서는 Storybook 관리자가 만든 무료 배포 서비스인 [크로마틱(Chromatic)](https://www.chromatic.com/?utm_source=storybook_website&utm_medium=link&utm_campaign=storybook)을 사용하겠습니다. 이를 통해 Storybook을 클라우드에 안전하게 배포하고 호스팅할 수 있습니다.
 
 ### GitHub 저장소 만들기
 
@@ -24,7 +24,7 @@ GitHub의 [새 저장소 만들기 페이지](https://github.com/new)에서 프�
 
 ![GitHub 저장소 만들기](/intro-to-storybook/github-create-taskbox.png)
 
-새 저장소의 URL을 복사한 뒤, 다음 명령어로 git 프로젝트의 원격 저장소를 등록합니다:
+새 저장소의 URL을 복사한 뒤, 다음 명령어로 git 프로젝트에 `origin`이라는 이름의 원격 저장소를 등록합니다:
 
 ```shell
 git remote add origin https://github.com/<your username>/taskbox.git

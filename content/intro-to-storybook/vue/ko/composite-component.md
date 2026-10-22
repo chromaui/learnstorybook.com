@@ -1,19 +1,19 @@
 ---
-title: '복합 컴포넌트 조립하기'
-tocTitle: '복합 컴포넌트'
-description: '간단한 컴포넌트들을 조합해 복합 컴포넌트를 만들어보세요'
+title: '복합적 컴포넌트 조합하기'
+tocTitle: '복합적 컴포넌트'
+description: '간단한 컴포넌트로 복합적 컴포넌트를 조합해보세요'
 commit: '554783d'
 ---
 
-지난 장에서는 첫 번째 컴포넌트를 만들었습니다. 이번 장에서는 배운 내용을 확장하여 Task의 목록인 TaskList를 만들겠습니다. 컴포넌트를 조합하고 복잡성이 늘어날 때 어떤 변화가 생기는지 살펴봅시다.
+지난 장에서 첫 번째 컴포넌트를 만들어보았습니다. 이번 장에서는 이전에 학습한 내용을 바탕으로 Task의 목록인 TaskList를 만들어보겠습니다. 컴포넌트를 결합하여 복잡성이 커지는 경우 어떤 일이 일어나는지 함께 살펴보겠습니다.
 
 ## TaskList
 
-Taskbox는 고정된 작업을 일반 작업보다 위에 배치해 강조합니다. 따라서 `TaskList`에는 일반 작업과 고정된 작업이라는 두 가지 상태에 대한 스토리가 필요합니다.
+Taskbox는 핀으로 고정된 작업을 일반 작업 위에 배치하여 강조합니다. 따라서 일반 작업과 핀으로 고정된 작업에 대한 두 가지 유형의 `TaskList` 스토리를 만들어야 합니다.
 
 ![일반 작업과 고정된 작업](/intro-to-storybook/tasklist-states-1.png)
 
-`Task` 데이터는 비동기로 전달될 수 있으므로, 데이터를 기다리는 동안 표시할 로딩 상태도 **추가로** 필요합니다. 작업이 하나도 없을 때 표시할 빈 상태도 필요합니다.
+`Task` 데이터는 비동기로 전달될 수 있으므로, 아직 연결되지 않았거나 데이터를 기다리는 동안 표시할 로딩 상태도 **추가로** 필요합니다. 작업이 하나도 없을 때 표시할 빈 상태도 필요합니다.
 
 ![작업이 없는 상태와 로딩 상태](/intro-to-storybook/tasklist-states-2.png)
 
@@ -150,7 +150,7 @@ export const Empty: Story = {
 
 </div>
 
-`TaskStories`를 가져오면 스토리의 인자(args)를 손쉽게 [조합](https://storybook.js.org/docs/writing-stories/args#args-composition)할 수 있습니다. 이렇게 하면 두 컴포넌트에 필요한 데이터와 액션(모의 콜백)을 그대로 유지할 수 있습니다.
+`TaskStories`를 가져오면 스토리의 인수(arguments, 줄여서 args)를 손쉽게 [조합](https://storybook.js.org/docs/writing-stories/args#args-composition)할 수 있습니다. 이를 통해 두 컴포넌트에 필요한 데이터와 액션(모의 콜백)을 모두 유지할 수 있습니다.
 
 이제 Storybook에서 새로운 `TaskList` 스토리를 확인하세요.
 
@@ -161,7 +161,7 @@ export const Empty: Story = {
   />
 </video>
 
-## 상태 구현하기
+## 상태(States) 구현하기
 
 컴포넌트는 아직 기본적인 형태지만, 이제 어떤 스토리를 구현해야 할지 알 수 있습니다. `.list-items` 래퍼가 너무 단순하다고 생각할 수도 있습니다. 실제로 래퍼 하나를 추가하기 위해 새 컴포넌트를 만드는 경우는 많지 않습니다. 하지만 `TaskList`의 **구현이 복잡해지는 부분**은 따로 있습니다. 고정된 작업이 있는 상태(`WithPinnedTasks`), 로딩 상태(`Loading`), 빈 상태(`Empty`)를 각각 처리해야 하기 때문입니다.
 
