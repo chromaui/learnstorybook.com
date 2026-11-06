@@ -117,7 +117,7 @@ function AppLayout(props) {
       }
       guides: allMarkdownRemark(
         filter: { fields: { pageType: { eq: "guide" } } }
-        sort: { order: ASC, fields: [frontmatter___order] }
+        sort: { frontmatter: { order: ASC } }
       ) {
         edges {
           node {
