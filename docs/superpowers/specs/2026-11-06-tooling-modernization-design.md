@@ -332,3 +332,24 @@ of this document should expect are:
   `FrameworkSelector.js` imports the generated `src/content/docs/frameworks`. It uses
   `sudo corepack enable` (the image ships Yarn 1), and the Chromatic workflow checks out
   with `fetch-depth: 0` so the baseline commit is available.
+
+### Follow-ups (2026-11-06, after the review)
+
+After the Gatsby 5 pass the user asked for a round of small changes, each its own commit on the
+same branch. `gatsby-plugin-google-analytics` is gone: Universal Analytics stopped processing
+hits in 2024, and the gtag plugin stays for GA4. ESLint stays on 10; Yarn's package extensions
+cannot widen an existing peer range, so a log filter scoped to ESLint 10 drops the one warning
+the import, jsx-a11y and react plugins still raise. `unist-util-visit` is declared, and the
+extraneous-dependency lint rule now checks against the root manifest rather than the local
+plugins' stub ones. `node --test` is pinned to the plugin and src test globs,
+`trailingSlash: 'always'` is stated explicitly, CircleCI caches Yarn's global cache, and
+`npmMinimalAgeGate` is a week instead of the `0` section 1 lists. The document head moved from
+react-helmet to Gatsby's Head API: one `PageHead` component renders the full tag set from
+siteMetadata plus the page's own values, each page component exports a `Head` that uses it, and
+`gatsby-plugin-react-helmet` and `react-helmet` are gone; the built head tags of the index, a
+guide, a chapter and the 404 page are identical to the react-helmet output. Gatsby compiles each
+page file a second time without its `Head` export, so nothing else in the file may refer to
+`Head`: a `Head.propTypes` assignment crashed the develop server, the guide and chapter screens
+validate the head's props on an inner component instead, and `src/head-export.test.js` runs
+Gatsby's own transform over every file exporting a `Head` to keep it that way. The README was
+left as it was at the user's request.
