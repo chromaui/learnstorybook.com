@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const visit = require('unist-util-visit');
 
 const cheerio = require(`cheerio`);
@@ -97,4 +96,3 @@ module.exports = function gatsbyRemarkPrefixLinks({ markdownAST, pathPrefix }) {
 
   return markdownAST;
 };
-/* eslint-enable import/no-extraneous-dependencies */

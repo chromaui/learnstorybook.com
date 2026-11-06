@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const visit = require('unist-util-visit');
 
 module.exports = function gatsbyRemarkCodeButtons({ markdownAST }) {

@@ -60,6 +60,9 @@ export default [
       'import/no-extraneous-dependencies': [
         'error',
         {
+          // The local Gatsby plugins carry stub manifests; the root package.json is what installs
+          // their dependencies, so check against it everywhere.
+          packageDir: import.meta.dirname,
           devDependencies: [
             '**/*.stories.js',
             '**/*.test.js',
