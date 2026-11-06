@@ -8,6 +8,7 @@ const path = require('path');
 const { createFilePath } = require(`gatsby-source-filesystem`);
 
 const sourceDXData = require('./src/utils/source-dx-data');
+const getTutorialUpToDate = require('./src/utils/getTutorialUpToDate');
 const config = require('./gatsby-config');
 
 const defaultLanguage = 'en';
@@ -27,6 +28,20 @@ const onCreateGuideNode = ({ actions, node, slug }) => {
   createNodeField({ node, name: 'pageType', value: 'guide' });
 };
 
+const createTutorialUpToDateField = ({ createNodeField, node, guide, framework, language }) => {
+  const { storybookVersion, tutorialStatus } = config.siteMetadata;
+  const tutorialUpToDate = getTutorialUpToDate({
+    tutorialStatus,
+    storybookVersion,
+    guide,
+    framework,
+    language,
+  });
+  if (tutorialUpToDate !== undefined) {
+    createNodeField({ node, name: 'tutorialUpToDate', value: tutorialUpToDate });
+  }
+};
+
 const onCreateNonFrameworkChapterNode = ({ actions, node, slug }) => {
   const { createNodeField } = actions;
   const parts = getSlugParts(slug);
@@ -39,6 +54,7 @@ const onCreateNonFrameworkChapterNode = ({ actions, node, slug }) => {
   createNodeField({ node, name: 'chapter', value: chapter });
   createNodeField({ node, name: 'pageType', value: 'chapter' });
   createNodeField({ node, name: 'isDefaultTranslation', value: language === defaultLanguage });
+  createTutorialUpToDateField({ createNodeField, node, guide, language });
 };
 
 const onCreateFrameworkChapterNode = ({ actions, node, slug }) => {
@@ -58,22 +74,7 @@ const onCreateFrameworkChapterNode = ({ actions, node, slug }) => {
     name: 'isDefaultTranslation',
     value: language === defaultLanguage && framework === defaultFramework,
   });
-  const { siteMetadata } = config;
-  const { storybookVersion, tutorialStatus } = siteMetadata;
-
-  const currentGuide = tutorialStatus[guide];
-  const currentFramework = currentGuide[framework];
-
-  // checks if the framework is defined
-  if (!currentFramework) {
-    return;
-  }
-  // gets and checks if the translation is defined
-  const currentVersion = currentFramework[language];
-  if (!currentVersion) {
-    return;
-  }
-  createNodeField({ node, name: 'tutorialUpToDate', value: storybookVersion === currentVersion });
+  createTutorialUpToDateField({ createNodeField, node, guide, framework, language });
 };
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
@@ -189,6 +190,17 @@ exports.createPages = ({ graphql, actions }) => {
       }
     );
   });
+};
+
+// Optional guide frontmatter. Declared so the landing page query is valid even when no guide
+// sets them (Gatsby only infers fields that appear in content).
+exports.createSchemaCustomization = ({ actions }) => {
+  actions.createTypes(`
+    type MarkdownRemarkFrontmatter {
+      isNew: Boolean
+      themeGradientName: String
+    }
+  `);
 };
 
 exports.sourceNodes = async ({ actions, createNodeId, createContentDigest }) => {

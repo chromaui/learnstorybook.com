@@ -198,6 +198,14 @@ contributors:
 
 An animation to use on the guide's hero image, which corresponds with a named export from the [animation styles file](https://github.com/chromaui/learnstorybook.com/tree/master/src/styles/animations.js). The export must contain the entire CSS property and value for the animation.
 
+#### `isNew`
+
+A boolean. When `true`, the guide's card on the landing page shows a "New" badge. Remove the field from the guide's frontmatter once the guide is no longer new.
+
+#### `themeGradientName`
+
+A gradient to use instead of `themeColor` on the guide's landing page card and hero, which corresponds with a named export from the [gradient styles file](https://github.com/chromaui/learnstorybook.com/tree/master/src/styles/gradients.js). The export must contain the entire CSS `background` value. `themeColor` is still required and is used wherever the gradient cannot be rendered.
+
 #### `twitterShareText`
 
 The text content for the tweet that is auto-populated when people choose to share the guide on Twitter. The URL that is included in the tweet is auto-generated based on the guide, but the individual guide can control the messaging before the link.

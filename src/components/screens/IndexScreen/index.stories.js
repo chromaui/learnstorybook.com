@@ -51,6 +51,23 @@ Default.args = {
           node: {
             frontmatter: {
               description:
+                'Give coding agents the context, docs and feedback loops they need to build with your components.',
+              isNew: true,
+              title: 'Make your Design System AI-ready',
+              themeColor: '#EA580C',
+              themeGradientName: 'sunrise',
+              thumbImagePath: '/guide-thumb/ai-ready-design-systems.svg',
+            },
+            fields: {
+              guide: 'ai-ready-design-systems',
+              slug: '/ai-ready-design-systems',
+            },
+          },
+        },
+        {
+          node: {
+            frontmatter: {
+              description:
                 '✍️Coming soon: Visual testing is a pragmatic yet precise way to check UI appearance.',
               title: 'Visual Testing Handbook',
               themeColor: '#129F00',

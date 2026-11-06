@@ -29,7 +29,7 @@ const Content = styled.div`
     }
 
     @media (min-width: ${breakpoint * 1.75}px) {
-      max-width: calc(33% - 40px);
+      max-width: calc(25% - 40px);
     }
   }
 `;
@@ -83,7 +83,9 @@ function Guides({ chaptersEdges, guidesEdges }) {
             chapterCount={chapterCountByGuide[guideNode.fields.guide]}
             description={guideNode.frontmatter.description}
             imagePath={withPrefix(guideNode.frontmatter.thumbImagePath)}
+            isNew={guideNode.frontmatter.isNew}
             themeColor={guideNode.frontmatter.themeColor}
+            themeGradientName={guideNode.frontmatter.themeGradientName}
             title={guideNode.frontmatter.title}
           />
         </GuideLink>
@@ -111,8 +113,10 @@ Guides.propTypes = {
         }).isRequired,
         frontmatter: PropTypes.shape({
           description: PropTypes.string.isRequired,
+          isNew: PropTypes.bool,
           title: PropTypes.string.isRequired,
           themeColor: PropTypes.string.isRequired,
+          themeGradientName: PropTypes.string,
           thumbImagePath: PropTypes.string,
         }).isRequired,
       }).isRequired,

@@ -6,6 +6,7 @@ import { styled, css } from '@storybook/theming';
 import GatsbyLink from '../../basics/GatsbyLink';
 import Stat from '../../basics/Stat';
 import * as animations from '../../../styles/animations';
+import getThemeBackground from '../../../lib/getThemeBackground';
 
 const { breakpoint, color, pageMargins, spacing, typography } = styles;
 
@@ -13,7 +14,7 @@ const HeroWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: ${(props) => props.themeColor};
+  background: ${(props) => props.background};
   padding-bottom: 80px;
   padding-top: ${7 + 2}rem;
   padding-left: ${spacing.padding.medium}px;
@@ -155,11 +156,13 @@ function Hero({
   imagePath,
   languages,
   themeColor,
+  themeGradientName,
   title,
   ...rest
 }) {
+  const background = getThemeBackground({ themeColor, themeGradientName });
   return (
-    <HeroWrapper themeColor={themeColor} {...rest}>
+    <HeroWrapper background={background} {...rest}>
       <HeroContent>
         <Pitch>
           <PitchTitle>{title}</PitchTitle>
@@ -211,6 +214,7 @@ Hero.propTypes = {
     })
   ).isRequired,
   themeColor: PropTypes.string.isRequired,
+  themeGradientName: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
 
@@ -221,6 +225,7 @@ Hero.defaultProps = {
   description: null,
   heroAnimationName: null,
   imagePath: null,
+  themeGradientName: null,
 };
 
 export default Hero;

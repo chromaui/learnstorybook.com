@@ -77,7 +77,7 @@ const Logos = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
   filter: grayscale(1);
   opacity: 0.5;
 
@@ -148,9 +148,11 @@ function IndexScreen(props) {
           node {
             frontmatter {
               description
+              isNew
               order
               title
               themeColor
+              themeGradientName
               thumbImagePath
             }
             fields {

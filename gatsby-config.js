@@ -73,6 +73,9 @@ module.exports = {
           ko: 6.5,
         },
       },
+      'ai-ready-design-systems': {
+        en: 10,
+      },
     },
   },
   plugins: [

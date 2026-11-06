@@ -146,3 +146,12 @@ AboveTwentyLanguages.args = {
   ...WithChapterCount.args,
   languages: storyLanguagesData,
 };
+export const WithGradientTheme = Story.bind();
+WithGradientTheme.storyName = 'with gradient theme';
+WithGradientTheme.args = {
+  ...WithChapterCount.args,
+  themeColor: '#EA580C',
+  themeGradientName: 'sunrise',
+  title: 'Make your Design System AI-ready',
+  imagePath: '/guide-cover/ai-ready-design-systems.svg',
+};

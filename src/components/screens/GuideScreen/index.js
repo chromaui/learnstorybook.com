@@ -8,6 +8,7 @@ import { graphql, withPrefix } from 'gatsby';
 import { darken } from 'polished';
 
 import tocEntries from '../../../lib/tocEntries';
+import getGuideLanguageLinks from '../../../lib/getGuideLanguageLinks';
 import getLanguageName from '../../../lib/getLanguageName';
 import { guideFormatting } from '../../../styles/formatting';
 import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
@@ -74,13 +75,7 @@ const Detail = styled.div`
   }
 `;
 
-const getTranslationLanguages = (translationPages) =>
-  translationPages.edges.reduce(
-    (uniqueLanguages, pageEdge) => uniqueLanguages.add(pageEdge.node.fields.language),
-    new Set()
-  );
-
-function Guide({ data, pageContext }) {
+function Guide({ data }) {
   const {
     currentPage: {
       html,
@@ -92,6 +87,7 @@ function Guide({ data, pageContext }) {
         heroAnimationName,
         heroDescription,
         themeColor,
+        themeGradientName,
         title,
         toc,
         overview,
@@ -100,15 +96,11 @@ function Guide({ data, pageContext }) {
     pages,
     translationPages,
   } = data;
-  const { slug } = pageContext;
   const entries = toc && toc.length > 0 ? tocEntries(toc, pages) : [];
-  const languages = Array.from(getTranslationLanguages(translationPages)).map((language) => ({
-    name: getLanguageName(language),
-    tutorial:
-      slug === '/intro-to-storybook/'
-        ? `${slug}react/${language}/get-started/`
-        : `${slug}react/${language}/introduction/`,
-  }));
+  const languages = getGuideLanguageLinks({
+    translationPages,
+    firstChapter: toc && toc[0],
+  }).map(({ language, tutorial }) => ({ name: getLanguageName(language), tutorial }));
   return (
     <AppLayout
       includePageMargins={false}
@@ -131,6 +123,7 @@ function Guide({ data, pageContext }) {
         languages={languages}
         title={title}
         themeColor={themeColor}
+        themeGradientName={themeGradientName}
       />
 
       <Content>
@@ -175,6 +168,7 @@ Guide.propTypes = {
         heroAnimationName: PropTypes.string,
         heroDescription: PropTypes.string,
         themeColor: PropTypes.string.isRequired,
+        themeGradientName: PropTypes.string,
         toc: PropTypes.arrayOf(PropTypes.string.isRequired),
         title: PropTypes.string.isRequired,
         overview: PropTypes.string.isRequired,
@@ -209,6 +203,8 @@ Guide.propTypes = {
         PropTypes.shape({
           node: PropTypes.shape({
             fields: PropTypes.shape({
+              chapter: PropTypes.string,
+              framework: PropTypes.string,
               language: PropTypes.string,
               slug: PropTypes.string,
             }),
@@ -216,9 +212,6 @@ Guide.propTypes = {
         })
       ),
     }),
-  }).isRequired,
-  pageContext: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -281,6 +274,7 @@ export const query = graphql`
         heroDescription
         title
         themeColor
+        themeGradientName
         toc
         overview
       }
@@ -318,7 +312,10 @@ export const query = graphql`
       edges {
         node {
           fields {
+            chapter
+            framework
             language
+            slug
           }
         }
       }
