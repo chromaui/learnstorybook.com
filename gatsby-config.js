@@ -7,6 +7,9 @@ module.exports = {
     FAST_DEV: false,
   },
   pathPrefix: `/tutorials`,
+  // Gatsby 5's default, stated so nobody has to know that it changed. Page slugs come from
+  // createFilePath and already end with a slash.
+  trailingSlash: 'always',
   siteMetadata: {
     title: 'Storybook Tutorials',
     description:
