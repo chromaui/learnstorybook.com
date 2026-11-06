@@ -26,7 +26,7 @@ Una prueba unitaria aísla un módulo y luego verifica su comportamiento. Propor
     src="/visual-testing-handbook/component-unit-testing.mp4"
     type="video/mp4"/>
 </video>
- 
+
 El problema principal es que gran parte de la complejidad inherente de una interfaz de usuario es visual: los detalles de cómo se representan los elementos HTML y CSS generados en la pantalla del usuario.
 
 Las pruebas unitarias son perfectas para evaluar salidas concretas: `2 + 2 === 4`. Pero no son buenas para la interfaz de usuario porque es difícil discernir qué detalles de HTML o CSS afectan la apariencia y cómo lo hacen. Por ejemplo, los cambios en HTML no siempre afectan la apariencia de la UI.

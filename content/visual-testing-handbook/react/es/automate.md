@@ -47,7 +47,7 @@ Desde allí, elija el repositorio que acaba de crear.
   <source src="/visual-testing-handbook/chromatic-create-project-optimized.mp4"
     type="video/mp4" />
 </video>
- 
+
 Las pruebas de interfaz de usuario capturan una instantánea de cada historia en un entorno de navegador en la nube. Siempre que envíe código, Chromatic genera un nuevo conjunto de instantáneas y las compara con las líneas base. Si hay cambios visuales, verifica si son intencionales.
 
 ### Establezca líneas base

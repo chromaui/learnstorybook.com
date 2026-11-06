@@ -34,9 +34,11 @@
 ### Task 1: Node 24 and Yarn 4
 
 **Files:**
+
 - Modify: `.nvmrc`, `.node-version`, `package.json`, `.yarnrc.yml`, `.gitignore`, `yarn.lock`
 
 **Interfaces:**
+
 - Produces: Berry-format `yarn.lock`; `packageManager: yarn@4.18.1`; every later task runs `yarn install` under Yarn 4.
 
 - [ ] **Step 1: Select Node 24 for the session**
@@ -80,11 +82,13 @@ Run: `yarn install --immutable && yarn test && yarn build`. Expected: all exit 0
 ### Task 2: patch-package to yarn patch
 
 **Files:**
+
 - Create: `.yarn/patches/gatsby-plugin-plausible-npm-0.0.7-*.patch`
 - Modify: `package.json`
 - Delete: `patches/gatsby-plugin-plausible+0.0.7.patch`
 
 **Interfaces:**
+
 - Produces: a `resolutions` entry `"gatsby-plugin-plausible@npm:^0.0.7": "patch:gatsby-plugin-plausible@npm%3A0.0.7#~/.yarn/patches/<file>"`.
 
 - [ ] **Step 1: Open a patch workspace**
@@ -114,9 +118,11 @@ Run: `yarn install && yarn install --immutable && grep -c "data-api" node_module
 ### Task 3: Gatsby 5
 
 **Files:**
+
 - Modify: `package.json`, `src/components/composite/AppLayout.js:120`, `src/components/screens/IndexScreen/index.js:145`, `plugins/gatsby-remark-code-buttons-with-diff-support/index.js:1-8`
 
 **Interfaces:**
+
 - Produces: Gatsby 5 GraphQL schema; `page-data/sq/d` static query output consumed by Task 7.
 
 - [ ] **Step 1: Bump ranges in `package.json`**
@@ -146,9 +152,11 @@ Run `yarn serve` through the browser preview and open `/tutorials/`; expected: t
 ### Task 4a: Prettier 3 config
 
 **Files:**
+
 - Modify: `package.json`, `.prettierrc.js`, `.prettierignore`
 
 **Interfaces:**
+
 - Produces: `yarn format:check` script used by Task 5, Task 6, and CI.
 
 - [ ] **Step 1: Bump and script**
@@ -180,11 +188,13 @@ Run: `yarn install --immutable && yarn format:check`. Expected: exit 1, every li
 ### Task 5: ESLint 10 flat config
 
 **Files:**
+
 - Create: `eslint.config.mjs`
 - Delete: `.eslintrc.js`, `.eslintignore`
 - Modify: `package.json`
 
 **Interfaces:**
+
 - Produces: `yarn lint` and `yarn format` scripts; `eslint --fix` used by Task 6.
 
 - [ ] **Step 1: Dependencies**
@@ -214,6 +224,7 @@ Run: `yarn install && yarn install --immutable && yarn lint`. Fix each hit in co
 ### Task 6: Husky 9 and lint-staged 17
 
 **Files:**
+
 - Modify: `package.json`, `.husky/pre-commit`
 
 - [ ] **Step 1: Bump and scripts**
@@ -239,10 +250,12 @@ Append a trailing space to a line in `README.md` and to a line in `src/lib/getLa
 ### Task 7: Storybook 10 on react-vite
 
 **Files:**
+
 - Modify: `.storybook/main.js`, `.storybook/preview.js`, `package.json`, `src/components/screens/ChapterScreen/LanguageSelector.stories.js:2`, `src/components/screens/ChapterScreen/FrameworkSelector.stories.js:2`
 - Create (fallback only): `.storybook/gatsby-mock.js`
 
 **Interfaces:**
+
 - Consumes: `page-data/sq/d` from a Gatsby build (Task 3).
 - Produces: `yarn storybook` and `yarn build-storybook` scripts used by the Chromatic workflow (Task 8).
 
@@ -285,6 +298,7 @@ Run: `yarn lint && yarn format:check`. Expected: exit 0.
 ### Task 8: Chromatic and CI
 
 **Files:**
+
 - Modify: `.github/workflows/chromatic.yml`, `.circleci/config.yml`, `package.json`
 
 - [ ] **Step 1: Chromatic CLI** `chromatic ^18.14.1`.
@@ -306,6 +320,7 @@ Run: `yarn install --immutable && node -e "const y=require('js-yaml');for(const 
 ### Task 9: Remaining libraries
 
 **Files:**
+
 - Modify: `package.json`, `src/utils/source-dx-data.js:1-2`
 
 - [ ] **Step 1: Bumps**

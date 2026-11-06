@@ -113,7 +113,7 @@ En Storybook,`Task` y sus variaciones aparecerán en la barra lateral. Esto corr
     src="/visual-testing-handbook/task-stories-snoozed-optimized.mp4"
     type="video/mp4"/>
 </video>
- 
+
 Para probar la interfaz de usuario, la verificación humana es un enfoque pragmático porque es robusto para los cambios de código en el componente que no afectan la apariencia visual. Además, debido a que solo necesitamos escribir nuestras entradas con anticipación y verificar visualmente la salida, estamos creando interfaces de usuario automáticamente en un estilo TDD.
 
 ## Aprende el desarrollo guiado por pruebas visuales

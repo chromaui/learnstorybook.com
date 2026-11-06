@@ -41,18 +41,18 @@ Done means that on Node 24 with Yarn 4 all of the following pass:
 
 ## Constraints found during research
 
-| Constraint | Source | Consequence |
-| --- | --- | --- |
-| Node must be `>=18 <26` | gatsby 5.16.1 engines | Node 24 LTS is the target; Node 26 is excluded |
-| Node must be `>=22.22.1` | lint-staged 17 engines | engines range starts at 22.22.1 |
-| `@storybook/components-marketing` 3.3.0 is the latest release | npm | It pins `@storybook/theming ^6.5`, `framer-motion ^7`, `@docsearch/css ^3`, React peers up to 17 |
-| `@storybook/design-system` 7.15.19 is the latest release | npm | Minor bump from the pinned 7.8.5, same React peers |
-| `eslint-config-airbnb` 19.0.4 is eslintrc-only and last released in 2021 | npm | Replaced by a lean maintained set |
-| `@babel/eslint-parser` 8 needs Babel 8, Gatsby needs Babel 7 | npm peers | Parser dropped; espree parses the codebase |
-| ESLint 9 reached end of life in 2026 | ESLint release dates | ESLint 10 is the only supported line |
-| `@vitejs/plugin-react` 6 requires Vite 8 | npm peers | Vite 8.3 with plugin-react 6.2 |
-| Yarn 4.18 runs here without corepack; lockfile is still v1 | local inspection | Lockfile is migrated once and committed |
-| `query-string` 8+ is ESM-only | npm | Replaced by `URLSearchParams` in its single consumer |
+| Constraint                                                               | Source                 | Consequence                                                                                      |
+| ------------------------------------------------------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------ |
+| Node must be `>=18 <26`                                                  | gatsby 5.16.1 engines  | Node 24 LTS is the target; Node 26 is excluded                                                   |
+| Node must be `>=22.22.1`                                                 | lint-staged 17 engines | engines range starts at 22.22.1                                                                  |
+| `@storybook/components-marketing` 3.3.0 is the latest release            | npm                    | It pins `@storybook/theming ^6.5`, `framer-motion ^7`, `@docsearch/css ^3`, React peers up to 17 |
+| `@storybook/design-system` 7.15.19 is the latest release                 | npm                    | Minor bump from the pinned 7.8.5, same React peers                                               |
+| `eslint-config-airbnb` 19.0.4 is eslintrc-only and last released in 2021 | npm                    | Replaced by a lean maintained set                                                                |
+| `@babel/eslint-parser` 8 needs Babel 8, Gatsby needs Babel 7             | npm peers              | Parser dropped; espree parses the codebase                                                       |
+| ESLint 9 reached end of life in 2026                                     | ESLint release dates   | ESLint 10 is the only supported line                                                             |
+| `@vitejs/plugin-react` 6 requires Vite 8                                 | npm peers              | Vite 8.3 with plugin-react 6.2                                                                   |
+| Yarn 4.18 runs here without corepack; lockfile is still v1               | local inspection       | Lockfile is migrated once and committed                                                          |
+| `query-string` 8+ is ESM-only                                            | npm                    | Replaced by `URLSearchParams` in its single consumer                                             |
 
 ## Decisions made with the user
 
@@ -235,19 +235,19 @@ File: `README.md`.
 
 Each step is one commit and is verified before the next starts.
 
-| # | Commit | Verification |
-| --- | --- | --- |
-| 1 | Target Node 24 and adopt Yarn 4 | `yarn install --immutable`, `yarn build`, `yarn test` |
-| 2 | Replace patch-package with yarn patch | immutable install, patched file content check, `yarn build` |
-| 3 | Upgrade Gatsby to 5.16 and plugins | immutable install, `yarn build`, `yarn test`, served site renders |
-| 4a | Upgrade Prettier to 3 | `yarn format:check` lists exactly the 22 known files |
-| 4b | Reformat for Prettier 3 | `yarn format:check` clean |
-| 5 | Migrate ESLint to 10 flat config | `yarn lint` clean, `yarn format:check` clean |
-| 6 | Upgrade Husky 9 and lint-staged 17 | `yarn prepare`, a throwaway commit exercises the hook, then is dropped |
-| 7 | Migrate Storybook to 10 on react-vite | `yarn build-storybook`, stories render in the browser pane |
-| 8 | Update Chromatic, CircleCI, and GitHub workflow | YAML parses, scripts referenced exist, CI runs on push |
-| 9 | Bump remaining libraries and drop node-fetch | immutable install, `yarn build`, `yarn test` |
-| 10 | Document the new setup in the README | read-through |
+| #   | Commit                                          | Verification                                                           |
+| --- | ----------------------------------------------- | ---------------------------------------------------------------------- |
+| 1   | Target Node 24 and adopt Yarn 4                 | `yarn install --immutable`, `yarn build`, `yarn test`                  |
+| 2   | Replace patch-package with yarn patch           | immutable install, patched file content check, `yarn build`            |
+| 3   | Upgrade Gatsby to 5.16 and plugins              | immutable install, `yarn build`, `yarn test`, served site renders      |
+| 4a  | Upgrade Prettier to 3                           | `yarn format:check` lists exactly the 22 known files                   |
+| 4b  | Reformat for Prettier 3                         | `yarn format:check` clean                                              |
+| 5   | Migrate ESLint to 10 flat config                | `yarn lint` clean, `yarn format:check` clean                           |
+| 6   | Upgrade Husky 9 and lint-staged 17              | `yarn prepare`, a throwaway commit exercises the hook, then is dropped |
+| 7   | Migrate Storybook to 10 on react-vite           | `yarn build-storybook`, stories render in the browser pane             |
+| 8   | Update Chromatic, CircleCI, and GitHub workflow | YAML parses, scripts referenced exist, CI runs on push                 |
+| 9   | Bump remaining libraries and drop node-fetch    | immutable install, `yarn build`, `yarn test`                           |
+| 10  | Document the new setup in the README            | read-through                                                           |
 
 The Gatsby prebuild scripts download the Storybook docs tarball from GitHub, so build
 verification needs network access.

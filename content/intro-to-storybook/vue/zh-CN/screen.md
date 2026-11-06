@@ -181,7 +181,7 @@ export default preview;
 
 <video autoPlay muted playsInline loop >
 
-  <source
+<source
     src="/intro-to-storybook/finished-pureinboxscreen-states-7-0.mp4"
     type="video/mp4"
   />

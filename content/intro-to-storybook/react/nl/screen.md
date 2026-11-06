@@ -145,7 +145,7 @@ Doorlopen van states in Storybook maakt het gemakkelijk om te testen dat we dit 
 
 <video autoPlay muted playsInline loop >
 
-  <source
+<source
     src="/intro-to-storybook/finished-inboxscreen-states.mp4"
     type="video/mp4"
   />

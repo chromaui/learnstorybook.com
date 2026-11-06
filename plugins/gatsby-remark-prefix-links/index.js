@@ -22,7 +22,7 @@ function formatHtml(node, pathPrefix, withPrefix) {
       selection
         // extract the elements that have the attribute
         // eslint-disable-next-line
-        .map(function() {
+        .map(function () {
           const url = $(this).attr(attribute);
 
           if (url && url.startsWith(`/`)) {
