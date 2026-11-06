@@ -102,7 +102,12 @@ module.exports = {
         ],
       },
     },
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      // gatsby-plugin-sitemap 6 writes to the site root by default; keep the files where
+      // Gatsby 4 put them so the deployed sitemap URLs do not move.
+      options: { output: '/sitemap' },
+    },
     ...(isProduction
       ? [
           {
