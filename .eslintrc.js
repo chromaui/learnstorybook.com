@@ -52,5 +52,18 @@ module.exports = {
         'import/no-unresolved': 'off',
       },
     },
+    {
+      /**
+       * Helpers and their tests also run under Node's ESM loader, which requires explicit file
+       * extensions on relative imports.
+       */
+      files: ['**/*.test.js', 'src/lib/*.js', 'src/utils/*.js'],
+      env: {
+        node: true,
+      },
+      rules: {
+        'import/extensions': 'off',
+      },
+    },
   ],
 };

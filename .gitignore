@@ -19,3 +19,6 @@ site-metadata.js
 .env
 .env.development
 .env.production
+
+# Modern yarn
+.yarn/*

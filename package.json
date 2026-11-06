@@ -54,7 +54,7 @@
     "prestorybook": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
     "serve": "gatsby serve --prefix-paths",
     "storybook": "start-storybook -s ./static -p 6006",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "lint-staged": {
     "*.md": [
