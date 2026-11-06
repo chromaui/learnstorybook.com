@@ -51,7 +51,7 @@
     "format": "prettier --write . && eslint --fix .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "prepare": "husky",
+    "postinstall": "husky",
     "serve": "gatsby serve --prefix-paths",
     "storybook": "yarn storybook:prepare && storybook dev -p 6006",
     "storybook:prepare": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
