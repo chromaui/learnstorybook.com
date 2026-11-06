@@ -55,7 +55,7 @@
     "serve": "gatsby serve --prefix-paths",
     "storybook": "yarn storybook:prepare && storybook dev -p 6006",
     "storybook:prepare": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
-    "test": "node --test"
+    "test": "node --test 'plugins/**/*.test.js' 'src/**/*.test.js'"
   },
   "lint-staged": {
     "*.md": [
