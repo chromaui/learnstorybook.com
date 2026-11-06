@@ -38,22 +38,24 @@
     "gatsby"
   ],
   "license": "MIT",
+  "engines": {
+    "node": ">=22.22.1 <26"
+  },
   "scripts": {
-    "build": "gatsby build --prefix-paths",
-    "build-storybook": "build-storybook -s ./static",
+    "build": "yarn build:prepare && gatsby build --prefix-paths && yarn build:finish",
+    "build-storybook": "yarn storybook:prepare && build-storybook -s ./static",
+    "build:finish": "bash scripts/move-to-build.sh",
+    "build:prepare": "yarn extract-sb-docs-metadata && mkdir -p public/tutorials",
     "clean": "gatsby clean",
     "dev": "gatsby develop",
     "extract-sb-docs-metadata": "./scripts/extract-sb-docs-metadata.sh",
     "format": "prettier-eslint --write '**/*.js'",
     "lint": "eslint .",
-    "postbuild": "bash scripts/move-to-build.sh",
     "postinstall": "patch-package",
-    "prebuild": "yarn extract-sb-docs-metadata && mkdir -p public/tutorials",
-    "prebuild-storybook": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
     "prepare": "husky install",
-    "prestorybook": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
     "serve": "gatsby serve --prefix-paths",
-    "storybook": "start-storybook -s ./static -p 6006",
+    "storybook": "yarn storybook:prepare && start-storybook -s ./static -p 6006",
+    "storybook:prepare": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
     "test": "node --test"
   },
   "lint-staged": {
@@ -98,5 +100,5 @@
   "resolutions": {
     "deepmerge": "^4.3.0"
   },
-  "packageManager": "yarn@1.22.22"
+  "packageManager": "yarn@4.18.1"
 }
