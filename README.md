@@ -35,22 +35,24 @@ Traditional Chinese translation is converted from Simplified Chinese using [Open
 
 The Storybook for Storybook contains every UI component. The UI is built following [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), a process that builds UIs from the “bottom up” starting with components and ending with screens. That means contributors should compose UIs in Storybook _before_ integration with the Gatsby app.
 
-1. Run `yarn install` to install dependencies
-2. Run `yarn storybook` to start Storybook on `localhost:6006`
+1. Use Node 24 (`nvm use` reads it from `.nvmrc`) and run `corepack enable` once, so that `yarn` is the Yarn 4 release pinned in `package.json`
+2. Run `yarn install` to install dependencies
+3. Run `yarn storybook` to start Storybook on `localhost:6006` (the first run also builds the Gatsby site, which the stories read their static query data from)
 
 #### Gatsby instructions
 
 Gatsby is used for static site generation. To run the project locally, you'll need to:
 
-1. Run `yarn install` to install dependencies
-2. Run `yarn extract-sb-docs-metadata` to fetch content from the main Storybook repo
-3. Set up a `.env.development` file with the following environment variables:
+1. Use Node 24 (`nvm use` reads it from `.nvmrc`) and run `corepack enable` once, so that `yarn` is the Yarn 4 release pinned in `package.json`
+2. Run `yarn install` to install dependencies
+3. Run `yarn extract-sb-docs-metadata` to fetch content from the main Storybook repo
+4. Set up a `.env.development` file with the following environment variables:
 
 ```plaintext
 SKIP_DX_DATA=true
 ```
 
-4. Run `yarn dev` to start the development server
+5. Run `yarn dev` to start the development server
 
 ### Adding new content
 
