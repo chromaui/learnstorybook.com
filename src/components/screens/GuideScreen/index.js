@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import { SubNavBreadcrumb, styles as marketingStyles } from '@storybook/components-marketing';
 import { styles, Icon } from '@storybook/design-system';
 import { styled } from '@storybook/theming';
@@ -13,6 +12,7 @@ import getLanguageName from '../../../lib/getLanguageName';
 import { guideFormatting } from '../../../styles/formatting';
 import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
 import AppLayout from '../../composite/AppLayout';
+import PageHead from '../../composite/PageHead';
 import Contributors from './Contributors';
 import Hero from './Hero';
 import TableOfContents from './TableOfContents';
@@ -89,7 +89,6 @@ function Guide({ data, pageContext }) {
         contributorCount,
         contributors,
         coverImagePath,
-        description,
         heroAnimationName,
         heroDescription,
         themeColor,
@@ -97,10 +96,8 @@ function Guide({ data, pageContext }) {
         toc,
         overview,
       },
-      fields: { guide, permalink },
     },
     pages,
-    site: { siteMetadata },
     translationPages,
   } = data;
   const { slug } = pageContext;
@@ -124,26 +121,6 @@ function Guide({ data, pageContext }) {
         </SubNavBreadcrumb>
       }
     >
-      <Helmet>
-        <title>{`${title} | ${siteMetadata.title}`}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={permalink} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={permalink} />
-        <meta
-          property="og:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
-        />
-
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta
-          name="twitter:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
-        />
-      </Helmet>
-
       <Hero
         contributorCount={contributorCount}
         chapterCount={entries.length}
@@ -246,6 +223,35 @@ Guide.propTypes = {
 };
 
 export default Guide;
+
+function GuideHead({
+  data: {
+    currentPage: {
+      frontmatter: { title, description },
+      fields: { guide, permalink },
+    },
+    site: { siteMetadata },
+  },
+}) {
+  return (
+    <PageHead
+      title={title}
+      description={description}
+      permalink={permalink}
+      image={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+    />
+  );
+}
+
+GuideHead.propTypes = {
+  data: Guide.propTypes.data,
+};
+
+// Gatsby compiles this file once more without the Head export for the page itself, so nothing
+// else may refer to Head: its props are validated on GuideHead instead of on Head itself.
+export function Head(props) {
+  return <GuideHead {...props} />;
+}
 
 export const query = graphql`
   query GuideQuery($slug: String!, $guide: String!) {

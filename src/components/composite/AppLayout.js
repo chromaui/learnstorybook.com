@@ -4,7 +4,6 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { LinksContextProvider, defaultLinks } from '@storybook/components-marketing';
 import { global, styles } from '@storybook/design-system';
 import { css, styled } from '@storybook/theming';
-import { Helmet } from 'react-helmet';
 
 import { GatsbyLinkWrapper } from '../basics/GatsbyLink';
 import Header from './Header';
@@ -49,42 +48,11 @@ export function PureAppLayout({
   inverseHeader,
   subNav,
 }) {
-  const {
-    dxData,
-    site: {
-      siteMetadata: { title, permalink, description },
-    },
-  } = data;
+  const { dxData } = data;
 
   return (
     <>
       <GlobalStyle />
-
-      <Helmet>
-        <link
-          rel="shortcut icon"
-          type="image/png"
-          href={`${permalink}/icon-storybook.png`}
-          sizes="16x16 32x32 64x64"
-        />
-        <title>{title}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={permalink} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={`${permalink}/opengraph-cover.jpg`} />
-        <meta property="og:url" content={permalink} />
-
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={`${permalink}/opengraph-cover.jpg`} />
-
-        <meta
-          name="google-site-verification"
-          content="YjriYM9U-aWxhu_dv3PWfCFQ3JNkb7ndk7r_mUlCKAY"
-        />
-      </Helmet>
 
       <LinksContextProvider value={navLinks}>
         <Wrapper>

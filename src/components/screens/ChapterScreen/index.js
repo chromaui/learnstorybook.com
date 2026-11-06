@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Helmet } from 'react-helmet';
 import { graphql } from 'gatsby';
 import {
   SubNavBreadcrumb,
@@ -16,6 +15,7 @@ import tocEntries from '../../../lib/tocEntries';
 import { chapterFormatting } from '../../../styles/formatting';
 import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
 import AppLayout from '../../composite/AppLayout';
+import PageHead from '../../composite/PageHead';
 import ChapterLinks from './ChapterLinks';
 import FrameworkSelector from './FrameworkSelector';
 import GithubLink from './GithubLink';
@@ -65,7 +65,7 @@ function Chapter({
     currentPage: {
       html,
       frontmatter: { commit, title, description },
-      fields: { framework, guide, language, slug, chapter, permalink, tutorialUpToDate },
+      fields: { framework, guide, language, slug, chapter, tutorialUpToDate },
     },
     currentGuide: {
       frontmatter: { codeGithubUrl, title: currentGuideTitle, toc, twitterShareText },
@@ -119,25 +119,6 @@ function Chapter({
         </>
       }
     >
-      <Helmet>
-        <title>{`${title} | ${siteMetadata.title}`}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={permalink} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={permalink} />
-        <meta
-          property="og:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
-        />
-
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta
-          name="twitter:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
-        />
-      </Helmet>
       <ChapterWrapper>
         <Sidebar entries={entries} slug={slug} />
 
@@ -242,6 +223,35 @@ Chapter.propTypes = {
 };
 
 export default Chapter;
+
+function ChapterHead({
+  data: {
+    currentPage: {
+      frontmatter: { title, description },
+      fields: { guide, permalink },
+    },
+    site: { siteMetadata },
+  },
+}) {
+  return (
+    <PageHead
+      title={title}
+      description={description}
+      permalink={permalink}
+      image={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+    />
+  );
+}
+
+ChapterHead.propTypes = {
+  data: Chapter.propTypes.data,
+};
+
+// Gatsby compiles this file once more without the Head export for the page itself, so nothing
+// else may refer to Head: its props are validated on ChapterHead instead of on Head itself.
+export function Head(props) {
+  return <ChapterHead {...props} />;
+}
 
 export const query = graphql`
   query ChapterQuery($framework: String, $language: String, $slug: String!, $guide: String!) {

@@ -10287,18 +10287,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-react-helmet@npm:^6.16.0":
-  version: 6.16.0
-  resolution: "gatsby-plugin-react-helmet@npm:6.16.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.20.13"
-  peerDependencies:
-    gatsby: ^5.0.0-next
-    react-helmet: ^5.1.3 || ^6.0.0
-  checksum: 10c0/a57b66946932c2c47873f982635c3090833968db736e93dae1606d09652a99c49ecb14ef120ebabdd6644314f8dd930ed0dd9bb5a55de5fd1ebe27b95dc70db8
-  languageName: node
-  linkType: hard
-
 "gatsby-plugin-sharp@npm:^5.16.0":
   version: 5.16.0
   resolution: "gatsby-plugin-sharp@npm:5.16.0"
@@ -12572,7 +12560,6 @@ __metadata:
     gatsby: "npm:^5.16.1"
     gatsby-plugin-google-gtag: "npm:^5.16.0"
     gatsby-plugin-plausible: "patch:gatsby-plugin-plausible@npm%3A0.0.7#~/.yarn/patches/gatsby-plugin-plausible-npm-0.0.7-ad2b8de98c.patch"
-    gatsby-plugin-react-helmet: "npm:^6.16.0"
     gatsby-plugin-sharp: "npm:^5.16.0"
     gatsby-plugin-sitemap: "npm:^6.16.0"
     gatsby-remark-code-titles: "npm:^1.1.0"
@@ -12592,7 +12579,6 @@ __metadata:
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
     react-github-button: "npm:^0.1.11"
-    react-helmet: "npm:^6.1.0"
     storybook: "npm:^10.6.6"
     unist-util-visit: "npm:^2.0.3"
     vite: "npm:^8.3.6"
@@ -15733,33 +15719,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-fast-compare@npm:^3.1.1":
-  version: 3.2.0
-  resolution: "react-fast-compare@npm:3.2.0"
-  checksum: 10c0/2a7d75ce9fb5da1e3c01f74a5cd592f3369a8cc8d44e93654bf147ab221f430238e8be70677e896f2bfcb96a1cb7a47a8d05d84633de764a9d57d27005a4bb9e
-  languageName: node
-  linkType: hard
-
 "react-github-button@npm:^0.1.11":
   version: 0.1.11
   resolution: "react-github-button@npm:0.1.11"
   dependencies:
     prop-types: "npm:^15.5.10"
   checksum: 10c0/e00fa4f3b2dee74f45fff0c9d68d7d75eefa495d27a56ef2e2391f9600623d16b8a9f99c1d35a7b4f620dfb95dd8ed0b1a76fbbfece4be0843cd507c17a37dfa
-  languageName: node
-  linkType: hard
-
-"react-helmet@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "react-helmet@npm:6.1.0"
-  dependencies:
-    object-assign: "npm:^4.1.1"
-    prop-types: "npm:^15.7.2"
-    react-fast-compare: "npm:^3.1.1"
-    react-side-effect: "npm:^2.1.0"
-  peerDependencies:
-    react: ">=16.3.0"
-  checksum: 10c0/1d2831d9c3b4f5c91f020076aeb6502437a4788077d0c438421e466eb9633d5dc2aacedf7b779a970b807d61cf87793c5ff76ee3190a185d71c90b5cfb367e96
   languageName: node
   linkType: hard
 
@@ -15854,15 +15819,6 @@ __metadata:
     react: 0.0.0-experimental-c8b778b7f-20220825
     webpack: ^5.59.0
   checksum: 10c0/7b59cdaba01a13060fef682a06d562bfd0febe6452643098ef52d49032d95d2e5149fb504917cc286b573b8795fc8bcefbfe896f122ec5ed741d280d43774f8a
-  languageName: node
-  linkType: hard
-
-"react-side-effect@npm:^2.1.0":
-  version: 2.1.2
-  resolution: "react-side-effect@npm:2.1.2"
-  peerDependencies:
-    react: ^16.3.0 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/5d934cae438f701ce646f566750ae6a445e99185ce1a026108f9db728147f7962a22ecf8db79ff26089953a3799b3607766904f4f10194ce42bcd5a1aa0215e8
   languageName: node
   linkType: hard
 
