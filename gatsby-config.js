@@ -118,17 +118,6 @@ module.exports = {
           },
         ]
       : []),
-    ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
-      ? [
-          {
-            resolve: 'gatsby-plugin-google-analytics',
-            options: {
-              trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
-              head: true,
-            },
-          },
-        ]
-      : []),
     ...(process.env.GOOGLE_TAG_TRACKING_ID && !isDeployPreview
       ? [
           {

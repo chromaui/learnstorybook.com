@@ -10222,21 +10222,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"gatsby-plugin-google-analytics@npm:^5.16.0":
-  version: 5.16.0
-  resolution: "gatsby-plugin-google-analytics@npm:5.16.0"
-  dependencies:
-    "@babel/runtime": "npm:^7.20.13"
-    minimatch: "npm:^3.1.2"
-    web-vitals: "npm:^1.1.2"
-  peerDependencies:
-    gatsby: ^5.0.0-next
-    react: ^18.0.0 || ^19.0.0 || ^0.0.0
-    react-dom: ^18.0.0 || ^19.0.0 || ^0.0.0
-  checksum: 10c0/719417190bf3c933dc66156bb6c0a7bbc0a690411b33c4150678c16a63089dba1af256efb4dddc63e02e716bbd1ba567eeaff08451ef29665981d5131751cc28
-  languageName: node
-  linkType: hard
-
 "gatsby-plugin-google-gtag@npm:^5.16.0":
   version: 5.16.0
   resolution: "gatsby-plugin-google-gtag@npm:5.16.0"
@@ -12585,7 +12570,6 @@ __metadata:
     formik: "npm:^2.4.9"
     framer-motion: "npm:7.10.3"
     gatsby: "npm:^5.16.1"
-    gatsby-plugin-google-analytics: "npm:^5.16.0"
     gatsby-plugin-google-gtag: "npm:^5.16.0"
     gatsby-plugin-plausible: "patch:gatsby-plugin-plausible@npm%3A0.0.7#~/.yarn/patches/gatsby-plugin-plausible-npm-0.0.7-ad2b8de98c.patch"
     gatsby-plugin-react-helmet: "npm:^6.16.0"
@@ -18762,13 +18746,6 @@ __metadata:
   version: 1.1.4
   resolution: "web-namespaces@npm:1.1.4"
   checksum: 10c0/05b5782c32a33ef94fa7a412afdebc9d0d3cc7b59db31d2cc7bd80de3e237d4b6309cb5f156d06e3a837b9826c9414448c25111ec1d4407d2025ffeb7bea4f62
-  languageName: node
-  linkType: hard
-
-"web-vitals@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "web-vitals@npm:1.1.2"
-  checksum: 10c0/9521ea2e8ca2e4446ba8e3d5430b0c9a9a07e0d6f468a90dc5fab2bab524fb1a699f3874ea392c9e35a63dcf3651b40130d58ebd78e53a406cb9622049bf1403
   languageName: node
   linkType: hard
 

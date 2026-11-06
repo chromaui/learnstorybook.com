@@ -12,7 +12,6 @@
     "formik": "^2.4.9",
     "framer-motion": "7.10.3",
     "gatsby": "^5.16.1",
-    "gatsby-plugin-google-analytics": "^5.16.0",
     "gatsby-plugin-google-gtag": "^5.16.0",
     "gatsby-plugin-plausible": "patch:gatsby-plugin-plausible@npm%3A0.0.7#~/.yarn/patches/gatsby-plugin-plausible-npm-0.0.7-ad2b8de98c.patch",
     "gatsby-plugin-react-helmet": "^6.16.0",
