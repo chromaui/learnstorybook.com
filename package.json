@@ -79,7 +79,7 @@
     "@vitejs/plugin-react": "^6.2.1",
     "babel-plugin-remove-graphql-queries": "^4.22.0",
     "babel-preset-gatsby": "^2.22.0",
-    "chromatic": "^6.9.0",
+    "chromatic": "^18.14.1",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-import-resolver-typescript": "^4.4.5",

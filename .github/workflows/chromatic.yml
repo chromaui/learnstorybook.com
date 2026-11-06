@@ -5,17 +5,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v7
         with:
-          node-version: 18
-      - run: yarn
+          # Chromatic compares against the baseline commit, which needs the full history.
+          fetch-depth: 0
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - run: corepack enable
+      - run: yarn install --immutable
       - run: yarn gatsby telemetry --disable
       - run: yarn build-storybook
-      - uses: chromaui/action@v1
+      - uses: chromaui/action@v18
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
           storybookBuildDir: storybook-static
-          allowConsoleErrors: true,
-          exitZeroOnChanges: true,
+          allowConsoleErrors: true
+          exitZeroOnChanges: true

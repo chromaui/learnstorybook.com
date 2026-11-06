@@ -2014,13 +2014,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@discoveryjs/json-ext@npm:^0.5.7":
-  version: 0.5.7
-  resolution: "@discoveryjs/json-ext@npm:0.5.7"
-  checksum: 10c0/e10f1b02b78e4812646ddf289b7d9f2cb567d336c363b266bd50cd223cf3de7c2c74018d91cd2613041568397ef3a4a2b500aba588c6e5bd78c38374ba68f38c
-  languageName: node
-  linkType: hard
-
 "@docsearch/css@npm:3.9.0, @docsearch/css@npm:^3.9.0":
   version: 3.9.0
   resolution: "@docsearch/css@npm:3.9.0"
@@ -5423,13 +5416,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-env@npm:^1.17.0":
-  version: 1.18.0
-  resolution: "@types/webpack-env@npm:1.18.0"
-  checksum: 10c0/ac2e91b025ea31b98b0271ccb40da789c5b54693c1efb18265a54c03b303b750501f080a44e99d7ce0a5422d68d535e600e851df4b8f2240444eca7ac3159719
-  languageName: node
-  linkType: hard
-
 "@types/yoga-layout@npm:1.9.2":
   version: 1.9.2
   resolution: "@types/yoga-layout@npm:1.9.2"
@@ -7523,17 +7509,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chromatic@npm:^6.9.0":
-  version: 6.9.0
-  resolution: "chromatic@npm:6.9.0"
+"chromatic@npm:^18.14.1":
+  version: 18.14.1
+  resolution: "chromatic@npm:18.14.1"
   dependencies:
-    "@discoveryjs/json-ext": "npm:^0.5.7"
-    "@types/webpack-env": "npm:^1.17.0"
+    semver: "npm:^7.3.5"
+  peerDependencies:
+    "@chromatic-com/cypress": ^0.*.* || ^1.0.0
+    "@chromatic-com/playwright": ^0.*.* || ^1.0.0
+    "@chromatic-com/vitest": ^0.*.* || ^1.0.0
+  dependenciesMeta:
+    "@sentry/cli":
+      built: true
+    esbuild:
+      built: true
+  peerDependenciesMeta:
+    "@chromatic-com/cypress":
+      optional: true
+    "@chromatic-com/playwright":
+      optional: true
+    "@chromatic-com/vitest":
+      optional: true
   bin:
-    chroma: bin/main.cjs
-    chromatic: bin/main.cjs
-    chromatic-cli: bin/main.cjs
-  checksum: 10c0/fcf8d9466d1aca336b83d110dc62f3dccbef3f628fa8e1442a04af3f9593ba0c999bf685d963b2d02968c851e171be5f9b42618130974c3f4adf4284c4eefdfe
+    chroma: dist/bin.cjs
+    chromatic: dist/bin.cjs
+    chromatic-cli: dist/bin.cjs
+  checksum: 10c0/e0c679305ebb0f115b2345ff4f1d0f56ca30dc41accadbfad908f67712f62ba2ee2f4338f27685a9764d3cf4e0e50bdc93a308c4259326e1baf82963b183a6b1
   languageName: node
   linkType: hard
 
@@ -13675,7 +13676,7 @@ __metadata:
     babel-plugin-remove-graphql-queries: "npm:^4.22.0"
     babel-preset-gatsby: "npm:^2.22.0"
     cheerio: "npm:^1.0.0-rc.12"
-    chromatic: "npm:^6.9.0"
+    chromatic: "npm:^18.14.1"
     eslint: "npm:^10.14.0"
     eslint-config-prettier: "npm:^10.1.8"
     eslint-import-resolver-typescript: "npm:^4.4.5"
