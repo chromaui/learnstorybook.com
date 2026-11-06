@@ -1,2 +1,10 @@
 yarn.lock
 package-lock.json
+.cache
+public
+storybook-static
+src/content/docs
+site-metadata.js
+.yarn
+node_modules
+.superpowers
