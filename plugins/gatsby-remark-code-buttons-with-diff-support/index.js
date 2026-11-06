@@ -1,11 +1,10 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const visit = require('unist-util-visit');
-const qs = require('query-string');
 
 module.exports = function gatsbyRemarkCodeButtons({ markdownAST }) {
   visit(markdownAST, 'code', (node, index, parent) => {
     const [language, params] = (node.lang || '').split(':');
-    const actions = qs.parse(params);
+    const actions = Object.fromEntries(new URLSearchParams(params));
     const { clipboard } = actions;
 
     if (!language) {

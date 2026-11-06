@@ -3033,44 +3033,44 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@msgpackr-extract/msgpackr-extract-darwin-arm64@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@msgpackr-extract/msgpackr-extract-darwin-arm64@npm:2.1.2"
+"@msgpackr-extract/msgpackr-extract-darwin-arm64@npm:3.0.7":
+  version: 3.0.7
+  resolution: "@msgpackr-extract/msgpackr-extract-darwin-arm64@npm:3.0.7"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@msgpackr-extract/msgpackr-extract-darwin-x64@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@msgpackr-extract/msgpackr-extract-darwin-x64@npm:2.1.2"
+"@msgpackr-extract/msgpackr-extract-darwin-x64@npm:3.0.7":
+  version: 3.0.7
+  resolution: "@msgpackr-extract/msgpackr-extract-darwin-x64@npm:3.0.7"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@msgpackr-extract/msgpackr-extract-linux-arm64@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@msgpackr-extract/msgpackr-extract-linux-arm64@npm:2.1.2"
+"@msgpackr-extract/msgpackr-extract-linux-arm64@npm:3.0.7":
+  version: 3.0.7
+  resolution: "@msgpackr-extract/msgpackr-extract-linux-arm64@npm:3.0.7"
   conditions: os=linux & cpu=arm64
   languageName: node
   linkType: hard
 
-"@msgpackr-extract/msgpackr-extract-linux-arm@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@msgpackr-extract/msgpackr-extract-linux-arm@npm:2.1.2"
+"@msgpackr-extract/msgpackr-extract-linux-arm@npm:3.0.7":
+  version: 3.0.7
+  resolution: "@msgpackr-extract/msgpackr-extract-linux-arm@npm:3.0.7"
   conditions: os=linux & cpu=arm
   languageName: node
   linkType: hard
 
-"@msgpackr-extract/msgpackr-extract-linux-x64@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@msgpackr-extract/msgpackr-extract-linux-x64@npm:2.1.2"
+"@msgpackr-extract/msgpackr-extract-linux-x64@npm:3.0.7":
+  version: 3.0.7
+  resolution: "@msgpackr-extract/msgpackr-extract-linux-x64@npm:3.0.7"
   conditions: os=linux & cpu=x64
   languageName: node
   linkType: hard
 
-"@msgpackr-extract/msgpackr-extract-win32-x64@npm:2.1.2":
-  version: 2.1.2
-  resolution: "@msgpackr-extract/msgpackr-extract-win32-x64@npm:2.1.2"
+"@msgpackr-extract/msgpackr-extract-win32-x64@npm:3.0.7":
+  version: 3.0.7
+  resolution: "@msgpackr-extract/msgpackr-extract-win32-x64@npm:3.0.7"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -15506,7 +15506,6 @@ __metadata:
     prettier-eslint-cli: "npm:^7.1.0"
     prismjs: "npm:^1.29.0"
     prop-types: "npm:^15.8.1"
-    query-string: "npm:^7.1.1"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-github-button: "npm:^0.1.11"
@@ -16920,18 +16919,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"msgpackr-extract@npm:^2.0.2":
-  version: 2.1.2
-  resolution: "msgpackr-extract@npm:2.1.2"
+"msgpackr-extract@npm:^3.0.2":
+  version: 3.0.7
+  resolution: "msgpackr-extract@npm:3.0.7"
   dependencies:
-    "@msgpackr-extract/msgpackr-extract-darwin-arm64": "npm:2.1.2"
-    "@msgpackr-extract/msgpackr-extract-darwin-x64": "npm:2.1.2"
-    "@msgpackr-extract/msgpackr-extract-linux-arm": "npm:2.1.2"
-    "@msgpackr-extract/msgpackr-extract-linux-arm64": "npm:2.1.2"
-    "@msgpackr-extract/msgpackr-extract-linux-x64": "npm:2.1.2"
-    "@msgpackr-extract/msgpackr-extract-win32-x64": "npm:2.1.2"
+    "@msgpackr-extract/msgpackr-extract-darwin-arm64": "npm:3.0.7"
+    "@msgpackr-extract/msgpackr-extract-darwin-x64": "npm:3.0.7"
+    "@msgpackr-extract/msgpackr-extract-linux-arm": "npm:3.0.7"
+    "@msgpackr-extract/msgpackr-extract-linux-arm64": "npm:3.0.7"
+    "@msgpackr-extract/msgpackr-extract-linux-x64": "npm:3.0.7"
+    "@msgpackr-extract/msgpackr-extract-win32-x64": "npm:3.0.7"
     node-gyp: "npm:latest"
-    node-gyp-build-optional-packages: "npm:5.0.3"
+    node-gyp-build-optional-packages: "npm:5.2.2"
   dependenciesMeta:
     "@msgpackr-extract/msgpackr-extract-darwin-arm64":
       optional: true
@@ -16947,19 +16946,19 @@ __metadata:
       optional: true
   bin:
     download-msgpackr-prebuilds: bin/download-prebuilds.js
-  checksum: 10c0/1fc1e951d66030cb064fac25cd356a5322eb19d82ad892d180fcc05d07a05e04f470f7ff8dbf27c33c7298aa6b30408683c9e99bb32fa65e1d840c2dc4830a78
+  checksum: 10c0/60e392bd77afc92b954adfd3501703d58a9baae2bcafd894e47c92820ec2b4c20483c5b959c03f8802b8b579f596877510a9f9c0e8f486c9e3780ff1362e4a54
   languageName: node
   linkType: hard
 
 "msgpackr@npm:^1.5.4":
-  version: 1.6.2
-  resolution: "msgpackr@npm:1.6.2"
+  version: 1.12.1
+  resolution: "msgpackr@npm:1.12.1"
   dependencies:
-    msgpackr-extract: "npm:^2.0.2"
+    msgpackr-extract: "npm:^3.0.2"
   dependenciesMeta:
     msgpackr-extract:
       optional: true
-  checksum: 10c0/9fc8f3d0aa1ce9d0c21ed23a2855edc3ab636c592ff2d4c29cbd8bbcc8aa5641d6a6986e537eafae61cff0d8601fdb8b879dd80c6c61d0aba61dd9f292b13fba
+  checksum: 10c0/145a6477ff46ad3154b999ad9f1d80070f50b01f5a12975aad683455fa8968f3e12503d8397a8828bc15fd297da9694fc7b8ae9f21d3df64f559caa10a3a4731
   languageName: node
   linkType: hard
 
@@ -17168,6 +17167,19 @@ __metadata:
     node-gyp-build-optional-packages-optional: optional.js
     node-gyp-build-optional-packages-test: build-test.js
   checksum: 10c0/334336bdefb398469a115a2c9d4c141d28e093fd703be7adc1448f9dd3e1b5525281a789be8a60a778c91212daaa310155b1908b1fb9a987cec61a9fe04d774a
+  languageName: node
+  linkType: hard
+
+"node-gyp-build-optional-packages@npm:5.2.2":
+  version: 5.2.2
+  resolution: "node-gyp-build-optional-packages@npm:5.2.2"
+  dependencies:
+    detect-libc: "npm:^2.0.1"
+  bin:
+    node-gyp-build-optional-packages: bin.js
+    node-gyp-build-optional-packages-optional: optional.js
+    node-gyp-build-optional-packages-test: build-test.js
+  checksum: 10c0/c81128c6f91873381be178c5eddcbdf66a148a6a89a427ce2bcd457593ce69baf2a8662b6d22cac092d24aa9c43c230dec4e69b3a0da604503f4777cd77e282b
   languageName: node
   linkType: hard
 
@@ -19354,18 +19366,6 @@ __metadata:
     split-on-first: "npm:^1.0.0"
     strict-uri-encode: "npm:^2.0.0"
   checksum: 10c0/900e0fa788000e9dc5f929b6f4141742dcf281f02d3bab9714bc83bea65fab3de75169ea8d61f19cda996bc0dcec72e156efe3c5614c6bce65dcf234ac955b14
-  languageName: node
-  linkType: hard
-
-"query-string@npm:^7.1.1":
-  version: 7.1.1
-  resolution: "query-string@npm:7.1.1"
-  dependencies:
-    decode-uri-component: "npm:^0.2.0"
-    filter-obj: "npm:^1.1.0"
-    split-on-first: "npm:^1.0.0"
-    strict-uri-encode: "npm:^2.0.0"
-  checksum: 10c0/85c1ee90f25b936134153df71fa9c12f05922e328188270039f5d4344568c2e9ae5247b09bf118d0656d31dc0e24002e5e1f2a44fae1b96e3d6e64cd552e0518
   languageName: node
   linkType: hard
 
