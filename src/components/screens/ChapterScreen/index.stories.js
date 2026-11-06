@@ -8,9 +8,7 @@ export default {
     layout: 'fullscreen',
   },
 };
-function Story(args) {
-  return <Chapter {...args} />;
-}
+const Story = (args) => <Chapter {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   data: {

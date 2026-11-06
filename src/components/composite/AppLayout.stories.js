@@ -44,9 +44,7 @@ export default {
     layout: 'fullscreen',
   },
 };
-function Story(args) {
-  return <PureAppLayout {...args} />;
-}
+const Story = (args) => <PureAppLayout {...args} />;
 
 export const Default = Story.bind({});
 Default.args = {

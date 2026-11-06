@@ -14,9 +14,7 @@ export default {
   title: 'Screens/ChapterScreen/TableOfContents',
 };
 
-function Story(args) {
-  return <TableOfContents {...args} />;
-}
+const Story = (args) => <TableOfContents {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   ...TableOfContentsData,

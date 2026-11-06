@@ -24,6 +24,7 @@ export default [
       '.yarn',
       'src/content/docs',
       'src/html.js',
+      '.superpowers/**',
     ],
   },
   js.configs.recommended,
@@ -40,7 +41,12 @@ export default [
       // Gatsby config, plugins and scripts run under Node; app code reads process.env via webpack.
       globals: { ...globals.browser, ...globals.node, graphql: 'readonly' },
     },
-    settings: { react: { version: 'detect' } },
+    settings: {
+      react: { version: 'detect' },
+      // The default node resolver cannot read package exports maps (storybook/test, vite, ...);
+      // the typescript resolver can and needs no TypeScript to resolve plain JavaScript.
+      'import/resolver': { typescript: { alwaysTryTypes: false } },
+    },
     rules: {
       'no-unused-vars': [
         'error',
@@ -65,12 +71,6 @@ export default [
       'jsx-a11y/anchor-is-valid': ['error', { components: ['GatsbyLink'], specialLink: ['to'] }],
       'react/jsx-filename-extension': ['warn', { extensions: ['.js', '.jsx'] }],
     },
-  },
-  {
-    // eslint-plugin-storybook resolves only through its package exports map, which the node
-    // resolver used by eslint-plugin-import cannot read.
-    files: ['eslint.config.mjs'],
-    rules: { 'import/no-unresolved': 'off' },
   },
   {
     /**

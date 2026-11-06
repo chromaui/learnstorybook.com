@@ -24,9 +24,7 @@ export const ContributorsData = {
   ],
 };
 
-function Story(args) {
-  return <Contributors {...args} />;
-}
+const Story = (args) => <Contributors {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   ...ContributorsData,

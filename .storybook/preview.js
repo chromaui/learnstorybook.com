@@ -1,5 +1,5 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
+import { action } from 'storybook/actions';
 import {
   global as designSystemGlobal,
   loadFontsForStorybook,
@@ -8,44 +8,34 @@ import {
 
 const { GlobalStyle } = designSystemGlobal;
 
-export const parameters = {
-  options: { panelPosition: 'bottom' },
-  viewport: {
-    viewports: [
-      {
-        name: 'Design system breakpoint',
-        styles: {
-          width: `${styles.breakpoint - 1}px`,
-          height: '768px',
-        },
-      },
-    ],
-  },
-};
-
-// Gatsby's Link overrides:
-// Gatsby defines a global called ___loader to prevent its method calls from creating console errors you override it here
-global.___loader = {
-  enqueue: () => {},
-  hovering: () => {},
-};
-
-// Gatsby internal mocking to prevent unnecessary errors in storybook testing environment
-global.__PATH_PREFIX__ = '';
-global.__BASE_PATH__ = '';
-
-// This is to utilized to override the window.___navigate method Gatsby defines and uses to report what path a Link would be taking us to if it wasn't inside a storybook
+// Gatsby's Link is replaced by .storybook/gatsby-mock.js, whose anchors report the path they
+// would navigate to through this global instead of leaving the story.
 window.___navigate = (pathname) => {
   action('NavigateTo:')(pathname);
 };
 
-export const decorators = [
-  (story) => (
-    <>
-      <GlobalStyle />
-      {story()}
-    </>
-  ),
-];
-
 loadFontsForStorybook();
+
+export default {
+  parameters: {
+    viewport: {
+      viewports: [
+        {
+          name: 'Design system breakpoint',
+          styles: {
+            width: `${styles.breakpoint - 1}px`,
+            height: '768px',
+          },
+        },
+      ],
+    },
+  },
+  decorators: [
+    (story) => (
+      <>
+        <GlobalStyle />
+        {story()}
+      </>
+    ),
+  ],
+};

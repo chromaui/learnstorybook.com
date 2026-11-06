@@ -1,5 +1,5 @@
 import React from 'react';
-import { within, userEvent } from '@storybook/testing-library';
+import { within, userEvent } from 'storybook/test';
 import { styled } from '@storybook/theming';
 import { languageNameMap } from '../../../lib/getLanguageName';
 import LanguageSelector from './LanguageSelector';
@@ -19,9 +19,7 @@ const Height = styled.div`
   height: ${({ height }) => height}px;
 `;
 
-function Story(args) {
-  return <LanguageSelector {...args} />;
-}
+const Story = (args) => <LanguageSelector {...args} />;
 
 export const Default = Story.bind({});
 Default.args = {

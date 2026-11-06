@@ -103,9 +103,7 @@ const storyLanguagesData = [
   },
 ];
 
-function Story(args) {
-  return <Hero {...args} />;
-}
+const Story = (args) => <Hero {...args} />;
 export const Default = Story.bind();
 Default.args = {
   languages: storyLanguagesData.slice(0, 5),

@@ -9,9 +9,7 @@ export default {
   },
 };
 
-function Story(args) {
-  return <PureIndexScreen {...args} />;
-}
+const Story = (args) => <PureIndexScreen {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   data: {

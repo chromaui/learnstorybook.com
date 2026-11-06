@@ -42,7 +42,7 @@
   },
   "scripts": {
     "build": "yarn build:prepare && gatsby build --prefix-paths && yarn build:finish",
-    "build-storybook": "yarn storybook:prepare && build-storybook -s ./static",
+    "build-storybook": "yarn storybook:prepare && storybook build",
     "build:finish": "bash scripts/move-to-build.sh",
     "build:prepare": "yarn extract-sb-docs-metadata && mkdir -p public/tutorials",
     "clean": "gatsby clean",
@@ -53,7 +53,7 @@
     "lint": "eslint .",
     "prepare": "husky",
     "serve": "gatsby serve --prefix-paths",
-    "storybook": "yarn storybook:prepare && start-storybook -s ./static -p 6006",
+    "storybook": "yarn storybook:prepare && storybook dev -p 6006",
     "storybook:prepare": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
     "test": "node --test"
   },
@@ -67,25 +67,22 @@
     ]
   },
   "devDependencies": {
-    "@babel/core": "^7.19.0",
+    "@babel/core": "^7.29.13",
+    "@babel/preset-react": "^7.29.7",
     "@emotion/babel-plugin": "^11.10.2",
     "@eslint/compat": "^2.1.1",
     "@eslint/js": "^10.0.1",
-    "@storybook/addon-a11y": "^6.5.10",
-    "@storybook/addon-actions": "^6.5.10",
-    "@storybook/addon-essentials": "^6.5.10",
-    "@storybook/addon-interactions": "^6.5.10",
-    "@storybook/addon-links": "^6.5.10",
-    "@storybook/addons": "^6.5.10",
-    "@storybook/builder-webpack5": "^6.5.10",
-    "@storybook/jest": "^0.0.10",
-    "@storybook/manager-webpack5": "^6.5.10",
-    "@storybook/react": "^6.5.10",
-    "@storybook/testing-library": "^0.0.13",
+    "@storybook/addon-a11y": "^10.6.6",
+    "@storybook/addon-docs": "^10.6.6",
+    "@storybook/addon-links": "^10.6.6",
+    "@storybook/react-vite": "^10.6.6",
+    "@vitejs/plugin-react": "^6.2.1",
+    "babel-plugin-remove-graphql-queries": "^4.22.0",
     "babel-preset-gatsby": "^2.22.0",
     "chromatic": "^6.9.0",
     "eslint": "^10.14.0",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
@@ -95,7 +92,9 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.6.0",
     "node-fetch": "^2.6.7",
-    "prettier": "^3.9.10"
+    "prettier": "^3.9.10",
+    "storybook": "^10.6.6",
+    "vite": "^8.3.6"
   },
   "resolutions": {
     "deepmerge": "^4.3.0"
