@@ -291,12 +291,19 @@ of this document should expect are:
 - **Section 2.** `yarn patch-commit -s` rewrites the direct dependency range to the
   `patch:` protocol rather than adding a `resolutions` entry; same effect, left as Yarn
   wrote it.
-- **Section 3.** Gatsby 5 is deferred. The upgrade was attempted, hit React hydration
-  errors on local production builds, and the user chose to stay on Gatsby 4.22 and finish
-  the other migrations first. Gatsby 4 runs on Node 24 once the transitive `msgpackr` is
-  refreshed to 1.12 (lockfile only). The hydration errors (#418/#423) also appear on
-  Gatsby 4 local production builds and not on the live site, so they predate this work.
-  `gatsby-plugin-google-analytics` stays on its current line.
+- **Section 3.** Gatsby 5 landed in a second pass. The first attempt hit React hydration
+  errors on local production builds, and the user chose to finish the other migrations on
+  Gatsby 4.22 first; later the same day the upgrade was redone on the finished toolchain
+  and went in as designed: the 5.16 lines for Gatsby and its plugins, the nested sort form
+  in the two page queries, no `deepmerge` resolution. Gatsby 4 had needed the transitive
+  `msgpackr` refreshed to 1.12 (lockfile only) to run on Node 24, and that resolution
+  carries over. The hydration errors (#418/#423) also appeared on Gatsby 4 local production
+  builds and not on the live site, so they predate this work; the Gatsby 5 serve and dev
+  smoke tests showed no console errors. Gatsby 5's `trailingSlash` default of `always`
+  matches the slugs `createFilePath` already produces, and `gatsby-plugin-sitemap` 6 moved
+  its default output folder from `/sitemap` to the site root, so the config pins
+  `output: '/sitemap'`; page and sitemap URLs are unchanged. `gatsby-plugin-react-helmet`
+  now prints a notice recommending the Head API, which stays a non-goal.
 - **Section 5.** The app uses the classic JSX runtime, so only `eslint-plugin-react`'s
   recommended config applies, wrapped with `@eslint/compat`'s `fixupPluginRules` because
   the plugin still calls an API ESLint 10 removed. `eslint-import-resolver-typescript` is

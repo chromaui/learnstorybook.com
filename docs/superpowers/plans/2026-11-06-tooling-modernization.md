@@ -1,8 +1,8 @@
 # Tooling Modernization Implementation Plan
 
 > **Status (2026-11-06):** executed; all eleven tasks are committed on `chore/modernize-tooling`.
-> Gatsby stayed on 4.22 rather than moving to 5.16, and Task 7 needed a custom Babel plugin and the
-> `gatsby` mock; the spec's Outcome section lists every ruling that changed the plan.
+> Gatsby moved to 5.16 in a second pass after first staying on 4.22, and Task 7 needed a custom Babel
+> plugin and the `gatsby` mock; the spec's Outcome section lists every ruling that changed the plan.
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
