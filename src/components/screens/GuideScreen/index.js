@@ -1,7 +1,6 @@
-/* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { SubNavBreadcrumb, styles as marketingStyles } from '@storybook/components-marketing';
 import { styles, Icon } from '@storybook/design-system';
 import { styled } from '@storybook/theming';
@@ -191,7 +190,7 @@ Guide.propTypes = {
             src: PropTypes.string.isRequired,
           }).isRequired
         ),
-        // eslint-disable-next-line react/forbid-prop-types
+
         contributors: PropTypes.arrayOf(PropTypes.any),
         contributorCount: PropTypes.string,
         coverImagePath: PropTypes.string,
@@ -204,9 +203,8 @@ Guide.propTypes = {
         overview: PropTypes.string.isRequired,
       }).isRequired,
       fields: PropTypes.shape({
-        // eslint-disable-next-line react/forbid-prop-types
         guide: PropTypes.any,
-        // eslint-disable-next-line react/forbid-prop-types
+
         permalink: PropTypes.any,
       }),
     }).isRequired,

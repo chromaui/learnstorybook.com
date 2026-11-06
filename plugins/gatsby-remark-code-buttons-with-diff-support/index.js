@@ -53,7 +53,6 @@ module.exports = function gatsbyRemarkCodeButtons({ markdownAST }) {
         .join('&')}`;
     }
 
-    // eslint-disable-next-line no-param-reassign
     node.lang = language + newQuery;
   });
 };

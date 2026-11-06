@@ -4,7 +4,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { LinksContextProvider, defaultLinks } from '@storybook/components-marketing';
 import { global, styles } from '@storybook/design-system';
 import { css, styled } from '@storybook/theming';
-import Helmet from 'react-helmet';
+import { Helmet } from 'react-helmet';
 
 import { GatsbyLinkWrapper } from '../basics/GatsbyLink';
 import Header from './Header';
@@ -143,7 +143,6 @@ function AppLayout(props) {
 }
 
 const appLayoutPropTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   children: PropTypes.any.isRequired,
   includePaddingTop: PropTypes.bool,
   includePageMargins: PropTypes.bool,

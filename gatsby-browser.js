@@ -1,8 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import { Spinner } from '@storybook/design-system';
 
 const LOADING_ID = '___loading';
+let loadingRoot = null;
 
 export const onRouteUpdateDelayed = () => {
   const loadingElement = document.createElement('div');
@@ -10,7 +11,8 @@ export const onRouteUpdateDelayed = () => {
   loadingElement.style = 'position: fixed; bottom: 32px; right: 32px;';
   document.body.appendChild(loadingElement);
 
-  ReactDOM.render(<Spinner />, document.getElementById(LOADING_ID));
+  loadingRoot = createRoot(loadingElement);
+  loadingRoot.render(<Spinner />);
 };
 
 export const onRouteUpdate = () => {
@@ -20,5 +22,7 @@ export const onRouteUpdate = () => {
     return;
   }
 
+  loadingRoot?.unmount();
+  loadingRoot = null;
   loadingElement.parentNode.removeChild(loadingElement);
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { action } from '@storybook/addon-actions';
 import {
   global as designSystemGlobal,
   loadFontsForStorybook,

@@ -1,5 +1,3 @@
-const webpack = require('webpack');
-
 module.exports = {
   stories: ['../src/components/**/*.stories.js'],
   addons: [

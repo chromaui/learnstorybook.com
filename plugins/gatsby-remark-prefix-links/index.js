@@ -9,7 +9,7 @@ function formatHtml(node, pathPrefix, withPrefix) {
   function processUrl(url) {
     try {
       const link = withPrefix(url);
-      // eslint-disable-next-line
+
       node.value = node.value.replace(new RegExp(`(?<!${pathPrefix})${url}`, `g`), link);
     } catch (err) {
       // Ignore
@@ -21,7 +21,7 @@ function formatHtml(node, pathPrefix, withPrefix) {
     return (
       selection
         // extract the elements that have the attribute
-        // eslint-disable-next-line
+
         .map(function () {
           const url = $(this).attr(attribute);
 
@@ -83,7 +83,6 @@ module.exports = function gatsbyRemarkPrefixLinks({ markdownAST, pathPrefix }) {
 
     switch (node.type) {
       case 'image': {
-        // eslint-disable-next-line
         node.url = withPrefix(node.url);
         return;
       }

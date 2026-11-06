@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { css, keyframes } from '@storybook/theming';
 
 const floatKeyframes = keyframes`
