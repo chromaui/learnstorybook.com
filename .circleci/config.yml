@@ -13,13 +13,14 @@ jobs:
       - run: sudo corepack enable
       - restore_cache:
           keys:
-            - v3-dependencies-{{ checksum "yarn.lock" }}
-            - v3-dependencies-
+            - v4-dependencies-{{ checksum "yarn.lock" }}
+            - v4-dependencies-
       - run: yarn install --immutable
       - save_cache:
           paths:
             - node_modules
-          key: v3-dependencies-{{ checksum "yarn.lock" }}
+            - ~/.yarn/berry/cache
+          key: v4-dependencies-{{ checksum "yarn.lock" }}
 
       # The build generates src/content/docs, which lint resolves imports against.
       - run: GATSBY_CPU_COUNT=1 yarn build
