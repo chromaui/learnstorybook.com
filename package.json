@@ -51,7 +51,7 @@
     "format": "prettier --write . && eslint --fix .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "serve": "gatsby serve --prefix-paths",
     "storybook": "yarn storybook:prepare && start-storybook -s ./static -p 6006",
     "storybook:prepare": "yarn extract-sb-docs-metadata && gatsby build --prefix-paths",
@@ -59,8 +59,11 @@
   },
   "lint-staged": {
     "*.md": [
+      "prettier --write"
+    ],
+    "*.{js,mjs}": [
       "prettier --write",
-      "git add"
+      "eslint --fix"
     ]
   },
   "devDependencies": {
@@ -89,8 +92,8 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-storybook": "^10.6.6",
     "globals": "^17.14.0",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.0.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.6.0",
     "node-fetch": "^2.6.7",
     "prettier": "^3.9.10"
   },
