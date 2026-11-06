@@ -1,5 +1,8 @@
 # Tooling modernization for learnstorybook.com
 
+> **Status (2026-11-06):** implemented on `chore/modernize-tooling`. The [Outcome](#outcome-2026-11-06)
+> section records where the result differs from this design, chiefly that Gatsby stayed on 4.22.
+
 - Date: 2026-11-06
 - Branch: `chore/modernize-tooling`, cut from `master` at 0435e725 and carrying the
   "Minimal amount of modernisation to run repo" commit (38d39cae)
@@ -272,3 +275,53 @@ verification needs network access.
 - Rebase `project/ai-ready-ds-guide` onto `chore/modernize-tooling`. The duplicate tooling
   commit drops automatically by patch-id.
 - Decide whether this spec file ships in the pull request or is removed first.
+
+## Outcome (2026-11-06)
+
+The branch landed as one commit per migration step, on top of the user's original
+tooling commit. Where execution found the design wrong or the user changed course, the
+executor ruled and recorded it in the plan ledger; the rulings that change what a reader
+of this document should expect are:
+
+- **Section 1.** `enableScripts: true` stays in `.yarnrc.yml`: with the key absent, Yarn
+  resolved it to `false` from outside the project, skipped sharp's native build and broke
+  `gatsby-plugin-sharp`. Yarn Berry also never runs `pre*`/`post*` lifecycle hooks, so the
+  old `prebuild`, `postbuild`, `prestorybook` and `prebuild-storybook` scripts became
+  explicit chains: `build:prepare`, `build:finish` and `storybook:prepare`.
+- **Section 2.** `yarn patch-commit -s` rewrites the direct dependency range to the
+  `patch:` protocol rather than adding a `resolutions` entry; same effect, left as Yarn
+  wrote it.
+- **Section 3.** Gatsby 5 is deferred. The upgrade was attempted, hit React hydration
+  errors on local production builds, and the user chose to stay on Gatsby 4.22 and finish
+  the other migrations first. Gatsby 4 runs on Node 24 once the transitive `msgpackr` is
+  refreshed to 1.12 (lockfile only). The hydration errors (#418/#423) also appear on
+  Gatsby 4 local production builds and not on the live site, so they predate this work.
+  `gatsby-plugin-google-analytics` stays on its current line.
+- **Section 5.** The app uses the classic JSX runtime, so only `eslint-plugin-react`'s
+  recommended config applies, wrapped with `@eslint/compat`'s `fixupPluginRules` because
+  the plugin still calls an API ESLint 10 removed. `eslint-import-resolver-typescript` is
+  the import resolver because the default node resolver cannot read package `exports`
+  maps (`storybook/test`, `vite`). The plan workspace `.superpowers/**` is ignored.
+- **Section 6.** Yarn 4 never runs `prepare` on install either, so the Husky hooks were
+  not installed on a fresh clone; the script is `postinstall` now, which Yarn does run.
+- **Lockfile.** The migrated lockfile kept hundreds of pre-migration duplicates, so Gatsby
+  still built with Babel 7.19 while Storybook used 7.29; `yarn dedupe` collapsed them.
+- **Section 7.** `@vitejs/plugin-react` 6 transpiles with oxc only and silently ignores
+  the `babel` option this design relied on. `.storybook/vite.config.mjs` instead adds a
+  small `enforce: 'pre'` plugin that runs the project's `.js` sources through
+  `@babel/core` (classic JSX, the Emotion importMap, `babel-plugin-remove-graphql-queries`
+  4.22 to match Gatsby 4). The fallback described above landed: Vite cannot prebundle
+  Gatsby's browser entry (JSX in `.js`), so `gatsby` is aliased to
+  `.storybook/gatsby-mock.js`. Three more things the design did not anticipate:
+  `publicDir: false` keeps Vite from copying the Gatsby build into `storybook-static`;
+  `optimizeDeps.rolldownOptions.moduleTypes['.js'] = 'jsx'` lets the dependency scanner
+  parse the stories; and the Algolia key moves from the webpack-only `env` option to a
+  Vite `define`. Storybook's CSF tools only resolve bound templates declared with
+  `const`, so 25 stories switched from `function Story(args)` to `const Story = (args) =>`.
+  `main.js` became `main.mjs`; the deprecated `panelPosition` parameter and the Gatsby
+  loader stubs left `preview.js`; `@storybook/addon-actions` gave way to the
+  `storybook/actions` entry point.
+- **Section 8.** CircleCI runs the build before lint, format and test because
+  `FrameworkSelector.js` imports the generated `src/content/docs/frameworks`. It uses
+  `sudo corepack enable` (the image ships Yarn 1), and the Chromatic workflow checks out
+  with `fetch-depth: 0` so the baseline commit is available.
