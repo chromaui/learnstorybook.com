@@ -2,6 +2,8 @@ import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Spinner } from '@storybook/design-system';
 
+export { default as wrapRootElement } from './src/wrap-root-element';
+
 const LOADING_ID = '___loading';
 let loadingRoot = null;
 

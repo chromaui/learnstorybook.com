@@ -7,7 +7,7 @@ import {
   SubNavMenus,
   styles as marketingStyles,
 } from '@storybook/components-marketing';
-import { Highlight, Icon, Link, styles } from '@storybook/design-system';
+import { Icon, Link, styles } from '@storybook/design-system';
 import { styled } from '@storybook/theming';
 
 import fetchTutorialNotUpdatedText from '../../../lib/getTranslationMessages';
@@ -16,6 +16,7 @@ import { chapterFormatting } from '../../../styles/formatting';
 import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
 import AppLayout from '../../composite/AppLayout';
 import PageHead from '../../composite/PageHead';
+import ChapterBody from './ChapterBody';
 import ChapterLinks from './ChapterLinks';
 import FrameworkSelector from './FrameworkSelector';
 import GithubLink from './GithubLink';
@@ -24,10 +25,6 @@ import Sidebar from './Sidebar';
 import LanguageSelector from './LanguageSelector';
 
 const { breakpoint, typography } = styles;
-
-const HighlightWrapper = styled(Highlight)`
-  margin-bottom: 3rem;
-`;
 
 const Content = styled.div`
   ${chapterFormatting};
@@ -134,7 +131,7 @@ function Chapter({
               .
             </div>
           )}
-          <HighlightWrapper>{html}</HighlightWrapper>
+          <ChapterBody html={html} />
           <ChapterLinks
             codeGithubUrl={codeGithubUrl}
             commit={commit}
