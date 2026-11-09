@@ -24,19 +24,20 @@ module.exports = function gatsbyRemarkCodeButtons({ markdownAST }) {
       }
       code = code.replace(/"/gm, '&quot;').replace(/`/gm, '\\`').replace(/\$/gm, '\\$');
 
+      // A real button, so the keyboard reaches it; aria-live lets screen readers hear "Copied".
       const buttonNode = {
         type: 'html',
         value: `
-            <div
-              class="gatsby-code-button-container"
-              onClick="copyToClipboard(\`${code}\`, \`${toasterId}\`)"
-            >
-              <div
+            <div class="gatsby-code-button-container">
+              <button
+                type="button"
                 class="${buttonClass}"
                 data-toaster-id="${toasterId}"
+                aria-live="polite"
+                onclick="copyToClipboard(\`${code}\`, \`${toasterId}\`)"
               >
-                ${buttonText} 
-              </div>
+                ${buttonText}
+              </button>
             </div>
             `.trim(),
       };

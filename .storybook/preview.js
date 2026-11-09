@@ -5,6 +5,7 @@ import {
   loadFontsForStorybook,
   styles,
 } from '@storybook/design-system';
+import { onClientEntry as installCopyButtons } from '../plugins/gatsby-remark-code-buttons-with-diff-support/gatsby-browser';
 
 const { GlobalStyle } = designSystemGlobal;
 
@@ -15,6 +16,10 @@ window.___navigate = (pathname) => {
 };
 
 loadFontsForStorybook();
+
+// The copy button on code blocks is static HTML from the remark plugin, wired up and styled by the
+// plugin's client entry. Run it here as Gatsby does, so snippets in stories behave like the site.
+installCopyButtons();
 
 export default {
   parameters: {

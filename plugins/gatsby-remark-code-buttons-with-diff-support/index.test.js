@@ -41,3 +41,12 @@ test('a fence without a language is left untouched', () => {
   assert.equal(children.length, 1);
   assert.equal(children[0].lang, '');
 });
+
+test('the copy control is a real button, so keyboards and screen readers reach it', () => {
+  const [buttonNode] = run('js');
+  assert.match(
+    buttonNode.value,
+    /<button\s+type="button"[^>]*class="gatsby-code-button"[^>]*onclick="copyToClipboard\(/
+  );
+  assert.doesNotMatch(buttonNode.value, /<div[^>]*onClick/i);
+});
