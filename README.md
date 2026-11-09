@@ -242,6 +242,30 @@ The short commit hash that maps to the commit on the code example repo for this 
 
 ---
 
+### Code snippets
+
+Fenced code blocks take options after the language, in two places that can be combined.
+
+A `:key=value` query on the language drives the copy button and the title bar: `clipboard=false` hides the copy button, `title=src/App.js` adds a title bar.
+
+A `key=value` after a space turns adjacent blocks into one tabbed snippet. The key names the group and the value names the tab. Readers pick a tab once, and every snippet of that group across the site follows their choice, which is remembered between visits:
+
+````markdown
+```sh packageManager=npm
+npx storybook init
+```
+
+```sh packageManager=pnpm
+pnpm dlx storybook init
+```
+
+```sh packageManager=yarn
+yarn dlx storybook init
+```
+````
+
+Any key works (`framework=vue`, `language="TypeScript"`); tabs appear in the order written, and a value with spaces needs quotes.
+
 ## Current Guide Status
 
 Currently, the [Intro to Storybook tutorial](https://storybook.js.org/tutorials/intro-to-storybook/) features the following translations. Some are updated; others are not. If you want to get acquainted with Storybook and you are a native speaker of any of the languages detailed below. Help us out updating the translations. Leave a comment on the issue above.
