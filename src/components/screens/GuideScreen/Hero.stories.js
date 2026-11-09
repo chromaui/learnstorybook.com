@@ -122,6 +122,12 @@ WithChapterCount.args = {
   chapterCount: 9,
   languages: storyLanguagesData.slice(0, 5),
 };
+export const WithChapterCountOnly = Story.bind();
+WithChapterCountOnly.storyName = 'with chapter count only';
+WithChapterCountOnly.args = {
+  chapterCount: 8,
+  languages: storyLanguagesData.slice(0, 1),
+};
 export const OneLanguage = Story.bind();
 OneLanguage.storyName = 'with only one language';
 OneLanguage.args = {

@@ -74,7 +74,9 @@ module.exports = {
         },
       },
       'ai-ready-design-systems': {
-        en: 10,
+        react: {
+          en: 10,
+        },
       },
     },
   },

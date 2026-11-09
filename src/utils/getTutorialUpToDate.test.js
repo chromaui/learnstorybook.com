@@ -4,7 +4,7 @@ import getTutorialUpToDate from './getTutorialUpToDate.js';
 
 const tutorialStatus = {
   'intro-to-storybook': { react: { en: 10, es: 8.3 } },
-  'ai-ready-design-systems': { en: 10 },
+  'guide-without-frameworks': { en: 10 },
 };
 const storybookVersion = 10;
 
@@ -39,7 +39,7 @@ test('non-framework guide: looks up by language', () => {
     getTutorialUpToDate({
       tutorialStatus,
       storybookVersion,
-      guide: 'ai-ready-design-systems',
+      guide: 'guide-without-frameworks',
       language: 'en',
     }),
     true
@@ -65,7 +65,7 @@ test('returns undefined when the guide, framework or language has no entry', () 
     getTutorialUpToDate({
       tutorialStatus,
       storybookVersion,
-      guide: 'ai-ready-design-systems',
+      guide: 'guide-without-frameworks',
       language: 'fr',
     }),
     undefined

@@ -161,6 +161,12 @@ function Hero({
   ...rest
 }) {
   const background = getThemeBackground({ themeColor, themeGradientName });
+  const stats = [
+    contributorCount && { label: 'Contributors', value: contributorCount },
+    chapterCount && { label: 'Chapters', value: chapterCount },
+  ].filter(Boolean);
+  // A single stat reads as "8 Chapters" on one line; several keep the stacked stat-block look.
+  const inlineStats = stats.length === 1;
   return (
     <HeroWrapper background={background} {...rest}>
       <HeroContent>
@@ -186,8 +192,9 @@ function Hero({
             </Languages>
           )}
           <StatWrapper>
-            {contributorCount && <Stat value={contributorCount} label="Contributors" />}
-            {chapterCount && <Stat value={chapterCount} label="Chapters" />}
+            {stats.map(({ label, value }) => (
+              <Stat inline={inlineStats} key={label} label={label} value={value} />
+            ))}
           </StatWrapper>
         </Pitch>
         <Figure>

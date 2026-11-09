@@ -20,3 +20,9 @@ Default.args = {
   value: '6',
   label: 'Contributors',
 };
+
+export const Inline = Story.bind({});
+Inline.args = {
+  ...Default.args,
+  inline: true,
+};

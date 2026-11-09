@@ -8,29 +8,27 @@ import GatsbyLink from '../../basics/GatsbyLink';
 
 const { breakpoint } = styles;
 
-const Content = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: -20px 0;
+// Guide grid column tiers (design-system breakpoint is 600px):
+//   1 column  below twoColumnBreakpoint
+//   2 columns from twoColumnBreakpoint
+//   4 columns from fourColumnBreakpoint
+const twoColumnBreakpoint = breakpoint * 1.25;
+const fourColumnBreakpoint = breakpoint * 2.5;
+const gridGap = 40;
 
-  @media (min-width: ${breakpoint}px) {
-    margin-left: -20px;
-    margin-right: -20px;
+// Every column is `minmax(0, 1fr)` so cards share the row equally regardless
+// of how much text they hold; a bare `1fr` would let long content widen a card.
+const Content = styled.div`
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: ${gridGap}px;
+
+  @media (min-width: ${twoColumnBreakpoint}px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  > * {
-    max-width: 100%;
-    margin: 20px 0;
-
-    @media (min-width: ${breakpoint}px) {
-      max-width: calc(50% - 40px);
-      margin: 20px;
-    }
-
-    @media (min-width: ${breakpoint * 1.75}px) {
-      max-width: calc(25% - 40px);
-    }
+  @media (min-width: ${fourColumnBreakpoint}px) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 `;
 
