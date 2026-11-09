@@ -5,6 +5,7 @@ import {
   loadFontsForStorybook,
   styles,
 } from '@storybook/design-system';
+import { CodeTabPreferencesProvider } from '../src/components/composite/CodeTabPreferences';
 import { onClientEntry as installCopyButtons } from '../plugins/gatsby-remark-code-buttons-with-diff-support/gatsby-browser';
 
 const { GlobalStyle } = designSystemGlobal;
@@ -36,11 +37,12 @@ export default {
     },
   },
   decorators: [
+    // The same root as the app's wrapRootElement, so chapter content with tabbed snippets renders.
     (story) => (
-      <>
+      <CodeTabPreferencesProvider>
         <GlobalStyle />
         {story()}
-      </>
+      </CodeTabPreferencesProvider>
     ),
   ],
 };
