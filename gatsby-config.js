@@ -91,6 +91,9 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          // Custom plugins live in /plugins. Code tabs run first so that the copy button and the
+          // code title the next plugins add to a fence end up inside its tab.
+          `gatsby-remark-code-tabs`,
           `gatsby-remark-code-buttons-with-diff-support`,
           `gatsby-remark-copy-linked-files`,
           {
@@ -102,7 +105,6 @@ module.exports = {
             },
           },
           `gatsby-remark-code-titles`,
-          // A custom plugin in /plugins directory
           `gatsby-remark-prefix-links`,
         ],
       },
