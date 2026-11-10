@@ -2,7 +2,7 @@ import { css } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
 import { darken } from 'polished';
 
-require(`prismjs/components/prism-diff`);
+import 'prismjs/components/prism-diff';
 
 const { background, color, typography } = styles;
 
