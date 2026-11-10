@@ -1,18 +1,18 @@
+/* A header bar above the code block, with the button at its right: the button has a row of its
+   own and never covers the code. The bar is as tall as a tab strip, so the two line up when a
+   snippet is tabbed; colours are the design system's lighter and border. */
 .gatsby-code-button-container {
-  touch-action: none;
-  position: relative;
-  top: 10px;
-  z-index: 100;
-  pointer-events: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 38px;
+  padding: 0 8px;
+  background: #f7fafc;
+  border-bottom: 1px solid hsla(203, 50%, 30%, 0.15);
 }
 
 /* Colours are the design system's dark, darkest and secondary. */
 .gatsby-code-button {
-  pointer-events: initial;
-  position: absolute;
-  top: 0;
-  right: 5px;
-  z-index: 100;
   display: inline-flex;
   align-items: center;
   gap: 4px;

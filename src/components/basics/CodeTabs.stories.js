@@ -1,8 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { styled } from '@storybook/theming';
 import { action } from 'storybook/actions';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
+import { chapterFormatting } from '../../styles/formatting';
 import CodeTabs from './CodeTabs';
+
+// The chapter's content styles, which give code titles and code blocks their look on the site.
+const Content = styled.div`
+  ${chapterFormatting};
+`;
 
 // What the remark plugins emit for a fence: the copy button (wired up by the code-buttons
 // plugin's client entry, which .storybook/preview.js installs) and the highlighted code.
@@ -22,6 +29,7 @@ const packageManagerTabs = [
 export default {
   component: CodeTabs,
   title: 'Basics/CodeTabs',
+  decorators: [(story) => <Content>{story()}</Content>],
   args: {
     group: 'packageManager',
     tabs: packageManagerTabs,
@@ -133,4 +141,37 @@ CopyingTheActiveTab.play = async ({ canvasElement }) => {
   // Then it goes back to offering a copy.
   await waitFor(() => expect(button).toHaveTextContent(/^\s*Copy\s*$/), { timeout: 5000 });
   await expect(button).not.toHaveClass('copied');
+};
+
+const rect = (element) => element.getBoundingClientRect();
+const overlap = (a, b) =>
+  a.left < b.right && b.left < a.right && a.top < b.bottom && b.top < a.bottom;
+
+export const CopyButtonPlacement = Story.bind({});
+CopyButtonPlacement.args = { activeTab: 'npm' };
+CopyButtonPlacement.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const button = rect(canvas.getByRole('button', { name: 'Copy' }));
+  const code = rect(canvasElement.querySelector('[role=tabpanel]:not([hidden]) pre'));
+  const strip = rect(canvas.getByRole('tablist'));
+
+  // The button lives in the tab strip's row, never over the code.
+  await expect(overlap(button, code)).toBe(false);
+  await expect(button.top).toBeGreaterThanOrEqual(strip.top);
+  await expect(button.bottom).toBeLessThanOrEqual(strip.bottom);
+};
+
+export const CopyButtonPlacementWithCodeTitle = Story.bind({});
+CopyButtonPlacementWithCodeTitle.args = WithCodeTitle.args;
+CopyButtonPlacementWithCodeTitle.play = async ({ canvasElement }) => {
+  const canvas = within(canvasElement);
+  const panel = canvasElement.querySelector('[role=tabpanel]:not([hidden])');
+  const button = rect(canvas.getByRole('button', { name: 'Copy' }));
+  const code = rect(panel.querySelector('pre'));
+  const title = rect(panel.querySelector('.gatsby-code-title'));
+
+  // A titled tab keeps its button in the title bar's row.
+  await expect(overlap(button, code)).toBe(false);
+  await expect(button.top).toBeGreaterThanOrEqual(title.top);
+  await expect(button.bottom).toBeLessThanOrEqual(title.bottom);
 };

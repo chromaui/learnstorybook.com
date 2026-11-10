@@ -96,6 +96,9 @@ module.exports = {
           // Custom plugins live in /plugins. Code tabs run first so that the copy button and the
           // code title the next plugins add to a fence end up inside its tab.
           `gatsby-remark-code-tabs`,
+          // Titles before buttons: a titled fence then renders as title bar, copy button, code,
+          // and the button can sit in the title bar's row.
+          `gatsby-remark-code-titles`,
           `gatsby-remark-code-buttons-with-diff-support`,
           `gatsby-remark-copy-linked-files`,
           {
@@ -106,7 +109,6 @@ module.exports = {
               linkImagesToOriginal: false,
             },
           },
-          `gatsby-remark-code-titles`,
           `gatsby-remark-prefix-links`,
         ],
       },

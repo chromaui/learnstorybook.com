@@ -12,14 +12,34 @@ const Wrapper = styled.div`
   pre[class*='language-'] {
     margin: 0;
   }
-  .gatsby-code-title {
+  && .gatsby-code-title,
+  && .gatsby-code-button-container {
     margin-top: 0;
+  }
+
+  ${
+    '' /* A tab's copy button joins the tab strip's row instead of adding a bar of its own: the bar
+  collapses to nothing and the button overflows upwards, centred on the tabs (the strip's 1px
+  border, less half the button's extra height). A title bar between the strip and the button keeps
+  the button in the title's row instead; see chapterFormatting. */
+  }
+  && [role='tabpanel'] .gatsby-code-button-container:not(.gatsby-code-title + *) {
+    height: 0;
+    border: 0;
+    background: none;
+    align-items: flex-end;
+
+    .gatsby-code-button {
+      margin-bottom: 8px;
+    }
   }
 `;
 
 const TabList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  ${'' /* Room for the active tab's copy button, which sits at the strip's right. */}
+  padding-right: 100px;
   background: ${color.lighter};
   border-bottom: 1px solid ${color.border};
 `;

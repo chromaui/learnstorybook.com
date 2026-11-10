@@ -343,6 +343,37 @@ export const chapterFormatting = css`
     margin-top: 0;
   }
 
+  ${'' /* The copy button's header bar takes the code block's place in the rhythm. */};
+  .gatsby-code-button-container {
+    margin-top: 2em;
+  }
+
+  .gatsby-code-button-container + pre[class*='language-'] {
+    margin-top: 0;
+  }
+
+  ${
+    '' /* After a title bar the copy button joins the title's row instead of adding a bar of its
+  own: the bar collapses to nothing and the button overflows upwards, centred on the title's last
+  line (the title's 1rem bottom padding and 1px border, less half the button's extra height). The
+  title keeps its right side clear so a long file name wraps before reaching the button. */
+  };
+  .gatsby-code-title:has(+ .gatsby-code-button-container) {
+    padding-right: 100px;
+  }
+
+  .gatsby-code-title + .gatsby-code-button-container {
+    margin-top: 0;
+    height: 0;
+    border: 0;
+    background: none;
+    align-items: flex-end;
+  }
+
+  .gatsby-code-title + .gatsby-code-button-container .gatsby-code-button {
+    margin-bottom: 12px;
+  }
+
   blockquote {
     font-size: ${typography.size.m1}px;
     color: ${color.mediumdark};
