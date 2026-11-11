@@ -8,9 +8,11 @@ Coding agents, like human developers, write better code when they have access to
 
 Design systems are where a lot of this information lives. They contain reusable components with usage instructions, brand and UX guidelines, design tokens, accessibility guidance and technical requirements for developers to use the system. By giving coding agents access to that context, you can elevate the quality of their work.
 
-The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/latest/getting-started/intro) and [agent skills](https://agentskills.io/home) are the industry standard methods developers use to provide context to coding agents. With Storybook, you can document both your components and guidelines, and forward all of that knowledge to agents in a breeze. Storybook provides both an MCP server, that you can publish for free to Chromatic, and agent skills.
+The [Model Context Protocol (MCP)](https://modelcontextprotocol.io/docs/latest/getting-started/intro) and [agent skills](https://agentskills.io/home) are industry standard methods for providing context to coding agents. With Storybook, you can document both your components and guidelines, and forward all of that knowledge to agents in a breeze. Storybook provides both an MCP server, that you can publish for free on Chromatic, and agent skills.
 
-In this chapter, we'll learn how to install Storybook and its AI tools, verify that it works as intended, and publish it to Chromatic for your teams to use.
+<div class="TODO">Add key results from the agentic eval about Storybook's performance benefits.</div>
+
+In this chapter, we'll learn how to install Storybook and its AI tools, verify that it works as intended, and publish it to Chromatic for your colleagues to use.
 
 ## Install Storybook with AI features
 
@@ -46,7 +48,7 @@ yarn exec skills add storybookjs/skills --yes --copy --agent opencode
 ℹ️ The following frameworks support Storybook's AI features: Angular, React (including Next, Next Vite, TanStack and React Native), Vue (including Nuxt), Svelte, SolidJS and Astro.
 </p>
 
-We'll see in the next chapters how to write great Storybook content and how to exploit Storybooks AI skills. But first, let's ensure your product teams' agents can also reach your Storybook.
+We'll see in the next chapters how to optimize your Storybook content and how to exploit Storybooks AI skills. But first, let's ensure your product teams' agents can also reach the stories you wrote.
 
 ## Publish your first Storybook MCP
 

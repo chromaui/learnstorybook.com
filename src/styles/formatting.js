@@ -1,6 +1,6 @@
 import { css } from '@storybook/theming';
 import { styles } from '@storybook/design-system';
-import { darken } from 'polished';
+import { darken, rgba } from 'polished';
 
 import 'prismjs/components/prism-diff';
 
@@ -251,6 +251,22 @@ export const chapterFormatting = css`
     border-radius: ${styles.spacing.borderRadius.small}px;
     padding: 20px;
     margin-bottom: 1.5rem;
+  }
+
+  /* Editorial marker for unfinished content; loud on purpose so it never ships unnoticed */
+  .TODO {
+    font-size: ${typography.size.s3}px;
+    font-weight: ${typography.weight.bold};
+    color: ${color.negative};
+    background: ${rgba(color.negative, 0.1)};
+    border: 2px solid ${color.negative};
+    border-radius: ${styles.spacing.borderRadius.small}px;
+    padding: 20px;
+    margin: 1.5em 0;
+
+    p:last-child {
+      margin-bottom: 0;
+    }
   }
 
   /* Tables based on GH markdown format */

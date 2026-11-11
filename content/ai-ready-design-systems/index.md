@@ -12,11 +12,11 @@ heroAnimationName: null
 toc:
   [
     'get-started',
-    'build-in-your-content',
     'ui-context-engineering',
     'optimize-your-documentation',
     'self-healing-loops',
     'scale-ds-operations',
+    'storybook-for-product-teams',
     'monitor-content-consumption',
     'evaluate-agent-performance',
   ]
