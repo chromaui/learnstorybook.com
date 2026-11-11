@@ -3,21 +3,27 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/node:18.0
+      - image: cimg/node:24.22
 
     working_directory: ~/repo
 
     steps:
       - checkout
+      # The image ships Yarn 1; corepack's shim for the Yarn 4 in package.json must replace it.
+      - run: sudo corepack enable
       - restore_cache:
           keys:
-            - v2-dependencies-{{ checksum "package.json" }}
-            - v2-dependencies-
-      - run: yarn
+            - v4-dependencies-{{ checksum "yarn.lock" }}
+            - v4-dependencies-
+      - run: yarn install --immutable
       - save_cache:
           paths:
             - node_modules
-          key: v2-dependencies-{{ checksum "package.json" }}
+            - ~/.yarn/berry/cache
+          key: v4-dependencies-{{ checksum "yarn.lock" }}
 
+      # The build generates src/content/docs, which lint resolves imports against.
       - run: GATSBY_CPU_COUNT=1 yarn build
       - run: yarn lint
+      - run: yarn format:check
+      - run: yarn test

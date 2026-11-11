@@ -189,7 +189,7 @@ A iteração de estados no Storybook faz com que seja bastante fácil testar, se
 
 <video autoPlay muted playsInline loop >
 
-  <source
+<source
     src="/intro-to-storybook/finished-inboxscreen-states.mp4"
     type="video/mp4"
   />

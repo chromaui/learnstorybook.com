@@ -183,7 +183,7 @@ Scorrere attraverso gli stati di Storybook rende facile testare, abbiamo fatto q
 
 <video autoPlay muted playsInline loop >
 
-  <source
+<source
     src="/intro-to-storybook/finished-pureinboxscreen-states-7-0.mp4"
     type="video/mp4"
   />

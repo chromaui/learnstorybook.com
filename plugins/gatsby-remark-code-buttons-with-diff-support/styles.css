@@ -1,19 +1,51 @@
+/* A header bar above the code block, with the button at its right: the button has a row of its
+   own and never covers the code. The bar is as tall as a tab strip, so the two line up when a
+   snippet is tabbed; colours are the design system's lighter and border. */
 .gatsby-code-button-container {
-  touch-action: none;
-  position: relative;
-  top: 10px;
-  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 38px;
+  padding: 0 8px;
+  background: #f7fafc;
+  border-bottom: 1px solid hsla(203, 50%, 30%, 0.15);
+}
+
+/* Colours are the design system's dark, darkest and secondary. */
+.gatsby-code-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  appearance: none;
+  border: 0;
+  border-radius: 8px;
+  padding: 4px 8px;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #5c6870;
+  cursor: pointer;
+  transition:
+    color 150ms ease-out,
+    background 150ms ease-out;
+}
+
+.gatsby-code-button:hover {
+  color: #2e3438;
+  background: rgba(46, 52, 56, 0.08);
+}
+
+.gatsby-code-button:focus-visible {
+  outline: 2px solid #029cfd;
+  outline-offset: 2px;
+}
+
+.gatsby-code-button.copied {
   pointer-events: none;
 }
 
-.gatsby-code-button {
-  cursor: pointer;
-  pointer-events: initial;
-  border-radius: 8px;
-  padding: 4px;
-  position: absolute;
-  top: 0;
-  right: 5px;
-  z-index: 100;
-  cursor: pointer;
+.gatsby-code-button svg {
+  width: 14px;
+  height: 14px;
 }

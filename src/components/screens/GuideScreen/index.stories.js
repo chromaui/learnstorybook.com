@@ -10,9 +10,7 @@ export default {
   },
 };
 
-function Story(args) {
-  return <GuideScreen {...args} />;
-}
+const Story = (args) => <GuideScreen {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   data: {
@@ -76,21 +74,24 @@ Default.args = {
         {
           node: {
             fields: {
+              chapter: 'chapter-slug',
+              framework: 'react',
               language: 'en',
+              slug: '/intro-to-storybook/react/en/chapter-slug/',
             },
           },
         },
         {
           node: {
             fields: {
+              chapter: 'chapter-slug',
+              framework: 'react',
               language: 'es',
+              slug: '/intro-to-storybook/react/es/chapter-slug/',
             },
           },
         },
       ],
     },
-  },
-  pageContext: {
-    slug: '/intro-to-storybook/',
   },
 };

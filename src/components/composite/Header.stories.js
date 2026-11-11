@@ -50,9 +50,7 @@ export default {
   },
 };
 
-function Story(args) {
-  return <Header {...args} />;
-}
+const Story = (args) => <Header {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   githubStars: 99999,

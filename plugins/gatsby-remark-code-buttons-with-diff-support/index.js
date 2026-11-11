@@ -1,11 +1,9 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const visit = require('unist-util-visit');
-const qs = require('query-string');
 
 module.exports = function gatsbyRemarkCodeButtons({ markdownAST }) {
   visit(markdownAST, 'code', (node, index, parent) => {
     const [language, params] = (node.lang || '').split(':');
-    const actions = qs.parse(params);
+    const actions = Object.fromEntries(new URLSearchParams(params));
     const { clipboard } = actions;
 
     if (!language) {
@@ -26,19 +24,20 @@ module.exports = function gatsbyRemarkCodeButtons({ markdownAST }) {
       }
       code = code.replace(/"/gm, '&quot;').replace(/`/gm, '\\`').replace(/\$/gm, '\\$');
 
+      // A real button, so the keyboard reaches it; aria-live lets screen readers hear "Copied".
       const buttonNode = {
         type: 'html',
         value: `
-            <div
-              class="gatsby-code-button-container"
-              onClick="copyToClipboard(\`${code}\`, \`${toasterId}\`)"
-            >
-              <div
+            <div class="gatsby-code-button-container">
+              <button
+                type="button"
                 class="${buttonClass}"
                 data-toaster-id="${toasterId}"
+                aria-live="polite"
+                onclick="copyToClipboard(\`${code}\`, \`${toasterId}\`)"
               >
-                ${buttonText} 
-              </div>
+                ${buttonText}
+              </button>
             </div>
             `.trim(),
       };
@@ -54,7 +53,6 @@ module.exports = function gatsbyRemarkCodeButtons({ markdownAST }) {
         .join('&')}`;
     }
 
-    // eslint-disable-next-line no-param-reassign
     node.lang = language + newQuery;
   });
 };

@@ -11,7 +11,7 @@ export default GatsbyLink;
 
 export const GatsbyLinkWrapper = React.forwardRef(
   (
-    // eslint-disable-next-line react/prop-types, no-unused-vars
+    // eslint-disable-next-line react/prop-types
     { href, appearance, containsIcon, disabled, inverse, isLoading, ...props },
     ref
   ) => <RawGatsbyLink to={href} ref={ref} {...props} />

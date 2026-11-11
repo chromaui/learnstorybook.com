@@ -1,5 +1,5 @@
 import React from 'react';
-import { within, userEvent } from '@storybook/testing-library';
+import { within, userEvent } from 'storybook/test';
 import { styled } from '@storybook/theming';
 import FrameworkSelector from './FrameworkSelector';
 
@@ -18,9 +18,7 @@ const Height = styled.div`
   height: ${({ height }) => height}px;
 `;
 
-function Story(args) {
-  return <FrameworkSelector {...args} />;
-}
+const Story = (args) => <FrameworkSelector {...args} />;
 
 export const Default = Story.bind({});
 Default.args = {

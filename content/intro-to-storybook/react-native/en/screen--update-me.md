@@ -151,7 +151,7 @@ Cycling through states in Storybook makes it easy to test we’ve done this corr
 
 <video autoPlay muted playsInline loop >
 
-  <source
+<source
     src="/intro-to-storybook/finished-inboxscreen-states.mp4"
     type="video/mp4"
   />

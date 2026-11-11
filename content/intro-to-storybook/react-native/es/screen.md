@@ -150,7 +150,7 @@ Recorrer los estados en Storybook hace que sea fácil comprobar que lo hemos hec
 
 <video autoPlay muted playsInline loop >
 
-  <source
+<source
     src="/intro-to-storybook/finished-inboxscreen-states.mp4"
     type="video/mp4"
   />

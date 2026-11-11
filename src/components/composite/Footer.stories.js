@@ -9,9 +9,7 @@ export default {
   },
 };
 
-function Story(args) {
-  return <Footer {...args} />;
-}
+const Story = (args) => <Footer {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   subscriberCount: 9999,

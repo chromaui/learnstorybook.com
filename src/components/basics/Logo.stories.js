@@ -12,9 +12,7 @@ const BlueBackground = styled.div`
   background-image: linear-gradient(14deg, #26c6db 0%, #2694db 100%);
 `;
 
-function Story(args) {
-  return <Logo {...args} />;
-}
+const Story = (args) => <Logo {...args} />;
 export const Default = Story.bind({});
 
 export const Inverted = Story.bind({});

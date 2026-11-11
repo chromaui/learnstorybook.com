@@ -4,4 +4,4 @@
  * See: https://www.gatsbyjs.org/docs/ssr-apis/
  */
 
-// You can delete this file if you're not using it
+export { default as wrapRootElement } from './src/wrap-root-element';

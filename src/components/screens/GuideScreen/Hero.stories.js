@@ -103,9 +103,7 @@ const storyLanguagesData = [
   },
 ];
 
-function Story(args) {
-  return <Hero {...args} />;
-}
+const Story = (args) => <Hero {...args} />;
 export const Default = Story.bind();
 Default.args = {
   languages: storyLanguagesData.slice(0, 5),
@@ -123,6 +121,12 @@ WithChapterCount.args = {
   contributorCount: '34+',
   chapterCount: 9,
   languages: storyLanguagesData.slice(0, 5),
+};
+export const WithChapterCountOnly = Story.bind();
+WithChapterCountOnly.storyName = 'with chapter count only';
+WithChapterCountOnly.args = {
+  chapterCount: 8,
+  languages: storyLanguagesData.slice(0, 1),
 };
 export const OneLanguage = Story.bind();
 OneLanguage.storyName = 'with only one language';
@@ -147,4 +151,13 @@ AboveTwentyLanguages.storyName = 'with +20 languages';
 AboveTwentyLanguages.args = {
   ...WithChapterCount.args,
   languages: storyLanguagesData,
+};
+export const WithGradientTheme = Story.bind();
+WithGradientTheme.storyName = 'with gradient theme';
+WithGradientTheme.args = {
+  ...WithChapterCount.args,
+  themeColor: '#EA580C',
+  themeGradientName: 'sunrise',
+  title: 'Make your Design System AI-ready',
+  imagePath: '/guide-cover/ai-ready-design-systems.svg',
 };

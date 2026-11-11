@@ -1,50 +1,48 @@
 import React from 'react';
+import { action } from 'storybook/actions';
 import {
   global as designSystemGlobal,
   loadFontsForStorybook,
   styles,
 } from '@storybook/design-system';
+import { CodeTabPreferencesProvider } from '../src/components/composite/CodeTabPreferences';
+import { onClientEntry as installCopyButtons } from '../plugins/gatsby-remark-code-buttons-with-diff-support/gatsby-browser';
 
 const { GlobalStyle } = designSystemGlobal;
 
-export const parameters = {
-  options: { panelPosition: 'bottom' },
-  viewport: {
-    viewports: [
-      {
-        name: 'Design system breakpoint',
-        styles: {
-          width: `${styles.breakpoint - 1}px`,
-          height: '768px',
-        },
-      },
-    ],
-  },
-};
-
-// Gatsby's Link overrides:
-// Gatsby defines a global called ___loader to prevent its method calls from creating console errors you override it here
-global.___loader = {
-  enqueue: () => {},
-  hovering: () => {},
-};
-
-// Gatsby internal mocking to prevent unnecessary errors in storybook testing environment
-global.__PATH_PREFIX__ = '';
-global.__BASE_PATH__ = '';
-
-// This is to utilized to override the window.___navigate method Gatsby defines and uses to report what path a Link would be taking us to if it wasn't inside a storybook
+// Gatsby's Link is replaced by .storybook/gatsby-mock.js, whose anchors report the path they
+// would navigate to through this global instead of leaving the story.
 window.___navigate = (pathname) => {
   action('NavigateTo:')(pathname);
 };
 
-export const decorators = [
-  (story) => (
-    <>
-      <GlobalStyle />
-      {story()}
-    </>
-  ),
-];
-
 loadFontsForStorybook();
+
+// The copy button on code blocks is static HTML from the remark plugin, wired up and styled by the
+// plugin's client entry. Run it here as Gatsby does, so snippets in stories behave like the site.
+installCopyButtons();
+
+export default {
+  parameters: {
+    viewport: {
+      viewports: [
+        {
+          name: 'Design system breakpoint',
+          styles: {
+            width: `${styles.breakpoint - 1}px`,
+            height: '768px',
+          },
+        },
+      ],
+    },
+  },
+  decorators: [
+    // The same root as the app's wrapRootElement, so chapter content with tabbed snippets renders.
+    (story) => (
+      <CodeTabPreferencesProvider>
+        <GlobalStyle />
+        {story()}
+      </CodeTabPreferencesProvider>
+    ),
+  ],
+};

@@ -35,22 +35,24 @@ Traditional Chinese translation is converted from Simplified Chinese using [Open
 
 The Storybook for Storybook contains every UI component. The UI is built following [Component-Driven Development](https://blog.hichroma.com/component-driven-development-ce1109d56c8e), a process that builds UIs from the “bottom up” starting with components and ending with screens. That means contributors should compose UIs in Storybook _before_ integration with the Gatsby app.
 
-1. Run `yarn install` to install dependencies
-2. Run `yarn storybook` to start Storybook on `localhost:6006`
+1. Use Node 24 (`nvm use` reads it from `.nvmrc`) and run `corepack enable` once, so that `yarn` is the Yarn 4 release pinned in `package.json`
+2. Run `yarn install` to install dependencies
+3. Run `yarn storybook` to start Storybook on `localhost:6006` (the first run also builds the Gatsby site, which the stories read their static query data from)
 
 #### Gatsby instructions
 
 Gatsby is used for static site generation. To run the project locally, you'll need to:
 
-1. Run `yarn install` to install dependencies
-2. Run `yarn extract-sb-docs-metadata` to fetch content from the main Storybook repo
-3. Set up a `.env.development` file with the following environment variables:
+1. Use Node 24 (`nvm use` reads it from `.nvmrc`) and run `corepack enable` once, so that `yarn` is the Yarn 4 release pinned in `package.json`
+2. Run `yarn install` to install dependencies
+3. Run `yarn extract-sb-docs-metadata` to fetch content from the main Storybook repo
+4. Set up a `.env.development` file with the following environment variables:
 
 ```plaintext
 SKIP_DX_DATA=true
 ```
 
-4. Run `yarn dev` to start the development server
+5. Run `yarn dev` to start the development server
 
 ### Adding new content
 
@@ -196,6 +198,14 @@ contributors:
 
 An animation to use on the guide's hero image, which corresponds with a named export from the [animation styles file](https://github.com/chromaui/learnstorybook.com/tree/master/src/styles/animations.js). The export must contain the entire CSS property and value for the animation.
 
+#### `isNew`
+
+A boolean. When `true`, the guide's card on the landing page shows a "New" badge. Remove the field from the guide's frontmatter once the guide is no longer new.
+
+#### `themeGradientName`
+
+A gradient to use instead of `themeColor` on the guide's landing page card and hero, which corresponds with a named export from the [gradient styles file](https://github.com/chromaui/learnstorybook.com/tree/master/src/styles/gradients.js). The export must contain the entire CSS `background` value. `themeColor` is still required and is used wherever the gradient cannot be rendered.
+
 #### `twitterShareText`
 
 The text content for the tweet that is auto-populated when people choose to share the guide on Twitter. The URL that is included in the tweet is auto-generated based on the guide, but the individual guide can control the messaging before the link.
@@ -231,6 +241,30 @@ A brief description of the chapter. Shown underneath the chapter title on the ch
 The short commit hash that maps to the commit on the code example repo for this chapter.
 
 ---
+
+### Code snippets
+
+Fenced code blocks take options after the language, in two places that can be combined.
+
+A `:key=value` query on the language drives the copy button and the title bar: `clipboard=false` hides the copy button, `title=src/App.js` adds a title bar.
+
+A `key=value` after a space turns adjacent blocks into one tabbed snippet. The key names the group and the value names the tab. Readers pick a tab once, and every snippet of that group across the site follows their choice, which is remembered between visits:
+
+````markdown
+```sh packageManager=npm
+npx storybook init
+```
+
+```sh packageManager=pnpm
+pnpm dlx storybook init
+```
+
+```sh packageManager=yarn
+yarn dlx storybook init
+```
+````
+
+Any key works (`framework=vue`, `language="TypeScript"`); tabs appear in the order written, and a value with spaces needs quotes.
 
 ## Current Guide Status
 

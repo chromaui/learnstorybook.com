@@ -1,7 +1,5 @@
-/* eslint-disable react/no-danger */
 import React from 'react';
 import PropTypes from 'prop-types';
-import Helmet from 'react-helmet';
 import { SubNavBreadcrumb, styles as marketingStyles } from '@storybook/components-marketing';
 import { styles, Icon } from '@storybook/design-system';
 import { styled } from '@storybook/theming';
@@ -10,10 +8,12 @@ import { graphql, withPrefix } from 'gatsby';
 import { darken } from 'polished';
 
 import tocEntries from '../../../lib/tocEntries';
+import getGuideLanguageLinks from '../../../lib/getGuideLanguageLinks';
 import getLanguageName from '../../../lib/getLanguageName';
 import { guideFormatting } from '../../../styles/formatting';
 import { GatsbyLinkWrapper } from '../../basics/GatsbyLink';
 import AppLayout from '../../composite/AppLayout';
+import PageHead from '../../composite/PageHead';
 import Contributors from './Contributors';
 import Hero from './Hero';
 import TableOfContents from './TableOfContents';
@@ -75,13 +75,7 @@ const Detail = styled.div`
   }
 `;
 
-const getTranslationLanguages = (translationPages) =>
-  translationPages.edges.reduce(
-    (uniqueLanguages, pageEdge) => uniqueLanguages.add(pageEdge.node.fields.language),
-    new Set()
-  );
-
-function Guide({ data, pageContext }) {
+function Guide({ data }) {
   const {
     currentPage: {
       html,
@@ -90,29 +84,23 @@ function Guide({ data, pageContext }) {
         contributorCount,
         contributors,
         coverImagePath,
-        description,
         heroAnimationName,
         heroDescription,
         themeColor,
+        themeGradientName,
         title,
         toc,
         overview,
       },
-      fields: { guide, permalink },
     },
     pages,
-    site: { siteMetadata },
     translationPages,
   } = data;
-  const { slug } = pageContext;
   const entries = toc && toc.length > 0 ? tocEntries(toc, pages) : [];
-  const languages = Array.from(getTranslationLanguages(translationPages)).map((language) => ({
-    name: getLanguageName(language),
-    tutorial:
-      slug === '/intro-to-storybook/'
-        ? `${slug}react/${language}/get-started/`
-        : `${slug}react/${language}/introduction/`,
-  }));
+  const languages = getGuideLanguageLinks({
+    translationPages,
+    firstChapter: toc && toc[0],
+  }).map(({ language, tutorial }) => ({ name: getLanguageName(language), tutorial }));
   return (
     <AppLayout
       includePageMargins={false}
@@ -125,26 +113,6 @@ function Guide({ data, pageContext }) {
         </SubNavBreadcrumb>
       }
     >
-      <Helmet>
-        <title>{`${title} | ${siteMetadata.title}`}</title>
-        <meta name="description" content={description} />
-        <link rel="canonical" href={permalink} />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:url" content={permalink} />
-        <meta
-          property="og:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
-        />
-
-        <meta name="twitter:title" content={title} />
-        <meta name="twitter:description" content={description} />
-        <meta
-          name="twitter:image"
-          content={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
-        />
-      </Helmet>
-
       <Hero
         contributorCount={contributorCount}
         chapterCount={entries.length}
@@ -155,6 +123,7 @@ function Guide({ data, pageContext }) {
         languages={languages}
         title={title}
         themeColor={themeColor}
+        themeGradientName={themeGradientName}
       />
 
       <Content>
@@ -191,7 +160,7 @@ Guide.propTypes = {
             src: PropTypes.string.isRequired,
           }).isRequired
         ),
-        // eslint-disable-next-line react/forbid-prop-types
+
         contributors: PropTypes.arrayOf(PropTypes.any),
         contributorCount: PropTypes.string,
         coverImagePath: PropTypes.string,
@@ -199,14 +168,14 @@ Guide.propTypes = {
         heroAnimationName: PropTypes.string,
         heroDescription: PropTypes.string,
         themeColor: PropTypes.string.isRequired,
+        themeGradientName: PropTypes.string,
         toc: PropTypes.arrayOf(PropTypes.string.isRequired),
         title: PropTypes.string.isRequired,
         overview: PropTypes.string.isRequired,
       }).isRequired,
       fields: PropTypes.shape({
-        // eslint-disable-next-line react/forbid-prop-types
         guide: PropTypes.any,
-        // eslint-disable-next-line react/forbid-prop-types
+
         permalink: PropTypes.any,
       }),
     }).isRequired,
@@ -234,6 +203,8 @@ Guide.propTypes = {
         PropTypes.shape({
           node: PropTypes.shape({
             fields: PropTypes.shape({
+              chapter: PropTypes.string,
+              framework: PropTypes.string,
               language: PropTypes.string,
               slug: PropTypes.string,
             }),
@@ -242,12 +213,38 @@ Guide.propTypes = {
       ),
     }),
   }).isRequired,
-  pageContext: PropTypes.shape({
-    slug: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default Guide;
+
+function GuideHead({
+  data: {
+    currentPage: {
+      frontmatter: { title, description },
+      fields: { guide, permalink },
+    },
+    site: { siteMetadata },
+  },
+}) {
+  return (
+    <PageHead
+      title={title}
+      description={description}
+      permalink={permalink}
+      image={`${siteMetadata.permalink}/${guide}/opengraph-cover.jpg`}
+    />
+  );
+}
+
+GuideHead.propTypes = {
+  data: Guide.propTypes.data,
+};
+
+// Gatsby compiles this file once more without the Head export for the page itself, so nothing
+// else may refer to Head: its props are validated on GuideHead instead of on Head itself.
+export function Head(props) {
+  return <GuideHead {...props} />;
+}
 
 export const query = graphql`
   query GuideQuery($slug: String!, $guide: String!) {
@@ -277,6 +274,7 @@ export const query = graphql`
         heroDescription
         title
         themeColor
+        themeGradientName
         toc
         overview
       }
@@ -314,7 +312,10 @@ export const query = graphql`
       edges {
         node {
           fields {
+            chapter
+            framework
             language
+            slug
           }
         }
       }

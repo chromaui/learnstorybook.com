@@ -19,3 +19,12 @@ site-metadata.js
 .env
 .env.development
 .env.production
+
+# Yarn Berry
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

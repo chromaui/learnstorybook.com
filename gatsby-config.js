@@ -7,6 +7,9 @@ module.exports = {
     FAST_DEV: false,
   },
   pathPrefix: `/tutorials`,
+  // Gatsby 5's default, stated so nobody has to know that it changed. Page slugs come from
+  // createFilePath and already end with a slash.
+  trailingSlash: 'always',
   siteMetadata: {
     title: 'Storybook Tutorials',
     description:
@@ -70,10 +73,14 @@ module.exports = {
           ko: 6.5,
         },
       },
+      'ai-ready-design-systems': {
+        react: {
+          en: 10,
+        },
+      },
     },
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -86,6 +93,12 @@ module.exports = {
       resolve: `gatsby-transformer-remark`,
       options: {
         plugins: [
+          // Custom plugins live in /plugins. Code tabs run first so that the copy button and the
+          // code title the next plugins add to a fence end up inside its tab.
+          `gatsby-remark-code-tabs`,
+          // Titles before buttons: a titled fence then renders as title bar, copy button, code,
+          // and the button can sit in the title bar's row.
+          `gatsby-remark-code-titles`,
           `gatsby-remark-code-buttons-with-diff-support`,
           `gatsby-remark-copy-linked-files`,
           {
@@ -96,30 +109,22 @@ module.exports = {
               linkImagesToOriginal: false,
             },
           },
-          `gatsby-remark-code-titles`,
-          // A custom plugin in /plugins directory
           `gatsby-remark-prefix-links`,
         ],
       },
     },
-    `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-sitemap`,
+      // gatsby-plugin-sitemap 6 writes to the site root by default; keep the files where
+      // Gatsby 4 put them so the deployed sitemap URLs do not move.
+      options: { output: '/sitemap' },
+    },
     ...(isProduction
       ? [
           {
             resolve: `gatsby-plugin-plausible`,
             options: {
               domain: 'storybook.js.org',
-            },
-          },
-        ]
-      : []),
-    ...(process.env.GOOGLE_ANALYTICS_TRACKING_ID && !isDeployPreview
-      ? [
-          {
-            resolve: 'gatsby-plugin-google-analytics',
-            options: {
-              trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID,
-              head: true,
             },
           },
         ]

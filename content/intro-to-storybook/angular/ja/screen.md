@@ -315,7 +315,7 @@ Storybook で状態を選択していくことで、問題なく出来ている�
 
 <video autoPlay muted playsInline loop >
 
-  <source
+<source
     src="/intro-to-storybook/finished-inboxscreen-states-6-0.mp4"
     type="video/mp4"
   />

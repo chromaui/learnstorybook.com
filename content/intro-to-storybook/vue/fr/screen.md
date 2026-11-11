@@ -187,7 +187,7 @@ En parcourant les états dans Storybook, il est facile de tester que nous avons 
 
 <video autoPlay muted playsInline loop >
 
-  <source
+<source
     src="/intro-to-storybook/finished-inboxscreen-states.mp4"
     type="video/mp4"
   />

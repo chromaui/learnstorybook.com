@@ -9,9 +9,7 @@ export default {
   },
 };
 
-function Story(args) {
-  return <PureIndexScreen {...args} />;
-}
+const Story = (args) => <PureIndexScreen {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   data: {
@@ -46,6 +44,23 @@ Default.args = {
             fields: {
               guide: 'guide',
               slug: '/guide',
+            },
+          },
+        },
+        {
+          node: {
+            frontmatter: {
+              description:
+                'Give coding agents the context, docs and feedback loops they need to build with your components.',
+              isNew: true,
+              title: 'Make your Design System AI-ready',
+              themeColor: '#EA580C',
+              themeGradientName: 'sunrise',
+              thumbImagePath: '/guide-thumb/ai-ready-design-systems.svg',
+            },
+            fields: {
+              guide: 'ai-ready-design-systems',
+              slug: '/ai-ready-design-systems',
             },
           },
         },

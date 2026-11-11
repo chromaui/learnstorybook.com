@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 const visit = require('unist-util-visit');
 
 const cheerio = require(`cheerio`);
@@ -9,7 +8,7 @@ function formatHtml(node, pathPrefix, withPrefix) {
   function processUrl(url) {
     try {
       const link = withPrefix(url);
-      // eslint-disable-next-line
+
       node.value = node.value.replace(new RegExp(`(?<!${pathPrefix})${url}`, `g`), link);
     } catch (err) {
       // Ignore
@@ -21,8 +20,8 @@ function formatHtml(node, pathPrefix, withPrefix) {
     return (
       selection
         // extract the elements that have the attribute
-        // eslint-disable-next-line
-        .map(function() {
+
+        .map(function () {
           const url = $(this).attr(attribute);
 
           if (url && url.startsWith(`/`)) {
@@ -83,7 +82,6 @@ module.exports = function gatsbyRemarkPrefixLinks({ markdownAST, pathPrefix }) {
 
     switch (node.type) {
       case 'image': {
-        // eslint-disable-next-line
         node.url = withPrefix(node.url);
         return;
       }
@@ -98,4 +96,3 @@ module.exports = function gatsbyRemarkPrefixLinks({ markdownAST, pathPrefix }) {
 
   return markdownAST;
 };
-/* eslint-enable import/no-extraneous-dependencies */

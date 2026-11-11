@@ -20,9 +20,7 @@ export default {
   title: 'Screens/GuideScreen/TableOfContents',
 };
 
-function Story(args) {
-  return <TableOfContents {...args} />;
-}
+const Story = (args) => <TableOfContents {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   entries: [...TableOfContentsData],

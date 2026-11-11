@@ -77,7 +77,7 @@ const Logos = styled.div`
   align-items: center;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
   filter: grayscale(1);
   opacity: 0.5;
 
@@ -142,15 +142,17 @@ function IndexScreen(props) {
     query IndexQuery {
       guides: allMarkdownRemark(
         filter: { fields: { pageType: { eq: "guide" } } }
-        sort: { order: ASC, fields: [frontmatter___order] }
+        sort: { frontmatter: { order: ASC } }
       ) {
         edges {
           node {
             frontmatter {
               description
+              isNew
               order
               title
               themeColor
+              themeGradientName
               thumbImagePath
             }
             fields {

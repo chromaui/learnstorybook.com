@@ -1,6 +1,3 @@
-// eslint-disable-next-line import/no-extraneous-dependencies
-const fetch = require('node-fetch');
-
 const apiURL = 'https://storybook-dx.netlify.app/.netlify/functions/dx-data';
 
 const DefaultDXData = {

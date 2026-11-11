@@ -12,9 +12,7 @@ const Wrapper = styled.div`
   padding: 20px;
 `;
 
-function Story(args) {
-  return <BoxLink {...args} />;
-}
+const Story = (args) => <BoxLink {...args} />;
 export const Default = Story.bind({});
 Default.args = {
   to: '/',

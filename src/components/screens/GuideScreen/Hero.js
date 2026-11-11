@@ -6,6 +6,7 @@ import { styled, css } from '@storybook/theming';
 import GatsbyLink from '../../basics/GatsbyLink';
 import Stat from '../../basics/Stat';
 import * as animations from '../../../styles/animations';
+import getThemeBackground from '../../../lib/getThemeBackground';
 
 const { breakpoint, color, pageMargins, spacing, typography } = styles;
 
@@ -13,7 +14,7 @@ const HeroWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: ${(props) => props.themeColor};
+  background: ${(props) => props.background};
   padding-bottom: 80px;
   padding-top: ${7 + 2}rem;
   padding-left: ${spacing.padding.medium}px;
@@ -155,11 +156,19 @@ function Hero({
   imagePath,
   languages,
   themeColor,
+  themeGradientName,
   title,
   ...rest
 }) {
+  const background = getThemeBackground({ themeColor, themeGradientName });
+  const stats = [
+    contributorCount && { label: 'Contributors', value: contributorCount },
+    chapterCount && { label: 'Chapters', value: chapterCount },
+  ].filter(Boolean);
+  // A single stat reads as "8 Chapters" on one line; several keep the stacked stat-block look.
+  const inlineStats = stats.length === 1;
   return (
-    <HeroWrapper themeColor={themeColor} {...rest}>
+    <HeroWrapper background={background} {...rest}>
       <HeroContent>
         <Pitch>
           <PitchTitle>{title}</PitchTitle>
@@ -183,8 +192,9 @@ function Hero({
             </Languages>
           )}
           <StatWrapper>
-            {contributorCount && <Stat value={contributorCount} label="Contributors" />}
-            {chapterCount && <Stat value={chapterCount} label="Chapters" />}
+            {stats.map(({ label, value }) => (
+              <Stat inline={inlineStats} key={label} label={label} value={value} />
+            ))}
           </StatWrapper>
         </Pitch>
         <Figure>
@@ -211,6 +221,7 @@ Hero.propTypes = {
     })
   ).isRequired,
   themeColor: PropTypes.string.isRequired,
+  themeGradientName: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
 
@@ -221,6 +232,7 @@ Hero.defaultProps = {
   description: null,
   heroAnimationName: null,
   imagePath: null,
+  themeGradientName: null,
 };
 
 export default Hero;

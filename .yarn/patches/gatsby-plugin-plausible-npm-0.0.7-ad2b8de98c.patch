@@ -1,7 +1,7 @@
-diff --git a/node_modules/gatsby-plugin-plausible/gatsby-ssr.js b/node_modules/gatsby-plugin-plausible/gatsby-ssr.js
-index c00d563..41e80ba 100755
---- a/node_modules/gatsby-plugin-plausible/gatsby-ssr.js
-+++ b/node_modules/gatsby-plugin-plausible/gatsby-ssr.js
+diff --git a/gatsby-ssr.js b/gatsby-ssr.js
+index c00d563510be4879397f1ca89bd2a2e6fbd1676b..41e80ba6cbc63c33d06b4a4f9a157e47d9d136d5 100755
+--- a/gatsby-ssr.js
++++ b/gatsby-ssr.js
 @@ -7,8 +7,8 @@ var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends")
  var _react = _interopRequireDefault(require("react"));
  

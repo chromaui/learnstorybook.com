@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { styled } from '@storybook/theming';
 import pluralize from 'pluralize';
 import { styles, Subheading } from '@storybook/design-system';
+import getThemeBackground from '../../../lib/getThemeBackground';
 
 const { breakpoint, color, spacing, typography } = styles;
 
 const GuideWrapper = styled.span`
+  position: relative;
   display: block;
-  background: ${(props) => props.themeColor};
+  background: ${(props) => props.background};
   color: ${color.lightest};
   padding: 40px;
   border-radius: 8px;
@@ -25,6 +27,26 @@ const GuideWrapper = styled.span`
   @media (min-width: ${breakpoint * 1.25}px) {
     height: 400px;
   }
+
+  @media (min-width: ${breakpoint * 1.75}px) {
+    padding: 28px;
+    height: 340px;
+  }
+`;
+
+const GuideBadge = styled.span`
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: ${typography.weight.bold};
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.4);
+  color: ${color.lightest};
 `;
 
 const GuideTitle = styled.span`
@@ -50,6 +72,10 @@ const GuideImageWrapper = styled.span`
   height: 170px;
   display: flex;
   align-items: center;
+
+  @media (min-width: ${breakpoint * 1.75}px) {
+    height: 130px;
+  }
 `;
 
 const GuideImage = styled.img`
@@ -57,11 +83,26 @@ const GuideImage = styled.img`
   width: fit-content;
   max-width: 100%;
   max-height: 170px;
+
+  @media (min-width: ${breakpoint * 1.75}px) {
+    max-height: 130px;
+  }
 `;
 
-function Guide({ chapterCount, description, imagePath, themeColor, title, ...props }) {
+function Guide({
+  chapterCount,
+  description,
+  imagePath,
+  isNew,
+  themeColor,
+  themeGradientName,
+  title,
+  ...props
+}) {
+  const background = getThemeBackground({ themeColor, themeGradientName });
   return (
-    <GuideWrapper themeColor={themeColor} {...props}>
+    <GuideWrapper background={background} {...props}>
+      {isNew && <GuideBadge>New</GuideBadge>}
       <div>
         <GuideTitle>{title}</GuideTitle>
         <GuideDescription>{description}</GuideDescription>
@@ -82,13 +123,17 @@ Guide.propTypes = {
   chapterCount: PropTypes.number,
   description: PropTypes.string.isRequired,
   imagePath: PropTypes.string,
+  isNew: PropTypes.bool,
   themeColor: PropTypes.string.isRequired,
+  themeGradientName: PropTypes.string,
   title: PropTypes.string.isRequired,
 };
 
 Guide.defaultProps = {
   chapterCount: null,
   imagePath: null,
+  isNew: false,
+  themeGradientName: null,
 };
 
 export default Guide;

@@ -1,0 +1,7 @@
+{
+  "name": "gatsby-remark-code-tabs",
+  "version": "1.0.0",
+  "description": "Groups adjacent fenced code blocks that share a `key=value` meta into a tabbed snippet, marked up for the site's CodeTabs component",
+  "main": "index.js",
+  "license": "MIT"
+}
