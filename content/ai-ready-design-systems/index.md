@@ -9,11 +9,12 @@ themeColor: '#EA580C'
 themeGradientName: 'sunrise'
 isNew: true
 heroAnimationName: null
-toc:
-  [
+toc: [
     'get-started',
-    'ui-context-engineering',
-    'optimize-your-documentation',
+    # 'ui-context-engineering',
+    'docgen',
+    'stories',
+    'documentation',
     'self-healing-loops',
     'scale-ds-operations',
     'storybook-for-product-teams',

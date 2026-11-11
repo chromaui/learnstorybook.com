@@ -94,3 +94,16 @@ The MCP should now be reachable. Developers can check their agent has access to 
 <p class="aside">
 ℹ️ In some agents like Claude Code, developers must manually approve new MCP servers. Developers should check the MCP server is enabled with their agent's tools in case it is not found.
 </p>
+
+## UI Context Engineering with Storybook
+
+A context-aware agent is only as good as the content it has access to. Through hundreds of agent evals, we found that agents greatly benefit from the content served by the Storybook MCP. Agents are cheaper with up-to-date API reference, reach for stories to produce better UIs, and work faster, better and cheaper with the right types of documentation. Agents also work better when they can harness a locally running Storybook as a self-healing loop.
+
+Storybook ships with first-class features addressing agents context needs:
+
+- **Docgen algorithms** expose component APIs to agents more efficiently than any code exploration tool
+- **MDX documentation** and stories tell your users how to best use and compose components
+- **Stories answer specific questions** about anatomy, behavior, or component composition
+- **Stories act as tests** for agent to verify how its code renders, whether it's accessible, etc.
+
+Storybook's approach is fundamentally different to `AGENTS.md` or `DESIGN.md` files. As the human who needs to maintain all this agent context, you can also use Storybook to visualize, inspect and improve your documentation, API reference and stories. And the effort you spend writing context for agents also pays back for you when working on your design systems, and for the humans it serves in your organization.
